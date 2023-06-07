@@ -23,7 +23,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 
 public class DepthsRodItem extends Item {
 
-	static final int COST = 150;
+	public static final int COST = 150;
 
 	public DepthsRodItem(Properties props) {
 		super(props);

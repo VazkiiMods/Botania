@@ -9,8 +9,8 @@
 package vazkii.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -47,8 +47,8 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	private final FloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
 		public ItemStack getDisplayStack() {
-			ResourceLocation id = Registry.BLOCK_ENTITY_TYPE.getKey(getType());
-			return Registry.ITEM.getOptional(id).map(ItemStack::new).orElse(super.getDisplayStack());
+			ResourceLocation id = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(getType());
+			return BuiltInRegistries.ITEM.getOptional(id).map(ItemStack::new).orElse(super.getDisplayStack());
 		}
 	};
 
@@ -233,6 +233,10 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	 */
 	public boolean isOvergrowthAffected() {
 		return true;
+	}
+
+	public int getComparatorSignal() {
+		return 0;
 	}
 
 	/**

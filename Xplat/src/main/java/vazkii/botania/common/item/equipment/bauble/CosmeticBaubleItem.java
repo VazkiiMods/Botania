@@ -9,16 +9,15 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -27,6 +26,7 @@ import vazkii.botania.api.item.CosmeticBauble;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.proxy.Proxy;
 
 import java.util.List;
@@ -87,7 +87,7 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 					}
 					case EYEPATCH -> {
 						ms.translate(0.125, -0.225, -0.3);
-						ms.mulPose(Vector3f.YP.rotationDegrees(180F));
+						ms.mulPose(VecHelper.rotateY(180F));
 						ms.scale(0.3F, -0.3F, -0.3F);
 						renderItem(stack, ms, buffers, light);
 					}
@@ -98,37 +98,37 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 					}
 					case RED_RIBBONS -> {
 						ms.translate(0, -0.65, 0.2);
-						ms.mulPose(Vector3f.YP.rotationDegrees(180F));
+						ms.mulPose(VecHelper.rotateY(180F));
 						ms.scale(0.5F, -0.5F, -0.5F);
 						renderItem(stack, ms, buffers, light);
 					}
 					case PINK_FLOWER_BUD -> {
 						ms.translate(0.275, -0.6, 0);
-						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+						ms.mulPose(VecHelper.rotateY(-90F));
 						ms.scale(0.5F, -0.5F, -0.5F);
 						renderItem(stack, ms, buffers, light);
 					}
 					case POLKA_DOTTED_BOWS -> {
 						ms.pushPose();
 						ms.translate(0.275, -0.4, 0);
-						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+						ms.mulPose(VecHelper.rotateY(-90F));
 						ms.scale(0.5F, -0.5F, -0.5F);
 						renderItem(stack, ms, buffers, light);
 						ms.popPose();
 						ms.translate(-0.275, -0.4, 0);
-						ms.mulPose(Vector3f.YP.rotationDegrees(90F));
+						ms.mulPose(VecHelper.rotateY(90F));
 						ms.scale(0.5F, -0.5F, -0.5F);
 						renderItem(stack, ms, buffers, light);
 					}
 					case BLUE_BUTTERFLY -> {
 						ms.pushPose();
 						ms.translate(0.275, -0.4, 0);
-						ms.mulPose(Vector3f.YP.rotationDegrees(45F));
+						ms.mulPose(VecHelper.rotateY(45F));
 						ms.scale(0.5F, -0.5F, -0.5F);
 						renderItem(stack, ms, buffers, light);
 						ms.popPose();
 						ms.translate(0.275, -0.4, 0);
-						ms.mulPose(Vector3f.YP.rotationDegrees(-45F));
+						ms.mulPose(VecHelper.rotateY(-45F));
 						ms.scale(0.5F, -0.5F, -0.5F);
 						renderItem(stack, ms, buffers, light);
 					}
@@ -149,7 +149,7 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 					}
 					case UNICORN_HORN -> {
 						ms.translate(0, -0.7, -0.3);
-						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+						ms.mulPose(VecHelper.rotateY(-90F));
 						ms.scale(0.6F, -0.6F, -0.6F);
 						renderItem(stack, ms, buffers, light);
 					}
@@ -198,7 +198,7 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 						renderItem(stack, ms, buffers, light);
 						ms.popPose();
 						ms.translate(0.1, -0.3, -0.3);
-						ms.mulPose(Vector3f.YP.rotationDegrees(180F));
+						ms.mulPose(VecHelper.rotateY(180F));
 						ms.scale(0.3F, -0.3F, -0.3F);
 						renderItem(stack, ms, buffers, light);
 					}
@@ -214,7 +214,7 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 					}
 					case THINKING_HAND -> {
 						ms.translate(-0.1, 0, -0.3);
-						ms.mulPose(Vector3f.ZP.rotationDegrees(-15F));
+						ms.mulPose(VecHelper.rotateZ(-15F));
 						ms.scale(0.5F, -0.5F, -0.5F);
 						renderItem(stack, ms, buffers, light);
 					}
@@ -240,7 +240,7 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 					}
 					case DEVIL_TAIL -> {
 						ms.translate(0, 0.55, 0.2);
-						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+						ms.mulPose(VecHelper.rotateY(-90F));
 						ms.scale(0.6F, -0.6F, -0.6F);
 						renderItem(stack, ms, buffers, light);
 					}
@@ -251,7 +251,7 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 						renderItem(stack, ms, buffers, light);
 						ms.popPose();
 						ms.translate(-0.4, 0.1, -0.2);
-						ms.mulPose(Vector3f.YP.rotationDegrees(180F));
+						ms.mulPose(VecHelper.rotateY(180F));
 						ms.scale(0.5F, -0.5F, -0.5F);
 						RenderHelper.renderItemCustomColor(living, stack, 0xFF00004C, ms, buffers, light, OverlayTexture.NO_OVERLAY);
 					}
@@ -267,8 +267,8 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 					}
 					case LUSITANIC_SHIELD -> {
 						ms.translate(0F, 0.35, 0.13);
-						ms.mulPose(Vector3f.ZP.rotationDegrees(8F));
-						ms.mulPose(Vector3f.YP.rotationDegrees(180F));
+						ms.mulPose(VecHelper.rotateZ(8F));
+						ms.mulPose(VecHelper.rotateY(180F));
 						ms.scale(0.6F, -0.6F, -0.6F);
 						renderItem(stack, ms, buffers, light);
 					}
@@ -278,8 +278,8 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 		}
 
 		private static void renderItem(ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light) {
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, 0);
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, Minecraft.getInstance().level, 0);
 		}
 	}
 

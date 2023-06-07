@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -20,13 +21,13 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
@@ -64,8 +65,8 @@ public class HeadRecipe extends RunicAltarRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv) {
-		ItemStack stack = getResultItem().copy();
+	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+		ItemStack stack = getResultItem(registries).copy();
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack ingr = inv.getItem(i);
 			if (ingr.is(Items.NAME_TAG)) {
@@ -76,7 +77,7 @@ public class HeadRecipe extends RunicAltarRecipe {
 		return stack;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<HeadRecipe> {
+	public static class Serializer implements RecipeSerializer<HeadRecipe> {
 
 		@NotNull
 		@Override

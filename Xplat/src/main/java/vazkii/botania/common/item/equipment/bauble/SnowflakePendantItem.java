@@ -43,10 +43,10 @@ public class SnowflakePendantItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (!entity.level.isClientSide && !entity.isShiftKeyDown()) {
+		if (!entity.getLevel().isClientSide && !entity.isShiftKeyDown()) {
 			boolean lastOnGround = entity.isOnGround();
 			entity.setOnGround(true);
-			FrostWalkerEnchantment.onEntityMoved(entity, entity.level, entity.blockPosition(), 8);
+			FrostWalkerEnchantment.onEntityMoved(entity, entity.getLevel(), entity.blockPosition(), 8);
 			entity.setOnGround(lastOnGround);
 
 			int x;
@@ -59,16 +59,16 @@ public class SnowflakePendantItem extends BaubleItem {
 				z = Mth.floor(entity.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(x, y, z);
 
-				if (entity.level.isEmptyBlock(blockpos) && blockstate.canSurvive(entity.level, blockpos)) {
-					var biome = entity.level.getBiome(blockpos);
+				if (entity.getLevel().isEmptyBlock(blockpos) && blockstate.canSurvive(entity.getLevel(), blockpos)) {
+					var biome = entity.getLevel().getBiome(blockpos);
 					if (((BiomeAccessor) (Object) biome.value()).callGetTemperature(blockpos) < 0.9F) {
-						entity.level.setBlockAndUpdate(blockpos, blockstate);
+						entity.getLevel().setBlockAndUpdate(blockpos, blockstate);
 					}
 				}
 			}
-		} else if (entity.level.isClientSide && !entity.isShiftKeyDown()) {
-			if (entity.level.random.nextFloat() >= 0.25F) {
-				entity.level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.defaultBlockState()), entity.getX() + entity.level.random.nextFloat() * 0.6 - 0.3, entity.getY() + 1.1, entity.getZ() + entity.level.random.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
+		} else if (entity.getLevel().isClientSide && !entity.isShiftKeyDown()) {
+			if (entity.getLevel().random.nextFloat() >= 0.25F) {
+				entity.getLevel().addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.defaultBlockState()), entity.getX() + entity.getLevel().random.nextFloat() * 0.6 - 0.3, entity.getY() + 1.1, entity.getZ() + entity.getLevel().random.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
 			}
 		}
 	}

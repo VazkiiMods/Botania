@@ -30,11 +30,11 @@ import me.shedaniel.rei.plugin.common.displays.DefaultStrippingDisplay;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -80,32 +80,21 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new TerrestrialAgglomerationREICategory(),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, BotaniaFlowerBlocks.orechid),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, BotaniaFlowerBlocks.orechidIgnem),
-				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, BotaniaFlowerBlocks.marimorphosis)
+				new MarimorphosisREICategory()
 		));
 
 		helper.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(BotaniaItems.craftingHalo), EntryStacks.of(BotaniaItems.autocraftingHalo));
-		Set<ItemLike> apothecaries = ImmutableSet.of(
-				BotaniaBlocks.defaultAltar,
-				BotaniaBlocks.desertAltar,
-				BotaniaBlocks.forestAltar,
-				BotaniaBlocks.fungalAltar,
-				BotaniaBlocks.mesaAltar,
-				BotaniaBlocks.mossyAltar,
-				BotaniaBlocks.mountainAltar,
-				BotaniaBlocks.plainsAltar,
-				BotaniaBlocks.swampAltar,
-				BotaniaBlocks.taigaAltar);
-		for (ItemLike altar : apothecaries) {
-			helper.addWorkstations(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, EntryStacks.of(altar));
+		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
+			helper.addWorkstations(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, EntryStacks.of(apothecary));
 		}
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.BREWERY, EntryStacks.of(BotaniaBlocks.brewery));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.ELVEN_TRADE, EntryStacks.of(BotaniaBlocks.alfPortal));
-		Set<ItemLike> manaPools = ImmutableSet.of(
+		Set<Block> manaPools = ImmutableSet.of(
 				BotaniaBlocks.manaPool,
 				BotaniaBlocks.dilutedPool,
 				BotaniaBlocks.fabulousPool
 		);
-		for (ItemLike pool : manaPools) {
+		for (Block pool : manaPools) {
 			helper.addWorkstations(BotaniaREICategoryIdentifiers.MANA_INFUSION, EntryStacks.of(pool));
 		}
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID, EntryStacks.of(BotaniaFlowerBlocks.orechid), EntryStacks.of(BotaniaFlowerBlocks.orechidFloating));
@@ -179,7 +168,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 
 	void registerCompositeLensRecipeWrapper(DisplayRegistry helper) {
 		List<ItemStack> lensStacks =
-				StreamSupport.stream(Registry.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS).spliterator(), false)
+				StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS).spliterator(), false)
 						.map(ItemStack::new)
 						.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
 						.filter(s -> ((LensItem) s.getItem()).isCombinable(s))

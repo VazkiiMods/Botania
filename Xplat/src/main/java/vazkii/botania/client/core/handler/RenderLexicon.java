@@ -10,8 +10,6 @@ package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -20,18 +18,19 @@ import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
+import org.joml.Matrix4f;
+
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.lib.ResourcesLib;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.common.lib.LibMisc;
@@ -40,12 +39,14 @@ import vazkii.botania.xplat.BotaniaConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
 	private static BookModel model = null;
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
-	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(ResourcesLib.MODEL_LEXICA_DEFAULT));
-	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(ResourcesLib.MODEL_LEXICA_ELVEN));
+	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, prefix("item/lexicon_3d"));
+	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, prefix("item/lexicon_elven_3d"));
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",
@@ -72,7 +73,7 @@ public class RenderLexicon {
 		return model;
 	}
 
-	public static boolean renderHand(ItemStack stack, ItemTransforms.TransformType type,
+	public static boolean renderHand(ItemStack stack, ItemDisplayContext type,
 			boolean leftHanded, PoseStack ms, MultiBufferSource buffers, int light) {
 		if (!BotaniaConfig.client().lexicon3dModel()
 				|| !type.firstPerson()
@@ -105,12 +106,12 @@ public class RenderLexicon {
 
 		if (!leftHanded) {
 			ms.translate(0.3F + 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
-			ms.mulPose(Vector3f.YP.rotationDegrees(180F + ticks * 6));
+			ms.mulPose(VecHelper.rotateY(180F + ticks * 6));
 		} else {
 			ms.translate(0.1F - 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
-			ms.mulPose(Vector3f.YP.rotationDegrees(200F + ticks * 10));
+			ms.mulPose(VecHelper.rotateY(200F + ticks * 10));
 		}
-		ms.mulPose(Vector3f.ZP.rotationDegrees(-0.3F + ticks * 2.85F));
+		ms.mulPose(VecHelper.rotateZ(-0.3F + ticks * 2.85F));
 		float opening = Mth.clamp(ticks / 12F, 0, 1);
 
 		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
@@ -131,7 +132,7 @@ public class RenderLexicon {
 
 		if (ticks < 3) {
 			Font font = Minecraft.getInstance().font;
-			ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+			ms.mulPose(VecHelper.rotateZ(180F));
 			ms.translate(-0.30F, -0.24F, -0.07F);
 			ms.scale(0.0030F, 0.0030F, -0.0030F);
 
@@ -143,12 +144,12 @@ public class RenderLexicon {
 			if (SHOULD_MISSPELL) {
 				title = title.replaceAll(LibMisc.MOD_NAME, MISSPELLINGS[misspelling]);
 			}
-			font.drawInBatch(font.plainSubstrByWidth(title, 80), 0, 0, 0xD69700, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(font.plainSubstrByWidth(title, 80), 0, 0, 0xD69700, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
 			Component edition = LexicaBotaniaItem.getEdition().copy().withStyle(ChatFormatting.ITALIC, ChatFormatting.BOLD);
-			font.drawInBatch(edition, 0, 0, 0xA07100, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(edition, 0, 0, 0xA07100, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 
 			if (quote == -1 && mc.level != null) {
 				quote = mc.level.random.nextInt(QUOTES.length);
@@ -161,17 +162,17 @@ public class RenderLexicon {
 
 			ms.translate(8F, 110F, 0F);
 			String blurb = I18n.get("botaniamisc.lexiconcover0");
-			font.drawInBatch(blurb, 0, 0, 0x79ff92, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(blurb, 0, 0, 0x79ff92, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 
 			ms.translate(0F, 10F, 0F);
 			String blurb2 = ChatFormatting.UNDERLINE + "" + ChatFormatting.ITALIC + I18n.get("botaniamisc.lexiconcover1");
-			font.drawInBatch(blurb2, 0, 0, 0x79ff92, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(blurb2, 0, 0, 0x79ff92, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 
 			ms.translate(0F, -30F, 0F);
 
 			String authorTitle = I18n.get("botaniamisc.lexiconcover2");
 			int len = font.width(authorTitle);
-			font.drawInBatch(authorTitle, 58 - len / 2F, -8, 0xD69700, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(authorTitle, 58 - len / 2F, -8, 0xD69700, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 		}
 
 		ms.popPose();
@@ -221,7 +222,7 @@ public class RenderLexicon {
 
 			for (String s : words) {
 				int extra = 0;
-				font.drawInBatch(s, xi, y, color, false, matrix, buffers, false, 0, light);
+				font.drawInBatch(s, xi, y, color, false, matrix, buffers, Font.DisplayMode.NORMAL, 0, light);
 				xi += font.width(s) + spacing + extra;
 			}
 

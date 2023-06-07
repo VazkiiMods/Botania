@@ -11,14 +11,12 @@ package vazkii.botania.common.block.flower.functional;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -45,6 +43,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.item.FlowerPlaceable;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
@@ -63,6 +62,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	private static final int RANGE_PLACE_MINI = 2;
 	private static final int RANGE_PLACE_Y_MINI = 2;
 	private static final String TAG_STATE_SENSITIVE = "stateSensitive";
+	public static final int PLACE_INTERVAL_TICKS = 10;
 	private boolean stateSensitive = false;
 
 	protected RannuncarpusBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -81,7 +81,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 			return;
 		}
 
-		if (ticksExisted % 10 == 0) {
+		if (ticksExisted % PLACE_INTERVAL_TICKS == 0) {
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getBlockPos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getBlockPos().offset(PICKUP_RANGE + 1, PICKUP_RANGE_Y + 1, PICKUP_RANGE + 1)));
 
 			List<ItemStack> filter = HopperhockBlockEntity.getFilterForInventory(getLevel(), getFilterPos(), false);
@@ -97,19 +97,18 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 				}
 
 				Item stackItem = stack.getItem();
-				ResourceLocation id = Registry.ITEM.getKey(stackItem);
+				ResourceLocation id = BuiltInRegistries.ITEM.getKey(stackItem);
 				if (BotaniaConfig.common().rannuncarpusModBlacklist().contains(id.getNamespace())
 						|| BotaniaConfig.common().rannuncarpusItemBlacklist().contains(id.toString())) {
 					continue;
 				}
 
 				if (stackItem instanceof BlockItem || stackItem instanceof FlowerPlaceable) {
-					BlockPos coords = getCandidatePosition(getLevel().random);
+					BlockPos coords = getCandidatePosition(getLevel().random, stack);
 					if (coords == null) {
 						continue;
 					}
-					BlockHitResult ray = new BlockHitResult(new Vec3(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP, coords, false);
-					BlockPlaceContext ctx = new RannuncarpusPlaceContext(getLevel(), stack, ray, worldPosition);
+					BlockPlaceContext ctx = getBlockPlaceContext(stack, coords);
 
 					boolean success = false;
 					if (stackItem instanceof FlowerPlaceable flowerPlaceable) {
@@ -135,6 +134,13 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		}
 	}
 
+	@NotNull
+	private BlockPlaceContext getBlockPlaceContext(ItemStack stack, BlockPos coords) {
+		BlockHitResult ray = new BlockHitResult(new Vec3(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP,
+				coords, false);
+		return new RannuncarpusPlaceContext(getLevel(), stack, ray, worldPosition);
+	}
+
 	private BlockPos getFilterPos() {
 		return getBlockPos().below(isFloating() ? 1 : 2);
 	}
@@ -144,17 +150,19 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	}
 
 	@Nullable
-	private BlockPos getCandidatePosition(RandomSource rand) {
+	private BlockPos getCandidatePosition(RandomSource rand, ItemStack stack) {
 		int rangePlace = getPlaceRange();
 		int rangePlaceY = getVerticalPlaceRange();
 		BlockPos center = getEffectivePos();
 		BlockState filter = getUnderlyingBlock();
-		List<BlockPos> ret = new ArrayList<>();
+		List<BlockPos> emptyPositions = new ArrayList<>();
+		List<BlockPos> additivePositions = new ArrayList<>();
 
 		for (BlockPos pos : BlockPos.betweenClosed(center.offset(-rangePlace, -rangePlaceY, -rangePlace),
 				center.offset(rangePlace, rangePlaceY, rangePlace))) {
 			BlockState state = getLevel().getBlockState(pos);
-			BlockState up = getLevel().getBlockState(pos.above());
+			BlockPos placementPos = pos.above();
+			BlockState up = getLevel().getBlockState(placementPos);
 
 			boolean matches;
 			if (stateSensitive) {
@@ -163,12 +171,22 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 				matches = state.is(filter.getBlock());
 			}
 
-			if (matches && (up.isAir() || up.getMaterial().isReplaceable())) {
-				ret.add(pos.immutable());
+			if (matches) {
+				if (isAirOrDifferentReplaceableBlock(up, stack)) {
+					emptyPositions.add(pos.immutable());
+				} else if (up.canBeReplaced(getBlockPlaceContext(stack, placementPos))) {
+					// same block type, but can still place more
+					additivePositions.add(pos.immutable());
+				}
 			}
 		}
 
-		return ret.isEmpty() ? null : ret.get(rand.nextInt(ret.size()));
+		return !emptyPositions.isEmpty() ? emptyPositions.get(rand.nextInt(emptyPositions.size()))
+				: !additivePositions.isEmpty() ? additivePositions.get(rand.nextInt(additivePositions.size())) : null;
+	}
+
+	private static boolean isAirOrDifferentReplaceableBlock(BlockState state, ItemStack stack) {
+		return state.isAir() || state.getMaterial().isReplaceable() && !stack.is(state.getBlock().asItem());
 	}
 
 	@Override
@@ -204,33 +222,24 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		return false;
 	}
 
-	public static class WandHud extends FunctionalWandHud<RannuncarpusBlockEntity> {
+	public static class WandHud extends BindableFlowerWandHud<RannuncarpusBlockEntity> {
 		public WandHud(RannuncarpusBlockEntity flower) {
 			super(flower);
 		}
 
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			super.renderHUD(ms, mc);
-
-			BlockState filter = flower.getUnderlyingBlock();
-			ItemStack recieverStack = new ItemStack(filter.getBlock());
+			ItemStack filterStack = new ItemStack(flower.getUnderlyingBlock().getBlock());
 			int color = flower.getColor();
+			String mode = I18n.get("botaniamisc.rannuncarpus." + (flower.stateSensitive ? "state_sensitive" : "state_insensitive"));
+			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+			int modeWidth = mc.font.width(mode);
+			int modeTextStart = (mc.getWindow().getGuiScaledWidth() - modeWidth) / 2;
+			int minWidth = Math.max(RenderHelper.itemWithNameWidth(mc, filterStack), modeWidth) + 4;
 
-			if (!recieverStack.isEmpty()) {
-				Component stackName = recieverStack.getHoverName();
-				int width = 16 + mc.font.width(stackName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
-
-				mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
-				mc.getItemRenderer().renderAndDecorateItem(recieverStack, x, y);
-
-				String mode = I18n.get("botaniamisc.rannuncarpus." + (flower.stateSensitive ? "state_sensitive" : "state_insensitive"));
-				x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(mode) / 2;
-				y = mc.getWindow().getGuiScaledHeight() / 2 + 50;
-				mc.font.drawShadow(ms, mode, x, y, ChatFormatting.WHITE.getColor());
-			}
+			super.renderHUD(ms, mc, minWidth / 2, minWidth / 2, filterStack.isEmpty() ? 40 : 60);
+			mc.font.drawShadow(ms, mode, modeTextStart, centerY + 30, color);
+			RenderHelper.renderItemWithNameCentered(ms, mc, filterStack, centerY + 40, color);
 		}
 	}
 

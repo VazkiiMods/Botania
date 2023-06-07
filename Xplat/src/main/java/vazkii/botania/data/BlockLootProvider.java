@@ -8,17 +8,14 @@
  */
 package vazkii.botania.data;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -60,30 +57,31 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockLootProvider implements DataProvider {
-	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item()
 			.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
 	private static final Function<Block, LootTable.Builder> SKIP = b -> {
 		throw new RuntimeException("shouldn't be executed");
 	};
 
-	private final DataGenerator generator;
+	private final PackOutput.PathProvider pathProvider;
 	private final Map<Block, Function<Block, LootTable.Builder>> functionTable = new HashMap<>();
 
-	public BlockLootProvider(DataGenerator generator) {
-		this.generator = generator;
+	public BlockLootProvider(PackOutput packOutput) {
+		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables/blocks");
 
-		for (Block b : Registry.BLOCK) {
-			ResourceLocation id = Registry.BLOCK.getKey(b);
+		for (Block b : BuiltInRegistries.BLOCK) {
+			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
 			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
 				continue;
 			}
@@ -131,11 +129,11 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(CachedOutput cache) throws IOException {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
 
-		for (Block b : Registry.BLOCK) {
-			ResourceLocation id = Registry.BLOCK.getKey(b);
+		for (Block b : BuiltInRegistries.BLOCK) {
+			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
 			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
 				continue;
 			}
@@ -145,14 +143,12 @@ public class BlockLootProvider implements DataProvider {
 			}
 		}
 
+		List<CompletableFuture<?>> output = new ArrayList<>();
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
-			Path path = getPath(generator.getOutputFolder(), e.getKey());
-			DataProvider.saveStable(cache, LootTables.serialize(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path);
+			Path path = pathProvider.json(e.getKey());
+			output.add(DataProvider.saveStable(cache, LootTables.serialize(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path));
 		}
-	}
-
-	public static Path getPath(Path root, ResourceLocation id) {
-		return root.resolve("data/" + id.getNamespace() + "/loot_tables/blocks/" + id.getPath() + ".json");
+		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}
 
 	protected static LootTable.Builder empty(Block b) {
@@ -193,8 +189,8 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	protected static LootTable.Builder genMetamorphicStone(Block b) {
-		String cobbleName = Registry.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
-		Block cobble = Registry.BLOCK.getOptional(prefix(cobbleName)).get();
+		String cobbleName = BuiltInRegistries.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
+		Block cobble = BuiltInRegistries.BLOCK.getOptional(prefix(cobbleName)).get();
 		return genSilkDrop(b, cobble);
 	}
 

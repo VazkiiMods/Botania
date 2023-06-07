@@ -10,19 +10,20 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
-import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 
@@ -30,12 +31,16 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WandOfTheForestRecipe> SERIALIZER = new Serializer();
 
 	public WandOfTheForestRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), compose.getWidth(), compose.getHeight(), compose.getIngredients(), compose.getResultItem());
+		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT, compose.getWidth(), compose.getHeight(),
+				compose.getIngredients(),
+				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
+				// RegistryAccess
+				compose.getResultItem(RegistryAccess.EMPTY));
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(CraftingContainer inv) {
+	public ItemStack assemble(CraftingContainer inv, @NotNull RegistryAccess registries) {
 		int first = -1;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
@@ -52,10 +57,10 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 			if (first == -1) {
 				first = colorId;
 			} else {
-				return WandOfTheForestItem.setColors(getResultItem().copy(), first, colorId);
+				return WandOfTheForestItem.setColors(getResultItem(registries).copy(), first, colorId);
 			}
 		}
-		return WandOfTheForestItem.setColors(getResultItem().copy(), first != -1 ? first : 0, 0);
+		return WandOfTheForestItem.setColors(getResultItem(registries).copy(), first != -1 ? first : 0, 0);
 	}
 
 	@NotNull
@@ -64,7 +69,7 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 		return SERIALIZER;
 	}
 
-	private static class Serializer extends RecipeSerializerBase<WandOfTheForestRecipe> {
+	private static class Serializer implements RecipeSerializer<WandOfTheForestRecipe> {
 		@NotNull
 		@Override
 		public WandOfTheForestRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {

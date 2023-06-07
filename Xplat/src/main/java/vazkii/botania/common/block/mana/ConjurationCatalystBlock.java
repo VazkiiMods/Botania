@@ -12,9 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.client.core.handler.MiscellaneousModels;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ConjurationCatalystBlock extends AlchemyCatalystBlock {
+	private static final ResourceLocation OVERLAY_ICON = prefix("block/conjuration_catalyst_overlay");
 
 	public ConjurationCatalystBlock(Properties builder) {
 		super(builder);
@@ -22,6 +23,6 @@ public class ConjurationCatalystBlock extends AlchemyCatalystBlock {
 
 	@Override
 	public ResourceLocation getIcon(Level world, BlockPos pos) {
-		return MiscellaneousModels.INSTANCE.conjurationCatalystOverlay.texture();
+		return OVERLAY_ICON;
 	}
 }

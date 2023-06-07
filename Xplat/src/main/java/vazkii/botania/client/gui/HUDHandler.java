@@ -15,10 +15,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -28,6 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.lwjgl.opengl.GL11;
@@ -64,6 +65,18 @@ public final class HUDHandler {
 	private HUDHandler() {}
 
 	public static final ResourceLocation manaBar = new ResourceLocation(ResourcesLib.GUI_MANA_HUD);
+
+	private static boolean didOptifineDetection = false;
+
+	public static void tryOptifineWarning() {
+		if (!didOptifineDetection) {
+			try {
+				Class.forName("optifine.Installer");
+				Minecraft.getInstance().player.sendSystemMessage(Component.translatable("botaniamisc.optifine_warning"));
+			} catch (ClassNotFoundException ignored) {}
+			didOptifineDetection = true;
+		}
+	}
 
 	public static void onDrawScreenPost(PoseStack ms, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
@@ -102,6 +115,7 @@ public final class HUDHandler {
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				if (PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
+					tryOptifineWarning();
 					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
 						profiler.push("wandItem");
@@ -121,6 +135,13 @@ public final class HUDHandler {
 				} else if (tile instanceof CorporeaCrystalCubeBlockEntity cube) {
 					CorporeaCrystalCubeBlockEntity.Hud.render(ms, cube);
 				}
+			}
+		} else if (pos instanceof EntityHitResult result) {
+			var hud = ClientXplatAbstractions.INSTANCE.findWandHud(result.getEntity());
+			if (hud != null && PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
+				profiler.push("wandItemEntityHud");
+				hud.renderHUD(ms, mc);
+				profiler.pop();
 			}
 		}
 
@@ -259,9 +280,10 @@ public final class HUDHandler {
 			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-			mc.getItemRenderer().renderAndDecorateItem(stack, x - 20, y);
-			mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 26, y);
-			mc.getItemRenderer().renderGuiItemDecorations(mc.font, recipe.getResultItem(), x + 26, y);
+			mc.getItemRenderer().renderAndDecorateItem(ms, stack, x - 20, y);
+			ItemStack result = recipe.getResultItem(mc.level.registryAccess());
+			mc.getItemRenderer().renderAndDecorateItem(ms, result, x + 26, y);
+			mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, result, x + 26, y);
 
 			RenderSystem.disableBlend();
 		}
@@ -278,9 +300,8 @@ public final class HUDHandler {
 		int x = mc.getWindow().getGuiScaledWidth() - l - 20;
 		int y = mc.getWindow().getGuiScaledHeight() - 60;
 
-		GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
-		GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
-		mc.getItemRenderer().renderAndDecorateItem(new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
+		RenderHelper.renderHUDBox(ms, x - 4, y - 4, x + l + 4, y + 35);
+		mc.getItemRenderer().renderAndDecorateItem(ms, new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
 
 		mc.font.drawShadow(ms, txt0, x + 20, y, 0xFFFFFF);
 		mc.font.drawShadow(ms, txt1, x + 20, y + 14, 0xFFFFFF);
@@ -312,7 +333,7 @@ public final class HUDHandler {
 		int x = mc.getWindow().getGuiScaledWidth() / 2 + 55;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 + 12;
 
-		mc.getItemRenderer().renderAndDecorateItem(bindDisplay, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(ms, bindDisplay, x, y);
 
 		RenderSystem.disableDepthTest();
 		ms.pushPose();

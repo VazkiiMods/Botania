@@ -10,7 +10,7 @@ package vazkii.botania.test;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestAssertException;
 import net.minecraft.gametest.framework.GameTestAssertPosException;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -73,8 +73,8 @@ public class TestingUtil {
 	public static <T extends BlockEntity> T assertBlockEntity(GameTestHelper helper, BlockPos relativePos, BlockEntityType<T> type) {
 		BlockEntity be = helper.getBlockEntity(relativePos);
 
-		assertAt(helper, relativePos, be != null, () -> "Expected BlockEntity of type " + Registry.BLOCK_ENTITY_TYPE.getKey(type) + " but found no BlockEntity");
-		assertAt(helper, relativePos, be.getType() == type, () -> "Expected BlockEntity of type " + Registry.BLOCK_ENTITY_TYPE.getKey(type) + " but found " + Registry.BLOCK_ENTITY_TYPE.getKey(be.getType()));
+		assertAt(helper, relativePos, be != null, () -> "Expected BlockEntity of type " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type) + " but found no BlockEntity");
+		assertAt(helper, relativePos, be.getType() == type, () -> "Expected BlockEntity of type " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type) + " but found " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(be.getType()));
 
 		return (T) be;
 	}

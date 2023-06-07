@@ -26,7 +26,7 @@ public class AbstractMinecartFabricMixin {
 	private void handleOnRail(BlockPos pos, BlockState state, CallbackInfo ci) {
 		if (state.is(BotaniaBlocks.ghostRail)) {
 			AbstractMinecart self = (AbstractMinecart) (Object) this;
-			((SpectralRailBlock) BotaniaBlocks.ghostRail).onMinecartPass(state, self.level, pos, self);
+			((SpectralRailBlock) BotaniaBlocks.ghostRail).onMinecartPass(state, self.getLevel(), pos, self);
 		}
 
 	}

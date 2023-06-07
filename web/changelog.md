@@ -18,8 +18,84 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+---
+
+{% include changelog_header.html version="1.19.2-440" %}
+
+* Add: The Worldshaper's Sextant can now generate spheres as well (Wormbo)
+* Add: Grass Seeds can now be placed by dispensers.
+* Add: Manufactory Halo's auto-crafting can be toggled by shift+right-clicking the
+  crafting table segment or right-clicking the item in an inventory screen
+* Add: Mana lenses can now be merged using either honey bottles or slime balls
+* Add: Conversion chances for Orechid, Orechid Ignem, and Marimorphosis (including biome-specific chances for player's location) are now displayed in the recipe listings of JEI, REI, and EMI (Wormbo)
+* Add: Reintroduce the useShaders config option to disable Botania's special shaders
+* Add: zh_cn updates (Dawnwalker666)
+* Change: The Worldshaper's Sextant provides more control over the exact shape of circles
+  by having the radius selection snap to the block grind instead of only allowing integers
+  (Wormbo)
+* Change: The Rosa Arcana's XP orb mana yield now matches the player-based mana yield
+* Change: The Worldshaper's Sextant provides more control over the exact shape of circles by having the radius selection snap to the block grind instead of only allowing integers (Wormbo)
+* Change: Worldshaper's Astrolabe now places blocks more like a player would, e.g. waterlogging blocks where appropriate, adding more candles to existing ones, or rotating directional blocks according to the player's view direction, targeted block side, or available attachment options
+* Fix: Made Teru Teru Bozu truely happy during clear weather again (Wormbo)
+* Fix: Leaves placed by Worldshaper's Astrolabe no longer decay
+* Fix: Some items being missing from Forge equipment tags and Fabric bow tag
+* Fix: Using an empty bottle in the end will not attempt to pick up Ender Air if the player is aiming at a liquid (Wormbo)
+* Fix: Horn of the Canopy breaking persistent leaves
+* Fix: Thermalily not updating comparators properly
+* Fix: Kindle Lens not creating Soul Fire when it should
+* Fix: Fake bursts triggering game events
+* Fix: Biomes not populating properly in Garden of Glass
+* Fix: Some structures showing up in Garden of Glass
+  * Note: These two fixes do not require a GoG jar update, but will only cover
+	newly-generated terrain.
+
+
+---
+
+{% include changelog_header.html version="1.19.2-439" %}
+
+* Add: Mana pools with pylons on top of them will now play a small particle effect when trading items in the alfheim portal
+* Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like augments (for mana sparks) and network color (both mana and corporea sparks)
+* Add: Terra Truncator can now propagate its chopping through Mangrove Roots
+* Add: Trinket case uses special open icon while its GUI is open 
+* Add: All wand HUDs now have backgrounds for better readability, along with some other changes on some HUDs. Their design is not finalized, let us know on discord/reddit/irc/email if you have suggestions for how they can be better!
+* Add: Bound flowers now show the type of spreader/pool they're bound to in the tooltip, instead of a generic spreader/pool
+* Add: Rannuncarpus can now add blocks onto existing blocks like candles and sea pickles, which accept multiple placements of itself in the same block space
+* Add: The game now warns you if you hold a wand of the forest with Optifine installed, as it breaks the entire mod. We recommend Sodium instead if you need a performance boost
+* Change: Instead of always cooling down for 5 minutes, thermalilies now have a random cooldown between 20 seconds and 5 minutes. For automation, you can read how long the cooldown is with a comparator
+* Change: Entropinnyum's "unethical TNT" detection was changed, it's now more accurate and shouldn't cause any false positives
+* Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item
+* Change: Rod of the Shifting Crust now delays processing neighbor updates until the block is replaced, meaning torches or other blocks attached to exchanged blocks will no longer break as long as the new block can still support it
+* Change: Runic altar now doesn't immideatly pick up its own crafting outputs, and lets hopperhocks pick them up quicker
+* Change: Terra truncator now propagates through Mangrove Roots
+* Change: Sort recipe categories in EMI
+* Change: The trinket case now shows an opened texture when opened
+* Change: Force relay/lens pushing now reuses vanilla piston pushing logic instead of copying it. Should lead to better compatibility with mods that let you move block entities
+* Fix: Mana spreaders now update their mana levels in real time, like pools do
+* Fix: Red stringed containers now always report and accessible inventory, so that corporea sparks will not pop off them
+* Fix: The fallback vanilla item transfer implementation in corporea now correctly updates inventories after taking items (this bug was not directly accessible, since neither fabric nor forge use this fallback implementation)
+* Fix: Metamorphic stone chiseled brick recipe is now consistent with chiseled livingrock recipe
+* Fix: Sky of Beginning being granted only when *both* a Mystical Flower and Tall Mystical Flower were picked up, instead of either one
+* Fix: The JEI category for mana infusion no longer shows the creative mana pool, to be consistent with EMI and REI
+* Fix: Livingrock and deepslate apothecaries now show as workstations in the apothecary recipe category in EMI/REI/JEI
+* Fix: Corporea crystal cube now shortens long numbers correctly.
+* Fix: Hopperhocks and corporea funnels now interact correctly with composters on forge
+* Fix: Paintslinger lens now works with candle and candle cake blocks
+* Fix: Paintslinger lens will now transform all adjacent blocks of the same block, not just those with the exact same blockstate
+* Fix: Paintslinger lens no longer resets blockstate of colored blocks
+* Internal: Changes to BlockstateProvider, see [these commits](https://github.com/VazkiiMods/Botania/compare/d1c3b3ae4f231d5e4e20677fac043bb315c4ef7e..a149645f8a3fc1d876600995eb7285654d358adc) for more details
+* Internal: Allow the flower model for floating flowers to use forges model extensions. See [this commit](https://github.com/VazkiiMods/Botania/commit/e3588c21f2540058931f81322ca336b2535f1100) for more details
+
+---
+
+{% include changelog_header.html version="1.19.2-438" %}
+
 * Change: Tweaks to the Dandelifeon's rules; if you space them well, you can make very large setups :)
 * Change: The Corporea Spark recipe makes 4 now. Good riddance.
+* Fix: zh_CN updates (Clayblockunova)
+* Fix: Banner patterns being broken on Forge
+* Fix: Missing Sunny Quartz destruction recipe
+* Fix: Incenses not rendering properly on Forge
 
 ---
 
@@ -821,8 +897,8 @@ and start a new "Upcoming" section.
 * Update banner and crafty crate lexicon screenshots (Alwinfy)
 * Another null check workaround for Optifine
 * Move laputa shard upgrading to custom/dynamic recipe
-* Rod of the Shaded Mesa fired by an avatar now targets all hostile mobs
-* Rod of the Shaded Mesa fired by a player now targets mobs hostile to other players, when PVP is off
+* Rod of the Unstable Reservoir fired by an avatar now targets all hostile mobs
+* Rod of the Unstable Reservoir fired by a player now targets mobs hostile to other players, when PVP is off
 * Fix gaia guardian not spawning pixies during the mob spawn phase (Keralop)
 * Fix invisibility cloak not actually consuming mana (Keralop)
 * Add a HUD for the Prism similar to the spreader's

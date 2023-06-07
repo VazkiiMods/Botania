@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -18,6 +17,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -28,22 +28,30 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.VecHelper;
 
+import java.util.Objects;
 import java.util.Random;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPoolBlockEntity> {
 
 	// Overrides for when we call this renderer from a cart
 	public static int cartMana = -1;
+	private final TextureAtlasSprite waterSprite;
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
 	public ManaPoolBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
+		this.waterSprite = Objects.requireNonNull(
+				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+						.apply(prefix("block/mana_water"))
+		);
 	}
 
 	@Override
@@ -86,7 +94,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 				float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
 
 				ms.translate(0, poolBottom, 0);
-				ms.mulPose(Vector3f.XP.rotationDegrees(90F));
+				ms.mulPose(VecHelper.rotateX(90F));
 
 				VertexConsumer buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
 				RenderHelper.renderIconCropped(
@@ -109,13 +117,13 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		if (manaLevel > 0) {
 			ms.pushPose();
 			ms.translate(0, Mth.clampedMap(manaLevel, 0, 1, poolBottom, poolTop), 0);
-			ms.mulPose(Vector3f.XP.rotationDegrees(90F));
+			ms.mulPose(VecHelper.rotateX(90F));
 
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
 			RenderHelper.renderIconCropped(
 					ms, buffer,
 					insideUVStart, insideUVStart, insideUVEnd, insideUVEnd,
-					MiscellaneousModels.INSTANCE.manaWater.sprite(), 0xFFFFFF, 1, light);
+					this.waterSprite, 0xFFFFFF, 1, light);
 
 			ms.popPose();
 		}

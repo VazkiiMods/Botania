@@ -2,78 +2,78 @@
   "variants": {
     "facing=east,in_wall=false,open=false": {
       "model": "botania:block/dreamwood_fence_gate",
-      "uvlock": true,
+      "uvlock": false,
       "y": 270
     },
     "facing=east,in_wall=false,open=true": {
       "model": "botania:block/dreamwood_fence_gate_open",
-      "uvlock": true,
+      "uvlock": false,
       "y": 270
     },
     "facing=east,in_wall=true,open=false": {
       "model": "botania:block/dreamwood_fence_gate_wall",
-      "uvlock": true,
+      "uvlock": false,
       "y": 270
     },
     "facing=east,in_wall=true,open=true": {
       "model": "botania:block/dreamwood_fence_gate_wall_open",
-      "uvlock": true,
+      "uvlock": false,
       "y": 270
     },
     "facing=north,in_wall=false,open=false": {
       "model": "botania:block/dreamwood_fence_gate",
-      "uvlock": true,
+      "uvlock": false,
       "y": 180
     },
     "facing=north,in_wall=false,open=true": {
       "model": "botania:block/dreamwood_fence_gate_open",
-      "uvlock": true,
+      "uvlock": false,
       "y": 180
     },
     "facing=north,in_wall=true,open=false": {
       "model": "botania:block/dreamwood_fence_gate_wall",
-      "uvlock": true,
+      "uvlock": false,
       "y": 180
     },
     "facing=north,in_wall=true,open=true": {
       "model": "botania:block/dreamwood_fence_gate_wall_open",
-      "uvlock": true,
+      "uvlock": false,
       "y": 180
     },
     "facing=south,in_wall=false,open=false": {
       "model": "botania:block/dreamwood_fence_gate",
-      "uvlock": true
+      "uvlock": false
     },
     "facing=south,in_wall=false,open=true": {
       "model": "botania:block/dreamwood_fence_gate_open",
-      "uvlock": true
+      "uvlock": false
     },
     "facing=south,in_wall=true,open=false": {
       "model": "botania:block/dreamwood_fence_gate_wall",
-      "uvlock": true
+      "uvlock": false
     },
     "facing=south,in_wall=true,open=true": {
       "model": "botania:block/dreamwood_fence_gate_wall_open",
-      "uvlock": true
+      "uvlock": false
     },
     "facing=west,in_wall=false,open=false": {
       "model": "botania:block/dreamwood_fence_gate",
-      "uvlock": true,
+      "uvlock": false,
       "y": 90
     },
     "facing=west,in_wall=false,open=true": {
       "model": "botania:block/dreamwood_fence_gate_open",
-      "uvlock": true,
+      "uvlock": false,
       "y": 90
     },
     "facing=west,in_wall=true,open=false": {
       "model": "botania:block/dreamwood_fence_gate_wall",
-      "uvlock": true,
+      "uvlock": false,
       "y": 90
     },
     "facing=west,in_wall=true,open=true": {
       "model": "botania:block/dreamwood_fence_gate_wall_open",
-      "uvlock": true,
+      "uvlock": false,
       "y": 90
     }
   }

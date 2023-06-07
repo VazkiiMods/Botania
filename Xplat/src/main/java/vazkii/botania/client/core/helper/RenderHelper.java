@@ -8,6 +8,8 @@
  */
 package vazkii.botania.client.core.helper;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -15,17 +17,16 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
@@ -33,15 +34,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.block_entity.PylonBlockEntityRenderer;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.mixin.client.ItemRendererAccessor;
 import vazkii.botania.mixin.client.RenderTypeAccessor;
@@ -79,6 +83,9 @@ public final class RenderHelper extends RenderType {
 	public static final RenderType ASTROLABE_PREVIEW = new AstrolabeLayer();
 	public static final RenderType STARFIELD;
 	public static final RenderType LIGHTNING;
+	public static final RenderType TRANSLUCENT;
+
+	private static final int ITEM_AND_PADDING_WIDTH = 20;
 
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
 			int bufSize, boolean hasCrumbling, boolean sortOnUpload, CompositeState glState) {
@@ -183,6 +190,7 @@ public final class RenderHelper extends RenderType {
 				.setTransparencyState(LIGHTNING_TRANSPARENCY)
 				.createCompositeState(false);
 		LIGHTNING = makeLayer(ResourcesLib.PREFIX_MOD + "lightning", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, glState);
+		TRANSLUCENT = RenderType.entityTranslucentCull(TextureAtlas.LOCATION_BLOCKS);
 	}
 
 	private RenderHelper(String string, VertexFormat vertexFormat, VertexFormat.Mode mode, int i, boolean bl, boolean bl2, Runnable runnable, Runnable runnable2) {
@@ -275,12 +283,12 @@ public final class RenderHelper extends RenderType {
 		ms.scale(xScale, yScale, zScale);
 
 		for (int i = 0; i < (f1 + f1 * f1) / 2F * 90F + 30F; i++) {
-			ms.mulPose(Vector3f.XP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.YP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.XP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.YP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 360F + f1 * 90F));
+			ms.mulPose(VecHelper.rotateX(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateY(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateZ(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateX(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateY(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateZ(random.nextFloat() * 360F + f1 * 90F));
 			float f3 = random.nextFloat() * 20F + 5F + f2 * 10F;
 			float f4 = random.nextFloat() * 2F + 1F + f2 * 2F;
 			float r = ((color & 0xFF0000) >> 16) / 255F;
@@ -318,7 +326,7 @@ public final class RenderHelper extends RenderType {
 
 	public static void renderProgressPie(PoseStack ms, int x, int y, float progress, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
-		mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(ms, stack, x, y);
 
 		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, true);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
@@ -327,7 +335,7 @@ public final class RenderHelper extends RenderType {
 		RenderSystem.stencilFunc(GL11.GL_NEVER, 1, 0xFF);
 		RenderSystem.stencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
 		RenderSystem.stencilMask(0xFF);
-		mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(ms, stack, x, y);
 
 		int r = 10;
 		int centerX = x + 8;
@@ -335,7 +343,6 @@ public final class RenderHelper extends RenderType {
 		int degs = (int) (360 * progress);
 		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
 
-		RenderSystem.disableTexture();
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderSystem.colorMask(true, true, true, true);
@@ -358,7 +365,6 @@ public final class RenderHelper extends RenderType {
 		Tesselator.getInstance().end();
 
 		RenderSystem.disableBlend();
-		RenderSystem.enableTexture();
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 	}
 
@@ -369,9 +375,9 @@ public final class RenderHelper extends RenderType {
 	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, PoseStack ms, MultiBufferSource buffers, int light, int overlay, @Nullable BakedModel model) {
 		ms.pushPose();
 		if (model == null) {
-			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.level, entity, entity.getId());
+			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.getLevel(), entity, entity.getId());
 		}
-		model.getTransforms().getTransform(ItemTransforms.TransformType.NONE).apply(false, ms);
+		model.getTransforms().getTransform(ItemDisplayContext.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);
 
 		if (!model.isCustomRenderer() && !stack.is(Items.TRIDENT)) {
@@ -513,6 +519,145 @@ public final class RenderHelper extends RenderType {
 					}, () -> {
 						Sheets.translucentCullBlockSheet().clearRenderState();
 					});
+		}
+	}
+
+	public static void renderGuiItemAlpha(ItemStack stack, int x, int y, int alpha, ItemRenderer renderer) {
+		renderGuiItemAlpha(stack, x, y, alpha, renderer.getModel(stack, null, null, 0), renderer);
+	}
+
+	/**
+	 * Like {@link ItemRenderer::renderGuiItem} but with alpha
+	 */
+	// [VanillaCopy] with a small change
+	public static void renderGuiItemAlpha(ItemStack stack, int x, int y, int alpha, BakedModel model, ItemRenderer renderer) {
+		Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS).setFilter(false, false);
+
+		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
+
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+		PoseStack modelViewStack = RenderSystem.getModelViewStack();
+		modelViewStack.pushPose();
+		modelViewStack.translate(x, y, 100.0F + renderer.blitOffset);
+		modelViewStack.translate(8.0D, 8.0D, 0.0D);
+		modelViewStack.scale(1.0F, -1.0F, 1.0F);
+		modelViewStack.scale(16.0F, 16.0F, 16.0F);
+		RenderSystem.applyModelViewMatrix();
+
+		boolean flatLight = !model.usesBlockLight();
+		if (flatLight) {
+			Lighting.setupForFlatItems();
+		}
+
+		MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+		renderer.render(
+				stack,
+				ItemDisplayContext.GUI,
+				false,
+				new PoseStack(),
+				// This part differs from vanilla. We wrap the buffer to allow drawing translucently
+				wrapBuffer(buffer, alpha, alpha < 255),
+				LightTexture.FULL_BRIGHT,
+				OverlayTexture.NO_OVERLAY,
+				model
+		);
+		buffer.endBatch();
+
+		RenderSystem.enableDepthTest();
+
+		if (flatLight) {
+			Lighting.setupFor3DItems();
+		}
+
+		modelViewStack.popPose();
+		RenderSystem.applyModelViewMatrix();
+	}
+
+	private static MultiBufferSource wrapBuffer(MultiBufferSource buffer, int alpha, boolean forceTranslucent) {
+		return renderType -> new GhostVertexConsumer(buffer.getBuffer(forceTranslucent ? TRANSLUCENT : renderType), alpha);
+	}
+
+	/*
+	* Renders a transparent black box with a soft border. The parameters describe the inner box, there will also be drawn
+	* another box that is 2px bigger in each direction
+	*/
+	public static void renderHUDBox(PoseStack ps, int startX, int startY, int endX, int endY) {
+		GuiComponent.fill(ps, startX, startY, endX, endY, 0x44000000);
+		GuiComponent.fill(ps, startX - 2, startY - 2, endX + 2, endY + 2, 0x44000000);
+	}
+
+	/*
+	* Renders an item and its name, vertically centered next to it. Renders nothing if the stack is empty
+	* Note: The item renderer does not respect the PoseStack
+	*/
+	public static void renderItemWithName(PoseStack ps, Minecraft mc, ItemStack itemStack, int startX, int startY, int color) {
+		if (!itemStack.isEmpty()) {
+			mc.font.drawShadow(ps, itemStack.getHoverName(), startX + ITEM_AND_PADDING_WIDTH, startY + 4, color);
+			mc.getItemRenderer().renderAndDecorateItem(ps, itemStack, startX, startY);
+		}
+	}
+
+	public static void renderItemWithNameCentered(PoseStack ps, Minecraft mc, ItemStack itemStack, int startY, int color) {
+		int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+		int startX = centerX - (ITEM_AND_PADDING_WIDTH + mc.font.width(itemStack.getHoverName())) / 2;
+		renderItemWithName(ps, mc, itemStack, startX, startY, color);
+	}
+
+	/*
+	* Returns the width of an item and its text, as rendered by renderItemWithName
+	*/
+	public static int itemWithNameWidth(Minecraft mc, ItemStack itemStack) {
+		return ITEM_AND_PADDING_WIDTH + mc.font.width(itemStack.getHoverName());
+	}
+
+	// Borrowed with permission from https://github.com/XFactHD/FramedBlocks/blob/14f468810fc416b39447512810f0aa86e1012335/src/main/java/xfacthd/framedblocks/client/util/GhostVertexConsumer.java
+	public record GhostVertexConsumer(VertexConsumer wrapped, int alpha) implements VertexConsumer {
+		@Override
+		public VertexConsumer vertex(double x, double y, double z) {
+			return wrapped.vertex(x, y, z);
+		}
+
+		@Override
+		public VertexConsumer color(int red, int green, int blue, int alpha) {
+			return wrapped.color(red, green, blue, (alpha * this.alpha) / 0xFF);
+		}
+
+		@Override
+		public VertexConsumer uv(float u, float v) {
+			return wrapped.uv(u, v);
+		}
+
+		@Override
+		public VertexConsumer overlayCoords(int u, int v) {
+			return wrapped.overlayCoords(u, v);
+		}
+
+		@Override
+		public VertexConsumer uv2(int u, int v) {
+			return wrapped.uv2(u, v);
+		}
+
+		@Override
+		public VertexConsumer normal(float x, float y, float z) {
+			return wrapped.normal(x, y, z);
+		}
+
+		@Override
+		public void endVertex() {
+			wrapped.endVertex();
+		}
+
+		@Override
+		public void defaultColor(int r, int g, int b, int a) {
+			wrapped.defaultColor(r, g, b, a);
+		}
+
+		@Override
+		public void unsetDefaultColor() {
+			wrapped.unsetDefaultColor();
 		}
 	}
 }

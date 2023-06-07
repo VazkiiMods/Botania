@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -23,7 +24,7 @@ public class KindleLens extends Lens {
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (!entity.level.isClientSide) {
+		if (!entity.getLevel().isClientSide) {
 			entity.setSecondsOnFire(3);
 		}
 	}
@@ -32,7 +33,7 @@ public class KindleLens extends Lens {
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 
-		if (!entity.level.isClientSide && rtr.getType() == HitResult.Type.BLOCK
+		if (!entity.getLevel().isClientSide && rtr.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {
 			BlockHitResult brtr = (BlockHitResult) rtr;
 			BlockPos pos = brtr.getBlockPos();
@@ -40,16 +41,16 @@ public class KindleLens extends Lens {
 
 			BlockPos offPos = pos.relative(dir);
 
-			BlockState stateAt = entity.level.getBlockState(pos);
-			BlockState stateAtOffset = entity.level.getBlockState(offPos);
+			BlockState stateAt = entity.getLevel().getBlockState(pos);
+			BlockState stateAtOffset = entity.getLevel().getBlockState(offPos);
 
 			if (stateAt.is(Blocks.NETHER_PORTAL)) {
-				entity.level.removeBlock(pos, false);
+				entity.getLevel().removeBlock(pos, false);
 			}
 			if (stateAtOffset.is(Blocks.NETHER_PORTAL)) {
-				entity.level.removeBlock(offPos, false);
-			} else if (stateAtOffset.isAir()) {
-				entity.level.setBlockAndUpdate(offPos, Blocks.FIRE.defaultBlockState());
+				entity.getLevel().removeBlock(offPos, false);
+			} else if (BaseFireBlock.canBePlacedAt(entity.getLevel(), offPos, dir.getOpposite())) {
+				entity.getLevel().setBlockAndUpdate(offPos, BaseFireBlock.getState(entity.getLevel(), offPos));
 			}
 		}
 

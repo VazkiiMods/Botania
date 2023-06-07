@@ -2,6 +2,7 @@
   "type": "botania:gog_alternation",
   "base": {
     "type": "minecraft:crafting_shaped",
+    "category": "misc",
     "key": {
       "C": {
         "item": "botania:manaweave_cloth"
@@ -27,6 +28,7 @@
   },
   "gog": {
     "type": "minecraft:crafting_shaped",
+    "category": "misc",
     "key": {
       "I": {
         "tag": "botania:manasteel_ingots"

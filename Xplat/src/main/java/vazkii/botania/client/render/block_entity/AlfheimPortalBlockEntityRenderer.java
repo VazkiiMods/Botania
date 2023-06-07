@@ -10,27 +10,38 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.inventory.InventoryMenu;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
+
+import java.util.Objects;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<AlfheimPortalBlockEntity> {
+	private final TextureAtlasSprite portalSprite;
 
-	public AlfheimPortalBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
+	public AlfheimPortalBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
+		this.portalSprite = Objects.requireNonNull(
+				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+						.apply(prefix("block/alfheim_portal_swirl"))
+		);
+	}
 
 	@Override
 	public void render(@NotNull AlfheimPortalBlockEntity portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
@@ -44,22 +55,22 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 		ms.pushPose();
 		if (state == AlfheimPortalState.ON_X) {
 			ms.translate(0.75, 1, 2);
-			ms.mulPose(Vector3f.YP.rotationDegrees(90));
+			ms.mulPose(VecHelper.rotateY(90));
 		} else {
 			ms.translate(-1, 1, 0.75);
 		}
-		renderIcon(ms, buffers, MiscellaneousModels.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
+		renderIcon(ms, buffers, this.portalSprite, 0, 0, 3, 3, alpha, overlay);
 		ms.popPose();
 
 		ms.pushPose();
 		if (state == AlfheimPortalState.ON_X) {
 			ms.translate(0.25, 1, -1);
-			ms.mulPose(Vector3f.YP.rotationDegrees(90));
+			ms.mulPose(VecHelper.rotateY(90));
 		} else {
 			ms.translate(2, 1, 0.25);
 		}
-		ms.mulPose(Vector3f.YP.rotationDegrees(180));
-		renderIcon(ms, buffers, MiscellaneousModels.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
+		ms.mulPose(VecHelper.rotateY(180));
+		renderIcon(ms, buffers, this.portalSprite, 0, 0, 3, 3, alpha, overlay);
 		ms.popPose();
 	}
 

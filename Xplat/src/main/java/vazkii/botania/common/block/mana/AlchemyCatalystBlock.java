@@ -13,10 +13,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.PoolOverlayProvider;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.BotaniaBlock;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class AlchemyCatalystBlock extends BotaniaBlock implements PoolOverlayProvider {
+	private static final ResourceLocation OVERLAY_ICON = prefix("block/alchemy_catalyst_overlay");
 
 	public AlchemyCatalystBlock(Properties builder) {
 		super(builder);
@@ -24,7 +26,7 @@ public class AlchemyCatalystBlock extends BotaniaBlock implements PoolOverlayPro
 
 	@Override
 	public ResourceLocation getIcon(Level world, BlockPos pos) {
-		return MiscellaneousModels.INSTANCE.alchemyCatalystOverlay.texture();
+		return OVERLAY_ICON;
 	}
 
 }

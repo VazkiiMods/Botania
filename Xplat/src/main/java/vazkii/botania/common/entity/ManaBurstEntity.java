@@ -144,7 +144,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	public ManaBurstEntity(Player player) {
-		super(BotaniaEntities.MANA_BURST, player, player.level);
+		super(BotaniaEntities.MANA_BURST, player, player.getLevel());
 
 		setBurstSourceCoords(NO_SOURCE);
 		setRot(player.getYRot() + 180, -player.getXRot());
@@ -154,7 +154,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	@Override
 	public void tick() {
 		setTicksExisted(getTicksExisted() + 1);
-		if ((!level.isClientSide || fake)
+		if ((!getLevel().isClientSide || fake)
 				&& !hasLeftSource()
 				&& !blockPosition().equals(getBurstSourceBlockPos())) {
 			// XXX: Should this check by bounding box instead of simply blockPosition()?
@@ -354,7 +354,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	public void particles() {
-		if (!isAlive() || !level.isClientSide) {
+		if (!isAlive() || !getLevel().isClientSide) {
 			return;
 		}
 
@@ -379,7 +379,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 			if (!noParticles && shouldDoFakeParticles()) {
 				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
-				level.addParticle(data, true, getX(), getY(), getZ(), 0, 0, 0);
+				getLevel().addParticle(data, true, getX(), getY(), getZ(), 0, 0, 0);
 			}
 		} else {
 			Player player = Proxy.INSTANCE.getClientPlayer();
@@ -387,7 +387,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 			if (BotaniaConfig.client().subtlePowerSystem()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
-				Proxy.INSTANCE.addParticleForceNear(level, data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+				Proxy.INSTANCE.addParticleForceNear(getLevel(), data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
 				float or = r;
 				float og = g;
@@ -414,7 +414,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(uuid.getMostSignificantBits()).nextInt(9001)) * 0.4F;
 					WispParticleData data = WispParticleData.wisp(0.2F * size, r, g, b, depth);
-					Proxy.INSTANCE.addParticleForceNear(level, data, iterX, iterY, iterZ,
+					Proxy.INSTANCE.addParticleForceNear(getLevel(), data, iterX, iterY, iterZ,
 							(float) -getDeltaMovement().x() * 0.01F,
 							(float) -getDeltaMovement().y() * 0.01F,
 							(float) -getDeltaMovement().z() * 0.01F);
@@ -431,7 +431,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 				} while (Math.abs(diffVec.length()) > distance);
 
 				WispParticleData data = WispParticleData.wisp(0.1F * size, or, og, ob, depth);
-				level.addParticle(data, iterX, iterY, iterZ, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
+				getLevel().addParticle(data, iterX, iterY, iterZ, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
 			}
 		}
 	}
@@ -451,11 +451,11 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			if (!BotaniaConfig.client().subtlePowerSystem()) {
 				for (int i = 0; i < 4; i++) {
 					WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
-					level.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+					getLevel().addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
 				}
 			}
 			SparkleParticleData data = SparkleParticleData.sparkle((float) 4, r, g, b, 2);
-			level.addParticle(data, getX(), getY(), getZ(), 0, 0, 0);
+			getLevel().addParticle(data, getX(), getY(), getZ(), 0, 0, 0);
 		} else {
 			super.handleEntityEvent(event);
 		}
@@ -463,6 +463,21 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 	public float getParticleSize() {
 		return (float) getMana() / (float) getStartingMana();
+	}
+
+	@Override
+	protected void onHit(HitResult hit) {
+		if (isFake()) {
+			// [VanillaCopy] super, without firing gameEvents
+			HitResult.Type type = hit.getType();
+			if (type == HitResult.Type.ENTITY) {
+				this.onHitEntity((EntityHitResult) hit);
+			} else if (type == HitResult.Type.BLOCK) {
+				this.onHitBlock((BlockHitResult) hit);
+			}
+		} else {
+			super.onHit(hit);
+		}
 	}
 
 	@Override
@@ -475,11 +490,11 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			return;
 		}
 		lastCollision = collidePos.immutable();
-		BlockEntity tile = level.getBlockEntity(collidePos);
-		BlockState state = level.getBlockState(collidePos);
+		BlockEntity tile = getLevel().getBlockEntity(collidePos);
+		BlockState state = getLevel().getBlockState(collidePos);
 		Block block = state.getBlock();
 
-		var ghost = XplatAbstractions.INSTANCE.findManaGhost(level, collidePos, state, tile);
+		var ghost = XplatAbstractions.INSTANCE.findManaGhost(getLevel(), collidePos, state, tile);
 		var ghostBehaviour = ghost != null ? ghost.getGhostBehaviour() : ManaCollisionGhost.Behaviour.RUN_ALL;
 
 		if (ghostBehaviour == ManaCollisionGhost.Behaviour.SKIP_ALL
@@ -493,10 +508,10 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			return;
 		}
 
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, collidePos, state, tile, hit.getDirection());
+		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(getLevel(), collidePos, state, tile, hit.getDirection());
 		collidedTile = receiver;
 
-		if (!fake && !noParticles && !level.isClientSide) {
+		if (!fake && !noParticles && !getLevel().isClientSide) {
 			if (receiver != null && receiver.canReceiveManaFromBursts() && onReceiverImpact(receiver)) {
 				if (tile instanceof ThrottledPacket throttledPacket) {
 					throttledPacket.markDispatchable();
@@ -506,7 +521,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			}
 		}
 
-		var trigger = XplatAbstractions.INSTANCE.findManaTrigger(level, collidePos, state, tile);
+		var trigger = XplatAbstractions.INSTANCE.findManaTrigger(getLevel(), collidePos, state, tile);
 		if (trigger != null) {
 			trigger.onBurstCollision(this);
 		}
@@ -536,8 +551,8 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		if (shouldKill && isAlive()) {
 			if (fake) {
 				discard();
-			} else if (!this.level.isClientSide) {
-				this.level.broadcastEntityEvent(this, EntityEvent.DEATH);
+			} else if (!this.getLevel().isClientSide) {
+				this.getLevel().broadcastEntityEvent(this, EntityEvent.DEATH);
 				discard();
 			}
 		}
@@ -584,7 +599,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 	@Nullable
 	private ManaSpreader getShooter() {
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, getBurstSourceBlockPos(), null);
+		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(getLevel(), getBurstSourceBlockPos(), null);
 		return receiver instanceof ManaSpreader spreader ? spreader : null;
 	}
 

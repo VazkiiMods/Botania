@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "all": "botania:model/incenseplate",
+    "all": "botania:block/incense_plate",
     "particle": "botania:block/livingwood_log"
   },
   "elements": [

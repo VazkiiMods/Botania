@@ -13,7 +13,7 @@ import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -57,12 +57,12 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 		return BotaniaRecipeTypes.MARIMORPHOSIS_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<MarimorphosisRecipe> {
+	public static class Serializer implements RecipeSerializer<MarimorphosisRecipe> {
 		@Override
 		public MarimorphosisRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			OrechidRecipe base = BotaniaRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json);
 
-			var biomes = TagKey.create(Registry.BIOME_REGISTRY,
+			var biomes = TagKey.create(Registries.BIOME,
 					new ResourceLocation(GsonHelper.getAsString(json, "biome_bonus_tag")));
 			int weightBonus = GsonHelper.getAsInt(json, "biome_bonus", 0);
 			if (base.getWeight() + weightBonus <= 0) {
@@ -77,7 +77,7 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 		public MarimorphosisRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			OrechidRecipe base = BotaniaRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer);
 
-			TagKey<Biome> biomes = TagKey.create(Registry.BIOME_REGISTRY, buffer.readResourceLocation());
+			TagKey<Biome> biomes = TagKey.create(Registries.BIOME, buffer.readResourceLocation());
 			int weightBonus = buffer.readVarInt();
 
 			return new MarimorphosisRecipe(recipeId, base.getInput(), base.getOutput(),

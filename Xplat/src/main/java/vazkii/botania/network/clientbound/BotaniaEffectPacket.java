@@ -27,6 +27,7 @@ import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlo
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
+import vazkii.botania.common.item.GrassSeedsItem;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.BotaniaPacket;
@@ -112,7 +113,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 							int g = (hex & 0xFF00) >> 8;
 							int b = hex & 0xFF;
 							for (int i = 0; i < 10; i++) {
-								BlockPos pos = new BlockPos(x, y, z).relative(Direction.getRandom(world.random));
+								BlockPos pos = BlockPos.containing(x, y, z).relative(Direction.getRandom(world.random));
 								SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
 								world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
 							}
@@ -137,13 +138,13 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 
 							for (int i = 0; i < p; i++) {
 								double m = 0.01;
-								double d0 = item.level.random.nextGaussian() * m;
-								double d1 = item.level.random.nextGaussian() * m;
-								double d2 = item.level.random.nextGaussian() * m;
+								double d0 = item.getLevel().random.nextGaussian() * m;
+								double d1 = item.getLevel().random.nextGaussian() * m;
+								double d2 = item.getLevel().random.nextGaussian() * m;
 								double d3 = 10.0D;
-								item.level.addParticle(ParticleTypes.POOF,
-										x + item.level.random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d0 * d3, y + item.level.random.nextFloat() * item.getBbHeight() - d1 * d3,
-										z + item.level.random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d2 * d3, d0, d1, d2);
+								item.getLevel().addParticle(ParticleTypes.POOF,
+										x + item.getLevel().random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d0 * d3, y + item.getLevel().random.nextFloat() * item.getBbHeight() - d1 * d3,
+										z + item.getLevel().random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d2 * d3, d0, d1, d2);
 							}
 						}
 						case SPARK_NET_INDICATOR -> {
@@ -230,7 +231,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 
 						}
 						case TERRA_PLATE -> {
-							BlockEntity te = world.getBlockEntity(new BlockPos(x, y, z));
+							BlockEntity te = world.getBlockEntity(BlockPos.containing(x, y, z));
 							if (te instanceof TerrestrialAgglomerationPlateBlockEntity) {
 								float percentage = Float.intBitsToFloat(args[0]);
 								int ticks = (int) (100.0 * percentage);
@@ -307,7 +308,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 								float m = 0.1F;
 								for (int i = 0; i < 4; i++) {
 									WispParticleData data = WispParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);
-									target.level.addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
+									target.getLevel().addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
 								}
 							}
 
@@ -355,6 +356,11 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 								Proxy.INSTANCE.lightningFX(world, source, entityPos, 1, 0x0179C4, 0xAADFFF);
 								source = entityPos;
 							}
+						}
+						case GRASS_SEED_PARTICLES -> {
+							int color = args[0];
+							GrassSeedsItem.spawnParticles(world, BlockPos.containing(x, y, z),
+									GrassSeedsItem.extractR(color), GrassSeedsItem.extractG(color), GrassSeedsItem.extractB(color));
 						}
 					}
 				}

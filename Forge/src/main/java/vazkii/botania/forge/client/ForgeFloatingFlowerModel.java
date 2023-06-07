@@ -4,7 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Transformation;
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -20,6 +20,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.ChunkRenderTypeSet;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
@@ -168,6 +169,9 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 				type = extraData.get(FLOATING_PROPERTY).getIslandType();
 			}
 
+			if (renderType != null && state != null && !this.flower.getRenderTypes(state, rand, extraData).contains(renderType)) {
+				return islands.get(type).getQuads(state, side, rand, ModelData.EMPTY, renderType);
+			}
 			List<BakedQuad> flower = this.flower.getQuads(state, side, rand, ModelData.EMPTY, renderType);
 			List<BakedQuad> island = islands.get(type).getQuads(state, side, rand, ModelData.EMPTY, renderType);
 			List<BakedQuad> ret = new ArrayList<>(flower.size() + island.size());
@@ -180,6 +184,12 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		@Override
 		public List<BakedModel> getRenderPasses(@NotNull ItemStack stack, boolean fabulous) {
 			return List.of(flower, islands.get(FloatingFlower.IslandType.GRASS));
+		}
+
+		@NotNull
+		@Override
+		public ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
+			return ChunkRenderTypeSet.union(BakedModel.super.getRenderTypes(state, rand, data), this.flower.getRenderTypes(state, rand, data));
 		}
 	}
 

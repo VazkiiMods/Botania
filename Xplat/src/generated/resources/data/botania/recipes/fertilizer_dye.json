@@ -2,6 +2,7 @@
   "type": "botania:gog_alternation",
   "base": {
     "type": "minecraft:crafting_shapeless",
+    "category": "misc",
     "ingredients": [
       {
         "item": "minecraft:bone_meal"
@@ -213,6 +214,7 @@
   },
   "gog": {
     "type": "minecraft:crafting_shapeless",
+    "category": "misc",
     "ingredients": [
       {
         "item": "minecraft:bone_meal"

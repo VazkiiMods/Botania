@@ -1,3 +1,4 @@
 {
-  "type": "botania:spell_cloth_apply"
+  "type": "botania:spell_cloth_apply",
+  "category": "misc"
 }

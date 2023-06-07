@@ -9,7 +9,6 @@
 package vazkii.botania.client.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -21,6 +20,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -74,20 +74,20 @@ public class ManaBarTooltipComponent implements ClientTooltipComponent {
 		boolean ss = level >= TerraShattererItem.LEVELS.length - 1;
 		String rank = I18n.get("botania.rank" + pickLevel).replaceAll("&", "\u00a7");
 
-		font.drawInBatch(rank, mouseX, mouseY - 16, 0xFFFFFF, true, matrix, buffers, false, 0, 0xF000F0);
+		font.drawInBatch(rank, mouseX, mouseY - 16, 0xFFFFFF, true, matrix, buffers, Font.DisplayMode.NORMAL, 0, 0xF000F0);
 		if (!ss) {
 			rank = I18n.get("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
-			font.drawInBatch(rank, mouseX + totalWidth - font.width(rank), mouseY - 16, 0xFFFFFF, true, matrix, buffers, false, 0, 0xF000F0);
+			font.drawInBatch(rank, mouseX + totalWidth - font.width(rank), mouseY - 16, 0xFFFFFF, true,
+					matrix, buffers, Font.DisplayMode.NORMAL, 0, 0xF000F0);
 		}
 	}
 
 	@Override
-	public void renderImage(Font font, int x, int y, PoseStack ps, ItemRenderer renderer, int z) {
+	public void renderImage(Font font, int x, int y, PoseStack ps, ItemRenderer renderer) {
 		int height = 3;
 		int offsetFromBox = 4;
 
 		ps.pushPose();
-		ps.translate(0, 0, z);
 
 		if (pickLevel >= 0) {
 			boolean ss = pickLevel >= TerraShattererItem.LEVELS.length - 1;

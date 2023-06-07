@@ -10,14 +10,13 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
@@ -29,6 +28,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.*;
 import vazkii.botania.common.block.PylonBlock;
 import vazkii.botania.common.block.block_entity.PylonBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Random;
 
@@ -44,7 +44,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 
 	// Overrides for when we call this without an actual pylon
 	private static PylonBlock.Variant forceVariant = PylonBlock.Variant.MANA;
-	private static ItemTransforms.TransformType forceTransform = ItemTransforms.TransformType.NONE;
+	private static ItemDisplayContext forceTransform = ItemDisplayContext.NONE;
 
 	public PylonBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		manaModel = new ManaPylonModel(ctx.bakeLayer(BotaniaModelLayers.PYLON_MANA));
@@ -55,7 +55,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 	@Override
 	public void render(@Nullable PylonBlockEntity pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		boolean renderingItem = pylon == null;
-		boolean direct = renderingItem && (forceTransform == ItemTransforms.TransformType.GUI || forceTransform.firstPerson()); // loosely based off ItemRenderer logic
+		boolean direct = renderingItem && (forceTransform == ItemDisplayContext.GUI || forceTransform.firstPerson()); // loosely based off ItemRenderer logic
 		PylonBlock.Variant type = renderingItem ? forceVariant : ((PylonBlock) pylon.getBlockState().getBlock()).variant;
 		PylonModel model;
 		ResourceLocation texture;
@@ -90,7 +90,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 		ms.pushPose();
 		ms.translate(0.5F, 0F, -0.5F);
 		if (pylon != null) {
-			ms.mulPose(Vector3f.YP.rotationDegrees(worldTime * 1.5F));
+			ms.mulPose(VecHelper.rotateY(worldTime * 1.5F));
 		}
 
 		RenderType layer = RenderType.entityTranslucent(texture);
@@ -109,7 +109,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 
 		ms.translate(0.5F, 0F, -0.5F);
 		if (pylon != null) {
-			ms.mulPose(Vector3f.YP.rotationDegrees(-worldTime));
+			ms.mulPose(VecHelper.rotateY(-worldTime));
 		}
 
 		buffer = buffers.getBuffer(shaderLayer);
@@ -126,7 +126,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 		}
 
 		@Override
-		public void render(ItemStack stack, ItemTransforms.TransformType type, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		public void render(ItemStack stack, ItemDisplayContext type, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 			if (Block.byItem(stack.getItem()) instanceof PylonBlock pylon) {
 				PylonBlockEntityRenderer.forceVariant = pylon.variant;
 				PylonBlockEntityRenderer.forceTransform = type;

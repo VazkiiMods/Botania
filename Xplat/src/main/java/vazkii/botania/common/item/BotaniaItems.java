@@ -12,9 +12,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -196,9 +196,9 @@ public final class BotaniaItems {
 
 	// Equipment
 	public static final Item manasteelHelm = make(prefix(LibItemNames.MANASTEEL_HELM), new ManasteelHelmItem(unstackableCustomDamage()));
-	public static final Item manasteelChest = make(prefix(LibItemNames.MANASTEEL_CHEST), new ManasteelArmorItem(EquipmentSlot.CHEST, unstackableCustomDamage()));
-	public static final Item manasteelLegs = make(prefix(LibItemNames.MANASTEEL_LEGS), new ManasteelArmorItem(EquipmentSlot.LEGS, unstackableCustomDamage()));
-	public static final Item manasteelBoots = make(prefix(LibItemNames.MANASTEEL_BOOTS), new ManasteelArmorItem(EquipmentSlot.FEET, unstackableCustomDamage()));
+	public static final Item manasteelChest = make(prefix(LibItemNames.MANASTEEL_CHEST), new ManasteelArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()));
+	public static final Item manasteelLegs = make(prefix(LibItemNames.MANASTEEL_LEGS), new ManasteelArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
+	public static final Item manasteelBoots = make(prefix(LibItemNames.MANASTEEL_BOOTS), new ManasteelArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
 	public static final Item manasteelPick = make(prefix(LibItemNames.MANASTEEL_PICK), new ManasteelPickaxeItem(unstackableCustomDamage()));
 	public static final Item manasteelShovel = make(prefix(LibItemNames.MANASTEEL_SHOVEL), new ManasteelShovelItem(unstackableCustomDamage()));
 	public static final Item manasteelAxe = make(prefix(LibItemNames.MANASTEEL_AXE), new ManasteelAxeItem(unstackableCustomDamage()));
@@ -216,18 +216,18 @@ public final class BotaniaItems {
 	public static final Item elementiumSword = make(prefix(LibItemNames.ELEMENTIUM_SWORD), new ElementiumSwordItem(unstackableCustomDamage()));
 	public static final Item elementiumShears = make(prefix(LibItemNames.ELEMENTIUM_SHEARS), new ElementiumShearsItem(unstackableCustomDamage().defaultDurability(238)));
 	public static final Item terrasteelHelm = make(prefix(LibItemNames.TERRASTEEL_HELM), new TerrasteelHelmItem(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
-	public static final Item terrasteelChest = make(prefix(LibItemNames.TERRASTEEL_CHEST), new TerrasteelArmorItem(EquipmentSlot.CHEST, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
-	public static final Item terrasteelLegs = make(prefix(LibItemNames.TERRASTEEL_LEGS), new TerrasteelArmorItem(EquipmentSlot.LEGS, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
-	public static final Item terrasteelBoots = make(prefix(LibItemNames.TERRASTEEL_BOOTS), new TerrasteelArmorItem(EquipmentSlot.FEET, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
+	public static final Item terrasteelChest = make(prefix(LibItemNames.TERRASTEEL_CHEST), new TerrasteelArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
+	public static final Item terrasteelLegs = make(prefix(LibItemNames.TERRASTEEL_LEGS), new TerrasteelArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
+	public static final Item terrasteelBoots = make(prefix(LibItemNames.TERRASTEEL_BOOTS), new TerrasteelArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
 	public static final Item terraPick = make(prefix(LibItemNames.TERRA_PICK), new TerraShattererItem(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
 	public static final Item terraAxe = make(prefix(LibItemNames.TERRA_AXE), new TerraTruncatorItem(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
 	public static final Item terraSword = make(prefix(LibItemNames.TERRA_SWORD), new TerraBladeItem(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
 	public static final Item starSword = make(prefix(LibItemNames.STAR_SWORD), new StarcallerItem(unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
 	public static final Item thunderSword = make(prefix(LibItemNames.THUNDER_SWORD), new ThundercallerItem(unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
 	public static final Item manaweaveHelm = make(prefix(LibItemNames.MANAWEAVE_HELM), new ManaweaveHelmItem(unstackableCustomDamage()));
-	public static final Item manaweaveChest = make(prefix(LibItemNames.MANAWEAVE_CHEST), new ManaweaveArmorItem(EquipmentSlot.CHEST, unstackableCustomDamage()));
-	public static final Item manaweaveLegs = make(prefix(LibItemNames.MANAWEAVE_LEGS), new ManaweaveArmorItem(EquipmentSlot.LEGS, unstackableCustomDamage()));
-	public static final Item manaweaveBoots = make(prefix(LibItemNames.MANAWEAVE_BOOTS), new ManaweaveArmorItem(EquipmentSlot.FEET, unstackableCustomDamage()));
+	public static final Item manaweaveChest = make(prefix(LibItemNames.MANAWEAVE_CHEST), new ManaweaveArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()));
+	public static final Item manaweaveLegs = make(prefix(LibItemNames.MANAWEAVE_LEGS), new ManaweaveArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
+	public static final Item manaweaveBoots = make(prefix(LibItemNames.MANAWEAVE_BOOTS), new ManaweaveArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
 	public static final Item enderDagger = make(prefix(LibItemNames.ENDER_DAGGER), new SoulscribeItem(unstackable().defaultDurability(69))); // What you looking at?
 	public static final Item glassPick = make(prefix(LibItemNames.GLASS_PICK), new VitreousPickaxeItem(unstackableCustomDamage()));
 	public static final Item livingwoodBow = make(prefix(LibItemNames.LIVINGWOOD_BOW), new LivingwoodBowItem(defaultBuilderCustomDamage().defaultDurability(500)));

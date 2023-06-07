@@ -35,16 +35,15 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 	private static final BlockPos[] OFFSETS = { new BlockPos(0, 0, 1), new BlockPos(0, 0, -1), new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0), new BlockPos(-1, 0, 1), new BlockPos(-1, 0, -1), new BlockPos(1, 0, 1), new BlockPos(1, 0, -1) };
 
 	public static final int DECAY_TIME = 72000;
-	private int burnTime, cooldown;
+	protected int burnTime, cooldown;
 	private final TagKey<Fluid> consumedFluid;
-	private final int startBurnTime, manaPerTick, maxCooldown;
+	private final int startBurnTime, manaPerTick;
 
-	protected FluidGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, TagKey<Fluid> consumedFluid, int startBurnTime, int manaPerTick, int maxCooldown) {
+	protected FluidGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, TagKey<Fluid> consumedFluid, int startBurnTime, int manaPerTick) {
 		super(type, pos, state);
 		this.consumedFluid = consumedFluid;
 		this.startBurnTime = startBurnTime;
 		this.manaPerTick = manaPerTick;
-		this.maxCooldown = maxCooldown;
 	}
 
 	@Override
@@ -99,9 +98,10 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 						if (cooldown == 0) {
 							burnTime += startBurnTime;
 						} else {
-							cooldown = maxCooldown;
+							cooldown = getCooldownTime(false);
 						}
 
+						setChanged();
 						sync();
 						playSound();
 						break;
@@ -114,11 +114,14 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 			}
 			burnTime--;
 			if (burnTime == 0) {
-				cooldown = maxCooldown;
+				cooldown = getCooldownTime(true);
+				setChanged();
 				sync();
 			}
 		}
 	}
+
+	public abstract int getCooldownTime(boolean finishedPrevious);
 
 	public int getGenerationDelay() {
 		return 1;

@@ -2,6 +2,7 @@
   "type": "botania:gog_alternation",
   "base": {
     "type": "minecraft:crafting_shaped",
+    "category": "misc",
     "group": "botania:spreader",
     "key": {
       "G": {
@@ -25,6 +26,7 @@
   },
   "gog": {
     "type": "minecraft:crafting_shaped",
+    "category": "misc",
     "group": "botania:spreader",
     "key": {
       "P": {

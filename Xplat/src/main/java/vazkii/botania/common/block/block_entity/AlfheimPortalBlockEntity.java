@@ -13,7 +13,7 @@ import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -23,7 +23,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -57,7 +56,6 @@ import vazkii.patchouli.api.TriPredicate;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wandable {
@@ -65,7 +63,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		record Matcher(TagKey<Block> tag, Direction.Axis displayedRotation, Block defaultBlock) implements IStateMatcher {
 			@Override
 			public BlockState getDisplayedState(long ticks) {
-				var blocks = StreamSupport.stream(Registry.BLOCK.getTagOrEmpty(this.tag).spliterator(), false)
+				var blocks = StreamSupport.stream(BuiltInRegistries.BLOCK.getTagOrEmpty(this.tag).spliterator(), false)
 						.map(Holder::value)
 						.toList();
 				if (blocks.isEmpty()) {
@@ -192,7 +190,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 			}
 		} else if (self.explode) {
 			level.explode(null, worldPosition.getX() + .5, worldPosition.getY() + 2.0, worldPosition.getZ() + .5,
-					3f, Explosion.BlockInteraction.BREAK);
+					3f, Level.ExplosionInteraction.NONE);
 			self.explode = false;
 
 			if (!level.isClientSide && self.breadPlayer != null) {
@@ -215,7 +213,9 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		if (inputStack.is(Items.BREAD)) {
 			//Don't teleport bread. (See also: #2403)
 			explode = true;
-			breadPlayer = entity.getThrower();
+			if (entity.getOwner() != null) {
+				breadPlayer = entity.getOwner().getUUID();
+			}
 		}
 
 		return false;
@@ -396,12 +396,18 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	public List<BlockPos> locatePylons() {
 		int range = 5;
+		List<BlockPos> result = new ArrayList<>();
 
-		return BlockPos.betweenClosedStream(getBlockPos().offset(-range, -range, -range), getBlockPos().offset(range, range, range))
-				.filter(level::hasChunkAt)
-				.filter(p -> level.getBlockState(p).is(BotaniaBlocks.naturaPylon) && level.getBlockState(p.below()).getBlock() instanceof ManaPoolBlock)
-				.map(BlockPos::immutable)
-				.collect(Collectors.toList());
+		for (BlockPos pos : BlockPos.betweenClosed(getBlockPos().offset(-range, -range, -range),
+				getBlockPos().offset(range, range, range))) {
+			if (getLevel().hasChunkAt(pos)
+					&& getLevel().getBlockState(pos).is(BotaniaBlocks.naturaPylon)
+					&& getLevel().getBlockState(pos.below()).getBlock() instanceof ManaPoolBlock) {
+				result.add(pos.immutable());
+			}
+		}
+
+		return result;
 	}
 
 	public void lightPylons() {
@@ -457,6 +463,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		if (consumed >= expectedConsumption) {
 			for (ManaPoolBlockEntity pool : consumePools) {
 				pool.receiveMana(-costPer);
+				pool.craftingEffect(false);
 			}
 			return true;
 		}

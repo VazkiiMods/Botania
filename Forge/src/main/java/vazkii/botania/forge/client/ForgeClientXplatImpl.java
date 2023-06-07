@@ -10,6 +10,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,6 +42,12 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public WandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeClientCapabilities.WAND_HUD, level, pos, state, be);
+	}
+
+	@Nullable
+	@Override
+	public WandHUD findWandHud(Entity entity) {
+		return entity.getCapability(BotaniaForgeClientCapabilities.WAND_HUD).orElse(null);
 	}
 
 	@Override

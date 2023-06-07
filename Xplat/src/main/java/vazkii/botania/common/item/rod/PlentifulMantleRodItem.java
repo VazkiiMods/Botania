@@ -9,7 +9,7 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -70,7 +70,7 @@ public class PlentifulMantleRodItem extends Item {
 
 			Block block = state.getBlock();
 			if (state.is(XplatAbstractions.INSTANCE.getOreTag())) {
-				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
+				Random rand = new Random(BuiltInRegistries.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, true, pos_.getX() + world.random.nextFloat(), pos_.getY() + world.random.nextFloat(), pos_.getZ() + world.random.nextFloat(), 0, 0, 0);
 			}

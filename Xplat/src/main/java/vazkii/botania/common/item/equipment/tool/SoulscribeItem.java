@@ -9,7 +9,6 @@
 package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -32,10 +31,10 @@ public class SoulscribeItem extends ManasteelSwordItem {
 
 	@Override
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, @NotNull LivingEntity attacker) {
-		if (!target.level.isClientSide
+		if (!target.getLevel().isClientSide
 				&& target instanceof EnderMan
 				&& attacker instanceof Player player) {
-			target.hurt(DamageSource.playerAttack(player), 20);
+			target.hurt(player.damageSources().playerAttack(player), 20);
 		}
 
 		stack.hurtAndBreak(1, attacker, e -> e.broadcastBreakEvent(InteractionHand.MAIN_HAND));

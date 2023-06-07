@@ -10,8 +10,8 @@ package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -34,14 +34,14 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class OrechidProvider extends BotaniaRecipeProvider {
 
-	public OrechidProvider(DataGenerator generator) {
-		super(generator);
+	public OrechidProvider(PackOutput packOutput) {
+		super(packOutput);
 	}
 
 	// TODO: We had an enormous amount of ores defined for mod compat.
 	//       The old data needs to be completely revised.
 	@Override
-	protected void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+	protected void buildRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		consumer.accept(stone(Blocks.COAL_ORE, 67415));
 		consumer.accept(stone(Blocks.IRON_ORE, 29371));
 		consumer.accept(stone(Blocks.REDSTONE_ORE, 7654));
@@ -75,15 +75,15 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	}
 
 	protected ResourceLocation orechidId(Block b) {
-		return prefix("orechid/" + Registry.BLOCK.getKey(b).getPath());
+		return prefix("orechid/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
 	}
 
 	protected ResourceLocation ignemId(Block b) {
-		return prefix("orechid_ignem/" + Registry.BLOCK.getKey(b).getPath());
+		return prefix("orechid_ignem/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
 	}
 
 	protected ResourceLocation marimorphosisId(Block b) {
-		return prefix("marimorphosis/" + Registry.BLOCK.getKey(b).getPath());
+		return prefix("marimorphosis/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
 	}
 
 	protected Result stone(Block output, int weight) {

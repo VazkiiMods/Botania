@@ -24,11 +24,11 @@ public class DamagingLens extends Lens {
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
-		if (entity.level.isClientSide) {
+		if (entity.getLevel().isClientSide) {
 			return;
 		}
 		AABB axis = new AABB(entity.getX(), entity.getY(), entity.getZ(), entity.xOld, entity.yOld, entity.zOld).inflate(1);
-		List<LivingEntity> entities = entity.level.getEntitiesOfClass(LivingEntity.class, axis);
+		List<LivingEntity> entities = entity.getLevel().getEntitiesOfClass(LivingEntity.class, axis);
 		for (LivingEntity living : entities) {
 			if (living instanceof Player) {
 				continue;
@@ -40,8 +40,8 @@ public class DamagingLens extends Lens {
 					burst.setMana(mana - 16);
 					if (!burst.isFake()) {
 						DamageSource src = entity.getOwner() != null
-								? DamageSource.indirectMagic(entity, entity.getOwner())
-								: DamageSource.MAGIC;
+								? entity.damageSources().indirectMagic(entity, entity.getOwner())
+								: entity.damageSources().magic();
 						living.hurt(src, 8);
 					}
 					break;

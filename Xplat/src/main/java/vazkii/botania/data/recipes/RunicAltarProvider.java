@@ -11,7 +11,7 @@ package vazkii.botania.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
@@ -32,8 +32,8 @@ import java.util.function.Consumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RunicAltarProvider extends BotaniaRecipeProvider {
-	public RunicAltarProvider(DataGenerator gen) {
-		super(gen);
+	public RunicAltarProvider(PackOutput packOutput) {
+		super(packOutput);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+	public void buildRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		final int costTier1 = 5200;
 		final int costTier2 = 8000;
 		final int costTier3 = 12000;

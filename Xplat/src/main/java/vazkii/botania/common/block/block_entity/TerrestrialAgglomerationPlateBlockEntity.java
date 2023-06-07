@@ -12,7 +12,7 @@ import com.google.common.base.Predicates;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -69,8 +69,8 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 			'0', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
 			'L', PatchouliAPI.get().tagMatcher(
 					XplatAbstractions.INSTANCE.isFabric()
-							? TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "lapis_blocks"))
-							: TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", "storage_blocks/lapis")))
+							? TagKey.create(Registries.BLOCK, new ResourceLocation("c", "lapis_blocks"))
+							: TagKey.create(Registries.BLOCK, new ResourceLocation("forge", "storage_blocks/lapis")))
 	));
 
 	private static final String TAG_MANA = "mana";
@@ -108,7 +108,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 				}
 
 				if (self.mana >= recipe.getMana()) {
-					ItemStack result = recipe.assemble(inv);
+					ItemStack result = recipe.assemble(inv, level.registryAccess());
 					for (ItemStack item : items) {
 						item.setCount(0);
 					}

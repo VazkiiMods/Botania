@@ -1,0 +1,13 @@
+{
+    DataVersion: 3120,
+    size: [9, 9, 9],
+    data: [
+        {pos: [3, 1, 4], state: "minecraft:dirt"},
+        {pos: [4, 1, 4], state: "minecraft:dispenser{facing:west,triggered:false}", nbt: {Items: [{Count: 1b, Slot: 4b, id: "botania:grass_seeds"}], id: "minecraft:dispenser"}}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:dirt",
+        "minecraft:dispenser{facing:west,triggered:false}"
+    ]
+}

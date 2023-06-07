@@ -12,12 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DetectorRailBlock;
-import net.minecraft.world.level.block.HoneyBlock;
-import net.minecraft.world.level.block.SlimeBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
@@ -38,45 +32,6 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 
 	public EntropinnyumBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaFlowerBlocks.ENTROPINNYUM, pos, state);
-	}
-
-	public static boolean isUnethical(Entity e) {
-		BlockPos center = e.blockPosition();
-		if (!e.level.isLoaded(center)) {
-			return false;
-		}
-
-		int x = center.getX();
-		int y = center.getY();
-		int z = center.getZ();
-		int range = 3;
-
-		// Should actually check for corals too, but it gets broken when the piston extends
-		int movingPistons = 0;
-		int rails = 0;
-		int slimes = 0;
-		for (BlockPos pos : BlockPos.betweenClosed(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1)) {
-			BlockState state = e.level.getBlockState(pos);
-			if (state.is(Blocks.MOVING_PISTON)) {
-				movingPistons++;
-				BlockEntity te = e.level.getBlockEntity(pos);
-				if (te instanceof PistonMovingBlockEntity piston) {
-					state = piston.getMovedState();
-				}
-			}
-
-			if (state.getBlock() instanceof DetectorRailBlock) {
-				rails++;
-			} else if (state.getBlock() instanceof SlimeBlock || state.getBlock() instanceof HoneyBlock) {
-				slimes++;
-			}
-
-			if (movingPistons > 0 && rails > 0 && slimes > 0) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	@Override

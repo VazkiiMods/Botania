@@ -91,8 +91,8 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 		if (event == START_BURN_EVENT) {
 			Entity e = getLevel().getEntity(param);
 			if (e != null) {
-				e.level.addParticle(ParticleTypes.LARGE_SMOKE, e.getX(), e.getY() + 0.1, e.getZ(), 0.0D, 0.0D, 0.0D);
-				e.level.addParticle(ParticleTypes.FLAME, e.getX(), e.getY(), e.getZ(), 0.0D, 0.0D, 0.0D);
+				e.getLevel().addParticle(ParticleTypes.LARGE_SMOKE, e.getX(), e.getY() + 0.1, e.getZ(), 0.0D, 0.0D, 0.0D);
+				e.getLevel().addParticle(ParticleTypes.FLAME, e.getX(), e.getY(), e.getZ(), 0.0D, 0.0D, 0.0D);
 			}
 			return true;
 		} else {

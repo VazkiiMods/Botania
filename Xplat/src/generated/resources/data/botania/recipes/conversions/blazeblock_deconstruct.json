@@ -2,6 +2,7 @@
   "type": "botania:gog_alternation",
   "base": {
     "type": "minecraft:crafting_shapeless",
+    "category": "misc",
     "ingredients": [
       {
         "item": "botania:blaze_block"
@@ -14,6 +15,7 @@
   },
   "gog": {
     "type": "minecraft:crafting_shapeless",
+    "category": "misc",
     "ingredients": [
       {
         "item": "botania:blaze_block"

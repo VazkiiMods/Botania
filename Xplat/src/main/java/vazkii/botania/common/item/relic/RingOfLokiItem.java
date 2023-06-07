@@ -30,6 +30,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Bound;
@@ -113,10 +114,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 			for (BlockPos cursor : cursors) {
 				BlockPos pos = hit.offset(cursor);
 				if (ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, false)) {
-					Vec3 lookHit = lookPos.getLocation();
-					Vec3 newHitVec = new Vec3(pos.getX() + Mth.frac(lookHit.x()), pos.getY() + Mth.frac(lookHit.y()), pos.getZ() + Mth.frac(lookHit.z()));
-					BlockHitResult newHit = new BlockHitResult(newHitVec, lookPos.getDirection(), pos, false);
-					UseOnContext ctx = new UseOnContext(player, hand, newHit);
+					UseOnContext ctx = getUseOnContext(player, hand, pos, lookPos.getLocation(), lookPos.getDirection());
 
 					InteractionResult result;
 					if (player.isCreative()) {
@@ -140,10 +138,17 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 		}
 	}
 
+	@NotNull
+	public static UseOnContext getUseOnContext(Player player, InteractionHand hand, BlockPos pos, Vec3 lookHit, Direction direction) {
+		Vec3 newHitVec = new Vec3(pos.getX() + Mth.frac(lookHit.x()), pos.getY() + Mth.frac(lookHit.y()), pos.getZ() + Mth.frac(lookHit.z()));
+		BlockHitResult newHit = new BlockHitResult(newHitVec, direction, pos, false);
+		return new UseOnContext(player, hand, newHit);
+	}
+
 	public static void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {
 		Item item = stack.getItem();
 		ItemStack lokiRing = getLokiRing(player);
-		if (lokiRing.isEmpty() || player.level.isClientSide || !(item instanceof SequentialBreaker breaker)) {
+		if (lokiRing.isEmpty() || player.getLevel().isClientSide || !(item instanceof SequentialBreaker breaker)) {
 			return;
 		}
 
@@ -157,9 +162,9 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 		try {
 			for (BlockPos offset : cursors) {
 				BlockPos coords = pos.offset(offset);
-				BlockState state = player.level.getBlockState(coords);
+				BlockState state = player.getLevel().getBlockState(coords);
 				breaker.breakOtherBlock(player, stack, coords, pos, side);
-				ToolCommons.removeBlockWithDrops(player, stack, player.level, coords,
+				ToolCommons.removeBlockWithDrops(player, stack, player.getLevel(), coords,
 						s -> s.is(state.getBlock()) && s.getMaterial() == state.getMaterial());
 			}
 		} finally {
@@ -194,7 +199,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 
 		if (lookPos != null
 				&& lookPos.getType() == HitResult.Type.BLOCK
-				&& !player.level.isEmptyBlock(((BlockHitResult) lookPos).getBlockPos())) {
+				&& !player.getLevel().isEmptyBlock(((BlockHitResult) lookPos).getBlockPos())) {
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getBindingCenter(stack);
 

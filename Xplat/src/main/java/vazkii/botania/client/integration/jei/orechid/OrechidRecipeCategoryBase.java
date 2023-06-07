@@ -21,13 +21,21 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
+import vazkii.botania.client.integration.shared.OrechidUIHelper;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -70,6 +78,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull OrechidRecipe recipe, @NotNull IFocusGroup focusGroup) {
+
 		builder.addSlot(RecipeIngredientRole.INPUT, 9, 12)
 				.addItemStacks(recipe.getInput().getDisplayedStacks());
 		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12).addItemStack(iconStack);
@@ -81,9 +90,38 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 
 	@Override
 	public void draw(@NotNull OrechidRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
+		final Double chance = getChance(recipe);
+		if (chance != null) {
+			final Component chanceComponent = OrechidUIHelper.getPercentageComponent(chance);
+			Font font = Minecraft.getInstance().font;
+			int xOffset = 90 - font.width(chanceComponent);
+			font.draw(ms, chanceComponent, xOffset, 1, 0x888888);
+		}
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 17, 0);
 		RenderSystem.disableBlend();
 	}
 
+	@NotNull
+	@Override
+	public List<Component> getTooltipStrings(@NotNull OrechidRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+		if (mouseX > 0.6 * background.getWidth() && mouseX < 90 && mouseY < 12) {
+			final Double chance = getChance(recipe);
+			if (chance != null) {
+				return getChanceTooltipComponents(chance, recipe).toList();
+			}
+		}
+		return Collections.emptyList();
+	}
+
+	@NotNull
+	protected Stream<Component> getChanceTooltipComponents(double chance, @NotNull OrechidRecipe recipe) {
+		final var ratio = OrechidUIHelper.getRatioForChance(chance);
+		return Stream.of(OrechidUIHelper.getRatioTooltipComponent(ratio));
+	}
+
+	@Nullable
+	protected Double getChance(@NotNull OrechidRecipe recipe) {
+		return OrechidUIHelper.getChance(recipe, null);
+	}
 }

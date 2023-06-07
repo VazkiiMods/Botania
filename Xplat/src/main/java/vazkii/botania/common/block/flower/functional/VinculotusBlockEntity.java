@@ -68,7 +68,7 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 			BlockPos activePos = flower.getEffectivePos();
 
 			if (flower.redstoneSignal > 0 || flower.getMana() <= cost
-					|| flower.getLevel() != entity.level
+					|| flower.getLevel() != entity.getLevel()
 					|| flower.getLevel().getBlockEntity(flower.getBlockPos()) != flower) {
 				continue;
 			}
@@ -83,7 +83,7 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		if (!possibleFlowers.isEmpty()) {
-			VinculotusBlockEntity flower = possibleFlowers.get(entity.level.random.nextInt(possibleFlowers.size()));
+			VinculotusBlockEntity flower = possibleFlowers.get(entity.getLevel().random.nextInt(possibleFlowers.size()));
 			BlockPos activePos = flower.getEffectivePos();
 
 			double x = activePos.getX() + 0.5;

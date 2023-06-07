@@ -18,12 +18,20 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.item.AstrolabeItem;
@@ -37,14 +45,16 @@ public final class AstrolabePreviewHandler {
 
 		for (Player player : level.players()) {
 			ItemStack currentStack = player.getMainHandItem();
+			InteractionHand hand = InteractionHand.MAIN_HAND;
 			if (currentStack.isEmpty() || !(currentStack.getItem() instanceof AstrolabeItem)) {
 				currentStack = player.getOffhandItem();
+				hand = InteractionHand.OFF_HAND;
 			}
 
 			if (!currentStack.isEmpty() && currentStack.getItem() instanceof AstrolabeItem) {
-				Block block = AstrolabeItem.getBlock(currentStack);
+				Block block = AstrolabeItem.getBlock(currentStack, level.holderLookup(Registries.BLOCK));
 				if (block != Blocks.AIR) {
-					renderPlayerLook(ms, buffer, player, currentStack);
+					renderPlayerLook(ms, buffer, player, currentStack, hand);
 				}
 			}
 		}
@@ -52,15 +62,29 @@ public final class AstrolabePreviewHandler {
 		bufferSource.endBatch(RenderHelper.ASTROLABE_PREVIEW);
 	}
 
-	private static void renderPlayerLook(PoseStack ms, VertexConsumer buffer, Player player, ItemStack stack) {
-		List<BlockPos> coords = AstrolabeItem.getBlocksToPlace(stack, player);
-		if (AstrolabeItem.hasBlocks(stack, player, coords)) {
-			BlockState state = AstrolabeItem.getBlockState(stack);
-
-			for (BlockPos coord : coords) {
-				renderBlockAt(ms, buffer, state, coord);
+	private static void renderPlayerLook(PoseStack ms, VertexConsumer buffer, Player player, ItemStack stack, InteractionHand hand) {
+		Block blockToPlace = AstrolabeItem.getBlock(stack, player.getLevel().holderLookup(Registries.BLOCK));
+		int size = AstrolabeItem.getSize(stack);
+		BlockPlaceContext ctx = AstrolabeItem.getBlockPlaceContext(player, hand, blockToPlace);
+		List<BlockPos> placePositions = AstrolabeItem.getPlacePositions(ctx, size);
+		if (ctx != null && AstrolabeItem.hasBlocks(stack, player, placePositions.size(), blockToPlace)) {
+			for (BlockPos pos : placePositions) {
+				BlockPlaceContext placeContext = getPlaceContext(player, ctx, pos);
+				BlockState state = blockToPlace.getStateForPlacement(placeContext);
+				if (state != null && placeContext.canPlace() && state.canSurvive(player.getLevel(), pos)) {
+					renderBlockAt(ms, buffer, state, pos);
+				}
 			}
 		}
+	}
+
+	@NotNull
+	private static BlockPlaceContext getPlaceContext(Player player, BlockPlaceContext ctx, BlockPos pos) {
+		Vec3 newHitVec = new Vec3(pos.getX() + Mth.frac(ctx.getClickLocation().x()),
+				pos.getY() + Mth.frac(ctx.getClickLocation().y()),
+				pos.getZ() + Mth.frac(ctx.getClickLocation().z()));
+		BlockHitResult newHit = new BlockHitResult(newHitVec, ctx.getClickedFace(), pos, false);
+		return new BlockPlaceContext(player, ctx.getHand(), ctx.getItemInHand(), newHit);
 	}
 
 	private static void renderBlockAt(PoseStack ms, VertexConsumer buffer, BlockState state, BlockPos pos) {

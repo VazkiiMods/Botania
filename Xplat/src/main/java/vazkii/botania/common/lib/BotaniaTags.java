@@ -8,8 +8,9 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -56,6 +57,8 @@ public class BotaniaTags {
 		public static final TagKey<Item> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
 
 		public static final TagKey<Item> LENS = tag("lens");
+
+		public static final TagKey<Item> LENS_GLUE = tag("lens_glue");
 
 		/**
 		 * Items in this tag cannot be pulled by the magnet rings
@@ -137,7 +140,7 @@ public class BotaniaTags {
 		}
 
 		private static TagKey<Item> tag(String name) {
-			return TagKey.create(Registry.ITEM_REGISTRY, prefix(name));
+			return TagKey.create(Registries.ITEM, prefix(name));
 		}
 	}
 
@@ -229,7 +232,7 @@ public class BotaniaTags {
 		public static final TagKey<Block> UNWANDABLE = tag("unwandable");
 
 		private static TagKey<Block> tag(String name) {
-			return TagKey.create(Registry.BLOCK_REGISTRY, prefix(name));
+			return TagKey.create(Registries.BLOCK, prefix(name));
 		}
 	}
 
@@ -245,7 +248,7 @@ public class BotaniaTags {
 		public static final TagKey<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
 
 		private static TagKey<EntityType<?>> tag(String name) {
-			return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, prefix(name));
+			return TagKey.create(Registries.ENTITY_TYPE, prefix(name));
 		}
 	}
 
@@ -282,7 +285,7 @@ public class BotaniaTags {
 		public static final TagKey<Biome> MYSTICAL_MUSHROOM_BLOCKLIST = tag("mystical_mushroom_blocklist");
 
 		private static TagKey<Biome> tag(String name) {
-			return TagKey.create(Registry.BIOME_REGISTRY, prefix(name));
+			return TagKey.create(Registries.BIOME, prefix(name));
 		}
 	}
 
@@ -298,7 +301,15 @@ public class BotaniaTags {
 		public static final TagKey<BannerPattern> PATTERN_ITEM_SPARK_ISOLATED = tag("pattern_item/spark_isolated");
 
 		private static TagKey<BannerPattern> tag(String name) {
-			return TagKey.create(Registry.BANNER_PATTERN_REGISTRY, prefix(name));
+			return TagKey.create(Registries.BANNER_PATTERN, prefix(name));
+		}
+	}
+
+	public static class DamageTypes {
+		public static final TagKey<DamageType> RING_OF_ODIN_IMMUNE = tag("ring_of_odin_immune");
+
+		private static TagKey<DamageType> tag(String name) {
+			return TagKey.create(Registries.DAMAGE_TYPE, prefix(name));
 		}
 	}
 }

@@ -11,8 +11,8 @@ package vazkii.botania.common.block.block_entity.red_string;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,7 +24,7 @@ public class RedStringNutrifierBlockEntity extends RedStringBlockEntity {
 		super(BotaniaBlockEntities.RED_STRING_FERTILIZER, pos, state);
 	}
 
-	public boolean canGrow(BlockGetter world, boolean isClient) {
+	public boolean canGrow(LevelReader world, boolean isClient) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 

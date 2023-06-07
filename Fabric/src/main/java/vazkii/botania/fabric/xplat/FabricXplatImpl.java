@@ -1,6 +1,5 @@
 package vazkii.botania.fabric.xplat;
 
-import com.google.gson.JsonObject;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
@@ -11,6 +10,8 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -30,18 +31,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -67,12 +68,15 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
@@ -99,7 +103,6 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.fabric.FabricBotaniaCreativeTab;
 import vazkii.botania.fabric.block.FabricSpecialFlowerBlock;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
@@ -110,7 +113,6 @@ import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -419,13 +421,15 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Packet<?> toVanillaClientboundPacket(BotaniaPacket packet) {
+	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet) {
 		return ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
 	}
 
 	@Override
 	public void sendToPlayer(Player player, BotaniaPacket packet) {
-		ServerPlayNetworking.send((ServerPlayer) player, packet.getFabricId(), packet.toBuf());
+		if (player instanceof ServerPlayer serverPlayer) {
+			ServerPlayNetworking.send(serverPlayer, packet.getFabricId(), packet.toBuf());
+		}
 	}
 
 	@Override
@@ -480,7 +484,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public FabricItemSettings defaultItemBuilder() {
-		return new FabricItemSettings().group(FabricBotaniaCreativeTab.INSTANCE);
+		return new FabricItemSettings();
 	}
 
 	@Override
@@ -500,8 +504,15 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Registry<Brew> createBrewRegistry() {
-		return FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
+	public Registry<Brew> getOrCreateBrewRegistry() {
+		return RegistryHolder.BREW;
+	}
+
+	// static final field of an inner class provides:
+	// - at most once initialization
+	// - synchronization/serialization of concurrent accesses
+	private static class RegistryHolder {
+		public static final Registry<Brew> BREW = FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
 	}
 
 	@Nullable
@@ -546,7 +557,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return StepHeightEntityAttributeMain.STEP_HEIGHT;
 	}
 
-	private final TagKey<Block> oreTag = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "ores"));
+	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "ores"));
 
 	@Override
 	public TagKey<Block> getOreTag() {
@@ -554,8 +565,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	// No standard so we have to check both :wacko:
-	private final TagKey<Block> cGlass = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass"));
-	private final TagKey<Block> cGlassBlocks = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_blocks"));
+	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass"));
+	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_blocks"));
 
 	@Override
 	public boolean isInGlassTag(BlockState state) {
@@ -565,11 +576,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
 		return AbstractFurnaceBlockEntityFabricAccessor.callCanBurn(recipe, items, maxStackSize);
-	}
-
-	@Override
-	public void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path) {
-		RecipeProvider.saveAdvancement(cache, json, path);
 	}
 
 	@Override
@@ -624,5 +630,15 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public RedStringContainerBlockEntity newRedStringContainer(BlockPos pos, BlockState state) {
 		return new FabricRedStringContainerBlockEntity(pos, state);
+	}
+
+	@Override
+	public BlockSetType registerBlockSetType(String name, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn) {
+		return BlockSetTypeRegistry.register(prefix(name), soundType, doorClose, doorOpen, trapdoorClose, trapdoorOpen, pressurePlateClickOff, pressurePlateClickOn, buttonClickOff, buttonClickOn);
+	}
+
+	@Override
+	public WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
+		return WoodTypeRegistry.register(prefix(name), setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen);
 	}
 }

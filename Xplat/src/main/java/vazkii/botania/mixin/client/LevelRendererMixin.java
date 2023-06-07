@@ -10,7 +10,6 @@ package vazkii.botania.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexBuffer;
-import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -22,6 +21,7 @@ import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -50,10 +50,10 @@ public class LevelRendererMixin {
 	@Nullable
 	private ClientLevel level;
 	@Unique
-	private static final Matrix4f SUN_SCALE = Matrix4f.createScaleMatrix(2F, 1F, 2F);
+	private static final Matrix4f SUN_SCALE = new Matrix4f().scale(2F, 1F, 2F);
 
 	@Unique
-	private static final Matrix4f MOON_SCALE = Matrix4f.createScaleMatrix(1.5F, 1F, 1.5F);
+	private static final Matrix4f MOON_SCALE = new Matrix4f().scale(1.5F, 1F, 1.5F);
 
 	@Unique
 	private static boolean isGogSky() {
@@ -65,7 +65,7 @@ public class LevelRendererMixin {
 	}
 
 	/**
-	 * Render planets and other extras, after the first invoke to ms.rotate(Y) after getRainStrength is called
+	 * Render planets and other extras, after the first invoke to ms.rotate(Y) after getRainLevel is called
 	 */
 	@Inject(
 		method = "renderSky",
@@ -79,7 +79,7 @@ public class LevelRendererMixin {
 			shift = At.Shift.AFTER,
 			ordinal = 0,
 			value = "INVOKE",
-			target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lcom/mojang/math/Quaternion;)V"
+			target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionf;)V"
 		),
 		require = 0
 	)
@@ -105,8 +105,9 @@ public class LevelRendererMixin {
 	)
 	private Matrix4f makeSunBigger(Matrix4f matrix) {
 		if (isGogSky()) {
-			matrix = matrix.copy();
-			matrix.multiply(SUN_SCALE);
+			// copies the matrix
+			matrix = new Matrix4f(matrix);
+			matrix.mul(SUN_SCALE);
 		}
 		return matrix;
 	}
@@ -126,7 +127,7 @@ public class LevelRendererMixin {
 	)
 	private Matrix4f makeMoonBigger(Matrix4f matrix) {
 		if (isGogSky()) {
-			matrix.multiply(MOON_SCALE);
+			matrix.mul(MOON_SCALE);
 		}
 		return matrix;
 	}

@@ -14,8 +14,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -40,6 +40,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.NeighborUpdater;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -51,10 +52,12 @@ import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
+import vazkii.botania.common.CollectingNeighborUpdaterAccess;
 import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
+import vazkii.botania.mixin.LevelAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
@@ -254,19 +257,29 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 					&& stateAt.getBlock().asItem() != replacement) {
 				float hardness = stateAt.getDestroySpeed(world, pos);
 				if (!world.isClientSide) {
-					world.destroyBlock(pos, !player.getAbilities().instabuild);
-					BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapTemplateDirection(rod), pos, false);
-					InteractionResult result = PlayerHelper.substituteUse(new UseOnContext(player, InteractionHand.MAIN_HAND, hit), placeStack);
-					// TODO: provide an use context that overrides player facing direction/yaw?
-					//  currently it pulls from the player directly
+					final NeighborUpdater neighborUpdater = ((LevelAccessor) world).getNeighborUpdater();
+					try {
+						if (neighborUpdater instanceof CollectingNeighborUpdaterAccess access) {
+							access.botania$pauseUpdates();
+						}
+						world.destroyBlock(pos, !player.getAbilities().instabuild, player);
+						BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapTemplateDirection(rod), pos, false);
+						InteractionResult result = PlayerHelper.substituteUse(new UseOnContext(player, InteractionHand.MAIN_HAND, hit), placeStack);
+						// TODO: provide an use context that overrides player facing direction/yaw?
+						//  currently it pulls from the player directly
 
-					if (!player.getAbilities().instabuild) {
-						if (result.consumesAction()) {
-							removeFromInventory(player, rod, replacement, true);
-							displayRemainderCounter(player, rod);
-						} else {
-							((ServerLevel) world).sendParticles(ParticleTypes.LARGE_SMOKE, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
-									2, 0.1, 0.1, 0.1, 0);
+						if (!player.getAbilities().instabuild) {
+							if (result.consumesAction()) {
+								removeFromInventory(player, rod, replacement, true);
+								displayRemainderCounter(player, rod);
+							} else {
+								((ServerLevel) world).sendParticles(ParticleTypes.LARGE_SMOKE, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
+										2, 0.1, 0.1, 0.1, 0);
+							}
+						}
+					} finally {
+						if (neighborUpdater instanceof CollectingNeighborUpdaterAccess access) {
+							access.botania$resumeUpdates();
 						}
 					}
 				}
@@ -380,7 +393,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	public void displayRemainderCounter(Player player, ItemStack stack) {
-		if (!player.level.isClientSide) {
+		if (!player.getLevel().isClientSide) {
 			Item item = getItemToPlace(stack);
 			int count = getInventoryItemCount(player, stack, item);
 			ItemsRemainingRenderHandler.send(player, new ItemStack(item), count);
@@ -388,11 +401,11 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	private void setItemToPlace(ItemStack stack, Item item) {
-		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, Registry.ITEM.getKey(item).toString());
+		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, BuiltInRegistries.ITEM.getKey(item).toString());
 	}
 
 	private Item getItemToPlace(ItemStack stack) {
-		return Registry.ITEM.get(ResourceLocation.tryParse(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
+		return BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
 	}
 
 	private void setHitPos(ItemStack stack, Vec3 vec) {
@@ -457,12 +470,12 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	private void setTarget(ItemStack stack, Block block) {
-		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
+		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, BuiltInRegistries.BLOCK.getKey(block).toString());
 	}
 
 	public static Block getTargetState(ItemStack stack) {
 		ResourceLocation id = new ResourceLocation(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
-		return Registry.BLOCK.get(id);
+		return BuiltInRegistries.BLOCK.get(id);
 	}
 
 	@Override
@@ -485,9 +498,9 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				target = getTargetState(stack);
 			}
 
-			if (!player.level.isEmptyBlock(bPos)) {
+			if (!player.getLevel().isEmptyBlock(bPos)) {
 				Item item = getItemToPlace(stack);
-				List<BlockPos> coordsList = getTargetPositions(player.level, stack, item, bPos, target, ((BlockHitResult) pos).getDirection());
+				List<BlockPos> coordsList = getTargetPositions(player.getLevel(), stack, item, bPos, target, ((BlockHitResult) pos).getDirection());
 				coordsList.removeIf(bPos::equals);
 				return coordsList;
 			}

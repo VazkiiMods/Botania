@@ -12,42 +12,46 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.mixin.RecipeProviderAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.jetbrains.annotations.NotNull;
 
-import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public abstract class BotaniaRecipeProvider implements DataProvider {
-	private final DataGenerator generator;
+	private final PackOutput.PathProvider recipePathProvider;
+	private final PackOutput.PathProvider advancementPathProvider;
 
-	protected BotaniaRecipeProvider(DataGenerator generator) {
-		this.generator = generator;
+	public BotaniaRecipeProvider(PackOutput packOutput) {
+		this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes");
+		this.advancementPathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
 	}
 
 	// [VanillaCopy] RecipeProvider
 	@Override
-	public void run(CachedOutput cache) {
-		Path path = this.generator.getOutputFolder();
-		Set<ResourceLocation> set = Sets.newHashSet();
-		registerRecipes((recipeJsonProvider) -> {
-			if (!set.add(recipeJsonProvider.getId())) {
-				throw new IllegalStateException("Duplicate recipe " + recipeJsonProvider.getId());
+	public @NotNull CompletableFuture<?> run(@NotNull CachedOutput cache) {
+		Set<ResourceLocation> checkDuplicates = Sets.newHashSet();
+		List<CompletableFuture<?>> output = new ArrayList<>();
+		buildRecipes((recipe) -> {
+			if (!checkDuplicates.add(recipe.getId())) {
+				throw new IllegalStateException("Duplicate recipe " + recipe.getId());
 			} else {
-				RecipeProviderAccessor.callSaveRecipe(cache, recipeJsonProvider.serializeRecipe(), path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/recipes/" + recipeJsonProvider.getId().getPath() + ".json"));
-				JsonObject jsonObject = recipeJsonProvider.serializeAdvancement();
-				if (jsonObject != null) {
-					XplatAbstractions.INSTANCE.saveRecipeAdvancement(this.generator, cache, jsonObject, path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/advancements/" + recipeJsonProvider.getAdvancementId().getPath() + ".json"));
+				output.add(DataProvider.saveStable(cache, recipe.serializeRecipe(), recipePathProvider.json(recipe.getId())));
+				JsonObject advancement = recipe.serializeAdvancement();
+				if (advancement != null) {
+					output.add(DataProvider.saveStable(cache, advancement, advancementPathProvider.json(recipe.getAdvancementId())));
 				}
 			}
 		});
+		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}
 
-	protected abstract void registerRecipes(Consumer<FinishedRecipe> consumer);
+	protected abstract void buildRecipes(Consumer<FinishedRecipe> consumer);
 }

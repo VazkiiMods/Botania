@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +27,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -58,19 +56,6 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 	}
 
 	@Override
-	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-		super.fillItemCategory(tab, list);
-		if (allowedIn(tab)) {
-			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
-				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
-				if (!brewStack.isEmpty()) {
-					list.add(brewStack);
-				}
-			}
-		}
-	}
-
-	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag adv) {
 		super.appendHoverText(stack, world, tooltip, adv);
 
@@ -95,7 +80,7 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
 		Brew brew = ((BrewItem) stack.getItem()).getBrew(stack);
-		if (brew != BotaniaBrews.fallbackBrew && living instanceof Player player && !living.level.isClientSide) {
+		if (brew != BotaniaBrews.fallbackBrew && living instanceof Player player && !living.getLevel().isClientSide) {
 			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;

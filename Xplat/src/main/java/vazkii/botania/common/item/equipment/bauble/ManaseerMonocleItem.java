@@ -14,16 +14,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComparatorBlock;
@@ -63,8 +59,8 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 			bipedModel.head.translateAndRotate(ms);
 			ms.translate(0.15, -0.2, -0.25);
 			ms.scale(0.3F, -0.3F, -0.3F);
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getId());
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getLevel(), living.getId());
 		}
 	}
 
@@ -76,8 +72,8 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 				return;
 			}
 			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
-			BlockState state = player.level.getBlockState(pos);
-			player.level.getBlockEntity(pos);
+			BlockState state = player.getLevel().getBlockState(pos);
+			player.getLevel().getBlockEntity(pos);
 
 			ItemStack dispStack = ItemStack.EMPTY;
 			String text = "";
@@ -100,7 +96,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 			int x = mc.getWindow().getGuiScaledWidth() / 2 + 15;
 			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
 
-			mc.getItemRenderer().renderAndDecorateItem(dispStack, x, y);
+			mc.getItemRenderer().renderAndDecorateItem(ms, dispStack, x, y);
 
 			mc.font.drawShadow(ms, text, x + 20, y + 4, 0xFFFFFF);
 		}

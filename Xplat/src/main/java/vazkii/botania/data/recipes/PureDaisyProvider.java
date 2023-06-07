@@ -11,8 +11,8 @@ package vazkii.botania.data.recipes;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonObject;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -32,12 +32,12 @@ import java.util.function.Consumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PureDaisyProvider extends BotaniaRecipeProvider {
-	public PureDaisyProvider(DataGenerator generator) {
-		super(generator);
+	public PureDaisyProvider(PackOutput packOutput) {
+		super(packOutput);
 	}
 
 	@Override
-	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+	public void buildRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 
 		consumer.accept(new FinishedRecipe(id("livingrock"), StateIngredientHelper.of(Blocks.STONE), BotaniaBlocks.livingrock.defaultBlockState()));
 		consumer.accept(new StateCopyingRecipe(id("livingwood"),
@@ -132,7 +132,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		@Override
 		public void serializeRecipeData(JsonObject json) {
 			json.add("input", input.serialize());
-			json.addProperty("output", Registry.BLOCK.getKey(outputState.getBlock()).toString());
+			json.addProperty("output", BuiltInRegistries.BLOCK.getKey(outputState.getBlock()).toString());
 			if (time != DEFAULT_TIME) {
 				json.addProperty("time", time);
 			}

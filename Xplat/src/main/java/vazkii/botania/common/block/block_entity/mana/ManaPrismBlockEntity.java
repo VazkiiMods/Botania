@@ -27,6 +27,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.api.mana.TinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
@@ -104,12 +105,14 @@ public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 			ItemStack lens = prism.getItem(0);
 			if (!lens.isEmpty()) {
 				Component lensName = lens.getHoverName();
-				int width = 16 + mc.font.width(lensName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2;
+				int halfWidth = (mc.font.width(lensName) + 24) / 2;
+				int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+				int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
-				mc.font.drawShadow(ms, lensName, x + 20, y + 5, -1);
-				mc.getItemRenderer().renderAndDecorateItem(lens, x, y);
+				RenderHelper.renderHUDBox(ms, centerX - halfWidth, centerY + 8, centerX + halfWidth, centerY + 28);
+
+				mc.font.drawShadow(ms, lensName, centerX - halfWidth + 22, centerY + 14, 0xFFFFFF);
+				mc.getItemRenderer().renderAndDecorateItem(ms, lens, centerX - halfWidth + 2, centerY + 10);
 			}
 		}
 	}

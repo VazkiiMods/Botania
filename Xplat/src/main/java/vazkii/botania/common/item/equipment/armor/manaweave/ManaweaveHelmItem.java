@@ -28,7 +28,7 @@ public class ManaweaveHelmItem extends ManaweaveArmorItem implements ManaDiscoun
 	private static final int MANA_PER_DAMAGE = 30;
 
 	public ManaweaveHelmItem(Properties props) {
-		super(EquipmentSlot.HEAD, props);
+		super(Type.HELMET, props);
 	}
 
 	@Override

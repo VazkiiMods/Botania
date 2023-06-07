@@ -11,10 +11,10 @@ package vazkii.botania.data;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
@@ -26,23 +26,24 @@ import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FloatingFlowerModelProvider implements DataProvider {
-	private final DataGenerator generator;
+	private final PackOutput packOutput;
 
-	public FloatingFlowerModelProvider(DataGenerator generator) {
-		this.generator = generator;
+	public FloatingFlowerModelProvider(PackOutput packOutput) {
+		this.packOutput = packOutput;
 	}
 
 	@Override
-	public void run(CachedOutput cache) throws IOException {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		List<Tuple<String, JsonElement>> jsons = new ArrayList<>();
-		for (Block b : Registry.BLOCK) {
-			ResourceLocation id = Registry.BLOCK.getKey(b);
+		for (Block b : BuiltInRegistries.BLOCK) {
+			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
 			if (LibMisc.MOD_ID.equals(id.getNamespace()) && b instanceof FloatingFlowerBlock) {
 				String name = id.getPath();
 				String nonFloat;
@@ -61,13 +62,15 @@ public class FloatingFlowerModelProvider implements DataProvider {
 				jsons.add(new Tuple<>(name, obj));
 			}
 		}
-
+		List<CompletableFuture<?>> output = new ArrayList<>();
+		PackOutput.PathProvider blocks = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/block");
+		PackOutput.PathProvider items = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/item");
 		for (Tuple<String, JsonElement> pair : jsons) {
-			Path blockPath = generator.getOutputFolder().resolve("assets/" + LibMisc.MOD_ID + "/models/block/" + pair.getA() + ".json");
-			Path itemPath = generator.getOutputFolder().resolve("assets/" + LibMisc.MOD_ID + "/models/item/" + pair.getA() + ".json");
-			DataProvider.saveStable(cache, pair.getB(), blockPath);
-			DataProvider.saveStable(cache, pair.getB(), itemPath);
+			output.add(DataProvider.saveStable(cache, pair.getB(), blocks.json(prefix(pair.getA()))));
+			output.add(DataProvider.saveStable(cache, pair.getB(), items.json(prefix(pair.getA()))));
 		}
+
+		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}
 
 	@NotNull

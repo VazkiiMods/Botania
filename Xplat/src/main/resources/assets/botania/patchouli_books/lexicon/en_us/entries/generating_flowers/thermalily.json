@@ -10,6 +10,10 @@
     },
     {
       "type": "text",
+      "text": "botania.page.thermalily1"
+    },
+    {
+      "type": "text",
       "text": "botania.page.thermalily2"
     },
     {
@@ -18,7 +22,7 @@
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.thermalily1",
+      "text": "botania.page.thermalily4",
       "recipe": "botania:petal_apothecary/thermalily"
     }
   ],

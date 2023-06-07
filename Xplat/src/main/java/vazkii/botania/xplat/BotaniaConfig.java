@@ -41,6 +41,7 @@ public class BotaniaConfig {
 		boolean debugInfo();
 		boolean referencesEnabled();
 		boolean splashesEnabled();
+		boolean useShaders();
 	}
 
 	private static ConfigAccess config = null;

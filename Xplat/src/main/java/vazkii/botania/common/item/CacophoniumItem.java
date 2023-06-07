@@ -13,7 +13,7 @@ import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.ChatFormatting;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -67,13 +67,13 @@ public class CacophoniumItem extends Item {
 			}
 
 			if (sound != null) {
-				if (!player.level.isClientSide) {
-					ItemNBTHelper.setString(stack, TAG_SOUND, Registry.SOUND_EVENT.getKey(sound).toString());
+				if (!player.getLevel().isClientSide) {
+					ItemNBTHelper.setString(stack, TAG_SOUND, BuiltInRegistries.SOUND_EVENT.getKey(sound).toString());
 					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, entity.getType().getDescriptionId());
 					player.setItemInHand(hand, stack);
 				}
 
-				return InteractionResult.sidedSuccess(player.level.isClientSide);
+				return InteractionResult.sidedSuccess(player.getLevel().isClientSide);
 			}
 		}
 
@@ -129,7 +129,7 @@ public class CacophoniumItem extends Item {
 	@Override
 	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
 		if (!world.isClientSide && count % (isDOIT(stack) ? 20 : 6) == 0) {
-			playSound(living.level, stack, living.getX(), living.getY(), living.getZ(), living.getSoundSource(), 0.9F);
+			playSound(living.getLevel(), stack, living.getX(), living.getY(), living.getZ(), living.getSoundSource(), 0.9F);
 		}
 	}
 
@@ -152,7 +152,7 @@ public class CacophoniumItem extends Item {
 			return BotaniaSounds.doit;
 		} else {
 			try {
-				return Registry.SOUND_EVENT.getOptional(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, ""))).orElse(null);
+				return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
 			} catch (ResourceLocationException ex) {
 				return null;
 			}

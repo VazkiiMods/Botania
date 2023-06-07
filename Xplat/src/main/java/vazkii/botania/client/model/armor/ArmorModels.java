@@ -44,13 +44,13 @@ public class ArmorModels {
 	public static ArmorModel get(ItemStack stack) {
 		Item item = stack.getItem();
 		if (item instanceof ManaweaveArmorItem armor) {
-			return manaweave.get(armor.getSlot());
+			return manaweave.get(armor.getEquipmentSlot());
 		} else if (item instanceof ElementiumArmorItem armor) {
-			return elementium.get(armor.getSlot());
+			return elementium.get(armor.getEquipmentSlot());
 		} else if (item instanceof TerrasteelArmorItem armor) {
-			return terrasteel.get(armor.getSlot());
+			return terrasteel.get(armor.getEquipmentSlot());
 		} else if (item instanceof ManasteelArmorItem armor) { // manasteel must be last because the other types extend from it
-			return manasteel.get(armor.getSlot());
+			return manasteel.get(armor.getEquipmentSlot());
 		}
 
 		return null;

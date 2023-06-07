@@ -39,7 +39,7 @@ public class EquestrianVirusItem extends Item {
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity living, InteractionHand hand) {
 		if (living.isAlive() && living instanceof Horse horse) {
-			if (player.level.isClientSide) {
+			if (player.getLevel().isClientSide) {
 				return InteractionResult.SUCCESS;
 			}
 			if (horse.isTamed()) {
@@ -61,8 +61,8 @@ public class EquestrianVirusItem extends Item {
 				horse.discard();
 
 				AbstractHorse newHorse = stack.is(BotaniaItems.necroVirus)
-						? EntityType.ZOMBIE_HORSE.create(player.level)
-						: EntityType.SKELETON_HORSE.create(player.level);
+						? EntityType.ZOMBIE_HORSE.create(player.getLevel())
+						: EntityType.SKELETON_HORSE.create(player.getLevel());
 				newHorse.tameWithName(player);
 				newHorse.absMoveTo(horse.getX(), horse.getY(), horse.getZ(), horse.getYRot(), horse.getXRot());
 
@@ -84,10 +84,10 @@ public class EquestrianVirusItem extends Item {
 				jumpHeight.setBaseValue(horse.getAttribute(Attributes.JUMP_STRENGTH).getBaseValue());
 				jumpHeight.addPermanentModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADDITION));
 
-				newHorse.playSound(BotaniaSounds.virusInfect, 1.0F + living.level.random.nextFloat(), living.level.random.nextFloat() * 0.7F + 1.3F);
-				newHorse.finalizeSpawn((ServerLevelAccessor) player.level, player.level.getCurrentDifficultyAt(newHorse.blockPosition()), MobSpawnType.CONVERSION, null, null);
+				newHorse.playSound(BotaniaSounds.virusInfect, 1.0F + living.getLevel().random.nextFloat(), living.getLevel().random.nextFloat() * 0.7F + 1.3F);
+				newHorse.finalizeSpawn((ServerLevelAccessor) player.getLevel(), player.getLevel().getCurrentDifficultyAt(newHorse.blockPosition()), MobSpawnType.CONVERSION, null, null);
 				newHorse.setAge(horse.getAge());
-				player.level.addFreshEntity(newHorse);
+				player.getLevel().addFreshEntity(newHorse);
 				newHorse.spawnAnim();
 
 				stack.shrink(1);
@@ -103,7 +103,7 @@ public class EquestrianVirusItem extends Item {
 		}
 
 		if ((entity instanceof ZombieHorse || entity instanceof SkeletonHorse)
-				&& source == DamageSource.FALL
+				&& source == entity.damageSources().fall()
 				&& ((AbstractHorse) entity).isTamed()) {
 			return true;
 		}

@@ -1,7 +1,7 @@
 package vazkii.botania.client.render;
 
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
@@ -44,7 +44,7 @@ public final class BlockRenderLayers {
 		consumer.accept(BotaniaBlocks.infrangiblePlatform, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.spectralPlatform, RenderType.translucent());
 
-		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
+		BuiltInRegistries.BLOCK.stream().filter(b -> BuiltInRegistries.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
 					if (b instanceof FloatingFlowerBlock || b instanceof FlowerBlock
 							|| b instanceof TallFlowerBlock || b instanceof BotaniaMushroomBlock) {

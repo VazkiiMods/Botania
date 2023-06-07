@@ -64,12 +64,15 @@ message.
 6. Go to [Jenkins](https://ci.blamejared.com/job/Violet%20Moon/job/Botania/view/tags/) and
    wait for the tag you just pushed to be compiled and built
 7. Download the JAR and submit it to CurseForge and Modrinth
-8. Push the website: `./syncweb.sh <remote username>`. If you don't provide a remote
+8. Push the website: `scripts/syncweb.sh <remote username>`. If you don't provide a remote
    username to ssh into the webserver, it'll take your current login name.
+9. Send an announcement email to `~williewillus/violet-moon-announce@lists.sr.ht`. Check
+   the list archives for examples of how to format the email. Post a link to the email in
+   the #mod_updates Discord channel.
 
 ## Working with GameTest
 1. Create a structure if wanted:
-   1. Run /test create <size> to generate a test platform of the desired size. IMPORTANT:
+   1. Run `/test create <size>` to generate a test platform of the desired size. IMPORTANT:
       All tests should size themselves appropriately to ensure they don't interfere with
       other tests. E.g. a test testing a block with max radius 8 should leave at least 8
       blocks of room on all sides.

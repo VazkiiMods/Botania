@@ -10,26 +10,27 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<PetalApothecaryBlockEntity> {
 	private final BlockRenderDispatcher blockRenderDispatcher;
@@ -74,7 +75,7 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 					for (int i = 0; i < petals; i++) {
 						float offset = offsetPerPetal * i;
 						float deg = (int) (ticks / rotationModifier % 360F + offset);
-						float rad = deg * (float) Math.PI / 180F;
+						float rad = VecHelper.toRadians(deg);
 						float radiusX = (float) (radiusBase + radiusMod * Math.sin(ticks / modifier));
 						float radiusZ = (float) (radiusBase + radiusMod * Math.cos(ticks / modifier));
 						float x = (float) (radiusX * Math.cos(rad));
@@ -89,13 +90,13 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 
 						v /= 2F;
 						ms.translate(v, v, v);
-						ms.mulPose(new Vector3f(xRotate, yRotate, zRotate).rotationDegrees(deg));
+						ms.mulPose(new Quaternionf().rotateAxis(rad, xRotate, yRotate, zRotate));
 						ms.translate(-v, -v, -v);
 						v *= 2F;
 
 						ItemStack stack = altar.getItemHandler().getItem(i);
-						Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
-								light, overlay, ms, buffers, 0);
+						Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+								light, overlay, ms, buffers, altar.getLevel(), 0);
 						ms.popPose();
 					}
 
@@ -106,7 +107,7 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 			float alpha = lava ? 1F : 0.7F;
 
 			ms.translate(-8 / 16F, -0.3125F, -8 / 16F);
-			ms.mulPose(Vector3f.XP.rotationDegrees(90));
+			ms.mulPose(VecHelper.rotateX(90));
 			ms.scale(1 / 16F, 1 / 16F, 1 / 16F);
 
 			TextureAtlasSprite sprite = lava ? this.blockRenderDispatcher.getBlockModel(Blocks.LAVA.defaultBlockState()).getParticleIcon()

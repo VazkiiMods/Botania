@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
@@ -26,7 +26,7 @@ public interface RunicAltarRecipe extends Recipe<Container> {
 	@NotNull
 	@Override
 	default RecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
+		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
 	}
 
 	@Override

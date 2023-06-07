@@ -52,7 +52,7 @@ public class PinkWitherEntity extends WitherBoss {
 				double x = ((WitherEntityAccessor) this).botania_getHeadX(j);
 				double y = ((WitherEntityAccessor) this).botania_getHeadY(j);
 				double z = ((WitherEntityAccessor) this).botania_getHeadZ(j);
-				level.addParticle(ParticleTypes.HEART, x + random.nextGaussian() * 0.3, y + random.nextGaussian() * 0.3, z + random.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
+				getLevel().addParticle(ParticleTypes.HEART, x + random.nextGaussian() * 0.3, y + random.nextGaussian() * 0.3, z + random.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}

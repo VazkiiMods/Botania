@@ -4,14 +4,19 @@ import dev.emi.emi.api.EmiApi;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiCraftingRecipe;
+import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
+import dev.emi.emi.api.render.EmiRenderable;
 import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+
+import org.apache.commons.lang3.StringUtils;
 
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
@@ -25,11 +30,13 @@ import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.crafting.MarimorphosisRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.StreamSupport;
@@ -37,26 +44,45 @@ import java.util.stream.StreamSupport;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BotaniaEmiPlugin implements EmiPlugin {
-	public static EmiRecipeCategory PETAL_APOTHECARY = new EmiRecipeCategory(prefix("petal_apothecary"),
-			EmiStack.of(BotaniaBlocks.defaultAltar));
-	public static EmiRecipeCategory MANA_INFUSION = new EmiRecipeCategory(prefix("mana_infusion"),
-			EmiStack.of(BotaniaBlocks.manaPool));
-	public static EmiRecipeCategory RUNIC_ALTAR = new EmiRecipeCategory(prefix("runic_altar"),
-			EmiStack.of(BotaniaBlocks.runeAltar));
-	public static EmiRecipeCategory TERRESTRIAL_AGGLOMERATION = new EmiRecipeCategory(prefix("terrestrial_agglomeration"),
-			EmiStack.of(BotaniaBlocks.terraPlate));
-	public static EmiRecipeCategory ELVEN_TRADE = new EmiRecipeCategory(prefix("elven_trade"),
-			EmiStack.of(BotaniaBlocks.alfPortal));
-	public static EmiRecipeCategory BOTANICAL_BREWERY = new EmiRecipeCategory(prefix("botanical_brewery"),
-			EmiStack.of(BotaniaBlocks.brewery));
-	public static EmiRecipeCategory PURE_DAISY = new EmiRecipeCategory(prefix("pure_daisy"),
-			EmiStack.of(BotaniaFlowerBlocks.pureDaisy));
-	public static EmiRecipeCategory ORECHID = new EmiRecipeCategory(prefix("orechid"),
-			EmiStack.of(BotaniaFlowerBlocks.orechid));
-	public static EmiRecipeCategory ORECHID_IGNEM = new EmiRecipeCategory(prefix("orechid_ignem"),
-			EmiStack.of(BotaniaFlowerBlocks.orechidIgnem));
-	public static EmiRecipeCategory MARIMORPHOSIS = new EmiRecipeCategory(prefix("marimorphosis"),
-			EmiStack.of(BotaniaFlowerBlocks.marimorphosis));
+	private static final Comparator<EmiRecipe> BY_ID = Comparator.comparing(EmiRecipe::getId);
+	private static final Comparator<EmiRecipe> BY_GROUP =
+			Comparator.comparing(emiRecipe -> emiRecipe instanceof BotaniaEmiRecipe ber ? ber.getGroup() : "");
+	private static final Comparator<EmiRecipe> BY_CATALYST =
+			Comparator.comparing(emiRecipe -> emiRecipe.getCatalysts()
+					.stream()
+					.flatMap(emiIngredient -> emiIngredient.getEmiStacks().stream())
+					.map(emiStack -> emiStack.getId().toString())
+					.filter(StringUtils::isNotEmpty)
+					.findFirst()
+					.orElse(""));
+	private static final Comparator<EmiRecipe> BY_WEIGHT = Comparator.<EmiRecipe, Integer>comparing(
+			emiRecipe -> emiRecipe instanceof OrechidEmiRecipe orechidEmiRecipe ? orechidEmiRecipe.getWeight() : 0).reversed();
+	private static final Comparator<EmiRecipe> ORECHID_COMPARATOR = BY_WEIGHT.thenComparing(BY_ID);
+
+	public static final EmiRecipeCategory PETAL_APOTHECARY = createCategory("petal_apothecary",
+			EmiStack.of(BotaniaBlocks.defaultAltar), BY_ID);
+	public static final EmiRecipeCategory MANA_INFUSION = createCategory("mana_infusion",
+			EmiStack.of(BotaniaBlocks.manaPool), BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID));
+	public static final EmiRecipeCategory RUNIC_ALTAR = createCategory("runic_altar",
+			EmiStack.of(BotaniaBlocks.runeAltar), BY_ID);
+	public static final EmiRecipeCategory TERRESTRIAL_AGGLOMERATION = createCategory("terrestrial_agglomeration",
+			EmiStack.of(BotaniaBlocks.terraPlate), BY_ID);
+	public static final EmiRecipeCategory ELVEN_TRADE = createCategory("elven_trade",
+			EmiStack.of(BotaniaBlocks.alfPortal), BY_ID);
+	public static final EmiRecipeCategory BOTANICAL_BREWERY = createCategory("botanical_brewery",
+			EmiStack.of(BotaniaBlocks.brewery), BY_ID);
+	public static final EmiRecipeCategory PURE_DAISY = createCategory("pure_daisy",
+			EmiStack.of(BotaniaFlowerBlocks.pureDaisy), BY_ID);
+	public static final EmiRecipeCategory ORECHID = createCategory("orechid",
+			EmiStack.of(BotaniaFlowerBlocks.orechid), ORECHID_COMPARATOR);
+	public static final EmiRecipeCategory ORECHID_IGNEM = createCategory("orechid_ignem",
+			EmiStack.of(BotaniaFlowerBlocks.orechidIgnem), ORECHID_COMPARATOR);
+	public static final EmiRecipeCategory MARIMORPHOSIS = createCategory("marimorphosis",
+			EmiStack.of(BotaniaFlowerBlocks.marimorphosis), ORECHID_COMPARATOR);
+
+	private static EmiRecipeCategory createCategory(String idPath, EmiRenderable icon, Comparator<EmiRecipe> comp) {
+		return new EmiRecipeCategory(prefix(idPath), icon, icon, comp);
+	}
 
 	@Override
 	public void register(EmiRegistry registry) {
@@ -85,16 +111,9 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.craftingHalo));
 		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.autocraftingHalo));
 
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.defaultAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.desertAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.forestAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.fungalAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.mesaAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.mossyAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.mountainAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.plainsAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.swampAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.taigaAltar));
+		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
+			registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(apothecary));
+		}
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.manaPool));
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.dilutedPool));
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.fabulousPool));
@@ -133,7 +152,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		))));
 
 		registry.addRecipe(new CompositeLensEmiRecipe(
-				StreamSupport.stream(Registry.ITEM.getOrCreateTag(BotaniaTags.Items.LENS).spliterator(), false)
+				StreamSupport.stream(BuiltInRegistries.ITEM.getOrCreateTag(BotaniaTags.Items.LENS).spliterator(), false)
 						.map(ItemStack::new)
 						.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
 						.filter(s -> ((LensItem) s.getItem()).isCombinable(s))
@@ -182,8 +201,8 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, flower));
 		}
 		flower = EmiStack.of(BotaniaFlowerBlocks.marimorphosis);
-		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
-			registry.addRecipe(new OrechidEmiRecipe(MARIMORPHOSIS, recipe, flower));
+		for (MarimorphosisRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
+			registry.addRecipe(new MarimorphosisEmiRecipe(recipe, flower));
 		}
 	}
 

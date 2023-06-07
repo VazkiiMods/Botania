@@ -111,7 +111,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 		return BotaniaRecipeTypes.PURE_DAISY_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<PureDaisyRecipe> {
+	public static class Serializer implements RecipeSerializer<PureDaisyRecipe> {
 		@NotNull
 		@Override
 		public PureDaisyRecipe fromJson(@NotNull ResourceLocation id, JsonObject object) {

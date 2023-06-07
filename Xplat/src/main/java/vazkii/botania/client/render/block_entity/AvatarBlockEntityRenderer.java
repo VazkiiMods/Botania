@@ -10,16 +10,15 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -31,6 +30,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.AvatarModel;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBlockEntity> {
@@ -53,7 +53,7 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 
 		ms.translate(0.5F, 1.6F, 0.5F);
 		ms.scale(1F, -1F, -1F);
-		ms.mulPose(Vector3f.YP.rotationDegrees(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, facing.get3DDataValue() - 2), 0)]));
+		ms.mulPose(VecHelper.rotateY(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, facing.get3DDataValue() - 2), 0)]));
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
 		model.renderToBuffer(ms, buffer, light, overlay, 1, 1, 1, 1);
 
@@ -64,9 +64,9 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 				float s = 0.6F;
 				ms.scale(s, s, s);
 				ms.translate(-0.5F, 2F, -0.25F);
-				ms.mulPose(Vector3f.XP.rotationDegrees(-70));
-				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
-						light, overlay, ms, buffers, 0);
+				ms.mulPose(VecHelper.rotateX(-70));
+				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND,
+						light, overlay, ms, buffers, avatar.getLevel(), 0);
 				ms.popPose();
 
 				AvatarWieldable wieldable = XplatAbstractions.INSTANCE.findAvatarWieldable(stack);

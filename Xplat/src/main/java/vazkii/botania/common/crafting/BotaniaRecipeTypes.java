@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.crafting;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
+import vazkii.botania.common.crafting.recipe.NoOpRecipeSerializer;
 import vazkii.botania.common.crafting.recipe.StateCopyingPureDaisyRecipe;
 import vazkii.botania.mixin.RecipeManagerAccessor;
 
@@ -33,7 +33,7 @@ public class BotaniaRecipeTypes {
 
 	public static final RecipeType<vazkii.botania.api.recipe.ElvenTradeRecipe> ELVEN_TRADE_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<ElvenTradeRecipe> ELVEN_TRADE_SERIALIZER = new ElvenTradeRecipe.Serializer();
-	public static final SimpleRecipeSerializer<LexiconElvenTradeRecipe> LEXICON_ELVEN_TRADE_SERIALIZER = new SimpleRecipeSerializer<>(LexiconElvenTradeRecipe::new);
+	public static final RecipeSerializer<LexiconElvenTradeRecipe> LEXICON_ELVEN_TRADE_SERIALIZER = new NoOpRecipeSerializer<>(LexiconElvenTradeRecipe::new);
 
 	public static final RecipeType<vazkii.botania.api.recipe.PureDaisyRecipe> PURE_DAISY_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<PureDaisyRecipe> PURE_DAISY_SERIALIZER = new PureDaisyRecipe.Serializer();
@@ -93,7 +93,7 @@ public class BotaniaRecipeTypes {
 	private static class ModRecipeType<T extends Recipe<?>> implements RecipeType<T> {
 		@Override
 		public String toString() {
-			return Registry.RECIPE_TYPE.getKey(this).toString();
+			return BuiltInRegistries.RECIPE_TYPE.getKey(this).toString();
 		}
 	}
 

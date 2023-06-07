@@ -13,13 +13,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -86,12 +84,12 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 	public void tick() {
 		Entity thrower = getOwner();
 		if (!(thrower instanceof Player player) || !thrower.isAlive()) {
-			if (!level.isClientSide) {
+			if (!getLevel().isClientSide) {
 				discard();
 			}
 			return;
 		}
-		if (!level.isClientSide) {
+		if (!getLevel().isClientSide) {
 			ItemStack stack = PlayerHelper.getFirstHeldItem(player, BotaniaItems.kingKey);
 			boolean newCharging = !stack.isEmpty() && KeyOfTheKingsLawItem.isCharging(stack);
 			if (isCharging() != newCharging) {
@@ -111,13 +109,13 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 			int chargeTime = getChargeTicks();
 			setChargeTicks(chargeTime + 1);
 
-			if (level.random.nextInt(20) == 0) {
-				level.playSound(null, getX(), getY(), getZ(), BotaniaSounds.babylonSpawn, SoundSource.PLAYERS, 0.1F, 1F + level.random.nextFloat() * 3F);
+			if (getLevel().random.nextInt(20) == 0) {
+				getLevel().playSound(null, getX(), getY(), getZ(), BotaniaSounds.babylonSpawn, SoundSource.PLAYERS, 0.1F, 1F + getLevel().random.nextFloat() * 3F);
 			}
 		} else {
 			if (liveTime < delay) {
 				setDeltaMovement(Vec3.ZERO);
-			} else if (liveTime == delay && player != null) {
+			} else if (liveTime == delay) {
 				Vec3 playerLook;
 				BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 64, true);
 				if (rtr.getType() != HitResult.Type.BLOCK) {
@@ -129,24 +127,20 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 				Vec3 thisVec = VecHelper.fromEntityCenter(this);
 
 				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
-				level.playSound(null, getX(), getY(), getZ(), BotaniaSounds.babylonAttack, SoundSource.PLAYERS, 2F, 0.1F + level.random.nextFloat() * 3F);
+				getLevel().playSound(null, getX(), getY(), getZ(), BotaniaSounds.babylonAttack, SoundSource.PLAYERS, 2F, 0.1F + getLevel().random.nextFloat() * 3F);
 			}
 
-			if (!level.isClientSide) {
+			if (!getLevel().isClientSide) {
 				setLiveTicks(liveTime + 1);
 				AABB axis = new AABB(getX(), getY(), getZ(), xOld, yOld, zOld).inflate(2);
-				List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, axis);
+				List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, axis);
 				for (LivingEntity living : entities) {
 					if (living == thrower) {
 						continue;
 					}
 
 					if (living.hurtTime == 0) {
-						if (player != null) {
-							living.hurt(DamageSource.playerAttack(player), 20);
-						} else {
-							living.hurt(DamageSource.GENERIC, 20);
-						}
+						living.hurt(getLevel().damageSources().playerAttack(player), 20);
 						onHit(new EntityHitResult(living));
 						return;
 					}
@@ -159,12 +153,12 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 		// Apply after super tick so drag is not applied by super
 		setDeltaMovement(mot);
 
-		if (level.isClientSide && liveTime > delay) {
+		if (getLevel().isClientSide && liveTime > delay) {
 			WispParticleData data = WispParticleData.wisp(0.3F, 1F, 1F, 0F, 1);
-			level.addParticle(data, getX(), getY(), getZ(), 0, -0F, 0);
+			getLevel().addParticle(data, getX(), getY(), getZ(), 0, -0F, 0);
 		}
 
-		if (!level.isClientSide && liveTime > 200 + delay) {
+		if (!getLevel().isClientSide && liveTime > 200 + delay) {
 			discard();
 		}
 	}
@@ -184,8 +178,8 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 	}
 
 	private void explodeAndDie() {
-		if (!level.isClientSide) {
-			level.explode(this, getX(), getY(), getZ(), 3F, Explosion.BlockInteraction.NONE);
+		if (!getLevel().isClientSide) {
+			getLevel().explode(this, getX(), getY(), getZ(), 3F, Level.ExplosionInteraction.NONE);
 			discard();
 		}
 	}

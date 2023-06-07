@@ -14,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -53,14 +54,14 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 
 	@NotNull
 	@Override
-	public final ItemStack getResultItem() {
+	public final ItemStack getResultItem(@NotNull RegistryAccess registries) {
 		return output;
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv) {
-		return getResultItem().copy();
+	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+		return getResultItem(registries).copy();
 	}
 
 	@NotNull
@@ -92,7 +93,7 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 		return mana;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RunicAltarRecipe> {
+	public static class Serializer implements RecipeSerializer<RunicAltarRecipe> {
 		@NotNull
 		@Override
 		public RunicAltarRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
@@ -123,7 +124,7 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 			for (Ingredient input : recipe.getIngredients()) {
 				input.toNetwork(buf);
 			}
-			buf.writeItem(recipe.getResultItem());
+			buf.writeItem(recipe.output);
 			buf.writeVarInt(recipe.getManaUsage());
 		}
 	}

@@ -9,18 +9,18 @@
 package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.block_entity.AnimatedTorchBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Random;
 
@@ -46,15 +46,15 @@ public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<Ani
 		ms.translate(xt, yt, zt);
 
 		ms.scale(2, 2, 2);
-		ms.mulPose(Vector3f.XP.rotationDegrees(90));
+		ms.mulPose(VecHelper.rotateX(90));
 		float rotation = (float) te.rotation;
 		if (te.rotating) {
 			rotation += te.anglePerTick * partialTicks;
 		}
 
-		ms.mulPose(Vector3f.ZP.rotationDegrees(rotation));
-		mc.getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH), ItemTransforms.TransformType.GROUND,
-				light, overlay, ms, buffers, 0);
+		ms.mulPose(VecHelper.rotateZ(rotation));
+		mc.getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH), ItemDisplayContext.GROUND,
+				light, overlay, ms, buffers, te.getLevel(), 0);
 		ms.popPose();
 	}
 

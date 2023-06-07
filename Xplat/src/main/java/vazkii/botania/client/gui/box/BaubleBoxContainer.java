@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BaubleBoxItem;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -40,7 +41,7 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 
 		this.box = box;
 		Container baubleBoxInv;
-		if (!playerInv.player.level.isClientSide) {
+		if (!playerInv.player.getLevel().isClientSide) {
 			baubleBoxInv = BaubleBoxItem.getInventory(box);
 		} else {
 			baubleBoxInv = new SimpleContainer(BaubleBoxItem.SIZE);
@@ -121,4 +122,11 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 		return itemstack;
 	}
 
+	@Override
+	public void removed(@NotNull Player player) {
+		if (!player.getLevel().isClientSide) {
+			ItemNBTHelper.setBoolean(box, BaubleBoxItem.TAG_OPEN, false);
+		}
+		super.removed(player);
+	}
 }

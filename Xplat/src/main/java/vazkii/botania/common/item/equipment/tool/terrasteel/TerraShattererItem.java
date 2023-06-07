@@ -11,7 +11,6 @@ package vazkii.botania.common.item.equipment.tool.terrasteel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -75,21 +74,6 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	}
 
 	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
-		if (allowedIn(tab)) {
-			for (int mana : CREATIVE_MANA) {
-				ItemStack stack = new ItemStack(this);
-				setMana(stack, mana);
-				list.add(stack);
-			}
-			ItemStack stack = new ItemStack(this);
-			setMana(stack, CREATIVE_MANA[1]);
-			setTipped(stack);
-			list.add(stack);
-		}
-	}
-
-	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		Component rank = Component.translatable("botania.rank" + getLevel(stack));
 		Component rankFormat = Component.translatable("botaniamisc.toolRank", rank);
@@ -146,7 +130,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	@SoftImplement("IForgeItem")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
-		if (!player.level.isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
+		if (!player.getLevel().isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
 			Direction face = raycast.getDirection();
 			breakOtherBlock(player, stack, pos, pos, face);
 			if (player.isSecondaryUseActive()) {
@@ -168,7 +152,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 			return;
 		}
 
-		Level world = player.level;
+		Level world = player.getLevel();
 		Predicate<BlockState> canMine = state -> {
 			boolean rightToolForDrops = !state.requiresCorrectToolForDrops() || stack.isCorrectToolForDrops(state);
 			boolean rightToolForSpeed = stack.getDestroySpeed(state) > 1

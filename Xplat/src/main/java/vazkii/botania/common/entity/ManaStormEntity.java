@@ -10,11 +10,11 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -50,7 +50,7 @@ public class ManaStormEntity extends Entity {
 
 		int diffTime = Math.max(1, 30 - (int) (liveTime / 45f));
 		if (burstsFired < TOTAL_BURSTS && liveTime % diffTime == 0) {
-			if (!level.isClientSide) {
+			if (!getLevel().isClientSide) {
 				spawnBurst();
 			}
 			burstsFired++;
@@ -60,13 +60,13 @@ public class ManaStormEntity extends Entity {
 			deathTime++;
 			if (deathTime >= DEATH_TIME) {
 				discard();
-				level.explode(this, getX(), getY(), getZ(), 8F, true, Explosion.BlockInteraction.DESTROY);
+				getLevel().explode(this, getX(), getY(), getZ(), 8F, true, Level.ExplosionInteraction.BLOCK);
 			}
 		}
 	}
 
 	private void spawnBurst() {
-		ManaBurstEntity burst = BotaniaEntities.MANA_BURST.create(level);
+		ManaBurstEntity burst = BotaniaEntities.MANA_BURST.create(getLevel());
 		burst.setPos(getX(), getY(), getZ());
 
 		float motionModifier = 0.5F;
@@ -81,7 +81,7 @@ public class ManaStormEntity extends Entity {
 
 		Vec3 motion = new Vec3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().scale(motionModifier);
 		burst.setDeltaMovement(motion);
-		level.addFreshEntity(burst);
+		getLevel().addFreshEntity(burst);
 	}
 
 	@Override
@@ -100,9 +100,8 @@ public class ManaStormEntity extends Entity {
 		cmp.putInt(TAG_DEATH_TIME, deathTime);
 	}
 
-	@NotNull
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(this);
 	}
 

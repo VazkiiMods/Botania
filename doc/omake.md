@@ -39,6 +39,24 @@ according to plan.
 * Likes: Data, programming socks, Clojure and Julia programming languages
 * Dislikes: R, MATLAB, people who think correlation means causation
 
+From a young age, Manastar has loved making observations about the world around her. She
+would keep a detailed notebook full of tables and plots of happenings she had observed
+around her, from the number of children on the bus to school that day, to how many steps
+it took to get from History class to the Band Hall, to the average number of tater tots
+the lunch lady would give to her over the course of the semester.
+
+It was to no one's surprise then, that she became enamored in data science, probability,
+and statistics, going to a prestigious school for a Data Science degree and later becoming
+an analyst for Mana Corp.
+
+Manastar has endless passion for data science, so outside of work, she continues
+contributing to open data science frameworks, and collecting and analyzing data from her
+daily life. Now it was things like the number of students studying data science, the
+number of steps in her daily commute to work, and the average length of time kisses with
+her girlfriend last.
+
+(Her girlfriend doesn't mind, and finds Manastar's nerdiness absolutely adorable.)
+
 ## Daybloom
 * Gender: Male (he/him)
 * Physical symbols: Setting Sun
@@ -177,10 +195,17 @@ show their love by purchasing the band's old records and merch.
 * Likes: Spicy food, naps, meadows
 * Dislikes: Anything that disrupts the above
 
-Endoflame is a kid who has gained a modest following online for their ability to stoically
-eat literally anything and everything spicy, up to and including actual flaming chunks of
-coal. In real life, though, they're a bit lazy, and they don't really have many
-aspirations beyond getting to eat the next spicy thing.
+Endoflame is a teenager who has gained a modest following online for their ability to
+stoically eat literally anything and everything spicy, up to and including actual flaming
+chunks of coal. They discovered this genius talent during an *incident* in which an entire
+bottle of Sichuan peppercorn and chili pepper fell into their soup and they finished the
+soup without so much as a hiccup.
+
+Their friends at school are extremely jealous of Endoflame's ability, and Endoflame loves
+to demonstrate for others in turn.
+
+Beyond that, however, they're a bit lazy, and they don't really have many aspirations
+beyond getting to eat the next spicy thing.
 
 ## Thermalily
 * Gender: Female (she/her)
@@ -189,13 +214,13 @@ aspirations beyond getting to eat the next spicy thing.
 * Dislikes: Trolls, their followers that send them weird messages
 
 Many find Thermalily, a small-time CorporeaNet entertainer, to be hot as hell at first --
-before they meet the streamer's fiery temper. While they meant to be a variety YouSparker
-at first, they were soon inspired by the Endoflame's adventures in spice to take on the
-challenges of sampling various hot-sauces for themself.
+before they meet the streamer's fiery temper. While she meant to be a variety YouSparker
+at first, she was soon inspired by classmate Endoflame's adventures in spice to take on
+the challenges of sampling various hot-sauces for herself.
 
-However, despite all their attempts, their spice tolerance has stayed atrocious, and after
-every sampling they invariably need a five-minute break, often accompanied by loud
-cursing.
+However, despite all her attempts, her spice tolerance has stayed atrocious, and after
+every sampling she invariably needs a break (often up to five minutes in length), usually
+accompanied by loud cursing and fuming.
 
 ## Rosa Arcana
 * Gender: Male (he/him)
@@ -205,14 +230,14 @@ cursing.
 
 Idea: TTRPG nerd
 Yes, his name has "Rosa" in it. No, he doesn't care.
-
+	
 ## Munchdew
 * Gender:
 * Physical symbols: Head of lettuce
 * Likes: Tofu, soybeans
 * Dislikes: PETA, meat, snake-oil health products
 
-Idea: Hardcore vegan
+Idea: Hardcore vegan, but also co-invented Munchdew-y decimal system alongside Labellia lol
 
 ## Entropinnyum
 * Gender: We asked them and they proudly handed us a card which was too singed to read
@@ -247,12 +272,26 @@ Idea: Sweets connoisseur that somehow is immune to diabetes
 Idea: Nutritionist
 
 ## Narslimmus
-* Gender:
-* Physical symbols:
-* Likes:
+* Gender: Male (he/him)
+* Physical symbols: Glue, pipes
+* Likes: Trampolines, mushrooms, Go Karts, cute girls
 * Dislikes: Scaly reptiles, particularly turtles
 
-Idea: plumber/adventurer
+Narslimmus is your friendly neighborhood plumber. He offers services at a fraction of the
+price of the neighboring Home Storehouse and Wowe's home improvement stores, does a
+quality job, even going so far as to refuse any payment until the job was done.
+
+"I'm confident that you'll be willing to pay for my services!"
+
+Is what he would tell bewildered clients when explaining why he took no deposits.
+
+When not working, he enjoys jumping on trampolines, foraging for mushrooms, and working on
+his Go Kart, which he drives everywhere in lieu of a standard vehicle.
+
+In perhaps what is a surprising twist given his field of employment, Narslimmus has quite
+a soft heart and loves browsing for adorable and wholesome content on the internet. He's
+still quite young, single, and thus often dreams of meeting a cute girl to pamper and
+treat respectfully as his girlfriend.
 
 ## Spectrolus
 * Gender: Fluid; varies based on day, mood, phase of the moon, most recent syzygy, and/or
@@ -272,12 +311,31 @@ Although Spectrolus usually tries to eat a varied vegetarian diet, mutton is a g
 pleasure of theirs, and Spectrolus will scarf it down whenever given the opportunity.
 
 ## Rafflowsia
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes:
+* Gender: None
+* Physical symbols: Lantern, Scythe
+* Likes: The little things in life
+* Dislikes: None
 
-Idea: coroner
+The elegance of all things. The impermanence of all things. The fleeting briefness of
+life. These were ideas that Rafflowsia had begun to grasp since they started working at a
+funeral home as a funeral director.
+
+Day after day, families of deceased flowers would come into the funeral home to pay their
+last respects and send their loved ones to the everafter, and Rafflowsia would watch them
+quietly, taking in each unique situation and pondering it.
+
+Rafflowsia had seen services where the so-called "family" was already at each other's
+throats over the inheritance. Services where someone all-to-young was taken from the
+world, services where a despised villain finally met their end. Services where nary a
+person was present besides the deceased's spouse. Services where the hall was packed with
+family, friends, and students returning from afar to pay their respects to someone who had
+changed their lives.
+
+Life was short, impermanent, and cruel, yet also elegant, beautiful, and passionate.
+Twinged with melancholy and sadness, yet full of things worth living for.
+
+Rafflowsia strove to embody this wistful yet optimistic mindset, in order to make their
+life one well-worth living.
 
 ## Dandelifeon
 * Gender: We asked and they enthusiastically gave us a lecture (with diagrams) on the
@@ -301,12 +359,28 @@ people online (often getting into pointless debates about programming languages 
 Heisei Dream), and watching nerdy TV shows.
 
 ## Shulk Me Not
-* Gender:
-* Physical symbols:
-* Likes:
+* Gender: Female (she/her)
+* Physical symbols: Crown
+* Likes: Esports, Touhou, osu!
 * Dislikes: Games that don't require thinking or skill
 
-Idea: likes hobbies with high skill ceiling (sports, skill games, etc.)
+Shulk-Me-Not is a professional esports player currently at the peak of her career. Though
+the game she's competed in has changed over time, what has always been a constant is her
+hypercompetitive nature, absolute confidence, and undeniable skill.
+
+She loves basking in the glory and fame that comes with being a skilled player, and it is
+common to see her on promotional videos with the league, to the point where she is even
+sometimes seen as the figurehead of esports. This is what peak performance looks like.
+
+Because of this, teams scramble to one-up each other with larger and larger payments, in
+order to nab her as their ace and team leader. This sometimes doesn't work out well,
+though, as Shulk-Me-Not's direct and often abrasive personality can be difficult to mesh
+with in a team setting. One of the most respected members of the team was once left in
+tears after he was berated by Shulk-Me-Not for missing a critical attack.
+
+Precisely due to this focus on skill and high-achievement, Shulk-Me-Not is best friends
+with Pure Daisy, and when not busy with work the two can often be found testing their
+danmaku skills against each other in *Touhou 9: Phantasmagoria of Flower View*.
 
 ## Jaded Amaranthus
 * Gender:
@@ -381,14 +455,26 @@ Idea: miner
 Idea: Orechid's senior
 
 ## Fallen Kanade
-* Gender:
+* Gender: Canadian
 * Physical symbols: Maple syrup (only the best)
-* Likes:
-* Dislikes: 
+* Likes: Their mates
+* Dislikes: People from the USA acting superior to Canadians
 
-Idea: Canadian
+Fallen Kanade is a stereotypical Canadian through and through. They are immune to the cold
+(and have been wearing shorts in temperatures well below -20C), have an endless obsession
+with maple syrup, and visit Tim Hartin's daily.
 
+Fallen Kanade's friends from other countries tease them about this incessantly, though
+Fallen Kanade doesn't mind too much. In their opinion, such stereotypes were ones they
+were proud to fit into. They were proud of their bodily strength, their country's
+dedication to quality maple syrup, and their country's own homegrown chain of stores.
 
+One stereotype Fallen Kanade doesn't fit into, however, is excessive politeness. From a
+young age, Fallen Kanade learned the hard way that being excessively deferential and
+conflict-avoiding was a quick path to being taken advantage of. Instead, Fallen Kanade is
+polite and friendly, but knows when to assert themself when things come down to the wire.
+
+Overall a very pleasant mate to hang out with.
 
 ## Exoflame
 * Gender: Tastefully done eyeliner that renders their features extra androgynous
@@ -426,11 +512,11 @@ Idea: farmer
 * Likes:
 * Dislikes: 
 
-## Jiyuuli
+## Jiyuulia
 * Gender:
 * Physical symbols:
 * Likes:
-* Dislikes: a
+* Dislikes:
 
 ## Labellia
 * Gender:
@@ -456,12 +542,22 @@ easygoing attitude and are always happy to hook up their friends and family with
 concerts (or repairs).
 
 ## Hyacidus
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+* Gender: Nonbinary (they/them)
+* Physical symbols: Pill
+* Likes: Medicine and drugs(?), Relaxing
+* Dislikes: Work, Doctors with indecipherable handwriting
 
-Idea: Pharmacist that isn't very good
+Hyacidus is the stereotypical textbook example of "C's get degrees". Throughout life,
+they've always coasted through, relying either on their innate intelligence or privileged
+background to carry them through tough situations. And it's worked most of the time!
+
+Hyacidus barely graduated pharmacy school with C's, and now works at your neighbor hood
+pharmacy, dutifully filling the prescriptions of patients that come to them. They are
+neither negligent nor particularly exemplary in their job, instead having completely
+mastered the art of "caring just enough to get by".
+
+An easygoing, stressless, and free life. Hyacidus wouldn't trade it for anything else in
+the world.
 
 ## Pollidisiac
 * Gender: Agender
@@ -499,17 +595,21 @@ perfect *balance*.
 * Gender: They buried it in Alaska but won't tell us where
 * Physical symbols: treasure chest
 * Likes: Geocaching, MIT puzzle hunt
-* Dislikes: Misplacing their items
+* Dislikes: Misplacing or having their items stolen
 
 Loonium is a chronic hoarder, collecting any and all sort of trinkets and treasures,
 regardless of value. They frequently procure new items from the dungeons Entropinnyum
-visits, and trades them with other flowers. Occasionally, Loonium will hide some of their
-more valuable treasures and design elaborate treasure hunts for others.
+visits, and trades them with the other flowers. Occasionally, Loonium will hide some of
+their more valuable treasures and design elaborate treasure hunts for others.
+
+Loonium has an incredible memory, and can recall at a moment's notice the location of an
+item. For this reason, they also serve as the owner of a run-down thrift store, where
+essentially any item can be acquired at extremely low price...as long as you can find it
+inside the chaotically messy store.
 
 ## Daffomill
-* Gender:
-* Physical symbols: Hand fan
-* Blurb: 
+* Gender: Fan
+* Physical symbols: East Asian paper fan
 * Likes: K-Pop, V-Tubers, Fashion
 * Dislikes: Antis of whatever they like at the moment
 
@@ -526,20 +626,60 @@ Their dream is to attend every single concert of the international tour of their
 Korean boyband, BTS (Big Tater Squad).
 
 ## Vinculotus
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+* Gender: Can science be a gender?
+* Physical symbols: Ender Pearl
+* Likes: Magitech
+* Dislikes: Dust mites and other pests
 
-Idea: mad scientist (ender tech)
+Vinculotus had always been known as an eccentric, borderline mad scientist, toiling away
+in their forest home in search of a Grand Unified Theory of all physics.
+
+However, ever since their run-in with the tall and slender beings that had appeared near
+their science lab, their life was forever changed.
+
+The mysterious gems that those beings dropped when they were slain shattered Vinculotus'
+theories. Normally, this would have sent Vinculotus into a depressive bout for the next
+year or so, but with this discovery Vinculotus discovered a world of dark magic beyond
+their wildest dreams. The energies of the very void itself could be harnessed itself to
+rip holes in space-time, travel large distances immediately, and even resurrect living
+beings.
+
+Drunken in this newfound knowledge, Vinculotus set about at once to integrate this magic
+into their scientific frameworks and technological mechanisms. Day by day, night by night,
+they toiled.
+
+One day, this power would enable Vinculotus to act as he pleased, to be god. Vinculotus
+was sure of this.
+
+Little did Vinculotus realize that their mind was already well on its path towards the
+descent to madness.
 
 ## Spectranthemum
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+* Gender: Magical Girl
+* Physical symbols: Her Peperuto Poron (a flashy cyan wand), top hat
+* Likes: Bnuuy, spreading positivity through magic
+* Dislikes: Using magic for evil, her audience not having a good time
 
-Idea: Stage magician (teleporting things)
+In contrast to many flowers who are only mere stage magicians -- playing tricks and cheap
+sleights of hand on a stage -- or witches who are dedicated solely to their craft -- hunkering
+in their lairs over bubbling cauldrons, Magical Girl Spectranthemum walks the line between
+stage magic and witchcraft as a jack of both trades.
+
+To the public, she is a world-famous stage magician, known for her stunning and
+electrifying performances. You won't see tired old tricks like guessing the card in
+someone's hand, or pulling bunnies out of a hat from her!
+
+Likewise, to the magical world, she is a bit of an odd specimen, preferring to roam the
+world, helping those in need that she encounters, instead of holing up and studying
+alchemy, potions, and other witchcraft in vain pursuit of eternal youth.
+
+She is wickedly intelligent, and melds true magic into her stage magic deftly to please
+the crowd, while also taking lessons from stage magic into her studies as a magical girl
+to make the world a place with more happiness and joy. Her talent has earned her great
+adoration in both circles, though she does not reveal her dual lives to most.
+
+In an increasingly specialized world, Spectranthemum is proof that being a well-rounded
+generalist can still work out.
 
 ## Medumone
 * Gender:
@@ -558,7 +698,7 @@ Idea: Stage magician (teleporting things)
 Idea: Alchemist (but a modern nuclear scientist)
 
 ## Bubbell
-* Gender:
+* Gender: Female (she/her)
 * Physical symbols: Full-body plastic bubbles
 * Likes: Social distancing, going to the spa, solo scuba diving, chatting with Hydroangea over IRC
 * Dislikes: Parties
@@ -570,15 +710,32 @@ friends, though they are careful to not reveal too much about themselves. (TODO 
 refinement and distinguishing characteristics with Hydro)
 
 ## Solegnolia
-* Gender: Pronouns are thor/thom/thors (!!rdj they really like Thor)
+* Gender: Pronouns are thor/thom/thors (Solegnolia Really Likes Thor)
 * Physical symbols: Any of the symbols that go on a circuit diagram
-* Likes: Technical Minecraft, Simping for Fourier, Jamming with Bergamute and Rannuncarpus
-* Dislikes: Modded Minecraft (too easy)
+* Likes: Technical Minecraft, very niche modded Minecraft (Reika's ElectriCraft is a
+  particular favorite), Simping for Fourier, Jamming with Bergamute
+* Dislikes: Most of modded Minecraft (too easy)
 
-Idea: sound/electrical engineer or physicist
+Electricity is Solegnolia's *thing*. Having taken Physics C: Electricity and Magnetism by
+the time thor were 12 years old, and graduated from MIT with a degree in Physics by 16,
+Solegnolia seemed destined for a career amongst the stars of the field.
+
+After several years in the "publish or perish" grind of academia, Solegnolia decided that
+thor had had enough, and went on a sabbatical to truly think about what thor wanted out of
+life. One day, at a hole-in-the-wall pub, Solegnolia met Rannuncarpus, a professional
+pianist. Rannuncarpus was interested in expanding their horizons from classical music to
+electronic, disco, rock, and other forms of piano music, and just happened to need an
+electronics and sound engineer.
+
+Solegnolia's strong theoretical foundations were an incredible superpower, and the two
+quickly hit it off, with Solegnolia's unique tuning and Rannuncarpus' raw skill the
+perfect combination to fill the void left in the music world from Daybloom, Nightshade,
+and Hydroangeas' departure several years prior.
+
+A rising star was now on the horizon.
 
 ## Bergamute
-* Gender:
+* Gender: Male (he/him)
 * Physical symbols: Earmuffs
 * Likes: The "lofi hip hop radio - beats to relax/study to" YouTube livestream, frugality
 * Dislikes: noise, greed, waste
@@ -589,3 +746,141 @@ friends and coworkers listen and take Bergamute seriously when they do do so.
 
 Bergamute is a music composer, not making much money, but enough to live on, and Bergamute
 is completely satisfied with that.
+
+
+# Botania Advancement References
+
+Each Botania advancement visible in the advancements tab is actually a reference to a
+Vocaloid song.
+
+Vocaloid is a vocal synthesis engine whereby samples of a human's voice are recorded, then
+reassembled to synthesize new audio of the voice. In ACG culture, Vocaloid is often used
+to create original songs and covers of other songs. The compiled voice-banks are
+anthropomorphized and given an avatar and name.
+
+Here is a table of all the Botania advancements and the Vocaloid song they refer to,
+provided as links to the Vocaloid song database VocaDB.
+
+WARNING: Some songs are 18+ and inappropriate for children.
+
+## Normal Advancements
+
+| Name                             | Requirement               | Link                                                       |
+|----------------------------------|---------------------------|------------------------------------------------------------|
+| Noisy Lover Soul                 | Use a cacophonium         | [https://vocadb.net/S/13527](https://vocadb.net/S/13527)   |
+| Sky of Beginning                 | Pick up mystical flower   | [https://vocadb.net/S/15667](https://vocadb.net/S/15667)   |
+| A Realistical Logical Ideologist | Open a lexicon            | [https://vocadb.net/S/9976](https://vocadb.net/S/9976)     |
+| Vivid Wave                       | Craft a pool              | [https://vocadb.net/S/31471](https://vocadb.net/S/31471)   |
+| Electric Magic                   | Craft a generating flower | [https://vocadb.net/S/19404](https://vocadb.net/S/19404)   |
+| Odds and Ends                    | Craft a Enchanter         | [https://vocadb.net/S/160452](https://vocadb.net/S/160452) |
+| An Ecstatic Vivace               | Craft a functional flower | [https://vocadb.net/S/32621](https://vocadb.net/S/32621)   |
+| World Domination How-To          | Craft a pool cart         | [https://vocadb.net/S/22539](https://vocadb.net/S/22539)   |
+| Imagination Forest               | Craft manaweave armor     | [https://vocadb.net/S/10042](https://vocadb.net/S/10042)   |
+| Drop Pop Candy                   | Craft a rune              | [https://vocadb.net/S/60953](https://vocadb.net/S/60953)   |
+| Live Drive                       | Craft a spark             | [https://vocadb.net/S/17274](https://vocadb.net/S/17274)   |
+| Rotten Heresy and Chocolate      | Craft a mana cookie       | [https://vocadb.net/S/136](https://vocadb.net/S/136)       |
+| Segments Blue                    | Craft an Assembly Halo    | [https://vocadb.net/S/8899](https://vocadb.net/S/8899)     |
+| Inner Arts                       | Put on a trinket          | [https://vocadb.net/S/56821](https://vocadb.net/S/56821)   |
+| Just Be Friends                  | Pet a Tiny Potato         | [https://vocadb.net/S/1360](https://vocadb.net/S/1360)     |
+| M'aider Stranded Girl            | Fire a Mana Blaster       | [https://vocadb.net/S/38815](https://vocadb.net/S/38815)   |
+| Dancer in the Dark               | Craft terrasteel          | [https://vocadb.net/S/157906](https://vocadb.net/S/157906) |
+| Romeo and Cinderella             | Craft a Pollidisiac       | [https://vocadb.net/S/1032](https://vocadb.net/S/1032)     |
+| Rockbell                         | Craft a dirty stick       | [https://vocadb.net/S/19319](https://vocadb.net/S/19319)   |
+| Childhood Blues                  | Craft a brewery           | [https://vocadb.net/S/13384](https://vocadb.net/S/13384)   |
+| Remote Paranoia                  | Craft a terrablade        | [https://vocadb.net/S/39098](https://vocadb.net/S/39098)   |
+| World Calling                    | Open alf portal           | [https://vocadb.net/S/17273](https://vocadb.net/S/17273)   |
+| Heisei Cataclysm                 | Craft Heisei Dream        | [https://vocadb.net/S/19332](https://vocadb.net/S/19332)   |
+| After-School Stride              | Craft Kekimurus           | [https://vocadb.net/S/18495](https://vocadb.net/S/18495)   |
+| Dead and Seek                    | Summon Gaia Guardian      | [https://vocadb.net/S/12520](https://vocadb.net/S/12520)   |
+| Deep Sea Girl                    | Craft Bubbell             | [https://vocadb.net/S/8735](https://vocadb.net/S/8735)     |
+| Imitation Air                    | Collect Ender Air         | [https://vocadb.net/S/13390](https://vocadb.net/S/13390)   |
+| I can take off my panties!       | Use life aggregator       | [https://vocadb.net/S/2530](https://vocadb.net/S/2530)     |
+| Heart Shooter                    | Craft Flugel Tiara        | [https://vocadb.net/S/6945](https://vocadb.net/S/6945)     |
+| Donut Hole                       | Craft Dandelifeon         | [https://vocadb.net/S/42676](https://vocadb.net/S/42676)   |
+| Under of Fragments               | Craft Manastorm Charge    | [https://vocadb.net/S/13651](https://vocadb.net/S/13651)   |
+| World's End Dancehall            | Craft Luminizer           | [https://vocadb.net/S/20](https://vocadb.net/S/20)         |
+| Packet Hero                      | Craft corporea block      | [https://vocadb.net/S/78112](https://vocadb.net/S/78112)   |
+
+## Challenge Advancements
+| Name                                       | Requirement                                    | Link                                                       |
+|--------------------------------------------|------------------------------------------------|------------------------------------------------------------|
+| Deja Vu                                    | Craft Daybloom/NightShade Motif                | [https://vocadb.net/S/124258](https://vocadb.net/S/124258) |
+| Two-Faced Lovers                           | Shoot desu gun                                 | [https://vocadb.net/S/1508](https://vocadb.net/S/1508)     |
+| At the Mercy of a Dream                    | Defeat Gaia Guardian II                        | [https://vocadb.net/S/14929](https://vocadb.net/S/14929)   |
+| A Tale of Six Trillion Years and One Night | Use rank SS terra pick                         | [https://vocadb.net/S/11219](https://vocadb.net/S/11219)   |
+| Invader Girl                               | Complete a corporea request with >= 50k items  | [https://vocadb.net/S/63216](https://vocadb.net/S/63216)   |
+| Out of Step                                | Use Level 20 Laputa Shard                      | [https://vocadb.net/S/1510](https://vocadb.net/S/1510)     |
+| Mythologia's End                           | Defeat Gaia Guardian without armor             | [https://vocadb.net/S/10072](https://vocadb.net/S/10072)   |
+| That's Why I Baked Bread                   | Teleport bread with the alf portal             | [https://vocadb.net/S/203581](https://vocadb.net/S/203581) |
+| Arithmetic                                 | Obtain Loki Ring                               | [https://vocadb.net/S/36123](https://vocadb.net/S/36123)   |
+| Hand in Hand                               | Place >255 extra blocks at once with Loki Ring | [https://vocadb.net/S/89726](https://vocadb.net/S/89726)   |
+| Innocentia                                 | Obtain Fruit of Grisaia                        | [https://vocadb.net/S/13385](https://vocadb.net/S/13385)   |
+| One Step Layered                           | Obtain Thor Ring                               | [https://vocadb.net/S/365](https://vocadb.net/S/365)       |
+| Angel of Death                             | Obtain Flugel Eye                              | [https://vocadb.net/S/28559](https://vocadb.net/S/28559)   |
+| A Fake, Fake Psychotropic                  | Obtain King Key                                | [https://vocadb.net/S/37948](https://vocadb.net/S/37948)   |
+| Lost Time Memory                           | Obtain Odin Ring                               | [https://vocadb.net/S/25896](https://vocadb.net/S/25896)   |
+| Decorator                                  | Use Pinkinator                                 | [https://vocadb.net/S/45245](https://vocadb.net/S/45245)   |
+| Blessing                                   | Wish Tiny Potato happy birthday                | [https://vocadb.net/S/50703](https://vocadb.net/S/50703)   |
+
+## Favorites
+Hm? You want to know my favorites?
+
+I (williewillus) would have to say the following:
+
+* Just Be Friends
+* Deep Sea Girl
+* Two-Faced Lovers
+* Tale of Six Trillion Years and One Night
+* That's Why I Baked Bread
+* Hand in Hand
+* Blessing
+
+
+# Botania Flower Name References
+
+Each flower in Botania is a reference to another flower, often from real life.
+
+| Botania Flower   | Reference To                                  |
+|------------------|-----------------------------------------------|
+| Agricarnation    | Carnation                                     |
+| Bellethorne      |                                               |
+| Bergamute        | Bergamot                                      |
+| Bubbell          |                                               |
+| Clayconia        | Heliconia                                     |
+| Daffomill        | Daffodil                                      |
+| Dandelifeon      | Dandelion                                     |
+| Daybloom         | Daybloom (Terraria), Sunflower (by extension) |
+| Dreadthorne      |                                               |
+| Endoflame        |                                               |
+| Entropinnyum     |                                               |
+| Exoflame         |                                               |
+| Fallen Kanade    |                                               |
+| Gourmaryllis     | Amaryllis                                     |
+| Heisei Dream     |                                               |
+| Hopperhock       |                                               |
+| Hyacidus         | Hyacinth                                      |
+| Hydroangeas      | Hydrangea                                     |
+| Jaded Amaranthus | Amaranth                                      |
+| Jiyullia         |                                               |
+| Kekimurus        |                                               |
+| Labellia         | Lobelia                                       |
+| Loonium          |                                               |
+| Manastar         |                                               |
+| Marimorphosis    |                                               |
+| Munchdew         |                                               |
+| Narslimmus       |                                               |
+| Nightshade       | Nightshades                                   |
+| Orechid (Ignem)  | Orchid                                        |
+| Pollidisiac      |                                               |
+| Pure Daisy       | Daisy                                         |
+| Rafflowsia       | Rafflesia                                     |
+| Rannuncarpus     |                                               |
+| Rosa Arcana      | Rose                                          |
+| Shulk Me Not     | Forget-Me-Not                                 |
+| Solegnolia       |                                               |
+| Spectranthemum   | Chrysanthemum                                 |
+| Spectrolus       |                                               |
+| Tangleberrie     |                                               |
+| Thermalily       | Lily                                          |
+| Tigerseye        | Tiger Eye                                     |
+| Vinculotus       | Lotus                                         |

@@ -19,8 +19,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -70,6 +70,33 @@ public class HornItem extends Item {
 		}
 	}
 
+	private static boolean canHarvest(Level level, ItemStack stack, BlockPos pos,
+			@Nullable LivingEntity user, EnumHornType type) {
+		BlockState state = level.getBlockState(pos);
+		BlockEntity be = level.getBlockEntity(pos);
+
+		HornHarvestable harvestable = XplatAbstractions.INSTANCE.findHornHarvestable(level, pos, state, be);
+		if (harvestable != null) {
+			return harvestable.canHornHarvest(level, pos, stack, type, user);
+		} else {
+			switch (type) {
+				default:
+				case WILD:
+					return state.getBlock() instanceof BushBlock && !state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS);
+				case CANOPY: {
+					if (state.getBlock() instanceof LeavesBlock
+							&& state.getValue(LeavesBlock.PERSISTENT)) {
+						return false;
+					}
+
+					return state.is(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE);
+				}
+				case COVERING:
+					return state.is(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE);
+			}
+		}
+	}
+
 	public static void breakGrass(Level world, ItemStack stack, BlockPos srcPos, @Nullable LivingEntity user) {
 		EnumHornType type = null;
 		if (stack.is(BotaniaItems.grassHorn)) {
@@ -86,19 +113,11 @@ public class HornItem extends Item {
 
 		for (BlockPos pos : BlockPos.betweenClosed(srcPos.offset(-range, -rangeY, -range),
 				srcPos.offset(range, rangeY, range))) {
-			BlockState state = world.getBlockState(pos);
-			Block block = state.getBlock();
-			BlockEntity be = world.getBlockEntity(pos);
-			HornHarvestable harvestable = XplatAbstractions.INSTANCE.findHornHarvestable(world, pos, state, be);
-
 			if (BergamuteBlockEntity.isBergamuteNearby(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				continue;
 			}
-			if (harvestable != null
-					? harvestable.canHornHarvest(world, pos, stack, type, user)
-					: type == EnumHornType.WILD && block instanceof BushBlock && !state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS)
-							|| type == EnumHornType.CANOPY && state.is(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE)
-							|| type == EnumHornType.COVERING && state.is(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE)) {
+
+			if (HornItem.canHarvest(world, stack, pos, user, type)) {
 				coords.add(pos.immutable());
 			}
 		}

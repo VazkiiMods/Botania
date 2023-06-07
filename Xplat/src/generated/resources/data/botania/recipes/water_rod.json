@@ -1,5 +1,6 @@
 {
   "type": "botania:water_bottle_matching_shaped",
+  "category": "equipment",
   "key": {
     "B": {
       "item": "minecraft:potion"

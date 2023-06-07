@@ -9,8 +9,10 @@
 package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.WispParticleData;
@@ -18,8 +20,41 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.BotaniaSounds;
 
 public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
+	public static final int COOLDOWN_TICKS_MULTIPLER = 400;
+	public static final String TAG_COOLDOWN_MAGNITUDE = "cooldownStrength";
+
+	private int cooldownStrength = 15;
+	public static final int[] COOLDOWN_ROLL_PDF = { 10, 5, 3, 2, 1, 1, 4, 8, 3, 2, 1, 1, 1, 2, 3 };
+	public static final int COOLDOWN_ROLL_TOTAL;
+
+	static {
+		int acc = 0;
+		for (var i : COOLDOWN_ROLL_PDF) {
+			acc += i;
+		}
+		COOLDOWN_ROLL_TOTAL = acc;
+	}
+
 	public ThermalilyBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.THERMALILY, pos, state, FluidTags.LAVA, 900, 20, 6000);
+		super(BotaniaFlowerBlocks.THERMALILY, pos, state, FluidTags.LAVA, 900, 20);
+	}
+
+	@Override
+	public int getCooldownTime(boolean finishedPrevious) {
+		if (finishedPrevious) {
+			cooldownStrength = rollNewCooldownStrength(getLevel().getRandom());
+		}
+		return COOLDOWN_TICKS_MULTIPLER * cooldownStrength;
+	}
+
+	public static int rollNewCooldownStrength(RandomSource random) {
+		var total = random.nextInt(COOLDOWN_ROLL_TOTAL);
+		var index = 0;
+		while (total >= COOLDOWN_ROLL_PDF[index]) {
+			total -= COOLDOWN_ROLL_PDF[index];
+			index++;
+		}
+		return index + 1;
 	}
 
 	@Override
@@ -39,7 +74,26 @@ public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	}
 
 	@Override
+	public int getComparatorSignal() {
+		return burnTime > 0 ? 0 : cooldownStrength;
+	}
+
+	@Override
 	public int getMaxMana() {
 		return 500;
+	}
+
+	@Override
+	public void writeToPacketNBT(CompoundTag cmp) {
+		super.writeToPacketNBT(cmp);
+
+		cmp.putInt(TAG_COOLDOWN_MAGNITUDE, cooldownStrength);
+	}
+
+	@Override
+	public void readFromPacketNBT(CompoundTag cmp) {
+		super.readFromPacketNBT(cmp);
+
+		cooldownStrength = cmp.getInt(TAG_COOLDOWN_MAGNITUDE);
 	}
 }

@@ -9,21 +9,16 @@
 package vazkii.botania.client.model;
 
 import com.google.common.base.Preconditions;
-import com.mojang.math.Transformation;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.BlockModel;
-import net.minecraft.client.renderer.block.model.ItemModelGenerator;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -35,17 +30,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.item.ManaBlasterItem;
-import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.client.ModelBakeryAccessor;
 
 import java.util.*;
-import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaBlasterModel implements BakedModel {
-	private static final ModelResourceLocation DESU = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory");
-	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory");
+	private static final ModelResourceLocation DESU = new ModelResourceLocation(prefix("desu_gun"), "inventory");
+	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(prefix("desu_gun_clip"), "inventory");
 
 	private final BakedModel originalModel;
 	private final BakedModel originalModelClip;
@@ -55,7 +47,7 @@ public class ManaBlasterModel implements BakedModel {
 		this.originalModel = Preconditions.checkNotNull(originalModel);
 		this.originalModelClip = Preconditions.checkNotNull(originalModelClip);
 
-		for (var item : Registry.ITEM) {
+		for (var item : BuiltInRegistries.ITEM) {
 			var lens = item.getDefaultInstance();
 			if (ManaBlasterItem.isValidLens(lens)) {
 				var baked = new CompositeBakedModel(bakery, lens, originalModel);
@@ -136,17 +128,18 @@ public class ManaBlasterModel implements BakedModel {
 
 		CompositeBakedModel(ModelBakery bakery, ItemStack lens, BakedModel gun) {
 			super(gun);
-
-			ResourceLocation lensId = Registry.ITEM.getKey(lens.getItem());
+			// TODO: 1.19.3 figure out how to do this
+			/*
+			ResourceLocation lensId = BuiltInRegistries.ITEM.getKey(lens.getItem());
 			UnbakedModel lensUnbaked = bakery.getModel(new ModelResourceLocation(lensId, "inventory"));
 			ModelState transform = new ModelState() {
 				@Override
 				public Transformation getRotation() {
-					return new Transformation(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.YP.rotation((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null);
+					return new Transformation(new Vector3f(-0.4F, 0.2F, 0.0F), VecHelper.rotateY(90), new Vector3f(0.625F, 0.625F, 0.625F), null);
 				}
 			};
 			ResourceLocation name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
-
+			
 			Function<Material, TextureAtlasSprite> textureGetter = ((ModelBakeryAccessor) bakery).getSpriteAtlasManager()::getSprite;
 			BakedModel lensBaked;
 			if (lensUnbaked instanceof BlockModel bm && bm.getRootModel() == net.minecraft.client.resources.model.ModelBakery.GENERATION_MARKER) {
@@ -156,20 +149,20 @@ public class ManaBlasterModel implements BakedModel {
 			} else {
 				lensBaked = lensUnbaked.bake(bakery, textureGetter, transform, name);
 			}
-
+			
 			for (Direction e : Direction.values()) {
 				faceQuads.put(e, new ArrayList<>());
 			}
-
+			
 			var rand = RandomSource.create();
 			rand.setSeed(0);
 			genQuads.addAll(lensBaked.getQuads(null, null, rand));
-
+			
 			for (Direction e : Direction.values()) {
 				rand.setSeed(0);
 				faceQuads.get(e).addAll(lensBaked.getQuads(null, e, rand));
 			}
-
+			
 			// Add gun quads
 			rand.setSeed(0);
 			genQuads.addAll(gun.getQuads(null, null, rand));
@@ -177,6 +170,7 @@ public class ManaBlasterModel implements BakedModel {
 				rand.setSeed(0);
 				faceQuads.get(e).addAll(gun.getQuads(null, e, rand));
 			}
+			*/
 		}
 
 		@NotNull

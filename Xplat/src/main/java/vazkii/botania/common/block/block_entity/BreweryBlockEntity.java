@@ -269,14 +269,15 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		public void renderHUD(PoseStack ms, Minecraft mc) {
 			int manaToGet = brewery.getManaCost();
 			if (manaToGet > 0) {
-				int x = mc.getWindow().getGuiScaledWidth() / 2 + 20;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
-
 				if (brewery.recipe == null) {
 					return;
 				}
 
-				RenderHelper.renderProgressPie(ms, x, y, (float) brewery.mana / (float) manaToGet,
+				int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 - 12;
+
+				RenderHelper.renderHUDBox(ms, x, y, x + 24, y + 24);
+				RenderHelper.renderProgressPie(ms, x + 4, y + 4, (float) brewery.mana / (float) manaToGet,
 						brewery.recipe.getOutput(brewery.getItemHandler().getItem(0)));
 			}
 		}

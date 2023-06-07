@@ -57,14 +57,14 @@ public abstract class ThrowableCopyEntity extends Projectile {
 		boolean bl = false;
 		if (hitResult.getType() == HitResult.Type.BLOCK) {
 			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
-			BlockState blockState = this.level.getBlockState(blockPos);
+			BlockState blockState = this.getLevel().getBlockState(blockPos);
 			if (blockState.is(Blocks.NETHER_PORTAL)) {
 				this.handleInsidePortal(blockPos);
 				bl = true;
 			} else if (blockState.is(Blocks.END_GATEWAY)) {
-				BlockEntity blockEntity = this.level.getBlockEntity(blockPos);
+				BlockEntity blockEntity = this.getLevel().getBlockEntity(blockPos);
 				if (blockEntity instanceof TheEndGatewayBlockEntity gateway && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-					TheEndGatewayBlockEntity.teleportEntity(this.level, blockPos, blockState, this, gateway);
+					TheEndGatewayBlockEntity.teleportEntity(this.getLevel(), blockPos, blockState, this, gateway);
 				}
 
 				bl = true;
@@ -85,7 +85,7 @@ public abstract class ThrowableCopyEntity extends Projectile {
 		if (this.isInWater()) {
 			for (int i = 0; i < 4; ++i) {
 				float g = 0.25F;
-				this.level.addParticle(ParticleTypes.BUBBLE, d - vec3.x * 0.25D, e - vec3.y * 0.25D, f - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
+				this.getLevel().addParticle(ParticleTypes.BUBBLE, d - vec3.x * 0.25D, e - vec3.y * 0.25D, f - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
 			}
 
 			j = 0.8F;

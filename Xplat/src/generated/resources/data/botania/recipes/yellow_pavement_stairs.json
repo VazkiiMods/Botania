@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "group": "botania:pavement_stairs",
   "key": {
     "Q": {

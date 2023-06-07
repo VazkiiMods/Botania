@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.DefaultUncaughtExceptionHandler;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -91,7 +91,7 @@ public class ContributorList {
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
-				var item = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(BotaniaTags.Items.CONTRIBUTOR_HEADFLOWERS).spliterator(), false)
+				var item = StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(BotaniaTags.Items.CONTRIBUTOR_HEADFLOWERS).spliterator(), false)
 						.filter(h -> h.is(resKey -> resKey.location().getPath().equals(flowerName)))
 						.findFirst()
 						.map(Holder::value)
@@ -107,7 +107,7 @@ public class ContributorList {
 		ItemStack stack = new ItemStack(item);
 		Map<Enchantment, Integer> ench = new HashMap<>();
 		ench.put(Enchantments.UNBREAKING, 1);
-		Registry.ENCHANTMENT.getOptional(new ResourceLocation("charm", "tinted")).ifPresent(e -> ench.put(e, 1));
+		BuiltInRegistries.ENCHANTMENT.getOptional(new ResourceLocation("charm", "tinted")).ifPresent(e -> ench.put(e, 1));
 		EnchantmentHelper.setEnchantments(ench, stack);
 
 		stack.getTag().putBoolean(TAG_HEADFLOWER, true);

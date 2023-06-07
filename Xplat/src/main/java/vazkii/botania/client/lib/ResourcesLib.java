@@ -35,8 +35,6 @@ public final class ResourcesLib {
 	public static final String MODEL_PYLON_MANA = PREFIX_MODEL + "pylon_mana.png";
 	public static final String MODEL_PYLON_NATURA = PREFIX_MODEL + "pylon_natura.png";
 	public static final String MODEL_PYLON_GAIA = PREFIX_MODEL + "pylon_gaia.png";
-	public static final String MODEL_LEXICA_DEFAULT = PREFIX_MOD + "model/lexicon_default";
-	public static final String MODEL_LEXICA_ELVEN = PREFIX_MOD + "model/lexicon_elven";
 	public static final String MODEL_MANASTEEL_NEW = PREFIX_MODEL + "armor_manasteel.png";
 	public static final String MODEL_TERRASTEEL_NEW = PREFIX_MODEL + "armor_terrasteel.png";
 	public static final String MODEL_ELEMENTIUM_NEW = PREFIX_MODEL + "armor_elementium.png";

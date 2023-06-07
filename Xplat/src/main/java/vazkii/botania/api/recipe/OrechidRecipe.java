@@ -10,6 +10,7 @@ package vazkii.botania.api.recipe;
 
 import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -55,7 +56,7 @@ public interface OrechidRecipe extends Recipe<Container> {
 	}
 
 	@Override
-	default ItemStack assemble(Container c) {
+	default ItemStack assemble(Container c, @NotNull RegistryAccess registries) {
 		return ItemStack.EMPTY;
 	}
 
@@ -65,7 +66,7 @@ public interface OrechidRecipe extends Recipe<Container> {
 	}
 
 	@Override
-	default ItemStack getResultItem() {
+	default ItemStack getResultItem(@NotNull RegistryAccess registries) {
 		return ItemStack.EMPTY;
 	}
 

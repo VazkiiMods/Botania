@@ -11,6 +11,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -29,10 +30,10 @@ public class EnderAirEntity extends Entity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (!level.isClientSide && tickCount > MAX_AGE) {
+		if (!getLevel().isClientSide && tickCount > MAX_AGE) {
 			discard();
 		}
-		if (level.isClientSide && random.nextBoolean()) {
+		if (getLevel().isClientSide && random.nextBoolean()) {
 			float r = (EnderAirBottleEntity.PARTICLE_COLOR >> 16 & 0xFF) / 255.0F;
 			float g = (EnderAirBottleEntity.PARTICLE_COLOR >> 8 & 0xFF) / 255.0F;
 			float b = (EnderAirBottleEntity.PARTICLE_COLOR & 0xFF) / 255.0F;
@@ -40,7 +41,7 @@ public class EnderAirEntity extends Entity {
 				double x = this.getX() + random.nextDouble();
 				double y = this.getY() + random.nextDouble();
 				double z = this.getZ() + random.nextDouble();
-				level.addAlwaysVisibleParticle(ParticleTypes.ENTITY_EFFECT, x, y, z, r, g, b);
+				getLevel().addAlwaysVisibleParticle(ParticleTypes.ENTITY_EFFECT, x, y, z, r, g, b);
 			}
 		}
 	}
@@ -59,7 +60,7 @@ public class EnderAirEntity extends Entity {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(this);
 	}
 }

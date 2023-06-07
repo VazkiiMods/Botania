@@ -10,8 +10,6 @@ package vazkii.botania.common.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
@@ -20,7 +18,6 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -45,6 +42,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.inventory.RecipeBookMenu;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -55,6 +53,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -64,6 +63,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -155,7 +155,7 @@ public class AssemblyHaloItem extends Item {
 	}
 
 	void tryCraft(Player player, ItemStack halo, int slot, boolean particles) {
-		Recipe<CraftingContainer> recipe = getSavedRecipe(player.level, halo, slot);
+		Recipe<CraftingContainer> recipe = getSavedRecipe(player.getLevel(), halo, slot);
 		if (recipe == null) {
 			return;
 		}
@@ -170,18 +170,18 @@ public class AssemblyHaloItem extends Item {
 		}
 
 		// Double check that the recipe matches
-		if (!recipe.matches(craftInv, player.level)) {
+		if (!recipe.matches(craftInv, player.getLevel())) {
 			// If the placer worked but the recipe still didn't, this might be a dynamic recipe with special conditions.
 			// Return items to the inventory and bail.
-			placer.clearGrid(false);
+			placer.clearGrid();
 			return;
 		}
 
-		ItemStack result = recipe.assemble(craftInv);
+		ItemStack result = recipe.assemble(craftInv, player.getLevel().registryAccess());
 
 		// Check if we have room for the result
 		if (!hasRoomFor(player.getInventory(), result)) {
-			placer.clearGrid(false);
+			placer.clearGrid();
 			return;
 		}
 
@@ -207,7 +207,7 @@ public class AssemblyHaloItem extends Item {
 			return false;
 		}
 
-		Recipe<?> recipe = getSavedRecipe(living.level, stack, segment);
+		Recipe<?> recipe = getSavedRecipe(living.getLevel(), stack, segment);
 		if (recipe != null && living.isShiftKeyDown()) {
 			saveRecipe(stack, null, segment);
 			return true;
@@ -216,7 +216,7 @@ public class AssemblyHaloItem extends Item {
 		return false;
 	}
 
-	private static int getSegmentLookedAt(ItemStack stack, LivingEntity living) {
+	protected static int getSegmentLookedAt(ItemStack stack, LivingEntity living) {
 		float yaw = getCheckingAngle(living, getRotationBase(stack));
 
 		int angles = 360;
@@ -283,7 +283,7 @@ public class AssemblyHaloItem extends Item {
 		} else {
 			Recipe<?> recipe = getSavedRecipe(world, stack, position);
 			if (recipe != null) {
-				return recipe.getResultItem();
+				return recipe.getResultItem(world.registryAccess());
 			} else {
 				return ItemStack.EMPTY;
 			}
@@ -298,7 +298,7 @@ public class AssemblyHaloItem extends Item {
 			return;
 		}
 
-		player.level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, cc, player.level).ifPresent(recipe -> {
+		player.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, cc, player.getLevel()).ifPresent(recipe -> {
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				ItemStack stack = player.getInventory().getItem(i);
 				if (!stack.isEmpty() && stack.getItem() instanceof AssemblyHaloItem) {
@@ -336,7 +336,7 @@ public class AssemblyHaloItem extends Item {
 		ItemNBTHelper.setFloat(stack, TAG_ROTATION_BASE, rotation);
 	}
 
-	public ResourceLocation getGlowResource() {
+	public ResourceLocation getGlowResource(ItemStack stack) {
 		return glowTexture;
 	}
 
@@ -348,7 +348,6 @@ public class AssemblyHaloItem extends Item {
 				return;
 			}
 
-			Minecraft mc = Minecraft.getInstance();
 			MultiBufferSource.BufferSource bufferSource = buffers.bufferSource();
 
 			double renderPosX = camera.getPosition().x();
@@ -379,34 +378,34 @@ public class AssemblyHaloItem extends Item {
 
 			int segmentLookedAt = getSegmentLookedAt(stack, player);
 			AssemblyHaloItem item = (AssemblyHaloItem) stack.getItem();
-			RenderType layer = RenderHelper.getHaloLayer(item.getGlowResource());
+			RenderType layer = RenderHelper.getHaloLayer(item.getGlowResource(stack));
 
 			for (int seg = 0; seg < SEGMENTS; seg++) {
 				boolean inside = false;
 				float rotationAngle = (seg + 0.5F) * segAngles + shift;
 				ms.pushPose();
-				ms.mulPose(Vector3f.YP.rotationDegrees(rotationAngle));
+				ms.mulPose(VecHelper.rotateY(rotationAngle));
 				ms.translate(s * m, -0.75F, 0F);
 
 				if (segmentLookedAt == seg) {
 					inside = true;
 				}
 
-				ItemStack slotStack = getDisplayItem(player.level, stack, seg);
+				ItemStack slotStack = getDisplayItem(player.getLevel(), stack, seg);
 				if (!slotStack.isEmpty()) {
 					float scale = seg == 0 ? 0.9F : 0.8F;
 					ms.scale(scale, scale, scale);
-					ms.mulPose(Vector3f.YP.rotationDegrees(180F));
+					ms.mulPose(VecHelper.rotateY(180F));
 					ms.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
-					ms.mulPose(Vector3f.YP.rotationDegrees(90.0F));
-					Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemTransforms.TransformType.GUI,
-							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.getId());
+					ms.mulPose(VecHelper.rotateY(90.0F));
+					Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemDisplayContext.GUI,
+							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.getLevel(), player.getId());
 				}
 				ms.popPose();
 
 				ms.pushPose();
-				ms.mulPose(Vector3f.XP.rotationDegrees(180));
+				ms.mulPose(VecHelper.rotateX(180));
 				float r = 1, g = 1, b = 1, a = alpha;
 				if (inside) {
 					a += 0.3F;
@@ -452,19 +451,19 @@ public class AssemblyHaloItem extends Item {
 
 				GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 				GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
-				mc.getItemRenderer().renderAndDecorateItem(craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
+				mc.getItemRenderer().renderAndDecorateItem(ms, craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
 
 				mc.font.drawShadow(ms, name, x, y, 0xFFFFFF);
 			} else {
-				Recipe<CraftingContainer> recipe = getSavedRecipe(player.level, stack, slot);
+				Recipe<CraftingContainer> recipe = getSavedRecipe(player.getLevel(), stack, slot);
 				Component label;
 				boolean setRecipe = false;
 
 				if (recipe == null) {
 					label = Component.translatable("botaniamisc.unsetRecipe");
-					recipe = getLastRecipe(player.level, stack);
+					recipe = getLastRecipe(player.getLevel(), stack);
 				} else {
-					label = recipe.getResultItem().getHoverName();
+					label = recipe.getResultItem(player.getLevel().registryAccess()).getHoverName();
 					setRecipe = true;
 				}
 
@@ -475,7 +474,8 @@ public class AssemblyHaloItem extends Item {
 		private static void renderRecipe(PoseStack ms, Component label, @Nullable Recipe<CraftingContainer> recipe, Player player, boolean isSavedRecipe) {
 			Minecraft mc = Minecraft.getInstance();
 
-			if (recipe != null && !recipe.getResultItem().isEmpty()) {
+			ItemStack recipeResult;
+			if (recipe != null && !(recipeResult = recipe.getResultItem(player.level.registryAccess())).isEmpty()) {
 				int x = mc.getWindow().getGuiScaledWidth() / 2 - 45;
 				int y = mc.getWindow().getGuiScaledHeight() / 2 - 90;
 
@@ -494,12 +494,12 @@ public class AssemblyHaloItem extends Item {
 						int ypos = y + i / wrap * 18;
 						GuiComponent.fill(ms, xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
 
-						mc.getItemRenderer().renderAndDecorateItem(stack, xpos, ypos);
+						mc.getItemRenderer().renderAndDecorateItem(ms, stack, xpos, ypos);
 					}
 				}
 
-				mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 72, y + 18);
-				mc.getItemRenderer().renderGuiItemDecorations(mc.font, recipe.getResultItem(), x + 72, y + 18);
+				mc.getItemRenderer().renderAndDecorateItem(ms, recipeResult, x + 72, y + 18);
+				mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, recipeResult, x + 72, y + 18);
 
 			}
 
@@ -532,7 +532,7 @@ public class AssemblyHaloItem extends Item {
 					this.handleRecipeClicked(recipe, false);
 					ret = true;
 				} else {
-					this.clearGrid(true);
+					this.clearGrid();
 					ret = false;
 				}
 
@@ -542,9 +542,10 @@ public class AssemblyHaloItem extends Item {
 			return false;
 		}
 
+		// Make public
 		@Override
-		public void clearGrid(boolean unknown) {
-			super.clearGrid(unknown);
+		public void clearGrid() {
+			super.clearGrid();
 		}
 	}
 }

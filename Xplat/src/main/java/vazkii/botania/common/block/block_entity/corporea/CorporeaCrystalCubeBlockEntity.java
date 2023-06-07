@@ -11,7 +11,6 @@ package vazkii.botania.common.block.block_entity.corporea;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,6 +31,7 @@ import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaRequestor;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.List;
@@ -199,18 +199,23 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 					strlen = Math.max(strlen, mc.font.width(lockedStr));
 				}
 
-				int w = mc.getWindow().getGuiScaledWidth();
-				int h = mc.getWindow().getGuiScaledHeight();
-				int boxH = h / 2 + (cube.locked ? 20 : 10);
-				GuiComponent.fill(ps, w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
-				GuiComponent.fill(ps, w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
+				int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+				int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+				ps.pushPose();
+				ps.translate(centerX, centerY, 0);
 
-				mc.font.drawShadow(ps, nameStr, w / 2.0F + 30, h / 2.0F - 10, 0x6666FF);
-				mc.font.drawShadow(ps, countStr, w / 2.0F + 30, h / 2.0F, 0xFFFFFF);
+				RenderHelper.renderHUDBox(ps, 8, -11, strlen + 32, cube.locked ? 21 : 11);
+
+				mc.font.drawShadow(ps, nameStr, 30, -9, 0x6666FF);
+				mc.font.drawShadow(ps, countStr, 30, 1, 0xFFFFFF);
 				if (cube.locked) {
-					mc.font.drawShadow(ps, lockedStr, w / 2.0F + 30, h / 2.0F + 10, 0xFFAA00);
+					mc.font.drawShadow(ps, lockedStr, 30, 11, 0xFFAA00);
 				}
-				mc.getItemRenderer().renderAndDecorateItem(target, w / 2 + 10, h / 2 - 10);
+
+				// todo 1.19.4 verify
+				mc.getItemRenderer().renderAndDecorateItem(ps, target, 10, 9);
+
+				ps.popPose();
 			}
 
 			profiler.pop();

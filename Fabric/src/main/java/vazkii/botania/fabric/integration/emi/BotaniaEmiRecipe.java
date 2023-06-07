@@ -18,10 +18,12 @@ public abstract class BotaniaEmiRecipe implements EmiRecipe {
 	protected List<EmiIngredient> input = List.of();
 	protected List<EmiIngredient> catalysts = List.of();
 	protected List<EmiStack> output = List.of();
+	private final String group;
 
 	public BotaniaEmiRecipe(EmiRecipeCategory category, Recipe<?> recipe) {
 		this.category = category;
 		this.id = recipe.getId();
+		this.group = recipe.getGroup();
 	}
 
 	@Override
@@ -47,5 +49,9 @@ public abstract class BotaniaEmiRecipe implements EmiRecipe {
 	@Override
 	public List<EmiStack> getOutputs() {
 		return output;
+	}
+
+	public String getGroup() {
+		return group;
 	}
 }

@@ -9,7 +9,6 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -60,14 +59,14 @@ public class ThrownItemEntity extends ItemEntity {
 		boolean teleported = false;
 		if (hitResult.getType() == HitResult.Type.BLOCK) {
 			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
-			BlockState blockState = this.level.getBlockState(blockPos);
+			BlockState blockState = this.getLevel().getBlockState(blockPos);
 			if (blockState.is(Blocks.NETHER_PORTAL)) {
 				this.handleInsidePortal(blockPos);
 				teleported = true;
 			} else if (blockState.is(Blocks.END_GATEWAY)) {
-				BlockEntity blockEntity = this.level.getBlockEntity(blockPos);
+				BlockEntity blockEntity = this.getLevel().getBlockEntity(blockPos);
 				if (blockEntity instanceof TheEndGatewayBlockEntity gateway && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-					TheEndGatewayBlockEntity.teleportEntity(this.level, blockPos, blockState, this, gateway);
+					TheEndGatewayBlockEntity.teleportEntity(this.getLevel(), blockPos, blockState, this, gateway);
 				}
 
 				teleported = true;
@@ -79,19 +78,19 @@ public class ThrownItemEntity extends ItemEntity {
 		}
 
 		// Bonk any entities hit
-		if (!level.isClientSide && hitResult.getType() == HitResult.Type.ENTITY) {
+		if (!getLevel().isClientSide && hitResult.getType() == HitResult.Type.ENTITY) {
 			Entity bonk = ((EntityHitResult) hitResult).getEntity();
-			bonk.hurt(DamageSource.MAGIC, 2.0F);
-			Entity item = new ItemEntity(level, getX(), getY(), getZ(), getItem());
-			level.addFreshEntity(item);
+			bonk.hurt(damageSources().magic(), 2.0F);
+			Entity item = new ItemEntity(getLevel(), getX(), getY(), getZ(), getItem());
+			getLevel().addFreshEntity(item);
 			item.setDeltaMovement(getDeltaMovement().scale(0.25));
 			discard();
 			return;
 		}
 
-		if (!level.isClientSide && getDeltaMovement().length() < 1.0F) {
-			Entity item = new ItemEntity(level, getX(), getY(), getZ(), getItem());
-			level.addFreshEntity(item);
+		if (!getLevel().isClientSide && getDeltaMovement().length() < 1.0F) {
+			Entity item = new ItemEntity(getLevel(), getX(), getY(), getZ(), getItem());
+			getLevel().addFreshEntity(item);
 			item.setDeltaMovement(getDeltaMovement());
 			discard();
 		}

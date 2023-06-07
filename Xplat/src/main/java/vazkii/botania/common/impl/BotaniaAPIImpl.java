@@ -17,13 +17,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -46,6 +41,7 @@ import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -82,13 +78,15 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public int getDurabilityForSlot(EquipmentSlot slot) {
-			return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.getIndex()];
+		public int getDurabilityForType(ArmorItem.Type slot) {
+			// todo 1.19.4 make sure MAX_DAMAGE_ARRAY is still accessed in the same order as before
+			return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.ordinal()];
 		}
 
 		@Override
-		public int getDefenseForSlot(EquipmentSlot slot) {
-			return damageReduction[slot.getIndex()];
+		public int getDefenseForType(ArmorItem.Type slot) {
+			// todo 1.19.4 make sure damageReduction is still accessed in the same order as before
+			return damageReduction[slot.ordinal()];
 		}
 
 		@Override
@@ -184,7 +182,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public Registry<Brew> getBrewRegistry() {
-		return BotaniaBrews.registry;
+		return XplatAbstractions.INSTANCE.getOrCreateBrewRegistry();
 	}
 
 	@Override

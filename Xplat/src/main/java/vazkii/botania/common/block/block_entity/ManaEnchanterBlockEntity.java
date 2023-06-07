@@ -16,8 +16,10 @@ import net.minecraft.ResourceLocationException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Clearable;
@@ -393,7 +395,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		}
 
 		String enchStr = enchants.stream()
-				.map(e -> Registry.ENCHANTMENT.getKey(e.enchantment) + "=" + e.level)
+				.map(e -> BuiltInRegistries.ENCHANTMENT.getKey(e.enchantment) + "=" + e.level)
 				.collect(Collectors.joining(","));
 		cmp.putString(TAG_ENCHANTS, enchStr);
 	}
@@ -417,9 +419,9 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 				try {
 					String[] entryTokens = token.split("=");
 					int lvl = Integer.parseInt(entryTokens[1]);
-					Registry.ENCHANTMENT.getOptional(new ResourceLocation(entryTokens[0])).ifPresent(ench -> {
-						enchants.add(new EnchantmentInstance(ench, lvl));
-					});
+					level.holderLookup(Registries.ENCHANTMENT)
+							.get(ResourceKey.create(Registries.ENCHANTMENT, new ResourceLocation(entryTokens[0])))
+							.ifPresent(ench -> enchants.add(new EnchantmentInstance(ench.value(), lvl)));
 				} catch (ResourceLocationException ignored) {}
 			}
 		}
@@ -505,10 +507,11 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
 			if (enchanter.manaRequired > 0 && !enchanter.itemToEnchant.isEmpty()) {
-				int x = mc.getWindow().getGuiScaledWidth() / 2 + 20;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 - 12;
 
-				RenderHelper.renderProgressPie(ms, x, y, (float) enchanter.mana / (float) enchanter.manaRequired,
+				RenderHelper.renderHUDBox(ms, x, y, x + 24, y + 24);
+				RenderHelper.renderProgressPie(ms, x + 4, y + 4, (float) enchanter.mana / (float) enchanter.manaRequired,
 						enchanter.itemToEnchant);
 			}
 		}

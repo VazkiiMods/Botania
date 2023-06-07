@@ -8,11 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-
-import org.jetbrains.annotations.NotNull;
 
 public class GreaterBandOfManaItem extends BandOfManaItem {
 
@@ -20,17 +16,6 @@ public class GreaterBandOfManaItem extends BandOfManaItem {
 
 	public GreaterBandOfManaItem(Properties props) {
 		super(props);
-	}
-
-	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> stacks) {
-		if (allowedIn(tab)) {
-			stacks.add(new ItemStack(this));
-
-			ItemStack full = new ItemStack(this);
-			setMana(full, MAX_MANA);
-			stacks.add(full);
-		}
 	}
 
 	public static class GreaterManaItemImpl extends ManaItemImpl {

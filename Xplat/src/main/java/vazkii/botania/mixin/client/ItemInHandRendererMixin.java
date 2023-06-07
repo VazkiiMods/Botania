@@ -12,8 +12,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +27,7 @@ import vazkii.botania.client.core.handler.RenderLexicon;
 public class ItemInHandRendererMixin {
 
 	@Inject(method = "renderItem", at = @At("HEAD"), cancellable = true)
-	private void renderFirstPersonItem(LivingEntity livingEntity, ItemStack stack, ItemTransforms.TransformType transformType,
+	private void renderFirstPersonItem(LivingEntity livingEntity, ItemStack stack, ItemDisplayContext transformType,
 			boolean leftHanded, PoseStack poseStack, MultiBufferSource buffers, int light, CallbackInfo ci) {
 		if (RenderLexicon.renderHand(stack, transformType, leftHanded, poseStack, buffers, light)) {
 			ci.cancel();

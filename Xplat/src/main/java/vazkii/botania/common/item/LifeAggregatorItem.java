@@ -11,7 +11,7 @@ package vazkii.botania.common.item;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
@@ -72,7 +72,7 @@ public class LifeAggregatorItem extends Item {
 	public void appendHoverText(ItemStack stack, Level world, List<Component> infoList, TooltipFlag flags) {
 		ResourceLocation id = getEntityId(stack);
 		if (id != null) {
-			Registry.ENTITY_TYPE.getOptional(id).ifPresent(type -> infoList.add(type.getDescription()));
+			BuiltInRegistries.ENTITY_TYPE.getOptional(id).ifPresent(type -> infoList.add(type.getDescription()));
 		}
 	}
 

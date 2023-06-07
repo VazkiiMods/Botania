@@ -10,9 +10,9 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -48,23 +48,23 @@ public class MagicLandmineEntity extends Entity {
 		//Proxy.INSTANCE.wispFX(world, getPosX(), getPosY(), getPosZ(), r, g, b, 0.6F, -0.2F, 1);
 		for (int i = 0; i < 6; i++) {
 			WispParticleData data = WispParticleData.wisp(0.4F, r, g, b, (float) 1);
-			level.addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
+			getLevel().addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
 		}
 
 		if (tickCount >= 55) {
-			level.playSound(null, getX(), getY(), getZ(), BotaniaSounds.gaiaTrap, SoundSource.NEUTRAL, 1F, 1F);
+			getLevel().playSound(null, getX(), getY(), getZ(), BotaniaSounds.gaiaTrap, SoundSource.NEUTRAL, 1F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
 			for (int i = 0; i < 25; i++) {
 				WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
-				level.addParticle(data, getX(), getY() + 1, getZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
+				getLevel().addParticle(data, getX(), getY() + 1, getZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 			}
 
-			if (!level.isClientSide) {
-				List<Player> players = level.getEntitiesOfClass(Player.class, getBoundingBox());
+			if (!getLevel().isClientSide) {
+				List<Player> players = getLevel().getEntitiesOfClass(Player.class, getBoundingBox());
 				for (Player player : players) {
-					player.hurt(DamageSource.indirectMagic(this, summoner), 10);
+					player.hurt(this.damageSources().indirectMagic(this, summoner), 10);
 					player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 25, 0));
 					MobEffectInstance wither = new MobEffectInstance(MobEffects.WITHER, 120, 2);
 					// wither.getCurativeItems().clear();
@@ -85,9 +85,8 @@ public class MagicLandmineEntity extends Entity {
 	@Override
 	protected void addAdditionalSaveData(@NotNull CompoundTag var1) {}
 
-	@NotNull
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(this);
 	}
 }

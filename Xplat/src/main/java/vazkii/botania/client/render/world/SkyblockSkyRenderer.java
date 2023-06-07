@@ -15,8 +15,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -25,8 +23,12 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
+import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Random;
 
@@ -61,7 +63,7 @@ public class SkyblockSkyRenderer {
 		RenderSystem.blendFuncSeparate(770, 771, 1, 0);
 		ms.pushPose();
 		RenderSystem.setShaderColor(1F, 1F, 1F, a * 4 * (1F - insideVoid));
-		ms.mulPose(new Vector3f(0.5F, 0.5F, 0F).rotationDegrees(90));
+		ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(90), 0.5F, 0.5F, 0F));
 		for (int p = 0; p < planetTextures.length; p++) {
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 			RenderSystem.setShaderTexture(0, planetTextures[p]);
@@ -75,23 +77,23 @@ public class SkyblockSkyRenderer {
 
 			switch (p) {
 				case 0 -> {
-					ms.mulPose(Vector3f.XP.rotationDegrees(70));
+					ms.mulPose(VecHelper.rotateX(70));
 					scale = 12F;
 				}
 				case 1 -> {
-					ms.mulPose(Vector3f.ZP.rotationDegrees(120));
+					ms.mulPose(VecHelper.rotateZ(120));
 					scale = 15F;
 				}
 				case 2 -> {
-					ms.mulPose(new Vector3f(1, 0, 1).rotationDegrees(80));
+					ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(80), 1, 0, 1));
 					scale = 25F;
 				}
 				case 3 -> {
-					ms.mulPose(Vector3f.ZP.rotationDegrees(100));
+					ms.mulPose(VecHelper.rotateZ(100));
 					scale = 10F;
 				}
 				case 4 -> {
-					ms.mulPose(new Vector3f(1, 0, 0.5F).rotationDegrees(-60));
+					ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(-60), 1, 0, 0.5F));
 					scale = 40F;
 				}
 			}
@@ -107,7 +109,7 @@ public class SkyblockSkyRenderer {
 		ms.pushPose();
 		RenderSystem.blendFuncSeparate(770, 1, 1, 0);
 		ms.translate(0, -1, 0);
-		ms.mulPose(Vector3f.XP.rotationDegrees(220));
+		ms.mulPose(VecHelper.rotateX(220));
 		RenderSystem.setShaderColor(1F, 1F, 1F, a);
 		int angles = 90;
 		float y = 2F;
@@ -120,7 +122,7 @@ public class SkyblockSkyRenderer {
 
 		for (int p = 0; p < 3; p++) {
 			float baseAngle = rotSpeed * rotSpeedMod * (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks);
-			ms.mulPose(Vector3f.YP.rotationDegrees((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
+			ms.mulPose(VecHelper.rotateY((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
 
 			Matrix4f mat = ms.last().pose();
 			tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
@@ -149,13 +151,13 @@ public class SkyblockSkyRenderer {
 
 			switch (p) {
 				case 0 -> {
-					ms.mulPose(Vector3f.XP.rotationDegrees(20));
+					ms.mulPose(VecHelper.rotateX(20));
 					RenderSystem.setShaderColor(1F, 0.4F, 0.4F, a);
 					fuzzPer = Math.PI * 14 / angles;
 					rotSpeed = 0.2F;
 				}
 				case 1 -> {
-					ms.mulPose(Vector3f.XP.rotationDegrees(50));
+					ms.mulPose(VecHelper.rotateX(50));
 					RenderSystem.setShaderColor(0.4F, 1F, 0.7F, a);
 					fuzzPer = Math.PI * 6 / angles;
 					rotSpeed = 2F;
@@ -181,8 +183,8 @@ public class SkyblockSkyRenderer {
 		float angle1 = rand.nextFloat() * 360F;
 		float angle2 = rand.nextFloat() * 360F;
 		RenderSystem.setShaderColor(1F, 1F, 1F, effCelAng1 * (1F - insideVoid));
-		ms.mulPose(Vector3f.YP.rotationDegrees(angle1));
-		ms.mulPose(Vector3f.ZP.rotationDegrees(angle2));
+		ms.mulPose(VecHelper.rotateY(angle1));
+		ms.mulPose(VecHelper.rotateZ(angle2));
 
 		Matrix4f mat = ms.last().pose();
 		tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
@@ -230,37 +232,37 @@ public class SkyblockSkyRenderer {
 		starVBO.bind();
 
 		ms.pushPose();
-		ms.mulPose(Vector3f.YP.rotationDegrees(t * 3));
+		ms.mulPose(VecHelper.rotateY(t * 3));
 		RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
 		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
-		ms.mulPose(Vector3f.YP.rotationDegrees(t));
+		ms.mulPose(VecHelper.rotateY(t));
 		RenderSystem.setShaderColor(0.5F, 1F, 1F, alpha);
 		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
-		ms.mulPose(Vector3f.YP.rotationDegrees(t * 2));
+		ms.mulPose(VecHelper.rotateY(t * 2));
 		RenderSystem.setShaderColor(1F, 0.75F, 0.75F, alpha);
 		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
-		ms.mulPose(Vector3f.ZP.rotationDegrees(t * 3));
+		ms.mulPose(VecHelper.rotateZ(t * 3));
 		RenderSystem.setShaderColor(1F, 1F, 1F, 0.25F * alpha);
 		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
-		ms.mulPose(Vector3f.ZP.rotationDegrees(t));
+		ms.mulPose(VecHelper.rotateZ(t));
 		RenderSystem.setShaderColor(0.5F, 1F, 1F, 0.25F * alpha);
 		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
-		ms.mulPose(Vector3f.ZP.rotationDegrees(t * 2));
+		ms.mulPose(VecHelper.rotateZ(t * 2));
 		RenderSystem.setShaderColor(1F, 0.75F, 0.75F, 0.25F * alpha);
 		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();

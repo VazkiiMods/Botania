@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,10 +38,8 @@ public class CrimsonPendantItem extends BaubleItem {
 	}
 
 	public static boolean onDamage(LivingEntity entity, DamageSource source) {
-		if (source.isFire() && !EquipmentHandler.findOrEmpty(BotaniaItems.superLavaPendant, entity).isEmpty()) {
-			return true;
-		}
-		return false;
+		return source.is(DamageTypeTags.IS_FIRE) &&
+				!EquipmentHandler.findOrEmpty(BotaniaItems.superLavaPendant, entity).isEmpty();
 	}
 
 	@Override

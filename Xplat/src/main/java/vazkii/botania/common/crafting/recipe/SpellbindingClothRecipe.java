@@ -9,12 +9,13 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -22,10 +23,10 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.item.BotaniaItems;
 
 public class SpellbindingClothRecipe extends CustomRecipe {
-	public static final SimpleRecipeSerializer<SpellbindingClothRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SpellbindingClothRecipe::new);
+	public static final NoOpRecipeSerializer<SpellbindingClothRecipe> SERIALIZER = new NoOpRecipeSerializer<>(SpellbindingClothRecipe::new);
 
 	public SpellbindingClothRecipe(ResourceLocation id) {
-		super(id);
+		super(id, CraftingBookCategory.EQUIPMENT);
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
 		ItemStack stackToDisenchant = ItemStack.EMPTY;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);

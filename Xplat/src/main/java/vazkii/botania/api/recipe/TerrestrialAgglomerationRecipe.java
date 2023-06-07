@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +27,7 @@ public interface TerrestrialAgglomerationRecipe extends Recipe<Container> {
 
 	@Override
 	default RecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
+		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public interface TerrestrialAgglomerationRecipe extends Recipe<Container> {
 	@NotNull
 	@Override
 	default ItemStack getToastSymbol() {
-		return Registry.ITEM.getOptional(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+		return BuiltInRegistries.ITEM.getOptional(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
 	@Override

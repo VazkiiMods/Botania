@@ -4,6 +4,7 @@
     "type": "block",
     "block": "botania:alchemy_catalyst"
   },
+  "group": "botania:glowstone_and_redstone_cycle",
   "input": {
     "item": "minecraft:glowstone_dust"
   },

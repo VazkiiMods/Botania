@@ -1476,7 +1476,7 @@
 
   "botania.entry.thermalily": "Termolila",
   "botania.page.thermalily0": "Llega un punto el que la energía de generación lenta, como la $(item)hidrortensia$(0) o la $(item)endollama$(0), no son suficientes. Para responder a eso está la $(item)termolila$(0), que funciona de forma similar a la $(item)hidrortensia$(0) pero con $(item)lava$(0), y producirá grandes cantidades de $(thing)maná$(0) a chorros al consumir $(item)lava$(0). Al hacer esto la flor se calienta y necesitará algo de tiempo para enfriarse antes de poder a funcionar de nuevo.",
-  "botania.page.thermalily1": "$(o)Estilo 0108$(r).",
+  "botania.page.thermalily4": "$(o)Estilo 0108$(r).",
 
   "botania.entry.arcanerose": "Rosa arcana",
   "botania.page.arcanerose0": "Los $(thing)puntos de experiencia$(0) son una forma de magia. La $(item)rosa arcana$(0) puede aprovecharlo y absorber la experiencia de los jugadores cercanos que estén en el suelo,convirtiéndola en $(thing)maná$(0).",

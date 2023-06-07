@@ -1,8 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "Q": {
-      "item": "botania:metamorphic_fungal_bricks_slab"
+      "item": "botania:metamorphic_fungal_bricks"
     }
   },
   "pattern": [

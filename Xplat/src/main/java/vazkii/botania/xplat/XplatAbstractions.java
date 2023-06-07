@@ -1,19 +1,18 @@
 package vazkii.botania.xplat;
 
-import com.google.gson.JsonObject;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
@@ -37,11 +36,14 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
@@ -69,7 +71,6 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.network.BotaniaPacket;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -157,7 +158,7 @@ public interface XplatAbstractions {
 	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 
 	// Networking
-	Packet<?> toVanillaClientboundPacket(BotaniaPacket packet);
+	Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet);
 	void sendToPlayer(Player player, BotaniaPacket packet);
 	void sendToNear(Level level, BlockPos pos, BotaniaPacket packet);
 	void sendToTracking(Entity e, BotaniaPacket packet);
@@ -184,7 +185,7 @@ public interface XplatAbstractions {
 	}
 
 	<T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor);
-	Registry<Brew> createBrewRegistry();
+	Registry<Brew> getOrCreateBrewRegistry();
 	@Nullable
 	EquipmentHandler tryCreateEquipmentHandler();
 
@@ -196,8 +197,6 @@ public interface XplatAbstractions {
 	boolean isInGlassTag(BlockState state);
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
-	// Forge also makes RecipeProvider.saveRecipeAdvancement an instance method >.>
-	void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path);
 	// Forge patches BucketItem to use a supplier for the fluid, and exposes it, while Fabric needs an accessor
 	Fluid getBucketFluid(BucketItem item);
 	int getSmeltingBurnTime(ItemStack stack);
@@ -208,6 +207,18 @@ public interface XplatAbstractions {
 	// Red string container
 	boolean isRedStringContainerTarget(BlockEntity be);
 	RedStringContainerBlockEntity newRedStringContainer(BlockPos pos, BlockState state);
+
+	default BlockSetType registerWoodBlockSetType(String name) {
+		return registerBlockSetType(name, SoundType.WOOD, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON, SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON);
+	}
+
+	BlockSetType registerBlockSetType(String name, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn);
+
+	default WoodType registerWoodType(String name, BlockSetType blockSetType) {
+		return registerWoodType(name, blockSetType, SoundType.WOOD, SoundType.HANGING_SIGN, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN);
+	}
+
+	WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen);
 
 	XplatAbstractions INSTANCE = ServiceUtil.findService(XplatAbstractions.class, null);
 }

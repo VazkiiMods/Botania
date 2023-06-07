@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -51,7 +52,7 @@ public class CloakOfVirtueItem extends BaubleItem {
 	}
 
 	public float onPlayerDamage(Player player, DamageSource src, float amount) {
-		if (!src.isBypassInvul()) {
+		if (!src.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
 			ItemStack stack = EquipmentHandler.findOrEmpty(this, player);
 
 			if (!stack.isEmpty() && !isInEffect(stack)) {
@@ -102,9 +103,9 @@ public class CloakOfVirtueItem extends BaubleItem {
 	}
 
 	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
-		if (!src.isMagic()) {
+		if (!src.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
 			amount.setValue(0);
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
+			player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
 				double x = player.getX() + Math.random() * player.getBbWidth() * 2 - player.getBbWidth();
 				double y = player.getY() + Math.random() * player.getBbHeight();
@@ -114,7 +115,7 @@ public class CloakOfVirtueItem extends BaubleItem {
 				float g = yellow ? 1F : 0.3F;
 				float b = yellow ? 0.3F : 1F;
 				SparkleParticleData data = SparkleParticleData.sparkle(0.8F + (float) Math.random() * 0.4F, r, g, b, 3);
-				player.level.addParticle(data, x, y, z, 0, 0, 0);
+				player.getLevel().addParticle(data, x, y, z, 0, 0, 0);
 			}
 			return true;
 		}

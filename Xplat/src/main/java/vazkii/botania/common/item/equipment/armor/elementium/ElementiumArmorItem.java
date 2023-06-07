@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 
 public abstract class ElementiumArmorItem extends ManasteelArmorItem {
 
-	public ElementiumArmorItem(EquipmentSlot type, Properties props) {
+	public ElementiumArmorItem(Type type, Properties props) {
 		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), props);
 	}
 

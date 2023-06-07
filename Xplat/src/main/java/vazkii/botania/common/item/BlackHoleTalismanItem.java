@@ -11,7 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -49,8 +49,8 @@ import java.util.List;
 
 public class BlackHoleTalismanItem extends Item {
 	public static final String TAG_ACTIVE = "active";
-	private static final String TAG_BLOCK_NAME = "blockName";
-	private static final String TAG_BLOCK_COUNT = "blockCount";
+	public static final String TAG_BLOCK_NAME = "blockName";
+	public static final String TAG_BLOCK_COUNT = "blockCount";
 
 	public BlackHoleTalismanItem(Properties props) {
 		super(props);
@@ -122,7 +122,7 @@ public class BlackHoleTalismanItem extends Item {
 	@Override
 	public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if (!entity.level.isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null) {
+		if (!entity.getLevel().isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null) {
 			if (entity instanceof Player player) {
 				suckFromPlayerInv(itemstack, block, player);
 			}
@@ -180,9 +180,9 @@ public class BlackHoleTalismanItem extends Item {
 		return cand;
 	}
 
-	private static boolean setBlock(ItemStack stack, Block block) {
+	public static boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
-			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
+			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, BuiltInRegistries.BLOCK.getKey(block).toString());
 			return true;
 		}
 		return false;
@@ -208,7 +208,7 @@ public class BlackHoleTalismanItem extends Item {
 		}
 	}
 
-	private static void setCount(ItemStack stack, int count) {
+	public static void setCount(ItemStack stack, int count) {
 		ItemNBTHelper.setInt(stack, TAG_BLOCK_COUNT, count);
 	}
 
@@ -227,7 +227,7 @@ public class BlackHoleTalismanItem extends Item {
 	public static Block getBlock(ItemStack stack) {
 		ResourceLocation id = ResourceLocation.tryParse(getBlockName(stack));
 		if (id != null) {
-			return Registry.BLOCK.getOptional(id).orElse(null);
+			return BuiltInRegistries.BLOCK.getOptional(id).orElse(null);
 		}
 		return null;
 	}

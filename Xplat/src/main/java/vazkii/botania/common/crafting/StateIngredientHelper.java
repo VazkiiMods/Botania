@@ -14,7 +14,10 @@ import com.google.gson.JsonParseException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
-import net.minecraft.core.Registry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
@@ -22,6 +25,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -85,13 +89,13 @@ public class StateIngredientHelper {
 			case "tag":
 				return new TagStateIngredient(new ResourceLocation(GsonHelper.getAsString(object, "tag")));
 			case "block":
-				return new BlockStateIngredient(Registry.BLOCK.get(new ResourceLocation(GsonHelper.getAsString(object, "block"))));
+				return new BlockStateIngredient(BuiltInRegistries.BLOCK.get(new ResourceLocation(GsonHelper.getAsString(object, "block"))));
 			case "state":
 				return new BlockStateStateIngredient(readBlockState(object));
 			case "blocks":
 				List<Block> blocks = new ArrayList<>();
 				for (JsonElement element : GsonHelper.getAsJsonArray(object, "blocks")) {
-					blocks.add(Registry.BLOCK.get(new ResourceLocation(element.getAsString())));
+					blocks.add(BuiltInRegistries.BLOCK.get(new ResourceLocation(element.getAsString())));
 				}
 				return new BlocksStateIngredient(blocks);
 			case "tag_excluding":
@@ -155,12 +159,12 @@ public class StateIngredientHelper {
 				Set<Block> set = new HashSet<>();
 				for (int i = 0; i < count; i++) {
 					int id = buffer.readVarInt();
-					Block block = Registry.BLOCK.byId(id);
+					Block block = BuiltInRegistries.BLOCK.byId(id);
 					set.add(block);
 				}
 				return new BlocksStateIngredient(set);
 			case 1:
-				return new BlockStateIngredient(Registry.BLOCK.byId(buffer.readVarInt()));
+				return new BlockStateIngredient(BuiltInRegistries.BLOCK.byId(buffer.readVarInt()));
 			case 2:
 				return new BlockStateStateIngredient(Block.stateById(buffer.readVarInt()));
 			case 3:
@@ -195,9 +199,11 @@ public class StateIngredientHelper {
 		ItemNBTHelper.renameTag(nbt, "properties", "Properties");
 		String name = nbt.getString("Name");
 		ResourceLocation id = ResourceLocation.tryParse(name);
-		if (id == null || !Registry.BLOCK.getOptional(id).isPresent()) {
+		if (id == null || BuiltInRegistries.BLOCK.getOptional(id).isEmpty()) {
 			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
 		}
-		return NbtUtils.readBlockState(nbt);
+		Level level = Minecraft.getInstance().level;
+		HolderGetter<Block> holderGetter = level != null ? level.holderLookup(Registries.BLOCK) : BuiltInRegistries.BLOCK.asLookup();
+		return NbtUtils.readBlockState(holderGetter, nbt);
 	}
 }

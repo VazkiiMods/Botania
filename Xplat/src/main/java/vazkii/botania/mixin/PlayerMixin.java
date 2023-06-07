@@ -61,8 +61,9 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
 	)
 	private DamageSource onDamageTarget(DamageSource source, float amount) {
 		if (this.terraWillCritTarget != null) {
-			TerrasteelHelmItem.onEntityAttacked(source, amount, (Player) (Object) this, terraWillCritTarget);
+			DamageSource newSource = TerrasteelHelmItem.onEntityAttacked(source, amount, (Player) (Object) this, terraWillCritTarget);
 			this.terraWillCritTarget = null;
+			return newSource;
 		}
 		return source;
 	}

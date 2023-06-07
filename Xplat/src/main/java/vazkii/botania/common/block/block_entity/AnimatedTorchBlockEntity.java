@@ -31,6 +31,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaTrigger;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.Arrays;
@@ -148,11 +149,13 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
+			int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 - 10;
 
-			mc.getItemRenderer().renderAndDecorateItem(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
-			mc.font.drawShadow(ms, I18n.get("botania.animatedTorch." + torch.torchMode.name().toLowerCase(Locale.ROOT)), x + 18, y + 6, 0xFF4444);
+			String str = I18n.get("botania.animatedTorch." + torch.torchMode.name().toLowerCase(Locale.ROOT));
+			RenderHelper.renderHUDBox(ms, x, y, x + 18 + mc.font.width(str), y + 20);
+			mc.getItemRenderer().renderAndDecorateItem(ms, new ItemStack(Blocks.REDSTONE_TORCH), x, y + 2);
+			mc.font.drawShadow(ms, str, x + 16, y + 6, 0xFF4444);
 		}
 	}
 

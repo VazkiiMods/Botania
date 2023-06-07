@@ -4,6 +4,7 @@
     "type": "block",
     "block": "botania:alchemy_catalyst"
   },
+  "group": "botania:stone_cycle",
   "input": {
     "item": "minecraft:andesite"
   },
