@@ -60,7 +60,9 @@ public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer
 					RenderHelper.renderGuiItemAlpha(missingFlower, x, y, 0x5F, mc.getItemRenderer());
 				} else if (slot.getItem().getCount() == 1) {
 					ms.pushPose();
-					ms.translate(0, 0, mc.getItemRenderer().blitOffset + 300); // similar to ItemRenderer.renderGuiItemDecorations
+					// TODO 1.19.4 the method referenced here seems to have changed completely, see if we need to follow or
+					// if this still works
+					ms.translate(0, 0, 300); // similar to ItemRenderer.renderGuiItemDecorations
 					mc.font.drawShadow(ms, "1", x + 11, y + 9, 0xFFFFFF);
 					ms.popPose();
 				}

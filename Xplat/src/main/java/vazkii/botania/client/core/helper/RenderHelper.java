@@ -541,7 +541,7 @@ public final class RenderHelper extends RenderType {
 
 		PoseStack modelViewStack = RenderSystem.getModelViewStack();
 		modelViewStack.pushPose();
-		modelViewStack.translate(x, y, 100.0F + renderer.blitOffset);
+		modelViewStack.translate(x, y, 100.0F);
 		modelViewStack.translate(8.0D, 8.0D, 0.0D);
 		modelViewStack.scale(1.0F, -1.0F, 1.0F);
 		modelViewStack.scale(16.0F, 16.0F, 16.0F);
