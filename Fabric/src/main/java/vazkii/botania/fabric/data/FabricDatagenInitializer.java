@@ -28,7 +28,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	private static void configureFabricDatagen(FabricDataGenerator.Pack pack) {
 		pack.addProvider((PackOutput output) -> new FabricBlockLootProvider(output));
 		var blockTagProvider = pack.addProvider(FabricBlockTagProvider::new);
-		pack.addProvider((output, registriesFuture) -> new FabricItemTagProvider(output, registriesFuture, blockTagProvider));
+		pack.addProvider((output, registriesFuture) -> new FabricItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
 		pack.addProvider((PackOutput output) -> new FabricRecipeProvider(output));
 		pack.addProvider(FabricBiomeTagProvider::new);
 	}
@@ -36,7 +36,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
 		pack.addProvider((PackOutput output) -> new BlockLootProvider(output));
 		BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);
-		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(output, registriesFuture, blockTagProvider));
+		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
 		pack.addProvider(EntityTagProvider::new);
 		pack.addProvider(BannerPatternTagsProvider::new);
 		pack.addProvider(BiomeTagProvider::new);

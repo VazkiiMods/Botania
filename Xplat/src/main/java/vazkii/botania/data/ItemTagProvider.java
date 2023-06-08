@@ -21,6 +21,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.lens.LensItem;
@@ -32,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
 import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ItemTagProvider extends ItemTagsProvider {
-	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagProvider blockTagProvider) {
+	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
 		super(packOutput, lookupProvider, blockTagProvider);
 	}
 
