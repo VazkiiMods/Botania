@@ -56,12 +56,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
 	}
 
 	private void generateToolTags() {
-		this.tag(ConventionalItemTags.AXES).add(manasteelAxe, elementiumAxe, terraAxe);
 		this.tag(ConventionalItemTags.BOWS).add(livingwoodBow, crystalBow);
-		this.tag(ConventionalItemTags.HOES).add(manasteelHoe, elementiumHoe);
-		this.tag(ConventionalItemTags.PICKAXES).add(manasteelPick, elementiumPick, terraPick, glassPick);
-		this.tag(ConventionalItemTags.SHOVELS).add(manasteelShovel, elementiumShovel);
-		this.tag(ConventionalItemTags.SWORDS).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
 		this.tag(ConventionalItemTags.SHEARS).add(manasteelShears, elementiumShears);
 	}
 

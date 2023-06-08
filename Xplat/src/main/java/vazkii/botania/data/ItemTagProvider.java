@@ -39,6 +39,12 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
+		this.tag(ItemTags.AXES).add(manasteelAxe, elementiumAxe, terraAxe);
+		this.tag(ItemTags.HOES).add(manasteelHoe, elementiumHoe);
+		this.tag(ItemTags.PICKAXES).add(manasteelPick, elementiumPick, terraPick, glassPick);
+		this.tag(ItemTags.SHOVELS).add(manasteelShovel, elementiumShovel);
+		this.tag(ItemTags.SWORDS).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
+
 		this.copy(BlockTags.RAILS, ItemTags.RAILS);
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
 		this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
