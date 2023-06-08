@@ -11,6 +11,7 @@ package vazkii.botania.client.patchouli.processor;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -62,13 +63,15 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		switch (key) {
 			case "heading":
 				if (!hasCustomHeading) {
-					return IVariable.from(recipes.get(0).getResultItem().getHoverName());
+					// TODO 1.19.4 figure out the proper way to get a registry access
+					return IVariable.from(recipes.get(0).getResultItem(RegistryAccess.EMPTY).getHoverName());
 				}
 				return null;
 			case "input":
 				return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
 			case "output":
-				return IVariable.wrapList(recipes.stream().map(ManaInfusionRecipe::getResultItem).map(IVariable::from).collect(Collectors.toList()));
+				// TODO 1.19.4 figure out the proper way to get a registry access
+				return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(RegistryAccess.EMPTY)).map(IVariable::from).collect(Collectors.toList()));
 			case "catalyst":
 				return IVariable.wrapList(recipes.stream().map(ManaInfusionRecipe::getRecipeCatalyst)
 						.flatMap(ingr -> {

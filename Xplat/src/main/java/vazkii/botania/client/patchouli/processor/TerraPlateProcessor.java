@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -35,7 +36,8 @@ public class TerraPlateProcessor implements IComponentProcessor {
 			return null;
 		}
 		if (key.equals("output")) {
-			return IVariable.from(recipe.getResultItem());
+			// TODO 1.19.4 figure out the proper way to get a registry access
+			return IVariable.from(recipe.getResultItem(RegistryAccess.EMPTY));
 		}
 		if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;

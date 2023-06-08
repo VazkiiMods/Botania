@@ -21,6 +21,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
@@ -98,8 +99,9 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 			point = PetalApothecaryRecipeCategory.rotatePointAbout(point, center, angleBetweenEach);
 		}
 
+		// TODO 1.19.4 figure out the proper way to get a registry access
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 86, 10)
-				.addItemStack(recipe.getResultItem());
+				.addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));
 	}
 
 }

@@ -21,6 +21,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -95,8 +96,9 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull TerrestrialAgglomerationRecipe recipe, @NotNull IFocusGroup focusGroup) {
+		// TODO 1.19.4 figure out the proper way to get a registry access
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 37)
-				.addItemStack(recipe.getResultItem());
+				.addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));
 
 		double angleBetweenEach = 360.0 / recipe.getIngredients().size();
 		Vec2 point = new Vec2(48, 5), center = new Vec2(48, 37);

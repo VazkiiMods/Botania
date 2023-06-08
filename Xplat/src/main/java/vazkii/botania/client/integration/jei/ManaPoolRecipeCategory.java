@@ -21,6 +21,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
@@ -99,6 +100,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 		}
 
 		builder.addSlot(RecipeIngredientRole.CATALYST, 62, 12).addItemStack(renderStack);
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 12).addItemStack(recipe.getResultItem());
+		// TODO 1.19.4 figure out the proper way to get a registry access
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 12).addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));
 	}
 }

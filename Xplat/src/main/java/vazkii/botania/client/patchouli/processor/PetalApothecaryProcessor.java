@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 
@@ -33,8 +34,9 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 		}
 		return switch (key) {
 			case "recipe" -> IVariable.wrap(recipe.getId().toString());
-			case "output" -> IVariable.from(recipe.getResultItem());
-			case "heading" -> IVariable.from(recipe.getResultItem().getHoverName());
+			// TODO 1.19.4 figure out the proper way to get a registry access
+			case "output" -> IVariable.from(recipe.getResultItem(RegistryAccess.EMPTY));
+			case "heading" -> IVariable.from(recipe.getResultItem(RegistryAccess.EMPTY).getHoverName());
 			default -> null;
 		};
 	}

@@ -9,6 +9,7 @@
 package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -62,7 +63,8 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 		}
 		if (key.equals("heading")) {
 			if (!hasCustomHeading) {
-				return IVariable.from(recipes.get(0).getResultItem().getHoverName());
+				// TODO 1.19.4 figure out the proper way to get a registry access
+				return IVariable.from(recipes.get(0).getResultItem(RegistryAccess.EMPTY).getHoverName());
 			}
 			return null;
 		}
@@ -89,7 +91,8 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			return PatchouliUtils.interweaveIngredients(ingredients, longestIngredientSize);
 		}
 		if (key.equals("output")) {
-			return IVariable.wrapList(recipes.stream().map(CraftingRecipe::getResultItem).map(IVariable::from).collect(Collectors.toList()));
+			// TODO 1.19.4 figure out the proper way to get a registry access
+			return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(RegistryAccess.EMPTY)).map(IVariable::from).collect(Collectors.toList()));
 		}
 		if (key.equals("shapeless")) {
 			return IVariable.wrap(shapeless);
