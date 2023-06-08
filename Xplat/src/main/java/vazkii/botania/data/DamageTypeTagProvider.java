@@ -20,6 +20,7 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	protected void addTags(HolderLookup.Provider provider) {
 		this.tag(BotaniaTags.DamageTypes.RING_OF_ODIN_IMMUNE).add(
 				DamageTypes.DROWN,
