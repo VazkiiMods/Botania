@@ -4,6 +4,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -34,7 +35,8 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 			this.catalysts = List.of(EmiIngredient.of(recipe.getRecipeCatalyst().getDisplayed().stream()
 					.map(s -> EmiStack.of(s.getBlock())).toList()));
 		}
-		this.output = List.of(EmiStack.of(recipe.getResultItem()));
+		// TODO 1.19.4 figure out the proper way to get a registry access
+		this.output = List.of(EmiStack.of(recipe.getResultItem(RegistryAccess.EMPTY)));
 		mana = recipe.getManaToConsume();
 	}
 
