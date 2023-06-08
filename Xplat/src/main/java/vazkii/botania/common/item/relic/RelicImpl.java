@@ -1,10 +1,10 @@
 package vazkii.botania.common.item.relic;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -69,7 +69,7 @@ public class RelicImpl implements Relic {
 				RelicBindTrigger.INSTANCE.trigger(serverPlayer, stack);
 			}
 		} else if (!isRightPlayer(player) && player.tickCount % 10 == 0 && shouldDamageWrongPlayer()) {
-			player.hurt(damageSource(player.damageSources()), 2);
+			player.hurt(damageSource(player.getLevel().registryAccess()), 2);
 		}
 	}
 
@@ -78,8 +78,8 @@ public class RelicImpl implements Relic {
 		return player.getUUID().equals(getSoulbindUUID());
 	}
 
-	private static DamageSource damageSource(DamageSources damageSources) {
-		return damageSources.source(BotaniaDamageTypes.RELIC_DAMAGE);
+	private static DamageSource damageSource(RegistryAccess registryAccess) {
+		return BotaniaDamageTypes.Sources.relicDamage(registryAccess);
 	}
 
 	public static void addDefaultTooltip(ItemStack stack, List<Component> tooltip) {
