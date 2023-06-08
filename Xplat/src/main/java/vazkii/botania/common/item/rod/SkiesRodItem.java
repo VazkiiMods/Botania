@@ -165,11 +165,12 @@ public class SkiesRodItem extends Item {
 				decAvatarCooldowns(cooldowns);
 			}
 			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.isEnabled()) {
-				int range = 5;
-				int rangeY = 3;
-				List<Player> players = world.getEntitiesOfClass(Player.class,
-						new AABB(te.getBlockPos().offset(-0.5 - range, -0.5 - rangeY, -0.5 - range),
-								te.getBlockPos().offset(0.5 + range, 0.5 + rangeY, 0.5 + range)));
+				double range = 5.5;
+				double rangeY = 3.5;
+				List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(
+						te.getBlockPos().getCenter().add(-range, -rangeY, -range),
+						te.getBlockPos().getCenter().add(range, rangeY, range)
+				));
 				for (Player p : players) {
 					int cooldown = 0;
 					if (cooldowns.containsKey(p.getUUID())) {

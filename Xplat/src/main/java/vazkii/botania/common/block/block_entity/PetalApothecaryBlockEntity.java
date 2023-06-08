@@ -207,7 +207,9 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, PetalApothecaryBlockEntity self) {
-		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.offset(0, 1D / 16D * 20D, 0), worldPosition.offset(1, 1D / 16D * 32D, 1)));
+		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(
+				worldPosition.above()
+		));
 
 		boolean didChange = false;
 		for (ItemEntity item : items) {
