@@ -119,11 +119,15 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 			ms.translate(0, Mth.clampedMap(manaLevel, 0, 1, poolBottom, poolTop), 0);
 			ms.mulPose(VecHelper.rotateX(90F));
 
+			// TODO 1.19.4 this crashes the game fsr, fix
+			/*
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
 			RenderHelper.renderIconCropped(
 					ms, buffer,
 					insideUVStart, insideUVStart, insideUVEnd, insideUVEnd,
 					this.waterSprite, 0xFFFFFF, 1, light);
+			
+			*/
 
 			ms.popPose();
 		}
