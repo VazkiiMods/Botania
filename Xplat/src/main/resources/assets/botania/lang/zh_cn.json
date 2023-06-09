@@ -7,7 +7,7 @@
   "_comment5": "Once again， don't copy from English， and THANK YOU for your hard work!",
   "_comment6": "请翻译者注意替换全半角标点，包括“,”和“，”、“.”和“。”、“?”和“？”、以及“!”和“！”等。同时，请注意将排列句式中的英文逗号改为顿号。感谢您的贡献。",
 
-  "itemGroup.botania": "植物魔法",
+  "itemGroup.botania.botania": "植物魔法",
   "botania.landing": "魔法，自然也是科技。$(br2)植物魔法是一个以自然魔法为主题的科技Mod，主要通过使用魔法花朵和装置来运用大地之中的$(thing)魔力$()。",
   "botania.desc": "这里便是植物魔法的描述。",
 
@@ -1879,7 +1879,7 @@
   "botania.page.pureDaisy0": "$(item)白雏菊$(0)不仅是最基础的，也是一个植物魔法师所有的最重要的花。$(p)这种花会将任何相邻的$(item)木头$(0)和$(item)石头$(0)方块净化为$(item)活木$(0)和$(item)活石$(0)（如下一页所示）。这两种材料都是植物魔法师生涯中不可或缺的素材。",
   "botania.page.pureDaisy1": "给它$(thing)一分钟$(0)就会...",
   "botania.page.pureDaisy2": "$(item)活木$(0)可做成活木枝",
-  "botania.page.pureDaisy4": "此外还有一些方块放在这朵花旁边时也能被净化。尽管它们并不像活木活石那样是必需品，或许也能派上什么用场。包括$(item)地狱岩$(0)变为$(item)圆石$(0)，$(item)灵魂沙$(0)变为$(item)沙子$(0)，$(item)冰$(0)变为$(item)浮冰$(0)，还有$(item)水$(0)变为$(item)雪$(0)。",
+  "botania.page.pureDaisy4": "此外还有一些方块放在这朵花旁边时也能被净化。尽管它们并不像活木活石那样是必需品，或许也能派上什么用场。包括$(item)地狱岩$(0)变为$(item)圆石$(0)，$(item)灵魂沙$(0)变为$(item)沙子$(0)，$(item)烈焰网$(0)变为$(item)黑曜石$(0)，$(item)水源$(0)变为$(item)雪$(0)，$(item)冰$(0)变为$(item)浮冰$(0)，$(item)浮冰$(0)变为$(item)蓝冰$(0)，以及$(item)末地石$(0)变为$(item)深板岩圆石$(0)（在此过程中释放一小朵$(l:ender/ender_air)末地空气云团$(/l)）。",
   "botania.page.pureDaisy3": "一张空白画卷，绘出冒险之旅",
 
   "botania.entry.wand": "森林法杖",
