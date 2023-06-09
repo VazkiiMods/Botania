@@ -66,7 +66,7 @@ public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDispl
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 4);
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> {
-			CategoryUtils.drawOverlay(helper, matrices, TRADE_OVERLAY, center.x - 45, center.y - 34, 20, 19, 71, 75);
+			CategoryUtils.drawOverlay(matrices, TRADE_OVERLAY, center.x - 45, center.y - 34, 20, 19, 71, 75);
 			drawPortal(matrices, center);
 		}));
 		int x = center.x - 20;

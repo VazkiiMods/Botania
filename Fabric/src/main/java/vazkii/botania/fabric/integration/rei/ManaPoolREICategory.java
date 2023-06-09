@@ -64,7 +64,7 @@ public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> 
 
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> {
-			CategoryUtils.drawOverlay(helper, matrices, OVERLAY, center.x - 23, center.y - 13, 0, 0, 65, 44);
+			CategoryUtils.drawOverlay(matrices, OVERLAY, center.x - 23, center.y - 13, 0, 0, 65, 44);
 			HUDHandler.renderManaBar(matrices, center.x - 43, center.y + 37, 0x0000FF, 0.75F, display.getManaCost(), ManaPoolBlockEntity.MAX_MANA / 10);
 		})));
 
