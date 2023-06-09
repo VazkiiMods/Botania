@@ -38,7 +38,6 @@ import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -133,12 +132,11 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisChibi));
 		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisChibiFloating));
 
-		Function<Comparison, Comparison> compareNbt = c -> c.copy().nbt(true).build();
-		registry.setDefaultComparison(BotaniaItems.lexicon, compareNbt);
-		registry.setDefaultComparison(BotaniaItems.brewFlask, compareNbt);
-		registry.setDefaultComparison(BotaniaItems.brewVial, compareNbt);
-		registry.setDefaultComparison(BotaniaItems.bloodPendant, compareNbt);
-		registry.setDefaultComparison(BotaniaItems.incenseStick, compareNbt);
+		registry.setDefaultComparison(BotaniaItems.lexicon, Comparison.compareNbt());
+		registry.setDefaultComparison(BotaniaItems.brewFlask, Comparison.compareNbt());
+		registry.setDefaultComparison(BotaniaItems.brewVial, Comparison.compareNbt());
+		registry.setDefaultComparison(BotaniaItems.bloodPendant, Comparison.compareNbt());
+		registry.setDefaultComparison(BotaniaItems.incenseStick, Comparison.compareNbt());
 		// Disables the ability to see the no wings tiara recipe, probably an nbt mismatch
 		//registry.setDefaultComparison(BotaniaItems.flightTiara, compareNbt);
 
