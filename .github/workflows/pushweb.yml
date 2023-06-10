@@ -1,10 +1,13 @@
-name: Push website
+name: Build and Push website
 
 on:
-  push
+  push:
+    paths:
+      - 'Xplat/src/main/resources/assets/botania/lang/en_us.json'
+      - 'web/**'
 
 jobs:
-  build_and_push:
+  main:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
