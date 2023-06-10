@@ -8,11 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Install bundler and ruby
-      run: sudo apt-get install bundler
-    - name: Build website
+    - name: Install deps
+      working-directory: web
       run: |
-        cd web/
-        bundle exec jekyll build
+        sudo apt-get install bundler
+        bundle install --deployment
+    - name: Build website
+      working-directory: web
+      run: bundle exec jekyll build
     #- name: Push website
     #  run: rsync -av web/_site/ customer@botaniaweb.playat.ch:/var/www/botaniamod_net
