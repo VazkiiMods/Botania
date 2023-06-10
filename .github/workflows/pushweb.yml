@@ -24,6 +24,7 @@ jobs:
       run: bundle exec jekyll build
     - name: Import ssh keys
       run: |
+        mkdir -p ~/.ssh
         echo '${{ secrets.VIOLET_MOON_WEBSERVER_SSH_KEY }}' > ~/.ssh/id_ed25519
         echo '${{ vars.BOTANIAWEB_KNOWN_HOST }}' >> ~/.ssh/known_hosts
     - name: Push
