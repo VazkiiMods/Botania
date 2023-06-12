@@ -2,7 +2,6 @@ package vazkii.botania.forge.client;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Transformation;
 
 import net.minecraft.client.renderer.RenderType;
@@ -30,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
@@ -47,24 +45,12 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		this.unbakedFlower = flower;
 	}
 
-	@NotNull
-	@Override
-	public Collection<Material> getMaterials(IGeometryBakingContext context, Function<ResourceLocation, UnbakedModel> modelGetter,
-			Set<Pair<String, String>> missingTextureErrors) {
-		Set<Material> ret = new HashSet<>();
-		for (Map.Entry<FloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
-			UnbakedModel unbakedIsland = modelGetter.apply(e.getValue());
-			ret.addAll(unbakedIsland.getMaterials(modelGetter, missingTextureErrors));
-			unbakedIslands.put(e.getKey(), unbakedIsland);
-		}
-		ret.addAll(unbakedFlower.getMaterials(modelGetter, missingTextureErrors));
-		return ret;
-	}
+	// TODO 1.19.3 what's needed instead of getMaterials here?
 
 	@Nullable
 	@Override
-	public BakedModel bake(IGeometryBakingContext context, ModelBakery bakery,
-			Function<Material, TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation name) {
+	public BakedModel bake(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter,
+			ModelState transform, ItemOverrides overrides, ResourceLocation name) {
 		final Transformation moveFlower = new Transformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null);
 		Transformation mul = moveFlower.compose(transform.getRotation());
 		ModelState newTransform = new ModelState() {
@@ -78,11 +64,11 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 				return transform.isUvLocked();
 			}
 		};
-		BakedModel bakedFlower = unbakedFlower.bake(bakery, spriteGetter, newTransform, name);
+		BakedModel bakedFlower = unbakedFlower.bake(baker, spriteGetter, newTransform, name);
 
 		Map<FloatingFlower.IslandType, BakedModel> bakedIslands = new HashMap<>();
 		for (Map.Entry<FloatingFlower.IslandType, UnbakedModel> e : unbakedIslands.entrySet()) {
-			BakedModel bakedIsland = e.getValue().bake(bakery, spriteGetter, transform, name);
+			BakedModel bakedIsland = e.getValue().bake(baker, spriteGetter, transform, name);
 			bakedIslands.put(e.getKey(), bakedIsland);
 		}
 		return new Baked(bakedFlower, bakedIslands);
