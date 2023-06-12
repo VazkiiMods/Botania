@@ -14,12 +14,14 @@ public class ForgeDatagenInitializer {
 	@SubscribeEvent
 	public static void configureForgeDatagen(GatherDataEvent evt) {
 		var generator = evt.getGenerator();
+		var output = generator.getPackOutput();
 		var disabledHelper = new ExistingFileHelper(Collections.emptyList(), Collections.emptySet(), false, null, null);
-		var blockTagProvider = new ForgeBlockTagProvider(generator, disabledHelper);
+		var blockTagProvider = new ForgeBlockTagProvider(output, evt.getLookupProvider());
 		generator.addProvider(evt.includeServer(), blockTagProvider);
-		generator.addProvider(evt.includeServer(), new ForgeItemTagProvider(generator, blockTagProvider, disabledHelper));
-		generator.addProvider(evt.includeServer(), new ForgeRecipeProvider(generator));
+		generator.addProvider(evt.includeServer(), new ForgeItemTagProvider(output, evt.getLookupProvider(),
+				blockTagProvider.contentsGetter(), disabledHelper));
+		generator.addProvider(evt.includeServer(), new ForgeRecipeProvider(output));
 		generator.addProvider(evt.includeServer(), new ForgeBlockLootProvider(generator));
-		generator.addProvider(evt.includeServer(), new ForgeBiomeTagProvider(generator, disabledHelper));
+		generator.addProvider(evt.includeServer(), new ForgeBiomeTagProvider(output, evt.getLookupProvider(), disabledHelper));
 	}
 }

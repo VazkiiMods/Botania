@@ -1,8 +1,9 @@
 package vazkii.botania.forge.data;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -14,11 +15,14 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.concurrent.CompletableFuture;
+
 import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ForgeItemTagProvider extends ItemTagsProvider {
-	public ForgeItemTagProvider(DataGenerator generator, BlockTagsProvider blockTags, ExistingFileHelper helper) {
-		super(generator, blockTags, LibMisc.MOD_ID, helper);
+	public ForgeItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider,
+			CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider, ExistingFileHelper helper) {
+		super(packOutput, lookupProvider, blockTagProvider, LibMisc.MOD_ID, helper);
 	}
 
 	@Override
@@ -27,7 +31,7 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		this.tag(forge("dusts/mana")).addTag(BotaniaTags.Items.DUSTS_MANA);
 		this.tag(forge("dusts")).addTag(forge("dusts/mana"));
 
@@ -63,13 +67,6 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 	}
 
 	private void generateToolTags() {
-		this.tag(Tags.Items.TOOLS_AXES).add(manasteelAxe, elementiumAxe, terraAxe);
-		this.tag(Tags.Items.TOOLS_HOES).add(manasteelHoe, elementiumHoe);
-		this.tag(Tags.Items.TOOLS_PICKAXES).add(manasteelPick, elementiumPick,
-				terraPick, glassPick);
-		this.tag(Tags.Items.TOOLS_SHOVELS).add(manasteelShovel, elementiumShovel);
-		this.tag(Tags.Items.TOOLS_SWORDS).add(manasteelSword, elementiumSword,
-				terraSword, thunderSword, starSword);
 		this.tag(Tags.Items.SHEARS).add(manasteelShears, elementiumShears);
 
 		this.tag(Tags.Items.ARMORS_HELMETS).add(manasteelHelm, manaweaveHelm,

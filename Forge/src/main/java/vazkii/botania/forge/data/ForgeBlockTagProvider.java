@@ -1,28 +1,29 @@
 package vazkii.botania.forge.data;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.data.BlockTagProvider;
 
-public class ForgeBlockTagProvider extends BlockTagsProvider {
+import java.util.concurrent.CompletableFuture;
+
+public class ForgeBlockTagProvider extends BlockTagProvider {
 	public static final TagKey<Block> MUSHROOMS = forge("mushrooms");
 	public static final TagKey<Block> ELEMENTIUM = forge("storage_blocks/elementium");
 	public static final TagKey<Block> MANASTEEL = forge("storage_blocks/manasteel");
 	public static final TagKey<Block> TERRASTEEL = forge("storage_blocks/terrasteel");
 
-	public ForgeBlockTagProvider(DataGenerator generator, ExistingFileHelper helper) {
-		super(generator, LibMisc.MOD_ID, helper);
+	public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+		super(output, provider);
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class ForgeBlockTagProvider extends BlockTagsProvider {
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		tag(Tags.Blocks.STORAGE_BLOCKS_QUARTZ).add(
 				BotaniaFluffBlocks.darkQuartz, BotaniaFluffBlocks.manaQuartz, BotaniaFluffBlocks.blazeQuartz,
 				BotaniaFluffBlocks.lavenderQuartz, BotaniaFluffBlocks.redQuartz, BotaniaFluffBlocks.elfQuartz, BotaniaFluffBlocks.sunnyQuartz
@@ -41,7 +42,7 @@ public class ForgeBlockTagProvider extends BlockTagsProvider {
 			this.tag(MUSHROOMS).add(BotaniaBlocks.getMushroom(color));
 		}
 
-		tag(TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("buzzier_bees", "flower_blacklist")))
+		tag(TagKey.create(Registries.BLOCK, new ResourceLocation("buzzier_bees", "flower_blacklist")))
 				.addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)
 				.addTag(BotaniaTags.Blocks.SPECIAL_FLOWERS);
 
@@ -54,6 +55,6 @@ public class ForgeBlockTagProvider extends BlockTagsProvider {
 	}
 
 	private static TagKey<Block> forge(String name) {
-		return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", name));
+		return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
 	}
 }

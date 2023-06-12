@@ -250,7 +250,7 @@ public class ForgeClientInitializer {
 		BotaniaParticles.FactoryHandler.registerFactories(new BotaniaParticles.FactoryHandler.Consumer() {
 			@Override
 			public <T extends ParticleOptions> void register(ParticleType<T> type, Function<SpriteSet, ParticleProvider<T>> constructor) {
-				evt.register(type, constructor::apply);
+				evt.registerSpriteSet(type, constructor::apply);
 			}
 		});
 	}
@@ -276,7 +276,7 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void registerShaders(RegisterShadersEvent evt) throws IOException {
-		CoreShaders.init(evt.getResourceManager(), p -> evt.registerShader(p.getFirst(), p.getSecond()));
+		CoreShaders.init(evt.getResourceProvider(), p -> evt.registerShader(p.getFirst(), p.getSecond()));
 	}
 
 	@SubscribeEvent

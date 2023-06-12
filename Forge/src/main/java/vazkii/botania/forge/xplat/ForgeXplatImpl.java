@@ -1,17 +1,14 @@
 package vazkii.botania.forge.xplat;
 
-import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
@@ -101,18 +98,15 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.CapabilityUtil;
-import vazkii.botania.forge.ForgeBotaniaCreativeTab;
 import vazkii.botania.forge.block.ForgeSpecialFlowerBlock;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
-import vazkii.botania.forge.mixin.RecipeProviderForgeAccessor;
-import vazkii.botania.forge.mixin.RegistryForgeAccessor;
+import vazkii.botania.forge.mixin.BuiltInRegistriesForgeAccessor;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -413,8 +407,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Packet<?> toVanillaClientboundPacket(BotaniaPacket packet) {
-		return ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
+	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet) {
+		return (Packet<ClientGamePacketListener>) ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
 	}
 
 	@Override
@@ -486,7 +480,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Item.Properties defaultItemBuilder() {
-		return new Item.Properties().tab(ForgeBotaniaCreativeTab.INSTANCE);
+		return new Item.Properties();
 	}
 
 	@Override
@@ -508,7 +502,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	// - at most once initialization
 	// - synchronization/serialization of concurrent accesses
 	private static class RegistryHolder {
-		public static final Registry<Brew> BREW = RegistryForgeAccessor.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
+		public static final Registry<Brew> BREW = BuiltInRegistriesForgeAccessor.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
 				LibMisc.MOD_ID + ":fallback", registry -> BotaniaBrews.fallbackBrew);
 	}
 
@@ -529,7 +523,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Attribute getReachDistanceAttribute() {
-		return ForgeMod.REACH_DISTANCE.get();
+		return ForgeMod.BLOCK_REACH.get();
 	}
 
 	@Override
@@ -549,13 +543,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
-		return ((AbstractFurnaceBlockEntityForgeAccessor) furnace).callCanBurn(recipe, items, maxStackSize);
-	}
-
-	@Override
-	public void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path) {
-		// this is dumb
-		((RecipeProviderForgeAccessor) new RecipeProvider(generator)).callSaveRecipeAdvancement(cache, json, path);
+		return ((AbstractFurnaceBlockEntityForgeAccessor) furnace)
+				.callCanBurn(furnace.getLevel().registryAccess(), recipe, items, maxStackSize);
 	}
 
 	@Override
