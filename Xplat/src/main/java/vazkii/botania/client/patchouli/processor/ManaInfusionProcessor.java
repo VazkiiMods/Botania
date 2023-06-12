@@ -11,10 +11,10 @@ package vazkii.botania.client.patchouli.processor;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
@@ -33,7 +33,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 	private boolean hasCustomHeading;
 
 	@Override
-	public void setup(IVariableProvider variables) {
+	public void setup(Level level, IVariableProvider variables) {
 		if (variables.has("recipes") && variables.has("group")) {
 			BotaniaAPI.LOGGER.warn("Mana infusion template has both 'recipes' and 'group', ignoring 'recipes'");
 		}
@@ -44,7 +44,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			builder.addAll(PatchouliUtils.getRecipeGroup(BotaniaRecipeTypes.MANA_INFUSION_TYPE, group));
 		} else {
 			for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-				ManaInfusionRecipe recipe = PatchouliUtils.getRecipe(BotaniaRecipeTypes.MANA_INFUSION_TYPE, new ResourceLocation(s.asString()));
+				ManaInfusionRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE, new ResourceLocation(s.asString()));
 				if (recipe != null) {
 					builder.add(recipe);
 				}
@@ -56,22 +56,20 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 	}
 
 	@Override
-	public IVariable process(String key) {
+	public IVariable process(Level level, String key) {
 		if (recipes.isEmpty()) {
 			return null;
 		}
 		switch (key) {
 			case "heading":
 				if (!hasCustomHeading) {
-					// TODO 1.19.4 figure out the proper way to get a registry access
-					return IVariable.from(recipes.get(0).getResultItem(RegistryAccess.EMPTY).getHoverName());
+					return IVariable.from(recipes.get(0).getResultItem(level.registryAccess()).getHoverName());
 				}
 				return null;
 			case "input":
 				return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
 			case "output":
-				// TODO 1.19.4 figure out the proper way to get a registry access
-				return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(RegistryAccess.EMPTY)).map(IVariable::from).collect(Collectors.toList()));
+				return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(level.registryAccess())).map(IVariable::from).collect(Collectors.toList()));
 			case "catalyst":
 				return IVariable.wrapList(recipes.stream().map(ManaInfusionRecipe::getRecipeCatalyst)
 						.flatMap(ingr -> {

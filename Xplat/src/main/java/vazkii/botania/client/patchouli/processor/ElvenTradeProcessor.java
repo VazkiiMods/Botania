@@ -13,6 +13,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
@@ -29,10 +30,10 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	private int longestIngredientSize, mostInputs, mostOutputs;
 
 	@Override
-	public void setup(IVariableProvider variables) {
+	public void setup(Level level, IVariableProvider variables) {
 		ImmutableList.Builder<ElvenTradeRecipe> builder = ImmutableList.builder();
 		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-			ElvenTradeRecipe recipe = PatchouliUtils.getRecipe(BotaniaRecipeTypes.ELVEN_TRADE_TYPE, new ResourceLocation(s.asString()));
+			ElvenTradeRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE, new ResourceLocation(s.asString()));
 			if (recipe != null) {
 				builder.add(recipe);
 			}
@@ -56,7 +57,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	}
 
 	@Override
-	public IVariable process(String key) {
+	public IVariable process(Level level, String key) {
 		if (recipes.isEmpty()) {
 			return null;
 		}
