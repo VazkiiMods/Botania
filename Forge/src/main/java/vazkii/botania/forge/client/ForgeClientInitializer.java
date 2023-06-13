@@ -280,7 +280,7 @@ public class ForgeClientInitializer {
 	}
 
 	@SubscribeEvent
-	public static void onModelBake(ModelEvent.BakingCompleted evt) {
+	public static void onModelBake(ModelEvent.ModifyBakingResult evt) {
 		MiscellaneousModels.INSTANCE.onModelBake(evt.getModelBakery(), evt.getModels());
 	}
 
