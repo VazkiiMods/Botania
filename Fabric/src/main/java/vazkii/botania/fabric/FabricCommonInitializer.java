@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
@@ -54,7 +55,9 @@ import net.minecraft.world.level.material.Fluids;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
+import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.HornHarvestable;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.BotaniaParticles;
@@ -117,6 +120,7 @@ public class FabricCommonInitializer implements ModInitializer {
 	private static final CreativeModeTab BOTANIA_TAB = FabricItemGroup.builder(prefix("botania"))
 			.icon(() -> new ItemStack(BotaniaItems.lexicon))
 			.build();
+	private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder.createDefaulted(BotaniaRegistries.BREWS, prefix("fallback")).buildAndRegister();
 
 	@Override
 	public void onInitialize() {
@@ -185,7 +189,8 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		// Potions
 		BotaniaMobEffects.registerPotions(bind(BuiltInRegistries.MOB_EFFECT));
-		BotaniaBrews.registerBrews();
+
+		BotaniaBrews.submitRegistrations(bind(BREW_REGISTRY));
 
 		// Worldgen
 		BotaniaFeatures.registerFeatures(bind(BuiltInRegistries.FEATURE));

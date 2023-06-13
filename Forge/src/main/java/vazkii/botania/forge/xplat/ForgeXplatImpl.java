@@ -5,11 +5,9 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerPlayer;
@@ -84,7 +82,6 @@ import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
@@ -97,7 +94,6 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
@@ -106,7 +102,6 @@ import vazkii.botania.forge.block.ForgeSpecialFlowerBlock;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
-import vazkii.botania.forge.mixin.BuiltInRegistriesForgeAccessor;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -117,8 +112,6 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
@@ -496,19 +489,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
 		return IForgeMenuType.create(constructor::apply);
-	}
-
-	@Override
-	public Registry<Brew> getOrCreateBrewRegistry() {
-		return RegistryHolder.BREW;
-	}
-
-	// static final field of an inner class provides:
-	// - at most once initialization
-	// - synchronization/serialization of concurrent accesses
-	private static class RegistryHolder {
-		public static final Registry<Brew> BREW = BuiltInRegistriesForgeAccessor.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
-				LibMisc.MOD_ID + ":fallback", registry -> BotaniaBrews.fallbackBrew);
 	}
 
 	@Nullable

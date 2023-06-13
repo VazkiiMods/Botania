@@ -13,6 +13,7 @@ import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Container;
@@ -24,8 +25,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
@@ -37,7 +40,6 @@ import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -176,9 +178,11 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return 2;
 	}
 
+	@Nullable
 	@Override
+	@SuppressWarnings("unchecked")
 	public Registry<Brew> getBrewRegistry() {
-		return XplatAbstractions.INSTANCE.getOrCreateBrewRegistry();
+		return (Registry<Brew>) BuiltInRegistries.REGISTRY.get(BotaniaRegistries.BREWS.location());
 	}
 
 	@Override

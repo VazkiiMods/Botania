@@ -3,7 +3,6 @@ package vazkii.botania.xplat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -57,7 +56,6 @@ import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.api.item.AvatarWieldable;
@@ -185,7 +183,6 @@ public interface XplatAbstractions {
 	}
 
 	<T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor);
-	Registry<Brew> getOrCreateBrewRegistry();
 	@Nullable
 	EquipmentHandler tryCreateEquipmentHandler();
 

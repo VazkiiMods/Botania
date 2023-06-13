@@ -25,6 +25,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,9 +59,12 @@ public interface BotaniaAPI {
 
 	/**
 	 * Get the registry for brews.
-	 * Forge note: This registry is a vanilla registry, not a Forge one. Use vanilla's
-	 * methods to register to it. Its integer ID's are not synced, as a result.
+	 * This should only be called after the registry is registered.
+	 * In Forge, that is after NewRegistryEvent. In Fabric, that is after Botania's common initializer
+	 * is loaded.
+	 * Note that this registry is neither saved nor synced, and thus its integer ID's should not be relied upon.
 	 */
+	@Nullable
 	default Registry<Brew> getBrewRegistry() {
 		return null;
 	}

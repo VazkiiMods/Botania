@@ -5,7 +5,6 @@ import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -30,7 +29,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -86,7 +84,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
@@ -501,18 +498,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
 		return new ExtendedScreenHandlerType<>(constructor::apply);
-	}
-
-	@Override
-	public Registry<Brew> getOrCreateBrewRegistry() {
-		return RegistryHolder.BREW;
-	}
-
-	// static final field of an inner class provides:
-	// - at most once initialization
-	// - synchronization/serialization of concurrent accesses
-	private static class RegistryHolder {
-		public static final Registry<Brew> BREW = FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
 	}
 
 	@Nullable

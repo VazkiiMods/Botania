@@ -59,6 +59,7 @@ import net.minecraftforge.registries.RegisterEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
+import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.item.AvatarWieldable;
@@ -197,10 +198,8 @@ public class ForgeCommonInitializer {
 		bind(Registries.ATTRIBUTE, PixieHandler::registerAttribute);
 
 		// Potions
-		bind(Registries.MOB_EFFECT, (consumer) -> {
-			BotaniaMobEffects.registerPotions(consumer);
-			BotaniaBrews.registerBrews();
-		});
+		bind(Registries.MOB_EFFECT, BotaniaMobEffects::registerPotions);
+		bind(BotaniaRegistries.BREWS, BotaniaBrews::submitRegistrations);
 
 		// Worldgen
 		bind(Registries.FEATURE, BotaniaFeatures::registerFeatures);
