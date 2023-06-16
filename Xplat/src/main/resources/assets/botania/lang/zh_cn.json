@@ -2276,7 +2276,7 @@
 
   "botania.entry.solegnolia": "弱磁兰",
   "botania.tagline.solegnolia": "创造一个磁化指环无法工作的地方",
-  "botania.page.solegnolia0": "$(l:baubles/magnet_ring)$(item)磁化指环$(0)$(/l)对于搜集材料的人而言十分便利，但这也会让他们陷入另一个麻烦：总是会捡起不需要的物品。$(p)$(item)弱磁兰$(0)会抑制指环的能力并阻止任何物品被佩戴指环的人吸住。这朵花不会消耗任何$(thing)魔力$(0)。",
+  "botania.page.solegnolia0": "$(l:baubles/magnet_ring)$(item)磁化指环$(0)$(/l)对于搜集材料的人而言十分便利，但这也会让他们陷入另一个麻烦：总是会捡起不需要的物品。$(p)$(item)弱磁兰$(0)会抑制指环的能力并阻止工作范围内的任何物品被佩戴指环的人吸住。它还能阻止在其工作范围内的任何持戒玩家吸引任何物品。这朵花不会消耗任何$(thing)魔力$(0)。",
   "botania.page.solegnolia1": "开/关",
 
   "botania.entry.bergamute": "消音柑",
