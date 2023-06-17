@@ -34,7 +34,7 @@ public class AlfheimPortalBreadTrigger extends SimpleCriterionTrigger<AlfheimPor
 
 	@NotNull
 	@Override
-	public AlfheimPortalBreadTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPredicate, DeserializationContext conditions) {
+	public AlfheimPortalBreadTrigger.Instance createInstance(@NotNull JsonObject json, ContextAwarePredicate playerPredicate, DeserializationContext conditions) {
 		return new AlfheimPortalBreadTrigger.Instance(playerPredicate, LocationPredicate.fromJson(json.get("portal_location")));
 	}
 
@@ -45,7 +45,7 @@ public class AlfheimPortalBreadTrigger extends SimpleCriterionTrigger<AlfheimPor
 	public static class Instance extends AbstractCriterionTriggerInstance {
 		private final LocationPredicate portal;
 
-		public Instance(EntityPredicate.Composite playerPredicate, LocationPredicate portal) {
+		public Instance(ContextAwarePredicate playerPredicate, LocationPredicate portal) {
 			super(ID, playerPredicate);
 			this.portal = portal;
 		}

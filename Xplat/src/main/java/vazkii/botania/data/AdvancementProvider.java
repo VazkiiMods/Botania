@@ -95,7 +95,7 @@ public class AdvancementProvider {
 			Advancement elfPortalOpen = Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.alfPortal, "elfPortalOpen", FrameType.TASK))
 					.parent(terrasteelPickup)
-					.addCriterion("portal", new AlfheimPortalTrigger.Instance(EntityPredicate.Composite.ANY, ItemPredicate.ANY, LocationPredicate.ANY))
+					.addCriterion("portal", new AlfheimPortalTrigger.Instance(ContextAwarePredicate.ANY, ItemPredicate.ANY, LocationPredicate.ANY))
 					.save(consumer, mainId("elf_portal_open"));
 
 			Advancement gaiaGuardianKill = Advancement.Builder.advancement()
@@ -115,7 +115,7 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.lexicon, "lexiconUse", FrameType.TASK))
 					.parent(root)
-					.addCriterion("use_lexicon", new UseItemSuccessTrigger.Instance(EntityPredicate.Composite.ANY,
+					.addCriterion("use_lexicon", new UseItemSuccessTrigger.Instance(ContextAwarePredicate.ANY,
 							ItemPredicate.Builder.item().of(BotaniaItems.lexicon).build(), LocationPredicate.ANY))
 					.save(consumer, mainId("lexicon_use"));
 			Advancement.Builder.advancement()
@@ -182,7 +182,7 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.manaGun, "manaBlasterShoot", FrameType.TASK))
 					.parent(runePickup)
-					.addCriterion("shoot", new ManaBlasterTrigger.Instance(EntityPredicate.Composite.ANY, ItemPredicate.ANY, EntityPredicate.ANY, null))
+					.addCriterion("shoot", new ManaBlasterTrigger.Instance(ContextAwarePredicate.ANY, ItemPredicate.ANY, EntityPredicate.ANY, null))
 					.save(consumer, mainId("mana_blaster_shoot"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaFlowerBlocks.pollidisiac, "pollidisiacPickup", FrameType.TASK))
@@ -228,7 +228,7 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.spawnerMover, "spawnerMoverUse", FrameType.TASK))
 					.parent(gaiaGuardianKill)
-					.addCriterion("use_spawner_mover", new UseItemSuccessTrigger.Instance(EntityPredicate.Composite.ANY,
+					.addCriterion("use_spawner_mover", new UseItemSuccessTrigger.Instance(ContextAwarePredicate.ANY,
 							ItemPredicate.Builder.item().of(BotaniaItems.spawnerMover).build(), LocationPredicate.ANY))
 					.save(consumer, mainId("spawner_mover_use"));
 			DisplayInfo tiaraWings = simple(BotaniaItems.flightTiara, "tiaraWings", FrameType.TASK);
@@ -354,14 +354,14 @@ public class AdvancementProvider {
 					.display(simple(BotaniaItems.lokiRing, "lokiRingMany", FrameType.CHALLENGE))
 					.parent(lokiRing)
 					.addCriterion("place_blocks", new LokiPlaceTrigger.Instance(
-							EntityPredicate.Composite.ANY, EntityPredicate.ANY, ItemPredicate.ANY, MinMaxBounds.Ints.atLeast(255)
+							ContextAwarePredicate.ANY, EntityPredicate.ANY, ItemPredicate.ANY, MinMaxBounds.Ints.atLeast(255)
 					))
 					.save(consumer, challengeId("loki_ring_many"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.pinkinator, "pinkinator", FrameType.CHALLENGE))
 					.parent(hardMode)
 					.addCriterion("use_pinkinator", new UseItemSuccessTrigger.Instance(
-							EntityPredicate.Composite.ANY, matchItems(BotaniaItems.pinkinator), LocationPredicate.ANY))
+							ContextAwarePredicate.ANY, matchItems(BotaniaItems.pinkinator), LocationPredicate.ANY))
 					.save(consumer, challengeId("pinkinator"));
 
 			// Misc challenges
@@ -369,7 +369,7 @@ public class AdvancementProvider {
 					.display(simple(Blocks.PLAYER_HEAD, "gaiaGuardianNoArmor", FrameType.CHALLENGE))
 					.parent(root)
 					.addCriterion("no_armor", new GaiaGuardianNoArmorTrigger.Instance(
-							EntityPredicate.Composite.ANY, EntityPredicate.ANY, DamageSourcePredicate.ANY))
+							ContextAwarePredicate.ANY, EntityPredicate.ANY, DamageSourcePredicate.ANY))
 					.save(consumer, challengeId("gaia_guardian_no_armor"));
 			Advancement.Builder.advancement()
 					.display(hidden(BotaniaBlocks.motifDaybloom, "old_flower_pickup", FrameType.CHALLENGE))
@@ -383,13 +383,13 @@ public class AdvancementProvider {
 					.display(desuGun)
 					.parent(root)
 					.addCriterion("use_gun", new ManaBlasterTrigger.Instance(
-							EntityPredicate.Composite.ANY, ItemPredicate.ANY, EntityPredicate.ANY, true))
+							ContextAwarePredicate.ANY, ItemPredicate.ANY, EntityPredicate.ANY, true))
 					.save(consumer, challengeId("desu_gun"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.corporeaIndex, "superCorporeaRequest", FrameType.CHALLENGE))
 					.parent(root)
 					.addCriterion("big_request", new CorporeaRequestTrigger.Instance(
-							EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(CorporeaIndexBlockEntity.MAX_REQUEST), LocationPredicate.ANY))
+							ContextAwarePredicate.ANY, MinMaxBounds.Ints.atLeast(CorporeaIndexBlockEntity.MAX_REQUEST), LocationPredicate.ANY))
 					.save(consumer, challengeId("super_corporea_request"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.terraPick, "rankSSPick", FrameType.CHALLENGE))
@@ -407,7 +407,7 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(hidden(Items.BREAD, "alfPortalBread", FrameType.CHALLENGE))
 					.parent(root)
-					.addCriterion("bread", new AlfheimPortalBreadTrigger.Instance(EntityPredicate.Composite.ANY, LocationPredicate.ANY))
+					.addCriterion("bread", new AlfheimPortalBreadTrigger.Instance(ContextAwarePredicate.ANY, LocationPredicate.ANY))
 					.save(consumer, challengeId("alf_portal_bread"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.tinyPotato, "tinyPotatoBirthday", FrameType.CHALLENGE))
@@ -423,7 +423,7 @@ public class AdvancementProvider {
 		return Advancement.Builder.advancement()
 				.display(simple(relicItem, titleKey, FrameType.CHALLENGE))
 				.parent(parent)
-				.addCriterion(criterionName, new RelicBindTrigger.Instance(EntityPredicate.Composite.ANY,
+				.addCriterion(criterionName, new RelicBindTrigger.Instance(ContextAwarePredicate.ANY,
 						ItemPredicate.Builder.item().of(relicItem).build()))
 				.save(consumer, id);
 	}

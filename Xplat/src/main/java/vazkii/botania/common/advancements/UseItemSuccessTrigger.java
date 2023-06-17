@@ -36,7 +36,7 @@ public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccess
 
 	@NotNull
 	@Override
-	public UseItemSuccessTrigger.Instance createInstance(@NotNull JsonObject json, @NotNull EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+	public UseItemSuccessTrigger.Instance createInstance(@NotNull JsonObject json, @NotNull ContextAwarePredicate playerPred, DeserializationContext conditions) {
 		return new UseItemSuccessTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")), LocationPredicate.fromJson(json.get("location")));
 	}
 
@@ -48,7 +48,7 @@ public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccess
 		private final ItemPredicate item;
 		private final LocationPredicate location;
 
-		public Instance(EntityPredicate.Composite playerPred, ItemPredicate count, LocationPredicate indexPos) {
+		public Instance(ContextAwarePredicate playerPred, ItemPredicate count, LocationPredicate indexPos) {
 			super(ID, playerPred);
 			this.item = count;
 			this.location = indexPos;

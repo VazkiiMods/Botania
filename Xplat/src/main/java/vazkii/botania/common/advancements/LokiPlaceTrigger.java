@@ -33,7 +33,7 @@ public class LokiPlaceTrigger extends SimpleCriterionTrigger<LokiPlaceTrigger.In
 
 	@NotNull
 	@Override
-	public LokiPlaceTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+	public LokiPlaceTrigger.Instance createInstance(@NotNull JsonObject json, ContextAwarePredicate playerPred, DeserializationContext conditions) {
 		return new LokiPlaceTrigger.Instance(playerPred, EntityPredicate.fromJson(json.get("player")),
 				ItemPredicate.fromJson(json.get("ring")), MinMaxBounds.Ints.fromJson(json.get("blocks_placed")));
 	}
@@ -47,7 +47,7 @@ public class LokiPlaceTrigger extends SimpleCriterionTrigger<LokiPlaceTrigger.In
 		private final ItemPredicate ring;
 		private final MinMaxBounds.Ints blocksPlaced;
 
-		public Instance(EntityPredicate.Composite playerPred, EntityPredicate player, ItemPredicate ring, MinMaxBounds.Ints blocksPlaced) {
+		public Instance(ContextAwarePredicate playerPred, EntityPredicate player, ItemPredicate ring, MinMaxBounds.Ints blocksPlaced) {
 			super(ID, playerPred);
 			this.player = player;
 			this.ring = ring;

@@ -35,7 +35,7 @@ public class GaiaGuardianNoArmorTrigger extends SimpleCriterionTrigger<GaiaGuard
 
 	@NotNull
 	@Override
-	public GaiaGuardianNoArmorTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+	public GaiaGuardianNoArmorTrigger.Instance createInstance(@NotNull JsonObject json, ContextAwarePredicate playerPred, DeserializationContext conditions) {
 		return new GaiaGuardianNoArmorTrigger.Instance(playerPred,
 				EntityPredicate.fromJson(json.get("guardian")),
 				DamageSourcePredicate.fromJson(json.get("killing_blow"))
@@ -50,7 +50,7 @@ public class GaiaGuardianNoArmorTrigger extends SimpleCriterionTrigger<GaiaGuard
 		private final EntityPredicate guardian;
 		private final DamageSourcePredicate killingBlow;
 
-		public Instance(EntityPredicate.Composite playerPred, EntityPredicate count, DamageSourcePredicate indexPos) {
+		public Instance(ContextAwarePredicate playerPred, EntityPredicate count, DamageSourcePredicate indexPos) {
 			super(ID, playerPred);
 			this.guardian = count;
 			this.killingBlow = indexPos;

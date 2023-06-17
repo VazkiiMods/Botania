@@ -36,7 +36,7 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 
 	@NotNull
 	@Override
-	public ManaBlasterTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+	public ManaBlasterTrigger.Instance createInstance(@NotNull JsonObject json, ContextAwarePredicate playerPred, DeserializationContext conditions) {
 		Boolean desu = json.get("desu") == null ? null : json.get("desu").getAsBoolean();
 		return new ManaBlasterTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")),
 				EntityPredicate.fromJson(json.get("user")), desu);
@@ -52,7 +52,7 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 		@Nullable
 		private final Boolean desu;
 
-		public Instance(EntityPredicate.Composite entityPred, ItemPredicate count, EntityPredicate user, Boolean desu) {
+		public Instance(ContextAwarePredicate entityPred, ItemPredicate count, EntityPredicate user, Boolean desu) {
 			super(ID, entityPred);
 			this.item = count;
 			this.user = user;

@@ -34,7 +34,7 @@ public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaReque
 
 	@NotNull
 	@Override
-	protected Instance createInstance(JsonObject json, EntityPredicate.Composite playerPredicate, DeserializationContext conditions) {
+	protected Instance createInstance(JsonObject json, ContextAwarePredicate playerPredicate, DeserializationContext conditions) {
 		return new Instance(playerPredicate, MinMaxBounds.Ints.fromJson(json.get("extracted")), LocationPredicate.fromJson(json.get("location")));
 	}
 
@@ -46,7 +46,7 @@ public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaReque
 		private final MinMaxBounds.Ints count;
 		private final LocationPredicate indexPos;
 
-		public Instance(EntityPredicate.Composite playerPredicate, MinMaxBounds.Ints count, LocationPredicate indexPos) {
+		public Instance(ContextAwarePredicate playerPredicate, MinMaxBounds.Ints count, LocationPredicate indexPos) {
 			super(ID, playerPredicate);
 			this.count = count;
 			this.indexPos = indexPos;

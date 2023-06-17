@@ -33,7 +33,7 @@ public class RelicBindTrigger extends SimpleCriterionTrigger<RelicBindTrigger.In
 
 	@NotNull
 	@Override
-	public Instance createInstance(@NotNull JsonObject json, @NotNull EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+	public Instance createInstance(@NotNull JsonObject json, @NotNull ContextAwarePredicate playerPred, DeserializationContext conditions) {
 		return new Instance(playerPred, ItemPredicate.fromJson(json.get("relic")));
 	}
 
@@ -44,7 +44,7 @@ public class RelicBindTrigger extends SimpleCriterionTrigger<RelicBindTrigger.In
 	public static class Instance extends AbstractCriterionTriggerInstance {
 		private final ItemPredicate predicate;
 
-		public Instance(EntityPredicate.Composite playerPred, ItemPredicate predicate) {
+		public Instance(ContextAwarePredicate playerPred, ItemPredicate predicate) {
 			super(ID, playerPred);
 			this.predicate = predicate;
 		}
