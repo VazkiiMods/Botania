@@ -13,6 +13,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 
+// Unused currently. Crashes on tag gen because it can't find botania's damage types, as they're not registered yet.
 public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 
 	public DamageTypeTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -22,6 +23,7 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 	@Override
 	@SuppressWarnings("unchecked")
 	protected void addTags(HolderLookup.Provider provider) {
+		this.tag(DamageTypeTags.IS_FIRE);
 		this.tag(BotaniaTags.DamageTypes.RING_OF_ODIN_IMMUNE).add(
 				DamageTypes.DROWN,
 				DamageTypes.FALL,
