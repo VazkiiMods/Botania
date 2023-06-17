@@ -47,16 +47,12 @@ sourceSets.main.resources {
 
 repositories {
     maven {
-        name = "JEI"
-        url "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
         name = "Modmuss"
         url = "https://maven.modmuss50.me/"
     }
     maven {
         name = "Jared"
-        url = "https://maven.blamejared.com/"
+        url = "https://maven.blamejared.com/" // for JEI and Patchouli
     }
     maven {
         url = "https://maven.terraformersmc.com/" // for trinkets and emi
@@ -103,30 +99,30 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        // parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
+        parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
     }
 
-    modImplementation "net.fabricmc:fabric-loader:0.14.19"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.81.1+1.19.4"
+    modImplementation "net.fabricmc:fabric-loader:0.14.21"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.83.1+1.20.1"
 
     compileOnly project(":Xplat")
 
-    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-79-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-80-FABRIC-SNAPSHOT"
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:10.0.596"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.0.625"
 
-    modImplementation("dev.emi:emi-fabric:1.0.1+1.19.4") { transitive = false }
+    modImplementation("dev.emi:emi-fabric:1.0.4+1.20.1") { transitive = false }
 
-    modImplementation "me.zeroeightsix:fiber:0.23.0-2"
+    modImplementation "me.zeroeightsix:fiber:0.23.0-2"  
     include "me.zeroeightsix:fiber:0.23.0-2"
 
     // Don't include base and entity as Trinkets includes it already
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.0-beta.1"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.0-beta.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.1"
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
-    modImplementation("dev.emi:trinkets:3.6.0") { transitive = false }
+    modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
 
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.3.2"
     include "com.jamieswhiteshirt:reach-entity-attributes:2.3.2"
@@ -134,13 +130,13 @@ dependencies {
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
 
-    modCompileOnly 'teamreborn:energy:2.1.0'
+    modCompileOnly 'teamreborn:energy:3.0.0'
 
     // modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-fabric-1.18.2:9.1.123'
 
     modCompileOnly 'com.unascribed:ears-api:1.4.5'
 
-    modCompileOnly "mezz.jei:jei-1.19.3-common-api:12.3.0.21"
+    compileOnly "mezz.jei:jei-1.20.1-common-api:15.0.0.14"
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
     modRuntimeOnly "maven.modrinth:lazydfu:0.1.3"
