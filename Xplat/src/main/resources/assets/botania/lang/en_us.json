@@ -378,7 +378,7 @@
   "item.botania.dice.poem2": "The hidden laws of a probable outcome,",
   "item.botania.dice.poem3": "The numbers lead a dance.",
 
-  "death.attack.botania-relic": "%s was punished for using a relic that isn't theirs",
+  "death.attack.botania.relic": "%s was punished for using a relic that isn't theirs",
 
   "entity.botania.mana_burst": "Mana Burst",
   "entity.botania.pixie": "Pixie",
