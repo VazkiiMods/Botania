@@ -2215,8 +2215,8 @@
 
   "botania.entry.rannuncarpus": "手掌花",
   "botania.tagline.rannuncarpus": "放置方块",
-  "botania.page.rannuncarpus0": "真是朵方便的花，$(item)手掌花$(0)会拾取附近任何掉落物品形式的方块并放置在其他地方，且会优先将方块面对自己。不过，它同时只能将方块放置在一种方块上，要指定这种方块，只需将它放在这朵花种植的土方块下即可。",
-  "botania.page.rannuncarpus1": "方块式物品，比如$(item)甘蔗$(0)也会奏效的，但它们只能被放在平常能放置的地方。$(p)最后，提供$(thing)魔力$(0)不是必需的，但这会增加工作范围。",
+  "botania.page.rannuncarpus0": "真是朵方便的花，$(item)手掌花$(0)会拾取附近任何掉落物品形式的方块并放置在其他地方，且会优先将方块面对自己。不过，它同时只能将方块放置在一种方块上，要指定放置的位置，只需将该方块放在这朵花种植的土方块下即可。",
+  "botania.page.rannuncarpus1": "例如$(item)甘蔗$(0)这样的物品也是可以被放置的，但它们只能被放在平常能放置的地方。$(p)提供$(thing)魔力$(0)不是必需的，但这会增加工作范围。$(p)最后，类似于$(l:functional_flowers/hopperhock)$(item)漏斗花$(0)$(/l)一样，在$(item)手掌花$(0)所在的土壤之下的方块上放置物品展示框会限制该手掌花拾起的物品种类。",
   "botania.page.rannuncarpus2": "$(o)你是在沙坑里找到它的吗？$()",
 
   "botania.entry.hyacidus": "毒风信",
