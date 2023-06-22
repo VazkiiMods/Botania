@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -25,6 +25,7 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import me.shedaniel.rei.forge.REIPluginClient;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import me.shedaniel.rei.plugin.common.displays.DefaultStrippingDisplay;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
@@ -49,12 +50,13 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.fabric.xplat.FabricXplatImpl;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.StreamSupport;
 
+@REIPluginClient
 public class BotaniaREIPlugin implements REIClientPlugin {
 	public BotaniaREIPlugin() {
 		var old = CorporeaInputHandler.hoveredStackGetter;
@@ -134,7 +136,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerFiller(RecipeTerraPlate.class, TerrestrialAgglomerationREIDisplay::new);
 
 		try {
-			for (var entry : FabricXplatImpl.CUSTOM_STRIPPING.entrySet()) {
+			for (var entry : XplatAbstractions.INSTANCE.getStrippings().entrySet()) {
 				helper.add(new DefaultStrippingDisplay(EntryStacks.of(entry.getKey()), EntryStacks.of(entry.getValue())));
 			}
 		} catch (Exception e) {

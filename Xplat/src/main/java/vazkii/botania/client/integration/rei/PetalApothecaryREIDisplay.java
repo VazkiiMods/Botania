@@ -6,21 +6,26 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.OrechidIgnemRecipe;
+import vazkii.botania.common.crafting.PetalsRecipe;
 
-public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay<OrechidIgnemRecipe> {
-	public OrechidIgnemREIDisplay(OrechidIgnemRecipe recipe) {
+public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalsRecipe> {
+	public PetalApothecaryREIDisplay(PetalsRecipe recipe) {
 		super(recipe);
 	}
 
 	@Override
+	public int getManaCost() {
+		return 0;
+	}
+
+	@Override
 	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
-		return BotaniaREICategoryIdentifiers.ORECHID_IGNEM;
+		return BotaniaREICategoryIdentifiers.PETAL_APOTHECARY;
 	}
 }

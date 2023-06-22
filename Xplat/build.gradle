@@ -29,6 +29,9 @@ repositories {
     maven {
         url = "https://maven.terraformersmc.com/" // for emi
     }
+    maven {
+        url "https://maven.shedaniel.me/" // for rei
+    }
 }
 
 dependencies {
@@ -48,6 +51,12 @@ dependencies {
     // annotationProcessor 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
 
     compileOnly "dev.emi:emi-xplat-mojmap:1.0.4+1.20.1:api"
+
+    // rei doesn't publish xplat mojmap artifacts, so the forge artifacts will have to suffice
+    // it goes without saying, but don't use any of the forge-specific stuff in here
+    compileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-forge:12.0.625"
+    // depending on the full jar because api doesn't include the entrypoint annotations
+    compileOnly "me.shedaniel:RoughlyEnoughItems-forge:12.0.625"
 }
 
 test {

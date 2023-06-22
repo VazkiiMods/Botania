@@ -64,7 +64,7 @@
       "vazkii.botania.client.integration.emi.BotaniaEmiPlugin"
     ],
     "rei_client": [
-      "vazkii.botania.fabric.integration.rei.BotaniaREIPlugin"
+      "vazkii.botania.client.integration.rei.BotaniaREIPlugin"
     ],
     "jei_mod_plugin": [
       "vazkii.botania.client.integration.jei.JEIBotaniaPlugin"

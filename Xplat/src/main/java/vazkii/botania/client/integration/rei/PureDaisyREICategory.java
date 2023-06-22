@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -61,7 +61,7 @@ public class PureDaisyREICategory implements DisplayCategory<PureDaisyREIDisplay
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 9);
 
 		widgets.add(Widgets.createRecipeBase(bounds));
-		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(matrices, OVERLAY, center.x - 23, center.y - 13, 0, 0, 65, 44))));
+		widgets.add(Widgets.createDrawableWidget(((gui, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(gui, OVERLAY, center.x - 23, center.y - 13, 0, 0, 65, 44))));
 		widgets.add(Widgets.createSlot(center).entry(entryStack).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x - 30, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getOutputEntries().get(0)).disableBackground());

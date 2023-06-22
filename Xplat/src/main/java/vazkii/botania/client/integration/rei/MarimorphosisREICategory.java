@@ -1,4 +1,4 @@
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import net.minecraft.network.chat.Component;
 

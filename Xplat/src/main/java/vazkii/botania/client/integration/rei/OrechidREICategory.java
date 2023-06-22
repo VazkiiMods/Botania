@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -33,7 +33,7 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static vazkii.botania.fabric.integration.rei.PureDaisyREICategory.setupPureDaisyDisplay;
+import static vazkii.botania.client.integration.rei.PureDaisyREICategory.setupPureDaisyDisplay;
 
 public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay<?>> {
 	private final EntryStack<ItemStack> orechid;

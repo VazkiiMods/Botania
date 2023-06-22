@@ -70,6 +70,7 @@ import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.network.BotaniaPacket;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -199,6 +200,7 @@ public interface XplatAbstractions {
 	int getSmeltingBurnTime(ItemStack stack);
 	boolean preventsRemoteMovement(ItemEntity entity);
 	void addAxeStripping(Block input, Block output);
+	Map<Block, Block> getStrippings();
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
 
 	// Red string container

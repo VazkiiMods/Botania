@@ -592,6 +592,11 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
+	public Map<Block, Block> getStrippings() {
+		return CUSTOM_STRIPPING;
+	}
+
+	@Override
 	public int transferEnergyToNeighbors(Level level, BlockPos pos, int energy) {
 		if (isModLoaded("team_reborn_energy")) {
 			return FluxfieldTRStorage.transferEnergyToNeighbors(level, pos, energy);
