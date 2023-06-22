@@ -61,7 +61,7 @@
       "vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents"
     ],
     "emi": [
-      "vazkii.botania.fabric.integration.emi.BotaniaEmiPlugin"
+      "vazkii.botania.client.integration.emi.BotaniaEmiPlugin"
     ],
     "rei_client": [
       "vazkii.botania.fabric.integration.rei.BotaniaREIPlugin"

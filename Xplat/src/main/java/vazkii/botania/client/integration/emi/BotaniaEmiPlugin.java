@@ -1,6 +1,7 @@
-package vazkii.botania.fabric.integration.emi;
+package vazkii.botania.client.integration.emi;
 
 import dev.emi.emi.api.EmiApi;
+import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiCraftingRecipe;
@@ -42,6 +43,7 @@ import java.util.stream.StreamSupport;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+@EmiEntrypoint
 public class BotaniaEmiPlugin implements EmiPlugin {
 	private static final Comparator<EmiRecipe> BY_ID = Comparator.comparing(EmiRecipe::getId);
 	private static final Comparator<EmiRecipe> BY_GROUP =
