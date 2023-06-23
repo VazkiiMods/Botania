@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei;
 
+import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -72,6 +73,7 @@ import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+@REIPluginCompatIgnore
 @JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
 	private static final ResourceLocation ID = prefix("main");

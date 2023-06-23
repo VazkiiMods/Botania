@@ -57,6 +57,7 @@ dependencies {
     compileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-forge:12.0.625"
     // depending on the full jar because api doesn't include the entrypoint annotations
     compileOnly "me.shedaniel:RoughlyEnoughItems-forge:12.0.625"
+    compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.0.54"
 }
 
 test {
