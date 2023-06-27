@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.common.block.decor.BotaniaDirectionalBlock;
 import vazkii.botania.common.block.decor.panes.BotaniaPaneBlock;
@@ -137,7 +136,7 @@ public final class BotaniaFluffBlocks {
 	public static final Block greenPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block greenPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
-	public static final Block biomeStoneForest = new BotaniaBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 10).sound(SoundType.TUFF).requiresCorrectToolForDrops());
+	public static final Block biomeStoneForest = new BotaniaBlock(BlockBehaviour.Properties.of().strength(1.5F, 10).sound(SoundType.TUFF).requiresCorrectToolForDrops());
 	public static final Block biomeStoneForestSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeStoneForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeStoneForestWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneForest));

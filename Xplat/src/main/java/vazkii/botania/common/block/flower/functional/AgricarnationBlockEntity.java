@@ -8,15 +8,12 @@
  */
 package vazkii.botania.common.block.flower.functional;
 
-import com.google.common.collect.ImmutableSet;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -24,11 +21,7 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.BotaniaConfig;
 
-import java.util.Set;
-
 public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
-	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANT, Material.CACTUS, Material.GRASS,
-			Material.LEAVES, Material.VEGETABLE, Material.WATER_PLANT, Material.BAMBOO, Material.BAMBOO_SAPLING);
 	private static final int RANGE = 5;
 	private static final int RANGE_MINI = 2;
 
@@ -105,8 +98,9 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 			return false;
 		}
 
-		return MATERIALS.contains(state.getMaterial())
-				&& block instanceof BonemealableBlock mealable
+		// TODO 1.20 this used to be additionally restricted with a list of materials,
+		//  not sure how to port this check. tags? not necessary at all?
+		return block instanceof BonemealableBlock mealable
 				&& mealable.isValidBonemealTarget(getLevel(), pos, state, getLevel().isClientSide);
 	}
 

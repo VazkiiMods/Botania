@@ -12,10 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -61,7 +61,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 			for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-range, -range, -range), getEffectivePos().offset(range, range, range))) {
 				if (getEffectivePos().distSqr(pos) < range * range) {
 					BlockState state = getLevel().getBlockState(pos);
-					if (state.getMaterial() == Material.WATER) {
+					if (state.is(Blocks.WATER)) {
 						getLevel().setBlock(pos, BotaniaBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);
 						FakeAirBlockEntity air = (FakeAirBlockEntity) getLevel().getBlockEntity(pos);
 						air.setFlower(this);

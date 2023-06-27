@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -108,7 +107,7 @@ public final class SkyblockWorldEvents {
 				BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 4.5F, true);
 				if (rtr.getType() == HitResult.Type.BLOCK) {
 					BlockPos pos = rtr.getBlockPos();
-					if (world.getBlockState(pos).getMaterial() == Material.WATER) {
+					if (world.getBlockState(pos).is(Blocks.WATER)) {
 						if (!world.isClientSide) {
 							equipped.shrink(1);
 

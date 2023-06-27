@@ -20,7 +20,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
@@ -99,7 +98,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	}
 
 	private boolean isGlass(BlockState state) {
-		return state.getMaterial() == Material.GLASS || XplatAbstractions.INSTANCE.isInGlassTag(state);
+		return XplatAbstractions.INSTANCE.isInGlassTag(state);
 	}
 
 	@Override

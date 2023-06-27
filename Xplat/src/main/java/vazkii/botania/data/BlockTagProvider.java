@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
-import net.minecraft.world.level.material.Material;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -57,12 +56,18 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(BlockTags.RAILS).add(BotaniaBlocks.ghostRail);
 		tag(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
-		tag(BlockTags.WOODEN_SLABS).add(getModBlocks(b -> b instanceof SlabBlock && b.defaultBlockState().getMaterial() == Material.WOOD));
+		tag(BlockTags.WOODEN_SLABS).add(
+				BotaniaFluffBlocks.livingwoodSlab, BotaniaFluffBlocks.livingwoodStrippedSlab, BotaniaFluffBlocks.livingwoodPlankSlab,
+				BotaniaFluffBlocks.dreamwoodSlab, BotaniaFluffBlocks.dreamwoodStrippedSlab, BotaniaFluffBlocks.dreamwoodPlankSlab,
+				BotaniaFluffBlocks.shimmerwoodPlankSlab);
 		tag(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairBlock));
-		tag(BlockTags.WOODEN_STAIRS).add(getModBlocks(b -> b instanceof StairBlock && b.defaultBlockState().getMaterial() == Material.WOOD));
+		tag(BlockTags.WOODEN_STAIRS).add(
+				BotaniaFluffBlocks.livingwoodStairs, BotaniaFluffBlocks.livingwoodStrippedStairs, BotaniaFluffBlocks.livingwoodPlankStairs,
+				BotaniaFluffBlocks.dreamwoodStairs, BotaniaFluffBlocks.dreamwoodStrippedStairs, BotaniaFluffBlocks.dreamwoodPlankStairs,
+				BotaniaFluffBlocks.shimmerwoodPlankStairs);
 		tag(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
 		tag(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
-		tag(BlockTags.WOODEN_FENCES).add(getModBlocks(b -> b instanceof FenceBlock && b.defaultBlockState().getMaterial() == Material.WOOD));
+		tag(BlockTags.WOODEN_FENCES).add(BotaniaFluffBlocks.livingwoodFence, BotaniaFluffBlocks.dreamwoodFence);
 		tag(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
 		tag(BlockTags.DRAGON_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 		tag(BlockTags.WITHER_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);

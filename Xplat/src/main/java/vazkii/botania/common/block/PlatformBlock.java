@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
@@ -142,7 +141,7 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 
 			if (isValidBlock(changeState, world, pos)
 					&& !(changeState.getBlock() instanceof PlatformBlock)
-					&& changeState.getMaterial() != Material.AIR) {
+					&& !changeState.isAir()) {
 				if (!world.isClientSide) {
 					camo.setCamoState(changeState);
 				}
