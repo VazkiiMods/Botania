@@ -18,7 +18,6 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -43,6 +42,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.inventory.RecipeBookMenu;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -173,15 +173,15 @@ public class AssemblyHaloItem extends Item {
 		if (!recipe.matches(craftInv, player.getLevel())) {
 			// If the placer worked but the recipe still didn't, this might be a dynamic recipe with special conditions.
 			// Return items to the inventory and bail.
-			placer.clearGrid(false);
+			placer.clearGrid();
 			return;
 		}
 
-		ItemStack result = recipe.assemble(craftInv);
+		ItemStack result = recipe.assemble(craftInv, player.getLevel().registryAccess());
 
 		// Check if we have room for the result
 		if (!hasRoomFor(player.getInventory(), result)) {
-			placer.clearGrid(false);
+			placer.clearGrid();
 			return;
 		}
 
@@ -283,7 +283,7 @@ public class AssemblyHaloItem extends Item {
 		} else {
 			Recipe<?> recipe = getSavedRecipe(world, stack, position);
 			if (recipe != null) {
-				return recipe.getResultItem();
+				return recipe.getResultItem(world.registryAccess());
 			} else {
 				return ItemStack.EMPTY;
 			}
@@ -399,8 +399,8 @@ public class AssemblyHaloItem extends Item {
 					ms.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
 					ms.mulPose(VecHelper.rotateY(90.0F));
-					Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemTransforms.TransformType.GUI,
-							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.getId());
+					Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemDisplayContext.GUI,
+							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.getLevel(), player.getId());
 				}
 				ms.popPose();
 
@@ -451,7 +451,7 @@ public class AssemblyHaloItem extends Item {
 
 				GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 				GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
-				mc.getItemRenderer().renderAndDecorateItem(craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
+				mc.getItemRenderer().renderAndDecorateItem(ms, craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
 
 				mc.font.drawShadow(ms, name, x, y, 0xFFFFFF);
 			} else {
@@ -463,7 +463,7 @@ public class AssemblyHaloItem extends Item {
 					label = Component.translatable("botaniamisc.unsetRecipe");
 					recipe = getLastRecipe(player.getLevel(), stack);
 				} else {
-					label = recipe.getResultItem().getHoverName();
+					label = recipe.getResultItem(player.getLevel().registryAccess()).getHoverName();
 					setRecipe = true;
 				}
 
@@ -474,7 +474,8 @@ public class AssemblyHaloItem extends Item {
 		private static void renderRecipe(PoseStack ms, Component label, @Nullable Recipe<CraftingContainer> recipe, Player player, boolean isSavedRecipe) {
 			Minecraft mc = Minecraft.getInstance();
 
-			if (recipe != null && !recipe.getResultItem().isEmpty()) {
+			ItemStack recipeResult;
+			if (recipe != null && !(recipeResult = recipe.getResultItem(player.level.registryAccess())).isEmpty()) {
 				int x = mc.getWindow().getGuiScaledWidth() / 2 - 45;
 				int y = mc.getWindow().getGuiScaledHeight() / 2 - 90;
 
@@ -493,12 +494,12 @@ public class AssemblyHaloItem extends Item {
 						int ypos = y + i / wrap * 18;
 						GuiComponent.fill(ms, xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
 
-						mc.getItemRenderer().renderAndDecorateItem(stack, xpos, ypos);
+						mc.getItemRenderer().renderAndDecorateItem(ms, stack, xpos, ypos);
 					}
 				}
 
-				mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 72, y + 18);
-				mc.getItemRenderer().renderGuiItemDecorations(mc.font, recipe.getResultItem(), x + 72, y + 18);
+				mc.getItemRenderer().renderAndDecorateItem(ms, recipeResult, x + 72, y + 18);
+				mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, recipeResult, x + 72, y + 18);
 
 			}
 
@@ -531,7 +532,7 @@ public class AssemblyHaloItem extends Item {
 					this.handleRecipeClicked(recipe, false);
 					ret = true;
 				} else {
-					this.clearGrid(true);
+					this.clearGrid();
 					ret = false;
 				}
 
@@ -541,9 +542,10 @@ public class AssemblyHaloItem extends Item {
 			return false;
 		}
 
+		// Make public
 		@Override
-		public void clearGrid(boolean unknown) {
-			super.clearGrid(unknown);
+		public void clearGrid() {
+			super.clearGrid();
 		}
 	}
 }

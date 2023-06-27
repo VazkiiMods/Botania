@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
@@ -107,9 +108,9 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 			for (int i = 0; i < 4; i++) {
 				ms.mulPose(VecHelper.rotateY(90F));
 				ms.translate(0F, 0F, tr);
-				mc.font.drawInBatch(countStr, -l / 2, 0, color, false, ms.last().pose(), buffers, false, 0, light);
+				mc.font.drawInBatch(countStr, -l / 2, 0, color, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 				ms.translate(0F, 0F, 0.1F);
-				mc.font.drawInBatch(countStr, -l / 2 + 1, 1, colorShade, false, ms.last().pose(), buffers, false, 0, light);
+				mc.font.drawInBatch(countStr, -l / 2 + 1, 1, colorShade, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 				ms.translate(0F, 0F, -tr - 0.1F);
 			}
 		}

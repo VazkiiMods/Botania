@@ -74,7 +74,7 @@ public final class BossBarHandler {
 
 		Minecraft mc = Minecraft.getInstance();
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-		mc.getItemRenderer().renderGuiItem(stack, px, py);
+		mc.getItemRenderer().renderGuiItem(ps, stack, px, py);
 
 		mc.font.drawShadow(ps, Integer.toString(playerCount), px + 15, py + 4, 0xFFFFFF);
 		ps.popPose();

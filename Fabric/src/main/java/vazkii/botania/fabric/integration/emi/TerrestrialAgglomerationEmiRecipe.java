@@ -4,6 +4,8 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 
+import net.minecraft.core.RegistryAccess;
+
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
@@ -17,7 +19,8 @@ public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
 	public TerrestrialAgglomerationEmiRecipe(TerrestrialAgglomerationRecipe recipe) {
 		super(BotaniaEmiPlugin.TERRESTRIAL_AGGLOMERATION, recipe);
 		this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
-		this.output = List.of(EmiStack.of(recipe.getResultItem()));
+		// TODO 1.19.4 figure out the proper way to get a registry access
+		this.output = List.of(EmiStack.of(recipe.getResultItem(RegistryAccess.EMPTY)));
 		this.mana = recipe.getMana();
 	}
 

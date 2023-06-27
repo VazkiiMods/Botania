@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -80,7 +81,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 
 	@NotNull
 	@Override
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(@NotNull RegistryAccess registries) {
 		return output;
 	}
 
@@ -102,7 +103,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 		return new ItemStack(BotaniaBlocks.manaPool);
 	}
 
-	public static class Serializer extends RecipeSerializerBase<ManaInfusionRecipe> {
+	public static class Serializer implements RecipeSerializer<ManaInfusionRecipe> {
 
 		@NotNull
 		@Override
@@ -141,7 +142,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 		@Override
 		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull ManaInfusionRecipe recipe) {
 			recipe.getIngredients().get(0).toNetwork(buf);
-			buf.writeItem(recipe.getResultItem());
+			buf.writeItem(recipe.output);
 			buf.writeVarInt(recipe.getManaToConsume());
 			boolean hasCatalyst = recipe.getRecipeCatalyst() != null;
 			buf.writeBoolean(hasCatalyst);

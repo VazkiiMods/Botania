@@ -473,7 +473,7 @@ public class GaiaGuardianEntity extends Mob {
 				if (!isTruePlayer(player)) {
 					continue;
 				}
-				DamageSource currSource = player == lastAttacker ? source : DamageSource.playerAttack(player);
+				DamageSource currSource = player == lastAttacker ? source : player.damageSources().playerAttack(player);
 				if (player != lastAttacker) {
 					// Vanilla handles this in attack code, but only for the killer
 					CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger((ServerPlayer) player, this, currSource);
@@ -537,7 +537,7 @@ public class GaiaGuardianEntity extends Mob {
 			lastHurtByPlayer = player; // Fake attacking player as the killer
 			// Spoof pos so drops spawn at the player
 			setPos(player.getX(), player.getY(), player.getZ());
-			super.dropFromLootTable(DamageSource.playerAttack(player), wasRecentlyHit);
+			super.dropFromLootTable(player.damageSources().playerAttack(player), wasRecentlyHit);
 			setPos(savePos.x(), savePos.y(), savePos.z());
 			lastHurtByPlayer = saveLastAttacker;
 		}
@@ -935,7 +935,7 @@ public class GaiaGuardianEntity extends Mob {
 		}
 
 		//for low-floor arenas, ensure landing on the ground
-		BlockPos tentativeFloorPos = new BlockPos(newX, newY - 1, newZ);
+		BlockPos tentativeFloorPos = BlockPos.containing(newX, newY - 1, newZ);
 		if (getLevel().getBlockState(tentativeFloorPos).getCollisionShape(getLevel(), tentativeFloorPos).isEmpty()) {
 			newY--;
 		}
@@ -971,7 +971,7 @@ public class GaiaGuardianEntity extends Mob {
 				boolean hit = player.getBoundingBox().inflate(0.25).clip(oldPosVec, newPosVec)
 						.isPresent();
 				if (hit) {
-					player.hurt(DamageSource.mobAttack(this), 6);
+					player.hurt(damageSources().mobAttack(this), 6);
 				}
 			}
 

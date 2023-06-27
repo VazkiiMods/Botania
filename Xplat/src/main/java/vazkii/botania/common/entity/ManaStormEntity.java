@@ -60,7 +60,6 @@ public class ManaStormEntity extends Entity {
 			deathTime++;
 			if (deathTime >= DEATH_TIME) {
 				discard();
-				// TODO 1.19.3 check all explosion interactions
 				getLevel().explode(this, getX(), getY(), getZ(), 8F, true, Level.ExplosionInteraction.BLOCK);
 			}
 		}

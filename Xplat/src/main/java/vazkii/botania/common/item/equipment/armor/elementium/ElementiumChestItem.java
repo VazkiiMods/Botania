@@ -22,14 +22,14 @@ import vazkii.botania.common.handler.PixieHandler;
 public class ElementiumChestItem extends ElementiumArmorItem {
 
 	public ElementiumChestItem(Properties props) {
-		super(EquipmentSlot.CHEST, props);
+		super(Type.CHESTPLATE, props);
 	}
 
 	@NotNull
 	@Override
 	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
 		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-		if (slot == getSlot()) {
+		if (slot == getEquipmentSlot()) {
 			ret = HashMultimap.create(ret);
 			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "Armor modifier", 0.17));
 		}

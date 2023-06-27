@@ -163,11 +163,11 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 		super.onHitEntity(hit);
 		if (!getLevel().isClientSide && hit.getEntity() instanceof LivingEntity hitEntity && hit.getEntity() != getOwner()) {
 			Entity thrower = getOwner();
-			DamageSource src = DamageSource.GENERIC;
+			DamageSource src = damageSources().generic();
 			if (thrower instanceof Player) {
-				src = DamageSource.thrown(this, thrower);
+				src = damageSources().thrown(this, thrower);
 			} else if (thrower instanceof LivingEntity livingEntity) {
-				src = DamageSource.mobAttack(livingEntity);
+				src = damageSources().mobAttack(livingEntity);
 			}
 			hitEntity.hurt(src, 12);
 			if (isFire()) {

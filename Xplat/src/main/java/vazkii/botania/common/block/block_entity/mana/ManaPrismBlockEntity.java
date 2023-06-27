@@ -112,7 +112,7 @@ public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 				RenderHelper.renderHUDBox(ms, centerX - halfWidth, centerY + 8, centerX + halfWidth, centerY + 28);
 
 				mc.font.drawShadow(ms, lensName, centerX - halfWidth + 22, centerY + 14, 0xFFFFFF);
-				mc.getItemRenderer().renderAndDecorateItem(lens, centerX - halfWidth + 2, centerY + 10);
+				mc.getItemRenderer().renderAndDecorateItem(ms, lens, centerX - halfWidth + 2, centerY + 10);
 			}
 		}
 	}

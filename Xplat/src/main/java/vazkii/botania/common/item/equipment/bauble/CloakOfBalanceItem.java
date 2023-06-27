@@ -10,6 +10,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -31,11 +32,11 @@ public class CloakOfBalanceItem extends CloakOfVirtueItem {
 
 	@Override
 	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
-		if (!src.isMagic()) {
+		if (!src.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
 			amount.setValue(amount.getValue() / 2);
 
 			if (src.getEntity() != null) {
-				src.getEntity().hurt(DamageSource.indirectMagic(player, player), amount.getValue());
+				src.getEntity().hurt(player.damageSources().indirectMagic(player, player), amount.getValue());
 			}
 
 			if (amount.getValue() > player.getHealth()) {

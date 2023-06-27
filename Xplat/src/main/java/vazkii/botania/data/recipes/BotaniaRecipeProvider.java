@@ -46,7 +46,7 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 				output.add(DataProvider.saveStable(cache, recipe.serializeRecipe(), recipePathProvider.json(recipe.getId())));
 				JsonObject advancement = recipe.serializeAdvancement();
 				if (advancement != null) {
-					output.add(DataProvider.saveStable(cache, advancement, advancementPathProvider.json(recipe.getId())));
+					output.add(DataProvider.saveStable(cache, advancement, advancementPathProvider.json(recipe.getAdvancementId())));
 				}
 			}
 		});

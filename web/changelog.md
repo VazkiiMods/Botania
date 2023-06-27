@@ -18,6 +18,11 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Port to 1.19.4
+* Add: Manufactory Halo shows active status in its icon (Wormbo)
+* Fix: Ender Air emission not being mentioned in Pure Daisy entry (Wormbo)
+
+
 ---
 
 {% include changelog_header.html version="1.19.2-440" %}

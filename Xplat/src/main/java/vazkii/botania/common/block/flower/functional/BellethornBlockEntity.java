@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.flower.functional;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Witch;
@@ -75,7 +74,7 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 						dmg = 20;
 					}
 
-					entity.hurt(DamageSource.MAGIC, dmg);
+					entity.hurt(getLevel().damageSources().magic(), dmg);
 					addMana(-manaToUse);
 				}
 			}

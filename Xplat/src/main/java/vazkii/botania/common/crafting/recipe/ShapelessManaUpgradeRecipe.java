@@ -10,6 +10,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -20,17 +21,19 @@ import net.minecraft.world.item.crafting.ShapelessRecipe;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
-
 public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 	public ShapelessManaUpgradeRecipe(ShapelessRecipe compose) {
-		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT, compose.getResultItem(), compose.getIngredients());
+		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT,
+				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
+				// RegistryAccess
+				compose.getResultItem(RegistryAccess.EMPTY),
+				compose.getIngredients());
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv) {
-		return ManaUpgradeRecipe.output(super.assemble(inv), inv);
+	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+		return ManaUpgradeRecipe.output(super.assemble(inv, registries), inv);
 	}
 
 	@NotNull
@@ -41,7 +44,7 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 
 	public static final RecipeSerializer<ShapelessManaUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer extends RecipeSerializerBase<ShapelessManaUpgradeRecipe> {
+	private static class Serializer implements RecipeSerializer<ShapelessManaUpgradeRecipe> {
 		@NotNull
 		@Override
 		public ShapelessManaUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {

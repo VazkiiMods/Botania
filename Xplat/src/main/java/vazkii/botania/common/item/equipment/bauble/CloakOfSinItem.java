@@ -12,6 +12,7 @@ import com.google.common.base.Predicates;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,13 +40,13 @@ public class CloakOfSinItem extends CloakOfVirtueItem {
 
 	@Override
 	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
-		if (!src.isBypassArmor()) {
+		if (!src.is(DamageTypeTags.BYPASSES_ARMOR)) {
 			int range = 6;
 			@SuppressWarnings("unchecked")
 			List<Enemy> mobs = (List<Enemy>) (List<?>) player.getLevel().getEntitiesOfClass(Entity.class, new AABB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range), Predicates.instanceOf(Enemy.class));
 			for (Enemy mob : mobs) {
 				if (mob instanceof LivingEntity entity) {
-					entity.hurt(DamageSource.playerAttack(player), amount.getValue());
+					entity.hurt(player.damageSources().playerAttack(player), amount.getValue());
 				}
 			}
 

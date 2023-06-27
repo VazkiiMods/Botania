@@ -14,10 +14,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -278,8 +278,8 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 		}
 
 		private static void renderItem(ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light) {
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, 0);
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, Minecraft.getInstance().level, 0);
 		}
 	}
 

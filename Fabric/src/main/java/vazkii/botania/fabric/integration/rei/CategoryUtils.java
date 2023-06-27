@@ -22,10 +22,11 @@ interface CategoryUtils {
 	 * Widgets#createTexturedWidget doesn't allow partial transparency, so this is called in createDrawableWidget
 	 * instead.
 	 */
-	static void drawOverlay(GuiComponent helper, PoseStack matrices, ResourceLocation texture, int x, int y, int u, int v, int width, int height) {
+	static void drawOverlay(PoseStack matrices, ResourceLocation texture, int x, int y, int u, int v, int width, int height) {
 		RenderSystem.enableBlend();
 		RenderSystem.setShaderTexture(0, texture);
-		helper.blit(matrices, x, y, u, v, width, height);
+		// TODO 1.19.4 check that this still works
+		GuiComponent.blit(matrices, x, y, u, v, width, height);
 		RenderSystem.disableBlend();
 	}
 

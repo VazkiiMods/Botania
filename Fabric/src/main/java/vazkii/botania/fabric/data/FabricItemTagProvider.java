@@ -4,16 +4,17 @@ import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.relic.DiceOfFateItem;
-import vazkii.botania.data.BlockTagProvider;
 import vazkii.botania.data.ItemTagProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -33,7 +34,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
 		return TagKey.create(Registries.ITEM, location);
 	}
 
-	public FabricItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagProvider blockTagProvider) {
+	public FabricItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
 		super(packOutput, lookupProvider, blockTagProvider);
 	}
 
@@ -55,12 +56,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
 	}
 
 	private void generateToolTags() {
-		this.tag(ConventionalItemTags.AXES).add(manasteelAxe, elementiumAxe, terraAxe);
 		this.tag(ConventionalItemTags.BOWS).add(livingwoodBow, crystalBow);
-		this.tag(ConventionalItemTags.HOES).add(manasteelHoe, elementiumHoe);
-		this.tag(ConventionalItemTags.PICKAXES).add(manasteelPick, elementiumPick, terraPick, glassPick);
-		this.tag(ConventionalItemTags.SHOVELS).add(manasteelShovel, elementiumShovel);
-		this.tag(ConventionalItemTags.SWORDS).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
 		this.tag(ConventionalItemTags.SHEARS).add(manasteelShears, elementiumShears);
 	}
 

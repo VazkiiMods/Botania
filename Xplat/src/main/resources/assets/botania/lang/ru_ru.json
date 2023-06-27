@@ -260,7 +260,7 @@
   "item.botania.dice.poem2": "Закон возможного исхода.",
   "item.botania.dice.poem3": "И числа отбивают ритм.",
 
-  "death.attack.botania-relic": "%s был наказан за использование чужой реликвии",
+  "death.attack.botania.relic": "%s был наказан за использование чужой реликвии",
 
   "entity.botania.mana_burst": "Всплеск маны",
   "entity.botania.pixie": "Пикси",

@@ -16,10 +16,10 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
@@ -90,14 +90,13 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 
 						v /= 2F;
 						ms.translate(v, v, v);
-						// TODO 1.19.3 check that this is correct
 						ms.mulPose(new Quaternionf().rotateAxis(rad, xRotate, yRotate, zRotate));
 						ms.translate(-v, -v, -v);
 						v *= 2F;
 
 						ItemStack stack = altar.getItemHandler().getItem(i);
-						Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
-								light, overlay, ms, buffers, 0);
+						Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+								light, overlay, ms, buffers, altar.getLevel(), 0);
 						ms.popPose();
 					}
 

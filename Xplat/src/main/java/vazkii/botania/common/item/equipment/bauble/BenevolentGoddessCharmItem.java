@@ -13,10 +13,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -60,8 +60,8 @@ public class BenevolentGoddessCharmItem extends BaubleItem {
 			ms.translate(0.275, -0.4, 0);
 			ms.mulPose(VecHelper.rotateY(-90F));
 			ms.scale(0.55F, -0.55F, -0.55F);
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getId());
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getLevel(), living.getId());
 		}
 	}
 

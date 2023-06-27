@@ -19,10 +19,10 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -78,8 +78,8 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 			ItemStack stack = altar.getItemHandler().getItem(i);
 			Minecraft mc = Minecraft.getInstance();
 			if (!stack.isEmpty()) {
-				mc.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
-						light, overlay, ms, buffers, 0);
+				mc.getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
+						light, overlay, ms, buffers, altar.getLevel(), 0);
 			}
 			ms.popPose();
 		}
@@ -129,7 +129,6 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 				float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 				float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
-				// TODO 1.19.3 check that this is correct
 				ms.mulPose(new Quaternionf().rotateAxis(rad, xRotate, yRotate, zRotate));
 				float alpha = 1;
 				if (curIter < iters) {

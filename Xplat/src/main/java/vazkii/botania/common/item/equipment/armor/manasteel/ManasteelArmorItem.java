@@ -47,13 +47,13 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	public final EquipmentSlot type;
+	public final Type type;
 
-	public ManasteelArmorItem(EquipmentSlot type, Properties props) {
+	public ManasteelArmorItem(Type type, Properties props) {
 		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props);
 	}
 
-	public ManasteelArmorItem(EquipmentSlot type, ArmorMaterial mat, Properties props) {
+	public ManasteelArmorItem(Type type, ArmorMaterial mat, Properties props) {
 		super(mat, type, props);
 		this.type = type;
 	}
@@ -99,7 +99,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 		ItemStack[] stacks = getArmorSetStacks();
 		for (ItemStack armor : stacks) {
 			MutableComponent cmp = Component.literal(" - ").append(armor.getHoverName());
-			EquipmentSlot slot = ((ArmorItem) armor.getItem()).getSlot();
+			EquipmentSlot slot = ((ArmorItem) armor.getItem()).getEquipmentSlot();
 			cmp.withStyle(hasArmorSetItem(player, slot) ? ChatFormatting.GREEN : ChatFormatting.GRAY);
 			list.add(cmp);
 		}

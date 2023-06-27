@@ -10,6 +10,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -21,12 +22,16 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManaUpgradeRecipe extends ShapedRecipe {
 	public ManaUpgradeRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT, compose.getWidth(), compose.getHeight(), compose.getIngredients(), compose.getResultItem());
+		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT,
+				compose.getWidth(), compose.getHeight(),
+				compose.getIngredients(),
+				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
+				// RegistryAccess
+				compose.getResultItem(RegistryAccess.EMPTY));
 	}
 
 	public static ItemStack output(ItemStack output, Container inv) {
@@ -47,8 +52,8 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv) {
-		return output(super.assemble(inv), inv);
+	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+		return output(super.assemble(inv, registries), inv);
 	}
 
 	@NotNull
@@ -59,7 +64,7 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 
 	public static final RecipeSerializer<ManaUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer extends RecipeSerializerBase<ManaUpgradeRecipe> {
+	private static class Serializer implements RecipeSerializer<ManaUpgradeRecipe> {
 		@Override
 		public ManaUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			return new ManaUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));

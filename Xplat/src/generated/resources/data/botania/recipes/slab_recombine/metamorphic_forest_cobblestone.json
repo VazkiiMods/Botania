@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "Q": {
       "item": "botania:metamorphic_forest_cobblestone_slab"

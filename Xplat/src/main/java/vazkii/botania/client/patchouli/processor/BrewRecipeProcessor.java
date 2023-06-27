@@ -11,6 +11,7 @@ package vazkii.botania.client.patchouli.processor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
@@ -27,13 +28,13 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 	private BotanicalBreweryRecipe recipe;
 
 	@Override
-	public void setup(IVariableProvider variables) {
+	public void setup(Level level, IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		this.recipe = PatchouliUtils.getRecipe(BotaniaRecipeTypes.BREW_TYPE, id);
+		this.recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.BREW_TYPE, id);
 	}
 
 	@Override
-	public IVariable process(String key) {
+	public IVariable process(Level level, String key) {
 		if (recipe == null) {
 			if (key.equals("is_offset")) {
 				return IVariable.wrap(false);

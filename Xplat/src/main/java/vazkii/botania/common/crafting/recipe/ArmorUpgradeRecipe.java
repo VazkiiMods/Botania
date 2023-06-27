@@ -10,6 +10,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -22,17 +23,20 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
-
 public class ArmorUpgradeRecipe extends ShapedRecipe {
 	public ArmorUpgradeRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT, compose.getWidth(), compose.getHeight(), compose.getIngredients(), compose.getResultItem());
+		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT,
+				compose.getWidth(), compose.getHeight(),
+				compose.getIngredients(),
+				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
+				// RegistryAccess
+				compose.getResultItem(RegistryAccess.EMPTY));
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv) {
-		ItemStack out = super.assemble(inv);
+	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+		ItemStack out = super.assemble(inv, registries);
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof ArmorItem && stack.hasTag()) {
@@ -51,7 +55,7 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 
 	public static final RecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer extends RecipeSerializerBase<ArmorUpgradeRecipe> {
+	private static class Serializer implements RecipeSerializer<ArmorUpgradeRecipe> {
 		@Override
 		public ArmorUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			return new ArmorUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));

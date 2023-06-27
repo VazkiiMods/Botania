@@ -16,7 +16,6 @@
     "CreeperAccessor",
     "CreeperMixin",
     "CriteriaTriggersAccessor",
-    "DamageSourceAccessor",
     "DispenserBlockAccessor",
     "EntityAccessor",
     "EntityMixin",

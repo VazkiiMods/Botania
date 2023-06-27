@@ -21,24 +21,14 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.BotaniaItems;
-
-import java.util.HashSet;
-import java.util.Set;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RingOfOdinItem extends RelicBaubleItem {
 
-	private static final Set<String> damageNegations = new HashSet<>();
-
 	public RingOfOdinItem(Properties props) {
 		super(props);
-
-		damageNegations.add(DamageSource.DROWN.msgId);
-		damageNegations.add(DamageSource.FALL.msgId);
-		damageNegations.add(DamageSource.IN_WALL.msgId);
-		damageNegations.add(DamageSource.STARVE.msgId);
-		damageNegations.add(DamageSource.FLY_INTO_WALL.msgId);
 	}
 
 	@Override
@@ -57,7 +47,7 @@ public class RingOfOdinItem extends RelicBaubleItem {
 	}
 
 	public static boolean onPlayerAttacked(Player player, DamageSource src) {
-		return (src.isFire() || damageNegations.contains(src.msgId))
+		return (src.is(BotaniaTags.DamageTypes.RING_OF_ODIN_IMMUNE))
 				&& !EquipmentHandler.findOrEmpty(BotaniaItems.odinRing, player).isEmpty();
 	}
 

@@ -120,7 +120,7 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 		return getOutputs();
 	}
 
-	public static class Serializer extends RecipeSerializerBase<ElvenTradeRecipe> {
+	public static class Serializer implements RecipeSerializer<ElvenTradeRecipe> {
 
 		@NotNull
 		@Override

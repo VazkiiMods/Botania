@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -65,13 +66,13 @@ public class RecipeTerraPlate implements TerrestrialAgglomerationRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv) {
+	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
 		return output.copy();
 	}
 
 	@NotNull
 	@Override
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(@NotNull RegistryAccess registries) {
 		return output;
 	}
 
@@ -93,7 +94,7 @@ public class RecipeTerraPlate implements TerrestrialAgglomerationRecipe {
 		return BotaniaRecipeTypes.TERRA_PLATE_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RecipeTerraPlate> {
+	public static class Serializer implements RecipeSerializer<RecipeTerraPlate> {
 		@NotNull
 		@Override
 		public RecipeTerraPlate fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {

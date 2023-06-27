@@ -114,7 +114,7 @@ public class FXSparkle extends TextureSheetParticle {
 
 	// [VanillaCopy] Entity.moveTowardClosestSpace with tweaks
 	private void wiggleAround(double x, double y, double z) {
-		BlockPos blockpos = new BlockPos(x, y, z);
+		BlockPos blockpos = BlockPos.containing(x, y, z);
 		Vec3 Vector3d = new Vec3(x - (double) blockpos.getX(), y - (double) blockpos.getY(), z - (double) blockpos.getZ());
 		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 		Direction direction = Direction.UP;

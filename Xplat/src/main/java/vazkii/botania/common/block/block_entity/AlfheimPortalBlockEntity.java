@@ -56,7 +56,6 @@ import vazkii.patchouli.api.TriPredicate;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wandable {
@@ -190,9 +189,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 				level.setBlockAndUpdate(worldPosition, blockState.setValue(BotaniaStateProperties.ALFPORTAL_STATE, newState));
 			}
 		} else if (self.explode) {
-			// TODO 1.19.3 is "BLOCK" correct here?
 			level.explode(null, worldPosition.getX() + .5, worldPosition.getY() + 2.0, worldPosition.getZ() + .5,
-					3f, Level.ExplosionInteraction.BLOCK);
+					3f, Level.ExplosionInteraction.NONE);
 			self.explode = false;
 
 			if (!level.isClientSide && self.breadPlayer != null) {
@@ -215,7 +213,9 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		if (inputStack.is(Items.BREAD)) {
 			//Don't teleport bread. (See also: #2403)
 			explode = true;
-			breadPlayer = entity.getThrower();
+			if (entity.getOwner() != null) {
+				breadPlayer = entity.getOwner().getUUID();
+			}
 		}
 
 		return false;
@@ -396,12 +396,18 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	public List<BlockPos> locatePylons() {
 		int range = 5;
+		List<BlockPos> result = new ArrayList<>();
 
-		return BlockPos.betweenClosedStream(getBlockPos().offset(-range, -range, -range), getBlockPos().offset(range, range, range))
-				.filter(level::hasChunkAt)
-				.filter(p -> level.getBlockState(p).is(BotaniaBlocks.naturaPylon) && level.getBlockState(p.below()).getBlock() instanceof ManaPoolBlock)
-				.map(BlockPos::immutable)
-				.collect(Collectors.toList());
+		for (BlockPos pos : BlockPos.betweenClosed(getBlockPos().offset(-range, -range, -range),
+				getBlockPos().offset(range, range, range))) {
+			if (getLevel().hasChunkAt(pos)
+					&& getLevel().getBlockState(pos).is(BotaniaBlocks.naturaPylon)
+					&& getLevel().getBlockState(pos.below()).getBlock() instanceof ManaPoolBlock) {
+				result.add(pos.immutable());
+			}
+		}
+
+		return result;
 	}
 
 	public void lightPylons() {

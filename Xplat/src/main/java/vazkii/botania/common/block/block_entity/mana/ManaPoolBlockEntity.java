@@ -175,7 +175,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			if (getCurrentMana() >= mana) {
 				receiveMana(-mana);
 
-				ItemStack output = recipe.getRecipeOutput(stack);
+				ItemStack output = recipe.getRecipeOutput(level.registryAccess(), stack);
 				EntityHelper.shrinkItem(item);
 				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
@@ -435,8 +435,8 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			ItemStack tablet = new ItemStack(BotaniaItems.manaTablet);
 			ManaTabletItem.setStackCreative(tablet);
 
-			mc.getItemRenderer().renderAndDecorateItem(tablet, centerX - 31, centerY + 30);
-			mc.getItemRenderer().renderAndDecorateItem(poolStack, centerX + 15, centerY + 30);
+			mc.getItemRenderer().renderAndDecorateItem(ms, tablet, centerX - 31, centerY + 30);
+			mc.getItemRenderer().renderAndDecorateItem(ms, poolStack, centerX + 15, centerY + 30);
 
 			RenderSystem.disableBlend();
 		}

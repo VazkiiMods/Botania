@@ -6,6 +6,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -57,6 +59,7 @@ import net.minecraftforge.registries.RegisterEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
+import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.item.AvatarWieldable;
@@ -147,9 +150,9 @@ public class ForgeCommonInitializer {
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
 
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
@@ -168,52 +171,50 @@ public class ForgeCommonInitializer {
 	private void registryInit() {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		// Core item/block/BE
-		bind(Registry.SOUND_EVENT_REGISTRY, BotaniaSounds::init);
-		bind(Registry.BLOCK_REGISTRY, BotaniaBlocks::registerBlocks);
-		bind(Registry.ITEM_REGISTRY, BotaniaBlocks::registerItemBlocks);
-		bind(Registry.BLOCK_REGISTRY, BotaniaFluffBlocks::registerBlocks);
-		bind(Registry.ITEM_REGISTRY, BotaniaFluffBlocks::registerItemBlocks);
-		bind(Registry.BLOCK_ENTITY_TYPE_REGISTRY, BotaniaBlockEntities::registerTiles);
-		bind(Registry.ITEM_REGISTRY, BotaniaItems::registerItems);
-		bind(Registry.BLOCK_REGISTRY, BotaniaFlowerBlocks::registerBlocks);
-		bind(Registry.ITEM_REGISTRY, BotaniaFlowerBlocks::registerItemBlocks);
-		bind(Registry.BLOCK_ENTITY_TYPE_REGISTRY, BotaniaFlowerBlocks::registerTEs);
+		bind(Registries.SOUND_EVENT, BotaniaSounds::init);
+		bind(Registries.BLOCK, BotaniaBlocks::registerBlocks);
+		bind(Registries.ITEM, BotaniaBlocks::registerItemBlocks);
+		bind(Registries.BLOCK, BotaniaFluffBlocks::registerBlocks);
+		bind(Registries.ITEM, BotaniaFluffBlocks::registerItemBlocks);
+		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaBlockEntities::registerTiles);
+		bind(Registries.ITEM, BotaniaItems::registerItems);
+		bind(Registries.BLOCK, BotaniaFlowerBlocks::registerBlocks);
+		bind(Registries.ITEM, BotaniaFlowerBlocks::registerItemBlocks);
+		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaFlowerBlocks::registerTEs);
 
 		// GUI and Recipe
-		bind(Registry.MENU_REGISTRY, BotaniaItems::registerMenuTypes);
-		bind(Registry.RECIPE_SERIALIZER_REGISTRY, BotaniaItems::registerRecipeSerializers);
-		bind(Registry.BANNER_PATTERN_REGISTRY, BotaniaBannerPatterns::submitRegistrations);
-		bind(Registry.RECIPE_TYPE_REGISTRY, BotaniaRecipeTypes::submitRecipeTypes);
-		bind(Registry.RECIPE_SERIALIZER_REGISTRY, BotaniaRecipeTypes::submitRecipeSerializers);
+		bind(Registries.MENU, BotaniaItems::registerMenuTypes);
+		bind(Registries.RECIPE_SERIALIZER, BotaniaItems::registerRecipeSerializers);
+		bind(Registries.BANNER_PATTERN, BotaniaBannerPatterns::submitRegistrations);
+		bind(Registries.RECIPE_TYPE, BotaniaRecipeTypes::submitRecipeTypes);
+		bind(Registries.RECIPE_SERIALIZER, BotaniaRecipeTypes::submitRecipeSerializers);
 
 		// Entities
-		bind(Registry.ENTITY_TYPE_REGISTRY, BotaniaEntities::registerEntities);
+		bind(Registries.ENTITY_TYPE, BotaniaEntities::registerEntities);
 		modBus.addListener((EntityAttributeCreationEvent e) -> BotaniaEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
 		modBus.addListener((EntityAttributeModificationEvent e) -> {
 			e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
 		});
-		bind(Registry.ATTRIBUTE_REGISTRY, PixieHandler::registerAttribute);
+		bind(Registries.ATTRIBUTE, PixieHandler::registerAttribute);
 
 		// Potions
-		bind(Registry.MOB_EFFECT_REGISTRY, (consumer) -> {
-			BotaniaMobEffects.registerPotions(consumer);
-			BotaniaBrews.registerBrews();
-		});
+		bind(Registries.MOB_EFFECT, BotaniaMobEffects::registerPotions);
+		bind(BotaniaRegistries.BREWS, BotaniaBrews::submitRegistrations);
 
 		// Worldgen
-		bind(Registry.FEATURE_REGISTRY, BotaniaFeatures::registerFeatures);
-		bind(Registry.CHUNK_GENERATOR_REGISTRY, SkyblockChunkGenerator::submitRegistration);
+		bind(Registries.FEATURE, BotaniaFeatures::registerFeatures);
+		bind(Registries.CHUNK_GENERATOR, SkyblockChunkGenerator::submitRegistration);
 
 		// Rest
 		BotaniaCriteriaTriggers.init();
-		bind(Registry.PARTICLE_TYPE_REGISTRY, BotaniaParticles::registerParticles);
+		bind(Registries.PARTICLE_TYPE, BotaniaParticles::registerParticles);
 
-		bind(Registry.LOOT_ITEM_REGISTRY, BotaniaLootModifiers::submitLootConditions);
-		bind(Registry.LOOT_FUNCTION_REGISTRY, BotaniaLootModifiers::submitLootFunctions);
+		bind(Registries.LOOT_CONDITION_TYPE, BotaniaLootModifiers::submitLootConditions);
+		bind(Registries.LOOT_FUNCTION_TYPE, BotaniaLootModifiers::submitLootFunctions);
 		// Vanilla's stat constructor does the registration too, so we use this
 		// event only for timing, not for registering
 		modBus.addListener((RegisterEvent evt) -> {
-			if (evt.getRegistryKey().equals(Registry.CUSTOM_STAT_REGISTRY)) {
+			if (evt.getRegistryKey().equals(Registries.CUSTOM_STAT)) {
 				BotaniaStats.init();
 			}
 		});

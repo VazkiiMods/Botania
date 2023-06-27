@@ -11,7 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -142,7 +141,7 @@ public class BottledManaItem extends Item {
 			}
 			case 15 -> { // Drop own Head
 				if (!living.getLevel().isClientSide && living instanceof Player player) {
-					living.hurt(DamageSource.MAGIC, living.getHealth() - 1);
+					living.hurt(living.damageSources().magic(), living.getHealth() - 1);
 					ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
 					ItemNBTHelper.setString(skull, "SkullOwner", player.getGameProfile().getName());
 					living.spawnAtLocation(skull, 0);

@@ -1,3 +1,4 @@
 {
-  "type": "botania:composite_lens"
+  "type": "botania:composite_lens",
+  "category": "misc"
 }

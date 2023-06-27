@@ -108,7 +108,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 				}
 
 				if (self.mana >= recipe.getMana()) {
-					ItemStack result = recipe.assemble(inv);
+					ItemStack result = recipe.assemble(inv, level.registryAccess());
 					for (ItemStack item : items) {
 						item.setCount(0);
 					}

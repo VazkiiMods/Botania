@@ -17,6 +17,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,7 +28,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.PureDaisyRecipe;
-import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 
 /**
@@ -52,7 +52,7 @@ public class StateCopyingPureDaisyRecipe extends PureDaisyRecipe {
 		return true;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<StateCopyingPureDaisyRecipe> {
+	public static class Serializer implements RecipeSerializer<StateCopyingPureDaisyRecipe> {
 		@NotNull
 		@Override
 		public StateCopyingPureDaisyRecipe fromJson(@NotNull ResourceLocation id, JsonObject object) {

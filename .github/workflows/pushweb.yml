@@ -1,0 +1,35 @@
+name: Build and Push website
+
+on:
+  push:
+    paths:
+      - 'Xplat/src/main/resources/assets/botania/lang/en_us.json'
+      - 'web/**'
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          web/vendor
+        key: ${{ hashFiles('web/Gemfile.lock') }}
+    - name: Install deps
+      working-directory: web
+      run: |
+        sudo apt-get install bundler
+        bundle install --deployment
+    - name: Build website
+      working-directory: web
+      run: bundle exec jekyll build
+    - name: Import ssh keys
+      run: |
+        umask go=
+        mkdir -p ~/.ssh
+        echo '${{ secrets.VIOLET_MOON_WEBSERVER_SSH_KEY }}' > ~/.ssh/id_ed25519
+        echo '${{ vars.BOTANIAWEB_KNOWN_HOST }}' >> ~/.ssh/known_hosts
+    - name: Push
+      run: rsync -av web/_site/ customer@botaniaweb.playat.ch:/var/www/botaniamod_net

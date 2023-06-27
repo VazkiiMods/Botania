@@ -152,10 +152,10 @@ public class MagicMissileEntity extends ThrowableProjectile {
 		Entity owner = this.getOwner();
 		if (owner instanceof LivingEntity livingOwner) {
 			return owner instanceof Player playerOwner
-					? DamageSource.playerAttack(playerOwner)
-					: DamageSource.mobAttack(livingOwner);
+					? damageSources().playerAttack(playerOwner)
+					: damageSources().mobAttack(livingOwner);
 		} else {
-			return DamageSource.GENERIC;
+			return damageSources().generic();
 		}
 	}
 

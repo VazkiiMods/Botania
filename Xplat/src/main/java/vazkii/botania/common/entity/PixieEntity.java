@@ -82,12 +82,12 @@ public class PixieEntity extends FlyingMob {
 			if (Math.sqrt(d3) < 1F) {
 				if (summoner != null) {
 					if (summoner instanceof Player player) {
-						target.hurt(DamageSource.playerAttack(player), damage);
+						target.hurt(damageSources().playerAttack(player), damage);
 					} else {
-						target.hurt(DamageSource.mobAttack(summoner), damage);
+						target.hurt(damageSources().mobAttack(summoner), damage);
 					}
 				} else {
-					target.hurt(DamageSource.mobAttack(this), damage);
+					target.hurt(damageSources().mobAttack(this), damage);
 				}
 				if (effect != null && !(target instanceof Player)) {
 					target.addEffect(effect);

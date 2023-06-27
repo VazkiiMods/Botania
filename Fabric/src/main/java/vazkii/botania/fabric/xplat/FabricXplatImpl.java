@@ -5,11 +5,12 @@ import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -28,7 +29,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -40,6 +40,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -65,12 +66,15 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
@@ -80,7 +84,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
@@ -478,7 +481,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public FabricItemSettings defaultItemBuilder() {
-		// TODO 1.19.3 maybe creative tab
 		return new FabricItemSettings();
 	}
 
@@ -496,18 +498,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
 		return new ExtendedScreenHandlerType<>(constructor::apply);
-	}
-
-	@Override
-	public Registry<Brew> getOrCreateBrewRegistry() {
-		return RegistryHolder.BREW;
-	}
-
-	// static final field of an inner class provides:
-	// - at most once initialization
-	// - synchronization/serialization of concurrent accesses
-	private static class RegistryHolder {
-		public static final Registry<Brew> BREW = FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
 	}
 
 	@Nullable
@@ -570,7 +560,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
-		return AbstractFurnaceBlockEntityFabricAccessor.callCanBurn(recipe, items, maxStackSize);
+		return AbstractFurnaceBlockEntityFabricAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipe, items, maxStackSize);
 	}
 
 	@Override
@@ -625,5 +615,15 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public RedStringContainerBlockEntity newRedStringContainer(BlockPos pos, BlockState state) {
 		return new FabricRedStringContainerBlockEntity(pos, state);
+	}
+
+	@Override
+	public BlockSetType registerBlockSetType(String name, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn) {
+		return BlockSetTypeRegistry.register(prefix(name), soundType, doorClose, doorOpen, trapdoorClose, trapdoorOpen, pressurePlateClickOff, pressurePlateClickOn, buttonClickOff, buttonClickOn);
+	}
+
+	@Override
+	public WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
+		return WoodTypeRegistry.register(prefix(name), setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen);
 	}
 }

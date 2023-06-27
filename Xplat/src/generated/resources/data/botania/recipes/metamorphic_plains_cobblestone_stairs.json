@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "group": "botania:metamorphic_cobble_stairs",
   "key": {
     "Q": {

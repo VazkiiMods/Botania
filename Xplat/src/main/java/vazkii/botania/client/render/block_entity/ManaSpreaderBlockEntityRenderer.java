@@ -14,12 +14,12 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -44,7 +44,6 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 
 		ms.translate(0.5F, 0.5, 0.5F);
 
-		// TODO 1.19.3 check that this is correct
 		Quaternionf transform = VecHelper.rotateY(spreader.rotationX + 90F);
 		transform.mul(VecHelper.rotateX(spreader.rotationY));
 		ms.mulPose(transform);
@@ -86,8 +85,8 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 			ms.mulPose(VecHelper.rotateX(180));
 			// Prevents z-fighting. Otherwise not noticeable.
 			ms.scale(0.997F, 0.997F, 1F);
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
-					light, overlay, ms, buffers, 0);
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
+					light, overlay, ms, buffers, spreader.getLevel(), 0);
 			ms.popPose();
 		}
 

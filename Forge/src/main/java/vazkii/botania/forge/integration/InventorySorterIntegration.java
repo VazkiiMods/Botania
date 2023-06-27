@@ -1,6 +1,6 @@
 package vazkii.botania.forge.integration;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -16,6 +16,6 @@ public class InventorySorterIntegration {
 	private static void sendImc(InterModEnqueueEvent evt) {
 		// Botania issue 4068, cpw/InventorySorter issue 139
 		InterModComms.sendTo("inventorysorter", "containerblacklist",
-				() -> Registry.MENU.getKey(BotaniaItems.FLOWER_BAG_CONTAINER));
+				() -> BuiltInRegistries.MENU.getKey(BotaniaItems.FLOWER_BAG_CONTAINER));
 	}
 }

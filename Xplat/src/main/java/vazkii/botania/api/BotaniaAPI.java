@@ -18,18 +18,14 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,9 +59,12 @@ public interface BotaniaAPI {
 
 	/**
 	 * Get the registry for brews.
-	 * Forge note: This registry is a vanilla registry, not a Forge one. Use vanilla's
-	 * methods to register to it. Its integer ID's are not synced, as a result.
+	 * This should only be called after the registry is registered.
+	 * In Forge, that is after NewRegistryEvent. In Fabric, that is after Botania's common initializer
+	 * is loaded.
+	 * Note that this registry is neither saved nor synced, and thus its integer ID's should not be relied upon.
 	 */
+	@Nullable
 	default Registry<Brew> getBrewRegistry() {
 		return null;
 	}
@@ -91,12 +90,12 @@ public interface BotaniaAPI {
 
 	ArmorMaterial DUMMY_ARMOR_MATERIAL = new ArmorMaterial() {
 		@Override
-		public int getDurabilityForSlot(@NotNull EquipmentSlot slot) {
+		public int getDurabilityForType(@NotNull ArmorItem.Type type) {
 			return 0;
 		}
 
 		@Override
-		public int getDefenseForSlot(@NotNull EquipmentSlot slot) {
+		public int getDefenseForType(@NotNull ArmorItem.Type type) {
 			return 0;
 		}
 

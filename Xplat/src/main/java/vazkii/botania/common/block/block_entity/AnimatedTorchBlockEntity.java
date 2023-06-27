@@ -154,7 +154,7 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 
 			String str = I18n.get("botania.animatedTorch." + torch.torchMode.name().toLowerCase(Locale.ROOT));
 			RenderHelper.renderHUDBox(ms, x, y, x + 18 + mc.font.width(str), y + 20);
-			mc.getItemRenderer().renderAndDecorateItem(new ItemStack(Blocks.REDSTONE_TORCH), x, y + 2);
+			mc.getItemRenderer().renderAndDecorateItem(ms, new ItemStack(Blocks.REDSTONE_TORCH), x, y + 2);
 			mc.font.drawShadow(ms, str, x + 16, y + 6, 0xFF4444);
 		}
 	}

@@ -1,23 +1,19 @@
 package vazkii.botania.forge.xplat;
 
-import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
@@ -44,11 +40,14 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
@@ -83,7 +82,6 @@ import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
@@ -96,31 +94,24 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.CapabilityUtil;
-import vazkii.botania.forge.ForgeBotaniaCreativeTab;
 import vazkii.botania.forge.block.ForgeSpecialFlowerBlock;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
-import vazkii.botania.forge.mixin.RecipeProviderForgeAccessor;
-import vazkii.botania.forge.mixin.RegistryForgeAccessor;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
@@ -413,8 +404,9 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Packet<?> toVanillaClientboundPacket(BotaniaPacket packet) {
-		return ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
+	@SuppressWarnings("unchecked")
+	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet) {
+		return (Packet<ClientGamePacketListener>) ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
 	}
 
 	@Override
@@ -486,7 +478,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Item.Properties defaultItemBuilder() {
-		return new Item.Properties().tab(ForgeBotaniaCreativeTab.INSTANCE);
+		return new Item.Properties();
 	}
 
 	@Override
@@ -497,19 +489,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
 		return IForgeMenuType.create(constructor::apply);
-	}
-
-	@Override
-	public Registry<Brew> getOrCreateBrewRegistry() {
-		return RegistryHolder.BREW;
-	}
-
-	// static final field of an inner class provides:
-	// - at most once initialization
-	// - synchronization/serialization of concurrent accesses
-	private static class RegistryHolder {
-		public static final Registry<Brew> BREW = RegistryForgeAccessor.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
-				LibMisc.MOD_ID + ":fallback", registry -> BotaniaBrews.fallbackBrew);
 	}
 
 	@Nullable
@@ -529,7 +508,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Attribute getReachDistanceAttribute() {
-		return ForgeMod.REACH_DISTANCE.get();
+		return ForgeMod.BLOCK_REACH.get();
 	}
 
 	@Override
@@ -549,13 +528,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
-		return ((AbstractFurnaceBlockEntityForgeAccessor) furnace).callCanBurn(recipe, items, maxStackSize);
-	}
-
-	@Override
-	public void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path) {
-		// this is dumb
-		((RecipeProviderForgeAccessor) new RecipeProvider(generator)).callSaveRecipeAdvancement(cache, json, path);
+		return ((AbstractFurnaceBlockEntityForgeAccessor) furnace)
+				.callCanBurn(furnace.getLevel().registryAccess(), recipe, items, maxStackSize);
 	}
 
 	@Override
@@ -625,5 +599,15 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public RedStringContainerBlockEntity newRedStringContainer(BlockPos pos, BlockState state) {
 		return new RedStringContainerBlockEntity(pos, state);
+	}
+
+	@Override
+	public BlockSetType registerBlockSetType(String name, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn) {
+		return BlockSetType.register(new BlockSetType("botania:" + name, soundType, doorClose, doorOpen, trapdoorClose, trapdoorOpen, pressurePlateClickOff, pressurePlateClickOn, buttonClickOff, buttonClickOn));
+	}
+
+	@Override
+	public WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
+		return WoodType.register(new WoodType("botania:" + name, setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen));
 	}
 }

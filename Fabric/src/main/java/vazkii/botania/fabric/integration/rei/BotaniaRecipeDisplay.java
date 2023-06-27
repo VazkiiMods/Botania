@@ -12,6 +12,7 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
@@ -30,7 +31,8 @@ public abstract class BotaniaRecipeDisplay<T extends Recipe<Container>> implemen
 	public BotaniaRecipeDisplay(T recipe) {
 		this.recipe = recipe;
 		this.inputs = EntryIngredients.ofIngredients(recipe.getIngredients());
-		this.outputs = EntryIngredients.of(recipe.getResultItem());
+		// TODO 1.19.4 figure out the proper way to get a registry access
+		this.outputs = EntryIngredients.of(recipe.getResultItem(RegistryAccess.EMPTY));
 	}
 
 	@Override

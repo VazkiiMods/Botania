@@ -4,10 +4,12 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.BannerPatternTags;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.common.lib.BotaniaTags;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static vazkii.botania.common.block.BotaniaBannerPatterns.*;
@@ -19,8 +21,10 @@ public class BannerPatternTagsProvider extends TagsProvider<BannerPattern> {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		// TODO 1.19.3 figure this out
-		// this.tag(BannerPatternTags.NO_ITEM_REQUIRED).add(FISH, AXE, HOE, PICKAXE, SHOVEL, SWORD);
+		var noItemRequired = this.tag(BannerPatternTags.NO_ITEM_REQUIRED);
+		for (var t : List.of(FISH, AXE, HOE, PICKAXE, SHOVEL, SWORD)) {
+			noItemRequired.add(t);
+		}
 		this.tag(BotaniaTags.BannerPatterns.PATTERN_ITEM_LIVINGWOOD_TWIG).add(FLOWER);
 		this.tag(BotaniaTags.BannerPatterns.PATTERN_ITEM_LEXICON).add(LEXICON);
 		this.tag(BotaniaTags.BannerPatterns.PATTERN_ITEM_TERRASTEEL).add(LOGO);

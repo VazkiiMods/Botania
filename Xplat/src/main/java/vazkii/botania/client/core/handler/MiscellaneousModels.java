@@ -9,18 +9,17 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.DyeColor;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.client.lib.ResourcesLib;
+import vazkii.botania.client.model.ManaBlasterModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
@@ -38,29 +37,7 @@ public class MiscellaneousModels {
 	public static final MiscellaneousModels INSTANCE = new MiscellaneousModels();
 
 	public boolean registeredModels = false;
-	public final Material alfPortalTex = mainAtlas("block/alfheim_portal_swirl");
-	public final Material lightRelayWorldIcon = mainAtlas("block/light_relay");
-	public final Material lightRelayDetectorWorldIcon = mainAtlas("block/detector_light_relay");
-	public final Material lightRelayForkWorldIcon = mainAtlas("block/fork_light_relay");
-	public final Material lightRelayToggleWorldIcon = mainAtlas("block/toggle_light_relay");
-	public final Material alchemyCatalystOverlay = mainAtlas("block/alchemy_catalyst_overlay");
-	public final Material conjurationCatalystOverlay = mainAtlas("block/conjuration_catalyst_overlay");
-	public final Material enchanterOverlay = mainAtlas("block/enchanter_overlay");
-	public final Material manaVoidOverlay = mainAtlas("block/mana_void_overlay");
-	public final Material manaWater = mainAtlas("block/mana_water");
-	public final Material terraPlateOverlay = mainAtlas("block/terra_plate_overlay");
-	public final Material corporeaWorldIcon = mainAtlas("item/corporea_spark");
-	public final Material corporeaWorldIconMaster = mainAtlas("item/corporea_spark_master");
-	public final Material corporeaWorldIconCreative = mainAtlas("item/corporea_spark_creative");
-	public final Material corporeaIconStar = mainAtlas("item/corporea_spark_star");
-	public final Material sparkWorldIcon = mainAtlas("item/spark");
 
-	public final Material[] sparkUpgradeIcons = new Material[] {
-			mainAtlas("item/spark_upgrade_rune_dispersive"),
-			mainAtlas("item/spark_upgrade_rune_dominant"),
-			mainAtlas("item/spark_upgrade_rune_recessive"),
-			mainAtlas("item/spark_upgrade_rune_isolated")
-	};
 	public final BakedModel[] tiaraWingIcons = new BakedModel[FlugelTiaraItem.WING_TYPES];
 	public final BakedModel[] thirdEyeLayers = new BakedModel[3];
 
@@ -89,18 +66,6 @@ public class MiscellaneousModels {
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[KeyOfTheKingsLawItem.WEAPON_TYPES];
 
 	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
-		// TODO 1.19.3 i think this whole thing can be done with a resource pack now?
-		// For now, just making an empty set here because the set we accessed before doesn't exist anymore
-		// This file doesn't do anything currently
-		Set<Material> materials = new HashSet<>();
-
-		materials.addAll(Arrays.asList(alfPortalTex, lightRelayWorldIcon, lightRelayDetectorWorldIcon,
-				lightRelayForkWorldIcon, lightRelayToggleWorldIcon, alchemyCatalystOverlay, conjurationCatalystOverlay,
-				enchanterOverlay, manaVoidOverlay, manaWater, terraPlateOverlay, corporeaWorldIcon, corporeaWorldIconMaster,
-				corporeaWorldIconCreative, corporeaIconStar, sparkWorldIcon));
-		materials.addAll(Arrays.asList(sparkUpgradeIcons));
-		materials.add(RenderLexicon.TEXTURE);
-		materials.add(RenderLexicon.ELVEN_TEXTURE);
 		consumer.accept(prefix("icon/goldfish"));
 		consumer.accept(prefix("icon/phiflower"));
 		consumer.accept(prefix("icon/nerfbat"));
@@ -192,8 +157,7 @@ public class MiscellaneousModels {
 		BakedModel originalModel = map.get(key);
 		ModelResourceLocation clipKey = new ModelResourceLocation(prefix("mana_gun_clip"), "inventory");
 		BakedModel originalModelClip = map.get(clipKey);
-		// TODO 1.19.3 i get some weird error with this class not being able to load for some reason??
-		// map.put(key, new ManaBlasterModel(loader, originalModel, originalModelClip));
+		map.put(key, new ManaBlasterModel(loader, originalModel, originalModelClip));
 
 		// Tiny Potato
 		ModelResourceLocation tinyPotato = new ModelResourceLocation(prefix("tiny_potato"), "inventory");
@@ -238,10 +202,6 @@ public class MiscellaneousModels {
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
 			tiaraWingIcons[i] = map.get(prefix("icon/tiara_wing_" + (i + 1)));
 		}
-	}
-
-	private static Material mainAtlas(String name) {
-		return new Material(InventoryMenu.BLOCK_ATLAS, prefix(name));
 	}
 
 	private MiscellaneousModels() {}

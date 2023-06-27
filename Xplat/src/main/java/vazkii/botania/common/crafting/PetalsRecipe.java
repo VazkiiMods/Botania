@@ -14,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -83,14 +84,14 @@ public class PetalsRecipe implements PetalApothecaryRecipe {
 
 	@NotNull
 	@Override
-	public final ItemStack getResultItem() {
+	public final ItemStack getResultItem(@NotNull RegistryAccess registries) {
 		return output;
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv) {
-		return getResultItem().copy();
+	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+		return getResultItem(registries).copy();
 	}
 
 	@NotNull
@@ -117,7 +118,7 @@ public class PetalsRecipe implements PetalApothecaryRecipe {
 		return BotaniaRecipeTypes.PETAL_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<PetalsRecipe> {
+	public static class Serializer implements RecipeSerializer<PetalsRecipe> {
 		@NotNull
 		@Override
 		public PetalsRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
@@ -149,7 +150,7 @@ public class PetalsRecipe implements PetalApothecaryRecipe {
 				input.toNetwork(buf);
 			}
 			recipe.reagent.toNetwork(buf);
-			buf.writeItem(recipe.getResultItem());
+			buf.writeItem(recipe.output);
 		}
 
 	}

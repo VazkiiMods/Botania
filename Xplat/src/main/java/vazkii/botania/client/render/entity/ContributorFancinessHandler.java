@@ -15,12 +15,12 @@ import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -73,7 +73,7 @@ public final class ContributorFancinessHandler extends RenderLayer<AbstractClien
 		getParentModel().head.translateAndRotate(ms);
 		ms.translate(0, -0.75, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		Minecraft.getInstance().getItemRenderer().renderStatic(player, flower, ItemTransforms.TransformType.NONE, false,
+		Minecraft.getInstance().getItemRenderer().renderStatic(player, flower, ItemDisplayContext.NONE, false,
 				ms, buffers, player.getLevel(), 0xF000F0, OverlayTexture.NO_OVERLAY, player.getId());
 		ms.popPose();
 	}

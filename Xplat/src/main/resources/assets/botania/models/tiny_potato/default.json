@@ -10,7 +10,7 @@
     }
   },
   "textures": {
-    "all": "botania:model/tiny_potato/default"
+    "all": "botania:block/tiny_potato/default"
   },
   "elements": [
     {

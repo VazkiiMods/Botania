@@ -135,7 +135,7 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 				&& inputs.equals(brewRecipe.inputs);
 	}
 
-	public static class Serializer extends RecipeSerializerBase<BotanicalBreweryRecipe> {
+	public static class Serializer implements RecipeSerializer<BotanicalBreweryRecipe> {
 		@NotNull
 		@Override
 		public BotanicalBreweryRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {

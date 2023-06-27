@@ -1,3 +1,4 @@
 {
-  "type": "botania:terra_pick_tipping"
+  "type": "botania:terra_pick_tipping",
+  "category": "misc"
 }

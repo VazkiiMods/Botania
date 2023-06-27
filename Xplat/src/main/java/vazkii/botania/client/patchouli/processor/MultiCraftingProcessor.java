@@ -9,11 +9,13 @@
 package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.patchouli.PatchouliUtils;
@@ -32,11 +34,11 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 	private boolean hasCustomHeading;
 
 	@Override
-	public void setup(IVariableProvider variables) {
+	public void setup(Level level, IVariableProvider variables) {
 		List<String> names = variables.get("recipes").asStream().map(IVariable::asString).collect(Collectors.toList());
 		this.recipes = new ArrayList<>();
 		for (String name : names) {
-			CraftingRecipe recipe = PatchouliUtils.getRecipe(RecipeType.CRAFTING, new ResourceLocation(name));
+			CraftingRecipe recipe = PatchouliUtils.getRecipe(level, RecipeType.CRAFTING, new ResourceLocation(name));
 			if (recipe != null) {
 				recipes.add(recipe);
 				if (shapeless) {
@@ -56,13 +58,13 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 	}
 
 	@Override
-	public IVariable process(String key) {
+	public IVariable process(Level level, String key) {
 		if (recipes.isEmpty()) {
 			return null;
 		}
 		if (key.equals("heading")) {
 			if (!hasCustomHeading) {
-				return IVariable.from(recipes.get(0).getResultItem().getHoverName());
+				return IVariable.from(recipes.get(0).getResultItem(level.registryAccess()).getHoverName());
 			}
 			return null;
 		}
@@ -89,7 +91,8 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			return PatchouliUtils.interweaveIngredients(ingredients, longestIngredientSize);
 		}
 		if (key.equals("output")) {
-			return IVariable.wrapList(recipes.stream().map(CraftingRecipe::getResultItem).map(IVariable::from).collect(Collectors.toList()));
+			// TODO 1.19.4 figure out the proper way to get a registry access
+			return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(RegistryAccess.EMPTY)).map(IVariable::from).collect(Collectors.toList()));
 		}
 		if (key.equals("shapeless")) {
 			return IVariable.wrap(shapeless);

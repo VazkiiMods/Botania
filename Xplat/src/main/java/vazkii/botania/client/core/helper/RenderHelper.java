@@ -23,7 +23,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -35,6 +34,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -326,7 +326,7 @@ public final class RenderHelper extends RenderType {
 
 	public static void renderProgressPie(PoseStack ms, int x, int y, float progress, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
-		mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(ms, stack, x, y);
 
 		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, true);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
@@ -335,7 +335,7 @@ public final class RenderHelper extends RenderType {
 		RenderSystem.stencilFunc(GL11.GL_NEVER, 1, 0xFF);
 		RenderSystem.stencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
 		RenderSystem.stencilMask(0xFF);
-		mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(ms, stack, x, y);
 
 		int r = 10;
 		int centerX = x + 8;
@@ -343,7 +343,6 @@ public final class RenderHelper extends RenderType {
 		int degs = (int) (360 * progress);
 		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
 
-		RenderSystem.disableTexture();
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderSystem.colorMask(true, true, true, true);
@@ -366,7 +365,6 @@ public final class RenderHelper extends RenderType {
 		Tesselator.getInstance().end();
 
 		RenderSystem.disableBlend();
-		RenderSystem.enableTexture();
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 	}
 
@@ -379,7 +377,7 @@ public final class RenderHelper extends RenderType {
 		if (model == null) {
 			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.getLevel(), entity, entity.getId());
 		}
-		model.getTransforms().getTransform(ItemTransforms.TransformType.NONE).apply(false, ms);
+		model.getTransforms().getTransform(ItemDisplayContext.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);
 
 		if (!model.isCustomRenderer() && !stack.is(Items.TRIDENT)) {
@@ -543,7 +541,7 @@ public final class RenderHelper extends RenderType {
 
 		PoseStack modelViewStack = RenderSystem.getModelViewStack();
 		modelViewStack.pushPose();
-		modelViewStack.translate(x, y, 100.0F + renderer.blitOffset);
+		modelViewStack.translate(x, y, 100.0F);
 		modelViewStack.translate(8.0D, 8.0D, 0.0D);
 		modelViewStack.scale(1.0F, -1.0F, 1.0F);
 		modelViewStack.scale(16.0F, 16.0F, 16.0F);
@@ -557,7 +555,7 @@ public final class RenderHelper extends RenderType {
 		MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
 		renderer.render(
 				stack,
-				ItemTransforms.TransformType.GUI,
+				ItemDisplayContext.GUI,
 				false,
 				new PoseStack(),
 				// This part differs from vanilla. We wrap the buffer to allow drawing translucently
@@ -598,7 +596,7 @@ public final class RenderHelper extends RenderType {
 	public static void renderItemWithName(PoseStack ps, Minecraft mc, ItemStack itemStack, int startX, int startY, int color) {
 		if (!itemStack.isEmpty()) {
 			mc.font.drawShadow(ps, itemStack.getHoverName(), startX + ITEM_AND_PADDING_WIDTH, startY + 4, color);
-			mc.getItemRenderer().renderAndDecorateItem(itemStack, startX, startY);
+			mc.getItemRenderer().renderAndDecorateItem(ps, itemStack, startX, startY);
 		}
 	}
 

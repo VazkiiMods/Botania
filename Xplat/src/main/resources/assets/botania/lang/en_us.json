@@ -5,7 +5,7 @@
   "_comment3": "Untranslated entries will automatically be inherited from this file.",
   "_comment4": "Once again, don't copy from English, and THANK YOU for your hard work!",
 
-  "itemGroup.botania": "Botania",
+  "itemGroup.botania.botania": "Botania",
   "botania.landing": "Magic, Tech. Naturally.$(br2)Botania is a tech mod themed around natural magic. The main concept is to create magical flowers and devices utilizing the power of the earth, in the form of $(thing)Mana$().",
   "botania.desc": "Magic, Tech. Naturally",
 
@@ -378,7 +378,7 @@
   "item.botania.dice.poem2": "The hidden laws of a probable outcome,",
   "item.botania.dice.poem3": "The numbers lead a dance.",
 
-  "death.attack.botania-relic": "%s was punished for using a relic that isn't theirs",
+  "death.attack.botania.relic": "%s was punished for using a relic that isn't theirs",
 
   "entity.botania.mana_burst": "Mana Burst",
   "entity.botania.pixie": "Pixie",
@@ -1877,7 +1877,7 @@
   "botania.page.pureDaisy0": "Far from being just the most basic, the $(item)Pure Daisy$(0) is the most important flower a botanist can have.$(p)This flower will purify any adjacent $(item)Wood$(0) and $(item)Stone$(0) blocks (as seen on the next page) into their purified counterparts, $(item)Livingwood$(0) and $(item)Livingrock$(0). These resources are important crafting materials throughout a botanist's career.",
   "botania.page.pureDaisy1": "Just give it $(thing)a minute$(0) or so...",
   "botania.page.pureDaisy2": "$(item)Livingwood$(0) can be turned into twigs",
-  "botania.page.pureDaisy4": "A few other blocks can also be purified by placing them around the flower. While not as unique and essential as the living blocks, these recipes still can come in handy.$(p)$(item)Netherrack$(0) purifies into $(item)Cobblestone$(0), $(item)Soul Sand$(0) into $(item)Sand$(0), $(l:misc/blaze_block)Blaze Mesh$(/l) into $(item)Obsidian$(0), $(item)Water$(0) into $(item)Snow$(0), $(item)Ice$(0) into $(item)Packed Ice$(0), $(item)Packed Ice$(0) into $(item)Blue Ice$(0), and $(item)End Stone$(0) into $(item)Cobbled Deepslate$(0).",
+  "botania.page.pureDaisy4": "A few other blocks can also be purified by placing them around the flower. While not as unique and essential as the living blocks, these recipes still can come in handy.$(p)$(item)Netherrack$(0) purifies into $(item)Cobblestone$(0), $(item)Soul Sand$(0) into $(item)Sand$(0), $(l:misc/blaze_block)Blaze Mesh$(/l) into $(item)Obsidian$(0), $(item)Water$(0) into $(item)Snow$(0), $(item)Ice$(0) into $(item)Packed Ice$(0), $(item)Packed Ice$(0) into $(item)Blue Ice$(0), and $(item)End Stone$(0) into $(item)Cobbled Deepslate$(0) (releasing a small cloud of $(l:ender/ender_air)Ender Air$(/l) in the process).",
   "botania.page.pureDaisy3": "A blank canvas to start your adventure",
 
   "botania.entry.wand": "Wand of the Forest",

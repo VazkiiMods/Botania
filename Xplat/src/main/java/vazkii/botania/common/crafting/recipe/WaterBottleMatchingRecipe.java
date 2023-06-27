@@ -11,6 +11,7 @@ package vazkii.botania.common.crafting.recipe;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -26,8 +27,6 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
-
 public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WaterBottleMatchingRecipe> SERIALIZER = new Serializer();
 
@@ -41,7 +40,11 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	public WaterBottleMatchingRecipe(ShapedRecipe recipe) {
-		this(recipe.getId(), recipe.getGroup(), recipe.getWidth(), recipe.getHeight(), recipe.getIngredients(), recipe.getResultItem());
+		this(recipe.getId(), recipe.getGroup(), recipe.getWidth(), recipe.getHeight(),
+				recipe.getIngredients(),
+				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
+				// RegistryAccess
+				recipe.getResultItem(RegistryAccess.EMPTY));
 	}
 
 	@Override
@@ -63,7 +66,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 		return SERIALIZER;
 	}
 
-	private static class Serializer extends RecipeSerializerBase<WaterBottleMatchingRecipe> {
+	private static class Serializer implements RecipeSerializer<WaterBottleMatchingRecipe> {
 		@Override
 		public WaterBottleMatchingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			return new WaterBottleMatchingRecipe(SHAPED_RECIPE.fromJson(recipeId, json));

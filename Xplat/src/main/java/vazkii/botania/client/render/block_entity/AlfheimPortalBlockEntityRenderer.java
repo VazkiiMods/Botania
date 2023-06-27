@@ -11,11 +11,13 @@ package vazkii.botania.client.render.block_entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.inventory.InventoryMenu;
 
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
@@ -24,13 +26,22 @@ import org.joml.Matrix4f;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 
-public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<AlfheimPortalBlockEntity> {
+import java.util.Objects;
 
-	public AlfheimPortalBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<AlfheimPortalBlockEntity> {
+	private final TextureAtlasSprite portalSprite;
+
+	public AlfheimPortalBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
+		this.portalSprite = Objects.requireNonNull(
+				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+						.apply(prefix("block/alfheim_portal_swirl"))
+		);
+	}
 
 	@Override
 	public void render(@NotNull AlfheimPortalBlockEntity portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
@@ -48,7 +59,7 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 		} else {
 			ms.translate(-1, 1, 0.75);
 		}
-		renderIcon(ms, buffers, MiscellaneousModels.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
+		renderIcon(ms, buffers, this.portalSprite, 0, 0, 3, 3, alpha, overlay);
 		ms.popPose();
 
 		ms.pushPose();
@@ -59,7 +70,7 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 			ms.translate(2, 1, 0.25);
 		}
 		ms.mulPose(VecHelper.rotateY(180));
-		renderIcon(ms, buffers, MiscellaneousModels.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
+		renderIcon(ms, buffers, this.portalSprite, 0, 0, 3, 3, alpha, overlay);
 		ms.popPose();
 	}
 

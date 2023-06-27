@@ -13,24 +13,22 @@ import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
@@ -42,7 +40,6 @@ import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -79,13 +76,15 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public int getDurabilityForSlot(EquipmentSlot slot) {
-			return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.getIndex()];
+		public int getDurabilityForType(ArmorItem.Type slot) {
+			// todo 1.19.4 make sure MAX_DAMAGE_ARRAY is still accessed in the same order as before
+			return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.ordinal()];
 		}
 
 		@Override
-		public int getDefenseForSlot(EquipmentSlot slot) {
-			return damageReduction[slot.getIndex()];
+		public int getDefenseForType(ArmorItem.Type slot) {
+			// todo 1.19.4 make sure damageReduction is still accessed in the same order as before
+			return damageReduction[slot.ordinal()];
 		}
 
 		@Override
@@ -179,9 +178,11 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return 2;
 	}
 
+	@Nullable
 	@Override
+	@SuppressWarnings("unchecked")
 	public Registry<Brew> getBrewRegistry() {
-		return XplatAbstractions.INSTANCE.getOrCreateBrewRegistry();
+		return (Registry<Brew>) BuiltInRegistries.REGISTRY.get(BotaniaRegistries.BREWS.location());
 	}
 
 	@Override

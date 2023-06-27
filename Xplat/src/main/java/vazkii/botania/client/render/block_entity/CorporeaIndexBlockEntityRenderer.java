@@ -82,7 +82,6 @@ public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<Cor
 
 		ms.mulPose(VecHelper.rotateY(rotation));
 		ms.translate(0.0D, 1.5F + translation / 2.0F, 0.0D);
-		// TODO 1.19.3 check that this is correct
 		ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(60.0F), ANGLE, 0.0F, ANGLE));
 		this.ring.render(ms, buffer, light, overlay);
 		ms.scale(0.875F, 0.875F, 0.875F);

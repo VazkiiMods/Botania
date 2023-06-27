@@ -27,12 +27,12 @@ public class ItemEntityFabricMixin {
 	private int pickupDelay;
 
 	@Shadow
-	private UUID owner;
+	private UUID thrower;
 
 	@Inject(at = @At("HEAD"), method = "playerTouch", cancellable = true)
 	private void onPickup(Player player, CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
-		if (!player.getLevel().isClientSide && pickupDelay == 0 && (owner == null || owner.equals(player.getUUID()))
+		if (!player.getLevel().isClientSide && pickupDelay == 0 && (thrower == null || thrower.equals(player.getUUID()))
 				&& FlowerPouchItem.onPickupItem(self, player)) {
 			ci.cancel();
 		}

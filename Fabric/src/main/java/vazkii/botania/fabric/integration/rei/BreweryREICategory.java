@@ -57,7 +57,7 @@ public class BreweryREICategory implements DisplayCategory<BreweryREIDisplay> {
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() + 9);
 
 		widgets.add(Widgets.createRecipeBase(bounds));
-		widgets.add(Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(helper, matrices, BREWERY_OVERLAY, center.x - 59, center.y - 36, 28, 6, 86, 55)));
+		widgets.add(Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(matrices, BREWERY_OVERLAY, center.x - 59, center.y - 36, 28, 6, 86, 55)));
 
 		widgets.add(Widgets.createSlot(new Point(center.x - 48, center.y)).entries(display.getContainers()));
 		int posX = center.x - (inputs.size() - 1) * 9;

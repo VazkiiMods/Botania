@@ -24,18 +24,15 @@ public class FabricRecipeProvider extends BotaniaRecipeProvider {
 
 	@Override
 	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-		// TODO is it possible to move the tags that differ by platform into an XPlatAbstraction?
-
-		// TODO 1.19.3 find proper categories for all these recipes
 		// Quartz tag
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaBlocks.azulejo0)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.azulejo0)
 				.requires(Items.BLUE_DYE)
 				.requires(FabricItemTagProvider.QUARTZ_BLOCKS)
 				.unlockedBy("has_item", conditionsFromItem(Items.BLUE_DYE))
 				.save(consumer);
 
 		// Chest tag
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.baubleBox)
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.baubleBox)
 				.define('C', FabricItemTagProvider.WOODEN_CHESTS)
 				.define('G', Items.GOLD_INGOT)
 				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -46,7 +43,7 @@ public class FabricRecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 
 		registerRedStringBlock(consumer, BotaniaBlocks.redStringContainer, Ingredient.of(FabricItemTagProvider.WOODEN_CHESTS), conditionsFromTag(FabricItemTagProvider.WOODEN_CHESTS));
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaBlocks.corporeaRetainer)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.corporeaRetainer)
 				.requires(FabricItemTagProvider.WOODEN_CHESTS)
 				.requires(BotaniaItems.corporeaSpark)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))

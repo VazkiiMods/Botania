@@ -1,7 +1,0 @@
-// 1.19.2	Tags for minecraft:worldgen/biome
-72e2c9a8c08768ad27a05a60c4fa887f050ff24c data/botania/tags/worldgen/biome/mystical_flower_blocklist.json
-2c92048d711ee7887a3e865aac3ddee60576b3b2 data/botania/tags/worldgen/biome/mystical_flower_spawnlist.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/botania/tags/worldgen/biome/mystical_mushroom_blocklist.json
-f28c104e780e89b31bdeae16f08c1ab37e12613b data/botania/tags/worldgen/biome/mystical_mushroom_spawnlist.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/worldgen/biome/is_nether.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/worldgen/biome/is_overworld.json

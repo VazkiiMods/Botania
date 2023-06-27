@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ChatFormatting;
@@ -49,13 +48,7 @@ public final class ItemsRemainingRenderHandler {
 			ms.pushPose();
 			ms.translate(xp, y, 0F);
 			ms.scale(alpha, 1F, 1F);
-			PoseStack mvStack = RenderSystem.getModelViewStack();
-			mvStack.pushPose();
-			mvStack.mulPoseMatrix(ms.last().pose());
-			RenderSystem.applyModelViewMatrix();
-			mc.getItemRenderer().renderAndDecorateItem(stack, 0, 0);
-			mvStack.popPose();
-			RenderSystem.applyModelViewMatrix();
+			mc.getItemRenderer().renderAndDecorateItem(ms, stack, 0, 0);
 			ms.popPose();
 
 			Component text = Component.empty();

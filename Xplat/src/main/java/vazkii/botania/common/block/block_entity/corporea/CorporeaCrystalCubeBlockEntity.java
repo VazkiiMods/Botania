@@ -212,8 +212,8 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 					mc.font.drawShadow(ps, lockedStr, 30, 11, 0xFFAA00);
 				}
 
-				// This doesn't care about our PoseStack transformation, annoyingly
-				mc.getItemRenderer().renderAndDecorateItem(target, centerX + 10, centerY - 9);
+				// todo 1.19.4 verify
+				mc.getItemRenderer().renderAndDecorateItem(ps, target, 10, 9);
 
 				ps.popPose();
 			}

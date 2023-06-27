@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
@@ -36,9 +37,9 @@ public class PatchouliUtils {
 	 *
 	 * If the recipe has no replacement, it will be logged.
 	 */
-	public static <T extends Recipe<C>, C extends Container> T getRecipe(RecipeType<T> type, ResourceLocation id) {
+	public static <T extends Recipe<C>, C extends Container> T getRecipe(Level level, RecipeType<T> type, ResourceLocation id) {
 		@SuppressWarnings("unchecked")
-		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
+		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) BotaniaRecipeTypes.getRecipes(level, type);
 		T r = map.get(id);
 		if (r != null) {
 			return r;

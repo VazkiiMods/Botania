@@ -280,9 +280,10 @@ public final class HUDHandler {
 			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-			mc.getItemRenderer().renderAndDecorateItem(stack, x - 20, y);
-			mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 26, y);
-			mc.getItemRenderer().renderGuiItemDecorations(mc.font, recipe.getResultItem(), x + 26, y);
+			mc.getItemRenderer().renderAndDecorateItem(ms, stack, x - 20, y);
+			ItemStack result = recipe.getResultItem(mc.level.registryAccess());
+			mc.getItemRenderer().renderAndDecorateItem(ms, result, x + 26, y);
+			mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, result, x + 26, y);
 
 			RenderSystem.disableBlend();
 		}
@@ -300,7 +301,7 @@ public final class HUDHandler {
 		int y = mc.getWindow().getGuiScaledHeight() - 60;
 
 		RenderHelper.renderHUDBox(ms, x - 4, y - 4, x + l + 4, y + 35);
-		mc.getItemRenderer().renderAndDecorateItem(new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
+		mc.getItemRenderer().renderAndDecorateItem(ms, new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
 
 		mc.font.drawShadow(ms, txt0, x + 20, y, 0xFFFFFF);
 		mc.font.drawShadow(ms, txt1, x + 20, y + 14, 0xFFFFFF);
@@ -332,13 +333,14 @@ public final class HUDHandler {
 		int x = mc.getWindow().getGuiScaledWidth() / 2 + 55;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 + 12;
 
-		mc.getItemRenderer().renderAndDecorateItem(bindDisplay, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(ms, bindDisplay, x, y);
 
 		RenderSystem.disableDepthTest();
 		ms.pushPose();
-		// renderAndDecorateItem draws at blitOffset + 50, + 200 (further down the call stack).
+		// TODO 1.19.4 re-check this. maybe just 200 + 1 will do?
+		// renderAndDecorateItem draws at 50, + 200 (further down the call stack).
 		// We want the checkmark on top of that. yeah these numbers are pretty arbitrary and dumb
-		ms.translate(0, 0, mc.getItemRenderer().blitOffset + 50 + 200 + 1);
+		ms.translate(0, 0, 50 + 200 + 1);
 		if (properlyBound) {
 			mc.font.drawShadow(ms, "\u2714", x + 10, y + 9, 0x004C00);
 			mc.font.drawShadow(ms, "\u2714", x + 10, y + 8, 0x0BD20D);

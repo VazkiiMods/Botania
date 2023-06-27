@@ -278,7 +278,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			if (livingrock != null) {
 				int mana = recipe.getManaUsage();
 				receiveMana(-mana);
-				ItemStack output = recipe.assemble(getItemHandler());
+				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).markAltarOutput();
 				level.addFreshEntity(outputItem);
@@ -405,7 +405,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
 					if (progress == 1F) {
-						mc.getItemRenderer().renderGuiItem(new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
+						mc.getItemRenderer().renderGuiItem(ms, new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
+						// todo(1.19.4) review this sketchy transform. Can probably be applied to ms directly.
 						PoseStack pose = RenderSystem.getModelViewStack();
 						pose.pushPose();
 						pose.translate(0, 0, 100);
@@ -416,12 +417,13 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 							playerWand = PlayerHelper.getItemClassFromInventory(mc.player, WandOfTheForestItem.class);
 						}
 						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.twigWand) : playerWand;
-						mc.getItemRenderer().renderGuiItem(wandToRender, xc + radius + 24, yc + 8);
+						mc.getItemRenderer().renderGuiItem(ms, wandToRender, xc + radius + 24, yc + 8);
 						pose.popPose();
 						RenderSystem.applyModelViewMatrix();
 					}
 
-					RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress, recipe.assemble(altar.getItemHandler()));
+					RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress,
+							recipe.assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
 
 					if (progress == 1F) {
 						mc.font.draw(ms, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
@@ -431,13 +433,11 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				for (int i = 0; i < amt; i++) {
 					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 					double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-					PoseStack pose = RenderSystem.getModelViewStack();
-					pose.pushPose();
-					pose.translate(xPos, yPos, 0);
-					RenderSystem.applyModelViewMatrix();
-					mc.getItemRenderer().renderGuiItem(altar.getItemHandler().getItem(i), 0, 0);
-					pose.popPose();
-					RenderSystem.applyModelViewMatrix();
+					// todo 1.19.4 check
+					ms.pushPose();
+					ms.translate(xPos, yPos, 0);
+					mc.getItemRenderer().renderGuiItem(ms, altar.getItemHandler().getItem(i), 0, 0);
+					ms.popPose();
 
 					angle += anglePer;
 				}

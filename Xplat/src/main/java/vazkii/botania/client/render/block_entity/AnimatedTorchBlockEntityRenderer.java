@@ -12,9 +12,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
@@ -53,8 +53,8 @@ public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<Ani
 		}
 
 		ms.mulPose(VecHelper.rotateZ(rotation));
-		mc.getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH), ItemTransforms.TransformType.GROUND,
-				light, overlay, ms, buffers, 0);
+		mc.getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH), ItemDisplayContext.GROUND,
+				light, overlay, ms, buffers, te.getLevel(), 0);
 		ms.popPose();
 	}
 

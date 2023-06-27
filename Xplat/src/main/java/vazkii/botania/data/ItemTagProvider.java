@@ -21,6 +21,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.lens.LensItem;
@@ -32,12 +33,18 @@ import java.util.concurrent.CompletableFuture;
 import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ItemTagProvider extends ItemTagsProvider {
-	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagProvider blockTagProvider) {
+	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
 		super(packOutput, lookupProvider, blockTagProvider);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
+		this.tag(ItemTags.AXES).add(manasteelAxe, elementiumAxe, terraAxe);
+		this.tag(ItemTags.HOES).add(manasteelHoe, elementiumHoe);
+		this.tag(ItemTags.PICKAXES).add(manasteelPick, elementiumPick, terraPick, glassPick);
+		this.tag(ItemTags.SHOVELS).add(manasteelShovel, elementiumShovel);
+		this.tag(ItemTags.SWORDS).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
+
 		this.copy(BlockTags.RAILS, ItemTags.RAILS);
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
 		this.copy(BlockTags.PLANKS, ItemTags.PLANKS);

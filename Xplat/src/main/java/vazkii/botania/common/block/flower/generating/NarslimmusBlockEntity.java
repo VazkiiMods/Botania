@@ -100,7 +100,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	private static boolean isSlimeChunk(Level world, double x, double z) {
-		return isSlimeChunk(world, new BlockPos(x, 0, z));
+		return isSlimeChunk(world, BlockPos.containing(x, 0, z));
 	}
 
 	public static boolean isSlimeChunk(Level world, BlockPos pos) {

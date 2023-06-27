@@ -123,11 +123,11 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffectItem
 					burst.setMana(mana - cost);
 					float damage = 4F + BotaniaAPI.instance().getTerrasteelItemTier().getAttackDamageBonus();
 					if (!burst.isFake() && !entity.getLevel().isClientSide) {
-						DamageSource source = DamageSource.MAGIC;
+						DamageSource source = living.damageSources().magic();
 						if (thrower instanceof Player player) {
-							source = DamageSource.playerAttack(player);
+							source = player.damageSources().playerAttack(player);
 						} else if (thrower instanceof LivingEntity livingEntity) {
-							source = DamageSource.mobAttack(livingEntity);
+							source = livingEntity.damageSources().mobAttack(livingEntity);
 						}
 						living.hurt(source, damage);
 						entity.discard();

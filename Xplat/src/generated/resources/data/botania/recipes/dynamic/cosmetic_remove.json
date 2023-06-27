@@ -1,3 +1,4 @@
 {
-  "type": "botania:cosmetic_remove"
+  "type": "botania:cosmetic_remove",
+  "category": "misc"
 }

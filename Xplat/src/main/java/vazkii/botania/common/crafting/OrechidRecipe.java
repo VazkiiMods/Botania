@@ -72,7 +72,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 		return BotaniaRecipeTypes.ORECHID_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<OrechidRecipe> {
+	public static class Serializer implements RecipeSerializer<OrechidRecipe> {
 		@Override
 		public OrechidRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			var input = StateIngredientHelper.tryDeserialize(GsonHelper.getAsJsonObject(json, "input"));

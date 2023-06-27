@@ -10,6 +10,7 @@ package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
@@ -24,18 +25,18 @@ public class TerraPlateProcessor implements IComponentProcessor {
 	private TerrestrialAgglomerationRecipe recipe;
 
 	@Override
-	public void setup(IVariableProvider variables) {
+	public void setup(Level level, IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		this.recipe = PatchouliUtils.getRecipe(BotaniaRecipeTypes.TERRA_PLATE_TYPE, id);
+		this.recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.TERRA_PLATE_TYPE, id);
 	}
 
 	@Override
-	public IVariable process(String key) {
+	public IVariable process(Level level, String key) {
 		if (recipe == null) {
 			return null;
 		}
 		if (key.equals("output")) {
-			return IVariable.from(recipe.getResultItem());
+			return IVariable.from(recipe.getResultItem(level.registryAccess()));
 		}
 		if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;

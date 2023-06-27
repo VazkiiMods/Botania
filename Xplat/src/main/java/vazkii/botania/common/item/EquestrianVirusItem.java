@@ -103,7 +103,7 @@ public class EquestrianVirusItem extends Item {
 		}
 
 		if ((entity instanceof ZombieHorse || entity instanceof SkeletonHorse)
-				&& source == DamageSource.FALL
+				&& source == entity.damageSources().fall()
 				&& ((AbstractHorse) entity).isTamed()) {
 			return true;
 		}

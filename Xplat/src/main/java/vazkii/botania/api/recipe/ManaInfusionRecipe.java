@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -35,23 +36,23 @@ public interface ManaInfusionRecipe extends Recipe<Container> {
 
 	/**
 	 * Get the recipe output, used for display (in JEI or the HUD).
-	 * If {@link #getRecipeOutput(ItemStack)} isn't overridden, this is also the actual result of the crafting recipe.
+	 * If {@link #getRecipeOutput} isn't overridden, this is also the actual result of the crafting recipe.
 	 *
 	 * @return The output stack of the recipe.
 	 */
 	@NotNull
 	@Override
-	ItemStack getResultItem();
+	ItemStack getResultItem(@NotNull RegistryAccess registries);
 
 	/**
-	 * Get the actual recipe output, not just for display. Defaults to a copy of {@link #getResultItem()}.
+	 * Get the actual recipe output, not just for display. Defaults to a copy of {@link #getResultItem}.
 	 *
 	 * @param input The whole stack that is in the Mana Pool, not a copy.
 	 * @return The output stack of the recipe for the specific input.
 	 */
 	@NotNull
-	default ItemStack getRecipeOutput(@NotNull ItemStack input) {
-		return getResultItem().copy();
+	default ItemStack getRecipeOutput(@NotNull RegistryAccess registries, @NotNull ItemStack input) {
+		return getResultItem(registries).copy();
 	}
 
 	/**
@@ -77,7 +78,7 @@ public interface ManaInfusionRecipe extends Recipe<Container> {
 
 	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull Container inv) {
+	default ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
 		return ItemStack.EMPTY;
 	}
 
