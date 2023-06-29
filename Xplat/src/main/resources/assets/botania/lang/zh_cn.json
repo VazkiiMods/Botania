@@ -7,7 +7,7 @@
   "_comment5": "Once again， don't copy from English， and THANK YOU for your hard work!",
   "_comment6": "请翻译者注意替换全半角标点，包括“,”和“，”、“.”和“。”、“?”和“？”、以及“!”和“！”等。同时，请注意将排列句式中的英文逗号改为顿号。感谢您的贡献。",
 
-  "itemGroup.botania": "植物魔法",
+  "itemGroup.botania.botania": "植物魔法",
   "botania.landing": "魔法，自然也是科技。$(br2)植物魔法是一个以自然魔法为主题的科技Mod，主要通过使用魔法花朵和装置来运用大地之中的$(thing)魔力$()。",
   "botania.desc": "这里便是植物魔法的描述。",
 
@@ -41,6 +41,8 @@
   "botaniamisc.lexiconcover2": "由Vazkii执笔编纂",
   "botaniamisc.shiftinfo": "按住%s显示更多",
   "botaniamisc.ratio": "放大：%s倍",
+  "botaniamisc.conversionRatio": "关于%s中的%s",
+  "botaniamisc.conversionChanceBiome": "在%s生物群系的%s",
   "botaniamisc.bottleTooltip": "你会喜欢上它的味道的",
   "botaniamisc.shardLevel": "碎片能量 %s",
   "botaniamisc.shardRange": "半径: %s",
@@ -1372,10 +1374,10 @@
   "item.botania.ender_hand": "末影之手",
   "item.botania.glass_pickaxe": "玻璃镐",
   "item.botania.spark": "火花",
-  "item.botania.spark_upgrade_dispersive": "火花升级:弥散",
-  "item.botania.spark_upgrade_dominant": "火花升级:聚集",
-  "item.botania.spark_upgrade_recessive": "火花升级:扩散",
-  "item.botania.spark_upgrade_isolated": "火花升级:隔绝",
+  "item.botania.spark_upgrade_dispersive": "火花升级：弥散",
+  "item.botania.spark_upgrade_dominant": "火花升级：聚集",
+  "item.botania.spark_upgrade_recessive": "火花升级：扩散",
+  "item.botania.spark_upgrade_isolated": "火花升级：隔绝",
   "item.botania.divining_rod": "占矿法杖",
   "item.botania.gravity_rod": "黑山法杖",
   "item.botania.vial": "魔法玻璃小瓶",
@@ -1877,7 +1879,7 @@
   "botania.page.pureDaisy0": "$(item)白雏菊$(0)不仅是最基础的，也是一个植物魔法师所有的最重要的花。$(p)这种花会将任何相邻的$(item)木头$(0)和$(item)石头$(0)方块净化为$(item)活木$(0)和$(item)活石$(0)（如下一页所示）。这两种材料都是植物魔法师生涯中不可或缺的素材。",
   "botania.page.pureDaisy1": "给它$(thing)一分钟$(0)就会...",
   "botania.page.pureDaisy2": "$(item)活木$(0)可做成活木枝",
-  "botania.page.pureDaisy4": "此外还有一些方块放在这朵花旁边时也能被净化。尽管它们并不像活木活石那样是必需品，或许也能派上什么用场。包括$(item)地狱岩$(0)变为$(item)圆石$(0)，$(item)灵魂沙$(0)变为$(item)沙子$(0)，$(item)冰$(0)变为$(item)浮冰$(0)，还有$(item)水$(0)变为$(item)雪$(0)。",
+  "botania.page.pureDaisy4": "此外还有一些方块放在这朵花旁边时也能被净化。尽管它们并不像活木活石那样是必需品，或许也能派上什么用场。包括$(item)地狱岩$(0)变为$(item)圆石$(0)，$(item)灵魂沙$(0)变为$(item)沙子$(0)，$(item)烈焰网$(0)变为$(item)黑曜石$(0)，$(item)水源$(0)变为$(item)雪$(0)，$(item)冰$(0)变为$(item)浮冰$(0)，$(item)浮冰$(0)变为$(item)蓝冰$(0)，以及$(item)末地石$(0)变为$(item)深板岩圆石$(0)（在此过程中释放一小朵$(l:ender/ender_air)末地空气云团$(/l)）。",
   "botania.page.pureDaisy3": "一张空白画卷，绘出冒险之旅",
 
   "botania.entry.wand": "森林法杖",
@@ -2007,14 +2009,14 @@
   "botania.page.lens2": "$(thing)染色透镜$(0)",
   "botania.page.lens3": "$(item)彩虹透镜$(0)",
   "botania.page.lens4": "透镜可不仅仅是为了各种炫丽的色彩。你可以用各种材料升级以制作出能赋予$(thing)魔力脉冲$(0)各种效果的新透镜。$(p)注意：普通的$(item)魔力发射器$(0)只有在末端有一个能接受$(thing)魔力$(0)的方块时才能发射脉冲。对于一些透镜还是推荐使用$(l:mana/redstone_spreader)$(item)红石魔力发射器$(0)$(/l)。$(p)$(item)漏斗$(0)之类的方块可以用来放置或移除发射器的透镜。",
-  "botania.page.lens5": "然而总有些时候一个$(item)魔力透镜$(0)还不够。这时可以用$(item)粘液球$(0)在合成台将两个透镜叠加为一个同时具有双方的特性的$(thing)复合透镜$(0)。$(p)所用的第一个透镜决定了外观和颜色。注意有些叠加是无效的，以及两个同类的透镜也是不能叠加的。",
+  "botania.page.lens5": "然而总有些时候一个$(item)魔力透镜$(0)还不够。这时可以用$(item)粘液球$(0)或$(item)蜂蜜瓶$(0)在工作台将两个透镜叠加为一个同时具有双方的特性的$(thing)复合透镜$(0)。$(p)所用的第一个透镜决定了外观和颜色。注意有些叠加是无效的，以及两个同类的透镜也是不能叠加的。",
   "botania.page.lens6": "$(item)速度透镜$(0)会大幅提升$(thing)魔力脉冲$(0)的速度，但这样不仅会使每次脉冲魔力量更少，而且还会加快$(thing)魔力流失$(0)的速度。",
   "botania.page.lens7": "速度透镜",
   "botania.page.lens8": "$(item)强度透镜$(0)会使每束$(thing)魔力脉冲$(0)携带$(thing)魔力$(0)加倍，然而，光线变得更慢并且流失魔力时的速率提高。",
   "botania.page.lens9": "强度透镜",
   "botania.page.lens10": "$(item)阻力透镜$(0)会显著延迟$(thing)魔力脉冲$(0)开始流失$(thing)魔力$(0)的时间，但这会让它的速度变慢点。",
   "botania.page.lens11": "阻力透镜",
-  "botania.page.lens12": "$(item)效率透镜$(0)会让$(thing)魔力脉冲$(0)早些开始流失$(thing)魔力$(0)，但流失的速度减缓了很多。",
+  "botania.page.lens12": "$(item)效率透镜$(0)会让$(thing)魔力脉冲$(0)晚些开始流失$(thing)魔力$(0)，且流失速度的减缓效果十分显著。",
   "botania.page.lens13": "效率透镜",
   "botania.page.lens14": "$(item)反射透镜$(0)会让$(thing)魔力脉冲$(0)在墙壁之间反射，而不会因碰撞而消失。",
   "botania.page.lens15": "反射透镜",
@@ -2213,8 +2215,8 @@
 
   "botania.entry.rannuncarpus": "手掌花",
   "botania.tagline.rannuncarpus": "放置方块",
-  "botania.page.rannuncarpus0": "真是朵方便的花，$(item)手掌花$(0)会拾取附近任何掉落物品形式的方块并放置在其他地方，且会优先将方块面对自己。不过，它同时只能将方块放置在一种方块上，要指定这种方块，只需将它放在这朵花种植的土方块下即可。",
-  "botania.page.rannuncarpus1": "方块式物品，比如$(item)甘蔗$(0)也会奏效的，但它们只能被放在平常能放置的地方。$(p)最后，提供$(thing)魔力$(0)不是必需的，但这会增加工作范围。",
+  "botania.page.rannuncarpus0": "真是朵方便的花，$(item)手掌花$(0)会拾取附近任何掉落物品形式的方块并放置在其他地方，且会优先将方块面对自己。不过，它同时只能将方块放置在一种方块上，要指定放置的位置，只需将该方块放在这朵花种植的土方块下即可。",
+  "botania.page.rannuncarpus1": "例如$(item)甘蔗$(0)这样的物品也是可以被放置的，但它们只能被放在平常能放置的地方。$(p)提供$(thing)魔力$(0)不是必需的，但这会增加工作范围。$(p)最后，类似于$(l:functional_flowers/hopperhock)$(item)漏斗花$(0)$(/l)一样，在$(item)手掌花$(0)所在的土壤之下的方块上放置物品展示框会限制该手掌花拾起的物品种类。",
   "botania.page.rannuncarpus2": "$(o)你是在沙坑里找到它的吗？$()",
 
   "botania.entry.hyacidus": "毒风信",
@@ -2274,7 +2276,7 @@
 
   "botania.entry.solegnolia": "弱磁兰",
   "botania.tagline.solegnolia": "创造一个磁化指环无法工作的地方",
-  "botania.page.solegnolia0": "$(l:baubles/magnet_ring)$(item)磁化指环$(0)$(/l)对于搜集材料的人而言十分便利，但这也会让他们陷入另一个麻烦：总是会捡起不需要的物品。$(p)$(item)弱磁兰$(0)会抑制指环的能力并阻止任何物品被佩戴指环的人吸住。这朵花不会消耗任何$(thing)魔力$(0)。",
+  "botania.page.solegnolia0": "$(l:baubles/magnet_ring)$(item)磁化指环$(0)$(/l)对于搜集材料的人而言十分便利，但这也会让他们陷入另一个麻烦：总是会捡起不需要的物品。$(p)$(item)弱磁兰$(0)会抑制指环的能力并阻止工作范围内的任何物品被佩戴指环的人吸住。它还能阻止在其工作范围内的任何持戒玩家吸引任何物品。这朵花不会消耗任何$(thing)魔力$(0)。",
   "botania.page.solegnolia1": "开/关",
 
   "botania.entry.bergamute": "消音柑",
@@ -2312,7 +2314,7 @@
 
   "botania.entry.arcanerose": "阿卡纳蔷薇",
   "botania.tagline.arcanerose": "经验就是魔力",
-  "botania.page.arcanerose0": "$(thing)经验点$(0)是一种形式的魔力.$(item)阿卡纳蔷薇$(0)能吸收附近玩家的经验，并利用它产生$(item)魔力$(0)。",
+  "botania.page.arcanerose0": "$(thing)经验点$(0)是一种形式的魔力.$(item)阿卡纳蔷薇$(0)能吸收附近玩家的经验，并利用它产生$(item)魔力$(0)。$(p)它也可以吸收世界中掉落的经验球或利用附魔物品来产生魔力",
   "botania.page.arcanerose1": "$(o)该花被种植时，投掷一枚硬币$(0)。",
 
   "botania.entry.munchdew": "咀叶花",
@@ -2599,7 +2601,7 @@
   "botania.entry.cocoon": "随想之茧",
   "botania.tagline.cocoon": "孵化属于你的动物",
   "botania.page.cocoon0": "茧通常象征进化与蜕变。$(p)制作一个$(item)随想之茧$(0)并把它放在地上会慢慢地将其中的基本元素进化转变为$(item)小动物$(0)。多数时候，茧会孵出寻常的家禽或家畜，但也有少数报告指出它能孵化出$(item)狼$(0)或$(item)马$(0)。",
-  "botania.page.cocoon1": "据说给茧$(item)绿宝石$(0)和$(item)紫颂果$(0)会稍微改变茧的产出。给予的方式既可以是直接右键，也可以是丢在茧的一旁。$(p)也许真的会有什么人来验证一下这个。",
+  "botania.page.cocoon1": "一个临近水源的随想之茧会孵化出水生生物，而据说给茧$(item)绿宝石$(0)和$(item)紫颂果$(0)，或者$(l:alfhomancy/gaia_ritual)$(item)异域的精华$(0)$(/l)会稍微改变茧的产出。给予的方式既可以是直接右键，也可以是丢在茧的一旁。$(p)这样的尝试会产生什么结果谁也不知道。",
   "botania.page.cocoon2": "新世界，乌托邦",
 
   "botania.entry.manaBomb": "魔力风暴",
@@ -2758,7 +2760,7 @@
 
   "botania.entry.vineBall": "藤蔓球",
   "botania.tagline.vineBall": "帮助你如梯子搬攀登的可投掷藤蔓",
-  "botania.page.vineBall0": "$(item)梯子$(0)不能独立存在，它们需要有依附的东西，然而$(item)藤蔓$(0)不需要。通常来说，$(item)藤蔓$(0)不够坚韧能让人挂在上面。$(p)通过糅合一些$(item)藤蔓$(0)，能做出一种可以投掷的球，在它所撞的地方长出一道墙人的$(item)藤蔓$(0)梯子。",
+  "botania.page.vineBall0": "$(item)梯子$(0)不能独立存在，它们需要有依附的东西。$(item)藤蔓$(0)不需要，但$(item)藤蔓$(0)没有坚韧能让人向前走时即可向上攀爬，你只会穿过去。$(p)通过糅合一些$(item)藤蔓$(0)，能做出一种可以投掷的球，在撞击之处长出一条可供攀爬的强劲$(item)藤蔓$(0)。",
   "botania.page.vineBall1": "也可以用一些类似$(item)活木$(0)和$(item)风之符文$(0)的材料制作一把能忽视重力发射$(item)藤蔓球$(0)的弹弓。",
   "botania.page.vineBall2": "即将加入Vineacraft...",
   "botania.page.vineBall3": "...如果真的有这种东西的话。",
@@ -2912,7 +2914,7 @@
   "botania.entry.astrolabe": "世界塑造者之星盘",
   "botania.tagline.astrolabe": "平面塑造者",
   "botania.page.astrolabe0": "$(item)世界塑造者之星盘$(0)是个相当好用的工具，有了它，你就可以快速铺开大量方块。$(p)首先要用它右击某种方块，如此可设定其要放置的方块种类。$(p)潜行时右击星盘可以调整具体的放置数量。",
-  "botania.page.astrolabe1": "手持星盘指向任意方块时，星盘会显示效果预览，藉由此可得知右键放置方块后的效果。$(p)方块放置时会消耗$(thing)魔力$(0)，自然地也会消耗对应的方块；不过你也可以使用能给$(item)移壳法杖$(0)提供方块的物品（比如$(item)深渊法杖s$(0)和$(item)末影之手$(0)）。",
+  "botania.page.astrolabe1": "手持星盘指向任意方块时，星盘会显示效果预览，藉由此可得知右键放置方块后的效果。$(p)方块放置时会消耗$(thing)魔力$(0)，自然地也会消耗对应的方块；不过你也可以使用能给$(item)移壳法杖$(0)提供方块的物品（比如$(item)深渊法杖$(0)和$(item)末影之手$(0)）。",
   "botania.page.astrolabe2": "建造高墙，创造世界。",
 
   "botania.entry.enderAir": "获取末地空气",
