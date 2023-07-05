@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.emi.emi.api.widget.TextureWidget;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 public class BlendTextureWidget extends TextureWidget {
@@ -14,9 +15,9 @@ public class BlendTextureWidget extends TextureWidget {
 	}
 
 	@Override
-	public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
+	public void render(GuiGraphics gui, int mouseX, int mouseY, float delta) {
 		RenderSystem.enableBlend();
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(gui, mouseX, mouseY, delta);
 		RenderSystem.disableBlend();
 	}
 }

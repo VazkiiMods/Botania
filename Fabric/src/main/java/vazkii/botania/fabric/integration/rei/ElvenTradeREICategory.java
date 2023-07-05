@@ -65,9 +65,9 @@ public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDispl
 		List<Widget> widgets = new ArrayList<>();
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 4);
 		widgets.add(Widgets.createRecipeBase(bounds));
-		widgets.add(Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> {
-			CategoryUtils.drawOverlay(matrices, TRADE_OVERLAY, center.x - 45, center.y - 34, 20, 19, 71, 75);
-			drawPortal(matrices, center);
+		widgets.add(Widgets.createDrawableWidget((gui, mouseX, mouseY, delta) -> {
+			CategoryUtils.drawOverlay(gui, TRADE_OVERLAY, center.x - 45, center.y - 34, 20, 19, 71, 75);
+			drawPortal(gui.pose(), center);
 		}));
 		int x = center.x - 20;
 		for (EntryIngredient o : display.getInputEntries()) {

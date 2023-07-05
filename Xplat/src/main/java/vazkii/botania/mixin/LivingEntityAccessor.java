@@ -20,7 +20,4 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface LivingEntityAccessor {
 	@Accessor
 	void setUseItemRemaining(int ticks);
-
-	@Invoker("createLootContext")
-	LootContext.Builder callCreateLootContext(boolean recentlyHit, DamageSource source);
 }

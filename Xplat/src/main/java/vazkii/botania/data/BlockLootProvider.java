@@ -25,9 +25,9 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
@@ -146,7 +146,7 @@ public class BlockLootProvider implements DataProvider {
 		List<CompletableFuture<?>> output = new ArrayList<>();
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
-			output.add(DataProvider.saveStable(cache, LootTables.serialize(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path));
+			output.add(DataProvider.saveStable(cache, Deserializers.createLootTableSerializer().create().toJsonTree(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}

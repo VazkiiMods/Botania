@@ -168,7 +168,7 @@ public class BlackHoleTalismanItem extends Item {
 	@Override
 	public Component getName(@NotNull ItemStack stack) {
 		Block block = getBlock(stack);
-		ItemStack bstack = new ItemStack(block);
+		ItemStack bstack = block == null ? ItemStack.EMPTY : new ItemStack(block);
 		MutableComponent cand = super.getName(stack).copy();
 
 		if (!bstack.isEmpty()) {

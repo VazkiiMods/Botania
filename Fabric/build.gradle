@@ -124,8 +124,8 @@ dependencies {
 
     modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
 
-    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.3.2"
-    include "com.jamieswhiteshirt:reach-entity-attributes:2.3.2"
+    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.4.0"
+    include "com.jamieswhiteshirt:reach-entity-attributes:2.4.0"
 
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"

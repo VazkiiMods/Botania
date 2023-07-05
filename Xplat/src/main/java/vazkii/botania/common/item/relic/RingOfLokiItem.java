@@ -165,7 +165,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 				BlockState state = player.level().getBlockState(coords);
 				breaker.breakOtherBlock(player, stack, coords, pos, side);
 				ToolCommons.removeBlockWithDrops(player, stack, player.level(), coords,
-						s -> s.is(state.getBlock()) && s.getMaterial() == state.getMaterial());
+						s -> s.is(state.getBlock()) /* && s.getMaterial() == state.getMaterial() */ ); // TODO
 			}
 		} finally {
 			recCall = false;

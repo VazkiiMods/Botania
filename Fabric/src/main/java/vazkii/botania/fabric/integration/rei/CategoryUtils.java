@@ -14,7 +14,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.shedaniel.math.FloatingPoint;
 import me.shedaniel.math.Point;
 
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 interface CategoryUtils {
@@ -22,11 +22,10 @@ interface CategoryUtils {
 	 * Widgets#createTexturedWidget doesn't allow partial transparency, so this is called in createDrawableWidget
 	 * instead.
 	 */
-	static void drawOverlay(PoseStack matrices, ResourceLocation texture, int x, int y, int u, int v, int width, int height) {
+	static void drawOverlay(GuiGraphics gui, ResourceLocation texture, int x, int y, int u, int v, int width, int height) {
 		RenderSystem.enableBlend();
-		RenderSystem.setShaderTexture(0, texture);
 		// TODO 1.19.4 check that this still works
-		GuiComponent.blit(matrices, x, y, u, v, width, height);
+		gui.blit(texture, x, y, u, v, width, height);
 		RenderSystem.disableBlend();
 	}
 
