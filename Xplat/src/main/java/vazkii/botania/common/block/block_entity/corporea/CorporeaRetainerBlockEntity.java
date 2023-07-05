@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.block_entity.corporea;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

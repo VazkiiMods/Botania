@@ -1,7 +1,6 @@
 package vazkii.botania.fabric.integration.emi;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.emi.emi.api.widget.TextureWidget;
 

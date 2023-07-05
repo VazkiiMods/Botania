@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.block_entity.mana;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;

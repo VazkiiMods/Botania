@@ -16,16 +16,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.storage.loot.LootDataType;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelAxeItem;
-import vazkii.botania.mixin.LivingEntityAccessor;
 
 import java.util.function.Consumer;
 
@@ -40,7 +37,7 @@ public class ElementiumAxeItem extends ManasteelAxeItem {
 
 	public static void onEntityDrops(boolean hitRecently, DamageSource source, LivingEntity target,
 			Consumer<ItemStack> consumer) {
-		LootParams.Builder ctx = (new LootParams.Builder((ServerLevel)target.level()))
+		LootParams.Builder ctx = (new LootParams.Builder((ServerLevel) target.level()))
 				.withParameter(LootContextParams.THIS_ENTITY, target)
 				.withParameter(LootContextParams.ORIGIN, target.position())
 				.withParameter(LootContextParams.DAMAGE_SOURCE, source)

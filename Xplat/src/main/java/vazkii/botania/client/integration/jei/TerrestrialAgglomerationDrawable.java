@@ -11,6 +11,7 @@ package vazkii.botania.client.integration.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.gui.drawable.IDrawable;
+
 import net.minecraft.client.gui.GuiGraphics;
 
 public class TerrestrialAgglomerationDrawable implements IDrawable {

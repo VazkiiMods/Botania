@@ -10,7 +10,6 @@ package vazkii.botania.common.block.block_entity;
 
 import com.google.common.base.Predicates;
 import com.google.common.base.Suppliers;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ResourceLocationException;
 import net.minecraft.client.Minecraft;

@@ -9,7 +9,6 @@
 package vazkii.botania.fabric.integration.rei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import me.shedaniel.math.FloatingPoint;
 import me.shedaniel.math.Point;
