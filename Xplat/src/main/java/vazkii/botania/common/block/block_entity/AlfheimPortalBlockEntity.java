@@ -15,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -280,7 +281,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 			if (newState != AlfheimPortalState.OFF) {
 				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.ALFPORTAL_STATE, newState));
 				if (player instanceof ServerPlayer serverPlayer) {
-					AlfheimPortalTrigger.INSTANCE.trigger(serverPlayer, serverPlayer.getLevel(), getBlockPos(), stack);
+					AlfheimPortalTrigger.INSTANCE.trigger(serverPlayer, serverPlayer.serverLevel(), getBlockPos(), stack);
 				}
 				return true;
 			}

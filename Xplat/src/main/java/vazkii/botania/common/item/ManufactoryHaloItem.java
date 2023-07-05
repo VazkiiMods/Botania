@@ -82,7 +82,7 @@ public class ManufactoryHaloItem extends AssemblyHaloItem {
 	@Override
 	public boolean overrideOtherStackedOnMe(@NotNull ItemStack stack, @NotNull ItemStack cursor, @NotNull Slot slot,
 			@NotNull ClickAction click, Player player, @NotNull SlotAccess access) {
-		Level world = player.getLevel();
+		Level world = player.level();
 		if (click == ClickAction.SECONDARY && slot.allowModification(player) && cursor.isEmpty()) {
 			togglePassive(stack, player, world);
 			access.set(cursor);

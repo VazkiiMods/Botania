@@ -128,7 +128,7 @@ public class ManaBlasterItem extends Item {
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			((BasicLensItem) lens.getItem()).apply(lens, props, player.getLevel());
+			((BasicLensItem) lens.getItem()).apply(lens, props, player.level());
 		}
 		return props;
 	}

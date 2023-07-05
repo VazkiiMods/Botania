@@ -11,6 +11,7 @@ package vazkii.botania.client.integration.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.gui.drawable.IDrawable;
+import net.minecraft.client.gui.GuiGraphics;
 
 public class TerrestrialAgglomerationDrawable implements IDrawable {
 	private final IDrawable cornerBlock;
@@ -37,26 +38,27 @@ public class TerrestrialAgglomerationDrawable implements IDrawable {
 	 * Offsets copied from {@link vazkii.botania.client.patchouli.component.TerraPlateComponent}
 	 */
 	@Override
-	public void draw(PoseStack ms, int xOffset, int yOffset) {
+	public void draw(GuiGraphics gui, int xOffset, int yOffset) {
+		PoseStack ms = gui.pose();
 		ms.pushPose();
 		ms.translate(0, 0, -50);
-		cornerBlock.draw(ms, xOffset + 13, yOffset + 1);
+		cornerBlock.draw(gui, xOffset + 13, yOffset + 1);
 
 		ms.translate(0, 0, 5);
-		middleBlock.draw(ms, xOffset + 20, yOffset + 4);
-		middleBlock.draw(ms, xOffset + 7, yOffset + 4);
+		middleBlock.draw(gui, xOffset + 20, yOffset + 4);
+		middleBlock.draw(gui, xOffset + 7, yOffset + 4);
 
 		ms.translate(0, 0, 5);
-		cornerBlock.draw(ms, xOffset + 13, yOffset + 8);
-		centerBlock.draw(ms, xOffset + 27, yOffset + 8);
-		cornerBlock.draw(ms, xOffset, yOffset + 8);
+		cornerBlock.draw(gui, xOffset + 13, yOffset + 8);
+		centerBlock.draw(gui, xOffset + 27, yOffset + 8);
+		cornerBlock.draw(gui, xOffset, yOffset + 8);
 
 		ms.translate(0, 0, 5);
-		middleBlock.draw(ms, xOffset + 7, yOffset + 12);
-		middleBlock.draw(ms, xOffset + 20, yOffset + 12);
+		middleBlock.draw(gui, xOffset + 7, yOffset + 12);
+		middleBlock.draw(gui, xOffset + 20, yOffset + 12);
 
 		ms.translate(0, 0, 5);
-		cornerBlock.draw(ms, xOffset + 14, yOffset + 15);
+		cornerBlock.draw(gui, xOffset + 14, yOffset + 15);
 		ms.popPose();
 	}
 }

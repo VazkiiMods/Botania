@@ -148,7 +148,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 	public static void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {
 		Item item = stack.getItem();
 		ItemStack lokiRing = getLokiRing(player);
-		if (lokiRing.isEmpty() || player.getLevel().isClientSide || !(item instanceof SequentialBreaker breaker)) {
+		if (lokiRing.isEmpty() || player.level().isClientSide || !(item instanceof SequentialBreaker breaker)) {
 			return;
 		}
 
@@ -162,9 +162,9 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 		try {
 			for (BlockPos offset : cursors) {
 				BlockPos coords = pos.offset(offset);
-				BlockState state = player.getLevel().getBlockState(coords);
+				BlockState state = player.level().getBlockState(coords);
 				breaker.breakOtherBlock(player, stack, coords, pos, side);
-				ToolCommons.removeBlockWithDrops(player, stack, player.getLevel(), coords,
+				ToolCommons.removeBlockWithDrops(player, stack, player.level(), coords,
 						s -> s.is(state.getBlock()) && s.getMaterial() == state.getMaterial());
 			}
 		} finally {
@@ -199,7 +199,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 
 		if (lookPos != null
 				&& lookPos.getType() == HitResult.Type.BLOCK
-				&& !player.getLevel().isEmptyBlock(((BlockHitResult) lookPos).getBlockPos())) {
+				&& !player.level().isEmptyBlock(((BlockHitResult) lookPos).getBlockPos())) {
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getBindingCenter(stack);
 

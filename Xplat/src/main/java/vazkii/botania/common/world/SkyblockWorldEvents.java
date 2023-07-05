@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -56,14 +57,14 @@ public final class SkyblockWorldEvents {
 	private static final ResourceLocation PEBBLES_TABLE = new ResourceLocation(BotaniaAPI.GOG_MODID, "pebbles");
 
 	public static void syncGogStatus(ServerPlayer e) {
-		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.getLevel());
+		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level());
 		if (isGog) {
 			XplatAbstractions.INSTANCE.sendToPlayer(e, GogWorldPacket.INSTANCE);
 		}
 	}
 
 	public static void onPlayerJoin(ServerPlayer player) {
-		ServerLevel world = player.getLevel();
+		ServerLevel world = player.serverLevel();
 		if (SkyblockChunkGenerator.isWorldSkyblock(world)) {
 			SkyblockSavedData data = SkyblockSavedData.get(world);
 			if (!data.skyblocks.containsValue(Util.NIL_UUID)) {
@@ -90,8 +91,8 @@ public final class SkyblockWorldEvents {
 					if (world.isClientSide) {
 						player.swing(hand);
 					} else if (world instanceof ServerLevel level) {
-						var table = level.getServer().getLootTables().get(PEBBLES_TABLE);
-						var context = new LootContext.Builder(level)
+						var table = level.getServer().getLootData().getLootTable(PEBBLES_TABLE);
+						var context = new LootParams.Builder(level)
 								.withParameter(LootContextParams.BLOCK_STATE, state)
 								.withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(hit.getBlockPos()))
 								.withParameter(LootContextParams.TOOL, equipped)
@@ -130,9 +131,9 @@ public final class SkyblockWorldEvents {
 		BlockPos pos = islandPos.getCenter();
 
 		if (player instanceof ServerPlayer pmp) {
-			createSkyblock(pmp.getLevel(), pos);
+			createSkyblock(pmp.serverLevel(), pos);
 			pmp.teleportTo(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-			pmp.setRespawnPosition(pmp.getLevel().dimension(), pos, 0, true, false);
+			pmp.setRespawnPosition(pmp.level().dimension(), pos, 0, true, false);
 			if (BotaniaConfig.common().gogSpawnWithLexicon()) {
 				player.getInventory().add(new ItemStack(BotaniaItems.lexicon));
 			}
@@ -143,14 +144,14 @@ public final class SkyblockWorldEvents {
 		var manager = level.getStructureManager();
 		var template = manager.get(prefix("gog_island")).orElseThrow();
 		var structureBlockInfos = template.filterBlocks(pos, new StructurePlaceSettings(), Blocks.STRUCTURE_BLOCK, false);
-		structureBlockInfos.removeIf(info -> info.nbt == null);
+		structureBlockInfos.removeIf(info -> info.nbt() == null);
 
 		BlockPos offset;
 		var infoOptional = structureBlockInfos.stream()
-				.filter(info -> "spawn_point".equals(info.nbt.getString("metadata")))
+				.filter(info -> "spawn_point".equals(info.nbt().getString("metadata")))
 				.findFirst();
 		if (infoOptional.isPresent()) {
-			offset = infoOptional.get().pos;
+			offset = infoOptional.get().pos();
 		} else {
 			BotaniaAPI.LOGGER.error("Structure botania:gog_island has no spawn_point data marker block, trying to offset it somewhat in the center");
 			Vec3i size = template.getSize();
@@ -165,8 +166,8 @@ public final class SkyblockWorldEvents {
 				level.random,
 				Block.UPDATE_ALL);
 		for (var info : structureBlockInfos) {
-			if ("light".equals(info.nbt.getString("metadata"))) {
-				BlockPos lightPos = startPoint.offset(info.pos);
+			if ("light".equals(info.nbt().getString("metadata"))) {
+				BlockPos lightPos = startPoint.offset(info.pos());
 				if (level.setBlockAndUpdate(lightPos, BotaniaBlocks.manaFlame.defaultBlockState())) {
 					int r = 70 + level.random.nextInt(185);
 					int g = 70 + level.random.nextInt(185);

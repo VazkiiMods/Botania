@@ -10,6 +10,7 @@ package vazkii.botania.client.patchouli.component;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.patchouli.api.IComponentRenderContext;
@@ -39,29 +40,30 @@ public class TerraPlateComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void render(PoseStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
+	public void render(GuiGraphics gui, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
+		PoseStack ms = gui.pose();
 		ms.pushPose();
 		ms.translate(0, 0, -10);
-		context.renderItemStack(ms, x + 13, y + 1, mouseX, mouseY, cornerBlock);
+		context.renderItemStack(gui, x + 13, y + 1, mouseX, mouseY, cornerBlock);
 
 		ms.translate(0F, 0F, 5F);
-		context.renderItemStack(ms, x + 20, y + 4, mouseX, mouseY, middleBlock);
-		context.renderItemStack(ms, x + 7, y + 4, mouseX, mouseY, middleBlock);
+		context.renderItemStack(gui, x + 20, y + 4, mouseX, mouseY, middleBlock);
+		context.renderItemStack(gui, x + 7, y + 4, mouseX, mouseY, middleBlock);
 
 		ms.translate(0F, 0F, 5F);
-		context.renderItemStack(ms, x + 13, y + 8, mouseX, mouseY, cornerBlock);
-		context.renderItemStack(ms, x + 27, y + 8, mouseX, mouseY, centerBlock);
-		context.renderItemStack(ms, x, y + 8, mouseX, mouseY, cornerBlock);
+		context.renderItemStack(gui, x + 13, y + 8, mouseX, mouseY, cornerBlock);
+		context.renderItemStack(gui, x + 27, y + 8, mouseX, mouseY, centerBlock);
+		context.renderItemStack(gui, x, y + 8, mouseX, mouseY, cornerBlock);
 
 		ms.translate(0F, 0F, 5F);
-		context.renderItemStack(ms, x + 7, y + 12, mouseX, mouseY, middleBlock);
-		context.renderItemStack(ms, x + 20, y + 12, mouseX, mouseY, middleBlock);
+		context.renderItemStack(gui, x + 7, y + 12, mouseX, mouseY, middleBlock);
+		context.renderItemStack(gui, x + 20, y + 12, mouseX, mouseY, middleBlock);
 
 		ms.translate(0F, 0F, 5F);
-		context.renderItemStack(ms, x + 14, y + 15, mouseX, mouseY, cornerBlock);
+		context.renderItemStack(gui, x + 14, y + 15, mouseX, mouseY, cornerBlock);
 
 		ms.translate(0F, 0F, 5F);
-		context.renderItemStack(ms, x + 13, y, mouseX, mouseY, plateBlock);
+		context.renderItemStack(gui, x + 13, y, mouseX, mouseY, plateBlock);
 		ms.popPose();
 	}
 

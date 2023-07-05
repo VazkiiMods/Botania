@@ -93,7 +93,7 @@ public class ForgeClientInitializer {
 
 		// Events
 		var bus = MinecraftForge.EVENT_BUS;
-		bus.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getPoseStack()));
+		bus.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getGraphics()));
 		bus.addListener((TickEvent.ClientTickEvent e) -> {
 			if (e.phase == TickEvent.Phase.END) {
 				ClientTickHandler.clientTickEnd(Minecraft.getInstance());
@@ -111,7 +111,7 @@ public class ForgeClientInitializer {
 			}
 		});
 		bus.addListener((CustomizeGuiOverlayEvent.BossEventProgress e) -> {
-			var result = BossBarHandler.onBarRender(e.getPoseStack(), e.getX(), e.getY(),
+			var result = BossBarHandler.onBarRender(e.getGuiGraphics(), e.getX(), e.getY(),
 					e.getBossEvent(), true);
 			result.ifPresent(increment -> {
 				e.setCanceled(true);

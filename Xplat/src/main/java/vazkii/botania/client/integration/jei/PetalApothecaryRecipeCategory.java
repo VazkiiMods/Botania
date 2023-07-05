@@ -22,6 +22,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -76,9 +77,9 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 	}
 
 	@Override
-	public void draw(@NotNull PetalApothecaryRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull PetalApothecaryRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
-		overlay.draw(ms, 0, 4);
+		overlay.draw(gui, 0, 4);
 		RenderSystem.disableBlend();
 	}
 

@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -60,20 +61,20 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 			ms.translate(0.15, -0.2, -0.25);
 			ms.scale(0.3F, -0.3F, -0.3F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getLevel(), living.getId());
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.level(), living.getId());
 		}
 	}
 
 	public static class Hud {
-		public static void render(PoseStack ms, Player player) {
+		public static void render(GuiGraphics gui, Player player) {
 			Minecraft mc = Minecraft.getInstance();
 			HitResult ray = mc.hitResult;
 			if (ray == null || ray.getType() != HitResult.Type.BLOCK) {
 				return;
 			}
 			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
-			BlockState state = player.getLevel().getBlockState(pos);
-			player.getLevel().getBlockEntity(pos);
+			BlockState state = player.level().getBlockState(pos);
+			player.level().getBlockEntity(pos);
 
 			ItemStack dispStack = ItemStack.EMPTY;
 			String text = "";
@@ -96,9 +97,9 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 			int x = mc.getWindow().getGuiScaledWidth() / 2 + 15;
 			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
 
-			mc.getItemRenderer().renderAndDecorateItem(ms, dispStack, x, y);
+			gui.renderItem(dispStack, x, y);
 
-			mc.font.drawShadow(ms, text, x + 20, y + 4, 0xFFFFFF);
+			gui.drawString(mc.font, text, x + 20, y + 4, 0xFFFFFF);
 		}
 	}
 

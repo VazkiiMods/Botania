@@ -115,7 +115,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRe
 		if (focus != null) {
 			ItemStack focusStack = focus.getTypedValue().getIngredient();
 			for (int i = 0; i < focused.size(); i++) {
-				if (focusStack.sameItem(focused.get(i))) {
+				if (ItemStack.isSameItem(focusStack, focused.get(i))) {
 					return Collections.singletonList(other.get(i));
 				}
 			}

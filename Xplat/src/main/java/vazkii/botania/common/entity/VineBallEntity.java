@@ -50,7 +50,7 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	}
 
 	public VineBallEntity(LivingEntity thrower, boolean gravity) {
-		super(BotaniaEntities.VINE_BALL, thrower, thrower.getLevel());
+		super(BotaniaEntities.VINE_BALL, thrower, thrower.level());
 		entityData.set(GRAVITY, gravity ? 0.03F : 0F);
 	}
 
@@ -68,57 +68,57 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	public void handleEntityEvent(byte id) {
 		if (id == EntityEvent.DEATH) {
 			for (int j = 0; j < 16; j++) {
-				getLevel().addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BotaniaItems.vineBall)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
+				level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BotaniaItems.vineBall)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
 			}
 		}
 	}
 
 	private void effectAndDieWithDrop() {
 		effectAndDie();
-		ItemEntity itemEntity = new ItemEntity(getLevel(), getX(), getY(), getZ(), new ItemStack(BotaniaItems.vineBall));
+		ItemEntity itemEntity = new ItemEntity(level(), getX(), getY(), getZ(), new ItemStack(BotaniaItems.vineBall));
 		itemEntity.setDefaultPickUpDelay();
-		getLevel().addFreshEntity(itemEntity);
+		level().addFreshEntity(itemEntity);
 	}
 
 	private void effectAndDie() {
-		this.getLevel().broadcastEntityEvent(this, EntityEvent.DEATH);
+		this.level().broadcastEntityEvent(this, EntityEvent.DEATH);
 		discard();
 	}
 
 	@Override
 	protected void onHitEntity(@NotNull EntityHitResult hit) {
 		super.onHitEntity(hit);
-		if (!getLevel().isClientSide) {
+		if (!level().isClientSide) {
 			effectAndDieWithDrop();
 		}
 	}
 
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult hit) {
-		if (!this.getLevel().isClientSide) {
+		if (!this.level().isClientSide) {
 			Direction dir = hit.getDirection();
 
 			BlockPos pos = hit.getBlockPos();
-			BlockState hitState = this.getLevel().getBlockState(hit.getBlockPos());
+			BlockState hitState = this.level().getBlockState(hit.getBlockPos());
 			if (!hitState.is(BotaniaBlocks.solidVines)) {
 				pos = pos.relative(dir);
 			}
 
 			int vinesPlaced = 0;
 			if (dir.getAxis() != Direction.Axis.Y) {
-				while (pos.getY() > this.getLevel().dimensionType().minY() && vinesPlaced < 9) {
-					BlockState state = this.getLevel().getBlockState(pos);
-					if (state.getMaterial().isReplaceable() && !state.is(BotaniaBlocks.solidVines)) {
+				while (pos.getY() > this.level().dimensionType().minY() && vinesPlaced < 9) {
+					BlockState state = this.level().getBlockState(pos);
+					if (state.canBeReplaced() && !state.is(BotaniaBlocks.solidVines)) {
 						BlockState stateToPlace = BotaniaBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
 
-						if (!stateToPlace.canSurvive(this.getLevel(), pos)) {
+						if (!stateToPlace.canSurvive(this.level(), pos)) {
 							break;
 						}
-						this.getLevel().setBlockAndUpdate(pos, stateToPlace);
-						this.getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(stateToPlace));
+						this.level().setBlockAndUpdate(pos, stateToPlace);
+						this.level().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(stateToPlace));
 						vinesPlaced++;
 					}
-					if (this.getLevel().getBlockState(pos).is(BotaniaBlocks.solidVines)) {
+					if (this.level().getBlockState(pos).is(BotaniaBlocks.solidVines)) {
 						pos = pos.below();
 					} else {
 						break;

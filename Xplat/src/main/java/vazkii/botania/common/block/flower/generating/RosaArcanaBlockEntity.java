@@ -58,7 +58,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 			// possibly equal to zero even when the level is > 0.
 			// Instead, check the level and intra-level progress separately.
 			if ((player.experienceLevel > 0 || player.experienceProgress > 0)
-					&& player.isOnGround()) {
+					&& player.onGround()) {
 				player.giveExperiencePoints(-1);
 				addMana(MANA_PER_XP);
 				sync();

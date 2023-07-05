@@ -23,6 +23,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -81,9 +82,10 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 	}
 
 	@Override
-	public void draw(@NotNull ElvenTradeRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack matrices, double mouseX, double mouseY) {
+	public void draw(@NotNull ElvenTradeRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
+		PoseStack matrices = gui.pose();
 		RenderSystem.enableBlend();
-		overlay.draw(matrices, 0, 4);
+		overlay.draw(gui, 0, 4);
 		RenderSystem.disableBlend();
 
 		RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);

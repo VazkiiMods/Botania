@@ -52,7 +52,7 @@ public class ThirdEyeItem extends BaubleItem {
 
 		double range = 24;
 		AABB aabb = new AABB(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).inflate(range);
-		List<LivingEntity> mobs = living.getLevel().getEntitiesOfClass(LivingEntity.class, aabb, MagicMissileEntity.targetPredicate(living));
+		List<LivingEntity> mobs = living.level().getEntitiesOfClass(LivingEntity.class, aabb, MagicMissileEntity.targetPredicate(living));
 
 		for (LivingEntity e : mobs) {
 			MobEffectInstance potion = e.getEffect(MobEffects.GLOWING);

@@ -21,8 +21,8 @@ public class StormLens extends Lens {
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (pos.getType() == HitResult.Type.BLOCK) {
-			if (!entity.getLevel().isClientSide && !burst.isFake() && !isManaBlock) {
-				entity.getLevel().explode(entity, entity.getX(), entity.getY(), entity.getZ(), 5F, Level.ExplosionInteraction.BLOCK);
+			if (!entity.level().isClientSide && !burst.isFake() && !isManaBlock) {
+				entity.level().explode(entity, entity.getX(), entity.getY(), entity.getZ(), 5F, Level.ExplosionInteraction.BLOCK);
 			}
 			return true;
 		}

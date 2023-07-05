@@ -50,7 +50,7 @@ public class BlackLotusItem extends Item implements ManaDissolvable {
 		BlockPos pos = pool.getManaReceiverPos();
 		boolean t2 = item.getItem().is(BotaniaItems.blackerLotus);
 
-		if (!item.getLevel().isClientSide) {
+		if (!item.level().isClientSide) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			EntityHelper.shrinkItem(item);
 			XplatAbstractions.INSTANCE.sendToTracking(item, new BotaniaEffectPacket(EffectType.BLACK_LOTUS_DISSOLVE, pos.getX(), pos.getY() + 0.5, pos.getZ()));

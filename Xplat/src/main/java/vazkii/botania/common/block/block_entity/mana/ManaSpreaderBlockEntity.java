@@ -12,6 +12,7 @@ import com.google.common.base.Predicates;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -548,7 +549,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			String spreaderName = new ItemStack(spreader.getBlockState().getBlock()).getHoverName().getString();
 
 			ItemStack lensStack = spreader.getItemHandler().getItem(0);
@@ -564,12 +565,12 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
 			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
-			RenderHelper.renderHUDBox(ms, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 8 + height);
+			RenderHelper.renderHUDBox(gui, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 8 + height);
 
 			int color = spreader.getVariant().hudColor;
-			BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, spreader.getCurrentMana(), spreader.getMaxMana(), spreaderName);
-			RenderHelper.renderItemWithNameCentered(ms, mc, recieverStack, centerY + 30, color);
-			RenderHelper.renderItemWithNameCentered(ms, mc, lensStack, centerY + (recieverStack.isEmpty() ? 30 : 48), color);
+			BotaniaAPIClient.instance().drawSimpleManaHUD(gui, color, spreader.getCurrentMana(), spreader.getMaxMana(), spreaderName);
+			RenderHelper.renderItemWithNameCentered(gui, mc, recieverStack, centerY + 30, color);
+			RenderHelper.renderItemWithNameCentered(gui, mc, lensStack, centerY + (recieverStack.isEmpty() ? 30 : 48), color);
 		}
 	}
 
@@ -643,7 +644,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		VoxelShape shape = player.getLevel().getBlockState(pos).getShape(player.getLevel(), pos);
+		VoxelShape shape = player.level().getBlockState(pos).getShape(player.level(), pos);
 		AABB axis = shape.isEmpty() ? new AABB(pos) : shape.bounds().move(pos);
 
 		Vec3 thisVec = Vec3.atCenterOf(getBlockPos());

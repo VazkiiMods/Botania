@@ -35,10 +35,10 @@ public abstract class BeeMixin extends Animal {
 	 */
 	@Inject(
 		method = "isFlowerValid", cancellable = true,
-		at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/animal/Bee;level:Lnet/minecraft/world/level/Level;", ordinal = 1)
+		at = @At(value = "HEAD")
 	)
 	private void isSpecialFlower(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		if (getLevel().isLoaded(pos) && getLevel().getBlockState(pos).is(BotaniaTags.Blocks.SPECIAL_FLOWERS)) {
+		if (level().isLoaded(pos) && level().getBlockState(pos).is(BotaniaTags.Blocks.SPECIAL_FLOWERS)) {
 			cir.setReturnValue(true);
 		}
 	}

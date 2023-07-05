@@ -12,6 +12,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -238,13 +239,13 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	public InteractionResult trySetLastRecipe(Player player) {
 		// lastRecipe is not synced. If we're calling this method we already checked that
 		// the altar has no items, so just optimistically assume success on the client.
-		boolean success = player.getLevel().isClientSide
+		boolean success = player.level().isClientSide
 				|| InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, null);
 		if (success) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return success
-				? InteractionResult.sidedSuccess(player.getLevel().isClientSide())
+				? InteractionResult.sidedSuccess(player.level().isClientSide())
 				: InteractionResult.PASS;
 	}
 
@@ -378,7 +379,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	}
 
 	public static class Hud {
-		public static void render(RunicAltarBlockEntity altar, PoseStack ms, Minecraft mc) {
+		public static void render(RunicAltarBlockEntity altar, GuiGraphics gui, Minecraft mc) {
+			PoseStack ms = gui.pose();
 			int xc = mc.getWindow().getGuiScaledWidth() / 2;
 			int yc = mc.getWindow().getGuiScaledHeight() / 2;
 
@@ -400,12 +402,11 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 					float progress = (float) altar.mana / (float) altar.manaToGet;
 
-					RenderSystem.setShaderTexture(0, HUDHandler.manaBar);
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
+					RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
 					if (progress == 1F) {
-						mc.getItemRenderer().renderGuiItem(ms, new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
+						gui.renderFakeItem(new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
 						// todo(1.19.4) review this sketchy transform. Can probably be applied to ms directly.
 						PoseStack pose = RenderSystem.getModelViewStack();
 						pose.pushPose();
@@ -417,16 +418,16 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 							playerWand = PlayerHelper.getItemClassFromInventory(mc.player, WandOfTheForestItem.class);
 						}
 						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.twigWand) : playerWand;
-						mc.getItemRenderer().renderGuiItem(ms, wandToRender, xc + radius + 24, yc + 8);
+						gui.renderFakeItem(wandToRender, xc + radius + 24, yc + 8);
 						pose.popPose();
 						RenderSystem.applyModelViewMatrix();
 					}
 
-					RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress,
+					RenderHelper.renderProgressPie(gui, xc + radius + 32, yc - 8, progress,
 							recipe.assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
 
 					if (progress == 1F) {
-						mc.font.draw(ms, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
+						gui.drawString(mc.font, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
 					}
 				});
 
@@ -436,7 +437,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					// todo 1.19.4 check
 					ms.pushPose();
 					ms.translate(xPos, yPos, 0);
-					mc.getItemRenderer().renderGuiItem(ms, altar.getItemHandler().getItem(i), 0, 0);
+					gui.renderFakeItem(altar.getItemHandler().getItem(i), 0, 0);
 					ms.popPose();
 
 					angle += anglePer;
@@ -444,9 +445,9 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			}
 			if (altar.recipeKeepTicks > 0 && altar.canAddLastRecipe()) {
 				String s = I18n.get("botaniamisc.altarRefill0");
-				mc.font.drawShadow(ms, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
+				gui.drawString(mc.font, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
 				s = I18n.get("botaniamisc.altarRefill1");
-				mc.font.drawShadow(ms, s, xc - mc.font.width(s) / 2, yc + 20, 0xFFFFFF);
+				gui.drawString(mc.font, s, xc - mc.font.width(s) / 2, yc + 20, 0xFFFFFF);
 			}
 		}
 	}

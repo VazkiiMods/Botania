@@ -122,7 +122,7 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 				}
 				if (hasAncientWill_(stack, AncientWillType.VERAC)) {
 					// TODO 1.19.4 test that this works
-					source = BotaniaDamageTypes.Sources.playerAttackArmorPiercing(player.getLevel().registryAccess(), player);
+					source = BotaniaDamageTypes.Sources.playerAttackArmorPiercing(player.level().registryAccess(), player);
 				}
 				if (hasAncientWill_(stack, AncientWillType.KARIL)) {
 					entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 1));

@@ -13,7 +13,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -98,7 +98,7 @@ public class FlugelTiaraItem extends BaubleItem {
 			if (shouldPlayerHaveFlight(player)) {
 				player.getAbilities().mayfly = true;
 				if (player.getAbilities().flying) {
-					if (!player.getLevel().isClientSide) {
+					if (!player.level().isClientSide) {
 						if (!player.isCreative() && !player.isSpectator()) {
 							ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
 						}
@@ -154,7 +154,7 @@ public class FlugelTiaraItem extends BaubleItem {
 
 						for (int i = 0; i < 2; i++) {
 							SparkleParticleData data = SparkleParticleData.sparkle(2F * (float) Math.random(), r, g, b, 20);
-							player.getLevel().addParticle(data, x + Math.random() * player.getBbWidth(), y + Math.random() * 0.4, z + Math.random() * player.getBbWidth(), 0, 0, 0);
+							player.level().addParticle(data, x + Math.random() * player.getBbWidth(), y + Math.random() * 0.4, z + Math.random() * player.getBbWidth(), 0, 0, 0);
 						}
 					}
 				}
@@ -179,7 +179,7 @@ public class FlugelTiaraItem extends BaubleItem {
 	}
 
 	private static String playerStr(Player player) {
-		return player.getGameProfile().getName() + ":" + player.getLevel().isClientSide;
+		return player.getGameProfile().getName() + ":" + player.level().isClientSide;
 	}
 
 	private static boolean shouldPlayerHaveFlight(Player player) {
@@ -231,7 +231,7 @@ public class FlugelTiaraItem extends BaubleItem {
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 				if (!wasSprting && isSprinting && cooldown == 0) {
 					player.setDeltaMovement(player.getDeltaMovement().add(look.x, 0, look.z));
-					player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+					player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
 				} else if (cooldown > 0) {
@@ -243,7 +243,7 @@ public class FlugelTiaraItem extends BaubleItem {
 				}
 			} else {
 				boolean wasGliding = ItemNBTHelper.getBoolean(stack, TAG_GLIDING, false);
-				boolean doGlide = living.isShiftKeyDown() && !living.isOnGround() && (living.getDeltaMovement().y() < -.7F || wasGliding);
+				boolean doGlide = living.isShiftKeyDown() && !living.onGround() && (living.getDeltaMovement().y() < -.7F || wasGliding);
 				if (time < MAX_FLY_TIME && living.tickCount % (doGlide ? 6 : 2) == 0) {
 					newTime++;
 				}
@@ -466,12 +466,11 @@ public class FlugelTiaraItem extends BaubleItem {
 			buffer.vertex(mat, -1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 1).endVertex();
 		}
 
-		public static void renderHUD(PoseStack ms, Player player, ItemStack stack) {
+		public static void renderHUD(GuiGraphics gui, Player player, ItemStack stack) {
 			int u = Math.max(1, getVariant(stack)) * 9 - 9;
 			int v = 0;
 
 			Minecraft mc = Minecraft.getInstance();
-			RenderSystem.setShaderTexture(0, textureHud);
 			int xo = mc.getWindow().getGuiScaledWidth() / 2 + 10;
 			int x = xo;
 			int y = mc.getWindow().getGuiScaledHeight() - 49;
@@ -494,7 +493,7 @@ public class FlugelTiaraItem extends BaubleItem {
 				}
 
 				RenderSystem.setShaderColor(1F, 1F, 1F, trans);
-				RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 9, 9);
+				RenderHelper.drawTexturedModalRect(gui, textureHud, x, y, u, v, 9, 9);
 				x += 8;
 			}
 
@@ -502,9 +501,9 @@ public class FlugelTiaraItem extends BaubleItem {
 				int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				if (width > 0) {
-					GuiComponent.fill(ms, xo, y - 2, xo + 80, y - 1, 0x88000000);
+					gui.fill(xo, y - 2, xo + 80, y - 1, 0x88000000);
 				}
-				GuiComponent.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+				gui.fill(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 			}
 
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);

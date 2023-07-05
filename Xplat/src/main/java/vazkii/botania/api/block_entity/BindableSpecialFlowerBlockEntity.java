@@ -11,6 +11,7 @@ package vazkii.botania.api.block_entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -194,7 +195,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 			this.flower = flower;
 		}
 
-		public void renderHUD(PoseStack ms, Minecraft mc, int minLeft, int minRight, int minDown) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc, int minLeft, int minRight, int minDown) {
 			String name = I18n.get(flower.getBlockState().getBlock().getDescriptionId());
 			int color = flower.getColor();
 
@@ -207,15 +208,15 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 			left = Math.max(left, minLeft);
 			right = Math.max(right, minRight);
 
-			RenderHelper.renderHUDBox(ms, centerX - left, centerY + 8, centerX + right, centerY + Math.max(30, minDown));
+			RenderHelper.renderHUDBox(gui, centerX - left, centerY + 8, centerX + right, centerY + Math.max(30, minDown));
 
-			BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, flower.getMana(), flower.getMaxMana(),
+			BotaniaAPIClient.instance().drawComplexManaHUD(gui, color, flower.getMana(), flower.getMaxMana(),
 					name, flower.getHudIcon(), flower.isValidBinding());
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
-			renderHUD(ms, mc, 0, 0, 0);
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+			renderHUD(gui, mc, 0, 0, 0);
 		}
 	}
 }

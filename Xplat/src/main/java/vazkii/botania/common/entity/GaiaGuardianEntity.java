@@ -467,9 +467,9 @@ public class GaiaGuardianEntity extends Mob {
 		super.die(source);
 		LivingEntity lastAttacker = getKillCredit();
 
-		if (!getLevel().isClientSide) {
+		if (!level().isClientSide) {
 			for (UUID u : playersWhoAttacked) {
-				Player player = getLevel().getPlayerByUUID(u);
+				Player player = level().getPlayerByUUID(u);
 				if (!isTruePlayer(player)) {
 					continue;
 				}
@@ -491,17 +491,17 @@ public class GaiaGuardianEntity extends Mob {
 			}
 
 			// Stop all the pixies leftover from the fight
-			for (PixieEntity pixie : getLevel().getEntitiesOfClass(PixieEntity.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
+			for (PixieEntity pixie : level().getEntitiesOfClass(PixieEntity.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
 				pixie.spawnAnim();
 				pixie.discard();
 			}
-			for (MagicLandmineEntity landmine : getLevel().getEntitiesOfClass(MagicLandmineEntity.class, getArenaBB(getSource()))) {
+			for (MagicLandmineEntity landmine : level().getEntitiesOfClass(MagicLandmineEntity.class, getArenaBB(getSource()))) {
 				landmine.discard();
 			}
 		}
 
-		playSound(BotaniaSounds.gaiaDeath, 1F, (1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
-		getLevel().addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
+		playSound(BotaniaSounds.gaiaDeath, 1F, (1F + (level().random.nextFloat() - level().random.nextFloat()) * 0.2F) * 0.7F);
+		level().addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
 	}
 
 	@Override
@@ -526,7 +526,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
-			Player player = getLevel().getPlayerByUUID(u);
+			Player player = level().getPlayerByUUID(u);
 			if (!isTruePlayer(player)) {
 				continue;
 			}
@@ -547,14 +547,14 @@ public class GaiaGuardianEntity extends Mob {
 
 	@Override
 	public void remove(RemovalReason reason) {
-		if (getLevel().isClientSide) {
+		if (level().isClientSide) {
 			Proxy.INSTANCE.removeBoss(this);
 		}
 		super.remove(reason);
 	}
 
 	public List<Player> getPlayersAround() {
-		return PlayerHelper.getRealPlayersIn(getLevel(), getArenaBB(source));
+		return PlayerHelper.getRealPlayersIn(level(), getArenaBB(source));
 	}
 
 	public int getPlayerCount() {
@@ -586,7 +586,7 @@ public class GaiaGuardianEntity extends Mob {
 			double z = source.getZ() + 0.5 - Math.sin(rad) * ARENA_RANGE;
 
 			WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
-			getLevel().addParticle(data, x, y, z, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
+			level().addParticle(data, x, y, z, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 		}
 
 		if (getInvulTime() > 10) {
@@ -608,9 +608,9 @@ public class GaiaGuardianEntity extends Mob {
 				float b = 0.7F + (float) Math.random() * 0.3F;
 
 				WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, r, g, b, 1);
-				getLevel().addParticle(data, partPos.x, partPos.y, partPos.z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
+				level().addParticle(data, partPos.x, partPos.y, partPos.z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
 				WispParticleData data1 = WispParticleData.wisp(0.4F, r, g, b);
-				getLevel().addParticle(data1, partPos.x, partPos.y, partPos.z, (float) mot.x, (float) mot.y, (float) mot.z);
+				level().addParticle(data1, partPos.x, partPos.y, partPos.z, (float) mot.x, (float) mot.y, (float) mot.z);
 			}
 		}
 	}
@@ -624,15 +624,15 @@ public class GaiaGuardianEntity extends Mob {
 					int z = centerZ + dz;
 
 					BlockPos pos = new BlockPos(x, y, z);
-					BlockState state = getLevel().getBlockState(pos);
+					BlockState state = level().getBlockState(pos);
 					Block block = state.getBlock();
 
-					if (state.getDestroySpeed(getLevel(), pos) == -1) {
+					if (state.getDestroySpeed(level(), pos) == -1) {
 						continue;
 					}
 
 					if (CHEATY_BLOCKS.contains(BuiltInRegistries.BLOCK.getKey(block))) {
-						getLevel().destroyBlock(pos, true);
+						level().destroyBlock(pos, true);
 					} else {
 						//don't break blacklisted blocks
 						if (state.is(BLACKLIST)) {
@@ -647,7 +647,7 @@ public class GaiaGuardianEntity extends Mob {
 							continue;
 						}
 
-						getLevel().destroyBlock(pos, true);
+						level().destroyBlock(pos, true);
 					}
 				}
 			}
@@ -664,7 +664,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		for (var effect : effectsToRemove) {
 			player.removeEffect(effect);
-			((ServerLevel) getLevel()).getChunkSource().broadcastAndSend(player,
+			((ServerLevel) level()).getChunkSource().broadcastAndSend(player,
 					new ClientboundRemoveMobEffectPacket(player.getId(), effect));
 		}
 	}
@@ -682,29 +682,29 @@ public class GaiaGuardianEntity extends Mob {
 
 	private void spawnMobs(List<Player> players) {
 		for (int pl = 0; pl < playerCount; pl++) {
-			for (int i = 0; i < 3 + getLevel().random.nextInt(2); i++) {
-				Mob entity = switch (getLevel().random.nextInt(3)) {
+			for (int i = 0; i < 3 + level().random.nextInt(2); i++) {
+				Mob entity = switch (level().random.nextInt(3)) {
 					case 0 -> {
-						if (getLevel().random.nextInt(hardMode ? 3 : 12) == 0) {
-							yield EntityType.WITCH.create(getLevel());
+						if (level().random.nextInt(hardMode ? 3 : 12) == 0) {
+							yield EntityType.WITCH.create(level());
 						}
-						yield EntityType.ZOMBIE.create(getLevel());
+						yield EntityType.ZOMBIE.create(level());
 					}
 					case 1 -> {
-						if (getLevel().random.nextInt(8) == 0) {
-							yield EntityType.WITHER_SKELETON.create(getLevel());
+						if (level().random.nextInt(8) == 0) {
+							yield EntityType.WITHER_SKELETON.create(level());
 						}
-						yield EntityType.SKELETON.create(getLevel());
+						yield EntityType.SKELETON.create(level());
 					}
 					case 2 -> {
 						if (!players.isEmpty()) {
-							for (int j = 0; j < 1 + getLevel().random.nextInt(hardMode ? 8 : 5); j++) {
-								PixieEntity pixie = new PixieEntity(getLevel());
+							for (int j = 0; j < 1 + level().random.nextInt(hardMode ? 8 : 5); j++) {
+								PixieEntity pixie = new PixieEntity(level());
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
-								pixie.finalizeSpawn((ServerLevelAccessor) getLevel(), getLevel().getCurrentDifficultyAt(pixie.blockPosition()),
+								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
 										MobSpawnType.MOB_SUMMONED, null, null);
-								getLevel().addFreshEntity(pixie);
+								level().addFreshEntity(pixie);
 							}
 						}
 						yield null;
@@ -719,12 +719,12 @@ public class GaiaGuardianEntity extends Mob {
 					float range = 6F;
 					entity.setPos(getX() + 0.5 + Math.random() * range - range / 2, getY() - 1,
 							getZ() + 0.5 + Math.random() * range - range / 2);
-					entity.finalizeSpawn((ServerLevelAccessor) getLevel(), getLevel().getCurrentDifficultyAt(entity.blockPosition()),
+					entity.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(entity.blockPosition()),
 							MobSpawnType.MOB_SUMMONED, null, null);
 					if (entity instanceof WitherSkeleton && hardMode) {
 						entity.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.elementiumSword));
 					}
-					getLevel().addFreshEntity(entity);
+					level().addFreshEntity(entity);
 				}
 			}
 		}
@@ -736,7 +736,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		int invul = getInvulTime();
 
-		if (getLevel().isClientSide) {
+		if (level().isClientSide) {
 			particles();
 			Player player = Proxy.INSTANCE.getClientPlayer();
 			if (getPlayersAround().contains(player)) {
@@ -751,7 +751,7 @@ public class GaiaGuardianEntity extends Mob {
 			stopRiding();
 		}
 
-		if (getLevel().getDifficulty() == Difficulty.PEACEFUL) {
+		if (level().getDifficulty() == Difficulty.PEACEFUL) {
 			discard();
 		}
 
@@ -759,7 +759,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		List<Player> players = getPlayersAround();
 
-		if (players.isEmpty() && !getLevel().players().isEmpty()) {
+		if (players.isEmpty() && !level().players().isEmpty()) {
 			discard();
 		} else {
 			for (Player player : players) {
@@ -789,7 +789,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		if (invul > 0 && mobSpawnTicks == MOB_SPAWN_TICKS) {
 			if (invul < SPAWN_TICKS) {
-				if (invul > SPAWN_TICKS / 2 && getLevel().random.nextInt(SPAWN_TICKS - invul + 1) == 0) {
+				if (invul > SPAWN_TICKS / 2 && level().random.nextInt(SPAWN_TICKS - invul + 1) == 0) {
 					for (int i = 0; i < 2; i++) {
 						spawnAnim();
 					}
@@ -841,22 +841,22 @@ public class GaiaGuardianEntity extends Mob {
 								int y = (int) players.get(random.nextInt(players.size())).getY();
 								int z = source.getZ() - 10 + random.nextInt(20);
 
-								MagicLandmineEntity landmine = BotaniaEntities.MAGIC_LANDMINE.create(getLevel());
+								MagicLandmineEntity landmine = BotaniaEntities.MAGIC_LANDMINE.create(level());
 								landmine.setPos(x + 0.5, y, z + 0.5);
 								landmine.summoner = this;
-								getLevel().addFreshEntity(landmine);
+								level().addFreshEntity(landmine);
 							}
 
 						}
 
 						for (int pl = 0; pl < playerCount; pl++) {
-							for (int i = 0; i < (spawnPixies ? getLevel().random.nextInt(hardMode ? 6 : 3) : 1); i++) {
-								PixieEntity pixie = new PixieEntity(getLevel());
+							for (int i = 0; i < (spawnPixies ? level().random.nextInt(hardMode ? 6 : 3) : 1); i++) {
+								PixieEntity pixie = new PixieEntity(level());
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
-								pixie.finalizeSpawn((ServerLevelAccessor) getLevel(), getLevel().getCurrentDifficultyAt(pixie.blockPosition()),
+								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
 										MobSpawnType.MOB_SUMMONED, null, null);
-								getLevel().addFreshEntity(pixie);
+								level().addFreshEntity(pixie);
 							}
 						}
 
@@ -910,7 +910,7 @@ public class GaiaGuardianEntity extends Mob {
 		missile.setPos(getX() + (Math.random() - 0.5 * 0.1), getY() + 2.4 + (Math.random() - 0.5 * 0.1), getZ() + (Math.random() - 0.5 * 0.1));
 		if (missile.findTarget()) {
 			playSound(BotaniaSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
-			getLevel().addFreshEntity(missile);
+			level().addFreshEntity(missile);
 		}
 	}
 
@@ -936,7 +936,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		//for low-floor arenas, ensure landing on the ground
 		BlockPos tentativeFloorPos = BlockPos.containing(newX, newY - 1, newZ);
-		if (getLevel().getBlockState(tentativeFloorPos).getCollisionShape(getLevel(), tentativeFloorPos).isEmpty()) {
+		if (level().getBlockState(tentativeFloorPos).getCollisionShape(level(), tentativeFloorPos).isEmpty()) {
 			newY--;
 		}
 
@@ -944,7 +944,7 @@ public class GaiaGuardianEntity extends Mob {
 		teleportTo(newX, newY, newZ);
 
 		//play sound
-		getLevel().playSound(null, oldX, oldY, oldZ, BotaniaSounds.gaiaTeleport, this.getSoundSource(), 1F, 1F);
+		level().playSound(null, oldX, oldY, oldZ, BotaniaSounds.gaiaTeleport, this.getSoundSource(), 1F, 1F);
 		this.playSound(BotaniaSounds.gaiaTeleport, 1F, 1F);
 
 		var random = getRandom();
@@ -959,7 +959,7 @@ public class GaiaGuardianEntity extends Mob {
 			double px = oldX + (newX - oldX) * progress + (random.nextDouble() - 0.5D) * getBbWidth() * 2.0D;
 			double py = oldY + (newY - oldY) * progress + random.nextDouble() * getBbHeight();
 			double pz = oldZ + (newZ - oldZ) * progress + (random.nextDouble() - 0.5D) * getBbWidth() * 2.0D;
-			getLevel().addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
+			level().addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
 		}
 
 		Vec3 oldPosVec = new Vec3(oldX, oldY + getBbHeight() / 2, oldZ);

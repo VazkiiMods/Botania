@@ -26,22 +26,22 @@ public class FlashLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (!entity.getLevel().isClientSide && pos.getType() == HitResult.Type.BLOCK && !burst.isFake() && !isManaBlock) {
+		if (!entity.level().isClientSide && pos.getType() == HitResult.Type.BLOCK && !burst.isFake() && !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
 			BlockPos neighborPos = rtr.getBlockPos().relative(rtr.getDirection());
 
-			BlockState stateAt = entity.getLevel().getBlockState(rtr.getBlockPos());
-			BlockState neighbor = entity.getLevel().getBlockState(neighborPos);
+			BlockState stateAt = entity.level().getBlockState(rtr.getBlockPos());
+			BlockState neighbor = entity.level().getBlockState(neighborPos);
 
 			if (stateAt.is(BotaniaBlocks.manaFlame)) {
-				entity.getLevel().removeBlock(rtr.getBlockPos(), false);
-			} else if (neighbor.isAir() || neighbor.getMaterial().isReplaceable()) {
-				var fluid = entity.getLevel().getFluidState(neighborPos);
+				entity.level().removeBlock(rtr.getBlockPos(), false);
+			} else if (neighbor.isAir() || neighbor.canBeReplaced()) {
+				var fluid = entity.level().getFluidState(neighborPos);
 				var water = fluid.isSource() && fluid.is(FluidTags.WATER);
-				entity.getLevel().setBlockAndUpdate(neighborPos,
+				entity.level().setBlockAndUpdate(neighborPos,
 						BotaniaBlocks.manaFlame.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, water));
 
-				if (entity.getLevel().getBlockEntity(neighborPos) instanceof ManaFlameBlockEntity manaFlame) {
+				if (entity.level().getBlockEntity(neighborPos) instanceof ManaFlameBlockEntity manaFlame) {
 					manaFlame.setColor(burst.getColor());
 				}
 			}

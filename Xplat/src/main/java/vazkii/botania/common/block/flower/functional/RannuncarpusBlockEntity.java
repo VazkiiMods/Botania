@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -186,7 +187,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	}
 
 	private static boolean isAirOrDifferentReplaceableBlock(BlockState state, ItemStack stack) {
-		return state.isAir() || state.getMaterial().isReplaceable() && !stack.is(state.getBlock().asItem());
+		return state.isAir() || state.canBeReplaced() && !stack.is(state.getBlock().asItem());
 	}
 
 	@Override
@@ -228,7 +229,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			ItemStack filterStack = new ItemStack(flower.getUnderlyingBlock().getBlock());
 			int color = flower.getColor();
 			String mode = I18n.get("botaniamisc.rannuncarpus." + (flower.stateSensitive ? "state_sensitive" : "state_insensitive"));
@@ -237,9 +238,9 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 			int modeTextStart = (mc.getWindow().getGuiScaledWidth() - modeWidth) / 2;
 			int minWidth = Math.max(RenderHelper.itemWithNameWidth(mc, filterStack), modeWidth) + 4;
 
-			super.renderHUD(ms, mc, minWidth / 2, minWidth / 2, filterStack.isEmpty() ? 40 : 60);
-			mc.font.drawShadow(ms, mode, modeTextStart, centerY + 30, color);
-			RenderHelper.renderItemWithNameCentered(ms, mc, filterStack, centerY + 40, color);
+			super.renderHUD(gui, mc, minWidth / 2, minWidth / 2, filterStack.isEmpty() ? 40 : 60);
+			gui.drawString(mc.font, mode, modeTextStart, centerY + 30, color);
+			RenderHelper.renderItemWithNameCentered(gui, mc, filterStack, centerY + 40, color);
 		}
 	}
 

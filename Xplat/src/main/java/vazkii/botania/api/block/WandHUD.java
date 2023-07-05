@@ -11,6 +11,7 @@ package vazkii.botania.api.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 
 /**
  * Any block (entity) that has this capability renders a HUD when being hovered
@@ -18,6 +19,6 @@ import net.minecraft.client.Minecraft;
  */
 public interface WandHUD {
 
-	void renderHUD(PoseStack ms, Minecraft mc);
+	void renderHUD(GuiGraphics gui, Minecraft mc);
 
 }

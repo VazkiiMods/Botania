@@ -181,7 +181,7 @@ public final class ItemNBTHelper {
 	 * on whether they are empty, partially full, or full.
 	 */
 	public static boolean matchTagAndManaFullness(ItemStack stack1, ItemStack stack2) {
-		if (!ItemStack.isSame(stack1, stack2)) {
+		if (!ItemStack.isSameItem(stack1, stack2)) {
 			return false;
 		}
 		ManaItem manaItem1 = XplatAbstractions.INSTANCE.findManaItem(stack1);
@@ -190,10 +190,10 @@ public final class ItemNBTHelper {
 			if (getFullness(manaItem1) != getFullness(manaItem2)) {
 				return false;
 			} else {
-				return ItemStack.tagMatches(duplicateAndClearMana(stack1), duplicateAndClearMana(stack2));
+				return ItemStack.matches(duplicateAndClearMana(stack1), duplicateAndClearMana(stack2));
 			}
 		}
-		return ItemStack.tagMatches(stack1, stack2);
+		return ItemStack.matches(stack1, stack2);
 	}
 
 	/**

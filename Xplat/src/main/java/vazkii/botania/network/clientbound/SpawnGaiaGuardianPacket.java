@@ -63,7 +63,7 @@ public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int play
 				var player = Minecraft.getInstance().player;
 				if (player != null) {
 					player.connection.handleAddEntity(inner);
-					Entity e = player.getLevel().getEntity(inner.getId());
+					Entity e = player.level().getEntity(inner.getId());
 					if (e instanceof GaiaGuardianEntity dopple) {
 						dopple.readSpawnData(playerCount, hardMode, source, bossInfoUuid);
 					}

@@ -83,7 +83,7 @@ public class MoltenCoreRodItem extends Item {
 			BlockState state = world.getBlockState(pos.getBlockPos());
 
 			dummyInv.setItem(0, new ItemStack(state.getBlock()));
-			world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, dummyInv, p.getLevel())
+			world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, dummyInv, p.level())
 					.map(r -> r.assemble(dummyInv, world.registryAccess()))
 					.filter(r -> !r.isEmpty() && r.getItem() instanceof BlockItem)
 					.ifPresent(result -> {

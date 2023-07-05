@@ -12,7 +12,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -88,7 +88,7 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 			oldBackDown = mc.options.keyDown.isDown();
 		}
 
-		public static void renderHUD(PoseStack ms, Player player, ItemStack stack, float pticks) {
+		public static void renderHUD(GuiGraphics gui, Player player, ItemStack stack, float pticks) {
 			int xo = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 - 20;
 			int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 + 20;
 
@@ -97,8 +97,8 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 				int width = Math.min((int) ((cd - pticks) * 2), 40);
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				if (width > 0) {
-					GuiComponent.fill(ms, xo, y - 2, xo + 40, y - 1, 0x88000000);
-					GuiComponent.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+					gui.fill(xo, y - 2, xo + 40, y - 1, 0x88000000);
+					gui.fill(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 				}
 			}
 
@@ -115,7 +115,7 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 	}
 
 	private static void dodge(Player player, Direction dir) {
-		if (player.getAbilities().flying || !player.isOnGround() || dir == Direction.UP || dir == Direction.DOWN) {
+		if (player.getAbilities().flying || !player.onGround() || dir == Direction.UP || dir == Direction.DOWN) {
 			return;
 		}
 

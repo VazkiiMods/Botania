@@ -30,7 +30,7 @@ public class ForceLens extends Lens {
 				&& !burst.isFake()
 				&& !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
-			moveBlocks(entity.getLevel(), rtr.getBlockPos().relative(rtr.getDirection()), rtr.getDirection().getOpposite());
+			moveBlocks(entity.level(), rtr.getBlockPos().relative(rtr.getDirection()), rtr.getDirection().getOpposite());
 		}
 
 		return shouldKill;

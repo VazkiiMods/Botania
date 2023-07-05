@@ -11,6 +11,7 @@ package vazkii.botania.common.block.block_entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -216,7 +217,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			ItemStack stack = hourglass.getItemHandler().getItem(0);
 			if (!stack.isEmpty()) {
 				int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
@@ -242,14 +243,14 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 
 				int textWidth = Math.max(mc.font.width(timer), mc.font.width(status));
 
-				RenderHelper.renderHUDBox(ms, x, y, x + textWidth + 24, y + 22);
+				RenderHelper.renderHUDBox(gui, x, y, x + textWidth + 24, y + 22);
 
-				mc.getItemRenderer().renderGuiItem(ms, stack, x + 2, y + 3);
-				mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, stack, x + 2, y + 3);
+				gui.renderFakeItem(stack, x + 2, y + 3);
+				gui.renderItemDecorations(mc.font, stack, x + 2, y + 3);
 
-				mc.font.drawShadow(ms, timer, x + 22, y + 2, hourglass.getColor());
+				gui.drawString(mc.font, timer, x + 22, y + 2, hourglass.getColor());
 				if (!status.isEmpty()) {
-					mc.font.drawShadow(ms, status, x + 22, y + 12, hourglass.getColor());
+					gui.drawString(mc.font, status, x + 22, y + 12, hourglass.getColor());
 				}
 			}
 		}

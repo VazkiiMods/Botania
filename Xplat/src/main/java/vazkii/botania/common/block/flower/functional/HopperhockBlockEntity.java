@@ -11,6 +11,7 @@ package vazkii.botania.common.block.flower.functional;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -256,15 +257,15 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			String filter = I18n.get("botaniamisc.filter" + flower.filterType);
 			int filterWidth = mc.font.width(filter);
 			int filterTextStart = (mc.getWindow().getGuiScaledWidth() - filterWidth) / 2;
 			int halfMinWidth = (filterWidth + 4) / 2;
 			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
-			super.renderHUD(ms, mc, halfMinWidth, halfMinWidth, 40);
-			mc.font.drawShadow(ms, filter, filterTextStart, centerY + 30, flower.getColor());
+			super.renderHUD(gui, mc, halfMinWidth, halfMinWidth, 40);
+			gui.drawString(mc.font, filter, filterTextStart, centerY + 30, flower.getColor());
 		}
 	}
 

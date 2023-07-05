@@ -23,6 +23,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -89,16 +90,16 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 	}
 
 	@Override
-	public void draw(@NotNull OrechidRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull OrechidRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
 		final Double chance = getChance(recipe);
 		if (chance != null) {
 			final Component chanceComponent = OrechidUIHelper.getPercentageComponent(chance);
 			Font font = Minecraft.getInstance().font;
 			int xOffset = 90 - font.width(chanceComponent);
-			font.draw(ms, chanceComponent, xOffset, 1, 0x888888);
+			gui.drawString(font, chanceComponent, xOffset, 1, 0x888888);
 		}
 		RenderSystem.enableBlend();
-		overlay.draw(ms, 17, 0);
+		overlay.draw(gui, 17, 0);
 		RenderSystem.disableBlend();
 	}
 

@@ -24,7 +24,7 @@ public final class SleepingHandler {
 
 	@Nullable
 	public static Player.BedSleepingProblem trySleep(Player player, BlockPos sleepPos) {
-		Level world = player.getLevel();
+		Level world = player.level();
 		if (!world.isClientSide()) {
 			var entities = ((ServerLevel) world).getEntities(BotaniaEntities.DOPPLEGANGER, EntitySelector.ENTITY_STILL_ALIVE);
 			for (var entity : entities) {

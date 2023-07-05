@@ -20,7 +20,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
@@ -264,8 +264,8 @@ public final class RenderHelper extends RenderType {
 		return DOPPLEGANGER.apply(texture);
 	}
 
-	public static void drawTexturedModalRect(PoseStack ms, int x, int y, int u, int v, int width, int height) {
-		GuiComponent.blit(ms, x, y, u, v, width, height, 256, 256);
+	public static void drawTexturedModalRect(GuiGraphics gui, ResourceLocation textureId, int x, int y, int u, int v, int width, int height) {
+		gui.blit(textureId, x, y, u, v, width, height, 256, 256);
 	}
 
 	public static void renderStar(PoseStack ms, MultiBufferSource buffers, int color, float xScale, float yScale, float zScale, long seed) {
@@ -324,9 +324,10 @@ public final class RenderHelper extends RenderType {
 		}
 	}
 
-	public static void renderProgressPie(PoseStack ms, int x, int y, float progress, ItemStack stack) {
+	public static void renderProgressPie(GuiGraphics gui, int x, int y, float progress, ItemStack stack) {
+		PoseStack ms = gui.pose();
 		Minecraft mc = Minecraft.getInstance();
-		mc.getItemRenderer().renderAndDecorateItem(ms, stack, x, y);
+		gui.renderItem(stack, x, y);
 
 		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, true);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
@@ -335,7 +336,7 @@ public final class RenderHelper extends RenderType {
 		RenderSystem.stencilFunc(GL11.GL_NEVER, 1, 0xFF);
 		RenderSystem.stencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
 		RenderSystem.stencilMask(0xFF);
-		mc.getItemRenderer().renderAndDecorateItem(ms, stack, x, y);
+		gui.renderItem(stack, x, y);
 
 		int r = 10;
 		int centerX = x + 8;
@@ -375,7 +376,7 @@ public final class RenderHelper extends RenderType {
 	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, PoseStack ms, MultiBufferSource buffers, int light, int overlay, @Nullable BakedModel model) {
 		ms.pushPose();
 		if (model == null) {
-			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.getLevel(), entity, entity.getId());
+			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.level(), entity, entity.getId());
 		}
 		model.getTransforms().getTransform(ItemDisplayContext.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);
@@ -584,26 +585,26 @@ public final class RenderHelper extends RenderType {
 	* Renders a transparent black box with a soft border. The parameters describe the inner box, there will also be drawn
 	* another box that is 2px bigger in each direction
 	*/
-	public static void renderHUDBox(PoseStack ps, int startX, int startY, int endX, int endY) {
-		GuiComponent.fill(ps, startX, startY, endX, endY, 0x44000000);
-		GuiComponent.fill(ps, startX - 2, startY - 2, endX + 2, endY + 2, 0x44000000);
+	public static void renderHUDBox(GuiGraphics gui, int startX, int startY, int endX, int endY) {
+		gui.fill(startX, startY, endX, endY, 0x44000000);
+		gui.fill(startX - 2, startY - 2, endX + 2, endY + 2, 0x44000000);
 	}
 
 	/*
 	* Renders an item and its name, vertically centered next to it. Renders nothing if the stack is empty
 	* Note: The item renderer does not respect the PoseStack
 	*/
-	public static void renderItemWithName(PoseStack ps, Minecraft mc, ItemStack itemStack, int startX, int startY, int color) {
+	public static void renderItemWithName(GuiGraphics gui, Minecraft mc, ItemStack itemStack, int startX, int startY, int color) {
 		if (!itemStack.isEmpty()) {
-			mc.font.drawShadow(ps, itemStack.getHoverName(), startX + ITEM_AND_PADDING_WIDTH, startY + 4, color);
-			mc.getItemRenderer().renderAndDecorateItem(ps, itemStack, startX, startY);
+			gui.drawString(mc.font, itemStack.getHoverName(), startX + ITEM_AND_PADDING_WIDTH, startY + 4, color);
+			gui.renderItem(itemStack, startX, startY);
 		}
 	}
 
-	public static void renderItemWithNameCentered(PoseStack ps, Minecraft mc, ItemStack itemStack, int startY, int color) {
+	public static void renderItemWithNameCentered(GuiGraphics gui, Minecraft mc, ItemStack itemStack, int startY, int color) {
 		int centerX = mc.getWindow().getGuiScaledWidth() / 2;
 		int startX = centerX - (ITEM_AND_PADDING_WIDTH + mc.font.width(itemStack.getHoverName())) / 2;
-		renderItemWithName(ps, mc, itemStack, startX, startY, color);
+		renderItemWithName(gui, mc, itemStack, startX, startY, color);
 	}
 
 	/*

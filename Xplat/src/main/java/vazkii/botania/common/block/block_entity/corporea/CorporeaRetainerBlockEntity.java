@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -147,14 +148,14 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			String mode = I18n.get("botaniamisc.retainer." + (retainer.retainMissing ? "retain_missing" : "retain_all"));
 			int strWidth = mc.font.width(mode);
 			int x = (mc.getWindow().getGuiScaledWidth() - strWidth) / 2;
 			int y = mc.getWindow().getGuiScaledHeight() / 2 + 8;
 
-			RenderHelper.renderHUDBox(ms, x - 2, y, x + strWidth + 2, y + 12);
-			mc.font.drawShadow(ms, mode, x, y + 2, ChatFormatting.WHITE.getColor());
+			RenderHelper.renderHUDBox(gui, x - 2, y, x + strWidth + 2, y + 12);
+			gui.drawString(mc.font, mode, x, y + 2, ChatFormatting.WHITE.getColor());
 		}
 	}
 

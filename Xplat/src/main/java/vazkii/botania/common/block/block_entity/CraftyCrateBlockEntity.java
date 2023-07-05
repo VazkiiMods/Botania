@@ -11,7 +11,7 @@ package vazkii.botania.common.block.block_entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -24,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
@@ -145,7 +146,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 			return false;
 		}
 
-		CraftingContainer craft = new CraftingContainer(new AbstractContainerMenu(MenuType.CRAFTING, -1) {
+		CraftingContainer craft = new TransientCraftingContainer(new AbstractContainerMenu(MenuType.CRAFTING, -1) {
 			@NotNull
 			@Override
 			public ItemStack quickMoveStack(@NotNull Player player, int i) {
@@ -275,13 +276,13 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			int width = 52;
 			int height = 52;
 			int xc = mc.getWindow().getGuiScaledWidth() / 2 + 12;
 			int yc = mc.getWindow().getGuiScaledHeight() / 2 - height / 2;
 
-			RenderHelper.renderHUDBox(ms, xc - 4, yc - 4, xc + width + 4, yc + height + 4);
+			RenderHelper.renderHUDBox(gui, xc - 4, yc - 4, xc + width + 4, yc + height + 4);
 
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
@@ -294,10 +295,10 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 						enabled = crate.getPattern().openSlots.get(index);
 					}
 
-					GuiComponent.fill(ms, xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
+					gui.fill(xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
 
 					ItemStack item = crate.getItemHandler().getItem(index);
-					mc.getItemRenderer().renderAndDecorateItem(ms, item, xp, yp);
+					gui.renderItem(item, xp, yp);
 				}
 			}
 		}

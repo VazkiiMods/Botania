@@ -39,7 +39,7 @@ public class LootTableMixin {
 	private void addGogSeeds(LootContext context, Consumer<ItemStack> stacksOut, CallbackInfo ci) {
 		if (XplatAbstractions.INSTANCE.gogLoaded() && !callingGogTable) {
 			callingGogTable = true;
-			context.getLootTable(GOG_SEEDS).getRandomItems(context, stacksOut);
+			context.getResolver().getLootTable(GOG_SEEDS).getRandomItems(context, stacksOut);
 			callingGogTable = false;
 		}
 	}
