@@ -427,7 +427,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 							recipe.assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
 
 					if (progress == 1F) {
-						gui.drawString(mc.font, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
+						gui.drawString(mc.font, "+", xc + radius + 14, yc + 12, 0xFFFFFF, false);
 					}
 				});
 

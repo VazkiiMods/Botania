@@ -42,7 +42,7 @@ public class ManaComponent implements ICustomComponent {
 	public void render(GuiGraphics gui, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
 		Font font = Minecraft.getInstance().font;
 		Component manaUsage = Component.translatable("botaniamisc.manaUsage").setStyle(context.getFont());
-		gui.drawString(font, manaUsage, x + 102 / 2 - font.width(manaUsage) / 2, y, 0x66000000);
+		gui.drawString(font, manaUsage, x + 102 / 2 - font.width(manaUsage) / 2, y, 0x66000000, false);
 
 		int ratio = 10;
 		if (context.isAreaHovered(mouseX, mouseY, x, y - 2, 102, 5 + 20)) {
@@ -52,7 +52,7 @@ public class ManaComponent implements ICustomComponent {
 				manaValues[(context.getTicksInBook() / 20) % manaValues.length], ManaPoolBlockEntity.MAX_MANA / ratio);
 
 		Component ratioString = Component.translatable("botaniamisc.ratio", ratio).setStyle(context.getFont());
-		gui.drawString(font, ratioString, x + 102 / 2 - font.width(ratioString) / 2, y + 15, 0x99000000);
+		gui.drawString(font, ratioString, x + 102 / 2 - font.width(ratioString) / 2, y + 15, 0x99000000, false);
 	}
 
 	@Override
