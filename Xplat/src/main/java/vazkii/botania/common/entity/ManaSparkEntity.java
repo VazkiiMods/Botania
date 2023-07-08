@@ -8,10 +8,9 @@
  */
 package vazkii.botania.common.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -85,7 +84,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	public void tick() {
 		super.tick();
 
-		if (getLevel().isClientSide) {
+		if (level().isClientSide) {
 			return;
 		}
 
@@ -104,7 +103,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				AABB aabb = VecHelper.boxForRange(
 						this.position().with(Direction.Axis.Y, getY() + (getBbHeight() / 2.0)),
 						SparkHelper.SPARK_SCAN_RANGE);
-				List<Player> players = getLevel().getEntitiesOfClass(Player.class, aabb, EntitySelector.ENTITY_STILL_ALIVE);
+				List<Player> players = level().getEntitiesOfClass(Player.class, aabb, EntitySelector.ENTITY_STILL_ALIVE);
 
 				Map<Player, Map<ManaItem, Integer>> receivingPlayers = new HashMap<>();
 
@@ -163,18 +162,18 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 			}
 			case DOMINANT -> {
-				List<ManaSpark> validSparks = SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				List<ManaSpark> validSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
 				validSparks.removeIf(s -> {
 					SparkUpgradeType otherUpgrade = s.getUpgrade();
 					return s == this || otherUpgrade != SparkUpgradeType.NONE || !(s.getAttachedManaReceiver() instanceof ManaPool);
 				});
 				if (!validSparks.isEmpty()) {
-					validSparks.get(getLevel().random.nextInt(validSparks.size())).registerTransfer(this);
+					validSparks.get(level().random.nextInt(validSparks.size())).registerTransfer(this);
 				}
 
 			}
 			case RECESSIVE -> {
-				var otherSparks = SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				var otherSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
 				for (var otherSpark : otherSparks) {
 					SparkUpgradeType otherUpgrade = otherSpark.getUpgrade();
 					if (otherSpark != this
@@ -224,7 +223,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	public static void particleBeam(Player player, Entity e1, Entity e2) {
-		if (e1 != null && e2 != null && !e1.getLevel().isClientSide) {
+		if (e1 != null && e2 != null && !e1.level().isClientSide) {
 			XplatAbstractions.INSTANCE.sendToPlayer(player, new BotaniaEffectPacket(EffectType.SPARK_NET_INDICATOR,
 					e1.getX(), e1.getY(), e1.getZ(),
 					e1.getId(), e2.getId()));
@@ -250,7 +249,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		if (isAlive() && !stack.isEmpty()) {
 			SparkUpgradeType upgrade = getUpgrade();
 			if (stack.getItem() instanceof WandOfTheForestItem) {
-				if (!getLevel().isClientSide) {
+				if (!level().isClientSide) {
 					if (player.isShiftKeyDown()) {
 						if (upgrade != SparkUpgradeType.NONE) {
 							spawnAtLocation(SparkAugmentItem.getByType(upgrade), 0F);
@@ -262,31 +261,31 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 							dropAndKill();
 						}
 					} else {
-						SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
+						SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
 								.forEach(s -> particleBeam(player, this, s.entity()));
 					}
 				}
 
-				return InteractionResult.sidedSuccess(getLevel().isClientSide);
+				return InteractionResult.sidedSuccess(level().isClientSide);
 			} else if (stack.getItem() instanceof SparkAugmentItem newUpgrade && upgrade == SparkUpgradeType.NONE) {
-				if (!getLevel().isClientSide) {
+				if (!level().isClientSide) {
 					setUpgrade(newUpgrade.type);
 					stack.shrink(1);
 				}
-				return InteractionResult.sidedSuccess(getLevel().isClientSide);
+				return InteractionResult.sidedSuccess(level().isClientSide);
 			} else if (stack.is(BotaniaItems.phantomInk)) {
-				if (!getLevel().isClientSide) {
+				if (!level().isClientSide) {
 					setInvisible(true);
 				}
-				return InteractionResult.sidedSuccess(getLevel().isClientSide);
+				return InteractionResult.sidedSuccess(level().isClientSide);
 			} else if (stack.getItem() instanceof DyeItem dye) {
 				DyeColor color = dye.getDyeColor();
 				if (color != getNetwork()) {
-					if (!getLevel().isClientSide) {
+					if (!level().isClientSide) {
 						setNetwork(color);
 						stack.shrink(1);
 					}
-					return InteractionResult.sidedSuccess(getLevel().isClientSide);
+					return InteractionResult.sidedSuccess(level().isClientSide);
 				}
 			}
 		}
@@ -308,7 +307,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	@Override
 	public SparkAttachable getAttachedTile() {
-		return XplatAbstractions.INSTANCE.findSparkAttachable(getLevel(), getAttachPos(), getLevel().getBlockState(getAttachPos()), getLevel().getBlockEntity(getAttachPos()), Direction.UP);
+		return XplatAbstractions.INSTANCE.findSparkAttachable(level(), getAttachPos(), level().getBlockState(getAttachPos()), level().getBlockEntity(getAttachPos()), Direction.UP);
 	}
 
 	private void filterTransfers() {
@@ -373,7 +372,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	public record WandHud(ManaSparkEntity entity) implements WandHUD {
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			ItemStack sparkStack = new ItemStack(entity.getSparkItem());
 			ItemStack augmentStack = SparkAugmentItem.getByType(entity.getUpgrade());
 			DyeColor networkColor = entity.getNetwork();
@@ -392,11 +391,11 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
 			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
-			RenderHelper.renderHUDBox(ms, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 8 + height);
+			RenderHelper.renderHUDBox(gui, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 8 + height);
 
-			RenderHelper.renderItemWithNameCentered(ms, mc, sparkStack, centerY + 10, textColor);
-			RenderHelper.renderItemWithNameCentered(ms, mc, augmentStack, centerY + 28, textColor);
-			mc.font.drawShadow(ms, networkColorName, centerX - networkColorTextStart, centerY + (augmentStack.isEmpty() ? 28 : 46), textColor);
+			RenderHelper.renderItemWithNameCentered(gui, mc, sparkStack, centerY + 10, textColor);
+			RenderHelper.renderItemWithNameCentered(gui, mc, augmentStack, centerY + 28, textColor);
+			gui.drawString(mc.font, networkColorName, centerX - networkColorTextStart, centerY + (augmentStack.isEmpty() ? 28 : 46), textColor);
 		}
 	}
 }

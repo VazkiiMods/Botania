@@ -30,10 +30,10 @@ public class EnderAirEntity extends Entity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (!getLevel().isClientSide && tickCount > MAX_AGE) {
+		if (!level().isClientSide && tickCount > MAX_AGE) {
 			discard();
 		}
-		if (getLevel().isClientSide && random.nextBoolean()) {
+		if (level().isClientSide && random.nextBoolean()) {
 			float r = (EnderAirBottleEntity.PARTICLE_COLOR >> 16 & 0xFF) / 255.0F;
 			float g = (EnderAirBottleEntity.PARTICLE_COLOR >> 8 & 0xFF) / 255.0F;
 			float b = (EnderAirBottleEntity.PARTICLE_COLOR & 0xFF) / 255.0F;
@@ -41,7 +41,7 @@ public class EnderAirEntity extends Entity {
 				double x = this.getX() + random.nextDouble();
 				double y = this.getY() + random.nextDouble();
 				double z = this.getZ() + random.nextDouble();
-				getLevel().addAlwaysVisibleParticle(ParticleTypes.ENTITY_EFFECT, x, y, z, r, g, b);
+				level().addAlwaysVisibleParticle(ParticleTypes.ENTITY_EFFECT, x, y, z, r, g, b);
 			}
 		}
 	}

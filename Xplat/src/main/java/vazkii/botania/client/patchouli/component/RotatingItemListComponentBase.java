@@ -10,6 +10,7 @@ package vazkii.botania.client.patchouli.component;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -39,7 +40,7 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 	protected abstract List<Ingredient> makeIngredients();
 
 	@Override
-	public void render(PoseStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
+	public void render(GuiGraphics gui, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
 		int degreePerInput = (int) (360F / ingredients.size());
 		int ticksElapsed = context.getTicksInBook();
 
@@ -50,13 +51,14 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 				: 0;
 
 		for (Ingredient input : ingredients) {
-			renderIngredientAtAngle(ms, context, currentDegree, input, mouseX, mouseY);
+			renderIngredientAtAngle(gui, context, currentDegree, input, mouseX, mouseY);
 
 			currentDegree += degreePerInput;
 		}
 	}
 
-	private void renderIngredientAtAngle(PoseStack ms, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
+	private void renderIngredientAtAngle(GuiGraphics gui, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
+		PoseStack ms = gui.pose();
 		if (ingredient.isEmpty()) {
 			return;
 		}
@@ -68,7 +70,7 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 
 		ms.pushPose(); // This translation makes it not stuttery. It does not affect the tooltip as that is drawn separately later.
 		ms.translate(xPos - (int) xPos, yPos - (int) yPos, 0);
-		context.renderIngredient(ms, (int) xPos, (int) yPos, mouseX, mouseY, ingredient);
+		context.renderIngredient(gui, (int) xPos, (int) yPos, mouseX, mouseY, ingredient);
 		ms.popPose();
 	}
 

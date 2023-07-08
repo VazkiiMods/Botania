@@ -34,7 +34,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.Vec3;
 
@@ -77,9 +77,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 			ItemStack stack;
 			do {
-				LootContext ctx = new LootContext.Builder((ServerLevel) world).create(LootContextParamSets.EMPTY);
-				List<ItemStack> stacks = ((ServerLevel) world).getServer().getLootTables()
-						.get(lootTable).getRandomItems(ctx);
+				LootParams ctx = new LootParams.Builder((ServerLevel) world).create(LootContextParamSets.EMPTY);
+				List<ItemStack> stacks = ((ServerLevel) world).getServer().getLootData()
+						.getLootTable(lootTable).getRandomItems(ctx);
 				if (stacks.isEmpty()) {
 					return;
 				} else {

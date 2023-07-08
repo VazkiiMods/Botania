@@ -31,9 +31,9 @@ public class MagnetizingLens extends Lens {
 		final boolean sourceless = source.equals(ManaBurst.NO_SOURCE);
 
 		Predicate<BlockPos> predicate = pos -> {
-			var state = entity.getLevel().getBlockState(pos);
-			var be = entity.getLevel().getBlockEntity(pos);
-			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.getLevel(), pos, state, be, null);
+			var state = entity.level().getBlockState(pos);
+			var be = entity.level().getBlockEntity(pos);
+			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.level(), pos, state, be, null);
 			return receiver != null
 					&& (sourceless || pos.distSqr(source) > 9)
 					&& receiver.canReceiveManaFromBursts()

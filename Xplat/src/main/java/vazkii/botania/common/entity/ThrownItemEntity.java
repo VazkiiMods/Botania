@@ -55,18 +55,18 @@ public class ThrownItemEntity extends ItemEntity {
 		// [VanillaCopy] derivative from ThrowableProjectile
 		int pickupDelay = ((ItemEntityAccessor) this).getPickupDelay();
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.isPickable() && (!(e instanceof Player) || pickupDelay == 0);
-		HitResult hitResult = ProjectileUtil.getHitResult(this, filter);
+		HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, filter);
 		boolean teleported = false;
 		if (hitResult.getType() == HitResult.Type.BLOCK) {
 			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
-			BlockState blockState = this.getLevel().getBlockState(blockPos);
+			BlockState blockState = this.level().getBlockState(blockPos);
 			if (blockState.is(Blocks.NETHER_PORTAL)) {
 				this.handleInsidePortal(blockPos);
 				teleported = true;
 			} else if (blockState.is(Blocks.END_GATEWAY)) {
-				BlockEntity blockEntity = this.getLevel().getBlockEntity(blockPos);
+				BlockEntity blockEntity = this.level().getBlockEntity(blockPos);
 				if (blockEntity instanceof TheEndGatewayBlockEntity gateway && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-					TheEndGatewayBlockEntity.teleportEntity(this.getLevel(), blockPos, blockState, this, gateway);
+					TheEndGatewayBlockEntity.teleportEntity(this.level(), blockPos, blockState, this, gateway);
 				}
 
 				teleported = true;
@@ -78,19 +78,19 @@ public class ThrownItemEntity extends ItemEntity {
 		}
 
 		// Bonk any entities hit
-		if (!getLevel().isClientSide && hitResult.getType() == HitResult.Type.ENTITY) {
+		if (!level().isClientSide && hitResult.getType() == HitResult.Type.ENTITY) {
 			Entity bonk = ((EntityHitResult) hitResult).getEntity();
 			bonk.hurt(damageSources().magic(), 2.0F);
-			Entity item = new ItemEntity(getLevel(), getX(), getY(), getZ(), getItem());
-			getLevel().addFreshEntity(item);
+			Entity item = new ItemEntity(level(), getX(), getY(), getZ(), getItem());
+			level().addFreshEntity(item);
 			item.setDeltaMovement(getDeltaMovement().scale(0.25));
 			discard();
 			return;
 		}
 
-		if (!getLevel().isClientSide && getDeltaMovement().length() < 1.0F) {
-			Entity item = new ItemEntity(getLevel(), getX(), getY(), getZ(), getItem());
-			getLevel().addFreshEntity(item);
+		if (!level().isClientSide && getDeltaMovement().length() < 1.0F) {
+			Entity item = new ItemEntity(level(), getX(), getY(), getZ(), getItem());
+			level().addFreshEntity(item);
 			item.setDeltaMovement(getDeltaMovement());
 			discard();
 		}

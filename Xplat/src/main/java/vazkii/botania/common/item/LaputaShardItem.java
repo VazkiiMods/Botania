@@ -251,7 +251,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 		double speed = 0.35;
 		int targetDistance = BASE_OFFSET;
 		Entity entity = burst.entity();
-		if (!entity.getLevel().isClientSide) {
+		if (!entity.level().isClientSide) {
 			entity.setDeltaMovement(0, speed, 0);
 
 			final int spawnTicks = 2;
@@ -265,7 +265,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
 
 				if (y != Integer.MIN_VALUE) {
-					spawnNextBurst(entity.getLevel(), new BlockPos(x, y, z), lens);
+					spawnNextBurst(entity.level(), new BlockPos(x, y, z), lens);
 				}
 			} else if (burst.getTicksExisted() == placeTicks) {
 				int x = net.minecraft.util.Mth.floor(entity.getX());
@@ -275,30 +275,30 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 				BlockState placeState = Blocks.AIR.defaultBlockState();
 				if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
-					placeState = NbtUtils.readBlockState(entity.level.holderLookup(Registries.BLOCK), lens.getTag().getCompound(TAG_STATE));
+					placeState = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), lens.getTag().getCompound(TAG_STATE));
 				}
 
-				if (entity.getLevel().dimensionType().ultraWarm() && placeState.hasProperty(BlockStateProperties.WATERLOGGED)) {
+				if (entity.level().dimensionType().ultraWarm() && placeState.hasProperty(BlockStateProperties.WATERLOGGED)) {
 					placeState = placeState.setValue(BlockStateProperties.WATERLOGGED, false);
 				}
 
-				if (entity.getLevel().getBlockState(pos).getMaterial().isReplaceable()) {
+				if (entity.level().getBlockState(pos).canBeReplaced()) {
 					BlockEntity tile = null;
 					CompoundTag tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if (tilecmp.contains("id")) {
 						tile = BlockEntity.loadStatic(pos, placeState, tilecmp);
 					}
 
-					entity.getLevel().setBlockAndUpdate(pos, placeState);
-					entity.getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(placeState));
+					entity.level().setBlockAndUpdate(pos, placeState);
+					entity.level().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(placeState));
 					if (tile != null) {
-						entity.getLevel().setBlockEntity(tile);
+						entity.level().setBlockEntity(tile);
 					}
 				} else {
 					int ox = ItemNBTHelper.getInt(lens, TAG_X, 0);
 					int oy = ItemNBTHelper.getInt(lens, TAG_Y_START, -1);
 					int oz = ItemNBTHelper.getInt(lens, TAG_Z, 0);
-					Block.dropResources(placeState, entity.getLevel(), new BlockPos(ox, oy, oz));
+					Block.dropResources(placeState, entity.level(), new BlockPos(ox, oy, oz));
 				}
 
 				entity.discard();
@@ -310,8 +310,8 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	public boolean doParticles(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		ItemStack lens = burst.getSourceLens();
-		BlockState state = NbtUtils.readBlockState(entity.getLevel().holderLookup(Registries.BLOCK), lens.getOrCreateTag().getCompound(TAG_STATE));
-		entity.getLevel().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),
+		BlockState state = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), lens.getOrCreateTag().getCompound(TAG_STATE));
+		entity.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),
 				entity.getDeltaMovement().x(), entity.getDeltaMovement().y(), entity.getDeltaMovement().z());
 
 		return true;

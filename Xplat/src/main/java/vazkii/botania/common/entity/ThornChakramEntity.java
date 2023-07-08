@@ -92,16 +92,16 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 		}
 
 		// Client FX
-		if (getLevel().isClientSide && isFire()) {
+		if (level().isClientSide && isFire()) {
 			double r = 0.1;
 			double m = 0.1;
 			for (int i = 0; i < 3; i++) {
-				getLevel().addParticle(ParticleTypes.FLAME, getX() + r * (Math.random() - 0.5), getY() + r * (Math.random() - 0.5), getZ() + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+				level().addParticle(ParticleTypes.FLAME, getX() + r * (Math.random() - 0.5), getY() + r * (Math.random() - 0.5), getZ() + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 			}
 		}
 
 		// Server state control
-		if (!getLevel().isClientSide && (getTimesBounced() >= MAX_BOUNCES || tickCount > 60)) {
+		if (!level().isClientSide && (getTimesBounced() >= MAX_BOUNCES || tickCount > 60)) {
 			Entity thrower = getOwner();
 			if (thrower == null) {
 				dropAndKill();
@@ -116,8 +116,8 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 
 	private void dropAndKill() {
 		ItemStack stack = getItemStack();
-		ItemEntity item = new ItemEntity(getLevel(), getX(), getY(), getZ(), stack);
-		getLevel().addFreshEntity(item);
+		ItemEntity item = new ItemEntity(level(), getX(), getY(), getZ(), stack);
+		level().addFreshEntity(item);
 		discard();
 	}
 
@@ -137,7 +137,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult hit) {
 		super.onHitBlock(hit);
-		BlockState state = getLevel().getBlockState(hit.getBlockPos());
+		BlockState state = level().getBlockState(hit.getBlockPos());
 		if (state.getBlock() instanceof BushBlock || state.is(BlockTags.LEAVES)) {
 			return;
 		}
@@ -152,7 +152,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 			setDeltaMovement(movementVec);
 			bounced = true;
 
-			if (!getLevel().isClientSide) {
+			if (!level().isClientSide) {
 				setTimesBounced(getTimesBounced() + 1);
 			}
 		}
@@ -161,7 +161,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	@Override
 	protected void onHitEntity(@NotNull EntityHitResult hit) {
 		super.onHitEntity(hit);
-		if (!getLevel().isClientSide && hit.getEntity() instanceof LivingEntity hitEntity && hit.getEntity() != getOwner()) {
+		if (!level().isClientSide && hit.getEntity() instanceof LivingEntity hitEntity && hit.getEntity() != getOwner()) {
 			Entity thrower = getOwner();
 			DamageSource src = damageSources().generic();
 			if (thrower instanceof Player) {
@@ -172,7 +172,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 			hitEntity.hurt(src, 12);
 			if (isFire()) {
 				hitEntity.setSecondsOnFire(5);
-			} else if (getLevel().random.nextInt(3) == 0) {
+			} else if (level().random.nextInt(3) == 0) {
 				hitEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
 			}
 		}

@@ -1,9 +1,9 @@
 package vazkii.botania.fabric.integration.emi;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.Widget;
+
+import net.minecraft.client.gui.GuiGraphics;
 
 import vazkii.botania.client.gui.HUDHandler;
 
@@ -24,7 +24,7 @@ public class ManaWidget extends Widget {
 	}
 
 	@Override
-	public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
-		HUDHandler.renderManaBar(matrices, x, y, 0x0000FF, 0.75F, mana, maxMana);
+	public void render(GuiGraphics gui, int mouseX, int mouseY, float delta) {
+		HUDHandler.renderManaBar(gui, x, y, 0x0000FF, 0.75F, mana, maxMana);
 	}
 }

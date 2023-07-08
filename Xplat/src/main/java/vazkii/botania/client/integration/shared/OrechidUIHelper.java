@@ -160,7 +160,7 @@ public class OrechidUIHelper {
 		if (player == null) {
 			return null;
 		}
-		final var biomeKey = player.level.getBiome(player.blockPosition()).unwrapKey().orElse(null);
+		final var biomeKey = player.level().getBiome(player.blockPosition()).unwrapKey().orElse(null);
 		if (biomeKey == null) {
 			return "argument.id.invalid";
 		}

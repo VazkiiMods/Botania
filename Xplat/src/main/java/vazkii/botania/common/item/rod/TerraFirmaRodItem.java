@@ -93,7 +93,7 @@ public class TerraFirmaRodItem extends Item {
 					BlockPos pos_ = pos.relative(dir);
 					BlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();
-					if (state_.isAir() || state_.getMaterial().isReplaceable()
+					if (state_.isAir() || state_.canBeReplaced()
 							|| block_ instanceof FlowerBlock && !state_.is(BotaniaTags.Blocks.SPECIAL_FLOWERS)
 							|| block_ instanceof DoublePlantBlock) {
 						airBlocks.add(pos_);

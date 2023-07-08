@@ -122,7 +122,7 @@ public class BlackHoleTalismanItem extends Item {
 	@Override
 	public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if (!entity.getLevel().isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null) {
+		if (!entity.level().isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null) {
 			if (entity instanceof Player player) {
 				suckFromPlayerInv(itemstack, block, player);
 			}
@@ -168,7 +168,7 @@ public class BlackHoleTalismanItem extends Item {
 	@Override
 	public Component getName(@NotNull ItemStack stack) {
 		Block block = getBlock(stack);
-		ItemStack bstack = new ItemStack(block);
+		ItemStack bstack = block == null ? ItemStack.EMPTY : new ItemStack(block);
 		MutableComponent cand = super.getName(stack).copy();
 
 		if (!bstack.isEmpty()) {

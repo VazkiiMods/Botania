@@ -32,11 +32,11 @@
     "client.ChatScreenMixin",
     "client.DebugScreenOverlayFabricMixin",
     "client.GameRendererFabricMixin",
+    "client.GuiGraphicsFabricMixin",
     "client.KeyboardHandlerFabricMixin",
     "client.MinecraftFabricMixin",
     "client.ModelManagerFabricMixin",
-    "client.ParticleEngineFabricMixin",
-    "client.ScreenFabricMixin"
+    "client.ParticleEngineFabricMixin"
   ],
   "injectors": {
     "defaultRequire": 1

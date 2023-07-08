@@ -63,7 +63,7 @@ public final class AstrolabePreviewHandler {
 	}
 
 	private static void renderPlayerLook(PoseStack ms, VertexConsumer buffer, Player player, ItemStack stack, InteractionHand hand) {
-		Block blockToPlace = AstrolabeItem.getBlock(stack, player.getLevel().holderLookup(Registries.BLOCK));
+		Block blockToPlace = AstrolabeItem.getBlock(stack, player.level().holderLookup(Registries.BLOCK));
 		int size = AstrolabeItem.getSize(stack);
 		BlockPlaceContext ctx = AstrolabeItem.getBlockPlaceContext(player, hand, blockToPlace);
 		List<BlockPos> placePositions = AstrolabeItem.getPlacePositions(ctx, size);
@@ -71,7 +71,7 @@ public final class AstrolabePreviewHandler {
 			for (BlockPos pos : placePositions) {
 				BlockPlaceContext placeContext = getPlaceContext(player, ctx, pos);
 				BlockState state = blockToPlace.getStateForPlacement(placeContext);
-				if (state != null && placeContext.canPlace() && state.canSurvive(player.getLevel(), pos)) {
+				if (state != null && placeContext.canPlace() && state.canSurvive(player.level(), pos)) {
 					renderBlockAt(ms, buffer, state, pos);
 				}
 			}

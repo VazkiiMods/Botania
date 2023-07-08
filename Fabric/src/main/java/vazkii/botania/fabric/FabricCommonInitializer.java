@@ -43,6 +43,9 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.*;
@@ -117,9 +120,15 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FabricCommonInitializer implements ModInitializer {
 	// TODO 1.19.3 menu texture
-	private static final CreativeModeTab BOTANIA_TAB = FabricItemGroup.builder(prefix("botania"))
-			.icon(() -> new ItemStack(BotaniaItems.lexicon))
-			.build();
+	private static final ResourceKey<CreativeModeTab> BOTANIA_TAB_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, prefix("botania"));
+	private static final CreativeModeTab BOTANIA_TAB = Registry.register(
+			BuiltInRegistries.CREATIVE_MODE_TAB,
+			BOTANIA_TAB_KEY,
+			FabricItemGroup.builder()
+					.title(Component.translatable("itemGroup.botania.botania"))
+					.icon(() -> new ItemStack(BotaniaItems.lexicon))
+					.build()
+	);
 	private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder.createDefaulted(BotaniaRegistries.BREWS, prefix("fallback")).buildAndRegister();
 
 	@Override
@@ -159,7 +168,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaBlockEntities.registerTiles(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
 		BotaniaItems.registerItems(registerItemAndPutInTab);
 		BotaniaFlowerBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
-		BotaniaFlowerBlocks.registerItemBlocks(bind(BuiltInRegistries.ITEM));
+		BotaniaFlowerBlocks.registerItemBlocks(registerItemAndPutInTab);
 		BotaniaFlowerBlocks.registerTEs(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
 		BotaniaBlocks.addDispenserBehaviours();
 		BotaniaBlocks.addAxeStripping();
@@ -245,7 +254,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
 	private static final BiConsumer<Item, ResourceLocation> registerItemAndPutInTab = (item, id) -> {
 		Registry.register(BuiltInRegistries.ITEM, id, item);
-		ItemGroupEvents.modifyEntriesEvent(BOTANIA_TAB).register(entries -> entries.accept(item));
+		ItemGroupEvents.modifyEntriesEvent(BOTANIA_TAB_KEY).register(entries -> entries.accept(item));
 	};
 
 	private void registerCapabilities() {

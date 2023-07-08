@@ -86,7 +86,8 @@ public class SkyblockCommand {
 
 	private static int printHelp(CommandContext<CommandSourceStack> ctx) {
 		for (int i = 0; i < 5; i++) {
-			ctx.getSource().sendSuccess(Component.translatable("botaniamisc.command.skyblock.help." + i), false);
+			int finalI = i;
+			ctx.getSource().sendSuccess(() -> Component.translatable("botaniamisc.command.skyblock.help." + finalI), false);
 		}
 		return Command.SINGLE_SUCCESS;
 	}
@@ -104,7 +105,7 @@ public class SkyblockCommand {
 
 		player.teleportTo(world, blockPos.getX() + 0.5, blockPos.getY(),
 				blockPos.getZ() + 0.5, player.getYRot(), player.getXRot());
-		ctx.getSource().sendSuccess(feedback, true);
+		ctx.getSource().sendSuccess(() -> feedback, true);
 		return Command.SINGLE_SUCCESS;
 	}
 
@@ -120,7 +121,7 @@ public class SkyblockCommand {
 		}
 
 		SkyblockWorldEvents.spawnPlayer(player, data.create(uuid));
-		ctx.getSource().sendSuccess(Component.translatable("botaniamisc.command.skyblock.island.success", player.getDisplayName()), true);
+		ctx.getSource().sendSuccess(() -> Component.translatable("botaniamisc.command.skyblock.island.success", player.getDisplayName()), true);
 		return Command.SINGLE_SUCCESS;
 	}
 
@@ -129,7 +130,7 @@ public class SkyblockCommand {
 		IslandPos pos = getIslandForUUID(player, SkyblockSavedData.get(world));
 
 		SkyblockWorldEvents.createSkyblock(world, pos.getCenter());
-		ctx.getSource().sendSuccess(feedback, true);
+		ctx.getSource().sendSuccess(() -> feedback, true);
 		return Command.SINGLE_SUCCESS;
 	}
 

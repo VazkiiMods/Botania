@@ -52,7 +52,7 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffectItem
 	}
 
 	public static InteractionResult attackEntity(Player player, Level world, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
-		if (!player.getLevel().isClientSide && !player.isSpectator()) {
+		if (!player.level().isClientSide && !player.isSpectator()) {
 			trySpawnBurst(player);
 		}
 		return InteractionResult.PASS;
@@ -67,9 +67,9 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffectItem
 				&& player.getMainHandItem().is(BotaniaItems.terraSword)
 				&& attackStrength == 1) {
 			ManaBurstEntity burst = getBurst(player, player.getMainHandItem());
-			player.getLevel().addFreshEntity(burst);
+			player.level().addFreshEntity(burst);
 			player.getMainHandItem().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-			player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraBlade, SoundSource.PLAYERS, 1F, 1F);
+			player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraBlade, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}
 
@@ -107,7 +107,7 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffectItem
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
 		AABB axis = new AABB(entity.getX(), entity.getY(), entity.getZ(), entity.xOld, entity.yOld, entity.zOld).inflate(1);
-		List<LivingEntity> entities = entity.getLevel().getEntitiesOfClass(LivingEntity.class, axis);
+		List<LivingEntity> entities = entity.level().getEntitiesOfClass(LivingEntity.class, axis);
 		Entity thrower = entity.getOwner();
 
 		for (LivingEntity living : entities) {
@@ -122,7 +122,7 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffectItem
 				if (mana >= cost) {
 					burst.setMana(mana - cost);
 					float damage = 4F + BotaniaAPI.instance().getTerrasteelItemTier().getAttackDamageBonus();
-					if (!burst.isFake() && !entity.getLevel().isClientSide) {
+					if (!burst.isFake() && !entity.level().isClientSide) {
 						DamageSource source = living.damageSources().magic();
 						if (thrower instanceof Player player) {
 							source = player.damageSources().playerAttack(player);

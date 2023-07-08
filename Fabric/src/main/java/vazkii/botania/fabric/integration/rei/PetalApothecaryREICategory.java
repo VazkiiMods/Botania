@@ -61,7 +61,7 @@ public class PetalApothecaryREICategory implements DisplayCategory<PetalApotheca
 		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 34);
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 2);
 		widgets.add(Widgets.createRecipeBase(bounds));
-		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(matrices, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82))));
+		widgets.add(Widgets.createDrawableWidget(((gui, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(gui, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82))));
 
 		for (EntryIngredient o : inputs) {
 			widgets.add(Widgets.createSlot(point.getLocation()).entries(o).disableBackground());

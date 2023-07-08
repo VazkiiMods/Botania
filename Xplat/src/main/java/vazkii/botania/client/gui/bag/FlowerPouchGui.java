@@ -12,6 +12,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -36,20 +37,20 @@ public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer
 	}
 
 	@Override
-	public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(ms);
-		super.render(ms, mouseX, mouseY, partialTicks);
-		this.renderTooltip(ms, mouseX, mouseY);
+	public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(gui);
+		super.render(gui, mouseX, mouseY, partialTicks);
+		this.renderTooltip(gui, mouseX, mouseY);
 	}
 
 	@Override
-	protected void renderBg(PoseStack ms, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {
+		PoseStack ms = gui.pose();
 		Minecraft mc = Minecraft.getInstance();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, texture);
 		int k = (width - imageWidth) / 2;
 		int l = (height - imageHeight) / 2;
-		blit(ms, k, l, 0, 0, imageWidth, imageHeight);
+		gui.blit(texture, k, l, 0, 0, imageWidth, imageHeight);
 
 		for (Slot slot : menu.slots) {
 			if (slot.container == menu.flowerBagInv) {
@@ -63,7 +64,7 @@ public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer
 					// TODO 1.19.4 the method referenced here seems to have changed completely, see if we need to follow or
 					// if this still works
 					ms.translate(0, 0, 300); // similar to ItemRenderer.renderGuiItemDecorations
-					mc.font.drawShadow(ms, "1", x + 11, y + 9, 0xFFFFFF);
+					gui.drawString(mc.font, "1", x + 11, y + 9, 0xFFFFFF);
 					ms.popPose();
 				}
 			}

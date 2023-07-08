@@ -48,21 +48,21 @@ public class MagicLandmineEntity extends Entity {
 		//Proxy.INSTANCE.wispFX(world, getPosX(), getPosY(), getPosZ(), r, g, b, 0.6F, -0.2F, 1);
 		for (int i = 0; i < 6; i++) {
 			WispParticleData data = WispParticleData.wisp(0.4F, r, g, b, (float) 1);
-			getLevel().addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
+			level().addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
 		}
 
 		if (tickCount >= 55) {
-			getLevel().playSound(null, getX(), getY(), getZ(), BotaniaSounds.gaiaTrap, SoundSource.NEUTRAL, 1F, 1F);
+			level().playSound(null, getX(), getY(), getZ(), BotaniaSounds.gaiaTrap, SoundSource.NEUTRAL, 1F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
 			for (int i = 0; i < 25; i++) {
 				WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
-				getLevel().addParticle(data, getX(), getY() + 1, getZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
+				level().addParticle(data, getX(), getY() + 1, getZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 			}
 
-			if (!getLevel().isClientSide) {
-				List<Player> players = getLevel().getEntitiesOfClass(Player.class, getBoundingBox());
+			if (!level().isClientSide) {
+				List<Player> players = level().getEntitiesOfClass(Player.class, getBoundingBox());
 				for (Player player : players) {
 					player.hurt(this.damageSources().indirectMagic(this, summoner), 10);
 					player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 25, 0));

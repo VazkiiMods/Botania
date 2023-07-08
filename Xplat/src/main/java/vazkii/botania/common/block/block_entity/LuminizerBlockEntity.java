@@ -247,7 +247,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 
 	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		if (!(player.getLevel().getBlockState(pos).getBlock() instanceof LuminizerBlock)
+		if (!(player.level().getBlockState(pos).getBlock() instanceof LuminizerBlock)
 				|| pos.distSqr(getBlockPos()) > MAX_DIST * MAX_DIST) {
 			return false;
 		}
@@ -302,7 +302,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 		public void tick() {
 			super.tick();
 
-			if (getPassengers().isEmpty() && !getLevel().isClientSide) {
+			if (getPassengers().isEmpty() && !level().isClientSide) {
 				discard();
 				return;
 			}
@@ -315,14 +315,14 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 			BlockPos pos = blockPosition();
 			BlockPos exitPos = getExitPos();
 
-			if (!getLevel().isClientSide && pos.equals(exitPos)) {
+			if (!level().isClientSide && pos.equals(exitPos)) {
 				boolean done = true;
-				BlockEntity tile = getLevel().getBlockEntity(pos);
+				BlockEntity tile = level().getBlockEntity(pos);
 				if (tile instanceof LuminizerBlockEntity relay) {
-					BlockState state = getLevel().getBlockState(pos);
+					BlockState state = level().getBlockState(pos);
 					if (state.is(BotaniaBlocks.lightRelayDetector)) {
-						getLevel().setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
-						getLevel().scheduleTick(pos, state.getBlock(), 2);
+						level().setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
+						level().scheduleTick(pos, state.getBlock(), 2);
 					}
 
 					BlockPos bind = relay.getNextDestination();
@@ -357,7 +357,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 				int g = (color >> 8) & 0xFF;
 				int b = color & 0xFF;
 				SparkleParticleData data = SparkleParticleData.sparkle(1.2F, r / 255F, g / 255F, b / 255F, 10);
-				getLevel().addParticle(data, getX() + cos * s, getY() - 0.5, getZ() + sin * s, 0, 0, 0);
+				level().addParticle(data, getX() + cos * s, getY() - 0.5, getZ() + sin * s, 0, 0, 0);
 			}
 
 			setPos(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
@@ -399,10 +399,10 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 
 				for (int[] aint1 : aint) {
 					blockpos$mutable.set(blockpos.getX() + aint1[0], blockpos.getY(), blockpos.getZ() + aint1[1]);
-					double d0 = this.getLevel().getBlockFloorHeight(blockpos$mutable);
+					double d0 = this.level().getBlockFloorHeight(blockpos$mutable);
 					if (DismountHelper.isBlockFloorValid(d0)) {
 						Vec3 vector3d = Vec3.upFromBottomCenterOf(blockpos$mutable, d0);
-						if (DismountHelper.canDismountTo(this.getLevel(), living, axisalignedbb.move(vector3d))) {
+						if (DismountHelper.canDismountTo(this.level(), living, axisalignedbb.move(vector3d))) {
 							living.setPose(pose);
 							return vector3d;
 						}

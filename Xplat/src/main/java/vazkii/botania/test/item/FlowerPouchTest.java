@@ -18,7 +18,7 @@ public class FlowerPouchTest {
 		var bag = new ItemStack(BotaniaItems.flowerBag);
 		player.getInventory().setItem(1, bag);
 
-		var flower = new ItemEntity(player.getLevel(), player.getX(), player.getY(), player.getZ(), new ItemStack(BotaniaBlocks.blackShinyFlower, 64));
+		var flower = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), new ItemStack(BotaniaBlocks.blackShinyFlower, 64));
 		TestingUtil.assertThat(!FlowerPouchItem.onPickupItem(flower, player), () -> "Should not pick up glimmering flowers");
 
 		TestingUtil.assertEquals(flower.getItem().getItem(), BotaniaBlocks.blackShinyFlower.asItem());
@@ -37,7 +37,7 @@ public class FlowerPouchTest {
 		var bag = new ItemStack(BotaniaItems.flowerBag);
 		player.getInventory().setItem(1, bag);
 
-		var flower = new ItemEntity(player.getLevel(), player.getX(), player.getY(), player.getZ(), new ItemStack(BotaniaBlocks.blackFlower, 64));
+		var flower = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), new ItemStack(BotaniaBlocks.blackFlower, 64));
 		TestingUtil.assertThat(FlowerPouchItem.onPickupItem(flower, player), () -> "Pickup should succeed since the bag has room");
 		TestingUtil.assertThat(flower.getItem().isEmpty(), () -> "Should have consumed everything");
 

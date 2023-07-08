@@ -53,7 +53,7 @@ public class CirrusAmuletItem extends BaubleItem {
 			if (living == Minecraft.getInstance().player) {
 				LocalPlayer playerSp = (LocalPlayer) living;
 
-				if (playerSp.isOnGround()) {
+				if (playerSp.onGround()) {
 					timesJumped = 0;
 				} else {
 					if (playerSp.input.jumping) {
@@ -76,7 +76,7 @@ public class CirrusAmuletItem extends BaubleItem {
 	}
 
 	public static boolean popJumping(Player entity) {
-		if (entity.getLevel().isClientSide) {
+		if (entity.level().isClientSide) {
 			return timesJumped > 0;
 		}
 		return JUMPING_PLAYERS.remove(entity);

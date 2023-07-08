@@ -14,7 +14,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
@@ -155,7 +155,7 @@ public class AssemblyHaloItem extends Item {
 	}
 
 	void tryCraft(Player player, ItemStack halo, int slot, boolean particles) {
-		Recipe<CraftingContainer> recipe = getSavedRecipe(player.getLevel(), halo, slot);
+		Recipe<CraftingContainer> recipe = getSavedRecipe(player.level(), halo, slot);
 		if (recipe == null) {
 			return;
 		}
@@ -170,14 +170,14 @@ public class AssemblyHaloItem extends Item {
 		}
 
 		// Double check that the recipe matches
-		if (!recipe.matches(craftInv, player.getLevel())) {
+		if (!recipe.matches(craftInv, player.level())) {
 			// If the placer worked but the recipe still didn't, this might be a dynamic recipe with special conditions.
 			// Return items to the inventory and bail.
 			placer.clearGrid();
 			return;
 		}
 
-		ItemStack result = recipe.assemble(craftInv, player.getLevel().registryAccess());
+		ItemStack result = recipe.assemble(craftInv, player.level().registryAccess());
 
 		// Check if we have room for the result
 		if (!hasRoomFor(player.getInventory(), result)) {
@@ -207,7 +207,7 @@ public class AssemblyHaloItem extends Item {
 			return false;
 		}
 
-		Recipe<?> recipe = getSavedRecipe(living.getLevel(), stack, segment);
+		Recipe<?> recipe = getSavedRecipe(living.level(), stack, segment);
 		if (recipe != null && living.isShiftKeyDown()) {
 			saveRecipe(stack, null, segment);
 			return true;
@@ -298,7 +298,7 @@ public class AssemblyHaloItem extends Item {
 			return;
 		}
 
-		player.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, cc, player.getLevel()).ifPresent(recipe -> {
+		player.level().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, cc, player.level()).ifPresent(recipe -> {
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				ItemStack stack = player.getInventory().getItem(i);
 				if (!stack.isEmpty() && stack.getItem() instanceof AssemblyHaloItem) {
@@ -391,7 +391,7 @@ public class AssemblyHaloItem extends Item {
 					inside = true;
 				}
 
-				ItemStack slotStack = getDisplayItem(player.getLevel(), stack, seg);
+				ItemStack slotStack = getDisplayItem(player.level(), stack, seg);
 				if (!slotStack.isEmpty()) {
 					float scale = seg == 0 ? 0.9F : 0.8F;
 					ms.scale(scale, scale, scale);
@@ -400,7 +400,7 @@ public class AssemblyHaloItem extends Item {
 
 					ms.mulPose(VecHelper.rotateY(90.0F));
 					Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemDisplayContext.GUI,
-							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.getLevel(), player.getId());
+							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.level(), player.getId());
 				}
 				ms.popPose();
 
@@ -439,7 +439,7 @@ public class AssemblyHaloItem extends Item {
 			bufferSource.endBatch();
 		}
 
-		public static void renderHUD(PoseStack ms, Player player, ItemStack stack) {
+		public static void renderHUD(GuiGraphics gui, Player player, ItemStack stack) {
 			Minecraft mc = Minecraft.getInstance();
 			int slot = getSegmentLookedAt(stack, player);
 
@@ -449,41 +449,41 @@ public class AssemblyHaloItem extends Item {
 				int x = mc.getWindow().getGuiScaledWidth() / 2 - l / 2;
 				int y = mc.getWindow().getGuiScaledHeight() / 2 - 65;
 
-				GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
-				GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
-				mc.getItemRenderer().renderAndDecorateItem(ms, craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
+				gui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
+				gui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
+				gui.renderItem(craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
 
-				mc.font.drawShadow(ms, name, x, y, 0xFFFFFF);
+				gui.drawString(mc.font, name, x, y, 0xFFFFFF);
 			} else {
-				Recipe<CraftingContainer> recipe = getSavedRecipe(player.getLevel(), stack, slot);
+				Recipe<CraftingContainer> recipe = getSavedRecipe(player.level(), stack, slot);
 				Component label;
 				boolean setRecipe = false;
 
 				if (recipe == null) {
 					label = Component.translatable("botaniamisc.unsetRecipe");
-					recipe = getLastRecipe(player.getLevel(), stack);
+					recipe = getLastRecipe(player.level(), stack);
 				} else {
-					label = recipe.getResultItem(player.getLevel().registryAccess()).getHoverName();
+					label = recipe.getResultItem(player.level().registryAccess()).getHoverName();
 					setRecipe = true;
 				}
 
-				renderRecipe(ms, label, recipe, player, setRecipe);
+				renderRecipe(gui, label, recipe, player, setRecipe);
 			}
 		}
 
-		private static void renderRecipe(PoseStack ms, Component label, @Nullable Recipe<CraftingContainer> recipe, Player player, boolean isSavedRecipe) {
+		private static void renderRecipe(GuiGraphics gui, Component label, @Nullable Recipe<CraftingContainer> recipe, Player player, boolean isSavedRecipe) {
 			Minecraft mc = Minecraft.getInstance();
 
 			ItemStack recipeResult;
-			if (recipe != null && !(recipeResult = recipe.getResultItem(player.level.registryAccess())).isEmpty()) {
+			if (recipe != null && !(recipeResult = recipe.getResultItem(player.level().registryAccess())).isEmpty()) {
 				int x = mc.getWindow().getGuiScaledWidth() / 2 - 45;
 				int y = mc.getWindow().getGuiScaledHeight() / 2 - 90;
 
-				GuiComponent.fill(ms, x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
-				GuiComponent.fill(ms, x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
+				gui.fill(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
+				gui.fill(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
 
-				GuiComponent.fill(ms, x + 66, y + 14, x + 92, y + 40, 0x22000000);
-				GuiComponent.fill(ms, x - 2, y - 2, x + 56, y + 56, 0x22000000);
+				gui.fill(x + 66, y + 14, x + 92, y + 40, 0x22000000);
+				gui.fill(x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
 				int wrap = recipe instanceof ShapedRecipe shaped ? shaped.getWidth() : 3;
 				for (int i = 0; i < recipe.getIngredients().size(); i++) {
@@ -492,25 +492,25 @@ public class AssemblyHaloItem extends Item {
 						ItemStack stack = ingr.getItems()[ClientTickHandler.ticksInGame / 20 % ingr.getItems().length];
 						int xpos = x + i % wrap * 18;
 						int ypos = y + i / wrap * 18;
-						GuiComponent.fill(ms, xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
+						gui.fill(xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
 
-						mc.getItemRenderer().renderAndDecorateItem(ms, stack, xpos, ypos);
+						gui.renderItem(stack, xpos, ypos);
 					}
 				}
 
-				mc.getItemRenderer().renderAndDecorateItem(ms, recipeResult, x + 72, y + 18);
-				mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, recipeResult, x + 72, y + 18);
+				gui.renderItem(recipeResult, x + 72, y + 18);
+				gui.renderItemDecorations(mc.font, recipeResult, x + 72, y + 18);
 
 			}
 
 			int yoff = 110;
 			if (isSavedRecipe && recipe != null && !canCraftHeuristic(player, recipe)) {
 				String warning = ChatFormatting.RED + I18n.get("botaniamisc.cantCraft");
-				mc.font.drawShadow(ms, warning, mc.getWindow().getGuiScaledWidth() / 2.0F - mc.font.width(warning) / 2.0F, mc.getWindow().getGuiScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+				gui.drawCenteredString(mc.font, warning, mc.getWindow().getGuiScaledWidth() / 2, mc.getWindow().getGuiScaledHeight() / 2 - yoff, 0xFFFFFF);
 				yoff += 12;
 			}
 
-			mc.font.drawShadow(ms, label, mc.getWindow().getGuiScaledWidth() / 2.0F - mc.font.width(label.getString()) / 2.0F, mc.getWindow().getGuiScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+			gui.drawCenteredString(mc.font, label, mc.getWindow().getGuiScaledWidth() / 2, mc.getWindow().getGuiScaledHeight() / 2 - yoff, 0xFFFFFF);
 		}
 	}
 

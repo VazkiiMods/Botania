@@ -8,12 +8,12 @@
  */
 package vazkii.botania.fabric.mixin.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 
+import org.joml.Vector2ic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,10 +24,10 @@ import vazkii.botania.client.gui.ManaBarTooltipComponent;
 
 import java.util.List;
 
-@Mixin(Screen.class)
-public class ScreenFabricMixin {
+@Mixin(GuiGraphics.class)
+public class GuiGraphicsFabricMixin {
 	@Inject(method = "renderTooltipInternal", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void renderManaBar(PoseStack poseStack, List<ClientTooltipComponent> components, int oldX, int oldY, ClientTooltipPositioner positioner, CallbackInfo ci, int width, int height, int x, int y) {
+	private void renderManaBar(Font font, List<ClientTooltipComponent> components, int oldX, int oldY, ClientTooltipPositioner positioner, CallbackInfo ci, int width, int height, int i, int j, Vector2ic vector2ic, int x, int y) {
 		for (ClientTooltipComponent component : components) {
 			if (component instanceof ManaBarTooltipComponent manaBar) {
 				manaBar.setContext(x, y, width);

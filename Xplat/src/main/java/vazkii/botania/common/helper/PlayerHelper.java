@@ -135,14 +135,14 @@ public final class PlayerHelper {
 
 	public static boolean hasAdvancement(ServerPlayer player, ResourceLocation advancementId) {
 		PlayerAdvancements advancements = player.getAdvancements();
-		ServerAdvancementManager manager = player.getLevel().getServer().getAdvancements();
+		ServerAdvancementManager manager = player.level().getServer().getAdvancements();
 		Advancement advancement = manager.getAdvancement(advancementId);
 		return advancement != null && advancements.getOrStartProgress(advancement).isDone();
 	}
 
 	public static void grantCriterion(ServerPlayer player, ResourceLocation advancementId, String criterion) {
 		PlayerAdvancements advancements = player.getAdvancements();
-		ServerAdvancementManager manager = player.getLevel().getServer().getAdvancements();
+		ServerAdvancementManager manager = player.level().getServer().getAdvancements();
 		Advancement advancement = manager.getAdvancement(advancementId);
 		if (advancement != null && !advancements.getOrStartProgress(advancement).isDone()) {
 			advancements.award(advancement, criterion);

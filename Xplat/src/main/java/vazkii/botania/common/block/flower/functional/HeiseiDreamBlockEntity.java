@@ -70,7 +70,7 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 		if (!(target instanceof Enemy)) {
 			Enemy newTarget;
 			do {
-				newTarget = mobs.get(entity.getLevel().random.nextInt(mobs.size()));
+				newTarget = mobs.get(entity.level().random.nextInt(mobs.size()));
 			} while (newTarget == entity);
 
 			if (newTarget instanceof Mob mob) {

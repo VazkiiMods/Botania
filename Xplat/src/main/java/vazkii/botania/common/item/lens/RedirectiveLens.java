@@ -28,7 +28,7 @@ public class RedirectiveLens extends Lens {
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		BlockPos sourcePos = burst.getBurstSourceBlockPos();
 		var burstEntity = burst.entity();
-		if (!burstEntity.getLevel().isClientSide && !burst.isFake()) {
+		if (!burstEntity.level().isClientSide && !burst.isFake()) {
 			if (pos instanceof BlockHitResult result
 					&& result.getType() != HitResult.Type.MISS
 					&& !result.getBlockPos().equals(sourcePos)) {
@@ -50,7 +50,7 @@ public class RedirectiveLens extends Lens {
 		if (!sourcePos.equals(ManaBurst.NO_SOURCE)) {
 			var sourceVec = Vec3.atCenterOf(sourcePos);
 			AABB axis;
-			VoxelShape collideShape = entity.getLevel().getBlockState(sourcePos).getCollisionShape(entity.getLevel(), sourcePos);
+			VoxelShape collideShape = entity.level().getBlockState(sourcePos).getCollisionShape(entity.level(), sourcePos);
 			if (collideShape.isEmpty()) {
 				axis = new AABB(sourcePos, sourcePos.offset(1, 1, 1));
 			} else {
@@ -84,8 +84,8 @@ public class RedirectiveLens extends Lens {
 
 		var entity = burst.entity();
 		var hitPos = result.getBlockPos();
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.getLevel(), hitPos,
-				entity.getLevel().getBlockState(hitPos), entity.getLevel().getBlockEntity(hitPos), result.getDirection());
+		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.level(), hitPos,
+				entity.level().getBlockState(hitPos), entity.level().getBlockEntity(hitPos), result.getDirection());
 		if (receiver instanceof ManaSpreader spreader) {
 			Vec3 tileVec = Vec3.atCenterOf(hitPos);
 			Vec3 diffVec = sourceVec.subtract(tileVec);

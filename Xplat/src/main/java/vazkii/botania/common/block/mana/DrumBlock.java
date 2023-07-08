@@ -65,7 +65,7 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 	}
 
 	private static void convertNearby(Entity entity, Item from, Item to) {
-		Level world = entity.getLevel();
+		Level world = entity.level();
 		List<ItemEntity> items = world.getEntitiesOfClass(ItemEntity.class, entity.getBoundingBox());
 		for (ItemEntity item : items) {
 			ItemStack itemstack = item.getItem();

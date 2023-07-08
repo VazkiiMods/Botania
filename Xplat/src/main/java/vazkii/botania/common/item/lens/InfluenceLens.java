@@ -32,12 +32,12 @@ public class InfluenceLens extends Lens {
 		if (!burst.isFake()) {
 			double range = 3.5;
 			AABB bounds = new AABB(entity.getX() - range, entity.getY() - range, entity.getZ() - range, entity.getX() + range, entity.getY() + range, entity.getZ() + range);
-			var items = entity.getLevel().getEntitiesOfClass(ItemEntity.class, bounds);
-			var expOrbs = entity.getLevel().getEntitiesOfClass(ExperienceOrb.class, bounds);
-			var arrows = entity.getLevel().getEntitiesOfClass(AbstractArrow.class, bounds);
-			var fallingBlocks = entity.getLevel().getEntitiesOfClass(FallingBlockEntity.class, bounds);
-			var primedTnt = entity.getLevel().getEntitiesOfClass(PrimedTnt.class, bounds);
-			var bursts = entity.getLevel().getEntitiesOfClass(ThrowableProjectile.class, bounds, Predicates.instanceOf(ManaBurst.class));
+			var items = entity.level().getEntitiesOfClass(ItemEntity.class, bounds);
+			var expOrbs = entity.level().getEntitiesOfClass(ExperienceOrb.class, bounds);
+			var arrows = entity.level().getEntitiesOfClass(AbstractArrow.class, bounds);
+			var fallingBlocks = entity.level().getEntitiesOfClass(FallingBlockEntity.class, bounds);
+			var primedTnt = entity.level().getEntitiesOfClass(PrimedTnt.class, bounds);
+			var bursts = entity.level().getEntitiesOfClass(ThrowableProjectile.class, bounds, Predicates.instanceOf(ManaBurst.class));
 
 			var concat = Iterables.concat(items, expOrbs, arrows, fallingBlocks, primedTnt, bursts);
 			for (Entity movable : concat) {

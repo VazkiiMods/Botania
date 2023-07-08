@@ -35,16 +35,16 @@ public class LootTableMixin {
 	@Unique
 	private boolean callingGogTable;
 
-	@Inject(at = @At("RETURN"), method = "getRandomItemsRaw")
+	@Inject(at = @At("RETURN"), method = "getRandomItemsRaw(Lnet/minecraft/world/level/storage/loot/LootContext;Ljava/util/function/Consumer;)V")
 	private void addGogSeeds(LootContext context, Consumer<ItemStack> stacksOut, CallbackInfo ci) {
 		if (XplatAbstractions.INSTANCE.gogLoaded() && !callingGogTable) {
 			callingGogTable = true;
-			context.getLootTable(GOG_SEEDS).getRandomItems(context, stacksOut);
+			context.getResolver().getLootTable(GOG_SEEDS).getRandomItems(context, stacksOut);
 			callingGogTable = false;
 		}
 	}
 
-	@ModifyVariable(method = "getRandomItemsRaw", at = @At("HEAD"), argsOnly = true)
+	@ModifyVariable(method = "getRandomItemsRaw(Lnet/minecraft/world/level/storage/loot/LootContext;Ljava/util/function/Consumer;)V", at = @At("HEAD"), argsOnly = true)
 	private Consumer<ItemStack> filterDisposables(Consumer<ItemStack> inner, LootContext context) {
 		return stack -> {
 			Entity e = context.getParamOrNull(LootContextParams.THIS_ENTITY);

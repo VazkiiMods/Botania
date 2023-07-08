@@ -9,8 +9,8 @@
 package vazkii.botania.client.gui.box;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
@@ -30,25 +30,24 @@ public class BaubleBoxGui extends AbstractContainerScreen<BaubleBoxContainer> {
 	}
 
 	@Override
-	public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(ms);
-		super.render(ms, mouseX, mouseY, partialTicks);
+	public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(gui);
+		super.render(gui, mouseX, mouseY, partialTicks);
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
-		this.renderTooltip(ms, mouseX, mouseY);
+		this.renderTooltip(gui, mouseX, mouseY);
 	}
 
 	@Override
-	protected void renderLabels(PoseStack matrixStack, int x, int y) {
+	protected void renderLabels(GuiGraphics gui, int x, int y) {
 		// No-op, there's no space for gui titles
 	}
 
 	@Override
-	protected void renderBg(PoseStack ms, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, texture);
-		blit(ms, leftPos, topPos, 0, 0, imageWidth, imageHeight);
-		InventoryScreen.renderEntityInInventoryFollowsMouse(ms, leftPos + 31, topPos + 75, 30, leftPos + 31 - this.mouseX, topPos + 75 - 50 - this.mouseY, minecraft.player);
+		gui.blit(texture, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+		InventoryScreen.renderEntityInInventoryFollowsMouse(gui, leftPos + 31, topPos + 75, 30, leftPos + 31 - this.mouseX, topPos + 75 - 50 - this.mouseY, minecraft.player);
 	}
 
 }

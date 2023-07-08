@@ -51,7 +51,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 
 	public static void onEntityDamaged(Player player, Entity entity) {
 		if (entity instanceof Mob target
-				&& !entity.getLevel().isClientSide
+				&& !entity.level().isClientSide
 				&& entity.canChangeDimensions()
 				&& Math.random() < 0.6F) {
 			ItemStack amulet = EquipmentHandler.findOrEmpty(BotaniaItems.divaCharm, player);
@@ -62,7 +62,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 					final int range = 20;
 
 					@SuppressWarnings("unchecked")
-					List<Enemy> mobs = (List<Enemy>) (List<?>) player.getLevel().getEntitiesOfClass(Entity.class, new AABB(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(Enemy.class));
+					List<Enemy> mobs = (List<Enemy>) (List<?>) player.level().getEntitiesOfClass(Entity.class, new AABB(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(Enemy.class));
 					if (mobs.size() > 1) {
 						if (HeiseiDreamBlockEntity.brainwashEntity(target, mobs)) {
 							target.heal(target.getMaxHealth());
@@ -72,7 +72,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 							}
 
 							ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);
-							player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.divaCharm, SoundSource.PLAYERS, 1F, 1F);
+							player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.divaCharm, SoundSource.PLAYERS, 1F, 1F);
 							XplatAbstractions.INSTANCE.sendToTracking(target, new BotaniaEffectPacket(EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getId()));
 						}
 					}
@@ -88,7 +88,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 			ms.translate(0.15, -0.42, -0.35);
 			ms.scale(0.4F, -0.4F, -0.4F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getLevel(), living.getId());
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.level(), living.getId());
 		}
 	}
 }

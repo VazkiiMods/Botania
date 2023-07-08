@@ -30,7 +30,7 @@ public class ElementiumShovelItem extends ManasteelShovelItem {
 
 	@SoftImplement("IForgeItem")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
-		Level world = player.getLevel();
+		Level world = player.level();
 		BlockState blockState = world.getBlockState(pos);
 		if (this.getDestroySpeed(stack, blockState) <= 1.0F) {
 			return false;

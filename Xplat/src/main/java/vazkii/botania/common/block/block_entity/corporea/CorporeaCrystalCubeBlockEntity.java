@@ -11,6 +11,7 @@ package vazkii.botania.common.block.block_entity.corporea;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -158,7 +159,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 			for (ItemStack reqStack : stacks) {
 				ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, reqStack);
 				level.addFreshEntity(item);
-				if (requestTarget.sameItem(reqStack)) {
+				if (ItemStack.isSameItem(requestTarget, reqStack)) {
 					sum += reqStack.getCount();
 					did = true;
 				}
@@ -183,7 +184,8 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	}
 
 	public static class Hud {
-		public static void render(PoseStack ps, CorporeaCrystalCubeBlockEntity cube) {
+		public static void render(GuiGraphics gui, CorporeaCrystalCubeBlockEntity cube) {
+			PoseStack ps = gui.pose();
 			Minecraft mc = Minecraft.getInstance();
 			ProfilerFiller profiler = mc.getProfiler();
 
@@ -204,16 +206,16 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 				ps.pushPose();
 				ps.translate(centerX, centerY, 0);
 
-				RenderHelper.renderHUDBox(ps, 8, -11, strlen + 32, cube.locked ? 21 : 11);
+				RenderHelper.renderHUDBox(gui, 8, -11, strlen + 32, cube.locked ? 21 : 11);
 
-				mc.font.drawShadow(ps, nameStr, 30, -9, 0x6666FF);
-				mc.font.drawShadow(ps, countStr, 30, 1, 0xFFFFFF);
+				gui.drawString(mc.font, nameStr, 30, -9, 0x6666FF);
+				gui.drawString(mc.font, countStr, 30, 1, 0xFFFFFF);
 				if (cube.locked) {
-					mc.font.drawShadow(ps, lockedStr, 30, 11, 0xFFAA00);
+					gui.drawString(mc.font, lockedStr, 30, 11, 0xFFAA00);
 				}
 
 				// todo 1.19.4 verify
-				mc.getItemRenderer().renderAndDecorateItem(ps, target, 10, 9);
+				gui.renderItem(target, 10, 9);
 
 				ps.popPose();
 			}

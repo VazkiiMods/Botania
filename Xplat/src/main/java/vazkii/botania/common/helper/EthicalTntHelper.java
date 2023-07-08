@@ -78,7 +78,7 @@ public class EthicalTntHelper {
 
 	private void addTrackedEntity(PrimedTnt entity) {
 		if (trackTntEntities.get() > 0) {
-			trackedTntEntities.computeIfAbsent(entity.getLevel(), lvl -> new IntOpenHashSet()).add(entity.getId());
+			trackedTntEntities.computeIfAbsent(entity.level(), lvl -> new IntOpenHashSet()).add(entity.getId());
 		}
 	}
 
@@ -102,20 +102,20 @@ public class EthicalTntHelper {
 
 	private static void checkUnethical(PrimedTnt entity) {
 		BlockPos center = entity.blockPosition();
-		if (!entity.getLevel().isLoaded(center)) {
+		if (!entity.level().isLoaded(center)) {
 			return;
 		}
 
 		BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
 		for (final var dir : Direction.values()) {
 			blockPos.setWithOffset(center, dir);
-			if (!entity.getLevel().isLoaded(blockPos)) {
+			if (!entity.level().isLoaded(blockPos)) {
 				continue;
 			}
 
-			final var blockState = entity.getLevel().getBlockState(blockPos);
+			final var blockState = entity.level().getBlockState(blockPos);
 			if (blockState.is(Blocks.MOVING_PISTON)) {
-				final var blockEntity = entity.getLevel().getBlockEntity(blockPos);
+				final var blockEntity = entity.level().getBlockEntity(blockPos);
 				if (blockEntity instanceof PistonMovingBlockEntity movingBlockEntity
 						&& movingBlockEntity.getMovementDirection() == dir
 						&& movingBlockEntity.getMovedState().getBlock() instanceof TntBlock) {
