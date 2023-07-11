@@ -169,7 +169,7 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		@NotNull
 		@Override
 		public List<BakedModel> getRenderPasses(@NotNull ItemStack stack, boolean fabulous) {
-			return List.of(flower, islands.get(FloatingFlower.IslandType.GRASS));
+			return List.of(flower);
 		}
 
 		@NotNull
