@@ -59,7 +59,7 @@ repositories {
     }
     maven {
           name = "Ladysnake Libs"
-          url = 'https://ladysnake.jfrog.io/artifactory/mods'
+          url = 'https://maven.ladysnake.org/releases'
     }
     maven {
         name = "BuildCraft" // for LBA
@@ -107,7 +107,7 @@ dependencies {
 
     compileOnly project(":Xplat")
 
-    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-80-FABRIC-SNAPSHOT"
+    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-81-FABRIC"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.0.625"
 
