@@ -14,10 +14,13 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 
+import net.minecraft.resources.ResourceLocation;
 import vazkii.botania.network.TriConsumer;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.function.Consumer;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class CoreShaders {
 	private static ShaderInstance starfieldShaderInstance;
@@ -32,41 +35,50 @@ public class CoreShaders {
 
 	// This is abstracted this way instead of just directly constructing the ShaderInstance
 	// Because Fabric is cute and hides the ResourceProvider from modders (why?)
-	public static void init(TriConsumer<String, VertexFormat, Consumer<ShaderInstance>> registrations) {
+	public static void init(TriConsumer<ResourceLocation, VertexFormat, Consumer<ShaderInstance>> registrations) {
 		registrations.accept(
-				"botania__starfield", DefaultVertexFormat.POSITION,
+				prefix("starfield"),
+				DefaultVertexFormat.POSITION,
 				inst -> starfieldShaderInstance = inst
 		);
 		registrations.accept(
-				"botania__doppleganger", DefaultVertexFormat.NEW_ENTITY,
+				prefix("doppleganger"),
+				DefaultVertexFormat.NEW_ENTITY,
 				inst -> doppleganger = inst
 		);
 		registrations.accept(
-				"botania__mana_pool", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
+				prefix("mana_pool"),
+				DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
 				inst -> manaPool = inst
 		);
 		registrations.accept(
-				"botania__terra_plate_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
+				prefix("terra_plate_rune"),
+				DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
 				inst -> terraPlate = inst
 		);
 		registrations.accept(
-				"botania__enchanter_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
+				prefix("enchanter_rune"),
+				DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
 				inst -> enchanter = inst
 		);
 		registrations.accept(
-				"botania__pylon", DefaultVertexFormat.NEW_ENTITY,
+				prefix("pylon"),
+				DefaultVertexFormat.NEW_ENTITY,
 				inst -> pylon = inst
 		);
 		registrations.accept(
-				"botania__halo", DefaultVertexFormat.POSITION_COLOR_TEX,
+				prefix("halo"),
+				DefaultVertexFormat.POSITION_COLOR_TEX,
 				inst -> halo = inst
 		);
 		registrations.accept(
-				"botania__film_grain_particle", DefaultVertexFormat.PARTICLE,
+				prefix("film_grain_particle"),
+				DefaultVertexFormat.PARTICLE,
 				inst -> filmGrainParticle = inst
 		);
 		registrations.accept(
-				"botania__doppleganger_bar", DefaultVertexFormat.POSITION_TEX,
+				prefix("doppleganger_bar"),
+				DefaultVertexFormat.POSITION_TEX,
 				inst -> dopplegangerBar = inst
 		);
 	}

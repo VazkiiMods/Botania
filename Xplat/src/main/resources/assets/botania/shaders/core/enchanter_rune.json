@@ -1,16 +1,17 @@
 {
-  "__comment": "[VanillaCopy] position_color_tex.json with extra uniform + own shaders",
+  "__comment": "[VanillaCopy] rendertype_position_color_tex_lightmap.json with extra uniforms + own frag shader",
   "blend": {
     "func": "add",
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "position_color_tex",
-  "fragment": "botania__halo",
+  "vertex": "position_color_tex_lightmap",
+  "fragment": "botania:enchanter_rune",
   "attributes": [
     "Position",
     "Color",
-    "UV0"
+    "UV0",
+    "UV2"
   ],
   "samplers": [
     { "name": "Sampler0" }

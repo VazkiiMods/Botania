@@ -67,12 +67,14 @@ import java.io.UncheckedIOException;
 import java.util.SortedMap;
 import java.util.function.Function;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class FabricClientInitializer implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		CoreShaderRegistrationCallback.EVENT.register(ctx -> CoreShaders.init((name, vertexFormat, onLoaded) -> {
+		CoreShaderRegistrationCallback.EVENT.register(ctx -> CoreShaders.init((id, vertexFormat, onLoaded) -> {
 			try {
-				ctx.register(new ResourceLocation(name), vertexFormat, onLoaded);
+				ctx.register(id, vertexFormat, onLoaded);
 			} catch (IOException e) {
 				throw new UncheckedIOException(e);
 			}

@@ -6,7 +6,7 @@
     "dstrgb": "1-srcalpha"
   },
   "vertex": "position_color_tex_lightmap",
-  "fragment": "botania__terra_plate_rune",
+  "fragment": "botania:terra_plate_rune",
   "attributes": [
     "Position",
     "Color",

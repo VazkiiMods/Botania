@@ -278,10 +278,10 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void registerShaders(RegisterShadersEvent evt) {
-		CoreShaders.init((name, vertexFormat, onLoaded) -> {
+		CoreShaders.init((id, vertexFormat, onLoaded) -> {
 			try {
 				evt.registerShader(
-						new ShaderInstance(evt.getResourceProvider(), name, vertexFormat),
+						new ShaderInstance(evt.getResourceProvider(), id, vertexFormat),
 						onLoaded
 				);
 			} catch (IOException e) {

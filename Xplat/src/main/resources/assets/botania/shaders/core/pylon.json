@@ -1,12 +1,12 @@
 {
-  "__comment": "[VanillaCopy] rendertype_entity_translucent.json with extra uniforms and custom shaders",
+  "__comment": "[VanillaCopy] rendertype_entity_translucent.json with extra uniforms + own fragment shader",
   "blend": {
     "func": "add",
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "botania__doppleganger",
-  "fragment": "botania__doppleganger",
+  "vertex": "rendertype_entity_translucent",
+  "fragment": "botania:pylon",
   "attributes": [
     "Position",
     "Color",
@@ -29,8 +29,6 @@
     { "name": "FogStart", "type": "float", "count": 1, "values": [ 0.0 ] },
     { "name": "FogEnd", "type": "float", "count": 1, "values": [ 1.0 ] },
     { "name": "FogColor", "type": "float", "count": 4, "values": [ 0.0, 0.0, 0.0, 0.0 ] },
-    { "name": "GameTime", "type": "float", "count": 1, "values": [ 0.0 ] },
-    { "name": "BotaniaDisfiguration", "type": "float", "count": 1, "values": [ 0.025 ] },
-    { "name": "BotaniaGrainIntensity", "type": "float", "count": 1, "values": [ 0.05 ] }
+    { "name": "GameTime", "type": "float", "count": 1, "values": [ 0.0 ] }
   ]
 }

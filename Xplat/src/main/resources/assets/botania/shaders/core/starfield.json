@@ -5,7 +5,7 @@
     "dstrgb": "1-srcalpha"
   },
   "vertex": "rendertype_end_portal",
-  "fragment": "botania__starfield",
+  "fragment": "botania:starfield",
   "attributes": [],
   "samplers": [
     { "name": "Sampler0" },

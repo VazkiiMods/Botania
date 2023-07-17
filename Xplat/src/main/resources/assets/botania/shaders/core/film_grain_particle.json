@@ -6,7 +6,7 @@
     "dstrgb": "1-srcalpha"
   },
   "vertex": "particle",
-  "fragment": "botania__film_grain_particle",
+  "fragment": "botania:film_grain_particle",
   "attributes": [
     "Position",
     "UV0",
