@@ -107,9 +107,6 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 
 		ms.popPose();
 
-		// FIXME: This does not depend on the state of the block entity and should be
-		// rendered as part of the static chunk geometry. Will require minor reshuffling
-		// of the model files.
 		if (spreader.getBlockState().getValue(BotaniaStateProperties.HAS_SCAFFOLDING)) {
 			BakedModel scaffolding = getScaffoldingModel(spreader);
 			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
