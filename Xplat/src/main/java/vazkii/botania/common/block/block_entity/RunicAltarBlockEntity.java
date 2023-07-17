@@ -407,11 +407,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 					if (progress == 1F) {
 						gui.renderFakeItem(new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
-						// todo(1.19.4) review this sketchy transform. Can probably be applied to ms directly.
-						PoseStack pose = RenderSystem.getModelViewStack();
-						pose.pushPose();
-						pose.translate(0, 0, 100);
-						RenderSystem.applyModelViewMatrix();
+						ms.pushPose();
+						ms.translate(0, 0, 100);
 						// If the player is holding a WandOfTheForestItem or has one in their inventory, render that instead of a generic twigWand
 						ItemStack playerWand = PlayerHelper.getFirstHeldItemClass(mc.player, WandOfTheForestItem.class);
 						if (playerWand.isEmpty()) {
@@ -419,8 +416,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						}
 						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.twigWand) : playerWand;
 						gui.renderFakeItem(wandToRender, xc + radius + 24, yc + 8);
-						pose.popPose();
-						RenderSystem.applyModelViewMatrix();
+						ms.popPose();
 					}
 
 					RenderHelper.renderProgressPie(gui, xc + radius + 32, yc - 8, progress,
@@ -434,7 +430,6 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				for (int i = 0; i < amt; i++) {
 					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 					double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-					// todo 1.19.4 check
 					ms.pushPose();
 					ms.translate(xPos, yPos, 0);
 					gui.renderFakeItem(altar.getItemHandler().getItem(i), 0, 0);

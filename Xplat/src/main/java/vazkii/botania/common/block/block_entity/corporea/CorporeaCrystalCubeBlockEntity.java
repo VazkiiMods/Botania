@@ -214,7 +214,6 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 					gui.drawString(mc.font, lockedStr, 30, 11, 0xFFAA00);
 				}
 
-				// todo 1.19.4 verify
 				gui.renderItem(target, 10, 9);
 
 				ps.popPose();

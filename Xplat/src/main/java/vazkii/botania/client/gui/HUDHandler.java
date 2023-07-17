@@ -338,16 +338,14 @@ public final class HUDHandler {
 
 		RenderSystem.disableDepthTest();
 		ms.pushPose();
-		// TODO 1.19.4 re-check this. maybe just 200 + 1 will do?
-		// renderAndDecorateItem draws at 50, + 200 (further down the call stack).
-		// We want the checkmark on top of that. yeah these numbers are pretty arbitrary and dumb
-		ms.translate(0, 0, 50 + 200 + 1);
+		// Magic number to get the string above the item we just rendered.
+		ms.translate(0, 0, 200);
 		if (properlyBound) {
-			gui.drawString(mc.font, "\u2714", x + 10, y + 9, 0x004C00);
-			gui.drawString(mc.font, "\u2714", x + 10, y + 8, 0x0BD20D);
+			gui.drawString(mc.font, "✔", x + 10, y + 9, 0x004C00);
+			gui.drawString(mc.font, "✔", x + 10, y + 8, 0x0BD20D);
 		} else {
-			gui.drawString(mc.font, "\u2718", x + 10, y + 9, 0x4C0000);
-			gui.drawString(mc.font, "\u2718", x + 10, y + 8, 0xD2080D);
+			gui.drawString(mc.font, "✘", x + 10, y + 9, 0x4C0000);
+			gui.drawString(mc.font, "✘", x + 10, y + 8, 0xD2080D);
 		}
 		ms.popPose();
 		RenderSystem.enableDepthTest();

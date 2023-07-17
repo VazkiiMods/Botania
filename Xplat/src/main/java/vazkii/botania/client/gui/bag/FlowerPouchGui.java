@@ -60,10 +60,10 @@ public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer
 					ItemStack missingFlower = new ItemStack(FlowerPouchItem.getFlowerForSlot(slot.index));
 					RenderHelper.renderGuiItemAlpha(missingFlower, x, y, 0x5F, mc.getItemRenderer());
 				} else if (slot.getItem().getCount() == 1) {
+					// Always draw the count even at 1
 					ms.pushPose();
-					// TODO 1.19.4 the method referenced here seems to have changed completely, see if we need to follow or
-					// if this still works
-					ms.translate(0, 0, 300); // similar to ItemRenderer.renderGuiItemDecorations
+					// Same as how much vanilla offsets when drawing items in guis
+					ms.translate(0, 0, 200);
 					gui.drawString(mc.font, "1", x + 11, y + 9, 0xFFFFFF);
 					ms.popPose();
 				}

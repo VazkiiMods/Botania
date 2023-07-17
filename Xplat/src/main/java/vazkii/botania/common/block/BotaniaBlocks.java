@@ -329,7 +329,6 @@ public final class BotaniaBlocks {
 	public static final Block incensePlate = new IncensePlateBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block hourglass = new HoveringHourglassBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).strength(2).sound(SoundType.METAL));
 	public static final Block ghostRail = new SpectralRailBlock(BlockBehaviour.Properties.copy(Blocks.RAIL));
-	// TODO 1.20 double check that this is still transparent and everything
 	public static final Block lightRelayDefault = new LuminizerBlock(LuminizerVariant.DEFAULT, BlockBehaviour.Properties.of().noCollission());
 	public static final Block lightRelayDetector = new LuminizerBlock(LuminizerVariant.DETECTOR, BlockBehaviour.Properties.copy(lightRelayDefault));
 	public static final Block lightRelayFork = new LuminizerBlock(LuminizerVariant.FORK, BlockBehaviour.Properties.copy(lightRelayDefault));
