@@ -30,5 +30,6 @@
     "recipes": [
       "botania:diva_charm"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

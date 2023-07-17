@@ -20,5 +20,6 @@
   "result": {
     "count": 2,
     "item": "botania:flare_chakram"
-  }
+  },
+  "show_notification": true
 }

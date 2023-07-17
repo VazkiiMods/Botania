@@ -30,5 +30,6 @@
     "recipes": [
       "botania:blaze_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

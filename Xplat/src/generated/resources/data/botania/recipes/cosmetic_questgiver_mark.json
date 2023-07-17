@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_questgiver_mark"
-  }
+  },
+  "show_notification": true
 }

@@ -43,5 +43,6 @@
     "recipes": [
       "botania:ender_hand"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

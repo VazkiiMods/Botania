@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_heisei_dream"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cacophonium"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

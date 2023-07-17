@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_plains_stone_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

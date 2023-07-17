@@ -30,5 +30,6 @@
     "recipes": [
       "botania:smelting/metamorphic_mesa_stone"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

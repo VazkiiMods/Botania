@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:metamorphic_forest_bricks"
-  }
+  },
+  "show_notification": true
 }

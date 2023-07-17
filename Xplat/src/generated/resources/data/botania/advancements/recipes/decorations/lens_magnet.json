@@ -30,5 +30,6 @@
     "recipes": [
       "botania:lens_magnet"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

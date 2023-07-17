@@ -133,5 +133,6 @@
       "tiara_7",
       "tiara_8"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

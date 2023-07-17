@@ -30,5 +30,6 @@
     "recipes": [
       "botania:crafty_crate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

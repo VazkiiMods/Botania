@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_orechid"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_alien_antenna"
-  }
+  },
+  "show_notification": true
 }

@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:pattern_donut"
-  }
+  },
+  "show_notification": true
 }

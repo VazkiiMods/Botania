@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:alchemy_catalyst"
-  }
+  },
+  "show_notification": true
 }

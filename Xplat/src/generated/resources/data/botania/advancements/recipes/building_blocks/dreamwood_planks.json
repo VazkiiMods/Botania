@@ -28,5 +28,6 @@
     "recipes": [
       "botania:dreamwood_planks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

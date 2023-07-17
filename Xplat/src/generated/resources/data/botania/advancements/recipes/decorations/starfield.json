@@ -41,5 +41,6 @@
     "recipes": [
       "botania:starfield"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

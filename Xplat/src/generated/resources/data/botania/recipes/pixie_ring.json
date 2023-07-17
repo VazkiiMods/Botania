@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:pixie_ring"
-  }
+  },
+  "show_notification": true
 }

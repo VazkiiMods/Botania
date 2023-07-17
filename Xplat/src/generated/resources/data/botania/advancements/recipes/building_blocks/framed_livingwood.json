@@ -30,5 +30,6 @@
     "recipes": [
       "botania:framed_livingwood"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

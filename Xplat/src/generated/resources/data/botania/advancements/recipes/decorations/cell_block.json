@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cell_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

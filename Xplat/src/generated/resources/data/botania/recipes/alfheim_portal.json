@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:alfheim_portal"
-  }
+  },
+  "show_notification": true
 }

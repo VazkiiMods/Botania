@@ -28,5 +28,6 @@
     "recipes": [
       "botania:lens_redirect"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

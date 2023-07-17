@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:knockback_belt"
-  }
+  },
+  "show_notification": true
 }

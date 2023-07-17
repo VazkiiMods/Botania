@@ -30,5 +30,6 @@
     "recipes": [
       "botania:hourglass"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -28,5 +28,6 @@
     "recipes": [
       "botania:rainbow_rod"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

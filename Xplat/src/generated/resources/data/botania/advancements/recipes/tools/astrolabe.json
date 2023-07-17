@@ -30,5 +30,6 @@
     "recipes": [
       "botania:astrolabe"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

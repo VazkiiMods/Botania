@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:travel_belt"
-  }
+  },
+  "show_notification": true
 }

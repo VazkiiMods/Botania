@@ -28,5 +28,6 @@
   ],
   "result": {
     "item": "botania:laputa_shard"
-  }
+  },
+  "show_notification": true
 }

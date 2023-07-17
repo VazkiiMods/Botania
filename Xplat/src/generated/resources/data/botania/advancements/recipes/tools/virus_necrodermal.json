@@ -43,5 +43,6 @@
     "recipes": [
       "botania:virus_necrodermal"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

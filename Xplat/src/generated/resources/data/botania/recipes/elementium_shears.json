@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:elementium_shears"
-  }
+  },
+  "show_notification": true
 }

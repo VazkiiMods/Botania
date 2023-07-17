@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:black_hole_talisman"
-  }
+  },
+  "show_notification": true
 }

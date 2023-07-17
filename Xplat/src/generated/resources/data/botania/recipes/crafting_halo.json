@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:crafting_halo"
-  }
+  },
+  "show_notification": true
 }

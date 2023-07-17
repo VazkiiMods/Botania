@@ -43,5 +43,6 @@
     "recipes": [
       "botania:petal_pink_double"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

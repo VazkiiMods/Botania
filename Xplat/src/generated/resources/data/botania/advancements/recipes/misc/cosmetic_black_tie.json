@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_black_tie"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

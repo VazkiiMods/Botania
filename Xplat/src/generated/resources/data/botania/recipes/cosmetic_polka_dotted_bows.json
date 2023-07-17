@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_polka_dotted_bows"
-  }
+  },
+  "show_notification": true
 }

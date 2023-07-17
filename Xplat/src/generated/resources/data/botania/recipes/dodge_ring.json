@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:dodge_ring"
-  }
+  },
+  "show_notification": true
 }

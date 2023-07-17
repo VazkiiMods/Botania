@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_plains_cobblestone_stairs"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

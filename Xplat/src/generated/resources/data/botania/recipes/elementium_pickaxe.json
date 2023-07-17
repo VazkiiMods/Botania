@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:elementium_pickaxe"
-  }
+  },
+  "show_notification": true
 }

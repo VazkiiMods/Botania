@@ -30,5 +30,6 @@
     "recipes": [
       "botania:abstruse_platform"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_spectrolus"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

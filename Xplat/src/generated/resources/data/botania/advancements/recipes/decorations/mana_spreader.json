@@ -28,5 +28,6 @@
     "recipes": [
       "botania:mana_spreader"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

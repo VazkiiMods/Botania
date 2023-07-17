@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:manasteel_shears"
-  }
+  },
+  "show_notification": true
 }

@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_clock_eye"
-  }
+  },
+  "show_notification": true
 }

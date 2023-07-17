@@ -18,5 +18,6 @@
   ],
   "result": {
     "item": "botania:spark_changer"
-  }
+  },
+  "show_notification": true
 }

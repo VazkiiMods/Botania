@@ -43,5 +43,6 @@
     "recipes": [
       "botania:chiseled_sunny_quartz"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

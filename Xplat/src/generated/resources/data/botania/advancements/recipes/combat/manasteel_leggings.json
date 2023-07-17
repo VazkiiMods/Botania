@@ -28,5 +28,6 @@
     "recipes": [
       "botania:manasteel_leggings"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

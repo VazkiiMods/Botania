@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:drum_wild"
-  }
+  },
+  "show_notification": true
 }

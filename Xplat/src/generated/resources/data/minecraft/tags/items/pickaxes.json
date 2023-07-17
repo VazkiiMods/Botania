@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "botania:manasteel_pick",
+    "botania:elementium_pickaxe",
+    "botania:terra_pick",
+    "botania:glass_pickaxe"
+  ]
+}

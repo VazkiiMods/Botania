@@ -43,5 +43,6 @@
     "recipes": [
       "botania:pattern_donut"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

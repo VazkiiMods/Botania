@@ -14,5 +14,6 @@
   ],
   "result": {
     "item": "botania:brown_petal_block"
-  }
+  },
+  "show_notification": true
 }

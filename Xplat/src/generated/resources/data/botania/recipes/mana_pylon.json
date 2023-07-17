@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:mana_pylon"
-  }
+  },
+  "show_notification": true
 }

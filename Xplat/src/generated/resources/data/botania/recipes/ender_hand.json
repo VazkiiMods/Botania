@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:ender_hand"
-  }
+  },
+  "show_notification": true
 }

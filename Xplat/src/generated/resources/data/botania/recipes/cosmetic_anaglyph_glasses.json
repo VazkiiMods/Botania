@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_anaglyph_glasses"
-  }
+  },
+  "show_notification": true
 }

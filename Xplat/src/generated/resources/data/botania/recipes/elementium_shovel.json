@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:elementium_shovel"
-  }
+  },
+  "show_notification": true
 }

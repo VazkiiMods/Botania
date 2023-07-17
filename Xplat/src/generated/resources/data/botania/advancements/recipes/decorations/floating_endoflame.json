@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_endoflame"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

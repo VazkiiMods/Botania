@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_ancient_mask"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:fire_rod"
-  }
+  },
+  "show_notification": true
 }

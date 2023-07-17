@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_eyepatch"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

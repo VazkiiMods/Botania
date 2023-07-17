@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:mana_bomb"
-  }
+  },
+  "show_notification": true
 }

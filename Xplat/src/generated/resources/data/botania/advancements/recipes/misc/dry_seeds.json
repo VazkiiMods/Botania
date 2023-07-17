@@ -30,5 +30,6 @@
     "recipes": [
       "botania:dry_seeds"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

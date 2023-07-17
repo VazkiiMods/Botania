@@ -30,5 +30,6 @@
     "recipes": [
       "botania:smelting/metamorphic_plains_stone"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

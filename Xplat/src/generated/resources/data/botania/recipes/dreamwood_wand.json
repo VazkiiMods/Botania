@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:dreamwood_wand"
-  }
+  },
+  "show_notification": true
 }

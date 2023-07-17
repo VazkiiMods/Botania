@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "botania:open_crate"
-  }
+  },
+  "show_notification": true
 }

@@ -28,5 +28,6 @@
     "recipes": [
       "botania:alfheim_portal"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

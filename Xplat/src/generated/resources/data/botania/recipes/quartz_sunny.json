@@ -17,5 +17,6 @@
   "result": {
     "count": 8,
     "item": "botania:quartz_sunny"
-  }
+  },
+  "show_notification": true
 }

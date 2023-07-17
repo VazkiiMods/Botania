@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:crafty_crate"
-  }
+  },
+  "show_notification": true
 }

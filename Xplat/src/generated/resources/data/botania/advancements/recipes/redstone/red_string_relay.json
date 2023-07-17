@@ -43,5 +43,6 @@
     "recipes": [
       "botania:red_string_relay"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:super_lava_pendant"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

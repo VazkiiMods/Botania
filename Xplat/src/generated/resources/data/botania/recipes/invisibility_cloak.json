@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:invisibility_cloak"
-  }
+  },
+  "show_notification": true
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:corporea_crystal_cube"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

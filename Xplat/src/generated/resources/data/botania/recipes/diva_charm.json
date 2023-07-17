@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:diva_charm"
-  }
+  },
+  "show_notification": true
 }

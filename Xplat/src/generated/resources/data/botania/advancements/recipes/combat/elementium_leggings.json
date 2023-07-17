@@ -28,5 +28,6 @@
     "recipes": [
       "botania:elementium_leggings"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

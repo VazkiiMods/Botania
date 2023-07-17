@@ -29,5 +29,6 @@
     [
       "place_blocks"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

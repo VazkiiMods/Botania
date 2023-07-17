@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:livingrock_bricks"
-  }
+  },
+  "show_notification": true
 }

@@ -28,5 +28,6 @@
     "recipes": [
       "botania:pump"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

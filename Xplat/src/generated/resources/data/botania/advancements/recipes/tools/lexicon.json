@@ -41,5 +41,6 @@
     "recipes": [
       "botania:lexicon"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

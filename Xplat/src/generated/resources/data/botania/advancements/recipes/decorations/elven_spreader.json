@@ -39,5 +39,6 @@
     "recipes": [
       "botania:elven_spreader"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

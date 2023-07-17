@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:apothecary_plains"
-  }
+  },
+  "show_notification": true
 }

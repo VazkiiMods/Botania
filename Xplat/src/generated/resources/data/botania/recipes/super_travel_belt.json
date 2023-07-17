@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:super_travel_belt"
-  }
+  },
+  "show_notification": true
 }

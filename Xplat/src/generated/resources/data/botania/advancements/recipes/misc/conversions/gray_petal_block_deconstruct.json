@@ -30,5 +30,6 @@
     "recipes": [
       "botania:conversions/gray_petal_block_deconstruct"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

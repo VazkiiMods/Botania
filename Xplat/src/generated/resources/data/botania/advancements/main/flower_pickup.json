@@ -42,5 +42,6 @@
       "flower",
       "double_flower"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

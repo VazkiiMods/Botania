@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_four_leaf_clover"
-  }
+  },
+  "show_notification": true
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_puffy_scarf"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

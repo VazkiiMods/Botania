@@ -28,5 +28,6 @@
     "recipes": [
       "botania:terra_pick"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:conjuration_catalyst"
-  }
+  },
+  "show_notification": true
 }

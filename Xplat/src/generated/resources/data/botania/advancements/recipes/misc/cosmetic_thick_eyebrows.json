@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_thick_eyebrows"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

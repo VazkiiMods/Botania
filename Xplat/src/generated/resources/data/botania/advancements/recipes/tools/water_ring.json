@@ -30,5 +30,6 @@
     "recipes": [
       "botania:water_ring"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

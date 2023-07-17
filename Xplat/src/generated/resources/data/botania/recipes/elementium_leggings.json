@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "botania:elementium_leggings"
-  }
+  },
+  "show_notification": true
 }

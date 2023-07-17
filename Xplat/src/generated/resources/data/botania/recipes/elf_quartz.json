@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:elf_quartz"
-  }
+  },
+  "show_notification": true
 }

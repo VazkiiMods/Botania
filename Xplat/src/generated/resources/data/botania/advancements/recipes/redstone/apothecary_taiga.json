@@ -43,5 +43,6 @@
     "recipes": [
       "botania:apothecary_taiga"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

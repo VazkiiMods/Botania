@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:prism"
-  }
+  },
+  "show_notification": true
 }

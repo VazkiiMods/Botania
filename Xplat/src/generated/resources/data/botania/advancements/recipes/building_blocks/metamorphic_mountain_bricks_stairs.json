@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_mountain_bricks_stairs"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

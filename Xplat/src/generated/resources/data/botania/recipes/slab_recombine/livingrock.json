@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:livingrock"
-  }
+  },
+  "show_notification": true
 }

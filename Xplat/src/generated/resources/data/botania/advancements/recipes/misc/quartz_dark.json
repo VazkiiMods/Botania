@@ -30,5 +30,6 @@
     "recipes": [
       "botania:quartz_dark"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

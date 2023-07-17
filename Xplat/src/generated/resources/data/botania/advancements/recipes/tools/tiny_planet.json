@@ -30,5 +30,6 @@
     "recipes": [
       "botania:tiny_planet"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

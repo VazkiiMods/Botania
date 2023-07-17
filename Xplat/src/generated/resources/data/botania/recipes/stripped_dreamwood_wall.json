@@ -13,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "botania:stripped_dreamwood_wall"
-  }
+  },
+  "show_notification": true
 }

@@ -1,4 +1,4 @@
-// 1.19.3	Botania/Tags for minecraft:block
+// 1.20.1	Botania/Tags for minecraft:block
 7c8a171ae6d6133a08aa4d939254a4290e6b44b6 data/botania/tags/blocks/corporea_spark_override.json
 e8a61a147b6a258b9c37788ac1bd4edf592c9dc9 data/botania/tags/blocks/double_mystical_flowers.json
 070322f325bf48a093e7a873066fd5992202fd74 data/botania/tags/blocks/dreamwood_logs.json
@@ -54,6 +54,6 @@ e2a006bbecc6067ef36187214c8fe5f5c7ea1c2e data/minecraft/tags/blocks/small_flower
 589fa9d68f43847133a9115af36e85e50cf29be7 data/minecraft/tags/blocks/tall_flowers.json
 99110c18af7a6aa513ae990e843ba38bfc13bf3f data/minecraft/tags/blocks/walls.json
 6430a02d8c3ad39e94ab5e3e2db9472ecb33b67f data/minecraft/tags/blocks/wither_immune.json
-b59d5b36ebe88ae60fca62eb6985e9825e0a9031 data/minecraft/tags/blocks/wooden_fences.json
-ae59e488a0b7f9d8c841b6b1ccb5b73696979f2f data/minecraft/tags/blocks/wooden_slabs.json
-0de991a3ac4bfeedb045d2e69aa0939aa75983b7 data/minecraft/tags/blocks/wooden_stairs.json
+ac68a57eea43325f292dc61e0a911da2f2bffab3 data/minecraft/tags/blocks/wooden_fences.json
+9e9ab5a13889770ff4cde388db150731046636ca data/minecraft/tags/blocks/wooden_slabs.json
+6e73f846a5e792e1485ccf630358e5e7a093347f data/minecraft/tags/blocks/wooden_stairs.json

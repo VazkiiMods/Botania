@@ -28,5 +28,6 @@
     "recipes": [
       "botania:lens_flare"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

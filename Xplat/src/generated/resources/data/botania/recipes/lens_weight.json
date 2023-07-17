@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:lens_weight"
-  }
+  },
+  "show_notification": true
 }

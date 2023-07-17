@@ -30,5 +30,6 @@
     "recipes": [
       "botania:pool_minecart"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

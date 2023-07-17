@@ -28,5 +28,6 @@
     "recipes": [
       "botania:magnet_ring"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

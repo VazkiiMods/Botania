@@ -32,5 +32,6 @@
       "daisy",
       "elven_lexicon"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

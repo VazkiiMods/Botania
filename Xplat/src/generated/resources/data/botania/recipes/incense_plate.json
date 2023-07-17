@@ -14,5 +14,6 @@
   ],
   "result": {
     "item": "botania:incense_plate"
-  }
+  },
+  "show_notification": true
 }

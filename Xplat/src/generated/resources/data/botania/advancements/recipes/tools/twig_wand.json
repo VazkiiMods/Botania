@@ -28,5 +28,6 @@
     "recipes": [
       "botania:twig_wand"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

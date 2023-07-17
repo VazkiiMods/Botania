@@ -28,5 +28,6 @@
     "recipes": [
       "botania:conversions/manasteel_from_nuggets"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

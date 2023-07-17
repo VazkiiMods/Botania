@@ -20,5 +20,6 @@
   ],
   "result": {
     "item": "botania:cyan_floating_flower"
-  }
+  },
+  "show_notification": true
 }

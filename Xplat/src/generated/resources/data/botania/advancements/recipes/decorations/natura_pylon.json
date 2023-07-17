@@ -41,5 +41,6 @@
     "recipes": [
       "botania:natura_pylon"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

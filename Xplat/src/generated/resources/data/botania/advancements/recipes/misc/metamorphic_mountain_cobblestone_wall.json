@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_mountain_cobblestone_wall"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

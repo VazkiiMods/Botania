@@ -30,5 +30,6 @@
     "recipes": [
       "botania:invisibility_cloak"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

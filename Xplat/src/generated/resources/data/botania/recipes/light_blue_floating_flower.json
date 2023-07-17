@@ -20,5 +20,6 @@
   ],
   "result": {
     "item": "botania:light_blue_floating_flower"
-  }
+  },
+  "show_notification": true
 }

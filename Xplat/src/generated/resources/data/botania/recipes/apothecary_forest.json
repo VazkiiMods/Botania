@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:apothecary_forest"
-  }
+  },
+  "show_notification": true
 }

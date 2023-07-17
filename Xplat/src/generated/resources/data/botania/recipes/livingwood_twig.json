@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:livingwood_twig"
-  }
+  },
+  "show_notification": true
 }

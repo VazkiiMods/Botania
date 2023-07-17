@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:elementium_boots"
-  }
+  },
+  "show_notification": true
 }

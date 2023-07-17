@@ -43,5 +43,6 @@
     "recipes": [
       "botania:apothecary_fungal"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

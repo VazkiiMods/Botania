@@ -43,5 +43,6 @@
     "recipes": [
       "botania:mana_detector"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

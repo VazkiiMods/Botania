@@ -30,5 +30,6 @@
     "recipes": [
       "botania:glimmering_stripped_livingwood_from_log"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

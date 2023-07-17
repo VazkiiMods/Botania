@@ -30,5 +30,6 @@
     "recipes": [
       "botania:glimmering_dreamwood"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

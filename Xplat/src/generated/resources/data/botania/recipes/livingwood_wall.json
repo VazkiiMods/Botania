@@ -13,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "botania:livingwood_wall"
-  }
+  },
+  "show_notification": true
 }

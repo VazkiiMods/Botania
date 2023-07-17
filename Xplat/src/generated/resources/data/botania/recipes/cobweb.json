@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "minecraft:cobweb"
-  }
+  },
+  "show_notification": true
 }

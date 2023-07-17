@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:glass_pickaxe"
-  }
+  },
+  "show_notification": true
 }

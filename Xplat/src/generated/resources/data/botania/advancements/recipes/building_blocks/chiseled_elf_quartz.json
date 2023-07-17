@@ -43,5 +43,6 @@
     "recipes": [
       "botania:chiseled_elf_quartz"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

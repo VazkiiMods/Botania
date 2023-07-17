@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:pump"
-  }
+  },
+  "show_notification": true
 }

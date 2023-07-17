@@ -30,5 +30,6 @@
     "recipes": [
       "botania:sunny_quartz_pillar"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

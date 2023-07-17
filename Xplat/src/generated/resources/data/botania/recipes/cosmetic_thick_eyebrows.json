@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_thick_eyebrows"
-  }
+  },
+  "show_notification": true
 }

@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:astrolabe"
-  }
+  },
+  "show_notification": true
 }

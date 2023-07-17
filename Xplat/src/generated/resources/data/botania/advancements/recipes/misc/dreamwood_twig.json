@@ -28,5 +28,6 @@
     "recipes": [
       "botania:dreamwood_twig"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

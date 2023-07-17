@@ -28,5 +28,6 @@
     [
       "use_gun"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:stripped_dreamwood_stairs"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

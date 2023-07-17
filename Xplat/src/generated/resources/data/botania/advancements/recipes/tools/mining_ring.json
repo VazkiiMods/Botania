@@ -28,5 +28,6 @@
     "recipes": [
       "botania:mining_ring"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

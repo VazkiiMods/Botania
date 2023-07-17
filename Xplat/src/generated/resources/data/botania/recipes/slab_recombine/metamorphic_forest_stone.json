@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:metamorphic_forest_stone"
-  }
+  },
+  "show_notification": true
 }

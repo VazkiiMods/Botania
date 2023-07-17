@@ -41,5 +41,6 @@
     "recipes": [
       "botania:terrasteel_boots"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

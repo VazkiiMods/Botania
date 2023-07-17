@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_devil_horns"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

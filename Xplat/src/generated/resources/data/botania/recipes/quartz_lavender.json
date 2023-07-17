@@ -28,5 +28,6 @@
   "result": {
     "count": 8,
     "item": "botania:quartz_lavender"
-  }
+  },
+  "show_notification": true
 }

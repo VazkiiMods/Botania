@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:monocle"
-  }
+  },
+  "show_notification": true
 }

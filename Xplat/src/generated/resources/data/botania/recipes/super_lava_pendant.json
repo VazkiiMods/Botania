@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:super_lava_pendant"
-  }
+  },
+  "show_notification": true
 }

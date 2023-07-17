@@ -28,5 +28,6 @@
     "recipes": [
       "botania:forest_eye"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

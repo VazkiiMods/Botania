@@ -30,5 +30,6 @@
     "recipes": [
       "botania:corporea_index"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -28,5 +28,6 @@
     "recipes": [
       "botania:obedience_stick"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

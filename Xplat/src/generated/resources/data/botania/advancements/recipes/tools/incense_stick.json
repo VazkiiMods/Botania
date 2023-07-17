@@ -30,5 +30,6 @@
     "recipes": [
       "botania:incense_stick"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

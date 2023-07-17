@@ -41,5 +41,6 @@
     "recipes": [
       "botania:turntable"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

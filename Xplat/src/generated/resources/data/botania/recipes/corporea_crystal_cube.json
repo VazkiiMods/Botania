@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:corporea_crystal_cube"
-  }
+  },
+  "show_notification": true
 }

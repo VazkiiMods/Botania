@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_red_ribbons"
-  }
+  },
+  "show_notification": true
 }

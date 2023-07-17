@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:apothecary_default"
-  }
+  },
+  "show_notification": true
 }

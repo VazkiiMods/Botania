@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:apothecary_mountain"
-  }
+  },
+  "show_notification": true
 }

@@ -28,5 +28,6 @@
     "recipes": [
       "botania:clip"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

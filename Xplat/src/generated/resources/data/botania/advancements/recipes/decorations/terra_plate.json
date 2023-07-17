@@ -28,5 +28,6 @@
     "recipes": [
       "botania:terra_plate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

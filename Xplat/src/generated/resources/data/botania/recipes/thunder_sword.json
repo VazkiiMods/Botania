@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:thunder_sword"
-  }
+  },
+  "show_notification": true
 }

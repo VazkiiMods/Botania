@@ -34,5 +34,6 @@
     [
       "use_l20_shard"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

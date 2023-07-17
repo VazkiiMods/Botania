@@ -15,5 +15,6 @@
   "result": {
     "count": 4,
     "item": "botania:metamorphic_mesa_bricks_stairs"
-  }
+  },
+  "show_notification": true
 }

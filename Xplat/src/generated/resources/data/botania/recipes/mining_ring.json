@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:mining_ring"
-  }
+  },
+  "show_notification": true
 }

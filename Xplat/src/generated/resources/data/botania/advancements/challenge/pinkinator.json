@@ -31,5 +31,6 @@
     [
       "use_pinkinator"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

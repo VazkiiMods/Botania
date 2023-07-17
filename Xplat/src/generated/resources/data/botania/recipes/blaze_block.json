@@ -15,7 +15,8 @@
     ],
     "result": {
       "item": "botania:blaze_block"
-    }
+    },
+    "show_notification": true
   },
   "gog": {
     "type": "minecraft:crafting_shaped",
@@ -32,6 +33,7 @@
     ],
     "result": {
       "item": "botania:blaze_block"
-    }
+    },
+    "show_notification": true
   }
 }

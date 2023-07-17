@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:apothecary_swamp"
-  }
+  },
+  "show_notification": true
 }

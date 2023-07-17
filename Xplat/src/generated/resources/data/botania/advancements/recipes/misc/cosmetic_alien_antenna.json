@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_alien_antenna"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

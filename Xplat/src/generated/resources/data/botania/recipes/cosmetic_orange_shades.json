@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_orange_shades"
-  }
+  },
+  "show_notification": true
 }

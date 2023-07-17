@@ -30,5 +30,6 @@
     "recipes": [
       "botania:livingwood_fence"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

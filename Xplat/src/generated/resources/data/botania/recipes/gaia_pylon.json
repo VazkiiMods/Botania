@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:gaia_pylon"
-  }
+  },
+  "show_notification": true
 }

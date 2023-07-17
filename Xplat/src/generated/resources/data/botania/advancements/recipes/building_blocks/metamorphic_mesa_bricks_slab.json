@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_mesa_bricks_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

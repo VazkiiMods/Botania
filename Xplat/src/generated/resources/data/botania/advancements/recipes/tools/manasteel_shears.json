@@ -28,5 +28,6 @@
     "recipes": [
       "botania:manasteel_shears"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

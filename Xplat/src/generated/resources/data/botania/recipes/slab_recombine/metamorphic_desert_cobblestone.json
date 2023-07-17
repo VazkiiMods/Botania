@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:metamorphic_desert_cobblestone"
-  }
+  },
+  "show_notification": true
 }

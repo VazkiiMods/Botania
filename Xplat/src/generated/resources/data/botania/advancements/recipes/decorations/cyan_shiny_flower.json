@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cyan_shiny_flower"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

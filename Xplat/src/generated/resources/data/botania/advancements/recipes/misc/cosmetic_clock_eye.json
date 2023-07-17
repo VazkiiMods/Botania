@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_clock_eye"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

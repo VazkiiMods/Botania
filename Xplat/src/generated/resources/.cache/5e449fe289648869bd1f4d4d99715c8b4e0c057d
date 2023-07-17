@@ -1,4 +1,4 @@
-// 1.19.3	Botania/Tags for minecraft:item
+// 1.20.1	Botania/Tags for minecraft:item
 6d243a36e243352f4a383bfd9cc4f49480acb963 data/botania/tags/items/burst_viewers.json
 a6d3edab4a73465c3e545dc83ed4941df3126a15 data/botania/tags/items/contributor_headflowers.json
 46219dc2834bac3022bf64c0afab93fb34858aa6 data/botania/tags/items/disposable.json
@@ -55,20 +55,25 @@ adfc7deaa7aa9d5425da095270745d58605b86ad data/botania/tags/items/rods.json
 2ead7838be1f063018e6e13e8300f3a183adf5f5 data/botania/tags/items/terrasteel_blocks.json
 70a32077a4c06e2fc3ed8783037d4b6c659216be data/botania/tags/items/terrasteel_ingots.json
 de5556cc02036175ac731ce76827076c6b834d25 data/botania/tags/items/terrasteel_nuggets.json
+43bfa13de3ebc0be372fc48b0e4be56a25cb1893 data/minecraft/tags/items/axes.json
 a101ef4ecfece48f1cdff62f34f30f9f25b3dbd3 data/minecraft/tags/items/cluster_max_harvestables.json
 b59d5b36ebe88ae60fca62eb6985e9825e0a9031 data/minecraft/tags/items/fences.json
 3e9fe8572e29a05b53f541bf64c0d3fd9669d7b6 data/minecraft/tags/items/freeze_immune_wearables.json
+79ae3faf230addcc2958d69860afa0c406f4ca35 data/minecraft/tags/items/hoes.json
 0d43cab6db2ee9b5d1865b8938630349ce5bfa23 data/minecraft/tags/items/logs_that_burn.json
 cc4f967b08052c03ce91be3de50f078469fb2749 data/minecraft/tags/items/music_discs.json
+a101ef4ecfece48f1cdff62f34f30f9f25b3dbd3 data/minecraft/tags/items/pickaxes.json
 75ada2b42468a34dc3f88ebcc5424a20ddd91bb4 data/minecraft/tags/items/piglin_loved.json
 5a8edc115bd46b1aaf4c4c720b921774a1a9deea data/minecraft/tags/items/planks.json
 d5f2792b94968c712824b9ab93ba589c15bd1886 data/minecraft/tags/items/rails.json
 8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/items/sand.json
+ac11e7f7d9355f0316ce880df9aaea6ee53b3734 data/minecraft/tags/items/shovels.json
 a01e6f58bac0c802977ef45bff0374c7030b2dac data/minecraft/tags/items/slabs.json
 ef6aa45a135e98ddd532aa5d076288280653df82 data/minecraft/tags/items/small_flowers.json
 201298e855b770d34316738abb0e37a31ebd77b0 data/minecraft/tags/items/stairs.json
+cbf87989430a41a11a5f7c28bcf331b4159887c7 data/minecraft/tags/items/swords.json
 589fa9d68f43847133a9115af36e85e50cf29be7 data/minecraft/tags/items/tall_flowers.json
 99110c18af7a6aa513ae990e843ba38bfc13bf3f data/minecraft/tags/items/walls.json
-b59d5b36ebe88ae60fca62eb6985e9825e0a9031 data/minecraft/tags/items/wooden_fences.json
-ae59e488a0b7f9d8c841b6b1ccb5b73696979f2f data/minecraft/tags/items/wooden_slabs.json
-0de991a3ac4bfeedb045d2e69aa0939aa75983b7 data/minecraft/tags/items/wooden_stairs.json
+ac68a57eea43325f292dc61e0a911da2f2bffab3 data/minecraft/tags/items/wooden_fences.json
+9e9ab5a13889770ff4cde388db150731046636ca data/minecraft/tags/items/wooden_slabs.json
+6e73f846a5e792e1485ccf630358e5e7a093347f data/minecraft/tags/items/wooden_stairs.json

@@ -25,5 +25,6 @@
   ],
   "result": {
     "item": "botania:super_cloud_pendant"
-  }
+  },
+  "show_notification": true
 }

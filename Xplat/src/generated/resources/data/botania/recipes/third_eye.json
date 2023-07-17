@@ -25,5 +25,6 @@
   ],
   "result": {
     "item": "botania:third_eye"
-  }
+  },
+  "show_notification": true
 }

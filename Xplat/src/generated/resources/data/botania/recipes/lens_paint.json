@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:lens_paint"
-  }
+  },
+  "show_notification": true
 }

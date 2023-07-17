@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:apothecary_taiga"
-  }
+  },
+  "show_notification": true
 }

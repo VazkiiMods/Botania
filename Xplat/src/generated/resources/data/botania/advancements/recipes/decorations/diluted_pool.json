@@ -30,5 +30,6 @@
     "recipes": [
       "botania:diluted_pool"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

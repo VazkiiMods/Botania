@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:lens_light"
-  }
+  },
+  "show_notification": true
 }

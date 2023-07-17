@@ -30,5 +30,6 @@
     "recipes": [
       "botania:livingrock_wall"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:spawner_mover"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

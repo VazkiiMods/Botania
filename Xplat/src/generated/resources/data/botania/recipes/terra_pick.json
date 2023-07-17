@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:terra_pick"
-  }
+  },
+  "show_notification": true
 }

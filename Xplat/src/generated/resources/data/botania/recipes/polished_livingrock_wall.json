@@ -13,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "botania:polished_livingrock_wall"
-  }
+  },
+  "show_notification": true
 }

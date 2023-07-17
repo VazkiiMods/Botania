@@ -15,5 +15,6 @@
   ],
   "result": {
     "item": "botania:light_launcher"
-  }
+  },
+  "show_notification": true
 }

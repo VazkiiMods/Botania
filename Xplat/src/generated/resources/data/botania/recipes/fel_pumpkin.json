@@ -25,5 +25,6 @@
   ],
   "result": {
     "item": "botania:fel_pumpkin"
-  }
+  },
+  "show_notification": true
 }

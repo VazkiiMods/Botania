@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_polka_dotted_bows"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

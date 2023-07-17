@@ -43,5 +43,6 @@
     "recipes": [
       "botania:alchemy_catalyst"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

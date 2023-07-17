@@ -30,5 +30,6 @@
     "recipes": [
       "botania:lens_paint"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

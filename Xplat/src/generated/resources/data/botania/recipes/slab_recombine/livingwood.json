@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:livingwood"
-  }
+  },
+  "show_notification": true
 }

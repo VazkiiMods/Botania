@@ -43,5 +43,6 @@
     "recipes": [
       "botania:apothecary_forest"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

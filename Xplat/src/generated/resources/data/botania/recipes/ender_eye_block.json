@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:ender_eye_block"
-  }
+  },
+  "show_notification": true
 }

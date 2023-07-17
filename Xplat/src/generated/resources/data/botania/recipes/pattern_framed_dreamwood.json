@@ -14,5 +14,6 @@
   "result": {
     "count": 4,
     "item": "botania:pattern_framed_dreamwood"
-  }
+  },
+  "show_notification": true
 }

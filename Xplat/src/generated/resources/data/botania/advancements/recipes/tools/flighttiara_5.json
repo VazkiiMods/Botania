@@ -30,5 +30,6 @@
     "recipes": [
       "botania:flighttiara_5"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

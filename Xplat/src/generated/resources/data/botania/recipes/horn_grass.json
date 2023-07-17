@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:horn_grass"
-  }
+  },
+  "show_notification": true
 }

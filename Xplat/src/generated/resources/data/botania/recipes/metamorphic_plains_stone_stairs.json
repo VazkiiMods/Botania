@@ -15,5 +15,6 @@
   "result": {
     "count": 4,
     "item": "botania:metamorphic_plains_stone_stairs"
-  }
+  },
+  "show_notification": true
 }

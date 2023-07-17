@@ -15,5 +15,6 @@
   "result": {
     "count": 4,
     "item": "botania:metamorphic_mountain_cobblestone_stairs"
-  }
+  },
+  "show_notification": true
 }

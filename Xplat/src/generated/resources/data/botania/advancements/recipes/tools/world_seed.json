@@ -28,5 +28,6 @@
     "recipes": [
       "botania:world_seed"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

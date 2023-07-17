@@ -24,7 +24,8 @@
     ],
     "result": {
       "item": "botania:cocoon"
-    }
+    },
+    "show_notification": true
   },
   "gog": {
     "type": "minecraft:crafting_shaped",
@@ -47,6 +48,7 @@
     ],
     "result": {
       "item": "botania:cocoon"
-    }
+    },
+    "show_notification": true
   }
 }

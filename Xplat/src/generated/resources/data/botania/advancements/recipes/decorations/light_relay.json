@@ -28,5 +28,6 @@
     "recipes": [
       "botania:light_relay"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

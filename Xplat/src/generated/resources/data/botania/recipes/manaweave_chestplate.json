@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "botania:manaweave_chestplate"
-  }
+  },
+  "show_notification": true
 }

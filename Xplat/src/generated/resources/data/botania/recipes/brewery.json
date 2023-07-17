@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:brewery"
-  }
+  },
+  "show_notification": true
 }

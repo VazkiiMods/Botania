@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_tigerseye"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

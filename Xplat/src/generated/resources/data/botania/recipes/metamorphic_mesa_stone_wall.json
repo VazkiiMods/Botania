@@ -14,5 +14,6 @@
   "result": {
     "count": 6,
     "item": "botania:metamorphic_mesa_stone_wall"
-  }
+  },
+  "show_notification": true
 }

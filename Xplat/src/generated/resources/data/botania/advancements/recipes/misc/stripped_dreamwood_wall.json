@@ -30,5 +30,6 @@
     "recipes": [
       "botania:stripped_dreamwood_wall"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

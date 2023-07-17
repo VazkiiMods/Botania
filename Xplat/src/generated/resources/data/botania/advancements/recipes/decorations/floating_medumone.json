@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_medumone"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -43,5 +43,6 @@
     "recipes": [
       "botania:vial"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

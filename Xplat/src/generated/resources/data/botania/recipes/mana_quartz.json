@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:mana_quartz"
-  }
+  },
+  "show_notification": true
 }

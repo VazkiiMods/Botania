@@ -20,5 +20,6 @@
   "result": {
     "count": 4,
     "item": "botania:world_seed"
-  }
+  },
+  "show_notification": true
 }

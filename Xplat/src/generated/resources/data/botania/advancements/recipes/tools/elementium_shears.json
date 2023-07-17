@@ -28,5 +28,6 @@
     "recipes": [
       "botania:elementium_shears"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

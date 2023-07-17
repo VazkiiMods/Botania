@@ -43,5 +43,6 @@
     "recipes": [
       "botania:pattern_2_2"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

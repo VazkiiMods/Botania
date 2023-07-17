@@ -30,5 +30,6 @@
     "recipes": [
       "botania:bellows"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_googly_eyes"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

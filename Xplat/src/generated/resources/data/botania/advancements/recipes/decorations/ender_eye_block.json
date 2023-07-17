@@ -30,5 +30,6 @@
     "recipes": [
       "botania:ender_eye_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

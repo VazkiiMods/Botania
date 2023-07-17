@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:sextant"
-  }
+  },
+  "show_notification": true
 }
