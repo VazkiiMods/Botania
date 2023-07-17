@@ -1,4 +1,5 @@
 {
+  "__comment": "[VanillaCopy] rendertype_end_portal.json with own shader",
   "blend": {
     "func": "add",
     "srcrgb": "srcalpha",

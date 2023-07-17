@@ -1,8 +1,8 @@
 #version 150
+// [VanillaCopy] rendertype_entity_translucent.vsh, changes noted
 
 #moj_import <light.glsl>
-
-// [VanillaCopy] rendertype_entity_translucent.vsh, changes noted
+#moj_import <fog.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -16,6 +16,8 @@ uniform sampler2D Sampler2;
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
+uniform mat3 IViewRotMat;
+uniform int FogShape;
 
 uniform vec3 Light0_Direction;
 uniform vec3 Light1_Direction;
@@ -43,10 +45,9 @@ void main() {
         rand(seed * Position.xy)
     );
     vec3 modifiedPos = Position + offset;
-
     gl_Position = ProjMat * ModelViewMat * vec4(modifiedPos, 1.0);
 
-    vertexDistance = length((ModelViewMat * vec4(modifiedPos, 1.0)).xyz);
+    vertexDistance = fog_distance(ModelViewMat, IViewRotMat * Position, FogShape);
     vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color);
     lightMapColor = texelFetch(Sampler2, UV2 / 16, 0);
     overlayColor = texelFetch(Sampler1, UV1, 0);
