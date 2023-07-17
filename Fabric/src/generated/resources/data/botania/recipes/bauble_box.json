@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:bauble_box"
-  }
+  },
+  "show_notification": true
 }

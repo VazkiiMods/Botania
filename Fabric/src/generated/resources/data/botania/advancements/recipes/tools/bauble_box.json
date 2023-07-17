@@ -28,5 +28,6 @@
     "recipes": [
       "botania:bauble_box"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
