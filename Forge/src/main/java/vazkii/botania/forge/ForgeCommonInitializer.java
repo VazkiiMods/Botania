@@ -8,6 +8,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -22,9 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -124,8 +123,7 @@ import vazkii.botania.forge.xplat.ForgeXplatImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -173,13 +171,13 @@ public class ForgeCommonInitializer {
 		// Core item/block/BE
 		bind(Registries.SOUND_EVENT, BotaniaSounds::init);
 		bind(Registries.BLOCK, BotaniaBlocks::registerBlocks);
-		bind(Registries.ITEM, BotaniaBlocks::registerItemBlocks);
+		bindForItems(BotaniaBlocks::registerItemBlocks);
 		bind(Registries.BLOCK, BotaniaFluffBlocks::registerBlocks);
-		bind(Registries.ITEM, BotaniaFluffBlocks::registerItemBlocks);
+		bindForItems(BotaniaFluffBlocks::registerItemBlocks);
 		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaBlockEntities::registerTiles);
-		bind(Registries.ITEM, BotaniaItems::registerItems);
+		bindForItems(BotaniaItems::registerItems);
 		bind(Registries.BLOCK, BotaniaFlowerBlocks::registerBlocks);
-		bind(Registries.ITEM, BotaniaFlowerBlocks::registerItemBlocks);
+		bindForItems(BotaniaFlowerBlocks::registerItemBlocks);
 		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaFlowerBlocks::registerTEs);
 
 		// GUI and Recipe
@@ -218,12 +216,42 @@ public class ForgeCommonInitializer {
 				BotaniaStats.init();
 			}
 		});
+		bind(Registries.CREATIVE_MODE_TAB, consumer -> {
+			consumer.accept(CreativeModeTab.builder()
+					.title(Component.translatable("itemGroup.botania.botania"))
+					.icon(() -> new ItemStack(BotaniaItems.lexicon))
+					.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
+					.backgroundSuffix("botania.png")
+					.withSearchBar()
+					.build(),
+					BotaniaRegistries.BOTANIA_TAB_KEY.location());
+		});
+		modBus.addListener((BuildCreativeModeTabContentsEvent e) -> {
+			if (e.getTabKey() == BotaniaRegistries.BOTANIA_TAB_KEY) {
+				for (Item item : this.itemsToAddToCreativeTab) {
+					e.accept(item);
+				}
+			}
+		});
 	}
 
 	private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
 			if (registry.equals(event.getRegistryKey())) {
 				source.accept((t, rl) -> event.register(registry, rl, () -> t));
+			}
+		});
+	}
+
+	private final Set<Item> itemsToAddToCreativeTab = new LinkedHashSet<>();
+
+	private void bindForItems(Consumer<BiConsumer<Item, ResourceLocation>> source) {
+		FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
+			if (event.getRegistryKey().equals(Registries.ITEM)) {
+				source.accept((t, rl) -> {
+					itemsToAddToCreativeTab.add(t);
+					event.register(Registries.ITEM, rl, () -> t);
+				});
 			}
 		});
 	}
