@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
@@ -45,7 +46,15 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		this.unbakedFlower = flower;
 	}
 
-	// TODO 1.19.3 what's needed instead of getMaterials here?
+	@Override
+	public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter, IGeometryBakingContext context) {
+		this.unbakedFlower.resolveParents(modelGetter);
+		for (var e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
+			UnbakedModel islandModel = modelGetter.apply(e.getValue());
+			islandModel.resolveParents(modelGetter);
+			this.unbakedIslands.put(e.getKey(), islandModel);
+		}
+	}
 
 	@Nullable
 	@Override
