@@ -10,6 +10,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
@@ -64,6 +65,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -275,8 +277,17 @@ public class ForgeClientInitializer {
 	}
 
 	@SubscribeEvent
-	public static void registerShaders(RegisterShadersEvent evt) throws IOException {
-		CoreShaders.init(evt.getResourceProvider(), p -> evt.registerShader(p.getFirst(), p.getSecond()));
+	public static void registerShaders(RegisterShadersEvent evt) {
+		CoreShaders.init((name, vertexFormat, onLoaded) -> {
+			try {
+				evt.registerShader(
+						new ShaderInstance(evt.getResourceProvider(), name, vertexFormat),
+						onLoaded
+				);
+			} catch (IOException e) {
+				throw new UncheckedIOException(e);
+			}
+		});
 	}
 
 	@SubscribeEvent

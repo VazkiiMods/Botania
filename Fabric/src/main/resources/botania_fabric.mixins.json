@@ -31,7 +31,6 @@
     "client.BossHealthOverlayFabricMixin",
     "client.ChatScreenMixin",
     "client.DebugScreenOverlayFabricMixin",
-    "client.GameRendererFabricMixin",
     "client.GuiGraphicsFabricMixin",
     "client.KeyboardHandlerFabricMixin",
     "client.MinecraftFabricMixin",

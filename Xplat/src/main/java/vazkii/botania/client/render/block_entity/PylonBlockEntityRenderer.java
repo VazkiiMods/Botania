@@ -9,8 +9,10 @@
 package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -20,10 +22,15 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.*;
 import vazkii.botania.common.block.PylonBlock;
 import vazkii.botania.common.block.block_entity.PylonBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
+
+import java.util.Random;
 
 public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockEntity> {
 
@@ -47,8 +54,6 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 
 	@Override
 	public void render(@Nullable PylonBlockEntity pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		// TODO 1.19.4 this crashes the game fsr, fix
-		/*
 		boolean renderingItem = pylon == null;
 		boolean direct = renderingItem && (forceTransform == ItemDisplayContext.GUI || forceTransform.firstPerson()); // loosely based off ItemRenderer logic
 		PylonBlock.Variant type = renderingItem ? forceVariant : ((PylonBlock) pylon.getBlockState().getBlock()).variant;
@@ -72,48 +77,47 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 				shaderLayer = direct ? RenderHelper.GAIA_PYLON_GLOW_DIRECT : RenderHelper.GAIA_PYLON_GLOW;
 			}
 		}
-		
+
 		ms.pushPose();
-		
+
 		float worldTime = ClientTickHandler.ticksInGame + pticks;
-		
+
 		worldTime += pylon == null ? 0 : new Random(pylon.getBlockPos().hashCode()).nextInt(360);
-		
+
 		ms.translate(0, pylon == null ? 1.35 : 1.5, 0);
 		ms.scale(1.0F, -1.0F, -1.0F);
-		
+
 		ms.pushPose();
 		ms.translate(0.5F, 0F, -0.5F);
 		if (pylon != null) {
 			ms.mulPose(VecHelper.rotateY(worldTime * 1.5F));
 		}
-		
+
 		RenderType layer = RenderType.entityTranslucent(texture);
-		
+
 		VertexConsumer buffer = buffers.getBuffer(layer);
 		model.renderRing(ms, buffer, light, overlay);
 		if (pylon != null) {
 			ms.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
 		}
 		ms.popPose();
-		
+
 		ms.pushPose();
 		if (pylon != null) {
 			ms.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 		}
-		
+
 		ms.translate(0.5F, 0F, -0.5F);
 		if (pylon != null) {
 			ms.mulPose(VecHelper.rotateY(-worldTime));
 		}
-		
+
 		buffer = buffers.getBuffer(shaderLayer);
 		model.renderCrystal(ms, buffer, light, overlay);
-		
+
 		ms.popPose();
-		
+
 		ms.popPose();
-		*/
 	}
 
 	public static class ItemRenderer extends TEISR {

@@ -9,15 +9,14 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.datafixers.util.Pair;
+import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.server.packs.resources.ResourceProvider;
 
+import vazkii.botania.network.TriConsumer;
 import vazkii.botania.xplat.BotaniaConfig;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 
 public class CoreShaders {
@@ -31,44 +30,45 @@ public class CoreShaders {
 	private static ShaderInstance filmGrainParticle;
 	private static ShaderInstance dopplegangerBar;
 
-	public static void init(ResourceProvider resourceProvider,
-			Consumer<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
-		registrations.accept(Pair.of(
-				new ShaderInstance(resourceProvider, "botania__starfield", DefaultVertexFormat.POSITION),
-				inst -> starfieldShaderInstance = inst)
+	// This is abstracted this way instead of just directly constructing the ShaderInstance
+	// Because Fabric is cute and hides the ResourceProvider from modders (why?)
+	public static void init(TriConsumer<String, VertexFormat, Consumer<ShaderInstance>> registrations) {
+		registrations.accept(
+				"botania__starfield", DefaultVertexFormat.POSITION,
+				inst -> starfieldShaderInstance = inst
 		);
-		registrations.accept(Pair.of(
-				new ShaderInstance(resourceProvider, "botania__doppleganger", DefaultVertexFormat.NEW_ENTITY),
-				inst -> doppleganger = inst)
+		registrations.accept(
+				"botania__doppleganger", DefaultVertexFormat.NEW_ENTITY,
+				inst -> doppleganger = inst
 		);
-		registrations.accept(Pair.of(
-				new ShaderInstance(resourceProvider, "botania__mana_pool", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
-				inst -> manaPool = inst)
+		registrations.accept(
+				"botania__mana_pool", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
+				inst -> manaPool = inst
 		);
-		registrations.accept(Pair.of(
-				new ShaderInstance(resourceProvider, "botania__terra_plate_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
-				inst -> terraPlate = inst)
+		registrations.accept(
+				"botania__terra_plate_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
+				inst -> terraPlate = inst
 		);
-		registrations.accept(Pair.of(
-				new ShaderInstance(resourceProvider, "botania__enchanter_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
-				inst -> enchanter = inst)
+		registrations.accept(
+				"botania__enchanter_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
+				inst -> enchanter = inst
 		);
-		registrations.accept(Pair.of(
-				new ShaderInstance(resourceProvider, "botania__pylon", DefaultVertexFormat.NEW_ENTITY),
-				inst -> pylon = inst)
+		registrations.accept(
+				"botania__pylon", DefaultVertexFormat.NEW_ENTITY,
+				inst -> pylon = inst
 		);
-		registrations.accept(Pair.of(
-				new ShaderInstance(resourceProvider, "botania__halo", DefaultVertexFormat.POSITION_COLOR_TEX),
-				inst -> halo = inst)
+		registrations.accept(
+				"botania__halo", DefaultVertexFormat.POSITION_COLOR_TEX,
+				inst -> halo = inst
 		);
-		registrations.accept(Pair.of(
-				new ShaderInstance(resourceProvider, "botania__film_grain_particle", DefaultVertexFormat.PARTICLE),
-				inst -> filmGrainParticle = inst)
+		registrations.accept(
+				"botania__film_grain_particle", DefaultVertexFormat.PARTICLE,
+				inst -> filmGrainParticle = inst
 		);
-		registrations.accept(Pair.of(
-				new ShaderInstance(resourceProvider, "botania__doppleganger_bar", DefaultVertexFormat.POSITION_TEX),
+		registrations.accept(
+				"botania__doppleganger_bar", DefaultVertexFormat.POSITION_TEX,
 				inst -> dopplegangerBar = inst
-		));
+		);
 	}
 
 	public static ShaderInstance starfield() {
