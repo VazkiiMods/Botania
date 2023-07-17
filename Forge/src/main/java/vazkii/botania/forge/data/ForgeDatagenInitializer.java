@@ -16,7 +16,7 @@ public class ForgeDatagenInitializer {
 		var generator = evt.getGenerator();
 		var output = generator.getPackOutput();
 		var disabledHelper = new ExistingFileHelper(Collections.emptyList(), Collections.emptySet(), false, null, null);
-		var blockTagProvider = new ForgeBlockTagProvider(output, evt.getLookupProvider());
+		var blockTagProvider = new ForgeBlockTagProvider(output, evt.getLookupProvider(), disabledHelper);
 		generator.addProvider(evt.includeServer(), blockTagProvider);
 		generator.addProvider(evt.includeServer(), new ForgeItemTagProvider(output, evt.getLookupProvider(),
 				blockTagProvider.contentsGetter(), disabledHelper));

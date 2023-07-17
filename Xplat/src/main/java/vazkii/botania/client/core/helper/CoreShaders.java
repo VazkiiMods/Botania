@@ -13,8 +13,8 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
-
 import net.minecraft.resources.ResourceLocation;
+
 import vazkii.botania.network.TriConsumer;
 import vazkii.botania.xplat.BotaniaConfig;
 

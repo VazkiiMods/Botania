@@ -3,27 +3,30 @@ package vazkii.botania.forge.data;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.data.BlockTagProvider;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ForgeBlockTagProvider extends BlockTagProvider {
+public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final TagKey<Block> MUSHROOMS = forge("mushrooms");
 	public static final TagKey<Block> ELEMENTIUM = forge("storage_blocks/elementium");
 	public static final TagKey<Block> MANASTEEL = forge("storage_blocks/manasteel");
 	public static final TagKey<Block> TERRASTEEL = forge("storage_blocks/terrasteel");
 
-	public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
-		super(output, provider);
+	public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider,
+			ExistingFileHelper existingFileHelper) {
+		super(output, Registries.BLOCK, provider, (block) -> block.builtInRegistryHolder().key(), LibMisc.MOD_ID, existingFileHelper);
 	}
 
 	@Override

@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "tag": "botania:manasteel_ingots"
+            "items": [
+              "minecraft:blue_dye"
+            ]
           }
         ]
       },
@@ -13,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:bauble_box"
+        "recipe": "botania:azulejo_0"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +28,8 @@
   ],
   "rewards": {
     "recipes": [
-      "botania:bauble_box"
+      "botania:azulejo_0"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

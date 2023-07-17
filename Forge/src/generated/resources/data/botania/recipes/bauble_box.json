@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "C": {
       "tag": "forge:chests/wooden"
@@ -18,5 +19,6 @@
   ],
   "result": {
     "item": "botania:bauble_box"
-  }
+  },
+  "show_notification": true
 }

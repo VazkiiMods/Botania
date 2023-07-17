@@ -1,12 +1,22 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
+    "has_base_block": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:chests/wooden"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_item": {
       "conditions": {
         "items": [
           {
             "items": [
-              "botania:corporea_spark"
+              "botania:red_string"
             ]
           }
         ]
@@ -15,7 +25,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:corporea_retainer"
+        "recipe": "botania:red_string_container"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +33,14 @@
   "requirements": [
     [
       "has_item",
+      "has_base_block",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "botania:corporea_retainer"
+      "botania:red_string_container"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

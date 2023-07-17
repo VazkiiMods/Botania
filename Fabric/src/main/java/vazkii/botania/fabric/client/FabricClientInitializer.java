@@ -67,8 +67,6 @@ import java.io.UncheckedIOException;
 import java.util.SortedMap;
 import java.util.function.Function;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
 public class FabricClientInitializer implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
