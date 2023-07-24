@@ -8,11 +8,15 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,6 +32,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.BotaniaDamageTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -179,7 +184,9 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 
 	private void explodeAndDie() {
 		if (!level().isClientSide) {
-			level().explode(this, getX(), getY(), getZ(), 3F, Level.ExplosionInteraction.NONE);
+			Holder<DamageType> type = level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(BotaniaDamageTypes.KEY_EXPLOSION);
+			DamageSource source = new DamageSource(type, this, this.getOwner());
+			level().explode(this, source, null, getX(), getY(), getZ(), 3F, false, Level.ExplosionInteraction.NONE);
 			discard();
 		}
 	}

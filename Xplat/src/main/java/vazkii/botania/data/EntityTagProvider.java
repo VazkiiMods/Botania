@@ -49,6 +49,8 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 				BotaniaEntities.CORPOREA_SPARK, BotaniaEntities.DOPPLEGANGER, BotaniaEntities.FLAME_RING, BotaniaEntities.MAGIC_LANDMINE,
 				BotaniaEntities.MAGIC_MISSILE, BotaniaEntities.MANA_BURST, BotaniaEntities.PINK_WITHER, BotaniaEntities.SPARK, BotaniaEntities.PLAYER_MOVER);
 
+		tag(BotaniaTags.Entities.KEY_IMMUNE).add(EntityType.ITEM, EntityType.ITEM_FRAME, EntityType.PAINTING, EntityType.EXPERIENCE_ORB);
+
 		var bosses = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("c", "bosses"));
 		tag(bosses).add(BotaniaEntities.DOPPLEGANGER);
 	}

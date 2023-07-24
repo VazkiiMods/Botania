@@ -18,6 +18,8 @@ public class BotaniaDamageTypes {
 			ResourceKey.create(Registries.DAMAGE_TYPE, prefix("player_attack_armor_piercing"));
 	public static final ResourceKey<DamageType> RELIC_DAMAGE =
 			ResourceKey.create(Registries.DAMAGE_TYPE, prefix("relic_damage"));
+	public static final ResourceKey<DamageType> KEY_EXPLOSION =
+			ResourceKey.create(Registries.DAMAGE_TYPE, prefix("key_explosion"));
 
 	public static class Sources {
 

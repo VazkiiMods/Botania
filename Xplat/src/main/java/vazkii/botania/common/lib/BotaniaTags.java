@@ -247,6 +247,11 @@ public class BotaniaTags {
 		public static final TagKey<EntityType<?>> COCOON_COMMON_AQUATIC = tag("cocoon/common_aquatic");
 		public static final TagKey<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
 
+		/**
+		 * Entities in this tag are immune to damage from the Key of the King's Law
+		 */
+		public static final TagKey<EntityType<?>> KEY_IMMUNE = tag("key_immune");
+
 		private static TagKey<EntityType<?>> tag(String name) {
 			return TagKey.create(Registries.ENTITY_TYPE, prefix(name));
 		}
