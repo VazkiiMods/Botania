@@ -23,6 +23,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,6 +36,8 @@ import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.flower.functional.SolegnoliaBlockEntity;
+import vazkii.botania.common.brew.BotaniaBrews;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;
@@ -175,7 +179,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public int apiVersion() {
-		return 2;
+		return 3;
 	}
 
 	@Nullable
@@ -266,5 +270,16 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public void registerCorporeaNodeDetector(CorporeaNodeDetector detector) {
 		CorporeaNodeDetectors.register(detector);
+	}
+
+	@Override
+	public boolean isInGaiaArena(Level level, double x, double y, double z) {
+		List<GaiaGuardianEntity> guardianEntities = level.getEntitiesOfClass(GaiaGuardianEntity.class, AABB.ofSize(new Vec3(x, y, z), GaiaGuardianEntity.ARENA_RANGE * 4, GaiaGuardianEntity.ARENA_RANGE * 4, GaiaGuardianEntity.ARENA_RANGE * 4));
+		for (GaiaGuardianEntity guardianEntity : guardianEntities) {
+			if (GaiaGuardianEntity.getArenaBB(guardianEntity.getSource()).contains(x, y, z)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
