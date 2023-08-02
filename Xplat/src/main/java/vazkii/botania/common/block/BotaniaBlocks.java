@@ -204,6 +204,7 @@ public final class BotaniaBlocks {
 
 	public static final Block livingrock = new BotaniaBlock(BlockBehaviour.Properties.of().strength(2, 10).sound(SoundType.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops());
 	public static final Block livingrockPolished = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block livingrockSlate = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrick = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickCracked = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
@@ -728,6 +729,7 @@ public final class BotaniaBlocks {
 		r.accept(livingrockPolishedStairs, prefix(LibBlockNames.LIVING_ROCK_POLISHED + STAIR_SUFFIX));
 		r.accept(livingrockPolishedSlab, prefix(LibBlockNames.LIVING_ROCK_POLISHED + SLAB_SUFFIX));
 		r.accept(livingrockPolishedWall, prefix(LibBlockNames.LIVING_ROCK_POLISHED + WALL_SUFFIX));
+		r.accept(livingrockSlate, prefix(LibBlockNames.LIVING_ROCK_SLATE));
 		r.accept(livingrockBrick, prefix(LibBlockNames.LIVING_ROCK_BRICK));
 		r.accept(livingrockBrickStairs, prefix(LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX));
 		r.accept(livingrockBrickSlab, prefix(LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX));
@@ -1212,6 +1214,7 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(livingrockPolishedStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedStairs));
 		r.accept(new BlockItem(livingrockPolishedSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedSlab));
 		r.accept(new BlockItem(livingrockPolishedWall, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedWall));
+		r.accept(new BlockItem(livingrockSlate, props), BuiltInRegistries.BLOCK.getKey(livingrockSlate));
 		r.accept(new BlockItem(livingrockBrick, props), BuiltInRegistries.BLOCK.getKey(livingrockBrick));
 		r.accept(new BlockItem(livingrockBrickStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickStairs));
 		r.accept(new BlockItem(livingrockBrickSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickSlab));

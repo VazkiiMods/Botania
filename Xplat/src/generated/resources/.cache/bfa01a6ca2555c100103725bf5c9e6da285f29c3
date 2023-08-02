@@ -42,7 +42,7 @@ b59d5b36ebe88ae60fca62eb6985e9825e0a9031 data/minecraft/tags/blocks/fences.json
 0d43cab6db2ee9b5d1865b8938630349ce5bfa23 data/minecraft/tags/blocks/logs_that_burn.json
 becd82a0a742cbb63f817ee0db553914c88660c0 data/minecraft/tags/blocks/mineable/axe.json
 8393fc4bde3a0ab934c23ea1ab61c715005d6fad data/minecraft/tags/blocks/mineable/hoe.json
-17eeb23733b9f65a0bd6dcbac03ad77fbcadbd49 data/minecraft/tags/blocks/mineable/pickaxe.json
+49028c0568cb6dac935978c2eef4c62892e2ec0a data/minecraft/tags/blocks/mineable/pickaxe.json
 d007dc55eac3ad87cfa2bb5010e3aae01bd8f100 data/minecraft/tags/blocks/mineable/shovel.json
 54675e9a9831f96294a26f8ea2d942bee9b19559 data/minecraft/tags/blocks/mushroom_grow_block.json
 5a8edc115bd46b1aaf4c4c720b921774a1a9deea data/minecraft/tags/blocks/planks.json

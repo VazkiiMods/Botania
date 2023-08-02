@@ -19,6 +19,7 @@ public final class LibBlockNames {
 	public static final String APOTHECARY_PREFIX = "apothecary_";
 	public static final String LIVING_ROCK = "livingrock";
 	public static final String LIVING_ROCK_POLISHED = "polished_livingrock";
+	public static final String LIVING_ROCK_SLATE = "livingrock_slate";
 	public static final String LIVING_ROCK_BRICK = "livingrock_bricks";
 	public static final String LIVING_ROCK_BRICK_MOSSY = "mossy_livingrock_bricks";
 	public static final String LIVING_ROCK_BRICK_CRACKED = "cracked_livingrock_bricks";
