@@ -65,6 +65,7 @@ import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -234,12 +235,19 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				});
 
 		var old = CorporeaInputHandler.hoveredStackGetter;
-		CorporeaInputHandler.hoveredStackGetter = () -> ObjectUtils.getFirstNonNull(
-				() -> jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
-				() -> jeiRuntime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM_STACK).orElse(null),
-				() -> jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
-				old
-		);
+		WeakReference<IJeiRuntime> jeiRuntimeRef = new WeakReference<>(jeiRuntime);
+		CorporeaInputHandler.hoveredStackGetter = () -> {
+			IJeiRuntime runtime = jeiRuntimeRef.get();
+			if (runtime == null) {
+				return old.get();
+			}
+			return ObjectUtils.getFirstNonNull(
+					() -> runtime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
+					() -> runtime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM_STACK).orElse(null),
+					() -> runtime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
+					old
+			);
+		};
 
 		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(gui -> gui instanceof IRecipesGui);
 	}
