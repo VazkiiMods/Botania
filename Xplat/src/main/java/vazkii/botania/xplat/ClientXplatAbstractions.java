@@ -23,6 +23,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public interface ClientXplatAbstractions {
 	ResourceLocation FLOATING_FLOWER_MODEL_LOADER_ID = prefix("floating_flower");
+	ResourceLocation MANA_GUN_MODEL_LOADER_ID = prefix("mana_gun");
 
 	// Event firing
 	void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay);

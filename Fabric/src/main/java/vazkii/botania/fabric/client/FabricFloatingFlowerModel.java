@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
@@ -141,13 +140,15 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		}
 	}
 
-	public static void hookModelLoad(JsonElement jsonElement, JsonDeserializationContext context, CallbackInfoReturnable<BlockModel> cir) {
+	@Nullable
+	public static FabricFloatingFlowerModel hookModelLoad(JsonElement jsonElement, JsonDeserializationContext context) {
 		JsonObject json = jsonElement.getAsJsonObject();
 		JsonElement loader = json.get("loader");
 		if (loader != null && loader.isJsonPrimitive()
 				&& loader.getAsString().equals(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.toString())) {
 			BlockModel flowerModel = context.deserialize(json.getAsJsonObject("flower"), BlockModel.class);
-			cir.setReturnValue(new FabricFloatingFlowerModel(flowerModel));
+			return new FabricFloatingFlowerModel(flowerModel);
 		}
+		return null;
 	}
 }

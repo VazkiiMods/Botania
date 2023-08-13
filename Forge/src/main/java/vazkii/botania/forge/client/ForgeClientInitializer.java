@@ -227,6 +227,8 @@ public class ForgeClientInitializer {
 	public static void registerModelLoader(ModelEvent.RegisterGeometryLoaders evt) {
 		evt.register(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.getPath(),
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
+		evt.register(ClientXplatAbstractions.MANA_GUN_MODEL_LOADER_ID.getPath(),
+				ForgeManaBlasterModel.Loader.INSTANCE);
 	}
 
 	@SubscribeEvent
