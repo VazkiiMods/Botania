@@ -2322,8 +2322,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.define('S', item)
 				.define('T', stick)
 				.pattern("SS")
-				.pattern("TS")
-				.pattern("T ")
+				.pattern("ST")
+				.pattern(" T")
 				.unlockedBy("has_item", criterion)
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hoe)
@@ -2344,8 +2344,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shears)
 				.define('S', item)
-				.pattern("S ")
 				.pattern(" S")
+				.pattern("S ")
 				.unlockedBy("has_item", criterion)
 				.save(consumer);
 
