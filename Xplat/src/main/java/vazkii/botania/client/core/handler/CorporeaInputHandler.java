@@ -27,12 +27,14 @@ import vazkii.botania.mixin.client.RecipeBookPageAccessor;
 import vazkii.botania.network.serverbound.IndexKeybindRequestPacket;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class CorporeaInputHandler {
 
-	public static Supplier<ItemStack> hoveredStackGetter = () -> ItemStack.EMPTY;
+	public static final List<Supplier<ItemStack>> hoveredStackGetters = new ArrayList<>();
 	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen;
 
 	public static boolean buttonPressed(int keyCode, int scanCode) {
@@ -90,6 +92,12 @@ public class CorporeaInputHandler {
 			}
 		}
 
-		return hoveredStackGetter.get();
+		for (var getter : CorporeaInputHandler.hoveredStackGetters) {
+			ItemStack stack = getter.get();
+			if (!stack.isEmpty()) {
+				return stack;
+			}
+		}
+		return ItemStack.EMPTY;
 	}
 }

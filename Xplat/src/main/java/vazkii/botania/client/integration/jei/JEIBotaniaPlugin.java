@@ -70,6 +70,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -234,21 +235,10 @@ public class JEIBotaniaPlugin implements IModPlugin {
 					}
 				});
 
-		var old = CorporeaInputHandler.hoveredStackGetter;
-		WeakReference<IJeiRuntime> jeiRuntimeRef = new WeakReference<>(jeiRuntime);
-		CorporeaInputHandler.hoveredStackGetter = () -> {
-			IJeiRuntime runtime = jeiRuntimeRef.get();
-			if (runtime == null) {
-				return old.get();
-			}
-			return ObjectUtils.getFirstNonNull(
-					() -> runtime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
-					() -> runtime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM_STACK).orElse(null),
-					() -> runtime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
-					old
-			);
-		};
-
+		HOVERED_STACK_GETTER.jeiRuntimeRef = new WeakReference<>(jeiRuntime);
+		if (!CorporeaInputHandler.hoveredStackGetters.contains(HOVERED_STACK_GETTER)) {
+			CorporeaInputHandler.hoveredStackGetters.add(HOVERED_STACK_GETTER);
+		}
 		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(gui -> gui instanceof IRecipesGui);
 	}
 
@@ -256,5 +246,28 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public ResourceLocation getPluginUid() {
 		return ID;
+	}
+
+	private static final HoveredStackGetter HOVERED_STACK_GETTER = new HoveredStackGetter();
+
+	private static class HoveredStackGetter implements Supplier<ItemStack> {
+		// Technically, this doesn't have to be WeakReference. The old one will be released and collected
+		// when the new one is assigned. But we don't to keep hanging onto the memory if someone quits out
+		// to the menu and then idles there, so use a WeakReference here.
+		WeakReference<IJeiRuntime> jeiRuntimeRef;
+
+		@Override
+		public ItemStack get() {
+			var jeiRuntime = jeiRuntimeRef.get();
+			if (jeiRuntime == null) {
+				return ItemStack.EMPTY;
+			}
+			return ObjectUtils.getFirstNonNull(
+					() -> jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
+					() -> jeiRuntime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM_STACK).orElse(null),
+					() -> jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
+					() -> ItemStack.EMPTY
+			);
+		}
 	}
 }

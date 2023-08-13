@@ -38,6 +38,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.StreamSupport;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -83,19 +84,22 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		return new EmiRecipeCategory(prefix(idPath), icon, icon, comp);
 	}
 
+	private static final Supplier<ItemStack> HOVERED_STACK_GETTER = () -> {
+		EmiIngredient ingr = EmiApi.getHoveredStack(true).getStack();
+		if (ingr.getEmiStacks().size() > 0) {
+			var stack = ingr.getEmiStacks().get(0).getItemStack();
+			if (!stack.isEmpty()) {
+				return stack;
+			}
+		}
+		return ItemStack.EMPTY;
+	};
+
 	@Override
 	public void register(EmiRegistry registry) {
-		var old = CorporeaInputHandler.hoveredStackGetter;
-		CorporeaInputHandler.hoveredStackGetter = () -> {
-			EmiIngredient ingr = EmiApi.getHoveredStack(true).getStack();
-			if (ingr.getEmiStacks().size() > 0) {
-				var stack = ingr.getEmiStacks().get(0).getItemStack();
-				if (!stack.isEmpty()) {
-					return stack;
-				}
-			}
-			return old.get();
-		};
+		if (!CorporeaInputHandler.hoveredStackGetters.contains(HOVERED_STACK_GETTER)) {
+			CorporeaInputHandler.hoveredStackGetters.add(HOVERED_STACK_GETTER);
+		}
 		registry.addCategory(PETAL_APOTHECARY);
 		registry.addCategory(MANA_INFUSION);
 		registry.addCategory(RUNIC_ALTAR);

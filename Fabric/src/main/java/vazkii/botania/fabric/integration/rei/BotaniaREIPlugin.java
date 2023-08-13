@@ -53,18 +53,16 @@ import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.StreamSupport;
 
 public class BotaniaREIPlugin implements REIClientPlugin {
+	private static final Supplier<ItemStack> HOVERED_STACK_GETTER = BotaniaREIPlugin::getHoveredREIStack;
+
 	public BotaniaREIPlugin() {
-		var old = CorporeaInputHandler.hoveredStackGetter;
-		CorporeaInputHandler.hoveredStackGetter = () -> {
-			var stack = BotaniaREIPlugin.getHoveredREIStack();
-			if (!stack.isEmpty()) {
-				return stack;
-			}
-			return old.get();
-		};
+		if (!CorporeaInputHandler.hoveredStackGetters.contains(HOVERED_STACK_GETTER)) {
+			CorporeaInputHandler.hoveredStackGetters.add(HOVERED_STACK_GETTER);
+		}
 		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(s -> s instanceof DisplayScreen);
 	}
 
