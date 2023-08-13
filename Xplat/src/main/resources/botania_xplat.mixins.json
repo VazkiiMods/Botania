@@ -19,6 +19,7 @@
     "DispenserBlockAccessor",
     "EntityAccessor",
     "EntityMixin",
+    "ExperienceOrbAccessor",
     "FarmBlockMixin",
     "FireBlockAccessor",
     "GoalSelectorAccessor",
