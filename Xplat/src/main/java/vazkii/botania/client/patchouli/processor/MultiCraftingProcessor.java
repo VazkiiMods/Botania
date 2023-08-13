@@ -91,8 +91,9 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			return PatchouliUtils.interweaveIngredients(ingredients, longestIngredientSize);
 		}
 		if (key.equals("output")) {
-			// TODO 1.19.4 figure out the proper way to get a registry access
-			return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(RegistryAccess.EMPTY)).map(IVariable::from).collect(Collectors.toList()));
+			return IVariable.wrapList(recipes.stream()
+					.map(r -> IVariable.from(r.getResultItem(level.registryAccess())))
+					.collect(Collectors.toList()));
 		}
 		if (key.equals("shapeless")) {
 			return IVariable.wrap(shapeless);
