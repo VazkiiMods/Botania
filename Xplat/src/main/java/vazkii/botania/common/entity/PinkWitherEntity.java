@@ -23,7 +23,6 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.mixin.GoalSelectorAccessor;
 import vazkii.botania.mixin.WitherEntityAccessor;
 
 public class PinkWitherEntity extends WitherBoss {
@@ -36,10 +35,10 @@ public class PinkWitherEntity extends WitherBoss {
 		super.registerGoals();
 
 		// Remove firing wither skulls
-		((GoalSelectorAccessor) goalSelector).getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
+		goalSelector.getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
 
 		// Remove revenge and aggro
-		((GoalSelectorAccessor) targetSelector).getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
+		targetSelector.getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
 				|| entry.getGoal() instanceof NearestAttackableTargetGoal);
 	}
 
