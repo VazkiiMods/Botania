@@ -41,7 +41,6 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.mixin.SoundTypeAccessor;
 import vazkii.botania.network.clientbound.GogWorldPacket;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -84,7 +83,7 @@ public final class SkyblockWorldEvents {
 
 				if (state.is(PEBBLE_SOURCES)) {
 					SoundType st = state.getSoundType();
-					SoundEvent sound = ((SoundTypeAccessor) st).botania_getBreakSound();
+					SoundEvent sound = st.getBreakSound();
 					player.playSound(sound, st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
 					if (world.isClientSide) {

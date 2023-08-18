@@ -79,7 +79,6 @@ import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.mixin.MobEffectAccessor;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.network.clientbound.SpawnGaiaGuardianPacket;
@@ -657,7 +656,7 @@ public class GaiaGuardianEntity extends Mob {
 	private void clearPotions(Player player) {
 		Set<MobEffect> effectsToRemove = new HashSet<>();
 		for (var effectInstance : player.getActiveEffects()) {
-			if (effectInstance.getDuration() < 160 && effectInstance.isAmbient() && ((MobEffectAccessor) effectInstance.getEffect()).getType() != MobEffectCategory.HARMFUL) {
+			if (effectInstance.getDuration() < 160 && effectInstance.isAmbient() && effectInstance.getEffect().getCategory() != MobEffectCategory.HARMFUL) {
 				effectsToRemove.add(effectInstance.getEffect());
 			}
 		}
