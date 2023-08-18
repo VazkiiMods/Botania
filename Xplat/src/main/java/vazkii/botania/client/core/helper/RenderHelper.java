@@ -519,6 +519,7 @@ public final class RenderHelper extends RenderType {
 						RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.4F);
 					}, () -> {
 						Sheets.translucentCullBlockSheet().clearRenderState();
+						RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 					});
 		}
 	}
