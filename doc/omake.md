@@ -519,10 +519,10 @@ Idea: farmer
 * Dislikes:
 
 ## Labellia
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+* Gender: Book
+* Physical symbols: 
+* Likes: Physical media
+* Dislikes: DRM, closed-access journals, subscription services
 
 Idea: Librarian
 
@@ -682,12 +682,36 @@ In an increasingly specialized world, Spectranthemum is proof that being a well-
 generalist can still work out.
 
 ## Medumone
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+* Gender: They/them
+* Physical symbols: U+1F60C Relieved Face Emoji 😌
+* Likes: Coloring books, pottery-making
+* Dislikes: Being boxed into rigid expectations about life like getting married, buying a
+  house, having kids, etc.
 
-(slows mobs down)
+Within the last two hundred years, life has accelerated to breakneck pace.
+
+Flowers in general have not genetically and physiologically adapted to a world in which
+the CorporeaNet keeps them hooked 24/7 on the latest celebrity drama, or a world where
+flowers stay awake until 4 am under artificial lights and electronic devices.
+
+Medumone runs a therapist practice that specializes in helping others make sense of the
+rushing, fast-paced world around them.
+
+"I just work hours then come home and stare at my computer until I go to bed"
+
+"With the advent of generative AI, flowers will simply mindlessly consume generated
+content, while any original creations will be gobbled up by cold, impersonal scrapers to
+train the next model. What is the purpose of any further creative work in such a world?"
+
+"Every week the internet is outraged at something else and it's exhausting me"
+
+"The weekend just goes by in a flash and I'm dreading work after barely catching my
+breath"
+
+"How do I find friends that truly value me for me and aren't flaky?"
+
+Medumone works through these challenging questions with their patients, and hopes, through
+them, to discover some of the answers for themself as well.
 
 ## Marimorphosis
 * Gender: Trans Male (he/him)
