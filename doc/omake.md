@@ -234,7 +234,7 @@ Yes, his name has "Rosa" in it. No, he doesn't care.
 ## Munchdew
 * Gender:
 * Physical symbols: Head of lettuce
-* Likes: Tofu, soybeans
+* Likes: Tofu, soybeans, Labellia
 * Dislikes: PETA, meat, snake-oil health products
 
 Idea: Hardcore vegan, but also co-invented Munchdew-y decimal system alongside Labellia lol
@@ -519,12 +519,36 @@ Idea: farmer
 * Dislikes:
 
 ## Labellia
-* Gender: Book
-* Physical symbols: 
-* Likes: Physical media
-* Dislikes: DRM, closed-access journals, subscription services
+* Gender: Book (they/them)
+* Physical symbols: Brain
+* Likes: Physical media (books, CD's, tapes, game cartridges, etc.)
+* Dislikes: DRM, closed-access scientific journals, subscription services
 
-Idea: Librarian
+Labellia is an expert librarian. Often derided as a dying occupation, librarians are
+instead one of the pillars of modern scholarship.
+
+They are there to help guide the curious to whatever resources they seek, whether it be
+held in a book, movie, website. Academic paper, video game, or propaganda poster.
+
+In Labellia's youth, this job was a difficult one. Books were organized haphazardly,
+sometimes by author, other times by title, and other times books were simply jammed on the
+shelves for young readers to slowly slog through.
+
+This changed when Labellia, a brilliant information studies student, though to organize
+the world's knowledge into a hierarchical and numerical system, where related topics would
+be placed near each other numerically.
+
+Labellia painstakingly promoted this system to all the flowers, and finally is was
+accepted and is the standard today for organizing knowledge. Recognizing the efforts of
+their wife Munchdew in supporting them during this difficult journey, Labellia named the
+new system the Munchdewey Decimal System in her honor.
+
+When not performing her formal duties, Labellia advocates for true ownership of books,
+games, and media. They reject a world where content that one has purchased with real money
+can simply vanish if a licensing deal falls through, or the servers shut down in 15 years.
+As such, Labellia and Munchdew's shelves at home are lined with innnumerable books, music
+CD's, and physical games. Their own personal home collection is a joyful library of its
+own.
 
 ## Rannuncarpus
 * Gender: Removed -- it was only holding them back
