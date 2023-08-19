@@ -690,12 +690,38 @@ generalist can still work out.
 (slows mobs down)
 
 ## Marimorphosis
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+* Gender: Trans Male (he/him)
+* Physical symbols: Circle
+* Likes: History of early science, holometabolic bugs, nuclear physics
+* Dislikes: How atoms are taught in primary schools
 
-Idea: Alchemist (but a modern nuclear scientist)
+How does the process by which one substance or object turn into something else?
+
+A caterpillar reducing itself into a solution of goop only to form anew as a free
+butterfly, mercury transforming into gold in the supposed alchemical laboratories of
+classical antiquity, igneous rock metamorphosizing into new forms admist incomprehensible
+heat and pressure.
+
+Marimorphosis is fascinated by them all.
+
+In 5th grade, he loved to pretend he was an alchemist, combining various rocks, sands,
+and dirts from the playground with various other compounds (such as his lunch, much to his
+parents' and teachers' displeasure) into "potions" which he would then dare his friends to
+taste before laughing and dumping the mixture away.
+
+He knew all too well the stories of Roman and Chinese emperors who died after ingesting
+mercury under the guise of "Pills of Immortality".
+
+Marimorphosis was elated when he learned of nuclear fission and fusion in high
+school. Here we had true alchemy, as had been sought by early scientists, and it released
+massive amounts of energy to boot! If only the world would consider as an energy source
+besides the foul, smog-emitting coal that was depressingly common in his hometown.
+
+From then on, Marimorphosis resolved to become a nuclear researcher. Today he works at a
+university laboratory, smashing atoms together and studying what particles come out of the
+resulting blast.
+
+Under his hard work, flowerkind inches ever closer towards the legendary Philosopher's Stone.
 
 ## Bubbell
 * Gender: Female (she/her)
