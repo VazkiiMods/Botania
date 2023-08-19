@@ -534,7 +534,7 @@ In Labellia's youth, this job was a difficult one. Books were organized haphazar
 sometimes by author, other times by title, and other times books were simply jammed on the
 shelves for young readers to slowly slog through.
 
-This changed when Labellia, a brilliant information studies student, though to organize
+This changed when Labellia, a brilliant information studies student, thought to organize
 the world's knowledge into a hierarchical and numerical system, where related topics would
 be placed near each other numerically.
 
@@ -543,12 +543,12 @@ accepted and is the standard today for organizing knowledge. Recognizing the eff
 their wife Munchdew in supporting them during this difficult journey, Labellia named the
 new system the Munchdewey Decimal System in her honor.
 
-When not performing her formal duties, Labellia advocates for true ownership of books,
+When not performing their formal duties, Labellia advocates for true ownership of books,
 games, and media. They reject a world where content that one has purchased with real money
 can simply vanish if a licensing deal falls through, or the servers shut down in 15 years.
-As such, Labellia and Munchdew's shelves at home are lined with innnumerable books, music
+As such, Labellia and Munchdew's shelves at home are lined with innumerable books, music
 CD's, and physical games. Their own personal home collection is a joyful library of its
-own.
+own, sorted by a variant of the Munchdewey decimal system, of course.
 
 ## Rannuncarpus
 * Gender: Removed -- it was only holding them back
