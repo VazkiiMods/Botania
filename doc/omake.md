@@ -866,48 +866,48 @@ I (williewillus) would have to say the following:
 
 Each flower in Botania is a reference to a (usually real life) flower or concept.
 
-| Botania Flower   | Reference To                                    |
-|------------------|-------------------------------------------------|
-| Agricarnation    | Agriculture + Carnation                         |
-| Bellethorne      |                                                 |
-| Bergamute        | Bergamot + muting sounds                        |
-| Bubbell          | Bubble + Bluebells                              |
-| Clayconia        | Clay + Heliconia                                |
-| Daffomill        | Daffodil + Windmill                             |
-| Dandelifeon      | Dandelion + (Conway's Game of) Life             |
-| Daybloom         | Daybloom (Terraria), Sunflower (by extension)   |
-| Dreadthorne      |                                                 |
-| Endoflame        | Endothermic (absorbing/requiring heat)          |
-| Entropinnyum     |                                                 |
-| Exoflame         | Exothermic (releases heat)                      |
-| Fallen Kanade    |                                                 |
-| Gourmaryllis     | Gourmet + Amaryllis                             |
-| Heisei Dream     | Japanese Heisei era ("Heisei" = "become peace") |
-| Hopperhock       | Hopper + Hollyhock                              |
-| Hyacidus         | Hyacinth + Acid                                 |
-| Hydroangeas      | "Hydro" (Ancient Greek: water) + Hydrangea      |
-| Jaded Amaranthus | Amaranth                                        |
-| Jiyullia         |                                                 |
-| Kekimurus        |                                                 |
-| Labellia         | Label + Lobelia                                 |
-| Loonium          | Loot + Geranium                                 |
-| Manastar         |                                                 |
-| Marimorphosis    | Marigold + Metamorphosis                        |
-| Medumone         | "Medo" (Portugese: "fear") + Anemone            |
-| Munchdew         | Munching + Sundew                               |
-| Narslimmus       | Narcissus + Slime                               |
-| Nightshade       | Nightshades                                     |
-| Orechid (Ignem)  | Ore + Orchid, "Ignis" (Latin: "fire")           |
-| Pollidisiac      | Pollination + Aphrodisiac                       |
-| Pure Daisy       | Pure + Daisy (duh!)                             |
-| Rafflowsia       | Rafflesia + Flower                              |
-| Rannuncarpus     | Ranunculus + Carpus (word for "wrist")          |
-| Rosa Arcana      | Rose + Arcane, also Latin for flavor            |
-| Shulk Me Not     | Shulker + Forget-Me-Not                         |
-| Solegnolia       | Solenoid (type of electromagnet) + Magnolia     |
-| Spectranthemum   | Spectral + Chrysanthemum                        |
-| Spectrolus       | Spectrum + Gladiolus                            |
-| Tangleberrie     |                                                 |
-| Thermalily       | Therma (Ancient Greek: warm/hot bath) + Lily    |
-| Tigerseye        | Tiger Eye (a type of Flowering Maple)           |
-| Vinculotus       | Vinculum (Latin: "bond"/"link") + Lotus         |
+| Botania Flower   | Reference To                                                       |
+|------------------|--------------------------------------------------------------------|
+| Agricarnation    | Agriculture + Carnation                                            |
+| Bellethorne      | Belladonna + Hawthorne                                             |
+| Bergamute        | Bergamot + muting sounds                                           |
+| Bubbell          | Bubble + Bluebells                                                 |
+| Clayconia        | Clay + Heliconia                                                   |
+| Daffomill        | Daffodil + Windmill                                                |
+| Dandelifeon      | Dandelion + (Conway's Game of) Life                                |
+| Daybloom         | Daybloom (Terraria), Sunflower (by extension)                      |
+| Dreadthorne      | Dread + Hawthorne (variant of Bellethorne)                         |
+| Endoflame        | Endothermic (absorbing/requiring heat)                             |
+| Entropinnyum     |                                                                    |
+| Exoflame         | Exothermic (releases heat)                                         |
+| Fallen Kanade    | "Fallen Angel", with angel replaced with Kanade from *Angel Beats* |
+| Gourmaryllis     | Gourmet + Amaryllis                                                |
+| Heisei Dream     | Japanese Heisei era ("Heisei" = "become peace")                    |
+| Hopperhock       | Hopper + Hollyhock                                                 |
+| Hyacidus         | Hyacinth + Acid                                                    |
+| Hydroangeas      | "Hydro" (Ancient Greek: water) + Hydrangea                         |
+| Jaded Amaranthus | "Jaded" (JadedCat, patron who commissioned the flower) + Amaranth  |
+| Jiyullia         |                                                                    |
+| Kekimurus        | "keki" (kay-key) is the Japanese pronunciation of "cake"           |
+| Labellia         | Label + Lobelia                                                    |
+| Loonium          | Loot + Geranium                                                    |
+| Manastar         | Starflower                                                         |
+| Marimorphosis    | Marigold + Metamorphosis                                           |
+| Medumone         | Medusa + Anemone                                                   |
+| Munchdew         | Munching + Sundew                                                  |
+| Narslimmus       | Narcissus + Slime                                                  |
+| Nightshade       | Nightshades                                                        |
+| Orechid (Ignem)  | Ore + Orchid, "Ignis" (Latin: "fire")                              |
+| Pollidisiac      | Pollination + Aphrodisiac                                          |
+| Pure Daisy       | Purify + Daisy                                                     |
+| Rafflowsia       | Rafflesia + Flower                                                 |
+| Rannuncarpus     | Ranunculus + Carpus (word for "wrist")                             |
+| Rosa Arcana      | Rose + Arcane, also Latin for flavor                               |
+| Shulk Me Not     | Shulker + Forget-Me-Not                                            |
+| Solegnolia       | Solenoid (type of electromagnet) + Magnolia                        |
+| Spectranthemum   | Spectral + Chrysanthemum                                           |
+| Spectrolus       | Spectrum + Gladiolus                                               |
+| Tangleberrie     | Any -berry type plant                                              |
+| Thermalily       | Therma (Ancient Greek: warm/hot bath) + Lily                       |
+| Tigerseye        | Tiger Eye (a type of gemstone)                                     |
+| Vinculotus       | Vinculum (Latin: "bond"/"link") + Lotus                            |
