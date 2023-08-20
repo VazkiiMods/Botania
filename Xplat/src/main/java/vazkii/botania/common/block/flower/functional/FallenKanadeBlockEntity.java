@@ -37,7 +37,7 @@ public class FallenKanadeBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide && getLevel().dimension() != Level.END) {
+		if (!getLevel().isClientSide) {
 			boolean did = false;
 			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)), FallenKanadeBlockEntity::canHeal);
 			for (LivingEntity toHeal : entities) {
