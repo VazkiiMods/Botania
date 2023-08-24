@@ -232,12 +232,47 @@ Idea: TTRPG nerd
 Yes, his name has "Rosa" in it. No, he doesn't care.
 	
 ## Munchdew
-* Gender:
-* Physical symbols: Head of lettuce
+* Gender: Female (she/her)
+* Physical symbols: Block of Tofu
 * Likes: Tofu, soybeans, Labellia
 * Dislikes: PETA, meat, snake-oil health products
 
-Idea: Hardcore vegan, but also co-invented Munchdew-y decimal system alongside Labellia lol
+CW: Animal cruelty/animal-industrial complex
+
+Munchdew grew up as your stereotypical happy flower girl, showered by her parents with the
+products of suburban consumerism. Plastic and animal products were of course in common use
+in the household, and no one in Munchdew's family batted a petal at them.
+
+One day, however, Munchdew met Labellia. An intelligent and beautiful flower, Labellia was
+a librarian at the university's library. After a date over tea, the topic turned to the
+challenges and ethics of consumerism, particularly of animal products.
+
+Labellia was excited to use the library's resources to help Munchdew answer her questions,
+and together the two ended up getting into a tour of a chicken farm and pork
+slaughterhouse.
+
+The experience shocked Munchdew to the core.
+
+She saw the conveyor lines where newly-hatched chicks were tested for their sex, and the
+males immediately killed (they called it "culling") mere days after they were born, being
+of no use in either egg-laying nor being someone's future dinner.
+
+She smelled the sickening scent of blood from mass-slaughtered farm animals, and spoke to
+workers that mentioned that they had to suppress their compassion in order to carry out
+their jobs.
+
+Munchdew came out with a much broader view of the world than the narrow one with which she
+entered those facilities. Although giving up the many niceties of life she had grown
+accustomed to would be difficult, she resolved to prefer plant-based products and only
+consume animal products half as often, with an eventual goal of stopping altogether.
+
+She is also now involved in activist groups, though she notably avoids PETA (Plants for
+Ethical Treat of Animals), as their rhetoric is often over-inflammatory, leading many to
+dismiss all such activist groups as crazy.
+
+In her time as a budding vegetarian, Munchdew has come to love tofu, being able to cook
+nearly a hundred tofu-based dishes. Her favorite is probably *mapo tofu*, and she sources
+the hottest spices from Endoflame for the most authentic taste.
 
 ## Entropinnyum
 * Gender: We asked them and they proudly handed us a card which was too singed to read
@@ -521,7 +556,7 @@ Idea: farmer
 ## Labellia
 * Gender: Book (they/them)
 * Physical symbols: Brain
-* Likes: Physical media (books, CD's, tapes, game cartridges, etc.)
+* Likes: Physical media (books, CD's, tapes, game cartridges, etc.), Munchdew
 * Dislikes: DRM, closed-access scientific journals, subscription services
 
 Labellia is an expert librarian. Often derided as a dying occupation, librarians are
