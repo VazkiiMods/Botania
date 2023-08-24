@@ -291,12 +291,41 @@ the line). In fact, Entropinnyum despises those that actually *do* take things t
 particular harboring a special hatred for illegally-traded explosives.
 
 ## Kekimurus
-* Gender: 
-* Physical symbols: cake, pie
-* Likes:
-* Dislikes: Having to eat savory food to survive
+* Gender: Cake
+* Physical symbols: Glucose molecule diagram
+* Likes: Any and all desserts
+* Dislikes: High-Fructose Corn Syrup, Artificial Sweeteners, Having to eat savory food to
+  survive
 
-Idea: Sweets connoisseur that somehow is immune to diabetes
+Kekimurus was born into a wildly rich flower family, and will never have to work a day in their life.
+
+However, they were born with two other things:
+
+1. A voracious appetite for any and all foods containing sugar, and
+2. Genetic resistance against any form of diabetes
+
+These gifts bestowed on them by the heavens led Kekimurus to a life as a food chemist and
+chef, where they spend long hours inventing ever-sweeter foods so that everyone in the
+world could experience what they called a "Sweet and Adorable Life".
+
+Kekimurus insisted on using real sugars, preferably found naturally in the world (such as
+cane sugar), despising High-Fructose Corn Syrup and any sort of artificial sweetener or
+"diet" drink.
+
+Kekimurus' foods were a hit among flowerkind, selling over one billion desserts in half a
+year worldwide. Unfortunately, disaster soon struck. Under the investigative lens of
+Gourmaryllis, a scalding report was published accusing Kekimurus Foods of purposefully
+making their foods sweeter and sweeter, beyond the healthy amount. Young flowers across
+the world were now afflicted with diabetes, and parents were demanding answers.
+
+Kekimurus was shocked. So focused they were on their singular quest for a sweeter food,
+that the thought of others not being able to tolerate as high an amount of sugars never
+crossed their mind. In shame, they shut down Kekimurus Foods and apologized profusely,
+settling numerous lawsuits for massive sums of money.
+
+Privately, however, Kekimurus continued operating their laboratory. The search would
+continue for an even sweeter food, and the product of that labor would from now on only be
+enjoyed by Kekimurus alone.
 
 ## Gourmaryllis
 * Gender:
@@ -304,7 +333,7 @@ Idea: Sweets connoisseur that somehow is immune to diabetes
 * Likes:
 * Dislikes:
 
-Idea: Nutritionist
+Idea: Nutritionist and nutrition journalist (but secretly has a voracious appetite)
 
 ## Narslimmus
 * Gender: Male (he/him)
