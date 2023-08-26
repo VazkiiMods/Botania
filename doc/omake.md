@@ -447,10 +447,67 @@ with Pure Daisy, and when not busy with work the two can often be found testing 
 danmaku skills against each other in *Touhou 9: Phantasmagoria of Flower View*.
 
 ## Jaded Amaranthus
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+* Gender: Male (he/him)
+* Physical symbols: A sigh of relief
+* Likes: Simplicity, intentional communication
+* Dislikes: Social media, surface-level relationships, the grind, LinkedIn
+
+Jaded Amaranthus was once a businessman in the capital of the country. He was raised by
+his parents from a young age to be the inheritor of the modestly-sized family business,
+and was sent to the most prestigious university in the country to learn all he could to
+serve that role.
+
+And serve that role he did. After graduating with a 4.0 GPA, Jaded Amaranthus started as a
+manager at his father's company, quickly proving himself to the company elders and rising
+through the ranks based on his merit. Many long hours were spent in the office, many
+~~hairs~~ petals pulled out, and many phone minutes spent on hammering out last-minute
+deals.
+
+Jaded Amaranthus fully and willingly immersed himself into that life, a stereotype of the
+successful family heir. Soon, other rich flower families were even offering the hands of
+their children in marriage. Somehow or another, Jaded Amaranthus even ended up in a short
+relationship with Pure Daisy.
+
+Pure Daisy was a good flower, and Jaded Amaranthus knew that. But their perfectionist
+personality and dedication to The Grind were the straws that ended up breaking the camel's
+back, and the two broke up in months. The truth was that Jaded Amaranthus had been holding
+back feelings that he had felt creeping up upon him for decades at this point. Feelings of
+stress, doubt, and uncertainty about his future, even though that future had supposedly
+been charted for him from day one by those around him.
+
+"What is my purpose here in the world?"
+
+"Are the relationships around me meaningful and genuine?"
+
+...
+
+"Am I happy?"
+
+
+All of these feelings crashed down upon Jaded Amaranthus, leading him to take a long, hard
+look at his life. His parents had since passed way, and the business was wildly
+successful. And though he once thrived and loved the intensity of that work, it had become
+a burden upon him, psychologically and physically.
+
+It was time to let it go.
+
+He took a long tour around the office, thanking each employee. Soon after, his stake of
+the business was sold to one of his most trusted deputies, who succeeded him in the
+leadership role.
+
+Next to be sold were his lavish house and luxury car. Then came goodbyes to his business
+contacts and other chance acquaintances. Step by step, Jaded Amaranthus shed layer after
+layer of the world's burdens that had been weighing him down, both appreciating what they
+had brought to his life, but also bidding them a genuine and heartfelt farewell.
+
+Finally, after all was said and done, Jaded Amaranthus relocated deep into the
+mountains. He used no social media, and restricted himself to one hour of email a month to
+exchange intentional conversation with an extremely small circle of friends he
+trusted. There in his hermitage, he spent his days writing, painting, singing, and
+daydreaming. It was freeing to finally have time to simply be bored and contemplate life.
+
+Jaded Amaranthus didn't know if he was any closer to answering the questions he had posed
+to himself, but he felt that he was 1% of the way closer to knowing.
 
 ## Bellethorne
 * Gender:
