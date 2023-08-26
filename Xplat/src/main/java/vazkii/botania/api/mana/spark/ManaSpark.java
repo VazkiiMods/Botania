@@ -11,6 +11,7 @@ package vazkii.botania.api.mana.spark;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.SparkEntity;
+import vazkii.botania.api.mana.ManaReceiver;
 
 import java.util.Collection;
 
@@ -23,6 +24,12 @@ public interface ManaSpark extends SparkEntity {
 	 */
 	@Nullable
 	SparkAttachable getAttachedTile();
+
+	/**
+	 * @return The attached mana receiver under the spark, if available
+	 */
+	@Nullable
+	ManaReceiver getAttachedManaReceiver();
 
 	/**
 	 * Gets a collection of all Sparks this is tranfering to.

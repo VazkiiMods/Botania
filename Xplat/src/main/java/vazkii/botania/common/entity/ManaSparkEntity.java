@@ -29,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.WandHUD;
@@ -308,6 +309,12 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	@Override
 	public SparkAttachable getAttachedTile() {
 		return XplatAbstractions.INSTANCE.findSparkAttachable(level(), getAttachPos(), level().getBlockState(getAttachPos()), level().getBlockEntity(getAttachPos()), Direction.UP);
+	}
+
+	@Nullable
+	@Override
+	public ManaReceiver getAttachedManaReceiver() {
+		return XplatAbstractions.INSTANCE.findManaReceiver(level(), getAttachPos(), Direction.UP);
 	}
 
 	private void filterTransfers() {
