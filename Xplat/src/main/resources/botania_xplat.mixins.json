@@ -11,6 +11,7 @@
     "BeeMixin",
     "BiomeAccessor",
     "BlockModelGeneratorsAccessor",
+    "BlockPropertiesAccessor",
     "BushBlockMixin",
     "CollectingNeighborUpdaterMixin",
     "CreeperAccessor",
