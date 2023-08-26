@@ -55,7 +55,6 @@ import java.util.stream.Stream;
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
 import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
 import static vazkii.botania.common.block.BotaniaBlocks.*;
-import static vazkii.botania.common.block.BotaniaFluffBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockstateProvider implements DataProvider {

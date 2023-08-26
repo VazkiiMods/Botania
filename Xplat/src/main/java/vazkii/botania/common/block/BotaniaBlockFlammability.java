@@ -5,7 +5,6 @@ import net.minecraft.world.level.block.Blocks;
 import vazkii.botania.mixin.FireBlockAccessor;
 
 import static vazkii.botania.common.block.BotaniaBlocks.*;
-import static vazkii.botania.common.block.BotaniaFluffBlocks.*;
 
 public abstract class BotaniaBlockFlammability {
 	public static void register() {

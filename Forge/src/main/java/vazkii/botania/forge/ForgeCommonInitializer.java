@@ -172,11 +172,9 @@ public class ForgeCommonInitializer {
 		bind(Registries.SOUND_EVENT, BotaniaSounds::init);
 		bind(Registries.BLOCK, consumer -> {
 			BotaniaBlocks.registerBlocks(consumer);
-			BotaniaFluffBlocks.registerBlocks(consumer);
 			BotaniaBlockFlammability.register();
 		});
 		bindForItems(BotaniaBlocks::registerItemBlocks);
-		bindForItems(BotaniaFluffBlocks::registerItemBlocks);
 		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaBlockEntities::registerTiles);
 		bindForItems(BotaniaItems::registerItems);
 		bind(Registries.BLOCK, BotaniaFlowerBlocks::registerBlocks);

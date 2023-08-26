@@ -12,7 +12,6 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -37,8 +36,8 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(Tags.Blocks.STORAGE_BLOCKS_QUARTZ).add(
-				BotaniaFluffBlocks.darkQuartz, BotaniaFluffBlocks.manaQuartz, BotaniaFluffBlocks.blazeQuartz,
-				BotaniaFluffBlocks.lavenderQuartz, BotaniaFluffBlocks.redQuartz, BotaniaFluffBlocks.elfQuartz, BotaniaFluffBlocks.sunnyQuartz
+				BotaniaBlocks.darkQuartz, BotaniaBlocks.manaQuartz, BotaniaBlocks.blazeQuartz,
+				BotaniaBlocks.lavenderQuartz, BotaniaBlocks.redQuartz, BotaniaBlocks.elfQuartz, BotaniaBlocks.sunnyQuartz
 		);
 
 		for (DyeColor color : DyeColor.values()) {
@@ -54,7 +53,7 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(TERRASTEEL).addTag(BotaniaTags.Blocks.BLOCKS_TERRASTEEL);
 		tag(Tags.Blocks.STORAGE_BLOCKS).addTag(ELEMENTIUM).addTag(MANASTEEL).addTag(TERRASTEEL);
 		tag(Tags.Blocks.GLASS).add(BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm);
-		tag(Tags.Blocks.GLASS_PANES).add(BotaniaFluffBlocks.managlassPane, BotaniaFluffBlocks.alfglassPane, BotaniaFluffBlocks.bifrostPane);
+		tag(Tags.Blocks.GLASS_PANES).add(BotaniaBlocks.managlassPane, BotaniaBlocks.alfglassPane, BotaniaBlocks.bifrostPane);
 	}
 
 	private static TagKey<Block> forge(String name) {

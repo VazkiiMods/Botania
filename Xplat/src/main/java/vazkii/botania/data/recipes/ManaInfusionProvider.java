@@ -29,7 +29,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -87,13 +86,13 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(deconstruct("glowstone_deconstruct", Items.GLOWSTONE_DUST, Blocks.GLOWSTONE));
 		consumer.accept(deconstruct("quartz_deconstruct", Items.QUARTZ, Blocks.QUARTZ_BLOCK));
-		consumer.accept(deconstruct("dark_quartz_deconstruct", BotaniaItems.darkQuartz, BotaniaFluffBlocks.darkQuartz));
-		consumer.accept(deconstruct("mana_quartz_deconstruct", BotaniaItems.manaQuartz, BotaniaFluffBlocks.manaQuartz));
-		consumer.accept(deconstruct("blaze_quartz_deconstruct", BotaniaItems.blazeQuartz, BotaniaFluffBlocks.blazeQuartz));
-		consumer.accept(deconstruct("lavender_quartz_deconstruct", BotaniaItems.lavenderQuartz, BotaniaFluffBlocks.lavenderQuartz));
-		consumer.accept(deconstruct("red_quartz_deconstruct", BotaniaItems.redQuartz, BotaniaFluffBlocks.redQuartz));
-		consumer.accept(deconstruct("elf_quartz_deconstruct", BotaniaItems.elfQuartz, BotaniaFluffBlocks.elfQuartz));
-		consumer.accept(deconstruct("sunny_quartz_deconstruct", BotaniaItems.sunnyQuartz, BotaniaFluffBlocks.sunnyQuartz));
+		consumer.accept(deconstruct("dark_quartz_deconstruct", BotaniaItems.darkQuartz, BotaniaBlocks.darkQuartz));
+		consumer.accept(deconstruct("mana_quartz_deconstruct", BotaniaItems.manaQuartz, BotaniaBlocks.manaQuartz));
+		consumer.accept(deconstruct("blaze_quartz_deconstruct", BotaniaItems.blazeQuartz, BotaniaBlocks.blazeQuartz));
+		consumer.accept(deconstruct("lavender_quartz_deconstruct", BotaniaItems.lavenderQuartz, BotaniaBlocks.lavenderQuartz));
+		consumer.accept(deconstruct("red_quartz_deconstruct", BotaniaItems.redQuartz, BotaniaBlocks.redQuartz));
+		consumer.accept(deconstruct("elf_quartz_deconstruct", BotaniaItems.elfQuartz, BotaniaBlocks.elfQuartz));
+		consumer.accept(deconstruct("sunny_quartz_deconstruct", BotaniaItems.sunnyQuartz, BotaniaBlocks.sunnyQuartz));
 
 		consumer.accept(FinishedRecipe.alchemy(id("chiseled_stone_bricks"), new ItemStack(Blocks.CHISELED_STONE_BRICKS, 1), ingr(Blocks.STONE_BRICKS), 150));
 		consumer.accept(FinishedRecipe.alchemy(id("ice"), new ItemStack(Blocks.ICE), ingr(Blocks.SNOW_BLOCK), 2250));

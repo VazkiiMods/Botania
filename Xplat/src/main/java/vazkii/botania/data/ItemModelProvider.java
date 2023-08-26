@@ -421,8 +421,8 @@ public class ItemModelProvider implements DataProvider {
 			consumer.accept(ModelLocationUtils.getModelLocation(i),
 					new SimpleModelSupplierWithOverrides(ModelLocationUtils.getModelLocation(i.getBlock()), overrides));
 		});
-		takeAll(itemBlocks, Stream.of(BotaniaFluffBlocks.livingwoodWall, BotaniaFluffBlocks.livingwoodStrippedWall,
-				BotaniaFluffBlocks.dreamwoodWall, BotaniaFluffBlocks.dreamwoodStrippedWall)
+		takeAll(itemBlocks, Stream.of(BotaniaBlocks.livingwoodWall, BotaniaBlocks.livingwoodStrippedWall,
+				BotaniaBlocks.dreamwoodWall, BotaniaBlocks.dreamwoodStrippedWall)
 				.map(b -> (BlockItem) b.asItem())
 				.toArray(BlockItem[]::new)).forEach(i -> {
 
@@ -479,31 +479,31 @@ public class ItemModelProvider implements DataProvider {
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(TextureMapping.getItemTexture(i)), consumer);
 		});
 
-		ModelTemplates.FENCE_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaFluffBlocks.dreamwoodFence.asItem()),
+		ModelTemplates.FENCE_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.dreamwoodFence.asItem()),
 				TextureMapping.defaultTexture(BotaniaBlocks.dreamwoodPlanks), consumer);
-		itemBlocks.remove(BotaniaFluffBlocks.dreamwoodFence.asItem());
+		itemBlocks.remove(BotaniaBlocks.dreamwoodFence.asItem());
 
-		ModelTemplates.FENCE_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaFluffBlocks.livingwoodFence.asItem()),
+		ModelTemplates.FENCE_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.livingwoodFence.asItem()),
 				TextureMapping.defaultTexture(BotaniaBlocks.livingwoodPlanks), consumer);
-		itemBlocks.remove(BotaniaFluffBlocks.livingwoodFence.asItem());
+		itemBlocks.remove(BotaniaBlocks.livingwoodFence.asItem());
 
 		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.elfGlass.asItem()), new DelegatedModel(prefix("block/elf_glass_0")));
 		itemBlocks.remove(BotaniaBlocks.elfGlass.asItem());
 
-		WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaFluffBlocks.biomeBrickPlainsWall.asItem()),
+		WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.biomeBrickPlainsWall.asItem()),
 				new TextureMapping()
-						.put(TextureSlot.TOP, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains, "_top"))
-						.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains, "_top"))
-						.put(TextureSlot.WALL, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains)),
+						.put(TextureSlot.TOP, TextureMapping.getBlockTexture(BotaniaBlocks.biomeBrickPlains, "_top"))
+						.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(BotaniaBlocks.biomeBrickPlains, "_top"))
+						.put(TextureSlot.WALL, TextureMapping.getBlockTexture(BotaniaBlocks.biomeBrickPlains)),
 				consumer);
-		itemBlocks.remove(BotaniaFluffBlocks.biomeBrickPlainsWall.asItem());
+		itemBlocks.remove(BotaniaBlocks.biomeBrickPlainsWall.asItem());
 
-		WALL_INVENTORY_CHECKERED.create(ModelLocationUtils.getModelLocation(BotaniaFluffBlocks.biomeBrickMesaWall.asItem()),
+		WALL_INVENTORY_CHECKERED.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.biomeBrickMesaWall.asItem()),
 				new TextureMapping()
-						.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickMesa))
-						.put(TextureSlot.NORTH, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickMesa, "_mirrored")),
+						.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(BotaniaBlocks.biomeBrickMesa))
+						.put(TextureSlot.NORTH, TextureMapping.getBlockTexture(BotaniaBlocks.biomeBrickMesa, "_mirrored")),
 				consumer);
-		itemBlocks.remove(BotaniaFluffBlocks.biomeBrickMesaWall.asItem());
+		itemBlocks.remove(BotaniaBlocks.biomeBrickMesaWall.asItem());
 
 		itemBlocks.forEach(i -> {
 			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(ModelLocationUtils.getModelLocation(i.getBlock())));

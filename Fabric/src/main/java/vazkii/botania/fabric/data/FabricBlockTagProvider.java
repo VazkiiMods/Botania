@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.data.BlockTagProvider;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -39,11 +38,11 @@ public class FabricBlockTagProvider extends BlockTagProvider {
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
 		tag(QUARTZ_BLOCKS).add(
-				BotaniaFluffBlocks.darkQuartz, BotaniaFluffBlocks.manaQuartz, BotaniaFluffBlocks.blazeQuartz,
-				BotaniaFluffBlocks.lavenderQuartz, BotaniaFluffBlocks.redQuartz, BotaniaFluffBlocks.elfQuartz, BotaniaFluffBlocks.sunnyQuartz
+				BotaniaBlocks.darkQuartz, BotaniaBlocks.manaQuartz, BotaniaBlocks.blazeQuartz,
+				BotaniaBlocks.lavenderQuartz, BotaniaBlocks.redQuartz, BotaniaBlocks.elfQuartz, BotaniaBlocks.sunnyQuartz
 		);
 		List.of(GLASS, GLASS_ALT).forEach(t -> tag(t).add(BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm));
-		List.of(GLASS_PANE, GLASS_PANE_ALT).forEach(t -> tag(t).add(BotaniaFluffBlocks.managlassPane, BotaniaFluffBlocks.alfglassPane, BotaniaFluffBlocks.bifrostPane));
+		List.of(GLASS_PANE, GLASS_PANE_ALT).forEach(t -> tag(t).add(BotaniaBlocks.managlassPane, BotaniaBlocks.alfglassPane, BotaniaBlocks.bifrostPane));
 
 		for (DyeColor color : DyeColor.values()) {
 			this.tag(MUSHROOMS).add(BotaniaBlocks.getMushroom(color));

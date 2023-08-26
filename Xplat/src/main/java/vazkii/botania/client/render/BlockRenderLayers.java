@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.lib.LibMisc;
@@ -31,11 +30,11 @@ public final class BlockRenderLayers {
 
 		consumer.accept(BotaniaBlocks.corporeaCrystalCube, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.manaGlass, RenderType.translucent());
-		consumer.accept(BotaniaFluffBlocks.managlassPane, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.managlassPane, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.elfGlass, RenderType.translucent());
-		consumer.accept(BotaniaFluffBlocks.alfglassPane, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.alfglassPane, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.bifrost, RenderType.translucent());
-		consumer.accept(BotaniaFluffBlocks.bifrostPane, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.bifrostPane, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.bifrostPerm, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.prism, RenderType.translucent());
 

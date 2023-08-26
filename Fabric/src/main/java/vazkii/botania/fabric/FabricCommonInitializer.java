@@ -150,8 +150,6 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaSounds.init(bind(BuiltInRegistries.SOUND_EVENT));
 		BotaniaBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
 		BotaniaBlocks.registerItemBlocks(boundForItem);
-		BotaniaFluffBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
-		BotaniaFluffBlocks.registerItemBlocks(boundForItem);
 		BotaniaBlockFlammability.register();
 		BotaniaBlockEntities.registerTiles(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
 		BotaniaItems.registerItems(boundForItem);
