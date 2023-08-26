@@ -352,8 +352,8 @@ course the tasty staples of her home country.
 
 It was no question to anyone that Gourmaryllis eventually became a top nutritionist. In
 addition to seeking the tastiest foods, she emphasized the importance of a balanced and
-varied diet. In fact, she set a hard rule for herself that she would never eat the same
-food unless she had had at least 7 other different foods before repeating.
+varied diet. Eating too much of the same food was sure to leave her in a bad mood for a
+week.
 
 "A kaleidoscope of flavours dancing upon my palate, what a wonderful life", thought
 Gourmaryllis as she scooped another handful of a new novelty snack from the bag beside
