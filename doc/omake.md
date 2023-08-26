@@ -328,12 +328,37 @@ continue for an even sweeter food, and the product of that labor would from now 
 enjoyed by Kekimurus alone.
 
 ## Gourmaryllis
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes:
+* Gender: Female (she/her)
+* Physical symbols: Minecraft drumstick sprite
+* Likes: Unlimited anything at any restaurant (few restaurants have passed her test for
+  being actually unlimited enough)
+* Dislikes: Meal-replacement drinks
 
-Idea: Nutritionist and nutrition journalist (but secretly has a voracious appetite)
+It all started when she was little. Her parents had just bought a big box of snacks to
+take to her basketball game, and Gourmaryllis just couldn't help snatching a couple bags
+of Orion cookies at night when she got peckish.
+
+The trouble continued after the basketball game, as the snacks quickly dwindled in number.
+
+"I'm pretty sure there was more of these..." were common remarks from her bewildered
+parents.
+
+She also began learning to cook at a young age, serving a full breakfast in bed to both
+her parents on their anniversary when she was only 7 years old.
+
+Thus began the long journey in her love for food. Nothing was off-limits: the most
+disgusting-sounding exotic plant or animal, the most foul-smelling tropical fruit, and of
+course the tasty staples of her home country.
+
+It was no question to anyone that Gourmaryllis eventually became a top nutritionist. In
+addition to seeking the tastiest foods, she emphasized the importance of a balanced and
+varied diet. In fact, she set a hard rule for herself that she would never eat the same
+food unless she had had at least 7 other different foods before repeating.
+
+"A kaleidoscope of flavours dancing upon my palate, what a wonderful life", thought
+Gourmaryllis as she scooped another handful of a new novelty snack from the bag beside
+her, tossed it into her mouth, and continued working on her latest paper, an exposé on
+Kekimurus Foods.
 
 ## Narslimmus
 * Gender: Male (he/him)
@@ -614,12 +639,11 @@ that's exactly what the friend needs to hear. As a result, Exoflame is deeply tr
 nearly everybody they know.
 
 ## Agricarnation
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+* Gender: Fluid
+* Physical symbols: Composter
+* Likes: Self-improvement books
+* Dislikes: Not being motivated
 
-Idea: farmer
 
 ## Hopperhock
 * Gender:
