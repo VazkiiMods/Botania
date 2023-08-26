@@ -589,7 +589,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 		if (!fake) {
 			var spreader = getShooter();
-			if (spreader != null) {
+			if (spreader != null && spreader.getIdentifier().equals(getShooterUUID())) {
 				spreader.setCanShoot(true);
 			}
 		} else {
