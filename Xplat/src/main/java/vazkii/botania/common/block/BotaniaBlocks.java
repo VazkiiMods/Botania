@@ -213,7 +213,6 @@ public final class BotaniaBlocks {
 	public static final Block livingrockBrickCracked = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickMossy = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 
-	// TODO 1.20 looks like Material.WOOD used to handle flammability. need to find the proper way to do this now
 	public static final Block livingwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2).sound(SoundType.WOOD).mapColor(state -> state.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y ? MapColor.TERRACOTTA_RED : MapColor.TERRACOTTA_BROWN));
 	public static final Block livingwoodLogStripped = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog).mapColor(MapColor.TERRACOTTA_RED));
 	public static final Block livingwoodLogGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog).lightLevel(b -> 12));
@@ -269,7 +268,6 @@ public final class BotaniaBlocks {
 	public static final Block enchanter = new ManaEnchanterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.LAPIS).strength(3, 5).lightLevel(s -> 15).sound(SoundType.STONE));
 	public static final Block brewery = new BotanicalBreweryBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block terraPlate = new TerrestrialAgglomerationPlateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.LAPIS).strength(3, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
-	// TODO 1.20 same as above wrt flammable
 	public static final Block alfPortal = new AlfheimPortalBlock(BlockBehaviour.Properties.copy(livingwood).strength(10).sound(SoundType.WOOD)
 			.lightLevel(s -> s.getValue(BotaniaStateProperties.ALFPORTAL_STATE) != AlfheimPortalState.OFF ? 15 : 0));
 
@@ -291,7 +289,6 @@ public final class BotaniaBlocks {
 	public static final Block prism = new ManaPrismBlock(BlockBehaviour.Properties.copy(elfGlass).noCollission());
 	public static final Block pump = new ManaPumpBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block sparkChanger = new SparkTinkererBlock(BlockBehaviour.Properties.copy(livingrock));
-	// TODO 1.20 same as above wrt flammable
 	public static final Block manaBomb = new ManastormChargeBlock(BlockBehaviour.Properties.copy(livingwood).strength(12));
 	public static final Block bellows = new BellowsBlock(BlockBehaviour.Properties.copy(livingwood));
 
@@ -299,7 +296,6 @@ public final class BotaniaBlocks {
 	public static final Block craftCrate = new CraftyCrateBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block forestEye = new EyeOfTheAncientsBlock(BlockBehaviour.Properties.of().strength(5, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block solidVines = new SolidVineBlock(BlockBehaviour.Properties.copy(Blocks.VINE));
-	// TODO 1.20 same as above wrt flammable
 	public static final Block abstrusePlatform = new PlatformBlock(PlatformBlock.Variant.ABSTRUSE, BlockBehaviour.Properties.copy(livingwood).strength(2, 5).isValidSpawn(NO_SPAWN).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION));
 	public static final Block spectralPlatform = new PlatformBlock(PlatformBlock.Variant.SPECTRAL, BlockBehaviour.Properties.copy(abstrusePlatform));
 	public static final Block infrangiblePlatform = new PlatformBlock(PlatformBlock.Variant.INFRANGIBLE, BlockBehaviour.Properties.copy(abstrusePlatform).strength(-1, Float.MAX_VALUE).isValidSpawn(NO_SPAWN).noOcclusion());
@@ -334,7 +330,6 @@ public final class BotaniaBlocks {
 	public static final Block lightRelayFork = new LuminizerBlock(LuminizerVariant.FORK, BlockBehaviour.Properties.copy(lightRelayDefault));
 	public static final Block lightRelayToggle = new LuminizerBlock(LuminizerVariant.TOGGLE, BlockBehaviour.Properties.copy(lightRelayDefault));
 	public static final Block lightLauncher = new LuminizerLauncherBlock(BlockBehaviour.Properties.copy(livingwood));
-	// TODO 1.20 same as earlier wrt flammable
 	public static final Block cacophonium = new CacophoniumBlock(BlockBehaviour.Properties.copy(Blocks.NOTE_BLOCK).strength(0.8F));
 	public static final Block cellBlock = new CellularBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).sound(SoundType.WOOL));
 	public static final Block teruTeruBozu = new TeruTeruBozuBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE));

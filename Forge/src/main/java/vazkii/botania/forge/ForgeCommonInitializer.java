@@ -170,9 +170,12 @@ public class ForgeCommonInitializer {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		// Core item/block/BE
 		bind(Registries.SOUND_EVENT, BotaniaSounds::init);
-		bind(Registries.BLOCK, BotaniaBlocks::registerBlocks);
+		bind(Registries.BLOCK, consumer -> {
+			BotaniaBlocks.registerBlocks(consumer);
+			BotaniaFluffBlocks.registerBlocks(consumer);
+			BotaniaBlockFlammability.register();
+		});
 		bindForItems(BotaniaBlocks::registerItemBlocks);
-		bind(Registries.BLOCK, BotaniaFluffBlocks::registerBlocks);
 		bindForItems(BotaniaFluffBlocks::registerItemBlocks);
 		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaBlockEntities::registerTiles);
 		bindForItems(BotaniaItems::registerItems);
