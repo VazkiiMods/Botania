@@ -275,6 +275,7 @@ public final class FiberBotaniaConfig {
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<List<String>> rannuncarpusItemBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
 		public final PropertyMirror<List<String>> rannuncarpusModBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
+		public final PropertyMirror<List<String>> agricarnationWhitelist = PropertyMirror.create(ConfigTypes.makeList(STRING));
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder.fork("blockBreakingParticles")
@@ -346,7 +347,11 @@ public final class FiberBotaniaConfig {
 					.beginValue("rannuncarpusModBlacklist", ConfigTypes.makeList(STRING), Collections.singletonList("storagedrawers"))
 					.withComment("List of mod names for rannuncarpuses to ignore.\n" +
 							"Ignores Storage Drawers by default due to crashes with placing drawer blocks without player involvement.")
-					.finishValue(rannuncarpusModBlacklist::mirror);
+					.finishValue(rannuncarpusModBlacklist::mirror)
+
+					.beginValue("agricarnationWhitelist", ConfigTypes.makeList(STRING), Collections.emptyList())
+					.withComment("List of item registry names that will be speeded up growth by agricarnations.")
+					.finishValue(agricarnationWhitelist::mirror);
 
 			return builder.build();
 		}
@@ -424,6 +429,11 @@ public final class FiberBotaniaConfig {
 		@Override
 		public List<String> rannuncarpusModBlacklist() {
 			return rannuncarpusModBlacklist.getValue();
+		}
+
+		@Override
+		public List<String> agricarnationWhitelist() {
+			return agricarnationWhitelist.getValue();
 		}
 	}
 

@@ -22,6 +22,7 @@ public class BotaniaConfig {
 		int gogIslandScaleMultiplier();
 		List<String> rannuncarpusItemBlacklist();
 		List<String> rannuncarpusModBlacklist();
+		List<String> agricarnationWhitelist();
 	}
 
 	public interface ClientConfigAccess {
