@@ -27,7 +27,9 @@ To generate a server world with Garden of Glass:
    a GoG world in single player then upload it to the server.
 
 
-<a class="btn btn-lg btn-material-cyan" href="https://minecraft.curseforge.com/projects/botania-garden-of-glass" role="button" style="width:500px">Download Garden of Glass</a>
+<a class="btn btn-lg btn-material-cyan" href="https://minecraft.curseforge.com/projects/botania-garden-of-glass" role="button" style="width:500px">Download (CurseForge)</a>
+
+<a class="btn btn-lg btn-material-cyan" href="https://modrinth.com/mod/gardenofglass" role="button" style="width:500px">Download (Modrinth)</a>
 
 ---
 
