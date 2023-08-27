@@ -13,6 +13,8 @@ jobs:
       default_branch: ${{ steps.determinate.outputs.default_branch }}
     steps:
     - id: determinate
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
         DEFAULT_BRANCH=$(gh api \
           -H "Accept: application/vnd.github+json" \
@@ -48,4 +50,4 @@ jobs:
         echo '${{ vars.BOTANIAWEB_KNOWN_HOST }}' >> ~/.ssh/known_hosts
     - name: Push
       if: ${{ github.ref == needs.determinator.outputs.default_branch }}
-      run: rsync -av web/_site/ customer@botaniaweb.playat.ch:/var/www/botaniamod_net
+      run: rsync -rl web/_site/ customer@botaniaweb.playat.ch:/var/www/botaniamod_net
