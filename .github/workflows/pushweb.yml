@@ -7,8 +7,22 @@ on:
       - 'web/**'
 
 jobs:
+  determinator:
+    runs-on: ubuntu-latest
+    outputs:
+      default_branch: ${{ steps.determinate.outputs.default_branch }}
+    steps:
+    - id: determinate
+      run: |
+        DEFAULT_BRANCH=$(gh api \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/VazkiiMods/Botania | jq .default_branch)
+        # Add refs/heads/ for easier comparison with github.ref below
+        echo "default_branch=refs/heads/$DEFAULT_BRANCH" >> "$GITHUB_OUTPUT"
   main:
     runs-on: ubuntu-latest
+    needs: determinator
     steps:
     - uses: actions/checkout@v3
     - name: Cache
@@ -26,10 +40,12 @@ jobs:
       working-directory: web
       run: bundle exec jekyll build
     - name: Import ssh keys
+      if: ${{ github.ref == needs.determinator.outputs.default_branch }}
       run: |
         umask go=
         mkdir -p ~/.ssh
         echo '${{ secrets.VIOLET_MOON_WEBSERVER_SSH_KEY }}' > ~/.ssh/id_ed25519
         echo '${{ vars.BOTANIAWEB_KNOWN_HOST }}' >> ~/.ssh/known_hosts
     - name: Push
+      if: ${{ github.ref == needs.determinator.outputs.default_branch }}
       run: rsync -av web/_site/ customer@botaniaweb.playat.ch:/var/www/botaniamod_net
