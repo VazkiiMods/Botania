@@ -357,7 +357,7 @@ public final class RenderHelper extends RenderType {
 		buf.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
 		buf.vertex(mat, centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
 
-		for (int i = degs; i > 0; i--) {
+		for (int i = degs; i >= 0; i--) {
 			float rad = (i - 90) / 180F * (float) Math.PI;
 			buf.vertex(mat, centerX + Mth.cos(rad) * r, centerY + Mth.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).endVertex();
 		}
