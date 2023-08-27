@@ -18,7 +18,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 
 version = "${minecraft_version}-${build_number}-FORGE"
-if (System.getenv().RELEASE_MODE == null) {
+if (System.getenv().RELEASE_MODE != "1") {
     version += '-SNAPSHOT'
 }
 

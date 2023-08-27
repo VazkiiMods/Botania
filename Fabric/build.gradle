@@ -4,7 +4,7 @@ plugins {
 }
 
 version = "${minecraft_version}-${build_number}-FABRIC"
-if (System.getenv().RELEASE_MODE == null) {
+if (System.getenv().RELEASE_MODE != "1") {
     version += '-SNAPSHOT'
 }
 

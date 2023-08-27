@@ -4,9 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
@@ -14,6 +12,8 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
+    - name: Validate gradlew integrity
+      uses: gradle/wrapper-validation-action@v1
     - name: Cache
       uses: actions/cache@v2
       with:
@@ -24,10 +24,29 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle', '**/gradle-wrapper.properties') }}
     - name: Check lang files
       run: ./scripts/check_lang.sh
+    - name: Calculate artifact names
+      id: calculate_artifact_names
+      run: |
+        # Check is backwards because "" is falsey, which wouldn't work for boolean punning
+        SNAPSHOT_SUFFIX=${{ !startsWith(github.ref, 'refs/tags/release-') && '-SNAPSHOT' || '' }}
+        MC=$(awk -F '=' '/minecraft_version/ { print $2; }' gradle.properties)
+        BUILD=$(awk -F '=' '/build_number/ { print $2; }' gradle.properties)
+        echo "forge=Forge/build/libs/Botania-${MC}-${BUILD}-FORGE${SNAPSHOT_SUFFIX}.jar" >> "$GITHUB_OUTPUT"
+        echo "fabric=Fabric/build/libs/Botania-${MC}-${BUILD}-FABRIC${SNAPSHOT_SUFFIX}.jar" >> "$GITHUB_OUTPUT"
+        
+        GOG_VER=$(awk -F '=' '/VERSION/ { print $2; }' garden_of_glass/Makefile)
+        echo "gog=garden_of_glass/gardenofglass-${GOG_VER}.jar" >> "$GITHUB_OUTPUT"
     - name: Build GoG
-      run: make -C garden_of_glass jar
+      run: |
+        make -C garden_of_glass jar
+
+        # This makes the jar file have uniform order and timestamps for reproducibility
+        sudo apt-get install strip-nondeterminism
+        strip-nondeterminism ${{ steps.calculate_artifact_names.outputs.gog }}
     - name: Build with Gradle
-      run: ./gradlew pmdMain spotlessJavaCheck build
+      run: |
+        RELEASE_MODE=${{ startsWith(github.ref, 'refs/tags/release-') && '1' || '0' }} \
+        ./gradlew pmdMain spotlessJavaCheck build
     - name: PMD report
       uses: jwgmeligmeyling/pmd-github-action@v1
       if: failure()
@@ -37,20 +56,32 @@ jobs:
       run: ./scripts/check_datagen.sh
     - name: Run GameTests (Fabric)
       run: ./gradlew :Fabric:runGameTest
-    - name: Archive Fabric Binaries
+    - name: Stop Gradle
+      run: ./gradlew --stop
+    - name: Sign jars
+      env:
+        SIGNING_KEY: ${{ secrets.VIOLET_MOON_SIGNING_KEY }}
+      if: ${{ env.SIGNING_KEY != '' }}
+      run: |
+        echo "${SIGNING_KEY}" | gpg --import -
+        gpg --local-user "Violet Moon Signing Key" --armor \
+          --detach-sign ${{ steps.calculate_artifact_names.outputs.forge }}
+        gpg --local-user "Violet Moon Signing Key" --armor \
+          --detach-sign ${{ steps.calculate_artifact_names.outputs.fabric }}
+        gpg --local-user "Violet Moon Signing Key" --armor \
+          --detach-sign ${{ steps.calculate_artifact_names.outputs.gog }}
+    - name: Archive Fabric Jar
       uses: actions/upload-artifact@v2
       with:
         name: Fabric
-        path: Fabric/build/libs/*.jar
-    - name: Archive Forge Binaries
+        path: ${{ steps.calculate_artifact_names.outputs.fabric }}
+    - name: Archive Forge Jar
       uses: actions/upload-artifact@v2
       with:
         name: Forge
-        path: Forge/build/libs/*.jar
+        path: ${{ steps.calculate_artifact_names.outputs.forge }}
     - name: Archive GoG Binary
       uses: actions/upload-artifact@v2
       with:
         name: GoG
-        path: garden_of_glass/*.jar
-    - name: Cleanup
-      run: ./gradlew --stop
+        path: ${{ steps.calculate_artifact_names.outputs.gog }}
