@@ -37,7 +37,6 @@ To generate a server world with Garden of Glass:
 <img class="featurette-image img-responsive" src="{{ "/assets/img/gog.png" | relative_url }}" alt="Generic placeholder image">
 
 
-
 <img src="{{ "/assets/img/logo_gog.png" | relative_url }}" />
 
 *Logo provided for video thumbnails or other uses.*

@@ -19,7 +19,7 @@ jobs:
         DEFAULT_BRANCH=$(gh api \
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/VazkiiMods/Botania | jq .default_branch)
+          /repos/VazkiiMods/Botania | jq -r .default_branch)
         # Add refs/heads/ for easier comparison with github.ref below
         echo "default_branch=refs/heads/$DEFAULT_BRANCH" >> "$GITHUB_OUTPUT"
   main:
@@ -41,6 +41,10 @@ jobs:
     - name: Build website
       working-directory: web
       run: bundle exec jekyll build
+    - name: Print branch names for debugging
+      run: |
+        echo 'Current branch: ${{ github.ref }}'
+        echo 'Default branch: ${{ needs.determinator.outputs.default_branch }}'
     - name: Import ssh keys
       if: ${{ github.ref == needs.determinator.outputs.default_branch }}
       run: |
