@@ -719,36 +719,72 @@ public final class BotaniaBlocks {
 		r.accept(mossyAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MOSSY.name().toLowerCase(Locale.ROOT)));
 		r.accept(livingrockAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.LIVINGROCK.name().toLowerCase(Locale.ROOT)));
 		r.accept(deepslateAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEEPSLATE.name().toLowerCase(Locale.ROOT)));
+
 		r.accept(livingrock, prefix(LibBlockNames.LIVING_ROCK));
+		r.accept(livingrockStairs, prefix(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX));
+		r.accept(livingrockSlab, prefix(LibBlockNames.LIVING_ROCK + SLAB_SUFFIX));
+		r.accept(livingrockWall, prefix(LibBlockNames.LIVING_ROCK + WALL_SUFFIX));
 		r.accept(livingrockPolished, prefix(LibBlockNames.LIVING_ROCK_POLISHED));
+		r.accept(livingrockPolishedStairs, prefix(LibBlockNames.LIVING_ROCK_POLISHED + STAIR_SUFFIX));
+		r.accept(livingrockPolishedSlab, prefix(LibBlockNames.LIVING_ROCK_POLISHED + SLAB_SUFFIX));
+		r.accept(livingrockPolishedWall, prefix(LibBlockNames.LIVING_ROCK_POLISHED + WALL_SUFFIX));
 		r.accept(livingrockBrick, prefix(LibBlockNames.LIVING_ROCK_BRICK));
+		r.accept(livingrockBrickStairs, prefix(LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX));
+		r.accept(livingrockBrickSlab, prefix(LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX));
+		r.accept(livingrockBrickWall, prefix(LibBlockNames.LIVING_ROCK_BRICK + WALL_SUFFIX));
+		r.accept(livingrockBrickMossy, prefix(LibBlockNames.LIVING_ROCK_BRICK_MOSSY));
+		r.accept(livingrockBrickMossyStairs, prefix(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + STAIR_SUFFIX));
+		r.accept(livingrockBrickMossySlab, prefix(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + SLAB_SUFFIX));
+		r.accept(livingrockBrickMossyWall, prefix(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + WALL_SUFFIX));
 		r.accept(livingrockBrickChiseled, prefix(LibBlockNames.LIVING_ROCK_BRICK_CHISELED));
 		r.accept(livingrockBrickCracked, prefix(LibBlockNames.LIVING_ROCK_BRICK_CRACKED));
-		r.accept(livingrockBrickMossy, prefix(LibBlockNames.LIVING_ROCK_BRICK_MOSSY));
+
 		r.accept(livingwoodLog, prefix(LibBlockNames.LIVING_WOOD_LOG));
-		r.accept(livingwoodLogStripped, prefix(LibBlockNames.LIVING_WOOD_LOG_STRIPPED));
-		r.accept(livingwoodLogGlimmering, prefix(LibBlockNames.LIVING_WOOD_LOG_GLIMMERING));
-		r.accept(livingwoodLogStrippedGlimmering, prefix(LibBlockNames.LIVING_WOOD_LOG_GLIMMERING_STRIPPED));
 		r.accept(livingwood, prefix(LibBlockNames.LIVING_WOOD));
-		r.accept(livingwoodGlimmering, prefix(LibBlockNames.LIVING_WOOD_GLIMMERING));
+		r.accept(livingwoodStairs, prefix(LibBlockNames.LIVING_WOOD + STAIR_SUFFIX));
+		r.accept(livingwoodSlab, prefix(LibBlockNames.LIVING_WOOD + SLAB_SUFFIX));
+		r.accept(livingwoodWall, prefix(LibBlockNames.LIVING_WOOD + WALL_SUFFIX));
+		r.accept(livingwoodLogStripped, prefix(LibBlockNames.LIVING_WOOD_LOG_STRIPPED));
 		r.accept(livingwoodStripped, prefix(LibBlockNames.LIVING_WOOD_STRIPPED));
+		r.accept(livingwoodStrippedStairs, prefix(LibBlockNames.LIVING_WOOD_STRIPPED + STAIR_SUFFIX));
+		r.accept(livingwoodStrippedSlab, prefix(LibBlockNames.LIVING_WOOD_STRIPPED + SLAB_SUFFIX));
+		r.accept(livingwoodStrippedWall, prefix(LibBlockNames.LIVING_WOOD_STRIPPED + WALL_SUFFIX));
+		r.accept(livingwoodLogGlimmering, prefix(LibBlockNames.LIVING_WOOD_LOG_GLIMMERING));
+		r.accept(livingwoodGlimmering, prefix(LibBlockNames.LIVING_WOOD_GLIMMERING));
+		r.accept(livingwoodLogStrippedGlimmering, prefix(LibBlockNames.LIVING_WOOD_LOG_GLIMMERING_STRIPPED));
 		r.accept(livingwoodStrippedGlimmering, prefix(LibBlockNames.LIVING_WOOD_GLIMMERING_STRIPPED));
 		r.accept(livingwoodPlanks, prefix(LibBlockNames.LIVING_WOOD_PLANKS));
+		r.accept(livingwoodPlankStairs, prefix(LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX));
+		r.accept(livingwoodPlankSlab, prefix(LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX));
+		r.accept(livingwoodFence, prefix(LibBlockNames.LIVING_WOOD + FENCE_SUFFIX));
+		r.accept(livingwoodFenceGate, prefix(LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX));
 		r.accept(livingwoodPlanksMossy, prefix(LibBlockNames.LIVING_WOOD_PLANKS_MOSSY));
 		r.accept(livingwoodFramed, prefix(LibBlockNames.LIVING_WOOD_FRAMED));
 		r.accept(livingwoodPatternFramed, prefix(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED));
+
 		r.accept(dreamwoodLog, prefix(LibBlockNames.DREAM_WOOD_LOG));
-		r.accept(dreamwoodLogGlimmering, prefix(LibBlockNames.DREAM_WOOD_LOG_GLIMMERING));
-		r.accept(dreamwoodLogStripped, prefix(LibBlockNames.DREAM_WOOD_LOG_STRIPPED));
-		r.accept(dreamwoodLogStrippedGlimmering, prefix(LibBlockNames.DREAM_WOOD_LOG_GLIMMERING_STRIPPED));
 		r.accept(dreamwood, prefix(LibBlockNames.DREAM_WOOD));
-		r.accept(dreamwoodGlimmering, prefix(LibBlockNames.DREAM_WOOD_GLIMMERING));
+		r.accept(dreamwoodStairs, prefix(LibBlockNames.DREAM_WOOD + STAIR_SUFFIX));
+		r.accept(dreamwoodSlab, prefix(LibBlockNames.DREAM_WOOD + SLAB_SUFFIX));
+		r.accept(dreamwoodWall, prefix(LibBlockNames.DREAM_WOOD + WALL_SUFFIX));
+		r.accept(dreamwoodLogStripped, prefix(LibBlockNames.DREAM_WOOD_LOG_STRIPPED));
 		r.accept(dreamwoodStripped, prefix(LibBlockNames.DREAM_WOOD_STRIPPED));
+		r.accept(dreamwoodStrippedStairs, prefix(LibBlockNames.DREAM_WOOD_STRIPPED + STAIR_SUFFIX));
+		r.accept(dreamwoodStrippedSlab, prefix(LibBlockNames.DREAM_WOOD_STRIPPED + SLAB_SUFFIX));
+		r.accept(dreamwoodStrippedWall, prefix(LibBlockNames.DREAM_WOOD_STRIPPED + WALL_SUFFIX));
+		r.accept(dreamwoodLogGlimmering, prefix(LibBlockNames.DREAM_WOOD_LOG_GLIMMERING));
+		r.accept(dreamwoodGlimmering, prefix(LibBlockNames.DREAM_WOOD_GLIMMERING));
+		r.accept(dreamwoodLogStrippedGlimmering, prefix(LibBlockNames.DREAM_WOOD_LOG_GLIMMERING_STRIPPED));
 		r.accept(dreamwoodStrippedGlimmering, prefix(LibBlockNames.DREAM_WOOD_GLIMMERING_STRIPPED));
 		r.accept(dreamwoodPlanks, prefix(LibBlockNames.DREAM_WOOD_PLANKS));
+		r.accept(dreamwoodPlankStairs, prefix(LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX));
+		r.accept(dreamwoodPlankSlab, prefix(LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX));
+		r.accept(dreamwoodFence, prefix(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX));
+		r.accept(dreamwoodFenceGate, prefix(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX));
 		r.accept(dreamwoodPlanksMossy, prefix(LibBlockNames.DREAM_WOOD_PLANKS_MOSSY));
 		r.accept(dreamwoodFramed, prefix(LibBlockNames.DREAM_WOOD_FRAMED));
 		r.accept(dreamwoodPatternFramed, prefix(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED));
+
 		r.accept(manaSpreader, prefix(LibBlockNames.SPREADER));
 		r.accept(redstoneSpreader, prefix(LibBlockNames.SPREADER_REDSTONE));
 		r.accept(elvenSpreader, prefix(LibBlockNames.SPREADER_ELVEN));
@@ -859,7 +895,11 @@ public final class BotaniaBlocks {
 		r.accept(gaiaHeadWall, prefix(LibBlockNames.GAIA_WALL_HEAD));
 		r.accept(gaiaHead, prefix(LibBlockNames.GAIA_HEAD));
 		r.accept(shimmerrock, prefix(LibBlockNames.SHIMMERROCK));
+		r.accept(shimmerrockSlab, prefix(LibBlockNames.SHIMMERROCK + SLAB_SUFFIX));
+		r.accept(shimmerrockStairs, prefix(LibBlockNames.SHIMMERROCK + STAIR_SUFFIX));
 		r.accept(shimmerwoodPlanks, prefix(LibBlockNames.SHIMMERWOOD_PLANKS));
+		r.accept(shimmerwoodPlankSlab, prefix(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX));
+		r.accept(shimmerwoodPlankStairs, prefix(LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX));
 		r.accept(dryGrass, prefix(BotaniaGrassBlock.Variant.DRY.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
 		r.accept(goldenGrass, prefix(BotaniaGrassBlock.Variant.GOLDEN.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
 		r.accept(vividGrass, prefix(BotaniaGrassBlock.Variant.VIVID.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
@@ -869,44 +909,6 @@ public final class BotaniaBlocks {
 		r.accept(motifDaybloom, prefix(LibBlockNames.MOTIF_DAYBLOOM));
 		r.accept(motifNightshade, prefix(LibBlockNames.MOTIF_NIGHTSHADE));
 		r.accept(motifHydroangeas, prefix(LibBlockNames.MOTIF_HYDROANGEAS));
-
-		r.accept(livingwoodStairs, prefix(LibBlockNames.LIVING_WOOD + STAIR_SUFFIX));
-		r.accept(livingwoodSlab, prefix(LibBlockNames.LIVING_WOOD + SLAB_SUFFIX));
-		r.accept(livingwoodWall, prefix(LibBlockNames.LIVING_WOOD + WALL_SUFFIX));
-		r.accept(livingwoodStrippedStairs, prefix(LibBlockNames.LIVING_WOOD_STRIPPED + STAIR_SUFFIX));
-		r.accept(livingwoodStrippedSlab, prefix(LibBlockNames.LIVING_WOOD_STRIPPED + SLAB_SUFFIX));
-		r.accept(livingwoodStrippedWall, prefix(LibBlockNames.LIVING_WOOD_STRIPPED + WALL_SUFFIX));
-		r.accept(livingwoodPlankStairs, prefix(LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX));
-		r.accept(livingwoodPlankSlab, prefix(LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX));
-		r.accept(livingwoodFence, prefix(LibBlockNames.LIVING_WOOD + FENCE_SUFFIX));
-		r.accept(livingwoodFenceGate, prefix(LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX));
-
-		r.accept(livingrockStairs, prefix(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX));
-		r.accept(livingrockSlab, prefix(LibBlockNames.LIVING_ROCK + SLAB_SUFFIX));
-		r.accept(livingrockWall, prefix(LibBlockNames.LIVING_ROCK + WALL_SUFFIX));
-
-		r.accept(livingrockPolishedStairs, prefix(LibBlockNames.LIVING_ROCK_POLISHED + STAIR_SUFFIX));
-		r.accept(livingrockPolishedSlab, prefix(LibBlockNames.LIVING_ROCK_POLISHED + SLAB_SUFFIX));
-		r.accept(livingrockPolishedWall, prefix(LibBlockNames.LIVING_ROCK_POLISHED + WALL_SUFFIX));
-
-		r.accept(livingrockBrickStairs, prefix(LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX));
-		r.accept(livingrockBrickSlab, prefix(LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX));
-		r.accept(livingrockBrickWall, prefix(LibBlockNames.LIVING_ROCK_BRICK + WALL_SUFFIX));
-
-		r.accept(livingrockBrickMossyStairs, prefix(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + STAIR_SUFFIX));
-		r.accept(livingrockBrickMossySlab, prefix(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + SLAB_SUFFIX));
-		r.accept(livingrockBrickMossyWall, prefix(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + WALL_SUFFIX));
-
-		r.accept(dreamwoodStairs, prefix(LibBlockNames.DREAM_WOOD + STAIR_SUFFIX));
-		r.accept(dreamwoodSlab, prefix(LibBlockNames.DREAM_WOOD + SLAB_SUFFIX));
-		r.accept(dreamwoodWall, prefix(LibBlockNames.DREAM_WOOD + WALL_SUFFIX));
-		r.accept(dreamwoodStrippedStairs, prefix(LibBlockNames.DREAM_WOOD_STRIPPED + STAIR_SUFFIX));
-		r.accept(dreamwoodStrippedSlab, prefix(LibBlockNames.DREAM_WOOD_STRIPPED + SLAB_SUFFIX));
-		r.accept(dreamwoodStrippedWall, prefix(LibBlockNames.DREAM_WOOD_STRIPPED + WALL_SUFFIX));
-		r.accept(dreamwoodPlankStairs, prefix(LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX));
-		r.accept(dreamwoodPlankSlab, prefix(LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX));
-		r.accept(dreamwoodFence, prefix(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX));
-		r.accept(dreamwoodFenceGate, prefix(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX));
 
 		r.accept(darkQuartz, prefix(QUARTZ_DARK));
 		r.accept(darkQuartzChiseled, prefix("chiseled_" + QUARTZ_DARK));
@@ -1086,12 +1088,6 @@ public final class BotaniaBlocks {
 		r.accept(biomeBrickMesaWall, prefix(METAMORPHIC_PREFIX + "mesa_bricks" + WALL_SUFFIX));
 		r.accept(biomeChiseledBrickMesa, prefix("chiseled_" + METAMORPHIC_PREFIX + "mesa_bricks"));
 
-		r.accept(shimmerrockSlab, prefix(LibBlockNames.SHIMMERROCK + SLAB_SUFFIX));
-		r.accept(shimmerrockStairs, prefix(LibBlockNames.SHIMMERROCK + STAIR_SUFFIX));
-
-		r.accept(shimmerwoodPlankSlab, prefix(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX));
-		r.accept(shimmerwoodPlankStairs, prefix(LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX));
-
 		r.accept(managlassPane, prefix(LibBlockNames.MANA_GLASS + "_pane"));
 		r.accept(alfglassPane, prefix(LibBlockNames.ELF_GLASS + "_pane"));
 		r.accept(bifrostPane, prefix(LibBlockNames.BIFROST + "_pane"));
@@ -1207,36 +1203,72 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(mossyAltar, props), BuiltInRegistries.BLOCK.getKey(mossyAltar));
 		r.accept(new BlockItem(livingrockAltar, props), BuiltInRegistries.BLOCK.getKey(livingrockAltar));
 		r.accept(new BlockItem(deepslateAltar, props), BuiltInRegistries.BLOCK.getKey(deepslateAltar));
+
 		r.accept(new BlockItem(livingrock, props), BuiltInRegistries.BLOCK.getKey(livingrock));
+		r.accept(new BlockItem(livingrockStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockStairs));
+		r.accept(new BlockItem(livingrockSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockSlab));
+		r.accept(new BlockItem(livingrockWall, props), BuiltInRegistries.BLOCK.getKey(livingrockWall));
 		r.accept(new BlockItem(livingrockPolished, props), BuiltInRegistries.BLOCK.getKey(livingrockPolished));
+		r.accept(new BlockItem(livingrockPolishedStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedStairs));
+		r.accept(new BlockItem(livingrockPolishedSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedSlab));
+		r.accept(new BlockItem(livingrockPolishedWall, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedWall));
 		r.accept(new BlockItem(livingrockBrick, props), BuiltInRegistries.BLOCK.getKey(livingrockBrick));
+		r.accept(new BlockItem(livingrockBrickStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickStairs));
+		r.accept(new BlockItem(livingrockBrickSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickSlab));
+		r.accept(new BlockItem(livingrockBrickWall, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickWall));
+		r.accept(new BlockItem(livingrockBrickMossy, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossy));
+		r.accept(new BlockItem(livingrockBrickMossyStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossyStairs));
+		r.accept(new BlockItem(livingrockBrickMossySlab, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossySlab));
+		r.accept(new BlockItem(livingrockBrickMossyWall, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossyWall));
 		r.accept(new BlockItem(livingrockBrickChiseled, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickChiseled));
 		r.accept(new BlockItem(livingrockBrickCracked, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickCracked));
-		r.accept(new BlockItem(livingrockBrickMossy, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossy));
+
 		r.accept(new BlockItem(livingwoodLog, props), BuiltInRegistries.BLOCK.getKey(livingwoodLog));
-		r.accept(new BlockItem(livingwoodLogStripped, props), BuiltInRegistries.BLOCK.getKey(livingwoodLogStripped));
-		r.accept(new BlockItem(livingwoodLogGlimmering, props), BuiltInRegistries.BLOCK.getKey(livingwoodLogGlimmering));
-		r.accept(new BlockItem(livingwoodLogStrippedGlimmering, props), BuiltInRegistries.BLOCK.getKey(livingwoodLogStrippedGlimmering));
 		r.accept(new BlockItem(livingwood, props), BuiltInRegistries.BLOCK.getKey(livingwood));
+		r.accept(new BlockItem(livingwoodStairs, props), BuiltInRegistries.BLOCK.getKey(livingwoodStairs));
+		r.accept(new BlockItem(livingwoodSlab, props), BuiltInRegistries.BLOCK.getKey(livingwoodSlab));
+		r.accept(new BlockItem(livingwoodWall, props), BuiltInRegistries.BLOCK.getKey(livingwoodWall));
+		r.accept(new BlockItem(livingwoodLogStripped, props), BuiltInRegistries.BLOCK.getKey(livingwoodLogStripped));
 		r.accept(new BlockItem(livingwoodStripped, props), BuiltInRegistries.BLOCK.getKey(livingwoodStripped));
+		r.accept(new BlockItem(livingwoodStrippedStairs, props), BuiltInRegistries.BLOCK.getKey(livingwoodStrippedStairs));
+		r.accept(new BlockItem(livingwoodStrippedSlab, props), BuiltInRegistries.BLOCK.getKey(livingwoodStrippedSlab));
+		r.accept(new BlockItem(livingwoodStrippedWall, props), BuiltInRegistries.BLOCK.getKey(livingwoodStrippedWall));
+		r.accept(new BlockItem(livingwoodLogGlimmering, props), BuiltInRegistries.BLOCK.getKey(livingwoodLogGlimmering));
+		r.accept(new BlockItem(livingwoodGlimmering, props), BuiltInRegistries.BLOCK.getKey(livingwoodGlimmering));
+		r.accept(new BlockItem(livingwoodLogStrippedGlimmering, props), BuiltInRegistries.BLOCK.getKey(livingwoodLogStrippedGlimmering));
 		r.accept(new BlockItem(livingwoodStrippedGlimmering, props), BuiltInRegistries.BLOCK.getKey(livingwoodStrippedGlimmering));
 		r.accept(new BlockItem(livingwoodPlanks, props), BuiltInRegistries.BLOCK.getKey(livingwoodPlanks));
+		r.accept(new BlockItem(livingwoodPlankStairs, props), BuiltInRegistries.BLOCK.getKey(livingwoodPlankStairs));
+		r.accept(new BlockItem(livingwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(livingwoodPlankSlab));
+		r.accept(new BlockItem(livingwoodFence, props), BuiltInRegistries.BLOCK.getKey(livingwoodFence));
+		r.accept(new BlockItem(livingwoodFenceGate, props), BuiltInRegistries.BLOCK.getKey(livingwoodFenceGate));
 		r.accept(new BlockItem(livingwoodPlanksMossy, props), BuiltInRegistries.BLOCK.getKey(livingwoodPlanksMossy));
 		r.accept(new BlockItem(livingwoodFramed, props), BuiltInRegistries.BLOCK.getKey(livingwoodFramed));
 		r.accept(new BlockItem(livingwoodPatternFramed, props), BuiltInRegistries.BLOCK.getKey(livingwoodPatternFramed));
-		r.accept(new BlockItem(livingwoodGlimmering, props), BuiltInRegistries.BLOCK.getKey(livingwoodGlimmering));
+
 		r.accept(new BlockItem(dreamwoodLog, props), BuiltInRegistries.BLOCK.getKey(dreamwoodLog));
-		r.accept(new BlockItem(dreamwoodLogGlimmering, props), BuiltInRegistries.BLOCK.getKey(dreamwoodLogGlimmering));
-		r.accept(new BlockItem(dreamwoodLogStripped, props), BuiltInRegistries.BLOCK.getKey(dreamwoodLogStripped));
-		r.accept(new BlockItem(dreamwoodLogStrippedGlimmering, props), BuiltInRegistries.BLOCK.getKey(dreamwoodLogStrippedGlimmering));
 		r.accept(new BlockItem(dreamwood, props), BuiltInRegistries.BLOCK.getKey(dreamwood));
+		r.accept(new BlockItem(dreamwoodStairs, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStairs));
+		r.accept(new BlockItem(dreamwoodSlab, props), BuiltInRegistries.BLOCK.getKey(dreamwoodSlab));
+		r.accept(new BlockItem(dreamwoodWall, props), BuiltInRegistries.BLOCK.getKey(dreamwoodWall));
+		r.accept(new BlockItem(dreamwoodLogStripped, props), BuiltInRegistries.BLOCK.getKey(dreamwoodLogStripped));
 		r.accept(new BlockItem(dreamwoodStripped, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStripped));
+		r.accept(new BlockItem(dreamwoodStrippedStairs, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStrippedStairs));
+		r.accept(new BlockItem(dreamwoodStrippedSlab, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStrippedSlab));
+		r.accept(new BlockItem(dreamwoodStrippedWall, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStrippedWall));
+		r.accept(new BlockItem(dreamwoodLogGlimmering, props), BuiltInRegistries.BLOCK.getKey(dreamwoodLogGlimmering));
+		r.accept(new BlockItem(dreamwoodGlimmering, props), BuiltInRegistries.BLOCK.getKey(dreamwoodGlimmering));
+		r.accept(new BlockItem(dreamwoodLogStrippedGlimmering, props), BuiltInRegistries.BLOCK.getKey(dreamwoodLogStrippedGlimmering));
 		r.accept(new BlockItem(dreamwoodStrippedGlimmering, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStrippedGlimmering));
 		r.accept(new BlockItem(dreamwoodPlanks, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPlanks));
+		r.accept(new BlockItem(dreamwoodPlankStairs, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPlankStairs));
+		r.accept(new BlockItem(dreamwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPlankSlab));
+		r.accept(new BlockItem(dreamwoodFence, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFence));
+		r.accept(new BlockItem(dreamwoodFenceGate, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFenceGate));
 		r.accept(new BlockItem(dreamwoodPlanksMossy, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPlanksMossy));
 		r.accept(new BlockItem(dreamwoodFramed, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFramed));
 		r.accept(new BlockItem(dreamwoodPatternFramed, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPatternFramed));
-		r.accept(new BlockItem(dreamwoodGlimmering, props), BuiltInRegistries.BLOCK.getKey(dreamwoodGlimmering));
+
 		r.accept(new BlockItem(manaSpreader, props), BuiltInRegistries.BLOCK.getKey(manaSpreader));
 		r.accept(new BlockItem(redstoneSpreader, props), BuiltInRegistries.BLOCK.getKey(redstoneSpreader));
 		r.accept(new BlockItem(elvenSpreader, props), BuiltInRegistries.BLOCK.getKey(elvenSpreader));
@@ -1343,7 +1375,11 @@ public final class BotaniaBlocks {
 		r.accept(new BlazeItemBlock(blazeBlock, props), BuiltInRegistries.BLOCK.getKey(blazeBlock));
 		r.accept(new StandingAndWallBlockItem(gaiaHead, gaiaHeadWall, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON), Direction.DOWN), BuiltInRegistries.BLOCK.getKey(gaiaHead));
 		r.accept(new BlockItem(shimmerrock, props), BuiltInRegistries.BLOCK.getKey(shimmerrock));
+		r.accept(new BlockItem(shimmerrockSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerrockSlab));
+		r.accept(new BlockItem(shimmerrockStairs, props), BuiltInRegistries.BLOCK.getKey(shimmerrockStairs));
 		r.accept(new BlockItem(shimmerwoodPlanks, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlanks));
+		r.accept(new BlockItem(shimmerwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlankSlab));
+		r.accept(new BlockItem(shimmerwoodPlankStairs, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlankStairs));
 		r.accept(new BlockItem(dryGrass, props), BuiltInRegistries.BLOCK.getKey(dryGrass));
 		r.accept(new BlockItem(goldenGrass, props), BuiltInRegistries.BLOCK.getKey(goldenGrass));
 		r.accept(new BlockItem(vividGrass, props), BuiltInRegistries.BLOCK.getKey(vividGrass));
@@ -1353,48 +1389,6 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(motifDaybloom, props), BuiltInRegistries.BLOCK.getKey(motifDaybloom));
 		r.accept(new BlockItem(motifNightshade, props), BuiltInRegistries.BLOCK.getKey(motifNightshade));
 		r.accept(new BlockItem(motifHydroangeas, props), BuiltInRegistries.BLOCK.getKey(motifHydroangeas));
-
-		r.accept(new BlockItem(livingwoodStairs, props), BuiltInRegistries.BLOCK.getKey(livingwoodStairs));
-		r.accept(new BlockItem(livingwoodSlab, props), BuiltInRegistries.BLOCK.getKey(livingwoodSlab));
-		r.accept(new BlockItem(livingwoodWall, props), BuiltInRegistries.BLOCK.getKey(livingwoodWall));
-		r.accept(new BlockItem(livingwoodFence, props), BuiltInRegistries.BLOCK.getKey(livingwoodFence));
-		r.accept(new BlockItem(livingwoodFenceGate, props), BuiltInRegistries.BLOCK.getKey(livingwoodFenceGate));
-
-		r.accept(new BlockItem(livingwoodStrippedStairs, props), BuiltInRegistries.BLOCK.getKey(livingwoodStrippedStairs));
-		r.accept(new BlockItem(livingwoodStrippedSlab, props), BuiltInRegistries.BLOCK.getKey(livingwoodStrippedSlab));
-		r.accept(new BlockItem(livingwoodStrippedWall, props), BuiltInRegistries.BLOCK.getKey(livingwoodStrippedWall));
-
-		r.accept(new BlockItem(livingwoodPlankStairs, props), BuiltInRegistries.BLOCK.getKey(livingwoodPlankStairs));
-		r.accept(new BlockItem(livingwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(livingwoodPlankSlab));
-
-		r.accept(new BlockItem(livingrockStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockStairs));
-		r.accept(new BlockItem(livingrockSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockSlab));
-		r.accept(new BlockItem(livingrockWall, props), BuiltInRegistries.BLOCK.getKey(livingrockWall));
-
-		r.accept(new BlockItem(livingrockPolishedStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedStairs));
-		r.accept(new BlockItem(livingrockPolishedSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedSlab));
-		r.accept(new BlockItem(livingrockPolishedWall, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedWall));
-
-		r.accept(new BlockItem(livingrockBrickStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickStairs));
-		r.accept(new BlockItem(livingrockBrickSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickSlab));
-		r.accept(new BlockItem(livingrockBrickWall, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickWall));
-
-		r.accept(new BlockItem(livingrockBrickMossyStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossyStairs));
-		r.accept(new BlockItem(livingrockBrickMossySlab, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossySlab));
-		r.accept(new BlockItem(livingrockBrickMossyWall, props), BuiltInRegistries.BLOCK.getKey(livingrockBrickMossyWall));
-
-		r.accept(new BlockItem(dreamwoodStairs, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStairs));
-		r.accept(new BlockItem(dreamwoodSlab, props), BuiltInRegistries.BLOCK.getKey(dreamwoodSlab));
-		r.accept(new BlockItem(dreamwoodWall, props), BuiltInRegistries.BLOCK.getKey(dreamwoodWall));
-		r.accept(new BlockItem(dreamwoodFence, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFence));
-		r.accept(new BlockItem(dreamwoodFenceGate, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFenceGate));
-
-		r.accept(new BlockItem(dreamwoodStrippedStairs, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStrippedStairs));
-		r.accept(new BlockItem(dreamwoodStrippedSlab, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStrippedSlab));
-		r.accept(new BlockItem(dreamwoodStrippedWall, props), BuiltInRegistries.BLOCK.getKey(dreamwoodStrippedWall));
-
-		r.accept(new BlockItem(dreamwoodPlankStairs, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPlankStairs));
-		r.accept(new BlockItem(dreamwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPlankSlab));
 
 		r.accept(new BlockItem(darkQuartz, props), BuiltInRegistries.BLOCK.getKey(darkQuartz));
 		r.accept(new BlockItem(darkQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(darkQuartzPillar));
@@ -1551,31 +1545,28 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(biomeChiseledBrickMesa, props), BuiltInRegistries.BLOCK.getKey(biomeChiseledBrickMesa));
 
 		r.accept(new BlockItem(whitePavement, props), BuiltInRegistries.BLOCK.getKey(whitePavement));
-		r.accept(new BlockItem(blackPavement, props), BuiltInRegistries.BLOCK.getKey(blackPavement));
-		r.accept(new BlockItem(bluePavement, props), BuiltInRegistries.BLOCK.getKey(bluePavement));
-		r.accept(new BlockItem(yellowPavement, props), BuiltInRegistries.BLOCK.getKey(yellowPavement));
-		r.accept(new BlockItem(redPavement, props), BuiltInRegistries.BLOCK.getKey(redPavement));
-		r.accept(new BlockItem(greenPavement, props), BuiltInRegistries.BLOCK.getKey(greenPavement));
-
-		r.accept(new BlockItem(whitePavementSlab, props), BuiltInRegistries.BLOCK.getKey(whitePavementSlab));
-		r.accept(new BlockItem(blackPavementSlab, props), BuiltInRegistries.BLOCK.getKey(blackPavementSlab));
-		r.accept(new BlockItem(bluePavementSlab, props), BuiltInRegistries.BLOCK.getKey(bluePavementSlab));
-		r.accept(new BlockItem(yellowPavementSlab, props), BuiltInRegistries.BLOCK.getKey(yellowPavementSlab));
-		r.accept(new BlockItem(redPavementSlab, props), BuiltInRegistries.BLOCK.getKey(redPavementSlab));
-		r.accept(new BlockItem(greenPavementSlab, props), BuiltInRegistries.BLOCK.getKey(greenPavementSlab));
-
 		r.accept(new BlockItem(whitePavementStair, props), BuiltInRegistries.BLOCK.getKey(whitePavementStair));
+		r.accept(new BlockItem(whitePavementSlab, props), BuiltInRegistries.BLOCK.getKey(whitePavementSlab));
+
+		r.accept(new BlockItem(blackPavement, props), BuiltInRegistries.BLOCK.getKey(blackPavement));
+		r.accept(new BlockItem(blackPavementSlab, props), BuiltInRegistries.BLOCK.getKey(blackPavementSlab));
 		r.accept(new BlockItem(blackPavementStair, props), BuiltInRegistries.BLOCK.getKey(blackPavementStair));
+
+		r.accept(new BlockItem(bluePavement, props), BuiltInRegistries.BLOCK.getKey(bluePavement));
 		r.accept(new BlockItem(bluePavementStair, props), BuiltInRegistries.BLOCK.getKey(bluePavementStair));
+		r.accept(new BlockItem(bluePavementSlab, props), BuiltInRegistries.BLOCK.getKey(bluePavementSlab));
+
+		r.accept(new BlockItem(yellowPavement, props), BuiltInRegistries.BLOCK.getKey(yellowPavement));
 		r.accept(new BlockItem(yellowPavementStair, props), BuiltInRegistries.BLOCK.getKey(yellowPavementStair));
+		r.accept(new BlockItem(yellowPavementSlab, props), BuiltInRegistries.BLOCK.getKey(yellowPavementSlab));
+
+		r.accept(new BlockItem(redPavement, props), BuiltInRegistries.BLOCK.getKey(redPavement));
 		r.accept(new BlockItem(redPavementStair, props), BuiltInRegistries.BLOCK.getKey(redPavementStair));
+		r.accept(new BlockItem(redPavementSlab, props), BuiltInRegistries.BLOCK.getKey(redPavementSlab));
+
+		r.accept(new BlockItem(greenPavement, props), BuiltInRegistries.BLOCK.getKey(greenPavement));
 		r.accept(new BlockItem(greenPavementStair, props), BuiltInRegistries.BLOCK.getKey(greenPavementStair));
-
-		r.accept(new BlockItem(shimmerrockSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerrockSlab));
-		r.accept(new BlockItem(shimmerrockStairs, props), BuiltInRegistries.BLOCK.getKey(shimmerrockStairs));
-
-		r.accept(new BlockItem(shimmerwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlankSlab));
-		r.accept(new BlockItem(shimmerwoodPlankStairs, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlankStairs));
+		r.accept(new BlockItem(greenPavementSlab, props), BuiltInRegistries.BLOCK.getKey(greenPavementSlab));
 
 		r.accept(new BlockItem(managlassPane, props), BuiltInRegistries.BLOCK.getKey(managlassPane));
 		r.accept(new BlockItem(alfglassPane, props), BuiltInRegistries.BLOCK.getKey(alfglassPane));
