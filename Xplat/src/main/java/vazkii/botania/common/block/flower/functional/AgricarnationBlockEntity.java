@@ -90,8 +90,9 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 		Block block = state.getBlock();
 
 		ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
-		if (BotaniaConfig.common().agricarnationWhitelist().contains(id.toString()))
+		if (BotaniaConfig.common().agricarnationWhitelist().contains(id.toString())) {
 			return !(block instanceof BonemealableBlock mealable) || mealable.isValidBonemealTarget(getLevel(), pos, state, getLevel().isClientSide);
+		}
 
 		// Spreads when ticked
 		if (block instanceof SpreadingSnowyDirtBlock) {

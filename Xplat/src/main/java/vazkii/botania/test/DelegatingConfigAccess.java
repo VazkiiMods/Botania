@@ -95,5 +95,7 @@ public class DelegatingConfigAccess implements BotaniaConfig.ConfigAccess {
 	}
 
 	@Override
-	public List<String> agricarnationWhitelist() { return inner.agricarnationWhitelist(); }
+	public List<String> agricarnationWhitelist() {
+		return inner.agricarnationWhitelist();
+	}
 }
