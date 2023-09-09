@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "botania:ice_pendant"
+    "botania:ice_pendant",
+    "botania:manaweave_helmet",
+    "botania:manaweave_chestplate",
+    "botania:manaweave_leggings",
+    "botania:manaweave_boots"
   ]
 }

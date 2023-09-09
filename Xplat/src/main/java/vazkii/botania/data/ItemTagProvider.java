@@ -221,7 +221,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 				waterRing,
 				waterRod
 		);
-		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(icePendant);
+		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(icePendant,
+				manaweaveHelm, manaweaveChest, manaweaveLegs, manaweaveBoots);
 
 		this.tag(BotaniaTags.Items.SEED_APOTHECARY_REAGENT)
 				.add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS)
