@@ -32,6 +32,12 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemyFroglightCycle.title",
+      "text": "botania.page.manaAlchemyFroglightCycle",
+      "group": "botania:froglight_cycle"
+    },
+    {
+      "type": "botania:mana_infusion",
       "text": "botania.page.manaAlchemy5",
       "recipes": [
         "botania:mana_infusion/redstone_to_glowstone_dust",

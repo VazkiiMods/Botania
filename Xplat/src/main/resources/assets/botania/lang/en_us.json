@@ -2408,6 +2408,8 @@
   "botania.page.manaAlchemy3": "Transmuting $(item)Woods$(0)",
   "botania.page.manaAlchemy30": "Sapling",
   "botania.page.manaAlchemy4": "Transmuting $(item)Saplings$(0)",
+  "botania.page.manaAlchemyFroglightCycle.title": "Froglight",
+  "botania.page.manaAlchemyFroglightCycle": "Transmuting $(item)Froglights$(0)",
   "botania.page.manaAlchemy5": "Breaking down $(item)Glowstone Blocks$(0)",
   "botania.page.manaAlchemy31": "Quartz",
   "botania.page.manaAlchemy6": "Breaking down $(item)Quartz Blocks$(0)",
