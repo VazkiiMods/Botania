@@ -33,7 +33,7 @@ public class ManaweaveHelmItem extends ManaweaveArmorItem implements ManaDiscoun
 
 	@Override
 	public float getDiscount(ItemStack stack, int slot, Player player, @Nullable ItemStack tool) {
-		return hasArmorSet(player) ? 0.35F : 0F;
+		return hasArmorSet(player) ? 0.4F : 0F;
 	}
 
 	@Override

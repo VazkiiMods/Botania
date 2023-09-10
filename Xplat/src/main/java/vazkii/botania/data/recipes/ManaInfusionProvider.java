@@ -75,7 +75,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedRecipe(id("tiny_potato"), new ItemStack(BotaniaBlocks.tinyPotato), ingr(Items.POTATO), 1337));
 
 		consumer.accept(new FinishedRecipe(id("mana_glass"), new ItemStack(BotaniaBlocks.manaGlass), ingr(Blocks.GLASS), 150));
-		consumer.accept(new FinishedRecipe(id("mana_string"), new ItemStack(BotaniaItems.manaString), ingr(Items.STRING), 5000));
+		consumer.accept(new FinishedRecipe(id("mana_string"), new ItemStack(BotaniaItems.manaString), ingr(Items.STRING), 1250));
 
 		consumer.accept(new FinishedRecipe(id("mana_bottle"), new ItemStack(BotaniaItems.manaBottle), ingr(Items.GLASS_BOTTLE), 5000));
 

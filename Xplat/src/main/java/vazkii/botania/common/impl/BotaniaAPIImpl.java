@@ -63,7 +63,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 				Map.of(
 						ArmorItem.Type.BOOTS, 1,
 						ArmorItem.Type.LEGGINGS, 2,
-						ArmorItem.Type.CHESTPLATE, 2,
+						ArmorItem.Type.CHESTPLATE, 3,
 						ArmorItem.Type.HELMET, 1
 				),
 				18, () -> BotaniaSounds.equipManaweave, () -> BotaniaItems.manaweaveCloth, 0),
