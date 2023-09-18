@@ -22,6 +22,7 @@ and start a new "Upcoming" section.
 * Add: Manufactory Halo shows active status in its icon (Wormbo)
 * Change: Key of the King's Law no longer hurts items or most other nonliving entities
 * Fix: Ender Air emission not being mentioned in Pure Daisy entry (Wormbo)
+* Add: Tuff now convertable by Marimorphosis
 
 
 ---
