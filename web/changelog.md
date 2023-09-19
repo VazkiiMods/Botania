@@ -22,6 +22,7 @@ and start a new "Upcoming" section.
 * Add: Manufactory Halo shows active status in its icon (Wormbo)
 * Add: Tuff now convertable by Marimorphosis
 * Change: Key of the King's Law no longer hurts items or most other nonliving entities
+* Change: The internal mana buffer of the Gourmaryllis is now large enough to benefit from streak bonus even with very nutritious food like Rabbit Stew or high quality modded foods (it still caps the food value at 12 points or 6 haunches)
 * Change: Removed desu gun and its associated advancement. The reference has overstayed its welcome.
 * Fix: Ender Air emission not being mentioned in Pure Daisy entry (Wormbo)
 
