@@ -17,6 +17,7 @@ games of the [Touhou Project](https://en.touhouwiki.net/wiki/Touhou_Project).
 These profiles were authored by williewillus and Alwinfy.
 
 ## Pure Daisy
+### Angelically Pure White
 * Gender: Gender is irrelevant for flowers (they/them)
 * Physical symbols: white, angel
 * Likes: Things being orderly, precision, perfectionism
@@ -34,6 +35,7 @@ As a result of their perfectionism, Pure Daisy can easily get upset when things 
 according to plan.
 
 ## Manastar
+### Analytical Star of Data
 * Gender: Trans female (she/her)
 * Physical symbols: 0 and 1; blue and red
 * Likes: Data, programming socks, Clojure and Julia programming languages
@@ -58,6 +60,7 @@ her girlfriend last.
 (Her girlfriend doesn't mind, and finds Manastar's nerdiness absolutely adorable.)
 
 ## Daybloom
+### Blooming Sunflower of Dusk
 * Gender: Male (he/him)
 * Physical symbols: Setting Sun
 * Likes: Fame, the grind, leadership, Nightshade, renewable energy
@@ -101,6 +104,7 @@ night. However, their phone number remains in his contacts list, and perhaps one
 Daybloom can muster up the confidence to tap the "Call" button.
 
 ## Nightshade
+### Still and Silent Shade of Night
 * Gender: Female (she/her)
 * Physical symbols: New Moon
 * Likes: Astrology, Daybloom, renewable energy
@@ -132,6 +136,7 @@ where she gives psychic readings, astrological predictions, tarot card readings,
 *fengshui* calculations, among other similar arts. She has rarely touched her bass since.
 
 ## Hydroangea
+### Carefree Watery Percussionist
 * Name: Hydroangea
 * Gender: Fish (they/them)
 * Physical symbols: Ripples
@@ -180,6 +185,7 @@ hour is about their limit for parties and such, after which they steal off for s
 time.
 
 ## Daybloom Motif and Nightshade Motif
+### Nostalgic Mimics
 * Gender: Varies
 
 Since the band's breakup, many fans have missed the trio. This led to many impersonators
@@ -190,6 +196,7 @@ Hydroangea put out a statement requesting fans to not impersonate them, and to i
 show their love by purchasing the band's old records and merch.
 
 ## Endoflame
+### Fiery Child In Palate Only
 * Gender: Too young to have one
 * Physical symbols: Sichuan peppercorn, spicy Cheetos
 * Likes: Spicy food, naps, meadows
@@ -208,6 +215,7 @@ Beyond that, however, they're a bit lazy, and they don't really have many aspira
 beyond getting to eat the next spicy thing.
 
 ## Thermalily
+### Cute and Fiery-Tempered Girl
 * Gender: Female (she/her)
 * Physical symbols: Fire
 * Likes: Streaming, parties, (ostensibly) spicy foods
@@ -223,6 +231,7 @@ every sampling she invariably needs a break (often up to five minutes in length)
 accompanied by loud cursing and fuming.
 
 ## Rosa Arcana
+### Title
 * Gender: Male (he/him)
 * Physical symbols: 
 * Likes: 
@@ -232,6 +241,7 @@ Idea: TTRPG nerd
 Yes, his name has "Rosa" in it. No, he doesn't care.
 	
 ## Munchdew
+### Frugal and Feeling Flower
 * Gender: Female (she/her)
 * Physical symbols: Block of Tofu
 * Likes: Tofu, soybeans, Labellia
@@ -275,6 +285,7 @@ nearly a hundred tofu-based dishes. Her favorite is probably *mapo tofu*, and sh
 the hottest spices from Endoflame for the most authentic taste.
 
 ## Entropinnyum
+### Explosive Master of Adventure
 * Gender: We asked them and they proudly handed us a card which was too singed to read
 * Physical symbols: Fireworks, red, black, silver
 * Likes: Skydiving, scuba diving, hang-gliding, spelunking, urban exploration, pyrotechnics
@@ -291,6 +302,7 @@ the line). In fact, Entropinnyum despises those that actually *do* take things t
 particular harboring a special hatred for illegally-traded explosives.
 
 ## Kekimurus
+### Hermit Connosieur of Sugar
 * Gender: Cake
 * Physical symbols: Glucose molecule diagram
 * Likes: Any and all desserts
@@ -328,6 +340,7 @@ continue for an even sweeter food, and the product of that labor would from now 
 enjoyed by Kekimurus alone.
 
 ## Gourmaryllis
+### Nourished and Nutrified Amaryllis
 * Gender: Female (she/her)
 * Physical symbols: Minecraft drumstick sprite
 * Likes: Unlimited anything at any restaurant (few restaurants have passed her test for
@@ -361,6 +374,7 @@ her, tossed it into her mouth, and continued working on her latest paper, an exp
 Kekimurus Foods.
 
 ## Narslimmus
+### Hopping and Hopeless Romantic
 * Gender: Male (he/him)
 * Physical symbols: Glue, pipes
 * Likes: Trampolines, mushrooms, Go Karts, cute girls
@@ -383,6 +397,7 @@ still quite young, single, and thus often dreams of meeting a cute girl to pampe
 treat respectfully as his girlfriend.
 
 ## Spectrolus
+### Rainbow-Colored Weaver
 * Gender: Fluid; varies based on day, mood, phase of the moon, most recent syzygy, and/or
   last meal eaten
 * Physical symbols: Rainbow
@@ -400,6 +415,7 @@ Although Spectrolus usually tries to eat a varied vegetarian diet, mutton is a g
 pleasure of theirs, and Spectrolus will scarf it down whenever given the opportunity.
 
 ## Rafflowsia
+### Elegant and Impermanent Flower of Life and Death
 * Gender: None
 * Physical symbols: Lantern, Scythe
 * Likes: The little things in life
@@ -427,6 +443,7 @@ Rafflowsia strove to embody this wistful yet optimistic mindset, in order to mak
 life one well-worth living.
 
 ## Dandelifeon
+### M-x dandelion
 * Gender: We asked and they enthusiastically gave us a lecture (with diagrams) on the
   homomorphism of gender identity to a generalizable infinitely-differentiable fractal
   manifold completely characterized by several characteristic points, then handed us a
