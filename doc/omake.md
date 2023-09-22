@@ -169,7 +169,7 @@ gathered their belongings, thanked and apologized to each and every member of th
 and departed for home that night, knowing they would likely never see either Daybloom or
 Nightshade in person again.
 
-Today, Hydrangea lives a well-off life from the money made from the band's peak years, and
+Today, Hydrangea lives a well-off life from the Mana made from the band's peak years, and
 continues to drum under a pseudonym, though they explicitly keep it amateur and refuse all
 offers to form a commercial group.
 
@@ -321,7 +321,7 @@ the world were now afflicted with diabetes, and parents were demanding answers.
 Kekimurus was shocked. So focused they were on their singular quest for a sweeter food,
 that the thought of others not being able to tolerate as high an amount of sugars never
 crossed their mind. In shame, they shut down Kekimurus Foods and apologized profusely,
-settling numerous lawsuits for massive sums of money.
+settling numerous lawsuits for massive sums of Mana.
 
 Privately, however, Kekimurus continued operating their laboratory. The search would
 continue for an even sweeter food, and the product of that labor would from now on only be
@@ -534,21 +534,72 @@ daydreaming. It was freeing to finally have time to simply be bored and contempl
 Jaded Amaranthus didn't know if he was any closer to answering the questions he had posed
 to himself, but he felt that he was 1% of the way closer to knowing.
 
-## Bellethorne
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+## Bellethorne & Dreadthorne
+### Brambled Sisters of Justice
+* Gender: Female
+* Physical symbols: Hawthorn flowers, crossed swords
+* Likes: Each other
+* Dislikes: Inequality, colonialism, imperialism
 
-Idea: somewhat of an asshole
+Dreadthorne grew up on the streets from a young age. All around her she saw the fruits of
+injustice -- flowers too poor to afford rent kicked out to live on the streets, flowers
+starving or growing up with health issues due to malnutrition, flowers bankrupted from
+exorbitant medical bills, ...
 
-## Dreadthorne
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+Dreadthorne felt a deep despair at her inability. What could she, a lonesome flower, do to
+change this rotten society she lived in? For a period of time, Dreadthorne vented her
+frustration through petty crime, stealing food and daily essentials from big-box grocery
+stores to distribute to those in need. She helped mediate conflicts between groups in her
+area, and vigorously defended the rights of those too weak to defend themselves.
 
-Idea: somewhat of an asshole
+In time, she grew increasingly daring in her exploits, targeting rich, out of touch
+billionaires for the gaudy and expensive products they often owned. However, one time, she
+flew too close to the sun, attempting to make off with a billionaire's deluxe Italian
+espresso machine to sell for Mana to help her neighbors. She was caught, and due to the
+exorbitant value of the item, was sentenced to several months in prison.  While there, she
+met someone that changed her life.
+
+From the first day Bellethorne walked into the room, Dreadthorne's eyes were strangely
+drawn to her. She was calm, cool, and after several dinner conversations, Dreadthorne came
+to know that she had the same burning sense of justice that Dreadthorne did. However,
+Bellethorne refused to admit the circumstances that had led to her being imprisoned.
+
+Bellethorne told Dreadthorne that she was thinking too small. After they got out, it was
+time to go bigger. Much bigger.
+
+And thus, the two bided their time, and on the day of their release, they decided to
+become sworn sisters. Kneeling and facing the north, the two held up three petals and each
+swore to dedicate their lives to fighting for justice, in their own way, and to each
+other.
+
+And then, they began. Through murky connections unknown to Dreadthorne, Bellethorne was
+able to provide the both of them a safe home base from which they would plot their next
+steps.
+
+First was a warm-up, hacking and decrypting massive repositories of textbooks, research
+papers, and other knowledge that had been funded with public tax money, yet locked behind
+paywalls.
+
+Next step up was stealing the Rolls-Royce car of an oil baron, who had poured Mana over
+the past decades into propaganda supporting car-dependency, keeping poorer flowers down
+with car payments they couldn't afford and hastening the climate crisis afflicting the
+world.
+
+Finally, some of their largest operations were stealing artifacts from the largest museums
+in the world. Society was numb to the fact that many of the exhibits held within such
+museums were trophies of war, brazenly looted from one group of flowers by another group
+of invaders that sought to colonize the former. Stealing these artifacts and returning
+them to their rightful owners was but a small reparation for the devastation that the
+invaders had sown in their wake.
+
+Bellethorne and Dreadthorne, now calling themselves the Brambly Sisters of Justice,
+continued on thus, challenging the world they lived in, forcing it to look itself in the
+mirror and question the status quo. After each heist, they would leave a beautiful bouquet
+of Crimson Cloud hawthorn flowers, a prayer to each other and the world for justice. Not
+all approved of their methods, but to many, they were heroes.
+
+"...But just where was Bellethorne from?". As Dreadthorne drifted to sleep after another
+successful heist, the question resurfaced nebulously in her mind...
 
 ## Heisei Dream
 * Gender: Hot topic of debate on many forums they frequent; they give a different response
@@ -689,7 +740,7 @@ their wife Munchdew in supporting them during this difficult journey, Labellia n
 new system the Munchdewey Decimal System in her honor.
 
 When not performing their formal duties, Labellia advocates for true ownership of books,
-games, and media. They reject a world where content that one has purchased with real money
+games, and media. They reject a world where content that one has purchased with real Mana
 can simply vanish if a licensing deal falls through, or the servers shut down in 15 years.
 As such, Labellia and Munchdew's shelves at home are lined with innumerable books, music
 CD's, and physical games. Their own personal home collection is a joyful library of its
@@ -963,7 +1014,7 @@ Bergamute has "mute" in their name, but they actually love music. Bergamute stri
 hardest to keep life simple and free of unnecessary things. They speak rarely, but their
 friends and coworkers listen and take Bergamute seriously when they do do so.
 
-Bergamute is a music composer, not making much money, but enough to live on, and Bergamute
+Bergamute is a music composer, not making much Mana, but enough to live on, and Bergamute
 is completely satisfied with that.
 
 
