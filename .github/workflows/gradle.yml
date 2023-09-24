@@ -18,8 +18,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
+          ~/.gradle/caches/VanillaGradle/
+          ~/.gradle/caches/fabric-loom/
+          ~/.gradle/caches/forge_gradle/
           ./.gradle/loom-cache/remapped-mods
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle', '**/gradle-wrapper.properties') }}
     - name: Check lang files
