@@ -16,9 +16,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import vazkii.botania.common.item.ManaBlasterItem;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -37,9 +34,8 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 	@NotNull
 	@Override
 	public ManaBlasterTrigger.Instance createInstance(@NotNull JsonObject json, ContextAwarePredicate playerPred, DeserializationContext conditions) {
-		Boolean desu = json.get("desu") == null ? null : json.get("desu").getAsBoolean();
 		return new ManaBlasterTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")),
-				EntityPredicate.fromJson(json.get("user")), desu);
+				EntityPredicate.fromJson(json.get("user")));
 	}
 
 	public void trigger(ServerPlayer player, ItemStack stack) {
@@ -49,14 +45,11 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 	public static class Instance extends AbstractCriterionTriggerInstance {
 		private final ItemPredicate item;
 		private final EntityPredicate user;
-		@Nullable
-		private final Boolean desu;
 
-		public Instance(ContextAwarePredicate entityPred, ItemPredicate count, EntityPredicate user, Boolean desu) {
+		public Instance(ContextAwarePredicate entityPred, ItemPredicate count, EntityPredicate user) {
 			super(ID, entityPred);
 			this.item = count;
 			this.user = user;
-			this.desu = desu;
 		}
 
 		@NotNull
@@ -66,8 +59,7 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 		}
 
 		boolean test(ItemStack stack, ServerPlayer entity) {
-			return this.item.matches(stack) && this.user.matches(entity, entity)
-					&& (desu == null || desu == ManaBlasterItem.isSugoiKawaiiDesuNe(stack));
+			return this.item.matches(stack) && this.user.matches(entity, entity);
 		}
 
 		@Override
@@ -79,9 +71,6 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 			if (user != EntityPredicate.ANY) {
 				json.add("user", user.serializeToJson());
 			}
-			if (desu != null) {
-				json.addProperty("desu", desu);
-			}
 			return json;
 		}
 
@@ -91,11 +80,6 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 
 		public EntityPredicate getUser() {
 			return this.user;
-		}
-
-		@Nullable
-		public Boolean getDesu() {
-			return this.desu;
 		}
 	}
 }

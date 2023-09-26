@@ -36,22 +36,17 @@ import vazkii.botania.common.item.ManaBlasterItem;
 import java.util.*;
 
 public class ManaBlasterBakedModel extends DelegatedModel {
-	private final BakedModel desuGunNoClip;
-	private final BakedModel desuGunClip;
 	// key is (lens, hasClip). If no lens, the Item is null
 	private final Map<Pair<Item, Boolean>, BakedModel> models;
 
-	private ManaBlasterBakedModel(BakedModel desuGunNoClip, BakedModel desuGunClip,
-			Map<Pair<Item, Boolean>, BakedModel> models) {
+	private ManaBlasterBakedModel(Map<Pair<Item, Boolean>, BakedModel> models) {
 		super(models.get(Pair.of(null, false)));
-		this.desuGunNoClip = desuGunNoClip;
-		this.desuGunClip = desuGunClip;
 		this.models = models;
 	}
 
 	public static ManaBlasterBakedModel create(ModelBaker baker,
 			ResourceLocation gunNoClip, ResourceLocation gunClip,
-			ResourceLocation desuGunNoClip, ResourceLocation desuGunClip, ModelState state) {
+			ModelState state) {
 		BakedModel gunNoClipModel = Preconditions.checkNotNull(baker.bake(gunNoClip, state));
 		BakedModel gunClipModel = Preconditions.checkNotNull(baker.bake(gunClip, state));
 		Map<Pair<Item, Boolean>, BakedModel> models = new HashMap<>();
@@ -65,11 +60,7 @@ public class ManaBlasterBakedModel extends DelegatedModel {
 				models.put(Pair.of(item, true), new ManaBlasterBakedModel.CompositeBakedModel(baker, lens, gunClipModel));
 			}
 		}
-		return new ManaBlasterBakedModel(
-				baker.bake(desuGunNoClip, state),
-				baker.bake(desuGunClip, state),
-				models
-		);
+		return new ManaBlasterBakedModel(models);
 	}
 
 	private final ItemOverrides itemHandler = new ItemOverrides() {
@@ -77,10 +68,6 @@ public class ManaBlasterBakedModel extends DelegatedModel {
 		@Override
 		public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int seed) {
 			boolean clip = ManaBlasterItem.hasClip(stack);
-
-			if (ManaBlasterItem.isSugoiKawaiiDesuNe(stack)) {
-				return clip ? ManaBlasterBakedModel.this.desuGunClip : ManaBlasterBakedModel.this.desuGunNoClip;
-			}
 
 			ItemStack lens = ManaBlasterItem.getLens(stack);
 			Pair<Item, Boolean> key = Pair.of(lens.isEmpty() ? null : lens.getItem(), clip);

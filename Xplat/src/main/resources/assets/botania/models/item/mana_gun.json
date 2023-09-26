@@ -1,7 +1,5 @@
 {
   "loader": "botania:mana_gun",
   "gun_noclip": "botania:item/mana_gun_noclip",
-  "gun_clip": "botania:item/mana_gun_clip",
-  "desu_gun_noclip": "botania:item/desu_gun_noclip",
-  "desu_gun_clip": "botania:item/desu_gun_clip"
+  "gun_clip": "botania:item/mana_gun_clip"
 }

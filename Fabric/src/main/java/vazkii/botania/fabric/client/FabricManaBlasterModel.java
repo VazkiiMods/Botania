@@ -23,28 +23,23 @@ import java.util.function.Function;
  * Pretty much all of the data of the superclass is ignored.
  */
 public class FabricManaBlasterModel extends BlockModel {
-	private final ResourceLocation gunNoClip, gunClip, desuGunNoClip, desuGunClip;
+	private final ResourceLocation gunNoClip, gunClip;
 
-	public FabricManaBlasterModel(ResourceLocation gunNoClip, ResourceLocation gunClip,
-			ResourceLocation desuGunNoClip, ResourceLocation desuGunClip) {
+	public FabricManaBlasterModel(ResourceLocation gunNoClip, ResourceLocation gunClip) {
 		super(null, Collections.emptyList(), Collections.emptyMap(), false, GuiLight.SIDE, ItemTransforms.NO_TRANSFORMS, Collections.emptyList());
 		this.gunNoClip = gunNoClip;
 		this.gunClip = gunClip;
-		this.desuGunNoClip = desuGunNoClip;
-		this.desuGunClip = desuGunClip;
 	}
 
 	@Override
 	public Collection<ResourceLocation> getDependencies() {
-		return List.of(this.gunNoClip, this.gunClip, this.desuGunNoClip, this.desuGunClip);
+		return List.of(this.gunNoClip, this.gunClip);
 	}
 
 	@Override
 	public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter) {
 		modelGetter.apply(this.gunNoClip).resolveParents(modelGetter);
 		modelGetter.apply(this.gunClip).resolveParents(modelGetter);
-		modelGetter.apply(this.desuGunNoClip).resolveParents(modelGetter);
-		modelGetter.apply(this.desuGunClip).resolveParents(modelGetter);
 	}
 
 	@Nullable
@@ -55,7 +50,6 @@ public class FabricManaBlasterModel extends BlockModel {
 		return ManaBlasterBakedModel.create(
 				baker,
 				this.gunNoClip, this.gunClip,
-				this.desuGunNoClip, this.desuGunClip,
 				state);
 	}
 
@@ -67,9 +61,7 @@ public class FabricManaBlasterModel extends BlockModel {
 				&& loader.getAsString().equals(ClientXplatAbstractions.MANA_GUN_MODEL_LOADER_ID.toString())) {
 			return new FabricManaBlasterModel(
 					new ResourceLocation(GsonHelper.getAsString(json, "gun_noclip")),
-					new ResourceLocation(GsonHelper.getAsString(json, "gun_clip")),
-					new ResourceLocation(GsonHelper.getAsString(json, "desu_gun_noclip")),
-					new ResourceLocation(GsonHelper.getAsString(json, "desu_gun_clip"))
+					new ResourceLocation(GsonHelper.getAsString(json, "gun_clip"))
 			);
 		}
 		return null;

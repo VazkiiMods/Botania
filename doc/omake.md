@@ -465,6 +465,7 @@ people online (often getting into pointless debates about programming languages 
 Heisei Dream), and watching nerdy TV shows.
 
 ## Shulk Me Not
+### Professional Gamer Girl Flower
 * Gender: Female (she/her)
 * Physical symbols: Crown
 * Likes: Esports, Touhou, osu!
@@ -489,6 +490,7 @@ with Pure Daisy, and when not busy with work the two can often be found testing 
 danmaku skills against each other in *Touhou 9: Phantasmagoria of Flower View*.
 
 ## Jaded Amaranthus
+### Slow-Living Amaranthoidae
 * Gender: Male (he/him)
 * Physical symbols: A sigh of relief
 * Likes: Simplicity, intentional communication
@@ -619,9 +621,10 @@ all approved of their methods, but to many, they were heroes.
 successful heist, the question resurfaced nebulously in her mind...
 
 ## Heisei Dream
+### Whimsical Social Scholar
 * Gender: Hot topic of debate on many forums they frequent; they give a different response
   to each inquiry
-* Physical symbols: :trolled: emote
+* Physical symbols: Troll face (classical 2008 version)
 * Likes: KenM, Rick Astley (they're an actual fan of his music), The Onion
 * Dislikes: Fake "trolling" (most of their friend-group's been subjected to the "shouting
   slurs doesn't count" rant at least thrice)
@@ -637,6 +640,7 @@ When not trolling, Heisei Dream takes their studies in internet sociology surpri
 seriously.
 
 ## Tigerseye
+### Keen Pursuer of Truth
 * Gender: Cat person
 * Physical symbols: Pusheen
 * Likes: Cats, Miles Edgeworth from *Ace Attorney*
@@ -669,6 +673,7 @@ Idea: miner
 Idea: Orechid's senior
 
 ## Fallen Kanade
+### Freeze-Immune Bud
 * Gender: Canadian
 * Physical symbols: Maple syrup (only the best)
 * Likes: Their mates
@@ -691,6 +696,7 @@ polite and friendly, but knows when to assert themself when things come down to 
 Overall a very pleasant mate to hang out with.
 
 ## Exoflame
+### Exothermic and Exuberant Ear
 * Gender: Tastefully done eyeliner that renders their features extra androgynous
 * Physical symbols: a party hat, but specifically the one from OSRS
 * Likes: Meeting new people, helping friends in need, Endoflame
@@ -719,19 +725,17 @@ nearly everybody they know.
 * Likes:
 * Dislikes: 
 
-## Tangleberrie
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+## Tangleberrie & Jiyuulia
+### Lackadaisical Guardian Twins
+* Gender: Male
+* Physical symbols: Velcro
+* Likes: Their jobs, each other
+* Dislikes: The paperwork that happens when they make mistakes on the job
 
-## Jiyuulia
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes:
+
 
 ## Labellia
+### Archivist of Leaves and Lore
 * Gender: Book (they/them)
 * Physical symbols: Brain
 * Likes: Physical media (books, CD's, tapes, game cartridges, etc.), Munchdew
@@ -1092,7 +1096,6 @@ WARNING: Some songs are 18+ and inappropriate for children.
 | Name                                       | Requirement                                    | Link                                                       |
 |--------------------------------------------|------------------------------------------------|------------------------------------------------------------|
 | Deja Vu                                    | Craft Daybloom/NightShade Motif                | [https://vocadb.net/S/124258](https://vocadb.net/S/124258) |
-| Two-Faced Lovers                           | Shoot desu gun                                 | [https://vocadb.net/S/1508](https://vocadb.net/S/1508)     |
 | At the Mercy of a Dream                    | Defeat Gaia Guardian II                        | [https://vocadb.net/S/14929](https://vocadb.net/S/14929)   |
 | A Tale of Six Trillion Years and One Night | Use rank SS terra pick                         | [https://vocadb.net/S/11219](https://vocadb.net/S/11219)   |
 | Invader Girl                               | Complete a corporea request with >= 50k items  | [https://vocadb.net/S/63216](https://vocadb.net/S/63216)   |

@@ -20,22 +20,17 @@ import vazkii.botania.client.model.ManaBlasterBakedModel;
 import java.util.function.Function;
 
 public class ForgeManaBlasterModel implements IUnbakedGeometry<ForgeManaBlasterModel> {
-	private final ResourceLocation gunNoClip, gunClip, desuGunNoClip, desuGunClip;
+	private final ResourceLocation gunNoClip, gunClip;
 
-	public ForgeManaBlasterModel(ResourceLocation gunNoClip, ResourceLocation gunClip,
-			ResourceLocation desuGunNoClip, ResourceLocation desuGunClip) {
+	public ForgeManaBlasterModel(ResourceLocation gunNoClip, ResourceLocation gunClip) {
 		this.gunNoClip = gunNoClip;
 		this.gunClip = gunClip;
-		this.desuGunNoClip = desuGunNoClip;
-		this.desuGunClip = desuGunClip;
 	}
 
 	@Override
 	public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter, IGeometryBakingContext context) {
 		modelGetter.apply(this.gunNoClip).resolveParents(modelGetter);
 		modelGetter.apply(this.gunClip).resolveParents(modelGetter);
-		modelGetter.apply(this.desuGunNoClip).resolveParents(modelGetter);
-		modelGetter.apply(this.desuGunClip).resolveParents(modelGetter);
 	}
 
 	@Override
@@ -49,7 +44,7 @@ public class ForgeManaBlasterModel implements IUnbakedGeometry<ForgeManaBlasterM
 				return transform;
 			}
 		};
-		return ManaBlasterBakedModel.create(baker, this.gunNoClip, this.gunClip, this.desuGunNoClip, this.desuGunClip, state);
+		return ManaBlasterBakedModel.create(baker, this.gunNoClip, this.gunClip, state);
 	}
 
 	enum Loader implements IGeometryLoader<ForgeManaBlasterModel> {
@@ -60,9 +55,7 @@ public class ForgeManaBlasterModel implements IUnbakedGeometry<ForgeManaBlasterM
 		public ForgeManaBlasterModel read(JsonObject json, JsonDeserializationContext deserializationContext) {
 			return new ForgeManaBlasterModel(
 					new ResourceLocation(GsonHelper.getAsString(json, "gun_noclip")),
-					new ResourceLocation(GsonHelper.getAsString(json, "gun_clip")),
-					new ResourceLocation(GsonHelper.getAsString(json, "desu_gun_noclip")),
-					new ResourceLocation(GsonHelper.getAsString(json, "desu_gun_clip"))
+					new ResourceLocation(GsonHelper.getAsString(json, "gun_clip"))
 			);
 		}
 	}
