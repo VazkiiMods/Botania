@@ -38,6 +38,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -211,7 +212,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BuiltInRegistries.CREATIVE_MODE_TAB,
 				BotaniaRegistries.BOTANIA_TAB_KEY,
 				FabricItemGroup.builder()
-						.title(Component.translatable("itemGroup.botania.botania"))
+						.title(Component.translatable("itemGroup.botania.botania").withStyle((style -> style.withColor(ChatFormatting.WHITE))))
 						.icon(() -> new ItemStack(BotaniaItems.lexicon))
 						.backgroundSuffix("botania.png")
 						.build()

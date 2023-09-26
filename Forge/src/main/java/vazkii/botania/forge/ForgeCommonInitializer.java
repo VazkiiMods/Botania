@@ -3,6 +3,7 @@ package vazkii.botania.forge;
 import com.google.common.base.Suppliers;
 import com.mojang.brigadier.CommandDispatcher;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
@@ -219,7 +220,7 @@ public class ForgeCommonInitializer {
 		});
 		bind(Registries.CREATIVE_MODE_TAB, consumer -> {
 			consumer.accept(CreativeModeTab.builder()
-					.title(Component.translatable("itemGroup.botania.botania"))
+					.title(Component.translatable("itemGroup.botania.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
 					.icon(() -> new ItemStack(BotaniaItems.lexicon))
 					.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
 					.backgroundSuffix("botania.png")
