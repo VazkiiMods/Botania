@@ -15,6 +15,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.MushroomCowAccessor;
@@ -26,6 +27,7 @@ public class DrumBlockTest {
 	private static final BlockPos POSITION_BUTTON = new BlockPos(10, 10, 9);
 	private static final BlockPos POSITION_SPREADER = new BlockPos(10, 10, 10);
 	private static final BlockPos POSITION_DRUM = new BlockPos(10, 11, 10);
+	private static final BlockPos POSITION_BERGAMUTE = new BlockPos(11, 2, 11);
 	private static final BlockPos POSITION_MOB = new BlockPos(10, 2, 10);
 	private static final Vec3 VECTOR_MOB = POSITION_MOB.getCenter();
 
@@ -46,7 +48,6 @@ public class DrumBlockTest {
 		helper.startSequence()
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(outputItem, POSITION_MOB, 1.0))
-				.thenExecute(helper::killAllEntities)
 				.thenSucceed();
 	}
 
@@ -94,7 +95,6 @@ public class DrumBlockTest {
 					final var effectDuration = effectTag.getInt(SuspiciousStewItem.EFFECT_DURATION_TAG);
 					helper.assertTrue(effect == MobEffects.BLINDNESS && effectDuration == 15, "Unexpected effect type or duration");
 				})
-				.thenExecute(helper::killAllEntities)
 				.thenSucceed();
 	}
 
@@ -105,7 +105,6 @@ public class DrumBlockTest {
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				// ensure the empty container item is still there:
 				.thenExecuteAfter(20, () -> helper.assertItemEntityPresent(item, POSITION_MOB, 1.0))
-				.thenExecute(helper::killAllEntities)
 				.thenSucceed();
 	}
 
@@ -119,6 +118,28 @@ public class DrumBlockTest {
 		testMilkingBabyAnimal(helper, EntityType.MOOSHROOM, Items.BOWL);
 	}
 
+	@GameTest(template = TEMPLATE, timeoutTicks = 25)
+	public void testMilkingDeadAnimal(GameTestHelper helper) {
+		var cow = setup(helper, EntityType.COW, Items.BUCKET);
+		helper.startSequence()
+				// mobs play 20 ticks of dying animation when killed, so the cow is still there when the drum goes off
+				.thenExecute(cow::kill)
+				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(20, () -> helper.assertItemEntityPresent(Items.BUCKET, POSITION_MOB, 1.0))
+				.thenSucceed();
+	}
+
+	@GameTest(template = TEMPLATE, timeoutTicks = 25)
+	public void testMilkingNearBergamute(GameTestHelper helper) {
+		setup(helper, EntityType.COW, Items.BUCKET);
+		// Bergamute should protect from drum interactions
+		helper.setBlock(POSITION_BERGAMUTE, BotaniaFlowerBlocks.bergamuteFloating);
+		helper.startSequence()
+				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(20, () -> helper.assertItemEntityPresent(Items.BUCKET, POSITION_MOB, 1.0))
+				.thenSucceed();
+	}
+
 	@GameTest(template = TEMPLATE, timeoutTicks = 20)
 	public void testShearingSheep(GameTestHelper helper) {
 		var sheep = setup(helper, EntityType.SHEEP, null);
@@ -127,7 +148,6 @@ public class DrumBlockTest {
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.LIME_WOOL, POSITION_MOB, 1.0))
 				.thenExecute(() -> helper.assertTrue(sheep.isAlive() && sheep.isSheared(), "Sheep should be sheared"))
-				.thenExecute(helper::killAllEntities)
 				.thenSucceed();
 	}
 
@@ -138,7 +158,6 @@ public class DrumBlockTest {
 		helper.startSequence()
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenExecuteAfter(20, () -> helper.assertTrue(sheep.isAlive() && !sheep.isSheared(), "Baby sheep should not be sheared"))
-				.thenExecute(helper::killAllEntities)
 				.thenSucceed();
 	}
 
@@ -149,7 +168,6 @@ public class DrumBlockTest {
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.CARVED_PUMPKIN, POSITION_MOB, 1.0))
 				.thenExecute(() -> helper.assertTrue(golem.isAlive() && !golem.hasPumpkin(), "Snow golem should not wear a pumpkin"))
-				.thenExecute(helper::killAllEntities)
 				.thenSucceed();
 	}
 
@@ -161,7 +179,6 @@ public class DrumBlockTest {
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenExecuteAfter(20, () -> helper.assertTrue(golem.isAlive() && !golem.hasPumpkin(), "Snow golem should not wear a pumpkin"))
 				.thenExecute(() -> helper.assertItemEntityNotPresent(Items.CARVED_PUMPKIN, POSITION_MOB, 1.0))
-				.thenExecute(helper::killAllEntities)
 				.thenSucceed();
 	}
 
@@ -171,7 +188,6 @@ public class DrumBlockTest {
 		helper.startSequence()
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenExecuteAfter(20, () -> helper.assertEntityNotPresent(EntityType.COW))
-				.thenExecute(helper::killAllEntities)
 				.thenSucceed();
 	}
 }
