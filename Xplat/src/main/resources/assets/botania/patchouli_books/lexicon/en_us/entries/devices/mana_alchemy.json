@@ -192,6 +192,11 @@
     },
     {
       "type": "botania:mana_infusion",
+      "text": "botania.page.manaAlchemy44",
+      "recipes": "botania:mana_infusion/soul_soil"
+    },
+    {
+      "type": "botania:mana_infusion",
       "heading": "botania.page.manaAlchemy41",
       "text": "botania.page.manaAlchemy28",
       "group": "botania:berry_cycle"
