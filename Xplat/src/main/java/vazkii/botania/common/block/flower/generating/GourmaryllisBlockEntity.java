@@ -40,6 +40,10 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	public static final String TAG_STREAK_LENGTH = "streakLength";
 	private static final int RANGE = 1;
 	private static final double[] STREAK_MULTIPLIERS = { 0, 1, 1.3, 1.5, 1.6, 1.7, 1.75, 1.8 };
+	private static final int MAX_FOOD_VALUE = 12;
+	private static final int FOOD_COOLDOWN_FACTOR = 10;
+	private static final int FOOD_MANA_FACTOR = 70;
+	private static final int MAX_MANA = getDigestingMana(MAX_FOOD_VALUE, STREAK_MULTIPLIERS[STREAK_MULTIPLIERS.length - 1]);
 
 	private int cooldown = 0;
 	private int digestingMana = 0;
@@ -130,10 +134,9 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 				if (cooldown <= 0) {
 					streakLength = Math.min(streakLength + 1, processFood(stack));
 
-					int val = Math.min(12, stack.getItem().getFoodProperties().getNutrition());
-					digestingMana = val * val * 70;
-					digestingMana *= getMultiplierForStreak(streakLength);
-					cooldown = val * 10;
+					int val = getFoodValue(stack);
+					digestingMana = getDigestingMana(val, getMultiplierForStreak(streakLength));
+					cooldown = getCooldown(val);
 					//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
 					item.playSound(SoundEvents.GENERIC_EAT, 0.2F, 0.6F);
 					sync();
@@ -143,6 +146,18 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 				item.discard();
 			}
 		}
+	}
+
+	private static int getCooldown(int foodValue) {
+		return foodValue * FOOD_COOLDOWN_FACTOR;
+	}
+
+	private static int getDigestingMana(int foodValue, double streakFactor) {
+		return (int) (foodValue * foodValue * FOOD_MANA_FACTOR * streakFactor);
+	}
+
+	private static int getFoodValue(ItemStack stack) {
+		return Math.min(MAX_FOOD_VALUE, stack.getItem().getFoodProperties().getNutrition());
 	}
 
 	@Override
@@ -180,7 +195,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 
 	@Override
 	public int getMaxMana() {
-		return 9000;
+		return MAX_MANA;
 	}
 
 	@Override
