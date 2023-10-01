@@ -5,6 +5,7 @@
 		"minecraft:in_wall",
 		"minecraft:starve",
 		"minecraft:fly_into_wall",
+		"minecraft:freeze",
 		"#minecraft:is_fire"
 	]
 }
