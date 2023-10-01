@@ -57,8 +57,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty() && stack.isEnchanted() && !stack.is(BotaniaItems.spellCloth)) {
-				stackToDisenchant = stack.copy();
-				stackToDisenchant.setCount(1);
+				stackToDisenchant = stack.copyWithCount(1);
 				break;
 			}
 		}
@@ -88,8 +87,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.is(BotaniaItems.spellCloth)) {
-				ItemStack copy = s.copy();
-				copy.setCount(1);
+				ItemStack copy = s.copyWithCount(1);
 				copy.setDamageValue(copy.getDamageValue() + 1);
 				return copy;
 			}

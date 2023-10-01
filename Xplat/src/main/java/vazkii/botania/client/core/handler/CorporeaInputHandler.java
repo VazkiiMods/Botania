@@ -61,8 +61,7 @@ public class CorporeaInputHandler {
 			}
 
 			if (count > 0) {
-				ItemStack requested = stack.copy();
-				requested.setCount(count);
+				ItemStack requested = stack.copyWithCount(count);
 				ClientXplatAbstractions.INSTANCE.sendToServer(new IndexKeybindRequestPacket(requested));
 				return true;
 			}

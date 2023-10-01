@@ -62,8 +62,7 @@ public class ManaBlasterLensRecipe extends CustomRecipe {
 				if (stack.getItem() instanceof ManaBlasterItem) {
 					gun = stack;
 				} else if (stack.getItem() instanceof BasicLensItem) {
-					lens = stack.copy();
-					lens.setCount(1);
+					lens = stack.copyWithCount(1);
 				}
 			}
 		}

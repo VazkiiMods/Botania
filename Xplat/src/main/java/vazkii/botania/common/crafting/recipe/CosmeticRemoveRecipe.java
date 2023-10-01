@@ -66,8 +66,7 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 			return ItemStack.EMPTY;
 		}
 
-		ItemStack copy = attachableItem.copy();
-		copy.setCount(1);
+		ItemStack copy = attachableItem.copyWithCount(1);
 		attachable.setCosmeticItem(copy, ItemStack.EMPTY);
 		return copy;
 	}

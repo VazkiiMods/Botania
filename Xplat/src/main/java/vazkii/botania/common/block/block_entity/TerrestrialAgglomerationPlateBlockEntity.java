@@ -163,8 +163,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 		int j = 0;
 		for (ItemStack item : items) {
 			if (item.getCount() > 1) {
-				ItemStack temp = item.copy();
-				temp.setCount(1);
+				ItemStack temp = item.copyWithCount(1);
 				for (int count = 0; count < item.getCount(); count++) {
 					stacks[j] = temp.copy();
 					j++;

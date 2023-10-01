@@ -63,8 +63,7 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 			}
 		}
 
-		ItemStack gunCopy = gun.copy();
-		gunCopy.setCount(1);
+		ItemStack gunCopy = gun.copyWithCount(1);
 		ManaBlasterItem.setLens(gunCopy, ItemStack.EMPTY);
 
 		return gunCopy;

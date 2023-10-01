@@ -61,9 +61,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 
 	public void setRequestTarget(ItemStack stack) {
 		if (!stack.isEmpty() && !locked) {
-			ItemStack copy = stack.copy();
-			copy.setCount(1);
-			requestTarget = copy;
+			requestTarget = stack.copyWithCount(1);
 			updateCount();
 			if (!level.isClientSide) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);

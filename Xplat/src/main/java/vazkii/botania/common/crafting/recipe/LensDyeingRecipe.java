@@ -100,8 +100,7 @@ public class LensDyeingRecipe extends CustomRecipe {
 		}
 
 		if (lens.getItem() instanceof BasicLensItem) {
-			ItemStack lensCopy = lens.copy();
-			lensCopy.setCount(1);
+			ItemStack lensCopy = lens.copyWithCount(1);
 			LensItem.setLensColor(lensCopy, color);
 
 			return lensCopy;

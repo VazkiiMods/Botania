@@ -84,8 +84,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 				return index;
 			}
 		}
-		ItemStack newestFood = food.copy();
-		newestFood.setCount(1);
+		ItemStack newestFood = food.copyWithCount(1);
 		lastFoods.add(0, newestFood);
 		if (lastFoods.size() >= getMaxStreak()) {
 			lastFoods.remove(lastFoods.size() - 1);

@@ -170,10 +170,8 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 
 		if (shouldInsert) {
 			if (playerHasLens) {
-				ItemStack toInsert = heldItem.copy();
-				toInsert.setCount(1);
+				ItemStack toInsert = heldItem.split(1);
 
-				heldItem.shrink(1);
 				if (!lens.isEmpty()) {
 					player.getInventory().placeItemBackInInventory(lens);
 				}

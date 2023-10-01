@@ -308,8 +308,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				if (doit) {
 					ret = inv.removeItem(i, 1);
 				} else {
-					ret = invStack.copy();
-					ret.setCount(1);
+					ret = invStack.copyWithCount(1);
 				}
 				return ret;
 			}

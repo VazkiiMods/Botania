@@ -103,8 +103,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		for (int i = 0; i < inventorySize(); i++) {
 			if (getItemHandler().getItem(i).isEmpty()) {
 				did = true;
-				ItemStack stackToAdd = stack.copy();
-				stackToAdd.setCount(1);
+				ItemStack stackToAdd = stack.copyWithCount(1);
 				getItemHandler().setItem(i, stackToAdd);
 
 				if (player == null || !player.getAbilities().instabuild) {
