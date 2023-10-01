@@ -2304,7 +2304,7 @@
 
   "botania.entry.thermalily": "炽玫瑰",
   "botania.tagline.thermalily": "岩浆产魔",
-  "botania.page.thermalily0": "$(item)炽玫瑰$(0)是$(l:generating_flowers/hydroangeas)$(item)水绣球$(0)$(/l)的$(item)熔岩$(0)版本，原理类似$(item)水绣球$(0)，但它吸收的是$(item)熔岩$(0)。它会在消耗$(item)熔岩$(0)后的约45秒内迅速产生大量的$(item)魔力$(0)，但之后则需要花一点时间来冷却。",
+  "botania.page.thermalily0": "$(item)炽玫瑰$(0)是$(l:generating_flowers/hydroangeas)$(item)水绣球$(0)$(/l)的$(item)熔岩$(0)版本，原理类似$(item)水绣球$(0)，但它吸收的是$(item)熔岩$(0)。它会在消耗$(item)熔岩$(0)后的约30秒内迅速产生大量的$(item)魔力$(0)，但之后则需要花一点时间来冷却。",
   "botania.page.thermalily1": "不过，就像它选择的饮料一样喜怒无常，它往往会随机改变冷却时间————从20秒到整整5分钟不等！$(p)你可以用$(item)红石比较器$(0)来测定它的冷却时间：每级强度为20秒。",
   "botania.page.thermalily2": "在工作阶段时，$(item)炽玫瑰$(0)产出的$(thing)魔力$(0)的量十分之高，十分适合应对短时间内需要大量消耗魔力的情况。$(p)在它进入“冷却阶段”时，它依旧会消耗熔岩，但不会产出任何$(thing)魔力$(0)，直到冷却期结束后方能继续产出魔力。",
   "botania.page.thermalily3": "虽然$(item)发射器$(0)可以胜任自动放置$(item)熔岩$(0)的工作，但自动收集$(thing)下界$(0)或地底深处的熔岩并用来自动产出魔力却完全是另外一回事。$(p)因此，$(item)炽玫瑰$(0)被归类为“半自动化产能花”。",
