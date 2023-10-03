@@ -248,6 +248,16 @@ public class BotaniaTags {
 		public static final TagKey<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
 
 		/**
+		 * The Drum of the Gathering fills milk buckets for mobs in this tag.
+		 */
+		public static final TagKey<EntityType<?>> DRUM_MILKABLE = tag("drum/milkable");
+
+		/**
+		 * The Drum of the Gathering will not shear mobs in this tag, even if they could be sheared.
+		 */
+		public static final TagKey<EntityType<?>> DRUM_NO_SHEARING = tag("drum/no_shearing");
+
+		/**
 		 * Entities in this tag are immune to damage from the Key of the King's Law
 		 */
 		public static final TagKey<EntityType<?>> KEY_IMMUNE = tag("key_immune");
