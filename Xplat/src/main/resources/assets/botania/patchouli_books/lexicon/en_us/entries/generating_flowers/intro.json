@@ -20,6 +20,10 @@
     {
       "type": "text",
       "text": "botania.page.gIntro3"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.gIntro4"
     }
   ]
 }
