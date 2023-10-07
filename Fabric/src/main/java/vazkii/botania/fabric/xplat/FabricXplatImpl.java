@@ -6,7 +6,6 @@ import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -111,8 +110,6 @@ import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,8 +122,6 @@ import java.util.function.Supplier;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FabricXplatImpl implements XplatAbstractions {
-	private final HashMap<Pair<ServerLevel, BlockPos>, BlockApiCache<ManaReceiver, Direction>> lookupCache = new HashMap<>();
-
 	@Override
 	public boolean isFabric() {
 		return true;
@@ -211,45 +206,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public ManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, Direction direction) {
 		return BotaniaFabricCapabilities.MANA_RECEIVER.find(level, pos, state, be, direction);
-	}
-
-	@Override
-	public @Nullable ManaReceiver findManaReceiver(Level level, BlockPos pos, @Nullable Direction direction) {
-		if (level instanceof ServerLevel) {
-			return findCachedManaReceiver((ServerLevel) level, pos, direction);
-		} else {
-			return findManaReceiver(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), direction);
-		}
-	}
-
-	@Override
-	public CapabilityFindCache<ManaReceiver, Direction> getFindManaReceiverCache(Level level, BlockPos pos) {
-		if (level instanceof ServerLevel) {
-			return new CapabilityFindCache<>() {
-				private final BlockApiCache<ManaReceiver, Direction> cache = BlockApiCache.create(BotaniaFabricCapabilities.MANA_RECEIVER, (ServerLevel) level, pos);
-
-				@Override
-				public @Nullable ManaReceiver find(Direction context) {
-					return cache.find(context);
-				}
-
-				@Override
-				public @Nullable ManaReceiver find(@Nullable BlockState state, Direction context) {
-					return cache.find(state, context);
-				}
-			};
-		}
-		return XplatAbstractions.super.getFindManaReceiverCache(level, pos);
-	}
-
-	private @Nullable ManaReceiver findCachedManaReceiver(ServerLevel level, BlockPos pos, @Nullable Direction direction) {
-		var pair = Pair.of(level, pos);
-		var cache = lookupCache.get(pair);
-		if (cache == null) {
-			cache = BlockApiCache.create(BotaniaFabricCapabilities.MANA_RECEIVER, level, pos);
-			lookupCache.put(pair, cache);
-		}
-		return cache.find(direction);
 	}
 
 	@Nullable

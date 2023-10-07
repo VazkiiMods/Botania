@@ -231,7 +231,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	public void updateTransfers() {
 		switch (getUpgrade()) {
 			case RECESSIVE -> {
-				var otherSparks = SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				var otherSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
 				Collections.shuffle(otherSparks);
 				for (var otherSpark : otherSparks) {
 					SparkUpgradeType otherUpgrade = otherSpark.getUpgrade();
@@ -244,7 +244,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				}
 			}
 			case DOMINANT -> {
-				List<ManaSpark> validSparks = SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				List<ManaSpark> validSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
 				for (var spark : validSparks) {
 					SparkUpgradeType otherUpgrade = spark.getUpgrade();
 					if (spark != this && otherUpgrade == SparkUpgradeType.NONE && spark.getAttachedManaReceiver() instanceof ManaPool) {
@@ -403,7 +403,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	private void notifyOthers(DyeColor network) {
-		for (var spark : SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), network)) {
+		for (var spark : SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), network)) {
 			spark.updateTransfers();
 		}
 	}

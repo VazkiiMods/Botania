@@ -119,20 +119,6 @@ public interface XplatAbstractions {
 		return findManaReceiver(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), direction);
 	}
 
-	default CapabilityFindCache<ManaReceiver, Direction> getFindManaReceiverCache(Level level, BlockPos pos) {
-		return new CapabilityFindCache<>() {
-			@Override
-			public @Nullable ManaReceiver find(Direction context) {
-				return findManaReceiver(level, pos, context);
-			}
-
-			@Override
-			public @Nullable ManaReceiver find(@Nullable BlockState state, Direction context) {
-				return findManaReceiver(level, pos, state, level.getBlockEntity(pos), context);
-			}
-		};
-	}
-
 	@Nullable
 	ManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction);
 
@@ -232,11 +218,4 @@ public interface XplatAbstractions {
 	WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen);
 
 	XplatAbstractions INSTANCE = ServiceUtil.findService(XplatAbstractions.class, null);
-
-	interface CapabilityFindCache<A, C> {
-		@Nullable
-		A find(C context);
-		@Nullable
-		A find(@Nullable BlockState state, C context);
-	}
 }

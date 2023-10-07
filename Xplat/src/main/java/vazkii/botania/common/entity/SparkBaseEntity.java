@@ -28,7 +28,6 @@ public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 	private static final String TAG_INVIS = "invis";
 	private static final String TAG_NETWORK = "network";
 	private static final EntityDataAccessor<Integer> NETWORK = SynchedEntityData.defineId(SparkBaseEntity.class, EntityDataSerializers.INT);
-	private XplatAbstractions.CapabilityFindCache<ManaReceiver, Direction> attachedManaReceiverCache;
 
 	public SparkBaseEntity(EntityType<?> type, Level world) {
 		super(type, world);
@@ -45,15 +44,6 @@ public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 		int y = Mth.floor(getY() - 1);
 		int z = Mth.floor(getZ());
 		return new BlockPos(x, y, z);
-	}
-
-	@Nullable
-	@Override
-	public ManaReceiver getAttachedManaReceiver() {
-		if (attachedManaReceiverCache == null) {
-			attachedManaReceiverCache = XplatAbstractions.INSTANCE.getFindManaReceiverCache(getLevel(), getAttachPos());
-		}
-		return attachedManaReceiverCache.find(Direction.UP);
 	}
 
 	@Override
