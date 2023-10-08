@@ -90,4 +90,4 @@ jobs:
         name: GoG
         path: |
           ${{ steps.calculate_artifact_names.outputs.gog }}
-          ${{ steps.calculate_artifact_names.outputs.asc }}
+          ${{ steps.calculate_artifact_names.outputs.gog }}.asc
