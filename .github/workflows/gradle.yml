@@ -70,18 +70,24 @@ jobs:
           --detach-sign ${{ steps.calculate_artifact_names.outputs.fabric }}
         gpg --local-user "Violet Moon Signing Key" --armor \
           --detach-sign ${{ steps.calculate_artifact_names.outputs.gog }}
-    - name: Archive Fabric Jar
+    - name: Archive Fabric Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: Fabric
-        path: ${{ steps.calculate_artifact_names.outputs.fabric }}
-    - name: Archive Forge Jar
+        path: |
+          ${{ steps.calculate_artifact_names.outputs.fabric }}
+          ${{ steps.calculate_artifact_names.outputs.fabric }}.asc
+    - name: Archive Forge Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: Forge
-        path: ${{ steps.calculate_artifact_names.outputs.forge }}
-    - name: Archive GoG Binary
+        path: |
+          ${{ steps.calculate_artifact_names.outputs.forge }}
+          ${{ steps.calculate_artifact_names.outputs.forge }}.asc
+    - name: Archive GoG Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: GoG
-        path: ${{ steps.calculate_artifact_names.outputs.gog }}
+        path: |
+          ${{ steps.calculate_artifact_names.outputs.gog }}
+          ${{ steps.calculate_artifact_names.outputs.asc }}
