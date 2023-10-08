@@ -42,7 +42,7 @@ public interface ManaSpark extends SparkEntity {
 	void registerTransfer(ManaSpark entity);
 
 	/**
-	 * Makes that spark register transfers for all relevant sparks, decided
+	 * Makes that spark register transfers for all relevant sparks, needs to be called whenever the connected sparks may change (setNetwork, remove and setUpgrade should already do this)
 	 */
 	void updateTransfers();
 

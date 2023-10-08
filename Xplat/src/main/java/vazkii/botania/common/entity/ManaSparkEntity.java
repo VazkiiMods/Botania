@@ -62,7 +62,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	private final ArrayList<ManaSpark> transfersTowardsSelfToRegister = new ArrayList<>();
 
 	private boolean shouldFilterTransfers = true;
-	private boolean wasFull = true;
+	private boolean receiverWasFull = true;
 	private boolean firstTick = true;
 
 	public ManaSparkEntity(EntityType<ManaSparkEntity> type, Level world) {
@@ -93,6 +93,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			return;
 		}
 
+		// When loaded, initialize transfers
 		if (firstTick) {
 			updateTransfers();
 		}
@@ -171,27 +172,25 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 			}
 			case DOMINANT -> {
-				if (wasFull && !receiver.isFull()) {
+				if (receiverWasFull && !receiver.isFull()) {
 					updateTransfers();
 				}
-				if (transfersTowardsSelfToRegister.size() > 0) {
+				if (!transfersTowardsSelfToRegister.isEmpty()) {
 					transfersTowardsSelfToRegister.remove(0).registerTransfer(this);
 				}
 			}
-			case RECESSIVE -> {
-				// updateTransfers();
-			}
+			// Recessive does not need to be handled because recessive sparks get notified in all relevant cases
 			default -> {
-				if (wasFull && !receiver.isFull()) {
+				if (receiverWasFull && !receiver.isFull()) {
 					notifyOthers(getNetwork());
 				}
 			}
 		}
 
 		if (receiver != null) {
-			wasFull = receiver.isFull();
+			receiverWasFull = receiver.isFull();
 		} else {
-			wasFull = true;
+			receiverWasFull = true;
 		}
 
 		if (!transfers.isEmpty()) {
@@ -301,6 +300,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 							spawnAtLocation(SparkAugmentItem.getByType(upgrade), 0F);
 							setUpgrade(SparkUpgradeType.NONE);
 
+							// Recalculate transfers, recessive and dominant will register the proper transfers
 							transfers.clear();
 							notifyOthers(getNetwork());
 						} else {
@@ -422,6 +422,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	@Override
 	public void setNetwork(DyeColor color) {
+		// The previous network needs to filter this spark out
 		var previousNetwork = getNetwork();
 		super.setNetwork(color);
 		updateTransfers();
