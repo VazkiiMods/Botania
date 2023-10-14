@@ -57,7 +57,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final EntityDataAccessor<Integer> UPGRADE = SynchedEntityData.defineId(ManaSparkEntity.class, EntityDataSerializers.INT);
 
-	private final Set<ManaSpark> transfers = Collections.newSetFromMap(new WeakHashMap<>());
+	private final Set<ManaSpark> outgoingTransfers = Collections.newSetFromMap(new WeakHashMap<>());
 
 	private final ArrayList<ManaSpark> transfersTowardsSelfToRegister = new ArrayList<>();
 
@@ -106,7 +106,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		var receiver = getAttachedManaReceiver();
 
 		SparkUpgradeType upgrade = getUpgrade();
-		Collection<ManaSpark> transfers = getTransfers();
+		Collection<ManaSpark> transfers = getOutgoingTransfers();
 
 		switch (upgrade) {
 			case DISPERSIVE -> {
@@ -176,7 +176,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					updateTransfers();
 				}
 				if (!transfersTowardsSelfToRegister.isEmpty()) {
-					transfersTowardsSelfToRegister.remove(0).registerTransfer(this);
+					transfersTowardsSelfToRegister.remove(transfersTowardsSelfToRegister.size() - 1).registerTransfer(this);
 				}
 			}
 			// Recessive does not need to be handled because recessive sparks get notified in all relevant cases
@@ -228,6 +228,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	@Override
 	public void updateTransfers() {
+		transfersTowardsSelfToRegister.clear();
 		switch (getUpgrade()) {
 			case RECESSIVE -> {
 				var otherSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
@@ -238,7 +239,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 							&& otherUpgrade != SparkUpgradeType.DOMINANT
 							&& otherUpgrade != SparkUpgradeType.RECESSIVE
 							&& otherUpgrade != SparkUpgradeType.ISOLATED) {
-						transfers.add(otherSpark);
+						outgoingTransfers.add(otherSpark);
 					}
 				}
 			}
@@ -301,7 +302,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 							setUpgrade(SparkUpgradeType.NONE);
 
 							// Recalculate transfers, recessive and dominant will register the proper transfers
-							transfers.clear();
+							outgoingTransfers.clear();
 							notifyOthers(getNetwork());
 						} else {
 							dropAndKill();
@@ -363,7 +364,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	private void filterTransfers() {
-		Iterator<ManaSpark> iter = transfers.iterator();
+		Iterator<ManaSpark> iter = outgoingTransfers.iterator();
 		while (iter.hasNext()) {
 			ManaSpark spark = iter.next();
 			SparkUpgradeType upgr = getUpgrade();
@@ -385,12 +386,12 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	@Override
-	public Collection<ManaSpark> getTransfers() {
-		return transfers;
+	public Collection<ManaSpark> getOutgoingTransfers() {
+		return outgoingTransfers;
 	}
 
 	private boolean hasTransfer(ManaSpark entity) {
-		return transfers.contains(entity);
+		return outgoingTransfers.contains(entity);
 	}
 
 	@Override
@@ -398,7 +399,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		if (hasTransfer(entity)) {
 			return;
 		}
-		transfers.add(entity);
+		outgoingTransfers.add(entity);
 		filterTransfers();
 	}
 

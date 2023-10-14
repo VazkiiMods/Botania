@@ -34,7 +34,7 @@ public interface ManaSpark extends SparkEntity {
 	/**
 	 * Gets a collection of all Sparks this is tranfering to.
 	 */
-	Collection<ManaSpark> getTransfers();
+	Collection<ManaSpark> getOutgoingTransfers();
 
 	/**
 	 * Registers the Spark passed in as a Spark meant for mana to be transfered towards.
