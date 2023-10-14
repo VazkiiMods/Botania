@@ -13,7 +13,12 @@
       "text": "botania.page.sextant1"
     },
     {
+      "type": "text",
+      "text": "botania.page.sextant_modes"
+    },
+    {
       "type": "crafting",
+      "title": "item.botania.sextant",
       "text": "botania.page.sextant2",
       "recipe": "botania:sextant"
     }

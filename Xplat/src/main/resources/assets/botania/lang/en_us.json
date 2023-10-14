@@ -2910,6 +2910,7 @@
   "botania.page.sextant0": "In a world of cubes, the secrets of creating circles and spheres is a lost art coveted by many-- so much so, in fact, that some to turn to the unholy act of \"tabbing out\" to learn the proper procedures.$(p)The $(item)Worldshaper's Sextant$(0), however, provides a ready alternative to such an act. ",
   "botania.page.sextant1": "To use the sextant, sneak-right click to choose a mode. Simply right-click and hold at a block to choose the shape's center, and look around to choose its radius; blue circles will appear in the world as an outline of the final shape. Upon release of the sextant, a mirage of $(item)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the guide.",
   "botania.page.sextant2": "You sketch a circle, filling you with determination",
+  "botania.page.sextant_modes": "There are usually multiple ways to draw a blocky circle touching the inside of any given square. By snapping to any point on the horizontal block grid from the starting point, the sextant allows experimenting with different shapes for the same general size.$(p)And if two dimensions are not enough, sneak-right clicking while no shape is displayed switches the shape mode.",
 
   "botania.entry.astrolabe": "Worldshaper's Astrolabe",
   "botania.tagline.astrolabe": "A tool to help create planes",
