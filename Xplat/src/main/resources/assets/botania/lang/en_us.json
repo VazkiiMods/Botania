@@ -266,7 +266,7 @@
   "botania.armorset.terrasteel.desc1": "Regen even if hunger isn't topped off",
   "botania.armorset.terrasteel.desc2": "Passive Mana generation on Mana Tablets",
   "botania.armorset.manaweave.name": "Manatide Prowess",
-  "botania.armorset.manaweave.desc0": "35%% less Mana cost on Mana Tools and Rods",
+  "botania.armorset.manaweave.desc0": "40%% less Mana cost on Mana Tools and Rods",
   "botania.armorset.manaweave.desc1": "Increased proficiency with Magical Rods",
 
   "botania.armorset.will_ahrim.desc": "Ahrim: Critical Hits apply a strong weakness effect",
@@ -2279,7 +2279,7 @@
   "botania.entry.bergamute": "Bergamute",
   "botania.tagline.bergamute": "Absorbs sound",
   "botania.page.bergamute0": "Anyone who's ever attempted ranching knows of the cacophonous din emitted by herds of animals. Luckily, the $(item)Bergamute$(0) can deafen such dins.",
-  "botania.page.bergamute1": "The $(item)Bergamute$(0) absorbs sound energy emitted in a close radius around itself, converting it into trace amounts of mana and dispersing it harmlessly.$(p)Additionally, $(l:tools/grass_horn)$(item)Horns$(0)$(/l) or $(l:devices/forest_drum)$(item)Drums$(0)$(/l) will not break blocks within its range.",
+  "botania.page.bergamute1": "The $(item)Bergamute$(0) absorbs sound energy emitted in a close radius around itself, converting it into trace amounts of mana and dispersing it harmlessly. It halves the volume of sounds within reach, the effect stacking with other nearby $(item)Bergamutes$(0).$(p)Additionally, $(l:tools/grass_horn)$(item)Horns$(0)$(/l) or $(l:devices/forest_drum)$(item)Drums$(0)$(/l) will not break blocks within its range.",
   "botania.page.bergamute2": "Deaf to All but the Song",
 
   "botania.entry.gIntro": "Generating Flora",
@@ -2641,7 +2641,7 @@
 
   "botania.entry.grassSeeds": "Pasture Seeds",
   "botania.tagline.grassSeeds": "Seeds to create Grass, Podzol and Mycelium",
-  "botania.page.grassSeeds0": "Watching the slow grow of $(item)Grass$(0) is seldom a fun activity. $(item)Tall Grass$(0), infused with $(thing)Mana$(0), becomes $(item)Pasture Seeds$(0), which will grow grass in a nearby area when used on a $(item)Dirt$(0) block.$(p)Other dirt-type blocks can also be grown, such as $(item)Podzol$(0) or $(item)Mycelium$(0), from alternative seeds.",
+  "botania.page.grassSeeds0": "Watching the slow grow of $(item)Grass$(0) is seldom a fun activity. $(item)Tall Grass$(0), infused with $(thing)Mana$(0), becomes $(item)Pasture Seeds$(0), which will grow grass in a nearby area when used on a $(item)Dirt$(0) block, either by hand or in a $(item)Dispenser$(0).$(p)Other dirt-type blocks can also be grown, such as $(item)Podzol$(0) or $(item)Mycelium$(0), from alternative seeds.",
   "botania.page.grassSeeds1": "$(item)Pasture Seeds$(0) for grass",
   "botania.page.grassSeeds2": "$(item)Boreal Seeds$(0) for podzol",
   "botania.page.grassSeeds3": "$(item)Infestation Spores$(0) for mycelium",
@@ -2907,8 +2907,8 @@
 
   "botania.entry.sextant": "Worldshaper's Sextant",
   "botania.tagline.sextant": "A tool to help create circles",
-  "botania.page.sextant0": "In a world of cubes, the secrets of creating circles is a lost art coveted by many-- so much so, in fact, that some to turn to the unholy act of \"tabbing out\" to learn the proper procedures.$(p)The $(item)Worldshaper's Sextant$(0), however, provides a ready alternative to such an act. ",
-  "botania.page.sextant1": "To use the item, simply right-click and hold at a block to choose a circle's center, and look around to choose its radius; a blue circle will appear in the world as a preview of the circle's shape. Upon release of the sextant, a mirage of $(item)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the circle.",
+  "botania.page.sextant0": "In a world of cubes, the secrets of creating circles and spheres is a lost art coveted by many-- so much so, in fact, that some to turn to the unholy act of \"tabbing out\" to learn the proper procedures.$(p)The $(item)Worldshaper's Sextant$(0), however, provides a ready alternative to such an act. ",
+  "botania.page.sextant1": "To use the sextant, sneak-right click to choose a mode. Simply right-click and hold at a block to choose the shape's center, and look around to choose its radius; blue circles will appear in the world as an outline of the final shape. Upon release of the sextant, a mirage of $(item)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the guide.",
   "botania.page.sextant2": "You sketch a circle, filling you with determination",
 
   "botania.entry.astrolabe": "Worldshaper's Astrolabe",
