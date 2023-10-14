@@ -458,7 +458,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.incensePlate)
 				.define('S', BotaniaBlocks.livingwoodSlab)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
-				.pattern("WSS")
+				.pattern("SSW")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.hourglass)
@@ -2642,8 +2642,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 4)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('Q', input)
-				.pattern("  Q")
-				.pattern(" QQ")
+				.pattern("Q  ")
+				.pattern("QQ ")
 				.pattern("QQQ");
 	}
 
@@ -2688,7 +2688,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	protected ShapedRecipeBuilder fenceGate(ItemLike output, ItemLike input) {
-		return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, output, 3)
+		return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, output, 1)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('B', input)
 				.define('S', Items.STICK)

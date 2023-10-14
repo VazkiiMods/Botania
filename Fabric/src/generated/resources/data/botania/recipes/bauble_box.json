@@ -14,8 +14,8 @@
   },
   "pattern": [
     " M ",
-    "MCG",
-    " M "
+    "MCM",
+    " G "
   ],
   "result": {
     "item": "botania:bauble_box"
