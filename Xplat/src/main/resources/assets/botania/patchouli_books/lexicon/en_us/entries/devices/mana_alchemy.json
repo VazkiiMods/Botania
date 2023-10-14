@@ -40,7 +40,6 @@
       "type": "botania:mana_infusion",
       "text": "botania.page.manaAlchemy5",
       "recipes": [
-        "botania:mana_infusion/redstone_to_glowstone_dust",
         "botania:mana_infusion/glowstone_deconstruct"
       ]
     },
@@ -136,8 +135,7 @@
       "text": "botania.page.manaAlchemy19",
       "recipes": [
         "botania:mana_infusion/glowstone_dust_to_redstone",
-        "botania:mana_infusion/redstone_to_glowstone_dust",
-        "botania:mana_infusion/glowstone_deconstruct"
+        "botania:mana_infusion/redstone_to_glowstone_dust"
       ]
     },
     {
