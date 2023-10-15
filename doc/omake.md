@@ -588,8 +588,7 @@ time to go bigger. Much bigger.
 
 And thus, the two bided their time, and on the day of their release, they decided to
 become sworn sisters. Kneeling and facing the north, the two held up three petals and each
-swore to dedicate their lives to fighting for justice, in their own way, and to each
-other.
+swore to dedicate their lives to fighting for justice and to each other.
 
 And then, they began. Through murky connections unknown to Dreadthorne, Bellethorne was
 able to provide the both of them a safe home base from which they would plot their next
@@ -656,21 +655,13 @@ fur babies will last them until the day they finally wilt and die.
 Career-wise, Tigerseye serves as a skilled prosecutor and specializes in prosecuting
 sexual abuse offenders.
 
-## Orechid
+## Orechid & Orechid Ignem
 * Gender:
 * Physical symbols:
 * Likes:
 * Dislikes: 
 
-Idea: miner
-
-## Orechid Ignem
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
-
-Idea: Orechid's senior
+Idea: miner duo (siblings or parent-child or partner)
 
 ## Fallen Kanade
 ### Freeze-Immune Bud
@@ -732,7 +723,20 @@ nearly everybody they know.
 * Likes: Their jobs, each other
 * Dislikes: The paperwork that happens when they make mistakes on the job
 
+Tangleberrie and Jiyuulia are fraternal twin brothers, born minutes after each
+other. Growing up, they were inseparable and participated in many of the same activities
+at school, including FFM (Future Farmers of Minecraft) where they were herders for various
+animals, of both the domesticated and wild varieties.
 
+Later on, the two ended going into the same career as security guards, though their paths
+slightly diverged: Tangleberrie continued his path from school, monitoring flocks of
+livestock and making sure they didn't wander into any trouble. Meanwhile, Jiyuulia took a
+slightly more risky path, becoming a security guard at a high security bank vault. Both
+are serious in their work, but only enough to avoid getting into trouble, which inevitably
+brings a mountainload of questions from upper management.
+
+How great it is to have someone who you can relate to and talk to about everything in your
+life? Tangleberrie and Jiyuulia both treasured their relationship dearly.
 
 ## Labellia
 ### Archivist of Leaves and Lore
@@ -768,6 +772,7 @@ CD's, and physical games. Their own personal home collection is a joyful library
 own, sorted by a variant of the Munchdewey decimal system, of course.
 
 ## Rannuncarpus
+### Handy and dexterous limbs
 * Gender: Removed -- it was only holding them back
 * Physical symbols: Toy slap hands
 * Likes: Piano, building castles and other large structures in Minecraft
@@ -783,6 +788,7 @@ easygoing attitude and are always happy to hook up their friends and family with
 concerts (or repairs).
 
 ## Hyacidus
+### Master of Caring Just Enough To Get By
 * Gender: Nonbinary (they/them)
 * Physical symbols: Pill
 * Likes: Medicine and drugs(?), Relaxing
@@ -801,6 +807,7 @@ An easygoing, stressless, and free life. Hyacidus wouldn't trade it for anything
 the world.
 
 ## Pollidisiac
+### Throbbing Heart of Pedagogue
 * Gender: Agender
 * Physical symbols: Heart (the actual organ)
 * Likes: Their students
@@ -815,6 +822,7 @@ come into class on day 1 snickering and joking about the course content, but by 
 the semester can hold mature and respectful conversations about the topic.
   
 ## Clayconia
+### Perfectly Balanced Mud Packer
 * Gender: Very precisely blended portions of masculinity, femininity, and flower
 * Physical symbols: Play-Doh
 * Likes: Beaches, sandboxes, yoga, symmetry
@@ -833,9 +841,10 @@ it at an early age, and constantly ramble to their parents about their goal of a
 perfect *balance*.
 
 ## Loonium
+### Housemaster of Hundred Goods
 * Gender: They buried it in Alaska but won't tell us where
 * Physical symbols: treasure chest
-* Likes: Geocaching, MIT puzzle hunt
+* Likes: Geocaching, MIT puzzle hunt, ARG's
 * Dislikes: Misplacing or having their items stolen
 
 Loonium is a chronic hoarder, collecting any and all sort of trinkets and treasures,
@@ -849,6 +858,7 @@ essentially any item can be acquired at extremely low price...as long as you can
 inside the chaotically messy store.
 
 ## Daffomill
+### Planning and Stanning Fan
 * Gender: Fan
 * Physical symbols: East Asian paper fan
 * Likes: K-Pop, V-Tubers, Fashion
@@ -867,6 +877,7 @@ Their dream is to attend every single concert of the international tour of their
 Korean boyband, BTS (Big Tater Squad).
 
 ## Vinculotus
+### Hexed Thaumic Scientist
 * Gender: Can science be a gender?
 * Physical symbols: Ender Pearl
 * Likes: Magitech
@@ -896,6 +907,7 @@ Little did Vinculotus realize that their mind was already well on its path towar
 descent to madness.
 
 ## Spectranthemum
+### Septachromal Ojamajo
 * Gender: Magical Girl
 * Physical symbols: Her Peperuto Poron (a flashy cyan wand), top hat
 * Likes: Bnuuy, spreading positivity through magic
@@ -907,7 +919,7 @@ in their lairs over bubbling cauldrons, Magical Girl Spectranthemum walks the li
 stage magic and witchcraft as a jack of both trades.
 
 To the public, she is a world-famous stage magician, known for her stunning and
-electrifying performances. You won't see tired old tricks like guessing the card in
+captivating performances. You won't see tired old tricks like guessing the card in
 someone's hand, or pulling bunnies out of a hat from her!
 
 Likewise, to the magical world, she is a bit of an odd specimen, preferring to roam the
@@ -923,6 +935,7 @@ In an increasingly specialized world, Spectranthemum is proof that being a well-
 generalist can still work out.
 
 ## Medumone
+### Be Like Water, My Flower
 * Gender: They/them
 * Physical symbols: U+1F60C Relieved Face Emoji 😌
 * Likes: Coloring books, pottery-making
@@ -955,6 +968,7 @@ Medumone works through these challenging questions with their patients, and hope
 them, to discover some of the answers for themself as well.
 
 ## Marimorphosis
+### Trainee in All Transformations
 * Gender: Trans Male (he/him)
 * Physical symbols: Circle
 * Likes: History of early science, holometabolic bugs, nuclear physics
@@ -989,6 +1003,7 @@ resulting blast.
 Under his hard work, flowerkind inches ever closer towards the legendary Philosopher's Stone.
 
 ## Bubbell
+### Quaint and Quiet as Pondwater
 * Gender: Female (she/her)
 * Physical symbols: Full-body plastic bubbles
 * Likes: Social distancing, going to the spa, solo scuba diving, chatting with Hydroangea over IRC
@@ -1001,6 +1016,7 @@ friends, though they are careful to not reveal too much about themselves. (TODO 
 refinement and distinguishing characteristics with Hydro)
 
 ## Solegnolia
+### Stunning and Electrifying Musician
 * Gender: Pronouns are thor/thom/thors (Solegnolia Really Likes Thor)
 * Physical symbols: Any of the symbols that go on a circuit diagram
 * Likes: Technical Minecraft, very niche modded Minecraft (Reika's ElectriCraft is a
@@ -1026,6 +1042,7 @@ and Hydroangeas' departure several years prior.
 A rising star was now on the horizon.
 
 ## Bergamute
+### Lo-Fi Lo-Stress Groover
 * Gender: Male (he/him)
 * Physical symbols: Earmuffs
 * Likes: The "lofi hip hop radio - beats to relax/study to" YouTube livestream, frugality
