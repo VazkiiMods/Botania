@@ -84,8 +84,7 @@ public class RedirectiveLens extends Lens {
 
 		var entity = burst.entity();
 		var hitPos = result.getBlockPos();
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.level(), hitPos,
-				entity.level().getBlockState(hitPos), entity.level().getBlockEntity(hitPos), result.getDirection());
+		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.level(), hitPos, result.getDirection());
 		if (receiver instanceof ManaSpreader spreader) {
 			Vec3 tileVec = Vec3.atCenterOf(hitPos);
 			Vec3 diffVec = sourceVec.subtract(tileVec);

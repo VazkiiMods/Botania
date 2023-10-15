@@ -34,12 +34,18 @@ public interface ManaSpark extends SparkEntity {
 	/**
 	 * Gets a collection of all Sparks this is tranfering to.
 	 */
-	Collection<ManaSpark> getTransfers();
+	Collection<ManaSpark> getOutgoingTransfers();
 
 	/**
 	 * Registers the Spark passed in as a Spark meant for mana to be transfered towards.
 	 */
 	void registerTransfer(ManaSpark entity);
+
+	/**
+	 * Makes that spark register transfers for all relevant sparks, needs to be called whenever the connected sparks may
+	 * change (setNetwork, remove and setUpgrade should already do this)
+	 */
+	void updateTransfers();
 
 	SparkUpgradeType getUpgrade();
 

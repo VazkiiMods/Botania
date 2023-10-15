@@ -57,9 +57,13 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final EntityDataAccessor<Integer> UPGRADE = SynchedEntityData.defineId(ManaSparkEntity.class, EntityDataSerializers.INT);
 
-	private final Set<ManaSpark> transfers = Collections.newSetFromMap(new WeakHashMap<>());
+	private final Set<ManaSpark> outgoingTransfers = Collections.newSetFromMap(new WeakHashMap<>());
 
-	private int removeTransferants = 2;
+	private final ArrayList<ManaSpark> transfersTowardsSelfToRegister = new ArrayList<>();
+
+	private boolean shouldFilterTransfers = true;
+	private boolean receiverWasFull = true;
+	private boolean firstTick = true;
 
 	public ManaSparkEntity(EntityType<ManaSparkEntity> type, Level world) {
 		super(type, world);
@@ -89,6 +93,11 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			return;
 		}
 
+		// When loaded, initialize transfers
+		if (firstTick) {
+			updateTransfers();
+		}
+
 		SparkAttachable tile = getAttachedTile();
 		if (tile == null) {
 			dropAndKill();
@@ -97,7 +106,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		var receiver = getAttachedManaReceiver();
 
 		SparkUpgradeType upgrade = getUpgrade();
-		Collection<ManaSpark> transfers = getTransfers();
+		Collection<ManaSpark> transfers = getOutgoingTransfers();
 
 		switch (upgrade) {
 			case DISPERSIVE -> {
@@ -163,29 +172,25 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 			}
 			case DOMINANT -> {
-				List<ManaSpark> validSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
-				validSparks.removeIf(s -> {
-					SparkUpgradeType otherUpgrade = s.getUpgrade();
-					return s == this || otherUpgrade != SparkUpgradeType.NONE || !(s.getAttachedManaReceiver() instanceof ManaPool);
-				});
-				if (!validSparks.isEmpty()) {
-					validSparks.get(level().random.nextInt(validSparks.size())).registerTransfer(this);
+				if (receiverWasFull && !receiver.isFull()) {
+					updateTransfers();
 				}
+				if (!transfersTowardsSelfToRegister.isEmpty()) {
+					transfersTowardsSelfToRegister.remove(transfersTowardsSelfToRegister.size() - 1).registerTransfer(this);
+				}
+			}
+			// Recessive does not need to be handled because recessive sparks get notified in all relevant cases
+			default -> {
+				if (receiverWasFull && !receiver.isFull()) {
+					notifyOthers(getNetwork());
+				}
+			}
+		}
 
-			}
-			case RECESSIVE -> {
-				var otherSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
-				for (var otherSpark : otherSparks) {
-					SparkUpgradeType otherUpgrade = otherSpark.getUpgrade();
-					if (otherSpark != this
-							&& otherUpgrade != SparkUpgradeType.DOMINANT
-							&& otherUpgrade != SparkUpgradeType.RECESSIVE
-							&& otherUpgrade != SparkUpgradeType.ISOLATED) {
-						transfers.add(otherSpark);
-					}
-				}
-			}
-			default -> {}
+		if (receiver != null) {
+			receiverWasFull = receiver.isFull();
+		} else {
+			receiverWasFull = true;
 		}
 
 		if (!transfers.isEmpty()) {
@@ -194,11 +199,17 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			int manaSpent = 0;
 
 			if (manaTotal > 0) {
+				if (shouldFilterTransfers) {
+					filterTransfers();
+					shouldFilterTransfers = false;
+				}
+
 				for (ManaSpark spark : transfers) {
 					count--;
 					SparkAttachable attached = spark.getAttachedTile();
 					var attachedReceiver = spark.getAttachedManaReceiver();
 					if (attached == null || attachedReceiver == null || attachedReceiver.isFull() || spark.areIncomingTransfersDone()) {
+						shouldFilterTransfers = true;
 						continue;
 					}
 
@@ -212,8 +223,36 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			}
 		}
 
-		if (removeTransferants > 0) {
-			removeTransferants--;
+		firstTick = false;
+	}
+
+	@Override
+	public void updateTransfers() {
+		transfersTowardsSelfToRegister.clear();
+		switch (getUpgrade()) {
+			case RECESSIVE -> {
+				var otherSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				Collections.shuffle(otherSparks);
+				for (var otherSpark : otherSparks) {
+					SparkUpgradeType otherUpgrade = otherSpark.getUpgrade();
+					if (otherSpark != this
+							&& otherUpgrade != SparkUpgradeType.DOMINANT
+							&& otherUpgrade != SparkUpgradeType.RECESSIVE
+							&& otherUpgrade != SparkUpgradeType.ISOLATED) {
+						outgoingTransfers.add(otherSpark);
+					}
+				}
+			}
+			case DOMINANT -> {
+				List<ManaSpark> validSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				for (var spark : validSparks) {
+					SparkUpgradeType otherUpgrade = spark.getUpgrade();
+					if (spark != this && otherUpgrade == SparkUpgradeType.NONE && spark.getAttachedManaReceiver() instanceof ManaPool) {
+						transfersTowardsSelfToRegister.add(spark);
+					}
+				}
+				Collections.shuffle(transfersTowardsSelfToRegister);
+			}
 		}
 		filterTransfers();
 	}
@@ -245,6 +284,12 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	@Override
+	public void remove(RemovalReason removalReason) {
+		super.remove(removalReason);
+		notifyOthers(getNetwork());
+	}
+
+	@Override
 	public InteractionResult interact(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
@@ -256,8 +301,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 							spawnAtLocation(SparkAugmentItem.getByType(upgrade), 0F);
 							setUpgrade(SparkUpgradeType.NONE);
 
-							transfers.clear();
-							removeTransferants = 2;
+							// Recalculate transfers, recessive and dominant will register the proper transfers
+							outgoingTransfers.clear();
+							notifyOthers(getNetwork());
 						} else {
 							dropAndKill();
 						}
@@ -318,7 +364,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	private void filterTransfers() {
-		Iterator<ManaSpark> iter = transfers.iterator();
+		Iterator<ManaSpark> iter = outgoingTransfers.iterator();
 		while (iter.hasNext()) {
 			ManaSpark spark = iter.next();
 			SparkUpgradeType upgr = getUpgrade();
@@ -340,13 +386,12 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	@Override
-	public Collection<ManaSpark> getTransfers() {
-		filterTransfers();
-		return transfers;
+	public Collection<ManaSpark> getOutgoingTransfers() {
+		return outgoingTransfers;
 	}
 
 	private boolean hasTransfer(ManaSpark entity) {
-		return transfers.contains(entity);
+		return outgoingTransfers.contains(entity);
 	}
 
 	@Override
@@ -354,7 +399,14 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		if (hasTransfer(entity)) {
 			return;
 		}
-		transfers.add(entity);
+		outgoingTransfers.add(entity);
+		filterTransfers();
+	}
+
+	private void notifyOthers(DyeColor network) {
+		for (var spark : SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), network)) {
+			spark.updateTransfers();
+		}
 	}
 
 	@Override
@@ -365,12 +417,24 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	@Override
 	public void setUpgrade(SparkUpgradeType upgrade) {
 		entityData.set(UPGRADE, upgrade.ordinal());
+		updateTransfers();
+		notifyOthers(getNetwork());
+	}
+
+	@Override
+	public void setNetwork(DyeColor color) {
+		// The previous network needs to filter this spark out
+		var previousNetwork = getNetwork();
+		super.setNetwork(color);
+		updateTransfers();
+		notifyOthers(color);
+		notifyOthers(previousNetwork);
 	}
 
 	@Override
 	public boolean areIncomingTransfersDone() {
 		if (getAttachedManaReceiver() instanceof ManaPool) {
-			return removeTransferants > 0;
+			return false;
 		}
 
 		SparkAttachable attachable = getAttachedTile();
