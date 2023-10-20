@@ -77,6 +77,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	private static final String TAG_ITEM = "item";
 	private static final String TAG_ENCHANTS = "enchantsToApply";
 	private static final int CRAFT_EFFECT_EVENT = 0;
+	private static final int IDLE_CHECK_INTERVAL_TICKS = 10;
 
 	private static final String[][] PATTERN = new String[][] {
 			{
@@ -135,6 +136,8 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	public int stageTicks = 0;
 
 	public int stage3EndTicks = 0;
+
+	private int idleTicks = 0;
 
 	private int manaRequired = -1;
 	private int mana = 0;
@@ -256,8 +259,9 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		for (BlockPos offset : PYLON_LOCATIONS.get(axis)) {
 			BlockEntity tile = level.getBlockEntity(worldPosition.offset(offset));
 			if (tile instanceof PylonBlockEntity pylon) {
-				pylon.activated = self.stage == State.GATHER_MANA;
-				if (self.stage == State.GATHER_MANA) {
+				boolean gatheringMana = self.stage == State.GATHER_MANA;
+				pylon.activated = gatheringMana;
+				if (gatheringMana) {
 					pylon.centerPos = worldPosition;
 				}
 			}
@@ -265,17 +269,21 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 
 		if (self.stage != State.IDLE) {
 			self.stageTicks++;
+		} else {
+			self.idleTicks++;
 		}
 
-		if (level.isClientSide) {
+		if (level.isClientSide || self.stage == State.IDLE && self.idleTicks % IDLE_CHECK_INTERVAL_TICKS != 0) {
 			return;
 		}
 
-		if (FORMED_MULTIBLOCK.get().validate(level, worldPosition.below()) == null) {
+		Rotation rot = getAxisRotation(axis);
+		if (!FORMED_MULTIBLOCK.get().validate(level, worldPosition.below(), rot)) {
 			level.setBlockAndUpdate(worldPosition, Blocks.LAPIS_BLOCK.defaultBlockState());
 			XplatAbstractions.INSTANCE.sendToNear(level, worldPosition, new BotaniaEffectPacket(EffectType.ENCHANTER_DESTROY,
 					worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5));
 			level.playSound(null, worldPosition, BotaniaSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
+			return;
 		}
 
 		switch (self.stage) {
@@ -462,6 +470,14 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		return switch (rot) {
 			case NONE, CLOCKWISE_180 -> Direction.Axis.Z;
 			case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> Direction.Axis.X;
+		};
+	}
+
+	private static Rotation getAxisRotation(Direction.Axis axis) {
+		return switch (axis) {
+			case X -> Rotation.NONE;
+			case Z -> Rotation.CLOCKWISE_90;
+			default -> throw new IllegalStateException("Enchanter should only ever be facing in X or Z direction");
 		};
 	}
 
