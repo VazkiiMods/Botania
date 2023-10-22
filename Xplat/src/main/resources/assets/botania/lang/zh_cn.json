@@ -268,7 +268,7 @@
   "botania.armorset.terrasteel.desc1": "饥饿值未满时也能回复生命",
   "botania.armorset.terrasteel.desc2": "魔力石板能被动产能",
   "botania.armorset.manaweave.name": "魔源之力",
-  "botania.armorset.manaweave.desc0": "魔力工具及法杖消耗魔力减免35%",
+  "botania.armorset.manaweave.desc0": "魔力工具及法杖消耗魔力减免40%",
   "botania.armorset.manaweave.desc1": "提高装备者的法杖技能",
 
   "botania.armorset.will_ahrim.desc": "暴击施加重度虚弱效果（艾琳的意志）",
@@ -381,6 +381,7 @@
   "item.botania.dice.poem3": "数字将引领一切起舞。",
 
   "death.attack.botania.relic": "%s 因使用不属于他的遗物而被惩罚致死",
+  "death.attack.botania.key_explosion": "%2$s 用宝藏淹没了 %1$s",
 
   "entity.botania.mana_burst": "魔力脉冲",
   "entity.botania.pixie": "小精灵",
@@ -587,6 +588,7 @@
   "block.botania.apothecary_deepslate": "深板岩花药台",
   "block.botania.livingrock": "活石",
   "block.botania.polished_livingrock": "磨制活石",
+  "block.botania.livingrock_slate": "活石板",
   "block.botania.polished_livingrock_slab": "磨制活石台阶",
   "block.botania.polished_livingrock_stairs": "磨制活石楼梯",
   "block.botania.polished_livingrock_wall": "磨制活石墙",
@@ -2280,7 +2282,7 @@
   "botania.entry.bergamute": "消音柑",
   "botania.tagline.bergamute": "吸收音波",
   "botania.page.bergamute0": "一个人若是有当牧场主的经历，他就一定不会忘记动物们发出的那刺耳的声音 - 那真是痛苦的回忆。而$(item)消音柑$(0)正可以减弱这嘈杂的噪音。",
-  "botania.page.bergamute1": "$(item)消音柑$(0)会吸收自身小范围半径中发出的所有声音，转化为微量魔力并以光点的形式使其消散在空气中。$(p)另外，$(l:tools/grass_horn)$(item)号角$(0)$(/l)和$(l:devices/forest_drum)$(item)鼓$(0)$(/l)在它的范围内不会破坏方块。",
+  "botania.page.bergamute1": "$(item)消音柑$(0)会吸收自身小范围半径中发出的所有声音，转化为微量魔力并以光点的形式使其消散在空气中。它能使工作范围内的声音音量减半，作用效果亦可与附近其他的$(item)消音柑$(0)叠加。$(p)另外，$(l:tools/grass_horn)$(item)号角$(0)$(/l)和$(l:devices/forest_drum)$(item)鼓$(0)$(/l)在它的范围内不会破坏方块。",
   "botania.page.bergamute2": "もう歌しか聞こえない",
 
   "botania.entry.gIntro": "产能花的介绍",
@@ -2289,11 +2291,12 @@
   "botania.page.gIntro1": "所有的$(thing)产能花$(0)都和$(thing)功能花$(0)一样有少量$(thing)魔力$(0)缓存。$(p)这些魔力会自动存入附近最近的$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)中。",
   "botania.page.gIntro2": "产能花在同一时间只能绑定至一个$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)来输出$(thing)魔力$(0)。它们在被种下时会自动绑定至最近的发射器（或之后放置得最近的发射器，如果种下时没有的话）。可用$(thing)绑定模式$(0)的法杖将它绑定到另一个发射器。",
   "botania.page.gIntro3": "第一朵$(thing)产能花$(0)的选择很简单。作为初出茅庐的植物魔法师，你有两个选择：$(item)火红莲$(0)和$(item)水绣球$(0)。$(p)前者燃烧$(item)煤炭$(0)以产生魔力；后者则只消耗$(item)水$(0)产生魔力。作为免费魔力的代价，水绣球会在大约三天后枯萎。",
+  "botania.page.gIntro4": "将来，若发展出其他$(thing)产能花$(0)，往往使用更复杂的机械才能实现自动化的花会产生更多的$(thing)Mana$(0)。"，,
 
   "botania.entry.endoflame": "火红莲",
   "botania.tagline.endoflame": "燃烧产能",
-  "botania.page.endoflame0": "$(item)火红莲$(0)是一种非常原始的$(thing)产能花$(0)，它会吸收掉落在附近的任何可燃物品和方块（每次一个）并在燃烧期间释放出$(thing)魔力$(0)。$(p)物品的燃烧时间差不多是它在熔炉中燃烧时间的一半。",
-  "botania.page.endoflame1": "有个小提示，$(item)火红莲$(0)不会燃烧有燃烧产物的物品，比如$(item)岩浆桶$(0)，会留下$(item)空桶$(0)。$(p)另外，这朵花最多只能存储四倍于$(item)煤块$(0)的燃料。如果有什么燃料的燃烧时间比四个煤块还长，额外的部分会丢失。",
+  "botania.page.endoflame0": "$(item)火红莲$(0)是一种非常原始的$(thing)产能花$(0)，它会吸收掉落在附近的任何可燃物品和方块（每次一个）并在燃烧期间持续释放出$(thing)魔力$(0)。$(p)物品的燃烧时间差不多是它在熔炉中燃烧时间的一半。",
+  "botania.page.endoflame1": "有个小提示，$(item)火红莲$(0)不会燃烧有燃烧产物的物品，比如$(item)岩浆桶$(0)，会留下$(item)空桶$(0)。$(p)另外，这朵花最多只能存储两倍于$(item)煤块$(0)的燃料。如果有什么燃料的燃烧时间比两个煤块还长，额外的燃烧时间就会作废。",
   "botania.page.endoflame3": "由于$(item)火红莲$(0)通常是植物魔法师们在自动化$(thing)主动产能花$(0)的道路上迈出的第一步，这里不建议一直手动管理火红莲.因为火红莲只会燃烧掉落物，使用$(l:devices/open_crate)$(item)花格箱$(0)$(/l)（相关介绍可在$(thing)自然装置$(0)部分找到）搭配一些其他控制掉落物的装置（计时器、压力板等等）进行自动化会是理想的选择。",
   "botania.page.endoflame2": "$(o)当纵火也有用时$(0)。",
 
@@ -2407,6 +2410,8 @@
   "botania.page.manaAlchemy3": "各种类型的$(item)木头$(0)",
   "botania.page.manaAlchemy30": "树苗",
   "botania.page.manaAlchemy4": "各种类型的$(item)树苗$(0)",
+  "botania.page.manaAlchemyFroglightCycle.title": "蛙明灯",
+  "botania.page.manaAlchemyFroglightCycle": "转化为$(item)蛙明灯$(0)",
   "botania.page.manaAlchemy5": "粉碎$(item)萤石$(0)",
   "botania.page.manaAlchemy31": "石英",
   "botania.page.manaAlchemy6": "粉碎$(item)石英块$(0)",
@@ -2639,7 +2644,7 @@
 
   "botania.entry.grassSeeds": "草地之种",
   "botania.tagline.grassSeeds": "种植草地，会灰化土以及菌丝",
-  "botania.page.grassSeeds0": "看着草地蔓延可不是什么有趣的事。通过给$(item)高草$(0)注入$(thing)魔力$(0)，就能做出$(item)草地之种$(0)，它能在芜原长出草，只需右击土块。$(p)其他类的植物也能种出来，比如$(item)灰化土$(0)和$(item)菌丝$(0)与对应的种子。",
+  "botania.page.grassSeeds0": "看着草地蔓延可不是什么有趣的事。通过给$(item)高草$(0)注入$(thing)魔力$(0)，就能做出$(item)草地之种$(0)。它能在芜原长出草皮，只需手持右击泥土方块，亦可将其放入$(item)发射器$(0)。$(p)其他类的泥土方块也能种出来，比如$(item)灰化土$(0)和$(item)菌丝$(0)与对应的种子。",
   "botania.page.grassSeeds1": "$(item)草地之种$(0)与草方块",
   "botania.page.grassSeeds2": "$(item)寒地之种$(0)与灰化土",
   "botania.page.grassSeeds3": "$(item)菌丝孢子$(0)与菌丝",
@@ -2905,9 +2910,10 @@
 
   "botania.entry.sextant": "盖世六分仪",
   "botania.tagline.sextant": "帮助制作圆的工具",
-  "botania.page.sextant0": "在这个方块世界，艺术的创造往往不能避免圆，这时候他们不得不使用一种\"标记\"的邪恶技术弄一个圆出来。$(p)$(item)盖世六分仪$(0)是一个简单的——正如你所想——制造圆的工具。要使用它，只要简单点击作为圆心的方块和测量半径的方块即可。",
-  "botania.page.sextant1": "使用这个工具时会出现一个蓝圈，作为要制作的圆的简单预览。一旦设定好，一个虚拟的$(item)圆石$(0)圈会显现出来作为建筑参考。$(p)潜行右击能够重设工具并移除虚拟圆石",
+  "botania.page.sextant0": "在这个方块世界，创造一个圆形或球体几乎成了一门失传的手艺。以至于为了达成目的，他们不得不使用一种\"切换窗口\"的奇技淫巧弄一个圆出来。$(p)$(item)盖世六分仪$(0)作为一个制造圆的工具，为这种行为提供了一个简单的替代方案。",
+  "botania.page.sextant1": "手持这个工具时，潜行右键来选择模式。对准一个方块并长按右键来确定绘制的圆心或球心，然后望向远方来确定它的半径。此时会出现一个蓝圈，作为将要绘制的形状的简单预览。一旦设定好，一个虚拟的$(item)圆石$(0)圈会显现出来作为建筑参考。$(p)最后，潜行右键能够重设工具并移除虚拟圆石",
   "botania.page.sextant2": "你画了一个圆，使你充满了决心",
+  "botania.page.sextant_modes": "通常来讲，对于一个指定的正方形，有多种方法可以在内部绘制出圆形。六分仪可多次尝试从起点出发，移至正方形内任意一点从而绘制出不同大小的圆。$(p)如果二维形状还不能满足要求，当没有显示形状时，潜行右键可以切换形状模式。",
 
   "botania.entry.astrolabe": "世界塑造者之星盘",
   "botania.tagline.astrolabe": "平面塑造者",
@@ -3353,7 +3359,7 @@
   "botania.page.lokiRing0": "$(thing)亚萨神族$(0)所持有的三神戒之一，$(item)洛基之戒$(0)让穿戴者能像恶作剧之神$(thing)洛基$(0)一样一次放置多个方块。$(p)要设定这项能力，首先戴着$(item)洛基之戒$(0)并空手shift右击一个方块。",
   "botania.page.lokiRing1": "一旦选定初始方块（称为“原点”），shift右击另一些方块会记录他们相对原点位置。再次shift右击原点方块就可以完成选择。$(p)shift右击一个已经选中的方块能够取消选中它。要清空选择的方块，只需潜行右击地面两次。",
   "botania.page.lokiRing2": "完成选择后，你会发现你看向的方块所选相对位置会有额外的框架标记。当你潜行放置一个方块时，框架标记的方块会模仿你的动作放下相同的方块，这让你能够一次性放置大量的方块。这个能力同样会使$(l:tools/terra_pick)$(item)泰拉粉碎者$(0)$(/l)和$(l:tools/terra_axe)$(item)泰拉断裂者$(0)$(/l)同时破坏那些位置的方块。",
-  "botania.page.lokiRing3": "当然这么强大的力量肯定不是免费的。每放置一个方块都会消耗穿戴者背包里的$(thing)魔力$(0)。选择的方块越多，$(thing)每一个放置方块$(0)消耗魔力越多。",
+  "botania.page.lokiRing3": "当然这么强大的力量肯定不是免费的。每放置一个方块都会消耗穿戴者背包里的$(thing)魔力$(0)。选择的方块越多，$(thing)每一个放置方块$(0)消耗魔力越多。$(p)最后，请谨记$(item)洛基之戒$(0)仍然只能使用手中的物品。如果直接铺设方块的话，手中所持物品的数量可能会成为限制因素之一",
 
   "botania.entry.odinRing": "奥丁之戒",
   "botania.tagline.odinRing": "神佑",
@@ -3547,7 +3553,7 @@
   "botania.subtitle.spreaderFire": "魔力发射器：发射魔力",
   "botania.subtitle.starcaller": "星星：从天而降",
   "botania.subtitle.temperanceStoneConfigure": "节制之石：叮咚",
-   "botania.subtitle.manufactoryHaloConfigure": "工厂环：叮咚",
+  "botania.subtitle.manufactoryHaloConfigure": "工厂环：叮咚",
   "botania.subtitle.terraBlade": "泰拉之刃：激活",
   "botania.subtitle.terraPickMode": "泰拉粉碎者：升级",
   "botania.subtitle.terraformRod": "大地：被塑形",
