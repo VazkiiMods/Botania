@@ -43,5 +43,6 @@
     "recipes": [
       "botania:super_cloud_pendant"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

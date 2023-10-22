@@ -132,8 +132,8 @@ public class ShadedMesaRodItem extends Item {
 
 		if (ticksCooldown == 0) {
 			Entity target = null;
-			if (targetID != -1 && player.getLevel().getEntity(targetID) != null) {
-				Entity taritem = player.getLevel().getEntity(targetID);
+			if (targetID != -1 && player.level().getEntity(targetID) != null) {
+				Entity taritem = player.level().getEntity(targetID);
 
 				boolean found = false;
 				Vec3 targetVec = VecHelper.fromEntityCenter(player);
@@ -141,7 +141,7 @@ public class ShadedMesaRodItem extends Item {
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
-					entities = player.getLevel().getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
+					entities = player.level().getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -149,7 +149,7 @@ public class ShadedMesaRodItem extends Item {
 				}
 
 				if (found) {
-					target = player.getLevel().getEntity(targetID);
+					target = player.level().getEntity(targetID);
 				}
 			}
 
@@ -159,7 +159,7 @@ public class ShadedMesaRodItem extends Item {
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
-					entities = player.getLevel().getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
+					entities = player.level().getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 				}
 
@@ -232,8 +232,8 @@ public class ShadedMesaRodItem extends Item {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 
-			if (targetID != -1 && player.getLevel().getEntity(targetID) != null) {
-				Entity target = player.getLevel().getEntity(targetID);
+			if (targetID != -1 && player.level().getEntity(targetID) != null) {
+				Entity target = player.level().getEntity(targetID);
 
 				boolean found = false;
 				Vec3 vec = VecHelper.fromEntityCenter(player);
@@ -241,7 +241,7 @@ public class ShadedMesaRodItem extends Item {
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					vec = vec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
-					entities = player.getLevel().getEntities(player, new AABB(vec.subtract(RANGE, RANGE, RANGE), vec.add(RANGE, RANGE, RANGE)), CAN_TARGET);
+					entities = player.level().getEntities(player, new AABB(vec.subtract(RANGE, RANGE, RANGE), vec.add(RANGE, RANGE, RANGE)), CAN_TARGET);
 					distance++;
 					if (entities.contains(target)) {
 						found = true;
@@ -256,9 +256,9 @@ public class ShadedMesaRodItem extends Item {
 						item.setPickUpDelay(20);
 						float mot = ManaItemHandler.instance().hasProficiency(player, stack) ? 2.25F : 1.5F;
 						item.setDeltaMovement(moveVector.x * mot, moveVector.y, moveVector.z * mot);
-						if (!player.getLevel().isClientSide) {
-							ThrownItemEntity thrown = new ThrownItemEntity(item.getLevel(), item.getX(), item.getY(), item.getZ(), item);
-							item.getLevel().addFreshEntity(thrown);
+						if (!player.level().isClientSide) {
+							ThrownItemEntity thrown = new ThrownItemEntity(item.level(), item.getX(), item.getY(), item.getZ(), item);
+							item.level().addFreshEntity(thrown);
 						}
 						item.discard();
 					} else {

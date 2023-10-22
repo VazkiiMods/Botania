@@ -30,5 +30,6 @@
     "recipes": [
       "botania:shimmerwood_planks_stairs"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

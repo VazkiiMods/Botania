@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cocoon"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:chiseled_sunny_quartz"
-  }
+  },
+  "show_notification": true
 }

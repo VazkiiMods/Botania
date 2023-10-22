@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "botania:dreamwood_fence",
-    "botania:livingwood_fence"
+    "botania:livingwood_fence",
+    "botania:dreamwood_fence"
   ]
 }

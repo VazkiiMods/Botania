@@ -1,10 +1,10 @@
 plugins {
-    id 'fabric-loom' version '1.1.10'
+    id 'fabric-loom' version '1.3.8'
     id 'io.github.juuxel.loom-quiltflower' version '1.7.1'
 }
 
 version = "${minecraft_version}-${build_number}-FABRIC"
-if (System.getenv().RELEASE_MODE == null) {
+if (System.getenv().RELEASE_MODE != "1") {
     version += '-SNAPSHOT'
 }
 
@@ -59,7 +59,7 @@ repositories {
     }
     maven {
           name = "Ladysnake Libs"
-          url = 'https://ladysnake.jfrog.io/artifactory/mods'
+          url = 'https://maven.ladysnake.org/releases'
     }
     maven {
         name = "BuildCraft" // for LBA
@@ -107,7 +107,7 @@ dependencies {
 
     compileOnly project(":Xplat")
 
-    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-80-FABRIC-SNAPSHOT"
+    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-81-FABRIC"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.0.625"
 
@@ -124,8 +124,8 @@ dependencies {
 
     modImplementation("dev.emi:trinkets:3.7.0") { transitive = false }
 
-    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.3.2"
-    include "com.jamieswhiteshirt:reach-entity-attributes:2.3.2"
+    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.4.0"
+    include "com.jamieswhiteshirt:reach-entity-attributes:2.4.0"
 
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
@@ -139,7 +139,6 @@ dependencies {
     compileOnly "mezz.jei:jei-1.20.1-common-api:15.0.0.14"
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
-    modRuntimeOnly "maven.modrinth:lazydfu:0.1.3"
 }
 
 compileJava {

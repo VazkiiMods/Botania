@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:mana_pool"
-  }
+  },
+  "show_notification": true
 }

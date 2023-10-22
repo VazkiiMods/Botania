@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:metamorphic_mesa_bricks"
-  }
+  },
+  "show_notification": true
 }

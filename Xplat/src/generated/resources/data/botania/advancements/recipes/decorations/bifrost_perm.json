@@ -30,5 +30,6 @@
     "recipes": [
       "botania:bifrost_perm"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

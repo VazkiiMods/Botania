@@ -308,8 +308,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				if (doit) {
 					ret = inv.removeItem(i, 1);
 				} else {
-					ret = invStack.copy();
-					ret.setCount(1);
+					ret = invStack.copyWithCount(1);
 				}
 				return ret;
 			}
@@ -393,7 +392,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	public void displayRemainderCounter(Player player, ItemStack stack) {
-		if (!player.getLevel().isClientSide) {
+		if (!player.level().isClientSide) {
 			Item item = getItemToPlace(stack);
 			int count = getInventoryItemCount(player, stack, item);
 			ItemsRemainingRenderHandler.send(player, new ItemStack(item), count);
@@ -498,9 +497,9 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				target = getTargetState(stack);
 			}
 
-			if (!player.getLevel().isEmptyBlock(bPos)) {
+			if (!player.level().isEmptyBlock(bPos)) {
 				Item item = getItemToPlace(stack);
-				List<BlockPos> coordsList = getTargetPositions(player.getLevel(), stack, item, bPos, target, ((BlockHitResult) pos).getDirection());
+				List<BlockPos> coordsList = getTargetPositions(player.level(), stack, item, bPos, target, ((BlockHitResult) pos).getDirection());
 				coordsList.removeIf(bPos::equals);
 				return coordsList;
 			}

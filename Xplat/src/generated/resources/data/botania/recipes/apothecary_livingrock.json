@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:apothecary_livingrock"
-  }
+  },
+  "show_notification": true
 }

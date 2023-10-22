@@ -11,10 +11,11 @@
   },
   "pattern": [
     "SS",
-    "TS",
-    "T "
+    "ST",
+    " T"
   ],
   "result": {
     "item": "botania:manasteel_axe"
-  }
+  },
+  "show_notification": true
 }

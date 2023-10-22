@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:smelt_rod"
-  }
+  },
+  "show_notification": true
 }

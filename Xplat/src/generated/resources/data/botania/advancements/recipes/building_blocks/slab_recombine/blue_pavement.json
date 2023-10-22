@@ -30,5 +30,6 @@
     "recipes": [
       "botania:slab_recombine/blue_pavement"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

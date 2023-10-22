@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:ender_dagger"
-  }
+  },
+  "show_notification": true
 }

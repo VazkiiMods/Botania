@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_pink_flower_bud"
-  }
+  },
+  "show_notification": true
 }

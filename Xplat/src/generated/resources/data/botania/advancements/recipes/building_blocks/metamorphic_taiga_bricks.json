@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_taiga_bricks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

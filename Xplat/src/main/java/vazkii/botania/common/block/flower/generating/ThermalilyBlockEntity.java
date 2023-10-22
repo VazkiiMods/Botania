@@ -24,7 +24,7 @@ public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	public static final String TAG_COOLDOWN_MAGNITUDE = "cooldownStrength";
 
 	private int cooldownStrength = 15;
-	public static final int[] COOLDOWN_ROLL_PDF = { 10, 5, 3, 2, 1, 1, 4, 8, 3, 2, 1, 1, 1, 2, 3 };
+	public static final int[] COOLDOWN_ROLL_PDF = { 10, 5, 3, 2, 1, 1, 3, 3, 3, 2, 1, 1, 1, 2, 2 };
 	public static final int COOLDOWN_ROLL_TOTAL;
 
 	static {
@@ -36,7 +36,7 @@ public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	}
 
 	public ThermalilyBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.THERMALILY, pos, state, FluidTags.LAVA, 900, 20);
+		super(BotaniaFlowerBlocks.THERMALILY, pos, state, FluidTags.LAVA, 600, 45);
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 
 	@Override
 	public int getMaxMana() {
-		return 500;
+		return 750;
 	}
 
 	@Override

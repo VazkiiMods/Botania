@@ -9,7 +9,6 @@
 package vazkii.botania.client.integration.jei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -23,6 +22,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -82,9 +82,9 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 	}
 
 	@Override
-	public void draw(PureDaisyRecipe recipe, IRecipeSlotsView slotsView, PoseStack ms, double mouseX, double mouseY) {
+	public void draw(PureDaisyRecipe recipe, IRecipeSlotsView slotsView, GuiGraphics gui, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
-		overlay.draw(ms, 17, 0);
+		overlay.draw(gui, 17, 0);
 		RenderSystem.disableBlend();
 	}
 

@@ -14,10 +14,7 @@ import com.google.gson.JsonParseException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
@@ -25,7 +22,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -202,8 +198,6 @@ public class StateIngredientHelper {
 		if (id == null || BuiltInRegistries.BLOCK.getOptional(id).isEmpty()) {
 			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
 		}
-		Level level = Minecraft.getInstance().level;
-		HolderGetter<Block> holderGetter = level != null ? level.holderLookup(Registries.BLOCK) : BuiltInRegistries.BLOCK.asLookup();
-		return NbtUtils.readBlockState(holderGetter, nbt);
+		return NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(), nbt);
 	}
 }

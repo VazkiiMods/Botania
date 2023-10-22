@@ -30,5 +30,6 @@
     "recipes": [
       "botania:scorched_seeds"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

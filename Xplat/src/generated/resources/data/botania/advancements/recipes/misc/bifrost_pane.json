@@ -30,5 +30,6 @@
     "recipes": [
       "botania:bifrost_pane"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

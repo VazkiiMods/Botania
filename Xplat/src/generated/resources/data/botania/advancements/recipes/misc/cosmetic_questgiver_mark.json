@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_questgiver_mark"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

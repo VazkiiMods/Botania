@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:twig_wand"
-  }
+  },
+  "show_notification": true
 }

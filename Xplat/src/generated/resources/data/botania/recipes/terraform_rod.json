@@ -31,5 +31,6 @@
   ],
   "result": {
     "item": "botania:terraform_rod"
-  }
+  },
+  "show_notification": true
 }

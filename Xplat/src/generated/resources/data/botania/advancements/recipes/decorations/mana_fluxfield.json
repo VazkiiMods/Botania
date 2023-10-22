@@ -41,5 +41,6 @@
     "recipes": [
       "botania:mana_fluxfield"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

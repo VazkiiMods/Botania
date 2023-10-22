@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:pattern_1_1"
-  }
+  },
+  "show_notification": true
 }

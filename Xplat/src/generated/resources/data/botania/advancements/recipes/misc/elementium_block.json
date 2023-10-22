@@ -28,5 +28,6 @@
     "recipes": [
       "botania:elementium_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

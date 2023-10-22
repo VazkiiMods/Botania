@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_pure_daisy"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

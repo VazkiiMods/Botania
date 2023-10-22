@@ -22,5 +22,6 @@
   "result": {
     "count": 8,
     "item": "botania:quartz_dark"
-  }
+  },
+  "show_notification": true
 }

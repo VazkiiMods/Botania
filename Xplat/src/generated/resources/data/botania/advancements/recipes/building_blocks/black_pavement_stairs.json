@@ -30,5 +30,6 @@
     "recipes": [
       "botania:black_pavement_stairs"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

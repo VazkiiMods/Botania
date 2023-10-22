@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_fungal_cobblestone_wall"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

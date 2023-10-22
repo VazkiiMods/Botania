@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_hyper_plus"
-  }
+  },
+  "show_notification": true
 }

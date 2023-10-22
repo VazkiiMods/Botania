@@ -19,7 +19,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.ManaBlasterModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
@@ -88,9 +87,6 @@ public class MiscellaneousModels {
 			consumer.accept(prefix("icon/tiara_wing_" + (i + 1)));
 		}
 
-		consumer.accept(new ModelResourceLocation(prefix("mana_gun_clip"), "inventory"));
-		consumer.accept(new ModelResourceLocation(prefix("desu_gun"), "inventory"));
-		consumer.accept(new ModelResourceLocation(prefix("desu_gun_clip"), "inventory"));
 		consumer.accept(prefix("block/corporea_crystal_cube_glass"));
 		consumer.accept(prefix("block/pump_head"));
 		consumer.accept(prefix("block/elven_spreader_core"));
@@ -151,13 +147,6 @@ public class MiscellaneousModels {
 		map.put(abstruseName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(abstruse));
 		map.put(spectralName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(spectral));
 		map.put(infrangibleName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(infrangible));
-
-		// Mana Blaster
-		ModelResourceLocation key = new ModelResourceLocation(prefix("mana_gun"), "inventory");
-		BakedModel originalModel = map.get(key);
-		ModelResourceLocation clipKey = new ModelResourceLocation(prefix("mana_gun_clip"), "inventory");
-		BakedModel originalModelClip = map.get(clipKey);
-		map.put(key, new ManaBlasterModel(loader, originalModel, originalModelClip));
 
 		// Tiny Potato
 		ModelResourceLocation tinyPotato = new ModelResourceLocation(prefix("tiny_potato"), "inventory");

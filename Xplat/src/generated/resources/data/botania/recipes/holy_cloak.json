@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:holy_cloak"
-  }
+  },
+  "show_notification": true
 }

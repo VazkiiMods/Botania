@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_orange_shades"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

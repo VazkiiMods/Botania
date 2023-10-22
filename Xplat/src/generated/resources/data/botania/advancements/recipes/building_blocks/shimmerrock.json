@@ -43,5 +43,6 @@
     "recipes": [
       "botania:shimmerrock"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

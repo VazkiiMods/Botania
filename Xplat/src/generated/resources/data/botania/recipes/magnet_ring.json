@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:magnet_ring"
-  }
+  },
+  "show_notification": true
 }

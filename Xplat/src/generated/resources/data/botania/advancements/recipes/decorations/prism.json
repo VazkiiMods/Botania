@@ -43,5 +43,6 @@
     "recipes": [
       "botania:prism"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

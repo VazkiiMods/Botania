@@ -105,5 +105,6 @@
     "recipes": [
       "botania:fertilizer_dye"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

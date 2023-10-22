@@ -28,5 +28,6 @@
     "recipes": [
       "botania:reach_ring"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

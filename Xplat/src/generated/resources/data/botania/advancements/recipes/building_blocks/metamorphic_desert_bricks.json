@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_desert_bricks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

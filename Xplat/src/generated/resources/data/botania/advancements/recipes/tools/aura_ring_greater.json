@@ -28,5 +28,6 @@
     "recipes": [
       "botania:aura_ring_greater"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

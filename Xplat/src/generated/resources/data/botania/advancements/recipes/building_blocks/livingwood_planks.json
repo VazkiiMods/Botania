@@ -28,5 +28,6 @@
     "recipes": [
       "botania:livingwood_planks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -28,5 +28,6 @@
     "recipes": [
       "botania:apothecary_default"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

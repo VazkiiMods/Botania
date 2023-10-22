@@ -30,5 +30,6 @@
     "recipes": [
       "botania:slab_recombine/livingrock_bricks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.11'
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -18,7 +18,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 
 version = "${minecraft_version}-${build_number}-FORGE"
-if (System.getenv().RELEASE_MODE == null) {
+if (System.getenv().RELEASE_MODE != "1") {
     version += '-SNAPSHOT'
 }
 
@@ -30,10 +30,6 @@ mixin {
 }
 
 repositories {
-    maven {
-        name = "JEI"
-        url "https://dvs1.progwml6.com/files/maven/"
-    }
     maven {
         name = "Jared"
         url = "https://maven.blamejared.com/"
@@ -87,7 +83,6 @@ minecraft {
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
             args "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
-            forceExit false
             mods {
                 botania {
                     source sourceSets.main
@@ -100,11 +95,11 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-47.0.3"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-47.1.1"
     compileOnly project(":Xplat")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-80-FORGE-SNAPSHOT")
+    implementation fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-81-FORGE")
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.0.0.14")
     runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.0.0.14")
 

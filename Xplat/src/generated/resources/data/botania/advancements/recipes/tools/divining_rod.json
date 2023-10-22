@@ -28,5 +28,6 @@
     "recipes": [
       "botania:divining_rod"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

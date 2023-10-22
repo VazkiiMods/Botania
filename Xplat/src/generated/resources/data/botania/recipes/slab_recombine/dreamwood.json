@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:dreamwood"
-  }
+  },
+  "show_notification": true
 }

@@ -61,7 +61,7 @@ public class SpectatorItem extends BaubleItem {
 			return;
 		}
 
-		if (living.getLevel().isClientSide) {
+		if (living.level().isClientSide) {
 			this.tickClient(stack, player);
 		} else {
 			this.tickServer(stack, player);
@@ -94,15 +94,15 @@ public class SpectatorItem extends BaubleItem {
 			BlockPos pos = BlockPos.of(((LongTag) block).getAsLong());
 			float m = 0.02F;
 			WispParticleData data = WispParticleData.wisp(0.15F + 0.05F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), false);
-			player.getLevel().addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
+			player.level().addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
 		}
 
 		int[] entities = ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS);
 		for (int i : entities) {
-			Entity e = player.getLevel().getEntity(i);
+			Entity e = player.level().getEntity(i);
 			if (e != null && Math.random() < 0.6) {
 				WispParticleData data = WispParticleData.wisp(0.15F + 0.05F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), Math.random() < 0.6);
-				player.getLevel().addParticle(data, e.getX() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.getY() + e.getBbHeight(), e.getZ() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, 0, 0.05F + 0.03F * (float) Math.random(), 0);
+				player.level().addParticle(data, e.getX() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.getY() + e.getBbHeight(), e.getZ() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, 0, 0.05F + 0.03F * (float) Math.random(), 0);
 			}
 		}
 	}
@@ -124,14 +124,14 @@ public class SpectatorItem extends BaubleItem {
 		if (!pstack.isEmpty() || player.isShiftKeyDown()) {
 			int range = 24;
 
-			List<Entity> entities = player.getLevel().getEntitiesOfClass(Entity.class, new AABB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
+			List<Entity> entities = player.level().getEntitiesOfClass(Entity.class, new AABB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
 			for (Entity e : entities) {
 				if (e == player) {
 					continue;
 				}
 				if (e instanceof ItemEntity item) {
 					ItemStack istack = item.getItem();
-					if (player.isShiftKeyDown() || istack.sameItem(pstack) && ItemStack.tagMatches(istack, pstack)) {
+					if (player.isShiftKeyDown() || ItemStack.isSameItemSameTags(istack, pstack)) {
 						entIdBuilder.add(item.getId());
 					}
 				} else if (e instanceof Player targetPlayer) {
@@ -159,7 +159,7 @@ public class SpectatorItem extends BaubleItem {
 				range = 12;
 				BlockPos pos = player.blockPosition();
 				for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1))) {
-					BlockEntity tile = player.getLevel().getBlockEntity(pos_);
+					BlockEntity tile = player.level().getBlockEntity(pos_);
 					if (tile != null) {
 						if (tile instanceof Container inv) {
 							if (scanInventory(inv, pstack)) {
@@ -173,7 +173,7 @@ public class SpectatorItem extends BaubleItem {
 	}
 
 	private boolean equalStacks(ItemStack stack1, ItemStack stack2) {
-		return stack1.sameItem(stack2) && ItemStack.tagMatches(stack1, stack2);
+		return ItemStack.isSameItemSameTags(stack1, stack2);
 	}
 
 	private boolean scanInventory(Container inv, ItemStack pstack) {

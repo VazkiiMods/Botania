@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:apothecary_mesa"
-  }
+  },
+  "show_notification": true
 }

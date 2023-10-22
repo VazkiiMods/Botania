@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:blood_pendant"
-  }
+  },
+  "show_notification": true
 }

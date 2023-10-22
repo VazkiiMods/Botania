@@ -56,5 +56,6 @@
     "recipes": [
       "botania:chiseled_metamorphic_swamp_bricks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

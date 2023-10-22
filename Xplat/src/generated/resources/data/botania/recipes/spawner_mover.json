@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:spawner_mover"
-  }
+  },
+  "show_notification": true
 }

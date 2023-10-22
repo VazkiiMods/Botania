@@ -28,5 +28,6 @@
     "recipes": [
       "botania:knockback_belt"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

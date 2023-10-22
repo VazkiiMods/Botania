@@ -30,5 +30,6 @@
     "recipes": [
       "botania:redstone_root"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

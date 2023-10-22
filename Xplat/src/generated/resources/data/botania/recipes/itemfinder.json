@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:itemfinder"
-  }
+  },
+  "show_notification": true
 }

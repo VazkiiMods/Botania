@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:drum_canopy"
-  }
+  },
+  "show_notification": true
 }

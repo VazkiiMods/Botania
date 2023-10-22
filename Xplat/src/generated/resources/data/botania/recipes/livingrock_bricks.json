@@ -13,5 +13,6 @@
   "result": {
     "count": 4,
     "item": "botania:livingrock_bricks"
-  }
+  },
+  "show_notification": true
 }

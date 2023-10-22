@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_four_leaf_clover"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

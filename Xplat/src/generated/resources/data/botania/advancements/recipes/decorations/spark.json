@@ -30,5 +30,6 @@
     "recipes": [
       "botania:spark"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

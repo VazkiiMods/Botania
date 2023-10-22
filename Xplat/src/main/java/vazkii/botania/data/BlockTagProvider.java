@@ -57,17 +57,17 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.RAILS).add(BotaniaBlocks.ghostRail);
 		tag(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
 		tag(BlockTags.WOODEN_SLABS).add(
-				BotaniaFluffBlocks.livingwoodSlab, BotaniaFluffBlocks.livingwoodStrippedSlab, BotaniaFluffBlocks.livingwoodPlankSlab,
-				BotaniaFluffBlocks.dreamwoodSlab, BotaniaFluffBlocks.dreamwoodStrippedSlab, BotaniaFluffBlocks.dreamwoodPlankSlab,
-				BotaniaFluffBlocks.shimmerwoodPlankSlab);
+				BotaniaBlocks.livingwoodSlab, BotaniaBlocks.livingwoodStrippedSlab, BotaniaBlocks.livingwoodPlankSlab,
+				BotaniaBlocks.dreamwoodSlab, BotaniaBlocks.dreamwoodStrippedSlab, BotaniaBlocks.dreamwoodPlankSlab,
+				BotaniaBlocks.shimmerwoodPlankSlab);
 		tag(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairBlock));
 		tag(BlockTags.WOODEN_STAIRS).add(
-				BotaniaFluffBlocks.livingwoodStairs, BotaniaFluffBlocks.livingwoodStrippedStairs, BotaniaFluffBlocks.livingwoodPlankStairs,
-				BotaniaFluffBlocks.dreamwoodStairs, BotaniaFluffBlocks.dreamwoodStrippedStairs, BotaniaFluffBlocks.dreamwoodPlankStairs,
-				BotaniaFluffBlocks.shimmerwoodPlankStairs);
+				BotaniaBlocks.livingwoodStairs, BotaniaBlocks.livingwoodStrippedStairs, BotaniaBlocks.livingwoodPlankStairs,
+				BotaniaBlocks.dreamwoodStairs, BotaniaBlocks.dreamwoodStrippedStairs, BotaniaBlocks.dreamwoodPlankStairs,
+				BotaniaBlocks.shimmerwoodPlankStairs);
 		tag(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
 		tag(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
-		tag(BlockTags.WOODEN_FENCES).add(BotaniaFluffBlocks.livingwoodFence, BotaniaFluffBlocks.dreamwoodFence);
+		tag(BlockTags.WOODEN_FENCES).add(BotaniaBlocks.livingwoodFence, BotaniaBlocks.dreamwoodFence);
 		tag(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
 		tag(BlockTags.DRAGON_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 		tag(BlockTags.WITHER_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
@@ -190,15 +190,15 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.GHOST_RAIL_BARRIER).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
 		tag(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
-		tag(BotaniaTags.Blocks.MARIMORPHOSIS_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
+		tag(BotaniaTags.Blocks.MARIMORPHOSIS_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.TUFF);
 
 		tag(BotaniaTags.Blocks.WEIGHT_LENS_WHITELIST);
 
 		tag(BlockTags.MUSHROOM_GROW_BLOCK).add(
-				BotaniaFluffBlocks.biomeStoneFungal, BotaniaFluffBlocks.biomeStoneFungalSlab, BotaniaFluffBlocks.biomeStoneFungalStairs, BotaniaFluffBlocks.biomeStoneFungalWall,
-				BotaniaFluffBlocks.biomeBrickFungal, BotaniaFluffBlocks.biomeBrickFungalSlab, BotaniaFluffBlocks.biomeBrickFungalStairs, BotaniaFluffBlocks.biomeBrickFungalWall,
-				BotaniaFluffBlocks.biomeCobblestoneFungal, BotaniaFluffBlocks.biomeCobblestoneFungalSlab, BotaniaFluffBlocks.biomeCobblestoneFungalStairs, BotaniaFluffBlocks.biomeCobblestoneFungalWall,
-				BotaniaFluffBlocks.biomeChiseledBrickFungal, fungalAltar);
+				BotaniaBlocks.biomeStoneFungal, BotaniaBlocks.biomeStoneFungalSlab, BotaniaBlocks.biomeStoneFungalStairs, BotaniaBlocks.biomeStoneFungalWall,
+				BotaniaBlocks.biomeBrickFungal, BotaniaBlocks.biomeBrickFungalSlab, BotaniaBlocks.biomeBrickFungalStairs, BotaniaBlocks.biomeBrickFungalWall,
+				BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeCobblestoneFungalSlab, BotaniaBlocks.biomeCobblestoneFungalStairs, BotaniaBlocks.biomeCobblestoneFungalWall,
+				BotaniaBlocks.biomeChiseledBrickFungal, fungalAltar);
 
 		tag(BlockTags.LEAVES);
 		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE).addTag(BlockTags.LEAVES);
@@ -224,7 +224,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				alchemyCatalyst, conjurationCatalyst,
 				manasteelBlock, elementiumBlock, terrasteelBlock, manaDiamondBlock, dragonstoneBlock,
 				manaGlass, elfGlass, bifrostPerm,
-				BotaniaFluffBlocks.managlassPane, BotaniaFluffBlocks.alfglassPane, BotaniaFluffBlocks.bifrostPane,
+				BotaniaBlocks.managlassPane, BotaniaBlocks.alfglassPane, BotaniaBlocks.bifrostPane,
 				runeAltar, brewery, terraPlate, distributor, manaVoid, manaDetector,
 				pistonRelay, tinyPlanet, spawnerClaw,
 				rfGenerator, prism, pump, sparkChanger, forestEye, enderEye,

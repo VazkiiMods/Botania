@@ -30,5 +30,6 @@
     "recipes": [
       "botania:azulejo_13"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

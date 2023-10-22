@@ -28,5 +28,6 @@
     "recipes": [
       "botania:dreamwood_wand"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

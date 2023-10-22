@@ -14,5 +14,6 @@
   "result": {
     "count": 6,
     "item": "botania:metamorphic_plains_cobblestone_wall"
-  }
+  },
+  "show_notification": true
 }

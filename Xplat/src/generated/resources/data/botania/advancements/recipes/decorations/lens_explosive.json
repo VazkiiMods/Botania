@@ -30,5 +30,6 @@
     "recipes": [
       "botania:lens_explosive"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

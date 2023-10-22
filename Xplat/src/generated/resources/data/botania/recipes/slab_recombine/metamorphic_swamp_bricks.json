@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:metamorphic_swamp_bricks"
-  }
+  },
+  "show_notification": true
 }

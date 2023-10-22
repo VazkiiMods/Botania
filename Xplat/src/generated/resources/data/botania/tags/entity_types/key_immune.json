@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:item",
+    "minecraft:item_frame",
+    "minecraft:painting",
+    "minecraft:experience_orb"
+  ]
+}

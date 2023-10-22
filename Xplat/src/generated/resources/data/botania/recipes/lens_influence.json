@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:lens_influence"
-  }
+  },
+  "show_notification": true
 }

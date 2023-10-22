@@ -50,7 +50,7 @@ public class ManaStormEntity extends Entity {
 
 		int diffTime = Math.max(1, 30 - (int) (liveTime / 45f));
 		if (burstsFired < TOTAL_BURSTS && liveTime % diffTime == 0) {
-			if (!getLevel().isClientSide) {
+			if (!level().isClientSide) {
 				spawnBurst();
 			}
 			burstsFired++;
@@ -60,13 +60,13 @@ public class ManaStormEntity extends Entity {
 			deathTime++;
 			if (deathTime >= DEATH_TIME) {
 				discard();
-				getLevel().explode(this, getX(), getY(), getZ(), 8F, true, Level.ExplosionInteraction.BLOCK);
+				level().explode(this, getX(), getY(), getZ(), 8F, true, Level.ExplosionInteraction.BLOCK);
 			}
 		}
 	}
 
 	private void spawnBurst() {
-		ManaBurstEntity burst = BotaniaEntities.MANA_BURST.create(getLevel());
+		ManaBurstEntity burst = BotaniaEntities.MANA_BURST.create(level());
 		burst.setPos(getX(), getY(), getZ());
 
 		float motionModifier = 0.5F;
@@ -81,7 +81,7 @@ public class ManaStormEntity extends Entity {
 
 		Vec3 motion = new Vec3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().scale(motionModifier);
 		burst.setDeltaMovement(motion);
-		getLevel().addFreshEntity(burst);
+		level().addFreshEntity(burst);
 	}
 
 	@Override

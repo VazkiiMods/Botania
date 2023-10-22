@@ -30,5 +30,6 @@
     "recipes": [
       "botania:spectral_platform"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

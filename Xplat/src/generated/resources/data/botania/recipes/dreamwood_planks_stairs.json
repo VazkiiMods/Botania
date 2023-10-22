@@ -7,12 +7,13 @@
     }
   },
   "pattern": [
-    "  Q",
-    " QQ",
+    "Q  ",
+    "QQ ",
     "QQQ"
   ],
   "result": {
     "count": 4,
     "item": "botania:dreamwood_planks_stairs"
-  }
+  },
+  "show_notification": true
 }

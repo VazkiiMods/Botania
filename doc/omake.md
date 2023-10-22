@@ -17,6 +17,7 @@ games of the [Touhou Project](https://en.touhouwiki.net/wiki/Touhou_Project).
 These profiles were authored by williewillus and Alwinfy.
 
 ## Pure Daisy
+### Angelically Pure White
 * Gender: Gender is irrelevant for flowers (they/them)
 * Physical symbols: white, angel
 * Likes: Things being orderly, precision, perfectionism
@@ -34,6 +35,7 @@ As a result of their perfectionism, Pure Daisy can easily get upset when things 
 according to plan.
 
 ## Manastar
+### Analytical Star of Data
 * Gender: Trans female (she/her)
 * Physical symbols: 0 and 1; blue and red
 * Likes: Data, programming socks, Clojure and Julia programming languages
@@ -58,6 +60,7 @@ her girlfriend last.
 (Her girlfriend doesn't mind, and finds Manastar's nerdiness absolutely adorable.)
 
 ## Daybloom
+### Blooming Sunflower of Dusk
 * Gender: Male (he/him)
 * Physical symbols: Setting Sun
 * Likes: Fame, the grind, leadership, Nightshade, renewable energy
@@ -101,6 +104,7 @@ night. However, their phone number remains in his contacts list, and perhaps one
 Daybloom can muster up the confidence to tap the "Call" button.
 
 ## Nightshade
+### Still and Silent Shade of Night
 * Gender: Female (she/her)
 * Physical symbols: New Moon
 * Likes: Astrology, Daybloom, renewable energy
@@ -132,6 +136,7 @@ where she gives psychic readings, astrological predictions, tarot card readings,
 *fengshui* calculations, among other similar arts. She has rarely touched her bass since.
 
 ## Hydroangea
+### Carefree Watery Percussionist
 * Name: Hydroangea
 * Gender: Fish (they/them)
 * Physical symbols: Ripples
@@ -169,7 +174,7 @@ gathered their belongings, thanked and apologized to each and every member of th
 and departed for home that night, knowing they would likely never see either Daybloom or
 Nightshade in person again.
 
-Today, Hydrangea lives a well-off life from the money made from the band's peak years, and
+Today, Hydrangea lives a well-off life from the Mana made from the band's peak years, and
 continues to drum under a pseudonym, though they explicitly keep it amateur and refuse all
 offers to form a commercial group.
 
@@ -180,6 +185,7 @@ hour is about their limit for parties and such, after which they steal off for s
 time.
 
 ## Daybloom Motif and Nightshade Motif
+### Nostalgic Mimics
 * Gender: Varies
 
 Since the band's breakup, many fans have missed the trio. This led to many impersonators
@@ -190,6 +196,7 @@ Hydroangea put out a statement requesting fans to not impersonate them, and to i
 show their love by purchasing the band's old records and merch.
 
 ## Endoflame
+### Fiery Child In Palate Only
 * Gender: Too young to have one
 * Physical symbols: Sichuan peppercorn, spicy Cheetos
 * Likes: Spicy food, naps, meadows
@@ -208,6 +215,7 @@ Beyond that, however, they're a bit lazy, and they don't really have many aspira
 beyond getting to eat the next spicy thing.
 
 ## Thermalily
+### Cute and Fiery-Tempered Girl
 * Gender: Female (she/her)
 * Physical symbols: Fire
 * Likes: Streaming, parties, (ostensibly) spicy foods
@@ -223,6 +231,7 @@ every sampling she invariably needs a break (often up to five minutes in length)
 accompanied by loud cursing and fuming.
 
 ## Rosa Arcana
+### Title
 * Gender: Male (he/him)
 * Physical symbols: 
 * Likes: 
@@ -232,14 +241,51 @@ Idea: TTRPG nerd
 Yes, his name has "Rosa" in it. No, he doesn't care.
 	
 ## Munchdew
-* Gender:
-* Physical symbols: Head of lettuce
-* Likes: Tofu, soybeans
+### Frugal and Feeling Flower
+* Gender: Female (she/her)
+* Physical symbols: Block of Tofu
+* Likes: Tofu, soybeans, Labellia
 * Dislikes: PETA, meat, snake-oil health products
 
-Idea: Hardcore vegan, but also co-invented Munchdew-y decimal system alongside Labellia lol
+CW: Animal cruelty/animal-industrial complex
+
+Munchdew grew up as your stereotypical happy flower girl, showered by her parents with the
+products of suburban consumerism. Plastic and animal products were of course in common use
+in the household, and no one in Munchdew's family batted a petal at them.
+
+One day, however, Munchdew met Labellia. An intelligent and beautiful flower, Labellia was
+a librarian at the university's library. After a date over tea, the topic turned to the
+challenges and ethics of consumerism, particularly of animal products.
+
+Labellia was excited to use the library's resources to help Munchdew answer her questions,
+and together the two ended up getting into a tour of a chicken farm and pork
+slaughterhouse.
+
+The experience shocked Munchdew to the core.
+
+She saw the conveyor lines where newly-hatched chicks were tested for their sex, and the
+males immediately killed (they called it "culling") mere days after they were born, being
+of no use in either egg-laying nor being someone's future dinner.
+
+She smelled the sickening scent of blood from mass-slaughtered farm animals, and spoke to
+workers that mentioned that they had to suppress their compassion in order to carry out
+their jobs.
+
+Munchdew came out with a much broader view of the world than the narrow one with which she
+entered those facilities. Although giving up the many niceties of life she had grown
+accustomed to would be difficult, she resolved to prefer plant-based products and only
+consume animal products half as often, with an eventual goal of stopping altogether.
+
+She is also now involved in activist groups, though she notably avoids PETA (Plants for
+Ethical Treat of Animals), as their rhetoric is often over-inflammatory, leading many to
+dismiss all such activist groups as crazy.
+
+In her time as a budding vegetarian, Munchdew has come to love tofu, being able to cook
+nearly a hundred tofu-based dishes. Her favorite is probably *mapo tofu*, and she sources
+the hottest spices from Endoflame for the most authentic taste.
 
 ## Entropinnyum
+### Explosive Master of Adventure
 * Gender: We asked them and they proudly handed us a card which was too singed to read
 * Physical symbols: Fireworks, red, black, silver
 * Likes: Skydiving, scuba diving, hang-gliding, spelunking, urban exploration, pyrotechnics
@@ -256,22 +302,79 @@ the line). In fact, Entropinnyum despises those that actually *do* take things t
 particular harboring a special hatred for illegally-traded explosives.
 
 ## Kekimurus
-* Gender: 
-* Physical symbols: cake, pie
-* Likes:
-* Dislikes: Having to eat savory food to survive
+### Hermit Connosieur of Sugar
+* Gender: Cake
+* Physical symbols: Glucose molecule diagram
+* Likes: Any and all desserts
+* Dislikes: High-Fructose Corn Syrup, Artificial Sweeteners, Having to eat savory food to
+  survive
 
-Idea: Sweets connoisseur that somehow is immune to diabetes
+Kekimurus was born into a wildly rich flower family, and will never have to work a day in their life.
+
+However, they were born with two other things:
+
+1. A voracious appetite for any and all foods containing sugar, and
+2. Genetic resistance against any form of diabetes
+
+These gifts bestowed on them by the heavens led Kekimurus to a life as a food chemist and
+chef, where they spend long hours inventing ever-sweeter foods so that everyone in the
+world could experience what they called a "Sweet and Adorable Life".
+
+Kekimurus insisted on using real sugars, preferably found naturally in the world (such as
+cane sugar), despising High-Fructose Corn Syrup and any sort of artificial sweetener or
+"diet" drink.
+
+Kekimurus' foods were a hit among flowerkind, selling over one billion desserts in half a
+year worldwide. Unfortunately, disaster soon struck. Under the investigative lens of
+Gourmaryllis, a scalding report was published accusing Kekimurus Foods of purposefully
+making their foods sweeter and sweeter, beyond the healthy amount. Young flowers across
+the world were now afflicted with diabetes, and parents were demanding answers.
+
+Kekimurus was shocked. So focused they were on their singular quest for a sweeter food,
+that the thought of others not being able to tolerate as high an amount of sugars never
+crossed their mind. In shame, they shut down Kekimurus Foods and apologized profusely,
+settling numerous lawsuits for massive sums of Mana.
+
+Privately, however, Kekimurus continued operating their laboratory. The search would
+continue for an even sweeter food, and the product of that labor would from now on only be
+enjoyed by Kekimurus alone.
 
 ## Gourmaryllis
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes:
+### Nourished and Nutrified Amaryllis
+* Gender: Female (she/her)
+* Physical symbols: Minecraft drumstick sprite
+* Likes: Unlimited anything at any restaurant (few restaurants have passed her test for
+  being actually unlimited enough)
+* Dislikes: Meal-replacement drinks
 
-Idea: Nutritionist
+It all started when she was little. Her parents had just bought a big box of snacks to
+take to her basketball game, and Gourmaryllis just couldn't help snatching a couple bags
+of Orion cookies at night when she got peckish.
+
+The trouble continued after the basketball game, as the snacks quickly dwindled in number.
+
+"I'm pretty sure there was more of these..." were common remarks from her bewildered
+parents.
+
+She also began learning to cook at a young age, serving a full breakfast in bed to both
+her parents on their anniversary when she was only 7 years old.
+
+Thus began the long journey in her love for food. Nothing was off-limits: the most
+disgusting-sounding exotic plant or animal, the most foul-smelling tropical fruit, and of
+course the tasty staples of her home country.
+
+It was no question to anyone that Gourmaryllis eventually became a top nutritionist. In
+addition to seeking the tastiest foods, she emphasized the importance of a balanced and
+varied diet. Eating too much of the same food was sure to leave her in a bad mood for a
+week.
+
+"A kaleidoscope of flavours dancing upon my palate, what a wonderful life", thought
+Gourmaryllis as she scooped another handful of a new novelty snack from the bag beside
+her, tossed it into her mouth, and continued working on her latest paper, an exposé on
+Kekimurus Foods.
 
 ## Narslimmus
+### Hopping and Hopeless Romantic
 * Gender: Male (he/him)
 * Physical symbols: Glue, pipes
 * Likes: Trampolines, mushrooms, Go Karts, cute girls
@@ -294,6 +397,7 @@ still quite young, single, and thus often dreams of meeting a cute girl to pampe
 treat respectfully as his girlfriend.
 
 ## Spectrolus
+### Rainbow-Colored Weaver
 * Gender: Fluid; varies based on day, mood, phase of the moon, most recent syzygy, and/or
   last meal eaten
 * Physical symbols: Rainbow
@@ -311,6 +415,7 @@ Although Spectrolus usually tries to eat a varied vegetarian diet, mutton is a g
 pleasure of theirs, and Spectrolus will scarf it down whenever given the opportunity.
 
 ## Rafflowsia
+### Elegant and Impermanent Flower of Life and Death
 * Gender: None
 * Physical symbols: Lantern, Scythe
 * Likes: The little things in life
@@ -338,6 +443,7 @@ Rafflowsia strove to embody this wistful yet optimistic mindset, in order to mak
 life one well-worth living.
 
 ## Dandelifeon
+### M-x dandelion
 * Gender: We asked and they enthusiastically gave us a lecture (with diagrams) on the
   homomorphism of gender identity to a generalizable infinitely-differentiable fractal
   manifold completely characterized by several characteristic points, then handed us a
@@ -359,6 +465,7 @@ people online (often getting into pointless debates about programming languages 
 Heisei Dream), and watching nerdy TV shows.
 
 ## Shulk Me Not
+### Professional Gamer Girl Flower
 * Gender: Female (she/her)
 * Physical symbols: Crown
 * Likes: Esports, Touhou, osu!
@@ -383,31 +490,140 @@ with Pure Daisy, and when not busy with work the two can often be found testing 
 danmaku skills against each other in *Touhou 9: Phantasmagoria of Flower View*.
 
 ## Jaded Amaranthus
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+### Slow-Living Amaranthoidae
+* Gender: Male (he/him)
+* Physical symbols: A sigh of relief
+* Likes: Simplicity, intentional communication
+* Dislikes: Social media, surface-level relationships, the grind, LinkedIn
 
-## Bellethorne
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+Jaded Amaranthus was once a businessman in the capital of the country. He was raised by
+his parents from a young age to be the inheritor of the modestly-sized family business,
+and was sent to the most prestigious university in the country to learn all he could to
+serve that role.
 
-Idea: somewhat of an asshole
+And serve that role he did. After graduating with a 4.0 GPA, Jaded Amaranthus started as a
+manager at his father's company, quickly proving himself to the company elders and rising
+through the ranks based on his merit. Many long hours were spent in the office, many
+~~hairs~~ petals pulled out, and many phone minutes spent on hammering out last-minute
+deals.
 
-## Dreadthorne
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+Jaded Amaranthus fully and willingly immersed himself into that life, a stereotype of the
+successful family heir. Soon, other rich flower families were even offering the hands of
+their children in marriage. Somehow or another, Jaded Amaranthus even ended up in a short
+relationship with Pure Daisy.
 
-Idea: somewhat of an asshole
+Pure Daisy was a good flower, and Jaded Amaranthus knew that. But their perfectionist
+personality and dedication to The Grind were the straws that ended up breaking the camel's
+back, and the two broke up in months. The truth was that Jaded Amaranthus had been holding
+back feelings that he had felt creeping up upon him for decades at this point. Feelings of
+stress, doubt, and uncertainty about his future, even though that future had supposedly
+been charted for him from day one by those around him.
+
+"What is my purpose here in the world?"
+
+"Are the relationships around me meaningful and genuine?"
+
+...
+
+"Am I happy?"
+
+
+All of these feelings crashed down upon Jaded Amaranthus, leading him to take a long, hard
+look at his life. His parents had since passed way, and the business was wildly
+successful. And though he once thrived and loved the intensity of that work, it had become
+a burden upon him, psychologically and physically.
+
+It was time to let it go.
+
+He took a long tour around the office, thanking each employee. Soon after, his stake of
+the business was sold to one of his most trusted deputies, who succeeded him in the
+leadership role.
+
+Next to be sold were his lavish house and luxury car. Then came goodbyes to his business
+contacts and other chance acquaintances. Step by step, Jaded Amaranthus shed layer after
+layer of the world's burdens that had been weighing him down, both appreciating what they
+had brought to his life, but also bidding them a genuine and heartfelt farewell.
+
+Finally, after all was said and done, Jaded Amaranthus relocated deep into the
+mountains. He used no social media, and restricted himself to one hour of email a month to
+exchange intentional conversation with an extremely small circle of friends he
+trusted. There in his hermitage, he spent his days writing, painting, singing, and
+daydreaming. It was freeing to finally have time to simply be bored and contemplate life.
+
+Jaded Amaranthus didn't know if he was any closer to answering the questions he had posed
+to himself, but he felt that he was 1% of the way closer to knowing.
+
+## Bellethorne & Dreadthorne
+### Brambled Sisters of Justice
+* Gender: Female
+* Physical symbols: Hawthorn flowers, crossed swords
+* Likes: Each other
+* Dislikes: Inequality, colonialism, imperialism
+
+Dreadthorne grew up on the streets from a young age. All around her she saw the fruits of
+injustice -- flowers too poor to afford rent kicked out to live on the streets, flowers
+starving or growing up with health issues due to malnutrition, flowers bankrupted from
+exorbitant medical bills, ...
+
+Dreadthorne felt a deep despair at her inability. What could she, a lonesome flower, do to
+change this rotten society she lived in? For a period of time, Dreadthorne vented her
+frustration through petty crime, stealing food and daily essentials from big-box grocery
+stores to distribute to those in need. She helped mediate conflicts between groups in her
+area, and vigorously defended the rights of those too weak to defend themselves.
+
+In time, she grew increasingly daring in her exploits, targeting rich, out of touch
+billionaires for the gaudy and expensive products they often owned. However, one time, she
+flew too close to the sun, attempting to make off with a billionaire's deluxe Italian
+espresso machine to sell for Mana to help her neighbors. She was caught, and due to the
+exorbitant value of the item, was sentenced to several months in prison.  While there, she
+met someone that changed her life.
+
+From the first day Bellethorne walked into the room, Dreadthorne's eyes were strangely
+drawn to her. She was calm, cool, and after several dinner conversations, Dreadthorne came
+to know that she had the same burning sense of justice that Dreadthorne did. However,
+Bellethorne refused to admit the circumstances that had led to her being imprisoned.
+
+Bellethorne told Dreadthorne that she was thinking too small. After they got out, it was
+time to go bigger. Much bigger.
+
+And thus, the two bided their time, and on the day of their release, they decided to
+become sworn sisters. Kneeling and facing the north, the two held up three petals and each
+swore to dedicate their lives to fighting for justice and to each other.
+
+And then, they began. Through murky connections unknown to Dreadthorne, Bellethorne was
+able to provide the both of them a safe home base from which they would plot their next
+steps.
+
+First was a warm-up, hacking and decrypting massive repositories of textbooks, research
+papers, and other knowledge that had been funded with public tax money, yet locked behind
+paywalls.
+
+Next step up was stealing the Rolls-Royce car of an oil baron, who had poured Mana over
+the past decades into propaganda supporting car-dependency, keeping poorer flowers down
+with car payments they couldn't afford and hastening the climate crisis afflicting the
+world.
+
+Finally, some of their largest operations were stealing artifacts from the largest museums
+in the world. Society was numb to the fact that many of the exhibits held within such
+museums were trophies of war, brazenly looted from one group of flowers by another group
+of invaders that sought to colonize the former. Stealing these artifacts and returning
+them to their rightful owners was but a small reparation for the devastation that the
+invaders had sown in their wake.
+
+Bellethorne and Dreadthorne, now calling themselves the Brambly Sisters of Justice,
+continued on thus, challenging the world they lived in, forcing it to look itself in the
+mirror and question the status quo. After each heist, they would leave a beautiful bouquet
+of Crimson Cloud hawthorn flowers, a prayer to each other and the world for justice. Not
+all approved of their methods, but to many, they were heroes.
+
+"...But just where was Bellethorne from?". As Dreadthorne drifted to sleep after another
+successful heist, the question resurfaced nebulously in her mind...
 
 ## Heisei Dream
+### Whimsical Social Scholar
 * Gender: Hot topic of debate on many forums they frequent; they give a different response
   to each inquiry
-* Physical symbols: :trolled: emote
+* Physical symbols: Troll face (classical 2008 version)
 * Likes: KenM, Rick Astley (they're an actual fan of his music), The Onion
 * Dislikes: Fake "trolling" (most of their friend-group's been subjected to the "shouting
   slurs doesn't count" rant at least thrice)
@@ -423,6 +639,7 @@ When not trolling, Heisei Dream takes their studies in internet sociology surpri
 seriously.
 
 ## Tigerseye
+### Keen Pursuer of Truth
 * Gender: Cat person
 * Physical symbols: Pusheen
 * Likes: Cats, Miles Edgeworth from *Ace Attorney*
@@ -438,23 +655,16 @@ fur babies will last them until the day they finally wilt and die.
 Career-wise, Tigerseye serves as a skilled prosecutor and specializes in prosecuting
 sexual abuse offenders.
 
-## Orechid
+## Orechid & Orechid Ignem
 * Gender:
 * Physical symbols:
 * Likes:
 * Dislikes: 
 
-Idea: miner
-
-## Orechid Ignem
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
-
-Idea: Orechid's senior
+Idea: miner duo (siblings or parent-child or partner)
 
 ## Fallen Kanade
+### Freeze-Immune Bud
 * Gender: Canadian
 * Physical symbols: Maple syrup (only the best)
 * Likes: Their mates
@@ -477,6 +687,7 @@ polite and friendly, but knows when to assert themself when things come down to 
 Overall a very pleasant mate to hang out with.
 
 ## Exoflame
+### Exothermic and Exuberant Ear
 * Gender: Tastefully done eyeliner that renders their features extra androgynous
 * Physical symbols: a party hat, but specifically the one from OSRS
 * Likes: Meeting new people, helping friends in need, Endoflame
@@ -493,12 +704,11 @@ that's exactly what the friend needs to hear. As a result, Exoflame is deeply tr
 nearly everybody they know.
 
 ## Agricarnation
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+* Gender: Fluid
+* Physical symbols: Composter
+* Likes: Self-improvement books
+* Dislikes: Not being motivated
 
-Idea: farmer
 
 ## Hopperhock
 * Gender:
@@ -506,27 +716,63 @@ Idea: farmer
 * Likes:
 * Dislikes: 
 
-## Tangleberrie
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+## Tangleberrie & Jiyuulia
+### Lackadaisical Guardian Twins
+* Gender: Male
+* Physical symbols: Velcro
+* Likes: Their jobs, each other
+* Dislikes: The paperwork that happens when they make mistakes on the job
 
-## Jiyuulia
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes:
+Tangleberrie and Jiyuulia are fraternal twin brothers, born minutes after each
+other. Growing up, they were inseparable and participated in many of the same activities
+at school, including FFM (Future Farmers of Minecraft) where they were herders for various
+animals, of both the domesticated and wild varieties.
+
+Later on, the two ended going into the same career as security guards, though their paths
+slightly diverged: Tangleberrie continued his path from school, monitoring flocks of
+livestock and making sure they didn't wander into any trouble. Meanwhile, Jiyuulia took a
+slightly more risky path, becoming a security guard at a high security bank vault. Both
+are serious in their work, but only enough to avoid getting into trouble, which inevitably
+brings a mountainload of questions from upper management.
+
+How great it is to have someone who you can relate to and talk to about everything in your
+life? Tangleberrie and Jiyuulia both treasured their relationship dearly.
 
 ## Labellia
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+### Archivist of Leaves and Lore
+* Gender: Book (they/them)
+* Physical symbols: Brain
+* Likes: Physical media (books, CD's, tapes, game cartridges, etc.), Munchdew
+* Dislikes: DRM, closed-access scientific journals, subscription services
 
-Idea: Librarian
+Labellia is an expert librarian. Often derided as a dying occupation, librarians are
+instead one of the pillars of modern scholarship.
+
+They are there to help guide the curious to whatever resources they seek, whether it be
+held in a book, movie, website. Academic paper, video game, or propaganda poster.
+
+In Labellia's youth, this job was a difficult one. Books were organized haphazardly,
+sometimes by author, other times by title, and other times books were simply jammed on the
+shelves for young readers to slowly slog through.
+
+This changed when Labellia, a brilliant information studies student, thought to organize
+the world's knowledge into a hierarchical and numerical system, where related topics would
+be placed near each other numerically.
+
+Labellia painstakingly promoted this system to all the flowers, and finally is was
+accepted and is the standard today for organizing knowledge. Recognizing the efforts of
+their wife Munchdew in supporting them during this difficult journey, Labellia named the
+new system the Munchdewey Decimal System in her honor.
+
+When not performing their formal duties, Labellia advocates for true ownership of books,
+games, and media. They reject a world where content that one has purchased with real Mana
+can simply vanish if a licensing deal falls through, or the servers shut down in 15 years.
+As such, Labellia and Munchdew's shelves at home are lined with innumerable books, music
+CD's, and physical games. Their own personal home collection is a joyful library of its
+own, sorted by a variant of the Munchdewey decimal system, of course.
 
 ## Rannuncarpus
+### Handy and dexterous limbs
 * Gender: Removed -- it was only holding them back
 * Physical symbols: Toy slap hands
 * Likes: Piano, building castles and other large structures in Minecraft
@@ -542,6 +788,7 @@ easygoing attitude and are always happy to hook up their friends and family with
 concerts (or repairs).
 
 ## Hyacidus
+### Master of Caring Just Enough To Get By
 * Gender: Nonbinary (they/them)
 * Physical symbols: Pill
 * Likes: Medicine and drugs(?), Relaxing
@@ -560,6 +807,7 @@ An easygoing, stressless, and free life. Hyacidus wouldn't trade it for anything
 the world.
 
 ## Pollidisiac
+### Throbbing Heart of Pedagogue
 * Gender: Agender
 * Physical symbols: Heart (the actual organ)
 * Likes: Their students
@@ -574,6 +822,7 @@ come into class on day 1 snickering and joking about the course content, but by 
 the semester can hold mature and respectful conversations about the topic.
   
 ## Clayconia
+### Perfectly Balanced Mud Packer
 * Gender: Very precisely blended portions of masculinity, femininity, and flower
 * Physical symbols: Play-Doh
 * Likes: Beaches, sandboxes, yoga, symmetry
@@ -592,9 +841,10 @@ it at an early age, and constantly ramble to their parents about their goal of a
 perfect *balance*.
 
 ## Loonium
+### Housemaster of Hundred Goods
 * Gender: They buried it in Alaska but won't tell us where
 * Physical symbols: treasure chest
-* Likes: Geocaching, MIT puzzle hunt
+* Likes: Geocaching, MIT puzzle hunt, ARG's
 * Dislikes: Misplacing or having their items stolen
 
 Loonium is a chronic hoarder, collecting any and all sort of trinkets and treasures,
@@ -608,6 +858,7 @@ essentially any item can be acquired at extremely low price...as long as you can
 inside the chaotically messy store.
 
 ## Daffomill
+### Planning and Stanning Fan
 * Gender: Fan
 * Physical symbols: East Asian paper fan
 * Likes: K-Pop, V-Tubers, Fashion
@@ -626,6 +877,7 @@ Their dream is to attend every single concert of the international tour of their
 Korean boyband, BTS (Big Tater Squad).
 
 ## Vinculotus
+### Hexed Thaumic Scientist
 * Gender: Can science be a gender?
 * Physical symbols: Ender Pearl
 * Likes: Magitech
@@ -655,6 +907,7 @@ Little did Vinculotus realize that their mind was already well on its path towar
 descent to madness.
 
 ## Spectranthemum
+### Septachromal Ojamajo
 * Gender: Magical Girl
 * Physical symbols: Her Peperuto Poron (a flashy cyan wand), top hat
 * Likes: Bnuuy, spreading positivity through magic
@@ -666,7 +919,7 @@ in their lairs over bubbling cauldrons, Magical Girl Spectranthemum walks the li
 stage magic and witchcraft as a jack of both trades.
 
 To the public, she is a world-famous stage magician, known for her stunning and
-electrifying performances. You won't see tired old tricks like guessing the card in
+captivating performances. You won't see tired old tricks like guessing the card in
 someone's hand, or pulling bunnies out of a hat from her!
 
 Likewise, to the magical world, she is a bit of an odd specimen, preferring to roam the
@@ -682,22 +935,75 @@ In an increasingly specialized world, Spectranthemum is proof that being a well-
 generalist can still work out.
 
 ## Medumone
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+### Be Like Water, My Flower
+* Gender: They/them
+* Physical symbols: U+1F60C Relieved Face Emoji 😌
+* Likes: Coloring books, pottery-making
+* Dislikes: Being boxed into rigid expectations about life like getting married, buying a
+  house, having kids, etc.
 
-(slows mobs down)
+Within the last two hundred years, life has accelerated to breakneck pace.
+
+Flowers in general have not genetically and physiologically adapted to a world in which
+the CorporeaNet keeps them hooked 24/7 on the latest celebrity drama, or a world where
+flowers stay awake until 4 am under artificial lights and electronic devices.
+
+Medumone runs a therapist practice that specializes in helping others make sense of the
+rushing, fast-paced world around them.
+
+"I just work hours then come home and stare at my computer until I go to bed"
+
+"With the advent of generative AI, flowers will simply mindlessly consume generated
+content, while any original creations will be gobbled up by cold, impersonal scrapers to
+train the next model. What is the purpose of any further creative work in such a world?"
+
+"Every week the internet is outraged at something else and it's exhausting me"
+
+"The weekend just goes by in a flash and I'm dreading work after barely catching my
+breath"
+
+"How do I find friends that truly value me for me and aren't flaky?"
+
+Medumone works through these challenging questions with their patients, and hopes, through
+them, to discover some of the answers for themself as well.
 
 ## Marimorphosis
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+### Trainee in All Transformations
+* Gender: Trans Male (he/him)
+* Physical symbols: Circle
+* Likes: History of early science, holometabolic bugs, nuclear physics
+* Dislikes: How atoms are taught in primary schools
 
-Idea: Alchemist (but a modern nuclear scientist)
+How does the process by which one substance or object turn into something else?
+
+A caterpillar reducing itself into a solution of goop only to form anew as a free
+butterfly, mercury transforming into gold in the supposed alchemical laboratories of
+classical antiquity, igneous rock metamorphosizing into new forms admist incomprehensible
+heat and pressure.
+
+Marimorphosis is fascinated by them all.
+
+In 5th grade, he loved to pretend he was an alchemist, combining various rocks, sands,
+and dirts from the playground with various other compounds (such as his lunch, much to his
+parents' and teachers' displeasure) into "potions" which he would then dare his friends to
+taste before laughing and dumping the mixture away.
+
+He knew all too well the stories of Roman and Chinese emperors who died after ingesting
+mercury under the guise of "Pills of Immortality".
+
+Marimorphosis was elated when he learned of nuclear fission and fusion in high
+school. Here we had true alchemy, as had been sought by early scientists, and it released
+massive amounts of energy to boot! If only the world would consider as an energy source
+besides the foul, smog-emitting coal that was depressingly common in his hometown.
+
+From then on, Marimorphosis resolved to become a nuclear researcher. Today he works at a
+university laboratory, smashing atoms together and studying what particles come out of the
+resulting blast.
+
+Under his hard work, flowerkind inches ever closer towards the legendary Philosopher's Stone.
 
 ## Bubbell
+### Quaint and Quiet as Pondwater
 * Gender: Female (she/her)
 * Physical symbols: Full-body plastic bubbles
 * Likes: Social distancing, going to the spa, solo scuba diving, chatting with Hydroangea over IRC
@@ -710,6 +1016,7 @@ friends, though they are careful to not reveal too much about themselves. (TODO 
 refinement and distinguishing characteristics with Hydro)
 
 ## Solegnolia
+### Stunning and Electrifying Musician
 * Gender: Pronouns are thor/thom/thors (Solegnolia Really Likes Thor)
 * Physical symbols: Any of the symbols that go on a circuit diagram
 * Likes: Technical Minecraft, very niche modded Minecraft (Reika's ElectriCraft is a
@@ -735,6 +1042,7 @@ and Hydroangeas' departure several years prior.
 A rising star was now on the horizon.
 
 ## Bergamute
+### Lo-Fi Lo-Stress Groover
 * Gender: Male (he/him)
 * Physical symbols: Earmuffs
 * Likes: The "lofi hip hop radio - beats to relax/study to" YouTube livestream, frugality
@@ -744,7 +1052,7 @@ Bergamute has "mute" in their name, but they actually love music. Bergamute stri
 hardest to keep life simple and free of unnecessary things. They speak rarely, but their
 friends and coworkers listen and take Bergamute seriously when they do do so.
 
-Bergamute is a music composer, not making much money, but enough to live on, and Bergamute
+Bergamute is a music composer, not making much Mana, but enough to live on, and Bergamute
 is completely satisfied with that.
 
 
@@ -805,7 +1113,6 @@ WARNING: Some songs are 18+ and inappropriate for children.
 | Name                                       | Requirement                                    | Link                                                       |
 |--------------------------------------------|------------------------------------------------|------------------------------------------------------------|
 | Deja Vu                                    | Craft Daybloom/NightShade Motif                | [https://vocadb.net/S/124258](https://vocadb.net/S/124258) |
-| Two-Faced Lovers                           | Shoot desu gun                                 | [https://vocadb.net/S/1508](https://vocadb.net/S/1508)     |
 | At the Mercy of a Dream                    | Defeat Gaia Guardian II                        | [https://vocadb.net/S/14929](https://vocadb.net/S/14929)   |
 | A Tale of Six Trillion Years and One Night | Use rank SS terra pick                         | [https://vocadb.net/S/11219](https://vocadb.net/S/11219)   |
 | Invader Girl                               | Complete a corporea request with >= 50k items  | [https://vocadb.net/S/63216](https://vocadb.net/S/63216)   |
@@ -840,48 +1147,48 @@ I (williewillus) would have to say the following:
 
 Each flower in Botania is a reference to a (usually real life) flower or concept.
 
-| Botania Flower   | Reference To                                    |
-|------------------|-------------------------------------------------|
-| Agricarnation    | Agriculture + Carnation                         |
-| Bellethorne      |                                                 |
-| Bergamute        | Bergamot + muting sounds                        |
-| Bubbell          | Bubble + Bluebells                              |
-| Clayconia        | Clay + Heliconia                                |
-| Daffomill        | Daffodil + Windmill                             |
-| Dandelifeon      | Dandelion + (Conway's Game of) Life             |
-| Daybloom         | Daybloom (Terraria), Sunflower (by extension)   |
-| Dreadthorne      |                                                 |
-| Endoflame        | Endothermic (absorbing/requiring heat)          |
-| Entropinnyum     |                                                 |
-| Exoflame         | Exothermic (releases heat)                      |
-| Fallen Kanade    |                                                 |
-| Gourmaryllis     | Gourmet + Amaryllis                             |
-| Heisei Dream     | Japanese Heisei era ("Heisei" = "become peace") |
-| Hopperhock       | Hopper + Hollyhock                              |
-| Hyacidus         | Hyacinth + Acid                                 |
-| Hydroangeas      | "Hydro" (Ancient Greek: water) + Hydrangea      |
-| Jaded Amaranthus | Amaranth                                        |
-| Jiyullia         |                                                 |
-| Kekimurus        |                                                 |
-| Labellia         | Label + Lobelia                                 |
-| Loonium          | Loot + Geranium                                 |
-| Manastar         |                                                 |
-| Marimorphosis    | Marigold + Metamorphosis                        |
-| Medumone         | "Medo" (Portugese: "fear") + Anemone            |
-| Munchdew         | Munching + Sundew                               |
-| Narslimmus       | Narcissus + Slime                               |
-| Nightshade       | Nightshades                                     |
-| Orechid (Ignem)  | Ore + Orchid, "Ignis" (Latin: "fire")           |
-| Pollidisiac      | Pollination + Aphrodisiac                       |
-| Pure Daisy       | Pure + Daisy (duh!)                             |
-| Rafflowsia       | Rafflesia + Flower                              |
-| Rannuncarpus     | Ranunculus + Carpus (word for "wrist")          |
-| Rosa Arcana      | Rose + Arcane, also Latin for flavor            |
-| Shulk Me Not     | Shulker + Forget-Me-Not                         |
-| Solegnolia       | Solenoid (type of electromagnet) + Magnolia     |
-| Spectranthemum   | Spectral + Chrysanthemum                        |
-| Spectrolus       | Spectrum + Gladiolus                            |
-| Tangleberrie     |                                                 |
-| Thermalily       | Therma (Ancient Greek: warm/hot bath) + Lily    |
-| Tigerseye        | Tiger Eye (a type of Flowering Maple)           |
-| Vinculotus       | Vinculum (Latin: "bond"/"link") + Lotus         |
+| Botania Flower   | Reference To                                                       |
+|------------------|--------------------------------------------------------------------|
+| Agricarnation    | Agriculture + Carnation                                            |
+| Bellethorne      | Belladonna + Hawthorne                                             |
+| Bergamute        | Bergamot + muting sounds                                           |
+| Bubbell          | Bubble + Bluebells                                                 |
+| Clayconia        | Clay + Heliconia                                                   |
+| Daffomill        | Daffodil + Windmill                                                |
+| Dandelifeon      | Dandelion + (Conway's Game of) Life                                |
+| Daybloom         | Daybloom (Terraria), Sunflower (by extension)                      |
+| Dreadthorne      | Dread + Hawthorne (variant of Bellethorne)                         |
+| Endoflame        | Endothermic (absorbing/requiring heat)                             |
+| Entropinnyum     |                                                                    |
+| Exoflame         | Exothermic (releases heat)                                         |
+| Fallen Kanade    | "Fallen Angel", with angel replaced with Kanade from *Angel Beats* |
+| Gourmaryllis     | Gourmet + Amaryllis                                                |
+| Heisei Dream     | Japanese Heisei era ("Heisei" = "become peace")                    |
+| Hopperhock       | Hopper + Hollyhock                                                 |
+| Hyacidus         | Hyacinth + Acid                                                    |
+| Hydroangeas      | "Hydro" (Ancient Greek: water) + Hydrangea                         |
+| Jaded Amaranthus | "Jaded" (JadedCat, patron who commissioned the flower) + Amaranth  |
+| Jiyullia         |                                                                    |
+| Kekimurus        | "keki" (kay-key) is the Japanese pronunciation of "cake"           |
+| Labellia         | Label + Lobelia                                                    |
+| Loonium          | Loot + Geranium                                                    |
+| Manastar         | Starflower                                                         |
+| Marimorphosis    | Marigold + Metamorphosis                                           |
+| Medumone         | Medusa + Anemone                                                   |
+| Munchdew         | Munching + Sundew                                                  |
+| Narslimmus       | Narcissus + Slime                                                  |
+| Nightshade       | Nightshades                                                        |
+| Orechid (Ignem)  | Ore + Orchid, "Ignis" (Latin: "fire")                              |
+| Pollidisiac      | Pollination + Aphrodisiac                                          |
+| Pure Daisy       | Purify + Daisy                                                     |
+| Rafflowsia       | Rafflesia + Flower                                                 |
+| Rannuncarpus     | Ranunculus + Carpus (word for "wrist")                             |
+| Rosa Arcana      | Rose + Arcane, also Latin for flavor                               |
+| Shulk Me Not     | Shulker + Forget-Me-Not                                            |
+| Solegnolia       | Solenoid (type of electromagnet) + Magnolia                        |
+| Spectranthemum   | Spectral + Chrysanthemum                                           |
+| Spectrolus       | Spectrum + Gladiolus                                               |
+| Tangleberrie     | Any -berry type plant                                              |
+| Thermalily       | Therma (Ancient Greek: warm/hot bath) + Lily                       |
+| Tigerseye        | Tiger Eye (a type of gemstone)                                     |
+| Vinculotus       | Vinculum (Latin: "bond"/"link") + Lotus                            |

@@ -31,5 +31,6 @@
   ],
   "result": {
     "item": "botania:terra_plate"
-  }
+  },
+  "show_notification": true
 }

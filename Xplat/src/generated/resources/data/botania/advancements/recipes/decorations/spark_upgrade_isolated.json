@@ -43,5 +43,6 @@
     "recipes": [
       "botania:spark_upgrade_isolated"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

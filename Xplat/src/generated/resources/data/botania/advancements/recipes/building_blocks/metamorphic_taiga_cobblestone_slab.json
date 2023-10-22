@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_taiga_cobblestone_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -14,5 +14,6 @@
   ],
   "result": {
     "item": "botania:purple_petal_block"
-  }
+  },
+  "show_notification": true
 }

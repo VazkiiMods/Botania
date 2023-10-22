@@ -28,5 +28,6 @@
     "recipes": [
       "botania:avatar"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

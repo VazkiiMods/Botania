@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:livingwood_planks"
-  }
+  },
+  "show_notification": true
 }

@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:incense_stick"
-  }
+  },
+  "show_notification": true
 }

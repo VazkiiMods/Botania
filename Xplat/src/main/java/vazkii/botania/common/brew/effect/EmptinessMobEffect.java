@@ -29,7 +29,7 @@ public class EmptinessMobEffect extends MobEffect {
 		if (entity instanceof Enemy) {
 			AABB aabb = new AABB(entity.getX() - RANGE, entity.getY() - RANGE, entity.getZ() - RANGE,
 					entity.getX() + RANGE, entity.getY() + RANGE, entity.getZ() + RANGE);
-			for (Player player : entity.getLevel().players()) {
+			for (Player player : entity.level().players()) {
 				if (player.hasEffect(BotaniaMobEffects.emptiness) && player.getBoundingBox().intersects(aabb)) {
 					return true;
 				}

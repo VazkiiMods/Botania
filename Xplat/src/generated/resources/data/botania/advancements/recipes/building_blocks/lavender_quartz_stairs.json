@@ -30,5 +30,6 @@
     "recipes": [
       "botania:lavender_quartz_stairs"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

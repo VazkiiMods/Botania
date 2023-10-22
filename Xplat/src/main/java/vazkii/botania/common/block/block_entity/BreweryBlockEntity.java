@@ -8,9 +8,8 @@
  */
 package vazkii.botania.common.block.block_entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -67,8 +66,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		for (int i = 0; i < inventorySize(); i++) {
 			if (getItemHandler().getItem(i).isEmpty()) {
 				did = true;
-				ItemStack stackToAdd = stack.copy();
-				stackToAdd.setCount(1);
+				ItemStack stackToAdd = stack.copyWithCount(1);
 				getItemHandler().setItem(i, stackToAdd);
 
 				if (player == null || !player.getAbilities().instabuild) {
@@ -266,7 +264,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			int manaToGet = brewery.getManaCost();
 			if (manaToGet > 0) {
 				if (brewery.recipe == null) {
@@ -276,8 +274,8 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 				int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
 				int y = mc.getWindow().getGuiScaledHeight() / 2 - 12;
 
-				RenderHelper.renderHUDBox(ms, x, y, x + 24, y + 24);
-				RenderHelper.renderProgressPie(ms, x + 4, y + 4, (float) brewery.mana / (float) manaToGet,
+				RenderHelper.renderHUDBox(gui, x, y, x + 24, y + 24);
+				RenderHelper.renderProgressPie(gui, x + 4, y + 4, (float) brewery.mana / (float) manaToGet,
 						brewery.recipe.getOutput(brewery.getItemHandler().getItem(0)));
 			}
 		}

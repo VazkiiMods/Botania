@@ -30,5 +30,6 @@
     "recipes": [
       "botania:lens_weight"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

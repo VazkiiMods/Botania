@@ -30,5 +30,6 @@
     "recipes": [
       "botania:elf_quartz"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

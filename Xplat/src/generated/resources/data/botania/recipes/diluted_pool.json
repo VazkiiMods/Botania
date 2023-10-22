@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:diluted_pool"
-  }
+  },
+  "show_notification": true
 }

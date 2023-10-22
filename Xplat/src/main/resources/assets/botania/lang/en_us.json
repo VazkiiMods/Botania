@@ -266,7 +266,7 @@
   "botania.armorset.terrasteel.desc1": "Regen even if hunger isn't topped off",
   "botania.armorset.terrasteel.desc2": "Passive Mana generation on Mana Tablets",
   "botania.armorset.manaweave.name": "Manatide Prowess",
-  "botania.armorset.manaweave.desc0": "35%% less Mana cost on Mana Tools and Rods",
+  "botania.armorset.manaweave.desc0": "40%% less Mana cost on Mana Tools and Rods",
   "botania.armorset.manaweave.desc1": "Increased proficiency with Magical Rods",
 
   "botania.armorset.will_ahrim.desc": "Ahrim: Critical Hits apply a strong weakness effect",
@@ -378,7 +378,8 @@
   "item.botania.dice.poem2": "The hidden laws of a probable outcome,",
   "item.botania.dice.poem3": "The numbers lead a dance.",
 
-  "death.attack.botania.relic": "%s was punished for using a relic that isn't theirs",
+  "death.attack.botania-relic": "%s was punished for using a relic that isn't theirs",
+  "death.attack.botania.key_explosion": "%2$s drowned %1$s in treasure",
 
   "entity.botania.mana_burst": "Mana Burst",
   "entity.botania.pixie": "Pixie",
@@ -503,8 +504,6 @@
   "advancement.botania:old_flower_pickup": "Deja Vu",
   "advancement.botania:old_flower_pickup.desc": "Discover the Daybloom Motif or Nightshade Motif",
 
-  "advancement.botania:desuGun": "Two-Faced Lovers",
-  "advancement.botania:desuGun.desc": "ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN",
   "advancement.botania:tinyPotatoBirthday": "Blessing",
   "advancement.botania:tinyPotatoBirthday.desc": "Celebrate Tiny Potato's Birthday on July 19th",
 
@@ -587,6 +586,7 @@
   "block.botania.apothecary_deepslate": "Deepslate Petal Apothecary",
   "block.botania.livingrock": "Livingrock",
   "block.botania.polished_livingrock": "Polished Livingrock",
+  "block.botania.livingrock_slate": "Livingrock Slate",
   "block.botania.polished_livingrock_slab": "Polished Livingrock Slab",
   "block.botania.polished_livingrock_stairs": "Polished Livingrock Stairs",
   "block.botania.polished_livingrock_wall": "Polished Livingrock Wall",
@@ -1869,7 +1869,7 @@
   "botania.page.apothecary2": "This block, when placed in the world and given some water (by right-clicking or throwing in a $(item)Water Bucket$(0)), will accept any $(l:basics/flowers)$(item)Mystical Petals$(0)$(/l) thrown into it, absorbing their energies.$(p)Once the correct petals have been provided, throwing any $(thing)Seeds$(0) in will finalize the crafting process.",
   "botania.page.apothecary3": "All $(thing)Functional$(0) and $(thing)Generating Flora$(0) are made here (for more information, read through the respective sections in this lexicon).$(p)Right clicking the $(item)Petal Apothecary$(0) with an empty hand will remove the last item thrown in.",
   "botania.page.apothecary4": "If it's filled with $(item)Lava$(0) instead of $(item)Water$(0), the Apothecary will serve as a brazier and incinerator, destroying any items that come into contact with it.",
-  "botania.page.apothecary7": "$(item)Comparators$(0) can detect an $(item)Apothecary$(0)'s fullness.$(p)Since the $(item)Petal Apothecary$(0) can be filled by with a dropped $(item)Water Bucket$(0), and $(item)Dispensers$(0) can fill buckets, creating a system that automatically refills the water in the block shouldn't prove too difficult.",
+  "botania.page.apothecary7": "$(item)Comparators$(0) can detect an $(item)Apothecary$(0)'s fullness.$(p)Since the $(item)Petal Apothecary$(0) can be filled by a dropped $(item)Water Bucket$(0), and $(item)Dispensers$(0) can fill buckets, creating a system that automatically refills the water in the block shouldn't prove too difficult.",
   "botania.page.apothecary6": "A simple tip for the more efficiency-minded: Up to twenty seconds after crafting a flower and after refilling the water, if you right-click the apothecary with an empty hand, it'll pull another set of the same ingredients out of your inventory, for quick crafting in bulk.",
 
   "botania.entry.pureDaisy": "Pure Daisy",
@@ -2280,7 +2280,7 @@
   "botania.entry.bergamute": "Bergamute",
   "botania.tagline.bergamute": "Absorbs sound",
   "botania.page.bergamute0": "Anyone who's ever attempted ranching knows of the cacophonous din emitted by herds of animals. Luckily, the $(item)Bergamute$(0) can deafen such dins.",
-  "botania.page.bergamute1": "The $(item)Bergamute$(0) absorbs sound energy emitted in a close radius around itself, converting it into trace amounts of mana and dispersing it harmlessly.$(p)Additionally, $(l:tools/grass_horn)$(item)Horns$(0)$(/l) or $(l:devices/forest_drum)$(item)Drums$(0)$(/l) will not break blocks within its range.",
+  "botania.page.bergamute1": "The $(item)Bergamute$(0) absorbs sound energy emitted in a close radius around itself, converting it into trace amounts of mana and dispersing it harmlessly. It halves the volume of sounds within reach, the effect stacking with other nearby $(item)Bergamutes$(0).$(p)Additionally, $(l:tools/grass_horn)$(item)Horns$(0)$(/l) or $(l:devices/forest_drum)$(item)Drums$(0)$(/l) will not break blocks within its range.",
   "botania.page.bergamute2": "Deaf to All but the Song",
 
   "botania.entry.gIntro": "Generating Flora",
@@ -2289,11 +2289,12 @@
   "botania.page.gIntro1": "All $(thing)Generating Flora$(0), like their $(thing)Functional$(0) brethren, can hold a small internal buffer of $(thing)Mana$(0).$(p)$(thing)Generating Flora$(0) will automatically output to the closest nearby $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l).",
   "botania.page.gIntro2": "These flowers bind to one $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) at a time for $(thing)Mana$(0) output. They'll bind to the nearest spreader present at the time of their placement (or the nearest placed afterward, if none were in range), and must be re-bound to another spreader with a wand in $(thing)Bind Mode$(0), if so desired.",
   "botania.page.gIntro3": "Choosing your first $(thing)Generating Flower$(0) is a pretty simple task; the simplest two choices for any fledgling botanist are the $(l:generating_flowers/endoflame)$(item)Endoflame$(0)$(/l) and the $(l:generating_flowers/hydroangeas)$(item)Hydroangeas$(0)$(/l).$(p)The former uses $(item)Coal$(0) or other fuel sources to generate $(thing)Mana$(0). The latter uses $(item)Water$(0) sources for the same task, but decays after about three days.",
+  "botania.page.gIntro4": "Later on, you may wish to branch out to other $(thing)Generating Flora$(0). Flowers that require more complex infrastructure to automate typically produce more $(thing)Mana$(0).",
 
   "botania.entry.endoflame": "Endoflame",
   "botania.tagline.endoflame": "Mana from fuel",
-  "botania.page.endoflame0": "The $(item)Endoflame$(0) is a very rudimentary $(thing)generating flower$(0); it'll absorb any combustible items or blocks dropped on the nearby vicinity, one at a time, and burn through them to generate $(thing)Mana$(0).$(p)The amount of time it takes to burn through an item is roughly half of the time a $(item)Furnace$(0) would.",
-  "botania.page.endoflame1": "There're a few small caveats though: the $(item)Endoflame$(0) will not burn anything that leave byproducts in $(item)Furnaces$(0) (e.g. $(item)Lava Buckets$(0), which leave $(item)Buckets$(0) behind).$(p)Furthermore, the flower can only burn around four $(item)Block of Coal$(0)s' worth of fuel at once. If any single fuel item with a longer burn time is used, its full efficiency will be lost.",
+  "botania.page.endoflame0": "The $(item)Endoflame$(0) is a very rudimentary $(thing)generating flower$(0); it'll absorb any combustible items or blocks dropped on the nearby vicinity, one at a time, and burn through them to generate a trickle of $(thing)Mana$(0).$(p)The amount of time it takes to burn through an item is roughly half of the time a $(item)Furnace$(0) would.",
+  "botania.page.endoflame1": "There're a few small caveats though: the $(item)Endoflame$(0) will not burn anything that leave byproducts in $(item)Furnaces$(0) (e.g. $(item)Lava Buckets$(0), which leave $(item)Buckets$(0) behind).$(p)Furthermore, the flower can only burn around two $(item)Block of Coal$(0)s' worth of fuel at once. If any single fuel item with a longer burn time is used, its full efficiency will be lost.",
   "botania.page.endoflame3": "As the $(item)Endoflame$(0) is often a botanist's first foray into proper automatable $(thing)Generating Flora$(0), it shouldn't be run manually forever. As the flower requires dropped items, an $(l:devices/open_crate)$(item)Open Crate$(0)$(/l) (found in the $(thing)Natural Apparatus$(0) section of this book) and some sort of output limiter (a timer or pressure plate) would be ideal for it.",
   "botania.page.endoflame2": "$(o)When arson becomes useful$().",
 
@@ -2304,7 +2305,7 @@
 
   "botania.entry.thermalily": "Thermalily",
   "botania.tagline.thermalily": "Mana from lava",
-  "botania.page.thermalily0": "The $(item)Thermalily$(0) is a $(item)Lava$(0)-flavoured counterpart to the $(l:generating_flowers/hydroangeas)$(item)Hydroangeas$(0)$(/l). The flower absorbs $(item)Lava$(0) around it (at the same altitude) to generate $(thing)Mana$(0).$(p)After absorbing one block of $(item)Lava$(0), the flower will produce $(thing)Mana$(0) continually for around 45 seconds. Afterwards, though, it needs a bit of time to cool down before it can produce any more.",
+  "botania.page.thermalily0": "The $(item)Thermalily$(0) is a $(item)Lava$(0)-flavoured counterpart to the $(l:generating_flowers/hydroangeas)$(item)Hydroangeas$(0)$(/l). The flower absorbs $(item)Lava$(0) around it (at the same altitude) to generate $(thing)Mana$(0).$(p)After absorbing one block of $(item)Lava$(0), the flower will produce $(thing)Mana$(0) continually for around 30 seconds. Afterwards, though, it needs a bit of time to cool down before it can produce any more.",
   "botania.page.thermalily1": "As temperamental as its drink of choice, though, it tends to randomly vary how long a cooldown period lasts-- anywhere from 20 seconds to a full 5 minutes!$(p)You can tell how long its most recent cooldown period lasts with a $(item)Redstone Comparator$(0): twenty seconds for each level of strength.",
   "botania.page.thermalily2": "The $(thing)Mana$(0) throughput the $(item)Thermalily$(0) produces during its active phase is extremely high; it's an ideal flower for a quick boost in stores.$(p)However, during its \"cooldown\" period, any adjacent $(thing)Lava$(0) will be absorbed and reset the cooldown without yielding any $(thing)Mana$(0).",
   "botania.page.thermalily3": "While placing $(item)Lava$(0) in the world is definitely possible via $(item)Dispensers$(0), automatically gathering it and carrying it from the $(thing)Nether$(0) or deep underground is not.$(p)As such, the $(item)Thermalily$(0) is classified as a \"semi-automatable\" flower.",
@@ -2407,6 +2408,8 @@
   "botania.page.manaAlchemy3": "Transmuting $(item)Woods$(0)",
   "botania.page.manaAlchemy30": "Sapling",
   "botania.page.manaAlchemy4": "Transmuting $(item)Saplings$(0)",
+  "botania.page.manaAlchemyFroglightCycle.title": "Froglight",
+  "botania.page.manaAlchemyFroglightCycle": "Transmuting $(item)Froglights$(0)",
   "botania.page.manaAlchemy5": "Breaking down $(item)Glowstone Blocks$(0)",
   "botania.page.manaAlchemy31": "Quartz",
   "botania.page.manaAlchemy6": "Breaking down $(item)Quartz Blocks$(0)",
@@ -2580,7 +2583,7 @@
   "botania.tagline.hourglass": "A simple timer, using the sands of time",
   "botania.page.hourglass0": "The ability to keep time is an essential one for anyone who wishes to build any redstone-y contraptions. A classical timer, however, can take up frankly unfortunate amounts of space, to say nothing about efficiency. The $(item)Hovering Hourglass$(0) is a simple, precise, sand-based timer. As its name implies, it's a hourglass that hovers and turns by itself.",
   "botania.page.hourglass1": "The hourglass can hold up to one stack of either $(item)Sand$(0), $(item)Red Sand$(0) or $(item)Soul Sand$(0), added via right-click. Right-clicking a filled hourglass removes its sand. Once sand is added, it'll start draining from one of the chambers into the other. Once the sand finishes draining, the hourglass emits one redstone pulse and flips, restarting the process.",
-  "botania.page.hourglass2": "The amount of time between pulses is dependent on the type and quantity of sand in the chamber. $(item)Sand$(0) falls at a rate of for one second per block, $(item)Red Sand$(0) ten seconds per, and $(item)Soul Sand$(0) one minute per. Sand types can't be mixed; the current time between pulses can be seen by holding a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) over the Hourglass.",
+  "botania.page.hourglass2": "The amount of time between pulses is dependent on the type and quantity of sand in the chamber. A single block of $(item)Sand$(0) takes one second to fall, $(item)Red Sand$(0) ten seconds, and $(item)Soul Sand$(0) one minute. Sand types can't be mixed; the current time between pulses can be seen by holding a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) over the Hourglass.",
   "botania.page.hourglass3": "Note that sand can't be added incrementally by hand, so the size of the sand stack should be adjusted in-inventory.$(p)The sand in the hourglass can, however, be adjusted by $(item)Hoppers$(0) or similar means.",
   "botania.page.hourglass4": "Right-clicking an hourglass with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) locks (or unlocks) it. When locked, sand can't be added or removed from an hourglass (just in case someone right-clicks the hourglass on accident).$(p)If a $(thing)Mana Burst$(0) collides with an hourglass, it'll stem the flow of sand and pause the timer; another burst will continue the timer.",
   "botania.page.hourglass6": "$(l:mana/pool)$(item)Mana Powder$(0)$(/l) can be used in lieu of sand; doing this turns an hourglass from a $(thing)timer$(0) into a $(thing)counter$(0).$(p)Instead of sand flowing over time, the hourglass will drop one unit of powder every time a $(thing)Mana Burst$(0) collides with it. For example, ten pieces of powder in an hourglass will require 10 $(thing)Mana Bursts$(0) for a redstone pulse.",
@@ -2639,7 +2642,7 @@
 
   "botania.entry.grassSeeds": "Pasture Seeds",
   "botania.tagline.grassSeeds": "Seeds to create Grass, Podzol and Mycelium",
-  "botania.page.grassSeeds0": "Watching the slow grow of $(item)Grass$(0) is seldom a fun activity. $(item)Tall Grass$(0), infused with $(thing)Mana$(0), becomes $(item)Pasture Seeds$(0), which will grow grass in a nearby area when used on a $(item)Dirt$(0) block.$(p)Other dirt-type blocks can also be grown, such as $(item)Podzol$(0) or $(item)Mycelium$(0), from alternative seeds.",
+  "botania.page.grassSeeds0": "Watching the slow grow of $(item)Grass$(0) is seldom a fun activity. $(item)Tall Grass$(0), infused with $(thing)Mana$(0), becomes $(item)Pasture Seeds$(0), which will grow grass in a nearby area when used on a $(item)Dirt$(0) block, either by hand or in a $(item)Dispenser$(0).$(p)Other dirt-type blocks can also be grown, such as $(item)Podzol$(0) or $(item)Mycelium$(0), from alternative seeds.",
   "botania.page.grassSeeds1": "$(item)Pasture Seeds$(0) for grass",
   "botania.page.grassSeeds2": "$(item)Boreal Seeds$(0) for podzol",
   "botania.page.grassSeeds3": "$(item)Infestation Spores$(0) for mycelium",
@@ -2905,9 +2908,10 @@
 
   "botania.entry.sextant": "Worldshaper's Sextant",
   "botania.tagline.sextant": "A tool to help create circles",
-  "botania.page.sextant0": "In a world of cubes, the secrets of creating circles is a lost art coveted by many-- so much so, in fact, that some to turn to the unholy act of \"tabbing out\" to learn the proper procedures.$(p)The $(item)Worldshaper's Sextant$(0), however, provides a ready alternative to such an act. ",
-  "botania.page.sextant1": "To use the item, simply right-click and hold at a block to choose a circle's center, and look around to choose its radius; a blue circle will appear in the world as a preview of the circle's shape. Upon release of the sextant, a mirage of $(item)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the circle.",
+  "botania.page.sextant0": "In a world of cubes, the secrets of creating circles and spheres is a lost art coveted by many-- so much so, in fact, that some to turn to the unholy act of \"tabbing out\" to learn the proper procedures.$(p)The $(item)Worldshaper's Sextant$(0), however, provides a ready alternative to such an act. ",
+  "botania.page.sextant1": "To use the sextant, sneak-right click to choose a mode. Simply right-click and hold at a block to choose the shape's center, and look around to choose its radius; blue circles will appear in the world as an outline of the final shape. Upon release of the sextant, a mirage of $(item)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the guide.",
   "botania.page.sextant2": "You sketch a circle, filling you with determination",
+  "botania.page.sextant_modes": "There are usually multiple ways to draw a blocky circle touching the inside of any given square. By snapping to any point on the horizontal block grid from the starting point, the sextant allows experimenting with different shapes for the same general size.$(p)And if two dimensions are not enough, sneak-right clicking while no shape is displayed switches the shape mode.",
 
   "botania.entry.astrolabe": "Worldshaper's Astrolabe",
   "botania.tagline.astrolabe": "A tool to help create planes",
@@ -3353,7 +3357,7 @@
   "botania.page.lokiRing0": "One of the three mythical rings of the $(thing)Aesir$(0), the $(item)Ring of Loki$(0) allows for the wearer to call upon the Trickster God's ability to effectively be in multiple places at once.$(p)To use an equipped $(item)Ring of Loki$(0), begin by sneak-righting click a block with an empty hand.",
   "botania.page.lokiRing1": "Once a block is selected (designated the \"origin\"), sneak-right clicking other blocks will store their offsets from the origin in the ring. To finish the procedure, sneak-right click the origin again.$(p)Sneak-right clicking a stored block during the selection process will remove it from the ring's memory. To clear a completed selection, just sneak-right click the ground twice.",
   "botania.page.lokiRing2": "After the selection is complete, multiple boxes in wireframe will be visible, moving relative to the looked-at block. When a block is placed while sneaking, all wireframe locations will have blocks placed there, too, allowing for placement $(o)en masse$(). The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) and $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l) will also break blocks at these locations when sneaking, allowing for truly ludicrous quantities of destruction.",
-  "botania.page.lokiRing3": "Such power doesn't come for free, of course. The ring consumes $(thing)Mana$(0) from the user's inventory for each block placed. Note that the larger the current selection, the more expensive each placed block becomes.",
+  "botania.page.lokiRing3": "Such power doesn't come for free, of course. The ring consumes $(thing)Mana$(0) from the user's inventory for each block placed. Note that the larger the current selection, the more expensive each placed block becomes.$(p)Lastly, keep in mind that the $(item)Ring of Loki$(0) still only uses the item in your hand. If you are placing blocks directly, the size of the stack you hold may become a limiting factor.",
 
   "botania.entry.odinRing": "Ring of Odin",
   "botania.tagline.odinRing": "Godlike resistance",

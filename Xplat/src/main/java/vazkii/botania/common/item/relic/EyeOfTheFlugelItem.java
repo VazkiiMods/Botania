@@ -131,7 +131,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 
 	private static void moveParticlesAndSound(Entity entity) {
 		XplatAbstractions.INSTANCE.sendToTracking(entity, new BotaniaEffectPacket(EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getId()));
-		entity.getLevel().playSound(null, entity.getX(), entity.getY(), entity.getZ(), BotaniaSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
+		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), BotaniaSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
 	}
 
 	@Override

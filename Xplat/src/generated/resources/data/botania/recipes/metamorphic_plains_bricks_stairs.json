@@ -8,12 +8,13 @@
     }
   },
   "pattern": [
-    "  Q",
-    " QQ",
+    "Q  ",
+    "QQ ",
     "QQQ"
   ],
   "result": {
     "count": 4,
     "item": "botania:metamorphic_plains_bricks_stairs"
-  }
+  },
+  "show_notification": true
 }

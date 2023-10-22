@@ -17,5 +17,6 @@
   "result": {
     "count": 8,
     "item": "botania:quartz_red"
-  }
+  },
+  "show_notification": true
 }

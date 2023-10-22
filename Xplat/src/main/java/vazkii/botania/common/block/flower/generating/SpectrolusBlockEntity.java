@@ -9,9 +9,9 @@
 package vazkii.botania.common.block.flower.generating;
 
 import com.google.common.collect.Iterables;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -126,17 +126,17 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.apply(flower.nextColor));
 
 			if (stack.isEmpty()) {
-				super.renderHUD(ms, mc);
+				super.renderHUD(gui, mc);
 			} else {
 				int halfWidth = RenderHelper.itemWithNameWidth(mc, stack) / 2;
 				int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
-				super.renderHUD(ms, mc, halfWidth + 2, halfWidth + 2, 48);
-				RenderHelper.renderItemWithNameCentered(ms, mc, stack, centerY + 30, ColorHelper.getColorLegibleOnGrayBackground(flower.nextColor));
+				super.renderHUD(gui, mc, halfWidth + 2, halfWidth + 2, 48);
+				RenderHelper.renderItemWithNameCentered(gui, mc, stack, centerY + 30, ColorHelper.getColorLegibleOnGrayBackground(flower.nextColor));
 			}
 		}
 	}

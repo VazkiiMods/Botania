@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:drum_gathering"
-  }
+  },
+  "show_notification": true
 }

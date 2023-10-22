@@ -66,7 +66,7 @@ public final class PixieHandler {
 	}
 
 	public static void onDamageTaken(Player player, DamageSource source) {
-		if (!player.getLevel().isClientSide && source.getEntity() instanceof LivingEntity livingSource) {
+		if (!player.level().isClientSide && source.getEntity() instanceof LivingEntity livingSource) {
 			// Sometimes the player doesn't have the attribute, not sure why.
 			// Could be badly-written mixins on Fabric.
 			double chance = player.getAttributes().hasAttribute(PIXIE_SPAWN_CHANCE)
@@ -74,11 +74,11 @@ public final class PixieHandler {
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(BotaniaItems.elementiumSword));
 
 			if (Math.random() < chance) {
-				PixieEntity pixie = new PixieEntity(player.getLevel());
+				PixieEntity pixie = new PixieEntity(player.level());
 				pixie.setPos(player.getX(), player.getY() + 2, player.getZ());
 
 				if (((ElementiumHelmItem) BotaniaItems.elementiumHelm).hasArmorSet(player)) {
-					pixie.setApplyPotionEffect(new MobEffectInstance(potions[player.getLevel().random.nextInt(potions.length)], 40, 0));
+					pixie.setApplyPotionEffect(new MobEffectInstance(potions[player.level().random.nextInt(potions.length)], 40, 0));
 				}
 
 				float dmg = 4;
@@ -87,9 +87,9 @@ public final class PixieHandler {
 				}
 
 				pixie.setProps(livingSource, player, 0, dmg);
-				pixie.finalizeSpawn((ServerLevelAccessor) player.getLevel(), player.getLevel().getCurrentDifficultyAt(pixie.blockPosition()),
+				pixie.finalizeSpawn((ServerLevelAccessor) player.level(), player.level().getCurrentDifficultyAt(pixie.blockPosition()),
 						MobSpawnType.EVENT, null, null);
-				player.getLevel().addFreshEntity(pixie);
+				player.level().addFreshEntity(pixie);
 			}
 		}
 	}

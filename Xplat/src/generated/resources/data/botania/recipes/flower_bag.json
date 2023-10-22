@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:flower_bag"
-  }
+  },
+  "show_notification": true
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:lens_gravity"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

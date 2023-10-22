@@ -30,5 +30,6 @@
     "recipes": [
       "botania:lens_light_alt"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

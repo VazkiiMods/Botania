@@ -36,7 +36,7 @@ public class RingOfChordataItem extends BaubleItem {
 				return;
 			}
 
-			if (!living.getLevel().isClientSide) {
+			if (!living.level().isClientSide) {
 				if (living instanceof Player player && !ManaItemHandler.instance().requestManaExact(stack, player, COST, true)) {
 					onUnequipped(stack, living);
 				} else {

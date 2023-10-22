@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:mana_detector"
-  }
+  },
+  "show_notification": true
 }

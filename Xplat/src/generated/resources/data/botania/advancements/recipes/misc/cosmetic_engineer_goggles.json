@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_engineer_goggles"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

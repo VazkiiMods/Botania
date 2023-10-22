@@ -24,7 +24,6 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.mixin.GoalSelectorAccessor;
 import vazkii.botania.mixin.HurtByTargetGoalAccessor;
 import vazkii.botania.mixin.MobAccessor;
 
@@ -70,7 +69,7 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 		if (!(target instanceof Enemy)) {
 			Enemy newTarget;
 			do {
-				newTarget = mobs.get(entity.getLevel().random.nextInt(mobs.size()));
+				newTarget = mobs.get(entity.level().random.nextInt(mobs.size()));
 			} while (newTarget == entity);
 
 			if (newTarget instanceof Mob mob) {
@@ -78,7 +77,7 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 
 				// Move any HurtByTargetGoal to highest priority
 				GoalSelector targetSelector = ((MobAccessor) entity).getTargetSelector();
-				for (WrappedGoal entry : ((GoalSelectorAccessor) targetSelector).getAvailableGoals()) {
+				for (WrappedGoal entry : targetSelector.getAvailableGoals()) {
 					if (entry.getGoal() instanceof HurtByTargetGoal goal) {
 						// Remove all ignorals. We can't actually resize or overwrite
 						// the array, but we can fill it with classes that will never pass

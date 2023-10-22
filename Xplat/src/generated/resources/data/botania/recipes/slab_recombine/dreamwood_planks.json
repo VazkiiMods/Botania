@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:dreamwood_planks"
-  }
+  },
+  "show_notification": true
 }

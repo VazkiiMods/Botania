@@ -8,12 +8,13 @@
     }
   },
   "pattern": [
-    "  Q",
-    " QQ",
+    "Q  ",
+    "QQ ",
     "QQQ"
   ],
   "result": {
     "count": 4,
     "item": "botania:black_pavement_stairs"
-  }
+  },
+  "show_notification": true
 }

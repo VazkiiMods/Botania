@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:obedience_stick"
-  }
+  },
+  "show_notification": true
 }

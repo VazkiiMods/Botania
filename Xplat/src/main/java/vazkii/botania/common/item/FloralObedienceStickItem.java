@@ -42,9 +42,7 @@ public class FloralObedienceStickItem extends Item {
 	}
 
 	public static boolean applyStick(Level world, BlockPos pos) {
-		var state = world.getBlockState(pos);
-		var be = world.getBlockEntity(pos);
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos, state, be, null);
+		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos, null);
 		if (receiver instanceof ManaPool || receiver instanceof ManaCollector) {
 			int range = receiver instanceof ManaPool ? FunctionalFlowerBlockEntity.LINK_RANGE : GeneratingFlowerBlockEntity.LINK_RANGE;
 

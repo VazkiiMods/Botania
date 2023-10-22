@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_eerie_mask"
-  }
+  },
+  "show_notification": true
 }

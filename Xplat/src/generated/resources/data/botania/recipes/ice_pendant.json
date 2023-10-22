@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:ice_pendant"
-  }
+  },
+  "show_notification": true
 }

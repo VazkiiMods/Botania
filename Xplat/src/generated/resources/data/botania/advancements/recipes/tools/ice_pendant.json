@@ -28,5 +28,6 @@
     "recipes": [
       "botania:ice_pendant"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

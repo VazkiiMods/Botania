@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_blue_butterfly"
-  }
+  },
+  "show_notification": true
 }

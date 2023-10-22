@@ -1,4 +1,4 @@
-// 1.19.3	Botania/Botania block loot tables
+// 1.20.1	Botania/Botania block loot tables
 35bfbc76b5aa94c1c6604e437a23e799d05d495d data/botania/loot_tables/blocks/abstruse_platform.json
 8bdf380137a7135be8e4aab704de1f963528dadc data/botania/loot_tables/blocks/agricarnation.json
 89bceb2fb451ae019539d56cf640e3ef1c4d5eb3 data/botania/loot_tables/blocks/agricarnation_chibi.json
@@ -299,6 +299,7 @@ be8209ae2d4776c54cdff6350f884e83982abfcc data/botania/loot_tables/blocks/livingr
 fbd4d95615af0c9adadf877a0c5ef9dc9a4f645b data/botania/loot_tables/blocks/livingrock_bricks_stairs.json
 17b79f5b4ac6c7c3f3936cadd034b1b525f2d41d data/botania/loot_tables/blocks/livingrock_bricks_wall.json
 6b1e8fcecde6a48acba1a71bb579fccfa0638b88 data/botania/loot_tables/blocks/livingrock_slab.json
+5fd0b6be908cef855eb8f72087248ab81e6f2114 data/botania/loot_tables/blocks/livingrock_slate.json
 01829b46ea7761b5a880af2cb6e310e34cdfb362 data/botania/loot_tables/blocks/livingrock_stairs.json
 ac1112c13ffd75190e297885ddd200486a344977 data/botania/loot_tables/blocks/livingrock_wall.json
 b113617588f0c8a3af2d5a40760ec02eedecb6ce data/botania/loot_tables/blocks/livingwood.json

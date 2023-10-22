@@ -12,10 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
 
-import org.jetbrains.annotations.Nullable;
-
-import vazkii.botania.api.mana.ManaReceiver;
-
 /**
  * An Entity that implements this is considered a Spark.
  */
@@ -25,12 +21,6 @@ public interface SparkEntity {
 	 * @return The position of the block that this spark is attached to
 	 */
 	BlockPos getAttachPos();
-
-	/**
-	 * @return The attached mana receiver under the spark, if available
-	 */
-	@Nullable
-	ManaReceiver getAttachedManaReceiver();
 
 	/**
 	 * Gets the network that this spark is on, or the color it's displaying. Sparks may only connect to others

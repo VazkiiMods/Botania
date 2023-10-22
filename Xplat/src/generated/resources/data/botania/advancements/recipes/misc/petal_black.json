@@ -43,5 +43,6 @@
     "recipes": [
       "botania:petal_black"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

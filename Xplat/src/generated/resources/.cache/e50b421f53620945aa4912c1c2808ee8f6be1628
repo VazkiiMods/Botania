@@ -1,4 +1,4 @@
-// 1.19.3	Botania/Botania item models
+// 1.20.1	Botania/Botania item models
 d4b0ba0031453560fbcac5ba06e408d0ee6a8c4f assets/botania/models/item/abstruse_platform.json
 bf099805ffd7a8d3043459d5fa421695f2890c97 assets/botania/models/item/agricarnation.json
 7e549abdb5ceeae46f78cea4c1e835855536fe85 assets/botania/models/item/agricarnation_chibi.json
@@ -390,6 +390,7 @@ c80abc9d00c1f0016af11e037f7c0da34e733da7 assets/botania/models/item/livingrock_b
 7aeb81ccbd8979ad397b93a29bc16887845b80e0 assets/botania/models/item/livingrock_bricks_stairs.json
 c02a105573e954575707fbe2452bae4d3156a0ba assets/botania/models/item/livingrock_bricks_wall.json
 49ea74b26867ce497a4af45c002cfa02e7be8e3e assets/botania/models/item/livingrock_slab.json
+5709512364ab62f7c850ebdff949224f11cb64fd assets/botania/models/item/livingrock_slate.json
 d00c9c6f316d26dc59464002ec955eec0f324e89 assets/botania/models/item/livingrock_stairs.json
 b5681239b7a157bc56db2ac725a805154f690bac assets/botania/models/item/livingrock_wall.json
 64a75f117265a8a9a2be99b0c9ab0ceb510b0d20 assets/botania/models/item/livingwood.json

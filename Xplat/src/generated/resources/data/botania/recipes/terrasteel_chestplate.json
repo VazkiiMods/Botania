@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:terrasteel_chestplate"
-  }
+  },
+  "show_notification": true
 }

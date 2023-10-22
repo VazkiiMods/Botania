@@ -10,10 +10,10 @@ package vazkii.botania.common.block.block_entity;
 
 import com.google.common.base.Predicates;
 import com.google.common.base.Suppliers;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ResourceLocationException;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -505,13 +505,13 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		}
 
 		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			if (enchanter.manaRequired > 0 && !enchanter.itemToEnchant.isEmpty()) {
 				int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
 				int y = mc.getWindow().getGuiScaledHeight() / 2 - 12;
 
-				RenderHelper.renderHUDBox(ms, x, y, x + 24, y + 24);
-				RenderHelper.renderProgressPie(ms, x + 4, y + 4, (float) enchanter.mana / (float) enchanter.manaRequired,
+				RenderHelper.renderHUDBox(gui, x, y, x + 24, y + 24);
+				RenderHelper.renderProgressPie(gui, x + 4, y + 4, (float) enchanter.mana / (float) enchanter.manaRequired,
 						enchanter.itemToEnchant);
 			}
 		}

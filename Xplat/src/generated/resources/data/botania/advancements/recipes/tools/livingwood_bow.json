@@ -43,5 +43,6 @@
     "recipes": [
       "botania:livingwood_bow"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:apothecary_fungal"
-  }
+  },
+  "show_notification": true
 }

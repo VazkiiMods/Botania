@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_rosa_arcana"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

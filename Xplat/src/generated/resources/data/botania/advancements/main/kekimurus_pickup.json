@@ -33,5 +33,6 @@
     [
       "kekimurus"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

@@ -1,4 +1,4 @@
-image: debian/bullseye
+image: debian/bookworm
 packages:
   - openjdk-17-jdk-headless
   - jq

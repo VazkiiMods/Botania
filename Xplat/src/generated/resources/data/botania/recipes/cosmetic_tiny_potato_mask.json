@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_tiny_potato_mask"
-  }
+  },
+  "show_notification": true
 }

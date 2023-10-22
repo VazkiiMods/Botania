@@ -28,5 +28,6 @@
     "recipes": [
       "botania:crystal_bow"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -154,9 +154,9 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 			altar.setFluid(PetalApothecary.State.EMPTY);
 			// Usage of vanilla sound events: Subtitle is "Bucket fills"
 			if (fluid == Fluids.WATER) {
-				player.getLevel().playSound(player, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1F, 1F);
+				player.level().playSound(player, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1F, 1F);
 			} else if (fluid == Fluids.LAVA) {
-				player.getLevel().playSound(player, pos, SoundEvents.BUCKET_FILL_LAVA, SoundSource.BLOCKS, 1F, 1F);
+				player.level().playSound(player, pos, SoundEvents.BUCKET_FILL_LAVA, SoundSource.BLOCKS, 1F, 1F);
 			}
 		}
 		return success;
@@ -173,19 +173,19 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 				&& ManaItemHandler.instance().requestManaExact(stack, player, SeasRodItem.COST, false)) {
 			ManaItemHandler.instance().requestManaExact(stack, player, SeasRodItem.COST, true);
 			altar.setFluid(State.WATER);
-			player.getLevel().playSound(player, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1F, 1F);
+			player.level().playSound(player, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		}
 
 		if (XplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.WATER)) {
 			altar.setFluid(State.WATER);
 			// Usage of vanilla sound event: Subtitle is "Bucket empties"
-			player.getLevel().playSound(player, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1F, 1F);
+			player.level().playSound(player, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		} else if (XplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.LAVA)) {
 			altar.setFluid(State.LAVA);
 			// Usage of vanilla sound event: Subtitle is "Bucket empties"
-			player.getLevel().playSound(player, pos, SoundEvents.BUCKET_EMPTY_LAVA, SoundSource.BLOCKS, 1F, 1F);
+			player.level().playSound(player, pos, SoundEvents.BUCKET_EMPTY_LAVA, SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		}
 		return false;

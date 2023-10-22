@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:red_quartz"
-  }
+  },
+  "show_notification": true
 }

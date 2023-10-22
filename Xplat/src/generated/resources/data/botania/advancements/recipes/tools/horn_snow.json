@@ -30,5 +30,6 @@
     "recipes": [
       "botania:horn_snow"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:apothecary_livingrock"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -41,5 +41,6 @@
     "recipes": [
       "botania:animated_torch"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

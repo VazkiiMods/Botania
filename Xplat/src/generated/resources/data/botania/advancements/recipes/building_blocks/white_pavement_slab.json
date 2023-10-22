@@ -30,5 +30,6 @@
     "recipes": [
       "botania:white_pavement_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

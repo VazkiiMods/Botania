@@ -20,8 +20,12 @@ and start a new "Upcoming" section.
 
 * Port to 1.19.4
 * Add: Manufactory Halo shows active status in its icon (Wormbo)
+* Add: Tuff now convertable by Marimorphosis
+* Change: Key of the King's Law no longer hurts items or most other nonliving entities
+* Change: The internal mana buffer of the Gourmaryllis is now large enough to benefit from streak bonus even with very nutritious food like Rabbit Stew or high quality modded foods (it still caps the food value at 12 points or 6 haunches)
+* Change: Removed desu gun and its associated advancement. The reference has overstayed its welcome.
+* Change: Drum of the Gathering now uses entity tags to determine mobs that can be milked (`botania:drum/milkable`, which now also includes goats by default) and which mobs NOT to shear even though that's technically possible (`botania:drum/no_shearing`, by default that only includes mooshrooms); it can also produce suspicious stew from brown mooshrooms, and no longer finds a way to somehow milk baby cows (Wormbo)
 * Fix: Ender Air emission not being mentioned in Pure Daisy entry (Wormbo)
-
 
 ---
 

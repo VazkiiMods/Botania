@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:lavender_quartz"
-  }
+  },
+  "show_notification": true
 }

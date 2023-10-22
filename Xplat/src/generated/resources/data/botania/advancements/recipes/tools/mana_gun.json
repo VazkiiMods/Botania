@@ -28,5 +28,6 @@
     "recipes": [
       "botania:mana_gun"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

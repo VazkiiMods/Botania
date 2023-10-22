@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_botanist_emblem"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

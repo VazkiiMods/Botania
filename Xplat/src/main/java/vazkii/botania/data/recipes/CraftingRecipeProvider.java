@@ -38,7 +38,6 @@ import org.apache.commons.lang3.mutable.MutableObject;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -119,9 +118,9 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.manaSpreader)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
-				.define('G', Items.GOLD_INGOT)
+				.define('C', Items.COPPER_INGOT)
 				.pattern("WWW")
-				.pattern("GP ")
+				.pattern("CP ")
 				.pattern("WWW")
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
@@ -167,7 +166,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.dilutedPool)
-				.define('R', BotaniaFluffBlocks.livingrockSlab)
+				.define('R', BotaniaBlocks.livingrockSlab)
 				.pattern("R R")
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
@@ -457,9 +456,9 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.incensePlate)
-				.define('S', BotaniaFluffBlocks.livingwoodSlab)
+				.define('S', BotaniaBlocks.livingwoodSlab)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
-				.pattern("WSS")
+				.pattern("SSW")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.hourglass)
@@ -557,7 +556,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.bellows)
 				.define('R', BotaniaItems.runeAir)
-				.define('S', BotaniaFluffBlocks.livingwoodSlab)
+				.define('S', BotaniaBlocks.livingwoodSlab)
 				.define('L', Items.LEATHER)
 				.pattern("SSS")
 				.pattern("RL ")
@@ -2083,45 +2082,45 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		deconstruct(consumer, BotaniaItems.terrasteelNugget, BotaniaTags.Items.INGOTS_TERRASTEEL, "terrasteel_to_nugget");
 		deconstruct(consumer, BotaniaItems.elementiumNugget, BotaniaTags.Items.INGOTS_ELEMENTIUM, "elementium_to_nuggets");
 
-		recombineSlab(consumer, BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockSlab);
-		recombineSlab(consumer, BotaniaBlocks.livingrockPolished, BotaniaFluffBlocks.livingrockPolishedSlab);
-		recombineSlab(consumer, BotaniaBlocks.livingrockBrick, BotaniaFluffBlocks.livingrockBrickSlab);
-		recombineSlab(consumer, BotaniaBlocks.livingwood, BotaniaFluffBlocks.livingwoodSlab);
-		recombineSlab(consumer, BotaniaBlocks.livingwoodPlanks, BotaniaFluffBlocks.livingwoodPlankSlab);
-		recombineSlab(consumer, BotaniaBlocks.dreamwood, BotaniaFluffBlocks.dreamwoodSlab);
-		recombineSlab(consumer, BotaniaBlocks.dreamwoodPlanks, BotaniaFluffBlocks.dreamwoodPlankSlab);
-		recombineSlab(consumer, BotaniaBlocks.shimmerrock, BotaniaFluffBlocks.shimmerrockSlab);
-		recombineSlab(consumer, BotaniaBlocks.shimmerwoodPlanks, BotaniaFluffBlocks.shimmerwoodPlankSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeStoneForest, BotaniaFluffBlocks.biomeStoneForestSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeBrickForest, BotaniaFluffBlocks.biomeBrickForestSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeCobblestoneForest, BotaniaFluffBlocks.biomeCobblestoneForestSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeStonePlains, BotaniaFluffBlocks.biomeStonePlainsSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeBrickPlains, BotaniaFluffBlocks.biomeBrickPlainsSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeCobblestonePlains, BotaniaFluffBlocks.biomeCobblestonePlainsSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeStoneMountain, BotaniaFluffBlocks.biomeStoneMountainSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeBrickMountain, BotaniaFluffBlocks.biomeBrickMountainSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeCobblestoneMountain, BotaniaFluffBlocks.biomeCobblestoneMountainSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeStoneFungal, BotaniaFluffBlocks.biomeStoneFungalSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeBrickFungal, BotaniaFluffBlocks.biomeBrickFungalSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeCobblestoneFungal, BotaniaFluffBlocks.biomeCobblestoneFungalSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeStoneSwamp, BotaniaFluffBlocks.biomeStoneSwampSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeBrickSwamp, BotaniaFluffBlocks.biomeBrickSwampSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeCobblestoneSwamp, BotaniaFluffBlocks.biomeCobblestoneSwampSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeStoneDesert, BotaniaFluffBlocks.biomeStoneDesertSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeBrickDesert, BotaniaFluffBlocks.biomeBrickDesertSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeCobblestoneDesert, BotaniaFluffBlocks.biomeCobblestoneDesertSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeStoneTaiga, BotaniaFluffBlocks.biomeStoneTaigaSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeBrickTaiga, BotaniaFluffBlocks.biomeBrickTaigaSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeCobblestoneTaiga, BotaniaFluffBlocks.biomeCobblestoneTaigaSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeStoneMesa, BotaniaFluffBlocks.biomeStoneMesaSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeBrickMesa, BotaniaFluffBlocks.biomeBrickMesaSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.biomeCobblestoneMesa, BotaniaFluffBlocks.biomeCobblestoneMesaSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.whitePavement, BotaniaFluffBlocks.whitePavementSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.blackPavement, BotaniaFluffBlocks.blackPavementSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.bluePavement, BotaniaFluffBlocks.bluePavementSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.yellowPavement, BotaniaFluffBlocks.yellowPavementSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.redPavement, BotaniaFluffBlocks.redPavementSlab);
-		recombineSlab(consumer, BotaniaFluffBlocks.greenPavement, BotaniaFluffBlocks.greenPavementSlab);
+		recombineSlab(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockSlab);
+		recombineSlab(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedSlab);
+		recombineSlab(consumer, BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickSlab);
+		recombineSlab(consumer, BotaniaBlocks.livingwood, BotaniaBlocks.livingwoodSlab);
+		recombineSlab(consumer, BotaniaBlocks.livingwoodPlanks, BotaniaBlocks.livingwoodPlankSlab);
+		recombineSlab(consumer, BotaniaBlocks.dreamwood, BotaniaBlocks.dreamwoodSlab);
+		recombineSlab(consumer, BotaniaBlocks.dreamwoodPlanks, BotaniaBlocks.dreamwoodPlankSlab);
+		recombineSlab(consumer, BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockSlab);
+		recombineSlab(consumer, BotaniaBlocks.shimmerwoodPlanks, BotaniaBlocks.shimmerwoodPlankSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeStoneForest, BotaniaBlocks.biomeStoneForestSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeBrickForest, BotaniaBlocks.biomeBrickForestSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneForest, BotaniaBlocks.biomeCobblestoneForestSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeStonePlains, BotaniaBlocks.biomeStonePlainsSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeBrickPlains, BotaniaBlocks.biomeBrickPlainsSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeCobblestonePlains, BotaniaBlocks.biomeCobblestonePlainsSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeStoneMountain, BotaniaBlocks.biomeStoneMountainSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeBrickMountain, BotaniaBlocks.biomeBrickMountainSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneMountain, BotaniaBlocks.biomeCobblestoneMountainSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeStoneFungal, BotaniaBlocks.biomeStoneFungalSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeBrickFungal, BotaniaBlocks.biomeBrickFungalSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeCobblestoneFungalSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeStoneSwamp, BotaniaBlocks.biomeStoneSwampSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeBrickSwamp, BotaniaBlocks.biomeBrickSwampSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneSwamp, BotaniaBlocks.biomeCobblestoneSwampSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeStoneDesert, BotaniaBlocks.biomeStoneDesertSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeBrickDesert, BotaniaBlocks.biomeBrickDesertSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneDesert, BotaniaBlocks.biomeCobblestoneDesertSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeStoneTaiga, BotaniaBlocks.biomeStoneTaigaSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeBrickTaiga, BotaniaBlocks.biomeBrickTaigaSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneTaiga, BotaniaBlocks.biomeCobblestoneTaigaSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeStoneMesa, BotaniaBlocks.biomeStoneMesaSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeBrickMesa, BotaniaBlocks.biomeBrickMesaSlab);
+		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneMesa, BotaniaBlocks.biomeCobblestoneMesaSlab);
+		recombineSlab(consumer, BotaniaBlocks.whitePavement, BotaniaBlocks.whitePavementSlab);
+		recombineSlab(consumer, BotaniaBlocks.blackPavement, BotaniaBlocks.blackPavementSlab);
+		recombineSlab(consumer, BotaniaBlocks.bluePavement, BotaniaBlocks.bluePavementSlab);
+		recombineSlab(consumer, BotaniaBlocks.yellowPavement, BotaniaBlocks.yellowPavementSlab);
+		recombineSlab(consumer, BotaniaBlocks.redPavement, BotaniaBlocks.redPavementSlab);
+		recombineSlab(consumer, BotaniaBlocks.greenPavement, BotaniaBlocks.greenPavementSlab);
 	}
 
 	private void registerDecor(Consumer<FinishedRecipe> consumer) {
@@ -2177,26 +2176,26 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		registerForWood(consumer, LibBlockNames.LIVING_WOOD);
 		registerForWood(consumer, LibBlockNames.DREAM_WOOD);
 
-		stairs(BotaniaFluffBlocks.livingrockStairs, BotaniaBlocks.livingrock).save(consumer);
-		slabShape(BotaniaFluffBlocks.livingrockSlab, BotaniaBlocks.livingrock).save(consumer);
-		wallShape(BotaniaFluffBlocks.livingrockWall, BotaniaBlocks.livingrock, 6).save(consumer);
+		stairs(BotaniaBlocks.livingrockStairs, BotaniaBlocks.livingrock).save(consumer);
+		slabShape(BotaniaBlocks.livingrockSlab, BotaniaBlocks.livingrock).save(consumer);
+		wallShape(BotaniaBlocks.livingrockWall, BotaniaBlocks.livingrock, 6).save(consumer);
 
-		stairs(BotaniaFluffBlocks.livingrockPolishedStairs, BotaniaBlocks.livingrockPolished).save(consumer);
-		slabShape(BotaniaFluffBlocks.livingrockPolishedSlab, BotaniaBlocks.livingrockPolished).save(consumer);
-		wallShape(BotaniaFluffBlocks.livingrockPolishedWall, BotaniaBlocks.livingrockPolished, 6).save(consumer);
+		stairs(BotaniaBlocks.livingrockPolishedStairs, BotaniaBlocks.livingrockPolished).save(consumer);
+		slabShape(BotaniaBlocks.livingrockPolishedSlab, BotaniaBlocks.livingrockPolished).save(consumer);
+		wallShape(BotaniaBlocks.livingrockPolishedWall, BotaniaBlocks.livingrockPolished, 6).save(consumer);
 
-		stairs(BotaniaFluffBlocks.livingrockBrickStairs, BotaniaBlocks.livingrockBrick).save(consumer);
-		slabShape(BotaniaFluffBlocks.livingrockBrickSlab, BotaniaBlocks.livingrockBrick).save(consumer);
-		wallShape(BotaniaFluffBlocks.livingrockBrickWall, BotaniaBlocks.livingrockBrick, 6).save(consumer);
+		stairs(BotaniaBlocks.livingrockBrickStairs, BotaniaBlocks.livingrockBrick).save(consumer);
+		slabShape(BotaniaBlocks.livingrockBrickSlab, BotaniaBlocks.livingrockBrick).save(consumer);
+		wallShape(BotaniaBlocks.livingrockBrickWall, BotaniaBlocks.livingrockBrick, 6).save(consumer);
 
-		stairs(BotaniaFluffBlocks.livingrockBrickMossyStairs, BotaniaBlocks.livingrockBrickMossy).save(consumer);
-		slabShape(BotaniaFluffBlocks.livingrockBrickMossySlab, BotaniaBlocks.livingrockBrickMossy).save(consumer);
-		wallShape(BotaniaFluffBlocks.livingrockBrickMossyWall, BotaniaBlocks.livingrockBrickMossy, 6).save(consumer);
+		stairs(BotaniaBlocks.livingrockBrickMossyStairs, BotaniaBlocks.livingrockBrickMossy).save(consumer);
+		slabShape(BotaniaBlocks.livingrockBrickMossySlab, BotaniaBlocks.livingrockBrickMossy).save(consumer);
+		wallShape(BotaniaBlocks.livingrockBrickMossyWall, BotaniaBlocks.livingrockBrickMossy, 6).save(consumer);
 
-		stairs(BotaniaFluffBlocks.shimmerrockStairs, BotaniaBlocks.shimmerrock).save(consumer);
-		slabShape(BotaniaFluffBlocks.shimmerrockSlab, BotaniaBlocks.shimmerrock).save(consumer);
-		stairs(BotaniaFluffBlocks.shimmerwoodPlankStairs, BotaniaBlocks.shimmerwoodPlanks).save(consumer);
-		slabShape(BotaniaFluffBlocks.shimmerwoodPlankSlab, BotaniaBlocks.shimmerwoodPlanks).save(consumer);
+		stairs(BotaniaBlocks.shimmerrockStairs, BotaniaBlocks.shimmerrock).save(consumer);
+		slabShape(BotaniaBlocks.shimmerrockSlab, BotaniaBlocks.shimmerrock).save(consumer);
+		stairs(BotaniaBlocks.shimmerwoodPlankStairs, BotaniaBlocks.shimmerwoodPlanks).save(consumer);
+		slabShape(BotaniaBlocks.shimmerwoodPlankSlab, BotaniaBlocks.shimmerwoodPlanks).save(consumer);
 
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			registerForMetamorphic(consumer, variant);
@@ -2207,9 +2206,9 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 			registerForPavement(consumer, LibBlockNames.PAVEMENT_VARIANTS[i], pavementIngredients[i]);
 		}
 
-		wallShape(BotaniaFluffBlocks.managlassPane, BotaniaBlocks.manaGlass, 16).save(consumer);
-		wallShape(BotaniaFluffBlocks.alfglassPane, BotaniaBlocks.elfGlass, 16).save(consumer);
-		wallShape(BotaniaFluffBlocks.bifrostPane, BotaniaBlocks.bifrostPerm, 16).save(consumer);
+		wallShape(BotaniaBlocks.managlassPane, BotaniaBlocks.manaGlass, 16).save(consumer);
+		wallShape(BotaniaBlocks.alfglassPane, BotaniaBlocks.elfGlass, 16).save(consumer);
+		wallShape(BotaniaBlocks.bifrostPane, BotaniaBlocks.bifrostPerm, 16).save(consumer);
 
 		// azulejo0 recipe in loader-specific datagen
 
@@ -2322,8 +2321,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.define('S', item)
 				.define('T', stick)
 				.pattern("SS")
-				.pattern("TS")
-				.pattern("T ")
+				.pattern("ST")
+				.pattern(" T")
 				.unlockedBy("has_item", criterion)
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hoe)
@@ -2344,8 +2343,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shears)
 				.define('S', item)
-				.pattern("S ")
 				.pattern(" S")
+				.pattern("S ")
 				.unlockedBy("has_item", criterion)
 				.save(consumer);
 
@@ -2643,8 +2642,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 4)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('Q', input)
-				.pattern("  Q")
-				.pattern(" QQ")
+				.pattern("Q  ")
+				.pattern("QQ ")
 				.pattern("QQQ");
 	}
 
@@ -2689,7 +2688,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	protected ShapedRecipeBuilder fenceGate(ItemLike output, ItemLike input) {
-		return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, output, 3)
+		return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, output, 1)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('B', input)
 				.define('S', Items.STICK)

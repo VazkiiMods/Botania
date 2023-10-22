@@ -28,5 +28,6 @@
     "recipes": [
       "botania:elementium_hoe"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -98,8 +98,6 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 			return false;
 		}
 
-		// TODO 1.20 this used to be additionally restricted with a list of materials,
-		//  not sure how to port this check. tags? not necessary at all?
 		return block instanceof BonemealableBlock mealable
 				&& mealable.isValidBonemealTarget(getLevel(), pos, state, getLevel().isClientSide);
 	}

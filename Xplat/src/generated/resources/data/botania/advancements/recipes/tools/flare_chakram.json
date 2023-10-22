@@ -30,5 +30,6 @@
     "recipes": [
       "botania:flare_chakram"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

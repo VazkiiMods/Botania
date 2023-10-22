@@ -13,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "botania:green_pavement_slab"
-  }
+  },
+  "show_notification": true
 }

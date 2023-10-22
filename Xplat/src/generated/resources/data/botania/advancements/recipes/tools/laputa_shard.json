@@ -30,5 +30,6 @@
     "recipes": [
       "botania:laputa_shard"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

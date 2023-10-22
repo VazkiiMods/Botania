@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:slime_bottle"
-  }
+  },
+  "show_notification": true
 }

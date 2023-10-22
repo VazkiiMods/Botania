@@ -27,6 +27,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.mixin.ExperienceOrbAccessor;
 
 import java.util.List;
 import java.util.Map;
@@ -58,7 +59,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 			// possibly equal to zero even when the level is > 0.
 			// Instead, check the level and intra-level progress separately.
 			if ((player.experienceLevel > 0 || player.experienceProgress > 0)
-					&& player.isOnGround()) {
+					&& player.onGround()) {
 				player.giveExperiencePoints(-1);
 				addMana(MANA_PER_XP);
 				sync();
@@ -68,9 +69,13 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 
 		List<ExperienceOrb> orbs = getLevel().getEntitiesOfClass(ExperienceOrb.class, effectBounds);
 		for (ExperienceOrb orb : orbs) {
-			if (orb.isAlive()) {
+			int count = ((ExperienceOrbAccessor) orb).botania_getCount();
+			if (orb.isAlive() && count > 0) {
 				addMana(orb.getValue() * MANA_PER_XP);
-				orb.discard();
+				((ExperienceOrbAccessor) orb).botania_setCount(count - 1);
+				if (count == 1) {
+					orb.discard();
+				}
 				float pitch = (level.random.nextFloat() - level.random.nextFloat()) * 0.35F + 0.9F;
 				//Usage of vanilla sound event: Subtitle is "Experience gained", and this is about gaining experience anyways.
 				level.playSound(null, getEffectivePos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.07F, pitch);

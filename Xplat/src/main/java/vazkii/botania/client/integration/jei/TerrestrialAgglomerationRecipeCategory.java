@@ -9,7 +9,6 @@
 package vazkii.botania.client.integration.jei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -21,6 +20,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -86,11 +86,11 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 	}
 
 	@Override
-	public void draw(@NotNull TerrestrialAgglomerationRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull TerrestrialAgglomerationRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
-		overlay.draw(ms, 25, 14);
-		HUDHandler.renderManaBar(ms, 6, 126, 0x0000FF, 0.75F, recipe.getMana(), 100000);
-		terraPlate.draw(ms, 35, 92);
+		overlay.draw(gui, 25, 14);
+		HUDHandler.renderManaBar(gui, 6, 126, 0x0000FF, 0.75F, recipe.getMana(), 100000);
+		terraPlate.draw(gui, 35, 92);
 		RenderSystem.disableBlend();
 	}
 

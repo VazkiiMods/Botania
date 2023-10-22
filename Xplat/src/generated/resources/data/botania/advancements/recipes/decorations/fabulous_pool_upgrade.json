@@ -43,5 +43,6 @@
     "recipes": [
       "botania:fabulous_pool_upgrade"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

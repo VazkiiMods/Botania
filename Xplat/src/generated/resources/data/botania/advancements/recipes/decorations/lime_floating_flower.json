@@ -30,5 +30,6 @@
     "recipes": [
       "botania:lime_floating_flower"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

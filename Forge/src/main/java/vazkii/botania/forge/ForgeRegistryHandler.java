@@ -15,7 +15,7 @@ public class ForgeRegistryHandler {
 	@SubscribeEvent
 	public static void registerRegistry(NewRegistryEvent evt) {
 		evt.create(new RegistryBuilder<>().setName(BotaniaRegistries.BREWS.location())
-				.setDefaultKey(prefix("fallback"))
+				.setDefaultKey(prefix("fallback")).hasTags()
 				.disableSaving().disableSync());
 	}
 }

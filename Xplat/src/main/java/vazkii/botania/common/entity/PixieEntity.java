@@ -118,29 +118,29 @@ public class PixieEntity extends FlyingMob {
 	public void baseTick() {
 		super.baseTick();
 
-		if (!getLevel().isClientSide
+		if (!level().isClientSide
 				&& (getTarget() == null || tickCount > 200)) {
 			discard();
 		}
 
 		boolean dark = getPixieType() == 1;
-		if (getLevel().isClientSide) {
+		if (level().isClientSide) {
 			for (int i = 0; i < 4; i++) {
 				float r = dark ? 0.1F : 1F;
 				float g = dark ? 0.025F : 0.25F;
 				float b = dark ? 0.09F : 0.9F;
 				SparkleParticleData data = SparkleParticleData.sparkle(0.1F + (float) Math.random() * 0.25F, r, g, b, 12);
-				getLevel().addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
+				level().addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
 			}
 		}
 	}
 
 	@Override
 	public void remove(RemovalReason reason) {
-		if (getLevel() != null && getLevel().isClientSide && getPixieType() == 0) {
+		if (level() != null && level().isClientSide && getPixieType() == 0) {
 			for (int i = 0; i < 12; i++) {
 				SparkleParticleData data = SparkleParticleData.sparkle(1F + (float) Math.random() * 0.25F, 1F, 0.25F, 0.9F, 5);
-				getLevel().addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
+				level().addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
 			}
 		}
 		super.remove(reason);

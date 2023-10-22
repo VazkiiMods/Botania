@@ -28,5 +28,6 @@
     "recipes": [
       "botania:apothecary_deepslate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

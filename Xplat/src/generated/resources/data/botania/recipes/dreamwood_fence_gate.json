@@ -14,7 +14,7 @@
     "SBS"
   ],
   "result": {
-    "count": 3,
     "item": "botania:dreamwood_fence_gate"
-  }
+  },
+  "show_notification": true
 }

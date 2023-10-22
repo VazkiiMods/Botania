@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_black_tie"
-  }
+  },
+  "show_notification": true
 }

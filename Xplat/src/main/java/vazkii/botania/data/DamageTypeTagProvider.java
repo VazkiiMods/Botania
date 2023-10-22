@@ -41,5 +41,7 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 		this.tag(DamageTypeTags.NO_IMPACT).add(BotaniaDamageTypes.RELIC_DAMAGE);
 		this.tag(DamageTypeTags.BYPASSES_EFFECTS).add(BotaniaDamageTypes.RELIC_DAMAGE);
 		this.tag(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(BotaniaDamageTypes.RELIC_DAMAGE);
+
+		this.tag(DamageTypeTags.IS_EXPLOSION).add(BotaniaDamageTypes.KEY_EXPLOSION);
 	}
 }

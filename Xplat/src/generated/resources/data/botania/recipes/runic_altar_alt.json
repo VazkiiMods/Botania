@@ -15,5 +15,6 @@
   ],
   "result": {
     "item": "botania:runic_altar"
-  }
+  },
+  "show_notification": true
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_thinking_hand"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

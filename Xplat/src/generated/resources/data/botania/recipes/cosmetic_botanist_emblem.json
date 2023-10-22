@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_botanist_emblem"
-  }
+  },
+  "show_notification": true
 }

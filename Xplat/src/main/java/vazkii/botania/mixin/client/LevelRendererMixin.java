@@ -154,7 +154,7 @@ public class LevelRendererMixin {
 			shift = At.Shift.AFTER,
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/systems/RenderSystem;applyModelViewMatrix()V",
-			ordinal = 1 // after debugRenderer, before a long sequence of endBatch calls
+			ordinal = 0 // after debugRenderer, before a long sequence of endBatch calls
 		)
 	)
 	private void renderOverlays(PoseStack ps, float partialTicks, long unknown, boolean drawBlockOutline,

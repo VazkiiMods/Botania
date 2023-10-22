@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_forest_stone_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

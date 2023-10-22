@@ -30,5 +30,6 @@
     "recipes": [
       "botania:drum_canopy"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

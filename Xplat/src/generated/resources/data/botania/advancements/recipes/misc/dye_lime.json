@@ -30,5 +30,6 @@
     "recipes": [
       "botania:dye_lime"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

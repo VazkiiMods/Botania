@@ -52,8 +52,7 @@ public class VanillaCorporeaNode extends AbstractCorporeaNode {
 					request.trackSatisfied(rem);
 
 					if (doit) {
-						ItemStack copy = stackAt.copy();
-						copy.setCount(rem);
+						ItemStack copy = stackAt.copyWithCount(rem);
 						if (getSpark().isCreative()) {
 							builder.add(copy);
 						} else {
@@ -63,8 +62,7 @@ public class VanillaCorporeaNode extends AbstractCorporeaNode {
 						getSpark().onItemExtracted(copy);
 						request.trackExtracted(rem);
 					} else {
-						ItemStack copy = stackAt.copy();
-						copy.setCount(rem);
+						ItemStack copy = stackAt.copyWithCount(rem);
 						builder.add(copy);
 					}
 				}

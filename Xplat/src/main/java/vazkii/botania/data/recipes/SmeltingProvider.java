@@ -17,7 +17,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFluffBlocks;
 
 import java.util.function.Consumer;
 
@@ -32,37 +31,37 @@ public class SmeltingProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaFluffBlocks.biomeCobblestoneForest),
-				RecipeCategory.BUILDING_BLOCKS, BotaniaFluffBlocks.biomeStoneForest, 0.1f, 200)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaFluffBlocks.biomeCobblestoneForest))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.biomeCobblestoneForest),
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.biomeStoneForest, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.biomeCobblestoneForest))
 				.save(consumer, "botania:smelting/metamorphic_forest_stone");
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaFluffBlocks.biomeCobblestonePlains),
-				RecipeCategory.BUILDING_BLOCKS, BotaniaFluffBlocks.biomeStonePlains, 0.1f, 200)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaFluffBlocks.biomeCobblestonePlains))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.biomeCobblestonePlains),
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.biomeStonePlains, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.biomeCobblestonePlains))
 				.save(consumer, "botania:smelting/metamorphic_plains_stone");
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaFluffBlocks.biomeCobblestoneMountain),
-				RecipeCategory.BUILDING_BLOCKS, BotaniaFluffBlocks.biomeStoneMountain, 0.1f, 200)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaFluffBlocks.biomeCobblestoneMountain))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.biomeCobblestoneMountain),
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.biomeStoneMountain, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.biomeCobblestoneMountain))
 				.save(consumer, "botania:smelting/metamorphic_mountain_stone");
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaFluffBlocks.biomeCobblestoneFungal),
-				RecipeCategory.BUILDING_BLOCKS, BotaniaFluffBlocks.biomeStoneFungal, 0.1f, 200)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaFluffBlocks.biomeCobblestoneFungal))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.biomeCobblestoneFungal),
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.biomeStoneFungal, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.biomeCobblestoneFungal))
 				.save(consumer, "botania:smelting/metamorphic_fungal_stone");
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaFluffBlocks.biomeCobblestoneSwamp),
-				RecipeCategory.BUILDING_BLOCKS, BotaniaFluffBlocks.biomeStoneSwamp, 0.1f, 200)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaFluffBlocks.biomeCobblestoneSwamp))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.biomeCobblestoneSwamp),
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.biomeStoneSwamp, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.biomeCobblestoneSwamp))
 				.save(consumer, "botania:smelting/metamorphic_swamp_stone");
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaFluffBlocks.biomeCobblestoneDesert),
-				RecipeCategory.BUILDING_BLOCKS, BotaniaFluffBlocks.biomeStoneDesert, 0.1f, 200)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaFluffBlocks.biomeCobblestoneDesert))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.biomeCobblestoneDesert),
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.biomeStoneDesert, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.biomeCobblestoneDesert))
 				.save(consumer, "botania:smelting/metamorphic_desert_stone");
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaFluffBlocks.biomeCobblestoneTaiga),
-				RecipeCategory.BUILDING_BLOCKS, BotaniaFluffBlocks.biomeStoneTaiga, 0.1f, 200)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaFluffBlocks.biomeCobblestoneTaiga))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.biomeCobblestoneTaiga),
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.biomeStoneTaiga, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.biomeCobblestoneTaiga))
 				.save(consumer, "botania:smelting/metamorphic_taiga_stone");
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaFluffBlocks.biomeCobblestoneMesa),
-				RecipeCategory.BUILDING_BLOCKS, BotaniaFluffBlocks.biomeStoneMesa, 0.1f, 200)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaFluffBlocks.biomeCobblestoneMesa))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.biomeCobblestoneMesa),
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.biomeStoneMesa, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.biomeCobblestoneMesa))
 				.save(consumer, "botania:smelting/metamorphic_mesa_stone");
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.livingrockBrick),
 				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockBrickCracked, 0.1f, 200)

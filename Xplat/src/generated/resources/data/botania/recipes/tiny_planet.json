@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:tiny_planet"
-  }
+  },
+  "show_notification": true
 }

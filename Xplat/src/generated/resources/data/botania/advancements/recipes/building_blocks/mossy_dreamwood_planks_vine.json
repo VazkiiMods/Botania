@@ -30,5 +30,6 @@
     "recipes": [
       "botania:mossy_dreamwood_planks_vine"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

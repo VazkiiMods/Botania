@@ -30,5 +30,6 @@
     "recipes": [
       "botania:smelting/metamorphic_swamp_stone"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

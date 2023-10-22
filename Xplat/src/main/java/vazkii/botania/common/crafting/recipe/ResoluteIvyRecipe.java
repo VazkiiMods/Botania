@@ -65,9 +65,8 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 			}
 		}
 
-		ItemStack copy = item.copy();
+		ItemStack copy = item.copyWithCount(1);
 		ItemNBTHelper.setBoolean(copy, ResoluteIvyItem.TAG_KEEP, true);
-		copy.setCount(1);
 		return copy;
 	}
 

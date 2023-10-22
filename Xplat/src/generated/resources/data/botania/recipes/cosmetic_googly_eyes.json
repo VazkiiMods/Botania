@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_googly_eyes"
-  }
+  },
+  "show_notification": true
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_jaded_amaranthus"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

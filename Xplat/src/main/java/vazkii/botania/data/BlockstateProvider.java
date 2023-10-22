@@ -55,7 +55,6 @@ import java.util.stream.Stream;
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
 import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
 import static vazkii.botania.common.block.BotaniaBlocks.*;
-import static vazkii.botania.common.block.BotaniaFluffBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockstateProvider implements DataProvider {
@@ -350,6 +349,10 @@ public class BlockstateProvider implements DataProvider {
 				this.modelOutput
 		);
 		slabBlock(remainingBlocks, livingrockPolishedSlab, polishedLivingrockSlabDoubleModel, polishedLivingrockSlabSideTexture, polishedLivingrockTexture, polishedLivingrockTexture);
+
+		var conjurationTexture = getBlockTexture(conjurationCatalyst);
+		var conjurationMirrored = getBlockTexture(conjurationCatalyst, "_mirrored");
+		checkeredBlockWithBlockstate(remainingBlocks, conjurationCatalyst, conjurationTexture, conjurationMirrored);
 
 		// block entities with only particles
 		particleOnly(remainingBlocks, animatedTorch, getBlockTexture(Blocks.REDSTONE_TORCH));
@@ -1091,7 +1094,7 @@ public class BlockstateProvider implements DataProvider {
 		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 
-		var blockModel = checkeredTemplate.apply("cube_checkered", Optional.empty()).create(biomeBrickMesa, checkeredMapping, this.modelOutput);
+		var blockModel = checkeredTemplate.apply("cube_checkered", Optional.empty()).create(block, checkeredMapping, this.modelOutput);
 		cubeAllWithModels(blocks, block, new ResourceLocation[] { blockModel }, new Integer[] { 1 });
 		return blockModel;
 	}

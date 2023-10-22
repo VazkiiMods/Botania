@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:blaze_quartz"
-  }
+  },
+  "show_notification": true
 }

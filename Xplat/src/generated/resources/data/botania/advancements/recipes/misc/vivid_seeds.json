@@ -30,5 +30,6 @@
     "recipes": [
       "botania:vivid_seeds"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

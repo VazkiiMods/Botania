@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "botania:manasteel_leggings"
-  }
+  },
+  "show_notification": true
 }

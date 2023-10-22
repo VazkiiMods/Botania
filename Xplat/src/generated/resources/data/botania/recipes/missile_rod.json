@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:missile_rod"
-  }
+  },
+  "show_notification": true
 }

@@ -33,5 +33,6 @@
     [
       "bomb"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

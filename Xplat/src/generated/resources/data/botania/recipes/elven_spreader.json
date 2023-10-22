@@ -20,5 +20,6 @@
   ],
   "result": {
     "item": "botania:elven_spreader"
-  }
+  },
+  "show_notification": true
 }

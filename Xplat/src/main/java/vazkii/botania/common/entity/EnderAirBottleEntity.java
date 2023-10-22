@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -64,12 +64,12 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 
 	private void convertBlock(@NotNull BlockPos pos) {
 		List<BlockPos> coordsList = getCoordsToPut(pos);
-		this.getLevel().levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
+		this.level().levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
 
 		for (BlockPos coords : coordsList) {
-			this.getLevel().setBlockAndUpdate(coords, Blocks.END_STONE.defaultBlockState());
+			this.level().setBlockAndUpdate(coords, Blocks.END_STONE.defaultBlockState());
 			if (Math.random() < 0.1) {
-				this.getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(Blocks.END_STONE.defaultBlockState()));
+				this.level().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(Blocks.END_STONE.defaultBlockState()));
 			}
 		}
 	}
@@ -77,7 +77,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult result) {
 		super.onHitBlock(result);
-		if (getLevel().isClientSide) {
+		if (level().isClientSide) {
 			return;
 		}
 		convertBlock(result.getBlockPos());
@@ -87,12 +87,12 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	@Override
 	protected void onHitEntity(@NotNull EntityHitResult result) {
 		super.onHitEntity(result);
-		if (this.getLevel().isClientSide) {
+		if (this.level().isClientSide) {
 			return;
 		}
 		Entity entity = result.getEntity();
-		if (entity.getType() == EntityType.GHAST && this.getLevel().dimension() == Level.OVERWORLD) {
-			this.getLevel().levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
+		if (entity.getType() == EntityType.GHAST && this.level().dimension() == Level.OVERWORLD) {
+			this.level().levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
 			DamageSource source = entity.damageSources().thrown(this, getOwner());
 			entity.hurt(source, 0);
 
@@ -102,18 +102,18 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 			Vec3 vec = new Vec3(lookVec.x(), 0, lookVec.z()).normalize();
 
 			// Position chosen to appear roughly in the ghast's face
-			((ServerLevel) this.getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.GHAST_TEAR)),
+			((ServerLevel) this.level()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.GHAST_TEAR)),
 					entity.getX() + (2.3 * vec.x), entity.getY() + vec.y + 2.6, entity.getZ() + (2.3 * vec.z),
 					40,
 					Math.abs(vec.z) + 0.15, 0.2, Math.abs(vec.x) + 0.15, 0.2);
 
-			LootTable table = this.getLevel().getServer().getLootTables().get(GHAST_LOOT_TABLE);
-			LootContext.Builder builder = new LootContext.Builder(((ServerLevel) getLevel()));
+			LootTable table = this.level().getServer().getLootData().getLootTable(GHAST_LOOT_TABLE);
+			LootParams.Builder builder = new LootParams.Builder(((ServerLevel) level()));
 			builder.withParameter(LootContextParams.THIS_ENTITY, entity);
 			builder.withParameter(LootContextParams.ORIGIN, entity.position());
 			builder.withParameter(LootContextParams.DAMAGE_SOURCE, source);
 
-			LootContext context = builder.create(LootContextParamSets.ENTITY);
+			LootParams context = builder.create(LootContextParamSets.ENTITY);
 			for (ItemStack stack : table.getRandomItems(context)) {
 				ItemEntity item = entity.spawnAtLocation(stack, 2);
 				item.setDeltaMovement(item.getDeltaMovement().add(vec.scale(0.4)));
@@ -131,7 +131,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 
 		for (BlockPos bPos : BlockPos.betweenClosed(pos.offset(-range, -rangeY, -range),
 				pos.offset(range, rangeY, range))) {
-			BlockState state = getLevel().getBlockState(bPos);
+			BlockState state = level().getBlockState(bPos);
 			if (state.is(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE)) {
 				possibleCoords.add(bPos.immutable());
 			}

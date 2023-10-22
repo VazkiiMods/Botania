@@ -33,5 +33,6 @@
     [
       "heisei_dream"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

@@ -97,7 +97,7 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 	@Override
 	public void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
 		if (shouldBreak(player) && !tickingSwappers) {
-			addBlockSwapper(player.getLevel(), player, stack, pos);
+			addBlockSwapper(player.level(), player, stack, pos);
 		}
 	}
 

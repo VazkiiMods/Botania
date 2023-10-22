@@ -130,7 +130,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	@SoftImplement("IForgeItem")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
-		if (!player.getLevel().isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
+		if (!player.level().isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
 			Direction face = raycast.getDirection();
 			breakOtherBlock(player, stack, pos, pos, face);
 			if (player.isSecondaryUseActive()) {
@@ -152,7 +152,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 			return;
 		}
 
-		Level world = player.getLevel();
+		Level world = player.level();
 		Predicate<BlockState> canMine = state -> {
 			boolean rightToolForDrops = !state.requiresCorrectToolForDrops() || stack.isCorrectToolForDrops(state);
 			boolean rightToolForSpeed = stack.getDestroySpeed(state) > 1

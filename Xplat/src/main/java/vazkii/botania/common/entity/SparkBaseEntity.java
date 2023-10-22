@@ -9,7 +9,6 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -23,11 +22,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.item.SparkEntity;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 	private static final String TAG_INVIS = "invis";
@@ -49,12 +44,6 @@ public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 		int y = Mth.floor(getY() - 1);
 		int z = Mth.floor(getZ());
 		return new BlockPos(x, y, z);
-	}
-
-	@Nullable
-	@Override
-	public ManaReceiver getAttachedManaReceiver() {
-		return XplatAbstractions.INSTANCE.findManaReceiver(getLevel(), getAttachPos(), Direction.UP);
 	}
 
 	@Override

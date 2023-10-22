@@ -69,7 +69,7 @@ public class RelicImpl implements Relic {
 				RelicBindTrigger.INSTANCE.trigger(serverPlayer, stack);
 			}
 		} else if (!isRightPlayer(player) && player.tickCount % 10 == 0 && shouldDamageWrongPlayer()) {
-			player.hurt(damageSource(player.getLevel().registryAccess()), 2);
+			player.hurt(damageSource(player.level().registryAccess()), 2);
 		}
 	}
 

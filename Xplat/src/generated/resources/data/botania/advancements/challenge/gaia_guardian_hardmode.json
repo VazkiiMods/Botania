@@ -36,5 +36,6 @@
     [
       "guardian"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

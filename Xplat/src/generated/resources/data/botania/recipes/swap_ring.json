@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:swap_ring"
-  }
+  },
+  "show_notification": true
 }

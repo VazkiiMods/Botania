@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:manaweave_boots"
-  }
+  },
+  "show_notification": true
 }

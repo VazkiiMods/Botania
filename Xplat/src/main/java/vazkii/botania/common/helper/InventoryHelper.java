@@ -162,7 +162,7 @@ public class InventoryHelper {
 
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				ItemStack pstack = player.getInventory().getItem(i);
-				if (player.isCreative() || (!pstack.isEmpty() && pstack.sameItem(stack) && ItemStack.tagMatches(stack, pstack))) {
+				if (player.isCreative() || (!pstack.isEmpty() && ItemStack.isSameItemSameTags(stack, pstack))) {
 					inv.setItem(index, player.isCreative() ? stack.copy() : pstack.split(1));
 					didAny = true;
 					index++;
@@ -173,7 +173,7 @@ public class InventoryHelper {
 
 		if (didAny) {
 			if (sound != null) {
-				player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.BLOCKS, 0.1F, 10F);
+				player.level().playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.BLOCKS, 0.1F, 10F);
 			}
 			ServerPlayer mp = (ServerPlayer) player;
 			mp.inventoryMenu.broadcastChanges();

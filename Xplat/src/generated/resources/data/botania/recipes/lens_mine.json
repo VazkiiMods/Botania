@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:lens_mine"
-  }
+  },
+  "show_notification": true
 }

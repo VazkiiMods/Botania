@@ -49,8 +49,7 @@ public class SplitLensRecipe extends CustomRecipe {
 			}
 		}
 		if (!found.isEmpty()) {
-			found = found.copy();
-			found.setCount(1);
+			found = found.copyWithCount(1);
 		}
 		return found;
 	}
@@ -70,8 +69,7 @@ public class SplitLensRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack candidate = inv.getItem(i);
 			if (candidate.getItem() instanceof BasicLensItem basicLensItem) {
-				ItemStack newLens = candidate.copy();
-				newLens.setCount(1);
+				ItemStack newLens = candidate.copyWithCount(1);
 				basicLensItem.setCompositeLens(newLens, ItemStack.EMPTY);
 				remaining.set(i, newLens);
 			}

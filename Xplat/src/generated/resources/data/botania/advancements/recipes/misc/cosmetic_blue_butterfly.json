@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_blue_butterfly"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

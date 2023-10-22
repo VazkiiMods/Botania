@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:polished_livingrock"
-  }
+  },
+  "show_notification": true
 }

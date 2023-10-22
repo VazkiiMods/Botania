@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:manasteel_sword"
-  }
+  },
+  "show_notification": true
 }

@@ -43,5 +43,6 @@
     "recipes": [
       "botania:chiseled_mana_quartz"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -37,8 +37,8 @@ public class FabricRecipeProvider extends BotaniaRecipeProvider {
 				.define('G', Items.GOLD_INGOT)
 				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
 				.pattern(" M ")
-				.pattern("MCG")
-				.pattern(" M ")
+				.pattern("MCM")
+				.pattern(" G ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
 				.save(consumer);
 

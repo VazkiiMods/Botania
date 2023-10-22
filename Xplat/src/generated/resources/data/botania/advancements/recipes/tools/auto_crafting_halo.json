@@ -28,5 +28,6 @@
     "recipes": [
       "botania:auto_crafting_halo"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "botania:ender_dagger"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

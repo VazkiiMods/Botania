@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_devil_horns"
-  }
+  },
+  "show_notification": true
 }

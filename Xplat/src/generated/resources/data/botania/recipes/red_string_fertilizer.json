@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:red_string_fertilizer"
-  }
+  },
+  "show_notification": true
 }

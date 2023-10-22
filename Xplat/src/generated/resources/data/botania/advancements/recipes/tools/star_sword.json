@@ -41,5 +41,6 @@
     "recipes": [
       "botania:star_sword"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

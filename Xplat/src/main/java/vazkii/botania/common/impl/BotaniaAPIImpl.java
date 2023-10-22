@@ -51,21 +51,49 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	private static final Supplier<Rarity> RELIC_RARITY = Suppliers.memoize(() -> Rarity.EPIC);
 
 	private enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial {
-		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> BotaniaSounds.equipManasteel, () -> BotaniaItems.manaSteel, 0),
-		MANAWEAVE("manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, () -> BotaniaSounds.equipManaweave, () -> BotaniaItems.manaweaveCloth, 0),
-		ELEMENTIUM("elementium", 18, new int[] { 2, 5, 6, 2 }, 18, () -> BotaniaSounds.equipElementium, () -> BotaniaItems.elementium, 0),
-		TERRASTEEL("terrasteel", 34, new int[] { 3, 6, 8, 3 }, 26, () -> BotaniaSounds.equipTerrasteel, () -> BotaniaItems.terrasteel, 3);
+		MANASTEEL("manasteel", 16,
+				Map.of(
+						ArmorItem.Type.BOOTS, 2,
+						ArmorItem.Type.LEGGINGS, 5,
+						ArmorItem.Type.CHESTPLATE, 6,
+						ArmorItem.Type.HELMET, 2
+				),
+				18, () -> BotaniaSounds.equipManasteel, () -> BotaniaItems.manaSteel, 0),
+		MANAWEAVE("manaweave", 5,
+				Map.of(
+						ArmorItem.Type.BOOTS, 1,
+						ArmorItem.Type.LEGGINGS, 2,
+						ArmorItem.Type.CHESTPLATE, 3,
+						ArmorItem.Type.HELMET, 1
+				),
+				18, () -> BotaniaSounds.equipManaweave, () -> BotaniaItems.manaweaveCloth, 0),
+		ELEMENTIUM("elementium", 18,
+				Map.of(
+						ArmorItem.Type.BOOTS, 2,
+						ArmorItem.Type.LEGGINGS, 5,
+						ArmorItem.Type.CHESTPLATE, 6,
+						ArmorItem.Type.HELMET, 2
+				),
+				18, () -> BotaniaSounds.equipElementium, () -> BotaniaItems.elementium, 0),
+		TERRASTEEL("terrasteel", 34,
+				Map.of(
+						ArmorItem.Type.BOOTS, 3,
+						ArmorItem.Type.LEGGINGS, 6,
+						ArmorItem.Type.CHESTPLATE, 8,
+						ArmorItem.Type.HELMET, 3
+				),
+				26, () -> BotaniaSounds.equipTerrasteel, () -> BotaniaItems.terrasteel, 3);
 
 		private final String name;
 		private final int durabilityMultiplier;
-		private final int[] damageReduction;
+		private final Map<ArmorItem.Type, Integer> damageReduction;
 		private final int enchantability;
 		private final Supplier<SoundEvent> equipSound;
 		private final Supplier<Item> repairItem;
 		private final float toughness;
-		private static final int[] MAX_DAMAGE_ARRAY = new int[] { 13, 15, 16, 11 };
 
-		ArmorMaterial(String name, int durabilityMultiplier, int[] damageReduction, int enchantability, Supplier<SoundEvent> equipSound, Supplier<Item> repairItem, float toughness) {
+		ArmorMaterial(String name, int durabilityMultiplier, Map<ArmorItem.Type, Integer> damageReduction,
+				int enchantability, Supplier<SoundEvent> equipSound, Supplier<Item> repairItem, float toughness) {
 			this.name = name;
 			this.durabilityMultiplier = durabilityMultiplier;
 			this.damageReduction = damageReduction;
@@ -77,14 +105,19 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 		@Override
 		public int getDurabilityForType(ArmorItem.Type slot) {
-			// todo 1.19.4 make sure MAX_DAMAGE_ARRAY is still accessed in the same order as before
-			return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.ordinal()];
+			// [VanillaCopy] ArmorMaterials
+			int base = switch (slot) {
+				case BOOTS -> 13;
+				case LEGGINGS -> 15;
+				case CHESTPLATE -> 16;
+				case HELMET -> 11;
+			};
+			return durabilityMultiplier * base;
 		}
 
 		@Override
 		public int getDefenseForType(ArmorItem.Type slot) {
-			// todo 1.19.4 make sure damageReduction is still accessed in the same order as before
-			return damageReduction[slot.ordinal()];
+			return this.damageReduction.get(slot);
 		}
 
 		@Override

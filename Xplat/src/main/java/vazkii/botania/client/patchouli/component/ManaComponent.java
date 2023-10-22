@@ -8,10 +8,9 @@
  */
 package vazkii.botania.client.patchouli.component;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
 import vazkii.botania.client.gui.HUDHandler;
@@ -40,20 +39,20 @@ public class ManaComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void render(PoseStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
+	public void render(GuiGraphics gui, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
 		Font font = Minecraft.getInstance().font;
 		Component manaUsage = Component.translatable("botaniamisc.manaUsage").setStyle(context.getFont());
-		font.draw(ms, manaUsage, x + 102 / 2 - font.width(manaUsage) / 2, y, 0x66000000);
+		gui.drawString(font, manaUsage, x + 102 / 2 - font.width(manaUsage) / 2, y, 0x66000000, false);
 
 		int ratio = 10;
 		if (context.isAreaHovered(mouseX, mouseY, x, y - 2, 102, 5 + 20)) {
 			ratio = 1;
 		}
-		HUDHandler.renderManaBar(ms, x, y + 10, 0x0000FF, 0.75F,
+		HUDHandler.renderManaBar(gui, x, y + 10, 0x0000FF, 0.75F,
 				manaValues[(context.getTicksInBook() / 20) % manaValues.length], ManaPoolBlockEntity.MAX_MANA / ratio);
 
 		Component ratioString = Component.translatable("botaniamisc.ratio", ratio).setStyle(context.getFont());
-		font.draw(ms, ratioString, x + 102 / 2 - font.width(ratioString) / 2, y + 15, 0x99000000);
+		gui.drawString(font, ratioString, x + 102 / 2 - font.width(ratioString) / 2, y + 15, 0x99000000, false);
 	}
 
 	@Override

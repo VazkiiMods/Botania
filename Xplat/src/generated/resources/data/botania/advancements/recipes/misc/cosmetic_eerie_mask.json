@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_eerie_mask"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

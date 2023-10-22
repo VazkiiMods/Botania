@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:mana_fluxfield"
-  }
+  },
+  "show_notification": true
 }

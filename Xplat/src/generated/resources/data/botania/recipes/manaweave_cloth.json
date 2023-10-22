@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:manaweave_cloth"
-  }
+  },
+  "show_notification": true
 }

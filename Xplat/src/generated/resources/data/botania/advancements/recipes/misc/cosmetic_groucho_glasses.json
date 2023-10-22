@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_groucho_glasses"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

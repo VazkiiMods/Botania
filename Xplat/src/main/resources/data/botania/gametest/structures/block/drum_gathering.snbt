@@ -1,0 +1,33 @@
+{
+    DataVersion: 3465,
+    size: [21, 21, 21],
+    data: [
+        {pos: [10, 0, 10], state: "minecraft:polished_andesite"},
+        {pos: [9, 1, 10], state: "minecraft:glass"},
+        {pos: [10, 1, 9], state: "minecraft:glass"},
+        {pos: [10, 1, 11], state: "minecraft:glass"},
+        {pos: [11, 1, 10], state: "minecraft:glass"},
+        {pos: [9, 2, 10], state: "minecraft:glass"},
+        {pos: [10, 2, 9], state: "minecraft:glass"},
+        {pos: [10, 2, 11], state: "minecraft:glass"},
+        {pos: [11, 2, 10], state: "minecraft:glass"},
+        {pos: [9, 3, 10], state: "minecraft:glass"},
+        {pos: [10, 3, 9], state: "minecraft:glass"},
+        {pos: [10, 3, 11], state: "minecraft:glass"},
+        {pos: [11, 3, 10], state: "minecraft:glass"},
+        {pos: [10, 8, 9], state: "minecraft:glass"},
+        {pos: [10, 8, 10], state: "botania:creative_pool{color:none,waterlogged:false}"},
+        {pos: [10, 9, 9], state: "minecraft:polished_blackstone_button{face:floor,facing:east,powered:false}"},
+        {pos: [10, 9, 10], state: "botania:redstone_spreader{has_scaffolding:false,waterlogged:false}"},
+        {pos: [10, 10, 10], state: "botania:drum_gathering{waterlogged:false}"}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:polished_andesite",
+        "minecraft:glass",
+        "minecraft:polished_blackstone_button{face:floor,facing:east,powered:false}",
+        "botania:drum_gathering{waterlogged:false}",
+        "botania:creative_pool{color:none,waterlogged:false}",
+        "botania:redstone_spreader{has_scaffolding:false,waterlogged:false}"
+    ]
+}

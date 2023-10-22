@@ -1,4 +1,4 @@
-// 1.19.3	Botania/Tags for minecraft:block
+// 1.20.1	Botania/Tags for minecraft:block
 7c8a171ae6d6133a08aa4d939254a4290e6b44b6 data/botania/tags/blocks/corporea_spark_override.json
 e8a61a147b6a258b9c37788ac1bd4edf592c9dc9 data/botania/tags/blocks/double_mystical_flowers.json
 070322f325bf48a093e7a873066fd5992202fd74 data/botania/tags/blocks/dreamwood_logs.json
@@ -18,7 +18,7 @@ c9a0fa2b480198219c3eaf0a6232213c6a8fed16 data/botania/tags/blocks/horn_of_the_ca
 bbb827430199d1a6f3b27fc25e2df941f22dc660 data/botania/tags/blocks/livingwood_logs.json
 687fe87bd07caccd697ec50eee72fa5b48d3fd37 data/botania/tags/blocks/magnet_ring_blacklist.json
 444e88940a9f3d04dab84f48217946488d34141a data/botania/tags/blocks/manasteel_blocks.json
-36c20910bc9c89b7cc3e9a27802532349c7802d8 data/botania/tags/blocks/marimorphosis_convertable.json
+fdccf413f94f9bc54ddb3cd8681d976fcba945d0 data/botania/tags/blocks/marimorphosis_convertable.json
 67144be58a1b3c223dc44ca18a4e9894efa7cc34 data/botania/tags/blocks/mini_flowers.json
 9d560acc5024d61903ea8afc12ab496a7fb0d708 data/botania/tags/blocks/misc_special_flowers.json
 482e0e7e492741201a883a48ee6806b5a4d4e51f data/botania/tags/blocks/mundane_floating_flowers.json
@@ -42,7 +42,7 @@ b59d5b36ebe88ae60fca62eb6985e9825e0a9031 data/minecraft/tags/blocks/fences.json
 0d43cab6db2ee9b5d1865b8938630349ce5bfa23 data/minecraft/tags/blocks/logs_that_burn.json
 becd82a0a742cbb63f817ee0db553914c88660c0 data/minecraft/tags/blocks/mineable/axe.json
 8393fc4bde3a0ab934c23ea1ab61c715005d6fad data/minecraft/tags/blocks/mineable/hoe.json
-17eeb23733b9f65a0bd6dcbac03ad77fbcadbd49 data/minecraft/tags/blocks/mineable/pickaxe.json
+49028c0568cb6dac935978c2eef4c62892e2ec0a data/minecraft/tags/blocks/mineable/pickaxe.json
 d007dc55eac3ad87cfa2bb5010e3aae01bd8f100 data/minecraft/tags/blocks/mineable/shovel.json
 54675e9a9831f96294a26f8ea2d942bee9b19559 data/minecraft/tags/blocks/mushroom_grow_block.json
 5a8edc115bd46b1aaf4c4c720b921774a1a9deea data/minecraft/tags/blocks/planks.json
@@ -54,6 +54,6 @@ e2a006bbecc6067ef36187214c8fe5f5c7ea1c2e data/minecraft/tags/blocks/small_flower
 589fa9d68f43847133a9115af36e85e50cf29be7 data/minecraft/tags/blocks/tall_flowers.json
 99110c18af7a6aa513ae990e843ba38bfc13bf3f data/minecraft/tags/blocks/walls.json
 6430a02d8c3ad39e94ab5e3e2db9472ecb33b67f data/minecraft/tags/blocks/wither_immune.json
-b59d5b36ebe88ae60fca62eb6985e9825e0a9031 data/minecraft/tags/blocks/wooden_fences.json
-ae59e488a0b7f9d8c841b6b1ccb5b73696979f2f data/minecraft/tags/blocks/wooden_slabs.json
-0de991a3ac4bfeedb045d2e69aa0939aa75983b7 data/minecraft/tags/blocks/wooden_stairs.json
+ac68a57eea43325f292dc61e0a911da2f2bffab3 data/minecraft/tags/blocks/wooden_fences.json
+9e9ab5a13889770ff4cde388db150731046636ca data/minecraft/tags/blocks/wooden_slabs.json
+6e73f846a5e792e1485ccf630358e5e7a093347f data/minecraft/tags/blocks/wooden_stairs.json

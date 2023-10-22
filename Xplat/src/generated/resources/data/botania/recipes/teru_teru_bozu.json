@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:teru_teru_bozu"
-  }
+  },
+  "show_notification": true
 }

@@ -28,5 +28,6 @@
     "recipes": [
       "botania:apothecary_mossy"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

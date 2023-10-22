@@ -41,5 +41,6 @@
     "recipes": [
       "botania:thunder_sword"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

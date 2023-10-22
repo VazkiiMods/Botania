@@ -100,6 +100,12 @@ public class TrinketsIntegration extends EquipmentHandler {
 		Proxy.INSTANCE.runOnClient(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
 	}
 
+	@Override
+	public boolean isAccessory(ItemStack stack) {
+		return super.isAccessory(stack)
+				|| TrinketsApi.getTrinket(stack.getItem()) != TrinketsApi.getDefaultTrinket();
+	}
+
 	public static final Trinket WRAPPER = new Trinket() {
 		private BaubleItem getItem(ItemStack stack) {
 			return (BaubleItem) stack.getItem();

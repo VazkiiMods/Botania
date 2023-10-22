@@ -28,5 +28,6 @@
     "recipes": [
       "botania:thorn_chakram"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

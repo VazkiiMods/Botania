@@ -1,0 +1,15 @@
+{
+  "type": "botania:mana_infusion",
+  "catalyst": {
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
+  },
+  "group": "botania:froglight_cycle",
+  "input": {
+    "item": "minecraft:pearlescent_froglight"
+  },
+  "mana": 40,
+  "output": {
+    "item": "minecraft:ochre_froglight"
+  }
+}

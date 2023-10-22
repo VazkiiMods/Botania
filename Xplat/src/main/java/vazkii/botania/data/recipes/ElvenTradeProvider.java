@@ -63,7 +63,6 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedElvenRecipe(id("diamond_return"), new ItemStack(Items.DIAMOND), Ingredient.of(Items.DIAMOND)));
 		consumer.accept(new FinishedElvenRecipe(id("diamond_block_return"), new ItemStack(Blocks.DIAMOND_BLOCK), Ingredient.of(Blocks.DIAMOND_BLOCK)));
 
-		// TODO 1.19.3 check that this works
 		consumer.accept(new FinishedRecipe() {
 			@Override
 			public void serializeRecipeData(JsonObject obj) {}

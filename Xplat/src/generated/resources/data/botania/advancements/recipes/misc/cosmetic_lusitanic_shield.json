@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_lusitanic_shield"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

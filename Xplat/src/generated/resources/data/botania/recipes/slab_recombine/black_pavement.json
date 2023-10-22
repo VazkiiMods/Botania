@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:black_pavement"
-  }
+  },
+  "show_notification": true
 }

@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:spark"
-  }
+  },
+  "show_notification": true
 }

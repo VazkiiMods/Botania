@@ -43,5 +43,6 @@
     "recipes": [
       "botania:speed_up_belt"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

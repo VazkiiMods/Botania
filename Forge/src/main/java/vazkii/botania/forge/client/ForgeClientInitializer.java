@@ -10,6 +10,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
@@ -64,6 +65,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -93,7 +95,7 @@ public class ForgeClientInitializer {
 
 		// Events
 		var bus = MinecraftForge.EVENT_BUS;
-		bus.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getPoseStack()));
+		bus.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getGraphics()));
 		bus.addListener((TickEvent.ClientTickEvent e) -> {
 			if (e.phase == TickEvent.Phase.END) {
 				ClientTickHandler.clientTickEnd(Minecraft.getInstance());
@@ -111,7 +113,7 @@ public class ForgeClientInitializer {
 			}
 		});
 		bus.addListener((CustomizeGuiOverlayEvent.BossEventProgress e) -> {
-			var result = BossBarHandler.onBarRender(e.getPoseStack(), e.getX(), e.getY(),
+			var result = BossBarHandler.onBarRender(e.getGuiGraphics(), e.getX(), e.getY(),
 					e.getBossEvent(), true);
 			result.ifPresent(increment -> {
 				e.setCanceled(true);
@@ -225,6 +227,8 @@ public class ForgeClientInitializer {
 	public static void registerModelLoader(ModelEvent.RegisterGeometryLoaders evt) {
 		evt.register(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.getPath(),
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
+		evt.register(ClientXplatAbstractions.MANA_GUN_MODEL_LOADER_ID.getPath(),
+				ForgeManaBlasterModel.Loader.INSTANCE);
 	}
 
 	@SubscribeEvent
@@ -275,8 +279,17 @@ public class ForgeClientInitializer {
 	}
 
 	@SubscribeEvent
-	public static void registerShaders(RegisterShadersEvent evt) throws IOException {
-		CoreShaders.init(evt.getResourceProvider(), p -> evt.registerShader(p.getFirst(), p.getSecond()));
+	public static void registerShaders(RegisterShadersEvent evt) {
+		CoreShaders.init((id, vertexFormat, onLoaded) -> {
+			try {
+				evt.registerShader(
+						new ShaderInstance(evt.getResourceProvider(), id, vertexFormat),
+						onLoaded
+				);
+			} catch (IOException e) {
+				throw new UncheckedIOException(e);
+			}
+		});
 	}
 
 	@SubscribeEvent

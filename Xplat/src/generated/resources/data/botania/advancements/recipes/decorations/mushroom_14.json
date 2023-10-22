@@ -43,5 +43,6 @@
     "recipes": [
       "botania:mushroom_14"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

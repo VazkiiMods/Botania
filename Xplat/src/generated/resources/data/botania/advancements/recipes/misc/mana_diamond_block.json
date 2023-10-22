@@ -28,5 +28,6 @@
     "recipes": [
       "botania:mana_diamond_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -67,7 +67,7 @@ public class StoneOfTemperanceItem extends Item {
 
 	@Override
 	public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack cursor, Slot slot, ClickAction click, Player player, SlotAccess access) {
-		Level world = player.getLevel();
+		Level world = player.level();
 		if (click == ClickAction.SECONDARY && slot.allowModification(player) && cursor.isEmpty()) {
 			toggleActive(stack, player, world);
 			access.set(cursor);

@@ -28,5 +28,6 @@
     "recipes": [
       "botania:lens_firework"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

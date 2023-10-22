@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:goddess_charm"
-  }
+  },
+  "show_notification": true
 }

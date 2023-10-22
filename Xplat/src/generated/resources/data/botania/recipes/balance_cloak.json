@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:balance_cloak"
-  }
+  },
+  "show_notification": true
 }

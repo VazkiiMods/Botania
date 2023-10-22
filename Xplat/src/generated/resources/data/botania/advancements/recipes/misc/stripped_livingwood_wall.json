@@ -30,5 +30,6 @@
     "recipes": [
       "botania:stripped_livingwood_wall"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

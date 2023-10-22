@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "botania:manasteel_chestplate"
-  }
+  },
+  "show_notification": true
 }

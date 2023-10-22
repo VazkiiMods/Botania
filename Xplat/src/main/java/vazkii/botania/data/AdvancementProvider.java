@@ -182,7 +182,7 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.manaGun, "manaBlasterShoot", FrameType.TASK))
 					.parent(runePickup)
-					.addCriterion("shoot", new ManaBlasterTrigger.Instance(ContextAwarePredicate.ANY, ItemPredicate.ANY, EntityPredicate.ANY, null))
+					.addCriterion("shoot", new ManaBlasterTrigger.Instance(ContextAwarePredicate.ANY, ItemPredicate.ANY, EntityPredicate.ANY))
 					.save(consumer, mainId("mana_blaster_shoot"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaFlowerBlocks.pollidisiac, "pollidisiacPickup", FrameType.TASK))
@@ -377,14 +377,6 @@ public class AdvancementProvider {
 					.addCriterion("flower", onPickup(BotaniaBlocks.motifDaybloom, BotaniaBlocks.motifNightshade))
 					.requirements(RequirementsStrategy.OR)
 					.save(consumer, challengeId("old_flower_pickup"));
-			DisplayInfo desuGun = simple(BotaniaItems.manaGun, "desuGun", FrameType.CHALLENGE);
-			desuGun.getIcon().setHoverName(Component.literal("desu gun"));
-			Advancement.Builder.advancement()
-					.display(desuGun)
-					.parent(root)
-					.addCriterion("use_gun", new ManaBlasterTrigger.Instance(
-							ContextAwarePredicate.ANY, ItemPredicate.ANY, EntityPredicate.ANY, true))
-					.save(consumer, challengeId("desu_gun"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.corporeaIndex, "superCorporeaRequest", FrameType.CHALLENGE))
 					.parent(root)

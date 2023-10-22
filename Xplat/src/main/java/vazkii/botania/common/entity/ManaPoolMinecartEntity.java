@@ -92,7 +92,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 	public void tick() {
 		super.tick();
 
-		if (getLevel().isClientSide) {
+		if (level().isClientSide) {
 			double particleChance = 1F - (double) getMana() / (double) ManaPoolBlockEntity.MAX_MANA * 0.1;
 			int color = ManaPoolBlockEntity.PARTICLE_COLOR;
 			float red = (color >> 16 & 0xFF) / 255F;
@@ -103,7 +103,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 			double z = Mth.floor(getZ());
 			if (Math.random() > particleChance) {
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
-				getLevel().addParticle(data, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), 0, (float) Math.random() / 25F, 0);
+				level().addParticle(data, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), 0, (float) Math.random() / 25F, 0);
 			}
 		}
 	}
@@ -114,11 +114,11 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockPos pumpPos = pos.relative(dir);
-			BlockState pumpState = getLevel().getBlockState(pumpPos);
+			BlockState pumpState = level().getBlockState(pumpPos);
 			if (pumpState.is(BotaniaBlocks.pump)) {
-				ManaPumpBlockEntity pump = (ManaPumpBlockEntity) getLevel().getBlockEntity(pumpPos);
+				ManaPumpBlockEntity pump = (ManaPumpBlockEntity) level().getBlockEntity(pumpPos);
 				BlockPos poolPos = pumpPos.relative(dir);
-				var receiver = XplatAbstractions.INSTANCE.findManaReceiver(getLevel(), poolPos, dir.getOpposite());
+				var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level(), poolPos, dir.getOpposite());
 
 				if (receiver instanceof ManaPool pool) {
 					Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);

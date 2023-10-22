@@ -28,5 +28,6 @@
     "recipes": [
       "botania:conversions/terrasteel_from_nugget"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

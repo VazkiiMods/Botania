@@ -41,5 +41,6 @@
     "recipes": [
       "botania:gaia_pylon"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

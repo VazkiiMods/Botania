@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:shimmerrock"
-  }
+  },
+  "show_notification": true
 }

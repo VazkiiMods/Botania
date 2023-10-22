@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:gaia_ingot"
-  }
+  },
+  "show_notification": true
 }

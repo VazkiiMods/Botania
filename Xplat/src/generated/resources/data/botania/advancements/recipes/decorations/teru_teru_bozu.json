@@ -30,5 +30,6 @@
     "recipes": [
       "botania:teru_teru_bozu"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -3,11 +3,13 @@ package vazkii.botania.forge;
 import com.google.common.base.Suppliers;
 import com.mojang.brigadier.CommandDispatcher;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -22,9 +24,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -124,8 +124,7 @@ import vazkii.botania.forge.xplat.ForgeXplatImpl;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -172,14 +171,15 @@ public class ForgeCommonInitializer {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		// Core item/block/BE
 		bind(Registries.SOUND_EVENT, BotaniaSounds::init);
-		bind(Registries.BLOCK, BotaniaBlocks::registerBlocks);
-		bind(Registries.ITEM, BotaniaBlocks::registerItemBlocks);
-		bind(Registries.BLOCK, BotaniaFluffBlocks::registerBlocks);
-		bind(Registries.ITEM, BotaniaFluffBlocks::registerItemBlocks);
+		bind(Registries.BLOCK, consumer -> {
+			BotaniaBlocks.registerBlocks(consumer);
+			BotaniaBlockFlammability.register();
+		});
+		bindForItems(BotaniaBlocks::registerItemBlocks);
 		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaBlockEntities::registerTiles);
-		bind(Registries.ITEM, BotaniaItems::registerItems);
+		bindForItems(BotaniaItems::registerItems);
 		bind(Registries.BLOCK, BotaniaFlowerBlocks::registerBlocks);
-		bind(Registries.ITEM, BotaniaFlowerBlocks::registerItemBlocks);
+		bindForItems(BotaniaFlowerBlocks::registerItemBlocks);
 		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaFlowerBlocks::registerTEs);
 
 		// GUI and Recipe
@@ -218,12 +218,42 @@ public class ForgeCommonInitializer {
 				BotaniaStats.init();
 			}
 		});
+		bind(Registries.CREATIVE_MODE_TAB, consumer -> {
+			consumer.accept(CreativeModeTab.builder()
+					.title(Component.translatable("itemGroup.botania.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
+					.icon(() -> new ItemStack(BotaniaItems.lexicon))
+					.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
+					.backgroundSuffix("botania.png")
+					.withSearchBar()
+					.build(),
+					BotaniaRegistries.BOTANIA_TAB_KEY.location());
+		});
+		modBus.addListener((BuildCreativeModeTabContentsEvent e) -> {
+			if (e.getTabKey() == BotaniaRegistries.BOTANIA_TAB_KEY) {
+				for (Item item : this.itemsToAddToCreativeTab) {
+					e.accept(item);
+				}
+			}
+		});
 	}
 
 	private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
 			if (registry.equals(event.getRegistryKey())) {
 				source.accept((t, rl) -> event.register(registry, rl, () -> t));
+			}
+		});
+	}
+
+	private final Set<Item> itemsToAddToCreativeTab = new LinkedHashSet<>();
+
+	private void bindForItems(Consumer<BiConsumer<Item, ResourceLocation>> source) {
+		FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
+			if (event.getRegistryKey().equals(Registries.ITEM)) {
+				source.accept((t, rl) -> {
+					itemsToAddToCreativeTab.add(t);
+					event.register(Registries.ITEM, rl, () -> t);
+				});
 			}
 		});
 	}
@@ -254,7 +284,7 @@ public class ForgeCommonInitializer {
 				e.getEntity(), e.getLevel(), e.getHand(), e.getPos(), e.getFace()));
 		bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> TerraBladeItem.leftClick(e.getItemStack()));
 		bus.addListener((AttackEntityEvent e) -> TerraBladeItem.attackEntity(
-				e.getEntity(), e.getEntity().getLevel(), InteractionHand.MAIN_HAND, e.getTarget(), null));
+				e.getEntity(), e.getEntity().level(), InteractionHand.MAIN_HAND, e.getTarget(), null));
 		bus.addListener((RegisterCommandsEvent e) -> this.registerCommands(
 				e.getDispatcher(), e.getCommandSelection() == Commands.CommandSelection.DEDICATED));
 		bus.addListener((PlayerSleepInBedEvent e) -> {
@@ -340,13 +370,13 @@ public class ForgeCommonInitializer {
 			bus.addListener((LivingDropsEvent e) -> {
 				var living = e.getEntity();
 				ElementiumAxeItem.onEntityDrops(e.isRecentlyHit(), e.getSource(), living, stack -> {
-					var ent = new ItemEntity(living.getLevel(), living.getX(), living.getY(), living.getZ(), stack);
+					var ent = new ItemEntity(living.level(), living.getX(), living.getY(), living.getZ(), stack);
 					ent.setDefaultPickUpDelay();
 					e.getDrops().add(ent);
 				});
 				LooniumBlockEntity.dropLooniumItems(living, stack -> {
 					e.getDrops().clear();
-					var ent = new ItemEntity(living.getLevel(), living.getX(), living.getY(), living.getZ(), stack);
+					var ent = new ItemEntity(living.level(), living.getX(), living.getY(), living.getZ(), stack);
 					ent.setDefaultPickUpDelay();
 					e.getDrops().add(ent);
 				});
@@ -396,7 +426,7 @@ public class ForgeCommonInitializer {
 			});
 			bus.addListener(EventPriority.LOW, (CriticalHitEvent e) -> {
 				Event.Result result = e.getResult();
-				if (e.getEntity().getLevel().isClientSide
+				if (e.getEntity().level().isClientSide
 						|| result == Event.Result.DENY
 						|| result == Event.Result.DEFAULT && !e.isVanillaCritical()
 						|| !TerrasteelHelmItem.hasTerraArmorSet(e.getEntity())

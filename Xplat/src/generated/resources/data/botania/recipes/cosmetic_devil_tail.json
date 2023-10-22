@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_devil_tail"
-  }
+  },
+  "show_notification": true
 }

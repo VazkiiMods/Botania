@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_kamui_eye"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

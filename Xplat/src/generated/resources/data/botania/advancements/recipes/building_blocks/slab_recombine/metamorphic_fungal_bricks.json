@@ -30,5 +30,6 @@
     "recipes": [
       "botania:slab_recombine/metamorphic_fungal_bricks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

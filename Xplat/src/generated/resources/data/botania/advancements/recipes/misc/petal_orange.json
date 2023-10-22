@@ -43,5 +43,6 @@
     "recipes": [
       "botania:petal_orange"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:fabulous_pool"
-  }
+  },
+  "show_notification": true
 }

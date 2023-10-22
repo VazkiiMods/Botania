@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:apothecary_deepslate"
-  }
+  },
+  "show_notification": true
 }

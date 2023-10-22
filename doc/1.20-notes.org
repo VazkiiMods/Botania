@@ -1,0 +1,9 @@
+* Dust off mana API changes
+* Add recipe viewer support for seeing apothecary reagents
+* Make runic altar support reagents in the same way apothecaries do (instead of being hardcoded to livingrock)
+* Make runic altar recipes allow for individually specifying which ingredients are catalysts (not consumed), instead of just hardcoding all the vanilla-botania runes to be catalysts
+
+* Make things emit proper sculk vibrations. Maybe make bergamute block them also?
+* Add armor trim materials
+* Add armor trims
+* Add pottery sherds

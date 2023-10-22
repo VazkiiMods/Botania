@@ -91,9 +91,9 @@ public class SojournersSashItem extends BaubleItem {
 		boolean hasBoost = attrib.hasModifier(STEP_BOOST);
 
 		if (tryConsumeMana(player)) {
-			if (player.getLevel().isClientSide) {
+			if (player.level().isClientSide) {
 				SojournersSashItem beltItem = (SojournersSashItem) belt.getItem();
-				if ((player.isOnGround() || player.getAbilities().flying) && player.zza > 0F && !player.isInWaterOrBubble()) {
+				if ((player.onGround() || player.getAbilities().flying) && player.zza > 0F && !player.isInWaterOrBubble()) {
 					float speed = beltItem.getSpeed(belt);
 					player.moveRelative(player.getAbilities().flying ? speed : speed, new Vec3(0, 0, 1));
 					beltItem.onMovedTick(belt, player);
@@ -115,7 +115,7 @@ public class SojournersSashItem extends BaubleItem {
 					}
 				}
 			}
-		} else if (!player.getLevel().isClientSide && hasBoost) {
+		} else if (!player.level().isClientSide && hasBoost) {
 			attrib.removeModifier(STEP_BOOST);
 		}
 	}

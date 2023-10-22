@@ -30,5 +30,6 @@
     "recipes": [
       "botania:spawner_claw"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

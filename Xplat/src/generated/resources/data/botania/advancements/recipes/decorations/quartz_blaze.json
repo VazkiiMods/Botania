@@ -30,5 +30,6 @@
     "recipes": [
       "botania:quartz_blaze"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

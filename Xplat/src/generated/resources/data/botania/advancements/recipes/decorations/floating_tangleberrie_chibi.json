@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_tangleberrie_chibi"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

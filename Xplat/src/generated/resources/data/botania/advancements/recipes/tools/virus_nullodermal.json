@@ -43,5 +43,6 @@
     "recipes": [
       "botania:virus_nullodermal"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

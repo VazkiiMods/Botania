@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "key": {
     "M": {
       "tag": "forge:chests/wooden"
@@ -18,5 +19,6 @@
   ],
   "result": {
     "item": "botania:red_string_container"
-  }
+  },
+  "show_notification": true
 }

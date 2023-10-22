@@ -64,8 +64,7 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 				if (orientation == dir) {
 					ItemStack stack = frame.getItem();
 					if (!stack.isEmpty()) {
-						ItemStack copy = stack.copy();
-						copy.setCount(rotationToStackSize[frame.getRotation()]);
+						ItemStack copy = stack.copyWithCount(rotationToStackSize[frame.getRotation()]);
 						filter.add(copy);
 					}
 				}

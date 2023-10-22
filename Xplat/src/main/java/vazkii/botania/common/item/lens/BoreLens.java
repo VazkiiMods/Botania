@@ -40,7 +40,7 @@ public class BoreLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
-		Level world = entity.getLevel();
+		Level world = entity.level();
 
 		if (world.isClientSide || rtr.getType() != HitResult.Type.BLOCK) {
 			return false;

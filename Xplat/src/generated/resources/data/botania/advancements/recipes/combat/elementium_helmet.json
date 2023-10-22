@@ -28,5 +28,6 @@
     "recipes": [
       "botania:elementium_helmet"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

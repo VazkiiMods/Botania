@@ -40,7 +40,7 @@ public class FlowerPouchContainer extends AbstractContainerMenu {
 		super(BotaniaItems.FLOWER_BAG_CONTAINER, windowId);
 
 		this.bag = bag;
-		if (!playerInv.player.getLevel().isClientSide) {
+		if (!playerInv.player.level().isClientSide) {
 			flowerBagInv = FlowerPouchItem.getInventory(bag);
 		} else {
 			flowerBagInv = new SimpleContainer(FlowerPouchItem.SIZE);

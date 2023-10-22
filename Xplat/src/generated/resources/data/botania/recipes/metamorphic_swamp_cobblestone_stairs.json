@@ -8,12 +8,13 @@
     }
   },
   "pattern": [
-    "  Q",
-    " QQ",
+    "Q  ",
+    "QQ ",
     "QQQ"
   ],
   "result": {
     "count": 4,
     "item": "botania:metamorphic_swamp_cobblestone_stairs"
-  }
+  },
+  "show_notification": true
 }

@@ -28,5 +28,6 @@
     "recipes": [
       "botania:mana_tablet_alt"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

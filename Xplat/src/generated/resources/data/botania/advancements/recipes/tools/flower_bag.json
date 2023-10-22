@@ -28,5 +28,6 @@
     "recipes": [
       "botania:flower_bag"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -38,11 +38,13 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.*;
@@ -109,17 +111,12 @@ import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FabricCommonInitializer implements ModInitializer {
-	// TODO 1.19.3 menu texture
-	private static final CreativeModeTab BOTANIA_TAB = FabricItemGroup.builder(prefix("botania"))
-			.icon(() -> new ItemStack(BotaniaItems.lexicon))
-			.build();
 	private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder.createDefaulted(BotaniaRegistries.BREWS, prefix("fallback")).buildAndRegister();
 
 	@Override
@@ -153,13 +150,12 @@ public class FabricCommonInitializer implements ModInitializer {
 		// Core item/block/BE
 		BotaniaSounds.init(bind(BuiltInRegistries.SOUND_EVENT));
 		BotaniaBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
-		BotaniaBlocks.registerItemBlocks(registerItemAndPutInTab);
-		BotaniaFluffBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
-		BotaniaFluffBlocks.registerItemBlocks(registerItemAndPutInTab);
+		BotaniaBlocks.registerItemBlocks(boundForItem);
+		BotaniaBlockFlammability.register();
 		BotaniaBlockEntities.registerTiles(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
-		BotaniaItems.registerItems(registerItemAndPutInTab);
+		BotaniaItems.registerItems(boundForItem);
 		BotaniaFlowerBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
-		BotaniaFlowerBlocks.registerItemBlocks(bind(BuiltInRegistries.ITEM));
+		BotaniaFlowerBlocks.registerItemBlocks(boundForItem);
 		BotaniaFlowerBlocks.registerTEs(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
 		BotaniaBlocks.addDispenserBehaviours();
 		BotaniaBlocks.addAxeStripping();
@@ -212,6 +208,21 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaLootModifiers.submitLootConditions(bind(BuiltInRegistries.LOOT_CONDITION_TYPE));
 		BotaniaLootModifiers.submitLootFunctions(bind(BuiltInRegistries.LOOT_FUNCTION_TYPE));
 		BotaniaStats.init();
+		Registry.register(
+				BuiltInRegistries.CREATIVE_MODE_TAB,
+				BotaniaRegistries.BOTANIA_TAB_KEY,
+				FabricItemGroup.builder()
+						.title(Component.translatable("itemGroup.botania.botania").withStyle((style -> style.withColor(ChatFormatting.WHITE))))
+						.icon(() -> new ItemStack(BotaniaItems.lexicon))
+						.backgroundSuffix("botania.png")
+						.build()
+		);
+		ItemGroupEvents.modifyEntriesEvent(BotaniaRegistries.BOTANIA_TAB_KEY)
+				.register(entries -> {
+					for (Item item : this.itemsToAddToCreativeTab) {
+						entries.accept(item);
+					}
+				});
 	}
 
 	private void registerEvents() {
@@ -243,10 +254,12 @@ public class FabricCommonInitializer implements ModInitializer {
 		return (t, id) -> Registry.register(registry, id, t);
 	}
 
-	private static final BiConsumer<Item, ResourceLocation> registerItemAndPutInTab = (item, id) -> {
-		Registry.register(BuiltInRegistries.ITEM, id, item);
-		ItemGroupEvents.modifyEntriesEvent(BOTANIA_TAB).register(entries -> entries.accept(item));
-	};
+	private final Set<Item> itemsToAddToCreativeTab = new LinkedHashSet<>();
+	private final BiConsumer<Item, ResourceLocation> boundForItem =
+			(t, id) -> {
+				this.itemsToAddToCreativeTab.add(t);
+				Registry.register(BuiltInRegistries.ITEM, id, t);
+			};
 
 	private void registerCapabilities() {
 		FluidStorage.ITEM.registerForItems((stack, context) -> new FullItemFluidStorage(context, Items.BOWL,

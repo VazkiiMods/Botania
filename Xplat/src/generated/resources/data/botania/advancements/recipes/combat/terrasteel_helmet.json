@@ -41,5 +41,6 @@
     "recipes": [
       "botania:terrasteel_helmet"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

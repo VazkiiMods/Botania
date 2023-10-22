@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:forest_eye"
-  }
+  },
+  "show_notification": true
 }

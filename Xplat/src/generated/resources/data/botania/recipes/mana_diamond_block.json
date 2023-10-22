@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "botania:mana_diamond_block"
-  }
+  },
+  "show_notification": true
 }

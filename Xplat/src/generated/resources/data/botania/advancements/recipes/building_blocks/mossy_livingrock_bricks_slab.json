@@ -30,5 +30,6 @@
     "recipes": [
       "botania:mossy_livingrock_bricks_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

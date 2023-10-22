@@ -29,7 +29,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -76,24 +75,25 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedRecipe(id("tiny_potato"), new ItemStack(BotaniaBlocks.tinyPotato), ingr(Items.POTATO), 1337));
 
 		consumer.accept(new FinishedRecipe(id("mana_glass"), new ItemStack(BotaniaBlocks.manaGlass), ingr(Blocks.GLASS), 150));
-		consumer.accept(new FinishedRecipe(id("mana_string"), new ItemStack(BotaniaItems.manaString), ingr(Items.STRING), 5000));
+		consumer.accept(new FinishedRecipe(id("mana_string"), new ItemStack(BotaniaItems.manaString), ingr(Items.STRING), 1250));
 
 		consumer.accept(new FinishedRecipe(id("mana_bottle"), new ItemStack(BotaniaItems.manaBottle), ingr(Items.GLASS_BOTTLE), 5000));
 
 		consumer.accept(FinishedRecipe.alchemy(id("rotten_flesh_to_leather"), new ItemStack(Items.LEATHER), ingr(Items.ROTTEN_FLESH), 600));
 
-		cycle(consumer, 40, "botania:log_cycle", Blocks.OAK_LOG, Blocks.SPRUCE_LOG, Blocks.BIRCH_LOG, Blocks.JUNGLE_LOG, Blocks.ACACIA_LOG, Blocks.DARK_OAK_LOG, Blocks.MANGROVE_LOG);
-		cycle(consumer, 120, "botania:sapling_cycle", Blocks.OAK_SAPLING, Blocks.SPRUCE_SAPLING, Blocks.BIRCH_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.ACACIA_SAPLING, Blocks.DARK_OAK_SAPLING, Blocks.MANGROVE_PROPAGULE);
+		cycle(consumer, 40, "botania:log_cycle", Blocks.OAK_LOG, Blocks.SPRUCE_LOG, Blocks.BIRCH_LOG, Blocks.JUNGLE_LOG, Blocks.ACACIA_LOG, Blocks.DARK_OAK_LOG, Blocks.MANGROVE_LOG, Blocks.CHERRY_LOG);
+		cycle(consumer, 40, "botania:froglight_cycle", Blocks.OCHRE_FROGLIGHT, Blocks.VERDANT_FROGLIGHT, Blocks.PEARLESCENT_FROGLIGHT);
+		cycle(consumer, 120, "botania:sapling_cycle", Blocks.OAK_SAPLING, Blocks.SPRUCE_SAPLING, Blocks.BIRCH_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.ACACIA_SAPLING, Blocks.DARK_OAK_SAPLING, Blocks.MANGROVE_PROPAGULE, Blocks.CHERRY_SAPLING);
 
 		consumer.accept(deconstruct("glowstone_deconstruct", Items.GLOWSTONE_DUST, Blocks.GLOWSTONE));
 		consumer.accept(deconstruct("quartz_deconstruct", Items.QUARTZ, Blocks.QUARTZ_BLOCK));
-		consumer.accept(deconstruct("dark_quartz_deconstruct", BotaniaItems.darkQuartz, BotaniaFluffBlocks.darkQuartz));
-		consumer.accept(deconstruct("mana_quartz_deconstruct", BotaniaItems.manaQuartz, BotaniaFluffBlocks.manaQuartz));
-		consumer.accept(deconstruct("blaze_quartz_deconstruct", BotaniaItems.blazeQuartz, BotaniaFluffBlocks.blazeQuartz));
-		consumer.accept(deconstruct("lavender_quartz_deconstruct", BotaniaItems.lavenderQuartz, BotaniaFluffBlocks.lavenderQuartz));
-		consumer.accept(deconstruct("red_quartz_deconstruct", BotaniaItems.redQuartz, BotaniaFluffBlocks.redQuartz));
-		consumer.accept(deconstruct("elf_quartz_deconstruct", BotaniaItems.elfQuartz, BotaniaFluffBlocks.elfQuartz));
-		consumer.accept(deconstruct("sunny_quartz_deconstruct", BotaniaItems.sunnyQuartz, BotaniaFluffBlocks.sunnyQuartz));
+		consumer.accept(deconstruct("dark_quartz_deconstruct", BotaniaItems.darkQuartz, BotaniaBlocks.darkQuartz));
+		consumer.accept(deconstruct("mana_quartz_deconstruct", BotaniaItems.manaQuartz, BotaniaBlocks.manaQuartz));
+		consumer.accept(deconstruct("blaze_quartz_deconstruct", BotaniaItems.blazeQuartz, BotaniaBlocks.blazeQuartz));
+		consumer.accept(deconstruct("lavender_quartz_deconstruct", BotaniaItems.lavenderQuartz, BotaniaBlocks.lavenderQuartz));
+		consumer.accept(deconstruct("red_quartz_deconstruct", BotaniaItems.redQuartz, BotaniaBlocks.redQuartz));
+		consumer.accept(deconstruct("elf_quartz_deconstruct", BotaniaItems.elfQuartz, BotaniaBlocks.elfQuartz));
+		consumer.accept(deconstruct("sunny_quartz_deconstruct", BotaniaItems.sunnyQuartz, BotaniaBlocks.sunnyQuartz));
 
 		consumer.accept(FinishedRecipe.alchemy(id("chiseled_stone_bricks"), new ItemStack(Blocks.CHISELED_STONE_BRICKS, 1), ingr(Blocks.STONE_BRICKS), 150));
 		consumer.accept(FinishedRecipe.alchemy(id("ice"), new ItemStack(Blocks.ICE), ingr(Blocks.SNOW_BLOCK), 2250));
@@ -176,6 +176,8 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(FinishedRecipe.conjuration(id("dark_oak_leaves_dupe"), new ItemStack(Blocks.DARK_OAK_LEAVES, 2), ingr(Blocks.DARK_OAK_LEAVES), 2000));
 		consumer.accept(FinishedRecipe.conjuration(id("azalea_leaves_dupe"), new ItemStack(Blocks.AZALEA_LEAVES, 2), ingr(Blocks.AZALEA_LEAVES), 2000));
 		consumer.accept(FinishedRecipe.conjuration(id("flowering_azalea_leaves_dupe"), new ItemStack(Blocks.FLOWERING_AZALEA_LEAVES, 2), ingr(Blocks.FLOWERING_AZALEA_LEAVES), 2000));
+		consumer.accept(FinishedRecipe.conjuration(id("mangrove_leaves_dupe"), new ItemStack(Blocks.MANGROVE_LEAVES, 2), ingr(Blocks.MANGROVE_LEAVES), 2000));
+		consumer.accept(FinishedRecipe.conjuration(id("cherry_leaves_dupe"), new ItemStack(Blocks.CHERRY_LEAVES, 2), ingr(Blocks.CHERRY_LEAVES), 2000));
 
 		consumer.accept(FinishedRecipe.conjuration(id("grass"), new ItemStack(Blocks.GRASS, 2), ingr(Blocks.GRASS), 800));
 	}

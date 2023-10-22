@@ -9,8 +9,6 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
@@ -19,17 +17,21 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.mixin.FireBlockAccessor;
+import vazkii.botania.mixin.BlockPropertiesAccessor;
 
 public class SolidVineBlock extends VineBlock {
 
 	public SolidVineBlock(Properties builder) {
-		super(builder);
-		((FireBlockAccessor) Blocks.FIRE).botania_register(this, 15, 100);
+		super(unsetVanillaProps(builder));
 	}
 
-	@Override
-	public void tick(@NotNull BlockState state, ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource rand) {}
+	private static Properties unsetVanillaProps(Properties props) {
+		// Unset no-collision, random ticking, and replaceability from vanilla vines' properties
+		((BlockPropertiesAccessor) props).botania_setHasCollision(true);
+		((BlockPropertiesAccessor) props).botania_setIsRandomlyTicking(false);
+		((BlockPropertiesAccessor) props).botania_setReplaceable(false);
+		return props;
+	}
 
 	@NotNull
 	@Override

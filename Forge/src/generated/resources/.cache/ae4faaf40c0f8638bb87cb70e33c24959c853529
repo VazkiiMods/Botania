@@ -1,4 +1,4 @@
-// 1.19.2	2023-05-27T22:33:27.352082784	Botania item tags (Forge-specific)
+// 1.20.1	2023-07-16T22:34:15.988738542	Botania item tags (Forge-specific)
 aabe9dc2c91eb8822f833d19b258d7a5e8da3564 data/curios/tags/items/belt.json
 9bde6528555b75249a73b900157d7bc104d2baec data/curios/tags/items/body.json
 22dfca4dc9ed4dc390fadc33f03c602031f80fb1 data/curios/tags/items/charm.json
@@ -32,8 +32,3 @@ f041265ef6a8d081107a30ec3c5bd85a892195b3 data/forge/tags/items/nuggets/elementiu
 88f0390acdd56ff296f67149accdd14b52bb60fe data/forge/tags/items/storage_blocks/manasteel.json
 c982bf60c82069637f6511b4be4a20b39894c2e9 data/forge/tags/items/storage_blocks/quartz.json
 d401d8e48f2c31db30278bca7d4fd177b002f4c8 data/forge/tags/items/storage_blocks/terrasteel.json
-654bf143138e6ea86444c2555908f7bda9a63c45 data/forge/tags/items/tools/axes.json
-1fa80afc4bcc610940c69c0d531c1fa61cdc9a59 data/forge/tags/items/tools/hoes.json
-db17fc2533475e8c4f17ebbe21ec3cf98f2bf4ea data/forge/tags/items/tools/pickaxes.json
-cf354a0dccc465e3fd89896f02ae0ecf5e91857d data/forge/tags/items/tools/shovels.json
-405a42eb6c6b0a13ffda977a2d1a9e34c1cad0b5 data/forge/tags/items/tools/swords.json

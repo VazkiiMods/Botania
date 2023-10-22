@@ -63,9 +63,9 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 38);
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 6);
 		widgets.add(Widgets.createRecipeBase(bounds));
-		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> {
-			CategoryUtils.drawOverlay(matrices, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82);
-			HUDHandler.renderManaBar(matrices, center.x - 43, center.y + 52, 0x0000FF, 0.75F, display.getManaCost(), ManaPoolBlockEntity.MAX_MANA / 10);
+		widgets.add(Widgets.createDrawableWidget(((gui, mouseX, mouseY, delta) -> {
+			CategoryUtils.drawOverlay(gui, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82);
+			HUDHandler.renderManaBar(gui, center.x - 43, center.y + 52, 0x0000FF, 0.75F, display.getManaCost(), ManaPoolBlockEntity.MAX_MANA / 10);
 		})));
 
 		for (EntryIngredient o : inputs) {

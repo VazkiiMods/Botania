@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_engineer_goggles"
-  }
+  },
+  "show_notification": true
 }

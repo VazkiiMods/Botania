@@ -494,8 +494,6 @@
 	"advancement.botania:old_flower_pickup": "Deja Vu",
 	"advancement.botania:old_flower_pickup.desc": "デイブルームモチーフまたはナイトシェイドモチーフを発見する",
 
-	"advancement.botania:desuGun": "裏表ラバーズ",
-	"advancement.botania:desuGun.desc": "ｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝ",
 	"advancement.botania:tinyPotatoBirthday": "Blessing",
 	"advancement.botania:tinyPotatoBirthday.desc": "7月19日に小さなポテトの誕生日をお祝いしよう",
 
@@ -2288,7 +2286,7 @@
 
 	"botania.entry.thermalily": "サーマリリー",
 	"botania.tagline.thermalily": "溶岩からマナ",
-	"botania.page.thermalily0": "$(item)サーマリリー$(0)は、$(l:generating_flowers/hydroangeas)$(item)ハイドロエンゲス$(0)$(/l)と対になる、$(item)溶岩$(0)対応版です。この花は、周囲の同じ高さにある$(item)溶岩$(0)を吸い上げ、$(thing)マナ$(0)に変換します。$(p)$(item)溶岩$(0)を1ブロック吸収すると、約45秒間継続的に$(thing)マナ$(0)を生成しますが、その後、次の吸収までに、約5分の冷却時間が必要です。",
+	"botania.page.thermalily0": "$(item)サーマリリー$(0)は、$(l:generating_flowers/hydroangeas)$(item)ハイドロエンゲス$(0)$(/l)と対になる、$(item)溶岩$(0)対応版です。この花は、周囲の同じ高さにある$(item)溶岩$(0)を吸い上げ、$(thing)マナ$(0)に変換します。$(p)$(item)溶岩$(0)を1ブロック吸収すると、約30秒間継続的に$(thing)マナ$(0)を生成しますが、その後、次の吸収までに、約5分の冷却時間が必要です。",
 	"botania.page.thermalily2": "稼働時間中に$(item)サーマリリー$(0)が生成する$(thing)マナ$(0)の量は非常に多く、素早く貯蔵量を増やしたい場合、理想的な花と言えます。$(p)ただし、\"冷却時間\"の間、隣接する$(thing)溶岩$(0)が吸収されても$(thing)マナ$(0)は生成されず、冷却時間もリセットされてしまいます。",
 	"botania.page.thermalily3": "$(item)溶岩$(0)を$(item)ディスペンサー$(0)を使用して設置することは可能ですが、$(thing)ネザー$(0)や地中深くから運び込むことは難しいでしょう。$(p)その為、$(item)サーマリリー$(0)は\"半自動化可能\"な花として分類されます。",
 	"botania.page.thermalily4": "$(o)最も難しい花$()。",

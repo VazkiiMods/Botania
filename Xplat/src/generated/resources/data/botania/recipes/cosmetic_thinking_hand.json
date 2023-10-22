@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "botania:cosmetic_thinking_hand"
-  }
+  },
+  "show_notification": true
 }

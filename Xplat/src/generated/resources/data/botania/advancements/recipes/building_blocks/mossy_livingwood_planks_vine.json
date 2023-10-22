@@ -30,5 +30,6 @@
     "recipes": [
       "botania:mossy_livingwood_planks_vine"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

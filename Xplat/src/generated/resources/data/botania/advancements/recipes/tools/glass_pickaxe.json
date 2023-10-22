@@ -28,5 +28,6 @@
     "recipes": [
       "botania:glass_pickaxe"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

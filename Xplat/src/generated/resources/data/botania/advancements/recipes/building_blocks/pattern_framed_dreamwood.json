@@ -30,5 +30,6 @@
     "recipes": [
       "botania:pattern_framed_dreamwood"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

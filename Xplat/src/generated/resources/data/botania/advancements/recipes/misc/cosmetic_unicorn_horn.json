@@ -30,5 +30,6 @@
     "recipes": [
       "botania:cosmetic_unicorn_horn"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

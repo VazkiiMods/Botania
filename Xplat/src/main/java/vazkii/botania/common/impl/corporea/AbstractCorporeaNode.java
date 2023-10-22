@@ -59,15 +59,13 @@ public abstract class AbstractCorporeaNode implements CorporeaNode {
 		List<ItemStack> stacks = new ArrayList<>();
 
 		int additionalStacks = stack.getCount() / stack.getMaxStackSize();
-		ItemStack fullStack = stack.copy();
-		fullStack.setCount(stack.getMaxStackSize());
+		ItemStack fullStack = stack.copyWithCount(stack.getMaxStackSize());
 		for (int i = 0; i < additionalStacks; i++) {
 			stacks.add(fullStack.copy());
 		}
 
 		int lastStackSize = stack.getCount() % stack.getMaxStackSize();
-		ItemStack lastStack = stack.copy();
-		lastStack.setCount(lastStackSize);
+		ItemStack lastStack = stack.copyWithCount(lastStackSize);
 		stacks.add(lastStack);
 
 		return stacks;

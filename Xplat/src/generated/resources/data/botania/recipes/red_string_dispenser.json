@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:red_string_dispenser"
-  }
+  },
+  "show_notification": true
 }

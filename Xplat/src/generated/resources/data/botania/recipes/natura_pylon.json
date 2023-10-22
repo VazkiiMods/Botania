@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "botania:natura_pylon"
-  }
+  },
+  "show_notification": true
 }

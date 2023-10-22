@@ -13,5 +13,6 @@
   "result": {
     "count": 4,
     "item": "botania:chiseled_metamorphic_swamp_bricks"
-  }
+  },
+  "show_notification": true
 }

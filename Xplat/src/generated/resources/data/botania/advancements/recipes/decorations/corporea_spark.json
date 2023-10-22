@@ -43,5 +43,6 @@
     "recipes": [
       "botania:corporea_spark"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

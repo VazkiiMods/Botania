@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_vinculotus"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

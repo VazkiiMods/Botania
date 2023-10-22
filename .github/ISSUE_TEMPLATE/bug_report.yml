@@ -5,7 +5,7 @@ body:
     attributes:
       value: |
         Please do not use GitHub issues to post ideas.
-        Ideas should be posted on the Botania subreddit [/r/Botania](https://www.reddit.com/r/botania/), or discussed on the [Violet Moon discord](https://discord.gg/SFrYxxD).
+        Ideas should be posted on the [Botania forums](https://forum.violetmoon.org/t/botania), or discussed on the [Violet Moon discord](https://discord.gg/SFrYxxD).
   - type: dropdown
     id: modloader
     attributes:

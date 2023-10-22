@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "botania:clip"
-  }
+  },
+  "show_notification": true
 }

@@ -7,10 +7,11 @@
     }
   },
   "pattern": [
-    "S ",
-    " S"
+    " S",
+    "S "
   ],
   "result": {
     "item": "botania:elementium_shears"
-  }
+  },
+  "show_notification": true
 }

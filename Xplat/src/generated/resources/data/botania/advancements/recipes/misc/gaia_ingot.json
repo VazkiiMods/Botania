@@ -30,5 +30,6 @@
     "recipes": [
       "botania:gaia_ingot"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

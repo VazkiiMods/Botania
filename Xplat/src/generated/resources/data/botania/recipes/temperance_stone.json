@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:temperance_stone"
-  }
+  },
+  "show_notification": true
 }

@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "botania:divining_rod"
-  }
+  },
+  "show_notification": true
 }

@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "botania:terrasteel_boots"
-  }
+  },
+  "show_notification": true
 }

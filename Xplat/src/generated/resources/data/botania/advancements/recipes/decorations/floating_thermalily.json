@@ -30,5 +30,6 @@
     "recipes": [
       "botania:floating_thermalily"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:metamorphic_fungal_bricks"
-  }
+  },
+  "show_notification": true
 }

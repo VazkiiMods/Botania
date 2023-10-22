@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "botania:vine_ball"
-  }
+  },
+  "show_notification": true
 }

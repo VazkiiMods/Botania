@@ -28,5 +28,6 @@
     "recipes": [
       "botania:terra_axe"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

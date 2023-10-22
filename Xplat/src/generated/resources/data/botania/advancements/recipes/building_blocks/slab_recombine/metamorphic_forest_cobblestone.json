@@ -30,5 +30,6 @@
     "recipes": [
       "botania:slab_recombine/metamorphic_forest_cobblestone"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -25,5 +25,6 @@
   ],
   "result": {
     "item": "botania:water_ring"
-  }
+  },
+  "show_notification": true
 }

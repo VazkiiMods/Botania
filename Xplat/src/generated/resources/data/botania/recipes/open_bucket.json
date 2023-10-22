@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "botania:open_bucket"
-  }
+  },
+  "show_notification": true
 }

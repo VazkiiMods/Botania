@@ -22,7 +22,6 @@ import vazkii.botania.common.item.SparkAugmentItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity {
@@ -59,10 +58,6 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 			ItemStack sparkStack = SparkAugmentItem.getByType(upg);
 			SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((SparkAugmentItem) changeStack.getItem()).type;
 			spark.setUpgrade(newUpg);
-			Collection<ManaSpark> transfers = spark.getTransfers();
-			if (transfers != null) {
-				transfers.clear();
-			}
 			getItemHandler().setItem(0, sparkStack);
 		}
 	}

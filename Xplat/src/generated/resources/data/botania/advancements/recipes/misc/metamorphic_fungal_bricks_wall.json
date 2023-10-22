@@ -43,5 +43,6 @@
     "recipes": [
       "botania:metamorphic_fungal_bricks_wall"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

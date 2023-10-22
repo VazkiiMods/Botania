@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "botania:manasteel_block"
-  }
+  },
+  "show_notification": true
 }

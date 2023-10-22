@@ -1,9 +1,9 @@
-// 1.19.2	2022-10-31T14:46:50.332609	Botania crafting recipes (Forge-specific)
-77c584c8cdfecb83926367a890317be5d88d5e4e data/botania/advancements/recipes/botania/azulejo_0.json
-bebf04f4f109cba1a5681eb4664612d4eb8f775d data/botania/advancements/recipes/botania/bauble_box.json
-6d4704efc108499940a36a7643826dec22f1f117 data/botania/advancements/recipes/botania/corporea_retainer.json
-03c7001a9e0fa3566e7a5c37b89c5f6340f0193a data/botania/advancements/recipes/botania/red_string_container.json
-38a75871ff02fae70a525ffb79f2a5d4ae6246fb data/botania/recipes/azulejo_0.json
-6716b8ce1812431a2fb1cc18455eb2afff314777 data/botania/recipes/bauble_box.json
-c3f2d4f084f296c0609b82dec82424a9819c02f6 data/botania/recipes/corporea_retainer.json
-4f634d0bb051aefba9a8603d50f870706c1b5a7f data/botania/recipes/red_string_container.json
+// 1.20.1	2023-07-16T22:34:15.987095693	Botania crafting recipes (Forge-specific)
+3c6cb685c165964dc9c4fe9daa58e2050162a553 data/botania/advancements/recipes/building_blocks/azulejo_0.json
+7d396b99ed06fd28cc866e00313e56094db27dcd data/botania/advancements/recipes/redstone/corporea_retainer.json
+128bccf5ea6a4dd5040eb0b656a12cf72afde21b data/botania/advancements/recipes/redstone/red_string_container.json
+c129ab4c9a9c902a34d79bda2f8fef235d161522 data/botania/advancements/recipes/tools/bauble_box.json
+d07c0d0becdfa77b2364ca1cd205c4ac5db0d495 data/botania/recipes/azulejo_0.json
+570a56bf065fe2ed644e06d28d5e543fc4597da4 data/botania/recipes/bauble_box.json
+a7619c3ef3e2ee494c1f556333ca22a1598e6278 data/botania/recipes/corporea_retainer.json
+0111daced99c03a26dd63a6fab7e98c4c967bac8 data/botania/recipes/red_string_container.json

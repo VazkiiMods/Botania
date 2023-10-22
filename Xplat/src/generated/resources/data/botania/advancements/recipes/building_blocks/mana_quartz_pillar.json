@@ -30,5 +30,6 @@
     "recipes": [
       "botania:mana_quartz_pillar"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

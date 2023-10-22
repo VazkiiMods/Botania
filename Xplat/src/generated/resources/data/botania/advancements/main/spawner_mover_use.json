@@ -31,5 +31,6 @@
     [
       "use_spawner_mover"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

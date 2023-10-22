@@ -30,5 +30,6 @@
     "recipes": [
       "botania:dye_pink"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

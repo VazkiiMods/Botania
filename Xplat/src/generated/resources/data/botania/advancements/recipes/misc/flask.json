@@ -30,5 +30,6 @@
     "recipes": [
       "botania:flask"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

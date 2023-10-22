@@ -15,6 +15,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -78,7 +79,8 @@ public final class HUDHandler {
 		}
 	}
 
-	public static void onDrawScreenPost(PoseStack ms, float partialTicks) {
+	public static void onDrawScreenPost(GuiGraphics gui, float partialTicks) {
+		PoseStack ms = gui.pose();
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.options.hideGui) {
 			return;
@@ -93,14 +95,14 @@ public final class HUDHandler {
 			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, mc.player);
 			if (!tiara.isEmpty()) {
 				profiler.push("flugelTiara");
-				FlugelTiaraItem.ClientLogic.renderHUD(ms, mc.player, tiara);
+				FlugelTiaraItem.ClientLogic.renderHUD(gui, mc.player, tiara);
 				profiler.pop();
 			}
 
 			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, mc.player);
 			if (!dodgeRing.isEmpty()) {
 				profiler.push("dodgeRing");
-				RingOfDexterousMotionItem.ClientLogic.renderHUD(ms, mc.player, dodgeRing, partialTicks);
+				RingOfDexterousMotionItem.ClientLogic.renderHUD(gui, mc.player, dodgeRing, partialTicks);
 				profiler.pop();
 			}
 		}
@@ -119,51 +121,51 @@ public final class HUDHandler {
 					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
 						profiler.push("wandItem");
-						hud.renderHUD(ms, mc);
+						hud.renderHUD(gui, mc);
 						profiler.pop();
 					}
 				}
 				if (tile instanceof ManaPoolBlockEntity pool && !mc.player.getMainHandItem().isEmpty()) {
-					renderPoolRecipeHUD(ms, pool, mc.player.getMainHandItem());
+					renderPoolRecipeHUD(gui, pool, mc.player.getMainHandItem());
 				}
 			}
 			if (!PlayerHelper.hasHeldItem(mc.player, BotaniaItems.lexicon)) {
 				if (tile instanceof PetalApothecaryBlockEntity altar) {
-					PetalApothecaryBlockEntity.Hud.render(altar, ms, mc);
+					PetalApothecaryBlockEntity.Hud.render(altar, gui, mc);
 				} else if (tile instanceof RunicAltarBlockEntity runeAltar) {
-					RunicAltarBlockEntity.Hud.render(runeAltar, ms, mc);
+					RunicAltarBlockEntity.Hud.render(runeAltar, gui, mc);
 				} else if (tile instanceof CorporeaCrystalCubeBlockEntity cube) {
-					CorporeaCrystalCubeBlockEntity.Hud.render(ms, cube);
+					CorporeaCrystalCubeBlockEntity.Hud.render(gui, cube);
 				}
 			}
 		} else if (pos instanceof EntityHitResult result) {
 			var hud = ClientXplatAbstractions.INSTANCE.findWandHud(result.getEntity());
 			if (hud != null && PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
 				profiler.push("wandItemEntityHud");
-				hud.renderHUD(ms, mc);
+				hud.renderHUD(gui, mc);
 				profiler.pop();
 			}
 		}
 
 		if (!CorporeaIndexBlockEntity.getNearbyValidIndexes(mc.player).isEmpty() && mc.screen instanceof ChatScreen) {
 			profiler.push("nearIndex");
-			renderNearIndexDisplay(ms);
+			renderNearIndexDisplay(gui);
 			profiler.pop();
 		}
 
 		if (!main.isEmpty() && main.getItem() instanceof AssemblyHaloItem) {
 			profiler.push("craftingHalo_main");
-			AssemblyHaloItem.Rendering.renderHUD(ms, mc.player, main);
+			AssemblyHaloItem.Rendering.renderHUD(gui, mc.player, main);
 			profiler.pop();
 		} else if (!offhand.isEmpty() && offhand.getItem() instanceof AssemblyHaloItem) {
 			profiler.push("craftingHalo_off");
-			AssemblyHaloItem.Rendering.renderHUD(ms, mc.player, offhand);
+			AssemblyHaloItem.Rendering.renderHUD(gui, mc.player, offhand);
 			profiler.pop();
 		}
 
 		if (!main.isEmpty() && main.getItem() instanceof WorldshaperssSextantItem) {
 			profiler.push("sextant");
-			WorldshaperssSextantItem.Hud.render(ms, mc.player, main);
+			WorldshaperssSextantItem.Hud.render(gui, mc.player, main);
 			profiler.pop();
 		}
 
@@ -175,7 +177,7 @@ public final class HUDHandler {
 
 		if (ManaseerMonocleItem.hasMonocle(mc.player)) {
 			profiler.push("monocle");
-			ManaseerMonocleItem.Hud.render(ms, mc.player);
+			ManaseerMonocleItem.Hud.render(gui, mc.player);
 			profiler.pop();
 		}
 
@@ -214,19 +216,19 @@ public final class HUDHandler {
 			}
 
 			if (anyRequest) {
-				renderManaInvBar(ms, totalMana, totalMaxMana);
+				renderManaInvBar(gui, totalMana, totalMaxMana);
 			}
 		}
 
 		profiler.popPush("itemsRemaining");
-		ItemsRemainingRenderHandler.render(ms, partialTicks);
+		ItemsRemainingRenderHandler.render(gui, partialTicks);
 		profiler.pop();
 		profiler.pop();
 
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
-	private static void renderManaInvBar(PoseStack ms, int totalMana, int totalMaxMana) {
+	private static void renderManaInvBar(GuiGraphics gui, int totalMana, int totalMaxMana) {
 		Minecraft mc = Minecraft.getInstance();
 		int width = 182;
 		int x = mc.getWindow().getGuiScaledWidth() / 2 - width / 2;
@@ -251,16 +253,15 @@ public final class HUDHandler {
 		int g = (color >> 8 & 0xFF);
 		int b = color & 0xFF;
 		RenderSystem.setShaderColor(r / 255F, g / 255F, b / 255F, 1 - (r / 255F));
-		RenderSystem.setShaderTexture(0, manaBar);
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		RenderHelper.drawTexturedModalRect(ms, x, y, 0, 251, width, 5);
+		RenderHelper.drawTexturedModalRect(gui, manaBar, x, y, 0, 251, width, 5);
 		RenderSystem.disableBlend();
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
-	private static void renderPoolRecipeHUD(PoseStack ms, ManaPoolBlockEntity tile, ItemStack stack) {
+	private static void renderPoolRecipeHUD(GuiGraphics gui, ManaPoolBlockEntity tile, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		ProfilerFiller profiler = mc.getProfiler();
 
@@ -276,21 +277,20 @@ public final class HUDHandler {
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-			RenderSystem.setShaderTexture(0, manaBar);
-			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
+			RenderHelper.drawTexturedModalRect(gui, manaBar, x, y, u, v, 22, 15);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-			mc.getItemRenderer().renderAndDecorateItem(ms, stack, x - 20, y);
+			gui.renderItem(stack, x - 20, y);
 			ItemStack result = recipe.getResultItem(mc.level.registryAccess());
-			mc.getItemRenderer().renderAndDecorateItem(ms, result, x + 26, y);
-			mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, result, x + 26, y);
+			gui.renderItem(result, x + 26, y);
+			gui.renderItemDecorations(mc.font, result, x + 26, y);
 
 			RenderSystem.disableBlend();
 		}
 		profiler.pop();
 	}
 
-	private static void renderNearIndexDisplay(PoseStack ms) {
+	private static void renderNearIndexDisplay(GuiGraphics gui) {
 		Minecraft mc = Minecraft.getInstance();
 		String txt0 = I18n.get("botaniamisc.nearIndex0");
 		String txt1 = ChatFormatting.GRAY + I18n.get("botaniamisc.nearIndex1");
@@ -300,64 +300,60 @@ public final class HUDHandler {
 		int x = mc.getWindow().getGuiScaledWidth() - l - 20;
 		int y = mc.getWindow().getGuiScaledHeight() - 60;
 
-		RenderHelper.renderHUDBox(ms, x - 4, y - 4, x + l + 4, y + 35);
-		mc.getItemRenderer().renderAndDecorateItem(ms, new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
+		RenderHelper.renderHUDBox(gui, x - 4, y - 4, x + l + 4, y + 35);
+		gui.renderItem(new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
 
-		mc.font.drawShadow(ms, txt0, x + 20, y, 0xFFFFFF);
-		mc.font.drawShadow(ms, txt1, x + 20, y + 14, 0xFFFFFF);
-		mc.font.drawShadow(ms, txt2, x + 20, y + 24, 0xFFFFFF);
+		gui.drawString(mc.font, txt0, x + 20, y, 0xFFFFFF);
+		gui.drawString(mc.font, txt1, x + 20, y + 14, 0xFFFFFF);
+		gui.drawString(mc.font, txt2, x + 20, y + 24, 0xFFFFFF);
 	}
 
-	public static void drawSimpleManaHUD(PoseStack ms, int color, int mana, int maxMana, String name) {
+	public static void drawSimpleManaHUD(GuiGraphics gui, int color, int mana, int maxMana, String name) {
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft mc = Minecraft.getInstance();
 		int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(name) / 2;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 + 10;
 
-		mc.font.drawShadow(ms, name, x, y, color);
+		gui.drawString(mc.font, name, x, y, color);
 
 		x = mc.getWindow().getGuiScaledWidth() / 2 - 51;
 		y += 10;
 
-		renderManaBar(ms, x, y, color, 1F, mana, maxMana);
+		renderManaBar(gui, x, y, color, 1F, mana, maxMana);
 
 		RenderSystem.disableBlend();
 	}
 
-	public static void drawComplexManaHUD(int color, PoseStack ms, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
-		drawSimpleManaHUD(ms, color, mana, maxMana, name);
+	public static void drawComplexManaHUD(int color, GuiGraphics gui, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
+		PoseStack ms = gui.pose();
+		drawSimpleManaHUD(gui, color, mana, maxMana, name);
 
 		Minecraft mc = Minecraft.getInstance();
 
 		int x = mc.getWindow().getGuiScaledWidth() / 2 + 55;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 + 12;
 
-		mc.getItemRenderer().renderAndDecorateItem(ms, bindDisplay, x, y);
+		gui.renderItem(bindDisplay, x, y);
 
 		RenderSystem.disableDepthTest();
 		ms.pushPose();
-		// TODO 1.19.4 re-check this. maybe just 200 + 1 will do?
-		// renderAndDecorateItem draws at 50, + 200 (further down the call stack).
-		// We want the checkmark on top of that. yeah these numbers are pretty arbitrary and dumb
-		ms.translate(0, 0, 50 + 200 + 1);
+		// Magic number to get the string above the item we just rendered.
+		ms.translate(0, 0, 200);
 		if (properlyBound) {
-			mc.font.drawShadow(ms, "\u2714", x + 10, y + 9, 0x004C00);
-			mc.font.drawShadow(ms, "\u2714", x + 10, y + 8, 0x0BD20D);
+			gui.drawString(mc.font, "✔", x + 10, y + 9, 0x004C00);
+			gui.drawString(mc.font, "✔", x + 10, y + 8, 0x0BD20D);
 		} else {
-			mc.font.drawShadow(ms, "\u2718", x + 10, y + 9, 0x4C0000);
-			mc.font.drawShadow(ms, "\u2718", x + 10, y + 8, 0xD2080D);
+			gui.drawString(mc.font, "✘", x + 10, y + 9, 0x4C0000);
+			gui.drawString(mc.font, "✘", x + 10, y + 8, 0xD2080D);
 		}
 		ms.popPose();
 		RenderSystem.enableDepthTest();
 	}
 
-	public static void renderManaBar(PoseStack ms, int x, int y, int color, float alpha, int mana, int maxMana) {
-		Minecraft mc = Minecraft.getInstance();
-
+	public static void renderManaBar(GuiGraphics gui, int x, int y, int color, float alpha, int mana, int maxMana) {
 		RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
-		RenderSystem.setShaderTexture(0, manaBar);
-		RenderHelper.drawTexturedModalRect(ms, x, y, 0, 0, 102, 5);
+		RenderHelper.drawTexturedModalRect(gui, manaBar, x, y, 0, 0, 102, 5);
 
 		int manaPercentage = Math.max(0, (int) ((double) mana / (double) maxMana * 100));
 
@@ -365,13 +361,13 @@ public final class HUDHandler {
 			manaPercentage = 1;
 		}
 
-		RenderHelper.drawTexturedModalRect(ms, x + 1, y + 1, 0, 5, 100, 3);
+		RenderHelper.drawTexturedModalRect(gui, manaBar, x + 1, y + 1, 0, 5, 100, 3);
 
 		float red = (color >> 16 & 0xFF) / 255F;
 		float green = (color >> 8 & 0xFF) / 255F;
 		float blue = (color & 0xFF) / 255F;
 		RenderSystem.setShaderColor(red, green, blue, alpha);
-		RenderHelper.drawTexturedModalRect(ms, x + 1, y + 1, 0, 5, Math.min(100, manaPercentage), 3);
+		RenderHelper.drawTexturedModalRect(gui, manaBar, x + 1, y + 1, 0, 5, Math.min(100, manaPercentage), 3);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 }

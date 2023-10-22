@@ -30,5 +30,6 @@
     "recipes": [
       "botania:infused_seeds"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

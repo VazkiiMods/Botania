@@ -22,7 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -85,8 +85,8 @@ public class DiceOfFateItem extends RelicItem {
 			} else {
 				int roll = world.random.nextInt(6) + 1;
 				ResourceLocation tableId = ResourceLocationHelper.prefix("dice/roll_" + roll);
-				LootTable table = world.getServer().getLootTables().get(tableId);
-				LootContext context = new LootContext.Builder(((ServerLevel) world))
+				LootTable table = world.getServer().getLootData().getLootTable(tableId);
+				LootParams context = new LootParams.Builder((ServerLevel) world)
 						.withParameter(LootContextParams.THIS_ENTITY, player)
 						.withParameter(LootContextParams.ORIGIN, player.position())
 						.withLuck(player.getLuck())

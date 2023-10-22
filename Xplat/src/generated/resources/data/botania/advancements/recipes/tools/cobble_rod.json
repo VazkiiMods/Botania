@@ -43,5 +43,6 @@
     "recipes": [
       "botania:cobble_rod"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

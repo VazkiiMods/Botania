@@ -28,5 +28,6 @@
     "recipes": [
       "botania:manasteel_pick"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
