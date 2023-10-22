@@ -2291,7 +2291,7 @@
   "botania.page.gIntro1": "所有的$(thing)产能花$(0)都和$(thing)功能花$(0)一样有少量$(thing)魔力$(0)缓存。$(p)这些魔力会自动存入附近最近的$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)中。",
   "botania.page.gIntro2": "产能花在同一时间只能绑定至一个$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)来输出$(thing)魔力$(0)。它们在被种下时会自动绑定至最近的发射器（或之后放置得最近的发射器，如果种下时没有的话）。可用$(thing)绑定模式$(0)的法杖将它绑定到另一个发射器。",
   "botania.page.gIntro3": "第一朵$(thing)产能花$(0)的选择很简单。作为初出茅庐的植物魔法师，你有两个选择：$(item)火红莲$(0)和$(item)水绣球$(0)。$(p)前者燃烧$(item)煤炭$(0)以产生魔力；后者则只消耗$(item)水$(0)产生魔力。作为免费魔力的代价，水绣球会在大约三天后枯萎。",
-  "botania.page.gIntro4": "将来，若发展出其他$(thing)产能花$(0)，往往使用更复杂的机械才能实现自动化的花会产生更多的$(thing)Mana$(0)。"，,
+  "botania.page.gIntro4": "将来，若发展出其他$(thing)产能花$(0)，往往使用更复杂的机械才能实现自动化的花会产生更多的$(thing)Mana$(0)。"
 
   "botania.entry.endoflame": "火红莲",
   "botania.tagline.endoflame": "燃烧产能",
