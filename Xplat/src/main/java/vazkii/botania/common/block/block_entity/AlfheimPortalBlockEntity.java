@@ -106,6 +106,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	});
 
 	public static final int MANA_COST = 500;
+	public static final int MANA_COST_OPENING = 200000;
+	public static final int MIN_REQUIRED_PYLONS = 2;
 	private static final String TAG_TICKS_OPEN = "ticksOpen";
 	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
 	private static final String TAG_STACK_COUNT = "stackCount";
@@ -113,6 +115,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	public static final String TAG_PORTAL_FLAG = "_elvenPortal";
 
 	private final List<ItemStack> stacksIn = new ArrayList<>();
+	private final List<BlockPos> cachedPylonPositions = new ArrayList<>();
 
 	public int ticksOpen = 0;
 	private int ticksSinceLastItem = 0;
@@ -126,16 +129,16 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState blockState, AlfheimPortalBlockEntity self) {
-		if (blockState.getValue(BotaniaStateProperties.ALFPORTAL_STATE) == AlfheimPortalState.OFF) {
+		AlfheimPortalState state = blockState.getValue(BotaniaStateProperties.ALFPORTAL_STATE);
+		if (state == AlfheimPortalState.OFF) {
 			self.ticksOpen = 0;
 			return;
 		}
-		AlfheimPortalState state = blockState.getValue(BotaniaStateProperties.ALFPORTAL_STATE);
-		AlfheimPortalState newState = self.getValidState();
+		AlfheimPortalState newState = self.getValidState(state);
 
 		self.ticksOpen++;
 
-		AABB aabb = self.getPortalAABB();
+		AABB aabb = self.getPortalAABB(state);
 		boolean open = self.ticksOpen > 60;
 		XplatAbstractions.INSTANCE.fireElvenPortalUpdateEvent(self, aabb, open, self.stacksIn);
 
@@ -222,48 +225,10 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	}
 
 	private void blockParticle(AlfheimPortalState state) {
-		double dh, dy;
-
-		// Pick one of the inner positions
-		switch (level.random.nextInt(9)) {
-			case 0 -> {
-				dh = 0;
-				dy = 1;
-			}
-			case 1 -> {
-				dh = 0;
-				dy = 2;
-			}
-			case 2 -> {
-				dh = 0;
-				dy = 3;
-			}
-			case 3 -> {
-				dh = -1;
-				dy = 1;
-			}
-			case 4 -> {
-				dh = -1;
-				dy = 2;
-			}
-			case 5 -> {
-				dh = -1;
-				dy = 3;
-			}
-			case 6 -> {
-				dh = 1;
-				dy = 1;
-			}
-			case 7 -> {
-				dh = 1;
-				dy = 2;
-			}
-			case 8 -> {
-				dh = 1;
-				dy = 3;
-			}
-			default -> throw new AssertionError();
-		}
+		// Pick one of the inner positions, offsets [-1,+1] and [+1,+3]
+		int rnd = level.random.nextInt(9);
+		double dh = (rnd / 3) - 1;
+		double dy = (rnd % 3) + 1;
 		double dx = state == AlfheimPortalState.ON_X ? 0 : dh;
 		double dz = state == AlfheimPortalState.ON_Z ? 0 : dh;
 
@@ -276,7 +241,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		AlfheimPortalState state = getBlockState().getValue(BotaniaStateProperties.ALFPORTAL_STATE);
 		if (state == AlfheimPortalState.OFF) {
-			AlfheimPortalState newState = getValidState();
+			AlfheimPortalState newState = getValidState(state);
 			if (newState != AlfheimPortalState.OFF) {
 				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.ALFPORTAL_STATE, newState));
 				if (player instanceof ServerPlayer serverPlayer) {
@@ -289,13 +254,10 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		return false;
 	}
 
-	private AABB getPortalAABB() {
-		AABB aabb = new AABB(worldPosition.offset(-1, 1, 0), worldPosition.offset(2, 4, 1));
-		if (getBlockState().getValue(BotaniaStateProperties.ALFPORTAL_STATE) == AlfheimPortalState.ON_X) {
-			aabb = new AABB(worldPosition.offset(0, 1, -1), worldPosition.offset(1, 4, 2));
-		}
-
-		return aabb;
+	private AABB getPortalAABB(AlfheimPortalState state) {
+		return state == AlfheimPortalState.ON_X
+				? new AABB(worldPosition.offset(0, 1, -1), worldPosition.offset(1, 4, 2))
+				: new AABB(worldPosition.offset(-1, 1, 0), worldPosition.offset(2, 4, 1));
 	}
 
 	private void addItem(ItemStack stack) {
@@ -315,7 +277,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	}
 
 	private void resolveRecipes() {
-		List<BlockPos> pylons = locatePylons();
+		List<BlockPos> pylons = locatePylons(true);
 		for (Recipe<?> r : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE).values()) {
 			if (!(r instanceof ElvenTradeRecipe recipe)) {
 				continue;
@@ -381,8 +343,25 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		ticksSinceLastItem = cmp.getInt(TAG_TICKS_SINCE_LAST_ITEM);
 	}
 
-	private AlfheimPortalState getValidState() {
-		Rotation rot = MULTIBLOCK.get().validate(level, getBlockPos());
+	private static Rotation getStateRotation(AlfheimPortalState state) {
+		return switch (state) {
+			case ON_X -> Rotation.CLOCKWISE_90;
+			case ON_Z -> Rotation.NONE;
+			default -> null;
+		};
+	}
+
+	private AlfheimPortalState getValidState(AlfheimPortalState oldState) {
+		Rotation rot;
+		if (oldState != AlfheimPortalState.OFF) {
+			Rotation oldRot = getStateRotation(oldState);
+			if (!MULTIBLOCK.get().validate(level, getBlockPos(), oldRot)) {
+				return AlfheimPortalState.OFF;
+			}
+			rot = oldRot;
+		} else {
+			rot = MULTIBLOCK.get().validate(level, getBlockPos());
+		}
 		if (rot == null) {
 			return AlfheimPortalState.OFF;
 		}
@@ -394,20 +373,41 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		};
 	}
 
-	public List<BlockPos> locatePylons() {
+	public List<BlockPos> locatePylons(boolean rescanNow) {
+		if (!rescanNow && cachedPylonPositions.size() >= MIN_REQUIRED_PYLONS) {
+			List<BlockPos> cachedResult = new ArrayList<>();
+			for (BlockPos pos : cachedPylonPositions) {
+				if (isValidPylonPosition(pos)) {
+					cachedResult.add(pos);
+				}
+			}
+			if (cachedResult.size() >= MIN_REQUIRED_PYLONS) {
+				return cachedResult;
+			}
+
+			// not enough valid cached pylons, scan again
+		}
+
 		int range = 5;
 		List<BlockPos> result = new ArrayList<>();
 
 		for (BlockPos pos : BlockPos.betweenClosed(getBlockPos().offset(-range, -range, -range),
 				getBlockPos().offset(range, range, range))) {
-			if (getLevel().hasChunkAt(pos)
-					&& getLevel().getBlockState(pos).is(BotaniaBlocks.naturaPylon)
-					&& getLevel().getBlockState(pos.below()).getBlock() instanceof ManaPoolBlock) {
+			if (isValidPylonPosition(pos)) {
 				result.add(pos.immutable());
 			}
 		}
 
+		cachedPylonPositions.clear();
+		cachedPylonPositions.addAll(result);
+
 		return result;
+	}
+
+	private boolean isValidPylonPosition(BlockPos pos) {
+		return getLevel().hasChunkAt(pos)
+				&& getLevel().getBlockState(pos).is(BotaniaBlocks.naturaPylon)
+				&& getLevel().getBlockState(pos.below()).getBlock() instanceof ManaPoolBlock;
 	}
 
 	public void lightPylons() {
@@ -415,7 +415,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 			return;
 		}
 
-		List<BlockPos> pylons = locatePylons();
+		boolean finishOpening = ticksOpen == 50;
+		List<BlockPos> pylons = locatePylons(finishOpening);
 		for (BlockPos pos : pylons) {
 			BlockEntity tile = level.getBlockEntity(pos);
 			if (tile instanceof PylonBlockEntity pylon) {
@@ -424,8 +425,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 			}
 		}
 
-		if (ticksOpen == 50) {
-			consumeMana(pylons, 200000, true);
+		if (finishOpening) {
+			consumeMana(pylons, MANA_COST_OPENING, true);
 		}
 	}
 
@@ -433,7 +434,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		List<ManaPoolBlockEntity> consumePools = new ArrayList<>();
 		int consumed = 0;
 
-		if (pylons.size() < 2) {
+		if (pylons.size() < MIN_REQUIRED_PYLONS) {
 			closeNow = true;
 			return false;
 		}
