@@ -475,8 +475,8 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 
 	private static Rotation getAxisRotation(Direction.Axis axis) {
 		return switch (axis) {
-			case X -> Rotation.NONE;
-			case Z -> Rotation.CLOCKWISE_90;
+			case Z -> Rotation.NONE;
+			case X -> Rotation.CLOCKWISE_90;
 			default -> throw new IllegalStateException("Enchanter should only ever be facing in X or Z direction");
 		};
 	}
