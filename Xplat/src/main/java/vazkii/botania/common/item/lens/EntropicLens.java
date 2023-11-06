@@ -32,7 +32,7 @@ public class EntropicLens extends Lens {
 
 			if (!entity.level().isClientSide && !burst.isFake() && !isManaBlock) {
 				entity.level().explode(entity, entity.getX(), entity.getY(), entity.getZ(),
-						burst.getMana() / 50F, Level.ExplosionInteraction.BLOCK);
+						burst.getMana() / 50F, Level.ExplosionInteraction.TNT);
 			}
 			return true;
 		}
