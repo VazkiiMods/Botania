@@ -39,10 +39,7 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaAlchemy5",
-      "recipes": [
-        "botania:mana_infusion/redstone_to_glowstone_dust",
-        "botania:mana_infusion/glowstone_deconstruct"
-      ]
+      "recipes": "botania:mana_infusion/glowstone_deconstruct"
     },
     {
       "type": "botania:mana_infusion",
@@ -55,7 +52,8 @@
         "botania:mana_infusion/blaze_quartz_deconstruct",
         "botania:mana_infusion/lavender_quartz_deconstruct",
         "botania:mana_infusion/red_quartz_deconstruct",
-        "botania:mana_infusion/elf_quartz_deconstruct"
+        "botania:mana_infusion/elf_quartz_deconstruct",
+        "botania:mana_infusion/sunny_quartz_deconstruct"
       ]
     },
     {
@@ -92,9 +90,7 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaAlchemy12",
-      "recipes": [
-        "botania:mana_infusion/potato_unpoison"
-      ]
+      "recipes": "botania:mana_infusion/potato_unpoison"
     },
     {
       "type": "botania:mana_infusion",
@@ -104,7 +100,10 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaAlchemy14",
-      "recipes": "botania:mana_infusion/flint_to_gunpowder"
+      "recipes": [
+        "botania:mana_infusion/gunpowder_to_flint",
+        "botania:mana_infusion/flint_to_gunpowder"
+      ]
     },
     {
       "type": "botania:mana_infusion",
@@ -121,8 +120,8 @@
       "heading": "botania.page.manaAlchemy35",
       "text": "botania.page.manaAlchemy17",
       "recipes": [
-        "botania:mana_infusion/cactus_to_slime",
-        "botania:mana_infusion/slime_to_cactus"
+        "botania:mana_infusion/slime_to_cactus",
+        "botania:mana_infusion/cactus_to_slime"
       ]
     },
     {
@@ -136,8 +135,7 @@
       "text": "botania.page.manaAlchemy19",
       "recipes": [
         "botania:mana_infusion/glowstone_dust_to_redstone",
-        "botania:mana_infusion/redstone_to_glowstone_dust",
-        "botania:mana_infusion/glowstone_deconstruct"
+        "botania:mana_infusion/redstone_to_glowstone_dust"
       ]
     },
     {
