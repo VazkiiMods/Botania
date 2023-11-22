@@ -52,7 +52,7 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffectItem
 	}
 
 	public static InteractionResult attackEntity(Player player, Level world, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
-		if (!player.level().isClientSide && !player.isSpectator()) {
+		if (!player.level().isClientSide) {
 			trySpawnBurst(player);
 		}
 		return InteractionResult.PASS;
@@ -63,7 +63,8 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffectItem
 	}
 
 	public static void trySpawnBurst(Player player, float attackStrength) {
-		if (!player.getMainHandItem().isEmpty()
+		if (!player.isSpectator()
+				&& !player.getMainHandItem().isEmpty()
 				&& player.getMainHandItem().is(BotaniaItems.terraSword)
 				&& attackStrength == 1) {
 			ManaBurstEntity burst = getBurst(player, player.getMainHandItem());
