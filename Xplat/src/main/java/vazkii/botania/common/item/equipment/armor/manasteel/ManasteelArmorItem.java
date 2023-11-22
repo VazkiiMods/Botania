@@ -61,14 +61,9 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		if (entity instanceof Player player) {
-			onArmorTick(stack, world, player);
-		}
-	}
-
-	@SoftImplement("IForgeItem")
-	public void onArmorTick(ItemStack stack, Level world, Player player) {
-		if (!world.isClientSide && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
-			stack.setDamageValue(stack.getDamageValue() - 1);
+			if (!world.isClientSide && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
+				stack.setDamageValue(stack.getDamageValue() - 1);
+			}
 		}
 	}
 

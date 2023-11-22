@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -42,9 +43,11 @@ public class ManaweaveHelmItem extends ManaweaveArmorItem implements ManaDiscoun
 	}
 
 	@Override
-	public void onArmorTick(ItemStack stack, Level world, Player player) {
-		if (!world.isClientSide && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
-			stack.setDamageValue(stack.getDamageValue() - 1);
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+		if (entity instanceof Player player) {
+			if (!world.isClientSide && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
+				stack.setDamageValue(stack.getDamageValue() - 1);
+			}
 		}
 	}
 
