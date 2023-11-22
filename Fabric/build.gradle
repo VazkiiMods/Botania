@@ -136,7 +136,7 @@ dependencies {
 
     modCompileOnly 'com.unascribed:ears-api:1.4.5'
 
-    compileOnly "mezz.jei:jei-1.20.1-common-api:15.0.0.14"
+    compileOnly "mezz.jei:jei-1.20.1-common-api:15.2.0.27"
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
 }
