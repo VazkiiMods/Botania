@@ -381,6 +381,13 @@
   "death.attack.botania-relic": "%s was punished for using a relic that isn't theirs",
   "death.attack.botania.key_explosion": "%2$s drowned %1$s in treasure",
 
+  "effect.botania.allure.description": "Doubles fishing speed.",
+  "effect.botania.bloodthirst.description": "Allows hostile mobs to spawn in a 64-block radius, regardless of spawning conditions. Doesn't work if under the effect of Emptiness.",
+  "effect.botania.clear.description": "Clears all status effects, positive or negative.",
+  "effect.botania.emptiness.description": "Prevents natural mob spawning in a 128-block radius.",
+  "effect.botania.feather_feet.description": "Grants immunity to fall damage.",
+  "effect.botania.soul_cross.description": "Restores health upon killing mobs.",
+
   "entity.botania.mana_burst": "Mana Burst",
   "entity.botania.pixie": "Pixie",
   "entity.botania.flame_ring": "Flame Ring",
