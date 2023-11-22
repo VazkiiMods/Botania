@@ -18,14 +18,54 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-* Port to 1.19.4
+
+{% include changelog_header.html version="1.20.1-441" %}
+
+* Port to 1.20.1 (team, assisted by extclp and Abbie5)
 * Add: Manufactory Halo shows active status in its icon (Wormbo)
 * Add: Tuff now convertable by Marimorphosis
-* Change: Key of the King's Law no longer hurts items or most other nonliving entities
+* Add: Cherry to log and sapling alchemy cycles
+* Add: Missing leaf mana duplication recipes
+* Add: Manaweave armor is now in the `freeze_immune_wearables` tag
+* Add: Mana alchemy cycle for froglights
+* Add: Ring of Odin protects against freeze damage
+* Add: Livingrock slate, a new decorative block
+* Add: New textures for catalysts
+* Add: Piglin Head is now dropped from the Elementium Axe
+* Add: Camel is now part of the Cocoon of Caprice's rare pool
+* Change: Key of the King's Law no longer hurts items or most other nonliving entities (zacharybarbanell)
 * Change: The internal mana buffer of the Gourmaryllis is now large enough to benefit from streak bonus even with very nutritious food like Rabbit Stew or high quality modded foods (it still caps the food value at 12 points or 6 haunches)
 * Change: Removed desu gun and its associated advancement. The reference has overstayed its welcome.
 * Change: Drum of the Gathering now uses entity tags to determine mobs that can be milked (`botania:drum/milkable`, which now also includes goats by default) and which mobs NOT to shear even though that's technically possible (`botania:drum/no_shearing`, by default that only includes mooshrooms); it can also produce suspicious stew from brown mooshrooms, and no longer finds a way to somehow milk baby cows (Wormbo)
+* Change: Mirror axe/shear recipes so they match vanilla (Adarsh)
+* Change: Fallen Kanade now works in the End dimension again
+* Change: Base mana spreader is now crafted with copper
+* Change: Mana String is now approximately 5x cheaper to infuse (Adarsh)
+* Change: Small buff to Manaweave chestplate's protection value (Adarsh)
+* Change: Small buff to Manaweave helmet's mana discount (Adarsh)
+* Change: Slight buffs to the Thermalily (Adarsh)
+* Change: Adjust Trinket Box and Incense Plate recipes (Adarsh)
+* Change: Improve the performance of Mana Sparks (anonymous123-code)
+* Change: Improve the performance of Mana Enchanter (Wormbo)
+* Change: Improve the performance of Alfheim Portal (Wormbo)
 * Fix: Ender Air emission not being mentioned in Pure Daisy entry (Wormbo)
+* Fix: NPE in Rod of the Unstable Reservoir (sandtechnology)
+* Fix: JEI integration leaking memory
+* Fix: Rosa Arcana not accounting stacked experience orbs
+* Fix: Solid Vines not being solid
+* Fix: Off-by-one-degree typo when rendering progress pies in the HUD
+* Fix: Botania gates now yield 1 like vanilla (Adarsh)
+* Lexicon updates:
+  * Mention the stack size limit of the Ring of Loki (Wormbo)
+  * Alchemy Catalyst entry tweaks (Adarsh)
+  * Mention semi-disposability concept in Elementium Pick entry (Adarsh)
+  * Document new Bergamute behaviour (Adarsh)
+  * Document that grass seeds can be used in a Dispenser (Adarsh)
+  * Reworded Hovering Hourglass sand docs
+  * Document Sextant fractional radius and sphere modes (Wormbo)
+* Language updates:
+  * fr_fr updated (Aegide)
+  * zh_cn updated (Dawnwalker666)
 
 ---
 
