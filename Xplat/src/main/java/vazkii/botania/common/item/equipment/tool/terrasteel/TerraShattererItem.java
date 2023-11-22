@@ -39,6 +39,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
@@ -52,7 +53,7 @@ import java.util.function.Predicate;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TerraShattererItem extends ManasteelPickaxeItem implements SequentialBreaker {
+public class TerraShattererItem extends ManasteelPickaxeItem implements SequentialBreaker, CustomCreativeTabContents {
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";
@@ -71,6 +72,20 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 
 	public TerraShattererItem(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props, -2.8F);
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		output.accept(this);
+		for (int mana : CREATIVE_MANA) {
+			ItemStack stack = new ItemStack(this);
+			setMana(stack, mana);
+			output.accept(stack);
+		}
+		ItemStack stack = new ItemStack(this);
+		setMana(stack, CREATIVE_MANA[1]);
+		setTipped(stack);
+		output.accept(stack);
 	}
 
 	@Override

@@ -26,11 +26,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +35,9 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewItem;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
 import java.util.Map;
@@ -47,7 +45,7 @@ import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class BaseBrewItem extends Item implements BrewItem {
+public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabContents {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
@@ -113,6 +111,19 @@ public class BaseBrewItem extends Item implements BrewItem {
 		}
 
 		return stack;
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
+			if (brew == BotaniaBrews.fallbackBrew) {
+				continue;
+			}
+			ItemStack stack = new ItemStack(this);
+			setBrew(stack, brew);
+			output.accept(stack);
+
+		}
 	}
 
 	@NotNull

@@ -231,7 +231,13 @@ public class ForgeCommonInitializer {
 		modBus.addListener((BuildCreativeModeTabContentsEvent e) -> {
 			if (e.getTabKey() == BotaniaRegistries.BOTANIA_TAB_KEY) {
 				for (Item item : this.itemsToAddToCreativeTab) {
-					e.accept(item);
+					if (item instanceof CustomCreativeTabContents cc) {
+						cc.addToCreativeTab(item, e);
+					} else if (item instanceof BlockItem bi && bi.getBlock() instanceof CustomCreativeTabContents cc) {
+						cc.addToCreativeTab(item, e);
+					} else {
+						e.accept(item);
+					}
 				}
 			}
 		});

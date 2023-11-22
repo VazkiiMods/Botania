@@ -12,10 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -29,7 +26,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.List;
 import java.util.Optional;
 
-public class ManaTabletItem extends Item {
+public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 
 	public static final int MAX_MANA = 500000;
 
@@ -39,6 +36,20 @@ public class ManaTabletItem extends Item {
 
 	public ManaTabletItem(Properties props) {
 		super(props);
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		output.accept(this);
+
+		ItemStack fullPower = new ItemStack(this);
+		setMana(fullPower, MAX_MANA);
+		output.accept(fullPower);
+
+		ItemStack creative = new ItemStack(this);
+		setMana(creative, MAX_MANA);
+		setStackCreative(creative);
+		output.accept(creative);
 	}
 
 	@NotNull

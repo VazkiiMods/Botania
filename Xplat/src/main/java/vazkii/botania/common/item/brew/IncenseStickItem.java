@@ -11,6 +11,7 @@ package vazkii.botania.common.item.brew;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -22,16 +23,28 @@ import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
 
-public class IncenseStickItem extends Item implements BrewItem, BrewContainer {
+public class IncenseStickItem extends Item implements BrewItem, BrewContainer, CustomCreativeTabContents {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;
 
 	public IncenseStickItem(Properties builder) {
 		super(builder);
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		output.accept(this);
+		for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
+			ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
+			if (!brewStack.isEmpty()) {
+				output.accept(brewStack);
+			}
+		}
 	}
 
 	@Override

@@ -220,7 +220,13 @@ public class FabricCommonInitializer implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(BotaniaRegistries.BOTANIA_TAB_KEY)
 				.register(entries -> {
 					for (Item item : this.itemsToAddToCreativeTab) {
-						entries.accept(item);
+						if (item instanceof CustomCreativeTabContents cc) {
+							cc.addToCreativeTab(item, entries);
+						} else if (item instanceof BlockItem bi && bi.getBlock() instanceof CustomCreativeTabContents cc) {
+							cc.addToCreativeTab(item, entries);
+						} else {
+							entries.accept(item);
+						}
 					}
 				});
 	}

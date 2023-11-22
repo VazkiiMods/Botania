@@ -27,6 +27,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -41,18 +43,30 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.client.MinecraftAccessor;
 
 import java.util.List;
 
-public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer, BrewItem {
+public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer, BrewItem, CustomCreativeTabContents {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 
 	public TaintedBloodPendantItem(Properties props) {
 		super(props);
 		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		output.accept(this);
+		for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
+			ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
+			if (!brewStack.isEmpty()) {
+				output.accept(brewStack);
+			}
+		}
 	}
 
 	@Override
