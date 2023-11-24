@@ -107,7 +107,7 @@ dependencies {
 
     compileOnly project(":Xplat")
 
-    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-81-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-83-FABRIC"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.0.625"
 
