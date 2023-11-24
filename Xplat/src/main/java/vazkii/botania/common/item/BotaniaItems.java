@@ -20,7 +20,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -330,13 +329,13 @@ public final class BotaniaItems {
 	public static final Item craftPatternDonut = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "donut"), new CraftingPatternItem(CraftyCratePattern.CRAFTY_DONUT, unstackable()));
 
 	// Guardian of Gaia drops
-	public static final Item dice = make(prefix(LibItemNames.DICE), new DiceOfFateItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item infiniteFruit = make(prefix(LibItemNames.INFINITE_FRUIT), new FruitOfGrisaiaItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item kingKey = make(prefix(LibItemNames.KING_KEY), new KeyOfTheKingsLawItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item flugelEye = make(prefix(LibItemNames.FLUGEL_EYE), new EyeOfTheFlugelItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item thorRing = make(prefix(LibItemNames.THOR_RING), new RingOfThorItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item odinRing = make(prefix(LibItemNames.ODIN_RING), new RingOfOdinItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item lokiRing = make(prefix(LibItemNames.LOKI_RING), new RingOfLokiItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
+	public static final Item dice = make(prefix(LibItemNames.DICE), new DiceOfFateItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item infiniteFruit = make(prefix(LibItemNames.INFINITE_FRUIT), new FruitOfGrisaiaItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item kingKey = make(prefix(LibItemNames.KING_KEY), new KeyOfTheKingsLawItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item flugelEye = make(prefix(LibItemNames.FLUGEL_EYE), new EyeOfTheFlugelItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item thorRing = make(prefix(LibItemNames.THOR_RING), new RingOfThorItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item odinRing = make(prefix(LibItemNames.ODIN_RING), new RingOfOdinItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item lokiRing = make(prefix(LibItemNames.LOKI_RING), new RingOfLokiItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
 	public static final Item recordGaia1 = make(prefix(LibItemNames.RECORD_GAIA1), new BotaniaRecordItem(1, BotaniaSounds.gaiaMusic1, unstackable().rarity(Rarity.RARE), 202));
 	public static final Item recordGaia2 = make(prefix(LibItemNames.RECORD_GAIA2), new BotaniaRecordItem(1, BotaniaSounds.gaiaMusic2, unstackable().rarity(Rarity.RARE), 227));
 	public static final Item ancientWillAhrim = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "ahrim"), new AncientWillItem(AncientWillContainer.AncientWillType.AHRIM, unstackable().rarity(Rarity.UNCOMMON)));
