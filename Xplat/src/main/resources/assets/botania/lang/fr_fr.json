@@ -77,7 +77,7 @@
 
   "botaniamisc.armorset": "\u00a7bPanoplie\u00a7r:",
   "botaniamisc.craftToAddWill": "Amélioration de casque en terracier:",
-  "botaniamisc.requestMsg": "Commandé %d x \"%s\" (en stock: %d). %d récupérés.",
+  "botaniamisc.requestMsg": "Commandé %d x %s (en stock: %d). %d récupérés.",
   "botaniamisc.nearIndex0": "Index Corporea",
   "botaniamisc.nearIndex1": "Tout ce que vous direz pourra ",
   "botaniamisc.nearIndex2": "être utilisé pour vos requêtes",

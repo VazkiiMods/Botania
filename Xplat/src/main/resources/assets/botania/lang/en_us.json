@@ -66,7 +66,7 @@
   "botaniamisc.clipEmpty": "(Empty)",
   "botaniamisc.armorset": "\u00a7bArmor Set\u00a7r:",
   "botaniamisc.craftToAddWill": "Terrasteel Helmet Upgrade:",
-  "botaniamisc.requestMsg": "Requested %d x \"%s\" out of %d. %d taken.",
+  "botaniamisc.requestMsg": "Requested %d x %s out of %d. %d taken.",
   "botaniamisc.nearIndex0": "Corporea Index nearby!",
   "botaniamisc.nearIndex1": "Anything you say will be",
   "botaniamisc.nearIndex2": "intercepted as a request",
