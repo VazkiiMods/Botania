@@ -22,6 +22,8 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="1.20.1-441" %}
 
 * Port to 1.20.1 (team, assisted by extclp and Abbie5)
+  * Note: In this release, we are still targeting legacy MinecraftForge ("LexForge") in 1.20.1. NeoForge has been briefly tested to work but support will not be prioritized for it yet.
+  * In 1.20.2+, we will be switching to target NeoForge, the continuation of the Forge project.
 * Add: Manufactory Halo shows active status in its icon (Wormbo)
 * Add: Tuff now convertable by Marimorphosis
 * Add: Cherry to log and sapling alchemy cycles
