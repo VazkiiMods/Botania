@@ -8,7 +8,7 @@ TAGNAME="${GIT_REF/#refs\/tags\/}"
 VERSION="${TAGNAME/#release-}"
 MC_VERSION=$(echo "${VERSION}" | cut -d '-' -f 1)
 CHANGELOG_FRAGMENT=$(echo "${VERSION}" | tr . -)
-CHANGELOG_LINK="https://botaniamod.net/changelog.html#${CHANGELOG_FRAGMENT}"
+CHANGELOG_LINK="https://botaniamod.net/changelog.html#${CHANGELOG_FRAGMENT}-fake"
 
 function release_github() {
 	echo >&2 'Creating GitHub Release'
