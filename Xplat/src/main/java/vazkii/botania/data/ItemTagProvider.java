@@ -87,6 +87,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), monocle);
 		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
+		this.tag(ItemTags.LECTERN_BOOKS).add(lexicon);
+		this.tag(ItemTags.BOOKSHELF_BOOKS).add(lexicon);
 
 		this.tag(BotaniaTags.Items.DUSTS_MANA).add(manaPowder);
 

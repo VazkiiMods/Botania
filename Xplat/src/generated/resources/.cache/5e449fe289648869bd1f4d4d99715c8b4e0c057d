@@ -56,10 +56,12 @@ adfc7deaa7aa9d5425da095270745d58605b86ad data/botania/tags/items/rods.json
 70a32077a4c06e2fc3ed8783037d4b6c659216be data/botania/tags/items/terrasteel_ingots.json
 de5556cc02036175ac731ce76827076c6b834d25 data/botania/tags/items/terrasteel_nuggets.json
 43bfa13de3ebc0be372fc48b0e4be56a25cb1893 data/minecraft/tags/items/axes.json
+65c35efa8dfbdc9f5a8c05624c492fba8408e3b2 data/minecraft/tags/items/bookshelf_books.json
 a101ef4ecfece48f1cdff62f34f30f9f25b3dbd3 data/minecraft/tags/items/cluster_max_harvestables.json
 b59d5b36ebe88ae60fca62eb6985e9825e0a9031 data/minecraft/tags/items/fences.json
 d0af4dd70afe7bdf3964a0aa4df4722e4452d78c data/minecraft/tags/items/freeze_immune_wearables.json
 79ae3faf230addcc2958d69860afa0c406f4ca35 data/minecraft/tags/items/hoes.json
+65c35efa8dfbdc9f5a8c05624c492fba8408e3b2 data/minecraft/tags/items/lectern_books.json
 0d43cab6db2ee9b5d1865b8938630349ce5bfa23 data/minecraft/tags/items/logs_that_burn.json
 cc4f967b08052c03ce91be3de50f078469fb2749 data/minecraft/tags/items/music_discs.json
 a101ef4ecfece48f1cdff62f34f30f9f25b3dbd3 data/minecraft/tags/items/pickaxes.json
