@@ -231,14 +231,30 @@ every sampling she invariably needs a break (often up to five minutes in length)
 accompanied by loud cursing and fuming.
 
 ## Rosa Arcana
-### Title
+### Lovestruck Experience Gatherer
 * Gender: Male (he/him)
-* Physical symbols: 
-* Likes: 
-* Dislikes: Bad DM's
+* Physical symbols: xP smiley
+* Likes: Gourmaryllis, cute love songs
+* Dislikes: Getting cold feet, his friends giving him bad advice
 
-Idea: TTRPG nerd
-Yes, his name has "Rosa" in it. No, he doesn't care.
+Rosa Arcana, who goes by "Rho" usually, is a young professional living in the city.
+
+He's a gentle, more emotionally-minded flower, having that reputation ever since he was a
+little boy. One time in 3rd grade summer camp, every student was to write small positive
+notes to the other students in their classes. Rho gave another girl a note that read "I
+think you're really pretty", leading to quite a bit of light teasing from his and other
+students' parents that he liked her. However, Rho didn't really understand the commotion
+-- that was just the first genuine compliment that popped into his mind.
+
+Rho loves listening to cute, sugary love songs. The kind that almost make you sick with
+how sweet they are. Some of his favorites: Hear The Heart by Luo Tianyi, Great Happiness
+by Yousa, Renai Circulation by Kana Hanazawa, and Love You by Cyndi Wang.
+
+Recently, Rho's developed a bit of a crush on Gourmaryllis, who he met at a musical event
+earlier in the year. Unsure how to proceed, he's been pestering all of his friends and
+family for their experience and advice on what to do next, but who knows the validity of
+their advice (some of them have never even dated, much to Rho's skepticism). All he knows
+is that he just needs to put forth his most genuine self and see where things go.
 	
 ## Munchdew
 ### Frugal and Feeling Flower
@@ -278,7 +294,7 @@ consume animal products half as often, with an eventual goal of stopping altoget
 
 She is also now involved in activist groups, though she notably avoids PETA (Plants for
 Ethical Treat of Animals), as their rhetoric is often over-inflammatory, leading many to
-dismiss all such activist groups as crazy.
+dismiss all animal activist groups as crazy.
 
 In her time as a budding vegetarian, Munchdew has come to love tofu, being able to cook
 nearly a hundred tofu-based dishes. Her favorite is probably *mapo tofu*, and she sources
@@ -661,6 +677,7 @@ sexual abuse offenders.
 * Likes:
 * Dislikes: 
 
+TODO
 Idea: miner duo (siblings or parent-child or partner)
 
 ## Fallen Kanade
@@ -710,11 +727,15 @@ nearly everybody they know.
 * Dislikes: Not being motivated
 
 
+TODO
+
 ## Hopperhock
 * Gender:
 * Physical symbols:
 * Likes:
 * Dislikes: 
+
+TODO
 
 ## Tangleberrie & Jiyuulia
 ### Lackadaisical Guardian Twins
@@ -1159,7 +1180,7 @@ Each flower in Botania is a reference to a (usually real life) flower or concept
 | Daybloom         | Daybloom (Terraria), Sunflower (by extension)                      |
 | Dreadthorne      | Dread + Hawthorne (variant of Bellethorne)                         |
 | Endoflame        | Endothermic (absorbing/requiring heat)                             |
-| Entropinnyum     |                                                                    |
+| Entropinnyum     | Entropy (flower portion unknown)                                   |
 | Exoflame         | Exothermic (releases heat)                                         |
 | Fallen Kanade    | "Fallen Angel", with angel replaced with Kanade from *Angel Beats* |
 | Gourmaryllis     | Gourmet + Amaryllis                                                |
@@ -1168,7 +1189,7 @@ Each flower in Botania is a reference to a (usually real life) flower or concept
 | Hyacidus         | Hyacinth + Acid                                                    |
 | Hydroangeas      | "Hydro" (Ancient Greek: water) + Hydrangea                         |
 | Jaded Amaranthus | "Jaded" (JadedCat, patron who commissioned the flower) + Amaranth  |
-| Jiyullia         |                                                                    |
+| Jiyullia         | "Jiyuu" Japanese word for "freedom" + Julia                        |
 | Kekimurus        | "keki" (kay-key) is the Japanese pronunciation of "cake"           |
 | Labellia         | Label + Lobelia                                                    |
 | Loonium          | Loot + Geranium                                                    |
