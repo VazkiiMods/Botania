@@ -68,7 +68,7 @@
   "botaniamisc.clipEmpty": "(空)",
   "botaniamisc.armorset": "\u00a7b套装\u00a7r：",
   "botaniamisc.craftToAddWill": "与泰拉钢头盔合成添加以下效果：",
-  "botaniamisc.requestMsg": "请求 %d x \"%s\" 总数 %d。 取出 %d。",
+  "botaniamisc.requestMsg": "请求 %d x %s 总数 %d。 取出 %d。",
   "botaniamisc.nearIndex0": "附近有多媒体索引！",
   "botaniamisc.nearIndex1": "你所说的一切都会被",
   "botaniamisc.nearIndex2": "当做请求发送给索引",
