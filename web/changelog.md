@@ -39,7 +39,7 @@ and start a new "Upcoming" section.
   * Unlock conditions for slab recombination recipes now require the slab, not the full block
 * Change: Recipe displays for Petal Apothecary and Runic Altar show required reagents (e.g. seeds, livingrock)
 * Change: Recipe display for Terrestrial Agglomeration Plate in EMI looks more like it does on JEI or REI now
-* Change: Phantom ink is now used to hide abstruse and spectral platforms instead of managlass.
+* Change: Phantom ink is now used to hide abstruse and spectral platforms instead of managlass. (zacharybarbanell)
 * Fix: Corporea Crystal Cube and Abstruse/Spectral Platform no longer forget their internal state after unloading
 * Fix: Quick-moving (shift+click) Botania pattern items in the loom UI properly puts them in the pattern slot
 * Fix: Animated Torch powers blocks consistently, and properly updates necessary blocks when placed, rotated, or removed
