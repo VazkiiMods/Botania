@@ -32,6 +32,8 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 
 	private static final int RANGE = 2;
 	private static final int MAX_MANA = manaForSize(4);
+	public static final int MANA_BASE = 1200;
+	public static final int MANA_BASE_GOG = MANA_BASE / 4;
 
 	public NarslimmusBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaFlowerBlocks.NARSLIMMUS, pos, state);
@@ -70,7 +72,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 
 	private static int manaForSize(int size) {
 		size = Math.min(size, 4);
-		return 1200 * (int) Math.pow(2, size);
+		return (XplatAbstractions.INSTANCE.gogLoaded() ? MANA_BASE_GOG : MANA_BASE) * (int) Math.pow(2, size);
 	}
 
 	@Override
