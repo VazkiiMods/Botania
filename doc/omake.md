@@ -568,7 +568,7 @@ to himself, but he felt that he was 1% of the way closer to knowing.
 
 ## Bellethorne & Dreadthorne
 ### Brambled Sisters of Justice
-* Gender: Female
+* Gender: Female (she/her)
 * Physical symbols: Hawthorn flowers, crossed swords
 * Likes: Each other
 * Dislikes: Inequality, colonialism, imperialism
@@ -623,7 +623,7 @@ of invaders that sought to colonize the former. Stealing these artifacts and ret
 them to their rightful owners was but a small reparation for the devastation that the
 invaders had sown in their wake.
 
-Bellethorne and Dreadthorne, now calling themselves the Brambly Sisters of Justice,
+Bellethorne and Dreadthorne, now calling themselves the Brambled Sisters of Justice,
 continued on thus, challenging the world they lived in, forcing it to look itself in the
 mirror and question the status quo. After each heist, they would leave a beautiful bouquet
 of Crimson Cloud hawthorn flowers, a prayer to each other and the world for justice. Not
@@ -718,6 +718,7 @@ that's exactly what the friend needs to hear. As a result, Exoflame is deeply tr
 nearly everybody they know.
 
 ## Agricarnation
+### Guided Carnation Adrift in the Sea of Life
 * Gender: Fluid
 * Physical symbols: Composter
 * Likes: Self-improvement books
@@ -748,16 +749,29 @@ flipping the self-help books they checked out from the library, sipping tea, and
 that great question.
 
 ## Hopperhock
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+### Jolly Collector
+* Gender: ???
+* Physical symbols: ?
+* Likes: Hoarding
+* Dislikes: Losing things
 
-TODO
+Hopperhock doesn't remember where they came from. As long as they remembered, they were
+living on the streets under the protection of Dreadthorne. Even though objectively, the
+situation was awful, Hopperhock always managed to get through the days with a jolly,
+happy-go-lucky attitude. They made their living by scavenging anything and everything,
+then reselling them for a slim profit. In addition to reselling, any higher quality spoils
+were added to Hopperhock's hoard at their home.
+
+In a world where Hopperhock had so little, being surrounded by physical items and trinkets
+was oddly comforting.
+
+Since Hopperhock is a bit of an airhead, they have a tendency to be duped or tricked out
+of their precious belongings, but the surrounding community has adopted Hopperhock as one
+of their own, and fiercely defend the mischievious hoarder from any prying eyes and hands.
 
 ## Tangleberrie & Jiyuulia
 ### Lackadaisical Guardian Twins
-* Gender: Male
+* Gender: Male (he/him)
 * Physical symbols: Velcro
 * Likes: Their jobs, each other
 * Dislikes: The paperwork that happens when they make mistakes on the job
