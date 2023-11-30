@@ -6,9 +6,6 @@ extra fun content associated with the main content.
 
 We hope you enjoy!
 
-TODO: Once flowersonas are complete, move this to Xplat resources so it's included in the
-release JARs
-
 # Botania Flower Character Profiles (fka Flowersonas)
 This section includes character profiles for each Miscellaneous, Generating, and
 Functional Flower in Botania. It's inspired by the character profiles included with the
@@ -726,8 +723,29 @@ nearly everybody they know.
 * Likes: Self-improvement books
 * Dislikes: Not being motivated
 
+Agricarnation grew up a "gifted" child. They were the star student, praised for their
+excellent grades and for never acting out bad enough to be moved from "green" to "yellow"
+on the behavior chart.
 
-TODO
+For their part, Agricarnation leaned into it. They loved getting praised when things went
+well. They were also talented enough to never have to try much in school to get those
+excellent grades, and this lasted throughout and past university, where Agricarnation
+majored in sociology. Their Master's thesis was about how people, as a whole, assign
+labels (such as "tech mod" and "magic mod") to things and stubbornly stick by those
+labels, at the expense of nuance and objective truth.
+
+After graduating, however, Agricarnation began to falter. The routine of "coast through
+school based on pure smarts" no longer worked, and they were left adrift in a world that
+they had been wholly unprepared for. With no external validation, it became hard for
+Agricarnation to move to work towards any goal, because there was no reason to do it.
+Agricarnation was self-aware of this, which worsened the situation, as they would spiral
+into gloominess quickly when they became saddened and depressed by being unmotivated,
+which demotivated them even further.
+
+Is there a way out of this for Agricarnation? What truly is the purpose of living, of
+working hard and shedding blood and tears in pursuit of a goal? Agricarnation continued
+flipping the self-help books they checked out from the library, sipping tea, and pondering
+that great question.
 
 ## Hopperhock
 * Gender:
