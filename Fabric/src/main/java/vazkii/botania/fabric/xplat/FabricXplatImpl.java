@@ -552,10 +552,11 @@ public class FabricXplatImpl implements XplatAbstractions {
 	// No standard so we have to check both :wacko:
 	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass"));
 	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_blocks"));
+	private final TagKey<Block> cGlassPanes = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_panes"));
 
 	@Override
 	public boolean isInGlassTag(BlockState state) {
-		return state.is(cGlass) || state.is(cGlassBlocks);
+		return state.is(cGlass) || state.is(cGlassBlocks) || state.is(cGlassPanes);
 	}
 
 	@Override

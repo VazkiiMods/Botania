@@ -523,7 +523,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean isInGlassTag(BlockState state) {
-		return state.is(Tags.Blocks.GLASS);
+		return state.is(Tags.Blocks.GLASS) || state.is(Tags.Blocks.GLASS_PANES);
 	}
 
 	@Override
