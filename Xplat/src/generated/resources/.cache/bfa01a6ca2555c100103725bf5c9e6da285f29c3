@@ -38,6 +38,7 @@ f6a5c0245b80f1c4bb390046a4e1a8265be42bd1 data/minecraft/tags/blocks/dirt.json
 98a9d6cb118e1a803d3b82e02586565d66a3752a data/minecraft/tags/blocks/fence_gates.json
 b59d5b36ebe88ae60fca62eb6985e9825e0a9031 data/minecraft/tags/blocks/fences.json
 8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/fire.json
+738d49d47dc0c2b2bcab3d75d3ae93bcde90dec4 data/minecraft/tags/blocks/flower_pots.json
 378ad99e0afb280ea80976f7200b092e99ee843a data/minecraft/tags/blocks/impermeable.json
 8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/leaves.json
 0d43cab6db2ee9b5d1865b8938630349ce5bfa23 data/minecraft/tags/blocks/logs_that_burn.json
