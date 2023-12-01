@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
+import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.PetalApothecary;
@@ -58,6 +59,9 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Locale;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.LibBlockNames.*;
 import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
@@ -186,6 +190,57 @@ public final class BotaniaBlocks {
 	public static final Block doubleFlowerGreen = new BotaniaDoubleFlowerBlock(DyeColor.GREEN, BlockBehaviour.Properties.copy(doubleFlowerWhite));
 	public static final Block doubleFlowerRed = new BotaniaDoubleFlowerBlock(DyeColor.RED, BlockBehaviour.Properties.copy(doubleFlowerWhite));
 	public static final Block doubleFlowerBlack = new BotaniaDoubleFlowerBlock(DyeColor.BLACK, BlockBehaviour.Properties.copy(doubleFlowerWhite));
+
+	public static final Block pottedWhiteFlower = flowerPot(whiteFlower, 0);
+	public static final Block pottedOrangeFlower = flowerPot(orangeFlower, 0);
+	public static final Block pottedMagentaFlower = flowerPot(magentaFlower, 0);
+	public static final Block pottedLightBlueFlower = flowerPot(lightBlueFlower, 0);
+	public static final Block pottedYellowFlower = flowerPot(yellowFlower, 0);
+	public static final Block pottedLimeFlower = flowerPot(limeFlower, 0);
+	public static final Block pottedPinkFlower = flowerPot(pinkFlower, 0);
+	public static final Block pottedGrayFlower = flowerPot(grayFlower, 0);
+	public static final Block pottedLightGrayFlower = flowerPot(lightGrayFlower, 0);
+	public static final Block pottedCyanFlower = flowerPot(cyanFlower, 0);
+	public static final Block pottedPurpleFlower = flowerPot(purpleFlower, 0);
+	public static final Block pottedBlueFlower = flowerPot(blueFlower, 0);
+	public static final Block pottedBrownFlower = flowerPot(brownFlower, 0);
+	public static final Block pottedGreenFlower = flowerPot(greenFlower, 0);
+	public static final Block pottedRedFlower = flowerPot(redFlower, 0);
+	public static final Block pottedBlackFlower = flowerPot(blackFlower, 0);
+
+	public static final Block pottedWhiteShinyFlower = flowerPot(whiteShinyFlower, 15);
+	public static final Block pottedOrangeShinyFlower = flowerPot(orangeShinyFlower, 15);
+	public static final Block pottedMagentaShinyFlower = flowerPot(magentaShinyFlower, 15);
+	public static final Block pottedLightBlueShinyFlower = flowerPot(lightBlueShinyFlower, 15);
+	public static final Block pottedYellowShinyFlower = flowerPot(yellowShinyFlower, 15);
+	public static final Block pottedLimeShinyFlower = flowerPot(limeShinyFlower, 15);
+	public static final Block pottedPinkShinyFlower = flowerPot(pinkShinyFlower, 15);
+	public static final Block pottedGrayShinyFlower = flowerPot(grayShinyFlower, 15);
+	public static final Block pottedLightGrayShinyFlower = flowerPot(lightGrayShinyFlower, 15);
+	public static final Block pottedCyanShinyFlower = flowerPot(cyanShinyFlower, 15);
+	public static final Block pottedPurpleShinyFlower = flowerPot(purpleShinyFlower, 15);
+	public static final Block pottedBlueShinyFlower = flowerPot(blueShinyFlower, 15);
+	public static final Block pottedBrownShinyFlower = flowerPot(brownShinyFlower, 15);
+	public static final Block pottedGreenShinyFlower = flowerPot(greenShinyFlower, 15);
+	public static final Block pottedRedShinyFlower = flowerPot(redShinyFlower, 15);
+	public static final Block pottedBlackShinyFlower = flowerPot(blackShinyFlower, 15);
+
+	public static final Block pottedWhiteMushroom = flowerPot(whiteMushroom, 3);
+	public static final Block pottedOrangeMushroom = flowerPot(orangeMushroom, 3);
+	public static final Block pottedMagentaMushroom = flowerPot(magentaMushroom, 3);
+	public static final Block pottedLightBlueMushroom = flowerPot(lightBlueMushroom, 3);
+	public static final Block pottedYellowMushroom = flowerPot(yellowMushroom, 3);
+	public static final Block pottedLimeMushroom = flowerPot(limeMushroom, 3);
+	public static final Block pottedPinkMushroom = flowerPot(pinkMushroom, 3);
+	public static final Block pottedGrayMushroom = flowerPot(grayMushroom, 3);
+	public static final Block pottedLightGrayMushroom = flowerPot(lightGrayMushroom, 3);
+	public static final Block pottedCyanMushroom = flowerPot(cyanMushroom, 3);
+	public static final Block pottedPurpleMushroom = flowerPot(purpleMushroom, 3);
+	public static final Block pottedBlueMushroom = flowerPot(blueMushroom, 3);
+	public static final Block pottedBrownMushroom = flowerPot(brownMushroom, 3);
+	public static final Block pottedGreenMushroom = flowerPot(greenMushroom, 3);
+	public static final Block pottedRedMushroom = flowerPot(redMushroom, 3);
+	public static final Block pottedBlackMushroom = flowerPot(blackMushroom, 3);
 
 	public static final Block defaultAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DEFAULT, BlockBehaviour.Properties.of()
 			.strength(3.5F).sound(SoundType.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().mapColor(MapColor.STONE)
@@ -380,6 +435,10 @@ public final class BotaniaBlocks {
 	public static final Block motifDaybloom = new FlowerMotifBlock(MobEffects.BLINDNESS, 15, BlockBehaviour.Properties.copy(Blocks.POPPY), true);
 	public static final Block motifNightshade = new FlowerMotifBlock(MobEffects.POISON, 20, BlockBehaviour.Properties.copy(Blocks.POPPY), true);
 	public static final Block motifHydroangeas = new FlowerMotifBlock(MobEffects.UNLUCK, 10, BlockBehaviour.Properties.copy(Blocks.POPPY), false);
+
+	public static final Block pottedMotifDaybloom = flowerPot(motifDaybloom, 0);
+	public static final Block pottedMotifNightshade = flowerPot(motifNightshade, 0);
+	public static final Block pottedMotifHydroangeas = flowerPot(motifHydroangeas, 0);
 
 	public static final Block livingwoodStairs = new BotaniaStairBlock(livingwood.defaultBlockState(), BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingwood));
@@ -605,119 +664,31 @@ public final class BotaniaBlocks {
 	public static final Block alfglassPane = new BotaniaPaneBlock(BlockBehaviour.Properties.copy(elfGlass));
 	public static final Block bifrostPane = new BotaniaPaneBlock(BlockBehaviour.Properties.copy(bifrostPerm));
 
+	static FlowerPotBlock flowerPot(Block block, int lightLevel) {
+		BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY);
+		return new FlowerPotBlock(block, lightLevel > 0 ? properties.lightLevel(blockState -> lightLevel) : properties);
+	}
+
 	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
-		r.accept(whiteFlower, prefix("white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(orangeFlower, prefix("orange" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(magentaFlower, prefix("magenta" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(lightBlueFlower, prefix("light_blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(yellowFlower, prefix("yellow" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(limeFlower, prefix("lime" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(pinkFlower, prefix("pink" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(grayFlower, prefix("gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(lightGrayFlower, prefix("light_gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(cyanFlower, prefix("cyan" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(purpleFlower, prefix("purple" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(blueFlower, prefix("blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(brownFlower, prefix("brown" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(greenFlower, prefix("green" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(redFlower, prefix("red" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(blackFlower, prefix("black" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
-		r.accept(whiteShinyFlower, prefix("white" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(orangeShinyFlower, prefix("orange" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(magentaShinyFlower, prefix("magenta" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(lightBlueShinyFlower, prefix("light_blue" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(yellowShinyFlower, prefix("yellow" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(limeShinyFlower, prefix("lime" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(pinkShinyFlower, prefix("pink" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(grayShinyFlower, prefix("gray" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(lightGrayShinyFlower, prefix("light_gray" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(cyanShinyFlower, prefix("cyan" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(purpleShinyFlower, prefix("purple" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(blueShinyFlower, prefix("blue" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(brownShinyFlower, prefix("brown" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(greenShinyFlower, prefix("green" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(redShinyFlower, prefix("red" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(blackShinyFlower, prefix("black" + LibBlockNames.SHINY_FLOWER_SUFFIX));
-		r.accept(whiteBuriedPetals, prefix("white" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(orangeBuriedPetals, prefix("orange" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(magentaBuriedPetals, prefix("magenta" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(lightBlueBuriedPetals, prefix("light_blue" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(yellowBuriedPetals, prefix("yellow" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(limeBuriedPetals, prefix("lime" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(pinkBuriedPetals, prefix("pink" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(grayBuriedPetals, prefix("gray" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(lightGrayBuriedPetals, prefix("light_gray" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(cyanBuriedPetals, prefix("cyan" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(purpleBuriedPetals, prefix("purple" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(blueBuriedPetals, prefix("blue" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(brownBuriedPetals, prefix("brown" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(greenBuriedPetals, prefix("green" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(redBuriedPetals, prefix("red" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(blackBuriedPetals, prefix("black" + LibBlockNames.BURIED_PETALS_SUFFIX));
-		r.accept(whiteFloatingFlower, prefix("white" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(orangeFloatingFlower, prefix("orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(magentaFloatingFlower, prefix("magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(lightBlueFloatingFlower, prefix("light_blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(yellowFloatingFlower, prefix("yellow" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(limeFloatingFlower, prefix("lime" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(pinkFloatingFlower, prefix("pink" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(grayFloatingFlower, prefix("gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(lightGrayFloatingFlower, prefix("light_gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(cyanFloatingFlower, prefix("cyan" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(purpleFloatingFlower, prefix("purple" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(blueFloatingFlower, prefix("blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(brownFloatingFlower, prefix("brown" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(greenFloatingFlower, prefix("green" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(redFloatingFlower, prefix("red" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(blackFloatingFlower, prefix("black" + LibBlockNames.FLOATING_FLOWER_SUFFIX));
-		r.accept(petalBlockWhite, prefix("white" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockOrange, prefix("orange" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockMagenta, prefix("magenta" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockLightBlue, prefix("light_blue" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockYellow, prefix("yellow" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockLime, prefix("lime" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockPink, prefix("pink" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockGray, prefix("gray" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockSilver, prefix("light_gray" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockCyan, prefix("cyan" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockPurple, prefix("purple" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockBlue, prefix("blue" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockBrown, prefix("brown" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockGreen, prefix("green" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockRed, prefix("red" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(petalBlockBlack, prefix("black" + LibBlockNames.PETAL_BLOCK_SUFFIX));
-		r.accept(whiteMushroom, prefix("white" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(orangeMushroom, prefix("orange" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(magentaMushroom, prefix("magenta" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(lightBlueMushroom, prefix("light_blue" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(yellowMushroom, prefix("yellow" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(limeMushroom, prefix("lime" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(pinkMushroom, prefix("pink" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(grayMushroom, prefix("gray" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(lightGrayMushroom, prefix("light_gray" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(cyanMushroom, prefix("cyan" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(purpleMushroom, prefix("purple" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(blueMushroom, prefix("blue" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(brownMushroom, prefix("brown" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(greenMushroom, prefix("green" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(redMushroom, prefix("red" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(blackMushroom, prefix("black" + LibBlockNames.MUSHROOM_SUFFIX));
-		r.accept(doubleFlowerWhite, prefix("white" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerOrange, prefix("orange" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerMagenta, prefix("magenta" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerLightBlue, prefix("light_blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerYellow, prefix("yellow" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerLime, prefix("lime" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerPink, prefix("pink" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerGray, prefix("gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerLightGray, prefix("light_gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerCyan, prefix("cyan" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerPurple, prefix("purple" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerBlue, prefix("blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerBrown, prefix("brown" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerGreen, prefix("green" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerRed, prefix("red" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
-		r.accept(doubleFlowerBlack, prefix("black" + LibBlockNames.DOUBLE_FLOWER_SUFFIX));
+		// triples of: block getter from dye color, block ID prefix, block ID suffix
+		Stream.<Triple<Function<DyeColor, Block>, String, String>>of(
+				Triple.of(BotaniaBlocks::getFlower, "", LibBlockNames.MYSTICAL_FLOWER_SUFFIX),
+				Triple.of(BotaniaBlocks::getShinyFlower, "", LibBlockNames.SHINY_FLOWER_SUFFIX),
+				Triple.of(BotaniaBlocks::getBuriedPetal, "", LibBlockNames.BURIED_PETALS_SUFFIX),
+				Triple.of(BotaniaBlocks::getFloatingFlower, "", LibBlockNames.FLOATING_FLOWER_SUFFIX),
+				Triple.of(BotaniaBlocks::getPetalBlock, "", LibBlockNames.PETAL_BLOCK_SUFFIX),
+				Triple.of(BotaniaBlocks::getMushroom, "", LibBlockNames.MUSHROOM_SUFFIX),
+				Triple.of(BotaniaBlocks::getDoubleFlower, "", LibBlockNames.DOUBLE_FLOWER_SUFFIX),
+				Triple.of(BotaniaBlocks::getPottedFlower, LibBlockNames.POTTED_PREFIX, LibBlockNames.MYSTICAL_FLOWER_SUFFIX),
+				Triple.of(BotaniaBlocks::getPottedShinyFlower, LibBlockNames.POTTED_PREFIX, LibBlockNames.SHINY_FLOWER_SUFFIX),
+				Triple.of(BotaniaBlocks::getPottedMushroom, LibBlockNames.POTTED_PREFIX, LibBlockNames.MUSHROOM_SUFFIX)
+		).forEach(coloredBlockRegistration -> {
+			for (DyeColor dyeColor : DyeColor.values()) {
+				r.accept(coloredBlockRegistration.getLeft().apply(dyeColor),
+						prefix(coloredBlockRegistration.getMiddle() + dyeColor.getName() + coloredBlockRegistration.getRight()));
+			}
+		});
+
 		r.accept(defaultAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEFAULT.name().toLowerCase(Locale.ROOT)));
 		r.accept(forestAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.FOREST.name().toLowerCase(Locale.ROOT)));
 		r.accept(plainsAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.PLAINS.name().toLowerCase(Locale.ROOT)));
@@ -921,6 +892,9 @@ public final class BotaniaBlocks {
 		r.accept(motifDaybloom, prefix(LibBlockNames.MOTIF_DAYBLOOM));
 		r.accept(motifNightshade, prefix(LibBlockNames.MOTIF_NIGHTSHADE));
 		r.accept(motifHydroangeas, prefix(LibBlockNames.MOTIF_HYDROANGEAS));
+		r.accept(pottedMotifDaybloom, prefix(LibBlockNames.POTTED_PREFIX + LibBlockNames.MOTIF_DAYBLOOM));
+		r.accept(pottedMotifNightshade, prefix(LibBlockNames.POTTED_PREFIX + LibBlockNames.MOTIF_NIGHTSHADE));
+		r.accept(pottedMotifHydroangeas, prefix(LibBlockNames.POTTED_PREFIX + LibBlockNames.MOTIF_HYDROANGEAS));
 
 		r.accept(darkQuartz, prefix(QUARTZ_DARK));
 		r.accept(darkQuartzChiseled, prefix("chiseled_" + QUARTZ_DARK));
@@ -1810,5 +1784,79 @@ public final class BotaniaBlocks {
 			case RED -> petalBlockRed;
 			case BLACK -> petalBlockBlack;
 		};
+	}
+
+	public static Block getPottedFlower(DyeColor color) {
+		return switch (color) {
+			case WHITE -> pottedWhiteFlower;
+			case ORANGE -> pottedOrangeFlower;
+			case MAGENTA -> pottedMagentaFlower;
+			case LIGHT_BLUE -> pottedLightBlueFlower;
+			case YELLOW -> pottedYellowFlower;
+			case LIME -> pottedLimeFlower;
+			case PINK -> pottedPinkFlower;
+			case GRAY -> pottedGrayFlower;
+			case LIGHT_GRAY -> pottedLightGrayFlower;
+			case CYAN -> pottedCyanFlower;
+			case PURPLE -> pottedPurpleFlower;
+			case BLUE -> pottedBlueFlower;
+			case BROWN -> pottedBrownFlower;
+			case GREEN -> pottedGreenFlower;
+			case RED -> pottedRedFlower;
+			case BLACK -> pottedBlackFlower;
+		};
+	}
+
+	public static Block getPottedShinyFlower(DyeColor color) {
+		return switch (color) {
+			case WHITE -> pottedWhiteShinyFlower;
+			case ORANGE -> pottedOrangeShinyFlower;
+			case MAGENTA -> pottedMagentaShinyFlower;
+			case LIGHT_BLUE -> pottedLightBlueShinyFlower;
+			case YELLOW -> pottedYellowShinyFlower;
+			case LIME -> pottedLimeShinyFlower;
+			case PINK -> pottedPinkShinyFlower;
+			case GRAY -> pottedGrayShinyFlower;
+			case LIGHT_GRAY -> pottedLightGrayShinyFlower;
+			case CYAN -> pottedCyanShinyFlower;
+			case PURPLE -> pottedPurpleShinyFlower;
+			case BLUE -> pottedBlueShinyFlower;
+			case BROWN -> pottedBrownShinyFlower;
+			case GREEN -> pottedGreenShinyFlower;
+			case RED -> pottedRedShinyFlower;
+			case BLACK -> pottedBlackShinyFlower;
+		};
+	}
+
+	public static Block getPottedMushroom(DyeColor color) {
+		return switch (color) {
+			case WHITE -> pottedWhiteMushroom;
+			case ORANGE -> pottedOrangeMushroom;
+			case MAGENTA -> pottedMagentaMushroom;
+			case LIGHT_BLUE -> pottedLightBlueMushroom;
+			case YELLOW -> pottedYellowMushroom;
+			case LIME -> pottedLimeMushroom;
+			case PINK -> pottedPinkMushroom;
+			case GRAY -> pottedGrayMushroom;
+			case LIGHT_GRAY -> pottedLightGrayMushroom;
+			case CYAN -> pottedCyanMushroom;
+			case PURPLE -> pottedPurpleMushroom;
+			case BLUE -> pottedBlueMushroom;
+			case BROWN -> pottedBrownMushroom;
+			case GREEN -> pottedGreenMushroom;
+			case RED -> pottedRedMushroom;
+			case BLACK -> pottedBlackMushroom;
+		};
+	}
+
+	public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {
+		Stream.of(DyeColor.values()).forEach(dyeColor -> {
+			consumer.accept(prefix(dyeColor.getName() + MYSTICAL_FLOWER_SUFFIX), () -> getPottedFlower(dyeColor));
+			consumer.accept(prefix(dyeColor.getName() + SHINY_FLOWER_SUFFIX), () -> getPottedShinyFlower(dyeColor));
+			consumer.accept(prefix(dyeColor.getName() + MUSHROOM_SUFFIX), () -> getPottedMushroom(dyeColor));
+		});
+		consumer.accept(prefix(LibBlockNames.MOTIF_DAYBLOOM), () -> pottedMotifDaybloom);
+		consumer.accept(prefix(LibBlockNames.MOTIF_NIGHTSHADE), () -> pottedMotifNightshade);
+		consumer.accept(prefix(LibBlockNames.MOTIF_HYDROANGEAS), () -> pottedMotifHydroangeas);
 	}
 }

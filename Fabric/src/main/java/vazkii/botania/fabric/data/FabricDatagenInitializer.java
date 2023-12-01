@@ -55,6 +55,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		pack.addProvider((PackOutput output) -> new BlockstateProvider(output));
 		pack.addProvider((PackOutput output) -> new FloatingFlowerModelProvider(output));
 		pack.addProvider((PackOutput output) -> new ItemModelProvider(output));
+		pack.addProvider((PackOutput output) -> new PottedPlantModelProvider(output));
 		pack.addProvider(AdvancementProvider::create);
 	}
 }

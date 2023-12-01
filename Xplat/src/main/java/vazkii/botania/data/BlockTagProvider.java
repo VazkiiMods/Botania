@@ -209,6 +209,38 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.UNWANDABLE).addTag(BlockTags.FIRE)
 				.add(Blocks.CHORUS_PLANT, Blocks.SCULK_VEIN, Blocks.VINE, Blocks.REDSTONE_WIRE, Blocks.NETHER_PORTAL, BotaniaBlocks.solidVines);
 
+		tag(BlockTags.FLOWER_POTS)
+				.add(Arrays.stream(DyeColor.values())
+						.map(BotaniaBlocks::getPottedFlower)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new))
+				.add(Arrays.stream(DyeColor.values())
+						.map(BotaniaBlocks::getPottedShinyFlower)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new))
+				.add(Arrays.stream(DyeColor.values())
+						.map(BotaniaBlocks::getPottedMushroom)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new))
+				.add(
+						// misc
+						manastarPotted, pureDaisyPotted, bergamutePotted,
+						// generating
+						dandelifeonPotted, endoflamePotted, entropinnyumPotted,
+						gourmaryllisPotted, hydroangeasPotted, kekimurusPotted,
+						munchdewPotted, narslimmusPotted, rafflowsiaPotted, rosaArcanaPotted,
+						shulkMeNotPotted, spectrolusPotted, thermalilyPotted,
+						// functional
+						agricarnationPotted, agricarnationChibiPotted, bellethornPotted, bellethornChibiPotted, bubbellPotted,
+						bubbellChibiPotted, clayconiaPotted, clayconiaChibiPotted, daffomillPotted, dreadthornPotted,
+						exoflamePotted, fallenKanadePotted, heiseiDreamPotted, hopperhockPotted, hopperhockChibiPotted,
+						hyacidusPotted, jadedAmaranthusPotted, jiyuuliaPotted, jiyuuliaChibiPotted, labelliaPotted,
+						looniumPotted, marimorphosisPotted, marimorphosisChibiPotted, medumonePotted, orechidPotted,
+						orechidIgnemPotted, pollidisiacPotted, rannuncarpusPotted, rannuncarpusChibiPotted, solegnoliaPotted,
+						solegnoliaChibiPotted, spectranthemumPotted, tangleberriePotted, tangleberrieChibiPotted,
+						tigerseyePotted, vinculotusPotted
+				);
+
 		registerMiningTags();
 	}
 
