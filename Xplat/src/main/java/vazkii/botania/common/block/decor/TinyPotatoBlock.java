@@ -22,9 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -113,6 +111,18 @@ public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBl
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return super.getStateForPlacement(ctx).setValue(BlockStateProperties.HORIZONTAL_FACING, ctx.getHorizontalDirection().getOpposite());
+	}
+
+	@NotNull
+	@Override
+	public BlockState mirror(@NotNull BlockState state, Mirror mirror) {
+		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+	}
+
+	@NotNull
+	@Override
+	public BlockState rotate(@NotNull BlockState state, Rotation rot) {
+		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	@Override
