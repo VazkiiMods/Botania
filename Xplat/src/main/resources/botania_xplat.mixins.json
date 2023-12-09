@@ -39,6 +39,7 @@
     "NearestAttackableTargetGoalAccessor",
     "PistonBaseBlockAccessor",
     "PistonBaseBlockMixin",
+    "PistonStructureResolverMixin",
     "PlayerMixin",
     "PollinateGoalMixin",
     "RecipeManagerAccessor",

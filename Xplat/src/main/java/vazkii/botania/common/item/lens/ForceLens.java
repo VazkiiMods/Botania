@@ -30,16 +30,28 @@ public class ForceLens extends Lens {
 				&& !burst.isFake()
 				&& !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
-			moveBlocks(entity.level(), rtr.getBlockPos().relative(rtr.getDirection()), rtr.getDirection().getOpposite());
+			// mana burst could have been warped here, so don't assume that any block is unmovable
+			moveBlocks(entity.level(), rtr.getBlockPos().relative(rtr.getDirection()), rtr.getDirection().getOpposite(), ManaBurst.NO_SOURCE);
 		}
 
 		return shouldKill;
 	}
 
+	/**
+	 * Executes a force-push of blocks without an actual piston being present.
+	 * 
+	 * @param level            The level.
+	 * @param impliedPistonPos Position where to push block from.
+	 * @param direction        Direction to move block towards from the impliedPistonPos.
+	 * @param pushSourcePos    Position of the push source. The block at this position is considered unmovable,
+	 *                         and usually it would be the pushing piston.
+	 * @return {@code true} if blocks have started moving, or {@code false} if moving blocks failed,
+	 *         e.g. due to exceeded push limit or unmovable blocks being in the way.
+	 */
 	@SuppressWarnings("try")
-	public static boolean moveBlocks(Level level, BlockPos pistonPos, Direction direction) {
-		try (var ignored = new ForcePushHelper()) {
-			return ((PistonBaseBlockAccessor) Blocks.PISTON).botania_moveBlocks(level, pistonPos, direction, true);
+	public static boolean moveBlocks(Level level, BlockPos impliedPistonPos, Direction direction, BlockPos pushSourcePos) {
+		try (var ignored = new ForcePushHelper(pushSourcePos)) {
+			return ((PistonBaseBlockAccessor) Blocks.PISTON).botania_moveBlocks(level, impliedPistonPos, direction, true);
 		}
 	}
 
