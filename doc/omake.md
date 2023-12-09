@@ -11,8 +11,6 @@ This section includes character profiles for each Miscellaneous, Generating, and
 Functional Flower in Botania. It's inspired by the character profiles included with the
 games of the [Touhou Project](https://en.touhouwiki.net/wiki/Touhou_Project).
 
-These profiles were authored by williewillus and Alwinfy.
-
 ## Pure Daisy
 ### Angelically Pure White
 * Gender: Gender is irrelevant for flowers (they/them)
@@ -668,14 +666,48 @@ fur babies will last them until the day they finally wilt and die.
 Career-wise, Tigerseye serves as a skilled prosecutor and specializes in prosecuting
 sexual abuse offenders.
 
-## Orechid & Orechid Ignem
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+## Orechid
+### Upstanding and Traditional Miner
+* Gender: Male (he/him)
+* Physical symbols: Pickaxe
+* Likes: His family
+* Dislikes: Greed, low-quality ore, computers
 
-TODO
-Idea: miner duo (siblings or parent-child or partner)
+Orechid is the perfect example of a family man. Born into a poor mining family, he raised
+his family of three (himself, his wife, and their only son Orechid Ignem) on a single
+wage, working long and hard hours in the mines, his pickaxe swinging side-to-side.
+
+Eventually, the workers unionized and began demanding better pay and working
+conditions. Finally, Orechid was able to slow down and spend more time with his
+family. He's both incredibly proud of his hard work in his youth, as well as grateful to
+the union for providing him the opportunities to better balance his work and his family.
+
+However, what quickly replaced his mining workload was headache and worry about his son...
+
+## Orechid Ignem
+### Electrical and Hellish Miner
+* Gender: Gamer
+* Physical symbols: Octahedron
+* Likes: Getting rich
+* Dislikes: Regulators, the government, the environment
+
+The ignominious Orechid Ignem is the only son of Orechid. Contrary to his hardworking and
+dedicated father, Orechid Ignem has taken an interest in the dark arts of cryptocurrency,
+convincing his father for a loan of a few thousand dollars and using it to set up mining
+operations in poor, remote countries that happened to have abundant power and cooling.
+
+From this, Orechid Ignem proceeded in various pyramid schemes and scams involving shady
+alternative cryptocurrencies, scamming and stripping money from crypto-bros and innocent
+investors alike.
+
+Orechid didn't know where Orechid Ignem was getting all their newfound wealth from, but he
+knew it was not having a good effect on his child -- he had become irrationally
+short-tempered and derisive towards Orechid, sneering at him for being a loser, not
+knowing how to "invest properly", and being poor, not knowing that it was precisely
+because Orechid wanted to give Orechid Ignem a good upbringing that their finances were
+often so strained.
+
+Hopefully, one day Orechid Ignem would see the error of his ways.
 
 ## Fallen Kanade
 ### Freeze-Immune Bud
@@ -1065,8 +1097,7 @@ Under his hard work, flowerkind inches ever closer towards the legendary Philoso
 An easy misconception is that Bubbell has a bright and bubbly personality, due to their
 name. In actuality, Bubbell is quite antisocial and avoids contact with most
 others. Bubbell spends their spare time at home watching dramas and chatting with internet
-friends, though they are careful to not reveal too much about themselves. (TODO needs
-refinement and distinguishing characteristics with Hydro)
+friends, though they are careful to not reveal too much about themselves.
 
 ## Solegnolia
 ### Stunning and Electrifying Musician
