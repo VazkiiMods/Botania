@@ -36,7 +36,7 @@ public class FabricTransferCorporeaNode extends AbstractCorporeaNode {
 	protected List<ItemStack> iterateOverSlots(CorporeaRequest request, boolean doit) {
 		ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
 
-		try (Transaction outer = Transaction.openOuter()) {
+		try (Transaction trans = Transaction.openOuter()) {
 			for (var storageView : inv) {
 				if (storageView.isResourceBlank()) {
 					continue;
@@ -53,20 +53,18 @@ public class FabricTransferCorporeaNode extends AbstractCorporeaNode {
 						request.trackSatisfied(rem);
 
 						if (doit) {
-							try (Transaction trans = Transaction.openNested(outer)) {
-								builder.addAll(breakDownBigStack(item.toStack((int) inv.extract(item, rem, trans))));
-								if (!getSpark().isCreative()) {
-									// only commit if non-creative
-									trans.commit();
-								}
-							}
+							builder.addAll(breakDownBigStack(item.toStack((int) inv.extract(item, rem, trans))));
 							getSpark().onItemExtracted(stack);
 							request.trackExtracted(rem);
 						} else {
-							builder.add(item.toStack((int) inv.simulateExtract(item, rem, null)));
+							builder.add(item.toStack((int) inv.simulateExtract(item, rem, trans)));
 						}
 					}
 				}
+			}
+			if (doit && !getSpark().isCreative()) {
+				// only persist changes for non-creative sparks
+				trans.commit();
 			}
 		}
 
