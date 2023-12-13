@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.ForcePushHelper;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.lens.ForceLens;
 import vazkii.botania.network.EffectType;
@@ -52,7 +53,9 @@ public class ForceRelayBlock extends BotaniaBlock {
 			var data = WorldData.get(world);
 
 			if (isMoving && newState.is(Blocks.MOVING_PISTON)) {
-				var moveDirection = newState.getValue(MovingPistonBlock.FACING);
+				var pistonDirection = newState.getValue(MovingPistonBlock.FACING);
+				// if being moved as part of a retracting sticky piston's block structure, reverse movement direction
+				var moveDirection = ForcePushHelper.isExtendingMovementContext() ? pistonDirection : pistonDirection.getOpposite();
 
 				var destPos = data.mapping.get(pos);
 				if (destPos != null) {
@@ -67,7 +70,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 
 					if (newState.getValue(MovingPistonBlock.TYPE) == PistonType.DEFAULT) {
 						// Move the actual bound blocks
-						if (ForceLens.moveBlocks(world, destPos.relative(moveDirection.getOpposite()), moveDirection)) {
+						if (ForceLens.moveBlocks(world, destPos.relative(moveDirection.getOpposite()), moveDirection, pos)) {
 							// Move dest side of our binding
 							data.mapping.put(newSrcPos, data.mapping.get(newSrcPos).relative(moveDirection));
 						}
