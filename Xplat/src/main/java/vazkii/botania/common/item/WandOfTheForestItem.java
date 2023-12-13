@@ -31,8 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -61,6 +60,8 @@ import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -177,7 +178,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 			if (player.mayUseItemAt(pos, side, stack)
 					&& (!(block instanceof CommandBlock) || player.canUseGameMasterBlocks())) {
-				BlockState newState = manipulateBlockstate(state, side);
+				BlockState newState = manipulateBlockstate(state, side, blockState -> blockState.canSurvive(world, pos));
 				if (newState != state) {
 					world.setBlockAndUpdate(pos, newState);
 					ctx.getLevel().playSound(
@@ -221,57 +222,178 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return InteractionResult.PASS;
 	}
 
-	private static BlockState manipulateBlockstate(BlockState old, Direction side) {
-		if (old.is(BotaniaTags.Blocks.UNWANDABLE)) {
-			return old;
+	private static BlockState manipulateBlockstate(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
+		if (oldState.is(BotaniaTags.Blocks.UNWANDABLE)) {
+			return oldState;
 		}
 
+		if (oldState.getBlock() instanceof RotatedPillarBlock) {
+			return iterateToNextValidPropertyValue(oldState, BlockStateProperties.AXIS, BlockStateProperties.AXIS.getPossibleValues(), oldState.getValue(BlockStateProperties.AXIS), canSurvive);
+		}
+
+		if (oldState.hasProperty(BlockStateProperties.ROTATION_16)) {
+			// standing sign, ceiling-hanging sign or similar block
+			return iterateToNextValidPropertyValue(oldState, BlockStateProperties.ROTATION_16, BlockStateProperties.ROTATION_16.getPossibleValues(), oldState.getValue(BlockStateProperties.ROTATION_16), canSurvive);
+		}
+
+		// mostly intended for HugeMushroomBlock, but might be useful for certain modded blocks as well:
 		BooleanProperty directionPropertyFromSide = PipeBlock.PROPERTY_BY_DIRECTION.get(side);
-		if (old.hasProperty(directionPropertyFromSide)) {
-			boolean oldValue = old.getValue(directionPropertyFromSide);
-			return old.setValue(directionPropertyFromSide, !oldValue);
+		if (oldState.hasProperty(directionPropertyFromSide) && oldState.getProperties().containsAll(PipeBlock.PROPERTY_BY_DIRECTION.values())) {
+			boolean oldValue = oldState.getValue(directionPropertyFromSide);
+			BlockState newState = oldState.setValue(directionPropertyFromSide, !oldValue);
+			return canSurvive.test(newState) ? newState : oldState;
 		}
 
-		for (Property<?> prop : old.getProperties()) {
-			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
-				@SuppressWarnings("unchecked")
-				Property<Direction> facingProp = (Property<Direction>) prop;
-
-				Direction oldDir = old.getValue(facingProp);
-				Direction newDir = rotateAround(oldDir, side.getAxis());
-				if (oldDir != newDir && facingProp.getPossibleValues().contains(newDir)) {
-					return old.setValue(facingProp, newDir);
+		if (side.getAxis() != Direction.Axis.Y) {
+			if (oldState.getBlock() instanceof SlabBlock) {
+				// toggle between top and bottom slab
+				switch (oldState.getValue(BlockStateProperties.SLAB_TYPE)) {
+					case TOP:
+						return oldState.setValue(BlockStateProperties.SLAB_TYPE, SlabType.BOTTOM);
+					case BOTTOM:
+						return oldState.setValue(BlockStateProperties.SLAB_TYPE, SlabType.TOP);
+					default:
+						// ignore double slabs
 				}
+			} else if (oldState.hasProperty(BlockStateProperties.HALF)) {
+				// flip stairs or trapdoors upside down
+				BlockState newState = oldState.cycle(BlockStateProperties.HALF);
+				return canSurvive.test(newState) ? newState : oldState;
 			}
 		}
 
-		return old.rotate(Rotation.CLOCKWISE_90);
+		// blocks with a "facing" property are subject to special rotation rules
+		Optional<Property<?>> facingPropOptional = oldState.getProperties().stream()
+				.filter(prop -> prop.getName().equals("facing") && prop.getValueClass() == Direction.class).findFirst();
+		if (facingPropOptional.isPresent()) {
+			@SuppressWarnings("unchecked")
+			Property<Direction> facingProp = (Property<Direction>) facingPropOptional.get();
+			return rotateFacingDirection(oldState, side, canSurvive, facingProp);
+		}
+
+		// fallback: let the block itself figure it out
+		for (Rotation rot : new Rotation[] { Rotation.CLOCKWISE_90, Rotation.CLOCKWISE_180, Rotation.COUNTERCLOCKWISE_90 }) {
+			BlockState newState = oldState.rotate(rot);
+			if (canSurvive.test(newState)) {
+				return newState;
+			}
+		}
+		return oldState;
 	}
 
-	private static Direction rotateAround(Direction old, Direction.Axis axis) {
-		return switch (axis) {
-			case X -> switch (old) {
-					case DOWN -> Direction.SOUTH;
-					case SOUTH -> Direction.UP;
-					case UP -> Direction.NORTH;
-					case NORTH -> Direction.DOWN;
-					default -> old;
-				};
-			case Y -> switch (old) {
-					case NORTH -> Direction.EAST;
-					case EAST -> Direction.SOUTH;
-					case SOUTH -> Direction.WEST;
-					case WEST -> Direction.NORTH;
-					default -> old;
-				};
-			case Z -> switch (old) {
-					case DOWN -> Direction.WEST;
-					case WEST -> Direction.UP;
-					case UP -> Direction.EAST;
-					case EAST -> Direction.DOWN;
-					default -> old;
-				};
-		};
+	private static BlockState rotateFacingDirection(BlockState oldState, Direction side, Predicate<BlockState> canSurvive, Property<Direction> facingProp) {
+		if (oldState.hasProperty(BlockStateProperties.CHEST_TYPE) && !oldState.getValue(BlockStateProperties.CHEST_TYPE).equals(ChestType.SINGLE)
+				|| oldState.hasProperty(BlockStateProperties.EXTENDED) && oldState.getValue(BlockStateProperties.EXTENDED).equals(Boolean.TRUE)
+				|| oldState.hasProperty(BlockStateProperties.BED_PART)) {
+			// rotating double chests would be nice, but seems beyond the scope of this feature; same goes for beds and extended pistons
+			return oldState;
+		}
+
+		Direction oldDir = oldState.getValue(facingProp);
+		if (oldState.hasProperty(BlockStateProperties.ATTACH_FACE) && oldState.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
+			// FaceAttachedHorizontalDirectionalBlock or equivalent block, rotate around clicked side
+			if (side.getAxis() == Direction.Axis.Y) {
+				// clicked vertically attached block from top or bottom, just rotate on that face
+				return rotateClockwiseAroundSideDirect(oldState, side, canSurvive, facingProp, oldDir);
+			}
+
+			AttachFace attachFace = oldState.getValue(BlockStateProperties.ATTACH_FACE);
+			if (attachFace == AttachFace.WALL && oldDir.getAxis() == side.getAxis()) {
+				// clicked wall-attached block on attachment axis, just flip to other side, if possible
+				BlockState newState = oldState.setValue(facingProp, oldDir.getOpposite());
+				return canSurvive.test(newState) ? newState : oldState;
+			}
+
+			// operate on an implied direction, rotate that, and eventually translate it back at the end
+			Direction impliedDir = switch (attachFace) {
+				case FLOOR -> Direction.DOWN;
+				case CEILING -> Direction.UP;
+				case WALL -> oldDir;
+			};
+
+			Function<Direction, BlockState> newStateFunction = dir -> switch (dir) {
+				case UP -> oldState.setValue(BlockStateProperties.ATTACH_FACE, AttachFace.CEILING);
+				case DOWN -> oldState.setValue(BlockStateProperties.ATTACH_FACE, AttachFace.FLOOR);
+				default -> oldState.setValue(BlockStateProperties.ATTACH_FACE, AttachFace.WALL).setValue(facingProp, dir);
+			};
+
+			return rotateClockwiseAroundSide(side, impliedDir, newStateFunction, canSurvive);
+		}
+
+		List<Direction> possibleFacingValues = new ArrayList<>(BlockStateProperties.FACING.getPossibleValues());
+		if (possibleFacingValues.retainAll(facingProp.getPossibleValues())) {
+			// doesn't support all possible directions
+			if (possibleFacingValues.isEmpty()) {
+				// How did we get here?
+				return oldState;
+			}
+
+			// iterate over values in the order defined by BlockStateProperties.FACING,
+			// because it makes more sense than the native order of the Direction enum values
+			return iterateToNextValidPropertyValue(oldState, facingProp, possibleFacingValues, oldDir, canSurvive);
+		}
+
+		if (oldDir.getAxis() != side.getAxis()) {
+			// rotate clockwise around clicked side
+			return rotateClockwiseAroundSideDirect(oldState, side, canSurvive, facingProp, oldDir);
+		}
+
+		// facing towards or away from clicked side, flip around
+		BlockState newState = oldState.setValue(facingProp, oldDir.getOpposite());
+		return canSurvive.test(newState) ? newState : oldState;
+	}
+
+	@NotNull
+	private static BlockState rotateClockwiseAroundSideDirect(BlockState oldState, Direction side, Predicate<BlockState> canSurvive, Property<Direction> facingProp, Direction oldDir) {
+		return rotateClockwiseAroundSide(side, oldDir, dir -> oldState.setValue(facingProp, dir), canSurvive);
+	}
+
+	@NotNull
+	private static BlockState rotateClockwiseAroundSide(Direction side, Direction oldDir, Function<Direction, BlockState> newStateFunction, Predicate<BlockState> canSurvive) {
+		BlockState newState;
+		Direction newDir = oldDir;
+		do {
+			newDir = getClockwiseDirectionForSide(side, newDir);
+			newState = newStateFunction.apply(newDir);
+		} while (newDir != oldDir && !canSurvive.test(newState));
+
+		return newState;
+	}
+
+	@NotNull
+	private static Direction getClockwiseDirectionForSide(Direction side, Direction oldDir) {
+		return side.getAxisDirection() == Direction.AxisDirection.NEGATIVE
+				? oldDir.getCounterClockWise(side.getAxis())
+				: oldDir.getClockWise(side.getAxis());
+	}
+
+	private static <T extends Comparable<T>> BlockState iterateToNextValidPropertyValue(BlockState oldState, Property<T> property, Collection<T> orderedValues, T oldValue, Predicate<BlockState> canSurvive) {
+		Iterator<T> it = orderedValues.iterator();
+		while (it.hasNext() && !it.next().equals(oldValue)) {
+			// look for current value
+		}
+		// now find next value that results in a valid block state in the given context
+		while (it.hasNext()) {
+			BlockState newState = oldState.setValue(property, it.next());
+			if (canSurvive.test(newState)) {
+				return newState;
+			}
+		}
+		// failed to find valid state after the current state, look before
+		it = orderedValues.iterator();
+		while (it.hasNext()) {
+			T newValue = it.next();
+			if (newValue.equals(oldValue)) {
+				// no valid values
+				return oldState;
+			}
+			BlockState newState = oldState.setValue(property, newValue);
+			if (canSurvive.test(newState)) {
+				return newState;
+			}
+		}
+		// nothing worked, leave it as is
+		return oldState;
 	}
 
 	public static void doParticleBeamWithOffset(Level world, BlockPos orig, BlockPos end) {
