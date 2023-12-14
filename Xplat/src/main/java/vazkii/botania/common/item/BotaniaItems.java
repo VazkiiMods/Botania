@@ -14,10 +14,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.api.block.FloatingFlower;
@@ -253,7 +250,7 @@ public final class BotaniaItems {
 	public static final Item flowerBag = make(prefix(LibItemNames.FLOWER_BAG), new FlowerPouchItem(unstackable()));
 	public static final Item blackHoleTalisman = make(prefix(LibItemNames.BLACK_HOLE_TALISMAN), new BlackHoleTalismanItem(unstackable()));
 	public static final Item temperanceStone = make(prefix(LibItemNames.TEMPERANCE_STONE), new StoneOfTemperanceItem(unstackable()));
-	public static final Item waterBowl = make(prefix(LibItemNames.WATER_BOWL), new WaterBowlItem(unstackable()));
+	public static final Item waterBowl = make(prefix(LibItemNames.WATER_BOWL), new WaterBowlItem(unstackable().craftRemainder(Items.BOWL)));
 	public static final Item cacophonium = make(prefix(LibItemNames.CACOPHONIUM), new CacophoniumItem(unstackable()));
 	public static final Item slimeBottle = make(prefix(LibItemNames.SLIME_BOTTLE), new SlimeInABottleItem(unstackable()));
 	public static final Item sextant = make(prefix(LibItemNames.SEXTANT), new WorldshaperssSextantItem(unstackable()));
