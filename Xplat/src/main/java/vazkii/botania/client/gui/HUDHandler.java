@@ -116,17 +116,19 @@ public final class HUDHandler {
 			BlockEntity tile = mc.level.getBlockEntity(bpos);
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
+				boolean alternateRecipeHudPosition = false;
 				if (PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
 					tryOptifineWarning();
 					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
+						alternateRecipeHudPosition = true;
 						profiler.push("wandItem");
 						hud.renderHUD(gui, mc);
 						profiler.pop();
 					}
 				}
 				if (tile instanceof ManaPoolBlockEntity pool && !mc.player.getMainHandItem().isEmpty()) {
-					renderPoolRecipeHUD(gui, pool, mc.player.getMainHandItem());
+					renderPoolRecipeHUD(gui, pool, mc.player.getMainHandItem(), alternateRecipeHudPosition);
 				}
 			}
 			if (!PlayerHelper.hasHeldItem(mc.player, BotaniaItems.lexicon)) {
@@ -261,7 +263,7 @@ public final class HUDHandler {
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
-	private static void renderPoolRecipeHUD(GuiGraphics gui, ManaPoolBlockEntity tile, ItemStack stack) {
+	private static void renderPoolRecipeHUD(GuiGraphics gui, ManaPoolBlockEntity tile, ItemStack stack, boolean alternateRecipeHudPosition) {
 		Minecraft mc = Minecraft.getInstance();
 		ProfilerFiller profiler = mc.getProfiler();
 
@@ -269,7 +271,7 @@ public final class HUDHandler {
 		ManaInfusionRecipe recipe = tile.getMatchingRecipe(stack, tile.getLevel().getBlockState(tile.getBlockPos().below()));
 		if (recipe != null) {
 			int x = mc.getWindow().getGuiScaledWidth() / 2 - 11;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 + 10;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 + (alternateRecipeHudPosition ? -25 : 10);
 
 			int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
 			int v = mc.player.getName().getString().equals("haighyorkie") && mc.player.isShiftKeyDown() ? 23 : 8;
