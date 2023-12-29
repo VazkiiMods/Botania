@@ -82,15 +82,9 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			final ItemFlagsComponent flags = XplatAbstractions.INSTANCE.itemFlagsComponent(item);
 
 			// Flat 5 tick delay for newly infused items
-			final int runicAltarCooldown = flags.getRunicAltarCooldown();
-			if (runicAltarCooldown > 0) {
-				return runicAltarCooldown <= ItemFlagsComponent.INITIAL_RUNIC_ALTAR_COOLDOWN - 5;
+			if (flags.spawnedByInWorldRecipe()) {
+				return flags.timeCounter >= 5;
 			}
-			var manaInfusionCooldown = flags.getManaInfusionCooldown();
-			if (manaInfusionCooldown > 0) {
-				return manaInfusionCooldown <= ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5;
-			}
-
 			return DelayHelper.canInteractWith(this, item);
 		};
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(inPos.offset(-range, -range, -range), inPos.offset(range + 1, range + 1, range + 1)), shouldPickup);
