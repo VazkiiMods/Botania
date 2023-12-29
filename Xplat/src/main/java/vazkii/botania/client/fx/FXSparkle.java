@@ -13,6 +13,7 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleRenderType;
@@ -25,8 +26,10 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.ClientXplatAbstractions;
@@ -156,12 +159,11 @@ public class FXSparkle extends TextureSheetParticle {
 		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 		RenderSystem.enableDepthTest();
 
-		if(!BotaniaConfig.client().useShaders()) { //Shader compatibility mode enabled
+		if (!BotaniaConfig.client().useShaders()) { //Shader compatibility mode enabled
 			RenderSystem.disableBlend();
 			RenderSystem.depthMask(true);
 			RenderSystem.setShader(GameRenderer::getParticleShader);
-		}
-		else { //Shader compatibility mode disabled
+		} else { //Shader compatibility mode disabled
 			RenderSystem.depthMask(false);
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
@@ -172,8 +174,6 @@ public class FXSparkle extends TextureSheetParticle {
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		ClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
 		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
-
-
 
 	}
 
