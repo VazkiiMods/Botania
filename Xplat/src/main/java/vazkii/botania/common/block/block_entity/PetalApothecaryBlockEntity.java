@@ -56,8 +56,6 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int CRAFT_EFFECT_EVENT = 1;
 
-	public static final String ITEM_TAG_APOTHECARY_SPAWNED = "ApothecarySpawned";
-
 	private List<ItemStack> lastRecipe = null;
 	private Ingredient lastReagent = Ingredient.EMPTY;
 	private int recipeKeepTicks = 0;

@@ -112,7 +112,6 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
 	private static final String TAG_STACK_COUNT = "stackCount";
 	private static final String TAG_STACK = "portalStack";
-	public static final String TAG_PORTAL_FLAG = "_elvenPortal";
 
 	private final List<ItemStack> stacksIn = new ArrayList<>();
 	private final List<BlockPos> cachedPylonPositions = new ArrayList<>();
@@ -156,7 +155,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 					}
 
 					ItemStack stack = item.getItem();
-					if (XplatAbstractions.INSTANCE.itemFlagsComponent(item).alfPortalSpawned) {
+					if (XplatAbstractions.INSTANCE.itemFlagsComponent(item).elvenPortalSpawned) {
 						continue;
 					}
 
@@ -300,7 +299,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	private void spawnItem(ItemStack stack) {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, stack);
-		XplatAbstractions.INSTANCE.itemFlagsComponent(item).alfPortalSpawned = true;
+		XplatAbstractions.INSTANCE.itemFlagsComponent(item).elvenPortalSpawned = true;
 		level.addFreshEntity(item);
 		ticksSinceLastItem = 0;
 	}
