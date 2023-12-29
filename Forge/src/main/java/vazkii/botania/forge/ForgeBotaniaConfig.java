@@ -15,9 +15,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
-
 import org.apache.commons.lang3.tuple.Pair;
-
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -52,7 +50,7 @@ public final class ForgeBotaniaConfig {
 		public Client(ForgeConfigSpec.Builder builder) {
 			builder.push("rendering");
 			useShaders = builder
-					.comment("Set this to false to disable the use of shaders for some of the mod's renders. (Requires game restart)")
+					.comment("Set this to false to disable the use of shaders for some of the mod's renders and render translucent particles as opaque, for shader compatibility with some shaders which implement a deferred lighting pass. (Requires game restart, and enabling without shaders may impact aesthetics)")
 					.define("shaders", true);
 			boundBlockWireframe = builder
 					.comment("Set this to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).")
