@@ -106,11 +106,11 @@ public class FXWisp extends TextureSheetParticle {
 
 	private static void beginRenderCommon(BufferBuilder bufferBuilder, TextureManager textureManager) {
 		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
-		if (!BotaniaConfig.client().useShaders()) { //Shader compatibility mode enabled
+		if (BotaniaConfig.client().opaqueParticles()) {
 			RenderSystem.disableBlend();
 			RenderSystem.depthMask(true);
 			RenderSystem.setShader(GameRenderer::getParticleShader);
-		} else { //Shader compatibility mode disabled
+		} else {
 			RenderSystem.depthMask(false);
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);

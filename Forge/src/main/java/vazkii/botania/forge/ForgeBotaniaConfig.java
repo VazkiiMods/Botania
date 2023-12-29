@@ -30,6 +30,7 @@ public final class ForgeBotaniaConfig {
 
 	private static class Client implements BotaniaConfig.ClientConfigAccess {
 		public final ForgeConfigSpec.BooleanValue useShaders;
+		public final ForgeConfigSpec.BooleanValue opaqueParticles;
 		public final ForgeConfigSpec.BooleanValue lexiconRotatingItems;
 		public final ForgeConfigSpec.BooleanValue subtlePowerSystem;
 		public final ForgeConfigSpec.BooleanValue staticWandBeam;
@@ -52,8 +53,11 @@ public final class ForgeBotaniaConfig {
 		public Client(ForgeConfigSpec.Builder builder) {
 			builder.push("rendering");
 			useShaders = builder
-					.comment("Set this to false to disable the use of shaders for some of the mod's renders and render translucent particles as opaque, for shader compatibility with some shaders which implement a deferred lighting pass. (Requires game restart, and enabling without shaders may impact aesthetics)")
+					.comment("Set this to false to disable the use of shaders for some of the mod's renders. (Requires game restart)")
 					.define("shaders", true);
+			opaqueParticles = builder
+					.comment("Set this to true to disable translucent particles, for shader compatibility with some shaders which implement a deferred lighting pass. (Enabling without shaders may impact aesthetics)")
+					.define("opaqueParticles", false);
 			boundBlockWireframe = builder
 					.comment("Set this to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).")
 					.define("boundBlockWireframe", true);
@@ -198,6 +202,13 @@ public final class ForgeBotaniaConfig {
 		public boolean useShaders() {
 			return this.useShaders.get();
 		}
+
+		@Override
+		public boolean opaqueParticles() {
+			return this.opaqueParticles.get();
+		}
+
+
 	}
 
 	public static final Client CLIENT;
