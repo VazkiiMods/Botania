@@ -10,12 +10,6 @@
           "type": "minecraft:item",
           "name": "botania:pebble"
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.8
-        }
       ]
     }
   ]

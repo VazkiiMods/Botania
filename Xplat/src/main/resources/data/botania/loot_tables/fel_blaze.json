@@ -7,6 +7,9 @@
         "type": "item",
         "entryName": "normal_death_powder",
         "name": "minecraft:blaze_powder",
+        "conditions": [
+          { "condition": "inverted", "term": {"condition": "killed_by_player"}}
+        ],
         "functions": [
           { "function": "set_count", "count": 6 }
         ]

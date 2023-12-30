@@ -129,6 +129,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(deconstruct("brick_deconstruct", Items.BRICK, Blocks.BRICKS));
 
 		consumer.accept(FinishedRecipe.alchemy(id("coarse_dirt"), new ItemStack(Blocks.COARSE_DIRT), ingr(Blocks.DIRT), 120));
+		consumer.accept(FinishedRecipe.alchemy(id("soul_soil"), new ItemStack(Blocks.SOUL_SOIL), ingr(Blocks.SOUL_SAND), 120));
 
 		consumer.accept(FinishedRecipe.alchemy(id("stone_to_andesite"), new ItemStack(Blocks.ANDESITE), ingr(Blocks.STONE), 200));
 		cycle(consumer, 200, "botania:stone_cycle", Blocks.DIORITE, Blocks.GRANITE, Blocks.ANDESITE);
