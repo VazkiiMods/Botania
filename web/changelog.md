@@ -18,7 +18,36 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-* Add: Pollidisiac can feed flowers to brown mooshrooms so they produce suspicious stew
+{% include changelog_header.html version="1.20.1-442" %}
+
+* Relaxed forge version requirement to 47.1.3
+  * This is for compatibility with many other mods who have this as their highest supported version
+* Add: Vitreous pickaxe can now silk touch glass panes (Wormbo)
+* Add: Mystical flowers can now be composted (Wormbo)
+* Add: Improved rotation support for various blocks. This makes the following blocks able to be rotated by wand of the forest better, as well as by other mods' wands (Wormbo):
+  * Manatide Bellows
+  * Fel Pumpkin
+  * Incense Plate
+  * Mana Pump
+  * Tiny Potato
+* Add: Bowl of water now has a crafting remainder of empty bowl
+* Add: Pollidisiac can feed flowers to brown mooshrooms so they produce suspicious stew (Wormbo)
+* Add: Soul soil can be made from soul sand with an alchemy catalyst
+* Change: Updates to Chinese translation (Dawnwalker666)
+* Change: Reduced narslimmus mana output to 25% in Garden of Glass (Wormbo)
+* Change: Rewrote how wand of the forest rotates blocks, more details in [this commit](https://github.com/VazkiiMods/Botania/commit/3dc86fe79ea4f67325a50b6da65337a3735d08b4) (Wormbo)
+* Change: Runic altar and mana pool-spawned items no longer have a cooldown before they can enter the pool/altar again, and instead do not re-enter the altar or pool until picked up.
+* Change: Hopperhocks' 5 tick pickup delay now applies to items spawned from alfheim portals and petal apothecaries, not just runic altars and mana pools.
+* Change: The mana pool recipe HUD is now above the crosshair if holding a wand of the forest in your off-hand, to not collide with the wand HUD (Wormbo)
+* Change: Garden of Glass pebbles now drop 100% of the time, instead of 80%
+* Change: Living root now drops 4 instead of 2-4
+* Change: Fel blazes now always drop 10 blaze powder when killed by a player (up to 16 with looting), and 6 when not
+* Fix: Change gold to copper in the elven mana description (Elitemagikarp)
+* Fix: Force relay fixes (Wormbo):
+  * Fix the force relay pushing the wrong way if it is part of a retracting sticky piston's block structure
+  * Don't assume that the location where the force push seemingly originates from contains an unmovable block
+* Fix: Corporea crystal cube crash (Wormbo)
+* Fix: Bad link to orechid entry in Garden of Glass entry
 
 ---
 
