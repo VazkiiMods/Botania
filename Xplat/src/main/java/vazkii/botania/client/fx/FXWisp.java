@@ -122,12 +122,6 @@ public class FXWisp extends TextureSheetParticle {
 		ClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 
-		//---
-//		RenderSystem.disableBlend();
-//		RenderSystem.depthMask(true);
-//		RenderSystem.setShader(GameRenderer::getParticleShader);
-//		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
-//		$$0.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
 	private static void endRenderCommon() {

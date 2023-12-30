@@ -260,7 +260,7 @@ public final class FiberBotaniaConfig {
 
 		@Override
 		public boolean opaqueParticles() {
-			return this.useShaders.getValue();
+			return this.opaqueParticles.getValue();
 		}
 
 	}
