@@ -61,14 +61,11 @@ message.
 4. Increment the `build_number` in `gradle.properties` to the next version
    (one greater than the version you just tagged). Commit this.
 5. Push the branch and the tag you just made: `git push origin <branch> <release tag>`
-6. Go to [Jenkins](https://ci.blamejared.com/job/Violet%20Moon/job/Botania/view/tags/) and
-   wait for the tag you just pushed to be compiled and built
-7. Download the JAR and submit it to CurseForge and Modrinth
-8. Push the website: `scripts/syncweb.sh <remote username>`. If you don't provide a remote
-   username to ssh into the webserver, it'll take your current login name.
-9. Send an announcement email to `~williewillus/violet-moon-announce@lists.sr.ht`. Check
-   the list archives for examples of how to format the email. Post a link to the email in
-   the #mod_updates Discord channel.
+6. CI should automatically build and upload the release to GitHub releases, CurseForge, and Modrinth. Double check
+   those places to make sure it made it there properly. The release script is at `scripts/upload_releases.sh` if you need
+   to debug. Note that if the required Java version ever changes, the script will need adjusting.
+7. Announce the release on the Violet Moon forums under the `Botania` major tag and `twitter-mirror` minor tag, which will mirror
+   the announcement to Discord's #mod_updates channel and the Violet Moon Twitter account.
 
 ## Working with GameTest
 1. Create a structure if wanted:
