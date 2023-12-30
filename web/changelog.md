@@ -18,6 +18,9 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Add: Pollidisiac can feed flowers to brown mooshrooms so they produce suspicious stew
+
+---
 
 {% include changelog_header.html version="1.20.1-441" %}
 
