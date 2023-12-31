@@ -1,0 +1,14 @@
+{
+  "type": "botania:mana_infusion",
+  "catalyst": {
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:soul_sand"
+  },
+  "mana": 120,
+  "output": {
+    "item": "minecraft:soul_soil"
+  }
+}
