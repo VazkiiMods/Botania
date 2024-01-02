@@ -18,6 +18,10 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Fix: Crash related to PistonStructureResolverMixin on Forge
+
+---
+
 {% include changelog_header.html version="1.20.1-442" %}
 
 * Relaxed forge version requirement to 47.1.3
