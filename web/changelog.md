@@ -18,7 +18,13 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-* Fix: Crash related to PistonStructureResolverMixin on Forge
+---
+
+{% include changelog_header.html version="1.20.1-443" %}
+
+* Change: Manaweave boots and Snowflake pendant now let you walk on powder snow (Wormbo)
+* Fix: Crash related to PistonStructureResolverMixin on Forge (Wormbo)
+* Fix: Cellular blocks can no longer be placed with age. Prevents a way of cheesing the dandelifeon using create (Wormbo)
 
 ---
 
