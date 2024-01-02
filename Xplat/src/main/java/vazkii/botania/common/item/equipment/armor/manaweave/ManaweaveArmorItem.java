@@ -14,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -24,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -104,5 +106,10 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		list.add(Component.translatable("botania.armorset.manaweave.desc0").withStyle(ChatFormatting.GRAY));
 		list.add(Component.translatable("botania.armorset.manaweave.desc1").withStyle(ChatFormatting.GRAY));
+	}
+
+	@SoftImplement("IForgeItem")
+	public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
+		return stack.is(BotaniaItems.manaweaveBoots);
 	}
 }

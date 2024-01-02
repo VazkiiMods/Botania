@@ -5,11 +5,11 @@
   "package": "vazkii.botania.fabric.mixin",
   "mixins": [
     "AbstractFurnaceBlockEntityFabricAccessor",
-    "BucketItemFabricAccessor",
     "AbstractMinecartFabricMixin",
     "AnvilMenuFabricMixin",
     "AxeItemFabricMixin",
     "BeaconBlockEntityFabricMixin",
+    "BucketItemFabricAccessor",
     "EnchantmentFabricMixin",
     "EnchantmentMenuFabricMixin",
     "EnderManFabricMixin",
@@ -21,6 +21,7 @@
     "LivingEntityFabricMixin",
     "PiglinAiFabricMixin",
     "PlayerFabricMixin",
+    "PowderSnowBlockMixin",
     "RepairItemRecipeFabricMixin",
     "ResultSlotFabricMixin",
     "ServerPlayerGameModeFabricMixin"

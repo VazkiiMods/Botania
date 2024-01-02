@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.BiomeAccessor;
 
@@ -71,6 +72,12 @@ public class SnowflakePendantItem extends BaubleItem {
 				entity.level().addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.defaultBlockState()), entity.getX() + entity.level().random.nextFloat() * 0.6 - 0.3, entity.getY() + 1.1, entity.getZ() + entity.level().random.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
 			}
 		}
+	}
+
+	// called via Curio API on Forge
+	@SoftImplement("IForgeItem")
+	public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
+		return true;
 	}
 
 	public static class Renderer implements AccessoryRenderer {
