@@ -388,7 +388,7 @@
   "effect.botania.clear.description": "清除所有状态效果，无论正面还是负面。",
   "effect.botania.emptiness.description": "阻止生物生成在半径为128方块的范围内。",
   "effect.botania.feather_feet.description": "免疫坠落伤害。",
-  "effect.botania.soul_cross.description": "击杀生物时恢复血量。",
+  "effect.botania.soul_cross.description": "击杀生物后恢复血量。",
 
   "entity.botania.mana_burst": "魔力脉冲",
   "entity.botania.pixie": "小精灵",
