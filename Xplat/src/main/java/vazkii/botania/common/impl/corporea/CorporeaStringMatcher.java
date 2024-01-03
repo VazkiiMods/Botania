@@ -77,7 +77,7 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 		if (value.charAt(0) == '*' && value.length() >= 2) {
 			value = "*" + Character.toUpperCase(value.charAt(1)) + value.substring(2);
 		}
-		return Component.literal(value);
+		return Component.literal("\"" + value + "\"");
 	}
 
 	@Override

@@ -27,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -147,6 +148,7 @@ public class ForgeCommonInitializer {
 		evt.enqueueWork(BotaniaBlocks::addDispenserBehaviours);
 		BotaniaBlocks.addAxeStripping();
 		PaintableData.init();
+		CompostingData.init((itemLike, chance) -> ComposterBlock.COMPOSTABLES.putIfAbsent(itemLike.asItem(), (float) chance));
 		DefaultCorporeaMatchers.init();
 
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
@@ -231,7 +233,13 @@ public class ForgeCommonInitializer {
 		modBus.addListener((BuildCreativeModeTabContentsEvent e) -> {
 			if (e.getTabKey() == BotaniaRegistries.BOTANIA_TAB_KEY) {
 				for (Item item : this.itemsToAddToCreativeTab) {
-					e.accept(item);
+					if (item instanceof CustomCreativeTabContents cc) {
+						cc.addToCreativeTab(item, e);
+					} else if (item instanceof BlockItem bi && bi.getBlock() instanceof CustomCreativeTabContents cc) {
+						cc.addToCreativeTab(item, e);
+					} else {
+						e.accept(item);
+					}
 				}
 			}
 		});

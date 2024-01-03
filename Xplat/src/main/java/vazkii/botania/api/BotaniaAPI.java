@@ -193,10 +193,6 @@ public interface BotaniaAPI {
 		return DUMMY_ITEM_TIER;
 	}
 
-	default Rarity getRelicRarity() {
-		return Rarity.EPIC;
-	}
-
 	default ManaNetwork getManaNetworkInstance() {
 		return DummyManaNetwork.instance;
 	}

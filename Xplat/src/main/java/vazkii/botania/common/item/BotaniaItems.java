@@ -14,13 +14,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -254,7 +250,7 @@ public final class BotaniaItems {
 	public static final Item flowerBag = make(prefix(LibItemNames.FLOWER_BAG), new FlowerPouchItem(unstackable()));
 	public static final Item blackHoleTalisman = make(prefix(LibItemNames.BLACK_HOLE_TALISMAN), new BlackHoleTalismanItem(unstackable()));
 	public static final Item temperanceStone = make(prefix(LibItemNames.TEMPERANCE_STONE), new StoneOfTemperanceItem(unstackable()));
-	public static final Item waterBowl = make(prefix(LibItemNames.WATER_BOWL), new WaterBowlItem(unstackable()));
+	public static final Item waterBowl = make(prefix(LibItemNames.WATER_BOWL), new WaterBowlItem(unstackable().craftRemainder(Items.BOWL)));
 	public static final Item cacophonium = make(prefix(LibItemNames.CACOPHONIUM), new CacophoniumItem(unstackable()));
 	public static final Item slimeBottle = make(prefix(LibItemNames.SLIME_BOTTLE), new SlimeInABottleItem(unstackable()));
 	public static final Item sextant = make(prefix(LibItemNames.SEXTANT), new WorldshaperssSextantItem(unstackable()));
@@ -330,13 +326,13 @@ public final class BotaniaItems {
 	public static final Item craftPatternDonut = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "donut"), new CraftingPatternItem(CraftyCratePattern.CRAFTY_DONUT, unstackable()));
 
 	// Guardian of Gaia drops
-	public static final Item dice = make(prefix(LibItemNames.DICE), new DiceOfFateItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item infiniteFruit = make(prefix(LibItemNames.INFINITE_FRUIT), new FruitOfGrisaiaItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item kingKey = make(prefix(LibItemNames.KING_KEY), new KeyOfTheKingsLawItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item flugelEye = make(prefix(LibItemNames.FLUGEL_EYE), new EyeOfTheFlugelItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item thorRing = make(prefix(LibItemNames.THOR_RING), new RingOfThorItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item odinRing = make(prefix(LibItemNames.ODIN_RING), new RingOfOdinItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item lokiRing = make(prefix(LibItemNames.LOKI_RING), new RingOfLokiItem(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
+	public static final Item dice = make(prefix(LibItemNames.DICE), new DiceOfFateItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item infiniteFruit = make(prefix(LibItemNames.INFINITE_FRUIT), new FruitOfGrisaiaItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item kingKey = make(prefix(LibItemNames.KING_KEY), new KeyOfTheKingsLawItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item flugelEye = make(prefix(LibItemNames.FLUGEL_EYE), new EyeOfTheFlugelItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item thorRing = make(prefix(LibItemNames.THOR_RING), new RingOfThorItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item odinRing = make(prefix(LibItemNames.ODIN_RING), new RingOfOdinItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
+	public static final Item lokiRing = make(prefix(LibItemNames.LOKI_RING), new RingOfLokiItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
 	public static final Item recordGaia1 = make(prefix(LibItemNames.RECORD_GAIA1), new BotaniaRecordItem(1, BotaniaSounds.gaiaMusic1, unstackable().rarity(Rarity.RARE), 202));
 	public static final Item recordGaia2 = make(prefix(LibItemNames.RECORD_GAIA2), new BotaniaRecordItem(1, BotaniaSounds.gaiaMusic2, unstackable().rarity(Rarity.RARE), 227));
 	public static final Item ancientWillAhrim = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "ahrim"), new AncientWillItem(AncientWillContainer.AncientWillType.AHRIM, unstackable().rarity(Rarity.UNCOMMON)));

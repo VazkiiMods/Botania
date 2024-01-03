@@ -24,9 +24,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,13 +32,12 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.SlotResult;
-import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.SlotTypePreset;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 import top.theillusivec4.curios.api.event.DropRulesEvent;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -56,17 +52,7 @@ import java.util.function.Predicate;
 
 public class CurioIntegration extends EquipmentHandler {
 	public static void init() {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(CurioIntegration::sendImc);
 		MinecraftForge.EVENT_BUS.addListener(CurioIntegration::keepCurioDrops);
-	}
-
-	public static void sendImc(InterModEnqueueEvent evt) {
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder().build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().size(2).build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BODY.getMessageBuilder().build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.NECKLACE.getMessageBuilder().build());
 	}
 
 	public static void keepCurioDrops(DropRulesEvent event) { //TODO make this less hacky
@@ -81,22 +67,23 @@ public class CurioIntegration extends EquipmentHandler {
 
 	@Override
 	protected Container getAllWornItems(LivingEntity living) {
-		return CuriosApi.getCuriosHelper().getEquippedCurios(living)
+		return CuriosApi.getCuriosInventory(living)
+				.map(ICuriosItemHandler::getEquippedCurios)
 				.<Container>map(RecipeWrapper::new)
 				.orElseGet(() -> new SimpleContainer(0));
 	}
 
 	@Override
 	protected ItemStack findItem(Item item, LivingEntity living) {
-		return CuriosApi.getCuriosHelper().findFirstCurio(living, item)
-				.map(SlotResult::stack)
+		return CuriosApi.getCuriosInventory(living)
+				.map(i -> i.findFirstCurio(item).map(SlotResult::stack).orElse(ItemStack.EMPTY))
 				.orElse(ItemStack.EMPTY);
 	}
 
 	@Override
 	protected ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living) {
-		return CuriosApi.getCuriosHelper().findFirstCurio(living, pred)
-				.map(SlotResult::stack)
+		return CuriosApi.getCuriosInventory(living)
+				.map(i -> i.findFirstCurio(pred).map(SlotResult::stack).orElse(ItemStack.EMPTY))
 				.orElse(ItemStack.EMPTY);
 	}
 

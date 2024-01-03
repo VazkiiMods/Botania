@@ -25,9 +25,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -49,13 +47,14 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.StringObfuscator;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class FlugelTiaraItem extends BaubleItem {
+public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabContents {
 
 	private static final ResourceLocation textureHud = new ResourceLocation(ResourcesLib.GUI_HUD_ICONS);
 	public static final ResourceLocation textureHalo = new ResourceLocation(ResourcesLib.MISC_HALO);
@@ -82,6 +81,16 @@ public class FlugelTiaraItem extends BaubleItem {
 	public FlugelTiaraItem(Properties props) {
 		super(props);
 		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		for (int i = 0; i < SUBTYPES + 1; i++) {
+			ItemStack stack = new ItemStack(this);
+			ItemNBTHelper.setInt(stack, TAG_VARIANT, i);
+			output.accept(stack);
+		}
+
 	}
 
 	@Override

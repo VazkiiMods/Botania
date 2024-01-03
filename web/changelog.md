@@ -18,14 +18,103 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-* Port to 1.19.4
+---
+
+{% include changelog_header.html version="1.20.1-443" %}
+
+* Change: Manaweave boots and Snowflake pendant now let you walk on powder snow (Wormbo)
+* Fix: Crash related to PistonStructureResolverMixin on Forge (Wormbo)
+* Fix: Cellular blocks can no longer be placed with age. Prevents a way of cheesing the dandelifeon using create (Wormbo)
+
+---
+
+{% include changelog_header.html version="1.20.1-442" %}
+
+* Relaxed forge version requirement to 47.1.3
+  * This is for compatibility with many other mods who have this as their highest supported version
+* Add: Vitreous pickaxe can now silk touch glass panes (Wormbo)
+* Add: Mystical flowers can now be composted (Wormbo)
+* Add: Improved rotation support for various blocks. This makes the following blocks able to be rotated by wand of the forest better, as well as by other mods' wands (Wormbo):
+  * Manatide Bellows
+  * Fel Pumpkin
+  * Incense Plate
+  * Mana Pump
+  * Tiny Potato
+* Add: Bowl of water now has a crafting remainder of empty bowl
+* Add: Pollidisiac can feed flowers to brown mooshrooms so they produce suspicious stew (Wormbo)
+* Add: Soul soil can be made from soul sand with an alchemy catalyst
+* Change: Updates to Chinese translation (Dawnwalker666)
+* Change: Reduced narslimmus mana output to 25% in Garden of Glass (Wormbo)
+* Change: Rewrote how wand of the forest rotates blocks, more details in [this commit](https://github.com/VazkiiMods/Botania/commit/3dc86fe79ea4f67325a50b6da65337a3735d08b4) (Wormbo)
+* Change: Runic altar and mana pool-spawned items no longer have a cooldown before they can enter the pool/altar again, and instead do not re-enter the altar or pool until picked up.
+* Change: Hopperhocks' 5 tick pickup delay now applies to items spawned from alfheim portals and petal apothecaries, not just runic altars and mana pools.
+* Change: The mana pool recipe HUD is now above the crosshair if holding a wand of the forest in your off-hand, to not collide with the wand HUD (Wormbo)
+* Change: Garden of Glass pebbles now drop 100% of the time, instead of 80%
+* Change: Living root now drops 4 instead of 2-4
+* Change: Fel blazes now always drop 10 blaze powder when killed by a player (up to 16 with looting), and 6 when not
+* Fix: Change gold to copper in the elven mana description (Elitemagikarp)
+* Fix: Force relay fixes (Wormbo):
+  * Fix the force relay pushing the wrong way if it is part of a retracting sticky piston's block structure
+  * Don't assume that the location where the force push seemingly originates from contains an unmovable block
+* Fix: Corporea crystal cube crash (Wormbo)
+* Fix: Bad link to orechid entry in Garden of Glass entry
+
+---
+
+{% include changelog_header.html version="1.20.1-441" %}
+
+* Port to 1.20.1 (team, assisted by extclp and Abbie5)
+  * Note: In this release, we are still targeting legacy MinecraftForge ("LexForge") in 1.20.1. NeoForge has been briefly tested to work but support will not be prioritized for it yet.
+  * In 1.20.2+, we will be switching to target NeoForge, the continuation of the Forge project.
 * Add: Manufactory Halo shows active status in its icon (Wormbo)
 * Add: Tuff now convertable by Marimorphosis
-* Change: Key of the King's Law no longer hurts items or most other nonliving entities
+* Add: Cherry to log and sapling alchemy cycles
+* Add: Missing leaf mana duplication recipes
+* Add: Manaweave armor is now in the `freeze_immune_wearables` tag
+* Add: Mana alchemy cycle for froglights
+* Add: Ring of Odin protects against freeze damage
+* Add: Livingrock slate, a new decorative block
+* Add: New textures for catalysts
+* Add: Piglin Head is now dropped from the Elementium Axe
+* Add: Camel is now part of the Cocoon of Caprice's rare pool
+* Add: Potion effect descriptions for EMIEffect and Just Enough Effect Descriptions (Adarsh)
+* Change: Key of the King's Law no longer hurts items or most other nonliving entities (zacharybarbanell)
 * Change: The internal mana buffer of the Gourmaryllis is now large enough to benefit from streak bonus even with very nutritious food like Rabbit Stew or high quality modded foods (it still caps the food value at 12 points or 6 haunches)
 * Change: Removed desu gun and its associated advancement. The reference has overstayed its welcome.
 * Change: Drum of the Gathering now uses entity tags to determine mobs that can be milked (`botania:drum/milkable`, which now also includes goats by default) and which mobs NOT to shear even though that's technically possible (`botania:drum/no_shearing`, by default that only includes mooshrooms); it can also produce suspicious stew from brown mooshrooms, and no longer finds a way to somehow milk baby cows (Wormbo)
+* Change: Mirror axe/shear recipes so they match vanilla (Adarsh)
+* Change: Fallen Kanade now works in the End dimension
+* Change: Base mana spreader is now crafted with copper
+* Change: Mana String is now approximately 5x cheaper to infuse (Adarsh)
+* Change: Small buff to Manaweave chestplate's protection value (Adarsh)
+* Change: Small buff to Manaweave helmet's mana discount (Adarsh)
+* Change: Slight buffs to the Thermalily (Adarsh)
+* Change: Adjust Trinket Box and Incense Plate recipes (Adarsh)
+* Change: Improve the performance of Mana Sparks (anonymous123-code)
+* Change: Improve the performance of Mana Enchanter (Wormbo)
+* Change: Improve the performance of Alfheim Portal (Wormbo)
+* Change: Corporea Index response message no longer has quotation marks around ItemStack-based requests
 * Fix: Ender Air emission not being mentioned in Pure Daisy entry (Wormbo)
+* Fix: NPE in Rod of the Unstable Reservoir (sandtechnology)
+* Fix: JEI integration leaking memory
+* Fix: Rosa Arcana not accounting stacked experience orbs
+* Fix: Solid Vines not being solid
+* Fix: Off-by-one-degree typo when rendering progress pies in the HUD
+* Fix: Botania gates now yield 1 like vanilla (Adarsh)
+* Fix: Terra Blade firing in spectator mode
+* Fix: CME crashes with certain Fabric mods (e.g. Extended Drawers) when Corporea is used on their inventories
+* Fix: Crystal Bow not letting you pick up special arrows that were consumed
+* Lexicon updates:
+  * Mention the stack size limit of the Ring of Loki (Wormbo)
+  * Alchemy Catalyst entry tweaks (Adarsh)
+  * Mention semi-disposability concept in Elementium Pick entry (Adarsh)
+  * Document new Bergamute behaviour (Adarsh)
+  * Document that grass seeds can be used in a Dispenser (Adarsh)
+  * Reworded Hovering Hourglass sand docs
+  * Document Sextant fractional radius and sphere modes (Wormbo)
+* Language updates:
+  * fr_fr updated (Aegide)
+  * zh_cn updated (Dawnwalker666)
 
 ---
 

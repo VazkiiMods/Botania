@@ -97,6 +97,14 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 		}
 	}
 
+	@NotNull
+	@Override
+	public VoxelShape getBlockSupportShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+		// Vanilla defaults support shape to collision shape, but spectral platforms don't collide,
+		// so set this by hand.
+		return Shapes.block();
+	}
+
 	@Override
 	public float getShadeBrightness(BlockState state, BlockGetter level, BlockPos pos) {
 		return 1.0F;

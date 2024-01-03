@@ -16,6 +16,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -33,7 +34,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
 
-public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern {
+public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, CustomCreativeTabContents {
 
 	public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
@@ -43,6 +44,14 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern {
 
 	public static boolean isOpen() {
 		return BuiltInRegistries.ITEM.getKey(BotaniaItems.lexicon).equals(PatchouliAPI.get().getOpenBookGui());
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		output.accept(this);
+		ItemStack creative = new ItemStack(this);
+		creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
+		output.accept(creative);
 	}
 
 	@Override

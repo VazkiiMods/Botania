@@ -21,6 +21,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -49,7 +50,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 
-public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetExcempt {
+public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetExcempt, CustomCreativeTabContents {
 
 	private static final String TAG_STATE = "_state";
 	private static final String TAG_TILE = "_tile";
@@ -69,6 +70,17 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 	public LaputaShardItem(Properties props) {
 		super(props);
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		for (int i = 0; i <= 20; i += 5) {
+			ItemStack s = new ItemStack(this);
+			if (i != 0) {
+				s.getOrCreateTag().putInt(TAG_LEVEL, i - 1);
+			}
+			output.accept(s);
+		}
 	}
 
 	@Override

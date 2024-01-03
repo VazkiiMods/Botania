@@ -60,7 +60,7 @@
 	"botaniamisc.clipEmpty": "(空き)",
 	"botaniamisc.armorset": "\u00a7b防具セット\u00a7r:",
 	"botaniamisc.craftToAddWill": "テラスチールヘルメットと一緒にクラフトすると次の効果を追加する:",
-	"botaniamisc.requestMsg": "%d 個の \"%s\" を要求（総数 %d 個）。%d 個取り寄せた。",
+	"botaniamisc.requestMsg": "%d 個の %s を要求（総数 %d 個）。%d 個取り寄せた。",
 	"botaniamisc.nearIndex0": "コーポリアインデックスが近くに!",
 	"botaniamisc.nearIndex1": "言ったことはなんでも",
 	"botaniamisc.nearIndex2": "要求として解釈されます",

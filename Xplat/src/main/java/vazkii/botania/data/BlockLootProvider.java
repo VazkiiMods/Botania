@@ -43,7 +43,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -210,7 +209,7 @@ public class BlockLootProvider implements DataProvider {
 
 	protected static LootTable.Builder genRoot(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(BotaniaItems.livingroot)
-				.apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)))
+				.apply(SetItemCountFunction.setCount(ConstantValue.exactly(4)))
 				.apply(ApplyExplosionDecay.explosionDecay());
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}

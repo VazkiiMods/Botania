@@ -163,6 +163,54 @@
           }
         },
         {
+          "condition": "any_of",
+          "terms": [
+            {
+              "condition": "entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "minecraft:piglin"
+              }
+            },
+            {
+              "condition": "entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "minecraft:piglin_brute"
+              }
+            }
+          ]
+        },
+        {
+          "condition": "random_chance_with_looting",
+          "chance": 0.0769,
+          "looting_multiplier": 0.0769
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:piglin_head"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "entity_properties",
+          "entity": "killer_player",
+          "predicate": {
+            "equipment": {
+              "mainhand": {
+                "items": [
+                  "botania:elementium_axe"
+                ]
+              }
+            }
+          }
+        },
+        {
           "condition": "entity_properties",
           "entity": "this",
           "predicate": {

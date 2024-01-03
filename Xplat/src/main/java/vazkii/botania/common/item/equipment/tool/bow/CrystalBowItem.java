@@ -43,9 +43,9 @@ public class CrystalBowItem extends LivingwoodBowItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
-		boolean flag = canFire(itemstack, playerIn); // Botania - custom check
+		boolean canMaterializeArrow = canFire(itemstack, playerIn); // Botania - custom check
 
-		if (!playerIn.getAbilities().instabuild && !flag) {
+		if (!playerIn.getAbilities().instabuild && !canMaterializeArrow) {
 			return InteractionResultHolder.fail(itemstack);
 		} else {
 			playerIn.startUsingItem(handIn);
@@ -53,71 +53,69 @@ public class CrystalBowItem extends LivingwoodBowItem {
 		}
 	}
 
-	// [VanillaCopy] super
+	// [VanillaCopy] BowItem
 	@Override
-	public void releaseUsing(@NotNull ItemStack stack, @NotNull Level worldIn, LivingEntity entityLiving, int timeLeft) {
-		if (entityLiving instanceof Player playerentity) {
-			boolean flag = canFire(stack, playerentity); // Botania - custom check
-			ItemStack itemstack = playerentity.getProjectile(stack);
+	public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, LivingEntity entityLiving, int timeLeft) {
+		if (entityLiving instanceof Player player) {
+			boolean canMaterializeArrow = canFire(stack, player); // Botania - custom check
+			ItemStack arrowStack = player.getProjectile(stack);
 
 			int i = (int) ((getUseDuration(stack) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
 			if (i < 0) {
 				return;
 			}
 
-			if (!itemstack.isEmpty() || flag) {
-				if (itemstack.isEmpty()) {
-					itemstack = new ItemStack(Items.ARROW);
+			if (!arrowStack.isEmpty() || canMaterializeArrow) {
+				if (arrowStack.isEmpty()) {
+					arrowStack = new ItemStack(Items.ARROW);
 				}
 
-				float f = getPowerForTime(i);
-				if (!((double) f < 0.1D)) {
-					boolean flag1 = playerentity.getAbilities().instabuild || itemstack.is(Items.ARROW);
-					if (!worldIn.isClientSide) {
-						ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
-						AbstractArrow abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
-						abstractarrowentity.shootFromRotation(playerentity, playerentity.getXRot(), playerentity.getYRot(), 0.0F, f * 3.0F, 1.0F);
-						if (f == 1.0F) {
-							abstractarrowentity.setCritArrow(true);
+				float power = getPowerForTime(i);
+				if (!((double) power < 0.1D)) {
+					boolean markUnpickable = player.getAbilities().instabuild || arrowStack.is(Items.ARROW); // Botania
+					if (!level.isClientSide) {
+						ArrowItem arrowItem = (ArrowItem) (arrowStack.getItem() instanceof ArrowItem ? arrowStack.getItem() : Items.ARROW);
+						AbstractArrow arrow = arrowItem.createArrow(level, arrowStack, player);
+						arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 1.0F);
+						if (power == 1.0F) {
+							arrow.setCritArrow(true);
 						}
 
-						int j = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
-						if (j > 0) {
-							abstractarrowentity.setBaseDamage(abstractarrowentity.getBaseDamage() + (double) j * 0.5D + 0.5D);
+						int powerEnch = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
+						if (powerEnch > 0) {
+							arrow.setBaseDamage(arrow.getBaseDamage() + (double) powerEnch * 0.5D + 0.5D);
 						}
 
-						int k = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PUNCH_ARROWS, stack);
-						if (k > 0) {
-							abstractarrowentity.setKnockback(k);
+						int knockback = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PUNCH_ARROWS, stack);
+						if (knockback > 0) {
+							arrow.setKnockback(knockback);
 						}
 
 						if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FLAMING_ARROWS, stack) > 0) {
-							abstractarrowentity.setSecondsOnFire(100);
+							arrow.setSecondsOnFire(100);
 						}
 
-						// Botania - onFire
-						onFire(stack, playerentity, flag1, abstractarrowentity);
-						stack.hurtAndBreak(1, playerentity, (p_220009_1_) -> {
-							p_220009_1_.broadcastBreakEvent(playerentity.getUsedItemHand());
+						stack.hurtAndBreak(1, player, (p) -> {
+							p.broadcastBreakEvent(player.getUsedItemHand());
 						});
-						if (flag1 || playerentity.getAbilities().instabuild && (itemstack.is(Items.SPECTRAL_ARROW) || itemstack.is(Items.TIPPED_ARROW))) {
-							abstractarrowentity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+						if (markUnpickable || player.getAbilities().instabuild && (arrowStack.is(Items.SPECTRAL_ARROW) || arrowStack.is(Items.TIPPED_ARROW))) {
+							arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 						}
 
-						worldIn.addFreshEntity(abstractarrowentity);
+						level.addFreshEntity(arrow);
 					}
 
-					worldIn.playSound((Player) null, playerentity.getX(), playerentity.getY(), playerentity.getZ(),
+					level.playSound(null, player.getX(), player.getY(), player.getZ(),
 							SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS,
-							1.0F, 1.0F / (playerentity.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-					if (!flag1 && !playerentity.getAbilities().instabuild) {
-						itemstack.shrink(1);
-						if (itemstack.isEmpty()) {
-							playerentity.getInventory().removeItem(itemstack);
+							1.0F, 1.0F / (player.getRandom().nextFloat() * 0.4F + 1.2F) + power * 0.5F);
+					if (!markUnpickable && !player.getAbilities().instabuild) {
+						arrowStack.shrink(1);
+						if (arrowStack.isEmpty()) {
+							player.getInventory().removeItem(arrowStack);
 						}
 					}
 
-					playerentity.awardStat(Stats.ITEM_USED.get(this));
+					player.awardStat(Stats.ITEM_USED.get(this));
 				}
 			}
 		}
@@ -131,10 +129,6 @@ public class CrystalBowItem extends LivingwoodBowItem {
 	private boolean canFire(ItemStack stack, Player player) {
 		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
 		return player.getAbilities().instabuild || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
-	}
-
-	private void onFire(ItemStack stack, LivingEntity living, boolean infinity, AbstractArrow arrow) {
-		arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 	}
 
 	@Override

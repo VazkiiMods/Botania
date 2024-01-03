@@ -10,17 +10,20 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Optional;
 
-public class BandOfManaItem extends BaubleItem {
+public class BandOfManaItem extends BaubleItem implements CustomCreativeTabContents {
 
 	protected static final int MAX_MANA = 500000;
 
@@ -28,6 +31,15 @@ public class BandOfManaItem extends BaubleItem {
 
 	public BandOfManaItem(Properties props) {
 		super(props);
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		output.accept(this);
+
+		ItemStack full = new ItemStack(this);
+		setMana(full, MAX_MANA);
+		output.accept(full);
 	}
 
 	@Override

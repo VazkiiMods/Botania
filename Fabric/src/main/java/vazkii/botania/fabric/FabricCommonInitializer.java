@@ -30,6 +30,7 @@ import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlattenableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
@@ -125,6 +126,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		registryInit();
 
 		PaintableData.init();
+		CompostingData.init(CompostingChanceRegistry.INSTANCE::add);
 		DefaultCorporeaMatchers.init();
 
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
@@ -220,7 +222,13 @@ public class FabricCommonInitializer implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(BotaniaRegistries.BOTANIA_TAB_KEY)
 				.register(entries -> {
 					for (Item item : this.itemsToAddToCreativeTab) {
-						entries.accept(item);
+						if (item instanceof CustomCreativeTabContents cc) {
+							cc.addToCreativeTab(item, entries);
+						} else if (item instanceof BlockItem bi && bi.getBlock() instanceof CustomCreativeTabContents cc) {
+							cc.addToCreativeTab(item, entries);
+						} else {
+							entries.accept(item);
+						}
 					}
 				});
 	}

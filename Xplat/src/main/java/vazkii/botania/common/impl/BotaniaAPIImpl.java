@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.impl;
 
-import com.google.common.base.Suppliers;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -47,8 +45,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BotaniaAPIImpl implements BotaniaAPI {
-
-	private static final Supplier<Rarity> RELIC_RARITY = Suppliers.memoize(() -> Rarity.EPIC);
 
 	private enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial {
 		MANASTEEL("manasteel", 16,
@@ -251,11 +247,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public Tier getTerrasteelItemTier() {
 		return ItemTier.TERRASTEEL;
-	}
-
-	@Override
-	public Rarity getRelicRarity() {
-		return RELIC_RARITY.get();
 	}
 
 	@Override

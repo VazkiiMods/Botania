@@ -6,15 +6,10 @@ extra fun content associated with the main content.
 
 We hope you enjoy!
 
-TODO: Once flowersonas are complete, move this to Xplat resources so it's included in the
-release JARs
-
 # Botania Flower Character Profiles (fka Flowersonas)
 This section includes character profiles for each Miscellaneous, Generating, and
 Functional Flower in Botania. It's inspired by the character profiles included with the
 games of the [Touhou Project](https://en.touhouwiki.net/wiki/Touhou_Project).
-
-These profiles were authored by williewillus and Alwinfy.
 
 ## Pure Daisy
 ### Angelically Pure White
@@ -231,14 +226,30 @@ every sampling she invariably needs a break (often up to five minutes in length)
 accompanied by loud cursing and fuming.
 
 ## Rosa Arcana
-### Title
+### Lovestruck Experience Gatherer
 * Gender: Male (he/him)
-* Physical symbols: 
-* Likes: 
-* Dislikes: Bad DM's
+* Physical symbols: xP smiley
+* Likes: Gourmaryllis, cute love songs
+* Dislikes: Getting cold feet, his friends giving him bad advice
 
-Idea: TTRPG nerd
-Yes, his name has "Rosa" in it. No, he doesn't care.
+Rosa Arcana, who goes by "Rho" usually, is a young professional living in the city.
+
+He's a gentle, more emotionally-minded flower, having that reputation ever since he was a
+little boy. One time in 3rd grade summer camp, every student was to write small positive
+notes to the other students in their classes. Rho gave another girl a note that read "I
+think you're really pretty", leading to quite a bit of light teasing from his and other
+students' parents that he liked her. However, Rho didn't really understand the commotion
+-- that was just the first genuine compliment that popped into his mind.
+
+Rho loves listening to cute, sugary love songs. The kind that almost make you sick with
+how sweet they are. Some of his favorites: Hear The Heart by Luo Tianyi, Great Happiness
+by Yousa, Renai Circulation by Kana Hanazawa, and Love You by Cyndi Wang.
+
+Recently, Rho's developed a bit of a crush on Gourmaryllis, who he met at a musical event
+earlier in the year. Unsure how to proceed, he's been pestering all of his friends and
+family for their experience and advice on what to do next, but who knows the validity of
+their advice (some of them have never even dated, much to Rho's skepticism). All he knows
+is that he just needs to put forth his most genuine self and see where things go.
 	
 ## Munchdew
 ### Frugal and Feeling Flower
@@ -278,7 +289,7 @@ consume animal products half as often, with an eventual goal of stopping altoget
 
 She is also now involved in activist groups, though she notably avoids PETA (Plants for
 Ethical Treat of Animals), as their rhetoric is often over-inflammatory, leading many to
-dismiss all such activist groups as crazy.
+dismiss all animal activist groups as crazy.
 
 In her time as a budding vegetarian, Munchdew has come to love tofu, being able to cook
 nearly a hundred tofu-based dishes. Her favorite is probably *mapo tofu*, and she sources
@@ -555,7 +566,7 @@ to himself, but he felt that he was 1% of the way closer to knowing.
 
 ## Bellethorne & Dreadthorne
 ### Brambled Sisters of Justice
-* Gender: Female
+* Gender: Female (she/her)
 * Physical symbols: Hawthorn flowers, crossed swords
 * Likes: Each other
 * Dislikes: Inequality, colonialism, imperialism
@@ -610,7 +621,7 @@ of invaders that sought to colonize the former. Stealing these artifacts and ret
 them to their rightful owners was but a small reparation for the devastation that the
 invaders had sown in their wake.
 
-Bellethorne and Dreadthorne, now calling themselves the Brambly Sisters of Justice,
+Bellethorne and Dreadthorne, now calling themselves the Brambled Sisters of Justice,
 continued on thus, challenging the world they lived in, forcing it to look itself in the
 mirror and question the status quo. After each heist, they would leave a beautiful bouquet
 of Crimson Cloud hawthorn flowers, a prayer to each other and the world for justice. Not
@@ -655,13 +666,48 @@ fur babies will last them until the day they finally wilt and die.
 Career-wise, Tigerseye serves as a skilled prosecutor and specializes in prosecuting
 sexual abuse offenders.
 
-## Orechid & Orechid Ignem
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+## Orechid
+### Upstanding and Traditional Miner
+* Gender: Male (he/him)
+* Physical symbols: Pickaxe
+* Likes: His family
+* Dislikes: Greed, low-quality ore, computers
 
-Idea: miner duo (siblings or parent-child or partner)
+Orechid is the perfect example of a family man. Born into a poor mining family, he raised
+his family of three (himself, his wife, and their only son Orechid Ignem) on a single
+wage, working long and hard hours in the mines, his pickaxe swinging side-to-side.
+
+Eventually, the workers unionized and began demanding better pay and working
+conditions. Finally, Orechid was able to slow down and spend more time with his
+family. He's both incredibly proud of his hard work in his youth, as well as grateful to
+the union for providing him the opportunities to better balance his work and his family.
+
+However, what quickly replaced his mining workload was headache and worry about his son...
+
+## Orechid Ignem
+### Electrical and Hellish Miner
+* Gender: Gamer
+* Physical symbols: Octahedron
+* Likes: Getting rich
+* Dislikes: Regulators, the government, the environment
+
+The ignominious Orechid Ignem is the only son of Orechid. Contrary to his hardworking and
+dedicated father, Orechid Ignem has taken an interest in the dark arts of cryptocurrency,
+convincing his father for a loan of a few thousand dollars and using it to set up mining
+operations in poor, remote countries that happened to have abundant power and cooling.
+
+From this, Orechid Ignem proceeded in various pyramid schemes and scams involving shady
+alternative cryptocurrencies, scamming and stripping money from crypto-bros and innocent
+investors alike.
+
+Orechid didn't know where Orechid Ignem was getting all their newfound wealth from, but he
+knew it was not having a good effect on his child -- he had become irrationally
+short-tempered and derisive towards Orechid, sneering at him for being a loser, not
+knowing how to "invest properly", and being poor, not knowing that it was precisely
+because Orechid wanted to give Orechid Ignem a good upbringing that their finances were
+often so strained.
+
+Hopefully, one day Orechid Ignem would see the error of his ways.
 
 ## Fallen Kanade
 ### Freeze-Immune Bud
@@ -704,21 +750,60 @@ that's exactly what the friend needs to hear. As a result, Exoflame is deeply tr
 nearly everybody they know.
 
 ## Agricarnation
+### Guided Carnation Adrift in the Sea of Life
 * Gender: Fluid
 * Physical symbols: Composter
 * Likes: Self-improvement books
 * Dislikes: Not being motivated
 
+Agricarnation grew up a "gifted" child. They were the star student, praised for their
+excellent grades and for never acting out bad enough to be moved from "green" to "yellow"
+on the behavior chart.
+
+For their part, Agricarnation leaned into it. They loved getting praised when things went
+well. They were also talented enough to never have to try much in school to get those
+excellent grades, and this lasted throughout and past university, where Agricarnation
+majored in sociology. Their Master's thesis was about how people, as a whole, assign
+labels (such as "tech mod" and "magic mod") to things and stubbornly stick by those
+labels, at the expense of nuance and objective truth.
+
+After graduating, however, Agricarnation began to falter. The routine of "coast through
+school based on pure smarts" no longer worked, and they were left adrift in a world that
+they had been wholly unprepared for. With no external validation, it became hard for
+Agricarnation to move to work towards any goal, because there was no reason to do it.
+Agricarnation was self-aware of this, which worsened the situation, as they would spiral
+into gloominess quickly when they became saddened and depressed by being unmotivated,
+which demotivated them even further.
+
+Is there a way out of this for Agricarnation? What truly is the purpose of living, of
+working hard and shedding blood and tears in pursuit of a goal? Agricarnation continued
+flipping the self-help books they checked out from the library, sipping tea, and pondering
+that great question.
 
 ## Hopperhock
-* Gender:
-* Physical symbols:
-* Likes:
-* Dislikes: 
+### Jolly Collector
+* Gender: ???
+* Physical symbols: ?
+* Likes: Hoarding
+* Dislikes: Losing things
+
+Hopperhock doesn't remember where they came from. As long as they remembered, they were
+living on the streets under the protection of Dreadthorne. Even though objectively, the
+situation was awful, Hopperhock always managed to get through the days with a jolly,
+happy-go-lucky attitude. They made their living by scavenging anything and everything,
+then reselling them for a slim profit. In addition to reselling, any higher quality spoils
+were added to Hopperhock's hoard at their home.
+
+In a world where Hopperhock had so little, being surrounded by physical items and trinkets
+was oddly comforting.
+
+Since Hopperhock is a bit of an airhead, they have a tendency to be duped or tricked out
+of their precious belongings, but the surrounding community has adopted Hopperhock as one
+of their own, and fiercely defend the mischievious hoarder from any prying eyes and hands.
 
 ## Tangleberrie & Jiyuulia
 ### Lackadaisical Guardian Twins
-* Gender: Male
+* Gender: Male (he/him)
 * Physical symbols: Velcro
 * Likes: Their jobs, each other
 * Dislikes: The paperwork that happens when they make mistakes on the job
@@ -1012,8 +1097,7 @@ Under his hard work, flowerkind inches ever closer towards the legendary Philoso
 An easy misconception is that Bubbell has a bright and bubbly personality, due to their
 name. In actuality, Bubbell is quite antisocial and avoids contact with most
 others. Bubbell spends their spare time at home watching dramas and chatting with internet
-friends, though they are careful to not reveal too much about themselves. (TODO needs
-refinement and distinguishing characteristics with Hydro)
+friends, though they are careful to not reveal too much about themselves.
 
 ## Solegnolia
 ### Stunning and Electrifying Musician
@@ -1159,7 +1243,7 @@ Each flower in Botania is a reference to a (usually real life) flower or concept
 | Daybloom         | Daybloom (Terraria), Sunflower (by extension)                      |
 | Dreadthorne      | Dread + Hawthorne (variant of Bellethorne)                         |
 | Endoflame        | Endothermic (absorbing/requiring heat)                             |
-| Entropinnyum     |                                                                    |
+| Entropinnyum     | Entropy (flower portion unknown)                                   |
 | Exoflame         | Exothermic (releases heat)                                         |
 | Fallen Kanade    | "Fallen Angel", with angel replaced with Kanade from *Angel Beats* |
 | Gourmaryllis     | Gourmet + Amaryllis                                                |
@@ -1168,7 +1252,7 @@ Each flower in Botania is a reference to a (usually real life) flower or concept
 | Hyacidus         | Hyacinth + Acid                                                    |
 | Hydroangeas      | "Hydro" (Ancient Greek: water) + Hydrangea                         |
 | Jaded Amaranthus | "Jaded" (JadedCat, patron who commissioned the flower) + Amaranth  |
-| Jiyullia         |                                                                    |
+| Jiyullia         | "Jiyuu" Japanese word for "freedom" + Julia                        |
 | Kekimurus        | "keki" (kay-key) is the Japanese pronunciation of "cake"           |
 | Labellia         | Label + Lobelia                                                    |
 | Loonium          | Loot + Geranium                                                    |

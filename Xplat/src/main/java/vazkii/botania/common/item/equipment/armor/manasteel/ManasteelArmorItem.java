@@ -43,8 +43,6 @@ import java.util.function.Supplier;
 
 public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, PhantomInkable {
 
-	private static final int MANA_PER_DAMAGE = 70;
-
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
 	public final Type type;
@@ -61,20 +59,19 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		if (entity instanceof Player player) {
-			onArmorTick(stack, world, player);
-		}
-	}
-
-	@SoftImplement("IForgeItem")
-	public void onArmorTick(ItemStack stack, Level world, Player player) {
-		if (!world.isClientSide && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
-			stack.setDamageValue(stack.getDamageValue() - 1);
+			if (!world.isClientSide && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, getManaPerDamage() * 2, true)) {
+				stack.setDamageValue(stack.getDamageValue() - 1);
+			}
 		}
 	}
 
 	@Override
 	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		return ToolCommons.damageItemIfPossible(stack, amount, entity, MANA_PER_DAMAGE);
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
+	}
+
+	protected int getManaPerDamage() {
+		return 70;
 	}
 
 	@SoftImplement("IForgeItem")

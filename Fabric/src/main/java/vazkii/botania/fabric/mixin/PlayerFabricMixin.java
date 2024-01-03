@@ -36,7 +36,6 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.PixieHandler;
-import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.relic.RingOfOdinItem;
@@ -112,16 +111,6 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 	@ModifyArg(index = 0, method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;causeFallDamage(FFLnet/minecraft/world/damagesource/DamageSource;)Z"))
 	private float cushionFall(float originalDist) {
 		return SojournersSashItem.onPlayerFall((Player) (Object) this, originalDist);
-	}
-
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;tick()V"), method = "aiStep")
-	private void tickArmor(CallbackInfo ci) {
-		Player self = (Player) (Object) this;
-		for (ItemStack stack : inventory.armor) {
-			if (stack.getItem() instanceof ManasteelArmorItem) {
-				((ManasteelArmorItem) stack.getItem()).onArmorTick(stack, self.level(), self);
-			}
-		}
 	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;setLastHurtMob(Lnet/minecraft/world/entity/Entity;)V"), method = "attack")

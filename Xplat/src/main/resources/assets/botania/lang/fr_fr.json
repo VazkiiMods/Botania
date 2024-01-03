@@ -11,8 +11,9 @@
   "_comment.exp": "Explication sur la structure",
   "_comment.info": "Informations supplémentaires",
   "_comment.tag": "Tags à ajouter dans le code",
+  "_comment.todo": "Travail supplémentaire",
 
-  "itemGroup.botania": "Botania",
+  "itemGroup.botania.botania": "Botania",
   "botania.landing": "Magie, Machines. Naturellement. $(br2)Botania est un mod technologique, dont le concept est la création de machines et de fleurs magiques afin de manipuler le $(thing)mana$().",
   "botania.desc": "Magie, Machines. Naturellement",
 
@@ -34,6 +35,7 @@
   "botaniamisc.filter2": "Ramassage de tous les éléments",
   "botaniamisc.retainer.retain_all": "Mémoriser la quantité demandée initialement",
   "botaniamisc.retainer.retain_missing": "Mémoriser le nombre d'objets manquants",
+  "botaniamisc.optifine_warning": "§4[WARNING]§r <Botania>: Optifine détecté. Optifine n'est pas compatible avec Botania. Vous pourriez avoir des problèmes; comme du mana qui ne se déplace pas entre les fleurs et les diffuseurs, ou une incapacité à voir le mana avec une baguette. Le mod Sodium est une meilleur alternative à Optifine.",
 
   "botaniamisc.creativePool0": "Possède du mana à l'infini",
   "botaniamisc.creativePool1": "(T'es dans ta jalousie)",
@@ -45,6 +47,8 @@
   "botaniamisc.lexiconcover2": "Un livre par Vazkii",
   "botaniamisc.shiftinfo": "Appuyez sur %s pour plus d'info",
   "botaniamisc.ratio": "Zoom: %sx",
+  "botaniamisc.conversionRatio": "Environ %s pour %s",
+  "botaniamisc.conversionChanceBiome": "%s dans le biome %s",
   "botaniamisc.bottleTooltip": "à consommer sans modération",
 
   "botaniamisc.shardLevel": "Puissance: %s",
@@ -56,6 +60,9 @@
   "botaniamisc.dropTip1": "Ctrl-%s jettera un stack en entier",
   "botaniamisc.wandMode.bind": "liaison",
   "botaniamisc.wandMode.function": "fonction",
+  "botaniamisc.sextantMode.circle": "Mode cercle",
+  "botaniamisc.sextantMode.sphere": "Mode sphère",
+  "botaniamisc.brewOf": "Potion %s",
 
   "botaniamisc.needsCatalysts": "Même en forçant vous n'arrivez pas à insérer le lingot dans la balise; peut-être que vos pylônes sont mal placés",
   "botaniamisc.peacefulNoob": "Vous essayez d'insérer le lingot, mais l'ambiance PAISIBLE de votre monde vous empêche de le faire",
@@ -70,7 +77,7 @@
 
   "botaniamisc.armorset": "\u00a7bPanoplie\u00a7r:",
   "botaniamisc.craftToAddWill": "Amélioration de casque en terracier:",
-  "botaniamisc.requestMsg": "Commandé %d x \"%s\" (en stock: %d). %d récupérés.",
+  "botaniamisc.requestMsg": "Commandé %d x %s (en stock: %d). %d récupérés.",
   "botaniamisc.nearIndex0": "Index Corporea",
   "botaniamisc.nearIndex1": "Tout ce que vous direz pourra ",
   "botaniamisc.nearIndex2": "être utilisé pour vos requêtes",
@@ -196,7 +203,7 @@
   "tag.botania.generating_special_flowers": "Flore génératrice",
   "tag.botania.functional_special_flowers": "Flore fonctionnelle",
   "tag.botania.misc_special_flowers": "Flore diverse",
-  
+
   "tag.botania.dreamwood_logs": "Bûches en boisrêve",
   "tag.botania.livingwood_logs": "Bûches de vifbois",
   "tag.botania.glimmering_dreamwood_logs": "Boisrêve scintillant",
@@ -204,6 +211,7 @@
   "tag.botania.mini_flowers": "Petites fleurs",
   "tag.botania.mana_using_items": "Consommateur de mana",
   "tag.botania.lens": "Lentilles de mana",
+  "tag.botania.lens_glue": "Colle de lentille",
   "tag.botania.runes": "Runes",
   "tag.botania.rods": "Bâtons",
 
@@ -280,7 +288,7 @@
   "botania.armorset.terrasteel.desc2": "Remplissage automatique des tablettes",
 
   "botania.armorset.manaweave.name": "Prouesse arcanique",
-  "botania.armorset.manaweave.desc0": "-35%% de mana sur les outils à mana",
+  "botania.armorset.manaweave.desc0": "-40%% de mana sur les outils à mana",
   "botania.armorset.manaweave.desc1": "Maîtrise des bâtons magiques",
 
   "botania.armorset.will_ahrim.desc": "Ahrim: Coups critiques appliquent faiblesse",
@@ -402,6 +410,7 @@
   "_comment.poem.info": "Oui putain, décasyllabe qui rime",
 
   "death.attack.botania.relic": "%s a été puni en utilisant une relique qui n'était pas la sienne",
+  "death.attack.botania.key_explosion": "%2$s a noyé %1$s de trésors",
 
   "_comment.mana_burst.alt": "Décharge de mana",
   "entity.botania.mana_burst": "Transfert de mana",
@@ -671,10 +680,11 @@
   "block.botania.apothecary_mesa": "Apothicaire en rosite",
   "block.botania.apothecary_mossy": "Apothicaire moussu",
   "block.botania.apothecary_livingrock": "Apothicaire de viveroche",
-  "block.botania.apothecary_deepslate": "Apothicaire des abîmes", 
+  "block.botania.apothecary_deepslate": "Apothicaire des abîmes",
 
   "block.botania.livingrock": "Viveroche",
   "block.botania.polished_livingrock": "Viveroche polie",
+  "block.botania.livingrock_slate": "Ardoise de viveroche",
   "block.botania.polished_livingrock_slab": "Dalle de viveroche polie",
   "block.botania.polished_livingrock_stairs": "Escalier de viveroche polie",
   "block.botania.polished_livingrock_wall": "Muret de viveroche polie",
@@ -1627,7 +1637,7 @@
   "item.botania.flask": "Fiole en verre elfique",
   "item.botania.brew_vial": "Philtre %s (%s)",
   "item.botania.brew_flask": "Flasque %s (%s)",
-  "botaniamisc.brewOf": "Potion %s",
+  
 
   "_comment.brew_empty.alt": "Fiole, Flasque, Erlen, Flacon, Ampoule, Bouteille",
   "_comment.brew_filled.alt": "Potion, Philtre, Flasque, Breuvage, Élixir, Boisson, Brassage, Bouteille",
@@ -2141,6 +2151,7 @@
   "botania.page.pureDaisy1": "Attendez environ une minute ...",
   "botania.page.pureDaisy2": "Taillé en $(item)brindille$(0)",
   "botania.page.pureDaisy4": "D'autres blocs peuvent être purifiés. Même s'ils sont moins intéressants, il n'en sont pas moins utiles.$(p)La $(item)netherrack$(0) deviens des $(item)pierres$(0), le $(item)sable des âmes$(0) deviens du $(item)sable$(0), la $(item)glace$(0) deviens de la $(item)glace compactée$(0), et l'eau deviens de la $(item)neige$(0).",
+  "_comment.botania.page.pureDaisy4.todo": "Il faut vérifier le rendu du Lexicon, pour la taille de ce paragraphe",
   "botania.page.pureDaisy3": "$(o)un peu, beaucoup, à la folie$()",
 
   "botania.entry.wand": "Baguette sylvestre",
@@ -2274,38 +2285,38 @@
   "botania.page.lens2": "Teinter vos lentilles",
   "botania.page.lens3": "Lentille arc-en-ciel",
   "botania.page.lens4": "Les $(item)lentilles$(0) peuvent être améliorées avec divers matériaux pour donner de nouvelles propriétés à leurs $(thing)transferts de mana$(0).$(p)N'oubliez pas qu'un $(l:mana/spreader)diffuseur de mana$(/l) ne fonctionne que s'il vise un bloc qui peut recevoir du $(thing)mana$(0).$(p)Les $(item)entonnoirs$(0) peuvent enlever ou ajouter des $(item)lentille$(0).$(p)Les $(l:mana/redstone_spreader)diffuseurs pulsé$(/l) fonctionnent mieux avec certaines $(item)lentilles$(0).",
-  "botania.page.lens5": "Si vous trouvez qu'une $(item)lentille$(0) ce n'est pas assez, vous pouvez toujours combiner deux $(item)lentille$(0) à l'aide d'une $(item)boule de slime$(0)$(p)La première $(item)lentille$(0) déterminera la couleur et l'aspect du duo. Néanmoins, certaines combinaisons ne seront pas fonctionnelles. Combiner deux $(item)lentilles$(0) identiques ne marchera pas.",
+  "botania.page.lens5": "Si vous trouvez qu'une $(item)lentille$(0) ce n'est pas assez, vous pouvez toujours combiner deux $(item)lentille$(0) à l'aide d'une $(item)boule de slime$(0) ou d'une $(item)fiole de miel$(0).$(p)La première $(item)lentille$(0) déterminera l'apparence du duo. Néanmoins, certaines combinaisons ne seront pas fonctionnelles. Combiner deux $(item)lentilles$(0) identiques ne marchera pas.",
 
   "botania.page.lens7": "Lentille de vélocité",
   "botania.page.lens6": "La $(item)lentille de vélocité$(0) va énormément augmenter la vitesse de déplacement des $(thing)transferts de mana$(0), par contre chaque $(thing)transfert de mana$(0) aura une capacité réduite et perdra plus facilement du $(thing)mana$(0).",
-  
+
   "botania.page.lens9": "Lentille de puissance",
   "botania.page.lens8": "La $(item)lentille de puissance$(0) va doubler la quantité de $(thing)mana$(0) d'un $(thing)transfert de mana$(0). Cependant, ces $(thing)transferts$(0) seront plus lents, et toute perte de $(thing)mana$(0) sera accélérée.",
-  
+
   "botania.page.lens11": "Lentille de durabilité",
   "botania.page.lens10": "La $(item)lentille de durabilité$(0) va considérablement augmenter la durée qu'un $(thing)transfert de mana$(0) peut avoir avant de commencer à perdre du $(thing)mana$(0); mais sa vitesse de déplacement sera réduite.",
 
   "botania.page.lens13": "Lentille d'efficacité",
-  "botania.page.lens12": "La $(item)lentille d'efficacité$(0) va augmenter la durée qu'un $(thing)transfert de mana$(0) peut avoir avant de commencer à perdre du $(thing)mana$(0), et réduire la quantité de $(thing)mana$(0) qui serait perdue.",
-  
+  "botania.page.lens12": "La $(item)lentille d'efficacité$(0) va augmenter la durée avant qu'un $(thing)transfert de mana$(0) commence à perdre du $(thing)mana$(0), et réduire la quantité de $(thing)mana$(0) qui serait perdue.",
+
   "botania.page.lens15": "Lentille de rebond",
   "botania.page.lens14": "La $(item)lentille de rebond$(0) va permettre à un $(thing)transfert de mana$(0) de rebondir sur les murs, au lieu de se dissiper.",
-  
+
   "botania.page.lens39": "Lentille de transmission",
   "botania.page.lens38": "La $(item)lentille de transmission$(0) va beaucoup réduire la quantité de $(thing)mana$(0) qu'un $(thing)transfert de mana$(0) peut transporter; en échange d'une amélioration considérable de sa vitesse de déplacement et de sa durée avant d'avoir des pertes de $(thing)mana$(0).",
-  
+
   "botania.page.lens17": "Lentille de gravité",
   "botania.page.lens16": "La $(item)lentille de gravité$(0) va permettre à un $(thing)transfert de mana$(0) d'avoir une trajectoire en forme d'arc, comme s'il était affecté par la gravité. En contrepartie, il faut attendre plus longtemps avant d'avoir des pertes de $(thing)mana$(0).",
-  
+
   "botania.page.lens19": "Lentille de minage",
   "botania.page.lens18": "La $(item)lentille de minage$(0) va permettre à un $(thing)transfert de mana$(0) de casser les blocs, par contact direct, en utilisant son propre $(thing)mana$(0).",
-  
+
   "botania.page.lens21": "Lentille de douleur",
   "botania.page.lens20": "La $(item)lentille de douleur$(0) va permettre à un $(thing)transfert de mana$(0) de blesser les entités, par contact direct, en utilisant son propre $(thing)mana$(0).",
-  
+
   "botania.page.lens23": "Lentille spectrale",
   "botania.page.lens22": "La $(item)lentille spectrale$(0) va se servir des propriétés du $(l:devices/platform)vifbois spectral$(/l) pour permettre à un $(thing)transfert de mana$(0) de passer au travers des blocs. Chaque traversée réduit la durée avant d'avoir des pertes de $(thing)mana$(0).",
-  
+
   "botania.page.lens25": "Lentille magnétique",
   "botania.page.lens24": "La $(item)lentille magnétique$(0) va permettre à un $(thing)transfert de mana$(0) d'être magnétisé, et donc d'être ralenti, et de courber sa trajectoire vers les blocs qui peuvent contenir du $(thing)mana$(0) ($(o)$(l:mana/pool)bassins$(/l), $(l:mana/spreader)diffuseurs$(/l), etc$()).",
 
@@ -2622,7 +2633,7 @@
   "botania.entry.bergamute": "Scillence",
   "botania.tagline.bergamute": "TAGLINE",
   "botania.page.bergamute0": "Si vous avez déjà fait de l'élevage, vous êtes au courant que c'est extrêmement bruyant.$(p)Par chance, le $(item)scillence$(0) peut vous aider à stopper cette cacophonie.",
-  "botania.page.bergamute1": "Le $(item)scillence$(0) dévore les sons émis à proximité, ce qui génère des quantités microscopiques de $(thing)mana$(0). Cette fleur peut donc fonctionner sans $(thing)mana$(0) supplémentaire.$(p)Les outils sonores, tel que $(l:tools/grass_horn)les cornes$(/l) ou les $(l:devices/forest_drum)tambours$(/l), seront inefficaces dans sa zone d'action.",
+  "botania.page.bergamute1": "Le $(item)scillence$(0) dévore partiellement les sons émis à proximité, ce qui génère des quantités microscopiques de $(thing)mana$(0). Permettant ainsi à cette fleur d'être autonome en $(thing)mana$(0).$(p)Les outils sonores, tels que les $(l:tools/grass_horn)cornes$(/l) et les $(l:devices/forest_drum)tambours$(/l), seront inefficaces dans sa zone d'action.",
   "botania.page.bergamute2": "$(o)ça pousse$() !",
   "_comment.bergamute.exp": "Scille + Silence",
   "_comment.bergamute.alt": "Bergamuette, Scillencia",
@@ -2633,11 +2644,12 @@
   "botania.page.gIntro1": "Toutes les fleurs ont un mini-réservoir pour stocker du $(thing)mana$(0). Mais la $(thing)flore génératrice$(0) essaiera, dès que possible, de le transférer à un $(l:mana/spreader)diffuseur de mana$(/l).",
   "botania.page.gIntro2": "Ces fleurs se connectent automatiquement au $(l:mana/spreader)diffuseur de mana$(/l) le plus proche, mais à un seul, même si le $(l:mana/spreader)diffuseur$(/l) est placé après la fleur. La connection peut être changé avec une $(l:basics/wand)baguette sylvestre$(/l) en mode $(thing)liaison$(0).",
   "botania.page.gIntro3": "Choisir votre première $(thing)fleur génératrice$(0) est assez simple, l'$(l:generating_flowers/endoflame)endoflamme$(/l) et l'$(l:generating_flowers/hydroangeas)hydroangelle$(/l) sont faciles à utiliser. La première utilise du $(item)charbon$(0) ou du combustible, et la deuxième utilise de l'$(thing)eau$(0) mais meurt au bout de 3 jours.",
+  "botania.page.gIntro4": "Si vous souhaitez générer plus de $(thing)mana$(0), vous serez amenés à essayer d'autres possibilités parmi la $(thing)flore génératrice$(0). Des fleurs plus ou moins difficiles à automatiser",
 
   "botania.entry.endoflame": "Endoflamme",
   "botania.tagline.endoflame": "TAGLINE",
   "botania.page.endoflame0": "L'$(item)endoflamme$(0) est une $(thing)fleur génératrice$(0) très rudimentaire.$(p)Elle dévore tout les objets combustibles à proximité, un par un, afin de produire du $(thing)mana$(0).$(p)La durée d'incinération est la moitié de leur durée dans un $(item)fourneau$(0).",
-  "botania.page.endoflame1": "Par contre une $(item)endoflamme$(0) ne peut pas consommer un combustible qui laisserait des restes, comme un $(item)seau de lave$(0) qui laisserait un $(item)seau$(0).$(p)Sa capacité de stockage maximale correspond à 4 $(item)blocs de charbon$(0).$(p)Tout excédent de combustible serait gaspillé.",
+  "botania.page.endoflame1": "Par contre une $(item)endoflamme$(0) ne peut pas consommer un combustible qui laisserait des restes, comme un $(item)seau de lave$(0) qui laisserait un $(item)seau$(0).$(p)Sa capacité de stockage maximale correspond à 2 $(item)blocs de charbon$(0).$(p)Tout excédent de combustible serait gaspillé.",
   "botania.page.endoflame3": "Alimenter manuellement ces fleurs est assez pénible, ce serait plus agréable si ce processus était automatisé.$(p)Une $(l:devices/open_crate)caisse percée$(/l) et un inhibiteur ($(o)un délai de temps ou une $(item)plaque de pression$(0)$()) seraient parfait pour ça.",
   "botania.page.endoflame2": "$(o)mais t'es pas net Baptiste$()",
   "_comment.endoflame.exp": "Endothermique + Flamme",
@@ -2651,15 +2663,16 @@
 
   "botania.entry.thermalily": "Thermalys",
   "botania.tagline.thermalily": "TAGLINE",
-  "botania.page.thermalily0": "Le $(item)thermalys$(0) est une variante de l'$(l:generating_flowers/hydroangeas)hydroangelle$(/l), mais avec de la $(thing)lave$(0).$(p)Après en avoir ingéré, le $(item)thermalys$(0) produira du $(thing)mana$(0) pendant 30 secondes, puis il aura besoin d'une pause de 5 minutes pour digérer.",
+  "botania.page.thermalily0": "Le $(item)thermalys$(0) est une variante de l'$(l:generating_flowers/hydroangeas)hydroangelle$(/l), mais avec de la $(thing)lave$(0).$(p)Après en avoir ingéré, le $(item)thermalys$(0) produira du $(thing)mana$(0) pendant 30 secondes, puis il aura besoin d'une pause de plusieurs minutes pour digérer.",
   "botania.page.thermalily2": "Pendant sa phase active le débit de $(thing)mana$(0) est important, pratique pour remplir rapidement un $(l:mana/pool)bassin de mana$(/l).$(p)Néanmoins, il faut respecter sa période de digestion. Toute $(thing)lave$(0) apportée pendant cette période sera gaspillée.",
   "botania.page.thermalily3": "Placer automatiquement de la $(thing)lave$(0) est faisable avec un $(item)distributeur$(0). Mais c'est pénible d'aller la ramasser depuis le $(thing)Nether$(0).$(p)C'est pour cela que le $(item)thermalys$(0) est classifié comme une fleur \"$(o)semi-automatisable$()\".",
   "botania.page.thermalily4": "$(o)déconseillé aux hémomanciens$()",
+  "_comment.thermalily.todo": "Il faut refaire tout ça",
   "_comment.thermalily.alt": "Therma-lis, Thermalis, Therma-lys",
 
   "botania.entry.arcanerose": "Rosa Arcana",
   "botania.tagline.arcanerose": "TAGLINE",
-  "botania.page.arcanerose0": "Les $(thing)orbes d'expérience$(0) sont magiques elles aussi. La $(item)rosa arcana$(0) se sert de cette magie pour la convertir en $(thing)mana$(0).$(p)Les objets enchantés peuvent également être transformés en $(thing)mana$(0), même si c'est moins efficace.",
+  "botania.page.arcanerose0": "Les $(thing)orbes d'expérience$(0) sont magiques elles aussi. La $(item)rosa arcana$(0) se sert de cette magie pour la convertir en $(thing)mana$(0).$(p)Les objets enchantés peuvent également être transformés en $(thing)mana$(0).",
   "botania.page.arcanerose1": "$(o)rosae, rosas, rosarum$()",
   "_comment.arcanerose.exp": "Rosa + Arcana",
   "_comment.arcanerose.lex": "Rose, Arcanique, Mystique",
@@ -2676,7 +2689,7 @@
   "botania.tagline.entropinnyum": "TAGLINE",
   "botania.page.entropinnyum0": "Si vous voulez obtenir une explosion de $(thing)mana$(0), alors il faut une explosion.$(p)Amorcer du $(item)TNT$(), hors de l'eau, à côté d'une $(item)entropinnyum$(0) convertira cette puissance destructrice en $(thing)mana$(0) et annulera la destruction.$(p)Par contre, cela fonctionne seulement si l'$(item)entropinnyum$(0) est vidée de son $(thing)mana$(0) interne.",
   "botania.page.entropinnyum1": "$(o)destitution, décapitation$()",
-  "botania.page.entropinnyum2": "Les $(item)entropinnyums$(0) aiment bien les $(item)TNTs$() d'origine contrôlée, selon un savoir-faire reconnu.$(p)Donc si vous lui donnez des produits de mauvaise qualité, $(thing)dupliqués$(0) selon des méthodes douteuses, ce sera moins efficace.",
+  "botania.page.entropinnyum2": "Les $(item)entropinnyums$(0) aiment bien les $(item)TNTs$() d'origine contrôlée, selon un savoir-faire reconnu.$(p)Donc si vous leur donnez des produits de mauvaise qualité, $(thing)dupliqués$(0) selon des méthodes douteuses, ce sera moins efficace.",
   "_comment.entropinnyum.info": "pseudo-Latin, pas forcément besoin de traduire",
 
   "botania.entry.kekimurus": "Gatorchidée",
@@ -2727,6 +2740,7 @@
   "botania.page.dandelifeon5": "Toutes les $(thing)cellules$(0) ont un $(thing)âge$(0).$(p)Toutes les $(thing)cellules$(0) non-crées par le $(item)dandevie$(0) ont un $(thing)âge$(0) de 0.$(p)Quand une $(thing)cellule$(0) survit 1 itération, son $(thing)âge$(0) augmente de 1.$(p)L'$(thing)âge$(0) d'une $(thing)cellule$(0) qui naît est celui de son plus vieux voisin, plus 1.$(p)L'$(thing)âge$(0) maximum est 100.",
   "botania.page.dandelifeon6": "La zone 3x3 au centre, autour du $(item)dandevie$(0), va transformer les $(thing)cellules$(0) en un bonne grosse quantité de $(thing)mana$(0).$(p)Plus une $(thing)cellule$(0) est ancienne, plus elle a de la valeur.$(p)Une $(thing)cellule$(0) avec un âge de 0 rapporte 0 $(thing)mana$(0).",
   "botania.page.dandelifeon10": "Quand une $(thing)cellule$(0) est absorbée au centre ($(o)3x3$()), toutes les $(thing)cellules$(0) du terrain ($(o)25x25$()) seront récoltées.",
+  "_comment.botania.page.dandelifeon10.todo": "Le texte d'origine est pas clair",
   "botania.page.dandelifeon7": "Les $(item)blocs cellulaires$(0) sont fabriqués avec des $(item)cactus$(0), $(item)carottes$(0), $(item)patates$(0) et $(item)betteraves$(0).$(p)Ils sont très fragiles, et ne donneront rien s'ils s'ont cassés, même par des $(item)pistons$(0).",
   "botania.page.dandelifeon8": "$(o)sélection naturelle$()",
   "botania.page.dandelifeon9": "Fabriquer un $(item)bloc cellulaire$(0)",
@@ -2778,8 +2792,10 @@
   "botania.page.manaAlchemy3": "Transmuter les $(item)bûches$(0)",
   "botania.page.manaAlchemy30": "Pousse",
   "botania.page.manaAlchemy4": "Transmuter les $(item)pousses$(0)",
-  "botania.page.manaAlchemy31": "Quartz",
+  "botania.page.manaAlchemyFroglightCycle.title": "Grelampe",
+  "botania.page.manaAlchemyFroglightCycle": "Transmuter en $(item)grelampe$(0)",
   "botania.page.manaAlchemy5": "Transmuter en$(br)$(item)poudre lumineuse$(0)",
+  "botania.page.manaAlchemy31": "Quartz",
   "botania.page.manaAlchemy6": "Transmuter en $(item)quartz$(0)",
   "botania.page.manaAlchemy7": "Transmuter en $(item)pierre sculptée$(0)",
   "botania.page.manaAlchemy8": "Transmuter en $(item)glace$(0)",
@@ -2868,9 +2884,9 @@
   "botania.tagline.flasks": "TAGLINE",
   "botania.page.flasks0": "Il semblerait que le $(l:alfhomancy/elf_resources)verre elfique$(/l) soit plus malléable que le $(l:mana/pool)verre de mana$(/l).$(p)Une $(item)flasque$(0) en $(l:alfhomancy/elf_resources)verre elfique$(/l) sera capable de contenir $(thing)6$(0) doses, à la différence d'un $(l:devices/brewery)philtre$(/l) en $(l:mana/pool)verre de mana$(/l) qui sera limité à $(thing)4$(0) doses.",
   "botania.page.flasks1": "Même si les ingrédients sont les mêmes, une $(item)flasque$(0) aura besoin de deux fois plus de mana par rapport à un $(l:devices/brewery)philtre$(/l). La taille du goulot d'une $(item)flasque$(0) étant plus large, boire son contenu sera plus rapide.",
-  "botania.page.flasks2": "$(o)rigide et ferme$()",
+  "botania.page.flasks2": "$(o)rigide et solide$()",
   "_comment.flasks.tag": "$(l:basics/rune_altar#managlass) $(l:basics/rune_altar#alfglass)",
-  
+
 
   "botania.entry.complexBrews": "Breuvages avancés",
   "botania.tagline.complexBrews": "TAGLINE",
@@ -3033,7 +3049,7 @@
 
   "botania.entry.grassSeeds": "Graines de pâturage",
   "botania.tagline.grassSeeds": "TAGLINE",
-  "botania.page.grassSeeds0": "Voir l'$(item)herbe$(0) grandir c'est vraiment très intéressant, si on est une vache.$(p)Des $(item)herbes hautes$(0), infusées de $(thing)mana$(0), deviendront des $(item)graines de pâturage$(0) qui pourront être placées sur de la $(item)terre$(0).$(p)Il est également possible de fabriquer des variantes, comme pour le $(item)podzol$(0) et le $(item)mycélium$(0).",
+  "botania.page.grassSeeds0": "Voir l'$(item)herbe$(0) grandir c'est vraiment très intéressant, si on est une vache.$(p)Des $(item)herbes hautes$(0), infusées de $(thing)mana$(0), deviendront des $(item)graines de pâturage$(0) qui pourront être placées sur de la $(item)terre$(0); à la main ou avec un $(item)distributeur$(0).$(p)Il est également possible de fabriquer des variantes, comme pour le $(item)podzol$(0) et le $(item)mycélium$(0).",
   "botania.page.grassSeeds1": "$(item)graines de pâturage$(0) pour l'$(item)herbe$(0)",
   "botania.page.grassSeeds2": "$(item)graines boréales$(0) pour le $(item)podzol$(0)",
   "botania.page.grassSeeds3": "$(item)Spore d'infestation$(0) pour le $(item)mycélium$(0)",
@@ -3290,7 +3306,7 @@
 
   "botania.entry.manaweave": "Manasoie",
   "botania.tagline.manaweave": "TAGLINE",
-  "botania.page.manaweave0": "La $(item)manasoie$(0) est un tissu infusé des énergies primordiales du $(thing)mana$(0).$(p)Les habits constitués en $(item)manasoie$(0) ne sont pas réputés pour leur solidité, cependant ils feront de vous un puissant magicien. Avec une panoplie complète vos outils et vos bâtons seront beaucoup plus économes en $(thing)Mana$(0), mais pas que.",
+  "botania.page.manaweave0": "La $(item)manasoie$(0) est un tissu infusé des énergies primordiales du $(thing)mana$(0).$(p)Les habits constitués en $(item)manasoie$(0) ne sont pas réputés pour leur solidité, cependant ils feront de vous un puissant magicien. Avec une panoplie complète vos outils et vos bâtons seront beaucoup plus économes en $(thing)mana$(0), mais pas que.",
   "botania.page.manaweave1": "En plus de cela, vos bâtons seront plus puissants et auront plus de portée.$(p)Les habits en $(item)manasoie$(0) peuvent être réparés avec du $(thing)mana$(0); comme pour les armures en $(item)manacier$(0), mais pour bien moins cher.",
   "botania.page.manaweave2": "Tisser le $(thing)mana$(0)",
   "botania.page.manaweave3": "Fabriquer le $(item)capuchon$(0)",
@@ -3305,9 +3321,12 @@
 
   "botania.entry.sextant": "Sextant en manacier",
   "botania.tagline.sextant": "TAGLINE",
-  "botania.page.sextant0": "Dans un monde de cubes, l'art de construire des cercles est un talent recherché. Un savoir si complexe que certaines personnes seraient même prêtes à utiliser des méthodes diaboliques pour l'obtenir, $(o)comme regarder sur internet$().$(p)Sinon, vous pourriez utiliser un $(item)sextant en manacier$(0).",
-  "botania.page.sextant1": "Pour utiliser cet objet, clic-droit sur un bloc définira le centre du cercle. En gardant le clic-droit enfoncé et en regardant ailleurs vous serez en mesure de changer le taille du rayon de cercle. Lâcher clic-droit construira un hologramme. Shift-clic-droit permet de supprimer un hologramme.",
+  "botania.page.sextant0": "Dans un monde de cubes, l'art de construire des cercles et des sphères est un talent convoité. Un savoir si complexe que certaines personnes seraient même prêtes à utiliser des méthodes diaboliques pour l'obtenir, $(o)comme regarder sur internet$().$(p)Sinon, vous pourriez utiliser un $(item)sextant en manacier$(0).",
+  "botania.page.sextant1": "Pour utiliser le sextant, clic-droit sur un bloc définira le centre du cercle. En gardant le clic-droit enfoncé et en regardant ailleurs vous serez en mesure de changer le taille du rayon de cercle. Lâcher clic-droit construira un hologramme. Shift-clic-droit permet de supprimer un hologramme.",
+  "_comment.botania.page.sextant1.todo": "Le texte d'origine est pas clair",
   "botania.page.sextant2": "$(o)rendez-vous,$(br)vous êtes encerclés$() !",
+  "botania.page.sextant_modes": "Il y a plusieurs manières de faire un \"cercle\", n'hésitez pas à expérimenter !$(p)Ce n'est pas la taille qui compte, mais si deux dimensions c'est trop petit pour vous. Shift-clic-droit permet de changer de mode.",
+  "_comment.botania.page.sextant_modes.todo": "Le texte d'origine est pas clair",
 
   "botania.entry.astrolabe": "Astrolabe en élémentium",
   "botania.tagline.astrolabe": "TAGLINE",
@@ -3382,7 +3401,7 @@
   "botania.entry.corporea": "Introduction au Corporea",
   "botania.tagline.corporea": "TAGLINE",
   "botania.page.corporea0": "Le système $(thing)Corporea$(0) utilise les énergies du néant, le vide entre les mondes, pour transporter instantanément les objets d'un endroit à un autre.$(p)Ces systèmes sont principalement composés de variantes des $(l:mana/sparks)étincelles$(/l), les $(item)étincelles Corporea$(0), afin de transporter des objets ($(o)à la place du $(thing)mana$(0)$()).",
-  "botania.page.corporea1": "Il faut placer ces $(item)étincelles Corporea$(0) sur des $(thing)conteneurs$(0), comme les $(item)coffres$(0).$(p)Il y a $(o)deux$() types d'$(item)étincelles Corporea$(0): la version normale, et l'$(item)étincelle maîtresse Corporea$(0).$(p)Ces $(item)étincelles$(0) fonctionnent en $(thing)réseau$(0).$(p)Chaque $(thing)réseau$ Corporea(0) a besoin d'une $(item)étincelle maîtresse Corporea$(0).",
+  "botania.page.corporea1": "Il faut placer ces $(item)étincelles Corporea$(0) sur des $(thing)conteneurs$(0), comme les $(item)coffres$(0).$(p)Il y a $(o)deux$() types d'$(item)étincelles Corporea$(0): la version normale, et l'$(item)étincelle maîtresse Corporea$(0).$(p)Ces $(item)étincelles$(0) fonctionnent en $(thing)réseau$(0).$(p)Chaque $(thing)réseau$(0) Corporea$(0) a besoin d'une $(item)étincelle maîtresse Corporea$(0).",
   "botania.page.corporea2": "Quand une $(item)étincelle Corporea$(0) est placée, toutes les $(item)étincelles$(0) du $(thing)réseau Corporea$(0) se re-connecteront; tant qu'il y a une $(item)étincelle maîtresse Corporea$(0) dans ce $(thing)réseau$(0).$(p)La distance maximale entre deux $(item)étincelles$(0) est de 8 blocs.$(p)Chaque $(item)étincelle Corporea$(0) du $(thing)réseau$(0) met à disposition le contenu du $(thing)conteneur$(0) qui est placé juste en dessous.",
   "botania.page.corporea3": "Une $(item)étincelle$(0) ne peut agir que sur les objets de la face \"haut\" d'un $(thing)conteneur$(0).$(p)Exemple:$(br)les $(item)fours$(0) sont composés de 3 trois faces: \"haut\" pour l'avant-cuisson, \"côté\" pour le carburant, et \"bas\" pour l'après-cuisson. Donc l'$(item)étincelle$(0) serait uniquement capable de voir les objets \"avant-cuisson\" d'un $(item)four$(0).",
   "botania.page.corporea4": "Une $(item)étincelle maîtresse Corporea$(0) est trop occupée à surveiller le $(thing)réseau Corporea$(0) pour regarder le contenu du $(thing)conteneur$(0) qui est placé juste en dessous.$(p)Si vous souhaitez ajouter des objets au $(thing)réseau$(0), vous aurez besoin d'utiliser des $(item)entonnoirs$(0).",
@@ -3566,7 +3585,7 @@
 
   "botania.entry.lavaPendant": "Pendentif magmatique",
   "botania.tagline.lavaPendant": "TAGLINE",
-  "botania.page.lavaPendant0": "Le $(item)pendentif magmatique$(0) utilise du $(thing)mana$(0) pour éteindre les flammes sur son porteur.$(p)Néanmoins, ce $(item)pendentif(0) ne vous sauvera pas de la lave ou des dégâts du feu.",
+  "botania.page.lavaPendant0": "Le $(item)pendentif magmatique$(0) utilise du $(thing)mana$(0) pour éteindre les flammes sur son porteur.$(p)Néanmoins, ce $(item)pendentif$(0) ne vous sauvera pas de la lave ou des dégâts du feu.",
   "botania.page.lavaPendant1": "$(o)attention c'est très très tiède$()",
 
   "botania.entry.waterRing": "Anneau aquatique",
@@ -3634,7 +3653,7 @@
   "botania.entry.monocle": "Monocle de manavision",
   "botania.tagline.monocle": "TAGLINE",
   "botania.page.monocle0": "Le $(item)monocle de manavision$(0) est un accessoire qui vous permet de voir la trajectoire des $(thing)transferts de mana$(0), même à travers les murs.$(p)De plus, regarder une $(thing)fleur$(0) vous permettra de voir sa portée d'action.",
-  "botania.page.monocle2": "En bonus, il apporte également des informations sur les composants en $(item)redstone$(0).$(p)N'oubliez pas que vous pouvez utiliser la $(thing)surcharge cosmétique$(0) si vous souhaitez utiliser les fonctionnalités d'un $(thing)bibelot(0) mais avec l'apparence d'un autre.",
+  "botania.page.monocle2": "En bonus, il apporte également des informations sur les composants en $(item)redstone$(0).$(p)N'oubliez pas que vous pouvez utiliser la $(thing)surcharge cosmétique$(0) si vous souhaitez utiliser les fonctionnalités d'un $(thing)bibelot$(0) mais avec l'apparence d'un autre.",
   "botania.page.monocle1": "$(o)ils ne sont pas prêt$()",
 
   "botania.entry.swapRing": "Anneau de correction",
@@ -3762,7 +3781,7 @@
   "botania.page.lokiRing0": "L'un des trois anneaux mythiques de l'$(thing)Aesir$(0), l'$(item)anneau de Loki$(0) confère à son porteur la faculté \"d'être présent à plusieurs endroits à la fois\" du dieu de la malice.$(p)Pour l'utiliser, faites shift-clic-droit sur un bloc avec votre main vide. Ce sera désormais \"le bloc d'origine\"",
   "botania.page.lokiRing1": "Ensuite faites shift-clic-droit sur d'autres blocs pour enregistrer leurs positions relatives au bloc d'origine. Pour valider ces choix, faites shift-clic-droit sur le bloc d'origine.$(p)Pour faire disparaître toutes ces lignes multicolores, il suffit de valider une sélection vide. La manière la plus rapide de faire ça: faire sous ses pieds un double shift-clic-droit.",
   "botania.page.lokiRing2": "Quand votre sélection sera terminée; vous devriez voir apparaître des lignes multicolores, qui bougent selon votre regard. Si vous êtes accroupi; quand un bloc est placé, alors tout les autres seront également placés. Vous pouvez également utiliser un $(l:tools/terra_pick)destructeur Terra$(/l) ou un $(l:tools/terra_axe)découpeur Terra$(/l) pour bénéficier des mêmes effets.",
-  "botania.page.lokiRing3": "Un grand pouvoir implique de grandes responsabilités. Non je déconne, par contre ça coûte cher en $(thing)mana$(0). Plus la zone d'action est grande, plus le coût sera élevé.",
+  "botania.page.lokiRing3": "Un grand pouvoir implique de grandes responsabilités. Non je rigole, par contre ça coûte cher en $(thing)mana$(0). Plus la zone d'action est grande, plus le coût sera élevé.$(p)L'anneau utilisera les objets dans votre main, et sera limité par la taille maximale d'un stack.",
 
   "botania.entry.odinRing": "Anneau d'Odin",
   "botania.tagline.odinRing": "TAGLINE",
@@ -3876,7 +3895,7 @@
 
   "botania.entry.banners": "Nouvelles bannières",
   "botania.tagline.banners": "TAGLINE",
-  "botania.page.banners0": "$(thing)Botania$(0) ajoute $(thing)15$(0) nouveaux motifs de bannières, qui peuvent être combinés avec les autres motifs.$(p)Avec un $(item)établi$(0) et une $(item)bannière$(0), vous pourrez créer un motif en utilisant l'un de ces objets: un $(item)outil en fer$(0), une $(l:mana/spark_upgrades)amélioration d'étincelle$(/l), du $(item)poisson cru$(0), une $(item)brindille de vifbois/boisrêve$(0), un $(l:basics/lexicon)Lexica Botania$(/l), du $(l:basics/terrasteel)terracier$(/l), ou même une $(l:misc/tiny_potato)petite patate$(/l).",
+  "botania.page.banners0": "$(thing)Botania$(0) ajoute $(thing)15$(0) nouveaux motifs de bannières, qui peuvent être combinés avec les autres motifs.$(p)Avec un $(item)métier à tisser$(0) et une $(item)bannière$(0), vous pourrez créer un motif en utilisant l'un de ces objets: une $(l:mana/spark_upgrades)amélioration d'étincelle$(/l), une $(item)brindille de vifbois/boisrêve$(0), un $(l:basics/lexicon)Lexica Botania$(/l), du $(l:basics/terrasteel)terracier$(/l), ou même une $(l:misc/tiny_potato)petite patate$(/l).",
   "botania.page.banners1": "Les motifs",
 
   "botania.entry.preventingDecay": "Mana numérique",
@@ -3967,6 +3986,7 @@
 
   "botania.subtitle.starcaller": "Étoiles qui tombent",
   "botania.subtitle.temperanceStoneConfigure": "Pierre de modération activée",
+  "botania.subtitle.manufactoryHaloConfigure": "Halo industriel activé",
   "botania.subtitle.terraBlade": "Lame Terra activée",
   "botania.subtitle.terraPickMode": "Destructeur Terra activé",
   "botania.subtitle.terraformRod": "Terraformation",

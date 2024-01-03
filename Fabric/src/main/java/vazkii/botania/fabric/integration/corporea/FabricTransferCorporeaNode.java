@@ -36,35 +36,35 @@ public class FabricTransferCorporeaNode extends AbstractCorporeaNode {
 	protected List<ItemStack> iterateOverSlots(CorporeaRequest request, boolean doit) {
 		ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
 
-		for (var storageView : inv) {
-			if (storageView.isResourceBlank()) {
-				continue;
-			}
-			// TODO hack: truncate to INT_MAX, we probably won't be able to handle higher values anyway
-			var count = (int) Math.min(Integer.MAX_VALUE, storageView.getAmount());
-			var item = storageView.getResource();
-			var stack = item.toStack(count);
-			if (request.getMatcher().test(stack)) {
-				request.trackFound(count);
+		try (Transaction trans = Transaction.openOuter()) {
+			for (var storageView : inv) {
+				if (storageView.isResourceBlank()) {
+					continue;
+				}
+				// TODO hack: truncate to INT_MAX, we probably won't be able to handle higher values anyway
+				var count = (int) Math.min(Integer.MAX_VALUE, storageView.getAmount());
+				var item = storageView.getResource();
+				var stack = item.toStack(count);
+				if (request.getMatcher().test(stack)) {
+					request.trackFound(count);
 
-				int rem = Math.min(count, request.getStillNeeded() == -1 ? count : request.getStillNeeded());
-				if (rem > 0) {
-					request.trackSatisfied(rem);
+					int rem = Math.min(count, request.getStillNeeded() == -1 ? count : request.getStillNeeded());
+					if (rem > 0) {
+						request.trackSatisfied(rem);
 
-					if (doit) {
-						try (Transaction trans = Transaction.openOuter()) {
+						if (doit) {
 							builder.addAll(breakDownBigStack(item.toStack((int) inv.extract(item, rem, trans))));
-							if (!getSpark().isCreative()) {
-								// only commit if non-creative
-								trans.commit();
-							}
+							getSpark().onItemExtracted(stack);
+							request.trackExtracted(rem);
+						} else {
+							builder.add(item.toStack((int) inv.simulateExtract(item, rem, trans)));
 						}
-						getSpark().onItemExtracted(stack);
-						request.trackExtracted(rem);
-					} else {
-						builder.add(item.toStack((int) inv.simulateExtract(item, rem, null)));
 					}
 				}
+			}
+			if (doit && !getSpark().isCreative()) {
+				// only persist changes for non-creative sparks
+				trans.commit();
 			}
 		}
 

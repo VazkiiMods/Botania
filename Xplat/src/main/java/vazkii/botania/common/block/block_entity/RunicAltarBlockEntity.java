@@ -165,7 +165,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.livingrock.asItem())
-						&& XplatAbstractions.INSTANCE.itemFlagsComponent(item).getRunicAltarCooldown() == 0) {
+						&& !XplatAbstractions.INSTANCE.itemFlagsComponent(item).runicAltarSpawned) {
 					ItemStack stack = item.getItem();
 					if (self.addItem(null, stack, null)) {
 						EntityHelper.syncItem(item);
@@ -280,7 +280,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				receiveMana(-mana);
 				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).markAltarOutput();
+				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).runicAltarSpawned = true;
 				level.addFreshEntity(outputItem);
 				currentRecipe = null;
 				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
@@ -292,7 +292,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					if (!stack.isEmpty()) {
 						if (stack.getItem() instanceof RuneItem && (player == null || !player.getAbilities().instabuild)) {
 							ItemEntity outputRune = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.5, getBlockPos().getZ() + 0.5, stack.copy());
-							XplatAbstractions.INSTANCE.itemFlagsComponent(outputRune).markAltarOutput();
+							XplatAbstractions.INSTANCE.itemFlagsComponent(outputRune).runicAltarSpawned = true;
 							level.addFreshEntity(outputRune);
 						}
 

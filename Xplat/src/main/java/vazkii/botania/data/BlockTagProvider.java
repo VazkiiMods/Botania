@@ -205,7 +205,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 		tag(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE).add(Blocks.SNOW);
 
-		tag(BotaniaTags.Blocks.UNWANDABLE);
+		tag(BlockTags.FIRE);
+		tag(BotaniaTags.Blocks.UNWANDABLE).addTag(BlockTags.FIRE)
+				.add(Blocks.CHORUS_PLANT, Blocks.SCULK_VEIN, Blocks.VINE, Blocks.REDSTONE_WIRE, Blocks.NETHER_PORTAL, BotaniaBlocks.solidVines);
 
 		registerMiningTags();
 	}
