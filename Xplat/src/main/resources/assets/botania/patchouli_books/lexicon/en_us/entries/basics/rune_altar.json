@@ -19,9 +19,9 @@
       "text": "botania.page.runeAltar1"
     },
     {
-      "type": "crafting",
+      "type": "botania:crafting_multi",
       "text": "botania.page.runeAltar2",
-      "recipe": "botania:runic_altar"
+      "recipes": ["botania:runic_altar", "botania:runic_altar_alt"]
     },
     {
       "type": "text",

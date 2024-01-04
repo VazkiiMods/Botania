@@ -10,31 +10,28 @@
       "text": "botania.page.sparkUpgrades0"
     },
     {
-      "type": "text",
-      "text": "botania.page.sparkUpgrades1"
-    },
-    {
-      "type": "text",
-      "text": "botania.page.sparkUpgrades2"
-    },
-    {
-      "type": "text",
-      "text": "botania.page.sparkUpgrades3"
-    },
-    {
-      "type": "text",
-      "text": "botania.page.sparkUpgrades4"
+      "type": "botania:crafting_multi",
+      "heading": "",
+      "text": "botania.page.sparkUpgrades1",
+      "recipes": ["botania:spark_upgrade_dispersive"]
     },
     {
       "type": "botania:crafting_multi",
-      "heading":"botania.entry.sparkUpgrades",
-      "text": "botania.page.sparkUpgrades5",
-      "recipes": [
-        "botania:spark_upgrade_dispersive",
-        "botania:spark_upgrade_dominant",
-        "botania:spark_upgrade_recessive",
-        "botania:spark_upgrade_isolated"
-      ]
+      "heading": "",
+      "text": "botania.page.sparkUpgrades2",
+      "recipes": ["botania:spark_upgrade_dominant"]
+    },
+    {
+      "type": "botania:crafting_multi",
+      "heading": "",
+      "text": "botania.page.sparkUpgrades3",
+      "recipes": ["botania:spark_upgrade_recessive"]
+    },
+    {
+      "type": "botania:crafting_multi",
+      "heading": "",
+      "text": "botania.page.sparkUpgrades4",
+      "recipes": ["botania:spark_upgrade_isolated"]
     }
   ]
 }

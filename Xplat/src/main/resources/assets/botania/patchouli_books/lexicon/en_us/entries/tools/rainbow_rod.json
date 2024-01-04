@@ -30,24 +30,24 @@
     {
       "type": "crafting",
       "text": "botania.page.rainbowRod4",
-      "recipe": "botania:slab_recombine/shimmerrock",
-      "recipe2": "botania:shimmerrock"
+      "recipe": "botania:shimmerrock"
     },
     {
       "type": "crafting",
       "text": "botania.page.rainbowRod5",
-      "recipe": "botania:slab_recombine/shimmerwood_planks",
-      "recipe2": "botania:shimmerwood_planks"
+      "recipe": "botania:shimmerwood_planks"
     },
     {
       "type": "crafting",
       "text": "botania.page.rainbowRod7",
-      "recipe": "botania:fabulous_pool"
-    },
-    {
-      "type": "crafting",
-      "text": "botania.page.rainbowRod7",
-      "recipe": "botania:fabulous_pool_upgrade"
+      "recipe": "botania:fabulous_pool",
+      "recipe2": "botania:fabulous_pool_upgrade"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:shimmerrock_slab": 5,
+    "botania:shimmerrock_stairs": 5,
+    "botania:shimmerwood_planks_slab": 6,
+    "botania:shimmerwood_planks_stairs": 6
+  }
 }
