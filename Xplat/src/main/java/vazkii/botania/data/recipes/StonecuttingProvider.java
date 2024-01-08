@@ -64,6 +64,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickStairs));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickWall));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickChiseled));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockSlate));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedSlab, 2));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedStairs));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedWall));

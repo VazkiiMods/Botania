@@ -18,6 +18,8 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Add: Stonecutting recipe for livingrock slate (it was previously uncraftable, oops)
+
 ---
 
 {% include changelog_header.html version="1.20.1-443" %}
