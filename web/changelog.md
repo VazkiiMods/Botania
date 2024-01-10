@@ -18,6 +18,18 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Add: Stonecutting recipe for livingrock slate (it was previously uncraftable, oops)
+
+---
+
+{% include changelog_header.html version="1.20.1-443" %}
+
+* Change: Manaweave boots and Snowflake pendant now let you walk on powder snow (Wormbo)
+* Fix: Crash related to PistonStructureResolverMixin on Forge (Wormbo)
+* Fix: Cellular blocks can no longer be placed with age. Prevents a way of cheesing the dandelifeon using create (Wormbo)
+
+---
+
 {% include changelog_header.html version="1.20.1-442" %}
 
 * Relaxed forge version requirement to 47.1.3
