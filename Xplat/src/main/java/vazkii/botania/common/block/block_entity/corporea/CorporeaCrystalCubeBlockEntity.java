@@ -22,6 +22,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
@@ -31,7 +32,6 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaRequestor;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
@@ -62,10 +62,8 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	public void setRequestTarget(ItemStack stack) {
 		if (!stack.isEmpty() && !locked) {
 			requestTarget = stack.copyWithCount(1);
+			setChanged();
 			updateCount();
-			if (!level.isClientSide) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-			}
 		}
 
 	}
@@ -113,12 +111,8 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		int oldCount = this.itemCount;
 		this.itemCount = count;
 		if (this.itemCount != oldCount) {
-			int oldCompValue = this.compValue;
 			this.compValue = CorporeaHelper.instance().signalStrengthForRequestSize(itemCount);
-			if (this.compValue != oldCompValue && this.level != null) {
-				this.level.updateNeighbourForOutputSignal(this.worldPosition, getBlockState().getBlock());
-			}
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			setChanged();
 		}
 	}
 
@@ -173,12 +167,18 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
 			this.locked = !this.locked;
-			if (!level.isClientSide) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-			}
+			setChanged();
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void setChanged() {
+		super.setChanged();
+		if (level != null) {
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+		}
 	}
 
 	public static class Hud {
