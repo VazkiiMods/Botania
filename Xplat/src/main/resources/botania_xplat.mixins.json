@@ -25,6 +25,7 @@
     "FireBlockAccessor",
     "HopperBlockEntityAccessor",
     "HurtByTargetGoalAccessor",
+    "InventoryAccessor",
     "ItemEntityAccessor",
     "ItemEntityMixin",
     "ItemMixin",
