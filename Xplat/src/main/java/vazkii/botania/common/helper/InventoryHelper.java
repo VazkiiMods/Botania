@@ -15,9 +15,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
@@ -27,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.mixin.HopperBlockEntityAccessor;
+import vazkii.botania.mixin.InventoryAccessor;
 
 import java.util.List;
 import java.util.function.Function;
@@ -179,5 +182,24 @@ public class InventoryHelper {
 			mp.inventoryMenu.broadcastChanges();
 		}
 		return didAny;
+	}
+
+	/**
+	 * Replicates pre-1.20 behavior of {@link Inventory#contains(ItemStack)}, i.e. only matching item type.
+	 * 
+	 * @param inventory The Inventory.
+	 * @param item      The item to match.
+	 * @return {@code true} if the inventory contains an item of the specified type, otherwise {@code false}.
+	 */
+	public static boolean containsType(Inventory inventory, Item item) {
+		for (List<ItemStack> compartment : ((InventoryAccessor) inventory).getCompartments()) {
+			for (ItemStack stack : compartment) {
+				if (stack.is(item)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 }

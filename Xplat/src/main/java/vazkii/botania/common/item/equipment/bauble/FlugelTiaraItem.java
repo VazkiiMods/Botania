@@ -43,6 +43,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.StringObfuscator;
 import vazkii.botania.common.helper.VecHelper;
@@ -196,7 +197,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 		if (!armor.isEmpty()) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
-			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.getInventory().contains(new ItemStack(BotaniaItems.flugelEye))) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
+			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || InventoryHelper.containsType(player.getInventory(), BotaniaItems.flugelEye)) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
 		}
 
 		return false;
