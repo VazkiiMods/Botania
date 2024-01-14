@@ -119,7 +119,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				Items.NETHERRACK, Items.COBBLED_DEEPSLATE, Items.END_STONE)
 				.addTag(ItemTags.SAND);
 		this.tag(BotaniaTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE,
-				Items.TUFF, Items.CALCITE, Items.STONE, Items.BASALT,
+				Items.TUFF, Items.CALCITE, Items.STONE, Items.BASALT, Items.BLACKSTONE,
 				Items.DEEPSLATE, Items.DRIPSTONE_BLOCK, Items.POINTED_DRIPSTONE, Items.MOSS_BLOCK,
 				Items.SANDSTONE, Items.RED_SANDSTONE)
 				.addOptional(new ResourceLocation("quark", "jasper"))
