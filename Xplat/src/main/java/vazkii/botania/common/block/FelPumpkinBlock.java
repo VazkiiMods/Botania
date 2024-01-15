@@ -8,9 +8,11 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Blaze;
@@ -58,6 +60,10 @@ public class FelPumpkinBlock extends BotaniaBlock {
 			((MobAccessor) blaze).setLootTable(LOOT_TABLE);
 			blaze.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pos), MobSpawnType.EVENT, null, null);
 			world.addFreshEntity(blaze);
+
+			for (ServerPlayer player : world.getEntitiesOfClass(ServerPlayer.class, blaze.getBoundingBox().inflate(5.0))) {
+				CriteriaTriggers.SUMMONED_ENTITY.trigger(player, blaze);
+			}
 		}
 	}
 
