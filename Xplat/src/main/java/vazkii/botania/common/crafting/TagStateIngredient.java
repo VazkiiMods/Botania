@@ -49,11 +49,11 @@ public class TagStateIngredient extends BlocksStateIngredient {
 
 	@Override
 	public BlockState pick(RandomSource random) {
-		var values = resolve().toList();
-		if (values.isEmpty()) {
+		var blocks = getBlocks();
+		if (blocks.isEmpty()) {
 			return null;
 		}
-		return values.get(random.nextInt(values.size())).defaultBlockState();
+		return blocks.get(random.nextInt(blocks.size())).defaultBlockState();
 	}
 
 	@Override
