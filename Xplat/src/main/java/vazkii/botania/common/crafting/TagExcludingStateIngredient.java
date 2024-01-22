@@ -12,7 +12,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -39,15 +38,6 @@ public class TagExcludingStateIngredient extends TagStateIngredient {
 			return false;
 		}
 		return isNotExcluded(state);
-	}
-
-	@Override
-	public BlockState pick(RandomSource random) {
-		List<Block> blocks = getBlocks();
-		if (blocks.isEmpty()) {
-			return null;
-		}
-		return blocks.get(random.nextInt(blocks.size())).defaultBlockState();
 	}
 
 	private boolean isNotExcluded(BlockState state) {
