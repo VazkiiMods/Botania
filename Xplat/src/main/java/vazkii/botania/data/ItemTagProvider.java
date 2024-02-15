@@ -71,7 +71,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem());
 
 		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.tag(ItemTags.SMALL_FLOWERS).addTag(BotaniaTags.Items.MYSTICAL_FLOWERS).addTag(BotaniaTags.Items.SPECIAL_FLOWERS);
+		this.tag(ItemTags.SMALL_FLOWERS).addTag(BotaniaTags.Items.MYSTICAL_FLOWERS).addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
+				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem(), BotaniaBlocks.motifHydroangeas.asItem());
 
 		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);
 		this.tag(BotaniaTags.Items.TERRA_PICK_BLACKLIST).add(auraRing, auraRingGreater, terrasteelHelm, spark);
