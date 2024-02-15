@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -71,7 +72,7 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 	public int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
 		AnimatedTorchBlockEntity tile = (AnimatedTorchBlockEntity) blockAccess.getBlockEntity(pos);
 
-		if (tile.rotating) {
+		if (tile.rotating || !tile.directionInitialized) {
 			return 0;
 		}
 
@@ -109,6 +110,11 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 	public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
 		// Block entity is already gone so best we can do is just notify everyone
 		world.blockUpdated(pos, this);
+		if (world instanceof ServerLevel level) {
+			for (Direction e : AnimatedTorchBlockEntity.SIDES) {
+				level.updateNeighborsAtExceptFromFacing(pos.relative(e), state.getBlock(), e.getOpposite());
+			}
+		}
 		super.destroy(world, pos, state);
 	}
 

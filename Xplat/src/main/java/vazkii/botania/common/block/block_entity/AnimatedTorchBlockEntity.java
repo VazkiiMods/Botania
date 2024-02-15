@@ -54,6 +54,7 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 	public int side;
 	public double rotation;
 	public boolean rotating;
+	public boolean directionInitialized;
 	public double lastTickRotation;
 	public int nextRandomRotation = Mth.floor(Math.random() * 3);
 	public int currentRandomRotation;
@@ -77,7 +78,14 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 		if (entity != null) {
 			side = Arrays.asList(SIDES).indexOf(entity.getDirection().getOpposite());
 		}
-		level.updateNeighborsAt(getBlockPos().relative(SIDES[side].getOpposite()), getBlockState().getBlock());
+		directionInitialized = true;
+		updateNeighbors(level, worldPosition, getBlockState(), side);
+	}
+
+	@Override
+	public void setRemoved() {
+		directionInitialized = false;
+		super.setRemoved();
 	}
 
 	public void toggle() {
@@ -122,14 +130,12 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 
 		rotationTicks = 4;
 		anglePerTick = diff / rotationTicks;
+		int oldSide = this.side;
 		this.side = side;
 		rotating = true;
 
 		// tell neighbors that signal is off because we are rotating
-		level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock());
-		for (Direction e : Direction.values()) {
-			level.updateNeighborsAt(getBlockPos().relative(e), getBlockState().getBlock());
-		}
+		updateNeighbors(level, worldPosition, getBlockState(), oldSide);
 	}
 
 	@Override
@@ -159,6 +165,9 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, AnimatedTorchBlockEntity self) {
+		if (!self.directionInitialized) {
+			self.directionInitialized = true;
+		}
 		if (self.rotating) {
 			self.lastTickRotation = self.rotation;
 			self.rotation = (self.rotation + self.anglePerTick) % 360;
@@ -167,10 +176,7 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 			if (self.rotationTicks <= 0) {
 				self.rotating = false;
 				// done rotating, tell neighbors
-				level.updateNeighborsAt(worldPosition, state.getBlock());
-				for (Direction e : Direction.values()) {
-					level.updateNeighborsAt(worldPosition.relative(e), state.getBlock());
-				}
+				updateNeighbors(level, worldPosition, state, self.side);
 			}
 
 		} else {
@@ -187,6 +193,12 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 				level.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0.0D, 0.0D, 0.0D);
 			}
 		}
+	}
+
+	private static void updateNeighbors(Level level, BlockPos worldPosition, BlockState state, int self) {
+		level.updateNeighborsAt(worldPosition, state.getBlock());
+		BlockPos targetPos = worldPosition.relative(SIDES[self].getOpposite());
+		level.updateNeighborsAtExceptFromFacing(targetPos, level.getBlockState(targetPos).getBlock(), SIDES[self]);
 	}
 
 	@Override
