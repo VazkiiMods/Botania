@@ -30,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -187,7 +188,7 @@ public final class BotaniaBlocks {
 	public static final Block doubleFlowerBlack = new BotaniaDoubleFlowerBlock(DyeColor.BLACK, BlockBehaviour.Properties.copy(doubleFlowerWhite));
 
 	public static final Block defaultAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DEFAULT, BlockBehaviour.Properties.of()
-			.strength(3.5F).sound(SoundType.STONE).requiresCorrectToolForDrops().mapColor(MapColor.STONE)
+			.strength(3.5F).sound(SoundType.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().mapColor(MapColor.STONE)
 			.lightLevel(s -> s.getValue(PetalApothecaryBlock.FLUID) == PetalApothecary.State.LAVA ? 15 : 0));
 	public static final Block deepslateAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DEEPSLATE, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE).mapColor(MapColor.DEEPSLATE));
 	public static final Block livingrockAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.LIVINGROCK, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.STONE).mapColor(MapColor.TERRACOTTA_WHITE));
@@ -202,7 +203,8 @@ public final class BotaniaBlocks {
 	public static final Block mesaAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.MESA, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.CALCITE).mapColor(MapColor.TERRACOTTA_WHITE));
 	public static final Block[] ALL_APOTHECARIES = new Block[] { defaultAltar, deepslateAltar, livingrockAltar, mossyAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar, swampAltar, desertAltar, taigaAltar, mesaAltar };
 
-	public static final Block livingrock = new BotaniaBlock(BlockBehaviour.Properties.of().strength(2, 10).sound(SoundType.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops());
+	public static final Block livingrock = new BotaniaBlock(BlockBehaviour.Properties.of().strength(2, 10).sound(SoundType.STONE)
+			.instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops());
 	public static final Block livingrockPolished = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockSlate = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrick = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
@@ -210,7 +212,8 @@ public final class BotaniaBlocks {
 	public static final Block livingrockBrickCracked = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickMossy = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 
-	public static final Block livingwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2).sound(SoundType.WOOD).mapColor(state -> state.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y ? MapColor.TERRACOTTA_RED : MapColor.TERRACOTTA_BROWN));
+	public static final Block livingwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2)
+			.sound(SoundType.WOOD).instrument(NoteBlockInstrument.BASS).mapColor(state -> state.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y ? MapColor.TERRACOTTA_RED : MapColor.TERRACOTTA_BROWN));
 	public static final Block livingwoodLogStripped = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog).mapColor(MapColor.TERRACOTTA_RED));
 	public static final Block livingwoodLogGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog).lightLevel(b -> 12));
 	public static final Block livingwoodLogStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLogStripped).lightLevel(b -> 8));
@@ -248,18 +251,21 @@ public final class BotaniaBlocks {
 	public static final Block alchemyCatalyst = new AlchemyCatalystBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block conjurationCatalyst = new ConjurationCatalystBlock(BlockBehaviour.Properties.copy(livingrock));
 
-	public static final Block manasteelBlock = new BotaniaBlock(BlockBehaviour.Properties.of().strength(3, 10).mapColor(MapColor.LAPIS).sound(SoundType.METAL).requiresCorrectToolForDrops());
+	public static final Block manasteelBlock = new BotaniaBlock(BlockBehaviour.Properties.of().strength(3, 10).mapColor(MapColor.LAPIS)
+			.sound(SoundType.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops());
 	public static final Block terrasteelBlock = new BotaniaBlock(BlockBehaviour.Properties.copy(manasteelBlock).mapColor(MapColor.EMERALD));
 	public static final Block elementiumBlock = new BotaniaBlock(BlockBehaviour.Properties.copy(manasteelBlock).mapColor(MapColor.COLOR_PINK));
 	public static final Block manaDiamondBlock = new BotaniaBlock(BlockBehaviour.Properties.copy(manasteelBlock).mapColor(MapColor.DIAMOND));
-	public static final Block dragonstoneBlock = new BotaniaBlock(BlockBehaviour.Properties.copy(manasteelBlock).mapColor(MapColor.COLOR_PINK));
+	public static final Block dragonstoneBlock = new BotaniaBlock(BlockBehaviour.Properties.copy(manasteelBlock).instrument(NoteBlockInstrument.HARP).mapColor(MapColor.COLOR_PINK));
 
 	public static final Block manaGlass = new BotaniaGlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lightLevel(s -> 15).isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN));
 	public static final Block elfGlass = new BotaniaGlassBlock(BlockBehaviour.Properties.copy(manaGlass).isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN));
 	public static final Block bifrost = new BifrostBlock(BlockBehaviour.Properties.of().strength(-1, 0.3F)
-			.lightLevel(s -> 15).sound(SoundType.GLASS).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN));
+			.lightLevel(s -> 15).sound(SoundType.GLASS).instrument(NoteBlockInstrument.HAT).noOcclusion()
+			.isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN));
 	public static final Block bifrostPerm = new PermanentBifrostBlock(BlockBehaviour.Properties.of().strength(0.3F)
-			.lightLevel(s -> 15).sound(SoundType.GLASS).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN));
+			.lightLevel(s -> 15).sound(SoundType.GLASS).instrument(NoteBlockInstrument.HAT).noOcclusion()
+			.isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN));
 
 	public static final Block runeAltar = new RunicAltarBlock(BlockBehaviour.Properties.copy(livingrock).requiresCorrectToolForDrops());
 	public static final Block enchanter = new ManaEnchanterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.LAPIS).strength(3, 5).lightLevel(s -> 15).sound(SoundType.STONE));
@@ -277,10 +283,11 @@ public final class BotaniaBlocks {
 	public static final Block manaDetector = new ManaDetectorBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block pistonRelay = new ForceRelayBlock(BlockBehaviour.Properties.of().strength(2, 10).sound(SoundType.METAL).mapColor(MapColor.COLOR_PURPLE).isValidSpawn(NO_SPAWN));
 	public static final Block turntable = new SpreaderTurntableBlock(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block tinyPlanet = new TinyPlanetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).strength(20, 100).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops());
-	public static final Block wildDrum = new DrumBlock(DrumBlock.Variant.WILD, BlockBehaviour.Properties.copy(livingwood));
-	public static final Block gatheringDrum = new DrumBlock(DrumBlock.Variant.GATHERING, BlockBehaviour.Properties.copy(livingwood));
-	public static final Block canopyDrum = new DrumBlock(DrumBlock.Variant.CANOPY, BlockBehaviour.Properties.copy(livingwood));
+	public static final Block tinyPlanet = new TinyPlanetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).strength(20, 100)
+			.sound(SoundType.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops());
+	public static final Block wildDrum = new DrumBlock(DrumBlock.Variant.WILD, BlockBehaviour.Properties.copy(livingwood).instrument(NoteBlockInstrument.BASEDRUM));
+	public static final Block gatheringDrum = new DrumBlock(DrumBlock.Variant.GATHERING, BlockBehaviour.Properties.copy(wildDrum));
+	public static final Block canopyDrum = new DrumBlock(DrumBlock.Variant.CANOPY, BlockBehaviour.Properties.copy(wildDrum));
 	public static final Block spawnerClaw = new LifeImbuerBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(3).requiresCorrectToolForDrops());
 	public static final Block rfGenerator = new PowerGeneratorBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block prism = new ManaPrismBlock(BlockBehaviour.Properties.copy(elfGlass).noCollission());
@@ -305,7 +312,8 @@ public final class BotaniaBlocks {
 	public static final Block redStringRelay = new RedStringSpooferBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block redStringInterceptor = new RedStringInterceptorBlock(BlockBehaviour.Properties.copy(livingrock));
 
-	public static final Block corporeaFunnel = new CorporeaFunnelBlock(BlockBehaviour.Properties.of().strength(5.5F).mapColor(DyeColor.PURPLE).sound(SoundType.METAL).requiresCorrectToolForDrops());
+	public static final Block corporeaFunnel = new CorporeaFunnelBlock(BlockBehaviour.Properties.of().strength(5.5F)
+			.mapColor(DyeColor.PURPLE).sound(SoundType.METAL).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops());
 	public static final Block corporeaInterceptor = new CorporeaInterceptorBlock(BlockBehaviour.Properties.copy(corporeaFunnel));
 	public static final Block corporeaIndex = new CorporeaIndexBlock(BlockBehaviour.Properties.copy(corporeaFunnel).noOcclusion());
 	public static final Block corporeaCrystalCube = new CorporeaCrystalCubeBlock(BlockBehaviour.Properties.copy(corporeaFunnel));
@@ -329,7 +337,7 @@ public final class BotaniaBlocks {
 	public static final Block lightLauncher = new LuminizerLauncherBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block cacophonium = new CacophoniumBlock(BlockBehaviour.Properties.copy(Blocks.NOTE_BLOCK).strength(0.8F));
 	public static final Block cellBlock = new CellularBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).sound(SoundType.WOOL));
-	public static final Block teruTeruBozu = new TeruTeruBozuBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE));
+	public static final Block teruTeruBozu = new TeruTeruBozuBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).instrument(NoteBlockInstrument.GUITAR).mapColor(DyeColor.WHITE));
 	public static final Block avatar = new AvatarBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block fakeAir = new FakeAirBlock(BlockBehaviour.Properties.of().replaceable().noCollission().noLootTable().air().randomTicks());
 	public static final Block root = new LivingRootBlock(BlockBehaviour.Properties.of().strength(1.2F).sound(SoundType.WOOD));
@@ -339,7 +347,8 @@ public final class BotaniaBlocks {
 	public static final Block animatedTorch = new AnimatedTorchBlock(BlockBehaviour.Properties.of().lightLevel(s -> 7).noOcclusion());
 	public static final Block starfield = new StarfieldCreatorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.PINK).strength(5, 2000).sound(SoundType.METAL));
 
-	public static final Block azulejo0 = new BotaniaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.LAPIS).strength(2, 5).sound(SoundType.STONE).requiresCorrectToolForDrops());
+	public static final Block azulejo0 = new BotaniaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.LAPIS).strength(2, 5)
+			.sound(SoundType.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops());
 	public static final Block azulejo1 = new BotaniaBlock(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block azulejo2 = new BotaniaBlock(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block azulejo3 = new BotaniaBlock(BlockBehaviour.Properties.copy(azulejo0));
@@ -356,7 +365,7 @@ public final class BotaniaBlocks {
 	public static final Block azulejo14 = new BotaniaBlock(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block azulejo15 = new BotaniaBlock(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block manaFlame = new ManaFlameBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).sound(SoundType.WOOL).lightLevel(s -> 15).noCollission());
-	public static final Block blazeBlock = new BotaniaBlock(BlockBehaviour.Properties.copy(manasteelBlock).lightLevel(s -> 15));
+	public static final Block blazeBlock = new BotaniaBlock(BlockBehaviour.Properties.copy(manasteelBlock).instrument(NoteBlockInstrument.PLING).lightLevel(s -> 15));
 	public static final Block gaiaHead = new GaiaHeadBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).strength(1));
 	public static final Block gaiaHeadWall = new WallGaiaHeadBlock(BlockBehaviour.Properties.copy(gaiaHead));
 	public static final Block shimmerrock = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
@@ -473,7 +482,8 @@ public final class BotaniaBlocks {
 	public static final Block greenPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block greenPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
-	public static final Block biomeStoneForest = new BotaniaBlock(BlockBehaviour.Properties.of().strength(1.5F, 10).sound(SoundType.TUFF).requiresCorrectToolForDrops());
+	public static final Block biomeStoneForest = new BotaniaBlock(BlockBehaviour.Properties.of().strength(1.5F, 10)
+			.sound(SoundType.TUFF).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops());
 	public static final Block biomeStoneForestSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeStoneForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeStoneForestWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
