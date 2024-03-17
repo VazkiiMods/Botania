@@ -18,7 +18,40 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-* Add: Stonecutting recipe for livingrock slate (it was previously uncraftable, oops)
+* Add: Stonecutting and crafting recipe for livingrock slate (it was previously uncraftable, oops)
+* Add: Motif flowers can be used to make suspicious stew, and are generally recognized as "small flowers"
+* Add: The Spectator also scans the inventories of donkeys, mules, llamas, and allays
+* Add: Native EMI support on Forge
+* Add: Missing slab recombination recipes for quartz and corporea variants
+* Add: The Lexica Botania can be put into chiseled bookshelves and onto lecterns (Note: reading it from a lectern does not currently grant the advancement)
+* Change: Elementium Axe is now treated as a weapon regarding durability damage from attacking things
+* Change: Various Botania blocks finally make noteblocks use the instrument you would likely expect
+  * blocks made from Livingwood or Dreamwood (except drums) -> bass
+    * This also means Livingwood and Dreamwood should now be recognized by Every Compat
+  * Stone-like blocks (biome stones, livingrock, corporea blocks, azulejos) and drums -> basedrum
+  * Manasteel, Elementium, or Terrasteel blocks -> vibraphone ("iron xylophone")
+  * Teru Teru Bozu -> guitar
+  * Blaze Mesh -> pling
+* Change: Some crafting recipes have been changed to better match similar recipes from other mods and VanillaTweaks
+  * Chiseled livingrock bricks and chiseled metamorphic stone bricks are crafted from the corresponding brick slabs arranged vertically
+  * Slab recombination recipes have been changed to arrange the slabs horizontally in the crafting grid
+  * Unlock conditions for slab recombination recipes now require the slab, not the full block
+* Fix: Corporea Crystal Cube no longer forgets its internal state
+* Fix: Quick-moving (shift+click) Botania pattern items properly puts them in the pattern slot
+* Fix: Animated Torch powers blocks consistently, and properly updates necessary blocks when placed, rotated, or removed
+* Fix: Elven Spreader no longer misses mana pool right for infinite flight again
+* Fix: Using a sapling on the Mana Flame block (GoG) only produces a new lexicon if the player doesn't have one already
+* Fix: Item icon offset in Corporea Crystal Cube's HUD overlay
+* Fix: Left forearm guard of the elementium chestplate is rendered properly (Partonetrain)
+* Fix: Drinking mana from a bottle will no longer delete a block or grant an extra swig in certain conditions
+* Fix: The Spectator no longer attempts to scan unopened loot containers, and its performance has been improved
+* Fix: Fake player detection for the gaia fight has been improved, so you no longer get extra loot for e.g. a nearby running RFTools builder
+* Fix: The Cirrus and Nimbus amulets got math lessons and should be able to properly count the number of mid-air jumps now
+* Fix: Botania advancement tab and root advancement title
+* Language updates:
+  * ko_kr completed (Tareun3406)
+  * uk_ua added (fasero1)
+  * zh_cn updated (Dawnwalker666)
 
 ---
 
