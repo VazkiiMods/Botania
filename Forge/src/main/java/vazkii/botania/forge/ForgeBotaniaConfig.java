@@ -232,6 +232,8 @@ public final class ForgeBotaniaConfig {
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusItemBlacklist;
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusModBlacklist;
 
+		public final ForgeConfigSpec.ConfigValue<List<? extends String>> agricarnationWhitelist;
+
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("blockBreakingParticles");
 			blockBreakParticles = builder
@@ -302,6 +304,9 @@ public final class ForgeBotaniaConfig {
 					.comment("List of mod names for rannuncarpuses to ignore.\n" +
 							"Ignores Storage Drawers by default due to crashes with placing drawer blocks without player involvement.")
 					.defineList("rannuncarpus.modBlacklist", Collections.singletonList("storagedrawers"), o -> o instanceof String s && ResourceLocation.tryParse(s + ":test") != null);
+			agricarnationWhitelist = builder
+					.comment("List of item registry names that will be speeded up growth by agricarnations.")
+					.defineList("argicarnation.whiteList", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryParse(s) != null);
 		}
 
 		@Override
@@ -379,6 +384,12 @@ public final class ForgeBotaniaConfig {
 		@Override
 		public List<String> rannuncarpusModBlacklist() {
 			return (List<String>) rannuncarpusModBlacklist.get();
+		}
+
+		@SuppressWarnings("unchecked") // NightConfig's types are weird
+		@Override
+		public List<String> agricarnationWhitelist() {
+			return (List<String>) agricarnationWhitelist.get();
 		}
 	}
 

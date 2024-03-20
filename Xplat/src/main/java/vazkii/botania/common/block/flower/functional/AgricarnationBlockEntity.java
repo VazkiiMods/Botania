@@ -9,6 +9,8 @@
 package vazkii.botania.common.block.flower.functional;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.*;
@@ -86,6 +88,11 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 	private boolean isPlant(BlockPos pos) {
 		BlockState state = getLevel().getBlockState(pos);
 		Block block = state.getBlock();
+
+		ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+		if (BotaniaConfig.common().agricarnationWhitelist().contains(id.toString())) {
+			return !(block instanceof BonemealableBlock mealable) || mealable.isValidBonemealTarget(getLevel(), pos, state, getLevel().isClientSide);
+		}
 
 		// Spreads when ticked
 		if (block instanceof SpreadingSnowyDirtBlock) {
