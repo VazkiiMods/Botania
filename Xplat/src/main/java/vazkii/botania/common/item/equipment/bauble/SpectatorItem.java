@@ -29,10 +29,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.AbstractMinecartContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -42,13 +44,14 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.mixin.RandomizableContainerBlockEntityAccessor;
 
 import java.util.List;
 
 public class SpectatorItem extends BaubleItem {
 
-	private static final String TAG_ENTITY_POSITIONS = "highlightPositionsEnt";
-	private static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock";
+	public static final String TAG_ENTITY_POSITIONS = "highlightPositionsEnt";
+	public static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock";
 
 	public SpectatorItem(Properties props) {
 		super(props);
@@ -114,6 +117,7 @@ public class SpectatorItem extends BaubleItem {
 		scanForStack(player.getMainHandItem(), player, entPosBuilder, blockPosBuilder);
 		scanForStack(player.getOffhandItem(), player, entPosBuilder, blockPosBuilder);
 
+		entPosBuilder.trim();
 		int[] currentEnts = entPosBuilder.elements();
 
 		ItemNBTHelper.setIntArray(stack, TAG_ENTITY_POSITIONS, currentEnts);
@@ -148,7 +152,8 @@ public class SpectatorItem extends BaubleItem {
 							entIdBuilder.add(e.getId());
 						}
 					}
-				} else if (e instanceof Container inv) {
+				} else if (e instanceof Container inv && (!(inv instanceof AbstractMinecartContainer minecart)
+						|| minecart.getLootTable() == null)) {
 					if (scanInventory(inv, pstack)) {
 						entIdBuilder.add(e.getId());
 					}
@@ -159,12 +164,11 @@ public class SpectatorItem extends BaubleItem {
 				range = 12;
 				BlockPos pos = player.blockPosition();
 				for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1))) {
-					BlockEntity tile = player.level().getBlockEntity(pos_);
-					if (tile != null) {
-						if (tile instanceof Container inv) {
-							if (scanInventory(inv, pstack)) {
-								blockPosBuilder.add(LongTag.valueOf(pos_.asLong()));
-							}
+					BlockEntity blockEntity = player.level().getBlockEntity(pos_);
+					if (blockEntity instanceof Container inv && (!(inv instanceof RandomizableContainerBlockEntity lootInv)
+							|| ((RandomizableContainerBlockEntityAccessor) lootInv).getLootTable() == null)) {
+						if (scanInventory(inv, pstack)) {
+							blockPosBuilder.add(LongTag.valueOf(pos_.asLong()));
 						}
 					}
 				}
