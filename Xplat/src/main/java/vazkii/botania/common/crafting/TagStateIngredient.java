@@ -24,6 +24,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.xplat.BotaniaConfig;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -49,11 +53,27 @@ public class TagStateIngredient extends BlocksStateIngredient {
 
 	@Override
 	public BlockState pick(RandomSource random) {
-		var values = resolve().toList();
-		if (values.isEmpty()) {
+		var blocks = getBlocks();
+		if (blocks.isEmpty()) {
 			return null;
 		}
-		return values.get(random.nextInt(values.size())).defaultBlockState();
+		var priorityMods = BotaniaConfig.common().orechidPriorityMods();
+		if (!priorityMods.isEmpty()) {
+			var priorityValues = new ArrayList<Block>(blocks.size());
+			var namespaceMap = new HashMap<Block, String>(blocks.size());
+			for (var priorityMod : priorityMods) {
+				for (var block : blocks) {
+					// TODO: is caching the resolved namespace ID worth the effort?
+					if (namespaceMap.computeIfAbsent(block, b -> BuiltInRegistries.BLOCK.getKey(b).getNamespace()).equals(priorityMod)) {
+						priorityValues.add(block);
+					}
+				}
+				if (!priorityValues.isEmpty()) {
+					return priorityValues.get(random.nextInt(priorityValues.size())).defaultBlockState();
+				}
+			}
+		}
+		return blocks.get(random.nextInt(blocks.size())).defaultBlockState();
 	}
 
 	@Override

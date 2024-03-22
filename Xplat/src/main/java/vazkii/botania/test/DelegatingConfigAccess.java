@@ -85,6 +85,11 @@ public class DelegatingConfigAccess implements BotaniaConfig.ConfigAccess {
 	}
 
 	@Override
+	public List<String> orechidPriorityMods() {
+		return inner.orechidPriorityMods();
+	}
+
+	@Override
 	public List<String> rannuncarpusItemBlacklist() {
 		return inner.rannuncarpusItemBlacklist();
 	}

@@ -290,11 +290,12 @@ public final class ForgeBotaniaConfig {
 					.defineInRange("gardenOfGlass.islandScaleMultiplier", 8, 1, 512);
 			orechidPriorityMods = builder
 					.comment("""
-						List of modids to prioritize when choosing a random ore from the tag.
-						By default, the chosen ore is randomly picked from all ores in the ore's tag.
-						Ores from mods present on this list will be picked over mods listed lower or not listed at all.
+						List of modids to prioritize when choosing a random entry from a tag for recipe outputs,
+						particularly blocks produced by the Orechid and Marimorphosis.
+						By default, the chosen entry is randomly picked from all entries in the specified tag.
+						Entries from mods present on this list will be picked over mods listed lower or not listed at all.
 						Applying changes at runtime requires /reload afterwards.""")
-					.defineList("orechidPriorityMods", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryParse(s + ":test") != null);
+					.defineList("orechidPriorityMods", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryBuild(s, "test") != null);
 			rannuncarpusItemBlacklist = builder
 					.comment("List of item registry names that will be ignored by rannuncarpuses when placing blocks.")
 					.defineList("rannuncarpus.itemBlacklist", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryParse(s) != null);
@@ -367,6 +368,12 @@ public final class ForgeBotaniaConfig {
 		@Override
 		public int gogIslandScaleMultiplier() {
 			return gogIslandScaleMultiplier.get();
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<String> orechidPriorityMods() {
+			return (List<String>) orechidPriorityMods.get();
 		}
 
 		@SuppressWarnings("unchecked") // NightConfig's types are weird

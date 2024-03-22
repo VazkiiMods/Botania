@@ -20,6 +20,7 @@ public class BotaniaConfig {
 		int harvestLevelBore();
 		boolean gogSpawnWithLexicon();
 		int gogIslandScaleMultiplier();
+		List<String> orechidPriorityMods();
 		List<String> rannuncarpusItemBlacklist();
 		List<String> rannuncarpusModBlacklist();
 	}
