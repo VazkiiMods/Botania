@@ -28,7 +28,7 @@ public class ApothecaryRecipeTest {
 		helper.spawnItem(item, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
 	}
 
-	@GameTest(template = TEMPLATE)
+	@GameTest(template = TEMPLATE, batch = "apothecary")
 	public void testItemEnterPrevention(GameTestHelper helper) {
 		helper.startSequence().thenExecute(() -> {
 			spawnItem(helper, BotaniaItems.whitePetal);
