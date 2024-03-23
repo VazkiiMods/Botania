@@ -3,21 +3,18 @@ package vazkii.botania.test.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.LongTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.SpectatorItem;
@@ -25,6 +22,7 @@ import vazkii.botania.mixin.RandomizableContainerBlockEntityAccessor;
 import vazkii.botania.test.TestingUtil;
 
 import java.util.Arrays;
+import java.util.function.BiConsumer;
 
 public class SpectatorScanTest {
 	private static final BlockPos POSITION_CHEST_NORMAL = new BlockPos(17, 16, 16);
@@ -37,8 +35,31 @@ public class SpectatorScanTest {
 	private static final String LOOT_TABLE_CHEST = "minecraft:chests/simple_dungeon";
 	private static final String LOOT_TABLE_CART = "minecraft:chests/abandoned_mineshaft";
 
-	@GameTest(template = "botania:item/spectator_scan")
-	public void testSpectatorScanBehavior(GameTestHelper helper) {
+	@GameTest(template = "botania:item/spectator_scan", batch = "spectator1")
+	public void testSpectatorScanMainHand(GameTestHelper helper) {
+		performTest(helper, (h, player) -> {
+			player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_INGOT));
+		});
+	}
+
+	@GameTest(template = "botania:item/spectator_scan", batch = "spectator2")
+	public void testSpectatorScanOffHand(GameTestHelper helper) {
+		performTest(helper, (h, player) -> {
+			player.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.IRON_INGOT));
+		});
+	}
+
+	@GameTest(template = "botania:item/spectator_scan", batch = "spectator3")
+	public void testSpectatorScanBothHands(GameTestHelper helper) {
+		performTest(helper, (h, player) -> {
+			player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_INGOT));
+			player.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.IRON_INGOT));
+		});
+	}
+
+	private static void performTest(GameTestHelper helper, BiConsumer<GameTestHelper, Player> additionalSetup) {
+		helper.killAllEntities();
+
 		// set up test entities
 		var itemEntity = helper.spawnItem(Items.IRON_INGOT, POSITION_ITEM);
 		var villager = helper.spawn(EntityType.VILLAGER, POSITION_VILLAGER);
@@ -61,12 +82,13 @@ public class SpectatorScanTest {
 		lootChest.setLootTable(new ResourceLocation(LOOT_TABLE_CHEST), 1L);
 
 		// set up player
-		var player = helper.makeMockSurvivalPlayer();
-		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_INGOT));
+		var player = helper.makeMockPlayer();
 		player.moveTo(helper.absoluteVec(new Vec3(24, 24, 24)));
+		additionalSetup.accept(helper, player);
 		var spectatorStack = new ItemStack(BotaniaItems.itemFinder);
-		((SpectatorItem) BotaniaItems.itemFinder).onWornTick(spectatorStack, player);
-		BotaniaAPI.LOGGER.info("Player position: {}, chest position: {}", player.blockPosition(), helper.absolutePos(POSITION_CHEST_NORMAL));
+
+		// execute test
+		((SpectatorItem) BotaniaItems.itemFinder).scanForItems(spectatorStack, player);
 
 		// ensure loot content has not been rolled
 		TestingUtil.assertThat(lootChestCart.getLootTable() != null, () -> "Chest loot was rolled");
@@ -74,9 +96,9 @@ public class SpectatorScanTest {
 				() -> "Chest loot was rolled");
 
 		// check that exactly the relevant positions have been found
-		ListTag blocks = ItemNBTHelper.getList(spectatorStack, SpectatorItem.TAG_BLOCK_POSITIONS, Tag.TAG_LONG, false);
-		TestingUtil.assertEquals(blocks.size(), 1, () -> "Expected 1 block hit, was " + blocks.size());
-		BlockPos chestPos = BlockPos.of(((LongTag) blocks.get(0)).getAsLong());
+		long[] blocks = ItemNBTHelper.getLongArray(spectatorStack, SpectatorItem.TAG_BLOCK_POSITIONS);
+		TestingUtil.assertEquals(blocks.length, 1, () -> "Expected 1 block hit, was " + blocks.length);
+		BlockPos chestPos = BlockPos.of(blocks[0]);
 		TestingUtil.assertEquals(helper.absolutePos(POSITION_CHEST_NORMAL), chestPos,
 				() -> "Chest position " + helper.absolutePos(POSITION_CHEST_NORMAL) + " not in result, but found " + chestPos);
 
