@@ -26,6 +26,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -44,6 +45,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.mixin.AbstractHorseAccessor;
 import vazkii.botania.mixin.RandomizableContainerBlockEntityAccessor;
 
 import java.util.List;
@@ -161,6 +163,14 @@ public class SpectatorItem extends BaubleItem {
 					if (scanInventory(baubleInventory, mainHandStack, offHandStack)) {
 						entityIds.add(targetPlayer.getId());
 					}
+				}
+			} else if (e instanceof AbstractChestedHorse horse && horse.hasChest()) {
+				if (scanInventory(((AbstractHorseAccessor) horse).getInventory(), mainHandStack, offHandStack)) {
+					entityIds.add(horse.getId());
+				}
+			} else if (e instanceof Allay allay && allay.hasItemInHand()) {
+				if (equalStacks(allay.getMainHandItem(), mainHandStack, offHandStack)) {
+					entityIds.add(allay.getId());
 				}
 			} else if (e instanceof Merchant villager) {
 				for (MerchantOffer offer : villager.getOffers()) {

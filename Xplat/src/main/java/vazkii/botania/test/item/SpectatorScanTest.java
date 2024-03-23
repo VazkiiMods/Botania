@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.npc.VillagerData;
@@ -18,6 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.SpectatorItem;
+import vazkii.botania.mixin.AbstractHorseAccessor;
 import vazkii.botania.mixin.RandomizableContainerBlockEntityAccessor;
 import vazkii.botania.test.TestingUtil;
 
@@ -31,6 +33,8 @@ public class SpectatorScanTest {
 	private static final BlockPos POSITION_CART_LOOT = new BlockPos(9, 2, 6);
 	private static final BlockPos POSITION_ITEM = new BlockPos(7, 3, 3);
 	private static final BlockPos POSITION_VILLAGER = new BlockPos(4, 2, 3);
+	private static final BlockPos POSITION_DONKEY = new BlockPos(19, 2, 6);
+	private static final BlockPos POSITION_ALLAY = new BlockPos(19, 2, 16);
 
 	private static final String LOOT_TABLE_CHEST = "minecraft:chests/simple_dungeon";
 	private static final String LOOT_TABLE_CART = "minecraft:chests/abandoned_mineshaft";
@@ -74,6 +78,17 @@ public class SpectatorScanTest {
 		regularChest.setItem(3, new ItemStack(Items.FLINT));
 		regularChest.setItem(7, new ItemStack(Items.IRON_INGOT));
 
+		var donkey = helper.spawnWithNoFreeWill(EntityType.DONKEY, POSITION_DONKEY);
+		donkey.setTamed(true);
+		donkey.setChest(true);
+		((AbstractHorseAccessor) donkey).botania_createInventory();
+		var donkeyInventory = ((AbstractHorseAccessor) donkey).getInventory();
+		donkeyInventory.setItem(3, new ItemStack(Items.COAL));
+		donkeyInventory.setItem(4, new ItemStack(Items.IRON_INGOT));
+
+		var allay = helper.spawnWithNoFreeWill(EntityType.ALLAY, POSITION_ALLAY);
+		allay.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_INGOT));
+
 		// set loot tables
 		var lootChestCart = helper.spawn(EntityType.CHEST_MINECART, POSITION_CART_LOOT);
 		lootChestCart.setLootTable(new ResourceLocation(LOOT_TABLE_CART), 1L);
@@ -103,11 +118,14 @@ public class SpectatorScanTest {
 				() -> "Chest position " + helper.absolutePos(POSITION_CHEST_NORMAL) + " not in result, but found " + chestPos);
 
 		int[] entities = ItemNBTHelper.getIntArray(spectatorStack, SpectatorItem.TAG_ENTITY_POSITIONS);
-		TestingUtil.assertEquals(entities.length, 3, () -> "Expected 3 entity hits, but got " + entities.length);
+		TestingUtil.assertEquals(entities.length, 5, () -> "Expected 5 entity hits, but got " + entities.length);
 		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> villager.getId() == id), () -> "Villager not in result");
 		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> itemEntity.getId() == id), () -> "Item entity not in result");
 		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> regularChestCart.getId() == id), () -> "Minecart not in result");
+		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> donkey.getId() == id), () -> "Donkey not in result");
+		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> allay.getId() == id), () -> "Allay not in result");
 
+		helper.killAllEntities();
 		helper.succeed();
 	}
 }
