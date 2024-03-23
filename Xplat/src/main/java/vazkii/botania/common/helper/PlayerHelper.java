@@ -38,6 +38,11 @@ import java.util.regex.Pattern;
 public final class PlayerHelper {
 
 	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*]|ComputerCraft)$");
+	private static Class<? extends Player> fakePlayerClass;
+
+	public static void setFakePlayerClass(Class<? extends Player> fakePlayerClass) {
+		PlayerHelper.fakePlayerClass = fakePlayerClass;
+	}
 
 	public static boolean isTruePlayer(@Nullable Entity e) {
 		if (!(e instanceof Player player)) {
@@ -45,7 +50,7 @@ public final class PlayerHelper {
 		}
 
 		String name = player.getName().getString();
-		return !FAKE_PLAYER_PATTERN.matcher(name).matches();
+		return (fakePlayerClass == null || !fakePlayerClass.isInstance(player)) && !FAKE_PLAYER_PATTERN.matcher(name).matches();
 	}
 
 	public static List<Player> getRealPlayersIn(Level level, AABB aabb) {

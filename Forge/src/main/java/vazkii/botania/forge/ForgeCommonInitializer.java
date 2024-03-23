@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -96,6 +97,7 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
@@ -150,6 +152,7 @@ public class ForgeCommonInitializer {
 		PaintableData.init();
 		CompostingData.init((itemLike, chance) -> ComposterBlock.COMPOSTABLES.putIfAbsent(itemLike.asItem(), (float) chance));
 		DefaultCorporeaMatchers.init();
+		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());

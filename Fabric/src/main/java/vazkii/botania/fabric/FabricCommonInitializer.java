@@ -13,6 +13,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
@@ -84,6 +85,7 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
@@ -128,6 +130,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		PaintableData.init();
 		CompostingData.init(CompostingChanceRegistry.INSTANCE::add);
 		DefaultCorporeaMatchers.init();
+		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
