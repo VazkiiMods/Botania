@@ -27,6 +27,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 public final class ItemNBTHelper {
 
 	private static final int[] EMPTY_INT_ARRAY = new int[0];
+	private static final long[] EMPTY_LONG_ARRAY = new long[0];
 
 	// SETTERS ///////////////////////////////////////////////////////////////////
 
@@ -56,6 +57,10 @@ public final class ItemNBTHelper {
 
 	public static void setLong(ItemStack stack, String tag, long l) {
 		stack.getOrCreateTag().putLong(tag, l);
+	}
+
+	public static void setLongArray(ItemStack stack, String tag, long[] val) {
+		stack.getOrCreateTag().putLongArray(tag, val);
 	}
 
 	public static void setFloat(ItemStack stack, String tag, float f) {
@@ -91,6 +96,10 @@ public final class ItemNBTHelper {
 		return !stack.isEmpty() && stack.hasTag() && stack.getOrCreateTag().contains(tag);
 	}
 
+	public static boolean verifyType(ItemStack stack, String tag, Class<? extends Tag> tagClass) {
+		return !stack.isEmpty() && stack.hasTag() && tagClass.isInstance(stack.getOrCreateTag().get(tag));
+	}
+
 	@Nullable
 	public static Tag get(ItemStack stack, String tag) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().get(tag) : null;
@@ -118,6 +127,10 @@ public final class ItemNBTHelper {
 
 	public static long getLong(ItemStack stack, String tag, long defaultExpected) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getLong(tag) : defaultExpected;
+	}
+
+	public static long[] getLongArray(ItemStack stack, String tag) {
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getLongArray(tag) : EMPTY_LONG_ARRAY;
 	}
 
 	public static float getFloat(ItemStack stack, String tag, float defaultExpected) {

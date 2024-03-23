@@ -177,7 +177,7 @@ public class HopperhockTest {
 		helper.startSequence().thenExecuteAfter(61, () -> {
 			helper.assertBlockProperty(composterPos, ComposterBlock.LEVEL, 8);
 			helper.assertItemEntityPresent(Items.PUMPKIN_PIE, SPAWN_ITEM_POS, 0);
-		}).thenExecute(helper::killAllEntities).thenSucceed();
+		}).thenSucceed();
 	}
 
 	private void spawnItemAndExpectNoPickUp(GameTestHelper helper, BlockPos composterPos, Item item) {

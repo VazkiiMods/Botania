@@ -30,7 +30,7 @@ public class RannuncarpusTest {
 	private static final BlockPos SEA_PICKLE_POS = new BlockPos(1, 2, 1);
 	private static final BlockPos FLOATING_YELLOW_CANDLE_POS = new BlockPos(1, 5, 2);
 
-	@GameTest(template = TEMPLATE)
+	@GameTest(template = TEMPLATE, batch = "rannuncarpus1")
 	public void testDestinationFilterPositive(GameTestHelper helper) {
 		helper.startSequence().thenExecute(() -> {
 			helper.killAllEntities();
@@ -40,7 +40,7 @@ public class RannuncarpusTest {
 		}).thenSucceed();
 	}
 
-	@GameTest(template = TEMPLATE)
+	@GameTest(template = TEMPLATE, batch = "rannuncarpus2")
 	public void testDestinationFilterNegative(GameTestHelper helper) {
 		helper.startSequence().thenExecute(() -> {
 			helper.killAllEntities();
@@ -79,7 +79,7 @@ public class RannuncarpusTest {
 					// new items are supplied twice during the test
 					+ 2 * DelayHelper.FUNCTIONAL_INHERENT_DELAY;
 
-	@GameTest(template = TEMPLATE_CANDLES, timeoutTicks = MULTI_PLACEMENT_TIMEOUT_TICKS)
+	@GameTest(template = TEMPLATE_CANDLES, timeoutTicks = MULTI_PLACEMENT_TIMEOUT_TICKS, batch = "rannuncarpus3")
 	public void testMultiplePlacements(GameTestHelper helper) {
 		final var yellowCandles = helper.spawnItem(Blocks.YELLOW_CANDLE.asItem(), FLOWER_POS.getX(), FLOWER_POS.getY() + 1, FLOWER_POS.getZ());
 		helper.startSequence().thenExecute(() -> {

@@ -43,6 +43,7 @@
     "PistonStructureResolverMixin",
     "PlayerMixin",
     "PollinateGoalMixin",
+    "RandomizableContainerBlockEntityAccessor",
     "RecipeManagerAccessor",
     "RecipeProviderAccessor",
     "ServerLevelMixin",
