@@ -56,6 +56,11 @@ public class CirrusAmuletItem extends BaubleItem {
 				if (playerSp.onGround()) {
 					timesJumped = 0;
 				} else {
+					if (timesJumped == 0) {
+						// regardless how ground contact was lost, count that as first jump
+						timesJumped = 1;
+						jumpDown = true;
+					}
 					if (playerSp.input.jumping) {
 						if (!jumpDown && timesJumped < ((CirrusAmuletItem) stack.getItem()).getMaxAllowedJumps()) {
 							playerSp.jumpFromGround();
