@@ -25,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.Objects;
@@ -117,5 +118,16 @@ public class TestingUtil {
 		useItemOn(helper, player, InteractionHand.MAIN_HAND, first);
 		player.setPos(Vec3.atCenterOf(second));
 		useItemOn(helper, player, InteractionHand.MAIN_HAND, second);
+	}
+
+	public static void bindForceRelayTarget(GameTestHelper helper, BlockPos relayPos, BlockPos targetPos) {
+		var data = ForceRelayBlock.WorldData.get(helper.getLevel());
+		data.mapping.put(helper.absolutePos(relayPos), helper.absolutePos(targetPos));
+	}
+
+	@Nullable
+	public static BlockPos getBoundForceRelayTarget(GameTestHelper helper, BlockPos relayPos) {
+		var data = ForceRelayBlock.WorldData.get(helper.getLevel());
+		return data.mapping.get(helper.absolutePos(relayPos));
 	}
 }

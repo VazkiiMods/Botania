@@ -53,7 +53,8 @@
       "vazkii.botania.test.item.GrassSeedDispensingTest",
       "vazkii.botania.test.item.lens.BoreLensTest",
       "vazkii.botania.test.item.lens.EntropicWarpLensTest",
-      "vazkii.botania.test.item.lens.PaintslingerLensTest"
+      "vazkii.botania.test.item.lens.PaintslingerLensTest",
+      "vazkii.botania.test.item.lens.WarpForceTest"
     ],
     "fabric-datagen": [
       "vazkii.botania.fabric.data.FabricDatagenInitializer"
