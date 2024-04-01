@@ -14,11 +14,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ForcePushHelper;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.PistonBaseBlockAccessor;
 
 public class ForceLens extends Lens {
@@ -30,6 +33,14 @@ public class ForceLens extends Lens {
 				&& !burst.isFake()
 				&& !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
+			BlockState state = entity.level().getBlockState(rtr.getBlockPos());
+			ItemStack sourceLens = burst.getSourceLens();
+			boolean isWarp = sourceLens.is(BotaniaItems.lensWarp);
+			if (isWarp && state.is(BotaniaBlocks.pistonRelay)) {
+				// warp+force should not move the force relay
+				return false;
+			}
+
 			// mana burst could have been warped here, so don't assume that any block is unmovable
 			moveBlocks(entity.level(), rtr.getBlockPos().relative(rtr.getDirection()), rtr.getDirection().getOpposite(), ManaBurst.NO_SOURCE);
 		}
