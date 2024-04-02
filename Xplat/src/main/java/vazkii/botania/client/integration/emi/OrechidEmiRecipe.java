@@ -1,4 +1,4 @@
-package vazkii.botania.fabric.integration.emi;
+package vazkii.botania.client.integration.emi;
 
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;

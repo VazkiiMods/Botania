@@ -55,6 +55,7 @@ repositories {
         url = "https://maven.blamejared.com/" // for JEI and Patchouli
     }
     maven {
+        name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/" // for trinkets and emi
     }
     maven {
@@ -111,7 +112,8 @@ dependencies {
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.0.625"
 
-    modImplementation("dev.emi:emi-fabric:1.0.4+1.20.1") { transitive = false }
+    modCompileOnly "dev.emi:emi-fabric:1.0.12+${minecraft_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:1.1.4+${minecraft_version}"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"  
     include "me.zeroeightsix:fiber:0.23.0-2"

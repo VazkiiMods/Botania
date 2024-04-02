@@ -20,6 +20,10 @@ repositories {
         url = "https://maven.blamejared.com/"
     }
     maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/" // for emi
+    }
+    maven {
         name = "Unascribed"
         url "https://repo.unascribed.com" // for ears
         content {
@@ -40,6 +44,7 @@ dependencies {
     compileOnly "com.unascribed:ears-api:1.4.5"
 
     compileOnly "mezz.jei:jei-1.20.1-common-api:15.2.0.27"
+    compileOnly "dev.emi:emi-xplat-mojmap:1.0.12+${minecraft_version}:api"
 
     // annotationProcessor 'com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors-1.18.2:2.0.0.123'
     // annotationProcessor 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
