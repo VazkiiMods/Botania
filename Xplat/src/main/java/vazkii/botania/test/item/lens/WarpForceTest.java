@@ -29,7 +29,8 @@ public class WarpForceTest {
 		setUpLensesAndBindings(helper, BotaniaItems.lensWarp, BotaniaItems.lensPiston);
 
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(BUTTON_POS))
+				// short delay to ensure spreader picks up mana from pool
+				.thenExecuteAfter(1, () -> helper.pressButton(BUTTON_POS))
 				.thenWaitUntil(() -> helper.assertBlockProperty(BUTTON_POS, ButtonBlock.POWERED, false))
 				.thenExecute(() -> {
 					helper.assertBlock(RELAY_POS, BotaniaBlocks.pistonRelay::equals, () -> "Force relay moved");
@@ -63,7 +64,8 @@ public class WarpForceTest {
 		setUpLensesAndBindings(helper, BotaniaItems.lensPiston, BotaniaItems.lensWarp);
 
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(BUTTON_POS))
+				// short delay to ensure spreader picks up mana from pool
+				.thenExecuteAfter(1, () -> helper.pressButton(BUTTON_POS))
 				.thenWaitUntil(() -> helper.assertBlockProperty(BUTTON_POS, ButtonBlock.POWERED, false))
 				.thenExecute(() -> {
 					helper.assertBlockState(RELAY_POS, BlockState::isAir, () -> "Force relay did not move");
