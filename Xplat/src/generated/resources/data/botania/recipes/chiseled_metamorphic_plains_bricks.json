@@ -3,15 +3,14 @@
   "category": "building",
   "key": {
     "Q": {
-      "item": "botania:metamorphic_plains_bricks"
+      "item": "botania:metamorphic_plains_bricks_slab"
     }
   },
   "pattern": [
-    "QQ",
-    "QQ"
+    "Q",
+    "Q"
   ],
   "result": {
-    "count": 4,
     "item": "botania:chiseled_metamorphic_plains_bricks"
   },
   "show_notification": true

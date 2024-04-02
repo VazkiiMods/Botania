@@ -2121,6 +2121,15 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		recombineSlab(consumer, BotaniaBlocks.yellowPavement, BotaniaBlocks.yellowPavementSlab);
 		recombineSlab(consumer, BotaniaBlocks.redPavement, BotaniaBlocks.redPavementSlab);
 		recombineSlab(consumer, BotaniaBlocks.greenPavement, BotaniaBlocks.greenPavementSlab);
+		recombineSlab(consumer, BotaniaBlocks.darkQuartz, BotaniaBlocks.darkQuartzSlab);
+		recombineSlab(consumer, BotaniaBlocks.manaQuartz, BotaniaBlocks.manaQuartzSlab);
+		recombineSlab(consumer, BotaniaBlocks.blazeQuartz, BotaniaBlocks.blazeQuartzSlab);
+		recombineSlab(consumer, BotaniaBlocks.lavenderQuartz, BotaniaBlocks.lavenderQuartzSlab);
+		recombineSlab(consumer, BotaniaBlocks.redQuartz, BotaniaBlocks.redQuartzSlab);
+		recombineSlab(consumer, BotaniaBlocks.elfQuartz, BotaniaBlocks.elfQuartzSlab);
+		recombineSlab(consumer, BotaniaBlocks.sunnyQuartz, BotaniaBlocks.sunnyQuartzSlab);
+		recombineSlab(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaSlab);
+		recombineSlab(consumer, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab);
 	}
 
 	private void registerDecor(Consumer<FinishedRecipe> consumer) {
@@ -2130,16 +2139,22 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
 				.save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockSlate)
+				.define('R', BotaniaBlocks.livingrockSlab)
+				.pattern("R")
+				.pattern("R")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockBrick, 4)
 				.define('R', BotaniaBlocks.livingrockPolished)
 				.pattern("RR")
 				.pattern("RR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrockPolished))
 				.save(consumer);
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockBrickChiseled, 4)
-				.define('R', BotaniaBlocks.livingrockBrick)
-				.pattern("RR")
-				.pattern("RR")
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockBrickChiseled)
+				.define('R', BotaniaBlocks.livingrockBrickSlab)
+				.pattern("R")
+				.pattern("R")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrockBrick))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockBrickMossy)
@@ -2412,9 +2427,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	protected void recombineSlab(Consumer<FinishedRecipe> consumer, ItemLike fullBlock, ItemLike slab) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, fullBlock)
 				.define('Q', slab)
-				.pattern("Q")
-				.pattern("Q")
-				.unlockedBy("has_item", conditionsFromItem(fullBlock))
+				.pattern("QQ")
+				.unlockedBy("has_item", conditionsFromItem(slab))
 				.save(consumer, prefix("slab_recombine/" + BuiltInRegistries.ITEM.getKey(fullBlock.asItem()).getPath()));
 	}
 
@@ -2601,7 +2615,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
 		wallShape(brickWall, brick, 6).group("botania:metamorphic_brick_wall")
 				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
-		brick(chiseledBrick, brick).unlockedBy("has_base_item", conditionsFromItem(brick))
+		chiseled(chiseledBrick, brickSlab).unlockedBy("has_base_item", conditionsFromItem(brick))
 				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
 
 		slabShape(cobbleSlab, cobble).group("botania:metamorphic_cobble_slab")

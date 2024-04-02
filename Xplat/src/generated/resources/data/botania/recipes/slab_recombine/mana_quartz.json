@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "Q": {
+      "item": "botania:mana_quartz_slab"
+    }
+  },
+  "pattern": [
+    "QQ"
+  ],
+  "result": {
+    "item": "botania:mana_quartz"
+  },
+  "show_notification": true
+}
