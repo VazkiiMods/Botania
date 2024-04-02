@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "Q": {
+      "item": "botania:lavender_quartz_slab"
+    }
+  },
+  "pattern": [
+    "QQ"
+  ],
+  "result": {
+    "item": "botania:lavender_quartz"
+  },
+  "show_notification": true
+}
