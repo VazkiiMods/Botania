@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
@@ -39,6 +40,7 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.HornItem;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.mixin.LivingEntityAccessor;
 import vazkii.botania.mixin.MushroomCowAccessor;
 
 import java.util.ArrayList;
@@ -49,6 +51,8 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 
 	public static final int MAX_NUM_SHEARED = 4;
 	public static final int GATHER_RANGE = 10;
+	public static final int MINIMUM_REMAINING_EGG_TIME = 600;
+	public static final int STARTLED_EGG_TIME = 200;
 
 	public enum Variant {
 		WILD,
@@ -76,6 +80,9 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 		List<Shearable> shearables = new ArrayList<>();
 
 		for (Mob mob : mobs) {
+			if (mob instanceof Chicken chicken && !chicken.isBaby() && !chicken.isChickenJockey()) {
+				speedUpEggLaying(chicken);
+			}
 			if (mob.getType().is(BotaniaTags.Entities.DRUM_MILKABLE) && !mob.isBaby()) {
 				convertNearby(mob, Items.BUCKET, Items.MILK_BUCKET);
 			}
@@ -100,6 +107,15 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 
 			shearable.shear(SoundSource.BLOCKS);
 			++sheared;
+		}
+	}
+
+	private static void speedUpEggLaying(Chicken chicken) {
+		if (chicken.eggTime > MINIMUM_REMAINING_EGG_TIME) {
+			chicken.eggTime = Math.max(MINIMUM_REMAINING_EGG_TIME, chicken.eggTime / 2);
+		} else if (chicken.eggTime < STARTLED_EGG_TIME && chicken.eggTime > 1) {
+			chicken.eggTime = 1;
+			((LivingEntityAccessor) chicken).botania_playHurtSound(chicken.damageSources().magic());
 		}
 	}
 
