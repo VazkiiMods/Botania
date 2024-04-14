@@ -13,6 +13,7 @@ import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -88,7 +89,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 
 	private static final Supplier<ItemStack> HOVERED_STACK_GETTER = () -> {
 		EmiIngredient ingr = EmiApi.getHoveredStack(true).getStack();
-		if (ingr.getEmiStacks().size() > 0) {
+		if (!ingr.getEmiStacks().isEmpty()) {
 			var stack = ingr.getEmiStacks().get(0).getItemStack();
 			if (!stack.isEmpty()) {
 				return stack;
@@ -96,6 +97,14 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		}
 		return ItemStack.EMPTY;
 	};
+
+	public BotaniaEmiPlugin() {
+		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(screen -> {
+			final var handledScreen = EmiApi.getHandledScreen();
+			// should apply to EMI's recipe and BOM screens:
+			return handledScreen != null && Minecraft.getInstance().screen != handledScreen;
+		});
+	}
 
 	@Override
 	public void register(EmiRegistry registry) {
