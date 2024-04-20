@@ -1,5 +1,5 @@
 {
-    DataVersion: 3120,
+    DataVersion: 3465,
     size: [40, 4, 23],
     data: [
         {pos: [10, 1, 11], state: "minecraft:grass_block{snowy:false}"},

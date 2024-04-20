@@ -1,5 +1,5 @@
 {
-    DataVersion: 2865,
+    DataVersion: 3465,
     size: [11, 9, 11],
     data: [
         {pos: [4, 4, 4], state: "botania:corporea_funnel{powered:false}", nbt: {id: "botania:corporea_funnel"}},

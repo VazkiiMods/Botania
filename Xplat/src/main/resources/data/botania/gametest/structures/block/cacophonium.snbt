@@ -1,5 +1,5 @@
 {
-    DataVersion: 2730,
+    DataVersion: 3465,
     size: [3, 3, 5],
     data: [
         {pos: [0, 0, 0], state: "minecraft:acacia_planks"},

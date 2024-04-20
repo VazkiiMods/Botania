@@ -1,5 +1,5 @@
 {
-    DataVersion: 2865,
+    DataVersion: 3465,
     size: [4, 4, 4],
     data: [
         {pos: [0, 0, 0], state: "minecraft:polished_andesite"},
@@ -20,7 +20,6 @@
         {pos: [3, 0, 3], state: "minecraft:polished_andesite"},
         {pos: [0, 1, 0], state: "botania:creative_pool{waterlogged:false}", nbt: {canAccept: 1b, canSpare: 1b, color: 0, id: "botania:mana_pool", inputKey: "", mana: 999840, manaCap: 1000000, outputKey: "", outputting: 0b}},
         {pos: [1, 1, 0], state: "botania:redstone_spreader{waterlogged:false}", nbt: {Items: [{Count: 1b, Slot: 0b, id: "botania:lens_mine"}], canShootBurst: 1b, forceClientBindingX: -25, forceClientBindingY: -58, forceClientBindingZ: -3, id: "botania:mana_spreader", inputKey: "", lastPingbackX: -24.5d, lastPingbackY: -57.5d, lastPingbackZ: -2.899999961256981d, mana: 1000, mapmakerOverrideEnabled: 0b, mmForcedColor: 2162464, mmForcedGravity: 0.0f, mmForcedManaLossPerTick: 4.0f, mmForcedManaPayload: 160, mmForcedTicksBeforeManaLoss: 60, mmForcedVelocityMultiplier: 1.0f, outputKey: "", paddingColor: -1, pingbackTicks: 19, requestUpdate: 0b, rotationX: 90.0f, rotationY: 0.0f, uuid: [I; 1540919254, -534887015, -1172247471, 248983331]}},
-        {pos: [1, 1, 1], state: "minecraft:air"},
         {pos: [1, 1, 2], state: "botania:mana_detector{powered:false}"},
         {pos: [1, 1, 3], state: "botania:mana_void"},
         {pos: [2, 1, 0], state: "minecraft:stone_button{face:floor,facing:east,powered:false}"},
@@ -31,7 +30,6 @@
         "minecraft:polished_andesite",
         "botania:mana_detector{powered:false}",
         "minecraft:redstone_lamp{lit:false}",
-        "minecraft:air",
         "minecraft:stone_button{face:floor,facing:east,powered:false}",
         "minecraft:hopper{enabled:true,facing:east}",
         "botania:creative_pool{waterlogged:false}",
