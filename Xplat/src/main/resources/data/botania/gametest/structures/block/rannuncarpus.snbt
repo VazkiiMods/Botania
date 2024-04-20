@@ -1,5 +1,5 @@
 {
-    DataVersion: 2865,
+    DataVersion: 3465,
     size: [5, 5, 5],
     data: [
         {pos: [0, 0, 0], state: "minecraft:polished_andesite"},
@@ -28,7 +28,6 @@
         {pos: [4, 0, 3], state: "minecraft:polished_andesite"},
         {pos: [4, 0, 4], state: "minecraft:polished_andesite"},
         {pos: [2, 1, 2], state: "minecraft:stone"},
-        {pos: [3, 1, 2], state: "minecraft:air"},
         {pos: [2, 2, 2], state: "botania:floating_rannuncarpus_chibi{waterlogged:false}", nbt: {floating: {islandType: "GRASS"}, id: "botania:rannuncarpus_chibi", mana: 0, stateSensitive: 0b, ticksExisted: 0}}
     ],
     entities: [
@@ -37,7 +36,6 @@
     palette: [
         "minecraft:polished_andesite",
         "minecraft:stone",
-        "minecraft:air",
         "botania:floating_rannuncarpus_chibi{waterlogged:false}"
     ]
 }
