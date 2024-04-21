@@ -24,7 +24,7 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "itemGroup.botania"
+      "translate": "itemGroup.botania.botania"
     }
   },
   "requirements": [
