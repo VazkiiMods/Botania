@@ -24,6 +24,7 @@ and start a new "Upcoming" section.
 * Add: Native EMI support on Forge
 * Add: Missing slab recombination recipes for quartz and corporea variants
 * Add: The Lexica Botania can be put into chiseled bookshelves and onto lecterns (Note: reading it from a lectern does not currently grant the advancement)
+* Add: Corporea request key now also works in the EMI item list (it still doesn't work in recipe displays due to technical limitations of the EMI API)
 * Change: Elementium Axe is now treated as a weapon regarding durability damage from attacking things
 * Change: Various Botania blocks finally make noteblocks use the instrument you would likely expect
   * blocks made from Livingwood or Dreamwood (except drums) -> bass
@@ -36,10 +37,13 @@ and start a new "Upcoming" section.
   * Chiseled livingrock bricks and chiseled metamorphic stone bricks are crafted from the corresponding brick slabs arranged vertically
   * Slab recombination recipes have been changed to arrange the slabs horizontally in the crafting grid
   * Unlock conditions for slab recombination recipes now require the slab, not the full block
-* Fix: Corporea Crystal Cube no longer forgets its internal state
-* Fix: Quick-moving (shift+click) Botania pattern items properly puts them in the pattern slot
+* Change: Recipe displays for Petal Apothecary and Runic Altar show required reagents (e.g. seeds, livingrock)
+* Change: Recipe display for Terrestrial Agglomeration Plate in EMI looks more like it does on JEI or REI now
+* Fix: Corporea Crystal Cube and Abstruse/Spectral Platform no longer forget their internal state after unloading
+* Fix: Quick-moving (shift+click) Botania pattern items in the loom UI properly puts them in the pattern slot
 * Fix: Animated Torch powers blocks consistently, and properly updates necessary blocks when placed, rotated, or removed
-* Fix: Elven Spreader no longer misses mana pool right for infinite flight again
+* Fix: Elven Spreader no longer misses mana pool
+* Fix: Flügel Tiara detects Eye of the Flügel for infinite flight again
 * Fix: Using a sapling on the Mana Flame block (GoG) only produces a new lexicon if the player doesn't have one already
 * Fix: Item icon offset in Corporea Crystal Cube's HUD overlay
 * Fix: Left forearm guard of the elementium chestplate is rendered properly (Partonetrain)
@@ -48,7 +52,8 @@ and start a new "Upcoming" section.
 * Fix: Fake player detection for the gaia fight has been improved, so you no longer get extra loot for e.g. a nearby running RFTools builder
 * Fix: The Cirrus and Nimbus amulets got math lessons and should be able to properly count the number of mid-air jumps now
 * Fix: Botania advancement tab and root advancement title
-* Fix: Warp+Bore bursts can now teleport via a force relay without breaking it 
+* Fix: Warp+Bore bursts can now teleport via a force relay without breaking it
+* Fix: Other mods should have fewer issues with broken or doubled loot table evaluation in GoG
 * Language updates:
   * ko_kr completed (Tareun3406)
   * uk_ua added (fasero1)
