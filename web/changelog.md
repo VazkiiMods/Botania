@@ -48,6 +48,7 @@ and start a new "Upcoming" section.
 * Fix: Fake player detection for the gaia fight has been improved, so you no longer get extra loot for e.g. a nearby running RFTools builder
 * Fix: The Cirrus and Nimbus amulets got math lessons and should be able to properly count the number of mid-air jumps now
 * Fix: Botania advancement tab and root advancement title
+* Fix: Warp+Bore bursts can now teleport via a force relay without breaking it 
 * Language updates:
   * ko_kr completed (Tareun3406)
   * uk_ua added (fasero1)
