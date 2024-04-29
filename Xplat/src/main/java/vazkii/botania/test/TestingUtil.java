@@ -16,6 +16,7 @@ import net.minecraft.gametest.framework.GameTestAssertPosException;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,7 +27,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.ForceRelayBlock;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.lens.LensItem;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -129,5 +132,15 @@ public class TestingUtil {
 	public static BlockPos getBoundForceRelayTarget(GameTestHelper helper, BlockPos relayPos) {
 		var data = ForceRelayBlock.WorldData.get(helper.getLevel());
 		return data.mapping.get(helper.absolutePos(relayPos));
+	}
+
+	public static void setUpSpreaderAndCompositeLens(GameTestHelper helper, Item firstLensType, Item secondLensType, BlockPos spreaderPos, BlockPos spreaderTargetPos) {
+		final var firstLensStack = new ItemStack(firstLensType);
+		final var secondLensStack = new ItemStack(secondLensType);
+		final var compositeLens = ((LensItem) firstLensStack.getItem()).setCompositeLens(firstLensStack, secondLensStack);
+		final var spreaderEntity = assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.SPREADER);
+		spreaderEntity.getItemHandler().setItem(0, compositeLens);
+
+		bindWithWandOfTheForest(helper, spreaderPos, spreaderTargetPos);
 	}
 }

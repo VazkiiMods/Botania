@@ -4,15 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.test.TestingUtil;
 
 public class WarpForceTest {
@@ -96,13 +93,7 @@ public class WarpForceTest {
 	}
 
 	private static void setUpLensesAndBindings(GameTestHelper helper, Item firstLensType, Item secondLensType) {
-		final var warpLensStack = new ItemStack(firstLensType);
-		final var forceLensStack = new ItemStack(secondLensType);
-		final var compositeLens = ((LensItem) warpLensStack.getItem()).setCompositeLens(warpLensStack, forceLensStack);
-		final var spreaderEntity = TestingUtil.assertBlockEntity(helper, SPREADER_POS, BotaniaBlockEntities.SPREADER);
-		spreaderEntity.getItemHandler().setItem(0, compositeLens);
-
-		TestingUtil.bindWithWandOfTheForest(helper, SPREADER_POS, SPREADER_TARGET_POS);
+		TestingUtil.setUpSpreaderAndCompositeLens(helper, firstLensType, secondLensType, SPREADER_POS, SPREADER_TARGET_POS);
 		TestingUtil.bindForceRelayTarget(helper, RELAY_POS, BOUND_POS);
 	}
 }
