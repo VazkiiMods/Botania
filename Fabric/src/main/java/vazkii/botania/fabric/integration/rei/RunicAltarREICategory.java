@@ -36,6 +36,7 @@ import java.util.List;
 
 public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDisplay> {
 	private final EntryStack<ItemStack> altar = EntryStacks.of(new ItemStack(BotaniaBlocks.runeAltar));
+	private final EntryStack<ItemStack> livingrock = EntryStacks.of(new ItemStack(BotaniaBlocks.livingrock));
 	private final ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
 
 	@Override
@@ -55,13 +56,13 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 
 	@Override
 	public @NotNull List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
-		List<Widget> widgets = new ArrayList<>();
 		List<EntryIngredient> inputs = display.getInputEntries();
 		EntryStack<?> output = display.getOutputEntries().get(0).get(0);
 
 		double angleBetweenEach = 360.0 / inputs.size();
 		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 38);
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 6);
+		List<Widget> widgets = new ArrayList<>();
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget(((gui, mouseX, mouseY, delta) -> {
 			CategoryUtils.drawOverlay(gui, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82);
@@ -72,7 +73,8 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 			widgets.add(Widgets.createSlot(point.getLocation()).entries(o).disableBackground());
 			point = CategoryUtils.rotatePointAbout(point, center, angleBetweenEach);
 		}
-		widgets.add(Widgets.createSlot(center).entry(this.altar).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x, center.y + 10)).entry(this.altar).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x, center.y - 10)).entry(this.livingrock).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x + 38, center.y - 35)).entry(output).disableBackground());
 
 		return widgets;

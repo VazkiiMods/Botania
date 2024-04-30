@@ -22,6 +22,12 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = prefix("textures/gui/petal_overlay.png");
 	private static final EmiStack LIVINGROCK = EmiStack.of(BotaniaBlocks.livingrock);
 	private static final EmiStack ALTAR = EmiStack.of(BotaniaBlocks.runeAltar);
+	public static final int CENTER_X = 44;
+	public static final int CENTER_Y = 40;
+	public static final int POS_X_INGREDIENTS = CENTER_X;
+	public static final int POS_Y_INGREDIENTS = 8;
+	public static final int POS_X_REAGENTS = CENTER_X;
+	public static final int POS_Y_REAGENTS = 30;
 	private final List<EmiIngredient> ingredients;
 	private final int mana;
 
@@ -55,19 +61,30 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
 		widgets.add(new ManaWidget(2, 100, mana, ManaPoolBlockEntity.MAX_MANA / 10));
-		RunicAltarEmiRecipe.addRunicAltarWidgets(widgets, this, ingredients, ALTAR, output.get(0));
+		RunicAltarEmiRecipe.addRunicAltarWidgets(widgets, this, ingredients, ALTAR, output.get(0), LIVINGROCK);
 	}
 
 	public static void addRunicAltarWidgets(WidgetHolder widgets, EmiRecipe recipe,
-			List<EmiIngredient> input, EmiIngredient altar, EmiStack output) {
+			List<EmiIngredient> input, EmiIngredient altar, EmiStack output, EmiIngredient... reagents) {
 		double step = 360.0 / input.size();
 		widgets.add(new BlendTextureWidget(TEXTURE, 21, 0, 85, 82, 42, 11));
 		for (int i = 0; i < input.size(); i++) {
 			EmiIngredient ing = input.get(i);
-			widgets.addSlot(ing, BotaniaEmiPlugin.rotateXAround(44, 8, 44, 40, step * i),
-					BotaniaEmiPlugin.rotateYAround(44, 8, 44, 40, step * i)).drawBack(false);
+			widgets.addSlot(ing, BotaniaEmiPlugin.rotateXAround(POS_X_INGREDIENTS, POS_Y_INGREDIENTS, CENTER_X, CENTER_Y, step * i),
+					BotaniaEmiPlugin.rotateYAround(POS_X_INGREDIENTS, POS_Y_INGREDIENTS, CENTER_X, CENTER_Y, step * i)).drawBack(false);
 		}
-		widgets.addSlot(altar, 44, 41).drawBack(false).catalyst(true);
-		widgets.addSlot(output, 44 + 38, 5).drawBack(false).recipeContext(recipe);
+		if (reagents.length > 0) {
+			double reagentStep = 360.0 / (reagents.length + 1);
+			widgets.addSlot(altar, BotaniaEmiPlugin.rotateXAround(POS_X_REAGENTS, POS_Y_REAGENTS + 1, CENTER_X, CENTER_Y, 0),
+					BotaniaEmiPlugin.rotateYAround(POS_X_REAGENTS, POS_Y_REAGENTS, CENTER_X, CENTER_Y, 0)).drawBack(false);
+			for (int i = 0; i < reagents.length; i++) {
+				EmiIngredient ing = reagents[i];
+				widgets.addSlot(ing, BotaniaEmiPlugin.rotateXAround(POS_X_REAGENTS, POS_Y_REAGENTS, CENTER_X, CENTER_Y, reagentStep * (i + 1)),
+						BotaniaEmiPlugin.rotateYAround(POS_X_REAGENTS, POS_Y_REAGENTS, CENTER_X, CENTER_Y, reagentStep * (i + 1))).drawBack(false);
+			}
+		} else {
+			widgets.addSlot(altar, CENTER_X, CENTER_Y + 1).drawBack(false).catalyst(true);
+		}
+		widgets.addSlot(output, CENTER_X + 38, 5).drawBack(false).recipeContext(recipe);
 	}
 }
