@@ -8,10 +8,8 @@
  */
 package vazkii.botania.fabric.client;
 
-import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
@@ -38,12 +36,12 @@ public class FabricPlatformModel extends ForwardingBakedModel {
 	@Override
 	public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<RandomSource> randomSupplier, RenderContext context) {
 		if (!(state.getBlock() instanceof PlatformBlock)) {
-			context.fallbackConsumer().accept(Minecraft.getInstance().getBlockRenderer()
-					.getBlockModelShaper().getModelManager().getMissingModel());
+			Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getModelManager().getMissingModel()
+					.emitBlockQuads(blockView, state, pos, randomSupplier, context);
 			return;
 		}
 
-		Object data = ((RenderAttachedBlockView) blockView).getBlockEntityRenderAttachment(pos);
+		Object data = blockView.getBlockEntityRenderData(pos);
 		if (data instanceof PlatformBlockEntity.PlatformData) {
 			BlockPos heldPos = ((PlatformBlockEntity.PlatformData) data).pos();
 			BlockState heldState = ((PlatformBlockEntity.PlatformData) data).state();
@@ -59,10 +57,8 @@ public class FabricPlatformModel extends ForwardingBakedModel {
 
 				BakedModel model = Minecraft.getInstance().getBlockRenderer()
 						.getBlockModelShaper().getBlockModel(heldState);
-				if (model instanceof FabricBakedModel) {
-					// Steal camo's model
-					((FabricBakedModel) model).emitBlockQuads(blockView, heldState, heldPos, randomSupplier, context);
-				}
+				// Steal camo's model
+				model.emitBlockQuads(blockView, heldState, heldPos, randomSupplier, context);
 			}
 		}
 	}
