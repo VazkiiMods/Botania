@@ -100,11 +100,11 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
+        parchment("org.parchmentmc.data:parchment-1.20.1:2023.09.03@zip")
     }
 
-    modImplementation "net.fabricmc:fabric-loader:0.14.21"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.83.1+1.20.1"
+    modImplementation "net.fabricmc:fabric-loader:0.15.6"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.92.1+1.20.1"
 
     compileOnly project(":Xplat")
 
