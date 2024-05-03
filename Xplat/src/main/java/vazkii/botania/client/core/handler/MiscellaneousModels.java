@@ -10,7 +10,6 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.DyeColor;
@@ -23,22 +22,61 @@ import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import vazkii.botania.common.item.equipment.bauble.ThirdEyeItem;
 import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.modelResourceLocation;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class MiscellaneousModels {
+	private static final ResourceLocation goldfishModelId = prefix("icon/goldfish");
+	private static final ResourceLocation phiFlowerModelId = prefix("icon/phiflower");
+	private static final ResourceLocation nerfBatModelId = prefix("icon/nerfbat");
+	private static final ResourceLocation bloodPendantChainId = prefix("icon/blood_pendant_chain");
+	private static final ResourceLocation bloodPendantGemId = prefix("icon/blood_pendant_gem");
+	private static final ResourceLocation[] kingKeyWeaponModelIds = IntStream.range(0, KeyOfTheKingsLawItem.WEAPON_TYPES)
+			.mapToObj(i -> prefix("icon/gate_weapon_" + i)).toArray(ResourceLocation[]::new);
+	private static final ResourceLocation terrasteelHelmWillModelId = prefix("icon/will_flame");
+	private static final ResourceLocation[] thirdEyeLayerIds = IntStream.range(0, ThirdEyeItem.Renderer.NUM_LAYERS)
+			.mapToObj(i -> prefix("icon/third_eye_" + i)).toArray(ResourceLocation[]::new);
+	private static final ResourceLocation pyroclastGemId = prefix("icon/lava_pendant_gem");
+	private static final ResourceLocation crimsonGemId = prefix("icon/super_lava_pendant_gem");
+	private static final ResourceLocation itemFinderGemId = prefix("icon/itemfinder_gem");
+	private static final ResourceLocation cirrusGemId = prefix("icon/cloud_pendant_gem");
+	private static final ResourceLocation nimbusGemId = prefix("icon/super_cloud_pendant_gem");
+	private static final ResourceLocation snowflakePendantGemId = prefix("icon/ice_pendant_gem");
+	private static final ResourceLocation[] tiaraWingIconIds = IntStream.range(0, FlugelTiaraItem.WING_TYPES)
+			.mapToObj(i -> prefix("icon/tiara_wing_" + (i + 1))).toArray(ResourceLocation[]::new);
+	private static final ResourceLocation corporeaCrystalCubeGlassId = prefix("block/corporea_crystal_cube_glass");
+	private static final ResourceLocation manaPumpHead = prefix("block/pump_head");
+	private static final ResourceLocation elvenSpreaderCoreId = prefix("block/elven_spreader_core");
+	private static final ResourceLocation gaiaSpreaderCoreId = prefix("block/gaia_spreader_core");
+	private static final ResourceLocation manaSpreaderCoreId = prefix("block/mana_spreader_core");
+	private static final ResourceLocation redstoneSpreaderCoreId = prefix("block/redstone_spreader_core");
+	private static final ResourceLocation manaSpreaderScaffoldingId = prefix("block/mana_spreader_scaffolding");
+	private static final ResourceLocation elvenSpreaderScaffoldingId = prefix("block/elven_spreader_scaffolding");
+	private static final ResourceLocation gaiaSpreaderScaffoldingId = prefix("block/gaia_spreader_scaffolding");
+	private static final Map<DyeColor, ResourceLocation> spreaderPaddingIds = new EnumMap<>(Stream.of(DyeColor.values()).collect(Collectors.toMap(Function.identity(), color -> prefix("block/" + color.getSerializedName() + "_spreader_padding"))));
+
 	public static final MiscellaneousModels INSTANCE = new MiscellaneousModels();
+
+	private final Map<ResourceLocation, Function<BakedModel, BakedModel>> afterBakeModifiers;
+	private final Map<ResourceLocation, Consumer<BakedModel>> modelConsumers;
 
 	public boolean registeredModels = false;
 
-	public final BakedModel[] tiaraWingIcons = new BakedModel[FlugelTiaraItem.WING_TYPES];
-	public final BakedModel[] thirdEyeLayers = new BakedModel[3];
+	public final BakedModel[] tiaraWingIcons;
+	public final BakedModel[] thirdEyeLayers;
 
 	public BakedModel goldfishModel,
 			phiFlowerModel,
@@ -62,43 +100,10 @@ public class MiscellaneousModels {
 
 	public final HashMap<DyeColor, BakedModel> spreaderPaddings = new HashMap<>();
 
-	public final BakedModel[] kingKeyWeaponModels = new BakedModel[KeyOfTheKingsLawItem.WEAPON_TYPES];
+	public final BakedModel[] kingKeyWeaponModels;
 
 	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
-		consumer.accept(prefix("icon/goldfish"));
-		consumer.accept(prefix("icon/phiflower"));
-		consumer.accept(prefix("icon/nerfbat"));
-		consumer.accept(prefix("icon/blood_pendant_chain"));
-		consumer.accept(prefix("icon/blood_pendant_gem"));
-		for (int i = 0; i < KeyOfTheKingsLawItem.WEAPON_TYPES; i++) {
-			consumer.accept(prefix("icon/gate_weapon_" + i));
-		}
-		consumer.accept(prefix("icon/will_flame"));
-		for (int i = 0; i < thirdEyeLayers.length; i++) {
-			consumer.accept(prefix("icon/third_eye_" + i));
-		}
-		consumer.accept(prefix("icon/lava_pendant_gem"));
-		consumer.accept(prefix("icon/super_lava_pendant_gem"));
-		consumer.accept(prefix("icon/itemfinder_gem"));
-		consumer.accept(prefix("icon/cloud_pendant_gem"));
-		consumer.accept(prefix("icon/super_cloud_pendant_gem"));
-		consumer.accept(prefix("icon/ice_pendant_gem"));
-		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			consumer.accept(prefix("icon/tiara_wing_" + (i + 1)));
-		}
-
-		consumer.accept(prefix("block/corporea_crystal_cube_glass"));
-		consumer.accept(prefix("block/pump_head"));
-		consumer.accept(prefix("block/elven_spreader_core"));
-		consumer.accept(prefix("block/gaia_spreader_core"));
-		consumer.accept(prefix("block/mana_spreader_core"));
-		consumer.accept(prefix("block/redstone_spreader_core"));
-		consumer.accept(prefix("block/mana_spreader_scaffolding"));
-		consumer.accept(prefix("block/elven_spreader_scaffolding"));
-		consumer.accept(prefix("block/gaia_spreader_scaffolding"));
-		for (DyeColor color : DyeColor.values()) {
-			consumer.accept(prefix("block/" + color.toString() + "_spreader_padding"));
-		}
+		modelConsumers.keySet().forEach(consumer);
 
 		registerIslands();
 		registerTaters(rm, consumer);
@@ -136,62 +141,61 @@ public class MiscellaneousModels {
 			BotaniaAPI.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
 			return;
 		}
-		// Platforms
-		ModelResourceLocation abstruseName = new ModelResourceLocation(prefix("abstruse_platform"), "");
-		BakedModel abstruse = map.get(abstruseName);
-		ModelResourceLocation spectralName = new ModelResourceLocation(prefix("spectral_platform"), "");
-		BakedModel spectral = map.get(spectralName);
-		ModelResourceLocation infrangibleName = new ModelResourceLocation(prefix("infrangible_platform"), "");
-		BakedModel infrangible = map.get(infrangibleName);
-
-		map.put(abstruseName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(abstruse));
-		map.put(spectralName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(spectral));
-		map.put(infrangibleName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(infrangible));
-
-		// Tiny Potato
-		ModelResourceLocation tinyPotato = new ModelResourceLocation(prefix("tiny_potato"), "inventory");
-		BakedModel originalPotato = map.get(tinyPotato);
-		map.put(tinyPotato, new TinyPotatoModel(originalPotato));
-
-		CorporeaCrystalCubeBlockEntityRenderer.cubeModel = map.get(prefix("block/corporea_crystal_cube_glass"));
-		ManaPumpBlockEntityRenderer.headModel = map.get(prefix("block/pump_head"));
-
-		// Spreader cores, paddings and scaffoldings
-		elvenSpreaderCore = map.get(prefix("block/elven_spreader_core"));
-		gaiaSpreaderCore = map.get(prefix("block/gaia_spreader_core"));
-		manaSpreaderCore = map.get(prefix("block/mana_spreader_core"));
-		redstoneSpreaderCore = map.get(prefix("block/redstone_spreader_core"));
-		manaSpreaderScaffolding = map.get(prefix("block/mana_spreader_scaffolding"));
-		elvenSpreaderScaffolding = map.get(prefix("block/elven_spreader_scaffolding"));
-		gaiaSpreaderScaffolding = map.get(prefix("block/gaia_spreader_scaffolding"));
-		for (DyeColor color : DyeColor.values()) {
-			spreaderPaddings.put(color, map.get(prefix("block/" + color.getName() + "_spreader_padding")));
-		}
-
-		// Icons
-		goldfishModel = map.get(prefix("icon/goldfish"));
-		phiFlowerModel = map.get(prefix("icon/phiflower"));
-		nerfBatModel = map.get(prefix("icon/nerfbat"));
-		bloodPendantChain = map.get(prefix("icon/blood_pendant_chain"));
-		bloodPendantGem = map.get(prefix("icon/blood_pendant_gem"));
-		for (int i = 0; i < KeyOfTheKingsLawItem.WEAPON_TYPES; i++) {
-			kingKeyWeaponModels[i] = map.get(prefix("icon/gate_weapon_" + i));
-		}
-		terrasteelHelmWillModel = map.get(prefix("icon/will_flame"));
-		for (int i = 0; i < thirdEyeLayers.length; i++) {
-			thirdEyeLayers[i] = map.get(prefix("icon/third_eye_" + i));
-		}
-		pyroclastGem = map.get(prefix("icon/lava_pendant_gem"));
-		crimsonGem = map.get(prefix("icon/super_lava_pendant_gem"));
-		itemFinderGem = map.get(prefix("icon/itemfinder_gem"));
-
-		cirrusGem = map.get(prefix("icon/cloud_pendant_gem"));
-		nimbusGem = map.get(prefix("icon/super_cloud_pendant_gem"));
-		snowflakePendantGem = map.get(prefix("icon/ice_pendant_gem"));
-		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			tiaraWingIcons[i] = map.get(prefix("icon/tiara_wing_" + (i + 1)));
-		}
+		afterBakeModifiers.forEach((resourceLocation, afterBakeModifier) -> map.computeIfPresent(resourceLocation, (resourceLoc, bakedModel) -> afterBakeModifier.apply(bakedModel)));
+		modelConsumers.forEach((resourceLocation, bakedModelConsumer) -> bakedModelConsumer.accept(map.get(resourceLocation)));
 	}
 
-	private MiscellaneousModels() {}
+	public BakedModel modifyModelAfterbake(BakedModel bakedModel, ResourceLocation id) {
+		modelConsumers.getOrDefault(id, model -> {}).accept(bakedModel);
+		return afterBakeModifiers.getOrDefault(id, Function.identity()).apply(bakedModel);
+	}
+
+	private MiscellaneousModels() {
+		afterBakeModifiers = new HashMap<>();
+		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_ABSTRUSE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_SPECTRAL, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_INFRANGIBLE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.TINY_POTATO, "inventory"), TinyPotatoModel::new);
+
+		modelConsumers = new HashMap<>();
+		modelConsumers.put(elvenSpreaderCoreId, bakedModel -> this.elvenSpreaderCore = bakedModel);
+		modelConsumers.put(gaiaSpreaderCoreId, bakedModel -> this.gaiaSpreaderCore = bakedModel);
+		modelConsumers.put(manaSpreaderCoreId, bakedModel -> this.manaSpreaderCore = bakedModel);
+		modelConsumers.put(redstoneSpreaderCoreId, bakedModel -> this.redstoneSpreaderCore = bakedModel);
+		modelConsumers.put(manaSpreaderScaffoldingId, bakedModel -> this.manaSpreaderScaffolding = bakedModel);
+		modelConsumers.put(elvenSpreaderScaffoldingId, bakedModel -> this.elvenSpreaderScaffolding = bakedModel);
+		modelConsumers.put(gaiaSpreaderScaffoldingId, bakedModel -> this.gaiaSpreaderScaffolding = bakedModel);
+		for (var color : spreaderPaddingIds.keySet()) {
+			modelConsumers.put(spreaderPaddingIds.get(color), bakedModel -> spreaderPaddings.put(color, bakedModel));
+		}
+
+		modelConsumers.put(corporeaCrystalCubeGlassId, bakedModel -> CorporeaCrystalCubeBlockEntityRenderer.cubeModel = bakedModel);
+		modelConsumers.put(manaPumpHead, bakedModel -> ManaPumpBlockEntityRenderer.headModel = bakedModel);
+
+		modelConsumers.put(goldfishModelId, bakedModel -> this.goldfishModel = bakedModel);
+		modelConsumers.put(phiFlowerModelId, bakedModel -> this.phiFlowerModel = bakedModel);
+		modelConsumers.put(nerfBatModelId, bakedModel -> this.nerfBatModel = bakedModel);
+		modelConsumers.put(bloodPendantChainId, bakedModel -> this.bloodPendantChain = bakedModel);
+		modelConsumers.put(bloodPendantGemId, bakedModel -> this.bloodPendantGem = bakedModel);
+		modelConsumers.put(terrasteelHelmWillModelId, bakedModel -> this.terrasteelHelmWillModel = bakedModel);
+		modelConsumers.put(pyroclastGemId, bakedModel -> this.pyroclastGem = bakedModel);
+		modelConsumers.put(crimsonGemId, bakedModel -> this.crimsonGem = bakedModel);
+		modelConsumers.put(itemFinderGemId, bakedModel -> this.itemFinderGem = bakedModel);
+		modelConsumers.put(cirrusGemId, bakedModel -> this.cirrusGem = bakedModel);
+		modelConsumers.put(nimbusGemId, bakedModel -> this.nimbusGem = bakedModel);
+		modelConsumers.put(snowflakePendantGemId, bakedModel -> this.snowflakePendantGem = bakedModel);
+
+		kingKeyWeaponModels = getBakedModels(modelConsumers, kingKeyWeaponModelIds);
+		thirdEyeLayers = getBakedModels(modelConsumers, thirdEyeLayerIds);
+		tiaraWingIcons = getBakedModels(modelConsumers, tiaraWingIconIds);
+	}
+
+	private static BakedModel[] getBakedModels(Map<ResourceLocation, Consumer<BakedModel>> consumers, ResourceLocation[] ids) {
+		final BakedModel[] bakedModels = new BakedModel[ids.length];
+		for (int i = 0; i < ids.length; i++) {
+			int index = i;
+			consumers.put(ids[index], bakedModel -> bakedModels[index] = bakedModel);
+		}
+		return bakedModels;
+	}
 }

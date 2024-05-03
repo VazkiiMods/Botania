@@ -63,11 +63,14 @@ public class ThirdEyeItem extends BaubleItem {
 	}
 
 	public static class Renderer implements AccessoryRenderer {
+
+		public static final int NUM_LAYERS = 3;
+
 		@Override
 		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 			boolean armor = !living.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
 
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < NUM_LAYERS; i++) {
 				ms.pushPose();
 				bipedModel.body.translateAndRotate(ms);
 
