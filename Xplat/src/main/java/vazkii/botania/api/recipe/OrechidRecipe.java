@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +32,10 @@ public interface OrechidRecipe extends Recipe<Container> {
 
 	/** Output to display in recipes and to be used by default. */
 	StateIngredient getOutput();
+
+	@NotNull
+	@Override
+	RecipeType<? extends OrechidRecipe> getType();
 
 	/** Location-sensitive output, called with the position of the block to convert. */
 	default StateIngredient getOutput(@NotNull Level level, @NotNull BlockPos pos) {

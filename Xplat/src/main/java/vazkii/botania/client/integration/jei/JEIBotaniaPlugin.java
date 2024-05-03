@@ -164,8 +164,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	};
 
 	private static <T extends Recipe<C>, C extends Container> List<T> sortRecipes(RecipeType<T> type, Comparator<? super T> comparator) {
-		@SuppressWarnings("unchecked")
-		Collection<T> recipes = (Collection<T>) BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type).values();
+		Collection<T> recipes = BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type).values();
 		List<T> list = new ArrayList<>(recipes);
 		list.sort(comparator);
 		return list;

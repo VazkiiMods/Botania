@@ -83,7 +83,6 @@ public class ForgeClientInitializer {
 				(gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
 	}
 
-	@SuppressWarnings("removal")
 	@SubscribeEvent
 	public static void clientInit(FMLClientSetupEvent evt) {
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);

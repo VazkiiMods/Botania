@@ -35,8 +35,7 @@ public class PollinateGoalMixin {
 	 * 
 	 * @see BeeMixin
 	 */
-	@SuppressWarnings("target")
-	@Inject(method = "<init>(Lnet/minecraft/world/entity/animal/Bee;)V", at = @At("TAIL"))
+	@Inject(method = "<init>", at = @At("TAIL"))
 	private void extendPredicate(Bee outer, CallbackInfo ci) {
 		VALID_POLLINATION_BLOCKS = VALID_POLLINATION_BLOCKS.or(b -> b.is(BotaniaTags.Blocks.SPECIAL_FLOWERS));
 	}
