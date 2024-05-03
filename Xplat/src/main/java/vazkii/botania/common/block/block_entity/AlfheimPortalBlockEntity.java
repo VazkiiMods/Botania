@@ -267,12 +267,11 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public static Collection<ElvenTradeRecipe> elvenTradeRecipes(Level world) {
 		// By virtue of IRecipeType's type parameter,
 		// we know all the recipes in the map must be ElvenTradeRecipe.
 		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
-		return (Collection<ElvenTradeRecipe>) (Collection<?>) BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.ELVEN_TRADE_TYPE).values();
+		return BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.ELVEN_TRADE_TYPE).values();
 	}
 
 	private void resolveRecipes() {

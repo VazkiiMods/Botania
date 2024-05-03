@@ -8,6 +8,8 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.BotaniaDamageTypes;
 import vazkii.botania.common.lib.BotaniaTags;
 
@@ -21,21 +23,19 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	protected void addTags(HolderLookup.Provider provider) {
+	protected void addTags(@NotNull HolderLookup.Provider provider) {
 		this.tag(DamageTypeTags.IS_FIRE);
-		this.tag(BotaniaTags.DamageTypes.RING_OF_ODIN_IMMUNE).add(
-				DamageTypes.DROWN,
-				DamageTypes.FALL,
-				DamageTypes.IN_WALL,
-				DamageTypes.STARVE,
-				DamageTypes.FLY_INTO_WALL
-		).addTag(DamageTypeTags.IS_FIRE);
+		this.tag(BotaniaTags.DamageTypes.RING_OF_ODIN_IMMUNE)
+				.add(DamageTypes.DROWN)
+				.add(DamageTypes.FALL)
+				.add(DamageTypes.IN_WALL)
+				.add(DamageTypes.STARVE)
+				.add(DamageTypes.FLY_INTO_WALL)
+				.addTag(DamageTypeTags.IS_FIRE);
 
-		this.tag(DamageTypeTags.BYPASSES_ARMOR).add(
-				BotaniaDamageTypes.PLAYER_ATTACK_ARMOR_PIERCING,
-				BotaniaDamageTypes.RELIC_DAMAGE
-		);
+		this.tag(DamageTypeTags.BYPASSES_ARMOR)
+				.add(BotaniaDamageTypes.PLAYER_ATTACK_ARMOR_PIERCING)
+				.add(BotaniaDamageTypes.RELIC_DAMAGE);
 
 		this.tag(DamageTypeTags.BYPASSES_RESISTANCE).add(BotaniaDamageTypes.RELIC_DAMAGE);
 		this.tag(DamageTypeTags.NO_IMPACT).add(BotaniaDamageTypes.RELIC_DAMAGE);

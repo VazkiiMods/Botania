@@ -38,8 +38,7 @@ public class PatchouliUtils {
 	 * If the recipe has no replacement, it will be logged.
 	 */
 	public static <T extends Recipe<C>, C extends Container> T getRecipe(Level level, RecipeType<T> type, ResourceLocation id) {
-		@SuppressWarnings("unchecked")
-		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) BotaniaRecipeTypes.getRecipes(level, type);
+		Map<ResourceLocation, T> map = BotaniaRecipeTypes.getRecipes(level, type);
 		T r = map.get(id);
 		if (r != null) {
 			return r;
@@ -70,8 +69,7 @@ public class PatchouliUtils {
 	 * Get all recipes of the specified type that belong to the specified recipe group.
 	 */
 	public static <T extends Recipe<C>, C extends Container> List<T> getRecipeGroup(RecipeType<T> type, String group) {
-		@SuppressWarnings("unchecked")
-		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
+		Map<ResourceLocation, T> map = BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
 		List<T> list = new ArrayList<>();
 		for (T value : map.values()) {
 			if (group.equals(value.getGroup())) {

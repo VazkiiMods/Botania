@@ -97,7 +97,7 @@ public class BotaniaRecipeTypes {
 		}
 	}
 
-	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, Recipe<C>> getRecipes(Level world, RecipeType<T> type) {
+	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
 		return ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(type);
 	}
 }

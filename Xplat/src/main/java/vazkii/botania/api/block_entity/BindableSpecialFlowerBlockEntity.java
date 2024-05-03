@@ -90,14 +90,13 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public @Nullable T findBindCandidateAt(BlockPos pos) {
 		if (level == null || pos == null) {
 			return null;
 		}
 
 		BlockEntity be = level.getBlockEntity(pos);
-		return be != null && bindClass.isAssignableFrom(be.getClass()) ? (T) be : null;
+		return bindClass.isInstance(be) ? bindClass.cast(be) : null;
 	}
 
 	public @Nullable T findBoundTile() {
