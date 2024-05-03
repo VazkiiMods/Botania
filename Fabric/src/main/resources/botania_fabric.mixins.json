@@ -35,7 +35,6 @@
     "client.GuiGraphicsFabricMixin",
     "client.KeyboardHandlerFabricMixin",
     "client.MinecraftFabricMixin",
-    "client.ModelManagerFabricMixin",
     "client.ParticleEngineFabricMixin"
   ],
   "injectors": {
