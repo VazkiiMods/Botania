@@ -16,11 +16,9 @@ import net.minecraftforge.client.model.data.ModelProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
@@ -57,11 +55,6 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 			// No camo
 			return super.getQuads(state, side, rand, extraData, renderType);
 		} else {
-			// Some people used this to get an invisible block in the past, accommodate that.
-			if (heldState.is(BotaniaBlocks.manaGlass)) {
-				return Collections.emptyList();
-			}
-
 			BakedModel model = Minecraft.getInstance().getBlockRenderer()
 					.getBlockModelShaper().getBlockModel(heldState);
 			return model.getQuads(heldState, side, rand, ModelData.EMPTY, renderType);
