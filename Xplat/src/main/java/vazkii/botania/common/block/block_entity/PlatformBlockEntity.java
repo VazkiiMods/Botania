@@ -121,8 +121,8 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable 
 		}
 	}
 
-	@SoftImplement("RenderAttachmentBlockEntity")
-	public Object getRenderAttachmentData() {
+	@SoftImplement("RenderDataBlockEntity")
+	public Object getRenderData() {
 		return new PlatformData(this);
 	}
 
