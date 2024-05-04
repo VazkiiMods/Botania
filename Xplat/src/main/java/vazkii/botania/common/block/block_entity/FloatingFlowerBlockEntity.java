@@ -58,8 +58,8 @@ public class FloatingFlowerBlockEntity extends BotaniaBlockEntity implements Flo
 		}
 	}
 
-	@SoftImplement("RenderAttachmentBlockEntity")
-	public Object getRenderAttachmentData() {
+	@SoftImplement("RenderDataBlockEntity")
+	public Object getRenderData() {
 		return floatingData.getIslandType();
 	}
 }
