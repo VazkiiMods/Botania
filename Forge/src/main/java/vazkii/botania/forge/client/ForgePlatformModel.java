@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.ChunkRenderTypeSet;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
@@ -58,6 +59,24 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 			BakedModel model = Minecraft.getInstance().getBlockRenderer()
 					.getBlockModelShaper().getBlockModel(heldState);
 			return model.getQuads(heldState, side, rand, ModelData.EMPTY, renderType);
+		}
+	}
+
+	@NotNull
+	@Override
+	public ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData extraData) {
+		var data = extraData.get(PROPERTY);
+		if (!(state.getBlock() instanceof PlatformBlock) || data == null) {
+			return Minecraft.getInstance().getBlockRenderer().getBlockModelShaper()
+					.getModelManager().getMissingModel().getRenderTypes(state, rand, extraData);
+		}
+
+		BlockState heldState = data.state();
+		if (heldState == null) {
+			return super.getRenderTypes(state, rand, extraData);
+		} else {
+			BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getBlockModel(heldState);
+			return model.getRenderTypes(heldState, rand, ModelData.EMPTY);
 		}
 	}
 }
