@@ -25,6 +25,7 @@ and start a new "Upcoming" section.
 * Add: Missing slab recombination recipes for quartz and corporea variants
 * Add: The Lexica Botania can be put into chiseled bookshelves and onto lecterns (Note: reading it from a lectern does not currently grant the advancement)
 * Add: Corporea request key now also works in the EMI item list (it still doesn't work in recipe displays due to technical limitations of the EMI API)
+* Add: All Botania flowers and mushrooms can be put into flower pots
 * Change: Elementium Axe is now treated as a weapon regarding durability damage from attacking things
 * Change: Various Botania blocks finally make noteblocks use the instrument you would likely expect
   * blocks made from Livingwood or Dreamwood (except drums) -> bass
@@ -40,6 +41,7 @@ and start a new "Upcoming" section.
 * Change: Recipe displays for Petal Apothecary and Runic Altar show required reagents (e.g. seeds, livingrock)
 * Change: Recipe display for Terrestrial Agglomeration Plate in EMI looks more like it does on JEI or REI now
 * Change: Phantom ink is now used to hide abstruse and spectral platforms instead of managlass. (zacharybarbanell)
+* Change: Ring of Correction no longer attempts to correct tool right-click usage
 * Fix: Corporea Crystal Cube and Abstruse/Spectral Platform no longer forget their internal state after unloading
 * Fix: Quick-moving (shift+click) Botania pattern items in the loom UI properly puts them in the pattern slot
 * Fix: Animated Torch powers blocks consistently, and properly updates necessary blocks when placed, rotated, or removed
@@ -55,6 +57,11 @@ and start a new "Upcoming" section.
 * Fix: Botania advancement tab and root advancement title
 * Fix: Warp+Bore bursts can now teleport via a force relay without breaking it
 * Fix: Other mods should have fewer issues with broken or doubled loot table evaluation in GoG
+* Fix: Disguising Abstruse or Spectral Platforms works again on Fabric, and some rendering issues with them on Forge were fixed as well
+* Fix: Ring of the Mantle no longer suppresses stronger sources of Haste, or any other Haste sources if the player has no mana
+* Fix: Players or Tiny Potatoes holding (other) Tiny Potatoes uses proper render offsets again
+* Fix: Upgrading Manasteel armor to Terrasteel no longer removes all non-enchantment NBT data (e.g. custom names)
+* Internal: Updated Fabric minimum dependencies to loader 0.15.6 and API 0.92
 * Language updates:
   * ko_kr completed (Tareun3406)
   * uk_ua added (fasero1)
