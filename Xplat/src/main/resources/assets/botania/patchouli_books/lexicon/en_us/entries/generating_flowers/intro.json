@@ -24,6 +24,23 @@
     {
       "type": "text",
       "text": "botania.page.gIntro4"
+    },
+    {
+      "type": "multiblock",
+      "name": "block.botania.potted_endoflame",
+      "multiblock": {
+        "pattern": [
+          ["0"],
+          ["T"]
+        ],
+        "mapping": {
+          "0": "botania:potted_endoflame",
+          "T": "botania:polished_livingrock_slab[type=top]"
+        },
+        "symmetrical": true
+      },
+      "text": "botania.page.gIntroPotted",
+      "enable_visualize": false
     }
   ]
 }

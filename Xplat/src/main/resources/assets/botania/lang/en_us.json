@@ -2401,6 +2401,7 @@
   "botania.page.gIntro2": "These flowers bind to one $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) at a time for $(thing)Mana$(0) output. They'll bind to the nearest spreader present at the time of their placement (or the nearest placed afterward, if none were in range), and must be re-bound to another spreader with a wand in $(thing)Bind Mode$(0), if so desired.",
   "botania.page.gIntro3": "Choosing your first $(thing)Generating Flower$(0) is a pretty simple task; the simplest two choices for any fledgling botanist are the $(l:generating_flowers/endoflame)$(item)Endoflame$(0)$(/l) and the $(l:generating_flowers/hydroangeas)$(item)Hydroangeas$(0)$(/l).$(p)The former uses $(item)Coal$(0) or other fuel sources to generate $(thing)Mana$(0). The latter uses $(item)Water$(0) sources for the same task, but decays after about three days.",
   "botania.page.gIntro4": "Later on, you may wish to branch out to other $(thing)Generating Flora$(0). Flowers that require more complex infrastructure to automate typically produce more $(thing)Mana$(0).",
+  "botania.page.gIntroPotted": "Flowers in flower pots are purely decorative",
 
   "botania.entry.endoflame": "Endoflame",
   "botania.tagline.endoflame": "Mana from fuel",
