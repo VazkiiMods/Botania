@@ -11,21 +11,26 @@ package vazkii.botania.common.item;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.lighting.LightEngine;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.*;
 
@@ -67,7 +72,7 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 	public InteractionResult applySeeds(Level world, BlockPos pos, ItemStack stack) {
 		BlockState state = world.getBlockState(pos);
 
-		if (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK) && type != IslandType.GRASS) {
+		if (state.is(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE) && state != stateForType(type)) {
 			if (!world.isClientSide) {
 				BlockSwapper swapper = addBlockSwapper(world, pos, type);
 				world.setBlockAndUpdate(pos, swapper.stateToSet);
@@ -161,9 +166,14 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 		public static final int RANGE = 3;
 
 		/**
-		 * The range around which a block can spread in a single tick.
+		 * The horizontal range around which a block can spread in a single tick.
 		 */
-		public static final int TICK_RANGE = 1;
+		public static final int TICK_RANGE_HORIZONTAL = 1;
+
+		/**
+		 * The vertical range around which a block can spread in a single tick.
+		 */
+		public static final int TICK_RANGE_VERTICAL = 2;
 
 		private final Level world;
 		private final Random rand;
@@ -197,12 +207,14 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 		 */
 		public boolean tick() {
 			if (++ticksExisted % 20 == 0) {
-				for (BlockPos pos : BlockPos.betweenClosed(startCoords.offset(-RANGE, 0, -RANGE),
-						startCoords.offset(RANGE, 0, RANGE))) {
-					if (world.getBlockState(pos) == stateToSet) {
-						tickBlock(pos);
+				var tickPositions = new ArrayList<BlockPos>();
+				for (BlockPos pos : BlockPos.betweenClosed(startCoords.offset(-RANGE, -RANGE, -RANGE),
+						startCoords.offset(RANGE, RANGE, RANGE))) {
+					if (world.getBlockState(pos) == stateToSet && canPropagate(pos)) {
+						tickPositions.add(pos.immutable());
 					}
 				}
+				tickPositions.forEach(this::tickBlock);
 			}
 
 			// This swapper should exist for 80 ticks
@@ -219,16 +231,15 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 			List<BlockPos> validCoords = new ArrayList<>();
 
 			// Go around this block and aggregate valid blocks.
-			for (int xOffset = -TICK_RANGE; xOffset <= TICK_RANGE; xOffset++) {
-				for (int zOffset = -TICK_RANGE; zOffset <= TICK_RANGE; zOffset++) {
-					// Skip the current block
-					if (xOffset == 0 && zOffset == 0) {
-						continue;
-					}
+			for (BlockPos targetPos : BlockPos.betweenClosed(pos.offset(-TICK_RANGE_HORIZONTAL, -TICK_RANGE_VERTICAL, -TICK_RANGE_HORIZONTAL),
+					pos.offset(TICK_RANGE_HORIZONTAL, TICK_RANGE_VERTICAL, TICK_RANGE_HORIZONTAL))) {
+				// Skip the current block, and any blocks that are already converted
+				if (targetPos.equals(pos) || world.getBlockState(targetPos) == stateToSet) {
+					continue;
+				}
 
-					if (isValidSwapPosition(pos.offset(xOffset, 0, zOffset))) {
-						validCoords.add(pos.offset(xOffset, 0, zOffset));
-					}
+				if (isValidSwapPosition(targetPos)) {
+					validCoords.add(targetPos.immutable());
 				}
 			}
 
@@ -251,16 +262,29 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 		 */
 		public boolean isValidSwapPosition(BlockPos pos) {
 			BlockState state = world.getBlockState(pos);
+			return state.is(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE) && canBeGrass(pos, state);
+		}
 
-			// Valid blocks to spread to are either dirt or grass, and do not
-			// have blocks which block grass growth.
+		// [VanillaCopy] net.minecraft.world.level.block.SpreadingSnowyDirtBlock#canBeGrass
+		private boolean canBeGrass(BlockPos pos, BlockState state) {
+			BlockPos abovePos = pos.above();
+			BlockState aboveState = world.getBlockState(abovePos);
+			if (aboveState.is(Blocks.SNOW) && aboveState.getValue(SnowLayerBlock.LAYERS) == 1) {
+				// single snow layer, okay to spread below that
+				return true;
+			}
+			if (aboveState.getFluidState().getAmount() == 8) {
+				// full-height liquid, don't spread
+				return false;
+			}
+			int lightLevel = LightEngine.getLightBlockInto(world, state, pos, aboveState, abovePos, Direction.UP, aboveState.getLightBlock(world, abovePos));
+			return lightLevel < world.getMaxLightLevel();
+		}
 
-			// See http://minecraft.gamepedia.com/Grass_Block
-			// The major rule is that a block which reduces light
-			// levels by 2 or more blocks grass growth.
-
-			return (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK))
-					&& world.getBlockState(pos.above()).getLightBlock(world, pos.above()) <= 1;
+		// [VanillaCopy] net.minecraft.world.level.block.SpreadingSnowyDirtBlock#canPropagate
+		private boolean canPropagate(BlockPos pos) {
+			BlockPos abovePos = pos.above();
+			return canBeGrass(pos, stateToSet) && !world.getFluidState(abovePos).is(FluidTags.WATER);
 		}
 	}
 
