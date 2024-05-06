@@ -18,6 +18,9 @@ import vazkii.botania.api.mana.ManaItemHandler;
 
 public class RingOfTheMantleItem extends BaubleItem {
 
+	public static final int MANA_COST = 5;
+	public static final int HASTE_AMPLIFIER = 1; // Haste 2
+
 	public RingOfTheMantleItem(Properties props) {
 		super(props);
 	}
@@ -25,28 +28,34 @@ public class RingOfTheMantleItem extends BaubleItem {
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
 		if (entity instanceof Player player && !player.level().isClientSide) {
-			int manaCost = 5;
-			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, player, manaCost, false);
+			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, false);
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {
-				if (player.getEffect(MobEffects.DIG_SPEED) != null) {
-					player.removeEffect(MobEffects.DIG_SPEED);
-				}
-
-				player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, Integer.MAX_VALUE, 1, true, true));
+				onEquipped(stack, player);
 			}
 
 			if (player.attackAnim == 0.25F) {
-				ManaItemHandler.instance().requestManaExact(stack, player, manaCost, true);
+				ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, true);
 			}
+		}
+	}
+
+	@Override
+	public void onEquipped(ItemStack stack, LivingEntity living) {
+		boolean hasMana = living instanceof Player player
+				&& ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, false);
+		MobEffectInstance effect = living.getEffect(MobEffects.DIG_SPEED);
+		if (hasMana && (effect == null || effect.getAmplifier() < HASTE_AMPLIFIER
+				|| effect.getAmplifier() == HASTE_AMPLIFIER && !effect.isInfiniteDuration())) {
+			living.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, MobEffectInstance.INFINITE_DURATION, HASTE_AMPLIFIER, true, true));
 		}
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity living) {
 		MobEffectInstance effect = living.getEffect(MobEffects.DIG_SPEED);
-		if (effect != null && effect.getAmplifier() == 1) {
+		if (effect != null && effect.getAmplifier() == HASTE_AMPLIFIER && effect.isInfiniteDuration()) {
 			living.removeEffect(MobEffects.DIG_SPEED);
 		}
 	}
