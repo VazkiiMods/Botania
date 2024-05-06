@@ -258,6 +258,11 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Block> UNWANDABLE = tag("unwandable");
 
+		/**
+		 * Blocks in this tag can be replaced by the spreading effect of Pasture Seeds and related items.
+		 */
+		public static final TagKey<Block> PASTURE_SEED_REPLACEABLE = tag("pasture_seed_replaceable");
+
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, prefix(name));
 		}
