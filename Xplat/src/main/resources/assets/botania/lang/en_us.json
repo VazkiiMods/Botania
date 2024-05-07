@@ -132,6 +132,9 @@
   "botaniamisc.rannuncarpus.state_sensitive": "Match Exact State",
   "botaniamisc.rannuncarpus.state_insensitive": "Match Block Only",
   "botaniamisc.lokiRingLimitReached": "Selection limit reached",
+  "botaniamisc.loonium.generic_loot": "Generic loot",
+  "botaniamisc.loonium.structure_loot": "Structure loot",
+  "botaniamisc.loonium.custom_loot": "Customized loot",
   "botaniamisc.pollidisiac.feed_adults": "Feeding adult animals",
   "botaniamisc.pollidisiac.feed_babies": "Feeding baby animals",
   "botaniamisc.pollidisiac.feed_all": "Feeding all animals",
@@ -541,6 +544,8 @@
 
   "advancement.botania:tinyPotatoBirthday": "Blessing",
   "advancement.botania:tinyPotatoBirthday.desc": "Celebrate Tiny Potato's Birthday on July 19th",
+  "advancement.botania:allLooniumMobs": "King",
+  "advancement.botania:allLooniumMobs.desc": "Kill one of every Loonium-spawned monster",
 
   "botania.challengelevel.easy": "Easy",
   "botania.challengelevel.normal": "Normal",
@@ -2373,7 +2378,8 @@
 
   "botania.entry.loonium": "Loonium",
   "botania.tagline.loonium": "Conjures dungeon loot",
-  "botania.page.loonium0": "Any adventurer knows that $(thing)Dungeons$(0) can hold valuable goodies. The $(item)Loonium$(0) will, when fed quite a bit of $(thing)Mana$(0), summon these items for said adventurers to collect.$(p)There's a catch, though: each item is held by a monster protecting it. These monsters are extra-strong, but will drop their precious $(thing)dungeon loot$(0) when killed.",
+  "botania.page.loonium0": "Any adventurer knows that the great structures of the world can hold valuable goodies. The $(item)Loonium$(0) will, when fed quite a bit of $(thing)Mana$(0), summon these items for said adventurers to collect.$(p)There's a catch, though: each item is held by a monster protecting it. These monsters are extra-strong, but will drop valuable loot when killed.",
+  "botania.page.looniumStructures": "Ordinarily the Loonium will summon treasure of the sort you would find in a $(thing)Dungeon$(0). However, the Loonium is sensitive to the large structures you can find in the world; if planted in one such structure, it'll instead summon treasure appropriate for its surroundings.$(p)It seems the Loonium is a bit picky, though-- there may be some items that never drop from the monsters it spawns.",
   "botania.page.loonium1": "$(o)I CAN HAZ PHAT LOOTZ$()?",
 
   "botania.entry.daffomill": "Daffomill",
