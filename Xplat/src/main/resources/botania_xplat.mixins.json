@@ -47,6 +47,7 @@
     "RecipeManagerAccessor",
     "RecipeProviderAccessor",
     "ServerLevelMixin",
+    "ServerPlayerGameModeAccessor",
     "ServerPlayerMixin",
     "SpawnPlacementsMixin",
     "StatsAccessor",
