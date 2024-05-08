@@ -1,12 +1,11 @@
 {
-  "type": "minecraft:empty",
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:elder_guardian",
+          "name": "minecraft:entities/elder_guardian",
           "weight": 5
         },
         {

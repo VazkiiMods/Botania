@@ -75,7 +75,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 
 		tables.put(getLootId(BuiltinStructures.ANCIENT_CITY),
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BuiltInLootTables.ANCIENT_CITY).setWeight(4))
+						.add(LootTableReference.lootTableReference(BuiltInLootTables.ANCIENT_CITY).setWeight(9))
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.ANCIENT_CITY_ICE_BOX).setWeight(1))
 				)
 		);
@@ -114,7 +114,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 		tables.put(getLootId(BuiltinStructures.MINESHAFT_MESA), buildDelegateLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
 		tables.put(getLootId(BuiltinStructures.OCEAN_MONUMENT),
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(EntityType.getKey(EntityType.ELDER_GUARDIAN)).setWeight(5))
+						.add(LootTableReference.lootTableReference(EntityType.ELDER_GUARDIAN.getDefaultLootTable()).setWeight(5))
 						// sponge is a player-kill drop and won't be rolled for the elder guardian table by the Loonium
 						.add(LootItem.lootTableItem(Items.WET_SPONGE))
 
@@ -179,7 +179,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 		for (var e : tables.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
 			LootTable.Builder builder = e.getValue();
-			LootTable lootTable = builder.setParamSet(LootContextParamSets.EMPTY).build();
+			LootTable lootTable = builder.setParamSet(LootContextParamSets.ALL_PARAMS).build();
 			JsonElement jsonTree = Deserializers.createLootTableSerializer().create().toJsonTree(lootTable);
 			output.add(DataProvider.saveStable(cache, jsonTree, path));
 		}

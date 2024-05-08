@@ -1,5 +1,4 @@
 {
-  "type": "minecraft:empty",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -7,7 +6,7 @@
         {
           "type": "minecraft:loot_table",
           "name": "minecraft:chests/ancient_city",
-          "weight": 4
+          "weight": 9
         },
         {
           "type": "minecraft:loot_table",
