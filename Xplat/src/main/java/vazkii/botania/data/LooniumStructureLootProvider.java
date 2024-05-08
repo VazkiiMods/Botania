@@ -103,12 +103,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 				)
 		);
 		tables.put(getLootId(BuiltinStructures.FORTRESS), buildDelegateLootTable(BuiltInLootTables.NETHER_BRIDGE));
-		tables.put(getLootId(new ResourceLocation("igloo/bottom")),
-				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BuiltInLootTables.IGLOO_CHEST).setWeight(9))
-						.add(LootItem.lootTableItem(Items.SPLASH_POTION).apply(SetPotionFunction.setPotion(Potions.WEAKNESS)))
-				)
-		);
+		// skipping igloo, because the laboratory piece, which is the only part that has loot, can't be detected reliably
 		tables.put(getLootId(BuiltinStructures.JUNGLE_TEMPLE),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.JUNGLE_TEMPLE).setWeight(9))
