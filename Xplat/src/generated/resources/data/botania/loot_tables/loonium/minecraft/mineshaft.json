@@ -1,12 +1,12 @@
 {
-  "__comment": "Default loot table for Loonium outside any recognized structures",
+  "type": "minecraft:empty",
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/simple_dungeon"
+          "name": "minecraft:chests/abandoned_mineshaft"
         }
       ],
       "rolls": 1.0

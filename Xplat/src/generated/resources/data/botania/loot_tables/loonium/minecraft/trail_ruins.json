@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:empty",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:archaeology/trail_ruins_common",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:archaeology/trail_ruins_rare"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
