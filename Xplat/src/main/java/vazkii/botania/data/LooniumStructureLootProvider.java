@@ -46,11 +46,11 @@ public class LooniumStructureLootProvider implements DataProvider {
 		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables/loonium");
 	}
 
-	private ResourceLocation getLootId(ResourceKey<Structure> structureKey) {
-		return getLootId(structureKey.location());
+	public static ResourceLocation getStructureId(ResourceKey<Structure> structureKey) {
+		return getStructureId(structureKey.location());
 	}
 
-	private ResourceLocation getLootId(ResourceLocation structureId) {
+	public static ResourceLocation getStructureId(ResourceLocation structureId) {
 		return prefix("%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
 	}
 
@@ -71,13 +71,13 @@ public class LooniumStructureLootProvider implements DataProvider {
 		Also, archaeology loot tables need to be handled carefully, due to their limited loot pool options.
 		*/
 
-		tables.put(getLootId(BuiltinStructures.ANCIENT_CITY),
+		tables.put(getStructureId(BuiltinStructures.ANCIENT_CITY),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.ANCIENT_CITY).setWeight(9))
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.ANCIENT_CITY_ICE_BOX).setWeight(1))
 				)
 		);
-		tables.put(getLootId(BuiltinStructures.BASTION_REMNANT),
+		tables.put(getStructureId(BuiltinStructures.BASTION_REMNANT),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.BASTION_BRIDGE).setWeight(1))
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.BASTION_HOGLIN_STABLE).setWeight(1))
@@ -85,8 +85,8 @@ public class LooniumStructureLootProvider implements DataProvider {
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.BASTION_OTHER).setWeight(7))
 				)
 		);
-		tables.put(getLootId(BuiltinStructures.BURIED_TREASURE), buildDelegateLootTable(BuiltInLootTables.BURIED_TREASURE));
-		tables.put(getLootId(BuiltinStructures.DESERT_PYRAMID),
+		tables.put(getStructureId(BuiltinStructures.BURIED_TREASURE), buildDelegateLootTable(BuiltInLootTables.BURIED_TREASURE));
+		tables.put(getStructureId(BuiltinStructures.DESERT_PYRAMID),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.DESERT_PYRAMID).setWeight(37))
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.DESERT_PYRAMID_ARCHAEOLOGY).setWeight(2))
@@ -94,23 +94,23 @@ public class LooniumStructureLootProvider implements DataProvider {
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.DESERT_WELL_ARCHAEOLOGY))
 				)
 		);
-		tables.put(getLootId(BuiltinStructures.END_CITY),
+		tables.put(getStructureId(BuiltinStructures.END_CITY),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.END_CITY_TREASURE).setWeight(49))
 						.add(LootItem.lootTableItem(Items.ELYTRA))
 				)
 		);
-		tables.put(getLootId(BuiltinStructures.FORTRESS), buildDelegateLootTable(BuiltInLootTables.NETHER_BRIDGE));
+		tables.put(getStructureId(BuiltinStructures.FORTRESS), buildDelegateLootTable(BuiltInLootTables.NETHER_BRIDGE));
 		// skipping igloo, because the laboratory piece, which is the only part that has loot, can't be detected reliably
-		tables.put(getLootId(BuiltinStructures.JUNGLE_TEMPLE),
+		tables.put(getStructureId(BuiltinStructures.JUNGLE_TEMPLE),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.JUNGLE_TEMPLE).setWeight(9))
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.JUNGLE_TEMPLE_DISPENSER))
 				)
 		);
-		tables.put(getLootId(BuiltinStructures.MINESHAFT), buildDelegateLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
-		tables.put(getLootId(BuiltinStructures.MINESHAFT_MESA), buildDelegateLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
-		tables.put(getLootId(BuiltinStructures.OCEAN_MONUMENT),
+		tables.put(getStructureId(BuiltinStructures.MINESHAFT), buildDelegateLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
+		tables.put(getStructureId(BuiltinStructures.MINESHAFT_MESA), buildDelegateLootTable(BuiltInLootTables.ABANDONED_MINESHAFT));
+		tables.put(getStructureId(BuiltinStructures.OCEAN_MONUMENT),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(EntityType.ELDER_GUARDIAN.getDefaultLootTable()).setWeight(5))
 						// sponge is a player-kill drop and won't be rolled for the elder guardian table by the Loonium
@@ -118,23 +118,23 @@ public class LooniumStructureLootProvider implements DataProvider {
 
 				)
 		);
-		tables.put(getLootId(BuiltinStructures.OCEAN_RUIN_COLD),
+		tables.put(getStructureId(BuiltinStructures.OCEAN_RUIN_COLD),
 				buildOceanRuinLootTable(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY)
 		);
-		tables.put(getLootId(BuiltinStructures.OCEAN_RUIN_WARM),
+		tables.put(getStructureId(BuiltinStructures.OCEAN_RUIN_WARM),
 				buildOceanRuinLootTable(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY)
 		);
-		tables.put(getLootId(BuiltinStructures.PILLAGER_OUTPOST), buildDelegateLootTable(BuiltInLootTables.PILLAGER_OUTPOST));
-		tables.put(getLootId(BuiltinStructures.RUINED_PORTAL_DESERT), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getLootId(BuiltinStructures.RUINED_PORTAL_JUNGLE), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getLootId(BuiltinStructures.RUINED_PORTAL_MOUNTAIN), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getLootId(BuiltinStructures.RUINED_PORTAL_NETHER), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getLootId(BuiltinStructures.RUINED_PORTAL_OCEAN), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getLootId(BuiltinStructures.RUINED_PORTAL_STANDARD), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getLootId(BuiltinStructures.RUINED_PORTAL_SWAMP), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
-		tables.put(getLootId(BuiltinStructures.SHIPWRECK), buildShipwreckLootTable());
-		tables.put(getLootId(BuiltinStructures.SHIPWRECK_BEACHED), buildShipwreckLootTable());
-		tables.put(getLootId(BuiltinStructures.STRONGHOLD),
+		tables.put(getStructureId(BuiltinStructures.PILLAGER_OUTPOST), buildDelegateLootTable(BuiltInLootTables.PILLAGER_OUTPOST));
+		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_DESERT), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_JUNGLE), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_MOUNTAIN), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_NETHER), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_OCEAN), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_STANDARD), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		tables.put(getStructureId(BuiltinStructures.RUINED_PORTAL_SWAMP), buildDelegateLootTable(BuiltInLootTables.RUINED_PORTAL));
+		tables.put(getStructureId(BuiltinStructures.SHIPWRECK), buildShipwreckLootTable());
+		tables.put(getStructureId(BuiltinStructures.SHIPWRECK_BEACHED), buildShipwreckLootTable());
+		tables.put(getStructureId(BuiltinStructures.STRONGHOLD),
 				// Strongholds generate up to 4 corridor chests, up to 6 crossings, and up to 2 libraries with 1 or 2 chests
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.STRONGHOLD_CORRIDOR).setWeight(4))
@@ -143,7 +143,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 				)
 		);
 		// skipping swamp hut, because it doesn't contain unique loot (could merge witch/cat tables, I guess)
-		tables.put(getLootId(BuiltinStructures.TRAIL_RUINS),
+		tables.put(getStructureId(BuiltinStructures.TRAIL_RUINS),
 				// Trail ruins have 2 common suspicious gravel for the tower top and each road section,
 				// and 6 common plus 3 rare suspicious gravel per building and for the tower bottom.
 				LootTable.lootTable().withPool(LootPool.lootPool()
@@ -151,22 +151,22 @@ public class LooniumStructureLootProvider implements DataProvider {
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE))
 				)
 		);
-		tables.put(getLootId(BuiltinStructures.VILLAGE_PLAINS),
+		tables.put(getStructureId(BuiltinStructures.VILLAGE_PLAINS),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_PLAINS_HOUSE, PLAINS_VILLAGE_LOOT)
 		);
-		tables.put(getLootId(BuiltinStructures.VILLAGE_DESERT),
+		tables.put(getStructureId(BuiltinStructures.VILLAGE_DESERT),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_DESERT_HOUSE, DESERT_VILLAGE_LOOT)
 		);
-		tables.put(getLootId(BuiltinStructures.VILLAGE_SAVANNA),
+		tables.put(getStructureId(BuiltinStructures.VILLAGE_SAVANNA),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_SAVANNA_HOUSE, SAVANNA_VILLAGE_LOOT)
 		);
-		tables.put(getLootId(BuiltinStructures.VILLAGE_SNOWY),
+		tables.put(getStructureId(BuiltinStructures.VILLAGE_SNOWY),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_SNOWY_HOUSE, SNOWY_VILLAGE_LOOT)
 		);
-		tables.put(getLootId(BuiltinStructures.VILLAGE_TAIGA),
+		tables.put(getStructureId(BuiltinStructures.VILLAGE_TAIGA),
 				buildVillageLootTable(BuiltInLootTables.VILLAGE_TAIGA_HOUSE, TAIGA_VILLAGE_LOOT)
 		);
-		tables.put(getLootId(BuiltinStructures.WOODLAND_MANSION),
+		tables.put(getStructureId(BuiltinStructures.WOODLAND_MANSION),
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(BuiltInLootTables.WOODLAND_MANSION).setWeight(99))
 						.add(LootItem.lootTableItem(Items.TOTEM_OF_UNDYING).setWeight(1))
