@@ -8,8 +8,11 @@
  */
 package vazkii.botania.common.block.flower.functional;
 
-import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectBooleanPair;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -196,7 +199,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	private void autodetectStructureLootTables(ServerLevel world) {
 		// structure ID -> whether the position is inside a structure piece (false = only overall bounding box)
-		var detectedStructures = new Object2BooleanOpenHashMap<ResourceLocation>();
+		var detectedStructures = new ArrayList<ObjectBooleanPair<ResourceLocation>>();
 		StructureManager structureManager = world.structureManager();
 		BlockPos pos = getBlockPos();
 		var structures = structureManager.getAllStructuresAt(pos);
@@ -207,7 +210,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				ResourceLocation structureId = world.registryAccess().registryOrThrow(Registries.STRUCTURE).getKey(structure);
 				boolean insidePiece = structureManager.structureHasPieceAt(pos, start);
 				BotaniaAPI.LOGGER.info("Found structure {}, inside piece: {}", structureId, insidePiece);
-				detectedStructures.put(structureId, insidePiece);
+				detectedStructures.add(ObjectBooleanPair.of(structureId, insidePiece));
 			}
 		}
 
@@ -217,12 +220,12 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		var lootTableCandidates = new ArrayList<ResourceLocation>(detectedStructures.size());
-		for (var entry : detectedStructures.object2BooleanEntrySet()) {
+		for (var entry : detectedStructures) {
 			// TODO: grab structure configuration data from registry (assume must be inside a piece for now)
-			if (!entry.getBooleanValue()) {
+			if (!entry.valueBoolean()) {
 				continue;
 			}
-			var structureId = entry.getKey();
+			var structureId = entry.key();
 			var candidateId = prefix("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
 			LootTable lootTable = world.getServer().getLootData().getLootTable(candidateId);
 			if (lootTable != LootTable.EMPTY) {
@@ -234,6 +237,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			BotaniaAPI.LOGGER.info("Using loot tables: {}", lootTableCandidates);
 			lootTables = lootTableCandidates.toArray(ResourceLocation[]::new);
 			setChanged();
+			sync();
 		}
 	}
 
@@ -262,7 +266,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		super.readFromPacketNBT(cmp);
 		if (cmp.contains(TAG_LOOT_TABLE)) {
 			var lootTableString = cmp.getString(TAG_LOOT_TABLE);
-			lootTables = Arrays.stream(cmp.getString(lootTableString).split(","))
+			lootTables = Arrays.stream(lootTableString.split(","))
 					.map(ResourceLocation::new).toArray(ResourceLocation[]::new);
 		}
 	}
@@ -280,6 +284,32 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		var comp = XplatAbstractions.INSTANCE.looniumComponent(living);
 		if (comp != null && !comp.getDrop().isEmpty()) {
 			consumer.accept(comp.getDrop());
+		}
+	}
+
+	public static class WandHud extends BindableFlowerWandHud<LooniumBlockEntity> {
+		public WandHud(LooniumBlockEntity flower) {
+			super(flower);
+		}
+
+		@Override
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+			String attuneType;
+			if (Arrays.equals(flower.lootTables, DEFAULT_LOOT_TABLES)) {
+				attuneType = "generic_drops";
+			} else if (flower.lootTables.length == 1) {
+				attuneType = "structure_drops";
+			} else {
+				attuneType = "multiple_structure_drops";
+			}
+			String attuned = I18n.get("botaniamisc.loonium." + attuneType).formatted(flower.lootTables.length);
+			int filterWidth = mc.font.width(attuned);
+			int filterTextStart = (mc.getWindow().getGuiScaledWidth() - filterWidth) / 2;
+			int halfMinWidth = (filterWidth + 4) / 2;
+			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+
+			super.renderHUD(gui, mc, halfMinWidth, halfMinWidth, 40);
+			gui.drawString(mc.font, attuned, filterTextStart, centerY + 30, flower.getColor());
 		}
 	}
 }
