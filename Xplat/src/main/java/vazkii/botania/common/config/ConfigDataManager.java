@@ -13,6 +13,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
@@ -33,6 +34,7 @@ public class ConfigDataManager implements PreparableReloadListener {
 
 	private final Map<ResourceLocation, LooniumStructureConfiguration> looniumConfigs = new HashMap<>();
 
+	@Nullable
 	public LooniumStructureConfiguration getEffectiveLooniumStructureConfiguration(ResourceLocation id) {
 		LooniumStructureConfiguration configuration = this.looniumConfigs.get(id);
 		return configuration != null ? configuration.getEffectiveConfig(looniumConfigs::get) : null;
@@ -80,6 +82,7 @@ public class ConfigDataManager implements PreparableReloadListener {
 	}
 
 	private void applyLooniumConfig(Map<ResourceLocation, LooniumStructureConfiguration> looniumConfigs) {
+		BotaniaAPI.LOGGER.info("Loaded {} Loonium configurations", looniumConfigs.size());
 		this.looniumConfigs.putAll(looniumConfigs);
 	}
 
