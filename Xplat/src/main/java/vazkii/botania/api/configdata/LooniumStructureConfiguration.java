@@ -20,35 +20,42 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.api.BotaniaAPI;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class LooniumStructureConfiguration {
-	public static final Codec<LooniumStructureConfiguration> CODEC = RecordCodecBuilder.create(
-			instance -> instance.group(
-					ExtraCodecs.POSITIVE_INT.fieldOf("manaCost").forGetter(o -> o.manaCost),
-					StructureSpawnOverride.BoundingBoxType.CODEC.fieldOf("boundingBoxType").forGetter(o -> o.boundingBoxType),
-					WeightedRandomList.codec(MobSpawnData.CODEC).fieldOf("spawnedMobs").forGetter(o -> o.spawnedMobs),
-					Codec.list(MobAttributeModifier.CODEC).fieldOf("attributeModifiers").forGetter(o -> o.attributeModifiers),
-					Codec.list(MobEffectToApply.CODEC).fieldOf("effectsToApply").forGetter(o -> o.effectsToApply)
-			).apply(instance, LooniumStructureConfiguration::new)
-	);
-	public static final Codec<LooniumStructureConfiguration> OPTIONAL_CODEC = RecordCodecBuilder.create(
-			instance -> instance.group(
-					ResourceLocation.CODEC.fieldOf("parent").forGetter(o -> o.parent),
-					ExtraCodecs.POSITIVE_INT.optionalFieldOf("manaCost").forGetter(o -> Optional.ofNullable(o.manaCost)),
-					StructureSpawnOverride.BoundingBoxType.CODEC.optionalFieldOf("boundingBoxType")
-							.forGetter(o -> Optional.ofNullable(o.boundingBoxType)),
-					WeightedRandomList.codec(MobSpawnData.CODEC).optionalFieldOf("spawnedMobs")
-							.forGetter(o -> Optional.ofNullable(o.spawnedMobs)),
-					Codec.list(MobAttributeModifier.CODEC).optionalFieldOf("attributeModifiers")
-							.forGetter(o -> Optional.ofNullable(o.attributeModifiers)),
-					Codec.list(MobEffectToApply.CODEC).optionalFieldOf("effectsToApply")
-							.forGetter(o -> Optional.ofNullable(o.effectsToApply))
-			).apply(instance, LooniumStructureConfiguration::new)
-	);
+	public static final Codec<LooniumStructureConfiguration> CODEC = ExtraCodecs.validate(
+			RecordCodecBuilder.create(
+					instance -> instance.group(
+							ResourceLocation.CODEC.optionalFieldOf("parent")
+									.forGetter(lsc -> Optional.ofNullable(lsc.parent)),
+							ExtraCodecs.POSITIVE_INT.optionalFieldOf("manaCost")
+									.forGetter(lsc -> Optional.ofNullable(lsc.manaCost)),
+							StructureSpawnOverride.BoundingBoxType.CODEC.optionalFieldOf("boundingBoxType")
+									.forGetter(lsc -> Optional.ofNullable(lsc.boundingBoxType)),
+							WeightedRandomList.codec(MobSpawnData.CODEC).optionalFieldOf("spawnedMobs")
+									.forGetter(lsc -> Optional.ofNullable(lsc.spawnedMobs)),
+							Codec.list(MobAttributeModifier.CODEC).optionalFieldOf("attributeModifiers")
+									.forGetter(lsc -> Optional.ofNullable(lsc.attributeModifiers)),
+							Codec.list(MobEffectToApply.CODEC).optionalFieldOf("effectsToApply")
+									.forGetter(lsc -> Optional.ofNullable(lsc.effectsToApply))
+					).apply(instance, LooniumStructureConfiguration::new)
+			), lsc -> {
+				if (lsc.parent == null && (lsc.manaCost == null || lsc.boundingBoxType == null || lsc.spawnedMobs == null)) {
+					return DataResult.error(() -> "Mana cost, bounding box type, and spawned mobs must be specified if there is no parent configuration");
+				}
+				if (lsc.spawnedMobs != null && lsc.spawnedMobs.isEmpty()) {
+					return DataResult.error(() -> "Spawned mobs cannot be empty");
+				}
+				return DataResult.success(lsc);
+			});
+	public static final ResourceLocation DEFAULT_CONFIG_ID = new ResourceLocation(BotaniaAPI.MODID, "default");
 
 	public final Integer manaCost;
 	public final StructureSpawnOverride.BoundingBoxType boundingBoxType;
@@ -74,18 +81,32 @@ public class LooniumStructureConfiguration {
 		this.parent = parent;
 	}
 
-	private LooniumStructureConfiguration(ResourceLocation parent, Optional<Integer> manaCost,
+	private LooniumStructureConfiguration(Optional<ResourceLocation> parent, Optional<Integer> manaCost,
 			Optional<StructureSpawnOverride.BoundingBoxType> boundingBoxType,
 			Optional<WeightedRandomList<MobSpawnData>> spawnedMobs,
 			Optional<List<MobAttributeModifier>> attributeModifiers,
 			Optional<List<MobEffectToApply>> effectsToApply) {
-		this(manaCost.orElse(null), boundingBoxType.orElse(null), spawnedMobs.orElse(null),
-				attributeModifiers.orElse(null), effectsToApply.orElse(null));
+		this(parent.orElse(null), manaCost.orElse(null), boundingBoxType.orElse(null),
+				spawnedMobs.orElse(null), attributeModifiers.orElse(null), effectsToApply.orElse(null));
 	}
 
 	public LooniumStructureConfiguration(ResourceLocation parent,
 			StructureSpawnOverride.BoundingBoxType boundingBoxType) {
 		this(parent, null, boundingBoxType, null, null, null);
+	}
+
+	public LooniumStructureConfiguration getEffectiveConfig(
+			Function<ResourceLocation, LooniumStructureConfiguration> parentSupplier) {
+		if (parent == null) {
+			return this;
+		}
+		var parentConfig = parentSupplier.apply(parent).getEffectiveConfig(parentSupplier);
+
+		return new LooniumStructureConfiguration(manaCost != null ? manaCost : parentConfig.manaCost,
+				boundingBoxType != null ? boundingBoxType : parentConfig.boundingBoxType,
+				spawnedMobs != null ? spawnedMobs : parentConfig.spawnedMobs,
+				attributeModifiers != null ? attributeModifiers : parentConfig.attributeModifiers,
+				effectsToApply != null ? effectsToApply : parentConfig.effectsToApply);
 	}
 
 	public static class MobSpawnData extends WeightedEntry.IntrusiveBase {
@@ -214,6 +235,11 @@ public class LooniumStructureConfiguration {
 
 		private MobEffectToApply(MobEffect effect, Optional<Integer> optionalDuration, Optional<Integer> optionalAmplifier) {
 			this(effect, optionalDuration.orElse(MobEffectInstance.INFINITE_DURATION), optionalAmplifier.orElse(0));
+		}
+
+		@NotNull
+		public MobEffectInstance createMobEffectInstance() {
+			return new MobEffectInstance(effect, duration, amplifier);
 		}
 
 		private Optional<Integer> getOptionalDuration() {

@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.data.LooniumStructureLootProvider.getStructureId;
 
 public class LooniumStructureConfigurationProvider implements DataProvider {
@@ -50,7 +49,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 		CompoundTag chargedCreeperNbt = new CompoundTag();
 		chargedCreeperNbt.putBoolean("powered", true);
 
-		ResourceLocation defaultConfigId = prefix("default");
+		ResourceLocation defaultConfigId = LooniumStructureConfiguration.DEFAULT_CONFIG_ID;
 		configs.put(defaultConfigId, new LooniumStructureConfiguration(
 				35000, StructureSpawnOverride.BoundingBoxType.PIECE,
 				WeightedRandomList.create(
@@ -101,11 +100,8 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 		for (var e : configs.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
 			var config = e.getValue();
-			var jsonTree = (config.parent != null
-					? LooniumStructureConfiguration.OPTIONAL_CODEC
-					: LooniumStructureConfiguration.CODEC)
-							.encodeStart(JsonOps.INSTANCE, config)
-							.getOrThrow(false, BotaniaAPI.LOGGER::error);
+			var jsonTree = LooniumStructureConfiguration.CODEC.encodeStart(JsonOps.INSTANCE, config)
+					.getOrThrow(false, BotaniaAPI.LOGGER::error);
 			output.add(DataProvider.saveStable(cache, jsonTree, path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
