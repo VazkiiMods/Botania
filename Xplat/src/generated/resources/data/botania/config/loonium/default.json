@@ -23,6 +23,7 @@
     }
   ],
   "manaCost": 35000,
+  "maxNearbyMobs": 10,
   "spawnedMobs": [
     {
       "type": "minecraft:enderman",

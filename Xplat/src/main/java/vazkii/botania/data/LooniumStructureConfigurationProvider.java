@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
+import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -51,7 +52,8 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 
 		ResourceLocation defaultConfigId = LooniumStructureConfiguration.DEFAULT_CONFIG_ID;
 		configs.put(defaultConfigId, new LooniumStructureConfiguration(
-				35000, StructureSpawnOverride.BoundingBoxType.PIECE,
+				LooniumBlockEntity.DEFAULT_COST, LooniumBlockEntity.DEFAULT_MAX_NEARBY_MOBS,
+				StructureSpawnOverride.BoundingBoxType.PIECE,
 				WeightedRandomList.create(
 						// weights roughly based on original Loonium mob selection logic
 						new LooniumStructureConfiguration.MobSpawnData(EntityType.ENDERMAN, 40),

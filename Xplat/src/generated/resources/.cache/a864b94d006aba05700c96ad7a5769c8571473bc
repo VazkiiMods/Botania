@@ -1,5 +1,5 @@
 // 1.20.1	Botania/Loonium structure configuration
-79c6634f96360b3aa542841a94f84429f35c5bac data/botania/config/loonium/default.json
+f27da6c6a0976510c1a8c2dc652b4d13eda750b3 data/botania/config/loonium/default.json
 8957828d1e1f4fb2748cb4db623d290b89ab3f79 data/botania/config/loonium/minecraft/ocean_ruin_cold.json
 8957828d1e1f4fb2748cb4db623d290b89ab3f79 data/botania/config/loonium/minecraft/ocean_ruin_warm.json
 8957828d1e1f4fb2748cb4db623d290b89ab3f79 data/botania/config/loonium/minecraft/pillager_outpost.json

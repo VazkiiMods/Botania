@@ -35,6 +35,7 @@ import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
@@ -53,18 +54,21 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
-	private static final int COST = 35000;
+	public static final int DEFAULT_COST = 35000;
+	public static final int DEFAULT_MAX_NEARBY_MOBS = 10;
 	private static final int RANGE = 5;
+	private static final int CHECK_RANGE = 9;
 	private static final String TAG_LOOT_TABLE = "lootTable";
 	private static final String TAG_DETECTED_STRUCTURE = "detectedStructure";
 	private static final String TAG_CONFIG_OVERRIDE = "configOverride";
 	public static final ResourceLocation DEFAULT_LOOT_TABLE = prefix("loonium/default");
 	private static final Supplier<LooniumStructureConfiguration> FALLBACK_CONFIG =
-			Suppliers.memoize(() -> new LooniumStructureConfiguration(COST,
+			Suppliers.memoize(() -> new LooniumStructureConfiguration(DEFAULT_COST, DEFAULT_MAX_NEARBY_MOBS,
 					StructureSpawnOverride.BoundingBoxType.PIECE,
 					WeightedRandomList.create(new LooniumStructureConfiguration.MobSpawnData(EntityType.ZOMBIE, 1)),
 					List.of(), List.of(
@@ -93,10 +97,14 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		if (detectedStructures == null) {
+			// Detection intentionally uses the flower position, not the effective position,
+			// since the latter could change while this detection is only executed once.
 			detectStructure(world);
 		}
 
-		if (redstoneSignal != 0 || ticksExisted % 100 != 0 || world.getDifficulty() == Difficulty.PEACEFUL) {
+		if (redstoneSignal != 0 || ticksExisted % 100 != 0 || world.getDifficulty() == Difficulty.PEACEFUL
+		// so mobs won't spawn in unloaded or border chunks
+				|| !world.isPositionEntityTicking(getEffectivePos())) {
 			return;
 		}
 
@@ -117,6 +125,11 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
+		int numberOfMobsAround = countNearbyMobs(world, pickedConfig);
+		if (numberOfMobsAround >= pickedConfig.maxNearbyMobs) {
+			return;
+		}
+
 		var pickedMobType = pickedConfig.spawnedMobs.getRandom(world.random).orElse(null);
 		if (pickedMobType == null) {
 			return;
@@ -127,6 +140,11 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
+		spawnMob(world, pickedMobType, pickedConfig, stack);
+	}
+
+	private void spawnMob(ServerLevel world, LooniumStructureConfiguration.MobSpawnData pickedMobType,
+			LooniumStructureConfiguration pickedConfig, ItemStack stack) {
 		int bound = RANGE * 2 + 1;
 		int xp = getEffectivePos().getX() - RANGE + world.random.nextInt(bound);
 		int yp = getEffectivePos().getY();
@@ -198,8 +216,14 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		world.addFreshEntity(mob);
 		mob.spawnAnim();
 
-		addMana(-COST);
+		addMana(-DEFAULT_COST);
 		sync();
+	}
+
+	private int countNearbyMobs(ServerLevel world, LooniumStructureConfiguration pickedConfig) {
+		var setOfMobTypes = pickedConfig.spawnedMobs.unwrap().stream().map(msd -> msd.type).collect(Collectors.toSet());
+		return world.getEntitiesOfClass(Mob.class, new AABB(getEffectivePos()).inflate(CHECK_RANGE),
+				m -> setOfMobTypes.contains(m.getType())).size();
 	}
 
 	private static ItemStack pickRandomLootItem(ServerLevel world, LootTable pickedLootTable) {
@@ -319,7 +343,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Override
 	public int getMaxMana() {
-		return COST;
+		return DEFAULT_COST;
 	}
 
 	@Override
@@ -330,6 +354,11 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
+	}
+
+	@Override
+	public RadiusDescriptor getSecondaryRadius() {
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), CHECK_RANGE);
 	}
 
 	@Override

@@ -37,6 +37,8 @@ public class LooniumStructureConfiguration {
 									.forGetter(lsc -> Optional.ofNullable(lsc.parent)),
 							ExtraCodecs.POSITIVE_INT.optionalFieldOf("manaCost")
 									.forGetter(lsc -> Optional.ofNullable(lsc.manaCost)),
+							ExtraCodecs.POSITIVE_INT.optionalFieldOf("maxNearbyMobs")
+									.forGetter(lsc -> Optional.ofNullable(lsc.maxNearbyMobs)),
 							StructureSpawnOverride.BoundingBoxType.CODEC.optionalFieldOf("boundingBoxType")
 									.forGetter(lsc -> Optional.ofNullable(lsc.boundingBoxType)),
 							WeightedRandomList.codec(MobSpawnData.CODEC).optionalFieldOf("spawnedMobs")
@@ -58,22 +60,24 @@ public class LooniumStructureConfiguration {
 	public static final ResourceLocation DEFAULT_CONFIG_ID = new ResourceLocation(BotaniaAPI.MODID, "default");
 
 	public final Integer manaCost;
+	public final Integer maxNearbyMobs;
 	public final StructureSpawnOverride.BoundingBoxType boundingBoxType;
 	public final WeightedRandomList<MobSpawnData> spawnedMobs;
 	public final List<MobAttributeModifier> attributeModifiers;
 	public final List<MobEffectToApply> effectsToApply;
 	public final ResourceLocation parent;
 
-	public LooniumStructureConfiguration(Integer manaCost, StructureSpawnOverride.BoundingBoxType boundingBoxType,
+	public LooniumStructureConfiguration(Integer manaCost, Integer maxNearbyMobs, StructureSpawnOverride.BoundingBoxType boundingBoxType,
 			WeightedRandomList<MobSpawnData> spawnedMobs, List<MobAttributeModifier> attributeModifiers,
 			List<MobEffectToApply> effectsToApply) {
-		this(null, manaCost, boundingBoxType, spawnedMobs, attributeModifiers, effectsToApply);
+		this(null, manaCost, maxNearbyMobs, boundingBoxType, spawnedMobs, attributeModifiers, effectsToApply);
 	}
 
-	public LooniumStructureConfiguration(ResourceLocation parent, @Nullable Integer manaCost,
+	public LooniumStructureConfiguration(ResourceLocation parent, @Nullable Integer manaCost, @Nullable Integer maxNearbyMobs,
 			@Nullable StructureSpawnOverride.BoundingBoxType boundingBoxType, @Nullable WeightedRandomList<MobSpawnData> spawnedMobs,
 			@Nullable List<MobAttributeModifier> attributeModifiers, @Nullable List<MobEffectToApply> effectsToApply) {
 		this.manaCost = manaCost;
+		this.maxNearbyMobs = maxNearbyMobs;
 		this.spawnedMobs = spawnedMobs;
 		this.boundingBoxType = boundingBoxType;
 		this.attributeModifiers = attributeModifiers != null ? ImmutableList.copyOf(attributeModifiers) : null;
@@ -82,17 +86,18 @@ public class LooniumStructureConfiguration {
 	}
 
 	private LooniumStructureConfiguration(Optional<ResourceLocation> parent, Optional<Integer> manaCost,
+			Optional<Integer> maxNearbyMobs,
 			Optional<StructureSpawnOverride.BoundingBoxType> boundingBoxType,
 			Optional<WeightedRandomList<MobSpawnData>> spawnedMobs,
 			Optional<List<MobAttributeModifier>> attributeModifiers,
 			Optional<List<MobEffectToApply>> effectsToApply) {
-		this(parent.orElse(null), manaCost.orElse(null), boundingBoxType.orElse(null),
+		this(parent.orElse(null), manaCost.orElse(null), maxNearbyMobs.orElse(null), boundingBoxType.orElse(null),
 				spawnedMobs.orElse(null), attributeModifiers.orElse(null), effectsToApply.orElse(null));
 	}
 
 	public LooniumStructureConfiguration(ResourceLocation parent,
 			StructureSpawnOverride.BoundingBoxType boundingBoxType) {
-		this(parent, null, boundingBoxType, null, null, null);
+		this(parent, null, null, boundingBoxType, null, null, null);
 	}
 
 	public LooniumStructureConfiguration getEffectiveConfig(
@@ -103,6 +108,7 @@ public class LooniumStructureConfiguration {
 		var parentConfig = parentSupplier.apply(parent).getEffectiveConfig(parentSupplier);
 
 		return new LooniumStructureConfiguration(manaCost != null ? manaCost : parentConfig.manaCost,
+				maxNearbyMobs != null ? maxNearbyMobs : parentConfig.maxNearbyMobs,
 				boundingBoxType != null ? boundingBoxType : parentConfig.boundingBoxType,
 				spawnedMobs != null ? spawnedMobs : parentConfig.spawnedMobs,
 				attributeModifiers != null ? attributeModifiers : parentConfig.attributeModifiers,
