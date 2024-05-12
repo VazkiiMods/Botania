@@ -29,6 +29,7 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemWithBannerPattern;
 import vazkii.botania.common.lib.BotaniaTags;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -39,26 +40,9 @@ public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPatt
 					+ "^v[ao]{1,2}[sz]{0,2}[ak]{1,2}(i){1,2}l{0,2}$",
 			Pattern.CASE_INSENSITIVE
 	);
+	private static final List<String> ENCHANTMENT_NAMES = List.of("enchanted", "glowy", "shiny", "gay");
 
-	private static final String[] NOT_MY_NAME = {
-			"Six letter word just to get me along",
-			"It's a intricacy and I'm coding on my mod and I,",
-			"I keep fixin', and keepin' it together",
-			"People around gotta find something to play now",
-			"Holding back, every mod's the same",
-			"Don't wanna be a loser",
-			"Listen to me, oh no, I don't break anything at all",
-			"But with nothing to consider they forget my name",
-			"'ame, 'ame, 'ame",
-			"They call me Vaskii",
-			"They call me Vazki",
-			"They call me Voskii",
-			"They call me Vazkki",
-			"That's not my name",
-			"That's not my name",
-			"That's not my name",
-			"That's not my name"
-	};
+	private static final int NOT_MY_NAME = 17;
 
 	private static final String TAG_TICKS = "notMyNameTicks";
 
@@ -76,8 +60,10 @@ public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPatt
 		if (!world.isClientSide && e instanceof Player player && e.tickCount % 30 == 0
 				&& TYPOS.matcher(stack.getHoverName().getString()).matches()) {
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
-			if (ticks < NOT_MY_NAME.length) {
-				player.sendSystemMessage(Component.literal(NOT_MY_NAME[ticks]).withStyle(ChatFormatting.RED));
+			if (ticks < NOT_MY_NAME) {
+				player.sendSystemMessage(Component
+						.translatable("botania.tater.you_came_to_the_wrong_neighborhood." + ticks)
+						.withStyle(ChatFormatting.RED));
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}
 		}

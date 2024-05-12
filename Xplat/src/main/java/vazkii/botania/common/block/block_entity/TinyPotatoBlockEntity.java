@@ -46,11 +46,14 @@ import vazkii.botania.common.block.decor.TinyPotatoBlock;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
+import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -59,6 +62,39 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	private static final boolean IS_BIRTHDAY = isTinyPotatoBirthday();
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
+	private static final Map<String, String> GENDER = new HashMap<>(Map.ofEntries(
+			Map.entry("girlstater", "daughter"),
+			Map.entry("lesbiabtater", "daughter"),
+			Map.entry("lesbiamtater", "daughter"),
+			Map.entry("lesbiantater", "daughter"),
+			Map.entry("lesbitater", "daughter"),
+			Map.entry("lessbientater", "daughter"),
+
+			Map.entry("agendertater", "child"),
+			Map.entry("enbytater", "child"),
+			Map.entry("nbtater", "child"),
+			Map.entry("nonbinarytater", "child"),
+			Map.entry("robotater", "child"),
+			Map.entry("wiretater", "child"),
+			Map.entry("eutrotater", "child"),
+			Map.entry("bob", "child"),
+			Map.entry("snences", "child"),
+
+			Map.entry("genderfluidtater", "child"),
+			Map.entry("taterfluid", "child"),
+			Map.entry("eggtater", "child"),
+			Map.entry("tategg", "child"),
+			Map.entry("transtater", "child"),
+
+			Map.entry("manytater", "children"),
+			Map.entry("pluraltater", "children"),
+			Map.entry("snorps", "children"),
+			Map.entry("systater", "children"),
+			Map.entry("systemtater", "children"),
+
+			// The best gender
+			Map.entry("tomater", "tomato")
+	));
 
 	public int jumpTicks = 0;
 	public Component name = Component.literal("");
@@ -95,11 +131,28 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 				level.playSound(null, worldPosition, BotaniaSounds.doit, SoundSource.BLOCKS, 1F, 1F);
 			}
 
-			for (int i = 0; i < inventorySize(); i++) {
-				var son = getItemHandler().getItem(i);
-				if (!son.isEmpty() && son.is(BotaniaBlocks.tinyPotato.asItem())) {
-					player.sendSystemMessage(Component.literal("Don't talk to me or my son ever again."));
-					return;
+			ItemStack tater = ItemStack.EMPTY;
+			boolean manyTater = false;
+			for (int i = 0; i < getContainerSize(); i++) {
+				ItemStack otherStack = getItem(i);
+				if (!otherStack.isEmpty() && otherStack.is(BotaniaBlocks.tinyPotato.asItem())) {
+					if (tater.isEmpty()) {
+						tater = otherStack;
+					} else {
+						manyTater = true;
+						break;
+					}
+				}
+			}
+			if (!tater.isEmpty()) {
+				String taterGender = manyTater ? "children" : "son";
+				if (!manyTater && tater.hasCustomHoverName()) {
+					StringBuilder childNameBuilder = new StringBuilder();
+					TinyPotatoBlockItem.isEnchantedName(tater.getHoverName(), childNameBuilder);
+					taterGender = GENDER.getOrDefault(childNameBuilder.toString(), taterGender);
+				}
+				if (player instanceof ServerPlayer serverPlayer) {
+					serverPlayer.sendSystemMessage(Component.translatable("botania.tater.my_" + taterGender), true);
 				}
 			}
 
