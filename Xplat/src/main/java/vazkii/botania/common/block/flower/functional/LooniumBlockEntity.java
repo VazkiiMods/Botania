@@ -198,6 +198,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		LooniumComponent looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(mob);
 		if (looniumComponent != null) {
 			looniumComponent.setDrop(stack);
+			looniumComponent.setSlowDespawn(true);
 		}
 
 		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), MobSpawnType.SPAWNER, null, null);
