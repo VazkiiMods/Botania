@@ -68,16 +68,10 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 
-	private static String removeFromFront(String name, String match) {
-		return name.substring(match.length()).trim();
-	}
-
 	public static BakedModel getModelFromDisplayName(Component displayName) {
-		var name = displayName.getString().trim().toLowerCase(Locale.ROOT);
-		if (TinyPotatoBlockItem.isEnchantedName(displayName)) {
-			name = removeFromFront(name, "enchanted");
-		}
-		return getModel(name);
+		var nameBuilder = new StringBuilder();
+		TinyPotatoBlockItem.isEnchantedName(displayName, nameBuilder);
+		return getModel(nameBuilder.toString().toLowerCase(Locale.ROOT));
 	}
 
 	private static BakedModel getModel(String name) {
@@ -101,18 +95,16 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 	}
 
 	private static String normalizeName(String name) {
-		return ESCAPED.matcher(name).replaceAll("_");
+		return ESCAPED.matcher(name).replaceAll("_").toLowerCase(Locale.ROOT);
 	}
 
 	@Override
 	public void render(@NotNull TinyPotatoBlockEntity potato, float partialTicks, PoseStack ms, @NotNull MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
-		String name = potato.name.getString().toLowerCase(Locale.ROOT).trim();
-		boolean enchanted = TinyPotatoBlockItem.isEnchantedName(potato.name);
-		if (enchanted) {
-			name = removeFromFront(name, "enchanted");
-		}
+		StringBuilder nameBuilder = new StringBuilder();
+		boolean enchanted = TinyPotatoBlockItem.isEnchantedName(potato.name, nameBuilder);
+		String name = nameBuilder.toString().toLowerCase(Locale.ROOT);
 		RenderType layer = Sheets.translucentCullBlockSheet();
 		BakedModel model = getModel(name);
 
@@ -230,39 +222,39 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 			switch (side) {
 				case UP -> {
 					if (mySon) {
-						ms.translate(0F, 0.6F, 0.5F);
+						ms.translate(0F, -0.375F, 0.5F);
 					} else if (block) {
 						ms.translate(0F, 0.3F, 0.5F);
 					}
 					ms.translate(0F, -0.5F, -0.4F);
 				}
 				case DOWN -> {
-					ms.translate(0, -2.3F, -0.88F);
+					ms.translate(0F, -2.3F, -0.88F);
 					if (mySon) {
-						ms.translate(0, .65F, 0.6F);
+						ms.translate(0F, 1.25F, 0.5F);
 					} else if (block) {
-						ms.translate(0, 1, 0.6F);
+						ms.translate(0F, 1F, 0.6F);
 					}
 				}
 				case NORTH -> {
-					ms.translate(0, -1.9F, 0.02F);
+					ms.translate(0F, -1.9F, 0.02F);
 					if (mySon) {
-						ms.translate(0, 1, 0.6F);
+						ms.translate(0F, 0.2F, 0.57F);
 					} else if (block) {
-						ms.translate(0, 1, 0.6F);
+						ms.translate(0F, 1F, 0.6F);
 					}
 				}
 				case SOUTH -> {
-					ms.translate(0, -1.6F, -0.89F);
+					ms.translate(0F, -1.6F, -0.89F);
 					if (mySon) {
-						ms.translate(0, 1.4F, 0.5F);
+						ms.translate(0F, -0.59F, 0.26F);
 					} else if (block) {
-						ms.translate(0, 1.0F, 0.5F);
+						ms.translate(0F, 1F, 0.5F);
 					}
 				}
 				case EAST -> {
 					if (mySon) {
-						ms.translate(-0.4F, 0.65F, 0F);
+						ms.translate(-0.35F, -0.29F, -0.06F);
 					} else if (block) {
 						ms.translate(-0.4F, 0.8F, 0F);
 					} else {
@@ -272,7 +264,14 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				}
 				case WEST -> {
 					if (mySon) {
-						ms.translate(1F, 0.65F, 1F);
+						ms.translate(0.95F, -0.29F, 0.9F);
+						if (stack.hasCustomHoverName()) {
+							var childNameBuilder = new StringBuilder();
+							TinyPotatoBlockItem.isEnchantedName(stack.getHoverName(), childNameBuilder);
+							if (childNameBuilder.toString().equals("kingdaddydmac")) {
+								ms.translate(0.55F, 0, 0);
+							}
+						}
 					} else if (block) {
 						ms.translate(1F, 0.8F, 1F);
 					} else {
@@ -305,7 +304,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 			switch (name) {
 				case "phi", "vazkii" -> {
 					ms.pushPose();
-					ms.translate(-0.15, 0.1, 0.4);
+					ms.translate(-0.08, 0.1, 0.4);
 					ms.mulPose(VecHelper.rotateY(90F));
 					ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(20), 1, 0, 1));
 					renderModel(ms, buffers, light, overlay, MiscellaneousModels.INSTANCE.phiFlowerModel);
@@ -314,7 +313,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 						ms.scale(1.25F, 1.25F, 1.25F);
 						ms.mulPose(VecHelper.rotateX(180F));
 						ms.mulPose(VecHelper.rotateY(-90F));
-						ms.translate(0.2, -1.25, 0);
+						ms.translate(0.2, -1.25, -0.075);
 						renderModel(ms, buffers, light, overlay, MiscellaneousModels.INSTANCE.nerfBatModel);
 					}
 				}
@@ -357,7 +356,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					if (!icon.isEmpty()) {
 						ms.mulPose(VecHelper.rotateX(180));
 						ms.mulPose(VecHelper.rotateY(180));
-						ms.translate(0, -0.75, -0.5);
+						ms.translate(0, -0.78, -0.5);
 						Minecraft.getInstance().getItemRenderer().renderStatic(icon, ItemDisplayContext.HEAD,
 								light, overlay, ms, buffers, potato.getLevel(), 0);
 					}
