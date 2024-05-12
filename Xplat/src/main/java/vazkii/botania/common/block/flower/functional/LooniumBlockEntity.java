@@ -392,9 +392,10 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static void dropLooniumItems(LivingEntity living, Consumer<ItemStack> consumer) {
 		var comp = XplatAbstractions.INSTANCE.looniumComponent(living);
-		if (comp != null && !comp.getDrop().isEmpty()) {
-			consumer.accept(comp.getDrop());
-		}
+		if (comp != null)
+			if (!comp.getDrop().isEmpty() || comp.isDropNothing()) {
+				consumer.accept(comp.getDrop());
+			}
 	}
 
 	public static class WandHud extends BindableFlowerWandHud<LooniumBlockEntity> {

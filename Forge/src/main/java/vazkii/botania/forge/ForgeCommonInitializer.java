@@ -395,9 +395,11 @@ public class ForgeCommonInitializer {
 				});
 				LooniumBlockEntity.dropLooniumItems(living, stack -> {
 					e.getDrops().clear();
-					var ent = new ItemEntity(living.level(), living.getX(), living.getY(), living.getZ(), stack);
-					ent.setDefaultPickUpDelay();
-					e.getDrops().add(ent);
+					if (!stack.isEmpty()) {
+						var ent = new ItemEntity(living.level(), living.getX(), living.getY(), living.getZ(), stack);
+						ent.setDefaultPickUpDelay();
+						e.getDrops().add(ent);
+					}
 				});
 			});
 			bus.addListener((LivingDeathEvent e) -> {
