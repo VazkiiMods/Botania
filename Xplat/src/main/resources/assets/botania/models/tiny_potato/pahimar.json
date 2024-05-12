@@ -1,7 +1,11 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "botania:block/tiny_potato/default"
+  "parent": "botania:tiny_potato/base",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [ -36, 137, 0 ],
+      "translation": [ 1, 3.75, 0 ],
+      "scale": [ 0.40, 0.40, 0.40 ]
+    }
   },
   "elements": [
     {

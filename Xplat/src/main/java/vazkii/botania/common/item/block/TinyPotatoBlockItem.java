@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.ContributorList;
@@ -82,14 +83,34 @@ public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPatt
 		}
 	}
 
-	public static boolean isEnchantedName(@NotNull Component name) {
-		var str = name.getString();
-		return str.equals("enchanted") || str.startsWith("enchanted ");
+	public static boolean isEnchantedName(@NotNull Component name, @Nullable StringBuilder nameBuilder) {
+		String trimmed = name.getString().trim();
+		var nameString = trimmed.toLowerCase(Locale.ROOT);
+		for (var prefix : ENCHANTMENT_NAMES) {
+			if (nameString.equals(prefix) || nameString.startsWith(prefix + " ")) {
+				if (nameBuilder != null) {
+					if (trimmed.length() > prefix.length()) {
+						nameBuilder.append(trimmed, prefix.length() + 1, trimmed.length());
+					} else {
+						nameBuilder.append(trimmed);
+					}
+				}
+				return true;
+			}
+		}
+		if (nameBuilder != null) {
+			nameBuilder.append(trimmed);
+		}
+		return false;
+	}
+
+	public static String removeFromFront(String name, String match) {
+		return name.substring(match.length()).trim();
 	}
 
 	@Override
 	public boolean isFoil(@NotNull ItemStack stack) {
-		return super.isFoil(stack) || isEnchantedName(stack.getHoverName());
+		return super.isFoil(stack) || isEnchantedName(stack.getHoverName(), null);
 	}
 
 	@SoftImplement("IForgeItem")
