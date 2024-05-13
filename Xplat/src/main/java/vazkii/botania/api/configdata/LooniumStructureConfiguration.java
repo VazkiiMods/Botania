@@ -115,6 +115,19 @@ public class LooniumStructureConfiguration {
 				effectsToApply != null ? effectsToApply : parentConfig.effectsToApply);
 	}
 
+	@Override
+	public String toString() {
+		return "LooniumStructureConfiguration{" +
+				"manaCost=" + manaCost +
+				", maxNearbyMobs=" + maxNearbyMobs +
+				", boundingBoxType=" + boundingBoxType +
+				", spawnedMobs=" + (spawnedMobs != null ? spawnedMobs.unwrap() : null) +
+				", attributeModifiers=" + attributeModifiers +
+				", effectsToApply=" + effectsToApply +
+				", parent=" + parent +
+				'}';
+	}
+
 	public static class MobSpawnData extends WeightedEntry.IntrusiveBase {
 		public static final Codec<MobSpawnData> CODEC = RecordCodecBuilder.create(
 				instance -> instance.group(
@@ -158,6 +171,16 @@ public class LooniumStructureConfiguration {
 		private MobSpawnData(EntityType<?> type, Weight weight, Optional<CompoundTag> nbt,
 				Optional<List<MobEffectToApply>> effectsToApply, Optional<List<MobAttributeModifier>> attributeModifiers) {
 			this(type, weight, effectsToApply.orElse(null), attributeModifiers.orElse(null), nbt.orElse(null));
+		}
+
+		@Override
+		public String toString() {
+			return "MobSpawnData{" +
+					"type=" + type +
+					", nbt=" + nbt +
+					", effectsToApply=" + effectsToApply +
+					", attributeModifiers=" + attributeModifiers +
+					'}';
 		}
 	}
 
@@ -204,6 +227,16 @@ public class LooniumStructureConfiguration {
 				case "multiply_total" -> AttributeModifier.Operation.MULTIPLY_TOTAL;
 				default -> throw new JsonSyntaxException("Unknown attribute modifier operation " + operation);
 			};
+		}
+
+		@Override
+		public String toString() {
+			return "MobAttributeModifier{" +
+					"name='" + name + '\'' +
+					", attribute=" + attribute +
+					", amount=" + amount +
+					", operation=" + operation +
+					'}';
 		}
 	}
 
@@ -254,6 +287,15 @@ public class LooniumStructureConfiguration {
 
 		private Optional<Integer> getOptionalAmplifier() {
 			return amplifier > 0 ? Optional.of(amplifier) : Optional.empty();
+		}
+
+		@Override
+		public String toString() {
+			return "MobEffectToApply{" +
+					"effect=" + effect +
+					", duration=" + duration +
+					", amplifier=" + amplifier +
+					'}';
 		}
 	}
 }

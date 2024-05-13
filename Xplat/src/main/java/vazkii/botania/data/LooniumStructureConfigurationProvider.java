@@ -28,8 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.data.LooniumStructureLootProvider.getStructureId;
-
 public class LooniumStructureConfigurationProvider implements DataProvider {
 
 	private final PackOutput.PathProvider pathProvider;
@@ -81,21 +79,21 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 				)
 		));
 
-		configs.put(getStructureId(BuiltinStructures.OCEAN_RUIN_COLD),
+		configs.put(BuiltinStructures.OCEAN_RUIN_COLD.location(),
 				new LooniumStructureConfiguration(defaultConfigId, StructureSpawnOverride.BoundingBoxType.STRUCTURE));
-		configs.put(getStructureId(BuiltinStructures.OCEAN_RUIN_WARM),
+		configs.put(BuiltinStructures.OCEAN_RUIN_WARM.location(),
 				new LooniumStructureConfiguration(defaultConfigId, StructureSpawnOverride.BoundingBoxType.STRUCTURE));
-		configs.put(getStructureId(BuiltinStructures.PILLAGER_OUTPOST),
+		configs.put(BuiltinStructures.PILLAGER_OUTPOST.location(),
 				new LooniumStructureConfiguration(defaultConfigId, StructureSpawnOverride.BoundingBoxType.STRUCTURE));
-		configs.put(getStructureId(BuiltinStructures.VILLAGE_DESERT),
+		configs.put(BuiltinStructures.VILLAGE_DESERT.location(),
 				new LooniumStructureConfiguration(defaultConfigId, StructureSpawnOverride.BoundingBoxType.STRUCTURE));
-		configs.put(getStructureId(BuiltinStructures.VILLAGE_PLAINS),
+		configs.put(BuiltinStructures.VILLAGE_PLAINS.location(),
 				new LooniumStructureConfiguration(defaultConfigId, StructureSpawnOverride.BoundingBoxType.STRUCTURE));
-		configs.put(getStructureId(BuiltinStructures.VILLAGE_SAVANNA),
+		configs.put(BuiltinStructures.VILLAGE_SAVANNA.location(),
 				new LooniumStructureConfiguration(defaultConfigId, StructureSpawnOverride.BoundingBoxType.STRUCTURE));
-		configs.put(getStructureId(BuiltinStructures.VILLAGE_SNOWY),
+		configs.put(BuiltinStructures.VILLAGE_SNOWY.location(),
 				new LooniumStructureConfiguration(defaultConfigId, StructureSpawnOverride.BoundingBoxType.STRUCTURE));
-		configs.put(getStructureId(BuiltinStructures.VILLAGE_TAIGA),
+		configs.put(BuiltinStructures.VILLAGE_TAIGA.location(),
 				new LooniumStructureConfiguration(defaultConfigId, StructureSpawnOverride.BoundingBoxType.STRUCTURE));
 
 		var output = new ArrayList<CompletableFuture<?>>(configs.size());

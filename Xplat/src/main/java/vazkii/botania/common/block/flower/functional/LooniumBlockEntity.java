@@ -110,7 +110,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 		var configData = BotaniaAPI.instance().getConfigData();
 		var structureConfigs = determineStructureConfigs(configData, detectedStructures);
-		var lootTables = determineLootTables(world, detectedStructures.keySet());
+		var lootTables = determineLootTables(world, structureConfigs.keySet());
 
 		if (lootTables.isEmpty()) {
 			return;
@@ -244,6 +244,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			Set<ResourceLocation> structureIds) {
 		var lootTables = new ArrayList<Pair<ResourceLocation, LootTable>>();
 		LootDataManager lootData = world.getServer().getLootData();
+		Supplier<LootTable> defaultLootTableSupplier = Suppliers.memoize(() -> lootData.getLootTable(DEFAULT_LOOT_TABLE));
 		if (lootTableOverride != null) {
 			LootTable lootTable = lootData.getLootTable(lootTableOverride);
 			if (lootTable != LootTable.EMPTY) {
@@ -251,19 +252,25 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 		} else {
 			for (var structureId : structureIds) {
-				var lootTableId = structureId.equals(LooniumStructureConfiguration.DEFAULT_CONFIG_ID)
-						? DEFAULT_LOOT_TABLE
-						: prefix("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
+				if (structureId.equals(LooniumStructureConfiguration.DEFAULT_CONFIG_ID)) {
+					continue;
+				}
+				var lootTableId = prefix("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
 				LootTable lootTable = lootData.getLootTable(lootTableId);
 				if (lootTable != LootTable.EMPTY) {
 					lootTables.add(Pair.of(structureId, lootTable));
+				} else {
+					LootTable defaultLootTable = defaultLootTableSupplier.get();
+					if (defaultLootTable != LootTable.EMPTY) {
+						lootTables.add(Pair.of(structureId, defaultLootTable));
+					}
 				}
 			}
 		}
 		if (lootTables.isEmpty()) {
-			LootTable lootTable = lootData.getLootTable(DEFAULT_LOOT_TABLE);
-			if (lootTable != LootTable.EMPTY) {
-				lootTables.add(Pair.of(LooniumStructureConfiguration.DEFAULT_CONFIG_ID, lootTable));
+			LootTable defaultLootTable = defaultLootTableSupplier.get();
+			if (defaultLootTable != LootTable.EMPTY) {
+				lootTables.add(Pair.of(LooniumStructureConfiguration.DEFAULT_CONFIG_ID, defaultLootTable));
 			}
 		}
 		return lootTables;
@@ -286,16 +293,19 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 					overrideConfig != null ? overrideConfig : getDefaultConfig(configData));
 		}
 
+		var defaultConfig = getDefaultConfig(configData);
 		var structureConfigs = new HashMap<ResourceLocation, LooniumStructureConfiguration>();
 		for (var structureEntry : structures.object2BooleanEntrySet()) {
-			var structureConfig = configData.getEffectiveLooniumStructureConfiguration(structureEntry.getKey());
+			LooniumStructureConfiguration structureSpecificConfig =
+					configData.getEffectiveLooniumStructureConfiguration(structureEntry.getKey());
+			var structureConfig = structureSpecificConfig != null ? structureSpecificConfig : defaultConfig;
 			if (structureConfig != null && (structureEntry.getBooleanValue()
 					|| structureConfig.boundingBoxType == StructureSpawnOverride.BoundingBoxType.STRUCTURE)) {
 				structureConfigs.put(structureEntry.getKey(), structureConfig);
 			}
 		}
 
-		structureConfigs.put(LooniumStructureConfiguration.DEFAULT_CONFIG_ID, getDefaultConfig(configData));
+		structureConfigs.put(LooniumStructureConfiguration.DEFAULT_CONFIG_ID, defaultConfig);
 		return structureConfigs;
 	}
 
