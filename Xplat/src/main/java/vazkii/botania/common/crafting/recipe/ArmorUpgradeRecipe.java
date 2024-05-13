@@ -19,7 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -39,8 +38,8 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 		ItemStack out = super.assemble(inv, registries);
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.getItem() instanceof ArmorItem && stack.hasTag()) {
-				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
+			if (stack.hasTag() && stack.getItem() instanceof ArmorItem) {
+				out.setTag(stack.getTag());
 				break;
 			}
 		}
