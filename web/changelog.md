@@ -18,6 +18,12 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+(Nothing yet)
+
+---
+
+{% include changelog_header.html version="1.20.1-444" %}
+
 * Add: Stonecutting and crafting recipe for livingrock slate (it was previously uncraftable, oops)
 * Add: Motif flowers can be used to make suspicious stew, and are generally recognized as "small flowers"
 * Add: The Spectator also scans the inventories of donkeys, mules, llamas, and allays
