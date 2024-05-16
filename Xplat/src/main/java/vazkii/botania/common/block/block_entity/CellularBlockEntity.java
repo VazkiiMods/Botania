@@ -54,8 +54,10 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	}
 
 	public void claim(DandelifeonBlockEntity flower) {
-		flowerCoords = flower.getEffectivePos();
-		validCoords = getBlockPos();
+		if (!ticked) {
+			flowerCoords = flower.getEffectivePos();
+			validCoords = getBlockPos();
+		}
 	}
 
 	public void update(Level level) {
@@ -63,10 +65,6 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 			level.removeBlock(getBlockPos(), false);
 		}
 		generation = nextGeneration;
-	}
-
-	public boolean isSameFlower(DandelifeonBlockEntity flower) {
-		return validCoords.equals(getBlockPos()) && flowerCoords.equals(flower.getEffectivePos());
 	}
 
 	public boolean hasPoweredParent(Level level) {
