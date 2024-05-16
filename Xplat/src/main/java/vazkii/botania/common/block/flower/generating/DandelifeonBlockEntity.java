@@ -60,15 +60,15 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		if (!getLevel().isClientSide) {
 			if (getLevel().getGameTime() % SPEED == 0 && getLevel().hasNeighborSignal(getBlockPos())) {
 				runSimulation();
-			} else if (getLevel().getGameTime()+1 % SPEED == 0) {
-				diameter = radius * 2 + 1;
+			} else if ((getLevel().getGameTime()+1) % SPEED == 0) {
+				int diameter = radius * 2;
 
-				for (int i = -1; i <= diameter; i++) {
-					for (int j = -1; j <= diameter; j++) {
-						BlockPos pos = getEffectivePosition().offset(-range + i, 0, -range + j);
-						BlockEntity tile = dandie.getLevel().getBlockEntity(pos);
+				for (int i = 0; i <= diameter; i++) {
+					for (int j = 0; j <= diameter; j++) {
+						BlockPos pos = getEffectivePos().offset(-radius + i, 0, -radius + j);
+						BlockEntity tile = getLevel().getBlockEntity(pos);
 						if (tile instanceof CellularBlockEntity) {
-							tile.claim();
+							((CellularBlockEntity)(tile)).claim(this);
 						}
 					}
 				}
