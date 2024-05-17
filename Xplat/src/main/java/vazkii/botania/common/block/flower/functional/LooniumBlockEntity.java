@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.storage.loot.LootDataManager;
@@ -135,16 +136,17 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		ItemStack stack = pickRandomLootItem(world, pickedLootTable);
-		if (stack.isEmpty()) {
-			return;
-		}
-
-		spawnMob(world, pickedMobType, pickedConfig, stack);
+		spawnMob(world, pickedMobType, pickedConfig, pickedLootTable);
 	}
 
 	private void spawnMob(ServerLevel world, LooniumStructureConfiguration.MobSpawnData pickedMobType,
-			LooniumStructureConfiguration pickedConfig, ItemStack stack) {
+			LooniumStructureConfiguration pickedConfig, LootTable pickedLootTable) {
+
+		ItemStack lootStack = pickRandomLootItem(world, pickedLootTable);
+		if (lootStack.isEmpty()) {
+			return;
+		}
+
 		int bound = RANGE * 2 + 1;
 		int xp = getEffectivePos().getX() - RANGE + world.random.nextInt(bound);
 		int yp = getEffectivePos().getY();
@@ -175,8 +177,62 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		mob.absMoveTo(x, y, z, world.random.nextFloat() * 360F, 0);
 		mob.setDeltaMovement(Vec3.ZERO);
 
-		var attributeModifiers = pickedMobType.attributeModifiers != null
-				? pickedMobType.attributeModifiers
+		applyAttributesAndEffects(pickedMobType, pickedConfig, mob);
+
+		LooniumComponent looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(mob);
+		if (looniumComponent != null) {
+			looniumComponent.setDrop(lootStack);
+			looniumComponent.setSlowDespawn(true);
+		}
+
+		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), MobSpawnType.SPAWNER, null, null);
+		// in case the mob spawned with a vehicle or passenger(s), ensure those don't drop unexpected loot
+		mob.getRootVehicle().getPassengersAndSelf().forEach(e -> {
+			if (e instanceof Mob otherMob) {
+				// prevent armor/weapon drops on player kill, also no nautilus shells from drowned:
+				Arrays.stream(EquipmentSlot.values()).forEach(slot -> otherMob.setDropChance(slot, 0));
+				if (e == mob) {
+					return;
+				}
+
+				var mobType = pickedConfig.spawnedMobs.unwrap().stream()
+						.filter(mobSpawnData -> mobSpawnData.type.tryCast(otherMob) != null).findFirst();
+
+				ItemStack bonusLoot;
+				if (mobType.isPresent()) {
+					applyAttributesAndEffects(mobType.get(), pickedConfig, mob);
+					bonusLoot = pickRandomLootItem(world, pickedLootTable);
+				} else {
+					bonusLoot = ItemStack.EMPTY;
+				}
+
+				LooniumComponent otherLooniumComponent = XplatAbstractions.INSTANCE.looniumComponent(otherMob);
+				if (otherLooniumComponent != null) {
+					otherLooniumComponent.setSlowDespawn(true);
+					if (bonusLoot.isEmpty()) {
+						otherLooniumComponent.setDropNothing(true);
+					} else {
+						otherLooniumComponent.setDrop(bonusLoot);
+					}
+				}
+			}
+		});
+
+		if (!world.tryAddFreshEntityWithPassengers(mob)) {
+			return;
+		}
+
+		mob.spawnAnim();
+		world.gameEvent(mob, GameEvent.ENTITY_PLACE, mob.position());
+
+		addMana(-DEFAULT_COST);
+		sync();
+	}
+
+	private static void applyAttributesAndEffects(LooniumStructureConfiguration.MobSpawnData mobSpawnData,
+			LooniumStructureConfiguration pickedConfig, Mob mob) {
+		var attributeModifiers = mobSpawnData.attributeModifiers != null
+				? mobSpawnData.attributeModifiers
 				: pickedConfig.attributeModifiers;
 		for (var attributeModifier : attributeModifiers) {
 			var attribute = mob.getAttribute(attributeModifier.attribute);
@@ -188,37 +244,12 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 		}
 
-		var effectsToApply = pickedMobType.effectsToApply != null
-				? pickedMobType.effectsToApply
+		var effectsToApply = mobSpawnData.effectsToApply != null
+				? mobSpawnData.effectsToApply
 				: pickedConfig.effectsToApply;
 		for (var effectToApply : effectsToApply) {
 			mob.addEffect(effectToApply.createMobEffectInstance());
 		}
-
-		LooniumComponent looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(mob);
-		if (looniumComponent != null) {
-			looniumComponent.setDrop(stack);
-			looniumComponent.setSlowDespawn(true);
-		}
-
-		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), MobSpawnType.SPAWNER, null, null);
-		// in case the mob spawned with a vehicle or passenger(s), ensure those don't drop unexpected loot
-		mob.getRootVehicle().getPassengersAndSelf().forEach(e -> {
-			if (e != mob && e instanceof Mob otherMob) {
-				// prevent armor/weapon drops on player kill, also no nautilus shells from drowned:
-				Arrays.stream(EquipmentSlot.values()).forEach(slot -> otherMob.setDropChance(slot, 0));
-				LooniumComponent otherLooniumComponent = XplatAbstractions.INSTANCE.looniumComponent(otherMob);
-				if (otherLooniumComponent != null) {
-					otherLooniumComponent.setDropNothing(true);
-				}
-			}
-		});
-
-		world.addFreshEntity(mob);
-		mob.spawnAnim();
-
-		addMana(-DEFAULT_COST);
-		sync();
 	}
 
 	private int countNearbyMobs(ServerLevel world, LooniumStructureConfiguration pickedConfig) {
