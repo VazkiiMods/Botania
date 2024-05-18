@@ -21,7 +21,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -45,6 +44,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.configdata.LooniumMobEffectToApply;
+import vazkii.botania.api.configdata.LooniumMobSpawnData;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.config.ConfigDataManager;
@@ -69,14 +70,19 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final String TAG_CONFIG_OVERRIDE = "configOverride";
 	public static final ResourceLocation DEFAULT_LOOT_TABLE = prefix("loonium/default");
 	private static final Supplier<LooniumStructureConfiguration> FALLBACK_CONFIG =
-			Suppliers.memoize(() -> new LooniumStructureConfiguration(DEFAULT_COST, DEFAULT_MAX_NEARBY_MOBS,
-					StructureSpawnOverride.BoundingBoxType.PIECE,
-					WeightedRandomList.create(new LooniumStructureConfiguration.MobSpawnData(EntityType.ZOMBIE, 1)),
-					List.of(), List.of(
-							new LooniumStructureConfiguration.MobEffectToApply(MobEffects.REGENERATION),
-							new LooniumStructureConfiguration.MobEffectToApply(MobEffects.FIRE_RESISTANCE),
-							new LooniumStructureConfiguration.MobEffectToApply(MobEffects.DAMAGE_RESISTANCE),
-							new LooniumStructureConfiguration.MobEffectToApply(MobEffects.DAMAGE_BOOST))));
+			Suppliers.memoize(() -> LooniumStructureConfiguration.builder()
+					.manaCost(DEFAULT_COST)
+					.maxNearbyMobs(DEFAULT_MAX_NEARBY_MOBS)
+					.boundingBoxType(StructureSpawnOverride.BoundingBoxType.PIECE)
+					.spawnedMobs(LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 1).build())
+					.attributeModifiers()
+					.effectsToApply(
+							LooniumMobEffectToApply.effect(MobEffects.REGENERATION).build(),
+							LooniumMobEffectToApply.effect(MobEffects.FIRE_RESISTANCE).build(),
+							LooniumMobEffectToApply.effect(MobEffects.DAMAGE_RESISTANCE).build(),
+							LooniumMobEffectToApply.effect(MobEffects.DAMAGE_BOOST).build()
+					)
+					.build());
 
 	@Nullable
 	private ResourceLocation lootTableOverride;
@@ -139,7 +145,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		spawnMob(world, pickedMobType, pickedConfig, pickedLootTable);
 	}
 
-	private void spawnMob(ServerLevel world, LooniumStructureConfiguration.MobSpawnData pickedMobType,
+	private void spawnMob(ServerLevel world, LooniumMobSpawnData pickedMobType,
 			LooniumStructureConfiguration pickedConfig, LootTable pickedLootTable) {
 
 		ItemStack lootStack = pickRandomLootItem(world, pickedLootTable);
@@ -229,7 +235,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		sync();
 	}
 
-	private static void applyAttributesAndEffects(LooniumStructureConfiguration.MobSpawnData mobSpawnData,
+	private static void applyAttributesAndEffects(LooniumMobSpawnData mobSpawnData,
 			LooniumStructureConfiguration pickedConfig, Mob mob) {
 		var attributeModifiers = mobSpawnData.attributeModifiers != null
 				? mobSpawnData.attributeModifiers
