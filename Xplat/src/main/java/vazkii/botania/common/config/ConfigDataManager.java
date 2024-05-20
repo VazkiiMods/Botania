@@ -102,7 +102,10 @@ public class ConfigDataManager implements PreparableReloadListener {
 			Map<ResourceLocation, JsonElement> resourceMap = new HashMap<>();
 			SimpleJsonResourceReloadListener.scanDirectory(manager, "config/" + type.directory, new Gson(), resourceMap);
 			Map<ResourceLocation, T> configs = new HashMap<>(resourceMap.size());
-			resourceMap.forEach((id, jsonElement) -> type.codec.parse(JsonOps.INSTANCE, jsonElement).result().ifPresent(c -> configs.put(id, c)));
+			resourceMap.forEach((id, jsonElement) -> {
+				BotaniaAPI.LOGGER.info("Parsing {}", id);
+				type.codec.parse(JsonOps.INSTANCE, jsonElement).result().ifPresent(c -> configs.put(id, c));
+			});
 			type.validateFunction.accept(configs);
 			return configs;
 		}, backgroundExecutor)

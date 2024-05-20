@@ -25,7 +25,9 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -35,6 +37,7 @@ import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -51,6 +54,7 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.config.ConfigDataManager;
 import vazkii.botania.common.internal_caps.LooniumComponent;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
@@ -68,7 +72,6 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final String TAG_LOOT_TABLE = "lootTable";
 	private static final String TAG_DETECTED_STRUCTURE = "detectedStructure";
 	private static final String TAG_CONFIG_OVERRIDE = "configOverride";
-	public static final ResourceLocation DEFAULT_LOOT_TABLE = prefix("loonium/default");
 	private static final Supplier<LooniumStructureConfiguration> FALLBACK_CONFIG =
 			Suppliers.memoize(() -> LooniumStructureConfiguration.builder()
 					.manaCost(DEFAULT_COST)
@@ -179,6 +182,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		if (pickedMobType.nbt != null) {
 			mob.readAdditionalSaveData(pickedMobType.nbt);
 		}
+		if (pickedMobType.spawnAsBaby != null) {
+			mob.setBaby(pickedMobType.spawnAsBaby);
+		}
 
 		mob.absMoveTo(x, y, z, world.random.nextFloat() * 360F, 0);
 		mob.setDeltaMovement(Vec3.ZERO);
@@ -192,11 +198,51 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), MobSpawnType.SPAWNER, null, null);
+		if (Boolean.FALSE.equals(pickedMobType.spawnAsBaby) && mob.isBaby()) {
+			// Note: might have already affected initial equipment/attribute selection, or even caused a special
+			// mob configuration (such as chicken jockey) to spawn, which may look weird when reverting to adult.
+			mob.setBaby(false);
+		}
+
+		if (pickedMobType.equipmentTable != null) {
+			LootTable equipmentTable = world.getServer().getLootData().getLootTable(pickedMobType.equipmentTable);
+			if (equipmentTable != LootTable.EMPTY) {
+				var lootParams = new LootParams.Builder(world)
+						.withParameter(LootContextParams.THIS_ENTITY, mob)
+						.withParameter(LootContextParams.ORIGIN, mob.position())
+						// TODO 1.21: replace with LootContextParamSets.EQUIPMENT
+						.create(LootContextParamSets.SELECTOR);
+				var equippedSlots = new HashSet<EquipmentSlot>();
+				equipmentTable.getRandomItems(lootParams, equipmentStack -> {
+					var slot = equipmentStack.is(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
+							? EquipmentSlot.OFFHAND
+							: LivingEntity.getEquipmentSlotForItem(equipmentStack);
+					if (equippedSlots.contains(slot)) {
+						slot = equippedSlots.contains(EquipmentSlot.MAINHAND)
+								&& !(equipmentStack.getItem() instanceof TieredItem)
+										? EquipmentSlot.OFFHAND
+										: EquipmentSlot.MAINHAND;
+					}
+					if (!equippedSlots.add(slot)) {
+						return;
+					}
+					mob.setItemSlot(slot, slot.isArmor() ? equipmentStack.copyWithCount(1) : equipmentStack);
+				});
+			}
+		}
+
 		// in case the mob spawned with a vehicle or passenger(s), ensure those don't drop unexpected loot
 		mob.getRootVehicle().getPassengersAndSelf().forEach(e -> {
 			if (e instanceof Mob otherMob) {
 				// prevent armor/weapon drops on player kill, also no nautilus shells from drowned:
 				Arrays.stream(EquipmentSlot.values()).forEach(slot -> otherMob.setDropChance(slot, 0));
+
+				if (mob instanceof PatrollingMonster patroller && patroller.isPatrolLeader()) {
+					//  Loonium may be presenting challenges, but not that type of challenge
+					patroller.setPatrolLeader(false);
+					patroller.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+				}
+
 				if (e == mob) {
 					return;
 				}
@@ -281,7 +327,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			Set<ResourceLocation> structureIds) {
 		var lootTables = new ArrayList<Pair<ResourceLocation, LootTable>>();
 		LootDataManager lootData = world.getServer().getLootData();
-		Supplier<LootTable> defaultLootTableSupplier = Suppliers.memoize(() -> lootData.getLootTable(DEFAULT_LOOT_TABLE));
+		Supplier<LootTable> defaultLootTableSupplier = Suppliers.memoize(() -> lootData.getLootTable(
+				BotaniaLootTables.LOONIUM_DEFAULT_LOOT));
 		if (lootTableOverride != null) {
 			LootTable lootTable = lootData.getLootTable(lootTableOverride);
 			if (lootTable != LootTable.EMPTY) {
