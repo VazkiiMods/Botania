@@ -274,7 +274,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		world.levelEvent(LevelEvent.PARTICLES_MOBBLOCK_SPAWN, getBlockPos(), 0);
 		world.gameEvent(mob, GameEvent.ENTITY_PLACE, mob.position());
 
-		addMana(-DEFAULT_COST);
+		addMana(-pickedConfig.manaCost);
 		sync();
 	}
 

@@ -11,6 +11,7 @@ import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,10 @@ public class LooniumStructureConfiguration {
 				}
 				if (lsc.spawnedMobs != null && lsc.spawnedMobs.isEmpty()) {
 					return DataResult.error(() -> "Spawned mobs cannot be empty");
+				}
+				if (lsc.manaCost != null && lsc.manaCost > LooniumBlockEntity.DEFAULT_COST) {
+					return DataResult.error(() -> "Mana costs above %d are currently not supported"
+							.formatted(LooniumBlockEntity.DEFAULT_COST));
 				}
 				return DataResult.success(lsc);
 			});
