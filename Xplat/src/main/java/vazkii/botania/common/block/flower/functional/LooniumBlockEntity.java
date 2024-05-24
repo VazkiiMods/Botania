@@ -21,6 +21,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -156,23 +158,17 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		int bound = RANGE * 2 + 1;
-		int xp = getEffectivePos().getX() - RANGE + world.random.nextInt(bound);
-		int yp = getEffectivePos().getY();
-		int zp = getEffectivePos().getZ() - RANGE + world.random.nextInt(bound);
+		RandomSource random = world.random;
+		double x = getEffectivePos().getX() + 0.5 - RANGE + 2 * RANGE * random.nextDouble();
+		double y = getEffectivePos().getY();
+		double z = getEffectivePos().getZ() + 0.5 - RANGE + 2 * RANGE * random.nextDouble();
 
-		BlockPos pos = new BlockPos(xp, yp - 1, zp);
-		do {
-			pos = pos.above();
-			if (pos.getY() >= world.getMaxBuildHeight()) {
+		while (!world.noCollision(pickedMobType.type.getAABB(x, y, z))) {
+			y += 1.0;
+			if (y >= world.getMaxBuildHeight()) {
 				return;
 			}
-		} while (world.getBlockState(pos).isSuffocating(world, pos));
-		pos = pos.above();
-
-		double x = pos.getX() + Math.random();
-		double y = pos.getY() + Math.random();
-		double z = pos.getZ() + Math.random();
+		}
 
 		Entity entity = pickedMobType.type.create(world);
 		if (!(entity instanceof Mob mob)) {
@@ -186,7 +182,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			mob.setBaby(pickedMobType.spawnAsBaby);
 		}
 
-		mob.absMoveTo(x, y, z, world.random.nextFloat() * 360F, 0);
+		mob.absMoveTo(x, y, z, random.nextFloat() * 360F, 0);
 		mob.setDeltaMovement(Vec3.ZERO);
 
 		applyAttributesAndEffects(pickedMobType, pickedConfig, mob);
@@ -197,7 +193,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			looniumComponent.setSlowDespawn(true);
 		}
 
-		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(pos), MobSpawnType.SPAWNER, null, null);
+		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.SPAWNER, null, null);
 		if (Boolean.FALSE.equals(pickedMobType.spawnAsBaby) && mob.isBaby()) {
 			// Note: might have already affected initial equipment/attribute selection, or even caused a special
 			// mob configuration (such as chicken jockey) to spawn, which may look weird when reverting to adult.
@@ -275,6 +271,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		mob.spawnAnim();
+		world.levelEvent(LevelEvent.PARTICLES_MOBBLOCK_SPAWN, getBlockPos(), 0);
 		world.gameEvent(mob, GameEvent.ENTITY_PLACE, mob.position());
 
 		addMana(-DEFAULT_COST);
