@@ -60,6 +60,18 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		if (!getLevel().isClientSide) {
 			if (getLevel().getGameTime() % SPEED == 0 && getLevel().hasNeighborSignal(getBlockPos())) {
 				runSimulation();
+			} else if ((getLevel().getGameTime() + 1) % SPEED == 0) {
+				int diameter = radius * 2;
+
+				for (int i = 0; i <= diameter; i++) {
+					for (int j = 0; j <= diameter; j++) {
+						BlockPos pos = getEffectivePos().offset(-radius + i, 0, -radius + j);
+						BlockEntity tile = getLevel().getBlockEntity(pos);
+						if (tile instanceof CellularBlockEntity) {
+							((CellularBlockEntity) (tile)).claim(this);
+						}
+					}
+				}
 			}
 		}
 	}
@@ -166,15 +178,15 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 			for (int i = -1; i <= diameter; i++) {
 				for (int j = -1; j <= diameter; j++) {
 					BlockPos pos = center.offset(-range + i, 0, -range + j);
-					cells[i + 1][j + 1] = getCellGeneration(pos, dandie);
+					cells[i + 1][j + 1] = getCellGeneration(pos, dandie, onBoundary(i, j));
 				}
 			}
 		}
 
-		private static int getCellGeneration(BlockPos pos, DandelifeonBlockEntity dandie) {
+		private static int getCellGeneration(BlockPos pos, DandelifeonBlockEntity dandie, boolean onBoundary) {
 			BlockEntity tile = dandie.getLevel().getBlockEntity(pos);
 			if (tile instanceof CellularBlockEntity cell) {
-				return cell.isSameFlower(dandie) ? cell.getGeneration() : Cell.boundaryPunish(cell.getGeneration());
+				return onBoundary ? (cell.hasPoweredParent(dandie.getLevel()) ? Cell.boundaryPunish(cell.getGeneration()) : Cell.DEAD) : cell.getGeneration();
 			}
 
 			return Cell.DEAD;
@@ -182,6 +194,10 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 
 		public boolean inBounds(int x, int z) {
 			return x >= 0 && z >= 0 && x < diameter && z < diameter;
+		}
+
+		private boolean onBoundary(int x, int z) {
+			return x == -1 || z == -1 || x == diameter || z == diameter;
 		}
 
 		public int getAdjCells(int x, int z) {
