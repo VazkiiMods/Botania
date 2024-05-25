@@ -9,6 +9,7 @@
 package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -18,22 +19,16 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.render.block_entity.SpecialFlowerBlockEntityRenderer;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.MagicLandmineEntity;
 
 public class MagicLandmineRenderer extends EntityRenderer<MagicLandmineEntity> {
-	private static final double INITIAL_OFFSET = -1.0 / 16 + 0.005;
-	// Global y offset so that overlapping landmines do not Z-fight
-	public static double offY = INITIAL_OFFSET;
 
 	public MagicLandmineRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
-	}
-
-	public static void onWorldRenderLast() {
-		offY = INITIAL_OFFSET;
 	}
 
 	@Override
@@ -47,7 +42,6 @@ public class MagicLandmineRenderer extends EntityRenderer<MagicLandmineEntity> {
 		int r = (int) (105 * gs);
 		int g = (int) (25 * gs);
 		int b = (int) (145 * gs);
-		int color = r << 16 | g << 8 | b;
 
 		int alpha = 32;
 		if (e.tickCount < 8) {
@@ -56,8 +50,16 @@ public class MagicLandmineRenderer extends EntityRenderer<MagicLandmineEntity> {
 			alpha *= Math.min(1F - (e.tickCount - 47 + partialTicks) / 8F, 1F);
 		}
 
-		SpecialFlowerBlockEntityRenderer.renderRectangle(ms, buffers, aabb, false, color, (byte) alpha);
-		offY += 0.001;
+		ms.translate(aabb.minX, aabb.minY + RenderHelper.getOffY(), aabb.minZ);
+
+		float f = 1F / 16F;
+		float x = (float) (aabb.getXsize() - f);
+		float z = (float) (aabb.getZsize() - f);
+
+		VertexConsumer buffer = buffers.getBuffer(RenderHelper.RECTANGLE);
+		Matrix4f mat = ms.last().pose();
+		RenderHelper.flatRectangle(buffer, mat, f, x, 0, f, z, r, g, b, alpha);
+		RenderHelper.incrementOffY();
 		ms.popPose();
 	}
 
