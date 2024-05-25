@@ -87,6 +87,23 @@ public final class RenderHelper extends RenderType {
 
 	private static final int ITEM_AND_PADDING_WIDTH = 20;
 
+	private static final double INITIAL_OFFSET = 0.005;
+	private static final double OFFSET_INCREMENT = 0.001;
+	// Global y offset so that overlapping landmines or radius descriptors do not Z-fight
+	private static double offY = INITIAL_OFFSET;
+
+	public static double getOffY() {
+		return offY;
+	}
+
+	public static void incrementOffY() {
+		offY += OFFSET_INCREMENT;
+	}
+
+	public static void onWorldRenderLast() {
+		offY = INITIAL_OFFSET;
+	}
+
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
 			int bufSize, boolean hasCrumbling, boolean sortOnUpload, CompositeState glState) {
 		return RenderTypeAccessor.create(name, format, mode, bufSize, hasCrumbling, sortOnUpload, glState);
@@ -322,6 +339,15 @@ public final class RenderHelper extends RenderType {
 			vertices.get(i).run();
 			vertices.get(i + 1).run();
 		}
+	}
+
+	public static void flatRectangle(VertexConsumer buffer, Matrix4f mat,
+			float xMin, float xMax, float y, float zMin, float zMax,
+			int r, int g, int b, int a) {
+		buffer.vertex(mat, xMax, y, zMin).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, xMin, y, zMin).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, xMin, y, zMax).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, xMax, y, zMax).color(r, g, b, a).endVertex();
 	}
 
 	public static void renderProgressPie(GuiGraphics gui, int x, int y, float progress, ItemStack stack) {
