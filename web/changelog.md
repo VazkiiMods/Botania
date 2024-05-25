@@ -18,7 +18,9 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-(Nothing yet)
+* Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
+* Fix: Flight bar for Flügel Tiara no longer overlaps with the refilling air bubbles indicator or the mount health bar, if that uses more than one row
+* Fix: The Manaseer Monocle's flower radius indicator no longer jumps around if you are very far from the world origin, and should also not Z-fight with the binding radius indicator of luminizers anymore
 
 ---
 
