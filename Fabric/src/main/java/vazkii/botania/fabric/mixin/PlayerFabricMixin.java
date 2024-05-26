@@ -113,11 +113,6 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 		return SojournersSashItem.onPlayerFall((Player) (Object) this, originalDist);
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;setLastHurtMob(Lnet/minecraft/world/entity/Entity;)V"), method = "attack")
-	private void onAttack(Entity target, CallbackInfo ci) {
-		CharmOfTheDivaItem.onEntityDamaged((Player) (Object) this, target);
-	}
-
 	// Multiply the damage on crit. Targets the first float LOAD after the sprint check for the crit.
 	// Stores the entity for further handling in the common Player mixin.
 	@ModifyVariable(
