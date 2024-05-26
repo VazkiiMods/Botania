@@ -11,19 +11,20 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AirBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.block_entity.FakeAirBlockEntity;
 
-public class FakeAirBlock extends AirBlock implements EntityBlock {
+public class FakeAirBlock extends AirBlock implements EntityBlock, LiquidBlockContainer {
 
 	public FakeAirBlock(Properties builder) {
 		super(builder);
@@ -51,5 +52,15 @@ public class FakeAirBlock extends AirBlock implements EntityBlock {
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new FakeAirBlockEntity(pos, state);
+	}
+
+	@Override
+	public boolean canPlaceLiquid(BlockGetter blockGetter, BlockPos pos, BlockState state, Fluid fluid) {
+		return false;
+	}
+
+	@Override
+	public boolean placeLiquid(LevelAccessor levelAccessor, BlockPos pos, BlockState blockState, FluidState fluidState) {
+		return false;
 	}
 }
