@@ -13,6 +13,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -26,6 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.item.AssemblyHaloItem;
+import vazkii.botania.common.item.equipment.bauble.CharmOfTheDivaItem;
 import vazkii.botania.common.item.equipment.bauble.SojournersSashItem;
 import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
 import vazkii.botania.common.item.rod.ShadedMesaRodItem;
@@ -85,5 +87,12 @@ public abstract class LivingEntityFabricMixin extends Entity {
 	@Inject(at = @At("RETURN"), method = "jumpFromGround")
 	private void onJump(CallbackInfo ci) {
 		SojournersSashItem.onPlayerJump((LivingEntity) (Object) this);
+	}
+
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getDamageAfterArmorAbsorb(Lnet/minecraft/world/damagesource/DamageSource;F)F", ordinal = 0), method = "actuallyHurt")
+	private void onActuallyHurt(DamageSource damageSource, float damageAmount, CallbackInfo ci) {
+		if (damageSource.getDirectEntity() instanceof Player player) {
+			CharmOfTheDivaItem.onEntityDamaged(player, (LivingEntity) (Object) this);
+		}
 	}
 }

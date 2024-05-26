@@ -11,7 +11,6 @@ package vazkii.botania.common.block.flower.functional;
 import com.google.common.base.Predicates;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
@@ -46,56 +45,51 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		@SuppressWarnings("unchecked")
-		List<Enemy> mobs = (List) getLevel().getEntitiesOfClass(Entity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(Enemy.class));
+		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(Enemy.class));
 
 		if (mobs.size() > 1 && getMana() >= COST) {
-			for (Enemy mob : mobs) {
-				if (mob instanceof Mob entity) {
-					if (brainwashEntity(entity, mobs)) {
-						addMana(-COST);
-						sync();
-						break;
-					}
+			for (Mob mob : mobs) {
+				if (brainwashEntity(mob, mobs)) {
+					addMana(-COST);
+					sync();
+					break;
 				}
 			}
 		}
 	}
 
-	public static boolean brainwashEntity(Mob entity, List<Enemy> mobs) {
+	public static boolean brainwashEntity(Mob entity, List<Mob> mobs) {
 		LivingEntity target = entity.getTarget();
 		boolean did = false;
 
 		if (!(target instanceof Enemy)) {
-			Enemy newTarget;
+			Mob newTarget;
 			do {
 				newTarget = mobs.get(entity.level().random.nextInt(mobs.size()));
 			} while (newTarget == entity);
 
-			if (newTarget instanceof Mob mob) {
-				entity.setTarget(null);
+			entity.setTarget(null);
 
-				// Move any HurtByTargetGoal to highest priority
-				GoalSelector targetSelector = ((MobAccessor) entity).getTargetSelector();
-				for (WrappedGoal entry : targetSelector.getAvailableGoals()) {
-					if (entry.getGoal() instanceof HurtByTargetGoal goal) {
-						// Remove all ignorals. We can't actually resize or overwrite
-						// the array, but we can fill it with classes that will never pass
-						// the game logic's checks.
-						var ignoreClasses = ((HurtByTargetGoalAccessor) goal).getIgnoreDamageClasses();
-						Arrays.fill(ignoreClasses, Void.TYPE);
+			// Move any HurtByTargetGoal to highest priority
+			GoalSelector targetSelector = ((MobAccessor) entity).getTargetSelector();
+			for (WrappedGoal entry : targetSelector.getAvailableGoals()) {
+				if (entry.getGoal() instanceof HurtByTargetGoal goal) {
+					// Remove all ignorals. We can't actually resize or overwrite
+					// the array, but we can fill it with classes that will never pass
+					// the game logic's checks.
+					var ignoreClasses = ((HurtByTargetGoalAccessor) goal).getIgnoreDamageClasses();
+					Arrays.fill(ignoreClasses, Void.TYPE);
 
-						// Concurrent modification OK since we break out of the loop
-						targetSelector.removeGoal(goal);
-						targetSelector.addGoal(-1, goal);
-						break;
-					}
+					// Concurrent modification OK since we break out of the loop
+					targetSelector.removeGoal(goal);
+					targetSelector.addGoal(-1, goal);
+					break;
 				}
-
-				// Now set last hurt by, which HurtByTargetGoal will pick up
-				entity.setLastHurtByMob(mob);
-				did = true;
 			}
+
+			// Now set last hurt by, which HurtByTargetGoal will pick up
+			entity.setLastHurtByMob(newTarget);
+			did = true;
 		}
 
 		return did;
