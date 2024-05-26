@@ -78,23 +78,14 @@ public class HornItem extends Item {
 		HornHarvestable harvestable = XplatAbstractions.INSTANCE.findHornHarvestable(level, pos, state, be);
 		if (harvestable != null) {
 			return harvestable.canHornHarvest(level, pos, stack, type, user);
-		} else {
-			switch (type) {
-				default:
-				case WILD:
-					return state.getBlock() instanceof BushBlock && !state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS);
-				case CANOPY: {
-					if (state.getBlock() instanceof LeavesBlock
-							&& state.getValue(LeavesBlock.PERSISTENT)) {
-						return false;
-					}
-
-					return state.is(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE);
-				}
-				case COVERING:
-					return state.is(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE);
-			}
 		}
+		return switch (type) {
+			default -> state.getBlock() instanceof BushBlock && !state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS)
+					|| state.is(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE);
+			case CANOPY -> state.is(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE)
+					&& !(state.getBlock() instanceof LeavesBlock && state.getValue(LeavesBlock.PERSISTENT));
+			case COVERING -> state.is(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE);
+		};
 	}
 
 	public static void breakGrass(Level world, ItemStack stack, BlockPos srcPos, @Nullable LivingEntity user) {
