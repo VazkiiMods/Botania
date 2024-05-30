@@ -2962,7 +2962,7 @@
 
   "botania.entry.smeltRod": "Rod of the Molten Core",
   "botania.tagline.smeltRod": "A rod for smelting blocks",
-  "botania.page.smeltRod0": "The $(item)Rod of the Molten Core$(0) has the ability to focus heat drawn from the world's core. Punching a block in the world that can be smelted into a different block will smelt it into that block.$(p)For example, $(item)Cobblestone$(0) will smelt into $(item)Stone$(0) and then into $(item)Smooth Stone$(0), $(item)Sand$(0) melts into $(item)Glass$(0), and so on.",
+  "botania.page.smeltRod0": "The $(item)Rod of the Molten Core$(0) has the ability to focus heat drawn from the world's core. Punching a block in the world that can be smelted into a different block will smelt it into that block.$(p)For example, $(item)Cobblestone$(0) will smelt into $(item)Stone$(0) and then into $(item)Smooth Stone$(0), $(item)Sand$(0) melts into $(item)Glass$(0), and so on. Furthermore, the rod can be used as a portable furnace by right clicking items onto it in inventory, for the same mana cost",
   "botania.page.smeltRod1": "No raid party required",
 
   "botania.entry.worldSeed": "World Seed",

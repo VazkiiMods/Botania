@@ -12,7 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +23,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
@@ -73,5 +78,25 @@ public class MoltenCoreRodItem extends Item {
 	@Override
 	public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, Player player) {
 		return !player.isCreative();
+	}
+
+	@Override
+	public boolean overrideOtherStackedOnMe(
+			@NotNull ItemStack rod, @NotNull ItemStack toSmelt, @NotNull Slot slot,
+			@NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess cursorAccess) {
+		if (clickAction == ClickAction.SECONDARY && ManaItemHandler.instance().requestManaExactForTool(rod, player, COST * toSmelt.getCount(), false)) {
+			Container dummyInv = new SimpleContainer(1);
+			dummyInv.setItem(0, toSmelt);
+			Level world = player.level();
+			world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, dummyInv, world)
+					.map(r -> r.assemble(dummyInv, world.registryAccess()))
+					.filter(r -> !r.isEmpty())
+					.ifPresent(result -> {
+						cursorAccess.set(result.copyWithCount(toSmelt.getCount()));
+						ManaItemHandler.instance().requestManaExactForTool(rod, player, COST * toSmelt.getCount(), true);
+					});
+			return true;
+		}
+		return false;
 	}
 }
