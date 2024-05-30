@@ -58,9 +58,9 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		super.tickFlower();
 
 		if (!getLevel().isClientSide) {
-			if ((getLevel().getGameTime() % SPEED == 0 || (getLevel().getGameTime() % (SPEED/2) == 0 && overgrowth)) && getLevel().hasNeighborSignal(getBlockPos())) {
+			if ((getLevel().getGameTime() % SPEED == 0 || (getLevel().getGameTime() % (SPEED / 2) == 0 && overgrowth)) && getLevel().hasNeighborSignal(getBlockPos())) {
 				runSimulation();
-			} else if ((getLevel().getGameTime() + 1) % SPEED == 0 || ((getLevel().getGameTime() + 1) % (SPEED/2) == 0 && overgrowth)) {
+			} else if ((getLevel().getGameTime() + 1) % SPEED == 0 || ((getLevel().getGameTime() + 1) % (SPEED / 2) == 0 && overgrowth)) {
 				int diameter = radius * 2;
 
 				for (int i = 0; i <= diameter; i++) {
