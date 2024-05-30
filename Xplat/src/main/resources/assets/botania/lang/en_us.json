@@ -544,6 +544,8 @@
 
   "advancement.botania:tinyPotatoBirthday": "Blessing",
   "advancement.botania:tinyPotatoBirthday.desc": "Celebrate Tiny Potato's Birthday on July 19th",
+  "advancement.botania:allLooniumMobs": "King",
+  "advancement.botania:allLooniumMobs.desc": "Kill one of every Loonium-spawned monster",
 
   "botania.challengelevel.easy": "Easy",
   "botania.challengelevel.normal": "Normal",

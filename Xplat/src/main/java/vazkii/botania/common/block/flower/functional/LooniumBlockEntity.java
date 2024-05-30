@@ -13,12 +13,15 @@ import com.google.common.base.Suppliers;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.*;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -42,6 +45,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.scores.Team;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -88,6 +92,62 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 							LooniumMobEffectToApply.effect(MobEffects.DAMAGE_BOOST).build()
 					)
 					.build());
+
+	// this should never collide with the /team command, since space is not allowed in scoreboard team names
+	public static final String LOONIUM_TEAM_NAME = "Loonium Monsters";
+	public static final Team LOONIUM_TEAM = new Team() {
+		@NotNull
+		@Override
+		public String getName() {
+			return LOONIUM_TEAM_NAME;
+		}
+
+		@NotNull
+		@Override
+		public MutableComponent getFormattedName(Component component) {
+			return component.copy();
+		}
+
+		@Override
+		public boolean canSeeFriendlyInvisibles() {
+			return true;
+		}
+
+		@Override
+		public boolean isAllowFriendlyFire() {
+			return true;
+		}
+
+		@NotNull
+		@Override
+		public Visibility getNameTagVisibility() {
+			return Visibility.ALWAYS;
+		}
+
+		@NotNull
+		@Override
+		public ChatFormatting getColor() {
+			return ChatFormatting.RESET;
+		}
+
+		@NotNull
+		@Override
+		public Collection<String> getPlayers() {
+			return List.of();
+		}
+
+		@NotNull
+		@Override
+		public Visibility getDeathMessageVisibility() {
+			return Visibility.ALWAYS;
+		}
+
+		@NotNull
+		@Override
+		public CollisionRule getCollisionRule() {
+			return CollisionRule.ALWAYS;
+		}
+	};
 
 	@Nullable
 	private ResourceLocation lootTableOverride;
