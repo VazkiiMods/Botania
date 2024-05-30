@@ -25,6 +25,8 @@ and start a new "Upcoming" section.
 * Fix: The Manaseer Monocle's flower radius indicator no longer jumps around if you are very far from the world origin, and should also not Z-fight with the binding radius indicator of luminizers anymore
 * Fix: The air bubble created by Bubbells no longer flickers with inflowing water
 * Fix: Charm of the Diva works on Forge again
+* Fix: Translation key names for potted glimmering flowers were wrong in the English language file
+* Fix: Corporea Index on Fabric no longer ignores chat text sources other than the vanilla chat console, fixing compatibility with e.g. the "Microphone Text Input" mod
 
 ---
 
