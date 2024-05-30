@@ -28,25 +28,22 @@ import vazkii.botania.common.handler.BotaniaSounds;
 public class MoltenCoreRodItem extends Item {
 
 	private static final int COST = 300;
+	private static final long COOLDOWN = 4;
+	private long lastUsedAt = -1;
 
 	public MoltenCoreRodItem(Properties props) {
 		super(props);
 	}
 
 	public InteractionResult onLeftClick(Player p, Level world, InteractionHand hand, BlockPos pos, Direction side) {
-		if (p.isSpectator()) {
+		ItemStack stack = p.getItemInHand(hand);
+		if (p.isSpectator() || stack.isEmpty() || !stack.is(this)) {
 			return InteractionResult.PASS;
 		}
-		ItemStack stack = p.getItemInHand(hand);
-		if (stack.isEmpty() || !stack.is(this)) {
-			return InteractionResult.PASS;
+		if (!ManaItemHandler.instance().requestManaExactForTool(stack, p, COST, false) || lastUsedAt + COOLDOWN > world.getGameTime()) {
+			return InteractionResult.SUCCESS;
 		}
 		Container dummyInv = new SimpleContainer(1);
-
-		if (!ManaItemHandler.instance().requestManaExactForTool(stack, p, COST, false)) {
-			return InteractionResult.PASS;
-		}
-
 		BlockState state = world.getBlockState(pos);
 
 		dummyInv.setItem(0, new ItemStack(state.getBlock()));
@@ -60,8 +57,8 @@ public class MoltenCoreRodItem extends Item {
 						world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.smeltRod2, SoundSource.PLAYERS, 1F, 1F);
 
 						ManaItemHandler.instance().requestManaExactForTool(stack, p, COST, true);
+						lastUsedAt = world.getGameTime();
 					}
-
 					WispParticleData data1 = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
 					for (int i = 0; i < 25; i++) {
 						double x = pos.getX() + Math.random();
