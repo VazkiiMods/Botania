@@ -30,7 +30,7 @@
     "client.AbstractTextureFabricMixin",
     "client.BlockModelDeserializerFabricMixin",
     "client.BossHealthOverlayFabricMixin",
-    "client.ChatScreenMixin",
+    "client.ClientPacketListenerMixin",
     "client.DebugScreenOverlayFabricMixin",
     "client.GuiGraphicsFabricMixin",
     "client.KeyboardHandlerFabricMixin",
