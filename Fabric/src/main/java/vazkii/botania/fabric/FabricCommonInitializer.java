@@ -241,6 +241,7 @@ public class FabricCommonInitializer implements ModInitializer {
 			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
 		}
 		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> ((ShiftingCrustRodItem) BotaniaItems.exchangeRod).onLeftClick(player, world, hand, pos, direction));
+		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> ((MoltenCoreRodItem) BotaniaItems.smeltRod).onLeftClick(player, world, hand, pos, direction));
 		AttackEntityCallback.EVENT.register(ShadedMesaRodItem::onAttack);
 		AttackEntityCallback.EVENT.register(TerraBladeItem::attackEntity);
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
