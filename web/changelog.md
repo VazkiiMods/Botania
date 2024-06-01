@@ -19,6 +19,7 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Add: Horn and Drum of the Wild can break moss carpet, with the option to add more blocks through a block tag
+* Add: Bergamute occludes vibrations within its range 
 * Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
 * Change: Charm of the Diva also supports charming or targeting neutral mobs that are angry at the player or attacking one of the player's tamed animals, and properly prevents the player's tamed animals from being affected or targeted by the charm
 * Change: Dandelifeon recipe also requires a redstone root (zacharybarbanell)

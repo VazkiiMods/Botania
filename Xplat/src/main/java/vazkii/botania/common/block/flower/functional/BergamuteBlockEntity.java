@@ -11,8 +11,10 @@ package vazkii.botania.common.block.flower.functional;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
@@ -76,6 +78,42 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 
 	public static boolean isBergamuteNearby(Level level, double x, double y, double z) {
 		return getBergamutesNearby(level, x, y, z, 1).getFirst() > 0;
+	}
+
+	public static boolean isBergamuteOccludingVibration(Level level, Vec3 sourcePos, Vec3 destPos) {
+		BlockPos sourceBlockPos = BlockPos.containing(sourcePos);
+		BlockPos destBlockPos = BlockPos.containing(destPos);
+
+		// vibration occlusions assume block centers as source and target positions, so do that here as well
+		Vec3 sourceCenterPos = sourceBlockPos.getCenter();
+		if (sourceBlockPos.equals(destBlockPos)) {
+			// trivial case: source and dest are in the same block, check Bergamute proximity to that block's center
+			return isBergamuteNearby(level, sourceCenterPos.x, sourceCenterPos.y, sourceCenterPos.z);
+		}
+
+		// find the point on the line between source and destination that is closest to each Bergamute,
+		// and check whether it's actually in range of that Bergamute
+		// (based on https://stackoverflow.com/questions/51905268/how-to-find-closest-point-on-line)
+		Vec3 destCenterPos = destBlockPos.getCenter();
+		Vec3 vibrationTravelVector = sourceCenterPos.vectorTo(destCenterPos);
+		double vibrationTravelDist = vibrationTravelVector.length();
+		Vec3 vibrationTravelDir = vibrationTravelVector.normalize();
+
+		for (BergamuteBlockEntity f : level.isClientSide ? clientFlowers : serverFlowers) {
+			if (f.disabled || f.level != level) {
+				continue;
+			}
+
+			Vec3 flowerPos = f.getEffectivePos().getCenter();
+			Vec3 vecSourceToFlower = sourceCenterPos.vectorTo(flowerPos);
+			double travelPosition = Mth.clamp(vibrationTravelDir.dot(vecSourceToFlower), 0, vibrationTravelDist);
+			Vec3 closestPos = sourceCenterPos.add(vibrationTravelDir.scale(travelPosition));
+			if (flowerPos.distanceToSqr(closestPos) <= RANGE * RANGE) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public static void particle(BergamuteBlockEntity berg) {

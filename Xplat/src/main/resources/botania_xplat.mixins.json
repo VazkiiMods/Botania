@@ -53,6 +53,7 @@
     "StatsAccessor",
     "TextureSlotAccessor",
     "ThrowableProjectileMixin",
+    "VibrationSystemListenerMixin",
     "WitherEntityAccessor"
   ],
   "client": [
