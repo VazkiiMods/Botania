@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -73,6 +74,7 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 				if (!world.isClientSide) {
 					stack.shrink(1);
 					relay.setNoParticle();
+					world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(relay);
 				}
 				return InteractionResult.sidedSuccess(world.isClientSide());
