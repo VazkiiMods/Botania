@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -65,6 +66,9 @@ public class BellowsBlockEntity extends BotaniaBlockEntity {
 
 		if (self.movePos < max && self.active && self.moving >= 0F) {
 			if (self.moving == 0F) {
+				if (!level.isClientSide()) {
+					level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, worldPosition);
+				}
 				level.playSound(null, worldPosition, BotaniaSounds.bellows, SoundSource.BLOCKS, 1F, 1F);
 			}
 

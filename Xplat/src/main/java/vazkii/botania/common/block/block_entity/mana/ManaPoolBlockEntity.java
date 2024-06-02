@@ -25,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -197,6 +198,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			soundTicks = 6;
 		}
 
+		level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 		level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 	}
 
