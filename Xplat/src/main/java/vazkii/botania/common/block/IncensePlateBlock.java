@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -66,6 +67,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setItem(0, stack.copy());
+			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			stack.shrink(1);
 			did = true;
 		} else if (!plateStack.isEmpty() && !plate.burning) {
@@ -75,6 +77,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 			} else {
 				player.getInventory().placeItemBackInInventory(plateStack);
 				plate.getItemHandler().setItem(0, ItemStack.EMPTY);
+				world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 			did = true;
 		}

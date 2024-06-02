@@ -23,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
@@ -95,6 +96,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			} else {
 				self.getItemHandler().setItem(0, ItemStack.EMPTY);
 				self.burning = false;
+				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, worldPosition);
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 			}
 		} else {
@@ -144,6 +146,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		Brew brew = ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack);
 		timeLeft = brew.getPotionEffects(stack).get(0).getDuration() * IncenseStickItem.TIME_MULTIPLIER;
 		level.playSound(null, getBlockPos(), BotaniaSounds.incensePlateIgnite, SoundSource.BLOCKS, 1F, 1F);
+		level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 	}
 
 	@Override
