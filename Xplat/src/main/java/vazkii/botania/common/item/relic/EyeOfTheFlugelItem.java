@@ -26,6 +26,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -122,7 +124,9 @@ public class EyeOfTheFlugelItem extends RelicItem {
 
 		if (!(living instanceof Player player) || ManaItemHandler.instance().requestManaExact(stack, player, cost, true)) {
 			moveParticlesAndSound(living);
+			Vec3 sourcePos = living.position();
 			living.teleportTo(x + 0.5, y + 1.5, z + 0.5);
+			world.gameEvent(living, GameEvent.TELEPORT, sourcePos);
 			moveParticlesAndSound(living);
 		}
 
