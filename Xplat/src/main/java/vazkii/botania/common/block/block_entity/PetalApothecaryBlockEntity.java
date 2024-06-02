@@ -28,6 +28,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 
@@ -114,8 +115,9 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
 				level.addFreshEntity(outputItem);
 
-				setFluid(State.EMPTY);
+				setFluid(State.EMPTY, false);
 
+				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 				return true;
 			}
@@ -136,6 +138,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 					getItemHandler().setItem(i, stack.split(1));
 					EntityHelper.syncItem(item);
 					level.playSound(null, worldPosition, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
+					level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
 					clearLastRecipe();
 					return true;
 				}
@@ -177,13 +180,16 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		// lastRecipe is not synced. If we're calling this method we already checked that
 		// the apothecary has water and no items, so just optimistically assume
 		// success on the client.
-		boolean success = player.level().isClientSide
-				|| InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, SoundEvents.GENERIC_SPLASH);
+		if (player.level().isClientSide()) {
+			return InteractionResult.sidedSuccess(true);
+		}
+		boolean success = InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, SoundEvents.GENERIC_SPLASH);
 		if (success) {
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return success
-				? InteractionResult.sidedSuccess(player.level().isClientSide())
+				? InteractionResult.sidedSuccess(false)
 				: InteractionResult.PASS;
 	}
 
@@ -290,6 +296,13 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 
 	@Override
 	public void setFluid(State fluid) {
+		setFluid(fluid, true);
+	}
+
+	public void setFluid(State fluid, boolean withVibration) {
+		if (withVibration) {
+			level.gameEvent(null, fluid == State.EMPTY ? GameEvent.FLUID_PICKUP : GameEvent.FLUID_PLACE, getBlockPos());
+		}
 		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PetalApothecaryBlock.FLUID, fluid));
 	}
 
