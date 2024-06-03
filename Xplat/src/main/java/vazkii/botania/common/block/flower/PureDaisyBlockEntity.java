@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -98,6 +99,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 						if (BotaniaConfig.common().blockBreakParticles()) {
 							getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(recipe.getOutputState()));
 						}
+						getLevel().gameEvent(null, GameEvent.BLOCK_CHANGE, coords);
 						getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
 					}
 				}
