@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -96,6 +97,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 			playSound(coords);
 			addMana(-getCost());
+			getLevel().gameEvent(null, GameEvent.BLOCK_CHANGE, coords);
 
 			var serverLevel = (ServerLevel) this.level;
 			var server = serverLevel.getServer();

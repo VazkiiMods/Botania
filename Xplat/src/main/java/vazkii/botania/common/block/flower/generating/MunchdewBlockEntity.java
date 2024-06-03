@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -96,6 +97,7 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 				if (BotaniaConfig.common().blockBreakParticles()) {
 					getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, breakCoords, Block.getId(state));
 				}
+				getLevel().gameEvent(null, GameEvent.BLOCK_DESTROY, breakCoords);
 				addMana(manaPerLeaf);
 			}
 		}
