@@ -37,7 +37,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 	public static final int DECAY_TIME = 72000;
 	protected int burnTime, cooldown;
 	private final TagKey<Fluid> consumedFluid;
-	private final int startBurnTime, manaPerTick;
+	protected final int startBurnTime, manaPerTick;
 
 	protected FluidGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, TagKey<Fluid> consumedFluid, int startBurnTime, int manaPerTick) {
 		super(type, pos, state);
