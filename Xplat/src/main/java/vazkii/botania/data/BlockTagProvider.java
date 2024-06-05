@@ -166,6 +166,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
 				BotaniaBlocks.fabulousPool, BotaniaBlocks.terraPlate, BotaniaBlocks.runeAltar);
 		tag(BotaniaTags.Blocks.LAPUTA_IMMOBILE);
+		tag(BotaniaTags.Blocks.LAPUTA_NO_DOUBLE_BLOCK);
 
 		tag(BotaniaTags.Blocks.TERRA_PLATE_BASE).add(BotaniaBlocks.livingrock, BotaniaBlocks.shimmerrock);
 
