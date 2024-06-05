@@ -26,11 +26,18 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.BlockProviderHelper;
+import vazkii.botania.xplat.XplatAbstractions;
+
+import java.util.*;
 
 public class MoltenCoreRodItem extends Item {
+	private static Map<Block, List<Block>> reverseSmeltMap = new HashMap<>();
 
 	private static final int COST = 300;
 	private static final long COOLDOWN = 4;
@@ -98,5 +105,78 @@ public class MoltenCoreRodItem extends Item {
 			return true;
 		}
 		return false;
+	}
+
+	public static class BlockProviderImpl implements BlockProvider {
+
+		public BlockProviderImpl() {}
+
+		@Override
+		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+			Level world = player.level();
+			List<Block> sources = getCachedIngredients(block, world);
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack stack = player.getInventory().getItem(i);
+				if (stack.isEmpty() || stack.getItem() instanceof MoltenCoreRodItem) {
+					continue;
+				}
+				if (stack.getItem() instanceof BlockItem blockStack && sources.contains(blockStack.getBlock())) {
+					BotaniaAPI.LOGGER.info("found {} that smelts into {}, doit:{}", stack, block, doit);
+					if (!doit) {
+						BotaniaAPI.LOGGER.info("provdie{}, mana{}", BlockProviderHelper.asBlockProvider(stack).provideBlock(player, requestor, block, doit), ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, doit));
+					}
+					return BlockProviderHelper.asBlockProvider(stack).provideBlock(player, requestor, ((BlockItem) stack.getItem()).getBlock(), doit) && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, doit);
+				} else {
+					var provider = XplatAbstractions.INSTANCE.findBlockProvider(stack);
+					if (provider != null) {
+						for (Block b : sources) {
+							if (provider.provideBlock(player, requestor, b, doit)) {
+								return ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, doit);
+							}
+						}
+					}
+				}
+			}
+			return false;
+		}
+
+		@Override
+		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+			Level world = player.level();
+			List<Block> sources = getCachedIngredients(block, world);
+			int count = 0;
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack stack = player.getInventory().getItem(i);
+				if (stack.isEmpty() || stack.getItem() instanceof MoltenCoreRodItem) {
+					continue;
+				}
+				if (stack.getItem() instanceof BlockItem blockStack && sources.contains(blockStack.getBlock())) {
+					count += stack.getCount();
+				} else {
+					var provider = XplatAbstractions.INSTANCE.findBlockProvider(stack);
+					if (provider != null) {
+						for (Block b : sources) {
+							count += provider.getBlockCount(player, requestor, b);
+						}
+					}
+				}
+			}
+			return Math.min(count, ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST));
+		}
+
+		private List<Block> getCachedIngredients(Block block, Level world) {
+			if (reverseSmeltMap.containsKey(block)) {
+				return reverseSmeltMap.get(block);
+			}
+			ArrayList<Block> validIngredients = new ArrayList<>();
+			world.getRecipeManager().getAllRecipesFor(RecipeType.SMELTING).stream()
+					.filter(r -> r.getResultItem(world.registryAccess()).getItem() instanceof BlockItem b && b.getBlock().equals(block))
+					.map(r -> r.getIngredients().get(0).getItems())
+					.forEach(a -> Arrays.asList(a).stream().filter(i -> i.getItem() instanceof BlockItem)
+							.forEach(i -> validIngredients.add(((BlockItem) i.getItem()).getBlock())));
+			reverseSmeltMap.put(block, validIngredients);
+			BotaniaAPI.LOGGER.info("cached recipes for {}: {}", block, validIngredients);
+			return validIngredients;
+		}
 	}
 }

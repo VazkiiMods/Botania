@@ -480,7 +480,8 @@ public class ForgeCommonInitializer {
 			BotaniaItems.blackHoleTalisman, BlackHoleTalismanItem.BlockProviderImpl::new,
 			BotaniaItems.cobbleRod, s -> new DepthsRodItem.BlockProviderImpl(),
 			BotaniaItems.enderHand, EnderHandItem.BlockProviderImpl::new,
-			BotaniaItems.terraformRod, s -> new TerraFirmaRodItem.BlockProviderImpl()
+			BotaniaItems.terraformRod, s -> new TerraFirmaRodItem.BlockProviderImpl(),
+			BotaniaItems.smeltRod, s -> new MoltenCoreRodItem.BlockProviderImpl()
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
