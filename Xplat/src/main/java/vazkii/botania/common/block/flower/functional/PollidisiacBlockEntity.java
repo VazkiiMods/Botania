@@ -25,6 +25,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.mixin.AnimalAccessor;
 import vazkii.botania.mixin.MushroomCowAccessor;
 
 import java.util.Collections;
@@ -56,14 +57,15 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity {
 
 			for (Animal animal : animals) {
 				// Note: Empty item stacks are implicitly excluded in Animal::isFood and ItemStack::is(TagKey)
-				if (!animal.isInLove()) {
+				if (animal.getAge() == 0 && !animal.isInLove()) {
 					for (ItemEntity item : items) {
 						if (!animal.isFood(item.getItem())) {
 							continue;
 						}
-						consumeFoodItem(item);
+						consumeFoodItemAndMana(item);
 
 						animal.setInLoveTime(1200);
+						((AnimalAccessor) animal).botania_setLoveCause(null);
 						getLevel().broadcastEntityEvent(animal, EntityEvent.IN_LOVE_HEARTS);
 						break;
 					}
@@ -83,7 +85,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity {
 						if (effect == null) {
 							continue;
 						}
-						consumeFoodItem(item);
+						consumeFoodItemAndMana(item);
 
 						MushroomCowAccessor cowAccessor = (MushroomCowAccessor) animal;
 						cowAccessor.setEffect(effect.getSuspiciousEffect());
@@ -100,7 +102,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 	}
 
-	private void consumeFoodItem(ItemEntity itemEntity) {
+	private void consumeFoodItemAndMana(ItemEntity itemEntity) {
 		EntityHelper.shrinkItem(itemEntity);
 		addMana(-MANA_COST);
 	}
