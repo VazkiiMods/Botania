@@ -465,6 +465,7 @@ public class ForgeCommonInitializer {
 	// Needs to be lazy since items aren't initialized yet
 	private static final Supplier<Map<Item, Function<ItemStack, AvatarWieldable>>> AVATAR_WIELDABLES = Suppliers.memoize(() -> Map.of(
 			BotaniaItems.dirtRod, s -> new LandsRodItem.AvatarBehavior(),
+			BotaniaItems.cobbleRod, s -> new DepthsRodItem.AvatarBehavior(),
 			BotaniaItems.diviningRod, s -> new PlentifulMantleRodItem.AvatarBehavior(),
 			BotaniaItems.fireRod, s -> new HellsRodItem.AvatarBehavior(),
 			BotaniaItems.missileRod, s -> new UnstableReservoirRodItem.AvatarBehavior(),

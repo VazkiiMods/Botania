@@ -278,6 +278,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaItems.waterBowl);
 
 		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new LandsRodItem.AvatarBehavior(), BotaniaItems.dirtRod);
+		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new DepthsRodItem.AvatarBehavior(), BotaniaItems.cobbleRod);
 		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new PlentifulMantleRodItem.AvatarBehavior(), BotaniaItems.diviningRod);
 		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new HellsRodItem.AvatarBehavior(), BotaniaItems.fireRod);
 		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new UnstableReservoirRodItem.AvatarBehavior(), BotaniaItems.missileRod);
