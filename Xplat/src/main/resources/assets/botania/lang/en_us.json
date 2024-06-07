@@ -2874,6 +2874,7 @@
   "botania.entry.obedienceStick": "Floral Obedience Stick",
   "botania.tagline.obedienceStick": "Binding flowers to a location en masse",
   "botania.page.obedienceStick0": "For some inexplicable reason, a piece of $(item)Manasteel$(0) attached to some $(item)Livingwood Twigs$(0) is a thing flowers $(o)pay attention to$().$(p)When used on a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) or $(l:mana/pool)$(item)Mana Pool$(0)$(/l), this tool (dubbed the $(item)Floral Obedience Stick$(0)) binds all nearby $(thing)Generating$(0) or $(thing)Functional$(0) flowers, respectively, to that block.$(p)A $(item)Dispenser$(0) can also use a $(item)Floral Obedience Stick$(0).",
+  "botania.page.obedienceStick_unbind": "On rare occasions it might not be desirable to have a flower pull mana from a nearby pool or output its mana to any spreader.$(p)Holding a $(item)Floral Obedience Stick$(0) while placing a flower will prevent it from automatically binding to a nearby spreader or pool. If the flower is already placed it can be unbound by using a $(item)Floral Obedience Stick$(0) on it, either manually or via a $(item)Dispenser$(0).",
   "botania.page.obedienceStick1": "Generate, or else!",
 
   "botania.entry.slimeBottle": "Slime in a Bottle",
