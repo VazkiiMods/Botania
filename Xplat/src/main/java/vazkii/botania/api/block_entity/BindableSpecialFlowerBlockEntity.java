@@ -15,8 +15,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,10 +26,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPIClient;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.Objects;
 
@@ -63,7 +67,9 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 		//First time the flower has been placed. This is the best time to check it; /setblock and friends don't call
 		//the typical setPlacedBy method that player-placements do.
-		if (ticksExisted == 1 && !level.isClientSide) {
+		if (Bound.UNBOUND_POS.equals(bindingPos)) {
+			setBindingPos(null);
+		} else if (ticksExisted == 1 && !level.isClientSide) {
 			//Situations to consider:
 			// the flower has been placed in the void, and there is nothing for it to bind to;
 			// the flower has been placed next to a bind target, and I want to automatically bind to it;
@@ -73,6 +79,14 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 				setBindingPos(findClosestTarget());
 			}
 		}
+	}
+
+	@Override
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		if (placer != null && placer.isHolding(BotaniaItems.obedienceStick)) {
+			setBindingPos(Bound.UNBOUND_POS);
+		}
+		super.setPlacedBy(level, pos, state, placer, stack);
 	}
 
 	public @Nullable BlockPos getBindingPos() {
