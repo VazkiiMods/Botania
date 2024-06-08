@@ -186,7 +186,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		private static int getCellGeneration(BlockPos pos, DandelifeonBlockEntity dandie, boolean onBoundary) {
 			BlockEntity tile = dandie.getLevel().getBlockEntity(pos);
 			if (tile instanceof CellularBlockEntity cell) {
-				return onBoundary ? (cell.hasPoweredParent(dandie.getLevel()) ? Cell.boundaryPunish(cell.getGeneration()) : Cell.DEAD) : cell.getGeneration();
+				return onBoundary ? (cell.hasActiveParent(dandie.getLevel()) ? Cell.boundaryPunish(cell.getGeneration()) : Cell.DEAD) : cell.getGeneration();
 			}
 
 			return Cell.DEAD;
