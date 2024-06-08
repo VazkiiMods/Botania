@@ -29,6 +29,9 @@ and start a new "Upcoming" section.
 * Fix: Charm of the Diva works on Forge again
 * Fix: Translation key names for potted glimmering flowers were wrong in the English language file
 * Fix: Corporea Index on Fabric no longer ignores chat text sources other than the vanilla chat console, fixing compatibility with e.g. the "Microphone Text Input" mod
+* Fix: Pollidisiac gives animals their deserved break after breading again
+* Fix: Shard of Laputa no longer breaks *all* the 2-tall grass/flower blocks anymore
+* Fix: Floating flower islands properly show the soil type on Forge, and are no longer invisible in Patchouli multiblock visualizations (although that latter part is merely a workaround for a Patchouli issue at the moment)
 
 ---
 
