@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 
 public class PatchouliUtils {
 	private static boolean crafttweakerInfoNote = false;
+	private static boolean inVisualizer;
 
 	/**
 	 * Gets a recipe of a specified type and ID, and replaces the namespace
@@ -119,5 +120,17 @@ public class PatchouliUtils {
 	 */
 	public static IVariable interweaveIngredients(List<Ingredient> ingredients) {
 		return interweaveIngredients(ingredients, ingredients.stream().mapToInt(ingr -> ingr.getItems().length).max().orElse(1));
+	}
+
+	/**
+	 * Workaround for Patchouli limitation - Allow block entity-rendered blocks to detect being rendered in
+	 * a multiblock visualization and switch to block model rendering to actually be visible.
+	 */
+	public static boolean isInVisualizer() {
+		return inVisualizer;
+	}
+
+	public static void setInVisualizer(boolean inVisualization) {
+		PatchouliUtils.inVisualizer = inVisualization;
 	}
 }

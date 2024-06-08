@@ -33,6 +33,7 @@ import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
 import vazkii.botania.common.item.FloatingFlowerVariant;
@@ -62,7 +63,7 @@ public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements Enti
 		if (!XplatAbstractions.INSTANCE.isPhysicalClient()) {
 			return RenderShape.ENTITYBLOCK_ANIMATED;
 		}
-		return BotaniaConfig.client().staticFloaters() ? RenderShape.MODEL : RenderShape.ENTITYBLOCK_ANIMATED;
+		return BotaniaConfig.client().staticFloaters() || PatchouliUtils.isInVisualizer() ? RenderShape.MODEL : RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override
