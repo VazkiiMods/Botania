@@ -59,6 +59,7 @@
   ],
   "client": [
     "client.AbstractContainerScreenAccessor",
+    "client.BlockRenderDispatcherMixin",
     "client.ClientLevelDataMixin",
     "client.ItemInHandRendererMixin",
     "client.ItemRendererAccessor",
