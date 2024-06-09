@@ -2345,8 +2345,11 @@
   "botania.entry.bIntro": "Een introductie tot Baubles",
   "botania.tagline.bIntro": "Accessoires die een effect hebben",
   "botania.page.bIntro0": "$(thing)Baubles$(0), ook wel $(thing)Sierraden$(0) or $(thing)Snuisterijen$(0) genoemd, zijn stukken uitrusting die allerlei effecten kunnen geven wanneer gedragen.$(p)Om ze op te doen, gebruik je de toets $(thing)B$(0) (toets is in te stellen). Er zijn vier plaatsen, een plek voor een $(thing)Amulet$(0) slot, twee plaatsen voor een $(thing)Ring$(0) en nog één voor een $(thing)Riem$(0).",
-  "botania.page.bIntro1": "Het $(thing)Baubles Scherm$(0)",
+  "botania.page.bIntro0_trinkets": "$(thing)Baubles$(0), ook wel $(thing)Sierraden$(0) or $(thing)Snuisterijen$(0) genoemd, zijn stukken uitrusting die allerlei effecten kunnen geven wanneer gedragen.$(p)Om ze op te doen, gebruik je de toets $(thing)B$(0) (toets is in te stellen). Er zijn vier plaatsen, een plek voor een $(thing)Amulet$(0) slot, twee plaatsen voor een $(thing)Ring$(0) en nog één voor een $(thing)Riem$(0).",
+  "botania.page.bIntro1": "Het $(thing)Curios Scherm$(0)",
+  "botania.page.bIntro1_trinkets": "Het $(thing)Trinkets Scherm$(0)",
   "botania.page.bIntro2": "Het is goed om te weten dat als $(thing)Thaumcraft$(0) of een andere mod die het baubles systeem gebruikt is geïnstalleerd, deze inventory gedeeld wordt tussen de verschillende mods.",
+  "botania.page.bIntro2_trinkets": "Het is goed om te weten dat als $(thing)Thaumcraft$(0) of een andere mod die het baubles systeem gebruikt is geïnstalleerd, deze inventory gedeeld wordt tussen de verschillende mods.",
 
   "botania.entry.cosmeticBaubles": "Cosmetische Baubles",
   "botania.tagline.cosmeticBaubles": "Accessoires die geen effect hebben",

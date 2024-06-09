@@ -2410,8 +2410,11 @@
   "botania.entry.bIntro": "飾品介紹",
   "botania.tagline.bIntro": "飾品提供能量",
   "botania.page.bIntro0": "$(thing)飾品(Baubles)$(0),平常也指$(thing)小$(0) $(thing)飾品$(0)或者$(thing)護身符$(0)這樣在穿戴 時提供不同效果的裝備.$(p)要裝備只需按$(thing)B$(0)鍵(可修改). 有四個欄,一個$(thing)項鏈$(0)欄,兩個 $(thing)戒指$(0)欄和一個$(thing)腰帶$(0)欄.",
+  "botania.page.bIntro0_trinkets": "$(thing)飾品(Baubles)$(0),平常也指$(thing)小$(0) $(thing)飾品$(0)或者$(thing)護身符$(0)這樣在穿戴 時提供不同效果的裝備.$(p)要裝備只需按$(thing)B$(0)鍵(可修改). 有四個欄,一個$(thing)項鏈$(0)欄,兩個 $(thing)戒指$(0)欄和一個$(thing)腰帶$(0)欄.",
   "botania.page.bIntro1": "$(thing)飾品欄界面$(0)",
+  "botania.page.bIntro1_trinkets": "$(thing)飾品欄界面$(0)",
   "botania.page.bIntro2": "注意,如果$(thing)神秘時代$(0)或其他使 用Baubles的模組也安裝了 的話,這個欄會與它們共享.",
+  "botania.page.bIntro2_trinkets": "注意,如果$(thing)神秘時代$(0)或其他使 用Baubles的模組也安裝了 的話,這個欄會與它們共享.",
 
   "botania.entry.cosmeticBaubles": "裝飾小件",
   "botania.tagline.cosmeticBaubles": "沒有力量的配件",

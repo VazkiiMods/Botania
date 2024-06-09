@@ -3221,8 +3221,11 @@
   "botania.entry.bIntro": "Introduction to Trinkets",
   "botania.tagline.bIntro": "Accessories that provide power",
   "botania.page.bIntro0": "$(thing)Trinkets$(0) (also known as $(thing)Curios$(0), $(thing)Baubles$(0), or $(thing)Charms$(0)) are accessories that offer all sorts of different effects when worn.$(p)To equip them, press [$(k:curios.open.desc)].",
+  "botania.page.bIntro0_trinkets": "$(thing)Trinkets$(0) (also known as $(thing)Curios$(0), $(thing)Baubles$(0), or $(thing)Charms$(0)) are accessories that offer all sorts of different effects when worn.",
   "botania.page.bIntro1": "The $(thing)Curios Screen$(0)",
+  "botania.page.bIntro1_trinkets": "The $(thing)Trinkets Screen$(0)",
   "botania.page.bIntro2": "Do note that if any other mod uses the $(thing)Curios$(0) system, equipment slots must be shared with that mod's $(thing)Trinkets$(0) as well.",
+  "botania.page.bIntro2_trinkets": "Do note that if any other mod uses the $(thing)Trinkets$(0) system, equipment slots must be shared with that mod's $(thing)Trinkets$(0) as well.",
 
   "botania.entry.cosmeticBaubles": "Cosmetic Trinkets",
   "botania.tagline.cosmeticBaubles": "Accessories that don't provide power",

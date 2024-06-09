@@ -3019,8 +3019,11 @@
   "botania.entry.bIntro": "트링켓 소개",
   "botania.tagline.bIntro": "힘을 제공하는 액세서리",
   "botania.page.bIntro0": "$(thing)트링켓$(0) (또는 $(thing)큐리오$(0), $(thing)바우블$(0), 또는 $(thing)매력$(0)으로 알려져 있음)은 착용 시 다양한 효과를 제공하는 액세서리입니다.$(p)장비하려면 [$(k:curios.open.desc)]를 누르세요.",
+  "botania.page.bIntro0_trinkets": "$(thing)트링켓$(0) (또는 $(thing)큐리오$(0), $(thing)바우블$(0), 또는 $(thing)매력$(0)으로 알려져 있음)은 착용 시 다양한 효과를 제공하는 액세서리입니다.",
   "botania.page.bIntro1": "$(thing)큐리오 화면$(0)",
+  "botania.page.bIntro1_trinkets": "$(thing)큐리오 화면$(0)",
   "botania.page.bIntro2": "다른 모드에서 $(thing)큐리오$(0) 시스템을 사용하는 경우 해당 모드의 $(thing)트링켓$(0)과 장비 슬롯을 공유해야 합니다.",
+  "botania.page.bIntro2_trinkets": "다른 모드에서 $(thing)큐리오$(0) 시스템을 사용하는 경우 해당 모드의 $(thing)트링켓$(0)과 장비 슬롯을 공유해야 합니다.",
 
   "botania.entry.cosmeticBaubles": "화장 트링켓",
   "botania.tagline.cosmeticBaubles": "힘을 제공하지 않는 액세서리",

@@ -3506,8 +3506,11 @@
   "botania.entry.bIntro": "Introduction aux bibelots",
   "botania.tagline.bIntro": "TAGLINE",
   "botania.page.bIntro0": "Les $(thing)bibelots$(0), qui peuvent également être connus sous le nom de $(thing)trinkets$(0) ou de $(thing)curios$(0) ou de $(thing)baubles$(0), sont des accessoires qui offrent différentes capacités à leurs porteurs.",
+  "botania.page.bIntro0_trinkets": "Les $(thing)bibelots$(0), qui peuvent également être connus sous le nom de $(thing)trinkets$(0) ou de $(thing)curios$(0) ou de $(thing)baubles$(0), sont des accessoires qui offrent différentes capacités à leurs porteurs.",
   "botania.page.bIntro1": "Le menu des bibelots ($(o)$(thing)Forge$(0)$())",
+  "botania.page.bIntro1_trinkets": "Le menu des bibelots ($(o)$(thing)Fabric$(0)$())",
   "botania.page.bIntro2": "Si vous utilisez d'autres mods, et que ces mods ont également des $(thing)bibelots$(0), alors vous risquez de devoir faire un choix.$(p)Choisir ce que vous allez porter, et ce que vous n'allez pas porter.",
+  "botania.page.bIntro2_trinkets": "Si vous utilisez d'autres mods, et que ces mods ont également des $(thing)bibelots$(0), alors vous risquez de devoir faire un choix.$(p)Choisir ce que vous allez porter, et ce que vous n'allez pas porter.",
 
   "botania.entry.cosmeticBaubles": "Bibelots cosmétiques",
   "botania.tagline.cosmeticBaubles": "TAGLINE",

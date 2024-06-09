@@ -2037,8 +2037,11 @@
 
   "botania.entry.bIntro": "Una introducción a los ornamentos",
   "botania.page.bIntro0": "Los $(thing)ornamentos$(0), también referidos como $(thing)baratijas$(0) o $(thing)talismanes$(0) son piezas de equipamiento que ofrecen todo tipo de efectos al ser llevados.$(p)Al equiparlos, se puede presiona la tecla $(thing)B$(0) (configurable). Hay cuatro ranuras, una de $(thing)Amuleto$(0), dos de $(thing)anillo$(0) y una de $(thing)cinturón$(0).",
+  "botania.page.bIntro0_trinkets": "Los $(thing)ornamentos$(0), también referidos como $(thing)baratijas$(0) o $(thing)talismanes$(0) son piezas de equipamiento que ofrecen todo tipo de efectos al ser llevados.$(p)Al equiparlos, se puede presiona la tecla $(thing)B$(0) (configurable). Hay cuatro ranuras, una de $(thing)Amuleto$(0), dos de $(thing)anillo$(0) y una de $(thing)cinturón$(0).",
   "botania.page.bIntro1": "La $(thing)pantalla de ornamentos$(0)",
+  "botania.page.bIntro1_trinkets": "La $(thing)pantalla de ornamentos$(0)",
   "botania.page.bIntro2": "Cabe notar que, si $(thing)Thaumcraft$(0) u otro mod que usen el sistema de ornamentos están instalados, este inventario se compartirá entre los mods.",
+  "botania.page.bIntro2_trinkets": "Cabe notar que, si $(thing)Thaumcraft$(0) u otro mod que usen el sistema de ornamentos están instalados, este inventario se compartirá entre los mods.",
 
   "botania.entry.cosmeticBaubles": "Ornamentos cosméticos",
   "botania.page.cosmeticBaubles0": "Una amplia gama de $(item)ornamentos cosméticos$(0) está disponible para cambiar o añadir estilo a cualquier ornamento que el jugador tiene equipado. Estos pueden llevarse por sí mismos, en la ranura de amuleto, o crearlo junto con otro $(thing)ornamento$(0) en la rejilla de trabajo para cambiar el aspecto del ornamento a la nueva $(thing)superposición cosmética$(0). Esta se puede eliminar colocando de nuevo el ornamento en la rejilla de trabajo.",

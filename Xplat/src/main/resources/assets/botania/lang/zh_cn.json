@@ -3116,8 +3116,11 @@
   "botania.entry.bIntro": "饰品介绍",
   "botania.tagline.bIntro": "小小饰品也拥有力量",
   "botania.page.bIntro0": "$(thing)饰品(Baubles)$(0)，平常也指$(thing)小$(0)$(thing)饰品$(0)或者$(thing)护身符$(0)这样在穿戴时提供不同效果的装备。$(p)要装备只需按$(thing)B$(0)键(可修改)。有四个栏，一个$(thing)项链$(0)栏，两个$(thing)戒指$(0)栏和一个$(thing)腰带$(0)栏。",
+  "botania.page.bIntro0_trinkets": "$(thing)饰品(Baubles)$(0)，平常也指$(thing)小$(0)$(thing)饰品$(0)或者$(thing)护身符$(0)这样在穿戴时提供不同效果的装备。$(p)要装备只需按$(thing)B$(0)键(可修改)。有四个栏，一个$(thing)项链$(0)栏，两个$(thing)戒指$(0)栏和一个$(thing)腰带$(0)栏。",
   "botania.page.bIntro1": "$(thing)饰品栏界面$(0)",
+  "botania.page.bIntro1_trinkets": "$(thing)饰品栏界面$(0)",
   "botania.page.bIntro2": "注意，如果$(thing)神秘时代$(0)或其他使用Baubles的模组也安装了的话，这个栏会与它们共享。",
+  "botania.page.bIntro2_trinkets": "注意，如果$(thing)神秘时代$(0)或其他使用Baubles的模组也安装了的话，这个栏会与它们共享。",
 
   "botania.entry.cosmeticBaubles": "装饰小件",
   "botania.tagline.cosmeticBaubles": "没有力量的配件",
