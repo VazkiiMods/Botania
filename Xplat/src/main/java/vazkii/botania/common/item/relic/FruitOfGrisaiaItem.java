@@ -10,6 +10,7 @@ package vazkii.botania.common.item.relic;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -43,6 +44,20 @@ public class FruitOfGrisaiaItem extends RelicItem {
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return isBoot(stack) ? UseAnim.DRINK : UseAnim.EAT;
+	}
+
+	@Override
+	public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
+		super.inventoryTick(itemstack, world, entity, slot, selected);
+		var relic = XplatAbstractions.INSTANCE.findRelic(itemstack);
+		if (entity instanceof Player player && relic != null && relic.isRightPlayer(player)) {
+			if (player.canEat(false) && slot < 9) {
+				int hunger = 20 - player.getFoodData().getFoodLevel();
+				if (ManaItemHandler.instance().requestManaExact(itemstack, player, 500 * hunger, true)) {
+					player.getFoodData().eat(hunger, 10F);
+				}
+			}
+		}
 	}
 
 	@NotNull
