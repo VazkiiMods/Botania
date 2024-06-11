@@ -343,6 +343,14 @@ public final class BotaniaItems {
 	public static final Item ancientWillKaril = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "karil"), new AncientWillItem(AncientWillContainer.AncientWillType.KARIL, unstackable().rarity(Rarity.UNCOMMON)));
 	public static final Item pinkinator = make(prefix(LibItemNames.PINKINATOR), new PinkinatorItem(unstackable().rarity(Rarity.UNCOMMON)));
 
+	//mock relics
+	public static final Item mock_infiniteFruit = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.INFINITE_FRUIT), new FruitOfGrossaia(unstackable()));
+	public static final Item mock_kingKey = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.KING_KEY), new KeyOfTheOutLawItem(unstackable()));
+	public static final Item mock_flugelEye = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.FLUGEL_EYE), new EyeOfSomeGuyItem(unstackable()));
+	public static final Item mock_thorRing = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.THOR_RING), new RingOfNotThorItem(unstackable()));
+	public static final Item mock_odinRing = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.ODIN_RING), new RingOfNotOdinItem(unstackable()));
+	public static final Item mock_lokiRing = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.LOKI_RING), new RingOfNotLokiItem(unstackable()));
+
 	// Brewing
 	public static final Item vial = make(prefix(LibItemNames.VIAL), new VialItem(defaultBuilder()));
 	public static final Item flask = make(prefix(LibItemNames.FLASK), new VialItem(defaultBuilder()));

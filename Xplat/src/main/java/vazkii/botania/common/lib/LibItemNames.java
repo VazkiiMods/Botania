@@ -163,6 +163,7 @@ public final class LibItemNames {
 	public static final String PHANTOM_INK = "phantom_ink";
 	public static final String POOL_MINECART = "pool_minecart";
 	public static final String PINKINATOR = "pinkinator";
+	public static final String MOCK_PREFIX = "mock_"
 	public static final String INFINITE_FRUIT = "infinite_fruit";
 	public static final String KING_KEY = "king_key";
 	public static final String FLUGEL_EYE = "flugel_eye";

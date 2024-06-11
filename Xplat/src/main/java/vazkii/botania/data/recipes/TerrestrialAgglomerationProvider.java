@@ -43,6 +43,24 @@ public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), ManaPoolBlockEntity.MAX_MANA / 2,
 				new ItemStack(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.manaSteel),
 				Ingredient.of(BotaniaItems.manaPearl), Ingredient.of(BotaniaItems.manaDiamond)));
+		consumer.accept(new FinishedRecipe(idFor("fruit_restore"), ManaPoolBlockEntity.MAX_MANA,
+				new ItemStack(BotaniaItems.infiniteFruit), Ingredient.of(BotaniaItems.mock_infiniteFruit),
+				Ingredient.of(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.dice)));
+		consumer.accept(new FinishedRecipe(idFor("key_restore"), ManaPoolBlockEntity.MAX_MANA,
+				new ItemStack(BotaniaItems.kingKey), Ingredient.of(BotaniaItems.mock_kingKey),
+				Ingredient.of(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.dice)));
+		consumer.accept(new FinishedRecipe(idFor("eye_restore"), ManaPoolBlockEntity.MAX_MANA,
+				new ItemStack(BotaniaItems.flugelEye), Ingredient.of(BotaniaItems.mock_flugelEye),
+				Ingredient.of(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.dice)));
+		consumer.accept(new FinishedRecipe(idFor("loki_restore"), ManaPoolBlockEntity.MAX_MANA,
+				new ItemStack(BotaniaItems.lokiRing), Ingredient.of(BotaniaItems.mock_lokiRing),
+				Ingredient.of(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.dice)));
+		consumer.accept(new FinishedRecipe(idFor("odin_restore"), ManaPoolBlockEntity.MAX_MANA,
+				new ItemStack(BotaniaItems.odinRing), Ingredient.of(BotaniaItems.mock_odinRing),
+				Ingredient.of(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.dice)));
+		consumer.accept(new FinishedRecipe(idFor("thor_restore"), ManaPoolBlockEntity.MAX_MANA,
+				new ItemStack(BotaniaItems.thorRing), Ingredient.of(BotaniaItems.mock_thorRing),
+				Ingredient.of(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.dice)));
 	}
 
 	private static ResourceLocation idFor(String s) {
