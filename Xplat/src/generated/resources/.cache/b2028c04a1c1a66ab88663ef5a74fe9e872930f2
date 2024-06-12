@@ -1,2 +1,8 @@
 // 1.20.1	Botania/Botania Terra Plate recipes
+31cf73137538e8f03399c9963a2b14c838adbf02 data/botania/recipes/terra_plate/eye_restore.json
+9a78c911defb605439a174d18f54a64e18632b78 data/botania/recipes/terra_plate/fruit_restore.json
+3a9764f2335a42ca032d4c4ffb71588235434422 data/botania/recipes/terra_plate/key_restore.json
+f8d843ec65e9ab34a8677c6eb76371daab7b5037 data/botania/recipes/terra_plate/loki_restore.json
+bd2fd590b2872fb0ab3c7cccc3ec680af8716a3e data/botania/recipes/terra_plate/odin_restore.json
 2c69643acc9deea62b846d960c97bb0bade0a453 data/botania/recipes/terra_plate/terrasteel_ingot.json
+da35b91d927e72d2a63922e05888521f03787503 data/botania/recipes/terra_plate/thor_restore.json

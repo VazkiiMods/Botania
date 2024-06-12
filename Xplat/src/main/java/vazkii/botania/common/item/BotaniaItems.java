@@ -55,6 +55,7 @@ import vazkii.botania.common.item.lens.*;
 import vazkii.botania.common.item.material.*;
 import vazkii.botania.common.item.record.BotaniaRecordItem;
 import vazkii.botania.common.item.relic.*;
+import vazkii.botania.common.item.relic.mocks.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibItemNames;
@@ -344,7 +345,7 @@ public final class BotaniaItems {
 	public static final Item pinkinator = make(prefix(LibItemNames.PINKINATOR), new PinkinatorItem(unstackable().rarity(Rarity.UNCOMMON)));
 
 	//mock relics
-	public static final Item mock_infiniteFruit = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.INFINITE_FRUIT), new FruitOfGrossaia(unstackable()));
+	public static final Item mock_infiniteFruit = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.INFINITE_FRUIT), new FruitOfGrossaiaItem(unstackable()));
 	public static final Item mock_kingKey = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.KING_KEY), new KeyOfTheOutLawItem(unstackable()));
 	public static final Item mock_flugelEye = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.FLUGEL_EYE), new EyeOfSomeGuyItem(unstackable()));
 	public static final Item mock_thorRing = make(prefix(LibItemNames.MOCK_PREFIX + LibItemNames.THOR_RING), new RingOfNotThorItem(unstackable()));

@@ -1760,48 +1760,54 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 
 		//mock relics
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.mock_infinitFruit)
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.mock_infiniteFruit)
 				.define('G', BotaniaItems.gaiaIngot)
 				.define('S', Items.APPLE)
 				.pattern(" G ")
 				.pattern("GSG")
 				.pattern(" G ")
-				.save(consumer)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.dice))
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.mock_kingKey)
 				.define('G', BotaniaItems.gaiaIngot)
 				.define('S', Items.TRIPWIRE_HOOK) //TODO: replace with vault key in 1.21
 				.pattern(" G ")
 				.pattern("GSG")
 				.pattern(" G ")
-				.save(consumer)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.dice))
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.mock_flugelEye)
 				.define('G', BotaniaItems.gaiaIngot)
 				.define('S', Items.SPIDER_EYE)
 				.pattern(" G ")
 				.pattern("GSG")
 				.pattern(" G ")
-				.save(consumer)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.dice))
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.mock_thorRing)
 				.define('G', BotaniaItems.gaiaIngot)
 				.define('S', Items.WOODEN_PICKAXE)
 				.pattern(" G ")
 				.pattern("GSG")
 				.pattern(" G ")
-				.save(consumer)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.dice))
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.mock_odinRing)
 				.define('G', BotaniaItems.gaiaIngot)
 				.define('S', Items.SHIELD)
 				.pattern(" G ")
 				.pattern("GSG")
 				.pattern(" G ")
-				.save(consumer)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.dice))
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.mock_lokiRing)
 				.define('G', BotaniaItems.gaiaIngot)
 				.define('S', Items.TRAPPED_CHEST)
 				.pattern(" G ")
 				.pattern("GSG")
 				.pattern(" G ")
-				.save(consumer)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.dice))
+				.save(consumer);
 
 	}
 

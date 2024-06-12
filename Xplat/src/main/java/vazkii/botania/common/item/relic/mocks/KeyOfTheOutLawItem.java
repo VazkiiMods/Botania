@@ -8,13 +8,10 @@
  */
 package vazkii.botania.common.item.relic.mocks;
 
-import java.util.List;
-import java.util.Optional;
+import net.minecraft.world.item.Item;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
-public class KeyOfTheOutLaw {
-    public KeyOfTheOutLaw(Properties props) {
-        super(props);
-    }
+public class KeyOfTheOutLawItem extends Item {
+	public KeyOfTheOutLawItem(Properties props) {
+		super(props);
+	}
 }
