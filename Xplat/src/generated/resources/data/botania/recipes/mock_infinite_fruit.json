@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "botania:gaia_ingot"
+    },
+    "S": {
+      "item": "minecraft:apple"
+    }
+  },
+  "pattern": [
+    " G ",
+    "GSG",
+    " G "
+  ],
+  "result": {
+    "item": "botania:mock_infinite_fruit"
+  },
+  "show_notification": true
+}

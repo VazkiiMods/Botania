@@ -1,0 +1,18 @@
+{
+  "type": "botania:terra_plate",
+  "ingredients": [
+    {
+      "item": "botania:mock_flugel_eye"
+    },
+    {
+      "item": "botania:terrasteel_ingot"
+    },
+    {
+      "item": "botania:dice"
+    }
+  ],
+  "mana": 1000000,
+  "result": {
+    "item": "botania:flugel_eye"
+  }
+}

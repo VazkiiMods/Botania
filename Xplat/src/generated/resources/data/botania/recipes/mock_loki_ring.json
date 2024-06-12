@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "botania:gaia_ingot"
+    },
+    "S": {
+      "item": "minecraft:trapped_chest"
+    }
+  },
+  "pattern": [
+    " G ",
+    "GSG",
+    " G "
+  ],
+  "result": {
+    "item": "botania:mock_loki_ring"
+  },
+  "show_notification": true
+}

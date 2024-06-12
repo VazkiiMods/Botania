@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "botania:gaia_ingot"
+    },
+    "S": {
+      "item": "minecraft:shield"
+    }
+  },
+  "pattern": [
+    " G ",
+    "GSG",
+    " G "
+  ],
+  "result": {
+    "item": "botania:mock_odin_ring"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "botania:gaia_ingot"
+    },
+    "S": {
+      "item": "minecraft:spider_eye"
+    }
+  },
+  "pattern": [
+    " G ",
+    "GSG",
+    " G "
+  ],
+  "result": {
+    "item": "botania:mock_flugel_eye"
+  },
+  "show_notification": true
+}
