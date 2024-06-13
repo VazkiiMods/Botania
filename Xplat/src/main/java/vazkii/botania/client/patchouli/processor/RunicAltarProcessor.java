@@ -17,7 +17,7 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
-public class RunicAltarProcessor extends PetalApothecaryProcessor {
+public class RunicAltarProcessor extends ReagentRecipeProcessor {
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
