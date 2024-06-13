@@ -339,7 +339,7 @@ public final class HUDHandler {
 
 		Minecraft mc = Minecraft.getInstance();
 
-		int x = mc.getWindow().getGuiScaledWidth() / 2 + 55;
+		int x = mc.getWindow().getGuiScaledWidth() / 2 + Math.max(51, mc.font.width(name) / 2) + 4;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 + 12;
 
 		gui.renderItem(bindDisplay, x, y);
