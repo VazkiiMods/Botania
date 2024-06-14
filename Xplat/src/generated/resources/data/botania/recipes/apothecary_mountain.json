@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "redstone",
+  "category": "misc",
   "group": "botania:metamorphic_apothecary",
   "key": {
     "C": {
