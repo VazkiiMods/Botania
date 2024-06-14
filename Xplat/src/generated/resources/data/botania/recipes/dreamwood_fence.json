@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "wooden_fence",
   "key": {
     "B": {
       "item": "botania:dreamwood_planks"
