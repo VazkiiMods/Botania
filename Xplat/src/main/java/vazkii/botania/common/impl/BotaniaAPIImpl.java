@@ -153,7 +153,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	private enum ItemTier implements Tier {
 		MANASTEEL(300, 6.2F, 2, 3, 20, () -> BotaniaItems.manaSteel),
 		ELEMENTIUM(720, 6.2F, 2, 3, 20, () -> BotaniaItems.elementium),
-		TERRASTEEL(2300, 9, 3, 4, 26, () -> BotaniaItems.terrasteel);
+		TERRASTEEL(2300, 9, 4, 4, 26, () -> BotaniaItems.terrasteel);
 
 		private final int maxUses;
 		private final float efficiency;
