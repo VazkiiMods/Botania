@@ -2682,8 +2682,8 @@
   "botania.page.grassHorn3": "Adjusting for $(item)Snow$(0)",
 
   "botania.entry.terrasteelArmor": "Terrasteel Armor",
-  "botania.tagline.terrasteelArmor": "Diamond-tier armor with Manasteel properties",
-  "botania.page.terrasteelArmor0": "Armor made out of $(l:basics/terrasteel)$(item)Terrasteel$(0)$(/l), much like its $(item)Manasteel$(0)-based counterpart, can use $(thing)Mana$(0) from the inventory to heal damage.$(p)However, its durabilities are comparable more to $(item)Diamond$(0) armor than to $(item)Iron$(0).",
+  "botania.tagline.terrasteelArmor": "Netherite-tier armor with Manasteel properties",
+  "botania.page.terrasteelArmor0": "Armor made out of $(l:basics/terrasteel)$(item)Terrasteel$(0)$(/l), much like its $(item)Manasteel$(0)-based counterpart, can use $(thing)Mana$(0) from the inventory to heal damage.$(p)However, its properties are comparable more to $(item)Netherite$(0) armor than to $(item)Iron$(0).",
   "botania.page.terrasteelArmor1": "The $(item)Terrasteel Helmet$(0)",
   "botania.page.terrasteelArmor2": "The $(item)Terrasteel Chestplate$(0)",
   "botania.page.terrasteelArmor3": "The $(item)Terrasteel Leggings$(0)",
@@ -2691,7 +2691,7 @@
 
   "botania.entry.terraSword": "Terra Blade",
   "botania.tagline.terraSword": "A sword that fires a beam that damages mobs",
-  "botania.page.terraSword0": "The $(item)Terra Blade$(0), crafted from $(l:basics/terrasteel)$(item)Terrasteel Ingots$(0)$(/l), is a sword infused with the strength of nature. It's on par with a $(item)Diamond Sword$(0) in terms of raw power, and when swung, can sometimes fire a beam that will deal as much as a melee hit would. Additionally, it can use $(thing)Mana$(0) for durability, much like $(l:tools/mana_gear)$(item)Manasteel Tools$(0)$(/l) can.",
+  "botania.page.terraSword0": "The $(item)Terra Blade$(0), crafted from $(l:basics/terrasteel)$(item)Terrasteel Ingots$(0)$(/l), is a sword infused with the strength of nature. It's on par with a $(item)Netherite Sword$(0) in terms of raw power, and when swung, can sometimes fire a beam that will deal as much as a melee hit would. Additionally, it can use $(thing)Mana$(0) for durability, much like $(l:tools/mana_gear)$(item)Manasteel Tools$(0)$(/l) can.",
   "botania.page.terraSword1": "No Broken Hero Sword",
 
   "botania.entry.terraPick": "Terra Shatterer",
@@ -2710,7 +2710,7 @@
 
   "botania.entry.elfGear": "Elementium Equipment",
   "botania.tagline.elfGear": "Manasteel equivalent gear with special properties",
-  "botania.page.elfGear0": "Similarly to other metals, $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l) can be shaped into tools and armor.$(p)The respective armor components each have decent damage resistances (about half that of diamond armor), as well as the ability to drain $(thing)Mana$(0) to heal damage.",
+  "botania.page.elfGear0": "Similarly to other metals, $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l) can be shaped into tools and armor.$(p)The respective armor components each have decent damage resistances (same as manasteel armor), as well as the ability to drain $(thing)Mana$(0) to heal damage.",
   "botania.page.elfGear1": "Each piece of armor will, when its bearer is harmed, have a chance to spawn a $(thing)Pixie$(0) to fly after the aggressor, dealing some decent damage.$(p)The more pieces of $(item)Elementium Armor$(0) equipped, the higher the chance becomes. Additionally, each of the tools in the set comes with its own unique ability.",
   "botania.page.elfGear2": "First, the $(item)Elementium Pickaxe$(0) will clear away $(item)Cobblestone$(0), $(item)Dirt$(0), $(item)Netherrack$(0), and other common materials, leaving behind only ores and fine resources.$(p)Combining the $(item)Elementium Pickaxe$(0) with a $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) in a crafting square allows for the latter to take on the former's power. This can't be undone.",
   "botania.page.elfGear3": "The $(item)Elementium Pickaxe$(0)",
