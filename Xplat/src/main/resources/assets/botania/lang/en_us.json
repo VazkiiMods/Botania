@@ -131,6 +131,7 @@
   "botaniamisc.invalidDodge": "Invalid Dodge Packet",
   "botaniamisc.rannuncarpus.state_sensitive": "Match Exact State",
   "botaniamisc.rannuncarpus.state_insensitive": "Match Block Only",
+  "botaniamisc.lokiRingLimitReached": "Selection limit reached",
 
   "botania.tater_birthday.0": "Wow, is this for me?",
   "botania.tater_birthday.1": "It's my birthday today; I'm %d years old now!",
