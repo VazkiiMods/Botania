@@ -35,6 +35,7 @@ and start a new "Upcoming" section.
   * Missing lookup references for derivatives of certain decorative blocks (e.g. quartz variants) have been added for the quick-lookup feature while holding the book
   * Lexica Botania acknowledges that Trinkets are used on Fabric instead of Curios
   * Various entries were updated to match recent changes and fix old errors
+* Change: The Ring of Loki now has a (reasonably high) selection limit to prevent players from accidentally "NBT-banning" themselves from their world or server by going too hard with it
 * Remove: Config option `orechidPriorityMods` didn't have any effect since 1.16, never made it to Fabric, and is now gone in the Forge version as well; pack authors should use data pack recipes to define Orechid outputs and weights
 * Fix: Flight bar for Flügel Tiara no longer overlaps with the refilling air bubbles indicator or the mount health bar, if that uses more than one row
 * Fix: The Manaseer Monocle's flower radius indicator no longer jumps around if you are very far from the world origin, and should also not Z-fight with the binding radius indicator of luminizers anymore
@@ -47,6 +48,7 @@ and start a new "Upcoming" section.
 * Fix: Floating flower islands properly show the soil type on Forge, and are no longer invisible in Patchouli multiblock visualizations (although that latter part is merely a workaround for a Patchouli issue at the moment)
 * Fix: Position of the binding information icon on flowers' wand HUD has been adjusted to not overlap with longer flower names
 * Fix: Suspicious stew effect from Pure Daisy actually works now, clearing all active status effects
+* Fix: Potential integer overflow in Ring of Loki mana calculation
 
 ---
 
