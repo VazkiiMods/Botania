@@ -14,8 +14,6 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.world.damagesource.DamageEffects;
-import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
 
 import vazkii.botania.data.*;
@@ -74,8 +72,8 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	}
 
 	protected static void damageTypeBC(BootstapContext<DamageType> context) {
-		context.register(RELIC_DAMAGE, new DamageType("botania-relic", DamageScaling.NEVER, 1F, DamageEffects.FREEZING));
-		context.register(PLAYER_ATTACK_ARMOR_PIERCING, new DamageType("player", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1F));
-		context.register(KEY_EXPLOSION, new DamageType("botania.key_explosion", DamageScaling.ALWAYS, 0.1F));
+		context.register(RELIC_DAMAGE, RELIC);
+		context.register(PLAYER_ATTACK_ARMOR_PIERCING, PLAYER_AP);
+		context.register(KEY_EXPLOSION, KEY);
 	}
 }
