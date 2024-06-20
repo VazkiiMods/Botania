@@ -19,10 +19,23 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Add: Horn and Drum of the Wild can break moss carpet, with the option to add more blocks through a block tag
-* Add: Bergamute occludes vibrations within its range 
+* Add: Bergamute occludes vibrations within its range
+* Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
+* Add: Big dripleaf plants can be shrunk back to their small form using mana infusion with an alchemy catalyst
+* Add: Tectonic Girdle also nullifies explosion knockback
 * Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
 * Change: Charm of the Diva also supports charming or targeting neutral mobs that are angry at the player or attacking one of the player's tamed animals, and properly prevents the player's tamed animals from being affected or targeted by the charm
 * Change: Dandelifeon recipe also requires a redstone root (zacharybarbanell)
+* Change: Terrasteel tool speed and damage was updated to match corresponding netherite values
+* Change: Bumped up the amount of mana contained in bursts from Manastorm Charges; this doesn't change their behavior, but maybe you can find a new use for them in less destructive ways
+* Change: Various crafting recipes moved to more fitting categories in the vanilla recipe book
+* Change: Several book entries were updated, including various recipe presentations:
+  * Petal Apothecary and Runic Altar recipes show the reagent, similar to how they do in recipe viewer mods already
+  * Multi-crafting page templates are now used more widely where it makes sense, like when alternative items in recipes need to be implemented as individual recipes (e.g. the mana pearl and mana diamond variants of the runic altar and mana tablet recipes)
+  * Missing lookup references for derivatives of certain decorative blocks (e.g. quartz variants) have been added for the quick-lookup feature while holding the book
+  * Lexica Botania acknowledges that Trinkets are used on Fabric instead of Curios
+  * Various entries were updated to match recent changes and fix old errors
+* Remove: Config option `orechidPriorityMods` didn't have any effect since 1.16, never made it to Fabric, and is now gone in the Forge version as well; pack authors should use data pack recipes to define Orechid outputs and weights
 * Fix: Flight bar for Flügel Tiara no longer overlaps with the refilling air bubbles indicator or the mount health bar, if that uses more than one row
 * Fix: The Manaseer Monocle's flower radius indicator no longer jumps around if you are very far from the world origin, and should also not Z-fight with the binding radius indicator of luminizers anymore
 * Fix: The air bubble created by Bubbells no longer flickers with inflowing water
@@ -32,6 +45,8 @@ and start a new "Upcoming" section.
 * Fix: Pollidisiac gives animals their deserved break after breading again
 * Fix: Shard of Laputa no longer breaks *all* the 2-tall grass/flower blocks anymore
 * Fix: Floating flower islands properly show the soil type on Forge, and are no longer invisible in Patchouli multiblock visualizations (although that latter part is merely a workaround for a Patchouli issue at the moment)
+* Fix: Position of the binding information icon on flowers' wand HUD has been adjusted to not overlap with longer flower names
+* Fix: Suspicious stew effect from Pure Daisy actually works now, clearing all active status effects
 
 ---
 
