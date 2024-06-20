@@ -13,11 +13,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
+
 import vazkii.botania.data.*;
 import vazkii.botania.data.recipes.*;
 
