@@ -3054,7 +3054,7 @@
   "botania.entry.astrolabe": "Worldshaper's Astrolabe",
   "botania.tagline.astrolabe": "A tool to help create planes",
   "botania.page.astrolabe0": "The $(item)Worldshaper's Astrolabe$(0) is a handy tool to place blocks. A lot of them. Really quickly.$(p)To use it, sneak-right click the astrolabe on a block to choose the block to be placed, and sneak-right click the astrolabe in the air to choose the number of blocks to be placed.",
-  "botania.page.astrolabe1": "Once a block is selected, the astrolabe will display a preview of what it would construct at a given position.$(p)To actually construct the previewed blocks (using $(thing)Mana$(0) as well as blocks from the user's inventory), simply right-click the astrolabe. Blocks can also be supplied from items like a $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l), a $(l:tools/cobble_rod)$(item)Rod of the Depths$(0)$(/l), or a $(l:ender/ender_hand)$(item)Hand of Ender$(0)$(/l).",
+  "botania.page.astrolabe1": "Once a block is selected, the astrolabe will display a preview of what it would construct at a given position.$(p)To actually construct the previewed blocks (using $(thing)Mana$(0) as well as blocks from the user's inventory), simply right-click the astrolabe. Blocks can also be supplied from items like a $(l:tools/dirt_rod)$(item)Rod of Lands$(0)$(/l), a $(l:tools/cobble_rod)$(item)Rod of the Depths$(0)$(/l), or a $(l:ender/ender_hand)$(item)Hand of Ender$(0)$(/l).",
   "botania.page.astrolabe2": "Builds walls, creates worlds",
 
   "botania.entry.enderAir": "Extracting Ender Air",
