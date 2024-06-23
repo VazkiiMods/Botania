@@ -1,0 +1,8 @@
+// 1.20.1	Botania/Tags for minecraft:damage_type
+14aff817ac86d16f5a0a2599f4bb6bde25bfc7da data/botania/tags/damage_type/ring_of_odin_immune.json
+de7c8ce81aa7f5e90670e58c2202565cf5473485 data/minecraft/tags/damage_type/bypasses_armor.json
+24c644d92fd6641021b615151b60869274f2efe4 data/minecraft/tags/damage_type/bypasses_effects.json
+24c644d92fd6641021b615151b60869274f2efe4 data/minecraft/tags/damage_type/bypasses_enchantments.json
+24c644d92fd6641021b615151b60869274f2efe4 data/minecraft/tags/damage_type/bypasses_resistance.json
+7de1fa9cdf22a6a4989abe92d268ba2ec44fd14e data/minecraft/tags/damage_type/is_explosion.json
+24c644d92fd6641021b615151b60869274f2efe4 data/minecraft/tags/damage_type/no_impact.json

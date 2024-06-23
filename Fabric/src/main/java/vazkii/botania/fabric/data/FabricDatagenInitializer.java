@@ -10,10 +10,16 @@ package vazkii.botania.fabric.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.world.damagesource.DamageType;
 
 import vazkii.botania.data.*;
 import vazkii.botania.data.recipes.*;
+
+import static vazkii.botania.common.BotaniaDamageTypes.*;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	@Override
@@ -40,7 +46,8 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		pack.addProvider(EntityTagProvider::new);
 		pack.addProvider(BannerPatternTagsProvider::new);
 		pack.addProvider(BiomeTagProvider::new);
-		// pack.addProvider(DamageTypeTagProvider::new);
+		pack.addProvider(BotaniaDynamicRegistryProvider::new);
+		pack.addProvider(DamageTypeTagProvider::new);
 		pack.addProvider((PackOutput output) -> new StonecuttingProvider(output));
 		pack.addProvider((PackOutput output) -> new CraftingRecipeProvider(output));
 		pack.addProvider((PackOutput output) -> new SmeltingProvider(output));
@@ -57,5 +64,16 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		pack.addProvider((PackOutput output) -> new ItemModelProvider(output));
 		pack.addProvider((PackOutput output) -> new PottedPlantModelProvider(output));
 		pack.addProvider(AdvancementProvider::create);
+	}
+
+	@Override
+	public void buildRegistry(RegistrySetBuilder builder) {
+		builder.add(Registries.DAMAGE_TYPE, FabricDatagenInitializer::damageTypeBC);
+	}
+
+	protected static void damageTypeBC(BootstapContext<DamageType> context) {
+		context.register(RELIC_DAMAGE, RELIC);
+		context.register(PLAYER_ATTACK_ARMOR_PIERCING, PLAYER_AP);
+		context.register(KEY_EXPLOSION, KEY);
 	}
 }
