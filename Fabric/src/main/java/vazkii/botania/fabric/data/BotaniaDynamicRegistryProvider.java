@@ -8,9 +8,9 @@ import java.util.concurrent.CompletableFuture;
 
 import static vazkii.botania.common.BotaniaDamageTypes.*;
 
-public class FabricDynamicProvider extends FabricDynamicRegistryProvider {
+public class BotaniaDynamicRegistryProvider extends FabricDynamicRegistryProvider {
 
-	public FabricDynamicProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public BotaniaDynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 
@@ -23,6 +23,6 @@ public class FabricDynamicProvider extends FabricDynamicRegistryProvider {
 
 	@Override
 	public String getName() {
-		return "damageTypes";
+		return "BotaniaDynamicRegistryProvider";
 	}
 }
