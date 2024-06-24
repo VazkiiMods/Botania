@@ -49,6 +49,9 @@ and start a new "Upcoming" section.
 * Fix: Position of the binding information icon on flowers' wand HUD has been adjusted to not overlap with longer flower names
 * Fix: Suspicious stew effect from Pure Daisy actually works now, clearing all active status effects
 * Fix: Potential integer overflow in Ring of Loki mana calculation
+* Fix: Removed outdated Malum compatibility code from Ring of Magnetization, which should fix a crash (unilock) 
+* Language updates:
+  * zh_cn updated (Dawnwalker666)
 
 ---
 
