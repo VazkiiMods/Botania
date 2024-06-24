@@ -1,5 +1,5 @@
 {
-    DataVersion: 3120,
+    DataVersion: 3465,
     size: [7, 10, 7],
     data: [
         {pos: [0, 0, 0], state: "minecraft:polished_andesite"},

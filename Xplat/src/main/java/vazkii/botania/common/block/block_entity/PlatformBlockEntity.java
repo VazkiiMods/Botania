@@ -10,11 +10,14 @@ package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -107,7 +110,8 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable 
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp) {
-		BlockState state = NbtUtils.readBlockState(level.holderLookup(Registries.BLOCK), cmp.getCompound(TAG_CAMO));
+		HolderGetter<Block> holderGetter = this.level != null ? this.level.holderLookup(Registries.BLOCK) : BuiltInRegistries.BLOCK.asLookup();
+		BlockState state = NbtUtils.readBlockState(holderGetter, cmp.getCompound(TAG_CAMO));
 		if (state.isAir()) {
 			state = null;
 		}
@@ -117,8 +121,8 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable 
 		}
 	}
 
-	@SoftImplement("RenderAttachmentBlockEntity")
-	public Object getRenderAttachmentData() {
+	@SoftImplement("RenderDataBlockEntity")
+	public Object getRenderData() {
 		return new PlatformData(this);
 	}
 

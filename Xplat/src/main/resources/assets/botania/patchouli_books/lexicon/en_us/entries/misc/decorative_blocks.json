@@ -11,14 +11,13 @@
     {
       "type": "crafting",
       "text": "botania.page.decorativeBlocks1",
-      "recipe": "botania:slab_recombine/livingrock_bricks",
-      "recipe2": "botania:livingrock_bricks"
+      "recipe": "botania:livingrock_bricks",
+      "recipe2": "botania:livingrock_slate"
     },
     {
-      "type": "crafting",
+      "type": "botania:crafting_multi",
       "text": "botania.page.decorativeBlocks2",
-      "recipe": "botania:mossy_livingrock_bricks",
-      "recipe2": "botania:mossy_livingrock_bricks_vine"
+      "recipes": ["botania:mossy_livingrock_bricks", "botania:mossy_livingrock_bricks_vine"]
     },
     {
       "type": "smelting",
@@ -33,14 +32,12 @@
     {
       "type": "crafting",
       "text": "botania.page.decorativeBlocks5",
-      "recipe": "botania:slab_recombine/livingwood_planks",
-      "recipe2": "botania:livingwood_planks"
+      "recipe": "botania:livingwood_planks"
     },
     {
-      "type": "crafting",
+      "type": "botania:crafting_multi",
       "text": "botania.page.decorativeBlocks6",
-      "recipe": "botania:mossy_livingwood_planks",
-      "recipe2": "botania:mossy_livingwood_planks_vine"
+      "recipes": ["botania:mossy_livingwood_planks", "botania:mossy_livingwood_planks_vine"]
     },
     {
       "type": "crafting",
@@ -105,6 +102,36 @@
     "botania:livingwood_fence_gate": 5,
     "botania:livingwood_planks_slab": 5,
     "botania:glimmering_stripped_livingwood_log": 9,
-    "botania:glimmering_stripped_livingwood": 9
+    "botania:glimmering_stripped_livingwood": 9,
+    "botania:dark_quartz": 11,
+    "botania:chiseled_dark_quartz": 11,
+    "botania:dark_quartz_slab": 11,
+    "botania:dark_quartz_stairs": 11,
+    "botania:dark_quartz_pillar": 11,
+    "botania:mana_quartz": 12,
+    "botania:chiseled_mana_quartz": 12,
+    "botania:mana_quartz_slab": 12,
+    "botania:mana_quartz_stairs": 12,
+    "botania:mana_quartz_pillar": 12,
+    "botania:blaze_quartz": 13,
+    "botania:chiseled_blaze_quartz": 13,
+    "botania:blaze_quartz_slab": 13,
+    "botania:blaze_quartz_stairs": 13,
+    "botania:blaze_quartz_pillar": 13,
+    "botania:lavender_quartz": 14,
+    "botania:chiseled_lavender_quartz": 14,
+    "botania:lavender_quartz_slab": 14,
+    "botania:lavender_quartz_stairs": 14,
+    "botania:lavender_quartz_pillar": 14,
+    "botania:red_quartz": 15,
+    "botania:chiseled_red_quartz": 15,
+    "botania:red_quartz_slab": 15,
+    "botania:red_quartz_stairs": 15,
+    "botania:red_quartz_pillar": 15,
+    "botania:sunny_quartz": 16,
+    "botania:chiseled_sunny_quartz": 16,
+    "botania:sunny_quartz_slab": 16,
+    "botania:sunny_quartz_stairs": 16,
+    "botania:sunny_quartz_pillar": 16
   }
 }

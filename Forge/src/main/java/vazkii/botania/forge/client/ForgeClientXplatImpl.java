@@ -69,11 +69,12 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 	public void tessellateBlock(Level level, BlockState state, BlockPos pos, PoseStack ps, MultiBufferSource buffers, int overlay) {
 		var renderer = Minecraft.getInstance().getBlockRenderer();
 		var model = renderer.getBlockModel(state);
+		var modelData = model.getModelData(level, pos, state, ModelData.EMPTY);
 		var rand = RandomSource.create();
-		for (RenderType type : model.getRenderTypes(state, rand, ModelData.EMPTY)) {
+		for (RenderType type : model.getRenderTypes(state, rand, modelData)) {
 			renderer.getModelRenderer().tesselateBlock(level, model,
 					state, pos, ps, buffers.getBuffer(type), false, rand,
-					state.getSeed(pos), overlay, ModelData.EMPTY, type);
+					state.getSeed(pos), overlay, modelData, type);
 		}
 	}
 }

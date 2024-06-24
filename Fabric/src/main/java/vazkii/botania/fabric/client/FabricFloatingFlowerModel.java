@@ -15,7 +15,6 @@ import com.mojang.math.Transformation;
 
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -105,11 +104,6 @@ public class FabricFloatingFlowerModel extends BlockModel {
 			this.islands = islands;
 		}
 
-		private void emit(FloatingFlower.IslandType type, RenderContext ctx) {
-			ctx.bakedModelConsumer().accept(wrapped);
-			ctx.bakedModelConsumer().accept(islands.get(type));
-		}
-
 		@NotNull
 		@Override
 		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
@@ -128,15 +122,16 @@ public class FabricFloatingFlowerModel extends BlockModel {
 
 		@Override
 		public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
-			emit(FloatingFlower.IslandType.GRASS, context);
+			wrapped.emitItemQuads(stack, randomSupplier, context);
+			islands.get(FloatingFlower.IslandType.GRASS).emitItemQuads(stack, randomSupplier, context);
 		}
 
 		@Override
 		public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<RandomSource> randomSupplier, RenderContext context) {
-			Object data = ((RenderAttachedBlockView) blockView).getBlockEntityRenderAttachment(pos);
-			if (data instanceof FloatingFlower.IslandType type) {
-				emit(type, context);
-			}
+			wrapped.emitBlockQuads(blockView, state, pos, randomSupplier, context);
+			Object data = blockView.getBlockEntityRenderData(pos);
+			islands.get(data instanceof FloatingFlower.IslandType type ? type : FloatingFlower.IslandType.GRASS)
+					.emitBlockQuads(blockView, state, pos, randomSupplier, context);
 		}
 	}
 

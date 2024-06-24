@@ -264,9 +264,9 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		return 0;
 	}
 
-	@SoftImplement("RenderAttachmentBlockEntity")
+	@SoftImplement("RenderDataBlockEntity")
 	@Nullable
-	public Object getRenderAttachmentData() {
+	public Object getRenderData() {
 		if (isFloating()) {
 			return floatingData.getIslandType();
 		}

@@ -108,6 +108,12 @@
       "type": "patchouli:text",
       "text": "#text",
       "y": 69
+    },
+    {
+      "type": "patchouli:item",
+      "item": "minecraft:crafting_table",
+      "x": 88,
+      "y": 45
     }
   ]
 }

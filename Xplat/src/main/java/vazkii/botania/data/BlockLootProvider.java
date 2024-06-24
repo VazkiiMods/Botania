@@ -19,10 +19,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.storage.loot.Deserializers;
@@ -90,6 +87,8 @@ public class BlockLootProvider implements DataProvider {
 				functionTable.put(b, BlockLootProvider::genDoubleFlower);
 			} else if (b instanceof BotaniaGrassBlock) {
 				functionTable.put(b, BlockLootProvider::genAltGrass);
+			} else if (b instanceof FlowerPotBlock flowerPot) {
+				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getContent()));
 			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
 				functionTable.put(b, BlockLootProvider::genMetamorphicStone);
 			}
@@ -245,6 +244,17 @@ public class BlockLootProvider implements DataProvider {
 		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
 				.when(ExplosionCondition.survivesExplosion());
 		return LootTable.lootTable().withPool(pool);
+	}
+
+	protected static LootTable.Builder createPotAndPlantItemTable(ItemLike plant) {
+		// based on BlockLootSubProvider.createPotFlowerItemTable(ItemLike)
+		final var potPool = LootPool.lootPool().add(LootItem.lootTableItem(Blocks.FLOWER_POT))
+				.setRolls(ConstantValue.exactly(1.0f))
+				.when(ExplosionCondition.survivesExplosion());
+		final var plantPool = LootPool.lootPool().add(LootItem.lootTableItem(plant))
+				.setRolls(ConstantValue.exactly(1.0f))
+				.when(ExplosionCondition.survivesExplosion());
+		return LootTable.lootTable().withPool(potPool).withPool(plantPool);
 	}
 
 	@NotNull

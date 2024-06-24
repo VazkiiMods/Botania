@@ -7,8 +7,7 @@
     }
   },
   "pattern": [
-    "Q",
-    "Q"
+    "QQ"
   ],
   "result": {
     "item": "botania:metamorphic_fungal_stone"

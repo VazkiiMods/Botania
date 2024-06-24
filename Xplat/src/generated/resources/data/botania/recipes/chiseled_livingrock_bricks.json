@@ -3,15 +3,14 @@
   "category": "building",
   "key": {
     "R": {
-      "item": "botania:livingrock_bricks"
+      "item": "botania:livingrock_bricks_slab"
     }
   },
   "pattern": [
-    "RR",
-    "RR"
+    "R",
+    "R"
   ],
   "result": {
-    "count": 4,
     "item": "botania:chiseled_livingrock_bricks"
   },
   "show_notification": true

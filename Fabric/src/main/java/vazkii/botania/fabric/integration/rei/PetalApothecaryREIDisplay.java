@@ -9,14 +9,23 @@
 package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.PetalsRecipe;
 
 public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalsRecipe> {
+	private EntryIngredient reagent;
+
 	public PetalApothecaryREIDisplay(PetalsRecipe recipe) {
 		super(recipe);
+		reagent = EntryIngredients.ofIngredient(recipe.getReagent());
+	}
+
+	public EntryIngredient getReagent() {
+		return reagent;
 	}
 
 	@Override

@@ -10,6 +10,8 @@ package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,7 +24,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,115 +42,165 @@ public class BottledManaItem extends Item {
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
 	private static final String TAG_SEED = "randomSeed";
 
+	private static final EffectAction[] EFFECT_ACTIONS = {
+			BottledManaItem::effectRandomMotion,
+			BottledManaItem::effectWater,
+			BottledManaItem::effectSetOnFire,
+			BottledManaItem::effectMiniExplosion,
+			BottledManaItem::effectMegaJump,
+			BottledManaItem::effectSetRandomHp,
+			BottledManaItem::effectLotsOfHearts,
+			BottledManaItem::effectDropAllItems,
+			BottledManaItem::effectBreakNeck,
+			BottledManaItem::effectHighestPossible,
+			BottledManaItem::effectHyperspeed,
+			BottledManaItem::effectNightVision,
+			BottledManaItem::effectPixieFriend,
+			BottledManaItem::effectNauseaBlindness,
+			BottledManaItem::effectDropOwnHead
+	};
+
 	public BottledManaItem(Properties props) {
 		super(props);
 	}
 
-	private void effect(ItemStack stack, LivingEntity living) {
-		switch (new Random(getSeed(stack)).nextInt(16)) {
-			case 0 -> { // Random motion
-				living.setDeltaMovement((Math.random() - 0.5) * 3, living.getDeltaMovement().y(),
-						(Math.random() - 0.5) * 3);
+	private static void effectRandomMotion(Level level, LivingEntity living) {
+		living.setDeltaMovement((Math.random() - 0.5) * 3, living.getDeltaMovement().y(),
+				(Math.random() - 0.5) * 3);
+	}
+
+	private static void effectWater(Level level, LivingEntity living) {
+		if (!level.isClientSide && !level.dimensionType().ultraWarm()) {
+			BlockPos playerPos = living.blockPosition();
+			BlockState state = level.getBlockState(playerPos);
+			BlockState replacedState;
+			BlockPos waterPos;
+			// loosely based on BucketItem#emptyContent:
+			if (state.isAir() || state.canBeReplaced(Fluids.WATER)
+					|| state.getBlock() instanceof LiquidBlockContainer lbc
+							&& lbc.canPlaceLiquid(level, playerPos, state, Fluids.WATER)) {
+				waterPos = playerPos;
+				replacedState = state;
+			} else {
+				BlockState aboveState = level.getBlockState(playerPos.above());
+				waterPos = (aboveState.isAir() || aboveState.canBeReplaced(Fluids.WATER)
+						|| aboveState.getBlock() instanceof LiquidBlockContainer lbc
+								&& lbc.canPlaceLiquid(level, playerPos.above(), aboveState, Fluids.WATER))
+										? playerPos.above()
+										: null;
+				replacedState = aboveState;
 			}
-			case 1 -> { // Water
-				if (!living.level().isClientSide && !living.level().dimensionType().ultraWarm()) {
-					living.level().setBlockAndUpdate(living.blockPosition(), Blocks.WATER.defaultBlockState());
-				}
-			}
-			case 2 -> { // Set on Fire
-				if (!living.level().isClientSide) {
-					living.setSecondsOnFire(4);
-				}
-			}
-			case 3 -> { // Mini Explosion
-				if (!living.level().isClientSide) {
-					living.level().explode(null, living.getX(), living.getY(),
-							living.getZ(), 0.25F, Level.ExplosionInteraction.NONE);
-				}
-			}
-			case 4 -> { // Mega Jump
-				if (!living.level().dimensionType().ultraWarm()) {
-					if (!living.level().isClientSide) {
-						living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 5));
+			if (waterPos != null) {
+				boolean placed;
+				if (replacedState.getBlock() instanceof LiquidBlockContainer lbc) {
+					placed = lbc.placeLiquid(level, waterPos, replacedState, Fluids.WATER.getSource(false));
+				} else {
+					if (replacedState.canBeReplaced(Fluids.WATER)) {
+						level.destroyBlock(waterPos, true);
 					}
-					living.setDeltaMovement(living.getDeltaMovement().x(), 6, living.getDeltaMovement().z());
+					placed = level.setBlockAndUpdate(waterPos, Blocks.WATER.defaultBlockState());
 				}
+				if (placed) {
+					level.playSound(living, waterPos, SoundEvents.WATER_AMBIENT, SoundSource.BLOCKS, 1.0f, level.random.nextFloat() + 0.5f);
+				}
+			}
+		}
+	}
 
-			}
-			case 5 -> { // Randomly set HP
-				if (!living.level().isClientSide) {
-					float nextHealth = (float) (Math.random() * living.getMaxHealth());
-					if (Mth.equal(nextHealth, 0.0F)) {
-						nextHealth = 0.5F;
-					}
-					living.setHealth(nextHealth);
-				}
-			}
-			case 6 -> { // Lots O' Hearts
-				if (!living.level().isClientSide) {
-					living.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 60 * 2, 9));
-				}
-			}
-			case 7 -> { // All your inventory is belong to us
-				if (!living.level().isClientSide && living instanceof Player player) {
-					player.getInventory().dropAll();
-				}
+	private static void effectSetOnFire(Level level, LivingEntity living) {
+		if (!level.isClientSide) {
+			living.setSecondsOnFire(4);
+		}
+	}
 
-			}
-			case 8 -> { // Break your neck
-				living.setXRot((float) Math.random() * 360F);
-				living.setYRot((float) Math.random() * 180F);
+	private static void effectMiniExplosion(Level level, LivingEntity living) {
+		if (!level.isClientSide) {
+			level.explode(null, living.getX(), living.getY(),
+					living.getZ(), 0.25F, Level.ExplosionInteraction.NONE);
+		}
+	}
 
+	private static void effectMegaJump(Level level, LivingEntity living) {
+		if (!level.dimensionType().ultraWarm()) {
+			if (!level.isClientSide) {
+				living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 5));
 			}
-			case 9 -> { // Highest Possible
-				int x = Mth.floor(living.getX());
-				int z = Mth.floor(living.getZ());
-				for (int i = living.level().getMaxBuildHeight(); i > living.level().getMinBuildHeight(); i--) {
-					BlockState state = living.level().getBlockState(new BlockPos(x, i, z));
-					if (!state.isAir()) {
-						living.teleportTo(living.getX(), i, living.getZ());
-						break;
-					}
-				}
+			living.setDeltaMovement(living.getDeltaMovement().x(), 6, living.getDeltaMovement().z());
+		}
+	}
 
+	private static void effectSetRandomHp(Level level, LivingEntity living) {
+		if (!level.isClientSide) {
+			float nextHealth = (float) (Math.random() * living.getMaxHealth());
+			if (Mth.equal(nextHealth, 0.0F)) {
+				nextHealth = 0.5F;
 			}
-			case 10 -> { // HYPERSPEEEEEED
-				if (!living.level().isClientSide) {
-					living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 200));
-				}
-			}
-			case 11 -> { // Night Vision
-				if (!living.level().isClientSide) {
-					living.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0));
-				}
-			}
-			case 12 -> { // ???
-				if (!living.level().isClientSide) {
-					// todo 1.16 pick something new
-				}
-			}
-			case 13 -> { // Pixie Friend
-				if (!living.level().isClientSide) {
-					PixieEntity pixie = new PixieEntity(living.level());
-					pixie.setPos(living.getX(), living.getY() + 1.5, living.getZ());
-					living.level().addFreshEntity(pixie);
-				}
-			}
-			case 14 -> { // Nausea + Blindness :3
-				if (!living.level().isClientSide) {
-					living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 160, 3));
-					living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 160, 0));
-				}
+			living.setHealth(nextHealth);
+		}
+	}
 
+	private static void effectLotsOfHearts(Level level, LivingEntity living) {
+		if (!level.isClientSide) {
+			living.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 60 * 2, 9));
+		}
+	}
+
+	private static void effectBreakNeck(Level level, LivingEntity living) {
+		living.setXRot((float) Math.random() * 360F);
+		living.setYRot((float) Math.random() * 180F);
+	}
+
+	private static void effectHighestPossible(Level level, LivingEntity living) {
+		int x = Mth.floor(living.getX());
+		int z = Mth.floor(living.getZ());
+		for (int i = level.getMaxBuildHeight(); i > level.getMinBuildHeight(); i--) {
+			BlockState state = level.getBlockState(new BlockPos(x, i, z));
+			if (!state.isAir()) {
+				living.teleportTo(living.getX(), i, living.getZ());
+				break;
 			}
-			case 15 -> { // Drop own Head
-				if (!living.level().isClientSide && living instanceof Player player) {
-					living.hurt(living.damageSources().magic(), living.getHealth() - 1);
-					ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
-					ItemNBTHelper.setString(skull, "SkullOwner", player.getGameProfile().getName());
-					living.spawnAtLocation(skull, 0);
-				}
-			}
+		}
+	}
+
+	private static void effectDropAllItems(Level level, LivingEntity living) {
+		if (!level.isClientSide && living instanceof Player player) {
+			player.getInventory().dropAll();
+		}
+	}
+
+	private static void effectHyperspeed(Level level, LivingEntity living) {
+		if (!level.isClientSide) {
+			living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 200));
+		}
+	}
+
+	private static void effectNightVision(Level level, LivingEntity living) {
+		if (!level.isClientSide) {
+			living.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0));
+		}
+	}
+
+	private static void effectPixieFriend(Level level, LivingEntity living) {
+		if (!level.isClientSide) {
+			PixieEntity pixie = new PixieEntity(level);
+			pixie.setPos(living.getX(), living.getY() + 1.5, living.getZ());
+			level.addFreshEntity(pixie);
+		}
+	}
+
+	private static void effectNauseaBlindness(Level level, LivingEntity living) {
+		if (!level.isClientSide) {
+			living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 160, 3));
+			living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 160, 0));
+		}
+	}
+
+	private static void effectDropOwnHead(Level level, LivingEntity living) {
+		if (!level.isClientSide && living instanceof Player player) {
+			living.hurt(living.damageSources().magic(), living.getHealth() - 1);
+			ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
+			ItemNBTHelper.setString(skull, "SkullOwner", player.getGameProfile().getName());
+			living.spawnAtLocation(skull, 0);
 		}
 	}
 
@@ -172,9 +226,11 @@ public class BottledManaItem extends Item {
 	@NotNull
 	@Override
 	public ItemStack finishUsingItem(@NotNull ItemStack stack, Level world, LivingEntity living) {
-		effect(stack, living);
+		EFFECT_ACTIONS[new Random(getSeed(stack)).nextInt(EFFECT_ACTIONS.length)].apply(world, living);
 		int left = getSwigsLeft(stack);
 		if (left <= 1) {
+			// in case inventory is dropped:
+			stack.setCount(0);
 			return new ItemStack(Items.GLASS_BOTTLE);
 		} else {
 			setSwigsLeft(stack, left - 1);
@@ -202,4 +258,8 @@ public class BottledManaItem extends Item {
 		ItemNBTHelper.setInt(stack, TAG_SWIGS_LEFT, swigs);
 	}
 
+	@FunctionalInterface
+	private interface EffectAction {
+		void apply(Level level, LivingEntity living);
+	}
 }

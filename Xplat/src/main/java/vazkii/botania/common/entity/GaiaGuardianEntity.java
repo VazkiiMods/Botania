@@ -252,7 +252,8 @@ public class GaiaGuardianEntity extends Mob {
 			e.mobSpawnTicks = MOB_SPAWN_TICKS;
 			e.hardMode = hard;
 
-			int playerCount = e.getPlayersAround().size();
+			List<Player> playersAround = e.getPlayersAround();
+			int playerCount = playersAround.size();
 			e.playerCount = playerCount;
 
 			float healthMultiplier = 1;
@@ -268,6 +269,12 @@ public class GaiaGuardianEntity extends Mob {
 			e.playSound(BotaniaSounds.gaiaSummon, 1F, 1F);
 			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null, null);
 			world.addFreshEntity(e);
+
+			for (Player nearbyPlayer : playersAround) {
+				if (nearbyPlayer instanceof ServerPlayer serverPlayer) {
+					CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, e);
+				}
+			}
 		}
 
 		return true;

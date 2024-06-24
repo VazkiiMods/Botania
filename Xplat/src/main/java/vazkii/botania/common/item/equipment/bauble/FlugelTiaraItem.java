@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -43,6 +44,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.StringObfuscator;
 import vazkii.botania.common.helper.VecHelper;
@@ -196,7 +198,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 		if (!armor.isEmpty()) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
-			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.getInventory().contains(new ItemStack(BotaniaItems.flugelEye))) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
+			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || InventoryHelper.containsType(player.getInventory(), BotaniaItems.flugelEye)) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
 		}
 
 		return false;
@@ -475,17 +477,28 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 			buffer.vertex(mat, -1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 1).endVertex();
 		}
 
+		private static int estimateAdditionalNumRowsRendered(Player player) {
+			if (player.isEyeInFluid(FluidTags.WATER) || player.getAirSupply() < player.getMaxAirSupply()) {
+				// shift up single row if player is underwater or still recovering air
+				return 1;
+			}
+
+			Entity playerVehicle = player.getVehicle();
+			if (playerVehicle instanceof LivingEntity vehicle && vehicle.showVehicleHealth()) {
+				// shift up if vehicle health requires more than one row (vanilla HUD limits vehicle hearts to 3 rows)
+				return (Math.min(30, (int) (vehicle.getMaxHealth() + 0.5) / 2) - 1) / 10;
+			}
+
+			return 0;
+		}
+
 		public static void renderHUD(GuiGraphics gui, Player player, ItemStack stack) {
 			int u = Math.max(1, getVariant(stack)) * 9 - 9;
 			int v = 0;
 
 			Minecraft mc = Minecraft.getInstance();
 			int xo = mc.getWindow().getGuiScaledWidth() / 2 + 10;
-			int x = xo;
-			int y = mc.getWindow().getGuiScaledHeight() - 49;
-			if (player.isEyeInFluid(FluidTags.WATER)) {
-				y -= 10;
-			}
+			int y = mc.getWindow().getGuiScaledHeight() - 10 * estimateAdditionalNumRowsRendered(player) - 49;
 
 			int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 
@@ -502,8 +515,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 				}
 
 				RenderSystem.setShaderColor(1F, 1F, 1F, trans);
-				RenderHelper.drawTexturedModalRect(gui, textureHud, x, y, u, v, 9, 9);
-				x += 8;
+				RenderHelper.drawTexturedModalRect(gui, textureHud, xo + 8 * i, y, u, v, 9, 9);
 			}
 
 			if (player.getAbilities().flying) {

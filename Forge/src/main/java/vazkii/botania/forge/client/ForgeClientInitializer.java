@@ -83,9 +83,9 @@ public class ForgeClientInitializer {
 				(gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
 	}
 
-	@SuppressWarnings("removal")
 	@SubscribeEvent
 	public static void clientInit(FMLClientSetupEvent evt) {
+		BlockRenderLayers.skipPlatformBlocks = true; // platforms can use standard rendering on Forge
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 		// GUIs
 		evt.enqueueWork(() -> {

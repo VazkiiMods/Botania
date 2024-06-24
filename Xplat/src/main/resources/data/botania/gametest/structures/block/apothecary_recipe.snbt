@@ -1,5 +1,5 @@
 {
-    DataVersion: 3120,
+    DataVersion: 3465,
     size: [3, 4, 3],
     data: [
         {pos: [0, 0, 0], state: "botania:metamorphic_mesa_bricks"},

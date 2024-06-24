@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -87,8 +86,7 @@ public class OrechidUIHelper {
 		if (level == null) {
 			return null;
 		}
-		@SuppressWarnings("unchecked")
-		final var type = (RecipeType<? extends OrechidRecipe>) recipe.getType();
+		final var type = recipe.getType();
 		final var state = recipe.getInput().getDisplayed().get(0);
 		final int totalWeight = OrechidManager.getTotalDisplayWeightAt(level, type, state, pos);
 		final int weight = pos != null

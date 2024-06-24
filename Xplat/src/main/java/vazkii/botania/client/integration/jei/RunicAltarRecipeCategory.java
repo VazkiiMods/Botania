@@ -16,7 +16,6 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
@@ -24,7 +23,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -44,6 +43,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	private final Component localizedName;
 	private final IDrawable overlay;
 	private final IDrawable icon;
+	private final Ingredient LIVINGROCK = Ingredient.of(BotaniaBlocks.livingrock);
 
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(114, 104);
@@ -87,21 +87,8 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RunicAltarRecipe recipe, @NotNull IFocusGroup focusGroup) {
-		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
-				.addItemStack(new ItemStack(BotaniaBlocks.runeAltar));
-
-		double angleBetweenEach = 360.0 / recipe.getIngredients().size();
-		Vec2 point = new Vec2(48, 13), center = new Vec2(48, 45);
-
-		for (var ingr : recipe.getIngredients()) {
-			builder.addSlot(RecipeIngredientRole.INPUT, (int) point.x, (int) point.y)
-					.addIngredients(ingr);
-			point = PetalApothecaryRecipeCategory.rotatePointAbout(point, center, angleBetweenEach);
-		}
-
-		// TODO 1.19.4 figure out the proper way to get a registry access
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 86, 10)
-				.addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));
+		PetalApothecaryRecipeCategory.setRecipeLayout(builder, recipe.getIngredients(), BotaniaBlocks.runeAltar,
+				recipe.getResultItem(RegistryAccess.EMPTY), LIVINGROCK);
 	}
 
 }

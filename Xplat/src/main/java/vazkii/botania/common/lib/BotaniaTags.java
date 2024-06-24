@@ -185,6 +185,12 @@ public class BotaniaTags {
 		 * Blocks in this tag cannot be moved by the Laputa Shard
 		 */
 		public static final TagKey<Block> LAPUTA_IMMOBILE = tag("laputa_immobile");
+		/**
+		 * Blocks in this tag should not be treated like a 2-high double block by the Laputa Shard, even though they
+		 * have the {@link net.minecraft.world.level.block.state.properties.BlockStateProperties#DOUBLE_BLOCK_HALF}
+		 * property.
+		 */
+		public static final TagKey<Block> LAPUTA_NO_DOUBLE_BLOCK = tag("laputa_no_double_block");
 
 		/**
 		 * Blocks in this tag can be removed by the Rod of Terra Firma
@@ -215,6 +221,12 @@ public class BotaniaTags {
 		 * Blocks in this tag are affected by the weight lens even if they don't drop themselves with silk touch.
 		 */
 		public static final TagKey<Block> WEIGHT_LENS_WHITELIST = tag("weight_lens_whitelist");
+
+		/**
+		 * Blocks in this tag can be broken by the Horn of the Wild,
+		 * in addition to any {@code BushBlock}s that are not part of the {@link #SPECIAL_FLOWERS} tag.
+		 */
+		public static final TagKey<Block> HORN_OF_THE_WILD_BREAKABLE = tag("horn_of_the_wild_breakable");
 
 		/**
 		 * Blocks in this tag can be broken by the Horn of the Canopy

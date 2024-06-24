@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "botania:quartz_stairs",
   "key": {
     "Q": {
       "item": "botania:sunny_quartz"

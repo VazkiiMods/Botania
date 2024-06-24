@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "Q": {
+      "item": "botania:corporea_slab"
+    }
+  },
+  "pattern": [
+    "QQ"
+  ],
+  "result": {
+    "item": "botania:corporea_block"
+  },
+  "show_notification": true
+}

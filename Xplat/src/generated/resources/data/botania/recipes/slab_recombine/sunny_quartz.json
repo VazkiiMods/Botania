@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "Q": {
+      "item": "botania:sunny_quartz_slab"
+    }
+  },
+  "pattern": [
+    "QQ"
+  ],
+  "result": {
+    "item": "botania:sunny_quartz"
+  },
+  "show_notification": true
+}

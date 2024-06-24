@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "redstone",
+  "group": "wooden_fence_gate",
   "key": {
     "B": {
       "item": "botania:livingwood_planks"

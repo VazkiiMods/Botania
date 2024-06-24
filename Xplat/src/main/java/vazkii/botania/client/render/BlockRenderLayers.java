@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -14,6 +15,8 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.function.BiConsumer;
 
 public final class BlockRenderLayers {
+	public static boolean skipPlatformBlocks;
+
 	public static void init(BiConsumer<Block, RenderType> consumer) {
 		consumer.accept(BotaniaBlocks.defaultAltar, RenderType.cutout());
 		consumer.accept(BotaniaBlocks.forestAltar, RenderType.cutout());
@@ -39,14 +42,20 @@ public final class BlockRenderLayers {
 		consumer.accept(BotaniaBlocks.prism, RenderType.translucent());
 
 		consumer.accept(BotaniaBlocks.starfield, RenderType.cutoutMipped());
-		consumer.accept(BotaniaBlocks.abstrusePlatform, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.infrangiblePlatform, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.spectralPlatform, RenderType.translucent());
-
+		if (!skipPlatformBlocks) {
+			// Render type is set dynamically on Forge and undisguised platforms should render as "solid",
+			// but "translucent" is the best compromise on Fabric.
+			// Translucent comes with a couple of downsides, like hidden block breaking animation and bad
+			// Z-ordering for non-cubic block models that should be rendered with the "cutout" render type.
+			consumer.accept(BotaniaBlocks.abstrusePlatform, RenderType.translucent());
+			consumer.accept(BotaniaBlocks.infrangiblePlatform, RenderType.translucent());
+			consumer.accept(BotaniaBlocks.spectralPlatform, RenderType.translucent());
+		}
 		BuiltInRegistries.BLOCK.stream().filter(b -> BuiltInRegistries.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
 					if (b instanceof FloatingFlowerBlock || b instanceof FlowerBlock
-							|| b instanceof TallFlowerBlock || b instanceof BotaniaMushroomBlock) {
+							|| b instanceof TallFlowerBlock || b instanceof BotaniaMushroomBlock
+							|| b instanceof FlowerPotBlock) {
 						consumer.accept(b, RenderType.cutout());
 					}
 				});

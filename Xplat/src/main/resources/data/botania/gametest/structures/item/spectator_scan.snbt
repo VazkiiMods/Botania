@@ -1,0 +1,28 @@
+{
+    DataVersion: 3465,
+    size: [48, 48, 48],
+    data: [
+        {pos: [4, 0, 3], state: "minecraft:polished_andesite_slab{type:top,waterlogged:false}"},
+        {pos: [9, 0, 6], state: "minecraft:polished_andesite_slab{type:top,waterlogged:false}"},
+        {pos: [11, 0, 6], state: "minecraft:polished_andesite_slab{type:top,waterlogged:false}"},
+        {pos: [19, 0, 6], state: "minecraft:polished_andesite_slab{type:top,waterlogged:false}"},
+        {pos: [3, 1, 3], state: "minecraft:polished_andesite_slab{type:top,waterlogged:false}"},
+        {pos: [4, 1, 2], state: "minecraft:polished_andesite_slab{type:top,waterlogged:false}"},
+        {pos: [4, 1, 4], state: "minecraft:polished_andesite_slab{type:top,waterlogged:false}"},
+        {pos: [5, 1, 3], state: "minecraft:smithing_table"},
+        {pos: [7, 1, 3], state: "minecraft:polished_andesite_slab{type:top,waterlogged:false}"},
+        {pos: [9, 1, 6], state: "minecraft:rail{shape:east_west,waterlogged:false}"},
+        {pos: [11, 1, 6], state: "minecraft:rail{shape:east_west,waterlogged:false}"},
+        {pos: [4, 3, 3], state: "minecraft:polished_andesite_slab{type:bottom,waterlogged:false}"},
+        {pos: [17, 15, 16], state: "minecraft:chest{facing:south,type:single,waterlogged:false}"},
+        {pos: [15, 15, 16], state: "minecraft:chest{facing:south,type:single,waterlogged:false}"}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:smithing_table",
+        "minecraft:polished_andesite_slab{type:top,waterlogged:false}",
+        "minecraft:rail{shape:east_west,waterlogged:false}",
+        "minecraft:polished_andesite_slab{type:bottom,waterlogged:false}",
+        "minecraft:chest{facing:south,type:single,waterlogged:false}"
+    ]
+}

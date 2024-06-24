@@ -166,6 +166,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
 				BotaniaBlocks.fabulousPool, BotaniaBlocks.terraPlate, BotaniaBlocks.runeAltar);
 		tag(BotaniaTags.Blocks.LAPUTA_IMMOBILE);
+		tag(BotaniaTags.Blocks.LAPUTA_NO_DOUBLE_BLOCK);
 
 		tag(BotaniaTags.Blocks.TERRA_PLATE_BASE).add(BotaniaBlocks.livingrock, BotaniaBlocks.shimmerrock);
 
@@ -200,6 +201,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeCobblestoneFungalSlab, BotaniaBlocks.biomeCobblestoneFungalStairs, BotaniaBlocks.biomeCobblestoneFungalWall,
 				BotaniaBlocks.biomeChiseledBrickFungal, fungalAltar);
 
+		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE).add(Blocks.MOSS_CARPET);
+
 		tag(BlockTags.LEAVES);
 		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE).addTag(BlockTags.LEAVES);
 
@@ -208,6 +211,38 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.FIRE);
 		tag(BotaniaTags.Blocks.UNWANDABLE).addTag(BlockTags.FIRE)
 				.add(Blocks.CHORUS_PLANT, Blocks.SCULK_VEIN, Blocks.VINE, Blocks.REDSTONE_WIRE, Blocks.NETHER_PORTAL, BotaniaBlocks.solidVines);
+
+		tag(BlockTags.FLOWER_POTS)
+				.add(Arrays.stream(DyeColor.values())
+						.map(BotaniaBlocks::getPottedFlower)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new))
+				.add(Arrays.stream(DyeColor.values())
+						.map(BotaniaBlocks::getPottedShinyFlower)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new))
+				.add(Arrays.stream(DyeColor.values())
+						.map(BotaniaBlocks::getPottedMushroom)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new))
+				.add(
+						// misc
+						manastarPotted, pureDaisyPotted, bergamutePotted,
+						// generating
+						dandelifeonPotted, endoflamePotted, entropinnyumPotted,
+						gourmaryllisPotted, hydroangeasPotted, kekimurusPotted,
+						munchdewPotted, narslimmusPotted, rafflowsiaPotted, rosaArcanaPotted,
+						shulkMeNotPotted, spectrolusPotted, thermalilyPotted,
+						// functional
+						agricarnationPotted, agricarnationChibiPotted, bellethornPotted, bellethornChibiPotted, bubbellPotted,
+						bubbellChibiPotted, clayconiaPotted, clayconiaChibiPotted, daffomillPotted, dreadthornPotted,
+						exoflamePotted, fallenKanadePotted, heiseiDreamPotted, hopperhockPotted, hopperhockChibiPotted,
+						hyacidusPotted, jadedAmaranthusPotted, jiyuuliaPotted, jiyuuliaChibiPotted, labelliaPotted,
+						looniumPotted, marimorphosisPotted, marimorphosisChibiPotted, medumonePotted, orechidPotted,
+						orechidIgnemPotted, pollidisiacPotted, rannuncarpusPotted, rannuncarpusChibiPotted, solegnoliaPotted,
+						solegnoliaChibiPotted, spectranthemumPotted, tangleberriePotted, tangleberrieChibiPotted,
+						tigerseyePotted, vinculotusPotted
+				);
 
 		registerMiningTags();
 	}

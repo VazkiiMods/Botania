@@ -18,7 +18,90 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-* Add: Stonecutting recipe for livingrock slate (it was previously uncraftable, oops)
+* Add: Horn and Drum of the Wild can break moss carpet, with the option to add more blocks through a block tag
+* Add: Bergamute occludes vibrations within its range
+* Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
+* Add: Big dripleaf plants can be shrunk back to their small form using mana infusion with an alchemy catalyst
+* Add: Tectonic Girdle also nullifies explosion knockback
+* Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
+* Change: Charm of the Diva also supports charming or targeting neutral mobs that are angry at the player or attacking one of the player's tamed animals, and properly prevents the player's tamed animals from being affected or targeted by the charm
+* Change: Dandelifeon recipe also requires a redstone root (zacharybarbanell)
+* Change: Terrasteel tool speed and damage was updated to match corresponding netherite values
+* Change: Bumped up the amount of mana contained in bursts from Manastorm Charges; this doesn't change their behavior, but maybe you can find a new use for them in less destructive ways
+* Change: Various crafting recipes moved to more fitting categories in the vanilla recipe book
+* Change: Several book entries were updated, including various recipe presentations:
+  * Petal Apothecary and Runic Altar recipes show the reagent, similar to how they do in recipe viewer mods already
+  * Multi-crafting page templates are now used more widely where it makes sense, like when alternative items in recipes need to be implemented as individual recipes (e.g. the mana pearl and mana diamond variants of the runic altar and mana tablet recipes)
+  * Missing lookup references for derivatives of certain decorative blocks (e.g. quartz variants) have been added for the quick-lookup feature while holding the book
+  * Lexica Botania acknowledges that Trinkets are used on Fabric instead of Curios
+  * Various entries were updated to match recent changes and fix old errors
+* Change: The Ring of Loki now has a (reasonably high) selection limit to prevent players from accidentally "NBT-banning" themselves from their world or server by going too hard with it
+* Remove: Config option `orechidPriorityMods` didn't have any effect since 1.16, never made it to Fabric, and is now gone in the Forge version as well; pack authors should use data pack recipes to define Orechid outputs and weights
+* Fix: Flight bar for Flügel Tiara no longer overlaps with the refilling air bubbles indicator or the mount health bar, if that uses more than one row
+* Fix: The Manaseer Monocle's flower radius indicator no longer jumps around if you are very far from the world origin, and should also not Z-fight with the binding radius indicator of luminizers anymore
+* Fix: The air bubble created by Bubbells no longer flickers with inflowing water
+* Fix: Charm of the Diva works on Forge again
+* Fix: Translation key names for potted glimmering flowers were wrong in the English language file
+* Fix: Corporea Index on Fabric no longer ignores chat text sources other than the vanilla chat console, fixing compatibility with e.g. the "Microphone Text Input" mod
+* Fix: Pollidisiac gives animals their deserved break after breading again
+* Fix: Shard of Laputa no longer breaks *all* the 2-tall grass/flower blocks anymore
+* Fix: Floating flower islands properly show the soil type on Forge, and are no longer invisible in Patchouli multiblock visualizations (although that latter part is merely a workaround for a Patchouli issue at the moment)
+* Fix: Position of the binding information icon on flowers' wand HUD has been adjusted to not overlap with longer flower names
+* Fix: Suspicious stew effect from Pure Daisy actually works now, clearing all active status effects
+* Fix: Potential integer overflow in Ring of Loki mana calculation
+
+---
+
+{% include changelog_header.html version="1.20.1-444" %}
+
+* Add: Stonecutting and crafting recipe for livingrock slate (it was previously uncraftable, oops)
+* Add: Motif flowers can be used to make suspicious stew, and are generally recognized as "small flowers"
+* Add: The Spectator also scans the inventories of donkeys, mules, llamas, and allays
+* Add: Native EMI support on Forge
+* Add: Missing slab recombination recipes for quartz and corporea variants
+* Add: The Lexica Botania can be put into chiseled bookshelves and onto lecterns (Note: reading it from a lectern does not currently grant the advancement)
+* Add: Corporea request key now also works in the EMI item list (it still doesn't work in recipe displays due to technical limitations of the EMI API)
+* Add: All Botania flowers and mushrooms can be put into flower pots
+* Change: Elementium Axe is now treated as a weapon regarding durability damage from attacking things
+* Change: Various Botania blocks finally make noteblocks use the instrument you would likely expect
+  * blocks made from Livingwood or Dreamwood (except drums) -> bass
+    * This also means Livingwood and Dreamwood should now be recognized by Every Compat
+  * Stone-like blocks (biome stones, livingrock, corporea blocks, azulejos) and drums -> basedrum
+  * Manasteel, Elementium, or Terrasteel blocks -> vibraphone ("iron xylophone")
+  * Teru Teru Bozu -> guitar
+  * Blaze Mesh -> pling
+* Change: Some crafting recipes have been changed to better match similar recipes from other mods and VanillaTweaks
+  * Chiseled livingrock bricks and chiseled metamorphic stone bricks are crafted from the corresponding brick slabs arranged vertically
+  * Slab recombination recipes have been changed to arrange the slabs horizontally in the crafting grid
+  * Unlock conditions for slab recombination recipes now require the slab, not the full block
+* Change: Recipe displays for Petal Apothecary and Runic Altar show required reagents (e.g. seeds, livingrock)
+* Change: Recipe display for Terrestrial Agglomeration Plate in EMI looks more like it does on JEI or REI now
+* Change: Phantom ink is now used to hide abstruse and spectral platforms instead of managlass. (zacharybarbanell)
+* Change: Ring of Correction no longer attempts to correct tool right-click usage
+* Fix: Corporea Crystal Cube and Abstruse/Spectral Platform no longer forget their internal state after unloading
+* Fix: Quick-moving (shift+click) Botania pattern items in the loom UI properly puts them in the pattern slot
+* Fix: Animated Torch powers blocks consistently, and properly updates necessary blocks when placed, rotated, or removed
+* Fix: Elven Spreader no longer misses mana pool
+* Fix: Flügel Tiara detects Eye of the Flügel for infinite flight again
+* Fix: Using a sapling on the Mana Flame block (GoG) only produces a new lexicon if the player doesn't have one already
+* Fix: Item icon offset in Corporea Crystal Cube's HUD overlay
+* Fix: Left forearm guard of the elementium chestplate is rendered properly (Partonetrain)
+* Fix: Drinking mana from a bottle will no longer delete a block or grant an extra swig in certain conditions
+* Fix: The Spectator no longer attempts to scan unopened loot containers, and its performance has been improved
+* Fix: Fake player detection for the gaia fight has been improved, so you no longer get extra loot for e.g. a nearby running RFTools builder
+* Fix: The Cirrus and Nimbus amulets got math lessons and should be able to properly count the number of mid-air jumps now
+* Fix: Botania advancement tab and root advancement title
+* Fix: Warp+Bore bursts can now teleport via a force relay without breaking it
+* Fix: Other mods should have fewer issues with broken or doubled loot table evaluation in GoG
+* Fix: Disguising Abstruse or Spectral Platforms works again on Fabric, and some rendering issues with them on Forge were fixed as well
+* Fix: Ring of the Mantle no longer suppresses stronger sources of Haste, or any other Haste sources if the player has no mana
+* Fix: Players or Tiny Potatoes holding (other) Tiny Potatoes uses proper render offsets again
+* Fix: Upgrading Manasteel armor to Terrasteel no longer removes all non-enchantment NBT data (e.g. custom names)
+* Internal: Updated Fabric minimum dependencies to loader 0.15.6 and API 0.92
+* Language updates:
+  * ko_kr completed (Tareun3406)
+  * uk_ua added (fasero1)
+  * zh_cn updated (Dawnwalker666)
 
 ---
 

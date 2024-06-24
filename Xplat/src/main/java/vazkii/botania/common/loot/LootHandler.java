@@ -9,16 +9,21 @@
 package vazkii.botania.common.loot;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LootHandler {
+	public static final ResourceLocation GOG_SEEDS_TABLE = new ResourceLocation(BotaniaAPI.GOG_MODID, "extra_seeds");
 
 	public static void lootLoad(ResourceLocation id, Consumer<LootPool.Builder> addPool) {
 		String prefix = "minecraft:chests/";
@@ -43,6 +48,9 @@ public final class LootHandler {
 				default:
 					break;
 			}
+		} else if (XplatAbstractions.INSTANCE.gogLoaded()
+				&& (Blocks.GRASS.getLootTable().equals(id) || Blocks.TALL_GRASS.getLootTable().equals(id))) {
+			addPool.accept(LootPool.lootPool().add(LootTableReference.lootTableReference(GOG_SEEDS_TABLE)));
 		}
 	}
 

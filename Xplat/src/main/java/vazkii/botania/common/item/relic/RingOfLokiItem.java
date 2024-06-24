@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -52,6 +53,11 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordinateListProvider {
 
+	/**
+	 * This limit exists to prevent players from accidentally NBT-banning themselves from a world or server.
+	 * TODO 1.21: It might be possible to increase this if the storage tag structure is optimized.
+	 */
+	private static final int MAX_NUM_CURSORS = 1023;
 	private static final String TAG_CURSOR_LIST = "cursorList";
 	private static final String TAG_CURSOR_PREFIX = "cursor";
 	private static final String TAG_CURSOR_COUNT = "cursorCount";
@@ -99,7 +105,11 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 
 						boolean removed = cursors.remove(relPos);
 						if (!removed) {
-							cursors.add(relPos);
+							if (cursors.size() < MAX_NUM_CURSORS) {
+								cursors.add(relPos);
+							} else {
+								player.displayClientMessage(Component.translatable("botaniamisc.lokiRingLimitReached"), true);
+							}
 						}
 						setCursorList(lokiRing, cursors);
 					}
@@ -108,7 +118,9 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 
 			return InteractionResult.SUCCESS;
 		} else {
-			int cost = Math.min(cursors.size(), (int) Math.pow(Math.E, cursors.size() * 0.25));
+			int numCursors = cursors.size();
+			// particularly large cursor counts can overflow after exponentiation
+			int cost = numCursors > 10 ? numCursors : Math.min(numCursors, (int) Math.pow(Math.E, numCursors * 0.25));
 			ItemStack original = stack.copy();
 			int successes = 0;
 			for (BlockPos cursor : cursors) {

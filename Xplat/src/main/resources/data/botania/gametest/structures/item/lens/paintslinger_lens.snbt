@@ -1,5 +1,5 @@
 {
-    DataVersion: 3120,
+    DataVersion: 3465,
     size: [5, 6, 5],
     data: [
         {pos: [1, 0, 1], state: "minecraft:terracotta"},

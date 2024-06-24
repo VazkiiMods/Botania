@@ -25,6 +25,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec2;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,15 +36,20 @@ import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.List;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApothecaryRecipe> {
 
 	public static final RecipeType<PetalApothecaryRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "petals", PetalApothecaryRecipe.class);
+	public static final int CENTER_X = 48;
+	public static final int CENTER_Y = 45;
 	private final IDrawableStatic background;
 	private final Component localizedName;
 	private final IDrawableStatic overlay;
 	private final IDrawable icon;
+	private final Ingredient WATER_BUCKET = Ingredient.of(Items.WATER_BUCKET);
 
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(114, 97);
@@ -84,21 +92,35 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull PetalApothecaryRecipe recipe, @NotNull IFocusGroup focusGroup) {
-		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
-				.addItemStack(new ItemStack(BotaniaBlocks.defaultAltar));
+		setRecipeLayout(builder, recipe.getIngredients(), BotaniaBlocks.defaultAltar,
+				recipe.getResultItem(RegistryAccess.EMPTY), WATER_BUCKET, recipe.getReagent());
+	}
 
-		double angleBetweenEach = 360.0 / recipe.getIngredients().size();
-		Vec2 point = new Vec2(48, 13), center = new Vec2(48, 45);
+	public static void setRecipeLayout(@NotNull IRecipeLayoutBuilder builder, List<Ingredient> ingredients, Block catalyst, ItemStack output, Ingredient... reagents) {
+		Vec2 center = new Vec2(CENTER_X, CENTER_Y);
+		if (reagents.length > 0) {
+			Vec2 reagentPoint = new Vec2(CENTER_X, CENTER_Y + 10);
+			builder.addSlot(RecipeIngredientRole.CATALYST, (int) reagentPoint.x, (int) reagentPoint.y).addItemStack(new ItemStack(catalyst));
 
-		for (var ingr : recipe.getIngredients()) {
-			builder.addSlot(RecipeIngredientRole.INPUT, (int) point.x, (int) point.y)
-					.addIngredients(ingr);
+			double angleBetweenReagents = 360.0 / (reagents.length + 1);
+			for (int i = 0; i < reagents.length; i++) {
+				reagentPoint = rotatePointAbout(reagentPoint, center, angleBetweenReagents);
+				builder.addSlot(RecipeIngredientRole.INPUT, (int) reagentPoint.x, (int) reagentPoint.y).addIngredients(reagents[i]);
+			}
+		} else {
+			builder.addSlot(RecipeIngredientRole.CATALYST, CENTER_X, CENTER_Y).addItemStack(new ItemStack(catalyst));
+		}
+		double angleBetweenEach = 360.0 / ingredients.size();
+		Vec2 point = new Vec2(CENTER_X, 13);
+
+		for (var ingr : ingredients) {
+			builder.addSlot(RecipeIngredientRole.INPUT, (int) point.x, (int) point.y).addIngredients(ingr);
 			point = rotatePointAbout(point, center, angleBetweenEach);
 		}
 
 		// TODO 1.19.4 figure out the proper way to get a registry access
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 86, 10)
-				.addItemStack(recipe.getResultItem(RegistryAccess.EMPTY));
+				.addItemStack(output);
 	}
 
 	public static Vec2 rotatePointAbout(Vec2 in, Vec2 about, double degrees) {

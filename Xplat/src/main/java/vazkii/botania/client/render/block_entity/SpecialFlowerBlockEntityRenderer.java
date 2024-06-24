@@ -35,10 +35,16 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity> implements BlockEntityRenderer<T> {
+
+	public static final int INNER_ALPHA = 32;
+	public static final int OUTER_ALPHA = 64;
+	public static final float FRAME_WIDTH = 1F / 16F;
+	public static final float Y_OFFSET_INNER = 1F / 16F;
+	public static final float Y_OFFSET_OUTER = FRAME_WIDTH + FRAME_WIDTH / 4F;
+	public static final int TOTAL_ANGLES = 360;
+	public static final double DEGREES_TO_RADIAN = (Math.PI / (double) (TOTAL_ANGLES / 2));
+
 	public SpecialFlowerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
@@ -77,12 +83,13 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 	public static void renderRadius(BlockEntity tile, PoseStack ms, MultiBufferSource buffers, @Nullable RadiusDescriptor descriptor) {
 		if (descriptor != null) {
 			ms.pushPose();
-			ms.translate(-tile.getBlockPos().getX(), -tile.getBlockPos().getY(), -tile.getBlockPos().getZ());
+			ms.translate(0, RenderHelper.getOffY(), 0);
 			if (descriptor instanceof RadiusDescriptor.Circle circle) {
-				renderCircle(ms, buffers, circle.subtileCoords(), circle.radius());
+				renderCircle(ms, buffers, tile.getBlockPos(), circle.subtileCoords(), circle.radius());
 			} else if (descriptor instanceof RadiusDescriptor.Rectangle rectangle) {
-				renderRectangle(ms, buffers, rectangle.aabb(), true, null, (byte) 32);
+				renderRectangle(ms, buffers, tile.getBlockPos(), rectangle.aabb());
 			}
+			RenderHelper.incrementOffY();
 			ms.popPose();
 		}
 	}
@@ -95,87 +102,67 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 		return false;
 	}
 
-	private static void renderCircle(PoseStack ms, MultiBufferSource buffers, BlockPos center, double radius) {
+	public static void renderCircle(PoseStack ms, MultiBufferSource buffers, BlockPos tilePos, BlockPos center, double radius) {
 		ms.pushPose();
-		double x = center.getX() + 0.5;
-		double y = center.getY();
-		double z = center.getZ() + 0.5;
-		ms.translate(x, y, z);
+		ms.translate(center.getX() - tilePos.getX() + 0.5, center.getY() - tilePos.getY(), center.getZ() - tilePos.getZ() + 0.5);
+
 		int color = Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 		int r = (color >> 16 & 0xFF);
 		int g = (color >> 8 & 0xFF);
 		int b = (color & 0xFF);
 
-		int alpha = 32;
-		float f = 1F / 16F;
-
-		int totalAngles = 360;
-		int drawAngles = 360;
-		int step = totalAngles / drawAngles;
-
-		radius -= f;
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.CIRCLE);
 		Matrix4f mat = ms.last().pose();
 
-		Runnable centerFunc = () -> buffer.vertex(mat, 0, f, 0).color(r, g, b, alpha).endVertex();
-		List<Runnable> vertexFuncs = new ArrayList<>();
-		for (int i = 0; i < totalAngles + 1; i += step) {
-			double rad = (totalAngles - i) * Math.PI / 180.0;
-			float xp = (float) (Math.cos(rad) * radius);
-			float zp = (float) (Math.sin(rad) * radius);
-			vertexFuncs.add(() -> buffer.vertex(mat, xp, f, zp).color(r, g, b, alpha).endVertex());
-		}
-		RenderHelper.triangleFan(centerFunc, vertexFuncs);
+		double innerRadius = radius - FRAME_WIDTH;
+		Runnable centerFuncInner = () -> buffer.vertex(mat, 0, Y_OFFSET_INNER, 0).color(r, g, b, INNER_ALPHA).endVertex();
+		Runnable centerFuncOuter = () -> buffer.vertex(mat, 0, Y_OFFSET_OUTER, 0).color(r, g, b, OUTER_ALPHA).endVertex();
+		Runnable[] vertexFuncsInner = new Runnable[TOTAL_ANGLES + 1];
+		Runnable[] vertexFuncsOuter = new Runnable[TOTAL_ANGLES + 1];
 
-		radius += f;
-		float f1 = f + f / 4F;
-		int alpha2 = 64;
+		for (int i = 0; i < TOTAL_ANGLES; i++) {
+			double rad = (TOTAL_ANGLES - i) * DEGREES_TO_RADIAN;
+			double cos = Math.cos(rad);
+			double sin = Math.sin(rad);
 
-		centerFunc = () -> buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha2).endVertex();
-		vertexFuncs.clear();
-		for (int i = 0; i < totalAngles + 1; i += step) {
-			double rad = (totalAngles - i) * Math.PI / 180.0;
-			float xp = (float) (Math.cos(rad) * radius);
-			float zp = (float) (Math.sin(rad) * radius);
-			vertexFuncs.add(() -> buffer.vertex(mat, xp, f1, zp).color(r, g, b, alpha2).endVertex());
+			float xpInner = (float) (cos * innerRadius);
+			float zpInner = (float) (sin * innerRadius);
+			vertexFuncsInner[i] = (() -> buffer.vertex(mat, xpInner, Y_OFFSET_INNER, zpInner).color(r, g, b, INNER_ALPHA).endVertex());
+
+			float xpOuter = (float) (Math.cos(rad) * radius);
+			float zpOuter = (float) (Math.sin(rad) * radius);
+			vertexFuncsOuter[i] = (() -> buffer.vertex(mat, xpOuter, Y_OFFSET_OUTER, zpOuter).color(r, g, b, OUTER_ALPHA).endVertex());
 		}
-		RenderHelper.triangleFan(centerFunc, vertexFuncs);
+		vertexFuncsInner[TOTAL_ANGLES] = vertexFuncsInner[0];
+		vertexFuncsOuter[TOTAL_ANGLES] = vertexFuncsOuter[0];
+
+		RenderHelper.triangleFan(centerFuncInner, vertexFuncsInner);
+		RenderHelper.triangleFan(centerFuncOuter, vertexFuncsOuter);
+
 		ms.popPose();
 	}
 
-	public static void renderRectangle(PoseStack ms, MultiBufferSource buffers, AABB aabb, boolean inner, @Nullable Integer color, byte alpha) {
+	public static void renderRectangle(PoseStack ms, MultiBufferSource buffers, BlockPos tilePos, AABB aabb) {
 		ms.pushPose();
-		ms.translate(aabb.minX, aabb.minY, aabb.minZ);
+		ms.translate(aabb.minX - tilePos.getX(), aabb.minY - tilePos.getY(), aabb.minZ - tilePos.getZ());
 
-		if (color == null) {
-			color = Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
-		}
+		int color = Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 		int r = (color >> 16 & 0xFF);
 		int g = (color >> 8 & 0xFF);
 		int b = (color & 0xFF);
 
-		float f = 1F / 16F;
-		float x = (float) (aabb.maxX - aabb.minX - f);
-		float z = (float) (aabb.maxZ - aabb.minZ - f);
+		float xSize = (float) aabb.getXsize();
+		float zSize = (float) aabb.getZsize();
+		float xSizeInner = xSize - FRAME_WIDTH;
+		float zSizeInner = zSize - FRAME_WIDTH;
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.RECTANGLE);
 		Matrix4f mat = ms.last().pose();
-		buffer.vertex(mat, x, f, f).color(r, g, b, alpha).endVertex();
-		buffer.vertex(mat, f, f, f).color(r, g, b, alpha).endVertex();
-		buffer.vertex(mat, f, f, z).color(r, g, b, alpha).endVertex();
-		buffer.vertex(mat, x, f, z).color(r, g, b, alpha).endVertex();
-
-		if (inner) {
-			x += f;
-			z += f;
-			float f1 = f + f / 4F;
-			alpha *= 2;
-			buffer.vertex(mat, x, f1, 0).color(r, g, b, alpha).endVertex();
-			buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha).endVertex();
-			buffer.vertex(mat, 0, f1, z).color(r, g, b, alpha).endVertex();
-			buffer.vertex(mat, x, f1, z).color(r, g, b, alpha).endVertex();
-		}
+		RenderHelper.flatRectangle(buffer, mat, FRAME_WIDTH, xSizeInner, Y_OFFSET_INNER, FRAME_WIDTH, zSizeInner,
+				r, g, b, INNER_ALPHA);
+		RenderHelper.flatRectangle(buffer, mat, 0, xSize, Y_OFFSET_OUTER, 0, zSize, r, g, b, OUTER_ALPHA);
 
 		ms.popPose();
 	}
+
 }

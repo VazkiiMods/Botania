@@ -74,7 +74,7 @@ public class ElementiumArmorModel {
 				.mirror()
 				.addBox(0.0F, -1.0F, -1.0F, 2, 2, 2, deformation),
 				PartPose.offset(4.0F, 2.0F, 0.0F));
-		var armL = leftArm.addOrReplaceChild("left_arm_main", CubeListBuilder.create()
+		var armL = leftArm.addOrReplaceChild("left_arm_main", CubeListBuilder.create().texOffs(24, 40)
 				.mirror()
 				.addBox(0.5F, 4.5F, -2.49F, 3, 6, 5, deformation), PartPose.ZERO);
 		var armLpauldron = armL.addOrReplaceChild("left_arm_pauldron", CubeListBuilder.create().texOffs(0, 40)

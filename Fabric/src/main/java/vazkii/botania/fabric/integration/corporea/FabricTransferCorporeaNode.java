@@ -57,7 +57,7 @@ public class FabricTransferCorporeaNode extends AbstractCorporeaNode {
 							getSpark().onItemExtracted(stack);
 							request.trackExtracted(rem);
 						} else {
-							builder.add(item.toStack((int) inv.simulateExtract(item, rem, trans)));
+							builder.add(item.toStack((int) inv.extract(item, rem, trans)));
 						}
 					}
 				}

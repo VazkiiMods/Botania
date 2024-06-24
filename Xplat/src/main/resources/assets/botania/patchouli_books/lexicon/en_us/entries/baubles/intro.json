@@ -4,6 +4,7 @@
   "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "sortnum": -10,
+  "flag": "mod:curios",
   "pages": [
     {
       "type": "text",

@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.11'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.25'
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -37,6 +37,10 @@ repositories {
     maven {
         name = "C4"
         url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/" // for emi
     }
     maven {
         name = "Unascribed"
@@ -102,6 +106,9 @@ dependencies {
     implementation fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-84-FORGE")
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.27")
     runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
+
+    compileOnly fg.deobf("dev.emi:emi-forge:1.0.12+${minecraft_version}:api")
+    //runtimeOnly fg.deobf("dev.emi:emi-forge:1.1.4+${minecraft_version}")
 
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1")

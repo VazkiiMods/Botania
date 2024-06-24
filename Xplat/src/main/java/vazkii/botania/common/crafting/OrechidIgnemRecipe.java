@@ -29,8 +29,9 @@ public class OrechidIgnemRecipe extends OrechidRecipe {
 		this(recipe.getId(), recipe.getInput(), recipe.getOutput(), recipe.getWeight(), recipe.getSuccessFunction());
 	}
 
+	@NotNull
 	@Override
-	public RecipeType<?> getType() {
+	public RecipeType<? extends OrechidIgnemRecipe> getType() {
 		return BotaniaRecipeTypes.ORECHID_IGNEM_TYPE;
 	}
 

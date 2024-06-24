@@ -22,5 +22,5 @@ import java.util.Map;
 @Mixin(RecipeManager.class)
 public interface RecipeManagerAccessor {
 	@Invoker("byType")
-	<C extends Container, T extends Recipe<C>> Map<ResourceLocation, Recipe<C>> botania_getAll(RecipeType<T> type);
+	<C extends Container, T extends Recipe<C>> Map<ResourceLocation, T> botania_getAll(RecipeType<T> type);
 }

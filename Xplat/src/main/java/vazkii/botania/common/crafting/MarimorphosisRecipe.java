@@ -47,8 +47,9 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 		return getWeight();
 	}
 
+	@NotNull
 	@Override
-	public RecipeType<?> getType() {
+	public RecipeType<? extends MarimorphosisRecipe> getType() {
 		return BotaniaRecipeTypes.MARIMORPHOSIS_TYPE;
 	}
 

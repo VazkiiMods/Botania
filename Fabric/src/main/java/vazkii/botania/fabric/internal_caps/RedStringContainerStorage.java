@@ -11,7 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 
@@ -59,6 +59,7 @@ public class RedStringContainerStorage implements Storage<ItemVariant> {
 		return getStorage().extract(resource, maxAmount, transaction);
 	}
 
+	@NotNull
 	@Override
 	public Iterator<StorageView<ItemVariant>> iterator() {
 		return getStorage().iterator();
@@ -71,25 +72,10 @@ public class RedStringContainerStorage implements Storage<ItemVariant> {
 	}
 
 	@Override
-	public long simulateInsert(ItemVariant resource, long maxAmount, @Nullable TransactionContext transaction) {
-		return getStorage().simulateInsert(resource, maxAmount, transaction);
-	}
-
-	@Override
 	public boolean supportsExtraction() {
 		// Since the binding target could change we can't know if "absolutely always 0" is correct.
 		// Corporea spark attachment also depends on this returning true for the UP direction.
 		return true;
-	}
-
-	@Override
-	public long simulateExtract(ItemVariant resource, long maxAmount, @Nullable TransactionContext transaction) {
-		return getStorage().simulateExtract(resource, maxAmount, transaction);
-	}
-
-	@Override
-	public @Nullable StorageView<ItemVariant> exactView(ItemVariant resource) {
-		return getStorage().exactView(resource);
 	}
 
 	@Override

@@ -50,9 +50,11 @@ public class BoreLens extends Lens {
 		BlockState state = world.getBlockState(collidePos);
 
 		ItemStack composite = ((LensItem) stack.getItem()).getCompositeLens(stack);
-		boolean warp = !composite.isEmpty() && composite.is(BotaniaItems.lensWarp);
+		boolean warpItems = !composite.isEmpty() && composite.is(BotaniaItems.lensWarp);
+		ItemStack sourceLens = burst.getSourceLens();
+		boolean canWarp = warpItems || sourceLens.is(BotaniaItems.lensWarp);
 
-		if (warp && (state.is(BotaniaBlocks.pistonRelay) || state.is(Blocks.PISTON) || state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
+		if (canWarp && (state.is(BotaniaBlocks.pistonRelay) || state.is(Blocks.PISTON) || state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
 			return false;
 		}
 
@@ -78,7 +80,7 @@ public class BoreLens extends Lens {
 					}
 
 					boolean sourceless = source.equals(ManaBurst.NO_SOURCE);
-					boolean doWarp = warp && !sourceless;
+					boolean doWarp = warpItems && !sourceless;
 					Vec3 dropPosition;
 					if (doWarp && world.getBlockEntity(source) instanceof ManaSpreaderBlockEntity spreader) {
 						Vec3 sourceVec = Vec3.atCenterOf(source);

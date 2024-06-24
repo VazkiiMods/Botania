@@ -71,10 +71,10 @@ public class ManaStormEntity extends Entity {
 
 		float motionModifier = 0.5F;
 		burst.setColor(burstColor);
-		burst.setMana(120);
-		burst.setStartingMana(340);
+		burst.setMana(300);
+		burst.setStartingMana(850);
 		burst.setMinManaLoss(50);
-		burst.setManaLossPerTick(1F);
+		burst.setManaLossPerTick(2.5F);
 		burst.setGravity(0F);
 
 		burst.setSourceLens(new ItemStack(BotaniaItems.lensStorm));

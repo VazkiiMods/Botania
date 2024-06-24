@@ -51,9 +51,11 @@
       "vazkii.botania.test.item.FlowerPouchTest",
       "vazkii.botania.test.item.LifeAggregatorTest",
       "vazkii.botania.test.item.GrassSeedDispensingTest",
+      "vazkii.botania.test.item.SpectatorScanTest",
       "vazkii.botania.test.item.lens.BoreLensTest",
       "vazkii.botania.test.item.lens.EntropicWarpLensTest",
-      "vazkii.botania.test.item.lens.PaintslingerLensTest"
+      "vazkii.botania.test.item.lens.PaintslingerLensTest",
+      "vazkii.botania.test.item.lens.WarpForceTest"
     ],
     "fabric-datagen": [
       "vazkii.botania.fabric.data.FabricDatagenInitializer"
@@ -62,7 +64,7 @@
       "vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents"
     ],
     "emi": [
-      "vazkii.botania.fabric.integration.emi.BotaniaEmiPlugin"
+      "vazkii.botania.client.integration.emi.BotaniaEmiPlugin"
     ],
     "rei_client": [
       "vazkii.botania.fabric.integration.rei.BotaniaREIPlugin"
@@ -78,9 +80,9 @@
   "accessWidener": "botania.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.14",
-    "fabric-api": ">=0.83",
-    "minecraft": ">=1.20.1 <1.21",
+    "fabricloader": ">=0.15.6",
+    "fabric-api": ">=0.92",
+    "minecraft": "=1.20.1",
     "trinkets" : ">=3",
     "patchouli": "*"
   },
