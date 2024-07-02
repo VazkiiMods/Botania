@@ -99,9 +99,12 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	/**
-	 * @return Whether the block at {@code pos} grows "naturally". That is, whether its IGrowable action is simply
-	 *         growing itself, instead of something like spreading around or creating flowers around, etc, and whether
-	 *         this action would have happened normally over time without bonemeal.
+	 * @return Whether the agricarnation considers the given block a plant it can grow. By default,
+	 *         grass/mycelium/nylium-like spreading blocks are excluded. They can be excplicitly included by being added
+	 *         to the AGRICARNATION_GROWTH_CANDIDATE tag. Blocks in AGRICARNATION_GROWTH_EXCLUDED are always excluded.
+	 *         Potential included blocks are those that are bonemealable, instance of BushBlock, or in the
+	 *         AGRICARNATION_GROWTH_CANDIDATE tag. They are included only if they accept random ticks, or are
+	 *         bonemealable and have the AGRICARNATION_APPLY_BONEMEAL tag.
 	 */
 	private boolean isPlant(Level level, BlockPos pos, BlockState state, Block block) {
 		if (state.is(BotaniaTags.Blocks.AGRICARNATION_GROWTH_EXCLUDED)
