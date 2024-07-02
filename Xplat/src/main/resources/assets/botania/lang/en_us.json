@@ -132,6 +132,9 @@
   "botaniamisc.rannuncarpus.state_sensitive": "Match Exact State",
   "botaniamisc.rannuncarpus.state_insensitive": "Match Block Only",
   "botaniamisc.lokiRingLimitReached": "Selection limit reached",
+  "botaniamisc.pollidisiac.feed_adults": "Feeding adult animals",
+  "botaniamisc.pollidisiac.feed_babies": "Feeding baby animals",
+  "botaniamisc.pollidisiac.feed_all": "Feeding all animals",
 
   "botania.tater_birthday.0": "Wow, is this for me?",
   "botania.tater_birthday.1": "It's my birthday today; I'm %d years old now!",
@@ -2361,6 +2364,7 @@
   "botania.tagline.pollidisiac": "Makes animals breed",
   "botania.page.pollidisiac0": "Animals love eating. That's all they seem to do, really. Strangely enough, though, they only eat things that are fed to them.$(p)The $(item)Pollidisiac$(0) will simply do just that; it uses mana to feed nearby food items on the ground ($(item)Wheat$(0), $(item)Carrots$(0), etc.) to animals within range, putting them in $(o)better moods$().",
   "botania.page.pollidisiac1": "$(o)Hell's Kitchen$().",
+  "botania.page.pollidisiac2": "Sneak-right clicking (or using a $(item)Dispenser$(0)) on the flower with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) in $(thing)Function Mode$(0) toggles whether the flower feeds just adults, just babies, or all animals.",
 
   "botania.entry.clayconia": "Clayconia",
   "botania.tagline.clayconia": "Creates clay from sand",
