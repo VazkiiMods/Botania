@@ -245,7 +245,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 		public Mode getNextMode() {
 			Mode[] modes = values();
 			int nextMode = ordinal() + 1;
-			return nextMode < modes.length ? modes[nextMode] : modes[0];
+			return modes[nextMode % modes.length];
 		}
 	}
 
