@@ -1,6 +1,6 @@
 plugins {
     id('java')
-    id('agency.highlysuspect.minivan') version '0.5-SNAPSHOT'
+    id('agency.highlysuspect.minivan') version '0.5'
 }
 
 archivesBaseName = "${mod_name}-xplat"
