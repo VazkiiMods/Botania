@@ -27,6 +27,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 5;
 	private static final int RANGE_MINI = 2;
+	private static final int MANA_COST = 5;
 	private static final float BONEMEAL_SUCCESS_CHANCE = 0.5f;
 
 	protected AgricarnationBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -70,8 +71,8 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 					}
 				}
 
-				if (isPlant(serverLevel, pos, state, block) && getMana() > 5) {
-					addMana(-5);
+				if (isPlant(serverLevel, pos, state, block) && getMana() > MANA_COST) {
+					addMana(-MANA_COST);
 					if (state.is(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL)
 							&& block instanceof BonemealableBlock bonemealableBlock
 							&& bonemealableBlock.isValidBonemealTarget(serverLevel, pos, state, false)) {
