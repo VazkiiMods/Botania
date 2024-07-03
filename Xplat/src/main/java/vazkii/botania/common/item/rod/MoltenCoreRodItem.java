@@ -47,8 +47,14 @@ public class MoltenCoreRodItem extends Item {
 		super(props);
 	}
 
-	public InteractionResult onLeftClick(Player p, Level world, InteractionHand hand, BlockPos pos, Direction side) {
-		ItemStack stack = p.getItemInHand(hand);
+	@Override
+	public InteractionResult useOn(UseOnContext ctx) {
+		Player p = ctx.getPlayer();
+		ItemStack stack = ctx.getItemInHand();
+		Level world = ctx.getLevel();
+		Direction side = ctx.getClickedFace();
+		BlockPos pos = ctx.getClickedPos();
+		
 		if (p.isSpectator() || stack.isEmpty() || !stack.is(this)) {
 			return InteractionResult.PASS;
 		}
@@ -83,12 +89,7 @@ public class MoltenCoreRodItem extends Item {
 	}
 
 	@Override
-	public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, Player player) {
-		return !player.isCreative();
-	}
-
-	@Override
-	public boolean overrideOtherStackedOnMe(
+	public boolean overrideStackedOnOther(
 			@NotNull ItemStack rod, @NotNull ItemStack toSmelt, @NotNull Slot slot,
 			@NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess cursorAccess) {
 		if (clickAction == ClickAction.SECONDARY && ManaItemHandler.instance().requestManaExactForTool(rod, player, COST * toSmelt.getCount(), false)) {

@@ -299,8 +299,6 @@ public class ForgeCommonInitializer {
 		}
 		bus.addListener((PlayerInteractEvent.LeftClickBlock e) -> ((ShiftingCrustRodItem) BotaniaItems.exchangeRod).onLeftClick(
 				e.getEntity(), e.getLevel(), e.getHand(), e.getPos(), e.getFace()));
-		bus.addListener((PlayerInteractEvent.LeftClickBlock e) -> ((MoltenCoreRodItem) BotaniaItems.smeltRod).onLeftClick(
-				e.getEntity(), e.getLevel(), e.getHand(), e.getPos(), e.getFace()));
 		bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> TerraBladeItem.leftClick(e.getItemStack()));
 		bus.addListener((AttackEntityEvent e) -> TerraBladeItem.attackEntity(
 				e.getEntity(), e.getEntity().level(), InteractionHand.MAIN_HAND, e.getTarget(), null));
