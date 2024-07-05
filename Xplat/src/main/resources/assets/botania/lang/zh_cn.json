@@ -2990,7 +2990,7 @@
 
   "botania.entry.overgrowthSeed": "增生之种",
   "botania.tagline.overgrowthSeed": "被动产能花在这里不会死亡",
-  "botania.page.overgrowthSeed0": "$(item)增生之种$(0)是一种神奇的东西，可以赋予$(item)草地$(0)以魔力，在世界里右击，就会创造一块$(item)蕴$(0)$(item)魔土$(0)。在$(item)蕴魔土$(0)里扎根的花会以正常2倍的速度工作。$(p)",
+  "botania.page.overgrowthSeed0": "$(item)增生之种$(0)是一种神奇的东西，可以赋予$(item)草地$(0)以魔力，在世界里右击，就会创造一块$(item)蕴$(0)$(item)魔土$(0)。在$(item)蕴魔土$(0)里扎根的花会以正常2倍的速度工作。",
   "botania.page.overgrowthSeed1": "但是还有一个问题。没有创造这种东西的方法存在，但它们会在古遗迹或类似的结构内生成。",
 
   "botania.entry.livingwoodBow": "活木弓",

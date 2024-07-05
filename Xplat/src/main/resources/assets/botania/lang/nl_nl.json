@@ -2131,7 +2131,7 @@
 
   "botania.entry.overgrowthSeed": "Overwoekeringszaad",
   "botania.tagline.overgrowthSeed": "Zeldzame zaden om bloemen te versterken en in leven te houden",
-  "botania.page.overgrowthSeed0": "Een $(item)Overwoekeringszaad$(0) is een ongrijpbaar voorwerp, dat $(item)Gras$(0) kan betoveren middels een rechts-klik erop in de wereld. Er ontstaat dan $(item)Betoverde Grond$(0), wat de eigenschap heeft dat alle bloemen die erop groeien tweemaal zo snel werken als normaal.$(p)$(thing)Passieve bloemen$(0) gepland op deze grond werken niet sneller, maar ze zullen niet verwelken.",
+  "botania.page.overgrowthSeed0": "Een $(item)Overwoekeringszaad$(0) is een ongrijpbaar voorwerp, dat $(item)Gras$(0) kan betoveren middels een rechts-klik erop in de wereld. Er ontstaat dan $(item)Betoverde Grond$(0), wat de eigenschap heeft dat alle bloemen die erop groeien tweemaal zo snel werken als normaal.",
   "botania.page.overgrowthSeed1": "Er is slechts een probleem. Het is niet bekend hoe het gemaakt kan worden, maar het is gezien in oude bouwwerken en dergelijke.",
 
   "botania.entry.livingwoodBow": "Levenshouten Boog",
