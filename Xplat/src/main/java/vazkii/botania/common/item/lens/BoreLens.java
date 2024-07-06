@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -75,6 +76,7 @@ public class BoreLens extends Lens {
 					List<ItemStack> items = Block.getDrops(state, (ServerLevel) world, collidePos, tile);
 
 					world.removeBlock(collidePos, false);
+					world.gameEvent(entity, GameEvent.BLOCK_DESTROY, collidePos);
 					if (BotaniaConfig.common().blockBreakParticles()) {
 						world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, collidePos, Block.getId(state));
 					}
