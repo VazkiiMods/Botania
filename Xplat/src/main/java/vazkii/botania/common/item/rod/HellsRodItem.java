@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -61,6 +62,7 @@ public class HellsRodItem extends Item {
 				}
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 
+				world.gameEvent(player, GameEvent.PROJECTILE_SHOOT, pos);
 				ctx.getLevel().playSound(null, pos.getX(), pos.getY(), pos.getZ(), BotaniaSounds.fireRod, SoundSource.PLAYERS, 1F, 1F);
 			}
 		}
@@ -73,13 +75,15 @@ public class HellsRodItem extends Item {
 		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			ManaReceiver receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
+			BlockPos pos = te.getBlockPos();
+			ManaReceiver receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos, te.getBlockState(), te, null);
 
 			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
 				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);
-				entity.setPos(te.getBlockPos().getX() + 0.5, te.getBlockPos().getY(), te.getBlockPos().getZ() + 0.5);
+				entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 				world.addFreshEntity(entity);
 				receiver.receiveMana(-COST);
+				world.gameEvent(null, GameEvent.PROJECTILE_SHOOT, pos);
 			}
 		}
 
