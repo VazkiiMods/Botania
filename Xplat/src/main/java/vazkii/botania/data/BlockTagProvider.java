@@ -246,7 +246,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 		tag(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL).add(Blocks.AZALEA, Blocks.FLOWERING_AZALEA);
 		tag(BotaniaTags.Blocks.AGRICARNATION_GROWTH_CANDIDATE).addTag(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL);
-		tag(BotaniaTags.Blocks.AGRICARNATION_GROWTH_EXCLUDED).add(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM);
+		tag(BotaniaTags.Blocks.AGRICARNATION_GROWTH_EXCLUDED).add(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM, Blocks.MANGROVE_LEAVES);
 
 		registerMiningTags();
 	}
