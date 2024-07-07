@@ -187,6 +187,11 @@
     },
     {
       "type": "botania:mana_infusion",
+      "text": "botania.page.manaAlchemyDripleafShrinking",
+      "recipes": "botania:mana_infusion/dripleaf_shrinking"
+    },
+    {
+      "type": "botania:mana_infusion",
       "text": "botania.page.manaAlchemy23",
       "recipes": "botania:mana_infusion/coarse_dirt"
     },
