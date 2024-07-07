@@ -18,6 +18,12 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* (nothing yet)
+
+---
+
+{% include changelog_header.html version="1.20.1-445" %}
+
 * Add: Horn and Drum of the Wild can break moss carpet, with the option to add more blocks through a block tag
 * Add: Bergamute occludes vibrations within its range
 * Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
