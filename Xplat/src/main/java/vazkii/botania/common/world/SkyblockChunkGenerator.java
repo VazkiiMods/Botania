@@ -12,15 +12,17 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.*;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 import net.minecraft.world.level.levelgen.*;
 import net.minecraft.world.level.levelgen.blending.Blender;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -48,39 +50,44 @@ public class SkyblockChunkGenerator extends NoiseBasedChunkGenerator {
 		super(biomeSource, settings);
 	}
 
+	@NotNull
 	@Override
 	protected Codec<? extends ChunkGenerator> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public int getBaseHeight(int x, int z, Heightmap.Types heightmapTypes, LevelHeightAccessor levelHeightAccessor, RandomState randomState) {
-		return levelHeightAccessor.getMinBuildHeight();
-	}
+	public void buildSurface(@NotNull ChunkAccess chunkAccess, @NotNull WorldGenerationContext context,
+			@NotNull RandomState randomState, @NotNull StructureManager structureManager,
+			@NotNull BiomeManager biomeManager, @NotNull Registry<Biome> biomes, @NotNull Blender blender) {}
 
 	@Override
-	public NoiseColumn getBaseColumn(int x, int z, LevelHeightAccessor levelHeightAccessor, RandomState randomState) {
-		return new NoiseColumn(levelHeightAccessor.getMinBuildHeight(), new BlockState[0]);
-	}
+	public void applyCarvers(@NotNull WorldGenRegion worldGenRegion, long seed, @NotNull RandomState randomState,
+			@NotNull BiomeManager biomeManager, @NotNull StructureManager structureManager,
+			@NotNull ChunkAccess chunkAccess, GenerationStep.@NotNull Carving carving) {}
 
 	@Override
-	public void buildSurface(ChunkAccess chunkAccess, WorldGenerationContext context,
-			RandomState randomState, StructureManager structureManager, BiomeManager biomeManager,
-			Registry<Biome> biomes, Blender blender) {}
-
-	@Override
-	public void applyCarvers(WorldGenRegion worldGenRegion, long seed, RandomState randomState, BiomeManager biomeManager, StructureManager structureManager, ChunkAccess chunkAccess, GenerationStep.Carving carving) {
-
-	}
-
-	@Override
-	public CompletableFuture<ChunkAccess> fillFromNoise(Executor executor, Blender blender, RandomState randomState, StructureManager structureManager, ChunkAccess chunk) {
+	public @NotNull CompletableFuture<ChunkAccess> fillFromNoise(@NotNull Executor executor, @NotNull Blender blender,
+			@NotNull RandomState randomState, @NotNull StructureManager structureManager, @NotNull ChunkAccess chunk) {
 		return CompletableFuture.completedFuture(chunk);
 	}
 
 	@Override
-	public void spawnOriginalMobs(WorldGenRegion region) {}
+	public void spawnOriginalMobs(@NotNull WorldGenRegion region) {}
 
 	@Override
-	public void applyBiomeDecoration(WorldGenLevel level, ChunkAccess chunkAccess, StructureManager structureManager) {}
+	public void applyBiomeDecoration(@NotNull WorldGenLevel level, @NotNull ChunkAccess chunkAccess,
+			@NotNull StructureManager structureManager) {}
+
+	/**
+	 * Calculates the height at a particular location as it would be in a world with the same seed that isn't empty.
+	 * (Based on code from CarpetSkyAdditions.)
+	 */
+	public int getBaseHeightInEquivalentNoiseWorld(int x, int z, Heightmap.Types heightmap, WorldGenLevel level) {
+		RandomState randomState = RandomState.create(
+				generatorSettings().value(),
+				level.registryAccess().registryOrThrow(Registries.NOISE).asLookup(),
+				level.getSeed());
+		return super.getBaseHeight(x, z, heightmap, level, randomState);
+	}
 }
