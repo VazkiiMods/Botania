@@ -43,6 +43,7 @@
     "PistonBaseBlockAccessor",
     "PistonBaseBlockMixin",
     "PistonStructureResolverMixin",
+    "PlacementContextMixin",
     "PlayerMixin",
     "PollinateGoalMixin",
     "ProtectionEnchantmentMixin",
