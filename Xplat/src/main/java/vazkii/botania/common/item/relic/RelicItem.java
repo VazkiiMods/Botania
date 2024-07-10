@@ -31,6 +31,18 @@ public class RelicItem extends Item {
 			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.tickBinding(player);
+				boolean badbadman = false;
+				for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+					if (player.getInventory().getItem(i).class == this.class) {
+						if (!(i == slot)) {
+							badbadman = true;
+							player.getInventory().setItem(i, ItemStack.EMPTY);
+						}
+					}
+				}
+				if (badbadman) {
+					player.getInventory().setItem(slot, ItemStack.EMPTY);
+				}
 			}
 		}
 	}
