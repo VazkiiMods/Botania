@@ -77,7 +77,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 	}
 
-	private static boolean shouldTick(long gameTime) {
+	private boolean shouldTick(long gameTime) {
 		return (gameTime % SPEED == 0 || (gameTime % (OVERGROWN_SPEED) == 0 && overgrowthBoost)) && getLevel().hasNeighborSignal(getBlockPos());
 	}
 
