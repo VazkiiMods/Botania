@@ -23,7 +23,6 @@
   "entity.botania.player_mover": "Luminiser Beam",
   "entity.botania.mana_storm": "Manastorm Epicentre",
 
-  "advancement.botania:manaweaveArmorCraft.desc": "Create Manaweave Armour to power up your Rods",
   "advancement.botania:luminizerRide.desc": "Craft some Luminisers and use them for transport",
 
   "advancement.botania:gaiaGuardianNoArmor.desc": "Slay a Gaia Guardian without wearing any armour at any point during the fight",
@@ -299,7 +298,6 @@
 
   "botania.subtitle.equipElementium": "Elementium armour clanks",
   "botania.subtitle.equipManasteel": "Manasteel armour clanks",
-  "botania.subtitle.equipManaweave": "Manaweave armour rustles",
   "botania.subtitle.equipTerrasteel": "Terrasteel armour clangs",
   "botania.subtitle.lightRelay": "Luminiser whooshes"
 }
