@@ -3035,7 +3035,7 @@
   "botania.page.exchangeRod3": "Bootlegged equal trade",
 
   "botania.entry.manaweave": "Manaweave Cloth",
-  "botania.tagline.manaweave": "Cloth armor that regenerates with Mana and provides a boost to rod powers",
+  "botania.tagline.manaweave": "Cloth robes that regenerate with Mana and provide a boost to rod powers",
   "botania.page.manaweave0": "$(item)Manaweave Cloth$(0) is a fabric that's highly attuned to the primal energies in $(thing)Mana$(0).$(p)$(item)Manaweave Robes$(0), woven of this cloth, aren't the greatest at resisting damage; however, they more than make up for it with a powerful set bonus. When all four set pieces are worn, tools and rods are far, far cheaper to use (in $(thing)Mana$(0) cost).",
   "botania.page.manaweave1": "Wearing the full set of $(item)Manaweave Robes$(0) also grants the wearer an increased proficiency with magical rods, increasing their powers and/or ranges.$(p)$(item)Manaweave Robes$(0) can use $(thing)Mana$(0) from one's inventory to repair themselves, similarly to $(item)Manasteel Armor$(0), but at a lower $(thing)Mana$(0) cost.",
   "botania.page.manaweave2": "Weaving the threads of $(thing)Mana$(0)",
@@ -3652,7 +3652,7 @@
   "botania.subtitle.equipBauble": "Trinket equips",
   "botania.subtitle.equipElementium": "Elementium armor clanks",
   "botania.subtitle.equipManasteel": "Manasteel armor clanks",
-  "botania.subtitle.equipManaweave": "Manaweave armor rustles",
+  "botania.subtitle.equipManaweave": "Manaweave robes rustle",
   "botania.subtitle.equipTerrasteel": "Terrasteel armor clangs",
   "botania.subtitle.fireRod": "Rod of the Hells simmers",
   "botania.subtitle.flareChakramThrow": "Flare Chakram thrown",
