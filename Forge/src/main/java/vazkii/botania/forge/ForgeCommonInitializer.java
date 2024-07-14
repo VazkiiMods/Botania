@@ -231,7 +231,7 @@ public class ForgeCommonInitializer {
 		});
 		bind(Registries.CREATIVE_MODE_TAB, consumer -> {
 			consumer.accept(CreativeModeTab.builder()
-					.title(Component.translatable("itemGroup.botania.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
+					.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
 					.icon(() -> new ItemStack(BotaniaItems.lexicon))
 					.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
 					.backgroundSuffix("botania.png")

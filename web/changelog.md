@@ -18,7 +18,10 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-* (nothing yet)
+* Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
+* Fix: Certain structures never generated in GoG, while others were placed at or below the bottom of the world (GoG might not place any blocks, but does create structure bounding boxes)
+* Fix: Mixin-related crash on startup with BedrockIfy or Enhanced Celestials
+* Fix: Improved the Spectator's performance impact in unusually restrictive chunk-loading conditions, but also somewhat improved its overall scanning performance
 
 ---
 

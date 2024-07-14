@@ -58,7 +58,7 @@ public class AdvancementProvider {
 
 			// Main progression line
 			Advancement root = Advancement.Builder.advancement()
-					.display(rootDisplay(BotaniaItems.lexicon, "itemGroup.botania.botania",
+					.display(rootDisplay(BotaniaItems.lexicon, "itemGroup.botania",
 							"botania.desc", prefix("textures/block/livingwood_log.png")))
 					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
 					.save(consumer, mainId("root"));
