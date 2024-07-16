@@ -32,7 +32,7 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 	public static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
 	public static final String TAG_STREAK_LENGTH = "streakLength";
 
-	private final List<Block> lastFlowers = new LinkedList<>();
+	private final List<ResourceLocation> lastFlowers = new LinkedList<>();
 	private int streakLength = -1;
 	private int lastFlowerCount = 0;
 
@@ -65,16 +65,17 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 	 * @return the last time the flower showed up in history.
 	 */
 	private int processFlower(Block flower) {
-		for (ListIterator<Block> it = lastFlowers.listIterator(); it.hasNext();) {
+		ResourceLocation flowerKey = Registry.BLOCK.getKey(flower);
+		for (ListIterator<ResourceLocation> it = lastFlowers.listIterator(); it.hasNext();) {
 			int index = it.nextIndex();
-			Block streakFlower = it.next();
-			if (streakFlower == flower) {
+			ResourceLocation streakFlower = it.next();
+			if (streakFlower.equals(flowerKey)) {
 				it.remove();
 				lastFlowers.add(0, streakFlower);
 				return index;
 			}
 		}
-		lastFlowers.add(0, flower);
+		lastFlowers.add(0, flowerKey);
 		if (lastFlowers.size() >= getMaxStreak()) {
 			lastFlowers.remove(lastFlowers.size() - 1);
 		}
@@ -113,8 +114,8 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 		super.writeToPacketNBT(cmp);
 
 		ListTag flowerList = new ListTag();
-		for (Block flower : lastFlowers) {
-			flowerList.add(StringTag.valueOf(Registry.BLOCK.getKey(flower).toString()));
+		for (ResourceLocation flower : lastFlowers) {
+			flowerList.add(StringTag.valueOf(flower.toString()));
 		}
 		cmp.put(TAG_LAST_FLOWERS, flowerList);
 		cmp.putInt(TAG_LAST_FLOWER_TIMES, lastFlowerCount);
@@ -128,7 +129,11 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 		lastFlowers.clear();
 		ListTag flowerList = cmp.getList(TAG_LAST_FLOWERS, Tag.TAG_STRING);
 		for (int i = 0; i < flowerList.size(); i++) {
-			lastFlowers.add(Registry.BLOCK.get(ResourceLocation.tryParse(flowerList.getString(i))));
+			ResourceLocation blockID = ResourceLocation.tryParse(flowerList.getString(i));
+			if (blockID == null) {
+				continue;
+			}
+			lastFlowers.add(blockID);
 		}
 		lastFlowerCount = cmp.getInt(TAG_LAST_FLOWER_TIMES);
 		streakLength = cmp.getInt(TAG_STREAK_LENGTH);
