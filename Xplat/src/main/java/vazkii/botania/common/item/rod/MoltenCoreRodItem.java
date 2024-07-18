@@ -19,6 +19,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -61,9 +62,27 @@ public class MoltenCoreRodItem extends Item {
 		if (!ManaItemHandler.instance().requestManaExactForTool(stack, p, COST, false) || lastUsedAt + COOLDOWN > world.getGameTime()) {
 			return InteractionResult.SUCCESS;
 		}
-		Container dummyInv = new SimpleContainer(1);
-		BlockState state = world.getBlockState(pos);
+		if (ManaItemHandler.instance().hasProficiency(p, stack)) {
+			Direction.Axis axis = side.getAxis();
+			for (int i = -1; i <= 1; i++) {
+				for (int j = -1; j <= 1; j++) {
+					for (int k = -1; k <= 1; k++) {
+						BlockPos offset = pos.offset(axis == Direction.Axis.X ? 0 : i, axis == Direction.Axis.Y ? 0 : j, axis == Direction.Axis.Z ? 0 : k);
+						smelt(world, offset, p, stack);
+					}
+				}
+			}
+		} else {
+			smelt(world, pos, p, stack);
+		}
 
+
+		return InteractionResult.SUCCESS;
+	}
+
+	private void smelt(Level world, BlockPos pos, Player p, ItemStack stack) {
+		BlockState state = world.getBlockState(pos);
+		Container dummyInv = new SimpleContainer(1);
 		dummyInv.setItem(0, new ItemStack(state.getBlock()));
 		world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, dummyInv, p.level())
 				.map(r -> r.assemble(dummyInv, world.registryAccess()))
@@ -85,23 +104,22 @@ public class MoltenCoreRodItem extends Item {
 						world.addParticle(data1, x, y, z, 0, (float) -Math.random() / 10F, 0);
 					}
 				});
-		return InteractionResult.SUCCESS;
 	}
 
 	@Override
 	public boolean overrideStackedOnOther(
-			@NotNull ItemStack rod, @NotNull ItemStack toSmelt, @NotNull Slot slot,
-			@NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess cursorAccess) {
-		if (clickAction == ClickAction.SECONDARY && ManaItemHandler.instance().requestManaExactForTool(rod, player, COST * toSmelt.getCount(), false)) {
+			@NotNull ItemStack rod, @NotNull Slot slot,
+			@NotNull ClickAction clickAction, @NotNull Player player) {
+		if (clickAction == ClickAction.SECONDARY && ManaItemHandler.instance().requestManaExactForTool(rod, player, COST * slot.getItem().getCount(), false)) {
 			Container dummyInv = new SimpleContainer(1);
-			dummyInv.setItem(0, toSmelt);
+			dummyInv.setItem(0, slot.getItem());
 			Level world = player.level();
 			world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, dummyInv, world)
 					.map(r -> r.assemble(dummyInv, world.registryAccess()))
 					.filter(r -> !r.isEmpty())
 					.ifPresent(result -> {
-						cursorAccess.set(result.copyWithCount(toSmelt.getCount()));
-						ManaItemHandler.instance().requestManaExactForTool(rod, player, COST * toSmelt.getCount(), true);
+						slot.set(result.copyWithCount(slot.getItem().getCount()));
+						ManaItemHandler.instance().requestManaExactForTool(rod, player, COST * slot.getItem().getCount(), true);
 					});
 			return true;
 		}
