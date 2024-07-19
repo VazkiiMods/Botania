@@ -54,20 +54,20 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 
 		ms.pushPose();
 		if (state == AlfheimPortalState.ON_X) {
-			ms.translate(0.75, 1, 2);
+			ms.translate(0.3125, 1, 2);
 			ms.mulPose(VecHelper.rotateY(90));
 		} else {
-			ms.translate(-1, 1, 0.75);
+			ms.translate(-1, 1, 0.3125);
 		}
 		renderIcon(ms, buffers, this.portalSprite, 0, 0, 3, 3, alpha, overlay);
 		ms.popPose();
 
 		ms.pushPose();
 		if (state == AlfheimPortalState.ON_X) {
-			ms.translate(0.25, 1, -1);
+			ms.translate(0.6875, 1, -1);
 			ms.mulPose(VecHelper.rotateY(90));
 		} else {
-			ms.translate(2, 1, 0.25);
+			ms.translate(2, 1, 0.6875);
 		}
 		ms.mulPose(VecHelper.rotateY(180));
 		renderIcon(ms, buffers, this.portalSprite, 0, 0, 3, 3, alpha, overlay);
