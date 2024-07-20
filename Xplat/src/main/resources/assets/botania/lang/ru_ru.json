@@ -1723,8 +1723,8 @@
   "botania.page.elvenLenses8": "Праздничная линза",
   "botania.page.elvenLenses9": "$(item)Линза сияния$(0) подчиняет себе $(item)Распространитель маны$(0), предотвращая запуск любых сгустков. Вместо этого, распространитель начинает непрерывно испускать сгустки из частиц, окрашенных в цвет линзы и летящих в заданном направлении.$(p)Эта линза, несомненно, имеет множество применений в качестве декорации.",
   "botania.page.elvenLenses10": "Линза сияния",
-  "botania.page.elvenLenses11": "The $(item)Tripwire Lens$(0) is another $(thing)Control Lens$(0).$(p)A spreader that has it attached will only be allowed to fire if there is one or more mobs, or players, in the path described by the $(thing)mana burst$(0) that the spreader would shoot.",
-  "botania.page.elvenLenses12": "Tripwire Lenss",
+  "botania.page.elvenLenses11": "$(item)Линза растяжки$(0) - это ещё одна $(thing)управляющая линза$(0).$(p)Распространитель маны, к которому она прикреплена, сможет выстрелить только в том случае, если на пути $(thing)сгустка маны$(0) окажется любое живое существо, включая игрока.",
+  "botania.page.elvenLenses12": "Линза растяжки",
 
   "botania.entry.prism": "Призма маны",
   "botania.tagline.prism": "Включите эффективную линзу на лету вспышки маны",
