@@ -19,9 +19,18 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
+* Change: Various lexicon adjustments
+  * Mentioned dripleaf shrinking
+  * Changed various mentions of "Manaweave armor" to "Manaweave robes"
 * Fix: Certain structures never generated in GoG, while others were placed at or below the bottom of the world (GoG might not place any blocks, but does create structure bounding boxes)
 * Fix: Mixin-related crash on startup with BedrockIfy or Enhanced Celestials
 * Fix: Improved the Spectator's performance impact in unusually restrictive chunk-loading conditions, but also somewhat improved its overall scanning performance
+* Fix: Rafflowsia no longer forgets its binding (among other things) after unload due to deserialization error
+* Fix: Alfheim portal effect planes were swapped
+* Fix: When a pixie applies the wither effect, it will actually cause damage now
+* Fix: Force relays getting moved directly, e.g. via force lens burst or direct binding from another force relay, correctly move their target and update the binding accordingly
+* Language update:
+  * ru_ru updated (krumplerban)
 
 ---
 
