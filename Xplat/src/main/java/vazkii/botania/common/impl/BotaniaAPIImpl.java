@@ -11,7 +11,6 @@ package vazkii.botania.common.impl;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Container;
@@ -36,6 +35,7 @@ import vazkii.botania.common.config.ConfigDataManager;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;
+import vazkii.botania.common.helper.RegistryHelper;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
@@ -207,14 +207,13 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public int apiVersion() {
-		return 2;
+		return 3;
 	}
 
 	@Nullable
 	@Override
-	@SuppressWarnings("unchecked")
 	public Registry<Brew> getBrewRegistry() {
-		return (Registry<Brew>) BuiltInRegistries.REGISTRY.get(BotaniaRegistries.BREWS.location());
+		return RegistryHelper.getRegistry(BotaniaRegistries.BREWS);
 	}
 
 	@Override
