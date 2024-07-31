@@ -18,10 +18,13 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Add: Various block/item interactions can be detected with sculk sensors
+* Add: Drum of the Gathering shortens the time until chickens lay their next egg
 * Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
 * Change: Various lexicon adjustments
   * Mentioned dripleaf shrinking
   * Changed various mentions of "Manaweave armor" to "Manaweave robes"
+  * Information on how to make the Teru Teru Bozu sad (so you can avoid it, you wouldn't want it to be sad, right?)
 * Fix: Certain structures never generated in GoG, while others were placed at or below the bottom of the world (GoG might not place any blocks, but does create structure bounding boxes)
 * Fix: Mixin-related crash on startup with BedrockIfy or Enhanced Celestials
 * Fix: Improved the Spectator's performance impact in unusually restrictive chunk-loading conditions, but also somewhat improved its overall scanning performance
