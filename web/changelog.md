@@ -18,6 +18,12 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+(none yet)
+
+---
+
+{% include changelog_header.html version="1.20.1-446" %}
+
 * Add: Various block/item interactions can be detected with sculk sensors
 * Add: Drum of the Gathering shortens the time until chickens lay their next egg
 * Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
