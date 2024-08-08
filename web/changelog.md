@@ -22,6 +22,20 @@ and start a new "Upcoming" section.
 
 ---
 
+{% include changelog_header.html version="1.19.2-440.1" %}
+
+* Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
+* Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
+* Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
+* Change: Terrasteel tool speed and damage was updated to match corresponding netherite values
+* Fix: JEI memory leak
+* Fix: Rosa arcana not taking into account stacked xp orbs
+* Fix: Crash with Akashic Tome
+* Fix: Rafflowsia occasionally losing its binding
+* Fix: Off-by-one-degree typo when rendering progress pies in the HUD
+
+---
+
 {% include changelog_header.html version="1.20.1-446" %}
 
 * Add: Various block/item interactions can be detected with sculk sensors
