@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -87,9 +88,11 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern {
 	public static Component getTitle(ItemStack stack) {
 		Component title = stack.getHoverName();
 
+		// Akashic tome tag contains a `text` field, which is a stringified text component
 		String akashicTomeNBT = "akashictome:displayName";
 		if (stack.hasTag() && stack.getTag().contains(akashicTomeNBT)) {
-			title = Component.Serializer.fromJson(stack.getTag().getString(akashicTomeNBT));
+			CompoundTag nameTextComponent = stack.getTag().getCompound(akashicTomeNBT);
+			title = Component.Serializer.fromJson(nameTextComponent.getString("text"));
 		}
 
 		return title;
