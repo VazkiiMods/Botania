@@ -22,7 +22,7 @@ and start a new "Upcoming" section.
 
 ---
 
-{% include changelog_header.html version="1.19.2-440.1" %}
+{% include changelog_header.html version="1.19.2-440.2" %}
 
 * Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
 * Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
@@ -33,6 +33,12 @@ and start a new "Upcoming" section.
 * Fix: Crash with Akashic Tome
 * Fix: Rafflowsia occasionally losing its binding
 * Fix: Off-by-one-degree typo when rendering progress pies in the HUD
+
+---
+
+{% include changelog_header.html version="1.19.2-440.1" %}
+
+*This version was never released due to an issue with the build. See 1.19.2-440.2.*
 
 ---
 
