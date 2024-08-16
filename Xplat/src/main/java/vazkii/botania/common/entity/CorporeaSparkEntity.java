@@ -81,8 +81,6 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 
 	@Override
 	public void tick() {
-		super.tick();
-
 		if (level().isClientSide) {
 			return;
 		}
