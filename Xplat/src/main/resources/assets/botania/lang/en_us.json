@@ -2704,7 +2704,7 @@
 
   "botania.entry.gatherDrum": "Drum of the Gathering",
   "botania.tagline.gatherDrum": "Shear sheep and milk cows with mana bursts",
-  "botania.page.gatherDrum0": "The $(item)Drum of the Gathering$(0) is, in effect, the rancher's $(l:devices/forest_drum)$(item)Drum of the Wild$(0)$(/l).$(p)When a $(thing)Mana Burst$(0) collides with it, any $(thing)Sheep$(0) around with grown fleece will be sheared, and any $(thing)Cows$(0) with $(item)Empty Buckets$(0) below them will pour milk into the buckets.",
+  "botania.page.gatherDrum0": "The $(item)Drum of the Gathering$(0) is, in effect, the rancher's $(l:devices/forest_drum)$(item)Drum of the Wild$(0)$(/l).$(p)When a $(thing)Mana Burst$(0) collides with it, any $(thing)Sheep$(0) around with grown fleece will be sheared, any $(thing)Chickens$(0) will get closer to laying their next egg, and any $(thing)Cows$(0), $(thing)Mooshrooms$(0), or $(thing)Goats$(0) with $(item)Empty Buckets$(0) below them will pour milk into the buckets.",
   "botania.page.gatherDrum1": "Tap your lands",
 
   "botania.entry.craftCrate": "Crafty Crate",
