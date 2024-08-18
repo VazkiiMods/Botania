@@ -174,19 +174,19 @@ public class LooniumStructureLootProvider implements DataProvider {
 		);
 
 		var output = new ArrayList<CompletableFuture<?>>(tables.size());
-		for (var e : tables.entrySet()) {
+		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
 			LootTable.Builder builder = e.getValue();
 			LootTable lootTable = builder.setParamSet(LootContextParamSets.ALL_PARAMS).build();
 			JsonElement jsonTree = Deserializers.createLootTableSerializer().create().toJsonTree(lootTable);
 			output.add(DataProvider.saveStable(cache, jsonTree, path));
 		}
-		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
+		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
 	}
 
 	private static LootTable.Builder buildVillageLootTable(ResourceLocation house, Set<VillageLoot> villageLootSet) {
 		LootPool.Builder lootPool = LootPool.lootPool().add(LootTableReference.lootTableReference(house).setWeight(3));
-		for (var loot : villageLootSet) {
+		for (VillageLoot loot : villageLootSet) {
 			lootPool.add(LootTableReference.lootTableReference(loot.lootTable));
 		}
 		return LootTable.lootTable().withPool(lootPool);

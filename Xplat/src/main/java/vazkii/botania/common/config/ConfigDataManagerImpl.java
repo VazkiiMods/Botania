@@ -7,7 +7,6 @@ import com.mojang.serialization.JsonOps;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -16,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.configdata.ConfigDataManager;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -27,15 +27,15 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ConfigDataManager implements PreparableReloadListener {
+public class ConfigDataManagerImpl implements ConfigDataManager {
 	public static void registerListener() {
-		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("configdata"), new ConfigDataManager());
+		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("configdata"), new ConfigDataManagerImpl());
 	}
 
 	private final Map<ResourceLocation, LooniumStructureConfiguration> looniumConfigs = new HashMap<>();
 
-	@Nullable
-	public LooniumStructureConfiguration getEffectiveLooniumStructureConfiguration(ResourceLocation id) {
+	@Override
+	public @Nullable LooniumStructureConfiguration getEffectiveLooniumStructureConfiguration(ResourceLocation id) {
 		LooniumStructureConfiguration configuration = this.looniumConfigs.get(id);
 		return configuration != null ? configuration.getEffectiveConfig(looniumConfigs::get) : null;
 	}
@@ -45,7 +45,7 @@ public class ConfigDataManager implements PreparableReloadListener {
 		Set<ResourceLocation> visitedEntries = new LinkedHashSet<>();
 		do {
 			errorEntries.clear();
-			for (var entry : map.entrySet()) {
+			for (Map.Entry<ResourceLocation, LooniumStructureConfiguration> entry : map.entrySet()) {
 				ResourceLocation id = entry.getKey();
 				ResourceLocation parent = entry.getValue().parent;
 				if (id.equals(parent)) {
@@ -103,7 +103,7 @@ public class ConfigDataManager implements PreparableReloadListener {
 			SimpleJsonResourceReloadListener.scanDirectory(manager, "config/" + type.directory, new Gson(), resourceMap);
 			Map<ResourceLocation, T> configs = new HashMap<>(resourceMap.size());
 			resourceMap.forEach((id, jsonElement) -> {
-				BotaniaAPI.LOGGER.info("Parsing {}", id);
+				BotaniaAPI.LOGGER.debug("Parsing {} config '{}'", type.directory, id);
 				type.codec.parse(JsonOps.INSTANCE, jsonElement).result().ifPresent(c -> configs.put(id, c));
 			});
 			type.validateFunction.accept(configs);
@@ -115,10 +115,10 @@ public class ConfigDataManager implements PreparableReloadListener {
 
 	private record ConfigDataType<T> (Codec<T> codec, String directory,
 			Consumer<Map<ResourceLocation, T>> validateFunction,
-			BiConsumer<ConfigDataManager, Map<ResourceLocation, T>> applyFunction) {
+			BiConsumer<ConfigDataManagerImpl, Map<ResourceLocation, T>> applyFunction) {
 		private static final ConfigDataType<LooniumStructureConfiguration> LOONUIM =
 				new ConfigDataType<>(LooniumStructureConfiguration.CODEC, "loonium",
-						ConfigDataManager::validateLooniumConfig, ConfigDataManager::applyLooniumConfig);
+						ConfigDataManagerImpl::validateLooniumConfig, ConfigDataManagerImpl::applyLooniumConfig);
 
 	}
 }

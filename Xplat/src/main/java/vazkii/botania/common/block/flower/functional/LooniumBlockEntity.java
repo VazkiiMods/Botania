@@ -11,6 +11,7 @@ package vazkii.botania.common.block.flower.functional;
 import com.google.common.base.Suppliers;
 
 import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.*;
 
 import net.minecraft.ChatFormatting;
@@ -28,6 +29,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.item.ItemStack;
@@ -38,6 +40,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -53,11 +56,12 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.configdata.ConfigDataManager;
+import vazkii.botania.api.configdata.LooniumMobAttributeModifier;
 import vazkii.botania.api.configdata.LooniumMobEffectToApply;
 import vazkii.botania.api.configdata.LooniumMobSpawnData;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.config.ConfigDataManager;
 import vazkii.botania.common.internal_caps.LooniumComponent;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
@@ -71,8 +75,6 @@ import java.util.stream.Collectors;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
-	public static final int DEFAULT_COST = 35000;
-	public static final int DEFAULT_MAX_NEARBY_MOBS = 10;
 	private static final int RANGE = 5;
 	private static final int CHECK_RANGE = 9;
 	private static final String TAG_LOOT_TABLE = "lootTable";
@@ -80,8 +82,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final String TAG_CONFIG_OVERRIDE = "configOverride";
 	private static final Supplier<LooniumStructureConfiguration> FALLBACK_CONFIG =
 			Suppliers.memoize(() -> LooniumStructureConfiguration.builder()
-					.manaCost(DEFAULT_COST)
-					.maxNearbyMobs(DEFAULT_MAX_NEARBY_MOBS)
+					.manaCost(LooniumStructureConfiguration.DEFAULT_COST)
+					.maxNearbyMobs(LooniumStructureConfiguration.DEFAULT_MAX_NEARBY_MOBS)
 					.boundingBoxType(StructureSpawnOverride.BoundingBoxType.PIECE)
 					.spawnedMobs(LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 1).build())
 					.attributeModifiers()
@@ -180,18 +182,18 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		var configData = BotaniaAPI.instance().getConfigData();
-		var structureConfigs = determineStructureConfigs(configData, detectedStructures);
-		var lootTables = determineLootTables(world, structureConfigs.keySet());
+		ConfigDataManager configData = BotaniaAPI.instance().getConfigData();
+		Map<ResourceLocation, LooniumStructureConfiguration> structureConfigs = determineStructureConfigs(configData, detectedStructures);
+		List<Pair<ResourceLocation, LootTable>> lootTables = determineLootTables(world, structureConfigs.keySet());
 
 		if (lootTables.isEmpty()) {
 			return;
 		}
 
-		var randomPick = lootTables.get(world.random.nextInt(lootTables.size()));
-		var pickedConfig = structureConfigs.getOrDefault(randomPick.key(),
+		Pair<ResourceLocation, LootTable> randomPick = lootTables.get(world.random.nextInt(lootTables.size()));
+		LooniumStructureConfiguration pickedConfig = structureConfigs.getOrDefault(randomPick.key(),
 				structureConfigs.get(LooniumStructureConfiguration.DEFAULT_CONFIG_ID));
-		var pickedLootTable = randomPick.value();
+		LootTable pickedLootTable = randomPick.value();
 
 		if (getMana() < pickedConfig.manaCost) {
 			return;
@@ -202,7 +204,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		var pickedMobType = pickedConfig.spawnedMobs.getRandom(world.random).orElse(null);
+		LooniumMobSpawnData pickedMobType = pickedConfig.spawnedMobs.getRandom(world.random).orElse(null);
 		if (pickedMobType == null) {
 			return;
 		}
@@ -249,8 +251,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 		LooniumComponent looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(mob);
 		if (looniumComponent != null) {
-			looniumComponent.setDrop(lootStack);
 			looniumComponent.setSlowDespawn(true);
+			looniumComponent.setOverrideDrop(true);
+			looniumComponent.setDrop(lootStack);
 		}
 
 		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.SPAWNER, null, null);
@@ -263,14 +266,14 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		if (pickedMobType.equipmentTable != null) {
 			LootTable equipmentTable = world.getServer().getLootData().getLootTable(pickedMobType.equipmentTable);
 			if (equipmentTable != LootTable.EMPTY) {
-				var lootParams = new LootParams.Builder(world)
+				LootParams lootParams = new LootParams.Builder(world)
 						.withParameter(LootContextParams.THIS_ENTITY, mob)
 						.withParameter(LootContextParams.ORIGIN, mob.position())
 						// TODO 1.21: replace with LootContextParamSets.EQUIPMENT
 						.create(LootContextParamSets.SELECTOR);
 				var equippedSlots = new HashSet<EquipmentSlot>();
 				equipmentTable.getRandomItems(lootParams, equipmentStack -> {
-					var slot = equipmentStack.is(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
+					EquipmentSlot slot = equipmentStack.is(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
 							? EquipmentSlot.OFFHAND
 							: LivingEntity.getEquipmentSlotForItem(equipmentStack);
 					if (equippedSlots.contains(slot)) {
@@ -303,7 +306,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 					return;
 				}
 
-				var mobType = pickedConfig.spawnedMobs.unwrap().stream()
+				Optional<LooniumMobSpawnData> mobType = pickedConfig.spawnedMobs.unwrap().stream()
 						.filter(mobSpawnData -> mobSpawnData.type.tryCast(otherMob) != null).findFirst();
 
 				ItemStack bonusLoot;
@@ -317,11 +320,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				LooniumComponent otherLooniumComponent = XplatAbstractions.INSTANCE.looniumComponent(otherMob);
 				if (otherLooniumComponent != null) {
 					otherLooniumComponent.setSlowDespawn(true);
-					if (bonusLoot.isEmpty()) {
-						otherLooniumComponent.setDropNothing(true);
-					} else {
-						otherLooniumComponent.setDrop(bonusLoot);
-					}
+					otherLooniumComponent.setOverrideDrop(true);
+					otherLooniumComponent.setDrop(bonusLoot);
 				}
 			}
 		});
@@ -340,11 +340,11 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	private static void applyAttributesAndEffects(LooniumMobSpawnData mobSpawnData,
 			LooniumStructureConfiguration pickedConfig, Mob mob) {
-		var attributeModifiers = mobSpawnData.attributeModifiers != null
+		List<LooniumMobAttributeModifier> attributeModifiers = mobSpawnData.attributeModifiers != null
 				? mobSpawnData.attributeModifiers
 				: pickedConfig.attributeModifiers;
-		for (var attributeModifier : attributeModifiers) {
-			var attribute = mob.getAttribute(attributeModifier.attribute);
+		for (LooniumMobAttributeModifier attributeModifier : attributeModifiers) {
+			AttributeInstance attribute = mob.getAttribute(attributeModifier.attribute);
 			if (attribute != null) {
 				attribute.addPermanentModifier(attributeModifier.createAttributeModifier());
 				if (attribute.getAttribute() == Attributes.MAX_HEALTH) {
@@ -353,10 +353,10 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 		}
 
-		var effectsToApply = mobSpawnData.effectsToApply != null
+		List<LooniumMobEffectToApply> effectsToApply = mobSpawnData.effectsToApply != null
 				? mobSpawnData.effectsToApply
 				: pickedConfig.effectsToApply;
-		for (var effectToApply : effectsToApply) {
+		for (LooniumMobEffectToApply effectToApply : effectsToApply) {
 			mob.addEffect(effectToApply.createMobEffectInstance());
 		}
 	}
@@ -392,11 +392,11 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				lootTables.add(Pair.of(LooniumStructureConfiguration.DEFAULT_CONFIG_ID, lootTable));
 			}
 		} else {
-			for (var structureId : structureIds) {
+			for (ResourceLocation structureId : structureIds) {
 				if (structureId.equals(LooniumStructureConfiguration.DEFAULT_CONFIG_ID)) {
 					continue;
 				}
-				var lootTableId = prefix("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
+				ResourceLocation lootTableId = prefix("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
 				LootTable lootTable = lootData.getLootTable(lootTableId);
 				if (lootTable != LootTable.EMPTY) {
 					lootTables.add(Pair.of(structureId, lootTable));
@@ -434,12 +434,12 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 					overrideConfig != null ? overrideConfig : getDefaultConfig(configData));
 		}
 
-		var defaultConfig = getDefaultConfig(configData);
+		LooniumStructureConfiguration defaultConfig = getDefaultConfig(configData);
 		var structureConfigs = new HashMap<ResourceLocation, LooniumStructureConfiguration>();
-		for (var structureEntry : structures.object2BooleanEntrySet()) {
+		for (Object2BooleanMap.Entry<ResourceLocation> structureEntry : structures.object2BooleanEntrySet()) {
 			LooniumStructureConfiguration structureSpecificConfig =
 					configData.getEffectiveLooniumStructureConfiguration(structureEntry.getKey());
-			var structureConfig = structureSpecificConfig != null ? structureSpecificConfig : defaultConfig;
+			LooniumStructureConfiguration structureConfig = structureSpecificConfig != null ? structureSpecificConfig : defaultConfig;
 			if (structureConfig != null && (structureEntry.getBooleanValue()
 					|| structureConfig.boundingBoxType == StructureSpawnOverride.BoundingBoxType.STRUCTURE)) {
 				structureConfigs.put(structureEntry.getKey(), structureConfig);
@@ -451,7 +451,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	private static LooniumStructureConfiguration getDefaultConfig(ConfigDataManager configData) {
-		var defaultConfig = configData.getEffectiveLooniumStructureConfiguration(
+		LooniumStructureConfiguration defaultConfig = configData.getEffectiveLooniumStructureConfiguration(
 				LooniumStructureConfiguration.DEFAULT_CONFIG_ID);
 		return defaultConfig != null ? defaultConfig : FALLBACK_CONFIG.get();
 	}
@@ -461,10 +461,10 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		var structureMap = new Object2BooleanRBTreeMap<ResourceLocation>();
 		StructureManager structureManager = world.structureManager();
 		BlockPos pos = getBlockPos();
-		var structures = structureManager.getAllStructuresAt(pos);
-		for (var entry : structures.entrySet()) {
+		Map<Structure, LongSet> structures = structureManager.getAllStructuresAt(pos);
+		for (Map.Entry<Structure, LongSet> entry : structures.entrySet()) {
 			Structure structure = entry.getKey();
-			var start = structureManager.getStructureAt(pos, structure);
+			StructureStart start = structureManager.getStructureAt(pos, structure);
 			if (start.isValid()) {
 				ResourceLocation structureId =
 						world.registryAccess().registryOrThrow(Registries.STRUCTURE).getKey(structure);
@@ -475,14 +475,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 		}
 
-		if (structureMap.isEmpty()) {
-			detectedStructures = Object2BooleanMaps.emptyMap();
-		} else if (structureMap.size() == 1) {
-			var key = structureMap.firstKey();
-			detectedStructures = Object2BooleanMaps.singleton(key, structureMap.getBoolean(key));
-		} else {
-			detectedStructures = new Object2BooleanArrayMap<>(structureMap);
-		}
+		detectedStructures = new Object2BooleanArrayMap<>(structureMap);
 
 		setChanged();
 		sync();
@@ -495,7 +488,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Override
 	public int getMaxMana() {
-		return DEFAULT_COST;
+		return LooniumStructureConfiguration.DEFAULT_COST;
 	}
 
 	@Override
@@ -523,26 +516,22 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			configOverride = new ResourceLocation(cmp.getString(TAG_CONFIG_OVERRIDE));
 		}
 		if (cmp.contains(TAG_DETECTED_STRUCTURE)) {
-			var rawString = cmp.getString(TAG_DETECTED_STRUCTURE);
+			String rawString = cmp.getString(TAG_DETECTED_STRUCTURE);
 			if (rawString.isEmpty()) {
 				detectedStructures = Object2BooleanMaps.emptyMap();
 			} else {
-				var structureList = Arrays.stream(rawString.split(",")).map(part -> {
+				List<ObjectBooleanPair<ResourceLocation>> structureList = Arrays.stream(rawString.split(",")).map(part -> {
 					if (part.contains("|")) {
-						var components = part.split("\\|", 2);
+						String[] components = part.split("\\|", 2);
 						return ObjectBooleanPair.of(new ResourceLocation(components[0]), Boolean.parseBoolean(components[1]));
 					} else {
 						return ObjectBooleanPair.of(new ResourceLocation(part), false);
 					}
 				}).toList();
-				if (structureList.size() == 1) {
-					detectedStructures = Object2BooleanMaps.singleton(structureList.get(0).key(), structureList.get(0).valueBoolean());
-				} else {
-					// list should never contain more than a few entries, so array is fine and retains entry order
-					var map = new Object2BooleanArrayMap<ResourceLocation>(structureList.size());
-					structureList.forEach(entry -> map.put(entry.key(), entry.valueBoolean()));
-					detectedStructures = map;
-				}
+				// list should never contain more than a few entries, so array is fine and retains entry order
+				var map = new Object2BooleanArrayMap<ResourceLocation>(structureList.size());
+				structureList.forEach(entry -> map.put(entry.key(), entry.valueBoolean()));
+				detectedStructures = map;
 			}
 		}
 	}
@@ -559,7 +548,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		if (detectedStructures != null) {
 			var stringBuilder = new StringBuilder();
 			boolean first = true;
-			for (var entry : detectedStructures.object2BooleanEntrySet()) {
+			for (Object2BooleanMap.Entry<ResourceLocation> entry : detectedStructures.object2BooleanEntrySet()) {
 				if (first) {
 					first = false;
 				} else {
@@ -572,11 +561,10 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public static void dropLooniumItems(LivingEntity living, Consumer<ItemStack> consumer) {
-		var comp = XplatAbstractions.INSTANCE.looniumComponent(living);
-		if (comp != null)
-			if (!comp.getDrop().isEmpty() || comp.isDropNothing()) {
-				consumer.accept(comp.getDrop());
-			}
+		LooniumComponent comp = XplatAbstractions.INSTANCE.looniumComponent(living);
+		if (comp != null && comp.isOverrideDrop()) {
+			consumer.accept(comp.getDrop());
+		}
 	}
 
 	public static class WandHud extends BindableFlowerWandHud<LooniumBlockEntity> {
@@ -595,13 +583,13 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				lootType = "structure_loot";
 			}
 			String lootTypeMessage = I18n.get("botaniamisc.loonium." + lootType);
-			int filterWidth = mc.font.width(lootTypeMessage);
-			int filterTextStart = (mc.getWindow().getGuiScaledWidth() - filterWidth) / 2;
-			int halfMinWidth = (filterWidth + 4) / 2;
+			int lootTypeWidth = mc.font.width(lootTypeMessage);
+			int lootTypeTextStart = (mc.getWindow().getGuiScaledWidth() - lootTypeWidth) / 2;
+			int halfMinWidth = (lootTypeWidth + 4) / 2;
 			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
 			super.renderHUD(gui, mc, halfMinWidth, halfMinWidth, 40);
-			gui.drawString(mc.font, lootTypeMessage, filterTextStart, centerY + 30, flower.getColor());
+			gui.drawString(mc.font, lootTypeMessage, lootTypeTextStart, centerY + 30, flower.getColor());
 		}
 	}
 }

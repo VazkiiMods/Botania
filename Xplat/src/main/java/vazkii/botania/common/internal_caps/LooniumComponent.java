@@ -14,11 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Objects;
 
 public class LooniumComponent extends SerializableComponent {
-	protected static final String TAG_TODROP = "toDrop";
-	protected static final String TAG_DROP_NOTHING = "dropNothing";
+	protected static final String TAG_TO_DROP = "toDrop";
+	protected static final String TAG_OVERRIDE_DROP = "overrideDrop";
 	protected static final String TAG_SLOW_DESPAWN = "slowDespawn";
 	private ItemStack toDrop = ItemStack.EMPTY;
-	private boolean dropNothing;
+	private boolean overrideDrop;
 	private boolean slowDespawn;
 
 	public ItemStack getDrop() {
@@ -29,15 +29,12 @@ public class LooniumComponent extends SerializableComponent {
 		this.toDrop = stack;
 	}
 
-	public boolean isDropNothing() {
-		return dropNothing;
+	public boolean isOverrideDrop() {
+		return overrideDrop;
 	}
 
-	public void setDropNothing(boolean dropNothing) {
-		if (dropNothing) {
-			setDrop(ItemStack.EMPTY);
-		}
-		this.dropNothing = dropNothing;
+	public void setOverrideDrop(boolean overrideDrop) {
+		this.overrideDrop = overrideDrop;
 	}
 
 	public boolean isSlowDespawn() {
@@ -54,23 +51,23 @@ public class LooniumComponent extends SerializableComponent {
 			return true;
 		}
 		return obj instanceof LooniumComponent component && ItemStack.matches(component.toDrop, toDrop)
-				&& component.dropNothing == dropNothing && component.slowDespawn == slowDespawn;
+				&& component.overrideDrop == overrideDrop && component.slowDespawn == slowDespawn;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(toDrop.hashCode(), dropNothing, slowDespawn);
+		return Objects.hash(toDrop.hashCode(), overrideDrop, slowDespawn);
 	}
 
 	@Override
 	public void readFromNbt(CompoundTag tag) {
-		if (tag.contains(TAG_TODROP)) {
-			setDrop(ItemStack.of(tag.getCompound(TAG_TODROP)));
+		if (tag.contains(TAG_TO_DROP)) {
+			setDrop(ItemStack.of(tag.getCompound(TAG_TO_DROP)));
 		} else {
 			setDrop(ItemStack.EMPTY);
 		}
-		if (tag.contains(TAG_DROP_NOTHING)) {
-			setDropNothing(tag.getBoolean(TAG_DROP_NOTHING));
+		if (tag.contains(TAG_OVERRIDE_DROP)) {
+			setOverrideDrop(tag.getBoolean(TAG_OVERRIDE_DROP));
 		}
 		if (tag.contains(TAG_SLOW_DESPAWN)) {
 			setSlowDespawn(tag.getBoolean(TAG_SLOW_DESPAWN));
@@ -79,11 +76,11 @@ public class LooniumComponent extends SerializableComponent {
 
 	@Override
 	public void writeToNbt(CompoundTag tag) {
-		if (!getDrop().isEmpty()) {
-			tag.put(TAG_TODROP, getDrop().save(new CompoundTag()));
-		}
-		if (isDropNothing()) {
-			tag.putBoolean(TAG_DROP_NOTHING, true);
+		if (isOverrideDrop()) {
+			if (!getDrop().isEmpty()) {
+				tag.put(TAG_TO_DROP, getDrop().save(new CompoundTag()));
+			}
+			tag.putBoolean(TAG_OVERRIDE_DROP, true);
 		}
 		if (isSlowDespawn()) {
 			tag.putBoolean(TAG_SLOW_DESPAWN, true);

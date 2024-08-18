@@ -28,11 +28,12 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.configdata.ConfigDataManager;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.flower.functional.SolegnoliaBlockEntity;
-import vazkii.botania.common.config.ConfigDataManager;
+import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;
@@ -203,7 +204,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 	}
 
-	private ConfigDataManager configDataManager = new ConfigDataManager();
+	private ConfigDataManager configDataManager = new ConfigDataManagerImpl();
 
 	@Override
 	public int apiVersion() {

@@ -1,5 +1,6 @@
 package vazkii.botania.data;
 
+import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
@@ -13,6 +14,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,7 +29,6 @@ import vazkii.botania.api.configdata.LooniumMobAttributeModifier;
 import vazkii.botania.api.configdata.LooniumMobEffectToApply;
 import vazkii.botania.api.configdata.LooniumMobSpawnData;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
-import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.loot.BotaniaLootTables;
 
 import java.nio.file.Path;
@@ -64,7 +65,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 		configs.put(BuiltinStructures.JUNGLE_TEMPLE.location(), getConfigJungleTemple(defaultConfigId));
 		configs.put(BuiltinStructures.OCEAN_MONUMENT.location(), getConfigOceanMonument(defaultConfigId));
 
-		var oceanRuinId = prefix("ocean_ruins");
+		ResourceLocation oceanRuinId = prefix("ocean_ruins");
 		configs.put(oceanRuinId,
 				LooniumStructureConfiguration.forParent(defaultConfigId)
 						.boundingBoxType(StructureSpawnOverride.BoundingBoxType.STRUCTURE).build()
@@ -88,7 +89,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 		configs.put(BuiltinStructures.STRONGHOLD.location(), getConfigStronghold(defaultConfigId));
 		configs.put(BuiltinStructures.TRAIL_RUINS.location(), getConfigTrailRuins(defaultConfigId));
 
-		var villageId = prefix("village");
+		ResourceLocation villageId = prefix("village");
 		configs.put(villageId, LooniumStructureConfiguration.forParent(defaultConfigId)
 				.boundingBoxType(StructureSpawnOverride.BoundingBoxType.STRUCTURE).build()
 		);
@@ -101,20 +102,20 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 		configs.put(BuiltinStructures.WOODLAND_MANSION.location(), getConfigWoodlandMansion(defaultConfigId));
 
 		var output = new ArrayList<CompletableFuture<?>>(configs.size());
-		for (var e : configs.entrySet()) {
+		for (Map.Entry<ResourceLocation, LooniumStructureConfiguration> e : configs.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
-			var config = e.getValue();
-			var jsonTree = LooniumStructureConfiguration.CODEC.encodeStart(JsonOps.INSTANCE, config)
+			LooniumStructureConfiguration config = e.getValue();
+			JsonElement jsonTree = LooniumStructureConfiguration.CODEC.encodeStart(JsonOps.INSTANCE, config)
 					.getOrThrow(false, BotaniaAPI.LOGGER::error);
 			output.add(DataProvider.saveStable(cache, jsonTree, path));
 		}
-		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
+		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
 	}
 
 	private static LooniumStructureConfiguration getDefaultConfig() {
 		return LooniumStructureConfiguration.builder()
-				.manaCost(LooniumBlockEntity.DEFAULT_COST)
-				.maxNearbyMobs(LooniumBlockEntity.DEFAULT_MAX_NEARBY_MOBS)
+				.manaCost(LooniumStructureConfiguration.DEFAULT_COST)
+				.maxNearbyMobs(LooniumStructureConfiguration.DEFAULT_MAX_NEARBY_MOBS)
 				.boundingBoxType(StructureSpawnOverride.BoundingBoxType.PIECE)
 				.spawnedMobs(
 						// weights roughly based on original Loonium mob selection logic
@@ -258,7 +259,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 	}
 
 	private static LooniumStructureConfiguration getConfigOceanMonument(ResourceLocation parentId) {
-		var standardEffectsInWater = getStandardEffects(true, true);
+		LooniumMobEffectToApply[] standardEffectsInWater = getStandardEffects(true, true);
 		return LooniumStructureConfiguration.forParent(parentId).spawnedMobs(
 				LooniumMobSpawnData.entityWeight(EntityType.GUARDIAN, 200).build(),
 				getCreeperSpawnData(199, false, getCreeperEffects(true)),
@@ -279,7 +280,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 	}
 
 	private static LooniumStructureConfiguration getConfigOceanRuinCold(ResourceLocation parentId) {
-		var standardEffectsInWater = getStandardEffects(true, true);
+		LooniumMobEffectToApply[] standardEffectsInWater = getStandardEffects(true, true);
 		return LooniumStructureConfiguration.forParent(parentId).spawnedMobs(
 				getCreeperSpawnData(199, false, getCreeperEffects(true)),
 				getCreeperSpawnData(1, true, getCreeperEffects(true)),
@@ -299,7 +300,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 	}
 
 	private static LooniumStructureConfiguration getConfigOceanRuinWarm(ResourceLocation parentId) {
-		var standardEffectsInWater = getStandardEffects(true, true);
+		LooniumMobEffectToApply[] standardEffectsInWater = getStandardEffects(true, true);
 		return LooniumStructureConfiguration.forParent(parentId).spawnedMobs(
 				getCreeperSpawnData(199, false, getCreeperEffects(true)),
 				getCreeperSpawnData(1, true, getCreeperEffects(true)),
@@ -417,7 +418,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 	}
 
 	private static LooniumStructureConfiguration getConfigRuinedPortalOcean(ResourceLocation parentId) {
-		var standardEffectsInWater = getStandardEffects(true, true);
+		LooniumMobEffectToApply[] standardEffectsInWater = getStandardEffects(true, true);
 		return LooniumStructureConfiguration.forParent(parentId).spawnedMobs(
 				LooniumMobSpawnData.entityWeight(EntityType.ZOGLIN, 25)
 						.effectsToApply(getStandardEffects(false, false)).build(),
@@ -486,7 +487,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 	}
 
 	private static LooniumStructureConfiguration getConfigShipwreck(ResourceLocation parentId) {
-		var standardEffectsInWater = getStandardEffects(true, true);
+		LooniumMobEffectToApply[] standardEffectsInWater = getStandardEffects(true, true);
 		return LooniumStructureConfiguration.forParent(parentId).spawnedMobs(
 				getCreeperSpawnData(199, false, getCreeperEffects(true)),
 				getCreeperSpawnData(1, true, getCreeperEffects(true)),
@@ -721,8 +722,8 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 			piglinNbt.putBoolean("IsImmuneToZombification", true);
 		}
 
-		var piglinBrain = Brain.provider(List.of(MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.ADMIRING_DISABLED,
-				MemoryModuleType.ATE_RECENTLY), List.of())
+		Brain<LivingEntity> piglinBrain = Brain.provider(List.of(MemoryModuleType.UNIVERSAL_ANGER,
+				MemoryModuleType.ADMIRING_DISABLED, MemoryModuleType.ATE_RECENTLY), List.of())
 				.makeBrain(new Dynamic<>(NbtOps.INSTANCE));
 		piglinBrain.setMemory(MemoryModuleType.UNIVERSAL_ANGER, true);
 		piglinBrain.setMemory(MemoryModuleType.ADMIRING_DISABLED, true);

@@ -30,10 +30,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.configdata.ConfigDataManager;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.ManaNetwork;
-import vazkii.botania.common.config.ConfigDataManager;
 
 import java.util.Collections;
 import java.util.Map;

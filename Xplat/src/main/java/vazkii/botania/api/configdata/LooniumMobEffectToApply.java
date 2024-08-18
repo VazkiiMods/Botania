@@ -1,7 +1,6 @@
 package vazkii.botania.api.configdata;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,11 +16,7 @@ public class LooniumMobEffectToApply {
 	public static final Codec<LooniumMobEffectToApply> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
 					BuiltInRegistries.MOB_EFFECT.byNameCodec().fieldOf("effect").forGetter(me -> me.effect),
-					ExtraCodecs.validate(Codec.INT,
-							duration -> duration > 0
-									? DataResult.success(duration)
-									: DataResult.error(() -> "Invalid effect duration"))
-							.optionalFieldOf("duration", MobEffectInstance.INFINITE_DURATION)
+					ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", MobEffectInstance.INFINITE_DURATION)
 							.forGetter(me -> me.duration),
 					Codec.intRange(0, 255).optionalFieldOf("amplifier", 0)
 							.forGetter(me -> me.amplifier)

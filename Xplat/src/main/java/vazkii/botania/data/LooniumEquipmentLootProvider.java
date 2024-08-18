@@ -3,6 +3,7 @@ package vazkii.botania.data;
 import com.google.gson.JsonElement;
 
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -132,7 +133,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		// TODO: we should be using LootTableSubProvider implementations instead of three individual loot providers
 		var output = new ArrayList<CompletableFuture<?>>(tables.size());
-		for (var e : tables.entrySet()) {
+		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
 			LootTable.Builder builder = e.getValue();
 			// TODO 1.21: use LootContextParamSets.EQUIPMENT instead
@@ -140,7 +141,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			JsonElement jsonTree = Deserializers.createLootTableSerializer().create().toJsonTree(lootTable);
 			output.add(DataProvider.saveStable(cache, jsonTree, path));
 		}
-		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
+		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
 	}
 
 	private void defineWeaponEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables) {
@@ -252,8 +253,8 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
-		var trimWardQuartz = trimFactory.apply(TrimPatterns.WARD, TrimMaterials.QUARTZ);
-		var trimSilenceCopper = trimFactory.apply(TrimPatterns.SILENCE, TrimMaterials.COPPER);
+		ArmorTrim trimWardQuartz = trimFactory.apply(TrimPatterns.WARD, TrimMaterials.QUARTZ);
+		ArmorTrim trimSilenceCopper = trimFactory.apply(TrimPatterns.SILENCE, TrimMaterials.COPPER);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_WARD_IRON,
 				randomizedSetFactory.apply(trimWardQuartz, armorItems.get(ArmorMaterials.IRON)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_WARD_DIAMOND,
@@ -263,7 +264,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_DIAMOND,
 				randomizedSetFactory.apply(trimSilenceCopper, armorItems.get(ArmorMaterials.DIAMOND)));
 
-		var darknessEffectTag = getPotionEffectTag(MobEffects.DARKNESS, 200);
+		CompoundTag darknessEffectTag = getPotionEffectTag(MobEffects.DARKNESS, 200);
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY,
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WARD_IRON).setWeight(11))
@@ -301,8 +302,8 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
-		var trimSnoutGold = trimFactory.apply(TrimPatterns.SNOUT, TrimMaterials.GOLD);
-		var trimSnoutNetherite = trimFactory.apply(TrimPatterns.SNOUT, TrimMaterials.NETHERITE);
+		ArmorTrim trimSnoutGold = trimFactory.apply(TrimPatterns.SNOUT, TrimMaterials.GOLD);
+		ArmorTrim trimSnoutNetherite = trimFactory.apply(TrimPatterns.SNOUT, TrimMaterials.NETHERITE);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_GOLD,
 				randomizedSetFactory.apply(trimSnoutNetherite, armorItems.get(ArmorMaterials.GOLD)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_NETHERITE,
@@ -326,7 +327,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
-		var trimDuneRedstone = trimFactory.apply(TrimPatterns.DUNE, TrimMaterials.REDSTONE);
+		ArmorTrim trimDuneRedstone = trimFactory.apply(TrimPatterns.DUNE, TrimMaterials.REDSTONE);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_IRON,
 				randomizedSetFactory.apply(trimDuneRedstone, armorItems.get(ArmorMaterials.IRON)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_GOLD,
@@ -358,7 +359,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
-		var trimSpireAmethyst = trimFactory.apply(TrimPatterns.SPIRE, TrimMaterials.AMETHYST);
+		ArmorTrim trimSpireAmethyst = trimFactory.apply(TrimPatterns.SPIRE, TrimMaterials.AMETHYST);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_IRON,
 				randomizedSetFactory.apply(trimSpireAmethyst, armorItems.get(ArmorMaterials.IRON)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_GOLD,
@@ -366,7 +367,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_DIAMOND,
 				randomizedSetFactory.apply(trimSpireAmethyst, armorItems.get(ArmorMaterials.DIAMOND)));
 
-		var levitationEffectTag = getPotionEffectTag(MobEffects.LEVITATION, 200);
+		CompoundTag levitationEffectTag = getPotionEffectTag(MobEffects.LEVITATION, 200);
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_END_CITY,
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
@@ -412,7 +413,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
-		var trimRibIron = trimFactory.apply(TrimPatterns.RIB, TrimMaterials.IRON);
+		ArmorTrim trimRibIron = trimFactory.apply(TrimPatterns.RIB, TrimMaterials.IRON);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_RIB_IRON,
 				randomizedSetFactory.apply(trimRibIron, armorItems.get(ArmorMaterials.IRON)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_RIB_GOLD,
@@ -444,7 +445,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
-		var trimWildEmerald = trimFactory.apply(TrimPatterns.WILD, TrimMaterials.EMERALD);
+		ArmorTrim trimWildEmerald = trimFactory.apply(TrimPatterns.WILD, TrimMaterials.EMERALD);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_WILD_CHAIN,
 				randomizedSetFactory.apply(trimWildEmerald, armorItems.get(ArmorMaterials.CHAIN)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_WILD_GOLD,
@@ -518,7 +519,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
-		var trimSentryEmerald = trimFactory.apply(TrimPatterns.SENTRY, TrimMaterials.EMERALD);
+		ArmorTrim trimSentryEmerald = trimFactory.apply(TrimPatterns.SENTRY, TrimMaterials.EMERALD);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_CHAIN,
 				randomizedSetFactory.apply(trimSentryEmerald, armorItems.get(ArmorMaterials.CHAIN)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_IRON,
@@ -594,7 +595,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
-		var trimCoastEmerald = trimFactory.apply(TrimPatterns.COAST, TrimMaterials.EMERALD);
+		ArmorTrim trimCoastEmerald = trimFactory.apply(TrimPatterns.COAST, TrimMaterials.EMERALD);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COAST_CHAIN,
 				randomizedSetFactory.apply(trimCoastEmerald, armorItems.get(ArmorMaterials.CHAIN)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COAST_IRON,
@@ -632,8 +633,8 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory,
 			BiConsumer<ArmorTrim, CompoundTag> trimSetter) {
 
-		var trimEyeRedstone = trimFactory.apply(TrimPatterns.EYE, TrimMaterials.REDSTONE);
-		var trimEyeLapis = trimFactory.apply(TrimPatterns.EYE, TrimMaterials.LAPIS);
+		ArmorTrim trimEyeRedstone = trimFactory.apply(TrimPatterns.EYE, TrimMaterials.REDSTONE);
+		ArmorTrim trimEyeLapis = trimFactory.apply(TrimPatterns.EYE, TrimMaterials.LAPIS);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_EYE_IRON,
 				randomizedSetFactory.apply(trimEyeLapis, armorItems.get(ArmorMaterials.IRON)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_EYE_GOLD,
@@ -688,25 +689,25 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
-		var trimHostEmerald = trimFactory.apply(TrimPatterns.HOST, TrimMaterials.EMERALD);
+		ArmorTrim trimHostEmerald = trimFactory.apply(TrimPatterns.HOST, TrimMaterials.EMERALD);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_HOST_CHAIN,
 				randomizedSetFactory.apply(trimHostEmerald, armorItems.get(ArmorMaterials.CHAIN)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_HOST_IRON,
 				randomizedSetFactory.apply(trimHostEmerald, armorItems.get(ArmorMaterials.IRON)));
 
-		var trimRaiserAmethyst = trimFactory.apply(TrimPatterns.RAISER, TrimMaterials.AMETHYST);
+		ArmorTrim trimRaiserAmethyst = trimFactory.apply(TrimPatterns.RAISER, TrimMaterials.AMETHYST);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_RAISER_IRON,
 				randomizedSetFactory.apply(trimRaiserAmethyst, armorItems.get(ArmorMaterials.IRON)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_RAISER_GOLD,
 				randomizedSetFactory.apply(trimRaiserAmethyst, armorItems.get(ArmorMaterials.GOLD)));
 
-		var trimShaperLapis = trimFactory.apply(TrimPatterns.SHAPER, TrimMaterials.LAPIS);
+		ArmorTrim trimShaperLapis = trimFactory.apply(TrimPatterns.SHAPER, TrimMaterials.LAPIS);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_GOLD,
 				randomizedSetFactory.apply(trimShaperLapis, armorItems.get(ArmorMaterials.GOLD)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_DIAMOND,
 				randomizedSetFactory.apply(trimShaperLapis, armorItems.get(ArmorMaterials.DIAMOND)));
 
-		var trimWayfinderRedstone = trimFactory.apply(TrimPatterns.WAYFINDER, TrimMaterials.REDSTONE);
+		ArmorTrim trimWayfinderRedstone = trimFactory.apply(TrimPatterns.WAYFINDER, TrimMaterials.REDSTONE);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_CHAIN,
 				randomizedSetFactory.apply(trimWayfinderRedstone, armorItems.get(ArmorMaterials.CHAIN)));
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_DIAMOND,
@@ -779,7 +780,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 
 		// Illusioner cosplay, including bow and blindness arrows, even for mobs that don't know how to use bows
-		var blindnessEffectTag = getPotionEffectTag(MobEffects.BLINDNESS, 100);
+		CompoundTag blindnessEffectTag = getPotionEffectTag(MobEffects.BLINDNESS, 100);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ILLUSIONER, fixedDyedSetFactory.apply(
 				trimFactory.apply(TrimPatterns.VEX, TrimMaterials.LAPIS), COLOR_ILLUSIONER_COAT,
 				new Item[] { Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS })
@@ -836,8 +837,8 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	private static ArmorTrim getTrim(HolderLookup.RegistryLookup<TrimPattern> patternRegistry,
 			HolderLookup.RegistryLookup<TrimMaterial> materialRegistry,
 			ResourceKey<TrimPattern> pattern, ResourceKey<TrimMaterial> material) {
-		var tidePattern = patternRegistry.get(pattern).orElseThrow();
-		var goldMaterial = materialRegistry.get(material).orElseThrow();
+		Holder.Reference<TrimPattern> tidePattern = patternRegistry.get(pattern).orElseThrow();
+		Holder.Reference<TrimMaterial> goldMaterial = materialRegistry.get(material).orElseThrow();
 		return new ArmorTrim(goldMaterial, tidePattern);
 	}
 
@@ -858,7 +859,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	private LootTable.Builder createArmorSet(Consumer<CompoundTag> tagModifier, boolean randomized, Item... armorItems) {
 		CompoundTag tag = new CompoundTag();
 		tagModifier.accept(tag);
-		var lootTable = LootTable.lootTable();
+		LootTable.Builder lootTable = LootTable.lootTable();
 		for (Item armorItem : armorItems) {
 			lootTable.withPool(LootPool.lootPool()
 					.setRolls(randomized ? UniformGenerator.between(0, 1) : ConstantValue.exactly(1))
