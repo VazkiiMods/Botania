@@ -62,7 +62,7 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
 		var outputStacks = new ArrayList<ItemStack>();
 		for (var will : !foci.isEmpty() ? foci : willStacks) {
 			var stack = new ItemStack(BotaniaItems.terrasteelHelm);
-			((AncientWillContainer) stack.getItem()).addAncientWill(stack, ((AncientWillItem) will.getItem()).type);
+			AncientWillContainer.addAncientWill(stack, ((AncientWillItem) will.getItem()).type);
 			outputStacks.add(stack);
 		}
 
