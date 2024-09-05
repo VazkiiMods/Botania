@@ -87,8 +87,6 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	@Override
 	public void tick() {
-		super.tick();
-
 		if (level().isClientSide) {
 			return;
 		}

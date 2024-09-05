@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -85,6 +86,9 @@ public class SkiesRodItem extends Item {
 					}
 
 					player.playSound(BotaniaSounds.airRod, 1F, 1F);
+					if (getFlyCounter(stack) % 3 == 0) {
+						player.gameEvent(GameEvent.FLAP);
+					}
 					for (int i = 0; i < 5; i++) {
 						WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
 						world.addParticle(data, player.getX(), player.getY(), player.getZ(),
@@ -131,6 +135,7 @@ public class SkiesRodItem extends Item {
 		if (fly == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 			setFlying(stack, true);
+			player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 		}
 
@@ -228,6 +233,7 @@ public class SkiesRodItem extends Item {
 
 	private static void doAvatarMiscEffects(Player p, ManaReceiver tile) {
 		p.level().playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+		p.gameEvent(GameEvent.FLAP);
 		p.addEffect(new MobEffectInstance(BotaniaMobEffects.featherfeet, 100, 0));
 		tile.receiveMana(-COST);
 	}

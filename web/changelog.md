@@ -18,10 +18,48 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+(none yet)
+
+---
+
+{% include changelog_header.html version="1.19.2-440.2" %}
+
+* Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
+* Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
 * Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
+* Change: Terrasteel tool speed and damage was updated to match corresponding netherite values
+* Fix: JEI memory leak
+* Fix: Rosa arcana not taking into account stacked xp orbs
+* Fix: Crash with Akashic Tome
+* Fix: Rafflowsia occasionally losing its binding
+* Fix: Off-by-one-degree typo when rendering progress pies in the HUD
+
+---
+
+{% include changelog_header.html version="1.19.2-440.1" %}
+
+*This version was never released due to an issue with the build. See 1.19.2-440.2.*
+
+---
+
+{% include changelog_header.html version="1.20.1-446" %}
+
+* Add: Various block/item interactions can be detected with sculk sensors
+* Add: Drum of the Gathering shortens the time until chickens lay their next egg
+* Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
+* Change: Various lexicon adjustments
+  * Mentioned dripleaf shrinking
+  * Changed various mentions of "Manaweave armor" to "Manaweave robes"
+  * Information on how to make the Teru Teru Bozu sad (so you can avoid it, you wouldn't want it to be sad, right?)
 * Fix: Certain structures never generated in GoG, while others were placed at or below the bottom of the world (GoG might not place any blocks, but does create structure bounding boxes)
 * Fix: Mixin-related crash on startup with BedrockIfy or Enhanced Celestials
 * Fix: Improved the Spectator's performance impact in unusually restrictive chunk-loading conditions, but also somewhat improved its overall scanning performance
+* Fix: Rafflowsia no longer forgets its binding (among other things) after unload due to deserialization error
+* Fix: Alfheim portal effect planes were swapped
+* Fix: When a pixie applies the wither effect, it will actually cause damage now
+* Fix: Force relays getting moved directly, e.g. via force lens burst or direct binding from another force relay, correctly move their target and update the binding accordingly
+* Language update:
+  * ru_ru updated (krumplerban)
 
 ---
 

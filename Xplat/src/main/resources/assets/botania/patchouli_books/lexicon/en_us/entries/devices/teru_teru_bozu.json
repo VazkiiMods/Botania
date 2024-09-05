@@ -12,6 +12,10 @@
       "type": "crafting",
       "text": "botania.page.teruTeruBozu1",
       "recipe": "botania:teru_teru_bozu"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.teruTeruBozu2"
     }
   ]
 }

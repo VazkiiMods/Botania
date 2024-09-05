@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
@@ -92,11 +93,13 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 								} else {
 									getLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 								}
+								getLevel().gameEvent(null, GameEvent.FLUID_PICKUP, pos);
 							}
 						}
 
 						if (cooldown == 0) {
 							burnTime += startBurnTime;
+							getLevel().gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 						} else {
 							cooldown = getCooldownTime(false);
 						}
@@ -115,6 +118,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 			burnTime--;
 			if (burnTime == 0) {
 				cooldown = getCooldownTime(true);
+				getLevel().gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
 				setChanged();
 				sync();
 			}

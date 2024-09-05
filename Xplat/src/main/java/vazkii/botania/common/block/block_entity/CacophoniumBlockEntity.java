@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.common.item.CacophoniumItem;
 
@@ -32,6 +33,7 @@ public class CacophoniumBlockEntity extends BotaniaBlockEntity {
 		if (!level.isClientSide) {
 			float noteColor = level.random.nextInt(25) / 24.0F;
 			((ServerLevel) level).sendParticles(ParticleTypes.NOTE, worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, 0, noteColor, 0, 0, 1);
+			level.gameEvent(null, GameEvent.NOTE_BLOCK_PLAY, getBlockPos());
 		}
 	}
 
