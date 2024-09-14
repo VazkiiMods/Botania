@@ -26,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -115,6 +116,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		}
 
 		if (did) {
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 
@@ -238,13 +240,16 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	public InteractionResult trySetLastRecipe(Player player) {
 		// lastRecipe is not synced. If we're calling this method we already checked that
 		// the altar has no items, so just optimistically assume success on the client.
-		boolean success = player.level().isClientSide
-				|| InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, null);
+		if (player.level().isClientSide()) {
+			return InteractionResult.sidedSuccess(true);
+		}
+		boolean success = InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, null);
 		if (success) {
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return success
-				? InteractionResult.sidedSuccess(player.level().isClientSide())
+				? InteractionResult.sidedSuccess(false)
 				: InteractionResult.PASS;
 	}
 
@@ -283,6 +288,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).runicAltarSpawned = true;
 				level.addFreshEntity(outputItem);
 				currentRecipe = null;
+				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
 				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
 

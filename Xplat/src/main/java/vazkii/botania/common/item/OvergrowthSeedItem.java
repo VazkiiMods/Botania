@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +39,7 @@ public class OvergrowthSeedItem extends Item {
 		if (state.is(Blocks.GRASS_BLOCK)) {
 			if (!world.isClientSide) {
 				world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+				world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 				world.setBlockAndUpdate(pos, BotaniaBlocks.enchantedSoil.defaultBlockState());
 				ctx.getItemInHand().shrink(1);
 			}

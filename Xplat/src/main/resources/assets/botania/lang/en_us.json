@@ -5,7 +5,7 @@
   "_comment3": "Untranslated entries will automatically be inherited from this file.",
   "_comment4": "Once again, don't copy from English, and THANK YOU for your hard work!",
 
-  "itemGroup.botania.botania": "Botania",
+  "itemGroup.botania": "Botania",
   "botania.landing": "Magic, Tech. Naturally.$(br2)Botania is a tech mod themed around natural magic. The main concept is to create magical flowers and devices utilizing the power of the earth, in the form of $(thing)Mana$().",
   "botania.desc": "Magic, Tech. Naturally",
 
@@ -132,6 +132,9 @@
   "botaniamisc.rannuncarpus.state_sensitive": "Match Exact State",
   "botaniamisc.rannuncarpus.state_insensitive": "Match Block Only",
   "botaniamisc.lokiRingLimitReached": "Selection limit reached",
+  "botaniamisc.pollidisiac.feed_adults": "Feeding adult animals",
+  "botaniamisc.pollidisiac.feed_babies": "Feeding baby animals",
+  "botaniamisc.pollidisiac.feed_all": "Feeding all animals",
 
   "botania.tater_birthday.0": "Wow, is this for me?",
   "botania.tater_birthday.1": "It's my birthday today; I'm %d years old now!",
@@ -486,7 +489,7 @@
   "advancement.botania:craftingHaloCraft": "Segments Blue",
   "advancement.botania:craftingHaloCraft.desc": "Craft an Assembly Halo to facilitate crafting",
   "advancement.botania:manaweaveArmorCraft": "Imagination Forest",
-  "advancement.botania:manaweaveArmorCraft.desc": "Create Manaweave Armor to power up your Rods",
+  "advancement.botania:manaweaveArmorCraft.desc": "Create Manaweave Robes to power up your Rods",
   "advancement.botania:enchanterMake": "Odds and Ends",
   "advancement.botania:enchanterMake.desc": "Create a Mana Enchanter to have better control over enchanting",
   "advancement.botania:pollidisiacPickup": "Romeo and Cinderella",
@@ -2361,6 +2364,7 @@
   "botania.tagline.pollidisiac": "Makes animals breed",
   "botania.page.pollidisiac0": "Animals love eating. That's all they seem to do, really. Strangely enough, though, they only eat things that are fed to them.$(p)The $(item)Pollidisiac$(0) will simply do just that; it uses mana to feed nearby food items on the ground ($(item)Wheat$(0), $(item)Carrots$(0), etc.) to animals within range, putting them in $(o)better moods$().",
   "botania.page.pollidisiac1": "$(o)Hell's Kitchen$().",
+  "botania.page.pollidisiac2": "Sneak-right clicking (or using a $(item)Dispenser$(0)) on the flower with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) in $(thing)Function Mode$(0) toggles whether the flower feeds just adults, just babies, or all animals.",
 
   "botania.entry.clayconia": "Clayconia",
   "botania.tagline.clayconia": "Creates clay from sand",
@@ -2577,6 +2581,7 @@
   "botania.page.manaAlchemy24": "Transmuting $(item)Tall Grasses$(0)",
   "botania.page.manaAlchemy40": "Flower",
   "botania.page.manaAlchemy25": "Transmuting mundane flowers",
+  "botania.page.manaAlchemyDripleafShrinking": "Shrinking $(item)Large Dripleaves$(0)",
   "botania.page.manaAlchemy37": "Stone",
   "botania.page.manaAlchemy26": "Transmuting stones",
   "botania.page.manaAlchemy27": "Converting $(item)Chorus Fruit$(0) into $(item)Chorus Flowers$(0)",
@@ -2699,7 +2704,7 @@
 
   "botania.entry.gatherDrum": "Drum of the Gathering",
   "botania.tagline.gatherDrum": "Shear sheep and milk cows with mana bursts",
-  "botania.page.gatherDrum0": "The $(item)Drum of the Gathering$(0) is, in effect, the rancher's $(l:devices/forest_drum)$(item)Drum of the Wild$(0)$(/l).$(p)When a $(thing)Mana Burst$(0) collides with it, any $(thing)Sheep$(0) around with grown fleece will be sheared, and any $(thing)Cows$(0) with $(item)Empty Buckets$(0) below them will pour milk into the buckets.",
+  "botania.page.gatherDrum0": "The $(item)Drum of the Gathering$(0) is, in effect, the rancher's $(l:devices/forest_drum)$(item)Drum of the Wild$(0)$(/l).$(p)When a $(thing)Mana Burst$(0) collides with it, any $(thing)Sheep$(0) around with grown fleece will be sheared, any $(thing)Chickens$(0) will get closer to laying their next egg, and any $(thing)Cows$(0), $(thing)Mooshrooms$(0), or $(thing)Goats$(0) with $(item)Empty Buckets$(0) below them will pour milk into the buckets.",
   "botania.page.gatherDrum1": "Tap your lands",
 
   "botania.entry.craftCrate": "Crafty Crate",
@@ -2751,6 +2756,7 @@
   "botania.tagline.teruTeruBozu": "Weather control and cuteness overload",
   "botania.page.teruTeruBozu0": "$(item)Teru Teru Bozu$(0) are amulets that ward away bad weather. Simply crafting one of these and placing it in the world will decrease the durations of $(thing)Rain-$(0) and $(thing)Snowstorms$(0). During bad weather, offering it (via right-click or throw) a $(item)Sunflower$(0) will make the sun return. Attaching a $(item)Redstone Comparator$(0) to one of these allows it to detect bad weather.",
   "botania.page.teruTeruBozu1": "What makes the Sunflower so special, anyway?",
+  "botania.page.teruTeruBozu2": "While $(item)Teru Teru Bozu$(0) love $(item)Sunflowers$(0), offering a $(item)Blue Orchid$(0) may put a dampener on both their mood and the weather.",
 
   "botania.entry.avatar": "Livingwood Avatar",
   "botania.tagline.avatar": "Rod effects in a block",
@@ -3030,7 +3036,7 @@
   "botania.page.exchangeRod3": "Bootlegged equal trade",
 
   "botania.entry.manaweave": "Manaweave Cloth",
-  "botania.tagline.manaweave": "Cloth armor that regenerates with Mana and provides a boost to rod powers",
+  "botania.tagline.manaweave": "Cloth robes that regenerate with Mana and provide a boost to rod powers",
   "botania.page.manaweave0": "$(item)Manaweave Cloth$(0) is a fabric that's highly attuned to the primal energies in $(thing)Mana$(0).$(p)$(item)Manaweave Robes$(0), woven of this cloth, aren't the greatest at resisting damage; however, they more than make up for it with a powerful set bonus. When all four set pieces are worn, tools and rods are far, far cheaper to use (in $(thing)Mana$(0) cost).",
   "botania.page.manaweave1": "Wearing the full set of $(item)Manaweave Robes$(0) also grants the wearer an increased proficiency with magical rods, increasing their powers and/or ranges.$(p)$(item)Manaweave Robes$(0) can use $(thing)Mana$(0) from one's inventory to repair themselves, similarly to $(item)Manasteel Armor$(0), but at a lower $(thing)Mana$(0) cost.",
   "botania.page.manaweave2": "Weaving the threads of $(thing)Mana$(0)",
@@ -3647,7 +3653,7 @@
   "botania.subtitle.equipBauble": "Trinket equips",
   "botania.subtitle.equipElementium": "Elementium armor clanks",
   "botania.subtitle.equipManasteel": "Manasteel armor clanks",
-  "botania.subtitle.equipManaweave": "Manaweave armor rustles",
+  "botania.subtitle.equipManaweave": "Manaweave robes rustle",
   "botania.subtitle.equipTerrasteel": "Terrasteel armor clangs",
   "botania.subtitle.fireRod": "Rod of the Hells simmers",
   "botania.subtitle.flareChakramThrow": "Flare Chakram thrown",

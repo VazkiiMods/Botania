@@ -33,7 +33,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -152,19 +151,13 @@ public class FlowerPouchItem extends Item {
 		Direction side = ctx.getClickedFace();
 
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile != null) {
+		if ((ctx.getPlayer() == null || ctx.getPlayer().isSecondaryUseActive())
+				&& XplatAbstractions.INSTANCE.hasInventory(world, pos, side)) {
 			if (!world.isClientSide) {
-				Container tileInv;
-				if (tile instanceof Container container) {
-					tileInv = container;
-				} else {
-					return InteractionResult.FAIL;
-				}
-
 				Container bagInv = getInventory(ctx.getItemInHand());
 				for (int i = 0; i < bagInv.getContainerSize(); i++) {
 					ItemStack flower = bagInv.getItem(i);
-					ItemStack rem = HopperBlockEntity.addItem(bagInv, tileInv, flower, side);
+					ItemStack rem = XplatAbstractions.INSTANCE.insertToInventory(world, pos, side, flower, false);
 					bagInv.setItem(i, rem);
 				}
 

@@ -18,11 +18,68 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+(none yet)
+
+---
+
+{% include changelog_header.html version="1.19.2-440.2" %}
+
+* Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
+* Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
+* Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
+* Change: Terrasteel tool speed and damage was updated to match corresponding netherite values
+* Fix: JEI memory leak
+* Fix: Rosa arcana not taking into account stacked xp orbs
+* Fix: Crash with Akashic Tome
+* Fix: Rafflowsia occasionally losing its binding
+* Fix: Off-by-one-degree typo when rendering progress pies in the HUD
+
+---
+
+{% include changelog_header.html version="1.19.2-440.1" %}
+
+*This version was never released due to an issue with the build. See 1.19.2-440.2.*
+
+---
+
+{% include changelog_header.html version="1.20.1-446" %}
+
+* Add: Various block/item interactions can be detected with sculk sensors
+* Add: Drum of the Gathering shortens the time until chickens lay their next egg
+* Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
+* Change: Various lexicon adjustments
+  * Mentioned dripleaf shrinking
+  * Changed various mentions of "Manaweave armor" to "Manaweave robes"
+  * Information on how to make the Teru Teru Bozu sad (so you can avoid it, you wouldn't want it to be sad, right?)
+* Fix: Certain structures never generated in GoG, while others were placed at or below the bottom of the world (GoG might not place any blocks, but does create structure bounding boxes)
+* Fix: Mixin-related crash on startup with BedrockIfy or Enhanced Celestials
+* Fix: Improved the Spectator's performance impact in unusually restrictive chunk-loading conditions, but also somewhat improved its overall scanning performance
+* Fix: Rafflowsia no longer forgets its binding (among other things) after unload due to deserialization error
+* Fix: Alfheim portal effect planes were swapped
+* Fix: When a pixie applies the wither effect, it will actually cause damage now
+* Fix: Force relays getting moved directly, e.g. via force lens burst or direct binding from another force relay, correctly move their target and update the binding accordingly
+* Language update:
+  * ru_ru updated (krumplerban)
+
+---
+
+{% include changelog_header.html version="1.20.1-445" %}
+
 * Add: Horn and Drum of the Wild can break moss carpet, with the option to add more blocks through a block tag
 * Add: Bergamute occludes vibrations within its range
 * Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
 * Add: Big dripleaf plants can be shrunk back to their small form using mana infusion with an alchemy catalyst
 * Add: Tectonic Girdle also nullifies explosion knockback
+* Add: Block tag support for Agricarnation, allowing data/mod pack authors to customize which plants can/cannot receive a growth boost
+  * Block tag `#botania:agricarnation/growth_excluded` never receives growth boosts, even if the block is in any of the other tags as well; contains mangrove leaves, and red and brown vanilla mushrooms by default
+  * Block tag `#botania:agricarnation/growth_candiate` designates a block as a candidate for growth boosting, but only works if the block is technically able to receive growth boosts; grass/mycelium/nylium blocks are excluded by default, unless they are tagged as growth candidates, because they would otherwise fit the default criteria for being selected
+  * Block tag `#botania:agricarnation/apply_bonemeal` defines that the block should be boosted through its bone mealing logic instead of random ticks; contains azalea bushes by default, and is included in the growth candidates
+    * Bone meal boosting has a built-in 50% success chance, which is multiplicative with the block's own bone meal success test
+  * To receive growth boosts, a block must not have been excluded, and it must be both a "target candidate" and "accept growth boosts"
+    * A block is a "target candidate" if it could accept bone meal, its block type extends `BushBlock`, or is tagged as growth candidate (this does not auto-include sugarcane or cactus, but does cover nether wart by default)
+    * A block "accepts growth boosts" if it can receive random ticks, or if it could accept bone meal and is tagged for applying bone meal (this does not auto-include nether fungi, short grass/fern, small mystical flowers, or buried petals by default)
+  * When finding a `GrowingPlantBodyBlock` (kelp, glowberry vines, nether vines), the corresponding head block is targeted instead
+* Add: Pollidisiac has a new mode switch to feed baby animals
 * Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
 * Change: Charm of the Diva also supports charming or targeting neutral mobs that are angry at the player or attacking one of the player's tamed animals, and properly prevents the player's tamed animals from being affected or targeted by the charm
 * Change: Dandelifeon recipe also requires a redstone root (zacharybarbanell)
@@ -36,6 +93,8 @@ and start a new "Upcoming" section.
   * Lexica Botania acknowledges that Trinkets are used on Fabric instead of Curios
   * Various entries were updated to match recent changes and fix old errors
 * Change: The Ring of Loki now has a (reasonably high) selection limit to prevent players from accidentally "NBT-banning" themselves from their world or server by going too hard with it
+* Change: Blackstone is considered "semi-disposable" for Elementium pickaxe
+* Change: Botania advancements of the "challenge" type (not the category tab, but the icon shape) grant an experience reward
 * Remove: Config option `orechidPriorityMods` didn't have any effect since 1.16, never made it to Fabric, and is now gone in the Forge version as well; pack authors should use data pack recipes to define Orechid outputs and weights
 * Fix: Flight bar for Flügel Tiara no longer overlaps with the refilling air bubbles indicator or the mount health bar, if that uses more than one row
 * Fix: The Manaseer Monocle's flower radius indicator no longer jumps around if you are very far from the world origin, and should also not Z-fight with the binding radius indicator of luminizers anymore
@@ -44,11 +103,16 @@ and start a new "Upcoming" section.
 * Fix: Translation key names for potted glimmering flowers were wrong in the English language file
 * Fix: Corporea Index on Fabric no longer ignores chat text sources other than the vanilla chat console, fixing compatibility with e.g. the "Microphone Text Input" mod
 * Fix: Pollidisiac gives animals their deserved break after breading again
-* Fix: Shard of Laputa no longer breaks *all* the 2-tall grass/flower blocks anymore
+* Fix: Shard of Laputa no longer breaks *all* the 2-tall grass/flower blocks (only some of them)
 * Fix: Floating flower islands properly show the soil type on Forge, and are no longer invisible in Patchouli multiblock visualizations (although that latter part is merely a workaround for a Patchouli issue at the moment)
 * Fix: Position of the binding information icon on flowers' wand HUD has been adjusted to not overlap with longer flower names
 * Fix: Suspicious stew effect from Pure Daisy actually works now, clearing all active status effects
 * Fix: Potential integer overflow in Ring of Loki mana calculation
+* Fix: Removed outdated Malum compatibility code from Ring of Magnetization, which should fix a crash (unilock)
+* Internal: Loader-agnostic ("Xplat") code is now built with [minivan](https://github.com/CrackedPolishedBlackstoneBricksMC/minivan) instead of VanillaGradle (quat)
+* Language updates:
+  * en_gb added (Adarsh)
+  * zh_cn updated (Dawnwalker666)
 
 ---
 
@@ -325,7 +389,7 @@ and start a new "Upcoming" section.
 * Change: Move world generation to JSON
 * Change: Some Introduction section entries are now marked priority to emphasize their importance (Aegide)
 * Change: ja_JP updates (RakuGaki-MC)
-* Change: Munchdew prioritizes eating further away and disconnected leaves first (TheRealWormbo)
+* Change: Munchdew prioritizes eating further away and disconnected leaves first (Wormbo)
 * Change: Horn of Canopy and Covering now use tags to decide what to break
 * Change: Endoflame no longer requires a valid spreader binding to start burning fuel
 * Change: Forge builds now include the suffix `-FORGE` like the Fabric ones

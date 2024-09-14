@@ -1,4 +1,7 @@
 // 1.20.1	Botania/Tags for minecraft:block
+8865bb2eca4192a496bda05497a584aee6a3a409 data/botania/tags/blocks/agricarnation/apply_bonemeal.json
+1f1a3978ea72d2be2545d91126d194b1b6639c49 data/botania/tags/blocks/agricarnation/growth_candidate.json
+0eb778dd1ddfdcae0ae7f3f5590ed8531728eb41 data/botania/tags/blocks/agricarnation/growth_excluded.json
 7c8a171ae6d6133a08aa4d939254a4290e6b44b6 data/botania/tags/blocks/corporea_spark_override.json
 e8a61a147b6a258b9c37788ac1bd4edf592c9dc9 data/botania/tags/blocks/double_mystical_flowers.json
 070322f325bf48a093e7a873066fd5992202fd74 data/botania/tags/blocks/dreamwood_logs.json
@@ -25,6 +28,7 @@ fdccf413f94f9bc54ddb3cd8681d976fcba945d0 data/botania/tags/blocks/marimorphosis_
 9d560acc5024d61903ea8afc12ab496a7fb0d708 data/botania/tags/blocks/misc_special_flowers.json
 482e0e7e492741201a883a48ee6806b5a4d4e51f data/botania/tags/blocks/mundane_floating_flowers.json
 d7dcc983bfdaf90fe776e2be93411250c03b9e7e data/botania/tags/blocks/mystical_flowers.json
+5f23216e4bb6dd5bd6ac046b1d203d8f002a4d86 data/botania/tags/blocks/pasture_seed_replaceable.json
 6164f1b08110e8a36397260f3afecc09a6ced65a data/botania/tags/blocks/shiny_flowers.json
 278b6fb5ddf99d4fc9626494295fa7c5a11fc906 data/botania/tags/blocks/special_floating_flowers.json
 7131d151b6322c92982ca3cdff678eb194b8d38a data/botania/tags/blocks/special_flowers.json

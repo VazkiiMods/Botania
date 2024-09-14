@@ -7,7 +7,7 @@
   "_comment5": "Once again， don't copy from English， and THANK YOU for your hard work!",
   "_comment6": "请翻译者注意替换全半角标点，包括“,”和“，”、“.”和“。”、“?”和“？”、以及“!”和“！”等。同时，请注意将排列句式中的英文逗号改为顿号。感谢您的贡献。",
 
-  "itemGroup.botania.botania": "植物魔法",
+  "itemGroup.botania": "植物魔法",
   "botania.landing": "魔法，自然也是科技。$(br2)植物魔法是一个以自然魔法为主题的科技Mod，主要通过使用魔法花朵和装置来运用大地之中的$(thing)魔力$()。",
   "botania.desc": "这里便是植物魔法的描述。",
 
@@ -2990,7 +2990,7 @@
 
   "botania.entry.overgrowthSeed": "增生之种",
   "botania.tagline.overgrowthSeed": "被动产能花在这里不会死亡",
-  "botania.page.overgrowthSeed0": "$(item)增生之种$(0)是一种神奇的东西，可以赋予$(item)草地$(0)以魔力，在世界里右击，就会创造一块$(item)蕴$(0)$(item)魔土$(0)。在$(item)蕴魔土$(0)里扎根的花会以正常2倍的速度工作。$(p)",
+  "botania.page.overgrowthSeed0": "$(item)增生之种$(0)是一种神奇的东西，可以赋予$(item)草地$(0)以魔力，在世界里右击，就会创造一块$(item)蕴$(0)$(item)魔土$(0)。在$(item)蕴魔土$(0)里扎根的花会以正常2倍的速度工作。",
   "botania.page.overgrowthSeed1": "但是还有一个问题。没有创造这种东西的方法存在，但它们会在古遗迹或类似的结构内生成。",
 
   "botania.entry.livingwoodBow": "活木弓",

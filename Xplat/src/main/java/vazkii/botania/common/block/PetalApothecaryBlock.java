@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -139,6 +140,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		if (world.random.nextInt(20) == 1) {
 			if (state.getValue(FLUID) == State.EMPTY) {
 				world.setBlockAndUpdate(pos, state.setValue(FLUID, State.WATER));
+				world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 		}
 	}

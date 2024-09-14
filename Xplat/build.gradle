@@ -1,6 +1,6 @@
 plugins {
     id('java')
-    id('org.spongepowered.gradle.vanilla') version '0.2.1-SNAPSHOT'
+    id('agency.highlysuspect.minivan') version '0.5'
 }
 
 archivesBaseName = "${mod_name}-xplat"
@@ -9,7 +9,7 @@ if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
 }
 
-minecraft {
+minivan {
     version(minecraft_version)
     accessWideners 'src/main/resources/botania_xplat.accesswidener'
 }
@@ -45,6 +45,8 @@ dependencies {
 
     compileOnly "mezz.jei:jei-1.20.1-common-api:15.2.0.27"
     compileOnly "dev.emi:emi-xplat-mojmap:1.0.12+${minecraft_version}:api"
+
+    compileOnly "org.jetbrains:annotations:24.0.1"
 
     // annotationProcessor 'com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors-1.18.2:2.0.0.123'
     // annotationProcessor 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'

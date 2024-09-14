@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -307,9 +308,12 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 				return;
 			}
 
-			boolean isItem = getVehicle() instanceof ItemEntity;
+			boolean isItem = getPassengers().stream().allMatch(ItemEntity.class::isInstance);
 			if (!isItem && tickCount % 30 == 0) {
 				playSound(BotaniaSounds.lightRelay, 0.25F, (float) Math.random() * 0.3F + 0.7F);
+			}
+			if (!isItem && tickCount % 10 == 0) {
+				gameEvent(GameEvent.ELYTRA_GLIDE);
 			}
 
 			BlockPos pos = blockPosition();

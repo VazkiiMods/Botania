@@ -212,6 +212,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.UNWANDABLE).addTag(BlockTags.FIRE)
 				.add(Blocks.CHORUS_PLANT, Blocks.SCULK_VEIN, Blocks.VINE, Blocks.REDSTONE_WIRE, Blocks.NETHER_PORTAL, BotaniaBlocks.solidVines);
 
+		tag(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE).add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.MYCELIUM);
+
 		tag(BlockTags.FLOWER_POTS)
 				.add(Arrays.stream(DyeColor.values())
 						.map(BotaniaBlocks::getPottedFlower)
@@ -243,6 +245,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						solegnoliaChibiPotted, spectranthemumPotted, tangleberriePotted, tangleberrieChibiPotted,
 						tigerseyePotted, vinculotusPotted
 				);
+
+		tag(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL).add(Blocks.AZALEA, Blocks.FLOWERING_AZALEA);
+		tag(BotaniaTags.Blocks.AGRICARNATION_GROWTH_CANDIDATE).addTag(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL);
+		tag(BotaniaTags.Blocks.AGRICARNATION_GROWTH_EXCLUDED).add(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM, Blocks.MANGROVE_LEAVES);
 
 		registerMiningTags();
 	}

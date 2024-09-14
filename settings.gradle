@@ -11,10 +11,23 @@ pluginManagement {
         maven {
             name = 'Sponge Snapshots'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
+        maven {
+            name = 'Sleeping Town'
+            url = 'https://repo.sleeping.town/'
+            content {
+                includeGroup 'agency.highlysuspect'
+                includeGroup 'agency.highlysuspect.minivan'
+            }
+        }
         
         gradlePluginPortal()
-        }
     }
 }
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+}
+
 rootProject.name = 'Botania'
 include("Xplat", "Fabric", "Forge")

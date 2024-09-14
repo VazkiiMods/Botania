@@ -239,9 +239,29 @@ public class BotaniaTags {
 		public static final TagKey<Block> HORN_OF_THE_COVERING_BREAKABLE = tag("horn_of_the_covering_breakable");
 
 		/**
+		 * Blocks in this tag are candidates for the Agricarnation's growth boost, assuming they accept random ticks.
+		 */
+		public static final TagKey<Block> AGRICARNATION_GROWTH_CANDIDATE = tag("agricarnation/growth_candidate");
+		/**
+		 * Blocks in this tag are ignored by the Agricarnation, even if they look like they are growable plants.
+		 */
+		public static final TagKey<Block> AGRICARNATION_GROWTH_EXCLUDED = tag("agricarnation/growth_excluded");
+		/**
+		 * Blocks in this tag will have their growth boosted as if bonemeal was applied, instead of via random ticks.
+		 * These plants need to pass the bonemeal success check twice to get a boost, but mana will be consumed even if
+		 * that fails.
+		 */
+		public static final TagKey<Block> AGRICARNATION_APPLY_BONEMEAL = tag("agricarnation/apply_bonemeal");
+
+		/**
 		 * Blocks in this tag can not have their state manipulated by a wand of the forest
 		 */
 		public static final TagKey<Block> UNWANDABLE = tag("unwandable");
+
+		/**
+		 * Blocks in this tag can be replaced by the spreading effect of Pasture Seeds and related items.
+		 */
+		public static final TagKey<Block> PASTURE_SEED_REPLACEABLE = tag("pasture_seed_replaceable");
 
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, prefix(name));

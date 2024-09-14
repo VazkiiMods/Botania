@@ -217,7 +217,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BuiltInRegistries.CREATIVE_MODE_TAB,
 				BotaniaRegistries.BOTANIA_TAB_KEY,
 				FabricItemGroup.builder()
-						.title(Component.translatable("itemGroup.botania.botania").withStyle((style -> style.withColor(ChatFormatting.WHITE))))
+						.title(Component.translatable("itemGroup.botania").withStyle((style -> style.withColor(ChatFormatting.WHITE))))
 						.icon(() -> new ItemStack(BotaniaItems.lexicon))
 						.backgroundSuffix("botania.png")
 						.build()

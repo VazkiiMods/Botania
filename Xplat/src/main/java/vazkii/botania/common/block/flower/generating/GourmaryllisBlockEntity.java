@@ -20,6 +20,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -113,6 +114,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 				float burpPitch = (float) Math.pow(2.0, (streakLength == 0 ? -lastFoodCount : streakLength) / 12.0);
 				//Usage of vanilla sound event: Subtitle is just "Burp", at least in English, and not specific to players.
 				getLevel().playSound(null, getEffectivePos(), SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 1F, burpPitch);
+				getLevel().gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getEffectivePos());
 				sync();
 			} else if (cooldown % munchInterval == 0) {
 				//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
@@ -138,6 +140,8 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 					cooldown = getCooldown(val);
 					//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
 					item.playSound(SoundEvents.GENERIC_EAT, 0.2F, 0.6F);
+					getLevel().gameEvent(null, GameEvent.EAT, item.position());
+					getLevel().gameEvent(null, GameEvent.BLOCK_ACTIVATE, getEffectivePos());
 					sync();
 					((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), item.getX(), item.getY(), item.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}

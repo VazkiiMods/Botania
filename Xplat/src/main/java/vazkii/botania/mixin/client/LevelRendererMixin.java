@@ -35,9 +35,11 @@ import vazkii.botania.client.render.world.WorldOverlays;
 import vazkii.botania.xplat.BotaniaConfig;
 
 /**
- * This Mixin implements the Garden of Glass skybox and some in-world overlays
+ * This Mixin implements the Garden of Glass skybox and some in-world overlays.
+ * It needs to be applied before similar mixins from other mods (e.g. Enhanced Celestials, BedrockIfy) to prevent those
+ * from removing our injection points. These changes are compatible with those mods, assuming proper sequencing.
  */
-@Mixin(LevelRenderer.class)
+@Mixin(value = LevelRenderer.class, priority = 900)
 public class LevelRendererMixin {
 	@Shadow
 	@Nullable

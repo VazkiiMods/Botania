@@ -1,0 +1,303 @@
+{
+  "_comment0": "Note to translators: DO NOT COPY ENTRIES FROM ENGLISH",
+  "_comment1": "I repeat: do NOT copy entries from English!!",
+  "_comment2": "Copying English entries will cause them to become outdated when this file changes",
+  "_comment3": "Untranslated entries will automatically be inherited from this file.",
+  "_comment4": "Once again, don't copy from English, and THANK YOU for your hard work!",
+
+  "botania.landing": "Magic, Tech. Naturally.$(br2)Botania is a tech mod themed around natural magic. The main concept is to create magical flowers and devices utilising the power of the earth, in the form of $(thing)Mana$().",
+
+  "stat.botania.luminizer_one_cm": "Distance by Luminiser",
+
+  "botaniamisc.armorset": "\u00a7bArmour Set\u00a7r:",
+
+  "tag.botania.petals.gray": "Grey Petals",
+  "tag.botania.petals.light_gray": "Light Grey Petals",
+
+  "botania.armorset.will_verac.desc": "Verac: Critical Hits pierce through armour",
+
+  "botania.armorset.will_verac.shortDesc": "Critical Hits pierce through armour",
+
+  "armorModels.enable": "Custom Armour Models",
+
+  "entity.botania.player_mover": "Luminiser Beam",
+  "entity.botania.mana_storm": "Manastorm Epicentre",
+
+  "advancement.botania:luminizerRide.desc": "Craft some Luminisers and use them for transport",
+
+  "advancement.botania:gaiaGuardianNoArmor.desc": "Slay a Gaia Guardian without wearing any armour at any point during the fight",
+
+  "botania.challenge.flowerFarm.desc": "Create an automated farm of all 16 colours of Botania flowers. Bonus points if the flowers are sorted.",
+
+  "block.botania.gray_mystical_flower": "Mystical Grey Flower",
+  "block.botania.light_gray_mystical_flower": "Mystical Light Grey Flower",
+  "block.botania.potted_gray_mystical_flower": "Potted Mystical Grey Flower",
+  "block.botania.potted_light_gray_mystical_flower": "Potted Mystical Light Grey Flower",
+  "block.botania.chiseled_livingrock_bricks": "Chiselled Livingrock Bricks",
+  "block.botania.gray_shiny_flower": "Glimmering Grey Flower",
+  "block.botania.light_gray_shiny_flower": "Glimmering Light Grey Flower",
+  "block.botania.potted_gray_shiny_flower": "Potted Glimmering Grey Flower",
+  "block.botania.potted_light_gray_shiny_flower": "Potted Glimmering Light Grey Flower",
+  "block.botania.chiseled_dark_quartz": "Chiselled Smokey Quartz Block",
+  "block.botania.chiseled_mana_quartz": "Chiselled Mana Quartz Block",
+  "block.botania.chiseled_blaze_quartz": "Chiselled Blaze Quartz Block",
+  "block.botania.chiseled_lavender_quartz": "Chiselled Lavender Quartz Block",
+  "block.botania.chiseled_red_quartz": "Chiselled Redquartz Block",
+  "block.botania.chiseled_elf_quartz": "Chiselled Elven Quartz Block",
+  "block.botania.chiseled_sunny_quartz": "Chiselled Sunny Quartz Block",
+  "block.botania.gray_floating_flower": "Floating Grey Flower",
+  "block.botania.light_gray_floating_flower": "Floating Light Grey Flower",
+  "block.botania.chiseled_metamorphic_forest_bricks": "Chiselled Fuchsite Bricks",
+  "block.botania.chiseled_metamorphic_plains_bricks": "Chiselled Talc Bricks",
+  "block.botania.chiseled_metamorphic_mountain_bricks": "Chiselled Gneiss Bricks",
+  "block.botania.chiseled_metamorphic_fungal_bricks": "Chiselled Mycelite Bricks",
+  "block.botania.chiseled_metamorphic_swamp_bricks": "Chiselled Cataclasite Bricks",
+  "block.botania.chiseled_metamorphic_desert_bricks": "Chiselled Solite Bricks",
+  "block.botania.chiseled_metamorphic_taiga_bricks": "Chiselled Lunite Bricks",
+  "block.botania.chiseled_metamorphic_mesa_bricks": "Chiselled Rosy Talc Bricks",
+  "block.botania.gray_petal_block": "Grey Petal Block",
+  "block.botania.light_gray_petal_block": "Light Grey Petal Block",
+  "block.botania.gray_mushroom": "Grey Shimmering Mushroom",
+  "block.botania.light_gray_mushroom": "Light Grey Shimmering Mushroom",
+  "block.botania.potted_gray_mushroom": "Potted Grey Shimmering Mushroom",
+  "block.botania.potted_light_gray_mushroom": "Potted Light Grey Shimmering Mushroom",
+  "block.botania.gray_double_flower": "Tall Mystical Grey Flower",
+  "block.botania.light_gray_double_flower": "Tall Mystical Light Grey Flower",
+  "block.botania.light_relay": "Luminiser",
+  "block.botania.detector_light_relay": "Detector Luminiser",
+  "block.botania.fork_light_relay": "Fork Luminiser",
+  "block.botania.toggle_light_relay": "Toggle Luminiser",
+  "block.botania.light_launcher": "Luminiser Launcher",
+  "block.botania.gray_buried_petals": "Buried Grey Petal",
+  "block.botania.light_gray_buried_petals": "Buried Light Grey Petal",
+  "block.botania.pure_daisy.reference": "What colour do you want to be?",
+
+  "item.botania.gray_petal": "Mystical Grey Petal",
+  "item.botania.light_gray_petal": "Mystical Light Grey Petal",
+  "item.botania.lens_magnet": "Magnetising Lens",
+  "item.botania.lens_magnet.short": "Magnetising",
+  "item.botania.fertilizer": "Floral Fertiliser",
+  "item.botania.magnet_ring": "Ring of Magnetisation",
+  "item.botania.magnet_ring_greater": "Greater Ring of Magnetisation",
+
+  "botania.brew.regen": "Revitalisation",
+
+  "block.minecraft.banner.botania.flower.silver": "Light Grey Mystical Flower",
+  "block.minecraft.banner.botania.flower.gray": "Grey Mystical Flower",
+
+  "block.minecraft.banner.botania.lexicon.silver": "Light Grey Lexicon",
+  "block.minecraft.banner.botania.lexicon.gray": "Grey Lexicon",
+
+  "block.minecraft.banner.botania.logo.silver": "Light Grey Botania",
+  "block.minecraft.banner.botania.logo.gray": "Grey Botania",
+
+  "block.minecraft.banner.botania.sapling.silver": "Light Grey Tree",
+  "block.minecraft.banner.botania.sapling.gray": "Grey Tree",
+
+  "block.minecraft.banner.botania.tiny_potato.silver": "Light Grey Potato Face",
+  "block.minecraft.banner.botania.tiny_potato.gray": "Grey Potato Face",
+
+  "block.minecraft.banner.botania.spark_dispersive.silver": "Light Grey Dispersive Symbol",
+  "block.minecraft.banner.botania.spark_dispersive.gray": "Grey Dispersive Symbol",
+
+  "block.minecraft.banner.botania.spark_dominant.silver": "Light Grey Dominant Symbol",
+  "block.minecraft.banner.botania.spark_dominant.gray": "Grey Dominant Symbol",
+
+  "block.minecraft.banner.botania.spark_isolated.silver": "Light Grey Isolated Symbol",
+  "block.minecraft.banner.botania.spark_isolated.gray": "Grey Isolated Symbol",
+
+  "block.minecraft.banner.botania.spark_recessive.silver": "Light Grey Recessive Symbol",
+  "block.minecraft.banner.botania.spark_recessive.gray": "Grey Recessive Symbol",
+
+  "block.minecraft.banner.botania.fish.silver": "Light Grey Fish",
+  "block.minecraft.banner.botania.fish.gray": "Grey Fish",
+
+  "block.minecraft.banner.botania.axe.silver": "Light Grey Axe",
+  "block.minecraft.banner.botania.axe.gray": "Grey Axe",
+
+  "block.minecraft.banner.botania.hoe.silver": "Light Grey Hoe",
+  "block.minecraft.banner.botania.hoe.gray": "Grey Hoe",
+
+  "block.minecraft.banner.botania.pickaxe.silver": "Light Grey Pickaxe",
+  "block.minecraft.banner.botania.pickaxe.gray": "Grey Pickaxe",
+
+  "block.minecraft.banner.botania.shovel.silver": "Light Grey Shovel",
+  "block.minecraft.banner.botania.shovel.gray": "Grey Shovel",
+
+  "block.minecraft.banner.botania.sword.silver": "Light Grey Sword",
+  "block.minecraft.banner.botania.sword.gray": "Grey Sword",
+
+  "botania.page.welcome3": "$(o)If you happen to find yourself feeling lost, try checking out the mod's Advancements or Challenges, both of which can be found on the left-hand side of this book's main page.$(p)$(o)The book is laid out in a user-friendly way with a fair number of helpful features, so before you jump in and start playing, take a bit of time to familiarise yourself with those.",
+
+  "botania.page.gardenOfGlass2": "After spawning in the $(item)Garden of Glass$(0), you'll find $(item)Living Roots$(0) under your feet. These can be crafted into $(item)Saplings$(0) and $(l:basics/flowers)$(item)Floral Fertiliser$(0)$(/l), or just used as $(item)Bone Meal$(0). Sneak-right clicking a $(item)Dirt$(0) or $(item)Grass$(0) block with an empty hand will rummage through the soil, yielding some $(item)Pebbles$(0); these can be converted into $(item)Cobblestone$(0). Filling a $(l:basics/apothecary)$(item)Petal Apothecary$(0)$(/l) can be done with a $(item)Bowl$(0), which in turn can be filled by right-clicking it on a water block.",
+  "botania.page.gardenOfGlass4": "Creating $(l:basics/flowers)$(item)Floral Fertiliser$(0)$(/l)",
+  "botania.page.gardenOfGlass6": "Aside from that, some things in $(thing)Botania$(0) have been changed to fit Skyblock gameplay: The $(l:functional_flowers/orechid_gog)$(item)Orechid$(0)$(/l) is easier to make, faster, and much more $(thing)Mana$(0)-efficient; The $(l:devices/cocoon_gog)$(item)Cocoon of Caprice$(0)$(/l) and the $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) have simpler recipes; the $(l:misc/blaze_block)$(item)Blaze Mesh$(0)$(/l), which can be purified into $(item)Obsidian$(0), is made from powder instead of rods; melon and pumpkin seeds can drop from tall grass; floral fertiliser yields more per craft; and certain additional recipes have been added.",
+
+  "botania.page.lexicon2": "The $(item)Lexica Botania$(0)'s title can also be customised by placing it in an $(item)Anvil$(0) and renaming it. This changes both its cover and its title.$(p)The Edition of the Lexica shown equates to the version of the $(thing)Botania$(0) you're running (and no, I $(o)don't$() care about the fourth wall).",
+
+  "botania.page.flowers0": "Around the world, you may stumble upon a large variety of $(item)Mystical Flowers$(0). Spotting these flowers doesn't take much work, as they glow faintly and sparkle.$(p)They come in a total of $(thing)16$(0) different colours.$(p)These flowers can also be grown with $(item)Floral Fertiliser$(0) (read on).",
+  "botania.page.flowers6": "By mixing $(item)Dye$(0) with some $(item)Bone Meal$(0), you'll create a different type of fertiliser. This $(item)Floral Fertiliser$(0) will grow a few $(item)Mystical Flowers$(0) in the nearby vicinity, if you ever run low on those.",
+  "botania.page.flowers18": "There're also some taller variants of the typical $(item)Mystical Flowers$(0) around the world. These can be plucked for twice the petals a normal flower would yield.$(p)Tall flower variants can be made manually by fertilising a $(item)Mystical Flower$(0) or a $(item)Buried Petal$(0) with $(item)Bone Meal$(0).$(p)If you find yourself running low on a particular colour, try burying a petal of that colour and using $(item)Bone Meal$(0) on it.",
+
+  "botania.page.apothecary2": "This block, when placed in the world and given some water (by right-clicking or throwing in a $(item)Water Bucket$(0)), will accept any $(l:basics/flowers)$(item)Mystical Petals$(0)$(/l) thrown into it, absorbing their energies.$(p)Once the correct petals have been provided, throwing any $(thing)Seeds$(0) in will finalise the crafting process.",
+
+  "botania.page.wand3": "The petals used determine the colours of the wand",
+
+  "botania.page.terrasteel0": "$(item)Terrasteel$(0) is a complex and useful magical alloy, infused with ridiculous amounts of $(thing)Mana$(0). Synthesising it proves to be no small task. For starters, its creation requires a $(item)Terrestrial Agglomeration Plate$(0) placed over a checkerboard pattern of $(item)Lapis Lazuli Blocks$(0) and $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) (or $(l:tools/rainbow_rod)$(item)Shimmerrock$(0)$(/l)). This block then needs to be provided with $(thing)Mana$(0), with $(l:mana/sparks)$(item)Sparks$(0)$(/l) being the most efficient mode of transfer.",
+
+  "botania.page.flowerBag0": "The physical laws regarding $(thing)Inventories$(0) are somewhat skewed in our world. Thanks to that, carrying an array of different colours of flowers can turn out to be a major hassle. Luckily, a $(item)Flower Pouch$(0) takes care of all those issues. It stores up to one stack of each colour of $(l:basics/flowers)$(item)Mystical Flower$(0)$(/l) and $(item)Tall Mystical Flower$(0), and passively catches any more that its holder picks up.",
+  "botania.page.flowerBag1": "It's about the same size on the inside (any colours work)",
+
+  "botania.page.mIntro0": "$(thing)Mana$(0) is an ethereal substance-- in essence, it's a mystical form of $(thing)energy$(0). Its existence is inconsistent to the senses, and its colour depends on its surrounding environment.$(p)The manipulation of $(thing)Mana$(0) is likely the most important skill a botanist needs to master.",
+
+  "botania.page.pool8": "$(item)Manasteel Ingots$(0) can be crafted into blocks or nuggets through the usual recipes.$(p)Right-clicking with any colour of $(item)Mystical Petal$(0) on a pool will have give the pool its colour, for decoration or easier labelling. You can wash the colour off again with a $(item)Clay Ball$(0).",
+
+  "botania.page.sparks3": "Sparks can be dyed with $(item)Dye$(0); sparks with different colours will never interact. They can also be splashed with a bit of $(l:misc/phantom_ink)$(item)Phantom Ink$(0)$(/l) to make them highly translucent (in case you think they look too obtrusive).",
+
+  "botania.page.lens0": "A $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) can be upgraded with $(item)Mana Lenses$(0). The most basic $(item)Mana Lens$(0) does absolutely nothing.$(p)A Lens can be $(thing)dyed$(0) by crafting it with any colour of dye to give it that colour, or with a $(l:mana/pool)$(item)Mana Pearl$(0)$(/l) to create a $(item)Rainbow Lens$(0). These change the colour of the fired burst.",
+  "botania.page.lens4": "But lenses aren't just for fancy colours-- they can be upgraded with all sorts of materials to create all sorts of effects with their $(thing)Mana Bursts$(0).$(p)Keep in mind that a normal $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) must point at a $(thing)Mana$(0)-receiving block to fire. A $(l:mana/redstone_spreader)$(item)Pulse Mana Spreader$(0)$(/l) is recommended for certain lenses instead.$(p)Blocks like $(item)Hoppers$(0) can add or remove spreaders' lenses.",
+  "botania.page.lens5": "Sometimes, though, having a single $(item)Mana Lens$(0) on a spreader just isn't enough. Combining two lenses with a $(item)Slimeball$(0) or $(item)Honey Bottle$(0) in a crafting table will unite them into one lens with the effects of both.$(p)The first lens used determines the look and colour of the resultant lens. Note that some combinations will not work, and that you can't combine two lenses of the same type.",
+  "botania.page.lens24": "The $(item)Magnetising Lens$(0) (as its name states) allows a $(thing)Mana Burst$(0) to home in (or \"magnetise\") on any nearby blocks that can receive $(thing)Mana$(0). Doing so slightly decreases the speed of the burst.",
+  "botania.page.lens25": "Magnetising Lens",
+  "botania.page.lens36": "The $(item)Flash Lens$(0) creates a flame on a block, of the same colour as the burst that caused it. The flame provides light and is purely decorative.$(p)If a burst hits one of these flames, it puts the flame out instead.",
+
+  "botania.page.elvenLenses1": "First off, the $(item)Paintslinger Lens$(0). This lens needs to be dyed one of the 16 colours of the spectrum to function. When a burst that's passed through it hits a colourable block ($(item)Wool, Stained Clay$(0) or $(item)Glass$(0)...), it'll turn that block (and any connected blocks of the same type and colour) into the colour of the $(thing)Mana Burst$(0). It seems to work on $(thing)Sheep$(0) too.",
+  "botania.page.elvenLenses7": "The $(item)Celebratory Lens$(0) functions much like the common $(item)Entropic Lens$(0); however, instead of an explosion, it creates a festive firework dyed the colour of the burst.",
+  "botania.page.elvenLenses9": "The $(item)Flare Lens$(0) takes over a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l)'s functionality, preventing it from firing any bursts. This type of lens is called a $(thing)Control Lens$(0).$(p)The effect of this particular $(thing)Control Lens$(0) is to make the spreader fire a continuous particle burst of the colour the lens is dyed, in the direction the spreader is aimed. No mana is consumed; there're surely plenty of decorative uses for this.",
+
+  "botania.page.prism1": "Right-clicking a prism with any variety of $(item)Mana Lens$(0) places the lens in the prism. Whenever a $(thing)Mana Burst$(0) passes through the prism, its colour and effect will be set to that of the lens in the prism (if the lens is not dyed, the burst will turn white).$(p)Using any of the four basic lenses in the prism will also increase the time before the burst starts losing $(thing)Mana$(0), allowing it to go further.",
+
+  "botania.page.dreadthorne0": "The $(item)Dreadthorne$(0) is a slightly more specialised counterpart to the $(l:functional_flowers/bellethorne)$(item)Bellethorne$(0)$(/l): instead of $(o)all$() nearby beings, it only harms $(thing)adult animals$(0).",
+
+  "botania.page.orechid0": "While going mining is well and good, a renewable and sedentary means of acquiring ores is nothing to scoff at either. The $(item)Orechid$(0) uses $(thing)Mana$(0) to synthesise $(thing)ores$(0) from nearby $(item)Stone$(0) blocks.$(p)The ores it generates are random, but rarer ores seem to be created less often.",
+
+  "botania.page.exoflame0": "Conversely to its $(thing)Generating$(0) counterpart, the $(item)Exoflame$(0) uses $(thing)Mana$(0) to generate heat.$(p)Any $(item)Furnaces$(0) near an active $(item)Exoflame$(0) are fuelled and given a speed boost.",
+
+  "botania.page.agricarnation0": "The slow growth of crops is a perpetual problem in the feeding of the masses. The $(item)Agricarnation$(0) transforms $(thing)Mana$(0) into a type of natural fertiliser, causing nearby plant-life to grow faster.",
+
+  "botania.page.marimorphosis0": "The $(item)Marimorphosis$(0) is a flower that induces metamorphic transformations in nearby $(item)Stone$(0) blocks. These blocks are transmogrified into one of 8 different types of $(item)Metamorphic Stone$(0). All 8 types will generate everywhere, but the types that generate more will often depend on the biome. All varieties can be used for bricks, chiselled bricks, slabs, stairs, and $(l:basics/apothecary)$(item)Petal Apothecary$(0)$(/l) variants.",
+  "botania.page.marimorphosis1": "The various flavours of $(item)Metamorphic Stone$(0)",
+  "botania.page.marimorphosis3": "A colour for everyone",
+
+  "botania.tagline.solegnolia": "Creates spaces where the Ring of Magnetisation doesn't work",
+  "botania.page.solegnolia0": "The $(l:baubles/magnet_ring)$(item)Ring of Magnetisation$(0)$(/l) is quite the handy tool for any diggers or collectors. However, it can also pick up unwanted items, disrupting automation setups in the process. The $(item)Solegnolia$(0) disrupts the ring's field of effect and prevents any items in its range from being pulled towards a ring-bearer. It also prevents any ring-bearers in its range from pulling any items. It does not consume $(thing)Mana$(0).",
+
+  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(thing)Mana$(0).$(p)It can also synthesise mana from experience orbs and enchanted items in the world.",
+
+  "botania.page.kekimurus0": "$(item)Cake$(0) is delicious; everyone loves it, flowers included.$(p)The $(item)Kekimurus$(0) is one of these $(item)Cake$(0) aficionados, and will eat any placed in its vicinity, synthesising the enriching nutrients into sweet, sweet $(thing)Mana$(0).",
+
+  "botania.page.spectrolus0": "The $(item)Spectrolus$(0) is a flower that's particularly fond of the various hues of $(item)Wool$(0). It'll consume any and all $(item)Wool$(0) blocks dropped nearby, converting them to $(thing)Mana$(0).$(p)However, it's picky as to what colours it wants. Starting from $(item)White$(0), after it eats one piece of $(item)Wool$(0), it'll rotate to the next colour in the spectrum.",
+  "botania.page.spectrolus1": "While it'll consume all $(item)Wool$(0) around it, it'll only create any mana if it gets the colour it wants-- so haphazardly tossing $(item)Wool$(0) at it is wasteful at best.$(p)The colour craves at any given moment can be seen by hovering over the flower with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l).",
+
+  "botania.page.rafflowsia0": "The $(item)Rafflowsia$(0) functions similarly to a $(l:generating_flowers/kekimurus)$(item)Kekimurus$(0)$(/l), but eats $(item)man-made flowers$(0) in the $(l:basics/apothecary)$(item)Petal Apothecary$(0)$(/l) instead. It'll consume any nearby placed flowers and synthesise $(thing)Mana$(0) from them.$(p)While feeding it the same flower several times in a row yields diminishing returns, feeding it a large variety of them can yield ludicrous quantities of $(thing)Mana$(0).",
+
+  "botania.page.dandelifeon1": "This flower's function is based on a cellular automaton known as $(thing)Conway's Game of Life$(0). The area for this procedure is a 25x25 square, centred around the $(item)Dandelifeon$(0) itself.$(p)As long as the flower receives a redstone signal, it'll step the automaton twice a second.",
+  "botania.page.dandelifeon2": "Each location within the flower's 25x25 area of effect counts as a $(thing)Cell$(0). Cells may be alive or dead; a cell counts as alive if its respective block is a $(item)Cellular Block$(0) (read on), or dead if it's anything else. The $(thing)Neighbours$(0) of a cell are the eight cells surrounding any cell.",
+  "botania.page.dandelifeon3": "Every step of the game, the following transitions happen to each cell simultaneously:$(p)$(thing)1)$(0) Any live cell with exactly 2 or 3 live neighbours survives the step.$(p)$(thing)2)$(0) Any live cell not satisfying condition 1 becomes dead.$(p)$(thing)3)$(0) Any dead cell with exactly three live neighbours becomes a live cell.",
+  "botania.page.dandelifeon6": "The 3x3 zone centred around the $(item)Dandelifeon$(0) itself will absorb all cells that would otherwise generate in the area, converting them into (a frankly ludicrous amount of) $(thing)Mana$(0). The older the cell that would be created, the more $(thing)Mana$(0) it yields. Age-zero cells produce no $(thing)Mana$(0).",
+  "botania.page.dandelifeon10": "Whenever any live cells are absorbed by the 3x3 zone in the centre, all other cells in the board die.$(p)Additionally, cells within the range of two or more $(item)Dandelifeon$(0) flowers dies, though well-spaced $(item)Dandelifeons$(0) $(l)can$() pass cells between themselves (albeit with some mana lost at the boundary).",
+
+  "botania.page.manaEnchanting1": "A $(item)Mana Enchanter$(0) takes up an area around 11x7 in size, and is constructed from 17 $(item)Obsidian$(0) blocks, 10 $(l:basics/flowers)$(item)Mystical Flowers$(0)$(/l) of any colour or their $(l:misc/shiny_flowers#shiny)$(item)Glimmering$(0)$(/l) or $(l:misc/shiny_flowers#floating)$(item)Floating$(0)$(/l) variants, 6 $(l:devices/pylon)$(item)Mana Pylons$(0)$(/l), and one $(item)Lapis Lazuli Block$(0).$(p)Instructions on assembling this marvellous contraption follow.",
+  "botania.page.manaEnchanting2": "Mana Enchanter",
+  "botania.page.manaEnchanting5": "After construction, right-click the core lapis block with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) to activate the enchanter.$(p)To use the enchanter, place (via right-click) the item to be enchanted in the enchanter itself and drop $(item)Enchanted Books$(0) with the desired enchantments within the obsidian circle. Note that pre-enchanted items can't be placed in the enchanter.",
+
+  "botania.page.manaAlchemy7": "Creating $(item)Chiselled Stone Bricks$(0)",
+
+  "botania.page.brewery17a": "A simple brew, mimicking a $(item)Potion of Regeneration$(0). When quaffed, it gives its drinker a $(thing)Regeneration I$(0) effect, albeit for longer than a Revitalisation brew.",
+
+  "botania.page.craftCrate3": "Finalising a recipe can be done in two ways:$(p)Filling all 9 slots with either recipe components or placeholders will instantly try to craft and output the result, as well as any placeholders and/or leftovers remaining in the crafting grid (e.g. buckets when making cake).$(p)Note that the crate will $(o)not$() eject its contents if no recipe is possible.",
+
+  "botania.page.cocoon1": "A cocoon near water seems to create aquatic animals instead.$(p)Rumour has it that giving a cocoon $(item)Emeralds$(0), $(item)Chorus Fruit$(0), or a certain $(l:alfhomancy/gaia_ritual)$(item)otherworldly essence$(0)$(/l) will influence its outcome towards something... different. What such experiments would yield is anyone's guess, really.$(p)(Giving a cocoon an item can be done via right-click or by simply tossing the item.)",
+
+  "botania.page.manaBomb0": "Infusing a $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirit$(0)$(/l) with some $(item)TNT$(0) creates a $(item)Manastorm Charge$(0), a type of explosive. In a sense. Once ignited with a $(item)Mana Burst$(0), the charge will create an unstable $(item)Manastorm Epicentre$(0). This will, over time, spawn supercharged explosive $(item)Mana Bursts$(0).$(p)Needless to say, only a maniac would unleash such a destructive force near anything valuable or important.",
+
+  "botania.page.manaGear0": "$(item)Manasteel$(0), like other metals, can be shaped into tools and armour alike.$(p)Tools or armour crafted from this material will share most of their qualities with $(item)Iron$(0), albeit with superior enchantability and durability. Additionally, all $(item)Manasteel$(0) items can heal their durabilities with $(thing)Mana$(0) from their user's inventory (e.g. in a $(l:mana/mana_tablet)$(item)Mana Tablet$(0)$(/l)).",
+
+  "botania.entry.terrasteelArmor": "Terrasteel Armour",
+  "botania.tagline.terrasteelArmor": "Netherite-tier armour with Manasteel properties",
+  "botania.page.terrasteelArmor0": "Armour made out of $(l:basics/terrasteel)$(item)Terrasteel$(0)$(/l), much like its $(item)Manasteel$(0)-based counterpart, can use $(thing)Mana$(0) from the inventory to heal damage.$(p)However, its properties are comparable more to $(item)Netherite$(0) armour than to $(item)Iron$(0).",
+
+  "botania.page.elfGear0": "Similarly to other metals, $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l) can be shaped into tools and armour.$(p)The respective armour components each have decent damage resistances (same as manasteel armour), as well as the ability to drain $(thing)Mana$(0) to heal damage.",
+  "botania.page.elfGear1": "Each piece of armour will, when its bearer is harmed, have a chance to spawn a $(thing)Pixie$(0) to fly after the aggressor, dealing some decent damage.$(p)The more pieces of $(item)Elementium Armour$(0) equipped, the higher the chance becomes. Additionally, each of the tools in the set comes with its own unique ability.",
+  "botania.page.elfGear8": "The $(item)Elementium Shears$(0) can, when drawn back like a bow, speedily shear nearby sheep within a large area of effect centred on the holder.",
+  "botania.page.elfGear10": "Finally, the $(item)Elementium Sword$(0), when held, increases the chance of a $(thing)Pixie$(0) spawning when hit (this holds true even when no $(item)Elementium Armour$(0) is worn), and augments the strength of any $(thing)Pixies$(0) spawned.",
+
+  "botania.page.diviningRod0": "The $(item)Rod of the Plentiful Mantle$(0) has the ability (for a moderate $(thing)Mana$(0) cost) to divine in a modest radius around its user for ores. These will emit a brief glow through walls, allowing them to be easily seen.$(p)Identical ores will glow identical colours, though colours may not be the same over separate uses.",
+  "botania.page.diviningRod2": "This rod can be given to a $(l:devices/avatar)$(item)Livingwood Avatar$(0)$(/l). When so given, the avatar will use its $(thing)Mana$(0) to show all nearby ores continually, as if the rod was being used by a player. Glow colours, in this case, will remain the same so long as the avatar isn't moved.",
+
+  "botania.page.gravityRod0": "The $(item)Rod of the Shaded Mesa$(0) is a powerful artefact; legend has it that the first of these devices was found lying atop a dusky geographical feature next to a single crowbar.$(p)To use this device, aim it at a mob or item and hold right-click to pick it up. Releasing right-click will drop the held entity, while punching with it will toss the entity in a powerful burst.",
+
+  "botania.page.missileRod0": "The $(item)Rod of the Unstable Reservoir$(0) is a weapon at its strongest against a large crowd of foes. When used, it'll materialise from $(thing)Mana$(0) countless arcane missiles that home in on targets at random.",
+
+  "botania.page.worldSeed0": "$(item)World Seeds$(0) are energised pieces of elemental matter with the ability to return their user to the world's spawn point.$(p)If its user is 24 or more blocks from the world's spawnpoint, a right-click with one held will instantly teleport them to that location, consuming the seed in the process.",
+
+  "botania.tagline.manaweave": "Cloth armour that regenerates with Mana and provides a boost to rod powers",
+  "botania.page.manaweave1": "Wearing the full set of $(item)Manaweave Robes$(0) also grants the wearer an increased proficiency with magical rods, increasing their powers and/or ranges.$(p)$(item)Manaweave Robes$(0) can use $(thing)Mana$(0) from one's inventory to repair themselves, similarly to $(item)Manasteel Armour$(0), but at a lower $(thing)Mana$(0) cost.",
+
+  "botania.page.sextant1": "To use the sextant, sneak-right click to choose a mode. Simply right-click and hold at a block to choose the shape's centre, and look around to choose its radius; blue circles will appear in the world as an outline of the final shape. Upon release of the sextant, a mirage of $(item)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the guide.",
+
+  "botania.page.redString7": "The $(item)Red Stringed Nutrifier$(0) can be bound to any block that accepts $(item)Bone Meal$(0). Using $(item)Bone Meal$(0) on the Nutrifier will fertilise its bound block instead.",
+
+  "botania.page.flightTiara4": "This marvellous reproduction of ancient artifice isn't perfect, though: the tiara can't provide the power of flight indefinitely. If used for around thirty seconds consecutively, it'll \"overload\" and lose its ability to sustain flight.$(p)A \"flight bar\" is displayed on the HUD to monitor this usage.",
+
+  "botania.page.corporea5": "Like normal $(l:mana/sparks)$(item)Sparks$(0)$(/l), $(item)Corporea Sparks$(0) can be dyed with $(item)Dye$(0); the little star icon floating around the spark shows its current colour. $(item)Corporea Sparks$(0) of different colours won't interact. Thus, multiple independent Networks can be in an area without interacting.",
+  "botania.page.corporea6": "Visualising a Network and removing a spark from a container are performed the same way they are on ordinary $(l:mana/sparks)$(item)Sparks$(0)$(/l).$(p)Note that having two $(item)Master Corporea Sparks$(0) in the same network is a bad idea and can cause $(o)undefined behaviour$().",
+  "botania.page.corporea8": "Love-coloured",
+
+  "botania.page.corporeaRetainer1": "Once the $(item)Corporea Retainer$(0) memorises a request, when given a redstone signal it'll \"replay\" the request, performing it from its original position. For example: consider a $(l:ender/corporea_funnel)$(item)Funnel$(0)$(/l) that requests $(item)Wooden Planks$(0) when there are no more left. An Interceptor in the network could catch the request and trigger a mechanism to craft the missing planks; if an attached Retainer was triggered after that, it would make the original Funnel redo its request and get its planks.",
+  "botania.page.corporeaRetainer2": "As the $(item)Corporea Retainer$(0) is an addon to the Interceptor, it can proxy its requests through the latter, so it doesn't need a spark itself.$(p)The retainer can only memorise one request at a time; any additional incoming requests will overwrite the currently stored request. A $(item)Redstone Comparator$(0) can read whether a request is being held, and if so, how many items.",
+
+  "botania.page.blackHoleTalisman0": "The void is a massive space full of... nothing. Really. There's nothing there. But with a bit of ingenuity, this nothingness can be exploited to store blocks for you to your heart's content.$(p)The $(item)Black Hole Talisman$(0) utilises powerful Gaia and Ender magics to store a virtually infinite quantity of a single type of block.",
+
+  "botania.entry.luminizerTransport": "Luminiser Transport",
+  "botania.page.luminizerTransport0": "$(item)Luminisers$(0) simply transport players (and other entities), by flying them through the air on trails of light.$(p)$(item)Luminisers$(0) are placed in the world as blocks and function when bound to other $(item)Luminisers$(0) (with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l)). Right-clicking a $(item)Luminiser$(0) will transport its user to the $(item)Luminiser$(0) it's bound to.",
+  "botania.page.luminizerTransport1": "$(item)Luminisers$(0) have a range of twenty blocks each, but can be chained together to create quite long and complex paths.$(p)$(item)Luminiser$(0) bindings are unidirectional unless explicitly bound both ways. Do note, though, that such a binding would create an endless loop.$(p)Multiple $(item)Luminisers$(0) can bind to the same endpoint.",
+  "botania.page.luminizerTransport2": "Luminise to the future",
+  "botania.page.luminizerTransport3": "Adding some $(item)Redstone$(0) to a $(item)Luminiser$(0) makes it a $(item)Detector Luminiser$(0), which functions just like a regular $(item)Luminiser$(0) but additionally emits a $(thing)redstone pulse$(0) when something reaches (or passes through) it.",
+  "botania.page.luminizerTransport7": "Adding a $(item)Lever$(0) to a $(item)Luminiser$(0) turns it into a $(item)Toggle Luminiser$(0), which accepts a $(thing)redstone signal$(0). When powered, a $(item)Toggle Luminiser$(0) will drop anything passing through; it works normally when unpowered.",
+  "botania.page.luminizerTransport9": "A $(item)Luminiser$(0) and a $(item)Redstone Torch$(0) yield a $(item)Fork Luminiser$(0).$(p)These will react to an $(l:devices/animated_torch)$(item)Animated Torch$(0)$(/l) placed up to two blocks above or below it; any incoming entities will be sent to a $(item)Luminiser$(0) in the direction that the Torch is pointing towards.",
+  "botania.page.luminizerTransport10": "The $(item)Fork Luminiser$(0) can still be bound like any other style of Luminiser, but it'll only use its binding if no $(l:devices/animated_torch)$(item)Animated Torch$(0)$(/l) is available to tell it where to go (or if there aren't any $(item)Luminisers$(0) in the direction the Torch points).",
+  "botania.page.luminizerTransport5": "Players can just right-click a $(item)Luminiser$(0) to board it, but to get animals, dropped items, or anything into the transports, a $(item)Luminiser Launcher$(0) is needed. This should be placed adjacent to one or more $(item)Luminisers$(0). When a Launcher receives a $(thing)redstone pulse$(0), it'll send all living things and items on it into the adjacent $(item)Luminiser$(0) (or a random $(item)Luminiser$(0) per entity, if more than one is nearby), sending them on their merry ways.",
+
+  "botania.page.cosmeticBaubles1": "$(thing)Cosmetic Trinkets$(0) are crafted by weaving a specific colour of petal around a $(l:mana/pool)$(item)Mana Infused String$(0)$(/l); oddly enough, the item created often has nothing to do with the colour of the petal.$(p)The exact mechanics of this synthesis aren't well known-- it's almost as if the person that designed them hadn't bothered with figuring out a better system. Or something. Who knows.",
+  "botania.page.cosmeticBaubles10": "The best colour",
+  "botania.page.cosmeticBaubles12": "The Neighbours' Club",
+  "botania.page.cosmeticBaubles27": "Woah, colours",
+
+  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, manoeuvrability, and mining speed, as well as the ability to breathe indefinitely.",
+
+  "botania.entry.magnetRing": "Ring of Magnetisation",
+  "botania.page.magnetRing0": "A $(l:mana/lens)$(item)Magnetising Lens$(0)$(/l) on a ring of $(item)Manasteel$(0) yields a $(item)Ring of Magnetisation$(0), which attracts nearby items, making them float towards the wearer. The ring is disabled when its user is sneaking, or when in range of a $(l:functional_flowers/solegnolia)$(item)Solegnolia$(0)$(/l). Note that a tossed item won't be drawn by its wearer's ring for several seconds (so as to not to interfere with the purpose of said toss).",
+
+  "botania.page.pixieRing0": "(Note: This ring works best alongside the $(item)Elementium Armour$(0) set; insight in the latter's abilities is advised to use this ring.)$(p)When worn, the $(item)Great Fairy Ring$(0) simply increases the chance for a $(thing)Pixie$(0) to spawn when its wearer is hit, even if no $(item)Elementium Armour$(0) is equipped.",
+
+  "botania.page.itemFinder0": "$(item)The Spectator$(0) is a headband that allows its wearer to perceive the world in a better way. When its wearer holds an item, all of the following will emit colourful particles for easy spotting:",
+
+  "botania.page.swapRing0": "Switching tools can be a pain, especially when you find yourself shovelling away at dirt with... an axe? The $(item)Ring of Correction$(0) is a great way to, well, correct those problems.$(p)With this ring equipped, the tool in hand will always be the right one for the block being broken, be it pick, axe, shovel, hoe, or shears. As long as you have the relevant $(thing)Mana$(0)-using tools on hand.",
+
+  "botania.page.elfMessage3": "$(o)The link you've established is, unfortunately, too weak to transfer living beings-- this seems to be a consequence of the sheer distance between our realms. A pity: we would have liked to meet our trading partner in person. However, on the upside, the link allows us to change the synchronisation of time across our worlds-- which is how you will receive your book back so quickly, at least from your perspective.",
+  "botania.page.elfMessage4": "$(o)We're well-stocked on Mana and other magical energies, so worry not about the portal closing on our end. In fact, to be blunt, our offer is as follows: for the advancement of both of our civilisations, we vow to provide certain resources you lack in your world, in exchange for certain resources from yours that we lack in ours.",
+
+  "botania.page.gaiaRitual4": "Standard gear for this ritual is a set of enchanted $(item)Elementium Armour$(0), a $(l:tools/terra_sword)$(item)Terra Blade$(0)$(/l), and a miscellany of $(thing)Brews$(0) and $(thing)Trinkets$(0). Do note that the $(item)Beacon$(0)'s effect is forcibly nullified during the battle.$(p)The $(item)Guardian$(0) has a massive pool of health, so preparing with $(thing)Enchantments$(0) and $(thing)Brews$(0) is a must!",
+
+  "botania.page.relicInfo0": "It appears as if the oft-speculated-about Relics are, in fact, real. These items are materialised from rolls of the $(item)Dice of Fate$(0), and possess incredible powers. (The Dice of Fate being six-sided seems to imply the existence of six Relics.)$(p)Relics seem to know who earned them; thus, giving someone a Relic they didn't earn is a bad idea.",
+
+  "botania.page.kingKey0": "The $(item)Key of the King's Law$(0) is a powerful relic with the ability to materialise weapons from thin air. Holding down right-click with this key will begin summoning glowing projectiles from... somewhere. Up to twenty projectiles can be created at once, and releasing the grip on the key will launch them, one at a time, at the point the summoner is looking towards. These projectiles move at high velocities and explode on contact.",
+
+  "botania.page.elvenLore5a": "At that time, we had little true structure to our civilisation, living in simple huts of Dreamwood. This made rebuilding little more than a chore of gathering materials, especially as we had prior warning.",
+
+  "botania.page.decorativeBlocks4": "Chiselling the bricks",
+
+  "botania.page.mushrooms0": "Sprinkling some $(item)Dye$(0) on a $(item)Mushrooms$(0) seems to mutate the latter. The $(item)Mushroom$(0) changes shape, takes on the colour of the dye, and glows dimly; in addition, it's usable as a substitute $(l:basics/flowers)$(item)Mystical Petal$(0)$(/l). $(p)$(item)Shimmering Mushrooms$(0) can also be seldom found deep underground in isolated patches.",
+
+  "botania.tagline.phantomInk": "Make your armour and Trinkets invisible",
+  "botania.page.phantomInk0": "Having your beautiful skin and accessories hidden under a set of clunky armour is nobody's dream. It's bulky, flat, and worst of all, unfashionable!$(p)Luckily, splashing $(item)Phantom Ink$(0) on armour in a crafting grid will make the latter completely invisible, while still providing all of its benefits. ($(item)Phantom Ink$(0) only works on armour sets that use $(thing)Mana$(0).)",
+
+  "botania.tagline.pavement": "Pavement for road building",
+  "botania.page.pavement0": "$(item)Portuguese Pavement$(0) is a building block designed for the construction of detailed roads. It comes in various colours, and is stairable and slabbable.$(p)For those with experience in the arts of \"multiparts\" and \"microblocks\", these blocks provide a fantastic source of patterns.",
+
+  "botania.subtitle.equipElementium": "Elementium armour clanks",
+  "botania.subtitle.equipManasteel": "Manasteel armour clanks",
+  "botania.subtitle.equipTerrasteel": "Terrasteel armour clangs",
+  "botania.subtitle.lightRelay": "Luminiser whooshes"
+}

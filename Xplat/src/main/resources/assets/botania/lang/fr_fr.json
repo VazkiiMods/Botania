@@ -13,7 +13,7 @@
   "_comment.tag": "Tags à ajouter dans le code",
   "_comment.todo": "Travail supplémentaire",
 
-  "itemGroup.botania.botania": "Botania",
+  "itemGroup.botania": "Botania",
   "botania.landing": "Magie, Machines. Naturellement. $(br2)Botania est un mod technologique, dont le concept est la création de machines et de fleurs magiques afin de manipuler le $(thing)mana$().",
   "botania.desc": "Magie, Machines. Naturellement",
 
@@ -151,10 +151,6 @@
   "botania.tater_birthday.2": "Merci beaucoup ! J'espère aussi que ton année s'est bien passée",
   "botania.tater_birthday.3": "N'oublies pas: J'ai confiance en toi, tu peux y arriver ! \u2764",
   "botania.tater_birthday.4": "Woohoo !!!",
-  "botania.tater.my_son": "Non parlare mai più con me o con mio figlio.",
-  "botania.tater.my_daughter": "Non parlare mai più con me o con mia figlia.",
-  "botania.tater.my_child": "Non parlare mai più con me o con mi* figli*.",
-  "botania.tater.my_children": "Non parlare mai più con me o con miei figli.",
 
   "botania.nei.brewery": "Alambic botanique",
   "botania.nei.elvenTrade": "Commerce elfique",

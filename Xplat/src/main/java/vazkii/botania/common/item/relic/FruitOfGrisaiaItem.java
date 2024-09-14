@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -63,6 +64,7 @@ public class FruitOfGrisaiaItem extends RelicItem {
 		}
 		if (ManaItemHandler.instance().requestManaExact(stack, player, 500, true)) {
 			if (count % 5 == 0) {
+				player.gameEvent(GameEvent.EAT);
 				player.getFoodData().eat(2, 2.4F);
 			}
 
