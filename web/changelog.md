@@ -2,11 +2,6 @@
 layout: "default"
 title: "Changelog"
 ---
-<style>
-html {
-  scroll-margin-top: 70px;
-}
-</style>
 <div class='section-header'>
 	<span class='glyphicon glyphicon-tag'></span>
 	Botania Changelog
