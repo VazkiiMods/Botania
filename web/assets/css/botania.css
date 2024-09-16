@@ -1,7 +1,7 @@
 html {
 	position: relative;
 	min-height: 100%;
-	scroll-margin-top: 70px;
+	scroll-padding-top: 70px;
 }
 
 body {
