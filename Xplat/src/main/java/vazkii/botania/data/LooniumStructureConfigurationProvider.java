@@ -47,7 +47,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 	private final PackOutput.PathProvider pathProvider;
 
 	public LooniumStructureConfigurationProvider(PackOutput packOutput) {
-		pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "config/loonium");
+		pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loonium_config");
 	}
 
 	@NotNull

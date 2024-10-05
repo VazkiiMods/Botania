@@ -100,7 +100,7 @@ public class ConfigDataManagerImpl implements ConfigDataManager {
 			Executor backgroundExecutor, Executor gameExecutor, ConfigDataType<T> type) {
 		return CompletableFuture.supplyAsync(() -> {
 			Map<ResourceLocation, JsonElement> resourceMap = new HashMap<>();
-			SimpleJsonResourceReloadListener.scanDirectory(manager, "config/" + type.directory, new Gson(), resourceMap);
+			SimpleJsonResourceReloadListener.scanDirectory(manager, type.directory, new Gson(), resourceMap);
 			Map<ResourceLocation, T> configs = new HashMap<>(resourceMap.size());
 			resourceMap.forEach((id, jsonElement) -> {
 				BotaniaAPI.LOGGER.debug("Parsing {} config '{}'", type.directory, id);
@@ -117,7 +117,7 @@ public class ConfigDataManagerImpl implements ConfigDataManager {
 			Consumer<Map<ResourceLocation, T>> validateFunction,
 			BiConsumer<ConfigDataManagerImpl, Map<ResourceLocation, T>> applyFunction) {
 		private static final ConfigDataType<LooniumStructureConfiguration> LOONUIM =
-				new ConfigDataType<>(LooniumStructureConfiguration.CODEC, "loonium",
+				new ConfigDataType<>(LooniumStructureConfiguration.CODEC, "loonium_config",
 						ConfigDataManagerImpl::validateLooniumConfig, ConfigDataManagerImpl::applyLooniumConfig);
 
 	}
