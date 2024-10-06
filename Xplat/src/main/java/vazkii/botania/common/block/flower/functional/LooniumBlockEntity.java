@@ -80,6 +80,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final String TAG_LOOT_TABLE = "lootTable";
 	private static final String TAG_DETECTED_STRUCTURE = "detectedStructure";
 	private static final String TAG_CONFIG_OVERRIDE = "configOverride";
+	private static final String TAG_ATTUNE_DISPLAY_OVERRIDE = "attuneDisplayOverride";
 	private static final Supplier<LooniumStructureConfiguration> FALLBACK_CONFIG =
 			Suppliers.memoize(() -> LooniumStructureConfiguration.builder()
 					.manaCost(LooniumStructureConfiguration.DEFAULT_COST)
@@ -157,6 +158,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private Object2BooleanMap<ResourceLocation> detectedStructures;
 	@Nullable
 	private ResourceLocation configOverride;
+	@Nullable
+	private String attuneDisplayOverride;
 
 	public LooniumBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaFlowerBlocks.LOONIUM, pos, state);
@@ -515,6 +518,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		if (cmp.contains(TAG_CONFIG_OVERRIDE)) {
 			configOverride = new ResourceLocation(cmp.getString(TAG_CONFIG_OVERRIDE));
 		}
+		if (cmp.contains(TAG_ATTUNE_DISPLAY_OVERRIDE)) {
+			attuneDisplayOverride = cmp.getString(TAG_ATTUNE_DISPLAY_OVERRIDE);
+		}
 		if (cmp.contains(TAG_DETECTED_STRUCTURE)) {
 			String rawString = cmp.getString(TAG_DETECTED_STRUCTURE);
 			if (rawString.isEmpty()) {
@@ -544,6 +550,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 		if (configOverride != null) {
 			cmp.putString(TAG_CONFIG_OVERRIDE, configOverride.toString());
+		}
+		if (attuneDisplayOverride != null) {
+			cmp.putString(TAG_ATTUNE_DISPLAY_OVERRIDE, attuneDisplayOverride);
 		}
 		if (detectedStructures != null) {
 			var stringBuilder = new StringBuilder();
@@ -575,14 +584,26 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		@Override
 		public void renderHUD(GuiGraphics gui, Minecraft mc) {
 			String lootType;
-			if (flower.lootTableOverride != null) {
-				lootType = "custom_loot";
+			String structureName = "";
+			if (flower.attuneDisplayOverride != null) {
+				lootType = flower.attuneDisplayOverride;
+			} else if (flower.lootTableOverride != null) {
+				lootType = "attuned";
 			} else if (flower.detectedStructures == null || flower.detectedStructures.isEmpty()) {
-				lootType = "generic_loot";
+				lootType = "not_attuned";
 			} else {
-				lootType = "structure_loot";
+				if (flower.detectedStructures.size() == 1) {
+					lootType = "attuned_one";
+					structureName = flower.detectedStructures
+							.keySet().stream().findFirst()
+							.map(rl -> I18n.get("structure." + rl.getNamespace() + "." + rl.getPath().replace("/", ".")))
+							.orElseGet(() -> "");
+				} else {
+					lootType = "attuned_many";
+				}
 			}
-			String lootTypeMessage = I18n.get("botaniamisc.loonium." + lootType);
+
+			String lootTypeMessage = I18n.get("botaniamisc.loonium." + lootType, structureName);
 			int lootTypeWidth = mc.font.width(lootTypeMessage);
 			int lootTypeTextStart = (mc.getWindow().getGuiScaledWidth() - lootTypeWidth) / 2;
 			int halfMinWidth = (lootTypeWidth + 4) / 2;
