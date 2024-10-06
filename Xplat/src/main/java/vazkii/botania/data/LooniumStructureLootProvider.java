@@ -29,15 +29,15 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class LooniumStructureLootProvider implements DataProvider {
 	// loot collections based on which village type hoses can actually have chests
-	private static final EnumSet<VillageLoot> PLAINS_VILLAGE_LOOT = EnumSet
+	public static final EnumSet<VillageLoot> PLAINS_VILLAGE_LOOT = EnumSet
 			.of(VillageLoot.CARTOGRAPHER, VillageLoot.FISHER, VillageLoot.TANNERY, VillageLoot.WEAPONSMITH);
-	private static final EnumSet<VillageLoot> DESERT_VILLAGE_LOOT = EnumSet
+	public static final EnumSet<VillageLoot> DESERT_VILLAGE_LOOT = EnumSet
 			.of(VillageLoot.TEMPLE, VillageLoot.TOOLSMITH, VillageLoot.WEAPONSMITH);
-	private static final EnumSet<VillageLoot> SAVANNA_VILLAGE_LOOT = EnumSet
+	public static final EnumSet<VillageLoot> SAVANNA_VILLAGE_LOOT = EnumSet
 			.of(VillageLoot.BUTCHER, VillageLoot.CARTOGRAPHER, VillageLoot.MASON, VillageLoot.TANNERY, VillageLoot.WEAPONSMITH);
-	private static final EnumSet<VillageLoot> SNOWY_VILLAGE_LOOT = EnumSet
+	public static final EnumSet<VillageLoot> SNOWY_VILLAGE_LOOT = EnumSet
 			.of(VillageLoot.ARMORER, VillageLoot.CARTOGRAPHER, VillageLoot.SHEPHERD, VillageLoot.TANNERY, VillageLoot.WEAPONSMITH);
-	private static final EnumSet<VillageLoot> TAIGA_VILLAGE_LOOT = EnumSet
+	public static final EnumSet<VillageLoot> TAIGA_VILLAGE_LOOT = EnumSet
 			.of(VillageLoot.CARTOGRAPHER, VillageLoot.FLETCHER, VillageLoot.TANNERY, VillageLoot.TOOLSMITH, VillageLoot.WEAPONSMITH);
 
 	private final PackOutput.PathProvider pathProvider;
@@ -58,7 +58,20 @@ public class LooniumStructureLootProvider implements DataProvider {
 	@Override
 	public CompletableFuture<?> run(@NotNull CachedOutput cache) {
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
+		addLootTables(tables);
 
+		var output = new ArrayList<CompletableFuture<?>>(tables.size());
+		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
+			Path path = pathProvider.json(e.getKey());
+			LootTable.Builder builder = e.getValue();
+			LootTable lootTable = builder.setParamSet(LootContextParamSets.ALL_PARAMS).build();
+			JsonElement jsonTree = Deserializers.createLootTableSerializer().create().toJsonTree(lootTable);
+			output.add(DataProvider.saveStable(cache, jsonTree, path));
+		}
+		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
+	}
+
+	private void addLootTables(Map<ResourceLocation, LootTable.Builder> tables) {
 		// Note: As far as world generating is concerned, dungeons are "features" (i.e. like trees or geodes),
 		// not "structures" (like everything else the Loonium might care about).
 		tables.put(prefix("default"), buildDelegateLootTable(BuiltInLootTables.SIMPLE_DUNGEON));
@@ -172,19 +185,9 @@ public class LooniumStructureLootProvider implements DataProvider {
 						.add(LootItem.lootTableItem(Items.TOTEM_OF_UNDYING).setWeight(1))
 				)
 		);
-
-		var output = new ArrayList<CompletableFuture<?>>(tables.size());
-		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
-			Path path = pathProvider.json(e.getKey());
-			LootTable.Builder builder = e.getValue();
-			LootTable lootTable = builder.setParamSet(LootContextParamSets.ALL_PARAMS).build();
-			JsonElement jsonTree = Deserializers.createLootTableSerializer().create().toJsonTree(lootTable);
-			output.add(DataProvider.saveStable(cache, jsonTree, path));
-		}
-		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
 	}
 
-	private static LootTable.Builder buildVillageLootTable(ResourceLocation house, Set<VillageLoot> villageLootSet) {
+	public static LootTable.Builder buildVillageLootTable(ResourceLocation house, Set<VillageLoot> villageLootSet) {
 		LootPool.Builder lootPool = LootPool.lootPool().add(LootTableReference.lootTableReference(house).setWeight(3));
 		for (VillageLoot loot : villageLootSet) {
 			lootPool.add(LootTableReference.lootTableReference(loot.lootTable));
@@ -193,7 +196,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 	}
 
 	@NotNull
-	private static LootTable.Builder buildShipwreckLootTable() {
+	public static LootTable.Builder buildShipwreckLootTable() {
 		return LootTable.lootTable().withPool(LootPool.lootPool()
 				.add(LootTableReference.lootTableReference(BuiltInLootTables.SHIPWRECK_MAP))
 				.add(LootTableReference.lootTableReference(BuiltInLootTables.SHIPWRECK_SUPPLY))
@@ -202,14 +205,14 @@ public class LooniumStructureLootProvider implements DataProvider {
 	}
 
 	@NotNull
-	private static LootTable.Builder buildDelegateLootTable(ResourceLocation reference) {
+	public static LootTable.Builder buildDelegateLootTable(ResourceLocation reference) {
 		return LootTable.lootTable().withPool(LootPool.lootPool()
 				.add(LootTableReference.lootTableReference(reference))
 		);
 	}
 
 	@NotNull
-	private static LootTable.Builder buildOceanRuinLootTable(ResourceLocation archaeology) {
+	public static LootTable.Builder buildOceanRuinLootTable(ResourceLocation archaeology) {
 		// Note: since the Loonium does not supply a location, treasure maps will roll as empty maps
 		return LootTable.lootTable().withPool(LootPool.lootPool()
 				// 30% of ocean ruin sites generate with a big ruin instead of a small one,
@@ -226,7 +229,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 		return "Structure-specific loot tables for the Loonium";
 	}
 
-	private enum VillageLoot {
+	public enum VillageLoot {
 		WEAPONSMITH(BuiltInLootTables.VILLAGE_WEAPONSMITH),
 		TOOLSMITH(BuiltInLootTables.VILLAGE_TOOLSMITH),
 		ARMORER(BuiltInLootTables.VILLAGE_ARMORER),
