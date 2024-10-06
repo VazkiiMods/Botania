@@ -17,7 +17,10 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-(none yet)
+* Add: Looniums can now give different loot and mob spawns based on which
+structure it's placed in, also further customizable with datapacks. Huuuuge
+thanks to Wormbo for a lot of work on this feature!
+* Change: More readable color in Loonium tooltip
 
 ---
 
