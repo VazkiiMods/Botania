@@ -486,7 +486,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Override
 	public int getColor() {
-		return 0x274A00;
+		return 0xC29D62;
 	}
 
 	@Override
