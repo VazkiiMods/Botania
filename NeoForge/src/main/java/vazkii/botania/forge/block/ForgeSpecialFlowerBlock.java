@@ -1,6 +1,7 @@
 package vazkii.botania.forge.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,10 +34,11 @@ public class ForgeSpecialFlowerBlock extends FlowerBlock implements EntityBlock 
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
 
-	public ForgeSpecialFlowerBlock(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
+	public ForgeSpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
 		super(/* the only godforsaken reason why this class needs to be duplicated for each loader
 				is so that we can add a "() ->" here. Amazing. */
-				() -> stewEffect, stewDuration, props);
+				// TODO: I think we can remove this now, the superclass is no longer patched
+				stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
 	}
 

@@ -2,6 +2,7 @@ package vazkii.botania.xplat;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -164,9 +165,9 @@ public interface XplatAbstractions {
 
 	// Registrations
 	boolean isSpecialFlowerBlock(Block b);
-	FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
-			BlockBehaviour.Properties props,
-			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType);
+	FlowerBlock createSpecialFlowerBlock(Holder<MobEffect> effect, int effectDuration,
+										 BlockBehaviour.Properties props,
+										 Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType);
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 	Item.Properties defaultItemBuilder();

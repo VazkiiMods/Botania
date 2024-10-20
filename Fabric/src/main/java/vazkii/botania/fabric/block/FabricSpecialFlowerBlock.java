@@ -9,6 +9,7 @@
 package vazkii.botania.fabric.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
@@ -43,7 +44,7 @@ public class FabricSpecialFlowerBlock extends FlowerBlock implements EntityBlock
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
 
-	public FabricSpecialFlowerBlock(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
+	public FabricSpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
 		super(stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
 	}
