@@ -31,7 +31,7 @@ import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.Arrays;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaInfusionProvider extends BotaniaRecipeProvider {
 	public ManaInfusionProvider(PackOutput packOutput) {
@@ -219,7 +219,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 	}
 
 	protected ResourceLocation id(String s) {
-		return prefix("mana_infusion/" + s);
+		return botaniaRL("mana_infusion/" + s);
 	}
 
 	protected static Ingredient ingr(ItemLike i) {
