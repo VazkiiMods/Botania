@@ -164,10 +164,6 @@ public interface XplatAbstractions {
 	void sendToTracking(Entity e, BotaniaPacket packet);
 
 	// Registrations
-	boolean isSpecialFlowerBlock(Block b);
-	FlowerBlock createSpecialFlowerBlock(Holder<MobEffect> effect, int effectDuration,
-										 BlockBehaviour.Properties props,
-										 Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType);
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 	Item.Properties defaultItemBuilder();

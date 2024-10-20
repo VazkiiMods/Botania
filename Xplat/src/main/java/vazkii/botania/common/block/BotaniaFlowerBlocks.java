@@ -315,7 +315,7 @@ public class BotaniaFlowerBlocks {
 			Holder<MobEffect> effect, int effectDuration,
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
-		return XplatAbstractions.INSTANCE.createSpecialFlowerBlock(
+		return new SpecialFlowerBlock(
 				effect, effectDuration, props, beType
 		);
 	}
