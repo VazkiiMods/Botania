@@ -1,21 +1,8 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven {
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
-            content { includeGroup "org.spongepowered" }
-        }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.25'
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-    }
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'net.neoforged.moddev.legacyforge' version '2.0.78'
 }
-
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'org.spongepowered.mixin'
 
 version = "${minecraft_version}-${build_number}-FORGE"
 if (System.getenv().RELEASE_MODE != "1") {
@@ -51,71 +38,67 @@ repositories {
     }
 }
 
-minecraft {
-    mappings channel: 'official', version: minecraft_version
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+legacyForge {
+    version = "1.20.1-47.1.3"
+    accessTransformers = [project(':Xplat').file('src/main/resources/META-INF/accesstransformer.cfg')]
+
+    parchment {
+        minecraftVersion = '1.20.1'
+        mappingsVersion = '2023.09.03'
+    }
 
     runs {
         client {
-            workingDirectory file('../run')
-            property 'forge.logging.console.level', 'debug'
-            property 'fml.earlyprogresswindow', 'false'
-            ideaModule "${rootProject.name}.${project.name}.main"
-            mods {
-                botania {
-                    source sourceSets.main
-                    source project(":Xplat").sourceSets.main
-                }
-            }
+            client()
+            systemProperty('forge.logging.console.level', 'debug')
         }
 
         server {
-            workingDirectory file('../run')
-            property 'forge.logging.console.level', 'debug'
-            property 'fml.earlyprogresswindow', 'false'
-            ideaModule "${rootProject.name}.${project.name}.main"
-            mods {
-                botania {
-                    source sourceSets.main
-                    source project(":Xplat").sourceSets.main
-                }
-            }
+            server()
+            systemProperty('forge.logging.console.level', 'debug')
         }
 
         data {
-            workingDirectory project.file('../run')
-            property 'fml.earlyprogresswindow', 'false'
-            ideaModule "${rootProject.name}.${project.name}.main"
-            args "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
-            mods {
-                botania {
-                    source sourceSets.main
-                    source project(":Xplat").sourceSets.main
-                }
-            }
-            args '--mod', 'botania', '--all', '--output', '"' + file('src/generated/resources/') + '"'
+            data()
+            programArguments.addAll "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
+            programArguments.addAll '--mod', 'botania', '--all'
+            programArguments.addAll '--output', '"' + file('src/generated/resources/').getAbsolutePath() + '"'
+            programArguments.addAll '--existing', '"' + file('src/main/resources/').getAbsolutePath() + '"'
+        }
+
+        configureEach {
+            gameDirectory = file('../run/')
+            systemProperty('fml.earlyprogresswindow', 'false')
+        }
+    }
+
+    mods {
+        botania {
+            sourceSet sourceSets.main
+            sourceSet project(":Xplat").sourceSets.main
         }
     }
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-47.1.3"
     compileOnly project(":Xplat")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-84-FORGE")
-    compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.27")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
+    modImplementation("vazkii.patchouli:Patchouli:${minecraft_version}-84-FORGE")
+    modCompileOnly("mezz.jei:jei-1.20.1-common-api:15.2.0.27")
+    modRuntimeOnly("mezz.jei:jei-1.20.1-forge:15.2.0.27")
 
-    compileOnly fg.deobf("dev.emi:emi-forge:1.0.12+${minecraft_version}:api")
-    //runtimeOnly fg.deobf("dev.emi:emi-forge:1.1.4+${minecraft_version}")
+    modCompileOnlyApi("dev.emi:emi-forge:1.0.12+${minecraft_version}")
+    //modRuntimeOnly("dev.emi:emi-forge:1.1.4+${minecraft_version}")
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1")
+    modCompileOnly("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1:api")
+    modRuntimeOnly("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1")
 
-    // compileOnly fg.deobf('com.blamejared.crafttweaker:CraftTweaker-forge-1.18.2:9.1.123')
+    // modCompileOnly('com.blamejared.crafttweaker:CraftTweaker-forge-1.18.2:9.1.123')
 
-    compileOnly fg.deobf('com.unascribed:ears-api:1.4.5')
+    modCompileOnly('com.unascribed:ears-api:1.4.5')
+
+    compileOnly "org.jetbrains:annotations:24.0.1"
 }
 
 compileJava {
@@ -150,7 +133,8 @@ jar {
                 "Specification-Version": "1", // We are version 1 of ourselves
                 "Implementation-Title": "${mod_name}",
                 "Implementation-Version": "${archiveVersion.get()}",
-                "Implementation-Vendor" :"vazkii"
+                "Implementation-Vendor" :"vazkii",
+                "MixinConfigs": "botania_xplat.mixins.json,botania_forge.mixins.json"
         ])
     }
     finalizedBy 'reobfJar'
