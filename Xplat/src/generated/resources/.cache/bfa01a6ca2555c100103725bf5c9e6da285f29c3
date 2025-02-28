@@ -29,6 +29,7 @@ fdccf413f94f9bc54ddb3cd8681d976fcba945d0 data/botania/tags/blocks/marimorphosis_
 482e0e7e492741201a883a48ee6806b5a4d4e51f data/botania/tags/blocks/mundane_floating_flowers.json
 d7dcc983bfdaf90fe776e2be93411250c03b9e7e data/botania/tags/blocks/mystical_flowers.json
 5f23216e4bb6dd5bd6ac046b1d203d8f002a4d86 data/botania/tags/blocks/pasture_seed_replaceable.json
+341596b22c806248c4c3c1050896ab40970465f0 data/botania/tags/blocks/shimmering_mushrooms.json
 6164f1b08110e8a36397260f3afecc09a6ced65a data/botania/tags/blocks/shiny_flowers.json
 278b6fb5ddf99d4fc9626494295fa7c5a11fc906 data/botania/tags/blocks/special_floating_flowers.json
 7131d151b6322c92982ca3cdff678eb194b8d38a data/botania/tags/blocks/special_flowers.json
@@ -59,6 +60,7 @@ d5f2792b94968c712824b9ab93ba589c15bd1886 data/minecraft/tags/blocks/rails.json
 8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/sand.json
 a01e6f58bac0c802977ef45bff0374c7030b2dac data/minecraft/tags/blocks/slabs.json
 e2a006bbecc6067ef36187214c8fe5f5c7ea1c2e data/minecraft/tags/blocks/small_flowers.json
+f6a5c0245b80f1c4bb390046a4e1a8265be42bd1 data/minecraft/tags/blocks/sniffer_diggable_block.json
 201298e855b770d34316738abb0e37a31ebd77b0 data/minecraft/tags/blocks/stairs.json
 589fa9d68f43847133a9115af36e85e50cf29be7 data/minecraft/tags/blocks/tall_flowers.json
 99110c18af7a6aa513ae990e843ba38bfc13bf3f data/minecraft/tags/blocks/walls.json

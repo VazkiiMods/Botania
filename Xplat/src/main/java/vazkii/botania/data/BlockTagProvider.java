@@ -15,7 +15,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FenceBlock;
@@ -32,12 +31,12 @@ import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.block.red_string.RedStringBlock;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -74,7 +73,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.WITHER_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 
 		tag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
-				Arrays.stream(DyeColor.values())
+				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getFloatingFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
@@ -90,21 +89,28 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addTag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS);
 
 		tag(BotaniaTags.Blocks.MYSTICAL_FLOWERS).add(
-				Arrays.stream(DyeColor.values())
+				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
+		tag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS).add(
+				ColorHelper.supportedColors()
+						.map(BotaniaBlocks::getMushroom)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new)
+		);
+
 		tag(BotaniaTags.Blocks.SHINY_FLOWERS).add(
-				Arrays.stream(DyeColor.values())
+				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getShinyFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
 		tag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
-				Arrays.stream(DyeColor.values())
+				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getDoubleFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
@@ -147,7 +153,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(BotaniaBlocks.manasteelBlock, BotaniaBlocks.terrasteelBlock, BotaniaBlocks.elementiumBlock,
 				BotaniaBlocks.manaDiamondBlock, BotaniaBlocks.dragonstoneBlock);
 
-		tag(BlockTags.DIRT).add(getModBlocks(b -> b instanceof BotaniaGrassBlock));
+		@NotNull
+		Block[] grassBlockVariants = getModBlocks(b -> b instanceof BotaniaGrassBlock);
+		tag(BlockTags.DIRT).add(grassBlockVariants);
+		tag(BlockTags.SNIFFER_DIGGABLE_BLOCK).add(grassBlockVariants);
 		tag(BotaniaTags.Blocks.BLOCKS_ELEMENTIUM).add(BotaniaBlocks.elementiumBlock);
 		tag(BotaniaTags.Blocks.BLOCKS_MANASTEEL).add(BotaniaBlocks.manasteelBlock);
 		tag(BotaniaTags.Blocks.BLOCKS_TERRASTEEL).add(BotaniaBlocks.terrasteelBlock);
@@ -218,15 +227,15 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.UNETHICAL_TNT_CHECK).addOptional(new ResourceLocation("ae2:tiny_tnt"));
 
 		tag(BlockTags.FLOWER_POTS)
-				.add(Arrays.stream(DyeColor.values())
+				.add(ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getPottedFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new))
-				.add(Arrays.stream(DyeColor.values())
+				.add(ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getPottedShinyFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new))
-				.add(Arrays.stream(DyeColor.values())
+				.add(ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getPottedMushroom)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new))

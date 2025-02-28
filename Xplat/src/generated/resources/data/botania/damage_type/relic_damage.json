@@ -1,6 +1,6 @@
 {
   "effects": "freezing",
   "exhaustion": 1.0,
-  "message_id": "botania-relic",
+  "message_id": "botania.relic",
   "scaling": "never"
 }

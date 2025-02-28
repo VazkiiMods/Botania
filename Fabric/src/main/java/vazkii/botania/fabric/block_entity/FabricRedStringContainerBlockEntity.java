@@ -13,8 +13,11 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 
+import java.util.EnumMap;
+
 public class FabricRedStringContainerBlockEntity extends RedStringContainerBlockEntity {
-	private final RedStringContainerStorage[] storages = new RedStringContainerStorage[Direction.values().length];
+	private RedStringContainerStorage storage;
+	private final EnumMap<Direction, RedStringContainerStorage> directionalStorages = new EnumMap<>(Direction.class);
 	private BlockPos clientPos;
 
 	public FabricRedStringContainerBlockEntity(BlockPos pos, BlockState state) {
@@ -28,12 +31,14 @@ public class FabricRedStringContainerBlockEntity extends RedStringContainerBlock
 		return null;
 	}
 
-	public Storage<ItemVariant> storage(Direction direction) {
-		int ordinal = direction.ordinal();
-		if (storages[ordinal] == null) {
-			storages[ordinal] = new RedStringContainerStorage(this, direction);
+	public Storage<ItemVariant> storage(@Nullable Direction direction) {
+		if (direction == null) {
+			if (storage == null) {
+				storage = new RedStringContainerStorage(this, null);
+			}
+			return storage;
 		}
-		return storages[ordinal];
+		return directionalStorages.computeIfAbsent(direction, dir -> new RedStringContainerStorage(this, dir));
 	}
 
 	@Override

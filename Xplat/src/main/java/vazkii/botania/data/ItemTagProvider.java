@@ -18,12 +18,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
@@ -60,6 +60,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.FLOATING_FLOWERS, BotaniaTags.Items.FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.copy(BotaniaTags.Blocks.MYSTICAL_FLOWERS, BotaniaTags.Items.MYSTICAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS, BotaniaTags.Items.SHIMMERING_MUSHROOMS);
 
 		this.copy(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS, BotaniaTags.Items.MISC_SPECIAL_FLOWERS);
 		this.copy(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS, BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS);
@@ -135,11 +136,11 @@ public class ItemTagProvider extends ItemTagsProvider {
 		);
 
 		TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
-		for (DyeColor color : DyeColor.values()) {
+		ColorHelper.supportedColors().forEach(color -> {
 			var petalTag = BotaniaTags.Items.getPetalTag(color);
 			this.tag(petalTag).add(getPetal(color), BotaniaBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
-		}
+		});
 
 		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST)
 				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus)

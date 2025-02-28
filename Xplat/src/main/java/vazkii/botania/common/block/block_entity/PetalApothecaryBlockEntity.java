@@ -77,16 +77,19 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				setFluid(State.WATER);
 				bucketItem.checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
 				item.setItem(new ItemStack(Items.BUCKET));
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
 				return true;
 			}
 
 			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.WATER)) {
 				setFluid(State.WATER);
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
 				return true;
 			}
 
 			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.LAVA)) {
 				setFluid(State.LAVA);
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
 				return true;
 			}
 

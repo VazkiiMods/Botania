@@ -17,6 +17,8 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -75,22 +77,22 @@ public final class BotaniaItems {
 	public static final Item obedienceStick = make(prefix(LibItemNames.OBEDIENCE_STICK), new FloralObedienceStickItem(unstackable()));
 	public static final Item fertilizer = make(prefix(LibItemNames.FERTILIZER), new FloralFertilizerItem(defaultBuilder()));
 
-	public static final Item whitePetal = make(prefix("white" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.WHITE), DyeColor.WHITE, defaultBuilder()));
-	public static final Item orangePetal = make(prefix("orange" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.ORANGE), DyeColor.ORANGE, defaultBuilder()));
-	public static final Item magentaPetal = make(prefix("magenta" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.MAGENTA), DyeColor.MAGENTA, defaultBuilder()));
-	public static final Item lightBluePetal = make(prefix("light_blue" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.LIGHT_BLUE), DyeColor.LIGHT_BLUE, defaultBuilder()));
-	public static final Item yellowPetal = make(prefix("yellow" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.YELLOW), DyeColor.YELLOW, defaultBuilder()));
-	public static final Item limePetal = make(prefix("lime" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.LIME), DyeColor.LIME, defaultBuilder()));
-	public static final Item pinkPetal = make(prefix("pink" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.PINK), DyeColor.PINK, defaultBuilder()));
-	public static final Item grayPetal = make(prefix("gray" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.GRAY), DyeColor.GRAY, defaultBuilder()));
-	public static final Item lightGrayPetal = make(prefix("light_gray" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.LIGHT_GRAY), DyeColor.LIGHT_GRAY, defaultBuilder()));
-	public static final Item cyanPetal = make(prefix("cyan" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.CYAN), DyeColor.CYAN, defaultBuilder()));
-	public static final Item purplePetal = make(prefix("purple" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.PURPLE), DyeColor.PURPLE, defaultBuilder()));
-	public static final Item bluePetal = make(prefix("blue" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.BLUE), DyeColor.BLUE, defaultBuilder()));
-	public static final Item brownPetal = make(prefix("brown" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.BROWN), DyeColor.BROWN, defaultBuilder()));
-	public static final Item greenPetal = make(prefix("green" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.GREEN), DyeColor.GREEN, defaultBuilder()));
-	public static final Item redPetal = make(prefix("red" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.RED), DyeColor.RED, defaultBuilder()));
-	public static final Item blackPetal = make(prefix("black" + LibItemNames.PETAL_SUFFIX), new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(DyeColor.BLACK), DyeColor.BLACK, defaultBuilder()));
+	public static final Item whitePetal = makePetal(DyeColor.WHITE);
+	public static final Item lightGrayPetal = makePetal(DyeColor.LIGHT_GRAY);
+	public static final Item grayPetal = makePetal(DyeColor.GRAY);
+	public static final Item blackPetal = makePetal(DyeColor.BLACK);
+	public static final Item brownPetal = makePetal(DyeColor.BROWN);
+	public static final Item redPetal = makePetal(DyeColor.RED);
+	public static final Item orangePetal = makePetal(DyeColor.ORANGE);
+	public static final Item yellowPetal = makePetal(DyeColor.YELLOW);
+	public static final Item limePetal = makePetal(DyeColor.LIME);
+	public static final Item greenPetal = makePetal(DyeColor.GREEN);
+	public static final Item cyanPetal = makePetal(DyeColor.CYAN);
+	public static final Item lightBluePetal = makePetal(DyeColor.LIGHT_BLUE);
+	public static final Item bluePetal = makePetal(DyeColor.BLUE);
+	public static final Item purplePetal = makePetal(DyeColor.PURPLE);
+	public static final Item magentaPetal = makePetal(DyeColor.MAGENTA);
+	public static final Item pinkPetal = makePetal(DyeColor.PINK);
 
 	public static final Item manaSteel = make(prefix(LibItemNames.MANASTEEL_INGOT), new Item(defaultBuilder()));
 	public static final Item manaPearl = make(prefix(LibItemNames.MANA_PEARL), new Item(defaultBuilder()));
@@ -395,6 +397,12 @@ public final class BotaniaItems {
 			throw new IllegalArgumentException("Typo? Duplicate id " + id);
 		}
 		return item;
+	}
+
+	@NotNull
+	private static MysticalPetalItem makePetal(DyeColor dyeColor) {
+		return make(prefix(dyeColor.getName() + LibItemNames.PETAL_SUFFIX),
+				new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(dyeColor), dyeColor, defaultBuilder()));
 	}
 
 	public static Item.Properties defaultBuilder() {

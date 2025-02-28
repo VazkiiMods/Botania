@@ -24,7 +24,7 @@ public class BotaniaDamageTypes {
 			ResourceKey.create(Registries.DAMAGE_TYPE, prefix("key_explosion"));
 
 	public static final DamageType PLAYER_AP = new DamageType("player", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1F);
-	public static final DamageType RELIC = new DamageType("botania-relic", DamageScaling.NEVER, 1F, DamageEffects.FREEZING);
+	public static final DamageType RELIC = new DamageType("botania.relic", DamageScaling.NEVER, 1F, DamageEffects.FREEZING);
 	public static final DamageType KEY = new DamageType("botania.key_explosion", DamageScaling.ALWAYS, 0.1F);
 
 	public static class Sources {

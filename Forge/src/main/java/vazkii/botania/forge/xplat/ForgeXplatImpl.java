@@ -29,6 +29,7 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
@@ -227,11 +228,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
 		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
-					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
-							IFluidHandler.FluidAction.SIMULATE);
+					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
 					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
 					if (success) {
-						h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
 						item.setItem(h.getContainer());
 					}
 					return success;
@@ -244,11 +244,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		var stack = player.getItemInHand(hand);
 		return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
-					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
-							IFluidHandler.FluidAction.SIMULATE);
+					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
 					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
 					if (success && !player.getAbilities().instabuild) {
-						h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
 						player.setItemInHand(hand, h.getContainer());
 					}
 					return success;
@@ -457,8 +456,9 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
 			BlockBehaviour.Properties props,
-			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
-		return new ForgeSpecialFlowerBlock(effect, effectDuration, props, beType);
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
+			boolean hasComparatorOutput) {
+		return new ForgeSpecialFlowerBlock(effect, effectDuration, props, beType, hasComparatorOutput);
 	}
 
 	@Override
@@ -584,6 +584,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 			}
 		}
 		return energy;
+	}
+
+	@Nullable
+	@Override
+	public FoodProperties getFoodProperties(ItemStack stack) {
+		return stack.getFoodProperties(null);
 	}
 
 	@Override

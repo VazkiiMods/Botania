@@ -26,6 +26,7 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
@@ -163,9 +164,17 @@ public interface XplatAbstractions {
 
 	// Registrations
 	boolean isSpecialFlowerBlock(Block b);
+
+	default FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
+			BlockBehaviour.Properties props,
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
+		return createSpecialFlowerBlock(effect, effectDuration, props, beType, false);
+	}
+
 	FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
 			BlockBehaviour.Properties props,
-			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType);
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
+			boolean hasComparatorOutput);
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 	Item.Properties defaultItemBuilder();
@@ -200,6 +209,8 @@ public interface XplatAbstractions {
 	boolean preventsRemoteMovement(ItemEntity entity);
 	void addAxeStripping(Block input, Block output);
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
+	@Nullable
+	FoodProperties getFoodProperties(ItemStack stack);
 
 	// Red string container
 	boolean isRedStringContainerTarget(BlockEntity be);

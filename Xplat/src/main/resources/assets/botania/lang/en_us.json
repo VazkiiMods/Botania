@@ -212,6 +212,7 @@
   "tag.botania.mystical_flowers": "Mystical Flowers",
   "tag.botania.double_mystical_flowers": "Tall Mystical Flowers",
   "tag.botania.floating_flowers": "Floating Flowers",
+  "tag.botania.shimmering_mushrooms": "Shimmering Mushrooms",
   "tag.botania.special_flowers": "Special Flowers",
   "tag.botania.mundane_floating_flowers": "Mundane Floating Flowers",
   "tag.botania.special_floating_flowers": "Special Floating Flowers",
@@ -442,7 +443,7 @@
   "item.botania.dice.poem2": "The hidden laws of a probable outcome,",
   "item.botania.dice.poem3": "The numbers lead a dance.",
 
-  "death.attack.botania-relic": "%s was punished for using a relic that isn't theirs",
+  "death.attack.botania.relic": "%s was punished for using a relic that isn't theirs",
   "death.attack.botania.key_explosion": "%2$s drowned %1$s in treasure",
 
   "effect.botania.allure.description": "Doubles fishing speed.",
@@ -2030,9 +2031,9 @@
   "botania.page.flowers3": "Plucking petals off flowers.",
   "botania.page.flowers15": "Dye",
   "botania.page.flowers5": "Grinding Petals into Dye.",
-  "botania.page.flowers6": "By mixing $(item)Dye$(0) with some $(item)Bone Meal$(0), you'll create a different type of fertilizer. This $(item)Floral Fertilizer$(0) will grow a few $(item)Mystical Flowers$(0) in the nearby vicinity, if you ever run low on those.",
+  "botania.page.flowers6": "By mixing $(item)Dye$(0) with some $(item)Bone Meal$(0), you'll create a different type of fertilizer. This $(item)Floral Fertilizer$(0) will grow a few $(item)Mystical Flowers$(0) in the nearby vicinity, if you ever run low on those.$(p)Depending on the soil, $(l:misc/mushrooms)$(item)Shimmering Mushrooms$(0)$(/l) may grow in addition to (or instead of) flowers.",
   "botania.page.flowers8": "Using any combination of typical flower substances will work",
-  "botania.page.flowers18": "There're also some taller variants of the typical $(item)Mystical Flowers$(0) around the world. These can be plucked for twice the petals a normal flower would yield.$(p)Tall flower variants can be made manually by fertilizing a $(item)Mystical Flower$(0) or a $(item)Buried Petal$(0) with $(item)Bone Meal$(0).$(p)If you find yourself running low on a particular color, try burying a petal of that color and using $(item)Bone Meal$(0) on it.",
+  "botania.page.flowers18": "There are also some taller variants of the typical $(item)Mystical Flowers$(0) around the world. These can be plucked for twice the petals a normal flower would yield.$(p)Tall flower variants can be made manually by fertilizing a $(item)Mystical Flower$(0) or a $(item)Buried Petal$(0) with $(item)Bone Meal$(0).$(p)If you find yourself running low on a particular color, try burying a petal of that color and using $(item)Bone Meal$(0) on it.",
   "botania.page.flowers11": "Prepare for trouble",
   "botania.page.flowers16": "Petal Block",
   "botania.page.flowers9": "Petals can also be made into blocks",
@@ -3048,8 +3049,9 @@
 
   "botania.entry.temperanceStone": "Stone of Temperance",
   "botania.tagline.temperanceStone": "A limiter for the power of the Terrasteel Tools",
-  "botania.page.temperanceStone0": "The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, an active $(item)Stone of Temperance$(0) in the inventory will prevent a $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) from breaking any wider areas. This also affects the $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l) and the $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l). The stone can be toggled on/off by right clicking it, either in your inventory or your hand.",
+  "botania.page.temperanceStone0": "The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, an active $(item)Stone of Temperance$(0) in the inventory will prevent a $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) from breaking any wider areas.",
   "botania.page.temperanceStone1": "Don't lose it",
+  "botania.page.temperanceStone2": "Other items may have effects that are slightly too powerful in certain situations as well. An active $(item)Stone of Temperance$(0) also turns off the $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l), reduces the area affected by the $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l), and prevents certain speed boosts, such as the one by the $(l:baubles/water_ring)$(item)Ring of Chordata$(0)$(/l).$(p)The stone can be toggled on/off by right clicking it, either in your inventory or your hand.",
 
   "botania.entry.terraAxe": "Terra Truncator",
   "botania.tagline.terraAxe": "An axe that chops down whole trees. How inspired",
@@ -3160,7 +3162,7 @@
   "botania.tagline.flightTiara": "Three-dimensional flight... up to a point",
   "botania.page.flightTiara0": "The $(thing)Flügel$(0) were a race of god-slaying beings that once dominated these lands and possessed powers of three-dimensional flight.$(p)Among other things.$(p)While the $(thing)Flügel$(0) are now $(o)quite$() extinct, the $(item)Flügel Tiara$(0), fashioned from $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l), can use $(thing)Mana$(0) to replicate their power of flight.",
   "botania.page.flightTiara4": "This marvelous reproduction of ancient artifice isn't perfect, though: the tiara can't provide the power of flight indefinitely. If used for around thirty seconds consecutively, it'll \"overload\" and lose its ability to sustain flight.$(p)A \"flight bar\" is displayed on the HUD to monitor this usage.",
-  "botania.page.flightTiara5": "In addition to simple flight, the tiara grants its wearer the ability to $(thing)dash$(0) and $(thing)glide$(0). Dashing, by pressing [$(k:sprint)] without already sprinting, will boost its wearer forwards. Very quickly.$(p)Dashes can only be done every 2 seconds.",
+  "botania.page.flightTiara5": "In addition to simple flight, the tiara grants its wearer the ability to $(thing)dash$(0) and $(thing)glide$(0). Dashing, by pressing [$(k:sprint)] without already sprinting, will boost its wearer forwards. Very quickly.$(p)Dashes can only be done every 2 seconds, and are disabled by an active $(l:tools/temperance_stone)$(item)Stone of Temperance$(0)$(/l).",
   "botania.page.flightTiara6": "Gliding allows for a gentle descent to the ground that covers a decent horizontal distance as well, preventing fall damage in the process. To glide, simply sneak while falling.$(p)Gliding can be done even on an empty flight bar, but will slow its regeneration.",
   "botania.page.flightTiara1": "Forty thousand books from another world",
   "botania.page.flightTiara2": "Combining the $(item)Flügel Tiara$(0) with different types of $(item)Quartz$(0) will change the appearance of its wings: one style for each type of quartz.$(p)The recipes for the various types of quartz can be found under $(l:misc/decorative_blocks)$(thing)Decorative Blocks$(0)$(/l), and the $(thing)Elves$(0) will trade $(l:alfhomancy/elf_resources)$(item)Elven Quartz$(0)$(/l) for $(item)Nether Quartz$(0).",
@@ -3353,7 +3355,7 @@
 
   "botania.entry.waterRing": "Ring of Chordata",
   "botania.tagline.waterRing": "Move super fast underwater",
-  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, maneuverability, and mining speed, as well as the ability to breathe indefinitely.",
+  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, maneuverability, and mining speed, as well as the ability to breathe indefinitely.$(p)If the speed boost becomes an issue, an active $(l:tools/temperance_stone)$(item)Stone of Temperance$(0)$(/l) can disable it.",
   "botania.page.waterRing1": "Check out that fish AI",
 
   "botania.entry.miningRing": "Ring of the Mantle",

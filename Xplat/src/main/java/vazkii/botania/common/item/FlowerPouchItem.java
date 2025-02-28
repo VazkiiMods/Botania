@@ -47,18 +47,19 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.stream.IntStream;
 
 public class FlowerPouchItem extends Item {
-	public static final int SIZE = 2 * DyeColor.values().length;
+	public static final int DYE_COUNT = 16;
+	public static final int SIZE = 2 * DYE_COUNT;
 
 	public FlowerPouchItem(Properties props) {
 		super(props);
 	}
 
 	public static Item getFlowerForSlot(int slot) {
-		if (slot < 16) {
+		if (slot < DYE_COUNT) {
 			DyeColor color = DyeColor.byId(slot);
 			return BotaniaBlocks.getFlower(color).asItem();
 		} else {
-			DyeColor color = DyeColor.byId(slot - 16);
+			DyeColor color = DyeColor.byId(slot - DYE_COUNT);
 			return BotaniaBlocks.getDoubleFlower(color).asItem();
 		}
 	}

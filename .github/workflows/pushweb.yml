@@ -37,7 +37,8 @@ jobs:
       working-directory: web
       run: |
         sudo apt-get install bundler
-        bundle install --deployment
+        bundle config set --local deployment 'true'
+        bundle install
     - name: Build website
       working-directory: web
       run: bundle exec jekyll build

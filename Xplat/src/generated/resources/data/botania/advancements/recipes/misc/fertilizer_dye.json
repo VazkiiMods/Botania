@@ -11,17 +11,32 @@
           },
           {
             "items": [
+              "minecraft:light_gray_dye"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:gray_dye"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:black_dye"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:brown_dye"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:red_dye"
+            ]
+          },
+          {
+            "items": [
               "minecraft:orange_dye"
-            ]
-          },
-          {
-            "items": [
-              "minecraft:magenta_dye"
-            ]
-          },
-          {
-            "items": [
-              "minecraft:light_blue_dye"
             ]
           },
           {
@@ -36,17 +51,7 @@
           },
           {
             "items": [
-              "minecraft:pink_dye"
-            ]
-          },
-          {
-            "items": [
-              "minecraft:gray_dye"
-            ]
-          },
-          {
-            "items": [
-              "minecraft:light_gray_dye"
+              "minecraft:green_dye"
             ]
           },
           {
@@ -56,7 +61,7 @@
           },
           {
             "items": [
-              "minecraft:purple_dye"
+              "minecraft:light_blue_dye"
             ]
           },
           {
@@ -66,22 +71,17 @@
           },
           {
             "items": [
-              "minecraft:brown_dye"
+              "minecraft:purple_dye"
             ]
           },
           {
             "items": [
-              "minecraft:green_dye"
+              "minecraft:magenta_dye"
             ]
           },
           {
             "items": [
-              "minecraft:red_dye"
-            ]
-          },
-          {
-            "items": [
-              "minecraft:black_dye"
+              "minecraft:pink_dye"
             ]
           }
         ]

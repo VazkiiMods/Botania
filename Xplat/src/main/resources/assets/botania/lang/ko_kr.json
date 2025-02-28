@@ -948,6 +948,7 @@
   "block.botania.shimmerwood_planks_slab": "심머우드 반 블록",
   "block.botania.shimmerwood_planks_stairs": "심머우드 계단",
   "block.botania.avatar": "생명의 나무 아바타",
+  "block.botania.avatar": "리빙우드 아바타",
   "block.botania.dry_grass": "메마른 잔디",
   "block.botania.golden_grass": "금빛 잔디",
   "block.botania.vivid_grass": "비비드 잔디",
@@ -1001,6 +1002,8 @@
   "block.botania.floating_rafflowsia": "떠다니는 래플로시아",
   "block.botania.shulk_me_not": "셜크 미 낫",
   "block.botania.shulk_me_not.reference": "실감나네.",
+  "block.botania.shulk_me_not.reference": "실감나네",
+ 
   "block.botania.floating_shulk_me_not": "떠다니는 셜크 미 낫",
   "block.botania.bellethorn": "미인가시꽃",
   "block.botania.bellethorn.reference": "세계의 끝에서 부르는 여성들의 론도",
@@ -1071,6 +1074,7 @@
   "block.botania.clayconia.reference": "루피는 없어요. 아니 그냥 없어요.",
   "block.botania.clayconia_chibi": "작은 점토코니아",
   "block.botania.clayconia_chibi.reference": "루피는 없어요. 아니 그냥 없어요.",
+  "block.botania.clayconia_chibi.reference": "루피는 없습니다",
   "block.botania.floating_clayconia_chibi": "떠다니는 작은 점토코니아",
   "block.botania.floating_clayconia": "떠다니는 점토코니아",
   "block.botania.loonium": "탐사초",
@@ -1117,6 +1121,7 @@
   "block.botania.hydroangeas_motif": "수국 모티프",
   "block.botania.daybloom_motif.description": "과거를 풍미한 꽃",
   "block.botania.hydroangeas_motif.description": "화사하며, 으스러지지 않는다",
+  "block.botania.hydroangeas_motif.description": "화사하며,으스러지지 않는다",
 
   "item.botania.lexicon": "보타니아 사전",
   "item.botania.lexicon.bevo": "보타니아 사전",
@@ -2800,8 +2805,9 @@
 
   "botania.entry.temperanceStone": "온건의 돌",
   "botania.tagline.temperanceStone": "테라스틸 도구의 강력함을 제한하는 장치",
-  "botania.page.temperanceStone0": "$(l:tools/terra_pick)$(item)테라 샤티러$(0)$(/l)는 최대로 충전되면 번개처럼 거대한 땅을 찢어낼 수 있습니다. 그러나 이것은 항상 사용자의 의도일 필요가 없을 수 있습니다. 특정 경우에는 작은 3x3 영역이 더 적합할 수 있습니다. 따라서 인벤토리에 있는 활성 상태의 $(item)온건의 돌$(0)은 $(l:tools/terra_pick)$(item)테라 샤티러$(0)$(/l)가 더 넓은 지역을 부수지 못하게 합니다. 이것은 또한 $(l:tools/terra_axe)$(item)테라 트런케이터$(0)$(/l)와 $(l:tools/exchange_rod)$(item)로드 오브 더 시프팅 크러스트$(0)$(/l)에도 영향을 미칩니다. 돌은 인벤토리나 손에 든 상태에서 우클릭으로 켜고 끌 수 있습니다.",
+  "botania.page.temperanceStone0": "$(l:tools/terra_pick)$(item)테라 샤티러$(0)$(/l)는 최대로 충전되면 번개처럼 거대한 땅을 찢어낼 수 있습니다. 그러나 이것은 항상 사용자의 의도일 필요가 없을 수 있습니다. 특정 경우에는 작은 3x3 영역이 더 적합할 수 있습니다. 따라서 인벤토리에 있는 활성 상태의 $(item)온건의 돌$(0)은 $(l:tools/terra_pick)$(item)테라 샤티러$(0)$(/l)가 더 넓은 지역을 부수지 못하게 합니다.",
   "botania.page.temperanceStone1": "분실하지 마세요",
+  "botania.page.temperanceStone2": "이것은 또한 $(l:tools/terra_axe)$(item)테라 트런케이터$(0)$(/l)와 $(l:tools/exchange_rod)$(item)로드 오브 더 시프팅 크러스트$(0)$(/l)에도 영향을 미칩니다. 돌은 인벤토리나 손에 든 상태에서 우클릭으로 켜고 끌 수 있습니다.",
 
   "botania.entry.terraAxe": "테라 트런케이터",
   "botania.tagline.terraAxe": "전체 나무를 베어버리는 도끼. 얼마나 영감을 받았을까",

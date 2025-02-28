@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Locale;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 public final class ColorHelper {
 	public static final Function<DyeColor, Block> STAINED_GLASS_MAP = color -> BuiltInRegistries.BLOCK.get(new ResourceLocation(color.getSerializedName() + "_stained_glass"));
@@ -35,7 +35,7 @@ public final class ColorHelper {
 		ResourceLocation name = BuiltInRegistries.BLOCK.getKey(b);
 		if ("minecraft".equals(name.getNamespace()) && name.getPath().endsWith("_wool")) {
 			String color = name.getPath().substring(0, name.getPath().length() - "_wool".length());
-			return DyeColor.valueOf(color.toUpperCase(Locale.ROOT));
+			return DyeColor.byName(color, null);
 		}
 		return null;
 	}
@@ -60,6 +60,27 @@ public final class ColorHelper {
 			case BROWN -> 0x8B6543;
 			default -> color.getTextColor();
 		};
+	}
+
+	public static Stream<DyeColor> supportedColors() {
+		return Stream.of(
+				DyeColor.WHITE,
+				DyeColor.LIGHT_GRAY,
+				DyeColor.GRAY,
+				DyeColor.BLACK,
+				DyeColor.BROWN,
+				DyeColor.RED,
+				DyeColor.ORANGE,
+				DyeColor.YELLOW,
+				DyeColor.LIME,
+				DyeColor.GREEN,
+				DyeColor.CYAN,
+				DyeColor.LIGHT_BLUE,
+				DyeColor.BLUE,
+				DyeColor.PURPLE,
+				DyeColor.MAGENTA,
+				DyeColor.PINK
+		);
 	}
 
 	private ColorHelper() {}

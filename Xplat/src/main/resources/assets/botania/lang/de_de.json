@@ -212,6 +212,7 @@
     "tag.botania.mystical_flowers": "Mystische Blumen",
     "tag.botania.double_mystical_flowers": "Große Mystische Blumen",
     "tag.botania.floating_flowers": "Schwebende Blumen",
+    "tag.botania.shimmering_mushrooms": "Schillernde Pilze",
     "tag.botania.special_flowers": "Spezielle Blumen",
     "tag.botania.mundane_floating_flowers": "Gewöhnliche schwebende Blumen",
     "tag.botania.special_floating_flowers": "Spezielle schwebende Blumen",
@@ -442,7 +443,7 @@
     "item.botania.dice.poem2": "Das verborgene Gesetz möglicher Ergebnisse,",
     "item.botania.dice.poem3": "Die Zahlen eröffnen einen Tanz.",
 
-    "death.attack.botania-relic": "%s wurde für die Benutzung eines Relikts von jemand Anderem bestraft",
+    "death.attack.botania.relic": "%s wurde für die Benutzung eines Relikts von jemand Anderem bestraft",
     "death.attack.botania.key_explosion": "%2$s überhäufte %1$s mit Schätzen",
 
     "effect.botania.allure.description": "Verdoppelt Angeltempo.",
@@ -2030,7 +2031,7 @@
     "botania.page.flowers3": "Blütenblätter von den Blumen zupfen.",
     "botania.page.flowers15": "Farbstoff",
     "botania.page.flowers5": "Blütenblätter zu Fabstoff verarbeiten.",
-    "botania.page.flowers6": "Durch das Vermischen von $(item)Farbstoff$(0) mit etwas some $(item)Knochenmehl$(0) kannst du eine andere Art von Dünger herstellen. Dieser $(item)Blumendünger$(0) lässt $(item)Mystische Blumen$(0) in der Nähe wachsen, falls sie knapp werden sollten.",
+    "botania.page.flowers6": "Durch das Vermischen von $(item)Farbstoff$(0) mit etwas some $(item)Knochenmehl$(0) kannst du eine andere Art von Dünger herstellen. Dieser $(item)Blumendünger$(0) lässt $(item)Mystische Blumen$(0) in der Nähe wachsen, falls sie knapp werden sollten.$(p)Je nach Art des Bodens können zusätzlich zu (oder anstatt von) Blumen auch $(l:misc/mushrooms)$(item)Schillernde Pilze$(0)$(/l) wachsen.",
     "botania.page.flowers8": "Jede Kombination typischer Blumensubstanzen funktioniert",
     "botania.page.flowers18": "Es gibt auch höhere Varianten der typischen $(item)Mystischen Blumen$(0) in der Welt. Von diesen kann man die doppelte Menge Blütenblätter zupfen, die normale Blumen liefern würden.$(p)Hohe Blumenvarianten können manuell durch Düngen einer $(item)Mystischen Blume$(0) oder eines $(item)Vergrabenen Blütenblatts$(0) mit $(item)Knochenmehl$(0) erzeugt werden.$(p)Falls eine Farbe knapp wird, vergrabe einfach ein Blütenblatt dieser Farbe und wende $(item)Knochenmehl$(0) darauf an.",
     "botania.page.flowers11": "Jetzt gibt's Ärger",
@@ -3048,8 +3049,9 @@
 
     "botania.entry.temperanceStone": "Stein der Mäßigung",
     "botania.tagline.temperanceStone": "Begrenzer für die Kraft von Terrastahl-Werkzeugen",
-    "botania.page.temperanceStone0": "Der $(l:tools/terra_pick)$(item)Terra-Trümmerer$(0)$(/l) kann blitzschnell durch große Landstücke graben, wenn er auf sein maximales Potenzial geladen wurde. Das ist jedoch nicht immer die Intention des Nutzers. Ein kleiner 3x3-Bereich dürfte oft angemessener sein. Entsprechend verhindert ein aktiver $(item)Stein der Mäßigung$(0) im Inventar, dass ein $(l:tools/terra_pick)$(item)Terra-Trümmerer$(0)$(/l) einen größeren Bereich abbaut. Das betrifft auch den $(l:tools/terra_axe)$(item)Terra-Stutzer$(0)$(/l) und die $(l:tools/exchange_rod)$(item)Rute der veränderlichen Kruste$(0)$(/l).",
-    "botania.page.temperanceStone1": "Verlier ihn nicht$(br)$(p)Der Stein kann per Rechtsklick im Inventar oder der Hand an- oder ausgeschaltet werden.",
+    "botania.page.temperanceStone0": "Der $(l:tools/terra_pick)$(item)Terra-Trümmerer$(0)$(/l) kann blitzschnell durch große Landstücke graben, wenn er auf sein maximales Potenzial geladen wurde. Das ist jedoch nicht immer die Intention des Nutzers. Ein kleiner 3x3-Bereich dürfte oft angemessener sein. Entsprechend verhindert ein aktiver $(item)Stein der Mäßigung$(0) im Inventar, dass ein $(l:tools/terra_pick)$(item)Terra-Trümmerer$(0)$(/l) einen größeren Bereich abbaut.",
+    "botania.page.temperanceStone1": "Verlier ihn nicht",
+    "botania.page.temperanceStone2": "Auch andere Gegenstände können zeitweilig zu mächtig sein. Ein aktiver $(item)Stein der Mäßigung$(0) schaltet den $(l:tools/terra_axe)$(item)Terra-Stutzer$(0)$(/l) ab, reduziert den Wirkbereich einer $(l:tools/exchange_rod)$(item)Rute der veränderlichen Kruste$(0)$(/l) und verhindert bestimmte Beschleunigungen, wie die des $(l:baubles/water_ring)$(item)Rings der Ozeane$(0)$(/l).$(p)Der Stein kann per Rechtsklick im Inventar oder der Hand an- oder ausgeschaltet werden.",
 
     "botania.entry.terraAxe": "Terra-Stutzer",
     "botania.tagline.terraAxe": "Eine Axt zum Fällen ganzer Bäume. Wie genial",
@@ -3160,7 +3162,7 @@
     "botania.tagline.flightTiara": "Dreidimensionaler Flug... bis zu einem gewissen Grad",
     "botania.page.flightTiara0": "Die $(thing)Flügel$(0) waren eine Rasse Götter-totender Wesen, die einst diese Lande dominierten und den dreidimensionalen Flug beherrschten.$(p)Neben anderen Dingen.$(p)Während die $(thing)Flügel$(0) heutzutage $(o)ziemlich$() ausgestorben sind, kann die $(item)Flügel-Tiara$(0), hergestellt aus $(l:alfhomancy/gaia_ritual)$(item)Gaia-Seelen$(0)$(/l), $(thing)Mana$(0) zum Replizieren dieser Flugfähigkeit nutzen.",
     "botania.page.flightTiara4": "Diese Reproduktion antiker Handwerkskunst ist jedoch nicht perfekt: Die Tiara kann die Flugfähigkeit nicht unbegrenzt bieten. Nach etwa 30 Sekunden durchgängiger Nutzen \"überlädt\" sie und kann die Flugfähigkeit nicht mehr aufrechterhalten.$(p)Ein \"Flugbalken\" wird im HUD angezeigt, um dies zu überwachen.",
-    "botania.page.flightTiara5": "Zusätzlich zum einfachen Flug gewährt die Tiara ihrem Träger die Fähigkeit zu $(thing)spurten$(0) und zu $(thing)gleiten$(0). Spurten, durch Drücken von [$(k:sprint)] ohne bereits zu Sprinten, treibt den Träger vorwärts. Sehr schnell.$(p)Spurts können nur alle 2 Sekunden ausgeführt werden.",
+    "botania.page.flightTiara5": "Zusätzlich zum einfachen Flug gewährt die Tiara ihrem Träger die Fähigkeit zu $(thing)spurten$(0) und zu $(thing)gleiten$(0). Spurten, durch Drücken von [$(k:sprint)] ohne bereits zu Sprinten, treibt den Träger vorwärts. Sehr schnell.$(p)Spurts können nur alle 2 Sekunden ausgeführt werden und werden durch einen aktiven $(l:tools/temperance_stone)$(item)Stein der Mäßigung$(0)$(/l) verhindert.",
     "botania.page.flightTiara6": "Gleiten erlaubt einen sanfteren Abstieg zum Boden, der auch horizontal gut Distanz überbrückt, wobei Fallschaden vermieden wird.$(p)Gleiten kann auch bei leerem Flugbalken genutzt werden, verlangsamt aber dessen Regeneration.",
     "botania.page.flightTiara1": "Vierzigtausend Bücher aus einer anderen Welt",
     "botania.page.flightTiara2": "Indem die $(item)Flügel-Tiara$(0) mit verschiedenen Arten von $(item)Quarz$(0) kombiniert wird, ändert sich das Aussehen ihrer Flügel, wobei es pro Quarztyp einen Stil gibt.$(p)Die Rezepte der verschiedenen Quarztypen sind unter $(l:misc/decorative_blocks)$(thing)Dekorative Blöcke$(0)$(/l) zu finden, und die $(thing)Elfen$(0) tauschen $(l:alfhomancy/elf_resources)$(item)Elfen-Quarz$(0)$(/l) gegen $(item)Nether-Quarz$(0).",
@@ -3353,7 +3355,7 @@
 
     "botania.entry.waterRing": "Ring der Ozeane",
     "botania.tagline.waterRing": "Bewege dich superschnell unterwasser",
-    "botania.page.waterRing0": "Der $(item)Ring der Ozeane$(0) erlaubt seinem Nutzer zu schwimmen wie ein Fisch. Wenn angelegt, nutzt er $(thing)Mana$(0) um einem untergetauchten Träger mit besserer Sicht, Beweglichkeit und Abbaugeschwindigkeit auszustatten, sowie der Fähigkeit, unbegrenzt unterwasser atmen zu können.",
+    "botania.page.waterRing0": "Der $(item)Ring der Ozeane$(0) erlaubt seinem Nutzer zu schwimmen wie ein Fisch. Wenn angelegt, nutzt er $(thing)Mana$(0) um einem untergetauchten Träger mit besserer Sicht, Beweglichkeit und Abbaugeschwindigkeit auszustatten, sowie der Fähigkeit, unbegrenzt unterwasser atmen zu können.$(br)Die zusätzliche Geschwindigkeit kann mit einem aktiven $(l:tools/temperance_stone)$(item)Stein der Mäßigung$(0)$(/l) ausgeschaltet werden.",
     "botania.page.waterRing1": "Butter bei die Fische",
 
     "botania.entry.miningRing": "Ring des Erdmantels",

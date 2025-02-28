@@ -29,7 +29,7 @@ bebd5a92d011c3a431c16f368557850a1e108530 data/botania/tags/items/mana_diamond_ge
 9d560acc5024d61903ea8afc12ab496a7fb0d708 data/botania/tags/items/misc_special_flowers.json
 482e0e7e492741201a883a48ee6806b5a4d4e51f data/botania/tags/items/mundane_floating_flowers.json
 d7dcc983bfdaf90fe776e2be93411250c03b9e7e data/botania/tags/items/mystical_flowers.json
-08bc889cfc56f990d09a23dad60522ecdc31dfab data/botania/tags/items/petals.json
+ac4d12b1e8bb298aabc8d9d4711c3a769fd84080 data/botania/tags/items/petals.json
 39bf5002ae44a594a07c2183b4b5cf5f804ee310 data/botania/tags/items/petals/black.json
 ec3d8de509db36e7940bfc4ed6b5a954694173fb data/botania/tags/items/petals/blue.json
 e0d5f4aa58e4f624aa4636363a0ea3467c188efd data/botania/tags/items/petals/brown.json
@@ -50,6 +50,7 @@ adfc7deaa7aa9d5425da095270745d58605b86ad data/botania/tags/items/rods.json
 311e1a38f6e8dd30b7546587a97d0f29d79ce72e data/botania/tags/items/runes.json
 977d965fe2a544539960279db0fa40a755349604 data/botania/tags/items/seed_apothecary_reagent.json
 f01c4f9608fc5e20c33e12d6862b6d8cee41cdd0 data/botania/tags/items/semi_disposable.json
+341596b22c806248c4c3c1050896ab40970465f0 data/botania/tags/items/shimmering_mushrooms.json
 278b6fb5ddf99d4fc9626494295fa7c5a11fc906 data/botania/tags/items/special_floating_flowers.json
 7131d151b6322c92982ca3cdff678eb194b8d38a data/botania/tags/items/special_flowers.json
 801266350a5b3a541de5c523088810c1c32badb2 data/botania/tags/items/terra_pick_blacklist.json
