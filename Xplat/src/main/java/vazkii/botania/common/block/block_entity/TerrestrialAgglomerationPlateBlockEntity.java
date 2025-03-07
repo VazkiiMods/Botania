@@ -21,6 +21,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -85,8 +86,9 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 		boolean removeMana = true;
 
 		if (self.hasValidPlatform()) {
-			List<ItemStack> items = self.getItems();
-			SimpleContainer inv = self.getInventory();
+			List<ItemEntity> itemEntities = self.getItemEntities();
+			List<ItemStack> items = self.getItems(itemEntities);
+			SimpleContainer inv = self.getInventory(itemEntities);
 
 			TerrestrialAgglomerationRecipe recipe = self.getCurrentRecipe(inv);
 			if (recipe != null) {
@@ -108,7 +110,12 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 				}
 
 				if (self.mana >= recipe.getMana()) {
+					Player player = getCraftingPlayer(itemEntities);
 					ItemStack result = recipe.assemble(inv, level.registryAccess());
+					if (player != null) {
+						player.triggerRecipeCrafted(recipe, List.of(result));
+						result.onCraftedBy(level, player, result.getCount());
+					}
 					for (ItemStack item : items) {
 						item.setCount(0);
 					}
@@ -128,8 +135,20 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 		}
 	}
 
-	private List<ItemStack> getItems() {
-		List<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)), EntitySelector.ENTITY_STILL_ALIVE);
+	@Nullable
+	private static Player getCraftingPlayer(List<ItemEntity> itemEntities) {
+		Player player = null;
+		int minAge = Integer.MAX_VALUE;
+		for (ItemEntity entity : itemEntities) {
+			if (entity.getOwner() instanceof Player owner && entity.getAge() < minAge) {
+				player = owner;
+				minAge = entity.getAge();
+			}
+		}
+		return player;
+	}
+
+	private List<ItemStack> getItems(List<ItemEntity> itemEntities) {
 		List<ItemStack> stacks = new ArrayList<>();
 		for (ItemEntity entity : itemEntities) {
 			if (!entity.getItem().isEmpty()) {
@@ -139,9 +158,12 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 		return stacks;
 	}
 
-	private SimpleContainer getInventory() {
-		List<ItemStack> items = getItems();
-		return new SimpleContainer(flattenStacks(items));
+	private List<ItemEntity> getItemEntities() {
+		return level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)), EntitySelector.ENTITY_STILL_ALIVE);
+	}
+
+	private SimpleContainer getInventory(List<ItemEntity> itemEntities) {
+		return new SimpleContainer(flattenStacks(getItems(itemEntities)));
 	}
 
 	/**
@@ -185,7 +207,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 	}
 
 	private boolean isActive() {
-		return getCurrentRecipe(getInventory()) != null;
+		return getCurrentRecipe(getInventory(getItemEntities())) != null;
 	}
 
 	private boolean hasValidPlatform() {
@@ -219,7 +241,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 
 	@Override
 	public boolean isFull() {
-		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getInventory());
+		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getInventory(getItemEntities()));
 		return recipe == null || getCurrentMana() >= recipe.getMana();
 	}
 
@@ -257,12 +279,12 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 
 	@Override
 	public int getAvailableSpaceForMana() {
-		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getInventory());
+		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getInventory(getItemEntities()));
 		return recipe == null ? 0 : Math.max(0, recipe.getMana() - getCurrentMana());
 	}
 
 	public float getCompletion() {
-		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getInventory());
+		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getInventory(getItemEntities()));
 		if (recipe == null) {
 			return 0;
 		}

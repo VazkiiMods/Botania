@@ -12,7 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -49,8 +48,6 @@ import java.util.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wandable {
-	private static final String TAG_CRAFTING_RESULT = "craft_result";
-
 	private static int recipeEpoch = 0;
 
 	private int signal = 0;
@@ -97,25 +94,13 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		return !getPattern().openSlots.get(slot);
 	}
 
-	@Override
-	public void readPacketNBT(CompoundTag tag) {
-		super.readPacketNBT(tag);
-		craftResult = ItemStack.of(tag.getCompound(TAG_CRAFTING_RESULT));
-	}
-
-	@Override
-	public void writePacketNBT(CompoundTag tag) {
-		super.writePacketNBT(tag);
-		tag.put(TAG_CRAFTING_RESULT, craftResult.save(new CompoundTag()));
-	}
-
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, CraftyCrateBlockEntity self) {
 		if (recipeEpoch != self.lastRecipeEpoch) {
 			self.lastRecipeEpoch = recipeEpoch;
 			self.matchFailed = false;
 		}
 
-		if (!self.matchFailed && self.canEject() && self.isFull() && self.craft(true)) {
+		if (!self.matchFailed && self.canEject() && self.isFull() && self.craft(true, null)) {
 			self.ejectAll();
 		}
 
@@ -138,7 +123,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		}
 	}
 
-	private boolean craft(boolean fullCheck) {
+	private boolean craft(boolean fullCheck, @Nullable Player player) {
 		level.getProfiler().push("craft");
 		if (fullCheck && !isFull()) {
 			return false;
@@ -168,14 +153,19 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 		Optional<CraftingRecipe> matchingRecipe = getMatchingRecipe(craft);
 		matchingRecipe.ifPresent(recipe -> {
-			craftResult = recipe.assemble(craft, this.getLevel().registryAccess());
+			ItemStack result = recipe.assemble(craft, this.getLevel().registryAccess());
 
 			// Given some mods can return air by a bad implementation of their recipe handler,
-			// check for air before continuting on.
-			if (craftResult.isEmpty()) {
+			// check for air before continuing on.
+			if (result.isEmpty()) {
 				// We have air, do not continue.
 				matchFailed = true;
 				return;
+			}
+
+			if (player != null) {
+				player.triggerRecipeCrafted(recipe, List.of(result));
+				result.onCraftedBy(level, player, result.getCount());
 			}
 
 			Container handler = getItemHandler();
@@ -190,8 +180,10 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 				}
 				handler.setItem(i, s);
 			}
+
+			craftResult = result;
 		});
-		if (!matchingRecipe.isPresent()) {
+		if (matchingRecipe.isEmpty()) {
 			matchFailed = true;
 		}
 
@@ -247,7 +239,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (!getLevel().isClientSide && canEject()) {
-			craft(false);
+			craft(false, player);
 			ejectAll();
 		}
 		return true;

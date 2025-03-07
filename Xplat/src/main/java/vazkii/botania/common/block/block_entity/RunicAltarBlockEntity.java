@@ -286,6 +286,10 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).runicAltarSpawned = true;
+				if (player != null) {
+					player.triggerRecipeCrafted(recipe, List.of(output));
+					output.onCraftedBy(level, player, output.getCount());
+				}
 				level.addFreshEntity(outputItem);
 				currentRecipe = null;
 				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
