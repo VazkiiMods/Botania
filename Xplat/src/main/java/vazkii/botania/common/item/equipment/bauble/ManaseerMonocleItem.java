@@ -36,6 +36,7 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.CosmeticAttachable;
 import vazkii.botania.api.item.CosmeticBauble;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.integration.shared.LocaleHelper;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
@@ -73,6 +74,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 	public static class Hud {
 		private static final int MAX_CONTENTS_COLUMNS = 9;
 		private static final int MAX_CONTENTS_ROWS = 3;
+		public static final int TEXT_ROW_HEIGHT = 12;
 
 		public static void render(GuiGraphics gui, Player player) {
 			Minecraft mc = Minecraft.getInstance();
@@ -96,8 +98,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 
 				int x = mc.getWindow().getGuiScaledWidth() / 2 + 15;
 				int y = mc.getWindow().getGuiScaledHeight() / 2 - 24;
-
-				gui.renderItem(frameItem, x, y);
+				int maxWidth = mc.getWindow().getGuiScaledWidth() - x - 30;
 
 				MutableComponent itemName = Component.empty().append(frameItem.getHoverName())
 						.withStyle(frameItem.getRarity().color);
@@ -105,7 +106,23 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 					itemName.withStyle(ChatFormatting.ITALIC);
 				}
 				MutableComponent text = Component.translatable("botaniamisc.monocle.frame.contains", itemName);
-				gui.drawString(mc.font, text, x + 20, y + 4, 0xFFFFFF);
+
+				var lines = mc.font.split(text, maxWidth);
+				int textWidth = lines.stream().mapToInt(mc.font::width).max().orElseThrow();
+				int textYOffset = (lines.size() - 1) * TEXT_ROW_HEIGHT;
+
+				int contentsWidth = Math.min(MAX_CONTENTS_COLUMNS, contentItems.size()) * 18;
+				int contentsHeight = Math.min(MAX_CONTENTS_ROWS + 1,
+						(contentItems.size() - (MAX_CONTENTS_COLUMNS - 1)) / MAX_CONTENTS_COLUMNS + 1) * 18;
+				RenderHelper.renderHUDBox(gui, x - 4, y - 4,
+						x + Math.max(textWidth, contentsWidth) + 24, y + textYOffset + contentsHeight + 20);
+				gui.renderItem(frameItem, x, y);
+
+				int textRow = 0;
+				for (var line : lines) {
+					gui.drawString(mc.font, line, x + 20, y + TEXT_ROW_HEIGHT * textRow + 4, 0xFFFFFF);
+					textRow++;
+				}
 
 				int row = 1;
 				int column = 0;
@@ -117,15 +134,15 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 						}
 					}
 
-					gui.renderItem(contentItem, x + 18 * column, y + 18 * row);
-					gui.renderItemDecorations(mc.font, contentItem, x + 18 * column, y + 18 * row);
+					gui.renderItem(contentItem, x + 18 * column, y + 18 * row + textYOffset);
+					gui.renderItemDecorations(mc.font, contentItem, x + 18 * column, y + 18 * row + textYOffset);
 				}
 
 				if (row > MAX_CONTENTS_ROWS) {
 					MutableComponent remainingItemsHint = Component.translatable(
 							"botaniamisc.monocle.frame.additional_stacks",
 							contentItems.size() - MAX_CONTENTS_COLUMNS * MAX_CONTENTS_ROWS);
-					gui.drawString(mc.font, remainingItemsHint, x + 24, y + 18 * row + 4, 0xFFFFFF);
+					gui.drawString(mc.font, remainingItemsHint, x + 24, y + 18 * row + 6 + textYOffset, 0xFFFFFF);
 				}
 			}
 		}
@@ -157,8 +174,9 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 			int x = mc.getWindow().getGuiScaledWidth() / 2 + 15;
 			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
 
+			int textWidth = mc.font.width(text.getVisualOrderText());
+			RenderHelper.renderHUDBox(gui, x - 4, y - 4, x + textWidth + 24, y + 20);
 			gui.renderItem(dispStack, x, y);
-
 			gui.drawString(mc.font, text, x + 20, y + 4, 0xFFFFFF);
 		}
 

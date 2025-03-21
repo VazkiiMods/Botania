@@ -613,8 +613,8 @@ public final class RenderHelper extends RenderType {
 	* another box that is 2px bigger in each direction
 	*/
 	public static void renderHUDBox(GuiGraphics gui, int startX, int startY, int endX, int endY) {
-		gui.fill(startX, startY, endX, endY, 0x44000000);
-		gui.fill(startX - 2, startY - 2, endX + 2, endY + 2, 0x44000000);
+		gui.fill(startX, startY, endX, endY, 0x40000000);
+		gui.fill(startX - 2, startY - 2, endX + 2, endY + 2, 0x40000000);
 	}
 
 	/*
