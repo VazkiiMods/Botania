@@ -35,7 +35,7 @@ public class FilterHelper {
 		return filterFrame instanceof GlowItemFrame ? getFilterStacks(filterStack) : List.of(filterStack);
 	}
 
-	private static List<ItemStack> getFilterStacks(ItemStack filterStack) {
+	public static List<ItemStack> getFilterStacks(ItemStack filterStack) {
 		if (filterStack.is(Items.BUNDLE)) {
 			// get bundle content
 			List<ItemStack> bundledItems = BundleItemAccessor.call_getContents(filterStack).toList();

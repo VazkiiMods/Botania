@@ -18,24 +18,29 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComparatorBlock;
-import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.RepeaterBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.ComparatorMode;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.CosmeticAttachable;
 import vazkii.botania.api.item.CosmeticBauble;
+import vazkii.botania.client.integration.shared.LocaleHelper;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.FilterHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
 
@@ -66,31 +71,86 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 	}
 
 	public static class Hud {
+		private static final int MAX_CONTENTS_COLUMNS = 9;
+		private static final int MAX_CONTENTS_ROWS = 3;
+
 		public static void render(GuiGraphics gui, Player player) {
 			Minecraft mc = Minecraft.getInstance();
-			HitResult ray = mc.hitResult;
-			if (ray == null || ray.getType() != HitResult.Type.BLOCK) {
-				return;
+			HitResult hitResult = mc.hitResult;
+			if (hitResult instanceof BlockHitResult bhr && bhr.getType() == HitResult.Type.BLOCK) {
+				renderBlockInfo(gui, bhr, mc, player.level());
+			} else if (hitResult instanceof EntityHitResult ehr && ehr.getType() == HitResult.Type.ENTITY) {
+				renderEntityInfo(gui, ehr, mc);
 			}
-			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
-			BlockState state = player.level().getBlockState(pos);
-			player.level().getBlockEntity(pos);
+		}
 
-			ItemStack dispStack = ItemStack.EMPTY;
-			String text = "";
+		private static void renderEntityInfo(GuiGraphics gui, EntityHitResult hitResult, Minecraft mc) {
+			Entity entity = hitResult.getEntity();
 
-			if (state.is(Blocks.REDSTONE_WIRE)) {
-				dispStack = new ItemStack(Items.REDSTONE);
-				text = ChatFormatting.RED + "" + state.getValue(RedStoneWireBlock.POWER);
+			if (entity instanceof ItemFrame frame && !frame.getItem().isEmpty()) {
+				ItemStack frameItem = frame.getItem();
+				var contentItems = FilterHelper.getFilterStacks(frameItem);
+				if (contentItems.isEmpty() || contentItems.size() == 1 && ItemStack.isSameItemSameTags(frameItem, contentItems.get(0))) {
+					return;
+				}
+
+				int x = mc.getWindow().getGuiScaledWidth() / 2 + 15;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 - 24;
+
+				gui.renderItem(frameItem, x, y);
+
+				MutableComponent itemName = Component.empty().append(frameItem.getHoverName())
+						.withStyle(frameItem.getRarity().color);
+				if (frameItem.hasCustomHoverName()) {
+					itemName.withStyle(ChatFormatting.ITALIC);
+				}
+				MutableComponent text = Component.translatable("botaniamisc.monocle.frame.contains", itemName);
+				gui.drawString(mc.font, text, x + 20, y + 4, 0xFFFFFF);
+
+				int row = 1;
+				int column = 0;
+				for (ItemStack contentItem : contentItems) {
+					if (++column > MAX_CONTENTS_COLUMNS) {
+						column = 1;
+						if (++row > MAX_CONTENTS_ROWS) {
+							break;
+						}
+					}
+
+					gui.renderItem(contentItem, x + 18 * column, y + 18 * row);
+					gui.renderItemDecorations(mc.font, contentItem, x + 18 * column, y + 18 * row);
+				}
+
+				if (row > MAX_CONTENTS_ROWS) {
+					MutableComponent remainingItemsHint = Component.translatable(
+							"botaniamisc.monocle.frame.additional_stacks",
+							contentItems.size() - MAX_CONTENTS_COLUMNS * MAX_CONTENTS_ROWS);
+					gui.drawString(mc.font, remainingItemsHint, x + 24, y + 18 * row + 4, 0xFFFFFF);
+				}
+			}
+		}
+
+		private static void renderBlockInfo(GuiGraphics gui, BlockHitResult hitResult, Minecraft mc, Level level) {
+			BlockPos pos = hitResult.getBlockPos();
+			BlockState state = level.getBlockState(pos);
+
+			ItemStack dispStack;
+			MutableComponent text;
+
+			if (state.hasProperty(BlockStateProperties.POWER)) {
+				// redstone wire, sculk sensors, daylight detector, target block, weighted pressure plates
+				dispStack = new ItemStack(state.getBlock());
+				text = Component.literal(state.getValue(BlockStateProperties.POWER).toString())
+						.withStyle(ChatFormatting.RED);
 			} else if (state.is(Blocks.REPEATER)) {
 				dispStack = new ItemStack(Blocks.REPEATER);
-				text = "" + state.getValue(RepeaterBlock.DELAY);
+				text = Component.translatable("botaniamisc.monocle.repeater.delay",
+						LocaleHelper.formatAsDecimalFraction(0.1f * state.getValue(RepeaterBlock.DELAY), 1));
 			} else if (state.is(Blocks.COMPARATOR)) {
 				dispStack = new ItemStack(Blocks.COMPARATOR);
-				text = state.getValue(ComparatorBlock.MODE) == ComparatorMode.SUBTRACT ? "-" : "+";
-			}
-
-			if (dispStack.isEmpty()) {
+				text = Component.translatable("botaniamisc.monocle.comparator."
+						+ state.getValue(ComparatorBlock.MODE).getSerializedName());
+			} else {
 				return;
 			}
 
@@ -101,6 +161,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 
 			gui.drawString(mc.font, text, x + 20, y + 4, 0xFFFFFF);
 		}
+
 	}
 
 	public static boolean hasMonocle(LivingEntity living) {

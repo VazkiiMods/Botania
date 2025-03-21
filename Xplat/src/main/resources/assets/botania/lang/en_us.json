@@ -139,6 +139,11 @@
   "botaniamisc.pollidisiac.feed_adults": "Feeding adult animals",
   "botaniamisc.pollidisiac.feed_babies": "Feeding baby animals",
   "botaniamisc.pollidisiac.feed_all": "Feeding all animals",
+  "botaniamisc.monocle.frame.contains": "%s§r contains:",
+  "botaniamisc.monocle.frame.additional_stacks": "+%s more stacks",
+  "botaniamisc.monocle.repeater.delay": "%s s",
+  "botaniamisc.monocle.comparator.compare": "\u2265",
+  "botaniamisc.monocle.comparator.subtract": "-",
 
   "botania.tater_birthday.0": "Wow, is this for me?",
   "botania.tater_birthday.1": "It's my birthday today; I'm %d years old now!",
