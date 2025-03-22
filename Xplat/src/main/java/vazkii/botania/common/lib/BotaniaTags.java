@@ -276,6 +276,12 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Block> UNETHICAL_TNT_CHECK = tag("unethical_tnt_check");
 
+		/**
+		 * Blocks in this tag work better for inserting items if they don't receive more than one item at a time.
+		 * Example: The vanilla crafter block, which selectively opens inventory slots to distribute matching items.
+		 */
+		public static final TagKey<Block> SINGLE_ITEM_INSERT = tag("single_item_insert");
+
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, prefix(name));
 		}

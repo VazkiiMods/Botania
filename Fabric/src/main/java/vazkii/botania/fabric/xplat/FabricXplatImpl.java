@@ -100,6 +100,7 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlo
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.block.FabricSpecialFlowerBlock;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
@@ -332,7 +333,16 @@ public class FabricXplatImpl implements XplatAbstractions {
 		try (Transaction txn = Transaction.openOuter()) {
 			// Truncation to int ok since the value passed in was an int
 			// and that value should only decrease or stay same
-			int inserted = (int) storage.insert(itemVariant, toInsert.getCount(), txn);
+			int inserted;
+			if (state.is(BotaniaTags.Blocks.SINGLE_ITEM_INSERT)) {
+				int alreadyInserted = 0;
+				for (int i = 0; i < toInsert.getCount(); i++) {
+					alreadyInserted += (int) storage.insert(itemVariant, 1L, txn);
+				}
+				inserted = alreadyInserted;
+			} else {
+				inserted = (int) storage.insert(itemVariant, toInsert.getCount(), txn);
+			}
 			if (!simulate) {
 				txn.commit();
 			}
