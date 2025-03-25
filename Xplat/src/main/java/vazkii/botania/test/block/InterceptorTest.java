@@ -24,7 +24,7 @@ public class InterceptorTest {
 	private static final BlockPos WILDCARD_RETAINER = new BlockPos(6, 5, 7);
 	private static final BlockPos BOOTS_RETAINER = new BlockPos(4, 5, 7);
 
-	@GameTest(template = TEMPLATE)
+	@GameTest(template = TEMPLATE, setupTicks = 1)
 	public void testAppleRequest(GameTestHelper helper) {
 		helper.pressButton(APPLE_BUTTON_JEANS);
 		helper.startSequence().thenExecuteAfter(1, () -> {
@@ -33,7 +33,7 @@ public class InterceptorTest {
 		}).thenSucceed();
 	}
 
-	@GameTest(template = TEMPLATE)
+	@GameTest(template = TEMPLATE, setupTicks = 1)
 	public void testBootsRequest(GameTestHelper helper) {
 		helper.pressButton(BOOTS_WITH_THE_FUR);
 		helper.startSequence().thenExecuteAfter(1, () -> {

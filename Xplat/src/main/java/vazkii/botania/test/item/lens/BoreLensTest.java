@@ -93,13 +93,13 @@ public class BoreLensTest {
 
 		if (expectSuccess) {
 			helper.startSequence()
-					.thenExecute(() -> helper.pressButton(buttonPos))
+					.thenExecuteAfter(1, () -> helper.pressButton(buttonPos))
 					.thenWaitUntil(() -> helper.assertBlockProperty(lampPos, RedstoneLampBlock.LIT, true))
 					.thenSucceed();
 		} else {
 			// todo can we use failIf or something else that doesn't hardcode a tick count?
 			helper.startSequence()
-					.thenExecute(() -> helper.pressButton(buttonPos))
+					.thenExecuteAfter(1, () -> helper.pressButton(buttonPos))
 					.thenExecuteFor(60, () -> helper.assertBlockProperty(lampPos, RedstoneLampBlock.LIT, false))
 					.thenSucceed();
 		}

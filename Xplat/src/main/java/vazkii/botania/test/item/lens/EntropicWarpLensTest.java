@@ -32,7 +32,7 @@ public class EntropicWarpLensTest {
 				() -> "Failed to bind spreader");
 
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(buttonPos))
+				.thenExecuteAfter(1, () -> helper.pressButton(buttonPos))
 				.thenWaitUntil(() -> helper.assertBlockProperty(lampPos, RedstoneLampBlock.LIT, true))
 				.thenSucceed();
 

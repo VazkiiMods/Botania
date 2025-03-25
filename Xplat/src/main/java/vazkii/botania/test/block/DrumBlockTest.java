@@ -46,7 +46,7 @@ public class DrumBlockTest {
 	private static <T extends Mob> void testMilkingAdultAnimal(GameTestHelper helper, EntityType<T> entityType, Item inputItem, Item outputItem) {
 		setup(helper, entityType, inputItem);
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(outputItem, POSITION_MOB, 1.0))
 				.thenSucceed();
 	}
@@ -79,7 +79,7 @@ public class DrumBlockTest {
 		cowAccessor.setEffect(MobEffects.BLINDNESS);
 		cowAccessor.setEffectDuration(15);
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.SUSPICIOUS_STEW, POSITION_MOB, 1.0))
 				.thenExecute(() -> {
 					final var item = helper.getEntities(EntityType.ITEM, POSITION_MOB, 1.0).stream().findFirst();
@@ -102,7 +102,7 @@ public class DrumBlockTest {
 		var baby = setup(helper, entityType, item);
 		baby.setBaby(true);
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				// ensure the empty container item is still there:
 				.thenExecuteAfter(20, () -> helper.assertItemEntityPresent(item, POSITION_MOB, 1.0))
 				.thenSucceed();
@@ -124,7 +124,7 @@ public class DrumBlockTest {
 		helper.startSequence()
 				// mobs play 20 ticks of dying animation when killed, so the cow is still there when the drum goes off
 				.thenExecute(cow::kill)
-				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenExecuteAfter(20, () -> helper.assertItemEntityPresent(Items.BUCKET, POSITION_MOB, 1.0))
 				.thenSucceed();
 	}
@@ -135,7 +135,7 @@ public class DrumBlockTest {
 		// Bergamute should protect from drum interactions
 		helper.setBlock(POSITION_BERGAMUTE, BotaniaFlowerBlocks.bergamuteFloating);
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenExecuteAfter(20, () -> helper.assertItemEntityPresent(Items.BUCKET, POSITION_MOB, 1.0))
 				.thenSucceed();
 	}
@@ -145,7 +145,7 @@ public class DrumBlockTest {
 		var sheep = setup(helper, EntityType.SHEEP, null);
 		sheep.setColor(DyeColor.LIME);
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.LIME_WOOL, POSITION_MOB, 1.0))
 				.thenExecute(() -> helper.assertTrue(sheep.isAlive() && sheep.isSheared(), "Sheep should be sheared"))
 				.thenSucceed();
@@ -156,7 +156,7 @@ public class DrumBlockTest {
 		var sheep = setup(helper, EntityType.SHEEP, null);
 		sheep.setBaby(true);
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenExecuteAfter(20, () -> helper.assertTrue(sheep.isAlive() && !sheep.isSheared(), "Baby sheep should not be sheared"))
 				.thenSucceed();
 	}
@@ -165,7 +165,7 @@ public class DrumBlockTest {
 	public void testShearingSnowGolem(GameTestHelper helper) {
 		var golem = setup(helper, EntityType.SNOW_GOLEM, null);
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.CARVED_PUMPKIN, POSITION_MOB, 1.0))
 				.thenExecute(() -> helper.assertTrue(golem.isAlive() && !golem.hasPumpkin(), "Snow golem should not wear a pumpkin"))
 				.thenSucceed();
@@ -186,7 +186,7 @@ public class DrumBlockTest {
 	public void testShearingMooshroom(GameTestHelper helper) {
 		setup(helper, EntityType.MOOSHROOM, null);
 		helper.startSequence()
-				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
+				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenExecuteAfter(20, () -> helper.assertEntityNotPresent(EntityType.COW))
 				.thenSucceed();
 	}
