@@ -36,12 +36,12 @@ public class ContributorList {
 	private static final ImmutableMap<String, String> LEGACY_FLOWER_NAMES = ImmutableMap.<String, String>builder()
 			.put("daybloom", LibBlockNames.MOTIF_DAYBLOOM)
 			.put("nightshade", LibBlockNames.MOTIF_NIGHTSHADE)
-			.put("puredaisy", LibBlockNames.SUBTILE_PUREDAISY.getPath())
-			.put("fallenkanade", LibBlockNames.SUBTILE_FALLEN_KANADE.getPath())
-			.put("heiseidream", LibBlockNames.SUBTILE_HEISEI_DREAM.getPath())
-			.put("arcanerose", LibBlockNames.SUBTILE_ARCANE_ROSE.getPath())
-			.put("jadedamaranthus", LibBlockNames.SUBTILE_JADED_AMARANTHUS.getPath())
-			.put("orechidignem", LibBlockNames.SUBTILE_ORECHID_IGNEM.getPath())
+			.put("puredaisy", LibBlockNames.SUBTILE_PUREDAISY)
+			.put("fallenkanade", LibBlockNames.SUBTILE_FALLEN_KANADE)
+			.put("heiseidream", LibBlockNames.SUBTILE_HEISEI_DREAM)
+			.put("arcanerose", LibBlockNames.SUBTILE_ARCANE_ROSE)
+			.put("jadedamaranthus", LibBlockNames.SUBTILE_JADED_AMARANTHUS)
+			.put("orechidignem", LibBlockNames.SUBTILE_ORECHID_IGNEM)
 			.build();
 	private static volatile Map<String, ItemStack> flowerMap = Collections.emptyMap();
 	private static boolean startedLoading = false;
