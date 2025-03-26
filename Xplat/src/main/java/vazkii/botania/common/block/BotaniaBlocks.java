@@ -2395,17 +2395,6 @@ public final class BotaniaBlocks {
 		};
 	}
 
-	// public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {
-	// 	ColorHelper.supportedColors().forEach(dyeColor -> {
-	// 		consumer.accept(botaniaRL(dyeColor.getName() + MYSTICAL_FLOWER_SUFFIX), () -> getPottedFlower(dyeColor));
-	// 		consumer.accept(botaniaRL(dyeColor.getName() + SHINY_FLOWER_SUFFIX), () -> getPottedShinyFlower(dyeColor));
-	// 		consumer.accept(botaniaRL(dyeColor.getName() + MUSHROOM_SUFFIX), () -> getPottedMushroom(dyeColor));
-	// 	});
-	// 	consumer.accept(botaniaRL(LibBlockNames.MOTIF_DAYBLOOM), () -> pottedMotifDaybloom);
-	// 	consumer.accept(botaniaRL(LibBlockNames.MOTIF_NIGHTSHADE), () -> pottedMotifNightshade);
-	// 	consumer.accept(botaniaRL(LibBlockNames.MOTIF_HYDROANGEAS), () -> pottedMotifHydroangeas);
-	// }
-
 	public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {
 		registerBlocks((block, resourceLocation) -> {
 			if (block instanceof FlowerPotBlock) {
