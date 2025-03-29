@@ -22,6 +22,9 @@ of time the maintainers can spend on this effort. For the time being, updates wi
 
 * Add: Forge storage block tags for mana diamond, dragonstone, blaze mesh, and petal blocks
 * Add: Floral fertilizer can also produce shimmering mushrooms, if applied to mushroom-compatible soil
+* Add: Multi-item filter support via container items (shulker box, flower pouch, etc.) in glow item frames for Hopperhock,
+Rannuncarpus, Corporea Interceptor, and Corporea Funnel; the latter uses item counts as random selection weights
+* Add: Wearing a Manaseer Monocle reveals the contents of a container item in an item frame when looking at the frame
 * Add: An offline backup of the contributors list in the state of the currently installed Botania release will be used for head flowers, if the online copy is unavailable
 * Fix: Dandelifeon sometimes generated a randomly greater amount of mana than intended when on enchanted soil
 * Fix: Trinkets could not be equipped via right-click (Abbie)

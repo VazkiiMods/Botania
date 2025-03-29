@@ -2375,7 +2375,7 @@
   "botania.entry.hopperhock": "Hopperhock",
   "botania.tagline.hopperhock": "Picks up items",
   "botania.page.hopperhock0": "The $(item)Hopperhock$(0) simply picks up items around it and put them in adjacent inventories (like $(item)Chests$(0)). $(thing)Mana$(0) is optional, but will increase its range if provided.$(p)Placing $(item)Item Frames$(0) on adjacent inventories will specify which items can or can't go in them.",
-  "botania.page.hopperhock1": "Any inventory with no adjacent $(item)Item Frame$(0) can accept any items, but labelled inventories will take priority.$(p)The rule used to sort items can be changed by sneak-right clicking (or using a $(item)Dispenser$(0)) on the flower with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) in $(thing)Function Mode$(0).",
+  "botania.page.hopperhock1": "A non-empty container item, such as a $(l:basics/flower_bag)$(item)Flower Pouch$(0)$(/l), in a $(item)Glow Item Frame$(0) filters by the contents of the item instead of the item itself.$(p)Any inventory with no adjacent $(item)Item Frame$(0) can accept any items, but labelled inventories will take priority.$(p)The rule used to sort items can be changed by sneak-right clicking (or using a $(item)Dispenser$(0)) on the flower with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) in $(thing)Function Mode$(0).",
   "botania.page.hopperhock2": "$(o)Hungry hungry flowers$().",
 
   "botania.entry.tangleberrie": "Tangleberrie",
@@ -3206,10 +3206,11 @@
   "botania.page.corporeaFunnel0": "A block that uses the $(thing)Corporea Network$(0) more simply than the Index is the $(item)Corporea Funnel$(0). When given a redstone signal, it'll request an item from the network of the $(l:ender/corporea)$(item)Corporea Spark$(0)$(/l) above it.$(p)Said item will be pushed into an inventory a block or two below the funnel, or just dropped into the world above the Funnel if no such inventory is available.",
   "botania.page.corporeaFunnel1": "To tell the $(item)Corporea Funnel$(0) what to request, place the item in an $(item)Item Frame$(0) on the block; if more than one $(item)Item Frame$(0) is on the block, the $(item)Corporea Funnel$(0) will pick one at random.$(p)Rotating the item in the frame will change the request quantity; at default rotation the funnel will request one item, and rotations will respectively make the funnel request 2, 4, 8, 16, 32, 48, and 64 items.",
   "botania.page.corporeaFunnel2": "Energistically applied",
+  "botania.page.corporeaFunnel3": "Similar to a $(l:functional_flowers/hopperhock)$(item)Hopperhock$(0)$(/l), the $(item)Corporea Funnel$(0) supports non-empty container items in $(item)Glow Item Frames$(0) to specify multiple potential matches. The relative stack sizes in the container determine, how likely that particular item is selected for a request.$(p)The request quantity is still determined by the rotation of the container item in the frame.",
 
   "botania.entry.corporeaInterceptor": "Corporea Interceptor",
   "botania.tagline.corporeaInterceptor": "Catch unfulfillable requests",
-  "botania.page.corporeaInterceptor0": "The $(item)Corporea Interceptor$(0) does exactly as its name suggests: it intercepts unfulfillable Corporea requests. Items in $(item)Item Frames$(0) attached to the block will filter the requests it'll intercept. If there are none, or they are all empty, it will intercept any unfulfilled request.",
+  "botania.page.corporeaInterceptor0": "The $(item)Corporea Interceptor$(0) does exactly as its name suggests: it intercepts unfulfillable Corporea requests. Items in $(item)Item Frames$(0) attached to the block will filter the requests it'll intercept, similar to a $(l:functional_flowers/hopperhock)$(item)Hopperhock$(0)$(/l). If there are none, or they are all empty, it will intercept any unfulfilled request.",
   "botania.page.corporeaInterceptor1": "When a request is made for an item that the network can't provide, but that matches the Interceptor's filter, the Interceptor will trigger and emit a short redstone pulse. This can be used to do all sorts of things: for example, craft the requisite item with a $(l:devices/craft_crate)$(item)Crafty Crate$(0)$(/l), or light up a lamp indicating that the resource is out.",
   "botania.page.corporeaInterceptor2": "So many automation prospects",
 
