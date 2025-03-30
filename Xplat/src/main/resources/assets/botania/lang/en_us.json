@@ -141,7 +141,7 @@
   "botaniamisc.pollidisiac.feed_all": "Feeding all animals",
   "botaniamisc.monocle.frame.contains": "%s§r contains:",
   "botaniamisc.monocle.frame.additional_stacks": "+%s more stacks",
-  "botaniamisc.monocle.repeater.delay": "%s s",
+  "botaniamisc.monocle.repeater.delay": "%ss",
   "botaniamisc.monocle.comparator.compare": "\u2265",
   "botaniamisc.monocle.comparator.subtract": "-",
 
@@ -3206,7 +3206,7 @@
   "botania.page.corporeaFunnel0": "A block that uses the $(thing)Corporea Network$(0) more simply than the Index is the $(item)Corporea Funnel$(0). When given a redstone signal, it'll request an item from the network of the $(l:ender/corporea)$(item)Corporea Spark$(0)$(/l) above it.$(p)Said item will be pushed into an inventory a block or two below the funnel, or just dropped into the world above the Funnel if no such inventory is available.",
   "botania.page.corporeaFunnel1": "To tell the $(item)Corporea Funnel$(0) what to request, place the item in an $(item)Item Frame$(0) on the block; if more than one $(item)Item Frame$(0) is on the block, the $(item)Corporea Funnel$(0) will pick one at random.$(p)Rotating the item in the frame will change the request quantity; at default rotation the funnel will request one item, and rotations will respectively make the funnel request 2, 4, 8, 16, 32, 48, and 64 items.",
   "botania.page.corporeaFunnel2": "Energistically applied",
-  "botania.page.corporeaFunnel3": "Similar to a $(l:functional_flowers/hopperhock)$(item)Hopperhock$(0)$(/l), the $(item)Corporea Funnel$(0) supports non-empty container items in $(item)Glow Item Frames$(0) to specify multiple potential matches. The relative stack sizes in the container determine, how likely that particular item is selected for a request.$(p)The request quantity is still determined by the rotation of the container item in the frame.",
+  "botania.page.corporeaFunnel3": "Similar to a $(l:functional_flowers/hopperhock)$(item)Hopperhock$(0)$(/l), the $(item)Corporea Funnel$(0) supports non-empty container items in $(item)Glow Item Frames$(0) to specify multiple potential matches. The relative stack sizes in the container determine how likely that particular item is selected for a request.$(p)The request quantity is still determined by the rotation of the container item in the frame.",
 
   "botania.entry.corporeaInterceptor": "Corporea Interceptor",
   "botania.tagline.corporeaInterceptor": "Catch unfulfillable requests",

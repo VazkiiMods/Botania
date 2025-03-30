@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -91,7 +92,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 
 			if (entity instanceof ItemFrame frame && !frame.getItem().isEmpty()) {
 				ItemStack frameItem = frame.getItem();
-				var contentItems = FilterHelper.getFilterStacks(frameItem);
+				List<ItemStack> contentItems = FilterHelper.getFilterStacks(frameItem);
 				if (contentItems.isEmpty() || contentItems.size() == 1 && ItemStack.isSameItemSameTags(frameItem, contentItems.get(0))) {
 					return;
 				}
@@ -107,7 +108,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 				}
 				MutableComponent text = Component.translatable("botaniamisc.monocle.frame.contains", itemName);
 
-				var lines = mc.font.split(text, maxWidth);
+				List<FormattedCharSequence> lines = mc.font.split(text, maxWidth);
 				int textWidth = lines.stream().mapToInt(mc.font::width).max().orElseThrow();
 				int textYOffset = (lines.size() - 1) * TEXT_ROW_HEIGHT;
 

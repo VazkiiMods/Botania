@@ -23,10 +23,6 @@ public class FilterHelper {
 
 	public static final String ITEMS_TAG = "Items";
 
-	/**
-	 * Expands the given filter item into the list of filter items it represents. This is NOT recursive.
-	 * Non-empty container items stand for their contents, not for themselves.
-	 */
 	public static List<ItemStack> getFilterItems(ItemFrame filterFrame) {
 		ItemStack filterStack = filterFrame.getItem();
 		if (filterStack.isEmpty()) {
@@ -35,6 +31,10 @@ public class FilterHelper {
 		return filterFrame instanceof GlowItemFrame ? getFilterStacks(filterStack) : List.of(filterStack);
 	}
 
+	/**
+	 * Expands the given filter item into the list of filter items it represents. This is NOT recursive.
+	 * Non-empty container items stand for their contents, not for themselves.
+	 */
 	public static List<ItemStack> getFilterStacks(ItemStack filterStack) {
 		if (filterStack.is(Items.BUNDLE)) {
 			// get bundle content
