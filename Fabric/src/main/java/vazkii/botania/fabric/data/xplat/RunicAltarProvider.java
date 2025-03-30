@@ -106,7 +106,8 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(idFor("head"), new HeadRecipe(new ItemStack(Items.PLAYER_HEAD), DEFAULT_REAGENT, 22500,
 				Ingredient.of(Items.SKELETON_SKULL), Ingredient.of(ConventionalBotaniaTags.Items.PIXIE_DUSTS),
-				Ingredient.of(ConventionalItemTags.PRISMARINE_GEMS), Ingredient.of(Items.NAME_TAG), Ingredient.of(Items.GOLDEN_APPLE)), null);
+				Ingredient.of(ConventionalItemTags.PRISMARINE_GEMS), Ingredient.of(Items.NAME_TAG, Items.WRITTEN_BOOK),
+				Ingredient.of(Items.GOLDEN_APPLE)), null);
 	}
 
 	private static ResourceLocation idFor(String s) {
