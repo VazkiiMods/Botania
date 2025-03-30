@@ -22,6 +22,8 @@ of time the maintainers are able to spend on this effort. For the time being, up
 
 * Add: Several missing Forge tags for blocks, items, and entities
 * Add: Munchdew displays particles while in cooldown, similar to a Thermalily (this used to be a thing a long time ago already, but somehow got lost)
+* Add: Creating past versions of player heads is now possible by replacing the name tag with a written book, containing
+  the base64 texture reference data you can find in the player head commands provided by various player skin websites
 * Add: While not in Creative mode, the "Pick Block" feature (usually middle mouse button) can also select certain block
   providers, such as the Rod of the Lands or Black Hole Talisman, if the targeted block's item itself is not available
 * Add: Cauldrons can be filled with the Rod of the Seas (as if using a water bucket) and emptied with the
