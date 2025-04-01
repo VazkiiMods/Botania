@@ -2134,9 +2134,9 @@
   "botania.page.hopperhock1": "인접한 $(item)아이템 프레임$(0)이없는 인벤토리는 모든 아이템을 수용할 수 있지만 레이블이 지정된 인벤토리가 우선합니다.$(p)아이템을 정렬하는 데 사용되는 규칙은 $(thing)Function Mode$(0)에서 $(l:basics/wand)$(item)숲의 완드$(0)$(/l)로 꽃에 sneak-right 클릭(또는 $(item)배출기$(0) 사용)하여 변경할 수 있습니다.",
   "botania.page.hopperhock2": "$(o)배고픈 플라워$().",
 
-  "botania.entry.tangleberrie": "텡글베리",
+  "botania.entry.tangleberrie": "탱글베리",
   "botania.tagline.tangleberrie": "몹을 가둡니다",
-  "botania.page.tangleberrie0": "$(item)테인글베리$(0)는 소량의 $(thing)마나$(0)를 소모하여 주변의 동물이나 몬스터를 원형의 와드 안에 가둬 튀어나가지 못하게 합니다.",
+  "botania.page.tangleberrie0": "$(item)탱글베리$(0)는 소량의 $(thing)마나$(0)를 소모하여 주변의 동물이나 몬스터를 원형의 와드 안에 가둬 튀어나가지 못하게 합니다.",
   "botania.page.tangleberrie1": "$(o)얽혀, 용감하고 얼어붙었어$().",
 
   "botania.entry.jiyuulia": "지유울리아",
