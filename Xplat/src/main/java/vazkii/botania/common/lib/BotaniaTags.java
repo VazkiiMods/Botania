@@ -124,6 +124,12 @@ public class BotaniaTags {
 		public static final TagKey<Item> MANA_USING_ITEMS = tag("mana_using_items");
 		public static final TagKey<Item> SEED_APOTHECARY_REAGENT = tag("seed_apothecary_reagent");
 
+		/**
+		 * Block provider items in this tag can be auto-selected via the vanilla "Pick Block" feature.
+		 * (Not every block provider makes sense here, e.g. the Hand of Ender cannot place blocks.)
+		 */
+		public static final TagKey<Item> PICKABLE_BLOCK_PROVIDER = tag("pickable_block_providers");
+
 		public static TagKey<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
 				case WHITE -> PETALS_WHITE;

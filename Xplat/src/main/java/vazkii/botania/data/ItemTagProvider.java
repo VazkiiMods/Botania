@@ -236,5 +236,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.SEED_APOTHECARY_REAGENT)
 				.add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS)
 				.addOptionalTag(new ResourceLocation("forge", "seeds"));
+
+		this.tag(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER)
+				.add(dirtRod, skyDirtRod, cobbleRod, blackHoleTalisman);
 	}
 }
