@@ -133,14 +133,19 @@
   "botaniamisc.invalidDodge": "闪避数据包非法",
   "botaniamisc.rannuncarpus.state_sensitive": "匹配方块状态",
   "botaniamisc.rannuncarpus.state_insensitive": "只匹配方块种类",
+  "botaniamisc.lokiRingLimitReached": "已达到选择数量上限",
   "botaniamisc.loonium.not_attuned": "未调谐",
   "botaniamisc.loonium.attuned": "已调谐",
   "botaniamisc.loonium.attuned_one": "调谐结构为：%s",
   "botaniamisc.loonium.attuned_many": "调谐多种结构",
-  "botaniamisc.lokiRingLimitReached": "已达到选择数量上限",
   "botaniamisc.pollidisiac.feed_adults": "喂成年动物",
   "botaniamisc.pollidisiac.feed_babies": "喂动物宝宝",
   "botaniamisc.pollidisiac.feed_all": "喂所有动物",
+  "botaniamisc.monocle.frame.contains": "%s§r 内含:",
+  "botaniamisc.monocle.frame.additional_stacks": "+%s 多组",
+  "botaniamisc.monocle.repeater.delay": "%ss",
+  "botaniamisc.monocle.comparator.compare": "\u2265",
+  "botaniamisc.monocle.comparator.subtract": "-",
   
   "botania.tater_birthday.0": "哇哦，这是给我的吗？",
   "botania.tater_birthday.1": "今天是我的生日，我现在%d岁了！",
@@ -214,6 +219,7 @@
   "tag.botania.mystical_flowers": "神秘花",
   "tag.botania.double_mystical_flowers": "高神秘花",
   "tag.botania.floating_flowers": "浮空花",
+  "tag.botania.shimmering_mushrooms": "微光蘑菇",
   "tag.botania.special_flowers": "植物魔法花",
   "tag.botania.mundane_floating_flowers": "普通浮空花",
   "tag.botania.special_floating_flowers": "特殊浮空花",
@@ -2032,7 +2038,7 @@
   "botania.page.flowers3": "摘取花瓣。",
   "botania.page.flowers15": "染料",
   "botania.page.flowers5": "将花瓣研磨成染料。",
-  "botania.page.flowers6": "通过将$(item)染料$(0)和一些$(item)骨粉$(0)混合，能做出一个不同的肥料——那就是$(item)花肥$(0)。这种花肥会在附近区域催生出少量$(item)神秘花$(0)，所以要是你的花瓣快不够了的话就多做一点吧。",
+  "botania.page.flowers6": "通过将$(item)染料$(0)和一些$(item)骨粉$(0)混合，能做出一个不同的肥料——那就是$(item)花肥$(0)。这种花肥会在附近区域催生出少量$(item)神秘花$(0)，所以要是你的花瓣快不够了的话就多做一点吧。$(p)根据土壤类型, $(l:misc/mushrooms)$(item)微光蘑菇$(0)$(/l)可能会额外（或完全替代花朵）生长。",
   "botania.page.flowers8": "制作花肥（任意颜色均有效）",
   "botania.page.flowers18": "世界上还会生成一些高$(item)神秘花$(0)。$(p)如果你发现某一种颜色的花瓣不够了，可以尝试埋下该颜色的花瓣，然后用$(item)骨粉$(0)对其进行施肥，就可以制造出高神秘花。",
   "botania.page.flowers11": "以备不时之需",
@@ -2371,7 +2377,7 @@
   "botania.entry.hopperhock": "漏斗花",
   "botania.tagline.hopperhock": "捡起物品",
   "botania.page.hopperhock0": "$(item)漏斗花$(0)会拾取它附近的物品并将其放入相邻的容器中(比如$(item)箱子$(0))。提供$(thing)魔力$(0)不是必需的，但这会增加拾取范围。$(p)给容器挂上$(item)物品展示框$(0)会允许或阻止这些物品进入该容器。",
-  "botania.page.hopperhock1": "未挂有$(item)物品展示框$(0)的容器会接受所有物品，但有标记的容器优先级更高。$(p)物品排序的规则可通过手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右击（或使用$(item)原版发射器$(0)）花来改变。",
+  "botania.page.hopperhock1": "放置在$(item)荧光物品展示框$(0)中的非空容器，例如(l:basics/flowerbag)$(item)采花袋$(0)$(/l)将根据其内部物品而非容器本身进行过滤。$(p)未挂有$(item)物品展示框$(0)的容器会接受所有物品，但有标记的容器优先级更高。$(p)物品排序的规则可通过手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右击（或使用$(item)原版发射器$(0)）花来改变。",
   "botania.page.hopperhock2": "$(o)我猜我会带上我的萝莉私奔$(0)。",
 
   "botania.entry.tangleberrie": "束缚莓",
@@ -2745,7 +2751,7 @@
 
   "botania.entry.gatherDrum": "收集之鼓",
   "botania.tagline.gatherDrum": "用魔力剪羊毛挤牛奶",
-  "botania.page.gatherDrum0": "所谓的$(item)收集之鼓$(0)，本质上就是一个为牲畜而准备的$(l:devices/forest_drum)$(item)狂野之鼓$(0)$(/l)。$(p)当有$(thing)魔力脉冲$(0)撞上它时，它会给周围长毛的$(thing)羊$(0)剪毛，任何的$(thing)鸡$(0)在下下一个鸡蛋之前都会贴近它。所有的$(thing)牛$(0)，$(thing)哞菇$(0), or $(thing)山羊$(0)下方若有$(item)空桶$(0)的话，牛奶就会被装入桶中。",
+  "botania.page.gatherDrum0": "所谓的$(item)收集之鼓$(0)，本质上就是一个为牲畜而准备的$(l:devices/forest_drum)$(item)狂野之鼓$(0)$(/l)。$(p)当有$(thing)魔力脉冲$(0)撞上它时，它会给周围长毛的$(thing)羊$(0)剪毛，任何的$(thing)鸡$(0)在下下一个鸡蛋之前都会贴近它。所有的$(thing)牛$(0)，$(thing)哞菇$(0), 或 $(thing)山羊$(0)下方若有$(item)空桶$(0)的话，牛奶就会被装入桶中。",
   "botania.page.gatherDrum1": "轻叩你的土地",
 
   "botania.entry.craftCrate": "机巧箱",
@@ -3052,6 +3058,7 @@
   "botania.tagline.temperanceStone": "限制泰拉粉碎者力量的石头",
   "botania.page.temperanceStone0": "$(item)泰拉粉碎者$(0)在能量充足时能破坏大片的土地，然而有时这并不是使用者想要的。有些情况下3x3的挖掘或许会更好。在背包中放入一个激活的$(item)节$(0)$(item)制之石$(0)就可以让泰拉粉碎者的破坏范围限制在3x3以内。这也会影响到$(item)泰拉断裂者$(0)。这个石头可以通过shift右击切换。",
   "botania.page.temperanceStone1": "别浪费",
+  "botania.page.temperanceStone2": "其他物品的效果在某些情况下也可能显得过于强大。激活的 $(item)节制之石$(0)也会关闭$(l:tools/terra_axe)$(item)泰拉断裂者$(0)$(/l)，减少s$(l:tools/exchange_rod)$(item)移壳杆$(0)$(/l)影响的范围，并阻止某些速度提升，例如$(l:baubles/water_ring)$(item)鱼泳指环$(0)$(/l)。$(p)无论该物品是在物品栏中还是在手上都可以通过右键单击来开启/关闭它",
 
   "botania.entry.terraAxe": "泰拉断裂者",
   "botania.tagline.terraAxe": "一次砍掉整棵树的斧头，多么令人愉悦",
@@ -3162,7 +3169,7 @@
   "botania.tagline.flightTiara": "飞行的能力……暂时的",
   "botania.page.flightTiara0": "$(thing)天翼族$(0)一度支配着这片土地，现在却是濒临灭绝的种族，作为弑神者而被创造出来，拥有着飞行的能力。$(p)使用$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)能复制出一点她们的力量，那就是以$(item)天翼族$(0)$(item)之冠$(0)的形式，消耗$(thing)魔力$(0)就能飞行。",
   "botania.page.flightTiara4": "然而并不能彻底完美地再现这项技术，这顶头冠有着缺陷，这意味着它不能持续的飞行。如果你持续飞行30秒而没有让其再充能，它就会停止提供飞行的力量。$(p)一个“飞行槽”会出现在HUD上以方便查看。",
-  "botania.page.flightTiara5": "除了简单的飞行，天翼族之冠给了穿戴者$(thing)冲刺$(0)和$(thing)滑翔$(0)的能力。没有在疾跑时按下[$(k:sprint)]，使用者将会快速往前冲刺一段距离。$(p)冲刺每两秒只能使用一次。",
+  "botania.page.flightTiara5": "除了简单的飞行，天翼族之冠给了穿戴者$(thing)冲刺$(0)和$(thing)滑翔$(0)的能力。没有在疾跑时按下[$(k:sprint)]，使用者将会快速往前冲刺一段距离。$(p)冲刺每两秒只能使用一次。该功能可以通过佩戴激活的$(l:tools/temperance_stone)$(item)节制之石$(0)$(/l)关闭",
   "botania.page.flightTiara6": "滑翔允许你轻轻地着陆，它有着不错的水平飞行距离，同时防止掉落伤害。要滑翔，只需在掉落的时候按住潜行键。$(p)滑翔即使在飞行槽空时也能使用，但会使飞行槽的回复速度变慢。",
   "botania.page.flightTiara1": "异世界的四万本书",
   "botania.page.flightTiara2": "将头冠配上各种石英碎片就能做出各种漂亮的翅膀，每种石英对应一种。$(p)各种石英的合成可在$(thing)杂项$(0)下的$(l:misc/decorative_blocks)$(thing)装饰方块$(0)$(/l)章节找到，$(l:alfhomancy/elf_resources)$(item)精灵石英$(0)$(/l)则是与精灵贸易$(item)下界石英$(0)而获得的。",
@@ -3199,8 +3206,9 @@
   "botania.entry.corporeaFunnel": "多媒体漏斗",
   "botania.tagline.corporeaFunnel": "利用红石朝多媒体请求物品",
   "botania.page.corporeaFunnel0": "比起索引，$(item)多媒体漏斗$(0)从$(thing)多媒体网络$(0)提取物品的方式更加简明直观。在$(item)多媒体漏斗$(0)上方放置一个$(item)多媒体火花$(0)接入网络，它就在收到红石信号时会从网络里抽取一个物品。$(p)物品会被放入下方1或2格的容器内，如果容器不存在或已满，就会以掉落物的形式扔到漏斗上方。",
-  "botania.page.corporeaFunnel1": "$(item)多媒体漏斗$(0)抽取的方块种类可以通过在其表面贴$(item)物品展示框$(0)或$(item)荧光物品展示框$(0)指定。若同时贴了多个展示框则每次都会随机选择一个。$(p)旋转展示框内的物品就能改变每次请求的数量，不旋转的话是1，之后每次旋转则是2、4、8、16、32、48、和64。",
+  "botania.page.corporeaFunnel1": "$(item)多媒体漏斗$(0)抽取的方块种类可以通过在其表面贴$(item)物品展示框$(0)或$(item)荧光物品展示框$(0)指定。若同时贴了多个展示框则每次都会随机选择一个。$(p)旋转展示框内的物品就能改变每次请求的数量，不旋转的话是1，之后每次旋转则是2、4、8、16、32、48和64。",
   "botania.page.corporeaFunnel2": "应用能源",
+  "botania.page.corporeaFunnel3": "与$(l:functional_flowers/hopperhock)$(item)漏斗花$(0)$(/l)类似，$(item)多媒体漏斗$(0)支持$(item)荧光物品展示框$(0)中的非空容器，以指定多个匹配项。$(p)请求数量仍由框架中容器物品的旋转次数决定",
 
   "botania.entry.corporeaInterceptor": "多媒体拦截器",
   "botania.tagline.corporeaInterceptor": "拦截多媒体请求并发射红石脉冲",
@@ -3355,7 +3363,7 @@
 
   "botania.entry.waterRing": "鱼泳指环",
   "botania.tagline.waterRing": "水里游得更快！",
-  "botania.page.waterRing0": "$(item)鱼泳指环$(0)能让装备者像鱼一样游泳，穿戴者的水下速度得到提升。它也提供了良好的视野，如果有可用的$(thing)魔力$(0)，还能消耗魔力用来水下呼吸。",
+  "botania.page.waterRing0": "$(item)鱼泳指环$(0)能让装备者像鱼一样游泳，穿戴者的水下速度得到提升。它也提供了良好的视野，如果有可用的$(thing)魔力$(0)，还能消耗魔力用来水下呼吸。如果不需要水下的速度提升，可以通过佩戴激活的 $(l:tools/temperance_stone)$(item)节制之石$(0)$(/l)来关闭",
   "botania.page.waterRing1": "看看鱼的AI",
 
   "botania.entry.miningRing": "地幔指环",
@@ -3750,6 +3758,7 @@
   "botania.subtitle.unholyCloak": "罪恶斗篷：激活",
   "botania.subtitle.vineBallThrow": "藤蔓球：飞出",
   "botania.subtitle.virusInfect": "病毒：感染",
-  "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA",
   "botania.subtitle.worldSeedTeleport": "世界之种：传送"
+
+  "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA",
 }
