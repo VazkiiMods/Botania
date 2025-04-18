@@ -3073,7 +3073,7 @@
 
   "botania.entry.slimeBottle": "史萊姆罐子",
   "botania.tagline.slimeBottle": "史萊姆區塊檢測器",
-  "botania.page.slimeBottle0": "將一些史萊姆物質放入$(item)源質鋼錠容器$(0)中似乎會有告知史萊姆位置的有趣效果。當你在一個$(item)史萊姆$(0)區塊且它能正常生成的地方時，裡面的史萊姆會因奇怪的原因跳動$(p)然而這足以證明收集黏液球和放置$(item)黏球草$(0)的有用性。",
+  "botania.page.slimeBottle0": "將一些史萊姆物質放入$(item)源質鋼錠容器$(0)中似乎會有告知史萊姆位置的有趣效果。當你在一個$(item)史萊姆$(0)區塊且它能正常生成的地方時，裡面的史萊姆會因奇怪的原因跳動$(p)然而這足以證明收集史萊姆球和放置$(item)黏球草$(0)的有用性。",
   "botania.page.slimeBottle1": "跳娃娃",
 
   "botania.entry.exchangeRod": "移殼杆",
