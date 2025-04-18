@@ -2960,7 +2960,7 @@
   "botania.tagline.laputaShard": "將大地抬升為浮空島",
   "botania.page.laputaShard0": "透過有些複雜的啟動程式，結合一些有趣的材料包括$(item)蓋亞$(0)$(item)之魂$(0)就能製作一個特殊的碎片，當對土地使用時，就能讓附近一個幾乎的球形區域升至空中。$(p)這個過程可持續10分鐘並且根據土地的品質消耗對應量的碎片。",
   "botania.page.laputaShard2": "建立的島的初始半徑為14格，換句話說就是直徑28格。可透過加入$(l:alfhomancy/gaia_ritual)$(item)蓋亞之魂$(0)$(/l)來升級。每個碎片都會使半徑增加一個區塊，最多可提升至半徑33區塊。請注意，一塊較大的碎片至少需要十分鐘，甚至更長時間才能完成抬升。",
-  "botania.page.laputaShard1": "看吶白，拉普達真的存在！",
+  "botania.page.laputaShard1": "看啊白，拉普達真的存在！",
   "botania.page.laputaShard3": "大小很重要",
 
   "botania.entry.virus": "馬類病毒",
