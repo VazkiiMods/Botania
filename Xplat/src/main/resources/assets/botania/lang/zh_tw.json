@@ -3047,7 +3047,7 @@
   "botania.entry.livingwoodBow": "活木弓",
   "botania.tagline.livingwoodBow": "用瑪那自我修復的強大之弓",
   "botania.page.livingwoodBow0": "活木弓，顧名思義，是用$(l:basics/pure_daisy)$(item)活木$(0)$(/l)和$(l:mana/pool)$(item)蘊魔絲線$(0)$(/l)製作的。因其構造更加結實，它比普通$(item)弓$(0)更耐用。此外，它也可以用$(thing)瑪那$(0)修復，類似$(l:tools/mana_gear)$(item)魔鋼工具$(0)$(/l)。",
-  "botania.page.livingwoodBow1": "它能把飛機打下來麼？",
+  "botania.page.livingwoodBow1": "它能把飛機打下來嗎？",
 
   "botania.entry.crystalBow": "水晶弓",
   "botania.tagline.crystalBow": "瑪那造箭的更快速的弓",
