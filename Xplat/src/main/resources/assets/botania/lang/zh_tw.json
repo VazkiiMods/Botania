@@ -2212,7 +2212,7 @@
   "botania.page.lens21": "傷害透鏡",
   "botania.page.lens22": "$(item)虛化透鏡$(0)是個有趣的透鏡。配合使用$(l:devices/platform)$(item)奧秘平台$(0)$(/l)的特殊能力，就能做出一個能使$(thing)瑪那脈衝$(0)貫穿方塊的透鏡。但這樣一來，它也會更早開始流失瑪那。",
   "botania.page.lens23": "虛化透鏡",
-  "botania.page.lens24": "$(item)磁化透鏡$(0)，正如它的名字，使$(thing)瑪那脈衝$(0)能被附近可接收$(thing)魔$(0) $(thing)力$(0)的方塊吸引。這使得脈衝的速度有所減緩。",
+  "botania.page.lens24": "$(item)磁化透鏡$(0)，正如它的名字，使$(thing)瑪那脈衝$(0)能被附近可接收$(thing)魔$(0)$(thing)力$(0)的方塊吸引。這使得脈衝的速度有所減緩。",
   "botania.page.lens25": "磁化透鏡",
   "botania.page.lens26": "$(item)爆炸透鏡$(0)給$(thing)瑪那脈衝$(0)注入熵熱，使它在撞上不能接收$(thing)瑪那$(0)的對象時以爆炸的形式釋放能量。",
   "botania.page.lens27": "爆炸透鏡",
@@ -2257,7 +2257,7 @@
   "botania.tagline.dreamwoodSpreader": "更強大，更好用，更迅速",
   "botania.page.dreamwoodSpreader0": "歸根結底，$(l:alfhomancy/elf_resources)$(item)夢之木$(0)$(/l)引導$(thing)瑪那$(0)的能力還是比$(l:basics/pure_daisy)$(item)活木$(0)$(/l)的好太多了。只要稍加改進（比如用$(l:alfhomancy/elf_resources)$(item)源質鋼錠$(0)$(/l)來代替$(item)銅錠$(0)），就能做成更先進的$(item)精靈瑪那發射器$(0)。它一次能發射更多$(thing)瑪那$(0)、速度更快、且$(thing)瑪那流失$(0)$(p)得更晚。可惜，它沒有能用$(item)紅石$(0)控制的版本。",
   "botania.page.dreamwoodSpreader1": "更好的發射器就是它了",
-  "botania.page.dreamwoodSpreader2": "將這個足夠強力的發射器和一個$(l:alfhomancy/gaia_ritual)$(item)蓋亞之魂$(0)$(/l)與一塊$(item)龍石$(0)相結合，就能製作出更佳出色的發射器.$(item)蓋亞發射器$(0)在諸多的瑪那發射器之中居於頂端，有著更優越的效能。",
+  "botania.page.dreamwoodSpreader2": "將這個足夠強力的發射器和一個$(l:alfhomancy/gaia_ritual)$(item)蓋亞之魂$(0)$(/l)與一塊$(item)龍石$(0)相結合，就能製作出更佳出色的發射器。$(item)蓋亞發射器$(0)在諸多的瑪那發射器之中居於頂端，有著更優越的效能。",
   "botania.page.dreamwoodSpreader3": "終極發射器",
 
   "botania.entry.elvenLenses": "精靈瑪那透鏡",
@@ -2361,7 +2361,7 @@
   "botania.entry.fallenKanade": "天降之奏",
   "botania.tagline.fallenKanade": "強大的小範圍治癒",
   "botania.page.fallenKanade0": "$(item)天降之奏$(0)是有天使屬性的花，會從附近的$(thing)瑪那池$(0)抽取$(thing)瑪那$(0)給附近的$(thing)玩家$(0)提供回復的效果。",
-  "botania.page.fallenKanade0a": "$(item)天降之奏$(0)是有天使屬性的花，會從附近的$(thing)瑪那池$(0)抽取$(thing)瑪那$(0)給附近的$(thing)玩家$(0)提供回復的效果.$(p)有趣的是，$(thing)血魔法師們$(0)已經知道了這朵花會因他們祭壇魔法的屬性而失效，務必注意這一點。",
+  "botania.page.fallenKanade0a": "$(item)天降之奏$(0)是有天使屬性的花，會從附近的$(thing)瑪那池$(0)抽取$(thing)瑪那$(0)給附近的$(thing)玩家$(0)提供回復的效果。$(p)有趣的是，$(thing)血魔法師們$(0)已經知道了這朵花會因他們祭壇魔法的屬性而失效，務必注意這一點。",
   "botania.page.fallenKanade1": "$(o)音速手刃，第四版$(0)。",
 
   "botania.entry.exoflame": "冶煉火",
@@ -2403,7 +2403,7 @@
 
   "botania.entry.hyacidus": "毒風信",
   "botania.tagline.hyacidus": "毒死怪物",
-  "botania.page.hyacidus0": "因為某些原因，毒不會致命.$(item)毒風信$(0)，能用來毒害周圍的怪物，讓它們脆弱得一擊即死。",
+  "botania.page.hyacidus0": "因為某些原因，毒不會致命。$(item)毒風信$(0)，能用來毒害周圍的怪物，讓它們脆弱得一擊即死。",
   "botania.page.hyacidus1": "$(o)硬骨頭不好啃$(0)。",
 
   "botania.entry.pollidisiac": "畜牧花",
@@ -2500,7 +2500,7 @@
 
   "botania.entry.arcanerose": "阿卡納薔薇",
   "botania.tagline.arcanerose": "經驗就是瑪那",
-  "botania.page.arcanerose0": "$(thing)經驗點$(0)是一種形式的瑪那.$(item)阿卡納薔薇$(0)能吸收附近玩家的經驗，並利用它產生$(item)瑪那$(0)。$(p)它也可以吸收世界中掉落的經驗球或利用附魔物品來產生瑪那",
+  "botania.page.arcanerose0": "$(thing)經驗點$(0)是一種形式的瑪那。$(item)阿卡納薔薇$(0)能吸收附近玩家的經驗，並利用它產生$(item)瑪那$(0)。$(p)它也可以吸收世界中掉落的經驗球或利用附魔物品來產生瑪那",
   "botania.page.arcanerose1": "$(o)該花被種植時，投擲一枚硬幣$(0)。",
 
   "botania.entry.munchdew": "咀葉花",
@@ -2566,29 +2566,29 @@
 
   "botania.entry.pylon": "魔法水晶",
   "botania.tagline.pylon": "魔法催化劑",
-  "botania.page.pylon0": "$(item)魔法水晶$(0)是一個能將能量從地下中抽出用於供給附魔過程的裝置.$(p)舉例來說，將一個臨近$(item)附魔台$(0)放置會起到和$(item)書櫃$(0)一樣的作用，會大幅增加附魔等級，2個魔法水晶就足夠達到$(thing)Level30$(0)。",
+  "botania.page.pylon0": "$(item)魔法水晶$(0)是一個能將能量從地下中抽出用於供給附魔過程的裝置。$(p)舉例來說，將一個臨近$(item)附魔台$(0)放置會起到和$(item)書櫃$(0)一樣的作用，會大幅增加附魔等級，2個魔法水晶就足夠達到$(thing)Level30$(0)。",
   "botania.page.pylon1": "$(o)你必須增建水晶塔！$(0)",
 
   "botania.entry.manaEnchanting": "瑪那附魔",
   "botania.tagline.manaEnchanting": "使用瑪那來附魔工具",
   "botania.page.manaEnchanting0": "透過利用$(item)魔法水晶$(0)輸出的魔法能量，能建造出一個用附魔書無消耗附魔物品的裝置，叫做$(item)瑪那附魔台$(0)。$(p)建造它需要大量的空間和材料。",
-  "botania.page.manaEnchanting1": "建造$(item)瑪那附魔台$(0)，需要大量空間，17個$(item)黑曜石$(0)塊，10個任意顏色的$(item)神秘花$(0)，6個$(item)魔法水晶$(0)和一個$(item)青金石方塊$(0).$(p)如何組裝的說明在後續頁面。",
+  "botania.page.manaEnchanting1": "建造$(item)瑪那附魔台$(0)，需要大量空間，17個$(item)黑曜石$(0)塊，10個任意顏色的$(item)神秘花$(0)，6個$(item)魔法水晶$(0)和一個$(item)青金石方塊$(0)。$(p)如何組裝的說明在後續頁面。",
   "botania.page.manaEnchanting2": "瑪那附魔台。",
-  "botania.page.manaEnchanting5": "擺放完成後，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右鍵青金石方塊附魔台就成型了.$(p)使用附魔台時，需要將要附魔的物品放入附魔台(透過右鍵)並在黑曜石圈內扔下$(item)附魔$(0)$(item)書$(0)。",
-  "botania.page.manaEnchanting6": "已附魔的物品不能放入附魔台.$(p)開始附魔時，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右鍵附魔台.它會檢測周圍的書，一旦檢測完畢，就會出現一個符文圈，說明這時可以撿起地上的書了。",
-  "botania.page.manaEnchanting7": "附魔開始後，附魔台就會需要$(thing)瑪那$(0).$(p)有兩種來源，透過$(thing)瑪那脈衝$(0)或在附魔台上方放置$(l:mana/sparks)$(item)火花$(0)$(/l)，後者要快一些。",
-  "botania.page.manaEnchanting8": "當聚集了足夠的$(thing)瑪那$(0)時，附魔過程就告終了，附魔將會賦予物品.$(p)所需$(thing)瑪那$(0)的量取決於施加附魔的稀有度，等級，和附魔總數.$(p)如果有的書有不止一種附魔，那麼僅會附魔第一個。",
-  "botania.page.manaEnchanting9": "附魔過程中物品不能取出，但可在完成後取出.$(p)注意附魔台結構的任何一部分被移除或是破壞都會將它變為原來的$(item)青金石方塊$(0)。",
+  "botania.page.manaEnchanting5": "擺放完成後，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右鍵青金石方塊附魔台就成型了。$(p)使用附魔台時，需要將要附魔的物品放入附魔台(透過右鍵)並在黑曜石圈內扔下$(item)附魔$(0)$(item)書$(0)。",
+  "botania.page.manaEnchanting6": "已附魔的物品不能放入附魔台。$(p)開始附魔時，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右鍵附魔台.它會檢測周圍的書，一旦檢測完畢，就會出現一個符文圈，說明這時可以撿起地上的書了。",
+  "botania.page.manaEnchanting7": "附魔開始後，附魔台就會需要$(thing)瑪那$(0)。$(p)有兩種來源，透過$(thing)瑪那脈衝$(0)或在附魔台上方放置$(l:mana/sparks)$(item)火花$(0)$(/l)，後者要快一些。",
+  "botania.page.manaEnchanting8": "當聚集了足夠的$(thing)瑪那$(0)時，附魔過程就告終了，附魔將會賦予物品。$(p)所需$(thing)瑪那$(0)的量取決於施加附魔的稀有度，等級，和附魔總數。$(p)如果有的書有不止一種附魔，那麼僅會附魔第一個。",
+  "botania.page.manaEnchanting9": "附魔過程中物品不能取出，但可在完成後取出。$(p)注意附魔台結構的任何一部分被移除或是破壞都會將它變為原來的$(item)青金石方塊$(0)。",
 
   "botania.entry.turntable": "發射器旋轉台",
   "botania.tagline.turntable": "旋轉發射器",
-  "botania.page.turntable0": "$(item)發射器旋轉台$(0)如它的名字，能將$(l:mana/spreader)$(item)瑪那發射器$(0)$(/l)來迴旋轉.在上方放置一個發射器旋轉台就會開始轉動它，紅石訊號會阻止旋轉.$(p)要改變轉速，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右鍵它，shift右鍵會反轉。",
+  "botania.page.turntable0": "$(item)發射器旋轉台$(0)如它的名字，能將$(l:mana/spreader)$(item)瑪那發射器$(0)$(/l)來迴旋轉.在上方放置一個發射器旋轉台就會開始轉動它，紅石訊號會阻止旋轉。$(p)要改變轉速，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右鍵它，shift右鍵會反轉。",
   "botania.page.turntable1": "你讓我剛好轉了一圈",
   "botania.page.turntable2": "類似地，讓裝有$(l:basics/wand)$(item)森林法杖$(0)$(/l)的原版$(item)發射器$(0)對著其側面啟動可以改變速度，對著底面則可以改變方向。",
 
   "botania.entry.manaAlchemy": "瑪那鍊金",
   "botania.tagline.manaAlchemy": "不等價交換",
-  "botania.page.manaAlchemy0": "$(thing)瑪那$(0)是種不穩定的物質，某種程度上我們還未了解它的完整屬性和能力.$(p)但有一點，裝上$(item)鍊金催化器$(0)，由特別材料混合製成放在$(item)魔$(0)$(item)力池$(0)底部，使得池子能進行$(thing)煉$(0)$(thing)金$(0)。",
+  "botania.page.manaAlchemy0": "$(thing)瑪那$(0)是種不穩定的物質，某種程度上我們還未了解它的完整屬性和能力。$(p)但有一點，裝上$(item)鍊金催化器$(0)，由特別材料混合製成放在$(item)魔$(0)$(item)力池$(0)底部，使得池子能進行$(thing)煉$(0)$(thing)金$(0)。",
   "botania.page.manaAlchemy1": "製作$(item)催化器$(0)",
   "botania.page.manaAlchemy2": "$(item)腐肉$(0)變$(item)皮革$(0)",
   "botania.page.manaAlchemy29": "原木",
@@ -2751,7 +2751,7 @@
 
   "botania.entry.gatherDrum": "收集之鼓",
   "botania.tagline.gatherDrum": "用瑪那剪羊毛擠牛奶",
-  "botania.page.gatherDrum0": "所謂的$(item)收集之鼓$(0)，本質上就是一個為牲畜而準備的$(l:devices/forest_drum)$(item)狂野之鼓$(0)$(/l)。$(p)當有$(thing)瑪那脈衝$(0)撞上它時，它會給周圍長毛的$(thing)羊$(0)剪毛，任何的$(thing)雞$(0)在下下一個雞蛋之前都會貼近它。所有的$(thing)牛$(0)，$(thing)哞菇$(0), 或 $(thing)山羊$(0)下方若有$(item)空桶$(0)的話，牛奶就會被裝入桶中。",
+  "botania.page.gatherDrum0": "所謂的$(item)收集之鼓$(0)，本質上就是一個為牲畜而準備的$(l:devices/forest_drum)$(item)狂野之鼓$(0)$(/l)。$(p)當有$(thing)瑪那脈衝$(0)撞上它時，它會給周圍長毛的$(thing)綿羊$(0)剪毛，任何的$(thing)雞$(0)在下下一個雞蛋之前都會貼近它。所有的$(thing)牛$(0)、$(thing)哞菇$(0)或$(thing)山羊$(0)下方若有$(item)空桶$(0)的話，鮮奶就會被裝入桶中。",
   "botania.page.gatherDrum1": "輕叩你的土地",
 
   "botania.entry.craftCrate": "機巧箱",
@@ -2803,7 +2803,7 @@
   "botania.tagline.teruTeruBozu": "過分可愛的天氣控制工具",
   "botania.page.teruTeruBozu0": "$(item)晴天娃娃$(0)，眾所周知，是一種驅散壞天氣的護身符。只要製作一個並將它放在世界上能夠減少$(item)雨$(0)或$(item)暴風雨$(0)持續的時間。壞天氣的時候，拿著$(item)向日葵$(0)右鍵他或朝他投擲向日葵會讓晴天再臨。給予一個$(item)紅石比較器$(0)能夠讓他檢測壞天氣。",
   "botania.page.teruTeruBozu1": "太陽花又有什麼特別的？",
-  "botania.page.teruTeruBozu2": "雖然 $(item)晴天娃娃(0) 喜歡$(item)向日葵$(0)，但若向其提供一朵$(item)藍色蝴蝶蘭$(0) 或許會影響它的心情和天氣。",
+  "botania.page.teruTeruBozu2": "雖然$(item)晴天娃娃(0)喜歡$(item)向日葵$(0)，但若向其提供一朵$(item)藍色蝴蝶蘭$(0)或許會影響它的心情和天氣。",
 
   "botania.entry.avatar": "活木化身",
   "botania.tagline.avatar": "替身施法",
@@ -3058,7 +3058,7 @@
   "botania.tagline.temperanceStone": "限制泰拉粉碎者力量的石頭",
   "botania.page.temperanceStone0": "$(item)泰拉粉碎者$(0)在能量充足時能破壞大片的土地，然而有時這並不是使用者想要的。有些情況下3x3的挖掘或許會更好。在背包中放入一個啟動的$(item)節$(0)$(item)制之石$(0)就可以讓泰拉粉碎者的破壞範圍限制在3x3以內。這也會影響到$(item)泰拉斷裂者$(0)。這個石頭可以透過shift右鍵切換。",
   "botania.page.temperanceStone1": "別浪費",
-  "botania.page.temperanceStone2": "其他物品的效果在某些情況下也可能顯得過於強大。啟動的 $(item)節制之石$(0)也會關閉$(l:tools/terra_axe)$(item)泰拉斷裂者$(0)$(/l)，減少s$(l:tools/exchange_rod)$(item)移殼杆$(0)$(/l)影響的範圍，並阻止某些速度提升，例如$(l:baubles/water_ring)$(item)魚泳指環$(0)$(/l)。$(p)無論該物品是在物品欄中還是在手上都可以透過右鍵點擊來開啟/關閉它",
+  "botania.page.temperanceStone2": "其他物品的效果在某些情況下也可能顯得過於強大。啟動的$(item)節制之石$(0)也會關閉$(l:tools/terra_axe)$(item)泰拉斷裂者$(0)$(/l)，減少s$(l:tools/exchange_rod)$(item)移殼杆$(0)$(/l)影響的範圍，並阻止某些速度提升，例如$(l:baubles/water_ring)$(item)魚泳指環$(0)$(/l)。$(p)無論該物品是在物品欄中還是在手上都可以透過右鍵點擊來開啟/關閉它",
 
   "botania.entry.terraAxe": "泰拉斷裂者",
   "botania.tagline.terraAxe": "一次砍掉整棵樹的斧頭，多麼令人愉悅",
@@ -3363,7 +3363,7 @@
 
   "botania.entry.waterRing": "魚泳指環",
   "botania.tagline.waterRing": "水裡游得更快！",
-  "botania.page.waterRing0": "$(item)魚泳指環$(0)能讓裝備者像魚一樣游泳，穿戴者的水下速度得到提升。它也提供了良好的視野，如果有可用的$(thing)瑪那$(0)，還能消耗瑪那用來水下呼吸。如果不需要水下的速度提升，可以透過佩戴啟動的 $(l:tools/temperance_stone)$(item)節制之石$(0)$(/l)來關閉",
+  "botania.page.waterRing0": "$(item)魚泳指環$(0)能讓裝備者像魚一樣游泳，穿戴者的水下速度得到提升。它也提供了良好的視野，如果有可用的$(thing)瑪那$(0)，還能消耗瑪那用來水下呼吸。如果不需要水下的速度提升，可以透過佩戴啟動的$(l:tools/temperance_stone)$(item)節制之石$(0)$(/l)來關閉",
   "botania.page.waterRing1": "看看魚的AI",
 
   "botania.entry.miningRing": "地幔指環",
