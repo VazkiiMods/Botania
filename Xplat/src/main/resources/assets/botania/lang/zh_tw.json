@@ -29,7 +29,7 @@
   "botaniamisc.filter1": "只拾取物品展示框以外物品",
   "botaniamisc.filter2": "拾取所有物品",
   "botaniamisc.retainer.retain_all": "保持請求的原始物品數目",
-  "botaniamisc.retainer.retain_missing": "保持缺失的物品數目",
+  "botaniamisc.retainer.retain_missing": "保持缺少的物品數目",
   "botaniamisc.optifine_warning": "§4[警告]§r <Botania>：偵測到已安裝Optifine。請注意Optifine會給植物魔法帶來許多問題。你可能會遇到一些問題，例如瑪那無法在產能花與瑪那發射器之間傳輸，又例如當你拿著森林法杖看向瑪那池或瑪那發射器時沒有資訊顯示。我們推薦安裝Sodium作為Optifine效能最佳化的一個替代方案。",
 
   "botaniamisc.creativePool0": "創造模式瑪那池，擁有無限瑪那",
