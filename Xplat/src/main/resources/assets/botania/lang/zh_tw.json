@@ -141,7 +141,7 @@
   "botaniamisc.pollidisiac.feed_adults": "餵成年動物",
   "botaniamisc.pollidisiac.feed_babies": "餵動物寶寶",
   "botaniamisc.pollidisiac.feed_all": "餵所有動物",
-  "botaniamisc.monocle.frame.contains": "%s§r 內含:",
+  "botaniamisc.monocle.frame.contains": "%s§r 內含：",
   "botaniamisc.monocle.frame.additional_stacks": "+%s 多組",
   "botaniamisc.monocle.repeater.delay": "%ss",
   "botaniamisc.monocle.comparator.compare": "\u2265",
