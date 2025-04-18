@@ -2980,7 +2980,7 @@
   "botania.page.glassPick1": "請勿與食物放在一起",
 
   "botania.entry.diviningRod": "占礦法杖",
-  "botania.tagline.diviningRod": "追蹤礦石的法杖",
+  "botania.tagline.diviningRod": "追蹤礦物的法杖",
   "botania.page.diviningRod0": "就如其名所示，$(item)占礦法杖$(0)能卜測使用者周圍大範圍內的礦物。它們會閃出亮點來顯示位置。$(p)這個過程顯然會消耗掉玩家相當量的$(thing)瑪那$(0)。",
   "botania.page.diviningRod2": "它可以給$(l:devices/avatar)$(item)活木化身$(0)$(/l)使用。如果這麼做，它會顯示周邊所有的礦物，如同玩家使用它一般，但直到它被移除為止都會一直顯示$(p)這個過程化身需要$(thing)瑪那$(0)，並且可以給它一個紅石訊號以關閉它。",
   "botania.page.diviningRod1": "終有一天Pahimar會送來(EE3)的",
