@@ -115,7 +115,7 @@
   "botaniamisc.command.skyblock.help.2": "/gardenofglass spawn - 將使用者傳送至重生點空島",
   "botaniamisc.command.skyblock.help.3": "/gardenofglass visit <玩家名稱|玩家UUID> - 將使用者傳送到指定玩家的空島",
   "botaniamisc.command.skyblock.help.4": "/gardenofglass regen-island <玩家名稱|玩家UUID> - 重建指定玩家的空島",
-  "botaniamisc.command.full_book_function": "已賦予所有缺失的詞典目錄進度。",
+  "botaniamisc.command.full_book_function": "已賦予所有缺少的詞典目錄進度。",
   "botaniamisc.pay2win": "必須升級瑪那池才能注魔這個物品",
   "botaniamisc.justDoIt": "放手去做吧",
   "botaniamisc.changes0": "自從你上一次使用\u00a7aBotania\u00a77以來，它已經發生了某種改變！",
