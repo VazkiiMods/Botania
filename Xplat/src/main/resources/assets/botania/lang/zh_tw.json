@@ -2012,7 +2012,7 @@
   "botania.page.gardenOfGlass3": "製作$(item)樹苗$(0)",
   "botania.page.gardenOfGlass4": "製作$(item)花肥$(0)",
   "botania.page.gardenOfGlass5": "製作$(item)鵝卵石$(0)",
-  "botania.page.gardenOfGlass6": "除此之外，有些東西在植物魔法中調整得更適合空島遊戲：$(l:functional_flowers/orechid_gog)$(item)凝礦蘭$(0)$(/l)將更容易製作，速度更快並且更瑪那消耗更低。$(l:devices/cocoon_gog)$(item)隨想之繭$(0)$(/l)以及$(l:mana/spreader)$(item)瑪那發射器$(0)$(/l)的配方也有所改變。用來製作$(item)黑曜石$(0)的$(l:misc/blaze_block)$(item)烈焰網$(0)$(/l)，改為用烈焰粉而不是烈焰桿合成；西瓜種子和南瓜種子可以透過打掉高草掉落；每份原料可以製作更多的花肥。同時，還加入了$(item)甘蔗$(0)和$(item)黏液球$(0)的製作配方。",
+  "botania.page.gardenOfGlass6": "除此之外，有些東西在植物魔法中調整得更適合空島遊戲：$(l:functional_flowers/orechid_gog)$(item)凝礦蘭$(0)$(/l)將更容易製作，速度更快並且更瑪那消耗更低。$(l:devices/cocoon_gog)$(item)隨想之繭$(0)$(/l)以及$(l:mana/spreader)$(item)瑪那發射器$(0)$(/l)的配方也有所改變。用來製作$(item)黑曜石$(0)的$(l:misc/blaze_block)$(item)烈焰網$(0)$(/l)，改為用烈焰粉而不是烈焰桿合成；西瓜種子和南瓜種子可以透過打掉芒草掉落；每份原料可以製作更多的花肥。同時，還加入了$(item)甘蔗$(0)和$(item)史萊姆球$(0)的製作配方。",
   "botania.page.gardenOfGlass7": "製作$(item)甘蔗$(0)",
   "botania.page.gardenOfGlass8": "製作$(item)黏液球$(0)",
   "botania.page.gardenOfGlass13": "注魔$(item)海磷石$(0)",
