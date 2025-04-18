@@ -633,7 +633,7 @@
   "botania.challenge.kekimurusSetup": "貪食裝置",
   "botania.challenge.kekimurusSetup.desc": "完全自動化$(l:generating_flowers/kekimurus)貪食花$(/l)，該系統的每部分都必須是自動化且能夠自給自足。如果僅用一個機巧箱獎勵積分。",
   "botania.challenge.autoQuarry": "自動採礦",
-  "botania.challenge.autoQuarry.desc": "建造一個自動採掘地下的礦石和石頭的採礦場。它必須能挖掘大片的區域且自動輸出及分類採到的資源。如果它能夠在挖掘完一片區域後自動轉移獎勵積分。",
+  "botania.challenge.autoQuarry.desc": "建造一個自動採掘地下的礦物和石頭的採礦場。它必須能挖掘大片的區域且自動輸出及分類採到的資源。如果它能夠在挖掘完一片區域後自動轉移獎勵積分。",
   "botania.challenge.runeCrafter": "符文合成",
   "botania.challenge.runeCrafter.desc": "建造一套能夠自動合成全部符文並且維持其儲量的系統。系統的每個部分都必須自動化且能自給自足，包括物品輸入。如果只用一個符文祭壇獎勵積分。（註：只有瘋子才會嘗試這個。）",
 
