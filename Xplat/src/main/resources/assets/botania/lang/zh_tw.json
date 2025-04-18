@@ -110,7 +110,7 @@
   "botaniamisc.command.skyblock.spawn.success": "已將玩家%s傳送至重生點空島",
   "botaniamisc.command.skyblock.world": "不能在非空島維度使用這個指令",
   "botaniamisc.command.skyblock.noisland": "這個玩家沒有任何空島",
-  "botaniamisc.command.skyblock.help.0": "/gardenofglass help - 顯示這條訊息",
+  "botaniamisc.command.skyblock.help.0": "/gardenofglass help - 顯示這則訊息",
   "botaniamisc.command.skyblock.help.1": "/gardenofglass island <玩家名稱> - 為這個玩家建立一個新的空島，或傳送至他的空島若已存在",
   "botaniamisc.command.skyblock.help.2": "/gardenofglass spawn - 將使用者傳送至重生點空島",
   "botaniamisc.command.skyblock.help.3": "/gardenofglass visit <玩家名稱|玩家UUID> - 將使用者傳送到指定玩家的空島",
