@@ -69,7 +69,7 @@
   "botaniamisc.clipEmpty": "（空）",
   "botaniamisc.armorset": "\u00a7b套裝\u00a7r：",
   "botaniamisc.craftToAddWill": "與泰拉鋼頭盔合成加入以下效果：",
-  "botaniamisc.requestMsg": "請求 %d x %s 總數 %d。取出 %d。",
+  "botaniamisc.requestMsg": "請求 %d × %s 總數 %d。取出 %d。",
   "botaniamisc.nearIndex0": "附近有多媒體索引！",
   "botaniamisc.nearIndex1": "你所說的一切都會被",
   "botaniamisc.nearIndex2": "當做請求傳送給索引",
@@ -2388,7 +2388,7 @@
   "botania.entry.jiyuulia": "自由之翼",
   "botania.tagline.jiyuulia": "趕走怪物",
   "botania.page.jiyuulia0": "$(item)自由之翼$(0)是種消耗少量$(thing)瑪那$(0)而使得所有鄰近的動物和怪物無法進入一個圈內的花。",
-  "botania.page.jiyuulia1": "$(o)你想去哪裡都可以，除了這裡$().",
+  "botania.page.jiyuulia1": "$(o)你想去哪裡都可以，除了這裡$()。",
 
   "botania.entry.labellia": "銘刻蓮",
   "botania.tagline.labellia": "給東西重新命名",
@@ -2408,7 +2408,7 @@
 
   "botania.entry.pollidisiac": "畜牧花",
   "botania.tagline.pollidisiac": "讓他們產仔",
-  "botania.page.pollidisiac0": "動物愛吃東西，事實上它們除了這個別的什麼也不做。奇怪的是，它們只會吃餵給它們的東西。$(p)$(item)畜牧花$(0)正是為此而生的。消耗一些瑪那，它就會利用附近可用的食物類物品（$(item)小麥$(0)、$(item)胡蘿蔔$(0)，等等）來飼養動物，使它們擁有$(o)好心情$(0)。",
+  "botania.page.pollidisiac0": "動物愛吃東西，事實上它們除了這個其他什麼都不做。奇怪的是，它們只會吃餵給它們的東西。$(p)$(item)畜牧花$(0)正是為此而生的。消耗一些瑪那，它就會利用附近可用的食物類物品（$(item)小麥$(0)、$(item)胡蘿蔔$(0)，等等）來飼養動物，使它們擁有$(o)好心情$(0)。",
   "botania.page.pollidisiac1": "$(o)地獄廚房$(0)。",
   "botania.page.pollidisiac2": "在$(l:basics/wand)$(item)工作模式$(0)下，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)潛行右鍵點擊花朵（或$(item)發射器$(0)），可以切換花朵是只餵養成年動物、幼年動物還是餵養所有動物。",
 
@@ -2536,7 +2536,7 @@
   "botania.tagline.spectrolus": "五彩斑斕的瑪那",
   "botania.page.spectrolus0": "$(item)斑斕花$(0)是一朵特別喜歡各種顏色$(item)羊毛$(0)的花。它會吸收任何丟在旁邊的$(item)羊毛$(0)並利用它們製造$(thing)瑪那$(0)。$(p)提醒一下，它對於顏色十分挑剔：一開始是白色，在吸收一塊$(item)羊毛$(0)後，它就會按照順序索求下一個顏色的羊毛。",
   "botania.page.spectrolus1": "雖然它會消耗周圍任何$(item)羊毛$(0)，但它只會根據想要的顏色來產生瑪那，所以胡亂拿$(item)羊毛$(0)給它是一種極其浪費的做法。$(p)需求的下一個羊毛顏色可以透過手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)將滑鼠懸停在花上查看。",
-  "botania.page.spectrolus1.5": "這朵花大部分時候都只吃處理過的羊毛，但你就不好奇如果你讓它直接從「源頭」吃點會發生什麼事嗎……？",
+  "botania.page.spectrolus1.5": "這朵花大部分時候都只吃處理過的羊毛，但你就不好奇如果你讓它直接從「源頭」吃點會發生什麼嗎……？",
   "botania.page.spectrolus2": "$(o)彩虹的味道$(0)。",
 
   "botania.entry.rafflowsia": "噬草花",
@@ -3641,7 +3641,7 @@
 
   "botania.entry.blazeBlock": "烈焰網",
   "botania.tagline.blazeBlock": "壓縮烈焰桿儲存，新的黑曜石取得方式",
-  "botania.page.blazeBlock0": "將一捆$(item)烈焰桿$(0)壓實就能得到一個發光的裝飾方塊，儘管粗糙，卻是個不錯的光源。$(p)類似$(item)煤塊$(0)，$(item)烈焰網$(0)也能用作燃料。將它放在$(item)白雛菊$(0)旁邊則會被轉化為$(item)黑曜石$(0)，真是見鬼了。",
+  "botania.page.blazeBlock0": "將一捆$(item)烈焰桿$(0)壓實就能得到一個發光的裝飾方塊，儘管粗糙，卻是個不錯的光源。$(p)類似$(item)煤炭方塊$(0)，$(item)烈焰網$(0)也能用作燃料。將它放在$(item)白雛菊$(0)旁邊則會被轉化為$(item)黑曜石$(0)，真是見鬼了。",
   "botania.page.blazeBlock1": "0x1a4",
 
   "botania.entry.challenges": "挑戰",
