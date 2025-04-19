@@ -54,8 +54,7 @@ public class ForgeDatagenInitializer {
 		generator.addProvider(evt.includeServer(), new DatapackBuiltinEntriesProvider(output, evt.getLookupProvider(),
 				addBiomeModifiers(), Set.of(BotaniaAPI.MODID)));
 		generator.addProvider(evt.includeServer(), new BotaniaCuriosDataProvider(output, disabledHelper, evt.getLookupProvider()));
-		// TODO: https://github.com/neoforged/NeoForge/issues/1828 prevents enabling this permanently
-		//generator.addProvider(evt.includeServer(), new BotaniaGlobalLootModifierProvider(output, evt.getLookupProvider()));
+		generator.addProvider(evt.includeServer(), new BotaniaGlobalLootModifierProvider(output, evt.getLookupProvider()));
 	}
 
 	private static RegistrySetBuilder addBiomeModifiers() {
