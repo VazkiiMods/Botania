@@ -69,7 +69,7 @@
   "botaniamisc.clipEmpty": "（空）",
   "botaniamisc.armorset": "\u00a7b套裝\u00a7r：",
   "botaniamisc.craftToAddWill": "與泰拉鋼頭盔合成加入以下效果：",
-  "botaniamisc.requestMsg": "請求 %d x %s 總數 %d。 取出 %d。",
+  "botaniamisc.requestMsg": "請求 %d × %s 總數 %d。取出 %d。",
   "botaniamisc.nearIndex0": "附近有多媒體索引！",
   "botaniamisc.nearIndex1": "你所說的一切都會被",
   "botaniamisc.nearIndex2": "當做請求傳送給索引",
@@ -1999,22 +1999,22 @@
   "botania.tagline.welcome": "歡迎光臨植物魔法酒店",
   "botania.page.welcome0": "$(o)歡迎使用植物魔法！首先，我祝賀你做出了正確的決定 - 把一本書和樹苗綁在一起，或者是偶然在什麼儲物箱裡找到了這本巨著。怎樣都可以啦。$(p)$(o)你可以透過頁面下方的箭頭、滑鼠滾輪或鍵盤上的方向鍵來瀏覽這本書。",
   "botania.page.welcome1": "$(o)剝開其光鮮的外表，植物魔法的本質卻是「科技模組」，因為對於科技模組的每一個環節來說，你都需要心靈手巧、深思熟慮、還有紅石電路，方能不斷推進科技前進。將這句話銘記在心，會很有用的。$(p)$(o)當然啦，不要擔心，你同時還會得到一些酷炫的新玩具、方塊還有裝備。",
-  "botania.page.welcome2": "$(o)不論出於什麼意圖或者目的，對於那些以建造好玩、新奇而酷炫的東西為初心的玩家來說，植物魔法都將會是他們的最愛。雖然它是以完全獨立，即可以單獨進行遊戲的標準設計的，但同時它也能和其它Mod打成一片。$(p)$(o)除去極少數個案，植物魔法的一切都是可以僅靠Minecraft的特性以及Mod自身的特性就可以完成自動化生產的。",
-  "botania.page.welcome3": "$(o)當你迷失前進的方向時，不妨去看下本Mod的進度和挑戰列表，這兩個列表都可以在本書首頁的左側找到。$(p)$(o)本書排版友好，同時也提供了大量方便瀏覽的功能，所以請在正式開始探究前稍微花點時間來了解這些小玩意兒都能做些什麼。",
+  "botania.page.welcome2": "$(o)不論出於什麼意圖或者目的，對於那些以建造好玩、新奇而酷炫的東西為初心的玩家來說，植物魔法都將會是他們的最愛。雖然它是以完全獨立，即可以單獨進行遊戲的標準設計的，但同時它也能和其他模組打成一片。$(p)$(o)除去極少數個案，植物魔法的一切都是可以僅靠Minecraft的功能以及模組本身的功能就可以完成自動化生產的。",
+  "botania.page.welcome3": "$(o)當你迷失前進的方向時，不妨去看一下本模組的進度和挑戰清單，這兩個清單都可以在本書首頁的左側找到。$(p)$(o)本書排版友好，同時也提供了大量方便瀏覽的功能，所以請在正式開始探究前稍微花點時間來了解這些小東西都能做些什麼。",
   "botania.page.welcome5": "$(o)如果你不知道你該了解些什麼，請在瀏覽時按住SHIFT，將各個章節粗略瀏覽一遍，並對每個東西都有一些簡單的印象。$(p)$(o)「辭典索引」分類對於搜尋很有幫助，因為這個分類集所有條目於大成，本辭典的條目都可以在此找到。",
   "botania.page.welcome6": "$(o)然後這就是整個植物魔法簡介啦！謹此祝你在植物魔法的旅程中玩得開心，就像我製作植物魔法的旅程一樣！$(p)$(o)~Vazkii，植物魔法作者$(p)$(o)要繼續，請按下方的「返回」按鈕。滑鼠右鍵和退格鍵也有一樣的效果哦~",
   
   "botania.entry.gardenOfGlass": "水晶花園",
   "botania.tagline.gardenOfGlass": "你的新挑戰",
   "botania.page.gardenOfGlass0": "在$(2)水晶花園$(0)裡，沒有人會聽見你的尖叫聲。$(p)這是一個單獨的空間。$(p)多麼令人興奮啊！",
-  "botania.page.gardenOfGlass1": "$(2)水晶花園$(0)是植物魔法的空島模式。他只適合那些已經了解植魔的抖M們，但如果你是新人，我們也不介意你來體驗一下。$(p)Mod中絕大多數的功能不變，但我們調整了一部分特性使其更適合空島的玩法。調整的地方見下頁。",
+  "botania.page.gardenOfGlass1": "$(2)水晶花園$(0)是植物魔法的空島模式。他只適合那些已經了解植魔的抖M們，但如果你是新人，我們也不介意你來體驗一下。$(p)模組中絕大多數的功能不變，但我們調整了一部分功能使其更適合空島的玩法。調整的地方見下頁。",
   "botania.page.gardenOfGlass2": "建立$(item)水晶花園$(0)後，你可以從腳下發現一些活根.他們可以用來製作$(item)樹苗$(0)和$(l:basics/flowers)$(item)花肥$(0)$(/l).也可以作為$(item)骨粉$(0)來使用。空手Shift右鍵$(item)泥土$(0)或者$(item)草地$(0)以翻土來尋找一些$(item)鵝卵石$(0)，用它們製作$(item)鵝卵石$(0)。你還可以用$(item)碗$(0)右鍵水方塊以給$(item)花葯台$(0)加水，而碗本身則可以透過右鍵水方塊來舀水。",
   "botania.page.gardenOfGlass3": "製作$(item)樹苗$(0)",
   "botania.page.gardenOfGlass4": "製作$(item)花肥$(0)",
   "botania.page.gardenOfGlass5": "製作$(item)鵝卵石$(0)",
   "botania.page.gardenOfGlass6": "除此之外，有些東西在植物魔法中調整得更適合空島遊戲：$(l:functional_flowers/orechid_gog)$(item)凝礦蘭$(0)$(/l)將更容易製作，速度更快並且更瑪那消耗更低。$(l:devices/cocoon_gog)$(item)隨想之繭$(0)$(/l)以及$(l:mana/spreader)$(item)瑪那發射器$(0)$(/l)的配方也有所改變。用來製作$(item)黑曜石$(0)的$(l:misc/blaze_block)$(item)烈焰網$(0)$(/l)，改為用烈焰粉而不是烈焰桿合成；西瓜種子和南瓜種子可以透過打掉芒草掉落；每份原料可以製作更多的花肥。同時，還加入了$(item)甘蔗$(0)和$(item)史萊姆球$(0)的製作配方。",
   "botania.page.gardenOfGlass7": "製作$(item)甘蔗$(0)",
-  "botania.page.gardenOfGlass8": "製作$(item)黏液球$(0)",
+  "botania.page.gardenOfGlass8": "製作$(item)史萊姆球$(0)",
   "botania.page.gardenOfGlass13": "注魔$(item)海磷石$(0)",
   "botania.page.gardenOfGlass9": "你現在可能覺得要進入$(thing)地獄$(0)會很困難——不要擔心，$(l:misc/blaze_block)$(item)烈焰網$(0)$(/l)是可以被轉化為$(item)黑曜石$(0)的（前文也有提及）。要獲得這種方塊，必須先使用$(l:devices/fel_pumpkin)$(item)惡魔南瓜頭$(0)$(/l)來生成$(thing)烈焰使者$(0)。$(p)在空島上著實沒有什麼方法能獲得$(item)燧石$(0)，傳送門的點火步驟只能讓$(item)火焰彈$(0)來勝任了。",
   "botania.page.gardenOfGlass11": "除了照明，將$(item)瑪那閃光$(0)放在重生點將允許那些不慎丟掉$(l:basics/lexicon)$(item)植物魔法辭典$(0)$(/l)的玩家們花費一個$(item)樹苗$(0)來重新獲得它。只要手持$(item)樹苗$(0)右鍵$(item)瑪那閃光$(0)就可以了。",
@@ -2022,11 +2022,11 @@
   "botania.page.gardenOfGlass14": "製作$(item)海洋之心$(0)",
 
   "botania.entry.lexicon": "植物魔法辭典",
-  "botania.tagline.lexicon": "你在讀什麼玩意，傻瓜",
+  "botania.tagline.lexicon": "你在讀什麼東西，傻瓜",
   "botania.page.lexicon0": "$(item)植物魔法辭典$(0)是所有植物學相關的知識庫.但你可能已經了解了。$(p)如你所預料的，所有的資訊都記載在了這裡。為了方便，如果某方塊在書裡有一個條目，可以手持$(item)植物魔法辭典$(0)shift右鍵以開啟那個條目。",
   "botania.page.lexicon3": "任何以$(o)斜體$(0)書寫的條目均為$(thing)基礎$(0)條目，包含了玩植物魔法所需的最基礎的知識。建議優先閱讀，大多數章節包含一個或多個，所以最好仔細看看。",
   "botania.page.lexicon1": "合成$(item)植物魔法辭典$(0)。",
-  "botania.page.lexicon2": "$(item)植物魔法辭典$(0)標題也可以定製。將它放入$(item)鐵砧$(0)重新命名。你不僅可以改變封面，而且可以改變標題。$(p)辭典顯示的版本相當於你所執行的$(thing)植物魔法$(0)版本，不，我不關心植物魔法與現實的界限。",
+  "botania.page.lexicon2": "$(item)植物魔法辭典$(0)標題也可以訂製。將它放入$(item)鐵砧$(0)重新命名。你不僅可以改變封面，而且可以改變標題。$(p)辭典顯示的版本相當於你所執行的$(thing)植物魔法$(0)版本，不，我不關心植物魔法與現實的界限。",
 
   "botania.entry.flowers": "神秘花",
   "botania.tagline.flowers": "研究的根源",
@@ -2061,7 +2061,7 @@
   "botania.page.pureDaisy0": "$(item)白雛菊$(0)不僅是最基礎的，也是一個植物魔法師所有的最重要的花。$(p)這種花會將任何相鄰的$(item)木塊$(0)和$(item)石頭$(0)方塊淨化為$(item)活木$(0)和$(item)活石$(0)（如下一頁所示）。這兩種材料都是植物魔法師生涯中不可或缺的素材。",
   "botania.page.pureDaisy1": "給它$(thing)一分鐘$(0)就會……",
   "botania.page.pureDaisy2": "$(item)活木$(0)可做成活木枝",
-  "botania.page.pureDaisy4": "此外還有一些方塊放在這朵花旁邊時也能被淨化。儘管它們並不像活木活石那樣是必需品，或許也能派上什麼用場。包括$(item)地獄岩$(0)變為$(item)鵝卵石$(0)，$(item)靈魂砂$(0)變為$(item)沙$(0)，$(item)烈焰網$(0)變為$(item)黑曜石$(0)，$(item)水源$(0)變為$(item)雪$(0)，$(item)冰$(0)變為$(item)冰磚$(0)，$(item)冰磚$(0)變為$(item)藍冰$(0)，以及$(item)終界石$(0)變為$(item)深板岩碎石$(0)（在此過程中釋放一小朵$(l:ender/ender_air)終界空氣雲團$(/l)）。",
+  "botania.page.pureDaisy4": "此外還有一些方塊放在這朵花旁邊時也能被淨化。儘管它們並不像活木活石那樣是必需品，或許也能派上什麼用場。包括$(item)地獄石$(0)變為$(item)鵝卵石$(0)，$(item)靈魂砂$(0)變為$(item)沙$(0)，$(item)烈焰網$(0)變為$(item)黑曜石$(0)，$(item)水源$(0)變為$(item)雪$(0)，$(item)冰$(0)變為$(item)冰磚$(0)，$(item)冰磚$(0)變為$(item)藍冰$(0)，以及$(item)終界石$(0)變為$(item)深板岩碎石$(0)（在此過程中釋放一小朵$(l:ender/ender_air)終界空氣雲團$(/l)）。",
   "botania.page.pureDaisy3": "一張空白畫卷，繪出冒險之旅",
 
   "botania.entry.wand": "森林法杖",
@@ -2125,12 +2125,12 @@
   "botania.tagline.spreader": "你重要的瑪那傳送器",
   "botania.page.spreader0": "$(item)瑪那發射器$(0)是運用$(thing)瑪那$(0)中最重要的一部分。$(p)這是一個允許從點A到點B傳遞$(thing)瑪那$(0)的方塊。放置在地上時，它會面朝六個基本方向中的一個。手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右鍵它，就能照點擊位置調整它的朝向。如果法杖處於$(thing)綁定模式$(0)，再次點擊另一個方塊可以讓發射器指向那個方塊。",
   "botania.page.spreader1": "手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)時看到的樣子",
-  "botania.page.spreader2": "$(item)瑪那發射器$(0)有一個很小的內部$(thing)瑪那$(0)快取，這個快取能被附近綁定於該發射器的$(thing)產能花$(0)填充（花被放置下來時會自動綁定至最近的瑪那發射器）。要查看快取量只需手持一根$(l:basics/wand)$(item)森林法杖$(0)$(/l)，再將準星對準$(item)瑪那發射器$(0)。",
-  "botania.page.spreader3": "手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)將會顯示一條發射器朝向的光線。將準星對準發射器時，接收該發射器瑪那的目標方塊將會突出顯示。常亮的閃爍光點就是$(thing)瑪那流失$(0)開始的地方。$(p)如果目標處的方塊可以接收$(thing)瑪那$(0)，並且不是滿的，發射器就會發出一條$(thing)瑪那脈衝$(0)，它會飛向目標，並將$(thing)瑪那$(0)輸送給它。",
+  "botania.page.spreader2": "$(item)瑪那發射器$(0)有一個很小的內部$(thing)瑪那$(0)快取，這個快取能被附近綁定於該發射器的$(thing)產能花$(0)填充（花被放置下來時會自動綁定至最近的瑪那發射器）。要查看快取量只需手持一根$(l:basics/wand)$(item)森林法杖$(0)$(/l)，再將準心對準$(item)瑪那發射器$(0)。",
+  "botania.page.spreader3": "手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)將會顯示一條發射器朝向的光線。將準心對準發射器時，接收該發射器瑪那的目標方塊將會突出顯示。常亮的閃爍光點就是$(thing)瑪那流失$(0)開始的地方。$(p)如果目標處的方塊可以接收$(thing)瑪那$(0)，並且不是滿的，發射器就會發出一條$(thing)瑪那脈衝$(0)，它會飛向目標，並將$(thing)瑪那$(0)輸送給它。",
   "botania.page.spreader4": "瑪那發射器每次只發射一波脈衝，直到上一波命中目標才會發射下一波。$(p)此外，一段時間後脈衝也會受$(thing)瑪那流失$(0)的影響。在光線中變稀薄的部分就開始發生流失了。",
   "botania.page.spreader11": "提供一個$(thing)紅石訊號$(0)給瑪那發射器會讓它停止工作。在需要更好的控制時推薦$(l:mana/redstone_spreader)$(item)紅石瑪那發射器$(0)$(/l)，因為它可以在沒有目標方塊的情況經由紅石脈衝啟動發射脈衝。",
   "botania.page.spreader5": "合成$(item)瑪那發射器$(0)",
-  "botania.page.spreader10": "用一塊$(item)羊毛$(0)右鍵發射器便可將它套住。不僅看上去更美觀，這樣也會降低脈衝的噪音。$(p)再次空手右鍵則會移除包裝。",
+  "botania.page.spreader10": "用一塊$(item)羊毛$(0)右鍵發射器便可將它套住。不僅看起來更美觀，這樣也會降低脈衝的噪音。$(p)再次空手右鍵則會移除包裝。",
   "botania.page.spreader12": "手中拿著$(item)鷹架$(0)右鍵點擊它，會把它包圍在一個堅固的框架中。這使得可以在其上放置紅石元件，如按鈕和控制桿。紅石粉、中繼器以及與之類似的物品也可以放在它的上面。這似乎也能使瑪那發射器儲存一桶水。$(p)在潛行時空手右鍵點擊它，可以移除鷹架。",
 
   "botania.entry.pool": "瑪那池",
@@ -2157,7 +2157,7 @@
   "botania.tagline.sparks": "簡單迅速的短距離瑪那傳輸",
   "botania.page.sparks0": "$(item)火花$(0)是種有趣的實體，它由純粹的能量與$(thing)瑪那$(0)結合而生。能被置於個別容納或是接收$(thing)瑪那$(0)的方塊（比如$(l:mana/pool)$(item)瑪那池$(0)$(/l)）上方。$(p)有些方塊能利用來自$(item)火花$(0)的瑪那，但它們的用途現在仍是十分有限的樣子。",
   "botania.page.sparks1": "將兩個$(item)火花$(0)分別放置於一個$(l:mana/pool)$(item)瑪那池$(0)$(/l)和另一個能接受火花瑪那的方塊上方便組成了$(item)火花瑪那網$(0)。只要它們不要離得太遠，後者在需要能量時就能直接使用儲存於該$(l:mana/pool)$(item)瑪那池$(0)$(/l)中的瑪那。$(p)要移除$(item)火花$(0)，只需手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右鍵之，右鍵之則會顯示與之配對的$(item)火花$(0)。",
-  "botania.page.sparks3": "火花可以使用$(item)染料$(0)染色。兩種不同顏色的火花不會互相關聯。要是$(item)火花$(0)看上去過於耀眼，可以撒些$(l:misc/phantom_ink)$(item)幻影墨水$(0)$(/l)使得目標$(item)火花$(0)變得透明。這不會消耗墨水。",
+  "botania.page.sparks3": "火花可以使用$(item)染料$(0)染色。兩種不同顏色的火花不會互相關聯。要是$(item)火花$(0)看起來過於耀眼，可以撒些$(l:misc/phantom_ink)$(item)幻影墨水$(0)$(/l)使得目標$(item)火花$(0)變得透明。這不會消耗墨水。",
   "botania.page.sparks2": "$(o)舉起叉勺$(0)",
 
   "botania.entry.sparkUpgrades": "火花升級",
@@ -2191,7 +2191,7 @@
   "botania.page.lens2": "$(thing)染色透鏡$(0)",
   "botania.page.lens3": "$(item)彩虹透鏡$(0)",
   "botania.page.lens4": "透鏡可不僅僅是為了各種炫麗的色彩。你可以用各種材料升級以製作出能賦予$(thing)瑪那脈衝$(0)各種效果的新透鏡。$(p)注意：普通的$(item)瑪那發射器$(0)只有在末端有一個能接受$(thing)瑪那$(0)的方塊時才能發射脈衝。對於一些透鏡還是推薦使用$(l:mana/redstone_spreader)$(item)紅石瑪那發射器$(0)$(/l)。$(p)$(item)漏斗$(0)之類的方塊可以用來放置或移除發射器的透鏡。",
-  "botania.page.lens5": "然而總有些時候一個$(item)瑪那透鏡$(0)還不夠。這時可以用$(item)黏液球$(0)或$(item)蜂蜜瓶$(0)在工作台將兩個透鏡疊加為一個同時具有雙方的特性的$(thing)複合透鏡$(0)。$(p)所用的第一個透鏡決定了外觀和顏色。注意有些疊加是無效的，以及兩個同類的透鏡也是不能疊加的。",
+  "botania.page.lens5": "然而總有些時候一個$(item)瑪那透鏡$(0)還不夠。這時可以用$(item)史萊姆球$(0)或$(item)蜂蜜瓶$(0)在工作台將兩個透鏡疊加為一個同時具有雙方的特性的$(thing)複合透鏡$(0)。$(p)所用的第一個透鏡決定了外觀和顏色。注意有些疊加是無效的，以及兩個同類的透鏡也是不能疊加的。",
   "botania.page.lens6": "$(item)速度透鏡$(0)會大幅提升$(thing)瑪那脈衝$(0)的速度，但這樣不僅會使每次脈衝瑪那量更少，而且還會加快$(thing)瑪那流失$(0)的速度。",
   "botania.page.lens7": "速度透鏡",
   "botania.page.lens8": "$(item)強度透鏡$(0)會使每束$(thing)瑪那脈衝$(0)攜帶$(thing)瑪那$(0)加倍，然而，光線變得更慢並且流失瑪那時的速率提高。",
@@ -2251,7 +2251,7 @@
   "botania.entry.manastar": "瑪那星",
   "botania.tagline.manastar": "區分盈虧的花朵",
   "botania.page.manastar0": "用$(l:basics/wand)$(item)森林法杖$(0)$(/l)讀取$(l:mana/pool)$(item)瑪那池$(0)$(/l)的示數太不精確了，有時很難一下看出瑪那是在增加還是減少。$(p)在瑪那池旁邊放一朵$(item)瑪那星$(0)就能解決這個問題。瑪那總量減少時$(item)瑪那星$(0)會閃紅光，反之則會閃藍光。它的測量間隔僅有幾秒鐘。",
-  "botania.page.manastar1": "$(0)我是一顆划過天空的流星$(0)。",
+  "botania.page.manastar1": "$(0)我是一顆劃過天空的流星$(0)。",
 
   "botania.entry.dreamwoodSpreader": "精靈瑪那發射器",
   "botania.tagline.dreamwoodSpreader": "更強大，更好用，更迅速",
@@ -2314,7 +2314,7 @@
   "botania.entry.flowerShrinking": "縮小花",
   "botania.tagline.flowerShrinking": "更小的花，更小的範圍",
   "botania.page.flowerShrinking0": "有些功能花的工作範圍太大了，而有的人不需要那麼大的範圍，而現在只需要將花投入$(l:devices/mana_alchemy)$(item)鍊金催化$(0)$(/l)的$(l:mana/pool)$(item)瑪那池$(0)$(/l)，消耗一點$(thing)瑪那$(0)，它們的工作半徑就會被縮小，其餘效果保持不變。",
-  "botania.page.flowerShrinking1": "就像手辦一樣",
+  "botania.page.flowerShrinking1": "就像公仔一樣",
   "botania.page.flowerShrinking2": "縮小花",
 
   "botania.entry.flowerSpeed": "延遲控制",
@@ -2326,7 +2326,7 @@
   "botania.tagline.jadedAmaranthus": "製作更多的神秘花",
   "botania.page.jadedAmaranthus0": "每個人都喜歡花對吧？$(item)翡翠莧$(0)就是為此而生的。$(p)用$(l:mana/pool)$(item)瑪那池$(0)$(/l)給它提供$(thing)瑪那$(0)會讓它在周圍的泥土類方塊上快速長出新的$(l:basics/flowers)$(item)神秘花$(0)$(/l)。",
   "botania.page.jadedAmaranthus1": "$(o)這難道是紫丁香$(0)。",
-  "botania.page.jadedAmaranthus2": "$(o)等一下，你剛剛是召喚出了一大堆花麼？$(p)是啊，有什麼奇怪的？$(p)這不科學，不是麼？$(p)我有瑪那，需要什麼科學！",
+  "botania.page.jadedAmaranthus2": "$(o)等一下，你剛剛是召喚出了一大堆花嗎？$(p)是啊，有什麼奇怪的？$(p)這不科學，不是嗎？$(p)我有瑪那，需要什麼科學！",
 
   "botania.entry.bellethorne": "嬌媚之刺",
   "botania.tagline.bellethorne": "傷害生物",
@@ -2355,7 +2355,7 @@
 
   "botania.entry.orechidIgnem": "炎礦蘭",
   "botania.tagline.orechidIgnem": "你需要的另一種凝礦蘭",
-  "botania.page.orechidIgnem0": "$(item)凝礦蘭$(0)是朵不錯的花。用$(thing)瑪那$(0)來產生原礦，對誰而言都是極好的。然而它卻不能產生來自$(thing)地獄$(0)的礦物。透過改變花瓣的配方，你解決了這個問題。現在它就能利用$(item)地獄岩$(0)來產生$(thing)地獄$(0)礦物。花必須在$(thing)地獄$(0)才能工作",
+  "botania.page.orechidIgnem0": "$(item)凝礦蘭$(0)是朵不錯的花。用$(thing)瑪那$(0)來產生原礦，對誰而言都是極好的。然而它卻不能產生來自$(thing)地獄$(0)的礦物。透過改變花瓣的配方，你解決了這個問題。現在它就能利用$(item)地獄石$(0)來產生$(thing)地獄$(0)礦物。花必須在$(thing)地獄$(0)才能工作",
   "botania.page.orechidIgnem1": "$(o)變熱吧$(0)。",
 
   "botania.entry.fallenKanade": "天降之奏",
@@ -2378,7 +2378,7 @@
   "botania.tagline.hopperhock": "撿起物品",
   "botania.page.hopperhock0": "$(item)漏斗花$(0)會拾取它附近的物品並將其放入相鄰的容器中(比如$(item)儲物箱$(0))。提供$(thing)瑪那$(0)不是必需的，但這會增加拾取範圍。$(p)給容器掛上$(item)物品展示框$(0)會允許或阻止這些物品進入該容器。",
   "botania.page.hopperhock1": "放置在$(item)螢光物品展示框$(0)中的非空容器，例如(l:basics/flowerbag)$(item)採花袋$(0)$(/l)將根據其內部物品而非容器本身進行過濾。$(p)未掛有$(item)物品展示框$(0)的容器會接受所有物品，但有標記的容器優先權更高。$(p)物品排序的規則可透過手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右鍵（或使用$(item)原版發射器$(0)）花來改變。",
-  "botania.page.hopperhock2": "$(o)我猜我會帶上我的蘿莉私奔$(0)。",
+  "botania.page.hopperhock2": "$(o)我猜我會帶著我的蘿莉私奔$(0)。",
 
   "botania.entry.tangleberrie": "束縛莓",
   "botania.tagline.tangleberrie": "讓怪物呆在這",
@@ -2388,7 +2388,7 @@
   "botania.entry.jiyuulia": "自由之翼",
   "botania.tagline.jiyuulia": "趕走怪物",
   "botania.page.jiyuulia0": "$(item)自由之翼$(0)是種消耗少量$(thing)瑪那$(0)而使得所有鄰近的動物和怪物無法進入一個圈內的花。",
-  "botania.page.jiyuulia1": "$(o)你想去哪兒都可以，除了這裡$().",
+  "botania.page.jiyuulia1": "$(o)你想去哪裡都可以，除了這裡$()。",
 
   "botania.entry.labellia": "銘刻蓮",
   "botania.tagline.labellia": "給東西重新命名",
@@ -2408,7 +2408,7 @@
 
   "botania.entry.pollidisiac": "畜牧花",
   "botania.tagline.pollidisiac": "讓他們產仔",
-  "botania.page.pollidisiac0": "動物愛吃東西，事實上它們除了這個別的什麼也不干。奇怪的是，它們只會吃餵給它們的東西。$(p)$(item)畜牧花$(0)正是為此而生的。消耗一些瑪那，它就會利用附近可用的食物類物品（$(item)小麥$(0)、$(item)胡蘿蔔$(0)，等等）來飼養動物，使它們擁有$(o)好心情$(0)。",
+  "botania.page.pollidisiac0": "動物愛吃東西，事實上它們除了這個其他什麼都不做。奇怪的是，它們只會吃餵給它們的東西。$(p)$(item)畜牧花$(0)正是為此而生的。消耗一些瑪那，它就會利用附近可用的食物類物品（$(item)小麥$(0)、$(item)胡蘿蔔$(0)，等等）來飼養動物，使它們擁有$(o)好心情$(0)。",
   "botania.page.pollidisiac1": "$(o)地獄廚房$(0)。",
   "botania.page.pollidisiac2": "在$(l:basics/wand)$(item)工作模式$(0)下，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)潛行右鍵點擊花朵（或$(item)發射器$(0)），可以切換花朵是只餵養成年動物、幼年動物還是餵養所有動物。",
 
@@ -2425,7 +2425,7 @@
 
   "botania.entry.daffomill": "扇水仙",
   "botania.tagline.daffomill": "用風移動物品",
-  "botania.page.daffomill0": "$(item)扇水仙$(0)就像個風扇。它會消耗少量$(thing)瑪那$(0)推動它前方的任何物品。$(p)使用$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右鍵可以調整朝向。它實時的朝向可以透過風粒子的效果來判斷。",
+  "botania.page.daffomill0": "$(item)扇水仙$(0)就像個風扇。它會消耗少量$(thing)瑪那$(0)推動它前方的任何物品。$(p)使用$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右鍵可以調整朝向。它即時的朝向可以透過風粒子的效果來判斷。",
   "botania.page.daffomill1": "$(o)風電機？不，我就是個風扇$(0)。",
 
   "botania.entry.vinculotus": "誘引蓮",
@@ -2435,7 +2435,7 @@
 
   "botania.entry.spectranthemum": "凌空薊",
   "botania.tagline.spectranthemum": "傳送物品",
-  "botania.page.spectranthemum0": "長途運輸物品是一個艱巨的任務。水路和$(l:functional_flowers/daffomill)$(item)扇水仙$(0)$(/l)也沒法簡單完成這個任務。$(item)凌空薊$(0)會消耗少量$(thing)瑪那$(0)，撕裂時空的連續性，並將周圍的掉落物傳送到另一個地點。注意：含有瑪那的物品和以及傳送過一次的物品就不能被傳送了。",
+  "botania.page.spectranthemum0": "長途運輸物品是一個艱巨的任務。水路和$(l:functional_flowers/daffomill)$(item)扇水仙$(0)$(/l)也沒辦法簡單完成這個任務。$(item)凌空薊$(0)會消耗少量$(thing)瑪那$(0)，撕裂時空的連續性，並將周圍的掉落物傳送到另一個地點。注意：含有瑪那的物品和以及傳送過一次的物品就不能被傳送了。",
   "botania.page.spectranthemum1": "為了指定物品的去向，可以使用$(l:basics/wand)$(item)森林法杖$(0)$(/l)的綁定模式來綁定這朵花和12格範圍內的某個方塊，就像綁到瑪那池上一樣。查看這朵花綁定至哪個方塊，潛行時用法杖指向它即可。",
   "botania.page.spectranthemum2": "這朵花受$(thing)區塊載入機制$(0)所限，因此它不會作用於未載入的區塊。這裡就不多加敘述了。",
   "botania.page.spectranthemum3": "$(o)(n)spooky(n+2)me$().",
@@ -2443,7 +2443,7 @@
   "botania.entry.medumone": "石化草",
   "botania.tagline.medumone": "凍住怪物",
   "botania.page.medumone0": "$(item)石化草$(0)能完全抑制周圍生物的移動。$(p)當它接收到$(thing)瑪那$(0)時，會用強力的減速效果抑制附近任何實體的移動，除了玩家。",
-  "botania.page.medumone1": "$(o)他們看上去像是石像一般$(0)……",
+  "botania.page.medumone1": "$(o)他們看起來像是石像一般$(0)……",
 
   "botania.entry.marimorphosis": "異構花",
   "botania.tagline.marimorphosis": "創造新的石頭",
@@ -2536,7 +2536,7 @@
   "botania.tagline.spectrolus": "五彩斑斕的瑪那",
   "botania.page.spectrolus0": "$(item)斑斕花$(0)是一朵特別喜歡各種顏色$(item)羊毛$(0)的花。它會吸收任何丟在旁邊的$(item)羊毛$(0)並利用它們製造$(thing)瑪那$(0)。$(p)提醒一下，它對於顏色十分挑剔：一開始是白色，在吸收一塊$(item)羊毛$(0)後，它就會按照順序索求下一個顏色的羊毛。",
   "botania.page.spectrolus1": "雖然它會消耗周圍任何$(item)羊毛$(0)，但它只會根據想要的顏色來產生瑪那，所以胡亂拿$(item)羊毛$(0)給它是一種極其浪費的做法。$(p)需求的下一個羊毛顏色可以透過手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)將滑鼠懸停在花上查看。",
-  "botania.page.spectrolus1.5": "這朵花大部分時候都只吃處理過的羊毛，但你就不好奇如果你讓它直接從「源頭」吃點兒會發生什麼嗎……？",
+  "botania.page.spectrolus1.5": "這朵花大部分時候都只吃處理過的羊毛，但你就不好奇如果你讓它直接從「源頭」吃點會發生什麼嗎……？",
   "botania.page.spectrolus2": "$(o)彩虹的味道$(0)。",
 
   "botania.entry.rafflowsia": "噬草花",
@@ -2561,7 +2561,7 @@
   "botania.entry.shulk_me_not": "勿落草",
   "botania.tagline.shulk_me_not": "鷸蚌相爭，漁翁得利",
   "botania.page.shulk_me_not0": "$(item)勿落草$(0)是一朵可以駕馭$(thing)懸浮效果$(0)的能量，並將其轉化為瑪那的產能花。$(p)當某個怪物被界伏擊中，並因此懸浮在空中時，這朵花就可以利用$(thing)懸空效果$(0)所蘊含的能量產出大量瑪那。不過，這朵花只會在內部沒有瑪那快取時產出瑪那。",
-  "botania.page.shulk_me_not1": "關於這朵花有下面幾點需要留意。$(p)第一，這朵花產能時會同時殺死界伏蚌和被界伏蚌盯上的怪物，且不會留下任何掉落物。第二，僅當界伏蚌盯上某個怪物，且怪物受懸浮狀態影響的時候，這朵花才能利用這特殊的能量；僅僅是被界伏蚌的流彈擊中並不足以讓花產能。最後，界伏蚌和它瞄上的生物都必須在這朵花的工作範圍內，方能被這花所處理。",
+  "botania.page.shulk_me_not1": "關於這朵花有下面幾點需要留意。$(p)第一，這朵花產能時會同時殺死界伏蚌和被界伏蚌盯上的怪物，且不會留下任何掉落物。第二，僅當界伏蚌盯上某個怪物，且怪物受懸浮狀態影響的時候，這朵花才能利用這特殊的能量；僅僅是被界伏蚌的流彈擊中並不足以讓花產能。最後，界伏蚌和它盯上的生物都必須在這朵花的工作範圍內，方能被這花所處理。",
   "botania.page.shulk_me_not2": "$(o)禁止摘花$(0)。",
 
   "botania.entry.pylon": "魔法水晶",
@@ -2609,12 +2609,12 @@
   "botania.page.manaAlchemy34": "種子與作物",
   "botania.page.manaAlchemy11": "$(item)種子$(0)與$(item)作物$(0)之間的轉化",
   "botania.page.manaAlchemy12": "淨化$(item)毒馬鈴薯$(0)",
-  "botania.page.manaAlchemy13": "製作$(item)地獄疣$(0)",
+  "botania.page.manaAlchemy13": "製作$(item)地獄疙瘩$(0)",
   "botania.page.manaAlchemy14": "$(item)火藥$(0)與$(item)燧石$(0)間轉化",
   "botania.page.manaAlchemy15": "製造$(item)命名牌$(0)",
   "botania.page.manaAlchemy16": "將$(item)羊毛$(0)變為$(item)線$(0)",
-  "botania.page.manaAlchemy35": "黏液球與仙人掌",
-  "botania.page.manaAlchemy17": "$(item)黏液球$(0)和$(item)仙人掌$(0)間轉化",
+  "botania.page.manaAlchemy35": "史萊姆球與仙人掌",
+  "botania.page.manaAlchemy17": "$(item)史萊姆球$(0)和$(item)仙人掌$(0)間轉化",
   "botania.page.manaAlchemy18": "製造$(item)終界珍珠$(0)",
   "botania.page.manaAlchemy36": "螢石與紅石",
   "botania.page.manaAlchemy19": "$(item)螢石粉$(0)和$(item)紅石$(0)間轉化",
@@ -2697,7 +2697,7 @@
 
   "botania.entry.incense": "藥劑薰香",
   "botania.tagline.incense": "區域釀造效果",
-  "botania.page.incense0": "$(thing)精釀$(0)以液態形式存在時可以提供多樣化的效果。然而持續時間卻是它的短板，藥水多了還占空間。如果在製作時用$(item)薰香$(0)代替瓶子就能解決這個問題了，它們也能像普通的瓶子那樣被灌入$(thing)精釀$(0)的效果，但需要約10倍$(thing)瑪那$(0)才行。",
+  "botania.page.incense0": "$(thing)精釀$(0)以液態形式存在時可以提供多樣化的效果。然而持續時間卻是它的缺點，藥水多了還占空間。如果在製作時用$(item)薰香$(0)代替瓶子就能解決這個問題了，它們也能像普通的瓶子那樣被灌入$(thing)精釀$(0)的效果，但需要約10倍$(thing)瑪那$(0)才行。",
   "botania.page.incense1": "$(item)薰香$(0)能透過右鍵放在$(item)香盤$(0)上，這時再用$(item)打火石$(0)右鍵就能將其點燃。一旦點著，薰香就不能取下了。$(p)在需要替換前，一根薰香能燃燒60倍於對應藥水時長的時間。",
   "botania.page.incense2": "燃著$(item)薰香$(0)的$(item)香盤$(0)將會提供注入$(thing)精釀$(0)的效果，以香盤為中心24格以內的所有玩家都會受到影響。$(p)但不是所有的$(thing)精釀$(0)效果都能注入$(item)薰香$(0)，比如$(thing)立即治療$(0)和$(item)吸收$(0)就不能注入，同時有多種效果的精釀也不行。",
   "botania.page.incense5": "對於喜歡薰香的自動化狂魔而言，$(item)薰香$(0)能透過$(item)漏斗$(0)或其他輸入方式接收物品。有薰香時$(item)比較器$(0)會輸出強度為1的訊號，燃燒的時候強度則是2。$(p)最後，如果一束$(item)引燃透鏡$(0)發出的$(thing)瑪那脈衝$(0)擊中了有薰香的香盤，就會將其點著。",
@@ -2724,7 +2724,7 @@
 
   "botania.entry.platform": "奧秘平台",
   "botania.tagline.platform": "可以穿過的偽裝平台",
-  "botania.page.platform0": "將$(l:basics/pure_daisy)$(item)活木$(0)$(/l)擺成一個十分特殊的形式能做出一種平台，對它上方未潛行的人來說才有碰撞箱。而對於其他人，就好像不在那兒一樣。$(thing)瑪那脈衝$(0)總能無阻礙的穿過它。$(p)也可以透過右鍵將它偽裝成其他方塊。",
+  "botania.page.platform0": "將$(l:basics/pure_daisy)$(item)活木$(0)$(/l)擺成一個十分特殊的形式能做出一種平台，對它上方未潛行的人來說才有碰撞箱。而對於其他人，就好像不在那裡一樣。$(thing)瑪那脈衝$(0)總能無阻礙的穿過它。$(p)也可以透過右鍵將它偽裝成其他方塊。",
   "botania.page.platform2": "用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右鍵一個已設定的平台會將與其相連的平台都變為所點平台的設定方塊，shift右鍵則會移除所有的設定。$(p)將$(l:misc/phantom_ink)$(item)幻影墨水$(0)$(/l)應用於平台，可使其完全隱形，同時保留其他屬性。",
   "botania.page.platform1": "本因叫虛無平台的但名字被取過了",
 
@@ -2737,7 +2737,7 @@
   "botania.page.manaConjuration4": "煉造$(item)石英$(0)",
   "botania.page.manaConjuration5": "煉造$(item)煤$(0)",
   "botania.page.manaConjuration6": "煉造$(item)雪$(0)",
-  "botania.page.manaConjuration7": "煉造$(item)地獄岩$(0)",
+  "botania.page.manaConjuration7": "煉造$(item)地獄石$(0)",
   "botania.page.manaConjuration8": "煉造$(item)靈魂砂$(0)",
   "botania.page.manaConjuration9": "煉造$(item)砂礫$(0)",
   "botania.page.manaConjuration12": "樹葉",
@@ -2837,7 +2837,7 @@
   "botania.page.grassSeeds2": "$(item)寒地之種$(0)與灰壤",
   "botania.page.grassSeeds3": "$(item)菌絲孢子$(0)與菌絲",
   "botania.page.grassSeeds4": "現在有6種新的$(item)草地之種$(0)可以製作，所有種類的草地都有了自己的表述。$(p)他們會向普通的草地之種那樣蔓延，植物也能在上面生長。類似草地，他們只能被$(thing)絲綢之觸$(0)挖掘。然而，它們不會因為有方塊在上方而變回泥土。",
-  "botania.page.grassSeeds5": "各種各樣的$(item)草地之種$(0)",
+  "botania.page.grassSeeds5": "各式各樣的$(item)草地之種$(0)",
 
   "botania.entry.dirtRod": "大地法杖",
   "botania.tagline.dirtRod": "製造泥土的法杖",
@@ -2940,7 +2940,7 @@
   "botania.entry.tornadoRod": "天空法杖",
   "botania.tagline.tornadoRod": "讓你跳向天空的法杖",
   "botania.page.tornadoRod0": "$(item)天空法杖$(0)是個消耗一些$(thing)瑪那$(0)將人快速推到天上的神奇工具。$(p)要這麼做的話只要像弓一樣握住它升空速度就會飛增。$(p)它需要少量的時間來充能，但這段時間內會免除一切摔落傷害，保證使用者的安全。",
-  "botania.page.tornadoRod2": "它可以給$(l:devices/avatar)$(item)活木化身$(0)$(/l)使用。如果這麼做，任何在化身旁邊的試圖跳躍的玩家都能體驗飛的感覺，就仿佛他們在使用這個法杖。$(p)當使用$(item)鞘翅$(0)滑翔時，使用天空法杖可以獲得類似於$(item)煙火$(0)的速度提升。手持天空法杖的活木化身可為在附近滑翔的玩家提供更大的加速度。",
+  "botania.page.tornadoRod2": "它可以給$(l:devices/avatar)$(item)活木化身$(0)$(/l)使用。如果這麼做，任何在化身旁邊的試圖跳躍的玩家都能體驗飛的感覺，就彷彿他們在使用這個法杖。$(p)當使用$(item)鞘翅$(0)滑翔時，使用天空法杖可以獲得類似於$(item)煙火$(0)的速度提升。手持天空法杖的活木化身可為在附近滑翔的玩家提供更大的加速度。",
   "botania.page.tornadoRod1": "裡世界的寶物",
 
   "botania.entry.fireRod": "地獄法杖",
@@ -3641,7 +3641,7 @@
 
   "botania.entry.blazeBlock": "烈焰網",
   "botania.tagline.blazeBlock": "壓縮烈焰桿儲存，新的黑曜石取得方式",
-  "botania.page.blazeBlock0": "將一捆$(item)烈焰桿$(0)壓實就能得到一個發光的裝飾方塊，儘管粗糙，卻是個不錯的光源。$(p)類似$(item)煤塊$(0)，$(item)烈焰網$(0)也能用作燃料。將它放在$(item)白雛菊$(0)旁邊則會被轉化為$(item)黑曜石$(0)，真是見鬼了。",
+  "botania.page.blazeBlock0": "將一捆$(item)烈焰桿$(0)壓實就能得到一個發光的裝飾方塊，儘管粗糙，卻是個不錯的光源。$(p)類似$(item)煤炭方塊$(0)，$(item)烈焰網$(0)也能用作燃料。將它放在$(item)白雛菊$(0)旁邊則會被轉化為$(item)黑曜石$(0)，真是見鬼了。",
   "botania.page.blazeBlock1": "0x1a4",
 
   "botania.entry.challenges": "挑戰",
