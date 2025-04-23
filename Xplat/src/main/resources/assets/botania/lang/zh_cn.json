@@ -4,7 +4,7 @@
   "_comment2": "Any entry in this lang file should be in zh_CN, or *should not be here at all*",
   "_comment3": "Copying English entries will cause them to become outdated when the main English lang file changes",
   "_comment4": "Untranslated entries will automatically be inherited from en_US",
-  "_comment5": "Once again， don't copy from English， and THANK YOU for your hard work!",
+  "_comment5": "Once again, don't copy from English, and THANK YOU for your hard work!",
   "_comment6": "请翻译者注意替换全半角标点，包括“,”和“，”、“.”和“。”、“?”和“？”、以及“!”和“！”等。同时，请注意将排列句式中的英文逗号改为顿号。感谢您的贡献。",
 
   "itemGroup.botania": "植物魔法",
@@ -566,7 +566,7 @@
   "advancement.botania:gaiaGuardianHardmode.desc": "用盖亚仪式II召唤并击败一只强化版的盖亚守护者",
   "advancement.botania:infiniteFruit": "Innocentia",
   "advancement.botania:infiniteFruit.desc": "获得战利品：禁忌果实",
-  "advancement.botania:kingKey": "A Fake， Fake Psychotropic",
+  "advancement.botania:kingKey": "A Fake, Fake Psychotropic",
   "advancement.botania:kingKey.desc": "获得战利品：王之宝钥",
   "advancement.botania:flugelEye": "Angel of Death",
   "advancement.botania:flugelEye.desc": "获得战利品：天翼族之眼",
