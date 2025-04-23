@@ -23,6 +23,10 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Add: Several missing Forge tags for blocks, items, and entities
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
+* Language updates:
+  * zh_cn updated (Dawnwalker666)
+  * zh_tw overhauled (Dawnwalker666, EvanHsieh0415, lakejason0, notlin4, williewillus)
+  * ko_kr updated (UnineVesiKass)
 
 ---
 
