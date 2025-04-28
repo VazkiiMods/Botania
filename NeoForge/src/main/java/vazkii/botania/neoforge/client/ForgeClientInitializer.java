@@ -1,7 +1,5 @@
 package vazkii.botania.neoforge.client;
 
-import com.google.common.base.Suppliers;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.model.HumanoidModel;
@@ -16,15 +14,11 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -40,7 +34,6 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
-import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.*;
@@ -73,13 +66,9 @@ import vazkii.patchouli.api.BookDrawScreenEvent;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.IdentityHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -170,26 +159,6 @@ public class ForgeClientInitializer {
 	public static void registerKeys(RegisterKeyMappingsEvent e) {
 		ClientProxy.initKeybindings(e::register);
 	}
-
-	private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, WandHUD>>> WAND_HUD = Suppliers.memoize(() -> {
-		var ret = new IdentityHashMap<BlockEntityType<?>, Function<BlockEntity, WandHUD>>();
-		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> {
-			for (var type : types) {
-				ret.put(type, factory);
-			}
-		});
-		return Collections.unmodifiableMap(ret);
-	});
-
-	private static final Supplier<Map<EntityType<?>, Function<Entity, WandHUD>>> ENTITY_WAND_HUD = Suppliers.memoize(() -> {
-		var ret = new IdentityHashMap<EntityType<?>, Function<Entity, WandHUD>>();
-		BotaniaEntities.registerWandHudCaps((factory, types) -> {
-			for (var type : types) {
-				ret.put(type, factory);
-			}
-		});
-		return Collections.unmodifiableMap(ret);
-	});
 
 	@SubscribeEvent
 	private static void attachClientCapabilities(RegisterCapabilitiesEvent e) {
