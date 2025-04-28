@@ -122,21 +122,17 @@ public class FXWisp extends TextureSheetParticle {
 		RenderSystem.depthMask(true);
 	}
 
-	public static final ParticleRenderType NORMAL_RENDER = new ParticleRenderType() {
+	public static final ParticleRenderType NORMAL_RENDER = new BotaniaParticleRenderType() {
 		@Override
 		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
 			RenderSystem.enableDepthTest();
 			return beginRenderCommon(tesselator, textureManager);
 		}
 
-		/*
 		@Override
-		public void end(Tesselator tessellator) {
-			tessellator.end();
+		public void end() {
 			endRenderCommon();
 		}
-		
-		 */
 
 		@Override
 		public String toString() {
@@ -144,7 +140,7 @@ public class FXWisp extends TextureSheetParticle {
 		}
 	};
 
-	public static final ParticleRenderType DIW_RENDER = new ParticleRenderType() {
+	public static final ParticleRenderType DIW_RENDER = new BotaniaParticleRenderType() {
 		@Override
 		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
 			RenderSystem.disableDepthTest();
@@ -152,15 +148,11 @@ public class FXWisp extends TextureSheetParticle {
 
 		}
 
-		/*
 		@Override
-		public void end(Tesselator tessellator) {
-			tessellator.end();
+		public void end() {
 			RenderSystem.enableDepthTest();
 			endRenderCommon();
 		}
-		
-		 */
 
 		@Override
 		public String toString() {

@@ -9,7 +9,8 @@
     "BotaniaGrassBlockForgeMixin"
   ],
   "client": [
-    "client.ModelBakeryForgeAccessor"
+    "client.ModelBakeryForgeAccessor",
+    "client.ParticleEngineNeoForgeMixin"
   ],
   "server": [],
   "injectors": {

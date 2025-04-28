@@ -171,10 +171,15 @@ public class FXSparkle extends TextureSheetParticle {
 		RenderSystem.depthMask(true);
 	}
 
-	public static final ParticleRenderType NORMAL_RENDER = new ParticleRenderType() {
+	public static final ParticleRenderType NORMAL_RENDER = new BotaniaParticleRenderType() {
 		@Override
 		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
 			return beginRenderCommon(tesselator, textureManager);
+		}
+
+		@Override
+		public void end() {
+			endRenderCommon();
 		}
 
 		@Override
@@ -183,11 +188,16 @@ public class FXSparkle extends TextureSheetParticle {
 		}
 	};
 
-	public static final ParticleRenderType CORRUPT_RENDER = new ParticleRenderType() {
+	public static final ParticleRenderType CORRUPT_RENDER = new BotaniaParticleRenderType() {
 		@Override
 		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
 			RenderSystem.setShader(CoreShaders::filmGrainParticle); //Todo
 			return beginRenderCommon(tesselator, textureManager);
+		}
+
+		@Override
+		public void end() {
+			endRenderCommon();
 		}
 
 		@Override
