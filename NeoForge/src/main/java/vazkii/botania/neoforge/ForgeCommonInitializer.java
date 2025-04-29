@@ -139,7 +139,6 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-import static vazkii.botania.api.BotaniaAPI.minecraftRL;
 
 @Mod(LibMisc.MOD_ID)
 public class ForgeCommonInitializer {
@@ -243,10 +242,7 @@ public class ForgeCommonInitializer {
 						.icon(() -> new ItemStack(BotaniaItems.lexicon))
 						.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
 						.backgroundTexture(
-								ResourceLocation.fromNamespaceAndPath(
-										"minecraft",
-										"textures/gui/container/creative_inventory/tab_botania.png")
-						) // TODO probably incorrect ID
+								ResourceLocation.fromNamespaceAndPath("minecraft","textures/gui/container/creative_inventory/tab_botania.png"))
 						.withSearchBar()
 						.build(),
 				BotaniaRegistries.BOTANIA_TAB_KEY.location()));
