@@ -242,7 +242,7 @@ public class ForgeCommonInitializer {
 						.icon(() -> new ItemStack(BotaniaItems.lexicon))
 						.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
 						.backgroundTexture(
-								ResourceLocation.fromNamespaceAndPath("minecraft","textures/gui/container/creative_inventory/tab_botania.png"))
+								ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/container/creative_inventory/tab_botania.png"))
 						.withSearchBar()
 						.build(),
 				BotaniaRegistries.BOTANIA_TAB_KEY.location()));
