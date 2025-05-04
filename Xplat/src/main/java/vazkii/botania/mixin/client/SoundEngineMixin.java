@@ -61,20 +61,22 @@ public class SoundEngineMixin {
 
 	@ModifyArg(index = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;clamp(FFF)F"), method = "calculateVolume(FLnet/minecraft/sounds/SoundSource;)F")
 	private float bergamuateAttenuate(float volume) {
-		if (tmpSound != null && shouldSilence(tmpSound)) {
+		SoundInstance sound = this.tmpSound;
+
+		if (sound != null && shouldSilence(sound)) {
 			// We halve the volume for each flower (see return below)
 			// halving 8 times already brings the multiplier to near zero, so no
 			// need to keep going if we've seen more than 8.
 			var level = Minecraft.getInstance().level;
 			Pair<Integer, BergamuteBlockEntity> countAndBerg = level == null
 					? Pair.of(0, null)
-					: BergamuteBlockEntity.getBergamutesNearby(level, tmpSound.getX(), tmpSound.getY(), tmpSound.getZ(), 8);
+					: BergamuteBlockEntity.getBergamutesNearby(level, sound.getX(), sound.getY(), sound.getZ(), 8);
 			int count = countAndBerg.getFirst();
 			if (count > 0) {
 				if (mutedSounds == null) {
 					mutedSounds = Collections.newSetFromMap(new WeakHashMap<>());
 				}
-				if (mutedSounds.add(tmpSound) && Math.random() < 0.5) {
+				if (mutedSounds.add(sound) && Math.random() < 0.5) {
 					BergamuteBlockEntity.particle(countAndBerg.getSecond());
 				}
 
