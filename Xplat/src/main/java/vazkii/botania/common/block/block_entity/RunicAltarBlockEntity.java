@@ -403,7 +403,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				amt++;
 			}
 
-			if (amt > 0) {
+			if (amt > 0 && altar.manaToGet > 0) {
 				float anglePer = 360F / amt;
 				altar.level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, altar.getItemHandler(), altar.level).ifPresent(recipe -> {
 					RenderSystem.enableBlend();
