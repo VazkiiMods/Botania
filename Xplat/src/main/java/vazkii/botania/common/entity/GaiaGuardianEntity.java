@@ -248,6 +248,7 @@ public class GaiaGuardianEntity extends Mob {
 			e.setPos(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
 			e.setHealth(1F);
+			e.bossInfo.setProgress(0.0f);
 			e.source = pos;
 			e.mobSpawnTicks = MOB_SPAWN_TICKS;
 			e.hardMode = hard;
