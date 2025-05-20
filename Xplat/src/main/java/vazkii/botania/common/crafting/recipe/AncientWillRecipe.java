@@ -47,7 +47,9 @@ public class AncientWillRecipe extends CustomRecipe {
 						return false;
 					}
 					foundItem = true;
-				} else return false;
+				} else {
+					return false;
+				}
 			}
 		}
 
