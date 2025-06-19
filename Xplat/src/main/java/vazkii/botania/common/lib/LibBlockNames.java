@@ -8,10 +8,6 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraft.resources.ResourceLocation;
-
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 public final class LibBlockNames {
 
 	public static final String MYSTICAL_FLOWER_SUFFIX = "_mystical_flower";
