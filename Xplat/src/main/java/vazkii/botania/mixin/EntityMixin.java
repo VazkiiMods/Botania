@@ -62,7 +62,10 @@ public abstract class EntityMixin {
 		if (((Object) this) instanceof Mob self) {
 			var looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(self);
 			if (looniumComponent != null && looniumComponent.isSlowDespawn() && !looniumComponent.getDrop().isEmpty()) {
-				cir.setReturnValue(LooniumBlockEntity.LOONIUM_TEAM);
+				Team team = self.level().getScoreboard().getPlayerTeam(LooniumBlockEntity.LOONIUM_TEAM_NAME);
+				if (team != null) {
+					cir.setReturnValue(team);
+				}
 			}
 		}
 	}
