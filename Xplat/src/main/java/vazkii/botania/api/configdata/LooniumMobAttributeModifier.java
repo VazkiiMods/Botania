@@ -19,7 +19,7 @@ public class LooniumMobAttributeModifier {
 			).apply(instance, LooniumMobAttributeModifier::new)
 	);
 
-	private final ResourceLocation id;
+	public final ResourceLocation id;
 	public final Holder<Attribute> attribute;
 	private final double amount;
 	private final AttributeModifier.Operation operation;

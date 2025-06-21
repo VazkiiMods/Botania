@@ -342,7 +342,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		for (LooniumMobAttributeModifier attributeModifier : attributeModifiers) {
 			AttributeInstance attribute = mob.getAttribute(attributeModifier.attribute);
 			if (attribute != null) {
-				attribute.addPermanentModifier(attributeModifier.createAttributeModifier());
+				if (attribute.getModifier(attributeModifier.id) == null) {
+					attribute.addPermanentModifier(attributeModifier.createAttributeModifier());
+				}
 				if (attribute.getAttribute() == Attributes.MAX_HEALTH) {
 					mob.setHealth(mob.getMaxHealth());
 				}
