@@ -95,7 +95,7 @@ public final class BossBarHandler {
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 			RenderSystem.setShaderTexture(0, BAR_TEXTURE);
 
-			int barW = (int)(w * progress);
+			int barW = (int) (w * progress);
 			gui.blit(BAR_TEXTURE, x, y, u, v, barW, h, 256, 256);
 		}
 	}
