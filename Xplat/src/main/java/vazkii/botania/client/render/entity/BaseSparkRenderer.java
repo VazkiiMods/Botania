@@ -67,7 +67,7 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.SPARK);
 		ms.pushPose();
 		ms.mulPose(entityRenderDispatcher.cameraOrientation());
-		ms.mulPose(VecHelper.rotateY(180));
+		ms.mulPose(VecHelper.rotateY(0));
 		renderIcon(ms, buffer, iicon, iconColor);
 
 		ms.pushPose();
