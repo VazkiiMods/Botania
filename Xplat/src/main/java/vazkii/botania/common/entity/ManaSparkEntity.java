@@ -41,6 +41,7 @@ import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.SparkAugmentItem;
@@ -292,7 +293,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			SparkUpgradeType upgrade = getUpgrade();
 			if (stack.getItem() instanceof WandOfTheForestItem) {
 				if (!level().isClientSide) {
-					if (player.isShiftKeyDown()) {
+					if (player.isShiftKeyDown() || !PlayerHelper.isTruePlayer(player)) {
 						if (upgrade != SparkUpgradeType.NONE) {
 							spawnAtLocation(SparkAugmentItem.getByType(upgrade), 0F);
 							setUpgrade(SparkUpgradeType.NONE);
