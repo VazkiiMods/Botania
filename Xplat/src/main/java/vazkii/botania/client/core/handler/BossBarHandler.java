@@ -51,7 +51,8 @@ public final class BossBarHandler {
 				RenderHelper.drawTexturedModalRect(gui, BAR_TEXTURE, x, y, frameU, frameV,
 						frameWidth, frameHeight);
 				drawHealthBar(gui, currentBoss, healthX, healthY, healthU, healthV,
-						(int) (healthWidth * bossEvent.getProgress()), healthHeight, false);
+						healthWidth, healthHeight, false,
+						bossEvent.getProgress());
 
 				if (drawName) {
 					Component name = bossEvent.getName();
@@ -82,28 +83,21 @@ public final class BossBarHandler {
 		return 5;
 	}
 
-	private static void drawHealthBar(GuiGraphics gui, GaiaGuardianEntity currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
+	private static void drawHealthBar(GuiGraphics gui, GaiaGuardianEntity currentBoss, int x, int y, int u, int v, int w, int h, boolean bg, float progress) {
 		var shader = CoreShaders.dopplegangerBar();
 		if (shader != null) {
 			float time = currentBoss.getInvulTime();
 			float grainIntensity = time > 20 ? 1F : Math.max(currentBoss.isHardMode() ? 0.5F : 0F, time / 20F);
 			shader.safeGetUniform("BotaniaGrainIntensity").set(grainIntensity);
-			shader.safeGetUniform("BotaniaHpFract").set(currentBoss.getHealth() / currentBoss.getMaxHealth());
+			shader.safeGetUniform("BotaniaHpFract").set(progress);
+
+			RenderSystem.setShader(CoreShaders::dopplegangerBar);
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			RenderSystem.setShaderTexture(0, BAR_TEXTURE);
+
+			int barW = (int) (w * progress);
+			gui.blit(BAR_TEXTURE, x, y, u, v, barW, h, 256, 256);
 		}
-
-		float minU = u / 256.0F;
-		float maxU = (u + w) / 256.0F;
-		float minV = v / 256.0F;
-		float maxV = (v + h) / 256.0F;
-
-		var matrix = gui.pose().last().pose();
-		RenderSystem.setShader(CoreShaders::dopplegangerBar);
-		BufferBuilder builder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		builder.addVertex(matrix, x, y + h, 0).setUv(minU, maxV);
-		builder.addVertex(matrix, x + w, y + h, 0).setUv(maxU, maxV);
-		builder.addVertex(matrix, x + w, y, 0).setUv(maxU, minV);
-		builder.addVertex(matrix, x, y, 0).setUv(minU, minV);
-		Tesselator.getInstance().clear();
 	}
 
 }
