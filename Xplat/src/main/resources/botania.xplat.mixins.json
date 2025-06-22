@@ -47,6 +47,7 @@
     "PlayerMixin",
     "PointedDripstoneBlockMixin",
     "PollinateGoalMixin",
+    "ProjectileAccessor",
     "RandomizableContainerBlockEntityAccessor",
     "RecipeManagerAccessor",
     "RecipeProviderAccessor",

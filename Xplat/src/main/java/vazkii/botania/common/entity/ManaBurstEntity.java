@@ -46,6 +46,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.mixin.ProjectileAccessor;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -538,6 +539,17 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		onHitCommon(hit, true);
 
 		setCollidedAt(collidePos);
+	}
+
+	@Override
+	public boolean canHitEntity(Entity target) {
+		// TODO: could this be an entity capability?
+		if (target instanceof ManaCollisionGhost ghost && ghost.getGhostBehaviour() == ManaCollisionGhost.Behaviour.RUN_ALL) {
+			// VanillaCopy[Projectile::canCollideWith]: logic that applies if the target can be hit by projectiles
+			Entity owner = this.getOwner();
+			return owner == null || ((ProjectileAccessor) this).botania_getLeftOwner() || !owner.isPassengerOfSameVehicle(target);
+		}
+		return super.canHitEntity(target);
 	}
 
 	@Override
