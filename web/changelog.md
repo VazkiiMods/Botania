@@ -21,13 +21,21 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort. For the time being, updates still target Minecraft 1.20.1.
 
 * Add: Several missing Forge tags for blocks, items, and entities
+* Add: Munchdew displays particles while in cooldown, similar to a Thermalily (this used to be a thing a long time ago already, but somehow got lost)
+* Change: Sparks can no longer be hit by projectiles other than mana bursts
+* Change: Fake players using a wand of the forest on either type of spark are now treated as if the player was sneaking, since that is likely the intended interaction
 * Fix: The boss bar for the gaia ritual no longer starts full and quickly empties at the start of the spawn sequence
+* Fix: Potential NullPointerException in Bergamute's SoundEngineMixin (LostLuma)
+* Fix: Potential divide-by-zero error related to Runic Altar wand HUD rendering (YukkuriC)
+* Fix: Ancient will recipe accepting additional items (YukkuriC)
+* Fix: Tiny Potato holding mob heads backwards
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
 * Language updates:
   * zh_cn updated (Dawnwalker666)
   * zh_tw overhauled (Dawnwalker666, EvanHsieh0415, lakejason0, notlin4, williewillus)
   * ko_kr updated (UnineVesiKass)
+  * tr_tr added (RuyaSavascisi)
 
 ---
 
