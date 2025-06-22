@@ -241,7 +241,8 @@ public class ForgeCommonInitializer {
 						.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
 						.icon(() -> new ItemStack(BotaniaItems.lexicon))
 						.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
-						.backgroundTexture(botaniaRL("botania.png")) // TODO probably incorrect ID
+						.backgroundTexture(
+								ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/container/creative_inventory/tab_botania.png"))
 						.withSearchBar()
 						.build(),
 				BotaniaRegistries.BOTANIA_TAB_KEY.location()));
