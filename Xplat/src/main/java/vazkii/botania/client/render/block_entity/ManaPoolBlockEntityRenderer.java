@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
+import org.joml.Matrix4f;
 import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -117,13 +118,19 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		if (manaLevel > 0) {
 			ms.pushPose();
 			ms.translate(0, Mth.clampedMap(manaLevel, 0, 1, poolBottom, poolTop), 0);
-			ms.mulPose(VecHelper.rotateX(90F));
 
+			Matrix4f mat = ms.last().pose();
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
-			RenderHelper.renderIconCropped(
-					ms, buffer,
-					insideUVStart, insideUVStart, insideUVEnd, insideUVEnd,
-					this.waterSprite, 0xFFFFFF, 1, light);
+
+			float x0 = insideUVStart / 16F;
+			float x1 = insideUVEnd / 16F;
+			float z0 = insideUVStart / 16F;
+			float z1 = insideUVEnd / 16F;
+
+			buffer.addVertex(mat, x0, 0, z0).setColor(255, 255, 255, 255).setUv(waterSprite.getU0(), waterSprite.getV0()).setLight(light).setNormal(0, 1, 0);
+			buffer.addVertex(mat, x0, 0, z1).setColor(255, 255, 255, 255).setUv(waterSprite.getU0(), waterSprite.getV1()).setLight(light).setNormal(0, 1, 0);
+			buffer.addVertex(mat, x1, 0, z1).setColor(255, 255, 255, 255).setUv(waterSprite.getU1(), waterSprite.getV1()).setLight(light).setNormal(0, 1, 0);
+			buffer.addVertex(mat, x1, 0, z0).setColor(255, 255, 255, 255).setUv(waterSprite.getU1(), waterSprite.getV0()).setLight(light).setNormal(0, 1, 0);
 
 			ms.popPose();
 		}
