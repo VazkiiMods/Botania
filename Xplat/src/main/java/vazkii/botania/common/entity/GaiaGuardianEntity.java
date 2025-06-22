@@ -274,6 +274,19 @@ public class GaiaGuardianEntity extends Mob {
 			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null);
 			world.addFreshEntity(e);
 
+			if (!e.level().isClientSide) {
+				XplatAbstractions.INSTANCE.sendToTracking(
+						e,
+						new SpawnGaiaGuardianPacket(
+								e.getId(),
+								e.getPlayerCount(),
+								e.isHardMode(),
+								e.getSource(),
+								e.getBossInfoUuid()
+						)
+				);
+			}
+
 			for (Player nearbyPlayer : playersAround) {
 				if (nearbyPlayer instanceof ServerPlayer serverPlayer) {
 					CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, e);
@@ -1023,8 +1036,7 @@ public class GaiaGuardianEntity extends Mob {
 
 	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-		return XplatAbstractions.INSTANCE.toVanillaClientboundPacket(
-				new SpawnGaiaGuardianPacket(new ClientboundAddEntityPacket(this, entity), playerCount, hardMode, source, bossInfoUUID));
+		return new ClientboundAddEntityPacket(this, entity);
 	}
 
 	@Override

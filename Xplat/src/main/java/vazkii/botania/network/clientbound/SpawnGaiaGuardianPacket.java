@@ -15,7 +15,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.Entity;
 
 import vazkii.botania.common.entity.GaiaGuardianEntity;
@@ -24,12 +23,12 @@ import java.util.UUID;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int playerCount, boolean hardMode,
+public record SpawnGaiaGuardianPacket(int entityId, int playerCount, boolean hardMode,
 		BlockPos source, UUID bossInfoId) implements CustomPacketPayload {
 
 	public static final Type<SpawnGaiaGuardianPacket> ID = new Type<>(botaniaRL("spg"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, SpawnGaiaGuardianPacket> STREAM_CODEC = StreamCodec.composite(
-			ClientboundAddEntityPacket.STREAM_CODEC, SpawnGaiaGuardianPacket::inner,
+			ByteBufCodecs.VAR_INT, SpawnGaiaGuardianPacket::entityId,
 			ByteBufCodecs.VAR_INT, SpawnGaiaGuardianPacket::playerCount,
 			ByteBufCodecs.BOOL, SpawnGaiaGuardianPacket::hardMode,
 			BlockPos.STREAM_CODEC, SpawnGaiaGuardianPacket::source,
@@ -44,7 +43,6 @@ public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int play
 
 	public static class Handler {
 		public static void handle(SpawnGaiaGuardianPacket packet) {
-			var inner = packet.inner();
 			int playerCount = packet.playerCount();
 			boolean hardMode = packet.hardMode();
 			BlockPos source = packet.source();
@@ -53,9 +51,9 @@ public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int play
 			Minecraft.getInstance().execute(() -> {
 				var player = Minecraft.getInstance().player;
 				if (player != null) {
-					player.connection.handleAddEntity(inner);
-					Entity e = player.level().getEntity(inner.getId());
-					if (e instanceof GaiaGuardianEntity dopple) {
+					Entity e = player.level().getEntity(packet.entityId());
+					if (e instanceof GaiaGuardianEntity) {
+						GaiaGuardianEntity dopple = (GaiaGuardianEntity) e;
 						dopple.readSpawnData(playerCount, hardMode, source, bossInfoUuid);
 					}
 				}
