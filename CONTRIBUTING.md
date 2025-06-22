@@ -8,7 +8,7 @@
 Minecraft, are **not accepted**
 * Duplicate issues or issues that have been solved already (use the search feature!) will
   be closed without warning.
-* Do not tag your issues' names. "Something Broke" is prefered to "[Bug] Something Broke"
+* Do not tag your issues' names. "Something Broke" is preferred to "[Bug] Something Broke"
   because there's a proper label system in place.
 * Suggestions are **not** accepted. In general, new features are added to Botania on
   a must-have basis. The bar for new features is quite high.
@@ -17,8 +17,9 @@ Minecraft, are **not accepted**
 * Run scripts/gitconfig.sh from the repo root to set some useful git defaults locally
 * Run the `checkSyntax` Gradle task to make sure your changes pass our style guidelines
 * The `spotlessJavaApply` Gradle task can fix most violations for you.
-* Target the default branch of the repository in all PR's (unless it's a hotfix that only applies to an older version).
-  The maintainers will cherry pick things back ourselves when creating hotfixes.
+* Target the default branch (i.e. usually the one for the latest released version) of the
+  repository in all PR's (unless it's a hotfix that only applies to an older version).
+  The maintainers will cherry-pick things back ourselves when creating hotfixes.
 * **Keep PR's small**. The smaller it is, the faster we will review it. Only fix one thing
   per PR instead of piling everything into one massive PR.
 * Consider the patch workflow to help keep your changes small.  If you hate GitHub's PR
@@ -41,6 +42,7 @@ Minecraft, are **not accepted**
 Each major Minecraft version has a dedicated Git branch, the primary support version is marked
 as the default on web UI's. All new changes should be targeted to the primary support branch,
 and backported as necessary to older branches via cherry-picking.
+(Hotfixes aside, every Minecraft release should be considered a "major" version nowadays.)
 
 As much as possible, we *do not* use merge commits. They clutter the log and make
 bisecting very annoying. When obtaining remote changes, use `git pull origin <branch>
