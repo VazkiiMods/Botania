@@ -4,31 +4,31 @@
     {
       "model": "botania:item/brew_flask_1",
       "predicate": {
-        "botania:swigs_taken": 1.0
+        "botania:swigs_taken": 0.2
       }
     },
     {
       "model": "botania:item/brew_flask_2",
       "predicate": {
-        "botania:swigs_taken": 2.0
+        "botania:swigs_taken": 0.4
       }
     },
     {
       "model": "botania:item/brew_flask_3",
       "predicate": {
-        "botania:swigs_taken": 3.0
+        "botania:swigs_taken": 0.6
       }
     },
     {
       "model": "botania:item/brew_flask_4",
       "predicate": {
-        "botania:swigs_taken": 4.0
+        "botania:swigs_taken": 0.8
       }
     },
     {
       "model": "botania:item/brew_flask_5",
       "predicate": {
-        "botania:swigs_taken": 5.0
+        "botania:swigs_taken": 1.0
       }
     }
   ],

@@ -30,7 +30,11 @@ public final class BotaniaItemProperties {
 		consumer.accept(BotaniaItems.blackHoleTalisman, botaniaRL("active"),
 				(stack, world, entity, seed) -> stack.has(BotaniaDataComponents.ACTIVE) ? 1 : 0);
 		consumer.accept(BotaniaItems.manaBottle, botaniaRL("swigs_taken"),
-				(stack, world, entity, seed) -> BottledManaItem.SWIGS - BottledManaItem.getSwigsLeft(stack));
+				(stack, world, entity, seed) -> {
+					int swigsLeft = BottledManaItem.getSwigsLeft(stack) - 1;
+					int totalSwigs = BottledManaItem.SWIGS - 1;
+					return swigsLeft == totalSwigs ? 0.0F : Math.nextUp((totalSwigs - swigsLeft) / (float) totalSwigs);
+				});
 
 		ResourceLocation vuvuzelaId = botaniaRL("vuvuzela");
 		ClampedItemPropertyFunction isVuvuzela = (stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
@@ -67,7 +71,9 @@ public final class BotaniaItemProperties {
 
 		ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
 			BaseBrewItem item = ((BaseBrewItem) stack.getItem());
-			return item.getSwigs(stack) - item.getSwigsLeft(stack);
+			int swigsLeft = item.getSwigsLeft(stack) - 1;
+			int totalSwigs = item.getSwigs(stack) - 1;
+			return swigsLeft == totalSwigs ? 0.0F : Math.nextUp((totalSwigs - swigsLeft) / (float) totalSwigs);
 		};
 		consumer.accept(BotaniaItems.brewVial, botaniaRL("swigs_taken"), brewGetter);
 		consumer.accept(BotaniaItems.brewFlask, botaniaRL("swigs_taken"), brewGetter);

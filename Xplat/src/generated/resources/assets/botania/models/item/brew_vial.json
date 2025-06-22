@@ -4,19 +4,19 @@
     {
       "model": "botania:item/brew_vial_1",
       "predicate": {
-        "botania:swigs_taken": 1.0
+        "botania:swigs_taken": 0.3333333333333333
       }
     },
     {
       "model": "botania:item/brew_vial_2",
       "predicate": {
-        "botania:swigs_taken": 2.0
+        "botania:swigs_taken": 0.6666666666666666
       }
     },
     {
       "model": "botania:item/brew_vial_3",
       "predicate": {
-        "botania:swigs_taken": 3.0
+        "botania:swigs_taken": 1.0
       }
     }
   ],

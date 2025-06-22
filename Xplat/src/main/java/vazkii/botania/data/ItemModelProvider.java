@@ -40,6 +40,8 @@ import vazkii.botania.common.block.decor.FlowerMotifBlock;
 import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
+import vazkii.botania.common.item.BottledManaItem;
+import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.common.lib.LibMisc;
@@ -202,13 +204,13 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(blackHoleTalisman);
 
 		OverrideHolder flaskOverrides = new OverrideHolder();
-		for (int i = 1; i <= 5; i++) {
+		for (int i = 1; i < BaseBrewItem.DEFAULT_USES_FLASK; i++) {
 			ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(brewFlask, "_" + i);
 			GENERATED_1.create(overrideModel,
 					TextureMapping.layer0(flask).put(LAYER1, overrideModel),
 					consumer);
 
-			flaskOverrides.add(overrideModel, Pair.of(botaniaRL("swigs_taken"), (double) i));
+			flaskOverrides.add(overrideModel, Pair.of(botaniaRL("swigs_taken"), (double) i / (BaseBrewItem.DEFAULT_USES_FLASK - 1)));
 		}
 		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(brewFlask),
 				TextureMapping.layer0(flask).put(LAYER1, TextureMapping.getItemTexture(brewFlask, "_0")),
@@ -217,12 +219,12 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(brewFlask);
 
 		OverrideHolder vialOverrides = new OverrideHolder();
-		for (int i = 1; i <= 3; i++) {
+		for (int i = 1; i < BaseBrewItem.DEFAULT_USES_VIAL; i++) {
 			ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(brewVial, "_" + i);
 			GENERATED_1.create(overrideModel,
 					TextureMapping.layer0(vial).put(LAYER1, overrideModel),
 					consumer);
-			vialOverrides.add(overrideModel, Pair.of(botaniaRL("swigs_taken"), (double) i));
+			vialOverrides.add(overrideModel, Pair.of(botaniaRL("swigs_taken"), (double) i / (BaseBrewItem.DEFAULT_USES_VIAL - 1)));
 		}
 		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(brewVial),
 				TextureMapping.layer0(vial).put(LAYER1, TextureMapping.getItemTexture(brewVial, "_0")),
@@ -259,10 +261,10 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(magnetRingGreater);
 
 		OverrideHolder bottleOverrides = new OverrideHolder();
-		for (int i = 1; i <= 5; i++) {
+		for (int i = 1; i < BottledManaItem.SWIGS; i++) {
 			ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(manaBottle, "_" + i);
 			ModelTemplates.FLAT_ITEM.create(overrideModel, TextureMapping.layer0(overrideModel), consumer);
-			bottleOverrides.add(overrideModel, Pair.of(botaniaRL("swigs_taken"), (double) i));
+			bottleOverrides.add(overrideModel, Pair.of(botaniaRL("swigs_taken"), (double) i / (BottledManaItem.SWIGS - 1)));
 		}
 		GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(manaBottle),
 				TextureMapping.layer0(manaBottle),
