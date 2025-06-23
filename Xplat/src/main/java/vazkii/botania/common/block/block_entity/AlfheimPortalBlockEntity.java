@@ -192,7 +192,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 			}
 		} else if (self.explode) {
 			level.explode(null, worldPosition.getX() + .5, worldPosition.getY() + 2.0, worldPosition.getZ() + .5,
-					3f, Level.ExplosionInteraction.NONE);
+					3f, Level.ExplosionInteraction.TNT);
 			self.explode = false;
 
 			if (!level.isClientSide && self.breadPlayer != null) {

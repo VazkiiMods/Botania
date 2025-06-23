@@ -408,7 +408,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				amt++;
 			}
 
-			if (amt > 0) {
+			if (amt > 0 && altar.manaToGet > 0) {
 				float anglePer = 360F / amt;
 				if (altar.currentRecipe != null) {
 					RenderSystem.enableBlend();
