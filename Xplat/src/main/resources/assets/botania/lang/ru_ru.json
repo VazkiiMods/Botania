@@ -4,7 +4,7 @@
   "_comment2": "Any entry in this lang file should be in their translated state, or *shouldn't be here AT ALL*",
   "_comment3": "Copying English entries will cause them to become outdated when the main English lang file changes",
   "_comment4": "Untranslated entries will automatically be inherited from en_us",
-"_comment5" : "Once again, don't copy from English, and THANK YOU for your hard work!",
+  "_comment5" : "Once again, don't copy from English, and THANK YOU for your hard work!",
 
   "itemGroup.botania": "Botania",
   "botania.landing": "Магия и технология, природа и естество.$(br2)Ботания — это технический мод, посвящённый магии и природе. Создавайте магические цветы и устройства, использующие $(thing)ману$(), — форму силы земли.",
@@ -830,7 +830,7 @@
   "block.botania.mossy_livingrock_bricks_stairs": "Ступеньки из замшелого жизнекаменного кирпича",
   "block.botania.mossy_livingrock_bricks_slab": "Плита из замшелого жизнекаменного кирпича",
   "block.botania.dreamwood_stairs": "Ступеньки из дерева мечтаний",
-  "block.botania.dreamwood_slab": "Плита из мечтадеревянных досок",
+  "block.botania.dreamwood_slab": "Плита из дерева мечтаний",
   "block.botania.dreamwood_planks_stairs": "Ступеньки из мечтадеревянных досок",
   "block.botania.dreamwood_planks_slab": "Плита из мечтадеревянных досок",
   "block.botania.stripped_dreamwood_stairs": "Ступеньки из обтёсанной древесины мечтаний",
