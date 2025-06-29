@@ -37,6 +37,7 @@ a10e20e0450a35575749231cba4d1cee6dc71693 data/botania/tags/item/petals/light_gra
 41fc64dad58ad86d233cc2abe8400f5c87d9bbc9 data/botania/tags/item/petals/red.json
 d24ddfa8438fb7efd6dc3a6308403f50d509df06 data/botania/tags/item/petals/white.json
 f8db66008eb02f50f19fd4667d927fde08329f98 data/botania/tags/item/petals/yellow.json
+0a3f26af848ba2bca714187366a23937e61e509b data/botania/tags/item/pickable_block_providers.json
 cb5d86906c3b7a5c47f636395fc1880af8493190 data/botania/tags/item/quartz_blocks.json
 32a771dd682f71a8c1e9bacd3b5e4de2ea3d5173 data/botania/tags/item/rods.json
 498c9105b95ec2244beb768724e31b23938ccfc3 data/botania/tags/item/runes.json
