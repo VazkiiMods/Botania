@@ -22,6 +22,8 @@ of time the maintainers are able to spend on this effort. For the time being, up
 
 * Add: Several missing Forge tags for blocks, items, and entities
 * Add: Munchdew displays particles while in cooldown, similar to a Thermalily (this used to be a thing a long time ago already, but somehow got lost)
+* Add: While not in Creative mode, the "Pick Block" feature (usually middle mouse button) can also select certain block
+  providers, such as the Rod of the Lands or Black Hole Talisman, if the targeted block's item itself is not available
 * Change: Sparks can no longer be hit by projectiles other than mana bursts
 * Change: Fake players using a wand of the forest on either type of spark are now treated as if the player was sneaking, since that is likely the intended interaction
 * Fix: The boss bar for the gaia ritual no longer starts full and quickly empties at the start of the spawn sequence
@@ -29,6 +31,9 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Fix: Potential divide-by-zero error related to Runic Altar wand HUD rendering (YukkuriC)
 * Fix: Ancient will recipe accepting additional items (YukkuriC)
 * Fix: Tiny Potato holding mob heads backwards
+* Fix: Portal explosion actually breaks blocks again, as intended
+* Fix: Remaining content in brew vials/flasks and mana bottles would not display properly
+* Fix: Monocle item frame overlay did not properly expand background frame to account for multi-row contained items display
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
 * Language updates:
