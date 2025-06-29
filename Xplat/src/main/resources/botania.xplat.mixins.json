@@ -5,6 +5,7 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AbstractCauldronBlockAccessor",
     "AbstractFurnaceBlockEntityAccessor",
     "AbstractHorseAccessor",
     "AbstractMinecartMixin",

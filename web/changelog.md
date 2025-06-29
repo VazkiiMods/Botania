@@ -24,6 +24,8 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Add: Munchdew displays particles while in cooldown, similar to a Thermalily (this used to be a thing a long time ago already, but somehow got lost)
 * Add: While not in Creative mode, the "Pick Block" feature (usually middle mouse button) can also select certain block
   providers, such as the Rod of the Lands or Black Hole Talisman, if the targeted block's item itself is not available
+* Add: Cauldrons can be filled with the Rod of the Seas (as if using a water bucket) and emptied with the
+  Extrapolated Bucket (as if using an empty bucket on a full version of the cauldron)
 * Change: Sparks can no longer be hit by projectiles other than mana bursts
 * Change: Fake players using a wand of the forest on either type of spark are now treated as if the player was sneaking, since that is likely the intended interaction
 * Fix: The boss bar for the gaia ritual no longer starts full and quickly empties at the start of the spawn sequence
