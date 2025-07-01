@@ -20,6 +20,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
@@ -47,10 +48,9 @@ import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.OptionalInt;
+import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity implements SparkAttachable, ManaReceiver {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
@@ -72,7 +72,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 			'L', PatchouliAPI.get().tagMatcher(
 					XplatAbstractions.INSTANCE.isFabric()
 							? TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "lapis_blocks"))
-							: TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("forge", "storage_blocks/lapis")))
+							: TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/lapis")))
 	));
 
 	private static final String TAG_MANA = "mana";
@@ -207,10 +207,25 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 
 	@Nullable
 	private RecipeHolder<TerrestrialAgglomerationRecipe> getCurrentRecipe(RecipeInput input) {
-		if (input.isEmpty()) {
-			return null;
+		List<ItemStack> inputItems = new ArrayList<>();
+		for (int i = 0; i < input.size(); i++) {
+			inputItems.add(input.getItem(i));
 		}
-		return level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE, input, level)
+
+		return level.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE).stream()
+				.filter(r -> {
+					Set<Item> inputIds = inputItems.stream()
+							.map(stack -> stack.getItem())
+							.collect(Collectors.toSet());
+
+					Set<Item> recipeIds = r.value().getIngredients().stream()
+							.flatMap(ing -> Arrays.stream(ing.getItems()))
+							.map(stack -> stack.getItem())
+							.collect(Collectors.toSet());
+
+					return inputIds.equals(recipeIds);
+				})
+				.findFirst()
 				.orElse(null);
 	}
 
