@@ -18,7 +18,7 @@
   "botaniamisc.color": "%s 색",
   "botaniamisc.manaUsage": "마나 사용량",
   "botaniamisc.flareColor": "%s 색",
-  "botaniamisc.outputtingPower": "아이템에서 마나를 주입합니다",
+  "botaniamisc.outputtingPower": "아이템으로 마나를 주입합니다",
   "botaniamisc.inputtingPower": "아이템에서 마나를 추출합니다",
   "botaniamisc.creative": "크리에이티브",
   "botaniamisc.invFull": "당신의 인벤토리는 가득 찼습니다.",
