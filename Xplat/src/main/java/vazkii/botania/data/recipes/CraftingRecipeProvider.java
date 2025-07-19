@@ -106,9 +106,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	private void registerMain(Consumer<FinishedRecipe> consumer) {
-		InventoryChangeTrigger.TriggerInstance hasAnyDye = conditionsFromItems(
-				ColorHelper.supportedColors().map(DyeItem::byColor).toArray(ItemLike[]::new)
-		);
 		MutableObject<FinishedRecipe> base = new MutableObject<>();
 		MutableObject<FinishedRecipe> gog = new MutableObject<>();
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
@@ -432,16 +429,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("283")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.RUNES))
 				.save(consumer);
-		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.prism)
-				.define('P', Items.PRISMARINE_CRYSTALS)
-				.define('S', BotaniaBlocks.spectralPlatform)
-				.define('G', Items.GLASS)
-				.pattern("GPG")
-				.pattern("GSG")
-				.pattern("GPG")
-				.unlockedBy("has_item", conditionsFromItem(Items.PRISMARINE_CRYSTALS))
-				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaBlocks.spectralPlatform))
-				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.pump)
 				.define('B', Items.BUCKET)
 				.define('S', BotaniaBlocks.livingrock)
@@ -626,21 +613,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaString))
 				.save(consumer);
-		Ingredient dyes = Ingredient.of(Items.WHITE_DYE, Items.ORANGE_DYE, Items.MAGENTA_DYE,
-				Items.LIGHT_BLUE_DYE, Items.YELLOW_DYE, Items.LIME_DYE, Items.PINK_DYE, Items.GRAY_DYE,
-				Items.LIGHT_GRAY_DYE, Items.CYAN_DYE, Items.PURPLE_DYE, Items.BLUE_DYE, Items.BROWN_DYE,
-				Items.GREEN_DYE, Items.RED_DYE, Items.BLACK_DYE);
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer)
-				.requires(Items.BONE_MEAL)
-				.requires(dyes, 4)
-				.unlockedBy("has_item", hasAnyDye)
-				.save(base::setValue, "botania:fertilizer_dye");
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer, 3)
-				.requires(Items.BONE_MEAL)
-				.requires(dyes, 4)
-				.unlockedBy("has_item", hasAnyDye)
-				.save(gog::setValue, "botania:fertilizer_dye");
-		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.drySeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.DEAD_BUSH)
@@ -823,20 +795,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("CPC")
 				.pattern("BBB")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.thornChakram))
-				.save(consumer);
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.phantomInk, 4)
-				.requires(BotaniaItems.manaPearl)
-				.requires(Ingredient.of(
-						ColorHelper.supportedColors().map(DyeItem::byColor).toArray(ItemLike[]::new)
-				))
-				.requires(Ingredient.of(Items.GLASS, Items.WHITE_STAINED_GLASS, Items.ORANGE_STAINED_GLASS,
-						Items.MAGENTA_STAINED_GLASS, Items.LIGHT_BLUE_STAINED_GLASS, Items.YELLOW_STAINED_GLASS,
-						Items.LIME_STAINED_GLASS, Items.PINK_STAINED_GLASS, Items.GRAY_STAINED_GLASS,
-						Items.LIGHT_GRAY_STAINED_GLASS, Items.CYAN_STAINED_GLASS, Items.PURPLE_STAINED_GLASS,
-						Items.BLUE_STAINED_GLASS, Items.BROWN_STAINED_GLASS, Items.GREEN_STAINED_GLASS,
-						Items.RED_STAINED_GLASS, Items.BLACK_STAINED_GLASS))
-				.requires(Items.GLASS_BOTTLE, 4)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.keepIvy)
 				.requires(BotaniaItems.pixieDust)
@@ -1112,15 +1070,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("TA ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.terraAxe))
 				.unlockedBy("has_terrasteel", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.glassPick)
-				.define('T', BotaniaItems.livingwoodTwig)
-				.define('G', Items.GLASS)
-				.define('I', BotaniaTags.Items.INGOTS_MANASTEEL)
-				.pattern("GIG")
-				.pattern(" T ")
-				.pattern(" T ")
-				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.livingwoodBow)
 				.define('S', BotaniaItems.manaString)
@@ -1840,14 +1789,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	private void registerLenses(Consumer<FinishedRecipe> consumer) {
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lensNormal)
-				.define('S', BotaniaTags.Items.INGOTS_MANASTEEL)
-				.define('G', Ingredient.of(Items.GLASS, Items.GLASS_PANE))
-				.pattern(" S ")
-				.pattern("SGS")
-				.pattern(" S ")
-				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensSpeed)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.runeAir)

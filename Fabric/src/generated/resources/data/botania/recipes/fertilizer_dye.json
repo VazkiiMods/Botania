@@ -1,0 +1,52 @@
+{
+  "type": "botania:gog_alternation",
+  "base": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      {
+        "item": "minecraft:bone_meal"
+      },
+      {
+        "tag": "c:dyes"
+      },
+      {
+        "tag": "c:dyes"
+      },
+      {
+        "tag": "c:dyes"
+      },
+      {
+        "tag": "c:dyes"
+      }
+    ],
+    "result": {
+      "item": "botania:fertilizer"
+    }
+  },
+  "gog": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      {
+        "item": "minecraft:bone_meal"
+      },
+      {
+        "tag": "c:dyes"
+      },
+      {
+        "tag": "c:dyes"
+      },
+      {
+        "tag": "c:dyes"
+      },
+      {
+        "tag": "c:dyes"
+      }
+    ],
+    "result": {
+      "count": 3,
+      "item": "botania:fertilizer"
+    }
+  }
+}
