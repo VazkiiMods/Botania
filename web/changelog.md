@@ -22,6 +22,8 @@ of time the maintainers are able to spend on this effort. For the time being, up
 
 * Add: Several missing Forge tags for blocks, items, and entities
 * Add: Munchdew displays particles while in cooldown, similar to a Thermalily (this used to be a thing a long time ago already, but somehow got lost)
+* Add: Creating past versions of player heads is now possible by replacing the name tag with a written book, containing
+  the base64 texture reference data you can find in the player head commands provided by various player skin websites
 * Add: While not in Creative mode, the "Pick Block" feature (usually middle mouse button) can also select certain block
   providers, such as the Rod of the Lands or Black Hole Talisman, if the targeted block's item itself is not available
 * Add: Cauldrons can be filled with the Rod of the Seas (as if using a water bucket) and emptied with the
@@ -37,13 +39,21 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Fix: Portal explosion actually breaks blocks again, as intended
 * Fix: Remaining content in brew vials/flasks and mana bottles would not display properly
 * Fix: Monocle item frame overlay did not properly expand background frame to account for multi-row contained items display
+* Fix: Some spark transfers towards a pool linked with a Mana Mirror sometimes shut down and fail to start up again when the pool is not full anymore
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
+* Recipe changes:\
+  (only significant uses of item tags have been added, a more thorough use of tags is postponed until 1.21)
+  * On Forge, any recipe that uses colorless glass blocks or panes is now defined using the corresponding item tags
+  * Lens combining uses the slimeballs item tag on Forge
+  * Phantom Ink and Floral Fertilizer recipes use the dye item tags on both Forge and Fabric
+  * The Phantom Ink recipe uses the any-color glass item tags on both Forge and Fabric
 * Language updates:
   * zh_cn updated (Dawnwalker666)
   * zh_tw overhauled (Dawnwalker666, EvanHsieh0415, lakejason0, notlin4, williewillus)
   * ko_kr updated (UnineVesiKass)
   * tr_tr added (RuyaSavascisi)
+  * ru_ru overhauled (kkylern)
 
 ---
 
