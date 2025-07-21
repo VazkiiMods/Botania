@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.relic.DiceOfFateItem;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.ItemTagProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -50,6 +51,9 @@ public class FabricItemTagProvider extends ItemTagProvider {
 		this.copy(FabricBlockTagProvider.GLASS_PANE, GLASS_PANE);
 		this.copy(FabricBlockTagProvider.GLASS_PANE_ALT, GLASS_PANE_ALT);
 		this.tag(WOODEN_CHESTS).add(Items.CHEST, Items.TRAPPED_CHEST);
+
+		this.tag(BotaniaTags.Items.LENS_GLUE).add(Items.SLIME_BALL).add(Items.HONEY_BOTTLE);
+
 		generateToolTags();
 		generateAccessoryTags();
 		generateCompatTags();

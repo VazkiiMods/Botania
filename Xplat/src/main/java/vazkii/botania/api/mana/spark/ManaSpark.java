@@ -42,6 +42,11 @@ public interface ManaSpark extends SparkEntity {
 	void registerTransfer(ManaSpark entity);
 
 	/**
+	 * Forces a check if this spark's receiver might be full.
+	 */
+	default void checkReceiverFull() {}
+
+	/**
 	 * Makes that spark register transfers for all relevant sparks, needs to be called whenever the connected sparks may
 	 * change (setNetwork, remove and setUpgrade should already do this)
 	 */

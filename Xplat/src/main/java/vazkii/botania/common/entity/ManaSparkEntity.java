@@ -186,11 +186,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			}
 		}
 
-		if (receiver != null) {
-			receiverWasFull = receiver.isFull();
-		} else {
-			receiverWasFull = true;
-		}
+		checkReceiverFull();
 
 		if (!transfers.isEmpty()) {
 			int manaTotal = Math.min(TRANSFER_RATE * transfers.size(), receiver.getCurrentMana());
@@ -215,6 +211,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					int spend = Math.min(attached.getAvailableSpaceForMana(), (manaTotal - manaSpent) / (count + 1));
 					attachedReceiver.receiveMana(spend);
 					manaSpent += spend;
+					spark.checkReceiverFull();
 
 					particlesTowards(spark.entity());
 				}
@@ -223,6 +220,16 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		}
 
 		firstTick = false;
+	}
+
+	@Override
+	public void checkReceiverFull() {
+		var receiver = getAttachedManaReceiver();
+		if (receiver != null) {
+			receiverWasFull = receiver.isFull();
+		} else {
+			receiverWasFull = true;
+		}
 	}
 
 	@Override

@@ -3608,7 +3608,8 @@
     "botania.entry.headCreating": "Kopfherstellung",
     "botania.tagline.headCreating": "Herstellen des Kopfes beliebiger Spieler",
     "botania.page.headCreating0": "Ein oft angewandter Zauberspruch der Elfen ist die Nutzung einiger Ressourcen und eines $(item)Namensschilds$(0), um ein Stück $(l:basics/pure_daisy)$(item)Lebestein$(0)$(/l) in den Kopf des benannten $(thing)Spielers$(0) zu verwandeln.$(p)Seine genaue Funktionsweise ist unbekannt, aber der Spruch scheint recht einfach mit einem $(l:basics/rune_altar)$(item)Runenaltar$(0)$(/l) replizierbar zu sein.",
-    "botania.page.headCreating2": "Ein Teil der $(thing)Minecraft$(0)-Gemeinde (huch, vierte Wand) hat sich der Herstellung von Köpfen verschrieben, die als Dekoration benutzt werden können. Für begeisterte Dekorateure gibt es Webseiten mit Sammlungen solcher Köpfe.",
+    "botania.page.headCreating3": "Ersetzt man das Namensschild durch ein $(item)Beschriebenes Buch$(0), können dem Prozess noch mehr Informationen zugeführt werden:$(p)Ist der Geheimcode für einen vergangenen $(thing)Skin$(0) in der obskuren Sprache $(thing)Base64$(0) bekannt, kann er in das Buch geschrieben werden, um dieses frühere Aussehen des $(thing)Spielerkopfes$(0) zu beschwören.",
+    "botania.page.headCreating2": "Ein Teil der $(thing)Minecraft$(0)-Gemeinde (huch, vierte Wand) hat sich der Herstellung von Köpfen verschrieben, die als Dekoration benutzt werden können. Für begeisterte Dekorateure gibt es Webseiten mit Sammlungen solcher Köpfe.$(p)Einige Sites bieten auch Befehle mit den notwendigen Base64-codierten Textur-Referenzdaten für die Buchversion des Rezepts. Die Skin-URL oder der Skin-Hash funktionieren ebenfalls.",
     "botania.page.headCreating1": "Bring deinen Kopf ins Spiel",
 
     "botania.entry.azulejo": "Azulejo",
