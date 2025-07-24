@@ -68,6 +68,7 @@ import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.network.BotaniaPacket;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -154,6 +155,9 @@ public interface XplatAbstractions {
 	boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient);
 	void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
 	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
+	boolean fireBoreLensCollideBurstEvent(Player player, BlockPos pos);
+
+	@Nullable ServerPlayer createFakePlayer(Level level, @Nullable UUID uuid, String name);
 
 	// Networking
 	Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet);

@@ -1,5 +1,6 @@
 package vazkii.botania.forge.xplat;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
@@ -10,6 +11,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -59,6 +61,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -88,6 +92,7 @@ import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
+import vazkii.botania.api.item.lens.BoreLensCollideBurstEvent;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
@@ -108,6 +113,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -418,6 +424,27 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
 		MinecraftForge.EVENT_BUS.post(new ManaNetworkEvent(thing, type, action));
+	}
+
+	@Override
+	public boolean fireBoreLensCollideBurstEvent(Player player, BlockPos pos) {
+		if (player == null) {
+			return false;
+		}
+
+		return MinecraftForge.EVENT_BUS.post(new BoreLensCollideBurstEvent(player, pos));
+	}
+
+	@Override
+	public @Nullable ServerPlayer createFakePlayer(Level level, @Nullable UUID uuid, String name) {
+		if (!(level instanceof ServerLevel serverLevel)) {
+			return null;
+		}
+
+		if (uuid == null) {
+			uuid = UUID.randomUUID();
+		}
+		return new FakePlayer(serverLevel, new GameProfile(uuid, name));
 	}
 
 	@Override

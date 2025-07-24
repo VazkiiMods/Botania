@@ -33,11 +33,14 @@ import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 public class BoreLens extends Lens {
+	String fakePlayerName = getClass().getName();
+
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
@@ -74,6 +77,14 @@ public class BoreLens extends Lens {
 			if (!burst.hasAlreadyCollidedAt(collidePos)) {
 				if (!burst.isFake()) {
 					List<ItemStack> items = Block.getDrops(state, (ServerLevel) world, collidePos, tile);
+					burst.setMana(mana - 24);
+
+					Level level = burst.entity().level();
+					var player = XplatAbstractions.INSTANCE.createFakePlayer(level, burst.getShooterUUID(), fakePlayerName);
+					var cancelled = XplatAbstractions.INSTANCE.fireBoreLensCollideBurstEvent(player, collidePos);
+					if (cancelled) {
+						return false;
+					}
 
 					world.removeBlock(collidePos, false);
 					world.gameEvent(entity, GameEvent.BLOCK_DESTROY, collidePos);
@@ -107,8 +118,6 @@ public class BoreLens extends Lens {
 							world.addFreshEntity(itemEntity);
 						}
 					}
-
-					burst.setMana(mana - 24);
 				}
 			}
 
