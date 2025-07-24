@@ -437,7 +437,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean fireDamagingLensUpdateBurstEvent(ManaBurst burst, ItemStack stack, Player shooter) {
+	public boolean fireLensUpdateBurstEvent(ManaBurst burst, ItemStack stack, Player shooter) {
 		if (shooter == null) {
 			return false;
 		}

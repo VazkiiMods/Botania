@@ -20,7 +20,6 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
-import java.util.UUID;
 
 public class DamagingLens extends Lens {
 
@@ -45,7 +44,7 @@ public class DamagingLens extends Lens {
 				if (mana >= 16) {
 					burst.setMana(mana - 16);
 					if (!burst.isFake()) {
-						if (XplatAbstractions.INSTANCE.fireDamagingLensUpdateBurstEvent(burst, stack, player)) {
+						if (XplatAbstractions.INSTANCE.fireLensUpdateBurstEvent(burst, stack, player)) {
 							continue;
 						}
 
