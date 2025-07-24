@@ -157,7 +157,7 @@ public interface XplatAbstractions {
 	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 	boolean fireBoreLensCollideBurstEvent(Player player, BlockPos pos);
 
-	@Nullable ServerPlayer createFakePlayer(Level level, @Nullable UUID uuid, String name);
+	@Nullable ServerPlayer getPlayer(Level level, @Nullable UUID uuid, String name);
 
 	// Networking
 	Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet);

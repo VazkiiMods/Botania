@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.*;
 import net.minecraft.world.InteractionHand;
@@ -79,6 +80,7 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaForgeCapabilities;
@@ -110,10 +112,7 @@ import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -436,7 +435,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public @Nullable ServerPlayer createFakePlayer(Level level, @Nullable UUID uuid, String name) {
+	public @Nullable ServerPlayer getPlayer(Level level, @Nullable UUID uuid, String name) {
 		if (!(level instanceof ServerLevel serverLevel)) {
 			return null;
 		}
@@ -444,7 +443,24 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		if (uuid == null) {
 			uuid = UUID.randomUUID();
 		}
-		return new FakePlayer(serverLevel, new GameProfile(uuid, name));
+
+		var realPlayer = getRealPlayer(level, uuid, serverLevel);
+
+		if (realPlayer == null) {
+			return new FakePlayer(serverLevel, new GameProfile(uuid, name));
+		}
+
+		return realPlayer;
+	}
+
+	private FakePlayer getRealPlayer(Level level, @NotNull UUID uuid, ServerLevel serverLevel) {
+		GameProfileCache profileCache = level.getServer().getProfileCache();
+		if (profileCache == null) {
+			return null;
+		}
+
+		Optional<GameProfile> profile = profileCache.get(uuid);
+		return profile.map(gameProfile -> FakePlayerFactory.get(serverLevel, gameProfile)).orElse(null);
 	}
 
 	@Override

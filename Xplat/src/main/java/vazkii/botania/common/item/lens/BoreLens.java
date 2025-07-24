@@ -80,7 +80,7 @@ public class BoreLens extends Lens {
 					burst.setMana(mana - 24);
 
 					Level level = burst.entity().level();
-					var player = XplatAbstractions.INSTANCE.createFakePlayer(level, burst.getShooterUUID(), fakePlayerName);
+					var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), fakePlayerName);
 					var cancelled = XplatAbstractions.INSTANCE.fireBoreLensCollideBurstEvent(player, collidePos);
 					if (cancelled) {
 						return false;
