@@ -148,6 +148,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	public ManaBurstEntity(Player player) {
 		super(BotaniaEntities.MANA_BURST, player, player.level());
 
+		setShooterUUID(player.getUUID());
 		setBurstSourceCoords(NO_SOURCE);
 		setRot(player.getYRot() + 180, -player.getXRot());
 		setDeltaMovement(calculateBurstVelocity(getXRot(), getYRot()));
