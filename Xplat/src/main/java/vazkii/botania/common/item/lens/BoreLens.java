@@ -39,8 +39,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class BoreLens extends Lens {
-	String fakePlayerName = getClass().getName();
-
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
@@ -79,10 +77,7 @@ public class BoreLens extends Lens {
 					List<ItemStack> items = Block.getDrops(state, (ServerLevel) world, collidePos, tile);
 					burst.setMana(mana - 24);
 
-					Level level = burst.entity().level();
-					var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), fakePlayerName);
-					var cancelled = XplatAbstractions.INSTANCE.fireBoreLensCollideBurstEvent(player, collidePos);
-					if (cancelled) {
+					if (fireLensCollideBurstEvent(burst, stack, collidePos)) {
 						return false;
 					}
 
@@ -125,6 +120,12 @@ public class BoreLens extends Lens {
 		}
 
 		return shouldKill;
+	}
+
+	private boolean fireLensCollideBurstEvent(ManaBurst burst, ItemStack stack, BlockPos collidePos) {
+		Level level = burst.entity().level();
+		var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
+        return XplatAbstractions.INSTANCE.fireLensCollideBurstEvent(player, collidePos, stack);
 	}
 
 	private static List<ItemStack> stacks(Item... items) {

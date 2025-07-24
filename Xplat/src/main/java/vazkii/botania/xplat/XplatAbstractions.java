@@ -56,6 +56,7 @@ import vazkii.botania.api.block.*;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -155,7 +156,8 @@ public interface XplatAbstractions {
 	boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient);
 	void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
 	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
-	boolean fireBoreLensCollideBurstEvent(Player player, BlockPos pos);
+	boolean fireLensCollideBurstEvent(Player player, BlockPos pos, ItemStack stack);
+	boolean fireDamagingLensUpdateBurstEvent(ManaBurst burst, ItemStack stack, Player shooter);
 
 	@Nullable ServerPlayer getPlayer(Level level, @Nullable UUID uuid, String name);
 

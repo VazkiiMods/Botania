@@ -97,7 +97,9 @@ import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
-import vazkii.botania.api.item.lens.BoreLensCallback;
+import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.api.item.lens.LensCollideBurstCallback;
+import vazkii.botania.api.item.lens.DamagingLensUpdateBurstCallback;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
@@ -438,8 +440,13 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean fireBoreLensCollideBurstEvent(Player player, BlockPos pos) {
-		return BoreLensCallback.EVENT.invoker().onBoreLensCollideBurst(player, pos);
+	public boolean fireLensCollideBurstEvent(Player player, BlockPos pos, ItemStack stack) {
+		return LensCollideBurstCallback.EVENT.invoker().onLensCollideBurst(player, pos, stack);
+	}
+
+	@Override
+	public boolean fireDamagingLensUpdateBurstEvent(ManaBurst burst, ItemStack stack, Player shooter) {
+		return DamagingLensUpdateBurstCallback.EVENT.invoker().onDamagingLensUpdateBurst(burst, stack, shooter);
 	}
 
 	@Override
