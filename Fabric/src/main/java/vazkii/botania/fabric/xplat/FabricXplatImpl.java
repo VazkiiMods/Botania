@@ -2,9 +2,11 @@ package vazkii.botania.fabric.xplat;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 
+import com.mojang.authlib.GameProfile;
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 
 import net.fabricmc.api.EnvType;
+import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -40,6 +42,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
@@ -80,6 +83,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricCapabilities;
@@ -93,6 +97,7 @@ import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
+import vazkii.botania.api.item.lens.BoreLensCallback;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
@@ -112,9 +117,7 @@ import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
@@ -432,6 +435,40 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
 		ManaNetworkCallback.EVENT.invoker().onNetworkChange(thing, type, action);
+	}
+
+	@Override
+	public boolean fireBoreLensCollideBurstEvent(Player player, BlockPos pos) {
+		return BoreLensCallback.EVENT.invoker().onBoreLensCollideBurst(player, pos);
+	}
+
+	@Override
+	public @Nullable ServerPlayer getPlayer(Level level, @Nullable UUID uuid, String name) {
+		if (!(level instanceof ServerLevel serverLevel)) {
+			return null;
+		}
+
+		if (uuid == null) {
+			uuid = UUID.randomUUID();
+		}
+
+		var realPlayer = getRealPlayer(level, uuid, serverLevel);
+
+		if (realPlayer == null) {
+			return FakePlayer.get(serverLevel, new GameProfile(uuid, name));
+		}
+
+		return realPlayer;
+	}
+
+	private FakePlayer getRealPlayer(Level level, @NotNull UUID uuid, ServerLevel serverLevel) {
+		GameProfileCache profileCache = level.getServer().getProfileCache();
+		if (profileCache == null) {
+			return null;
+		}
+
+		Optional<GameProfile> profile = profileCache.get(uuid);
+		return profile.map(gameProfile -> FakePlayer.get(serverLevel, gameProfile)).orElse(null);
 	}
 
 	@Override
