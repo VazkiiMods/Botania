@@ -77,7 +77,7 @@ public class BoreLens extends Lens {
 					List<ItemStack> items = Block.getDrops(state, (ServerLevel) world, collidePos, tile);
 					burst.setMana(mana - 24);
 
-					if (fireLensCollideBurstEvent(burst, stack, collidePos)) {
+					if (fireBoreLensRemoveBlockEvent(burst, stack, collidePos)) {
 						return false;
 					}
 
@@ -122,10 +122,10 @@ public class BoreLens extends Lens {
 		return shouldKill;
 	}
 
-	private boolean fireLensCollideBurstEvent(ManaBurst burst, ItemStack stack, BlockPos collidePos) {
+	private boolean fireBoreLensRemoveBlockEvent(ManaBurst burst, ItemStack stack, BlockPos collidePos) {
 		Level level = burst.entity().level();
 		var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
-        return XplatAbstractions.INSTANCE.fireLensCollideBurstEvent(player, collidePos, stack);
+        return XplatAbstractions.INSTANCE.fireBoreLensRemoveBlockEvent(player, collidePos);
 	}
 
 	private static List<ItemStack> stacks(Item... items) {

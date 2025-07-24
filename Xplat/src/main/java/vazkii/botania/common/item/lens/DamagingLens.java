@@ -44,7 +44,7 @@ public class DamagingLens extends Lens {
 				if (mana >= 16) {
 					burst.setMana(mana - 16);
 					if (!burst.isFake()) {
-						if (XplatAbstractions.INSTANCE.fireLensUpdateBurstEvent(burst, stack, player)) {
+						if (XplatAbstractions.INSTANCE.fireDamagingLensHurtEvent(player, living.blockPosition())) {
 							continue;
 						}
 

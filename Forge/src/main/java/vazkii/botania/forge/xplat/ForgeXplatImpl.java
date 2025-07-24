@@ -95,8 +95,8 @@ import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.item.lens.LensCollideBurstEvent;
-import vazkii.botania.api.item.lens.DamagingLensUpdateBurstEvent;
+import vazkii.botania.api.item.lens.BoreLensRemoveBlockEvent;
+import vazkii.botania.api.item.lens.DamagingLensHurtEvent;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
@@ -428,21 +428,21 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean fireLensCollideBurstEvent(Player player, BlockPos pos, ItemStack stack) {
+	public boolean fireBoreLensRemoveBlockEvent(Player player, BlockPos pos) {
 		if (player == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new LensCollideBurstEvent(player, pos, stack));
+		return MinecraftForge.EVENT_BUS.post(new BoreLensRemoveBlockEvent(player, pos));
 	}
 
 	@Override
-	public boolean fireLensUpdateBurstEvent(ManaBurst burst, ItemStack stack, Player shooter) {
+	public boolean fireDamagingLensHurtEvent(Player shooter, BlockPos pos) {
 		if (shooter == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new DamagingLensUpdateBurstEvent(burst, stack, shooter));
+		return MinecraftForge.EVENT_BUS.post(new DamagingLensHurtEvent(shooter, pos));
 	}
 
 	@Override

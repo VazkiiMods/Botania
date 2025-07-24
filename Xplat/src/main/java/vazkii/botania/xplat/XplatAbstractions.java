@@ -156,8 +156,8 @@ public interface XplatAbstractions {
 	boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient);
 	void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
 	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
-	boolean fireLensCollideBurstEvent(Player player, BlockPos pos, ItemStack stack);
-	boolean fireLensUpdateBurstEvent(ManaBurst burst, ItemStack stack, Player shooter);
+	boolean fireBoreLensRemoveBlockEvent(Player player, BlockPos pos);
+	boolean fireDamagingLensHurtEvent(Player shooter, BlockPos pos);
 
 	@Nullable ServerPlayer getPlayer(Level level, @Nullable UUID uuid, String name);
 
