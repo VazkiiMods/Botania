@@ -4,18 +4,17 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 
 public interface EntropicLensExplodeCallback {
     Event<EntropicLensExplodeCallback> EVENT = EventFactory.createArrayBacked(EntropicLensExplodeCallback.class,
-            listeners -> (player, pos, explosionPower, lens) -> {
+            listeners -> (player, pos, explosionPower) -> {
                 for (EntropicLensExplodeCallback listener : listeners) {
-                    if (listener.onEntropicLensExplode(player, pos, explosionPower, lens)) {
+                    if (listener.onEntropicLensExplode(player, pos, explosionPower)) {
                         return true;
                     }
                 }
                 return false;
             });
 
-    boolean onEntropicLensExplode(Player player, BlockPos pos, float explosionPower, ItemStack lens);
+    boolean onEntropicLensExplode(Player player, BlockPos pos, float explosionPower);
 }

@@ -33,7 +33,7 @@ public class StormLens extends Lens {
 				
 				// Fire event before lightning strike
 				var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
-				if (XplatAbstractions.INSTANCE.stormLensLightningEvent(player, targetPos, stack)) {
+				if (XplatAbstractions.INSTANCE.stormLensLightningEvent(player, targetPos)) {
 					return shouldKill; // Event cancelled, don't create lightning
 				}
 

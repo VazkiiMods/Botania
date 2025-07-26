@@ -39,7 +39,7 @@ public class CelebratoryLens extends Lens {
 				
 				// Fire event before firework creation
 				var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
-				if (XplatAbstractions.INSTANCE.celebratoryLensFireworkEvent(player, targetPos, fireworkStack, stack)) {
+				if (XplatAbstractions.INSTANCE.celebratoryLensFireworkEvent(player, targetPos, fireworkStack)) {
 					return shouldKill; // Event cancelled, don't create firework
 				}
 

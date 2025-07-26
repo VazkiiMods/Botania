@@ -478,111 +478,111 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean forceLensBlockMoveEvent(Player player, BlockPos from, BlockPos to, Direction direction, ItemStack lens) {
-		if (player == null || from == null || to == null || direction == null || lens == null || lens.isEmpty()) {
+	public boolean forceLensBlockMoveEvent(Player player, BlockPos from, BlockPos to, Direction direction) {
+		if (player == null || from == null || to == null || direction == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new ForceLensBlockMoveEvent(player, from, to, direction, lens));
+		return MinecraftForge.EVENT_BUS.post(new ForceLensBlockMoveEvent(player, from, to, direction));
 	}
 
 	@Override
-	public boolean weightLensBlockFallEvent(Player player, BlockPos pos, BlockState state, ItemStack lens) {
-		if (player == null || pos == null || state == null || lens == null || lens.isEmpty()) {
+	public boolean weightLensBlockFallEvent(Player player, BlockPos pos, BlockState state) {
+		if (player == null || pos == null || state == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new WeightLensBlockFallEvent(player, pos, state, lens));
+		return MinecraftForge.EVENT_BUS.post(new WeightLensBlockFallEvent(player, pos, state));
 	}
 
 	@Override
-	public boolean flashLensManaFlameCreateEvent(Player player, BlockPos pos, int color, ItemStack lens) {
-		if (player == null || pos == null || lens == null || lens.isEmpty()) {
+	public boolean flashLensManaFlameCreateEvent(Player player, BlockPos pos, int color) {
+		if (player == null || pos == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new FlashLensManaFlameCreateEvent(player, pos, color, lens));
+		return MinecraftForge.EVENT_BUS.post(new FlashLensManaFlameCreateEvent(player, pos, color));
 	}
 
 	@Override
-	public boolean flashLensManaFlameRemoveEvent(Player player, BlockPos pos, ItemStack lens) {
-		if (player == null || pos == null || lens == null || lens.isEmpty()) {
+	public boolean flashLensManaFlameRemoveEvent(Player player, BlockPos pos) {
+		if (player == null || pos == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new FlashLensManaFlameRemoveEvent(player, pos, lens));
+		return MinecraftForge.EVENT_BUS.post(new FlashLensManaFlameRemoveEvent(player, pos));
 	}
 
 	@Override
-	public boolean kindleLensFirePlaceEvent(Player player, BlockPos pos, ItemStack lens) {
-		if (player == null || pos == null || lens == null || lens.isEmpty()) {
+	public boolean kindleLensFirePlaceEvent(Player player, BlockPos pos) {
+		if (player == null || pos == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new KindleLensFirePlaceEvent(player, pos, lens));
+		return MinecraftForge.EVENT_BUS.post(new KindleLensFirePlaceEvent(player, pos));
 	}
 
 	@Override
-	public boolean kindleLensNetherPortalRemoveEvent(Player player, BlockPos pos, ItemStack lens) {
-		if (player == null || pos == null || lens == null || lens.isEmpty()) {
+	public boolean kindleLensNetherPortalRemoveEvent(Player player, BlockPos pos) {
+		if (player == null || pos == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new KindleLensNetherPortalRemoveEvent(player, pos, lens));
+		return MinecraftForge.EVENT_BUS.post(new KindleLensNetherPortalRemoveEvent(player, pos));
 	}
 
 	@Override
-	public boolean paintslingerLensPaintBlockEvent(Player player, BlockPos pos, int color, Block originalBlock, Block newBlock, ItemStack lens) {
-		if (player == null || pos == null || originalBlock == null || newBlock == null || lens == null || lens.isEmpty()) {
+	public boolean paintslingerLensPaintBlockEvent(Player player, BlockPos pos, int color, Block originalBlock, Block newBlock) {
+		if (player == null || pos == null || originalBlock == null || newBlock == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new PaintslingerLensPaintBlockEvent(player, pos, color, originalBlock, newBlock, lens));
+		return MinecraftForge.EVENT_BUS.post(new PaintslingerLensPaintBlockEvent(player, pos, color, originalBlock, newBlock));
 	}
 
 	@Override
-	public boolean paintslingerLensPaintSheepEvent(Player player, Entity sheep, int oldColor, int newColor, ItemStack lens) {
-		if (player == null || sheep == null || lens == null || lens.isEmpty()) {
+	public boolean paintslingerLensPaintSheepEvent(Player player, Entity sheep, int oldColor, int newColor) {
+		if (player == null || sheep == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new PaintslingerLensPaintSheepEvent(player, sheep, oldColor, newColor, lens));
+		return MinecraftForge.EVENT_BUS.post(new PaintslingerLensPaintSheepEvent(player, sheep, oldColor, newColor));
 	}
 
 	@Override
-	public boolean paintslingerLensPaintSparkEvent(Player player, Entity spark, int color, ItemStack lens) {
-		if (player == null || spark == null || lens == null || lens.isEmpty()) {
+	public boolean paintslingerLensPaintSparkEvent(Player player, Entity spark, int color) {
+		if (player == null || spark == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new PaintslingerLensPaintSparkEvent(player, spark, color, lens));
+		return MinecraftForge.EVENT_BUS.post(new PaintslingerLensPaintSparkEvent(player, spark, color));
 	}
 
 	@Override
-	public boolean entropicLensExplodeEvent(Player player, BlockPos pos, float explosionPower, ItemStack lens) {
-		if (player == null || pos == null || explosionPower < 0 || lens == null || lens.isEmpty()) {
+	public boolean entropicLensExplodeEvent(Player player, BlockPos pos, float explosionPower) {
+		if (player == null || pos == null || explosionPower < 0) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new EntropicLensExplodeEvent(player, pos, explosionPower, lens));
+		return MinecraftForge.EVENT_BUS.post(new EntropicLensExplodeEvent(player, pos, explosionPower));
 	}
 
 	@Override
-	public boolean celebratoryLensFireworkEvent(Player player, BlockPos pos, ItemStack firework, ItemStack lens) {
-		if (player == null || pos == null || firework == null || firework.isEmpty() || lens == null || lens.isEmpty()) {
+	public boolean celebratoryLensFireworkEvent(Player player, BlockPos pos, ItemStack firework) {
+		if (player == null || pos == null || firework == null || firework.isEmpty()) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new CelebratoryLensFireworkEvent(player, pos, firework, lens));
+		return MinecraftForge.EVENT_BUS.post(new CelebratoryLensFireworkEvent(player, pos, firework));
 	}
 
 	@Override
-	public boolean stormLensLightningEvent(Player player, BlockPos pos, ItemStack lens) {
-		if (player == null || pos == null || lens == null || lens.isEmpty()) {
+	public boolean stormLensLightningEvent(Player player, BlockPos pos) {
+		if (player == null || pos == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new StormLensLightningEvent(player, pos, lens));
+		return MinecraftForge.EVENT_BUS.post(new StormLensLightningEvent(player, pos));
 	}
 
 	@Override

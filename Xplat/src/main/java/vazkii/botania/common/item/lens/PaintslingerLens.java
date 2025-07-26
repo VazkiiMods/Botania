@@ -55,7 +55,7 @@ public class PaintslingerLens extends Lens {
 					for (Sheep other : sheepList) {
 						// Fire event before sheep coloring
 						int newColor = storedColor == 16 ? sheep.level().random.nextInt(16) : storedColor;
-						if (XplatAbstractions.INSTANCE.paintslingerLensPaintSheepEvent(player, other, sheepColor.getId(), newColor, stack)) {
+						if (XplatAbstractions.INSTANCE.paintslingerLensPaintSheepEvent(player, other, sheepColor.getId(), newColor)) {
 							continue; // Event cancelled, don't color sheep
 						}
 
@@ -67,7 +67,7 @@ public class PaintslingerLens extends Lens {
 				} else if (collidedWith instanceof SparkEntity spark) {
 					// Fire event before spark coloring
 					int newColor = storedColor == 16 ? collidedWith.level().random.nextInt(16) : storedColor;
-					if (XplatAbstractions.INSTANCE.paintslingerLensPaintSparkEvent(player, (Entity) spark, newColor, stack)) {
+					if (XplatAbstractions.INSTANCE.paintslingerLensPaintSparkEvent(player, (Entity) spark, newColor)) {
 						return shouldKill; // Event cancelled, don't color spark
 					}
 					
@@ -104,7 +104,7 @@ public class PaintslingerLens extends Lens {
 						Block newBlock = f.apply(placeColor);
 						if (newBlock != stateThere.getBlock()) {
 							// Fire event before block painting
-							if (XplatAbstractions.INSTANCE.paintslingerLensPaintBlockEvent(player, coords, placeColor.getId(), hitBlock, newBlock, stack)) {
+							if (XplatAbstractions.INSTANCE.paintslingerLensPaintBlockEvent(player, coords, placeColor.getId(), hitBlock, newBlock)) {
 								continue; // Event cancelled for this block, skip painting it
 							}
 							

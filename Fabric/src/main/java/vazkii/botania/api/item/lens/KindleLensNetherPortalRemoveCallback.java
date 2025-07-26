@@ -4,18 +4,17 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 
 public interface KindleLensNetherPortalRemoveCallback {
     Event<KindleLensNetherPortalRemoveCallback> EVENT = EventFactory.createArrayBacked(KindleLensNetherPortalRemoveCallback.class,
-            listeners -> (player, pos, lens) -> {
+            listeners -> (player, pos) -> {
                 for (KindleLensNetherPortalRemoveCallback listener : listeners) {
-                    if (listener.onKindleLensNetherPortalRemove(player, pos, lens)) {
+                    if (listener.onKindleLensNetherPortalRemove(player, pos)) {
                         return true;
                     }
                 }
                 return false;
             });
 
-    boolean onKindleLensNetherPortalRemove(Player player, BlockPos pos, ItemStack lens);
+    boolean onKindleLensNetherPortalRemove(Player player, BlockPos pos);
 }

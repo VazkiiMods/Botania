@@ -4,19 +4,18 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 public interface WeightLensBlockFallCallback {
     Event<WeightLensBlockFallCallback> EVENT = EventFactory.createArrayBacked(WeightLensBlockFallCallback.class,
-            listeners -> (player, pos, state, lens) -> {
+            listeners -> (player, pos, state) -> {
                 for (WeightLensBlockFallCallback listener : listeners) {
-                    if (listener.onWeightLensBlockFall(player, pos, state, lens)) {
+                    if (listener.onWeightLensBlockFall(player, pos, state)) {
                         return true;
                     }
                 }
                 return false;
             });
 
-    boolean onWeightLensBlockFall(Player player, BlockPos pos, BlockState state, ItemStack lens);
+    boolean onWeightLensBlockFall(Player player, BlockPos pos, BlockState state);
 }

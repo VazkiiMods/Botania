@@ -36,7 +36,7 @@ public class EntropicLens extends Lens {
 				var player = XplatAbstractions.INSTANCE.getPlayer(entity.level(), burst.getShooterUUID(), getClass().getName());
 				float explosionPower = burst.getMana() / 50F;
 				
-				if (XplatAbstractions.INSTANCE.entropicLensExplodeEvent(player, hit, explosionPower, stack)) {
+				if (XplatAbstractions.INSTANCE.entropicLensExplodeEvent(player, hit, explosionPower)) {
 					return shouldKill; // Event cancelled, don't create explosion
 				}
 				

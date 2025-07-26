@@ -41,14 +41,14 @@ public class FlashLens extends Lens {
 
 			if (stateAt.is(BotaniaBlocks.manaFlame)) {
 				// Fire event before mana flame removal
-				if (XplatAbstractions.INSTANCE.flashLensManaFlameRemoveEvent(player, rtr.getBlockPos(), stack)) {
+				if (XplatAbstractions.INSTANCE.flashLensManaFlameRemoveEvent(player, rtr.getBlockPos())) {
 					return shouldKill; // Event cancelled, don't remove flame
 				}
 				level.removeBlock(rtr.getBlockPos(), false);
 			} else if (neighbor.isAir() || neighbor.canBeReplaced()) {
 				// Fire event before mana flame creation
 				int color = burst.getColor();
-				if (XplatAbstractions.INSTANCE.flashLensManaFlameCreateEvent(player, neighborPos, color, stack)) {
+				if (XplatAbstractions.INSTANCE.flashLensManaFlameCreateEvent(player, neighborPos, color)) {
 					return shouldKill; // Event cancelled, don't create flame
 				}
 

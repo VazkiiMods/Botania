@@ -49,7 +49,7 @@ public class WeightLens extends Lens {
 				
 				// Fire event before creating falling block entity
 				var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
-				if (XplatAbstractions.INSTANCE.weightLensBlockFallEvent(player, bPos, state, stack)) {
+				if (XplatAbstractions.INSTANCE.weightLensBlockFallEvent(player, bPos, state)) {
 					return shouldKill; // Event cancelled, don't create falling block
 				}
 				

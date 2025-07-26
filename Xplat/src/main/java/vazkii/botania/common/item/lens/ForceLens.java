@@ -50,7 +50,7 @@ public class ForceLens extends Lens {
 			BlockPos to = from.relative(direction);
 			var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
 			
-			if (XplatAbstractions.INSTANCE.forceLensBlockMoveEvent(player, from, to, direction, stack)) {
+			if (XplatAbstractions.INSTANCE.forceLensBlockMoveEvent(player, from, to, direction)) {
 				return shouldKill; // Event cancelled, don't move blocks
 			}
 

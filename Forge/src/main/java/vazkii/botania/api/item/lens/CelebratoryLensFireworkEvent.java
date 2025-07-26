@@ -11,12 +11,10 @@ public class CelebratoryLensFireworkEvent extends Event {
     public final Player player;
     public final BlockPos pos;
     public final ItemStack firework;
-    public final ItemStack lens;
 
-    public CelebratoryLensFireworkEvent(Player player, BlockPos pos, ItemStack firework, ItemStack lens) {
+    public CelebratoryLensFireworkEvent(Player player, BlockPos pos, ItemStack firework) {
         this.player = player;
         this.pos = pos;
         this.firework = firework;
-        this.lens = lens;
     }
 }

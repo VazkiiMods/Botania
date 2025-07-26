@@ -53,18 +53,18 @@ public class KindleLens extends Lens {
 			// Handle nether portal removal
 			if (stateAt.is(Blocks.NETHER_PORTAL)) {
 				// Fire event before nether portal removal
-				if (!XplatAbstractions.INSTANCE.kindleLensNetherPortalRemoveEvent(player, pos, stack)) {
+				if (!XplatAbstractions.INSTANCE.kindleLensNetherPortalRemoveEvent(player, pos)) {
 					level.removeBlock(pos, false);
 				}
 			}
 			if (stateAtOffset.is(Blocks.NETHER_PORTAL)) {
 				// Fire event before nether portal removal
-				if (!XplatAbstractions.INSTANCE.kindleLensNetherPortalRemoveEvent(player, offPos, stack)) {
+				if (!XplatAbstractions.INSTANCE.kindleLensNetherPortalRemoveEvent(player, offPos)) {
 					level.removeBlock(offPos, false);
 				}
 			} else if (BaseFireBlock.canBePlacedAt(level, offPos, dir.getOpposite())) {
 				// Fire event before fire placement
-				if (!XplatAbstractions.INSTANCE.kindleLensFirePlaceEvent(player, offPos, stack)) {
+				if (!XplatAbstractions.INSTANCE.kindleLensFirePlaceEvent(player, offPos)) {
 					level.setBlockAndUpdate(offPos, BaseFireBlock.getState(level, offPos));
 				}
 			}

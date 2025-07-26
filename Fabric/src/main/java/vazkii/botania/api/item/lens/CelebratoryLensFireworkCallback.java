@@ -8,14 +8,14 @@ import net.minecraft.world.item.ItemStack;
 
 public interface CelebratoryLensFireworkCallback {
     Event<CelebratoryLensFireworkCallback> EVENT = EventFactory.createArrayBacked(CelebratoryLensFireworkCallback.class,
-            listeners -> (player, pos, firework, lens) -> {
+            listeners -> (player, pos, firework) -> {
                 for (CelebratoryLensFireworkCallback listener : listeners) {
-                    if (listener.onCelebratoryLensFirework(player, pos, firework, lens)) {
+                    if (listener.onCelebratoryLensFirework(player, pos, firework)) {
                         return true;
                     }
                 }
                 return false;
             });
 
-    boolean onCelebratoryLensFirework(Player player, BlockPos pos, ItemStack firework, ItemStack lens);
+    boolean onCelebratoryLensFirework(Player player, BlockPos pos, ItemStack firework);
 }
