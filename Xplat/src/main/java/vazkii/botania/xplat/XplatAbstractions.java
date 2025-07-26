@@ -161,7 +161,7 @@ public interface XplatAbstractions {
 	boolean fireBoreLensRemoveBlockEvent(Player player, BlockPos pos);
 	boolean fireDamagingLensHurtEvent(Player shooter, BlockPos pos);
 	boolean fireInfluenceLensMoveEvent(Player shooter, Entity entity);
-	boolean fireRedirectiveLensRotateSpreaderEvent(Player shooter, BlockPos spreaderPos, ManaSpreader spreader, float rotationX, float rotationY);
+	boolean fireRedirectiveLensRotateSpreaderEvent(Player shooter, ManaSpreader spreader);
 	boolean forceLensBlockMoveEvent(Player player, BlockPos from, BlockPos to, Direction direction);
 	boolean weightLensBlockFallEvent(Player player, BlockPos pos, BlockState state);
 	boolean flashLensManaFlameCreateEvent(Player player, BlockPos pos, int color);

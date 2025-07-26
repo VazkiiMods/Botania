@@ -469,12 +469,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean fireRedirectiveLensRotateSpreaderEvent(Player shooter, BlockPos spreaderPos, ManaSpreader spreader, float rotationX, float rotationY) {
-		if (shooter == null || spreaderPos == null || spreader == null) {
+	public boolean fireRedirectiveLensRotateSpreaderEvent(Player shooter, ManaSpreader spreader) {
+		if (shooter == null || spreader == null) {
 			return false;
 		}
 
-		return MinecraftForge.EVENT_BUS.post(new RedirectiveLensRotateSpreaderEvent(shooter, spreaderPos, spreader, rotationX, rotationY));
+		return MinecraftForge.EVENT_BUS.post(new RedirectiveLensRotateSpreaderEvent(shooter, spreader));
 	}
 
 	@Override

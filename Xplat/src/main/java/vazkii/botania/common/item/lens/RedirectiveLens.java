@@ -105,7 +105,7 @@ public class RedirectiveLens extends Lens {
 			}
 			float rotationY = (float) angle;
 
-			if (fireRedirectiveLensRotateSpreaderEvent(burst, hitPos, spreader, rotationX, rotationY)) {
+			if (fireRedirectiveLensRotateSpreaderEvent(burst, spreader)) {
 				return;
 			}
 
@@ -119,9 +119,9 @@ public class RedirectiveLens extends Lens {
 		}
 	}
 
-	private boolean fireRedirectiveLensRotateSpreaderEvent(ManaBurst burst, BlockPos spreaderPos, ManaSpreader spreader, float rotationX, float rotationY) {
+	private boolean fireRedirectiveLensRotateSpreaderEvent(ManaBurst burst, ManaSpreader spreader) {
 		var player = XplatAbstractions.INSTANCE.getPlayer(burst.entity().level(), burst.getShooterUUID(), getClass().getName());
-		return XplatAbstractions.INSTANCE.fireRedirectiveLensRotateSpreaderEvent(player, spreaderPos, spreader, rotationX, rotationY);
+		return XplatAbstractions.INSTANCE.fireRedirectiveLensRotateSpreaderEvent(player, spreader);
 	}
 
 }
