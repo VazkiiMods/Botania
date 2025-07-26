@@ -619,7 +619,7 @@
   "botania.challenge.orechid.desc": "Crie um sistema que permite que a flor $(l:functional_flowers/orechid)Mineriorquídea$(/l) seja completamente automatizada. Pontos extras se a saída é fundida em barras e classificada.",
 
   "botania.challenge.mobTower": "Torre de Invocação",
-  "botania.challenge.mobTower.desc": "Crie uma mob farm do tipo torre. Os mobs devem ser classificados e colocados em câmaras específicas. Spawners podem ser usados. Pontos extras se a farm funcionar com 100%% de eficiência sem interação de jogadores.",
+  "botania.challenge.mobTower.desc": "Crie uma mob farm do tipo torre. Os mobs devem ser classificados e colocados em câmaras específicas. Geradores de Criaturas podem ser usados. Pontos extras se a farm funcionar com 100%% de eficiência sem interação de jogadores.",
   "botania.challenge.entropinnyumSetup": "Sistema de Entropilóbio",
   "botania.challenge.entropinnyumSetup.desc": "Crie um sistema que faz dinamite automaticamente e, de forma segura, a usa pra alimentar a $(l:generating_flowers/entropinnyum)Entropilóbio$(/l), criando mana. Pontos extras se a areia e pólvora necessária pra dinamite não precisa ser colocada manualmente.",
   "botania.challenge.spectrolusSetup": "Sistema de Espectro-Lótus",
@@ -2033,7 +2033,7 @@
   "botania.entry.lexicon": "Lexica Botania",
   "botania.tagline.lexicon": "O que você está lendo agora, idiota",
   "botania.page.lexicon0": "O $(item)Lexica Botania$(0) é o repositório de todo o conhecimento para todos os assuntos botânicos. (Mas você provavelmente já sabia disso.)$(p)Todo o conhecimento botânico conhecido está armazenado nestas páginas. Por conveniência, se um bloco tiver um tópico aqui, você pode usar shift+clique direito com o $(item)Lexica Botania$(0) no bloco pra abrir o tópico.",
-  "botania.page.lexicon3": "Algumas entradas escritas em $(o)Itálico$() são entradas $(thing)básicas$(0), que contêm o conhecimento essencial necessário para jogar $(thing)Botania$(0)-- você pode ler elas primeiro. A maioria das seções contém uma ou mais dessas entradas, então uma boa olhada nelas seria uma boa ideia.",
+  "botania.page.lexicon3": "Algumas entradas escritas em $(o)Itálico$() são entradas $(thing)básicas$(0), que contêm o conhecimento essencial necessário para jogar $(thing)Botania$(0) -- você pode ler elas primeiro. A maioria das seções contém uma ou mais dessas entradas, então uma boa olhada nelas seria uma boa ideia.",
   "botania.page.lexicon1": "Criando o $(item)Lexica Botania$(0).",
   "botania.page.lexicon2": "O título do $(item)Lexica Botania$(0) pode ser personalizado em uma $(item)Bigorna$(0). Isso muda tanto o título quanto a capa.$(p)A Edição do Lexica apresentada equivale a versão do $(thing)Botania$(0) que você está rodando (e não, eu $(o)não$() me importo sobre a quarta parede).",
 
@@ -2049,7 +2049,7 @@
   "botania.page.flowers5": "Transformando pétalas em corante.",
   "botania.page.flowers6": "Ao misturar $(item)Corante$(0) com alguma $(item)Farinha de Osso$(0), você vai criar um tipo diferente de fertilizante. Este $(item)Fertilizante Floral$(0) irá fazer nascer $(item)Flores Místicas$(0) nas proximidades, se você estiver com poucas.$(p)Dependendo do solo, $(l:misc/mushrooms)$(item)Cogumelos Brilhantes$(0)$(/l) podem crescer além de (ou ao invés de) flores.",
   "botania.page.flowers8": "Usar qualquer combinação de substâncias típicas de flores vai funcionar",
-  "botania.page.flowers18": "Também existem variantes mais altas das $(item)Flores Místicas$(0) típicas pelo mundo. Elas podem ser despetaladas dando o dobro de pétalas que uma flor normal daria.$(p)As variantes de flores altas podem ser feitas manualmente fertilizando uma $(item)Flor Mística$(0) ou uma $(item)Pétala Enterrada$(0) com $(item)Farinha de Osso$(0).$(p)Se você estiver com escassez de uma cor específica, tente enterrar uma pétala dessa cor e usar $(item)Farinha de Osso$(0) nela.",
+  "botania.page.flowers18": "Também existem variantes mais altas das $(item)Flores Místicas$(0) típicas pelo mundo. Elas podem ser despetaladas e dar o dobro de pétalas que uma flor normal daria.$(p)As variantes de flores altas podem ser feitas manualmente fertilizando uma $(item)Flor Mística$(0) ou uma $(item)Pétala Enterrada$(0) com $(item)Farinha de Osso$(0).$(p)Se você estiver com escassez de uma cor específica, tente enterrar uma pétala dessa cor e usar $(item)Farinha de Osso$(0) nela.",
   "botania.page.flowers11": "Prepare-se para problemas",
   "botania.page.flowers16": "Bloco de Pétalas",
   "botania.page.flowers9": "Pétalas podem ser transformadas em blocos",
@@ -2120,7 +2120,7 @@
 
   "botania.entry.flowerBag": "Sacola de Flores",
   "botania.tagline.flowerBag": "Uma bolsa confiável para guardar seus bens florais",
-  "botania.page.flowerBag0": "As leis da física sobre o $(thing)Inventário$(0) são um pouco rígidas nesse mundo. Por causa disso, carregar uma variedade de flores de cores diferentes pode se tornar um grande incômodo. Por sorte, uma $(item)Sacola de Flores$(0) resolve esse problema. Ele guarda até 64 de cada cor de $(l:basics/flowers)$(item)Flor Mística$(0)$(/l) e $(item)Flor Mística Alta$(0), e passivamente pega qualquer outra que seu portador coletar.",
+  "botania.page.flowerBag0": "As leis da física sobre o $(thing)Inventário$(0) são um pouco rígidas nesse mundo. Por causa disso, carregar uma variedade de flores de cores diferentes pode se tornar um grande incômodo. Por sorte, uma $(item)Sacola de Flores$(0) resolve esse problema. Ela guarda até 64 de cada cor de $(l:basics/flowers)$(item)Flor Mística$(0)$(/l) e $(item)Flor Mística Alta$(0), e passivamente pega qualquer outra que seu portador coletar.",
   "botania.page.flowerBag2": "Flores não serão coletadas pela sacola se ela estiver na mão dominante.$(p)Além disso, clicar com o botão direito agachado em um $(item)Baú$(0) ou outro inventário com a sacola na mão irá despejar nesse inventário todas as flores contidas nela.",
   "botania.page.flowerBag1": "O tamanho é o mesmo por dentro (qualquer cor funciona)",
 
@@ -2137,7 +2137,7 @@
   "botania.page.spreader2": "O $(item)Dispersor de Mana$(0) tem um pequeno reservatório interno de $(thing)Mana$(0), que pode ser enchido por $(thing)Flores Geradoras$(0) vinculadas a ele. (Flores, quando colocadas, se vinculam automaticamente ao dispersor mais próximo.)$(p)Este reservatório pode ser observado olhando para o $(item)Dispersor$(0) com uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l) na mão.",
   "botania.page.spreader3": "Segurar uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l) faz com que dispersores próximos exibam feixes de mira. Passar o mouse sobre um dispersor mostrará seu alvo. As fagulhas mostram onde a $(thing)Perda de Mana$(0) começa a acontecer.$(p)Desde que o alvo do dispersor possa aceitar $(thing)Mana$(0) (isto é, pode conter $(thing)Mana$(0) e não está cheio), o dispersor vai repetidamente atirar $(thing)Rajadas de Mana$(0), que viajam até seu destino e transferem sua $(thing)Mana$(0) para ele.",
   "botania.page.spreader4": "O dispersor apenas irá atirar outra rajada quando a última atingir seu destino.$(p)Além disso, uma $(thing)Rajada de Mana$(0) vai começar a sofrer $(thing)Perda de Mana$(0) depois de uma pequena quantidade de tempo: isso pode ser visto na aparência da rajada, que fica mais fina nesse momento.",
-  "botania.page.spreader11": "Aplicando um $(thing)Sinal de Redstone$(0) a um dispersor irá pausar sua rajada sendo atirada. Se um controle mais preciso for necessário, um $(l:mana/redstone_spreader)$(item)Dispersor de Mana por Redstone$(0)$(/l) é recomendado, já que ele atira quando recebe um sinal de redstone ao invés de um alvo.",
+  "botania.page.spreader11": "Aplicar um $(thing)Sinal de Redstone$(0) a um dispersor irá pausar sua rajada sendo atirada. Se um controle mais preciso for necessário, um $(l:mana/redstone_spreader)$(item)Dispersor de Mana por Redstone$(0)$(/l) é recomendado, já que ele atira quando recebe um sinal de redstone ao invés de um alvo.",
   "botania.page.spreader5": "Fazendo um $(item)Dispersor de Mana$(0)",
   "botania.page.spreader10": "Clicar com o botão direito em um dispersor com uma peça de $(item)Lã$(0) irá encapá-lo. Além de fazer o dispersor ficar mais bonito, isso também abafa o som de quando uma rajada é atirada, reduzindo o ruido potencial de um grande número de dispersores em uma área.$(p)Clicar com o botão direito removerá o encape.",
   "botania.page.spreader12": "De forma similar, clicar nele com um $(item)Andaime$(0) o cercará com uma estrutura firme. Isso o permite suportar componentes de redstone frágeis como botões e alavancas em todos os lados. Pó de redstone, repetidores, e similares podem também ser colocados em cima dele. Isso também permite que o dispersor contenha totalmente água colocada dentro dele.$(p)Clicar com o botão direito enquanto agacha irá remover o andaime de novo.",
@@ -2150,7 +2150,7 @@
   "botania.page.pool10": "Fazendo um $(item)Poço de Mana Diluído$(0)",
   "botania.page.pool14": "O $(item)Poço de Mana Diluído$(0) pode ser útil como um pequeno reservatório temporário para uma flor ou sistema que não use muita $(thing)Mana$(0), como um poço normal pode reter $(o)muita$() dela. Graças a isso, leituras de $(thing)Mana$(0) para um poço normal não serão muito precisas: devido à sua escala, o tamanho da barra em um poço normal crescerá muito mais lentamente.",
   "botania.page.pool2": "Jogando certos recursos em um $(item)Poço de Mana$(0) irá infundir eles com $(thing)Mana$(0) do poço, fazendo-os se transformar em formas mais úteis magicamente, como $(item)Barras de Aço-Mana$(0) ou $(item)Pérolas de Mana$(0).$(p)Uma $(thing)Varinha da Floresta$(0) pode ler os níveis de $(thing)Mana$(0) no poço, muito parecido com um $(l:mana/spreader)$(item)Dispersor de Mana$(0)$(/l). Um $(item)Comparador de Redstone$(0) pode também emitir um sinal baseado na percentagem de preenchimento.",
-  "botania.page.pool8": "$(item)Barras de Aço-Mana$(0) pode ser transformada em blocos ou pepitas através das receitas habituais.$(p)Clicar com o botão direito com qualquer cor de $(item)Pétala Mística$(0) em um poço dará ao poço sua cor, para decoração ou uma rotulagem mais fácil. Você pode retirar a cor de novo usando uma $(item)Bala de Argila$(0).",
+  "botania.page.pool8": "$(item)Barras de Aço-Mana$(0) pode ser transformada em blocos ou pepitas através das receitas habituais.$(p)Clicar com o botão direito com qualquer cor de $(item)Pétala Mística$(0) em um poço dará ao poço sua cor, para decoração ou uma rotulagem mais fácil. Você pode retirar a cor de novo usando uma $(item)Bola de Argila$(0).",
   "botania.page.pool16": "Aço-Mana",
   "botania.page.pool3": "Infundindo $(item)Aço-Mana$(0)",
   "botania.page.pool4": "Infundindo $(item)Pérolas de Mana$(0)",
@@ -2174,7 +2174,7 @@
   "botania.page.sparkUpgrades0": "$(l:mana/sparks)$(item)Fagulhas$(0)$(/l) parecem ser mais versáteis do que se acreditava anteriormente: uma variedade de $(item)Melhorias$(0) podem ser aplicadas a elas, aprimorando suas habilidades. Melhorias apenas podem ser aplicadas a $(l:mana/sparks)$(item)Fagulhas$(0)$(/l) que ficam em $(l:mana/pool)$(item)Poços de Mana$(0)$(/l), e uma $(l:mana/sparks)$(item)Fagulha$(0)$(/l) pode ter apenas uma única $(item)Melhoria$(0) de cada vez.",
   "botania.page.sparkUpgrades1": "Uma $(item)Melhoria Dispersiva$(0) permite a uma $(l:mana/sparks)$(item)Fagulha$(0)$(/l) drenar a $(thing)Mana$(0) de seu poço para carregar a $(thing)Mana$(0) de itens que armazenem mana de jogadores próximos.",
   "botania.page.sparkUpgrades2": "A $(item)Melhoria Dominante$(0) faz uma $(l:mana/sparks)$(item)Fagulha$(0)$(/l) puxar $(thing)Mana$(0) de poços com $(item)Fagulhas$(0) não melhoradas próximos para seu próprio poço, até que este último esteja cheio.",
-  "botania.page.sparkUpgrades3": "A $(item)Melhoria Recessiva$(0) faz uma $(l:mana/sparks)$(item)Fagulha$(0)$(/l) distribuir toda a $(thing)Mana$(0) de seu poço para quaisquer poços próximos com $(item)Fagulhas$(0) não melhoradas ou dispersivas, até que seu próprop fique completamente vazio.",
+  "botania.page.sparkUpgrades3": "A $(item)Melhoria Recessiva$(0) faz uma $(l:mana/sparks)$(item)Fagulha$(0)$(/l) distribuir toda a $(thing)Mana$(0) de seu poço para quaisquer poços próximos com $(item)Fagulhas$(0) não melhoradas ou dispersivas, até que seu próprio fique completamente vazio.",
   "botania.page.sparkUpgrades4": "Finalmente, a $(item)Melhoria Isolada$(0) previne uma $(l:mana/sparks)$(item)Fagulha$(0)$(/l) de interagir com quaisquer $(l:mana/sparks)$(item)Fagulhas$(0)$(/l) dominantes ou recessiva, mas ainda a permite interagir com blocos que podem receber sua $(thing)Mana$(0) da rede de $(l:mana/sparks)$(item)Fagulhas$(0)$(/l).",
   "botania.page.sparkUpgrades5": "Fabricando as Melhorias",
 
@@ -2200,7 +2200,7 @@
   "botania.page.lens2": "$(thing)Colorindo$(0) lentes!",
   "botania.page.lens3": "$(item)Lente Arco-Íris$(0) até o fim",
   "botania.page.lens4": "Lentes podem ser melhoradas com diversos tipos de materiais para criar diferentes efeitos nas $(thing)Rajadas de Mana$(0).$(p)Um $(l:mana/spreader)$(item)Dispersor de Mana$(0)$(/l) normal precisa estar apontado para um bloco que recebe $(thing)Mana$(0) para atirar. Ao invés dele um $(l:mana/redstone_spreader)$(item)Dispersor de Mana por Redstone$(0)$(/l) é recomendado para certos tipos de lentes.$(p)Blocos como $(item)Funis$(0) podem adicionar ou remover lentes dos dispersores.",
-  "botania.page.lens5": "As vezes, entretanto, ter uma única $(item)Lente de Mana$(0) em um dispersor não é o suficiente. Combinando duas lentes com uma $(item)Bola de Slime$(0) ou $(item)Frasco de Mel$(0) em uma bancada de trabalho unirá elas em uma única lente com o efeito de ambas.$(p)A primeira lente usada determina a aparência e cor das lentes resultantes. Note que algumas combinações não funcionarão, e que você não pode combinar duas lentes do mesmo tipo.",
+  "botania.page.lens5": "As vezes, entretanto, ter uma única $(item)Lente de Mana$(0) em um dispersor não é o suficiente. Combinar duas lentes com uma $(item)Bola de Slime$(0) ou $(item)Frasco de Mel$(0) em uma bancada de trabalho unirá elas em uma única lente com o efeito de ambas.$(p)A primeira lente usada determina a aparência e cor das lentes resultantes. Note que algumas combinações não funcionarão, e que você não pode combinar duas lentes do mesmo tipo.",
   "botania.page.lens6": "A $(item)Lente de Velocidade$(0) aumentará dramaticamente a velocidade que uma $(thing)Rajada de Mana$(0) viaja, mas a custo de capacidade inicial e uma $(thing)Perda de Mana$(0) mais rápida.",
   "botania.page.lens7": "Lente de Velocidade",
   "botania.page.lens8": "A $(item)Lente de Potência$(0) irá duplicar a quantidade de $(thing)Mana$(0) que uma $(thing)Rajada de Mana$(0) pode carregar; entretanto, o feixe viaja mais devagar, e depois que ele começa a perder mana, perde em um ritmo muito mais rápido.",
@@ -2252,7 +2252,7 @@
   "botania.page.manaDetector0": "O $(item)Detector de Mana$(0) detecta quando uma $(thing)Rajada de Mana$(0) flui por ele (rajadas atravessam este bloco como ar) e emite um sinal de redstone nessa ocasião.",
   "botania.page.manaDetector1": "Fazendo o detector",
 
-  "botania.entry.redstoneSpreader": "Dispersor de Mana por Redstone",
+  "botania.entry.redstoneSpreader": "Dispersor por Redstone",
   "botania.tagline.redstoneSpreader": "Um dispersor que atira com um Pulso de Redstone",
   "botania.page.redstoneSpreader0": "Ao combinar um $(l:mana/spreader)$(item)Dispersor de Mana$(0)$(/l) com um pouco de $(item)Redstone$(0), um $(item)Dispersor de Mana por Redstone$(0) é criado, o qual (como o nome indica) atira quando recebe um $(thing)pulso de redstone$(0), independentemente do alvo.$(p)Mantenha em mente que ele ainda não irá atirar uma rajada até que a última seja dissipada ou absorvida.",
   "botania.page.redstoneSpreader1": "Um pequeno toque de redstone",
@@ -2262,7 +2262,7 @@
   "botania.page.manastar0": "As medições imprecisas da $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l) algumas vezes não servem para mostrar se há ganho ou perda nos $(l:mana/pool)$(item)Poços de Mana$(0)$(/l).$(p)Ao criar uma $(item)Mana-Estrela$(0) e colocar ela próxima de um poço a flor brilhará em vermelho se houver perda de mana, ou em azul se houver ganho. A medição é atualizada a cada poucos segundos.",
   "botania.page.manastar1": "♪ It's a shooting star leaping through the skies ♪",
 
-  "botania.entry.dreamwoodSpreader": "Dispersores de Mana Élficos",
+  "botania.entry.dreamwoodSpreader": "Dispersores Élficos",
   "botania.tagline.dreamwoodSpreader": "Melhores, mais rápidos, mais fortes",
   "botania.page.dreamwoodSpreader0": "No fim das contas, $(l:alfhomancy/elf_resources)$(item)Madeira dos Sonhos$(0)$(/l) simplesmente conduz $(thing)Mana$(0) melhor que $(l:basics/pure_daisy)$(item)Madeira Viva$(0)$(/l). Alguns ajustes na receita (como usar $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l) ao invés de $(item)Cobre$(0)) resultam em um $(item)Dispersor de Mana Élfico$(0), que conduz mais $(thing)Mana$(0), mais rápido, e mais longe sem $(thing)Perda de Mana$(0).$(p)Infelizmente, ele não pode ser transformado em um $(l:mana/redstone_spreader)$(item)Dispersor de Mana por Redstones$(0)$(/l).",
   "botania.page.dreamwoodSpreader1": "Dispersores melhores e é isso",
@@ -2272,11 +2272,11 @@
   "botania.entry.elvenLenses": "Lentes de Mana Élficas",
   "botania.tagline.elvenLenses": "Lentes de Mana avançadas com novas habilidades",
   "botania.page.elvenLenses0": "O conhecimento dos métodos de manipulação de mana de Alfheim vem, é claro, com uma variedade de novas e úteis $(l:mana/lens)$(item)Lentes de Mana$(0)$(/l).$(p)Diferentemente de lentes mundanas comuns, estas são um pouco mais distintas em seus usos...",
-  "botania.page.elvenLenses1": "Primeiramente, a $(item)Lente Lança-Tinta$(0). Esta lente precisa ser tingida de uma das 16 cores do espectro para funcionar. Quando uma rajada passa que passa por ela atinge um bloco tingível ($(item)Lã, Terracota$(0) ou $(item)Vidro$(0)...), ela tornará o bloco (e quaisquer blocos conectados do mesmo tipo e cor) na cor da $(thing)Rajada de Mana$(0). Isso parece funcionar em $(thing)Ovelhas$(0) também.",
+  "botania.page.elvenLenses1": "Primeiramente, a $(item)Lente Lança-Tinta$(0). Esta lente precisa ser tingida de uma das 16 cores do espectro para funcionar. Quando uma rajada que passa por ela atinge um bloco tingível ($(item)Lã, Terracota$(0) ou $(item)Vidro$(0)...), ela tornará o bloco (e quaisquer blocos conectados do mesmo tipo e cor) na cor da $(thing)Rajada de Mana$(0). Isso parece funcionar em $(thing)Ovelhas$(0) também.",
   "botania.page.elvenLenses2": "Lente Lança-Tinta",
   "botania.page.elvenLenses3": "Uma rajada afetada pela $(item)Lente de Distorção$(0) que colida com um $(l:ender/piston_relay)$(item)Relé de Força$(0)$(/l) será teleportada para o alvo do mesmo, mantendo seu curso, mas tornando sua $(thing)Mana$(0) irrecuperável.$(p)Além disso, quando combinada a uma $(item)Lente de Escavação$(0) (a $(item)Lente de Escavação$(0) deve estar primeiro), ela prevenirá que uma rajada quebre $(l:ender/piston_relay)$(item)Relés de Força$(0)$(/l) ou $(item)Pistões$(0), e teleportará quaisquer blocos quebrados pela $(item)Lente de Escavação$(0) para a origem da rajada.",
   "botania.page.elvenLenses4": "Lente de Distorção",
-  "botania.page.elvenLenses5": "Uma rajada afetada pela $(item)Lente Redirecional$(0) fará qualquer $(l:mana/spreader)$(item)Dispersores de Mana$(0)$(/l) ou entidades que ela colidir se vire em direção ao bloco ou entidade que lançou o disparo.",
+  "botania.page.elvenLenses5": "Uma rajada afetada pela $(item)Lente Redirecional$(0) fará com que quaisquer $(l:mana/spreader)$(item)Dispersores de Mana$(0)$(/l) ou entidades que ela colidir se virem em direção ao bloco ou entidade que lançou o disparo.",
   "botania.page.elvenLenses6": "Lente Redirecional",
   "botania.page.elvenLenses7": "A $(item)Lente de Celebração$(0) funciona de maneira muito semelhante a uma $(item)Lente Entrópica$(0) comum; entretanto, ao invés de uma explosão, ela cria um fogo de artifício festivo, da cor da rajada.",
   "botania.page.elvenLenses8": "Lente de Celebração",
@@ -2322,7 +2322,7 @@
 
   "botania.entry.flowerShrinking": "Encolhimento de Flores",
   "botania.tagline.flowerShrinking": "Flores menores com uma área de efeito menor",
-  "botania.page.flowerShrinking0": "Algumas flores funcionais podem ter um alcance um pouco grande demais para certos casos de uso. Jogando uma delas em um $(l:mana/pool)$(item)Poço de Mana$(0)$(/l) com um $(l:devices/mana_alchemy)$(item)Catalizador Alquímico$(0)$(/l) irá (ao custo de alguma $(thing)Mana$(0)) encolher ela, tornando sua área de efeito menor. Todas as outras funções continuam as mesmas.",
+  "botania.page.flowerShrinking0": "Algumas flores funcionais podem ter um alcance um pouco grande demais para certos casos de uso. Jogar uma delas em um $(l:mana/pool)$(item)Poço de Mana$(0)$(/l) com um $(l:devices/mana_alchemy)$(item)Catalizador Alquímico$(0)$(/l) irá (ao custo de alguma $(thing)Mana$(0)) encolher ela, tornando sua área de efeito menor. Todas as outras funções continuam as mesmas.",
   "botania.page.flowerShrinking1": "Como um nendoroid",
   "botania.page.flowerShrinking2": "Flores Pequenas",
 
@@ -2359,7 +2359,7 @@
 
   "botania.entry.orechid": "Mineriorquídea",
   "botania.tagline.orechid": "Cria minérios a partir de pedra",
-  "botania.page.orechid0": "Enquanto ir minerar funciona bem, um meio renovável e sedentário de adquirir minérios não é algo para se zombar também. A $(item)Mineriorquídea$(0) usa mana para sintetizar $(thing)minérios$(0) a partir de blocos de $(item)Pedra$(0).$(p)Os minérios que ela gera são aleatórios, mas minérios mais raros parecem ser criados com menos frequência.",
+  "botania.page.orechid0": "Embora ir minerar funcione bem, um método renovável e sedentário de adquirir minérios não é algo para se zombar também.$(p)A $(item)Mineriorquídea$(0) usa mana para sintetizar $(thing)minérios$(0) a partir de blocos de $(item)Pedra$(0).$(p)Os minérios que ela gera são aleatórios, mas minérios mais raros parecem ser criados com menos frequência.",
   "botania.page.orechid1": "$(o)O menos mágico chamaria isso de peneira$().",
 
   "botania.entry.orechidIgnem": "Mineriorquídea Ignem",
@@ -2406,7 +2406,7 @@
 
   "botania.entry.rannuncarpus": "Ranúncarpo",
   "botania.tagline.rannuncarpus": "Coloca Blocos",
-  "botania.page.rannuncarpus0": "Uma flor de fato útil, a $(item)Ranúncarpo$(0) pegará itens colocáveis próximos e os colocará como blocos em um algum lugar em um grande raio ao redor dela, preferencialmente os deixando voltados para ela. Entretanto, ela apenas colocará blocos em cima de um tipo de bloco específico por vez; para especificar esse bloco, coloque-o logo abaixo do solo onde a flor foi plantada.",
+  "botania.page.rannuncarpus0": "Uma flor de fato útil, a $(item)Ranúncarpo$(0) pegará itens colocáveis próximos e os colocará como blocos em algum lugar em um grande raio ao redor dela, preferencialmente os deixando voltados para ela. Entretanto, ela apenas colocará blocos em cima de um tipo de bloco específico por vez; para especificar esse bloco, coloque-o logo abaixo do solo onde a flor foi plantada.",
   "botania.page.rannuncarpus1": "Itens como $(item)Cana-de-açúcar$(0) podem ser colocados também, mas apenas onde um jogador poderia.$(p)$(thing)Mana$(0) para a flor é opcional, mas aumentará a área de efeito se fornecida.$(p)Finalmente, colocando molduras no bloco abaixo do solo restringirá os itens que a $(item)Ranúncarpo$(0) pegará, de forma semelhante a uma $(l:functional_flowers/hopperhock)$(item)Malva-Funil$(0)$(/l).",
   "botania.page.rannuncarpus2": "$(o)Achou ela em uma caixa de areia?$()?",
 
@@ -2469,7 +2469,7 @@
 
   "botania.entry.solegnolia": "Solegnólia",
   "botania.tagline.solegnolia": "Cria espaços onde o Anel Magnético não funciona",
-  "botania.page.solegnolia0": "O $(l:baubles/magnet_ring)$(item)Anel Magnético$(0)$(/l) é muito útil para mineradores e coletores. Entretanto, ele pode também pegar itens indesejados, assim podendo atrapalhar sistemas de automação. A $(item)Solegnólia$(0) interrompe o campo de efeito do anel, prevenindo que itens próximos a ela sejam puxados em direção ao portador do anel. Ela também impede que portadores do anel em seu alcance de puxar quaisquer itens. Ela não consume $(thing)Mana$(0).",
+  "botania.page.solegnolia0": "O $(l:baubles/magnet_ring)$(item)Anel Magnético$(0)$(/l) é muito útil para mineradores e coletores. Entretanto, ele pode também pegar itens indesejados, assim podendo atrapalhar sistemas de automação. A $(item)Solegnólia$(0) interrompe o campo de efeito do anel, prevenindo que itens próximos a ela sejam puxados em direção ao portador do anel. Ela também impede que portadores do anel em seu alcance puxem quaisquer itens. Ela não consume $(thing)Mana$(0).",
   "botania.page.solegnolia1": "Liga/Desliga",
 
   "botania.entry.bergamute": "Bergamute",
@@ -2489,7 +2489,7 @@
 
   "botania.entry.endoflame": "Endochama",
   "botania.tagline.endoflame": "Mana vinda de combustível",
-  "botania.page.endoflame0": "A $(item)Endochama$(0) é uma a $(thing)flor geradora$(0) muito rudimentar; ela absorverá quaisquer itens ou blocos de combustível caídos nas proximidades, um por vez, e queima dentro dela para gerar um pequeno fluxo de $(thing)Mana$(0).$(p)O tempo que ela leva para queimar um item é aproximadamente a metade do tempo que uma $(item)Fornalha$(0) levaria.",
+  "botania.page.endoflame0": "A $(item)Endochama$(0) é uma a $(thing)flor geradora$(0) muito rudimentar; ela absorverá quaisquer itens ou blocos de combustível caídos nas proximidades, um por vez, e queimar dentro dela para gerar um pequeno fluxo de $(thing)Mana$(0).$(p)O tempo que ela leva para queimar um item é aproximadamente a metade do tempo que uma $(item)Fornalha$(0) levaria.",
   "botania.page.endoflame1": "Mas há algumas pequenas ressalvas: a $(item)Endochama$(0) não queimará nada que deixa subprodutos em uma $(item)Fornalhas$(0) (e.g. $(item)Baldes de Lava$(0), que deixa $(item)Baldes$(0) para trás).$(p)Além disso, a flor só pode queimar o equivalente a dois $(item)Blocos de Carvão$(0) de combustível de uma vez. Se qualquer combustível com um tempo de queima maior for usado, sua eficiência total será perdida.",
   "botania.page.endoflame3": "Como a $(item)Endochama$(0) é geralmente a primeira experiência de um botanista com uma $(thing)Flor Geradora$(0) que pode ser automatizável, ela não deveria funcionar manualmente para sempre. Como a flor requer itens derrubados, um $(l:devices/open_crate)$(item)Caixote Aberto$(0)$(/l) (encontrado na seção de $(thing)Aparatos Naturais$(0) deste livro) e algum tipo de limitador de saída de itens (como um temporizador ou placa de pressão de pesagem) seria ideal para isso.",
   "botania.page.endoflame2": "$(o)Quando o incêndio se torna útil$().",
@@ -2580,7 +2580,7 @@
 
   "botania.entry.manaEnchanting": "Encantando com Mana",
   "botania.tagline.manaEnchanting": "Usando mana para encantar suas ferramentas",
-  "botania.page.manaEnchanting0": "Com os poderes mágicos emitidos pelo $(l:devices/pylon)$(item)Pilão de Manas$(0)$(/l), pode ser construída uma estrutura que performa encantamentos com livros sem os consumir. A construção de um $(item)Encantador de Mana$(0) não é barata, entretanto, nem em espaço nem em materiais.",
+  "botania.page.manaEnchanting0": "Com os poderes mágicos emitidos pelos $(l:devices/pylon)$(item)Pilões de Mana$(0)$(/l), pode ser construída uma estrutura que performa encantamentos com livros sem os consumir. A construção de um $(item)Encantador de Mana$(0) não é barata, entretanto, nem em espaço nem em materiais.",
   "botania.page.manaEnchanting1": "Um $(item)Encantador de Mana$(0) ocupa uma área de cerca de 11x7 de tamanho, e é construído com 17 blocos de $(item)Obsidiana$(0), 10 $(l:basics/flowers)$(item)Flores Místicas$(0)$(/l) de qualquer cor ou suas variantes $(l:misc/shiny_flowers#shiny)$(item)Reluzentes$(0)$(/l) ou $(l:misc/shiny_flowers#floating)$(item)Flutuantes$(0)$(/l), 6 $(l:devices/pylon)$(item)Pilões de Manas$(0)$(/l), e um $(item)Bloco de Lápis-lazúli$(0).$(p)As instruções sobre como montar esta maravilhosa engenhoca a seguir.",
   "botania.page.manaEnchanting2": "Encantador de Mana",
   "botania.page.manaEnchanting5": "Depois de construir, clique com o botão direito no núcleo de bloco de lápis-lazúli com uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l) para ativar o encantador.$(p)Para usar o encantador, coloque (clicando com o botão direito) o item a ser encantado no encantador e jogue os $(item)Livros Encantados$(0) com os encantamentos desejados dentro do círculo de obsidiana. Observe que itens pre-encantados não podem ser colocados no encantador.",
@@ -2716,7 +2716,7 @@
   "botania.entry.forestEye": "Olho dos Ancestrais",
   "botania.tagline.forestEye": "Detector de Animais",
   "botania.page.forestEye0": "Os antigos que costumavam vigiar o mundo sempre estavam atentos aos seres vivos nele. O $(item)Olho dos Ancestrais$(0), embora não seja um olho, é a melhor alternativa.$(p)Um $(item)Comparador$(0) adjacente emitira um sinal de redstone proporcional ao número de animais próximos que ele pode encontrar.",
-  "botania.page.forestEye1": "Essa contagem começa do 2; com 2 animais próximos, isso emite um sinal de intensidade 1; com 3 animais, a força do sinal é 2; e assim por diante.$(p)Infelizmente, o tempo desgastou a visão dos Antigos, então este bloco só consegue detectar animais em um raio de aproximadamente 6 blocos em qualquer direção.",
+  "botania.page.forestEye1": "Essa contagem começa do 2; com 2 animais próximos, é emitido um sinal de intensidade 1; com 3 animais, a força do sinal é 2; e assim por diante.$(p)Infelizmente, o tempo desgastou a visão dos Antigos, então este bloco só consegue detectar animais em um raio de aproximadamente 6 blocos em qualquer direção.",
   "botania.page.forestEye2": "Agora você me vê...",
 
   "botania.entry.openCrate": "Caixote Aberto",
@@ -2783,7 +2783,7 @@
   "botania.page.hourglass1": "A ampulheta pode conter até 64 unidades de $(item)Areia$(0), $(item)Areia Vermelha$(0) ou $(item)Areia das Almas$(0), adicionada clicando com o botão direito. Clicar com o botão direito em uma ampulheta preenchida remove sua areia. Uma vez adicionada a areia, ela começará a ser drenada de uma das câmaras para a outra. Assim que a areia termina de ser drenada, a ampulheta emite um pulso de redstone e vira, reiniciando o processo.",
   "botania.page.hourglass2": "A quantidade de tempo entre os pulsos é dependente do tipo e quantidade de areia na câmara. Um único bloco de $(item)Areia$(0) leva um segundo para cair, $(item)Areia Vermelha$(0) dez segundos, e $(item)Areia das Almas$(0) um minuto. Tipos de areia não podem ser misturados; o tempo atual entre os pulsos pode ser visto segurando uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l) sobre a Ampulheta.",
   "botania.page.hourglass3": "Observe que areia não pode ser adicionada manualmente de forma incremental, então a quantidade de areia deve ser ajustada no inventário.$(p)A areia na ampulheta pode, entretanto, ser ajustada por meio de $(item)Funis$(0) ou meios similares.",
-  "botania.page.hourglass4": "Clicando com o botão direito em uma ampulheta com uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l) bloqueia (ou desbloqueia) ela. Quando bloqueada, areia não pode ser adicionada ou removida de uma ampulheta (apenas para caso alguém clique com o botão direito na ampulheta por acidente).$(p)Se uma $(thing)Rajada de Mana$(0) colidir com uma ampulheta, ela vai conter o fluxo de areia e pausar o temporizador; outra rajada fará o timer continuar.",
+  "botania.page.hourglass4": "Clicar com o botão direito em uma ampulheta com uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l) bloqueia (ou desbloqueia) ela. Quando bloqueada, areia não pode ser adicionada ou removida de uma ampulheta (apenas para caso alguém clique com o botão direito na ampulheta por acidente).$(p)Se uma $(thing)Rajada de Mana$(0) colidir com uma ampulheta, ela vai conter o fluxo de areia e pausar o temporizador; outra rajada fará o timer continuar.",
   "botania.page.hourglass6": "$(l:mana/pool)$(item)Pó de Mana$(0)$(/l) pode ser usado no lugar de areia; fazer isso transforma uma ampulheta de um $(thing)temporizador$(0) para um $(thing)contador$(0).$(p)Ao invés de areia caindo ao longo do tempo, a ampulheta deixará cair uma unidade de pó toda vez que uma $(thing)Rajada de Mana$(0) colidir com ela. Por exemplo, dez unidades de pó de mana em uma ampulheta vão precisar de 10 $(thing)Rajadas de Mana$(0) para um pulso de redstone.",
   "botania.page.hourglass5": "As areias do tempo",
 
@@ -2805,7 +2805,7 @@
 
   "botania.entry.manaBomb": "Devastador Manico",
   "botania.tagline.manaBomb": "O Devastador Manico faz BOOM. BOOM BOOM. BOOMBOOMBOOMBOOMBOOMBOOM",
-  "botania.page.manaBomb0": "Quando um algumas $(item)dinamites$(0) são infundidas com um $(l:alfhomancy/gaia_ritual)$(item)Espírito de Gaia$(0)$(/l) é criado um $(item)Devastador Manico$(0), um tipo de explosivo, de certa forma.$(p)Quando ativado com uma $(item)Rajada de Mana$(0), ele criará um $(item)Epicentro de Devastação Manica$(0). Que irá, ao longo do tempo, invocar $(item)Rajadas de Mana$(0) explosivas supercarregadas.",
+  "botania.page.manaBomb0": "Quando algumas $(item)dinamites$(0) são infundidas com um $(l:alfhomancy/gaia_ritual)$(item)Espírito de Gaia$(0)$(/l) é criado um $(item)Devastador Manico$(0), um tipo de explosivo, de certa forma.$(p)Quando ativado com uma $(item)Rajada de Mana$(0), ele criará um $(item)Epicentro de Devastação Manica$(0). Que irá, ao longo do tempo, invocar $(item)Rajadas de Mana$(0) explosivas supercarregadas.",
   "botania.page.manaBomb1": "Prepare-se para o espetáculo...$(br)$(br2)Não é preciso dizer, apenas um maníaco liberaria uma força tão destrutiva perto de qualquer coisa valiosa ou importante.",
 
   "botania.entry.teruTeruBozu": "Teru Teru Bozu",
@@ -2922,7 +2922,7 @@
   "botania.page.elfGear7": "O $(item)Machado de Elementium$(0)",
   "botania.page.elfGear7a": "A $(item)Enxada de Elementium$(0) irá instantaneamente molhar o terreno arável que cria, independente da proximidade à água, ou mesmo da possibilidade de existir água próxima. Perfeito para fazendeiros impacientes!",
   "botania.page.elfGear7b": "A $(item)Enxada de Elementium$(0)",
-  "botania.page.elfGear8": "A $(item)Tesoura de Elementium$(0) pode, quando puxada para trás como um arco, pode tosquiar rapidamente ovelhas próximas em uma grande área de efeito centrada no portador.",
+  "botania.page.elfGear8": "A $(item)Tesoura de Elementium$(0), quando puxada para trás como um arco, pode tosquiar rapidamente ovelhas próximas em uma grande área de efeito centrada no portador.",
   "botania.page.elfGear9": "A $(item)Tesoura de Elementium$(0)",
   "botania.page.elfGear10": "Finalmente, a $(item)Espada de Elementium$(0), quando empunhada, aumenta a chance de uma $(thing)Fada$(0) ser invocada quando bater (isso ocorre mesmo sem a $(item)Armadura de Elementium$(0) estar equipada), e aumenta a força de quaisquer $(thing)Fadas$(0) invocadas.",
   "botania.page.elfGear11": "A $(item)Espada de Elementium$(0)",
@@ -3045,7 +3045,7 @@
 
   "botania.entry.fireChakram": "Chakram Flamejante",
   "botania.tagline.fireChakram": "Um Chakram de Espinhos flamejante",
-  "botania.page.fireChakram0": "$(item)Pó de Blaze$(0) e $(l:alfhomancy/elf_resources)$(item)Pó de Fada$(0)$(/l), quando aplicado a um $(l:tools/thorn_chakram)$(item)Chakram de Espinhos$(0)$(/l), transforma a arma já potente em um $(item)Chakram Flamejante$(0).$(p)O $(item)Chakram Flamejante$(0) funciona quase da mesma forma que o $(l:tools/thorn_chakram)$(item)Chakram de Espinhos$(0)$(/l) original, exceto pelo fato que ele coloca fogo em criaturas também. Afinal, você não pode fazer bacon com apenas matéria vegetal, pode?",
+  "botania.page.fireChakram0": "$(item)Pó de Blaze$(0) e $(l:alfhomancy/elf_resources)$(item)Pó de Fada$(0)$(/l), quando aplicados a um $(l:tools/thorn_chakram)$(item)Chakram de Espinhos$(0)$(/l), transformam a arma já potente em um $(item)Chakram Flamejante$(0).$(p)O $(item)Chakram Flamejante$(0) funciona quase da mesma forma que o $(l:tools/thorn_chakram)$(item)Chakram de Espinhos$(0)$(/l) original, exceto pelo fato que ele coloca fogo em criaturas também. Afinal, você não pode fazer bacon com apenas matéria vegetal, pode?",
   "botania.page.fireChakram1": "Isso é um bem quente",
 
   "botania.entry.overgrowthSeed": "Semente de Supercrescimento",
@@ -3123,7 +3123,7 @@
   "botania.entry.enderAir": "Extraindo ar do End",
   "botania.tagline.enderAir": "Garrafas arremessáveis que criam Pedra do End",
   "botania.page.enderAir0": "O ar do vazio do $(thing)End$(0) parece possuir propriedades mutativas. Clicar com o botão direito com um $(item)Frasco de Vidro$(0) vazio estando no $(thing)End$(0) irá capturar um pouco do ar de lá, que pode ser depois jogado como uma poção arremessável, transformando $(item)Pedras$(0) próximas do lugar atingido em $(item)Pedras do End$(0).$(br)$(item)Ejetores$(0) também podem capturar esse ar, se nada estiver bloqueando sua saída.",
-  "botania.page.enderAir1": "Foi \"experimentalmente\" descoberto que os gases do vazio do $(thing)End$(0), quando misturados com o ar comum da $(thing)Superfície$(0), são muito tóxicos para certas criaturas do $(thing)Nether$(0), como o $(thing)Ghast$(0).$(p)Embora a quantidade armazenada em um $(item)Frasco de ar do End$(0) seja muito pequena para causar qualquer dano real, certamente é eficaz para irritar.$(p)Principalmente se conseguir atingir os olhos.",
+  "botania.page.enderAir1": "Foi \"experimentalmente\" descoberto que os gases do vazio do $(thing)End$(0), quando misturados com o ar comum da $(thing)Superfície$(0), são muito tóxicos para certas criaturas do $(thing)Nether$(0), como o $(thing)Ghast$(0).$(p)Embora a quantidade armazenada em um $(item)Frasco de ar do End$(0) seja muito pequena para causar qualquer dano real, certamente é eficaz para irritar. Principalmente se conseguir atingir os olhos.",
 
   "botania.entry.enderEyeBlock": "Supervisor do End",
   "botania.tagline.enderEyeBlock": "Detector de redstone ativado por olhar",
@@ -3161,7 +3161,7 @@
   "botania.page.redString15": "Blocos criados com esse material exótico podem ser posicionados em todas as 6 direções, e se ligarão ao bloco compatível mais próximo para o qual o lado com um ponto vermelho deles está voltado.",
   "botania.page.redString1": "Cada bloco de $(thing)Fio Vermelho$(0) tem um critério diferente para o que ele se vinculará, mas todos tem um alcance de cerca de oito blocos. Se um bloco está vinculado, seu \"Fio\" pode ser visto ao segurar uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l).$(p)O $(thing)Fio Vermelho$(0) não será afetado por blocos entre os dois dispositivos conectados, mas blocos de $(item)Fio Vermelho$(0) não devem ser colocados em cadeia.",
   "botania.page.redString2": "Está em apuros?",
-  "botania.page.redString3": "O $(item)Contêiner de Fio Vermelho$(0) se vinculará a inventários, como ($(item)Baús$(0), $(item)Fornalhas$(0), $(item)Funis$(0), etc). Itens inseridos em um $(item)Contêiner$(0) (a partir de $(item)Funis$(0), etc.) acabarão no bloco ao qual ele está vinculado. A orientação é preservada: por exemplo, itens inseridos no $(item)Contêiner de Fio Vermelho$(0) pelo topo dele serão empurrados para o bloco vinculado pela parte de cima deste, e assim por diante.",
+  "botania.page.redString3": "O $(item)Contêiner de Fio Vermelho$(0) se vinculará a inventários, como $(item)Baús$(0), $(item)Fornalhas$(0), $(item)Funis$(0), etc. Itens inseridos em um $(item)Contêiner$(0) (a partir de $(item)Funis$(0), etc.) acabarão no bloco ao qual ele está vinculado. A orientação é preservada: por exemplo, itens inseridos no $(item)Contêiner de Fio Vermelho$(0) pelo topo dele serão empurrados para o bloco vinculado pela parte de cima deste, e assim por diante.",
   "botania.page.redString4": "O $(item)Contêiner de Fio Vermelho$(0).",
   "botania.page.redString5": "O $(item)Ejetor de Fio Vermelho$(0) se conecta a $(item)Ejetores$(0) ou $(item)Liberadores$(0), e envia itens da mesma forma que o $(item)Contêiner de Fio Vermelho$(0) faz. Adicionalmente, quando ele recebe um sinal de redstone, seu $(item)Ejetor$(0) ou $(item)Liberador$(0) vinculado atirará.",
   "botania.page.redString6": "O $(item)Ejetor de Fio Vermelho$(0).",
@@ -3176,12 +3176,12 @@
 
   "botania.entry.flightTiara": "Tiara de Flügel",
   "botania.tagline.flightTiara": "Voo tridimensional... até certo ponto",
-  "botania.page.flightTiara0": "Os $(thing)Flügel$(0) eram uma raça de seres caçadores de deuses que outrora já dominaram essas terras e possuíam o poder do voo tridimensional. Entre outras coisas.$(p)Enquanto os $(thing)Flügel$(0) estão agora $(o)inteiramente$() extintos, a $(item)Tiara de Flügel$(0), feita a partir de $(l:alfhomancy/gaia_ritual)$(item)Espíritos de Gaia$(0)$(/l), pode usar $(thing)Mana$(0) para replicar o poder deles de voar.",
+  "botania.page.flightTiara0": "Os $(thing)Flügel$(0) eram uma raça de seres caçadores de deuses que outrora já dominaram essas terras e possuíam o poder do voo tridimensional. Entre outras coisas.$(p)Embora os $(thing)Flügel$(0) estão agora $(o)inteiramente$() extintos, a $(item)Tiara de Flügel$(0), feita a partir de $(l:alfhomancy/gaia_ritual)$(item)Espíritos de Gaia$(0)$(/l), pode usar $(thing)Mana$(0) para replicar o poder deles de voar.",
   "botania.page.flightTiara4": "Essa maravilhosa reprodução de artifício ancestral não é perfeita, entretanto: a tiara não pode fornecer o poder de voar indefinitivamente. Se usada por cerca de trinta segundos continuamente, ela ficará \"sobrecarregada\" e perderá sua habilidade de sustentar o voo.$(p)Uma \"barra de voo\" é mostrada no HUD do para monitorar seu uso.",
   "botania.page.flightTiara5": "Além do voo simples, a tiara garante ao portador a habilidade de $(thing)dar investidas$(0) e $(thing)planar$(0). Investir, pressionando [$(k:sprint)] sem já estar correndo, impulsionara seu portador para frente. Muito rápido.$(p)Investidas podem apenas ser feitas a cada 2 segundos, e são desabilitadas por uma $(l:tools/temperance_stone)$(item)Pedra da Moderação$(0)$(/l) ativa.",
   "botania.page.flightTiara6": "Planar permite uma descida suave ao chão que cobre uma distância horizontal decente também, prevenindo dano de queda no processo. Para planar, simplesmente agache enquanto está caindo.$(p)É possível planar mesmo com uma barra de voo vazia, mas isso irá deixar a regeneração dela mais lenta.",
   "botania.page.flightTiara1": "Quarenta mil livros de outro mundo",
-  "botania.page.flightTiara2": "Combinando a $(item)Tiara de Flügel$(0) com diferentes tipos de $(item)Quartzo$(0) mudará a aparência dessas asas: um estilo para cada tipo de quartzo.$(p)As receitas para os variados tipos de quartzo pode ser encontrado em $(l:misc/decorative_blocks)$(thing)Blocos Decorativos$(0)$(/l), e os $(thing)Elfos$(0) trocarão $(l:alfhomancy/elf_resources)$(item)Quartzo Élfico$(0)$(/l) por $(item)Quartzo do Nether$(0).",
+  "botania.page.flightTiara2": "Combinar a $(item)Tiara de Flügel$(0) com diferentes tipos de $(item)Quartzo$(0) mudará a aparência dessas asas: um estilo para cada tipo de quartzo.$(p)As receitas para os variados tipos de quartzo podem ser encontradas em $(l:misc/decorative_blocks)$(thing)Blocos Decorativos$(0)$(/l), e os $(thing)Elfos$(0) trocarão $(l:alfhomancy/elf_resources)$(item)Quartzo Élfico$(0)$(/l) por $(item)Quartzo do Nether$(0).",
   "botania.page.flightTiara3": "Adicionando asas (elas podem ser alteradas a qualquer momento)",
 
   "botania.entry.corporea": "Introdução à Corporea",
@@ -3203,7 +3203,7 @@
   "botania.entry.corporeaIndex": "Índice Corporea",
   "botania.tagline.corporeaIndex": "Solicite itens de uma rede Corporea pelo chat",
   "botania.page.corporeaIndex0": "Uma das aplicações mais convenientes de uma $(thing)Rede Corporea$(0) é que itens podem ser requisitados verbalmente pelo nome. O $(item)Índice Corporea$(0) é um bloco parecido com $(item)Cristal do End$(0), ele serve como interface para a $(thing)Rede Corporea$(0) que sua $(l:ender/corporea)$(item)Fagulha Corporea$(0)$(/l) está conectada.$(br)Aproximar-se de um desses blocos o ativará; ele mostra seu raio de efeito quando ativo.",
-  "botania.page.corporeaIndex1": "Enquanto ativado, o index interceptará $(thing)Mensagens do Chat$(0) de jogadores próximos, processando-as como $(thing)solicitações$(0) e as prevenindo de serem transmitidas para o chat. Cada requisição tentará puxar itens da rede cujos nomes combinem com a mensagem do chat; por exemplo, dizendo \"barra de ferro\" fará o Índice procurar pela rede por uma única $(item)Barra de Ferro$(0) e, se encontrada, manifestará ela como um item que será jogado.",
+  "botania.page.corporeaIndex1": "Enquanto ativado, o índice interceptará $(thing)Mensagens do Chat$(0) de jogadores próximos, processando-as como $(thing)solicitações$(0) e as prevenindo de serem transmitidas para o chat. Cada requisição tentará puxar itens da rede cujos nomes combinem com a mensagem do chat; por exemplo, dizendo \"barra de ferro\" o Índice irá procurar pela rede por uma única $(item)Barra de Ferro$(0) e, se encontrada, manifestará ela como um item que será jogado.",
   "botania.page.corporeaIndex2": "Solicitações podem ser quantificadas: por exemplo, requisitando \"10 maçãs\" puxará até 10 $(item)Maçãs$(0) de uma vez. O termo \"this\" será interpretado como o item que está na mão do usuário atualmente. Adicionar antes ou depois do texto de uma requisição \"...\", \"~\", \"+\" ou \"?\" requisitará itens cujos nomes $(o)contenham$() o texto: por exemplo, \"ferro...\" pode retornar qualquer item com \"ferro\" em seu nome, como pepita de ferro ou botas de ferro.",
   "botania.page.corporeaIndex3": "Um \"*\" em qualquer parte do termo representa algum conjunto indefinido de caracteres; por exemplo, solicitar por \"Co*melho\" pode retornar algum $(item)Cogumelo Vermelho$(0), um $(item)Concreto Vermelho$(0), ou mesmo um item renomeado para \"Comelho\".$(p)Perceba que solicitar \"*ferro*\" é equivalente a requisitar \"ferro...\", e ao solicitar \"*\" pode ser retornado qualquer coisa.",
   "botania.page.corporeaIndex4": "O Índice apenas consegue entender alguns plurais simples (os que terminam com \"-s\", \"-es\" ou \"-ies\"), mas aceitarão o singular mesmo quando solicitando múltiplos itens (ele entenderá \"10 maçã\" corretamente).$(p)\"10 of this\" solicita 10 itens cujos nomes combinem com o item segurado, como seria de se esperar.",
@@ -3229,7 +3229,7 @@
   "botania.tagline.corporeaCrystalCube": "Visualize e solicite itens de uma rede Corporea",
   "botania.page.corporeaCrystalCube0": "Um vidente normalmente olha através de sua bola de cristal para ver o futuro. Então, um manipulador de Corporea pode olhar através de um $(o)cubo$() de cristal para ver o $(o)presente$(). O $(item)Cubo de Cristal Corporea$(0) é um mediador visual para interagir com uma $(thing)Rede Corporea$(0).",
   "botania.page.corporeaCrystalCube1": "Quando o bloco já tem uma fagulha, clicar com o botão direito nele com um item fará ele mostrar quanto desse item existe na rede de sua fagulha. O mostrador se atualiza cerca de uma vez por segundo.$(p)Bater em um Cubo requisitará um do seu item atual a partir da rede, e bater agachado nele solicitará uma pilha inteira.",
-  "botania.page.corporeaCrystalCube3": "Um $(item)Comparador de Redstone$(0) conectado ao cubo lerá a magnitude do número de itens que ele pode encontrar, logaritmicamente: isso é, duplicar os itens da rede aumentará a saída do Comparador em um. Se o Cube não pode encontrar nenhum item, o Comparador emite um sinal de força 0; 1 item produz força 1; 2 itens para força 2; 4 para 3; 8 para 4; 16 para 5; e assim por diante, até incríveis 16384 itens necessários para emitir um sinal de força 15.",
+  "botania.page.corporeaCrystalCube3": "Um $(item)Comparador de Redstone$(0) conectado ao cubo lerá a magnitude do número de itens que ele pode encontrar, logaritmicamente: isso é, duplicar os itens da rede aumentará a saída do Comparador em um. Se o Cubo não pode encontrar nenhum item, o Comparador emite um sinal de força 0; 1 item produz força 1; 2 itens para força 2; 4 para 3; 8 para 4; 16 para 5; e assim por diante, até incríveis 16384 itens necessários para emitir um sinal de força 15.",
   "botania.page.corporeaCrystalCube4": "Agachar e clicar com o botão direito em um $(item)Cubo de Cristal Corporea$(0) com uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l) bloqueia ou desbloqueia ele. Quando bloqueado, um item monitorado pelo Cubo não pode ser mudado (apenas para caso de alguém clicar com o botão direito nele por acidente).",
   "botania.page.corporeaCrystalCube2": "Eu posso ver, para sempre",
 
@@ -3262,14 +3262,14 @@
   "botania.entry.luminizerTransport": "Transporte Luminizador",
   "botania.tagline.luminizerTransport": "Voe através dos céus",
   "botania.page.luminizerTransport0": "O $(item)Luminizador$(0) simplesmente transporta jogadores (e outras entidades), os fazendo voar através do ar em trilhas de luz.$(br)O $(item)Luminizador$(0) é colocado no mundo como bloco e funciona quando vinculado a outro $(item)Luminizador$(0) (com uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l)). Clicar com botão direito em um $(item)Luminizador$(0) irá transportar seu usuário ao $(item)Luminizador$(0) ao qual está vinculado.",
-  "botania.page.luminizerTransport1": "$(item)Luminizadores$(0) tem um raio de vinte blocos cada, mas podem ser colocados juntos em cadeia para criar caminhos bem longos e complexos.$(p)$(item)Luminizadores$(0) vinculados são unidirecionais, a não ser que sejão explicitamente vinculados para os dois lados. Perceba, entretanto, que esse tipo de vinculação pode criar um ciclo sem fim.$(p)Múltiplos $(item)Luminizadores$(0) podem ser vinculados para o mesmo ponto final.",
+  "botania.page.luminizerTransport1": "$(item)Luminizadores$(0) tem um raio de vinte blocos cada, mas podem ser colocados juntos em cadeia para criar caminhos bem longos e complexos.$(p)$(item)Luminizadores$(0) vinculados são unidirecionais, a não ser que sejam explicitamente vinculados para os dois lados. Perceba, entretanto, que esse tipo de vinculação pode criar um ciclo sem fim.$(p)Múltiplos $(item)Luminizadores$(0) podem ser vinculados para o mesmo ponto final.",
   "botania.page.luminizerTransport2": "Luminize até o futuro",
   "botania.page.luminizerTransport3": "Adicionando um pouco de $(item)Redstone$(0) a um $(item)Luminizador$(0) é criado um $(item)Detector Luminizador$(0), com funções muito parecidas com a de um $(item)Luminizador$(0) normal, mas que adicionalmente emite um $(thing)pulso de redstone$(0) quando algo chega até (ou passa por) ele.",
   "botania.page.luminizerTransport4": "Sinal sai",
   "botania.page.luminizerTransport7": "Adicionando uma $(item)Alavanca$(0) a um $(item)Luminizador$(0) ele é transformado em um $(item)Luminizador Interruptor$(0), o qual aceita um $(thing)sinal de redstone$(0). Quando energizado com um sinal de redstone, o $(item)Luminizador Interruptor$(0) irá deixar cair qualquer coisa passando através dele; ele funciona normalmente quando desenergizado.",
   "botania.page.luminizerTransport8": "Sinal entra",
-  "botania.page.luminizerTransport9": "Um $(item)Luminizador$(0) e uma $(item)Tocha de Redstone$(0) produzem um $(item)Luminizador de Bifurcação$(0).$(p)Esse reagirá a uma $(l:devices/animated_torch)$(item)Tocha Animada$(0)$(/l) colocada até dois blocos acima ou abaixo dele; quaisquer entidades que venha por ele será envia a um $(item)Luminizador$(0) na direção para qual a Tocha está apontando.",
-  "botania.page.luminizerTransport10": "O $(item)Luminizador de Bifurcação$(0) pode ainda ser vinculado como qualque outro tipo de Luminizador, mas ele usará apenas seu vínculo se nenhuma $(l:devices/animated_torch)$(item)Tocha Animada$(0)$(/l) estiver disponível para dizer a ele para onde ir (ou se não tiver nenhum $(item)Luminizador$(0) na direção que a Tocha aponta).",
+  "botania.page.luminizerTransport9": "Um $(item)Luminizador$(0) e uma $(item)Tocha de Redstone$(0) produzem um $(item)Luminizador de Bifurcação$(0).$(p)Esse reagirá a uma $(l:devices/animated_torch)$(item)Tocha Animada$(0)$(/l) colocada até dois blocos acima ou abaixo dele; quaisquer entidades que venham por ele serão enviadas a um $(item)Luminizador$(0) na direção para qual a Tocha está apontando.",
+  "botania.page.luminizerTransport10": "O $(item)Luminizador de Bifurcação$(0) pode ainda ser vinculado como qualquer outro tipo de Luminizador, mas ele usará apenas seu vínculo se nenhuma $(l:devices/animated_torch)$(item)Tocha Animada$(0)$(/l) estiver disponível para dizer a ele para onde ir (ou se não tiver nenhum $(item)Luminizador$(0) na direção que a Tocha aponta).",
   "botania.page.luminizerTransport11": "Um caminho ou outro",
   "botania.page.luminizerTransport5": "Jogadores podem usar um $(item)Luminizador$(0) apenas clicando nele com o botão direito, mas um $(item)Lançador Luminizador$(0) é necessário para transportar animais, itens jogados, ou qualquer outra coisa por meio deles. Ele deve ser colocado adjacente a um ou mais $(item)Luminizadores$(0). Ao receber um $(thing)pulso de redstone$(0), o Lançador enviará todas as criaturas ou itens nele para o $(item)Luminizador$(0) adjacente (ou um $(item)Luminizador$(0) aleatório por entidade, se mais de um estiver disponível), permitindo o transporte.",
   "botania.page.luminizerTransport6": "Dispositivo de Evacuação Compulsória",
@@ -3426,7 +3426,7 @@
   "botania.entry.judgementCloaks": "Capas do Julgamento",
   "botania.tagline.judgementCloaks": "Capas para julgar oponentes",
   "botania.page.judgementCloaks0": "As $(item)Capas do Julgamento$(0) são um conjunto de capas que pode ser equipadas no espaço de $(thing)Corpo$(0) dos $(thing)Trinkets$(0). Uma Capa ativará seu poder quando seu portador receber dano, mas depois entrará em um período de recarga de dez segundos.",
-  "botania.page.judgementCloaks1": "A $(item)Capa da Virtude$(0) bloqueará todo o de um único ataque.$(p)A $(item)Capa do Pecado$(0) irá causar a todas as criaturas hostis próximas um dano equivalente ao recebido pelo portador.$(p)A $(item)Capa do Equilíbrio$(0) dividirá igualmente o dano entre o atacante e o alvo, impedindo que seu portador morra no processo.",
+  "botania.page.judgementCloaks1": "A $(item)Capa da Virtude$(0) bloqueará todo o dano de um único ataque.$(p)A $(item)Capa do Pecado$(0) irá causar a todas as criaturas hostis próximas um dano equivalente ao recebido pelo portador.$(p)A $(item)Capa do Equilíbrio$(0) dividirá igualmente o dano entre o atacante e o alvo, impedindo que seu portador morra no processo.",
   "botania.page.judgementCloaks2": "Um Manto Sagrado",
   "botania.page.judgementCloaks3": "Saboreie a Vingança!",
   "botania.page.judgementCloaks4": "Divisão de Dor",
@@ -3623,7 +3623,7 @@
   "botania.tagline.headCreating": "Crie uma cabeça de jogador",
   "botania.page.headCreating0": "Um feitiço comumente invocado pelos Elfos é o uso de alguns recursos e uma $(item)Etiqueta$(0) para transmutar uma unidade de $(l:basics/pure_daisy)$(item)Rocha Viva$(0)$(/l) em uma cabeça do $(thing)Jogador$(0) nomeado pela etiqueta.$(p)Seus mecanismos exatos são desconhecidos, mas o feitiço parece fácil o suficiente para replicar em um $(l:basics/rune_altar)$(item)Altar Rúnico$(0)$(/l).",
   "botania.page.headCreating3": "Substituir a etiqueta por um $(item)Livro Escrito$(0) (pode ser uma cópia) permite canalizar ainda mais informação pelo processo:$(p)Se o código secreto para evocar uma $(thing)Skin$(0) passada é conhecido na linguagem arcana de $(thing)Base64$(0), ele pode ser escrito em um livro para conjurar essa aparência histórica especifica da cabeça de $(thing)Jogador$(0).",
-  "botania.page.headCreating2": "Uma parte da comunidade de $(thing)Minecraft$(0) (ops, quarta parede) se dedica a criar cabeças que servem como vários tipos de decoração. Decoradores ávidos podem considerar visitar alguns sites da comunidade que agregam essas cabeças.$(br)Alguns sites fornecem comandos avançados que incluem os dados necessários da textura codificados em Base64 para a versão em livro da receita. A URL ou o hash real da skin também funcionam.",
+  "botania.page.headCreating2": "Uma parte da comunidade de $(thing)Minecraft$(0) (ops, quarta parede) se dedica a criar cabeças que servem como vários tipos de decoração. Decoradores ávidos podem considerar visitar alguns sites da comunidade que agregam essas cabeças.$(br2)Alguns sites fornecem comandos avançados que incluem os dados necessários da textura codificados em Base64 para a versão em livro da receita. A URL ou o hash real da skin também funcionam.",
   "botania.page.headCreating1": "Coloque sua cabeça em jogo",
 
   "botania.entry.azulejo": "Azulejos",
