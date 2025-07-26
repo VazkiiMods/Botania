@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,6 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class KindleLens extends Lens {
 	@Override
@@ -40,17 +42,31 @@ public class KindleLens extends Lens {
 			Direction dir = brtr.getDirection();
 
 			BlockPos offPos = pos.relative(dir);
+			Level level = entity.level();
 
-			BlockState stateAt = entity.level().getBlockState(pos);
-			BlockState stateAtOffset = entity.level().getBlockState(offPos);
+			BlockState stateAt = level.getBlockState(pos);
+			BlockState stateAtOffset = level.getBlockState(offPos);
 
+			// Get player for event firing
+			var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
+
+			// Handle nether portal removal
 			if (stateAt.is(Blocks.NETHER_PORTAL)) {
-				entity.level().removeBlock(pos, false);
+				// Fire event before nether portal removal
+				if (!XplatAbstractions.INSTANCE.kindleLensNetherPortalRemoveEvent(player, pos, stack)) {
+					level.removeBlock(pos, false);
+				}
 			}
 			if (stateAtOffset.is(Blocks.NETHER_PORTAL)) {
-				entity.level().removeBlock(offPos, false);
-			} else if (BaseFireBlock.canBePlacedAt(entity.level(), offPos, dir.getOpposite())) {
-				entity.level().setBlockAndUpdate(offPos, BaseFireBlock.getState(entity.level(), offPos));
+				// Fire event before nether portal removal
+				if (!XplatAbstractions.INSTANCE.kindleLensNetherPortalRemoveEvent(player, offPos, stack)) {
+					level.removeBlock(offPos, false);
+				}
+			} else if (BaseFireBlock.canBePlacedAt(level, offPos, dir.getOpposite())) {
+				// Fire event before fire placement
+				if (!XplatAbstractions.INSTANCE.kindleLensFirePlaceEvent(player, offPos, stack)) {
+					level.setBlockAndUpdate(offPos, BaseFireBlock.getState(level, offPos));
+				}
 			}
 		}
 

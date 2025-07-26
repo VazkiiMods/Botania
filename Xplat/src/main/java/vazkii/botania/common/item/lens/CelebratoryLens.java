@@ -8,16 +8,20 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class CelebratoryLens extends Lens {
 
@@ -26,10 +30,21 @@ public class CelebratoryLens extends Lens {
 		Entity entity = burst.entity();
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			if (!entity.level().isClientSide && !burst.isFake() && !isManaBlock) {
+				BlockHitResult blockHit = (BlockHitResult) pos;
+				Level level = entity.level();
+				BlockPos targetPos = blockHit.getBlockPos();
+				
+				// Generate firework before firing event
 				ItemStack fireworkStack = generateFirework(burst.getColor());
+				
+				// Fire event before firework creation
+				var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
+				if (XplatAbstractions.INSTANCE.celebratoryLensFireworkEvent(player, targetPos, fireworkStack, stack)) {
+					return shouldKill; // Event cancelled, don't create firework
+				}
 
-				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), fireworkStack);
-				entity.level().addFreshEntity(rocket);
+				FireworkRocketEntity rocket = new FireworkRocketEntity(level, entity.getX(), entity.getY(), entity.getZ(), fireworkStack);
+				level.addFreshEntity(rocket);
 			}
 			return true;
 		}

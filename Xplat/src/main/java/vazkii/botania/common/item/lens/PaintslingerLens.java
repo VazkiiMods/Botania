@@ -40,6 +40,9 @@ public class PaintslingerLens extends Lens {
 		Entity entity = burst.entity();
 		int storedColor = LensItem.getStoredColor(stack);
 		if (!entity.level().isClientSide && !burst.isFake() && storedColor > -1 && storedColor < 17) {
+			// Get player for event firing
+			var player = XplatAbstractions.INSTANCE.getPlayer(entity.level(), burst.getShooterUUID(), getClass().getName());
+			
 			if (pos.getType() == HitResult.Type.ENTITY) {
 				Entity collidedWith = ((EntityHitResult) pos).getEntity();
 				if (collidedWith instanceof Sheep sheep) {
@@ -48,14 +51,27 @@ public class PaintslingerLens extends Lens {
 					List<Sheep> sheepList = entity.level().getEntitiesOfClass(Sheep.class,
 							new AABB(sheep.getX() - r, sheep.getY() - r, sheep.getZ() - r,
 									sheep.getX() + r, sheep.getY() + r, sheep.getZ() + r));
+
 					for (Sheep other : sheepList) {
+						// Fire event before sheep coloring
+						int newColor = storedColor == 16 ? sheep.level().random.nextInt(16) : storedColor;
+						if (XplatAbstractions.INSTANCE.paintslingerLensPaintSheepEvent(player, other, sheepColor.getId(), newColor, stack)) {
+							continue; // Event cancelled, don't color sheep
+						}
+
 						if (other.getColor() == sheepColor) {
 							other.setColor(DyeColor.byId(storedColor == 16 ? other.level().random.nextInt(16) : storedColor));
 						}
 					}
 					shouldKill = true;
 				} else if (collidedWith instanceof SparkEntity spark) {
-					spark.setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.level().random.nextInt(16) : storedColor));
+					// Fire event before spark coloring
+					int newColor = storedColor == 16 ? collidedWith.level().random.nextInt(16) : storedColor;
+					if (XplatAbstractions.INSTANCE.paintslingerLensPaintSparkEvent(player, (Entity) spark, newColor, stack)) {
+						return shouldKill; // Event cancelled, don't color spark
+					}
+					
+					spark.setNetwork(DyeColor.byId(newColor));
 				}
 			} else if (pos.getType() == HitResult.Type.BLOCK) {
 				BlockPos hitPos = ((BlockHitResult) pos).getBlockPos();
@@ -87,6 +103,11 @@ public class PaintslingerLens extends Lens {
 						Function<DyeColor, Block> f = BotaniaAPI.instance().getPaintableBlocks().get(blockId);
 						Block newBlock = f.apply(placeColor);
 						if (newBlock != stateThere.getBlock()) {
+							// Fire event before block painting
+							if (XplatAbstractions.INSTANCE.paintslingerLensPaintBlockEvent(player, coords, placeColor.getId(), hitBlock, newBlock, stack)) {
+								continue; // Event cancelled for this block, skip painting it
+							}
+							
 							entity.level().setBlockAndUpdate(coords, newBlock.withPropertiesOf(stateThere));
 							XplatAbstractions.INSTANCE.sendToNear(entity.level(), coords, new BotaniaEffectPacket(EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId()));
 						}

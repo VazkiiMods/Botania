@@ -21,8 +21,10 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ForcePushHelper;
+
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.PistonBaseBlockAccessor;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class ForceLens extends Lens {
 
@@ -41,8 +43,19 @@ public class ForceLens extends Lens {
 				return false;
 			}
 
+			// Fire event before block movement
+			Level level = entity.level();
+			BlockPos from = rtr.getBlockPos().relative(rtr.getDirection());
+			Direction direction = rtr.getDirection().getOpposite();
+			BlockPos to = from.relative(direction);
+			var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
+			
+			if (XplatAbstractions.INSTANCE.forceLensBlockMoveEvent(player, from, to, direction, stack)) {
+				return shouldKill; // Event cancelled, don't move blocks
+			}
+
 			// mana burst could have been warped here, so don't assume that any block is unmovable
-			moveBlocks(entity.level(), rtr.getBlockPos().relative(rtr.getDirection()), rtr.getDirection().getOpposite(), ManaBurst.NO_SOURCE);
+			moveBlocks(level, from, direction, ManaBurst.NO_SOURCE);
 		}
 
 		return shouldKill;

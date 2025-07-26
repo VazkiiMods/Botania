@@ -23,6 +23,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class InfluenceLens extends Lens {
 
@@ -51,9 +52,19 @@ public class InfluenceLens extends Lens {
 						continue;
 					}
 				}
+
+				if (fireInfluenceLensMoveEvent(burst, movable)) {
+					continue;
+				}
+
 				movable.setDeltaMovement(entity.getDeltaMovement());
 			}
 		}
+	}
+
+	private boolean fireInfluenceLensMoveEvent(ManaBurst burst, Entity movable) {
+		var player = XplatAbstractions.INSTANCE.getPlayer(burst.entity().level(), burst.getShooterUUID(), getClass().getName());
+		return XplatAbstractions.INSTANCE.fireInfluenceLensMoveEvent(player, movable);
 	}
 
 }

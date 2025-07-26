@@ -99,7 +99,21 @@ import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.lens.BoreLensRemoveBlockCallback;
+import vazkii.botania.api.item.lens.CelebratoryLensFireworkCallback;
 import vazkii.botania.api.item.lens.DamagingLensHurtCallback;
+import vazkii.botania.api.item.lens.EntropicLensExplodeCallback;
+import vazkii.botania.api.item.lens.FlashLensManaFlameCreateCallback;
+import vazkii.botania.api.item.lens.FlashLensManaFlameRemoveCallback;
+import vazkii.botania.api.item.lens.ForceLensBlockMoveCallback;
+import vazkii.botania.api.item.lens.InfluenceLensMoveCallback;
+import vazkii.botania.api.item.lens.KindleLensFirePlaceCallback;
+import vazkii.botania.api.item.lens.RedirectiveLensRotateSpreaderCallback;
+import vazkii.botania.api.item.lens.KindleLensNetherPortalRemoveCallback;
+import vazkii.botania.api.item.lens.PaintslingerLensPaintBlockCallback;
+import vazkii.botania.api.item.lens.PaintslingerLensPaintSheepCallback;
+import vazkii.botania.api.item.lens.PaintslingerLensPaintSparkCallback;
+import vazkii.botania.api.item.lens.StormLensLightningCallback;
+import vazkii.botania.api.item.lens.WeightLensBlockFallCallback;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
@@ -441,12 +455,130 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean fireBoreLensRemoveBlockEvent(Player player, BlockPos pos) {
+		if (pos == null) {
+			return false;
+		}
 		return BoreLensRemoveBlockCallback.EVENT.invoker().onBoreLensRemoveBlock(player, pos);
 	}
 
 	@Override
 	public boolean fireDamagingLensHurtEvent(Player shooter, BlockPos pos) {
+		if (pos == null) {
+			return false;
+		}
 		return DamagingLensHurtCallback.EVENT.invoker().onDamagingLensHurt(shooter, pos);
+	}
+
+	@Override
+	public boolean fireInfluenceLensMoveEvent(Player shooter, Entity entity) {
+		if (shooter == null || entity == null) {
+			return false;
+		}
+		return InfluenceLensMoveCallback.EVENT.invoker().onInfluenceLensMove(shooter, entity);
+	}
+
+	@Override
+	public boolean fireRedirectiveLensRotateSpreaderEvent(Player shooter, BlockPos spreaderPos, ManaSpreader spreader, float rotationX, float rotationY) {
+		if (shooter == null || spreaderPos == null || spreader == null) {
+			return false;
+		}
+		return RedirectiveLensRotateSpreaderCallback.EVENT.invoker().onRedirectiveLensRotateSpreader(shooter, spreaderPos, spreader, rotationX, rotationY);
+	}
+
+	@Override
+	public boolean forceLensBlockMoveEvent(Player player, BlockPos from, BlockPos to, Direction direction, ItemStack lens) {
+		if (from == null || to == null || direction == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return ForceLensBlockMoveCallback.EVENT.invoker().onForceLensBlockMove(player, from, to, direction, lens);
+	}
+
+	@Override
+	public boolean weightLensBlockFallEvent(Player player, BlockPos pos, BlockState state, ItemStack lens) {
+		if (pos == null || state == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return WeightLensBlockFallCallback.EVENT.invoker().onWeightLensBlockFall(player, pos, state, lens);
+	}
+
+	@Override
+	public boolean flashLensManaFlameCreateEvent(Player player, BlockPos pos, int color, ItemStack lens) {
+		if (pos == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return FlashLensManaFlameCreateCallback.EVENT.invoker().onFlashLensManaFlameCreate(player, pos, color, lens);
+	}
+
+	@Override
+	public boolean flashLensManaFlameRemoveEvent(Player player, BlockPos pos, ItemStack lens) {
+		if (pos == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return FlashLensManaFlameRemoveCallback.EVENT.invoker().onFlashLensManaFlameRemove(player, pos, lens);
+	}
+
+	@Override
+	public boolean kindleLensFirePlaceEvent(Player player, BlockPos pos, ItemStack lens) {
+		if (pos == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return KindleLensFirePlaceCallback.EVENT.invoker().onKindleLensFirePlace(player, pos, lens);
+	}
+
+	@Override
+	public boolean kindleLensNetherPortalRemoveEvent(Player player, BlockPos pos, ItemStack lens) {
+		if (pos == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return KindleLensNetherPortalRemoveCallback.EVENT.invoker().onKindleLensNetherPortalRemove(player, pos, lens);
+	}
+
+	@Override
+	public boolean paintslingerLensPaintBlockEvent(Player player, BlockPos pos, int color, Block originalBlock, Block newBlock, ItemStack lens) {
+		if (pos == null || originalBlock == null || newBlock == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return PaintslingerLensPaintBlockCallback.EVENT.invoker().onPaintslingerLensPaintBlock(player, pos, color, originalBlock, newBlock, lens);
+	}
+
+	@Override
+	public boolean paintslingerLensPaintSheepEvent(Player player, Entity sheep, int oldColor, int newColor, ItemStack lens) {
+		if (sheep == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return PaintslingerLensPaintSheepCallback.EVENT.invoker().onPaintslingerLensPaintSheep(player, sheep, oldColor, newColor, lens);
+	}
+
+	@Override
+	public boolean paintslingerLensPaintSparkEvent(Player player, Entity spark, int color, ItemStack lens) {
+		if (spark == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return PaintslingerLensPaintSparkCallback.EVENT.invoker().onPaintslingerLensPaintSpark(player, spark, color, lens);
+	}
+
+	@Override
+	public boolean entropicLensExplodeEvent(Player player, BlockPos pos, float explosionPower, ItemStack lens) {
+		if (pos == null || explosionPower < 0 || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return EntropicLensExplodeCallback.EVENT.invoker().onEntropicLensExplode(player, pos, explosionPower, lens);
+	}
+
+	@Override
+	public boolean celebratoryLensFireworkEvent(Player player, BlockPos pos, ItemStack firework, ItemStack lens) {
+		if (pos == null || firework == null || firework.isEmpty() || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return CelebratoryLensFireworkCallback.EVENT.invoker().onCelebratoryLensFirework(player, pos, firework, lens);
+	}
+
+	@Override
+	public boolean stormLensLightningEvent(Player player, BlockPos pos, ItemStack lens) {
+		if (pos == null || lens == null || lens.isEmpty()) {
+			return false;
+		}
+		return StormLensLightningCallback.EVENT.invoker().onStormLensLightning(player, pos, lens);
 	}
 
 	@Override

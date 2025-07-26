@@ -17,6 +17,7 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class EntropicLens extends Lens {
 
@@ -31,8 +32,16 @@ public class EntropicLens extends Lens {
 			}
 
 			if (!entity.level().isClientSide && !burst.isFake() && !isManaBlock) {
+				// Fire event before explosion creation
+				var player = XplatAbstractions.INSTANCE.getPlayer(entity.level(), burst.getShooterUUID(), getClass().getName());
+				float explosionPower = burst.getMana() / 50F;
+				
+				if (XplatAbstractions.INSTANCE.entropicLensExplodeEvent(player, hit, explosionPower, stack)) {
+					return shouldKill; // Event cancelled, don't create explosion
+				}
+				
 				entity.level().explode(entity, entity.getX(), entity.getY(), entity.getZ(),
-						burst.getMana() / 50F, Level.ExplosionInteraction.TNT);
+						explosionPower, Level.ExplosionInteraction.TNT);
 			}
 			return true;
 		}

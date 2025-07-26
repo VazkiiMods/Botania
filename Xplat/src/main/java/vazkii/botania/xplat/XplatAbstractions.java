@@ -156,8 +156,24 @@ public interface XplatAbstractions {
 	boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient);
 	void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
 	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
+	
+	// Lens Events
 	boolean fireBoreLensRemoveBlockEvent(Player player, BlockPos pos);
 	boolean fireDamagingLensHurtEvent(Player shooter, BlockPos pos);
+	boolean fireInfluenceLensMoveEvent(Player shooter, Entity entity);
+	boolean fireRedirectiveLensRotateSpreaderEvent(Player shooter, BlockPos spreaderPos, ManaSpreader spreader, float rotationX, float rotationY);
+	boolean forceLensBlockMoveEvent(Player player, BlockPos from, BlockPos to, Direction direction, ItemStack lens);
+	boolean weightLensBlockFallEvent(Player player, BlockPos pos, BlockState state, ItemStack lens);
+	boolean flashLensManaFlameCreateEvent(Player player, BlockPos pos, int color, ItemStack lens);
+	boolean flashLensManaFlameRemoveEvent(Player player, BlockPos pos, ItemStack lens);
+	boolean kindleLensFirePlaceEvent(Player player, BlockPos pos, ItemStack lens);
+	boolean kindleLensNetherPortalRemoveEvent(Player player, BlockPos pos, ItemStack lens);
+	boolean paintslingerLensPaintBlockEvent(Player player, BlockPos pos, int color, Block originalBlock, Block newBlock, ItemStack lens);
+	boolean paintslingerLensPaintSheepEvent(Player player, Entity sheep, int oldColor, int newColor, ItemStack lens);
+	boolean paintslingerLensPaintSparkEvent(Player player, Entity spark, int color, ItemStack lens);
+	boolean entropicLensExplodeEvent(Player player, BlockPos pos, float explosionPower, ItemStack lens);
+	boolean celebratoryLensFireworkEvent(Player player, BlockPos pos, ItemStack firework, ItemStack lens);
+	boolean stormLensLightningEvent(Player player, BlockPos pos, ItemStack lens);
 
 	@Nullable ServerPlayer getPlayer(Level level, @Nullable UUID uuid, String name);
 

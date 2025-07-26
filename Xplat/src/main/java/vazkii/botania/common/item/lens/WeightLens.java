@@ -29,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class WeightLens extends Lens {
 	@Override
@@ -45,6 +46,13 @@ public class WeightLens extends Lens {
 					&& state.getDestroySpeed(level, bPos) != -1
 					&& level.getBlockEntity(bPos) == null
 					&& canSilkTouch(level, bPos, state, harvestLevel, entity.getOwner())) {
+				
+				// Fire event before creating falling block entity
+				var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
+				if (XplatAbstractions.INSTANCE.weightLensBlockFallEvent(player, bPos, state, stack)) {
+					return shouldKill; // Event cancelled, don't create falling block
+				}
+				
 				FallingBlockEntity falling = FallingBlockEntity.fall(level, bPos, state);
 				falling.time = 1;
 				level.sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);

@@ -8,12 +8,17 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class StormLens extends Lens {
 
@@ -22,6 +27,16 @@ public class StormLens extends Lens {
 		Entity entity = burst.entity();
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			if (!entity.level().isClientSide && !burst.isFake() && !isManaBlock) {
+				BlockHitResult blockHit = (BlockHitResult) pos;
+				Level level = entity.level();
+				BlockPos targetPos = blockHit.getBlockPos();
+				
+				// Fire event before lightning strike
+				var player = XplatAbstractions.INSTANCE.getPlayer(level, burst.getShooterUUID(), getClass().getName());
+				if (XplatAbstractions.INSTANCE.stormLensLightningEvent(player, targetPos, stack)) {
+					return shouldKill; // Event cancelled, don't create lightning
+				}
+
 				entity.level().explode(entity, entity.getX(), entity.getY(), entity.getZ(), 5F, Level.ExplosionInteraction.BLOCK);
 			}
 			return true;

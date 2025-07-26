@@ -96,20 +96,32 @@ public class RedirectiveLens extends Lens {
 				angle = -angle;
 			}
 
-			spreader.setRotationX((float) angle + 90F);
+			float rotationX = (float) angle + 90F;
 
 			rotVec = new Vec3(diffVec.x, 0, diffVec.z);
 			angle = MathHelper.angleBetween(diffVec, rotVec) * 180F / Math.PI;
 			if (sourceVec.y < tileVec.y) {
 				angle = -angle;
 			}
-			spreader.setRotationY((float) angle);
+			float rotationY = (float) angle;
+
+			if (fireRedirectiveLensRotateSpreaderEvent(burst, hitPos, spreader, rotationX, rotationY)) {
+				return;
+			}
+
+			spreader.setRotationX(rotationX);
+			spreader.setRotationY(rotationY);
 
 			spreader.commitRedirection();
 			if (spreader instanceof ThrottledPacket pkt) {
 				pkt.markDispatchable();
 			}
 		}
+	}
+
+	private boolean fireRedirectiveLensRotateSpreaderEvent(ManaBurst burst, BlockPos spreaderPos, ManaSpreader spreader, float rotationX, float rotationY) {
+		var player = XplatAbstractions.INSTANCE.getPlayer(burst.entity().level(), burst.getShooterUUID(), getClass().getName());
+		return XplatAbstractions.INSTANCE.fireRedirectiveLensRotateSpreaderEvent(player, spreaderPos, spreader, rotationX, rotationY);
 	}
 
 }
