@@ -63,6 +63,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
@@ -590,6 +591,11 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public FoodProperties getFoodProperties(ItemStack stack) {
 		return stack.get(DataComponents.FOOD);
+	}
+
+	@Override
+	public boolean canToolLightFire(ItemStack stack) {
+		return stack.is(Items.FLINT_AND_STEEL);
 	}
 
 	@Override

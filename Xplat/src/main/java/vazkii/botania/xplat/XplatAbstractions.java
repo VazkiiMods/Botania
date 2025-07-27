@@ -197,6 +197,7 @@ public interface XplatAbstractions {
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
 	@Nullable
 	FoodProperties getFoodProperties(ItemStack stack);
+	boolean canToolLightFire(ItemStack stack);
 	// Forge rails can define the shape through other means than the vanilla block state property
 	RailShape getRailDirection(BlockState state, BlockGetter level, BlockPos pos, @Nullable AbstractMinecart cart);
 

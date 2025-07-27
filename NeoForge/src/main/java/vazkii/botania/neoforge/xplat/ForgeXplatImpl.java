@@ -35,6 +35,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -57,6 +58,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.ICondition;
@@ -520,6 +522,11 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public FoodProperties getFoodProperties(ItemStack stack) {
 		return stack.getFoodProperties(null);
+	}
+
+	@Override
+	public boolean canToolLightFire(ItemStack stack) {
+		return stack.is(Items.FLINT_AND_STEEL) || stack.canPerformAction(ItemAbilities.FIRESTARTER_LIGHT);
 	}
 
 	@Override

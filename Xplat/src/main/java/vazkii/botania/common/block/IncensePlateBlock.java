@@ -10,6 +10,9 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -41,6 +44,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.IncensePlateBlockEntity;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class IncensePlateBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -65,16 +69,24 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 		ItemStack plateStack = plate.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
 		boolean did = false;
-	
+
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setItem(0, stack.copy());
 			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			stack.shrink(1);
 			did = true;
 		} else if (!plateStack.isEmpty() && !plate.burning) {
-			if (!stack.isEmpty() && stack.is(Items.FLINT_AND_STEEL)) {
+			if (XplatAbstractions.INSTANCE.canToolLightFire(stack)) {
 				plate.ignite();
+				world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
 				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+			} else if (stack.is(Items.FIRE_CHARGE)) {
+				plate.ignite();
+				RandomSource randomsource = world.getRandom();
+				world.playSound(player, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (randomsource.nextFloat() - randomsource.nextFloat()) * 0.2F + 1.0F);
+				if (!player.getAbilities().instabuild) {
+					stack.shrink(1);
+				}
 			} else {
 				player.getInventory().placeItemBackInInventory(plateStack);
 				plate.getItemHandler().setItem(0, ItemStack.EMPTY);
@@ -82,11 +94,12 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 			}
 			did = true;
 		}
-	
+
 		if (did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
+			plate.setChanged();
 		}
-	
+
 		return did
 				? InteractionResult.sidedSuccess(world.isClientSide())
 				: InteractionResult.PASS;
@@ -106,8 +119,16 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 			stack.shrink(1);
 			did = true;
 		} else if (!plateStack.isEmpty() && !plate.burning) {
-			if (!stack.isEmpty() && stack.is(Items.FLINT_AND_STEEL)) {
+			if (stack.is(Items.FIRE_CHARGE)) {
 				plate.ignite();
+				RandomSource randomsource = world.getRandom();
+				world.playSound(player, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (randomsource.nextFloat() - randomsource.nextFloat()) * 0.2F + 1.0F);
+				if (!player.getAbilities().instabuild) {
+					stack.shrink(1);
+				}
+			} else if (XplatAbstractions.INSTANCE.canToolLightFire(stack)) {
+				plate.ignite();
+				world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
 				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			} else {
 				player.getInventory().placeItemBackInInventory(plateStack);
@@ -119,6 +140,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 		if (did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
+			plate.setChanged();
 		}
 
 		return did
