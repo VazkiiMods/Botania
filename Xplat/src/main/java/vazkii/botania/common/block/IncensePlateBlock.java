@@ -69,7 +69,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 		ItemStack plateStack = plate.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
 		boolean did = false;
-
+	
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setItem(0, stack.copy());
 			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
@@ -94,12 +94,12 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 			}
 			did = true;
 		}
-
+	
 		if (did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 			plate.setChanged();
 		}
-
+	
 		return did
 				? InteractionResult.sidedSuccess(world.isClientSide())
 				: InteractionResult.PASS;
