@@ -32,6 +32,7 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Add: Incense plate supports fire charges and custom igniters (e.g. Tinkers Flint and Brick) to light the incense stick
 * Change: Sparks can no longer be hit by projectiles other than mana bursts
 * Change: Fake players using a wand of the forest on either type of spark are now treated as if the player was sneaking, since that is likely the intended interaction
+* Change: Reach with the Worldshaper's Astrolabe is now affected by effects that change the player's reach, such as the Ring of Far Reach
 * Fix: The boss bar for the gaia ritual no longer starts full and quickly empties at the start of the spawn sequence
 * Fix: Potential NullPointerException in Bergamute's SoundEngineMixin (LostLuma)
 * Fix: Potential divide-by-zero error related to Runic Altar wand HUD rendering (YukkuriC)
