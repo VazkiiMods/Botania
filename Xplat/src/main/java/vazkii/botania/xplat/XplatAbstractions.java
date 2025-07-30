@@ -210,6 +210,7 @@ public interface XplatAbstractions {
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
 	@Nullable
 	FoodProperties getFoodProperties(ItemStack stack);
+	boolean canToolLightFire(ItemStack stack);
 
 	// Red string container
 	boolean isRedStringContainerTarget(BlockEntity be);

@@ -35,6 +35,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ChunkPos;
@@ -57,6 +58,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.common.util.LazyOptional;
@@ -608,6 +610,11 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public FoodProperties getFoodProperties(ItemStack stack) {
 		return stack.getFoodProperties(null);
+	}
+
+	@Override
+	public boolean canToolLightFire(ItemStack stack) {
+		return stack.is(Items.FLINT_AND_STEEL) || stack.canPerformAction(ToolAction.get("light_fire"));
 	}
 
 	@Override
