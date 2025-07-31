@@ -48,7 +48,7 @@ public final class ToolCommons {
 		}
 
 		while (amount > 0) {
-			if (entity.getRNG().nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId, stack) + 1) == 0 || ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, true)) {
+			if (entity.level().getRandom().nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantment.unbreaking.effectId, stack) + 1) == 0 || ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, true)) {
 				amount--;
 			} else {
 				break;
