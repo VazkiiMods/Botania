@@ -23,6 +23,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 
@@ -35,7 +36,7 @@ public class TerrasteelHelmetLayer extends RenderLayer<AbstractClientPlayer, Pla
 	public void render(PoseStack ms, MultiBufferSource buffers, int light, AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ItemStack helm = player.getItemBySlot(EquipmentSlot.HEAD);
 		if (!helm.isEmpty() && helm.getItem() instanceof TerrasteelHelmItem terraHelm) {
-			if (TerrasteelHelmItem.hasAnyWill(helm) && !terraHelm.hasPhantomInk(helm)) {
+			if (AncientWillContainer.hasAnyWill(helm) && !terraHelm.hasPhantomInk(helm)) {
 				ms.pushPose();
 				getParentModel().head.translateAndRotate(ms);
 				ms.translate(-0.2, -0.15, -0.3);

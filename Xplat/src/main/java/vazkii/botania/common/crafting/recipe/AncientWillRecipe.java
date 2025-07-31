@@ -73,12 +73,12 @@ public class AncientWillRecipe extends CustomRecipe {
 		}
 
 		AncientWillContainer container = (AncientWillContainer) item.getItem();
-		if (container.hasAncientWill(item, Objects.requireNonNull(will))) {
+		if (AncientWillContainer.hasAncientWill(item, Objects.requireNonNull(will))) {
 			return ItemStack.EMPTY;
 		}
 
 		ItemStack copy = item.copy();
-		container.addAncientWill(copy, will);
+		AncientWillContainer.addAncientWill(copy, will);
 		return copy;
 	}
 

@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.item.ResoluteIvyItem;
-import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.relic.RingOfOdinItem;
 
 @Mixin(Player.class)
@@ -40,7 +40,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
 	)
 	private DamageSource onDamageTarget(DamageSource source, float amount) {
 		if (this.terraWillCritTarget != null) {
-			DamageSource newSource = TerrasteelHelmItem.onEntityAttacked(source, amount, (Player) (Object) this, terraWillCritTarget);
+			DamageSource newSource = AncientWillContainer.onEntityAttacked(source, amount, (Player) (Object) this, terraWillCritTarget);
 			this.terraWillCritTarget = null;
 			return newSource;
 		}

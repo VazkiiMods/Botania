@@ -20,6 +20,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -67,10 +68,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.Relic;
+import vazkii.botania.api.item.*;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.BotaniaStats;
@@ -107,7 +105,6 @@ import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
@@ -432,11 +429,11 @@ public class ForgeCommonInitializer {
 			bus.addListener(EventPriority.LOW, (CriticalHitEvent e) -> {
 				if (e.getEntity().level().isClientSide
 						|| !e.isCriticalHit()
-						|| !TerrasteelHelmItem.hasTerraArmorSet(e.getEntity())
+						|| !(e.getEntity().getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof AncientWillContainer awc && awc.hasFullArmorSet(e.getEntity()))
 						|| !(e.getTarget() instanceof LivingEntity target)) {
 					return;
 				}
-				e.setDamageMultiplier(e.getDamageMultiplier() * TerrasteelHelmItem.getCritDamageMult(e.getEntity()));
+				e.setDamageMultiplier(e.getDamageMultiplier() * AncientWillContainer.getCritDamageMult(e.getEntity()));
 				((PlayerAccess) e.getEntity()).botania$setCritTarget(target);
 			});
 
