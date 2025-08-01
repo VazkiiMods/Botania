@@ -42,6 +42,8 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Fix: Remaining content in brew vials/flasks and mana bottles would not display properly
 * Fix: Monocle item frame overlay did not properly expand background frame to account for multi-row contained items display
 * Fix: Some spark transfers towards a pool linked with a Mana Mirror sometimes shut down and fail to start up again when the pool is not full anymore
+* Fix: Rod of the Lands/Depths behaved differently than a block of dirt or cobblestone when aiming at a replaceable block, such as grass or fern (NEstoll)
+* Fix: Unbreaking enchantment properly reduces mana consumption for preventing damage to mana-repairable equipment (NEstoll)
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
 * Recipe changes:\
@@ -51,11 +53,12 @@ of time the maintainers are able to spend on this effort. For the time being, up
   * Phantom Ink and Floral Fertilizer recipes use the dye item tags on both Forge and Fabric
   * The Phantom Ink recipe uses the any-color glass item tags on both Forge and Fabric
 * Language updates:
-  * zh_cn updated (Dawnwalker666)
+  * tr_tr added (RuyaSavascisi)
+  * pt_br overhauled (Coffee-0xFF)
+  * ru_ru overhauled (kkylern)
   * zh_tw overhauled (Dawnwalker666, EvanHsieh0415, lakejason0, notlin4, williewillus)
   * ko_kr updated (UnineVesiKass)
-  * tr_tr added (RuyaSavascisi)
-  * ru_ru overhauled (kkylern)
+  * zh_cn updated (Dawnwalker666)
 
 ---
 
