@@ -61,20 +61,15 @@ public class LandsRodItem extends Item {
 		BlockPos pos = ctx.getClickedPos();
 
 		if (player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, false)) {
-			int entities = world.getEntitiesOfClass(LivingEntity.class,
-					new AABB(pos.relative(side), pos.relative(side).offset(1, 1, 1))).size();
+			InteractionResult result = PlayerHelper.substituteUse(ctx, new ItemStack(block));
 
-			if (entities == 0) {
-				InteractionResult result = PlayerHelper.substituteUse(ctx, new ItemStack(block));
-
-				if (result.consumesAction()) {
-					ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true);
-					SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
-					for (int i = 0; i < 6; i++) {
-						world.addParticle(data, pos.getX() + side.getStepX() + Math.random(), pos.getY() + side.getStepY() + Math.random(), pos.getZ() + side.getStepZ() + Math.random(), 0, 0, 0);
-					}
-					return result;
+			if (result.consumesAction()) {
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true);
+				SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
+				for (int i = 0; i < 6; i++) {
+					world.addParticle(data, pos.getX() + side.getStepX() + Math.random(), pos.getY() + side.getStepY() + Math.random(), pos.getZ() + side.getStepZ() + Math.random(), 0, 0, 0);
 				}
+				return result;
 			}
 
 			return InteractionResult.FAIL;
