@@ -82,7 +82,7 @@
 
   "botaniamisc.blockAway": "한 블록 전",
   "botaniamisc.blocksAway": "%s블록 전",
-  "botaniamisc.clickToTeleport": "우클릭시 텔레포트",
+  "botaniamisc.clickToTeleport": "우클릭 시 텔레포트",
   "botaniamisc.clickToRemoveWarp": "쉬프트-좌클릭시 삭제",
   "botaniamisc.unboundWarp": "설정되지 않은 워프 포인트",
   "botaniamisc.clickToAddWarp": "우클릭하면 설정된 위치로 이동합니다.",
@@ -1391,6 +1391,8 @@
   "item.botania.cosmetic_questgiver_mark": "느낌표",
   "item.botania.cosmetic_thinking_hand": "생각하는 손",
   "item.botania.mana_string": "마나가 주입된 실",
+  "item.botania.black_lotus": "검은 연꽃",
+  "item.botania.blacker_lotus": "인챈트된 검은 연꽃",
 
   "item.botania.swap_ring": "교정의 반지",
   "item.botania.flower_bag": "꽃 파우치",
