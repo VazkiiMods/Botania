@@ -49,12 +49,17 @@ public final class ToolCommons {
 	 * Consumes as much mana as possible, returning the amount of damage that couldn't be paid with mana
 	 */
 	public static int damageItemIfPossible(ItemStack stack, int amount, @Nullable LivingEntity entity, int manaPerDamage) {
-		if (!(entity instanceof Player player)) {
+		if (!(entity instanceof Player player) || amount <= 0) {
 			return amount;
 		}
 
+		final int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(player.level().holderLookup(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), stack);
+
 		while (amount > 0) {
-			if (ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, true)) {
+			if (ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, false)) {
+				if (player.level().getRandom().nextInt(unbreaking + 1) == 0) {
+					ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, true);
+				}
 				amount--;
 			} else {
 				break;
