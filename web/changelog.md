@@ -46,6 +46,8 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Fix: Unbreaking enchantment properly reduces mana consumption for preventing damage to mana-repairable equipment (NEstoll)
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
+* Internal: Changed the way platform-specific loading of API implementations is handled to hopefully prevent a loading
+  failure that has popped up especially in Patchouli on NeoForge but apparently can also happen to Botania on Forge
 * Recipe changes:\
   (only significant uses of item tags have been added, a more thorough use of tags is postponed until 1.21)
   * On Forge, any recipe that uses colorless glass blocks or panes is now defined using the corresponding item tags
