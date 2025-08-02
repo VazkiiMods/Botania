@@ -1770,6 +1770,15 @@
   "item.botania.record_gaia_1.desc": "Kain Vinosec - Endure Emptiness",
   "item.botania.record_gaia_2.desc": "Kain Vinosec - Fight For Quiescence",
 
+  "item.botania.botania_banner_pattern": "Banner Pattern",
+  "item.botania.botania_banner_pattern.desc": "Botania",
+  "item.botania.materials_banner_pattern": "Banner Pattern",
+  "item.botania.materials_banner_pattern.desc": "Materials",
+  "item.botania.spark_augments_banner_pattern": "Banner Pattern",
+  "item.botania.spark_augments_banner_pattern.desc": "Spark Augments",
+  "item.botania.tools_banner_pattern": "Banner Pattern",
+  "item.botania.tools_banner_pattern.desc": "Tools",
+
   "block.minecraft.banner.botania.flower.black": "Black Mystical Flower",
   "block.minecraft.banner.botania.flower.red": "Red Mystical Flower",
   "block.minecraft.banner.botania.flower.green": "Green Mystical Flower",

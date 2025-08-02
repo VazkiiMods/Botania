@@ -1770,6 +1770,15 @@
 
 
 
+    "item.botania.botania_banner_pattern": "Bannervorlage",
+    "item.botania.botania_banner_pattern.desc": "Botania",
+    "item.botania.materials_banner_pattern": "Bannervorlage",
+    "item.botania.materials_banner_pattern.desc": "Materialien",
+    "item.botania.spark_augments_banner_pattern": "Bannervorlage",
+    "item.botania.spark_augments_banner_pattern.desc": "Funkenanpassungen",
+    "item.botania.tools_banner_pattern": "Bannervorlage",
+    "item.botania.tools_banner_pattern.desc": "Werkzeuge",
+
     "block.minecraft.banner.botania.flower.black": "Schwarze Mystische Blume",
     "block.minecraft.banner.botania.flower.red": "Rote Mystische Blume",
     "block.minecraft.banner.botania.flower.green": "Grüne Mystische Blume",
