@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "tag": "forge:glass/colorless"
+    },
+    "I": {
+      "tag": "botania:manasteel_ingots"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "pattern": [
+    "GIG",
+    " T ",
+    " T "
+  ],
+  "result": {
+    "item": "botania:glass_pickaxe"
+  },
+  "show_notification": true
+}

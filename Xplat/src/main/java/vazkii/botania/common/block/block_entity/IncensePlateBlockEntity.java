@@ -113,6 +113,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		if (self.comparatorOutput != newComparator) {
 			self.comparatorOutput = newComparator;
 			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
+			self.setChanged();
 		}
 	}
 
@@ -145,7 +146,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		burning = true;
 		Brew brew = ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack);
 		timeLeft = brew.getPotionEffects(stack).get(0).getDuration() * IncenseStickItem.TIME_MULTIPLIER;
-		level.playSound(null, getBlockPos(), BotaniaSounds.incensePlateIgnite, SoundSource.BLOCKS, 1F, 1F);
+		level.playSound(null, getBlockPos(), BotaniaSounds.incensePlateIgnite, SoundSource.BLOCKS, 0.5F, 1.75F);
 		level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 	}
 

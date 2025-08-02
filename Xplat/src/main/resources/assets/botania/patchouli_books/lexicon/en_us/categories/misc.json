@@ -1,6 +1,6 @@
 {
   "name": "botania.category.misc",
-  "description": "botania.category.misc",
+  "description": "botania.category.misc.description",
   "icon": "botania:tiny_potato",
   "sortnum": 9
 }
