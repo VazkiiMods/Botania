@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.BlockItem;
@@ -118,12 +119,12 @@ public final class ColorHandler {
 	}
 
 	public static void submitItems(ItemHandlerConsumer items) {
-		items.register((s, t) -> t == 0 ? Mth.hsvToRgb(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F) : -1,
+		items.register((s, t) -> t == 0 ? FastColor.ARGB32.opaque(Mth.hsvToRgb(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F)) : -1,
 				BotaniaItems.lifeEssence, BotaniaItems.gaiaIngot);
 
 		items.register((stack, tintIndex) -> switch (tintIndex) {
-			case 1 -> MysticalPetalItem.getPetalLikeColor(WandOfTheForestItem.getColor1(stack));
-			case 2 -> MysticalPetalItem.getPetalLikeColor(WandOfTheForestItem.getColor2(stack));
+			case 1 -> FastColor.ARGB32.opaque(MysticalPetalItem.getPetalLikeColor(WandOfTheForestItem.getColor1(stack)));
+			case 2 -> FastColor.ARGB32.opaque(MysticalPetalItem.getPetalLikeColor(WandOfTheForestItem.getColor2(stack)));
 			default -> -1;
 		},
 				BotaniaItems.twigWand, BotaniaItems.dreamwoodWand);
@@ -138,7 +139,7 @@ public final class ColorHandler {
 		items.register((s, t) -> {
 			if (t == 1) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(s);
-				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) manaItem.getMaxMana(), 1F);
+				return FastColor.ARGB32.opaque(Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) manaItem.getMaxMana(), 1F));
 			}
 			return -1;
 		}, BotaniaItems.manaMirror);
@@ -146,12 +147,12 @@ public final class ColorHandler {
 		items.register((s, t) -> {
 			if (t == 1) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(s);
-				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) manaItem.getMaxMana(), 1F);
+				return FastColor.ARGB32.opaque(Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) manaItem.getMaxMana(), 1F));
 			}
 			return -1;
 		}, BotaniaItems.manaTablet);
 
-		items.register((s, t) -> t == 0 ? Mth.hsvToRgb(0.55F, ((float) s.getMaxDamage() - (float) s.getDamageValue()) / (float) s.getMaxDamage() * 0.5F, 1F) : -1, BotaniaItems.spellCloth);
+		items.register((s, t) -> t == 0 ? FastColor.ARGB32.opaque(Mth.hsvToRgb(0.55F, ((float) s.getMaxDamage() - (float) s.getDamageValue()) / (float) s.getMaxDamage() * 0.5F, 1F)) : -1, BotaniaItems.spellCloth);
 
 		items.register((s, t) -> {
 			if (t != 1) {
@@ -160,7 +161,7 @@ public final class ColorHandler {
 
 			Brew brew = ((BrewItem) s.getItem()).getBrew(s);
 			if (brew == BotaniaBrews.fallbackBrew) {
-				return s.getItem() instanceof TaintedBloodPendantItem ? 0xC6000E : 0x989898;
+				return s.getItem() instanceof TaintedBloodPendantItem ? 0xFFC6000E : 0xFF989898;
 			}
 
 			int color = brew.getColor(s);
@@ -171,7 +172,7 @@ public final class ColorHandler {
 			int g = Math.max(0, Math.min(255, (color >> 8 & 0xFF) + add));
 			int b = Math.max(0, Math.min(255, (color & 0xFF) + add));
 
-			return r << 16 | g << 8 | b;
+			return FastColor.ARGB32.opaque(r << 16 | g << 8 | b);
 		}, BotaniaItems.bloodPendant, BotaniaItems.incenseStick, BotaniaItems.brewFlask, BotaniaItems.brewVial);
 
 		items.register((s, t) -> {
@@ -194,17 +195,17 @@ public final class ColorHandler {
 				int cg = Mth.clamp(g, 0, 255);
 				int cb = Mth.clamp(b, 0, 255);
 
-				return cr << 16 | cg << 8 | cb;
+				return FastColor.ARGB32.opaque(cr << 16 | cg << 8 | cb);
 			} else {
 				return -1;
 			}
 		}, BotaniaItems.manaGun);
 
-		items.register((s, t) -> t == 1 ? Mth.hsvToRgb(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(Util.getMillis() / 100D) * 0.5 + 1.2F)) : -1, BotaniaItems.enderDagger);
+		items.register((s, t) -> t == 1 ? FastColor.ARGB32.opaque(Mth.hsvToRgb(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(Util.getMillis() / 100D) * 0.5 + 1.2F))) : -1, BotaniaItems.enderDagger);
 
-		items.register((s, t) -> t == 1 && TerraShattererItem.isEnabled(s) ? Mth.hsvToRgb(0.375F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F) : -1, BotaniaItems.terraPick);
+		items.register((s, t) -> t == 1 && TerraShattererItem.isEnabled(s) ? FastColor.ARGB32.opaque(Mth.hsvToRgb(0.375F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F)) : -1, BotaniaItems.terraPick);
 
-		ItemColor lensHandler = (s, t) -> t == 0 ? ((LensItem) s.getItem()).getLensColor(s, Minecraft.getInstance().level) : -1;
+		ItemColor lensHandler = (s, t) -> t == 0 ? FastColor.ARGB32.opaque(((LensItem) s.getItem()).getLensColor(s, Minecraft.getInstance().level)) : -1;
 		items.register(lensHandler, BotaniaItems.lensNormal, BotaniaItems.lensSpeed, BotaniaItems.lensPower, BotaniaItems.lensTime,
 				BotaniaItems.lensEfficiency, BotaniaItems.lensBounce, BotaniaItems.lensGravity, BotaniaItems.lensMine,
 				BotaniaItems.lensDamage, BotaniaItems.lensPhantom, BotaniaItems.lensMagnet, BotaniaItems.lensExplosive,
