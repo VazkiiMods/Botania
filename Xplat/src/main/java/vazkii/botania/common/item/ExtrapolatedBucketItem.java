@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -19,15 +20,20 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
+
+import vazkii.botania.mixin.AbstractCauldronBlockAccessor;
 
 public class ExtrapolatedBucketItem extends Item {
 
@@ -60,9 +66,7 @@ public class ExtrapolatedBucketItem extends Item {
 							player.playSound(soundEvent, 1.0F, 1.0F);
 						});
 						// Botania: some particles
-						for (int x = 0; x < 5; x++) {
-							level.addParticle(ParticleTypes.POOF, blockPos.getX() + Math.random(), blockPos.getY() + Math.random(), blockPos.getZ() + Math.random(), 0, 0, 0);
-						}
+						spawnParticles(level, blockPos);
 						level.gameEvent(player, GameEvent.FLUID_PICKUP, blockPos);
 						ItemStack itemStack3 = itemStack; // Botania: don't overwrite ourselves
 						if (!level.isClientSide) {
@@ -71,12 +75,35 @@ public class ExtrapolatedBucketItem extends Item {
 
 						return InteractionResultHolder.sidedSuccess(itemStack3, level.isClientSide());
 					}
+				} else if (blockState.getBlock() instanceof AbstractCauldronBlock cauldronBlock) {
+					CauldronInteraction interaction = ((AbstractCauldronBlockAccessor) cauldronBlock)
+							.botania_getInteractions().get(Items.BUCKET);
+					if (interaction != null) {
+						// pretend the cauldron is full, as otherwise the interaction might not empty it
+						BlockState fullState = blockState.hasProperty(LayeredCauldronBlock.LEVEL)
+								? blockState.setValue(LayeredCauldronBlock.LEVEL, LayeredCauldronBlock.MAX_FILL_LEVEL)
+								: blockState;
+						var result = interaction.interact(fullState, level, blockPos, player, interactionHand, itemStack);
+						if (result.consumesAction()) {
+							// Botania: some particles
+							spawnParticles(level, blockPos);
+						}
+						if (!ItemStack.matches(player.getItemInHand(interactionHand), itemStack)) {
+							// don't replace with a filled bucket
+							player.setItemInHand(interactionHand, itemStack);
+						}
+						return new InteractionResultHolder<>(result, itemStack);
+					}
 				}
 
-				return InteractionResultHolder.fail(itemStack);
-			} else {
-				return InteractionResultHolder.fail(itemStack);
 			}
+			return InteractionResultHolder.fail(itemStack);
+		}
+	}
+
+	private static void spawnParticles(Level level, BlockPos blockPos) {
+		for (int x = 0; x < 5; x++) {
+			level.addParticle(ParticleTypes.POOF, blockPos.getX() + Math.random(), blockPos.getY() + Math.random(), blockPos.getZ() + Math.random(), 0, 0, 0);
 		}
 	}
 

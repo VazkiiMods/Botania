@@ -21,13 +21,46 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort. For the time being, updates still target Minecraft 1.20.1.
 
 * Add: Several missing Forge tags for blocks, items, and entities
+* Add: Munchdew displays particles while in cooldown, similar to a Thermalily (this used to be a thing a long time ago already, but somehow got lost)
+* Add: Creating past versions of player heads is now possible by replacing the name tag with a written book, containing
+  the base64 texture reference data you can find in the player head commands provided by various player skin websites
+* Add: While not in Creative mode, the "Pick Block" feature (usually middle mouse button) can also select certain block
+  providers, such as the Rod of the Lands or Black Hole Talisman, if the targeted block's item itself is not available
+* Add: Cauldrons can be filled with the Rod of the Seas (as if using a water bucket) and emptied with the
+  Extrapolated Bucket (as if using an empty bucket on a full version of the cauldron)
+* Add: Short descriptions for lexicon categories (based on contributions by bellasalmonella)
+* Add: Incense plate supports fire charges and custom igniters (e.g. Tinkers Flint and Brick) to light the incense stick
+* Change: Sparks can no longer be hit by projectiles other than mana bursts
+* Change: Fake players using a wand of the forest on either type of spark are now treated as if the player was sneaking, since that is likely the intended interaction
+* Change: Reach with the Worldshaper's Astrolabe is now affected by effects that change the player's reach, such as the Ring of Far Reach
 * Fix: The boss bar for the gaia ritual no longer starts full and quickly empties at the start of the spawn sequence
+* Fix: Potential NullPointerException in Bergamute's SoundEngineMixin (LostLuma)
+* Fix: Potential divide-by-zero error related to Runic Altar wand HUD rendering (YukkuriC)
+* Fix: Ancient will recipe accepting additional items (YukkuriC)
+* Fix: Tiny Potato holding mob heads backwards
+* Fix: Portal explosion actually breaks blocks again, as intended
+* Fix: Remaining content in brew vials/flasks and mana bottles would not display properly
+* Fix: Monocle item frame overlay did not properly expand background frame to account for multi-row contained items display
+* Fix: Some spark transfers towards a pool linked with a Mana Mirror sometimes shut down and fail to start up again when the pool is not full anymore
+* Fix: Rod of the Lands/Depths behaved differently than a block of dirt or cobblestone when aiming at a replaceable block, such as grass or fern (NEstoll)
+* Fix: Unbreaking enchantment properly reduces mana consumption for preventing damage to mana-repairable equipment (NEstoll)
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
+* Internal: Changed the way platform-specific loading of API implementations is handled to hopefully prevent a loading
+  failure that has popped up especially in Patchouli on NeoForge but apparently can also happen to Botania on Forge
+* Recipe changes:\
+  (only significant uses of item tags have been added, a more thorough use of tags is postponed until 1.21)
+  * On Forge, any recipe that uses colorless glass blocks or panes is now defined using the corresponding item tags
+  * Lens combining uses the slimeballs item tag on Forge
+  * Phantom Ink and Floral Fertilizer recipes use the dye item tags on both Forge and Fabric
+  * The Phantom Ink recipe uses the any-color glass item tags on both Forge and Fabric
 * Language updates:
-  * zh_cn updated (Dawnwalker666)
+  * tr_tr added (RuyaSavascisi)
+  * pt_br overhauled (Coffee-0xFF)
+  * ru_ru overhauled (kkylern)
   * zh_tw overhauled (Dawnwalker666, EvanHsieh0415, lakejason0, notlin4, williewillus)
   * ko_kr updated (UnineVesiKass)
+  * zh_cn updated (Dawnwalker666)
 
 ---
 

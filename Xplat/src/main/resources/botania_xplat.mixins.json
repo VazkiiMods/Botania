@@ -4,6 +4,7 @@
   "package": "vazkii.botania.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AbstractCauldronBlockAccessor",
     "AbstractFurnaceBlockEntityAccessor",
     "AbstractHorseAccessor",
     "AbstractMinecartMixin",
@@ -30,6 +31,7 @@
     "HurtByTargetGoalAccessor",
     "HurtByTargetGoalMixin",
     "InventoryAccessor",
+    "InventoryMixin",
     "ItemEntityAccessor",
     "ItemEntityMixin",
     "ItemMixin",
@@ -49,6 +51,7 @@
     "PlacementContextMixin",
     "PlayerMixin",
     "PollinateGoalMixin",
+    "ProjectileAccessor",
     "ProtectionEnchantmentMixin",
     "RandomizableContainerBlockEntityAccessor",
     "RecipeManagerAccessor",

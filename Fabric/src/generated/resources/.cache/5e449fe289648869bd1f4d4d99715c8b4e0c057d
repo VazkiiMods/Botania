@@ -1,4 +1,5 @@
 // 1.20.1	Botania/Tags for minecraft:item
+dfbc18cbf412594282532933002d270b34b3f16f data/botania/tags/items/lens_glue.json
 7f275353962137f9a85114283031f4b2331d5f83 data/c/tags/items/bows.json
 a2c6dc00969bcdc7fd7ec67b4265f6532e44980c data/c/tags/items/glass.json
 a2c6dc00969bcdc7fd7ec67b4265f6532e44980c data/c/tags/items/glass_blocks.json

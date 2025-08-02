@@ -114,7 +114,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 
 				int contentsWidth = Math.min(MAX_CONTENTS_COLUMNS, contentItems.size()) * 18;
 				int contentsHeight = Math.min(MAX_CONTENTS_ROWS + 1,
-						(contentItems.size() - (MAX_CONTENTS_COLUMNS - 1)) / MAX_CONTENTS_COLUMNS + 1) * 18;
+						(contentItems.size() - 1) / MAX_CONTENTS_COLUMNS + 1) * 18;
 				RenderHelper.renderHUDBox(gui, x - 4, y - 4,
 						x + Math.max(textWidth, contentsWidth) + 24, y + textYOffset + contentsHeight + 20);
 				gui.renderItem(frameItem, x, y);

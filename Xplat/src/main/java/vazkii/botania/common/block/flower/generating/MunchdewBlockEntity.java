@@ -17,9 +17,11 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -45,6 +47,17 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 		super.tickFlower();
 
 		if (getLevel().isClientSide) {
+			if (cooldown > 0) {
+				if (Math.random() < 0.5) {
+					Vec3 offset = getLevel().getBlockState(getBlockPos()).getOffset(getLevel(), getBlockPos());
+					double x = getBlockPos().getX() + offset.x + 0.2 + Math.random() * 0.6;
+					double y = getBlockPos().getY() + offset.y + 0.6 + Math.random() * 0.3;
+					double z = getBlockPos().getZ() + offset.z + 0.2 + Math.random() * 0.6;
+					WispParticleData data = WispParticleData.wisp(0.05F, 0.5F, 0.5F, 0.5F);
+					getLevel().addParticle(data, x, y, z, 0, 0.025F, 0);
+				}
+				cooldown--;
+			}
 			return;
 		}
 

@@ -11,6 +11,7 @@ package vazkii.botania.common.item.rod;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +23,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -31,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.mixin.AbstractCauldronBlockAccessor;
 
 public class SeasRodItem extends Item {
 
@@ -57,11 +60,28 @@ public class SeasRodItem extends Item {
 			if (level.mayInteract(player, blockPos) && player.mayUseItemAt(blockPos2, direction, itemStack)) {
 				BlockState blockState;
 				blockState = level.getBlockState(blockPos);
+				// Botania - consume mana, check for fillable cauldron
+				boolean manaSuccess = ManaItemHandler.instance().requestManaExactForTool(itemStack, player, COST, true);
+				if (manaSuccess && !player.isShiftKeyDown() && blockState.getBlock() instanceof AbstractCauldronBlock cauldronBlock) {
+					// try filling cauldron with water (note: this can replace existing contents)
+					CauldronInteraction interaction = ((AbstractCauldronBlockAccessor) cauldronBlock)
+							.botania_getInteractions().get(Items.WATER_BUCKET);
+					if (interaction != null) {
+						var result = interaction.interact(blockState, level, blockPos, player, interactionHand, itemStack);
+						if (!ItemStack.matches(player.getItemInHand(interactionHand), itemStack)) {
+							// don't replace with an empty bucket
+							player.setItemInHand(interactionHand, itemStack);
+						}
+						if (result.consumesAction()) {
+							spawnParticles(player, blockPos);
+						}
+						return new InteractionResultHolder<>(result, itemStack);
+					}
+				}
+
 				BlockPos blockPos3 = blockState.getBlock() instanceof LiquidBlockContainer ? blockPos : blockPos2;
-				// Botania - consume mana
-				boolean success =
-						ManaItemHandler.instance().requestManaExactForTool(itemStack, player, COST, true)
-								&& ((BucketItem) Items.WATER_BUCKET).emptyContents(player, level, blockPos3, blockHitResult);
+				boolean success = manaSuccess && ((BucketItem) Items.WATER_BUCKET)
+						.emptyContents(player, level, blockPos3, blockHitResult);
 				if (success) {
 					// No extra content for water buckets - this.checkExtraContent(player, level, itemStack, blockPos3);
 					if (player instanceof ServerPlayer serverPlayer) {
@@ -70,17 +90,19 @@ public class SeasRodItem extends Item {
 
 					player.awardStat(Stats.ITEM_USED.get(this));
 					// Botania - particles
-					SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.2F, 0.2F, 1F, 5);
-					for (int i = 0; i < 6; i++) {
-						player.level().addParticle(data, blockPos3.getX() + Math.random(), blockPos3.getY() + Math.random(), blockPos3.getZ() + Math.random(), 0, 0, 0);
-					}
+					spawnParticles(player, blockPos3);
 					return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
-				} else {
-					return InteractionResultHolder.fail(itemStack);
 				}
-			} else {
-				return InteractionResultHolder.fail(itemStack);
 			}
+			return InteractionResultHolder.fail(itemStack);
+		}
+	}
+
+	private static void spawnParticles(Player player, BlockPos blockPos3) {
+		SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.2F, 0.2F, 1F, 5);
+		for (int i = 0; i < 6; i++) {
+			player.level().addParticle(data, blockPos3.getX() + Math.random(),
+					blockPos3.getY() + Math.random(), blockPos3.getZ() + Math.random(), 0, 0, 0);
 		}
 	}
 

@@ -348,8 +348,8 @@ public final class BotaniaItems {
 	// Brewing
 	public static final Item vial = make(prefix(LibItemNames.VIAL), new VialItem(defaultBuilder()));
 	public static final Item flask = make(prefix(LibItemNames.FLASK), new VialItem(defaultBuilder()));
-	public static final Item brewVial = make(prefix(LibItemNames.BREW_VIAL), new BaseBrewItem(unstackable(), 4, 32, () -> vial));
-	public static final Item brewFlask = make(prefix(LibItemNames.BREW_FLASK), new BaseBrewItem(unstackable(), 6, 24, () -> flask));
+	public static final BaseBrewItem brewVial = make(prefix(LibItemNames.BREW_VIAL), new BaseBrewItem(unstackable(), 4, 32, () -> vial));
+	public static final BaseBrewItem brewFlask = make(prefix(LibItemNames.BREW_FLASK), new BaseBrewItem(unstackable(), 6, 24, () -> flask));
 	public static final Item bloodPendant = make(prefix(LibItemNames.BLOOD_PENDANT), new TaintedBloodPendantItem(unstackable()));
 	public static final Item incenseStick = make(prefix(LibItemNames.INCENSE_STICK), new IncenseStickItem(unstackable()));
 

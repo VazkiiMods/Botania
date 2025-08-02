@@ -40,6 +40,7 @@ import vazkii.botania.api.corporea.CorporeaNode;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.BotaniaItems;
@@ -255,7 +256,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 		if (isAlive() && !stack.isEmpty()) {
 			if (stack.getItem() instanceof WandOfTheForestItem) {
 				if (!level().isClientSide) {
-					if (player.isShiftKeyDown()) {
+					if (player.isShiftKeyDown() || !PlayerHelper.isTruePlayer(player)) {
 						dropAndKill();
 						if (isMaster()) {
 							restartNetwork();

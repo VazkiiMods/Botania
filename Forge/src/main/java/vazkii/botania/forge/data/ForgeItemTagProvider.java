@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -71,6 +72,8 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 		this.copy(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
 		this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
 		this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+
+		this.tag(BotaniaTags.Items.LENS_GLUE).addTag(Tags.Items.SLIMEBALLS).add(Items.HONEY_BOTTLE);
 
 		this.generateToolTags();
 		this.generateAccessoryTags();

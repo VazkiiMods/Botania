@@ -83,8 +83,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.sorted()
 				.forEach(item -> builder.add(ResourceKey.create(Registries.ITEM, item)));
 
-		this.tag(BotaniaTags.Items.LENS_GLUE).add(Items.SLIME_BALL).add(Items.HONEY_BOTTLE);
-
 		this.tag(ItemTags.PIGLIN_LOVED).add(BotaniaBlocks.alchemyCatalyst.asItem(), divaCharm,
 				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), monocle);
 		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
@@ -236,5 +234,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.SEED_APOTHECARY_REAGENT)
 				.add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS)
 				.addOptionalTag(new ResourceLocation("forge", "seeds"));
+
+		this.tag(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER)
+				.add(dirtRod, skyDirtRod, cobbleRod, blackHoleTalisman);
 	}
 }

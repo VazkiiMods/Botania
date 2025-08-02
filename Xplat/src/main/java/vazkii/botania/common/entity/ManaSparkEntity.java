@@ -42,6 +42,7 @@ import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.SparkAugmentItem;
@@ -185,11 +186,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			}
 		}
 
-		if (receiver != null) {
-			receiverWasFull = receiver.isFull();
-		} else {
-			receiverWasFull = true;
-		}
+		checkReceiverFull();
 
 		if (!transfers.isEmpty()) {
 			int manaTotal = Math.min(TRANSFER_RATE * transfers.size(), receiver.getCurrentMana());
@@ -214,6 +211,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					int spend = Math.min(attached.getAvailableSpaceForMana(), (manaTotal - manaSpent) / (count + 1));
 					attachedReceiver.receiveMana(spend);
 					manaSpent += spend;
+					spark.checkReceiverFull();
 
 					particlesTowards(spark.entity());
 				}
@@ -222,6 +220,16 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		}
 
 		firstTick = false;
+	}
+
+	@Override
+	public void checkReceiverFull() {
+		var receiver = getAttachedManaReceiver();
+		if (receiver != null) {
+			receiverWasFull = receiver.isFull();
+		} else {
+			receiverWasFull = true;
+		}
 	}
 
 	@Override
@@ -294,7 +302,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			SparkUpgradeType upgrade = getUpgrade();
 			if (stack.getItem() instanceof WandOfTheForestItem) {
 				if (!level().isClientSide) {
-					if (player.isShiftKeyDown()) {
+					if (player.isShiftKeyDown() || !PlayerHelper.isTruePlayer(player)) {
 						if (upgrade != SparkUpgradeType.NONE) {
 							spawnAtLocation(SparkAugmentItem.getByType(upgrade), 0F);
 							setUpgrade(SparkUpgradeType.NONE);

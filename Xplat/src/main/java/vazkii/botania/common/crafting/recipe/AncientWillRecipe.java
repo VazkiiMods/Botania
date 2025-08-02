@@ -37,14 +37,18 @@ public class AncientWillRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof AncientWillItem && !foundWill) {
-					foundWill = true;
-				} else if (!foundItem) {
-					if (stack.getItem() instanceof AncientWillContainer) {
-						foundItem = true;
-					} else {
+				if (stack.getItem() instanceof AncientWillItem) {
+					if (foundWill) {
 						return false;
 					}
+					foundWill = true;
+				} else if (stack.getItem() instanceof AncientWillContainer) {
+					if (foundItem) {
+						return false;
+					}
+					foundItem = true;
+				} else {
+					return false;
 				}
 			}
 		}

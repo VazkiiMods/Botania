@@ -9,7 +9,7 @@
 package vazkii.botania.api.mana;
 
 /**
- * Any Block or Block Entity with this capability has custom collision logic for bursts.
+ * Any Block, Block Entity, or Entity with this capability has custom collision logic for bursts.
  */
 public interface ManaCollisionGhost {
 	enum Behaviour {

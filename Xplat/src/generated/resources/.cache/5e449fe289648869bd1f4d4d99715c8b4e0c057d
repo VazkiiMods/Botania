@@ -14,7 +14,6 @@ cd746cb3108add01422a6af66cb32e676be1e267 data/botania/tags/items/functional_spec
 fd641d7d435b45d25d316ea4c8e3d56876c5be98 data/botania/tags/items/glimmering_dreamwood_logs.json
 8e451b134ff39f5e8b63661051926f2790fefd7c data/botania/tags/items/glimmering_livingwood_logs.json
 ac3888e68025d31c8c109b225689e7d69ad7f603 data/botania/tags/items/lens.json
-dfbc18cbf412594282532933002d270b34b3f16f data/botania/tags/items/lens_glue.json
 bbb827430199d1a6f3b27fc25e2df941f22dc660 data/botania/tags/items/livingwood_logs.json
 0f00c4dbb7edb499acbc720f3191a146183c01e7 data/botania/tags/items/loonium_blacklist.json
 80976d0e035f6163de9d5c190a3061a5fb95591f data/botania/tags/items/loonium_offhand_equipment.json
@@ -46,6 +45,7 @@ c9df24eb9ce8c7a82104f8e6d00de77d9f9d964c data/botania/tags/items/petals/light_gr
 560a5e9cb2b03d54fae5e5e535798d4703d55887 data/botania/tags/items/petals/red.json
 389071741d6387de0c358dd961fb9064c3351e64 data/botania/tags/items/petals/white.json
 9c75f4c9eac3c1858e3b5c6ddf3c62937f0a351f data/botania/tags/items/petals/yellow.json
+e0011be26312e716507d01814b302134da79d685 data/botania/tags/items/pickable_block_providers.json
 adfc7deaa7aa9d5425da095270745d58605b86ad data/botania/tags/items/rods.json
 311e1a38f6e8dd30b7546587a97d0f29d79ce72e data/botania/tags/items/runes.json
 977d965fe2a544539960279db0fa40a755349604 data/botania/tags/items/seed_apothecary_reagent.json

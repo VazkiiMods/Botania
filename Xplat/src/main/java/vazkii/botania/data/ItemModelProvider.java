@@ -42,6 +42,8 @@ import vazkii.botania.common.block.decor.FlowerMotifBlock;
 import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
+import vazkii.botania.common.item.BottledManaItem;
+import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.common.lib.LibMisc;
@@ -204,32 +206,10 @@ public class ItemModelProvider implements DataProvider {
 		singleGeneratedSuffixOverride(blackHoleTalisman, "_active", prefix("active"), 1.0, consumer);
 		items.remove(blackHoleTalisman);
 
-		OverrideHolder flaskOverrides = new OverrideHolder();
-		for (int i = 1; i <= 5; i++) {
-			ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(brewFlask, "_" + i);
-			GENERATED_1.create(overrideModel,
-					TextureMapping.layer0(flask).put(LAYER1, overrideModel),
-					consumer);
-
-			flaskOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i));
-		}
-		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(brewFlask),
-				TextureMapping.layer0(flask).put(LAYER1, TextureMapping.getItemTexture(brewFlask, "_0")),
-				flaskOverrides,
-				consumer);
+		registerBrewContainerOverrides(brewFlask, flask, consumer);
 		items.remove(brewFlask);
 
-		OverrideHolder vialOverrides = new OverrideHolder();
-		for (int i = 1; i <= 3; i++) {
-			ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(brewVial, "_" + i);
-			GENERATED_1.create(overrideModel,
-					TextureMapping.layer0(vial).put(LAYER1, overrideModel),
-					consumer);
-			vialOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i));
-		}
-		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(brewVial),
-				TextureMapping.layer0(vial).put(LAYER1, TextureMapping.getItemTexture(brewVial, "_0")),
-				vialOverrides, consumer);
+		registerBrewContainerOverrides(brewVial, vial, consumer);
 		items.remove(brewVial);
 
 		singleHandheldOverride(elementiumShears, prefix("item/dammitreddit"), prefix("reddit"), 1, consumer);
@@ -262,10 +242,10 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(magnetRingGreater);
 
 		OverrideHolder bottleOverrides = new OverrideHolder();
-		for (int i = 1; i <= 5; i++) {
+		for (int i = 1; i < BottledManaItem.SWIGS; i++) {
 			ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(manaBottle, "_" + i);
 			ModelTemplates.FLAT_ITEM.create(overrideModel, TextureMapping.layer0(overrideModel), consumer);
-			bottleOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i));
+			bottleOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i / (BottledManaItem.SWIGS - 1)));
 		}
 		GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(manaBottle),
 				TextureMapping.layer0(manaBottle),
@@ -354,6 +334,23 @@ public class ItemModelProvider implements DataProvider {
 						.add(dreamwoodWandBind, Pair.of(prefix("bindmode"), 1.0)),
 				consumer);
 		items.remove(dreamwoodWand);
+	}
+
+	private static void registerBrewContainerOverrides(BaseBrewItem brewItem, Item emptyItem,
+			BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
+		OverrideHolder flaskOverrides = new OverrideHolder();
+		for (int i = 1; i < brewItem.getSwigs(); i++) {
+			ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(brewItem, "_" + i);
+			GENERATED_1.create(overrideModel,
+					TextureMapping.layer0(emptyItem).put(LAYER1, overrideModel),
+					consumer);
+
+			flaskOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i / (brewItem.getSwigs() - 1)));
+		}
+		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(brewItem),
+				TextureMapping.layer0(emptyItem).put(LAYER1, TextureMapping.getItemTexture(brewItem, "_0")),
+				flaskOverrides,
+				consumer);
 	}
 
 	private void registerItemBlocks(Set<BlockItem> itemBlocks, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
