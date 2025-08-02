@@ -28,7 +28,7 @@ public class BotaniaMobEffects {
 	public static final Holder<MobEffect> SOUL_CROSS = create("soul_cross", new SoulCrossMobEffect());
 	public static final Holder<MobEffect> FEATHER_FEET = create("feather_feet", new FeatherfeetMobEffect());
 	public static final Holder<MobEffect> EMPTINESS = create("emptiness", new EmptinessMobEffect());
-	public static final Holder<MobEffect> BLOODTHRST = create("bloodthrst", new BloodthirstMobEffect());
+	public static final Holder<MobEffect> BLOODTHIRST = create("bloodthirst", new BloodthirstMobEffect());
 	public static final Holder<MobEffect> ALLURE = create("allure", new AllureMobEffect());
 	public static final Holder<MobEffect> CLEAR = create("clear", new AbsolutionMobEffect());
 

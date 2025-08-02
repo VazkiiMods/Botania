@@ -42,7 +42,7 @@ public class BotaniaBrews {
 	public static final Brew soulCross = make(10000, new MobEffectInstance(BotaniaMobEffects.SOUL_CROSS, 1800, 0));
 	public static final Brew featherfeet = make(7000, new MobEffectInstance(BotaniaMobEffects.FEATHER_FEET, 1800, 0));
 	public static final Brew emptiness = make(30000, new MobEffectInstance(BotaniaMobEffects.EMPTINESS, 7200, 0));
-	public static final Brew bloodthirst = make(20000, new MobEffectInstance(BotaniaMobEffects.BLOODTHRST, 7200, 0));
+	public static final Brew bloodthirst = make(20000, new MobEffectInstance(BotaniaMobEffects.BLOODTHIRST, 7200, 0));
 	public static final Brew overload = new Brew(0x232323, 12000, new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1800, 3), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1800, 2), new MobEffectInstance(MobEffects.WEAKNESS, 3600, 1), new MobEffectInstance(MobEffects.HUNGER, 200, 2));
 	public static final Brew clear = make(4000, new MobEffectInstance(BotaniaMobEffects.CLEAR, 0, 0));
 

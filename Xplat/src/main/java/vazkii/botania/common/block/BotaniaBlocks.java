@@ -405,8 +405,8 @@ public final class BotaniaBlocks {
 	public static final Block hopperhockPotted = make(potted(LibBlockNames.SUBTILE_HOPPERHOCK), BotaniaBlocks.flowerPot(hopperhock, 0));
 	public static final Block hopperhockChibiPotted = make(chibi(potted(LibBlockNames.SUBTILE_HOPPERHOCK)), BotaniaBlocks.flowerPot(hopperhockChibi, 0));
 
-	public static final Block tangleberrie = make(LibBlockNames.SUBTILE_TANGLEBERRIE, new SpecialFlowerBlock(BotaniaMobEffects.BLOODTHRST, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE));
-	public static final Block tangleberrieChibi = make(chibi(LibBlockNames.SUBTILE_TANGLEBERRIE), new SpecialFlowerBlock(BotaniaMobEffects.BLOODTHRST, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE_CHIBI));
+	public static final Block tangleberrie = make(LibBlockNames.SUBTILE_TANGLEBERRIE, new SpecialFlowerBlock(BotaniaMobEffects.BLOODTHIRST, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE));
+	public static final Block tangleberrieChibi = make(chibi(LibBlockNames.SUBTILE_TANGLEBERRIE), new SpecialFlowerBlock(BotaniaMobEffects.BLOODTHIRST, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE_CHIBI));
 	public static final Block tangleberrieFloating = make(floating(LibBlockNames.SUBTILE_TANGLEBERRIE), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE));
 	public static final Block tangleberrieChibiFloating = make(chibi(floating(LibBlockNames.SUBTILE_TANGLEBERRIE)), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.TANGLEBERRIE_CHIBI));
 	public static final Block tangleberriePotted = make(potted(LibBlockNames.SUBTILE_TANGLEBERRIE), BotaniaBlocks.flowerPot(tangleberrie, 0));
