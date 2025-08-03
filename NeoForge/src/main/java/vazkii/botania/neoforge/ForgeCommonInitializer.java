@@ -67,6 +67,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -143,6 +144,11 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 @Mod(LibMisc.MOD_ID)
 public class ForgeCommonInitializer {
 	public ForgeCommonInitializer(IEventBus modBus, ModContainer modContainer) {
+		// ensure API implementations are loaded
+		BotaniaAPI.LOGGER.debug("API instances: {}",
+				List.of(BotaniaAPI.instance(), XplatAbstractions.instance(),
+						CorporeaHelper.instance(), ManaItemHandler.instance()));
+
 		ForgeBotaniaConfig.setup(modContainer);
 		EquipmentHandler.init();
 		modBus.register(this);

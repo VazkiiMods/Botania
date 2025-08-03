@@ -226,4 +226,8 @@ public interface XplatAbstractions {
 	}
 
 	XplatAbstractions INSTANCE = ServiceUtil.findService(XplatAbstractions.class, null);
+
+	static XplatAbstractions instance() {
+		return INSTANCE;
+	}
 }

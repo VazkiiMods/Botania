@@ -62,7 +62,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaCollisionGhost;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.api.recipe.StateIngredientType;
 import vazkii.botania.client.fx.BotaniaParticles;
@@ -151,6 +153,11 @@ public class FabricCommonInitializer implements ModInitializer {
 	}
 
 	private void coreInit() {
+		// ensure API implementations are loaded
+		BotaniaAPI.LOGGER.debug("API instances: {}",
+				List.of(BotaniaAPI.instance(), XplatAbstractions.instance(),
+						CorporeaHelper.instance(), ManaItemHandler.instance()));
+
 		FiberBotaniaConfig.setup();
 		EquipmentHandler.init();
 		FabricPacketHandler.init();

@@ -45,4 +45,8 @@ public interface ClientXplatAbstractions {
 	void tessellateBlock(Level level, BlockState state, BlockPos pos, PoseStack ps, MultiBufferSource buffers, int overlay);
 
 	ClientXplatAbstractions INSTANCE = ServiceUtil.findService(ClientXplatAbstractions.class, null);
+
+	static ClientXplatAbstractions instance() {
+		return INSTANCE;
+	}
 }
