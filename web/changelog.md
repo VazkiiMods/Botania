@@ -44,6 +44,7 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Fix: Some spark transfers towards a pool linked with a Mana Mirror sometimes shut down and fail to start up again when the pool is not full anymore
 * Fix: Rod of the Lands/Depths behaved differently than a block of dirt or cobblestone when aiming at a replaceable block, such as grass or fern (NEstoll)
 * Fix: Unbreaking enchantment properly reduces mana consumption for preventing damage to mana-repairable equipment (NEstoll)
+* Fix: When slots of a Crafty Crate get locked while containing any items, those items are forcibly ejected
 * Internal: Optimized texture file compression
 * Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
 * Internal: Changed the way platform-specific loading of API implementations is handled to hopefully prevent a loading
