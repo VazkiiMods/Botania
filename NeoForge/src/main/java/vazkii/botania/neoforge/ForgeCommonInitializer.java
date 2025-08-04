@@ -246,7 +246,7 @@ public class ForgeCommonInitializer {
 				CreativeModeTab.builder()
 						.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
 						.icon(() -> new ItemStack(BotaniaItems.lexicon))
-						.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
+						.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
 						.backgroundTexture(
 								ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/container/creative_inventory/tab_botania.png"))
 						.withSearchBar()
