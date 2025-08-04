@@ -26,7 +26,6 @@ import org.joml.Matrix4f;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.SparkBaseEntity;
 import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Objects;
 import java.util.Random;
