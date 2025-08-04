@@ -229,7 +229,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				FabricItemGroup.builder()
 						.title(Component.translatable("itemGroup.botania").withStyle((style -> style.withColor(ChatFormatting.WHITE))))
 						.icon(() -> new ItemStack(BotaniaItems.lexicon))
-						.backgroundTexture(CreativeModeTab.createTextureLocation("botania"))
+						.backgroundTexture(botaniaRL("textures/gui/tab_botania.png"))
 						.build()
 		);
 		ItemGroupEvents.modifyEntriesEvent(BotaniaRegistries.BOTANIA_TAB_KEY)
