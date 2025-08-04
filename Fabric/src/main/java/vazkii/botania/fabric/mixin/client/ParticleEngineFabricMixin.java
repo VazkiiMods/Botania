@@ -51,10 +51,9 @@ public class ParticleEngineFabricMixin {
 	// (presumably the render types should define shaders instead of doing things they need to reset afterwards)
 	@Inject(
 		method = "render",
-		at = @At(value = "JUMP", opcode = Opcodes.GOTO),
+		at = @At(value = "JUMP", opcode = Opcodes.GOTO, ordinal = 0),
 		slice = @Slice(
-			from = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/BufferUploader;drawWithShader(Lcom/mojang/blaze3d/vertex/MeshData;)V"),
-			to = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;depthMask(Z)V")
+			from = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/BufferUploader;drawWithShader(Lcom/mojang/blaze3d/vertex/MeshData;)V")
 		)
 	)
 	private void afterRenderedType(LightTexture lightTexture, Camera camera, float partialTick, CallbackInfo ci,
