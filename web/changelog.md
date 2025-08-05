@@ -21,6 +21,7 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort. For the time being, updates still target Minecraft 1.20.1.
 
 * Fix: Botania's Creative inventory tab no longer randomly shows up among the vanilla tabs
+* Fix: Rod of the Sea and Extrapolated Bucket may vanish when interacting with cauldrons
 
 ---
 
