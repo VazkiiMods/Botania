@@ -23,6 +23,7 @@ of time the maintainers are able to spend on this effort. For the time being, up
 * Fix: Botania's Creative inventory tab no longer randomly shows up among the vanilla tabs
 * Fix: Rod of the Sea and Extrapolated Bucket may vanish when interacting with cauldrons
 * Fix: Partially reverted an internal change that needlessly caused an incompatibility with existing versions of ExtraBotany
+* Fix: Ensure spark textures and animated Tiara wings are animated in the presence of Sodium or its various Forge ports
 
 ---
 

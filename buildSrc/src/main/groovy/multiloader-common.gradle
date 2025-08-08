@@ -62,6 +62,13 @@ repositories {
             includeGroup('com.unascribed')
         }
     }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven" // for "here be no dragons", and Sodium/Embeddium
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 // Declare capabilities on the outgoing configurations.

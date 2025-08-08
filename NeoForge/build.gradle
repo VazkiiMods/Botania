@@ -66,5 +66,9 @@ dependencies {
 
     compileOnly "com.unascribed:ears-api:${ears_version}"
 
+    compileOnly("maven.modrinth:sodium:mc${minecraft_version}-${sodium_version}-neoforge") { transitive = false }
+
+    compileOnly("maven.modrinth:embeddium:${embeddium_version}+mc${minecraft_version}") { transitive = false }
+
     compileOnly group: 'org.jetbrains', name: 'annotations', version: '26.0.2'
 }

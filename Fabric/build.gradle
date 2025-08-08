@@ -56,13 +56,6 @@ repositories {
         name = "ParchmentMC"
         url = "https://maven.parchmentmc.net/"
     }
-    maven {
-        name = "Modrinth"
-        url = "https://api.modrinth.com/maven" // for "here be no dragons"
-        content {
-            includeGroup "maven.modrinth"
-        }
-    }
 }
 
 dependencies {
@@ -96,6 +89,8 @@ dependencies {
     modCompileOnly("teamreborn:energy:${team_reborn_energy_version}") { transitive = false }
 
     modCompileOnly "com.unascribed:ears-api:${ears_version}"
+
+    modCompileOnly("maven.modrinth:sodium:mc${minecraft_version}-${sodium_version}-fabric") { transitive = false }
 
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
 
