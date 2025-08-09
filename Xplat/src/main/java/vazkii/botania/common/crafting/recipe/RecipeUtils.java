@@ -50,7 +50,7 @@ public class RecipeUtils {
 				Ingredient ingr = ingredientsMissing.get(j);
 				if (ingr.test(input)) {
 					stackIndex = j;
-					IntSet slotsTracker = stackIndex < catalystsStart ? matchedCatalystSlots : matchedInputSlots;
+					IntSet slotsTracker = stackIndex >= catalystsStart ? matchedCatalystSlots : matchedInputSlots;
 					if (slotsTracker != null) {
 						slotsTracker.add(i);
 					}
@@ -60,7 +60,7 @@ public class RecipeUtils {
 
 			if (stackIndex != -1) {
 				ingredientsMissing.remove(stackIndex);
-				if (stackIndex >= catalystsStart) {
+				if (stackIndex < catalystsStart) {
 					catalystsStart--;
 				}
 			} else {

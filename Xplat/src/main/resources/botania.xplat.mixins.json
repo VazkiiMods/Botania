@@ -29,6 +29,7 @@
     "HopperBlockEntityAccessor",
     "HurtByTargetGoalAccessor",
     "HurtByTargetGoalMixin",
+    "IngredientAccessor",
     "InventoryAccessor",
     "InventoryMixin",
     "ItemEntityAccessor",

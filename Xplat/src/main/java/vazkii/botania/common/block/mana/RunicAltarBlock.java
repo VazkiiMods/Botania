@@ -11,7 +11,6 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -55,11 +54,18 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		RunicAltarBlockEntity altar = level.getBlockEntity(pos, BotaniaBlockEntities.RUNE_ALTAR).orElseThrow();
 		if (stack.isEmpty()) {
+			if (altar.canAddLastRecipe()) {
+				return altar.trySetLastRecipe(player);
+			} else if (!altar.isEmpty() && altar.manaToGet == 0) {
+				InventoryHelper.withdrawFromInventory(altar, player);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+				return ItemInteractionResult.sidedSuccess(level.isClientSide());
+			}
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
 
-		RunicAltarBlockEntity altar = level.getBlockEntity(pos, BotaniaBlockEntities.RUNE_ALTAR).orElseThrow();
 		boolean result = altar.addItem(player, stack, hand);
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 		if (result) {
@@ -67,20 +73,6 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 		}
 
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-	}
-
-	@Override
-	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		RunicAltarBlockEntity altar = level.getBlockEntity(pos, BotaniaBlockEntities.RUNE_ALTAR).orElseThrow();
-
-		if (altar.canAddLastRecipe()) {
-			return altar.trySetLastRecipe(player);
-		} else if (!altar.isEmpty() && altar.manaToGet == 0) {
-			InventoryHelper.withdrawFromInventory(altar, player);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
-			return InteractionResult.sidedSuccess(level.isClientSide());
-		}
-		return InteractionResult.PASS;
 	}
 
 	@Override

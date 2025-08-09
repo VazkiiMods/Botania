@@ -32,6 +32,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
+import vazkii.botania.mixin.IngredientAccessor;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -68,6 +69,11 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 				.map(ItemStack::getItem).forEach(ingredientItems::add);
 		Stream.of(catalysts).flatMap(catalyst -> Stream.of(catalyst.getItems()))
 				.map(ItemStack::getItem).forEach(catalystItems::add);
+
+		// HACK: Reset cached items lists of ingredients, because these might be empty right after world load.
+		// (This also means the validation is not reliable on world load, only on datagen and datapack reload.)
+		Stream.of(ingredients).forEach(ingr -> ((IngredientAccessor) ingr).botania_setItemStacks(null));
+		Stream.of(catalysts).forEach(ingr -> ((IngredientAccessor) ingr).botania_setItemStacks(null));
 
 		catalystItems.retainAll(ingredientItems);
 		if (!catalystItems.isEmpty()) {
