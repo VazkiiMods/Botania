@@ -18,7 +18,12 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supporting both Fabric and NeoForge) are ongoing.
 We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
-of time the maintainers are able to spend on this effort. For the time being, updates still target Minecraft 1.20.1.
+of time the maintainers are able to spend on this effort.
+In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
+
+---
+
+{% include changelog_header.html version="1.20.1-450" %}
 
 * Add: Support for Quark's attribute tooltips, displaying the Pixie Spawn Chance on Elementium armor and sword in icon form
 * Fix: Botania's Creative inventory tab no longer randomly shows up among the vanilla tabs
