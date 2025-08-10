@@ -469,7 +469,7 @@ public final class RenderHelper extends RenderType {
 	public static void renderIconFullBright(
 			PoseStack ms, VertexConsumer buffer,
 			float startX, float startY, float endX, float endY,
-			int uvStartX, int uvStartY, int uvEndX, int uvEndY,
+			float uvStartX, float uvStartY, float uvEndX, float uvEndY,
 			TextureAtlasSprite icon, int color, float alpha, int light) {
 		Matrix4f mat = ms.last().pose();
 		float red = ((color >> 16) & 0xFF) / 255F;
@@ -497,7 +497,7 @@ public final class RenderHelper extends RenderType {
 		renderIconFullBright(
 				ms, buffer,
 				uvStartX / 16F, uvStartY / 16F, uvEndX / 16F, uvEndY / 16F,
-				uvStartX, uvStartY, uvEndX, uvEndY,
+				uvStartX / 16F, uvStartY / 16F, uvEndX / 16F, uvEndY / 16F,
 				icon, color, alpha, light
 		);
 	}

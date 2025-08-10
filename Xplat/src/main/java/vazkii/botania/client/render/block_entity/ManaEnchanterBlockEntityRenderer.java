@@ -92,7 +92,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 			RenderHelper.renderIconFullBright(
 					ms, buffer,
 					0, 0, 5, 5,
-					0, 0, 16, 16,
+					0, 0, 1, 1,
 					this.overlaySprite, 0xFFFFFF, alpha, light
 			);
 		}
