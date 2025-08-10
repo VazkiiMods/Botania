@@ -26,6 +26,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -420,7 +421,15 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
 					if (progress == 1F) {
-						gui.renderFakeItem(new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
+						ItemStack[] reagents = altar.currentRecipe.value().getReagent().getItems();
+						ItemStack reagent;
+						if (reagents.length == 0) {
+							reagent = new ItemStack(Items.BARRIER);
+						} else {
+							int idx = (int) ((altar.level.getGameTime() / 20) % reagents.length);
+							reagent = reagents[idx];
+						}
+						gui.renderFakeItem(reagent, xc + radius + 16, yc + 8);
 						ms.pushPose();
 						ms.translate(0, 0, 100);
 						// If the player is holding a WandOfTheForestItem or has one in their inventory, render that instead of a generic twigWand

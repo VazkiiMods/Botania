@@ -50,7 +50,7 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 		int numCatalysts = catalysts.length;
 		Preconditions.checkArgument(numIngredients + numCatalysts > 0, "Must have at least one ingredient or catalyst");
 		Preconditions.checkArgument(numIngredients + numCatalysts <= 16, "Cannot have more than 16 ingredients and/or catalysts");
-		validateNoCatalystsInIngredients(ingredients, catalysts);
+		validateIngredients(ingredients, catalysts, reagent);
 		this.output = output;
 		this.reagent = reagent;
 		this.ingredients = NonNullList.of(Ingredient.EMPTY, ingredients);
@@ -58,27 +58,49 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 		this.mana = mana;
 	}
 
-	private void validateNoCatalystsInIngredients(Ingredient[] ingredients, Ingredient[] catalysts) {
-		if (ingredients.length == 0 || catalysts.length == 0) {
-			return;
-		}
-
+	private void validateIngredients(Ingredient[] ingredients, Ingredient[] catalysts, Ingredient reagent) {
 		var ingredientItems = new ReferenceOpenHashSet<Item>(ingredients.length);
 		var catalystItems = new ReferenceOpenHashSet<Item>(catalysts.length);
+		var reagentItems = new ReferenceOpenHashSet<Item>(1);
 		Stream.of(ingredients).flatMap(ingredient -> Stream.of(ingredient.getItems()))
 				.map(ItemStack::getItem).forEach(ingredientItems::add);
 		Stream.of(catalysts).flatMap(catalyst -> Stream.of(catalyst.getItems()))
 				.map(ItemStack::getItem).forEach(catalystItems::add);
+		Stream.of(reagent.getItems()).map(ItemStack::getItem).forEach(reagentItems::add);
 
 		// HACK: Reset cached items lists of ingredients, because these might be empty right after world load.
 		// (This also means the validation is not reliable on world load, only on datagen and datapack reload.)
 		Stream.of(ingredients).forEach(ingr -> ((IngredientAccessor) ingr).botania_setItemStacks(null));
 		Stream.of(catalysts).forEach(ingr -> ((IngredientAccessor) ingr).botania_setItemStacks(null));
+		((IngredientAccessor) reagent).botania_setItemStacks(null);
 
-		catalystItems.retainAll(ingredientItems);
-		if (!catalystItems.isEmpty()) {
-			throw new IllegalArgumentException("The following item types can match both as ingredient and as catalyst: " + catalystItems);
+		var ingredientsOverlap = ingredientItems.clone();
+		ingredientsOverlap.retainAll(catalystItems);
+		if (!ingredientsOverlap.isEmpty()) {
+			throw new IllegalArgumentException("The following item types can match both as ingredient and as catalyst: " + ingredientsOverlap);
 		}
+
+		ingredientItems.retainAll(reagentItems);
+		if (!ingredientItems.isEmpty()) {
+			throw new IllegalArgumentException("The following item types can match both as ingredient and as reagent: " + ingredientItems);
+		}
+
+		catalystItems.retainAll(reagentItems);
+		if (!catalystItems.isEmpty()) {
+			throw new IllegalArgumentException("The following item types can match both as catalyst and as reagent: " + catalystItems);
+		}
+
+		// fallback check: test ingredient, catalyst and reagent definitions against each other directly
+		List<Ingredient> ingredientList = List.of(ingredients);
+		List<Ingredient> catalystsList = List.of(catalysts);
+		if (ingredientList.contains(reagent) || catalystsList.contains(reagent)) {
+			throw new IllegalArgumentException("Reagent definition must not occur in ingredients or catalysts: " + reagent);
+		}
+		if (Stream.of(catalysts).anyMatch(ingredientList::contains)) {
+			throw new IllegalArgumentException("Ingredients and catalysts must not contain identical entries: %s/%s"
+					.formatted(ingredientList, catalystsList));
+		}
+
 	}
 
 	private static RunicAltarRecipe of(List<Ingredient> ingredients, List<Ingredient> catalysts, Ingredient reagent, int mana, ItemStack output) {
