@@ -1,0 +1,15 @@
+{
+  "botania:pixie_spawn_chance": {
+    "display": {
+      "mainhand": "percentage",
+      "offhand": "percentage",
+      "feet": "percentage",
+      "legs": "percentage",
+      "chest": "percentage",
+      "head": "percentage",
+      "potion": "percentage"
+    },
+    "texture": "botania:attribute/pixie_spawn_chance",
+    "base_value": 0
+  }
+}

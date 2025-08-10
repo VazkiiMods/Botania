@@ -20,6 +20,7 @@ Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supportin
 We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
 of time the maintainers are able to spend on this effort. For the time being, updates still target Minecraft 1.20.1.
 
+* Add: Support for Quark's attribute tooltips, displaying the Pixie Spawn Chance on Elementium armor and sword in icon form
 * Fix: Botania's Creative inventory tab no longer randomly shows up among the vanilla tabs
 * Fix: Rod of the Sea and Extrapolated Bucket may vanish when interacting with cauldrons
 * Fix: Partially reverted an internal change that needlessly caused an incompatibility with existing versions of ExtraBotany
