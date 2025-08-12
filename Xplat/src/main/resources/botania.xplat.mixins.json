@@ -10,6 +10,7 @@
     "AbstractHorseAccessor",
     "AbstractMinecartMixin",
     "AnimalAccessor",
+    "ArmadilloAccessor",
     "BaseSpawnerMixin",
     "BeeMixin",
     "BiomeAccessor",

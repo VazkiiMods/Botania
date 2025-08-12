@@ -15,8 +15,10 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,6 +29,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.mixin.ArmadilloAccessor;
 import vazkii.botania.mixin.LivingEntityAccessor;
 import vazkii.botania.mixin.MushroomCowAccessor;
 
@@ -40,6 +43,7 @@ public class DrumOfTheGatheringBlock extends DrumBlock {
 	public static final int GATHER_RANGE = 10;
 	public static final int MINIMUM_REMAINING_EGG_TIME = 600;
 	public static final int STARTLED_EGG_TIME = 200;
+	public static final int MINIMUM_ARMADILLO_STARTLED_TIME = 50;
 
 	public DrumOfTheGatheringBlock(Properties builder) {
 		super(builder);
@@ -54,6 +58,9 @@ public class DrumOfTheGatheringBlock extends DrumBlock {
 		for (Mob mob : mobs) {
 			if (mob instanceof Chicken chicken && !chicken.isBaby() && !chicken.isChickenJockey()) {
 				speedUpEggLaying(chicken);
+			}
+			if (mob instanceof Armadillo armadillo) {
+				speedUpScuteDropping(armadillo);
 			}
 			if (mob.getType().is(BotaniaTags.Entities.DRUM_MILKABLE) && !mob.isBaby()) {
 				convertNearby(mob, Items.BUCKET, Items.MILK_BUCKET);
@@ -88,6 +95,22 @@ public class DrumOfTheGatheringBlock extends DrumBlock {
 		} else if (chicken.eggTime < STARTLED_EGG_TIME && chicken.eggTime > 1) {
 			chicken.eggTime = 1;
 			((LivingEntityAccessor) chicken).botania_playHurtSound(chicken.damageSources().magic());
+		}
+	}
+
+	private static void speedUpScuteDropping(Armadillo armadillo) {
+		// some adult armadillos might eventually get used to it
+		boolean startle = armadillo.isBaby() || armadillo.tickCount > 10
+				&& (Math.abs(armadillo.getUUID().getMostSignificantBits()) % 11) / Math.log(armadillo.tickCount) < 1;
+		if (!armadillo.isBaby()) {
+			int scuteTime = Math.max(((ArmadilloAccessor) armadillo).botania_getScuteTime() / 2 - 20,
+					armadillo.isScared() || !startle ? 0 : 5);
+			((ArmadilloAccessor) armadillo).botania_setScuteTime(scuteTime);
+		}
+		if (startle && armadillo.getBrain().getTimeUntilExpiry(MemoryModuleType.DANGER_DETECTED_RECENTLY) < MINIMUM_ARMADILLO_STARTLED_TIME) {
+			long startleTimeModifier = (int) Math.abs(armadillo.getUUID().getMostSignificantBits()) % 20;
+			armadillo.getBrain().setMemoryWithExpiry(MemoryModuleType.DANGER_DETECTED_RECENTLY, true,
+					MINIMUM_ARMADILLO_STARTLED_TIME + startleTimeModifier);
 		}
 	}
 
