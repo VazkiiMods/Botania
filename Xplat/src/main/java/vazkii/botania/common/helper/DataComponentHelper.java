@@ -39,6 +39,19 @@ public final class DataComponentHelper {
 	}
 
 	/**
+	 * Sets an Integer component of the ItemStack to the specified value.
+	 * If the value is negative, that component is removed instead.
+	 */
+	@Contract(mutates = "param1")
+	public static void setIntNonNegative(ItemStack stack, DataComponentType<Integer> component, int value) {
+		if (value < 0) {
+			stack.remove(component);
+		} else {
+			stack.set(component, value);
+		}
+	}
+
+	/**
 	 * Ensures a {@link Unit} component is present on the ItemStack if the value is true,
 	 * otherwise ensures that component is not present.
 	 */

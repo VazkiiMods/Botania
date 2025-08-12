@@ -84,7 +84,7 @@ public class ShadedMesaRodItem extends Item {
 		if (ticksTillExpire >= 0) {
 			ticksTillExpire--;
 		}
-		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.REMAINING_TICKS, ticksTillExpire);
+		DataComponentHelper.setIntNonNegative(stack, BotaniaDataComponents.REMAINING_TICKS, ticksTillExpire);
 	}
 
 	@SoftImplement("IItemExtension")
