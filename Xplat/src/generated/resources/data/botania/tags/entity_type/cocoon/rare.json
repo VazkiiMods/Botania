@@ -12,6 +12,7 @@
     "minecraft:turtle",
     "minecraft:goat",
     "minecraft:camel",
+    "minecraft:armadillo",
     {
       "id": "quark:frog",
       "required": false
