@@ -57,7 +57,10 @@ public class TinyPotatoBlockItem extends BlockItem {
 		}
 	}
 
-	public static boolean isEnchantedName(Component name, @Nullable StringBuilder nameBuilder) {
+	public static boolean isEnchantedName(@Nullable Component name, @Nullable StringBuilder nameBuilder) {
+		if (name == null) {
+			return false;
+		}
 		String trimmed = name.getString().trim();
 		var nameString = trimmed.toLowerCase(Locale.ROOT);
 		for (var prefix : ENCHANTMENT_NAMES) {
