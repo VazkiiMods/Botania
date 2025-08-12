@@ -41,8 +41,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, PhantomInkable {
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
@@ -78,7 +76,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 
 	@SoftImplement("IItemExtension")
 	public final ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-		return hasPhantomInk(stack) ? botaniaRL(ResourcesLib.MODEL_INVISIBLE_ARMOR) : getArmorTextureAfterInk(stack, slot);
+		return hasPhantomInk(stack) ? ResourceLocation.parse(ResourcesLib.MODEL_INVISIBLE_ARMOR) : getArmorTextureAfterInk(stack, slot);
 	}
 
 	public ResourceLocation getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
