@@ -91,7 +91,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 			RecipeHolder<TerrestrialAgglomerationRecipe> recipe = self.getCurrentRecipe(inv);
 			if (recipe != null) {
 				removeMana = false;
-				ManaSpark spark = self.getAttachedSpark();
+				ManaSpark spark = SparkAttachable.getAttachedSpark(level, self.getBlockPos());
 				SparkHelper.registerTransferFromSparksAround(spark, level, worldPosition);
 				if (self.mana > 0) {
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);

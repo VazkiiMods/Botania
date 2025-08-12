@@ -241,7 +241,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 
 			advanceStage();
 		} else {
-			SparkHelper.registerTransferFromSparksAround(getAttachedSpark(), level, worldPosition);
+			SparkHelper.registerTransferFromSparksAround(SparkAttachable.getAttachedSpark(level, getBlockPos()), level, worldPosition);
 			if (stageTicks % 5 == 0) {
 				sync();
 			}

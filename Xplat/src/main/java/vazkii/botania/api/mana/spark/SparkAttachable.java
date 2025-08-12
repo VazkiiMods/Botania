@@ -18,7 +18,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.UnknownNullability;
 
 import java.util.List;
 
@@ -54,8 +53,8 @@ public interface SparkAttachable {
 	 * to check for Spark entities above using world.getEntitiesWithinAABB()
 	 */
 	@Nullable
-	default ManaSpark getAttachedSpark() {
-		List<Entity> sparks = getLevel().getEntitiesOfClass(Entity.class, new AABB(getBlockPos().above()), Predicates.instanceOf(ManaSpark.class));
+	static ManaSpark getAttachedSpark(Level level, BlockPos blockPos) {
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(blockPos.above()), Predicates.instanceOf(ManaSpark.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.getFirst();
 			return (ManaSpark) e;
@@ -69,8 +68,4 @@ public interface SparkAttachable {
 	 * transferring mana to it should cancel their transfer.
 	 */
 	boolean areIncomingTransfersDone();
-
-	BlockPos getBlockPos();
-	@UnknownNullability
-	Level getLevel();
 }

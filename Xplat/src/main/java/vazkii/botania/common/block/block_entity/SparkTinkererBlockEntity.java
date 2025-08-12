@@ -22,7 +22,9 @@ import vazkii.botania.common.item.SparkAugmentItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity {
 	public SparkTinkererBlockEntity(BlockPos pos, BlockState state) {
@@ -36,24 +38,26 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 
 		ItemStack changeStack = getItemHandler().getItem(0);
 		List<SparkAttachable> attachables = new ArrayList<>();
+		Map<SparkAttachable, ManaSpark> attachedSparks = new LinkedHashMap<>();
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			var pos = worldPosition.relative(dir);
 			var attach = XplatAbstractions.INSTANCE.findSparkAttachable(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), dir.getOpposite());
 			if (attach != null) {
-				ManaSpark spark = attach.getAttachedSpark();
+				ManaSpark spark = SparkAttachable.getAttachedSpark(level, pos);
 				if (spark != null) {
 					SparkUpgradeType upg = spark.getUpgrade();
 					SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((SparkAugmentItem) changeStack.getItem()).type;
 					if (upg != newUpg) {
 						attachables.add(attach);
+						attachedSparks.put(attach, spark);
 					}
 				}
 			}
 		}
 
-		if (attachables.size() > 0) {
+		if (!attachables.isEmpty()) {
 			SparkAttachable attach = attachables.get(level.random.nextInt(attachables.size()));
-			ManaSpark spark = attach.getAttachedSpark();
+			ManaSpark spark = attachedSparks.get(attach);
 			SparkUpgradeType upg = spark.getUpgrade();
 			ItemStack sparkStack = SparkAugmentItem.getByType(upg);
 			SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((SparkAugmentItem) changeStack.getItem()).type;
