@@ -76,7 +76,6 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 		ms.scale(scale, scale, scale);
 
 		ms.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
-		ms.mulPose(VecHelper.rotateY(180.0F));
 
 		float off = 0.25F;
 		ms.translate(0F, off, 0F);
