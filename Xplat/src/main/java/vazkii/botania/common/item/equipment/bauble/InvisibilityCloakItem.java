@@ -25,7 +25,7 @@ public class InvisibilityCloakItem extends BaubleItem {
 	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity living) {
 		MobEffectInstance effect = living.getEffect(MobEffects.INVISIBILITY);
-		if (effect != null && effect.getAmplifier() == -42) {
+		if (effect != null && effect.isInfiniteDuration()) {
 			living.removeEffect(MobEffects.INVISIBILITY);
 		}
 	}
@@ -38,11 +38,11 @@ public class InvisibilityCloakItem extends BaubleItem {
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {
-				if (player.getEffect(MobEffects.INVISIBILITY) != null) {
-					player.removeEffect(MobEffects.INVISIBILITY);
+				MobEffectInstance effect = player.getEffect(MobEffects.INVISIBILITY);
+				if (effect == null || effect.getDuration() <= 1 && !effect.isInfiniteDuration()) {
+					player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,
+							MobEffectInstance.INFINITE_DURATION, 0, true, true));
 				}
-
-				player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
 			}
 		}
 	}
