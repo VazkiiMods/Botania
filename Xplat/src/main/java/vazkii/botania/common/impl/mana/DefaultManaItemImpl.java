@@ -73,6 +73,6 @@ public record DefaultManaItemImpl(ItemStack stack) implements ManaItem {
 
 	@Override
 	public boolean isNoExport() {
-		return stack.has(BotaniaDataComponents.CAN_EXPORT_MANA_TO_ITEM);
+		return !stack.has(BotaniaDataComponents.CAN_EXPORT_MANA_TO_ITEM);
 	}
 }
