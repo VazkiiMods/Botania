@@ -20,13 +20,20 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.item.BlockChangedListenerBauble;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
@@ -34,7 +41,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.BiomeAccessor;
 
-public class SnowflakePendantItem extends BaubleItem {
+public class SnowflakePendantItem extends BaubleItem implements BlockChangedListenerBauble {
 
 	public SnowflakePendantItem(Properties props) {
 		super(props);
@@ -43,12 +50,7 @@ public class SnowflakePendantItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (!entity.level().isClientSide && !entity.isShiftKeyDown()) {
-			boolean lastOnGround = entity.onGround();
-			entity.setOnGround(true);
-			//todo FrostWalkerEnchantment.onEntityMoved(entity, entity.level(), entity.blockPosition(), 8);
-			entity.setOnGround(lastOnGround);
-
+		if (entity.level() instanceof ServerLevel level && !entity.isShiftKeyDown()) {
 			int x;
 			int y = Mth.floor(entity.getY());
 			int z;
@@ -59,10 +61,10 @@ public class SnowflakePendantItem extends BaubleItem {
 				z = Mth.floor(entity.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(x, y, z);
 
-				if (entity.level().isEmptyBlock(blockpos) && blockstate.canSurvive(entity.level(), blockpos)) {
-					var biome = entity.level().getBiome(blockpos);
+				if (level.isEmptyBlock(blockpos) && blockstate.canSurvive(level, blockpos)) {
+					var biome = level.getBiome(blockpos);
 					if (((BiomeAccessor) (Object) biome.value()).callGetTemperature(blockpos) < 0.9F) {
-						entity.level().setBlockAndUpdate(blockpos, blockstate);
+						level.setBlockAndUpdate(blockpos, blockstate);
 					}
 				}
 			}
@@ -71,6 +73,17 @@ public class SnowflakePendantItem extends BaubleItem {
 				entity.level().addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.defaultBlockState()), entity.getX() + entity.level().random.nextFloat() * 0.6 - 0.3, entity.getY() + 1.1, entity.getZ() + entity.level().random.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
 			}
 		}
+	}
+
+	@Override
+	public void onChangedBlock(ItemStack stack, LivingEntity entity, ServerLevel level, BlockPos pos) {
+		boolean lastOnGround = entity.onGround();
+		entity.setOnGround(true);
+		Enchantment frostWalker = level.holderLookup(Registries.ENCHANTMENT).getOrThrow(Enchantments.FROST_WALKER).value();
+		for (var effect : frostWalker.getEffects(EnchantmentEffectComponents.LOCATION_CHANGED)) {
+			effect.effect().onChangedBlock(level, 1, new EnchantedItemInUse(stack, EquipmentSlot.FEET, entity), entity, entity.position(), false);
+		}
+		entity.setOnGround(lastOnGround);
 	}
 
 	// called via Curio API on Forge
