@@ -99,6 +99,9 @@ public class EyeOfTheFlugelItem extends RelicItem {
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity living) {
+		if (world.isClientSide()) {
+			return stack;
+		}
 		BlockPos loc = stack.getOrDefault(BotaniaDataComponents.BOUND_POSITIONS, Map.<ResourceLocation, BlockPos>of())
 				.get(world.dimension().location());
 		if (loc == null) {
