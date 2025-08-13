@@ -86,7 +86,7 @@ public class LifeAggregatorItem extends Item {
 
 				BlockEntity blockEntity = world.getBlockEntity(pos);
 				if (blockEntity instanceof SpawnerBlockEntity) {
-					blockEntity.loadWithComponents(mover.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag(),
+					blockEntity.loadWithComponents(mover.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag(),
 							world.registryAccess());
 				}
 				// must empty stack last, as otherwise components become inaccessible
@@ -119,7 +119,7 @@ public class LifeAggregatorItem extends Item {
 				}
 				stack.set(DataComponents.BLOCK_ENTITY_DATA,
 						// black-box serialized data; no need for metadata, or component transfer to this item
-						CustomData.of(spawnerBlockEntity.saveWithoutMetadata(world.registryAccess())));
+						CustomData.of(spawnerBlockEntity.saveWithId(world.registryAccess())));
 				world.destroyBlock(pos, false);
 				if (player != null) {
 					player.getCooldowns().addCooldown(this, 20);
