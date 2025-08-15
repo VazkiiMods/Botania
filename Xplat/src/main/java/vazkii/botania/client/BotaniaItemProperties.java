@@ -19,6 +19,7 @@ import vazkii.botania.common.item.relic.FruitOfGrisaiaItem;
 import vazkii.botania.common.item.rod.SkiesRodItem;
 import vazkii.botania.network.TriConsumer;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -38,9 +39,13 @@ public final class BotaniaItemProperties {
 
 		ResourceLocation vuvuzelaId = botaniaRL("vuvuzela");
 		ClampedItemPropertyFunction isVuvuzela = (stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
-		consumer.accept(BotaniaItems.grassHorn, vuvuzelaId, isVuvuzela);
-		consumer.accept(BotaniaItems.leavesHorn, vuvuzelaId, isVuvuzela);
-		consumer.accept(BotaniaItems.snowHorn, vuvuzelaId, isVuvuzela);
+		// same as goat horn:
+		ResourceLocation tootingId = ResourceLocation.withDefaultNamespace("tooting");
+		ClampedItemPropertyFunction isTooting = (stack, level, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1 : 0;
+		for (HornItem hornItem : Arrays.asList(BotaniaItems.grassHorn, BotaniaItems.leavesHorn, BotaniaItems.snowHorn)) {
+			consumer.accept(hornItem, vuvuzelaId, isVuvuzela);
+			consumer.accept(hornItem, tootingId, isTooting);
+		}
 
 		consumer.accept(BotaniaItems.lexicon, botaniaRL("elven"), (stack, world, living, seed) -> LexicaBotaniaItem.isElven(stack) ? 1 : 0);
 		consumer.accept(BotaniaItems.manaCookie, botaniaRL("totalbiscuit"),

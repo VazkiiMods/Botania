@@ -236,14 +236,7 @@ public class ItemModelProvider implements DataProvider {
 
 		ResourceLocation vuvuzela = botaniaRL("item/vuvuzela");
 		ModelTemplates.FLAT_HANDHELD_ITEM.create(vuvuzela, TextureMapping.layer0(vuvuzela), consumer);
-		for (Item i : new Item[] { grassHorn, leavesHorn, snowHorn }) {
-			GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(i),
-					TextureMapping.layer0(i),
-					new OverrideHolder()
-							.add(vuvuzela, Pair.of(botaniaRL("vuvuzela"), 1.0)),
-					consumer
-			);
-		}
+		// defined manually to apply display transforms:
 		items.remove(grassHorn);
 		items.remove(leavesHorn);
 		items.remove(snowHorn);

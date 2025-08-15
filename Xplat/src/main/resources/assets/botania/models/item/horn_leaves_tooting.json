@@ -1,0 +1,6 @@
+{
+  "parent": "botania:item/horn_grass_tooting",
+  "textures": {
+    "layer0": "botania:item/horn_leaves"
+  }
+}
