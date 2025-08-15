@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -39,20 +40,25 @@ public class RegistryHelper {
 		return new HolderProxy<>(ResourceKey.create(registryKey, id), value);
 	}
 
-	public static class HolderProxy<T> implements Holder<T> {
+	public static class HolderProxy<T> extends Holder.Reference<T> {
+		private static final HolderOwner<?> DUMMY_OWNER = new HolderOwner<>() {};
 		private final ResourceKey<T> resourceKey;
 		private final Supplier<T> value;
 		private final boolean directValue;
 		@Nullable
 		private Reference<T> reference = null;
 
+		@SuppressWarnings("unchecked")
 		public HolderProxy(ResourceKey<T> resourceKey, T value) {
+			super(Type.STAND_ALONE, (HolderOwner<T>) DUMMY_OWNER, resourceKey, value);
 			this.resourceKey = resourceKey;
 			this.value = () -> value;
 			this.directValue = true;
 		}
 
+		@SuppressWarnings("unchecked")
 		public HolderProxy(ResourceKey<T> resourceKey, Supplier<T> valueSupplier) {
+			super(Type.STAND_ALONE, (HolderOwner<T>) DUMMY_OWNER, resourceKey, null);
 			this.resourceKey = resourceKey;
 			this.value = valueSupplier;
 			this.directValue = false;
@@ -66,6 +72,7 @@ public class RegistryHelper {
 			reference = Registry.registerForHolder(registry, resourceKey, value.get());
 		}
 
+		@NotNull
 		@Override
 		public T value() {
 			if (reference == null) {
