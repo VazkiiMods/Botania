@@ -14,6 +14,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Entity;
@@ -51,6 +52,11 @@ public class FabricClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public WandHUD findWandHud(Entity entity) {
 		return BotaniaFabricClientCapabilities.ENTITY_WAND_HUD.find(entity, Unit.INSTANCE);
+	}
+
+	@Override
+	public BakedModel getResourceModel(ResourceLocation id) {
+		return Minecraft.getInstance().getModelManager().getModel(id);
 	}
 
 	@Override

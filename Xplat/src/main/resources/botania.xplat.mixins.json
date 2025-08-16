@@ -79,7 +79,6 @@
     "client.LevelRendererAccessor",
     "client.LevelRendererMixin",
     "client.MinecraftAccessor",
-    "client.ModelManagerAccessor",
     "client.RecipeBookComponentAccessor",
     "client.RecipeBookComponentMixin",
     "client.RecipeBookPageAccessor",

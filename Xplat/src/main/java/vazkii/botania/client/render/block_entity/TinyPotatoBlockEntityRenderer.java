@@ -21,7 +21,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.component.DataComponents;
@@ -50,11 +49,10 @@ import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.mixin.client.ModelManagerAccessor;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.Locale;
-import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -76,16 +74,13 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 	}
 
 	private static BakedModel getModel(String name) {
-		ModelManager bmm = Minecraft.getInstance().getModelManager();
-		Map<ResourceLocation, BakedModel> mm = ((ModelManagerAccessor) bmm).getBakedRegistry();
-		BakedModel missing = bmm.getMissingModel();
 		ResourceLocation location = taterLocation(name);
-		BakedModel model = mm.get(location);
+		BakedModel model = ClientXplatAbstractions.instance().getResourceModel(location);
 		if (model == null) {
 			if (ClientProxy.dootDoot) {
-				return mm.getOrDefault(taterLocation(HALLOWEEN), missing);
+				return Objects.requireNonNull(ClientXplatAbstractions.instance().getResourceModel(taterLocation(HALLOWEEN)));
 			} else {
-				return mm.getOrDefault(taterLocation(DEFAULT), missing);
+				return Objects.requireNonNull(ClientXplatAbstractions.instance().getResourceModel(taterLocation(DEFAULT)));
 			}
 		}
 		return model;

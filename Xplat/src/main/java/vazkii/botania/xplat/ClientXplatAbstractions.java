@@ -40,6 +40,13 @@ public interface ClientXplatAbstractions {
 	WandHUD findWandHud(Entity entity);
 
 	// Rendering stuff
+
+	/**
+	 * Try to load the resource/standalone model with the specified resource location.
+	 * Returns null if no model was found.
+	 */
+	@Nullable
+	BakedModel getResourceModel(ResourceLocation id);
 	BakedModel wrapPlatformModel(BakedModel original);
 	void setFilterSave(AbstractTexture texture, boolean filter, boolean mipmap);
 	void restoreLastFilter(AbstractTexture texture);

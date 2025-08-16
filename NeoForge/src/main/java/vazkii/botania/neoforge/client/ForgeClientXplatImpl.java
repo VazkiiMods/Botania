@@ -10,9 +10,11 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -53,6 +55,13 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public WandHUD findWandHud(Entity entity) {
 		return entity.getCapability(BotaniaForgeClientCapabilities.ENTITY_WAND_HUD);
+	}
+
+	@Nullable
+	@Override
+	public BakedModel getResourceModel(ResourceLocation id) {
+		BakedModel model = Minecraft.getInstance().getModelManager().getModel(ModelResourceLocation.standalone(id));
+		return model != Minecraft.getInstance().getModelManager().getMissingModel() ? model : null;
 	}
 
 	@Override
