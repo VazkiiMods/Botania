@@ -147,7 +147,7 @@ public class MiscellaneousModels {
 			return;
 		}
 		afterBakeModifiers.forEach((resourceLocation, afterBakeModifier) -> map
-				.computeIfPresent(new ModelResourceLocation(resourceLocation, "standalone"),
+				.computeIfPresent(new ModelResourceLocation(resourceLocation, ""),
 						(resourceLoc, bakedModel) -> afterBakeModifier.apply(bakedModel)));
 		modelConsumers.forEach((resourceLocation, bakedModelConsumer) -> bakedModelConsumer
 				.accept(map.get(new ModelResourceLocation(resourceLocation, "standalone"))));
@@ -159,7 +159,12 @@ public class MiscellaneousModels {
 			return bakedModel;
 		}
 		modelConsumers.getOrDefault(id, model -> {}).accept(bakedModel);
-		return afterBakeModifiers.getOrDefault(id, Function.identity()).apply(bakedModel);
+		return afterBakeModifiers.getOrDefault(stripBlockPrefix(id), Function.identity()).apply(bakedModel);
+	}
+
+	private ResourceLocation stripBlockPrefix(ResourceLocation id) {
+		String path = id.getPath();
+		return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), path.startsWith("block/") ? path.substring(6) : path);
 	}
 
 	private MiscellaneousModels() {
