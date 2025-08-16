@@ -66,7 +66,7 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 	public static void setStackCreative(ItemStack stack) {
 		stack.set(BotaniaDataComponents.CREATIVE_MANA, Unit.INSTANCE);
 		stack.set(DataComponents.RARITY, Rarity.EPIC);
-		stack.remove(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_ITEM);
+		stack.remove(BotaniaDataComponents.CAN_ACCEPT_MANA_FROM_ITEMS);
 	}
 
 	public static boolean isStackCreative(ItemStack stack) {

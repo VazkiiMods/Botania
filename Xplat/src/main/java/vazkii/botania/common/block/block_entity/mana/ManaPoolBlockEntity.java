@@ -367,7 +367,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			ItemStack stack = item.getItem();
 			var mana = XplatAbstractions.INSTANCE.findManaItem(stack);
 			if (!stack.isEmpty() && mana != null) {
-				if (self.outputting && mana.canReceiveManaFromPool(self) || !self.outputting && mana.canExportManaToPool(self)) {
+				if (self.outputting && mana.canReceiveManaFromPool(self) || !self.outputting && mana.canDrainManaToPool(self)) {
 					boolean didSomething = false;
 
 					int bellowCount = self.outputting ? getBellowCount(level, worldPosition, self) : 0;

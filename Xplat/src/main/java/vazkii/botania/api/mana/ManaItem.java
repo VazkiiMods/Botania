@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
- * An item that has this capability can contain mana.
+ * An item that has this capability can contain mana or specify how it interacts with mana it might receive.
  */
 public interface ManaItem {
 
@@ -45,22 +45,34 @@ public interface ManaItem {
 	boolean canReceiveManaFromPool(BlockEntity pool);
 
 	/**
-	 * Can this item recieve mana from another item?
+	 * Does this item accept mana dispatched from another item?
+	 * Mana sent by dispersive sparks specify a "virtual" item stack of the spark's item type.
+	 *
+	 * @param otherStack The item sending the mana, likely not a ManaItem itself.
 	 */
-	boolean canReceiveManaFromItem(ItemStack otherStack);
+	boolean acceptDispatchedManaFromItem(ItemStack otherStack);
 
 	/**
-	 * Can this item export mana to a mana Pool?
+	 * Does this item refuse mana it requested if it comes from the specified item?
+	 *
+	 * @param otherStack The item that offers the mana, usually a ManaItem.
+	 */
+	boolean refuseRequestedManaFromItem(ItemStack otherStack);
+
+	/**
+	 * Can this item's mana be drained into a mana pool?
 	 * 
 	 * @param pool The pool it's exporting mana to, can be casted to ManaPool.
 	 * @see ManaPool#isOutputtingPower()
 	 */
-	boolean canExportManaToPool(BlockEntity pool);
+	boolean canDrainManaToPool(BlockEntity pool);
 
 	/**
-	 * Can this item export mana to another item?
+	 * Can this item send mana to another item that requested it?
+	 *
+	 * @param The item that requested the mana, likely not a ManaItem itself.
 	 */
-	boolean canExportManaToItem(ItemStack otherStack);
+	boolean canSendRequestedManaToItem(ItemStack otherStack);
 
 	/**
 	 * If this item simply does not export mana at all, set this to true. This is

@@ -28,10 +28,10 @@ public final class LibComponentNames {
 
 	public static final String MANA = "mana";
 	public static final String MAX_MANA = "max_mana";
-	public static final String CAN_RECEIVE_MANA_FROM_ITEM = "can_receive_mana_from_item";
+	public static final String CAN_ACCEPT_MANA_FROM_ITEMS = "can_accept_mana_from_items";
 	public static final String CAN_RECEIVE_MANA_FROM_POOL = "can_receive_mana_from_pool";
-	public static final String CAN_EXPORT_MANA_TO_ITEM = "can_export_mana_to_item";
-	public static final String CAN_EXPORT_MANA_TO_POOL = "can_export_mana_to_pool";
+	public static final String CAN_PROVIDE_MANA_TO_ITEMS = "can_provide_mana_to_items";
+	public static final String CAN_DRAIN_MANA_TO_POOL = "can_drain_mana_to_pool";
 	public static final String CREATIVE_MANA = "creative_mana";
 	public static final String MANA_BACKLOG = "mana_backlog";
 	public static final String MANA_POOL_POS = "mana_pool_pos";

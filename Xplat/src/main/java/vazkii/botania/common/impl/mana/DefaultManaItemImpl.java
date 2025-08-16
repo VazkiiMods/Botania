@@ -19,7 +19,8 @@ import vazkii.botania.common.helper.DataComponentHelper;
 
 /**
  * Default implementation for the {@link ManaItem} interface. This implementation covers all of Botania's own mana
- * items, from tablets, to mana mirror and terra shatterer.
+ * items, from tablets, to mana mirror and terra shatterer. It is fully controlled by the mana-related data components
+ * on the item stack it represents.
  *
  * @param stack The mana item's stack.
  */
@@ -57,22 +58,27 @@ public record DefaultManaItemImpl(ItemStack stack) implements ManaItem {
 	}
 
 	@Override
-	public boolean canReceiveManaFromItem(ItemStack otherStack) {
-		return stack.has(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_ITEM);
+	public boolean acceptDispatchedManaFromItem(ItemStack otherStack) {
+		return stack.has(BotaniaDataComponents.CAN_ACCEPT_MANA_FROM_ITEMS);
 	}
 
 	@Override
-	public boolean canExportManaToPool(BlockEntity pool) {
-		return stack.has(BotaniaDataComponents.CAN_EXPORT_MANA_TO_POOL);
+	public boolean refuseRequestedManaFromItem(ItemStack otherStack) {
+		return false;
 	}
 
 	@Override
-	public boolean canExportManaToItem(ItemStack otherStack) {
-		return stack.has(BotaniaDataComponents.CAN_EXPORT_MANA_TO_ITEM);
+	public boolean canDrainManaToPool(BlockEntity pool) {
+		return stack.has(BotaniaDataComponents.CAN_DRAIN_MANA_TO_POOL);
+	}
+
+	@Override
+	public boolean canSendRequestedManaToItem(ItemStack otherStack) {
+		return stack.has(BotaniaDataComponents.CAN_PROVIDE_MANA_TO_ITEMS);
 	}
 
 	@Override
 	public boolean isNoExport() {
-		return !stack.has(BotaniaDataComponents.CAN_EXPORT_MANA_TO_ITEM);
+		return !stack.has(BotaniaDataComponents.CAN_PROVIDE_MANA_TO_ITEMS);
 	}
 }

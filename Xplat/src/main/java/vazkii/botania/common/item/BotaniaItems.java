@@ -239,13 +239,13 @@ public final class BotaniaItems {
 	// Misc tools
 	public static final Item manaTablet = make(LibItemNames.MANA_TABLET, new ManaTabletItem(unstackable()
 			.component(BotaniaDataComponents.MAX_MANA, ManaTabletItem.DEFAULT_MAX_MANA)
-			.component(BotaniaDataComponents.CAN_EXPORT_MANA_TO_ITEM, Unit.INSTANCE)
-			.component(BotaniaDataComponents.CAN_EXPORT_MANA_TO_POOL, Unit.INSTANCE)
-			.component(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_ITEM, Unit.INSTANCE)
+			.component(BotaniaDataComponents.CAN_PROVIDE_MANA_TO_ITEMS, Unit.INSTANCE)
+			.component(BotaniaDataComponents.CAN_DRAIN_MANA_TO_POOL, Unit.INSTANCE)
+			.component(BotaniaDataComponents.CAN_ACCEPT_MANA_FROM_ITEMS, Unit.INSTANCE)
 			.component(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_POOL, Unit.INSTANCE)));
 	public static final Item manaMirror = make(LibItemNames.MANA_MIRROR, new ManaMirrorItem(unstackable().rarity(Rarity.UNCOMMON)
 			.component(BotaniaDataComponents.MANA_BACKLOG, 0)
-			.component(BotaniaDataComponents.CAN_EXPORT_MANA_TO_ITEM, Unit.INSTANCE)));
+			.component(BotaniaDataComponents.CAN_PROVIDE_MANA_TO_ITEMS, Unit.INSTANCE)));
 	public static final Item manaGun = make(LibItemNames.MANA_GUN, new ManaBlasterItem(unstackable()));
 	public static final Item clip = make(LibItemNames.CLIP, new Item(unstackable()));
 	public static final HornItem grassHorn = make(LibItemNames.GRASS_HORN, new HornOfTheWildItem(unstackable()));
@@ -281,15 +281,15 @@ public final class BotaniaItems {
 	// Baubles / trinkets / curios / etc.
 	public static final Item manaRing = make(LibItemNames.MANA_RING, new BandOfManaItem(unstackable()
 			.component(BotaniaDataComponents.MAX_MANA, BandOfManaItem.DEFAULT_MAX_MANA)
-			.component(BotaniaDataComponents.CAN_EXPORT_MANA_TO_ITEM, Unit.INSTANCE)
-			.component(BotaniaDataComponents.CAN_EXPORT_MANA_TO_POOL, Unit.INSTANCE)
-			.component(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_ITEM, Unit.INSTANCE)
+			.component(BotaniaDataComponents.CAN_PROVIDE_MANA_TO_ITEMS, Unit.INSTANCE)
+			.component(BotaniaDataComponents.CAN_DRAIN_MANA_TO_POOL, Unit.INSTANCE)
+			.component(BotaniaDataComponents.CAN_ACCEPT_MANA_FROM_ITEMS, Unit.INSTANCE)
 			.component(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_POOL, Unit.INSTANCE)));
 	public static final Item manaRingGreater = make(LibItemNames.MANA_RING_GREATER, new BandOfManaItem(unstackable().rarity(Rarity.UNCOMMON)
 			.component(BotaniaDataComponents.MAX_MANA, BandOfManaItem.DEFAULT_GREATER_MAX_MANA)
-			.component(BotaniaDataComponents.CAN_EXPORT_MANA_TO_ITEM, Unit.INSTANCE)
-			.component(BotaniaDataComponents.CAN_EXPORT_MANA_TO_POOL, Unit.INSTANCE)
-			.component(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_ITEM, Unit.INSTANCE)
+			.component(BotaniaDataComponents.CAN_PROVIDE_MANA_TO_ITEMS, Unit.INSTANCE)
+			.component(BotaniaDataComponents.CAN_DRAIN_MANA_TO_POOL, Unit.INSTANCE)
+			.component(BotaniaDataComponents.CAN_ACCEPT_MANA_FROM_ITEMS, Unit.INSTANCE)
 			.component(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_POOL, Unit.INSTANCE)));
 	public static final Item auraRing = make(LibItemNames.AURA_RING, new BandOfAuraItem(unstackable(), 10));
 	public static final Item auraRingGreater = make(LibItemNames.AURA_RING_GREATER, new BandOfAuraItem(unstackable().rarity(Rarity.UNCOMMON), 2));

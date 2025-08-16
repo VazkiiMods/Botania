@@ -98,7 +98,7 @@ public class BotaniaDataComponents {
 	 * Defines that the item can receive mana while in the player's inventory,
 	 * e.g. from mana producers or nearby dispersive sparks.
 	 */
-	public static final DataComponentType<Unit> CAN_RECEIVE_MANA_FROM_ITEM = makeUnit(LibComponentNames.CAN_RECEIVE_MANA_FROM_ITEM);
+	public static final DataComponentType<Unit> CAN_ACCEPT_MANA_FROM_ITEMS = makeUnit(LibComponentNames.CAN_ACCEPT_MANA_FROM_ITEMS);
 	/**
 	 * Defines that the item can be filled in a mana pool.
 	 */
@@ -106,11 +106,11 @@ public class BotaniaDataComponents {
 	/**
 	 * Defines that the item can provide mana to mana-consuming items in the player's inventory.
 	 */
-	public static final DataComponentType<Unit> CAN_EXPORT_MANA_TO_ITEM = makeUnit(LibComponentNames.CAN_EXPORT_MANA_TO_ITEM);
+	public static final DataComponentType<Unit> CAN_PROVIDE_MANA_TO_ITEMS = makeUnit(LibComponentNames.CAN_PROVIDE_MANA_TO_ITEMS);
 	/**
 	 * Defines that the item can be drained into a mana pool.
 	 */
-	public static final DataComponentType<Unit> CAN_EXPORT_MANA_TO_POOL = makeUnit(LibComponentNames.CAN_EXPORT_MANA_TO_POOL);
+	public static final DataComponentType<Unit> CAN_DRAIN_MANA_TO_POOL = makeUnit(LibComponentNames.CAN_DRAIN_MANA_TO_POOL);
 	/**
 	 * Defined that the item can provide infinite mana without draining itself.
 	 */

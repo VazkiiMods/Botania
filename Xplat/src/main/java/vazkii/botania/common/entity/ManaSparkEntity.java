@@ -131,7 +131,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 							continue;
 						}
 
-						if (manaItem.canReceiveManaFromItem(input)) {
+						if (manaItem.acceptDispatchedManaFromItem(input)) {
 							Map<ManaItem, Integer> receivingStacks;
 							boolean add = false;
 							if (!receivingPlayers.containsKey(player)) {

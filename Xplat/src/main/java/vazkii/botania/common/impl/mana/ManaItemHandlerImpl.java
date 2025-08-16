@@ -83,9 +83,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 				continue;
 			}
 			var manaItem = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
-			if (manaItem.canExportManaToItem(stack) && manaItem.getMana() > 0) {
+			if (manaItem.canSendRequestedManaToItem(stack) && manaItem.getMana() > 0) {
 				var requestor = XplatAbstractions.INSTANCE.findManaItem(stack);
-				if (requestor != null && !requestor.canReceiveManaFromItem(stackInSlot)) {
+				if (requestor != null && requestor.refuseRequestedManaFromItem(stackInSlot)) {
 					continue;
 				}
 
@@ -121,9 +121,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 				continue;
 			}
 			var manaItemSlot = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
-			if (manaItemSlot.canExportManaToItem(stack)) {
+			if (manaItemSlot.canSendRequestedManaToItem(stack)) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
-				if (manaItem != null && !manaItem.canReceiveManaFromItem(stackInSlot)) {
+				if (manaItem != null && manaItem.refuseRequestedManaFromItem(stackInSlot)) {
 					continue;
 				}
 
@@ -164,9 +164,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 				continue;
 			}
 			ManaItem manaItemSlot = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
-			if (manaItemSlot.canReceiveManaFromItem(stack)) {
+			if (manaItemSlot.acceptDispatchedManaFromItem(stack)) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
-				if (manaItem != null && !manaItem.canExportManaToItem(stackInSlot)) {
+				if (manaItem != null && !manaItem.canSendRequestedManaToItem(stackInSlot)) {
 					continue;
 				}
 
@@ -201,9 +201,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 				continue;
 			}
 			ManaItem manaItemSlot = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
-			if (manaItemSlot.getMana() + manaToSend <= manaItemSlot.getMaxMana() && manaItemSlot.canReceiveManaFromItem(stack)) {
+			if (manaItemSlot.getMana() + manaToSend <= manaItemSlot.getMaxMana() && manaItemSlot.acceptDispatchedManaFromItem(stack)) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
-				if (manaItem != null && !manaItem.canExportManaToItem(stackInSlot)) {
+				if (manaItem != null && !manaItem.canSendRequestedManaToItem(stackInSlot)) {
 					continue;
 				}
 
@@ -252,9 +252,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 			ManaItem manaItemSlot = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
 			int availableMana = manaItemSlot.getMana();
-			if (manaItemSlot.canExportManaToItem(stack) && availableMana > cost) {
+			if (manaItemSlot.canSendRequestedManaToItem(stack) && availableMana > cost) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
-				if (manaItem != null && !manaItem.canReceiveManaFromItem(stackInSlot)) {
+				if (manaItem != null && !manaItem.acceptDispatchedManaFromItem(stackInSlot)) {
 					continue;
 				}
 
