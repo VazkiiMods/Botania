@@ -11,8 +11,10 @@
 package vazkii.botania.common.helper;
 
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
@@ -169,5 +171,25 @@ public final class DataComponentHelper {
 			}
 		}
 		return ItemStack.isSameItemSameComponents(stack1, stack2);
+	}
+
+	/**
+	 * Increases the current rarity of the stack by a tier.
+	 */
+	public static void bumpRarity(ItemStack stack) {
+		stack.set(DataComponents.RARITY, getNextHigherRarity(stack.getRarity()));
+	}
+
+	/**
+	 * Returns the next-higher tier for the specified rarity. Returns the highest tier, if it's already the highest
+	 * tier.
+	 */
+	@Contract(pure = true)
+	public static Rarity getNextHigherRarity(Rarity rarity) {
+		return switch (rarity) {
+			case COMMON -> Rarity.UNCOMMON;
+			case UNCOMMON -> Rarity.RARE;
+			default -> Rarity.EPIC;
+		};
 	}
 }

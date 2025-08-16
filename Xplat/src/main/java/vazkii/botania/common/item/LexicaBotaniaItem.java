@@ -34,6 +34,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
@@ -60,6 +61,7 @@ public class LexicaBotaniaItem extends Item implements CustomCreativeTabContents
 
 		ItemStack creative = new ItemStack(me);
 		creative.set(BotaniaDataComponents.ELVEN_UNLOCK, Unit.INSTANCE);
+		DataComponentHelper.bumpRarity(creative);
 		output.accept(creative);
 	}
 

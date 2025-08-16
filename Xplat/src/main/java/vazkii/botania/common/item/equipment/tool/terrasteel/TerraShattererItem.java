@@ -12,6 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -224,6 +225,11 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 
 	protected static void setMana(ItemStack stack, int mana) {
 		stack.set(BotaniaDataComponents.MANA, mana);
+		int level = getLevel(stack);
+		Rarity targetRarity = level >= 5 ? Rarity.EPIC : level >= 3 ? Rarity.RARE : Rarity.UNCOMMON;
+		if (stack.getOrDefault(DataComponents.RARITY, Rarity.COMMON) != targetRarity) {
+			stack.set(DataComponents.RARITY, targetRarity);
+		}
 	}
 
 	public static int getMana_(ItemStack stack) {
@@ -255,23 +261,4 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		// TODO: default on Neoforge appears to be actually swapping out the item stack reference
 		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}
-
-	/*TODO
-	@NotNull
-	@Override
-	public Rarity getRarity(@NotNull ItemStack stack) {
-		int level = getLevel(stack);
-		if (stack.isEnchanted()) {
-			level++;
-		}
-		if (level >= 5) { // SS rank/enchanted S rank
-			return Rarity.EPIC;
-		}
-		if (level >= 3) { // A rank/enchanted B rank
-			return Rarity.RARE;
-		}
-		return Rarity.UNCOMMON;
-	}
-	
-	 */
 }

@@ -9,6 +9,7 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.AncientWillContainer;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.AncientWillItem;
 
 import java.util.Objects;
@@ -31,29 +33,31 @@ public class AncientWillRecipe extends CustomRecipe {
 
 	@Override
 	public boolean matches(CraftingInput inv, Level world) {
-		boolean foundWill = false;
-		boolean foundItem = false;
+		AncientWillItem foundWill = null;
+		AncientWillContainer foundContainer = null;
+		ItemStack containerStack = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof AncientWillItem) {
-					if (foundWill) {
+				if (stack.getItem() instanceof AncientWillItem item) {
+					if (foundWill != null) {
 						return false;
 					}
-					foundWill = true;
-				} else if (stack.getItem() instanceof AncientWillContainer) {
-					if (foundItem) {
+					foundWill = item;
+				} else if (stack.getItem() instanceof AncientWillContainer container) {
+					if (foundContainer != null) {
 						return false;
 					}
-					foundItem = true;
+					foundContainer = container;
+					containerStack = stack;
 				} else {
 					return false;
 				}
 			}
 		}
 
-		return foundWill && foundItem;
+		return foundWill != null && foundContainer != null && !foundContainer.hasAncientWill(containerStack, foundWill.type);
 	}
 
 	@Override
@@ -79,6 +83,14 @@ public class AncientWillRecipe extends CustomRecipe {
 
 		ItemStack copy = item.copy();
 		container.addAncientWill(copy, will);
+
+		if (BuiltInRegistries.ITEM.stream()
+				.filter(AncientWillItem.class::isInstance)
+				.map(AncientWillItem.class::cast)
+				.allMatch(willItem -> container.hasAncientWill(copy, willItem.type))) {
+			DataComponentHelper.bumpRarity(copy);
+		}
+
 		return copy;
 	}
 

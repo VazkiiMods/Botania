@@ -20,6 +20,7 @@ import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LaputaShardItem;
 
@@ -70,6 +71,9 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 			if (stack.is(BotaniaItems.laputaShard)) {
 				ItemStack result = stack.copy();
 				result.set(BotaniaDataComponents.SHARD_LEVEL, LaputaShardItem.getShardLevel(stack) + 1);
+				if (LaputaShardItem.getShardLevel(result) == LaputaShardItem.MAX_LEVEL) {
+					DataComponentHelper.bumpRarity(result);
+				}
 				return result;
 			}
 		}

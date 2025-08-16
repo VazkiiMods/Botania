@@ -68,6 +68,9 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 			ItemStack s = new ItemStack(me);
 			if (i != 0) {
 				DataComponentHelper.setIntNonZero(s, BotaniaDataComponents.SHARD_LEVEL, i - 1);
+				if (i == 20) {
+					DataComponentHelper.bumpRarity(s);
+				}
 			}
 			output.accept(s);
 		}

@@ -951,6 +951,9 @@ public final class BotaniaBlocks {
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
 		Item.Properties props = BotaniaItems.defaultBuilder();
+		Item.Properties uncommonProps = BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON);
+		Item.Properties rareProps = BotaniaItems.defaultBuilder().rarity(Rarity.RARE);
+		Item.Properties epicProps = BotaniaItems.defaultBuilder().rarity(Rarity.EPIC);
 		Stream.<Function<DyeColor, Block>>of(
 				BotaniaBlocks::getFlower,
 				BotaniaBlocks::getShinyFlower,
@@ -1000,14 +1003,14 @@ public final class BotaniaBlocks {
 		r.accept(new SpecialFlowerBlockItem(spectrolus, props), BuiltInRegistries.BLOCK.getKey(spectrolus));
 		r.accept(new SpecialFlowerBlockItem(spectrolusFloating, props), BuiltInRegistries.BLOCK.getKey(spectrolusFloating));
 
-		r.accept(new SpecialFlowerBlockItem(dandelifeon, props), BuiltInRegistries.BLOCK.getKey(dandelifeon));
-		r.accept(new SpecialFlowerBlockItem(dandelifeonFloating, props), BuiltInRegistries.BLOCK.getKey(dandelifeonFloating));
+		r.accept(new SpecialFlowerBlockItem(dandelifeon, rareProps), BuiltInRegistries.BLOCK.getKey(dandelifeon));
+		r.accept(new SpecialFlowerBlockItem(dandelifeonFloating, rareProps), BuiltInRegistries.BLOCK.getKey(dandelifeonFloating));
 
 		r.accept(new SpecialFlowerBlockItem(rafflowsia, props), BuiltInRegistries.BLOCK.getKey(rafflowsia));
 		r.accept(new SpecialFlowerBlockItem(rafflowsiaFloating, props), BuiltInRegistries.BLOCK.getKey(rafflowsiaFloating));
 
-		r.accept(new SpecialFlowerBlockItem(shulkMeNot, props), BuiltInRegistries.BLOCK.getKey(shulkMeNot));
-		r.accept(new SpecialFlowerBlockItem(shulkMeNotFloating, props), BuiltInRegistries.BLOCK.getKey(shulkMeNotFloating));
+		r.accept(new SpecialFlowerBlockItem(shulkMeNot, rareProps), BuiltInRegistries.BLOCK.getKey(shulkMeNot));
+		r.accept(new SpecialFlowerBlockItem(shulkMeNotFloating, rareProps), BuiltInRegistries.BLOCK.getKey(shulkMeNotFloating));
 
 		r.accept(new SpecialFlowerBlockItem(bellethorn, props), BuiltInRegistries.BLOCK.getKey(bellethorn));
 		r.accept(new SpecialFlowerBlockItem(bellethornChibi, props), BuiltInRegistries.BLOCK.getKey(bellethornChibi));
@@ -1192,15 +1195,15 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(manaSpreader, props), BuiltInRegistries.BLOCK.getKey(manaSpreader));
 		r.accept(new BlockItem(redstoneSpreader, props), BuiltInRegistries.BLOCK.getKey(redstoneSpreader));
 		r.accept(new BlockItem(elvenSpreader, props), BuiltInRegistries.BLOCK.getKey(elvenSpreader));
-		r.accept(new BlockItem(gaiaSpreader, props), BuiltInRegistries.BLOCK.getKey(gaiaSpreader));
+		r.accept(new BlockItem(gaiaSpreader, rareProps), BuiltInRegistries.BLOCK.getKey(gaiaSpreader));
 		r.accept(new BlockItem(manaPool, props), BuiltInRegistries.BLOCK.getKey(manaPool));
-		r.accept(new BlockItem(creativePool, BotaniaItems.defaultBuilder().rarity(Rarity.EPIC)), BuiltInRegistries.BLOCK.getKey(creativePool));
+		r.accept(new BlockItem(creativePool, epicProps), BuiltInRegistries.BLOCK.getKey(creativePool));
 		r.accept(new BlockItem(dilutedPool, props), BuiltInRegistries.BLOCK.getKey(dilutedPool));
 		r.accept(new BlockItem(fabulousPool, props), BuiltInRegistries.BLOCK.getKey(fabulousPool));
 		r.accept(new BlockItem(alchemyCatalyst, props), BuiltInRegistries.BLOCK.getKey(alchemyCatalyst));
 		r.accept(new BlockItem(conjurationCatalyst, props), BuiltInRegistries.BLOCK.getKey(conjurationCatalyst));
 		r.accept(new BlockItem(manasteelBlock, props), BuiltInRegistries.BLOCK.getKey(manasteelBlock));
-		r.accept(new BlockItem(terrasteelBlock, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON)), BuiltInRegistries.BLOCK.getKey(terrasteelBlock));
+		r.accept(new BlockItem(terrasteelBlock, uncommonProps), BuiltInRegistries.BLOCK.getKey(terrasteelBlock));
 		r.accept(new BlockItem(elementiumBlock, props), BuiltInRegistries.BLOCK.getKey(elementiumBlock));
 		r.accept(new BlockItem(manaDiamondBlock, props), BuiltInRegistries.BLOCK.getKey(manaDiamondBlock));
 		r.accept(new BlockItem(dragonstoneBlock, props), BuiltInRegistries.BLOCK.getKey(dragonstoneBlock));
@@ -1211,10 +1214,10 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(enchanter, props), BuiltInRegistries.BLOCK.getKey(enchanter));
 		r.accept(new BlockItem(brewery, props), BuiltInRegistries.BLOCK.getKey(brewery));
 		r.accept(new BlockItem(terraPlate, props), BuiltInRegistries.BLOCK.getKey(terraPlate));
-		r.accept(new BlockItem(alfPortal, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON)), BuiltInRegistries.BLOCK.getKey(alfPortal));
+		r.accept(new BlockItem(alfPortal, uncommonProps), BuiltInRegistries.BLOCK.getKey(alfPortal));
 
 		r.accept(new BlockItem(manaPylon, props), BuiltInRegistries.BLOCK.getKey(manaPylon));
-		r.accept(new BlockItem(naturaPylon, props), BuiltInRegistries.BLOCK.getKey(naturaPylon));
+		r.accept(new BlockItem(naturaPylon, uncommonProps), BuiltInRegistries.BLOCK.getKey(naturaPylon));
 		r.accept(new BlockItem(gaiaPylon, props), BuiltInRegistries.BLOCK.getKey(gaiaPylon));
 		r.accept(new BlockItem(distributor, props), BuiltInRegistries.BLOCK.getKey(distributor));
 		r.accept(new BlockItem(manaVoid, props), BuiltInRegistries.BLOCK.getKey(manaVoid));
@@ -1230,15 +1233,15 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(prism, props), BuiltInRegistries.BLOCK.getKey(prism));
 		r.accept(new BlockItem(pump, props), BuiltInRegistries.BLOCK.getKey(pump));
 		r.accept(new BlockItem(sparkChanger, props), BuiltInRegistries.BLOCK.getKey(sparkChanger));
-		r.accept(new BlockItem(manaBomb, props), BuiltInRegistries.BLOCK.getKey(manaBomb));
+		r.accept(new BlockItem(manaBomb, rareProps), BuiltInRegistries.BLOCK.getKey(manaBomb));
 		r.accept(new BlockItem(bellows, props), BuiltInRegistries.BLOCK.getKey(bellows));
 		r.accept(new BlockItem(openCrate, props), BuiltInRegistries.BLOCK.getKey(openCrate));
 		r.accept(new BlockItem(craftCrate, props), BuiltInRegistries.BLOCK.getKey(craftCrate));
 		r.accept(new BlockItem(forestEye, props), BuiltInRegistries.BLOCK.getKey(forestEye));
 		r.accept(new BlockItem(abstrusePlatform, props), BuiltInRegistries.BLOCK.getKey(abstrusePlatform));
 		r.accept(new BlockItem(spectralPlatform, props), BuiltInRegistries.BLOCK.getKey(spectralPlatform));
-		r.accept(new BlockItem(infrangiblePlatform, BotaniaItems.defaultBuilder().rarity(Rarity.EPIC)), BuiltInRegistries.BLOCK.getKey(infrangiblePlatform));
-		r.accept(new TinyPotatoBlockItem(tinyPotato, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON)), BuiltInRegistries.BLOCK.getKey(tinyPotato));
+		r.accept(new BlockItem(infrangiblePlatform, epicProps), BuiltInRegistries.BLOCK.getKey(infrangiblePlatform));
+		r.accept(new TinyPotatoBlockItem(tinyPotato, props), BuiltInRegistries.BLOCK.getKey(tinyPotato));
 		r.accept(new BlockItem(enderEye, props), BuiltInRegistries.BLOCK.getKey(enderEye));
 		r.accept(new BlockItem(redStringContainer, props), BuiltInRegistries.BLOCK.getKey(redStringContainer));
 		r.accept(new BlockItem(redStringDispenser, props), BuiltInRegistries.BLOCK.getKey(redStringDispenser));
@@ -1273,7 +1276,7 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(root, props), BuiltInRegistries.BLOCK.getKey(root));
 		r.accept(new BlockItem(felPumpkin, props), BuiltInRegistries.BLOCK.getKey(felPumpkin));
 		r.accept(new BlockItem(cocoon, props), BuiltInRegistries.BLOCK.getKey(cocoon));
-		r.accept(new BlockItem(enchantedSoil, BotaniaItems.defaultBuilder().rarity(Rarity.RARE)), BuiltInRegistries.BLOCK.getKey(enchantedSoil));
+		r.accept(new BlockItem(enchantedSoil, rareProps), BuiltInRegistries.BLOCK.getKey(enchantedSoil));
 		r.accept(new BlockItem(animatedTorch, props), BuiltInRegistries.BLOCK.getKey(animatedTorch));
 		r.accept(new BlockItem(starfield, props), BuiltInRegistries.BLOCK.getKey(starfield));
 		r.accept(new BlockItem(azulejo0, props), BuiltInRegistries.BLOCK.getKey(azulejo0));
@@ -1293,7 +1296,7 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(azulejo14, props), BuiltInRegistries.BLOCK.getKey(azulejo14));
 		r.accept(new BlockItem(azulejo15, props), BuiltInRegistries.BLOCK.getKey(azulejo15));
 		r.accept(new BlockItem(blazeBlock, props), BuiltInRegistries.BLOCK.getKey(blazeBlock));
-		r.accept(new StandingAndWallBlockItem(gaiaHead, gaiaHeadWall, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON), Direction.DOWN), BuiltInRegistries.BLOCK.getKey(gaiaHead));
+		r.accept(new StandingAndWallBlockItem(gaiaHead, gaiaHeadWall, rareProps, Direction.DOWN), BuiltInRegistries.BLOCK.getKey(gaiaHead));
 		r.accept(new BlockItem(shimmerrock, props), BuiltInRegistries.BLOCK.getKey(shimmerrock));
 		r.accept(new BlockItem(shimmerrockStairs, props), BuiltInRegistries.BLOCK.getKey(shimmerrockStairs));
 		r.accept(new BlockItem(shimmerrockSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerrockSlab));

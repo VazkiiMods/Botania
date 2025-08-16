@@ -9,6 +9,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
@@ -46,15 +47,6 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 		output.accept(creative);
 	}
 
-	/*todo
-	@NotNull
-	@Override
-	public Rarity getRarity(@NotNull ItemStack stack) {
-		return isStackCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
-	}
-	
-	 */
-
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> stacks, TooltipFlag flags) {
 		if (isStackCreative(stack)) {
@@ -73,6 +65,7 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 
 	public static void setStackCreative(ItemStack stack) {
 		stack.set(BotaniaDataComponents.CREATIVE_MANA, Unit.INSTANCE);
+		stack.set(DataComponents.RARITY, Rarity.EPIC);
 		stack.remove(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_ITEM);
 	}
 

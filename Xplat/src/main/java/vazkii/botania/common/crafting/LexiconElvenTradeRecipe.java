@@ -11,10 +11,12 @@ package vazkii.botania.common.crafting;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
@@ -52,6 +54,7 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	public List<ItemStack> getOutputs() {
 		ItemStack stack = new ItemStack(BotaniaItems.lexicon);
 		stack.set(BotaniaDataComponents.ELVEN_UNLOCK, Unit.INSTANCE);
+		stack.set(DataComponents.RARITY, Rarity.UNCOMMON);
 		return Collections.singletonList(stack);
 	}
 
