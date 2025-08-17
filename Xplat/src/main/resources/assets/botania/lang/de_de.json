@@ -491,8 +491,11 @@
     "item.botania.dice.poem2": "Das verborgene Gesetz möglicher Ergebnisse,",
     "item.botania.dice.poem3": "Die Zahlen eröffnen einen Tanz.",
 
-    "death.attack.botania.relic": "%s wurde für die Benutzung eines Relikts von jemand Anderem bestraft",
+    "death.attack.botania.relic": "%s wurde bestraft für die Benutzung eines Relikts von jemand Anderem",
     "death.attack.botania.key_explosion": "%2$s überhäufte %1$s mit Schätzen",
+    "death.attack.botania.portal_bread_explosion": "%1$s fand heraus, dass Elfen kein Brot mögen",
+    "death.attack.botania.portal_bread_explosion.message": "%1$s fand heraus, dass %2$s",
+    "death.attack.botania.portal_bread_explosion.link": "Elfen kein Brot mögen",
 
     "effect.botania.allure.description": "Verdoppelt Angeltempo.",
     "effect.botania.bloodthirst.description": "Erlaubt es Monstern, innerhalb eines Radius von 64 Metern unabhängig von den üblichen Bedingungen zu spawnen. (Funktioniert nicht zusammen mit Bedeutungslosigkeit.)",
