@@ -134,6 +134,8 @@ dependencies {
 
     modCompileOnly 'teamreborn:energy:3.0.0'
 
+    modCompileOnly('maven.modrinth:sodium:mc1.20.1-0.5.3') { transitive = false }
+
     // modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-fabric-1.18.2:9.1.123'
 
     modCompileOnly 'com.unascribed:ears-api:1.4.5'

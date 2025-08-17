@@ -236,6 +236,19 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		}
 	}
 
+	public void ejectLocked() {
+		for (int i = 0; i < inventorySize(); ++i) {
+			if (!isLocked(i)) {
+				continue;
+			}
+			ItemStack stack = getItemHandler().getItem(i);
+			if (!stack.isEmpty()) {
+				eject(stack, false);
+				getItemHandler().setItem(i, ItemStack.EMPTY);
+			}
+		}
+	}
+
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (!getLevel().isClientSide && canEject()) {

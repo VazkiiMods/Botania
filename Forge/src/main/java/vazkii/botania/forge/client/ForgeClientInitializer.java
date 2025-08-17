@@ -30,6 +30,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.mana.ManaBarTooltip;
@@ -63,6 +64,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Collections;
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -79,6 +81,10 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void clientInit(FMLClientSetupEvent evt) {
+		// ensure API implementations are loaded
+		BotaniaAPI.LOGGER.debug("Client API instances: {}",
+				List.of(BotaniaAPIClient.instance(), ClientXplatAbstractions.instance()));
+
 		BlockRenderLayers.skipPlatformBlocks = true; // platforms can use standard rendering on Forge
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 		// GUIs

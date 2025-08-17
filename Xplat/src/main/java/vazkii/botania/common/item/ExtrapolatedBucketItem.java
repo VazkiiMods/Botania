@@ -83,7 +83,7 @@ public class ExtrapolatedBucketItem extends Item {
 						BlockState fullState = blockState.hasProperty(LayeredCauldronBlock.LEVEL)
 								? blockState.setValue(LayeredCauldronBlock.LEVEL, LayeredCauldronBlock.MAX_FILL_LEVEL)
 								: blockState;
-						var result = interaction.interact(fullState, level, blockPos, player, interactionHand, itemStack);
+						var result = interaction.interact(fullState, level, blockPos, player, interactionHand, itemStack.copy());
 						if (result.consumesAction()) {
 							// Botania: some particles
 							spawnParticles(level, blockPos);

@@ -28,6 +28,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -55,16 +57,22 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.network.FabricPacketHandler;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.List;
 import java.util.function.Function;
 
 public class FabricClientInitializer implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
+		// ensure API implementations are loaded
+		BotaniaAPI.LOGGER.debug("Client API instances: {}",
+				List.of(BotaniaAPIClient.instance(), ClientXplatAbstractions.instance()));
+
 		CoreShaderRegistrationCallback.EVENT.register(ctx -> CoreShaders.init((id, vertexFormat, onLoaded) -> {
 			try {
 				ctx.register(id, vertexFormat, onLoaded);

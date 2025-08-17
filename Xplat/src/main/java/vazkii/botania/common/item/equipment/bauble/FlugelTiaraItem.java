@@ -52,6 +52,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -413,6 +414,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 			}
 
 			BakedModel model = MiscellaneousModels.INSTANCE.tiaraWingIcons[meta - 1];
+			ClientXplatAbstractions.instance().markSpriteActive(model.getParticleIcon());
 			boolean flying = living instanceof Player player && player.getAbilities().flying;
 			float flap = 20F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
 

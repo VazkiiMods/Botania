@@ -206,10 +206,10 @@ public class ItemModelProvider implements DataProvider {
 		singleGeneratedSuffixOverride(blackHoleTalisman, "_active", prefix("active"), 1.0, consumer);
 		items.remove(blackHoleTalisman);
 
-		registerBrewContainerOverrides(brewFlask, flask, consumer);
+		registerBrewContainerOverrides((BaseBrewItem) brewFlask, flask, consumer);
 		items.remove(brewFlask);
 
-		registerBrewContainerOverrides(brewVial, vial, consumer);
+		registerBrewContainerOverrides((BaseBrewItem) brewVial, vial, consumer);
 		items.remove(brewVial);
 
 		singleHandheldOverride(elementiumShears, prefix("item/dammitreddit"), prefix("reddit"), 1, consumer);

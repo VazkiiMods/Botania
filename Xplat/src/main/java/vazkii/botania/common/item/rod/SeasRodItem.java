@@ -67,7 +67,7 @@ public class SeasRodItem extends Item {
 					CauldronInteraction interaction = ((AbstractCauldronBlockAccessor) cauldronBlock)
 							.botania_getInteractions().get(Items.WATER_BUCKET);
 					if (interaction != null) {
-						var result = interaction.interact(blockState, level, blockPos, player, interactionHand, itemStack);
+						var result = interaction.interact(blockState, level, blockPos, player, interactionHand, itemStack.copy());
 						if (!ItemStack.matches(player.getItemInHand(interactionHand), itemStack)) {
 							// don't replace with an empty bucket
 							player.setItemInHand(interactionHand, itemStack);

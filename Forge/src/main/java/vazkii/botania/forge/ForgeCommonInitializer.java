@@ -66,6 +66,7 @@ import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -178,6 +179,11 @@ public class ForgeCommonInitializer {
 	}
 
 	private void coreInit() {
+		// ensure API implementations are loaded
+		BotaniaAPI.LOGGER.debug("API instances: {}",
+				List.of(BotaniaAPI.instance(), XplatAbstractions.instance(),
+						CorporeaHelper.instance(), ManaItemHandler.instance()));
+
 		ForgeBotaniaConfig.setup();
 		EquipmentHandler.init();
 	}
@@ -237,7 +243,7 @@ public class ForgeCommonInitializer {
 			consumer.accept(CreativeModeTab.builder()
 					.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
 					.icon(() -> new ItemStack(BotaniaItems.lexicon))
-					.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
+					.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
 					.backgroundSuffix("botania.png")
 					.withSearchBar()
 					.build(),

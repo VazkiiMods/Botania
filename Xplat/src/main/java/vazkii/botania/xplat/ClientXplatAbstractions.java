@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -43,6 +44,12 @@ public interface ClientXplatAbstractions {
 	void setFilterSave(AbstractTexture texture, boolean filter, boolean mipmap);
 	void restoreLastFilter(AbstractTexture texture);
 	void tessellateBlock(Level level, BlockState state, BlockPos pos, PoseStack ps, MultiBufferSource buffers, int overlay);
+	/** Marks an animated sprite as "active" for Sodium, if present. */
+	void markSpriteActive(TextureAtlasSprite sprite);
 
 	ClientXplatAbstractions INSTANCE = ServiceUtil.findService(ClientXplatAbstractions.class, null);
+
+	static ClientXplatAbstractions instance() {
+		return INSTANCE;
+	}
 }
