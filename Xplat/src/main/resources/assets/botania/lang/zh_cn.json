@@ -2818,7 +2818,7 @@
   "botania.entry.avatar": "活木化身",
   "botania.tagline.avatar": "替身施法",
   "botania.page.avatar0": "将$(l:basics/pure_daisy)$(item)活木$(0)$(/l)雕刻成形并用$(l:mana/pool)$(item)魔力钻石$(0)$(/l)作为其心脏，这样便制作了一个名为$(item)活木化身$(0)的著名设备。它本身并不能做任何事情 - 除了看起来十分可爱。$(p)然而，只要给它一根$(thing)法杖$(0)就能让他施展各种的魔法，这取决于给它法杖的类型。当然，它所需的$(thing)魔力$(0)由发射器供给。",
-  "botania.page.avatar1": "并非所有的$(thing)法杖$(0)都适合。然而，所有可用的法杖，都会在它们自己的页面解释放入$(item)活木化身$(0)中的效果$(p)一些可用法杖的例子比如$(l:tools/tornado_rod$(item)天空法杖$(0)(/l)，$(l:tools/fire_rod)$(item)地狱法杖$(0)$(/l)以及$(l:tools/divining_rod)$(item)彩虹桥法杖$(0)$(/l)。$(p)给化身一个红石信号会阻止它使用法杖。",
+  "botania.page.avatar1": "并非所有的$(thing)法杖$(0)都适合。然而，所有可用的法杖，都会在它们自己的页面解释放入$(item)活木化身$(0)中的效果$(p)一些可用法杖的例子比如$(l:tools/tornado_rod)$(item)天空法杖$(0)$(/l)，$(l:tools/fire_rod)$(item)地狱法杖$(0)$(/l)以及$(l:tools/divining_rod)$(item)彩虹桥法杖$(0)$(/l)。$(p)给化身一个红石信号会阻止它使用法杖。",
   "botania.page.avatar2": "但它有番剧吗？",
 
   "botania.entry.felPumpkin": "恶魔南瓜头",
@@ -3089,8 +3089,8 @@
   "botania.entry.exchangeRod": "移壳杆",
   "botania.tagline.exchangeRod": "改变方块的法杖",
   "botania.page.exchangeRod0": "$(item)移壳杆$(0)是一个能快速更替方块的神奇设备。为了做到这个，你必须先选择一个目标方块，潜行右击放在地上的方块即可。$(p)选择完以后，左击另一个你想要替换的方块，当然你的背包必须有目标方块。",
-  "botania.page.exchangeRod1": "右击这个方块会将你点击的方块替换成你选择的目标方块。很显然，这些方块来自你的背包。只有完整的方块才能够更替。花是不行的，火把及其他奇怪东西也是。使用这种力量自然需要背包里有$(thing)魔力$(0)",
-  "botania.page.exchangeRod2": "其他一些设备或法杖也能给$(item)移壳杆$(0)提供额外的能力。$(p)例如物品栏里的$(l:tools/dirt_rod)$(item)大地法杖$(0)$(/l)能给$(item)移壳杆$(0)无限的$(item)泥土$(0)，前提是你有供$(item)大地法杖$(0)消耗的额外$(thing)魔力$(0)。如果不想替换一个立方体区域，使用$(l:tools/temperance_stone)$(item)节制之石$(0)$(/l) 可以将作用区域缩小为一个平面区域",
+  "botania.page.exchangeRod1": "右击这个方块会将你点击的方块替换成你选择的目标方块。很显然，这些方块来自你的背包。只有完整的方块才能够更替。花是不行的，火把及其他奇怪东西也是。使用这种力量自然需要背包里有$(thing)魔力$(0)。",
+  "botania.page.exchangeRod2": "其他一些设备或法杖也能给$(item)移壳杆$(0)提供额外的能力。$(p)例如物品栏里的$(l:tools/dirt_rod)$(item)大地法杖$(0)$(/l)能给$(item)移壳杆$(0)无限的$(item)泥土$(0)，前提是你有供$(item)大地法杖$(0)消耗的额外$(thing)魔力$(0)。如果不想替换一个立方体区域，使用$(l:tools/temperance_stone)$(item)节制之石$(0)$(/l) 可以将作用区域缩小为一个平面区域。",
   "botania.page.exchangeRod3": "私自公平贸易",
 
   "botania.entry.manaweave": "魔源法袍",
@@ -3563,7 +3563,7 @@
   "botania.page.lokiRing0": "$(thing)亚萨神族$(0)所持有的三神戒之一，$(item)洛基之戒$(0)让穿戴者能像恶作剧之神$(thing)洛基$(0)一样一次放置多个方块。$(p)要设定这项能力，首先戴着$(item)洛基之戒$(0)并空手shift右击一个方块。",
   "botania.page.lokiRing1": "一旦选定初始方块（称为“原点”），shift右击另一些方块会记录他们相对原点位置。再次shift右击原点方块就可以完成选择。$(p)shift右击一个已经选中的方块能够取消选中它。要清空选择的方块，只需潜行右击地面两次。",
   "botania.page.lokiRing2": "完成选择后，你会发现你看向的方块所选相对位置会有额外的框架标记。当你潜行放置一个方块时，框架标记的方块会模仿你的动作放下相同的方块，这让你能够一次性放置大量的方块。这个能力同样会使$(l:tools/terra_pick)$(item)泰拉粉碎者$(0)$(/l)和$(l:tools/terra_axe)$(item)泰拉断裂者$(0)$(/l)同时破坏那些位置的方块。",
-  "botania.page.lokiRing3": "当然这么强大的力量肯定不是免费的。每放置一个方块都会消耗穿戴者背包里的$(thing)魔力$(0)。选择的方块越多，$(thing)每一个放置方块$(0)消耗魔力越多。$(p)最后，请谨记$(item)洛基之戒$(0)仍然只能使用手中的物品。如果直接铺设方块的话，手中所持物品的数量可能会成为限制因素之一",
+  "botania.page.lokiRing3": "当然这么强大的力量肯定不是免费的。每放置一个方块都会消耗穿戴者背包里的$(thing)魔力$(0)。选择的方块越多，$(thing)每一个放置方块$(0)消耗魔力越多。$(p)最后，请谨记$(item)洛基之戒$(0)仍然只能使用手中的物品。如果直接铺设方块的话，手中所持物品的数量可能会成为限制因素之一。",
 
   "botania.entry.odinRing": "奥丁之戒",
   "botania.tagline.odinRing": "神佑",
@@ -3623,7 +3623,7 @@
   "botania.entry.headCreating": "头颅制造",
   "botania.tagline.headCreating": "制造玩家的头颅",
   "botania.page.headCreating0": "一个特别的精灵咒语，配合一些材料和一个$(item)命名牌$(0)就能做出牌子里所写者头的复制品。虽然并不知道这是怎样的原理，但似乎可以用$(item)符文祭坛$(0)来制作。",
-  "botania.page.headCreating3": "将命名牌替换为$(item)成书(0)（副本同样有效）可将更多信息融入该流程：$(p)如果已知过去的$(thing)皮肤$(0)的秘密代码，且该代码以名为$(thing)Base64$(0)的奥法语言编写，则可将其写入书籍，以召唤$(thing)玩家$(0)特定皮肤的头颅。",
+  "botania.page.headCreating3": "将命名牌替换为$(item)成书$(0)（副本同样有效）可将更多信息融入该流程：$(p)如果已知过去的$(thing)皮肤$(0)的秘密代码，且该代码以名为$(thing)Base64$(0)的奥法语言编写，则可将其写入书籍，以召唤$(thing)玩家$(0)特定皮肤的头颅。",
   "botania.page.headCreating2": "这个社区的一小撮人（哎呀，打破了第四面墙）决意制作可用作装饰品的头颅。热衷于装饰的玩家可以考虑访问一些汇总这些头部模型的社区皮肤网站。$(br)部分网站还提供高级命令，其中包含合成表中成书所需的 Base64 编码纹理引用数据，皮肤 URL 或哈希值同样有效。",
   "botania.page.headCreating1": "在游戏中获得你的头",
 
