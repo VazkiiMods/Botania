@@ -1,0 +1,6 @@
+{
+  "death_message_type": "intentional_game_design",
+  "exhaustion": 0.1,
+  "message_id": "botania.portal_bread_explosion",
+  "scaling": "always"
+}

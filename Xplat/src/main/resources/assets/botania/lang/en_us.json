@@ -493,6 +493,9 @@
 
   "death.attack.botania.relic": "%s was punished for using a relic that isn't theirs",
   "death.attack.botania.key_explosion": "%2$s drowned %1$s in treasure",
+  "death.attack.botania.portal_bread_explosion": "%1$s found out that elves don't like bread",
+  "death.attack.botania.portal_bread_explosion.message": "%1$s found out that %2$s",
+  "death.attack.botania.portal_bread_explosion.link": "elves don't like bread",
 
   "effect.botania.allure.description": "Doubles fishing speed.",
   "effect.botania.bloodthirst.description": "Allows hostile mobs to spawn in a 64-block radius, regardless of spawning conditions. Doesn't work if under the effect of Emptiness.",

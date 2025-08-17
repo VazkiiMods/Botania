@@ -15,15 +15,19 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -32,6 +36,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -40,6 +45,7 @@ import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.BotaniaDamageTypes;
 import vazkii.botania.common.advancements.AlfheimPortalBreadTrigger;
 import vazkii.botania.common.advancements.AlfheimPortalTrigger;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -47,6 +53,7 @@ import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.world.BotaniaExplosionDamageCalculator;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
@@ -104,6 +111,9 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 				'0', BotaniaBlocks.alfPortal
 		);
 	});
+
+	private static final ExplosionDamageCalculator EXPLOSION_DAMAGE_CALCULATOR = new BotaniaExplosionDamageCalculator(true, BotaniaTags.Entities.PORTAL_BREAD_IMMUNE);
+	private static final float EXPLOSION_RADIUS = 3f;
 
 	public static final int MANA_COST = 500;
 	public static final int MANA_COST_OPENING = 200000;
@@ -191,8 +201,11 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 				level.setBlockAndUpdate(worldPosition, blockState.setValue(BotaniaStateProperties.ALFPORTAL_STATE, newState));
 			}
 		} else if (self.explode) {
-			level.explode(null, worldPosition.getX() + .5, worldPosition.getY() + 2.0, worldPosition.getZ() + .5,
-					3f, Level.ExplosionInteraction.TNT);
+			Holder<DamageType> type = level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE)
+					.getHolderOrThrow(BotaniaDamageTypes.PORTAL_BREAD_EXPLOSION);
+			Vec3 sourcePosition = worldPosition.getCenter().add(0, 2, 0);
+			level.explode(null, new DamageSource(type, sourcePosition), EXPLOSION_DAMAGE_CALCULATOR,
+					sourcePosition, EXPLOSION_RADIUS, false, Level.ExplosionInteraction.TNT);
 			self.explode = false;
 
 			if (!level.isClientSide && self.breadPlayer != null) {

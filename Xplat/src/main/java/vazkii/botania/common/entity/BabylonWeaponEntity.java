@@ -23,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -38,6 +39,8 @@ import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
+import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.world.BotaniaExplosionDamageCalculator;
 
 import java.util.List;
 
@@ -55,6 +58,8 @@ public class BabylonWeaponEntity extends LegallyDistinctThrowableProjectile {
 	private static final EntityDataAccessor<Integer> LIVE_TICKS = SynchedEntityData.defineId(BabylonWeaponEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> DELAY = SynchedEntityData.defineId(BabylonWeaponEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> ROTATION = SynchedEntityData.defineId(BabylonWeaponEntity.class, EntityDataSerializers.FLOAT);
+
+	private static final ExplosionDamageCalculator EXPLOSION_DAMAGE_CALCULATOR = new BotaniaExplosionDamageCalculator(false, BotaniaTags.Entities.KEY_IMMUNE);
 
 	public BabylonWeaponEntity(EntityType<BabylonWeaponEntity> type, Level world) {
 		super(type, world);
@@ -185,7 +190,7 @@ public class BabylonWeaponEntity extends LegallyDistinctThrowableProjectile {
 		if (!level().isClientSide) {
 			Holder<DamageType> type = level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(BotaniaDamageTypes.KEY_EXPLOSION);
 			DamageSource source = new DamageSource(type, this, this.getOwner());
-			level().explode(this, source, null, getX(), getY(), getZ(), 3F, false, Level.ExplosionInteraction.NONE);
+			level().explode(this, source, EXPLOSION_DAMAGE_CALCULATOR, getX(), getY(), getZ(), 3F, false, Level.ExplosionInteraction.NONE);
 			discard();
 		}
 	}

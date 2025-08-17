@@ -8,6 +8,7 @@ import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DeathMessageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
@@ -22,10 +23,14 @@ public class BotaniaDamageTypes {
 			ResourceKey.create(Registries.DAMAGE_TYPE, botaniaRL("relic_damage"));
 	public static final ResourceKey<DamageType> KEY_EXPLOSION =
 			ResourceKey.create(Registries.DAMAGE_TYPE, botaniaRL("key_explosion"));
+	public static final ResourceKey<DamageType> PORTAL_BREAD_EXPLOSION =
+			ResourceKey.create(Registries.DAMAGE_TYPE, botaniaRL("portal_bread_explosion"));
 
 	public static final DamageType PLAYER_AP = new DamageType("player", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1F);
 	public static final DamageType RELIC = new DamageType("botania.relic", DamageScaling.NEVER, 1F, DamageEffects.FREEZING);
 	public static final DamageType KEY = new DamageType("botania.key_explosion", DamageScaling.ALWAYS, 0.1F);
+	public static final DamageType PORTAL = new DamageType("botania.portal_bread_explosion",
+			DamageScaling.ALWAYS, 0.1F, DamageEffects.HURT, DeathMessageType.INTENTIONAL_GAME_DESIGN);
 
 	public static class Sources {
 

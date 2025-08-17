@@ -18,6 +18,7 @@
     "BlockPropertiesAccessor",
     "BushBlockMixin",
     "CollectingNeighborUpdaterMixin",
+    "CombatTrackerMixin",
     "CreeperAccessor",
     "CreeperMixin",
     "DispenserBlockAccessor",

@@ -112,5 +112,6 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		context.register(RELIC_DAMAGE, RELIC);
 		context.register(PLAYER_ATTACK_ARMOR_PIERCING, PLAYER_AP);
 		context.register(KEY_EXPLOSION, KEY);
+		context.register(PORTAL_BREAD_EXPLOSION, PORTAL);
 	}
 }

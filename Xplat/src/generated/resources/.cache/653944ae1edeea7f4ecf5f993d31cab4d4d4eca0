@@ -5,5 +5,6 @@ daa2aa89d1de6896401ef2383e2058aa8ecd36e0 data/botania/tags/entity_type/cocoon/ra
 92d1c364f275518579675aa8cd7995fbf9976f78 data/botania/tags/entity_type/cocoon/rare_aquatic.json
 efd0b9bc39be573af4c8f7f51f0fcb468f80fb88 data/botania/tags/entity_type/drum/milkable.json
 1ef430c55d1de22917fabe28a7b13acd1ccbc2cc data/botania/tags/entity_type/drum/no_shearing.json
-e9427f5a590551b01ef769c798bf5265d3cfb3c1 data/botania/tags/entity_type/key_immune.json
+fa2fc1c87a800ac4d8b5b6fe2bdeed6a902255a2 data/botania/tags/entity_type/key_immune.json
+c922a1dd9635b859b5ef273b97b42a7112d348c9 data/botania/tags/entity_type/portal_bread_immune.json
 0245380849f53d041a39d793cd43546f4e160ac0 data/botania/tags/entity_type/shaded_mesa_no_pickup.json

@@ -317,6 +317,11 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<EntityType<?>> KEY_IMMUNE = tag("key_immune");
 
+		/**
+		 * Entities in this tag are immune to damage from the portal bread explosion
+		 */
+		public static final TagKey<EntityType<?>> PORTAL_BREAD_IMMUNE = tag("portal_bread_immune");
+
 		private static TagKey<EntityType<?>> tag(String name) {
 			return TagKey.create(Registries.ENTITY_TYPE, botaniaRL(name));
 		}

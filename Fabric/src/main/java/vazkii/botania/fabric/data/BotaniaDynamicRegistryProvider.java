@@ -19,6 +19,7 @@ public class BotaniaDynamicRegistryProvider extends FabricDynamicRegistryProvide
 		entries.add(RELIC_DAMAGE, RELIC);
 		entries.add(PLAYER_ATTACK_ARMOR_PIERCING, PLAYER_AP);
 		entries.add(KEY_EXPLOSION, KEY);
+		entries.add(PORTAL_BREAD_EXPLOSION, PORTAL);
 	}
 
 	@Override

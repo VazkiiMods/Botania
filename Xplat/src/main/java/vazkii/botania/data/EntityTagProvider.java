@@ -53,6 +53,8 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 				BotaniaEntities.CORPOREA_SPARK, BotaniaEntities.DOPPLEGANGER, BotaniaEntities.FLAME_RING, BotaniaEntities.MAGIC_LANDMINE,
 				BotaniaEntities.MAGIC_MISSILE, BotaniaEntities.MANA_BURST, BotaniaEntities.PINK_WITHER, BotaniaEntities.SPARK, BotaniaEntities.PLAYER_MOVER);
 
-		tag(BotaniaTags.Entities.KEY_IMMUNE).add(EntityType.ITEM, EntityType.ITEM_FRAME, EntityType.PAINTING, EntityType.EXPERIENCE_ORB);
+		tag(BotaniaTags.Entities.KEY_IMMUNE).add(EntityType.ITEM, EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME,
+				EntityType.PAINTING, EntityType.EXPERIENCE_ORB);
+		tag(BotaniaTags.Entities.PORTAL_BREAD_IMMUNE).add(EntityType.ITEM, EntityType.EXPERIENCE_ORB);
 	}
 }
