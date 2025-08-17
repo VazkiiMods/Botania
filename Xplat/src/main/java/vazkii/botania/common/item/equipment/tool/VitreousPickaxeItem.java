@@ -11,6 +11,7 @@ package vazkii.botania.common.item.equipment.tool;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -66,7 +67,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem implements
 
 		@Override
 		public Ingredient getRepairIngredient() {
-			return Ingredient.of(Blocks.GLASS);
+			return Ingredient.of(TagKey.create(Registries.ITEM, ResourceLocation.parse("c:glass_blocks/colorless")));
 		}
 
 		@Override
