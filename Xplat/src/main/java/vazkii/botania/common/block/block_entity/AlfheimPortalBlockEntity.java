@@ -151,7 +151,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		boolean open = self.ticksOpen > 60;
 		XplatAbstractions.INSTANCE.fireElvenPortalUpdateEvent(self, aabb, open, self.stacksIn);
 
-		if (self.ticksOpen > 60) {
+		if (self.ticksOpen > 60 && !self.closeNow && newState != AlfheimPortalState.OFF) {
 			self.ticksSinceLastItem++;
 			if (level.isClientSide && BotaniaConfig.client().elfPortalParticlesEnabled()) {
 				self.blockParticle(state);
