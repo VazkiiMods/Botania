@@ -229,4 +229,8 @@ public interface XplatAbstractions {
 	WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen);
 
 	XplatAbstractions INSTANCE = ServiceUtil.findService(XplatAbstractions.class, null);
+
+	static XplatAbstractions instance() {
+		return INSTANCE;
+	}
 }

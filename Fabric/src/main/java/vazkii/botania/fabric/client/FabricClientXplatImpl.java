@@ -1,5 +1,7 @@
 package vazkii.botania.fabric.client;
 
+import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -7,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -22,8 +25,10 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
+import vazkii.botania.fabric.integration.sodium.SodiumHelper;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.ClientXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class FabricClientXplatImpl implements ClientXplatAbstractions {
 	@Override
@@ -70,4 +75,14 @@ public class FabricClientXplatImpl implements ClientXplatAbstractions {
 		brd.getModelRenderer().tesselateBlock(level, brd.getBlockModel(state), state, pos, ps,
 				buffer, true, RandomSource.create(), state.getSeed(pos), overlay);
 	}
+
+	@Override
+	public void markSpriteActive(TextureAtlasSprite sprite) {
+		if (sodiumLoaded.get()) {
+			SodiumHelper.markSpriteActive(sprite);
+		}
+	}
+
+	private final Supplier<Boolean> sodiumLoaded = Suppliers.memoize(() -> XplatAbstractions.INSTANCE.isModLoaded("sodium")
+			|| XplatAbstractions.INSTANCE.isModLoaded("embeddium"));
 }

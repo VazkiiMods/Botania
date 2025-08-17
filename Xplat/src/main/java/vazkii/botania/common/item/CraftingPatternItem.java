@@ -20,6 +20,8 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.block.block_entity.CraftyCrateBlockEntity;
 
 public class CraftingPatternItem extends Item {
 	public final CraftyCratePattern pattern;
@@ -39,6 +41,10 @@ public class CraftingPatternItem extends Item {
 		if (state.is(BotaniaBlocks.craftCrate)) {
 			if (pattern != state.getValue(BotaniaStateProperties.CRATE_PATTERN)) {
 				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.CRATE_PATTERN, this.pattern));
+				if (!world.isClientSide) {
+					world.getBlockEntity(pos, BotaniaBlockEntities.CRAFT_CRATE)
+							.ifPresent(CraftyCrateBlockEntity::ejectLocked);
+				}
 				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
 		}
