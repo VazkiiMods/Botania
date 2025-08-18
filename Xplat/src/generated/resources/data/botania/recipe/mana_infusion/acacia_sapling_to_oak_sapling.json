@@ -6,11 +6,11 @@
   },
   "group": "botania:sapling_cycle",
   "input": {
-    "item": "minecraft:spruce_sapling"
+    "item": "minecraft:acacia_sapling"
   },
-  "mana": 120,
+  "mana": 6000,
   "output": {
     "count": 1,
-    "id": "minecraft:birch_sapling"
+    "id": "minecraft:oak_sapling"
   }
 }

@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:froglight_cycle",
+  "group": "botania:stone_cycle",
   "input": {
-    "item": "minecraft:pearlescent_froglight"
+    "item": "minecraft:calcite"
   },
-  "mana": 40,
+  "mana": 200,
   "output": {
     "count": 1,
-    "id": "minecraft:ochre_froglight"
+    "id": "minecraft:diorite"
   }
 }

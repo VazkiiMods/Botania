@@ -8,7 +8,7 @@
   "input": {
     "item": "minecraft:jungle_sapling"
   },
-  "mana": 120,
+  "mana": 6000,
   "output": {
     "count": 1,
     "id": "minecraft:acacia_sapling"

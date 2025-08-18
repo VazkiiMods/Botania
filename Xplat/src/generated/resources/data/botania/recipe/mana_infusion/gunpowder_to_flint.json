@@ -4,6 +4,7 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
+  "group": "botania:gunpowder_and_flint_cycle",
   "input": {
     "item": "minecraft:gunpowder"
   },

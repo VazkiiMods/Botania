@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:berry_cycle",
+  "group": "botania:log_cycle",
   "input": {
-    "item": "minecraft:sweet_berries"
+    "item": "minecraft:cherry_log"
   },
-  "mana": 240,
+  "mana": 40,
   "output": {
     "count": 1,
-    "id": "minecraft:glow_berries"
+    "id": "minecraft:jungle_log"
   }
 }

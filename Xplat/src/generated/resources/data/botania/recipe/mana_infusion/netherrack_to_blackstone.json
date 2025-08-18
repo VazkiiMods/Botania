@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:fish_cycle",
+  "group": "botania:nether_stone_cycle",
   "input": {
-    "item": "minecraft:cod"
+    "item": "minecraft:netherrack"
   },
   "mana": 200,
   "output": {
     "count": 1,
-    "id": "minecraft:salmon"
+    "id": "minecraft:blackstone"
   }
 }

@@ -2,14 +2,15 @@
   "type": "botania:mana_infusion",
   "catalyst": {
     "type": "botania:block",
-    "block": "botania:conjuration_catalyst"
+    "block": "botania:alchemy_catalyst"
   },
+  "group": "botania:nether_stone_cycle",
   "input": {
-    "item": "minecraft:netherrack"
+    "item": "minecraft:basalt"
   },
   "mana": 200,
   "output": {
-    "count": 2,
+    "count": 1,
     "id": "minecraft:netherrack"
   }
 }

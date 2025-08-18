@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:fish_cycle",
+  "group": "botania:flower_cycle",
   "input": {
-    "item": "minecraft:pufferfish"
+    "item": "minecraft:pink_petals"
   },
-  "mana": 200,
+  "mana": 400,
   "output": {
     "count": 1,
-    "id": "minecraft:cod"
+    "id": "minecraft:torchflower"
   }
 }

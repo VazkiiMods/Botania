@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:fish_cycle",
+  "group": "botania:flower_cycle",
   "input": {
-    "item": "minecraft:tropical_fish"
+    "item": "minecraft:spore_blossom"
   },
-  "mana": 200,
+  "mana": 400,
   "output": {
     "count": 1,
-    "id": "minecraft:pufferfish"
+    "id": "minecraft:dandelion"
   }
 }

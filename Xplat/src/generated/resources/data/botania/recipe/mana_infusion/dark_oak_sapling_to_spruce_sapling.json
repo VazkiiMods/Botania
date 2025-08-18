@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:117_stone_cycle",
+  "group": "botania:sapling_cycle",
   "input": {
-    "item": "minecraft:deepslate"
+    "item": "minecraft:dark_oak_sapling"
   },
-  "mana": 200,
+  "mana": 6000,
   "output": {
     "count": 1,
-    "id": "minecraft:tuff"
+    "id": "minecraft:spruce_sapling"
   }
 }
