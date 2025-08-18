@@ -13,10 +13,7 @@
       "tag": "minecraft:saplings"
     },
     {
-      "tag": "minecraft:saplings"
-    },
-    {
-      "tag": "minecraft:saplings"
+      "item": "minecraft:dandelion"
     },
     {
       "item": "minecraft:wheat"

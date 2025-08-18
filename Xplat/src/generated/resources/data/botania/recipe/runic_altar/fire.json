@@ -14,9 +14,14 @@
     {
       "item": "minecraft:gunpowder"
     },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:charcoal"
+      }
+    ]
   ],
   "mana": 5200,
   "output": {

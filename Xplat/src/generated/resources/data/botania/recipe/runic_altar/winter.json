@@ -13,13 +13,10 @@
       "item": "minecraft:snow_block"
     },
     {
-      "item": "minecraft:snow_block"
-    },
-    {
       "tag": "minecraft:wool"
     },
     {
-      "item": "minecraft:cake"
+      "item": "minecraft:sweet_berries"
     }
   ],
   "mana": 8000,
