@@ -139,7 +139,7 @@ public final class ColorHandler {
 		items.register((s, t) -> {
 			if (t == 1) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(s);
-				return FastColor.ARGB32.opaque(Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) manaItem.getMaxMana(), 1F));
+				return FastColor.ARGB32.opaque(Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) Math.max(1, manaItem.getMaxMana()), 1F));
 			}
 			return -1;
 		}, BotaniaItems.manaMirror);
