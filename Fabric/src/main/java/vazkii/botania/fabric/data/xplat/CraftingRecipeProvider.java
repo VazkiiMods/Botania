@@ -857,15 +857,15 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_orig_recipe", RecipeUnlockedTrigger.unlocked(ResourceLocation.withDefaultNamespace("mushroom_stew")))
 				.save(recipeOutput, "botania:mushroom_stew");
 
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.botaniaBannerPattern)
-				.requires(Items.PAPER)
-				.requires(BotaniaItems.lexicon)
-				.requires(BotaniaBlocks.tinyPotato)
-				.requires(BotaniaItems.terrasteel)
-				.unlockedBy("has_lexicon", conditionsFromItem(BotaniaItems.lexicon))
-				.unlockedBy("has_potato", conditionsFromItem(BotaniaBlocks.tinyPotato))
-				.unlockedBy("has_terrasteel", conditionsFromItem(BotaniaItems.terrasteel))
-				.save(recipeOutput);
+		WrapperRecipeBuilder.wrap(LexiconReturningShapelessRecipe.SERIALIZER,
+				ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.botaniaBannerPattern)
+						.requires(Items.PAPER)
+						.requires(BotaniaItems.lexicon)
+						.requires(BotaniaBlocks.tinyPotato)
+						.requires(BotaniaItems.terrasteel)
+						.unlockedBy("has_potato", conditionsFromItem(BotaniaBlocks.tinyPotato))
+						.unlockedBy("has_terrasteel", conditionsFromItem(BotaniaItems.terrasteel))
+		).save(recipeOutput);
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.materialsBannerPattern)
 				.requires(Items.PAPER)

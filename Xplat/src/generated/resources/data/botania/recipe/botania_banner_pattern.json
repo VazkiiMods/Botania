@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "botania:crafting_shapeless_lexicon_return",
   "category": "misc",
   "ingredients": [
     {

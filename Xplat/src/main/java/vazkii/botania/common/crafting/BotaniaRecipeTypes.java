@@ -91,6 +91,7 @@ public class BotaniaRecipeTypes {
 		r.accept(CosmeticRemoveRecipe.SERIALIZER, botaniaRL("crafting_special_cosmetic_remove"));
 		r.accept(LaputaShardUpgradeRecipe.SERIALIZER, botaniaRL("crafting_special_laputa_shard_upgrade"));
 		r.accept(LensDyeingRecipe.SERIALIZER, botaniaRL("crafting_special_lens_dye"));
+		r.accept(LexiconReturningShapelessRecipe.SERIALIZER, botaniaRL("crafting_shapeless_lexicon_return"));
 		r.accept(ManaBlasterClipRecipe.SERIALIZER, botaniaRL("crafting_special_mana_gun_add_clip"));
 		r.accept(ManaBlasterLensRecipe.SERIALIZER, botaniaRL("crafting_special_mana_gun_add_lens"));
 		r.accept(ManaBlasterRemoveLensRecipe.SERIALIZER, botaniaRL("crafting_special_mana_gun_remove_lens"));
