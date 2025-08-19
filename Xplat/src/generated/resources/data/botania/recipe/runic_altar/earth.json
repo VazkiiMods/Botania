@@ -24,7 +24,10 @@
     ]
   ],
   "mana": 5200,
-  "output": "botania:rune_earth",
+  "output": {
+    "count": 2,
+    "id": "botania:rune_earth"
+  },
   "reagent": {
     "item": "botania:livingrock"
   }

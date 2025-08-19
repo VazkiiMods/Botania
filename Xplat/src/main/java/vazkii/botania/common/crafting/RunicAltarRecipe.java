@@ -175,7 +175,7 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 				Ingredient.CODEC_NONEMPTY.listOf().fieldOf("catalysts").forGetter(RunicAltarRecipe::getCatalysts),
 				Ingredient.CODEC_NONEMPTY.fieldOf("reagent").forGetter(RunicAltarRecipe::getReagent),
 				ExtraCodecs.POSITIVE_INT.fieldOf("mana").forGetter(RunicAltarRecipe::getMana),
-				ItemStack.SIMPLE_ITEM_CODEC.fieldOf("output").forGetter(RunicAltarRecipe::getOutput)
+				ItemStack.STRICT_CODEC.fieldOf("output").forGetter(RunicAltarRecipe::getOutput)
 		).apply(instance, RunicAltarRecipe::of));
 		public static final MapCodec<RunicAltarRecipe> CODEC = RAW_CODEC.validate(recipe -> {
 			if (recipe.getIngredients().size() + recipe.getCatalysts().size() == 0) {

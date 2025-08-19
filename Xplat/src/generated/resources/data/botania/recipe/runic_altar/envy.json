@@ -17,7 +17,10 @@
     }
   ],
   "mana": 12000,
-  "output": "botania:rune_envy",
+  "output": {
+    "count": 1,
+    "id": "botania:rune_envy"
+  },
   "reagent": {
     "item": "botania:livingrock"
   }

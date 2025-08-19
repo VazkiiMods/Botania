@@ -23,7 +23,10 @@
     }
   ],
   "mana": 8000,
-  "output": "botania:rune_autumn",
+  "output": {
+    "count": 1,
+    "id": "botania:rune_autumn"
+  },
   "reagent": {
     "item": "botania:livingrock"
   }

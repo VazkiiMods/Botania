@@ -19,7 +19,10 @@
     }
   ],
   "mana": 5200,
-  "output": "botania:rune_fire",
+  "output": {
+    "count": 2,
+    "id": "botania:rune_fire"
+  },
   "reagent": {
     "item": "botania:livingrock"
   }
