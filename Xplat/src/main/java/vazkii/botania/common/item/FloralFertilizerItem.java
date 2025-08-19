@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
@@ -38,7 +37,52 @@ public class FloralFertilizerItem extends Item {
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
-		if (!world.isClientSide) {
+		BlockState state = world.getBlockState(pos);
+		if (state.is(BotaniaTags.Blocks.FERTILIZER_EXCLUDED_PLANTS)
+				|| !state.is(BotaniaTags.Blocks.FERTILIZER_FLOWERS_SOIL)
+						&& !state.is(BotaniaTags.Blocks.FERTILIZER_MUSHROOMS_SOIL)
+						&& !state.is(BotaniaTags.Blocks.FERTILIZER_SPREADABLE_PLANTS)) {
+			return InteractionResult.PASS;
+		}
+		if (world.isClientSide) {
+			for (int i = 0; i < 15; i++) {
+				double x = pos.getX() - RANGE + world.random.nextInt(RANGE * 2 + 1) + Math.random();
+				double y = pos.getY() + 1;
+				double z = pos.getZ() - RANGE + world.random.nextInt(RANGE * 2 + 1) + Math.random();
+				float red = (float) Math.random();
+				float green = (float) Math.random();
+				float blue = (float) Math.random();
+				WispParticleData data = WispParticleData.wisp(0.15F + (float) Math.random() * 0.25F, red, green, blue, 1);
+				world.addParticle(data, x, y, z, 0, (float) Math.random() * 0.1F - 0.05F, 0);
+			}
+			return InteractionResult.sidedSuccess(true);
+		}
+
+		if (state.is(BotaniaTags.Blocks.FERTILIZER_SPREADABLE_PLANTS)) {
+			// attempt to spread the targeted plant
+
+			List<BlockPos> validCoords = new ArrayList<>();
+
+			for (BlockPos candidatePos : BlockPos.betweenClosed(
+					pos.getX() - RANGE, pos.getY() - 2, pos.getZ() - RANGE,
+					pos.getX() + RANGE, pos.getY() + 2, pos.getZ() + RANGE)) {
+				if (!world.isInWorldBounds(candidatePos) || !world.isEmptyBlock(candidatePos) || !state.canSurvive(world, candidatePos)) {
+					continue;
+				}
+				validCoords.add(candidatePos.immutable());
+			}
+
+			// up to 3, but usually 2:
+			int numCopies = 1 + world.random.nextInt(2) + world.random.nextInt(2);
+			while (numCopies > 0 && !validCoords.isEmpty()) {
+				BlockPos coords = validCoords.get(world.random.nextInt(validCoords.size()));
+				validCoords.remove(coords);
+				world.setBlockAndUpdate(coords, state);
+				numCopies--;
+			}
+		} else {
+			// attempt to generate random mystical flowers and shimmering mushrooms
+
 			Optional<HolderSet.Named<Block>> flowersTag =
 					BuiltInRegistries.BLOCK.getTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS);
 			Optional<HolderSet.Named<Block>> mushroomsTag =
@@ -83,28 +127,17 @@ public class FloralFertilizerItem extends Item {
 					world.setBlockAndUpdate(coords, toPlace.get().value().defaultBlockState());
 				}
 			}
-			ctx.getItemInHand().shrink(1);
-		} else {
-			for (int i = 0; i < 15; i++) {
-				double x = pos.getX() - RANGE + world.random.nextInt(RANGE * 2 + 1) + Math.random();
-				double y = pos.getY() + 1;
-				double z = pos.getZ() - RANGE + world.random.nextInt(RANGE * 2 + 1) + Math.random();
-				float red = (float) Math.random();
-				float green = (float) Math.random();
-				float blue = (float) Math.random();
-				WispParticleData data = WispParticleData.wisp(0.15F + (float) Math.random() * 0.25F, red, green, blue, 1);
-				world.addParticle(data, x, y, z, 0, (float) Math.random() * 0.1F - 0.05F, 0);
-			}
 		}
 
-		return InteractionResult.sidedSuccess(world.isClientSide());
+		ctx.getItemInHand().shrink(1);
+		return InteractionResult.sidedSuccess(false);
 	}
 
 	private static boolean canPlaceMushroom(BlockState belowState) {
-		return belowState.is(BlockTags.MUSHROOM_GROW_BLOCK);
+		return belowState.is(BotaniaTags.Blocks.FERTILIZER_MUSHROOMS_SOIL);
 	}
 
 	private static boolean canPlaceFlower(BlockState belowState, Level world) {
-		return belowState.is(BlockTags.DIRT) && !world.dimensionType().ultraWarm();
+		return belowState.is(BotaniaTags.Blocks.FERTILIZER_FLOWERS_SOIL) && !world.dimensionType().ultraWarm();
 	}
 }

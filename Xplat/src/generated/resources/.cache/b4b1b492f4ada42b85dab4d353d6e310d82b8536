@@ -1,4 +1,6 @@
 // 1.21.1	Botania/Conventional Tags for minecraft:block
+08aee6967f0ad8a52f8f150d6b13d3b5a66ed859 data/botania/tags/block/fertilizer/excluded_plants.json
+5c209cd77b9788c50ad6b2f372c88de2a7eeaf7d data/botania/tags/block/fertilizer/spreadable_plants.json
 7f1b84adc55b05faf4efce7a34eaeca050f0b2fe data/botania/tags/block/mineable/vitreous_pickaxe.json
 3b93bdcd6e6318d00d1efbca963fd47441c34cac data/botania/tags/block/terraformable.json
 00925461bcd777520f670a259b704d0fc54f7f4b data/botania/tags/block/vitreous_pickaxe_silktouched.json

@@ -7,6 +7,8 @@ d7d4fa19fbc2cba6bcd55c98c298047c193cb0af data/botania/tags/block/double_mystical
 870b465005dcaf5732efc8a592eeb6837de27a3a data/botania/tags/block/dreamwood_logs.json
 3625cf15d1ae2886eae7f345ef3e52cda2999e82 data/botania/tags/block/enchanter_flowers.json
 e701caf7820c6917af091e9445e5b65bbdea84a7 data/botania/tags/block/ender_air_convertable.json
+69c396cb051bbe9a130e6979b67065e5041b179d data/botania/tags/block/fertilizer/flowers_soil.json
+58e7fee002632c6756921410207fd1c68bdf9350 data/botania/tags/block/fertilizer/mushrooms_soil.json
 c3cb51c6ce1dbe8639e8d7a826faeb5c6f4a6c54 data/botania/tags/block/floating_flowers.json
 c9af2e1986fcbb302a3a285c8ba32305c3d18aac data/botania/tags/block/functional_special_flowers.json
 632c12f4eb85e9293a2c7472465ffb5e8b998631 data/botania/tags/block/gaia_guardian_immune.json

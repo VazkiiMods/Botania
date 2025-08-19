@@ -253,6 +253,26 @@ public class BotaniaTags {
 		public static final TagKey<Block> AGRICARNATION_APPLY_BONEMEAL = tag("agricarnation/apply_bonemeal");
 
 		/**
+		 * Soil blocks that can likely support any flowers to spread.
+		 * When applying floral fertilizer directly, random mystical flowers grow here.
+		 */
+		public static final TagKey<Block> FERTILIZER_FLOWERS_SOIL = tag("fertilizer/flowers_soil");
+		/**
+		 * Soil blocks that can likely support any mushrooms to spread.
+		 * When applying floral fertilizer directly, random shimmering mushrooms grow here.
+		 */
+		public static final TagKey<Block> FERTILIZER_MUSHROOMS_SOIL = tag("fertilizer/mushrooms_soil");
+
+		/**
+		 * Plants that will spread when floral fertilizer is applied directly to them.
+		 */
+		public static final TagKey<Block> FERTILIZER_SPREADABLE_PLANTS = tag("fertilizer/spreadable_plants");
+		/**
+		 * Generic exclusion list for plants floral fertilizer should not interact with.
+		 */
+		public static final TagKey<Block> FERTILIZER_EXCLUDED_PLANTS = tag("fertilizer/excluded_plants");
+
+		/**
 		 * Blocks in this tag can not have their state manipulated by a wand of the forest
 		 */
 		public static final TagKey<Block> UNWANDABLE = tag("unwandable");

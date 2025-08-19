@@ -33,8 +33,10 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 			BlockTags.DIRT,
 			BlockTags.ICE,
 			BlockTags.SAND,
+			BlockTags.SMALL_FLOWERS,
 			BlockTags.MINEABLE_WITH_PICKAXE,
-			ConventionalBlockTags.GRAVELS
+			ConventionalBlockTags.GRAVELS,
+			BotaniaTags.Blocks.MYSTICAL_FLOWERS
 	);
 
 	public ConventionalBlockTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -143,6 +145,14 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 						Blocks.WAXED_COPPER_BULB, Blocks.WAXED_EXPOSED_COPPER_BULB,
 						Blocks.WAXED_WEATHERED_COPPER_BULB, Blocks.WAXED_OXIDIZED_COPPER_BULB
 				);
+
+		tag(BotaniaTags.Blocks.FERTILIZER_SPREADABLE_PLANTS)
+				.addTag(BlockTags.SMALL_FLOWERS)
+				.add(Blocks.LILY_PAD, Blocks.SPORE_BLOSSOM, Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM);
+
+		tag(BotaniaTags.Blocks.FERTILIZER_EXCLUDED_PLANTS)
+				.addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)
+				.add(Blocks.WITHER_ROSE, Blocks.TORCHFLOWER);
 	}
 
 	@Override
