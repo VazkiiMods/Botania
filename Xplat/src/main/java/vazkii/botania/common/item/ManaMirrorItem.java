@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -31,10 +32,13 @@ import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class ManaMirrorItem extends Item {
@@ -101,11 +105,11 @@ public class ManaMirrorItem extends Item {
 	}
 
 	protected static void setMana(ItemStack stack, int mana) {
-		stack.set(BotaniaDataComponents.MANA, mana);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.MANA, mana);
 	}
 
 	protected static void setMaxMana(ItemStack stack, int maxMana) {
-		stack.set(BotaniaDataComponents.MAX_MANA, maxMana);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.MAX_MANA, maxMana);
 	}
 
 	protected static int getManaBacklog(ItemStack stack) {
@@ -147,6 +151,20 @@ public class ManaMirrorItem extends Item {
 		}
 
 		return null;
+	}
+
+	@SoftImplement("IItemExtension")
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return slotChanged || reequipAnimation(oldStack, newStack);
+	}
+
+	@SoftImplement("FabricItem")
+	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+		return reequipAnimation(oldStack, newStack);
+	}
+
+	private boolean reequipAnimation(ItemStack before, ItemStack after) {
+		return !before.is(this) || !after.is(this) || !Objects.equals(getBoundPos(before), getBoundPos(after));
 	}
 
 	private static class DummyPool implements ManaPool {
