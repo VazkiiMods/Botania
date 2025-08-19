@@ -47,7 +47,6 @@ import vazkii.botania.common.loot.EnableRelics;
 import vazkii.botania.common.loot.TrueGuardianKiller;
 
 import java.util.function.BiConsumer;
-import java.util.stream.Stream;
 
 // not extending EntityLootSubProvider, as that assumes 1:1 match with EntityTypes
 public class BotaniaEntityLoot implements LootTableSubProvider {
@@ -147,20 +146,14 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 		output.accept(BotaniaLootTables.getInjectedLootTable(EntityType.WITHER_SKELETON),
 				defineAxeBeheadingDropTable(Items.WITHER_SKELETON_SKULL, 0.1154f, 0.0385f));
 
-		// Note: other skeletons don't actually drop heads from charged creepers
-		Stream.of(EntityType.SKELETON, EntityType.STRAY, EntityType.BOGGED).forEach(
-				entityType -> output.accept(BotaniaLootTables.getInjectedLootTable(entityType),
-						defineAxeBeheadingDropTable(Items.SKELETON_SKULL, 0.1154f, 0.0385f)));
+		output.accept(BotaniaLootTables.getInjectedLootTable(EntityType.SKELETON),
+				defineAxeBeheadingDropTable(Items.SKELETON_SKULL, 0.1154f, 0.0385f));
 
-		// technically zombified piglins also drop a zombie head from charged creepers
-		Stream.of(EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.HUSK, EntityType.DROWNED).forEach(
-				entityType -> output.accept(BotaniaLootTables.getInjectedLootTable(entityType),
-						defineAxeBeheadingDropTable(Items.ZOMBIE_HEAD, 0.0769f, 0.0769f)));
+		output.accept(BotaniaLootTables.getInjectedLootTable(EntityType.ZOMBIE),
+				defineAxeBeheadingDropTable(Items.ZOMBIE_HEAD, 0.0769f, 0.0769f));
 
-		// Note: piglin brutes don't actually drop a head from charged creepers
-		Stream.of(EntityType.PIGLIN, EntityType.PIGLIN_BRUTE).forEach(
-				entityType -> output.accept(BotaniaLootTables.getInjectedLootTable(entityType),
-						defineAxeBeheadingDropTable(Items.PIGLIN_HEAD, 0.0769f, 0.0769f)));
+		output.accept(BotaniaLootTables.getInjectedLootTable(EntityType.PIGLIN),
+				defineAxeBeheadingDropTable(Items.PIGLIN_HEAD, 0.0769f, 0.0769f));
 
 		output.accept(BotaniaLootTables.getInjectedLootTable(EntityType.CREEPER),
 				defineAxeBeheadingDropTable(Items.CREEPER_HEAD, 0.0769f, 0.0769f));
