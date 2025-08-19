@@ -11,6 +11,7 @@
     "AxeItemFabricMixin",
     "BeaconBlockEntityFabricMixin",
     "BucketItemFabricAccessor",
+    "CombatTrackerMixin",
     "EnchantmentFabricMixin",
     "EnchantmentMenuFabricMixin",
     "EnderManFabricMixin",

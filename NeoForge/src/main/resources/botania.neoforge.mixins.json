@@ -6,7 +6,8 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractFurnaceBlockEntityForgeAccessor",
-    "BotaniaGrassBlockForgeMixin"
+    "BotaniaGrassBlockForgeMixin",
+    "IDeathMessageProviderMixin"
   ],
   "client": [
     "client.ModelBakeryForgeAccessor",
