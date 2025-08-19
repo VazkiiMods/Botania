@@ -138,13 +138,6 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		cycle(consumer, 500, "botania:shrub_cycle", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.SHORT_GRASS);
 
-		// NB: No wither rose is intentional
-		cycle(consumer, 400, "botania:flower_cycle",
-				Blocks.DANDELION, Blocks.POPPY, Blocks.BLUE_ORCHID, Blocks.ALLIUM, Blocks.AZURE_BLUET, Blocks.RED_TULIP,
-				Blocks.ORANGE_TULIP, Blocks.WHITE_TULIP, Blocks.PINK_TULIP, Blocks.OXEYE_DAISY, Blocks.CORNFLOWER,
-				Blocks.LILY_OF_THE_VALLEY, Blocks.PINK_PETALS, Blocks.TORCHFLOWER, Blocks.SUNFLOWER, Blocks.LILAC,
-				Blocks.ROSE_BUSH, Blocks.PEONY, Blocks.PITCHER_PLANT, Blocks.SPORE_BLOSSOM);
-
 		alchemy(consumer, id("dripleaf_shrinking"), new ItemStack(Blocks.SMALL_DRIPLEAF), ingr(Items.BIG_DRIPLEAF), 500);
 		alchemy(consumer, id("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), ingr(Items.POPPED_CHORUS_FRUIT), 10000);
 
