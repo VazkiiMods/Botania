@@ -164,7 +164,7 @@ public class ManaMirrorItem extends Item {
 	}
 
 	private boolean reequipAnimation(ItemStack before, ItemStack after) {
-		return !before.is(this) || !after.is(this) || !Objects.equals(getBoundPos(before), getBoundPos(after));
+		return !Objects.equals(getBoundPos(before), getBoundPos(after));
 	}
 
 	private static class DummyPool implements ManaPool {

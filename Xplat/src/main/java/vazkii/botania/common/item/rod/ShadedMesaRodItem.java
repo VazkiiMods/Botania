@@ -55,17 +55,12 @@ public class ShadedMesaRodItem extends Item {
 
 	@SoftImplement("IItemExtension")
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		// TODO: default on Neoforge appears to be actually swapping out the item stack reference
-		return reequipAnimation(oldStack, newStack);
+		return slotChanged;
 	}
 
 	@SoftImplement("FabricItem")
-	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
-		return reequipAnimation(oldStack, newStack);
-	}
-
-	private boolean reequipAnimation(ItemStack before, ItemStack after) {
-		return !after.is(this);
+	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+		return false;
 	}
 
 	@Override

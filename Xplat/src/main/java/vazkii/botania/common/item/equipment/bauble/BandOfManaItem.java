@@ -9,12 +9,15 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
@@ -67,5 +70,15 @@ public class BandOfManaItem extends BaubleItem implements CustomCreativeTabConte
 	public int getBarColor(ItemStack stack) {
 		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
+	}
+
+	@SoftImplement("IItemExtension")
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return slotChanged;
+	}
+
+	@SoftImplement("FabricItem")
+	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+		return false;
 	}
 }

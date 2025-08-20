@@ -48,6 +48,7 @@ import vazkii.botania.common.item.relic.RingOfThorItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -249,16 +250,16 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 
 	@SoftImplement("IItemExtension")
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		return reequipAnimation(oldStack, newStack);
+		return slotChanged || reequipAnimation(oldStack, newStack);
 	}
 
 	@SoftImplement("FabricItem")
-	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack before, ItemStack after) {
-		return reequipAnimation(before, after);
+	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+		return reequipAnimation(oldStack, newStack);
 	}
 
 	private boolean reequipAnimation(ItemStack before, ItemStack after) {
-		// TODO: default on Neoforge appears to be actually swapping out the item stack reference
-		return !after.is(this) || isEnabled(before) != isEnabled(after);
+		return isEnabled(before) != isEnabled(after)
+				|| !Objects.equals(before.get(DataComponents.DAMAGE), after.get(DataComponents.DAMAGE));
 	}
 }

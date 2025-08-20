@@ -246,17 +246,16 @@ public class SkiesRodItem extends Item {
 
 	@SoftImplement("IItemExtension")
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		return reequipAnimation(oldStack, newStack);
+		return slotChanged || reequipAnimation(oldStack, newStack);
 	}
 
 	@SoftImplement("FabricItem")
-	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		return reequipAnimation(oldStack, newStack);
 	}
 
 	private boolean reequipAnimation(ItemStack before, ItemStack after) {
-		// TODO: default on Neoforge appears to be actually swapping out the item stack reference
-		return !before.is(this) || isFlying(before) != isFlying(after);
+		return isFlying(before) != isFlying(after);
 	}
 
 }
