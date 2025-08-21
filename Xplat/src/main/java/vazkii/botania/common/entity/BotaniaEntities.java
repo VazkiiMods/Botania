@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 
 import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.common.block.block_entity.LuminizerBlockEntity.PlayerMoverEntity;
 import vazkii.botania.common.lib.LibEntityNames;
 
 import java.util.function.BiConsumer;
@@ -100,7 +99,8 @@ public final class BotaniaEntities {
 			.clientTrackingRange(6)
 			.updateInterval(3)
 			.build(LibEntityNames.PINK_WITHER.toString());
-	public static final EntityType<PlayerMoverEntity> PLAYER_MOVER = EntityType.Builder.<PlayerMoverEntity>of(PlayerMoverEntity::new, MobCategory.MISC)
+	public static final EntityType<LuminizerMoverEntity> PLAYER_MOVER = EntityType.Builder.<LuminizerMoverEntity>of(
+			LuminizerMoverEntity::new, MobCategory.MISC)
 			.sized(0, 0)
 			.clientTrackingRange(10)
 			.updateInterval(3)

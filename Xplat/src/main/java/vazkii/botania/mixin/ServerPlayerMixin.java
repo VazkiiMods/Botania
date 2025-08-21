@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.BotaniaStats;
-import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
+import vazkii.botania.common.entity.LuminizerMoverEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -40,7 +40,7 @@ public abstract class ServerPlayerMixin {
 	)
 	private Entity trackLuminizerTravel(ServerPlayer player, Operation<Entity> original, @Local int cm) {
 		Entity entity = original.call(player);
-		if (entity instanceof LuminizerBlockEntity.PlayerMoverEntity) {
+		if (entity instanceof LuminizerMoverEntity) {
 			player.awardStat(BotaniaStats.LUMINIZER_ONE_CM, cm);
 		}
 		return entity;

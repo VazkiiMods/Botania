@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -27,9 +28,12 @@ public class BotaniaBlock extends Block {
 
 	@Override
 	public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int id, int param) {
-		super.triggerEvent(state, world, pos, id, param);
-		BlockEntity tileentity = world.getBlockEntity(pos);
-		return tileentity != null && tileentity.triggerEvent(id, param);
+		boolean result = super.triggerEvent(state, world, pos, id, param);
+		if (this instanceof EntityBlock) {
+			BlockEntity tileentity = world.getBlockEntity(pos);
+			return tileentity != null && tileentity.triggerEvent(id, param);
+		}
+		return result;
 	}
 
 	// [VanillaCopy] BaseEntityBlock. typecheck hackery.

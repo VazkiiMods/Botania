@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.joml.Matrix4f;
@@ -25,28 +24,13 @@ import org.joml.Matrix4f;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.LuminizerBlock;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
-import java.util.Objects;
-
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<LuminizerBlockEntity> {
-	private final TextureAtlasSprite luminizerWorldSprite;
-	private final TextureAtlasSprite detectorLuminizerWorldSprite;
-	private final TextureAtlasSprite forkLuminizerWorldSprite;
-	private final TextureAtlasSprite toggleLuminizerWorldSprite;
 
-	public LuminizerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
-		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
-		this.luminizerWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("block/light_relay")));
-		this.detectorLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("block/detector_light_relay")));
-		this.forkLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("block/fork_light_relay")));
-		this.toggleLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("block/toggle_light_relay")));
-	}
+	public LuminizerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(LuminizerBlockEntity tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
@@ -60,12 +44,7 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 			}
 		}
 
-		TextureAtlasSprite sprite = switch (((LuminizerBlock) state.getBlock()).variant) {
-			case DEFAULT -> this.luminizerWorldSprite;
-			case DETECTOR -> this.detectorLuminizerWorldSprite;
-			case FORK -> this.forkLuminizerWorldSprite;
-			case TOGGLE -> this.toggleLuminizerWorldSprite;
-		};
+		TextureAtlasSprite sprite = mc.getBlockRenderer().getBlockModel(state).getParticleIcon();
 
 		ms.pushPose();
 		ms.translate(0.5, 0.3, 0.5);
