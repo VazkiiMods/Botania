@@ -48,6 +48,8 @@ public class SpreaderTurntableBlockEntity extends BotaniaBlockEntity implements 
 				spreader.rotationX += self.speed * (self.backwards ? -1 : 1);
 				if (spreader.rotationX >= 360F) {
 					spreader.rotationX -= 360F;
+				} else if (spreader.rotationX < 0F) {
+					spreader.rotationX += 360F;
 				}
 				if (!level.isClientSide) {
 					spreader.checkForReceiver();
