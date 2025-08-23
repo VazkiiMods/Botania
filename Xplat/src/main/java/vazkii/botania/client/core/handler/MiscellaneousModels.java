@@ -25,6 +25,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.bauble.ThirdEyeItem;
@@ -38,6 +39,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -62,13 +64,7 @@ public class MiscellaneousModels {
 			.mapToObj(i -> botaniaRL("icon/tiara_wing_" + (i + 1))).toArray(ResourceLocation[]::new);
 	private static final ResourceLocation corporeaCrystalCubeGlassId = botaniaRL("block/corporea_crystal_cube_glass");
 	private static final ResourceLocation manaPumpHead = botaniaRL("block/pump_head");
-	private static final ResourceLocation elvenSpreaderCoreId = botaniaRL("block/elven_spreader_core");
-	private static final ResourceLocation gaiaSpreaderCoreId = botaniaRL("block/gaia_spreader_core");
-	private static final ResourceLocation manaSpreaderCoreId = botaniaRL("block/mana_spreader_core");
-	private static final ResourceLocation redstoneSpreaderCoreId = botaniaRL("block/redstone_spreader_core");
-	private static final ResourceLocation manaSpreaderScaffoldingId = botaniaRL("block/mana_spreader_scaffolding");
-	private static final ResourceLocation elvenSpreaderScaffoldingId = botaniaRL("block/elven_spreader_scaffolding");
-	private static final ResourceLocation gaiaSpreaderScaffoldingId = botaniaRL("block/gaia_spreader_scaffolding");
+
 	private static final Map<DyeColor, ResourceLocation> spreaderPaddingIds = new EnumMap<>(ColorHelper.supportedColors().collect(Collectors.toMap(Function.identity(), color -> botaniaRL("block/" + color.getSerializedName() + "_spreader_padding"))));
 
 	public static final MiscellaneousModels INSTANCE = new MiscellaneousModels();
@@ -93,14 +89,7 @@ public class MiscellaneousModels {
 			crimsonGem,
 			cirrusGem,
 			nimbusGem,
-			terrasteelHelmWillModel,
-			elvenSpreaderCore,
-			gaiaSpreaderCore,
-			manaSpreaderCore,
-			redstoneSpreaderCore,
-			manaSpreaderScaffolding,
-			elvenSpreaderScaffolding,
-			gaiaSpreaderScaffolding;
+			terrasteelHelmWillModel;
 
 	public final HashMap<DyeColor, BakedModel> spreaderPaddings = new HashMap<>();
 
@@ -111,10 +100,20 @@ public class MiscellaneousModels {
 
 		registerIslands();
 		registerTaters(rm, consumer);
+		registerSpreaderComponents(consumer);
 
 		if (!registeredModels) {
 			registeredModels = true;
 		}
+	}
+
+	private void registerSpreaderComponents(Consumer<ResourceLocation> consumer) {
+		Stream.of(BotaniaBlocks.manaSpreader, BotaniaBlocks.redstoneSpreader,
+				BotaniaBlocks.elvenSpreader, BotaniaBlocks.gaiaSpreader)
+				.flatMap(spreader -> Stream
+						.of(spreader.getSpreaderModelId(), spreader.getCoreModelId(), spreader.getScaffoldingModelId()))
+				.distinct()
+				.forEach(consumer);
 	}
 
 	private static void registerIslands() {
@@ -175,13 +174,7 @@ public class MiscellaneousModels {
 		afterBakeModifiers.put(botaniaRL(LibBlockNames.TINY_POTATO), TinyPotatoModel::new);
 
 		modelConsumers = new HashMap<>();
-		modelConsumers.put(elvenSpreaderCoreId, bakedModel -> this.elvenSpreaderCore = bakedModel);
-		modelConsumers.put(gaiaSpreaderCoreId, bakedModel -> this.gaiaSpreaderCore = bakedModel);
-		modelConsumers.put(manaSpreaderCoreId, bakedModel -> this.manaSpreaderCore = bakedModel);
-		modelConsumers.put(redstoneSpreaderCoreId, bakedModel -> this.redstoneSpreaderCore = bakedModel);
-		modelConsumers.put(manaSpreaderScaffoldingId, bakedModel -> this.manaSpreaderScaffolding = bakedModel);
-		modelConsumers.put(elvenSpreaderScaffoldingId, bakedModel -> this.elvenSpreaderScaffolding = bakedModel);
-		modelConsumers.put(gaiaSpreaderScaffoldingId, bakedModel -> this.gaiaSpreaderScaffolding = bakedModel);
+
 		for (var color : spreaderPaddingIds.keySet()) {
 			modelConsumers.put(spreaderPaddingIds.get(color), bakedModel -> spreaderPaddings.put(color, bakedModel));
 		}

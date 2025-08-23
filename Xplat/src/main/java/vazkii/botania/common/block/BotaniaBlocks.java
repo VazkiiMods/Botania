@@ -583,13 +583,13 @@ public final class BotaniaBlocks {
 	public static final Block dreamwoodFramed = make(LibBlockNames.DREAM_WOOD_FRAMED, new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 	public static final Block dreamwoodPatternFramed = make(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 
-	public static final Block manaSpreader = make(LibBlockNames.SPREADER,
+	public static final ManaSpreaderBlock manaSpreader = make(LibBlockNames.SPREADER,
 			new ManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
-	public static final Block redstoneSpreader = make(LibBlockNames.SPREADER_REDSTONE,
+	public static final ManaSpreaderBlock redstoneSpreader = make(LibBlockNames.SPREADER_REDSTONE,
 			new PulseManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
-	public static final Block elvenSpreader = make(LibBlockNames.SPREADER_ELVEN,
+	public static final ManaSpreaderBlock elvenSpreader = make(LibBlockNames.SPREADER_ELVEN,
 			new ElvenManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
-	public static final Block gaiaSpreader = make(LibBlockNames.SPREADER_GAIA,
+	public static final ManaSpreaderBlock gaiaSpreader = make(LibBlockNames.SPREADER_GAIA,
 			new GaiaManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
 
 	public static final Block manaPool = make(LibBlockNames.POOL, new ManaPoolBlock(ManaPoolBlock.Variant.DEFAULT, BlockBehaviour.Properties.ofFullCopy(livingrock)));

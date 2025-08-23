@@ -435,12 +435,11 @@ public class BlockstateProvider implements DataProvider {
 					.put(outsideSlot, outside), this.modelOutput));
 			spreaderCoreTemplate.create(b, new TextureMapping()
 					.put(coreSlot, getBlockTexture(b, "_core")), this.modelOutput);
-			if (b != redstoneSpreader) {
-				spreaderScaffoldingTemplate.create(b, new TextureMapping()
-						.put(TextureSlot.TOP, getBlockTexture(b, "_scaffolding_top"))
-						.put(TextureSlot.SIDE, getBlockTexture(b, "_scaffolding_side"))
-						.put(TextureSlot.BOTTOM, getBlockTexture(b, "_scaffolding_bottom")), this.modelOutput);
-			}
+			Block sb = b == redstoneSpreader ? manaSpreader : b;
+			spreaderScaffoldingTemplate.create(b, new TextureMapping()
+					.put(TextureSlot.TOP, getBlockTexture(sb, "_scaffolding_top"))
+					.put(TextureSlot.SIDE, getBlockTexture(sb, "_scaffolding_side"))
+					.put(TextureSlot.BOTTOM, getBlockTexture(sb, "_scaffolding_bottom")), this.modelOutput);
 		});
 		ColorHelper.supportedColors().forEach(color -> {
 			Block wool = ColorHelper.WOOL_MAP.apply(color);

@@ -10,8 +10,7 @@ public class PulseManaSpreaderBlock extends ManaSpreaderBlock {
 
 	private static final ResourceLocation PULSE_SPREADER_MODEL_ID = botaniaRL("block/redstone_spreader");
 	private static final ResourceLocation PULSE_CORE_MODEL_ID = botaniaRL("block/redstone_spreader_core");
-	// TODO: make copy of default scaffolding model, in case resource packs want to change it individually
-	private static final ResourceLocation PULSE_SCAFFOLDING_MODEL_ID = botaniaRL("block/mana_spreader_scaffolding");
+	private static final ResourceLocation PULSE_SCAFFOLDING_MODEL_ID = botaniaRL("block/redstone_spreader_scaffolding");
 
 	public PulseManaSpreaderBlock(Properties builder) {
 		super(builder);
