@@ -66,7 +66,7 @@ public final class BotaniaBlocks {
 	private static final Map<String, Block> ALL = new LinkedHashMap<>(); // Preserve insertion order
 
 	private static final BlockBehaviour.StateArgumentPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
-	private static final BlockBehaviour.StatePredicate NO_SUFFOCATION = (state, world, pos) -> false;
+	private static final BlockBehaviour.StatePredicate NEVER = (state, world, pos) -> false;
 
 	public static final Block whiteFlower = make("white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, new MysticalFlowerBlock(DyeColor.WHITE,
 			effectForFlower(DyeColor.WHITE), 4, BotaniaBlocks::getDoubleFlower,
@@ -583,10 +583,14 @@ public final class BotaniaBlocks {
 	public static final Block dreamwoodFramed = make(LibBlockNames.DREAM_WOOD_FRAMED, new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 	public static final Block dreamwoodPatternFramed = make(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 
-	public static final Block manaSpreader = make(LibBlockNames.SPREADER, new ManaSpreaderBlock(ManaSpreaderBlock.Variant.MANA, BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN)));
-	public static final Block redstoneSpreader = make(LibBlockNames.SPREADER_REDSTONE, new ManaSpreaderBlock(ManaSpreaderBlock.Variant.REDSTONE, BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN)));
-	public static final Block elvenSpreader = make(LibBlockNames.SPREADER_ELVEN, new ManaSpreaderBlock(ManaSpreaderBlock.Variant.ELVEN, BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN)));
-	public static final Block gaiaSpreader = make(LibBlockNames.SPREADER_GAIA, new ManaSpreaderBlock(ManaSpreaderBlock.Variant.GAIA, BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN)));
+	public static final Block manaSpreader = make(LibBlockNames.SPREADER,
+			new ManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
+	public static final Block redstoneSpreader = make(LibBlockNames.SPREADER_REDSTONE,
+			new PulseManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
+	public static final Block elvenSpreader = make(LibBlockNames.SPREADER_ELVEN,
+			new ElvenManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
+	public static final Block gaiaSpreader = make(LibBlockNames.SPREADER_GAIA,
+			new GaiaManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
 
 	public static final Block manaPool = make(LibBlockNames.POOL, new ManaPoolBlock(ManaPoolBlock.Variant.DEFAULT, BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block creativePool = make(LibBlockNames.POOL_CREATIVE, new ManaPoolBlock(ManaPoolBlock.Variant.CREATIVE, BlockBehaviour.Properties.ofFullCopy(livingrock)));
@@ -602,14 +606,16 @@ public final class BotaniaBlocks {
 	public static final Block manaDiamondBlock = make(LibBlockNames.MANA_DIAMOND_BLOCK, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(manasteelBlock).mapColor(MapColor.DIAMOND)));
 	public static final Block dragonstoneBlock = make(LibBlockNames.DRAGONSTONE_BLOCK, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(manasteelBlock).instrument(NoteBlockInstrument.HARP).mapColor(MapColor.COLOR_PINK)));
 
-	public static final Block manaGlass = make(LibBlockNames.MANA_GLASS, new HalfTransparentBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).lightLevel(s -> 15).isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN)));
-	public static final Block elfGlass = make(LibBlockNames.ELF_GLASS, new HalfTransparentBlock(BlockBehaviour.Properties.ofFullCopy(manaGlass).isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN)));
+	public static final Block manaGlass = make(LibBlockNames.MANA_GLASS, new HalfTransparentBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).lightLevel(s -> 15).isViewBlocking(
+			NEVER).isSuffocating(NEVER).isValidSpawn(NO_SPAWN)));
+	public static final Block elfGlass = make(LibBlockNames.ELF_GLASS, new HalfTransparentBlock(BlockBehaviour.Properties.ofFullCopy(manaGlass).isViewBlocking(
+			NEVER).isSuffocating(NEVER).isValidSpawn(NO_SPAWN)));
 	public static final Block bifrost = make(LibBlockNames.BIFROST, new BifrostBlock(BlockBehaviour.Properties.of().strength(-1, 0.3F)
 			.lightLevel(s -> 15).sound(SoundType.GLASS).instrument(NoteBlockInstrument.HAT).noOcclusion()
-			.isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN)));
+			.isViewBlocking(NEVER).isSuffocating(NEVER).isValidSpawn(NO_SPAWN)));
 	public static final Block bifrostPerm = make(LibBlockNames.BIFROST_PERM, new PermanentBifrostBlock(BlockBehaviour.Properties.of().strength(0.3F)
 			.lightLevel(s -> 15).sound(SoundType.GLASS).instrument(NoteBlockInstrument.HAT).noOcclusion()
-			.isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN)));
+			.isViewBlocking(NEVER).isSuffocating(NEVER).isValidSpawn(NO_SPAWN)));
 
 	public static final Block runeAltar = make(LibBlockNames.RUNE_ALTAR, new RunicAltarBlock(BlockBehaviour.Properties.ofFullCopy(livingrock).requiresCorrectToolForDrops()));
 	public static final Block enchanter = make(LibBlockNames.ENCHANTER, new ManaEnchanterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.LAPIS).strength(3, 5).lightLevel(s -> 15).sound(SoundType.STONE)));
@@ -644,7 +650,8 @@ public final class BotaniaBlocks {
 	public static final Block craftCrate = make(LibBlockNames.CRAFT_CRATE, new CraftyCrateBlock(BlockBehaviour.Properties.ofFullCopy(livingwood)));
 	public static final Block forestEye = make(LibBlockNames.FOREST_EYE, new EyeOfTheAncientsBlock(BlockBehaviour.Properties.of().strength(5, 10).sound(SoundType.METAL).requiresCorrectToolForDrops()));
 	public static final Block solidVines = make(LibBlockNames.SOLID_VINE, new SolidVineBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE)));
-	public static final Block abstrusePlatform = make(LibBlockNames.PLATFORM_ABSTRUSE, new AbstrusePlatformBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).strength(2, 5).isValidSpawn(NO_SPAWN).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION)));
+	public static final Block abstrusePlatform = make(LibBlockNames.PLATFORM_ABSTRUSE, new AbstrusePlatformBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).strength(2, 5).isValidSpawn(NO_SPAWN).noOcclusion().isViewBlocking(
+			NEVER).isSuffocating(NEVER)));
 	public static final Block spectralPlatform = make(LibBlockNames.PLATFORM_SPECTRAL, new SpectralPlatformBlock(BlockBehaviour.Properties.ofFullCopy(abstrusePlatform)));
 	public static final Block infrangiblePlatform = make(LibBlockNames.PLATFORM_INFRANGIBLE, new InfrangiblePlatformBlock(BlockBehaviour.Properties.ofFullCopy(abstrusePlatform).strength(-1, Float.MAX_VALUE).isValidSpawn(NO_SPAWN).noOcclusion()));
 	public static final Block tinyPotato = make(LibBlockNames.TINY_POTATO, new TinyPotatoBlock(BlockBehaviour.Properties.of().strength(0.25F).mapColor(DyeColor.PINK)));

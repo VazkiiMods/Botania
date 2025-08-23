@@ -23,7 +23,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
@@ -173,7 +172,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			if (level.hasChunkAt(relPos)) {
 				var receiverAt = XplatAbstractions.INSTANCE.findManaReceiver(level, relPos, dir.getOpposite());
 				if (receiverAt instanceof ManaPool pool) {
-					if (wasInNetwork && (pool != self.receiver || self.getVariant() == ManaSpreaderBlock.Variant.REDSTONE)) {
+					if (wasInNetwork && (pool != self.receiver || self.getSpreaderBlock().isRedstoneTriggered())) {
 						if (pool instanceof KeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
 							continue;
 						}
@@ -224,7 +223,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 		boolean shouldShoot = !powered;
 
-		boolean redstoneSpreader = self.getVariant() == ManaSpreaderBlock.Variant.REDSTONE;
+		boolean redstoneSpreader = self.getSpreaderBlock().isRedstoneTriggered();
 		if (redstoneSpreader) {
 			shouldShoot = powered && !self.poweredLastTick;
 		}
@@ -430,7 +429,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	private void tryShootBurst() {
-		boolean redstone = getVariant() == ManaSpreaderBlock.Variant.REDSTONE;
+		boolean redstone = getSpreaderBlock().isRedstoneTriggered();
 		if ((receiver != null || redstone) && !invalidTentativeBurst) {
 			if (canShootBurst && (redstone || receiver.canReceiveManaFromBursts() && !receiver.isFull())) {
 				ManaBurstEntity burst = getBurst(false);
@@ -449,13 +448,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 	}
 
-	public ManaSpreaderBlock.Variant getVariant() {
-		Block b = getBlockState().getBlock();
-		if (b instanceof ManaSpreaderBlock spreader) {
-			return spreader.variant;
-		} else {
-			return ManaSpreaderBlock.Variant.MANA;
-		}
+	public ManaSpreaderBlock getSpreaderBlock() {
+		return (ManaSpreaderBlock) getBlockState().getBlock();
 	}
 
 	// Should only be called on server
@@ -489,9 +483,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	@Nullable
 	@Contract("true -> !null")
 	private ManaBurstEntity getBurst(boolean fake) {
-		ManaSpreaderBlock.Variant variant = getVariant();
-		float gravity = 0F;
-		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
+		BurstProperties props = getSpreaderBlock().getDefaultBurstProperties();
 
 		ItemStack lens = getItemHandler().getItem(0);
 		if (!lens.isEmpty() && lens.getItem() instanceof LensEffectItem lensEffectItem) {
@@ -562,7 +554,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 			RenderHelper.renderHUDBox(gui, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 8 + height);
 
-			int color = spreader.getVariant().hudColor;
+			int color = spreader.getSpreaderBlock().getHudColor();
 			BotaniaAPIClient.instance().drawSimpleManaHUD(gui, color, spreader.getCurrentMana(), spreader.getMaxMana(), spreaderName);
 			RenderHelper.renderItemWithNameCentered(gui, mc, recieverStack, centerY + 30, color);
 			RenderHelper.renderItemWithNameCentered(gui, mc, lensStack, centerY + (recieverStack.isEmpty() ? 30 : 48), color);
@@ -620,7 +612,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 	@Override
 	public int getMaxMana() {
-		return getVariant().manaCapacity;
+		return getSpreaderBlock().getManaCapacity();
 	}
 
 	@Override

@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -36,6 +38,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.BasicLensItem;
+import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -44,53 +47,65 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.WandOfTheForestItem;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
 public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 	private static final VoxelShape SHAPE_PADDING = box(1, 1, 1, 15, 15, 15);
 	private static final VoxelShape SHAPE_SCAFFOLDING = box(0, 0, 0, 16, 16, 16);
+	public static final BooleanProperty HAS_SCAFFOLDING = BotaniaStateProperties.HAS_SCAFFOLDING;
 
-	public enum Variant {
-		MANA(160, 1000, 0x20FF20, 0x00FF00, 60, 4f, 1f),
-		REDSTONE(160, 1000, 0xFF2020, 0xFF0000, 60, 4f, 1f),
-		ELVEN(240, 1000, 0xFF45C4, 0xFF00AE, 80, 4f, 1.25f),
-		GAIA(640, 6400, 0x20FF20, 0x00FF00, 120, 20f, 2f);
+	private static final ResourceLocation DEFAULT_SPREADER_MODEL_ID = botaniaRL("block/mana_spreader");
+	private static final ResourceLocation DEFAULT_CORE_MODEL_ID = botaniaRL("block/mana_spreader_core");
+	private static final ResourceLocation DEFAULT_SCAFFOLDING_MODEL_ID = botaniaRL("block/mana_spreader_scaffolding");
 
-		public final int burstMana;
-		public final int manaCapacity;
-		public final int color;
-		public final int hudColor;
-		public final int preLossTicks;
-		public final float lossPerTick;
-		public final float motionModifier;
-
-		Variant(int bm, int mc, int c, int hc, int plt, float lpt, float mm) {
-			burstMana = bm;
-			manaCapacity = mc;
-			color = c;
-			hudColor = hc;
-			preLossTicks = plt;
-			lossPerTick = lpt;
-			motionModifier = mm;
-		}
+	public ManaSpreaderBlock(Properties builder) {
+		super(builder);
+		registerDefaultState(defaultBlockState().setValue(HAS_SCAFFOLDING, false));
 	}
 
-	public final Variant variant;
+	// variant value definitions
+	public boolean isRedstoneTriggered() {
+		return false;
+	}
 
-	public ManaSpreaderBlock(Variant v, Properties builder) {
-		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.HAS_SCAFFOLDING, false));
-		this.variant = v;
+	public boolean isRainbowRendered() {
+		return false;
+	}
+
+	public BurstProperties getDefaultBurstProperties() {
+		return new BurstProperties(160, 60, 4f, 0f, 1f, 0x20FF20);
+	}
+
+	public int getManaCapacity() {
+		return 1000;
+	}
+
+	public int getHudColor() {
+		return 0x00FF00;
+	}
+
+	public ResourceLocation getSpreaderModelId() {
+		return DEFAULT_SPREADER_MODEL_ID;
+	}
+
+	public ResourceLocation getCoreModelId() {
+		return DEFAULT_CORE_MODEL_ID;
+	}
+
+	public ResourceLocation getScaffoldingModelId() {
+		return DEFAULT_SCAFFOLDING_MODEL_ID;
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BotaniaStateProperties.HAS_SCAFFOLDING);
+		builder.add(HAS_SCAFFOLDING);
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-		if (blockState.getValue(BotaniaStateProperties.HAS_SCAFFOLDING)) {
+		if (blockState.getValue(HAS_SCAFFOLDING)) {
 			return SHAPE_SCAFFOLDING;
 		}
 		BlockEntity be = blockGetter.getBlockEntity(blockPos);
@@ -161,7 +176,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		boolean playerHasScaffolding = !heldItem.isEmpty() && heldItem.is(Items.SCAFFOLDING);
 		boolean shouldInsert = (playerHasLens && !lensIsSame)
 				|| (playerHasWool && !woolIsSame)
-				|| (playerHasScaffolding && !state.getValue(BotaniaStateProperties.HAS_SCAFFOLDING));
+				|| (playerHasScaffolding && !state.getValue(HAS_SCAFFOLDING));
 
 		if (shouldInsert) {
 			if (playerHasLens) {
@@ -186,7 +201,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 				spreader.setChanged();
 				world.playSound(player, pos, BotaniaSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
 			} else { // playerHasScaffolding
-				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.HAS_SCAFFOLDING, true));
+				world.setBlockAndUpdate(pos, state.setValue(HAS_SCAFFOLDING, true));
 				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
 				if (!player.getAbilities().instabuild) {
@@ -198,12 +213,12 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}
 
-		if (state.getValue(BotaniaStateProperties.HAS_SCAFFOLDING) && player.isSecondaryUseActive()) {
+		if (state.getValue(HAS_SCAFFOLDING) && player.isSecondaryUseActive()) {
 			if (!player.getAbilities().instabuild) {
 				ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
 				player.getInventory().placeItemBackInInventory(scaffolding);
 			}
-			world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.HAS_SCAFFOLDING, false));
+			world.setBlockAndUpdate(pos, state.setValue(HAS_SCAFFOLDING, false));
 			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
 			world.playSound(player, pos, BotaniaSounds.spreaderUnScaffold, SoundSource.BLOCKS, 1F, 1F);
@@ -244,7 +259,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), padding);
 			}
 
-			if (state.getValue(BotaniaStateProperties.HAS_SCAFFOLDING)) {
+			if (state.getValue(HAS_SCAFFOLDING)) {
 				ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
 				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), scaffolding);
 			}
