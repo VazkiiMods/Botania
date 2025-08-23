@@ -524,7 +524,7 @@ public class GaiaGuardianEntity extends Mob {
 		if (mobSpawnTicks > 0) {
 			return BuiltInLootTables.EMPTY;
 		}
-		return super.getLootTable();
+		return super.getDefaultLootTable();
 	}
 
 	@Override
