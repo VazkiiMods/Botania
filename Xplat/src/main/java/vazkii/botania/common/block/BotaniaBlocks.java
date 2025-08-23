@@ -624,9 +624,9 @@ public final class BotaniaBlocks {
 	public static final Block alfPortal = make(LibBlockNames.ALF_PORTAL, new AlfheimPortalBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).strength(10).sound(SoundType.WOOD)
 			.lightLevel(s -> s.getValue(BotaniaStateProperties.ALFPORTAL_STATE) != AlfheimPortalState.OFF ? 15 : 0)));
 
-	public static final Block manaPylon = make(LibBlockNames.PYLON, new PylonBlock(PylonBlock.Variant.MANA, BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_BLUE).strength(5.5F).sound(SoundType.METAL).lightLevel(s -> 7).requiresCorrectToolForDrops()));
-	public static final Block naturaPylon = make(LibBlockNames.PYLON_NATURA, new PylonBlock(PylonBlock.Variant.NATURA, BlockBehaviour.Properties.ofFullCopy(manaPylon).mapColor(MapColor.EMERALD)));
-	public static final Block gaiaPylon = make(LibBlockNames.PYLON_GAIA, new PylonBlock(PylonBlock.Variant.GAIA, BlockBehaviour.Properties.ofFullCopy(manaPylon).mapColor(DyeColor.PINK)));
+	public static final Block manaPylon = make(LibBlockNames.PYLON, new ManaPylonBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.LIGHT_BLUE).strength(5.5F).sound(SoundType.METAL).lightLevel(s -> 7).requiresCorrectToolForDrops()));
+	public static final Block naturaPylon = make(LibBlockNames.PYLON_NATURA, new NaturaPylonBlock(BlockBehaviour.Properties.ofFullCopy(manaPylon).mapColor(MapColor.EMERALD)));
+	public static final Block gaiaPylon = make(LibBlockNames.PYLON_GAIA, new GaiaPylonBlock(BlockBehaviour.Properties.ofFullCopy(manaPylon).mapColor(DyeColor.PINK)));
 
 	public static final Block distributor = make(LibBlockNames.DISTRIBUTOR, new ManaSplitterBlock(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block manaVoid = make(LibBlockNames.MANA_VOID, new ManaVoidBlock(BlockBehaviour.Properties.ofFullCopy(livingrock).strength(2, 2000)));

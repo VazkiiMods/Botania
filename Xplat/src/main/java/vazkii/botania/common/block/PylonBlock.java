@@ -1,18 +1,9 @@
-/*
- * This class is distributed as part of the Botania Mod.
- * Get the Source Code in github:
- * https://github.com/Vazkii/Botania
- *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
- */
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,36 +19,18 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.PylonBlockEntity;
 
-public class PylonBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public abstract class PylonBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 21, 14);
 
-	public enum Variant {
-		// Note: The enchantment power values are duplicated in the following file. Make sure to keep them in sync:
-		// Fabric/src/main/resources/data/quilt/attachments/minecraft/block/enchanting_boosters.json
-		MANA(8f, 0.5f, 0.5f, 1f),
-		NATURA(15f, 0.5f, 1f, 0.5f),
-		GAIA(15f, 1f, 0.5f, 1f);
-
-		public final float enchantPowerBonus;
-		public final float r, g, b;
-
-		Variant(float epb, float r, float g, float b) {
-			enchantPowerBonus = epb;
-			this.r = r;
-			this.g = g;
-			this.b = b;
-		}
-
-		public Block getTargetBlock() {
-			return this == MANA ? BotaniaBlocks.enchanter : BotaniaBlocks.alfPortal;
-		}
+	public PylonBlock(Properties builder) {
+		super(builder);
 	}
 
-	public final Variant variant;
-
-	public PylonBlock(Variant v, Properties builder) {
-		super(builder);
-		this.variant = v;
+	protected void clientTick(Level level, BlockPos worldPosition, BlockState state, PylonBlockEntity self) {
+		if (level.random.nextBoolean()) {
+			PylonBlock variant = ((PylonBlock) state.getBlock());
+			variant.addRandomParticle(level, worldPosition);
+		}
 	}
 
 	@Override
@@ -75,14 +48,18 @@ public class PylonBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 		return new PylonBlockEntity(pos, state);
 	}
 
+	public abstract void addRandomParticle(Level level, BlockPos pos);
+
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.PYLON, PylonBlockEntity::commonTick);
+		return level.isClientSide
+				? createTickerHelper(type, BotaniaBlockEntities.PYLON, this::clientTick)
+				: null;
 	}
 
+	// Note: The enchantment power values are duplicated in the following file. Make sure to keep them in sync:
+	// Fabric/src/main/resources/data/quilt/attachments/minecraft/block/enchanting_boosters.json
 	@SoftImplement("IBlockExtension")
-	public float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos) {
-		return variant.enchantPowerBonus;
-	}
+	public abstract float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos);
 }

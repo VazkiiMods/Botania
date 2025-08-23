@@ -26,6 +26,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.*;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.PylonBlock;
 import vazkii.botania.common.block.block_entity.PylonBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
@@ -43,7 +44,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 	private final GaiaPylonModel gaiaModel;
 
 	// Overrides for when we call this without an actual pylon
-	private static PylonBlock.Variant forceVariant = PylonBlock.Variant.MANA;
+	private static Block forceVariant = BotaniaBlocks.manaPylon;
 	private static ItemDisplayContext forceTransform = ItemDisplayContext.NONE;
 
 	public PylonBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -56,26 +57,22 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 	public void render(@Nullable PylonBlockEntity pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		boolean renderingItem = pylon == null;
 		boolean direct = renderingItem && (forceTransform == ItemDisplayContext.GUI || forceTransform.firstPerson()); // loosely based off ItemRenderer logic
-		PylonBlock.Variant type = renderingItem ? forceVariant : ((PylonBlock) pylon.getBlockState().getBlock()).variant;
+		Block type = renderingItem ? forceVariant : pylon.getBlockState().getBlock();
 		PylonModel model;
 		ResourceLocation texture;
 		RenderType shaderLayer;
-		switch (type) {
-			default -> {
-				model = manaModel;
-				texture = MANA_TEXTURE;
-				shaderLayer = direct ? RenderHelper.MANA_PYLON_GLOW_DIRECT : RenderHelper.MANA_PYLON_GLOW;
-			}
-			case NATURA -> {
-				model = naturaModel;
-				texture = NATURA_TEXTURE;
-				shaderLayer = direct ? RenderHelper.NATURA_PYLON_GLOW_DIRECT : RenderHelper.NATURA_PYLON_GLOW;
-			}
-			case GAIA -> {
-				model = gaiaModel;
-				texture = GAIA_TEXTURE;
-				shaderLayer = direct ? RenderHelper.GAIA_PYLON_GLOW_DIRECT : RenderHelper.GAIA_PYLON_GLOW;
-			}
+		if (BotaniaBlocks.naturaPylon.equals(type)) {
+			model = naturaModel;
+			texture = NATURA_TEXTURE;
+			shaderLayer = direct ? RenderHelper.NATURA_PYLON_GLOW_DIRECT : RenderHelper.NATURA_PYLON_GLOW;
+		} else if (BotaniaBlocks.gaiaPylon.equals(type)) {
+			model = gaiaModel;
+			texture = GAIA_TEXTURE;
+			shaderLayer = direct ? RenderHelper.GAIA_PYLON_GLOW_DIRECT : RenderHelper.GAIA_PYLON_GLOW;
+		} else {
+			model = manaModel;
+			texture = MANA_TEXTURE;
+			shaderLayer = direct ? RenderHelper.MANA_PYLON_GLOW_DIRECT : RenderHelper.MANA_PYLON_GLOW;
 		}
 
 		ms.pushPose();
@@ -128,7 +125,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 		@Override
 		public void render(ItemStack stack, ItemDisplayContext type, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 			if (Block.byItem(stack.getItem()) instanceof PylonBlock pylon) {
-				PylonBlockEntityRenderer.forceVariant = pylon.variant;
+				PylonBlockEntityRenderer.forceVariant = pylon;
 				PylonBlockEntityRenderer.forceTransform = type;
 				super.render(stack, type, ms, buffers, light, overlay);
 			}

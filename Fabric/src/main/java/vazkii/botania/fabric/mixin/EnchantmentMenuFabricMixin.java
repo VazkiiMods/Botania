@@ -24,28 +24,28 @@ import vazkii.botania.common.block.PylonBlock;
 
 @Mixin(EnchantmentMenu.class)
 public class EnchantmentMenuFabricMixin {
-	@SuppressWarnings("target")
 	@ModifyVariable(
 		method = "method_17411(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V",
 		at = @At(value = "STORE", ordinal = 0),
 		ordinal = 0
 	)
-	private int botaniaPylonEnchanting(int obj, ItemStack stack, Level level, BlockPos pos) {
+	private int botaniaPylonEnchanting(int inPower, ItemStack stack, Level level, BlockPos pos) {
+		float power = inPower;
 		for (int x = -1; x <= 1; ++x) {
 			for (int z = -1; z <= 1; ++z) {
 				if ((x != 0 || z != 0) && level.isEmptyBlock(pos.offset(x, 0, z)) && level.isEmptyBlock(pos.offset(x, 1, z))) {
-					obj += getPylonValue(level.getBlockState(pos.offset(x * 2, 0, z * 2)), level, pos);
-					obj += getPylonValue(level.getBlockState(pos.offset(x * 2, 1, z * 2)), level, pos);
+					power += getPylonValue(level.getBlockState(pos.offset(x * 2, 0, z * 2)), level, pos);
+					power += getPylonValue(level.getBlockState(pos.offset(x * 2, 1, z * 2)), level, pos);
 					if (x != 0 && z != 0) {
-						obj += getPylonValue(level.getBlockState(pos.offset(x * 2, 0, z)), level, pos);
-						obj += getPylonValue(level.getBlockState(pos.offset(x * 2, 1, z)), level, pos);
-						obj += getPylonValue(level.getBlockState(pos.offset(x, 0, z * 2)), level, pos);
-						obj += getPylonValue(level.getBlockState(pos.offset(x, 1, z * 2)), level, pos);
+						power += getPylonValue(level.getBlockState(pos.offset(x * 2, 0, z)), level, pos);
+						power += getPylonValue(level.getBlockState(pos.offset(x * 2, 1, z)), level, pos);
+						power += getPylonValue(level.getBlockState(pos.offset(x, 0, z * 2)), level, pos);
+						power += getPylonValue(level.getBlockState(pos.offset(x, 1, z * 2)), level, pos);
 					}
 				}
 			}
 		}
-		return obj;
+		return (int) power;
 	}
 
 	@Unique
