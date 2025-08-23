@@ -17,13 +17,20 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
+import vazkii.botania.xplat.ClientXplatAbstractions;
+
+import java.util.Objects;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<ManaPumpBlockEntity> {
-	public static BakedModel headModel = null;
+	public static final ResourceLocation PUMP_HEAD_ID = botaniaRL("block/pump_head");
+
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
 	public ManaPumpBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -54,7 +61,11 @@ public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<ManaPump
 		double diff = Math.max(0F, Math.min(8F, pump.innerRingPos + pump.moving * partialTicks));
 		ms.translate(0, 0, diff / 14);
 		VertexConsumer buffer = buffers.getBuffer(RenderType.solid());
-		blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, null, headModel, 1, 1, 1, light, overlay);
+		blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, null, getHeadModel(), 1, 1, 1, light, overlay);
 		ms.popPose();
+	}
+
+	private BakedModel getHeadModel() {
+		return Objects.requireNonNull(ClientXplatAbstractions.instance().getResourceModel(PUMP_HEAD_ID));
 	}
 }

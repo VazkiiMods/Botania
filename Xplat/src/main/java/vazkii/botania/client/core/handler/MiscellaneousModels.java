@@ -13,7 +13,6 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.item.DyeColor;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
@@ -25,8 +24,8 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
+import vazkii.botania.client.render.block_entity.ManaSpreaderBlockEntityRenderer;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.bauble.ThirdEyeItem;
 import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
@@ -37,7 +36,6 @@ import vazkii.botania.xplat.ClientXplatAbstractions;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -62,10 +60,6 @@ public class MiscellaneousModels {
 	private static final ResourceLocation snowflakePendantGemId = botaniaRL("icon/ice_pendant_gem");
 	private static final ResourceLocation[] tiaraWingIconIds = IntStream.range(0, FlugelTiaraItem.WING_TYPES)
 			.mapToObj(i -> botaniaRL("icon/tiara_wing_" + (i + 1))).toArray(ResourceLocation[]::new);
-	private static final ResourceLocation corporeaCrystalCubeGlassId = botaniaRL("block/corporea_crystal_cube_glass");
-	private static final ResourceLocation manaPumpHead = botaniaRL("block/pump_head");
-
-	private static final Map<DyeColor, ResourceLocation> spreaderPaddingIds = new EnumMap<>(ColorHelper.supportedColors().collect(Collectors.toMap(Function.identity(), color -> botaniaRL("block/" + color.getSerializedName() + "_spreader_padding"))));
 
 	public static final MiscellaneousModels INSTANCE = new MiscellaneousModels();
 
@@ -91,8 +85,6 @@ public class MiscellaneousModels {
 			nimbusGem,
 			terrasteelHelmWillModel;
 
-	public final HashMap<DyeColor, BakedModel> spreaderPaddings = new HashMap<>();
-
 	public final BakedModel[] kingKeyWeaponModels;
 
 	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
@@ -101,6 +93,8 @@ public class MiscellaneousModels {
 		registerIslands();
 		registerTaters(rm, consumer);
 		registerSpreaderComponents(consumer);
+		consumer.accept(CorporeaCrystalCubeBlockEntityRenderer.CUBE_MODEL_ID);
+		consumer.accept(ManaPumpBlockEntityRenderer.PUMP_HEAD_ID);
 
 		if (!registeredModels) {
 			registeredModels = true;
@@ -114,6 +108,7 @@ public class MiscellaneousModels {
 						.of(spreader.getSpreaderModelId(), spreader.getCoreModelId(), spreader.getScaffoldingModelId()))
 				.distinct()
 				.forEach(consumer);
+		ManaSpreaderBlockEntityRenderer.WOOL_PADDING_IDS.values().forEach(consumer);
 	}
 
 	private static void registerIslands() {
@@ -174,13 +169,6 @@ public class MiscellaneousModels {
 		afterBakeModifiers.put(botaniaRL(LibBlockNames.TINY_POTATO), TinyPotatoModel::new);
 
 		modelConsumers = new HashMap<>();
-
-		for (var color : spreaderPaddingIds.keySet()) {
-			modelConsumers.put(spreaderPaddingIds.get(color), bakedModel -> spreaderPaddings.put(color, bakedModel));
-		}
-
-		modelConsumers.put(corporeaCrystalCubeGlassId, bakedModel -> CorporeaCrystalCubeBlockEntityRenderer.cubeModel = bakedModel);
-		modelConsumers.put(manaPumpHead, bakedModel -> ManaPumpBlockEntityRenderer.headModel = bakedModel);
 
 		modelConsumers.put(goldfishModelId, bakedModel -> this.goldfishModel = bakedModel);
 		modelConsumers.put(phiFlowerModelId, bakedModel -> this.phiFlowerModel = bakedModel);

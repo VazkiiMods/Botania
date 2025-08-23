@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -30,10 +31,16 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.mixin.ItemEntityAccessor;
+import vazkii.botania.xplat.ClientXplatAbstractions;
+
+import java.util.Objects;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRenderer<CorporeaCrystalCubeBlockEntity> {
-	// Ugly but there's no other way to get the model besides grabbing it from the event
-	public static BakedModel cubeModel = null;
+	public static final ResourceLocation CUBE_MODEL_ID = botaniaRL("block/corporea_crystal_cube_glass");
+
+	@Nullable
 	private ItemEntity entity = null;
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
@@ -76,13 +83,11 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 			ms.popPose();
 		}
 
-		if (cubeModel != null) {
-			ms.pushPose();
-			ms.translate(-0.5F, 0.25F, -0.5F);
-			VertexConsumer buffer = buffers.getBuffer(Sheets.translucentCullBlockSheet());
-			blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
-			ms.popPose();
-		}
+		ms.pushPose();
+		ms.translate(-0.5F, 0.25F, -0.5F);
+		VertexConsumer buffer = buffers.getBuffer(Sheets.translucentCullBlockSheet());
+		blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, null, getCubeModel(), 1, 1, 1, light, overlay);
+		ms.popPose();
 
 		if (!stack.isEmpty() && cube != null && !cube.hideCount) {
 			int count = cube.getItemCount();
@@ -116,5 +121,9 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 		}
 
 		ms.popPose();
+	}
+
+	private BakedModel getCubeModel() {
+		return Objects.requireNonNull(ClientXplatAbstractions.instance().getResourceModel(CUBE_MODEL_ID));
 	}
 }

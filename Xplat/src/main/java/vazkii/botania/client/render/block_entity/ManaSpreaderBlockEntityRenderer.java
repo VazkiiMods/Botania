@@ -28,15 +28,24 @@ import org.joml.Quaternionf;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<ManaSpreaderBlockEntity> {
+	public static final Map<DyeColor, ResourceLocation> WOOL_PADDING_IDS = new EnumMap<>(
+			ColorHelper.supportedColors().collect(Collectors.toMap(Function.identity(),
+					color -> botaniaRL("block/" + color.getSerializedName() + "_spreader_padding"))));
 
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
@@ -128,7 +137,8 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 	}
 
 	private BakedModel getPaddingModel(DyeColor color) {
-		return MiscellaneousModels.INSTANCE.spreaderPaddings.get(color);
+		ResourceLocation paddingId = WOOL_PADDING_IDS.get(color);
+		return Objects.requireNonNull(ClientXplatAbstractions.instance().getResourceModel(paddingId));
 	}
 
 	private BakedModel getScaffoldingModel(ManaSpreaderBlockEntity tile) {
