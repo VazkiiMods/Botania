@@ -49,6 +49,7 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 		Ingredient manaSteel = Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS);
 		Ingredient manaDiamond = Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS);
 		Ingredient manaPowder = Ingredient.of(ConventionalBotaniaTags.Items.MANA_DUSTS);
+		Ingredient manaQuartz = Ingredient.of(BotaniaItems.manaQuartz);
 
 		defaultReagent(consumer, idFor("water"), new ItemStack(BotaniaItems.runeWater, 2), costTier1,
 				manaPowder, manaSteel,
@@ -97,19 +98,19 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 		Ingredient winter = Ingredient.of(BotaniaItems.runeWinter);
 
 		defaultReagent(consumer, idFor("lust"), new ItemStack(BotaniaItems.runeLust), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, summer, air);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, summer, air);
 		defaultReagent(consumer, idFor("gluttony"), new ItemStack(BotaniaItems.runeGluttony), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, winter, fire);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, winter, fire);
 		defaultReagent(consumer, idFor("greed"), new ItemStack(BotaniaItems.runeGreed), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, spring, water);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, spring, water);
 		defaultReagent(consumer, idFor("sloth"), new ItemStack(BotaniaItems.runeSloth), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, autumn, air);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, autumn, air);
 		defaultReagent(consumer, idFor("wrath"), new ItemStack(BotaniaItems.runeWrath), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, winter, earth);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, winter, earth);
 		defaultReagent(consumer, idFor("envy"), new ItemStack(BotaniaItems.runeEnvy), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, winter, water);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, winter, water);
 		defaultReagent(consumer, idFor("pride"), new ItemStack(BotaniaItems.runePride), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, summer, fire);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, summer, fire);
 
 		consumer.accept(idFor("head"), new HeadRecipe(new ItemStack(Items.PLAYER_HEAD), DEFAULT_REAGENT, 22500,
 				Ingredient.of(Items.SKELETON_SKULL), Ingredient.of(ConventionalBotaniaTags.Items.PIXIE_DUSTS),
