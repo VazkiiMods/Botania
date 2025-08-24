@@ -34,7 +34,6 @@ import java.util.List;
 
 public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDisplay> {
 	private final EntryStack<ItemStack> altar = EntryStacks.of(new ItemStack(BotaniaBlocks.runeAltar));
-	private final EntryStack<ItemStack> livingrock = EntryStacks.of(new ItemStack(BotaniaBlocks.livingrock));
 	private final ResourceLocation PETAL_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/petal_overlay.png");
 
 	@Override
@@ -55,11 +54,11 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 	@Override
 	public List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
 		// TODO: optimize catalyst handling
-		List<EntryIngredient> inputs = new ArrayList<>(display.getInputEntries());
-		inputs.addAll(display.getCatalysts());
+		List<EntryIngredient> inputs = display.getInputEntries();
+		List<EntryIngredient> catalysts = display.getCatalysts();
 		EntryStack<?> output = display.getOutputEntries().getFirst().getFirst();
 
-		double angleBetweenEach = 360.0 / inputs.size();
+		double angleBetweenEach = 360.0 / (inputs.size() + catalysts.size());
 		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 38);
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 6);
 		List<Widget> widgets = new ArrayList<>();
@@ -70,12 +69,16 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 		})));
 
 		for (EntryIngredient o : inputs) {
+			widgets.add(Widgets.createSlot(point.getLocation()).entries(o).markInput().disableBackground());
+			point = CategoryUtils.rotatePointAbout(point, center, angleBetweenEach);
+		}
+		for (EntryIngredient o : catalysts) {
 			widgets.add(Widgets.createSlot(point.getLocation()).entries(o).disableBackground());
 			point = CategoryUtils.rotatePointAbout(point, center, angleBetweenEach);
 		}
 		widgets.add(Widgets.createSlot(new Point(center.x, center.y + 10)).entry(this.altar).disableBackground());
-		widgets.add(Widgets.createSlot(new Point(center.x, center.y - 10)).entry(this.livingrock).disableBackground());
-		widgets.add(Widgets.createSlot(new Point(center.x + 38, center.y - 35)).entry(output).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x, center.y - 10)).entries(display.getReagent()).markInput().disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x + 38, center.y - 35)).entry(output).markOutput().disableBackground());
 
 		return widgets;
 	}

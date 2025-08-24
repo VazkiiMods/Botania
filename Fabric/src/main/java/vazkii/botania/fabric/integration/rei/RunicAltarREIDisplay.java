@@ -19,15 +19,21 @@ import vazkii.botania.api.recipe.RunicAltarRecipe;
 import java.util.List;
 
 public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RunicAltarRecipe> {
-	protected final List<EntryIngredient> catalysts;
+	private final List<EntryIngredient> catalysts;
+	private final EntryIngredient reagent;
 
 	public RunicAltarREIDisplay(RecipeHolder<? extends RunicAltarRecipe> recipe) {
 		super(recipe);
 		this.catalysts = EntryIngredients.ofIngredients(recipe.value().getCatalysts());
+		this.reagent = EntryIngredients.ofIngredient(recipe.value().getReagent());
 	}
 
 	public List<EntryIngredient> getCatalysts() {
 		return catalysts;
+	}
+
+	public EntryIngredient getReagent() {
+		return reagent;
 	}
 
 	@Override

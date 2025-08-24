@@ -71,6 +71,7 @@ dependencies {
     modImplementation "vazkii.patchouli:Patchouli:${patchouli_version}-FABRIC"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+    //modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
     modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
     modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
