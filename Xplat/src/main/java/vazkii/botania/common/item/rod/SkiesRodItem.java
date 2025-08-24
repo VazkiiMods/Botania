@@ -79,8 +79,9 @@ public class SkiesRodItem extends Item {
 					double my = ManaItemHandler.instance().hasProficiency(player, stack) ? 1.6 : 1.25;
 					Vec3 oldMot = player.getDeltaMovement();
 					if (player.isFallFlying()) {
+						my *= 1.2;
 						Vec3 lookDir = player.getLookAngle();
-						player.setDeltaMovement(new Vec3(lookDir.x() * my, lookDir.y() * my, lookDir.z() * my));
+						player.setDeltaMovement(oldMot.add(lookDir.x * 0.1 + (lookDir.x * my - oldMot.x) * (double)0.5F, lookDir.y * 0.1 + (lookDir.y * my - oldMot.y) * (double)0.5F, lookDir.z * 0.1 + (lookDir.z * my - oldMot.z) * (double)0.5F));
 					} else {
 						player.setDeltaMovement(new Vec3(oldMot.x(), my, oldMot.z()));
 					}
