@@ -22,6 +22,7 @@ import vazkii.botania.api.corporea.CorporeaNode;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.FilterHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,10 +83,7 @@ public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity impl
 			for (ItemFrame frame : frames) {
 				Direction orientation = frame.getDirection();
 				if (orientation == dir) {
-					ItemStack stack = frame.getItem();
-					if (!stack.isEmpty()) {
-						filter.add(stack);
-					}
+					filter.addAll(FilterHelper.getFilterItems(frame));
 				}
 			}
 		}

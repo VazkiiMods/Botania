@@ -32,10 +32,10 @@ import java.util.function.Consumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ElementiumAxeItem extends ManasteelAxeItem {
-	private static final ResourceLocation BEHEADING_LOOT_TABLE = prefix("elementium_axe_beheading");
+	public static final ResourceLocation BEHEADING_LOOT_TABLE = prefix("elementium_axe_beheading");
 
 	public ElementiumAxeItem(Properties props) {
-		super(BotaniaAPI.instance().getElementiumItemTier(), props);
+		super(BotaniaAPI.instance().getElementiumItemTier(), 6F, -3.1F, props);
 	}
 
 	public static void onEntityDrops(boolean hitRecently, DamageSource source, LivingEntity target,

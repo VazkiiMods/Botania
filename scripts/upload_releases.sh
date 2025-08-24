@@ -25,6 +25,9 @@ function release_github() {
 	echo >&2 'Uploading Forge Jar and Signature to GitHub'
 	gh release upload "${TAGNAME}" "${FORGE_JAR}#Forge Jar"
 	gh release upload "${TAGNAME}" "${FORGE_JAR}.asc#Forge Signature"
+	echo >&2 'Uploading GoG Jar and Signature to GitHub'
+	gh release upload "${TAGNAME}" "${GOG_JAR}#GoG Jar"
+	gh release upload "${TAGNAME}" "${GOG_JAR}.asc#GoG Signature"
 }
 
 function release_modrinth() {

@@ -20,6 +20,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 
@@ -76,16 +78,19 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				setFluid(State.WATER);
 				bucketItem.checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
 				item.setItem(new ItemStack(Items.BUCKET));
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
 				return true;
 			}
 
 			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.WATER)) {
 				setFluid(State.WATER);
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
 				return true;
 			}
 
 			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.LAVA)) {
 				setFluid(State.LAVA);
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
 				return true;
 			}
 
@@ -103,6 +108,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			if (recipe.getReagent().test(item.getItem())) {
 				saveLastRecipe(recipe.getReagent());
 				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
+				Entity thrower = item.getOwner();
 
 				for (int i = 0; i < inventorySize(); i++) {
 					getItemHandler().setItem(i, ItemStack.EMPTY);
@@ -112,10 +118,15 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
+				if (thrower instanceof Player player) {
+					player.triggerRecipeCrafted(recipe, List.of(output));
+					output.onCraftedBy(level, player, output.getCount());
+				}
 				level.addFreshEntity(outputItem);
 
-				setFluid(State.EMPTY);
+				setFluid(State.EMPTY, false);
 
+				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 				return true;
 			}
@@ -136,6 +147,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 					getItemHandler().setItem(i, stack.split(1));
 					EntityHelper.syncItem(item);
 					level.playSound(null, worldPosition, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
+					level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
 					clearLastRecipe();
 					return true;
 				}
@@ -177,13 +189,16 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		// lastRecipe is not synced. If we're calling this method we already checked that
 		// the apothecary has water and no items, so just optimistically assume
 		// success on the client.
-		boolean success = player.level().isClientSide
-				|| InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, SoundEvents.GENERIC_SPLASH);
+		if (player.level().isClientSide()) {
+			return InteractionResult.sidedSuccess(true);
+		}
+		boolean success = InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, SoundEvents.GENERIC_SPLASH);
 		if (success) {
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return success
-				? InteractionResult.sidedSuccess(player.level().isClientSide())
+				? InteractionResult.sidedSuccess(false)
 				: InteractionResult.PASS;
 	}
 
@@ -290,6 +305,13 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 
 	@Override
 	public void setFluid(State fluid) {
+		setFluid(fluid, true);
+	}
+
+	public void setFluid(State fluid, boolean withVibration) {
+		if (withVibration) {
+			level.gameEvent(null, fluid == State.EMPTY ? GameEvent.FLUID_PICKUP : GameEvent.FLUID_PLACE, getBlockPos());
+		}
 		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PetalApothecaryBlock.FLUID, fluid));
 	}
 

@@ -50,6 +50,7 @@ import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.red_string.*;
 import vazkii.botania.common.entity.EnderAirBottleEntity;
 import vazkii.botania.common.entity.VineBallEntity;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.BlockItemWithSpecialRenderer;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
@@ -157,7 +158,7 @@ public final class BotaniaBlocks {
 	public static final Block petalBlockRed = new PetalBlock(DyeColor.RED, BlockBehaviour.Properties.copy(petalBlockWhite).mapColor(DyeColor.RED));
 	public static final Block petalBlockBlack = new PetalBlock(DyeColor.BLACK, BlockBehaviour.Properties.copy(petalBlockWhite).mapColor(DyeColor.BLACK));
 
-	public static final Block whiteMushroom = new BotaniaMushroomBlock(DyeColor.WHITE, BlockBehaviour.Properties.copy(whiteFlower).lightLevel(s -> 3));
+	public static final Block whiteMushroom = new BotaniaMushroomBlock(DyeColor.WHITE, BlockBehaviour.Properties.copy(whiteFlower).lightLevel(s -> 3).offsetType(BlockBehaviour.OffsetType.NONE));
 	public static final Block orangeMushroom = new BotaniaMushroomBlock(DyeColor.ORANGE, BlockBehaviour.Properties.copy(whiteMushroom));
 	public static final Block magentaMushroom = new BotaniaMushroomBlock(DyeColor.MAGENTA, BlockBehaviour.Properties.copy(whiteMushroom));
 	public static final Block lightBlueMushroom = new BotaniaMushroomBlock(DyeColor.LIGHT_BLUE, BlockBehaviour.Properties.copy(whiteMushroom));
@@ -420,7 +421,7 @@ public final class BotaniaBlocks {
 	public static final Block azulejo14 = new BotaniaBlock(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block azulejo15 = new BotaniaBlock(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block manaFlame = new ManaFlameBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).sound(SoundType.WOOL).lightLevel(s -> 15).noCollission());
-	public static final Block blazeBlock = new BotaniaBlock(BlockBehaviour.Properties.copy(manasteelBlock).instrument(NoteBlockInstrument.PLING).lightLevel(s -> 15));
+	public static final Block blazeBlock = new BotaniaBlock(BlockBehaviour.Properties.copy(manasteelBlock).instrument(NoteBlockInstrument.PLING).lightLevel(s -> 15).mapColor(MapColor.GOLD));
 	public static final Block gaiaHead = new GaiaHeadBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).strength(1));
 	public static final Block gaiaHeadWall = new WallGaiaHeadBlock(BlockBehaviour.Properties.copy(gaiaHead));
 	public static final Block shimmerrock = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
@@ -475,74 +476,74 @@ public final class BotaniaBlocks {
 	public static final Block dreamwoodPlankStairs = new BotaniaStairBlock(dreamwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwoodPlanks));
 	public static final Block dreamwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.copy(dreamwoodPlanks));
 
-	public static final Block darkQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK));
+	public static final Block darkQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_BLACK));
 	public static final Block darkQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block darkQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block darkQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block darkQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
 
-	public static final Block manaQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block manaQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block manaQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block manaQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block manaQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block manaQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz).mapColor(MapColor.DIAMOND));
+	public static final Block manaQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(manaQuartz));
+	public static final Block manaQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(manaQuartz));
+	public static final Block manaQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(manaQuartz));
+	public static final Block manaQuartzStairs = new BotaniaStairBlock(manaQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
 
-	public static final Block blazeQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block blazeQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block blazeQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block blazeQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block blazeQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block blazeQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz).mapColor(MapColor.SAND));
+	public static final Block blazeQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(blazeQuartz));
+	public static final Block blazeQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(blazeQuartz));
+	public static final Block blazeQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(blazeQuartz));
+	public static final Block blazeQuartzStairs = new BotaniaStairBlock(blazeQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(blazeQuartz));
 
-	public static final Block lavenderQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block lavenderQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block lavenderQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block lavenderQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block lavenderQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block lavenderQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz).mapColor(MapColor.COLOR_PINK));
+	public static final Block lavenderQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(lavenderQuartz));
+	public static final Block lavenderQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(lavenderQuartz));
+	public static final Block lavenderQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(lavenderQuartz));
+	public static final Block lavenderQuartzStairs = new BotaniaStairBlock(lavenderQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(lavenderQuartz));
 
-	public static final Block redQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block redQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block redQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block redQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block redQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block redQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz).mapColor(MapColor.TERRACOTTA_WHITE));
+	public static final Block redQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(redQuartz));
+	public static final Block redQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(redQuartz));
+	public static final Block redQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(redQuartz));
+	public static final Block redQuartzStairs = new BotaniaStairBlock(redQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(redQuartz));
 
-	public static final Block elfQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block elfQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block elfQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block elfQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block elfQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block elfQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz).mapColor(MapColor.COLOR_LIGHT_GREEN));
+	public static final Block elfQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(elfQuartz));
+	public static final Block elfQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(elfQuartz));
+	public static final Block elfQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(elfQuartz));
+	public static final Block elfQuartzStairs = new BotaniaStairBlock(elfQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(elfQuartz));
 
-	public static final Block sunnyQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block sunnyQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block sunnyQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block sunnyQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block sunnyQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block sunnyQuartz = new BotaniaBlock(BlockBehaviour.Properties.copy(darkQuartz).mapColor(MapColor.COLOR_YELLOW));
+	public static final Block sunnyQuartzChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(sunnyQuartz));
+	public static final Block sunnyQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(sunnyQuartz));
+	public static final Block sunnyQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(sunnyQuartz));
+	public static final Block sunnyQuartzStairs = new BotaniaStairBlock(sunnyQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(sunnyQuartz));
 
-	public static final Block whitePavement = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block whitePavement = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock).mapColor(MapColor.TERRACOTTA_WHITE));
 	public static final Block whitePavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block whitePavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
-	public static final Block blackPavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block blackPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block blackPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block blackPavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement).mapColor(MapColor.COLOR_GRAY));
+	public static final Block blackPavementStair = new BotaniaStairBlock(blackPavement.defaultBlockState(), BlockBehaviour.Properties.copy(blackPavement));
+	public static final Block blackPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(blackPavement));
 
-	public static final Block bluePavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block bluePavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block bluePavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block bluePavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement).mapColor(MapColor.COLOR_BLUE));
+	public static final Block bluePavementStair = new BotaniaStairBlock(bluePavement.defaultBlockState(), BlockBehaviour.Properties.copy(bluePavement));
+	public static final Block bluePavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(bluePavement));
 
-	public static final Block yellowPavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block yellowPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block yellowPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block yellowPavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement).mapColor(MapColor.TERRACOTTA_YELLOW));
+	public static final Block yellowPavementStair = new BotaniaStairBlock(yellowPavement.defaultBlockState(), BlockBehaviour.Properties.copy(yellowPavement));
+	public static final Block yellowPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(yellowPavement));
 
-	public static final Block redPavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block redPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block redPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block redPavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement).mapColor(MapColor.TERRACOTTA_RED));
+	public static final Block redPavementStair = new BotaniaStairBlock(redPavement.defaultBlockState(), BlockBehaviour.Properties.copy(redPavement));
+	public static final Block redPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(redPavement));
 
-	public static final Block greenPavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block greenPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block greenPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block greenPavement = new BotaniaBlock(BlockBehaviour.Properties.copy(whitePavement).mapColor(MapColor.TERRACOTTA_GREEN));
+	public static final Block greenPavementStair = new BotaniaStairBlock(greenPavement.defaultBlockState(), BlockBehaviour.Properties.copy(greenPavement));
+	public static final Block greenPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(greenPavement));
 
 	public static final Block biomeStoneForest = new BotaniaBlock(BlockBehaviour.Properties.of().strength(1.5F, 10)
-			.sound(SoundType.TUFF).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops());
+			.sound(SoundType.TUFF).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().mapColor(MapColor.WARPED_NYLIUM));
 	public static final Block biomeStoneForestSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeStoneForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeStoneForestWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
@@ -556,7 +557,8 @@ public final class BotaniaBlocks {
 	public static final Block biomeBrickForestWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeChiseledBrickForest = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
 
-	public static final Block biomeStonePlains = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.CALCITE));
+	public static final Block biomeStonePlains = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest)
+			.sound(SoundType.CALCITE).mapColor(MapColor.QUARTZ));
 	public static final Block biomeStonePlainsSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeStonePlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeStonePlainsWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
@@ -570,7 +572,8 @@ public final class BotaniaBlocks {
 	public static final Block biomeBrickPlainsWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeChiseledBrickPlains = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 
-	public static final Block biomeStoneMountain = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE_TILES));
+	public static final Block biomeStoneMountain = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE_TILES).mapColor(MapColor.GLOW_LICHEN));
 	public static final Block biomeStoneMountainSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeStoneMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeStoneMountainWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
@@ -584,7 +587,8 @@ public final class BotaniaBlocks {
 	public static final Block biomeBrickMountainWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeChiseledBrickMountain = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
 
-	public static final Block biomeStoneFungal = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE_BRICKS));
+	public static final Block biomeStoneFungal = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE_BRICKS).mapColor(MapColor.TERRACOTTA_PURPLE));
 	public static final Block biomeStoneFungalSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeStoneFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeStoneFungalWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
@@ -598,7 +602,8 @@ public final class BotaniaBlocks {
 	public static final Block biomeBrickFungalWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeChiseledBrickFungal = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
 
-	public static final Block biomeStoneSwamp = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE_TILES));
+	public static final Block biomeStoneSwamp = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE_TILES).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
 	public static final Block biomeStoneSwampSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeStoneSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeStoneSwampWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
@@ -612,7 +617,8 @@ public final class BotaniaBlocks {
 	public static final Block biomeBrickSwampWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeChiseledBrickSwamp = new BotaniaDirectionalBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 
-	public static final Block biomeStoneDesert = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE));
+	public static final Block biomeStoneDesert = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE).mapColor(MapColor.DIRT));
 	public static final Block biomeStoneDesertSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeStoneDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeStoneDesertWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
@@ -626,7 +632,8 @@ public final class BotaniaBlocks {
 	public static final Block biomeBrickDesertWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeChiseledBrickDesert = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
 
-	public static final Block biomeStoneTaiga = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE));
+	public static final Block biomeStoneTaiga = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest)
+			.sound(SoundType.DEEPSLATE).mapColor(MapColor.TERRACOTTA_BLUE));
 	public static final Block biomeStoneTaigaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeStoneTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeStoneTaigaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
@@ -640,7 +647,8 @@ public final class BotaniaBlocks {
 	public static final Block biomeBrickTaigaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeChiseledBrickTaiga = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 
-	public static final Block biomeStoneMesa = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.CALCITE));
+	public static final Block biomeStoneMesa = new BotaniaBlock(BlockBehaviour.Properties.copy(biomeStoneForest)
+			.sound(SoundType.CALCITE).mapColor(MapColor.TERRACOTTA_WHITE));
 	public static final Block biomeStoneMesaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeStoneMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeStoneMesaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
@@ -683,10 +691,10 @@ public final class BotaniaBlocks {
 				Triple.of(BotaniaBlocks::getPottedShinyFlower, LibBlockNames.POTTED_PREFIX, LibBlockNames.SHINY_FLOWER_SUFFIX),
 				Triple.of(BotaniaBlocks::getPottedMushroom, LibBlockNames.POTTED_PREFIX, LibBlockNames.MUSHROOM_SUFFIX)
 		).forEach(coloredBlockRegistration -> {
-			for (DyeColor dyeColor : DyeColor.values()) {
+			ColorHelper.supportedColors().forEach(dyeColor -> {
 				r.accept(coloredBlockRegistration.getLeft().apply(dyeColor),
 						prefix(coloredBlockRegistration.getMiddle() + dyeColor.getName() + coloredBlockRegistration.getRight()));
-			}
+			});
 		});
 
 		r.accept(defaultAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEFAULT.name().toLowerCase(Locale.ROOT)));
@@ -1081,102 +1089,18 @@ public final class BotaniaBlocks {
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
 		Item.Properties props = BotaniaItems.defaultBuilder();
-		r.accept(new BlockItem(whiteFlower, props), BuiltInRegistries.BLOCK.getKey(whiteFlower));
-		r.accept(new BlockItem(orangeFlower, props), BuiltInRegistries.BLOCK.getKey(orangeFlower));
-		r.accept(new BlockItem(magentaFlower, props), BuiltInRegistries.BLOCK.getKey(magentaFlower));
-		r.accept(new BlockItem(lightBlueFlower, props), BuiltInRegistries.BLOCK.getKey(lightBlueFlower));
-		r.accept(new BlockItem(yellowFlower, props), BuiltInRegistries.BLOCK.getKey(yellowFlower));
-		r.accept(new BlockItem(limeFlower, props), BuiltInRegistries.BLOCK.getKey(limeFlower));
-		r.accept(new BlockItem(pinkFlower, props), BuiltInRegistries.BLOCK.getKey(pinkFlower));
-		r.accept(new BlockItem(grayFlower, props), BuiltInRegistries.BLOCK.getKey(grayFlower));
-		r.accept(new BlockItem(lightGrayFlower, props), BuiltInRegistries.BLOCK.getKey(lightGrayFlower));
-		r.accept(new BlockItem(cyanFlower, props), BuiltInRegistries.BLOCK.getKey(cyanFlower));
-		r.accept(new BlockItem(purpleFlower, props), BuiltInRegistries.BLOCK.getKey(purpleFlower));
-		r.accept(new BlockItem(blueFlower, props), BuiltInRegistries.BLOCK.getKey(blueFlower));
-		r.accept(new BlockItem(brownFlower, props), BuiltInRegistries.BLOCK.getKey(brownFlower));
-		r.accept(new BlockItem(greenFlower, props), BuiltInRegistries.BLOCK.getKey(greenFlower));
-		r.accept(new BlockItem(redFlower, props), BuiltInRegistries.BLOCK.getKey(redFlower));
-		r.accept(new BlockItem(blackFlower, props), BuiltInRegistries.BLOCK.getKey(blackFlower));
-		r.accept(new BlockItem(whiteShinyFlower, props), BuiltInRegistries.BLOCK.getKey(whiteShinyFlower));
-		r.accept(new BlockItem(orangeShinyFlower, props), BuiltInRegistries.BLOCK.getKey(orangeShinyFlower));
-		r.accept(new BlockItem(magentaShinyFlower, props), BuiltInRegistries.BLOCK.getKey(magentaShinyFlower));
-		r.accept(new BlockItem(lightBlueShinyFlower, props), BuiltInRegistries.BLOCK.getKey(lightBlueShinyFlower));
-		r.accept(new BlockItem(yellowShinyFlower, props), BuiltInRegistries.BLOCK.getKey(yellowShinyFlower));
-		r.accept(new BlockItem(limeShinyFlower, props), BuiltInRegistries.BLOCK.getKey(limeShinyFlower));
-		r.accept(new BlockItem(pinkShinyFlower, props), BuiltInRegistries.BLOCK.getKey(pinkShinyFlower));
-		r.accept(new BlockItem(grayShinyFlower, props), BuiltInRegistries.BLOCK.getKey(grayShinyFlower));
-		r.accept(new BlockItem(lightGrayShinyFlower, props), BuiltInRegistries.BLOCK.getKey(lightGrayShinyFlower));
-		r.accept(new BlockItem(cyanShinyFlower, props), BuiltInRegistries.BLOCK.getKey(cyanShinyFlower));
-		r.accept(new BlockItem(purpleShinyFlower, props), BuiltInRegistries.BLOCK.getKey(purpleShinyFlower));
-		r.accept(new BlockItem(blueShinyFlower, props), BuiltInRegistries.BLOCK.getKey(blueShinyFlower));
-		r.accept(new BlockItem(brownShinyFlower, props), BuiltInRegistries.BLOCK.getKey(brownShinyFlower));
-		r.accept(new BlockItem(greenShinyFlower, props), BuiltInRegistries.BLOCK.getKey(greenShinyFlower));
-		r.accept(new BlockItem(redShinyFlower, props), BuiltInRegistries.BLOCK.getKey(redShinyFlower));
-		r.accept(new BlockItem(blackShinyFlower, props), BuiltInRegistries.BLOCK.getKey(blackShinyFlower));
-		r.accept(new BlockItem(whiteFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(whiteFloatingFlower));
-		r.accept(new BlockItem(orangeFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(orangeFloatingFlower));
-		r.accept(new BlockItem(magentaFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(magentaFloatingFlower));
-		r.accept(new BlockItem(lightBlueFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(lightBlueFloatingFlower));
-		r.accept(new BlockItem(yellowFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(yellowFloatingFlower));
-		r.accept(new BlockItem(limeFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(limeFloatingFlower));
-		r.accept(new BlockItem(pinkFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(pinkFloatingFlower));
-		r.accept(new BlockItem(grayFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(grayFloatingFlower));
-		r.accept(new BlockItem(lightGrayFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(lightGrayFloatingFlower));
-		r.accept(new BlockItem(cyanFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(cyanFloatingFlower));
-		r.accept(new BlockItem(purpleFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(purpleFloatingFlower));
-		r.accept(new BlockItem(blueFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(blueFloatingFlower));
-		r.accept(new BlockItem(brownFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(brownFloatingFlower));
-		r.accept(new BlockItem(greenFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(greenFloatingFlower));
-		r.accept(new BlockItem(redFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(redFloatingFlower));
-		r.accept(new BlockItem(blackFloatingFlower, props), BuiltInRegistries.BLOCK.getKey(blackFloatingFlower));
-		r.accept(new BlockItem(petalBlockWhite, props), BuiltInRegistries.BLOCK.getKey(petalBlockWhite));
-		r.accept(new BlockItem(petalBlockOrange, props), BuiltInRegistries.BLOCK.getKey(petalBlockOrange));
-		r.accept(new BlockItem(petalBlockMagenta, props), BuiltInRegistries.BLOCK.getKey(petalBlockMagenta));
-		r.accept(new BlockItem(petalBlockLightBlue, props), BuiltInRegistries.BLOCK.getKey(petalBlockLightBlue));
-		r.accept(new BlockItem(petalBlockYellow, props), BuiltInRegistries.BLOCK.getKey(petalBlockYellow));
-		r.accept(new BlockItem(petalBlockLime, props), BuiltInRegistries.BLOCK.getKey(petalBlockLime));
-		r.accept(new BlockItem(petalBlockPink, props), BuiltInRegistries.BLOCK.getKey(petalBlockPink));
-		r.accept(new BlockItem(petalBlockGray, props), BuiltInRegistries.BLOCK.getKey(petalBlockGray));
-		r.accept(new BlockItem(petalBlockSilver, props), BuiltInRegistries.BLOCK.getKey(petalBlockSilver));
-		r.accept(new BlockItem(petalBlockCyan, props), BuiltInRegistries.BLOCK.getKey(petalBlockCyan));
-		r.accept(new BlockItem(petalBlockPurple, props), BuiltInRegistries.BLOCK.getKey(petalBlockPurple));
-		r.accept(new BlockItem(petalBlockBlue, props), BuiltInRegistries.BLOCK.getKey(petalBlockBlue));
-		r.accept(new BlockItem(petalBlockBrown, props), BuiltInRegistries.BLOCK.getKey(petalBlockBrown));
-		r.accept(new BlockItem(petalBlockGreen, props), BuiltInRegistries.BLOCK.getKey(petalBlockGreen));
-		r.accept(new BlockItem(petalBlockRed, props), BuiltInRegistries.BLOCK.getKey(petalBlockRed));
-		r.accept(new BlockItem(petalBlockBlack, props), BuiltInRegistries.BLOCK.getKey(petalBlockBlack));
-		r.accept(new BlockItem(whiteMushroom, props), BuiltInRegistries.BLOCK.getKey(whiteMushroom));
-		r.accept(new BlockItem(orangeMushroom, props), BuiltInRegistries.BLOCK.getKey(orangeMushroom));
-		r.accept(new BlockItem(magentaMushroom, props), BuiltInRegistries.BLOCK.getKey(magentaMushroom));
-		r.accept(new BlockItem(lightBlueMushroom, props), BuiltInRegistries.BLOCK.getKey(lightBlueMushroom));
-		r.accept(new BlockItem(yellowMushroom, props), BuiltInRegistries.BLOCK.getKey(yellowMushroom));
-		r.accept(new BlockItem(limeMushroom, props), BuiltInRegistries.BLOCK.getKey(limeMushroom));
-		r.accept(new BlockItem(pinkMushroom, props), BuiltInRegistries.BLOCK.getKey(pinkMushroom));
-		r.accept(new BlockItem(grayMushroom, props), BuiltInRegistries.BLOCK.getKey(grayMushroom));
-		r.accept(new BlockItem(lightGrayMushroom, props), BuiltInRegistries.BLOCK.getKey(lightGrayMushroom));
-		r.accept(new BlockItem(cyanMushroom, props), BuiltInRegistries.BLOCK.getKey(cyanMushroom));
-		r.accept(new BlockItem(purpleMushroom, props), BuiltInRegistries.BLOCK.getKey(purpleMushroom));
-		r.accept(new BlockItem(blueMushroom, props), BuiltInRegistries.BLOCK.getKey(blueMushroom));
-		r.accept(new BlockItem(brownMushroom, props), BuiltInRegistries.BLOCK.getKey(brownMushroom));
-		r.accept(new BlockItem(greenMushroom, props), BuiltInRegistries.BLOCK.getKey(greenMushroom));
-		r.accept(new BlockItem(redMushroom, props), BuiltInRegistries.BLOCK.getKey(redMushroom));
-		r.accept(new BlockItem(blackMushroom, props), BuiltInRegistries.BLOCK.getKey(blackMushroom));
-		r.accept(new BlockItem(doubleFlowerWhite, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerWhite));
-		r.accept(new BlockItem(doubleFlowerOrange, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerOrange));
-		r.accept(new BlockItem(doubleFlowerMagenta, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerMagenta));
-		r.accept(new BlockItem(doubleFlowerLightBlue, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerLightBlue));
-		r.accept(new BlockItem(doubleFlowerYellow, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerYellow));
-		r.accept(new BlockItem(doubleFlowerLime, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerLime));
-		r.accept(new BlockItem(doubleFlowerPink, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerPink));
-		r.accept(new BlockItem(doubleFlowerGray, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerGray));
-		r.accept(new BlockItem(doubleFlowerLightGray, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerLightGray));
-		r.accept(new BlockItem(doubleFlowerCyan, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerCyan));
-		r.accept(new BlockItem(doubleFlowerPurple, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerPurple));
-		r.accept(new BlockItem(doubleFlowerBlue, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerBlue));
-		r.accept(new BlockItem(doubleFlowerBrown, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerBrown));
-		r.accept(new BlockItem(doubleFlowerGreen, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerGreen));
-		r.accept(new BlockItem(doubleFlowerRed, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerRed));
-		r.accept(new BlockItem(doubleFlowerBlack, props), BuiltInRegistries.BLOCK.getKey(doubleFlowerBlack));
+		Stream.<Function<DyeColor, Block>>of(
+				BotaniaBlocks::getFlower,
+				BotaniaBlocks::getShinyFlower,
+				BotaniaBlocks::getFloatingFlower,
+				BotaniaBlocks::getPetalBlock,
+				BotaniaBlocks::getMushroom,
+				BotaniaBlocks::getDoubleFlower
+		).forEach(
+				blockGetter -> ColorHelper.supportedColors().map(blockGetter).forEach(
+						block -> r.accept(new BlockItem(block, props), BuiltInRegistries.BLOCK.getKey(block))
+				)
+		);
 		r.accept(new BlockItem(defaultAltar, props), BuiltInRegistries.BLOCK.getKey(defaultAltar));
 		r.accept(new BlockItem(forestAltar, props), BuiltInRegistries.BLOCK.getKey(forestAltar));
 		r.accept(new BlockItem(plainsAltar, props), BuiltInRegistries.BLOCK.getKey(plainsAltar));
@@ -1562,6 +1486,7 @@ public final class BotaniaBlocks {
 
 	public static void addDispenserBehaviours() {
 		DispenserBlock.registerBehavior(BotaniaItems.twigWand, new WandBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.phantomInk, new PhantomInkBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.dreamwoodWand, new WandBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.obedienceStick, new StickBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.poolMinecart, new ManaPoolMinecartBehavior());
@@ -1850,7 +1775,7 @@ public final class BotaniaBlocks {
 	}
 
 	public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {
-		Stream.of(DyeColor.values()).forEach(dyeColor -> {
+		ColorHelper.supportedColors().forEach(dyeColor -> {
 			consumer.accept(prefix(dyeColor.getName() + MYSTICAL_FLOWER_SUFFIX), () -> getPottedFlower(dyeColor));
 			consumer.accept(prefix(dyeColor.getName() + SHINY_FLOWER_SUFFIX), () -> getPottedShinyFlower(dyeColor));
 			consumer.accept(prefix(dyeColor.getName() + MUSHROOM_SUFFIX), () -> getPottedMushroom(dyeColor));

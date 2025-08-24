@@ -16,7 +16,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
@@ -26,8 +25,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManaUpgradeRecipe extends ShapedRecipe {
 	public ManaUpgradeRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT,
-				compose.getWidth(), compose.getHeight(),
+		super(compose.getId(), compose.getGroup(), compose.category(), compose.getWidth(), compose.getHeight(),
 				compose.getIngredients(),
 				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
 				// RegistryAccess

@@ -227,8 +227,6 @@ public final class ForgeBotaniaConfig {
 		public final ForgeConfigSpec.BooleanValue gogSpawnWithLexicon;
 		public final ForgeConfigSpec.IntValue gogIslandScaleMultiplier;
 
-		public final ForgeConfigSpec.ConfigValue<List<? extends String>> orechidPriorityMods;
-
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusItemBlacklist;
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusModBlacklist;
 
@@ -288,13 +286,6 @@ public final class ForgeBotaniaConfig {
 						By default, the scale is 8, putting each island on points separated by 2048 blocks.
 						Values below 4 (1024 block spacing) are not recommended due to Nether portal collisions.""")
 					.defineInRange("gardenOfGlass.islandScaleMultiplier", 8, 1, 512);
-			orechidPriorityMods = builder
-					.comment("""
-						List of modids to prioritize when choosing a random ore from the tag.
-						By default, the chosen ore is randomly picked from all ores in the ore's tag.
-						Ores from mods present on this list will be picked over mods listed lower or not listed at all.
-						Applying changes at runtime requires /reload afterwards.""")
-					.defineList("orechidPriorityMods", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryParse(s + ":test") != null);
 			rannuncarpusItemBlacklist = builder
 					.comment("List of item registry names that will be ignored by rannuncarpuses when placing blocks.")
 					.defineList("rannuncarpus.itemBlacklist", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryParse(s) != null);

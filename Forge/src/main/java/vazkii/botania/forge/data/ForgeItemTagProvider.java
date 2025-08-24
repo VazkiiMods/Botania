@@ -8,10 +8,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -53,21 +56,33 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 				.addTag(forge("nuggets/manasteel"))
 				.addTag(forge("nuggets/terrasteel"));
 
+		this.tag(Tags.Items.HEADS).add(BotaniaBlocks.gaiaHead.asItem());
+
 		this.copyToSameName(ForgeBlockTagProvider.ELEMENTIUM);
 		this.copyToSameName(ForgeBlockTagProvider.MANASTEEL);
 		this.copyToSameName(ForgeBlockTagProvider.TERRASTEEL);
+		this.copyToSameName(ForgeBlockTagProvider.MANA_DIAMOND);
+		this.copyToSameName(ForgeBlockTagProvider.DRAGONSTONE);
+		this.copyToSameName(ForgeBlockTagProvider.BLAZE_MESH);
+		ColorHelper.supportedColors().map(ForgeBlockTagProvider.PETAL_BLOCKS::get).forEach(this::copyToSameName);
 		this.copy(ForgeBlockTagProvider.MUSHROOMS, Tags.Items.MUSHROOMS);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS_QUARTZ, Tags.Items.STORAGE_BLOCKS_QUARTZ);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 		this.copy(Tags.Blocks.GLASS, Tags.Items.GLASS);
 		this.copy(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
+		this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
+		this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+
+		this.tag(BotaniaTags.Items.LENS_GLUE).addTag(Tags.Items.SLIMEBALLS).add(Items.HONEY_BOTTLE);
 
 		this.generateToolTags();
 		this.generateAccessoryTags();
+		this.generateQuarkTags();
 	}
 
 	private void generateToolTags() {
 		this.tag(Tags.Items.SHEARS).add(manasteelShears, elementiumShears);
+		this.tag(Tags.Items.TOOLS_BOWS).add(livingwoodBow, crystalBow);
 
 		this.tag(Tags.Items.ARMORS_HELMETS).add(manasteelHelm, manaweaveHelm,
 				elementiumHelm, terrasteelHelm);
@@ -120,12 +135,21 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 		);
 	}
 
+	private void generateQuarkTags() {
+		tag(quark("big_harvest_hoes")).add(elementiumHoe);
+		tag(quark("reacharound_able")).add(dirtRod, cobbleRod, blackHoleTalisman);
+	}
+
 	private static TagKey<Item> accessory(String name) {
 		return ItemTags.create(new ResourceLocation("curios", name));
 	}
 
 	private static TagKey<Item> forge(String name) {
 		return ItemTags.create(new ResourceLocation("forge", name));
+	}
+
+	private static TagKey<Item> quark(String name) {
+		return ItemTags.create(new ResourceLocation("quark", name));
 	}
 
 	private void copyToSameName(TagKey<Block> source) {

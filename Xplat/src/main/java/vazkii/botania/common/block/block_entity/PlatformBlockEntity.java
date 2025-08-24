@@ -18,16 +18,20 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.PlatformBlock;
 
-public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable {
+public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable, PhantomInkableBlock {
 	private static final String TAG_CAMO = "camo";
 
 	@Nullable
@@ -54,6 +58,22 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable 
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean onPhantomInked(@Nullable Player player, ItemStack stack, Direction side) {
+		if (camoState == Blocks.BARRIER.defaultBlockState()) {
+			return false;
+		}
+		if (!level.isClientSide) {
+			if (player == null || !player.getAbilities().instabuild) {
+				stack.shrink(1);
+			}
+			setCamoState(Blocks.BARRIER.defaultBlockState());
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
+		return true;
 	}
 
 	@Nullable

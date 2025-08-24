@@ -22,6 +22,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -107,6 +108,7 @@ public class InventoryHelper {
 				ItemStack copy = stackAt.copy();
 				player.getInventory().placeItemBackInInventory(copy);
 				inv.getItemHandler().setItem(i, ItemStack.EMPTY);
+				inv.getLevel().gameEvent(null, GameEvent.BLOCK_CHANGE, inv.getBlockPos());
 				break;
 			}
 		}

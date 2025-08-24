@@ -23,5 +23,6 @@ public class ForgeDatagenInitializer {
 		generator.addProvider(evt.includeServer(), new ForgeRecipeProvider(output));
 		generator.addProvider(evt.includeServer(), new ForgeBlockLootProvider(generator));
 		generator.addProvider(evt.includeServer(), new ForgeBiomeTagProvider(output, evt.getLookupProvider(), disabledHelper));
+		generator.addProvider(evt.includeServer(), new ForgeEntityTagProvider(output, evt.getLookupProvider(), disabledHelper));
 	}
 }

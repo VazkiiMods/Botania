@@ -41,7 +41,7 @@ public class PottedPlantModelProvider implements DataProvider {
 			ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(b);
 			if (LibMisc.MOD_ID.equals(blockId.getNamespace()) && b instanceof FlowerPotBlock) {
 				String name = blockId.getPath();
-				String nonPotted = name.replace(LibBlockNames.POTTED_PREFIX, "");
+				String nonPotted = name.replace(LibBlockNames.POTTED_PREFIX, "").replace("_motif", "");
 
 				JsonObject obj = new JsonObject();
 				obj.addProperty("parent", "minecraft:block/flower_pot_cross");

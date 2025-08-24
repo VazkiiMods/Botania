@@ -28,6 +28,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -116,15 +117,25 @@ public class ContributorList {
 	}
 
 	private static void fetch() {
+		InputStream stream;
 		try {
 			URL url = new URL("https://raw.githubusercontent.com/Vazkii/Botania/master/contributors.properties");
-			Properties props = new Properties();
-			try (InputStreamReader reader = new InputStreamReader(url.openStream(), StandardCharsets.UTF_8)) {
-				props.load(reader);
-				load(props);
-			}
+			stream = url.openStream();
 		} catch (IOException e) {
-			BotaniaAPI.LOGGER.info("Could not load contributors list. Either you're offline or GitHub is down. Nothing to worry about, carry on~");
+			BotaniaAPI.LOGGER.info("Could not load live contributors list. Either you're offline or GitHub is down. Loading bundled copy.");
+			stream = ContributorList.class.getClassLoader().getResourceAsStream("contributors.properties");
+			if (stream == null) {
+				BotaniaAPI.LOGGER.info("Could not load bundled contributors list, somehow.");
+				return;
+			}
+		}
+		try {
+			Properties props = new Properties();
+			props.load(new InputStreamReader(stream, StandardCharsets.UTF_8));
+			load(props);
+			stream.close();
+		} catch (IOException e) {
+			BotaniaAPI.LOGGER.info("Error while reading contributors list.");
 		}
 	}
 }

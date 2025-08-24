@@ -27,6 +27,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.SparkBaseEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.Objects;
 import java.util.Random;
@@ -52,6 +53,7 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 	@Override
 	public void render(@NotNull T tEntity, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		TextureAtlasSprite iicon = getBaseIcon(tEntity);
+		ClientXplatAbstractions.instance().markSpriteActive(iicon);
 
 		ms.pushPose();
 

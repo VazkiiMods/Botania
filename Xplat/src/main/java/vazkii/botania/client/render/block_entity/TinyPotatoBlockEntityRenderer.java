@@ -30,6 +30,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -286,8 +287,14 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 			} else if (block) {
 				ms.scale(0.5F, 0.5F, 0.5F);
 			}
-			if (block && side == Direction.NORTH) {
-				ms.mulPose(VecHelper.rotateY(180F));
+			if (block) {
+				if (side == Direction.NORTH) {
+					ms.mulPose(VecHelper.rotateY(180F));
+				}
+				if (((BlockItem) stack.getItem()).getBlock() instanceof AbstractSkullBlock) {
+					// heads are always rendered the wrong way around for some reason
+					ms.mulPose(VecHelper.rotateY(180F));
+				}
 			}
 			renderItem(ms, buffers, potato.getLevel(), light, overlay, stack);
 			ms.popPose();

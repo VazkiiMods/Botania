@@ -64,7 +64,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.HornHarvestable;
+import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -94,10 +96,12 @@ import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.command.SkyblockCommand;
+import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
@@ -166,6 +170,7 @@ public class ForgeCommonInitializer {
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
+		ConfigDataManagerImpl.registerListener();
 		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new ForgeCapCorporeaNodeDetector());
 		if (ModList.get().isLoaded("inventorysorter")) {
@@ -174,6 +179,11 @@ public class ForgeCommonInitializer {
 	}
 
 	private void coreInit() {
+		// ensure API implementations are loaded
+		BotaniaAPI.LOGGER.debug("API instances: {}",
+				List.of(BotaniaAPI.instance(), XplatAbstractions.instance(),
+						CorporeaHelper.instance(), ManaItemHandler.instance()));
+
 		ForgeBotaniaConfig.setup();
 		EquipmentHandler.init();
 	}
@@ -231,9 +241,9 @@ public class ForgeCommonInitializer {
 		});
 		bind(Registries.CREATIVE_MODE_TAB, consumer -> {
 			consumer.accept(CreativeModeTab.builder()
-					.title(Component.translatable("itemGroup.botania.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
+					.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
 					.icon(() -> new ItemStack(BotaniaItems.lexicon))
-					.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
+					.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
 					.backgroundSuffix("botania.png")
 					.withSearchBar()
 					.build(),
@@ -371,7 +381,7 @@ public class ForgeCommonInitializer {
 			}
 		});
 		// FabricMixinExplosion
-		bus.addListener((ExplosionEvent e) -> {
+		bus.addListener((ExplosionEvent.Detonate e) -> {
 			if (BenevolentGoddessCharmItem.shouldProtectExplosion(e.getLevel(), e.getExplosion().getPosition())) {
 				e.getExplosion().clearToBlow();
 			}
@@ -393,9 +403,11 @@ public class ForgeCommonInitializer {
 				});
 				LooniumBlockEntity.dropLooniumItems(living, stack -> {
 					e.getDrops().clear();
-					var ent = new ItemEntity(living.level(), living.getX(), living.getY(), living.getZ(), stack);
-					ent.setDefaultPickUpDelay();
-					e.getDrops().add(ent);
+					if (!stack.isEmpty()) {
+						var ent = new ItemEntity(living.level(), living.getX(), living.getY(), living.getZ(), stack);
+						ent.setDefaultPickUpDelay();
+						e.getDrops().add(ent);
+					}
 				});
 			});
 			bus.addListener((LivingDeathEvent e) -> {
@@ -554,9 +566,9 @@ public class ForgeCommonInitializer {
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
-				Arrays.stream(DyeColor.values()).map(BotaniaBlocks::getMushroom).toArray(Block[]::new));
+				ColorHelper.supportedColors().map(BotaniaBlocks::getMushroom).toArray(Block[]::new));
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
-				Arrays.stream(DyeColor.values()).map(BotaniaBlocks::getShinyFlower).toArray(Block[]::new));
+				ColorHelper.supportedColors().map(BotaniaBlocks::getShinyFlower).toArray(Block[]::new));
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_GHOST, (w, p, s) -> ((ManaCollisionGhost) s.getBlock()),
 				BotaniaBlocks.manaDetector,
 				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
@@ -627,6 +639,11 @@ public class ForgeCommonInitializer {
 		if (BlockEntityConstants.SELF_WANDADBLE_BES.contains(be.getType())) {
 			e.addCapability(prefix("wandable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.WANDABLE,
 					(Wandable) be));
+		}
+
+		if (BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.contains(be.getType())) {
+			e.addCapability(prefix("phantom_inkable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.PHANTOM_INKABLE,
+					(PhantomInkableBlock) be));
 		}
 
 		if (be instanceof RedStringContainerBlockEntity container) {

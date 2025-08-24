@@ -29,6 +29,8 @@ import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.Proxy;
 
 public class TectonicGirdleItem extends BaubleItem {
@@ -45,6 +47,11 @@ public class TectonicGirdleItem extends BaubleItem {
 		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
 		attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(getBaubleUUID(stack), "Knockback Belt", 1, AttributeModifier.Operation.ADDITION));
 		return attributes;
+	}
+
+	public static boolean negateExplosionKnockback(LivingEntity living) {
+		// TODO 1.21: replace with explosion knockback resistance attribute
+		return !EquipmentHandler.findOrEmpty(BotaniaItems.knockbackBelt, living).isEmpty();
 	}
 
 	public static class Renderer implements AccessoryRenderer {

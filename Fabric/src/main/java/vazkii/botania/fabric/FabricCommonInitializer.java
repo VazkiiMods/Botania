@@ -62,7 +62,9 @@ import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaCollisionGhost;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.BotaniaStats;
@@ -81,10 +83,12 @@ import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.command.SkyblockCommand;
+import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
@@ -138,6 +142,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
+		ConfigDataManagerImpl.registerListener();
 		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new FabricTransferCorporeaNodeDetector());
 
@@ -146,6 +151,11 @@ public class FabricCommonInitializer implements ModInitializer {
 	}
 
 	private void coreInit() {
+		// ensure API implementations are loaded
+		BotaniaAPI.LOGGER.debug("API instances: {}",
+				List.of(BotaniaAPI.instance(), XplatAbstractions.instance(),
+						CorporeaHelper.instance(), ManaItemHandler.instance()));
+
 		FiberBotaniaConfig.setup();
 		EquipmentHandler.init();
 		FabricPacketHandler.init();
@@ -217,7 +227,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BuiltInRegistries.CREATIVE_MODE_TAB,
 				BotaniaRegistries.BOTANIA_TAB_KEY,
 				FabricItemGroup.builder()
-						.title(Component.translatable("itemGroup.botania.botania").withStyle((style -> style.withColor(ChatFormatting.WHITE))))
+						.title(Component.translatable("itemGroup.botania").withStyle((style -> style.withColor(ChatFormatting.WHITE))))
 						.icon(() -> new ItemStack(BotaniaItems.lexicon))
 						.backgroundSuffix("botania.png")
 						.build()
@@ -315,9 +325,9 @@ public class FabricCommonInitializer implements ModInitializer {
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
 		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
-				Arrays.stream(DyeColor.values()).map(BotaniaBlocks::getMushroom).toArray(Block[]::new));
+				ColorHelper.supportedColors().map(BotaniaBlocks::getMushroom).toArray(Block[]::new));
 		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
-				Arrays.stream(DyeColor.values()).map(BotaniaBlocks::getShinyFlower).toArray(Block[]::new));
+				ColorHelper.supportedColors().map(BotaniaBlocks::getShinyFlower).toArray(Block[]::new));
 		BotaniaFabricCapabilities.HOURGLASS_TRIGGER.registerForBlockEntities((be, c) -> {
 			var torch = (AnimatedTorchBlockEntity) be;
 			return hourglass -> torch.toggle();
@@ -355,6 +365,8 @@ public class FabricCommonInitializer implements ModInitializer {
 		);
 		BotaniaFabricCapabilities.WANDABLE.registerSelf(
 				BlockEntityConstants.SELF_WANDADBLE_BES.toArray(BlockEntityType[]::new));
+		BotaniaFabricCapabilities.PHANTOM_INKABLE.registerSelf(
+				BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.toArray(BlockEntityType[]::new));
 		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRING_CONTAINER);
 		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRING_DISPENSER);
 

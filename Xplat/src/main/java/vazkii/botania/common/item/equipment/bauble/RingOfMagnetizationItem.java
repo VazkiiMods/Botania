@@ -8,15 +8,8 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -55,17 +48,6 @@ public class RingOfMagnetizationItem extends BaubleItem {
 		if (!ring.isEmpty()) {
 			setCooldown(ring, 100);
 		}
-	}
-
-	@Override
-	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		if (XplatAbstractions.INSTANCE.isModLoaded("malum")) {
-			Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-			attributes.put(BuiltInRegistries.ATTRIBUTE.get(new ResourceLocation("malum", "spirit_reach")),
-					new AttributeModifier(getBaubleUUID(stack), "Magnet Ring reach boost", 0.5, AttributeModifier.Operation.MULTIPLY_BASE));
-			return attributes;
-		}
-		return super.getEquippedAttributeModifiers(stack);
 	}
 
 	@Override

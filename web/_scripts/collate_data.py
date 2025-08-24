@@ -8,7 +8,7 @@ import os # listdir
 # extra info :(
 lang = "en_us"
 repo_names = {
-    "botania": "https://raw.githubusercontent.com/VazkiiMods/Botania/1.19.x/Xplat/src/main/resources",
+    "botania": "https://raw.githubusercontent.com/VazkiiMods/Botania/1.20.x/Xplat/src/main/resources",
 }
 extra_i18n = {
     "item.laputa_upgrade_processing": "upgraded Laputa Shard",

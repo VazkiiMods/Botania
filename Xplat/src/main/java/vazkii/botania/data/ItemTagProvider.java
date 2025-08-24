@@ -18,12 +18,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
@@ -60,6 +60,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.FLOATING_FLOWERS, BotaniaTags.Items.FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.copy(BotaniaTags.Blocks.MYSTICAL_FLOWERS, BotaniaTags.Items.MYSTICAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS, BotaniaTags.Items.SHIMMERING_MUSHROOMS);
 
 		this.copy(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS, BotaniaTags.Items.MISC_SPECIAL_FLOWERS);
 		this.copy(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS, BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS);
@@ -81,8 +82,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.map(BuiltInRegistries.ITEM::getKey)
 				.sorted()
 				.forEach(item -> builder.add(ResourceKey.create(Registries.ITEM, item)));
-
-		this.tag(BotaniaTags.Items.LENS_GLUE).add(Items.SLIME_BALL).add(Items.HONEY_BOTTLE);
 
 		this.tag(ItemTags.PIGLIN_LOVED).add(BotaniaBlocks.alchemyCatalyst.asItem(), divaCharm,
 				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), monocle);
@@ -119,7 +118,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				Items.NETHERRACK, Items.COBBLED_DEEPSLATE, Items.END_STONE)
 				.addTag(ItemTags.SAND);
 		this.tag(BotaniaTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE,
-				Items.TUFF, Items.CALCITE, Items.STONE, Items.BASALT,
+				Items.TUFF, Items.CALCITE, Items.STONE, Items.BASALT, Items.BLACKSTONE,
 				Items.DEEPSLATE, Items.DRIPSTONE_BLOCK, Items.POINTED_DRIPSTONE, Items.MOSS_BLOCK,
 				Items.SANDSTONE, Items.RED_SANDSTONE)
 				.addOptional(new ResourceLocation("quark", "jasper"))
@@ -135,14 +134,19 @@ public class ItemTagProvider extends ItemTagsProvider {
 		);
 
 		TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
-		for (DyeColor color : DyeColor.values()) {
+		ColorHelper.supportedColors().forEach(color -> {
 			var petalTag = BotaniaTags.Items.getPetalTag(color);
 			this.tag(petalTag).add(getPetal(color), BotaniaBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
-		}
+		});
 
-		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST).add(lexicon, overgrowthSeed,
-				blackLotus, blackerLotus).addTag(ItemTags.MUSIC_DISCS);
+		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST)
+				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus)
+				.addTag(ItemTags.MUSIC_DISCS);
+		this.tag(ItemTags.ARROWS);
+		this.tag(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
+				.add(Items.FIREWORK_ROCKET, Items.TOTEM_OF_UNDYING)
+				.addTag(ItemTags.ARROWS);
 		this.tag(BotaniaTags.Items.MAGNET_RING_BLACKLIST);
 		this.tag(BotaniaTags.Items.RODS).add(
 				dirtRod,
@@ -230,5 +234,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.SEED_APOTHECARY_REAGENT)
 				.add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS)
 				.addOptionalTag(new ResourceLocation("forge", "seeds"));
+
+		this.tag(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER)
+				.add(dirtRod, skyDirtRod, cobbleRod, blackHoleTalisman);
 	}
 }

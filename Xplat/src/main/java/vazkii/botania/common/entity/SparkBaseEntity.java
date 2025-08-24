@@ -23,8 +23,9 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.SparkEntity;
+import vazkii.botania.api.mana.ManaCollisionGhost;
 
-public abstract class SparkBaseEntity extends Entity implements SparkEntity {
+public abstract class SparkBaseEntity extends Entity implements SparkEntity, ManaCollisionGhost {
 	private static final String TAG_INVIS = "invis";
 	private static final String TAG_NETWORK = "network";
 	private static final EntityDataAccessor<Integer> NETWORK = SynchedEntityData.defineId(SparkBaseEntity.class, EntityDataSerializers.INT);
@@ -59,6 +60,16 @@ public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 	@Override
 	public boolean isPickable() {
 		return true;
+	}
+
+	@Override
+	public boolean canBeHitByProjectile() {
+		return false;
+	}
+
+	@Override
+	public Behaviour getGhostBehaviour() {
+		return Behaviour.RUN_ALL;
 	}
 
 	@Override

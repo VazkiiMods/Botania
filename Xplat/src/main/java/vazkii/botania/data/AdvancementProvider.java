@@ -8,10 +8,7 @@
  */
 package vazkii.botania.data;
 
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.RequirementsStrategy;
+import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -21,6 +18,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -31,6 +29,7 @@ import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LexicaBotaniaItem;
@@ -61,7 +60,7 @@ public class AdvancementProvider {
 
 			// Main progression line
 			Advancement root = Advancement.Builder.advancement()
-					.display(rootDisplay(BotaniaItems.lexicon, "itemGroup.botania.botania",
+					.display(rootDisplay(BotaniaItems.lexicon, "itemGroup.botania",
 							"botania.desc", prefix("textures/block/livingwood_log.png")))
 					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
 					.save(consumer, mainId("root"));
@@ -323,6 +322,31 @@ public class AdvancementProvider {
 
 	public static class BotaniaChallengeAdvancements implements AdvancementSubProvider {
 
+		private static final EntityType<?>[] LOONIUM_MOBS_TO_KILL = {
+				EntityType.BLAZE,
+				EntityType.CAVE_SPIDER,
+				EntityType.CREEPER,
+				EntityType.DROWNED,
+				EntityType.ENDERMAN,
+				EntityType.EVOKER,
+				EntityType.GUARDIAN,
+				EntityType.HOGLIN,
+				EntityType.HUSK,
+				EntityType.PIGLIN,
+				EntityType.PIGLIN_BRUTE,
+				EntityType.PILLAGER,
+				EntityType.SHULKER,
+				EntityType.SILVERFISH,
+				EntityType.SKELETON,
+				EntityType.STRAY,
+				EntityType.VINDICATOR,
+				EntityType.WITHER_SKELETON,
+				EntityType.ZOGLIN,
+				EntityType.ZOMBIE_VILLAGER,
+				EntityType.ZOMBIE,
+				EntityType.ZOMBIFIED_PIGLIN
+		};
+
 		@Override
 		public void generate(HolderLookup.Provider lookup, Consumer<Advancement> consumer) {
 			Advancement root = Advancement.Builder.advancement()
@@ -337,6 +361,7 @@ public class AdvancementProvider {
 			Advancement hardMode = Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.lifeEssence, "gaiaGuardianHardmode", FrameType.CHALLENGE))
 					.parent(root)
+					.rewards(AdvancementRewards.Builder.experience(100))
 					.addCriterion("guardian", KilledTrigger.TriggerInstance.playerKilledEntity(
 							EntityPredicate.Builder.entity()
 									.of(BotaniaEntities.DOPPLEGANGER)
@@ -353,6 +378,7 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.lokiRing, "lokiRingMany", FrameType.CHALLENGE))
 					.parent(lokiRing)
+					.rewards(AdvancementRewards.Builder.experience(85))
 					.addCriterion("place_blocks", new LokiPlaceTrigger.Instance(
 							ContextAwarePredicate.ANY, EntityPredicate.ANY, ItemPredicate.ANY, MinMaxBounds.Ints.atLeast(255)
 					))
@@ -360,6 +386,7 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.pinkinator, "pinkinator", FrameType.CHALLENGE))
 					.parent(hardMode)
+					.rewards(AdvancementRewards.Builder.experience(40))
 					.addCriterion("use_pinkinator", new UseItemSuccessTrigger.Instance(
 							ContextAwarePredicate.ANY, matchItems(BotaniaItems.pinkinator), LocationPredicate.ANY))
 					.save(consumer, challengeId("pinkinator"));
@@ -368,24 +395,28 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(simple(Blocks.PLAYER_HEAD, "gaiaGuardianNoArmor", FrameType.CHALLENGE))
 					.parent(root)
+					.rewards(AdvancementRewards.Builder.experience(1000))
 					.addCriterion("no_armor", new GaiaGuardianNoArmorTrigger.Instance(
 							ContextAwarePredicate.ANY, EntityPredicate.ANY, DamageSourcePredicate.ANY))
 					.save(consumer, challengeId("gaia_guardian_no_armor"));
 			Advancement.Builder.advancement()
 					.display(hidden(BotaniaBlocks.motifDaybloom, "old_flower_pickup", FrameType.CHALLENGE))
 					.parent(root)
+					.rewards(AdvancementRewards.Builder.experience(40))
 					.addCriterion("flower", onPickup(BotaniaBlocks.motifDaybloom, BotaniaBlocks.motifNightshade))
 					.requirements(RequirementsStrategy.OR)
 					.save(consumer, challengeId("old_flower_pickup"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.corporeaIndex, "superCorporeaRequest", FrameType.CHALLENGE))
 					.parent(root)
+					.rewards(AdvancementRewards.Builder.experience(85))
 					.addCriterion("big_request", new CorporeaRequestTrigger.Instance(
 							ContextAwarePredicate.ANY, MinMaxBounds.Ints.atLeast(CorporeaIndexBlockEntity.MAX_REQUEST), LocationPredicate.ANY))
 					.save(consumer, challengeId("super_corporea_request"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.terraPick, "rankSSPick", FrameType.CHALLENGE))
 					.parent(root)
+					.rewards(AdvancementRewards.Builder.experience(500))
 					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 					.save(consumer, challengeId("rank_ss_pick"));
 			CompoundTag level20Shard = new CompoundTag();
@@ -393,19 +424,39 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.laputaShard, "l20ShardUse", FrameType.CHALLENGE))
 					.parent(root)
+					.rewards(AdvancementRewards.Builder.experience(65))
 					.addCriterion("use_l20_shard", InventoryChangeTrigger.TriggerInstance.hasItems(
 							ItemPredicate.Builder.item().of(BotaniaItems.laputaShard).hasNbt(level20Shard).build()))
 					.save(consumer, challengeId("l20_shard_use"));
 			Advancement.Builder.advancement()
 					.display(hidden(Items.BREAD, "alfPortalBread", FrameType.CHALLENGE))
 					.parent(root)
+					.rewards(AdvancementRewards.Builder.experience(40))
 					.addCriterion("bread", new AlfheimPortalBreadTrigger.Instance(ContextAwarePredicate.ANY, LocationPredicate.ANY))
 					.save(consumer, challengeId("alf_portal_bread"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.tinyPotato, "tinyPotatoBirthday", FrameType.CHALLENGE))
 					.parent(root)
+					.rewards(AdvancementRewards.Builder.experience(40))
 					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 					.save(consumer, challengeId("tiny_potato_birthday"));
+			addLooniumMobsToKill(Advancement.Builder.advancement())
+					.display(simple(BotaniaFlowerBlocks.loonium, "allLooniumMobs", FrameType.CHALLENGE))
+					.parent(root)
+					.requirements(RequirementsStrategy.AND)
+					.save(consumer, challengeId("all_loonium_mobs"));
+		}
+
+		private static Advancement.Builder addLooniumMobsToKill(Advancement.Builder builder) {
+			for (EntityType<?> entityType : LOONIUM_MOBS_TO_KILL) {
+				builder.addCriterion(
+						BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString(),
+						KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
+								.of(entityType).team(LooniumBlockEntity.LOONIUM_TEAM_NAME))
+				);
+			}
+
+			return builder;
 		}
 	}
 
@@ -415,6 +466,7 @@ public class AdvancementProvider {
 		return Advancement.Builder.advancement()
 				.display(simple(relicItem, titleKey, FrameType.CHALLENGE))
 				.parent(parent)
+				.rewards(AdvancementRewards.Builder.experience(50))
 				.addCriterion(criterionName, new RelicBindTrigger.Instance(ContextAwarePredicate.ANY,
 						ItemPredicate.Builder.item().of(relicItem).build()))
 				.save(consumer, id);

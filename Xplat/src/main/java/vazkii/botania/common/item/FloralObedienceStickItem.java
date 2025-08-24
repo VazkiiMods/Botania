@@ -60,6 +60,11 @@ public class FloralObedienceStickItem extends Item {
 
 			return true;
 		}
+		BlockEntity tile = world.getBlockEntity(pos);
+		if (tile instanceof BindableSpecialFlowerBlockEntity<?>bindableFlower) {
+			bindableFlower.setBindingPos(null);
+			return true;
+		}
 
 		return false;
 	}

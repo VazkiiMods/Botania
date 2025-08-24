@@ -35,10 +35,24 @@
     },
     {
       "type": "patchouli:item",
+      "item": "minecraft:water_bucket",
+      "framed": "false",
+      "x": 41,
+      "y": 48
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#reagent",
+      "framed": "false",
+      "x": 57,
+      "y": 48
+    },
+    {
+      "type": "patchouli:item",
       "item": "botania:apothecary_default",
       "framed": "false",
       "x": 49,
-      "y": 53
+      "y": 63
     },
     {
       "type": "patchouli:text",

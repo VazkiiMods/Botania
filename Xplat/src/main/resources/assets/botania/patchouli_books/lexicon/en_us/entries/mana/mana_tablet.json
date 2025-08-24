@@ -14,9 +14,9 @@
       "text": "botania.page.manaTablet1"
     },
     {
-      "type": "crafting",
+      "type": "botania:crafting_multi",
       "text": "botania.page.manaTablet2",
-      "recipe": "botania:mana_tablet"
+      "recipes": ["botania:mana_tablet", "botania:mana_tablet_alt"]
     }
   ]
 }

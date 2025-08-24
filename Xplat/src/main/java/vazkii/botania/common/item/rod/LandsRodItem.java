@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -61,20 +59,15 @@ public class LandsRodItem extends Item {
 		BlockPos pos = ctx.getClickedPos();
 
 		if (player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, false)) {
-			int entities = world.getEntitiesOfClass(LivingEntity.class,
-					new AABB(pos.relative(side), pos.relative(side).offset(1, 1, 1))).size();
+			InteractionResult result = PlayerHelper.substituteUse(ctx, new ItemStack(block));
 
-			if (entities == 0) {
-				InteractionResult result = PlayerHelper.substituteUse(ctx, new ItemStack(block));
-
-				if (result.consumesAction()) {
-					ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true);
-					SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
-					for (int i = 0; i < 6; i++) {
-						world.addParticle(data, pos.getX() + side.getStepX() + Math.random(), pos.getY() + side.getStepY() + Math.random(), pos.getZ() + side.getStepZ() + Math.random(), 0, 0, 0);
-					}
-					return result;
+			if (result.consumesAction()) {
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true);
+				SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
+				for (int i = 0; i < 6; i++) {
+					world.addParticle(data, pos.getX() + side.getStepX() + Math.random(), pos.getY() + side.getStepY() + Math.random(), pos.getZ() + side.getStepZ() + Math.random(), 0, 0, 0);
 				}
+				return result;
 			}
 
 			return InteractionResult.FAIL;

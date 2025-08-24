@@ -24,29 +24,34 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaRequestor;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.List;
 
-public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor, Wandable {
+public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor, Wandable, PhantomInkableBlock {
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
 	private static final String TAG_LOCK = "lock";
+	private static final String TAG_HIDE_COUNT = "hideCount";
 
 	private ItemStack requestTarget = ItemStack.EMPTY;
 	private int itemCount = 0;
 	private int ticks = 0;
 	private int compValue = 0;
 	public boolean locked = false;
+	public boolean hideCount = false;
 
 	public CorporeaCrystalCubeBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE, pos, state);
@@ -126,6 +131,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		tag.put(TAG_REQUEST_TARGET, cmp);
 		tag.putInt(TAG_ITEM_COUNT, itemCount);
 		tag.putBoolean(TAG_LOCK, locked);
+		tag.putBoolean(TAG_HIDE_COUNT, hideCount);
 	}
 
 	@Override
@@ -135,6 +141,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		requestTarget = ItemStack.of(cmp);
 		setCount(tag.getInt(TAG_ITEM_COUNT));
 		locked = tag.getBoolean(TAG_LOCK);
+		hideCount = tag.getBoolean(TAG_HIDE_COUNT);
 	}
 
 	public int getComparatorValue() {
@@ -171,6 +178,23 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean onPhantomInked(@Nullable Player player, ItemStack stack, Direction side) {
+		if (hideCount) {
+			return false;
+		}
+		if (!level.isClientSide()) {
+			if (player == null || !player.getAbilities().instabuild) {
+				stack.shrink(1);
+			}
+			hideCount = true;
+			setChanged();
+			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
+		return true;
 	}
 
 	@Override

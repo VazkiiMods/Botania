@@ -15,7 +15,6 @@ import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 
-// Unused currently. Crashes on tag gen because it can't find botania's damage types, as they're not registered yet.
 public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 
 	public DamageTypeTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -24,14 +23,18 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider provider) {
-		this.tag(DamageTypeTags.IS_FIRE);
 		this.tag(BotaniaTags.DamageTypes.RING_OF_ODIN_IMMUNE)
 				.add(DamageTypes.DROWN)
 				.add(DamageTypes.FALL)
 				.add(DamageTypes.IN_WALL)
 				.add(DamageTypes.STARVE)
 				.add(DamageTypes.FLY_INTO_WALL)
-				.addTag(DamageTypeTags.IS_FIRE);
+				.addOptionalTag(DamageTypeTags.IS_FIRE.location());
+
+		/*
+		Optional tag workaround for error:
+		java.lang.IllegalArgumentException: Couldn't define tag botania:ring_of_odin_immune as it is missing following references: #minecraft:is_fire
+		*/
 
 		this.tag(DamageTypeTags.BYPASSES_ARMOR)
 				.add(BotaniaDamageTypes.PLAYER_ATTACK_ARMOR_PIERCING)

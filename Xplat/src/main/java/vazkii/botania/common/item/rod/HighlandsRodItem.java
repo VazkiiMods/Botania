@@ -41,7 +41,7 @@ public class HighlandsRodItem extends LandsRodItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!world.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, false)) {
+		if (ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vec3 playerVec = VecHelper.fromEntityCenter(player);
 			Vec3 lookVec = player.getLookAngle().scale(3);
 			Vec3 placeVec = playerVec.add(lookVec);
@@ -57,7 +57,9 @@ public class HighlandsRodItem extends LandsRodItem {
 				InteractionResult result = PlayerHelper.substituteUse(new UseOnContext(player, hand, hit), new ItemStack(Blocks.DIRT));
 
 				if (result.consumesAction()) {
-					ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, true);
+					if (!world.isClientSide) {
+						ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, true);
+					}
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.35F, 0.2F, 0.05F, 5);
 					for (int i = 0; i < 6; i++) {
 						world.addParticle(data, x + Math.random(), y + Math.random(), z + Math.random(), 0, 0, 0);

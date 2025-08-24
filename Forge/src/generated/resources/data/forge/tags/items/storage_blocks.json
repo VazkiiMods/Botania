@@ -1,7 +1,26 @@
 {
   "values": [
+    "#forge:storage_blocks/white_petal_block",
+    "#forge:storage_blocks/light_gray_petal_block",
+    "#forge:storage_blocks/gray_petal_block",
+    "#forge:storage_blocks/black_petal_block",
+    "#forge:storage_blocks/brown_petal_block",
+    "#forge:storage_blocks/red_petal_block",
+    "#forge:storage_blocks/orange_petal_block",
+    "#forge:storage_blocks/yellow_petal_block",
+    "#forge:storage_blocks/lime_petal_block",
+    "#forge:storage_blocks/green_petal_block",
+    "#forge:storage_blocks/cyan_petal_block",
+    "#forge:storage_blocks/light_blue_petal_block",
+    "#forge:storage_blocks/blue_petal_block",
+    "#forge:storage_blocks/purple_petal_block",
+    "#forge:storage_blocks/magenta_petal_block",
+    "#forge:storage_blocks/pink_petal_block",
     "#forge:storage_blocks/elementium",
     "#forge:storage_blocks/manasteel",
-    "#forge:storage_blocks/terrasteel"
+    "#forge:storage_blocks/terrasteel",
+    "#forge:storage_blocks/mana_diamond",
+    "#forge:storage_blocks/dragonstone",
+    "#forge:storage_blocks/blaze_mesh"
   ]
 }

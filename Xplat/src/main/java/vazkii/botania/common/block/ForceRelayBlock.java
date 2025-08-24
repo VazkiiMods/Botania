@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -52,8 +53,11 @@ public class ForceRelayBlock extends BotaniaBlock {
 		if (!world.isClientSide) {
 			var data = WorldData.get(world);
 
-			if (isMoving && newState.is(Blocks.MOVING_PISTON)) {
-				var pistonDirection = newState.getValue(MovingPistonBlock.FACING);
+			Direction movementContextDirection = ForcePushHelper.getMovementContextDirection();
+			if (isMoving && (movementContextDirection != null || newState.is(Blocks.MOVING_PISTON))) {
+				var pistonDirection = movementContextDirection != null
+						? movementContextDirection
+						: newState.getValue(MovingPistonBlock.FACING);
 				// if being moved as part of a retracting sticky piston's block structure, reverse movement direction
 				var moveDirection = ForcePushHelper.isExtendingMovementContext() ? pistonDirection : pistonDirection.getOpposite();
 
@@ -68,7 +72,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 						data.setDirty();
 					}
 
-					if (newState.getValue(MovingPistonBlock.TYPE) == PistonType.DEFAULT) {
+					if (!newState.is(Blocks.MOVING_PISTON) || newState.getValue(MovingPistonBlock.TYPE) == PistonType.DEFAULT) {
 						// Move the actual bound blocks
 						if (ForceLens.moveBlocks(world, destPos.relative(moveDirection.getOpposite()), moveDirection, pos)) {
 							// Move dest side of our binding

@@ -32,6 +32,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.NoteBlock;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -130,6 +131,7 @@ public class CacophoniumItem extends Item {
 	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
 		if (!world.isClientSide && count % (isDOIT(stack) ? 20 : 6) == 0) {
 			playSound(living.level(), stack, living.getX(), living.getY(), living.getZ(), living.getSoundSource(), 0.9F);
+			living.gameEvent(GameEvent.INSTRUMENT_PLAY);
 		}
 	}
 

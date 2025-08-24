@@ -2,7 +2,6 @@
 layout: "default"
 title: "Changelog"
 ---
-
 <div class='section-header'>
 	<span class='glyphicon glyphicon-tag'></span>
 	Botania Changelog
@@ -17,18 +16,225 @@ and start a new "Upcoming" section.
 -->
 
 {% include changelog_header.html version="Upcoming" %}
+Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supporting both Fabric and NeoForge) are ongoing.
+We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
+of time the maintainers are able to spend on this effort.
+In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
+
+---
+
+{% include changelog_header.html version="1.20.1-450" %}
+
+* Add: Support for Quark's attribute tooltips, displaying the Pixie Spawn Chance on Elementium armor and sword in icon form
+* Fix: Botania's Creative inventory tab no longer randomly shows up among the vanilla tabs
+* Fix: Rod of the Sea and Extrapolated Bucket may vanish when interacting with cauldrons
+* Fix: Partially reverted an internal change that needlessly caused an incompatibility with existing versions of ExtraBotany
+* Fix: Ensure spark textures and animated Tiara wings are animated in the presence of Sodium or its various Forge ports
+
+---
+
+{% include changelog_header.html version="1.20.1-449" %}
+
+* Add: Several missing Forge tags for blocks, items, and entities
+* Add: Munchdew displays particles while in cooldown, similar to a Thermalily (this used to be a thing a long time ago already, but somehow got lost)
+* Add: Creating past versions of player heads is now possible by replacing the name tag with a written book, containing
+  the base64 texture reference data you can find in the player head commands provided by various player skin websites
+* Add: While not in Creative mode, the "Pick Block" feature (usually middle mouse button) can also select certain block
+  providers, such as the Rod of the Lands or Black Hole Talisman, if the targeted block's item itself is not available
+* Add: Cauldrons can be filled with the Rod of the Seas (as if using a water bucket) and emptied with the
+  Extrapolated Bucket (as if using an empty bucket on a full version of the cauldron)
+* Add: Short descriptions for lexicon categories (based on contributions by bellasalmonella)
+* Add: Incense plate supports fire charges and custom igniters (e.g. Tinkers Flint and Brick) to light the incense stick
+* Change: Sparks can no longer be hit by projectiles other than mana bursts
+* Change: Fake players using a wand of the forest on either type of spark are now treated as if the player was sneaking, since that is likely the intended interaction
+* Change: Reach with the Worldshaper's Astrolabe is now affected by effects that change the player's reach, such as the Ring of Far Reach
+* Fix: The boss bar for the gaia ritual no longer starts full and quickly empties at the start of the spawn sequence
+* Fix: Potential NullPointerException in Bergamute's SoundEngineMixin (LostLuma)
+* Fix: Potential divide-by-zero error related to Runic Altar wand HUD rendering (YukkuriC)
+* Fix: Ancient will recipe accepting additional items (YukkuriC)
+* Fix: Tiny Potato holding mob heads backwards
+* Fix: Portal explosion actually breaks blocks again, as intended
+* Fix: Remaining content in brew vials/flasks and mana bottles would not display properly
+* Fix: Monocle item frame overlay did not properly expand background frame to account for multi-row contained items display
+* Fix: Some spark transfers towards a pool linked with a Mana Mirror sometimes shut down and fail to start up again when the pool is not full anymore
+* Fix: Rod of the Lands/Depths behaved differently than a block of dirt or cobblestone when aiming at a replaceable block, such as grass or fern (NEstoll)
+* Fix: Unbreaking enchantment properly reduces mana consumption for preventing damage to mana-repairable equipment (NEstoll)
+* Fix: When slots of a Crafty Crate get locked while containing any items, those items are forcibly ejected
+* Internal: Optimized texture file compression
+* Internal: An old to-do list for the lexicon migration to Patchouli is no longer included in the compiled jars (this caused a harmless log error on startup)
+* Internal: Changed the way platform-specific loading of API implementations is handled to hopefully prevent a loading
+  failure that has popped up especially in Patchouli on NeoForge but apparently can also happen to Botania on Forge
+* Recipe changes:\
+  (only significant uses of item tags have been added, a more thorough use of tags is postponed until 1.21)
+  * On Forge, any recipe that uses colorless glass blocks or panes is now defined using the corresponding item tags
+  * Lens combining uses the slimeballs item tag on Forge
+  * Phantom Ink and Floral Fertilizer recipes use the dye item tags on both Forge and Fabric
+  * The Phantom Ink recipe uses the any-color glass item tags on both Forge and Fabric
+* Language updates:
+  * tr_tr added (RuyaSavascisi)
+  * pt_br overhauled (Coffee-0xFF)
+  * ru_ru overhauled (kkylern)
+  * zh_tw overhauled (Dawnwalker666, EvanHsieh0415, lakejason0, notlin4, williewillus)
+  * ko_kr updated (UnineVesiKass)
+  * zh_cn updated (Dawnwalker666)
+
+---
+
+{% include changelog_header.html version="1.20.1-448" %}
+
+* Add: Forge storage block tags for mana diamond, dragonstone, blaze mesh, and petal blocks
+* Add: Floral fertilizer can also produce shimmering mushrooms, if applied to mushroom-compatible soil
+* Add: Multi-item filter support via container items (shulker box, flower pouch, etc.) in glow item frames for Hopperhock,
+Rannuncarpus, Corporea Interceptor, and Corporea Funnel; the latter uses item counts as random selection weights
+* Add: Wearing a Manaseer Monocle reveals the contents of a container item in an item frame when looking at the frame
+* Add: An offline backup of the contributors list in the state of the currently installed Botania release will be used for head flowers, if the online copy is unavailable
+* Add: Player statistics now track items crafted via petal apothecary, mana infusion, runic altar, terrestrial agglomeration plate, and manual crafty crate activation
+* Add: Dispensers can now apply phantom ink to blocks (entities like sparks are not yet supported)
+* Add: Phantom ink can be applied to corporea cubes to hide the item count
+* Change: Hopperhock and Corporea Funnel better support Quark's backport of the vanilla Crafter, causing items to be
+distributed across the available slots, rather than putting the entire stack into a single slot
+* Change: Horn/Drum of the Wild also breaks Biomes O' Plenty's high grass by default
+* Change: Flügel Tiara sprint dash can be suppressed by carrying an active Stone of Temperance
+* Fix: Dandelifeon sometimes generated a randomly greater amount of mana than intended when on enchanted soil
+* Fix: Trinkets could not be equipped via right-click (Abbie)
+* Fix: Rod of the Highlands now includes placement sound and particles if not used on another solid block
+* Fix: Potted motif flowers are rendered using the correct textures
+* Fix (Fabric): The loot table for Elementium Axe beheading is no longer evaluated independently from the killed mob's
+own loot table. This hopefully fixes loot doubling issues with LootJS.
+* Fix: Phantom inked luminizers now save properly
+* Language update:
+  * ko_kr updated (UnineVesiKass)
+* Internal: Add PhantomInkableBlock interface for blocks that can be phantom inked
+
+---
+
+{% include changelog_header.html version="1.20.1-447" %}
+
+* Add: Looniums can now give different loot and mob spawns based on which
+structure it's placed in, also further customizable with datapacks. Huuuuge
+thanks to Wormbo for a lot of work on this feature!
+* Add: Dispenser planting supports torchflower seeds and pitcher pods
+* Add: Sniffers can dig up their usual seeds on Botania grass variants
+* Add: Proper map colors for quartz variants, biome stones, pavements, and blaze mesh
+* Add: Dandelifeon benefits from enchanted soil again; during the bonus update cycle granted by enchanted soil, neighbor flowers not planted on enchanted soil are ignored (NEstoll)
+* Change: More readable color in Loonium tooltip
+* Change: Pasture seed spread is no longer restricted to a single Y-level, and replacing existing dirt-like blocks is handled by block tag `botania:pasture_seed_replaceable`
+* Change: Hopperhocks now also apply delay from being planted on podzol or mycelium to picking up recipe outputs, such as from mana infusion
+* Change: Blocks that are not covered by the default unethical TNT check, but can produce TNT the Entropinnyum recognizes, can be specified in the new `botania:unethical_tnt_check` block tag to detect when TNT is duplicated from them (contains `ae2:tiny_tnt` by default)
+* Change: Reordered colored items in the creative inventory to match the new vanilla order since 1.19.3
+* Change: Fluid container items that were dropped onto a Petal Apothecary to fill it can be picked up by Hopperhocks immediately, similar to crafting result items
+* Change: The particle effect for charging or draining mana items via a mana pool now uses "wisp" particles to match other mana transfer effects, such as sparks or spreaders
+* Fix: Akashic Tome name is rendered correctly again on the Lexica Botania
+* Fix: Slightly improved tick performance impact of mana/corporea sparks
+* Fix: Halloween Easter egg on Tiny Potato also works in item form
+* Fix: Dandelifeon no longer sometimes consumes blocks that aren't cellular blocks
+* Fix: Protection effect of the Benevolent Goddess Charm also works on Fabric when the player dies from the explosion
+* Fix: Redstone comparators no longer read signal strength 0 from special flowers other than the Thermalily
+* Fix: A comparator reading from a Thermalily through a solid block no longer keeps outputting a value after breaking the Thermalily
+* Fix: Potential crash issues in combination with mods that add colors have been resolved
+* Fix: Proper support for NBT-based food items on Forge to prevent crash if they don't implement the vanilla method to get food properties
+* Fix: Potential crash with certain modded dispenser variants when trying to attach a mana/corporea spark or applying a Wand of the Forest or Floral Obedience Stick that way
+* Fix: Failed access to bound inventory via red-stringed container on Fabric without specifying a direction (e.g. by looking at one with WTHIT)
+* Fix: Charm of the Diva now also works with Trinkets 3.7.2 (by not using a hacky NBT-based workaround)
+* Language update:
+  * de_de completed (Wormbo, thanks to Kartabass and PssbleTrngle for reviewing)
+  * ko_kr updated (UnineVesiKass)
+  * ru_ru updated (krumplerban)
+  * zh_cn updated (Dawnwalker666 and Suisuroru)
+
+---
+
+{% include changelog_header.html version="1.19.2-440.2" %}
+
+* Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
+* Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
+* Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
+* Change: Terrasteel tool speed and damage was updated to match corresponding netherite values
+* Fix: JEI memory leak
+* Fix: Rosa arcana not taking into account stacked xp orbs
+* Fix: Crash with Akashic Tome
+* Fix: Rafflowsia occasionally losing its binding
+* Fix: Off-by-one-degree typo when rendering progress pies in the HUD
+
+---
+
+{% include changelog_header.html version="1.19.2-440.1" %}
+
+*This version was never released due to an issue with the build. See 1.19.2-440.2.*
+
+---
+
+{% include changelog_header.html version="1.20.1-446" %}
+
+* Add: Various block/item interactions can be detected with sculk sensors
+* Add: Drum of the Gathering shortens the time until chickens lay their next egg
+* Change: Filling or emptying a Petal Apothecary in creative mode on Forge no longer changes the bucket item in hand (vanilla/Fabric parity)
+* Change: Various lexicon adjustments
+  * Mentioned dripleaf shrinking
+  * Changed various mentions of "Manaweave armor" to "Manaweave robes"
+  * Information on how to make the Teru Teru Bozu sad (so you can avoid it, you wouldn't want it to be sad, right?)
+* Fix: Certain structures never generated in GoG, while others were placed at or below the bottom of the world (GoG might not place any blocks, but does create structure bounding boxes)
+* Fix: Mixin-related crash on startup with BedrockIfy or Enhanced Celestials
+* Fix: Improved the Spectator's performance impact in unusually restrictive chunk-loading conditions, but also somewhat improved its overall scanning performance
+* Fix: Rafflowsia no longer forgets its binding (among other things) after unload due to deserialization error
+* Fix: Alfheim portal effect planes were swapped
+* Fix: When a pixie applies the wither effect, it will actually cause damage now
+* Fix: Force relays getting moved directly, e.g. via force lens burst or direct binding from another force relay, correctly move their target and update the binding accordingly
+* Language update:
+  * ru_ru updated (krumplerban)
+
+---
+
+{% include changelog_header.html version="1.20.1-445" %}
 
 * Add: Horn and Drum of the Wild can break moss carpet, with the option to add more blocks through a block tag
-* Add: Bergamute occludes vibrations within its range 
+* Add: Bergamute occludes vibrations within its range
+* Add: Holding a Floral Obedience Stick while placing a special flower prevents it from automatically binding to a spreader or pool, and using the stick on a special flower unbinds it from its spreader or pool
+* Add: Big dripleaf plants can be shrunk back to their small form using mana infusion with an alchemy catalyst
+* Add: Tectonic Girdle also nullifies explosion knockback
+* Add: Block tag support for Agricarnation, allowing data/mod pack authors to customize which plants can/cannot receive a growth boost
+  * Block tag `#botania:agricarnation/growth_excluded` never receives growth boosts, even if the block is in any of the other tags as well; contains mangrove leaves, and red and brown vanilla mushrooms by default
+  * Block tag `#botania:agricarnation/growth_candiate` designates a block as a candidate for growth boosting, but only works if the block is technically able to receive growth boosts; grass/mycelium/nylium blocks are excluded by default, unless they are tagged as growth candidates, because they would otherwise fit the default criteria for being selected
+  * Block tag `#botania:agricarnation/apply_bonemeal` defines that the block should be boosted through its bone mealing logic instead of random ticks; contains azalea bushes by default, and is included in the growth candidates
+    * Bone meal boosting has a built-in 50% success chance, which is multiplicative with the block's own bone meal success test
+  * To receive growth boosts, a block must not have been excluded, and it must be both a "target candidate" and "accept growth boosts"
+    * A block is a "target candidate" if it could accept bone meal, its block type extends `BushBlock`, or is tagged as growth candidate (this does not auto-include sugarcane or cactus, but does cover nether wart by default)
+    * A block "accepts growth boosts" if it can receive random ticks, or if it could accept bone meal and is tagged for applying bone meal (this does not auto-include nether fungi, short grass/fern, small mystical flowers, or buried petals by default)
+  * When finding a `GrowingPlantBodyBlock` (kelp, glowberry vines, nether vines), the corresponding head block is targeted instead
+* Add: Pollidisiac has a new mode switch to feed baby animals
 * Change: Cellular blocks around the boundary of a Dandelifeon's simulation area are ignored, unless they belong to another active Dandelifeon (NEstoll)
 * Change: Charm of the Diva also supports charming or targeting neutral mobs that are angry at the player or attacking one of the player's tamed animals, and properly prevents the player's tamed animals from being affected or targeted by the charm
 * Change: Dandelifeon recipe also requires a redstone root (zacharybarbanell)
+* Change: Terrasteel tool speed and damage was updated to match corresponding netherite values
+* Change: Bumped up the amount of mana contained in bursts from Manastorm Charges; this doesn't change their behavior, but maybe you can find a new use for them in less destructive ways
+* Change: Various crafting recipes moved to more fitting categories in the vanilla recipe book
+* Change: Several book entries were updated, including various recipe presentations:
+  * Petal Apothecary and Runic Altar recipes show the reagent, similar to how they do in recipe viewer mods already
+  * Multi-crafting page templates are now used more widely where it makes sense, like when alternative items in recipes need to be implemented as individual recipes (e.g. the mana pearl and mana diamond variants of the runic altar and mana tablet recipes)
+  * Missing lookup references for derivatives of certain decorative blocks (e.g. quartz variants) have been added for the quick-lookup feature while holding the book
+  * Lexica Botania acknowledges that Trinkets are used on Fabric instead of Curios
+  * Various entries were updated to match recent changes and fix old errors
+* Change: The Ring of Loki now has a (reasonably high) selection limit to prevent players from accidentally "NBT-banning" themselves from their world or server by going too hard with it
+* Change: Blackstone is considered "semi-disposable" for Elementium pickaxe
+* Change: Botania advancements of the "challenge" type (not the category tab, but the icon shape) grant an experience reward
+* Remove: Config option `orechidPriorityMods` didn't have any effect since 1.16, never made it to Fabric, and is now gone in the Forge version as well; pack authors should use data pack recipes to define Orechid outputs and weights
 * Fix: Flight bar for Flügel Tiara no longer overlaps with the refilling air bubbles indicator or the mount health bar, if that uses more than one row
 * Fix: The Manaseer Monocle's flower radius indicator no longer jumps around if you are very far from the world origin, and should also not Z-fight with the binding radius indicator of luminizers anymore
 * Fix: The air bubble created by Bubbells no longer flickers with inflowing water
 * Fix: Charm of the Diva works on Forge again
 * Fix: Translation key names for potted glimmering flowers were wrong in the English language file
 * Fix: Corporea Index on Fabric no longer ignores chat text sources other than the vanilla chat console, fixing compatibility with e.g. the "Microphone Text Input" mod
+* Fix: Pollidisiac gives animals their deserved break after breading again
+* Fix: Shard of Laputa no longer breaks *all* the 2-tall grass/flower blocks (only some of them)
+* Fix: Floating flower islands properly show the soil type on Forge, and are no longer invisible in Patchouli multiblock visualizations (although that latter part is merely a workaround for a Patchouli issue at the moment)
+* Fix: Position of the binding information icon on flowers' wand HUD has been adjusted to not overlap with longer flower names
+* Fix: Suspicious stew effect from Pure Daisy actually works now, clearing all active status effects
+* Fix: Potential integer overflow in Ring of Loki mana calculation
+* Fix: Removed outdated Malum compatibility code from Ring of Magnetization, which should fix a crash (unilock)
+* Internal: Loader-agnostic ("Xplat") code is now built with [minivan](https://github.com/CrackedPolishedBlackstoneBricksMC/minivan) instead of VanillaGradle (quat)
+* Language updates:
+  * en_gb added (Adarsh)
+  * zh_cn updated (Dawnwalker666)
 
 ---
 
@@ -305,7 +511,7 @@ and start a new "Upcoming" section.
 * Change: Move world generation to JSON
 * Change: Some Introduction section entries are now marked priority to emphasize their importance (Aegide)
 * Change: ja_JP updates (RakuGaki-MC)
-* Change: Munchdew prioritizes eating further away and disconnected leaves first (TheRealWormbo)
+* Change: Munchdew prioritizes eating further away and disconnected leaves first (Wormbo)
 * Change: Horn of Canopy and Covering now use tags to decide what to break
 * Change: Endoflame no longer requires a valid spreader binding to start burning fuel
 * Change: Forge builds now include the suffix `-FORGE` like the Fabric ones

@@ -37,7 +37,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
-import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.List;
 import java.util.function.BiPredicate;
@@ -157,14 +156,6 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 
 				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
-		} else if (!currentStack.isEmpty()
-				&& currentStack.is(BotaniaItems.phantomInk)
-				&& tile instanceof PlatformBlockEntity camo) {
-			if (!world.isClientSide) {
-				camo.setCamoState(Blocks.BARRIER.defaultBlockState()); //Barrier block is being used as a sentinel value here
-			}
-
-			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 
 		return InteractionResult.PASS;

@@ -13,6 +13,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -54,6 +55,7 @@ public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
 						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, up, Block.getId(flower));
 					}
 					getLevel().setBlockAndUpdate(up, flower);
+					getLevel().gameEvent(null, GameEvent.BLOCK_PLACE, up);
 					addMana(-COST);
 					sync();
 

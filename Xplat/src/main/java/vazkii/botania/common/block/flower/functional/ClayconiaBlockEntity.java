@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -55,6 +56,7 @@ public class ClayconiaBlockEntity extends FunctionalFlowerBlockEntity {
 					if (BotaniaConfig.common().blockBreakParticles()) {
 						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, stateId);
 					}
+					getLevel().gameEvent(null, GameEvent.BLOCK_DESTROY, coords);
 					ItemEntity item = new ItemEntity(getLevel(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
 					getLevel().addFreshEntity(item);
 					addMana(-COST);

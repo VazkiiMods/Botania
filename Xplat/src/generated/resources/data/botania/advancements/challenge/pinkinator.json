@@ -32,5 +32,8 @@
       "use_pinkinator"
     ]
   ],
+  "rewards": {
+    "experience": 40
+  },
   "sends_telemetry_event": true
 }

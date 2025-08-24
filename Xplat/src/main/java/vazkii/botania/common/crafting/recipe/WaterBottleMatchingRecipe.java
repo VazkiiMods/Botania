@@ -30,8 +30,8 @@ import org.jetbrains.annotations.NotNull;
 public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WaterBottleMatchingRecipe> SERIALIZER = new Serializer();
 
-	public WaterBottleMatchingRecipe(ResourceLocation id, String group, int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result) {
-		super(id, group, CraftingBookCategory.MISC, width, height, NonNullList.of(Ingredient.EMPTY, recipeItems.stream().map(i -> {
+	public WaterBottleMatchingRecipe(ResourceLocation id, String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result) {
+		super(id, group, category, width, height, NonNullList.of(Ingredient.EMPTY, recipeItems.stream().map(i -> {
 			if (i.test(new ItemStack(Items.POTION))) {
 				return Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER));
 			}
@@ -40,7 +40,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	public WaterBottleMatchingRecipe(ShapedRecipe recipe) {
-		this(recipe.getId(), recipe.getGroup(), recipe.getWidth(), recipe.getHeight(),
+		this(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.getWidth(), recipe.getHeight(),
 				recipe.getIngredients(),
 				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
 				// RegistryAccess

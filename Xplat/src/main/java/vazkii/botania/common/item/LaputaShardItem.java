@@ -31,6 +31,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.HitResult;
 
@@ -98,6 +100,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 		BlockPos pos = ctx.getClickedPos();
 		if (pos.getY() < world.getMaxBuildHeight() - BASE_OFFSET && !world.dimensionType().hasCeiling()) {
 			if (!world.isClientSide) {
+				world.gameEvent(ctx.getPlayer(), GameEvent.ENTITY_PLACE, pos);
 				world.playSound(null, pos, BotaniaSounds.laputaStart, SoundSource.BLOCKS, 1.0F + world.random.nextFloat(), world.random.nextFloat() * 0.7F + 1.3F);
 				ItemStack stack = ctx.getItemInHand();
 				spawnFirstBurst(world, pos, stack);
@@ -138,6 +141,9 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 		return !state.isAir()
 				&& !isFlowingFluid
 				&& !(block instanceof FallingBlock)
+				&& (!state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)
+						|| state.is(BotaniaTags.Blocks.LAPUTA_NO_DOUBLE_BLOCK)
+						|| state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER)
 				&& !state.is(BotaniaTags.Blocks.LAPUTA_IMMOBILE)
 				&& state.getDestroySpeed(world, pos) != -1;
 	}
@@ -192,6 +198,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 					}
 
 					world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos_, Block.getId(state));
+					world.gameEvent(null, GameEvent.BLOCK_DESTROY, pos_);
 
 					ItemStack copyLens = new ItemStack(this);
 					copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
@@ -301,8 +308,17 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 						tile = BlockEntity.loadStatic(pos, placeState, tilecmp);
 					}
 
+					if (placeState.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)
+							&& !placeState.is(BotaniaTags.Blocks.LAPUTA_NO_DOUBLE_BLOCK)
+							&& placeState.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
+						// place upper half, which was previously broken implicitly when the bottom was picked up
+						entity.level().setBlock(pos.above(),
+								placeState.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER),
+								Block.UPDATE_CLIENTS);
+					}
 					entity.level().setBlockAndUpdate(pos, placeState);
 					entity.level().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(placeState));
+					entity.level().gameEvent(null, GameEvent.BLOCK_PLACE, pos);
 					if (tile != null) {
 						entity.level().setBlockEntity(tile);
 					}

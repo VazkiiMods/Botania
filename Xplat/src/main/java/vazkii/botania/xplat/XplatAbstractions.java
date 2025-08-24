@@ -26,6 +26,7 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
@@ -51,10 +52,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.ServiceUtil;
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HornHarvestable;
-import vazkii.botania.api.block.HourglassTrigger;
-import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.block.*;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
@@ -129,6 +127,8 @@ public interface XplatAbstractions {
 	ManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
 	Wandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	@Nullable
+	PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	boolean isFluidContainer(ItemEntity item);
 	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);
 	boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid);
@@ -163,9 +163,17 @@ public interface XplatAbstractions {
 
 	// Registrations
 	boolean isSpecialFlowerBlock(Block b);
+
+	default FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
+			BlockBehaviour.Properties props,
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
+		return createSpecialFlowerBlock(effect, effectDuration, props, beType, false);
+	}
+
 	FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
 			BlockBehaviour.Properties props,
-			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType);
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
+			boolean hasComparatorOutput);
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 	Item.Properties defaultItemBuilder();
@@ -200,6 +208,9 @@ public interface XplatAbstractions {
 	boolean preventsRemoteMovement(ItemEntity entity);
 	void addAxeStripping(Block input, Block output);
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
+	@Nullable
+	FoodProperties getFoodProperties(ItemStack stack);
+	boolean canToolLightFire(ItemStack stack);
 
 	// Red string container
 	boolean isRedStringContainerTarget(BlockEntity be);
@@ -218,4 +229,8 @@ public interface XplatAbstractions {
 	WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen);
 
 	XplatAbstractions INSTANCE = ServiceUtil.findService(XplatAbstractions.class, null);
+
+	static XplatAbstractions instance() {
+		return INSTANCE;
+	}
 }

@@ -31,10 +31,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.helper.DelayHelper;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.*;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -83,7 +80,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 
 			// Flat 5 tick delay for newly infused items
 			if (flags.spawnedByInWorldRecipe()) {
-				return flags.timeCounter >= 5;
+				return flags.timeCounter >= 5 + getModulatedDelay();
 			}
 			return DelayHelper.canInteractWith(this, item);
 		};
@@ -191,7 +188,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, aabb);
 			for (ItemFrame frame : frames) {
 				if (frame.getDirection() == dir) {
-					filter.add(frame.getItem());
+					filter.addAll(FilterHelper.getFilterItems(frame));
 				}
 			}
 		}

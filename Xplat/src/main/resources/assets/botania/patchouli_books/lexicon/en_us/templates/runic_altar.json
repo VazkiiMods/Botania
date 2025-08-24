@@ -35,10 +35,17 @@
     },
     {
       "type": "patchouli:item",
+      "item": "#reagent",
+      "framed": "false",
+      "x": 49,
+      "y": 43
+    },
+    {
+      "type": "patchouli:item",
       "item": "botania:runic_altar",
       "framed": "false",
       "x": 49,
-      "y": 53
+      "y": 63
     },
     {
       "type": "patchouli:custom",

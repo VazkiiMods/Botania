@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
+  "category": "redstone",
   "group": "botania:spreader",
   "ingredients": [
     {

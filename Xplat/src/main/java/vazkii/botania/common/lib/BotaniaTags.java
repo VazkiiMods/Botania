@@ -41,6 +41,7 @@ public class BotaniaTags {
 
 		public static final TagKey<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final TagKey<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final TagKey<Item> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		/**
 		 * Items in this tag can be specified as contributor headflowers
@@ -68,6 +69,11 @@ public class BotaniaTags {
 		 * Items in this tag cannot be rolled by Looniums
 		 */
 		public static final TagKey<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
+		/**
+		 * Items that should be equipped in the offhand slot if rolled as Loonium mob equipment,
+		 * instead of the default slot for the item.
+		 */
+		public static final TagKey<Item> LOONIUM_OFFHAND_EQUIPMENT = tag("loonium_offhand_equipment");
 
 		/**
 		 * Items in this tag are voided by the Elementium Pick
@@ -118,6 +124,12 @@ public class BotaniaTags {
 		public static final TagKey<Item> MANA_USING_ITEMS = tag("mana_using_items");
 		public static final TagKey<Item> SEED_APOTHECARY_REAGENT = tag("seed_apothecary_reagent");
 
+		/**
+		 * Block provider items in this tag can be auto-selected via the vanilla "Pick Block" feature.
+		 * (Not every block provider makes sense here, e.g. the Hand of Ender cannot place blocks.)
+		 */
+		public static final TagKey<Item> PICKABLE_BLOCK_PROVIDER = tag("pickable_block_providers");
+
 		public static TagKey<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
 				case WHITE -> PETALS_WHITE;
@@ -148,6 +160,7 @@ public class BotaniaTags {
 		public static final TagKey<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final TagKey<Block> SHINY_FLOWERS = tag("shiny_flowers");
 		public static final TagKey<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final TagKey<Block> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		public static final TagKey<Block> SPECIAL_FLOWERS = tag("special_flowers");
 		public static final TagKey<Block> MINI_FLOWERS = tag("mini_flowers");
@@ -185,6 +198,12 @@ public class BotaniaTags {
 		 * Blocks in this tag cannot be moved by the Laputa Shard
 		 */
 		public static final TagKey<Block> LAPUTA_IMMOBILE = tag("laputa_immobile");
+		/**
+		 * Blocks in this tag should not be treated like a 2-high double block by the Laputa Shard, even though they
+		 * have the {@link net.minecraft.world.level.block.state.properties.BlockStateProperties#DOUBLE_BLOCK_HALF}
+		 * property.
+		 */
+		public static final TagKey<Block> LAPUTA_NO_DOUBLE_BLOCK = tag("laputa_no_double_block");
 
 		/**
 		 * Blocks in this tag can be removed by the Rod of Terra Firma
@@ -233,9 +252,41 @@ public class BotaniaTags {
 		public static final TagKey<Block> HORN_OF_THE_COVERING_BREAKABLE = tag("horn_of_the_covering_breakable");
 
 		/**
+		 * Blocks in this tag are candidates for the Agricarnation's growth boost, assuming they accept random ticks.
+		 */
+		public static final TagKey<Block> AGRICARNATION_GROWTH_CANDIDATE = tag("agricarnation/growth_candidate");
+		/**
+		 * Blocks in this tag are ignored by the Agricarnation, even if they look like they are growable plants.
+		 */
+		public static final TagKey<Block> AGRICARNATION_GROWTH_EXCLUDED = tag("agricarnation/growth_excluded");
+		/**
+		 * Blocks in this tag will have their growth boosted as if bonemeal was applied, instead of via random ticks.
+		 * These plants need to pass the bonemeal success check twice to get a boost, but mana will be consumed even if
+		 * that fails.
+		 */
+		public static final TagKey<Block> AGRICARNATION_APPLY_BONEMEAL = tag("agricarnation/apply_bonemeal");
+
+		/**
 		 * Blocks in this tag can not have their state manipulated by a wand of the forest
 		 */
 		public static final TagKey<Block> UNWANDABLE = tag("unwandable");
+
+		/**
+		 * Blocks in this tag can be replaced by the spreading effect of Pasture Seeds and related items.
+		 */
+		public static final TagKey<Block> PASTURE_SEED_REPLACEABLE = tag("pasture_seed_replaceable");
+
+		/**
+		 * Blocks in this tag are considered when checking for unethical TNT sources. Blocks only need to be added
+		 * to this tag if their implementation does not extend {@link net.minecraft.world.level.block.TntBlock}.
+		 */
+		public static final TagKey<Block> UNETHICAL_TNT_CHECK = tag("unethical_tnt_check");
+
+		/**
+		 * Blocks in this tag work better for inserting items if they don't receive more than one item at a time.
+		 * Example: The vanilla crafter block, which selectively opens inventory slots to distribute matching items.
+		 */
+		public static final TagKey<Block> SINGLE_ITEM_INSERT = tag("single_item_insert");
 
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, prefix(name));

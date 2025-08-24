@@ -34,6 +34,7 @@ import net.minecraft.world.entity.vehicle.AbstractMinecartContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.phys.AABB;
@@ -204,7 +205,11 @@ public class SpectatorItem extends BaubleItem {
 	}
 
 	private boolean scanBlock(Player player, BlockPos pos, ItemStack mainHandStack, ItemStack offHandStack) {
-		BlockEntity blockEntity = player.level().getBlockEntity(pos);
+		Level level = player.level();
+		if (!level.isLoaded(pos) || !level.getBlockState(pos).hasBlockEntity()) {
+			return false;
+		}
+		BlockEntity blockEntity = level.getBlockEntity(pos);
 		return blockEntity instanceof Container inv && (!(blockEntity instanceof RandomizableContainerBlockEntity lootInv)
 				|| ((RandomizableContainerBlockEntityAccessor) lootInv).getLootTable() == null)
 				&& scanInventory(inv, mainHandStack, offHandStack);

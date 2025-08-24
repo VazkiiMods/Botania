@@ -1,7 +1,6 @@
 package vazkii.botania.forge.client;
 
 import com.google.common.base.Suppliers;
-import com.mojang.blaze3d.vertex.BufferBuilder;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -9,7 +8,6 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -30,16 +28,15 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.CoreShaders;
-import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.client.gui.HUDHandler;
@@ -59,7 +56,6 @@ import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.forge.CapabilityUtil;
-import vazkii.botania.mixin.client.RenderBuffersAccessor;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
@@ -68,8 +64,8 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Collections;
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -85,6 +81,10 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void clientInit(FMLClientSetupEvent evt) {
+		// ensure API implementations are loaded
+		BotaniaAPI.LOGGER.debug("Client API instances: {}",
+				List.of(BotaniaAPIClient.instance(), ClientXplatAbstractions.instance()));
+
 		BlockRenderLayers.skipPlatformBlocks = true; // platforms can use standard rendering on Forge
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 		// GUIs
@@ -213,14 +213,6 @@ public class ForgeClientInitializer {
 			e.addCapability(prefix("wand_hud"),
 					CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(entity)));
 		}
-	}
-
-	@SubscribeEvent
-	public static void loadComplete(FMLLoadCompleteEvent evt) {
-		// Needed to prevent mana pools on carts from X-raying through the cart
-		SortedMap<RenderType, BufferBuilder> layers = ((RenderBuffersAccessor) Minecraft.getInstance()
-				.renderBuffers()).getEntityBuilders();
-		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.bufferSize()));
 	}
 
 	@SubscribeEvent

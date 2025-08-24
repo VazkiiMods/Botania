@@ -6,10 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HornHarvestable;
-import vazkii.botania.api.block.HourglassTrigger;
-import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.block.*;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -38,6 +35,7 @@ public final class BotaniaFabricCapabilities {
 	public static final BlockApiLookup<SparkAttachable, Direction> SPARK_ATTACHABLE = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "spark_attachable"), SparkAttachable.class, Direction.class);
 	public static final BlockApiLookup<ManaTrigger, Unit> MANA_TRIGGER = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "mana_trigger"), ManaTrigger.class, Unit.class);
 	public static final BlockApiLookup<Wandable, Unit> WANDABLE = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "wandable"), Wandable.class, Unit.class);
+	public static final BlockApiLookup<PhantomInkableBlock, Unit> PHANTOM_INKABLE = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "phantom_inkable"), PhantomInkableBlock.class, Unit.class);
 
 	private BotaniaFabricCapabilities() {}
 }

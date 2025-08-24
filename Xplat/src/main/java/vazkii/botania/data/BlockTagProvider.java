@@ -13,8 +13,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FenceBlock;
@@ -31,12 +31,12 @@ import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.block.red_string.RedStringBlock;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -73,7 +73,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.WITHER_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 
 		tag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
-				Arrays.stream(DyeColor.values())
+				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getFloatingFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
@@ -89,21 +89,28 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addTag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS);
 
 		tag(BotaniaTags.Blocks.MYSTICAL_FLOWERS).add(
-				Arrays.stream(DyeColor.values())
+				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
+		tag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS).add(
+				ColorHelper.supportedColors()
+						.map(BotaniaBlocks::getMushroom)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new)
+		);
+
 		tag(BotaniaTags.Blocks.SHINY_FLOWERS).add(
-				Arrays.stream(DyeColor.values())
+				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getShinyFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
 		tag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
-				Arrays.stream(DyeColor.values())
+				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getDoubleFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
@@ -146,7 +153,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(BotaniaBlocks.manasteelBlock, BotaniaBlocks.terrasteelBlock, BotaniaBlocks.elementiumBlock,
 				BotaniaBlocks.manaDiamondBlock, BotaniaBlocks.dragonstoneBlock);
 
-		tag(BlockTags.DIRT).add(getModBlocks(b -> b instanceof BotaniaGrassBlock));
+		@NotNull
+		Block[] grassBlockVariants = getModBlocks(b -> b instanceof BotaniaGrassBlock);
+		tag(BlockTags.DIRT).add(grassBlockVariants);
+		tag(BlockTags.SNIFFER_DIGGABLE_BLOCK).add(grassBlockVariants);
 		tag(BotaniaTags.Blocks.BLOCKS_ELEMENTIUM).add(BotaniaBlocks.elementiumBlock);
 		tag(BotaniaTags.Blocks.BLOCKS_MANASTEEL).add(BotaniaBlocks.manasteelBlock);
 		tag(BotaniaTags.Blocks.BLOCKS_TERRASTEEL).add(BotaniaBlocks.terrasteelBlock);
@@ -166,6 +176,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
 				BotaniaBlocks.fabulousPool, BotaniaBlocks.terraPlate, BotaniaBlocks.runeAltar);
 		tag(BotaniaTags.Blocks.LAPUTA_IMMOBILE);
+		tag(BotaniaTags.Blocks.LAPUTA_NO_DOUBLE_BLOCK);
 
 		tag(BotaniaTags.Blocks.TERRA_PLATE_BASE).add(BotaniaBlocks.livingrock, BotaniaBlocks.shimmerrock);
 
@@ -200,7 +211,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeCobblestoneFungalSlab, BotaniaBlocks.biomeCobblestoneFungalStairs, BotaniaBlocks.biomeCobblestoneFungalWall,
 				BotaniaBlocks.biomeChiseledBrickFungal, fungalAltar);
 
-		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE).add(Blocks.MOSS_CARPET);
+		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE)
+				.add(Blocks.MOSS_CARPET)
+				.addOptional(new ResourceLocation("biomesoplenty:high_grass"))
+				.addOptional(new ResourceLocation("biomesoplenty:high_grass_plant"));
 
 		tag(BlockTags.LEAVES);
 		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE).addTag(BlockTags.LEAVES);
@@ -211,16 +225,22 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.UNWANDABLE).addTag(BlockTags.FIRE)
 				.add(Blocks.CHORUS_PLANT, Blocks.SCULK_VEIN, Blocks.VINE, Blocks.REDSTONE_WIRE, Blocks.NETHER_PORTAL, BotaniaBlocks.solidVines);
 
+		tag(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE).add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.MYCELIUM);
+
+		tag(BotaniaTags.Blocks.UNETHICAL_TNT_CHECK).addOptional(new ResourceLocation("ae2:tiny_tnt"));
+
+		tag(BotaniaTags.Blocks.SINGLE_ITEM_INSERT).addOptional(new ResourceLocation("quark:crafter"));
+
 		tag(BlockTags.FLOWER_POTS)
-				.add(Arrays.stream(DyeColor.values())
+				.add(ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getPottedFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new))
-				.add(Arrays.stream(DyeColor.values())
+				.add(ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getPottedShinyFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new))
-				.add(Arrays.stream(DyeColor.values())
+				.add(ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getPottedMushroom)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new))
@@ -242,6 +262,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						solegnoliaChibiPotted, spectranthemumPotted, tangleberriePotted, tangleberrieChibiPotted,
 						tigerseyePotted, vinculotusPotted
 				);
+
+		tag(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL).add(Blocks.AZALEA, Blocks.FLOWERING_AZALEA);
+		tag(BotaniaTags.Blocks.AGRICARNATION_GROWTH_CANDIDATE).addTag(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL);
+		tag(BotaniaTags.Blocks.AGRICARNATION_GROWTH_EXCLUDED).add(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM, Blocks.MANGROVE_LEAVES);
 
 		registerMiningTags();
 	}

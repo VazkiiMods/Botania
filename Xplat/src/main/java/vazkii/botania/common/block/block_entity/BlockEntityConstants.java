@@ -13,7 +13,11 @@ public final class BlockEntityConstants {
 			BotaniaBlockEntities.CRAFT_CRATE, BotaniaBlockEntities.ENCHANTER, BotaniaBlockEntities.HOURGLASS, BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.POOL,
 			BotaniaBlockEntities.RUNE_ALTAR, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.TURNTABLE,
 			BotaniaFlowerBlocks.DAFFOMILL, BotaniaFlowerBlocks.HOPPERHOCK, BotaniaFlowerBlocks.HOPPERHOCK_CHIBI,
-			BotaniaFlowerBlocks.RANNUNCARPUS, BotaniaFlowerBlocks.RANNUNCARPUS_CHIBI
+			BotaniaFlowerBlocks.POLLIDISIAC, BotaniaFlowerBlocks.RANNUNCARPUS, BotaniaFlowerBlocks.RANNUNCARPUS_CHIBI
+	);
+
+	public static final Set<BlockEntityType<?>> SELF_PHANTOM_INKABLE_BES = ImmutableSet.of(
+			BotaniaBlockEntities.LIGHT_RELAY, BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE
 	);
 
 	public static final Set<BlockEntityType<?>> SELF_MANA_TRIGGER_BES = ImmutableSet.of(

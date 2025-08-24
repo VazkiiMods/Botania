@@ -2,7 +2,7 @@
   "type": "botania:gog_alternation",
   "base": {
     "type": "minecraft:crafting_shaped",
-    "category": "misc",
+    "category": "redstone",
     "group": "botania:spreader",
     "key": {
       "C": {
@@ -27,7 +27,7 @@
   },
   "gog": {
     "type": "minecraft:crafting_shaped",
-    "category": "misc",
+    "category": "redstone",
     "group": "botania:spreader",
     "key": {
       "P": {

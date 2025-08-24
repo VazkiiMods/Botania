@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -64,6 +65,7 @@ public class HornItem extends Item {
 	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int time) {
 		if (!world.isClientSide) {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
+				living.gameEvent(GameEvent.INSTRUMENT_PLAY);
 				breakGrass(world, stack, living.blockPosition(), living);
 			}
 			world.playSound(null, living.getX(), living.getY(), living.getZ(), BotaniaSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);

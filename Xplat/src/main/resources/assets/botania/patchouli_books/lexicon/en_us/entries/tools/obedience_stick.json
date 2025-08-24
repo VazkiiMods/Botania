@@ -10,6 +10,10 @@
       "text": "botania.page.obedienceStick0"
     },
     {
+      "type": "text",
+      "text": "botania.page.obedienceStick_unbind"
+    },
+    {
       "type": "crafting",
       "text": "botania.page.obedienceStick1",
       "recipe": "botania:obedience_stick"

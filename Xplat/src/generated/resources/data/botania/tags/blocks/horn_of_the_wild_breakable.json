@@ -1,6 +1,14 @@
 {
   "replace": false,
   "values": [
-    "minecraft:moss_carpet"
+    "minecraft:moss_carpet",
+    {
+      "id": "biomesoplenty:high_grass",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:high_grass_plant",
+      "required": false
+    }
   ]
 }

@@ -22,6 +22,7 @@
       "text": "botania.page.lens5"
     },
     {
+      "anchor": "speed",
       "type": "text",
       "text": "botania.page.lens6"
     },
@@ -31,6 +32,7 @@
       "recipe": "botania:lens_speed"
     },
     {
+      "anchor": "power",
       "type": "text",
       "text": "botania.page.lens8"
     },
@@ -40,6 +42,7 @@
       "recipe": "botania:lens_power"
     },
     {
+      "anchor": "time",
       "type": "text",
       "text": "botania.page.lens10"
     },
@@ -49,6 +52,7 @@
       "recipe": "botania:lens_time"
     },
     {
+      "anchor": "efficiency",
       "type": "text",
       "text": "botania.page.lens12"
     },
@@ -58,6 +62,7 @@
       "recipe": "botania:lens_efficiency"
     },
     {
+      "anchor": "messenger",
       "type": "text",
       "text": "botania.page.lens38"
     },
@@ -67,6 +72,7 @@
       "recipe": "botania:lens_messenger"
     },
     {
+      "anchor": "bounce",
       "type": "text",
       "text": "botania.page.lens14"
     },
@@ -76,6 +82,7 @@
       "recipe": "botania:lens_bounce"
     },
     {
+      "anchor": "gravity",
       "type": "text",
       "text": "botania.page.lens16"
     },
@@ -85,6 +92,7 @@
       "recipe": "botania:lens_gravity"
     },
     {
+      "anchor": "mine",
       "type": "text",
       "text": "botania.page.lens18"
     },
@@ -94,6 +102,7 @@
       "recipe": "botania:lens_mine"
     },
     {
+      "anchor": "damage",
       "type": "text",
       "text": "botania.page.lens20"
     },
@@ -103,6 +112,7 @@
       "recipe": "botania:lens_damage"
     },
     {
+      "anchor": "phantom",
       "type": "text",
       "text": "botania.page.lens22"
     },
@@ -112,6 +122,7 @@
       "recipe": "botania:lens_phantom"
     },
     {
+      "anchor": "magnet",
       "type": "text",
       "text": "botania.page.lens24"
     },
@@ -121,6 +132,7 @@
       "recipe": "botania:lens_magnet"
     },
     {
+      "anchor": "explosive",
       "type": "text",
       "text": "botania.page.lens26"
     },
@@ -130,6 +142,7 @@
       "recipe": "botania:lens_explosive"
     },
     {
+      "anchor": "influence",
       "type": "text",
       "text": "botania.page.lens28"
     },
@@ -139,6 +152,7 @@
       "recipe": "botania:lens_influence"
     },
     {
+      "anchor": "weight",
       "type": "text",
       "text": "botania.page.lens30"
     },
@@ -148,6 +162,7 @@
       "recipe": "botania:lens_weight"
     },
     {
+      "anchor": "fire",
       "type": "text",
       "text": "botania.page.lens32"
     },
@@ -157,6 +172,7 @@
       "recipe": "botania:lens_fire"
     },
     {
+      "anchor": "piston",
       "type": "text",
       "text": "botania.page.lens34"
     },
@@ -166,6 +182,7 @@
       "recipe": "botania:lens_piston"
     },
     {
+      "anchor": "light",
       "type": "text",
       "text": "botania.page.lens36"
     },

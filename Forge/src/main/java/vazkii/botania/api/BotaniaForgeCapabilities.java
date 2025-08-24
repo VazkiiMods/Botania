@@ -4,14 +4,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HornHarvestable;
-import vazkii.botania.api.block.HourglassTrigger;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.Relic;
+import vazkii.botania.api.block.*;
+import vazkii.botania.api.item.*;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaReceiver;
@@ -33,6 +27,7 @@ public final class BotaniaForgeCapabilities {
 	public static final Capability<SparkAttachable> SPARK_ATTACHABLE = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<ManaTrigger> MANA_TRIGGER = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<Wandable> WANDABLE = CapabilityManager.get(new CapabilityToken<>() {});
+	public static final Capability<PhantomInkableBlock> PHANTOM_INKABLE = CapabilityManager.get(new CapabilityToken<>() {});
 
 	private BotaniaForgeCapabilities() {}
 }

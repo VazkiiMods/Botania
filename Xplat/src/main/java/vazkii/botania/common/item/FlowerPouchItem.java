@@ -33,7 +33,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -48,18 +47,19 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.stream.IntStream;
 
 public class FlowerPouchItem extends Item {
-	public static final int SIZE = 2 * DyeColor.values().length;
+	public static final int DYE_COUNT = 16;
+	public static final int SIZE = 2 * DYE_COUNT;
 
 	public FlowerPouchItem(Properties props) {
 		super(props);
 	}
 
 	public static Item getFlowerForSlot(int slot) {
-		if (slot < 16) {
+		if (slot < DYE_COUNT) {
 			DyeColor color = DyeColor.byId(slot);
 			return BotaniaBlocks.getFlower(color).asItem();
 		} else {
-			DyeColor color = DyeColor.byId(slot - 16);
+			DyeColor color = DyeColor.byId(slot - DYE_COUNT);
 			return BotaniaBlocks.getDoubleFlower(color).asItem();
 		}
 	}
@@ -152,19 +152,13 @@ public class FlowerPouchItem extends Item {
 		Direction side = ctx.getClickedFace();
 
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile != null) {
+		if ((ctx.getPlayer() == null || ctx.getPlayer().isSecondaryUseActive())
+				&& XplatAbstractions.INSTANCE.hasInventory(world, pos, side)) {
 			if (!world.isClientSide) {
-				Container tileInv;
-				if (tile instanceof Container container) {
-					tileInv = container;
-				} else {
-					return InteractionResult.FAIL;
-				}
-
 				Container bagInv = getInventory(ctx.getItemInHand());
 				for (int i = 0; i < bagInv.getContainerSize(); i++) {
 					ItemStack flower = bagInv.getItem(i);
-					ItemStack rem = HopperBlockEntity.addItem(bagInv, tileInv, flower, side);
+					ItemStack rem = XplatAbstractions.INSTANCE.insertToInventory(world, pos, side, flower, false);
 					bagInv.setItem(i, rem);
 				}
 

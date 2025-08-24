@@ -55,8 +55,7 @@ public class WarpForceTest {
 				.thenSucceed();
 	}
 
-	// TODO: Regression test for https://github.com/VazkiiMods/Botania/issues/4593
-	@GameTest(template = TEMPLATE, timeoutTicks = 50, required = false)
+	@GameTest(template = TEMPLATE, timeoutTicks = 50)
 	public void testForceWarpLens(GameTestHelper helper) {
 		setUpLensesAndBindings(helper, BotaniaItems.lensPiston, BotaniaItems.lensWarp);
 
@@ -71,7 +70,8 @@ public class WarpForceTest {
 					helper.assertBlockState(BOUND_POS, BlockState::isAir, () -> "Bound block did not move");
 					helper.assertBlock(BOUND_POS.east(), Blocks.POLISHED_ANDESITE::equals,
 							() -> "Bound block did not move to expected position");
-					TestingUtil.assertEquals(TestingUtil.getBoundForceRelayTarget(helper, RELAY_POS.east()), BOUND_POS.east(),
+					TestingUtil.assertEquals(TestingUtil.getBoundForceRelayTarget(helper, RELAY_POS.east()),
+							helper.absolutePos(BOUND_POS.east()),
 							() -> "Relay binding was not updated");
 				})
 				// second shot to confirm binding still works
@@ -79,14 +79,18 @@ public class WarpForceTest {
 				.thenExecute(() -> helper.pressButton(BUTTON_POS))
 				.thenWaitUntil(() -> helper.assertBlockProperty(BUTTON_POS, ButtonBlock.POWERED, false))
 				.thenExecute(() -> {
-					helper.assertBlock(BOUND_POS, Blocks.POLISHED_DIORITE::equals, () -> "New block at original bound position moved");
-					helper.assertBlockState(RELAY_POS.east(), BlockState::isAir, () -> "Force relay did not move after second burst");
+					helper.assertBlock(BOUND_POS, Blocks.POLISHED_DIORITE::equals,
+							() -> "New block at original bound position moved");
+					helper.assertBlockState(RELAY_POS.east(), BlockState::isAir,
+							() -> "Force relay did not move after second burst");
 					helper.assertBlock(RELAY_POS.east(2), BotaniaBlocks.pistonRelay::equals,
 							() -> "Force relay did not move to expected position after second burst");
-					helper.assertBlockState(BOUND_POS.east(), BlockState::isAir, () -> "Bound block did not move a second time");
+					helper.assertBlockState(BOUND_POS.east(), BlockState::isAir,
+							() -> "Bound block did not move a second time");
 					helper.assertBlock(BOUND_POS.east(2), Blocks.POLISHED_ANDESITE::equals,
 							() -> "Bound block did not move to expected position after second burst");
-					TestingUtil.assertEquals(TestingUtil.getBoundForceRelayTarget(helper, RELAY_POS.east(2)), BOUND_POS.east(2),
+					TestingUtil.assertEquals(TestingUtil.getBoundForceRelayTarget(helper, RELAY_POS.east(2)),
+							helper.absolutePos(BOUND_POS.east(2)),
 							() -> "Relay binding was not updated after second burst");
 				})
 				.thenSucceed();

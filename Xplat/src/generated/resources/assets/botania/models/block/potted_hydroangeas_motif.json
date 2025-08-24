@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
   "textures": {
-    "plant": "botania:block/hydroangeas_motif"
+    "plant": "botania:block/hydroangeas"
   }
 }

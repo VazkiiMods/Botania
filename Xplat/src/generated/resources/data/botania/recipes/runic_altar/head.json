@@ -10,9 +10,14 @@
     {
       "item": "minecraft:prismarine_crystals"
     },
-    {
-      "item": "minecraft:name_tag"
-    },
+    [
+      {
+        "item": "minecraft:name_tag"
+      },
+      {
+        "item": "minecraft:written_book"
+      }
+    ],
     {
       "item": "minecraft:golden_apple"
     }

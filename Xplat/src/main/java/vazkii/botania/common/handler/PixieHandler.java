@@ -11,7 +11,6 @@ package vazkii.botania.common.handler;
 import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -30,9 +29,11 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ElementiumHelmItem;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -50,12 +51,12 @@ public final class PixieHandler {
 		m.put(EquipmentSlot.OFFHAND, UUID.fromString("34f62de8-f652-4fe7-899f-a8fc938c4940"));
 	});
 
-	private static final MobEffect[] potions = {
-			MobEffects.BLINDNESS,
-			MobEffects.WITHER,
-			MobEffects.MOVEMENT_SLOWDOWN,
-			MobEffects.WEAKNESS
-	};
+	private static final List<Supplier<MobEffectInstance>> effectSuppliers = List.of(
+			() -> new MobEffectInstance(MobEffects.BLINDNESS, 40, 0),
+			() -> new MobEffectInstance(MobEffects.WITHER, 50, 0),
+			() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0),
+			() -> new MobEffectInstance(MobEffects.WEAKNESS, 40, 0)
+	);
 
 	public static void registerAttribute(BiConsumer<Attribute, ResourceLocation> r) {
 		r.accept(PIXIE_SPAWN_CHANCE, prefix("pixie_spawn_chance"));
@@ -78,7 +79,7 @@ public final class PixieHandler {
 				pixie.setPos(player.getX(), player.getY() + 2, player.getZ());
 
 				if (((ElementiumHelmItem) BotaniaItems.elementiumHelm).hasArmorSet(player)) {
-					pixie.setApplyPotionEffect(new MobEffectInstance(potions[player.level().random.nextInt(potions.length)], 40, 0));
+					pixie.setApplyPotionEffect(effectSuppliers.get(player.level().random.nextInt(effectSuppliers.size())).get());
 				}
 
 				float dmg = 4;

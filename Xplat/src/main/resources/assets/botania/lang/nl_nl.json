@@ -2131,7 +2131,7 @@
 
   "botania.entry.overgrowthSeed": "Overwoekeringszaad",
   "botania.tagline.overgrowthSeed": "Zeldzame zaden om bloemen te versterken en in leven te houden",
-  "botania.page.overgrowthSeed0": "Een $(item)Overwoekeringszaad$(0) is een ongrijpbaar voorwerp, dat $(item)Gras$(0) kan betoveren middels een rechts-klik erop in de wereld. Er ontstaat dan $(item)Betoverde Grond$(0), wat de eigenschap heeft dat alle bloemen die erop groeien tweemaal zo snel werken als normaal.$(p)$(thing)Passieve bloemen$(0) gepland op deze grond werken niet sneller, maar ze zullen niet verwelken.",
+  "botania.page.overgrowthSeed0": "Een $(item)Overwoekeringszaad$(0) is een ongrijpbaar voorwerp, dat $(item)Gras$(0) kan betoveren middels een rechts-klik erop in de wereld. Er ontstaat dan $(item)Betoverde Grond$(0), wat de eigenschap heeft dat alle bloemen die erop groeien tweemaal zo snel werken als normaal.",
   "botania.page.overgrowthSeed1": "Er is slechts een probleem. Het is niet bekend hoe het gemaakt kan worden, maar het is gezien in oude bouwwerken en dergelijke.",
 
   "botania.entry.livingwoodBow": "Levenshouten Boog",
@@ -2146,8 +2146,9 @@
 
   "botania.entry.temperanceStone": "Steen der Beheersing",
   "botania.tagline.temperanceStone": "Een demper voor de kracht van de Terrabreker",
-  "botania.page.temperanceStone0": "Een $(item)Terrabreker$(0) op volledige sterkte kan hele landmassa's afbreken, maar misschien is dat niet altijd de bedoeling. Een kleine 3x3 tunnel is meer passend in sommige situaties. Met een actieve $(item)Steen der Beheersing$(0) in je inventory wordt voorkomen dat de breker meer weghaalt dan een gebied van 3x3. Dit beïnvloed ook de $(item)Terrakapper$(0). De steen kan aan en uit worden gezet door te shift-rechts-klikken.",
+  "botania.page.temperanceStone0": "Een $(item)Terrabreker$(0) op volledige sterkte kan hele landmassa's afbreken, maar misschien is dat niet altijd de bedoeling. Een kleine 3x3 tunnel is meer passend in sommige situaties. Met een actieve $(item)Steen der Beheersing$(0) in je inventory wordt voorkomen dat de breker meer weghaalt dan een gebied van 3x3.",
   "botania.page.temperanceStone1": "Niet kwijtraken",
+  "botania.page.temperanceStone0": "Dit beïnvloed ook de $(item)Terrakapper$(0). De steen kan aan en uit worden gezet door te shift-rechts-klikken.",
 
   "botania.entry.terraAxe": "Terrakapper",
   "botania.tagline.terraAxe": "Een bijl die hele bomen kapt",
@@ -2272,7 +2273,7 @@
   "botania.page.corporeaIndex1": "Wanneer geactiveerd zal de index $(thing)Chat Berichten$(0) onderscheppen verzonden door spelers in de buurt. Deze worden beschouwd als $(thing)verzoek$(0) en niet verstuurd als chat bericht. De index vraagt de voorwerpen uit zijn netwerk op, waarvan de Engelse naam overeenkomt met het verzoek. Bijvoorbeeld \"iron ingot\" laat de index zoeken naar een $(item)Staaf ijzer$(0), om op te halen en te materialiseren in de wereld.",
   "botania.page.corporeaIndex2": "Verzoeken kunnen uitgebreider zijn dan een enkel voorwerp. Bijvoorbeeld \"10 apples\" vraagt om 10 $(item)Appels$(0). Het schrijven van \"this\" zoekt voor het voorwerp dat de speler in de hand houdt. Het toevoegen van \"...\", \"~\", \"+\" of \"?\" aan een verzoek zoekt naar iets wat de tekst van het verzoek bevat. Bijvoorbeeld \"iron...\" zoekt naar alle voorwerpen met \"iron\" in de naam.",
   "botania.page.corporeaIndex3": "Het gebruik van het meervoud van de naam van een voorwerp mag alleen wanneer het woord normaal vervoegd wordt (met een \"-s\", \"-es\" of \"-ies\" erachter). Het gebruik van enkelvoud voor meeerdere voorwerpen werkt net zo goed, zoals \"10 apple\".$(p)\"10 of this\" vraagt 10 maal het voorwerp in de spelers hand.",
-  "botania.page.corporeaIndex4": "Voorbeelden van complexe verzoeken zijn \"10 apples\", \"a stack of apples\", \"2 stacks of apples\", \"2 stacks and 20 apples\", \"half a stack of apples\", \"a dozen apples\", enzovoort.$(p)De index herkent ook uitgebreide vormen, zoals \"2x stacks and 20x of apples\" wat gelijk is aan \"2 stack 2 apple\" of \"2 stacks + 2 apples\".",
+  "botania.page.corporeaIndex4": "Voorbeelden van complexe verzoeken zijn \"10 apples\", \"a stack of apples\", \"2 stacks of apples\", \"2 stacks and 20 apples\", \"half a stack of apples\", \"a dozen apples\", enzovoort.$(p)De index herkent ook uitgebreide vormen, zoals \"2x stacks and 2x of apples\" wat gelijk is aan \"2 stack 2 apple\" of \"2 stacks + 2 apples\".",
   "botania.page.corporeaIndex5": "Verzoeken met \"all\" of \"every\" zullen alle voorwerpen in het netwerk opvragen die voldoen aan het verzoek, dus \"all apples\" levert alle appels in het netwerk.$(p)Aan de andere kant, verzoeken met \"count\", \"show\", \"display\" of \"tell\" zal geen voorwerpen leveren, maar zal melding geven hoeveel er voorkomen in het netwerk.",
   "botania.page.corporeaIndex6": "Tenslotte, wanneer dichtbij een $(item)Corporea Index$(0), kan de TAB toets gebruikt worden voor het auto-aanvullen van voorwerpnamen bij invoer in de chat.",
   "botania.page.corporeaIndex7": "Bijhoorlijk magisch zou je zeggen",
@@ -2345,8 +2346,11 @@
   "botania.entry.bIntro": "Een introductie tot Baubles",
   "botania.tagline.bIntro": "Accessoires die een effect hebben",
   "botania.page.bIntro0": "$(thing)Baubles$(0), ook wel $(thing)Sierraden$(0) or $(thing)Snuisterijen$(0) genoemd, zijn stukken uitrusting die allerlei effecten kunnen geven wanneer gedragen.$(p)Om ze op te doen, gebruik je de toets $(thing)B$(0) (toets is in te stellen). Er zijn vier plaatsen, een plek voor een $(thing)Amulet$(0) slot, twee plaatsen voor een $(thing)Ring$(0) en nog één voor een $(thing)Riem$(0).",
-  "botania.page.bIntro1": "Het $(thing)Baubles Scherm$(0)",
+  "botania.page.bIntro0_trinkets": "$(thing)Baubles$(0), ook wel $(thing)Sierraden$(0) or $(thing)Snuisterijen$(0) genoemd, zijn stukken uitrusting die allerlei effecten kunnen geven wanneer gedragen.$(p)Om ze op te doen, gebruik je de toets $(thing)B$(0) (toets is in te stellen). Er zijn vier plaatsen, een plek voor een $(thing)Amulet$(0) slot, twee plaatsen voor een $(thing)Ring$(0) en nog één voor een $(thing)Riem$(0).",
+  "botania.page.bIntro1": "Het $(thing)Curios Scherm$(0)",
+  "botania.page.bIntro1_trinkets": "Het $(thing)Trinkets Scherm$(0)",
   "botania.page.bIntro2": "Het is goed om te weten dat als $(thing)Thaumcraft$(0) of een andere mod die het baubles systeem gebruikt is geïnstalleerd, deze inventory gedeeld wordt tussen de verschillende mods.",
+  "botania.page.bIntro2_trinkets": "Het is goed om te weten dat als $(thing)Thaumcraft$(0) of een andere mod die het baubles systeem gebruikt is geïnstalleerd, deze inventory gedeeld wordt tussen de verschillende mods.",
 
   "botania.entry.cosmeticBaubles": "Cosmetische Baubles",
   "botania.tagline.cosmeticBaubles": "Accessoires die geen effect hebben",

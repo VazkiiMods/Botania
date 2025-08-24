@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 
@@ -20,12 +21,13 @@ import java.util.Iterator;
 @SuppressWarnings("UnstableApiUsage")
 public class RedStringContainerStorage implements Storage<ItemVariant> {
 	private final RedStringContainerBlockEntity container;
+	@Nullable
 	private final Direction direction;
 
 	private BlockApiCache<Storage<ItemVariant>, Direction> cache;
 	private BlockPos cachePos;
 
-	public RedStringContainerStorage(RedStringContainerBlockEntity container, Direction direction) {
+	public RedStringContainerStorage(RedStringContainerBlockEntity container, @Nullable Direction direction) {
 		this.container = container;
 		this.direction = direction;
 	}

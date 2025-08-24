@@ -18,6 +18,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -39,6 +41,7 @@ public class WorldSeedItem extends Item {
 		boolean inRange = coords.distToCenterSqr(player.getX(), player.getY(), player.getZ()) <= 24 * 24;
 		if (world.dimension() == Level.OVERWORLD && !inRange) {
 			if (!world.isClientSide) {
+				Vec3 sourcePos = player.position();
 				player.setXRot(0F);
 				player.setYRot(0F);
 				player.teleportTo(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
@@ -51,6 +54,8 @@ public class WorldSeedItem extends Item {
 				SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.25F, 1F, 0.25F, 10);
 				((ServerLevel) world).sendParticles(data, player.getX(), player.getY() + player.getBbHeight() / 2, player.getZ(), 50, player.getBbWidth() / 8, player.getBbHeight() / 4, player.getBbWidth() / 8, 0);
 				stack.shrink(1);
+
+				world.gameEvent(player, GameEvent.TELEPORT, sourcePos);
 			}
 
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());

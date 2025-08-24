@@ -29,7 +29,6 @@ import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.item.AssemblyHaloItem;
 import vazkii.botania.common.item.equipment.bauble.CharmOfTheDivaItem;
 import vazkii.botania.common.item.equipment.bauble.SojournersSashItem;
-import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
 import vazkii.botania.common.item.rod.ShadedMesaRodItem;
 
 @Mixin(LivingEntity.class)
@@ -42,20 +41,13 @@ public abstract class LivingEntityFabricMixin extends Entity {
 	@Shadow
 	public abstract ItemStack getItemInHand(InteractionHand hand);
 
-	@Shadow
-	protected int lastHurtByPlayerTime;
-
-	@Inject(method = "dropAllDeathLoot", at = @At(shift = At.Shift.AFTER, value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;dropFromLootTable(Lnet/minecraft/world/damagesource/DamageSource;Z)V"))
-	private void dropEnd(DamageSource source, CallbackInfo ci) {
-		var self = (LivingEntity) (Object) this;
-		ElementiumAxeItem.onEntityDrops(lastHurtByPlayerTime > 0, source, self, self::spawnAtLocation);
-	}
-
 	@Inject(at = @At("HEAD"), cancellable = true, method = "dropFromLootTable")
 	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
 		var self = (LivingEntity) (Object) this;
 		LooniumBlockEntity.dropLooniumItems(self, stack -> {
-			self.spawnAtLocation(stack);
+			if (!stack.isEmpty()) {
+				self.spawnAtLocation(stack);
+			}
 			ci.cancel();
 		});
 	}

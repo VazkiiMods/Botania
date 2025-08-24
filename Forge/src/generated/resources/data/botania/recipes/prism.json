@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "forge:glass/colorless"
+    },
+    "P": {
+      "tag": "forge:gems/prismarine"
+    },
+    "S": {
+      "item": "botania:spectral_platform"
+    }
+  },
+  "pattern": [
+    "GPG",
+    "GSG",
+    "GPG"
+  ],
+  "result": {
+    "item": "botania:prism"
+  },
+  "show_notification": true
+}

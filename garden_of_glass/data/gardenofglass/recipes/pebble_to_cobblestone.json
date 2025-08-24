@@ -1,20 +1,17 @@
 {
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "botania:pebble"
+    }
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
   "result": {
     "item": "minecraft:cobblestone"
   },
-  "ingredients": [
-    {
-      "item": "botania:pebble"
-    },
-    {
-      "item": "botania:pebble"
-    },
-    {
-      "item": "botania:pebble"
-    },
-    {
-      "item": "botania:pebble"
-    }
-  ],
-  "type": "minecraft:crafting_shapeless"
+  "show_notification": true
 }

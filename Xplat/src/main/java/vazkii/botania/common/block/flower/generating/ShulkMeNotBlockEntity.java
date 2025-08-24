@@ -19,6 +19,7 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -66,6 +67,7 @@ public class ShulkMeNotBlockEntity extends GeneratingFlowerBlockEntity {
 						particles(world, pos, target);
 						particles(world, pos, shulker);
 
+						world.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
 						addMana(generate);
 						sync();
 					}

@@ -310,6 +310,9 @@ public final class HUDHandler {
 		gui.drawString(mc.font, txt2, x + 20, y + 24, 0xFFFFFF);
 	}
 
+	/**
+	 * Renders a mana HUD below the crosshair, containing just a mana bar and a name above
+	 */
 	public static void drawSimpleManaHUD(GuiGraphics gui, int color, int mana, int maxMana, String name) {
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -327,13 +330,16 @@ public final class HUDHandler {
 		RenderSystem.disableBlend();
 	}
 
+	/**
+	 * Renders a mana HUD below the crosshair, containing a mana bar, a name above, and a bound item status to the right
+	 */
 	public static void drawComplexManaHUD(int color, GuiGraphics gui, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
 		PoseStack ms = gui.pose();
 		drawSimpleManaHUD(gui, color, mana, maxMana, name);
 
 		Minecraft mc = Minecraft.getInstance();
 
-		int x = mc.getWindow().getGuiScaledWidth() / 2 + 55;
+		int x = mc.getWindow().getGuiScaledWidth() / 2 + Math.max(51, mc.font.width(name) / 2) + 4;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 + 12;
 
 		gui.renderItem(bindDisplay, x, y);

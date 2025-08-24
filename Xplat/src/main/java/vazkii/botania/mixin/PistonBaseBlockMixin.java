@@ -32,7 +32,7 @@ public abstract class PistonBaseBlockMixin {
 			CallbackInfoReturnable<Boolean> cir) {
 		if (!level.isClientSide()) {
 			EthicalTntHelper.startTrackingTntEntities();
-			ForcePushHelper.pushMovementTypeContext(extending);
+			ForcePushHelper.pushMovementTypeContext(extending, dir);
 		}
 	}
 

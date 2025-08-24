@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -117,6 +118,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 
 			prism.getItemHandler().setItem(0, toInsert);
 			world.playSound(player, pos, BotaniaSounds.prismAddLens, SoundSource.BLOCKS, 1F, 1F);
+			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 		if (!lens.isEmpty() && (mainHandEmpty || lensIsSame)) {
@@ -124,7 +126,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 			prism.getItemHandler().setItem(0, ItemStack.EMPTY);
 
 			world.playSound(player, pos, BotaniaSounds.prismRemoveLens, SoundSource.BLOCKS, 1F, 1F);
-
+			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 		return InteractionResult.PASS;

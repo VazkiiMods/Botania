@@ -16,6 +16,7 @@ import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Consumer;
@@ -48,6 +49,9 @@ public final class LootHandler {
 				default:
 					break;
 			}
+		} else if (id.getPath().startsWith("entities/")) {
+			// not great, as it's inserted into absolutely every single entity loot table (this evaluates twice for sheep, for example)
+			addPool.accept(LootPool.lootPool().add(LootTableReference.lootTableReference(ElementiumAxeItem.BEHEADING_LOOT_TABLE)));
 		} else if (XplatAbstractions.INSTANCE.gogLoaded()
 				&& (Blocks.GRASS.getLootTable().equals(id) || Blocks.TALL_GRASS.getLootTable().equals(id))) {
 			addPool.accept(LootPool.lootPool().add(LootTableReference.lootTableReference(GOG_SEEDS_TABLE)));

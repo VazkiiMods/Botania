@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "botania:dirt_rod",
+    "botania:skydirt_rod",
+    "botania:cobble_rod",
+    "botania:black_hole_talisman"
+  ]
+}

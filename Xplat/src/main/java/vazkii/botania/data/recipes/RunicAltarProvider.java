@@ -88,7 +88,7 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedRecipe(idFor("envy"), new ItemStack(BotaniaItems.runeEnvy), costTier3, manaDiamond, manaDiamond, winter, water));
 		consumer.accept(new FinishedRecipe(idFor("pride"), new ItemStack(BotaniaItems.runePride), costTier3, manaDiamond, manaDiamond, summer, fire));
 
-		consumer.accept(new FinishedHeadRecipe(idFor("head"), new ItemStack(Items.PLAYER_HEAD), 22500, Ingredient.of(Items.SKELETON_SKULL), Ingredient.of(BotaniaItems.pixieDust), Ingredient.of(Items.PRISMARINE_CRYSTALS), Ingredient.of(Items.NAME_TAG), Ingredient.of(Items.GOLDEN_APPLE)));
+		consumer.accept(new FinishedHeadRecipe(idFor("head"), new ItemStack(Items.PLAYER_HEAD), 22500, Ingredient.of(Items.SKELETON_SKULL), Ingredient.of(BotaniaItems.pixieDust), Ingredient.of(Items.PRISMARINE_CRYSTALS), Ingredient.of(Items.NAME_TAG, Items.WRITTEN_BOOK), Ingredient.of(Items.GOLDEN_APPLE)));
 	}
 
 	private static ResourceLocation idFor(String s) {

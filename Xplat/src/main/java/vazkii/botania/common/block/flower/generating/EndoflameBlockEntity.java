@@ -17,6 +17,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
@@ -44,7 +45,8 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (burnTime > 0) {
+		boolean wasBurning = burnTime > 0;
+		if (wasBurning) {
 			burnTime--;
 		}
 
@@ -76,12 +78,16 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 							EntityHelper.shrinkItem(item);
 							getLevel().playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
 							getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
+							getLevel().gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 							sync();
 
 							return;
 						}
 					}
 				}
+			}
+			if (wasBurning) {
+				getLevel().gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
 			}
 		}
 	}

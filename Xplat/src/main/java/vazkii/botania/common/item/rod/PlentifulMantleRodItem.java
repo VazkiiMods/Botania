@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -56,6 +57,7 @@ public class PlentifulMantleRodItem extends Item {
 				doHighlight(world, p.blockPosition(), range, seedxor);
 			} else {
 				world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.divinationRod, SoundSource.PLAYERS, 1F, 1F);
+				p.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 			}
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
 		}

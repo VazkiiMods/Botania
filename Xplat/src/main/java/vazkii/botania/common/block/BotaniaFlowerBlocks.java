@@ -59,8 +59,8 @@ public class BotaniaFlowerBlocks {
 	public static final Block endoflameFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.ENDOFLAME);
 	public static final Block endoflamePotted = BotaniaBlocks.flowerPot(endoflame, 0);
 
-	public static final Block thermalily = createSpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.THERMALILY);
-	public static final Block thermalilyFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.THERMALILY);
+	public static final Block thermalily = createSpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.THERMALILY, true);
+	public static final Block thermalilyFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.THERMALILY, true);
 	public static final Block thermalilyPotted = BotaniaBlocks.flowerPot(thermalily, 0);
 
 	public static final Block rosaArcana = createSpecialFlowerBlock(MobEffects.LUCK, 64, FLOWER_PROPS, () -> BotaniaFlowerBlocks.ROSA_ARCANA);
@@ -315,7 +315,16 @@ public class BotaniaFlowerBlocks {
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
 		return XplatAbstractions.INSTANCE.createSpecialFlowerBlock(
-				effect, effectDuration, props, beType
+				effect, effectDuration, props, beType);
+	}
+
+	private static FlowerBlock createSpecialFlowerBlock(
+			MobEffect effect, int effectDuration,
+			BlockBehaviour.Properties props,
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
+			boolean hasComparatorOutput) {
+		return XplatAbstractions.INSTANCE.createSpecialFlowerBlock(
+				effect, effectDuration, props, beType, hasComparatorOutput
 		);
 	}
 
@@ -731,12 +740,14 @@ public class BotaniaFlowerBlocks {
 				DANDELIFEON, RAFFLOWSIA, SHULK_ME_NOT);
 
 		consumer.accept(be -> new HopperhockBlockEntity.WandHud((HopperhockBlockEntity) be), HOPPERHOCK, HOPPERHOCK_CHIBI);
+		consumer.accept(be -> new PollidisiacBlockEntity.WandHud((PollidisiacBlockEntity) be), POLLIDISIAC);
 		consumer.accept(be -> new RannuncarpusBlockEntity.WandHud((RannuncarpusBlockEntity) be), RANNUNCARPUS, RANNUNCARPUS_CHIBI);
+		consumer.accept(be -> new LooniumBlockEntity.WandHud((LooniumBlockEntity) be), LOONIUM);
 		consumer.accept(be -> new BindableSpecialFlowerBlockEntity.BindableFlowerWandHud<>((FunctionalFlowerBlockEntity) be),
 				BELLETHORNE, BELLETHORNE_CHIBI, DREADTHORN, HEISEI_DREAM, TIGERSEYE,
 				JADED_AMARANTHUS, ORECHID, FALLEN_KANADE, EXOFLAME, AGRICARNATION, AGRICARNATION_CHIBI,
-				TANGLEBERRIE, TANGLEBERRIE_CHIBI, JIYUULIA, JIYUULIA_CHIBI, HYACIDUS, POLLIDISIAC,
-				CLAYCONIA, CLAYCONIA_CHIBI, LOONIUM, DAFFOMILL, VINCULOTUS, SPECTRANTHEMUM, MEDUMONE,
+				TANGLEBERRIE, TANGLEBERRIE_CHIBI, JIYUULIA, JIYUULIA_CHIBI, HYACIDUS,
+				CLAYCONIA, CLAYCONIA_CHIBI, DAFFOMILL, VINCULOTUS, SPECTRANTHEMUM, MEDUMONE,
 				MARIMORPHOSIS, MARIMORPHOSIS_CHIBI, BUBBELL, BUBBELL_CHIBI, SOLEGNOLIA, SOLEGNOLIA_CHIBI,
 				ORECHID_IGNEM, LABELLIA);
 	}

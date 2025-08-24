@@ -12,7 +12,7 @@ public class ServiceUtil {
 	 *                    Otherwise if it is null and no implementations were found, this method will throw.
 	 */
 	public static <T> T findService(Class<T> clazz, @Nullable Supplier<T> defaultImpl) {
-		var providers = ServiceLoader.load(clazz).stream().toList();
+		var providers = ServiceLoader.load(clazz, clazz.getClassLoader()).stream().toList();
 		if (providers.isEmpty() && defaultImpl != null) {
 			return defaultImpl.get();
 		} else if (providers.size() != 1) {

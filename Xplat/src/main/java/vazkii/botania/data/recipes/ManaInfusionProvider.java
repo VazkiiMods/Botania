@@ -14,7 +14,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,10 +30,10 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.Arrays;
 import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -61,7 +60,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		Ingredient dust = Ingredient.of(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
 		consumer.accept(new FinishedRecipe(id("mana_powder_dust"), new ItemStack(BotaniaItems.manaPowder), dust, 500));
-		Ingredient dyeIngredient = Ingredient.of(Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(Item[]::new));
+		Ingredient dyeIngredient = Ingredient.of(ColorHelper.supportedColors().map(DyeItem::byColor).toArray(Item[]::new));
 		consumer.accept(new FinishedRecipe(id("mana_powder_dye"), new ItemStack(BotaniaItems.manaPowder), dyeIngredient, 400));
 
 		consumer.accept(new FinishedRecipe(id("piston_relay"), new ItemStack(BotaniaBlocks.pistonRelay), ingr(Blocks.PISTON), 15000));
@@ -143,6 +142,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 				Blocks.WHITE_TULIP, Blocks.PINK_TULIP, Blocks.OXEYE_DAISY, Blocks.CORNFLOWER, Blocks.LILY_OF_THE_VALLEY,
 				Blocks.SUNFLOWER, Blocks.LILAC, Blocks.ROSE_BUSH, Blocks.PEONY);
 
+		consumer.accept(FinishedRecipe.alchemy(id("dripleaf_shrinking"), new ItemStack(Blocks.SMALL_DRIPLEAF), ingr(Items.BIG_DRIPLEAF), 500));
 		consumer.accept(FinishedRecipe.alchemy(id("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), ingr(Items.POPPED_CHORUS_FRUIT), 10000));
 
 		cycle(consumer, 240, "botania:berry_cycle", Items.APPLE, Items.SWEET_BERRIES, Items.GLOW_BERRIES);

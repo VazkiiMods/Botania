@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -53,6 +54,7 @@ public class KekimurusBlockEntity extends GeneratingFlowerBlockEntity {
 							}
 
 							getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+							getLevel().gameEvent(null, GameEvent.EAT, getEffectivePos());
 							//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
 							getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 							addMana(mana);
