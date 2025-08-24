@@ -14,11 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -28,8 +24,8 @@ import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.crafting.BlockStateRecipe;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Arrays;
 
@@ -106,23 +102,8 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 					} else {
 						stateToPlace = recipeOutputState;
 					}
-					if (getLevel().setBlockAndUpdate(coords, stateToPlace)) {
-						if (BotaniaConfig.common().blockBreakParticles()) {
-							getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(stateToPlace));
-						}
-						getLevel().gameEvent(null, GameEvent.BLOCK_CHANGE, coords);
-						getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
-
-						var serverLevel = (ServerLevel) this.level;
-						var server = serverLevel.getServer();
-						recipe.getSuccessFunction().flatMap(cached -> cached.get(server.getFunctions())).ifPresent(command -> {
-							var context = server.getFunctions().getGameLoopSender()
-									.withLevel(serverLevel)
-									.withPosition(Vec3.atBottomCenterOf(coords));
-							server.getFunctions().execute(command, context);
-						});
-
-					}
+					BlockStateRecipe.replaceBlock(coords, recipe, stateToPlace, (ServerLevel) level,
+							() -> level.blockEvent(getBlockPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt));
 				}
 
 			} else {

@@ -28,56 +28,35 @@ import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Optional;
 
-public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecipe {
+public class PureDaisyRecipe extends BlockStateRecipe implements vazkii.botania.api.recipe.PureDaisyRecipe {
 
 	public static final int DEFAULT_TIME = 150;
 	public static final RecipeSerializer<PureDaisyRecipe> SERIALIZER = new Serializer();
 
-	private final StateIngredient input;
-	private final StateIngredient output;
 	private final int time;
 	private final boolean copyInputProperties;
-	@Nullable
-	private final CacheableFunction successFunction;
 
 	public PureDaisyRecipe(StateIngredient input, StateIngredient output, int time, boolean copyInputProperties,
-			@Nullable CacheableFunction successFunction) {
-		this.input = input;
-		this.output = output;
+			@Nullable CacheableFunction preUpdateFunction, @Nullable CacheableFunction successFunction) {
+		super(input, output, preUpdateFunction, successFunction);
 		this.time = time;
-		this.successFunction = successFunction;
 		this.copyInputProperties = copyInputProperties;
 	}
 
 	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 	private static PureDaisyRecipe of(StateIngredient input, StateIngredient output, int time,
-			boolean copyInputProperties, Optional<CacheableFunction> successFunction) {
-		return new PureDaisyRecipe(input, output, time, copyInputProperties, successFunction.orElse(null));
+			boolean copyInputProperties, Optional<CacheableFunction> preUpdateFunction, Optional<CacheableFunction> successFunction) {
+		return new PureDaisyRecipe(input, output, time, copyInputProperties, preUpdateFunction.orElse(null), successFunction.orElse(null));
 	}
 
 	@Override
 	public boolean matches(Level world, BlockPos pos, BlockState state) {
-		return input.test(state);
-	}
-
-	@Override
-	public StateIngredient getInput() {
-		return input;
-	}
-
-	@Override
-	public StateIngredient getOutput() {
-		return output;
+		return getInput().test(state);
 	}
 
 	@Override
 	public boolean isCopyInputProperties() {
 		return copyInputProperties;
-	}
-
-	@Override
-	public Optional<CacheableFunction> getSuccessFunction() {
-		return Optional.ofNullable(this.successFunction);
 	}
 
 	@Override
@@ -96,6 +75,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 				StateIngredients.TYPED_CODEC.fieldOf("output").forGetter(PureDaisyRecipe::getOutput),
 				ExtraCodecs.POSITIVE_INT.optionalFieldOf("time", 0).forGetter(PureDaisyRecipe::getTime),
 				Codec.BOOL.optionalFieldOf("copy_properties", false).forGetter(PureDaisyRecipe::isCopyInputProperties),
+				CacheableFunction.CODEC.optionalFieldOf("pre_update_function").forGetter(PureDaisyRecipe::getPreUpdateFunction),
 				CacheableFunction.CODEC.optionalFieldOf("success_function").forGetter(PureDaisyRecipe::getSuccessFunction)
 		).apply(instance, PureDaisyRecipe::of));
 		public static final StreamCodec<RegistryFriendlyByteBuf, PureDaisyRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -103,7 +83,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 				StateIngredients.TYPED_STREAM_CODEC, PureDaisyRecipe::getOutput,
 				ByteBufCodecs.VAR_INT, PureDaisyRecipe::getTime,
 				ByteBufCodecs.BOOL, PureDaisyRecipe::isCopyInputProperties,
-				(input, output, time, copyInputProperties) -> new PureDaisyRecipe(input, output, time, copyInputProperties, null)
+				(input, output, time, copyInputProperties) -> new PureDaisyRecipe(input, output, time, copyInputProperties, null, null)
 		);
 
 		@Override

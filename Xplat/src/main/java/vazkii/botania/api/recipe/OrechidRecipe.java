@@ -8,30 +8,17 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import java.util.Optional;
-
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public interface OrechidRecipe extends Recipe<RecipeInput> {
+public interface OrechidRecipe extends BlockStateRecipe {
 	ResourceLocation TYPE_ID = botaniaRL("orechid");
 	ResourceLocation IGNEM_TYPE_ID = botaniaRL("orechid_ignem");
 	ResourceLocation MARIMORPHOSIS_TYPE_ID = botaniaRL("marimorphosis");
-
-	/** Valid inputs for the recipe */
-	StateIngredient getInput();
-
-	/** Output to display in recipes and to be used by default. */
-	StateIngredient getOutput();
 
 	@Override
 	RecipeType<? extends OrechidRecipe> getType();
@@ -52,46 +39,4 @@ public interface OrechidRecipe extends Recipe<RecipeInput> {
 		return getWeight();
 	}
 
-	Optional<CacheableFunction> getSuccessFunction();
-
-	/**
-	 * @deprecated Not meant to be used for item crafting in a container.
-	 */
-	@Override
-	@Deprecated
-	default boolean matches(RecipeInput container, Level level) {
-		return false;
-	}
-
-	/**
-	 * @deprecated Not meant to be used for item crafting in a container.
-	 */
-	@Override
-	@Deprecated
-	default ItemStack assemble(RecipeInput container, HolderLookup.Provider registryAccess) {
-		return ItemStack.EMPTY;
-	}
-
-	/**
-	 * @deprecated Not meant to be used for item crafting in a container.
-	 */
-	@Override
-	@Deprecated
-	default boolean canCraftInDimensions(int width, int height) {
-		return false;
-	}
-
-	/**
-	 * @deprecated Not meant to be used for item crafting in a container.
-	 */
-	@Override
-	@Deprecated
-	default ItemStack getResultItem(HolderLookup.Provider registryAccess) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	default boolean isSpecial() {
-		return true;
-	}
 }

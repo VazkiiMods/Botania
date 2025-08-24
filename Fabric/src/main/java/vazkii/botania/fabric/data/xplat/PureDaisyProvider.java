@@ -62,11 +62,13 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	}
 
 	private void withFunction(RecipeOutput consumer, ResourceLocation id, StateIngredient input, BlockState output, @Nullable CacheableFunction successFunction) {
-		consumer.accept(id, new PureDaisyRecipe(input, StateIngredients.of(output), 150, false, successFunction), null);
+		consumer.accept(id, new PureDaisyRecipe(input, StateIngredients.of(output), PureDaisyRecipe.DEFAULT_TIME,
+				false, null, successFunction), null);
 	}
 
 	private void stateCopying(RecipeOutput consumer, ResourceLocation id, StateIngredient input, Block output) {
-		consumer.accept(id, new PureDaisyRecipe(input, StateIngredients.of(output), 150, true, null), null);
+		consumer.accept(id, new PureDaisyRecipe(input, StateIngredients.of(output), PureDaisyRecipe.DEFAULT_TIME,
+				true, null, null), null);
 	}
 
 	private static ResourceLocation id(String path) {

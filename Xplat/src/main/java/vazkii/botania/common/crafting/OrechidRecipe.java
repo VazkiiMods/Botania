@@ -34,45 +34,31 @@ import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Optional;
 
-public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
+public class OrechidRecipe extends BlockStateRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	public static final RecipeSerializer<OrechidRecipe> SERIALIZER = new Serializer();
-	private final StateIngredient input;
-	private final StateIngredient output;
 	private final int weight;
-	@Nullable
-	private final CacheableFunction successFunction;
 	private final int weightBonus;
 	@Nullable
 	private final TagKey<Biome> biomes;
 
-	public OrechidRecipe(StateIngredient input, StateIngredient output, int weight,
-			@Nullable CacheableFunction successFunction) {
-		this(input, output, weight, successFunction, 0, null);
+	public OrechidRecipe(StateIngredient input, StateIngredient output, int weight) {
+		this(input, output, weight, null, null, 0, null);
 	}
 
 	public OrechidRecipe(StateIngredient input, StateIngredient output, int weight,
-			@Nullable CacheableFunction successFunction, int weightBonus, @Nullable TagKey<Biome> biomes) {
-		this.input = input;
-		this.output = output;
+			@Nullable CacheableFunction preUpdateFunction, @Nullable CacheableFunction successFunction,
+			int weightBonus, @Nullable TagKey<Biome> biomes) {
+		super(input, output, preUpdateFunction, successFunction);
 		this.weight = weight;
-		this.successFunction = successFunction;
 		this.weightBonus = weightBonus;
 		this.biomes = biomes;
 	}
 
 	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-	private static OrechidRecipe of(StateIngredient input, StateIngredient output, int weight, int biomeWeight, Optional<TagKey<Biome>> biomeTag, Optional<CacheableFunction> successFunction) {
-		return new OrechidRecipe(input, output, weight, successFunction.orElse(null), biomeWeight, biomeTag.orElse(null));
-	}
-
-	@Override
-	public StateIngredient getInput() {
-		return input;
-	}
-
-	@Override
-	public StateIngredient getOutput() {
-		return output;
+	private static OrechidRecipe of(StateIngredient input, StateIngredient output, int weight, int biomeWeight,
+			Optional<TagKey<Biome>> biomeTag, Optional<CacheableFunction> preUpdateFunction, Optional<CacheableFunction> successFunction) {
+		return new OrechidRecipe(input, output, weight, preUpdateFunction.orElse(null),
+				successFunction.orElse(null), biomeWeight, biomeTag.orElse(null));
 	}
 
 	@Override
@@ -95,11 +81,6 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 		return Optional.ofNullable(biomes);
 	}
 
-	@Override
-	public Optional<CacheableFunction> getSuccessFunction() {
-		return Optional.ofNullable(this.successFunction);
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> getType() {
@@ -118,6 +99,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 				ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("weight", 0).forGetter(OrechidRecipe::getWeight),
 				Codec.INT.optionalFieldOf("biome_bonus_weight", 0).forGetter(OrechidRecipe::getWeightBonus),
 				TagKey.codec(Registries.BIOME).optionalFieldOf("biome_bonus_tag").forGetter(OrechidRecipe::getBiomes),
+				CacheableFunction.CODEC.optionalFieldOf("pre_update_function").forGetter(OrechidRecipe::getPreUpdateFunction),
 				CacheableFunction.CODEC.optionalFieldOf("success_function").forGetter(OrechidRecipe::getSuccessFunction)
 		).apply(instance, OrechidRecipe::of));
 		public static final MapCodec<OrechidRecipe> CODEC = RAW_CODEC.validate(orechidRecipe -> {
@@ -137,7 +119,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 				ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC.map(
 						id -> TagKey.create(Registries.BIOME, id), TagKey::location
 				)), OrechidRecipe::getBiomes,
-				(in, out, weight, weightBonus, biomes) -> new OrechidRecipe(in, out, weight, null, weightBonus, biomes.orElse(null))
+				(in, out, weight, weightBonus, biomes) -> new OrechidRecipe(in, out, weight, null, null, weightBonus, biomes.orElse(null))
 		);
 
 		@Override

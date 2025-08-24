@@ -10,7 +10,6 @@ package vazkii.botania.common.crafting;
 
 import com.mojang.serialization.MapCodec;
 
-import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -28,14 +27,13 @@ import java.util.function.Function;
 public class MarimorphosisRecipe extends OrechidRecipe {
 	public static final RecipeSerializer<MarimorphosisRecipe> SERIALIZER = new Serializer();
 
-	public MarimorphosisRecipe(StateIngredient input, StateIngredient output, int weight,
-			@Nullable CacheableFunction successFunction, int weightBonus, @Nullable TagKey<Biome> biomes) {
-		super(input, output, weight, successFunction, weightBonus, biomes);
+	public MarimorphosisRecipe(StateIngredient input, StateIngredient output, int weight, int weightBonus, @Nullable TagKey<Biome> biomes) {
+		super(input, output, weight, null, null, weightBonus, biomes);
 	}
 
 	private MarimorphosisRecipe(OrechidRecipe orechidRecipe) {
 		this(orechidRecipe.getInput(), orechidRecipe.getOutput(), orechidRecipe.getWeight(),
-				orechidRecipe.getSuccessFunction().orElse(null), orechidRecipe.getWeightBonus(),
+				orechidRecipe.getWeightBonus(),
 				orechidRecipe.getBiomes().orElse(null));
 	}
 

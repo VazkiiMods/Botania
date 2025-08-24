@@ -29,17 +29,18 @@ public class OrechidIgnemRecipe extends OrechidRecipe {
 	public static final RecipeSerializer<OrechidIgnemRecipe> SERIALIZER = new Serializer();
 
 	public OrechidIgnemRecipe(StateIngredient input, StateIngredient output, int weight,
-			@Nullable CacheableFunction successFunction, int weightBonus, @Nullable TagKey<Biome> biomes) {
-		super(input, output, weight, successFunction, weightBonus, biomes);
+			@Nullable CacheableFunction preUpdateFunction, @Nullable CacheableFunction successFunction,
+			int weightBonus, @Nullable TagKey<Biome> biomes) {
+		super(input, output, weight, preUpdateFunction, successFunction, weightBonus, biomes);
 	}
 
-	public OrechidIgnemRecipe(StateIngredient input, StateIngredient output, int weight,
-			@Nullable CacheableFunction successFunction) {
-		this(input, output, weight, successFunction, 0, null);
+	public OrechidIgnemRecipe(StateIngredient input, StateIngredient output, int weight) {
+		this(input, output, weight, null, null, 0, null);
 	}
 
 	private OrechidIgnemRecipe(OrechidRecipe orechidRecipe) {
 		this(orechidRecipe.getInput(), orechidRecipe.getOutput(), orechidRecipe.getWeight(),
+				orechidRecipe.getPreUpdateFunction().orElse(null),
 				orechidRecipe.getSuccessFunction().orElse(null), orechidRecipe.getWeightBonus(),
 				orechidRecipe.getBiomes().orElse(null));
 	}

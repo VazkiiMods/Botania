@@ -14,12 +14,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -27,10 +23,10 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.crafting.BlockStateRecipe;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.OrechidManager;
-import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
@@ -90,26 +86,13 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		BlockState state = recipe.getOutput(level, coords).pick(level.random);
-		if (getLevel().setBlockAndUpdate(coords, state)) {
-			if (BotaniaConfig.common().blockBreakParticles()) {
-				getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
-			}
+		BlockState stateToPlace = recipe.getOutput(level, coords).pick(level.random);
+
+		BlockStateRecipe.replaceBlock(coords, recipe, stateToPlace, (ServerLevel) level, () -> {
 			playSound(coords);
 			addMana(-getCost());
-			getLevel().gameEvent(null, GameEvent.BLOCK_CHANGE, coords);
-
-			var serverLevel = (ServerLevel) this.level;
-			var server = serverLevel.getServer();
-			recipe.getSuccessFunction().flatMap(cached -> cached.get(server.getFunctions())).ifPresent(command -> {
-				var context = server.getFunctions().getGameLoopSender()
-						.withLevel(serverLevel)
-						.withPosition(Vec3.atBottomCenterOf(coords));
-				server.getFunctions().execute(command, context);
-			});
-
 			sync();
-		}
+		});
 	}
 
 	private BlockPos getCoordsToPut() {
