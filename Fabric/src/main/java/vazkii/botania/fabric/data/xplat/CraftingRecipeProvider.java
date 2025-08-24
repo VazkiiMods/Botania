@@ -102,6 +102,10 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		return RecipeProviderAccessor.botania_inventoryTrigger(preds);
 	}
 
+	private static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromPredicates(ItemPredicate.Builder... predicateBuilders) {
+		return RecipeProviderAccessor.botania_inventoryTrigger(predicateBuilders);
+	}
+
 	public static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromTag(TagKey<Item> tag) {
 		return RecipeProviderAccessor.botania_inventoryTrigger(ItemPredicate.Builder.item().of(tag));
 	}
@@ -432,7 +436,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.define('3', BotaniaItems.runeAir)
 				.define('8', BotaniaItems.runeMana)
 				.define('L', ConventionalItemTags.STORAGE_BLOCKS_LAPIS)
-				.define('M', ConventionalBotaniaTags.Items.MANASTEEL_STORAGE_BLOCKS)
+				.define('M', BotaniaBlocks.manaQuartz)
 				.pattern("LLL")
 				.pattern("0M1")
 				.pattern("283")
