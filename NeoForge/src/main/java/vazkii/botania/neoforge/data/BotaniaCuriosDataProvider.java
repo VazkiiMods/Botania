@@ -21,9 +21,8 @@ import vazkii.botania.api.BotaniaAPI;
 import java.util.concurrent.CompletableFuture;
 
 public class BotaniaCuriosDataProvider extends CuriosDataProvider {
-	public BotaniaCuriosDataProvider(PackOutput output, ExistingFileHelper fileHelper,
-			CompletableFuture<HolderLookup.Provider> registries) {
-		super(BotaniaAPI.MODID, output, fileHelper, registries);
+	public BotaniaCuriosDataProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(BotaniaAPI.MODID, output, null, registries);
 	}
 
 	@Override

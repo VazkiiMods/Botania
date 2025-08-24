@@ -9,19 +9,24 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.data.util.DummyTagLookup;
 
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
-	public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider,
-			ExistingFileHelper existingFileHelper) {
-		super(output, Registries.BLOCK, provider,
+	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(
+			BotaniaTags.Blocks.MYSTICAL_FLOWERS,
+			BotaniaTags.Blocks.SPECIAL_FLOWERS
+	);
+
+	public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+		super(output, Registries.BLOCK, provider, DummyTagLookup.completedFuture(REQUIRED_TAGS),
 				block -> ResourceKey.create(Registries.BLOCK, BuiltInRegistries.BLOCK.getKey(block)),
-				LibMisc.MOD_ID, existingFileHelper);
+				LibMisc.MOD_ID, null);
 	}
 
 	@Override

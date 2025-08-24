@@ -11,7 +11,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -21,7 +20,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.Collections;
 import java.util.Set;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -46,14 +44,14 @@ public class ForgeDatagenInitializer {
 	public static void configureForgeDatagen(GatherDataEvent evt) {
 		var generator = evt.getGenerator();
 		var output = generator.getPackOutput();
-		var disabledHelper = new ExistingFileHelper(Collections.emptyList(), Collections.emptySet(), false, null, null);
-		var blockTagProvider = new ForgeBlockTagProvider(output, evt.getLookupProvider(), disabledHelper);
+		var blockTagProvider = new ForgeBlockTagProvider(output, evt.getLookupProvider());
 		generator.addProvider(evt.includeServer(), blockTagProvider);
 		generator.addProvider(evt.includeServer(), new ForgeItemTagProvider(output, evt.getLookupProvider(),
-				blockTagProvider.contentsGetter(), disabledHelper));
+				blockTagProvider.contentsGetter()));
+		generator.addProvider(evt.includeServer(), new ForgeEntityTagProvider(output, evt.getLookupProvider()));
 		generator.addProvider(evt.includeServer(), new DatapackBuiltinEntriesProvider(output, evt.getLookupProvider(),
 				addBiomeModifiers(), Set.of(BotaniaAPI.MODID)));
-		generator.addProvider(evt.includeServer(), new BotaniaCuriosDataProvider(output, disabledHelper, evt.getLookupProvider()));
+		generator.addProvider(evt.includeServer(), new BotaniaCuriosDataProvider(output, evt.getLookupProvider()));
 		generator.addProvider(evt.includeServer(), new BotaniaGlobalLootModifierProvider(output, evt.getLookupProvider()));
 	}
 
