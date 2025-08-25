@@ -11,7 +11,10 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.HornItem;
@@ -22,7 +25,7 @@ public class DrumOfTheWildBlock extends DrumBlock {
 	}
 
 	@Override
-	public void activate(Level level, BlockPos pos) {
-		HornItem.breakBlocks(level, BotaniaItems.grassHorn, pos);
+	public void activate(Level level, BlockPos pos, @Nullable Entity burst) {
+		HornItem.breakBlocks(level, burst, BotaniaItems.grassHorn, pos);
 	}
 }

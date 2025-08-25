@@ -13,6 +13,7 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -25,6 +26,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.helper.EntityHelper;
@@ -50,7 +53,7 @@ public class DrumOfTheGatheringBlock extends DrumBlock {
 	}
 
 	@Override
-	public void activate(Level level, BlockPos pos) {
+	public void activate(Level level, BlockPos pos, @Nullable Entity burst) {
 		List<Mob> mobs = level.getEntitiesOfClass(Mob.class, new AABB(pos).inflate(GATHER_RANGE),
 				mob -> mob.isAlive() && !BergamuteBlockEntity.isBergamuteNearby(level, mob.getX(), mob.getY(), mob.getZ()));
 		List<Shearable> shearables = new ArrayList<>();

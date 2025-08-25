@@ -11,6 +11,8 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,6 +46,11 @@ public class HornOfTheWildItem extends HornItem {
 
 	protected int getNumBlocksToBreak() {
 		return NUM_BLOCKS_TO_BREAK;
+	}
+
+	@Override
+	public ItemStack getRandomDropTool() {
+		return Items.SHEARS.getDefaultInstance();
 	}
 
 }

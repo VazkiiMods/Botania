@@ -10,16 +10,27 @@ package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -53,7 +64,9 @@ public abstract class HornItem extends Item {
 		if (!world.isClientSide) {
 			if (time != getUseDuration(stack, living) && time % 5 == 0) {
 				living.gameEvent(GameEvent.INSTRUMENT_PLAY);
-				breakBlocks(world, this, living.blockPosition());
+				if (breakBlocks(world, living, this, living.blockPosition()) && living instanceof Player player) {
+					player.awardStat(Stats.ITEM_USED.get(this));
+				}
 			}
 			world.playSound(null, living.getX(), living.getY(), living.getZ(), BotaniaSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
 		}
@@ -67,7 +80,13 @@ public abstract class HornItem extends Item {
 
 	protected abstract int getNumBlocksToBreak();
 
-	public static void breakBlocks(Level world, HornItem horn, BlockPos srcPos) {
+	public abstract ItemStack getRandomDropTool();
+
+	public double getRandomDropChange() {
+		return 0.05;
+	}
+
+	public static boolean breakBlocks(Level world, @Nullable Entity entity, HornItem horn, BlockPos srcPos) {
 		int range = horn.getRange();
 		int rangeY = horn.getRangeY();
 		List<BlockPos> coords = new ArrayList<>();
@@ -81,11 +100,38 @@ public abstract class HornItem extends Item {
 
 		Collections.shuffle(coords);
 
+		ItemStack randomDropTool = horn.getRandomDropTool();
 		int count = Math.min(coords.size(), horn.getNumBlocksToBreak());
 		for (int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
-			world.destroyBlock(currCoords, true);
+			destroyBlockWithHorn(world, currCoords, entity,
+					horn.getRandomDropChange() > Math.random() ? randomDropTool : ItemStack.EMPTY);
 		}
+		return count > 0;
 	}
 
+	// [VanillaCopy] Level::destroyBlock, but passing a non-empty item and tracking block mined stats
+	public static void destroyBlockWithHorn(Level world, BlockPos pos, @Nullable Entity entity, ItemStack toolStack) {
+		BlockState blockstate = world.getBlockState(pos);
+		if (blockstate.isAir()) {
+			return;
+		}
+		FluidState fluidstate = world.getFluidState(pos);
+		if (!(blockstate.getBlock() instanceof BaseFireBlock)) {
+			world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(blockstate));
+		}
+
+		BlockEntity blockentity = blockstate.hasBlockEntity() ? world.getBlockEntity(pos) : null;
+		Block.dropResources(blockstate, world, pos, blockentity, entity, toolStack);
+
+		boolean flag = world.setBlock(pos, fluidstate.createLegacyBlock(), Block.UPDATE_ALL, Block.UPDATE_LIMIT);
+		if (flag) {
+			if (entity instanceof Player player) {
+				player.awardStat(Stats.BLOCK_MINED.get(blockstate.getBlock()));
+			} else if (entity instanceof TraceableEntity traceable && traceable.getOwner() instanceof Player player) {
+				player.awardStat(Stats.BLOCK_MINED.get(blockstate.getBlock()));
+			}
+			world.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(entity, blockstate));
+		}
+	}
 }

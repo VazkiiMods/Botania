@@ -11,12 +11,18 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.TraceableEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
@@ -36,7 +42,7 @@ public abstract class DrumBlock extends BotaniaWaterloggedBlock {
 		return SHAPE;
 	}
 
-	public abstract void activate(Level level, BlockPos pos);
+	public abstract void activate(Level level, BlockPos pos, @Nullable Entity manaBurst);
 
 	public static class ManaTriggerImpl implements ManaTrigger {
 		private final Level world;
@@ -58,7 +64,11 @@ public abstract class DrumBlock extends BotaniaWaterloggedBlock {
 				world.addParticle(ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
 				return;
 			}
-			drumBlock.activate(world, pos);
+
+			drumBlock.activate(world, pos, burst instanceof Entity entity ? entity : null);
+			if (burst instanceof TraceableEntity entity && entity.getOwner() instanceof Player player) {
+				player.awardStat(Stats.ITEM_USED.get(drumBlock.asItem()));
+			}
 
 			for (int i = 0; i < 10; i++) {
 				world.playSound(null, pos, BotaniaSounds.drum, SoundSource.BLOCKS, 1F, 1F);

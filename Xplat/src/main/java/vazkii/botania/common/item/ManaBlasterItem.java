@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -79,6 +80,7 @@ public class ManaBlasterItem extends Item {
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.manaBlaster, SoundSource.PLAYERS, 1F, 1);
 					world.addFreshEntity(burst);
 					ManaBlasterTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
+					player.awardStat(Stats.ITEM_USED.get(this));
 					setCooldown(stack, effCd);
 				} else if (!EquipmentHandler.getAllWorn(player).hasAnyMatching(k -> k.is(BotaniaItems.knockbackBelt))) {
 					player.setDeltaMovement(player.getDeltaMovement().subtract(burst.getDeltaMovement().multiply(0.1, 0.3, 0.1)));
