@@ -4,13 +4,12 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:block_deconstruction",
   "input": {
-    "item": "minecraft:bricks"
+    "item": "minecraft:nether_wart_block"
   },
-  "mana": 25,
+  "mana": 500,
   "output": {
-    "count": 4,
-    "id": "minecraft:brick"
+    "count": 1,
+    "id": "minecraft:nether_wart"
   }
 }

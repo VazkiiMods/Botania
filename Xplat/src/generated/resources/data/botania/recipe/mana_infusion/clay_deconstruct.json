@@ -2,13 +2,13 @@
   "type": "botania:mana_infusion",
   "catalyst": {
     "type": "botania:block",
-    "block": "botania:alchemy_catalyst"
+    "block": "botania:conjuration_catalyst"
   },
-  "group": "botania:block_deconstruction",
+  "group": "botania:lossless_2x2_deconstruction",
   "input": {
     "item": "minecraft:clay"
   },
-  "mana": 25,
+  "mana": 30,
   "output": {
     "count": 4,
     "id": "minecraft:clay_ball"

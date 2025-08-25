@@ -4,13 +4,12 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
-  "group": "botania:quartz_deconstruction",
   "input": {
-    "item": "botania:lavender_quartz"
+    "item": "minecraft:snow"
   },
-  "mana": 25,
+  "mana": 20,
   "output": {
-    "count": 3,
-    "id": "botania:quartz_lavender"
+    "count": 1,
+    "id": "minecraft:snowball"
   }
 }

@@ -4,12 +4,13 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
+  "group": "botania:amethyst_cluster_deconstruction",
   "input": {
-    "item": "minecraft:spruce_leaves"
+    "item": "minecraft:small_amethyst_bud"
   },
-  "mana": 2000,
+  "mana": 100,
   "output": {
-    "count": 2,
-    "id": "minecraft:spruce_leaves"
+    "count": 1,
+    "id": "minecraft:amethyst_shard"
   }
 }

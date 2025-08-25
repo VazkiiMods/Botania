@@ -4,12 +4,13 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
+  "group": "botania:lossless_3x3_deconstruction",
   "input": {
-    "item": "minecraft:short_grass"
+    "item": "minecraft:bamboo_block"
   },
-  "mana": 800,
+  "mana": 120,
   "output": {
-    "count": 2,
-    "id": "minecraft:short_grass"
+    "count": 9,
+    "id": "minecraft:bamboo"
   }
 }

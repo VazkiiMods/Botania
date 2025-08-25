@@ -4,12 +4,13 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
+  "group": "botania:lossless_2x2_deconstruction",
   "input": {
-    "item": "minecraft:cherry_leaves"
+    "item": "minecraft:snow_block"
   },
-  "mana": 2000,
+  "mana": 30,
   "output": {
-    "count": 2,
-    "id": "minecraft:cherry_leaves"
+    "count": 4,
+    "id": "minecraft:snowball"
   }
 }

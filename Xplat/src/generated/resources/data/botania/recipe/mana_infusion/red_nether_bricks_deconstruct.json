@@ -5,11 +5,11 @@
     "block": "botania:conjuration_catalyst"
   },
   "input": {
-    "item": "minecraft:oak_leaves"
+    "item": "minecraft:red_nether_bricks"
   },
-  "mana": 2000,
+  "mana": 25,
   "output": {
     "count": 2,
-    "id": "minecraft:oak_leaves"
+    "id": "minecraft:nether_brick"
   }
 }

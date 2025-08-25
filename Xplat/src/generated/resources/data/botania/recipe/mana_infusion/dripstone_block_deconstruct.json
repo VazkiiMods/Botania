@@ -4,12 +4,13 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
+  "group": "botania:lossy_2x2_deconstruction",
   "input": {
-    "item": "minecraft:dark_oak_leaves"
+    "item": "minecraft:dripstone_block"
   },
-  "mana": 2000,
+  "mana": 25,
   "output": {
-    "count": 2,
-    "id": "minecraft:dark_oak_leaves"
+    "count": 3,
+    "id": "minecraft:pointed_dripstone"
   }
 }

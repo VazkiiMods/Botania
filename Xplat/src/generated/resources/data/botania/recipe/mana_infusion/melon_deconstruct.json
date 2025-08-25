@@ -4,12 +4,13 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
+  "group": "botania:lossless_3x3_deconstruction",
   "input": {
-    "item": "minecraft:birch_leaves"
+    "item": "minecraft:melon"
   },
-  "mana": 2000,
+  "mana": 120,
   "output": {
-    "count": 2,
-    "id": "minecraft:birch_leaves"
+    "count": 9,
+    "id": "minecraft:melon_slice"
   }
 }

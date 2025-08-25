@@ -2,8 +2,9 @@
   "type": "botania:mana_infusion",
   "catalyst": {
     "type": "botania:block",
-    "block": "botania:alchemy_catalyst"
+    "block": "botania:conjuration_catalyst"
   },
+  "group": "botania:wool_deconstruction",
   "input": {
     "tag": "minecraft:wool"
   },

@@ -4,12 +4,13 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
+  "group": "botania:amethyst_cluster_deconstruction",
   "input": {
-    "item": "minecraft:jungle_leaves"
+    "item": "minecraft:large_amethyst_bud"
   },
-  "mana": 2000,
+  "mana": 100,
   "output": {
-    "count": 2,
-    "id": "minecraft:jungle_leaves"
+    "count": 3,
+    "id": "minecraft:amethyst_shard"
   }
 }

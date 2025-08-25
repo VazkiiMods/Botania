@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
-  "group": "botania:quartz_deconstruction",
+  "group": "botania:amethyst_cluster_deconstruction",
   "input": {
-    "item": "botania:lavender_quartz"
+    "item": "minecraft:amethyst_cluster"
   },
-  "mana": 25,
+  "mana": 100,
   "output": {
-    "count": 3,
-    "id": "botania:quartz_lavender"
+    "count": 4,
+    "id": "minecraft:amethyst_shard"
   }
 }

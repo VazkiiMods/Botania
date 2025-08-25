@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
-  "group": "botania:quartz_deconstruction",
+  "group": "botania:lossy_2x2_deconstruction",
   "input": {
-    "item": "botania:lavender_quartz"
+    "item": "minecraft:honeycomb_block"
   },
   "mana": 25,
   "output": {
     "count": 3,
-    "id": "botania:quartz_lavender"
+    "id": "minecraft:honeycomb"
   }
 }

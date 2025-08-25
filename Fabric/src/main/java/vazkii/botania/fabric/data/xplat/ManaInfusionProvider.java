@@ -91,16 +91,6 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 				Blocks.OAK_SAPLING, Blocks.DARK_OAK_SAPLING, Blocks.SPRUCE_SAPLING, Blocks.MANGROVE_PROPAGULE,
 				Blocks.BIRCH_SAPLING, Blocks.CHERRY_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.ACACIA_SAPLING);
 
-		deconstruct(consumer, id("glowstone_deconstruct"), Items.GLOWSTONE_DUST, Blocks.GLOWSTONE);
-		deconstruct(consumer, id("quartz_deconstruct"), Items.QUARTZ, Blocks.QUARTZ_BLOCK);
-		deconstruct(consumer, id("dark_quartz_deconstruct"), BotaniaItems.darkQuartz, BotaniaBlocks.darkQuartz);
-		deconstruct(consumer, id("mana_quartz_deconstruct"), BotaniaItems.manaQuartz, BotaniaBlocks.manaQuartz);
-		deconstruct(consumer, id("blaze_quartz_deconstruct"), BotaniaItems.blazeQuartz, BotaniaBlocks.blazeQuartz);
-		deconstruct(consumer, id("lavender_quartz_deconstruct"), BotaniaItems.lavenderQuartz, BotaniaBlocks.lavenderQuartz);
-		deconstruct(consumer, id("red_quartz_deconstruct"), BotaniaItems.redQuartz, BotaniaBlocks.redQuartz);
-		deconstruct(consumer, id("elf_quartz_deconstruct"), BotaniaItems.elfQuartz, BotaniaBlocks.elfQuartz);
-		deconstruct(consumer, id("sunny_quartz_deconstruct"), BotaniaItems.sunnyQuartz, BotaniaBlocks.sunnyQuartz);
-
 		alchemy(consumer, id("ice"), new ItemStack(Blocks.ICE), ingr(Blocks.SNOW_BLOCK), 2250);
 
 		cycle(consumer, 320, "botania:vine_and_lily_pad_cycle", Items.LILY_PAD, Items.VINE);
@@ -115,19 +105,15 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		alchemy(consumer, id("book_to_name_tag"), new ItemStack(Items.NAME_TAG), ingr(Items.WRITABLE_BOOK), 6000);
 
-		alchemy(consumer, id("wool_deconstruct"), new ItemStack(Items.STRING, 3), ingr(ItemTags.WOOL), 100);
-
-		cycle(consumer, 1200, "botania:cactus_and_slime_cycle", Items.SLIME_BALL, Items.CACTUS);
+		cycle(consumer, 1200, "botania:cactus_and_slime_cycle", Items.SLIME_BALL, Blocks.CACTUS);
 
 		alchemy(consumer, id("ender_pearl_from_ghast_tear"), new ItemStack(Items.ENDER_PEARL), ingr(Items.GHAST_TEAR), 28000);
+		alchemy(consumer, id("nether_wart_from_wart_block"), new ItemStack(Blocks.NETHER_WART), ingr(Blocks.NETHER_WART_BLOCK), 500);
 
 		cycle(consumer, 300, "botania:glowstone_and_redstone_cycle", Items.GLOWSTONE_DUST, Items.REDSTONE);
 
 		alchemy(consumer, id("cobble_to_sand"), new ItemStack(Blocks.SAND), ingr(ConventionalItemTags.COBBLESTONES), 50);
 		alchemy(consumer, id("terracotta_to_red_sand"), new ItemStack(Blocks.RED_SAND), ingr(Blocks.TERRACOTTA), 50);
-
-		deconstruct(consumer, id("clay_deconstruct"), Items.CLAY_BALL, Blocks.CLAY);
-		deconstruct(consumer, id("brick_deconstruct"), Items.BRICK, Blocks.BRICKS);
 
 		alchemy(consumer, id("coarse_dirt"), new ItemStack(Blocks.COARSE_DIRT), ingr(Blocks.DIRT), 120);
 		alchemy(consumer, id("soul_soil"), new ItemStack(Blocks.SOUL_SOIL), ingr(Blocks.SOUL_SAND), 120);
@@ -136,9 +122,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		cycle(consumer, 200, "botania:stone_cycle", Blocks.DIORITE, Blocks.GRANITE, Blocks.ANDESITE, Blocks.TUFF, Blocks.CALCITE);
 		cycle(consumer, 200, "botania:nether_stone_cycle", Blocks.BASALT, Blocks.NETHERRACK, Blocks.BLACKSTONE);
 
-		cycle(consumer, 500, "botania:shrub_cycle", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.SHORT_GRASS);
-
-		alchemy(consumer, id("dripleaf_shrinking"), new ItemStack(Blocks.SMALL_DRIPLEAF), ingr(Items.BIG_DRIPLEAF), 500);
+		alchemy(consumer, id("dripleaf_shrinking"), new ItemStack(Blocks.SMALL_DRIPLEAF), ingr(Blocks.BIG_DRIPLEAF), 500);
 		alchemy(consumer, id("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), ingr(Items.POPPED_CHORUS_FRUIT), 10000);
 
 		mini(consumer, BotaniaBlocks.agricarnationChibi, BotaniaBlocks.agricarnation);
@@ -154,37 +138,58 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		alchemy(consumer, id("hydroangeas_motif"), new ItemStack(BotaniaBlocks.motifHydroangeas), ingr(BotaniaBlocks.hydroangeas), 2500);
 
-		conjuration(consumer, id("oak_leaves_dupe"), new ItemStack(Blocks.OAK_LEAVES, 2), ingr(Blocks.OAK_LEAVES), 2000);
-		conjuration(consumer, id("birch_leaves_dupe"), new ItemStack(Blocks.BIRCH_LEAVES, 2), ingr(Blocks.BIRCH_LEAVES), 2000);
-		conjuration(consumer, id("spruce_leaves_dupe"), new ItemStack(Blocks.SPRUCE_LEAVES, 2), ingr(Blocks.SPRUCE_LEAVES), 2000);
-		conjuration(consumer, id("jungle_leaves_dupe"), new ItemStack(Blocks.JUNGLE_LEAVES, 2), ingr(Blocks.JUNGLE_LEAVES), 2000);
-		conjuration(consumer, id("acacia_leaves_dupe"), new ItemStack(Blocks.ACACIA_LEAVES, 2), ingr(Blocks.ACACIA_LEAVES), 2000);
-		conjuration(consumer, id("dark_oak_leaves_dupe"), new ItemStack(Blocks.DARK_OAK_LEAVES, 2), ingr(Blocks.DARK_OAK_LEAVES), 2000);
-		conjuration(consumer, id("azalea_leaves_dupe"), new ItemStack(Blocks.AZALEA_LEAVES, 2), ingr(Blocks.AZALEA_LEAVES), 2000);
-		conjuration(consumer, id("flowering_azalea_leaves_dupe"), new ItemStack(Blocks.FLOWERING_AZALEA_LEAVES, 2), ingr(Blocks.FLOWERING_AZALEA_LEAVES), 2000);
-		conjuration(consumer, id("mangrove_leaves_dupe"), new ItemStack(Blocks.MANGROVE_LEAVES, 2), ingr(Blocks.MANGROVE_LEAVES), 2000);
-		conjuration(consumer, id("cherry_leaves_dupe"), new ItemStack(Blocks.CHERRY_LEAVES, 2), ingr(Blocks.CHERRY_LEAVES), 2000);
+		deconstruct2x2(consumer, Items.CLAY_BALL, Blocks.CLAY);
+		deconstruct2x2(consumer, Items.SNOWBALL, Blocks.SNOW_BLOCK);
 
-		conjuration(consumer, id("grass"), new ItemStack(Blocks.SHORT_GRASS, 2), ingr(Blocks.SHORT_GRASS), 800);
+		deconstruct(consumer, Items.SNOWBALL, 1, Blocks.SNOW, 20, null);
+		deconstruct(consumer, id("wool_deconstruct"), new ItemStack(Items.STRING, 3), ingr(ItemTags.WOOL), 100, "botania:wool_deconstruction");
+		deconstruct(consumer, Items.NETHER_BRICK, 2, Blocks.RED_NETHER_BRICKS, 25, null);
+
+		// fully-grown cluster yields 4 shards with unenchanted pickaxe
+		deconstruct(consumer, Items.AMETHYST_SHARD, 1, Blocks.SMALL_AMETHYST_BUD, 100, "botania:amethyst_cluster_deconstruction");
+		deconstruct(consumer, Items.AMETHYST_SHARD, 2, Blocks.MEDIUM_AMETHYST_BUD, 100, "botania:amethyst_cluster_deconstruction");
+		deconstruct(consumer, Items.AMETHYST_SHARD, 3, Blocks.LARGE_AMETHYST_BUD, 100, "botania:amethyst_cluster_deconstruction");
+		deconstruct(consumer, Items.AMETHYST_SHARD, 4, Blocks.AMETHYST_CLUSTER, 100, "botania:amethyst_cluster_deconstruction");
+
+		deconstruct2x2Lossy(consumer, Items.QUARTZ, Blocks.QUARTZ_BLOCK, "botania:quartz_deconstruction");
+		deconstruct2x2Lossy(consumer, BotaniaItems.darkQuartz, BotaniaBlocks.darkQuartz, "botania:quartz_deconstruction");
+		deconstruct2x2Lossy(consumer, BotaniaItems.manaQuartz, BotaniaBlocks.manaQuartz, "botania:quartz_deconstruction");
+		deconstruct2x2Lossy(consumer, BotaniaItems.blazeQuartz, BotaniaBlocks.blazeQuartz, "botania:quartz_deconstruction");
+		deconstruct2x2Lossy(consumer, BotaniaItems.lavenderQuartz, BotaniaBlocks.lavenderQuartz, "botania:quartz_deconstruction");
+		deconstruct2x2Lossy(consumer, BotaniaItems.redQuartz, BotaniaBlocks.redQuartz, "botania:quartz_deconstruction");
+		deconstruct2x2Lossy(consumer, BotaniaItems.elfQuartz, BotaniaBlocks.elfQuartz, "botania:quartz_deconstruction");
+		deconstruct2x2Lossy(consumer, BotaniaItems.sunnyQuartz, BotaniaBlocks.sunnyQuartz, "botania:quartz_deconstruction");
+
+		deconstruct2x2Lossy(consumer, Items.GLOWSTONE_DUST, Blocks.GLOWSTONE);
+		deconstruct2x2Lossy(consumer, Items.BRICK, Blocks.BRICKS);
+		deconstruct2x2Lossy(consumer, Items.NETHER_BRICK, Blocks.NETHER_BRICKS);
+		deconstruct2x2Lossy(consumer, Items.POINTED_DRIPSTONE, Blocks.DRIPSTONE_BLOCK);
+		deconstruct2x2Lossy(consumer, Items.HONEYCOMB, Blocks.HONEYCOMB_BLOCK);
+		deconstruct2x2Lossy(consumer, Items.MAGMA_CREAM, Blocks.MAGMA_BLOCK);
+		deconstruct2x2Lossy(consumer, Items.AMETHYST_SHARD, Blocks.AMETHYST_BLOCK);
+
+		deconstruct3x3Lossless(consumer, Items.BAMBOO, Blocks.BAMBOO_BLOCK);
+		deconstruct3x3Lossless(consumer, Items.MELON_SLICE, Blocks.MELON);
+
 	}
 
 	private static final StateIngredient ALCHEMY = StateIngredients.of(BotaniaBlocks.alchemyCatalyst);
 	private static final StateIngredient CONJURATION = StateIngredients.of(BotaniaBlocks.conjurationCatalyst);
 
-	private static void normal(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana) {
+	protected static void normal(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana) {
 		consumer.accept(id, new ManaInfusionRecipe(output, input, mana, null, null), null);
 	}
 
-	private static void alchemy(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana, @Nullable String group) {
+	protected static void alchemy(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana, @Nullable String group) {
 		consumer.accept(id, new ManaInfusionRecipe(output, input, mana, group, ALCHEMY), null);
 	}
 
-	private static void alchemy(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana) {
+	protected static void alchemy(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana) {
 		alchemy(consumer, id, output, input, mana, null);
 	}
 
-	private static void conjuration(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana) {
-		consumer.accept(id, new ManaInfusionRecipe(output, input, mana, "", CONJURATION), null);
+	protected static void deconstruct(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana, @Nullable String group) {
+		consumer.accept(id, new ManaInfusionRecipe(output, input, mana, group, CONJURATION), null);
 	}
 
 	protected void cycle(RecipeOutput consumer, int cost, String group, ItemLike... items) {
@@ -200,8 +205,25 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		alchemy(consumer, id(BuiltInRegistries.ITEM.getKey(mini.asItem()).getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
 	}
 
-	protected void deconstruct(RecipeOutput consumer, ResourceLocation id, ItemLike items, ItemLike block) {
-		alchemy(consumer, id, new ItemStack(items, 4), ingr(block), 25, "botania:block_deconstruction");
+	protected void deconstruct(RecipeOutput consumer, ItemLike items, int count, ItemLike block, int mana, @Nullable String group) {
+		deconstruct(consumer, id(BuiltInRegistries.ITEM.getKey(block.asItem()).getPath() + "_deconstruct"),
+				new ItemStack(items, count), ingr(block), mana, group);
+	}
+
+	protected void deconstruct2x2(RecipeOutput consumer, ItemLike items, ItemLike block) {
+		deconstruct(consumer, items, 4, block, 30, "botania:lossless_2x2_deconstruction");
+	}
+
+	protected void deconstruct2x2Lossy(RecipeOutput consumer, ItemLike items, ItemLike block) {
+		deconstruct2x2Lossy(consumer, items, block, "botania:lossy_2x2_deconstruction");
+	}
+
+	protected void deconstruct2x2Lossy(RecipeOutput consumer, ItemLike items, ItemLike block, @Nullable String group) {
+		deconstruct(consumer, items, 3, block, 25, group);
+	}
+
+	protected void deconstruct3x3Lossless(RecipeOutput consumer, ItemLike items, ItemLike block) {
+		deconstruct(consumer, items, 9, block, 120, "botania:lossless_3x3_deconstruction");
 	}
 
 	protected ResourceLocation id(String s) {

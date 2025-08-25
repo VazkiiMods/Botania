@@ -4,12 +4,13 @@
     "type": "botania:block",
     "block": "botania:conjuration_catalyst"
   },
+  "group": "botania:lossy_2x2_deconstruction",
   "input": {
-    "item": "minecraft:flowering_azalea_leaves"
+    "item": "minecraft:nether_bricks"
   },
-  "mana": 2000,
+  "mana": 25,
   "output": {
-    "count": 2,
-    "id": "minecraft:flowering_azalea_leaves"
+    "count": 3,
+    "id": "minecraft:nether_brick"
   }
 }
