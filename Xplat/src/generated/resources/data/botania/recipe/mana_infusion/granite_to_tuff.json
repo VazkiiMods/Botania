@@ -6,11 +6,11 @@
   },
   "group": "botania:stone_cycle",
   "input": {
-    "item": "minecraft:calcite"
+    "item": "minecraft:granite"
   },
   "mana": 200,
   "output": {
     "count": 1,
-    "id": "minecraft:diorite"
+    "id": "minecraft:tuff"
   }
 }

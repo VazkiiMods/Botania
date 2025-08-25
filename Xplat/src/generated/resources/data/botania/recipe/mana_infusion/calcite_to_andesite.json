@@ -6,7 +6,7 @@
   },
   "group": "botania:stone_cycle",
   "input": {
-    "item": "minecraft:granite"
+    "item": "minecraft:calcite"
   },
   "mana": 200,
   "output": {

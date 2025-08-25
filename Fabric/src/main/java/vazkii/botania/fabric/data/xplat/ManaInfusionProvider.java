@@ -119,7 +119,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		alchemy(consumer, id("soul_soil"), new ItemStack(Blocks.SOUL_SOIL), ingr(Blocks.SOUL_SAND), 120);
 
 		alchemy(consumer, id("stone_to_andesite"), new ItemStack(Blocks.ANDESITE), ingr(Blocks.STONE), 200);
-		cycle(consumer, 200, "botania:stone_cycle", Blocks.DIORITE, Blocks.GRANITE, Blocks.ANDESITE, Blocks.TUFF, Blocks.CALCITE);
+		cycle(consumer, 200, "botania:stone_cycle", Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.TUFF, Blocks.CALCITE);
 		cycle(consumer, 200, "botania:nether_stone_cycle", Blocks.BASALT, Blocks.NETHERRACK, Blocks.BLACKSTONE);
 
 		alchemy(consumer, id("dripleaf_shrinking"), new ItemStack(Blocks.SMALL_DRIPLEAF), ingr(Blocks.BIG_DRIPLEAF), 500);
