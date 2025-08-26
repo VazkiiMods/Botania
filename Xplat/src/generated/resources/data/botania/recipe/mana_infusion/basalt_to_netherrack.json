@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:sapling_cycle",
+  "group": "botania:nether_stone_cycle",
   "input": {
-    "item": "minecraft:dark_oak_sapling"
+    "item": "minecraft:basalt"
   },
-  "mana": 120,
+  "mana": 200,
   "output": {
     "count": 1,
-    "id": "minecraft:mangrove_propagule"
+    "id": "minecraft:netherrack"
   }
 }

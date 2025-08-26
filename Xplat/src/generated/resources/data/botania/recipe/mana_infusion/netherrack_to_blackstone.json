@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:sapling_cycle",
+  "group": "botania:nether_stone_cycle",
   "input": {
-    "item": "minecraft:spruce_sapling"
+    "item": "minecraft:netherrack"
   },
-  "mana": 120,
+  "mana": 200,
   "output": {
     "count": 1,
-    "id": "minecraft:birch_sapling"
+    "id": "minecraft:blackstone"
   }
 }

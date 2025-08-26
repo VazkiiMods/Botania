@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:log_cycle",
+  "group": "botania:flower_cycle",
   "input": {
-    "item": "minecraft:birch_log"
+    "item": "minecraft:lily_of_the_valley"
   },
-  "mana": 40,
+  "mana": 400,
   "output": {
     "count": 1,
-    "id": "minecraft:jungle_log"
+    "id": "minecraft:pink_petals"
   }
 }

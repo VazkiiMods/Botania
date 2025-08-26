@@ -6,11 +6,11 @@
   },
   "group": "botania:log_cycle",
   "input": {
-    "item": "minecraft:dark_oak_log"
+    "item": "minecraft:cherry_log"
   },
   "mana": 40,
   "output": {
     "count": 1,
-    "id": "minecraft:mangrove_log"
+    "id": "minecraft:jungle_log"
   }
 }

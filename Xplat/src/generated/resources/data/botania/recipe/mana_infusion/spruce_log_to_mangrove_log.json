@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:gunpowder_and_flint_cycle",
+  "group": "botania:log_cycle",
   "input": {
-    "item": "minecraft:flint"
+    "item": "minecraft:spruce_log"
   },
-  "mana": 200,
+  "mana": 40,
   "output": {
     "count": 1,
-    "id": "minecraft:gunpowder"
+    "id": "minecraft:mangrove_log"
   }
 }

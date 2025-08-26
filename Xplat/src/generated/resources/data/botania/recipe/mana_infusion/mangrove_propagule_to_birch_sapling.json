@@ -6,11 +6,11 @@
   },
   "group": "botania:sapling_cycle",
   "input": {
-    "item": "minecraft:cherry_sapling"
+    "item": "minecraft:mangrove_propagule"
   },
-  "mana": 120,
+  "mana": 12000,
   "output": {
     "count": 1,
-    "id": "minecraft:oak_sapling"
+    "id": "minecraft:birch_sapling"
   }
 }

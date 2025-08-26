@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:gunpowder_and_flint_cycle",
+  "group": "botania:flower_cycle",
   "input": {
-    "item": "minecraft:flint"
+    "item": "minecraft:pink_petals"
   },
-  "mana": 200,
+  "mana": 400,
   "output": {
     "count": 1,
-    "id": "minecraft:gunpowder"
+    "id": "minecraft:sunflower"
   }
 }

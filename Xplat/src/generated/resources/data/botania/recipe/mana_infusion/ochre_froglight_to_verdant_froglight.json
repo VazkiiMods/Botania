@@ -8,7 +8,7 @@
   "input": {
     "item": "minecraft:ochre_froglight"
   },
-  "mana": 40,
+  "mana": 100,
   "output": {
     "count": 1,
     "id": "minecraft:verdant_froglight"

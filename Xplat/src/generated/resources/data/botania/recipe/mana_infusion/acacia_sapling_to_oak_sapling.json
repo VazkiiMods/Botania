@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:log_cycle",
+  "group": "botania:sapling_cycle",
   "input": {
-    "item": "minecraft:oak_log"
+    "item": "minecraft:acacia_sapling"
   },
-  "mana": 40,
+  "mana": 12000,
   "output": {
     "count": 1,
-    "id": "minecraft:spruce_log"
+    "id": "minecraft:oak_sapling"
   }
 }

@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:sapling_cycle",
+  "group": "botania:log_cycle",
   "input": {
-    "item": "minecraft:mangrove_propagule"
+    "item": "minecraft:birch_log"
   },
-  "mana": 120,
+  "mana": 40,
   "output": {
     "count": 1,
-    "id": "minecraft:cherry_sapling"
+    "id": "minecraft:cherry_log"
   }
 }
