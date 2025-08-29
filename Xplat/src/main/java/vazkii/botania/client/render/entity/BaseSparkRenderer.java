@@ -60,7 +60,8 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 		double time = (tEntity.level().getGameTime() % 24000) + partialTicks + new Random(tEntity.getId()).nextInt(200);
 		float a = 0.1F + (tEntity.isInvisible() ? 0 : 1) * 0.8F;
 
-		int alpha = (int) ((0.7 + 0.3 * (Math.sin(time / 5.0) + 0.5) * 2) * a * 255.0);
+		//Hiii :3! No just trying to get rid of that annoying flicker with the sparks so i can texture them! should look better without it! (hopefully)
+		int alpha = 255;
 		int iconColor = 0xFFFFFF | (alpha << 24);
 
 		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
