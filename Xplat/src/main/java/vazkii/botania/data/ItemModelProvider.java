@@ -18,6 +18,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.model.DelegatedModel;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplate;
@@ -27,9 +28,15 @@ import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.SignBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -414,6 +421,12 @@ public class ItemModelProvider implements DataProvider {
 					ModelTemplates.WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(i),
 							new TextureMapping().put(TextureSlot.WALL, botaniaRL("block/" + baseName)), consumer);
 				});
+		takeAll(itemBlocks, i -> i.getBlock() instanceof ButtonBlock).forEach(i -> {
+			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(ModelLocationUtils.getModelLocation(i.getBlock(), "_inventory")));
+		});
+		takeAll(itemBlocks, i -> i.getBlock() instanceof TrapDoorBlock).forEach(i -> {
+			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(ModelLocationUtils.getModelLocation(i.getBlock(), "_bottom")));
+		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof WallBlock).forEach(i -> {
 			String name = BuiltInRegistries.ITEM.getKey(i).getPath();
@@ -458,7 +471,11 @@ public class ItemModelProvider implements DataProvider {
 		takeAll(itemBlocks, BotaniaBlocks.teruTeruBozu.asItem())
 				.forEach(i -> builtinEntity(i, consumer, 2.5));
 
-		takeAll(itemBlocks, i -> i instanceof MysticalPetalItem).forEach(i -> {
+
+		Predicate<BlockItem> defaultGeneratedItem = i -> i instanceof MysticalPetalItem
+				|| i instanceof SignItem
+				|| i instanceof BlockItem b && b.getBlock() instanceof DoorBlock;
+		takeAll(itemBlocks, defaultGeneratedItem).forEach(i -> {
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(TextureMapping.getItemTexture(i)), consumer);
 		});
 

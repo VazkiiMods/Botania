@@ -162,6 +162,13 @@ public final class LibBlockNames {
 	public static final String WALL_SUFFIX = "_wall";
 	public static final String FENCE_SUFFIX = "_fence";
 	public static final String FENCE_GATE_SUFFIX = "_fence_gate";
+	public static final String DOOR_SUFFIX = "_door";
+	public static final String TRAPDOOR_SUFFIX = "_trapdoor";
+	public static final String BUTTON_SUFFIX = "_button";
+	public static final String PRESSURE_PLATE_SUFFIX = "_pressure_plate";
+	public static final String WALL_INFIX = "_wall";
+	public static final String SIGN_SUFFIX = "_sign";
+	public static final String HANGING_SIGN_SUFFIX = "_hanging_sign";
 	public static final String POTTED_PREFIX = "potted_";
 
 	public static final String SUBTILE_PUREDAISY = "pure_daisy";

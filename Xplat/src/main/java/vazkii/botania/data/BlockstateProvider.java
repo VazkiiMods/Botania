@@ -330,8 +330,21 @@ public class BlockstateProvider implements DataProvider {
 
 		fenceBlock(remainingBlocks, dreamwoodFence, getBlockTexture(dreamwoodPlanks));
 		fenceGateBlock(remainingBlocks, dreamwoodFenceGate, getBlockTexture(dreamwoodPlanks));
+		doorBlock(remainingBlocks, dreamwoodDoor);
+		orientableTrapdoorBlock(remainingBlocks, dreamwoodTrapdoor);
+		buttonBlock(remainingBlocks, dreamwoodButton, getBlockTexture(dreamwoodPlanks));
+		pressurePlateBlock(remainingBlocks, dreamwoodPressurePlate, getBlockTexture(dreamwoodPlanks));
+		sign(remainingBlocks, dreamwoodPlanks, dreamwoodSign, dreamwoodWallSign);
+		hangingSign(remainingBlocks, dreamwoodStripped, dreamwoodHangingSign, dreamwoodWallHangingSign);
+
 		fenceBlock(remainingBlocks, livingwoodFence, getBlockTexture(livingwoodPlanks));
 		fenceGateBlock(remainingBlocks, livingwoodFenceGate, getBlockTexture(livingwoodPlanks));
+		doorBlock(remainingBlocks, livingwoodDoor);
+		trapdoorBlock(remainingBlocks, livingwoodTrapdoor);
+		buttonBlock(remainingBlocks, livingwoodButton, getBlockTexture(livingwoodPlanks));
+		pressurePlateBlock(remainingBlocks, livingwoodPressurePlate, getBlockTexture(livingwoodPlanks));
+		sign(remainingBlocks, livingwoodPlanks, livingwoodSign, livingwoodWallSign);
+		hangingSign(remainingBlocks, livingwoodStripped, livingwoodHangingSign, livingwoodWallHangingSign);
 
 		rotatedMirrored(remainingBlocks, livingrock, getBlockTexture(livingrock));
 
@@ -1074,6 +1087,73 @@ public class BlockstateProvider implements DataProvider {
 		var closedWallModel = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(block, mapping, this.modelOutput);
 		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel, false));
 		blocks.remove(block);
+	}
+
+	protected void doorBlock(Set<Block> blocks, Block doorBlock) {
+		TextureMapping texturemapping = TextureMapping.door(doorBlock);
+		ResourceLocation bottomLeftModel = ModelTemplates.DOOR_BOTTOM_LEFT.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation bottomLeftOpenModel = ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation bottomRightModel = ModelTemplates.DOOR_BOTTOM_RIGHT.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation bottomRightOpenModel = ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation topLeftModel = ModelTemplates.DOOR_TOP_LEFT.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation topLeftOpenModel = ModelTemplates.DOOR_TOP_LEFT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation topRightModel = ModelTemplates.DOOR_TOP_RIGHT.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation topRightOpenModel = ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
+		this.blockstates.add(BlockModelGeneratorsAccessor.makeDoorState(doorBlock, bottomLeftModel, bottomLeftOpenModel, bottomRightModel, bottomRightOpenModel, topLeftModel, topLeftOpenModel, topRightModel, topRightOpenModel));
+		blocks.remove(doorBlock);
+	}
+
+	protected void trapdoorBlock(Set<Block> blocks, Block trapdoorBlock) {
+		TextureMapping texturemapping = TextureMapping.defaultTexture(trapdoorBlock);
+		ResourceLocation topModel = ModelTemplates.TRAPDOOR_TOP.create(trapdoorBlock, texturemapping, this.modelOutput);
+		ResourceLocation bottomModel = ModelTemplates.TRAPDOOR_BOTTOM.create(trapdoorBlock, texturemapping, this.modelOutput);
+		ResourceLocation openModel = ModelTemplates.TRAPDOOR_OPEN.create(trapdoorBlock, texturemapping, this.modelOutput);
+		this.blockstates.add(BlockModelGeneratorsAccessor.makeTrapdoorState(trapdoorBlock, topModel, bottomModel, openModel));
+		blocks.remove(trapdoorBlock);
+	}
+
+	protected void orientableTrapdoorBlock(Set<Block> blocks, Block trapdoorBlock) {
+		TextureMapping texturemapping = TextureMapping.defaultTexture(trapdoorBlock);
+		ResourceLocation topModel = ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.create(trapdoorBlock, texturemapping, this.modelOutput);
+		ResourceLocation bottomModel = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.create(trapdoorBlock, texturemapping, this.modelOutput);
+		ResourceLocation openModel = ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.create(trapdoorBlock, texturemapping, this.modelOutput);
+		this.blockstates.add(BlockModelGeneratorsAccessor.makeOrientableTrapdoorState(trapdoorBlock, topModel, bottomModel, openModel));
+		blocks.remove(trapdoorBlock);
+	}
+
+	protected void sign(Set<Block> blocks, Block particleBlock, Block signBlock, Block wallSignBlock) {
+		TextureMapping texturemapping = TextureMapping.particle(particleBlock);
+		ResourceLocation resourcelocation = ModelTemplates.PARTICLE_ONLY.create(signBlock, texturemapping, this.modelOutput);
+		singleVariantBlockState(signBlock, resourcelocation);
+		singleVariantBlockState(wallSignBlock, resourcelocation);
+		blocks.remove(signBlock);
+		blocks.remove(wallSignBlock);
+	}
+
+	protected void hangingSign(Set<Block> blocks, Block particleBlock, Block hangingSignBlock, Block wallHangingSignBlock) {
+		TextureMapping texturemapping = TextureMapping.particle(particleBlock);
+		ResourceLocation resourcelocation = ModelTemplates.PARTICLE_ONLY.create(hangingSignBlock, texturemapping, this.modelOutput);
+		singleVariantBlockState(hangingSignBlock, resourcelocation);
+		singleVariantBlockState(wallHangingSignBlock, resourcelocation);
+		blocks.remove(hangingSignBlock);
+		blocks.remove(wallHangingSignBlock);
+	}
+
+	protected void buttonBlock(Set<Block> blocks, Block buttonBlock, ResourceLocation blockTexture) {
+		TextureMapping texturemapping = TextureMapping.defaultTexture(blockTexture);
+		ResourceLocation unpoweredModel = ModelTemplates.BUTTON.create(buttonBlock, texturemapping, this.modelOutput);
+		ResourceLocation poweredModel = ModelTemplates.BUTTON_PRESSED.create(buttonBlock, texturemapping, this.modelOutput);
+		this.blockstates.add(BlockModelGeneratorsAccessor.makeButtonState(buttonBlock, unpoweredModel, poweredModel));
+		ModelTemplates.BUTTON_INVENTORY.create(buttonBlock, texturemapping, this.modelOutput);
+		blocks.remove(buttonBlock);
+	}
+
+	protected void pressurePlateBlock(Set<Block> blocks, Block pressurePlateBlock, ResourceLocation blockTexture) {
+		TextureMapping texturemapping = TextureMapping.defaultTexture(blockTexture);
+		ResourceLocation unpoweredModel = ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlateBlock, texturemapping, this.modelOutput);
+		ResourceLocation poweredModel = ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlateBlock, texturemapping, this.modelOutput);
+		this.blockstates.add(BlockModelGeneratorsAccessor.makePressurePlateState(pressurePlateBlock, unpoweredModel, poweredModel));
+		blocks.remove(pressurePlateBlock);
 	}
 
 	protected void cubeAllNoRemove(Block block) {

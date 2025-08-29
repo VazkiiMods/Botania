@@ -253,6 +253,11 @@ public class ForgeCommonInitializer {
 				BotaniaRegistries.BOTANIA_TAB_KEY.location()));
 	}
 
+	@SubscribeEvent
+	private void registerAdditionalBlockEntityBlocks(BlockEntityTypeAddBlocksEvent event) {
+		BotaniaBlockEntities.registerAdditionalBlocks(event::modify);
+	}
+
 	private static <T> void runRegistration(RegisterEvent event, ResourceKey<Registry<T>> registryKey, Consumer<Registry<T>> source) {
 		Registry<T> registry = event.getRegistry(registryKey);
 		if (registry != null) {

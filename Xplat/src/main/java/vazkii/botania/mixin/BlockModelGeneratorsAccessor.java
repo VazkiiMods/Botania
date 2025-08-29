@@ -35,6 +35,35 @@ public interface BlockModelGeneratorsAccessor {
 		throw new IllegalStateException();
 	}
 
+	@Invoker("createDoor")
+	static BlockStateGenerator makeDoorState(Block block,
+			ResourceLocation topLeftModelLocation, ResourceLocation topLeftOpenModelLocation,
+			ResourceLocation topRightModelLocation, ResourceLocation topRightOpenModelLocation,
+			ResourceLocation bottomLeftModelLocation, ResourceLocation bottomLeftOpenModelLocation,
+			ResourceLocation bottomRightModelLocation, ResourceLocation bottomRightOpenModelLocation) {
+		throw new IllegalStateException();
+	}
+
+	@Invoker("createTrapdoor")
+	static BlockStateGenerator makeTrapdoorState(Block block, ResourceLocation topModelLocation, ResourceLocation bottomModelLocation, ResourceLocation openModelLocation) {
+		throw new IllegalStateException();
+	}
+
+	@Invoker("createOrientableTrapdoor")
+	static BlockStateGenerator makeOrientableTrapdoorState(Block block, ResourceLocation topModelLocation, ResourceLocation bottomModelLocation, ResourceLocation openModelLocation) {
+		throw new IllegalStateException();
+	}
+
+	@Invoker("createButton")
+	static BlockStateGenerator makeButtonState(Block block, ResourceLocation unpoweredModel, ResourceLocation poweredModel) {
+		throw new IllegalStateException();
+	}
+
+	@Invoker("createPressurePlate")
+	static BlockStateGenerator makePressurePlateState(Block block, ResourceLocation unpoweredModel, ResourceLocation poweredModel) {
+		throw new IllegalStateException();
+	}
+
 	@Invoker("createAxisAlignedPillarBlock")
 	static BlockStateGenerator createAxisAlignedPillarBlock(Block block, ResourceLocation model) {
 		throw new IllegalStateException();

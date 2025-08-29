@@ -47,7 +47,7 @@ adaca5770638de00a54b51b571726f4734e24671 data/minecraft/tags/block/beacon_base_b
 44e1d962bc38de0ffe7cc943a3e631b5406b9e4f data/minecraft/tags/block/flowers.json
 6c0e30b59d2db092c64bc58b477e8432adf49698 data/minecraft/tags/block/impermeable.json
 6b553bb9832d565598020d5d025cb828c1918cdc data/minecraft/tags/block/logs_that_burn.json
-da8cc7d3d044a525a70555bc5a0e0ad98ea91790 data/minecraft/tags/block/mineable/axe.json
+a1c523c3dbef47232949ac00499fe4f081c57b7d data/minecraft/tags/block/mineable/axe.json
 615e0a6cac000af5aae7161c0b2e14d31dca597d data/minecraft/tags/block/mineable/hoe.json
 09e6e64b9508e0cdfaa5f560024775df203e4eb0 data/minecraft/tags/block/mineable/pickaxe.json
 d2fe1c8f82522fc048eff209bafb73f837946a82 data/minecraft/tags/block/mineable/shovel.json

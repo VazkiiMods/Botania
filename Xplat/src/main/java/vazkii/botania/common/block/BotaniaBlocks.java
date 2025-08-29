@@ -18,10 +18,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -556,6 +558,22 @@ public final class BotaniaBlocks {
 	public static final Block livingwoodPlankSlab = make(LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks)));
 	public static final Block livingwoodFence = make(LibBlockNames.LIVING_WOOD + FENCE_SUFFIX, new FenceBlock(BlockBehaviour.Properties.ofFullCopy(livingwood)));
 	public static final Block livingwoodFenceGate = make(LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX, new FenceGateBlock(BotaniaBlockSetTypes.LIVINGWOOD, BlockBehaviour.Properties.ofFullCopy(livingwood)));
+	public static final Block livingwoodDoor = make(LIVING_WOOD + DOOR_SUFFIX, new DoorBlock(BotaniaBlockSetTypes.LIVINGWOOD_BLOCK_SET,
+			BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks).noOcclusion().pushReaction(PushReaction.DESTROY)));
+	public static final Block livingwoodTrapdoor = make(LIVING_WOOD + TRAPDOOR_SUFFIX, new TrapDoorBlock(BotaniaBlockSetTypes.LIVINGWOOD_BLOCK_SET,
+			BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks).noOcclusion().isValidSpawn(NO_SPAWN)));
+	public static final Block livingwoodPressurePlate = make(LIVING_WOOD + PRESSURE_PLATE_SUFFIX, new PressurePlateBlock(BotaniaBlockSetTypes.LIVINGWOOD_BLOCK_SET,
+			BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks).noCollission().strength(0.5F).forceSolidOn().pushReaction(PushReaction.DESTROY)));
+	public static final Block livingwoodButton = make(LIVING_WOOD + BUTTON_SUFFIX, new ButtonBlock(BotaniaBlockSetTypes.LIVINGWOOD_BLOCK_SET, 30,
+			BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
+	public static final Block livingwoodSign = make(LIVING_WOOD + SIGN_SUFFIX, new StandingSignBlock(BotaniaBlockSetTypes.LIVINGWOOD,
+			BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks).noCollission().strength(1.0f).forceSolidOn()));
+	public static final Block livingwoodWallSign = make(LIVING_WOOD + WALL_INFIX + SIGN_SUFFIX, new WallSignBlock(BotaniaBlockSetTypes.LIVINGWOOD,
+			BlockBehaviour.Properties.ofFullCopy(livingwoodSign)));
+	public static final Block livingwoodHangingSign = make(LIVING_WOOD + HANGING_SIGN_SUFFIX, new CeilingHangingSignBlock(BotaniaBlockSetTypes.LIVINGWOOD,
+			BlockBehaviour.Properties.ofFullCopy(livingwoodSign)));
+	public static final Block livingwoodWallHangingSign = make(LIVING_WOOD + WALL_INFIX + HANGING_SIGN_SUFFIX, new WallHangingSignBlock(BotaniaBlockSetTypes.LIVINGWOOD,
+			BlockBehaviour.Properties.ofFullCopy(livingwoodSign)));
 	public static final Block livingwoodPlanksMossy = make(LibBlockNames.LIVING_WOOD_PLANKS_MOSSY, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks)));
 	public static final Block livingwoodFramed = make(LibBlockNames.LIVING_WOOD_FRAMED, new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks)));
 	public static final Block livingwoodPatternFramed = make(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(livingwoodPlanks)));
@@ -577,8 +595,24 @@ public final class BotaniaBlocks {
 	public static final Block dreamwoodPlanks = make(LibBlockNames.DREAM_WOOD_PLANKS, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodLog)));
 	public static final Block dreamwoodPlankStairs = make(LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX, new StairBlock(dreamwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 	public static final Block dreamwoodPlankSlab = make(LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
-	public static final Block dreamwoodFence = make(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX, new FenceBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood)));
-	public static final Block dreamwoodFenceGate = make(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX, new FenceGateBlock(BotaniaBlockSetTypes.DREAMWOOD, BlockBehaviour.Properties.ofFullCopy(dreamwood)));
+	public static final Block dreamwoodFence = make(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX, new FenceBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
+	public static final Block dreamwoodFenceGate = make(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX, new FenceGateBlock(BotaniaBlockSetTypes.DREAMWOOD, BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
+	public static final Block dreamwoodDoor = make(DREAM_WOOD + DOOR_SUFFIX, new DoorBlock(BotaniaBlockSetTypes.DREAMWOOD_BLOCK_SET,
+			BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks).noOcclusion().pushReaction(PushReaction.DESTROY)));
+	public static final Block dreamwoodTrapdoor = make(DREAM_WOOD + TRAPDOOR_SUFFIX, new TrapDoorBlock(BotaniaBlockSetTypes.DREAMWOOD_BLOCK_SET,
+			BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks).noOcclusion().isValidSpawn(NO_SPAWN)));
+	public static final Block dreamwoodPressurePlate = make(DREAM_WOOD + PRESSURE_PLATE_SUFFIX, new PressurePlateBlock(BotaniaBlockSetTypes.DREAMWOOD_BLOCK_SET,
+			BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks).noCollission().strength(0.5F).forceSolidOn().pushReaction(PushReaction.DESTROY)));
+	public static final Block dreamwoodButton = make(DREAM_WOOD + BUTTON_SUFFIX, new ButtonBlock(BotaniaBlockSetTypes.DREAMWOOD_BLOCK_SET, 30,
+			BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
+	public static final Block dreamwoodSign = make(DREAM_WOOD + SIGN_SUFFIX, new StandingSignBlock(BotaniaBlockSetTypes.DREAMWOOD,
+			BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks).noCollission().strength(1.0f).forceSolidOn()));
+	public static final Block dreamwoodWallSign = make(DREAM_WOOD + WALL_INFIX + SIGN_SUFFIX, new WallSignBlock(BotaniaBlockSetTypes.DREAMWOOD,
+			BlockBehaviour.Properties.ofFullCopy(dreamwoodSign)));
+	public static final Block dreamwoodHangingSign = make(DREAM_WOOD + HANGING_SIGN_SUFFIX, new CeilingHangingSignBlock(BotaniaBlockSetTypes.DREAMWOOD,
+			BlockBehaviour.Properties.ofFullCopy(dreamwoodSign)));
+	public static final Block dreamwoodWallHangingSign = make(DREAM_WOOD + WALL_INFIX + HANGING_SIGN_SUFFIX, new WallHangingSignBlock(BotaniaBlockSetTypes.DREAMWOOD,
+			BlockBehaviour.Properties.ofFullCopy(dreamwoodSign)));
 	public static final Block dreamwoodPlanksMossy = make(LibBlockNames.DREAM_WOOD_PLANKS_MOSSY, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 	public static final Block dreamwoodFramed = make(LibBlockNames.DREAM_WOOD_FRAMED, new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 	public static final Block dreamwoodPatternFramed = make(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
@@ -1171,6 +1205,14 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(livingwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(livingwoodPlankSlab));
 		r.accept(new BlockItem(livingwoodFence, props), BuiltInRegistries.BLOCK.getKey(livingwoodFence));
 		r.accept(new BlockItem(livingwoodFenceGate, props), BuiltInRegistries.BLOCK.getKey(livingwoodFenceGate));
+		r.accept(new BlockItem(livingwoodDoor, props), BuiltInRegistries.BLOCK.getKey(livingwoodDoor));
+		r.accept(new BlockItem(livingwoodTrapdoor, props), BuiltInRegistries.BLOCK.getKey(livingwoodTrapdoor));
+		r.accept(new BlockItem(livingwoodPressurePlate, props), BuiltInRegistries.BLOCK.getKey(livingwoodPressurePlate));
+		r.accept(new BlockItem(livingwoodButton, props), BuiltInRegistries.BLOCK.getKey(livingwoodButton));
+		r.accept(new SignItem(BotaniaItems.defaultBuilder().stacksTo(16), BotaniaBlocks.livingwoodSign,
+				BotaniaBlocks.livingwoodWallSign), BuiltInRegistries.BLOCK.getKey(livingwoodSign));
+		r.accept(new HangingSignItem(BotaniaBlocks.livingwoodHangingSign, BotaniaBlocks.livingwoodWallHangingSign,
+				BotaniaItems.defaultBuilder().stacksTo(16)), BuiltInRegistries.BLOCK.getKey(livingwoodHangingSign));
 		r.accept(new BlockItem(livingwoodPlanksMossy, props), BuiltInRegistries.BLOCK.getKey(livingwoodPlanksMossy));
 		r.accept(new BlockItem(livingwoodFramed, props), BuiltInRegistries.BLOCK.getKey(livingwoodFramed));
 		r.accept(new BlockItem(livingwoodPatternFramed, props), BuiltInRegistries.BLOCK.getKey(livingwoodPatternFramed));
@@ -1194,6 +1236,14 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(dreamwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPlankSlab));
 		r.accept(new BlockItem(dreamwoodFence, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFence));
 		r.accept(new BlockItem(dreamwoodFenceGate, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFenceGate));
+		r.accept(new BlockItem(dreamwoodDoor, props), BuiltInRegistries.BLOCK.getKey(dreamwoodDoor));
+		r.accept(new BlockItem(dreamwoodTrapdoor, props), BuiltInRegistries.BLOCK.getKey(dreamwoodTrapdoor));
+		r.accept(new BlockItem(dreamwoodPressurePlate, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPressurePlate));
+		r.accept(new BlockItem(dreamwoodButton, props), BuiltInRegistries.BLOCK.getKey(dreamwoodButton));
+		r.accept(new SignItem(BotaniaItems.defaultBuilder().stacksTo(16), BotaniaBlocks.dreamwoodSign,
+				BotaniaBlocks.dreamwoodWallSign), BuiltInRegistries.BLOCK.getKey(dreamwoodSign));
+		r.accept(new HangingSignItem(BotaniaBlocks.dreamwoodHangingSign, BotaniaBlocks.dreamwoodWallHangingSign,
+				BotaniaItems.defaultBuilder().stacksTo(16)), BuiltInRegistries.BLOCK.getKey(dreamwoodHangingSign));
 		r.accept(new BlockItem(dreamwoodPlanksMossy, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPlanksMossy));
 		r.accept(new BlockItem(dreamwoodFramed, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFramed));
 		r.accept(new BlockItem(dreamwoodPatternFramed, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPatternFramed));

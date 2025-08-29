@@ -43,6 +43,7 @@ import static vazkii.botania.common.block.BotaniaBlocks.*;
 
 public class BotaniaBlockEntities {
 	private static final Map<ResourceLocation, BlockEntityType<?>> ALL = new HashMap<>();
+	private static final Map<Block, BlockEntityType<?>> ADD_TO_EXISTING = new HashMap<>();
 	public static final BlockEntityType<PetalApothecaryBlockEntity> ALTAR = type(LibBlockNames.ALTAR, PetalApothecaryBlockEntity::new,
 			defaultAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar,
 			swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar,
@@ -151,6 +152,17 @@ public class BotaniaBlockEntities {
 	public static final BlockEntityType<SolegnoliaBlockEntity.Mini> SOLEGNOLIA_CHIBI = type(getId(solegnoliaChibi), SolegnoliaBlockEntity.Mini::new, solegnoliaChibi, solegnoliaChibiFloating);
 	public static final BlockEntityType<OrechidIgnemBlockEntity> ORECHID_IGNEM = type(getId(orechidIgnem), OrechidIgnemBlockEntity::new, orechidIgnem, orechidIgnemFloating);
 
+	static {
+		ADD_TO_EXISTING.put(livingwoodSign, BlockEntityType.SIGN);
+		ADD_TO_EXISTING.put(livingwoodWallSign, BlockEntityType.SIGN);
+		ADD_TO_EXISTING.put(dreamwoodSign, BlockEntityType.SIGN);
+		ADD_TO_EXISTING.put(dreamwoodWallSign, BlockEntityType.SIGN);
+		ADD_TO_EXISTING.put(livingwoodHangingSign, BlockEntityType.HANGING_SIGN);
+		ADD_TO_EXISTING.put(livingwoodWallHangingSign, BlockEntityType.HANGING_SIGN);
+		ADD_TO_EXISTING.put(dreamwoodHangingSign, BlockEntityType.HANGING_SIGN);
+		ADD_TO_EXISTING.put(dreamwoodWallHangingSign, BlockEntityType.HANGING_SIGN);
+	}
+
 	private static <T extends BlockEntity> BlockEntityType<T> type(String id, BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
 		return type(botaniaRL(id), func, blocks);
 	}
@@ -171,6 +183,12 @@ public class BotaniaBlockEntities {
 	public static void registerTiles(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {
 		for (var e : ALL.entrySet()) {
 			r.accept(e.getValue(), e.getKey());
+		}
+	}
+
+	public static void registerAdditionalBlocks(BiConsumer<BlockEntityType<?>, Block> consumer) {
+		for (var e : ADD_TO_EXISTING.entrySet()) {
+			consumer.accept(e.getValue(), e.getKey());
 		}
 	}
 

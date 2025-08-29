@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_right",
+  "textures": {
+    "bottom": "botania:block/dreamwood_door_bottom",
+    "top": "botania:block/dreamwood_door_top"
+  }
+}
