@@ -69,6 +69,13 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
+		this.copy(BlockTags.FENCE_GATES, ItemTags.FENCE_GATES);
+		this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
+		this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
+		this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
+		this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
+		this.copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
+		this.copy(BlockTags.CEILING_HANGING_SIGNS, ItemTags.HANGING_SIGNS);
 
 		this.copy(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS, BotaniaTags.Items.MUNDANE_FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.SPECIAL_FLOATING_FLOWERS);

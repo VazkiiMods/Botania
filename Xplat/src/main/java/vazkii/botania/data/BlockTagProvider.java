@@ -18,10 +18,14 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.WallHangingSignBlock;
+import net.minecraft.world.level.block.WallSignBlock;
 
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
@@ -74,6 +78,14 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
 		tag(BlockTags.WOODEN_FENCES).add(BotaniaBlocks.livingwoodFence, BotaniaBlocks.dreamwoodFence);
 		tag(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
+		tag(BlockTags.STANDING_SIGNS).add(getModBlocks(b -> b instanceof StandingSignBlock));
+		tag(BlockTags.WALL_SIGNS).add(getModBlocks(b -> b instanceof WallSignBlock));
+		tag(BlockTags.CEILING_HANGING_SIGNS).add(getModBlocks(b -> b instanceof CeilingHangingSignBlock));
+		tag(BlockTags.WALL_HANGING_SIGNS).add(getModBlocks(b -> b instanceof WallHangingSignBlock));
+		tag(BlockTags.WOODEN_BUTTONS).add(livingwoodButton, dreamwoodButton);
+		tag(BlockTags.WOODEN_PRESSURE_PLATES).add(livingwoodPressurePlate, dreamwoodPressurePlate);
+		tag(BlockTags.WOODEN_DOORS).add(livingwoodDoor, dreamwoodDoor);
+		tag(BlockTags.WOODEN_TRAPDOORS).add(livingwoodTrapdoor, dreamwoodTrapdoor);
 		tag(BlockTags.DRAGON_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 		tag(BlockTags.WITHER_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 

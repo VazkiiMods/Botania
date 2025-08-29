@@ -335,7 +335,7 @@ public class BlockstateProvider implements DataProvider {
 		buttonBlock(remainingBlocks, dreamwoodButton, getBlockTexture(dreamwoodPlanks));
 		pressurePlateBlock(remainingBlocks, dreamwoodPressurePlate, getBlockTexture(dreamwoodPlanks));
 		sign(remainingBlocks, dreamwoodPlanks, dreamwoodSign, dreamwoodWallSign);
-		hangingSign(remainingBlocks, dreamwoodStripped, dreamwoodHangingSign, dreamwoodWallHangingSign);
+		hangingSign(remainingBlocks, dreamwoodLogStripped, dreamwoodHangingSign, dreamwoodWallHangingSign);
 
 		fenceBlock(remainingBlocks, livingwoodFence, getBlockTexture(livingwoodPlanks));
 		fenceGateBlock(remainingBlocks, livingwoodFenceGate, getBlockTexture(livingwoodPlanks));
@@ -344,7 +344,7 @@ public class BlockstateProvider implements DataProvider {
 		buttonBlock(remainingBlocks, livingwoodButton, getBlockTexture(livingwoodPlanks));
 		pressurePlateBlock(remainingBlocks, livingwoodPressurePlate, getBlockTexture(livingwoodPlanks));
 		sign(remainingBlocks, livingwoodPlanks, livingwoodSign, livingwoodWallSign);
-		hangingSign(remainingBlocks, livingwoodStripped, livingwoodHangingSign, livingwoodWallHangingSign);
+		hangingSign(remainingBlocks, livingwoodLogStripped, livingwoodHangingSign, livingwoodWallHangingSign);
 
 		rotatedMirrored(remainingBlocks, livingrock, getBlockTexture(livingrock));
 

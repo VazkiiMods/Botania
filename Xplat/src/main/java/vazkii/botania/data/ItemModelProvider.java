@@ -18,7 +18,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.model.DelegatedModel;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplate;
@@ -34,8 +33,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
-import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 
@@ -470,7 +467,6 @@ public class ItemModelProvider implements DataProvider {
 
 		takeAll(itemBlocks, BotaniaBlocks.teruTeruBozu.asItem())
 				.forEach(i -> builtinEntity(i, consumer, 2.5));
-
 
 		Predicate<BlockItem> defaultGeneratedItem = i -> i instanceof MysticalPetalItem
 				|| i instanceof SignItem
