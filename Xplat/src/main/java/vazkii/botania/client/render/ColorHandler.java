@@ -32,7 +32,6 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.item.*;
@@ -90,14 +89,6 @@ public final class ColorHandler {
 					return Mth.hsvToRgb(time * 5 % 360 / 360F, 0.4F, 0.9F);
 				},
 				BotaniaBlocks.gaiaSpreader
-		);
-
-		// Petal Block
-		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? MysticalPetalItem.getPetalLikeColor(((PetalBlock) state.getBlock()).color) : -1,
-				BotaniaBlocks.petalBlockWhite, BotaniaBlocks.petalBlockOrange, BotaniaBlocks.petalBlockMagenta, BotaniaBlocks.petalBlockLightBlue,
-				BotaniaBlocks.petalBlockYellow, BotaniaBlocks.petalBlockLime, BotaniaBlocks.petalBlockPink, BotaniaBlocks.petalBlockGray,
-				BotaniaBlocks.petalBlockSilver, BotaniaBlocks.petalBlockCyan, BotaniaBlocks.petalBlockPurple, BotaniaBlocks.petalBlockBlue,
-				BotaniaBlocks.petalBlockBrown, BotaniaBlocks.petalBlockGreen, BotaniaBlocks.petalBlockRed, BotaniaBlocks.petalBlockBlack
 		);
 
 		// Platforms

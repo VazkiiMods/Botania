@@ -33,7 +33,6 @@ import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.block.decor.BuriedPetalBlock;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.decor.FlowerMotifBlock;
-import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -514,10 +513,6 @@ public class BlockstateProvider implements DataProvider {
 							.select(true, Variant.variant().with(VariantProperties.MODEL, onModel))
 			));
 		});
-
-		var petalBlockModel = new ModelTemplate(Optional.of(botaniaRL("block/shapes/cube_all_tinted")), Optional.empty(), TextureSlot.ALL)
-				.create(botaniaRL("block/petal_block"), new TextureMapping().put(TextureSlot.ALL, botaniaRL("block/petal_block")), this.modelOutput);
-		takeAll(remainingBlocks, b -> b instanceof PetalBlock).forEach(b -> singleVariantBlockState(b, petalBlockModel));
 
 		takeAll(remainingBlocks, b -> b instanceof BotaniaGrassBlock).forEach(b -> {
 			var model = ModelTemplates.CUBE_BOTTOM_TOP.create(b, new TextureMapping()

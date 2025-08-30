@@ -41,7 +41,6 @@ import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.decor.FlowerMotifBlock;
-import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.item.BottledManaItem;
@@ -362,10 +361,6 @@ public class ItemModelProvider implements DataProvider {
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof BotaniaDoubleFlowerBlock).forEach(i -> {
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(TextureMapping.getBlockTexture(i.getBlock(), "_top")), consumer);
-		});
-
-		takeAll(itemBlocks, i -> i.getBlock() instanceof PetalBlock).forEach(i -> {
-			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(botaniaRL("block/petal_block")));
 		});
 
 		takeAll(itemBlocks, BotaniaBlocks.livingwoodFramed.asItem(), BotaniaBlocks.dreamwoodFramed.asItem()).forEach(i -> {

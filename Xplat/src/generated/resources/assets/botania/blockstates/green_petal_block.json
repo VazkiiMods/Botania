@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "botania:block/petal_block"
+      "model": "botania:block/green_petal_block"
     }
   }
 }
