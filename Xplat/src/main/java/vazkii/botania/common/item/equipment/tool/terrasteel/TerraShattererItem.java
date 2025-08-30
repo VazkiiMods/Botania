@@ -20,11 +20,14 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -98,15 +101,35 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (player.isSecondaryUseActive() && hand == InteractionHand.MAIN_HAND && getLevel(stack) != 0) {
-			setEnabled(stack, !isEnabled(stack));
-			if (!level.isClientSide) {
-				level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode,
-						SoundSource.PLAYERS, 1F, 1F);
-			}
-			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+		int tier = getLevel(stack);
+		if (!player.isSecondaryUseActive() || tier == 0) {
+			return InteractionResultHolder.pass(stack);
 		}
-		return InteractionResultHolder.pass(stack);
+		if (hand == InteractionHand.MAIN_HAND && !player.getOffhandItem().isEmpty()) {
+			BlockHitResult blockhitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
+
+			if (blockhitresult.getType() == HitResult.Type.BLOCK) {
+				return InteractionResultHolder.pass(stack);
+			}
+		}
+		setEnabled(stack, !isEnabled(stack));
+		if (!level.isClientSide) {
+			level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
+		}
+		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+	}
+
+	@Override
+	public InteractionResult useOn(UseOnContext ctx) {
+		Player player = ctx.getPlayer();
+		if (player == null) {
+			return super.useOn(ctx);
+		} else if (ctx.getHand() == InteractionHand.MAIN_HAND && !player.getOffhandItem().isEmpty()) {
+			return InteractionResult.PASS;
+		}
+		return !player.isSecondaryUseActive() || getLevel(ctx.getItemInHand()) == 0
+				? super.useOn(ctx)
+				: InteractionResult.PASS;
 	}
 
 	@Override
