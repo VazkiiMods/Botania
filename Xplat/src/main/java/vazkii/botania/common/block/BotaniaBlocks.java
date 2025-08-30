@@ -780,43 +780,71 @@ public final class BotaniaBlocks {
 	public static final Block darkQuartzStairs = make(QUARTZ_DARK + STAIR_SUFFIX, new StairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(darkQuartz)));
 	public static final Block darkQuartzSlab = make(QUARTZ_DARK + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz)));
 	public static final Block darkQuartzChiseled = make("chiseled_" + QUARTZ_DARK, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz)));
+	public static final Block darkQuartzBricks = make(QUARTZ_DARK + "_bricks", new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz)));
 	public static final Block darkQuartzPillar = make(QUARTZ_DARK + "_pillar", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz)));
+	public static final Block darkSmoothQuartz = make(SMOOTH_PREFIX + QUARTZ_DARK, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ).mapColor(MapColor.COLOR_BLACK)));
+	public static final Block darkSmoothQuartzStairs = make(SMOOTH_PREFIX + QUARTZ_DARK + STAIR_SUFFIX, new StairBlock(darkSmoothQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(darkSmoothQuartz)));
+	public static final Block darkSmoothQuartzSlab = make(SMOOTH_PREFIX + QUARTZ_DARK + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(darkSmoothQuartz)));
 
-	public static final Block manaQuartz = make(QUARTZ_MANA, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.DIAMOND)));
+	public static final Block manaQuartz = make(QUARTZ_MANA, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.DIAMOND)));
 	public static final Block manaQuartzStairs = make(QUARTZ_MANA + STAIR_SUFFIX, new StairBlock(manaQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(darkQuartz)));
 	public static final Block manaQuartzSlab = make(QUARTZ_MANA + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(manaQuartz)));
 	public static final Block manaQuartzChiseled = make("chiseled_" + QUARTZ_MANA, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(manaQuartz)));
+	public static final Block manaQuartzBricks = make(QUARTZ_MANA + "_bricks", new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(manaQuartz)));
 	public static final Block manaQuartzPillar = make(QUARTZ_MANA + "_pillar", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(manaQuartz)));
+	public static final Block manaSmoothQuartz = make(SMOOTH_PREFIX + QUARTZ_MANA, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ).mapColor(MapColor.DIAMOND)));
+	public static final Block manaSmoothQuartzStairs = make(SMOOTH_PREFIX + QUARTZ_MANA + STAIR_SUFFIX, new StairBlock(manaSmoothQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(manaSmoothQuartz)));
+	public static final Block manaSmoothQuartzSlab = make(SMOOTH_PREFIX + QUARTZ_MANA + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(manaSmoothQuartz)));
 
-	public static final Block blazeQuartz = make(QUARTZ_BLAZE, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.SAND)));
+	public static final Block blazeQuartz = make(QUARTZ_BLAZE, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.SAND)));
 	public static final Block blazeQuartzStairs = make(QUARTZ_BLAZE + STAIR_SUFFIX, new StairBlock(blazeQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(blazeQuartz)));
 	public static final Block blazeQuartzSlab = make(QUARTZ_BLAZE + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(blazeQuartz)));
 	public static final Block blazeQuartzChiseled = make("chiseled_" + QUARTZ_BLAZE, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(blazeQuartz)));
+	public static final Block blazeQuartzBricks = make(QUARTZ_BLAZE + "_bricks", new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(blazeQuartz)));
 	public static final Block blazeQuartzPillar = make(QUARTZ_BLAZE + "_pillar", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(blazeQuartz)));
+	public static final Block blazeSmoothQuartz = make(SMOOTH_PREFIX + QUARTZ_BLAZE, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ).mapColor(MapColor.SAND)));
+	public static final Block blazeSmoothQuartzStairs = make(SMOOTH_PREFIX + QUARTZ_BLAZE + STAIR_SUFFIX, new StairBlock(blazeSmoothQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(blazeSmoothQuartz)));
+	public static final Block blazeSmoothQuartzSlab = make(SMOOTH_PREFIX + QUARTZ_BLAZE + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(blazeSmoothQuartz)));
 
-	public static final Block lavenderQuartz = make(QUARTZ_LAVENDER, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.COLOR_PINK)));
+	public static final Block lavenderQuartz = make(QUARTZ_LAVENDER, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_PINK)));
 	public static final Block lavenderQuartzStairs = make(QUARTZ_LAVENDER + STAIR_SUFFIX, new StairBlock(lavenderQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(lavenderQuartz)));
 	public static final Block lavenderQuartzSlab = make(QUARTZ_LAVENDER + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(lavenderQuartz)));
 	public static final Block lavenderQuartzChiseled = make("chiseled_" + QUARTZ_LAVENDER, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(lavenderQuartz)));
+	public static final Block lavenderQuartzBricks = make(QUARTZ_LAVENDER + "_bricks", new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(lavenderQuartz)));
 	public static final Block lavenderQuartzPillar = make(QUARTZ_LAVENDER + "_pillar", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(lavenderQuartz)));
+	public static final Block lavenderSmoothQuartz = make(SMOOTH_PREFIX + QUARTZ_LAVENDER, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ).mapColor(MapColor.COLOR_PINK)));
+	public static final Block lavenderSmoothQuartzStairs = make(SMOOTH_PREFIX + QUARTZ_LAVENDER + STAIR_SUFFIX, new StairBlock(lavenderSmoothQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(lavenderSmoothQuartz)));
+	public static final Block lavenderSmoothQuartzSlab = make(SMOOTH_PREFIX + QUARTZ_LAVENDER + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(lavenderSmoothQuartz)));
 
-	public static final Block redQuartz = make(QUARTZ_RED, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.TERRACOTTA_WHITE)));
+	public static final Block redQuartz = make(QUARTZ_RED, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.TERRACOTTA_WHITE)));
 	public static final Block redQuartzStairs = make(QUARTZ_RED + STAIR_SUFFIX, new StairBlock(redQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(redQuartz)));
 	public static final Block redQuartzSlab = make(QUARTZ_RED + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(redQuartz)));
 	public static final Block redQuartzChiseled = make("chiseled_" + QUARTZ_RED, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(redQuartz)));
+	public static final Block redQuartzBricks = make(QUARTZ_RED + "_bricks", new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(redQuartz)));
 	public static final Block redQuartzPillar = make(QUARTZ_RED + "_pillar", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(redQuartz)));
+	public static final Block redSmoothQuartz = make(SMOOTH_PREFIX + QUARTZ_RED, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ).mapColor(MapColor.TERRACOTTA_WHITE)));
+	public static final Block redSmoothQuartzStairs = make(SMOOTH_PREFIX + QUARTZ_RED + STAIR_SUFFIX, new StairBlock(redSmoothQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(redSmoothQuartz)));
+	public static final Block redSmoothQuartzSlab = make(SMOOTH_PREFIX + QUARTZ_RED + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(redSmoothQuartz)));
 
-	public static final Block elfQuartz = make(QUARTZ_ELF, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.COLOR_LIGHT_GREEN)));
+	public static final Block elfQuartz = make(QUARTZ_ELF, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_LIGHT_GREEN)));
 	public static final Block elfQuartzStairs = make(QUARTZ_ELF + STAIR_SUFFIX, new StairBlock(elfQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(elfQuartz)));
 	public static final Block elfQuartzSlab = make(QUARTZ_ELF + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(elfQuartz)));
 	public static final Block elfQuartzChiseled = make("chiseled_" + QUARTZ_ELF, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(elfQuartz)));
+	public static final Block elfQuartzBricks = make(QUARTZ_ELF + "_bricks", new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(elfQuartz)));
 	public static final Block elfQuartzPillar = make(QUARTZ_ELF + "_pillar", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(elfQuartz)));
+	public static final Block elfSmoothQuartz = make(SMOOTH_PREFIX + QUARTZ_ELF, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ).mapColor(MapColor.COLOR_LIGHT_GREEN)));
+	public static final Block elfSmoothQuartzStairs = make(SMOOTH_PREFIX + QUARTZ_ELF + STAIR_SUFFIX, new StairBlock(elfSmoothQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(elfSmoothQuartz)));
+	public static final Block elfSmoothQuartzSlab = make(SMOOTH_PREFIX + QUARTZ_ELF + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(elfSmoothQuartz)));
 
-	public static final Block sunnyQuartz = make(QUARTZ_SUNNY, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(darkQuartz).mapColor(MapColor.COLOR_YELLOW)));
+	public static final Block sunnyQuartz = make(QUARTZ_SUNNY, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK).mapColor(MapColor.COLOR_YELLOW)));
 	public static final Block sunnyQuartzStairs = make(QUARTZ_SUNNY + STAIR_SUFFIX, new StairBlock(sunnyQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(sunnyQuartz)));
 	public static final Block sunnyQuartzSlab = make(QUARTZ_SUNNY + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(sunnyQuartz)));
 	public static final Block sunnyQuartzChiseled = make("chiseled_" + QUARTZ_SUNNY, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(sunnyQuartz)));
+	public static final Block sunnyQuartzBricks = make(QUARTZ_SUNNY + "_bricks", new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(sunnyQuartz)));
 	public static final Block sunnyQuartzPillar = make(QUARTZ_SUNNY + "_pillar", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(sunnyQuartz)));
+	public static final Block sunnySmoothQuartz = make(SMOOTH_PREFIX + QUARTZ_SUNNY, new BotaniaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ).mapColor(MapColor.COLOR_YELLOW)));
+	public static final Block sunnySmoothQuartzStairs = make(SMOOTH_PREFIX + QUARTZ_SUNNY + STAIR_SUFFIX, new StairBlock(sunnySmoothQuartz.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(sunnySmoothQuartz)));
+	public static final Block sunnySmoothQuartzSlab = make(SMOOTH_PREFIX + QUARTZ_SUNNY + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(sunnySmoothQuartz)));
 
 	public static final Block biomeStoneForest = make(METAMORPHIC_PREFIX + "forest_stone", new BotaniaBlock(BlockBehaviour.Properties.of().strength(1.5F, 10)
 			.sound(SoundType.TUFF).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().mapColor(MapColor.WARPED_NYLIUM)));
@@ -1373,43 +1401,71 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(darkQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(darkQuartzStairs));
 		r.accept(new BlockItem(darkQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(darkQuartzSlab));
 		r.accept(new BlockItem(darkQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(darkQuartzChiseled));
+		r.accept(new BlockItem(darkQuartzBricks, props), BuiltInRegistries.BLOCK.getKey(darkQuartzBricks));
 		r.accept(new BlockItem(darkQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(darkQuartzPillar));
+		r.accept(new BlockItem(darkSmoothQuartz, props), BuiltInRegistries.BLOCK.getKey(darkSmoothQuartz));
+		r.accept(new BlockItem(darkSmoothQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(darkSmoothQuartzStairs));
+		r.accept(new BlockItem(darkSmoothQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(darkSmoothQuartzSlab));
 
 		r.accept(new BlockItem(manaQuartz, props), BuiltInRegistries.BLOCK.getKey(manaQuartz));
 		r.accept(new BlockItem(manaQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(manaQuartzStairs));
 		r.accept(new BlockItem(manaQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(manaQuartzSlab));
 		r.accept(new BlockItem(manaQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(manaQuartzChiseled));
+		r.accept(new BlockItem(manaQuartzBricks, props), BuiltInRegistries.BLOCK.getKey(manaQuartzBricks));
 		r.accept(new BlockItem(manaQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(manaQuartzPillar));
+		r.accept(new BlockItem(manaSmoothQuartz, props), BuiltInRegistries.BLOCK.getKey(manaSmoothQuartz));
+		r.accept(new BlockItem(manaSmoothQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(manaSmoothQuartzStairs));
+		r.accept(new BlockItem(manaSmoothQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(manaSmoothQuartzSlab));
 
 		r.accept(new BlockItem(blazeQuartz, props), BuiltInRegistries.BLOCK.getKey(blazeQuartz));
 		r.accept(new BlockItem(blazeQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzStairs));
 		r.accept(new BlockItem(blazeQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzSlab));
 		r.accept(new BlockItem(blazeQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzChiseled));
+		r.accept(new BlockItem(blazeQuartzBricks, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzBricks));
 		r.accept(new BlockItem(blazeQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(blazeQuartzPillar));
+		r.accept(new BlockItem(blazeSmoothQuartz, props), BuiltInRegistries.BLOCK.getKey(blazeSmoothQuartz));
+		r.accept(new BlockItem(blazeSmoothQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(blazeSmoothQuartzStairs));
+		r.accept(new BlockItem(blazeSmoothQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(blazeSmoothQuartzSlab));
 
 		r.accept(new BlockItem(lavenderQuartz, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartz));
 		r.accept(new BlockItem(lavenderQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzStairs));
 		r.accept(new BlockItem(lavenderQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzSlab));
 		r.accept(new BlockItem(lavenderQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzChiseled));
+		r.accept(new BlockItem(lavenderQuartzBricks, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzBricks));
 		r.accept(new BlockItem(lavenderQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(lavenderQuartzPillar));
+		r.accept(new BlockItem(lavenderSmoothQuartz, props), BuiltInRegistries.BLOCK.getKey(lavenderSmoothQuartz));
+		r.accept(new BlockItem(lavenderSmoothQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(lavenderSmoothQuartzStairs));
+		r.accept(new BlockItem(lavenderSmoothQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(lavenderSmoothQuartzSlab));
 
 		r.accept(new BlockItem(redQuartz, props), BuiltInRegistries.BLOCK.getKey(redQuartz));
 		r.accept(new BlockItem(redQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(redQuartzStairs));
 		r.accept(new BlockItem(redQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(redQuartzSlab));
 		r.accept(new BlockItem(redQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(redQuartzChiseled));
+		r.accept(new BlockItem(redQuartzBricks, props), BuiltInRegistries.BLOCK.getKey(redQuartzBricks));
 		r.accept(new BlockItem(redQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(redQuartzPillar));
+		r.accept(new BlockItem(redSmoothQuartz, props), BuiltInRegistries.BLOCK.getKey(redSmoothQuartz));
+		r.accept(new BlockItem(redSmoothQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(redSmoothQuartzStairs));
+		r.accept(new BlockItem(redSmoothQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(redSmoothQuartzSlab));
 
 		r.accept(new BlockItem(elfQuartz, props), BuiltInRegistries.BLOCK.getKey(elfQuartz));
 		r.accept(new BlockItem(elfQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(elfQuartzStairs));
 		r.accept(new BlockItem(elfQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(elfQuartzSlab));
 		r.accept(new BlockItem(elfQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(elfQuartzChiseled));
+		r.accept(new BlockItem(elfQuartzBricks, props), BuiltInRegistries.BLOCK.getKey(elfQuartzBricks));
 		r.accept(new BlockItem(elfQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(elfQuartzPillar));
+		r.accept(new BlockItem(elfSmoothQuartz, props), BuiltInRegistries.BLOCK.getKey(elfSmoothQuartz));
+		r.accept(new BlockItem(elfSmoothQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(elfSmoothQuartzStairs));
+		r.accept(new BlockItem(elfSmoothQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(elfSmoothQuartzSlab));
 
 		r.accept(new BlockItem(sunnyQuartz, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartz));
 		r.accept(new BlockItem(sunnyQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzStairs));
 		r.accept(new BlockItem(sunnyQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzSlab));
 		r.accept(new BlockItem(sunnyQuartzChiseled, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzChiseled));
+		r.accept(new BlockItem(sunnyQuartzBricks, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzBricks));
 		r.accept(new BlockItem(sunnyQuartzPillar, props), BuiltInRegistries.BLOCK.getKey(sunnyQuartzPillar));
+		r.accept(new BlockItem(sunnySmoothQuartz, props), BuiltInRegistries.BLOCK.getKey(sunnySmoothQuartz));
+		r.accept(new BlockItem(sunnySmoothQuartzStairs, props), BuiltInRegistries.BLOCK.getKey(sunnySmoothQuartzStairs));
+		r.accept(new BlockItem(sunnySmoothQuartzSlab, props), BuiltInRegistries.BLOCK.getKey(sunnySmoothQuartzSlab));
 
 		r.accept(new BlockItem(biomeStoneForest, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForest));
 		r.accept(new BlockItem(biomeStoneForestStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestStairs));

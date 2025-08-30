@@ -170,6 +170,7 @@ public final class LibBlockNames {
 	public static final String SIGN_SUFFIX = "_sign";
 	public static final String HANGING_SIGN_SUFFIX = "_hanging_sign";
 	public static final String POTTED_PREFIX = "potted_";
+	public static final String SMOOTH_PREFIX = "smooth_";
 
 	public static final String SUBTILE_PUREDAISY = "pure_daisy";
 	public static final String SUBTILE_MANASTAR = "manastar";

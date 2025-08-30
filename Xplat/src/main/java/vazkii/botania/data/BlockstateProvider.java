@@ -662,26 +662,35 @@ public class BlockstateProvider implements DataProvider {
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
 			ResourceLocation quartzId = botaniaRL(variant + "_quartz");
 			Block quartz = BuiltInRegistries.BLOCK.get(quartzId);
-			singleVariantBlockState(quartz,
-					ModelTemplates.CUBE_BOTTOM_TOP.create(quartz, TextureMapping.cubeBottomTop(quartz), this.modelOutput));
+			singleVariantBlockState(quartz, ModelTemplates.CUBE_TOP.create(quartz, TextureMapping.cubeTop(quartz), this.modelOutput));
 
-			ResourceLocation pillarId = botaniaRL(variant + "_quartz_pillar");
+			ResourceLocation pillarId = quartzId.withSuffix("_pillar");
 			Block pillar = BuiltInRegistries.BLOCK.get(pillarId);
 			var pillarModel = ModelTemplates.CUBE_COLUMN.create(pillar,
 					TextureMapping.column(getBlockTexture(pillar, "_side"), getBlockTexture(pillar, "_end")),
 					this.modelOutput);
 			this.blockstates.add(BlockModelGeneratorsAccessor.createAxisAlignedPillarBlock(pillar, pillarModel));
 
-			ResourceLocation chiseledId = botaniaRL("chiseled_" + variant + "_quartz");
+			ResourceLocation bricksId = quartzId.withSuffix("_bricks");
+			Block bricks = BuiltInRegistries.BLOCK.get(bricksId);
+			singleVariantBlockState(bricks, ModelTemplates.CUBE_ALL.create(bricks, TextureMapping.cube(bricks), this.modelOutput));
+
+			ResourceLocation chiseledId = quartzId.withPrefix("chiseled_");
 			Block chiseled = BuiltInRegistries.BLOCK.get(chiseledId);
 			singleVariantBlockState(chiseled,
 					ModelTemplates.CUBE_COLUMN.create(chiseled, new TextureMapping()
 							.put(TextureSlot.SIDE, getBlockTexture(chiseled, "_side"))
 							.put(TextureSlot.END, getBlockTexture(chiseled, "_end")), this.modelOutput));
 
+			ResourceLocation smoothId = quartzId.withPrefix("smooth_");
+			Block smooth = BuiltInRegistries.BLOCK.get(smoothId);
+			singleVariantBlockState(smooth, ModelTemplates.CUBE_ALL.create(smooth, TextureMapping.cube(getBlockTexture(quartz, "_bottom")), this.modelOutput));
+
 			remainingBlocks.remove(quartz);
 			remainingBlocks.remove(pillar);
+			remainingBlocks.remove(bricks);
 			remainingBlocks.remove(chiseled);
+			remainingBlocks.remove(smooth);
 		}
 
 		takeAll(remainingBlocks, b -> b instanceof BuriedPetalBlock).forEach(b -> {
@@ -732,11 +741,17 @@ public class BlockstateProvider implements DataProvider {
 			String name = BuiltInRegistries.BLOCK.getKey(b).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
 			boolean quartz = name.contains("quartz");
+			boolean smooth = name.contains("smooth");
 			if (quartz) {
-				ResourceLocation side = botaniaRL("block/" + baseName + "_side");
-				ResourceLocation bottom = botaniaRL("block/" + baseName + "_bottom");
-				ResourceLocation top = botaniaRL("block/" + baseName + "_top");
-				stairsBlock(new HashSet<>(), b, side, bottom, top);
+				if (smooth) {
+					var tex = botaniaRL("block/" + baseName.substring("smooth_".length()) + "_bottom");
+					stairsBlock(new HashSet<>(), b, tex, tex, tex);
+				} else {
+					ResourceLocation side = botaniaRL("block/" + baseName + "_side");
+					ResourceLocation bottom = botaniaRL("block/" + baseName + "_top");
+					ResourceLocation top = botaniaRL("block/" + baseName + "_top");
+					stairsBlock(new HashSet<>(), b, side, bottom, top);
+				}
 			} else {
 				var tex = botaniaRL("block/" + baseName);
 				stairsBlock(new HashSet<>(), b, tex, tex, tex);
@@ -748,12 +763,19 @@ public class BlockstateProvider implements DataProvider {
 			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
 			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
 			boolean quartz = name.contains("quartz");
+			boolean smooth = name.contains("smooth");
 			if (quartz) {
-				var side = getBlockTexture(base, "_side");
-				var bottom = getBlockTexture(base, "_bottom");
-				var top = getBlockTexture(base, "_top");
-				var doubleModel = getModelLocation(base);
-				slabBlock(new HashSet<>(), slabBlock, doubleModel, side, bottom, top);
+				if (smooth) {
+					var baseTex = botaniaRL("block/" + baseName.substring("smooth_".length()) + "_bottom");
+					var doubleModel = getModelLocation(base);
+					slabBlock(new HashSet<>(), slabBlock, doubleModel, baseTex, baseTex, baseTex);
+				} else {
+					var side = getBlockTexture(base, "_side");
+					var bottom = getBlockTexture(base, "_top");
+					var top = getBlockTexture(base, "_top");
+					var doubleModel = getModelLocation(base);
+					slabBlock(new HashSet<>(), slabBlock, doubleModel, side, bottom, top);
+				}
 			} else {
 				var baseTex = getBlockTexture(base);
 				var doubleModel = getModelLocation(base);

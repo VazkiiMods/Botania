@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "botania:block/elf_quartz_bottom",
+    "bottom": "botania:block/elf_quartz_top",
     "side": "botania:block/elf_quartz_side",
     "top": "botania:block/elf_quartz_top"
   }
