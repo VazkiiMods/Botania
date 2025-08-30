@@ -17,11 +17,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -99,22 +101,40 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		}
 	}
 
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (player.isSecondaryUseActive() && hand == InteractionHand.MAIN_HAND) {
-			int tier = getLevel(stack);
+		int tier = getLevel(stack);
+		if (!player.isSecondaryUseActive() || tier == 0) {
+			return InteractionResultHolder.pass(stack);
+		}
+		if (hand == InteractionHand.MAIN_HAND && !player.getOffhandItem().isEmpty()) {
 			BlockHitResult blockhitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
 
-			if (tier != 0 && blockhitresult.getType() != HitResult.Type.BLOCK) {
-				setEnabled(stack, !isEnabled(stack));
-				if (!level.isClientSide) {
-					level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
-				}
-				return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+			if (blockhitresult.getType() == HitResult.Type.BLOCK) {
+				return InteractionResultHolder.pass(stack);
 			}
 		}
-		return InteractionResultHolder.pass(stack);
+		setEnabled(stack, !isEnabled(stack));
+		if (!level.isClientSide) {
+			level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
+		}
+		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+	}
+
+	@NotNull
+	@Override
+	public InteractionResult useOn(UseOnContext ctx) {
+		Player player = ctx.getPlayer();
+		if (player == null) {
+			return super.useOn(ctx);
+		} else if (ctx.getHand() == InteractionHand.MAIN_HAND && !player.getOffhandItem().isEmpty()) {
+			return InteractionResult.PASS;
+		}
+		return !player.isSecondaryUseActive() || getLevel(ctx.getItemInHand()) == 0
+				? super.useOn(ctx)
+				: InteractionResult.PASS;
 	}
 
 	@Override
