@@ -5,6 +5,7 @@ febc32b8daf33fb9397e0245f7e3f2478f638e7a data/botania/loot_table/entities/dopple
 101e1099e5d2f5a79112ef041028bc13b5ae1b47 data/botania/loot_table/gaia_guardian/reward_hard.json
 1128b20c29a2c9c2525de7c6cef404e290cfe1be data/botania/loot_table/gameplay/ghast_ender_air_crying.json
 465e68ef31aa3c278ea5d7802f836a31cd3e0fcf data/botania/loot_table/injected/minecraft/entities/creeper.json
+630a0c2dd2a008544528eb468d5c1f32c2b80eab data/botania/loot_table/injected/minecraft/entities/ender_dragon.json
 53e784c6f11147e70d4847e513583694a2c1bd90 data/botania/loot_table/injected/minecraft/entities/piglin.json
 fa0f570ce77806403bebc3bcd56423c258c532c3 data/botania/loot_table/injected/minecraft/entities/player.json
 79c9f11efbc4e80248c06a9f0a0403052ccd9306 data/botania/loot_table/injected/minecraft/entities/skeleton.json

@@ -158,6 +158,9 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 		output.accept(BotaniaLootTables.getInjectedLootTable(EntityType.CREEPER),
 				defineAxeBeheadingDropTable(Items.CREEPER_HEAD, 0.0769f, 0.0769f));
 
+		output.accept(BotaniaLootTables.getInjectedLootTable(EntityType.ENDER_DRAGON),
+				defineAxeBeheadingDropTable(Items.DRAGON_HEAD, 0.25f, 0.25f));
+
 		output.accept(BotaniaLootTables.getInjectedLootTable(EntityType.PLAYER),
 				defineAxeBeheadingDropTable(Items.PLAYER_HEAD, 0.0909f, 0.0909f)
 						.apply(FillPlayerHead.fillPlayerHead(LootContext.EntityTarget.THIS)));

@@ -30,9 +30,8 @@ public class BotaniaLootTables {
 	static {
 		// register entity types for injected elementium axe beheading loot tables
 		Stream.of(
-				EntityType.WITHER_SKELETON, EntityType.SKELETON, EntityType.STRAY, EntityType.BOGGED,
-				EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.HUSK, EntityType.DROWNED,
-				EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.CREEPER, EntityType.PLAYER
+				EntityType.WITHER_SKELETON, EntityType.SKELETON, EntityType.ZOMBIE, EntityType.PIGLIN,
+				EntityType.CREEPER, EntityType.ENDER_DRAGON, EntityType.PLAYER
 		).map(BotaniaLootTables::getInjectedLootTable).forEach(LOCATIONS::add);
 	}
 
