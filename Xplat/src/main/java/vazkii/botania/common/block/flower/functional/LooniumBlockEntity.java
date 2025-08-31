@@ -83,6 +83,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final String TAG_DETECTED_STRUCTURE = "detectedStructure";
 	private static final String TAG_CONFIG_OVERRIDE = "configOverride";
 	private static final String TAG_ATTUNE_DISPLAY_OVERRIDE = "attuneDisplayOverride";
+	private static final ResourceLocation ATTRIBUTE_MODIFIER_ID = botaniaRL("loonium_modifier");
 	private static final Supplier<LooniumStructureConfiguration> FALLBACK_CONFIG =
 			Suppliers.memoize(() -> LooniumStructureConfiguration.builder()
 					.manaCost(LooniumStructureConfiguration.DEFAULT_COST)
@@ -336,12 +337,14 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		List<LooniumMobAttributeModifier> attributeModifiers = mobSpawnData.attributeModifiers != null
 				? mobSpawnData.attributeModifiers
 				: pickedConfig.attributeModifiers;
-		for (LooniumMobAttributeModifier attributeModifier : attributeModifiers) {
-			AttributeInstance attribute = mob.getAttribute(attributeModifier.attribute);
-			if (attribute != null) {
-				attribute.addPermanentModifier(attributeModifier.createAttributeModifier());
-				if (attribute.getAttribute() == Attributes.MAX_HEALTH) {
-					mob.setHealth(mob.getMaxHealth());
+		if (attributeModifiers != null) {
+			for (LooniumMobAttributeModifier attributeModifier : attributeModifiers) {
+				AttributeInstance attribute = mob.getAttribute(attributeModifier.attribute());
+				if (attribute != null) {
+					attribute.addPermanentModifier(attributeModifier.createAttributeModifier(ATTRIBUTE_MODIFIER_ID));
+					if (attribute.getAttribute() == Attributes.MAX_HEALTH) {
+						mob.setHealth(mob.getMaxHealth());
+					}
 				}
 			}
 		}
@@ -349,8 +352,10 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		List<LooniumMobEffectToApply> effectsToApply = mobSpawnData.effectsToApply != null
 				? mobSpawnData.effectsToApply
 				: pickedConfig.effectsToApply;
-		for (LooniumMobEffectToApply effectToApply : effectsToApply) {
-			mob.addEffect(effectToApply.createMobEffectInstance());
+		if (effectsToApply != null) {
+			for (LooniumMobEffectToApply effectToApply : effectsToApply) {
+				mob.addEffect(effectToApply.createMobEffectInstance());
+			}
 		}
 	}
 

@@ -35,7 +35,7 @@ public class LooniumStructureConfiguration {
 					WeightedRandomList.codec(LooniumMobSpawnData.CODEC)
 							.optionalFieldOf("spawnedMobs")
 							.forGetter(lsc -> Optional.ofNullable(lsc.spawnedMobs)),
-					Codec.list(LooniumMobAttributeModifier.CODEC)
+					Codec.list(LooniumMobAttributeModifier.CODEC).validate(LooniumMobAttributeModifier::validateList)
 							.optionalFieldOf("attributeModifiers")
 							.forGetter(lsc -> Optional.ofNullable(lsc.attributeModifiers)),
 					Codec.list(LooniumMobEffectToApply.CODEC)

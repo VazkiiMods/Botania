@@ -30,7 +30,7 @@ public class LooniumMobSpawnData extends WeightedEntry.IntrusiveBase {
 					Codec.list(LooniumMobEffectToApply.CODEC)
 							.optionalFieldOf("effectsToApply")
 							.forGetter(msd -> Optional.ofNullable(msd.effectsToApply)),
-					Codec.list(LooniumMobAttributeModifier.CODEC)
+					Codec.list(LooniumMobAttributeModifier.CODEC).validate(LooniumMobAttributeModifier::validateList)
 							.optionalFieldOf("attributeModifiers")
 							.forGetter(msd -> Optional.ofNullable(msd.attributeModifiers))
 			).apply(instance, LooniumMobSpawnData::create)

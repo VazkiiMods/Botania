@@ -43,8 +43,6 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LooniumStructureConfigurationProvider implements DataProvider {
 
-	public static final ResourceLocation LOONIUM_MODIFIER_DAMAGE = botaniaRL("loonium_modifier_damage");
-	public static final ResourceLocation LOONIUM_MODIFIER_HEALTH = botaniaRL("loonium_modifier_health");
 	private final PackOutput.PathProvider pathProvider;
 	private final CompletableFuture<HolderLookup.Provider> registryLookupFuture;
 
@@ -147,9 +145,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 529).build()
 				)
 				.attributeModifiers(
-						new LooniumMobAttributeModifier(LOONIUM_MODIFIER_HEALTH,
+						new LooniumMobAttributeModifier(
 								Attributes.MAX_HEALTH, 2, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
-						new LooniumMobAttributeModifier(LOONIUM_MODIFIER_DAMAGE,
+						new LooniumMobAttributeModifier(
 								Attributes.ATTACK_DAMAGE, 1.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 				)
 				.effectsToApply(getStandardEffects(false, true))
@@ -187,9 +185,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 				LooniumMobSpawnData.entityWeight(EntityType.PIGLIN_BRUTE, 50)
 						.equipmentTable(BotaniaLootTables.LOONIUM_PIGLIN_BRUTE_DEFAULT)
 						.attributeModifiers(
-								new LooniumMobAttributeModifier(LOONIUM_MODIFIER_HEALTH,
+								new LooniumMobAttributeModifier(
 										Attributes.MAX_HEALTH, 1.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
-								new LooniumMobAttributeModifier(LOONIUM_MODIFIER_DAMAGE,
+								new LooniumMobAttributeModifier(
 										Attributes.ATTACK_DAMAGE, 1.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 						)
 						.build(),
@@ -759,18 +757,16 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 
 	public static LooniumMobSpawnData getCreeperSpawnData(int weight, boolean charged,
 			LooniumMobEffectToApply... creeperEffects) {
-		CompoundTag chargedCreeperNbt;
+		LooniumMobSpawnData.Builder builder = LooniumMobSpawnData.entityWeight(EntityType.CREEPER, weight);
+		builder.effectsToApply(creeperEffects);
+
 		if (charged) {
-			chargedCreeperNbt = new CompoundTag();
+			CompoundTag chargedCreeperNbt = new CompoundTag();
 			chargedCreeperNbt.putBoolean("powered", true);
-		} else {
-			chargedCreeperNbt = null;
+			builder.nbt(chargedCreeperNbt);
 		}
 
-		return LooniumMobSpawnData.entityWeight(EntityType.CREEPER, weight)
-				.nbt(chargedCreeperNbt)
-				.effectsToApply(creeperEffects)
-				.build();
+		return builder.build();
 	}
 
 	public static LooniumMobSpawnData getPiglinSpawnData(int weight, ResourceKey<LootTable> equipmentTable,

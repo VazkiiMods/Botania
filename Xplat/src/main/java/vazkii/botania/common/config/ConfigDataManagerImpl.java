@@ -102,7 +102,9 @@ public class ConfigDataManagerImpl implements ConfigDataManager {
 			Map<ResourceLocation, T> configs = new HashMap<>(resourceMap.size());
 			resourceMap.forEach((id, jsonElement) -> {
 				BotaniaAPI.LOGGER.debug("Parsing {} config '{}'", type.directory, id);
-				type.codec.parse(JsonOps.INSTANCE, jsonElement).result().ifPresent(c -> configs.put(id, c));
+				type.codec.parse(JsonOps.INSTANCE, jsonElement)
+						.ifError(error -> BotaniaAPI.LOGGER.error("Error parsing {}[{}]: {}", type.directory, id, error.message()))
+						.ifSuccess(c -> configs.put(id, c));
 			});
 			type.validateFunction.accept(configs);
 			return configs;
