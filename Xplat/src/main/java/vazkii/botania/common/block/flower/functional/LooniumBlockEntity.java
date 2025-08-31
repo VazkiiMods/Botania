@@ -50,6 +50,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Team;
 
 import org.jetbrains.annotations.Nullable;
@@ -99,11 +100,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	// this should never collide with the /team command, since space is not allowed in scoreboard team names
 	public static final String LOONIUM_TEAM_NAME = "Loonium Monsters";
-	public static final Team LOONIUM_TEAM = new Team() {
-		@Override
-		public String getName() {
-			return LOONIUM_TEAM_NAME;
-		}
+	public static final Team LOONIUM_TEAM = new PlayerTeam(null, LOONIUM_TEAM_NAME) {
 
 		@Override
 		public MutableComponent getFormattedName(Component component) {
