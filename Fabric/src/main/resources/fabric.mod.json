@@ -89,6 +89,9 @@
     "trinkets" : "*",
     "patchouli": "*"
   },
+  "breaks": {
+    "gardenofglass": "<=1.13"
+  },
 
   "custom": {
     "cardinal-components": [
