@@ -42,7 +42,6 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.proxy.Proxy;
@@ -108,8 +107,15 @@ public class SextantItem extends Item {
 		world.addParticle(data, x + 0.3, y + sinR + 1.5, z + cosR + 0.5, 0.01, 0, 0);
 	}
 
-	private static void visualizeCircle(Level world, int x, int y, int z, WispParticleData data, double cosR, double sinR) {
-		world.addParticle(data, x + cosR + 0.5, y + 1, z + sinR + 0.5, 0, 0.01, 0);
+	private static ShapeVisualizer createCircleVisualizer(Direction.Axis axis) {
+		return switch (axis) {
+			case X -> (world, x, y, z, data, cosR, sinR) -> world
+					.addParticle(data, x + 0.3, y + sinR + 1.5, z + cosR + 0.5, 0.01, 0, 0);
+			case Y -> (world, x, y, z, data, cosR, sinR) -> world
+					.addParticle(data, x + cosR + 0.5, y + 1, z + sinR + 0.5, 0, 0.01, 0);
+			case Z -> (world, x, y, z, data, cosR, sinR) -> world
+					.addParticle(data, x + sinR + 0.5, y + cosR + 1.5, z + 0.3, 0, 0, 0.01);
+		};
 	}
 
 	private static void makeSphere(IStateMatcher matcher, double radius, Map<BlockPos, IStateMatcher> map) {
@@ -254,19 +260,20 @@ public class SextantItem extends Item {
 	private static double calculateRadius(ItemStack stack, LivingEntity living) {
 		GlobalPos pos = stack.getOrDefault(BotaniaDataComponents.BINDING_POS,
 				GlobalPos.of(living.level().dimension(), BlockPos.ZERO));
-		Vec3 source = pos.pos().getBottomCenter();
+		Vec3 source = pos.pos().getCenter();
 
 		Vec3 centerVec = VecHelper.fromEntityCenter(living);
 		Vec3 diffVec = source.subtract(centerVec);
 		Vec3 lookVec = living.getLookAngle();
-		double mul = diffVec.y / lookVec.y;
+		Direction.Axis sizingAxis = getMode(stack).getSizingAxis();
+		double mul = sizingAxis.choose(diffVec.x, diffVec.y, diffVec.z) / sizingAxis.choose(lookVec.x, lookVec.y, lookVec.z);
 		lookVec = lookVec.scale(mul).add(centerVec);
 
-		lookVec = new Vec3(net.minecraft.util.Mth.floor(lookVec.x),
-				net.minecraft.util.Mth.floor(lookVec.y),
-				net.minecraft.util.Mth.floor(lookVec.z));
+		lookVec = new Vec3(net.minecraft.util.Mth.floor(lookVec.x) + 0.5,
+				net.minecraft.util.Mth.floor(lookVec.y) + 0.5,
+				net.minecraft.util.Mth.floor(lookVec.z) + 0.5);
 
-		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
+		return lookVec.subtract(source).length();
 	}
 
 	@Override
@@ -343,29 +350,35 @@ public class SextantItem extends Item {
 	}
 
 	public enum SextantMode {
-		CIRCLE_FLAT("circle", SextantItem.defineCircleShapeCreator(
+		CIRCLE_FLAT("circle", Direction.Axis.Y, SextantItem.defineCircleShapeCreator(
 				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.X),
-				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Z)), SextantItem::visualizeCircle),
-		CIRCLE_X("circle_x", SextantItem.defineCircleShapeCreator(
+				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Z)), createCircleVisualizer(Direction.Axis.Y)),
+		CIRCLE_X("circle_x", Direction.Axis.X, SextantItem.defineCircleShapeCreator(
 				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Y),
-				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Z)), SextantItem::visualizeCircle),
-		CIRCLE_Z("circle_z", SextantItem.defineCircleShapeCreator(
+				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Z)), createCircleVisualizer(Direction.Axis.X)),
+		CIRCLE_Z("circle_z", Direction.Axis.Z, SextantItem.defineCircleShapeCreator(
 				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.X),
-				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Y)), SextantItem::visualizeCircle),
-		SPHERE("sphere", SextantItem::makeSphere, SextantItem::visualizeSphere);
+				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Y)), createCircleVisualizer(Direction.Axis.Z)),
+		SPHERE("sphere", Direction.Axis.Y, SextantItem::makeSphere, SextantItem::visualizeSphere);
 
 		private final String key;
+		private final Direction.Axis sizingAxis;
 		private final ShapeCreator creator;
 		private final ShapeVisualizer visualizer;
 
-		SextantMode(String key, ShapeCreator creator, ShapeVisualizer visualizer) {
+		SextantMode(String key, Direction.Axis sizingAxis, ShapeCreator creator, ShapeVisualizer visualizer) {
 			this.key = key;
+			this.sizingAxis = sizingAxis;
 			this.creator = creator;
 			this.visualizer = visualizer;
 		}
 
 		public String getKey() {
 			return key;
+		}
+
+		public Direction.Axis getSizingAxis() {
+			return sizingAxis;
 		}
 
 		public ShapeCreator getCreator() {
