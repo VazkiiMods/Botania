@@ -2,7 +2,7 @@
   "name": "item.botania.lexicon",
   "landing_text": "botania.landing",
   "version": "${build_number}",
-  "book_texture": "patchouli:textures/gui/book_green.png",
+  "book_texture": "botania:textures/gui/book.png",
   "model": "botania:lexicon",
   "open_sound": "botania:lexicon_open",
   "flip_sound": "botania:lexicon_page",
