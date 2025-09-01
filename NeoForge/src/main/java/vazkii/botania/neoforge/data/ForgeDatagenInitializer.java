@@ -24,7 +24,7 @@ import java.util.Set;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-@EventBusSubscriber(modid = LibMisc.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ForgeDatagenInitializer {
 	private static final ResourceKey<PlacedFeature> MYSTICAL_FLOWERS_FEATURE = ResourceKey.create(
 			Registries.PLACED_FEATURE, botaniaRL("mystical_flowers"));

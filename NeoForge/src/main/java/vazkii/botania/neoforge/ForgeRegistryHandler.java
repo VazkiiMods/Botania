@@ -10,7 +10,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-@EventBusSubscriber(modid = LibMisc.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ForgeRegistryHandler {
 	@SubscribeEvent
 	public static void registerRegistry(NewRegistryEvent evt) {

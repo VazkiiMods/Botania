@@ -25,7 +25,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.Collections;
 import java.util.List;
 
-@EventBusSubscriber(modid = LibMisc.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ForgeBotaniaConfig {
 
 	private static class Client implements BotaniaConfig.ClientConfigAccess {

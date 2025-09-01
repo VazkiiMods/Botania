@@ -74,7 +74,7 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-@EventBusSubscriber(modid = BotaniaAPI.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = BotaniaAPI.MODID, value = Dist.CLIENT)
 public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void registerGuiOverlays(RegisterGuiLayersEvent e) {
