@@ -24,12 +24,15 @@ import java.util.function.Consumer;
 public final class LootHandler {
 	public static final ResourceLocation GOG_SEEDS_TABLE = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "extra_seeds");
 
-	public static void lootLoad(ResourceLocation id, Consumer<LootPool.Builder> addPool) {
-
+	// only for Fabric, since we generate global loot modifiers for NeoForge
+	public static void injectLoot(ResourceLocation id, Consumer<LootPool.Builder> addPool) {
 		ResourceKey<LootTable> injectedLootTable = BotaniaLootTables.getInjectedLootTable(id);
 		if (BotaniaLootTables.all().contains(injectedLootTable)) {
 			addPool.accept(LootPool.lootPool().add(NestedLootTable.lootTableReference(injectedLootTable)));
 		}
+	}
+
+	public static void injectGogLoot(ResourceLocation id, Consumer<LootPool.Builder> addPool) {
 		if (XplatAbstractions.INSTANCE.gogLoaded() && (Blocks.SHORT_GRASS.getLootTable().location().equals(id)
 				|| Blocks.TALL_GRASS.getLootTable().location().equals(id))) {
 			ResourceKey<LootTable> gogSeedsKey = ResourceKey.create(Registries.LOOT_TABLE, GOG_SEEDS_TABLE);

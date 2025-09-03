@@ -317,7 +317,8 @@ public class ForgeCommonInitializer {
 			}
 		});
 		bus.addListener((PlayerEvent.StartTracking e) -> DaffomillBlockEntity.onItemTrack(e.getEntity(), (ServerPlayer) e.getEntity()));
-		bus.addListener((LootTableLoadEvent e) -> LootHandler.lootLoad(e.getName(), b -> e.getTable().addPool(b.build())));
+		// TODO: move to global loot modifier in GoG data pack, then move injection code to Fabric module
+		bus.addListener((LootTableLoadEvent e) -> LootHandler.injectGogLoot(e.getName(), b -> e.getTable().addPool(b.build())));
 		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getReceiver(), e.getType(), e.getAction()));
 		bus.addListener((EntityJoinLevelEvent e) -> {
 			if (!e.getLevel().isClientSide) {
