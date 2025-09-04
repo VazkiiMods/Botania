@@ -29,6 +29,7 @@
     "botaniamisc.retainer.retain_all": "Halte ursprünglich angeforderte Anzahl von Gegenständen",
     "botaniamisc.retainer.retain_missing": "Halte Anzahl fehlender Gegenstände",
     "botaniamisc.optifine_warning": "§4[WARNUNG]§r <Botania>: Optifine erkannt. Bitte sei dir bewusst, dass Optifine eine Menge Probleme mit Botania verursacht, z.B. könnte Mana sich nicht zwischen Blumen und Verbreitern bewegen, oder es werden keine Informationen angezeigt, wenn du den Stab des Waldes hältst. Wir empfehlen Sodium als eine Alternative für die Leistungsverbesserungen von Optifine.",
+    "botaniamisc.dev_build_warning": "§4[WARNUNG]§r <Botania>: Bitte sei dir bewusst, dass du einen Entwickler-Build dieser Mod benutzt. Dies Art Build könnte schwerwiegende Fehler enthalten, die deine Welt-Dateien beschädigen können. Welten, die mit dieser Version erstellt/aktualisiert wurden, könnten außerdem nicht mit zukünftigen offiziellen Veröffentlichungen von Botania funktionieren. (Hoffentlich hast du ein Backup gemacht, denn die Rückkehr zu einer älteren Version der Welt ist sonst nicht möglich.)",
 
     "botaniamisc.creativePool0": "Kreatives Manabecken, hat unendlich Mana",
     "botaniamisc.creativePool1": "Eines Egoisten würdig",

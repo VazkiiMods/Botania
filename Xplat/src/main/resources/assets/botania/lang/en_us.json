@@ -29,6 +29,7 @@
   "botaniamisc.retainer.retain_all": "Retain original number of items requested",
   "botaniamisc.retainer.retain_missing": "Retain number of missing items",
   "botaniamisc.optifine_warning": "§4[WARNING]§r <Botania>: Optifine detected. Please be aware that Optifine causes a lot of issues with botania, and you might experience issues such as mana not moving between flowers and spreaders, and no information being displayed when you hold a wand and look at a mana pool or spreader. We recommend Sodium as an alternative to Optifine's performance improvements.",
+  "botaniamisc.dev_build_warning": "§4[WARNING]§r <Botania>: Please be aware that you are using a development build of this mod. This build may contain severe bugs that could damage your world save. Worlds created/upgraded with this version might also not work properly with future official releases of Botania. (Hopefully you made a backup, as world downgrades are otherwise not possible.)",
 
   "botaniamisc.creativePool0": "Creative Mana Pool, has infinite Mana",
   "botaniamisc.creativePool1": "Worthy of an Egoist",

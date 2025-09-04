@@ -81,6 +81,15 @@ public final class HUDHandler {
 		}
 	}
 
+	private static boolean didDevVersionCheck = false;
+
+	public static void checkDevVersionWarning() {
+		if (!didDevVersionCheck && XplatAbstractions.instance().getBotaniaVersion().contains("SNAPSHOT")) {
+			Minecraft.getInstance().player.sendSystemMessage(Component.translatable("botaniamisc.dev_build_warning"));
+			didDevVersionCheck = true;
+		}
+	}
+
 	public static void onDrawScreenPost(GuiGraphics gui, DeltaTracker partialTicks) {
 		PoseStack ms = gui.pose();
 		Minecraft mc = Minecraft.getInstance();
@@ -121,6 +130,7 @@ public final class HUDHandler {
 				boolean alternateRecipeHudPosition = false;
 				if (PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
 					tryOptifineWarning();
+					checkDevVersionWarning();
 					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
 						alternateRecipeHudPosition = true;
