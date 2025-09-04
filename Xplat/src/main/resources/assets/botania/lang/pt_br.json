@@ -1727,6 +1727,15 @@
   "item.botania.record_gaia_1.desc": "Kain Vinosec - Endure Emptiness",
   "item.botania.record_gaia_2.desc": "Kain Vinosec - Fight For Quiescence",
 
+  "item.botania.botania_banner_pattern": "Padrão de Banner",
+  "item.botania.botania_banner_pattern.desc": "Botania",
+  "item.botania.materials_banner_pattern": "Padrão de Banner",
+  "item.botania.materials_banner_pattern.desc": "Materiais",
+  "item.botania.spark_augments_banner_pattern": "Padrão de Banner",
+  "item.botania.spark_augments_banner_pattern.desc": "Melhorias de Fagulhas",
+  "item.botania.tools_banner_pattern": "Padrão de Banner",
+  "item.botania.tools_banner_pattern.desc": "Ferramentas",
+
   "block.minecraft.banner.botania.flower.black": "Flor Mística Preta",
   "block.minecraft.banner.botania.flower.red": "Flor Mística Vermelha",
   "block.minecraft.banner.botania.flower.green": "Flor Mística Verde",
