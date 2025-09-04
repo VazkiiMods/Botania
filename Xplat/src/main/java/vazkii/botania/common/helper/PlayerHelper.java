@@ -157,6 +157,29 @@ public final class PlayerHelper {
 		}
 	}
 
+	/**
+	 * Temporarily prevents fall damage like a wind burst mace: For the next 2 seconds this treats the current player's
+	 * Y position as the start of any falls, if they actually started from higher up.
+	 * This method will not update the impact impulse Y position if it is currently lower than the player's Y level,
+	 * but will reset the countdown until the protection expires.
+	 *
+	 * @param player The player to apply this to.
+	 * @param graceY An additional Y level difference from the player's current position to protect fall damage from.
+	 * @param cause  The entity responsible for the upwards impulse this should protect from. (for advancement triggers)
+	 */
+	public static void setCurrentImpulseImpactPos(Player player, double graceY, Entity cause) {
+		if (player.isIgnoringFallDamageFromCurrentImpulse() && player.currentImpulseImpactPos != null) {
+			if (player.currentImpulseImpactPos.y > player.position().y - graceY) {
+				player.currentImpulseImpactPos = player.position().subtract(0, graceY, 0);
+			}
+		} else {
+			player.currentImpulseImpactPos = player.position().subtract(0, graceY, 0);
+		}
+
+		player.currentExplosionCause = cause;
+		player.setIgnoreFallDamageFromCurrentImpulse(true);
+	}
+
 	public static InteractionResult substituteUse(UseOnContext ctx, ItemStack toUse) {
 		return substituteUseTrackPos(ctx, toUse).getFirst();
 	}

@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -38,6 +39,7 @@ public class JumpPacket implements CustomPacketPayload {
 				player.causeFoodExhaustion(0.3F);
 				player.fallDistance = 0;
 
+				PlayerHelper.setCurrentImpulseImpactPos(player, 0, player);
 				CirrusAmuletItem.setJumping(player);
 			}
 		});

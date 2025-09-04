@@ -13,7 +13,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -31,10 +30,10 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.AvatarSkiesRodPacket;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
@@ -60,10 +59,10 @@ public class SkiesRodItem extends Item {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity ent, int slot, boolean active) {
 		if (ent instanceof Player player) {
-			boolean damaged = getFlyCounter(stack) > 0;
+			boolean preventingDamage = getFlyCounter(stack) > 0;
 			boolean held = player.getMainHandItem() == stack || player.getOffhandItem() == stack;
 
-			if (damaged && !isFlying(stack)) {
+			if (preventingDamage && !isFlying(stack)) {
 				setFlyCounter(stack, getFlyCounter(stack) - 1);
 			}
 
@@ -100,7 +99,7 @@ public class SkiesRodItem extends Item {
 				}
 			}
 
-			if (damaged) {
+			if (preventingDamage) {
 				player.fallDistance = 0;
 			}
 		}
@@ -214,6 +213,7 @@ public class SkiesRodItem extends Item {
 	}
 
 	public static void doAvatarJump(Player p, Level world) {
+		PlayerHelper.setCurrentImpulseImpactPos(p, 3, p);
 		p.setDeltaMovement(p.getDeltaMovement().x(), 2.8, p.getDeltaMovement().z());
 
 		if (!world.isClientSide) {
@@ -229,7 +229,6 @@ public class SkiesRodItem extends Item {
 	private static void doAvatarMiscEffects(Player p, ManaReceiver tile) {
 		p.level().playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 		p.gameEvent(GameEvent.FLAP);
-		p.addEffect(new MobEffectInstance(BotaniaMobEffects.FEATHER_FEET, 100, 0));
 		tile.receiveMana(-COST);
 	}
 
