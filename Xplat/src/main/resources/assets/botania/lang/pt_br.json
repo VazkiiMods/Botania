@@ -451,6 +451,9 @@
 
   "death.attack.botania.relic": "%s foi punido por usar uma relíquia que não lhe pertencia",
   "death.attack.botania.key_explosion": "%2$s afogou %1$s com tesouros",
+  "death.attack.botania.portal_bread_explosion": "%1$s descobriu que elfos não gostam de pão",
+  "death.attack.botania.portal_bread_explosion.message": "%1$s descobriu que %2$s",
+  "death.attack.botania.portal_bread_explosion.link": "elfos não gostam de pão",
 
   "effect.botania.allure.description": "Dobra a velocidade de pesca.",
   "effect.botania.bloodthirst.description": "Permite que criaturas hostis apareçam em um raio de 64 blocos, independentemente das condições normais de spawn. Não funciona se estiver sob o efeito de Vazio.",
