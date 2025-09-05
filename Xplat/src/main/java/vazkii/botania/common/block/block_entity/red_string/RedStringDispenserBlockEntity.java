@@ -10,6 +10,7 @@ package vazkii.botania.common.block.block_entity.red_string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.CrafterBlockEntity;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -22,14 +23,15 @@ public class RedStringDispenserBlockEntity extends RedStringContainerBlockEntity
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		return level.getBlockEntity(pos) instanceof DispenserBlockEntity;
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		return blockEntity instanceof DispenserBlockEntity || blockEntity instanceof CrafterBlockEntity;
 	}
 
 	public void tickDispenser() {
 		BlockPos bind = getBinding();
 		if (bind != null) {
 			BlockEntity tile = level.getBlockEntity(bind);
-			if (tile instanceof DispenserBlockEntity) {
+			if (tile instanceof DispenserBlockEntity || tile instanceof CrafterBlockEntity) {
 				level.scheduleTick(bind, tile.getBlockState().getBlock(), 4);
 			}
 		}
