@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-public class BotaniaBlock extends Block {
+public abstract class BotaniaBlock extends Block {
 
 	public BotaniaBlock(BlockBehaviour.Properties builder) {
 		super(builder);
