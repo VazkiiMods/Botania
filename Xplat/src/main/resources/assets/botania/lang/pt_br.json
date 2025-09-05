@@ -142,6 +142,7 @@
   "botaniamisc.pollidisiac.feed_adults": "Alimentando animais adultos",
   "botaniamisc.pollidisiac.feed_babies": "Alimentando filhotes",
   "botaniamisc.pollidisiac.feed_all": "Alimentando todos os animais",
+  "botaniamisc.catalyst_not_consumed": "(não consumido)",
   "botaniamisc.monocle.frame.contains": "%s§r contém:",
   "botaniamisc.monocle.frame.additional_stacks": "+%s pilhas adicionais",
   "botaniamisc.monocle.repeater.delay": "%ss",
