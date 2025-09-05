@@ -18,6 +18,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -69,24 +70,24 @@ public final class HUDHandler {
 
 	public static final ResourceLocation manaBar = ResourceLocation.parse(ResourcesLib.GUI_MANA_HUD);
 
-	private static boolean didOptifineDetection = false;
+	private static boolean didWarningsCheck = false;
 
-	public static void tryOptifineWarning() {
-		if (!didOptifineDetection) {
+	public static void checkForOneTimeWarnings() {
+		if (!didWarningsCheck) {
+			LocalPlayer player = Minecraft.getInstance().player;
+			if (player == null) {
+				return;
+			}
+
 			try {
 				Class.forName("optifine.Installer");
-				Minecraft.getInstance().player.sendSystemMessage(Component.translatable("botaniamisc.optifine_warning"));
+				player.sendSystemMessage(Component.translatable("botaniamisc.optifine_warning"));
 			} catch (ClassNotFoundException ignored) {}
-			didOptifineDetection = true;
-		}
-	}
 
-	private static boolean didDevVersionCheck = false;
-
-	public static void checkDevVersionWarning() {
-		if (!didDevVersionCheck && XplatAbstractions.instance().getBotaniaVersion().contains("SNAPSHOT")) {
-			Minecraft.getInstance().player.sendSystemMessage(Component.translatable("botaniamisc.dev_build_warning"));
-			didDevVersionCheck = true;
+			if (XplatAbstractions.instance().getBotaniaVersion().contains("SNAPSHOT")) {
+				player.sendSystemMessage(Component.translatable("botaniamisc.dev_build_warning"));
+			}
+			didWarningsCheck = true;
 		}
 	}
 
@@ -129,8 +130,7 @@ public final class HUDHandler {
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				boolean alternateRecipeHudPosition = false;
 				if (PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
-					tryOptifineWarning();
-					checkDevVersionWarning();
+					checkForOneTimeWarnings();
 					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
 						alternateRecipeHudPosition = true;
