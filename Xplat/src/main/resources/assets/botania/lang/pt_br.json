@@ -1705,6 +1705,7 @@
   "item.botania.mana_string": "Linha Infundida em Mana",
   "item.botania.swap_ring": "Anel de Correção",
   "item.botania.flower_bag": "Sacola de Flores",
+  "item.botania.petal_pouch": "Sacola de Pétalas",
   "item.botania.phantom_ink": "Tinta Fantasma",
   "item.botania.pool_minecart": "Carrinho com Poço de Mana",
   "item.botania.pinkinator": "O Rosanator",
@@ -2194,6 +2195,11 @@
   "botania.page.flowerBag0": "As leis da física sobre o $(thing)Inventário$(0) são um pouco rígidas nesse mundo. Por causa disso, carregar uma variedade de flores de cores diferentes pode se tornar um grande incômodo. Por sorte, uma $(item)Sacola de Flores$(0) resolve esse problema. Ela guarda até 64 de cada cor de $(l:basics/flowers)$(item)Flor Mística$(0)$(/l) e $(item)Flor Mística Alta$(0), e passivamente pega qualquer outra que seu portador coletar.",
   "botania.page.flowerBag2": "Flores não serão coletadas pela sacola se ela estiver na mão dominante.$(p)Além disso, clicar com o botão direito agachado em um $(item)Baú$(0) ou outro inventário com a sacola na mão irá despejar nesse inventário todas as flores contidas nela.",
   "botania.page.flowerBag1": "O tamanho é o mesmo por dentro (qualquer cor funciona)",
+
+  "botania.entry.petalPouch": "Sacola de Pétalas",
+  "botania.tagline.petalPouch": "Para quando você terminar de decorar",
+  "botania.page.petalPouch0": "Aparentemente, incorporar um pouco de $(l:mana/pool#mana_dust)$(item)Pó de Mana$(0)$(/l) no tecido de uma $(l:basics/flower_bag)$(item)Sacola de Flores$(0)$(/l) faz com que $(l:basics/flowers)$(item)Flores Místicas$(0)$(/l) que entrem nela sejam desfeitas, deixando para trás apenas suas pétalas.$(br)Clicar com o botão direito agachado alterna se a $(item)Sacola de Pétalas$(0) irá ou não coletar automáticamente as flores. Fora isso, ela funciona assim como uma Sacola de Flores para pétalas e $(l:misc/mushrooms)$(item)Cogumelos Brilhantes$(0)$(/l).",
+  "botania.page.petalPouch_crafting": "Um toque de fabricação automática",
 
   "botania.entry.mIntro": "Introdução à Mana",
   "botania.tagline.mIntro": "Iniciando com Mana",
@@ -3809,6 +3815,7 @@
   "botania.subtitle.missileFunny": "piun piun",
   "botania.subtitle.narslimmusEat": "Narcislime esmaga",
   "botania.subtitle.orechid": "Mineriorquídea faz estrondo",
+  "botania.subtitle.petalPouchConfigure": "Sacola de Pétalas tintila",
   "botania.subtitle.pinkinator": "Rosainator rosifica",
   "botania.subtitle.potionCreate": "Fermentador crepita",
   "botania.subtitle.redStringInterceptorClick": "Interceptador de Fio Vermelho clica",
