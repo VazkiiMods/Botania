@@ -30,7 +30,7 @@
   "botaniamisc.retainer.retain_all": "Manter o número original de itens solicitados",
   "botaniamisc.retainer.retain_missing": "Manter o número de itens faltantes",
   "botaniamisc.optifine_warning": "§4[AVISO]§r <Botania>: Optifine detectado. Por favor, esteja ciente de que o Optifine causa muitos problemas com o Botania, e você pode enfrentar questões como mana não se mover entre flores e espalhadores, e nenhuma informação sendo exibida quando você segura uma varinha e olha para um pool de mana ou espalhador. Recomendamos o Sodium como uma alternativa para as melhorias de desempenho do Optifine.",
-
+  "botaniamisc.dev_build_warning": "§4[AVISO]§r <Botania>: Por favor esteja ciente que você está usando uma versão de desenvolvimento deste mod. Esta versão pode conter bugs graves que podem corromper seu mundo salvo. Mundos criados/atualizados com esta versão podem também não funcionar corretamente em futuras versões oficiais do Botania. (Esperamos que você tenha feito um backup, já que o downgrade de mundos não é possível de outra forma.)",
   "botaniamisc.creativePool0": "Poço de Mana Criativo, possui Mana infinita",
   "botaniamisc.creativePool1": "Perfeito para egoístas",
   "botaniamisc.creativeSpark": "Duplica os itens do bloco anexo quando solicitado",
