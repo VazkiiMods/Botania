@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.red_string;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -28,27 +28,30 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringDispenserBlo
 
 public class RedStringDispenserBlock extends RedStringBlock {
 
+	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+
 	public RedStringDispenserBlock(BlockBehaviour.Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN).setValue(BlockStateProperties.POWERED, false));
+		registerDefaultState(defaultBlockState().setValue(POWERED, false));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BlockStateProperties.POWERED);
+		builder.add(POWERED);
 	}
 
 	@Override
 	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		boolean power = world.getBestNeighborSignal(pos) > 0;
-		boolean powered = state.getValue(BlockStateProperties.POWERED);
+		boolean powered = state.getValue(POWERED);
 
 		if (power && !powered) {
-			((RedStringDispenserBlockEntity) world.getBlockEntity(pos)).tickDispenser();
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
+			world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRING_DISPENSER)
+					.ifPresent(RedStringDispenserBlockEntity::tickDispenser);
+			world.setBlock(pos, state.setValue(POWERED, true), Block.UPDATE_INVISIBLE);
 		} else if (!power && powered) {
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
+			world.setBlock(pos, state.setValue(POWERED, false), Block.UPDATE_INVISIBLE);
 		}
 	}
 

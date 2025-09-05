@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.red_string;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -32,22 +30,24 @@ public class RedStringNutrifierBlock extends RedStringBlock implements Bonemeala
 
 	public RedStringNutrifierBlock(BlockBehaviour.Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN));
 	}
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
-		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canGrow(world);
+		return world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRING_FERTILIZER)
+				.map(be -> be.canGrow(world)).orElse(false);
 	}
 
 	@Override
 	public boolean isBonemealSuccess(Level world, RandomSource rand, BlockPos pos, BlockState state) {
-		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canUseBonemeal(world, rand);
+		return world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRING_FERTILIZER)
+				.map(be -> be.canUseBonemeal(world, rand)).orElse(false);
 	}
 
 	@Override
 	public void performBonemeal(ServerLevel world, RandomSource rand, BlockPos pos, BlockState state) {
-		((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).grow(world, rand);
+		world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRING_FERTILIZER)
+				.ifPresent(be -> be.grow(world, rand));
 	}
 
 	@Override

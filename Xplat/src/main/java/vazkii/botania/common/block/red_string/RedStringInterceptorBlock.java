@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
@@ -35,15 +36,17 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringInterceptorB
 
 public class RedStringInterceptorBlock extends RedStringBlock {
 
+	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+
 	public RedStringInterceptorBlock(BlockBehaviour.Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN).setValue(BlockStateProperties.POWERED, false));
+		registerDefaultState(defaultBlockState().setValue(POWERED, false));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BlockStateProperties.POWERED);
+		builder.add(POWERED);
 	}
 
 	public static InteractionResult onInteract(Player player, Level world, InteractionHand hand, BlockHitResult hit) {
@@ -57,12 +60,12 @@ public class RedStringInterceptorBlock extends RedStringBlock {
 
 	@Override
 	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
-		return state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
+		return state.getValue(POWERED) ? 15 : 0;
 	}
 
 	@Override
 	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
+		world.setBlockAndUpdate(pos, state.setValue(POWERED, false));
 	}
 
 	@Override
