@@ -73,9 +73,9 @@ public final class ColorHandler {
 						}
 					}
 					if (((ManaPoolBlock) state.getBlock()).variant == ManaPoolBlock.Variant.FABULOUS) {
-						float time = (ClientTickHandler.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaTicks()) * 0.005F;
+						float time = (ClientTickHandler.getEntityTicksInGame() + ClientTickHandler.getEntityPartialTick()) * 0.005F;
 						int fabulousColor = Mth.hsvToRgb(time - (int) time, 0.6F, 1F);
-						return color.isEmpty() ? fabulousColor : vazkii.botania.common.helper.MathHelper.multiplyColor(fabulousColor, color.get());
+						return color.map(integer -> FastColor.ARGB32.multiply(fabulousColor, integer)).orElse(fabulousColor);
 					}
 					return color.orElse(-1);
 				},
@@ -85,7 +85,7 @@ public final class ColorHandler {
 		// Spreader
 		blocks.register(
 				(state, world, pos, tintIndex) -> {
-					float time = ClientTickHandler.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaTicks();
+					float time = ClientTickHandler.getEntityTicksInGame() + ClientTickHandler.getEntityPartialTick();
 					return Mth.hsvToRgb(time * 5 % 360 / 360F, 0.4F, 0.9F);
 				},
 				BotaniaBlocks.gaiaSpreader
@@ -110,7 +110,8 @@ public final class ColorHandler {
 	}
 
 	public static void submitItems(ItemHandlerConsumer items) {
-		items.register((s, t) -> t == 0 ? FastColor.ARGB32.opaque(Mth.hsvToRgb(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F)) : -1,
+		items.register((s, t) -> t == 0 ? FastColor.ARGB32.opaque(Mth.hsvToRgb(
+				(ClientTickHandler.getPlayerTicksInGame() + ClientTickHandler.getPartialPlayerTick()) * 2 % 360 / 360F, 0.25F, 1F)) : -1,
 				BotaniaItems.lifeEssence, BotaniaItems.gaiaIngot);
 
 		items.register((stack, tintIndex) -> switch (tintIndex) {
@@ -157,7 +158,7 @@ public final class ColorHandler {
 
 			int color = brew.getColor(s);
 			double speed = s.is(BotaniaItems.brewFlask) || s.is(BotaniaItems.brewVial) ? 0.1 : 0.2;
-			int add = (int) (Math.sin(ClientTickHandler.ticksInGame * speed) * 24);
+			int add = (int) (Math.sin((ClientTickHandler.getPlayerTicksInGame() + ClientTickHandler.getPartialPlayerTick()) * speed) * 24);
 
 			int r = Math.max(0, Math.min(255, (color >> 16 & 0xFF) + add));
 			int g = Math.max(0, Math.min(255, (color >> 8 & 0xFF) + add));
@@ -175,7 +176,7 @@ public final class ColorHandler {
 			if (t == 2) {
 				BurstProperties props = ((ManaBlasterItem) s.getItem()).getBurstProps(Minecraft.getInstance().player, s, false, InteractionHand.MAIN_HAND);
 
-				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
+				float mul = (float) (Math.sin(((double) ClientTickHandler.getPlayerTicksInGame() + ClientTickHandler.getPartialPlayerTick()) / 5) * 0.15F);
 				int c = (int) (255 * mul);
 
 				int r = (props.color >> 16 & 0xFF) + c;

@@ -8,8 +8,10 @@
  */
 package vazkii.botania.common.block.block_entity.mana;
 
+import com.mojang.blaze3d.platform.Window;
+
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.WandHUD;
@@ -89,19 +92,15 @@ public class SpreaderTurntableBlockEntity extends BotaniaBlockEntity implements 
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
-			char motion = turntable.backwards ? '<' : '>';
-			String speed = ChatFormatting.BOLD + "";
-			for (int i = 0; i < turntable.speed; i++) {
-				speed = speed + motion;
-			}
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
+			String speed = ChatFormatting.BOLD + StringUtils.repeat(turntable.backwards ? '<' : '>', turntable.speed);
 
-			int strWidth = mc.font.width(speed);
-			int x = (mc.getWindow().getGuiScaledWidth() - strWidth) / 2;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 + 8;
+			int strWidth = font.width(speed);
+			int x = (window.getGuiScaledWidth() - strWidth) / 2;
+			int y = window.getGuiScaledHeight() / 2 + 8;
 
 			RenderHelper.renderHUDBox(gui, x - 2, y, x + strWidth + 2, y + 12);
-			gui.drawString(mc.font, speed, x, y + 2, ChatFormatting.WHITE.getColor());
+			gui.drawString(font, speed, x, y + 2, ChatFormatting.WHITE.getColor());
 		}
 	}
 

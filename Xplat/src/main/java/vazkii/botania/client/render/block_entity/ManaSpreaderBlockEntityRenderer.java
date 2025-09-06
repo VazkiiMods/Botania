@@ -54,7 +54,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 	}
 
 	@Override
-	public void render(ManaSpreaderBlockEntity spreader, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(ManaSpreaderBlockEntity spreader, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		ms.translate(0.5F, 0.5, 0.5F);
@@ -65,7 +65,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 
 		ms.translate(-0.5F, -0.5F, -0.5F);
 
-		double time = ClientTickHandler.ticksInGame + partialTicks;
+		double time = ClientTickHandler.getEntityTicksInGame() + partialTick;
 
 		float r = 1, g = 1, b = 1;
 		if (spreader.getSpreaderBlock().isRainbowRendered()) {

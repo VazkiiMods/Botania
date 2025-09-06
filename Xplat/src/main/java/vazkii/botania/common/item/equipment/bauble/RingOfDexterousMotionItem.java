@@ -50,28 +50,28 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 			int threshold = 5;
 			if (mc.options.keyLeft.isDown() && !oldLeftDown) {
 				int oldLeft = leftDown;
-				leftDown = ClientTickHandler.ticksInGame;
+				leftDown = ClientTickHandler.getPlayerTicksInGame();
 
 				if (leftDown - oldLeft < threshold) {
 					dodge(mc.player, Direction.WEST);
 				}
 			} else if (mc.options.keyRight.isDown() && !oldRightDown) {
 				int oldRight = rightDown;
-				rightDown = ClientTickHandler.ticksInGame;
+				rightDown = ClientTickHandler.getPlayerTicksInGame();
 
 				if (rightDown - oldRight < threshold) {
 					dodge(mc.player, Direction.EAST);
 				}
 			} else if (mc.options.keyUp.isDown() && !oldForwardDown) {
 				int oldForward = forwardDown;
-				forwardDown = ClientTickHandler.ticksInGame;
+				forwardDown = ClientTickHandler.getPlayerTicksInGame();
 
 				if (forwardDown - oldForward < threshold) {
 					dodge(mc.player, Direction.NORTH);
 				}
 			} else if (mc.options.keyDown.isDown() && !oldBackDown) {
 				int oldBack = backDown;
-				backDown = ClientTickHandler.ticksInGame;
+				backDown = ClientTickHandler.getPlayerTicksInGame();
 
 				if (backDown - oldBack < threshold) {
 					dodge(mc.player, Direction.SOUTH);

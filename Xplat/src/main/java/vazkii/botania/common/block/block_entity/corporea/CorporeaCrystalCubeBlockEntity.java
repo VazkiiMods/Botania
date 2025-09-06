@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.block.block_entity.corporea;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -205,42 +205,37 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	}
 
 	public static class Hud {
-		public static void render(GuiGraphics gui, CorporeaCrystalCubeBlockEntity cube) {
+		public static void render(CorporeaCrystalCubeBlockEntity cube, GuiGraphics gui, Window window, Font font, float partialTick) {
 			PoseStack ps = gui.pose();
-			Minecraft mc = Minecraft.getInstance();
-			ProfilerFiller profiler = mc.getProfiler();
 
-			profiler.push("crystalCube");
 			ItemStack target = cube.getRequestTarget();
 			if (!target.isEmpty()) {
 				String nameStr = target.getHoverName().getString();
 				String countStr = cube.getItemCount() + "x";
 				String lockedStr = I18n.get("botaniamisc.locked");
 
-				int strlen = Math.max(mc.font.width(nameStr), mc.font.width(countStr));
+				int strlen = Math.max(font.width(nameStr), font.width(countStr));
 				if (cube.locked) {
-					strlen = Math.max(strlen, mc.font.width(lockedStr));
+					strlen = Math.max(strlen, font.width(lockedStr));
 				}
 
-				int centerX = mc.getWindow().getGuiScaledWidth() / 2;
-				int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+				int centerX = window.getGuiScaledWidth() / 2;
+				int centerY = window.getGuiScaledHeight() / 2;
 				ps.pushPose();
 				ps.translate(centerX, centerY, 0);
 
 				RenderHelper.renderHUDBox(gui, 8, -11, strlen + 32, cube.locked ? 21 : 11);
 
-				gui.drawString(mc.font, nameStr, 30, -9, 0x6666FF);
-				gui.drawString(mc.font, countStr, 30, 1, 0xFFFFFF);
+				gui.drawString(font, nameStr, 30, -9, 0x6666FF);
+				gui.drawString(font, countStr, 30, 1, 0xFFFFFF);
 				if (cube.locked) {
-					gui.drawString(mc.font, lockedStr, 30, 11, 0xFFAA00);
+					gui.drawString(font, lockedStr, 30, 11, 0xFFAA00);
 				}
 
 				gui.renderItem(target, 10, -9);
 
 				ps.popPose();
 			}
-
-			profiler.pop();
 		}
 	}
 }

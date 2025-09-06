@@ -9,6 +9,7 @@
 package vazkii.botania.client.gui;
 
 import com.google.common.collect.Iterables;
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -16,8 +17,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -26,7 +29,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -91,77 +93,86 @@ public final class HUDHandler {
 		}
 	}
 
-	public static void onDrawScreenPost(GuiGraphics gui, DeltaTracker partialTicks) {
-		PoseStack ms = gui.pose();
+	public static void onDrawScreenPost(GuiGraphics gui, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui) {
+		LocalPlayer localPlayer = mc.player;
+		if (mc.options.hideGui || localPlayer == null) {
 			return;
 		}
 		ProfilerFiller profiler = mc.getProfiler();
-		ItemStack main = mc.player.getMainHandItem();
-		ItemStack offhand = mc.player.getOffhandItem();
+		ItemStack main = localPlayer.getMainHandItem();
+		ItemStack offhand = localPlayer.getOffhandItem();
 
 		profiler.push("botania-hud");
 
-		if (Minecraft.getInstance().gameMode.canHurtPlayer()) {
-			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, mc.player);
+		float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
+		if (mc.gameMode.canHurtPlayer()) {
+			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, localPlayer);
 			if (!tiara.isEmpty()) {
 				profiler.push("flugelTiara");
-				FlugelTiaraItem.ClientLogic.renderHUD(gui, partialTicks.getGameTimeDeltaPartialTick(true), mc.player, tiara);
+				FlugelTiaraItem.ClientLogic.renderHUD(gui, partialTick, localPlayer, tiara);
 				profiler.pop();
 			}
 
-			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, mc.player);
+			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, localPlayer);
 			if (!dodgeRing.isEmpty()) {
 				profiler.push("dodgeRing");
-				RingOfDexterousMotionItem.ClientLogic.renderHUD(gui, mc.player, dodgeRing, partialTicks.getGameTimeDeltaPartialTick(true));
+				RingOfDexterousMotionItem.ClientLogic.renderHUD(gui, localPlayer, dodgeRing, partialTick);
 				profiler.pop();
 			}
 		}
 
 		HitResult pos = mc.hitResult;
-
+		Window window = mc.getWindow();
+		Font font = mc.font;
 		if (pos instanceof BlockHitResult result) {
 			BlockPos bpos = result.getBlockPos();
 
-			BlockState state = mc.level.getBlockState(bpos);
-			BlockEntity tile = mc.level.getBlockEntity(bpos);
+			ClientLevel level = mc.level;
+			BlockState state = level.getBlockState(bpos);
+			BlockEntity tile = level.getBlockEntity(bpos);
 
-			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
+			if (PlayerHelper.hasAnyHeldItem(localPlayer)) {
 				boolean alternateRecipeHudPosition = false;
-				if (PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
+				if (PlayerHelper.hasHeldItemClass(localPlayer, WandOfTheForestItem.class)) {
 					checkForOneTimeWarnings();
-					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
+					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(level, bpos, state, tile);
 					if (hud != null) {
 						alternateRecipeHudPosition = true;
 						profiler.push("wandItem");
-						hud.renderHUD(gui, mc);
+						hud.renderHUD(gui, window, font, partialTick);
 						profiler.pop();
 					}
 				}
-				if (tile instanceof ManaPoolBlockEntity pool && !mc.player.getMainHandItem().isEmpty()) {
-					renderPoolRecipeHUD(gui, pool, mc.player.getMainHandItem(), alternateRecipeHudPosition);
+				if (tile instanceof ManaPoolBlockEntity pool && !localPlayer.getMainHandItem().isEmpty()) {
+					renderPoolRecipeHUD(gui, pool, localPlayer.getMainHandItem(), alternateRecipeHudPosition);
 				}
 			}
-			if (!PlayerHelper.hasHeldItem(mc.player, BotaniaItems.lexicon)) {
+			if (!PlayerHelper.hasHeldItem(localPlayer, BotaniaItems.lexicon)) {
 				if (tile instanceof PetalApothecaryBlockEntity altar) {
-					PetalApothecaryBlockEntity.Hud.render(altar, gui, mc);
+					profiler.push("apothecary");
+					PetalApothecaryBlockEntity.Hud.render(altar, gui, window, font, partialTick);
+					profiler.pop();
 				} else if (tile instanceof RunicAltarBlockEntity runeAltar) {
-					RunicAltarBlockEntity.Hud.render(runeAltar, gui, mc);
+					profiler.push("runicAltar");
+					RunicAltarBlockEntity.Hud.render(runeAltar, gui, window, font, mc.player, partialTick);
+					profiler.pop();
 				} else if (tile instanceof CorporeaCrystalCubeBlockEntity cube) {
-					CorporeaCrystalCubeBlockEntity.Hud.render(gui, cube);
+					profiler.push("crystalCube");
+					CorporeaCrystalCubeBlockEntity.Hud.render(cube, gui, window, font, partialTick);
+					profiler.pop();
 				}
 			}
 		} else if (pos instanceof EntityHitResult result) {
 			var hud = ClientXplatAbstractions.INSTANCE.findWandHud(result.getEntity());
-			if (hud != null && PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
+			if (hud != null && PlayerHelper.hasHeldItemClass(localPlayer, WandOfTheForestItem.class)) {
 				profiler.push("wandItemEntityHud");
-				hud.renderHUD(gui, mc);
+				hud.renderHUD(gui, window, font, partialTick);
 				profiler.pop();
 			}
 		}
 
-		if (!CorporeaIndexBlockEntity.getNearbyValidIndexes(mc.player).isEmpty() && mc.screen instanceof ChatScreen) {
+		if (!CorporeaIndexBlockEntity.getNearbyValidIndexes(localPlayer).isEmpty() && mc.screen instanceof ChatScreen) {
 			profiler.push("nearIndex");
 			renderNearIndexDisplay(gui);
 			profiler.pop();
@@ -169,42 +180,35 @@ public final class HUDHandler {
 
 		if (!main.isEmpty() && main.getItem() instanceof AssemblyHaloItem) {
 			profiler.push("craftingHalo_main");
-			AssemblyHaloItem.Rendering.renderHUD(gui, mc.player, main);
+			AssemblyHaloItem.Rendering.renderHUD(gui, localPlayer, main, window, font);
 			profiler.pop();
 		} else if (!offhand.isEmpty() && offhand.getItem() instanceof AssemblyHaloItem) {
 			profiler.push("craftingHalo_off");
-			AssemblyHaloItem.Rendering.renderHUD(gui, mc.player, offhand);
+			AssemblyHaloItem.Rendering.renderHUD(gui, localPlayer, offhand, window, font);
 			profiler.pop();
 		}
 
 		if (!main.isEmpty() && main.getItem() instanceof SextantItem) {
 			profiler.push("sextant");
-			SextantItem.Hud.render(gui, mc.player, main);
+			SextantItem.Hud.render(gui, localPlayer, main);
 			profiler.pop();
 		}
 
-		/*if(equippedStack != null && equippedStack.is(BotaniaItems.flugelEye)) {
-			profiler.startSection("flugelEye");
-			EyeOfTheFlugelItem.renderHUD(event.getResolution(), mc.player, equippedStack);
-			profiler.endSection();
-		}*/
-
-		if (ManaseerMonocleItem.hasMonocle(mc.player)) {
+		if (ManaseerMonocleItem.hasMonocle(localPlayer)) {
 			profiler.push("monocle");
-			ManaseerMonocleItem.Hud.render(gui, mc.player);
+			ManaseerMonocleItem.Hud.render(gui, localPlayer);
 			profiler.pop();
 		}
 
 		profiler.push("manaBar");
 
-		Player player = mc.player;
-		if (!player.isSpectator()) {
+		if (!localPlayer.isSpectator()) {
 			int totalMana = 0;
 			int totalMaxMana = 0;
 			boolean anyRequest = false;
 
-			Container mainInv = player.getInventory();
-			Container accInv = BotaniaAPI.instance().getAccessoriesInventory(player);
+			Container mainInv = localPlayer.getInventory();
+			Container accInv = BotaniaAPI.instance().getAccessoriesInventory(localPlayer);
 
 			int invSize = mainInv.getContainerSize();
 			int size = invSize + accInv.getContainerSize();
@@ -219,8 +223,8 @@ public final class HUDHandler {
 				}
 			}
 
-			List<ItemStack> items = ManaItemHandler.instance().getManaItems(player);
-			List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(player);
+			List<ItemStack> items = ManaItemHandler.instance().getManaItems(localPlayer);
+			List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(localPlayer);
 			for (ItemStack stack : Iterables.concat(items, acc)) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 				if (!manaItem.isNoExport()) {
@@ -230,28 +234,27 @@ public final class HUDHandler {
 			}
 
 			if (anyRequest) {
-				renderManaInvBar(gui, totalMana, totalMaxMana);
+				renderManaInvBar(gui, window, totalMana, totalMaxMana);
 			}
 		}
 
 		profiler.popPush("itemsRemaining");
-		ItemsRemainingRenderHandler.render(gui, partialTicks.getGameTimeDeltaPartialTick(true));
+		ItemsRemainingRenderHandler.render(gui, partialTick);
 		profiler.pop();
 		profiler.pop();
 
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
-	private static void renderManaInvBar(GuiGraphics gui, int totalMana, int totalMaxMana) {
-		Minecraft mc = Minecraft.getInstance();
+	private static void renderManaInvBar(GuiGraphics gui, Window window, int totalMana, int totalMaxMana) {
 		int width = 182;
-		int x = mc.getWindow().getGuiScaledWidth() / 2 - width / 2;
-		int y = mc.getWindow().getGuiScaledHeight() - BotaniaConfig.client().manaBarHeight();
+		int x = window.getGuiScaledWidth() / 2 - width / 2;
+		int y = window.getGuiScaledHeight() - BotaniaConfig.client().manaBarHeight();
 
 		if (totalMaxMana == 0) {
 			width = 0;
 		} else {
-			width *= (double) totalMana / (double) totalMaxMana;
+			width = (int) (width * ((double) totalMana / (double) totalMaxMana));
 		}
 
 		if (width == 0) {
@@ -325,16 +328,16 @@ public final class HUDHandler {
 	/**
 	 * Renders a mana HUD below the crosshair, containing just a mana bar and a name above
 	 */
-	public static void drawSimpleManaHUD(GuiGraphics gui, int color, int mana, int maxMana, String name) {
+	public static void drawSimpleManaHUD(GuiGraphics gui, Window window, Font font, int color, int mana, int maxMana, String name) {
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft mc = Minecraft.getInstance();
-		int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(name) / 2;
-		int y = mc.getWindow().getGuiScaledHeight() / 2 + 10;
+		int x = window.getGuiScaledWidth() / 2 - font.width(name) / 2;
+		int y = window.getGuiScaledHeight() / 2 + 10;
 
-		gui.drawString(mc.font, name, x, y, color);
+		gui.drawString(font, name, x, y, color);
 
-		x = mc.getWindow().getGuiScaledWidth() / 2 - 51;
+		x = window.getGuiScaledWidth() / 2 - 51;
 		y += 10;
 
 		renderManaBar(gui, x, y, color, 1F, mana, maxMana);
@@ -345,14 +348,12 @@ public final class HUDHandler {
 	/**
 	 * Renders a mana HUD below the crosshair, containing a mana bar, a name above, and a bound item status to the right
 	 */
-	public static void drawComplexManaHUD(int color, GuiGraphics gui, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
+	public static void drawComplexManaHUD(int color, GuiGraphics gui, Window window, Font font, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
 		PoseStack ms = gui.pose();
-		drawSimpleManaHUD(gui, color, mana, maxMana, name);
+		drawSimpleManaHUD(gui, window, font, color, mana, maxMana, name);
 
-		Minecraft mc = Minecraft.getInstance();
-
-		int x = mc.getWindow().getGuiScaledWidth() / 2 + Math.max(51, mc.font.width(name) / 2) + 4;
-		int y = mc.getWindow().getGuiScaledHeight() / 2 + 12;
+		int x = window.getGuiScaledWidth() / 2 + Math.max(51, font.width(name) / 2) + 4;
+		int y = window.getGuiScaledHeight() / 2 + 12;
 
 		gui.renderItem(bindDisplay, x, y);
 
@@ -361,11 +362,11 @@ public final class HUDHandler {
 		// Magic number to get the string above the item we just rendered.
 		ms.translate(0, 0, 200);
 		if (properlyBound) {
-			gui.drawString(mc.font, "✔", x + 10, y + 9, 0x004C00);
-			gui.drawString(mc.font, "✔", x + 10, y + 8, 0x0BD20D);
+			gui.drawString(font, "✔", x + 10, y + 9, 0x004C00);
+			gui.drawString(font, "✔", x + 10, y + 8, 0x0BD20D);
 		} else {
-			gui.drawString(mc.font, "✘", x + 10, y + 9, 0x4C0000);
-			gui.drawString(mc.font, "✘", x + 10, y + 8, 0xD2080D);
+			gui.drawString(font, "✘", x + 10, y + 9, 0x4C0000);
+			gui.drawString(font, "✘", x + 10, y + 8, 0xD2080D);
 		}
 		ms.popPose();
 		RenderSystem.enableDepthTest();

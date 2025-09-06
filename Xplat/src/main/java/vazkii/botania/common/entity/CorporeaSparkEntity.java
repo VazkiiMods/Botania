@@ -9,9 +9,10 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.platform.Window;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -323,7 +324,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 
 	public record WandHud(CorporeaSparkEntity entity) implements WandHUD {
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			ItemStack sparkStack = new ItemStack(entity.getSparkItem());
 			DyeColor networkColor = entity.getNetwork();
 			Component networkColorName = Component.translatable("color.minecraft." + networkColor.getName())
@@ -331,18 +332,18 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 			int textColor = ColorHelper.getColorLegibleOnGrayBackground(networkColor);
 
 			int width = 4 + Math.max(
-					mc.font.width(networkColorName),
-					RenderHelper.itemWithNameWidth(mc, sparkStack)
+					font.width(networkColorName),
+					RenderHelper.itemWithNameWidth(sparkStack, font)
 			);
-			int networkColorTextStart = mc.font.width(networkColorName) / 2;
+			int networkColorTextStart = font.width(networkColorName) / 2;
 
-			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
-			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+			int centerX = window.getGuiScaledWidth() / 2;
+			int centerY = window.getGuiScaledHeight() / 2;
 
 			RenderHelper.renderHUDBox(gui, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 38);
 
-			RenderHelper.renderItemWithNameCentered(gui, mc, sparkStack, centerY + 10, textColor);
-			gui.drawString(mc.font, networkColorName, centerX - networkColorTextStart, centerY + 28, textColor);
+			RenderHelper.renderItemWithNameCentered(gui, window, font, sparkStack, centerY + 10, textColor);
+			gui.drawString(font, networkColorName, centerX - networkColorTextStart, centerY + 28, textColor);
 		}
 	}
 

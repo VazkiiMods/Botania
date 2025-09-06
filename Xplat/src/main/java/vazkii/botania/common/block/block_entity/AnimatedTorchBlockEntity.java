@@ -8,7 +8,9 @@
  */
 package vazkii.botania.common.block.block_entity;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -154,14 +156,14 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
-			int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 - 10;
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
+			int x = window.getGuiScaledWidth() / 2 + 8;
+			int y = window.getGuiScaledHeight() / 2 - 10;
 
 			String str = I18n.get("botania.animatedTorch." + torch.torchMode.name().toLowerCase(Locale.ROOT));
-			RenderHelper.renderHUDBox(gui, x, y, x + 18 + mc.font.width(str), y + 20);
+			RenderHelper.renderHUDBox(gui, x, y, x + 18 + font.width(str), y + 20);
 			gui.renderFakeItem(new ItemStack(Blocks.REDSTONE_TORCH), x, y + 2);
-			gui.drawString(mc.font, str, x + 16, y + 6, 0xFF4444);
+			gui.drawString(font, str, x + 16, y + 6, 0xFF4444);
 		}
 	}
 

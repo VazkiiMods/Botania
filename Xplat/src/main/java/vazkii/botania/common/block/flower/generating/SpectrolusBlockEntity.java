@@ -9,8 +9,9 @@
 package vazkii.botania.common.block.flower.generating;
 
 import com.google.common.collect.Iterables;
+import com.mojang.blaze3d.platform.Window;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -127,17 +128,18 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.apply(flower.nextColor));
 
 			if (stack.isEmpty()) {
-				super.renderHUD(gui, mc);
+				super.renderHUD(gui, window, font, partialTick);
 			} else {
-				int halfWidth = RenderHelper.itemWithNameWidth(mc, stack) / 2;
-				int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+				int halfWidth = RenderHelper.itemWithNameWidth(stack, font) / 2;
+				int centerY = window.getGuiScaledHeight() / 2;
 
-				super.renderHUD(gui, mc, halfWidth + 2, halfWidth + 2, 48);
-				RenderHelper.renderItemWithNameCentered(gui, mc, stack, centerY + 30, ColorHelper.getColorLegibleOnGrayBackground(flower.nextColor));
+				super.renderHUD(gui, window, font, halfWidth + 2, halfWidth + 2, 48);
+				RenderHelper.renderItemWithNameCentered(gui, window, font, stack, centerY + 30, ColorHelper.getColorLegibleOnGrayBackground(flower.nextColor)
+				);
 			}
 		}
 	}

@@ -121,8 +121,9 @@ public class SkyblockSkyRenderer {
 		float rotSpeedMod = 0.4F;
 
 		for (int p = 0; p < 3; p++) {
-			float baseAngle = rotSpeed * rotSpeedMod * (ClientTickHandler.ticksInGame + partialTicks);
-			ms.mulPose(VecHelper.rotateY((ClientTickHandler.ticksInGame + partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
+			float time = ClientTickHandler.getEntityTicksInGame() + partialTicks;
+			float baseAngle = rotSpeed * rotSpeedMod * time;
+			ms.mulPose(VecHelper.rotateY(time * 0.25F * rotSpeed * rotSpeedMod));
 
 			Matrix4f mat = ms.last().pose();
 			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
@@ -227,7 +228,7 @@ public class SkyblockSkyRenderer {
 		}
 		float alpha = rain * Math.max(0.1F, effCelAng * 2);
 
-		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
+		float t = (ClientTickHandler.getEntityTicksInGame() + partialTicks + 2000) * 0.005F;
 		ms.pushPose();
 		starVBO.bind();
 

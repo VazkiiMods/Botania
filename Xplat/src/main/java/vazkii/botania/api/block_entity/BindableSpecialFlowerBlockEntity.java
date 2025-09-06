@@ -8,7 +8,9 @@
  */
 package vazkii.botania.api.block_entity;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -195,13 +197,13 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 			this.flower = flower;
 		}
 
-		public void renderHUD(GuiGraphics gui, Minecraft mc, int minLeft, int minRight, int minDown) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, int minLeft, int minRight, int minDown) {
 			String name = I18n.get(flower.getBlockState().getBlock().getDescriptionId());
 			int color = flower.getColor();
 
-			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
-			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
-			int left = (Math.max(102, mc.font.width(name)) + 4) / 2;
+			int centerX = window.getGuiScaledWidth() / 2;
+			int centerY = window.getGuiScaledHeight() / 2;
+			int left = (Math.max(102, font.width(name)) + 4) / 2;
 			// padding + item
 			int right = left + 20;
 
@@ -210,13 +212,13 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 			RenderHelper.renderHUDBox(gui, centerX - left, centerY + 8, centerX + right, centerY + Math.max(30, minDown));
 
-			BotaniaAPIClient.instance().drawComplexManaHUD(gui, color, flower.getMana(), flower.getMaxMana(),
+			BotaniaAPIClient.instance().drawComplexManaHUD(gui, window, font, color, flower.getMana(), flower.getMaxMana(),
 					name, flower.getHudIcon(), flower.isValidBinding());
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
-			renderHUD(gui, mc, 0, 0, 0);
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
+			renderHUD(gui, window, font, 0, 0, 0);
 		}
 	}
 }

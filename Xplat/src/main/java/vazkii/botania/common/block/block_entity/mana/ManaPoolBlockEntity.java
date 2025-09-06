@@ -8,11 +8,12 @@
  */
 package vazkii.botania.common.block.block_entity.mana;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import it.unimi.dsi.fastutil.ints.*;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -510,18 +511,18 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			ItemStack poolStack = new ItemStack(pool.getBlockState().getBlock());
 			String name = poolStack.getHoverName().getString();
 
-			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
-			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+			int centerX = window.getGuiScaledWidth() / 2;
+			int centerY = window.getGuiScaledHeight() / 2;
 
-			int width = Math.max(102, mc.font.width(name)) + 4;
+			int width = Math.max(102, font.width(name)) + 4;
 
 			RenderHelper.renderHUDBox(gui, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 48);
 
-			BotaniaAPIClient.instance().drawSimpleManaHUD(gui, 0x0095FF, pool.getCurrentMana(), pool.getMaxMana(), name);
+			BotaniaAPIClient.instance().drawSimpleManaHUD(gui, window, font, 0x0095FF, pool.getCurrentMana(), pool.getMaxMana(), name);
 
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

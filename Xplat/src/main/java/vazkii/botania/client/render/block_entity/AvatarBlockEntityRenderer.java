@@ -48,7 +48,7 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 	}
 
 	@Override
-	public void render(@Nullable AvatarBlockEntity avatar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable AvatarBlockEntity avatar, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		Direction facing = avatar != null && avatar.getLevel() != null ? avatar.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING) : Direction.SOUTH;
 
@@ -78,7 +78,7 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 					ms.pushPose();
 					ms.scale(s, s, s);
 					ms.translate(0F, -0.01F, 0F);
-					float alpha = (float) Math.sin(ClientTickHandler.ticksInGame / 20D) / 2F + 0.5F;
+					float alpha = (float) Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 20D) / 2F + 0.5F;
 					model.renderToBuffer(ms, buffer, 0xF000F0, overlay, FastColor.ARGB32.colorFromFloat(alpha, 1.0F, 1.0F, 1.0F));
 					ms.popPose();
 				}

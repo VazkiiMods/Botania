@@ -8,9 +8,10 @@
  */
 package vazkii.botania.common.block.block_entity;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -331,9 +332,9 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 	}
 
 	public static class Hud {
-		public static void render(PetalApothecaryBlockEntity altar, GuiGraphics gui, Minecraft mc) {
-			int xc = mc.getWindow().getGuiScaledWidth() / 2;
-			int yc = mc.getWindow().getGuiScaledHeight() / 2;
+		public static void render(PetalApothecaryBlockEntity altar, GuiGraphics gui, Window window, Font font, float partialTick) {
+			int xc = window.getGuiScaledWidth() / 2;
+			int yc = window.getGuiScaledHeight() / 2;
 
 			float angle = -90;
 			int radius = 24;
@@ -366,7 +367,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 						reagent = reagents[idx];
 					}
 					gui.renderFakeItem(reagent, xc + radius + 16, yc + 6);
-					gui.drawString(mc.font, "+", xc + radius + 14, yc + 10, 0xFFFFFF, false);
+					gui.drawString(font, "+", xc + radius + 14, yc + 10, 0xFFFFFF, false);
 				});
 
 				for (int i = 0; i < amt; i++) {
@@ -385,9 +386,9 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			}
 			if (altar.recipeKeepTicks > 0 && altar.canAddLastRecipe()) {
 				String s = I18n.get("botaniamisc.altarRefill0");
-				gui.drawString(mc.font, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF, false);
+				gui.drawString(font, s, xc - font.width(s) / 2, yc + 10, 0xFFFFFF, false);
 				s = I18n.get("botaniamisc.altarRefill1");
-				gui.drawString(mc.font, s, xc - mc.font.width(s) / 2, yc + 20, 0xFFFFFF, false);
+				gui.drawString(font, s, xc - font.width(s) / 2, yc + 20, 0xFFFFFF, false);
 			}
 		}
 	}

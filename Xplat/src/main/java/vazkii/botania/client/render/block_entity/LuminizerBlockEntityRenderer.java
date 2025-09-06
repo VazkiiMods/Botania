@@ -33,14 +33,14 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 	public LuminizerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(LuminizerBlockEntity tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(LuminizerBlockEntity tile, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		BlockState state = tile.getBlockState();
 
 		Minecraft mc = Minecraft.getInstance();
 
 		if (mc.getCameraEntity() instanceof LivingEntity view) {
 			if (ManaseerMonocleItem.hasMonocle(view) && SpecialFlowerBlockEntityRenderer.hasBindingAttempt(view, tile.getBlockPos())) {
-				SpecialFlowerBlockEntityRenderer.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getBlockPos(), LuminizerBlockEntity.MAX_DIST));
+				SpecialFlowerBlockEntityRenderer.renderRadius(tile, partialTick, ms, buffers, new RadiusDescriptor.Circle(tile.getBlockPos(), LuminizerBlockEntity.MAX_DIST));
 			}
 		}
 
@@ -49,7 +49,7 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 		ms.pushPose();
 		ms.translate(0.5, 0.3, 0.5);
 
-		double time = ClientTickHandler.ticksInGame + pticks;
+		double time = ClientTickHandler.getEntityTicksInGame() + partialTick;
 
 		float scale = 0.75F;
 		ms.scale(scale, scale, scale);

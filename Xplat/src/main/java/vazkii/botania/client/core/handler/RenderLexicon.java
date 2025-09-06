@@ -27,6 +27,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -43,6 +44,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
+	@Nullable
 	private static BookModel model = null;
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
 	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, botaniaRL("item/lexicon_3d"));
@@ -95,15 +97,7 @@ public class RenderLexicon {
 
 		ms.pushPose();
 
-		float partialTicks = mc.getTimer().getGameTimeDeltaPartialTick(true);
-		float ticks = ClientTickHandler.ticksWithLexicaOpen;
-		if (ticks > 0 && ticks < 10) {
-			if (LexicaBotaniaItem.isOpen()) {
-				ticks += partialTicks;
-			} else {
-				ticks -= partialTicks;
-			}
-		}
+		float ticks = ClientTickHandler.getTicksWithLexicaOpen();
 
 		if (!leftHanded) {
 			ms.translate(0.3F + 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
@@ -115,17 +109,15 @@ public class RenderLexicon {
 		ms.mulPose(VecHelper.rotateZ(-0.3F + ticks * 2.85F));
 		float opening = Mth.clamp(ticks / 12F, 0, 1);
 
-		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
-		if (pageFlipTicks > 0) {
-			pageFlipTicks -= partialTicks;
-		}
+		float pageFlipTicks = ClientTickHandler.getPageFlipTicks();
 
 		float pageFlip = pageFlipTicks / 5F;
 
 		float leftPageAngle = Mth.frac(pageFlip + 0.25F) * 1.6F - 0.3F;
 		float rightPageAngle = Mth.frac(pageFlip + 0.75F) * 1.6F - 0.3F;
 		var model = getModel();
-		model.setupAnim(ClientTickHandler.ticksInGame + partialTicks, Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
+		model.setupAnim(ClientTickHandler.getPlayerTicksInGame() + ClientTickHandler.getPartialPlayerTick(),
+				Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
 		Material mat = LexicaBotaniaItem.isElven(stack) ? ELVEN_TEXTURE : TEXTURE;
 		VertexConsumer buffer = mat.buffer(buffers, RenderType::entitySolid);

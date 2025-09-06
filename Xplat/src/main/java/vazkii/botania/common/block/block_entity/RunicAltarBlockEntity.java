@@ -8,11 +8,13 @@
  */
 package vazkii.botania.common.block.block_entity;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -394,10 +396,10 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	}
 
 	public static class Hud {
-		public static void render(RunicAltarBlockEntity altar, GuiGraphics gui, Minecraft mc) {
+		public static void render(RunicAltarBlockEntity altar, GuiGraphics gui, Window window, Font font, LocalPlayer player, float partialTick) {
 			PoseStack ms = gui.pose();
-			int xc = mc.getWindow().getGuiScaledWidth() / 2;
-			int yc = mc.getWindow().getGuiScaledHeight() / 2;
+			int xc = window.getGuiScaledWidth() / 2;
+			int yc = window.getGuiScaledHeight() / 2;
 
 			float angle = -90;
 			int radius = 24;
@@ -433,9 +435,9 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						ms.pushPose();
 						ms.translate(0, 0, 100);
 						// If the player is holding a WandOfTheForestItem or has one in their inventory, render that instead of a generic twigWand
-						ItemStack playerWand = PlayerHelper.getFirstHeldItemClass(mc.player, WandOfTheForestItem.class);
+						ItemStack playerWand = PlayerHelper.getFirstHeldItemClass(player, WandOfTheForestItem.class);
 						if (playerWand.isEmpty()) {
-							playerWand = PlayerHelper.getItemClassFromInventory(mc.player, WandOfTheForestItem.class);
+							playerWand = PlayerHelper.getItemClassFromInventory(player, WandOfTheForestItem.class);
 						}
 						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.twigWand) : playerWand;
 						gui.renderFakeItem(wandToRender, xc + radius + 24, yc + 8);
@@ -443,10 +445,11 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					}
 
 					RenderHelper.renderProgressPie(gui, xc + radius + 32, yc - 8, progress,
-							altar.currentRecipe.value().assemble(altar.getRecipeInput(), altar.getLevel().registryAccess()));
+							altar.currentRecipe.value().assemble(altar.getRecipeInput(), altar.getLevel().registryAccess()),
+							partialTick);
 
 					if (progress == 1F) {
-						gui.drawString(mc.font, "+", xc + radius + 14, yc + 12, 0xFFFFFF, false);
+						gui.drawString(font, "+", xc + radius + 14, yc + 12, 0xFFFFFF, false);
 					}
 				}
 
@@ -463,9 +466,9 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			}
 			if (altar.recipeKeepTicks > 0 && altar.canAddLastRecipe()) {
 				String s = I18n.get("botaniamisc.altarRefill0");
-				gui.drawString(mc.font, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
+				gui.drawString(font, s, xc - font.width(s) / 2, yc + 10, 0xFFFFFF);
 				s = I18n.get("botaniamisc.altarRefill1");
-				gui.drawString(mc.font, s, xc - mc.font.width(s) / 2, yc + 20, 0xFFFFFF);
+				gui.drawString(font, s, xc - font.width(s) / 2, yc + 20, 0xFFFFFF);
 			}
 		}
 	}

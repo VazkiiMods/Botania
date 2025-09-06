@@ -8,7 +8,9 @@
  */
 package vazkii.botania.common.block.block_entity;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -275,19 +277,19 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			int manaToGet = brewery.getManaCost();
 			if (manaToGet > 0) {
 				if (brewery.recipe == null) {
 					return;
 				}
 
-				int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 - 12;
+				int x = window.getGuiScaledWidth() / 2 + 8;
+				int y = window.getGuiScaledHeight() / 2 - 12;
 
 				RenderHelper.renderHUDBox(gui, x, y, x + 24, y + 24);
 				RenderHelper.renderProgressPie(gui, x + 4, y + 4, (float) brewery.mana / (float) manaToGet,
-						brewery.recipe.getOutput(brewery.getItemHandler().getItem(0)));
+						brewery.recipe.getOutput(brewery.getItemHandler().getItem(0)), partialTick);
 			}
 		}
 	}

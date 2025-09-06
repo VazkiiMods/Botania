@@ -9,8 +9,9 @@
 package vazkii.botania.common.block.flower.functional;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.platform.Window;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -227,18 +228,18 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			ItemStack filterStack = new ItemStack(flower.getUnderlyingBlock().getBlock());
 			int color = flower.getColor();
 			String mode = I18n.get("botaniamisc.rannuncarpus." + (flower.stateSensitive ? "state_sensitive" : "state_insensitive"));
-			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
-			int modeWidth = mc.font.width(mode);
-			int modeTextStart = (mc.getWindow().getGuiScaledWidth() - modeWidth) / 2;
-			int minWidth = Math.max(RenderHelper.itemWithNameWidth(mc, filterStack), modeWidth) + 4;
+			int centerY = window.getGuiScaledHeight() / 2;
+			int modeWidth = font.width(mode);
+			int modeTextStart = (window.getGuiScaledWidth() - modeWidth) / 2;
+			int minWidth = Math.max(RenderHelper.itemWithNameWidth(filterStack, font), modeWidth) + 4;
 
-			super.renderHUD(gui, mc, minWidth / 2, minWidth / 2, filterStack.isEmpty() ? 40 : 60);
-			gui.drawString(mc.font, mode, modeTextStart, centerY + 30, color);
-			RenderHelper.renderItemWithNameCentered(gui, mc, filterStack, centerY + 40, color);
+			super.renderHUD(gui, window, font, minWidth / 2, minWidth / 2, filterStack.isEmpty() ? 40 : 60);
+			gui.drawString(font, mode, modeTextStart, centerY + 30, color);
+			RenderHelper.renderItemWithNameCentered(gui, window, font, filterStack, centerY + 40, color);
 		}
 	}
 

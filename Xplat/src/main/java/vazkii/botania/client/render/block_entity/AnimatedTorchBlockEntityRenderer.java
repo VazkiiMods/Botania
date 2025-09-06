@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -29,14 +30,13 @@ public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<Ani
 	public AnimatedTorchBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(AnimatedTorchBlockEntity te, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		Minecraft mc = Minecraft.getInstance();
+	public void render(AnimatedTorchBlockEntity torch, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
-		boolean hasWorld = te != null && te.getLevel() != null;
-		int wtime = !hasWorld ? 0 : ClientTickHandler.ticksInGame;
+		Level level = torch.getLevel();
+		int wtime = level == null ? 0 : ClientTickHandler.getEntityTicksInGame();
 		if (wtime != 0) {
-			wtime += new Random(te.getBlockPos().hashCode()).nextInt(360);
+			wtime += new Random(torch.getBlockPos().asLong()).nextInt(360);
 		}
 
 		float time = wtime == 0 ? 0 : wtime + partialTicks;
@@ -47,14 +47,14 @@ public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<Ani
 
 		ms.scale(2, 2, 2);
 		ms.mulPose(VecHelper.rotateX(90));
-		float rotation = (float) te.rotation;
-		if (te.rotating) {
-			rotation += te.anglePerTick * partialTicks;
+		float rotation = (float) torch.rotation;
+		if (torch.rotating) {
+			rotation += (float) torch.anglePerTick * partialTicks;
 		}
 
 		ms.mulPose(VecHelper.rotateZ(rotation));
-		mc.getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH), ItemDisplayContext.GROUND,
-				light, overlay, ms, buffers, te.getLevel(), 0);
+		Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH),
+				ItemDisplayContext.GROUND, light, overlay, ms, buffers, level, 0);
 		ms.popPose();
 	}
 

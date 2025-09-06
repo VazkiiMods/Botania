@@ -49,14 +49,14 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 	}
 
 	@Override
-	public void render(@Nullable CorporeaCrystalCubeBlockEntity cube, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable CorporeaCrystalCubeBlockEntity cube, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if (entity == null) {
 				entity = new ItemEntity(cube.getLevel(), cube.getBlockPos().getX(), cube.getBlockPos().getY(), cube.getBlockPos().getZ(), new ItemStack(Blocks.STONE));
 			}
 
-			((ItemEntityAccessor) entity).setAge(ClientTickHandler.ticksInGame);
+			((ItemEntityAccessor) entity).setAge(ClientTickHandler.getEntityTicksInGame());
 			stack = cube.getRequestTarget();
 			entity.setItem(stack);
 		}
@@ -66,20 +66,20 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 		ms.translate(0.5F, 1.5F, 0.5F);
 		ms.scale(1F, -1F, -1F);
 		/*
-			Using Mth.sin(((float)entity.getAge() + f) / 10.0F + entity.bobOffs from ItemEntityRender#render to sync the bobbing.
+			Using Mth.sin(((float)entity.getAge() + partialTick) / 10.0F + entity.bobOffs from ItemEntityRender#render to sync the bobbing.
 			Divided by a negative number to make the item inside not be static (-1 almost make the cube and item the same speed).
 			Making the divider smaller, slows down the cube bobbing (you can multiply instead to make it faster).
 			This still keeps the item and the cube in sync, the cube just doesn't move as much as the item,
 			but the item never goes outside the cube (based on the tests I made; some edge cases could exist).
 		*/
-		ms.translate(0F, (Mth.sin(((float) entity.getAge() + f) / 10.0F + entity.bobOffs) * 0.1F + 0.1F) / -7F, 0F);
+		ms.translate(0F, (Mth.sin(((float) entity.getAge() + partialTick) / 10.0F + entity.bobOffs) * 0.1F + 0.1F) / -7F, 0F);
 
 		if (!stack.isEmpty()) {
 			ms.pushPose();
 			ms.translate(0F, 0.96F, 0F);
 			ms.scale(0.64F, 0.64F, 0.64F);
 			ms.mulPose(VecHelper.rotateZ(180F));
-			Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity).render(entity, 0, f, ms, buffers, light);
+			Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity).render(entity, 0, partialTick, ms, buffers, light);
 			ms.popPose();
 		}
 

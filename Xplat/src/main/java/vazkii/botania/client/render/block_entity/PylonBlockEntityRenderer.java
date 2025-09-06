@@ -54,7 +54,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 	}
 
 	@Override
-	public void render(@Nullable PylonBlockEntity pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable PylonBlockEntity pylon, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		boolean renderingItem = pylon == null;
 		boolean direct = renderingItem && (forceTransform == ItemDisplayContext.GUI || forceTransform.firstPerson()); // loosely based off ItemRenderer logic
 		Block type = renderingItem ? forceVariant : pylon.getBlockState().getBlock();
@@ -77,7 +77,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 
 		ms.pushPose();
 
-		float worldTime = ClientTickHandler.ticksInGame + pticks;
+		float worldTime = ClientTickHandler.getEntityTicksInGame() + partialTick;
 
 		worldTime += pylon == null ? 0 : new Random(pylon.getBlockPos().hashCode()).nextInt(360);
 

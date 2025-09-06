@@ -39,7 +39,7 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 	}
 
 	@Override
-	public void render(PetalApothecaryBlockEntity altar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(PetalApothecaryBlockEntity altar, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.translate(0.5, 1.25, 0.5);
 
@@ -65,7 +65,7 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 					final float radiusBase = 1.2F;
 					final float radiusMod = 0.1F;
 
-					double ticks = (ClientTickHandler.ticksInGame + pticks) * 0.5;
+					double ticks = (ClientTickHandler.getEntityTicksInGame() + partialTick) * 0.5;
 					float offsetPerPetal = 360F / petals;
 
 					ms.pushPose();

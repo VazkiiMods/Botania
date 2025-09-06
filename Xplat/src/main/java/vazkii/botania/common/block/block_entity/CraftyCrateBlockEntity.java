@@ -8,7 +8,9 @@
  */
 package vazkii.botania.common.block.block_entity;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -282,11 +284,11 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			int width = 52;
 			int height = 52;
-			int xc = mc.getWindow().getGuiScaledWidth() / 2 + 12;
-			int yc = mc.getWindow().getGuiScaledHeight() / 2 - height / 2;
+			int xc = window.getGuiScaledWidth() / 2 + 12;
+			int yc = window.getGuiScaledHeight() / 2 - height / 2;
 
 			RenderHelper.renderHUDBox(gui, xc - 4, yc - 4, xc + width + 4, yc + height + 4);
 

@@ -28,7 +28,6 @@ import net.minecraft.world.item.ItemStack;
 
 import org.joml.Quaternionf;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
@@ -66,12 +65,13 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 			angles[i] = totalAngle += anglePer;
 		}
 
-		double time = ClientTickHandler.ticksInGame + partialTick;
+		long ticks = altar.getLevel().getGameTime();
+		double time = ticks + partialTick;
 
 		for (int i = 0; i < altar.inventorySize(); i++) {
 			ms.pushPose();
 			ms.translate(0.5F, 1.25F, 0.5F);
-			ms.mulPose(VecHelper.rotateY(angles[i] + (float) time));
+			ms.mulPose(VecHelper.rotateY(angles[i] + (float) (time % 360f)));
 			ms.translate(1.125F, 0F, 0.25F);
 			ms.mulPose(VecHelper.rotateY(90F));
 			ms.translate(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
@@ -86,7 +86,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 
 		ms.pushPose();
 		ms.translate(0.5F, 0.5F, 0.5F);
-		renderSpinningCubes(ms, buffers, overlay, 2, 15);
+		renderSpinningCubes(ms, buffers, overlay, 2, 15, time);
 		ms.popPose();
 
 		ms.translate(0F, 0.2F, 0F);
@@ -101,15 +101,15 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 		ms.popPose();
 	}
 
-	private void renderSpinningCubes(PoseStack ms, MultiBufferSource buffers, int overlay, int cubes, int iters) {
+	private void renderSpinningCubes(PoseStack ms, MultiBufferSource buffers, int overlay, int cubes, int iters, double time) {
 		for (int curIter = iters; curIter > 0; curIter--) {
 			final float modifier = 6F;
 			final float rotationModifier = 0.2F;
 			final float radiusBase = 0.35F;
 			final float radiusMod = 0.05F;
 
-			double ticks = ClientTickHandler.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false) - 1.3 * (iters - curIter);
-			float offsetPerCube = 360 / cubes;
+			double ticks = time - 1.3 * (iters - curIter);
+			float offsetPerCube = 360f / cubes;
 
 			ms.pushPose();
 			ms.translate(-0.025F, 0.85F, -0.025F);

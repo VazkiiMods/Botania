@@ -29,13 +29,13 @@ public class BotanicalBreweryBlockEntityRenderer implements BlockEntityRenderer<
 	}
 
 	@Override
-	public void render(@Nullable BreweryBlockEntity brewery, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable BreweryBlockEntity brewery, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		ms.scale(1F, -1F, -1F);
 		ms.translate(0.5F, -1.5F, -0.5F);
 
-		double time = ClientTickHandler.ticksInGame + f;
+		double time = ClientTickHandler.getEntityTicksInGame() + partialTick;
 
 		model.render(brewery, time, ms, buffers, light, overlay);
 		ms.popPose();

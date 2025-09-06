@@ -8,7 +8,9 @@
  */
 package vazkii.botania.common.block.block_entity;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -216,18 +218,18 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			ItemStack stack = hourglass.getItemHandler().getItem(0);
 			if (!stack.isEmpty()) {
-				int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 - 10;
+				int x = window.getGuiScaledWidth() / 2 + 8;
+				int y = window.getGuiScaledHeight() / 2 - 10;
 
 				String first, second;
 				if (hourglass.isDust()) {
 					first = Integer.toString(hourglass.time);
 					second = Integer.toString(hourglass.getTotalTime());
 				} else {
-					float tickrate = mc.level == null ? 20 : mc.level.tickRateManager().tickrate();
+					float tickrate = hourglass.level == null ? 20 : hourglass.level.tickRateManager().tickrate();
 					first = StringUtil.formatTickDuration(hourglass.time, tickrate);
 					second = StringUtil.formatTickDuration(hourglass.getTotalTime(), tickrate);
 				}
@@ -241,16 +243,16 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 					status = I18n.get("botaniamisc." + status);
 				}
 
-				int textWidth = Math.max(mc.font.width(timer), mc.font.width(status));
+				int textWidth = Math.max(font.width(timer), font.width(status));
 
 				RenderHelper.renderHUDBox(gui, x, y, x + textWidth + 24, y + 22);
 
 				gui.renderFakeItem(stack, x + 2, y + 3);
-				gui.renderItemDecorations(mc.font, stack, x + 2, y + 3);
+				gui.renderItemDecorations(font, stack, x + 2, y + 3);
 
-				gui.drawString(mc.font, timer, x + 22, y + 2, hourglass.getColor());
+				gui.drawString(font, timer, x + 22, y + 2, hourglass.getColor());
 				if (!status.isEmpty()) {
-					gui.drawString(mc.font, status, x + 22, y + 12, hourglass.getColor());
+					gui.drawString(font, status, x + 22, y + 12, hourglass.getColor());
 				}
 			}
 		}

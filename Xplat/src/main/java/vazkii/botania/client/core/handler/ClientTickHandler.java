@@ -11,7 +11,7 @@ package vazkii.botania.client.core.handler;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.client.player.LocalPlayer;
 
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.render.block_entity.RedStringBlockEntityRenderer;
@@ -27,13 +27,62 @@ public final class ClientTickHandler {
 
 	private ClientTickHandler() {}
 
-	public static int ticksWithLexicaOpen = 0;
-	public static int pageFlipTicks = 0;
+	private static int ticksWithLexicaOpen = 0;
+	private static int pageFlipTicks = 0;
 
-	// TODO: Reconsider if this is really a good idea to have in the first place.
-	// Often this is combined with the current partial tick time, which may lead to precision loss if the world has
-	// been open on the client for a long time.
-	public static int ticksInGame = 0;
+	private static int playerTicksInGame = 0;
+	private static int unfrozenTicksInGame = 0;
+
+	/**
+	 * Returns a number of game ticks that keeps incrementing while the game not paused, even when frozen.
+	 * (Use only for things that should keep animating under {@code /tick freeze} conditions.)
+	 */
+	public static int getPlayerTicksInGame() {
+		return playerTicksInGame;
+	}
+
+	/**
+	 * Returns the partial tick value, treating the game as unfrozen at all times.
+	 * (Use only if no unfrozen partial tick is available already.)
+	 */
+	public static float getPartialPlayerTick() {
+		return Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
+	}
+
+	/**
+	 * Returns a number of game ticks that keeps increasing while the game is not frozen or paused.
+	 * (Use for things that stop during {@code /tick freeze}.)
+	 */
+	public static int getEntityTicksInGame() {
+		return unfrozenTicksInGame;
+	}
+
+	/**
+	 * Returns the partial tick value, respecting the game's frozen state.
+	 * (Use only if no partial tick is available that respects the frozen state.)
+	 */
+	public static float getEntityPartialTick() {
+		Minecraft minecraft = Minecraft.getInstance();
+		return minecraft.getTimer().getGameTimeDeltaPartialTick(
+				minecraft.level != null && !minecraft.level.tickRateManager().isFrozen());
+	}
+
+	public static float getTicksWithLexicaOpen() {
+		boolean isOpen = LexicaBotaniaItem.isOpen();
+		if (isOpen) {
+			return ticksWithLexicaOpen == TICKS_TO_OPEN
+					? ticksWithLexicaOpen
+					: Math.min(ticksWithLexicaOpen + getPartialPlayerTick(), TICKS_TO_OPEN);
+		} else {
+			return ticksWithLexicaOpen == 0
+					? ticksWithLexicaOpen
+					: Math.max(ticksWithLexicaOpen - getPartialPlayerTick(), 0);
+		}
+	}
+
+	public static float getPageFlipTicks() {
+		return pageFlipTicks > 0 ? Math.max(pageFlipTicks - getPartialPlayerTick(), 0) : 0;
+	}
 
 	public static void clientTickEnd(Minecraft mc) {
 		RedStringBlockEntityRenderer.tick();
@@ -45,12 +94,15 @@ public final class ClientTickHandler {
 		}
 
 		if (!mc.isPaused()) {
-			ticksInGame++;
+			playerTicksInGame++;
+			if (mc.level != null && !mc.level.tickRateManager().isFrozen()) {
+				unfrozenTicksInGame++;
+			}
 
-			Player player = mc.player;
-			if (player != null) {
+			LocalPlayer player = mc.player;
+			if (player != null && mc.level != null) {
 				if (PlayerHelper.hasHeldItemClass(player, WandOfTheForestItem.class)) {
-					for (var collector : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().level))) {
+					for (var collector : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(mc.level))) {
 						collector.onClientDisplayTick();
 					}
 				}

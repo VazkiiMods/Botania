@@ -9,7 +9,9 @@
 package vazkii.botania.client.impl;
 
 import com.google.common.collect.Maps;
+import com.mojang.blaze3d.platform.Window;
 
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -35,12 +37,13 @@ public class BotaniaAPIClientImpl implements BotaniaAPIClient {
 	}
 
 	@Override
-	public void drawSimpleManaHUD(GuiGraphics gui, int color, int mana, int maxMana, String name) {
-		HUDHandler.drawSimpleManaHUD(gui, color, mana, maxMana, name);
+	public void drawSimpleManaHUD(GuiGraphics gui, Window window, Font font, int color, int mana, int maxMana, String name) {
+		HUDHandler.drawSimpleManaHUD(gui, window, font, color, mana, maxMana, name);
 	}
 
 	@Override
-	public void drawComplexManaHUD(GuiGraphics gui, int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
-		HUDHandler.drawComplexManaHUD(color, gui, mana, maxMana, name, bindDisplay, properlyBound);
+	public void drawComplexManaHUD(GuiGraphics gui, Window window, Font font, int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
+		HUDHandler.drawComplexManaHUD(color, gui, window, font, mana, maxMana, name, bindDisplay, properlyBound
+		);
 	}
 }

@@ -9,13 +9,14 @@
 package vazkii.botania.common.block.flower.functional;
 
 import com.google.common.base.Suppliers;
+import com.mojang.blaze3d.platform.Window;
 
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.*;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -576,7 +577,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			String lootType;
 			String structureName = "";
 			if (flower.attuneDisplayOverride != null) {
@@ -598,13 +599,13 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 
 			String lootTypeMessage = I18n.get("botaniamisc.loonium." + lootType, structureName);
-			int lootTypeWidth = mc.font.width(lootTypeMessage);
-			int lootTypeTextStart = (mc.getWindow().getGuiScaledWidth() - lootTypeWidth) / 2;
+			int lootTypeWidth = font.width(lootTypeMessage);
+			int lootTypeTextStart = (window.getGuiScaledWidth() - lootTypeWidth) / 2;
 			int halfMinWidth = (lootTypeWidth + 4) / 2;
-			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+			int centerY = window.getGuiScaledHeight() / 2;
 
-			super.renderHUD(gui, mc, halfMinWidth, halfMinWidth, 40);
-			gui.drawString(mc.font, lootTypeMessage, lootTypeTextStart, centerY + 30, flower.getColor());
+			super.renderHUD(gui, window, font, halfMinWidth, halfMinWidth, 40);
+			gui.drawString(font, lootTypeMessage, lootTypeTextStart, centerY + 30, flower.getColor());
 		}
 	}
 }

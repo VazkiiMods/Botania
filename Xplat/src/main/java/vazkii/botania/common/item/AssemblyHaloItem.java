@@ -8,12 +8,14 @@
  */
 package vazkii.botania.common.item;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderBuffers;
@@ -357,7 +359,7 @@ public class AssemblyHaloItem extends Item {
 			double renderPosZ = camera.getPosition().z();
 
 			ms.pushPose();
-			float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
+			float alpha = ((float) Math.sin((ClientTickHandler.getPlayerTicksInGame() + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
 
 			double posX = player.xo + (player.getX() - player.xo) * partialTicks;
 			double posY = player.yo + (player.getY() - player.yo) * partialTicks + player.getEyeHeight();
@@ -441,21 +443,20 @@ public class AssemblyHaloItem extends Item {
 			bufferSource.endBatch();
 		}
 
-		public static void renderHUD(GuiGraphics gui, Player player, ItemStack stack) {
-			Minecraft mc = Minecraft.getInstance();
+		public static void renderHUD(GuiGraphics gui, Player player, ItemStack stack, Window window, Font font) {
 			int slot = getSegmentLookedAt(stack, player);
 
 			if (slot == 0) {
 				String name = craftingTable.getHoverName().getString();
-				int l = mc.font.width(name);
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - l / 2;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 - 65;
+				int l = font.width(name);
+				int x = window.getGuiScaledWidth() / 2 - l / 2;
+				int y = window.getGuiScaledHeight() / 2 - 65;
 
 				gui.fill(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 				gui.fill(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
-				gui.renderItem(craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
+				gui.renderItem(craftingTable, window.getGuiScaledWidth() / 2 - 8, window.getGuiScaledHeight() / 2 - 52);
 
-				gui.drawString(mc.font, name, x, y, 0xFFFFFF);
+				gui.drawString(font, name, x, y, 0xFFFFFF);
 			} else {
 				RecipeHolder<? extends Recipe<CraftingInput>> recipe = getSavedRecipe(player.level(), stack, slot);
 				Component label;
@@ -469,17 +470,15 @@ public class AssemblyHaloItem extends Item {
 					setRecipe = true;
 				}
 
-				renderRecipe(gui, label, recipe != null ? recipe.value() : null, player, setRecipe);
+				renderRecipe(gui, window, font, label, recipe != null ? recipe.value() : null, player, setRecipe);
 			}
 		}
 
-		private static void renderRecipe(GuiGraphics gui, Component label, @Nullable Recipe<CraftingInput> recipe, Player player, boolean isSavedRecipe) {
-			Minecraft mc = Minecraft.getInstance();
-
+		private static void renderRecipe(GuiGraphics gui, Window window, Font font, Component label, @Nullable Recipe<CraftingInput> recipe, Player player, boolean isSavedRecipe) {
 			ItemStack recipeResult;
 			if (recipe != null && !(recipeResult = recipe.getResultItem(player.level().registryAccess())).isEmpty()) {
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - 45;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 - 90;
+				int x = window.getGuiScaledWidth() / 2 - 45;
+				int y = window.getGuiScaledHeight() / 2 - 90;
 
 				gui.fill(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
 				gui.fill(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
@@ -491,7 +490,7 @@ public class AssemblyHaloItem extends Item {
 				for (int i = 0; i < recipe.getIngredients().size(); i++) {
 					Ingredient ingr = recipe.getIngredients().get(i);
 					if (ingr != Ingredient.EMPTY) {
-						ItemStack stack = ingr.getItems()[ClientTickHandler.ticksInGame / 20 % ingr.getItems().length];
+						ItemStack stack = ingr.getItems()[ClientTickHandler.getPlayerTicksInGame() / 20 % ingr.getItems().length];
 						int xpos = x + i % wrap * 18;
 						int ypos = y + i / wrap * 18;
 						gui.fill(xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
@@ -501,18 +500,18 @@ public class AssemblyHaloItem extends Item {
 				}
 
 				gui.renderItem(recipeResult, x + 72, y + 18);
-				gui.renderItemDecorations(mc.font, recipeResult, x + 72, y + 18);
+				gui.renderItemDecorations(font, recipeResult, x + 72, y + 18);
 
 			}
 
 			int yoff = 110;
 			if (isSavedRecipe && recipe != null && !canCraftHeuristic(player, recipe)) {
 				String warning = ChatFormatting.RED + I18n.get("botaniamisc.cantCraft");
-				gui.drawCenteredString(mc.font, warning, mc.getWindow().getGuiScaledWidth() / 2, mc.getWindow().getGuiScaledHeight() / 2 - yoff, 0xFFFFFF);
+				gui.drawCenteredString(font, warning, window.getGuiScaledWidth() / 2, window.getGuiScaledHeight() / 2 - yoff, 0xFFFFFF);
 				yoff += 12;
 			}
 
-			gui.drawCenteredString(mc.font, label, mc.getWindow().getGuiScaledWidth() / 2, mc.getWindow().getGuiScaledHeight() / 2 - yoff, 0xFFFFFF);
+			gui.drawCenteredString(font, label, window.getGuiScaledWidth() / 2, window.getGuiScaledHeight() / 2 - yoff, 0xFFFFFF);
 		}
 	}
 

@@ -463,7 +463,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 			if (living != null) {
 				ms.mulPose(VecHelper.rotateY(living.tickCount + partialTicks));
 			} else {
-				ms.mulPose(VecHelper.rotateY(ClientTickHandler.ticksInGame));
+				ms.mulPose(VecHelper.rotateY(ClientTickHandler.getPlayerTicksInGame() + partialTicks));
 			}
 
 			ms.scale(0.75F, -0.75F, -0.75F);

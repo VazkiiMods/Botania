@@ -169,6 +169,9 @@ public class LevelRendererMixin {
 		// Called from our own mixin instead of e.g. Forge's render world last event,
 		// because that event is too late for Fabulous mode
 		PoseStack poseStack = new PoseStack();
-		WorldOverlays.renderWorldLast(camera, deltaTracker.getGameTimeDeltaPartialTick(false), poseStack, renderBuffers, level);
+		WorldOverlays.renderWorldLast(camera,
+				deltaTracker.getGameTimeDeltaPartialTick(false),
+				deltaTracker.getGameTimeDeltaPartialTick(true),
+				poseStack, renderBuffers, level);
 	}
 }

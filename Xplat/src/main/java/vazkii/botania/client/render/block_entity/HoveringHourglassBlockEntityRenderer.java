@@ -39,28 +39,28 @@ public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer
 	}
 
 	@Override
-	public void render(@Nullable HoveringHourglassBlockEntity hourglass, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable HoveringHourglassBlockEntity hourglass, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		boolean hasWorld = hourglass != null && hourglass.getLevel() != null;
-		int wtime = !hasWorld ? 0 : ClientTickHandler.ticksInGame;
+		int wtime = !hasWorld ? 0 : ClientTickHandler.getEntityTicksInGame();
 		if (wtime != 0) {
 			wtime += new Random(hourglass.getBlockPos().hashCode()).nextInt(360);
 		}
 
-		float time = wtime == 0 ? 0 : wtime + ticks;
+		float time = wtime == 0 ? 0 : wtime + partialTick;
 		float x = 0.5F + (float) Math.cos(time * 0.05F) * 0.025F;
 		float y = 0.55F + (float) (Math.sin(time * 0.04F) + 1F) * 0.05F;
 		float z = 0.5F + (float) Math.sin(time * 0.05F) * 0.025F;
 		ItemStack stack = hasWorld ? hourglass.getItemHandler().getItem(0) : ItemStack.EMPTY;
 
-		float activeFraction = stack.isEmpty() ? 0 : hourglass.lastFraction + (hourglass.timeFraction - hourglass.lastFraction) * ticks;
+		float activeFraction = stack.isEmpty() ? 0 : hourglass.lastFraction + (hourglass.timeFraction - hourglass.lastFraction) * partialTick;
 		float fract1 = stack.isEmpty() ? 0 : activeFraction;
 		float fract2 = stack.isEmpty() ? 0 : 1F - activeFraction;
 		ms.translate(x, y, z);
 
 		float rot = hasWorld && hourglass.flip ? 180F : 1F;
 		if (hasWorld && hourglass.flipTicks > 0) {
-			rot += (hourglass.flipTicks - ticks) * (180F / 4F);
+			rot += (hourglass.flipTicks - partialTick) * (180F / 4F);
 		}
 		ms.mulPose(VecHelper.rotateZ(rot));
 

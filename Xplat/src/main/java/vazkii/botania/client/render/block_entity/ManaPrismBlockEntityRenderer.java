@@ -27,8 +27,8 @@ public class ManaPrismBlockEntityRenderer implements BlockEntityRenderer<ManaPri
 	public ManaPrismBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(ManaPrismBlockEntity prism, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) * 0.997F - 0.5F;
+	public void render(ManaPrismBlockEntity prism, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		float pos = (float) Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) * 0.05F) * 0.5F * (1F - 1F / 16F) * 0.997F - 0.5F;
 
 		ItemStack stack = prism.getItemHandler().getItem(0);
 

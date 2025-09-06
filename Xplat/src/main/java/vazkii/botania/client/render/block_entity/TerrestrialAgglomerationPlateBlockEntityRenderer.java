@@ -38,14 +38,14 @@ public class TerrestrialAgglomerationPlateBlockEntityRenderer implements BlockEn
 	}
 
 	@Override
-	public void render(TerrestrialAgglomerationPlateBlockEntity plate, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(TerrestrialAgglomerationPlateBlockEntity plate, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float alphaMod = Math.min(1.0F, plate.getCompletion() / 0.1F);
 
 		ms.pushPose();
 		ms.translate(0F, 3F / 16F + 0.001F, 0F);
 		ms.mulPose(VecHelper.rotateX(90F));
 
-		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
+		float alpha = (float) ((Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.TERRA_PLATE);
 		RenderHelper.renderIconFullBright(ms, buffer, this.overlaySprite, alpha);

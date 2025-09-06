@@ -8,7 +8,9 @@
  */
 package vazkii.botania.api.block;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
@@ -22,6 +24,6 @@ public interface WandHUD {
 
 	ResourceLocation ID = botaniaRL("wand_hud");
 
-	void renderHUD(GuiGraphics gui, Minecraft mc);
+	void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick);
 
 }

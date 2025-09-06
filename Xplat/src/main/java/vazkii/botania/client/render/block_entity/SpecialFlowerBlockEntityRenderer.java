@@ -72,22 +72,22 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 			if (hasBindingAttempt) {
 				ms.translate(0, 0.005, 0);
 			}
-			renderRadius(tile, ms, buffers, flower.getRadius());
+			renderRadius(tile, partialTicks, ms, buffers, flower.getRadius());
 			ms.translate(0, 0.002, 0);
-			renderRadius(tile, ms, buffers, flower.getSecondaryRadius());
+			renderRadius(tile, partialTicks, ms, buffers, flower.getSecondaryRadius());
 			ms.popPose();
 
 		}
 	}
 
-	public static void renderRadius(BlockEntity tile, PoseStack ms, MultiBufferSource buffers, @Nullable RadiusDescriptor descriptor) {
+	public static void renderRadius(BlockEntity tile, float partialTick, PoseStack ms, MultiBufferSource buffers, @Nullable RadiusDescriptor descriptor) {
 		if (descriptor != null) {
 			ms.pushPose();
 			ms.translate(0, RenderHelper.getOffY(), 0);
 			if (descriptor instanceof RadiusDescriptor.Circle circle) {
-				renderCircle(ms, buffers, tile.getBlockPos(), circle.subtileCoords(), circle.radius());
+				renderCircle(ms, buffers, partialTick, tile.getBlockPos(), circle.subtileCoords(), circle.radius());
 			} else if (descriptor instanceof RadiusDescriptor.Rectangle rectangle) {
-				renderRectangle(ms, buffers, tile.getBlockPos(), rectangle.aabb());
+				renderRectangle(ms, buffers, partialTick, tile.getBlockPos(), rectangle.aabb());
 			}
 			RenderHelper.incrementOffY();
 			ms.popPose();
@@ -102,11 +102,11 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 		return false;
 	}
 
-	public static void renderCircle(PoseStack ms, MultiBufferSource buffers, BlockPos tilePos, BlockPos center, double radius) {
+	public static void renderCircle(PoseStack ms, MultiBufferSource buffers, float partialTick, BlockPos tilePos, BlockPos center, double radius) {
 		ms.pushPose();
 		ms.translate(center.getX() - tilePos.getX() + 0.5, center.getY() - tilePos.getY(), center.getZ() - tilePos.getZ() + 0.5);
 
-		int color = Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		int color = Mth.hsvToRgb((ClientTickHandler.getEntityTicksInGame() + partialTick) % 200 / 200F, 0.6F, 1F);
 		int r = (color >> 16 & 0xFF);
 		int g = (color >> 8 & 0xFF);
 		int b = (color & 0xFF);
@@ -142,11 +142,11 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 		ms.popPose();
 	}
 
-	public static void renderRectangle(PoseStack ms, MultiBufferSource buffers, BlockPos tilePos, AABB aabb) {
+	public static void renderRectangle(PoseStack ms, MultiBufferSource buffers, float partialTick, BlockPos tilePos, AABB aabb) {
 		ms.pushPose();
 		ms.translate(aabb.minX - tilePos.getX(), aabb.minY - tilePos.getY(), aabb.minZ - tilePos.getZ());
 
-		int color = Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		int color = Mth.hsvToRgb((ClientTickHandler.getEntityTicksInGame() + partialTick) % 200 / 200F, 0.6F, 1F);
 		int r = (color >> 16 & 0xFF);
 		int g = (color >> 8 & 0xFF);
 		int b = (color & 0xFF);

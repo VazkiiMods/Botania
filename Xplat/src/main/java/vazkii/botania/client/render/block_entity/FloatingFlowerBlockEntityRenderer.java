@@ -32,14 +32,14 @@ public class FloatingFlowerBlockEntityRenderer implements BlockEntityRenderer<Fl
 		renderFloatingIsland(tile, t, ms, buffers, overlay);
 	}
 
-	public static void renderFloatingIsland(BlockEntity tile, float t, PoseStack ms, MultiBufferSource buffers, int overlay) {
+	public static void renderFloatingIsland(BlockEntity tile, float partialTick, PoseStack ms, MultiBufferSource buffers, int overlay) {
 		if (BotaniaConfig.client().staticFloaters()) {
 			return;
 		}
 
 		ms.pushPose();
 
-		double worldTime = ClientTickHandler.ticksInGame + t;
+		double worldTime = ClientTickHandler.getEntityTicksInGame() + partialTick;
 		if (tile.getLevel() != null) {
 			worldTime += new Random(tile.getBlockPos().hashCode()).nextInt(1000);
 		}

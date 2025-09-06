@@ -66,7 +66,8 @@ public class RedStringBlockEntityRenderer<T extends RedStringBlockEntity> implem
 
 			int stepCount = (int) (span.length() / step.length());
 
-			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.getBlockPos().hashCode()).nextInt(10000);
+			double len = (double) -(ClientTickHandler.getEntityTicksInGame() + partialTicks) / 100F
+					+ new Random(dir.ordinal() ^ tile.getBlockPos().asLong()).nextInt(10000);
 			double add = step.length();
 			double rand = Math.random() - 0.5;
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.RED_STRING);

@@ -10,6 +10,7 @@ package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -21,6 +22,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -290,10 +292,9 @@ public final class RenderHelper extends RenderType {
 	public static void renderStar(PoseStack ms, MultiBufferSource buffers, int color, float xScale, float yScale, float zScale, long seed, float partialTicks) {
 		VertexConsumer buffer = buffers.getBuffer(STAR);
 
-		float ticks = ClientTickHandler.ticksInGame + partialTicks;
+		float ticks = ClientTickHandler.getEntityTicksInGame() + partialTicks;
 		float semiPeriodTicks = 200;
-		float f1 = Mth.abs(Mth.sin((float) Math.PI / semiPeriodTicks * ticks))
-				* 0.9F + 0.1F; // shift to [0.1, 1.0]
+		float f1 = Mth.abs(Mth.sin((float) Math.PI / semiPeriodTicks * ticks)) * 0.9F + 0.1F; // shift to [0.1, 1.0]
 
 		float f2 = f1 > 0.F ? (f1 - 0.7F) / 0.2F : 0;
 		Random random = new Random(seed);
@@ -352,7 +353,7 @@ public final class RenderHelper extends RenderType {
 		buffer.addVertex(mat, xMax, y, zMax).setColor(r, g, b, a);
 	}
 
-	public static void renderProgressPie(GuiGraphics gui, int x, int y, float progress, ItemStack stack) {
+	public static void renderProgressPie(GuiGraphics gui, int x, int y, float progress, ItemStack stack, float partialTick) {
 		PoseStack ms = gui.pose();
 		Minecraft mc = Minecraft.getInstance();
 
@@ -360,7 +361,7 @@ public final class RenderHelper extends RenderType {
 		int centerX = x + 8;
 		int centerY = y + 8;
 		int degs = (int) (360 * progress);
-		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + mc.getTimer().getGameTimeDeltaPartialTick(false)) / 10) * 0.5F + 0.5F);
+		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.getPlayerTicksInGame() + partialTick) / 10) * 0.5F + 0.5F);
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -388,8 +389,9 @@ public final class RenderHelper extends RenderType {
 	// [VanillaCopy] ItemRenderer.renderItem with simplifications + color support + custom model
 	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, PoseStack ms, MultiBufferSource buffers, int light, int overlay, @Nullable BakedModel model) {
 		ms.pushPose();
+		ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 		if (model == null) {
-			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.level(), entity, entity.getId());
+			model = itemRenderer.getModel(stack, entity.level(), entity, entity.getId());
 		}
 		model.getTransforms().getTransform(ItemDisplayContext.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);
@@ -397,7 +399,8 @@ public final class RenderHelper extends RenderType {
 		if (!model.isCustomRenderer() && !stack.is(Items.TRIDENT)) {
 			RenderType rendertype = ItemBlockRenderTypes.getRenderType(stack, true);
 			VertexConsumer ivertexbuilder = ItemRenderer.getFoilBufferDirect(buffers, rendertype, true, stack.hasFoil());
-			renderBakedItemModel(model, stack, color, light, overlay, ms, ivertexbuilder);
+			renderBakedItemModel(itemRenderer, model, stack, color, light, overlay, ms, ivertexbuilder
+			);
 		} else {
 			throw new IllegalArgumentException("Custom renderer items not supported");
 		}
@@ -410,21 +413,21 @@ public final class RenderHelper extends RenderType {
 	}
 
 	// [VanillaCopy] ItemRenderer with custom color
-	private static void renderBakedItemModel(BakedModel model, ItemStack stack, int color, int light, int overlay, PoseStack ms, VertexConsumer buffer) {
+	private static void renderBakedItemModel(ItemRenderer itemRenderer, BakedModel model, ItemStack stack, int color, int light, int overlay, PoseStack ms, VertexConsumer buffer) {
 		var random = RandomSource.create();
-		long i = 42L;
+		long seed = 42L;
 
 		for (Direction direction : Direction.values()) {
-			random.setSeed(42L);
-			renderBakedItemQuads(ms, buffer, color, model.getQuads(null, direction, random), stack, light, overlay);
+			random.setSeed(seed);
+			renderBakedItemQuads(itemRenderer, ms, buffer, color, model.getQuads(null, direction, random), stack, light, overlay);
 		}
 
-		random.setSeed(42L);
-		renderBakedItemQuads(ms, buffer, color, model.getQuads(null, null, random), stack, light, overlay);
+		random.setSeed(seed);
+		renderBakedItemQuads(itemRenderer, ms, buffer, color, model.getQuads(null, null, random), stack, light, overlay);
 	}
 
 	// Wraps ItemRenderer#renderQuadList for custom color support
-	private static void renderBakedItemQuads(PoseStack ms, VertexConsumer buffer, int color, List<BakedQuad> quads, ItemStack stack, int light, int overlay) {
+	private static void renderBakedItemQuads(ItemRenderer itemRenderer, PoseStack ms, VertexConsumer buffer, int color, List<BakedQuad> quads, ItemStack stack, int light, int overlay) {
 		float a = ((color >> 24) & 0xFF) / 255.0F;
 		float r = (float) (color >> 16 & 0xFF) / 255.0F;
 		float g = (float) (color >> 8 & 0xFF) / 255.0F;
@@ -436,7 +439,7 @@ public final class RenderHelper extends RenderType {
 				return super.setColor(r, g, b, a);
 			}
 		};
-		((ItemRendererAccessor) Minecraft.getInstance().getItemRenderer())
+		((ItemRendererAccessor) itemRenderer)
 				.callRenderQuadList(ms, buffer, quads, stack, light, overlay);
 	}
 
@@ -610,24 +613,24 @@ public final class RenderHelper extends RenderType {
 	* Renders an item and its name, vertically centered next to it. Renders nothing if the stack is empty
 	* Note: The item renderer does not respect the PoseStack
 	*/
-	public static void renderItemWithName(GuiGraphics gui, Minecraft mc, ItemStack itemStack, int startX, int startY, int color) {
+	public static void renderItemWithName(GuiGraphics gui, Font font, ItemStack itemStack, int startX, int startY, int color) {
 		if (!itemStack.isEmpty()) {
-			gui.drawString(mc.font, itemStack.getHoverName(), startX + ITEM_AND_PADDING_WIDTH, startY + 4, color);
+			gui.drawString(font, itemStack.getHoverName(), startX + ITEM_AND_PADDING_WIDTH, startY + 4, color);
 			gui.renderItem(itemStack, startX, startY);
 		}
 	}
 
-	public static void renderItemWithNameCentered(GuiGraphics gui, Minecraft mc, ItemStack itemStack, int startY, int color) {
-		int centerX = mc.getWindow().getGuiScaledWidth() / 2;
-		int startX = centerX - (ITEM_AND_PADDING_WIDTH + mc.font.width(itemStack.getHoverName())) / 2;
-		renderItemWithName(gui, mc, itemStack, startX, startY, color);
+	public static void renderItemWithNameCentered(GuiGraphics gui, Window window, Font font, ItemStack itemStack, int startY, int color) {
+		int centerX = window.getGuiScaledWidth() / 2;
+		int startX = centerX - itemWithNameWidth(itemStack, font) / 2;
+		renderItemWithName(gui, font, itemStack, startX, startY, color);
 	}
 
 	/*
 	* Returns the width of an item and its text, as rendered by renderItemWithName
 	*/
-	public static int itemWithNameWidth(Minecraft mc, ItemStack itemStack) {
-		return ITEM_AND_PADDING_WIDTH + mc.font.width(itemStack.getHoverName());
+	public static int itemWithNameWidth(ItemStack itemStack, Font font) {
+		return ITEM_AND_PADDING_WIDTH + font.width(itemStack.getHoverName());
 	}
 
 	// Borrowed with permission from https://github.com/XFactHD/FramedBlocks/blob/14f468810fc416b39447512810f0aa86e1012335/src/main/java/xfacthd/framedblocks/client/util/GhostVertexConsumer.java

@@ -8,7 +8,9 @@
  */
 package vazkii.botania.common.block.block_entity.mana;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -100,17 +102,17 @@ public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			ItemStack lens = prism.getItem(0);
 			if (!lens.isEmpty()) {
 				Component lensName = lens.getHoverName();
-				int halfWidth = (mc.font.width(lensName) + 24) / 2;
-				int centerX = mc.getWindow().getGuiScaledWidth() / 2;
-				int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+				int halfWidth = (font.width(lensName) + 24) / 2;
+				int centerX = window.getGuiScaledWidth() / 2;
+				int centerY = window.getGuiScaledHeight() / 2;
 
 				RenderHelper.renderHUDBox(gui, centerX - halfWidth, centerY + 8, centerX + halfWidth, centerY + 28);
 
-				gui.drawString(mc.font, lensName, centerX - halfWidth + 22, centerY + 14, 0xFFFFFF);
+				gui.drawString(font, lensName, centerX - halfWidth + 22, centerY + 14, 0xFFFFFF);
 				gui.renderFakeItem(lens, centerX - halfWidth + 2, centerY + 10);
 			}
 		}

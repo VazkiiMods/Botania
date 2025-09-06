@@ -55,7 +55,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 	}
 
 	@Override
-	public void render(@Nullable ManaPoolBlockEntity pool, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable ManaPoolBlockEntity pool, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		boolean fab = pool != null && ((ManaPoolBlock) pool.getBlockState().getBlock()).variant == ManaPoolBlock.Variant.FABULOUS;
@@ -68,8 +68,8 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		float poolTop = (diluted ? 5 : creative ? 9 : 7) / 16F;
 
 		if (fab) {
-			float time = ClientTickHandler.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
-			time += new Random(pool.getBlockPos().getX() ^ pool.getBlockPos().getY() ^ pool.getBlockPos().getZ()).nextInt(100000);
+			float time = ClientTickHandler.getEntityTicksInGame() + partialTick;
+			time += new Random(pool.getBlockPos().asLong()).nextInt(100000);
 			time *= 0.005F;
 			int poolColor = pool.getColor().map(ColorHelper::getColorValue).orElse(-1);
 			int color = vazkii.botania.common.helper.MathHelper.multiplyColor(Mth.hsvToRgb(Mth.frac(time), 0.6F, 1F), poolColor);
@@ -91,7 +91,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 				var overlayIcon = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(overlaySpriteId);
 				ms.pushPose();
 
-				float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
+				float alpha = (float) ((Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 20.0) + 1) * 0.3 + 0.2);
 
 				ms.translate(0, poolBottom, 0);
 				ms.mulPose(VecHelper.rotateX(90F));

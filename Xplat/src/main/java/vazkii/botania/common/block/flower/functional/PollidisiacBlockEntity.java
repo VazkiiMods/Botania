@@ -8,7 +8,9 @@
  */
 package vazkii.botania.common.block.flower.functional;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.Window;
+
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -249,15 +251,15 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 		}
 
 		@Override
-		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			String filter = I18n.get("botaniamisc.pollidisiac." + flower.getMode().getSerializedName());
-			int filterWidth = mc.font.width(filter);
-			int filterTextStart = (mc.getWindow().getGuiScaledWidth() - filterWidth) / 2;
+			int filterWidth = font.width(filter);
+			int filterTextStart = (window.getGuiScaledWidth() - filterWidth) / 2;
 			int halfMinWidth = (filterWidth + 4) / 2;
-			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+			int centerY = window.getGuiScaledHeight() / 2;
 
-			super.renderHUD(gui, mc, halfMinWidth, halfMinWidth, 40);
-			gui.drawString(mc.font, filter, filterTextStart, centerY + 30, flower.getColor());
+			super.renderHUD(gui, window, font, halfMinWidth, halfMinWidth, 40);
+			gui.drawString(font, filter, filterTextStart, centerY + 30, flower.getColor());
 		}
 	}
 }

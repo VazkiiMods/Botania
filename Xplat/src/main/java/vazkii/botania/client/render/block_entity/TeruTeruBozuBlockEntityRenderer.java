@@ -40,13 +40,13 @@ public class TeruTeruBozuBlockEntityRenderer implements BlockEntityRenderer<Teru
 	}
 
 	@Override
-	public void render(@Nullable TeruTeruBozuBlockEntity tileentity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable TeruTeruBozuBlockEntity teruTeruBozu, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.mulPose(VecHelper.rotateX(180));
-		double time = ClientTickHandler.ticksInGame + partialTicks;
-		boolean hasWorld = tileentity != null && tileentity.getLevel() != null;
+		double time = ClientTickHandler.getEntityTicksInGame() + partialTicks;
+		boolean hasWorld = teruTeruBozu != null && teruTeruBozu.getLevel() != null;
 		if (hasWorld) {
-			time += new Random(tileentity.getBlockPos().hashCode()).nextInt(1000);
+			time += new Random(teruTeruBozu.getBlockPos().hashCode()).nextInt(1000);
 		}
 
 		ms.translate(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);

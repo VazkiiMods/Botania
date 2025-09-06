@@ -40,13 +40,13 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 	}
 
 	@Override
-	public void render(AlfheimPortalBlockEntity portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(AlfheimPortalBlockEntity portal, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		AlfheimPortalState state = portal.getBlockState().getValue(BotaniaStateProperties.ALFPORTAL_STATE);
 		if (state == AlfheimPortalState.OFF) {
 			return;
 		}
 
-		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
+		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
 
 		ms.pushPose();
 		if (state == AlfheimPortalState.ON_X) {

@@ -49,7 +49,7 @@ public final class BoundBlockRenderer {
 
 	private BoundBlockRenderer() {}
 
-	public static void onWorldRenderLast(Camera camera, PoseStack ms, Level level) {
+	public static void onWorldRenderLast(Camera camera, float partialTick, PoseStack ms, Level level) {
 		Player player = Minecraft.getInstance().player;
 		if (!BotaniaConfig.client().boundBlockWireframe()
 				|| player == null
@@ -59,7 +59,7 @@ public final class BoundBlockRenderer {
 
 		ms.pushPose();
 
-		int color = 0xFF000000 | Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		int color = 0xFF000000 | Mth.hsvToRgb((ClientTickHandler.getEntityTicksInGame() + partialTick) % 200 / 200F, 0.6F, 1F);
 
 		if (!player.getMainHandItem().isEmpty()) {
 			var coordBoundItem = XplatAbstractions.INSTANCE.findCoordBoundItem(player.getMainHandItem());
