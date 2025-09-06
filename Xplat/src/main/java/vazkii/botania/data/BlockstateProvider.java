@@ -33,6 +33,7 @@ import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.block.decor.BuriedPetalBlock;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.decor.FlowerMotifBlock;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -463,32 +464,16 @@ public class BlockstateProvider implements DataProvider {
 					this.modelOutput);
 		});
 
-		var manaSlot = TextureSlotAccessor.make("mana");
 		TextureSlot[] manaPoolSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE };
-		TextureSlot[] manaPoolFullSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE, manaSlot };
-		var poolTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/mana_pool")), Optional.empty(), manaPoolSlots);
-		var dilutedPoolTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/diluted_mana_pool")), Optional.empty(), manaPoolSlots);
-		var creativePoolTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/creative_mana_pool")), Optional.empty(), manaPoolSlots);
-		var poolFullTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
-		var dilutedPoolFullTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/diluted_mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
-		var creativePoolFullTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/creative_mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
-		takeAll(remainingBlocks, manaPool, dilutedPool, fabulousPool, creativePool).forEach(b -> {
+		TextureSlot[] manaPoolFullSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE, TextureSlot.CONTENT };
+		takeAll(remainingBlocks, ManaPoolBlock.class::isInstance).forEach(b -> {
 			Block blockForTexture = b == fabulousPool ? manaPool : b;
 			ResourceLocation side = getBlockTexture(blockForTexture, "_side");
 			ResourceLocation top = getBlockTexture(blockForTexture, "_top");
-			ResourceLocation bottom = b == dilutedPool
-					? getBlockTexture(manaPool, "_bottom") : getBlockTexture(blockForTexture, "_bottom");
+			ResourceLocation bottom = getBlockTexture(blockForTexture, "_bottom");
 			ResourceLocation inside = getBlockTexture(blockForTexture, "_inside");
-			ModelTemplate template = b == dilutedPool
-					? dilutedPoolTemplate
-					: b == creativePool
-							? creativePoolTemplate
-					: poolTemplate;
-			ModelTemplate fullTemplate = b == dilutedPool
-					? dilutedPoolFullTemplate
-					: b == creativePool
-							? creativePoolFullTemplate
-					: poolFullTemplate;
+			ResourceLocation blockModelTemplateKey = BuiltInRegistries.BLOCK.getKey(blockForTexture).withPrefix("block/shapes/");
+			ModelTemplate template = new ModelTemplate(Optional.of(blockModelTemplateKey), Optional.empty(), manaPoolSlots);
 			TextureMapping mapping = new TextureMapping()
 					.put(TextureSlot.SIDE, side)
 					.put(TextureSlot.TOP, top)
@@ -496,7 +481,10 @@ public class BlockstateProvider implements DataProvider {
 					.put(TextureSlot.INSIDE, inside);
 
 			singleVariantBlockState(b, template.create(b, mapping, this.modelOutput));
-			fullTemplate.create(b, mapping.put(manaSlot, botaniaRL("block/mana_water")), this.modelOutput);
+
+			ResourceLocation blockModelFullTemplateKey = blockModelTemplateKey.withSuffix("_full");
+			ModelTemplate fullTemplate = new ModelTemplate(Optional.of(blockModelFullTemplateKey), Optional.of("_full"), manaPoolFullSlots);
+			fullTemplate.create(b, mapping.put(TextureSlot.CONTENT, botaniaRL("block/mana_water")), this.modelOutput);
 		});
 
 		takeAll(remainingBlocks, pump, tinyPotato).forEach(b -> this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, getModelLocation(b)))

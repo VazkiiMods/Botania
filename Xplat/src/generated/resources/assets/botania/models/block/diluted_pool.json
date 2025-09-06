@@ -1,7 +1,7 @@
 {
-  "parent": "botania:block/shapes/diluted_mana_pool",
+  "parent": "botania:block/shapes/diluted_pool",
   "textures": {
-    "bottom": "botania:block/mana_pool_bottom",
+    "bottom": "botania:block/diluted_pool_bottom",
     "inside": "botania:block/diluted_pool_inside",
     "side": "botania:block/diluted_pool_side",
     "top": "botania:block/diluted_pool_top"

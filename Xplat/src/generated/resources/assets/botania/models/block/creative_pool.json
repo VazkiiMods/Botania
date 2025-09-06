@@ -1,5 +1,5 @@
 {
-  "parent": "botania:block/shapes/creative_mana_pool",
+  "parent": "botania:block/shapes/creative_pool",
   "textures": {
     "bottom": "botania:block/creative_pool_bottom",
     "inside": "botania:block/creative_pool_inside",

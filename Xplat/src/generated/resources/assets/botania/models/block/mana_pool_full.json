@@ -2,8 +2,8 @@
   "parent": "botania:block/shapes/mana_pool_full",
   "textures": {
     "bottom": "botania:block/mana_pool_bottom",
+    "content": "botania:block/mana_water",
     "inside": "botania:block/mana_pool_inside",
-    "mana": "botania:block/mana_water",
     "side": "botania:block/mana_pool_side",
     "top": "botania:block/mana_pool_top"
   }
