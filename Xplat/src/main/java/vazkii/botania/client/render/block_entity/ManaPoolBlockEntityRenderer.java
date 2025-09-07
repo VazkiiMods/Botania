@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.Block;
@@ -31,11 +32,9 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Objects;
-import java.util.Random;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -67,28 +66,25 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		float poolBottom = insideUVStart / 16F + 0.001F;
 		float poolTop = (diluted ? 5 : creative ? 9 : 7) / 16F;
 
+		Minecraft minecraft = Minecraft.getInstance();
 		if (fab) {
-			float time = ClientTickHandler.getEntityTicksInGame() + partialTick;
-			time += new Random(pool.getBlockPos().asLong()).nextInt(100000);
-			time *= 0.005F;
-			int poolColor = pool.getColor().map(ColorHelper::getColorValue).orElse(-1);
-			int color = vazkii.botania.common.helper.MathHelper.multiplyColor(Mth.hsvToRgb(Mth.frac(time), 0.6F, 1F), poolColor);
-
-			int red = (color & 0xFF0000) >> 16;
-			int green = (color & 0xFF00) >> 8;
-			int blue = color & 0xFF;
 			BlockState state = pool.getBlockState();
+			int color = minecraft.getBlockColors().getColor(state, pool.getLevel(), pool.getBlockPos(), 0);
+
+			float red = FastColor.ARGB32.red(color) / 255f;
+			float green = FastColor.ARGB32.green(color) / 255f;
+			float blue = FastColor.ARGB32.blue(color) / 255f;
 			BakedModel model = blockRenderDispatcher.getBlockModel(state);
 			VertexConsumer buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(state, false));
 			blockRenderDispatcher.getModelRenderer()
-					.renderModel(ms.last(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
+					.renderModel(ms.last(), buffer, state, model, red, green, blue, light, overlay);
 		}
 
 		if (pool != null) {
 			Block below = pool.getLevel().getBlockState(pool.getBlockPos().below()).getBlock();
 			if (below instanceof PoolOverlayProvider overlayProvider) {
 				var overlaySpriteId = overlayProvider.getIcon(pool.getLevel(), pool.getBlockPos());
-				var overlayIcon = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(overlaySpriteId);
+				var overlayIcon = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(overlaySpriteId);
 				ms.pushPose();
 
 				float alpha = (float) ((Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 20.0) + 1) * 0.3 + 0.2);

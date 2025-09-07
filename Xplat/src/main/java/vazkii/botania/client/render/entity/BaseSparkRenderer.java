@@ -17,6 +17,8 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +27,6 @@ import org.joml.Matrix4f;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.SparkBaseEntity;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.Objects;
@@ -56,13 +57,13 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 
 		ms.pushPose();
 
-		double time = (tEntity.level().getGameTime() % 24000) + partialTicks + new Random(tEntity.getId()).nextInt(200);
+		float time = (tEntity.level().getGameTime() % 24000) + partialTicks + new Random(tEntity.getId()).nextInt(200);
 		float a = 0.1F + (tEntity.isInvisible() ? 0 : 1) * 0.8F;
 
-		int alpha = (int) ((0.7 + 0.3 * (Math.sin(time / 5.0) + 0.5) * 2) * a * 255.0);
-		int iconColor = 0xFFFFFF | (alpha << 24);
+		float iconAlpha = (0.7f + 0.6f * (Mth.sin(time / 5) + 0.5f)) * a;
+		int iconColor = FastColor.ARGB32.color(FastColor.as8BitChannel(iconAlpha), 0xFFFFFF);
 
-		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
+		float scale = 0.75F + 0.1F * Mth.sin(time / 10);
 		ms.scale(scale, scale, scale);
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.SPARK);
@@ -73,7 +74,7 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 		ms.pushPose();
 		ms.translate(-0.02 + Math.sin(time / 20) * 0.2, 0.24 + Math.cos(time / 20) * 0.2, 0.005);
 		ms.scale(0.2F, 0.2F, 0.2F);
-		int starColor = ColorHelper.getColorValue(tEntity.getNetwork()) | ((int) (a * 255.0F) << 24);
+		int starColor = FastColor.ARGB32.color(FastColor.as8BitChannel(a), tEntity.getNetwork().getTextureDiffuseColor());
 		renderIcon(ms, buffer, this.starSprite, starColor);
 		ms.popPose();
 

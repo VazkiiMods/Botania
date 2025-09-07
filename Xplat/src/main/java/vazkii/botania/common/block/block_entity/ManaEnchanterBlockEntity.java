@@ -515,10 +515,10 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 				int y = window.getGuiScaledHeight() / 2 - 12;
 
 				RenderHelper.renderHUDBox(gui, x, y, x + 24, y + 24);
-				RenderHelper.renderProgressPie(gui, x + 4, y + 4,
+				RenderHelper.renderProgressPie(gui, partialTick, x + 4, y + 4,
 						(float) enchanter.mana / (float) enchanter.manaRequired,
-						enchanter.itemToEnchant,
-						partialTick);
+						enchanter.itemToEnchant
+				);
 			}
 		}
 	}

@@ -24,6 +24,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -35,7 +37,6 @@ import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -411,13 +412,14 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 			BakedModel model = MiscellaneousModels.INSTANCE.tiaraWingIcons[meta - 1];
 			ClientXplatAbstractions.instance().markSpriteActive(model.getParticleIcon());
 			boolean flying = living instanceof Player player && player.getAbilities().flying;
-			float flap = 20F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
+			float tickTime = living.tickCount + partialTicks;
+			float flap = 20 + (Mth.sin(tickTime * (flying ? 0.4f : 0.2f)) + 0.5f) * (flying ? 30 : 5);
 
 			switch (meta) {
 				case 1:
 					renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
 					ms.pushPose();
-					ClientLogic.renderHalo(bipedModel, living, ms, buffers, partialTicks);
+					ClientLogic.renderHalo(bipedModel, ms, buffers, tickTime);
 					ms.popPose();
 					break;
 				case 2:
@@ -436,35 +438,32 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 				case 8:
 					renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
 					break;
-				case 7:
-					float alpha = 0.5F + (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.2F;
-					int color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
+				case 7: {
+					float alpha = 0.5f + Mth.cos(tickTime * 0.3f) * 0.2f;
+					int color = FastColor.ARGB32.color(FastColor.as8BitChannel(alpha), 0xFFFFFF);
 					renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
 					break;
-				case 9:
-					flap = -(float) ((Math.sin((double) (living.tickCount + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-					alpha = 0.5F + (flying ? (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
-					color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
-					renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
+				}
+				case 9: {
+					float customFlap = -(Mth.sin(tickTime * 0.2f) + 0.6f) * (flying ? 12f : 5f);
+					float alpha = 0.5f + (flying ? Mth.cos(tickTime * 0.3f) * 0.25f + 0.25f : 0);
+					int color = FastColor.ARGB32.color(FastColor.as8BitChannel(alpha), 0xFFFFFF);
+					renderCustomColor(bipedModel, model, living, stack, ms, buffers, customFlap, color);
 					break;
+				}
 			}
 		}
 	}
 
 	public static class ClientLogic {
-		public static void renderHalo(@Nullable HumanoidModel<?> model, @Nullable LivingEntity living, PoseStack ms, MultiBufferSource buffers, float partialTicks) {
+		public static void renderHalo(@Nullable HumanoidModel<?> model, PoseStack ms, MultiBufferSource buffers, float tickTime) {
 			if (model != null) {
 				model.body.translateAndRotate(ms);
 			}
 
 			ms.translate(0.2, -0.65, 0);
 			ms.mulPose(VecHelper.rotateZ(30));
-
-			if (living != null) {
-				ms.mulPose(VecHelper.rotateY(living.tickCount + partialTicks));
-			} else {
-				ms.mulPose(VecHelper.rotateY(ClientTickHandler.getPlayerTicksInGame() + partialTicks));
-			}
+			ms.mulPose(VecHelper.rotateY(tickTime));
 
 			ms.scale(0.75F, -0.75F, -0.75F);
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.HALO);

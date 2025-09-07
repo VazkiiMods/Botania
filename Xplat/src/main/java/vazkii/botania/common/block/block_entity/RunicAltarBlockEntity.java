@@ -444,9 +444,9 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						ms.popPose();
 					}
 
-					RenderHelper.renderProgressPie(gui, xc + radius + 32, yc - 8, progress,
-							altar.currentRecipe.value().assemble(altar.getRecipeInput(), altar.getLevel().registryAccess()),
-							partialTick);
+					RenderHelper.renderProgressPie(gui, partialTick, xc + radius + 32, yc - 8, progress,
+							altar.currentRecipe.value().assemble(altar.getRecipeInput(), altar.getLevel().registryAccess())
+					);
 
 					if (progress == 1F) {
 						gui.drawString(font, "+", xc + radius + 14, yc + 12, 0xFFFFFF, false);

@@ -17,6 +17,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
@@ -28,7 +29,6 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.GrassSeedsItem;
 import vazkii.botania.common.item.WandOfTheForestItem;
@@ -75,10 +75,10 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 					switch (type) {
 						case PAINT_LENS -> {
 							DyeColor placeColor = DyeColor.byId(args[0]);
-							int hex = ColorHelper.getColorValue(placeColor);
-							int r = (hex & 0xFF0000) >> 16;
-							int g = (hex & 0xFF00) >> 8;
-							int b = hex & 0xFF;
+							int color = placeColor.getTextureDiffuseColor();
+							int r = FastColor.ARGB32.red(color);
+							int g = FastColor.ARGB32.green(color);
+							int b = FastColor.ARGB32.blue(color);
 							for (int i = 0; i < 10; i++) {
 								BlockPos pos = BlockPos.containing(x, y, z).relative(Direction.getRandom(world.random));
 								SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);

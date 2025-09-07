@@ -14,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -34,7 +35,7 @@ public final class ItemsRemainingRenderHandler {
 	private static Component customString;
 	private static int ticks, count;
 
-	public static void render(GuiGraphics gui, float partTicks) {
+	public static void render(GuiGraphics gui, float partialTick) {
 		PoseStack ms = gui.pose();
 		if (ticks > 0 && !stack.isEmpty()) {
 			int pos = maxTicks - ticks;
@@ -43,7 +44,7 @@ public final class ItemsRemainingRenderHandler {
 			int y = mc.getWindow().getGuiScaledHeight() / 2;
 
 			int start = maxTicks - leaveTicks;
-			float alpha = ticks + partTicks > start ? 1F : (ticks + partTicks) / start;
+			float alpha = ticks + partialTick > start ? 1F : (ticks + partialTick) / start;
 
 			// RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
 			int xp = x + (int) (16F * (1F - alpha));
@@ -85,7 +86,7 @@ public final class ItemsRemainingRenderHandler {
 				text = customString;
 			}
 
-			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
+			int color = FastColor.ARGB32.color(FastColor.as8BitChannel(alpha), 0xFFFFFF);
 			gui.drawString(mc.font, text, x + 20, y + 6, color);
 		}
 	}

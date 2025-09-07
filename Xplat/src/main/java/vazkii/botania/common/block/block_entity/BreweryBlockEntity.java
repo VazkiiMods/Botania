@@ -288,8 +288,8 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 				int y = window.getGuiScaledHeight() / 2 - 12;
 
 				RenderHelper.renderHUDBox(gui, x, y, x + 24, y + 24);
-				RenderHelper.renderProgressPie(gui, x + 4, y + 4, (float) brewery.mana / (float) manaToGet,
-						brewery.recipe.getOutput(brewery.getItemHandler().getItem(0)), partialTick);
+				RenderHelper.renderProgressPie(gui, partialTick, x + 4, y + 4, (float) brewery.mana / (float) manaToGet,
+						brewery.recipe.getOutput(brewery.getItemHandler().getItem(0)));
 			}
 		}
 	}

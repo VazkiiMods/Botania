@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.ManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.helper.ColorHelper;
 
 public class FlareLens extends Lens {
 
@@ -45,23 +45,23 @@ public class FlareLens extends Lens {
 		float mz = (float) (-(Mth.cos(rotationYaw / 180.0F * (float) Math.PI) * Mth.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D);
 		float my = (float) (Mth.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
 
-		int hex;
+		int color;
 
 		var level = spreader.getManaReceiverLevel();
 		if (LensItem.isLensRainbow(stack)) {
-			hex = Mth.hsvToRgb(level.getGameTime() * 2 % 360 / 360F, 1F, 1F);
+			color = Mth.hsvToRgb(level.getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		} else {
 			DyeColor storedColor = LensItem.getLensColor(stack);
 			if (storedColor != null) {
-				hex = ColorHelper.getColorValue(storedColor);
+				color = storedColor.getTextureDiffuseColor();
 			} else {
-				hex = 0xFFFFFF;
+				color = 0xFFFFFF;
 			}
 		}
 
-		float r = ((hex & 0xFF0000) >> 16) / 255F;
-		float g = ((hex & 0xFF00) >> 8) / 255F;
-		float b = (hex & 0xFF) / 255F;
+		float r = FastColor.ARGB32.red(color) / 255F;
+		float g = FastColor.ARGB32.green(color) / 255F;
+		float b = FastColor.ARGB32.blue(color) / 255F;
 
 		WispParticleData data = WispParticleData.wisp(0.4F, r, g, b);
 		// The start position is set a bit away from the spreader (along the burst's motion vector), as to not

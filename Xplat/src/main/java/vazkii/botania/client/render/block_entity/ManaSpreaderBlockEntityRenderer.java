@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -65,14 +66,14 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 
 		ms.translate(-0.5F, -0.5F, -0.5F);
 
-		double time = ClientTickHandler.getEntityTicksInGame() + partialTick;
+		float time = ClientTickHandler.getEntityTicksInGame() + partialTick + new Random(spreader.getBlockPos().asLong()).nextFloat() * 360;
 
 		float r = 1, g = 1, b = 1;
 		if (spreader.getSpreaderBlock().isRainbowRendered()) {
-			int color = Mth.hsvToRgb((float) ((time * 2 + new Random(spreader.getBlockPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
-			r = (color >> 16 & 0xFF) / 255F;
-			g = (color >> 8 & 0xFF) / 255F;
-			b = (color & 0xFF) / 255F;
+			int color = Mth.hsvToRgb((time % 180) / 180, 0.4F, 0.9F);
+			r = FastColor.ARGB32.red(color) / 255F;
+			g = FastColor.ARGB32.green(color) / 255F;
+			b = FastColor.ARGB32.blue(color) / 255F;
 		}
 
 		VertexConsumer buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(spreader.getBlockState(), false));
@@ -83,9 +84,9 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 
 		ms.pushPose();
 		ms.translate(0.5, 0.5, 0.5);
-		ms.mulPose(VecHelper.rotateY((float) time % 360));
+		ms.mulPose(VecHelper.rotateY(time % 360));
 		ms.translate(-0.5, -0.5, -0.5);
-		ms.translate(0F, (float) Math.sin(time / 20.0) * 0.05F, 0F);
+		ms.translate(0F, Mth.sin(time / 20.0f) * 0.05F, 0F);
 		BakedModel core = getCoreModel(spreader);
 		blockRenderDispatcher.getModelRenderer()
 				.renderModel(ms.last(), buffer, spreader.getBlockState(),

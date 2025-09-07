@@ -32,6 +32,7 @@ public final class ClientTickHandler {
 
 	private static int playerTicksInGame = 0;
 	private static int unfrozenTicksInGame = 0;
+	private static int uiAnimationTicks = 0;
 
 	/**
 	 * Returns a number of game ticks that keeps incrementing while the game not paused, even when frozen.
@@ -58,13 +59,21 @@ public final class ClientTickHandler {
 	}
 
 	/**
+	 * Continuously updating, non-negative value that wraps around after a bit over 69 minutes (nice) to stay within a
+	 * range that still lets {@link net.minecraft.util.Mth#sin(float)} and {@link net.minecraft.util.Mth#cos(float)}
+	 * return reasonably precise values.
+	 */
+	public static float getUiAnimationTicks() {
+		return (uiAnimationTicks & 0x3FFFFF) + Minecraft.getInstance().getTimer().getRealtimeDeltaTicks();
+	}
+
+	/**
 	 * Returns the partial tick value, respecting the game's frozen state.
 	 * (Use only if no partial tick is available that respects the frozen state.)
 	 */
 	public static float getEntityPartialTick() {
 		Minecraft minecraft = Minecraft.getInstance();
-		return minecraft.getTimer().getGameTimeDeltaPartialTick(
-				minecraft.level != null && !minecraft.level.tickRateManager().isFrozen());
+		return minecraft.getTimer().getGameTimeDeltaPartialTick(false);
 	}
 
 	public static float getTicksWithLexicaOpen() {
@@ -93,6 +102,7 @@ public final class ClientTickHandler {
 			VinculotusBlockEntity.existingFlowers.clear();
 		}
 
+		uiAnimationTicks++;
 		if (!mc.isPaused()) {
 			playerTicksInGame++;
 			if (mc.level != null && !mc.level.tickRateManager().isFrozen()) {
@@ -129,11 +139,4 @@ public final class ClientTickHandler {
 			}
 		}
 	}
-
-	public static void notifyPageChange() {
-		if (pageFlipTicks == 0) {
-			pageFlipTicks = 5;
-		}
-	}
-
 }

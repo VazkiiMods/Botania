@@ -20,8 +20,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
@@ -50,7 +52,7 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 
 	@Override
 	public void render(@Nullable CorporeaCrystalCubeBlockEntity cube, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		ItemStack stack = ItemStack.EMPTY;
+		ItemStack stack;
 		if (cube != null) {
 			if (entity == null) {
 				entity = new ItemEntity(cube.getLevel(), cube.getBlockPos().getX(), cube.getBlockPos().getY(), cube.getBlockPos().getZ(), new ItemStack(Blocks.STONE));
@@ -59,6 +61,8 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 			((ItemEntityAccessor) entity).setAge(ClientTickHandler.getEntityTicksInGame());
 			stack = cube.getRequestTarget();
 			entity.setItem(stack);
+		} else {
+			stack = ItemStack.EMPTY;
 		}
 
 		Minecraft mc = Minecraft.getInstance();
@@ -91,18 +95,23 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 
 		if (!stack.isEmpty() && cube != null && !cube.hideCount) {
 			int count = cube.getItemCount();
-			String countStr = String.valueOf(count);
-			int color = 0xFFFFFF;
-			if (count > 9_999) {
-				countStr = count / 1_000 + "K";
-				color = 0xFFFF00;
+			String countStr;
+			int color;
+			if (count <= 9_999) {
+				countStr = String.valueOf(count);
+				color = DyeColor.WHITE.getTextColor();
+			} else {
 				if (count > 9_999_999) {
 					countStr = count / 1_000_000 + "M";
-					color = 0x00FF00;
+					color = DyeColor.GREEN.getTextColor();
+				} else {
+					countStr = count / 1_000 + "K";
+					color = DyeColor.YELLOW.getTextColor();
 				}
 			}
-			color |= 0xA0 << 24;
-			int colorShade = (color & 16579836) >> 2 | color & -16777216;
+			int alpha = 160;
+			int colorText = FastColor.ARGB32.color(alpha, color);
+			int colorShade = FastColor.ARGB32.color(alpha, (color & 0xfcfcfc) >> 2);
 
 			float s = 1F / 64F;
 			ms.scale(s, s, s);
@@ -113,7 +122,8 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 			for (int i = 0; i < 4; i++) {
 				ms.mulPose(VecHelper.rotateY(90F));
 				ms.translate(0F, 0F, tr);
-				mc.font.drawInBatch(countStr, -l / 2, 0, color, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
+				// cannot use dropshadow parameter as that shadow somehow renders in front of the text, not behind it
+				mc.font.drawInBatch(countStr, -l / 2, 0, colorText, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 				ms.translate(0F, 0F, 0.1F);
 				mc.font.drawInBatch(countStr, -l / 2 + 1, 1, colorShade, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 				ms.translate(0F, 0F, -tr - 0.1F);

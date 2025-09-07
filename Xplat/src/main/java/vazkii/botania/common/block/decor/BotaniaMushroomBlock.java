@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -68,15 +69,16 @@ public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothec
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		int hex = MysticalPetalItem.getPetalLikeColor(color);
-		int r = (hex & 0xFF0000) >> 16;
-		int g = (hex & 0xFF00) >> 8;
-		int b = hex & 0xFF;
-
-		if (rand.nextDouble() < BotaniaConfig.client().flowerParticleFrequency() * 0.25F) {
-			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
-			world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
+		if (rand.nextDouble() >= BotaniaConfig.client().flowerParticleFrequency() * 0.25F) {
+			return;
 		}
+		int color = MysticalPetalItem.getPetalLikeColor(this.color);
+		float r = FastColor.ARGB32.red(color) / 255f;
+		float g = FastColor.ARGB32.red(color) / 255f;
+		float b = FastColor.ARGB32.red(color) / 255f;
+
+		SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r, g, b, 5);
+		world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 	}
 
 	@Override

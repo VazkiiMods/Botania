@@ -19,6 +19,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -59,7 +60,7 @@ public final class BoundBlockRenderer {
 
 		ms.pushPose();
 
-		int color = 0xFF000000 | Mth.hsvToRgb((ClientTickHandler.getEntityTicksInGame() + partialTick) % 200 / 200F, 0.6F, 1F);
+		int color = FastColor.ARGB32.opaque(Mth.hsvToRgb((ClientTickHandler.getEntityTicksInGame() + partialTick) % 200 / 200F, 0.6F, 1F));
 
 		if (!player.getMainHandItem().isEmpty()) {
 			var coordBoundItem = XplatAbstractions.INSTANCE.findCoordBoundItem(player.getMainHandItem());
@@ -128,7 +129,7 @@ public final class BoundBlockRenderer {
 
 			buffer = buffers.getBuffer(thick ? RenderHelper.LINE_8_NO_DEPTH : RenderHelper.LINE_4_NO_DEPTH);
 			int alpha = 64;
-			color = (color & ~0xff000000) | (alpha << 24);
+			color = FastColor.ARGB32.color(alpha, color);
 			renderBlockOutline(ms, buffer, shape, color);
 
 			ms.popPose();

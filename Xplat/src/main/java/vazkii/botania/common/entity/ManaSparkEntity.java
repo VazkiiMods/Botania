@@ -265,7 +265,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	private void particlesTowards(Entity e) {
 		XplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
-				getId(), e.getId(), ColorHelper.getColorValue(getNetwork())));
+				getId(), e.getId(), getNetwork().getTextureDiffuseColor()));
 	}
 
 	public static void particleBeam(Player player, Entity e1, Entity e2) {

@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.DyeColor;
@@ -38,18 +39,19 @@ public abstract class BotaniaFlowerBlock extends FlowerBlock implements Colored 
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		int hex = MysticalPetalItem.getPetalLikeColor(this.color);
-		int r = (hex & 0xFF0000) >> 16;
-		int g = (hex & 0xFF00) >> 8;
-		int b = hex & 0xFF;
+		if (rand.nextDouble() >= BotaniaConfig.client().flowerParticleFrequency()) {
+			return;
+		}
 		Vec3 offset = state.getOffset(world, pos);
 		double x = pos.getX() + offset.x;
 		double y = pos.getY() + offset.y;
 		double z = pos.getZ() + offset.z;
+		int color = MysticalPetalItem.getPetalLikeColor(this.color);
+		float r = FastColor.ARGB32.red(color) / 255f;
+		float g = FastColor.ARGB32.green(color) / 255f;
+		float b = FastColor.ARGB32.blue(color) / 255f;
 
-		if (rand.nextDouble() < BotaniaConfig.client().flowerParticleFrequency()) {
-			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
-			world.addParticle(data, x + 0.3 + rand.nextFloat() * 0.5, y + 0.5 + rand.nextFloat() * 0.5, z + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
-		}
+		SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r, g, b, 5);
+		world.addParticle(data, x + 0.3 + rand.nextFloat() * 0.5, y + 0.5 + rand.nextFloat() * 0.5, z + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 	}
 }

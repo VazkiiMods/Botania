@@ -14,7 +14,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -26,6 +25,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Container;
@@ -42,6 +42,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -155,7 +156,7 @@ public final class HUDHandler {
 					profiler.pop();
 				} else if (tile instanceof RunicAltarBlockEntity runeAltar) {
 					profiler.push("runicAltar");
-					RunicAltarBlockEntity.Hud.render(runeAltar, gui, window, font, mc.player, partialTick);
+					RunicAltarBlockEntity.Hud.render(runeAltar, gui, window, font, localPlayer, partialTick);
 					profiler.pop();
 				} else if (tile instanceof CorporeaCrystalCubeBlockEntity cube) {
 					profiler.push("crystalCube");
@@ -265,11 +266,11 @@ public final class HUDHandler {
 			}
 		}
 
-		int color = Mth.hsvToRgb(0.55F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F);
-		int r = (color >> 16 & 0xFF);
-		int g = (color >> 8 & 0xFF);
-		int b = color & 0xFF;
-		RenderSystem.setShaderColor(r / 255F, g / 255F, b / 255F, 1 - (r / 255F));
+		int color = Mth.hsvToRgb(0.55f, Math.min(1, Mth.sin(ClientTickHandler.getUiAnimationTicks() / 4) * 0.5f + 1), 1);
+		float r = FastColor.ARGB32.red(color) / 255f;
+		float g = FastColor.ARGB32.green(color) / 255f;
+		float b = FastColor.ARGB32.blue(color) / 255f;
+		RenderSystem.setShaderColor(r, g, b, 1 - r);
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

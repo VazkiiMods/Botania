@@ -359,7 +359,6 @@ public class AssemblyHaloItem extends Item {
 			double renderPosZ = camera.getPosition().z();
 
 			ms.pushPose();
-			float alpha = ((float) Math.sin((ClientTickHandler.getPlayerTicksInGame() + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
 
 			double posX = player.xo + (player.getX() - player.xo) * partialTicks;
 			double posY = player.yo + (player.getY() - player.yo) * partialTicks + player.getEyeHeight();
@@ -410,7 +409,10 @@ public class AssemblyHaloItem extends Item {
 
 				ms.pushPose();
 				ms.mulPose(VecHelper.rotateX(180));
-				float r = 1, g = 1, b = 1, a = alpha;
+				float r = 1;
+				float g = 1;
+				float b = 1;
+				float a = Mth.sin((ClientTickHandler.getPlayerTicksInGame() + partialTicks) * 0.2f) * 0.2f + 0.5f;
 				if (inside) {
 					a += 0.3F;
 					y0 = -y;

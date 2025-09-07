@@ -44,11 +44,6 @@ public final class ColorHelper {
 		return getWoolColor(b) != null;
 	}
 
-	public static int getColorValue(DyeColor color) {
-		// TODO: verify usage, previous implementation assumed A=0
-		return color.getTextureDiffuseColor() & 0xffffff;
-	}
-
 	public static int getColorLegibleOnGrayBackground(DyeColor color) {
 		return switch (color) {
 			case BLACK -> 0x808080;

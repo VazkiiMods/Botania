@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
@@ -51,9 +52,6 @@ public class RedStringBlockEntityRenderer<T extends RedStringBlockEntity> implem
 			return;
 		}
 
-		float sizeAlpha = transparency / 10.0F;
-		int color = 0xFF0000 | ((int) (sizeAlpha * 255) << 24);
-
 		Direction dir = tile.getOrientation();
 		BlockPos bind = tile.getBinding();
 
@@ -72,11 +70,11 @@ public class RedStringBlockEntityRenderer<T extends RedStringBlockEntity> implem
 			double rand = Math.random() - 0.5;
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.RED_STRING);
 			for (int i = 0; i < stepCount; i++) {
-				vertex(ms, buffer, color, dir, cur.x, cur.y, cur.z, rand, len);
+				vertex(ms, buffer, dir, cur.x, cur.y, cur.z, rand, len);
 				rand = Math.random() - 0.5;
 				cur = cur.add(step);
 				len += add;
-				vertex(ms, buffer, color, dir, cur.x, cur.y, cur.z, rand, len);
+				vertex(ms, buffer, dir, cur.x, cur.y, cur.z, rand, len);
 			}
 
 			ms.popPose();
@@ -86,7 +84,7 @@ public class RedStringBlockEntityRenderer<T extends RedStringBlockEntity> implem
 	/**
 	 * Add a vertex at the given position, but spiraled out perpendicular to {@code dir}
 	 */
-	private static void vertex(PoseStack ms, VertexConsumer buffer, int color, Direction dir,
+	private static void vertex(PoseStack ms, VertexConsumer buffer, Direction dir,
 			double xpos, double ypos, double zpos,
 			double rand, double l) {
 		float sizeAlpha = transparency / 10.0F;
@@ -107,11 +105,7 @@ public class RedStringBlockEntityRenderer<T extends RedStringBlockEntity> implem
 				+ (dir.getStepY() == 0 ? sin : cos) * ampl * killNonZero(dir.getStepZ())
 				+ lastTerm;
 
-		int a = (color >> 24) & 0xFF;
-		int r = (color >> 16) & 0xFF;
-		int g = (color >> 8) & 0xFF;
-		int b = color & 0xFF;
-		buffer.addVertex(ms.last().pose(), x, y, z).setColor(r, g, b, a);
+		buffer.addVertex(ms.last().pose(), x, y, z).setColor(0xFF, 0, 0, FastColor.as8BitChannel(sizeAlpha));
 		switch (dir.getAxis().getPlane()) {
 			case HORIZONTAL -> buffer.setNormal(ms.last(), 0, 1, 0);
 			case VERTICAL -> buffer.setNormal(ms.last(), 1, 0, 0);

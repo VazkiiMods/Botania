@@ -34,6 +34,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -311,11 +312,9 @@ public final class RenderHelper extends RenderType {
 			ms.mulPose(VecHelper.rotateZ(random.nextFloat() * 360F + f1 * 90F));
 			float f3 = random.nextFloat() * 20F + 5F + f2 * 10F;
 			float f4 = random.nextFloat() * 2F + 1F + f2 * 2F;
-			float r = ((color & 0xFF0000) >> 16) / 255F;
-			float g = ((color & 0xFF00) >> 8) / 255F;
-			float b = (color & 0xFF) / 255F;
+			int alphaColor = FastColor.ARGB32.color(FastColor.as8BitChannel(f1), color);
 			Matrix4f mat = ms.last().pose();
-			Runnable center = () -> buffer.addVertex(mat, 0, 0, 0).setColor(r, g, b, f1);
+			Runnable center = () -> buffer.addVertex(mat, 0, 0, 0).setColor(alphaColor);
 			Runnable[] vertices = {
 					() -> buffer.addVertex(mat, -0.866F * f4, f3, -0.5F * f4).setColor(0, 0, 0, 0),
 					() -> buffer.addVertex(mat, 0.866F * f4, f3, -0.5F * f4).setColor(0, 0, 0, 0),
@@ -353,7 +352,7 @@ public final class RenderHelper extends RenderType {
 		buffer.addVertex(mat, xMax, y, zMax).setColor(r, g, b, a);
 	}
 
-	public static void renderProgressPie(GuiGraphics gui, int x, int y, float progress, ItemStack stack, float partialTick) {
+	public static void renderProgressPie(GuiGraphics gui, float partialTick, int x, int y, float progress, ItemStack stack) {
 		PoseStack ms = gui.pose();
 		Minecraft mc = Minecraft.getInstance();
 
@@ -361,7 +360,7 @@ public final class RenderHelper extends RenderType {
 		int centerX = x + 8;
 		int centerY = y + 8;
 		int degs = (int) (360 * progress);
-		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.getPlayerTicksInGame() + partialTick) / 10) * 0.5F + 0.5F);
+		float a = 0.5F + 0.2F * (Mth.cos(ClientTickHandler.getUiAnimationTicks() / 10) * 0.5F + 0.5F);
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

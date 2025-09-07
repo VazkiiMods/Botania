@@ -40,6 +40,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
@@ -333,13 +334,12 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.mulPose(VecHelper.rotateZ(15F));
 					ItemStack stack = new ItemStack(BotaniaItems.infiniteFruit);
 					stack.set(DataComponents.CUSTOM_NAME, Component.literal("das boot"));
-					renderItem(ms, buffers, potato.getLevel(),
-							light, overlay, stack);
+					renderItem(ms, buffers, potato.getLevel(), light, overlay, stack);
 				}
 				case "jibril" -> {
 					ms.scale(1.5F, 1.5F, 1.5F);
 					ms.translate(0F, 0.8F, 0F);
-					FlugelTiaraItem.ClientLogic.renderHalo(null, null, ms, buffers, partialTicks);
+					FlugelTiaraItem.ClientLogic.renderHalo(null, ms, buffers, ClientTickHandler.getEntityTicksInGame() + partialTicks);
 				}
 				case "kingdaddydmac" -> {
 					ms.scale(0.5F, 0.5F, 0.5F);

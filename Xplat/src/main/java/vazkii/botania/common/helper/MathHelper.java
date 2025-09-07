@@ -38,19 +38,6 @@ public final class MathHelper {
 		entity.setDeltaMovement(finalVector.scale(modifier));
 	}
 
-	public static int multiplyColor(int c1, int c2) {
-		int r1 = (c1 & 0xFF0000) >> 16;
-		int r2 = (c2 & 0xFF0000) >> 16;
-		int g1 = (c1 & 0x00FF00) >> 8;
-		int g2 = (c2 & 0x00FF00) >> 8;
-		int b1 = (c1 & 0x0000FF);
-		int b2 = (c2 & 0x0000FF);
-		int r = (int) (r1 * (r2 / 255.0F));
-		int g = (int) (g1 * (g2 / 255.0F));
-		int b = (int) (b1 * (b2 / 255.0F));
-		return c1 & ~0xFFFFFF | r << 16 | g << 8 | b;
-	}
-
 	public static long distSqr(Vec3i a, Vec3i b) {
 		//Vec3i#distSqr, while convenient, offsets the second argument by (0.5, 0.5, 0.5).
 		//Longs are used because "dx * dx" overflows with distances longer than about 46,300 blocks when using integers.

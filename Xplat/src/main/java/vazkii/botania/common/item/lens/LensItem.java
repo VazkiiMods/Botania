@@ -26,7 +26,6 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -132,7 +131,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 
 		DyeColor lensColor = getLensColor(stack);
 
-		return lensColor != null ? ColorHelper.getColorValue(lensColor) : 0xFFFFFF;
+		return lensColor != null ? lensColor.getTextureDiffuseColor() : 0xFFFFFF;
 	}
 
 	public static boolean isLensTinted(ItemStack stack) {
