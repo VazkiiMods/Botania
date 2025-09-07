@@ -27,7 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.lib.LibMisc;
@@ -65,7 +65,7 @@ public class ManaPoolRecipeCategory extends BotaniaRecipeCategoryBase<ManaInfusi
 		super.draw(recipe, slotsView, gui, mouseX, mouseY);
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 40, 0);
-		HUDHandler.renderManaBar(gui, 20, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), ManaPoolBlockEntity.MAX_MANA / 10);
+		HUDHandler.renderManaBar(gui, 20, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), ManaPoolBlock.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 	}
 

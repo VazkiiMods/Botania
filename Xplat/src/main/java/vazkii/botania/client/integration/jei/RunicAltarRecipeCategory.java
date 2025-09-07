@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -54,7 +54,7 @@ public class RunicAltarRecipeCategory extends BotaniaRecipeCategoryBase<RunicAlt
 		super.draw(recipe, slotsView, gui, mouseX, mouseY);
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 0, 4);
-		HUDHandler.renderManaBar(gui, 6, 98, 0x0000FF, 0.75F, recipe.getMana(), ManaPoolBlockEntity.MAX_MANA / 10);
+		HUDHandler.renderManaBar(gui, 6, 98, 0x0000FF, 0.75F, recipe.getMana(), ManaPoolBlock.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 	}
 

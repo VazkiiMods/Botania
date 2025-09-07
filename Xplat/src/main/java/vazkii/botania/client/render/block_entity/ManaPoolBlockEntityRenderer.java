@@ -19,13 +19,17 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -42,6 +46,10 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 
 	// Overrides for when we call this renderer from a cart
 	public static int cartMana = -1;
+	public static int cartMaxMana = -1;
+	@UnknownNullability
+	public static ManaPoolBlock cartBlock;
+
 	private final TextureAtlasSprite waterSprite;
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
@@ -56,20 +64,45 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 	@Override
 	public void render(@Nullable ManaPoolBlockEntity pool, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
-
-		boolean fab = pool != null && ((ManaPoolBlock) pool.getBlockState().getBlock()).variant == ManaPoolBlock.Variant.FABULOUS;
-		boolean diluted = pool != null && ((ManaPoolBlock) pool.getBlockState().getBlock()).variant == ManaPoolBlock.Variant.DILUTED;
-		boolean creative = pool != null && ((ManaPoolBlock) pool.getBlockState().getBlock()).variant == ManaPoolBlock.Variant.CREATIVE;
-
-		int insideUVStart = diluted ? 1 : 2;
-		int insideUVEnd = 16 - insideUVStart;
-		float poolBottom = insideUVStart / 16F + 0.001F;
-		float poolTop = (diluted ? 5 : creative ? 9 : 7) / 16F;
-
 		Minecraft minecraft = Minecraft.getInstance();
-		if (fab) {
-			BlockState state = pool.getBlockState();
-			int color = minecraft.getBlockColors().getColor(state, pool.getLevel(), pool.getBlockPos(), 0);
+
+		boolean fabulous;
+		VoxelShape innerShape;
+		VoxelShape outerShape;
+		int mana;
+		int maxMana;
+		BlockState state;
+		Level level;
+
+		if (pool != null) {
+			level = pool.getLevel() != null ? pool.getLevel() : minecraft.level;
+			state = pool.getBlockState();
+			ManaPoolBlock block = (ManaPoolBlock) state.getBlock();
+			fabulous = block.isFabulous();
+			innerShape = block.getInnerShape(pool.getBlockState());
+			outerShape = block.getInteractionShape(pool.getBlockState(), pool.getLevel(), pool.getBlockPos());
+			mana = pool.getCurrentMana();
+			maxMana = pool.getMaxMana();
+		} else {
+			level = minecraft.level;
+			ManaPoolBlock block = cartBlock;
+			state = block.defaultBlockState();
+			fabulous = block.isFabulous();
+			innerShape = block.getInnerShape(block.defaultBlockState());
+			outerShape = block.getInteractionShape(block.defaultBlockState(), null, null);
+			mana = cartMana;
+			maxMana = cartMaxMana == -1 ? ManaPoolBlock.MAX_MANA : cartMaxMana;
+		}
+
+		float poolBottom = (float) innerShape.min(Direction.Axis.Y) + 0.001F;
+		float poolTop = (float) outerShape.max(Direction.Axis.Y) - 1 / 16f;
+		int uvStartX = (int) (16 * innerShape.min(Direction.Axis.X));
+		int uvStartY = (int) (16 * innerShape.min(Direction.Axis.Z));
+		int uvEndX = (int) (16 * innerShape.max(Direction.Axis.X));
+		int uvEndY = (int) (16 * innerShape.max(Direction.Axis.Z));
+
+		if (fabulous) {
+			int color = minecraft.getBlockColors().getColor(state, level, pool != null ? pool.getBlockPos() : null, 0);
 
 			float red = FastColor.ARGB32.red(color) / 255f;
 			float green = FastColor.ARGB32.green(color) / 255f;
@@ -87,7 +120,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 				var overlayIcon = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(overlaySpriteId);
 				ms.pushPose();
 
-				float alpha = (float) ((Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 20.0) + 1) * 0.3 + 0.2);
+				float alpha = (float) ((Mth.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 20.0f) + 1) * 0.3 + 0.2);
 
 				ms.translate(0, poolBottom, 0);
 				ms.mulPose(VecHelper.rotateX(90F));
@@ -95,18 +128,12 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 				VertexConsumer buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
 				RenderHelper.renderIconCropped(
 						ms, buffer,
-						insideUVStart, insideUVStart, insideUVEnd, insideUVEnd,
+						uvStartX, uvStartY, uvEndX, uvEndY,
 						overlayIcon, 0xFFFFFF, alpha, light
 				);
 
 				ms.popPose();
 			}
-		}
-
-		int mana = pool == null ? cartMana : pool.getCurrentMana();
-		int maxMana = pool == null ? -1 : pool.getMaxMana();
-		if (maxMana == -1) {
-			maxMana = ManaPoolBlockEntity.MAX_MANA;
 		}
 
 		float manaLevel = (float) mana / (float) maxMana;
@@ -118,7 +145,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
 			RenderHelper.renderIconCropped(
 					ms, buffer,
-					insideUVStart, insideUVStart, insideUVEnd, insideUVEnd,
+					uvStartX, uvStartY, uvEndX, uvEndY,
 					this.waterSprite, 0xFFFFFF, 1, light);
 
 			ms.popPose();
@@ -126,6 +153,8 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		ms.popPose();
 
 		cartMana = -1;
+		cartMaxMana = -1;
+		cartBlock = null;
 	}
 
 }

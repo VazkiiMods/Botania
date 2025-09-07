@@ -34,6 +34,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -105,7 +106,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 		super.tick();
 
 		if (level().isClientSide) {
-			double particleChance = 1F - (double) getMana() / (double) ManaPoolBlockEntity.MAX_MANA * 0.1;
+			double particleChance = 1F - (double) getMana() / (double) ManaPoolBlock.MAX_MANA * 0.1;
 			int color = ManaPoolBlockEntity.PARTICLE_COLOR;
 			float red = (color >> 16 & 0xFF) / 255F;
 			float green = (color >> 8 & 0xFF) / 255F;
@@ -144,7 +145,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 							int cartMana = getMana();
 							int poolMana = pool.getCurrentMana();
 							int transfer = Math.min(TRANSFER_RATE, poolMana);
-							int actualTransfer = Math.min(ManaPoolBlockEntity.MAX_MANA - cartMana, transfer);
+							int actualTransfer = Math.min(ManaPoolBlock.MAX_MANA - cartMana, transfer);
 							if (actualTransfer > 0) {
 								pool.receiveMana(-transfer);
 								setMana(cartMana + actualTransfer);
@@ -172,7 +173,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 					if (can) {
 						pump.hasCartOnTop = true;
-						pump.comparator = (int) ((double) getMana() / (double) ManaPoolBlockEntity.MAX_MANA * 15); // different from ManaPoolBlockEntity.calculateComparatorLevel, kept for compatibility
+						pump.comparator = (int) ((double) getMana() / (double) ManaPoolBlock.MAX_MANA * 15); // different from ManaPoolBlockEntity.calculateComparatorLevel, kept for compatibility
 					}
 
 				}
@@ -199,7 +200,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 	@SoftImplement("IAbstractMinecartExtension")
 	public int getComparatorLevel() {
-		return ManaPoolBlockEntity.calculateComparatorLevel(getMana(), ManaPoolBlockEntity.MAX_MANA);
+		return ManaPoolBlockEntity.calculateComparatorLevel(getMana(), ManaPoolBlock.MAX_MANA);
 	}
 
 	public int getMana() {

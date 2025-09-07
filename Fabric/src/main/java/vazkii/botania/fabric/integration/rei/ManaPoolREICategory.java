@@ -27,7 +27,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> 
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget(((gui, mouseX, mouseY, delta) -> {
 			CategoryUtils.drawOverlay(gui, OVERLAY, center.x - 23, center.y - 13, 0, 0, 65, 44);
-			HUDHandler.renderManaBar(gui, center.x - 43, center.y + 37, 0x0000FF, 0.75F, display.getManaCost(), ManaPoolBlockEntity.MAX_MANA / 10);
+			HUDHandler.renderManaBar(gui, center.x - 43, center.y + 37, 0x0000FF, 0.75F, display.getManaCost(), ManaPoolBlock.MAX_MANA / 10);
 		})));
 
 		widgets.add(Widgets.createSlot(center).entry(renderPool).disableBackground());

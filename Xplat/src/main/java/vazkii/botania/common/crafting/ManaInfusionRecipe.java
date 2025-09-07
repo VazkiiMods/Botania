@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 
 public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusionRecipe {
 	public static final RecipeSerializer<ManaInfusionRecipe> SERIALIZER = new Serializer();
@@ -97,7 +97,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 				ItemStack.CODEC.fieldOf("output").forGetter(ManaInfusionRecipe::getOutput),
 				Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(ManaInfusionRecipe::getInput),
 				// Leaving wiggle room for a certain modpack having creative-pool-only recipes
-				ExtraCodecs.intRange(1, ManaPoolBlockEntity.MAX_MANA + 1).fieldOf("mana")
+				ExtraCodecs.intRange(1, ManaPoolBlock.MAX_MANA + 1).fieldOf("mana")
 						.forGetter(ManaInfusionRecipe::getManaToConsume),
 				Codec.STRING.optionalFieldOf("group", "").forGetter(ManaInfusionRecipe::getGroup),
 				StateIngredients.TYPED_CODEC.optionalFieldOf("catalyst", StateIngredients.NONE)

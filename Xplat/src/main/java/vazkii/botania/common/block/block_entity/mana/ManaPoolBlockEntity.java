@@ -78,8 +78,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	public static final float PARTICLE_COLOR_BLUE = (PARTICLE_COLOR & 0xFF) / 255F;
 	public static final float PARTICLE_COLOR_GREEN = (PARTICLE_COLOR >> 8 & 0xFF) / 255F;
 	public static final float PARTICLE_COLOR_RED = (PARTICLE_COLOR >> 16 & 0xFF) / 255F;
-	public static final int MAX_MANA = 1000000;
-	private static final int MAX_MANA_DILLUTED = 10000;
+	public static final int TRANSFER_BASE_RATE = 1000;
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_OUTPUTTING = "outputting";
@@ -94,19 +93,19 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	private static final float CHARGING_GRAVITY = 0.003f;
 
 	private boolean outputting = false;
-
 	private int mana;
 
 	private int manaCap = -1;
-	private int soundTicks = 0;
 	private boolean canAccept = true;
 	private boolean canSpare = true;
+
+	private String inputKey = "";
+	private String outputKey = "";
+
 	boolean isDoingTransfer = false;
 	int ticksDoingTransfer = 0;
 
-	private String inputKey = "";
-	private final String outputKey = "";
-
+	private int soundTicks = 0;
 	private int ticks = 0;
 	private boolean sendPacket = false;
 	private final Int2ObjectMap<MutableInt> chargingParticles = new Int2ObjectOpenHashMap<>();
@@ -254,7 +253,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	private void initManaCapAndNetwork() {
 		if (getMaxMana() == -1) {
-			manaCap = ((ManaPoolBlock) getBlockState().getBlock()).variant == ManaPoolBlock.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
+			manaCap = ((ManaPoolBlock) getBlockState().getBlock()).getManaCapacity();
 		}
 		if (!ManaNetworkHandler.instance.isPoolIn(level, this) && !isRemoved()) {
 			BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.ADD);
@@ -372,7 +371,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 					boolean didSomething = false;
 
 					int bellowCount = self.outputting ? getBellowCount(level, worldPosition, self) : 0;
-					int transfRate = 1000 * (bellowCount + 1);
+					int transfRate = TRANSFER_BASE_RATE * (bellowCount + 1);
 
 					if (self.outputting) {
 						if (self.canSpare) {
@@ -489,9 +488,8 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			inputKey = cmp.getString(TAG_INPUT_KEY);
 		}
 		if (cmp.contains(TAG_OUTPUT_KEY)) {
-			inputKey = cmp.getString(TAG_OUTPUT_KEY);
+			outputKey = cmp.getString(TAG_OUTPUT_KEY);
 		}
-
 	}
 
 	@Override
@@ -566,14 +564,14 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	@Override
 	public int getCurrentMana() {
 		if (getBlockState().getBlock() instanceof ManaPoolBlock pool) {
-			return pool.variant == ManaPoolBlock.Variant.CREATIVE ? MAX_MANA : mana;
+			return pool.isCreative() ? getMaxMana() : mana;
 		}
 		return 0;
 	}
 
 	@Override
 	public int getMaxMana() {
-		return manaCap;
+		return manaCap != -1 ? manaCap : ((ManaPoolBlock) getBlockState().getBlock()).getManaCapacity();
 	}
 
 	@Override

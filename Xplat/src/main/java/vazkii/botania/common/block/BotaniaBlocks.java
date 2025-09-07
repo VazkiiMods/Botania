@@ -626,10 +626,10 @@ public final class BotaniaBlocks {
 	public static final ManaSpreaderBlock gaiaSpreader = make(LibBlockNames.SPREADER_GAIA,
 			new GaiaManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
 
-	public static final Block manaPool = make(LibBlockNames.POOL, new ManaPoolBlock(ManaPoolBlock.Variant.DEFAULT, BlockBehaviour.Properties.ofFullCopy(livingrock)));
-	public static final Block creativePool = make(LibBlockNames.POOL_CREATIVE, new ManaPoolBlock(ManaPoolBlock.Variant.CREATIVE, BlockBehaviour.Properties.ofFullCopy(livingrock)));
-	public static final Block dilutedPool = make(LibBlockNames.POOL_DILUTED, new ManaPoolBlock(ManaPoolBlock.Variant.DILUTED, BlockBehaviour.Properties.ofFullCopy(livingrock)));
-	public static final Block fabulousPool = make(LibBlockNames.POOL_FABULOUS, new ManaPoolBlock(ManaPoolBlock.Variant.FABULOUS, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock manaPool = make(LibBlockNames.POOL, new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, false, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock creativePool = make(LibBlockNames.POOL_CREATIVE, new BigManaPoolBlock(ManaPoolBlock.MAX_MANA, false, true, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock dilutedPool = make(LibBlockNames.POOL_DILUTED, new SmallManaPoolBlock(ManaPoolBlock.MAX_MANA_DILUTED, false, false, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock fabulousPool = make(LibBlockNames.POOL_FABULOUS, new ManaPoolBlock(ManaPoolBlock.MAX_MANA, true, false, BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block alchemyCatalyst = make(LibBlockNames.ALCHEMY_CATALYST, new AlchemyCatalystBlock(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block conjurationCatalyst = make(LibBlockNames.CONJURATION_CATALYST, new ConjurationCatalystBlock(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 

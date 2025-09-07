@@ -22,6 +22,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.client.render.block_entity.ManaPoolBlockEntityRenderer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.entity.ManaPoolMinecartEntity;
 
 public class ManaPoolMinecartRenderer extends MinecartRenderer<ManaPoolMinecartEntity> {
@@ -35,6 +36,9 @@ public class ManaPoolMinecartRenderer extends MinecartRenderer<ManaPoolMinecartE
 	protected void renderMinecartContents(ManaPoolMinecartEntity poolCart, float partialTicks, BlockState state, PoseStack ms, MultiBufferSource buffers, int light) {
 		super.renderMinecartContents(poolCart, partialTicks, state, ms, buffers, light);
 		ManaPoolBlockEntityRenderer.cartMana = poolCart.getMana();
+		// TODO: Support other pool types
+		ManaPoolBlockEntityRenderer.cartMaxMana = ManaPoolBlock.MAX_MANA;
+		ManaPoolBlockEntityRenderer.cartBlock = BotaniaBlocks.manaPool;
 		Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(DUMMY)
 				.render(null, Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false), ms, buffers, light, OverlayTexture.NO_OVERLAY);
 	}

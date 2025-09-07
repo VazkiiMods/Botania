@@ -10,7 +10,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -52,7 +52,7 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		widgets.add(new ManaWidget(2, 100, mana, ManaPoolBlockEntity.MAX_MANA / 10));
+		widgets.add(new ManaWidget(2, 100, mana, ManaPoolBlock.MAX_MANA / 10));
 		RunicAltarEmiRecipe.addRunicAltarWidgets(widgets, this, ingredients, catalysts, ALTAR, output.getFirst(), reagent);
 	}
 

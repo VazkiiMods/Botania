@@ -50,38 +50,37 @@ import java.util.Optional;
 import static vazkii.botania.api.state.BotaniaStateProperties.OPTIONAL_DYE_COLOR;
 
 public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBlock {
-	private static final VoxelShape NORMAL_SHAPE;
-	private static final VoxelShape DILUTED_SHAPE;
-	private static final VoxelShape CREATIVE_SHAPE;
-	private static final VoxelShape NORMAL_SHAPE_INTERACT;
-	private static final VoxelShape DILUTED_SHAPE_INTERACT;
-	private static final VoxelShape CREATIVE_SHAPE_INTERACT;
-	static {
-		NORMAL_SHAPE_INTERACT = box(0, 0, 0, 16, 8, 16);
-		DILUTED_SHAPE_INTERACT = box(0, 0, 0, 16, 6, 16);
-		CREATIVE_SHAPE_INTERACT = box(0, 0, 0, 16, 10, 16);
+	public static final int MAX_MANA = 1000000;
+	public static final int MAX_MANA_DILUTED = 10000;
 
-		VoxelShape cutout = box(2, 2, 2, 14, 16, 14);
-		VoxelShape dilutedCutout = box(1, 1, 1, 15, 6, 15);
+	public static final VoxelShape NORMAL_SHAPE_INTERACT = box(0, 0, 0, 16, 8, 16);
+	public static final VoxelShape NORMAL_SHAPE_CUTOUT = box(2, 2, 2, 14, 16, 14);
+	private static final VoxelShape NORMAL_SHAPE = Shapes.join(NORMAL_SHAPE_INTERACT, NORMAL_SHAPE_CUTOUT, BooleanOp.ONLY_FIRST);
 
-		NORMAL_SHAPE = Shapes.join(NORMAL_SHAPE_INTERACT, cutout, BooleanOp.ONLY_FIRST);
-		DILUTED_SHAPE = Shapes.join(DILUTED_SHAPE_INTERACT, dilutedCutout, BooleanOp.ONLY_FIRST);
-		CREATIVE_SHAPE = Shapes.join(CREATIVE_SHAPE_INTERACT, cutout, BooleanOp.ONLY_FIRST);
-	}
+	public final boolean creative;
+	public final boolean fabulous;
+	public final int manaCapacity;
 
-	public enum Variant {
-		DEFAULT,
-		CREATIVE,
-		DILUTED,
-		FABULOUS
-	}
-
-	public final Variant variant;
-
-	public ManaPoolBlock(Variant v, Properties builder) {
+	public ManaPoolBlock(int capacity, boolean fabulous, boolean creative, Properties builder) {
 		super(builder);
-		this.variant = v;
+
+		this.fabulous = fabulous;
+		this.creative = creative;
+		this.manaCapacity = capacity;
+
 		registerDefaultState(defaultBlockState().setValue(OPTIONAL_DYE_COLOR, OptionalDyeColor.NONE));
+	}
+
+	public boolean isCreative() {
+		return creative;
+	}
+
+	public boolean isFabulous() {
+		return fabulous;
+	}
+
+	public int getManaCapacity() {
+		return manaCapacity;
 	}
 
 	@Override
@@ -93,7 +92,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	@Override
 	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltip, flag);
-		if (variant == ManaPoolBlock.Variant.CREATIVE) {
+		if (creative) {
 			for (int i = 0; i < 2; i++) {
 				tooltip.add(Component.translatable("botaniamisc.creativePool" + i).withStyle(ChatFormatting.GRAY));
 			}
@@ -102,35 +101,24 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
-		return switch (this.variant) {
-			case DILUTED -> DILUTED_SHAPE;
-			case CREATIVE -> CREATIVE_SHAPE;
-			case DEFAULT, FABULOUS -> NORMAL_SHAPE;
-		};
+		return NORMAL_SHAPE;
+	}
+
+	public VoxelShape getInnerShape(BlockState state) {
+		return NORMAL_SHAPE_CUTOUT;
 	}
 
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-		if (context instanceof EntityCollisionContext econtext
-				&& econtext.getEntity() instanceof ManaBurstEntity) {
-			// Sometimes the pool's collision box is too thin for bursts shot straight up.
-			return switch (this.variant) {
-				case DILUTED -> DILUTED_SHAPE_INTERACT;
-				case CREATIVE -> CREATIVE_SHAPE_INTERACT;
-				case DEFAULT, FABULOUS -> NORMAL_SHAPE_INTERACT;
-			};
-		} else {
-			return super.getCollisionShape(state, world, pos, context);
-		}
+		// Sometimes the pool's collision box is too thin for bursts shot straight up.
+		return context instanceof EntityCollisionContext ecc && ecc.getEntity() instanceof ManaBurstEntity
+				? getInteractionShape(state, world, pos)
+				: super.getCollisionShape(state, world, pos, context);
 	}
 
 	@Override
-	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
-		return switch (this.variant) {
-			case DILUTED -> DILUTED_SHAPE_INTERACT;
-			case CREATIVE -> CREATIVE_SHAPE_INTERACT;
-			case DEFAULT, FABULOUS -> NORMAL_SHAPE_INTERACT;
-		};
+	public VoxelShape getInteractionShape(BlockState state, @Nullable BlockGetter level, @Nullable BlockPos pos) {
+		return NORMAL_SHAPE_INTERACT;
 	}
 
 	@Override
@@ -184,7 +172,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
-		if (variant == Variant.FABULOUS) {
+		if (fabulous) {
 			return RenderShape.ENTITYBLOCK_ANIMATED;
 		} else {
 			return RenderShape.MODEL;

@@ -42,6 +42,7 @@ import vazkii.botania.mixin.client.MinecraftAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Optional;
+import java.util.Random;
 
 public final class ColorHandler {
 
@@ -76,10 +77,11 @@ public final class ColorHandler {
 							color = pool.getColor().map(MysticalPetalItem::getPetalLikeColor);
 						}
 					}
-					if (((ManaPoolBlock) state.getBlock()).variant == ManaPoolBlock.Variant.FABULOUS) {
+					if (((ManaPoolBlock) state.getBlock()).isFabulous()) {
 						float time = (ClientTickHandler.getEntityTicksInGame() + ClientTickHandler.getEntityPartialTick()) * 0.005F;
-						int fabulousColor = Mth.hsvToRgb(time - (int) time, 0.6F, 1F);
-						return color.map(integer -> FastColor.ARGB32.multiply(fabulousColor, integer)).orElse(fabulousColor);
+						float posOffset = pos != null ? (float) new Random(pos.asLong()).nextDouble() : 0;
+						int fabulousColor = Mth.hsvToRgb((time + posOffset) % 1f, 0.6F, 1F);
+						return color.map(c -> FastColor.ARGB32.multiply(fabulousColor, c)).orElse(fabulousColor);
 					}
 					return color.orElse(-1);
 				},

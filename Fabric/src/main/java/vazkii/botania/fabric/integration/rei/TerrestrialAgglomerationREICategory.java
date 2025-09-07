@@ -27,7 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class TerrestrialAgglomerationREICategory implements DisplayCategory<Terr
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget(((gui, mouseX, mouseY, delta) -> {
 			CategoryUtils.drawOverlay(gui, OVERLAY, center.x - 24, center.y - 24, 42, 29, 64, 64);
-			HUDHandler.renderManaBar(gui, center.x - 43, center.y + 52, 0x0000FF, 0.75F, display.getManaCost(), ManaPoolBlockEntity.MAX_MANA / 10);
+			HUDHandler.renderManaBar(gui, center.x - 43, center.y + 52, 0x0000FF, 0.75F, display.getManaCost(), ManaPoolBlock.MAX_MANA / 10);
 		})));
 
 		for (EntryIngredient o : inputs) {

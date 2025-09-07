@@ -9,7 +9,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
 
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		widgets.add(new ManaWidget(2, 100, mana, ManaPoolBlockEntity.MAX_MANA));
+		widgets.add(new ManaWidget(2, 100, mana, ManaPoolBlock.MAX_MANA));
 		double step = 360.0 / input.size();
 		widgets.add(new BlendTextureWidget(TEXTURE, CENTER_X - 23, CENTER_Y - 23, 64, 64, 42, 29));
 		for (int i = 0; i < input.size(); i++) {

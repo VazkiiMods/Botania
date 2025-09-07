@@ -5,7 +5,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -64,11 +63,9 @@ public final class BotaniaItemProperties {
 				(stack, world, entity, seed) -> stack.has(BotaniaDataComponents.ACTIVE) ? 1 : 0);
 
 		ResourceLocation poolFullId = botaniaRL("full");
-		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> {
-			Block block = ((BlockItem) stack.getItem()).getBlock();
-			boolean renderFull = ((ManaPoolBlock) block).variant == ManaPoolBlock.Variant.CREATIVE || stack.has(BotaniaDataComponents.RENDER_FULL);
-			return renderFull ? 1 : 0;
-		};
+		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> stack.has(BotaniaDataComponents.RENDER_FULL)
+				|| stack.getItem() instanceof BlockItem b && b.getBlock() instanceof ManaPoolBlock pool && pool.isCreative()
+						? 1 : 0;
 		consumer.accept(BotaniaBlocks.manaPool, poolFullId, poolFull);
 		consumer.accept(BotaniaBlocks.dilutedPool, poolFullId, poolFull);
 		consumer.accept(BotaniaBlocks.creativePool, poolFullId, poolFull);
