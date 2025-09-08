@@ -150,7 +150,6 @@ public final class LibItemNames {
 	public static final String THORN_CHAKRAM = "thorn_chakram";
 	public static final String FLARE_CHAKRAM = "flare_chakram";
 	public static final String OVERGROWTH_SEED = "overgrowth_seed";
-	public static final String CRAFT_PATTERN_PREFIX = "pattern_";
 	public static final String ANCIENT_WILL_PREFIX = "ancient_will_";
 	public static final String CORPOREA_SPARK = "corporea_spark";
 	public static final String CORPOREA_SPARK_MASTER = "corporea_spark_master";
@@ -238,7 +237,6 @@ public final class LibItemNames {
 	public static final String ELEMENTIUM_INGOT = "elementium_ingot";
 	public static final String PIXIE_DUST = "pixie_dust";
 	public static final String DRAGONSTONE = "dragonstone";
-	public static final String PLACEHOLDER = "placeholder";
 	public static final String RED_STRING = "red_string";
 	public static final String DREAMWOOD_TWIG = "dreamwood_twig";
 	public static final String GAIA_INGOT = "gaia_ingot";

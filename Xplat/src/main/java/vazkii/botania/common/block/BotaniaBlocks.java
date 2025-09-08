@@ -681,7 +681,6 @@ public final class BotaniaBlocks {
 	public static final Block bellows = make(LibBlockNames.BELLOWS, new BellowsBlock(BlockBehaviour.Properties.ofFullCopy(livingwood)));
 
 	public static final Block openCrate = make(LibBlockNames.OPEN_CRATE, new OpenCrateBlock(BlockBehaviour.Properties.ofFullCopy(livingwood)));
-	public static final Block craftCrate = make(LibBlockNames.CRAFT_CRATE, new CraftyCrateBlock(BlockBehaviour.Properties.ofFullCopy(livingwood)));
 	public static final Block forestEye = make(LibBlockNames.FOREST_EYE, new EyeOfTheAncientsBlock(BlockBehaviour.Properties.of().strength(5, 10).sound(SoundType.METAL).requiresCorrectToolForDrops()));
 	public static final Block solidVines = make(LibBlockNames.SOLID_VINE, new SolidVineBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.VINE)));
 	public static final Block abstrusePlatform = make(LibBlockNames.PLATFORM_ABSTRUSE, new AbstrusePlatformBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).strength(2, 5).isValidSpawn(NO_SPAWN).noOcclusion().isViewBlocking(
@@ -1320,7 +1319,6 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(manaBomb, rareProps), BuiltInRegistries.BLOCK.getKey(manaBomb));
 		r.accept(new BlockItem(bellows, props), BuiltInRegistries.BLOCK.getKey(bellows));
 		r.accept(new BlockItem(openCrate, props), BuiltInRegistries.BLOCK.getKey(openCrate));
-		r.accept(new BlockItem(craftCrate, props), BuiltInRegistries.BLOCK.getKey(craftCrate));
 		r.accept(new BlockItem(forestEye, props), BuiltInRegistries.BLOCK.getKey(forestEye));
 		r.accept(new BlockItem(abstrusePlatform, props), BuiltInRegistries.BLOCK.getKey(abstrusePlatform));
 		r.accept(new BlockItem(spectralPlatform, props), BuiltInRegistries.BLOCK.getKey(spectralPlatform));

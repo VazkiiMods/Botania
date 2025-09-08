@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
-import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.block.decor.BuriedPetalBlock;
@@ -142,21 +141,6 @@ public class BlockstateProvider implements DataProvider {
 						.put(TextureSlot.TOP, getBlockTexture(cacophonium, "_top")), this.modelOutput));
 		remainingBlocks.remove(cacophonium);
 
-		var crateTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/crate")), Optional.empty(),
-				TextureSlot.BOTTOM, TextureSlot.SIDE);
-		var craftCrateBottomTex = getBlockTexture(craftCrate, "_bottom");
-		var crateDispatch = PropertyDispatch.property(BotaniaStateProperties.CRATE_PATTERN);
-		for (var pattern : CraftyCratePattern.values()) {
-			String suffix = pattern == CraftyCratePattern.NONE ? "" : "_" + pattern.getSerializedName().substring("crafty_".length());
-			var model = crateTemplate.create(getModelLocation(craftCrate, suffix),
-					new TextureMapping().put(TextureSlot.BOTTOM, craftCrateBottomTex)
-							.put(TextureSlot.SIDE, getBlockTexture(craftCrate, suffix)),
-					this.modelOutput);
-			crateDispatch = crateDispatch.select(pattern, Variant.variant().with(VariantProperties.MODEL, model));
-		}
-		this.blockstates.add(MultiVariantGenerator.multiVariant(craftCrate).with(crateDispatch));
-		remainingBlocks.remove(craftCrate);
-
 		ResourceLocation corpSlabSide = botaniaRL("block/corporea_slab_side");
 		ResourceLocation corpBlock = getBlockTexture(corporeaBlock);
 		var corpSlabBottomModel = ModelTemplates.SLAB_BOTTOM.create(corporeaSlab,
@@ -235,6 +219,8 @@ public class BlockstateProvider implements DataProvider {
 		));
 		remainingBlocks.remove(lightLauncher);
 
+		var crateTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/crate")), Optional.empty(),
+				TextureSlot.BOTTOM, TextureSlot.SIDE);
 		singleVariantBlockState(openCrate,
 				crateTemplate.create(openCrate, new TextureMapping()
 						.put(TextureSlot.SIDE, getBlockTexture(openCrate))

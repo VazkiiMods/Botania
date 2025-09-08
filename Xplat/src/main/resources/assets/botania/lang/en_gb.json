@@ -207,8 +207,6 @@
 
   "botania.page.brewery17a": "A simple brew, mimicking a $(item)Potion of Regeneration$(0). When quaffed, it gives its drinker a $(thing)Regeneration I$(0) effect, albeit for longer than a Revitalisation brew.",
 
-  "botania.page.craftCrate3": "Finalising a recipe can be done in two ways:$(p)Filling all 9 slots with either recipe components or placeholders will instantly try to craft and output the result, as well as any placeholders and/or leftovers remaining in the crafting grid (e.g. buckets when making cake).$(p)Note that the crate will $(o)not$() eject its contents if no recipe is possible.",
-
   "botania.page.cocoon1": "A cocoon near water seems to create aquatic animals instead.$(p)Rumour has it that giving a cocoon $(item)Emeralds$(0), $(item)Chorus Fruit$(0), or a certain $(l:alfhomancy/gaia_ritual)$(item)otherworldly essence$(0)$(/l) will influence its outcome towards something... different. What such experiments would yield is anyone's guess, really.$(p)(Giving a cocoon an item can be done via right-click or by simply tossing the item.)",
 
   "botania.page.manaBomb0": "Infusing a $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirit$(0)$(/l) with some $(item)TNT$(0) creates a $(item)Manastorm Charge$(0), a type of explosive. In a sense. Once ignited with a $(item)Mana Burst$(0), the charge will create an unstable $(item)Manastorm Epicentre$(0). This will, over time, spawn supercharged explosive $(item)Mana Bursts$(0).$(p)Needless to say, only a maniac would unleash such a destructive force near anything valuable or important.",

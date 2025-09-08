@@ -180,7 +180,6 @@ public class ForgeCommonInitializer {
 
 		OrechidManager.registerListener();
 		ConfigDataManagerImpl.registerListener();
-		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new ForgeCapCorporeaNodeDetector());
 		if (ModList.get().isLoaded("inventorysorter")) {
 			InventorySorterIntegration.init(gameBus);

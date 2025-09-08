@@ -784,7 +784,6 @@
   "block.botania.tiny_planet_block": "Petite planète",
   "block.botania.alchemy_catalyst": "Catalyseur alchimique",
   "block.botania.open_crate": "Caisse percée",
-  "block.botania.crafty_crate": "Caisse créatrice",
   "block.botania.forest_eye": "Oeil des Anciens",
 
   "block.botania.manasteel_block": "Bloc de manacier",
@@ -2971,20 +2970,6 @@
   "botania.tagline.gatherDrum": "TAGLINE",
   "botania.page.gatherDrum0": "Le $(item)tambour touffu$(0) est le $(l:devices/forest_drum)tambour sauvage$(/l) des cowboys.$(p)Quand un $(thing)transfert de mana$(0) rentrera en collision avec lui, alors tout les $(thing)moutons$(0) à proximité seront tondus et toutes les $(thing)vaches$(0) seront traitées ($(o)si des $(item)seaux vides$(0) sont présents sous ces $(thing)vaches$(0)$()).",
   "botania.page.gatherDrum1": "$(o)c'est ta façon d'aimer$()",
-
-  "botania.entry.craftCrate": "Caisse créatrice",
-  "botania.tagline.craftCrate": "TAGLINE",
-  "botania.page.craftCrate0": "La $(item)caisse créatrice$(0) est un variante de la $(l:devices/open_crate)caisse percée$(/l), sauf que cette $(item)caisse$(0) va vous aider à fabriquer des objets.$(p)La $(item)caisse créatrice$(0), à la manière d'un $(item)établi$(0), possède un inventaire avec 9 emplacements. Des emplacements dans lesquels des ingrédients pourront être placés.",
-  "botania.page.craftCrate1": "Les emplacements se remplissent selon un ordre précis; de gauche à droite, du haut vers le bas.$(p)Les $(item)motifs vides$(0) servent à remplacer les \"emplacements vides\" d'une recette, comme par exemple ceux d'une $(item)pioche en diamant$(0).",
-  "botania.page.craftCrate2": "Fabriquer des $(item)motifs vides$(0)",
-  "botania.page.craftCrate3": "Il existe deux manières de valider une recette :$(p)1°) Remplir les 9 emplacements avec des ingrédients ou des $(item)motifs vides$(0).$(p)Méfiez-vous, une $(item)caisse créatrice$(0) ne rendra pas ses objets tant qu'elle n'aura pas réussi à fabriquer quelque chose.",
-  "botania.page.craftCrate4": "2°) Clic-droit avec une $(l:basics/wand)baguette sylvestre$(/l) forcera la $(item)caisse créatrice$(0) à fabriquer un objet, et ensuite éjectera les ingrédients restants.$(p)Si la tentative de fabrication forcée échoue, alors tout les ingrédients seront éjectés.",
-  "botania.page.craftCrate7": "Un $(item)comparateur$(0) connecté à une $(item)caisse$(0) produira un $(thing)signal redstone$(0) proportionnel au nombre d'objet contenus dans cette même $(item)caisse$(0).",
-  "botania.page.craftCrate5": "Exemple: Fabriquer une $(item)pioche en diamant$(0)",
-  "botania.page.craftCrate6": "Fabriquer une $(item)caisse créatrice$(0)",
-  "botania.page.craftCrate8": "Cette $(item)caisse$(0) peut être améliorée avec des $(item)motifs$(0) afin de verrouiller certains emplacements inutiles, ce qui vous évite d'avoir à utiliser des $(item)motifs vides$(0).$(p)Il vous suffit de faire clic-droit pour appliquer un $(item)motif$(0) sur une $(item)caisse$(0).$(p)Le $(item)motif$(0) ne sera pas détruit après son utilisation.",
-  "botania.page.craftCrate10": "Motif",
-  "botania.page.craftCrate9": "Fabriquer les $(item)motifs$(0)",
 
   "botania.entry.hourglass": "Sablier",
   "botania.tagline.hourglass": "TAGLINE",

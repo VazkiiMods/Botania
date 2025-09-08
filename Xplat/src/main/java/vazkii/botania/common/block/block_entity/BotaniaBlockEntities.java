@@ -55,7 +55,6 @@ public class BotaniaBlockEntities {
 	public static final BlockEntityType<SpreaderTurntableBlockEntity> TURNTABLE = type(LibBlockNames.TURNTABLE, SpreaderTurntableBlockEntity::new, turntable);
 	public static final BlockEntityType<TinyPlanetBlockEntity> TINY_PLANET = type(LibBlockNames.TINY_PLANET, TinyPlanetBlockEntity::new, tinyPlanet);
 	public static final BlockEntityType<OpenCrateBlockEntity> OPEN_CRATE = type(LibBlockNames.OPEN_CRATE, OpenCrateBlockEntity::new, openCrate);
-	public static final BlockEntityType<CraftyCrateBlockEntity> CRAFT_CRATE = type(LibBlockNames.CRAFT_CRATE, CraftyCrateBlockEntity::new, craftCrate);
 	public static final BlockEntityType<EyeOfTheAncientsBlockEntity> FOREST_EYE = type(LibBlockNames.FOREST_EYE, EyeOfTheAncientsBlockEntity::new, forestEye);
 	public static final BlockEntityType<PlatformBlockEntity> PLATFORM = type(LibBlockNames.PLATFORM, PlatformBlockEntity::new, abstrusePlatform, spectralPlatform, infrangiblePlatform);
 	public static final BlockEntityType<AlfheimPortalBlockEntity> ALF_PORTAL = type(LibBlockNames.ALF_PORTAL, AlfheimPortalBlockEntity::new, alfPortal);
@@ -198,7 +197,6 @@ public class BotaniaBlockEntities {
 		consumer.accept(be -> new AnimatedTorchBlockEntity.WandHud((AnimatedTorchBlockEntity) be), BotaniaBlockEntities.ANIMATED_TORCH);
 		consumer.accept(be -> new BreweryBlockEntity.WandHud((BreweryBlockEntity) be), BotaniaBlockEntities.BREWERY);
 		consumer.accept(be -> new CorporeaRetainerBlockEntity.WandHud((CorporeaRetainerBlockEntity) be), BotaniaBlockEntities.CORPOREA_RETAINER);
-		consumer.accept(be -> new CraftyCrateBlockEntity.WandHud((CraftyCrateBlockEntity) be), BotaniaBlockEntities.CRAFT_CRATE);
 		consumer.accept(be -> new ManaEnchanterBlockEntity.WandHud((ManaEnchanterBlockEntity) be), BotaniaBlockEntities.ENCHANTER);
 		consumer.accept(be -> new HoveringHourglassBlockEntity.WandHud((HoveringHourglassBlockEntity) be), BotaniaBlockEntities.HOURGLASS);
 		consumer.accept(be -> new ManaPoolBlockEntity.WandHud((ManaPoolBlockEntity) be), BotaniaBlockEntities.POOL);

@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 import vazkii.botania.api.state.enums.AlfheimPortalState;
-import vazkii.botania.api.state.enums.CraftyCratePattern;
 
 import java.util.Optional;
 
@@ -104,9 +103,6 @@ public final class BotaniaStateProperties {
 
 	// ManaEnchanterBlock
 	public static final EnumProperty<Direction.Axis> ENCHANTER_DIRECTION = EnumProperty.create("facing", Direction.Axis.class, a -> a != Direction.Axis.Y);
-
-	// CraftyCrateBlock
-	public static final EnumProperty<CraftyCratePattern> CRATE_PATTERN = EnumProperty.create("pattern", CraftyCratePattern.class);
 
 	// ManaPrismBlock
 	public static final BooleanProperty HAS_LENS = BooleanProperty.create("has_lens");

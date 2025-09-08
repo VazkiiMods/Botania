@@ -34,14 +34,12 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 import vazkii.botania.data.recipes.builder.BotaniaSpecialRecipeBuilder;
 import vazkii.botania.data.recipes.builder.TiaraWingsRecipeBuilder;
@@ -51,7 +49,6 @@ import vazkii.botania.mixin.RecipeProviderAccessor;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class CraftingRecipeProvider extends BotaniaRecipeProvider {
@@ -291,14 +288,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("W W")
 				.pattern("W W")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingwoodPlanks))
-				.save(recipeOutput);
-		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.craftCrate)
-				.define('C', ConventionalItemTags.PLAYER_WORKSTATIONS_CRAFTING_TABLES)
-				.define('W', BotaniaBlocks.dreamwoodPlanks)
-				.pattern("WCW")
-				.pattern("W W")
-				.pattern("W W")
-				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.dreamwoodPlanks))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.forestEye)
 				.define('S', BotaniaBlocks.livingrock)
@@ -1204,31 +1193,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_chest", conditionsFromItem(Items.ENDER_CHEST))
 				.unlockedBy("has_eye", conditionsFromItem(Items.ENDER_EYE))
 				.save(recipeOutput);
-
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.placeholder, 32)
-				.requires(ConventionalItemTags.PLAYER_WORKSTATIONS_CRAFTING_TABLES)
-				.requires(BotaniaBlocks.livingrock)
-				.unlockedBy("has_dreamwood", conditionsFromTag(BotaniaTags.Items.DREAMWOOD_LOGS))
-				.unlockedBy("has_crafty_crate", conditionsFromItem(BotaniaBlocks.craftCrate))
-				.save(recipeOutput);
-
-		for (CraftyCratePattern pattern : CraftyCratePattern.values()) {
-			if (pattern == CraftyCratePattern.NONE) {
-				continue;
-			}
-			Item item = getItemOrThrow(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getSerializedName().split("_", 2)[1]));
-			String s = pattern.openSlots.stream().map(bool -> bool ? "R" : "P").collect(Collectors.joining());
-			ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, item)
-					.define('P', BotaniaItems.placeholder)
-					.define('R', ConventionalItemTags.REDSTONE_DUSTS)
-					.pattern(s.substring(0, 3))
-					.pattern(s.substring(3, 6))
-					.pattern(s.substring(6, 9))
-					.group("botania:craft_pattern")
-					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.placeholder))
-					.unlockedBy("has_crafty_crate", conditionsFromItem(BotaniaBlocks.craftCrate))
-					.save(recipeOutput);
-		}
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.manaGun)
 				.define('S', BotaniaBlocks.redstoneSpreader)

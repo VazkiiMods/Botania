@@ -21,7 +21,6 @@ import net.minecraft.world.item.*;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
-import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.client.gui.bag.ColoredContentsPouchContainer;
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -348,16 +347,6 @@ public final class BotaniaItems {
 	public static final Item phantomInk = make(LibItemNames.PHANTOM_INK, new PhantomInkItem(defaultBuilder()));
 	public static final Item poolMinecart = make(LibItemNames.POOL_MINECART, new ManaPoolMinecartItem(unstackable()));
 	public static final Item keepIvy = make(LibItemNames.KEEP_IVY, new ResoluteIvyItem(defaultBuilder()));
-	public static final Item placeholder = make(LibItemNames.PLACEHOLDER, new SelfReturningItem(defaultBuilder()));
-	public static final Item craftPattern1_1 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "1_1", new CraftingPatternItem(CraftyCratePattern.CRAFTY_1_1, unstackable()));
-	public static final Item craftPattern2_2 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "2_2", new CraftingPatternItem(CraftyCratePattern.CRAFTY_2_2, unstackable()));
-	public static final Item craftPattern1_2 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "1_2", new CraftingPatternItem(CraftyCratePattern.CRAFTY_1_2, unstackable()));
-	public static final Item craftPattern2_1 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "2_1", new CraftingPatternItem(CraftyCratePattern.CRAFTY_2_1, unstackable()));
-	public static final Item craftPattern1_3 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "1_3", new CraftingPatternItem(CraftyCratePattern.CRAFTY_1_3, unstackable()));
-	public static final Item craftPattern3_1 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "3_1", new CraftingPatternItem(CraftyCratePattern.CRAFTY_3_1, unstackable()));
-	public static final Item craftPattern2_3 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "2_3", new CraftingPatternItem(CraftyCratePattern.CRAFTY_2_3, unstackable()));
-	public static final Item craftPattern3_2 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "3_2", new CraftingPatternItem(CraftyCratePattern.CRAFTY_3_2, unstackable()));
-	public static final Item craftPatternDonut = make(LibItemNames.CRAFT_PATTERN_PREFIX + "donut", new CraftingPatternItem(CraftyCratePattern.CRAFTY_DONUT, unstackable()));
 
 	// Guardian of Gaia drops
 	public static final Item dice = make(LibItemNames.DICE, new DiceOfFateItem(unstackable().fireResistant().rarity(Rarity.EPIC)));

@@ -1681,18 +1681,6 @@
   "botania.page.gatherDrum0": "El $(item)tambor de la recolección$(0) es, por así decirlo, un $(item)tambor de lo salvaje$(0) para ganado.$(p)Cuando un $(item)pulso de maná$(0) choca con él, esquilará a cada $(item)oveja$(0) cercana con la lana crecida. Cada $(thing)vaca$(0), con un $(item)cubo$(0) vacío debajo de ella, se ordeñará colocando la leche en los cubos.",
   "botania.page.gatherDrum1": "Gira tus tierras",
 
-  "botania.entry.craftCrate": "Caja de trabajo",
-  "botania.page.craftCrate0": "Como sugiere su nombre, la $(item)caja de trabajo$(0) es similar a la $(item)caja abierta$(0) con la habilidad crear objetos a partir de otros objetos al igual que una $(item)mesa de trabajo$(0).$(p)Como la $(item)mesa de trabajo$(0), tiene 9 ranuras, las cuales se pueden rellenar con objetos de siguiendo el patrón de una receta.",
-  "botania.page.craftCrate1": "Los objetos entran de izquierda a derecha y de arriba a abajo (se ilustra más adelante)y existe un objeto especial llamado $(item)marcador de posición$(0), que al colocarse cuenta como una ranura vacía en la receta. Esto se usa para poder hacer recetas que contengan espacios vacios (ej. horno, cofre, pico).",
-  "botania.page.craftCrate2": "Creando el marcador de posición",
-  "botania.page.craftCrate3": "Para acabar la receta, se puede hacer dos cosas.$(p)En primer lugar, llenando las 9 ranuras con ingradientes de la receta o con maracadores de posición sacará inmediatamente el resultado, los marcadores de posición y todo lo que sobre (ej. cubo al hacer tarta). Este es le método más directo.",
-  "botania.page.craftCrate4": "Haciendo clic derecho en la caja con la $(item)varita del bosque$(0) (recuerda: los $(item)dispensadores$(0) pueden hacer esto) intentará crear algo con lo que sea que esté en la caja, y lo sacará.$(p)Si esto falla, sacará los ingredientes sin haber creado nada.",
-  "botania.page.craftCrate7": "Colocando un comparador junto a la caja, este emitirá una señal igual al número de objetos dentro de la caja, lo cual puede ser un sistema muy valioso para crear sistemas automáticos con la caja.",
-  "botania.page.craftCrate5": "Ejemplo de crear un $(item)pico de diamante$(0)",
-  "botania.page.craftCrate6": "Made in Portugal",
-  "botania.page.craftCrate8": "La $(item)caja de trabajo$(0) puede modificarse con patrones. Un patrón bloquea una ranura en la receta, impidiendo a los objetos colocarse en dichas ranuras, pareciendo que hay marcadores de posición ahí.$(p)Existen solo unos pocos patrones, los cuales se colocan haciendo clic derecho en la caja, sin ser consumidos.",
-  "botania.page.craftCrate9": "9 patrones diferentes",
-
   "botania.entry.hourglass": "Reloj de arena flotante",
   "botania.page.hourglass0": "La habilidad de medir el tiempo es esencial para quien quiera desarrollar artilugios redstónicos. Un simple temporizador, sin embargo, puede ocupar mucho espacio y ser lento. El $(item)reloj de arena flotante$(0) se un sencillo y preciso temporizador que usa arena. Como el nombre indica, es reloj de arena que flota, y se da la vuelta él solo.",
   "botania.page.hourglass1": "El reloj contiene un inventario, que se le puede poner un montón de $(item)arena$(0), $(item)arena roja$(0) o $(item)arena de almas$(0) haciendo clic derecho. Haciendo clic derecho de nuevo lo elimina. La arena caerá de una cámara a la otra, y cuando acabe, emitirá un pulso de redstone y se dará la vuelta solo, empezando de nuevo.",

@@ -148,7 +148,6 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		OrechidManager.registerListener();
 		ConfigDataManagerImpl.registerListener();
-		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new FabricTransferCorporeaNodeDetector());
 
 		registerCapabilities();
