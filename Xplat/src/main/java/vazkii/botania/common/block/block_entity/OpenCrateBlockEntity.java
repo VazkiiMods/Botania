@@ -49,20 +49,21 @@ public class OpenCrateBlockEntity extends ExposedSimpleInventoryBlockEntity {
 		}
 	}
 
+	protected Vec3 getEjectPosition() {
+		return getBlockPos().getBottomCenter().subtract(0, EntityType.ITEM.getHeight(), 0);
+	}
+
 	public boolean canEject() {
 		float width = EntityType.ITEM.getWidth();
 		float height = EntityType.ITEM.getHeight();
 
-		double ejectX = worldPosition.getX() + 0.5;
-		double ejectY = worldPosition.getY() - height;
-		double ejectZ = worldPosition.getZ() + 0.5;
-		AABB itemBB = new AABB(ejectX - width / 2, ejectY, ejectZ - width / 2, ejectX + width / 2, ejectY + height, ejectZ + width / 2);
+		AABB itemBB = AABB.ofSize(getEjectPosition().add(0, height / 2, 0), width, height, width);
 		return level.noCollision(itemBB);
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {
-		double ejectY = worldPosition.getY() - EntityType.ITEM.getHeight();
-		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, ejectY, worldPosition.getZ() + 0.5, stack);
+		Vec3 ejectPos = getEjectPosition();
+		ItemEntity item = new ItemEntity(level, ejectPos.x, ejectPos.y, ejectPos.z, stack);
 		item.setDeltaMovement(Vec3.ZERO);
 		if (redstone) {
 			XplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter = -200;

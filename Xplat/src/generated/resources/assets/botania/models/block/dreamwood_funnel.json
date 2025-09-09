@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "botania:block/dreamwood_funnel_bottom",
+    "side": "botania:block/dreamwood_funnel",
+    "top": "botania:block/dreamwood_funnel"
+  }
+}

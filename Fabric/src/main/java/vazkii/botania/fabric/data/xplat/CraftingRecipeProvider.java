@@ -289,6 +289,13 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("W W")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingwoodPlanks))
 				.save(recipeOutput);
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.dreamwoodFunnel)
+				.define('W', BotaniaBlocks.dreamwoodPlanks)
+				.pattern("WWW")
+				.pattern("W W")
+				.pattern("W W")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.dreamwoodPlanks))
+				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.forestEye)
 				.define('S', BotaniaBlocks.livingrock)
 				.define('E', Items.ENDER_EYE)

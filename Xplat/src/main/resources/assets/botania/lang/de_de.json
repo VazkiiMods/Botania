@@ -776,7 +776,7 @@
     "block.botania.tiny_planet_block": "Winziger Planet",
     "block.botania.alchemy_catalyst": "Alchemiekatalysator",
     "block.botania.open_crate": "Offene Kiste",
-    "block.botania.open_dreamwood_crate": "Offene Traumholzkiste",
+    "block.botania.dreamwood_funnel": "Traumholztrichter",
     "block.botania.forest_eye": "Auge der Ältesten",
     "block.botania.manasteel_block": "Manastahlblock",
     "block.botania.terrasteel_block": "Terrastahlblock",
@@ -2837,10 +2837,10 @@
     "botania.page.gatherDrum0": "Die $(item)Trommel des Sammelns$(0) ist effektiv des Viehzüchters $(l:devices/forest_drum)$(item)Trommel der Wildness$(0)$(/l).$(p)Wenn eine $(thing)Manasalve$(0) mit ihr kollidiert, wird jedes $(thing)Schaf$(0) mit Wolle in der Umgebung geschoren und jede $(thing)Kuh$(0) mit $(item)Leeren Eimern$(0) unter sich gießt Milch in die Eimer.",
     "botania.page.gatherDrum1": "Tappe deine Länder",
 
-    "botania.entry.openDreamwoodCrate": "Offene Traumholzkiste",
-    "botania.tagline.openDreamwoodCrate": "Einfache Vorrichtung, um Dinge in alle Richtungen fallen zu lassen",
-    "botania.page.openDreamwoodCrate0": "In Funktion ähnlich der $(l:devices/open_crate)$(item)Offenen Kiste$(0)$(/l), nutzt die $(item)Offene Traumholzkiste$(0) die Eigenschaften von Traumholz, so dass sie in andere Richtung als nach unten zeigen kann und trotzdem Gegenstände aus ihrer offenen Seite fallen lassen kann.",
-    "botania.page.openDreamwoodCrate_crafting": "Herstellen der $(item)Offenen Traumholzkiste$(0)",
+    "botania.entry.dreamwoodFunnel": "Offene Traumholzkiste",
+    "botania.tagline.dreamwoodFunnel": "Einfache Vorrichtung, um Dinge in alle Richtungen fallen zu lassen",
+    "botania.page.dreamwoodFunnel0": "In Funktion ähnlich der $(l:devices/open_crate)$(item)Offenen Kiste$(0)$(/l), nutzt die $(item)Offene Traumholzkiste$(0) die Eigenschaften von Traumholz, so dass sie in andere Richtung als nach unten zeigen kann und trotzdem Gegenstände aus ihrer offenen Seite fallen lassen kann.",
+    "botania.page.dreamwoodFunnel_crafting": "Herstellen der $(item)Offenen Traumholzkiste$(0)",
 
     "botania.entry.hourglass": "Schwebende Sanduhr",
     "botania.tagline.hourglass": "Einfacher Zeitgeber, der den Sand der Zeit nutzt ",

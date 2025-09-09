@@ -55,6 +55,7 @@ public class BotaniaBlockEntities {
 	public static final BlockEntityType<SpreaderTurntableBlockEntity> TURNTABLE = type(LibBlockNames.TURNTABLE, SpreaderTurntableBlockEntity::new, turntable);
 	public static final BlockEntityType<TinyPlanetBlockEntity> TINY_PLANET = type(LibBlockNames.TINY_PLANET, TinyPlanetBlockEntity::new, tinyPlanet);
 	public static final BlockEntityType<OpenCrateBlockEntity> OPEN_CRATE = type(LibBlockNames.OPEN_CRATE, OpenCrateBlockEntity::new, openCrate);
+	public static final BlockEntityType<DreamwoodFunnelBlockEntity> DREAMWOOD_FUNNEL = type(LibBlockNames.DREAMWOOD_FUNNEL, DreamwoodFunnelBlockEntity::new, dreamwoodFunnel);
 	public static final BlockEntityType<EyeOfTheAncientsBlockEntity> FOREST_EYE = type(LibBlockNames.FOREST_EYE, EyeOfTheAncientsBlockEntity::new, forestEye);
 	public static final BlockEntityType<PlatformBlockEntity> PLATFORM = type(LibBlockNames.PLATFORM, PlatformBlockEntity::new, abstrusePlatform, spectralPlatform, infrangiblePlatform);
 	public static final BlockEntityType<AlfheimPortalBlockEntity> ALF_PORTAL = type(LibBlockNames.ALF_PORTAL, AlfheimPortalBlockEntity::new, alfPortal);

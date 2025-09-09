@@ -53,6 +53,7 @@ public final class LibBlockNames {
 	public static final String TINY_PLANET = "tiny_planet_block";
 	public static final String ALCHEMY_CATALYST = "alchemy_catalyst";
 	public static final String OPEN_CRATE = "open_crate";
+	public static final String DREAMWOOD_FUNNEL = "dreamwood_funnel";
 	public static final String FOREST_EYE = "forest_eye";
 	public static final String MANASTEEL_BLOCK = "manasteel_block";
 	public static final String TERRASTEEL_BLOCK = "terrasteel_block";

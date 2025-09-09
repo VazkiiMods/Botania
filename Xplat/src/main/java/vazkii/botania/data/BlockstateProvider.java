@@ -229,6 +229,14 @@ public class BlockstateProvider implements DataProvider {
 				));
 		remainingBlocks.remove(openCrate);
 
+		var dreamwoodFunnelModel = ModelTemplates.CUBE_ORIENTABLE.create(dreamwoodFunnel, new TextureMapping()
+				.put(TextureSlot.TOP, getBlockTexture(dreamwoodFunnel))
+				.put(TextureSlot.FRONT, getBlockTexture(dreamwoodFunnel, "_bottom"))
+				.put(TextureSlot.SIDE, getBlockTexture(dreamwoodFunnel)), this.modelOutput);
+		this.blockstates.add(MultiVariantGenerator.multiVariant(dreamwoodFunnel, Variant.variant().with(VariantProperties.MODEL, dreamwoodFunnelModel))
+				.with(BlockModelGeneratorsAccessor.facingDispatch()));
+		remainingBlocks.remove(dreamwoodFunnel);
+
 		var threeHighBottomTopTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/three_high_bottom_top")),
 				Optional.empty(),
 				TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE);
