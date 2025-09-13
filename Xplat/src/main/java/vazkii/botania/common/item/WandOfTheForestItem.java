@@ -15,7 +15,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
@@ -42,29 +41,22 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
-import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
-import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class WandOfTheForestItem extends Item implements CustomCreativeTabContents {
 
@@ -127,42 +119,6 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return false;
 	}
 
-	// TODO: maybe attach Wandable capability to lapis block?
-	private static boolean tryFormEnchanter(UseOnContext ctx) {
-		Level world = ctx.getLevel();
-		BlockPos pos = ctx.getClickedPos();
-		Direction.Axis axis = ManaEnchanterBlockEntity.canEnchanterExist(world, pos);
-
-		if (axis != null) {
-			if (!world.isClientSide) {
-				world.setBlockAndUpdate(pos, BotaniaBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
-				world.playSound(null, pos, BotaniaSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
-				PlayerHelper.grantCriterion((ServerPlayer) ctx.getPlayer(), botaniaRL("main/enchanter_make"), "code_triggered");
-			} else {
-				for (int i = 0; i < 50; i++) {
-					float red = (float) Math.random();
-					float green = (float) Math.random();
-					float blue = (float) Math.random();
-
-					double x = (Math.random() - 0.5) * 6;
-					double y = (Math.random() - 0.5) * 6;
-					double z = (Math.random() - 0.5) * 6;
-
-					float velMul = 0.07F;
-
-					float motionx = (float) -x * velMul;
-					float motiony = (float) -y * velMul;
-					float motionz = (float) -z * velMul;
-					WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, red, green, blue);
-					world.addParticle(data, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, motionx, motiony, motionz);
-				}
-			}
-
-			return true;
-		}
-		return false;
-	}
-
 	// TODO: force relays should use WandBindable as a block capability for this
 	private static boolean tryCompletePistonRelayBinding(UseOnContext ctx) {
 		Level world = ctx.getLevel();
@@ -218,10 +174,6 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 					return InteractionResult.SUCCESS;
 				}
 			}
-		}
-
-		if (state.is(Blocks.LAPIS_BLOCK) && BotaniaConfig.common().enchanterEnabled() && tryFormEnchanter(ctx)) {
-			return InteractionResult.SUCCESS;
 		}
 
 		BlockEntity tile = world.getBlockEntity(pos);

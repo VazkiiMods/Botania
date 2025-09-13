@@ -375,6 +375,8 @@ public class FabricCommonInitializer implements ModInitializer {
 				(world, pos, state, blockEntity, context) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				BotaniaBlocks.pistonRelay
 		);
+		BotaniaFabricCapabilities.WANDABLE.registerForBlocks(ManaEnchanterBlockEntity::createLapisBlockWandable,
+				Blocks.LAPIS_BLOCK);
 
 		BotaniaFabricCapabilities.PHANTOM_INKABLE.registerSelf(
 				BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.toArray(BlockEntityType[]::new));

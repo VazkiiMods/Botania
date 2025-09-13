@@ -23,8 +23,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -53,8 +55,10 @@ import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
@@ -69,6 +73,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements ManaReceiver, SparkAttachable, Wandable, Clearable {
 	private static final String TAG_STAGE = "stage";
@@ -499,6 +505,42 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	public void clearContent() {
 		this.itemToEnchant = ItemStack.EMPTY;
 		this.stage = State.IDLE;
+	}
+
+	public static Wandable createLapisBlockWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, Direction direction) {
+		return (player, stack, side) -> {
+			Direction.Axis axis = ManaEnchanterBlockEntity.canEnchanterExist(level, pos);
+			if (axis == null) {
+				return false;
+			}
+
+			if (!level.isClientSide) {
+				level.setBlockAndUpdate(pos, BotaniaBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
+				level.playSound(null, pos, BotaniaSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
+				PlayerHelper.grantCriterion((ServerPlayer) player, botaniaRL("main/enchanter_make"), "code_triggered");
+			} else {
+				RandomSource rng = level.getRandom();
+				for (int i = 0; i < 50; i++) {
+					float red = rng.nextFloat();
+					float green = rng.nextFloat();
+					float blue = rng.nextFloat();
+
+					double x = (rng.nextDouble() - 0.5) * 6;
+					double y = (rng.nextDouble() - 0.5) * 6;
+					double z = (rng.nextDouble() - 0.5) * 6;
+
+					float velMul = -0.07F;
+
+					float motionX = (float) x * velMul;
+					float motionY = (float) y * velMul;
+					float motionZ = (float) z * velMul;
+					WispParticleData data = WispParticleData.wisp(rng.nextFloat() * 0.15F + 0.15F, red, green, blue);
+					level.addParticle(data, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, motionX, motionY, motionZ);
+				}
+			}
+
+			return true;
+		};
 	}
 
 	public static class WandHud implements WandHUD {
