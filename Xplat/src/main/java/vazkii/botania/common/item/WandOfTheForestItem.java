@@ -68,6 +68,40 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class WandOfTheForestItem extends Item implements CustomCreativeTabContents {
 
+	/**
+	 * Block manipulation strategies for when neither binding behavior nor explicitly defined wand interactions exist.
+	 * The final entry's {@link BlockStateManipulator} must not return {@code null}.
+	 */
+	public static final List<Pair<BlockStateSidePredicate, BlockStateManipulator>> BLOCK_STATE_MANIPULATION_STRATEGIES = List.of(
+			// skip any blocks tagged for wand manipulation opt-out
+			Pair.of((state, dir) -> state.is(BotaniaTags.Blocks.UNWANDABLE),
+					BlockStateManipulator.NO_OP),
+
+			// log-like pillar blocks
+			Pair.of((state, side) -> state.getBlock() instanceof RotatedPillarBlock,
+					WandOfTheForestItem::applyPillarBlockRotation),
+
+			// blocks with fine granular horizontal rotation options (e.g. signs, heads, banners)
+			Pair.of((state, side) -> state.hasProperty(BlockStateProperties.ROTATION_16),
+					WandOfTheForestItem::applySignOrBannerRotation),
+
+			// blocks with a boolean property for each side (e.g. huge mushroom blocks)
+			Pair.of(WandOfTheForestItem::hasSixSidedToggleProperties, WandOfTheForestItem::applySixSidedPropertyToggle),
+
+			// toggle top/bottom slab when clicking side (ignore for double slabs)
+			Pair.of(WandOfTheForestItem::isSideOfSlabBlock, WandOfTheForestItem::applyToggleSlabType),
+
+			// toggle top/bottom half when clicking side (e.g. for stairs or trapdoors)
+			Pair.of(WandOfTheForestItem::isSideOfHalfBlock, WandOfTheForestItem::applyToggleHalf),
+
+			// blocks with a "facing" property of value type Direction
+			Pair.of((state, side) -> getFacingPropOptional(state).isPresent(),
+					WandOfTheForestItem::applyFacingRotationChange),
+
+			// Fallback to vanilla block rotation
+			Pair.of(BlockStateSidePredicate.ALWAYS, WandOfTheForestItem::applyVanillaRotation)
+	);
+
 	public final ChatFormatting modeChatFormatting;
 
 	public WandOfTheForestItem(ChatFormatting formatting, Item.Properties builder) {
@@ -219,55 +253,90 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 	}
 
 	private static BlockState manipulateBlockstate(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
-		if (oldState.is(BotaniaTags.Blocks.UNWANDABLE)) {
-			return oldState;
-		}
+		for (var strategy : BLOCK_STATE_MANIPULATION_STRATEGIES) {
+			var predicate = strategy.getFirst();
+			var manipulator = strategy.getSecond();
 
-		if (oldState.getBlock() instanceof RotatedPillarBlock) {
-			return iterateToNextValidPropertyValue(oldState, BlockStateProperties.AXIS, BlockStateProperties.AXIS.getPossibleValues(), oldState.getValue(BlockStateProperties.AXIS), canSurvive);
-		}
-
-		if (oldState.hasProperty(BlockStateProperties.ROTATION_16)) {
-			// standing sign, ceiling-hanging sign or similar block
-			return iterateToNextValidPropertyValue(oldState, BlockStateProperties.ROTATION_16, BlockStateProperties.ROTATION_16.getPossibleValues(), oldState.getValue(BlockStateProperties.ROTATION_16), canSurvive);
-		}
-
-		// mostly intended for HugeMushroomBlock, but might be useful for certain modded blocks as well:
-		BooleanProperty directionPropertyFromSide = PipeBlock.PROPERTY_BY_DIRECTION.get(side);
-		if (oldState.hasProperty(directionPropertyFromSide) && oldState.getProperties().containsAll(PipeBlock.PROPERTY_BY_DIRECTION.values())) {
-			boolean oldValue = oldState.getValue(directionPropertyFromSide);
-			BlockState newState = oldState.setValue(directionPropertyFromSide, !oldValue);
-			return canSurvive.test(newState) ? newState : oldState;
-		}
-
-		if (side.getAxis() != Direction.Axis.Y) {
-			if (oldState.getBlock() instanceof SlabBlock) {
-				// toggle between top and bottom slab
-				switch (oldState.getValue(BlockStateProperties.SLAB_TYPE)) {
-					case TOP:
-						return oldState.setValue(BlockStateProperties.SLAB_TYPE, SlabType.BOTTOM);
-					case BOTTOM:
-						return oldState.setValue(BlockStateProperties.SLAB_TYPE, SlabType.TOP);
-					default:
-						// ignore double slabs
+			if (predicate.test(oldState, side)) {
+				BlockState newState = manipulator.apply(oldState, side, canSurvive);
+				if (newState != null) {
+					return newState;
 				}
-			} else if (oldState.hasProperty(BlockStateProperties.HALF)) {
-				// flip stairs or trapdoors upside down
-				BlockState newState = oldState.cycle(BlockStateProperties.HALF);
-				return canSurvive.test(newState) ? newState : oldState;
 			}
 		}
+		return oldState;
+	}
 
-		// blocks with a "facing" property are subject to special rotation rules
-		Optional<Property<?>> facingPropOptional = oldState.getProperties().stream()
-				.filter(prop -> prop.getName().equals("facing") && prop.getValueClass() == Direction.class).findFirst();
-		if (facingPropOptional.isPresent()) {
-			@SuppressWarnings("unchecked")
-			Property<Direction> facingProp = (Property<Direction>) facingPropOptional.get();
-			return rotateFacingDirection(oldState, side, canSurvive, facingProp);
-		}
+	private static BlockState applyPillarBlockRotation(BlockState state, Direction side, Predicate<BlockState> canSurvive) {
+		return iterateToNextValidPropertyValue(
+				state, BlockStateProperties.AXIS, BlockStateProperties.AXIS.getPossibleValues(),
+				state.getValue(BlockStateProperties.AXIS), canSurvive
+		);
+	}
 
-		// fallback: let the block itself figure it out
+	private static BlockState applySignOrBannerRotation(BlockState state, Direction side, Predicate<BlockState> canSurvive) {
+		return iterateToNextValidPropertyValue(
+				state, BlockStateProperties.ROTATION_16,
+				BlockStateProperties.ROTATION_16.getPossibleValues(),
+				state.getValue(BlockStateProperties.ROTATION_16), canSurvive
+		);
+	}
+
+	/**
+	 * Returns a "facing" property of type {@link Direction}. There are various properties that match this definition,
+	 * such as horizontal facing direction, hopper facing direction, or true six-sided facing, possible accompanied
+	 * by an {@link AttachFace} property.
+	 */
+	@SuppressWarnings("unchecked")
+	private static Optional<Property<Direction>> getFacingPropOptional(BlockState state) {
+		return state.getProperties().stream()
+				.filter(prop -> prop.getName().equals("facing") && prop.getValueClass() == Direction.class)
+				// we just verified the property value type, so it's safe to convert here
+				.map(prop -> (Property<Direction>) prop)
+				.findFirst();
+	}
+
+	private static boolean hasSixSidedToggleProperties(BlockState oldState, Direction side) {
+		return oldState.hasProperty(PipeBlock.PROPERTY_BY_DIRECTION.get(side)) &&
+				oldState.getProperties().containsAll(PipeBlock.PROPERTY_BY_DIRECTION.values());
+	}
+
+	private static BlockState applySixSidedPropertyToggle(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
+		BooleanProperty directionPropertyFromSide = PipeBlock.PROPERTY_BY_DIRECTION.get(side);
+		boolean oldValue = oldState.getValue(directionPropertyFromSide);
+		BlockState newState = oldState.setValue(directionPropertyFromSide, !oldValue);
+		return canSurvive.test(newState) ? newState : oldState;
+	}
+
+	private static boolean isSideOfSlabBlock(BlockState state, Direction side) {
+		return !side.getAxis().isVertical() && state.getBlock() instanceof SlabBlock
+				&& state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE;
+	}
+
+	private static BlockState applyToggleSlabType(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
+		BlockState newState = switch (oldState.getValue(SlabBlock.TYPE)) {
+			case TOP -> oldState.setValue(SlabBlock.TYPE, SlabType.BOTTOM);
+			case BOTTOM -> oldState.setValue(SlabBlock.TYPE, SlabType.TOP);
+			default -> oldState;
+		};
+		return canSurvive.test(newState) ? newState : oldState;
+	}
+
+	private static boolean isSideOfHalfBlock(BlockState state, Direction side) {
+		return !side.getAxis().isVertical() && state.hasProperty(BlockStateProperties.HALF);
+	}
+
+	private static BlockState applyToggleHalf(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
+		BlockState newState = oldState.cycle(BlockStateProperties.HALF);
+		return canSurvive.test(newState) ? newState : oldState;
+	}
+
+	private static BlockState applyFacingRotationChange(BlockState state, Direction side, Predicate<BlockState> canSurvive) {
+		Property<Direction> facingProp = getFacingPropOptional(state).orElseThrow();
+		return rotateFacingDirection(state, side, canSurvive, facingProp);
+	}
+
+	private static BlockState applyVanillaRotation(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
 		for (Rotation rot : new Rotation[] { Rotation.CLOCKWISE_90, Rotation.CLOCKWISE_180, Rotation.COUNTERCLOCKWISE_90 }) {
 			BlockState newState = oldState.rotate(rot);
 			if (canSurvive.test(newState)) {
@@ -543,4 +612,22 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		}
 	}
 
+	@FunctionalInterface
+	public interface BlockStateSidePredicate {
+		BlockStateSidePredicate ALWAYS = (state, side) -> true;
+
+		boolean test(BlockState state, Direction side);
+	}
+
+	@FunctionalInterface
+	public interface BlockStateManipulator {
+		BlockStateManipulator NO_OP = (state, side, canSurvive) -> state;
+
+		/**
+		 * Manipulates a block state based on the clicked side and a test function for potential new block states.
+		 * Returns {@code null} to indicate other strategies should be attempted.
+		 */
+		@Nullable
+		BlockState apply(BlockState state, Direction side, Predicate<BlockState> canSurvive);
+	}
 }
