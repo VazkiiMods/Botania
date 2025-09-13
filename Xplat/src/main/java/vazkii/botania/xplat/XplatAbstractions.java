@@ -126,7 +126,7 @@ public interface XplatAbstractions {
 	@Nullable
 	ManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
-	Wandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	Wandable findWandable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side);
 	@Nullable
 	PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	boolean isFluidContainer(ItemEntity item);

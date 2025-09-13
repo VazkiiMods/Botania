@@ -239,7 +239,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 			return InteractionResult.SUCCESS;
 		} else {
-			var wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, tile);
+			var wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, tile, side);
 			if (wandable != null) {
 				return wandable.onUsedByWand(player, stack, side) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
 			}

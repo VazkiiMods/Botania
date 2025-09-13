@@ -40,8 +40,8 @@ public final class BotaniaFabricCapabilities {
 			BlockApiLookup.get(SparkAttachable.ID, SparkAttachable.class, Direction.class);
 	public static final BlockApiLookup<ManaTrigger, Unit> MANA_TRIGGER =
 			BlockApiLookup.get(ManaTrigger.ID, ManaTrigger.class, Unit.class);
-	public static final BlockApiLookup<Wandable, Unit> WANDABLE =
-			BlockApiLookup.get(Wandable.ID, Wandable.class, Unit.class);
+	public static final BlockApiLookup<Wandable, Direction> WANDABLE =
+			BlockApiLookup.get(Wandable.ID, Wandable.class, Direction.class);
 	public static final BlockApiLookup<PhantomInkableBlock, Unit> PHANTOM_INKABLE = BlockApiLookup.get(PhantomInkableBlock.ID, PhantomInkableBlock.class, Unit.class);
 
 	private BotaniaFabricCapabilities() {}

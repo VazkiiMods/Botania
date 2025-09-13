@@ -224,8 +224,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Nullable
 	@Override
-	public Wandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, Unit.INSTANCE);
+	public Wandable findWandable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side) {
+		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, side);
 	}
 
 	@Nullable

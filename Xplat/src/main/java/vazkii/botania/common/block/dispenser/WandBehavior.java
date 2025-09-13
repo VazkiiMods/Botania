@@ -28,8 +28,9 @@ public class WandBehavior extends OptionalDispenseItemBehavior {
 		Direction facing = source.state().getValue(DispenserBlock.FACING);
 		BlockPos pos = source.pos().relative(facing);
 		BlockState state = world.getBlockState(pos);
-		Wandable wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, world.getBlockEntity(pos));
-		setSuccess(wandable != null && wandable.onUsedByWand(null, stack, facing.getOpposite()));
+		Direction side = facing.getOpposite();
+		Wandable wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, world.getBlockEntity(pos), side);
+		setSuccess(wandable != null && wandable.onUsedByWand(null, stack, side));
 		return stack;
 	}
 
