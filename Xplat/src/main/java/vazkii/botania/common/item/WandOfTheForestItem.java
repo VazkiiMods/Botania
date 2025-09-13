@@ -173,8 +173,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 				return InteractionResult.SUCCESS;
 			}
 
-			if (player.mayUseItemAt(pos, side, stack)
-					&& (!(block instanceof CommandBlock) || player.canUseGameMasterBlocks())) {
+			if (!(block instanceof GameMasterBlock) || player.canUseGameMasterBlocks()) {
 				BlockState newState = manipulateBlockstate(state, side, blockState -> blockState.canSurvive(world, pos));
 				if (newState != state) {
 					world.setBlockAndUpdate(pos, newState);
