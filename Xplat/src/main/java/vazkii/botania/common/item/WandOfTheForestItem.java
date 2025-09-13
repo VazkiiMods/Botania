@@ -179,7 +179,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 				if (newState != state) {
 					world.setBlockAndUpdate(pos, newState);
 					ctx.getLevel().playSound(
-							ctx.getPlayer(), ctx.getClickedPos(), newState.getBlock().asItem().getBreakingSound()/*.getSoundType(newState).getPlaceSound()*/,
+							ctx.getPlayer(), ctx.getClickedPos(), newState.getSoundType().getPlaceSound(),
 							SoundSource.BLOCKS, 1F, 1F
 					);
 					return InteractionResult.SUCCESS;
