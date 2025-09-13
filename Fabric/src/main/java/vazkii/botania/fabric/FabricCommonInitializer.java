@@ -303,17 +303,21 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new UnstableReservoirRodItem.AvatarBehavior(), BotaniaItems.missileRod);
 		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new BifrostRodItem.AvatarBehavior(), BotaniaItems.rainbowRod);
 		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new SkiesRodItem.AvatarBehavior(), BotaniaItems.tornadoRod);
+
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new LandsRodItem.BlockProviderImpl(stack), BotaniaItems.dirtRod, BotaniaItems.skyDirtRod);
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new BlackHoleTalismanItem.BlockProviderImpl(stack), BotaniaItems.blackHoleTalisman);
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new DepthsRodItem.BlockProviderImpl(), BotaniaItems.cobbleRod);
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new EnderHandItem.BlockProviderImpl(stack), BotaniaItems.enderHand);
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new TerraFirmaRodItem.BlockProviderImpl(), BotaniaItems.terraformRod);
+
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.flugelEye);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.manaMirror);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.twigWand);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.dreamwoodWand);
+
 		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new DefaultManaItemImpl(st),
 				BotaniaItems.manaMirror, BotaniaItems.manaRing, BotaniaItems.manaRingGreater, BotaniaItems.manaTablet, BotaniaItems.terraPick);
+
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> DiceOfFateItem.makeRelic(st), BotaniaItems.dice);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), BotaniaItems.flugelEye);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> FruitOfGrisaiaItem.makeRelic(st), BotaniaItems.infiniteFruit);
@@ -328,23 +332,30 @@ public class FabricCommonInitializer implements ModInitializer {
 			}
 			return null;
 		});
+
 		BotaniaFabricCapabilities.HOURGLASS_TRIGGER.registerForBlockEntities((be, c) -> {
 			var torch = (AnimatedTorchBlockEntity) be;
 			return hourglass -> torch.toggle();
 		}, BotaniaBlockEntities.ANIMATED_TORCH);
+
 		BotaniaFabricCapabilities.MANA_GHOST.registerForBlocks(
 				(level, pos, state, be, context) -> ((ManaCollisionGhost) state.getBlock()),
 				BotaniaBlocks.manaDetector,
 				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
 				BotaniaBlocks.prism, BotaniaBlocks.tinyPlanet
 		);
+
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerSelf(
 				BlockEntityConstants.SELF_MANA_RECEIVER_BES.toArray(BlockEntityType[]::new)
 		);
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerForBlocks(
 				(level, pos, state, be, side) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
 				BotaniaBlocks.manaVoid);
+
 		BotaniaFabricCapabilities.SPARK_ATTACHABLE.registerSelf(BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.toArray(BlockEntityType[]::new));
+
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(
+				BlockEntityConstants.SELF_MANA_TRIGGER_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
 				BotaniaBlocks.canopyDrum, BotaniaBlocks.gatheringDrum, BotaniaBlocks.wildDrum
@@ -357,16 +368,17 @@ public class FabricCommonInitializer implements ModInitializer {
 				(level, pos, state, be, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
 				BotaniaBlocks.manaDetector
 		);
-		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(
-				BlockEntityConstants.SELF_MANA_TRIGGER_BES.toArray(BlockEntityType[]::new));
+
+		BotaniaFabricCapabilities.WANDABLE.registerSelf(
+				BlockEntityConstants.SELF_WANDABLE_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.WANDABLE.registerForBlocks(
 				(world, pos, state, blockEntity, context) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				BotaniaBlocks.pistonRelay
 		);
-		BotaniaFabricCapabilities.WANDABLE.registerSelf(
-				BlockEntityConstants.SELF_WANDABLE_BES.toArray(BlockEntityType[]::new));
+
 		BotaniaFabricCapabilities.PHANTOM_INKABLE.registerSelf(
 				BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.toArray(BlockEntityType[]::new));
+
 		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRING_CONTAINER);
 		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRING_DISPENSER);
 

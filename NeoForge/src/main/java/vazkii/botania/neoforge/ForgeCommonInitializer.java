@@ -531,7 +531,16 @@ public class ForgeCommonInitializer {
 	}
 
 	@SubscribeEvent
-	private void registerBlockLookasides(RegisterCapabilitiesEvent e) {
+	private void registerBlockCapabilities(RegisterCapabilitiesEvent e) {
+		// TODO: is there any way to identify all BlockEntityTypes for AbstractFurnaceBlock subclasses?
+		Stream.of(BlockEntityType.FURNACE, BlockEntityType.BLAST_FURNACE, BlockEntityType.SMOKER)
+				.forEach(blockEntityType -> e.registerBlockEntity(
+						BotaniaForgeCapabilities.EXOFLAME_HEATABLE, blockEntityType,
+						(furnace, context) -> new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
+
+		e.registerBlockEntity(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, BotaniaBlockEntities.ANIMATED_TORCH,
+				(torchBlockEntity, context) -> hourglass -> torchBlockEntity.toggle());
+
 		// TODO: ManaCollisionGhost feels like it could be represented by two tags for fully-ignored and trigger-only blocks, respectively
 		e.registerBlock(BotaniaForgeCapabilities.MANA_GHOST,
 				(level, pos, state, blockEntity, context) -> (ManaCollisionGhost) state.getBlock(),
@@ -539,9 +548,17 @@ public class ForgeCommonInitializer {
 				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
 				BotaniaBlocks.prism, BotaniaBlocks.tinyPlanet);
 
+		BlockEntityConstants.SELF_MANA_RECEIVER_BES.forEach(type -> e.registerBlockEntity(
+				BotaniaForgeCapabilities.MANA_RECEIVER, type, (blockEntity, context) -> blockEntity));
 		e.registerBlock(BotaniaForgeCapabilities.MANA_RECEIVER,
 				(level, pos, state, blockEntity, context) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
 				BotaniaBlocks.manaVoid);
+
+		BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
+				BotaniaForgeCapabilities.SPARK_ATTACHABLE, blockEntityType, (blockEntity, context) -> blockEntity));
+
+		BlockEntityConstants.SELF_MANA_TRIGGER_BES.forEach(blockEntityType -> e.registerBlockEntity(
+				BotaniaForgeCapabilities.MANA_TRIGGER, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(BotaniaForgeCapabilities.MANA_TRIGGER,
 				(level, pos, state, blockEntity, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
 				BotaniaBlocks.canopyDrum, BotaniaBlocks.wildDrum, BotaniaBlocks.gatheringDrum);
@@ -551,20 +568,22 @@ public class ForgeCommonInitializer {
 		e.registerBlock(BotaniaForgeCapabilities.MANA_TRIGGER,
 				(level, pos, state, blockEntity, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
 				BotaniaBlocks.manaDetector);
+
+		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
+				BotaniaForgeCapabilities.WANDABLE, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(BotaniaForgeCapabilities.WANDABLE,
 				(level, pos, state, blockEntity, context) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, level, pos),
 				BotaniaBlocks.pistonRelay);
-	}
 
-	@SubscribeEvent
-	private void attachBeCaps(RegisterCapabilitiesEvent e) {
-		// TODO: is there any way to identify all BlockEntityTypes for AbstractFurnaceBlock subclasses?
-		Stream.of(BlockEntityType.FURNACE, BlockEntityType.BLAST_FURNACE, BlockEntityType.SMOKER)
+		BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
+				BotaniaForgeCapabilities.PHANTOM_INKABLE, blockEntityType, (blockEntity, context) -> blockEntity));
+
+		Stream.of(BotaniaBlockEntities.RED_STRING_CONTAINER, BotaniaBlockEntities.RED_STRING_DISPENSER)
 				.forEach(blockEntityType -> e.registerBlockEntity(
-						BotaniaForgeCapabilities.EXOFLAME_HEATABLE, blockEntityType,
-						(furnace, context) -> new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
+						Capabilities.ItemHandler.BLOCK, blockEntityType, new RedStringContainerCapProvider()));
 
-		BlockEntityConstants.SELF_WORLDLY_CONTAINERS.forEach(blockEntityType -> e.registerBlockEntity(Capabilities.ItemHandler.BLOCK, blockEntityType, SidedInvWrapper::new));
+		BlockEntityConstants.SELF_WORLDLY_CONTAINERS.forEach(blockEntityType -> e.registerBlockEntity(
+				Capabilities.ItemHandler.BLOCK, blockEntityType, SidedInvWrapper::new));
 
 		e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BotaniaBlockEntities.FLUXFIELD,
 				// we only provide a view of the energy level, no interaction allowed
@@ -599,28 +618,6 @@ public class ForgeCommonInitializer {
 						return false;
 					}
 				});
-
-		e.registerBlockEntity(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, BotaniaBlockEntities.ANIMATED_TORCH,
-				(torchBlockEntity, context) -> hourglass -> torchBlockEntity.toggle());
-
-		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.WANDABLE, blockEntityType,
-				(blockEntity, context) -> blockEntity));
-
-		BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.PHANTOM_INKABLE, blockEntityType,
-				(blockEntity, context) -> blockEntity));
-
-		BlockEntityConstants.SELF_MANA_TRIGGER_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.MANA_TRIGGER, blockEntityType,
-				(blockEntity, context) -> blockEntity));
-
-		BlockEntityConstants.SELF_MANA_RECEIVER_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.MANA_RECEIVER, blockEntityType,
-				(blockEntity, context) -> blockEntity));
-
-		BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.SPARK_ATTACHABLE, blockEntityType,
-				(blockEntity, context) -> blockEntity));
-
-		Stream.of(BotaniaBlockEntities.RED_STRING_CONTAINER, BotaniaBlockEntities.RED_STRING_DISPENSER)
-				.forEach(blockEntityType -> e.registerBlockEntity(
-						Capabilities.ItemHandler.BLOCK, blockEntityType, new RedStringContainerCapProvider()));
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {
