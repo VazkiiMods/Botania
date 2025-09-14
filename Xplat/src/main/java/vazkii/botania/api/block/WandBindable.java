@@ -10,8 +10,11 @@ package vazkii.botania.api.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * A BlockEntity that implements this can be bound to another block
@@ -19,10 +22,14 @@ import net.minecraft.world.item.ItemStack;
  */
 public interface WandBindable extends Bound {
 
+	ResourceLocation ID = botaniaRL("wand_bindable");
+
 	/**
 	 * Return true if the Wand can select this tile.
 	 */
-	boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side);
+	default boolean canSelect(Player player, ItemStack wand, Direction side) {
+		return true;
+	}
 
 	/**
 	 * Call to bind the TileEntity to where the player clicked. Return true to deselect

@@ -42,6 +42,8 @@ public final class BotaniaFabricCapabilities {
 			BlockApiLookup.get(ManaTrigger.ID, ManaTrigger.class, Unit.class);
 	public static final BlockApiLookup<Wandable, Direction> WANDABLE =
 			BlockApiLookup.get(Wandable.ID, Wandable.class, Direction.class);
+	public static final BlockApiLookup<WandBindable, Direction> WAND_BINDABLE =
+			BlockApiLookup.get(WandBindable.ID, WandBindable.class, Direction.class);
 	public static final BlockApiLookup<PhantomInkableBlock, Unit> PHANTOM_INKABLE = BlockApiLookup.get(PhantomInkableBlock.ID, PhantomInkableBlock.class, Unit.class);
 
 	private BotaniaFabricCapabilities() {}

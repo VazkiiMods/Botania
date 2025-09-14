@@ -126,6 +126,8 @@ public interface XplatAbstractions {
 	@Nullable
 	Wandable findWandable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side);
 	@Nullable
+	WandBindable findWandBindable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side);
+	@Nullable
 	PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	boolean isFluidContainer(ItemEntity item);
 	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);

@@ -152,49 +152,49 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		Direction side = ctx.getClickedFace();
-		Optional<GlobalPos> boundPos = getBindingAttempt(stack);
+		BlockEntity tile = state.hasBlockEntity() ? world.getBlockEntity(pos) : null;
 
 		if (player == null) {
 			return InteractionResult.PASS;
 		}
 
 		if (player.isSecondaryUseActive()) {
+			Optional<GlobalPos> boundPos = getBindingAttempt(stack);
 			if (boundPos.filter(loc -> tryCompleteBinding(loc, stack, ctx)).isPresent()) {
 				return InteractionResult.SUCCESS;
 			}
 
-			if (!(block instanceof GameMasterBlock) || player.canUseGameMasterBlocks()) {
-				BlockState newState = manipulateBlockstate(state, side, blockState -> blockState.canSurvive(world, pos));
-				if (newState != state) {
-					world.setBlockAndUpdate(pos, newState);
-					ctx.getLevel().playSound(
-							ctx.getPlayer(), ctx.getClickedPos(), newState.getSoundType().getPlaceSound(),
-							SoundSource.BLOCKS, 1F, 1F
-					);
+			if (getBindMode(stack)) {
+				WandBindable bindable = XplatAbstractions.instance().findWandBindable(world, pos, state, tile, side);
+				if (bindable != null && bindable.canSelect(player, stack, side)) {
+					if (boundPos.filter(globalPos::equals).isPresent()) {
+						setBindingAttempt(stack, null);
+					} else {
+						setBindingAttempt(stack, globalPos);
+					}
+
+					if (world.isClientSide) {
+						player.playSound(BotaniaSounds.ding, 0.11F, 1F);
+					}
+
 					return InteractionResult.SUCCESS;
 				}
 			}
 		}
 
-		BlockEntity tile = world.getBlockEntity(pos);
-
-		if (getBindMode(stack) && tile instanceof WandBindable bindable && player.isShiftKeyDown() && bindable.canSelect(player, stack, pos, side)) {
-			if (boundPos.filter(globalPos::equals).isPresent()) {
-				setBindingAttempt(stack, null);
-			} else {
-				setBindingAttempt(stack, globalPos);
+		var wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, tile, side);
+		if (player.isSecondaryUseActive() && (wandable == null || getBindMode(stack))
+				&& (!(block instanceof GameMasterBlock) || player.canUseGameMasterBlocks())) {
+			BlockState newState = manipulateBlockstate(state, side, blockState -> blockState.canSurvive(world, pos));
+			if (newState != state) {
+				world.setBlockAndUpdate(pos, newState);
+				world.playSound(player, pos, newState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1F, 1F);
+				return InteractionResult.SUCCESS;
 			}
+		}
 
-			if (world.isClientSide) {
-				player.playSound(BotaniaSounds.ding, 0.11F, 1F);
-			}
-
+		if (wandable != null && wandable.onUsedByWand(player, stack, side)) {
 			return InteractionResult.SUCCESS;
-		} else {
-			var wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, tile, side);
-			if (wandable != null) {
-				return wandable.onUsedByWand(player, stack, side) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
-			}
 		}
 
 		if (!world.isClientSide && getBindMode(stack) && tryCompletePistonRelayBinding(ctx)) {

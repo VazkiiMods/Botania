@@ -211,6 +211,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Nullable
 	@Override
+	public WandBindable findWandBindable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side) {
+		return level.getCapability(BotaniaForgeCapabilities.WAND_BINDABLE, pos, state, be, side);
+	}
+
+	@Nullable
+	@Override
 	public PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return level.getCapability(BotaniaForgeCapabilities.PHANTOM_INKABLE, pos, state, be);
 	}

@@ -227,6 +227,12 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Nullable
 	@Override
+	public WandBindable findWandBindable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side) {
+		return BotaniaFabricCapabilities.WAND_BINDABLE.find(level, pos, state, be, side);
+	}
+
+	@Nullable
+	@Override
 	public PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return BotaniaFabricCapabilities.PHANTOM_INKABLE.find(level, pos, state, be, Unit.INSTANCE);
 	}

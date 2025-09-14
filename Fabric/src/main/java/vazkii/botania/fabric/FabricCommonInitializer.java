@@ -378,6 +378,10 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.WANDABLE.registerForBlocks(ManaEnchanterBlockEntity::createLapisBlockWandable,
 				Blocks.LAPIS_BLOCK);
 
+		BotaniaFabricCapabilities.WAND_BINDABLE.registerSelf(
+				BlockEntityConstants.SELF_WAND_BINDABLE_BES.toArray(BlockEntityType[]::new));
+		// TODO: register force relay binding
+
 		BotaniaFabricCapabilities.PHANTOM_INKABLE.registerSelf(
 				BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.toArray(BlockEntityType[]::new));
 

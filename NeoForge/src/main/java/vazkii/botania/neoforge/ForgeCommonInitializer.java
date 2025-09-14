@@ -578,6 +578,10 @@ public class ForgeCommonInitializer {
 		e.registerBlock(BotaniaForgeCapabilities.WANDABLE, ManaEnchanterBlockEntity::createLapisBlockWandable,
 				Blocks.LAPIS_BLOCK);
 
+		BlockEntityConstants.SELF_WAND_BINDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
+				BotaniaForgeCapabilities.WAND_BINDABLE, blockEntityType, (blockEntity, context) -> blockEntity));
+		// TODO: register force relay binding
+
 		BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				BotaniaForgeCapabilities.PHANTOM_INKABLE, blockEntityType, (blockEntity, context) -> blockEntity));
 

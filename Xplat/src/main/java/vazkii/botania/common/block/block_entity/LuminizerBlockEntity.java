@@ -200,11 +200,6 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 	}
 
 	@Override
-	public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		return true;
-	}
-
-	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		if (!(player.level().getBlockState(pos).getBlock() instanceof LuminizerBlock)
 				|| pos.distSqr(getBlockPos()) > MAX_DIST * MAX_DIST) {

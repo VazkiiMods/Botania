@@ -7,6 +7,7 @@ import net.neoforged.neoforge.capabilities.ItemCapability;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.PhantomInkableBlock;
+import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
@@ -49,6 +50,8 @@ public final class BotaniaForgeCapabilities {
 			BlockCapability.createVoid(PhantomInkableBlock.ID, PhantomInkableBlock.class);
 	public static final BlockCapability<Wandable, Direction> WANDABLE =
 			BlockCapability.createSided(Wandable.ID, Wandable.class);
+	public static final BlockCapability<WandBindable, Direction> WAND_BINDABLE =
+			BlockCapability.createSided(WandBindable.ID, WandBindable.class);
 
 	private BotaniaForgeCapabilities() {}
 }

@@ -630,11 +630,6 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	@Override
-	public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		return true;
-	}
-
-	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		VoxelShape shape = player.level().getBlockState(pos).getShape(player.level(), pos);
 		AABB axis = shape.isEmpty() ? new AABB(pos) : shape.bounds().move(pos);

@@ -6,6 +6,7 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import vazkii.botania.api.block.PhantomInkableBlock;
+import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaTrigger;
@@ -20,6 +21,33 @@ public final class BlockEntityConstants {
 			BotaniaBlockEntities.RUNE_ALTAR, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.TURNTABLE,
 			BotaniaBlockEntities.DAFFOMILL, BotaniaBlockEntities.HOPPERHOCK, BotaniaBlockEntities.HOPPERHOCK_CHIBI,
 			BotaniaBlockEntities.POLLIDISIAC, BotaniaBlockEntities.RANNUNCARPUS, BotaniaBlockEntities.RANNUNCARPUS_CHIBI
+	);
+
+	public static final Set<BlockEntityType<? extends WandBindable>> SELF_WAND_BINDABLE_BES = ImmutableSet.of(
+			// generating flowers
+			BotaniaBlockEntities.DANDELIFEON, BotaniaBlockEntities.ENDOFLAME, BotaniaBlockEntities.ENTROPINNYUM,
+			BotaniaBlockEntities.GOURMARYLLIS, BotaniaBlockEntities.KEKIMURUS, BotaniaBlockEntities.MUNCHDEW,
+			BotaniaBlockEntities.NARSLIMMUS, BotaniaBlockEntities.RAFFLOWSIA, BotaniaBlockEntities.ROSA_ARCANA,
+			BotaniaBlockEntities.SHULK_ME_NOT, BotaniaBlockEntities.SPECTROLUS,
+
+			// functional flowers
+			BotaniaBlockEntities.AGRICARNATION, BotaniaBlockEntities.AGRICARNATION_CHIBI,
+			BotaniaBlockEntities.BELLETHORNE, BotaniaBlockEntities.BELLETHORNE_CHIBI, BotaniaBlockEntities.BUBBELL,
+			BotaniaBlockEntities.BUBBELL_CHIBI, BotaniaBlockEntities.CLAYCONIA, BotaniaBlockEntities.CLAYCONIA_CHIBI,
+			BotaniaBlockEntities.DAFFOMILL, BotaniaBlockEntities.DREADTHORN, BotaniaBlockEntities.EXOFLAME,
+			BotaniaBlockEntities.FALLEN_KANADE, BotaniaBlockEntities.HEISEI_DREAM, BotaniaBlockEntities.HOPPERHOCK,
+			BotaniaBlockEntities.HOPPERHOCK_CHIBI, BotaniaBlockEntities.HYACIDUS, BotaniaBlockEntities.JADED_AMARANTHUS,
+			BotaniaBlockEntities.JIYUULIA, BotaniaBlockEntities.JIYUULIA_CHIBI, BotaniaBlockEntities.LABELLIA,
+			BotaniaBlockEntities.LOONIUM, BotaniaBlockEntities.MARIMORPHOSIS, BotaniaBlockEntities.MARIMORPHOSIS_CHIBI,
+			BotaniaBlockEntities.MEDUMONE, BotaniaBlockEntities.ORECHID, BotaniaBlockEntities.ORECHID_IGNEM,
+			BotaniaBlockEntities.POLLIDISIAC, BotaniaBlockEntities.RANNUNCARPUS,
+			BotaniaBlockEntities.RANNUNCARPUS_CHIBI, BotaniaBlockEntities.SOLEGNOLIA,
+			BotaniaBlockEntities.SOLEGNOLIA_CHIBI, BotaniaBlockEntities.SPECTRANTHEMUM,
+			BotaniaBlockEntities.TANGLEBERRIE, BotaniaBlockEntities.TANGLEBERRIE_CHIBI, BotaniaBlockEntities.TIGERSEYE,
+			BotaniaBlockEntities.VINCULOTUS,
+
+			// other
+			BotaniaBlockEntities.LIGHT_RELAY, BotaniaBlockEntities.SPREADER
 	);
 
 	public static final Set<BlockEntityType<? extends PhantomInkableBlock>> SELF_PHANTOM_INKABLE_BES = ImmutableSet.of(

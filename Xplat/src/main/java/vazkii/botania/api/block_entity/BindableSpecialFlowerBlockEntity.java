@@ -142,11 +142,6 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 	}
 
 	@Override
-	public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		return true;
-	}
-
-	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		if (wouldBeValidBinding(pos)) {
 			setBindingPos(pos);
