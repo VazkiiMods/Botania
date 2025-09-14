@@ -20,7 +20,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
  * A BlockEntity that implements this can be bound to another block
  * via the Wand of the Forest.
  */
-public interface WandBindable extends Bound {
+public interface WandBindable {
 
 	ResourceLocation ID = botaniaRL("wand_bindable");
 

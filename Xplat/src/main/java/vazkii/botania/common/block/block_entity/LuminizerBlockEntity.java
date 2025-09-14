@@ -44,7 +44,7 @@ import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBindable, PhantomInkableBlock {
+public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBindable, Bound, PhantomInkableBlock {
 	public static final int MAX_DIST = 20;
 
 	private static final String TAG_BIND_X = "bindX";

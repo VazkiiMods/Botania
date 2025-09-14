@@ -39,6 +39,7 @@ import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
@@ -63,7 +64,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity implements WandBindable, KeyLocked, ThrottledPacket, ManaSpreader, Wandable {
+public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity implements WandBindable, Bound, KeyLocked, ThrottledPacket, ManaSpreader, Wandable {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 

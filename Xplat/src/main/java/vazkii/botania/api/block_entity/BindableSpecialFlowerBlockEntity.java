@@ -45,7 +45,7 @@ import java.util.Objects;
  *
  * @param <T> Type of block entity this special flower can bind to.
  */
-public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerBlockEntity implements WandBindable {
+public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerBlockEntity implements WandBindable, Bound {
 	/**
 	 * Superclass (or interface) of all BlockEntities that this flower is able to bind to.
 	 */
