@@ -43,15 +43,11 @@ import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
@@ -118,29 +114,6 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return false;
 	}
 
-	// TODO: force relays should use WandBindable as a block capability for this
-	private static boolean tryCompletePistonRelayBinding(UseOnContext ctx) {
-		Level world = ctx.getLevel();
-		BlockPos pos = ctx.getClickedPos();
-		Player player = ctx.getPlayer();
-
-		GlobalPos bindPos = ((ForceRelayBlock) BotaniaBlocks.pistonRelay).activeBindingAttempts.get(player.getUUID());
-		if (bindPos != null && bindPos.dimension() == world.dimension()) {
-			((ForceRelayBlock) BotaniaBlocks.pistonRelay).activeBindingAttempts.remove(player.getUUID());
-			ForceRelayBlock.WorldData data = ForceRelayBlock.WorldData.get(world);
-			data.mapping.put(bindPos.pos(), pos.immutable());
-			data.setDirty();
-
-			XplatAbstractions.INSTANCE.sendToNear(world, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
-					bindPos.pos().getX() + 0.5, bindPos.pos().getY() + 0.5, bindPos.pos().getZ() + 0.5,
-					pos.getX(), pos.getY(), pos.getZ()));
-
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
-			return true;
-		}
-		return false;
-	}
-
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();
@@ -193,10 +166,6 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		}
 
 		if (wandable != null && wandable.onUsedByWand(player, stack, side)) {
-			return InteractionResult.SUCCESS;
-		}
-
-		if (!world.isClientSide && getBindMode(stack) && tryCompletePistonRelayBinding(ctx)) {
 			return InteractionResult.SUCCESS;
 		}
 

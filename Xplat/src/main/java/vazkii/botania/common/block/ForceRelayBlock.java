@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.PistonType;
@@ -32,9 +33,10 @@ import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.WandBindable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ForcePushHelper;
-import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.lens.ForceLens;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
@@ -90,36 +92,64 @@ public class ForceRelayBlock extends BotaniaBlock {
 		}
 	}
 
-	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Level world, BlockPos pos) {
-		if (world.isClientSide) {
-			return false;
-		}
+	public static Wandable createWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, Direction side) {
+		return new ForceRelayWandable(level, pos);
+	}
 
-		if (player == null || player.isShiftKeyDown()) {
-			world.destroyBlock(pos, true);
-		} else {
-			GlobalPos clicked = GlobalPos.of(world.dimension(), pos.immutable());
-			if (WandOfTheForestItem.getBindMode(stack)) {
-				activeBindingAttempts.put(player.getUUID(), clicked);
-				world.playSound(null, pos, BotaniaSounds.ding, SoundSource.BLOCKS, 0.5F, 1F);
-			} else {
-				var data = WorldData.get(world);
-				if (XplatAbstractions.INSTANCE.isDevEnvironment()) {
-					BotaniaAPI.LOGGER.info("PistonRelay pairs");
-					for (var e : data.mapping.entrySet()) {
-						BotaniaAPI.LOGGER.info("{} -> {}", e.getKey(), e.getValue());
-					}
-				}
-				BlockPos dest = data.mapping.get(pos);
-				if (dest != null) {
-					XplatAbstractions.INSTANCE.sendToNear(world, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
-							pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-							dest.getX(), dest.getY(), dest.getZ()));
+	public record ForceRelayWandable(Level level, BlockPos pos) implements Wandable {
+		@Override
+		public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
+			if (player == null || level.isClientSide) {
+				return false;
+			}
+
+			var data = WorldData.get(level);
+			if (XplatAbstractions.INSTANCE.isDevEnvironment()) {
+				BotaniaAPI.LOGGER.info("PistonRelay pairs");
+				for (var e : data.mapping.entrySet()) {
+					BotaniaAPI.LOGGER.info("{} -> {}", e.getKey(), e.getValue());
 				}
 			}
+			BlockPos dest = data.mapping.get(pos);
+			if (dest != null) {
+				XplatAbstractions.INSTANCE.sendToNear(level, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
+						pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+						dest.getX(), dest.getY(), dest.getZ()));
+			}
+
+			return true;
+		}
+	}
+
+	public static WandBindable createWandBindable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, Direction side) {
+		return new ForceRelayBindable(level, pos);
+	}
+
+	public record ForceRelayBindable(Level level, BlockPos sourcePos) implements WandBindable {
+		@Override
+		public boolean bindTo(Player player, ItemStack wand, BlockPos targetPos, Direction side) {
+			if (!level.isClientSide) {
+				addBinding(level, sourcePos, targetPos);
+
+				XplatAbstractions.INSTANCE.sendToNear(level, targetPos,
+						new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
+								sourcePos.getX() + 0.5, sourcePos.getY() + 0.5, sourcePos.getZ() + 0.5,
+								targetPos.getX(), targetPos.getY(), targetPos.getZ()));
+			}
+			level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
+			return true;
 		}
 
-		return true;
+	}
+
+	public static void addBinding(Level level, BlockPos sourcePos, BlockPos targetPos) {
+		if (level.isClientSide) {
+			BotaniaAPI.LOGGER.warn("Tried to bind Force Relay on client: {}/{}", sourcePos, targetPos);
+			return;
+		}
+		WorldData data = WorldData.get(level);
+		data.mapping.put(sourcePos, targetPos.immutable());
+		data.setDirty();
 	}
 
 	public static class WorldData extends SavedData {

@@ -571,8 +571,8 @@ public class ForgeCommonInitializer {
 
 		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				BotaniaForgeCapabilities.WANDABLE, blockEntityType, (blockEntity, context) -> blockEntity));
-		e.registerBlock(BotaniaForgeCapabilities.WANDABLE,
-				(level, pos, state, blockEntity, context) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, level, pos),
+		//noinspection DataFlowIssue
+		e.registerBlock(BotaniaForgeCapabilities.WANDABLE, ForceRelayBlock::createWandable,
 				BotaniaBlocks.pistonRelay);
 		//noinspection DataFlowIssue
 		e.registerBlock(BotaniaForgeCapabilities.WANDABLE, ManaEnchanterBlockEntity::createLapisBlockWandable,
@@ -580,7 +580,9 @@ public class ForgeCommonInitializer {
 
 		BlockEntityConstants.SELF_WAND_BINDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				BotaniaForgeCapabilities.WAND_BINDABLE, blockEntityType, (blockEntity, context) -> blockEntity));
-		// TODO: register force relay binding
+		//noinspection DataFlowIssue
+		e.registerBlock(BotaniaForgeCapabilities.WAND_BINDABLE, ForceRelayBlock::createWandBindable,
+				BotaniaBlocks.pistonRelay);
 
 		BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				BotaniaForgeCapabilities.PHANTOM_INKABLE, blockEntityType, (blockEntity, context) -> blockEntity));
