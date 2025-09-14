@@ -101,17 +101,16 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		this.modeChatFormatting = formatting;
 	}
 
-	private static boolean tryCompleteBinding(GlobalPos src, ItemStack stack, UseOnContext ctx) {
-		BlockPos dest = ctx.getClickedPos();
-		if (!dest.equals(src.pos()) && src.dimension().equals(ctx.getLevel().dimension())) {
-			setBindingAttempt(stack, null);
+	private static boolean tryCompleteBinding(Level level, Player player, ItemStack wand, GlobalPos src, BlockPos target, Direction targetSide) {
+		if (!target.equals(src.pos()) && src.dimension().equals(level.dimension())) {
+			Optional<Direction> srcSide = getBindingSide(wand);
+			setBindingAttempt(wand, null, null);
 
-			// TODO: WandBindable should be a capability (Fabric and NeoForge support both blocks and block entities)
-			BlockEntity srcTile = ctx.getLevel().getBlockEntity(src.pos());
-			if (srcTile instanceof WandBindable bindable) {
-				if (bindable.bindTo(ctx.getPlayer(), stack, dest, ctx.getClickedFace())) {
-					doParticleBeamWithOffset(ctx.getLevel(), src.pos(), dest);
-					setBindingAttempt(stack, null);
+			WandBindable bindable = XplatAbstractions.instance()
+					.findWandBindable(level, src.pos(), null, null, srcSide.orElse(null));
+			if (bindable != null) {
+				if (bindable.bindTo(player, wand, target, targetSide)) {
+					doParticleBeamWithOffset(level, src.pos(), target);
 				}
 				return true;
 			}
@@ -160,7 +159,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 		if (player.isSecondaryUseActive()) {
 			Optional<GlobalPos> boundPos = getBindingAttempt(stack);
-			if (boundPos.filter(loc -> tryCompleteBinding(loc, stack, ctx)).isPresent()) {
+			if (boundPos.filter(loc -> tryCompleteBinding(world, player, stack, loc, pos, side)).isPresent()) {
 				return InteractionResult.SUCCESS;
 			}
 
@@ -168,9 +167,9 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 				WandBindable bindable = XplatAbstractions.instance().findWandBindable(world, pos, state, tile, side);
 				if (bindable != null && bindable.canSelect(player, stack, side)) {
 					if (boundPos.filter(globalPos::equals).isPresent()) {
-						setBindingAttempt(stack, null);
+						setBindingAttempt(stack, null, null);
 					} else {
-						setBindingAttempt(stack, globalPos);
+						setBindingAttempt(stack, globalPos, side);
 					}
 
 					if (world.isClientSide) {
@@ -447,8 +446,9 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		getBindingAttempt(stack).ifPresent(pos -> {
 			if (!pos.dimension().equals(world.dimension())
-					|| !(world.getBlockEntity(pos.pos()) instanceof WandBindable)) {
-				setBindingAttempt(stack, null);
+					|| XplatAbstractions.instance().findWandBindable(world, pos.pos(), null, null,
+							getBindingSide(stack).orElse(null)) == null) {
+				setBindingAttempt(stack, null, null);
 			}
 		});
 	}
@@ -517,12 +517,17 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return stack.getOrDefault(BotaniaDataComponents.WAND_COLOR2, DyeColor.WHITE);
 	}
 
-	public static void setBindingAttempt(ItemStack stack, @Nullable GlobalPos pos) {
+	public static void setBindingAttempt(ItemStack stack, @Nullable GlobalPos pos, @Nullable Direction side) {
 		DataComponentHelper.setOptional(stack, BotaniaDataComponents.BINDING_POS, pos);
+		DataComponentHelper.setOptional(stack, BotaniaDataComponents.BINDING_SIDE, side);
 	}
 
 	public static Optional<GlobalPos> getBindingAttempt(ItemStack stack) {
 		return Optional.ofNullable(stack.get(BotaniaDataComponents.BINDING_POS));
+	}
+
+	public static Optional<Direction> getBindingSide(ItemStack stack) {
+		return Optional.ofNullable(stack.get(BotaniaDataComponents.BINDING_SIDE));
 	}
 
 	public static boolean getBindMode(ItemStack stack) {

@@ -72,8 +72,9 @@ public class BotaniaDataComponents {
 			builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC));
 	public static final DataComponentType<Unit> WAND_BIND_MODE = makeUnit(LibComponentNames.WAND_BIND_MODE);
 	public static final DataComponentType<GlobalPos> BINDING_POS = make(LibComponentNames.BINDING_POS,
-			// TODO: does this need to be persisted?
 			builder -> builder.persistent(GlobalPos.CODEC).networkSynchronized(GlobalPos.STREAM_CODEC));
+	public static final DataComponentType<Direction> BINDING_SIDE = make(LibComponentNames.BINDING_SIDE,
+			builder -> builder.persistent(Direction.CODEC).networkSynchronized(Direction.STREAM_CODEC));
 
 	// mana item properties
 	/**

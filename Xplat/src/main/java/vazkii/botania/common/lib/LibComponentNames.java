@@ -25,6 +25,7 @@ public final class LibComponentNames {
 	public static final String WAND_COLOR2 = "wand_color2";
 	public static final String WAND_BIND_MODE = "wand_bind_mode";
 	public static final String BINDING_POS = "binding_pos";
+	public static final String BINDING_SIDE = "binding_side";
 
 	public static final String MANA = "mana";
 	public static final String MAX_MANA = "max_mana";
