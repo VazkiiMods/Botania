@@ -46,7 +46,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.RailShape;
@@ -103,7 +102,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class ForgeXplatImpl implements XplatAbstractions {
@@ -414,11 +412,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		if (!e.level().isClientSide) {
 			PacketDistributor.sendToPlayersTrackingEntityAndSelf(e, packet);
 		}
-	}
-
-	@Override
-	public <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
-		return BlockEntityType.Builder.of(func::apply, blocks).build(null);
 	}
 
 	@Override

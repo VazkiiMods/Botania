@@ -8,13 +8,11 @@
  */
 package vazkii.botania.common.block.block_entity;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
@@ -35,7 +33,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -163,12 +160,13 @@ public class BotaniaBlockEntities {
 		ADD_TO_EXISTING.put(dreamwoodWallHangingSign, BlockEntityType.HANGING_SIGN);
 	}
 
-	private static <T extends BlockEntity> BlockEntityType<T> type(String id, BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
-		return type(botaniaRL(id), func, blocks);
+	private static <T extends BlockEntity> BlockEntityType<T> type(String id, BlockEntityType.BlockEntitySupplier<T> factory, Block... blocks) {
+		return type(botaniaRL(id), factory, blocks);
 	}
 
-	private static <T extends BlockEntity> BlockEntityType<T> type(ResourceLocation id, BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
-		var ret = XplatAbstractions.INSTANCE.createBlockEntityType(func, blocks);
+	private static <T extends BlockEntity> BlockEntityType<T> type(ResourceLocation id, BlockEntityType.BlockEntitySupplier<T> factory, Block... blocks) {
+		// TODO: should probably set up that datafixer type instead of passing null to build()
+		var ret = BlockEntityType.Builder.of(factory, blocks).build(null);
 		var old = ALL.put(id, ret);
 		if (old != null) {
 			throw new IllegalArgumentException("Duplicate id " + id);

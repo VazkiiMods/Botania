@@ -43,7 +43,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.RailShape;
@@ -70,7 +69,6 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public interface XplatAbstractions {
@@ -162,7 +160,6 @@ public interface XplatAbstractions {
 	void sendToTracking(Entity e, CustomPacketPayload packet);
 
 	// Registrations
-	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 	Item.Properties defaultItemBuilder();
 
