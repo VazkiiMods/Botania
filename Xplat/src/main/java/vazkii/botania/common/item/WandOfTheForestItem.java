@@ -59,7 +59,6 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 	/**
 	 * Block manipulation strategies for when neither binding behavior nor explicitly defined wand interactions exist.
-	 * The final entry's {@link BlockStateManipulator} must not return {@code null}.
 	 */
 	public static final List<Pair<BlockStateSidePredicate, BlockStateManipulator>> BLOCK_STATE_MANIPULATION_STRATEGIES = List.of(
 			// skip any blocks tagged for wand manipulation opt-out
@@ -125,19 +124,18 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
-		ItemStack stack = ctx.getItemInHand();
-		Level world = ctx.getLevel();
 		Player player = ctx.getPlayer();
-		BlockPos pos = ctx.getClickedPos();
-		GlobalPos globalPos = GlobalPos.of(world.dimension(), pos);
-		BlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		Direction side = ctx.getClickedFace();
-		BlockEntity tile = state.hasBlockEntity() ? world.getBlockEntity(pos) : null;
 
 		if (player == null) {
 			return InteractionResult.PASS;
 		}
+
+		ItemStack stack = ctx.getItemInHand();
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
+		BlockState state = world.getBlockState(pos);
+		BlockEntity tile = state.hasBlockEntity() ? world.getBlockEntity(pos) : null;
+		Direction side = ctx.getClickedFace();
 
 		if (player.isSecondaryUseActive()) {
 			Optional<GlobalPos> boundPos = getBindingAttempt(stack);
@@ -148,6 +146,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			if (getBindMode(stack)) {
 				WandBindable bindable = XplatAbstractions.instance().findWandBindable(world, pos, state, tile, side);
 				if (bindable != null && bindable.canSelect(player, stack, side)) {
+					GlobalPos globalPos = GlobalPos.of(world.dimension(), pos);
 					if (boundPos.filter(globalPos::equals).isPresent()) {
 						setBindingAttempt(stack, null, null);
 					} else {
@@ -165,7 +164,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 		var wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, tile, side);
 		if (player.isSecondaryUseActive() && (wandable == null || getBindMode(stack))
-				&& (!(block instanceof GameMasterBlock) || player.canUseGameMasterBlocks())) {
+				&& (!(state.getBlock() instanceof GameMasterBlock) || player.canUseGameMasterBlocks())) {
 			BlockState newState = manipulateBlockstate(state, side, blockState -> blockState.canSurvive(world, pos));
 			if (newState != state) {
 				world.setBlockAndUpdate(pos, newState);
@@ -338,11 +337,13 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			Direction oldDir;
 			if (oldTop == Direction.UP) {
 				// rotate front
-				newStateFunction = newFront -> oldState.setValue(BlockStateProperties.ORIENTATION, FrontAndTop.fromFrontAndTop(newFront, oldTop));
+				newStateFunction = newFront -> oldState.setValue(BlockStateProperties.ORIENTATION,
+						FrontAndTop.fromFrontAndTop(newFront, oldTop));
 				oldDir = oldFront;
 			} else {
 				// front is up or down, rotate top
-				newStateFunction = newTop -> oldState.setValue(BlockStateProperties.ORIENTATION, FrontAndTop.fromFrontAndTop(oldFront, newTop));
+				newStateFunction = newTop -> oldState.setValue(BlockStateProperties.ORIENTATION,
+						FrontAndTop.fromFrontAndTop(oldFront, newTop));
 				oldDir = oldTop;
 			}
 			return rotateClockwiseAroundSide(side, oldDir, newStateFunction, canSurvive);
@@ -350,7 +351,8 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 		if (oldFront.getAxis() == side.getAxis()) {
 			// clicked front or back of horizontally-facing block, flip front to back (top can only be up)
-			BlockState newState = oldState.setValue(BlockStateProperties.ORIENTATION, FrontAndTop.fromFrontAndTop(oldFront.getOpposite(), oldTop));
+			BlockState newState = oldState.setValue(BlockStateProperties.ORIENTATION,
+					FrontAndTop.fromFrontAndTop(oldFront.getOpposite(), oldTop));
 			return canSurvive.test(newState) ? newState : oldState;
 		}
 
@@ -377,11 +379,13 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return oldState;
 	}
 
-	private static BlockState rotateClockwiseAroundSideDirect(BlockState oldState, Direction side, Predicate<BlockState> canSurvive, Property<Direction> facingProp, Direction oldDir) {
+	private static BlockState rotateClockwiseAroundSideDirect(BlockState oldState, Direction side,
+			Predicate<BlockState> canSurvive, Property<Direction> facingProp, Direction oldDir) {
 		return rotateClockwiseAroundSide(side, oldDir, dir -> oldState.setValue(facingProp, dir), canSurvive);
 	}
 
-	private static BlockState rotateClockwiseAroundSide(Direction side, Direction oldDir, Function<Direction, BlockState> newStateFunction, Predicate<BlockState> canSurvive) {
+	private static BlockState rotateClockwiseAroundSide(Direction side, Direction oldDir,
+			Function<Direction, BlockState> newStateFunction, Predicate<BlockState> canSurvive) {
 		BlockState newState;
 		Direction newDir = oldDir;
 		do {
@@ -398,8 +402,10 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 				: oldDir.getClockWise(side.getAxis());
 	}
 
-	private static <T extends Comparable<T>> BlockState iterateToNextValidPropertyValue(BlockState oldState, Property<T> property, Collection<T> orderedValues, T oldValue, Predicate<BlockState> canSurvive) {
+	private static <T extends Comparable<T>> BlockState iterateToNextValidPropertyValue(BlockState oldState,
+			Property<T> property, Collection<T> orderedValues, T oldValue, Predicate<BlockState> canSurvive) {
 		Iterator<T> it = orderedValues.iterator();
+		//noinspection StatementWithEmptyBody
 		while (it.hasNext() && !it.next().equals(oldValue)) {
 			// look for current value
 		}
