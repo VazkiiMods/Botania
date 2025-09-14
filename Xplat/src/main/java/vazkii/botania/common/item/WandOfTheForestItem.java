@@ -13,6 +13,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.FrontAndTop;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -89,6 +90,10 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			// blocks with a "facing" property of value type Direction
 			Pair.of((state, side) -> getFacingPropOptional(state).isPresent(),
 					WandOfTheForestItem::applyFacingRotationChange),
+
+			// blocks with a FrontAndTop property (crafter, jigsaw)
+			Pair.of((state, side) -> state.hasProperty(BlockStateProperties.ORIENTATION),
+					WandOfTheForestItem::applyOrientationRotationChange),
 
 			// Fallback to vanilla block rotation
 			Pair.of(BlockStateSidePredicate.ALWAYS, WandOfTheForestItem::applyVanillaRotation)
@@ -320,6 +325,46 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		// facing towards or away from clicked side, flip around
 		BlockState newState = state.setValue(facingProp, oldDir.getOpposite());
 		return canSurvive.test(newState) ? newState : state;
+	}
+
+	private static BlockState applyOrientationRotationChange(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
+		FrontAndTop orientation = oldState.getValue(BlockStateProperties.ORIENTATION);
+		Direction oldFront = orientation.front();
+		Direction oldTop = orientation.top();
+
+		if (side.getAxis() == Direction.Axis.Y) {
+			// rotate horizontally
+			Function<Direction, BlockState> newStateFunction;
+			Direction oldDir;
+			if (oldTop == Direction.UP) {
+				// rotate front
+				newStateFunction = newFront -> oldState.setValue(BlockStateProperties.ORIENTATION, FrontAndTop.fromFrontAndTop(newFront, oldTop));
+				oldDir = oldFront;
+			} else {
+				// front is up or down, rotate top
+				newStateFunction = newTop -> oldState.setValue(BlockStateProperties.ORIENTATION, FrontAndTop.fromFrontAndTop(oldFront, newTop));
+				oldDir = oldTop;
+			}
+			return rotateClockwiseAroundSide(side, oldDir, newStateFunction, canSurvive);
+		}
+
+		if (oldFront.getAxis() == side.getAxis()) {
+			// clicked front or back of horizontally-facing block, flip front to back (top can only be up)
+			BlockState newState = oldState.setValue(BlockStateProperties.ORIENTATION, FrontAndTop.fromFrontAndTop(oldFront.getOpposite(), oldTop));
+			return canSurvive.test(newState) ? newState : oldState;
+		}
+
+		// rotate around the horizontal axis perpendicular to front and top; top must be up if front is horizontal
+		Direction newFront = getClockwiseDirectionForSide(oldFront, side);
+		boolean isTopClockwise = newFront == oldTop;
+		Function<Direction, BlockState> newStateFunction = newDir -> {
+			Direction newTop = newDir.getAxis() == Direction.Axis.Y
+					? getClockwiseDirectionForSide(newDir, isTopClockwise ? side : side.getOpposite())
+					: Direction.UP;
+			return oldState.setValue(BlockStateProperties.ORIENTATION, FrontAndTop.fromFrontAndTop(newDir, newTop));
+		};
+
+		return rotateClockwiseAroundSide(side, oldFront, newStateFunction, canSurvive);
 	}
 
 	private static BlockState applyVanillaRotation(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
