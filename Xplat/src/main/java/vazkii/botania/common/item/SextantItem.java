@@ -18,6 +18,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
@@ -26,6 +27,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -39,6 +41,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -48,6 +51,7 @@ import vazkii.botania.common.proxy.Proxy;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.common.multiblock.SparseMultiblock;
 
 import java.math.RoundingMode;
 import java.text.NumberFormat;
@@ -99,6 +103,46 @@ public class SextantItem extends Item {
 				visualizer.visualize(world, centerPos.pos().getX(), centerPos.pos().getY(), centerPos.pos().getZ(), data, cosR, sinR);
 			}
 		}
+	}
+
+	/**
+	 * Big workaround to Patchouli's render range limitation for multiblocks. The player needs to stay within 64 blocks
+	 * of the multiblock's anchor point, or it stops being visible entirely. To get around that limitation, we move the
+	 * anchor point when it gets too far from the player, but also apply an opposite offset so the multiblock is still
+	 * rendered where it's supposed to be.
+	 */
+	@Override
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+		if (!level.isClientSide || !(entity instanceof LocalPlayer)) {
+			return;
+		}
+		GlobalPos centerPos = stack.get(BotaniaDataComponents.BINDING_POS);
+		if (centerPos == null || centerPos.dimension() != level.dimension()) {
+			return;
+		}
+		IMultiblock mb = PatchouliAPI.get().getCurrentMultiblock();
+		if (!(mb instanceof SparseMultiblock smb) || !mb.getID().equals(MULTIBLOCK_ID)) {
+			return;
+		}
+		BlockPos anchor = Proxy.INSTANCE.getMultiblockAnchor();
+		if (anchor == null) {
+			return;
+		}
+		Vec3i sizeVec = mb.getSize();
+		int size = Math.max(sizeVec.getX(), Math.max(sizeVec.getY(), sizeVec.getZ()));
+		BlockPos center = centerPos.pos();
+		BlockPos playerPos = entity.blockPosition();
+		double distToCenter = center.distSqr(playerPos);
+		double distToAnchor = anchor.distSqr(playerPos);
+		if (distToAnchor < 32 * 32 || distToCenter > (double) (size * size / 2)) {
+			return;
+		}
+
+		// we are reasonably far from the current anchor position, but still close enough to the actual center
+		BlockPos newOffset = playerPos.subtract(center);
+		smb.setOffset(newOffset.getX(), newOffset.getY(), newOffset.getZ());
+		BotaniaAPI.LOGGER.info("Player at {}, old anchor at {}, center at {}, new offset {}", playerPos, anchor, center, newOffset);
+		Proxy.INSTANCE.setMultiblockAnchor(playerPos);
 	}
 
 	private static void visualizeSphere(Level world, int x, int y, int z, WispParticleData data, double cosR, double sinR) {
@@ -175,7 +219,8 @@ public class SextantItem extends Item {
 			if (centerPos != null && centerPos.dimension() == world.dimension()) {
 				Map<BlockPos, IStateMatcher> map = new HashMap<>();
 				getMode(stack).getCreator().create(matcher, radius + 0.5, map);
-				IMultiblock sparse = PatchouliAPI.get().makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
+				IMultiblock sparse = PatchouliAPI.get().makeSparseMultiblock(map).setId(MULTIBLOCK_ID)
+						.setSymmetrical(true);
 				Proxy.INSTANCE.showMultiblock(sparse, Component.literal("r = " + getRadiusString(radius)),
 						centerPos.pos(), Rotation.NONE);
 			}

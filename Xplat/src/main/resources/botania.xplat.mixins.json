@@ -67,7 +67,8 @@
     "TextureSlotAccessor",
     "ThrowableProjectileMixin",
     "VibrationSystemListenerMixin",
-    "WitherEntityAccessor"
+    "WitherEntityAccessor",
+    "client.MultiblockVisualizationHandlerMixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",

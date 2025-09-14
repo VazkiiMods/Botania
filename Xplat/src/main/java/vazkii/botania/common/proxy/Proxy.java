@@ -74,6 +74,13 @@ public interface Proxy {
 	default void clearSextantMultiblock() {}
 
 	@Nullable
+	default BlockPos getMultiblockAnchor() {
+		return null;
+	}
+
+	default void setMultiblockAnchor(BlockPos anchor) {}
+
+	@Nullable
 	default HitResult getClientHit() {
 		return null;
 	}

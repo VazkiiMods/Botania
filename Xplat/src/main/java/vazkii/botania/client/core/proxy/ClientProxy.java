@@ -31,9 +31,11 @@ import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.mixin.client.MultiblockVisualizationHandlerMixin;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.client.handler.MultiblockVisualizationHandler;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -118,6 +120,16 @@ public class ClientProxy implements Proxy {
 		if (mb != null && mb.getID().equals(SextantItem.MULTIBLOCK_ID)) {
 			PatchouliAPI.get().clearMultiblock();
 		}
+	}
+
+	@Override
+	public BlockPos getMultiblockAnchor() {
+		return MultiblockVisualizationHandlerMixin.botania_getPos();
+	}
+
+	@Override
+	public void setMultiblockAnchor(BlockPos anchor) {
+		MultiblockVisualizationHandler.anchorTo(anchor, Rotation.NONE);
 	}
 
 	@Nullable
