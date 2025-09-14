@@ -520,10 +520,9 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 	@Override
 	public Component getName(ItemStack stack) {
-		Component mode = Component.literal(" (")
-				.append(Component.translatable(getModeString(stack)).withStyle(modeChatFormatting))
-				.append(")");
-		return super.getName(stack).plainCopy().append(mode);
+		Component mode = Component.translatable(getModeString(stack)).withStyle(modeChatFormatting);
+		Component name = super.getName(stack);
+		return Component.translatable("botaniamisc.template.parenthesis_suffix", name, mode).withStyle(name.getStyle());
 	}
 
 	public static ItemStack setColors(ItemStack wand, DyeColor color1, DyeColor color2) {

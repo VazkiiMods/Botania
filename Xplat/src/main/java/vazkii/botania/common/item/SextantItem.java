@@ -278,10 +278,9 @@ public class SextantItem extends Item {
 
 	@Override
 	public Component getName(ItemStack stack) {
-		Component mode = Component.literal(" (")
-				.append(Component.translatable(getModeString(stack)))
-				.append(")");
-		return super.getName(stack).plainCopy().append(mode);
+		Component mode = Component.translatable(getModeString(stack));
+		Component name = super.getName(stack);
+		return Component.translatable("botaniamisc.template.parenthesis_suffix", name, mode).withStyle(name.getStyle());
 	}
 
 	public static String getModeString(ItemStack stack) {

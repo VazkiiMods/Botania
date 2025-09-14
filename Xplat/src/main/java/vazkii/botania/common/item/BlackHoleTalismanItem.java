@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -158,17 +157,13 @@ public class BlackHoleTalismanItem extends Item {
 
 	@Override
 	public Component getName(ItemStack stack) {
+		Component name = super.getName(stack);
 		Block block = getBlock(stack);
-		ItemStack bstack = block == null ? ItemStack.EMPTY : new ItemStack(block);
-		MutableComponent cand = super.getName(stack).copy();
-
-		if (!bstack.isEmpty()) {
-			cand.append(" (");
-			cand.append(bstack.getHoverName().copy().withStyle(ChatFormatting.GREEN));
-			cand.append(")");
+		if (block == null) {
+			return name;
 		}
-
-		return cand;
+		Component blockName = block.getName().withStyle(ChatFormatting.GREEN);
+		return Component.translatable("botaniamisc.template.parenthesis_suffix", name, blockName).withStyle(name.getStyle());
 	}
 
 	public static boolean setBlock(ItemStack stack, Block block) {
@@ -190,7 +185,7 @@ public class BlackHoleTalismanItem extends Item {
 		Block block = getBlock(stack);
 		if (block != null) {
 			int count = getBlockCount(stack);
-			stacks.add(Component.literal(count + " ").append(new ItemStack(block).getHoverName()).withStyle(ChatFormatting.GRAY));
+			stacks.add(Component.translatable("botaniamisc.template.num_and_name", count, block.getName()).withStyle(ChatFormatting.GRAY));
 		}
 
 		stacks.add(Component.translatable(stack.has(BotaniaDataComponents.ACTIVE)

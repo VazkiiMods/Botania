@@ -64,7 +64,7 @@
     "botaniamisc.lotusDesc": "Він випромінює сильні магічні вібрації",
     "botaniamisc.hasClip": "\u00a76Має лінзу",
     "botaniamisc.clipEmpty": "(Порожньо)",
-    "botaniamisc.armorset": "\u00a7bКомплект броні\u00a7r:",
+    "botaniamisc.armorset": "\u00a7bКомплект броні\u00a7r: %s",
     "botaniamisc.craftToAddWill": "Оновлення шолома з терасталі:",
     "botaniamisc.requestMsg": "Запрошено %d x \"%s\" з %d. %d взято.",
     "botaniamisc.nearIndex0": "Поруч є індекс Корпореї!",

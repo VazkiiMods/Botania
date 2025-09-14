@@ -94,9 +94,9 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 		addArmorSetDescription(stack, list);
 		ItemStack[] stacks = getArmorSetStacks();
 		for (ItemStack armor : stacks) {
-			MutableComponent cmp = Component.literal(" - ").append(armor.getHoverName());
 			EquipmentSlot slot = ((ArmorItem) armor.getItem()).getEquipmentSlot();
-			cmp.withStyle(hasArmorSetItem(player, slot) ? ChatFormatting.GREEN : ChatFormatting.GRAY);
+			MutableComponent cmp = Component.translatable("botaniamisc.template.tooltip_list", armor.getHoverName())
+					.withStyle(hasArmorSetItem(player, slot) ? ChatFormatting.GREEN : ChatFormatting.GRAY);
 			list.add(cmp);
 		}
 		if (hasPhantomInk(stack)) {
@@ -155,12 +155,11 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	}
 
 	private Component getArmorSetTitle(Player player) {
-		Component end = getArmorSetName()
-				.append(" (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")")
+		Component pieces = Component.translatable("botaniamisc.template.n_of_m",
+				getSetPiecesEquipped(player), getArmorSetStacks().length);
+		Component setInfo = Component.translatable("botaniamisc.template.parenthesis_suffix", getArmorSetName(), pieces)
 				.withStyle(ChatFormatting.GRAY);
-		return Component.translatable("botaniamisc.armorset")
-				.append(" ")
-				.append(end);
+		return Component.translatable("botaniamisc.armorset", setInfo);
 	}
 
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {

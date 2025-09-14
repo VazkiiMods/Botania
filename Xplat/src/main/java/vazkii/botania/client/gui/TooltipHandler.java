@@ -28,7 +28,7 @@ public final class TooltipHandler {
 	}
 
 	public static Component getShiftInfoTooltip() {
-		Component shift = Component.literal("SHIFT").withStyle(ChatFormatting.AQUA);
+		Component shift = Component.translatable("key.keyboard.shift").withStyle(ChatFormatting.AQUA);
 		return Component.translatable("botaniamisc.shiftinfo", shift).withStyle(ChatFormatting.GRAY);
 	}
 

@@ -68,7 +68,7 @@
     "botaniamisc.lotusDesc": "Er strahlt starke Magie aus",
     "botaniamisc.hasClip": "§6Hat Linsenklemme",
     "botaniamisc.clipEmpty": "(leer)",
-    "botaniamisc.armorset": "§bRüstungssatz§r:",
+    "botaniamisc.armorset": "§bRüstungssatz§r: %s",
     "botaniamisc.craftToAddWill": "Terrasteelhelm-Verbesserung:",
     "botaniamisc.requestMsg": "%d mal %s von %d angefordert. %d genommen.",
     "botaniamisc.nearIndex0": "Nahe Corporea-Index!",
@@ -145,6 +145,13 @@
     "botaniamisc.catalyst_not_consumed": "(wird nicht verbraucht)",
     "botaniamisc.monocle.frame.contains": "%s§r enthält:",
     "botaniamisc.monocle.frame.additional_stacks": "+%s weitere Stapel",
+
+
+
+
+
+
+
 
 
 

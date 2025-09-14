@@ -90,7 +90,8 @@ public class AstrolabeItem extends Item {
 				int size = getSize(stack);
 				int newSize = size == 11 ? 3 : size + 2;
 				setSize(stack, newSize);
-				ItemsRemainingRenderHandler.send(playerIn, stack, 0, Component.literal(newSize + "x" + newSize));
+				// TODO: should not format number server-side; maybe just send translation key and count?
+				ItemsRemainingRenderHandler.send(playerIn, stack, 0, Component.translatable("botaniamisc.astrolabe.size", newSize));
 			}
 
 			return InteractionResultHolder.sidedSuccess(stack, worldIn.isClientSide());
@@ -293,9 +294,9 @@ public class AstrolabeItem extends Item {
 		Block block = getBlock(stack, Objects.requireNonNull(context.registries()).lookupOrThrow(Registries.BLOCK));
 		int size = getSize(stack);
 
-		tip.add(Component.literal(size + " x " + size));
+		tip.add(Component.translatable("botaniamisc.astrolabe.size", size));
 		if (block != Blocks.AIR) {
-			tip.add(new ItemStack(block).getHoverName().plainCopy().withStyle(ChatFormatting.GRAY));
+			tip.add(block.getName().withStyle(ChatFormatting.GRAY));
 		}
 	}
 

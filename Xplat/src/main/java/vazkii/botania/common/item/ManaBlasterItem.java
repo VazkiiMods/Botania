@@ -168,8 +168,8 @@ public class ManaBlasterItem extends Item {
 					name = lensAt.getHoverName();
 				}
 
-				MutableComponent tip = Component.literal(" - ").append(name);
-				tip.withStyle(i == pos ? ChatFormatting.GREEN : ChatFormatting.GRAY);
+				MutableComponent tip = Component.translatable("botaniamisc.template.tooltip_list", name)
+						.withStyle(i == pos ? ChatFormatting.GREEN : ChatFormatting.GRAY);
 				tooltip.add(tip);
 			}
 		}
@@ -177,14 +177,13 @@ public class ManaBlasterItem extends Item {
 
 	@Override
 	public Component getName(ItemStack stack) {
+		Component name = super.getName(stack);
 		ItemStack lens = getLens(stack);
-		MutableComponent cmp = super.getName(stack).copy();
-		if (!lens.isEmpty()) {
-			cmp.append(" (");
-			cmp.append(lens.getHoverName().copy().withStyle(ChatFormatting.GREEN));
-			cmp.append(")");
+		if (lens.isEmpty()) {
+			return name;
 		}
-		return cmp;
+		Component lensName = lens.getHoverName().copy().withStyle(ChatFormatting.GREEN);
+		return Component.translatable("botaniamisc.template.parenthesis_suffix", name, lensName).withStyle(name.getStyle());
 	}
 
 	public static boolean hasClip(ItemStack stack) {

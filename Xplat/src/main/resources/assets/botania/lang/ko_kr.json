@@ -63,7 +63,7 @@
   "botaniamisc.lotusDesc": "강력한 마나가 방출되는 느낌",
   "botaniamisc.hasClip": "\u00a76현재 적용된 렌즈클립 :",
   "botaniamisc.clipEmpty": "(비어있음)",
-  "botaniamisc.armorset": "\u00a7b갑옷 설정\u00a7r:",
+  "botaniamisc.armorset": "\u00a7b갑옷 설정\u00a7r: %s",
   "botaniamisc.craftToAddWill": "테라스틸 투구와 조합할 경우 생기는 효과:",
 
   "botaniamisc.nearIndex0": "코포리아 인덱스가 근처에 있습니다!",

@@ -69,7 +69,7 @@
   "botaniamisc.lotusDesc": "Emite fortes vibrações mágicas",
   "botaniamisc.hasClip": "\u00a76Possui Clipe de Lentes",
   "botaniamisc.clipEmpty": "(Vazio)",
-  "botaniamisc.armorset": "\u00a7bConjunto de Armadura\u00a7r:",
+  "botaniamisc.armorset": "\u00a7bConjunto de Armadura\u00a7r: %s",
   "botaniamisc.craftToAddWill": "Upgrade de Capacete de Aço-Terra:",
   "botaniamisc.requestMsg": "Requisitado %d x %s de %d. %d retirados.",
   "botaniamisc.nearIndex0": "Índice Corporea por perto!",

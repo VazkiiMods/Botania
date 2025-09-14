@@ -47,7 +47,7 @@
   "botaniamisc.lotusDesc": "Hij straalt sterke Magie uit",
   "botaniamisc.hasClip": "&6Met Lens Klem",
   "botaniamisc.clipEmpty": "(Leeg)",
-  "botaniamisc.armorset": "&bArmor Set&r:",
+  "botaniamisc.armorset": "&bArmor Set&r: %s",
   "botaniamisc.craftToAddWill": "Vervaardig met Terrastaal Helm om effect toe te voegen:",
   "botaniamisc.requestMsg": "%d x %s van %d gevraagd. %d genomen.",
   "botaniamisc.nearIndex0": "Corporea Index in de buurt!",

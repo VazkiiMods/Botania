@@ -17,7 +17,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -429,15 +428,14 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 
 	@Override
 	public Component getName(ItemStack stack) {
+		Component name = super.getName(stack);
+		// TODO: why is this an item and not a block?
 		Item item = getItemToPlace(stack);
-		MutableComponent cmp = super.getName(stack).copy();
-		if (item != Items.AIR) {
-			cmp.append(" (");
-			Component sub = new ItemStack(item).getHoverName();
-			cmp.append(sub.copy().withStyle(ChatFormatting.GREEN));
-			cmp.append(")");
+		if (item == Items.AIR) {
+			return name;
 		}
-		return cmp;
+		Component itemName = new ItemStack(item).getHoverName().copy().withStyle(ChatFormatting.GREEN);
+		return Component.translatable("botaniamisc.template.parenthesis_suffix", name, itemName).withStyle(name.getStyle());
 	}
 
 	private void setTarget(ItemStack stack, Block block) {

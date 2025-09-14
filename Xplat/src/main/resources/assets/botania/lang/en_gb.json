@@ -9,7 +9,7 @@
 
   "stat.botania.luminizer_one_cm": "Distance by Luminiser",
 
-  "botaniamisc.armorset": "\u00a7bArmour Set\u00a7r:",
+  "botaniamisc.armorset": "\u00a7bArmour Set\u00a7r: %s",
 
   "tag.botania.petals.gray": "Grey Petals",
   "tag.botania.petals.light_gray": "Light Grey Petals",

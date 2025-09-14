@@ -61,7 +61,7 @@
   "botaniamisc.lotusDesc": "Güçlü büyülü titreşimler yayıyor",
   "botaniamisc.hasClip": "\u00a76Mercek Klipsi Var",
   "botaniamisc.clipEmpty": "(Boş)",
-  "botaniamisc.armorset": "\u00a7bZırh Seti\u00a7r:",
+  "botaniamisc.armorset": "\u00a7bZırh Seti\u00a7r: %s",
   "botaniamisc.craftToAddWill": "Terrasteel Miğfer Yükseltmesi:",
   "botaniamisc.requestMsg": "%d / %d istenen %s'den %d adet alındı.",
   "botaniamisc.nearIndex0": "Yakında bir Corporea Dizini var!",

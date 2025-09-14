@@ -20,9 +20,11 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.client.integration.shared.LocaleHelper;
 import vazkii.botania.network.clientbound.UpdateItemsRemainingPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.text.NumberFormat;
 import java.util.regex.Pattern;
 
 public final class ItemsRemainingRenderHandler {
@@ -54,41 +56,41 @@ public final class ItemsRemainingRenderHandler {
 			gui.renderItem(stack, 0, 0);
 			ms.popPose();
 
-			Component text = Component.empty();
-
-			if (customString == null) {
-				if (!stack.isEmpty()) {
-					text = stack.getHoverName().copy().withStyle(ChatFormatting.GREEN);
-					if (count >= 0) {
-						int max = stack.getMaxStackSize();
-						int stacks = count / max;
-						int rem = count % max;
-
-						if (stacks == 0) {
-							text = Component.literal(Integer.toString(count));
-						} else {
-							Component stacksText = Component.literal(Integer.toString(stacks)).withStyle(ChatFormatting.AQUA);
-							Component maxText = Component.literal(Integer.toString(max)).withStyle(ChatFormatting.GRAY);
-							Component remText = Component.literal(Integer.toString(rem)).withStyle(ChatFormatting.YELLOW);
-							text = Component.literal(count + " (")
-									.append(stacksText)
-									.append("*")
-									.append(maxText)
-									.append("+")
-									.append(remText)
-									.append(")");
-						}
-					} else if (count == -1) {
-						text = Component.literal("\u221E");
-					}
-				}
-			} else {
-				text = customString;
-			}
+			Component text = customString != null ? customString : getRemainingCount(stack, count);
 
 			int color = FastColor.ARGB32.color(FastColor.as8BitChannel(alpha), 0xFFFFFF);
 			gui.drawString(mc.font, text, x + 20, y + 6, color);
 		}
+	}
+
+	private static Component getRemainingCount(ItemStack displayStack, int totalCount) {
+		if (displayStack.isEmpty()) {
+			return Component.empty();
+		}
+		if (totalCount == -1) {
+			return Component.literal("\u221E");
+		}
+		if (totalCount >= 0) {
+			int max = displayStack.getMaxStackSize();
+			int stacks = totalCount / max;
+			NumberFormat format = LocaleHelper.getIntegerFormat();
+
+			String totalCountText = format.format(totalCount);
+			if (stacks == 0) {
+				return Component.literal(totalCountText);
+			}
+			int rem = totalCount % max;
+			Component stacksText = Component.literal(format.format(stacks)).withStyle(ChatFormatting.AQUA);
+			Component maxText = Component.literal(format.format(max)).withStyle(ChatFormatting.GRAY);
+			if (rem > 0) {
+				Component remText = Component.literal(format.format(rem)).withStyle(ChatFormatting.YELLOW);
+				return Component.translatable("botaniamisc.template.parenthesis_suffix", totalCountText,
+						Component.translatable("botaniamisc.count.stacks_with_remainder", stacksText, maxText, remText));
+			}
+			return Component.translatable("botaniamisc.template.parenthesis_suffix", totalCountText,
+					Component.translatable("botaniamisc.count.stacks_no_remainder", stacksText, maxText));
+		}
+		return Component.empty();
 	}
 
 	public static void tick() {
