@@ -16,7 +16,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -62,8 +62,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 	 */
 	public static final List<Pair<BlockStateSidePredicate, BlockStateManipulator>> BLOCK_STATE_MANIPULATION_STRATEGIES = List.of(
 			// skip any blocks tagged for wand manipulation opt-out
-			Pair.of((state, dir) -> state.is(BotaniaTags.Blocks.UNWANDABLE),
-					BlockStateManipulator.NO_OP),
+			Pair.of(WandOfTheForestItem::skipBlockStateManipulation, BlockStateManipulator.NO_OP),
 
 			// log-like pillar blocks
 			Pair.of((state, side) -> state.getBlock() instanceof RotatedPillarBlock,
@@ -81,6 +80,11 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 			// toggle top/bottom half when clicking side (e.g. for stairs or trapdoors)
 			Pair.of(WandOfTheForestItem::isSideOfHalfBlock, WandOfTheForestItem::applyToggleHalf),
+
+			// blocks that can define their orientation with an attach face and a horizontal facing (e.g. button)
+			Pair.of((state, side) -> state.hasProperty(BlockStateProperties.ATTACH_FACE)
+					&& state.hasProperty(BlockStateProperties.HORIZONTAL_FACING),
+					WandOfTheForestItem::applyHorizontalFacingAndAttachFaceRotation),
 
 			// blocks with a "facing" property of value type Direction
 			Pair.of((state, side) -> getFacingPropOptional(state).isPresent(),
@@ -187,6 +191,15 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return oldState;
 	}
 
+	private static boolean skipBlockStateManipulation(BlockState state, Direction dir) {
+		return state.is(BotaniaTags.Blocks.UNWANDABLE)
+				// the following are out of scope, as they would involve moving another block
+				|| state.hasProperty(BlockStateProperties.BED_PART)
+				|| state.hasProperty(BlockStateProperties.EXTENDED) && state.getValue(BlockStateProperties.EXTENDED)
+				|| (state.hasProperty(BlockStateProperties.CHEST_TYPE)
+						&& state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE);
+	}
+
 	private static BlockState applyPillarBlockRotation(BlockState state, Direction side, Predicate<BlockState> canSurvive) {
 		return iterateToNextValidPropertyValue(
 				state, BlockStateProperties.AXIS, BlockStateProperties.AXIS.getPossibleValues(),
@@ -251,9 +264,62 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return canSurvive.test(newState) ? newState : oldState;
 	}
 
+	private static BlockState applyHorizontalFacingAndAttachFaceRotation(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
+		Property<Direction> facingProp = getFacingPropOptional(oldState).orElseThrow();
+		Direction oldDir = oldState.getValue(facingProp);
+
+		if (side.getAxis() == Direction.Axis.Y) {
+			// clicked vertically attached block from top or bottom, just rotate on that face
+			return rotateClockwiseAroundSideDirect(oldState, side, canSurvive, facingProp, oldDir);
+		}
+
+		AttachFace attachFace = oldState.getValue(BlockStateProperties.ATTACH_FACE);
+		if (attachFace == AttachFace.WALL && oldDir.getAxis() == side.getAxis()) {
+			// clicked wall-attached block on attachment axis, just flip to other side, if possible
+			BlockState newState = oldState.setValue(facingProp, oldDir.getOpposite());
+			return canSurvive.test(newState) ? newState : oldState;
+		}
+
+		// operate on an implied direction, rotate that, and eventually translate it back at the end
+		Direction impliedDir = switch (attachFace) {
+			case FLOOR -> Direction.DOWN;
+			case CEILING -> Direction.UP;
+			case WALL -> oldDir;
+		};
+
+		Function<Direction, BlockState> newStateFunction = dir -> switch (dir) {
+			case UP -> oldState.setValue(BlockStateProperties.ATTACH_FACE, AttachFace.CEILING);
+			case DOWN -> oldState.setValue(BlockStateProperties.ATTACH_FACE, AttachFace.FLOOR);
+			default -> oldState.setValue(BlockStateProperties.ATTACH_FACE, AttachFace.WALL).setValue(facingProp, dir);
+		};
+
+		return rotateClockwiseAroundSide(side, impliedDir, newStateFunction, canSurvive);
+	}
+
 	private static BlockState applyFacingRotationChange(BlockState state, Direction side, Predicate<BlockState> canSurvive) {
 		Property<Direction> facingProp = getFacingPropOptional(state).orElseThrow();
-		return rotateFacingDirection(state, side, canSurvive, facingProp);
+		Direction oldDir = state.getValue(facingProp);
+		List<Direction> possibleFacingValues = new ArrayList<>(BlockStateProperties.FACING.getPossibleValues());
+		if (possibleFacingValues.retainAll(facingProp.getPossibleValues())) {
+			// doesn't support all possible directions
+			if (possibleFacingValues.isEmpty()) {
+				// How did we get here?
+				return state;
+			}
+
+			// iterate over values in the order defined by BlockStateProperties.FACING,
+			// because it makes more sense than the native order of the Direction enum values
+			return iterateToNextValidPropertyValue(state, facingProp, possibleFacingValues, oldDir, canSurvive);
+		}
+
+		if (oldDir.getAxis() != side.getAxis()) {
+			// rotate clockwise around clicked side
+			return rotateClockwiseAroundSideDirect(state, side, canSurvive, facingProp, oldDir);
+		}
+
+		// facing towards or away from clicked side, flip around
+		BlockState newState = state.setValue(facingProp, oldDir.getOpposite());
+		return canSurvive.test(newState) ? newState : state;
 	}
 
 	private static BlockState applyVanillaRotation(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
@@ -264,68 +330,6 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			}
 		}
 		return oldState;
-	}
-
-	private static BlockState rotateFacingDirection(BlockState oldState, Direction side, Predicate<BlockState> canSurvive, Property<Direction> facingProp) {
-		if (oldState.hasProperty(BlockStateProperties.CHEST_TYPE) && !oldState.getValue(BlockStateProperties.CHEST_TYPE).equals(ChestType.SINGLE)
-				|| oldState.hasProperty(BlockStateProperties.EXTENDED) && oldState.getValue(BlockStateProperties.EXTENDED).equals(Boolean.TRUE)
-				|| oldState.hasProperty(BlockStateProperties.BED_PART)) {
-			// rotating double chests would be nice, but seems beyond the scope of this feature; same goes for beds and extended pistons
-			return oldState;
-		}
-
-		Direction oldDir = oldState.getValue(facingProp);
-		if (oldState.hasProperty(BlockStateProperties.ATTACH_FACE) && oldState.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
-			// FaceAttachedHorizontalDirectionalBlock or equivalent block, rotate around clicked side
-			if (side.getAxis() == Direction.Axis.Y) {
-				// clicked vertically attached block from top or bottom, just rotate on that face
-				return rotateClockwiseAroundSideDirect(oldState, side, canSurvive, facingProp, oldDir);
-			}
-
-			AttachFace attachFace = oldState.getValue(BlockStateProperties.ATTACH_FACE);
-			if (attachFace == AttachFace.WALL && oldDir.getAxis() == side.getAxis()) {
-				// clicked wall-attached block on attachment axis, just flip to other side, if possible
-				BlockState newState = oldState.setValue(facingProp, oldDir.getOpposite());
-				return canSurvive.test(newState) ? newState : oldState;
-			}
-
-			// operate on an implied direction, rotate that, and eventually translate it back at the end
-			Direction impliedDir = switch (attachFace) {
-				case FLOOR -> Direction.DOWN;
-				case CEILING -> Direction.UP;
-				case WALL -> oldDir;
-			};
-
-			Function<Direction, BlockState> newStateFunction = dir -> switch (dir) {
-				case UP -> oldState.setValue(BlockStateProperties.ATTACH_FACE, AttachFace.CEILING);
-				case DOWN -> oldState.setValue(BlockStateProperties.ATTACH_FACE, AttachFace.FLOOR);
-				default -> oldState.setValue(BlockStateProperties.ATTACH_FACE, AttachFace.WALL).setValue(facingProp, dir);
-			};
-
-			return rotateClockwiseAroundSide(side, impliedDir, newStateFunction, canSurvive);
-		}
-
-		List<Direction> possibleFacingValues = new ArrayList<>(BlockStateProperties.FACING.getPossibleValues());
-		if (possibleFacingValues.retainAll(facingProp.getPossibleValues())) {
-			// doesn't support all possible directions
-			if (possibleFacingValues.isEmpty()) {
-				// How did we get here?
-				return oldState;
-			}
-
-			// iterate over values in the order defined by BlockStateProperties.FACING,
-			// because it makes more sense than the native order of the Direction enum values
-			return iterateToNextValidPropertyValue(oldState, facingProp, possibleFacingValues, oldDir, canSurvive);
-		}
-
-		if (oldDir.getAxis() != side.getAxis()) {
-			// rotate clockwise around clicked side
-			return rotateClockwiseAroundSideDirect(oldState, side, canSurvive, facingProp, oldDir);
-		}
-
-		// facing towards or away from clicked side, flip around
-		BlockState newState = oldState.setValue(facingProp, oldDir.getOpposite());
-		return canSurvive.test(newState) ? newState : oldState;
 	}
 
 	private static BlockState rotateClockwiseAroundSideDirect(BlockState oldState, Direction side, Predicate<BlockState> canSurvive, Property<Direction> facingProp, Direction oldDir) {
