@@ -51,7 +51,9 @@ public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			((CorporeaRetainerBlockEntity) world.getBlockEntity(pos)).fulfilRequest();
+			if (world.getBlockEntity(pos) instanceof CorporeaRetainerBlockEntity retainer) {
+				retainer.fulfilRequest();
+			}
 			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 		} else if (!power && powered) {
 			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
@@ -65,7 +67,9 @@ public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((CorporeaRetainerBlockEntity) world.getBlockEntity(pos)).getComparatorValue();
+		return world.getBlockEntity(pos) instanceof CorporeaRetainerBlockEntity retainer
+				? retainer.getComparatorValue()
+				: 0;
 	}
 
 	@Override

@@ -164,9 +164,8 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	@Override
 	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-		if (entity instanceof ItemEntity item) {
-			ManaPoolBlockEntity tile = (ManaPoolBlockEntity) world.getBlockEntity(pos);
-			tile.collideEntityItem(item);
+		if (entity instanceof ItemEntity item && world.getBlockEntity(pos) instanceof ManaPoolBlockEntity pool) {
+			pool.collideEntityItem(item);
 		}
 	}
 
@@ -186,7 +185,8 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		ManaPoolBlockEntity pool = (ManaPoolBlockEntity) world.getBlockEntity(pos);
-		return ManaPoolBlockEntity.calculateComparatorLevel(pool.getCurrentMana(), pool.getMaxMana());
+		return world.getBlockEntity(pos) instanceof ManaPoolBlockEntity pool
+				? ManaPoolBlockEntity.calculateComparatorLevel(pool.getCurrentMana(), pool.getMaxMana())
+				: 0;
 	}
 }

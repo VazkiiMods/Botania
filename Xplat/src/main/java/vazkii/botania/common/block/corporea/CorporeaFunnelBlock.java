@@ -39,7 +39,9 @@ public class CorporeaFunnelBlock extends BotaniaBlock implements EntityBlock {
 
 		if (power && !powered) {
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
-			((CorporeaFunnelBlockEntity) world.getBlockEntity(pos)).doRequest();
+			if (world.getBlockEntity(pos) instanceof CorporeaFunnelBlockEntity funnel) {
+				funnel.doRequest();
+			}
 		} else if (!power && powered) {
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
 		}

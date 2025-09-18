@@ -78,8 +78,7 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof SimpleInventoryBlockEntity inventory) {
+			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
@@ -108,8 +107,7 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		RunicAltarBlockEntity altar = (RunicAltarBlockEntity) world.getBlockEntity(pos);
-		return altar.signal;
+		return world.getBlockEntity(pos) instanceof RunicAltarBlockEntity altar ? altar.signal : 0;
 	}
 
 }

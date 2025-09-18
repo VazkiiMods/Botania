@@ -44,8 +44,7 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 
 	@Override
 	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
-		if (!world.isClientSide) {
-			CorporeaCrystalCubeBlockEntity cube = (CorporeaCrystalCubeBlockEntity) world.getBlockEntity(pos);
+		if (!world.isClientSide && world.getBlockEntity(pos) instanceof CorporeaCrystalCubeBlockEntity cube) {
 			cube.doRequest(player);
 		}
 	}
@@ -61,7 +60,9 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 		if (stack.getItem() instanceof WandOfTheForestItem && player.isSecondaryUseActive()) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
-		CorporeaCrystalCubeBlockEntity cube = (CorporeaCrystalCubeBlockEntity) level.getBlockEntity(pos);
+		if (!(level.getBlockEntity(pos) instanceof CorporeaCrystalCubeBlockEntity cube)) {
+			return ItemInteractionResult.FAIL;
+		}
 		if (cube.locked) {
 			if (!level.isClientSide) {
 				player.displayClientMessage(Component.translatable("botaniamisc.crystalCubeLocked"), false);
@@ -93,6 +94,8 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((CorporeaCrystalCubeBlockEntity) world.getBlockEntity(pos)).getComparatorValue();
+		return world.getBlockEntity(pos) instanceof CorporeaCrystalCubeBlockEntity cube
+				? cube.getComparatorValue()
+				: 0;
 	}
 }

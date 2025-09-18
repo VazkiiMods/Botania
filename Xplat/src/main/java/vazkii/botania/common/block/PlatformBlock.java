@@ -52,8 +52,7 @@ public abstract class PlatformBlock extends BotaniaBlock implements ManaCollisio
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof PlatformBlockEntity platform && platform.getCamoState() != null) {
+		if (world.getBlockEntity(pos) instanceof PlatformBlockEntity platform && platform.getCamoState() != null) {
 			return platform.getCamoState().getShape(world, pos);
 		} else {
 			return super.getShape(state, world, pos, context);
@@ -105,7 +104,6 @@ public abstract class PlatformBlock extends BotaniaBlock implements ManaCollisio
 
 	@Override
 	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		BlockEntity tile = world.getBlockEntity(pos);
 		ItemStack currentStack = player.getItemInHand(hand);
 
 		if (requireCreativeInteractions() && !player.isCreative()) {
@@ -113,7 +111,7 @@ public abstract class PlatformBlock extends BotaniaBlock implements ManaCollisio
 		}
 		if (!currentStack.isEmpty()
 				&& Block.byItem(currentStack.getItem()) != Blocks.AIR
-				&& tile instanceof PlatformBlockEntity camo) {
+				&& world.getBlockEntity(pos) instanceof PlatformBlockEntity camo) {
 			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hit);
 			BlockState changeState = Block.byItem(currentStack.getItem()).getStateForPlacement(ctx);
 

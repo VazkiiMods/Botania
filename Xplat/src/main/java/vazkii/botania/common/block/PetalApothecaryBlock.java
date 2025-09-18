@@ -89,11 +89,10 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 
 	@Override
 	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-		if (!world.isClientSide && entity instanceof ItemEntity itemEntity) {
-			PetalApothecaryBlockEntity tile = (PetalApothecaryBlockEntity) world.getBlockEntity(pos);
-			if (tile.collideEntityItem(itemEntity)) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-			}
+		if (!world.isClientSide && entity instanceof ItemEntity itemEntity
+				&& world.getBlockEntity(pos) instanceof PetalApothecaryBlockEntity apothecary
+				&& apothecary.collideEntityItem(itemEntity)) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(apothecary);
 		}
 	}
 
@@ -220,8 +219,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		boolean blockChanged = !state.is(newState.getBlock());
 		if (blockChanged || newState.getValue(FLUID) != State.WATER) {
-			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof SimpleInventoryBlockEntity inventory) {
+			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			if (blockChanged) {

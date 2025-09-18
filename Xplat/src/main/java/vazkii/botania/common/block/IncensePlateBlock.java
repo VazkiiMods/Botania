@@ -108,7 +108,9 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		IncensePlateBlockEntity plate = (IncensePlateBlockEntity) world.getBlockEntity(pos);
+		if (!(world.getBlockEntity(pos) instanceof IncensePlateBlockEntity plate)) {
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		}
 		ItemStack plateStack = plate.getItemHandler().getItem(0);
 
 		boolean did = false;
@@ -170,16 +172,12 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((IncensePlateBlockEntity) world.getBlockEntity(pos)).comparatorOutput;
+		return world.getBlockEntity(pos) instanceof IncensePlateBlockEntity plate ? plate.comparatorOutput : 0;
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
-		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
-			return X_SHAPE;
-		} else {
-			return Z_SHAPE;
-		}
+		return state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X ? X_SHAPE : Z_SHAPE;
 	}
 
 	@Override
@@ -195,19 +193,16 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!state.is(newState.getBlock())) {
-			BlockEntity block = world.getBlockEntity(pos);
-			if (block instanceof IncensePlateBlockEntity plate && !plate.burning) {
-				Containers.dropContents(world, pos, plate.getItemHandler());
-			}
+		if (!state.is(newState.getBlock())
+				&& world.getBlockEntity(pos) instanceof IncensePlateBlockEntity plate && !plate.burning) {
+			Containers.dropContents(world, pos, plate.getItemHandler());
 		}
 		super.onRemove(state, world, pos, newState, isMoving);
 	}
 
 	@Override
 	public void onProjectileHit(Level level, BlockState blockState, BlockHitResult hit, Projectile projectile) {
-		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos())
-				&& projectile.isOnFire()) {
+		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos()) && projectile.isOnFire()) {
 			if (level.getBlockEntity(hit.getBlockPos()) instanceof IncensePlateBlockEntity plate) {
 				plate.ignite();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);

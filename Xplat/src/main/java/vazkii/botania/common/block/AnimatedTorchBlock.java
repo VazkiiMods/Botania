@@ -43,8 +43,8 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 
 	@Override
 	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hit) {
-		if (playerIn.isSecondaryUseActive()) {
-			((AnimatedTorchBlockEntity) worldIn.getBlockEntity(pos)).handRotate();
+		if (playerIn.isSecondaryUseActive() && worldIn.getBlockEntity(pos) instanceof AnimatedTorchBlockEntity torch) {
+			torch.handRotate();
 			return InteractionResult.sidedSuccess(worldIn.isClientSide());
 		}
 
@@ -53,7 +53,9 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		((AnimatedTorchBlockEntity) world.getBlockEntity(pos)).onPlace(entity);
+		if (world.getBlockEntity(pos) instanceof AnimatedTorchBlockEntity torch) {
+			torch.onPlace(entity);
+		}
 	}
 
 	@Override
@@ -62,19 +64,21 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 	}
 
 	@Override
-	public int getDirectSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
-		return getSignal(blockState, blockAccess, pos, side);
+	public int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction side) {
+		return getSignal(state, level, pos, side);
 	}
 
 	@Override
-	public int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
-		AnimatedTorchBlockEntity tile = (AnimatedTorchBlockEntity) blockAccess.getBlockEntity(pos);
-
-		if (tile.rotating || !tile.directionInitialized) {
+	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction side) {
+		if (!(level.getBlockEntity(pos) instanceof AnimatedTorchBlockEntity torch)) {
 			return 0;
 		}
 
-		if (AnimatedTorchBlockEntity.SIDES[tile.side] == side) {
+		if (torch.rotating || !torch.directionInitialized) {
+			return 0;
+		}
+
+		if (AnimatedTorchBlockEntity.SIDES[torch.side] == side) {
 			return 15;
 		}
 

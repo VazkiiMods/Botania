@@ -48,12 +48,10 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof LuminizerBlockEntity relay) {
-			if (!stack.is(Items.ENDER_PEARL) && !(stack.getItem() instanceof PhantomInkItem)) {
-				relay.mountEntity(player);
-				return ItemInteractionResult.sidedSuccess(world.isClientSide());
-			}
+		if (world.getBlockEntity(pos) instanceof LuminizerBlockEntity relay
+				&& !stack.is(Items.ENDER_PEARL) && !(stack.getItem() instanceof PhantomInkItem)) {
+			relay.mountEntity(player);
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}
 
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;

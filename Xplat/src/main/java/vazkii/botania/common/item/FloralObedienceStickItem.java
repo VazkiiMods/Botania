@@ -13,7 +13,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
@@ -48,8 +47,8 @@ public class FloralObedienceStickItem extends Item {
 					continue;
 				}
 
-				BlockEntity tile = world.getBlockEntity(iterPos);
-				if (tile instanceof BindableSpecialFlowerBlockEntity<?> bindable && bindable.wouldBeValidBinding(pos)) {
+				if (world.getBlockEntity(iterPos) instanceof BindableSpecialFlowerBlockEntity<?> bindable
+						&& bindable.wouldBeValidBinding(pos)) {
 					bindable.setBindingPos(pos);
 					WandOfTheForestItem.doParticleBeamWithOffset(world, iterPos, pos);
 				}
@@ -57,8 +56,7 @@ public class FloralObedienceStickItem extends Item {
 
 			return true;
 		}
-		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof BindableSpecialFlowerBlockEntity<?> bindableFlower) {
+		if (world.getBlockEntity(pos) instanceof BindableSpecialFlowerBlockEntity<?> bindableFlower) {
 			bindableFlower.setBindingPos(null);
 			return true;
 		}

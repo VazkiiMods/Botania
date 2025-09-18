@@ -23,7 +23,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
@@ -89,8 +88,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 		for (CorporeaNode node : nodes) {
 			CorporeaSpark invSpark = node.getSpark();
 
-			BlockEntity te = node.getWorld().getBlockEntity(node.getPos());
-			if (te instanceof CorporeaInterceptor interceptor) {
+			if (node.getWorld().getBlockEntity(node.getPos()) instanceof CorporeaInterceptor interceptor) {
 				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, nodes, doit);
 				interceptors.put(interceptor, invSpark);
 			}

@@ -29,8 +29,7 @@ public class LuminizerForkBlock extends LuminizerBlock {
 			}
 		}
 
-		if (torchPos != null) {
-			AnimatedTorchBlockEntity torch = (AnimatedTorchBlockEntity) level.getBlockEntity(torchPos);
+		if (torchPos != null && level.getBlockEntity(torchPos) instanceof AnimatedTorchBlockEntity torch) {
 			Direction side = AnimatedTorchBlockEntity.SIDES[torch.side].getOpposite();
 			for (int i = 1; i < LuminizerBlockEntity.MAX_DIST; i++) {
 				BlockPos testPos = blockPos.relative(side, i);

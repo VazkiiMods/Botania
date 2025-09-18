@@ -128,8 +128,8 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockPos pumpPos = pos.relative(dir);
 			BlockState pumpState = level().getBlockState(pumpPos);
-			if (pumpState.is(BotaniaBlocks.pump)) {
-				ManaPumpBlockEntity pump = (ManaPumpBlockEntity) level().getBlockEntity(pumpPos);
+			if (pumpState.is(BotaniaBlocks.pump)
+					&& level().getBlockEntity(pumpPos) instanceof ManaPumpBlockEntity pump) {
 				BlockPos poolPos = pumpPos.relative(dir);
 				var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level(), poolPos, dir.getOpposite());
 

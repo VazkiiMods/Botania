@@ -83,7 +83,9 @@ public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		((SpecialFlowerBlockEntity) level.getBlockEntity(pos)).setPlacedBy(level, pos, state, placer, stack);
+		if (level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
+			flower.setPlacedBy(level, pos, state, placer, stack);
+		}
 	}
 
 	@Override
@@ -106,24 +108,19 @@ public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState bs, Level level, BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
-			return flower.getComparatorSignal();
-		}
-		return 0;
+		return level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower ? flower.getComparatorSignal() : 0;
 	}
 
 	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof FunctionalFlowerBlockEntity flower && rand.nextBoolean()) {
-			if (flower.acceptsRedstone() && flower.redstoneSignal > 0) {
-				VoxelShape shape = state.getShape(world, pos);
-				if (!shape.isEmpty()) {
-					AABB localBox = shape.bounds();
-					double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
-					double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
-					double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
-					world.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
-				}
+		if (world.getBlockEntity(pos) instanceof FunctionalFlowerBlockEntity flower
+				&& rand.nextBoolean() && flower.acceptsRedstone() && flower.redstoneSignal > 0) {
+			VoxelShape shape = state.getShape(world, pos);
+			if (!shape.isEmpty()) {
+				AABB localBox = shape.bounds();
+				double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
+				double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
+				double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
+				world.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
 			}
 		}
 	}

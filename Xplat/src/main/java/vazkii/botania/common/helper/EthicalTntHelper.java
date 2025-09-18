@@ -115,16 +115,14 @@ public class EthicalTntHelper {
 			}
 
 			final var blockState = entity.level().getBlockState(blockPos);
-			if (blockState.is(Blocks.MOVING_PISTON)) {
-				final var blockEntity = entity.level().getBlockEntity(blockPos);
-				if (blockEntity instanceof PistonMovingBlockEntity movingBlockEntity
-						&& movingBlockEntity.getMovementDirection() == dir
-						&& (movingBlockEntity.getMovedState().getBlock() instanceof TntBlock
-								|| movingBlockEntity.getMovedState().is(BotaniaTags.Blocks.UNETHICAL_TNT_CHECK))) {
-					// found a moving block that marks the destination of a TNT block moving away from the TNT entity
-					XplatAbstractions.INSTANCE.ethicalComponent(entity).markUnethical();
-					break;
-				}
+			if (blockState.is(Blocks.MOVING_PISTON)
+					&& entity.level().getBlockEntity(blockPos) instanceof PistonMovingBlockEntity movingBlockEntity
+					&& movingBlockEntity.getMovementDirection() == dir
+					&& (movingBlockEntity.getMovedState().getBlock() instanceof TntBlock
+							|| movingBlockEntity.getMovedState().is(BotaniaTags.Blocks.UNETHICAL_TNT_CHECK))) {
+				// found a moving block that marks the destination of a TNT block moving away from the TNT entity
+				XplatAbstractions.INSTANCE.ethicalComponent(entity).markUnethical();
+				break;
 			}
 		}
 	}

@@ -111,23 +111,25 @@ public class LifeAggregatorItem extends Item {
 		// TODO: support trial spawners
 		if (world.getBlockState(pos).is(Blocks.SPAWNER)) {
 			if (!world.isClientSide) {
-				SpawnerBlockEntity spawnerBlockEntity = (SpawnerBlockEntity) world.getBlockEntity(pos);
-				Entity displayEntity = spawnerBlockEntity.getSpawner().getOrCreateDisplayEntity(world, pos);
-				if (displayEntity != null) {
-					// TODO: does this make sense or is it better to navigate the NBT data for the entity ID?
-					stack.set(BotaniaDataComponents.MOB_TYPE, BuiltInRegistries.ENTITY_TYPE.getKey(displayEntity.getType()));
-				}
-				stack.set(DataComponents.BLOCK_ENTITY_DATA,
-						// black-box serialized data; no need for metadata, or component transfer to this item
-						CustomData.of(spawnerBlockEntity.saveWithId(world.registryAccess())));
-				world.destroyBlock(pos, false);
-				if (player != null) {
-					player.getCooldowns().addCooldown(this, 20);
-					if (player instanceof ServerPlayer serverPlayer) {
-						UseItemSuccessTrigger.INSTANCE.trigger(serverPlayer, stack, serverPlayer.serverLevel(),
-								pos.getX(), pos.getY(), pos.getZ());
+				if (world.getBlockEntity(pos) instanceof SpawnerBlockEntity spawnerBlockEntity) {
+					Entity displayEntity = spawnerBlockEntity.getSpawner().getOrCreateDisplayEntity(world, pos);
+					if (displayEntity != null) {
+						// TODO: does this make sense or is it better to navigate the NBT data for the entity ID?
+						stack.set(BotaniaDataComponents.MOB_TYPE,
+								BuiltInRegistries.ENTITY_TYPE.getKey(displayEntity.getType()));
 					}
-					player.onEquippedItemBroken(this, LivingEntity.getSlotForHand(ctx.getHand()));
+					stack.set(DataComponents.BLOCK_ENTITY_DATA,
+							// black-box serialized data; no need for metadata, or component transfer to this item
+							CustomData.of(spawnerBlockEntity.saveWithId(world.registryAccess())));
+					world.destroyBlock(pos, false);
+					if (player != null) {
+						player.getCooldowns().addCooldown(this, 20);
+						if (player instanceof ServerPlayer serverPlayer) {
+							UseItemSuccessTrigger.INSTANCE.trigger(serverPlayer, stack, serverPlayer.serverLevel(),
+									pos.getX(), pos.getY(), pos.getZ());
+						}
+						player.onEquippedItemBroken(this, LivingEntity.getSlotForHand(ctx.getHand()));
+					}
 				}
 			} else {
 				for (int i = 0; i < 50; i++) {

@@ -69,15 +69,17 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 
 	@Override
 	public ItemInteractionResult useItemOn(ItemStack stackOnPlayer, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		AvatarBlockEntity avatar = (AvatarBlockEntity) world.getBlockEntity(pos);
-		ItemStack stackOnAvatar = avatar.getItemHandler().getItem(0);
-		if (!stackOnAvatar.isEmpty()) {
-			avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
-			player.getInventory().placeItemBackInInventory(stackOnAvatar);
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
-		} else if (!stackOnPlayer.isEmpty() && XplatAbstractions.INSTANCE.findAvatarWieldable(stackOnPlayer) != null) {
-			avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		if (world.getBlockEntity(pos) instanceof AvatarBlockEntity avatar) {
+			ItemStack stackOnAvatar = avatar.getItemHandler().getItem(0);
+			if (!stackOnAvatar.isEmpty()) {
+				avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
+				player.getInventory().placeItemBackInInventory(stackOnAvatar);
+				return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			} else if (!stackOnPlayer.isEmpty() &&
+					XplatAbstractions.INSTANCE.findAvatarWieldable(stackOnPlayer) != null) {
+				avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
+				return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			}
 		}
 
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
@@ -86,8 +88,7 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newstate, boolean isMoving) {
 		if (!state.is(newstate.getBlock())) {
-			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof SimpleInventoryBlockEntity inventory) {
+			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newstate, isMoving);

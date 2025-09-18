@@ -108,8 +108,8 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		if (blockState.getValue(HAS_SCAFFOLDING)) {
 			return SHAPE_SCAFFOLDING;
 		}
-		BlockEntity be = blockGetter.getBlockEntity(blockPos);
-		return be instanceof ManaSpreaderBlockEntity spreader && spreader.paddingColor != null ? SHAPE_PADDING : SHAPE;
+		return blockGetter.getBlockEntity(blockPos) instanceof ManaSpreaderBlockEntity spreader
+				&& spreader.paddingColor != null ? SHAPE_PADDING : SHAPE;
 	}
 
 	@Override
@@ -125,8 +125,9 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		Direction orientation = placer == null ? Direction.WEST : Direction.orderedByNearest(placer)[0].getOpposite();
-		ManaSpreaderBlockEntity spreader = (ManaSpreaderBlockEntity) world.getBlockEntity(pos);
-
+		if (!(world.getBlockEntity(pos) instanceof ManaSpreaderBlockEntity spreader)) {
+			return;
+		}
 		switch (orientation) {
 			case DOWN:
 				spreader.rotationY = -90F;
@@ -155,8 +156,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack heldItem, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		BlockEntity tile = world.getBlockEntity(pos);
-		if (!(tile instanceof ManaSpreaderBlockEntity spreader)) {
+		if (!(world.getBlockEntity(pos) instanceof ManaSpreaderBlockEntity spreader)) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
 
@@ -249,8 +249,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			BlockEntity tile = world.getBlockEntity(pos);
-			if (!(tile instanceof ManaSpreaderBlockEntity spreader)) {
+			if (!(world.getBlockEntity(pos) instanceof ManaSpreaderBlockEntity spreader)) {
 				return;
 			}
 

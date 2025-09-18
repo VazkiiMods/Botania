@@ -18,7 +18,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -67,11 +66,9 @@ public class LuminizerLauncherBlock extends BotaniaWaterloggedBlock {
 	private void pickUpEntities(Level world, BlockPos pos) {
 		List<LuminizerBlockEntity> relays = new ArrayList<>();
 		for (Direction dir : Direction.values()) {
-			BlockEntity tile = world.getBlockEntity(pos.relative(dir));
-			if (tile instanceof LuminizerBlockEntity relay) {
-				if (relay.getNextDestination() != null) {
-					relays.add(relay);
-				}
+			if (world.getBlockEntity(pos.relative(dir)) instanceof LuminizerBlockEntity relay
+					&& relay.getNextDestination() != null) {
+				relays.add(relay);
 			}
 		}
 

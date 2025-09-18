@@ -149,6 +149,7 @@ public final class SkyblockWorldEvents {
 		structureBlockInfos.removeIf(info -> info.nbt() == null);
 
 		BlockPos offset;
+		//noinspection DataFlowIssue (null NBT was already filtered above)
 		var infoOptional = structureBlockInfos.stream()
 				.filter(info -> "spawn_point".equals(info.nbt().getString("metadata")))
 				.findFirst();
@@ -168,14 +169,16 @@ public final class SkyblockWorldEvents {
 				level.random,
 				Block.UPDATE_ALL);
 		for (var info : structureBlockInfos) {
+			//noinspection DataFlowIssue (null NBT was already filtered above)
 			if ("light".equals(info.nbt().getString("metadata"))) {
 				BlockPos lightPos = startPoint.offset(info.pos());
-				if (level.setBlockAndUpdate(lightPos, BotaniaBlocks.manaFlame.defaultBlockState())) {
+				if (level.setBlockAndUpdate(lightPos, BotaniaBlocks.manaFlame.defaultBlockState())
+						&& level.getBlockEntity(lightPos) instanceof ManaFlameBlockEntity flame) {
 					int r = 70 + level.random.nextInt(185);
 					int g = 70 + level.random.nextInt(185);
 					int b = 70 + level.random.nextInt(185);
 					int color = r << 16 | g << 8 | b;
-					((ManaFlameBlockEntity) level.getBlockEntity(lightPos)).setColor(color);
+					flame.setColor(color);
 				}
 			}
 		}

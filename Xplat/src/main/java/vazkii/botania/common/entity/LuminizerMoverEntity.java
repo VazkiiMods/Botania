@@ -19,7 +19,6 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -76,8 +75,7 @@ public class LuminizerMoverEntity extends Entity {
 
 		if (!level().isClientSide && pos.equals(exitPos)) {
 			boolean done = true;
-			BlockEntity tile = level().getBlockEntity(pos);
-			if (tile instanceof LuminizerBlockEntity relay) {
+			if (level().getBlockEntity(pos) instanceof LuminizerBlockEntity relay) {
 				BlockState state = level().getBlockState(pos);
 				if (state.getBlock() instanceof LuminizerBlock luminizer) {
 					luminizer.onMoverPassing(level(), state, pos, this);
