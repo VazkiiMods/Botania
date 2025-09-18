@@ -28,6 +28,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Fix: Floating special flowers now show the type and reference lines, like their non-floating versions do
 * Fix: Diagonal Windows iron bars now also work for summoning fel blazes
 * Fix: Loonium could cause a crash when spawning a spider jockey
+* Fix: Potential crashes related to failed block entity access due to other mods using Botania blocks in weird ways
 
 ---
 

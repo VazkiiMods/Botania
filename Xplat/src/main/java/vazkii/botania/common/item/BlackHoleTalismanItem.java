@@ -32,7 +32,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -88,8 +87,7 @@ public class BlackHoleTalismanItem extends Item {
 				return InteractionResult.PASS;
 			}
 
-			BlockEntity tile = world.getBlockEntity(pos);
-			if (tile instanceof Container container) {
+			if (world.getBlockEntity(pos) instanceof Container container) {
 				if (!world.isClientSide) {
 					ItemStack toAdd = new ItemStack(bBlock);
 					int maxSize = toAdd.getMaxStackSize();

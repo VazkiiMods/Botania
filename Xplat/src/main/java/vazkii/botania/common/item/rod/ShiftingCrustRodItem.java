@@ -39,7 +39,6 @@ import net.minecraft.world.level.block.AbstractGlassBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.NeighborUpdater;
 import net.minecraft.world.phys.BlockHitResult;
@@ -95,8 +94,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		Block block = wstate.getBlock();
 
 		if (player != null && player.isSecondaryUseActive()) {
-			BlockEntity tile = world.getBlockEntity(pos);
-			if (tile == null && block.asItem() != Items.AIR
+			if (world.getBlockEntity(pos) == null && block.asItem() != Items.AIR
 					&& (wstate.isSolidRender(world, pos) || wstate.getRenderShape() == RenderShape.MODEL)
 					&& (wstate.canOcclude() || block instanceof AbstractGlassBlock || block instanceof IronBarsBlock)
 					&& block.asItem() instanceof BlockItem) {
@@ -246,8 +244,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	public int exchange(Level world, Player player, BlockPos pos, ItemStack rod, Item replacement) {
-		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile != null) {
+		if (world.getBlockEntity(pos) != null) {
 			return 0;
 		}
 

@@ -85,7 +85,7 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((ManaPumpBlockEntity) world.getBlockEntity(pos)).comparator;
+		return world.getBlockEntity(pos) instanceof ManaPumpBlockEntity pump ? pump.comparator : 0;
 	}
 
 	@NotNull

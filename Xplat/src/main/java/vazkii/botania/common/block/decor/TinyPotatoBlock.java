@@ -65,11 +65,9 @@ public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBl
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof TinyPotatoBlockEntity tater) {
-			return AbstractContainerMenu.getRedstoneSignalFromContainer(tater);
-		} else {
-			return 0;
-		}
+		return level.getBlockEntity(pos) instanceof TinyPotatoBlockEntity tater
+				? AbstractContainerMenu.getRedstoneSignalFromContainer(tater)
+				: 0;
 	}
 
 	@Override

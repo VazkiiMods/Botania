@@ -80,8 +80,7 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 	@Override
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof SimpleInventoryBlockEntity inventory) {
+			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
@@ -95,8 +94,7 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		BreweryBlockEntity brew = (BreweryBlockEntity) world.getBlockEntity(pos);
-		return brew.signal;
+		return world.getBlockEntity(pos) instanceof BreweryBlockEntity brew ? brew.signal : 0;
 	}
 
 	@NotNull

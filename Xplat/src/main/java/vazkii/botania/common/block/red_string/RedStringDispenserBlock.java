@@ -46,7 +46,9 @@ public class RedStringDispenserBlock extends RedStringBlock {
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			((RedStringDispenserBlockEntity) world.getBlockEntity(pos)).tickDispenser();
+			if (world.getBlockEntity(pos) instanceof RedStringDispenserBlockEntity be) {
+				be.tickDispenser();
+			}
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
 		} else if (!power && powered) {
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);

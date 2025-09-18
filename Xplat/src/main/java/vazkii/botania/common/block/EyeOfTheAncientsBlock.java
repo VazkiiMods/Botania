@@ -46,8 +46,9 @@ public class EyeOfTheAncientsBlock extends BotaniaWaterloggedBlock implements En
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		EyeOfTheAncientsBlockEntity eye = (EyeOfTheAncientsBlockEntity) world.getBlockEntity(pos);
-		return eye == null ? 0 : Math.min(15, Math.max(0, eye.entities - 1));
+		return world.getBlockEntity(pos) instanceof EyeOfTheAncientsBlockEntity eye
+				? Math.min(15, Math.max(0, eye.entities - 1))
+				: 0;
 	}
 
 	@NotNull

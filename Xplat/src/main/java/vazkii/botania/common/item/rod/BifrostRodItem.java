@@ -127,9 +127,8 @@ public class BifrostRodItem extends SelfReturningItem {
 				if (world.isEmptyBlock(placePos) || world.getBlockState(placePos) == bifrost) {
 					world.setBlock(placePos, bifrost, Block.UPDATE_CLIENTS);
 
-					BifrostBlockEntity tile = (BifrostBlockEntity) world.getBlockEntity(placePos);
-					if (tile != null) {
-						tile.ticks = time;
+					if (world.getBlockEntity(placePos) instanceof BifrostBlockEntity bifrostBlockEntity) {
+						bifrostBlockEntity.ticks = time;
 						placed = true;
 					}
 				}
@@ -184,16 +183,16 @@ public class BifrostRodItem extends SelfReturningItem {
 						BlockState state = world.getBlockState(pos);
 						if (state.isAir()) {
 							if (world.setBlockAndUpdate(pos, BotaniaBlocks.bifrost.defaultBlockState())) {
-								BifrostBlockEntity bifrostBlockEntity = (BifrostBlockEntity) world.getBlockEntity(pos);
-								bifrostBlockEntity.ticks = 10;
+								if (world.getBlockEntity(pos) instanceof BifrostBlockEntity bifrostBlockEntity) {
+									bifrostBlockEntity.ticks = 10;
+								}
 								receiver.receiveMana(-MANA_COST_AVATAR);
 							}
-						} else if (state.is(BotaniaBlocks.bifrost)) {
-							BifrostBlockEntity bifrostBlockEntity = (BifrostBlockEntity) world.getBlockEntity(pos);
-							if (bifrostBlockEntity.ticks < 2) {
-								bifrostBlockEntity.ticks += 10;
-								receiver.receiveMana(-MANA_COST_AVATAR);
-							}
+						} else if (state.is(BotaniaBlocks.bifrost)
+								&& world.getBlockEntity(pos) instanceof BifrostBlockEntity bifrostBlockEntity
+								&& bifrostBlockEntity.ticks < 2) {
+							bifrostBlockEntity.ticks += 10;
+							receiver.receiveMana(-MANA_COST_AVATAR);
 						}
 					}
 				}

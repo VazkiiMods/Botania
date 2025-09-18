@@ -351,9 +351,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos) {
-		var state = level.getBlockState(pos);
-		var be = level.getBlockEntity(pos);
-		return ItemStorage.SIDED.find(level, pos, state, be, sideOfPos) != null;
+		return ItemStorage.SIDED.find(level, pos, sideOfPos) != null;
 	}
 
 	@Override
@@ -364,8 +362,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		}
 
 		var state = level.getBlockState(pos);
-		var be = level.getBlockEntity(pos);
-		var storage = ItemStorage.SIDED.find(level, pos, state, be, sideOfPos);
+		var storage = ItemStorage.SIDED.find(level, pos, state, null, sideOfPos);
 		if (storage == null) {
 			return toInsert;
 		}

@@ -39,7 +39,7 @@ public class RedStringComparatorBlock extends RedStringBlock {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((RedStringComparatorBlockEntity) world.getBlockEntity(pos)).getComparatorValue();
+		return world.getBlockEntity(pos) instanceof RedStringComparatorBlockEntity be ? be.getComparatorValue() : 0;
 	}
 
 	@NotNull
