@@ -108,8 +108,9 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		TerrestrialAgglomerationPlateBlockEntity plate = (TerrestrialAgglomerationPlateBlockEntity) world.getBlockEntity(pos);
-		return plate.getComparatorLevel();
+		return world.getBlockEntity(pos) instanceof TerrestrialAgglomerationPlateBlockEntity plate
+				? plate.getComparatorLevel()
+				: 0;
 	}
 
 }

@@ -77,29 +77,34 @@ public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 	}
 
 	private InteractionResult addStack(Level world, BlockPos pos, ItemStack stack, boolean creative) {
-		CocoonBlockEntity cocoon = (CocoonBlockEntity) world.getBlockEntity(pos);
-
-		if (cocoon != null && (stack.is(Items.EMERALD) || stack.is(Items.CHORUS_FRUIT) || stack.is(BotaniaItems.lifeEssence))) {
+		if (!(world.getBlockEntity(pos) instanceof CocoonBlockEntity cocoon)) {
+			return InteractionResult.PASS;
+		}
+		if (stack.is(Items.EMERALD) || stack.is(Items.CHORUS_FRUIT) || stack.is(BotaniaItems.lifeEssence)) {
 			if (!world.isClientSide) {
 				if (stack.is(Items.EMERALD) && cocoon.emeraldsGiven < CocoonBlockEntity.MAX_EMERALDS) {
 					if (!creative) {
 						stack.shrink(1);
 					}
 					cocoon.emeraldsGiven++;
-					((ServerLevel) world).sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0.1, 0.05, 0.1, 0.5);
-				} else if (stack.is(Items.CHORUS_FRUIT) && cocoon.chorusFruitGiven < CocoonBlockEntity.MAX_CHORUS_FRUITS) {
+					((ServerLevel) world).sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5,
+							pos.getY() + 1, pos.getZ() + 0.5, 1, 0.1, 0.05, 0.1, 0.5);
+				} else if (stack.is(Items.CHORUS_FRUIT) &&
+						cocoon.chorusFruitGiven < CocoonBlockEntity.MAX_CHORUS_FRUITS) {
 					if (!creative) {
 						stack.shrink(1);
 					}
 					cocoon.chorusFruitGiven++;
-					((ServerLevel) world).sendParticles(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
+					((ServerLevel) world).sendParticles(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(),
+							pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
 				} else if (stack.is(BotaniaItems.lifeEssence) && !cocoon.gaiaSpiritGiven) {
 					if (!creative) {
 						stack.shrink(1);
 					}
 					cocoon.forceRare();
 					WispParticleData data = WispParticleData.wisp(0.6F, 0F, 1F, 0F);
-					((ServerLevel) world).sendParticles(data, pos.getX() + 0.5, pos.getY() + 0.7, pos.getZ() + 0.5, 8, 0.1, 0.1, 0.1, 0.04);
+					((ServerLevel) world).sendParticles(data, pos.getX() + 0.5, pos.getY() + 0.7, pos.getZ() + 0.5,
+							8, 0.1, 0.1, 0.1, 0.04);
 				}
 			}
 

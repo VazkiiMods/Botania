@@ -64,7 +64,9 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		IncensePlateBlockEntity plate = (IncensePlateBlockEntity) world.getBlockEntity(pos);
+		if (!(world.getBlockEntity(pos) instanceof IncensePlateBlockEntity plate)) {
+			return InteractionResult.FAIL;
+		}
 		ItemStack plateStack = plate.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
 		boolean did = false;
@@ -128,17 +130,13 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((IncensePlateBlockEntity) world.getBlockEntity(pos)).comparatorOutput;
+		return world.getBlockEntity(pos) instanceof IncensePlateBlockEntity plate ? plate.comparatorOutput : 0;
 	}
 
 	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
-		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
-			return X_SHAPE;
-		} else {
-			return Z_SHAPE;
-		}
+		return state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X ? X_SHAPE : Z_SHAPE;
 	}
 
 	@NotNull
@@ -155,11 +153,9 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
-		if (!state.is(newState.getBlock())) {
-			BlockEntity block = world.getBlockEntity(pos);
-			if (block instanceof IncensePlateBlockEntity plate && !plate.burning) {
-				Containers.dropContents(world, pos, plate.getItemHandler());
-			}
+		if (!state.is(newState.getBlock())
+				&& world.getBlockEntity(pos) instanceof IncensePlateBlockEntity plate && !plate.burning) {
+			Containers.dropContents(world, pos, plate.getItemHandler());
 		}
 		super.onRemove(state, world, pos, newState, isMoving);
 	}
@@ -167,8 +163,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 	@Override
 	public void onProjectileHit(@NotNull Level level, @NotNull BlockState blockState,
 			@NotNull BlockHitResult hit, @NotNull Projectile projectile) {
-		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos())
-				&& projectile.isOnFire()) {
+		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos()) && projectile.isOnFire()) {
 			if (level.getBlockEntity(hit.getBlockPos()) instanceof IncensePlateBlockEntity plate) {
 				plate.ignite();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);

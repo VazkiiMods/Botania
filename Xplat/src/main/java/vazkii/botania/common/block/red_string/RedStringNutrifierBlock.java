@@ -38,17 +38,19 @@ public class RedStringNutrifierBlock extends RedStringBlock implements Bonemeala
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canGrow(world, isClient);
+		return world.getBlockEntity(pos) instanceof RedStringNutrifierBlockEntity be && be.canGrow(world, isClient);
 	}
 
 	@Override
 	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canUseBonemeal(world, rand);
+		return world.getBlockEntity(pos) instanceof RedStringNutrifierBlockEntity be && be.canUseBonemeal(world, rand);
 	}
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
-		((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).grow(world, rand);
+		if (world.getBlockEntity(pos) instanceof RedStringNutrifierBlockEntity be) {
+			be.grow(world, rand);
+		}
 	}
 
 	@NotNull

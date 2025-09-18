@@ -13,7 +13,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -63,8 +62,9 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 					BlockState state = getLevel().getBlockState(pos);
 					if (state.is(Blocks.WATER)) {
 						getLevel().setBlock(pos, BotaniaBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);
-						FakeAirBlockEntity air = (FakeAirBlockEntity) getLevel().getBlockEntity(pos);
-						air.setFlower(this);
+						if (getLevel().getBlockEntity(pos) instanceof FakeAirBlockEntity air) {
+							air.setFlower(this);
+						}
 					}
 				}
 			}
@@ -72,8 +72,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public static boolean isValidBubbell(Level world, BlockPos pos) {
-		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof BubbellBlockEntity bubbell) {
+		if (world.getBlockEntity(pos) instanceof BubbellBlockEntity bubbell) {
 			return bubbell.getMana() > COST_PER_TICK;
 		}
 

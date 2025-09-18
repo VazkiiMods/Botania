@@ -39,8 +39,7 @@ public class CacophoniumBlock extends BotaniaBlock implements EntityBlock {
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			BlockEntity tile = world.getBlockEntity(pos);
-			if (tile instanceof CacophoniumBlockEntity cacophonium) {
+			if (world.getBlockEntity(pos) instanceof CacophoniumBlockEntity cacophonium) {
 				cacophonium.annoyDirewolf();
 			}
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
@@ -52,8 +51,7 @@ public class CacophoniumBlock extends BotaniaBlock implements EntityBlock {
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			BlockEntity te = world.getBlockEntity(pos);
-			if (te instanceof CacophoniumBlockEntity cacophonium) {
+			if (world.getBlockEntity(pos) instanceof CacophoniumBlockEntity cacophonium) {
 				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), cacophonium.stack);
 			}
 			super.onRemove(state, world, pos, newState, isMoving);

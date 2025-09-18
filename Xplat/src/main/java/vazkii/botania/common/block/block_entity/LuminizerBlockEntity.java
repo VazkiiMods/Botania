@@ -177,7 +177,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 			}
 
 			BlockEntity tile = level.getBlockEntity(coords);
-			if (tile != null && tile instanceof LuminizerBlockEntity tileRelay) {
+			if (tile instanceof LuminizerBlockEntity tileRelay) {
 				relay = tileRelay;
 			} else {
 				return lastCoords;
@@ -228,8 +228,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 				}
 			}
 
-			if (torchPos != null) {
-				AnimatedTorchBlockEntity torch = (AnimatedTorchBlockEntity) level.getBlockEntity(torchPos);
+			if (torchPos != null && level.getBlockEntity(torchPos) instanceof AnimatedTorchBlockEntity torch) {
 				Direction side = AnimatedTorchBlockEntity.SIDES[torch.side].getOpposite();
 				for (int i = 1; i < MAX_DIST; i++) {
 					BlockPos testPos = worldPosition.relative(side, i);

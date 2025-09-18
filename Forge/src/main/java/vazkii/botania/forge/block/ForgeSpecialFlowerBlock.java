@@ -80,7 +80,9 @@ public class ForgeSpecialFlowerBlock extends FlowerBlock implements EntityBlock 
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		((SpecialFlowerBlockEntity) level.getBlockEntity(pos)).setPlacedBy(level, pos, state, placer, stack);
+		if (level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
+			flower.setPlacedBy(level, pos, state, placer, stack);
+		}
 	}
 
 	@Override
@@ -103,10 +105,7 @@ public class ForgeSpecialFlowerBlock extends FlowerBlock implements EntityBlock 
 
 	@Override
 	public int getAnalogOutputSignal(BlockState bs, Level level, BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
-			return flower.getComparatorSignal();
-		}
-		return 0;
+		return level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower ? flower.getComparatorSignal() : 0;
 	}
 
 }

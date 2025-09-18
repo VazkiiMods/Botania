@@ -16,7 +16,6 @@ import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -39,13 +38,10 @@ public class VanillaNodeDetector implements CorporeaNodeDetector {
 		Block block = blockState.getBlock();
 		if (block instanceof WorldlyContainerHolder worldlyContainer) {
 			container = worldlyContainer.getContainer(blockState, level, blockPos);
-		} else if (blockState.hasBlockEntity()) {
-			BlockEntity blockEntity = level.getBlockEntity(blockPos);
-			if (blockEntity instanceof Container beContainer) {
-				container = beContainer;
-				if (container instanceof ChestBlockEntity && block instanceof ChestBlock chest) {
-					container = ChestBlock.getContainer(chest, blockState, level, blockPos, true);
-				}
+		} else if (blockState.hasBlockEntity() && level.getBlockEntity(blockPos) instanceof Container beContainer) {
+			container = beContainer;
+			if (container instanceof ChestBlockEntity && block instanceof ChestBlock chest) {
+				container = ChestBlock.getContainer(chest, blockState, level, blockPos, true);
 			}
 		}
 

@@ -54,8 +54,7 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 	}
 
 	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof FunctionalFlowerBlockEntity flower && rand.nextBoolean()) {
+		if (world.getBlockEntity(pos) instanceof FunctionalFlowerBlockEntity flower && rand.nextBoolean()) {
 			if (flower.acceptsRedstone() && flower.redstoneSignal > 0) {
 				VoxelShape shape = state.getShape(world, pos);
 				if (!shape.isEmpty()) {
@@ -71,7 +70,9 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		((SpecialFlowerBlockEntity) world.getBlockEntity(pos)).setPlacedBy(world, pos, state, entity, stack);
+		if (world.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
+			flower.setPlacedBy(world, pos, state, entity, stack);
+		}
 	}
 
 	@Override
@@ -103,9 +104,6 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState bs, Level level, BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
-			return flower.getComparatorSignal();
-		}
-		return 0;
+		return level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower ? flower.getComparatorSignal() : 0;
 	}
 }

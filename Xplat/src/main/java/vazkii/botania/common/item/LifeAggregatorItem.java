@@ -130,16 +130,19 @@ public class LifeAggregatorItem extends Item {
 
 		if (world.getBlockState(pos).is(Blocks.SPAWNER)) {
 			if (!world.isClientSide) {
-				BlockEntity te = world.getBlockEntity(pos);
-				stack.getOrCreateTag().put(TAG_SPAWNER, te.saveWithFullMetadata());
-				world.destroyBlock(pos, false);
-				if (player != null) {
-					player.getCooldowns().addCooldown(this, 20);
-					if (player instanceof ServerPlayer serverPlayer) {
-						UseItemSuccessTrigger.INSTANCE.trigger(serverPlayer, stack, serverPlayer.serverLevel(),
-								pos.getX(), pos.getY(), pos.getZ());
+				if (world.getBlockEntity(pos) instanceof SpawnerBlockEntity te) {
+					stack.getOrCreateTag().put(TAG_SPAWNER, te.saveWithFullMetadata());
+					world.destroyBlock(pos, false);
+					if (player != null) {
+						player.getCooldowns().addCooldown(this, 20);
+						if (player instanceof ServerPlayer serverPlayer) {
+							UseItemSuccessTrigger.INSTANCE.trigger(
+									serverPlayer, stack, serverPlayer.serverLevel(),
+									pos.getX(), pos.getY(), pos.getZ()
+							);
+						}
+						player.broadcastBreakEvent(ctx.getHand());
 					}
-					player.broadcastBreakEvent(ctx.getHand());
 				}
 			} else {
 				for (int i = 0; i < 50; i++) {

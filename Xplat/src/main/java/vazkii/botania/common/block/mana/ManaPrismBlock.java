@@ -98,8 +98,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		BlockEntity tile = world.getBlockEntity(pos);
-		if (!(tile instanceof ManaPrismBlockEntity prism)) {
+		if (!(world.getBlockEntity(pos) instanceof ManaPrismBlockEntity prism)) {
 			return InteractionResult.PASS;
 		}
 
@@ -157,8 +156,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 	@Override
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof SimpleInventoryBlockEntity inventory) {
+			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);

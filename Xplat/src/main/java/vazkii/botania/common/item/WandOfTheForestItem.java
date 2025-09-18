@@ -545,11 +545,9 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			}
 
 			var pos = ClientProxy.INSTANCE.getClientHit();
-			if (pos instanceof BlockHitResult bHit && pos.getType() == HitResult.Type.BLOCK) {
-				BlockEntity tile = world.getBlockEntity(bHit.getBlockPos());
-				if (tile instanceof Bound boundTile) {
-					return boundTile.getBinding();
-				}
+			if (pos instanceof BlockHitResult bHit && pos.getType() == HitResult.Type.BLOCK
+					&& world.getBlockEntity(bHit.getBlockPos()) instanceof Bound boundTile) {
+				return boundTile.getBinding();
 			}
 
 			return null;

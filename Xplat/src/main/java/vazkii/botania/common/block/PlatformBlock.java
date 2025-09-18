@@ -79,8 +79,7 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 	@NotNull
 	@Override
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof PlatformBlockEntity platform && platform.getCamoState() != null) {
+		if (world.getBlockEntity(pos) instanceof PlatformBlockEntity platform && platform.getCamoState() != null) {
 			return platform.getCamoState().getShape(world, pos);
 		} else {
 			return super.getShape(state, world, pos, context);
@@ -132,7 +131,6 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 	@NotNull
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		BlockEntity tile = world.getBlockEntity(pos);
 		ItemStack currentStack = player.getItemInHand(hand);
 
 		if (variant.indestructible && !player.isCreative()) {
@@ -140,7 +138,7 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 		}
 		if (!currentStack.isEmpty()
 				&& Block.byItem(currentStack.getItem()) != Blocks.AIR
-				&& tile instanceof PlatformBlockEntity camo) {
+				&& world.getBlockEntity(pos) instanceof PlatformBlockEntity camo) {
 			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hit);
 			BlockState changeState = Block.byItem(currentStack.getItem()).getStateForPlacement(ctx);
 

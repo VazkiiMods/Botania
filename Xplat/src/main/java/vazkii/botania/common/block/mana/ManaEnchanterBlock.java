@@ -61,9 +61,8 @@ public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		ManaEnchanterBlockEntity enchanter = (ManaEnchanterBlockEntity) world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
+		if (!(world.getBlockEntity(pos) instanceof ManaEnchanterBlockEntity enchanter) || !stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
 			return InteractionResult.PASS;
 		}
 
@@ -92,13 +91,10 @@ public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 	@Override
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			BlockEntity tile = world.getBlockEntity(pos);
 
-			if (tile instanceof ManaEnchanterBlockEntity enchanter) {
-
-				if (!enchanter.itemToEnchant.isEmpty()) {
-					Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant);
-				}
+			if (world.getBlockEntity(pos) instanceof ManaEnchanterBlockEntity enchanter
+					&& !enchanter.itemToEnchant.isEmpty()) {
+				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant);
 			}
 
 			super.onRemove(state, world, pos, newState, isMoving);

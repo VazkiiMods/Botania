@@ -59,7 +59,9 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			((SparkTinkererBlockEntity) world.getBlockEntity(pos)).doSwap();
+			if (world.getBlockEntity(pos) instanceof SparkTinkererBlockEntity tinkerer) {
+				tinkerer.doSwap();
+			}
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
 		} else if (!power && powered) {
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
@@ -68,7 +70,9 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		SparkTinkererBlockEntity changer = (SparkTinkererBlockEntity) world.getBlockEntity(pos);
+		if (!(world.getBlockEntity(pos) instanceof SparkTinkererBlockEntity changer)) {
+			return InteractionResult.FAIL;
+		}
 		ItemStack pstack = player.getItemInHand(hand);
 		ItemStack cstack = changer.getItemHandler().getItem(0);
 		if (!cstack.isEmpty()) {
@@ -88,8 +92,7 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 	@Override
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof SimpleInventoryBlockEntity inventory) {
+			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
@@ -103,10 +106,11 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		SparkTinkererBlockEntity changer = (SparkTinkererBlockEntity) world.getBlockEntity(pos);
-		ItemStack stack = changer.getItemHandler().getItem(0);
-		if (!stack.isEmpty() && stack.getItem() instanceof SparkAugmentItem upgrade) {
-			return upgrade.type.ordinal() + 1;
+		if (world.getBlockEntity(pos) instanceof SparkTinkererBlockEntity changer) {
+			ItemStack stack = changer.getItemHandler().getItem(0);
+			if (!stack.isEmpty() && stack.getItem() instanceof SparkAugmentItem upgrade) {
+				return upgrade.type.ordinal() + 1;
+			}
 		}
 		return 0;
 	}

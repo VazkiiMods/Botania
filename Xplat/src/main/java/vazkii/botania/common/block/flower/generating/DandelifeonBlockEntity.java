@@ -67,9 +67,8 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 				for (int i = 0; i <= diameter; i++) {
 					for (int j = 0; j <= diameter; j++) {
 						BlockPos pos = getEffectivePos().offset(-radius + i, 0, -radius + j);
-						BlockEntity tile = getLevel().getBlockEntity(pos);
-						if (tile instanceof CellularBlockEntity) {
-							((CellularBlockEntity) (tile)).claim(this);
+						if (getLevel().getBlockEntity(pos) instanceof CellularBlockEntity cell) {
+							cell.claim(this);
 						}
 					}
 				}
@@ -140,7 +139,6 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	void setBlockForGeneration(BlockPos pos, int cell, int prevCell) {
 		Level world = getLevel();
 		BlockState stateAt = world.getBlockState(pos);
-		BlockEntity tile = world.getBlockEntity(pos);
 		if (cell == Cell.CONSUME) {
 			if (stateAt.isAir()) {
 				int val = prevCell * MANA_PER_GEN;
@@ -148,13 +146,14 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 				addMana(val);
 				sync();
 			}
-		} else if (tile instanceof CellularBlockEntity cellBlock) {
+		} else if (world.getBlockEntity(pos) instanceof CellularBlockEntity cellBlock) {
 			cellBlock.setNextGeneration(this, cell);
 		} else if (Cell.isLive(cell) && stateAt.isAir()) {
 			world.setBlockAndUpdate(pos, BotaniaBlocks.cellBlock.defaultBlockState());
-			tile = world.getBlockEntity(pos);
-			((CellularBlockEntity) tile).setNextGeneration(this, cell);
-			((CellularBlockEntity) tile).setGeneration(Cell.DEAD); // so that other flowers know this is 'dead' this tick
+			if (world.getBlockEntity(pos) instanceof CellularBlockEntity cellBlock) {
+				cellBlock.setNextGeneration(this, cell);
+				cellBlock.setGeneration(Cell.DEAD); // so that other flowers know this is 'dead' this tick
+			}
 		}
 	}
 
