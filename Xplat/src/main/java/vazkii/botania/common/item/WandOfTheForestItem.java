@@ -10,6 +10,8 @@ package vazkii.botania.common.item;
 
 import com.mojang.datafixers.util.Pair;
 
+import it.unimi.dsi.fastutil.SortedPair;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -49,14 +51,17 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.mixin.BaseRailBlockAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class WandOfTheForestItem extends Item implements CustomCreativeTabContents {
 
+	public static final double RAIL_INTERACTION_SIDE_OFFSET = 0.55;
 	/**
 	 * Block manipulation strategies for when neither binding behavior nor explicitly defined wand interactions exist.
 	 */
@@ -165,7 +170,17 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		var wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, tile, side);
 		if (player.isSecondaryUseActive() && (wandable == null || getBindMode(stack))
 				&& (!(state.getBlock() instanceof GameMasterBlock) || player.canUseGameMasterBlocks())) {
-			BlockState newState = manipulateBlockstate(state, side, blockState -> blockState.canSurvive(world, pos));
+			Vec3 relativePos = ctx.getClickLocation().subtract(pos.getBottomCenter());
+			BlockState newState = null;
+			Optional<Property<RailShape>> railShapePropOptional = getRailShapePropOptional(state);
+			if (railShapePropOptional.isPresent()) {
+				newState = applyRailShapeChange(state, side, relativePos, blockState -> !BaseRailBlockAccessor
+						.botania_shouldBeRemoved(pos, world, blockState.getValue(railShapePropOptional.get())));
+			}
+			if (newState == null) {
+				newState = manipulateBlockstate(state, side,
+						blockState -> blockState.canSurvive(world, pos));
+			}
 			if (newState != state) {
 				world.setBlockAndUpdate(pos, newState);
 				world.playSound(player, pos, newState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1F, 1F);
@@ -230,6 +245,15 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 				.filter(prop -> prop.getName().equals("facing") && prop.getValueClass() == Direction.class)
 				// we just verified the property value type, so it's safe to convert here
 				.map(prop -> (Property<Direction>) prop)
+				.findFirst();
+	}
+
+	@SuppressWarnings("unchecked")
+	private static Optional<Property<RailShape>> getRailShapePropOptional(BlockState state) {
+		return state.getProperties().stream()
+				.filter(prop -> prop.getName().equals("shape") && prop.getValueClass() == RailShape.class)
+				// we just verified the property value type, so it's safe to convert here
+				.map(prop -> (Property<RailShape>) prop)
 				.findFirst();
 	}
 
@@ -367,6 +391,198 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		};
 
 		return rotateClockwiseAroundSide(side, oldFront, newStateFunction, canSurvive);
+	}
+
+	private static final Map<SortedPair<Direction>, List<RailShape>> DIRECTION_RAIL_SHAPES = Map.of(
+			SortedPair.of(Direction.NORTH, Direction.SOUTH), List
+					.of(RailShape.NORTH_SOUTH, RailShape.ASCENDING_NORTH, RailShape.ASCENDING_SOUTH),
+			SortedPair.of(Direction.EAST, Direction.WEST), List
+					.of(RailShape.EAST_WEST, RailShape.ASCENDING_EAST, RailShape.ASCENDING_WEST),
+			SortedPair.of(Direction.SOUTH, Direction.EAST), List.of(RailShape.SOUTH_EAST),
+			SortedPair.of(Direction.SOUTH, Direction.WEST), List.of(RailShape.SOUTH_WEST),
+			SortedPair.of(Direction.NORTH, Direction.WEST), List.of(RailShape.NORTH_WEST),
+			SortedPair.of(Direction.NORTH, Direction.EAST), List.of(RailShape.NORTH_EAST)
+	);
+
+	private static final Map<RailShape, SortedPair<Direction>> RAIL_SHAPE_DIRECTIONS = Map.of(
+			RailShape.NORTH_SOUTH, SortedPair.of(Direction.NORTH, Direction.SOUTH),
+			RailShape.EAST_WEST, SortedPair.of(Direction.EAST, Direction.WEST),
+			RailShape.ASCENDING_EAST, SortedPair.of(Direction.EAST, Direction.WEST),
+			RailShape.ASCENDING_WEST, SortedPair.of(Direction.EAST, Direction.WEST),
+			RailShape.ASCENDING_NORTH, SortedPair.of(Direction.NORTH, Direction.SOUTH),
+			RailShape.ASCENDING_SOUTH, SortedPair.of(Direction.NORTH, Direction.SOUTH),
+			RailShape.SOUTH_EAST, SortedPair.of(Direction.SOUTH, Direction.EAST),
+			RailShape.SOUTH_WEST, SortedPair.of(Direction.SOUTH, Direction.WEST),
+			RailShape.NORTH_WEST, SortedPair.of(Direction.NORTH, Direction.WEST),
+			RailShape.NORTH_EAST, SortedPair.of(Direction.NORTH, Direction.EAST)
+	);
+
+	private static final Map<RailShape, Direction> RAIL_RAISED_DIRECTION = Map.of(
+			RailShape.ASCENDING_EAST, Direction.EAST,
+			RailShape.ASCENDING_WEST, Direction.WEST,
+			RailShape.ASCENDING_NORTH, Direction.NORTH,
+			RailShape.ASCENDING_SOUTH, Direction.SOUTH
+	);
+
+	private static final Map<Direction, RailShape> DIRECTION_RAISED_RAIL = RAIL_RAISED_DIRECTION
+			.entrySet().stream().collect(Collectors.toUnmodifiableMap(Map.Entry::getValue, Map.Entry::getKey));
+
+	// flat, straight shapes should come first
+	private static final Map<Direction, RailShape> DIRECTION_FLAT_STRAIGHT_RAIL = Map.of(
+			Direction.NORTH, RailShape.NORTH_SOUTH,
+			Direction.SOUTH, RailShape.NORTH_SOUTH,
+			Direction.EAST, RailShape.EAST_WEST,
+			Direction.WEST, RailShape.EAST_WEST
+	);
+
+	// Helper lists for rotating rail shapes without other modifications
+	private static final List<RailShape> ASCENDING_SHAPES_CLOCKWISE = List.of(
+			RailShape.ASCENDING_NORTH, RailShape.ASCENDING_EAST, RailShape.ASCENDING_SOUTH, RailShape.ASCENDING_WEST
+	);
+	private static final List<RailShape> STRAIGHT_SHAPES_CLOCKWISE = List.of(
+			RailShape.NORTH_SOUTH, RailShape.EAST_WEST
+	);
+	private static final List<RailShape> BENT_SHAPES_CLOCKWISE = List.of(
+			RailShape.NORTH_EAST, RailShape.SOUTH_EAST, RailShape.SOUTH_WEST, RailShape.NORTH_WEST
+	);
+
+	private static Optional<RailShape> bendRailEnd(Collection<RailShape> possibleShapes, RailShape oldShape, Direction from, Direction to) {
+		SortedPair<Direction> endDirections = RAIL_SHAPE_DIRECTIONS.get(oldShape);
+		//region parameter checks: from must be an end of the existing shape, to must be perpendicular to from
+		if (!endDirections.contains(from)) {
+			throw new IllegalArgumentException("Rail shape %s has no end towards %s".formatted(oldShape, from));
+		}
+		if (from.getAxis() == to.getAxis()) {
+			throw new IllegalArgumentException(
+					"Cannot bend %s to opposite direction %s->%s".formatted(oldShape, from, to));
+		}
+		//endregion
+
+		if (to == Direction.UP) {
+			RailShape raisedShape = DIRECTION_RAISED_RAIL.get(from);
+			return raisedShape != null && possibleShapes.contains(raisedShape)
+					? Optional.of(raisedShape)
+					: Optional.empty();
+		}
+
+		if (to == Direction.DOWN) {
+			//region sanity check: throw if from is not the raised side
+			if (RAIL_RAISED_DIRECTION.get(oldShape) != from) {
+				throw new IllegalArgumentException(
+						"Trying to lower %s side of a rail that is not raised: %s".formatted(from, oldShape));
+			}
+			//endregion
+
+			RailShape loweredShape = DIRECTION_FLAT_STRAIGHT_RAIL.get(from);
+			return possibleShapes.contains(loweredShape) ? Optional.of(loweredShape) : Optional.empty();
+		}
+
+		SortedPair<Direction> newDirections;
+		if (endDirections.contains(to.getOpposite())) {
+			// straightening the rail
+			newDirections = SortedPair.of(to, to.getOpposite());
+		} else {
+			// bending the rail, or rotating already bent rail
+			newDirections = SortedPair.of(to, from.getOpposite());
+		}
+		RailShape newShape = DIRECTION_RAIL_SHAPES.get(newDirections).getFirst();
+		return possibleShapes.contains(newShape) ? Optional.of(newShape) : Optional.empty();
+	}
+
+	private static void defineRailEndBendingInteractions(Collection<RailShape> possibleShapes,
+			List<Pair<Vec3, List<RailShape>>> newShapes, Direction clickedSide, RailShape oldShape,
+			Direction thisEnd, Direction otherEnd, @Nullable Direction raisedEnd) {
+		Direction cwDir = thisEnd.getClockWise();
+		Direction ccwDir = thisEnd.getCounterClockWise();
+		if (clickedSide == thisEnd || clickedSide.getAxis() == Direction.Axis.Y) {
+			// raise or lower this end, potentially straightening the rail
+			bendRailEnd(possibleShapes, oldShape, thisEnd, thisEnd == raisedEnd ? Direction.DOWN : Direction.UP)
+					.ifPresent(newShape -> newShapes.add(Pair.of(
+							new Vec3(thisEnd.step()).scale(RAIL_INTERACTION_SIDE_OFFSET),
+							List.of(oldShape, newShape))));
+
+			if (clickedSide == thisEnd || cwDir != otherEnd) {
+				// bend this end of the rail clockwise
+				bendRailEnd(possibleShapes, oldShape, thisEnd, cwDir).ifPresent(
+						newShape -> newShapes.add(Pair.of(
+								new Vec3(thisEnd.step().add(cwDir.step())).scale(RAIL_INTERACTION_SIDE_OFFSET),
+								List.of(oldShape, newShape))));
+			}
+
+			if (clickedSide == thisEnd || ccwDir != otherEnd) {
+				// bend this end of the rail counter-clockwise
+				bendRailEnd(possibleShapes, oldShape, thisEnd, ccwDir).ifPresent(
+						newShape -> newShapes.add(Pair.of(
+								new Vec3(thisEnd.step().add(ccwDir.step())).scale(RAIL_INTERACTION_SIDE_OFFSET),
+								List.of(oldShape, newShape))));
+			}
+		}
+	}
+
+	@Nullable
+	private static BlockState applyRailShapeChange(BlockState state, Direction side, Vec3 relativePos, Predicate<BlockState> canSurvive) {
+		Property<RailShape> shapeProp = getRailShapePropOptional(state).orElseThrow();
+		Collection<RailShape> possibleShapes = shapeProp.getPossibleValues();
+		//noinspection SlowListContainsAll
+		if (STRAIGHT_SHAPES_CLOCKWISE.containsAll(possibleShapes)
+				|| state.getProperties().stream().anyMatch(p -> p.getName().equals("facing"))) {
+			// there's probably something special about these rails, don't touch them here
+			return null;
+		}
+
+		RailShape oldShape = state.getValue(shapeProp);
+		SortedPair<Direction> endDirections = RAIL_SHAPE_DIRECTIONS.get(oldShape);
+		@Nullable
+		Direction raisedEnd = RAIL_RAISED_DIRECTION.get(oldShape);
+
+		List<Pair<Vec3, List<RailShape>>> shapeInteractions = new ArrayList<>();
+
+		Direction endA = endDirections.first();
+		Direction endB = endDirections.second();
+		if (side.getAxis() == Direction.Axis.Y) {
+			// center interaction point for clicks on top or bottom: rotate the rail as-is (CCW if clicked bottom side)
+			List<RailShape> shapeList = raisedEnd != null
+					? ASCENDING_SHAPES_CLOCKWISE
+					: endA.getAxis() == endB.getAxis() ? STRAIGHT_SHAPES_CLOCKWISE : BENT_SHAPES_CLOCKWISE;
+			shapeInteractions.add(Pair.of(Vec3.ZERO, side == Direction.UP ? shapeList : shapeList.reversed()));
+
+		} else if (!endDirections.contains(side)) {
+			// center interaction point for clicks on any side that is not a connecting end of the rail
+			Direction left = side.getClockWise();
+			Direction right = side.getCounterClockWise();
+			List<RailShape> newShapes = new ArrayList<>(DIRECTION_RAIL_SHAPES.get(SortedPair.of(left, right)));
+			newShapes.retainAll(possibleShapes);
+			shapeInteractions.add(Pair.of(new Vec3(side.step()).scale(RAIL_INTERACTION_SIDE_OFFSET),
+					side.getAxisDirection() == Direction.AxisDirection.POSITIVE ? newShapes.reversed() : newShapes));
+		}
+
+		defineRailEndBendingInteractions(possibleShapes, shapeInteractions, side, oldShape, endA, endB, raisedEnd);
+		defineRailEndBendingInteractions(possibleShapes, shapeInteractions, side, oldShape, endB, endA, raisedEnd);
+
+		double bestDist = Double.POSITIVE_INFINITY;
+		List<RailShape> bestShapes = List.of(oldShape);
+		for (var entry : shapeInteractions) {
+			Vec3 interactionPoint = entry.getFirst();
+			double dist = interactionPoint.distanceToSqr(relativePos);
+			if (dist >= bestDist) {
+				continue;
+			}
+			bestShapes = entry.getSecond();
+			bestDist = dist;
+		}
+		boolean found = bestShapes.getLast() == oldShape;
+		for (RailShape shape : bestShapes) {
+			if (shape == oldShape) {
+				found = true;
+			} else if (found) {
+				BlockState newState = state.setValue(shapeProp, shape);
+				if (canSurvive.test(newState)) {
+					return newState;
+				}
+			}
+		}
+
+		return state;
 	}
 
 	private static BlockState applyVanillaRotation(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
