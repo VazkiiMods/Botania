@@ -31,8 +31,7 @@ public class ThrownItemEntity extends ItemEntity {
 		super(type, world);
 	}
 
-	public ThrownItemEntity(Level world, double x,
-			double y, double z, ItemEntity item) {
+	public ThrownItemEntity(Level world, double x, double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());
 		setPickUpDelay(((ItemEntityAccessor) item).getPickupDelay());
 		setDeltaMovement(item.getDeltaMovement());
@@ -48,33 +47,14 @@ public class ThrownItemEntity extends ItemEntity {
 	public void tick() {
 		super.tick();
 
-		// [VanillaCopy] derivative from ThrowableProjectile
-		int pickupDelay = ((ItemEntityAccessor) this).getPickupDelay();
-		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.isPickable() && (!(e instanceof Player) || pickupDelay == 0);
-		HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, filter);
-		boolean teleported = false;
-		if (hitResult.getType() == HitResult.Type.BLOCK) {
-			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
-			BlockState blockState = this.level().getBlockState(blockPos);
-			if (blockState.is(Blocks.NETHER_PORTAL)) {
-				//todo this.handleInsidePortal(blockPos);
-				teleported = true;
-			} else if (blockState.is(Blocks.END_GATEWAY)) {
-				BlockEntity blockEntity = this.level().getBlockEntity(blockPos);
-				/*todo
-				if (blockEntity instanceof TheEndGatewayBlockEntity gateway && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-					TheEndGatewayBlockEntity.teleportEntity(this.level(), blockPos, blockState, this, gateway);
-				}
-				
-				 */
-
-				teleported = true;
-			}
-		}
-
-		if (teleported) {
+		if (isRemoved()) {
 			return;
 		}
+
+		int pickupDelay = ((ItemEntityAccessor) this).getPickupDelay();
+		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.isPickable()
+				&& (!(e instanceof Player) || pickupDelay == 0);
+		HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, filter);
 
 		// Bonk any entities hit
 		if (!level().isClientSide && hitResult.getType() == HitResult.Type.ENTITY) {
