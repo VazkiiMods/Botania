@@ -2235,7 +2235,7 @@
   "botania.page.pool10": "Fabriquer un $(item)bassin de mana dilué$(0)",
   "botania.page.pool14": "Le $(item)bassin de mana dilué$(0) peut servir de zone tampon entre plusieurs systèmes.$(p)Mais l'intérêt principal d'être capable de contenir aussi peu de $(thing)mana$(0) est qu'il est très facile de voir l'évolution de la quantité. Lire ce genre d'informations serait compliqué, voir même impossible, à faire avec un $(item)bassin de mana$(0) normal.",
   "botania.page.pool2": "Lancer certains objets dans un $(item)bassin$(0) permettra de les infuser en $(thing)mana$(0), et donc de les transformer en leur variante magique.$(p)Une $(l:basics/wand)baguette sylvestre$(/l) peut vous aider à connaître la quantité de $(thing)mana$(0) d'un $(item)bassin$(0). Les $(item)comparateurs$(0) peuvent également vous aider.",
-  "botania.page.pool8": "Les $(item)lingots de manacier$(0) peuvent être transformés en pépites ou en blocs.$(p)Vous pouvez colorer vos $(item)bassins$(0) à l'aide de $(l:basics/flowers)pétales mystiques$(/l) en faisant clic-droit. Une $(item)motte d'argile$(0) permet de décolorer un $(item)bassin$(0)",
+  "botania.page.pool8": "Vous pouvez colorer vos $(item)bassins$(0) à l'aide de $(l:basics/flowers)pétales mystiques$(/l) en faisant clic-droit. Une $(item)motte d'argile$(0) permet de décolorer un $(item)bassin$(0)",
   "botania.page.pool16": "Manacier",
   "botania.page.pool3": "Produire du $(item)manacier$(0)",
   "botania.page.pool4": "Produire des $(item)perles de mana$(0)",

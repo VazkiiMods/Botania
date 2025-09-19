@@ -2228,7 +2228,7 @@
   "botania.page.pool10": "Fazendo um $(item)Poço de Mana Diluído$(0)",
   "botania.page.pool14": "O $(item)Poço de Mana Diluído$(0) pode ser útil como um pequeno reservatório temporário para uma flor ou sistema que não use muita $(thing)Mana$(0), como um poço normal pode reter $(o)muita$() dela. Graças a isso, leituras de $(thing)Mana$(0) para um poço normal não serão muito precisas: devido à sua escala, o tamanho da barra em um poço normal crescerá muito mais lentamente.",
   "botania.page.pool2": "Jogar certos recursos em um $(item)Poço de Mana$(0) irá infundir eles com $(thing)Mana$(0) do poço, fazendo-os se transformar em formas mais úteis magicamente, como $(item)Barras de Aço-Mana$(0) ou $(item)Pérolas de Mana$(0).$(p)Uma $(thing)Varinha da Floresta$(0) pode ler os níveis de $(thing)Mana$(0) no poço, muito parecido com um $(l:mana/spreader)$(item)Dispersor de Mana$(0)$(/l). Um $(item)Comparador de Redstone$(0) pode também emitir um sinal baseado na percentagem de preenchimento.",
-  "botania.page.pool8": "$(item)Barras de Aço-Mana$(0) podem ser transformadas em blocos ou pepitas através das receitas habituais.$(p)Clicar com o botão direito com qualquer cor de $(item)Pétala Mística$(0) em um poço dará ao poço sua cor, para decoração ou uma rotulagem mais fácil. Você pode retirar a cor de novo usando uma $(item)Bola de Argila$(0).",
+  "botania.page.pool8": "Clicar com o botão direito com qualquer cor de $(item)Pétala Mística$(0) em um poço dará ao poço sua cor, para decoração ou uma rotulagem mais fácil. Você pode retirar a cor de novo usando uma $(item)Bola de Argila$(0).",
   "botania.page.pool16": "Aço-Mana",
   "botania.page.pool3": "Infundindo $(item)Aço-Mana$(0)",
   "botania.page.pool4": "Infundindo $(item)Pérolas de Mana$(0)",

@@ -1237,7 +1237,7 @@
   "botania.page.pool1": "Haciendo una $(item)pila de maná diluida$(0).",
   "botania.page.pool10": "Infundiendo una $(item)pila de maná$(0) normal.",
   "botania.page.pool2": "Tirando algunos recursos en $(item)pilas de maná$(0) normales los infundirá con $(thing)maná$(0), convirtiéndolos en formas más poderosas.$(p)Algunos ejemplos son $(item)lingotes de hierro$(0) o $(item)pétalos místicos$(0).$(p)Las lecturas de $(thing)maná$(0) para este bloque funciona como el $(item)esparcidor de maná$(0).Un $(item)comparador de redstone$(0) puede sacar una señal basada en el contenido.",
-  "botania.page.pool8": "Los lingotes de $(item)manacero$(0) y otros lingotes basados en ellos, pueden convertirse en bloques y pepitas usando las recetas normales.$(p)Para los más artistas, al tirar $(item)polvo foral$(0) de cualquier color en la pila le hará cambiar a ese color, todos los dieciséis colores están disponibles para decorarlas o marcarlas.",
+  "botania.page.pool8": "Para los más artistas, al tirar $(item)polvo foral$(0) de cualquier color en la pila le hará cambiar a ese color, todos los dieciséis colores están disponibles para decorarlas o marcarlas.",
   "botania.page.pool3": "Infundiendo $(item)manacero$(0)",
   "botania.page.pool4": "Infundiendo $(item)perlas de maná$(0)",
   "botania.page.pool5": "Infundiendo $(item)diamantes de maná$(0)",

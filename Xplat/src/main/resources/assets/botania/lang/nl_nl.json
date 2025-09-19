@@ -1327,7 +1327,7 @@
   "botania.page.pool1": "Het maken van een $(item)Verdunde Mana Voorraad$(0).",
   "botania.page.pool10": "Het doordrenken van een normale $(item)Mana Voorraad$(0)",
   "botania.page.pool2": "Het gooien van bepaalde items in een $(item)Mana Voorraad$(0) zorgt dat ze doordrenkt raken met $(thing)Mana$(0), waardoor het krachtigere varianten worden. Enkele voorbeelden zijn $(item)Staven Ijzer$(0) en $(item)Mystieke Bloemblaadjes$(0).$(p)Het uitlezen van de $(thing)Mana$(0) uit dit blok gaat zoals bij de $(item)Mana Verspreider$(0). Een $(item)Redstone Comparator$(0) kan ook een signaal afgeven gebaseerd op de inhoud.",
-  "botania.page.pool8": "Staven $(item)Manastaal$(0) en soortgelijke, kunnen omgezet worden in blokken of klompjes middels de normale recepten.$(p)Voor de artistieke types, het gooien van elke kleur $(item)Bloempoeder$(0) in de voorraad zal de kleur ervan veranderen, alle 16 kleuren zijn toegestaan.",
+  "botania.page.pool8": "Voor de artistieke types, het gooien van elke kleur $(item)Bloempoeder$(0) in de voorraad zal de kleur ervan veranderen, alle 16 kleuren zijn toegestaan.",
   "botania.page.pool3": "Het doordrenken van $(item)Manastaal$(0)",
   "botania.page.pool4": "Het doordrenken van $(item)Mana Parels$(0)",
   "botania.page.pool5": "Het doordrenken van $(item)Mana Diamanten$(0)",

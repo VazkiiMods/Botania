@@ -30,20 +30,11 @@
     },
     {
       "type": "text",
-      "text": "botania.page.pool2"
-    },
-    {
-      "type": "text",
       "text": "botania.page.pool8"
     },
     {
-      "type": "botania:mana_infusion",
-      "heading": "botania.page.pool16",
-      "text": "botania.page.pool3",
-      "recipes": [
-        "botania:mana_infusion/manasteel",
-        "botania:mana_infusion/manasteel_block"
-      ]
+      "type": "text",
+      "text": "botania.page.pool2"
     },
     {
       "type": "botania:mana_infusion",
@@ -52,7 +43,31 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.pool16",
+      "text": "botania.page.pool3",
+      "anchor": "manasteel",
+      "recipes": [
+        "botania:mana_infusion/manasteel",
+        "botania:mana_infusion/manasteel_block"
+      ]
+    },
+    {
+      "type": "botania:crafting_multi_double",
+      "heading": "botania.page.pool16",
+      "text": "botania.page.pool3_crafting",
+      "recipes": [
+        "botania:conversions/manasteel_from_nuggets",
+        "botania:manasteel_block"
+      ],
+      "recipes2": [
+        "botania:conversions/manasteel_to_nuggets",
+        "botania:conversions/manasteel_block_deconstruct"
+      ]
+    },
+    {
+      "type": "botania:mana_infusion",
       "text": "botania.page.pool5",
+      "anchor": "mana_diamond",
       "recipes": [
         "botania:mana_infusion/mana_diamond",
         "botania:mana_infusion/mana_diamond_block"
@@ -70,11 +85,13 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.pool11",
+      "anchor": "mana_glass",
       "recipes": "botania:mana_infusion/mana_glass"
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.pool12",
+      "anchor": "mana_string",
       "recipes": "botania:mana_infusion/mana_string"
     },
     {
@@ -89,7 +106,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:manasteel_nugget": 6,
-    "botania:mana_glass_pane": 11
+    "botania:mana_glass_pane": 13
   }
 }

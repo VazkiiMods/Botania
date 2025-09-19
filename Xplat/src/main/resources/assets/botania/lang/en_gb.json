@@ -158,7 +158,7 @@
 
   "botania.page.mIntro0": "$(thing)Mana$(0) is an ethereal substance-- in essence, it's a mystical form of $(thing)energy$(0). Its existence is inconsistent to the senses, and its colour depends on its surrounding environment.$(p)The manipulation of $(thing)Mana$(0) is likely the most important skill a botanist needs to master.",
 
-  "botania.page.pool8": "$(item)Manasteel Ingots$(0) can be crafted into blocks or nuggets through the usual recipes.$(p)Right-clicking with any colour of $(item)Mystical Petal$(0) on a pool will have give the pool its colour, for decoration or easier labelling. You can wash the colour off again with a $(item)Clay Ball$(0).",
+  "botania.page.pool8": "Right-clicking with any colour of $(item)Mystical Petal$(0) on a pool will give the pool its colour, for decoration or easier labelling. You can wash the colour off again with a $(item)Clay Ball$(0) or in a water-filled cauldron.",
 
   "botania.page.sparks3": "Sparks can be dyed with $(item)Dye$(0); sparks with different colours will never interact. They can also be splashed with a bit of $(l:misc/phantom_ink)$(item)Phantom Ink$(0)$(/l) to make them highly translucent (in case you think they look too obtrusive).",
 
