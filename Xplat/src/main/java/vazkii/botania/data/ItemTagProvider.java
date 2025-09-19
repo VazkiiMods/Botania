@@ -23,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.AncientWillItem;
@@ -250,6 +251,16 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.tag(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER)
 				.add(dirtRod, skyDirtRod, cobbleRod, blackHoleTalisman);
+
+		this.tag(BotaniaTags.Items.DYED_MANA_POOLS).add(getColoredBlockItems(BotaniaBlocks.manaPool));
+		this.tag(BotaniaTags.Items.DYED_CREATIVE_POOLS).add(getColoredBlockItems(BotaniaBlocks.creativePool));
+		this.tag(BotaniaTags.Items.DYED_DILUTED_POOLS).add(getColoredBlockItems(BotaniaBlocks.dilutedPool));
+		this.tag(BotaniaTags.Items.DYED_FABULOUS_POOLS).add(getColoredBlockItems(BotaniaBlocks.fabulousPool));
+	}
+
+	private static <B extends Block & OptionallyColored> Item[] getColoredBlockItems(B baseBlock) {
+		return ColorHelper.supportedColors().map(color -> BotaniaBlocks.findOptionallyDyedBlock(baseBlock, color))
+				.map(Block::asItem).toArray(Item[]::new);
 	}
 
 	private static Item[] getItems(Predicate<Item> predicate) {

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "fabulous_pool_dyeing",
+  "ingredients": [
+    {
+      "item": "botania:fabulous_pool"
+    },
+    {
+      "tag": "botania:petals/magenta"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:magenta_fabulous_pool"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "fabulous_pool_dyeing",
+  "ingredients": [
+    {
+      "tag": "botania:dyed_fabulous_pools"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:fabulous_pool"
+  }
+}

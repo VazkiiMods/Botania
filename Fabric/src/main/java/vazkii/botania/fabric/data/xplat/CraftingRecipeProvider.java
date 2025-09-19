@@ -36,6 +36,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -166,12 +167,14 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
 				.save(recipeOutput);
+		dyedPools(recipeOutput, BotaniaBlocks.manaPool, "mana_pool_dyeing", BotaniaTags.Items.DYED_MANA_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.dilutedPool)
 				.define('R', BotaniaBlocks.livingrockSlab)
 				.pattern("R R")
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
 				.save(recipeOutput);
+		dyedPools(recipeOutput, BotaniaBlocks.dilutedPool, "diluted_pool_dyeing", BotaniaTags.Items.DYED_DILUTED_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.fabulousPool)
 				.define('R', BotaniaBlocks.shimmerrock)
 				.pattern("R R")
@@ -179,6 +182,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.shimmerrock))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.rainbowRod))
 				.save(recipeOutput);
+		dyedPools(recipeOutput, BotaniaBlocks.fabulousPool, "fabulous_pool_dyeing", BotaniaTags.Items.DYED_FABULOUS_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.fabulousPool)
 				.define('P', BotaniaBlocks.manaPool)
 				.define('B', BotaniaBlocks.bifrostPerm)
@@ -187,6 +191,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.bifrostPerm))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.rainbowRod))
 				.save(recipeOutput, prefix(BuiltInRegistries.ITEM.getKey(BotaniaBlocks.fabulousPool.asItem()).getPath() + "_upgrade"));
+		dyedPools(recipeOutput, BotaniaBlocks.creativePool, "creative_pool_dyeing", BotaniaTags.Items.DYED_CREATIVE_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.runeAltar)
 				.define('P', ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)
 				.define('S', BotaniaBlocks.livingrock)
@@ -847,6 +852,24 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.enderAirBottle))
 				.save(recipeOutput);
 
+	}
+
+	private static void dyedPools(RecipeOutput recipeOutput, ManaPoolBlock basePool, String groupName, TagKey<Item> dyedPoolsTag) {
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, basePool)
+				.requires(dyedPoolsTag)
+				.requires(Items.CLAY_BALL)
+				.group(groupName)
+				.unlockedBy("has_dyed", conditionsFromTag(dyedPoolsTag))
+				.save(recipeOutput, BuiltInRegistries.BLOCK.getKey(basePool).withSuffix("_undyed"));
+		ColorHelper.supportedColors().forEach(color -> {
+			ManaPoolBlock dyedBlock = BotaniaBlocks.findOptionallyDyedBlock(basePool, color);
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, dyedBlock)
+					.requires(basePool)
+					.requires(BotaniaTags.Items.getPetalTag(color))
+					.group(groupName)
+					.unlockedBy("has_item", conditionsFromItem(basePool))
+					.save(recipeOutput);
+		});
 	}
 
 	private void registerMisc(RecipeOutput recipeOutput) {

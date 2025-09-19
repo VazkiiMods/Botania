@@ -23,7 +23,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
@@ -47,7 +46,6 @@ import vazkii.botania.api.item.ManaDissolvable;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
-import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -68,9 +66,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import static vazkii.botania.api.state.BotaniaStateProperties.OPTIONAL_DYE_COLOR;
 
 public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool, KeyLocked, SparkAttachable,
 		ThrottledPacket, Wandable {
@@ -604,16 +599,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		} else {
 			return 0;
 		}
-	}
-
-	@Override
-	public Optional<DyeColor> getColor() {
-		return getBlockState().getValue(OPTIONAL_DYE_COLOR).toDyeColor();
-	}
-
-	@Override
-	public void setColor(Optional<DyeColor> color) {
-		level.setBlockAndUpdate(worldPosition, getBlockState().setValue(OPTIONAL_DYE_COLOR, BotaniaStateProperties.OptionalDyeColor.fromOptionalDyeColor(color)));
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
@@ -26,6 +27,7 @@ import vazkii.botania.common.block.flower.ManastarBlockEntity;
 import vazkii.botania.common.block.flower.PureDaisyBlockEntity;
 import vazkii.botania.common.block.flower.functional.*;
 import vazkii.botania.common.block.flower.generating.*;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -34,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 import static vazkii.botania.common.block.BotaniaBlocks.*;
@@ -47,7 +50,7 @@ public class BotaniaBlockEntities {
 			livingrockAltar, deepslateAltar
 	);
 	public static final BlockEntityType<ManaSpreaderBlockEntity> SPREADER = type(LibBlockNames.SPREADER, ManaSpreaderBlockEntity::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader);
-	public static final BlockEntityType<ManaPoolBlockEntity> POOL = type(LibBlockNames.POOL, ManaPoolBlockEntity::new, manaPool, dilutedPool, fabulousPool, creativePool);
+	public static final BlockEntityType<ManaPoolBlockEntity> POOL = type(LibBlockNames.POOL, ManaPoolBlockEntity::new, ManaPoolBlock.class::isInstance);
 	public static final BlockEntityType<RunicAltarBlockEntity> RUNE_ALTAR = type(LibBlockNames.RUNE_ALTAR, RunicAltarBlockEntity::new, runeAltar);
 	public static final BlockEntityType<PylonBlockEntity> PYLON = type(LibBlockNames.PYLON, PylonBlockEntity::new, manaPylon, naturaPylon, gaiaPylon);
 	public static final BlockEntityType<ManaSplitterBlockEntity> DISTRIBUTOR = type(LibBlockNames.DISTRIBUTOR, ManaSplitterBlockEntity::new, distributor);
@@ -162,6 +165,13 @@ public class BotaniaBlockEntities {
 
 	private static <T extends BlockEntity> BlockEntityType<T> type(String id, BlockEntityType.BlockEntitySupplier<T> factory, Block... blocks) {
 		return type(botaniaRL(id), factory, blocks);
+	}
+
+	private static <T extends BlockEntity> BlockEntityType<T> type(String id, BlockEntityType.BlockEntitySupplier<T> factory, Predicate<Block> blockPredicate) {
+		return type(id, factory, BuiltInRegistries.BLOCK.stream()
+				.filter(blockPredicate)
+				.filter(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(BotaniaAPI.MODID))
+				.toArray(Block[]::new));
 	}
 
 	private static <T extends BlockEntity> BlockEntityType<T> type(ResourceLocation id, BlockEntityType.BlockEntitySupplier<T> factory, Block... blocks) {

@@ -36,6 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.internal.Colored;
+import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -56,6 +57,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -626,10 +628,10 @@ public final class BotaniaBlocks {
 	public static final ManaSpreaderBlock gaiaSpreader = make(LibBlockNames.SPREADER_GAIA,
 			new GaiaManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
 
-	public static final ManaPoolBlock manaPool = make(LibBlockNames.POOL, new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, false, BlockBehaviour.Properties.ofFullCopy(livingrock)));
-	public static final ManaPoolBlock creativePool = make(LibBlockNames.POOL_CREATIVE, new BigManaPoolBlock(ManaPoolBlock.MAX_MANA, false, true, BlockBehaviour.Properties.ofFullCopy(livingrock)));
-	public static final ManaPoolBlock dilutedPool = make(LibBlockNames.POOL_DILUTED, new SmallManaPoolBlock(ManaPoolBlock.MAX_MANA_DILUTED, false, false, BlockBehaviour.Properties.ofFullCopy(livingrock)));
-	public static final ManaPoolBlock fabulousPool = make(LibBlockNames.POOL_FABULOUS, new ManaPoolBlock(ManaPoolBlock.MAX_MANA, true, false, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock manaPool = makeBlockWithColoredVariants(LibBlockNames.POOL, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, false, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock creativePool = makeBlockWithColoredVariants(LibBlockNames.POOL_CREATIVE, color -> new BigManaPoolBlock(ManaPoolBlock.MAX_MANA, false, true, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock dilutedPool = makeBlockWithColoredVariants(LibBlockNames.POOL_DILUTED, color -> new SmallManaPoolBlock(ManaPoolBlock.MAX_MANA_DILUTED, false, false, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock fabulousPool = makeBlockWithColoredVariants(LibBlockNames.POOL_FABULOUS, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, true, false, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block alchemyCatalyst = make(LibBlockNames.ALCHEMY_CATALYST, new AlchemyCatalystBlock(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block conjurationCatalyst = make(LibBlockNames.CONJURATION_CATALYST, new ConjurationCatalystBlock(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 
@@ -1280,10 +1282,10 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(redstoneSpreader, props), BuiltInRegistries.BLOCK.getKey(redstoneSpreader));
 		r.accept(new BlockItem(elvenSpreader, props), BuiltInRegistries.BLOCK.getKey(elvenSpreader));
 		r.accept(new BlockItem(gaiaSpreader, rareProps), BuiltInRegistries.BLOCK.getKey(gaiaSpreader));
-		r.accept(new BlockItem(manaPool, props), BuiltInRegistries.BLOCK.getKey(manaPool));
-		r.accept(new BlockItem(creativePool, epicProps), BuiltInRegistries.BLOCK.getKey(creativePool));
-		r.accept(new BlockItem(dilutedPool, props), BuiltInRegistries.BLOCK.getKey(dilutedPool));
-		r.accept(new BlockItem(fabulousPool, props), BuiltInRegistries.BLOCK.getKey(fabulousPool));
+		registerBlockItemWithColoredVariants(r, manaPool, props);
+		registerBlockItemWithColoredVariants(r, creativePool, props);
+		registerBlockItemWithColoredVariants(r, dilutedPool, props);
+		registerBlockItemWithColoredVariants(r, fabulousPool, props);
 		r.accept(new BlockItem(alchemyCatalyst, props), BuiltInRegistries.BLOCK.getKey(alchemyCatalyst));
 		r.accept(new BlockItem(conjurationCatalyst, props), BuiltInRegistries.BLOCK.getKey(conjurationCatalyst));
 		r.accept(new BlockItem(manasteelBlock, props), BuiltInRegistries.BLOCK.getKey(manasteelBlock));
@@ -1608,12 +1610,30 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(bifrostPane, props), BuiltInRegistries.BLOCK.getKey(bifrostPane));
 	}
 
+	private static <T extends Block & OptionallyColored> void registerBlockItemWithColoredVariants(
+			BiConsumer<Item, ResourceLocation> r, T baseBlock, Item.Properties properties) {
+		ResourceLocation baseId = BuiltInRegistries.BLOCK.getKey(baseBlock);
+		r.accept(new BlockItem(baseBlock, properties), baseId);
+		ColorHelper.supportedColors().forEach(color -> {
+			ResourceLocation coloredId = baseId.withPrefix(color.getSerializedName() + "_");
+			Block coloredBlock = ALL.get(coloredId.getPath());
+			r.accept(new BlockItem(coloredBlock, properties), coloredId);
+		});
+	}
+
 	private static <T extends Block> T make(String name, T block) {
 		var old = ALL.put(name, block);
 		if (old != null) {
 			throw new IllegalArgumentException("Typo? Duplicate name: " + name);
 		}
 		return block;
+	}
+
+	private static <T extends Block & OptionallyColored> T makeBlockWithColoredVariants(String baseName, Function<@Nullable DyeColor, T> blockFactory) {
+		T baseBlock = make(baseName, blockFactory.apply(null));
+		ColorHelper.supportedColors().forEach(
+				color -> make(color.getSerializedName() + "_" + baseName, blockFactory.apply(color)));
+		return baseBlock;
 	}
 
 	public static void addDispenserBehaviours() {
@@ -1925,5 +1945,72 @@ public final class BotaniaBlocks {
 				consumer.accept(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().substring(LibBlockNames.POTTED_PREFIX.length())), () -> block);
 			}
 		});
+	}
+
+	/**
+	 * Applies naming conventions to find a block of the same type in the specified color variant.
+	 * The ID of dyed variants is expected to use the dye name as prefix of the undyed block's ID.
+	 */
+	public static <T extends Block & OptionallyColored> T findOptionallyDyedBlock(T referenceBlock, @Nullable DyeColor targetColor) {
+		Optional<DyeColor> referenceColor = referenceBlock.getOptionalColor();
+		if (Optional.ofNullable(targetColor).equals(referenceColor)) {
+			// already is the expected color
+			return referenceBlock;
+		}
+		// at most one of reference color and target color is empty
+
+		ResourceLocation referenceId = BuiltInRegistries.BLOCK.getKey(referenceBlock);
+		String undyedReferencePath;
+		if (referenceColor.isEmpty()) {
+			undyedReferencePath = referenceId.getPath();
+		} else {
+			String referenceColorPrefix = referenceColor.get().getSerializedName() + "_";
+			if (!referenceId.getPath().startsWith(referenceColorPrefix)) {
+				throw new IllegalArgumentException(
+						"Block ID %s should start with color prefix %s".formatted(referenceId, referenceColorPrefix));
+			}
+			undyedReferencePath = referenceId.getPath().substring(referenceColorPrefix.length());
+		}
+		ResourceLocation targetId;
+		if (targetColor == null) {
+			targetId = referenceId.withPath(undyedReferencePath);
+		} else if (referenceColor.isEmpty()) {
+			targetId = referenceId.withPrefix(targetColor.getSerializedName() + "_");
+		} else {
+			targetId = referenceId.withPath(targetColor.getSerializedName() + "_" + undyedReferencePath);
+		}
+
+		Block targetBlock = BuiltInRegistries.BLOCK.get(targetId);
+		if (!referenceBlock.getClass().isInstance(targetBlock)) {
+			throw new IllegalArgumentException(
+					"No target block for %s in %s (found %s)".formatted(referenceBlock, targetColor, targetBlock));
+		}
+
+		//noinspection unchecked
+		return (T) targetBlock;
+	}
+
+	/**
+	 * Applies naming conventions to find a block of the same type in the specified color variant. The block ID is
+	 * expected to have the same format across all dye variants, with the dye name appearing once the ID.
+	 */
+	public static <T extends Block & Colored> T findDyedBlock(T referenceBlock, DyeColor targetColor) {
+		DyeColor referenceColor = referenceBlock.getColor();
+		if (referenceColor == targetColor) {
+			return referenceBlock;
+		}
+
+		ResourceLocation referenceId = BuiltInRegistries.BLOCK.getKey(referenceBlock);
+		ResourceLocation targetId = referenceId.withPath(path -> path.replaceFirst(
+				"(?<=_|\\b)" + referenceColor.getSerializedName() + "(?=_|\\b)", targetColor.getSerializedName()));
+
+		Block targetBlock = BuiltInRegistries.BLOCK.get(targetId);
+		if (!referenceBlock.getClass().isInstance(targetBlock)) {
+			throw new IllegalArgumentException(
+					"No target block for %s in %s (found %s)".formatted(referenceBlock, targetColor, targetBlock));
+		}
+
+		//noinspection unchecked
+		return (T) targetBlock;
 	}
 }

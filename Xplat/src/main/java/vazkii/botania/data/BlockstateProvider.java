@@ -466,7 +466,7 @@ public class BlockstateProvider implements DataProvider {
 
 		TextureSlot[] manaPoolSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE };
 		TextureSlot[] manaPoolFullSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE, TextureSlot.CONTENT };
-		takeAll(remainingBlocks, ManaPoolBlock.class::isInstance).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof ManaPoolBlock poolBlock && poolBlock.color == null).forEach(b -> {
 			Block blockForTexture = b == fabulousPool ? manaPool : b;
 			ResourceLocation side = getBlockTexture(blockForTexture, "_side");
 			ResourceLocation top = getBlockTexture(blockForTexture, "_top");
@@ -485,6 +485,11 @@ public class BlockstateProvider implements DataProvider {
 			ResourceLocation blockModelFullTemplateKey = blockModelTemplateKey.withSuffix("_full");
 			ModelTemplate fullTemplate = new ModelTemplate(Optional.of(blockModelFullTemplateKey), Optional.of("_full"), manaPoolFullSlots);
 			fullTemplate.create(b, mapping.put(TextureSlot.CONTENT, botaniaRL("block/mana_water")), this.modelOutput);
+		});
+		takeAll(remainingBlocks, b -> b instanceof ManaPoolBlock poolBlock && poolBlock.color != null).forEach(b -> {
+			Block baseBlock = BotaniaBlocks.findOptionallyDyedBlock((ManaPoolBlock) b, null);
+			ResourceLocation blockModelTemplateKey = BuiltInRegistries.BLOCK.getKey(baseBlock).withPrefix("block/");
+			singleVariantBlockState(b, blockModelTemplateKey);
 		});
 
 		takeAll(remainingBlocks, pump, tinyPotato).forEach(b -> this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, getModelLocation(b)))

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "mana_pool_dyeing",
+  "ingredients": [
+    {
+      "item": "botania:mana_pool"
+    },
+    {
+      "tag": "botania:petals/light_gray"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:light_gray_mana_pool"
+  }
+}

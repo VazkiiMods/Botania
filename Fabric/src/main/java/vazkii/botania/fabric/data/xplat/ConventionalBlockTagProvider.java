@@ -73,7 +73,15 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 		);
 
 		// Dyed blocks
-		// TODO: generate for covered spreaders, once those are flattened
+		ColorHelper.supportedColors().forEach(color -> {
+			tag(TagKey.create(ConventionalBlockTags.DYED.registry(),
+					ConventionalBlockTags.DYED.location().withSuffix("/" + color.getSerializedName())))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.manaPool, color))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.creativePool, color))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.dilutedPool, color))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.fabulousPool, color));
+			// TODO: generate for covered spreaders, once those are flattened
+		});
 
 		// Glass blocks and panes
 		tag(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS).add(BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm);

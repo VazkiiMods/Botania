@@ -1,6 +1,7 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -16,8 +17,8 @@ public class BigManaPoolBlock extends ManaPoolBlock {
 	private static final VoxelShape CREATIVE_SHAPE_CUTOUT = box(2, 2, 2, 14, 16, 14);
 	private static final VoxelShape CREATIVE_SHAPE = Shapes.join(CREATIVE_SHAPE_INTERACT, CREATIVE_SHAPE_CUTOUT, BooleanOp.ONLY_FIRST);
 
-	public BigManaPoolBlock(int capacity, boolean fabulous, boolean creative, Properties builder) {
-		super(capacity, fabulous, creative, builder);
+	public BigManaPoolBlock(int capacity, boolean fabulous, boolean creative, @Nullable DyeColor color, Properties builder) {
+		super(capacity, fabulous, creative, color, builder);
 	}
 
 	@Override

@@ -398,10 +398,11 @@ public class ItemModelProvider implements DataProvider {
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof ManaPoolBlock).forEach(i -> {
-			ResourceLocation fullModel = ModelLocationUtils.getModelLocation(i.getBlock(), "_full");
+			Block baseBlock = BotaniaBlocks.findOptionallyDyedBlock((ManaPoolBlock) i.getBlock(), null);
+			ResourceLocation fullModel = ModelLocationUtils.getModelLocation(baseBlock, "_full");
 			OverrideHolder overrides = new OverrideHolder().add(fullModel, Pair.of(botaniaRL("full"), 1.0));
 			consumer.accept(ModelLocationUtils.getModelLocation(i),
-					new SimpleModelSupplierWithOverrides(ModelLocationUtils.getModelLocation(i.getBlock()), overrides));
+					new SimpleModelSupplierWithOverrides(ModelLocationUtils.getModelLocation(baseBlock), overrides));
 		});
 		takeAll(itemBlocks, Stream.of(BotaniaBlocks.livingwoodWall, BotaniaBlocks.livingwoodStrippedWall,
 				BotaniaBlocks.dreamwoodWall, BotaniaBlocks.dreamwoodStrippedWall)

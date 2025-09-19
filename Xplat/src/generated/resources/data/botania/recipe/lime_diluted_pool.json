@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "diluted_pool_dyeing",
+  "ingredients": [
+    {
+      "item": "botania:diluted_pool"
+    },
+    {
+      "tag": "botania:petals/lime"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:lime_diluted_pool"
+  }
+}

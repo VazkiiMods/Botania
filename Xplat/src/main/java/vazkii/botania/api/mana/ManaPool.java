@@ -8,11 +8,7 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.world.item.DyeColor;
-
 import vazkii.botania.api.BotaniaAPI;
-
-import java.util.Optional;
 
 /**
  * Any {@link ManaReceiver} that also implements this is considered a Mana Pool,
@@ -41,17 +37,5 @@ public interface ManaPool extends ManaReceiver {
 	 * @return Maximum amount of storable mana
 	 */
 	int getMaxMana();
-
-	/**
-	 * @return The color of this pool.
-	 */
-	Optional<DyeColor> getColor();
-
-	/**
-	 * Sets the color of this pool.
-	 * 
-	 * @param color The color to set.
-	 */
-	void setColor(Optional<DyeColor> color);
 
 }

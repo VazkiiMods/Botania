@@ -88,6 +88,12 @@ public class BotaniaTags {
 		public static final TagKey<Item> PETALS_WHITE = tag("petals/white");
 		public static final TagKey<Item> PETALS_YELLOW = tag("petals/yellow");
 
+		// for recipe use
+		public static final TagKey<Item> DYED_MANA_POOLS = tag("dyed_mana_pools");
+		public static final TagKey<Item> DYED_CREATIVE_POOLS = tag("dyed_creative_pools");
+		public static final TagKey<Item> DYED_DILUTED_POOLS = tag("dyed_diluted_pools");
+		public static final TagKey<Item> DYED_FABULOUS_POOLS = tag("dyed_fabulous_pools");
+
 		public static final TagKey<Item> RUNES = tag("runes");
 		public static final TagKey<Item> ANCIENT_WILLS = tag("ancient_wills");
 

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "creative_pool_dyeing",
+  "ingredients": [
+    {
+      "item": "botania:creative_pool"
+    },
+    {
+      "tag": "botania:petals/black"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:black_creative_pool"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "mana_pool_dyeing",
+  "ingredients": [
+    {
+      "tag": "botania:dyed_mana_pools"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:mana_pool"
+  }
+}

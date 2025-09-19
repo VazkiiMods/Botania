@@ -96,9 +96,6 @@ public final class BotaniaStateProperties {
 		}
 	}
 
-	// Currently only ManaPoolBlock
-	public static final EnumProperty<OptionalDyeColor> OPTIONAL_DYE_COLOR = EnumProperty.create("color", OptionalDyeColor.class);
-
 	// AlfheimPortalBlock
 	public static final EnumProperty<AlfheimPortalState> ALFPORTAL_STATE = EnumProperty.create("state", AlfheimPortalState.class);
 

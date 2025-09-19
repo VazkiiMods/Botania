@@ -19,7 +19,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -207,14 +206,6 @@ public class ManaMirrorItem extends Item {
 		public boolean isOutputtingPower() {
 			return false;
 		}
-
-		@Override
-		public Optional<DyeColor> getColor() {
-			return Optional.empty();
-		}
-
-		@Override
-		public void setColor(Optional<DyeColor> color) {}
 
 	}
 

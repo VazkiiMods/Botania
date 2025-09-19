@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.mana.BurstProperties;
@@ -30,7 +32,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.item.*;
@@ -43,6 +44,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Predicate;
 
 public final class ColorHandler {
 
@@ -56,6 +58,13 @@ public final class ColorHandler {
 		void register(ItemColor handler, ItemLike... items);
 	}
 
+	private static Block[] getModBlocks(Predicate<Block> blockPredicate) {
+		return BuiltInRegistries.BLOCK.stream()
+				.filter(blockPredicate)
+				.filter(b -> BuiltInRegistries.BLOCK.getKey(b).getNamespace().equals(BotaniaAPI.MODID))
+				.toArray(Block[]::new);
+	}
+
 	public static void submitBlocks(BlockHandlerConsumer blocks) {
 		// [VanillaCopy] BlockColors for vine
 		blocks.register((state, world, pos, tintIndex) -> world != null && pos != null
@@ -66,26 +75,21 @@ public final class ColorHandler {
 		// Pool
 		blocks.register(
 				(state, world, pos, tintIndex) -> {
-					if (tintIndex != 0) {
+					if (tintIndex != 0 || !(state.getBlock() instanceof ManaPoolBlock poolBlock)) {
 						return -1;
 					}
 
-					Optional<Integer> color = Optional.empty();
-					if (world != null && pos != null) {
-						BlockEntity te = world.getBlockEntity(pos);
-						if (te instanceof ManaPoolBlockEntity pool) {
-							color = pool.getColor().map(MysticalPetalItem::getPetalLikeColor);
-						}
-					}
-					if (((ManaPoolBlock) state.getBlock()).isFabulous()) {
+					Optional<Integer> color = poolBlock.getOptionalColor().map(
+							c -> FastColor.ARGB32.lerp(0.8f, 0xFFFFFF, MysticalPetalItem.getPetalLikeColor(c)));
+					if (poolBlock.isFabulous()) {
 						float time = (ClientTickHandler.getEntityTicksInGame() + ClientTickHandler.getEntityPartialTick()) * 0.005F;
-						float posOffset = pos != null ? (float) new Random(pos.asLong()).nextDouble() : 0;
-						int fabulousColor = Mth.hsvToRgb((time + posOffset) % 1f, 0.6F, 1F);
+						float posOffset = pos != null ? new Random(pos.asLong()).nextFloat() : 0;
+						int fabulousColor = Mth.hsvToRgb((time + posOffset) % 1f, 0.4F, 1F);
 						return color.map(c -> FastColor.ARGB32.multiply(fabulousColor, c)).orElse(fabulousColor);
 					}
 					return color.orElse(-1);
 				},
-				BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool, BotaniaBlocks.fabulousPool
+				getModBlocks(block -> block instanceof ManaPoolBlock pool && (pool.color != null || pool.isFabulous()))
 		);
 
 		// Platforms
@@ -128,7 +132,7 @@ public final class ColorHandler {
 		items.register((stack, tintIndex) -> tintIndex == 0
 				? Minecraft.getInstance().getBlockColors().getColor(((BlockItem) stack.getItem()).getBlock().defaultBlockState(), null, null, tintIndex)
 				: -1,
-				BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool, BotaniaBlocks.fabulousPool);
+				getModBlocks(block -> block instanceof ManaPoolBlock pool && (pool.color != null || pool.isFabulous())));
 
 		items.register((stack, tintIndex) -> {
 			if (tintIndex == 1) {

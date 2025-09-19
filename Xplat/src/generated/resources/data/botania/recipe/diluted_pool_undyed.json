@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "diluted_pool_dyeing",
+  "ingredients": [
+    {
+      "tag": "botania:dyed_diluted_pools"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:diluted_pool"
+  }
+}

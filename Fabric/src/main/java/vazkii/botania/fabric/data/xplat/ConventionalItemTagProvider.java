@@ -84,6 +84,15 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 				.addTag(ConventionalBotaniaTags.Items.MANA_DUSTS)
 				.addTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS);
 
+		// Dyed
+		ColorHelper.supportedColors().forEach(color -> {
+			var blockTag = TagKey.create(ConventionalBlockTags.DYED.registry(),
+					ConventionalBlockTags.DYED.location().withSuffix("/" + color.getSerializedName()));
+			var itemTag = TagKey.create(ConventionalItemTags.DYED.registry(),
+					ConventionalItemTags.DYED.location().withSuffix("/" + color.getSerializedName()));
+			copy(blockTag, itemTag);
+		});
+
 		// Fences and fence gates
 		tag(ConventionalItemTags.WOODEN_FENCE_GATES).add(
 				BotaniaBlocks.livingwoodFenceGate.asItem(), BotaniaBlocks.dreamwoodFenceGate.asItem()
