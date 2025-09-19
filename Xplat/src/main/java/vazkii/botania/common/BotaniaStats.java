@@ -26,6 +26,15 @@ public class BotaniaStats {
 	public static final ResourceLocation TINY_POTATOES_PETTED =
 			makeCustomStat("tiny_potatoes_petted", StatFormatter.DEFAULT);
 
+	public static final ResourceLocation MANA_POOLS_CLEANED =
+			makeCustomStat("mana_pools_cleaned", StatFormatter.DEFAULT);
+
+	public static final ResourceLocation MANA_LENSES_CLEANED =
+			makeCustomStat("mana_lenes_cleaned", StatFormatter.DEFAULT);
+
+	public static final ResourceLocation PHANTOM_INK_CLEANED =
+			makeCustomStat("phantom_ink_cleaned", StatFormatter.DEFAULT);
+
 	public static void init() {
 
 	}

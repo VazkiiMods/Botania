@@ -179,6 +179,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaItems.registerItems(boundForItem);
 		BotaniaBlocks.addDispenserBehaviours();
 		BotaniaBlocks.addAxeStripping();
+		BotaniaItems.registerCauldronInteractions();
 		for (Block b : List.of(BotaniaBlocks.dryGrass, BotaniaBlocks.goldenGrass,
 				BotaniaBlocks.vividGrass, BotaniaBlocks.scorchedGrass,
 				BotaniaBlocks.infusedGrass, BotaniaBlocks.mutatedGrass)) {

@@ -14,6 +14,9 @@
   "stat.botania.corporea_items_requested": "Items Requested via Corporea Index",
   "stat.botania.tiny_potatoes_petted": "Tiny Potatoes Petted",
   "stat.botania.luminizer_one_cm": "Distance by Luminizer",
+  "stat.botania.mana_pools_cleaned": "Mana Pools Cleaned",
+  "stat.botania.mana_lenses_cleaned": "Mana Lenses Cleaned",
+  "stat.botania.phantom_ink_cleaned": "Phantom Ink Washed Off",
 
   "botaniamisc.color": "%s Tinted",
   "botaniamisc.manaUsage": "Mana Usage",

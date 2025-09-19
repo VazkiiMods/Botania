@@ -9,23 +9,31 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
+import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.client.gui.bag.ColoredContentsPouchContainer;
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
+import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.brew.IncenseStickItem;
 import vazkii.botania.common.item.brew.VialItem;
@@ -437,6 +445,46 @@ public final class BotaniaItems {
 	public static final MenuType<BaubleBoxContainer> BAUBLE_BOX_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(BaubleBoxContainer::new, ByteBufCodecs.BOOL);
 	public static final MenuType<ColoredContentsPouchContainer> COLORED_CONTENTS_POUCH_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(ColoredContentsPouchContainer::new, ByteBufCodecs.BOOL);
 
+	public static final CauldronInteraction MANA_POOL_INTERACTION = (state, level, pos, player, hand, stack) -> {
+		Block block = Block.byItem(stack.getItem());
+		if (!(block instanceof ManaPoolBlock poolBlock)) {
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		}
+		if (!level.isClientSide) {
+			ManaPoolBlock undyedPool = BotaniaBlocks.findOptionallyDyedBlock(poolBlock, null);
+			ItemStack itemstack = stack.transmuteCopy(undyedPool, 1);
+			player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, itemstack, false));
+			player.awardStat(BotaniaStats.MANA_POOLS_CLEANED);
+			LayeredCauldronBlock.lowerFillLevel(state, level, pos);
+		}
+		return ItemInteractionResult.sidedSuccess(level.isClientSide);
+	};
+
+	public static final CauldronInteraction MANA_LENS_INTERACTION = (state, level, pos, player, hand, stack) -> {
+		if (!LensItem.isLensTinted(stack)) {
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		}
+		if (!level.isClientSide) {
+			stack.remove(BotaniaDataComponents.LENS_RAINBOW_TINT);
+			stack.remove(BotaniaDataComponents.LENS_TINT);
+			player.awardStat(BotaniaStats.MANA_LENSES_CLEANED);
+			LayeredCauldronBlock.lowerFillLevel(state, level, pos);
+		}
+		return ItemInteractionResult.sidedSuccess(level.isClientSide);
+	};
+
+	public static final CauldronInteraction PHANTOM_INK_INTERACTION = (state, level, pos, player, hand, stack) -> {
+		if (!(stack.getItem() instanceof PhantomInkable inkable) || !inkable.hasPhantomInk(stack)) {
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		}
+		if (!level.isClientSide) {
+			inkable.setPhantomInk(stack, false);
+			player.awardStat(BotaniaStats.PHANTOM_INK_CLEANED);
+			LayeredCauldronBlock.lowerFillLevel(state, level, pos);
+		}
+		return ItemInteractionResult.sidedSuccess(level.isClientSide);
+	};
+
 	private static <T extends Item> T make(String name, T item) {
 		var old = ALL.put(name, item);
 		if (old != null) {
@@ -482,6 +530,28 @@ public final class BotaniaItems {
 	public static void registerMenuTypes(BiConsumer<MenuType<?>, ResourceLocation> consumer) {
 		consumer.accept(BAUBLE_BOX_CONTAINER, botaniaRL(LibItemNames.BAUBLE_BOX));
 		consumer.accept(COLORED_CONTENTS_POUCH_CONTAINER, botaniaRL(LibItemNames.FLOWER_BAG));
+	}
+
+	public static void registerCauldronInteractions() {
+		ColorHelper.supportedColors().forEach(color -> {
+			CauldronInteraction.WATER.map()
+					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.manaPool, color).asItem(),
+							MANA_POOL_INTERACTION);
+			CauldronInteraction.WATER.map()
+					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.creativePool, color).asItem(),
+							MANA_POOL_INTERACTION);
+			CauldronInteraction.WATER.map()
+					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.dilutedPool, color).asItem(),
+							MANA_POOL_INTERACTION);
+			CauldronInteraction.WATER.map()
+					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.fabulousPool, color).asItem(),
+							MANA_POOL_INTERACTION);
+		});
+
+		ALL.values().stream().filter(item -> item instanceof LensItem)
+				.forEach(item -> CauldronInteraction.WATER.map().put(item, MANA_LENS_INTERACTION));
+		ALL.values().stream().filter(item -> item instanceof PhantomInkable)
+				.forEach(item -> CauldronInteraction.WATER.map().put(item, PHANTOM_INK_INTERACTION));
 	}
 
 	public static Item getPetal(DyeColor color) {

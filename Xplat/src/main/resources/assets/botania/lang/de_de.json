@@ -14,6 +14,9 @@
     "stat.botania.corporea_items_requested": "Gegenstände mit Corporea-Index angefordert",
     "stat.botania.tiny_potatoes_petted": "Winzige Kartoffeln gestreichelt",
     "stat.botania.luminizer_one_cm": "Strecke per Beleuchter geschwebt",
+    "stat.botania.mana_pools_cleaned": "Manabecken gewaschen",
+    "stat.botania.mana_lenses_cleaned": "Manalinsen gewaschen",
+    "stat.botania.phantom_ink_cleaned": "Phantomtinte abgewaschen",
 
     "botaniamisc.color": "%s gefärbt",
     "botaniamisc.manaUsage": "Manaverbrauch",
