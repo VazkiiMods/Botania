@@ -52,3 +52,9 @@ reason = "GoG has not been updated for 1.21 yet"
 modId = "ears"
 type = "optional"
 versionRange = "*"
+
+[[dependencies.botania]]
+modId = "fastitemframes"
+type = "discouraged"
+versionRange = "*"
+reason = "Breaks Botania's various item frame-based filtering functionalities"

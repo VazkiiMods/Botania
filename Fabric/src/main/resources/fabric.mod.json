@@ -89,6 +89,9 @@
     "trinkets" : "*",
     "patchouli": "*"
   },
+  "conflicts": {
+    "fastitemframes": "*"
+  },
   "breaks": {
     "gardenofglass": "<=1.13"
   },
