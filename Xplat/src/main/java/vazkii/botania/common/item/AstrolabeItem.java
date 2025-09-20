@@ -206,7 +206,7 @@ public class AstrolabeItem extends Item {
 		if (blockToPlace == Blocks.AIR) {
 			return null;
 		}
-		BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, player.blockInteractionRange(), true);
+		BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, player.blockInteractionRange(), false);
 		return rtr.getType() == HitResult.Type.BLOCK
 				? new BlockPlaceContext(player, hand, new ItemStack(blockToPlace.asItem()), rtr)
 				: null;
