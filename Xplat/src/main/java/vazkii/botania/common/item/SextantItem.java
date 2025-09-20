@@ -41,7 +41,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -141,7 +140,6 @@ public class SextantItem extends Item {
 		// we are reasonably far from the current anchor position, but still close enough to the actual center
 		BlockPos newOffset = playerPos.subtract(center);
 		smb.setOffset(newOffset.getX(), newOffset.getY(), newOffset.getZ());
-		BotaniaAPI.LOGGER.info("Player at {}, old anchor at {}, center at {}, new offset {}", playerPos, anchor, center, newOffset);
 		Proxy.INSTANCE.setMultiblockAnchor(playerPos);
 	}
 
