@@ -21,6 +21,14 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+* Change: Terra Shatterer activation rules have been adjusted
+  * With an item in the off-hand that item gets priority, unless sneaking and not aiming at any blocks
+  * With an empty off-hand, sneak right-click toggles active state, unless at rank D (i.e. no stored mana)
+  * If at rank D or not sneaking, Manasteel pickaxe logic for torch placing applies
+* Change: Rod of the Skies acceleration for elytra gliding works more like using a fireworks rocket
+* Fix: Don't let Alfheim portal grab items in the tick it shuts down (e.g. for gluten reasons)
+* Fix: Astrolabe no longer attempts to place blocks in the player's head location while underwater
+
 ---
 
 {% include changelog_header.html version="1.20.1-450" %}
