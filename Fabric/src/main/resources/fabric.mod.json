@@ -86,6 +86,9 @@
     "trinkets" : ">=3",
     "patchouli": "*"
   },
+  "conflicts": {
+    "fastitemframes": "*"
+  },
 
   "custom": {
     "cardinal-components": [
