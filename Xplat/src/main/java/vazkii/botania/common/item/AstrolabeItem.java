@@ -22,6 +22,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
@@ -212,7 +213,7 @@ public class AstrolabeItem extends Item {
 		var reachAttribute = XplatAbstractions.INSTANCE.getReachDistanceAttribute();
 		var bonusReach = reachAttribute != null ? player.getAttributeValue(reachAttribute) : 0;
 		// Should probably not always have creative base reach, but it's grandfathered in now
-		BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 5 + bonusReach, true);
+		BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 5 + bonusReach, false);
 		return rtr.getType() == HitResult.Type.BLOCK
 				? new BlockPlaceContext(player, hand, new ItemStack(blockToPlace.asItem()), rtr)
 				: null;
