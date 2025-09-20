@@ -42,9 +42,9 @@ public class AstrolabeTest {
 	private static final BlockPos POS_SEAGRASS = new BlockPos(2, 2, 1);
 	private static final BlockPos POS_SUPPORTED_CANDLE = new BlockPos(2, 4, 1);
 	private static final BlockPos POS_FLOATING_CANDLE = new BlockPos(2, 4, 3);
-	private static final Vec3 POS_PLAYER_CANDLES = new Vec3(0.9, 3.0, 2.5);
-	private static final Vec3 LOOK_TARGET_CANDLES_HORIZONTAL = new Vec3(2.9, 2.0, 2.5);
-	private static final Vec3 LOOK_TARGET_CANDLES_VERTICAL = new Vec3(3.5, 2.0, 2.5);
+	private static final Vec3 POS_PLAYER_CANDLES = new Vec3(0.5, 3.0, 2.5);
+	private static final Vec3 LOOK_TARGET_CANDLES_HORIZONTAL = new Vec3(2.1, 2.0, 2.5);
+	private static final Vec3 LOOK_TARGET_CANDLES_VERTICAL = new Vec3(2.9, 2.0, 2.5);
 	private static final int EXPECTED_REMAINING_CANDLES_HORIZONTAL_3X3 = 56;
 	private static final int EXPECTED_REMAINING_CANDLES_VERTICAL_3X3 = 60;
 	private static final int EXPECTED_REMAINING_CANDLES_VERTICAL_5X5 = 58;
