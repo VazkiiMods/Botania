@@ -630,10 +630,10 @@ public final class BotaniaBlocks {
 	public static final ManaSpreaderBlock gaiaSpreader = make(LibBlockNames.SPREADER_GAIA,
 			new GaiaManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
 
-	public static final ManaPoolBlock manaPool = makeBlockWithColoredVariants(LibBlockNames.POOL, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, false, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
-	public static final ManaPoolBlock creativePool = makeBlockWithColoredVariants(LibBlockNames.POOL_CREATIVE, color -> new BigManaPoolBlock(ManaPoolBlock.MAX_MANA, false, true, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
-	public static final ManaPoolBlock dilutedPool = makeBlockWithColoredVariants(LibBlockNames.POOL_DILUTED, color -> new SmallManaPoolBlock(ManaPoolBlock.MAX_MANA_DILUTED, false, false, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
-	public static final ManaPoolBlock fabulousPool = makeBlockWithColoredVariants(LibBlockNames.POOL_FABULOUS, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, true, false, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock manaPool = makeBlockWithColoredVariants(LibBlockNames.POOL, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, false, ManaPoolBlock.NORMAL_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock creativePool = makeBlockWithColoredVariants(LibBlockNames.POOL_CREATIVE, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, true, ManaPoolBlock.BIG_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock dilutedPool = makeBlockWithColoredVariants(LibBlockNames.POOL_DILUTED, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA_DILUTED, false, false, ManaPoolBlock.SMALL_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final ManaPoolBlock fabulousPool = makeBlockWithColoredVariants(LibBlockNames.POOL_FABULOUS, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, true, false, ManaPoolBlock.NORMAL_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block alchemyCatalyst = make(LibBlockNames.ALCHEMY_CATALYST, new AlchemyCatalystBlock(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block conjurationCatalyst = make(LibBlockNames.CONJURATION_CATALYST, new ConjurationCatalystBlock(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 

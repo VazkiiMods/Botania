@@ -53,22 +53,36 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILUTED = 10000;
 
-	public static final VoxelShape NORMAL_SHAPE_INTERACT = box(0, 0, 0, 16, 8, 16);
-	public static final VoxelShape NORMAL_SHAPE_CUTOUT = box(2, 2, 2, 14, 16, 14);
+	private static final VoxelShape NORMAL_SHAPE_INTERACT = box(0, 0, 0, 16, 8, 16);
+	private static final VoxelShape NORMAL_SHAPE_CUTOUT = box(2, 2, 2, 14, 16, 14);
 	private static final VoxelShape NORMAL_SHAPE = Shapes.join(NORMAL_SHAPE_INTERACT, NORMAL_SHAPE_CUTOUT, BooleanOp.ONLY_FIRST);
+	private static final VoxelShape SMALL_SHAPE_INTERACT = box(0, 0, 0, 16, 6, 16);
+	private static final VoxelShape SMALL_SHAPE_CUTOUT = box(1, 1, 1, 15, 6, 15);
+	private static final VoxelShape SMALL_SHAPE = Shapes.join(SMALL_SHAPE_INTERACT, SMALL_SHAPE_CUTOUT, BooleanOp.ONLY_FIRST);
+	private static final VoxelShape BIG_SHAPE_INTERACT = box(0, 0, 0, 16, 10, 16);
+	private static final VoxelShape BIG_SHAPE = Shapes.join(BIG_SHAPE_INTERACT, NORMAL_SHAPE_CUTOUT, BooleanOp.ONLY_FIRST);
+
+	public record ShapeVariant(VoxelShape interactionShape, VoxelShape cutoutShape, VoxelShape collisionShape) {
+	}
+
+	public static final ShapeVariant NORMAL_SHAPE_VARIANT = new ShapeVariant(NORMAL_SHAPE_INTERACT, NORMAL_SHAPE_CUTOUT, NORMAL_SHAPE);
+	public static final ShapeVariant SMALL_SHAPE_VARIANT = new ShapeVariant(SMALL_SHAPE_INTERACT, SMALL_SHAPE_CUTOUT, SMALL_SHAPE);
+	public static final ShapeVariant BIG_SHAPE_VARIANT = new ShapeVariant(BIG_SHAPE_INTERACT, NORMAL_SHAPE_CUTOUT, BIG_SHAPE);
 
 	public final boolean creative;
 	public final boolean fabulous;
 	public final int manaCapacity;
 	@Nullable
 	public final DyeColor color;
+	public final ShapeVariant shapeVariant;
 
-	public ManaPoolBlock(int capacity, boolean fabulous, boolean creative, @Nullable DyeColor color, Properties builder) {
+	public ManaPoolBlock(int capacity, boolean fabulous, boolean creative, ShapeVariant shapeVariant, @Nullable DyeColor color, Properties builder) {
 		super(builder);
 
 		this.fabulous = fabulous;
 		this.creative = creative;
 		this.manaCapacity = capacity;
+		this.shapeVariant = shapeVariant;
 		this.color = color;
 	}
 
@@ -114,11 +128,11 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
-		return NORMAL_SHAPE;
+		return shapeVariant.collisionShape();
 	}
 
 	public VoxelShape getInnerShape(BlockState state) {
-		return NORMAL_SHAPE_CUTOUT;
+		return shapeVariant.cutoutShape();
 	}
 
 	@Override
@@ -131,7 +145,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	@Override
 	public VoxelShape getInteractionShape(BlockState state, @Nullable BlockGetter level, @Nullable BlockPos pos) {
-		return NORMAL_SHAPE_INTERACT;
+		return shapeVariant.interactionShape();
 	}
 
 	@Override
