@@ -11,16 +11,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_flower_item": {
-      "conditions": {
-        "items": [
-          {
-            "items": "botania:marimorphosis"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_item": {
       "conditions": {
         "items": [
@@ -42,8 +32,7 @@
     [
       "has_the_recipe",
       "has_item",
-      "has_base_item",
-      "has_flower_item"
+      "has_base_item"
     ]
   ],
   "rewards": {

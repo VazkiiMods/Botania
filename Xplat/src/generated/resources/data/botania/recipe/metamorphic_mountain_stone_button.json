@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
+  "group": "botania:metamorphic_stone_button",
   "ingredients": [
     {
       "item": "botania:metamorphic_mountain_stone"

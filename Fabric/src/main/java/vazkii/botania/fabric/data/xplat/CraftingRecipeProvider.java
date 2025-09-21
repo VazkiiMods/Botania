@@ -31,8 +31,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -197,6 +195,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.define('S', BotaniaBlocks.livingrock)
 				.pattern("SSS")
 				.pattern("SPS")
+				.group("botania:runic_altar")
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.runeAltar)
@@ -204,6 +203,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.define('S', BotaniaBlocks.livingrock)
 				.pattern("SSS")
 				.pattern("SPS")
+				.group("botania:runic_altar")
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS))
 				.save(recipeOutput, prefix("runic_altar_alt"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.manaPylon)
@@ -637,14 +637,10 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaString))
 				.save(recipeOutput);
-		Ingredient dyes = Ingredient.of(Items.WHITE_DYE, Items.ORANGE_DYE, Items.MAGENTA_DYE,
-				Items.LIGHT_BLUE_DYE, Items.YELLOW_DYE, Items.LIME_DYE, Items.PINK_DYE, Items.GRAY_DYE,
-				Items.LIGHT_GRAY_DYE, Items.CYAN_DYE, Items.PURPLE_DYE, Items.BLUE_DYE, Items.BROWN_DYE,
-				Items.GREEN_DYE, Items.RED_DYE, Items.BLACK_DYE);
 		//GogAlternationRecipeBuilder.alternatives(
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer)
 				.requires(Items.BONE_MEAL)
-				.requires(dyes, 4)
+				.requires(Ingredient.of(ConventionalItemTags.DYES), 4)
 				.unlockedBy("has_item", hasAnyDye)/*,
 													TODO: move to GoG data pack
 													ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer, 3)
@@ -1023,7 +1019,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 						.pattern(" SP")
 						.pattern("S  ")
 						.group("botania:twig_wand")
-						.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
+						.unlockedBy("has_item", conditionsFromItem(BotaniaItems.livingwoodTwig))
 		).save(recipeOutput);
 		WrapperRecipeBuilder.wrap(WandOfTheForestRecipe.SERIALIZER,
 				ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.dreamwoodWand)
@@ -1033,7 +1029,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 						.pattern(" SP")
 						.pattern("S  ")
 						.group("botania:twig_wand")
-						.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
+						.unlockedBy("has_item", conditionsFromItem(BotaniaItems.dreamwoodTwig))
 		).save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.manaTablet)
 				.define('P', ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)
@@ -1041,6 +1037,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SSS")
 				.pattern("SPS")
 				.pattern("SSS")
+				.group("botania:mana_tablet")
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.manaTablet)
@@ -1049,6 +1046,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SSS")
 				.pattern("SPS")
 				.pattern("SSS")
+				.group("botania:mana_tablet")
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS))
 				.save(recipeOutput, prefix("mana_tablet_alt"));
 
@@ -1849,12 +1847,12 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.group("botania:red_string")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.enderAirBottle))
 				.save(recipeOutput, "botania:red_string_alt");
-		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringContainer, Ingredient.of(ConventionalItemTags.WOODEN_CHESTS), conditionsFromItem(BotaniaItems.redString));
-		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringDispenser, Ingredient.of(Items.DISPENSER), conditionsFromItem(Items.DISPENSER));
-		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringFertilizer, Ingredient.of(BotaniaItems.fertilizer), conditionsFromItem(BotaniaItems.fertilizer));
-		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringComparator, Ingredient.of(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR));
-		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringRelay, Ingredient.of(BotaniaBlocks.manaSpreader), conditionsFromItem(BotaniaBlocks.manaSpreader));
-		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringInterceptor, Ingredient.of(ItemTags.STONE_BUTTONS), conditionsFromTag(ItemTags.STONE_BUTTONS));
+		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringContainer, Ingredient.of(ConventionalItemTags.WOODEN_CHESTS));
+		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringDispenser, Ingredient.of(Items.DISPENSER));
+		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringFertilizer, Ingredient.of(BotaniaItems.fertilizer));
+		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringComparator, Ingredient.of(Items.COMPARATOR));
+		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringRelay, Ingredient.of(BotaniaBlocks.manaSpreader));
+		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringInterceptor, Ingredient.of(ItemTags.STONE_BUTTONS));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaItems.corporeaSpark, 4)
 				.requires(BotaniaItems.spark)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
@@ -2495,11 +2493,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		).save(recipeOutput);
 	}
 
-	public static void registerRedStringBlock(RecipeOutput recipeOutput, ItemLike output, Ingredient input, Criterion<InventoryChangeTrigger.TriggerInstance> criterion) {
-		registerRedStringBlock(recipeOutput, output, input, criterion, null);
-	}
-
-	public static void registerRedStringBlock(RecipeOutput recipeOutput, ItemLike output, Ingredient input, Criterion<InventoryChangeTrigger.TriggerInstance> criterion, @Nullable Criterion<InventoryChangeTrigger.TriggerInstance> criterion2) {
+	public static void registerRedStringBlock(RecipeOutput recipeOutput, ItemLike output, Ingredient input) {
 		ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, output)
 				.define('R', BotaniaBlocks.livingrock)
 				.define('S', BotaniaItems.redString)
@@ -2507,11 +2501,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RRR")
 				.pattern("RMS")
 				.pattern("RRR")
-				.unlockedBy("has_redstring", conditionsFromItem(BotaniaItems.redString))
-				.unlockedBy("has_item", criterion);
-		if (criterion2 != null) {
-			builder.unlockedBy("has_item_alt", criterion2);
-		}
+				.unlockedBy("has_redstring", conditionsFromItem(BotaniaItems.redString));
 		builder.save(recipeOutput);
 	}
 
@@ -2730,33 +2720,21 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		Block cobbleStair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX));
 		Block cobbleWall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX));
 
-		Criterion<InventoryChangeTrigger.TriggerInstance> marimorphosis = conditionsFromItem(BotaniaBlocks.marimorphosis);
-		slabShape(slab, base).group("botania:metamorphic_stone_slab")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
-		stairs(stair, base).group("botania:metamorphic_stone_stairs")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
-		wallShape(wall, base, 6).group("botania:metamorphic_stone_wall")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
-		button(button, base).save(recipeOutput);
-		pressurePlate(pressurePlate, base).save(recipeOutput);
+		slabShape(slab, base).group("botania:metamorphic_stone_slab").save(recipeOutput);
+		stairs(stair, base).group("botania:metamorphic_stone_stairs").save(recipeOutput);
+		wallShape(wall, base, 6).group("botania:metamorphic_stone_wall").save(recipeOutput);
+		button(button, base).group("botania:metamorphic_stone_button").save(recipeOutput);
+		pressurePlate(pressurePlate, base).group("botania:metamorphic_stone_pressure_plate").save(recipeOutput);
 
-		brick(brick, base).group("botania:metamorphic_brick")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
-		slabShape(brickSlab, brick).group("botania:metamorphic_brick_slab")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
-		stairs(brickStair, brick).group("botania:metamorphic_brick_stairs")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
-		wallShape(brickWall, brick, 6).group("botania:metamorphic_brick_wall")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
-		chiseled(chiseledBrick, brickSlab).unlockedBy("has_base_item", conditionsFromItem(brick))
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
+		brick(brick, base).group("botania:metamorphic_brick").save(recipeOutput);
+		slabShape(brickSlab, brick).group("botania:metamorphic_brick_slab").save(recipeOutput);
+		stairs(brickStair, brick).group("botania:metamorphic_brick_stairs").save(recipeOutput);
+		wallShape(brickWall, brick, 6).group("botania:metamorphic_brick_wall").save(recipeOutput);
+		chiseled(chiseledBrick, brickSlab).unlockedBy("has_base_item", conditionsFromItem(brick)).save(recipeOutput);
 
-		slabShape(cobbleSlab, cobble).group("botania:metamorphic_cobble_slab")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
-		stairs(cobbleStair, cobble).group("botania:metamorphic_cobble_stairs")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
-		wallShape(cobbleWall, cobble, 6).group("botania:metamorphic_cobble_wall")
-				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
+		slabShape(cobbleSlab, cobble).group("botania:metamorphic_cobble_slab").save(recipeOutput);
+		stairs(cobbleStair, cobble).group("botania:metamorphic_cobble_stairs").save(recipeOutput);
+		wallShape(cobbleWall, cobble, 6).group("botania:metamorphic_cobble_wall").save(recipeOutput);
 	}
 
 	private ShapedRecipeBuilder compression(ItemLike output, TagKey<Item> input) {

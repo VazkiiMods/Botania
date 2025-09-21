@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#botania:petals"
+            "items": "botania:dreamwood_twig"
           }
         ]
       },

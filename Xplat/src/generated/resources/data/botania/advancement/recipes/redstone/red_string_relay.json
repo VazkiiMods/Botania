@@ -1,16 +1,6 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
-      "conditions": {
-        "items": [
-          {
-            "items": "botania:mana_spreader"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_redstring": {
       "conditions": {
         "items": [
@@ -31,8 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_redstring",
-      "has_item"
+      "has_redstring"
     ]
   ],
   "rewards": {

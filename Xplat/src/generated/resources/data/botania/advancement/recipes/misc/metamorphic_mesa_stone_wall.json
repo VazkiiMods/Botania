@@ -1,16 +1,6 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_flower_item": {
-      "conditions": {
-        "items": [
-          {
-            "items": "botania:marimorphosis"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_item": {
       "conditions": {
         "items": [
@@ -31,8 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item",
-      "has_flower_item"
+      "has_item"
     ]
   ],
   "rewards": {
