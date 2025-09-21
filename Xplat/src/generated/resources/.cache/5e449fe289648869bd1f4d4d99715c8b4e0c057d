@@ -56,7 +56,7 @@ f9cbec686df06a01e62d90f653c978deb25369f9 data/botania/tags/item/special_flowers.
 85878dc98076b7f58e746da580cdd6d27c0c1e82 data/minecraft/tags/item/bookshelf_books.json
 66ead4b1b5ae40b90cf731cb209e4c7a8280f943 data/minecraft/tags/item/chest_armor.json
 db17fc2533475e8c4f17ebbe21ec3cf98f2bf4ea data/minecraft/tags/item/cluster_max_harvestables.json
-37773df74c9361019bb41bf2c29c151de7be103d data/minecraft/tags/item/fence_gates.json
+5e3d052fd880c72e6cf251feb7baf0f1cc4b92e5 data/minecraft/tags/item/fence_gates.json
 a1cc6f7061a825b4d500aa250d6d6ec1c46fbb81 data/minecraft/tags/item/foot_armor.json
 3e6cf94b6e0293310b7521ad0cc7858561699b1b data/minecraft/tags/item/freeze_immune_wearables.json
 b2234cf7c7af048555dd21babd3321b908ed6686 data/minecraft/tags/item/hanging_signs.json
@@ -74,13 +74,14 @@ cf354a0dccc465e3fd89896f02ae0ecf5e91857d data/minecraft/tags/item/shovels.json
 c348a4b234af7225a4a1348d76854b4173d6e94a data/minecraft/tags/item/slabs.json
 1dfda0d35eea78f72235fdd842809d5c72a19648 data/minecraft/tags/item/small_flowers.json
 9337d8d5cf98c73a8d5be736753247526960de88 data/minecraft/tags/item/stairs.json
+bc16c0f8a8de6358ba8ab9bcf187783ad48b64a2 data/minecraft/tags/item/stone_buttons.json
 405a42eb6c6b0a13ffda977a2d1a9e34c1cad0b5 data/minecraft/tags/item/swords.json
 a6269f3ae0d19c4fb4e5c8ea2510705b757be99c data/minecraft/tags/item/tall_flowers.json
-34f23197cdc1d0fc69a5a46d3ce3d634e4b5f9d6 data/minecraft/tags/item/walls.json
-c81187f68a7950baa726ba2b537b2e7fe0c509c6 data/minecraft/tags/item/wooden_buttons.json
+4e22e093580fd9be89b70039a35b00f698f6491d data/minecraft/tags/item/walls.json
+6dcc7700270a14747d530dd9b1985485968f21d9 data/minecraft/tags/item/wooden_buttons.json
 27093fae65c697d379a2a0c3b7e86b05af90ee38 data/minecraft/tags/item/wooden_doors.json
-88772bf1fbd655cb754dc8b3dc6a0e234426aa79 data/minecraft/tags/item/wooden_fences.json
-bebae93e4b7e474255c7315b0c3cba6ffc7afb65 data/minecraft/tags/item/wooden_pressure_plates.json
+6d092e594b74b65fa615c5288451d3b165f728d9 data/minecraft/tags/item/wooden_fences.json
+0ea238ff69e760f330bc9497c13859eb63c0d519 data/minecraft/tags/item/wooden_pressure_plates.json
 5739a5a930a5bb629b7e144755ac8c46c3c7a400 data/minecraft/tags/item/wooden_slabs.json
 3a23fb9d9bc86705e259ed1bb79f901866255bc5 data/minecraft/tags/item/wooden_stairs.json
 1210c10c6f814fb5d53c4b5f226477208a147b3e data/minecraft/tags/item/wooden_trapdoors.json

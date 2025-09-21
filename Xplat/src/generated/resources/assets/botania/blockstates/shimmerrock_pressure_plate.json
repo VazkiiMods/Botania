@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "botania:block/shimmerrock_pressure_plate"
+    },
+    "powered=true": {
+      "model": "botania:block/shimmerrock_pressure_plate_down"
+    }
+  }
+}

@@ -1854,7 +1854,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringFertilizer, Ingredient.of(BotaniaItems.fertilizer), conditionsFromItem(BotaniaItems.fertilizer));
 		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringComparator, Ingredient.of(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR));
 		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringRelay, Ingredient.of(BotaniaBlocks.manaSpreader), conditionsFromItem(BotaniaBlocks.manaSpreader));
-		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringInterceptor, Ingredient.of(Items.STONE_BUTTON, Items.POLISHED_BLACKSTONE_BUTTON), conditionsFromItem(Items.STONE_BUTTON), conditionsFromItem(Items.POLISHED_BLACKSTONE_BUTTON));
+		registerRedStringBlock(recipeOutput, BotaniaBlocks.redStringInterceptor, Ingredient.of(ItemTags.STONE_BUTTONS), conditionsFromTag(ItemTags.STONE_BUTTONS));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaItems.corporeaSpark, 4)
 				.requires(BotaniaItems.spark)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
@@ -1908,6 +1908,9 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.save(recipeOutput);
 		slabShape(BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaBlock).save(recipeOutput);
 		stairs(BotaniaBlocks.corporeaStairs, BotaniaBlocks.corporeaBlock).save(recipeOutput);
+		wallShape(BotaniaBlocks.corporeaWall, BotaniaBlocks.corporeaBlock, 6).save(recipeOutput);
+		button(BotaniaBlocks.corporeaButton, BotaniaBlocks.corporeaBlock).save(recipeOutput);
+		pressurePlate(BotaniaBlocks.corporeaPressurePlate, BotaniaBlocks.corporeaBlock).save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.corporeaBrick, 4)
 				.define('R', BotaniaBlocks.corporeaBlock)
 				.pattern("RR")
@@ -2275,9 +2278,18 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		registerForWood(recipeOutput, LibBlockNames.LIVING_WOOD);
 		registerForWood(recipeOutput, LibBlockNames.DREAM_WOOD);
 
+		stairs(BotaniaBlocks.shimmerwoodPlankStairs, BotaniaBlocks.shimmerwoodPlanks).save(recipeOutput);
+		slabShape(BotaniaBlocks.shimmerwoodPlankSlab, BotaniaBlocks.shimmerwoodPlanks).save(recipeOutput);
+		fence(BotaniaBlocks.shimmerwoodFence, BotaniaBlocks.shimmerwoodPlanks).save(recipeOutput);
+		fenceGate(BotaniaBlocks.shimmerwoodFenceGate, BotaniaBlocks.shimmerwoodPlanks).save(recipeOutput);
+		button(BotaniaBlocks.shimmerwoodButton, BotaniaBlocks.shimmerwoodPlanks).save(recipeOutput);
+		pressurePlate(BotaniaBlocks.shimmerwoodPressurePlate, BotaniaBlocks.shimmerwoodPlanks).save(recipeOutput);
+
 		stairs(BotaniaBlocks.livingrockStairs, BotaniaBlocks.livingrock).save(recipeOutput);
 		slabShape(BotaniaBlocks.livingrockSlab, BotaniaBlocks.livingrock).save(recipeOutput);
 		wallShape(BotaniaBlocks.livingrockWall, BotaniaBlocks.livingrock, 6).save(recipeOutput);
+		button(BotaniaBlocks.livingrockButton, BotaniaBlocks.livingrock).save(recipeOutput);
+		pressurePlate(BotaniaBlocks.livingrockPressurePlate, BotaniaBlocks.livingrock).save(recipeOutput);
 
 		stairs(BotaniaBlocks.livingrockPolishedStairs, BotaniaBlocks.livingrockPolished).save(recipeOutput);
 		slabShape(BotaniaBlocks.livingrockPolishedSlab, BotaniaBlocks.livingrockPolished).save(recipeOutput);
@@ -2293,8 +2305,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 		stairs(BotaniaBlocks.shimmerrockStairs, BotaniaBlocks.shimmerrock).save(recipeOutput);
 		slabShape(BotaniaBlocks.shimmerrockSlab, BotaniaBlocks.shimmerrock).save(recipeOutput);
-		stairs(BotaniaBlocks.shimmerwoodPlankStairs, BotaniaBlocks.shimmerwoodPlanks).save(recipeOutput);
-		slabShape(BotaniaBlocks.shimmerwoodPlankSlab, BotaniaBlocks.shimmerwoodPlanks).save(recipeOutput);
+		button(BotaniaBlocks.shimmerrockButton, BotaniaBlocks.shimmerrock).save(recipeOutput);
+		pressurePlate(BotaniaBlocks.shimmerrockPressurePlate, BotaniaBlocks.shimmerrock).save(recipeOutput);
 
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			registerForMetamorphic(recipeOutput, variant);
@@ -2599,6 +2611,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		Block patternFramed = getBlockOrThrow(prefix("pattern_framed_" + variant));
 		Block fence = getBlockOrThrow(prefix(variant + "_fence"));
 		Block fenceGate = getBlockOrThrow(prefix(variant + "_fence_gate"));
+		Block button = getBlockOrThrow(prefix(variant + "_button"));
+		Block pressurePlate = getBlockOrThrow(prefix(variant + "_pressure_plate"));
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4).requires(tag).group("planks")
 				.unlockedBy("has_item", conditionsFromTag(tag)).save(recipeOutput);
@@ -2650,6 +2664,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		wallShape(wall, wood, 6).save(recipeOutput);
 		fence(fence, planks).save(recipeOutput);
 		fenceGate(fenceGate, planks).save(recipeOutput);
+		button(button, planks).save(recipeOutput);
+		pressurePlate(pressurePlate, planks).save(recipeOutput);
 
 		stairs(strippedStairs, strippedWood).save(recipeOutput);
 		slabShape(strippedSlab, strippedWood).save(recipeOutput);
@@ -2702,6 +2718,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		Block slab = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX));
 		Block stair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX));
 		Block wall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX));
+		Block button = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.BUTTON_SUFFIX));
+		Block pressurePlate = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.PRESSURE_PLATE_SUFFIX));
 		Block brick = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks"));
 		Block brickSlab = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX));
 		Block brickStair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX));
@@ -2719,6 +2737,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
 		wallShape(wall, base, 6).group("botania:metamorphic_stone_wall")
 				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
+		button(button, base).save(recipeOutput);
+		pressurePlate(pressurePlate, base).save(recipeOutput);
 
 		brick(brick, base).group("botania:metamorphic_brick")
 				.unlockedBy("has_flower_item", marimorphosis).save(recipeOutput);
@@ -2779,6 +2799,19 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('Q', input)
 				.pattern("QQQ");
+	}
+
+	protected ShapelessRecipeBuilder button(ItemLike output, ItemLike input) {
+		return ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, output)
+				.unlockedBy("has_item", conditionsFromItem(input))
+				.requires(input);
+	}
+
+	protected ShapedRecipeBuilder pressurePlate(ItemLike output, ItemLike input) {
+		return ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, output)
+				.unlockedBy("has_item", conditionsFromItem(input))
+				.define('#', input)
+				.pattern("##");
 	}
 
 	protected ShapedRecipeBuilder pillar(ItemLike output, ItemLike input) {

@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
@@ -204,15 +203,21 @@ public interface XplatAbstractions {
 	boolean isRedStringContainerTarget(Level level, BlockPos pos);
 	RedStringContainerBlockEntity newRedStringContainer(BlockPos pos, BlockState state);
 
-	default BlockSetType registerWoodBlockSetType(String name) {
-		return registerBlockSetType(name, true, SoundType.WOOD, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON, SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON);
-	}
-
-	BlockSetType registerBlockSetType(String name, boolean canOpenByHand, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn);
-
-	default WoodType registerWoodType(String name, BlockSetType blockSetType) {
-		return registerWoodType(name, blockSetType, SoundType.WOOD, SoundType.HANGING_SIGN, SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN);
-	}
+	BlockSetType registerBlockSetType(
+			String name,
+			boolean canOpenByHand,
+			boolean canOpenByWindCharge,
+			boolean canButtonBeActivatedByArrows,
+			BlockSetType.PressurePlateSensitivity pressurePlateSensitivity,
+			SoundType soundType,
+			SoundEvent doorClose,
+			SoundEvent doorOpen,
+			SoundEvent trapdoorClose,
+			SoundEvent trapdoorOpen,
+			SoundEvent pressurePlateClickOff,
+			SoundEvent pressurePlateClickOn,
+			SoundEvent buttonClickOff,
+			SoundEvent buttonClickOn);
 
 	WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen);
 

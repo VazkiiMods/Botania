@@ -421,6 +421,9 @@ public class ItemModelProvider implements DataProvider {
 			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(ModelLocationUtils.getModelLocation(i.getBlock(), "_bottom")));
 		});
 
+		ModelTemplates.WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.corporeaWall.asItem()),
+				new TextureMapping().put(TextureSlot.WALL, TextureMapping.getBlockTexture(BotaniaBlocks.corporeaBlock)), consumer);
+		itemBlocks.remove(BotaniaBlocks.corporeaWall.asItem());
 		takeAll(itemBlocks, i -> i.getBlock() instanceof WallBlock).forEach(i -> {
 			String name = BuiltInRegistries.ITEM.getKey(i).getPath();
 			String baseName = name.substring(0, name.length() - "_wall".length());
@@ -478,6 +481,10 @@ public class ItemModelProvider implements DataProvider {
 		ModelTemplates.FENCE_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.livingwoodFence.asItem()),
 				TextureMapping.defaultTexture(BotaniaBlocks.livingwoodPlanks), consumer);
 		itemBlocks.remove(BotaniaBlocks.livingwoodFence.asItem());
+
+		ModelTemplates.FENCE_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.shimmerwoodFence.asItem()),
+				TextureMapping.defaultTexture(BotaniaBlocks.shimmerwoodPlanks), consumer);
+		itemBlocks.remove(BotaniaBlocks.shimmerwoodFence.asItem());
 
 		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.elfGlass.asItem()), new DelegatedModel(botaniaRL("block/elf_glass_0")));
 		itemBlocks.remove(BotaniaBlocks.elfGlass.asItem());

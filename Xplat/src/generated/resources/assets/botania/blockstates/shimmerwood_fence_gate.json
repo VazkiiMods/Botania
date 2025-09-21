@@ -1,0 +1,80 @@
+{
+  "variants": {
+    "facing=east,in_wall=false,open=false": {
+      "model": "botania:block/shimmerwood_fence_gate",
+      "uvlock": false,
+      "y": 270
+    },
+    "facing=east,in_wall=false,open=true": {
+      "model": "botania:block/shimmerwood_fence_gate_open",
+      "uvlock": false,
+      "y": 270
+    },
+    "facing=east,in_wall=true,open=false": {
+      "model": "botania:block/shimmerwood_fence_gate_wall",
+      "uvlock": false,
+      "y": 270
+    },
+    "facing=east,in_wall=true,open=true": {
+      "model": "botania:block/shimmerwood_fence_gate_wall_open",
+      "uvlock": false,
+      "y": 270
+    },
+    "facing=north,in_wall=false,open=false": {
+      "model": "botania:block/shimmerwood_fence_gate",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=north,in_wall=false,open=true": {
+      "model": "botania:block/shimmerwood_fence_gate_open",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=north,in_wall=true,open=false": {
+      "model": "botania:block/shimmerwood_fence_gate_wall",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=north,in_wall=true,open=true": {
+      "model": "botania:block/shimmerwood_fence_gate_wall_open",
+      "uvlock": false,
+      "y": 180
+    },
+    "facing=south,in_wall=false,open=false": {
+      "model": "botania:block/shimmerwood_fence_gate",
+      "uvlock": false
+    },
+    "facing=south,in_wall=false,open=true": {
+      "model": "botania:block/shimmerwood_fence_gate_open",
+      "uvlock": false
+    },
+    "facing=south,in_wall=true,open=false": {
+      "model": "botania:block/shimmerwood_fence_gate_wall",
+      "uvlock": false
+    },
+    "facing=south,in_wall=true,open=true": {
+      "model": "botania:block/shimmerwood_fence_gate_wall_open",
+      "uvlock": false
+    },
+    "facing=west,in_wall=false,open=false": {
+      "model": "botania:block/shimmerwood_fence_gate",
+      "uvlock": false,
+      "y": 90
+    },
+    "facing=west,in_wall=false,open=true": {
+      "model": "botania:block/shimmerwood_fence_gate_open",
+      "uvlock": false,
+      "y": 90
+    },
+    "facing=west,in_wall=true,open=false": {
+      "model": "botania:block/shimmerwood_fence_gate_wall",
+      "uvlock": false,
+      "y": 90
+    },
+    "facing=west,in_wall=true,open=true": {
+      "model": "botania:block/shimmerwood_fence_gate_wall_open",
+      "uvlock": false,
+      "y": 90
+    }
+  }
+}

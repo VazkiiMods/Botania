@@ -624,10 +624,26 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public BlockSetType registerBlockSetType(String name, boolean canOpenByHand, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn) {
+	public BlockSetType registerBlockSetType(
+			String name,
+			boolean canOpenByHand,
+			boolean canOpenByWindCharge,
+			boolean canButtonBeActivatedByArrows,
+			BlockSetType.PressurePlateSensitivity pressurePlateSensitivity,
+			SoundType soundType,
+			SoundEvent doorClose,
+			SoundEvent doorOpen,
+			SoundEvent trapdoorClose,
+			SoundEvent trapdoorOpen,
+			SoundEvent pressurePlateClickOff,
+			SoundEvent pressurePlateClickOn,
+			SoundEvent buttonClickOff,
+			SoundEvent buttonClickOn) {
 		return BlockSetTypeBuilder.copyOf(BlockSetType.OAK)
 				.openableByHand(canOpenByHand)
-				.openableByWindCharge(canOpenByHand)
+				.openableByWindCharge(canOpenByWindCharge)
+				.buttonActivatedByArrows(canButtonBeActivatedByArrows)
+				.pressurePlateActivationRule(pressurePlateSensitivity)
 				.soundGroup(soundType)
 				.doorCloseSound(doorClose)
 				.doorOpenSound(doorOpen)

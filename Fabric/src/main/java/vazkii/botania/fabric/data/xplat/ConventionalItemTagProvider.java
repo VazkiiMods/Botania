@@ -95,10 +95,12 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 
 		// Fences and fence gates
 		tag(ConventionalItemTags.WOODEN_FENCE_GATES).add(
-				BotaniaBlocks.livingwoodFenceGate.asItem(), BotaniaBlocks.dreamwoodFenceGate.asItem()
+				BotaniaBlocks.livingwoodFenceGate.asItem(), BotaniaBlocks.dreamwoodFenceGate.asItem(),
+				BotaniaBlocks.shimmerwoodFenceGate.asItem()
 		);
 		tag(ConventionalItemTags.WOODEN_FENCES).add(
-				BotaniaBlocks.livingwoodFence.asItem(), BotaniaBlocks.dreamwoodFence.asItem()
+				BotaniaBlocks.livingwoodFence.asItem(), BotaniaBlocks.dreamwoodFence.asItem(),
+				BotaniaBlocks.shimmerwoodFence.asItem()
 		);
 
 		// Foods and Drinks

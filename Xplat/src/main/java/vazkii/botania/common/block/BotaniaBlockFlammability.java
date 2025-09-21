@@ -72,5 +72,7 @@ public abstract class BotaniaBlockFlammability {
 
 		b.botania_register(shimmerwoodPlankSlab, nonLogIgnite, nonLogBurn);
 		b.botania_register(shimmerwoodPlankStairs, nonLogIgnite, nonLogBurn);
+		b.botania_register(shimmerwoodFence, nonLogIgnite, nonLogBurn);
+		b.botania_register(shimmerwoodFenceGate, nonLogIgnite, nonLogBurn);
 	}
 }

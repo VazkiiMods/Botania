@@ -76,6 +76,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
@@ -553,14 +554,40 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public BlockSetType registerBlockSetType(String name, boolean canOpenByHand, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn) {
-		// TODO: There are a bunch of new parameters that need to be incorporated into the API.
-		return BlockSetType.register(new BlockSetType("botania:" + name, canOpenByHand, canOpenByHand, canOpenByHand, BlockSetType.PressurePlateSensitivity.EVERYTHING, soundType, doorClose, doorOpen, trapdoorClose, trapdoorOpen, pressurePlateClickOff, pressurePlateClickOn, buttonClickOff, buttonClickOn));
+	public BlockSetType registerBlockSetType(
+			String name,
+			boolean canOpenByHand,
+			boolean canOpenByWindCharge,
+			boolean canButtonBeActivatedByArrows,
+			BlockSetType.PressurePlateSensitivity pressurePlateSensitivity,
+			SoundType soundType,
+			SoundEvent doorClose,
+			SoundEvent doorOpen,
+			SoundEvent trapdoorClose,
+			SoundEvent trapdoorOpen,
+			SoundEvent pressurePlateClickOff,
+			SoundEvent pressurePlateClickOn,
+			SoundEvent buttonClickOff,
+			SoundEvent buttonClickOn) {
+		return BlockSetType.register(new BlockSetType(BotaniaAPI.MODID + ":" + name,
+				canOpenByHand,
+				canOpenByWindCharge,
+				canButtonBeActivatedByArrows,
+				pressurePlateSensitivity,
+				soundType,
+				doorClose,
+				doorOpen,
+				trapdoorClose,
+				trapdoorOpen,
+				pressurePlateClickOff,
+				pressurePlateClickOn,
+				buttonClickOff,
+				buttonClickOn));
 	}
 
 	@Override
 	public WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
-		return WoodType.register(new WoodType("botania:" + name, setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen));
+		return WoodType.register(new WoodType(BotaniaAPI.MODID + ":" + name, setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen));
 	}
 
 	@Override

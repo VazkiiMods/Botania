@@ -76,16 +76,26 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.dreamwoodStairs, BotaniaBlocks.dreamwoodStrippedStairs, BotaniaBlocks.dreamwoodPlankStairs,
 				BotaniaBlocks.shimmerwoodPlankStairs);
 		tag(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
-		tag(BlockTags.WOODEN_FENCES).add(BotaniaBlocks.livingwoodFence, BotaniaBlocks.dreamwoodFence);
+		tag(BlockTags.WOODEN_FENCES).add(BotaniaBlocks.livingwoodFence, BotaniaBlocks.dreamwoodFence, shimmerwoodFence);
 		tag(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
 		tag(BlockTags.STANDING_SIGNS).add(getModBlocks(b -> b instanceof StandingSignBlock));
 		tag(BlockTags.WALL_SIGNS).add(getModBlocks(b -> b instanceof WallSignBlock));
 		tag(BlockTags.CEILING_HANGING_SIGNS).add(getModBlocks(b -> b instanceof CeilingHangingSignBlock));
 		tag(BlockTags.WALL_HANGING_SIGNS).add(getModBlocks(b -> b instanceof WallHangingSignBlock));
-		tag(BlockTags.WOODEN_BUTTONS).add(livingwoodButton, dreamwoodButton);
-		tag(BlockTags.WOODEN_PRESSURE_PLATES).add(livingwoodPressurePlate, dreamwoodPressurePlate);
+		tag(BlockTags.WOODEN_BUTTONS).add(livingwoodButton, dreamwoodButton, shimmerwoodButton);
+		tag(BlockTags.WOODEN_PRESSURE_PLATES).add(livingwoodPressurePlate, dreamwoodPressurePlate, shimmerwoodPressurePlate);
 		tag(BlockTags.WOODEN_DOORS).add(livingwoodDoor, dreamwoodDoor);
 		tag(BlockTags.WOODEN_TRAPDOORS).add(livingwoodTrapdoor, dreamwoodTrapdoor);
+		tag(BlockTags.STONE_BUTTONS).add(
+				livingrockButton, shimmerrockButton, corporeaButton,
+				biomeStoneForestButton, biomeStonePlainsButton, biomeStoneMountainButton, biomeStoneFungalButton,
+				biomeStoneSwampButton, biomeStoneDesertButton, biomeStoneTaigaButton, biomeStoneMesaButton
+		);
+		tag(BlockTags.STONE_PRESSURE_PLATES).add(
+				livingrockPressurePlate, shimmerrockPressurePlate, corporeaPressurePlate,
+				biomeStoneForestPressurePlate, biomeStonePlainsPressurePlate, biomeStoneMountainPressurePlate, biomeStoneFungalPressurePlate,
+				biomeStoneSwampPressurePlate, biomeStoneDesertPressurePlate, biomeStoneTaigaPressurePlate, biomeStoneMesaPressurePlate
+		);
 		tag(BlockTags.DRAGON_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 		tag(BlockTags.WITHER_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 
@@ -182,7 +192,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
 				BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab, BotaniaBlocks.corporeaBrickStairs,
 				BotaniaBlocks.corporeaBrickWall, BotaniaBlocks.corporeaCrystalCube, BotaniaBlocks.corporeaFunnel, BotaniaBlocks.corporeaIndex,
-				BotaniaBlocks.corporeaInterceptor, BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaStairs);
+				BotaniaBlocks.corporeaInterceptor, BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaStairs,
+				BotaniaBlocks.corporeaButton, BotaniaBlocks.corporeaPressurePlate);
 
 		tag(BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE).add(Blocks.BEACON, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon);
 		tag(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "botania:block/metamorphic_taiga_stone"
+  }
+}

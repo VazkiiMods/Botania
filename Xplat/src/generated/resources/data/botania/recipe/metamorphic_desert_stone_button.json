@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "botania:metamorphic_desert_stone"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:metamorphic_desert_stone_button"
+  }
+}

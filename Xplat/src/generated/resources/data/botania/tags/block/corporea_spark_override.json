@@ -10,6 +10,8 @@
     "botania:corporea_index",
     "botania:corporea_interceptor",
     "botania:corporea_slab",
-    "botania:corporea_stairs"
+    "botania:corporea_stairs",
+    "botania:corporea_button",
+    "botania:corporea_pressure_plate"
   ]
 }

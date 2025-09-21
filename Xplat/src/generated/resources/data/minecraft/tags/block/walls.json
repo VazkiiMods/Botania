@@ -1,6 +1,7 @@
 {
   "values": [
     "botania:corporea_brick_wall",
+    "botania:corporea_wall",
     "botania:dreamwood_wall",
     "botania:livingrock_bricks_wall",
     "botania:livingrock_wall",
@@ -31,6 +32,7 @@
     "botania:metamorphic_taiga_stone_wall",
     "botania:mossy_livingrock_bricks_wall",
     "botania:polished_livingrock_wall",
+    "botania:shimmerrock_wall",
     "botania:stripped_dreamwood_wall",
     "botania:stripped_livingwood_wall"
   ]

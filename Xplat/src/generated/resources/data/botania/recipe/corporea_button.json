@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "botania:corporea_block"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:corporea_button"
+  }
+}

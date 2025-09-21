@@ -524,6 +524,8 @@ public final class BotaniaBlocks {
 	public static final Block livingrockStairs = make(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX, new StairBlock(livingrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block livingrockSlab = make(LibBlockNames.LIVING_ROCK + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block livingrockWall = make(LibBlockNames.LIVING_ROCK + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingrock)));
+	public static final Block livingrockButton = make(LIVING_ROCK + BUTTON_SUFFIX, new ButtonBlock(BotaniaBlockSetTypes.LIVINGROCK_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.TERRACOTTA_WHITE)));
+	public static final Block livingrockPressurePlate = make(LIVING_ROCK + PRESSURE_PLATE_SUFFIX, new PressurePlateBlock(BotaniaBlockSetTypes.LIVINGROCK_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_WHITE)));
 	public static final Block livingrockPolished = make(LibBlockNames.LIVING_ROCK_POLISHED, new Block(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block livingrockPolishedStairs = make(LibBlockNames.LIVING_ROCK_POLISHED + STAIR_SUFFIX, new StairBlock(livingrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingrockPolished)));
 	public static final Block livingrockPolishedSlab = make(LibBlockNames.LIVING_ROCK_POLISHED + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingrockPolished)));
@@ -707,8 +709,11 @@ public final class BotaniaBlocks {
 	public static final Block corporeaRetainer = make(LibBlockNames.CORPOREA_RETAINER, new CorporeaRetainerBlock(BlockBehaviour.Properties.ofFullCopy(corporeaFunnel)));
 
 	public static final Block corporeaBlock = make(LibBlockNames.CORPOREA_BLOCK, new Block(BlockBehaviour.Properties.ofFullCopy(corporeaFunnel)));
-	public static final Block corporeaStairs = make(LibBlockNames.CORPOREA_STAIRS, new StairBlock(corporeaBlock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(corporeaBlock)));
-	public static final Block corporeaSlab = make(LibBlockNames.CORPOREA_SLAB, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBlock)));
+	public static final Block corporeaStairs = make(CORPOREA_PREFIX + STAIR_SUFFIX, new StairBlock(corporeaBlock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(corporeaBlock)));
+	public static final Block corporeaSlab = make(CORPOREA_PREFIX + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBlock)));
+	public static final Block corporeaWall = make(LibBlockNames.CORPOREA_PREFIX + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBlock)));
+	public static final Block corporeaButton = make(CORPOREA_PREFIX + BUTTON_SUFFIX, new ButtonBlock(BotaniaBlockSetTypes.CORPOREA_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(DyeColor.PURPLE)));
+	public static final Block corporeaPressurePlate = make(CORPOREA_PREFIX + PRESSURE_PLATE_SUFFIX, new PressurePlateBlock(BotaniaBlockSetTypes.CORPOREA_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(DyeColor.PURPLE)));
 	public static final Block corporeaBrick = make(LibBlockNames.CORPOREA_BRICK, new Block(BlockBehaviour.Properties.ofFullCopy(corporeaBlock)));
 	public static final Block corporeaBrickStairs = make(LibBlockNames.CORPOREA_BRICK + STAIR_SUFFIX, new StairBlock(corporeaBrick.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(corporeaBrick)));
 	public static final Block corporeaBrickSlab = make(LibBlockNames.CORPOREA_BRICK + LibBlockNames.SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBrick)));
@@ -759,9 +764,18 @@ public final class BotaniaBlocks {
 	public static final Block shimmerrock = make(LibBlockNames.SHIMMERROCK, new Block(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block shimmerrockStairs = make(LibBlockNames.SHIMMERROCK + STAIR_SUFFIX, new StairBlock(shimmerrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(shimmerrock)));
 	public static final Block shimmerrockSlab = make(LibBlockNames.SHIMMERROCK + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(shimmerrock)));
+	public static final Block shimmerrockWall = make(LibBlockNames.SHIMMERROCK + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(shimmerrock)));
+	public static final Block shimmerrockButton = make(SHIMMERROCK + BUTTON_SUFFIX, new ButtonBlock(BotaniaBlockSetTypes.SHIMMERROCK_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.TERRACOTTA_WHITE)));
+	public static final Block shimmerrockPressurePlate = make(SHIMMERROCK + PRESSURE_PLATE_SUFFIX, new PressurePlateBlock(BotaniaBlockSetTypes.SHIMMERROCK_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_WHITE)));
 	public static final Block shimmerwoodPlanks = make(LibBlockNames.SHIMMERWOOD_PLANKS, new Block(BlockBehaviour.Properties.ofFullCopy(livingwood)));
 	public static final Block shimmerwoodPlankStairs = make(LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX, new StairBlock(shimmerwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks)));
 	public static final Block shimmerwoodPlankSlab = make(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks)));
+	public static final Block shimmerwoodFence = make(LibBlockNames.SHIMMERWOOD_PREFIX + FENCE_SUFFIX, new FenceBlock(BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks)));
+	public static final Block shimmerwoodFenceGate = make(LibBlockNames.SHIMMERWOOD_PREFIX + FENCE_GATE_SUFFIX, new FenceGateBlock(BotaniaBlockSetTypes.SHIMMERWOOD, BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks)));
+	public static final Block shimmerwoodPressurePlate = make(SHIMMERWOOD_PREFIX + PRESSURE_PLATE_SUFFIX, new PressurePlateBlock(BotaniaBlockSetTypes.SHIMMERWOOD_BLOCK_SET,
+			BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks).noCollission().strength(0.5F).forceSolidOn().pushReaction(PushReaction.DESTROY)));
+	public static final Block shimmerwoodButton = make(SHIMMERWOOD_PREFIX + BUTTON_SUFFIX, new ButtonBlock(BotaniaBlockSetTypes.SHIMMERWOOD_BLOCK_SET, 30,
+			BlockBehaviour.Properties.ofFullCopy(shimmerwoodPlanks).noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
 
 	public static final Block dryGrass = make("dry" + LibBlockNames.ALT_GRASS_SUFFIX, new BotaniaGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.TERRACOTTA_LIGHT_GREEN)));
 	public static final Block goldenGrass = make("golden" + LibBlockNames.ALT_GRASS_SUFFIX, new BotaniaGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.GOLD)));
@@ -853,6 +867,10 @@ public final class BotaniaBlocks {
 	public static final Block biomeStoneForestStairs = make(METAMORPHIC_PREFIX + "forest_stone" + STAIR_SUFFIX, new StairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)));
 	public static final Block biomeStoneForestSlab = make(METAMORPHIC_PREFIX + "forest_stone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)));
 	public static final Block biomeStoneForestWall = make(METAMORPHIC_PREFIX + "forest_stone" + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)));
+	public static final Block biomeStoneForestButton = make(METAMORPHIC_PREFIX + "forest_stone" + BUTTON_SUFFIX,
+			new ButtonBlock(BotaniaBlockSetTypes.METAMORPHIC_FOREST_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.WARPED_NYLIUM)));
+	public static final Block biomeStoneForestPressurePlate = make(METAMORPHIC_PREFIX + "forest_stone" + PRESSURE_PLATE_SUFFIX,
+			new PressurePlateBlock(BotaniaBlockSetTypes.METAMORPHIC_FOREST_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.WARPED_NYLIUM)));
 	public static final Block biomeCobblestoneForest = make(METAMORPHIC_PREFIX + "forest_cobblestone", new Block(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)));
 	public static final Block biomeCobblestoneForestStairs = make(METAMORPHIC_PREFIX + "forest_cobblestone" + STAIR_SUFFIX, new StairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)));
 	public static final Block biomeCobblestoneForestSlab = make(METAMORPHIC_PREFIX + "forest_cobblestone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneForest)));
@@ -868,6 +886,10 @@ public final class BotaniaBlocks {
 	public static final Block biomeStonePlainsStairs = make(METAMORPHIC_PREFIX + "plains_stone" + STAIR_SUFFIX, new StairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStonePlains)));
 	public static final Block biomeStonePlainsSlab = make(METAMORPHIC_PREFIX + "plains_stone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains)));
 	public static final Block biomeStonePlainsWall = make(METAMORPHIC_PREFIX + "plains_stone" + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains)));
+	public static final Block biomeStonePlainsButton = make(METAMORPHIC_PREFIX + "plains_stone" + BUTTON_SUFFIX,
+			new ButtonBlock(BotaniaBlockSetTypes.METAMORPHIC_PLAINS_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.QUARTZ)));
+	public static final Block biomeStonePlainsPressurePlate = make(METAMORPHIC_PREFIX + "plains_stone" + PRESSURE_PLATE_SUFFIX,
+			new PressurePlateBlock(BotaniaBlockSetTypes.METAMORPHIC_PLAINS_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.QUARTZ)));
 	public static final Block biomeCobblestonePlains = make(METAMORPHIC_PREFIX + "plains_cobblestone", new Block(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains)));
 	public static final Block biomeCobblestonePlainsStairs = make(METAMORPHIC_PREFIX + "plains_cobblestone" + STAIR_SUFFIX, new StairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStonePlains)));
 	public static final Block biomeCobblestonePlainsSlab = make(METAMORPHIC_PREFIX + "plains_cobblestone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStonePlains)));
@@ -883,6 +905,10 @@ public final class BotaniaBlocks {
 	public static final Block biomeStoneMountainStairs = make(METAMORPHIC_PREFIX + "mountain_stone" + STAIR_SUFFIX, new StairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain)));
 	public static final Block biomeStoneMountainSlab = make(METAMORPHIC_PREFIX + "mountain_stone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain)));
 	public static final Block biomeStoneMountainWall = make(METAMORPHIC_PREFIX + "mountain_stone" + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain)));
+	public static final Block biomeStoneMountainButton = make(METAMORPHIC_PREFIX + "mountain_stone" + BUTTON_SUFFIX,
+			new ButtonBlock(BotaniaBlockSetTypes.METAMORPHIC_MOUNTAIN_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.GLOW_LICHEN)));
+	public static final Block biomeStoneMountainPressurePlate = make(METAMORPHIC_PREFIX + "mountain_stone" + PRESSURE_PLATE_SUFFIX,
+			new PressurePlateBlock(BotaniaBlockSetTypes.METAMORPHIC_MOUNTAIN_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.GLOW_LICHEN)));
 	public static final Block biomeCobblestoneMountain = make(METAMORPHIC_PREFIX + "mountain_cobblestone", new Block(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain)));
 	public static final Block biomeCobblestoneMountainStairs = make(METAMORPHIC_PREFIX + "mountain_cobblestone" + STAIR_SUFFIX, new StairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain)));
 	public static final Block biomeCobblestoneMountainSlab = make(METAMORPHIC_PREFIX + "mountain_cobblestone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMountain)));
@@ -898,6 +924,10 @@ public final class BotaniaBlocks {
 	public static final Block biomeStoneFungalStairs = make(METAMORPHIC_PREFIX + "fungal_stone" + STAIR_SUFFIX, new StairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal)));
 	public static final Block biomeStoneFungalSlab = make(METAMORPHIC_PREFIX + "fungal_stone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal)));
 	public static final Block biomeStoneFungalWall = make(METAMORPHIC_PREFIX + "fungal_stone" + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal)));
+	public static final Block biomeStoneFungalButton = make(METAMORPHIC_PREFIX + "fungal_stone" + BUTTON_SUFFIX,
+			new ButtonBlock(BotaniaBlockSetTypes.METAMORPHIC_FUNGAL_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.TERRACOTTA_PURPLE)));
+	public static final Block biomeStoneFungalPressurePlate = make(METAMORPHIC_PREFIX + "fungal_stone" + PRESSURE_PLATE_SUFFIX,
+			new PressurePlateBlock(BotaniaBlockSetTypes.METAMORPHIC_FUNGAL_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_PURPLE)));
 	public static final Block biomeCobblestoneFungal = make(METAMORPHIC_PREFIX + "fungal_cobblestone", new Block(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal)));
 	public static final Block biomeCobblestoneFungalStairs = make(METAMORPHIC_PREFIX + "fungal_cobblestone" + STAIR_SUFFIX, new StairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal)));
 	public static final Block biomeCobblestoneFungalSlab = make(METAMORPHIC_PREFIX + "fungal_cobblestone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneFungal)));
@@ -913,6 +943,10 @@ public final class BotaniaBlocks {
 	public static final Block biomeStoneSwampStairs = make(METAMORPHIC_PREFIX + "swamp_stone" + STAIR_SUFFIX, new StairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp)));
 	public static final Block biomeStoneSwampSlab = make(METAMORPHIC_PREFIX + "swamp_stone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp)));
 	public static final Block biomeStoneSwampWall = make(METAMORPHIC_PREFIX + "swamp_stone" + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp)));
+	public static final Block biomeStoneSwampButton = make(METAMORPHIC_PREFIX + "swamp_stone" + BUTTON_SUFFIX,
+			new ButtonBlock(BotaniaBlockSetTypes.METAMORPHIC_SWAMP_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
+	public static final Block biomeStoneSwampPressurePlate = make(METAMORPHIC_PREFIX + "swamp_stone" + PRESSURE_PLATE_SUFFIX,
+			new PressurePlateBlock(BotaniaBlockSetTypes.METAMORPHIC_SWAMP_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
 	public static final Block biomeCobblestoneSwamp = make(METAMORPHIC_PREFIX + "swamp_cobblestone", new Block(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp)));
 	public static final Block biomeCobblestoneSwampStairs = make(METAMORPHIC_PREFIX + "swamp_cobblestone" + STAIR_SUFFIX, new StairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp)));
 	public static final Block biomeCobblestoneSwampSlab = make(METAMORPHIC_PREFIX + "swamp_cobblestone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneSwamp)));
@@ -928,6 +962,10 @@ public final class BotaniaBlocks {
 	public static final Block biomeStoneDesertStairs = make(METAMORPHIC_PREFIX + "desert_stone" + STAIR_SUFFIX, new StairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert)));
 	public static final Block biomeStoneDesertSlab = make(METAMORPHIC_PREFIX + "desert_stone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert)));
 	public static final Block biomeStoneDesertWall = make(METAMORPHIC_PREFIX + "desert_stone" + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert)));
+	public static final Block biomeStoneDesertButton = make(METAMORPHIC_PREFIX + "desert_stone" + BUTTON_SUFFIX,
+			new ButtonBlock(BotaniaBlockSetTypes.METAMORPHIC_DESERT_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.DIRT)));
+	public static final Block biomeStoneDesertPressurePlate = make(METAMORPHIC_PREFIX + "desert_stone" + PRESSURE_PLATE_SUFFIX,
+			new PressurePlateBlock(BotaniaBlockSetTypes.METAMORPHIC_DESERT_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.DIRT)));
 	public static final Block biomeCobblestoneDesert = make(METAMORPHIC_PREFIX + "desert_cobblestone", new Block(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert)));
 	public static final Block biomeCobblestoneDesertStairs = make(METAMORPHIC_PREFIX + "desert_cobblestone" + STAIR_SUFFIX, new StairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert)));
 	public static final Block biomeCobblestoneDesertSlab = make(METAMORPHIC_PREFIX + "desert_cobblestone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneDesert)));
@@ -943,6 +981,10 @@ public final class BotaniaBlocks {
 	public static final Block biomeStoneTaigaStairs = make(METAMORPHIC_PREFIX + "taiga_stone" + STAIR_SUFFIX, new StairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga)));
 	public static final Block biomeStoneTaigaSlab = make(METAMORPHIC_PREFIX + "taiga_stone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga)));
 	public static final Block biomeStoneTaigaWall = make(METAMORPHIC_PREFIX + "taiga_stone" + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga)));
+	public static final Block biomeStoneTaigaButton = make(METAMORPHIC_PREFIX + "taiga_stone" + BUTTON_SUFFIX,
+			new ButtonBlock(BotaniaBlockSetTypes.METAMORPHIC_TAIGA_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.TERRACOTTA_BLUE)));
+	public static final Block biomeStoneTaigaPressurePlate = make(METAMORPHIC_PREFIX + "taiga_stone" + PRESSURE_PLATE_SUFFIX,
+			new PressurePlateBlock(BotaniaBlockSetTypes.METAMORPHIC_TAIGA_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_BLUE)));
 	public static final Block biomeCobblestoneTaiga = make(METAMORPHIC_PREFIX + "taiga_cobblestone", new Block(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga)));
 	public static final Block biomeCobblestoneTaigaStairs = make(METAMORPHIC_PREFIX + "taiga_cobblestone" + STAIR_SUFFIX, new StairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga)));
 	public static final Block biomeCobblestoneTaigaSlab = make(METAMORPHIC_PREFIX + "taiga_cobblestone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneTaiga)));
@@ -958,6 +1000,10 @@ public final class BotaniaBlocks {
 	public static final Block biomeStoneMesaStairs = make(METAMORPHIC_PREFIX + "mesa_stone" + STAIR_SUFFIX, new StairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa)));
 	public static final Block biomeStoneMesaSlab = make(METAMORPHIC_PREFIX + "mesa_stone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa)));
 	public static final Block biomeStoneMesaWall = make(METAMORPHIC_PREFIX + "mesa_stone" + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa)));
+	public static final Block biomeStoneMesaButton = make(METAMORPHIC_PREFIX + "mesa_stone" + BUTTON_SUFFIX,
+			new ButtonBlock(BotaniaBlockSetTypes.METAMORPHIC_MESA_BLOCK_SET, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON).mapColor(MapColor.TERRACOTTA_WHITE)));
+	public static final Block biomeStoneMesaPressurePlate = make(METAMORPHIC_PREFIX + "mesa_stone" + PRESSURE_PLATE_SUFFIX,
+			new PressurePlateBlock(BotaniaBlockSetTypes.METAMORPHIC_MESA_BLOCK_SET, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_WHITE)));
 	public static final Block biomeCobblestoneMesa = make(METAMORPHIC_PREFIX + "mesa_cobblestone", new Block(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa)));
 	public static final Block biomeCobblestoneMesaStairs = make(METAMORPHIC_PREFIX + "mesa_cobblestone" + STAIR_SUFFIX, new StairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa)));
 	public static final Block biomeCobblestoneMesaSlab = make(METAMORPHIC_PREFIX + "mesa_cobblestone" + SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(biomeStoneMesa)));
@@ -1200,6 +1246,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(livingrockStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockStairs));
 		r.accept(new BlockItem(livingrockSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockSlab));
 		r.accept(new BlockItem(livingrockWall, props), BuiltInRegistries.BLOCK.getKey(livingrockWall));
+		r.accept(new BlockItem(livingrockButton, props), BuiltInRegistries.BLOCK.getKey(livingrockButton));
+		r.accept(new BlockItem(livingrockPressurePlate, props), BuiltInRegistries.BLOCK.getKey(livingrockPressurePlate));
 		r.accept(new BlockItem(livingrockPolished, props), BuiltInRegistries.BLOCK.getKey(livingrockPolished));
 		r.accept(new BlockItem(livingrockPolishedStairs, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedStairs));
 		r.accept(new BlockItem(livingrockPolishedSlab, props), BuiltInRegistries.BLOCK.getKey(livingrockPolishedSlab));
@@ -1343,6 +1391,9 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(corporeaBlock, props), BuiltInRegistries.BLOCK.getKey(corporeaBlock));
 		r.accept(new BlockItem(corporeaStairs, props), BuiltInRegistries.BLOCK.getKey(corporeaStairs));
 		r.accept(new BlockItem(corporeaSlab, props), BuiltInRegistries.BLOCK.getKey(corporeaSlab));
+		r.accept(new BlockItem(corporeaWall, props), BuiltInRegistries.BLOCK.getKey(corporeaWall));
+		r.accept(new BlockItem(corporeaButton, props), BuiltInRegistries.BLOCK.getKey(corporeaButton));
+		r.accept(new BlockItem(corporeaPressurePlate, props), BuiltInRegistries.BLOCK.getKey(corporeaPressurePlate));
 		r.accept(new BlockItem(corporeaBrick, props), BuiltInRegistries.BLOCK.getKey(corporeaBrick));
 		r.accept(new BlockItem(corporeaBrickStairs, props), BuiltInRegistries.BLOCK.getKey(corporeaBrickStairs));
 		r.accept(new BlockItem(corporeaBrickSlab, props), BuiltInRegistries.BLOCK.getKey(corporeaBrickSlab));
@@ -1386,9 +1437,16 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(shimmerrock, props), BuiltInRegistries.BLOCK.getKey(shimmerrock));
 		r.accept(new BlockItem(shimmerrockStairs, props), BuiltInRegistries.BLOCK.getKey(shimmerrockStairs));
 		r.accept(new BlockItem(shimmerrockSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerrockSlab));
+		r.accept(new BlockItem(shimmerrockWall, props), BuiltInRegistries.BLOCK.getKey(shimmerrockWall));
+		r.accept(new BlockItem(shimmerrockButton, props), BuiltInRegistries.BLOCK.getKey(shimmerrockButton));
+		r.accept(new BlockItem(shimmerrockPressurePlate, props), BuiltInRegistries.BLOCK.getKey(shimmerrockPressurePlate));
 		r.accept(new BlockItem(shimmerwoodPlanks, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlanks));
 		r.accept(new BlockItem(shimmerwoodPlankStairs, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlankStairs));
 		r.accept(new BlockItem(shimmerwoodPlankSlab, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPlankSlab));
+		r.accept(new BlockItem(shimmerwoodFence, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodFence));
+		r.accept(new BlockItem(shimmerwoodFenceGate, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodFenceGate));
+		r.accept(new BlockItem(shimmerwoodButton, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodButton));
+		r.accept(new BlockItem(shimmerwoodPressurePlate, props), BuiltInRegistries.BLOCK.getKey(shimmerwoodPressurePlate));
 		r.accept(new BlockItem(dryGrass, props), BuiltInRegistries.BLOCK.getKey(dryGrass));
 		r.accept(new BlockItem(goldenGrass, props), BuiltInRegistries.BLOCK.getKey(goldenGrass));
 		r.accept(new BlockItem(vividGrass, props), BuiltInRegistries.BLOCK.getKey(vividGrass));
@@ -1473,6 +1531,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(biomeStoneForestStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestStairs));
 		r.accept(new BlockItem(biomeStoneForestSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestSlab));
 		r.accept(new BlockItem(biomeStoneForestWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestWall));
+		r.accept(new BlockItem(biomeStoneForestButton, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestButton));
+		r.accept(new BlockItem(biomeStoneForestPressurePlate, props), BuiltInRegistries.BLOCK.getKey(biomeStoneForestPressurePlate));
 		r.accept(new BlockItem(biomeBrickForest, props), BuiltInRegistries.BLOCK.getKey(biomeBrickForest));
 		r.accept(new BlockItem(biomeBrickForestStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickForestStairs));
 		r.accept(new BlockItem(biomeBrickForestSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickForestSlab));
@@ -1487,6 +1547,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(biomeStonePlainsStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlainsStairs));
 		r.accept(new BlockItem(biomeStonePlainsSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlainsSlab));
 		r.accept(new BlockItem(biomeStonePlainsWall, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlainsWall));
+		r.accept(new BlockItem(biomeStonePlainsButton, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlainsButton));
+		r.accept(new BlockItem(biomeStonePlainsPressurePlate, props), BuiltInRegistries.BLOCK.getKey(biomeStonePlainsPressurePlate));
 		r.accept(new BlockItem(biomeBrickPlains, props), BuiltInRegistries.BLOCK.getKey(biomeBrickPlains));
 		r.accept(new BlockItem(biomeBrickPlainsStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickPlainsStairs));
 		r.accept(new BlockItem(biomeBrickPlainsSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickPlainsSlab));
@@ -1501,6 +1563,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(biomeStoneMountainStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountainStairs));
 		r.accept(new BlockItem(biomeStoneMountainSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountainSlab));
 		r.accept(new BlockItem(biomeStoneMountainWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountainWall));
+		r.accept(new BlockItem(biomeStoneMountainButton, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountainButton));
+		r.accept(new BlockItem(biomeStoneMountainPressurePlate, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMountainPressurePlate));
 		r.accept(new BlockItem(biomeBrickMountain, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMountain));
 		r.accept(new BlockItem(biomeBrickMountainStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMountainStairs));
 		r.accept(new BlockItem(biomeBrickMountainSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMountainSlab));
@@ -1515,6 +1579,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(biomeStoneFungalStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungalStairs));
 		r.accept(new BlockItem(biomeStoneFungalSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungalSlab));
 		r.accept(new BlockItem(biomeStoneFungalWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungalWall));
+		r.accept(new BlockItem(biomeStoneFungalButton, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungalButton));
+		r.accept(new BlockItem(biomeStoneFungalPressurePlate, props), BuiltInRegistries.BLOCK.getKey(biomeStoneFungalPressurePlate));
 		r.accept(new BlockItem(biomeBrickFungal, props), BuiltInRegistries.BLOCK.getKey(biomeBrickFungal));
 		r.accept(new BlockItem(biomeBrickFungalStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickFungalStairs));
 		r.accept(new BlockItem(biomeBrickFungalSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickFungalSlab));
@@ -1529,6 +1595,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(biomeStoneSwampStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwampStairs));
 		r.accept(new BlockItem(biomeStoneSwampSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwampSlab));
 		r.accept(new BlockItem(biomeStoneSwampWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwampWall));
+		r.accept(new BlockItem(biomeStoneSwampButton, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwampButton));
+		r.accept(new BlockItem(biomeStoneSwampPressurePlate, props), BuiltInRegistries.BLOCK.getKey(biomeStoneSwampPressurePlate));
 		r.accept(new BlockItem(biomeBrickSwamp, props), BuiltInRegistries.BLOCK.getKey(biomeBrickSwamp));
 		r.accept(new BlockItem(biomeBrickSwampStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickSwampStairs));
 		r.accept(new BlockItem(biomeBrickSwampSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickSwampSlab));
@@ -1543,6 +1611,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(biomeStoneDesertStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesertStairs));
 		r.accept(new BlockItem(biomeStoneDesertSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesertSlab));
 		r.accept(new BlockItem(biomeStoneDesertWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesertWall));
+		r.accept(new BlockItem(biomeStoneDesertButton, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesertButton));
+		r.accept(new BlockItem(biomeStoneDesertPressurePlate, props), BuiltInRegistries.BLOCK.getKey(biomeStoneDesertPressurePlate));
 		r.accept(new BlockItem(biomeBrickDesert, props), BuiltInRegistries.BLOCK.getKey(biomeBrickDesert));
 		r.accept(new BlockItem(biomeBrickDesertStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickDesertStairs));
 		r.accept(new BlockItem(biomeBrickDesertSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickDesertSlab));
@@ -1557,6 +1627,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(biomeStoneTaigaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaigaStairs));
 		r.accept(new BlockItem(biomeStoneTaigaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaigaSlab));
 		r.accept(new BlockItem(biomeStoneTaigaWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaigaWall));
+		r.accept(new BlockItem(biomeStoneTaigaButton, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaigaButton));
+		r.accept(new BlockItem(biomeStoneTaigaPressurePlate, props), BuiltInRegistries.BLOCK.getKey(biomeStoneTaigaPressurePlate));
 		r.accept(new BlockItem(biomeBrickTaiga, props), BuiltInRegistries.BLOCK.getKey(biomeBrickTaiga));
 		r.accept(new BlockItem(biomeBrickTaigaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickTaigaStairs));
 		r.accept(new BlockItem(biomeBrickTaigaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickTaigaSlab));
@@ -1571,6 +1643,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(biomeStoneMesaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesaStairs));
 		r.accept(new BlockItem(biomeStoneMesaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesaSlab));
 		r.accept(new BlockItem(biomeStoneMesaWall, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesaWall));
+		r.accept(new BlockItem(biomeStoneMesaButton, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesaButton));
+		r.accept(new BlockItem(biomeStoneMesaPressurePlate, props), BuiltInRegistries.BLOCK.getKey(biomeStoneMesaPressurePlate));
 		r.accept(new BlockItem(biomeBrickMesa, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMesa));
 		r.accept(new BlockItem(biomeBrickMesaStairs, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMesaStairs));
 		r.accept(new BlockItem(biomeBrickMesaSlab, props), BuiltInRegistries.BLOCK.getKey(biomeBrickMesaSlab));

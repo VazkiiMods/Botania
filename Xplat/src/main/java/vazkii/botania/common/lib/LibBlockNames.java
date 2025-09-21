@@ -144,7 +144,8 @@ public final class LibBlockNames {
 	public static final String CORPOREA_RETAINER = "corporea_retainer";
 	public static final String TERU_TERU_BOZU = "teru_teru_bozu";
 	public static final String SHIMMERROCK = "shimmerrock";
-	public static final String SHIMMERWOOD_PLANKS = "shimmerwood_planks";
+	public static final String SHIMMERWOOD_PREFIX = "shimmerwood";
+	public static final String SHIMMERWOOD_PLANKS = SHIMMERWOOD_PREFIX + "_planks";
 	public static final String AVATAR = "avatar";
 	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animated_torch";
@@ -154,8 +155,7 @@ public final class LibBlockNames {
 			"swamp", "desert", "taiga", "mesa"
 	};
 	public static final String CORPOREA_BLOCK = "corporea_block";
-	public static final String CORPOREA_SLAB = "corporea_slab";
-	public static final String CORPOREA_STAIRS = "corporea_stairs";
+	public static final String CORPOREA_PREFIX = "corporea";
 	public static final String CORPOREA_BRICK = "corporea_brick";
 	public static final String SLAB_SUFFIX = "_slab";
 	public static final String STAIR_SUFFIX = "_stairs";

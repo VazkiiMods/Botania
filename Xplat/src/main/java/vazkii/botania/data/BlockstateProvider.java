@@ -22,6 +22,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 
+import org.apache.commons.lang3.function.TriConsumer;
 import org.slf4j.Logger;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -345,6 +346,15 @@ public class BlockstateProvider implements DataProvider {
 		pressurePlateBlock(remainingBlocks, livingwoodPressurePlate, getBlockTexture(livingwoodPlanks));
 		sign(remainingBlocks, livingwoodPlanks, livingwoodSign, livingwoodWallSign);
 		hangingSign(remainingBlocks, livingwoodLogStripped, livingwoodHangingSign, livingwoodWallHangingSign);
+
+		fenceBlock(remainingBlocks, shimmerwoodFence, getBlockTexture(shimmerwoodPlanks));
+		fenceGateBlock(remainingBlocks, shimmerwoodFenceGate, getBlockTexture(shimmerwoodPlanks));
+		buttonBlock(remainingBlocks, shimmerwoodButton, getBlockTexture(shimmerwoodPlanks));
+		pressurePlateBlock(remainingBlocks, shimmerwoodPressurePlate, getBlockTexture(shimmerwoodPlanks));
+
+		wallBlock(remainingBlocks, corporeaWall, getBlockTexture(corporeaBlock));
+		buttonBlock(remainingBlocks, corporeaButton, getBlockTexture(corporeaBlock));
+		pressurePlateBlock(remainingBlocks, corporeaPressurePlate, getBlockTexture(corporeaBlock));
 
 		rotatedMirrored(remainingBlocks, livingrock, getBlockTexture(livingrock));
 
@@ -771,15 +781,22 @@ public class BlockstateProvider implements DataProvider {
 			}
 		});
 
-		takeAll(remainingBlocks, b -> b instanceof WallBlock).forEach(wallBlock -> {
-			String name = BuiltInRegistries.BLOCK.getKey(wallBlock).getPath();
-			String baseName = name.substring(0, name.length() - LibBlockNames.WALL_SUFFIX.length());
-			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
-			var baseTexture = getBlockTexture(base);
-			wallBlock(new HashSet<>(), wallBlock, baseTexture);
-		});
+		handleStandardBlockModel(remainingBlocks, WallBlock.class, LibBlockNames.WALL_SUFFIX, this::wallBlock);
+		handleStandardBlockModel(remainingBlocks, ButtonBlock.class, LibBlockNames.BUTTON_SUFFIX, this::buttonBlock);
+		handleStandardBlockModel(remainingBlocks, PressurePlateBlock.class, LibBlockNames.PRESSURE_PLATE_SUFFIX, this::pressurePlateBlock);
 
 		remainingBlocks.forEach(this::cubeAllNoRemove);
+	}
+
+	private <T extends Block> void handleStandardBlockModel(Set<Block> remainingBlocks, Class<T> blockClass,
+			String suffix, TriConsumer<Set<Block>, Block, ResourceLocation> modelBuilder) {
+		takeAll(remainingBlocks, blockClass::isInstance).forEach(block -> {
+			String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
+			String baseName = name.substring(0, name.length() - suffix.length());
+			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
+			var baseTexture = getBlockTexture(base);
+			modelBuilder.accept(new HashSet<>(), block, baseTexture);
+		});
 	}
 
 	protected void particleOnly(Set<Block> blocks, Block b, ResourceLocation particle) {

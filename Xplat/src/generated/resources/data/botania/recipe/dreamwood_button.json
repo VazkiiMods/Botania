@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "botania:dreamwood_planks"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:dreamwood_button"
+  }
+}
