@@ -622,13 +622,17 @@ public final class BotaniaBlocks {
 	public static final Block dreamwoodPatternFramed = make(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, new Block(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 
 	public static final ManaSpreaderBlock manaSpreader = make(LibBlockNames.SPREADER,
-			new ManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
+			new ManaSpreaderBlock(ManaSpreaderBlock.DEFAULT_SPREADER_PARAMETERS,
+					BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
 	public static final ManaSpreaderBlock redstoneSpreader = make(LibBlockNames.SPREADER_REDSTONE,
-			new PulseManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
+			new ManaSpreaderBlock(ManaSpreaderBlock.PULSE_SPREADER_PARAMETERS,
+					BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
 	public static final ManaSpreaderBlock elvenSpreader = make(LibBlockNames.SPREADER_ELVEN,
-			new ElvenManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
+			new ManaSpreaderBlock(ManaSpreaderBlock.ELVEN_SPREADER_PARAMETERS,
+					BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
 	public static final ManaSpreaderBlock gaiaSpreader = make(LibBlockNames.SPREADER_GAIA,
-			new GaiaManaSpreaderBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
+			new ManaSpreaderBlock(ManaSpreaderBlock.GAIA_SPREADER_PARAMETERS,
+					BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
 
 	public static final ManaPoolBlock manaPool = makeBlockWithColoredVariants(LibBlockNames.POOL, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, false, ManaPoolBlock.NORMAL_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final ManaPoolBlock creativePool = makeBlockWithColoredVariants(LibBlockNames.POOL_CREATIVE, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, true, ManaPoolBlock.BIG_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));

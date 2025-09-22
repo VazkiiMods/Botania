@@ -47,6 +47,8 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.WandOfTheForestItem;
 
+import java.util.function.Supplier;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements EntityBlock {
@@ -55,46 +57,67 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	private static final VoxelShape SHAPE_SCAFFOLDING = box(0, 0, 0, 16, 16, 16);
 	public static final BooleanProperty HAS_SCAFFOLDING = BotaniaStateProperties.HAS_SCAFFOLDING;
 
-	private static final ResourceLocation DEFAULT_SPREADER_MODEL_ID = botaniaRL("block/mana_spreader");
-	private static final ResourceLocation DEFAULT_CORE_MODEL_ID = botaniaRL("block/mana_spreader_core");
-	private static final ResourceLocation DEFAULT_SCAFFOLDING_MODEL_ID = botaniaRL("block/mana_spreader_scaffolding");
+	public record SpreaderParameters(int capacity, boolean redstoneTriggered, Supplier<BurstProperties> burstPropertiesSupplier,
+			// display/render properties
+			ResourceLocation spreaderModel, ResourceLocation coreModel, ResourceLocation scaffoldingModel, boolean rainbowRendered, int hudColor) {
+	}
 
-	public ManaSpreaderBlock(Properties builder) {
+	public static final SpreaderParameters DEFAULT_SPREADER_PARAMETERS = new SpreaderParameters(1000, false,
+			() -> new BurstProperties(160, 60, 4f, 0f, 1f, 0x20FF20),
+			botaniaRL("block/mana_spreader"), botaniaRL("block/mana_spreader_core"),
+			botaniaRL("block/mana_spreader_scaffolding"), false, 0x00FF00);
+	public static final SpreaderParameters PULSE_SPREADER_PARAMETERS = new SpreaderParameters(1000, true,
+			() -> new BurstProperties(160, 60, 4f, 0f, 1f, 0xFF2020),
+			botaniaRL("block/redstone_spreader"), botaniaRL("block/redstone_spreader_core"),
+			botaniaRL("block/redstone_spreader_scaffolding"), false, 0xFF0000);
+	public static final SpreaderParameters ELVEN_SPREADER_PARAMETERS = new SpreaderParameters(1000, false,
+			() -> new BurstProperties(240, 80, 4f, 0f, 1.25f, 0xFF45C4),
+			botaniaRL("block/elven_spreader"), botaniaRL("block/elven_spreader_core"),
+			botaniaRL("block/elven_spreader_scaffolding"), false, 0xFF00AE);
+	public static final SpreaderParameters GAIA_SPREADER_PARAMETERS = new SpreaderParameters(6400, false,
+			() -> new BurstProperties(640, 120, 20f, 0f, 2f, 0x20FF20),
+			botaniaRL("block/gaia_spreader"), botaniaRL("block/gaia_spreader_core"),
+			botaniaRL("block/gaia_spreader_scaffolding"), true, 0x00FF00);
+
+	private final SpreaderParameters spreaderParameters;
+
+	public ManaSpreaderBlock(SpreaderParameters spreaderParameters, Properties builder) {
 		super(builder);
+		this.spreaderParameters = spreaderParameters;
 		registerDefaultState(defaultBlockState().setValue(HAS_SCAFFOLDING, false));
 	}
 
 	// variant value definitions
 	public boolean isRedstoneTriggered() {
-		return false;
+		return spreaderParameters.redstoneTriggered;
 	}
 
 	public boolean isRainbowRendered() {
-		return false;
+		return spreaderParameters.rainbowRendered;
 	}
 
 	public BurstProperties getDefaultBurstProperties() {
-		return new BurstProperties(160, 60, 4f, 0f, 1f, 0x20FF20);
+		return spreaderParameters.burstPropertiesSupplier.get();
 	}
 
 	public int getManaCapacity() {
-		return 1000;
+		return spreaderParameters.capacity;
 	}
 
 	public int getHudColor() {
-		return 0x00FF00;
+		return spreaderParameters.hudColor;
 	}
 
 	public ResourceLocation getSpreaderModelId() {
-		return DEFAULT_SPREADER_MODEL_ID;
+		return spreaderParameters.spreaderModel;
 	}
 
 	public ResourceLocation getCoreModelId() {
-		return DEFAULT_CORE_MODEL_ID;
+		return spreaderParameters.coreModel;
 	}
 
 	public ResourceLocation getScaffoldingModelId() {
-		return DEFAULT_SCAFFOLDING_MODEL_ID;
+		return spreaderParameters.scaffoldingModel;
 	}
 
 	@Override
