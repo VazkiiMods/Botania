@@ -8,8 +8,11 @@
  */
 package vazkii.botania.common.block.mana;
 
+import com.google.common.base.Suppliers;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
@@ -49,37 +52,36 @@ import vazkii.botania.common.item.WandOfTheForestItem;
 
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 	private static final VoxelShape SHAPE_PADDING = box(1, 1, 1, 15, 15, 15);
 	private static final VoxelShape SHAPE_SCAFFOLDING = box(0, 0, 0, 16, 16, 16);
 	public static final BooleanProperty HAS_SCAFFOLDING = BotaniaStateProperties.HAS_SCAFFOLDING;
 
-	public record SpreaderParameters(int capacity, boolean redstoneTriggered, Supplier<BurstProperties> burstPropertiesSupplier,
-			// display/render properties
-			ResourceLocation spreaderModel, ResourceLocation coreModel, ResourceLocation scaffoldingModel, boolean rainbowRendered, int hudColor) {
+	public record SpreaderParameters(int capacity, boolean redstoneTriggered,
+			Supplier<BurstProperties> burstPropertiesSupplier, boolean rainbowRendered, int hudColor) {
 	}
 
 	public static final SpreaderParameters DEFAULT_SPREADER_PARAMETERS = new SpreaderParameters(1000, false,
 			() -> new BurstProperties(160, 60, 4f, 0f, 1f, 0x20FF20),
-			botaniaRL("block/mana_spreader"), botaniaRL("block/mana_spreader_core"),
-			botaniaRL("block/mana_spreader_scaffolding"), false, 0x00FF00);
+			false, 0x00FF00);
 	public static final SpreaderParameters PULSE_SPREADER_PARAMETERS = new SpreaderParameters(1000, true,
 			() -> new BurstProperties(160, 60, 4f, 0f, 1f, 0xFF2020),
-			botaniaRL("block/redstone_spreader"), botaniaRL("block/redstone_spreader_core"),
-			botaniaRL("block/redstone_spreader_scaffolding"), false, 0xFF0000);
+			false, 0xFF0000);
 	public static final SpreaderParameters ELVEN_SPREADER_PARAMETERS = new SpreaderParameters(1000, false,
 			() -> new BurstProperties(240, 80, 4f, 0f, 1.25f, 0xFF45C4),
-			botaniaRL("block/elven_spreader"), botaniaRL("block/elven_spreader_core"),
-			botaniaRL("block/elven_spreader_scaffolding"), false, 0xFF00AE);
+			false, 0xFF00AE);
 	public static final SpreaderParameters GAIA_SPREADER_PARAMETERS = new SpreaderParameters(6400, false,
 			() -> new BurstProperties(640, 120, 20f, 0f, 2f, 0x20FF20),
-			botaniaRL("block/gaia_spreader"), botaniaRL("block/gaia_spreader_core"),
-			botaniaRL("block/gaia_spreader_scaffolding"), true, 0x00FF00);
+			true, 0x00FF00);
 
 	private final SpreaderParameters spreaderParameters;
+	private final Supplier<ResourceLocation> spreaderModelIdSupplier = Suppliers.memoize(
+			() -> ModelLocationUtils.getModelLocation(this));
+	private final Supplier<ResourceLocation> coreModelIdSupplier = Suppliers.memoize(
+			() -> ModelLocationUtils.getModelLocation(this, "_core"));
+	private final Supplier<ResourceLocation> scaffoldingModelIdSupplier = Suppliers.memoize(
+			() -> ModelLocationUtils.getModelLocation(this, "_scaffolding"));
 
 	public ManaSpreaderBlock(SpreaderParameters spreaderParameters, Properties builder) {
 		super(builder);
@@ -109,15 +111,15 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	public ResourceLocation getSpreaderModelId() {
-		return spreaderParameters.spreaderModel;
+		return spreaderModelIdSupplier.get();
 	}
 
 	public ResourceLocation getCoreModelId() {
-		return spreaderParameters.coreModel;
+		return coreModelIdSupplier.get();
 	}
 
 	public ResourceLocation getScaffoldingModelId() {
-		return spreaderParameters.scaffoldingModel;
+		return scaffoldingModelIdSupplier.get();
 	}
 
 	@Override
