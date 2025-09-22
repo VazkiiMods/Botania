@@ -36,6 +36,7 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 	private static final String TAG_MANA = "mana";
 
 	private int mana;
+	private boolean alreadyTicked = false;
 
 	public GeneratingFlowerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state, ManaCollector.class);
@@ -60,7 +61,16 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 				BotaniaAPI.instance().sparkleFX(getLevel(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
 		}
+		alreadyTicked = true;
 		emptyManaIntoCollector();
+	}
+
+	@Override
+	public void setBindingPos(@Nullable BlockPos bindingPos) {
+		super.setBindingPos(bindingPos);
+		if (alreadyTicked && getMana() > 0) {
+			emptyManaIntoCollector();
+		}
 	}
 
 	@Override
