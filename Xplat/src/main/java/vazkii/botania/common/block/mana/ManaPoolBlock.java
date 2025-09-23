@@ -86,6 +86,10 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		this.color = color;
 	}
 
+	public static ManaPoolBlock getUndyedBlock(ManaPoolBlock potentiallyDyedBlock) {
+		return BotaniaBlocks.findOptionallyDyedBlock(potentiallyDyedBlock, null);
+	}
+
 	public boolean isCreative() {
 		return creative;
 	}
@@ -172,6 +176,17 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
+
+	@Override
+	protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+		if (state.getBlock() instanceof ManaPoolBlock oldBlock
+				&& newState.getBlock() instanceof ManaPoolBlock newBlock
+				&& ManaPoolBlock.getUndyedBlock(oldBlock) == ManaPoolBlock.getUndyedBlock(newBlock)) {
+			// don't delete block entity if it's the same pool type
+			return;
+		}
+		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Override
