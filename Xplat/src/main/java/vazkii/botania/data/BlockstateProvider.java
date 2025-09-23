@@ -517,7 +517,7 @@ public class BlockstateProvider implements DataProvider {
 			fullTemplate.create(b, mapping.put(TextureSlot.CONTENT, botaniaRL("block/mana_water")), this.modelOutput);
 		});
 		takeAll(remainingBlocks, b -> b instanceof ManaPoolBlock poolBlock && poolBlock.color != null).forEach(b -> {
-			Block baseBlock = BotaniaBlocks.findOptionallyDyedBlock((ManaPoolBlock) b, null);
+			Block baseBlock = ManaPoolBlock.getUndyedBlock((ManaPoolBlock) b);
 			ResourceLocation blockModelTemplateKey = BuiltInRegistries.BLOCK.getKey(baseBlock).withPrefix("block/");
 			singleVariantBlockState(b, blockModelTemplateKey);
 		});

@@ -401,7 +401,7 @@ public class ItemModelProvider implements DataProvider {
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof ManaPoolBlock).forEach(i -> {
-			Block baseBlock = BotaniaBlocks.findOptionallyDyedBlock((ManaPoolBlock) i.getBlock(), null);
+			Block baseBlock = ManaPoolBlock.getUndyedBlock((ManaPoolBlock) i.getBlock());
 			ResourceLocation fullModel = ModelLocationUtils.getModelLocation(baseBlock, "_full");
 			OverrideHolder overrides = new OverrideHolder().add(fullModel, Pair.of(botaniaRL("full"), 1.0));
 			consumer.accept(ModelLocationUtils.getModelLocation(i),

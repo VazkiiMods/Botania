@@ -94,6 +94,8 @@ public class BotaniaTags {
 		public static final TagKey<Item> DYED_DILUTED_POOLS = tag("dyed_diluted_pools");
 		public static final TagKey<Item> DYED_FABULOUS_POOLS = tag("dyed_fabulous_pools");
 
+		public static final TagKey<Item> MANA_POOL_DYE_REMOVER = tag("mana_pool_dye_remover");
+
 		/**
 		 * Wool-covered spreader items. These dampen vibrations.
 		 */

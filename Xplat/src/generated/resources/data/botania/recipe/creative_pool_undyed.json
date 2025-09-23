@@ -7,7 +7,7 @@
       "tag": "botania:dyed_creative_pools"
     },
     {
-      "item": "minecraft:clay_ball"
+      "tag": "botania:mana_pool_dye_remover"
     }
   ],
   "result": {

@@ -451,7 +451,7 @@ public final class BotaniaItems {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
 		if (!level.isClientSide) {
-			ManaPoolBlock undyedPool = BotaniaBlocks.findOptionallyDyedBlock(poolBlock, null);
+			ManaPoolBlock undyedPool = ManaPoolBlock.getUndyedBlock(poolBlock);
 			ItemStack itemstack = stack.transmuteCopy(undyedPool, 1);
 			player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, itemstack, false));
 			player.awardStat(BotaniaStats.MANA_POOLS_CLEANED);

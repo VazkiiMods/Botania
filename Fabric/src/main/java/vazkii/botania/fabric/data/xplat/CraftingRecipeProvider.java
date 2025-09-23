@@ -858,7 +858,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	private static void dyedPools(RecipeOutput recipeOutput, ManaPoolBlock basePool, String groupName, TagKey<Item> dyedPoolsTag) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, basePool)
 				.requires(dyedPoolsTag)
-				.requires(Items.CLAY_BALL)
+				.requires(BotaniaTags.Items.MANA_POOL_DYE_REMOVER)
 				.group(groupName)
 				.unlockedBy("has_dyed", conditionsFromTag(dyedPoolsTag))
 				.save(recipeOutput, BuiltInRegistries.BLOCK.getKey(basePool).withSuffix("_undyed"));

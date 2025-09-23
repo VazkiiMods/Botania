@@ -106,7 +106,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	public String getDescriptionId() {
 		if (creative) {
 			return Util.makeDescriptionId("block",
-					BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.findOptionallyDyedBlock(this, null)));
+					BuiltInRegistries.BLOCK.getKey(getUndyedBlock(this)));
 		}
 		return super.getDescriptionId();
 	}
@@ -166,9 +166,8 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 				return ItemInteractionResult.sidedSuccess(level.isClientSide());
 			}
 		}
-		// TODO: turn this into an item tag
-		if (stack.is(Items.CLAY_BALL) && this.color != null) {
-			ManaPoolBlock undyedBlock = BotaniaBlocks.findOptionallyDyedBlock(this, null);
+		if (stack.is(BotaniaTags.Items.MANA_POOL_DYE_REMOVER) && this.color != null) {
+			ManaPoolBlock undyedBlock = getUndyedBlock(this);
 			level.setBlockAndUpdate(pos, undyedBlock.withPropertiesOf(state));
 			if (!player.getAbilities().instabuild) {
 				stack.shrink(1);
