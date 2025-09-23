@@ -11,10 +11,13 @@
 
   "botaniamisc.armorset": "\u00a7bArmour Set\u00a7r: %s",
 
-  "tag.botania.petals.gray": "Grey Petals",
-  "tag.botania.petals.light_gray": "Light Grey Petals",
-  "tag.c.storage_blocks.petal.gray": "Grey Petal Storage Blocks",
-  "tag.c.storage_blocks.petal.light_gray": "Light Grey Petal Storage Blocks",
+  "tag.block.c.storage_blocks.petal.gray": "Grey Petal Storage Blocks",
+  "tag.block.c.storage_blocks.petal.light_gray": "Light Grey Petal Storage Blocks",
+
+  "tag.item.botania.petals.gray": "Grey Petals",
+  "tag.item.botania.petals.light_gray": "Light Grey Petals",
+  "tag.item.c.storage_blocks.petal.gray": "Grey Petal Storage Blocks",
+  "tag.item.c.storage_blocks.petal.light_gray": "Light Grey Petal Storage Blocks",
 
   "botania.armorset.will_verac.desc": "Verac: Critical Hits pierce through armour",
 
