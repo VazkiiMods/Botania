@@ -1,0 +1,13 @@
+{
+  "type": "botania:crafting_shapeless_uncover_spreader",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "botania:covered_gaia_spreaders"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:gaia_spreader"
+  }
+}

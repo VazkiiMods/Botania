@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "add_elven_spreader_cover",
+  "ingredients": [
+    {
+      "item": "botania:elven_spreader"
+    },
+    {
+      "item": "minecraft:brown_wool"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:brown_covered_elven_spreader"
+  }
+}

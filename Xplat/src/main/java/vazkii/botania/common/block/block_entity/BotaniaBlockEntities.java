@@ -28,6 +28,7 @@ import vazkii.botania.common.block.flower.PureDaisyBlockEntity;
 import vazkii.botania.common.block.flower.functional.*;
 import vazkii.botania.common.block.flower.generating.*;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -49,7 +50,7 @@ public class BotaniaBlockEntities {
 			swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar,
 			livingrockAltar, deepslateAltar
 	);
-	public static final BlockEntityType<ManaSpreaderBlockEntity> SPREADER = type(LibBlockNames.SPREADER, ManaSpreaderBlockEntity::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader);
+	public static final BlockEntityType<ManaSpreaderBlockEntity> SPREADER = type(LibBlockNames.SPREADER, ManaSpreaderBlockEntity::new, ManaSpreaderBlock.class::isInstance);
 	public static final BlockEntityType<ManaPoolBlockEntity> POOL = type(LibBlockNames.POOL, ManaPoolBlockEntity::new, ManaPoolBlock.class::isInstance);
 	public static final BlockEntityType<RunicAltarBlockEntity> RUNE_ALTAR = type(LibBlockNames.RUNE_ALTAR, RunicAltarBlockEntity::new, runeAltar);
 	public static final BlockEntityType<PylonBlockEntity> PYLON = type(LibBlockNames.PYLON, PylonBlockEntity::new, manaPylon, naturaPylon, gaiaPylon);

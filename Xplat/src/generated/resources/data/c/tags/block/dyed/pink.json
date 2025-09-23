@@ -3,6 +3,10 @@
     "botania:pink_mana_pool",
     "botania:pink_creative_pool",
     "botania:pink_diluted_pool",
-    "botania:pink_fabulous_pool"
+    "botania:pink_fabulous_pool",
+    "botania:pink_covered_mana_spreader",
+    "botania:pink_covered_redstone_spreader",
+    "botania:pink_covered_elven_spreader",
+    "botania:pink_covered_gaia_spreader"
   ]
 }

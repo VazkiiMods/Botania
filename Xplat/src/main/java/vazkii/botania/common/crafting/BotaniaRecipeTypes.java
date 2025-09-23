@@ -100,6 +100,7 @@ public class BotaniaRecipeTypes {
 		r.accept(PhantomInkRecipe.SERIALIZER, botaniaRL("crafting_special_phantom_ink_apply"));
 		r.accept(ResoluteIvyRecipe.SERIALIZER, botaniaRL("crafting_special_keep_ivy"));
 		r.accept(ShapelessManaUpgradeRecipe.SERIALIZER, botaniaRL("crafting_shapeless_mana_upgrade"));
+		r.accept(ShapelessUncoverSpreaderRecipe.SERIALIZER, botaniaRL("crafting_shapeless_uncover_spreader"));
 		r.accept(SpellbindingClothRecipe.SERIALIZER, botaniaRL("crafting_special_spell_cloth_apply"));
 		r.accept(SplitLensRecipe.SERIALIZER, botaniaRL("crafting_special_split_lens"));
 		r.accept(TerraShattererTippingRecipe.SERIALIZER, botaniaRL("crafting_special_terra_pick_tipping"));

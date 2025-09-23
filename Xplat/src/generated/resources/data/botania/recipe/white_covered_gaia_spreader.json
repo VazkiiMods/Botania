@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "add_gaia_spreader_cover",
+  "ingredients": [
+    {
+      "item": "botania:gaia_spreader"
+    },
+    {
+      "item": "minecraft:white_wool"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:white_covered_gaia_spreader"
+  }
+}

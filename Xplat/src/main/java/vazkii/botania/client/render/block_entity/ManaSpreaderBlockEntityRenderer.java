@@ -30,6 +30,7 @@ import org.joml.Quaternionf;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.xplat.ClientXplatAbstractions;
@@ -69,7 +70,8 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 		float time = ClientTickHandler.getEntityTicksInGame() + partialTick + new Random(spreader.getBlockPos().asLong()).nextFloat() * 360;
 
 		float r = 1, g = 1, b = 1;
-		if (spreader.getSpreaderBlock().isRainbowRendered()) {
+		ManaSpreaderBlock spreaderBlock = spreader.getSpreaderBlock();
+		if (spreaderBlock.isRainbowRendered()) {
 			int color = Mth.hsvToRgb((time % 180) / 180, 0.4F, 0.9F);
 			r = FastColor.ARGB32.red(color) / 255F;
 			g = FastColor.ARGB32.green(color) / 255F;
@@ -106,7 +108,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 			ms.popPose();
 		}
 
-		if (spreader.paddingColor != null) {
+		if (spreaderBlock.isRainbowRendered() && spreaderBlock.getOptionalColor().isPresent()) {
 			ms.pushPose();
 			// The padding model is facing up so that the textures are rotated the correct way
 			// It's simpler to do this than mess with rotation and UV in the json model
@@ -114,7 +116,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 			ms.mulPose(VecHelper.rotateX(-90));
 			ms.mulPose(VecHelper.rotateY(180));
 			ms.translate(-0.5F, -0.5F, -0.5F);
-			BakedModel paddingModel = getPaddingModel(spreader.paddingColor);
+			BakedModel paddingModel = getPaddingModel(spreaderBlock.getOptionalColor().get());
 			blockRenderDispatcher.getModelRenderer()
 					.renderModel(ms.last(), buffer, spreader.getBlockState(),
 							paddingModel, r, g, b, light, overlay);

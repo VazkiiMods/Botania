@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
 
+import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.mana.DrumBlock;
@@ -201,6 +202,18 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.LAPUTA_IMMOBILE);
 		tag(BotaniaTags.Blocks.LAPUTA_NO_DOUBLE_BLOCK);
 
+		tag(BotaniaTags.Blocks.COVERED_MANA_SPREADERS).add(getColoredBlocks(manaSpreader, LibBlockNames.COVERED_INFIX));
+		tag(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS).add(getColoredBlocks(redstoneSpreader, LibBlockNames.COVERED_INFIX));
+		tag(BotaniaTags.Blocks.COVERED_ELVEN_SPREADERS).add(getColoredBlocks(elvenSpreader, LibBlockNames.COVERED_INFIX));
+		tag(BotaniaTags.Blocks.COVERED_GAIA_SPREADERS).add(getColoredBlocks(gaiaSpreader, LibBlockNames.COVERED_INFIX));
+		tag(BotaniaTags.Blocks.COVERED_SPREADERS)
+				.addTag(BotaniaTags.Blocks.COVERED_MANA_SPREADERS)
+				.addTag(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS)
+				.addTag(BotaniaTags.Blocks.COVERED_ELVEN_SPREADERS)
+				.addTag(BotaniaTags.Blocks.COVERED_GAIA_SPREADERS);
+		tag(BlockTags.OCCLUDES_VIBRATION_SIGNALS).addTag(BotaniaTags.Blocks.COVERED_SPREADERS);
+		tag(BlockTags.DAMPENS_VIBRATIONS).addTag(BotaniaTags.Blocks.COVERED_SPREADERS);
+
 		tag(BotaniaTags.Blocks.TERRA_PLATE_BASE).add(BotaniaBlocks.livingrock, BotaniaBlocks.shimmerrock);
 
 		tag(BlockTags.CLIMBABLE).add(BotaniaBlocks.solidVines);
@@ -367,6 +380,16 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
 				)
 		);
+	}
+
+	private static <B extends Block & OptionallyColored> Block[] getColoredBlocks(B baseBlock) {
+		return ColorHelper.supportedColors().map(color -> BotaniaBlocks.findOptionallyDyedBlock(baseBlock, color))
+				.toArray(Block[]::new);
+	}
+
+	private static <B extends Block & OptionallyColored> Block[] getColoredBlocks(B baseBlock, String coloredBlockInfix) {
+		return ColorHelper.supportedColors().map(color -> BotaniaBlocks.findOptionallyDyedBlock(baseBlock, color, coloredBlockInfix))
+				.toArray(Block[]::new);
 	}
 
 	private Block[] getModBlocks(Predicate<Block> predicate) {

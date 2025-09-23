@@ -36,6 +36,7 @@ public final class LibBlockNames {
 	public static final String SPREADER_REDSTONE = "redstone_spreader";
 	public static final String SPREADER_ELVEN = "elven_spreader";
 	public static final String SPREADER_GAIA = "gaia_spreader";
+	public static final String COVERED_INFIX = "_covered_";
 	public static final String POOL = "mana_pool";
 	public static final String POOL_CREATIVE = "creative_pool";
 	public static final String POOL_DILUTED = "diluted_pool";

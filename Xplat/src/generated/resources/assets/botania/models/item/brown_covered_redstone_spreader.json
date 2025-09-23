@@ -1,0 +1,9 @@
+{
+  "parent": "botania:block/shapes/spreader_item_covered",
+  "textures": {
+    "core": "botania:block/redstone_spreader_core",
+    "inside": "botania:block/stripped_livingwood_log",
+    "outside": "botania:block/livingwood_log",
+    "wool": "minecraft:block/brown_wool"
+  }
+}

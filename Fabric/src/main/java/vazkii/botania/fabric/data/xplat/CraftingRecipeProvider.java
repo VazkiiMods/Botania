@@ -35,6 +35,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -135,12 +136,14 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 																								.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
 																								)*/
 				.save(recipeOutput);
+		coveredSpreader(recipeOutput, BotaniaBlocks.manaSpreader);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.redstoneSpreader)
 				.requires(BotaniaBlocks.manaSpreader)
 				.requires(ConventionalItemTags.REDSTONE_DUSTS)
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.manaSpreader))
 				.save(recipeOutput);
+		coveredSpreader(recipeOutput, BotaniaBlocks.redstoneSpreader);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.elvenSpreader)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('E', ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS)
@@ -152,6 +155,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_elementium", conditionsFromTag(ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS))
 				.unlockedBy("has_dreamwood", conditionsFromTag(BotaniaTags.Items.DREAMWOOD_LOGS))
 				.save(recipeOutput);
+		coveredSpreader(recipeOutput, BotaniaBlocks.elvenSpreader);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.gaiaSpreader)
 				.requires(BotaniaBlocks.elvenSpreader)
 				.requires(ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS)
@@ -159,6 +163,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
 				.save(recipeOutput);
+		coveredSpreader(recipeOutput, BotaniaBlocks.gaiaSpreader);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.manaPool)
 				.define('R', BotaniaBlocks.livingrock)
 				.pattern("R R")
@@ -866,6 +871,27 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.unlockedBy("has_item", conditionsFromItem(basePool))
 					.save(recipeOutput);
 		});
+	}
+
+	private static void coveredSpreader(RecipeOutput recipeOutput, ManaSpreaderBlock baseBlock) {
+		ResourceLocation baseBlockId = BuiltInRegistries.BLOCK.getKey(baseBlock);
+		String baseBlockName = baseBlockId.getPath();
+		ColorHelper.supportedColors().forEach(color -> {
+			ManaSpreaderBlock coveredSpreader = BotaniaBlocks.findOptionallyDyedBlock(baseBlock, color, LibBlockNames.COVERED_INFIX);
+			Block wool = ColorHelper.WOOL_MAP.apply(color);
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, coveredSpreader)
+					.requires(baseBlock)
+					.requires(wool)
+					.group("add_%s_cover".formatted(baseBlockName))
+					.unlockedBy("has_item", conditionsFromItem(baseBlock))
+					.save(recipeOutput);
+		});
+		TagKey<Item> coveredTag = TagKey.create(BuiltInRegistries.ITEM.key(), baseBlockId.withPath("covered_%ss"::formatted));
+		WrapperRecipeBuilder.wrap(ShapelessUncoverSpreaderRecipe.SERIALIZER,
+				ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, baseBlock)
+						.requires(coveredTag)
+						.unlockedBy("has_item", conditionsFromTag(coveredTag))
+		).save(recipeOutput, RecipeBuilder.getDefaultRecipeId(baseBlock).withSuffix("_remove_cover"));
 	}
 
 	private void registerMisc(RecipeOutput recipeOutput) {

@@ -87,7 +87,7 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 			} else if (target instanceof ItemEntity item) {
 				ItemStack stack = item.getItem();
 
-				if (!stack.isEmpty() && ColorHelper.isWool(Block.byItem(stack.getItem()))) {
+				if (!stack.isEmpty() && ColorHelper.isWool(stack.getItem())) {
 					Block expected = ColorHelper.WOOL_MAP.apply(nextColor);
 
 					if (expected.asItem() == stack.getItem()) {

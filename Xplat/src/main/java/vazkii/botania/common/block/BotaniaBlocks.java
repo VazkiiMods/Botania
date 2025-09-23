@@ -57,7 +57,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -621,18 +620,22 @@ public final class BotaniaBlocks {
 	public static final Block dreamwoodFramed = make(LibBlockNames.DREAM_WOOD_FRAMED, new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 	public static final Block dreamwoodPatternFramed = make(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, new Block(BlockBehaviour.Properties.ofFullCopy(dreamwoodPlanks)));
 
-	public static final ManaSpreaderBlock manaSpreader = make(LibBlockNames.SPREADER,
-			new ManaSpreaderBlock(ManaSpreaderBlock.DEFAULT_SPREADER_PARAMETERS,
-					BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
-	public static final ManaSpreaderBlock redstoneSpreader = make(LibBlockNames.SPREADER_REDSTONE,
-			new ManaSpreaderBlock(ManaSpreaderBlock.PULSE_SPREADER_PARAMETERS,
-					BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
-	public static final ManaSpreaderBlock elvenSpreader = make(LibBlockNames.SPREADER_ELVEN,
-			new ManaSpreaderBlock(ManaSpreaderBlock.ELVEN_SPREADER_PARAMETERS,
-					BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
-	public static final ManaSpreaderBlock gaiaSpreader = make(LibBlockNames.SPREADER_GAIA,
-			new ManaSpreaderBlock(ManaSpreaderBlock.GAIA_SPREADER_PARAMETERS,
-					BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)));
+	public static final ManaSpreaderBlock manaSpreader = makeBlockWithColoredVariants(LibBlockNames.SPREADER,
+			color -> new ManaSpreaderBlock(ManaSpreaderBlock.DEFAULT_SPREADER_PARAMETERS, color,
+					BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)),
+			COVERED_INFIX);
+	public static final ManaSpreaderBlock redstoneSpreader = makeBlockWithColoredVariants(LibBlockNames.SPREADER_REDSTONE,
+			color -> new ManaSpreaderBlock(ManaSpreaderBlock.PULSE_SPREADER_PARAMETERS, color,
+					BlockBehaviour.Properties.ofFullCopy(livingwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)),
+			COVERED_INFIX);
+	public static final ManaSpreaderBlock elvenSpreader = makeBlockWithColoredVariants(LibBlockNames.SPREADER_ELVEN,
+			color -> new ManaSpreaderBlock(ManaSpreaderBlock.ELVEN_SPREADER_PARAMETERS, color,
+					BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)),
+			COVERED_INFIX);
+	public static final ManaSpreaderBlock gaiaSpreader = makeBlockWithColoredVariants(LibBlockNames.SPREADER_GAIA,
+			color -> new ManaSpreaderBlock(ManaSpreaderBlock.GAIA_SPREADER_PARAMETERS, color,
+					BlockBehaviour.Properties.ofFullCopy(dreamwood).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)),
+			COVERED_INFIX);
 
 	public static final ManaPoolBlock manaPool = makeBlockWithColoredVariants(LibBlockNames.POOL, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, false, ManaPoolBlock.NORMAL_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final ManaPoolBlock creativePool = makeBlockWithColoredVariants(LibBlockNames.POOL_CREATIVE, color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, true, ManaPoolBlock.BIG_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(livingrock)));
@@ -1330,10 +1333,10 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(dreamwoodFramed, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFramed));
 		r.accept(new BlockItem(dreamwoodPatternFramed, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPatternFramed));
 
-		r.accept(new BlockItem(manaSpreader, props), BuiltInRegistries.BLOCK.getKey(manaSpreader));
-		r.accept(new BlockItem(redstoneSpreader, props), BuiltInRegistries.BLOCK.getKey(redstoneSpreader));
-		r.accept(new BlockItem(elvenSpreader, props), BuiltInRegistries.BLOCK.getKey(elvenSpreader));
-		r.accept(new BlockItem(gaiaSpreader, rareProps), BuiltInRegistries.BLOCK.getKey(gaiaSpreader));
+		registerBlockItemWithColoredVariants(r, manaSpreader, props, COVERED_INFIX);
+		registerBlockItemWithColoredVariants(r, redstoneSpreader, props, COVERED_INFIX);
+		registerBlockItemWithColoredVariants(r, elvenSpreader, props, COVERED_INFIX);
+		registerBlockItemWithColoredVariants(r, gaiaSpreader, rareProps, COVERED_INFIX);
 		registerBlockItemWithColoredVariants(r, manaPool, props);
 		registerBlockItemWithColoredVariants(r, creativePool, props);
 		registerBlockItemWithColoredVariants(r, dilutedPool, props);
@@ -1690,10 +1693,15 @@ public final class BotaniaBlocks {
 
 	private static <T extends Block & OptionallyColored> void registerBlockItemWithColoredVariants(
 			BiConsumer<Item, ResourceLocation> r, T baseBlock, Item.Properties properties) {
+		registerBlockItemWithColoredVariants(r, baseBlock, properties, "_");
+	}
+
+	private static <T extends Block & OptionallyColored> void registerBlockItemWithColoredVariants(
+			BiConsumer<Item, ResourceLocation> r, T baseBlock, Item.Properties properties, String coloredBlockInfix) {
 		ResourceLocation baseId = BuiltInRegistries.BLOCK.getKey(baseBlock);
 		r.accept(new BlockItem(baseBlock, properties), baseId);
 		ColorHelper.supportedColors().forEach(color -> {
-			ResourceLocation coloredId = baseId.withPrefix(color.getSerializedName() + "_");
+			ResourceLocation coloredId = baseId.withPrefix(color.getSerializedName() + coloredBlockInfix);
 			Block coloredBlock = ALL.get(coloredId.getPath());
 			r.accept(new BlockItem(coloredBlock, properties), coloredId);
 		});
@@ -1707,10 +1715,16 @@ public final class BotaniaBlocks {
 		return block;
 	}
 
-	private static <T extends Block & OptionallyColored> T makeBlockWithColoredVariants(String baseName, Function<@Nullable DyeColor, T> blockFactory) {
+	private static <T extends Block & OptionallyColored> T makeBlockWithColoredVariants(String baseName,
+			Function<@Nullable DyeColor, T> blockFactory) {
+		return makeBlockWithColoredVariants(baseName, blockFactory, "_");
+	}
+
+	private static <T extends Block & OptionallyColored> T makeBlockWithColoredVariants(String baseName, Function<@Nullable DyeColor, T> blockFactory,
+			String coloredBlockInfix) {
 		T baseBlock = make(baseName, blockFactory.apply(null));
 		ColorHelper.supportedColors().forEach(
-				color -> make(color.getSerializedName() + "_" + baseName, blockFactory.apply(color)));
+				color -> make(color.getSerializedName() + coloredBlockInfix + baseName, blockFactory.apply(color)));
 		return baseBlock;
 	}
 
@@ -2030,42 +2044,60 @@ public final class BotaniaBlocks {
 	 * The ID of dyed variants is expected to use the dye name as prefix of the undyed block's ID.
 	 */
 	public static <T extends Block & OptionallyColored> T findOptionallyDyedBlock(T referenceBlock, @Nullable DyeColor targetColor) {
-		Optional<DyeColor> referenceColor = referenceBlock.getOptionalColor();
-		if (Optional.ofNullable(targetColor).equals(referenceColor)) {
+		return findOptionallyDyedBlock(referenceBlock, targetColor, "_");
+	}
+
+	/**
+	 * Applies naming conventions to find a block of the same type in the specified color variant.
+	 * The ID of dyed variants is expected to use the dye name as prefix of the undyed block's ID.
+	 * The ID part between the dye name and the base block ID (the color block infix) is often "_", but can be longer,
+	 * e.g. it would be "_stained_" for colored glass blocks, if those supported this operation.
+	 */
+	public static <T extends Block & OptionallyColored> T findOptionallyDyedBlock(T referenceBlock,
+			@Nullable DyeColor targetColor, String coloredBlockInfix) {
+		@Nullable
+		DyeColor referenceColor = referenceBlock.getOptionalColor().orElse(null);
+		if (targetColor == referenceColor) {
 			// already is the expected color
 			return referenceBlock;
 		}
 		// at most one of reference color and target color is empty
 
 		ResourceLocation referenceId = BuiltInRegistries.BLOCK.getKey(referenceBlock);
-		String undyedReferencePath;
-		if (referenceColor.isEmpty()) {
-			undyedReferencePath = referenceId.getPath();
-		} else {
-			String referenceColorPrefix = referenceColor.get().getSerializedName() + "_";
-			if (!referenceId.getPath().startsWith(referenceColorPrefix)) {
-				throw new IllegalArgumentException(
-						"Block ID %s should start with color prefix %s".formatted(referenceId, referenceColorPrefix));
-			}
-			undyedReferencePath = referenceId.getPath().substring(referenceColorPrefix.length());
-		}
-		ResourceLocation targetId;
-		if (targetColor == null) {
-			targetId = referenceId.withPath(undyedReferencePath);
-		} else if (referenceColor.isEmpty()) {
-			targetId = referenceId.withPrefix(targetColor.getSerializedName() + "_");
-		} else {
-			targetId = referenceId.withPath(targetColor.getSerializedName() + "_" + undyedReferencePath);
-		}
+		ResourceLocation targetId = getTargetId(referenceId, referenceColor, targetColor, coloredBlockInfix);
 
 		Block targetBlock = BuiltInRegistries.BLOCK.get(targetId);
 		if (!referenceBlock.getClass().isInstance(targetBlock)) {
 			throw new IllegalArgumentException(
-					"No target block for %s in %s (found %s)".formatted(referenceBlock, targetColor, targetBlock));
+					"No target block for %s in %s (looked for %s, found %s)".formatted(referenceBlock, targetColor, targetId, targetBlock));
 		}
 
 		//noinspection unchecked
 		return (T) targetBlock;
+	}
+
+	private static String getUndyedReferencePath(ResourceLocation referenceId, @Nullable DyeColor referenceColor, String coloredBlockInfix) {
+		if (referenceColor == null) {
+			return referenceId.getPath();
+		}
+		String referenceColorPrefix = referenceColor.getSerializedName() + coloredBlockInfix;
+		if (!referenceId.getPath().startsWith(referenceColorPrefix)) {
+			throw new IllegalArgumentException(
+					"Block ID %s should start with color prefix %s".formatted(referenceId, referenceColorPrefix));
+		}
+		return referenceId.getPath().substring(referenceColorPrefix.length());
+	}
+
+	private static ResourceLocation getTargetId(ResourceLocation referenceId,
+			@Nullable DyeColor referenceColor, @Nullable DyeColor targetColor, String coloredBlockInfix) {
+		if (targetColor == null) {
+			return referenceId.withPath(getUndyedReferencePath(referenceId, referenceColor, coloredBlockInfix));
+		}
+		if (referenceColor == null) {
+			return referenceId.withPrefix(targetColor.getSerializedName() + coloredBlockInfix);
+		}
+		return referenceId.withPath(targetColor.getSerializedName() + coloredBlockInfix +
+				getUndyedReferencePath(referenceId, referenceColor, coloredBlockInfix));
 	}
 
 	/**

@@ -1,0 +1,9 @@
+{
+  "parent": "botania:block/shapes/spreader_item_covered",
+  "textures": {
+    "core": "botania:block/gaia_spreader_core",
+    "inside": "botania:block/gaia_spreader_inside",
+    "outside": "botania:block/gaia_spreader_outside",
+    "wool": "minecraft:block/light_gray_wool"
+  }
+}

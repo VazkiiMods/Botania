@@ -3,6 +3,10 @@
     "botania:orange_mana_pool",
     "botania:orange_creative_pool",
     "botania:orange_diluted_pool",
-    "botania:orange_fabulous_pool"
+    "botania:orange_fabulous_pool",
+    "botania:orange_covered_mana_spreader",
+    "botania:orange_covered_redstone_spreader",
+    "botania:orange_covered_elven_spreader",
+    "botania:orange_covered_gaia_spreader"
   ]
 }

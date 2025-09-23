@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "add_mana_spreader_cover",
+  "ingredients": [
+    {
+      "item": "botania:mana_spreader"
+    },
+    {
+      "item": "minecraft:orange_wool"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:orange_covered_mana_spreader"
+  }
+}

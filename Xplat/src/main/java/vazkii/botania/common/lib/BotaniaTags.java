@@ -94,6 +94,15 @@ public class BotaniaTags {
 		public static final TagKey<Item> DYED_DILUTED_POOLS = tag("dyed_diluted_pools");
 		public static final TagKey<Item> DYED_FABULOUS_POOLS = tag("dyed_fabulous_pools");
 
+		/**
+		 * Wool-covered spreader items. These dampen vibrations.
+		 */
+		public static final TagKey<Item> COVERED_SPREADERS = tag("covered_spreaders");
+		public static final TagKey<Item> COVERED_MANA_SPREADERS = tag("covered_mana_spreaders");
+		public static final TagKey<Item> COVERED_PULSE_SPREADERS = tag("covered_redstone_spreaders");
+		public static final TagKey<Item> COVERED_ELVEN_SPREADERS = tag("covered_elven_spreaders");
+		public static final TagKey<Item> COVERED_GAIA_SPREADERS = tag("covered_gaia_spreaders");
+
 		public static final TagKey<Item> RUNES = tag("runes");
 		public static final TagKey<Item> ANCIENT_WILLS = tag("ancient_wills");
 
@@ -291,6 +300,15 @@ public class BotaniaTags {
 		 * This also overrides mining level requirements.
 		 */
 		public static final TagKey<Block> VITREOUS_PICKAXE_SILKTOUCHED = tag("vitreous_pickaxe_silktouched");
+
+		/**
+		 * Wool-covered spreader blocks. These dampen vibrations and occlude vibration signals.
+		 */
+		public static final TagKey<Block> COVERED_SPREADERS = tag("covered_spreaders");
+		public static final TagKey<Block> COVERED_MANA_SPREADERS = tag("covered_mana_spreaders");
+		public static final TagKey<Block> COVERED_PULSE_SPREADERS = tag("covered_redstone_spreaders");
+		public static final TagKey<Block> COVERED_ELVEN_SPREADERS = tag("covered_elven_spreaders");
+		public static final TagKey<Block> COVERED_GAIA_SPREADERS = tag("covered_gaia_spreaders");
 
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, botaniaRL(name));

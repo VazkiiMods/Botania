@@ -3,6 +3,11 @@
 875c72992696488f2f82f9474864d8b56c9c7c85 data/botania/tags/block/agricarnation/growth_candidate.json
 e016f3ffb8b5cd781715f6f9dbbd57a21d8a0e31 data/botania/tags/block/agricarnation/growth_excluded.json
 fed9878313f1b24dba073cfb3b275efe8bb35876 data/botania/tags/block/corporea_spark_override.json
+3d5e7c5b49ad1a2fae0250b57eb05a615ae86279 data/botania/tags/block/covered_elven_spreaders.json
+41849e97c2f51330a8b67c952bff8a61f899e10a data/botania/tags/block/covered_gaia_spreaders.json
+f9cc3772f4c6c7fd7d7234e541e6e5668b98965d data/botania/tags/block/covered_mana_spreaders.json
+eb06204956962fa49bd716297aed7a8b0fe2becc data/botania/tags/block/covered_redstone_spreaders.json
+803ec9d2081751f270143fc0339d053b2b8b26f3 data/botania/tags/block/covered_spreaders.json
 d7d4fa19fbc2cba6bcd55c98c298047c193cb0af data/botania/tags/block/double_mystical_flowers.json
 870b465005dcaf5732efc8a592eeb6837de27a3a data/botania/tags/block/dreamwood_logs.json
 3625cf15d1ae2886eae7f345ef3e52cda2999e82 data/botania/tags/block/enchanter_flowers.json
@@ -41,6 +46,7 @@ fe541fc12bc978f6f71844ecddde271e0ab25390 data/botania/tags/block/unwandable.json
 adaca5770638de00a54b51b571726f4734e24671 data/minecraft/tags/block/beacon_base_blocks.json
 b2234cf7c7af048555dd21babd3321b908ed6686 data/minecraft/tags/block/ceiling_hanging_signs.json
 457fba9cf6e125f19c4ab3bb9dfe8691cc2ca548 data/minecraft/tags/block/climbable.json
+5d121827c667723ff6ad0aba43d197cf3df735af data/minecraft/tags/block/dampens_vibrations.json
 245211371d5edf3bb5b5acd2cba7ac8e359530c3 data/minecraft/tags/block/dirt.json
 8c36ef26663fb0e578257603c1d2c9c440e47b33 data/minecraft/tags/block/dragon_immune.json
 5e3d052fd880c72e6cf251feb7baf0f1cc4b92e5 data/minecraft/tags/block/fence_gates.json
@@ -48,11 +54,12 @@ b2234cf7c7af048555dd21babd3321b908ed6686 data/minecraft/tags/block/ceiling_hangi
 44e1d962bc38de0ffe7cc943a3e631b5406b9e4f data/minecraft/tags/block/flowers.json
 6c0e30b59d2db092c64bc58b477e8432adf49698 data/minecraft/tags/block/impermeable.json
 6b553bb9832d565598020d5d025cb828c1918cdc data/minecraft/tags/block/logs_that_burn.json
-a1c523c3dbef47232949ac00499fe4f081c57b7d data/minecraft/tags/block/mineable/axe.json
+cf37c971abbdf651ab09fb494af2017df39cc81e data/minecraft/tags/block/mineable/axe.json
 615e0a6cac000af5aae7161c0b2e14d31dca597d data/minecraft/tags/block/mineable/hoe.json
 cc539294f9dbde0d76d51b59497302cc47b64212 data/minecraft/tags/block/mineable/pickaxe.json
 d2fe1c8f82522fc048eff209bafb73f837946a82 data/minecraft/tags/block/mineable/shovel.json
 ccd3bb287d6acf22d5bd33ee553e84fbb44614ca data/minecraft/tags/block/mushroom_grow_block.json
+5d121827c667723ff6ad0aba43d197cf3df735af data/minecraft/tags/block/occludes_vibration_signals.json
 119b4275cbffb61da75b503795d3fb0af0e1f35d data/minecraft/tags/block/planks.json
 be3bac3ca44c06ce307ecbd6e3995676210260ca data/minecraft/tags/block/rails.json
 c348a4b234af7225a4a1348d76854b4173d6e94a data/minecraft/tags/block/slabs.json

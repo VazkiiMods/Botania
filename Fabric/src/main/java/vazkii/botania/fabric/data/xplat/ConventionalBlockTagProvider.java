@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.data.BlockTagProvider;
 import vazkii.botania.data.util.DummyTagLookup;
 
@@ -79,8 +80,11 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.manaPool, color))
 					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.creativePool, color))
 					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.dilutedPool, color))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.fabulousPool, color));
-			// TODO: generate for covered spreaders, once those are flattened
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.fabulousPool, color))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.manaSpreader, color, LibBlockNames.COVERED_INFIX))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.redstoneSpreader, color, LibBlockNames.COVERED_INFIX))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.elvenSpreader, color, LibBlockNames.COVERED_INFIX))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.gaiaSpreader, color, LibBlockNames.COVERED_INFIX));
 		});
 
 		// Glass blocks and panes

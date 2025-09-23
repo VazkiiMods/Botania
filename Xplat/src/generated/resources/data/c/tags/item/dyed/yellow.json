@@ -3,6 +3,10 @@
     "botania:yellow_mana_pool",
     "botania:yellow_creative_pool",
     "botania:yellow_diluted_pool",
-    "botania:yellow_fabulous_pool"
+    "botania:yellow_fabulous_pool",
+    "botania:yellow_covered_mana_spreader",
+    "botania:yellow_covered_redstone_spreader",
+    "botania:yellow_covered_elven_spreader",
+    "botania:yellow_covered_gaia_spreader"
   ]
 }

@@ -10,6 +10,7 @@
 
 package vazkii.botania.data.loot;
 
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,10 +25,12 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaGrassBlock;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -111,6 +114,8 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 				add(block, specialCases.get(block));
 			} else if (block instanceof SlabBlock) {
 				add(block, createSlabItemTable(block));
+			} else if (block instanceof ManaSpreaderBlock spreaderBlock) {
+				add(block, createManaSpreaderTable(spreaderBlock));
 			} else if (block instanceof TallFlowerBlock) {
 				add(block, createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 			} else if (block instanceof BotaniaGrassBlock) {
@@ -121,6 +126,19 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 				dropSelf(block);
 			}
 		}
+	}
+
+	private LootTable.Builder createManaSpreaderTable(ManaSpreaderBlock block) {
+		return LootTable.lootTable()
+				.withPool(this.applyExplosionCondition(block,
+						LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+								.add(LootItem.lootTableItem(block))))
+				.withPool(this.applyExplosionCondition(Blocks.SCAFFOLDING,
+						LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+								.add(LootItem.lootTableItem(Blocks.SCAFFOLDING))
+								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+										.setProperties(StatePropertiesPredicate.Builder.properties()
+												.hasProperty(ManaSpreaderBlock.HAS_SCAFFOLDING, true)))));
 	}
 
 	private void saveSpecialFlowerState(Map<Block, LootTable.Builder> specialCases, Block flower, Block floatingFlower,

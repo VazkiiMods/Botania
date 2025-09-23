@@ -21,7 +21,6 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -73,7 +72,6 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	private static final String TAG_REQUEST_UPDATE = "requestUpdate";
 	private static final String TAG_ROTATION_X = "rotationX";
 	private static final String TAG_ROTATION_Y = "rotationY";
-	private static final String TAG_PADDING_COLOR = "paddingColor";
 	private static final String TAG_CAN_SHOOT_BURST = "canShootBurst";
 	private static final String TAG_PINGBACK_TICKS = "pingbackTicks";
 	private static final String TAG_LAST_PINGBACK_X = "lastPingbackX";
@@ -114,9 +112,6 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 	private int mana;
 	public float rotationX, rotationY;
-
-	@Nullable
-	public DyeColor paddingColor = null;
 
 	private boolean requestsClientUpdate = false;
 	private boolean hasReceivedInitialPacket = false;
@@ -272,7 +267,6 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		cmp.putFloat(TAG_ROTATION_X, rotationX);
 		cmp.putFloat(TAG_ROTATION_Y, rotationY);
 		cmp.putBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
-		cmp.putInt(TAG_PADDING_COLOR, paddingColor == null ? -1 : paddingColor.getId());
 		cmp.putBoolean(TAG_CAN_SHOOT_BURST, canShootBurst);
 
 		cmp.putInt(TAG_PINGBACK_TICKS, pingbackTicks);
@@ -326,9 +320,6 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		mmForcedGravity = cmp.getFloat(TAG_FORCED_GRAVITY);
 		mmForcedVelocityMultiplier = cmp.getFloat(TAG_FORCED_VELOCITY_MULTIPLIER);
 
-		if (cmp.contains(TAG_PADDING_COLOR)) {
-			paddingColor = cmp.getInt(TAG_PADDING_COLOR) == -1 ? null : DyeColor.byId(cmp.getInt(TAG_PADDING_COLOR));
-		}
 		if (cmp.contains(TAG_CAN_SHOOT_BURST)) {
 			canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT_BURST);
 		}
@@ -379,6 +370,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (player == null) {
+			// TODO allow wand in dispenser to rotate spreader
 			return false;
 		}
 
@@ -443,7 +435,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 						level.addFreshEntity(burst);
 						burst.ping();
 						if (!BotaniaConfig.common().silentSpreaders()) {
-							level.playSound(null, worldPosition, BotaniaSounds.spreaderFire, SoundSource.BLOCKS, 0.05F * (paddingColor != null ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
+							level.playSound(null, worldPosition, BotaniaSounds.spreaderFire, SoundSource.BLOCKS, 0.05F * (getSpreaderBlock().isCovered() ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 						}
 					}
 				}

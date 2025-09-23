@@ -11,6 +11,7 @@ package vazkii.botania.common.helper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
@@ -31,8 +32,8 @@ public final class ColorHelper {
 	public static final Function<DyeColor, Block> CANDLE_CAKE_MAP = color -> BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(color.getSerializedName() + "_candle_cake"));
 
 	@Nullable
-	public static DyeColor getWoolColor(Block b) {
-		ResourceLocation name = BuiltInRegistries.BLOCK.getKey(b);
+	public static DyeColor getWoolColor(ItemLike i) {
+		ResourceLocation name = BuiltInRegistries.ITEM.getKey(i.asItem());
 		if ("minecraft".equals(name.getNamespace()) && name.getPath().endsWith("_wool")) {
 			String color = name.getPath().substring(0, name.getPath().length() - "_wool".length());
 			return DyeColor.byName(color, null);
@@ -40,8 +41,8 @@ public final class ColorHelper {
 		return null;
 	}
 
-	public static boolean isWool(Block b) {
-		return getWoolColor(b) != null;
+	public static boolean isWool(ItemLike i) {
+		return getWoolColor(i) != null;
 	}
 
 	public static int getColorLegibleOnGrayBackground(DyeColor color) {

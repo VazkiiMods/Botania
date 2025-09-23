@@ -257,10 +257,22 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.DYED_CREATIVE_POOLS).add(getColoredBlockItems(BotaniaBlocks.creativePool));
 		this.tag(BotaniaTags.Items.DYED_DILUTED_POOLS).add(getColoredBlockItems(BotaniaBlocks.dilutedPool));
 		this.tag(BotaniaTags.Items.DYED_FABULOUS_POOLS).add(getColoredBlockItems(BotaniaBlocks.fabulousPool));
+
+		copy(BotaniaTags.Blocks.COVERED_MANA_SPREADERS, BotaniaTags.Items.COVERED_MANA_SPREADERS);
+		copy(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS, BotaniaTags.Items.COVERED_PULSE_SPREADERS);
+		copy(BotaniaTags.Blocks.COVERED_ELVEN_SPREADERS, BotaniaTags.Items.COVERED_ELVEN_SPREADERS);
+		copy(BotaniaTags.Blocks.COVERED_GAIA_SPREADERS, BotaniaTags.Items.COVERED_GAIA_SPREADERS);
+		copy(BotaniaTags.Blocks.COVERED_SPREADERS, BotaniaTags.Items.COVERED_SPREADERS);
+		copy(BlockTags.DAMPENS_VIBRATIONS, ItemTags.DAMPENS_VIBRATIONS);
 	}
 
 	private static <B extends Block & OptionallyColored> Item[] getColoredBlockItems(B baseBlock) {
 		return ColorHelper.supportedColors().map(color -> BotaniaBlocks.findOptionallyDyedBlock(baseBlock, color))
+				.map(Block::asItem).toArray(Item[]::new);
+	}
+
+	private static <B extends Block & OptionallyColored> Item[] getColoredBlockItems(B baseBlock, String coloredBlockInfix) {
+		return ColorHelper.supportedColors().map(color -> BotaniaBlocks.findOptionallyDyedBlock(baseBlock, color, coloredBlockInfix))
 				.map(Block::asItem).toArray(Item[]::new);
 	}
 

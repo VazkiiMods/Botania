@@ -3,6 +3,10 @@
     "botania:magenta_mana_pool",
     "botania:magenta_creative_pool",
     "botania:magenta_diluted_pool",
-    "botania:magenta_fabulous_pool"
+    "botania:magenta_fabulous_pool",
+    "botania:magenta_covered_mana_spreader",
+    "botania:magenta_covered_redstone_spreader",
+    "botania:magenta_covered_elven_spreader",
+    "botania:magenta_covered_gaia_spreader"
   ]
 }

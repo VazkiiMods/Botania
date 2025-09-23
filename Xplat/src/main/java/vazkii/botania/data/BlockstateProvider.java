@@ -35,6 +35,7 @@ import vazkii.botania.common.block.decor.BuriedPetalBlock;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.decor.FlowerMotifBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -428,41 +429,60 @@ public class BlockstateProvider implements DataProvider {
 		var coreSlot = TextureSlotAccessor.make("core");
 		var spreaderTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader")), Optional.empty(),
 				TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, outsideSlot);
+		var coveredSpreaderTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_covered")), Optional.empty(),
+				TextureSlot.INSIDE, outsideSlot, TextureSlot.WOOL);
 		var spreaderCoreTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_core")), Optional.of("_core"),
 				coreSlot);
 		var spreaderPaddingTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_padding")),
 				Optional.empty(), TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.SIDE);
 		var spreaderScaffoldingTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_scaffolding")),
 				Optional.of("_scaffolding"), TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.BOTTOM);
-		takeAll(remainingBlocks, manaSpreader, redstoneSpreader, gaiaSpreader, elvenSpreader).forEach(b -> {
+		takeAll(remainingBlocks, ManaSpreaderBlock.class::isInstance).forEach(b -> {
+			ManaSpreaderBlock block = (ManaSpreaderBlock) b;
+			ManaSpreaderBlock baseBlock = ManaSpreaderBlock.getBaseBlock(block);
 			ResourceLocation outside;
-			if (b == redstoneSpreader || b == manaSpreader) {
+			if (baseBlock == redstoneSpreader || baseBlock == manaSpreader) {
 				outside = getBlockTexture(livingwoodLog);
-			} else if (b == elvenSpreader) {
+			} else if (baseBlock == elvenSpreader) {
 				outside = getBlockTexture(dreamwoodLog, "_3");
 			} else {
-				outside = getBlockTexture(b, "_outside");
+				outside = getBlockTexture(baseBlock, "_outside");
 			}
 			ResourceLocation inside;
-			if (b == redstoneSpreader || b == manaSpreader) {
+			if (baseBlock == redstoneSpreader || baseBlock == manaSpreader) {
 				inside = getBlockTexture(livingwoodLogStripped);
-			} else if (b == elvenSpreader) {
+			} else if (baseBlock == elvenSpreader) {
 				inside = getBlockTexture(dreamwoodLogStripped, "_3");
 			} else {
-				inside = getBlockTexture(b, "_inside");
+				inside = getBlockTexture(baseBlock, "_inside");
 			}
-			singleVariantBlockState(b, spreaderTemplate.create(b, new TextureMapping()
-					.put(TextureSlot.SIDE, getBlockTexture(b, "_side"))
-					.put(TextureSlot.BACK, getBlockTexture(b, "_back"))
-					.put(TextureSlot.INSIDE, inside)
-					.put(outsideSlot, outside), this.modelOutput));
-			spreaderCoreTemplate.create(b, new TextureMapping()
-					.put(coreSlot, getBlockTexture(b, "_core")), this.modelOutput);
-			Block sb = b == redstoneSpreader ? manaSpreader : b;
-			spreaderScaffoldingTemplate.create(b, new TextureMapping()
-					.put(TextureSlot.TOP, getBlockTexture(sb, "_scaffolding_top"))
-					.put(TextureSlot.SIDE, getBlockTexture(sb, "_scaffolding_side"))
-					.put(TextureSlot.BOTTOM, getBlockTexture(sb, "_scaffolding_bottom")), this.modelOutput);
+			DyeColor coverColor = block.getCoverColor();
+			if (coverColor != null) {
+				if (block.isRainbowRendered()) {
+					// Gaia spreader needs to be rendered in two parts to not apply the color effect to the cover
+					singleVariantBlockState(b, ModelLocationUtils.getModelLocation(baseBlock));
+				} else {
+					singleVariantBlockState(b, coveredSpreaderTemplate.create(b, new TextureMapping()
+							.put(TextureSlot.INSIDE, inside)
+							.put(outsideSlot, outside)
+							.put(TextureSlot.WOOL,
+									TextureMapping.getBlockTexture(ColorHelper.WOOL_MAP.apply(coverColor))),
+							this.modelOutput));
+				}
+			} else {
+				singleVariantBlockState(b, spreaderTemplate.create(b, new TextureMapping()
+						.put(TextureSlot.SIDE, getBlockTexture(b, "_side"))
+						.put(TextureSlot.BACK, getBlockTexture(b, "_back"))
+						.put(TextureSlot.INSIDE, inside)
+						.put(outsideSlot, outside), this.modelOutput));
+				spreaderCoreTemplate.create(b, new TextureMapping()
+						.put(coreSlot, getBlockTexture(b, "_core")), this.modelOutput);
+				Block sb = b == redstoneSpreader ? manaSpreader : b;
+				spreaderScaffoldingTemplate.create(b, new TextureMapping()
+						.put(TextureSlot.TOP, getBlockTexture(sb, "_scaffolding_top"))
+						.put(TextureSlot.SIDE, getBlockTexture(sb, "_scaffolding_side"))
+						.put(TextureSlot.BOTTOM, getBlockTexture(sb, "_scaffolding_bottom")), this.modelOutput);
+			}
 		});
 		ColorHelper.supportedColors().forEach(color -> {
 			Block wool = ColorHelper.WOOL_MAP.apply(color);

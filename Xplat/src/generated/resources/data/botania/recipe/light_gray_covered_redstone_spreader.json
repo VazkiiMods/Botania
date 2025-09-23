@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "add_redstone_spreader_cover",
+  "ingredients": [
+    {
+      "item": "botania:redstone_spreader"
+    },
+    {
+      "item": "minecraft:light_gray_wool"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:light_gray_covered_redstone_spreader"
+  }
+}
