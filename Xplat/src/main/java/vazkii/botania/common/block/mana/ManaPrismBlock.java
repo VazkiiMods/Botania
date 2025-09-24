@@ -31,17 +31,17 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import vazkii.botania.api.block.RedstoneSensitiveBlock;
 import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
-import vazkii.botania.common.block.SpecialFlowerBlock;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 
-public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlock, ManaCollisionGhost {
+public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlock, ManaCollisionGhost, RedstoneSensitiveBlock {
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
 
 	public ManaPrismBlock(Properties builder) {
@@ -70,14 +70,8 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (state.getValue(BlockStateProperties.POWERED)) {
-			redstoneParticlesInShape(state, world, pos, rand);
-		}
-	}
-
-	public static void redstoneParticlesInShape(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (rand.nextBoolean()) {
-			SpecialFlowerBlock.addRedstoneParticlesInShape(state, world, pos, rand);
+		if (isPowered(state)) {
+			RedstoneSensitiveBlock.redstoneParticlesInShape(state, world, pos, rand);
 		}
 	}
 
@@ -123,24 +117,12 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		Level world = context.getLevel();
-		BlockPos pos = context.getClickedPos();
-		boolean power = world.getBestNeighborSignal(pos) > 0;
-		return super.getStateForPlacement(context).setValue(BlockStateProperties.POWERED, power);
+		return RedstoneSensitiveBlock.getPoweredStateForPlacement(super.getStateForPlacement(context), context);
 	}
 
 	@Override
 	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getBestNeighborSignal(pos) > 0;
-		boolean powered = state.getValue(BlockStateProperties.POWERED);
-
-		if (!world.isClientSide) {
-			if (power && !powered) {
-				world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
-			} else if (!power && powered) {
-				world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
-			}
-		}
+		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
 	}
 
 	@Override

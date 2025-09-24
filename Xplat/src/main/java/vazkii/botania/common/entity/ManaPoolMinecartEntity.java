@@ -141,7 +141,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 					if (pumpDir == dir) { // Pool -> Cart
 						can = true;
 
-						if (!pump.hasRedstone) {
+						if (!pump.isPowered()) {
 							int cartMana = getMana();
 							int poolMana = pool.getCurrentMana();
 							int transfer = Math.min(TRANSFER_RATE, poolMana);
@@ -155,7 +155,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 					} else if (pumpDir == dir.getOpposite()) { // Cart -> Pool
 						can = true;
 
-						if (!pump.hasRedstone && !pool.isFull()) {
+						if (!pump.isPowered() && !pool.isFull()) {
 							int cartMana = getMana();
 							int transfer = Math.min(TRANSFER_RATE, cartMana);
 							if (transfer > 0) {

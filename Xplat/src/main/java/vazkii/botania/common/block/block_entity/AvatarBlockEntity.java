@@ -35,12 +35,10 @@ import java.util.UUID;
 public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Avatar, ManaReceiver {
 	private static final int MAX_MANA = 6400;
 
-	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_TICKS_ELAPSED = "ticksElapsed";
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_COOLDOWNS = "boostCooldowns";
 
-	private boolean enabled;
 	private int ticksElapsed;
 	private int mana;
 	private final Map<UUID, Integer> boostCooldowns = new HashMap<>();
@@ -50,8 +48,6 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, AvatarBlockEntity self) {
-		self.enabled = !level.hasNeighborSignal(worldPosition);
-
 		ItemStack stack = self.getItemHandler().getItem(0);
 		if (!stack.isEmpty()) {
 			var wieldable = XplatAbstractions.INSTANCE.findAvatarWieldable(stack);
@@ -60,7 +56,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 			}
 		}
 
-		if (self.enabled) {
+		if (self.isEnabled()) {
 			self.ticksElapsed++;
 		}
 	}
@@ -68,7 +64,6 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	@Override
 	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
 		super.writePacketNBT(tag, registries);
-		tag.putBoolean(TAG_ENABLED, enabled);
 		tag.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
 		tag.putInt(TAG_MANA, mana);
 		ListTag boostCooldowns = new ListTag();
@@ -84,7 +79,6 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	@Override
 	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
 		super.readPacketNBT(tag, registries);
-		enabled = tag.getBoolean(TAG_ENABLED);
 		ticksElapsed = tag.getInt(TAG_TICKS_ELAPSED);
 		mana = tag.getInt(TAG_MANA);
 		boostCooldowns.clear();
@@ -163,7 +157,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 
 	@Override
 	public boolean isEnabled() {
-		return enabled;
+		return !getBlockState().getValue(BlockStateProperties.POWERED);
 	}
 
 	@Override

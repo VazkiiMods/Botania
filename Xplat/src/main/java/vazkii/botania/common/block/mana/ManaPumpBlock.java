@@ -29,29 +29,40 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.RedstoneSensitiveBlock;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 
-public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBlock, RedstoneSensitiveBlock {
 
 	private static final VoxelShape X_SHAPE = box(0, 0, 4, 16, 8, 12);
 	private static final VoxelShape Z_SHAPE = box(4, 0, 0, 12, 8, 16);
 
 	public ManaPumpBlock(Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
+		registerDefaultState(defaultBlockState()
+				.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+				.setValue(BlockStateProperties.POWERED, false)
+				.setValue(BotaniaStateProperties.ACTIVE, false));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BlockStateProperties.HORIZONTAL_FACING);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.POWERED, BotaniaStateProperties.ACTIVE);
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
+		return RedstoneSensitiveBlock.getPoweredStateForPlacement(super.getStateForPlacement(context), context)
+				.setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
+	}
+
+	@Override
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
 	}
 
 	@Override
@@ -96,8 +107,8 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (world.hasNeighborSignal(pos)) {
-			ManaPrismBlock.redstoneParticlesInShape(state, world, pos, rand);
+		if (isPowered(state)) {
+			RedstoneSensitiveBlock.redstoneParticlesInShape(state, world, pos, rand);
 		}
 	}
 }

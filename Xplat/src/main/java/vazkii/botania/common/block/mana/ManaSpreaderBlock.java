@@ -24,6 +24,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -42,7 +44,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.RedstoneSensitiveBlock;
 import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.api.mana.BurstProperties;
@@ -96,7 +98,9 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		super(builder);
 		this.spreaderParameters = spreaderParameters;
 		this.coverColor = coverColor;
-		registerDefaultState(defaultBlockState().setValue(HAS_SCAFFOLDING, false));
+		registerDefaultState(defaultBlockState()
+				.setValue(HAS_SCAFFOLDING, false)
+				.setValue(BlockStateProperties.POWERED, false));
 	}
 
 	public static ManaSpreaderBlock getBaseBlock(ManaSpreaderBlock potentiallyCoveredBlock) {
@@ -153,7 +157,17 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(HAS_SCAFFOLDING);
+		builder.add(HAS_SCAFFOLDING, BlockStateProperties.POWERED);
+	}
+
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return RedstoneSensitiveBlock.getPoweredStateForPlacement(super.getStateForPlacement(context), context);
+	}
+
+	@Override
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
 	}
 
 	@Override
@@ -176,8 +190,6 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		// TODO: don't update rotation if covering/uncovering spreader
-		BotaniaAPI.LOGGER.info("setPlacedBy {}", stack);
 		Direction orientation = placer == null ? Direction.WEST : Direction.orderedByNearest(placer)[0].getOpposite();
 		if (!(world.getBlockEntity(pos) instanceof ManaSpreaderBlockEntity spreader)) {
 			return;

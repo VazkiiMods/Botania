@@ -9,27 +9,22 @@
 package vazkii.botania.common.block.block_entity.mana;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 
 public class ManaPumpBlockEntity extends BotaniaBlockEntity {
-	private static final String TAG_ACTIVE = "active";
-
 	public float innerRingPos;
-	private boolean active = false;
 	public boolean hasCart = false;
 	public boolean hasCartOnTop = false;
 	public float moving = 0F;
 
 	public int comparator;
-	public boolean hasRedstone = false;
 	private int lastComparator = 0;
 
 	public ManaPumpBlockEntity(BlockPos pos, BlockState state) {
@@ -37,14 +32,12 @@ public class ManaPumpBlockEntity extends BotaniaBlockEntity {
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, ManaPumpBlockEntity self) {
-		self.hasRedstone = level.hasNeighborSignal(worldPosition);
-
 		float max = 8F;
 		float min = 0F;
 
 		float incr = max / 10F;
 
-		if (self.innerRingPos < max && self.active && self.moving >= 0F) {
+		if (self.innerRingPos < max && self.isActive() && self.moving >= 0F) {
 			self.innerRingPos += incr;
 			self.moving = incr;
 			if (self.innerRingPos >= max) {
@@ -66,10 +59,10 @@ public class ManaPumpBlockEntity extends BotaniaBlockEntity {
 		if (!self.hasCartOnTop) {
 			self.comparator = 0;
 		}
-		if (!self.hasCart && self.active) {
+		if (!self.hasCart && self.isActive()) {
 			self.setActive(false);
 		}
-		if (self.active && self.hasRedstone) {
+		if (self.isActive() && self.isPowered()) {
 			self.setActive(false);
 		}
 
@@ -82,23 +75,17 @@ public class ManaPumpBlockEntity extends BotaniaBlockEntity {
 		self.lastComparator = self.comparator;
 	}
 
-	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		cmp.putBoolean(TAG_ACTIVE, active);
+	public boolean isPowered() {
+		return getBlockState().getValue(BlockStateProperties.POWERED);
 	}
 
-	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		active = cmp.getBoolean(TAG_ACTIVE);
+	public boolean isActive() {
+		return getBlockState().getValue(BotaniaStateProperties.ACTIVE);
 	}
 
 	public void setActive(boolean active) {
-		if (!level.isClientSide) {
-			boolean diff = this.active != active;
-			this.active = active;
-			if (diff) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-			}
+		if (!level.isClientSide && isActive() != active) {
+			getBlockState().setValue(BotaniaStateProperties.ACTIVE, active);
 		}
 	}
 }
