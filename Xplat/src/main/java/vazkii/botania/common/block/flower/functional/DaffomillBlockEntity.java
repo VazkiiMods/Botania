@@ -38,14 +38,9 @@ import java.util.List;
 public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements Wandable {
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
-	private static final String TAG_POWERED = "powered";
 
 	private int windTicks = 0;
 	private Direction orientation = Direction.NORTH;
-
-	// On some occasions the client's redstone state is not the same as the server (eg. comparators,
-	// which can return 0 power on the client as their block entity state is often not synced at all)
-	private boolean redstonePowered;
 
 	public DaffomillBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.DAFFOMILL, pos, state);
@@ -55,7 +50,11 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().random.nextInt(4) == 0) {
+		if (isPowered()) {
+			return;
+		}
+
+		if (level.isClientSide() && level.random.nextInt(4) == 0) {
 			WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
 			emitParticle(data, Math.random(), Math.random(), Math.random(), orientation.getStepX() * 0.1F, orientation.getStepY() * 0.1F, orientation.getStepZ() * 0.1F);
 		}
@@ -65,7 +64,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 			addMana(-1);
 		}
 
-		if (windTicks > 0 && !isRedstonePowered()) {
+		if (windTicks > 0) {
 			AABB axis = aabbForOrientation();
 
 			if (axis != null) {
@@ -85,6 +84,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 		}
 	}
 
+	@Nullable
 	private AABB aabbForOrientation() {
 		int x = getEffectivePos().getX();
 		int y = getEffectivePos().getY();
@@ -93,21 +93,13 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 		int h = 3;
 		int l = 16;
 
-		AABB axis = null;
-		switch (orientation) {
-			case NORTH -> axis = new AABB(x - w, y - h, z - l, x + w + 1, y + h, z);
-			case SOUTH -> axis = new AABB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
-			case WEST -> axis = new AABB(x - l, y - h, z - w, x, y + h, z + w + 1);
-			case EAST -> axis = new AABB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
-			default -> {
-			}
-		}
-		return axis;
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
+		return switch (orientation) {
+			case NORTH -> new AABB(x - w, y - h, z - l, x + w + 1, y + h, z);
+			case SOUTH -> new AABB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
+			case WEST -> new AABB(x - l, y - h, z - w, x, y + h, z + w + 1);
+			case EAST -> new AABB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
+			default -> null;
+		};
 	}
 
 	@Override
@@ -155,7 +147,6 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 
 		cmp.putInt(TAG_ORIENTATION, orientation.get3DDataValue());
 		cmp.putInt(TAG_WIND_TICKS, windTicks);
-		cmp.putBoolean(TAG_POWERED, redstonePowered);
 	}
 
 	@Override
@@ -164,18 +155,6 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 
 		orientation = Direction.from3DDataValue(cmp.getInt(TAG_ORIENTATION));
 		windTicks = cmp.getInt(TAG_WIND_TICKS);
-		redstonePowered = cmp.getBoolean(TAG_POWERED);
-	}
-
-	private boolean isRedstonePowered() {
-		if (!level.isClientSide) {
-			boolean powered = redstoneSignal != 0;
-			if (powered != redstonePowered) {
-				redstonePowered = powered;
-				sync();
-			}
-		}
-		return redstonePowered;
 	}
 
 	// Send timeCounter to client to prevent client desync when an item is e.g. dropped by a powered open crate

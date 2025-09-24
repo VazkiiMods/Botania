@@ -9,7 +9,6 @@
 package vazkii.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -37,17 +36,9 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 	private static final String TAG_MANA = "mana";
 
 	private int mana;
-	public int redstoneSignal = 0;
 
 	public FunctionalFlowerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state, ManaPool.class);
-	}
-
-	/**
-	 * If set to true, redstoneSignal will be updated every tick.
-	 */
-	public boolean acceptsRedstone() {
-		return false;
 	}
 
 	@Override
@@ -55,14 +46,6 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 		super.tickFlower();
 
 		drawManaFromPool();
-
-		redstoneSignal = 0;
-		if (acceptsRedstone()) {
-			for (Direction dir : Direction.values()) {
-				int redstoneSide = getLevel().getSignal(getBlockPos().relative(dir), dir);
-				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
-			}
-		}
 
 		if (getLevel().isClientSide) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;

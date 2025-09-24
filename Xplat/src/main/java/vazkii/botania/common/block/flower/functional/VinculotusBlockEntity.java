@@ -45,11 +45,6 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public boolean acceptsRedstone() {
-		return true;
-	}
-
-	@Override
 	public int getColor() {
 		return 0x0A6051;
 	}
@@ -67,7 +62,7 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 		for (VinculotusBlockEntity flower : existingFlowers) {
 			BlockPos activePos = flower.getEffectivePos();
 
-			if (flower.redstoneSignal > 0 || flower.getMana() <= cost
+			if (flower.isPowered() || flower.getMana() <= cost
 					|| flower.getLevel() != entity.level()
 					|| flower.getLevel().getBlockEntity(flower.getBlockPos()) != flower) {
 				continue;

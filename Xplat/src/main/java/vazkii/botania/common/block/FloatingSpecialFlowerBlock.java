@@ -9,7 +9,6 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -44,11 +43,6 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		SpecialFlowerBlock.redstoneParticlesIfPowered(state, world, pos, rand);
-	}
-
-	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		if (world.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
 			flower.setPlacedBy(world, pos, state, entity, stack);
@@ -66,6 +60,9 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		SpecialFlowerBlockEntity te = blockEntityType.get().create(pos, state);
+		if (te == null) {
+			throw new IllegalStateException("Not a special flower block entity");
+		}
 		te.setFloating(true);
 		return te;
 	}

@@ -64,7 +64,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || redstoneSignal > 0) {
+		if (getLevel().isClientSide || isPowered()) {
 			return;
 		}
 
@@ -197,11 +197,6 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		}
 
 		return filter;
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
 	}
 
 	@Override

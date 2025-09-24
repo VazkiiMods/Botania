@@ -172,7 +172,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			detectStructure(world);
 		}
 
-		if (redstoneSignal != 0 || ticksExisted % 100 != 0 || world.getDifficulty() == Difficulty.PEACEFUL
+		if (isPowered() || ticksExisted % 100 != 0 || world.getDifficulty() == Difficulty.PEACEFUL
 		// so mobs won't spawn in unloaded or border chunks
 				|| !world.isPositionEntityTicking(getEffectivePos())) {
 			return;
@@ -487,11 +487,6 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	@Override
 	public int getMaxMana() {
 		return LooniumStructureConfiguration.DEFAULT_COST;
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
 	}
 
 	@Override

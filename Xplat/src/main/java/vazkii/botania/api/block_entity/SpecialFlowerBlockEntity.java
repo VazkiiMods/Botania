@@ -30,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.*;
+import vazkii.botania.api.block.PoweredFlowerBlock;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -100,6 +101,14 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		self.tickFlower();
 		self.overgrowth = false;
 		self.overgrowthBoost = false;
+	}
+
+	protected boolean isPowered() {
+		BlockState state = getBlockState();
+		if (!(state.getBlock() instanceof PoweredFlowerBlock powered)) {
+			throw new IllegalStateException(state + " should support redstone power");
+		}
+		return powered.isPowered(state);
 	}
 
 	@Nullable

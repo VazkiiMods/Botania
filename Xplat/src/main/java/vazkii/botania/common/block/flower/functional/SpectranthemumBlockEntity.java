@@ -52,7 +52,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide && redstoneSignal == 0 && getLevel().hasChunkAt(bindPos)) {
+		if (!getLevel().isClientSide && !isPowered() && getLevel().hasChunkAt(bindPos)) {
 			BlockPos pos = getEffectivePos();
 
 			boolean did = false;
@@ -112,11 +112,6 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 				cmp.getInt(TAG_BIND_Y),
 				cmp.getInt(TAG_BIND_Z)
 		);
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
 	}
 
 	@Override

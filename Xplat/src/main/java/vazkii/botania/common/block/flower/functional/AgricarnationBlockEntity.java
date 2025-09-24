@@ -50,7 +50,7 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 			sync();
 		}
 
-		if (ticksExisted % 6 == 0 && redstoneSignal == 0) {
+		if (ticksExisted % 6 == 0 && !isPowered()) {
 			int range = getRange();
 			int x = getEffectivePos().getX() + serverLevel.random.nextInt(range * 2 + 1) - range;
 			int z = getEffectivePos().getZ() + serverLevel.random.nextInt(range * 2 + 1) - range;
@@ -92,11 +92,6 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 				}
 			}
 		}
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
 	}
 
 	/**

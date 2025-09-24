@@ -80,7 +80,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	private boolean shouldTick(long gameTime) {
 		// regular steps should not happen during bonus tick, while bonus steps should not happen during regular ticks
 		return (!overgrowthBoost && gameTime % SPEED == 0 || overgrowthBoost && (gameTime + OVERGROWN_SPEED) % SPEED == 0)
-				&& getLevel().hasNeighborSignal(getBlockPos());
+				&& isPowered();
 	}
 
 	private void runSimulation() {

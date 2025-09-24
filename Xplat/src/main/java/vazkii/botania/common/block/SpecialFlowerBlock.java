@@ -30,7 +30,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 
 import java.util.function.Supplier;
@@ -65,8 +64,8 @@ public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 	@Override
 	public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int event, int param) {
 		super.triggerEvent(state, world, pos, event, param);
-		BlockEntity tileentity = world.getBlockEntity(pos);
-		return tileentity != null && tileentity.triggerEvent(event, param);
+		BlockEntity blockEntity = world.getBlockEntity(pos);
+		return blockEntity != null && blockEntity.triggerEvent(event, param);
 	}
 
 	@Nullable
@@ -97,11 +96,6 @@ public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		redstoneParticlesIfPowered(state, world, pos, rand);
-	}
-
-	@Override
 	public boolean hasAnalogOutputSignal(BlockState bs) {
 		return hasComparatorOutput;
 	}
@@ -111,17 +105,14 @@ public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 		return level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower ? flower.getComparatorSignal() : 0;
 	}
 
-	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (world.getBlockEntity(pos) instanceof FunctionalFlowerBlockEntity flower
-				&& rand.nextBoolean() && flower.acceptsRedstone() && flower.redstoneSignal > 0) {
-			VoxelShape shape = state.getShape(world, pos);
-			if (!shape.isEmpty()) {
-				AABB localBox = shape.bounds();
-				double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
-				double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
-				double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
-				world.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
-			}
+	public static void addRedstoneParticlesInShape(BlockState state, Level world, BlockPos pos, RandomSource rand) {
+		VoxelShape shape = state.getShape(world, pos);
+		if (!shape.isEmpty()) {
+			AABB localBox = shape.bounds();
+			double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
+			double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
+			double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
+			world.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
 		}
 	}
 }

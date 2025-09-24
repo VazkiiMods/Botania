@@ -50,7 +50,7 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || redstoneSignal > 0) {
+		if (getLevel().isClientSide || isPowered()) {
 			return;
 		}
 
@@ -79,11 +79,6 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 				}
 			}
 		}
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
 	}
 
 	public int getManaCost() {

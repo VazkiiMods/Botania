@@ -78,7 +78,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || redstoneSignal > 0) {
+		if (getLevel().isClientSide || isPowered()) {
 			return;
 		}
 
@@ -187,11 +187,6 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 
 	private static boolean isAirOrDifferentReplaceableBlock(BlockState state, ItemStack stack) {
 		return state.isAir() || state.canBeReplaced() && !stack.is(state.getBlock().asItem());
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
 	}
 
 	@Override

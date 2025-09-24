@@ -53,7 +53,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || redstoneSignal > 0 || !canOperate()) {
+		if (getLevel().isClientSide || isPowered() || !canOperate()) {
 			return;
 		}
 
@@ -139,11 +139,6 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), getRange());
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
 	}
 
 	public int getRange() {

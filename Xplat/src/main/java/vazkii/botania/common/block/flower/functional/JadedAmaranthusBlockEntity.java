@@ -33,7 +33,7 @@ public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || redstoneSignal > 0) {
+		if (getLevel().isClientSide || isPowered()) {
 			return;
 		}
 
@@ -66,11 +66,6 @@ public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
 				pos = pos.below();
 			}
 		}
-	}
-
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
 	}
 
 	@Override

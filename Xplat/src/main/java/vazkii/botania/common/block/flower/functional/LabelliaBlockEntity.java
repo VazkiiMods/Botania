@@ -43,11 +43,6 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public boolean acceptsRedstone() {
-		return true;
-	}
-
-	@Override
 	public int getColor() {
 		return 0xFFEE83;
 	}
@@ -56,7 +51,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!level.isClientSide && redstoneSignal == 0 && getMana() >= COST) {
+		if (!level.isClientSide && !isPowered() && getMana() >= COST) {
 			BlockPos effPos = getEffectivePos();
 			BlockPos realPos = getBlockPos();
 			int x = effPos.getX();

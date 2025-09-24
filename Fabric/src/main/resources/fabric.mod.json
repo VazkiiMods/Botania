@@ -36,6 +36,7 @@
       "vazkii.botania.fabric.client.FabricClientInitializer"
     ],
     "fabric-gametest": [
+      "vazkii.botania.test.block.IdleFlowerTickingTest",
       "vazkii.botania.test.block.BindingTest",
       "vazkii.botania.test.block.HopperhockTest",
       "vazkii.botania.test.block.InterceptorTest",
