@@ -98,21 +98,29 @@ public class ColoredContentsPouchContainer extends AbstractContainerMenu {
 	@Override
 	public ItemStack quickMoveStack(Player player, int slotIndex) {
 		Slot slot = slots.get(slotIndex);
-		if (!slot.hasItem()) {
-			return ItemStack.EMPTY;
-		}
+		if (!slot.hasItem()) return ItemStack.EMPTY;
 
 		ItemStack slotStack = slot.getItem();
 		ItemStack copyStack = slotStack.copy();
 
 		int numPouchSlots = pouchInv.getContainerSize();
+
 		if (slotIndex < numPouchSlots) {
 			if (!moveItemStackTo(slotStack, numPouchSlots, slots.size(), true)) {
 				return ItemStack.EMPTY;
 			}
-		} else if (pouch.getItem() instanceof ColoredContentsPouchItem pouch) {
-			IntList slotCandidates = pouch.findCandidateSlots(player.level(), this.pouch, copyStack);
-			if (slotCandidates.intStream().anyMatch(slotId -> !moveItemStackTo(slotStack, slotId, slotId + 1, true))) {
+		} else if (pouch.getItem() instanceof ColoredContentsPouchItem pouchItem) {
+			IntList candidates = pouchItem.findCandidateSlots(player.level(), pouch, copyStack);
+			boolean moved = false;
+			for (int candidateSlot : candidates) {
+				if (pouchInv.canPlaceItem(candidateSlot, slotStack)) {
+					if (moveItemStackTo(slotStack, candidateSlot, candidateSlot + 1, true)) {
+						moved = true;
+						break;
+					}
+				}
+			}
+			if (!moved) {
 				return ItemStack.EMPTY;
 			}
 		}
@@ -122,8 +130,6 @@ public class ColoredContentsPouchContainer extends AbstractContainerMenu {
 		} else {
 			slot.setChanged();
 		}
-
 		return copyStack;
 	}
-
 }
