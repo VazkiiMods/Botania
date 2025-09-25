@@ -33,6 +33,7 @@ public class CraftyCrateBlock extends OpenCrateBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(BotaniaStateProperties.CRATE_PATTERN);
 	}
 

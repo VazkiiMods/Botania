@@ -13,15 +13,20 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.RedstoneSensitiveBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.OpenCrateBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
@@ -30,6 +35,23 @@ public class OpenCrateBlock extends BotaniaBlock implements EntityBlock {
 
 	protected OpenCrateBlock(Properties builder) {
 		super(builder);
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BlockStateProperties.POWERED);
+	}
+
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return RedstoneSensitiveBlock.getPoweredStateForPlacement(super.getStateForPlacement(context), context);
+	}
+
+	@Override
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
 	}
 
 	@Override
@@ -44,7 +66,7 @@ public class OpenCrateBlock extends BotaniaBlock implements EntityBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (world.hasNeighborSignal(pos) && rand.nextDouble() < 0.2) {
+		if (state.getValue(BlockStateProperties.POWERED) && rand.nextDouble() < 0.2) {
 			redstoneParticlesOnFullBlock(world, pos, rand);
 		}
 	}

@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -39,12 +40,10 @@ public class OpenCrateBlockEntity extends ExposedSimpleInventoryBlockEntity {
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, OpenCrateBlockEntity self) {
-		boolean redstone = level.hasNeighborSignal(worldPosition);
-
 		if (self.canEject()) {
 			ItemStack stack = self.getItemHandler().getItem(0);
 			if (!stack.isEmpty()) {
-				self.eject(stack, redstone);
+				self.eject(stack, state.getValue(BlockStateProperties.POWERED));
 			}
 		}
 	}
