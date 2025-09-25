@@ -15,6 +15,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -41,79 +42,79 @@ import java.util.List;
 
 public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity implements WorldlyContainer {
 	private static final String TAG_TIME_LEFT = "timeLeft";
-	private static final String TAG_BURNING = "burning";
 	private static final int RANGE = 32;
 
 	private int timeLeft = 0;
-	public boolean burning = false;
 	public int comparatorOutput = 0;
 
 	public IncensePlateBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.INCENSE_PLATE, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, IncensePlateBlockEntity self) {
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, IncensePlateBlockEntity self) {
 		ItemStack stack = self.getItemHandler().getItem(0);
-		if (!stack.isEmpty() && self.burning) {
+		int newComparator;
+		if (stack.is(BotaniaItems.incenseStick) && state.getValue(BlockStateProperties.LIT)) {
+			newComparator = 2;
 			if (state.getValue(BlockStateProperties.WATERLOGGED) && self.timeLeft > 1) {
 				self.timeLeft = 1;
 				self.spawnSmokeParticles();
 			}
 
 			Brew brew = ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack);
-			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
+			MobEffectInstance effect = brew.getPotionEffects(stack).getFirst();
 			if (self.timeLeft > 0) {
 				self.timeLeft--;
-				if (!level.isClientSide) {
-					List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(worldPosition.getX() + 0.5 - RANGE, worldPosition.getY() + 0.5 - RANGE, worldPosition.getZ() + 0.5 - RANGE, worldPosition.getX() + 0.5 + RANGE, worldPosition.getY() + 0.5 + RANGE, worldPosition.getZ() + 0.5 + RANGE));
-					for (Player player : players) {
-						MobEffectInstance currentEffect = player.getEffect(effect.getEffect());
-						boolean nightVision = effect.getEffect() == MobEffects.NIGHT_VISION;
-						if (currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
-							MobEffectInstance applyEffect = new MobEffectInstance(effect.getEffect(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
-							player.addEffect(applyEffect);
-						}
+				List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(worldPosition.getX() + 0.5 - RANGE, worldPosition.getY() + 0.5 - RANGE, worldPosition.getZ() + 0.5 - RANGE, worldPosition.getX() + 0.5 + RANGE, worldPosition.getY() + 0.5 + RANGE, worldPosition.getZ() + 0.5 + RANGE));
+				for (Player player : players) {
+					MobEffectInstance currentEffect = player.getEffect(effect.getEffect());
+					boolean nightVision = effect.getEffect() == MobEffects.NIGHT_VISION;
+					if (currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
+						MobEffectInstance applyEffect = new MobEffectInstance(effect.getEffect(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
+						player.addEffect(applyEffect);
 					}
+				}
 
-					if (level.random.nextInt(20) == 0) {
-						level.playSound(null, worldPosition, SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 0.1F, 1);
-					}
-				} else {
-					double x = worldPosition.getX() + 0.5;
-					double y = worldPosition.getY() + 0.5;
-					double z = worldPosition.getZ() + 0.5;
-
-					int color = brew.getColor(stack);
-					float r = (color >> 16 & 0xFF) / 255F;
-					float g = (color >> 8 & 0xFF) / 255F;
-					float b = (color & 0xFF) / 255F;
-
-					WispParticleData data1 = WispParticleData.wisp(0.05F + (float) Math.random() * 0.02F, r, g, b);
-					level.addParticle(data1, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.005F, 0.005F - (float) Math.random() * 0.01F);
-					WispParticleData data = WispParticleData.wisp(0.05F + (float) Math.random() * 0.02F, 0.2F, 0.2F, 0.2F);
-					level.addParticle(data, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
+				if (level.random.nextInt(20) == 0) {
+					level.playSound(null, worldPosition, SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 0.1F, 1);
 				}
 			} else {
 				self.getItemHandler().setItem(0, ItemStack.EMPTY);
-				self.burning = false;
+				level.setBlockAndUpdate(self.getBlockPos(), state.setValue(BlockStateProperties.LIT, false));
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, worldPosition);
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 			}
 		} else {
 			self.timeLeft = 0;
+			newComparator = stack.isEmpty() ? 0 : 1;
 		}
 
-		int newComparator = 0;
-		if (!stack.isEmpty()) {
-			newComparator = 1;
-		}
-		if (self.burning) {
-			newComparator = 2;
-		}
 		if (self.comparatorOutput != newComparator) {
 			self.comparatorOutput = newComparator;
 			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 			self.setChanged();
+		}
+	}
+
+	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, IncensePlateBlockEntity self) {
+		ItemStack stack = self.getItemHandler().getItem(0);
+		if (stack.is(BotaniaItems.incenseStick) && state.getValue(BlockStateProperties.LIT)) {
+			if (self.timeLeft > 0) {
+				self.timeLeft--;
+			}
+			Brew brew = ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack);
+			double x = worldPosition.getX() + 0.5;
+			double y = worldPosition.getY() + 0.5;
+			double z = worldPosition.getZ() + 0.5;
+
+			int color = brew.getColor(stack);
+			float r = FastColor.ARGB32.red(color) / 255f;
+			float g = FastColor.ARGB32.green(color) / 255f;
+			float b = FastColor.ARGB32.blue(color) / 255f;
+
+			WispParticleData data1 = WispParticleData.wisp(0.05F + (float) Math.random() * 0.02F, r, g, b);
+			level.addParticle(data1, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.005F, 0.005F - (float) Math.random() * 0.01F);
+			WispParticleData data = WispParticleData.wisp(0.05F + (float) Math.random() * 0.02F, 0.2F, 0.2F, 0.2F);
+			level.addParticle(data, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
 		}
 	}
 
@@ -134,7 +135,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	public void ignite() {
 		ItemStack stack = getItemHandler().getItem(0);
 
-		if (stack.isEmpty() || burning) {
+		if (stack.isEmpty() || getBlockState().getValue(BlockStateProperties.LIT)) {
 			return;
 		}
 
@@ -143,25 +144,24 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			return;
 		}
 
-		burning = true;
+		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true));
 		Brew brew = ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack);
-		timeLeft = brew.getPotionEffects(stack).get(0).getDuration() * IncenseStickItem.TIME_MULTIPLIER;
+		timeLeft = brew.getPotionEffects(stack).getFirst().getDuration() * IncenseStickItem.TIME_MULTIPLIER;
 		level.playSound(null, getBlockPos(), BotaniaSounds.incensePlateIgnite, SoundSource.BLOCKS, 0.5F, 1.75F);
 		level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
+		setChanged();
 	}
 
 	@Override
 	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
 		super.writePacketNBT(tag, registries);
 		tag.putInt(TAG_TIME_LEFT, timeLeft);
-		tag.putBoolean(TAG_BURNING, burning);
 	}
 
 	@Override
 	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
 		super.readPacketNBT(tag, registries);
 		timeLeft = tag.getInt(TAG_TIME_LEFT);
-		burning = tag.getBoolean(TAG_BURNING);
 	}
 
 	public boolean acceptsItem(ItemStack stack) {

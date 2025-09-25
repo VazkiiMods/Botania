@@ -726,7 +726,7 @@ public final class BotaniaBlocks {
 	public static final Block corporeaBrickSlab = make(LibBlockNames.CORPOREA_BRICK + LibBlockNames.SLAB_SUFFIX, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBrick)));
 	public static final Block corporeaBrickWall = make(LibBlockNames.CORPOREA_BRICK + WALL_SUFFIX, new WallBlock(BlockBehaviour.Properties.ofFullCopy(corporeaBrick)));
 
-	public static final Block incensePlate = make(LibBlockNames.INCENSE_PLATE, new IncensePlateBlock(BlockBehaviour.Properties.ofFullCopy(livingwood)));
+	public static final Block incensePlate = make(LibBlockNames.INCENSE_PLATE, new IncensePlateBlock(BlockBehaviour.Properties.ofFullCopy(livingwood).lightLevel(s -> s.getValue(BlockStateProperties.LIT) ? 2 : 0)));
 	public static final Block hourglass = make(LibBlockNames.HOURGLASS, new HoveringHourglassBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).strength(2).sound(SoundType.METAL)));
 	public static final Block ghostRail = make(LibBlockNames.GHOST_RAIL, new SpectralRailBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RAIL)));
 	public static final Block lightRelayDefault = make(LibBlockNames.LIGHT_RELAY, new LuminizerBlock(BlockBehaviour.Properties.of().noCollission()));

@@ -41,7 +41,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.IncensePlateBlockEntity;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -53,58 +52,16 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 	protected IncensePlateBlock(Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
+		registerDefaultState(defaultBlockState()
+				.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+				.setValue(BlockStateProperties.LIT, false));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BlockStateProperties.HORIZONTAL_FACING);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.LIT);
 	}
-
-	/*OLD
-	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		IncensePlateBlockEntity plate = (IncensePlateBlockEntity) world.getBlockEntity(pos);
-		ItemStack plateStack = plate.getItemHandler().getItem(0);
-		ItemStack stack = player.getItemInHand(hand);
-		boolean did = false;
-	
-		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
-			plate.getItemHandler().setItem(0, stack.copy());
-			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-			stack.shrink(1);
-			did = true;
-		} else if (!plateStack.isEmpty() && !plate.burning) {
-			if (XplatAbstractions.INSTANCE.canToolLightFire(stack)) {
-				plate.ignite();
-				world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
-				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-			} else if (stack.is(Items.FIRE_CHARGE)) {
-				plate.ignite();
-				RandomSource randomsource = world.getRandom();
-				world.playSound(player, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (randomsource.nextFloat() - randomsource.nextFloat()) * 0.2F + 1.0F);
-				if (!player.getAbilities().instabuild) {
-					stack.shrink(1);
-				}
-			} else {
-				player.getInventory().placeItemBackInInventory(plateStack);
-				plate.getItemHandler().setItem(0, ItemStack.EMPTY);
-				world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-			}
-			did = true;
-		}
-	
-		if (did) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-			plate.setChanged();
-		}
-	
-		return did
-				? InteractionResult.sidedSuccess(world.isClientSide())
-				: InteractionResult.PASS;
-	}
-	 */
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
@@ -113,14 +70,13 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 		}
 		ItemStack plateStack = plate.getItemHandler().getItem(0);
 
-		boolean did = false;
-
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setItem(0, stack.copy());
 			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			stack.shrink(1);
-			did = true;
-		} else if (!plateStack.isEmpty() && !plate.burning) {
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		}
+		if (!plateStack.isEmpty() && !state.getValue(BlockStateProperties.LIT)) {
 			if (stack.is(Items.FIRE_CHARGE)) {
 				plate.ignite();
 				RandomSource randomsource = world.getRandom();
@@ -137,17 +93,10 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 				plate.getItemHandler().setItem(0, ItemStack.EMPTY);
 				world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
-			did = true;
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}
 
-		if (did) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-			plate.setChanged();
-		}
-
-		return did
-				? ItemInteractionResult.sidedSuccess(world.isClientSide())
-				: ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override
@@ -188,13 +137,14 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.INCENSE_PLATE, IncensePlateBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.INCENSE_PLATE,
+				level.isClientSide ? IncensePlateBlockEntity::clientTick : IncensePlateBlockEntity::serverTick);
 	}
 
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!state.is(newState.getBlock())
-				&& world.getBlockEntity(pos) instanceof IncensePlateBlockEntity plate && !plate.burning) {
+		if (!state.is(newState.getBlock()) && !state.getValue(BlockStateProperties.LIT)
+				&& world.getBlockEntity(pos) instanceof IncensePlateBlockEntity plate) {
 			Containers.dropContents(world, pos, plate.getItemHandler());
 		}
 		super.onRemove(state, world, pos, newState, isMoving);
@@ -202,11 +152,9 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	public void onProjectileHit(Level level, BlockState blockState, BlockHitResult hit, Projectile projectile) {
-		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos()) && projectile.isOnFire()) {
-			if (level.getBlockEntity(hit.getBlockPos()) instanceof IncensePlateBlockEntity plate) {
-				plate.ignite();
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-			}
+		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos()) && projectile.isOnFire()
+				&& level.getBlockEntity(hit.getBlockPos()) instanceof IncensePlateBlockEntity plate) {
+			plate.ignite();
 		}
 	}
 }
