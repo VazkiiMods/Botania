@@ -508,7 +508,7 @@ public class WrenchingHelper {
 	private static BlockState applyVanillaRotation(BlockState oldState, Direction side, Predicate<BlockState> canSurvive) {
 		for (Rotation rot : new Rotation[] { Rotation.CLOCKWISE_90, Rotation.CLOCKWISE_180, Rotation.COUNTERCLOCKWISE_90 }) {
 			BlockState newState = oldState.rotate(rot);
-			if (canSurvive.test(newState)) {
+			if (newState != oldState && canSurvive.test(newState)) {
 				return newState;
 			}
 		}
