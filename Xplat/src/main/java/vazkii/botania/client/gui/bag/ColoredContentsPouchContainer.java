@@ -112,7 +112,8 @@ public class ColoredContentsPouchContainer extends AbstractContainerMenu {
 			}
 		} else if (pouch.getItem() instanceof ColoredContentsPouchItem pouch) {
 			IntList slotCandidates = pouch.findCandidateSlots(player.level(), this.pouch, copyStack);
-			if (slotCandidates.intStream().anyMatch(slotId -> !moveItemStackTo(slotStack, slotId, slotId + 1, true))) {
+			if (slotCandidates.isEmpty() || slotCandidates.intStream()
+					.anyMatch(slotId -> !moveItemStackTo(slotStack, slotId, slotId + 1, true))) {
 				return ItemStack.EMPTY;
 			}
 		}
