@@ -43,6 +43,9 @@ public final class BotaniaStateProperties {
 	public static final BooleanProperty BACKWARDS = BooleanProperty.create("backwards");
 	public static final IntegerProperty SPEED = IntegerProperty.create("speed", 1, 6);
 
+	// ManaPoolBlock
+	public static final BooleanProperty OUTPUTTING = BooleanProperty.create("outputting");
+
 	private BotaniaStateProperties() {}
 
 }

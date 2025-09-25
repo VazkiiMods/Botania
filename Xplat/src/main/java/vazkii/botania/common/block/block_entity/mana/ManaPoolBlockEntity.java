@@ -46,6 +46,7 @@ import vazkii.botania.api.item.ManaDissolvable;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -76,7 +77,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	public static final int TRANSFER_BASE_RATE = 1000;
 
 	private static final String TAG_MANA = "mana";
-	private static final String TAG_OUTPUTTING = "outputting";
 	private static final String TAG_MANA_CAP = "manaCap";
 	private static final String TAG_CAN_ACCEPT = "canAccept";
 	private static final String TAG_CAN_SPARE = "canSpare";
@@ -87,7 +87,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	private static final int DRAIN_EFFECT_EVENT = 2;
 	private static final float CHARGING_GRAVITY = 0.003f;
 
-	private boolean outputting = false;
 	private int mana;
 
 	private int manaCap = -1;
@@ -362,13 +361,14 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			ItemStack stack = item.getItem();
 			var mana = XplatAbstractions.INSTANCE.findManaItem(stack);
 			if (!stack.isEmpty() && mana != null) {
-				if (self.outputting && mana.canReceiveManaFromPool(self) || !self.outputting && mana.canDrainManaToPool(self)) {
+				boolean isOutputting = self.isOutputtingPower();
+				if (isOutputting && mana.canReceiveManaFromPool(self) || !isOutputting && mana.canDrainManaToPool(self)) {
 					boolean didSomething = false;
 
-					int bellowCount = self.outputting ? getBellowCount(level, worldPosition, self) : 0;
+					int bellowCount = isOutputting ? getBellowCount(level, worldPosition, self) : 0;
 					int transfRate = TRANSFER_BASE_RATE * (bellowCount + 1);
 
-					if (self.outputting) {
+					if (isOutputting) {
 						if (self.canSpare) {
 							if (self.getCurrentMana() > 0 && mana.getMana() < mana.getMaxMana()) {
 								didSomething = true;
@@ -396,11 +396,11 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 					if (didSomething) {
 						if (BotaniaConfig.common().chargingAnimationEnabled() && self.ticks % 10 == 0) {
 							level.blockEvent(worldPosition, state.getBlock(),
-									self.outputting ? CHARGE_EFFECT_EVENT : DRAIN_EFFECT_EVENT,
+									isOutputting ? CHARGE_EFFECT_EVENT : DRAIN_EFFECT_EVENT,
 									encodeRelativeItemPosition(worldPosition, item));
 						}
 						EntityHelper.syncItem(item);
-						self.isDoingTransfer = self.outputting;
+						self.isDoingTransfer = isOutputting;
 					}
 				}
 			}
@@ -454,7 +454,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	@Override
 	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_MANA, getCurrentMana());
-		cmp.putBoolean(TAG_OUTPUTTING, outputting);
 
 		cmp.putInt(TAG_MANA_CAP, getMaxMana());
 		cmp.putBoolean(TAG_CAN_ACCEPT, canAccept);
@@ -467,7 +466,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	@Override
 	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		mana = cmp.getInt(TAG_MANA);
-		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 
 		if (cmp.contains(TAG_MANA_CAP)) {
 			manaCap = cmp.getInt(TAG_MANA_CAP);
@@ -490,8 +488,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
-			outputting = !outputting;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.setBlockAndUpdate(getBlockPos(), getBlockState().cycle(BotaniaStateProperties.OUTPUTTING));
 		}
 		return true;
 	}
@@ -520,7 +517,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-			int arrowU = pool.outputting ? 22 : 0;
+			int arrowU = pool.isOutputtingPower() ? 22 : 0;
 			int arrowV = 38;
 			RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, centerX - 11, centerY + 30, arrowU, arrowV, 22, 15);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
@@ -542,7 +539,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	@Override
 	public boolean isOutputtingPower() {
-		return outputting;
+		return getBlockState().getValue(BotaniaStateProperties.OUTPUTTING);
 	}
 
 	@Override
