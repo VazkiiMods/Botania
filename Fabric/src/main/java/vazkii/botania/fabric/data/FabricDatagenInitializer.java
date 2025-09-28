@@ -32,6 +32,7 @@ import vazkii.botania.fabric.data.xplat.BrewProvider;
 import vazkii.botania.fabric.data.xplat.ConventionalBiomeTagProvider;
 import vazkii.botania.fabric.data.xplat.ConventionalBlockTagProvider;
 import vazkii.botania.fabric.data.xplat.ConventionalEntityTypeTagProvider;
+import vazkii.botania.fabric.data.xplat.ConventionalFluidTagProvider;
 import vazkii.botania.fabric.data.xplat.ConventionalItemTagProvider;
 import vazkii.botania.fabric.data.xplat.CraftingRecipeProvider;
 import vazkii.botania.fabric.data.xplat.ElvenTradeProvider;
@@ -77,6 +78,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		var conventionalBlockTagProvider = pack.addProvider(ConventionalBlockTagProvider::new);
 		pack.addProvider((output, registriesFuture) -> new ConventionalItemTagProvider(
 				output, registriesFuture, conventionalBlockTagProvider.contentsGetter()));
+		pack.addProvider(ConventionalFluidTagProvider::new);
 		pack.addProvider(EntityTagProvider::new);
 		pack.addProvider(ConventionalEntityTypeTagProvider::new);
 		pack.addProvider(BannerPatternProvider::new);

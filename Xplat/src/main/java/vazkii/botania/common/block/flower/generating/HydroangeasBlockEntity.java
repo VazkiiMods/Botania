@@ -14,7 +14,6 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.lib.BotaniaTags;
 
 public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
@@ -33,7 +33,7 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	private int passiveDecayTicks;
 
 	public HydroangeasBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.HYDROANGEAS, pos, state, FluidTags.WATER, 40, 1);
+		super(BotaniaBlockEntities.HYDROANGEAS, pos, state, BotaniaTags.Fluids.HYDROANGEAS_CONSUMABLE, 40, 1);
 	}
 
 	@Override

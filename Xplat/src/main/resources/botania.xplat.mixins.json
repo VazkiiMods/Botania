@@ -27,6 +27,7 @@
     "ExperienceOrbAccessor",
     "FarmBlockMixin",
     "FireBlockAccessor",
+    "FlowingFluidAccessor",
     "GrowingPlantBodyBlockMixin",
     "HopperBlockEntityAccessor",
     "HurtByTargetGoalAccessor",

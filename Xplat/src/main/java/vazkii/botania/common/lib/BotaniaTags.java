@@ -17,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
+import net.minecraft.world.level.material.Fluid;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -350,6 +351,21 @@ public class BotaniaTags {
 
 		private static TagKey<EntityType<?>> tag(String name) {
 			return TagKey.create(Registries.ENTITY_TYPE, botaniaRL(name));
+		}
+	}
+
+	public static class Fluids {
+		/**
+		 * Fluids consumed by the Hydroangeas. (Non-source fluids are ignored.)
+		 */
+		public static final TagKey<Fluid> HYDROANGEAS_CONSUMABLE = tag("hydroangeas_consumable");
+		/**
+		 * Fluids consumed by the Thermalily. (Non-source fluids are ignored.)
+		 */
+		public static final TagKey<Fluid> THERMALILY_CONSUMABLE = tag("thermalily_consumable");
+
+		private static TagKey<Fluid> tag(String name) {
+			return TagKey.create(Registries.FLUID, botaniaRL(name));
 		}
 	}
 
