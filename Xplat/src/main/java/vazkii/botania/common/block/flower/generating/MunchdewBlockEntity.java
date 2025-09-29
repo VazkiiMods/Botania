@@ -13,7 +13,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -27,6 +26,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.*;
@@ -37,6 +37,9 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 16;
+	private static final int MANA_PER_LEAF = 160;
+	private static final int MAX_TICKS_WITHOUT_EATING = 5;
+	private static final int COOLDOWN_TICKS = 1600;
 
 	private boolean ateOnce = false;
 	private int ticksWithoutEating = -1;
@@ -72,60 +75,61 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 
-		int manaPerLeaf = 160;
-		eatLeaves: {
-			if (getMaxMana() - getMana() >= manaPerLeaf && ticksExisted % 4 == 0) {
-				Map<BlockPos, Float> coordsMap = new HashMap<>();
-				Random rng = new Random();
-				BlockPos pos = getEffectivePos();
-
-				for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-RANGE, 0, -RANGE),
-						pos.offset(RANGE, RANGE_Y, RANGE))) {
-					BlockState state = getLevel().getBlockState(pos_);
-					if (state.is(BlockTags.LEAVES)) {
-						for (Direction dir : Direction.values()) {
-							if (getLevel().isEmptyBlock(pos_.relative(dir))) {
-								coordsMap.put(pos_.immutable(), (state.hasProperty(LeavesBlock.DISTANCE)
-										? state.getValue(LeavesBlock.DISTANCE) : 1) + 2.0f * rng.nextFloat());
-								break;
-							}
-						}
-					}
-				}
-
-				if (coordsMap.isEmpty()) {
-					break eatLeaves;
-				}
-
-				float maxDistance = 0F;
-				for (float distance : coordsMap.values()) {
-					maxDistance = Math.max(maxDistance, distance);
-				}
-
-				float finalMaxDistance = maxDistance;
-				coordsMap.values().removeIf(dist -> dist < finalMaxDistance - 1f);
-				List<BlockPos> coords = new ArrayList<>(coordsMap.keySet());
-
-				BlockPos breakCoords = coords.get(level.getRandom().nextInt(coords.size()));
-				BlockState state = getLevel().getBlockState(breakCoords);
-				getLevel().removeBlock(breakCoords, false);
-				ticksWithoutEating = 0;
-				ateOnce = true;
-				if (BotaniaConfig.common().blockBreakParticles()) {
-					getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, breakCoords, Block.getId(state));
-				}
-				getLevel().gameEvent(null, GameEvent.BLOCK_DESTROY, breakCoords);
-				addMana(manaPerLeaf);
-			}
+		if (getMaxMana() - getMana() >= MANA_PER_LEAF && ticksExisted % 4 == 0) {
+			eatLeaves();
 		}
 
 		if (ateOnce) {
 			ticksWithoutEating++;
-			if (ticksWithoutEating >= 5) {
-				cooldown = 1600;
+			if (ticksWithoutEating >= MAX_TICKS_WITHOUT_EATING) {
+				cooldown = COOLDOWN_TICKS;
 				sync();
 			}
 		}
+	}
+
+	private void eatLeaves() {
+		Map<BlockPos, Float> coordsMap = new HashMap<>();
+		Random rng = new Random();
+		BlockPos pos = getEffectivePos();
+
+		for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-RANGE, 0, -RANGE),
+				pos.offset(RANGE, RANGE_Y, RANGE))) {
+			BlockState state = getLevel().getBlockState(pos_);
+			if (state.is(BotaniaTags.Blocks.MUNCHDEW_CONSUMABLE)) {
+				for (Direction dir : Direction.values()) {
+					if (getLevel().isEmptyBlock(pos_.relative(dir))) {
+						coordsMap.put(pos_.immutable(), (state.hasProperty(LeavesBlock.DISTANCE)
+								? state.getValue(LeavesBlock.DISTANCE) : 1) + 2.0f * rng.nextFloat());
+						break;
+					}
+				}
+			}
+		}
+
+		if (coordsMap.isEmpty()) {
+			return;
+		}
+
+		float maxDistance = 0F;
+		for (float distance : coordsMap.values()) {
+			maxDistance = Math.max(maxDistance, distance);
+		}
+
+		float finalMaxDistance = maxDistance;
+		coordsMap.values().removeIf(dist -> dist < finalMaxDistance - 1f);
+		List<BlockPos> coords = new ArrayList<>(coordsMap.keySet());
+
+		BlockPos breakCoords = coords.get(level.getRandom().nextInt(coords.size()));
+		BlockState state = getLevel().getBlockState(breakCoords);
+		getLevel().removeBlock(breakCoords, false);
+		ticksWithoutEating = 0;
+		ateOnce = true;
+		if (BotaniaConfig.common().blockBreakParticles()) {
+			getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, breakCoords, Block.getId(state));
+		}
+		getLevel().gameEvent(null, GameEvent.BLOCK_DESTROY, breakCoords);
+		addMana(MANA_PER_LEAF);
 	}
 
 	@Override

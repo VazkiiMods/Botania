@@ -313,6 +313,12 @@ public class BotaniaTags {
 		public static final TagKey<Block> COVERED_ELVEN_SPREADERS = tag("covered_elven_spreaders");
 		public static final TagKey<Block> COVERED_GAIA_SPREADERS = tag("covered_gaia_spreaders");
 
+		/**
+		 * Blocks consumed by the Munchdew flower.
+		 * TODO: Would it accept eating the hats of huge fungi as well? Or the leaves of long vine-like plants?
+		 */
+		public static final TagKey<Block> MUNCHDEW_CONSUMABLE = tag("munchdew_consumable");
+
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, botaniaRL(name));
 		}
