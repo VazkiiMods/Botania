@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.flower.functional;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.authlib.GameProfile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -18,6 +19,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -39,6 +42,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -295,8 +299,18 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		private final Direction[] lookDirs;
 		private final float placementYaw;
 
+		public static final GameProfile GAME_PROFILE = new GameProfile(UUID.nameUUIDFromBytes(BotaniaAPI.MODID.getBytes()), BotaniaAPI.MODID);
+
 		public RannuncarpusPlaceContext(Level world, ItemStack stack, BlockHitResult rtr, BlockPos flowerPos) {
-			super(world, null, InteractionHand.MAIN_HAND, stack, rtr);
+			super(
+					world,
+					world instanceof ServerLevel serverLevel
+							? new ServerPlayer(serverLevel.getServer(), serverLevel, GAME_PROFILE)
+							: null,
+					InteractionHand.MAIN_HAND,
+					stack,
+					rtr
+			);
 			int dx = rtr.getBlockPos().getX() - flowerPos.getX();
 			int dy = rtr.getBlockPos().getY() - flowerPos.getY();
 			int dz = rtr.getBlockPos().getZ() - flowerPos.getZ();
