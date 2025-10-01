@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -50,7 +50,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.fabric.xplat.FabricXplatImpl;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -132,7 +132,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerRecipeFiller(TerrestrialAgglomerationRecipe.class, BotaniaRecipeTypes.TERRA_PLATE_TYPE, TerrestrialAgglomerationREIDisplay::new);
 
 		try {
-			for (var entry : FabricXplatImpl.CUSTOM_STRIPPING.entrySet()) {
+			for (var entry : XplatAbstractions.instance().getCustomStrippables().entrySet()) {
 				helper.add(new DefaultStrippingDisplay(EntryStacks.of(entry.getKey()), EntryStacks.of(entry.getValue())));
 			}
 		} catch (Exception e) {

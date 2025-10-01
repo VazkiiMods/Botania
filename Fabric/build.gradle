@@ -50,9 +50,6 @@ repositories {
         url = "https://mod-buildcraft.com/maven"
     }
     maven {
-        url = "https://maven.shedaniel.me/" // for rei
-    }
-    maven {
         name = "ParchmentMC"
         url = "https://maven.parchmentmc.net/"
     }

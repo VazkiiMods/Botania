@@ -1,4 +1,4 @@
-package vazkii.botania.neoforge.integration.embeddium;
+package vazkii.botania.neoforge.client.integration.embeddium;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 

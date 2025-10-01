@@ -494,6 +494,11 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
+	public Map<Block, Block> getCustomStrippables() {
+		return Map.of();
+	}
+
+	@Override
 	public int transferEnergyToNeighbors(Level level, BlockPos pos, int energy) {
 		for (Direction e : Direction.values()) {
 			BlockPos neighbor = pos.relative(e);

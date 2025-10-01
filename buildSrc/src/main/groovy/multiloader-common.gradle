@@ -56,6 +56,9 @@ repositories {
         url = 'https://maven.terraformersmc.com/' // for emi
     }
     maven {
+        url = "https://maven.shedaniel.me/" // for rei
+    }
+    maven {
         name = 'Unascribed'
         url = 'https://repo.unascribed.com' // for ears
         content {

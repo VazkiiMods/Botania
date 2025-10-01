@@ -1,4 +1,4 @@
-package vazkii.botania.neoforge.integration.sodium;
+package vazkii.botania.neoforge.client.integration.sodium;
 
 import net.caffeinemc.mods.sodium.api.texture.SpriteUtil;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

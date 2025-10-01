@@ -29,6 +29,9 @@ dependencies {
     compileOnly group: 'mezz.jei', name:"jei-${minecraft_version}-common-api", version: jei_version
     compileOnly "dev.emi:emi-xplat-mojmap:${emi_version}:api"
 
+    // Looks weird, but actually seems to work (the -common variant would be in Intermediary mapping)
+    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+
     compileOnly group: 'org.jetbrains', name: 'annotations', version: '26.0.2'
 }
 

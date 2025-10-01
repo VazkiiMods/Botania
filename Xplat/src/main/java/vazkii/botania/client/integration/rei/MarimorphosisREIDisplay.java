@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
@@ -14,14 +14,13 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
 
-public class OrechidREIDisplay extends OrechidBaseREIDisplay {
-
-	public OrechidREIDisplay(RecipeHolder<? extends OrechidRecipe> recipe) {
+public class MarimorphosisREIDisplay extends OrechidBaseREIDisplay {
+	public MarimorphosisREIDisplay(RecipeHolder<? extends OrechidRecipe> recipe) {
 		super(recipe);
 	}
 
 	@Override
 	public CategoryIdentifier<?> getCategoryIdentifier() {
-		return BotaniaREICategoryIdentifiers.ORECHID;
+		return BotaniaREICategoryIdentifiers.MARIMORPHOSIS;
 	}
 }

@@ -61,6 +61,9 @@ dependencies {
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
     //runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
+    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+    //runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
     runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 

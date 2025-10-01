@@ -9,6 +9,6 @@
  */
 
 @NotNullByDefault
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import org.jetbrains.annotations.NotNullByDefault;

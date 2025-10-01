@@ -111,6 +111,7 @@ import vazkii.botania.fabric.mixin.AbstractFurnaceBlockEntityFabricAccessor;
 import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -575,6 +576,11 @@ public class FabricXplatImpl implements XplatAbstractions {
 		} else {
 			CUSTOM_STRIPPING.put(input, output);
 		}
+	}
+
+	@Override
+	public Map<Block, Block> getCustomStrippables() {
+		return Collections.unmodifiableMap(CUSTOM_STRIPPING);
 	}
 
 	@Override

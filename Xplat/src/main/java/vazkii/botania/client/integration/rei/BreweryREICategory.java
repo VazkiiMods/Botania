@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;

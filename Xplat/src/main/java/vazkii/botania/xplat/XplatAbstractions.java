@@ -68,6 +68,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public interface XplatAbstractions {
@@ -192,6 +193,7 @@ public interface XplatAbstractions {
 	int getSmeltingBurnTime(ItemStack stack);
 	boolean preventsRemoteMovement(ItemEntity entity);
 	void addAxeStripping(Block input, Block output);
+	Map<Block, Block> getCustomStrippables();
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
 	@Nullable
 	FoodProperties getFoodProperties(ItemStack stack);

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.integration.rei;
+package vazkii.botania.client.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
@@ -14,22 +14,14 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import vazkii.botania.api.recipe.RunicAltarRecipe;
+import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 
-import java.util.List;
-
-public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RunicAltarRecipe> {
-	private final List<EntryIngredient> catalysts;
+public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalApothecaryRecipe> {
 	private final EntryIngredient reagent;
 
-	public RunicAltarREIDisplay(RecipeHolder<? extends RunicAltarRecipe> recipe) {
+	public PetalApothecaryREIDisplay(RecipeHolder<? extends PetalApothecaryRecipe> recipe) {
 		super(recipe);
-		this.catalysts = EntryIngredients.ofIngredients(recipe.value().getCatalysts());
-		this.reagent = EntryIngredients.ofIngredient(recipe.value().getReagent());
-	}
-
-	public List<EntryIngredient> getCatalysts() {
-		return catalysts;
+		reagent = EntryIngredients.ofIngredient(recipe.value().getReagent());
 	}
 
 	public EntryIngredient getReagent() {
@@ -38,11 +30,11 @@ public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RunicAltarRecipe>
 
 	@Override
 	public int getManaCost() {
-		return this.recipe.value().getMana();
+		return 0;
 	}
 
 	@Override
 	public CategoryIdentifier<?> getCategoryIdentifier() {
-		return BotaniaREICategoryIdentifiers.RUNE_ALTAR;
+		return BotaniaREICategoryIdentifiers.PETAL_APOTHECARY;
 	}
 }

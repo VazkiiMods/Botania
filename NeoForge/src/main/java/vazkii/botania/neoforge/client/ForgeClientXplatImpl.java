@@ -29,8 +29,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
-import vazkii.botania.neoforge.integration.embeddium.EmbeddiumHelper;
-import vazkii.botania.neoforge.integration.sodium.SodiumNeoforgeHelper;
+import vazkii.botania.neoforge.client.integration.embeddium.EmbeddiumHelper;
+import vazkii.botania.neoforge.client.integration.sodium.SodiumNeoforgeHelper;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 
