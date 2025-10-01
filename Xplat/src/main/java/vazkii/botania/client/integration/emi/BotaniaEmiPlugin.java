@@ -14,21 +14,27 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluids;
 
 import org.apache.commons.lang3.StringUtils;
 
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -211,6 +217,27 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		EmiIngredient marimorphosis = EmiStack.of(BotaniaBlocks.marimorphosis);
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(MARIMORPHOSIS, recipe, marimorphosis));
+		}
+
+		// pool item washing
+		EmiIngredient cauldron = EmiIngredient.of(Ingredient.of(Blocks.CAULDRON));
+		int bottleAmount = XplatAbstractions.instance().isForge() ? 250 : 27_000;
+		EmiStack waterThird = EmiStack.of(Fluids.WATER, bottleAmount);
+		for (var e : Map.of(
+				BotaniaTags.Items.DYED_MANA_POOLS, BotaniaBlocks.manaPool,
+				BotaniaTags.Items.DYED_DILUTED_POOLS, BotaniaBlocks.dilutedPool,
+				BotaniaTags.Items.DYED_FABULOUS_POOLS, BotaniaBlocks.fabulousPool,
+				BotaniaTags.Items.DYED_CREATIVE_POOLS, BotaniaBlocks.creativePool
+		).entrySet()) {
+			ManaPoolBlock poolBlock = e.getValue();
+			registry.addRecipe(EmiWorldInteractionRecipe.builder()
+					.id(BuiltInRegistries.BLOCK.getKey(poolBlock).withPrefix("/world/cauldron_washing/"))
+					.leftInput(EmiIngredient.of(e.getKey()))
+					.rightInput(cauldron, true)
+					.rightInput(waterThird, false)
+					.output(EmiStack.of(poolBlock))
+					.supportsRecipeTree(false)
+					.build());
 		}
 	}
 
