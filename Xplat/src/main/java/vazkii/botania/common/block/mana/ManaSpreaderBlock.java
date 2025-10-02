@@ -20,7 +20,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
@@ -55,13 +58,14 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements EntityBlock, OptionallyColored {
+public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements EntityBlock, OptionallyColored, CustomCreativeTabContents {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 	private static final VoxelShape SHAPE_PADDING = box(1, 1, 1, 15, 15, 15);
 	private static final VoxelShape SHAPE_SCAFFOLDING = box(0, 0, 0, 16, 16, 16);
@@ -105,6 +109,16 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 
 	public static ManaSpreaderBlock getBaseBlock(ManaSpreaderBlock potentiallyCoveredBlock) {
 		return BotaniaBlocks.findOptionallyDyedBlock(potentiallyCoveredBlock, null, LibBlockNames.COVERED_INFIX);
+	}
+
+	@Override
+	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
+		if (me instanceof BlockItem blockItem && blockItem.getBlock() instanceof ManaSpreaderBlock block
+				&& block.getCoverColor() != null) {
+			// don't add covered spreaders to creative inventory or recipe viewer lists
+			return;
+		}
+		output.accept(me);
 	}
 
 	@Override

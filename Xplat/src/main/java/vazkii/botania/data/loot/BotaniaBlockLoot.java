@@ -32,6 +32,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaGrassBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -92,8 +93,6 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 		saveSpecialFlowerState(specialCases, BotaniaBlocks.thermalily, BotaniaBlocks.thermalilyFloating,
 				BotaniaDataComponents.COOLDOWN);
 
-		// TODO: move spreader attachments (wool, scaffolding) to loot table
-
 		Map.of(
 				BotaniaBlocks.biomeStoneDesert, BotaniaBlocks.biomeCobblestoneDesert,
 				BotaniaBlocks.biomeStoneForest, BotaniaBlocks.biomeCobblestoneForest,
@@ -129,16 +128,22 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 	}
 
 	private LootTable.Builder createManaSpreaderTable(ManaSpreaderBlock block) {
-		return LootTable.lootTable()
+		LootTable.Builder builder = LootTable.lootTable()
 				.withPool(this.applyExplosionCondition(block,
 						LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-								.add(LootItem.lootTableItem(block))))
+								.add(LootItem.lootTableItem(ManaSpreaderBlock.getBaseBlock(block)))))
 				.withPool(this.applyExplosionCondition(Blocks.SCAFFOLDING,
 						LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 								.add(LootItem.lootTableItem(Blocks.SCAFFOLDING))
 								.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
 										.setProperties(StatePropertiesPredicate.Builder.properties()
 												.hasProperty(ManaSpreaderBlock.HAS_SCAFFOLDING, true)))));
+		if (block.getCoverColor() != null) {
+			builder.withPool(this.applyExplosionCondition(block,
+					LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(ColorHelper.WOOL_MAP.apply(block.getCoverColor())))));
+		}
+		return builder;
 	}
 
 	private void saveSpecialFlowerState(Map<Block, LootTable.Builder> specialCases, Block flower, Block floatingFlower,

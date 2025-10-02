@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "botania:yellow_covered_elven_spreader"
+          "name": "botania:elven_spreader"
         }
       ],
       "rolls": 1.0
@@ -34,6 +34,21 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:scaffolding"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:yellow_wool"
         }
       ],
       "rolls": 1.0

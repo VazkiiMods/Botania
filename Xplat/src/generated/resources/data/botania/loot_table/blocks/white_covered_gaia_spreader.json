@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "botania:white_covered_gaia_spreader"
+          "name": "botania:gaia_spreader"
         }
       ],
       "rolls": 1.0
@@ -34,6 +34,21 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:scaffolding"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:white_wool"
         }
       ],
       "rolls": 1.0
