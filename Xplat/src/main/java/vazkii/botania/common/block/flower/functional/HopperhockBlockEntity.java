@@ -98,7 +98,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			final ItemFlagsComponent flags = XplatAbstractions.INSTANCE.itemFlagsComponent(item);
 
 			// Flat 5 tick delay for newly infused items
-			if (flags.spawnedByInWorldRecipe()) {
+			if (flags.spawnedByInWorldRecipe() || overgrowth) {
 				return flags.timeCounter >= 5 + getModulatedDelay();
 			}
 			return DelayHelper.canInteractWith(this, item);
