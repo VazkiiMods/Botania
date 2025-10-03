@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/mini_island",
+  "textures": {
+    "side": "minecraft:block/grass_block_snow",
+    "top": "minecraft:block/snow"
+  }
+}

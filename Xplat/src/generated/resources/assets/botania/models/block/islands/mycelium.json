@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/mini_island",
+  "textures": {
+    "side": "minecraft:block/mycelium_side",
+    "top": "minecraft:block/mycelium_top"
+  }
+}
