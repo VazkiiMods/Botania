@@ -34,8 +34,8 @@ import vazkii.botania.api.block.RedstoneSensitiveBlock;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.FloatingSpecialFlowerBlock;
 import vazkii.botania.common.block.block_entity.red_string.RedStringSpooferBlockEntity;
-import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.lib.BotaniaTags;
 
 /**
@@ -159,7 +159,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
-		if (getBlockState().getBlock() instanceof FloatingFlowerBlock) {
+		if (getBlockState().getBlock() instanceof FloatingSpecialFlowerBlock) {
 			setFloating(true);
 		}
 

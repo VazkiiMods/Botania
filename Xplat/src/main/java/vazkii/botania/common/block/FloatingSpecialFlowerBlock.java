@@ -10,7 +10,6 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -21,11 +20,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 
 import java.util.function.Supplier;
 
-public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
+public class FloatingSpecialFlowerBlock extends FloatingFlowerBaseBlock {
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
 	private final boolean hasComparatorOutput;
 
@@ -37,7 +35,7 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 	public FloatingSpecialFlowerBlock(Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType,
 			boolean hasComparatorOutput) {
-		super(DyeColor.WHITE, props);
+		super(props);
 		this.blockEntityType = blockEntityType;
 		this.hasComparatorOutput = hasComparatorOutput;
 	}

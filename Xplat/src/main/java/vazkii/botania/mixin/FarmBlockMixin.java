@@ -19,12 +19,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 
-import vazkii.botania.common.block.decor.FloatingFlowerBlock;
+import vazkii.botania.common.block.FloatingFlowerBaseBlock;
 
 @Mixin(FarmBlock.class)
 public class FarmBlockMixin {
 	@WrapOperation(method = "canSurvive", constant = @Constant(classValue = MovingPistonBlock.class))
 	private boolean floatingFlowerOverride(Object object, Operation<Boolean> original, @Local(ordinal = 1) BlockState stateAbove) {
-		return original.call(object) || stateAbove.getBlock() instanceof FloatingFlowerBlock;
+		return original.call(object) || stateAbove.getBlock() instanceof FloatingFlowerBaseBlock;
 	}
 }

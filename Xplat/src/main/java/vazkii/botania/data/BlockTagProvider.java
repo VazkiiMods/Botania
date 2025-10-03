@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.WallSignBlock;
 
 import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
@@ -334,7 +333,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		);
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
 				getModBlocks(b -> b == BotaniaBlocks.enchantedSoil
-						|| b instanceof FloatingFlowerBlock || b instanceof BotaniaGrassBlock)
+						|| b instanceof FloatingFlowerBaseBlock || b instanceof BotaniaGrassBlock)
 		);
 		var pickaxe = Set.of(
 				BotaniaBlocks.alchemyCatalyst, BotaniaBlocks.conjurationCatalyst,

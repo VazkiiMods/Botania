@@ -174,22 +174,22 @@ public final class BotaniaBlocks {
 			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals)));
 
 	public static final BlockBehaviour.Properties FLOATING_PROPS = BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> 15);
-	public static final Block whiteFloatingFlower = make("white" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.WHITE, FLOATING_PROPS));
-	public static final Block orangeFloatingFlower = make("orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.ORANGE, FLOATING_PROPS));
-	public static final Block magentaFloatingFlower = make("magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.MAGENTA, FLOATING_PROPS));
-	public static final Block lightBlueFloatingFlower = make("light_blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.LIGHT_BLUE, FLOATING_PROPS));
-	public static final Block yellowFloatingFlower = make("yellow" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.YELLOW, FLOATING_PROPS));
-	public static final Block limeFloatingFlower = make("lime" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.LIME, FLOATING_PROPS));
-	public static final Block pinkFloatingFlower = make("pink" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.PINK, FLOATING_PROPS));
-	public static final Block grayFloatingFlower = make("gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.GRAY, FLOATING_PROPS));
-	public static final Block lightGrayFloatingFlower = make("light_gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.LIGHT_GRAY, FLOATING_PROPS));
-	public static final Block cyanFloatingFlower = make("cyan" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.CYAN, FLOATING_PROPS));
-	public static final Block purpleFloatingFlower = make("purple" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.PURPLE, FLOATING_PROPS));
-	public static final Block blueFloatingFlower = make("blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.BLUE, FLOATING_PROPS));
-	public static final Block brownFloatingFlower = make("brown" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.BROWN, FLOATING_PROPS));
-	public static final Block greenFloatingFlower = make("green" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.GREEN, FLOATING_PROPS));
-	public static final Block redFloatingFlower = make("red" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.RED, FLOATING_PROPS));
-	public static final Block blackFloatingFlower = make("black" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingFlowerBlock(DyeColor.BLACK, FLOATING_PROPS));
+	public static final Block whiteFloatingFlower = make("white" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.WHITE, FLOATING_PROPS));
+	public static final Block orangeFloatingFlower = make("orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.ORANGE, FLOATING_PROPS));
+	public static final Block magentaFloatingFlower = make("magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.MAGENTA, FLOATING_PROPS));
+	public static final Block lightBlueFloatingFlower = make("light_blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.LIGHT_BLUE, FLOATING_PROPS));
+	public static final Block yellowFloatingFlower = make("yellow" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.YELLOW, FLOATING_PROPS));
+	public static final Block limeFloatingFlower = make("lime" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.LIME, FLOATING_PROPS));
+	public static final Block pinkFloatingFlower = make("pink" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.PINK, FLOATING_PROPS));
+	public static final Block grayFloatingFlower = make("gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.GRAY, FLOATING_PROPS));
+	public static final Block lightGrayFloatingFlower = make("light_gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.LIGHT_GRAY, FLOATING_PROPS));
+	public static final Block cyanFloatingFlower = make("cyan" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.CYAN, FLOATING_PROPS));
+	public static final Block purpleFloatingFlower = make("purple" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.PURPLE, FLOATING_PROPS));
+	public static final Block blueFloatingFlower = make("blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.BLUE, FLOATING_PROPS));
+	public static final Block brownFloatingFlower = make("brown" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.BROWN, FLOATING_PROPS));
+	public static final Block greenFloatingFlower = make("green" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.GREEN, FLOATING_PROPS));
+	public static final Block redFloatingFlower = make("red" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.RED, FLOATING_PROPS));
+	public static final Block blackFloatingFlower = make("black" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.BLACK, FLOATING_PROPS));
 
 	public static final Block petalBlockWhite = make("white" + LibBlockNames.PETAL_BLOCK_SUFFIX, new PetalBlock(DyeColor.WHITE, BlockBehaviour.Properties.of().mapColor(DyeColor.WHITE).strength(0.4F).sound(SoundType.MOSS)));
 	public static final Block petalBlockOrange = make("orange" + LibBlockNames.PETAL_BLOCK_SUFFIX, new PetalBlock(DyeColor.ORANGE, BlockBehaviour.Properties.ofFullCopy(petalBlockWhite).mapColor(DyeColor.ORANGE)));

@@ -20,7 +20,7 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.decor.FloatingFlowerBlock;
+import vazkii.botania.common.block.FloatingFlowerBaseBlock;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
@@ -42,7 +42,7 @@ public class FloatingFlowerModelProvider implements DataProvider {
 		List<Tuple<String, JsonElement>> jsons = new ArrayList<>();
 		for (Block b : BuiltInRegistries.BLOCK) {
 			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
-			if (LibMisc.MOD_ID.equals(id.getNamespace()) && b instanceof FloatingFlowerBlock) {
+			if (LibMisc.MOD_ID.equals(id.getNamespace()) && b instanceof FloatingFlowerBaseBlock) {
 				String name = id.getPath();
 				String nonFloat;
 				if (name.endsWith("_floating_flower")) {
