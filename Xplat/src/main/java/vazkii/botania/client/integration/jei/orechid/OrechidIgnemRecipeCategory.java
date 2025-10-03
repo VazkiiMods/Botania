@@ -13,14 +13,14 @@ import mezz.jei.api.helpers.IGuiHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase {
 
 	public static final mezz.jei.api.recipe.RecipeType<OrechidRecipe> TYPE =
-			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "orechid_ignem", OrechidRecipe.class);
+			mezz.jei.api.recipe.RecipeType.create(BotaniaAPI.MODID, "orechid_ignem", OrechidRecipe.class);
 
 	public OrechidIgnemRecipeCategory(IGuiHelper guiHelper) {
 		super(guiHelper, new ItemStack(BotaniaBlocks.orechidIgnem), Component.translatable("botania.nei.orechidIgnem"));

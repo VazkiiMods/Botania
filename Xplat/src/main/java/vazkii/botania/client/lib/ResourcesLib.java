@@ -8,11 +8,11 @@
  */
 package vazkii.botania.client.lib;
 
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.api.BotaniaAPI;
 
 public final class ResourcesLib {
 
-	public static final String PREFIX_MOD = LibMisc.MOD_ID + ":";
+	public static final String PREFIX_MOD = BotaniaAPI.MODID + ":";
 	public static final String ENDING_JSON = ".json";
 
 	public static final String PREFIX_SHADER = "shader/";

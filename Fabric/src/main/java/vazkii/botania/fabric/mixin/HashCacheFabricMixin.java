@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.api.BotaniaAPI;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public abstract class HashCacheFabricMixin {
 
 	@Inject(at = @At("HEAD"), method = "save", cancellable = true)
 	private void hookWrite(Path path, Path outputPath, String header, CallbackInfo ci) throws IOException {
-		if (!LibMisc.MOD_ID.equals(System.getProperty("fabric-api.datagen.modid"))) {
+		if (!BotaniaAPI.MODID.equals(System.getProperty("fabric-api.datagen.modid"))) {
 			return;
 		}
 

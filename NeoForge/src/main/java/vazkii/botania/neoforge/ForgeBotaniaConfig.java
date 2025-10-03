@@ -18,14 +18,14 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Collections;
 import java.util.List;
 
-@EventBusSubscriber(modid = LibMisc.MOD_ID)
+@EventBusSubscriber(modid = BotaniaAPI.MODID)
 public final class ForgeBotaniaConfig {
 
 	private static class Client implements BotaniaConfig.ClientConfigAccess {
@@ -394,7 +394,7 @@ public final class ForgeBotaniaConfig {
 	@SubscribeEvent
 	public static void onConfigLoad(ModConfigEvent.Loading evt) {
 		var config = evt.getConfig();
-		if (config.getType() == ModConfig.Type.COMMON && config.getModId().equals(LibMisc.MOD_ID)) {
+		if (config.getType() == ModConfig.Type.COMMON && config.getModId().equals(BotaniaAPI.MODID)) {
 			BotaniaConfig.resetPatchouliFlags();
 		}
 	}
@@ -402,7 +402,7 @@ public final class ForgeBotaniaConfig {
 	@SubscribeEvent
 	public static void onConfigLoad(ModConfigEvent.Reloading evt) {
 		var config = evt.getConfig();
-		if (config.getType() == ModConfig.Type.COMMON && config.getModId().equals(LibMisc.MOD_ID)) {
+		if (config.getType() == ModConfig.Type.COMMON && config.getModId().equals(BotaniaAPI.MODID)) {
 			BotaniaConfig.resetPatchouliFlags();
 		}
 	}

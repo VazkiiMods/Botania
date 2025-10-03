@@ -11,7 +11,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.api.BotaniaAPI;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,7 +20,7 @@ import static vazkii.botania.common.item.BotaniaItems.*;
 public class ForgeItemTagProvider extends ItemTagsProvider {
 	public ForgeItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider,
 			CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
-		super(packOutput, lookupProvider, blockTagProvider, LibMisc.MOD_ID, null);
+		super(packOutput, lookupProvider, blockTagProvider, BotaniaAPI.MODID, null);
 	}
 
 	@Override

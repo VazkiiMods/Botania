@@ -21,10 +21,10 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +34,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BreweryRecipeCategory extends BotaniaRecipeCategoryBase<BotanicalBreweryRecipe> {
 
-	public static final RecipeType<BotanicalBreweryRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "brewery", BotanicalBreweryRecipe.class);
+	public static final RecipeType<BotanicalBreweryRecipe> TYPE = RecipeType.create(BotaniaAPI.MODID, "brewery", BotanicalBreweryRecipe.class);
 	public static final int WIDTH = 131;
 	public static final int HEIGHT = 55;
 

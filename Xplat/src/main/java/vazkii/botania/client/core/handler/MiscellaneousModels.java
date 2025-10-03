@@ -28,7 +28,6 @@ import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.bauble.ThirdEyeItem;
 import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.*;
@@ -110,7 +109,7 @@ public class MiscellaneousModels {
 
 	private static void registerTaters(ResourceManager rm, Consumer<ResourceLocation> consumer) {
 		for (ResourceLocation model : rm.listResources(ResourcesLib.PREFIX_MODELS + ResourcesLib.PREFIX_TINY_POTATO, s -> s.getPath().endsWith(ResourcesLib.ENDING_JSON)).keySet()) {
-			if (LibMisc.MOD_ID.equals(model.getNamespace())) {
+			if (BotaniaAPI.MODID.equals(model.getNamespace())) {
 				String path = model.getPath();
 				path = path.substring(ResourcesLib.PREFIX_MODELS.length(), path.length() - ResourcesLib.ENDING_JSON.length());
 				consumer.accept(botaniaRL(path));

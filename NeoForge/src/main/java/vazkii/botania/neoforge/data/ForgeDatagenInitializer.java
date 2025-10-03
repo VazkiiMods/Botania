@@ -18,13 +18,12 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Set;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-@EventBusSubscriber(modid = LibMisc.MOD_ID)
+@EventBusSubscriber(modid = BotaniaAPI.MODID)
 public class ForgeDatagenInitializer {
 	private static final ResourceKey<PlacedFeature> MYSTICAL_FLOWERS_FEATURE = ResourceKey.create(
 			Registries.PLACED_FEATURE, botaniaRL("mystical_flowers"));

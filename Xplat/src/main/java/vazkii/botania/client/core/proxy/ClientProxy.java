@@ -29,7 +29,6 @@ import vazkii.botania.client.fx.BoltParticleOptions;
 import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.item.*;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.client.MultiblockVisualizationHandlerMixin;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -52,7 +51,7 @@ public class ClientProxy implements Proxy {
 	public static KeyMapping CORPOREA_REQUEST;
 
 	public static void initKeybindings(Consumer<KeyMapping> consumer) {
-		CORPOREA_REQUEST = new KeyMapping("key.botania_corporea_request", GLFW.GLFW_KEY_C, LibMisc.MOD_NAME);
+		CORPOREA_REQUEST = new KeyMapping("key.botania_corporea_request", GLFW.GLFW_KEY_C, "key.categories.botania");
 		consumer.accept(CORPOREA_REQUEST);
 	}
 

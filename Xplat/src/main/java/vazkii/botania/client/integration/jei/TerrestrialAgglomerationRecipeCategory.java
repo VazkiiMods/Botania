@@ -25,16 +25,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrestrialAgglomerationRecipeCategory extends BotaniaRecipeCategoryBase<TerrestrialAgglomerationRecipe> {
 	public static final RecipeType<TerrestrialAgglomerationRecipe> TYPE =
-			RecipeType.create(LibMisc.MOD_ID, "terra_plate", TerrestrialAgglomerationRecipe.class);
+			RecipeType.create(BotaniaAPI.MODID, "terra_plate", TerrestrialAgglomerationRecipe.class);
 
 	private final IDrawable overlay;
 

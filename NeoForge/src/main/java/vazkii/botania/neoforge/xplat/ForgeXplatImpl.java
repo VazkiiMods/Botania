@@ -94,7 +94,6 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlo
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
 import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
@@ -134,7 +133,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public String getBotaniaVersion() {
-		return ModList.get().getModContainerById(LibMisc.MOD_ID).orElseThrow()
+		return ModList.get().getModContainerById(BotaniaAPI.MODID).orElseThrow()
 				.getModInfo().getVersion().toString();
 	}
 

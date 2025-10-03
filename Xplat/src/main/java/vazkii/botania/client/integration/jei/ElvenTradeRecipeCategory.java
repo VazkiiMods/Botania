@@ -36,13 +36,12 @@ import org.joml.Matrix4f;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElvenTradeRecipeCategory extends BotaniaRecipeCategoryBase<ElvenTradeRecipe> {
 
-	public static final RecipeType<ElvenTradeRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "elven_trade", ElvenTradeRecipe.class);
+	public static final RecipeType<ElvenTradeRecipe> TYPE = RecipeType.create(BotaniaAPI.MODID, "elven_trade", ElvenTradeRecipe.class);
 	private final IDrawable overlay;
 
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {

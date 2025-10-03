@@ -28,9 +28,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec2;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PetalApothecaryRecipeCategory extends BotaniaRecipeCategoryBase<PetalApothecaryRecipe> {
 
-	public static final RecipeType<PetalApothecaryRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "petals", PetalApothecaryRecipe.class);
+	public static final RecipeType<PetalApothecaryRecipe> TYPE = RecipeType.create(BotaniaAPI.MODID, "petals", PetalApothecaryRecipe.class);
 	public static final int CENTER_X = 48;
 	public static final int CENTER_Y = 45;
 	private final IDrawableStatic overlay;

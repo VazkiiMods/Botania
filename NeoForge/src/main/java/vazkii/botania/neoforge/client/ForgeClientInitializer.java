@@ -59,7 +59,6 @@ import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
@@ -207,7 +206,7 @@ public class ForgeClientInitializer {
 		for (var entry : BuiltInRegistries.ITEM.entrySet()) {
 			Item item = entry.getValue();
 			ResourceLocation id = entry.getKey().location();
-			if (item instanceof ManasteelArmorItem armor && id.getNamespace().equals(LibMisc.MOD_ID)) {
+			if (item instanceof ManasteelArmorItem armor && id.getNamespace().equals(BotaniaAPI.MODID)) {
 				armorItems.add(armor);
 			}
 		}

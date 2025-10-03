@@ -55,7 +55,6 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -149,7 +148,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 			Item item = entry.getValue();
 			ResourceLocation id = entry.getKey().location();
 			if (item instanceof ManasteelArmorItem armor
-					&& id.getNamespace().equals(LibMisc.MOD_ID)) {
+					&& id.getNamespace().equals(BotaniaAPI.MODID)) {
 				armors.put(armor, armor.getMaterial().value().layers().getFirst());
 			}
 		}

@@ -38,7 +38,6 @@ import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.BlockModelGeneratorsAccessor;
 import vazkii.botania.mixin.TextureSlotAccessor;
 
@@ -104,7 +103,7 @@ public class BlockstateProvider implements DataProvider {
 
 	protected void registerStatesAndModels() {
 		Set<Block> remainingBlocks = BuiltInRegistries.BLOCK.stream()
-				.filter(b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace()))
+				.filter(b -> BotaniaAPI.MODID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace()))
 				.collect(Collectors.toSet());
 
 		// Manually written blockstate + models

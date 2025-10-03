@@ -7,10 +7,10 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.FloatingFlowerBaseBlock;
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.function.BiConsumer;
 
@@ -51,7 +51,8 @@ public final class BlockRenderLayers {
 			consumer.accept(BotaniaBlocks.infrangiblePlatform, RenderType.translucent());
 			consumer.accept(BotaniaBlocks.spectralPlatform, RenderType.translucent());
 		}
-		BuiltInRegistries.BLOCK.stream().filter(b -> BuiltInRegistries.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
+		BuiltInRegistries.BLOCK.stream().filter(b -> BuiltInRegistries.BLOCK.getKey(b).getNamespace().equals(
+				BotaniaAPI.MODID))
 				.forEach(b -> {
 					if (b instanceof FloatingFlowerBaseBlock || b instanceof FlowerBlock
 							|| b instanceof TallFlowerBlock || b instanceof BotaniaMushroomBlock

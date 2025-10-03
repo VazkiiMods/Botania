@@ -23,13 +23,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.AncientWillItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.data.util.DummyTagLookup;
 
 import java.util.Comparator;
@@ -105,7 +105,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);
 		TagsProvider.TagAppender<Item> lensTag = this.tag(BotaniaTags.Items.LENS);
-		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof LensItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
+		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof LensItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(
+				BotaniaAPI.MODID))
 				.map(BuiltInRegistries.ITEM::getKey)
 				.sorted()
 				.forEach(item -> lensTag.add(ResourceKey.create(Registries.ITEM, item)));
@@ -147,7 +148,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 		);
 
 		TagsProvider.TagAppender<Item> willsTag = this.tag(BotaniaTags.Items.ANCIENT_WILLS);
-		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof AncientWillItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
+		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof AncientWillItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(
+				BotaniaAPI.MODID))
 				.map(BuiltInRegistries.ITEM::getKey)
 				.sorted()
 				.forEach(item -> willsTag.add(ResourceKey.create(Registries.ITEM, item)));

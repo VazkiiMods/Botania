@@ -84,6 +84,7 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
@@ -102,7 +103,6 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
@@ -150,7 +150,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public String getBotaniaVersion() {
-		return FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID).orElseThrow()
+		return FabricLoader.getInstance().getModContainer(BotaniaAPI.MODID).orElseThrow()
 				.getMetadata().getVersion().getFriendlyString();
 	}
 

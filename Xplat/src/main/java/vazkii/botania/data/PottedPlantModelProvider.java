@@ -15,9 +15,9 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class PottedPlantModelProvider implements DataProvider {
 		List<Tuple<String, JsonElement>> jsons = new ArrayList<>();
 		for (Block b : BuiltInRegistries.BLOCK) {
 			ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(b);
-			if (LibMisc.MOD_ID.equals(blockId.getNamespace()) && b instanceof FlowerPotBlock) {
+			if (BotaniaAPI.MODID.equals(blockId.getNamespace()) && b instanceof FlowerPotBlock) {
 				String name = blockId.getPath();
 				String nonPotted = name.replace(LibBlockNames.POTTED_PREFIX, "").replace("_motif", "");
 

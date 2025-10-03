@@ -28,13 +28,13 @@ import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaGrassBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -106,7 +106,7 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 
 		for (Block block : BuiltInRegistries.BLOCK) {
 			ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(block);
-			if (!LibMisc.MOD_ID.equals(blockId.getNamespace()) || specialHandling.contains(block)) {
+			if (!BotaniaAPI.MODID.equals(blockId.getNamespace()) || specialHandling.contains(block)) {
 				continue;
 			}
 			if (specialCases.containsKey(block)) {

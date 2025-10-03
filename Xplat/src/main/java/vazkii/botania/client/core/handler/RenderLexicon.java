@@ -34,7 +34,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LexicaBotaniaItem;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
@@ -135,7 +134,7 @@ public class RenderLexicon {
 
 			String title = LexicaBotaniaItem.getTitle(stack).getString();
 			if (SHOULD_MISSPELL) {
-				title = title.replaceAll(LibMisc.MOD_NAME, MISSPELLINGS[misspelling]);
+				title = title.replaceAll("Botania", MISSPELLINGS[misspelling]);
 			}
 			font.drawInBatch(font.plainSubstrByWidth(title, 80), 0, 0, 0xD69700, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 

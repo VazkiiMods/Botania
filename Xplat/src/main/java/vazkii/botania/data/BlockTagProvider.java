@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.mana.DrumBlock;
@@ -36,7 +37,6 @@ import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.data.util.DummyTagLookup;
 
 import java.util.Comparator;
@@ -47,7 +47,7 @@ import java.util.function.Predicate;
 import static vazkii.botania.common.block.BotaniaBlocks.*;
 
 public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
-	public static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());
+	public static final Predicate<Block> BOTANIA_BLOCK = b -> BotaniaAPI.MODID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());
 	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(
 			BlockTags.LEAVES,
 			BlockTags.FIRE

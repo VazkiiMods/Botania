@@ -24,20 +24,20 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.StateIngredients;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaPoolRecipeCategory extends BotaniaRecipeCategoryBase<ManaInfusionRecipe> {
 
 	public static final RecipeType<ManaInfusionRecipe> TYPE =
-			RecipeType.create(LibMisc.MOD_ID, "mana_pool", ManaInfusionRecipe.class);
+			RecipeType.create(BotaniaAPI.MODID, "mana_pool", ManaInfusionRecipe.class);
 	private final IDrawable overlay;
 	private final ItemStack renderStack;
 

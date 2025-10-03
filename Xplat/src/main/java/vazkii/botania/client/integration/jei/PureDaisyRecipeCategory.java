@@ -25,16 +25,16 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PureDaisyRecipeCategory extends BotaniaRecipeCategoryBase<PureDaisyRecipe> {
 
-	public static final RecipeType<PureDaisyRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "pure_daisy", PureDaisyRecipe.class);
+	public static final RecipeType<PureDaisyRecipe> TYPE = RecipeType.create(BotaniaAPI.MODID, "pure_daisy", PureDaisyRecipe.class);
 	private final IDrawable overlay;
 	@SuppressWarnings("rawtypes")
 	private final IPlatformFluidHelper fluidHelper;

@@ -116,7 +116,6 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.loot.BotaniaLootModifiers;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.world.BotaniaFeatures;
@@ -142,7 +141,7 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-@Mod(LibMisc.MOD_ID)
+@Mod(BotaniaAPI.MODID)
 public class ForgeCommonInitializer {
 	public ForgeCommonInitializer(IEventBus modBus, ModContainer modContainer) {
 		// ensure API implementations are loaded

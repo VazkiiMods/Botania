@@ -10,14 +10,14 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.common.lib.LibMisc;
 
 public class EarsIntegration {
 	public static void register() {
-		EarsStateOverriderRegistry.register(LibMisc.MOD_ID, (state, peer) -> {
+		EarsStateOverriderRegistry.register(BotaniaAPI.MODID, (state, peer) -> {
 			if (!(peer instanceof Player player)) {
 				return OverrideResult.DEFAULT;
 			}
@@ -46,7 +46,7 @@ public class EarsIntegration {
 			return OverrideResult.FALSE;
 		});
 
-		EarsInhibitorRegistry.register(LibMisc.MOD_ID, ((type, peer) -> {
+		EarsInhibitorRegistry.register(BotaniaAPI.MODID, ((type, peer) -> {
 			if (type != EarsFeatureType.WINGS) {
 				return false;
 			}

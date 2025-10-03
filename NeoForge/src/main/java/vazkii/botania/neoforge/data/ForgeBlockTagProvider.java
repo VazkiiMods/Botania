@@ -10,8 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.data.util.DummyTagLookup;
 
 import java.util.Set;
@@ -26,7 +26,7 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
 		super(output, Registries.BLOCK, provider, DummyTagLookup.completedFuture(REQUIRED_TAGS),
 				block -> ResourceKey.create(Registries.BLOCK, BuiltInRegistries.BLOCK.getKey(block)),
-				LibMisc.MOD_ID, null);
+				BotaniaAPI.MODID, null);
 	}
 
 	@Override

@@ -20,7 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.api.BotaniaAPI;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class FabricBlockLootProvider implements DataProvider {
 		var tables = new HashMap<ResourceLocation, LootTable.Builder>();
 		for (var b : BuiltInRegistries.BLOCK) {
 			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
-			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
+			if (!BotaniaAPI.MODID.equals(id.getNamespace())) {
 				continue;
 			}
 

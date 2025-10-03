@@ -23,18 +23,18 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RunicAltarRecipeCategory extends BotaniaRecipeCategoryBase<RunicAltarRecipe> {
 
 	public static final RecipeType<RunicAltarRecipe> TYPE =
-			RecipeType.create(LibMisc.MOD_ID, "runic_altar", RunicAltarRecipe.class);
+			RecipeType.create(BotaniaAPI.MODID, "runic_altar", RunicAltarRecipe.class);
 	private final IDrawable overlay;
 
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
