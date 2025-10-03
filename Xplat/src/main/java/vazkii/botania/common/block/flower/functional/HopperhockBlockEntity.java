@@ -34,7 +34,11 @@ import vazkii.botania.common.helper.*;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implements Wandable {
@@ -63,12 +67,29 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			return;
 		}
 
-		boolean pulledAny = false;
 		int range = getRange();
 
 		BlockPos inPos = getBlockPos();
 		BlockPos outPos = getEffectivePos();
 
+		List<ItemEntity> items = getItemEntities(inPos, range);
+		if (items.isEmpty()) {
+			return;
+		}
+
+		Map<Direction, List<ItemStack>> directionFilters = new EnumMap<>(Direction.class);
+		Set<Direction> unfilteredDirections = EnumSet.noneOf(Direction.class);
+		findFilterDirections(outPos, unfilteredDirections, directionFilters);
+		if (directionFilters.isEmpty() && unfilteredDirections.isEmpty()) {
+			return;
+		}
+
+		if (moveItems(items, outPos, directionFilters, unfilteredDirections) && getMana() > 0) {
+			addMana(-1);
+		}
+	}
+
+	private List<ItemEntity> getItemEntities(BlockPos inPos, int range) {
 		Predicate<ItemEntity> shouldPickup = item -> {
 			if (XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
 				return false;
@@ -82,54 +103,65 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			}
 			return DelayHelper.canInteractWith(this, item);
 		};
-		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(inPos).inflate(range), shouldPickup);
+		return getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(inPos).inflate(range), shouldPickup);
+	}
 
-		for (ItemEntity item : items) {
-			ItemStack stack = item.getItem();
-			boolean priorityInv = false;
-			int amountToPutIn = 0;
-			Direction direction = null;
+	private void findFilterDirections(BlockPos outPos, Set<Direction> unfilteredDirections,
+			Map<Direction, List<ItemStack>> directionFilters) {
+		for (Direction dir : Direction.values()) {
+			BlockPos inventoryPos = outPos.relative(dir);
+			Direction sideOfInventory = dir.getOpposite();
 
-			for (Direction dir : Direction.values()) {
-				BlockPos inventoryPos = outPos.relative(dir);
-				Direction sideOfInventory = dir.getOpposite();
-
-				if (XplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)) {
-					List<ItemStack> filter = FilterHelper.getFiltersOnBlock(getLevel(), inventoryPos, true);
-					boolean canAccept = canAcceptItem(stack, filter, filterType);
-
-					ItemStack simulate = XplatAbstractions.INSTANCE.insertToInventory(level, inventoryPos, sideOfInventory, stack, true);
-					int inserted = stack.getCount() - simulate.getCount();
-
-					canAccept = canAccept && inserted > 0;
-
-					if (canAccept) {
-						boolean priority = !filter.isEmpty();
-
-						if (!priorityInv || priority) {
-							priorityInv = priority;
-							amountToPutIn = inserted;
-							direction = dir;
-						}
-					}
+			if (XplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)) {
+				// TODO: filter type handling is not great
+				List<ItemStack> filter = filterType != 2
+						// don't bother looking for filters if the flower ignores them anyway
+						? FilterHelper.getFiltersOnBlock(getLevel(), inventoryPos, true)
+						: List.of();
+				if (filter.isEmpty()) {
+					unfilteredDirections.add(dir);
+				} else {
+					directionFilters.put(dir, filter);
 				}
 			}
+		}
+	}
 
-			if (direction != null && item.isAlive()) {
+	private boolean moveItems(List<ItemEntity> items, BlockPos outPos, Map<Direction, List<ItemStack>> directionFilters,
+			Set<Direction> unfilteredDirections) {
+		boolean pulledAny = false;
+		for (ItemEntity item : items) {
+			ItemStack stack = item.getItem();
+			ItemStack originalStack = stack;
+			int originalCount = stack.getCount();
+
+			for (Map.Entry<Direction, List<ItemStack>> entry : directionFilters.entrySet()) {
+				stack = insertStack(outPos, entry.getKey(), stack, entry.getValue());
+			}
+
+			for (Direction dir : unfilteredDirections) {
+				stack = insertStack(outPos, dir, stack, List.of());
+			}
+
+			if (stack.getCount() < originalCount && item.isAlive()) {
 				SpectranthemumBlockEntity.spawnExplosionParticles(item, 3);
-				InventoryHelper.checkEmpty(
-						XplatAbstractions.INSTANCE.insertToInventory(level, outPos.relative(direction),
-								direction.getOpposite(), stack.split(amountToPutIn), false)
-				);
-
-				EntityHelper.syncItem(item);
+				item.setItem(stack);
+				if (stack == originalStack) {
+					EntityHelper.syncItem(item);
+				}
 				pulledAny = true;
 			}
 		}
+		return pulledAny;
+	}
 
-		if (pulledAny && getMana() > 0) {
-			addMana(-1);
-		}
+	private ItemStack insertStack(BlockPos outPos, Direction dir, ItemStack stack, List<ItemStack> filter) {
+		BlockPos inventoryPos = outPos.relative(dir);
+		Direction sideOfInventory = dir.getOpposite();
+		return XplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)
+				&& canAcceptItem(stack, filter, filterType)
+						? XplatAbstractions.INSTANCE.insertToInventory(level, inventoryPos, sideOfInventory, stack, false)
+						: stack;
 	}
 
 	public static boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, int filterType) {
@@ -172,6 +204,11 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 
 			return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean isOvergrowthAffected() {
 		return false;
 	}
 

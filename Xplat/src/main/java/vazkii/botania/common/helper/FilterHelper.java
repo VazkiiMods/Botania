@@ -52,8 +52,8 @@ public class FilterHelper {
 		BlockState otherState = level.getBlockState(other);
 		return otherState.is(state.getBlock()) && otherState.hasProperty(ChestBlock.TYPE)
 				&& ChestBlock.getConnectedDirection(otherState) == connectedDirection.getOpposite()
-				? Optional.of(other)
-				: Optional.empty();
+						? Optional.of(other)
+						: Optional.empty();
 	}
 
 	public static WeightedRandomList<WeightedItemStack> getWeightedFiltersOnBlock(Level level, BlockPos pos,
