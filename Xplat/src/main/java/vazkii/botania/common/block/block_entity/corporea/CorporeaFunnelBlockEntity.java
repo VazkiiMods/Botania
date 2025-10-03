@@ -12,11 +12,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +27,6 @@ import vazkii.botania.common.helper.FilterHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor {
@@ -42,7 +39,9 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 	public void doRequest() {
 		CorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null) {
-			WeightedRandomList<FilterHelper.WeightedItemStack> filter = getFilter();
+			WeightedRandomList<FilterHelper.WeightedItemStack> filter = FilterHelper.getWeightedFiltersOnBlock(level, getBlockPos(),
+					(itemFrame, stack) -> stack.copyWithCount(ROTATION_TO_STACK_SIZE[itemFrame.getRotation()]),
+					(itemFrame, stack) -> stack.getCount());
 			if (!filter.isEmpty()) {
 				ItemStack stack = filter.getRandom(level.random)
 						.map(FilterHelper.WeightedItemStack::stack)
@@ -54,28 +53,6 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 				}
 			}
 		}
-	}
-
-	public WeightedRandomList<FilterHelper.WeightedItemStack> getFilter() {
-		List<FilterHelper.WeightedItemStack> filter = new ArrayList<>();
-
-		for (Direction dir : Direction.values()) {
-			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, new AABB(worldPosition.relative(dir)));
-			for (ItemFrame frame : frames) {
-				Direction orientation = frame.getDirection();
-				if (orientation == dir) {
-					List<ItemStack> filterStacks = FilterHelper.getFilterItems(frame);
-					if (!filterStacks.isEmpty()) {
-						int stackSize = ROTATION_TO_STACK_SIZE[frame.getRotation()];
-						filterStacks.stream()
-								.map(s -> FilterHelper.WeightedItemStack.of(s.copyWithCount(stackSize), s.getCount()))
-								.forEach(filter::add);
-					}
-				}
-			}
-		}
-
-		return WeightedRandomList.create(filter);
 	}
 
 	@Override

@@ -10,12 +10,10 @@ package vazkii.botania.common.block.block_entity.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.corporea.CorporeaInterceptor;
 import vazkii.botania.api.corporea.CorporeaNode;
@@ -38,7 +36,7 @@ public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity impl
 
 	@Override
 	public void interceptRequestLast(CorporeaRequestMatcher request, int count, CorporeaSpark spark, CorporeaSpark source, List<ItemStack> stacks, Set<CorporeaNode> nodes, boolean doit) {
-		List<ItemStack> filter = getFilter();
+		List<ItemStack> filter = FilterHelper.getFiltersOnBlock(getLevel(), getBlockPos(), false);
 
 		boolean filterMatch = false;
 		for (ItemStack stack : filter) {
@@ -73,22 +71,6 @@ public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity impl
 				}
 			}
 		}
-	}
-
-	private List<ItemStack> getFilter() {
-		List<ItemStack> filter = new ArrayList<>();
-
-		for (Direction dir : Direction.values()) {
-			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, new AABB(worldPosition.relative(dir)));
-			for (ItemFrame frame : frames) {
-				Direction orientation = frame.getDirection();
-				if (orientation == dir) {
-					filter.addAll(FilterHelper.getFilterItems(frame));
-				}
-			}
-		}
-
-		return filter;
 	}
 
 }

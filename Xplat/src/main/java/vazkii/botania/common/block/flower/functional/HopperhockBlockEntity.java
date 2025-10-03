@@ -17,15 +17,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
@@ -38,7 +34,6 @@ import vazkii.botania.common.helper.*;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -100,7 +95,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 				Direction sideOfInventory = dir.getOpposite();
 
 				if (XplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)) {
-					List<ItemStack> filter = getFilterForInventory(getLevel(), inventoryPos, true);
+					List<ItemStack> filter = FilterHelper.getFiltersOnBlock(getLevel(), inventoryPos, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
 					ItemStack simulate = XplatAbstractions.INSTANCE.insertToInventory(level, inventoryPos, sideOfInventory, stack, true);
@@ -167,36 +162,6 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			default:
 				return true; // Accept all items
 		}
-	}
-
-	public static List<ItemStack> getFilterForInventory(Level level, BlockPos pos, boolean recursiveForDoubleChests) {
-		List<ItemStack> filter = new ArrayList<>();
-
-		if (recursiveForDoubleChests) {
-			BlockState chest = level.getBlockState(pos);
-
-			if (chest.hasProperty(ChestBlock.TYPE)) {
-				ChestType type = chest.getValue(ChestBlock.TYPE);
-				if (type != ChestType.SINGLE) {
-					BlockPos other = pos.relative(ChestBlock.getConnectedDirection(chest));
-					if (level.getBlockState(other).is(chest.getBlock())) {
-						filter.addAll(getFilterForInventory(level, other, false));
-					}
-				}
-			}
-		}
-
-		for (Direction dir : Direction.values()) {
-			AABB aabb = new AABB(pos.relative(dir));
-			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, aabb);
-			for (ItemFrame frame : frames) {
-				if (frame.getDirection() == dir) {
-					filter.addAll(FilterHelper.getFilterItems(frame));
-				}
-			}
-		}
-
-		return filter;
 	}
 
 	@Override

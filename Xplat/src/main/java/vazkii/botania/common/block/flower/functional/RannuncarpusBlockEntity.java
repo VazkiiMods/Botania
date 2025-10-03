@@ -48,6 +48,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.helper.FilterHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.*;
@@ -85,7 +86,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		if (ticksExisted % PLACE_INTERVAL_TICKS == 0) {
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, AABB.encapsulatingFullBlocks(getBlockPos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getBlockPos().offset(PICKUP_RANGE, PICKUP_RANGE_Y, PICKUP_RANGE)));
 
-			List<ItemStack> filter = HopperhockBlockEntity.getFilterForInventory(getLevel(), getFilterPos(), false);
+			List<ItemStack> filter = FilterHelper.getFiltersOnBlock(getLevel(), getFilterPos(), false);
 
 			for (ItemEntity item : items) {
 				if (!DelayHelper.canInteractWith(this, item)) {
