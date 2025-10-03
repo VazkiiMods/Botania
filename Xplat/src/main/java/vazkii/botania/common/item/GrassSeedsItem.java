@@ -15,6 +15,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.client.fx.WispParticleData;
@@ -76,7 +79,7 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 				stack.shrink(1);
 			} else {
 				int color = getColor(type);
-				spawnParticles(world, pos, extractR(color), extractG(color), extractB(color));
+				spawnParticles(world, pos, color);
 			}
 
 			return InteractionResult.sidedSuccess(world.isClientSide());
@@ -85,18 +88,23 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 		return InteractionResult.PASS;
 	}
 
-	public static void spawnParticles(Level world, BlockPos pos, float r, float g, float b) {
+	public static void spawnParticles(Level world, BlockPos pos, int color) {
+		float velMul = -0.025F;
+		float r = FastColor.ARGB32.red(color) / 255f;
+		float g = FastColor.ARGB32.green(color) / 255f;
+		float b = FastColor.ARGB32.blue(color) / 255f;
+		RandomSource rng = world.getRandom();
+		Vec3 posVec = pos.getCenter();
 		for (int i = 0; i < 50; i++) {
-			double x = (Math.random() - 0.5) * 3;
-			double y = Math.random() - 0.5 + 1;
-			double z = (Math.random() - 0.5) * 3;
-			float velMul = 0.025F;
+			double x = (rng.nextDouble() - 0.5) * 3;
+			double y = rng.nextDouble() - 0.5 + 1;
+			double z = (rng.nextDouble() - 0.5) * 3;
 
-			float motionx = (float) -x * velMul;
-			float motiony = (float) -y * velMul;
-			float motionz = (float) -z * velMul;
-			WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, r, g, b);
-			world.addParticle(data, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, motionx, motiony, motionz);
+			float motionX = (float) x * velMul;
+			float motionY = (float) y * velMul;
+			float motionZ = (float) z * velMul;
+			WispParticleData data = WispParticleData.wisp(rng.nextFloat() * 0.15f + 0.15f, r, g, b);
+			world.addParticle(data, posVec.x() + x, posVec.y() + y, posVec.z() + z, motionX, motionY, motionZ);
 		}
 	}
 
@@ -283,18 +291,6 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 			BlockPos abovePos = pos.above();
 			return canBeGrass(pos, stateToSet) && !world.getFluidState(abovePos).is(FluidTags.WATER);
 		}
-	}
-
-	public static float extractR(int color) {
-		return ((color >> 16) & 0xFF) / 255f;
-	}
-
-	public static float extractG(int color) {
-		return ((color >> 8) & 0xFF) / 255f;
-	}
-
-	public static float extractB(int color) {
-		return (color & 0xFF) / 255f;
 	}
 
 	public static int getColor(IslandType type) {
