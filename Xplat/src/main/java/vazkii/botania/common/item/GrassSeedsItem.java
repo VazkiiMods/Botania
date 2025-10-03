@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -22,42 +20,40 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.*;
 
-public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
+public class GrassSeedsItem extends Item {
 	/**
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
 	private static final Map<ResourceKey<Level>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
-	private static final Map<IslandType, Integer> COLORS = ImmutableMap.<IslandType, Integer>builder()
-			.put(IslandType.GRASS, 0x006600)
-			.put(IslandType.PODZOL, 0x805E00)
-			.put(IslandType.MYCEL, 0x5E0054)
-			.put(IslandType.DRY, 0x66800D)
-			.put(IslandType.GOLDEN, 0xBFB300)
-			.put(IslandType.VIVID, 0x00801A)
-			.put(IslandType.SCORCHED, 0xBF0000)
-			.put(IslandType.INFUSED, 0x008C8C)
-			.put(IslandType.MUTATED, 0x661A66)
-			.build();
 
-	private final IslandType type;
+	private final Block grassBlock;
+	private final int color;
 
-	public GrassSeedsItem(IslandType type, Properties props) {
+	public GrassSeedsItem(Block grassBlock, int color, Properties props) {
 		super(props);
-		this.type = type;
+		this.grassBlock = grassBlock;
+		this.color = color;
+	}
+
+	public int getColor() {
+		return color;
+	}
+
+	public Block getGrassBlock() {
+		return grassBlock;
 	}
 
 	@Override
@@ -72,13 +68,12 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 	public InteractionResult applySeeds(Level world, BlockPos pos, ItemStack stack) {
 		BlockState state = world.getBlockState(pos);
 
-		if (state.is(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE) && state != stateForType(type)) {
+		if (state.is(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE) && !state.is(grassBlock)) {
 			if (!world.isClientSide) {
-				BlockSwapper swapper = addBlockSwapper(world, pos, type);
+				BlockSwapper swapper = addBlockSwapper(world, pos, grassBlock);
 				world.setBlockAndUpdate(pos, swapper.stateToSet);
 				stack.shrink(1);
 			} else {
-				int color = getColor(type);
 				spawnParticles(world, pos, color);
 			}
 
@@ -125,38 +120,16 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 	 * 
 	 * @param world The world the swapper will be in.
 	 * @param pos   The position of the swapper.
-	 * @param type  The IslandType of the grass seed
+	 * @param block The grass block type
 	 * @return The created block swapper.
 	 */
-	private static BlockSwapper addBlockSwapper(Level world, BlockPos pos, IslandType type) {
-		BlockSwapper swapper = new BlockSwapper(world, pos, stateForType(type));
+	private static BlockSwapper addBlockSwapper(Level world, BlockPos pos, Block block) {
+		BlockSwapper swapper = new BlockSwapper(world, pos, block.defaultBlockState());
 
 		ResourceKey<Level> dim = world.dimension();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 
 		return swapper;
-	}
-
-	private static BlockState stateForType(IslandType type) {
-		if (type == IslandType.PODZOL) {
-			return Blocks.PODZOL.defaultBlockState();
-		} else if (type == IslandType.MYCEL) {
-			return Blocks.MYCELIUM.defaultBlockState();
-		} else if (type == IslandType.DRY) {
-			return BotaniaBlocks.dryGrass.defaultBlockState();
-		} else if (type == IslandType.GOLDEN) {
-			return BotaniaBlocks.goldenGrass.defaultBlockState();
-		} else if (type == IslandType.VIVID) {
-			return BotaniaBlocks.vividGrass.defaultBlockState();
-		} else if (type == IslandType.SCORCHED) {
-			return BotaniaBlocks.scorchedGrass.defaultBlockState();
-		} else if (type == IslandType.INFUSED) {
-			return BotaniaBlocks.infusedGrass.defaultBlockState();
-		} else if (type == IslandType.MUTATED) {
-			return BotaniaBlocks.mutatedGrass.defaultBlockState();
-		} else {
-			return Blocks.GRASS_BLOCK.defaultBlockState();
-		}
 	}
 
 	/**
@@ -292,14 +265,4 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 			return canBeGrass(pos, stateToSet) && !world.getFluidState(abovePos).is(FluidTags.WATER);
 		}
 	}
-
-	public static int getColor(IslandType type) {
-		return COLORS.get(type);
-	}
-
-	@Override
-	public IslandType getIslandType(ItemStack stack) {
-		return type;
-	}
-
 }

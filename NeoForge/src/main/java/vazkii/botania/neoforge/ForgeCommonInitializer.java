@@ -83,6 +83,7 @@ import vazkii.botania.common.block.block_entity.BlockEntityConstants;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
+import vazkii.botania.common.block.flower.BotaniaIslandTypes;
 import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.block.flower.functional.TigerseyeBlockEntity;
@@ -231,6 +232,7 @@ public class ForgeCommonInitializer {
 		bind(event, Registries.CHUNK_GENERATOR, SkyblockChunkGenerator::submitRegistration);
 
 		// Rest
+		bind(event, BotaniaRegistries.ISLAND_TYPES, BotaniaIslandTypes::registerIslandTypes);
 		bind(event, Registries.TRIGGER_TYPE, BotaniaCriteriaTriggers::init);
 		bind(event, Registries.PARTICLE_TYPE, BotaniaParticles::registerParticles);
 

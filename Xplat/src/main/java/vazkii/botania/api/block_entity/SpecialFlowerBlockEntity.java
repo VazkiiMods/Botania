@@ -11,12 +11,10 @@ package vazkii.botania.api.block_entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -45,13 +43,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
-	private final FloatingFlower floatingData = new FloatingFlowerImpl() {
-		@Override
-		public ItemStack getDisplayStack() {
-			ResourceLocation id = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(getType());
-			return BuiltInRegistries.ITEM.getOptional(id).map(ItemStack::new).orElse(super.getDisplayStack());
-		}
-	};
+	private final FloatingFlower floatingData = new FloatingFlowerImpl();
 
 	public int ticksExisted = 0;
 
@@ -163,7 +155,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 			setFloating(true);
 		}
 
-		FloatingFlower.IslandType oldType = floatingData.getIslandType();
+		IslandType oldType = floatingData.getIslandType();
 		readFromPacketNBT(cmp, registries);
 		if (isFloating() && oldType != floatingData.getIslandType() && level != null) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
@@ -191,7 +183,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	 */
 	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (isFloating()) {
-			cmp.put(TAG_FLOATING_DATA, floatingData.writeNBT());
+			cmp.put(TAG_FLOATING_DATA, floatingData.writeNBT(registries));
 		}
 	}
 
@@ -202,7 +194,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	 */
 	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (cmp.contains(TAG_FLOATING_DATA)) {
-			floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA));
+			floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA), registries);
 		}
 	}
 
@@ -253,21 +245,18 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	 */
 	public int getModulatedDelay() {
 		if (isFloating()) {
-			FloatingFlower.IslandType type = floatingData.getIslandType();
-			if (type == FloatingFlower.IslandType.MYCEL) {
-				return MYCELIUM_DELAY;
-			} else if (type == FloatingFlower.IslandType.PODZOL) {
-				return PODZOL_DELAY;
-			}
-		} else {
-			BlockState below = level.getBlockState(getBlockPos().below());
-			if (below.is(Blocks.MYCELIUM)) {
-				return MYCELIUM_DELAY;
-			}
+			IslandType type = floatingData.getIslandType();
+			return type.modulatedDelay();
+		}
 
-			if (below.is(Blocks.PODZOL)) {
-				return PODZOL_DELAY;
-			}
+		// TODO: should be synced with island types somehow
+		BlockState below = level.getBlockState(getBlockPos().below());
+		if (below.is(Blocks.MYCELIUM)) {
+			return MYCELIUM_DELAY;
+		}
+
+		if (below.is(Blocks.PODZOL)) {
+			return PODZOL_DELAY;
 		}
 
 		return 0;

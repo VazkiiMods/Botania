@@ -13,6 +13,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 
+import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.recipe.StateIngredientType;
 
@@ -21,6 +22,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class BotaniaRegistries {
 	public static final ResourceKey<Registry<Brew>> BREWS =
 			ResourceKey.createRegistryKey(botaniaRL("brews"));
+	public static final ResourceKey<Registry<IslandType>> ISLAND_TYPES =
+			ResourceKey.createRegistryKey(botaniaRL("island_types"));
 
 	/**
 	 * The ID of Botania's Creative Tab

@@ -8,17 +8,16 @@
  */
 package vazkii.botania.api.block;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.block.flower.BotaniaIslandTypes;
 
 public class FloatingFlowerImpl implements FloatingFlower {
-	private IslandType type = IslandType.GRASS;
-
-	@Override
-	public ItemStack getDisplayStack() {
-		return ItemStack.EMPTY;
-	}
+	private IslandType type = BotaniaIslandTypes.GRASS;
 
 	@Override
 	public IslandType getIslandType() {
@@ -31,17 +30,18 @@ public class FloatingFlowerImpl implements FloatingFlower {
 	}
 
 	@Override
-	public Tag writeNBT() {
+	public Tag writeNBT(HolderLookup.Provider registries) {
 		CompoundTag ret = new CompoundTag();
-		ret.putString("islandType", getIslandType().toString());
+		ret.putString("islandType", BotaniaAPI.instance().getIslandTypeRegistry().getKey(type).toString());
 		return ret;
 	}
 
 	@Override
-	public void readNBT(CompoundTag nbt) {
-		IslandType t = IslandType.ofType(nbt.getString("islandType"));
-		if (t != null) {
-			setIslandType(t);
+	public void readNBT(CompoundTag nbt, HolderLookup.Provider registries) {
+		ResourceLocation islandTypeId = ResourceLocation.tryParse(nbt.getString("islandType"));
+		if (islandTypeId != null) {
+			//noinspection DataFlowIssue
+			setIslandType(BotaniaAPI.instance().getIslandTypeRegistry().get(islandTypeId));
 		}
 	}
 }

@@ -31,8 +31,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.FloatingFlower;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.IslandType;
+import vazkii.botania.common.block.flower.BotaniaIslandTypes;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.*;
@@ -45,7 +46,7 @@ import java.util.function.Supplier;
  */
 public class FabricFloatingFlowerModel extends BlockModel {
 	private final UnbakedModel unbakedFlower;
-	private final Map<FloatingFlower.IslandType, UnbakedModel> unbakedIslands = new HashMap<>();
+	private final Map<IslandType, UnbakedModel> unbakedIslands = new HashMap<>();
 
 	private FabricFloatingFlowerModel(UnbakedModel flower) {
 		super(null, Collections.emptyList(), Collections.emptyMap(), false, GuiLight.SIDE, ItemTransforms.NO_TRANSFORMS, Collections.emptyList());
@@ -60,11 +61,11 @@ public class FabricFloatingFlowerModel extends BlockModel {
 	@Override
 	public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter) {
 		this.unbakedFlower.resolveParents(modelGetter);
-		for (var e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
-			UnbakedModel islandModel = modelGetter.apply(e.getValue());
+		BotaniaAPI.instance().getIslandTypeRegistry().stream().forEach(islandType -> {
+			UnbakedModel islandModel = modelGetter.apply(islandType.islandModel());
 			islandModel.resolveParents(modelGetter);
-			this.unbakedIslands.put(e.getKey(), islandModel);
-		}
+			this.unbakedIslands.put(islandType, islandModel);
+		});
 	}
 
 	@Override
@@ -85,8 +86,8 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		};
 		BakedModel bakedFlower = unbakedFlower.bake(baker, spriteGetter, newTransform);
 
-		Map<FloatingFlower.IslandType, BakedModel> bakedIslands = new HashMap<>();
-		for (Map.Entry<FloatingFlower.IslandType, UnbakedModel> e : unbakedIslands.entrySet()) {
+		Map<IslandType, BakedModel> bakedIslands = new HashMap<>();
+		for (Map.Entry<IslandType, UnbakedModel> e : unbakedIslands.entrySet()) {
 			BakedModel bakedIsland = e.getValue().bake(baker, spriteGetter, transform);
 			bakedIslands.put(e.getKey(), bakedIsland);
 		}
@@ -94,9 +95,9 @@ public class FabricFloatingFlowerModel extends BlockModel {
 	}
 
 	public static class Baked extends ForwardingBakedModel {
-		private final Map<FloatingFlower.IslandType, BakedModel> islands;
+		private final Map<IslandType, BakedModel> islands;
 
-		Baked(BakedModel flower, Map<FloatingFlower.IslandType, BakedModel> islands) {
+		Baked(BakedModel flower, Map<IslandType, BakedModel> islands) {
 			this.wrapped = flower;
 			this.islands = islands;
 		}
@@ -104,7 +105,7 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		@Override
 		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
 			List<BakedQuad> flower = wrapped.getQuads(null, null, rand);
-			List<BakedQuad> island = islands.get(FloatingFlower.IslandType.GRASS).getQuads(null, null, rand);
+			List<BakedQuad> island = islands.get(BotaniaIslandTypes.GRASS).getQuads(null, null, rand);
 			List<BakedQuad> ret = new ArrayList<>(flower.size() + island.size());
 			ret.addAll(flower);
 			ret.addAll(island);
@@ -119,14 +120,14 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		@Override
 		public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
 			wrapped.emitItemQuads(stack, randomSupplier, context);
-			islands.get(FloatingFlower.IslandType.GRASS).emitItemQuads(stack, randomSupplier, context);
+			islands.get(BotaniaIslandTypes.GRASS).emitItemQuads(stack, randomSupplier, context);
 		}
 
 		@Override
 		public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<RandomSource> randomSupplier, RenderContext context) {
 			wrapped.emitBlockQuads(blockView, state, pos, randomSupplier, context);
 			Object data = blockView.getBlockEntityRenderData(pos);
-			islands.get(data instanceof FloatingFlower.IslandType type ? type : FloatingFlower.IslandType.GRASS)
+			islands.get(data instanceof IslandType type ? type : BotaniaIslandTypes.GRASS)
 					.emitBlockQuads(blockView, state, pos, randomSupplier, context);
 		}
 	}

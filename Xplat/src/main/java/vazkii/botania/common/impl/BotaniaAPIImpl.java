@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.configdata.ConfigDataManager;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
@@ -113,6 +114,11 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public Registry<Brew> getBrewRegistry() {
 		return RegistryHelper.getRegistry(BotaniaRegistries.BREWS);
+	}
+
+	@Override
+	public Registry<IslandType> getIslandTypeRegistry() {
+		return RegistryHelper.getRegistry(BotaniaRegistries.ISLAND_TYPES);
 	}
 
 	@Override

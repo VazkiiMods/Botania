@@ -47,7 +47,7 @@ public class BotaniaBrews {
 	public static final Brew clear = make(4000, new MobEffectInstance(BotaniaMobEffects.CLEAR, 0, 0));
 
 	public static void submitRegistrations(BiConsumer<Brew, ResourceLocation> r) {
-		r.accept(fallbackBrew, botaniaRL("fallback"));
+		r.accept(fallbackBrew, Brew.DEFAULT_ID);
 		r.accept(speed, botaniaRL(LibBrewNames.SPEED));
 		r.accept(strength, botaniaRL(LibBrewNames.STRENGTH));
 		r.accept(haste, botaniaRL(LibBrewNames.HASTE));

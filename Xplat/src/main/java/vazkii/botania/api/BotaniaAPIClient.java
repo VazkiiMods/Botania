@@ -12,13 +12,7 @@ import com.mojang.blaze3d.platform.Window;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-
-import vazkii.botania.api.block.FloatingFlower;
-
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * Class for API calls that must be made clientside
@@ -28,23 +22,6 @@ public interface BotaniaAPIClient {
 
 	static BotaniaAPIClient instance() {
 		return INSTANCE;
-	}
-
-	/**
-	 * Registers your model for island type islandType here.
-	 * Call this during NeoForge's ModelRegistryEvent. (TODO: verify)
-	 *
-	 * @param islandType The islandtype to register
-	 * @param model      The model, only {@link ResourceLocation} allowed, no
-	 *                   {@link net.minecraft.client.resources.model.ModelResourceLocation} allowed.
-	 */
-	default void registerIslandTypeModel(FloatingFlower.IslandType islandType, ResourceLocation model) {}
-
-	/**
-	 * @return An immutable and live view of the registered island type model map
-	 */
-	default Map<FloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
-		return Collections.emptyMap();
 	}
 
 	/**

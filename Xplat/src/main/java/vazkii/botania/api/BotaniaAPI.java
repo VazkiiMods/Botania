@@ -31,6 +31,7 @@ import org.jetbrains.annotations.UnknownNullability;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.configdata.ConfigDataManager;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
@@ -78,6 +79,18 @@ public interface BotaniaAPI {
 	 */
 	@UnknownNullability
 	default Registry<Brew> getBrewRegistry() {
+		return null;
+	}
+
+	/**
+	 * Get the registry for floating flower island types.
+	 * This should only be called after the registry is registered.
+	 * In Forge, that is after NewRegistryEvent. In Fabric, that is after Botania's common initializer
+	 * is loaded.
+	 * Note that this registry is neither saved nor synced, and thus its integer ID's should not be relied upon.
+	 */
+	@UnknownNullability
+	default Registry<IslandType> getIslandTypeRegistry() {
 		return null;
 	}
 

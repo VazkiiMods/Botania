@@ -64,6 +64,7 @@ import net.minecraft.world.level.material.Fluids;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaCollisionGhost;
@@ -78,6 +79,7 @@ import vazkii.botania.common.block.block_entity.*;
 import vazkii.botania.common.block.block_entity.BlockEntityConstants;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.flower.BotaniaIslandTypes;
 import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.block.flower.functional.TigerseyeBlockEntity;
 import vazkii.botania.common.block.mana.DrumBlock;
@@ -127,9 +129,11 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FabricCommonInitializer implements ModInitializer {
 	private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder
-			.createDefaulted(BotaniaRegistries.BREWS, botaniaRL("fallback")).buildAndRegister();
+			.createDefaulted(BotaniaRegistries.BREWS, Brew.DEFAULT_ID).buildAndRegister();
+	private static final Registry<IslandType> ISLAND_TYPE_REGISTRY = FabricRegistryBuilder
+			.createDefaulted(BotaniaRegistries.ISLAND_TYPES, IslandType.DEFAULT_ID).buildAndRegister();
 	private static final MappedRegistry<StateIngredientType<?>> STATE_INGREDIENT_TYPE_REGISTRY = FabricRegistryBuilder
-			.createDefaulted(BotaniaRegistries.STATE_INGREDIENT_TYPE, botaniaRL("none")).buildAndRegister();
+			.createDefaulted(BotaniaRegistries.STATE_INGREDIENT_TYPE, StateIngredientType.DEFAULT_ID).buildAndRegister();
 
 	@Override
 	public void onInitialize() {
@@ -224,6 +228,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaFeatures.MYSTICAL_MUSHROOMS_PLACED_FEATURE);
 
 		// Rest
+		BotaniaIslandTypes.registerIslandTypes(bind(ISLAND_TYPE_REGISTRY));
 		BotaniaCriteriaTriggers.init(bind(BuiltInRegistries.TRIGGER_TYPES));
 		BotaniaParticles.registerParticles(bind(BuiltInRegistries.PARTICLE_TYPE));
 		BotaniaLootModifiers.submitLootConditions(bind(BuiltInRegistries.LOOT_CONDITION_TYPE));

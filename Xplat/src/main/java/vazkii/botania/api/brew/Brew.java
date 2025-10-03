@@ -20,10 +20,13 @@ import vazkii.botania.api.BotaniaAPI;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
 /**
  * The class for a Brew definition, each one is a singleton.
  */
 public class Brew {
+	public static final ResourceLocation DEFAULT_ID = botaniaRL("fallback");
 	private final Supplier<Integer> color;
 	private final int cost;
 	private final Supplier<List<MobEffectInstance>> effects;

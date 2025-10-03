@@ -18,8 +18,6 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
@@ -90,7 +88,6 @@ public class MiscellaneousModels {
 	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
 		modelConsumers.keySet().forEach(consumer);
 
-		registerIslands();
 		registerTaters(rm, consumer);
 		registerSpreaderComponents(consumer);
 		consumer.accept(CorporeaCrystalCubeBlockEntityRenderer.CUBE_MODEL_ID);
@@ -109,19 +106,6 @@ public class MiscellaneousModels {
 				.distinct()
 				.forEach(consumer);
 		ManaSpreaderBlockEntityRenderer.WOOL_PADDING_IDS.values().forEach(consumer);
-	}
-
-	private static void registerIslands() {
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.GRASS, botaniaRL("block/islands/island_grass"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.PODZOL, botaniaRL("block/islands/island_podzol"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.MYCEL, botaniaRL("block/islands/island_mycel"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.SNOW, botaniaRL("block/islands/island_snow"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.DRY, botaniaRL("block/islands/island_dry"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.GOLDEN, botaniaRL("block/islands/island_golden"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.VIVID, botaniaRL("block/islands/island_vivid"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.SCORCHED, botaniaRL("block/islands/island_scorched"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.INFUSED, botaniaRL("block/islands/island_infused"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.MUTATED, botaniaRL("block/islands/island_mutated"));
 	}
 
 	private static void registerTaters(ResourceManager rm, Consumer<ResourceLocation> consumer) {

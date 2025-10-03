@@ -20,9 +20,9 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
 
-import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -177,15 +177,15 @@ public final class BotaniaItems {
 	public static final Item runeEnvy = make(LibItemNames.RUNE_ENVY, new RuneItem(defaultBuilder()));
 	public static final Item runePride = make(LibItemNames.RUNE_PRIDE, new RuneItem(defaultBuilder()));
 
-	public static final Item grassSeeds = make(LibItemNames.GRASS_SEEDS, new GrassSeedsItem(FloatingFlower.IslandType.GRASS, defaultBuilder()));
-	public static final Item podzolSeeds = make(LibItemNames.PODZOL_SEEDS, new GrassSeedsItem(FloatingFlower.IslandType.PODZOL, defaultBuilder()));
-	public static final Item mycelSeeds = make(LibItemNames.MYCEL_SEEDS, new GrassSeedsItem(FloatingFlower.IslandType.MYCEL, defaultBuilder()));
-	public static final Item drySeeds = make(LibItemNames.DRY_SEEDS, new GrassSeedsItem(FloatingFlower.IslandType.DRY, defaultBuilder()));
-	public static final Item goldenSeeds = make(LibItemNames.GOLDEN_SEEDS, new GrassSeedsItem(FloatingFlower.IslandType.GOLDEN, defaultBuilder()));
-	public static final Item vividSeeds = make(LibItemNames.VIVID_SEEDS, new GrassSeedsItem(FloatingFlower.IslandType.VIVID, defaultBuilder()));
-	public static final Item scorchedSeeds = make(LibItemNames.SCORCHED_SEEDS, new GrassSeedsItem(FloatingFlower.IslandType.SCORCHED, defaultBuilder()));
-	public static final Item infusedSeeds = make(LibItemNames.INFUSED_SEEDS, new GrassSeedsItem(FloatingFlower.IslandType.INFUSED, defaultBuilder()));
-	public static final Item mutatedSeeds = make(LibItemNames.MUTATED_SEEDS, new GrassSeedsItem(FloatingFlower.IslandType.MUTATED, defaultBuilder()));
+	public static final Item grassSeeds = make(LibItemNames.GRASS_SEEDS, new GrassSeedsItem(Blocks.GRASS_BLOCK, 0x006600, defaultBuilder()));
+	public static final Item podzolSeeds = make(LibItemNames.PODZOL_SEEDS, new GrassSeedsItem(Blocks.PODZOL, 0x805E00, defaultBuilder()));
+	public static final Item mycelSeeds = make(LibItemNames.MYCEL_SEEDS, new GrassSeedsItem(Blocks.MYCELIUM, 0x5E0054, defaultBuilder()));
+	public static final Item drySeeds = make(LibItemNames.DRY_SEEDS, new GrassSeedsItem(BotaniaBlocks.dryGrass, 0x66800D, defaultBuilder()));
+	public static final Item goldenSeeds = make(LibItemNames.GOLDEN_SEEDS, new GrassSeedsItem(BotaniaBlocks.goldenGrass, 0xBFB300, defaultBuilder()));
+	public static final Item vividSeeds = make(LibItemNames.VIVID_SEEDS, new GrassSeedsItem(BotaniaBlocks.vividGrass, 0x00801A, defaultBuilder()));
+	public static final Item scorchedSeeds = make(LibItemNames.SCORCHED_SEEDS, new GrassSeedsItem(BotaniaBlocks.scorchedGrass, 0xBF0000, defaultBuilder()));
+	public static final Item infusedSeeds = make(LibItemNames.INFUSED_SEEDS, new GrassSeedsItem(BotaniaBlocks.infusedGrass, 0x008C8C, defaultBuilder()));
+	public static final Item mutatedSeeds = make(LibItemNames.MUTATED_SEEDS, new GrassSeedsItem(BotaniaBlocks.mutatedGrass, 0x661A66, defaultBuilder()));
 
 	public static final Item dirtRod = make(LibItemNames.DIRT_ROD, new LandsRodItem(unstackable()));
 	public static final Item skyDirtRod = make(LibItemNames.SKY_DIRT_ROD, new HighlandsRodItem(unstackable()));
