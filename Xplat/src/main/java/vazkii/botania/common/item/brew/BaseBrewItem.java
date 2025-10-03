@@ -33,11 +33,8 @@ import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
-
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabContents {
 
@@ -129,7 +126,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		ResourceLocation id = stack.get(BotaniaDataComponents.BREW);
-		return Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().get(id));
+		return BotaniaAPI.instance().getBrewRegistry().get(id);
 	}
 
 	public static void setBrew(ItemStack stack, @Nullable Brew brew) {
@@ -137,7 +134,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 		if (brew != null) {
 			id = BotaniaAPI.instance().getBrewRegistry().getKey(brew);
 		} else {
-			id = botaniaRL("fallback");
+			id = Brew.DEFAULT_ID;
 		}
 		setBrew(stack, id);
 	}

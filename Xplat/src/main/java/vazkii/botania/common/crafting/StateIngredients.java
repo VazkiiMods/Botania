@@ -35,7 +35,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class StateIngredients {
 	public static final Codec<StateIngredient> TYPED_CODEC = Codec.lazyInitialized(() -> RegistryHelper
-			.getRegistry(BotaniaRegistries.STATE_INGREDIENT_TYPE)
+			.getDefaultedRegistry(BotaniaRegistries.STATE_INGREDIENT_TYPE)
 			.byNameCodec()
 			.dispatch("type", StateIngredient::getType, StateIngredientType::codec));
 	public static final StreamCodec<RegistryFriendlyByteBuf, StateIngredient> TYPED_STREAM_CODEC = ByteBufCodecs

@@ -47,7 +47,6 @@ import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.client.MinecraftAccessor;
 
 import java.util.List;
-import java.util.Objects;
 
 public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer, BrewItem, CustomCreativeTabContents {
 
@@ -136,11 +135,11 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 
 	@Override
 	public Brew getBrew(ItemStack stack) {
-		return Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().get(stack.get(BotaniaDataComponents.BREW)));
+		return BotaniaAPI.instance().getBrewRegistry().get(stack.get(BotaniaDataComponents.BREW));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().getKey(brew)));
+		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getKey(brew));
 	}
 
 	public static void setBrew(ItemStack stack, ResourceLocation brew) {

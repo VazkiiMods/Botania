@@ -9,9 +9,9 @@
 package vazkii.botania.common.impl;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -112,13 +112,13 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public Registry<Brew> getBrewRegistry() {
-		return RegistryHelper.getRegistry(BotaniaRegistries.BREWS);
+	public DefaultedRegistry<Brew> getBrewRegistry() {
+		return RegistryHelper.getDefaultedRegistry(BotaniaRegistries.BREWS);
 	}
 
 	@Override
-	public Registry<IslandType> getIslandTypeRegistry() {
-		return RegistryHelper.getRegistry(BotaniaRegistries.ISLAND_TYPES);
+	public DefaultedRegistry<IslandType> getIslandTypeRegistry() {
+		return RegistryHelper.getDefaultedRegistry(BotaniaRegistries.ISLAND_TYPES);
 	}
 
 	@Override

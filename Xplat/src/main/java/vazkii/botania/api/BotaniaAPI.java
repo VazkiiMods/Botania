@@ -8,11 +8,10 @@
  */
 package vazkii.botania.api;
 
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -58,10 +57,6 @@ public interface BotaniaAPI {
 		return ResourceLocation.fromNamespaceAndPath(MODID, path);
 	}
 
-	static ModelResourceLocation botaniaModelRL(String path, String variant) {
-		return new ModelResourceLocation(botaniaRL(path), variant);
-	}
-
 	/**
 	 * @return A unique version number for this version of the API. When anything is added, this number will be
 	 *         incremented
@@ -78,7 +73,7 @@ public interface BotaniaAPI {
 	 * Note that this registry is neither saved nor synced, and thus its integer ID's should not be relied upon.
 	 */
 	@UnknownNullability
-	default Registry<Brew> getBrewRegistry() {
+	default DefaultedRegistry<Brew> getBrewRegistry() {
 		return null;
 	}
 
@@ -90,7 +85,7 @@ public interface BotaniaAPI {
 	 * Note that this registry is neither saved nor synced, and thus its integer ID's should not be relied upon.
 	 */
 	@UnknownNullability
-	default Registry<IslandType> getIslandTypeRegistry() {
+	default DefaultedRegistry<IslandType> getIslandTypeRegistry() {
 		return null;
 	}
 

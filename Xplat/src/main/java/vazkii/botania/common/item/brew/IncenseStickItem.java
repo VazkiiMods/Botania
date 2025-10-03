@@ -27,7 +27,6 @@ import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
-import java.util.Objects;
 
 public class IncenseStickItem extends Item implements BrewItem, BrewContainer, CustomCreativeTabContents {
 
@@ -64,11 +63,11 @@ public class IncenseStickItem extends Item implements BrewItem, BrewContainer, C
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		ResourceLocation id = stack.get(BotaniaDataComponents.BREW);
-		return Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().get(id));
+		return BotaniaAPI.instance().getBrewRegistry().get(id);
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().getKey(brew)));
+		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getKey(brew));
 	}
 
 	public static void setBrew(ItemStack stack, ResourceLocation brew) {

@@ -10,6 +10,7 @@ package vazkii.botania.common.helper;
 
 import com.mojang.datafixers.util.Either;
 
+import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderOwner;
 import net.minecraft.core.Registry;
@@ -28,8 +29,8 @@ import java.util.stream.Stream;
 
 public class RegistryHelper {
 	@SuppressWarnings("unchecked")
-	public static <T> Registry<T> getRegistry(ResourceKey<Registry<T>> resourceKey) {
-		return (Registry<T>) BuiltInRegistries.REGISTRY.get(resourceKey.location());
+	public static <T> DefaultedRegistry<T> getDefaultedRegistry(ResourceKey<Registry<T>> resourceKey) {
+		return (DefaultedRegistry<T>) BuiltInRegistries.REGISTRY.get(resourceKey.location());
 	}
 
 	public static <T> HolderProxy<T> lazyHolderProxy(ResourceKey<Registry<T>> registryKey, ResourceLocation id, Supplier<T> valueSupplier) {
