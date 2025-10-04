@@ -6,7 +6,7 @@ import net.minecraft.gametest.framework.GameTestAssertException;
 import net.minecraft.gametest.framework.GameTestHelper;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.flower.generating.DandelifeonBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity;
 
 public class DandelifeonTest {
 	private static final String TEMPLATE = "botania:block/dandelifeon_transfer";

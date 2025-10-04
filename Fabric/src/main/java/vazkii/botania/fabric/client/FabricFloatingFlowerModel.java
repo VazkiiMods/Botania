@@ -33,7 +33,7 @@ import org.joml.Vector3f;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IslandType;
-import vazkii.botania.common.block.flower.BotaniaIslandTypes;
+import vazkii.botania.common.block.block_entity.flower.BotaniaIslandTypes;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.*;

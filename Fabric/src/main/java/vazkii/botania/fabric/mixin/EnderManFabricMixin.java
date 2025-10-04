@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import vazkii.botania.common.block.flower.functional.VinculotusBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.VinculotusBlockEntity;
 
 @Mixin(EnderMan.class)
 public class EnderManFabricMixin {

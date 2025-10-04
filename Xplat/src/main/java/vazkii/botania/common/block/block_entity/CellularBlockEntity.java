@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.flower.generating.DandelifeonBlockEntity;
-import vazkii.botania.common.block.flower.generating.DandelifeonBlockEntity.Cell;
+import vazkii.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity.Cell;
 
 public class CellularBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_GENERATION = "generation";

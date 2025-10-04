@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.item.AssemblyHaloItem;
 import vazkii.botania.common.item.equipment.bauble.CharmOfTheDivaItem;

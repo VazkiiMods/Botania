@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.CandleBlock;
 import net.minecraft.world.level.block.SeaPickleBlock;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.block.flower.functional.RannuncarpusBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.RannuncarpusBlockEntity;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.test.TestingUtil;
 

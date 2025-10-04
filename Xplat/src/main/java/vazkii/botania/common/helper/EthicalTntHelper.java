@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 
+import vazkii.botania.common.block.block_entity.flower.generating.EntropinnyumBlockEntity;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -25,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * adjacent moving block entities that represent a TNT block and move away from the TNT entity. If we find such a moving
  * block, the TNT entity was unethically sourced.
  *
- * @see vazkii.botania.common.block.flower.generating.EntropinnyumBlockEntity
+ * @see EntropinnyumBlockEntity
  * @see vazkii.botania.common.internal_caps.EthicalComponent
  * @see vazkii.botania.mixin.PistonBaseBlockMixin
  * @see vazkii.botania.common.item.lens.ForceLens#moveBlocks(Level, BlockPos, Direction, BlockPos)

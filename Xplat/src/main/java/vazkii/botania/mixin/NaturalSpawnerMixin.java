@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.flower.generating.NarslimmusBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.generating.NarslimmusBlockEntity;
 import vazkii.botania.common.brew.effect.BloodthirstMobEffect;
 import vazkii.botania.common.brew.effect.EmptinessMobEffect;
 

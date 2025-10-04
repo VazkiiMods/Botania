@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.Bound;
-import vazkii.botania.common.block.flower.functional.BubbellBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.BubbellBlockEntity;
 
 public class FakeAirBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_FLOWER_X = "flowerX";

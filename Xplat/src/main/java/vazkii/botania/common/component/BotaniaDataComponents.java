@@ -20,8 +20,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.block.flower.generating.GourmaryllisBlockEntity;
-import vazkii.botania.common.block.flower.generating.RafflowsiaBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.generating.GourmaryllisBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.generating.RafflowsiaBlockEntity;
 import vazkii.botania.common.item.LaputaShardItem;
 import vazkii.botania.common.item.ManaBlasterItem;
 import vazkii.botania.common.item.relic.RingOfLokiItem;

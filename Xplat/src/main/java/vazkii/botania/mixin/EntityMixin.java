@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.item.EquestrianVirusItem;
 import vazkii.botania.common.item.equipment.bauble.CrimsonPendantItem;
 import vazkii.botania.xplat.XplatAbstractions;

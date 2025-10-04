@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.block.flower.functional.TigerseyeBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.TigerseyeBlockEntity;
 
 @Mixin(Creeper.class)
 public class CreeperMixin extends Monster {

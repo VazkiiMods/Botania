@@ -15,7 +15,7 @@ import net.minecraft.client.player.LocalPlayer;
 
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.render.block_entity.RedStringBlockEntityRenderer;
-import vazkii.botania.common.block.flower.functional.VinculotusBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.VinculotusBlockEntity;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.LexicaBotaniaItem;

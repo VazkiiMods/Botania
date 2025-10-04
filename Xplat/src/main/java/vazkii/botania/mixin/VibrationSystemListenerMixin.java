@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.BergamuteBlockEntity;
 
 @Mixin(VibrationSystem.Listener.class)
 public class VibrationSystemListenerMixin {

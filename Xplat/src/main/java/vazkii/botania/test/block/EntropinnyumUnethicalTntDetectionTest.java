@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.flower.generating.EntropinnyumBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.generating.EntropinnyumBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.test.TestingUtil;
 
