@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.api.state.enums.HopperhockFilterType;
+import vazkii.botania.api.state.enums.ManastarState;
 import vazkii.botania.api.state.enums.RannuncarpusMode;
 
 /**
@@ -50,6 +51,7 @@ public final class BotaniaStateProperties {
 
 	// various flowers
 	public static final BooleanProperty DIMMED = BooleanProperty.create("dimmed");
+	public static final EnumProperty<ManastarState> MANASTAR_STATE = EnumProperty.create("state", ManastarState.class);
 	public static final EnumProperty<HopperhockFilterType> HOPPERHOCK_FILTER = EnumProperty.create("filter_type", HopperhockFilterType.class);
 	public static final EnumProperty<RannuncarpusMode> RANNUNCARPUS_MODE = EnumProperty.create("mode", RannuncarpusMode.class);
 

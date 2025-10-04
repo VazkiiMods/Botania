@@ -10,22 +10,24 @@ package vazkii.botania.common.block.block_entity.flower;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.ManastarState;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
-	private static final int SET_STATE_EVENT = 0;
-	// TODO: use a blockstate for this so that we can use different textures for the states
-	private static final int NONE = 0, DECREASING = 1, INCREASING = 2;
 
-	private int lastMana = 0;
-	private int state = NONE;
+	private int lastMana = -1;
 
 	public ManastarBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.MANASTAR, pos, state);
@@ -35,14 +37,20 @@ public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
+		var state = getBlockState().getValue(BotaniaStateProperties.MANASTAR_STATE);
+
 		if (getLevel().isClientSide) {
-			if (state != NONE && Math.random() > 0.6) {
-				float r = state == INCREASING ? 0.05F : 1F;
-				float b = state == INCREASING ? 1F : 0.05F;
+			if (state != ManastarState.NEUTRAL && Math.random() > 0.6) {
+				float r = state == ManastarState.INCREASING ? 0.05F : 1F;
+				float b = state == ManastarState.INCREASING ? 1F : 0.05F;
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 7, r, 0.05F, b, 1);
-				emitParticle(data, 0.5 + Math.random() * 0.2 - 0.1, 0.75 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 50, 0);
+				emitParticle(data,
+						0.5 + Math.random() * 0.25 - 0.125,
+						0.75 + Math.random() * 0.2 - 0.1,
+						0.5 + Math.random() * 0.25 - 0.125,
+						0, (float) Math.random() / 50, 0);
 			}
-		} else {
+		} else if (ticksExisted % 4 == 0 || lastMana < 0) {
 			int mana = 0;
 			for (Direction dir : Direction.Plane.HORIZONTAL) {
 				BlockPos pos = getEffectivePos().relative(dir);
@@ -54,9 +62,19 @@ public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 				}
 			}
 
-			int newState = mana > lastMana ? INCREASING : mana < lastMana ? DECREASING : NONE;
+			if (lastMana < 0) {
+				lastMana = mana;
+			}
+
+			ManastarState newState = switch (Mth.sign(mana - lastMana)) {
+				case -1 -> ManastarState.DECREASING;
+				case +1 -> ManastarState.INCREASING;
+				default -> ManastarState.NEUTRAL;
+			};
 			if (newState != state) {
-				getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), SET_STATE_EVENT, newState);
+				getLevel().setBlock(getBlockPos(),
+						getBlockState().setValue(BotaniaStateProperties.MANASTAR_STATE, newState),
+						Block.UPDATE_CLIENTS);
 			}
 
 			if (ticksExisted % 60 == 0) {
@@ -66,15 +84,12 @@ public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 	}
 
 	@Override
-	public boolean triggerEvent(int id, int param) {
-		if (id == SET_STATE_EVENT) {
-			state = param;
-			return true;
-		} else {
-			return super.triggerEvent(id, param);
-		}
+	public boolean isOvergrowthAffected() {
+		// no point double ticking, ever
+		return false;
 	}
 
+	@Nullable
 	@Override
 	public RadiusDescriptor getRadius() {
 		// Manastar is the only flower to not have an AoE as such

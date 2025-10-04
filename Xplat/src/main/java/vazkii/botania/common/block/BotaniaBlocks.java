@@ -298,8 +298,8 @@ public final class BotaniaBlocks {
 	public static final Block pureDaisyFloating = make(floating(LibBlockNames.SUBTILE_PUREDAISY), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.PURE_DAISY));
 	public static final Block pureDaisyPotted = make(potted(LibBlockNames.SUBTILE_PUREDAISY), BotaniaBlocks.flowerPot(pureDaisy, 0));
 
-	public static final Block manastar = make(LibBlockNames.SUBTILE_MANASTAR, new SpecialFlowerBlock(MobEffects.GLOWING, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.MANASTAR));
-	public static final Block manastarFloating = make(floating(LibBlockNames.SUBTILE_MANASTAR), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MANASTAR));
+	public static final Block manastar = make(LibBlockNames.SUBTILE_MANASTAR, new ManastarBlock(MobEffects.GLOWING, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.MANASTAR));
+	public static final Block manastarFloating = make(floating(LibBlockNames.SUBTILE_MANASTAR), new FloatingManastarBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MANASTAR));
 	public static final Block manastarPotted = make(potted(LibBlockNames.SUBTILE_MANASTAR), BotaniaBlocks.flowerPot(manastar, 0));
 
 	public static final Block hydroangeas = make(LibBlockNames.SUBTILE_HYDROANGEAS, new SpecialFlowerBlock(MobEffects.UNLUCK, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS));
