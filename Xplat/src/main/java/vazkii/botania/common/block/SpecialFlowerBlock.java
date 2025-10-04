@@ -34,16 +34,10 @@ import java.util.function.Supplier;
 public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
-	private final boolean hasComparatorOutput;
 
 	public SpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
-		this(stewEffect, stewDuration, props, blockEntityType, false);
-	}
-
-	public SpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType, boolean hasComparatorOutput) {
 		super(stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
-		this.hasComparatorOutput = hasComparatorOutput;
 	}
 
 	@Override
@@ -82,24 +76,6 @@ public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 		if (level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
 			flower.setPlacedBy(level, pos, state, placer, stack);
 		}
-	}
-
-	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-		if (hasComparatorOutput && !newState.hasAnalogOutputSignal()) {
-			level.updateNeighbourForOutputSignal(pos, newState.getBlock());
-		}
-		super.onRemove(state, level, pos, newState, movedByPiston);
-	}
-
-	@Override
-	public boolean hasAnalogOutputSignal(BlockState bs) {
-		return hasComparatorOutput;
-	}
-
-	@Override
-	public int getAnalogOutputSignal(BlockState bs, Level level, BlockPos pos) {
-		return level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower ? flower.getComparatorSignal() : 0;
 	}
 
 }

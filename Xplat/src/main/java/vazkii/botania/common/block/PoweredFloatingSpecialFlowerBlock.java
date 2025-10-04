@@ -44,9 +44,4 @@ public class PoweredFloatingSpecialFlowerBlock extends FloatingSpecialFlowerBloc
 			RedstoneSensitiveBlock.redstoneParticlesInShape(state, world, pos, rand);
 	}
 
-	@Override
-	public boolean isPowered(BlockState state) {
-		return state.getValue(BlockStateProperties.POWERED);
-	}
-
 }

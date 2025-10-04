@@ -310,8 +310,8 @@ public final class BotaniaBlocks {
 	public static final Block endoflameFloating = make(floating(LibBlockNames.SUBTILE_ENDOFLAME), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ENDOFLAME));
 	public static final Block endoflamePotted = make(potted(LibBlockNames.SUBTILE_ENDOFLAME), BotaniaBlocks.flowerPot(endoflame, 0));
 
-	public static final Block thermalily = make(LibBlockNames.SUBTILE_THERMALILY, new SpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.THERMALILY, true));
-	public static final Block thermalilyFloating = make(floating(LibBlockNames.SUBTILE_THERMALILY), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.THERMALILY, true));
+	public static final Block thermalily = make(LibBlockNames.SUBTILE_THERMALILY, new SpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.THERMALILY));
+	public static final Block thermalilyFloating = make(floating(LibBlockNames.SUBTILE_THERMALILY), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.THERMALILY));
 	public static final Block thermalilyPotted = make(potted(LibBlockNames.SUBTILE_THERMALILY), BotaniaBlocks.flowerPot(thermalily, 0));
 
 	public static final Block rosaArcana = make(LibBlockNames.SUBTILE_ARCANE_ROSE, new SpecialFlowerBlock(MobEffects.LUCK, 64, FLOWER_PROPS, () -> BotaniaBlockEntities.ROSA_ARCANA));

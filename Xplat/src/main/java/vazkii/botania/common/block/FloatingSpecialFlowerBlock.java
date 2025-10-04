@@ -25,19 +25,11 @@ import java.util.function.Supplier;
 
 public class FloatingSpecialFlowerBlock extends FloatingFlowerBaseBlock {
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
-	private final boolean hasComparatorOutput;
 
 	public FloatingSpecialFlowerBlock(Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
-		this(props, blockEntityType, false);
-	}
-
-	public FloatingSpecialFlowerBlock(Properties props,
-			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType,
-			boolean hasComparatorOutput) {
 		super(props);
 		this.blockEntityType = blockEntityType;
-		this.hasComparatorOutput = hasComparatorOutput;
 	}
 
 	@Override
@@ -45,14 +37,6 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBaseBlock {
 		if (world.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
 			flower.setPlacedBy(world, pos, state, entity, stack);
 		}
-	}
-
-	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-		if (hasComparatorOutput && !newState.hasAnalogOutputSignal()) {
-			level.updateNeighbourForOutputSignal(pos, newState.getBlock());
-		}
-		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Override
@@ -71,13 +55,4 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBaseBlock {
 		return createTickerHelper(type, blockEntityType.get(), SpecialFlowerBlockEntity::commonTick);
 	}
 
-	@Override
-	public boolean hasAnalogOutputSignal(BlockState bs) {
-		return hasComparatorOutput;
-	}
-
-	@Override
-	public int getAnalogOutputSignal(BlockState bs, Level level, BlockPos pos) {
-		return level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower ? flower.getComparatorSignal() : 0;
-	}
 }

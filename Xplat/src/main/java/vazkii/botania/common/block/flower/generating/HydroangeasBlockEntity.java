@@ -26,14 +26,12 @@ import vazkii.botania.common.lib.BotaniaTags;
 public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
 
-	private static final BlockPos[] OFFSETS = { new BlockPos(0, 0, 1), new BlockPos(0, 0, -1), new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0), new BlockPos(-1, 0, 1), new BlockPos(-1, 0, -1), new BlockPos(1, 0, 1), new BlockPos(1, 0, -1) };
-
 	public static final int DECAY_TIME = 72000;
 
 	private int passiveDecayTicks;
 
 	public HydroangeasBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.HYDROANGEAS, pos, state, BotaniaTags.Fluids.HYDROANGEAS_CONSUMABLE, 40, 1);
+		super(BotaniaBlockEntities.HYDROANGEAS, pos, state, BotaniaTags.Fluids.HYDROANGEAS_CONSUMABLE, 40, 1, 0);
 	}
 
 	@Override
@@ -48,11 +46,6 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 				}
 			}
 		}
-	}
-
-	@Override
-	public int getCooldownTime(boolean finishedPrevious) {
-		return 0; // No cooldown at all
 	}
 
 	@Override

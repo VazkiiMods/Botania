@@ -38,13 +38,14 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 
 	protected int burnTime, cooldown;
 	private final TagKey<Fluid> consumedFluid;
-	private final int startBurnTime, manaPerTick;
+	private final int startBurnTime, manaPerTick, cooldownTime;
 
-	protected FluidGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, TagKey<Fluid> consumedFluid, int startBurnTime, int manaPerTick) {
+	protected FluidGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, TagKey<Fluid> consumedFluid, int startBurnTime, int manaPerTick, int cooldownTime) {
 		super(type, pos, state);
 		this.consumedFluid = consumedFluid;
 		this.startBurnTime = startBurnTime;
 		this.manaPerTick = manaPerTick;
+		this.cooldownTime = cooldownTime;
 	}
 
 	@Override
@@ -97,7 +98,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 							burnTime += startBurnTime + level.getRandom().nextInt(1) - level.getRandom().nextInt(1);
 							level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 						} else {
-							cooldown = getCooldownTime(false);
+							cooldown = cooldownTime;
 						}
 
 						setChanged();
@@ -113,15 +114,13 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 			}
 			burnTime--;
 			if (burnTime == 0) {
-				cooldown = getCooldownTime(true);
+				cooldown = cooldownTime;
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
 				setChanged();
 				sync();
 			}
 		}
 	}
-
-	public abstract int getCooldownTime(boolean finishedPrevious);
 
 	public int getGenerationDelay() {
 		return 1;
