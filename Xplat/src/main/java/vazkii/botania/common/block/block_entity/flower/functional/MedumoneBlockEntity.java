@@ -33,17 +33,18 @@ public class MedumoneBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide && getMana() > 0 && !isPowered()) {
-			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos()).inflate(RANGE));
+		if (getLevel().isClientSide || getMana() == 0 || isPowered()) {
+			return;
+		}
+		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
+				new AABB(getEffectivePos()).inflate(RANGE),
+				livingEntity -> livingEntity.isAlive() && !(livingEntity instanceof Player));
 
-			for (LivingEntity entity : entities) {
-				if (!(entity instanceof Player)) {
-					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 100));
-					addMana(-1);
-					if (getMana() == 0) {
-						return;
-					}
-				}
+		for (LivingEntity entity : entities) {
+			entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 100));
+			addMana(-1);
+			if (getMana() == 0) {
+				return;
 			}
 		}
 	}

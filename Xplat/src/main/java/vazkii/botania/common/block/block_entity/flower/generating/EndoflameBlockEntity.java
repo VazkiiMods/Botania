@@ -65,25 +65,24 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 		if (burnTime == 0) {
 			if (getMana() < getMaxMana()) {
 
-				for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE))) {
-					if (DelayHelper.canInteractWith(this, item)) {
-						ItemStack stack = item.getItem();
-						if (stack.getItem().hasCraftingRemainingItem()) {
-							continue;
-						}
+				for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE),
+						itemEntity -> DelayHelper.canInteractWith(this, itemEntity))) {
+					ItemStack stack = item.getItem();
+					if (stack.getItem().hasCraftingRemainingItem()) {
+						continue;
+					}
 
-						int burnTime = getBurnTime(stack);
-						if (burnTime > 0 && stack.getCount() > 0) {
-							this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
+					int burnTime = getBurnTime(stack);
+					if (burnTime > 0 && stack.getCount() > 0) {
+						this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
-							EntityHelper.shrinkItem(item);
-							getLevel().playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
-							getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
-							getLevel().gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
-							sync();
+						EntityHelper.shrinkItem(item);
+						getLevel().playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
+						getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
+						getLevel().gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
+						sync();
 
-							return;
-						}
+						return;
 					}
 				}
 			}

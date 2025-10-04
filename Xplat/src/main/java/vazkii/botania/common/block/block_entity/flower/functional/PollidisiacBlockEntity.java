@@ -209,9 +209,9 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	}
 
 	public enum Mode implements StringRepresentable, Predicate<Animal> {
-		FEED_ADULTS("feed_adults", Predicate.not(Animal::isBaby)),
-		FEED_BABIES("feed_babies", Animal::isBaby),
-		FEED_ALL("feed_all", animal -> true);
+		FEED_ADULTS("feed_adults", animal -> animal.isAlive() && !animal.isBaby()),
+		FEED_BABIES("feed_babies", animal -> animal.isAlive() && animal.isBaby()),
+		FEED_ALL("feed_all", Animal::isAlive);
 
 		@SuppressWarnings("deprecation")
 		private static final EnumCodec<Mode> CODEC = StringRepresentable.fromEnum(Mode::values);

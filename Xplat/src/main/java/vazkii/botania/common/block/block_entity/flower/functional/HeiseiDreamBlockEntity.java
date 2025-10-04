@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.block_entity.flower.functional;
 
-import com.google.common.base.Predicates;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -41,13 +39,14 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide) {
+		if (getLevel().isClientSide || getMana() < COST) {
 			return;
 		}
 
-		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, new AABB(getEffectivePos()).inflate(RANGE), Predicates.instanceOf(Enemy.class));
+		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, new AABB(getEffectivePos()).inflate(RANGE),
+				mob -> mob instanceof Enemy && mob.isAlive());
 
-		if (mobs.size() > 1 && getMana() >= COST) {
+		if (mobs.size() > 1) {
 			for (Mob mob : mobs) {
 				if (brainwashEntity(mob, mobs)) {
 					addMana(-COST);

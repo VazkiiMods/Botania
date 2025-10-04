@@ -13,7 +13,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Shulker;
@@ -52,38 +51,36 @@ public class ShulkMeNotBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		BlockPos pos = getEffectivePos();
-		Vec3 posD = new Vec3(pos.getX(), pos.getY(), pos.getZ());
-		List<Shulker> shulkers = world.getEntitiesOfClass(Shulker.class, new AABB(pos).inflate(RADIUS), EntitySelector.ENTITY_STILL_ALIVE);
+		Vec3 posD = pos.getCenter();
+		List<Shulker> shulkers = world.getEntitiesOfClass(Shulker.class, new AABB(pos).inflate(RADIUS),
+				shulker -> shulker.isAlive() && shulker.distanceToSqr(posD) < RADIUS * RADIUS);
 		for (Shulker shulker : shulkers) {
-			if (getMaxMana() - getMana() < generate) {
-				break;
-			}
+			LivingEntity target = shulker.getTarget();
+			if (target instanceof Enemy && target.isAlive() && target.distanceToSqr(posD) < RADIUS * RADIUS
+					&& target.getEffect(MobEffects.LEVITATION) != null) {
+				target.discard();
+				shulker.discard();
 
-			if (shulker.isAlive() && shulker.distanceToSqr(posD) < RADIUS * RADIUS) {
-				LivingEntity target = shulker.getTarget();
-				if (target instanceof Enemy && target.isAlive()
-						&& target.distanceToSqr(posD) < RADIUS * RADIUS && target.getEffect(MobEffects.LEVITATION) != null) {
-					target.discard();
-					shulker.discard();
+				world.playSound(null, pos, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
+				world.playSound(null, target, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
+				world.playSound(null, shulker, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
+				if (world instanceof ServerLevel ws) {
+					ws.sendParticles(ParticleTypes.EXPLOSION,
+							target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(),
+							100, target.getBbWidth(), target.getBbHeight(), target.getBbWidth(), 0.05);
+					ws.sendParticles(ParticleTypes.EXPLOSION,
+							shulker.getX(), shulker.getY() + shulker.getBbHeight() / 2, shulker.getZ(),
+							100, shulker.getBbWidth(), shulker.getBbHeight(), shulker.getBbWidth(), 0.05);
+					ws.sendParticles(ParticleTypes.PORTAL,
+							pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+							40, 0, 0, 0, 0.6);
+				}
 
-					world.playSound(null, pos, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
-					world.playSound(null, target, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
-					world.playSound(null, shulker, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
-					if (world instanceof ServerLevel ws) {
-						ws.sendParticles(ParticleTypes.EXPLOSION,
-								target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(),
-								100, target.getBbWidth(), target.getBbHeight(), target.getBbWidth(), 0.05);
-						ws.sendParticles(ParticleTypes.EXPLOSION,
-								shulker.getX(), shulker.getY() + shulker.getBbHeight() / 2, shulker.getZ(),
-								100, shulker.getBbWidth(), shulker.getBbHeight(), shulker.getBbWidth(), 0.05);
-						ws.sendParticles(ParticleTypes.PORTAL,
-								pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-								40, 0, 0, 0, 0.6);
-					}
-
-					world.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
-					addMana(generate);
-					sync();
+				world.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
+				addMana(generate);
+				sync();
+				if (getMaxMana() - getMana() < generate) {
+					break;
 				}
 			}
 		}

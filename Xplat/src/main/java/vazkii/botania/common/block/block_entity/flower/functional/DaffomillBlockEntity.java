@@ -68,15 +68,14 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 			AABB axis = aabbForOrientation();
 
 			if (axis != null) {
-				List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, axis);
+				List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, axis,
+						itemEntity -> DelayHelper.canInteractWithImmediate(this, itemEntity));
 				for (ItemEntity item : items) {
-					if (DelayHelper.canInteractWithImmediate(this, item)) {
-						item.setDeltaMovement(
-								item.getDeltaMovement().x() + orientation.getStepX() * 0.05,
-								item.getDeltaMovement().y() + orientation.getStepY() * 0.05,
-								item.getDeltaMovement().z() + orientation.getStepZ() * 0.05
-						);
-					}
+					item.setDeltaMovement(
+							item.getDeltaMovement().x() + orientation.getStepX() * 0.05,
+							item.getDeltaMovement().y() + orientation.getStepY() * 0.05,
+							item.getDeltaMovement().z() + orientation.getStepZ() * 0.05
+					);
 				}
 			}
 

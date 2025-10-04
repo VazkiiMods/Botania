@@ -9,7 +9,7 @@
 package vazkii.botania.common.block.block_entity.flower.functional;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -28,8 +28,8 @@ public class DreadthornBlockEntity extends BellethornBlockEntity {
 	}
 
 	@Override
-	public Predicate<Entity> getSelector() {
-		return var1 -> var1 instanceof Animal animal && !animal.isBaby();
+	public Predicate<LivingEntity> getSelector() {
+		return var1 -> var1 instanceof Animal animal && animal.isAlive() && !animal.isBaby();
 	}
 
 	@Override

@@ -36,19 +36,23 @@ public class FallenKanadeBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide) {
-			boolean did = false;
-			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos()).inflate(RANGE), FallenKanadeBlockEntity::canHeal);
-			for (LivingEntity toHeal : entities) {
-				if (toHeal.getEffect(MobEffects.REGENERATION) == null && getMana() >= COST) {
-					toHeal.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 59, 2, true, true));
-					addMana(-COST);
-					did = true;
-				}
+		if (getLevel().isClientSide || getMana() < COST) {
+			return;
+		}
+		boolean did = false;
+		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
+				new AABB(getEffectivePos()).inflate(RANGE),
+				e -> canHeal(e) && e.getEffect(MobEffects.REGENERATION) == null);
+		for (LivingEntity toHeal : entities) {
+			toHeal.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 59, 2, true, true));
+			addMana(-COST);
+			did = true;
+			if (getMana() < COST) {
+				break;
 			}
-			if (did) {
-				sync();
-			}
+		}
+		if (did) {
+			sync();
 		}
 	}
 

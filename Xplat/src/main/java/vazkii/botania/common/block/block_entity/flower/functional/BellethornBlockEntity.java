@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.block_entity.flower.functional;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
@@ -60,22 +59,21 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 
 		final int manaToUse = getManaCost();
 
-		if (ticksExisted % 5 == 0) {
+		if (ticksExisted % 5 == 0 && getMana() >= manaToUse) {
 			int range = getRange();
-			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos()).inflate(range), getSelector());
+			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
+					new AABB(getEffectivePos()).inflate(range), getSelector().and(e -> e.hurtTime == 0));
 
 			for (LivingEntity entity : entities) {
+				int dmg = 4;
+				if (entity instanceof Witch) {
+					dmg = 20;
+				}
+
+				entity.hurt(getLevel().damageSources().magic(), dmg);
+				addMana(-manaToUse);
 				if (getMana() < manaToUse) {
 					break;
-				}
-				if (entity.hurtTime == 0) {
-					int dmg = 4;
-					if (entity instanceof Witch) {
-						dmg = 20;
-					}
-
-					entity.hurt(getLevel().damageSources().magic(), dmg);
-					addMana(-manaToUse);
 				}
 			}
 		}
@@ -89,8 +87,8 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 		return RANGE;
 	}
 
-	public Predicate<Entity> getSelector() {
-		return entity -> !(entity instanceof Player);
+	public Predicate<LivingEntity> getSelector() {
+		return entity -> entity.isAlive() && !(entity instanceof Player);
 	}
 
 	@Override

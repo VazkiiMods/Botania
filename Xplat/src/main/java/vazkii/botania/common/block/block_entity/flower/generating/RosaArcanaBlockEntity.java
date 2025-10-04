@@ -58,24 +58,23 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		/* TODO: Now that player and orb yields are identical, it might look better/funnier
 		to instead make xp orbs leak out of the player's head instead directly consuming.
 		*/
-		List<Player> players = getLevel().getEntitiesOfClass(Player.class, effectBounds);
+		List<Player> players = getLevel().getEntitiesOfClass(Player.class, effectBounds,
+				// You would think checking totalExperience is right, but it seems to be
+				// possibly equal to zero even when the level is > 0.
+				// Instead, check the level and intra-level progress separately.
+				player -> (player.experienceLevel > 0 || player.experienceProgress > 0)
+						&& player.onGround());
 		for (Player player : players) {
-			// You would think checking totalExperience is right, but it seems to be
-			// possibly equal to zero even when the level is > 0.
-			// Instead, check the level and intra-level progress separately.
-			if ((player.experienceLevel > 0 || player.experienceProgress > 0)
-					&& player.onGround()) {
-				player.giveExperiencePoints(-1);
-				addMana(MANA_PER_XP);
-				sync();
-				return;
-			}
+			player.giveExperiencePoints(-1);
+			addMana(MANA_PER_XP);
+			sync();
+			return;
 		}
 
-		List<ExperienceOrb> orbs = getLevel().getEntitiesOfClass(ExperienceOrb.class, effectBounds);
+		List<ExperienceOrb> orbs = getLevel().getEntitiesOfClass(ExperienceOrb.class, effectBounds, ExperienceOrb::isAlive);
 		for (ExperienceOrb orb : orbs) {
 			int count = ((ExperienceOrbAccessor) orb).botania_getCount();
-			if (orb.isAlive() && count > 0) {
+			if (count > 0) {
 				addMana(orb.getValue() * MANA_PER_XP);
 				((ExperienceOrbAccessor) orb).botania_setCount(count - 1);
 				if (count == 1) {
