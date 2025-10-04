@@ -16,9 +16,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -44,6 +42,9 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.item.FlowerPlaceable;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.HopperhockFilterType;
+import vazkii.botania.api.state.enums.RannuncarpusMode;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
@@ -63,9 +64,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	private static final int RANGE_PLACE_MANA_MINI = 3;
 	private static final int RANGE_PLACE_MINI = 2;
 	private static final int RANGE_PLACE_Y_MINI = 2;
-	private static final String TAG_STATE_SENSITIVE = "stateSensitive";
 	public static final int PLACE_INTERVAL_TICKS = 10;
-	private boolean stateSensitive = false;
 
 	protected RannuncarpusBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -94,7 +93,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 				}
 
 				ItemStack stack = item.getItem();
-				if (!HopperhockBlockEntity.canAcceptItem(stack, filter, 0)) {
+				if (!HopperhockBlockEntity.canAcceptItem(stack, filter, HopperhockFilterType.ACCEPT_IN_FRAME)) {
 					continue;
 				}
 
@@ -136,6 +135,11 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		}
 	}
 
+	public RannuncarpusMode getFilterType() {
+		return getBlockState().getOptionalValue(BotaniaStateProperties.RANNUNCARPUS_MODE)
+				.orElse(RannuncarpusMode.STATE_INSENSITIVE);
+	}
+
 	private BlockPlaceContext getBlockPlaceContext(ItemStack stack, BlockPos coords) {
 		BlockHitResult ray = new BlockHitResult(new Vec3(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP,
 				coords, false);
@@ -166,7 +170,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 			BlockState up = getLevel().getBlockState(placementPos);
 
 			boolean matches;
-			if (stateSensitive) {
+			if (getFilterType() == RannuncarpusMode.STATE_SENSITIVE) {
 				matches = state == filter;
 			} else {
 				matches = state.is(filter.getBlock());
@@ -191,28 +195,9 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
-		if (cmp.contains(TAG_STATE_SENSITIVE)) {
-			stateSensitive = cmp.getBoolean(TAG_STATE_SENSITIVE);
-		} else {
-			// old flowers stay state sensitive, new flowers are state insensitive
-			stateSensitive = true;
-		}
-	}
-
-	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
-		cmp.putBoolean(TAG_STATE_SENSITIVE, stateSensitive);
-	}
-
-	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
-			stateSensitive = !stateSensitive;
-			setChanged();
-			sync();
+			level.setBlock(getBlockPos(), getBlockState().cycle(BotaniaStateProperties.RANNUNCARPUS_MODE), Block.UPDATE_CLIENTS);
 			return true;
 		}
 		return false;
@@ -227,7 +212,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			ItemStack filterStack = new ItemStack(flower.getUnderlyingBlock().getBlock());
 			int color = flower.getColor();
-			String mode = I18n.get("botaniamisc.rannuncarpus." + (flower.stateSensitive ? "state_sensitive" : "state_insensitive"));
+			String mode = I18n.get("botaniamisc.rannuncarpus." + flower.getFilterType().getSerializedName());
 			int centerY = window.getGuiScaledHeight() / 2;
 			int modeWidth = font.width(mode);
 			int modeTextStart = (window.getGuiScaledWidth() - modeWidth) / 2;
@@ -244,6 +229,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), getPlaceRange());
 	}
 
+	@Nullable
 	@Override
 	public RadiusDescriptor getSecondaryRadius() {
 		if (getPlaceRange() == PICKUP_RANGE && getEffectivePos().equals(getBlockPos())) {

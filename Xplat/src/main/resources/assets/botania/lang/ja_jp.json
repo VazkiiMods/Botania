@@ -23,9 +23,9 @@
   "botaniamisc.creative": "クリエイティブ",
   "botaniamisc.invFull": "インベントリがいっぱいです",
   "botaniamisc.composite_lens": "%s と複合している",
-  "botaniamisc.filter0": "フレーム内のアイテムのみを拾う",
-  "botaniamisc.filter1": "フレーム内のアイテム以外を拾う",
-  "botaniamisc.filter2": "すべてのアイテムを拾う",
+  "botaniamisc.filter.items_in_frames": "フレーム内のアイテムのみを拾う",
+  "botaniamisc.filter.items_not_in_frames": "フレーム内のアイテム以外を拾う",
+  "botaniamisc.filter.all_items": "すべてのアイテムを拾う",
   "botaniamisc.retainer.retain_all": "要求されたアイテムの数を保持する",
   "botaniamisc.retainer.retain_missing": "不足しているアイテムの数を保持する",
 

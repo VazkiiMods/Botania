@@ -15,11 +15,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -29,6 +28,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.HopperhockFilterType;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.*;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
@@ -42,14 +43,11 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implements Wandable {
-	private static final String TAG_FILTER_TYPE = "filterType";
 	private static final int RANGE_MANA = 10;
 	private static final int RANGE = 6;
 
 	private static final int RANGE_MANA_MINI = 2;
 	private static final int RANGE_MINI = 1;
-
-	private int filterType = 0;
 
 	protected HopperhockBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -89,6 +87,11 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		}
 	}
 
+	public HopperhockFilterType getFilterType() {
+		return getBlockState().getOptionalValue(BotaniaStateProperties.HOPPERHOCK_FILTER)
+				.orElse(HopperhockFilterType.ACCEPT_IN_FRAME);
+	}
+
 	private List<ItemEntity> getItemEntities(BlockPos inPos, int range) {
 		Predicate<ItemEntity> shouldPickup = item -> {
 			if (XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
@@ -113,10 +116,9 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			Direction sideOfInventory = dir.getOpposite();
 
 			if (XplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)) {
-				// TODO: filter type handling is not great
-				List<ItemStack> filter = filterType != 2
+				List<ItemStack> filter = getFilterType() != HopperhockFilterType.ACCEPT_ALL
 						// don't bother looking for filters if the flower ignores them anyway
-						? FilterHelper.getFiltersOnBlock(getLevel(), inventoryPos, true)
+						? FilterHelper.getFiltersOnBlock(level, inventoryPos, true)
 						: List.of();
 				if (filter.isEmpty()) {
 					unfilteredDirections.add(dir);
@@ -159,49 +161,36 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		BlockPos inventoryPos = outPos.relative(dir);
 		Direction sideOfInventory = dir.getOpposite();
 		return XplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)
-				&& canAcceptItem(stack, filter, filterType)
+				&& canAcceptItem(stack, filter, getFilterType())
 						? XplatAbstractions.INSTANCE.insertToInventory(level, inventoryPos, sideOfInventory, stack, false)
 						: stack;
 	}
 
-	public static boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, int filterType) {
+	public static boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, HopperhockFilterType filterType) {
 		if (stack.isEmpty()) {
 			return false;
 		}
 
-		if (filter.isEmpty()) {
+		if (filter.isEmpty() || filterType == HopperhockFilterType.ACCEPT_ALL) {
 			return true;
 		}
 
-		switch (filterType) {
-			case 0: { // Accept items in frames only
-				boolean anyFilter = false;
-				for (ItemStack filterEntry : filter) {
-					if (filterEntry == null || filterEntry.isEmpty()) {
-						continue;
-					}
-					anyFilter = true;
-
-					if (DataComponentHelper.matchTagAndManaFullness(stack, filterEntry)) {
-						return true;
-					}
-				}
-
-				return !anyFilter;
+		for (ItemStack filterEntry : filter) {
+			if (filterEntry.isEmpty()) {
+				continue;
 			}
-			case 1:
-				return !canAcceptItem(stack, filter, 0); // Accept items not in frames only
-			default:
-				return true; // Accept all items
+			if (DataComponentHelper.matchTagAndManaFullness(stack, filterEntry)) {
+				return filterType == HopperhockFilterType.ACCEPT_IN_FRAME;
+			}
 		}
+
+		return filterType == HopperhockFilterType.ACCEPT_NOT_IN_FRAME;
 	}
 
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
-			filterType = filterType == 2 ? 0 : filterType + 1;
-			sync();
-
+			level.setBlock(getBlockPos(), getBlockState().cycle(BotaniaStateProperties.HOPPERHOCK_FILTER), Block.UPDATE_CLIENTS);
 			return true;
 		}
 		return false;
@@ -226,20 +215,6 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		return getMana() > 0 ? RANGE_MANA : RANGE;
 	}
 
-	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
-
-		cmp.putInt(TAG_FILTER_TYPE, filterType);
-	}
-
-	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
-
-		filterType = cmp.getInt(TAG_FILTER_TYPE);
-	}
-
 	public static class WandHud extends BindableFlowerWandHud<HopperhockBlockEntity> {
 		public WandHud(HopperhockBlockEntity flower) {
 			super(flower);
@@ -247,7 +222,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 
 		@Override
 		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
-			String filter = I18n.get("botaniamisc.filter" + flower.filterType);
+			String filter = I18n.get("botaniamisc.filter." + flower.getFilterType().getSerializedName());
 			int filterWidth = font.width(filter);
 			int filterTextStart = (window.getGuiScaledWidth() - filterWidth) / 2;
 			int halfMinWidth = (filterWidth + 4) / 2;

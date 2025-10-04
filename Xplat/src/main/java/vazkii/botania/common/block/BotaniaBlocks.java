@@ -400,10 +400,10 @@ public final class BotaniaBlocks {
 	public static final Block agricarnationPotted = make(potted(LibBlockNames.SUBTILE_AGRICARNATION), BotaniaBlocks.flowerPot(agricarnation, 0));
 	public static final Block agricarnationChibiPotted = make(chibi(potted(LibBlockNames.SUBTILE_AGRICARNATION)), BotaniaBlocks.flowerPot(agricarnationChibi, 0));
 
-	public static final Block hopperhock = make(LibBlockNames.SUBTILE_HOPPERHOCK, new PoweredSpecialFlowerBlock(MobEffects.MOVEMENT_SPEED, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK));
-	public static final Block hopperhockChibi = make(chibi(LibBlockNames.SUBTILE_HOPPERHOCK), new PoweredSpecialFlowerBlock(MobEffects.MOVEMENT_SPEED, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK_CHIBI));
-	public static final Block hopperhockFloating = make(floating(LibBlockNames.SUBTILE_HOPPERHOCK), new PoweredFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK));
-	public static final Block hopperhockChibiFloating = make(chibi(floating(LibBlockNames.SUBTILE_HOPPERHOCK)), new PoweredFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK_CHIBI));
+	public static final Block hopperhock = make(LibBlockNames.SUBTILE_HOPPERHOCK, new HopperhockBlock(MobEffects.MOVEMENT_SPEED, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK));
+	public static final Block hopperhockChibi = make(chibi(LibBlockNames.SUBTILE_HOPPERHOCK), new HopperhockBlock(MobEffects.MOVEMENT_SPEED, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK_CHIBI));
+	public static final Block hopperhockFloating = make(floating(LibBlockNames.SUBTILE_HOPPERHOCK), new FloatingHopperhockBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK));
+	public static final Block hopperhockChibiFloating = make(chibi(floating(LibBlockNames.SUBTILE_HOPPERHOCK)), new FloatingHopperhockBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HOPPERHOCK_CHIBI));
 	public static final Block hopperhockPotted = make(potted(LibBlockNames.SUBTILE_HOPPERHOCK), BotaniaBlocks.flowerPot(hopperhock, 0));
 	public static final Block hopperhockChibiPotted = make(chibi(potted(LibBlockNames.SUBTILE_HOPPERHOCK)), BotaniaBlocks.flowerPot(hopperhockChibi, 0));
 
@@ -421,10 +421,10 @@ public final class BotaniaBlocks {
 	public static final Block jiyuuliaPotted = make(potted(LibBlockNames.SUBTILE_JIYUULIA), BotaniaBlocks.flowerPot(jiyuulia, 0));
 	public static final Block jiyuuliaChibiPotted = make(chibi(potted(LibBlockNames.SUBTILE_JIYUULIA)), BotaniaBlocks.flowerPot(jiyuuliaChibi, 0));
 
-	public static final Block rannuncarpus = make(LibBlockNames.SUBTILE_RANNUNCARPUS, new PoweredSpecialFlowerBlock(MobEffects.JUMP, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS));
-	public static final Block rannuncarpusChibi = make(chibi(LibBlockNames.SUBTILE_RANNUNCARPUS), new PoweredSpecialFlowerBlock(MobEffects.JUMP, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS_CHIBI));
-	public static final Block rannuncarpusFloating = make(floating(LibBlockNames.SUBTILE_RANNUNCARPUS), new PoweredFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS));
-	public static final Block rannuncarpusChibiFloating = make(chibi(floating(LibBlockNames.SUBTILE_RANNUNCARPUS)), new PoweredFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS_CHIBI));
+	public static final Block rannuncarpus = make(LibBlockNames.SUBTILE_RANNUNCARPUS, new RannuncarpusBlock(MobEffects.JUMP, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS));
+	public static final Block rannuncarpusChibi = make(chibi(LibBlockNames.SUBTILE_RANNUNCARPUS), new RannuncarpusBlock(MobEffects.JUMP, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS_CHIBI));
+	public static final Block rannuncarpusFloating = make(floating(LibBlockNames.SUBTILE_RANNUNCARPUS), new FloatingRannuncarpusBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS));
+	public static final Block rannuncarpusChibiFloating = make(chibi(floating(LibBlockNames.SUBTILE_RANNUNCARPUS)), new FloatingRannuncarpusBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.RANNUNCARPUS_CHIBI));
 	public static final Block rannuncarpusPotted = make(potted(LibBlockNames.SUBTILE_RANNUNCARPUS), BotaniaBlocks.flowerPot(rannuncarpus, 0));
 	public static final Block rannuncarpusChibiPotted = make(chibi(potted(LibBlockNames.SUBTILE_RANNUNCARPUS)), BotaniaBlocks.flowerPot(rannuncarpusChibi, 0));
 
