@@ -48,7 +48,8 @@ public final class BotaniaStateProperties {
 	// ManaPoolBlock
 	public static final BooleanProperty OUTPUTTING = BooleanProperty.create("outputting");
 
-	// various special flowers
+	// various flowers
+	public static final BooleanProperty DIMMED = BooleanProperty.create("dimmed");
 	public static final EnumProperty<HopperhockFilterType> HOPPERHOCK_FILTER = EnumProperty.create("filter_type", HopperhockFilterType.class);
 	public static final EnumProperty<RannuncarpusMode> RANNUNCARPUS_MODE = EnumProperty.create("mode", RannuncarpusMode.class);
 

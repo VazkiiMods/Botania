@@ -262,6 +262,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		tag(BotaniaTags.Items.MANA_POOL_DYE_REMOVER).add(Items.CLAY_BALL);
 
+		tag(BotaniaTags.Items.DIMS_FLOATING_FLOWERS).add(Items.INK_SAC);
+		tag(BotaniaTags.Items.UNDIMS_FLOATING_FLOWERS).add(Items.GLOW_INK_SAC);
+
 		copy(BotaniaTags.Blocks.COVERED_MANA_SPREADERS, BotaniaTags.Items.COVERED_MANA_SPREADERS);
 		copy(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS, BotaniaTags.Items.COVERED_PULSE_SPREADERS);
 		copy(BotaniaTags.Blocks.COVERED_ELVEN_SPREADERS, BotaniaTags.Items.COVERED_ELVEN_SPREADERS);

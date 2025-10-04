@@ -1,6 +1,7 @@
 package vazkii.botania.common.block.block_entity.flower;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Items;
 
 import vazkii.botania.api.block.IslandType;
@@ -13,16 +14,16 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaIslandTypes {
 
-	public static final IslandType GRASS = new IslandType(BotaniaItems.grassSeeds, 0);
-	public static final IslandType PODZOL = new IslandType(BotaniaItems.podzolSeeds, SpecialFlowerBlockEntity.PODZOL_DELAY);
-	public static final IslandType MYCELIUM = new IslandType(BotaniaItems.mycelSeeds, SpecialFlowerBlockEntity.MYCELIUM_DELAY);
-	public static final IslandType SNOW = new IslandType(Items.SNOWBALL, 0);
-	public static final IslandType DRY = new IslandType(BotaniaItems.drySeeds, 0);
-	public static final IslandType GOLDEN = new IslandType(BotaniaItems.goldenSeeds, 0);
-	public static final IslandType VIVID = new IslandType(BotaniaItems.vividSeeds, 0);
-	public static final IslandType SCORCHED = new IslandType(BotaniaItems.scorchedSeeds, 0);
-	public static final IslandType INFUSED = new IslandType(BotaniaItems.infusedSeeds, 0);
-	public static final IslandType MUTATED = new IslandType(BotaniaItems.mutatedSeeds, 0);
+	public static final IslandType GRASS = new IslandType(BotaniaItems.grassSeeds, 0, SoundEvents.GRAVEL_PLACE);
+	public static final IslandType PODZOL = new IslandType(BotaniaItems.podzolSeeds, SpecialFlowerBlockEntity.PODZOL_DELAY, SoundEvents.GRAVEL_PLACE);
+	public static final IslandType MYCELIUM = new IslandType(BotaniaItems.mycelSeeds, SpecialFlowerBlockEntity.MYCELIUM_DELAY, SoundEvents.GRAVEL_PLACE);
+	public static final IslandType SNOW = new IslandType(Items.SNOWBALL, 0, SoundEvents.SNOW_PLACE);
+	public static final IslandType DRY = new IslandType(BotaniaItems.drySeeds, 0, SoundEvents.GRAVEL_PLACE);
+	public static final IslandType GOLDEN = new IslandType(BotaniaItems.goldenSeeds, 0, SoundEvents.GRAVEL_PLACE);
+	public static final IslandType VIVID = new IslandType(BotaniaItems.vividSeeds, 0, SoundEvents.GRAVEL_PLACE);
+	public static final IslandType SCORCHED = new IslandType(BotaniaItems.scorchedSeeds, 0, SoundEvents.GRAVEL_PLACE);
+	public static final IslandType INFUSED = new IslandType(BotaniaItems.infusedSeeds, 0, SoundEvents.GRAVEL_PLACE);
+	public static final IslandType MUTATED = new IslandType(BotaniaItems.mutatedSeeds, 0, SoundEvents.GRAVEL_PLACE);
 
 	public static void registerIslandTypes(BiConsumer<IslandType, ResourceLocation> r) {
 		r.accept(GRASS, IslandType.DEFAULT_ID);

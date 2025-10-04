@@ -173,7 +173,7 @@ public final class BotaniaBlocks {
 	public static final Block blackBuriedPetals = make("black" + LibBlockNames.BURIED_PETALS_SUFFIX, new BuriedPetalBlock(DyeColor.BLACK,
 			BotaniaBlocks::getDoubleFlower, BlockBehaviour.Properties.ofFullCopy(whiteBuriedPetals)));
 
-	public static final BlockBehaviour.Properties FLOATING_PROPS = BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> 15);
+	public static final BlockBehaviour.Properties FLOATING_PROPS = BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> s.getValue(BotaniaStateProperties.DIMMED) ? 3 : 15);
 	public static final Block whiteFloatingFlower = make("white" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.WHITE, FLOATING_PROPS));
 	public static final Block orangeFloatingFlower = make("orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.ORANGE, FLOATING_PROPS));
 	public static final Block magentaFloatingFlower = make("magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX, new FloatingMundaneFlowerBlock(DyeColor.MAGENTA, FLOATING_PROPS));

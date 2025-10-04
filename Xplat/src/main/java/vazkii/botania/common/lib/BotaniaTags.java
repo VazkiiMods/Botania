@@ -131,6 +131,9 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Item> PICKABLE_BLOCK_PROVIDER = tag("pickable_block_providers");
 
+		public static final TagKey<Item> DIMS_FLOATING_FLOWERS = tag("dims_floating_flowers");
+		public static final TagKey<Item> UNDIMS_FLOATING_FLOWERS = tag("undims_floating_flowers");
+
 		public static TagKey<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
 				case WHITE -> PETALS_WHITE;
