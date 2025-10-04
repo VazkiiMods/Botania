@@ -6,11 +6,12 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.functional;
+package vazkii.botania.common.block.block_entity.flower;
 
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +29,8 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 	private static final int RANGE = 4;
 	private static final Set<BergamuteBlockEntity> clientFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final Set<BergamuteBlockEntity> serverFlowers = Collections.newSetFromMap(new WeakHashMap<>());
-	private boolean disabled = false;
+
+	private boolean added = false;
 
 	public BergamuteBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.BERGAMUTE, pos, state);
@@ -38,11 +40,13 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		disabled = getLevel().hasNeighborSignal(getBlockPos());
-		if (getLevel().isClientSide) {
-			clientFlowers.add(this);
-		} else {
-			serverFlowers.add(this);
+		if (!added) {
+			if (getLevel().isClientSide) {
+				clientFlowers.add(this);
+			} else {
+				serverFlowers.add(this);
+			}
+			added = true;
 		}
 	}
 
@@ -56,24 +60,28 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 		}
 	}
 
+	@Override
+	public boolean isOvergrowthAffected() {
+		// no point double ticking
+		return false;
+	}
+
 	public static Pair<Integer, BergamuteBlockEntity> getBergamutesNearby(Level level, double x, double y, double z, int maxCount) {
 		int count = 0;
 		BergamuteBlockEntity tile = null;
 
 		for (BergamuteBlockEntity f : level.isClientSide ? clientFlowers : serverFlowers) {
-			if (!f.disabled
-					&& level == f.level
-					&& f.getEffectivePos().distToCenterSqr(x, y, z) <= RANGE * RANGE) {
-				count++;
-				if (count == 1) {
+			if (level == f.level && !f.isPowered() && f.getEffectivePos().distToCenterSqr(x, y, z) <= RANGE * RANGE) {
+				if (count == 0 || level.random.nextInt(count) == 0) {
 					tile = f;
 				}
+				count += f.isOnSpecialSoil() ? 2 : 1;
 				if (count >= maxCount) {
 					break;
 				}
 			}
 		}
-		return Pair.of(count, tile);
+		return Pair.of(Math.min(count, maxCount), tile);
 	}
 
 	public static boolean isBergamuteNearby(Level level, double x, double y, double z) {
@@ -100,7 +108,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 		Vec3 vibrationTravelDir = vibrationTravelVector.normalize();
 
 		for (BergamuteBlockEntity f : level.isClientSide ? clientFlowers : serverFlowers) {
-			if (f.disabled || f.level != level) {
+			if (f.level != level || f.isPowered()) {
 				continue;
 			}
 
@@ -118,10 +126,10 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 
 	public static void particle(BergamuteBlockEntity berg) {
 		int color = ManaPoolBlockEntity.PARTICLE_COLOR;
-		float red = (color >> 16 & 0xFF) / 255F;
-		float green = (color >> 8 & 0xFF) / 255F;
-		float blue = (color & 0xFF) / 255F;
-		SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 5);
+		float red = FastColor.ARGB32.red(color) / 255f;
+		float green = FastColor.ARGB32.green(color) / 255f;
+		float blue = FastColor.ARGB32.blue(color) / 255f;
+		SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random() * 0.8f + 0.2f, red, green, blue, 5);
 		berg.emitParticle(data, 0.3 + Math.random() * 0.5, 0.5 + Math.random() * 0.5, 0.3 + Math.random() * 0.5, 0, 0, 0);
 	}
 

@@ -26,7 +26,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.block.block_entity.flower.functional.BergamuteBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.BergamuteBlockEntity;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.mixin.ArmadilloAccessor;

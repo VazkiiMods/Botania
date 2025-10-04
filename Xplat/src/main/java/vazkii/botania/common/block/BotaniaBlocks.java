@@ -361,8 +361,8 @@ public final class BotaniaBlocks {
 	public static final Block bellethornPotted = make(potted(LibBlockNames.SUBTILE_BELLETHORN), BotaniaBlocks.flowerPot(bellethorn, 0));
 	public static final Block bellethornChibiPotted = make(chibi(potted(LibBlockNames.SUBTILE_BELLETHORN)), BotaniaBlocks.flowerPot(bellethornChibi, 0));
 
-	public static final Block bergamute = make(LibBlockNames.SUBTILE_BERGAMUTE, new SpecialFlowerBlock(MobEffects.BLINDNESS, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.BERGAMUTE));
-	public static final Block bergamuteFloating = make(floating(LibBlockNames.SUBTILE_BERGAMUTE), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.BERGAMUTE));
+	public static final Block bergamute = make(LibBlockNames.SUBTILE_BERGAMUTE, new PoweredSpecialFlowerBlock(MobEffects.BLINDNESS, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.BERGAMUTE));
+	public static final Block bergamuteFloating = make(floating(LibBlockNames.SUBTILE_BERGAMUTE), new PoweredFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.BERGAMUTE));
 	public static final Block bergamutePotted = make(potted(LibBlockNames.SUBTILE_BERGAMUTE), BotaniaBlocks.flowerPot(bergamute, 0));
 
 	public static final Block dreadthorn = make(LibBlockNames.SUBTILE_DREADTHORN, new PoweredSpecialFlowerBlock(MobEffects.WITHER, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.DREADTHORN));
