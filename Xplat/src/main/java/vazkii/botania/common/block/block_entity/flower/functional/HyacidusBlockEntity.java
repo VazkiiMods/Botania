@@ -35,15 +35,20 @@ public class HyacidusBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered()) {
+		if (getLevel().isClientSide || getMana() < COST || isPowered()) {
 			return;
 		}
 
-		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos()).inflate(RANGE));
+		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
+				new AABB(getEffectivePos()).inflate(RANGE),
+				livingEntity -> livingEntity.isAlive() && !(livingEntity instanceof Player)
+						&& livingEntity.getEffect(MobEffects.POISON) == null
+						&& !livingEntity.getType().is(EntityTypeTags.UNDEAD));
 		for (LivingEntity entity : entities) {
-			if (!(entity instanceof Player) && entity.getEffect(MobEffects.POISON) == null && getMana() >= COST && !entity.level().isClientSide && entity.getType().is(EntityTypeTags.UNDEAD)) {
-				entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
-				addMana(-COST);
+			entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
+			addMana(-COST);
+			if (getMana() < COST) {
+				break;
 			}
 		}
 	}
