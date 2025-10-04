@@ -10,6 +10,7 @@ package vazkii.botania.common.block.block_entity.flower.functional;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -44,21 +45,23 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide) {
+		if (getLevel().isClientSide || getMana() < COST) {
 			return;
 		}
 
-		for (Creeper entity : getLevel().getEntitiesOfClass(Creeper.class, new AABB(getEffectivePos()).inflate(RANGE))) {
+		for (Creeper entity : getLevel().getEntitiesOfClass(Creeper.class,
+				new AABB(getEffectivePos()).inflate(RANGE, RANGE_Y, RANGE), Creeper::isAlive)) {
 			((CreeperAccessor) entity).setCurrentFuseTime(2);
 			entity.setTarget(null);
 
-			if (getMana() >= COST) {
-				if (pacifyCreeper(entity)) {
-					XplatAbstractions.INSTANCE.tigersEyeComponent(entity).setPacified();
-					entity.playSound(BotaniaSounds.tigerseyePacify, 1.0F, (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
-					level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
-					addMana(-COST);
-					sync();
+			if (pacifyCreeper(entity)) {
+				XplatAbstractions.INSTANCE.tigersEyeComponent(entity).setPacified();
+				entity.playSound(BotaniaSounds.tigerseyePacify, 1.0F, (float) level.random.triangle(1.0, 0.2));
+				level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
+				addMana(-COST);
+				sync();
+				if (getMana() < COST) {
+					break;
 				}
 			}
 		}
@@ -101,9 +104,10 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 			if (level.isClientSide) {
 				Entity e = level.getEntity(payload);
 				if (e != null) {
-					float r = (getColor() >> 16 & 0xFF) / 255F;
-					float g = (getColor() >> 8 & 0xFF) / 255F;
-					float b = (getColor() & 0xFF) / 255F;
+					int color = getColor();
+					float r = FastColor.ARGB32.red(color) / 255f;
+					float g = FastColor.ARGB32.green(color) / 255f;
+					float b = FastColor.ARGB32.blue(color) / 255f;
 					SparkleParticleData data = SparkleParticleData.sparkle(level.random.nextFloat(), r, g, b, 10);
 
 					for (int i = 0; i < 50; i++) {
