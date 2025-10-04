@@ -447,8 +447,8 @@ public final class BotaniaBlocks {
 	public static final Block looniumFloating = make(floating(LibBlockNames.SUBTILE_LOONIUM), new PoweredFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.LOONIUM));
 	public static final Block looniumPotted = make(potted(LibBlockNames.SUBTILE_LOONIUM), BotaniaBlocks.flowerPot(loonium, 0));
 
-	public static final Block daffomill = make(LibBlockNames.SUBTILE_DAFFOMILL, new PoweredSpecialFlowerBlock(MobEffects.LEVITATION, 6, FLOWER_PROPS, () -> BotaniaBlockEntities.DAFFOMILL));
-	public static final Block daffomillFloating = make(floating(LibBlockNames.SUBTILE_DAFFOMILL), new PoweredFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.DAFFOMILL));
+	public static final Block daffomill = make(LibBlockNames.SUBTILE_DAFFOMILL, new DaffomillBlock(MobEffects.LEVITATION, 6, FLOWER_PROPS, () -> BotaniaBlockEntities.DAFFOMILL));
+	public static final Block daffomillFloating = make(floating(LibBlockNames.SUBTILE_DAFFOMILL), new FloatingDaffomillBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.DAFFOMILL));
 	public static final Block daffomillPotted = make(potted(LibBlockNames.SUBTILE_DAFFOMILL), BotaniaBlocks.flowerPot(daffomill, 0));
 
 	public static final Block vinculotus = make(LibBlockNames.SUBTILE_VINCULOTUS, new PoweredSpecialFlowerBlock(MobEffects.NIGHT_VISION, 900, FLOWER_PROPS, () -> BotaniaBlockEntities.VINCULOTUS));

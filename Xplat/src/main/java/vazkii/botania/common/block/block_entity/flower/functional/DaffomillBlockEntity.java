@@ -14,12 +14,12 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
@@ -36,11 +36,9 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.List;
 
 public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements Wandable {
-	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
 
 	private int windTicks = 0;
-	private Direction orientation = Direction.NORTH;
 
 	public DaffomillBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.DAFFOMILL, pos, state);
@@ -54,6 +52,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 			return;
 		}
 
+		var orientation = getOrientation();
 		if (level.isClientSide() && level.random.nextInt(4) == 0) {
 			WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
 			emitParticle(data, Math.random(), Math.random(), Math.random(), orientation.getStepX() * 0.1F, orientation.getStepY() * 0.1F, orientation.getStepZ() * 0.1F);
@@ -83,6 +82,10 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 		}
 	}
 
+	public Direction getOrientation() {
+		return getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
+	}
+
 	@Nullable
 	private AABB aabbForOrientation() {
 		int x = getEffectivePos().getX();
@@ -92,7 +95,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 		int h = 3;
 		int l = 16;
 
-		return switch (orientation) {
+		return switch (getOrientation()) {
 			case NORTH -> new AABB(x - w, y - h, z - l, x + w + 1, y + h, z);
 			case SOUTH -> new AABB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
 			case WEST -> new AABB(x - l, y - h, z - w, x, y + h, z + w + 1);
@@ -108,19 +111,13 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 		}
 
 		if (!player.level().isClientSide) {
-			orientation = orientation.getClockWise();
-			sync();
+			// TODO: should this make some kind of sound and/or indicate the new orientation more clearly?
+			level.setBlock(getBlockPos(),
+					getBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, getOrientation().getClockWise()),
+					Block.UPDATE_CLIENTS);
 		}
 
 		return true;
-	}
-
-	@Override
-	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (placer != null) {
-			orientation = placer.getDirection();
-		}
-		super.setPlacedBy(level, pos, state, placer, stack);
 	}
 
 	@Override
@@ -144,7 +141,6 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.writeToPacketNBT(cmp, registries);
 
-		cmp.putInt(TAG_ORIENTATION, orientation.get3DDataValue());
 		cmp.putInt(TAG_WIND_TICKS, windTicks);
 	}
 
@@ -152,7 +148,6 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.readFromPacketNBT(cmp, registries);
 
-		orientation = Direction.from3DDataValue(cmp.getInt(TAG_ORIENTATION));
 		windTicks = cmp.getInt(TAG_WIND_TICKS);
 	}
 
