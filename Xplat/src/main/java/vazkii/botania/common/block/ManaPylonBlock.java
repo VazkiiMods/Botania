@@ -19,6 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.PylonBlockEntity;
+import vazkii.botania.common.block.flower.BotaniaFlowerBlock;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 
 public class ManaPylonBlock extends PylonBlock {

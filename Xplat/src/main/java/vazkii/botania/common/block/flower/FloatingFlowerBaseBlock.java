@@ -1,4 +1,4 @@
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.flower;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -24,7 +24,8 @@ import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 

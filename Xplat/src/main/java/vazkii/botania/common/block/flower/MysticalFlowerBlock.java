@@ -1,4 +1,4 @@
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.flower;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;

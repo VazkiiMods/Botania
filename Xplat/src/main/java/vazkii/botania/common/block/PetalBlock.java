@@ -6,12 +6,11 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.decor;
+package vazkii.botania.common.block;
 
 import net.minecraft.world.item.DyeColor;
 
 import vazkii.botania.api.internal.Colored;
-import vazkii.botania.common.block.BotaniaBlock;
 
 public class PetalBlock extends BotaniaBlock implements Colored {
 

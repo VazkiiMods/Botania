@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.Blocks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.FloatingFlowerBaseBlock;
+import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
 import vazkii.botania.common.item.GrassSeedsItem;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 

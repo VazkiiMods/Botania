@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.TallFlowerBlock;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.FloatingFlowerBaseBlock;
-import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
+import vazkii.botania.common.block.BotaniaMushroomBlock;
+import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
 
 import java.util.function.BiConsumer;
 

@@ -1,4 +1,4 @@
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.flower;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

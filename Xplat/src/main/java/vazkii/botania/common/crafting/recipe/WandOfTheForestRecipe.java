@@ -22,7 +22,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
-import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
+import vazkii.botania.common.block.BotaniaMushroomBlock;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.mixin.ShapedRecipeAccessor;

@@ -1,7 +1,9 @@
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.flower;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -15,10 +17,10 @@ import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 
 import java.util.function.Supplier;
 
-public class PoweredFloatingSpecialFlowerBlock extends FloatingSpecialFlowerBlock implements RedstoneSensitiveBlock {
-	public PoweredFloatingSpecialFlowerBlock(Properties props,
+public class PoweredSpecialFlowerBlock extends SpecialFlowerBlock implements RedstoneSensitiveBlock {
+	public PoweredSpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
-		super(props, blockEntityType);
+		super(stewEffect, stewDuration, props, blockEntityType);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
@@ -40,8 +42,9 @@ public class PoweredFloatingSpecialFlowerBlock extends FloatingSpecialFlowerBloc
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (isPowered(state))
+		if (isPowered(state)) {
 			RedstoneSensitiveBlock.redstoneParticlesInShape(state, world, pos, rand);
+		}
 	}
 
 }

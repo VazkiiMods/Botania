@@ -46,7 +46,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.decor.TinyPotatoBlock;
+import vazkii.botania.common.block.TinyPotatoBlock;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;

@@ -9,6 +9,6 @@
  */
 
 @NotNullByDefault
-package vazkii.botania.common.block.decor;
+package vazkii.botania.common.block.flower;
 
 import org.jetbrains.annotations.NotNullByDefault;

@@ -19,7 +19,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaFlowerBlock;
+import vazkii.botania.common.block.flower.BotaniaFlowerBlock;
 
 /**
  * This Feature is essentially the same as vanilla's

@@ -39,8 +39,12 @@ import net.minecraft.world.level.block.WallBlock;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
-import vazkii.botania.common.block.decor.FlowerMotifBlock;
+import vazkii.botania.common.block.BotaniaMushroomBlock;
+import vazkii.botania.common.block.flower.BotaniaDoubleFlowerBlock;
+import vazkii.botania.common.block.flower.BotaniaFlowerBlock;
+import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
+import vazkii.botania.common.block.flower.FlowerMotifBlock;
+import vazkii.botania.common.block.flower.SpecialFlowerBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.helper.ColorHelper;

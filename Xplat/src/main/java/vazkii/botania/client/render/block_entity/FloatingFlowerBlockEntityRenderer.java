@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.ClientXplatAbstractions;

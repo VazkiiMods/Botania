@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 
-import vazkii.botania.common.block.FloatingFlowerBaseBlock;
+import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
 
 @Mixin(FarmBlock.class)
 public class FarmBlockMixin {

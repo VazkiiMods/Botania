@@ -32,8 +32,8 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.BotaniaIslandTypes;
+import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
 
 import java.util.*;
 import java.util.function.Function;

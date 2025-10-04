@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.common.block.FloatingSpecialFlowerBlock;
-import vazkii.botania.common.block.SpecialFlowerBlock;
+import vazkii.botania.common.block.flower.FloatingSpecialFlowerBlock;
+import vazkii.botania.common.block.flower.SpecialFlowerBlock;
 
 import java.util.Collection;
 import java.util.Locale;

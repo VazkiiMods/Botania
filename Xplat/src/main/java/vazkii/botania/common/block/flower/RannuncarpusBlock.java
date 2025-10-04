@@ -1,5 +1,7 @@
-package vazkii.botania.common.block;
+package vazkii.botania.common.block.flower;
 
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -11,11 +13,11 @@ import vazkii.botania.api.state.enums.RannuncarpusMode;
 
 import java.util.function.Supplier;
 
-public class FloatingRannuncarpusBlock extends PoweredFloatingSpecialFlowerBlock {
-
-	public FloatingRannuncarpusBlock(Properties props,
+public class RannuncarpusBlock extends PoweredSpecialFlowerBlock {
+	public RannuncarpusBlock(Holder<MobEffect> stewEffect, int stewDuration,
+			Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
-		super(props, blockEntityType);
+		super(stewEffect, stewDuration, props, blockEntityType);
 		registerDefaultState(defaultBlockState()
 				.setValue(BotaniaStateProperties.RANNUNCARPUS_MODE, RannuncarpusMode.STATE_INSENSITIVE));
 	}
@@ -25,4 +27,5 @@ public class FloatingRannuncarpusBlock extends PoweredFloatingSpecialFlowerBlock
 		super.createBlockStateDefinition(builder);
 		builder.add(BotaniaStateProperties.RANNUNCARPUS_MODE);
 	}
+
 }

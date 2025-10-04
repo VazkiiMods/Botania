@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package vazkii.botania.common.block.block_entity.flower;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,6 +18,8 @@ import vazkii.botania.api.block.FloatingFlowerImpl;
 import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 
 public class FloatingFlowerBlockEntity extends BotaniaBlockEntity implements FloatingFlowerProvider {
 	private static final String TAG_FLOATING_DATA = "floating";

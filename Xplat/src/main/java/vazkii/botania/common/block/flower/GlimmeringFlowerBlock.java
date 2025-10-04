@@ -6,13 +6,11 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.decor;
+package vazkii.botania.common.block.flower;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.DyeColor;
-
-import vazkii.botania.common.block.BotaniaFlowerBlock;
 
 public class GlimmeringFlowerBlock extends BotaniaFlowerBlock {
 
