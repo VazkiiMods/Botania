@@ -193,10 +193,11 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.lavenderQuartz, BotaniaBlocks.manaQuartz, BotaniaBlocks.redQuartz, BotaniaBlocks.sunnyQuartz);
 
 		tag(BotaniaTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
-				BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab, BotaniaBlocks.corporeaBrickStairs,
-				BotaniaBlocks.corporeaBrickWall, BotaniaBlocks.corporeaCrystalCube, BotaniaBlocks.corporeaFunnel, BotaniaBlocks.corporeaIndex,
-				BotaniaBlocks.corporeaInterceptor, BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaStairs,
-				BotaniaBlocks.corporeaButton, BotaniaBlocks.corporeaPressurePlate);
+				BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab,
+				BotaniaBlocks.corporeaBrickStairs, BotaniaBlocks.corporeaBrickWall, BotaniaBlocks.corporeaCrystalCube,
+				BotaniaBlocks.corporeaFunnel, BotaniaBlocks.corporeaIndex, BotaniaBlocks.corporeaInterceptor,
+				BotaniaBlocks.corporeaRetainer, BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaStairs,
+				BotaniaBlocks.corporeaWall, BotaniaBlocks.corporeaButton, BotaniaBlocks.corporeaPressurePlate);
 
 		tag(BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE).add(Blocks.BEACON, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon);
 		tag(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
