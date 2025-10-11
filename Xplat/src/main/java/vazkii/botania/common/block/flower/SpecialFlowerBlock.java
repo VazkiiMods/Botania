@@ -34,7 +34,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import java.util.function.Supplier;
 
 public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
-	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
+	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
 
 	public SpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {

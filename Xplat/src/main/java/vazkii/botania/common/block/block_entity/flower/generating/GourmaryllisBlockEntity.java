@@ -129,7 +129,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 				//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
 				getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 0.5F, 1F);
 
-				Vec3 offset = getLevel().getBlockState(getEffectivePos()).getOffset(getLevel(), getEffectivePos()).add(0.4, 0.6, 0.4);
+				Vec3 offset = getLevel().getBlockState(getEffectivePos()).getOffset(getLevel(), getEffectivePos()).add(0.5, 0.6, 0.5);
 
 				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, lastFoods.getFirst()), getEffectivePos().getX() + offset.x, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
