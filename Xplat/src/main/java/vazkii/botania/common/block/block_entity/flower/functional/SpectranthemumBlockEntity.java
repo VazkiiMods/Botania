@@ -27,12 +27,14 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final String TAG_BIND_X = "bindX";
@@ -52,35 +54,47 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide && !isPowered() && getLevel().hasChunkAt(bindPos)) {
-			BlockPos pos = getEffectivePos();
+		if (getLevel().isClientSide || isPowered() || !getLevel().hasChunkAt(bindPos)) {
+			return;
+		}
+		BlockPos pos = getEffectivePos();
 
-			boolean did = false;
-
-			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(RANGE),
-					itemEntity -> DelayHelper.canInteractWith(this, itemEntity));
-
-			for (ItemEntity item : items) {
-				ItemStack stack = item.getItem();
-				if (XplatAbstractions.INSTANCE.findManaItem(stack) != null) {
-					continue;
-				}
-
-				// TODO: maybe teleport fewer items if the cost is too much?
-				double cost = BASE_COST * stack.getCount() * Math.sqrt(bindPos.distToCenterSqr(item.position()));
-				if (getMana() >= cost) {
-					spawnExplosionParticles(item, 10);
-					item.setPos(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
-					item.setDeltaMovement(Vec3.ZERO);
-					spawnExplosionParticles(item, 10);
-					addMana(-(int) cost);
-					did = true;
-				}
+		Predicate<ItemEntity> shouldPickup = item -> {
+			if (XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
+				return false;
 			}
 
-			if (did) {
-				sync();
+			final ItemFlagsComponent flags = XplatAbstractions.INSTANCE.itemFlagsComponent(item);
+
+			// Flat 5 tick delay for newly infused items
+			if (flags.spawnedByInWorldRecipe() || overgrowth) {
+				return flags.timeCounter >= 5 + getModulatedDelay();
 			}
+			return DelayHelper.canInteractWith(this, item);
+		};
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(RANGE), shouldPickup);
+
+		boolean did = false;
+		for (ItemEntity item : items) {
+			ItemStack stack = item.getItem();
+			if (XplatAbstractions.INSTANCE.findManaItem(stack) != null) {
+				continue;
+			}
+
+			// TODO: maybe teleport fewer items if the cost is too much?
+			double cost = BASE_COST * stack.getCount() * Math.sqrt(bindPos.distToCenterSqr(item.position()));
+			if (getMana() >= cost) {
+				spawnExplosionParticles(item, 10);
+				item.setPos(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
+				item.setDeltaMovement(Vec3.ZERO);
+				spawnExplosionParticles(item, 10);
+				addMana(-(int) cost);
+				did = true;
+			}
+		}
+
+		if (did) {
+			sync();
 		}
 	}
 

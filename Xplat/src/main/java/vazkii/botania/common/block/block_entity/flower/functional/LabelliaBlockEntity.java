@@ -51,57 +51,60 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!level.isClientSide && !isPowered() && getMana() >= COST) {
-			BlockPos effPos = getEffectivePos();
-			BlockPos realPos = getBlockPos();
-			int x = effPos.getX();
-			int y = effPos.getY();
-			int z = effPos.getZ();
+		if (level.isClientSide || isPowered() || getMana() < COST) {
+			return;
+		}
+		BlockPos effPos = getEffectivePos();
+		BlockPos realPos = getBlockPos();
+		int x = effPos.getX();
+		int y = effPos.getY();
+		int z = effPos.getZ();
 
-			for (ItemEntity nameTagEnt : level.getEntitiesOfClass(ItemEntity.class,
-					AABB.encapsulatingFullBlocks(realPos.offset(-PICKUP_RANGE, 0, -PICKUP_RANGE),
-							realPos.offset(PICKUP_RANGE + 1, 1, PICKUP_RANGE + 1)),
-					EntitySelector.ENTITY_STILL_ALIVE)) {
-				if (!DelayHelper.canInteractWith(this, nameTagEnt)) {
-					continue;
-				}
+		for (ItemEntity nameTagEnt : level.getEntitiesOfClass(ItemEntity.class,
+				AABB.encapsulatingFullBlocks(realPos.offset(-PICKUP_RANGE, 0, -PICKUP_RANGE),
+						realPos.offset(PICKUP_RANGE + 1, 1, PICKUP_RANGE + 1)),
+				item -> item.getItem().is(Items.NAME_TAG)
+						&& item.getItem().has(DataComponents.CUSTOM_NAME)
+						&& DelayHelper.canInteractWith(this, item))) {
+			ItemStack nameTag = nameTagEnt.getItem();
+			AABB renameArea = new AABB(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
+			Component name = nameTag.getHoverName();
+			List<LivingEntity> nameableEntities = level.getEntitiesOfClass(LivingEntity.class, renameArea,
+					EntitySelector.ENTITY_STILL_ALIVE.and(e -> !name.equals(e.getCustomName()) && !(e instanceof Player)));
 
-				ItemStack nameTag = nameTagEnt.getItem();
-				if (nameTag.is(Items.NAME_TAG) && nameTag.has(DataComponents.CUSTOM_NAME)) {
-					AABB renameArea = new AABB(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
-					Component name = nameTag.getHoverName();
-					List<LivingEntity> nameableEntities = level.getEntitiesOfClass(LivingEntity.class, renameArea,
-							EntitySelector.ENTITY_STILL_ALIVE.and(e -> !name.equals(e.getCustomName()) && !(e instanceof Player)));
+			List<ItemEntity> nameableItems = level.getEntitiesOfClass(ItemEntity.class, renameArea,
+					i -> DelayHelper.canInteractWith(this, i)
+							&& i != nameTagEnt
+							&& !name.equals(i.getItem().getHoverName()));
 
-					List<ItemEntity> nameableItems = level.getEntitiesOfClass(ItemEntity.class, renameArea,
-							i -> DelayHelper.canInteractWith(this, i)
-									&& i != nameTagEnt
-									&& !name.equals(i.getItem().getHoverName()));
-
-					if (!nameableItems.isEmpty() || !nameableEntities.isEmpty()) {
-						for (LivingEntity e : nameableEntities) {
-							// [VanillaCopy] from NameTagItem
-							e.setCustomName(name);
-							if (e instanceof Mob mob) {
-								mob.setPersistenceRequired();
-							}
-						}
-						for (ItemEntity i : nameableItems) {
-							i.getItem().set(DataComponents.CUSTOM_NAME, name);
-							EntityHelper.syncItem(i);
-							((ServerLevel) level).sendParticles(ParticleTypes.INSTANT_EFFECT,
-									i.getX(), i.getY(), i.getZ(),
-									3, 0, 0, 0, 0);
-
-						}
-						addMana(-COST);
-						EntityHelper.shrinkItem(nameTagEnt);
-						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, BotaniaSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
-						break;
-					}
+			if (nameableItems.isEmpty() && nameableEntities.isEmpty()) {
+				continue;
+			}
+			for (LivingEntity e : nameableEntities) {
+				// [VanillaCopy] from NameTagItem
+				e.setCustomName(name);
+				if (e instanceof Mob mob) {
+					mob.setPersistenceRequired();
 				}
 			}
+			for (ItemEntity i : nameableItems) {
+				i.getItem().set(DataComponents.CUSTOM_NAME, name);
+				EntityHelper.syncItem(i);
+				((ServerLevel) level).sendParticles(ParticleTypes.INSTANT_EFFECT,
+						i.getX(), i.getY(), i.getZ(),
+						3, 0, 0, 0, 0);
+
+			}
+			addMana(-COST);
+			EntityHelper.shrinkItem(nameTagEnt);
+			level.playSound(null, x + 0.5, y + 0.5, z + 0.5, BotaniaSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
+			break;
 		}
+	}
+
+	@Override
+	public boolean isOvergrowthAffected() {
+		return false;
 	}
 
 	@Override

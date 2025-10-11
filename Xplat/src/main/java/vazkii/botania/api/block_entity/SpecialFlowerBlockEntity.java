@@ -42,24 +42,30 @@ import vazkii.botania.common.lib.BotaniaTags;
 public abstract class SpecialFlowerBlockEntity extends BlockEntity implements FloatingFlowerProvider {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
+	/** Block state seeds are 48 bit values, but appear to potentially fill the higher bits with ones */
+	public static final long SEED_MASK = 0x0000_FFFF_FFFF_FFFFL;
 
 	private final FloatingFlower floatingData = new FloatingFlowerImpl();
 
-	public int ticksExisted = 0;
-
 	/** true if this flower is working on Enchanted Soil **/
 	public boolean overgrowth = false;
-	/** true if this flower is working on Enchanted Soil and this is the second tick **/
-	public boolean overgrowthBoost = false;
 	@Nullable
 	private BlockPos positionOverride;
 	private boolean isFloating;
+	private long cachedSeed;
 
-	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_FLOATING_DATA = "floating";
 
 	public SpecialFlowerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
+		this.cachedSeed = state.getSeed(pos) & SEED_MASK;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void setBlockState(BlockState state) {
+		super.setBlockState(state);
+		this.cachedSeed = state.getSeed(getBlockPos()) & SEED_MASK;
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, SpecialFlowerBlockEntity self) {
@@ -69,33 +75,17 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		}
 		BlockEntity tileBelow = level.getBlockEntity(worldPosition.below());
 		if (tileBelow instanceof RedStringSpooferBlockEntity relay) {
-			BlockPos coords = relay.getBinding();
-			if (coords != null) {
-				self.positionOverride = coords;
-				self.tickFlower();
-
-				return;
-			} else {
-				self.positionOverride = null;
-			}
+			self.positionOverride = relay.getBinding();
+			self.overgrowth = false;
 		} else {
 			self.positionOverride = null;
+			self.overgrowth = self.isOvergrowthAffected() && self.isOnSpecialSoil();
 		}
 
-		boolean special = self.isOnSpecialSoil();
-		if (special) {
-			self.overgrowth = true;
-			if (self.isOvergrowthAffected()) {
-				self.tickFlower();
-				self.overgrowthBoost = true;
-			}
-		}
 		self.tickFlower();
-		self.overgrowth = false;
-		self.overgrowthBoost = false;
 	}
 
-	protected boolean isPowered() {
+	public boolean isPowered() {
 		BlockState state = getBlockState();
 		if (!(state.getBlock() instanceof RedstoneSensitiveBlock powered)) {
 			throw new IllegalStateException(state + " should support redstone power");
@@ -133,6 +123,10 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		}
 	}
 
+	public int getOvergrowthFactor() {
+		return overgrowth ? 2 : 1;
+	}
+
 	/**
 	 * @return Where this flower's effects are centered at. This can differ from the true TE location due to
 	 *         red string spoofers.
@@ -141,16 +135,31 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		return positionOverride != null ? positionOverride : getBlockPos();
 	}
 
-	protected void tickFlower() {
-		ticksExisted++;
+	protected void tickFlower() {}
+
+	protected int getUpdateInterval() {
+		return 1;
+	}
+
+	public boolean shouldUpdateThisTick() {
+		return shouldTick(level.getGameTime(), getUpdateInterval());
+	}
+
+	protected boolean shouldTick(long gameTime, int interval) {
+		if (interval <= 1) {
+			return true;
+		}
+		int relativeTick = (int) ((gameTime + cachedSeed) % interval);
+		return relativeTick == 0 || overgrowth && relativeTick == interval / 2;
+	}
+
+	protected long getPositionSeed() {
+		return getBlockState().getSeed(getBlockPos());
 	}
 
 	@Override
 	public final void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.loadAdditional(cmp, registries);
-		if (cmp.contains(TAG_TICKS_EXISTED)) {
-			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
-		}
 		if (getBlockState().getBlock() instanceof FloatingSpecialFlowerBlock) {
 			setFloating(true);
 		}
@@ -165,7 +174,6 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	@Override
 	public final void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.saveAdditional(cmp, registries);
-		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		writeToPacketNBT(cmp, registries);
 	}
 

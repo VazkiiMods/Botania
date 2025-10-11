@@ -42,42 +42,54 @@ public class TangleberrieBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getMana() > 0) {
-			double x1 = getEffectivePos().getX() + 0.5;
-			double y1 = getEffectivePos().getY() + 0.5;
-			double z1 = getEffectivePos().getZ() + 0.5;
+		if (getMana() <= 0) {
+			return;
+		}
+		double x1 = getEffectivePos().getX() + 0.5;
+		double y1 = getEffectivePos().getY() + 0.5;
+		double z1 = getEffectivePos().getZ() + 0.5;
 
-			double maxDist = getMaxDistance();
-			double range = getRange();
+		double maxDist = getMaxDistance();
+		double range = getRange();
 
-			AABB boundingBox = new AABB(x1 - range, y1 - range, z1 - range, x1 + range + 1, y1 + range + 1, z1 + range + 1);
-			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, boundingBox);
+		AABB boundingBox = new AABB(x1 - range, y1 - range, z1 - range, x1 + range + 1, y1 + range + 1, z1 + range + 1);
+		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, boundingBox,
+				entity -> !(entity instanceof Player) && entity.canUsePortal(false));
 
-			SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.5F, 0.5F, 0.5F, 3);
-			for (LivingEntity entity : entities) {
-				if (entity instanceof Player || !entity.canUsePortal(false)) {
-					continue;
+		SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.5F, 0.5F, 0.5F, 3);
+		for (LivingEntity entity : entities) {
+			double x2 = entity.getX();
+			double y2 = entity.getY();
+			double z2 = entity.getZ();
+
+			float distance = MathHelper.pointDistanceSpace(x1, y1, z1, x2, y2, z2);
+
+			if (distance > maxDist && distance < range) {
+				MathHelper.setEntityMotionFromVector(entity, new Vec3(x1, y1, z1), getMotionVelocity(entity));
+				if (getLevel().random.nextInt(3) == 0) {
+					level.addParticle(data,
+							x2 + Math.random() * entity.getBbWidth(),
+							y2 + Math.random() * entity.getBbHeight(),
+							z2 + Math.random() * entity.getBbWidth(),
+							0, 0, 0);
 				}
-
-				double x2 = entity.getX();
-				double y2 = entity.getY();
-				double z2 = entity.getZ();
-
-				float distance = MathHelper.pointDistanceSpace(x1, y1, z1, x2, y2, z2);
-
-				if (distance > maxDist && distance < range) {
-					MathHelper.setEntityMotionFromVector(entity, new Vec3(x1, y1, z1), getMotionVelocity(entity));
-					if (getLevel().random.nextInt(3) == 0) {
-						level.addParticle(data, x2 + Math.random() * entity.getBbWidth(), y2 + Math.random() * entity.getBbHeight(), z2 + Math.random() * entity.getBbWidth(), 0, 0, 0);
-					}
-				}
-			}
-
-			if (ticksExisted % 4 == 0) {
-				addMana(-1);
-				sync();
 			}
 		}
+
+		if (shouldUpdateThisTick()) {
+			addMana(-1);
+			sync();
+		}
+	}
+
+	@Override
+	public boolean isOvergrowthAffected() {
+		return false;
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 4;
 	}
 
 	double getMaxDistance() {

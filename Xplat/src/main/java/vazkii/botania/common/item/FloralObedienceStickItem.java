@@ -57,7 +57,11 @@ public class FloralObedienceStickItem extends Item {
 			return true;
 		}
 		if (world.getBlockEntity(pos) instanceof BindableSpecialFlowerBlockEntity<?> bindableFlower) {
-			bindableFlower.setBindingPos(null);
+			if (bindableFlower.getBindingPos() == null) {
+				bindableFlower.attemptAutoBinding();
+			} else {
+				bindableFlower.setBindingPos(null);
+			}
 			return true;
 		}
 

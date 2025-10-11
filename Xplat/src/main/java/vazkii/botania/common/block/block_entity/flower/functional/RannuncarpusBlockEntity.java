@@ -78,60 +78,63 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered()) {
+		if (getLevel().isClientSide || isPowered() || !shouldUpdateThisTick()) {
 			return;
 		}
 
-		if (ticksExisted % PLACE_INTERVAL_TICKS == 0) {
-			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class,
-					AABB.encapsulatingFullBlocks(getBlockPos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE),
-							getBlockPos().offset(PICKUP_RANGE, PICKUP_RANGE_Y, PICKUP_RANGE)),
-					itemEntity -> DelayHelper.canInteractWith(this, itemEntity));
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class,
+				AABB.encapsulatingFullBlocks(getBlockPos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE),
+						getBlockPos().offset(PICKUP_RANGE, PICKUP_RANGE_Y, PICKUP_RANGE)),
+				itemEntity -> DelayHelper.canInteractWith(this, itemEntity));
 
-			List<ItemStack> filter = FilterHelper.getFiltersOnBlock(getLevel(), getFilterPos(), false);
+		List<ItemStack> filter = FilterHelper.getFiltersOnBlock(getLevel(), getFilterPos(), false);
 
-			for (ItemEntity item : items) {
-				ItemStack stack = item.getItem();
-				if (!HopperhockBlockEntity.canAcceptItem(stack, filter, HopperhockFilterType.ACCEPT_IN_FRAME)) {
+		for (ItemEntity item : items) {
+			ItemStack stack = item.getItem();
+			if (!HopperhockBlockEntity.canAcceptItem(stack, filter, HopperhockFilterType.ACCEPT_IN_FRAME)) {
+				continue;
+			}
+
+			Item stackItem = stack.getItem();
+			ResourceLocation id = BuiltInRegistries.ITEM.getKey(stackItem);
+			if (BotaniaConfig.common().rannuncarpusExcludedMods().contains(id.getNamespace())
+					|| BotaniaConfig.common().rannuncarpusIgnoredItems().contains(id.toString())) {
+				continue;
+			}
+
+			if (stackItem instanceof BlockItem || stackItem instanceof FlowerPlaceable) {
+				BlockPos coords = getCandidatePosition(getLevel().random, stack);
+				if (coords == null) {
 					continue;
 				}
+				BlockPlaceContext ctx = getBlockPlaceContext(stack, coords);
 
-				Item stackItem = stack.getItem();
-				ResourceLocation id = BuiltInRegistries.ITEM.getKey(stackItem);
-				if (BotaniaConfig.common().rannuncarpusExcludedMods().contains(id.getNamespace())
-						|| BotaniaConfig.common().rannuncarpusIgnoredItems().contains(id.toString())) {
-					continue;
+				boolean success = false;
+				if (stackItem instanceof FlowerPlaceable flowerPlaceable) {
+					success = flowerPlaceable.tryPlace(this, ctx);
+				}
+				if (!success && stackItem instanceof BlockItem blockItem) {
+					success = blockItem.place(ctx).consumesAction();
 				}
 
-				if (stackItem instanceof BlockItem || stackItem instanceof FlowerPlaceable) {
-					BlockPos coords = getCandidatePosition(getLevel().random, stack);
-					if (coords == null) {
-						continue;
+				if (success) {
+					if (BotaniaConfig.common().blockBreakParticles()) {
+						BlockState state = getLevel().getBlockState(ctx.getClickedPos());
+						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
 					}
-					BlockPlaceContext ctx = getBlockPlaceContext(stack, coords);
-
-					boolean success = false;
-					if (stackItem instanceof FlowerPlaceable flowerPlaceable) {
-						success = flowerPlaceable.tryPlace(this, ctx);
+					if (getMana() > 1) {
+						addMana(-1);
 					}
-					if (!success && stackItem instanceof BlockItem blockItem) {
-						success = blockItem.place(ctx).consumesAction();
-					}
-
-					if (success) {
-						if (BotaniaConfig.common().blockBreakParticles()) {
-							BlockState state = getLevel().getBlockState(ctx.getClickedPos());
-							getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
-						}
-						if (getMana() > 1) {
-							addMana(-1);
-						}
-						EntityHelper.syncItem(item);
-						return;
-					}
+					EntityHelper.syncItem(item);
+					return;
 				}
 			}
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return PLACE_INTERVAL_TICKS;
 	}
 
 	public RannuncarpusMode getFilterType() {

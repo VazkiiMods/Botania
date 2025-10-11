@@ -56,34 +56,40 @@ public class ShulkMeNotBlockEntity extends GeneratingFlowerBlockEntity {
 				shulker -> shulker.isAlive() && shulker.distanceToSqr(posD) < RADIUS * RADIUS);
 		for (Shulker shulker : shulkers) {
 			LivingEntity target = shulker.getTarget();
-			if (target instanceof Enemy && target.isAlive() && target.distanceToSqr(posD) < RADIUS * RADIUS
-					&& target.getEffect(MobEffects.LEVITATION) != null) {
-				target.discard();
-				shulker.discard();
+			if (!(target instanceof Enemy) || !target.isAlive() || !(target.distanceToSqr(posD) < RADIUS * RADIUS)
+					|| target.getEffect(MobEffects.LEVITATION) == null) {
+				continue;
+			}
+			target.discard();
+			shulker.discard();
 
-				world.playSound(null, pos, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
-				world.playSound(null, target, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
-				world.playSound(null, shulker, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
-				if (world instanceof ServerLevel ws) {
-					ws.sendParticles(ParticleTypes.EXPLOSION,
-							target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(),
-							100, target.getBbWidth(), target.getBbHeight(), target.getBbWidth(), 0.05);
-					ws.sendParticles(ParticleTypes.EXPLOSION,
-							shulker.getX(), shulker.getY() + shulker.getBbHeight() / 2, shulker.getZ(),
-							100, shulker.getBbWidth(), shulker.getBbHeight(), shulker.getBbWidth(), 0.05);
-					ws.sendParticles(ParticleTypes.PORTAL,
-							pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-							40, 0, 0, 0, 0.6);
-				}
+			world.playSound(null, pos, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
+			world.playSound(null, target, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
+			world.playSound(null, shulker, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
+			if (world instanceof ServerLevel ws) {
+				ws.sendParticles(ParticleTypes.EXPLOSION,
+						target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(),
+						100, target.getBbWidth(), target.getBbHeight(), target.getBbWidth(), 0.05);
+				ws.sendParticles(ParticleTypes.EXPLOSION,
+						shulker.getX(), shulker.getY() + shulker.getBbHeight() / 2, shulker.getZ(),
+						100, shulker.getBbWidth(), shulker.getBbHeight(), shulker.getBbWidth(), 0.05);
+				ws.sendParticles(ParticleTypes.PORTAL,
+						pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+						40, 0, 0, 0, 0.6);
+			}
 
-				world.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
-				addMana(generate);
-				sync();
-				if (getMaxMana() - getMana() < generate) {
-					break;
-				}
+			world.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
+			addMana(generate);
+			sync();
+			if (getMaxMana() - getMana() < generate) {
+				break;
 			}
 		}
+	}
+
+	@Override
+	public boolean isOvergrowthAffected() {
+		return false;
 	}
 
 	@Override

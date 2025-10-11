@@ -197,11 +197,6 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 	}
 
 	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
-	}
-
-	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), getRange());
 	}

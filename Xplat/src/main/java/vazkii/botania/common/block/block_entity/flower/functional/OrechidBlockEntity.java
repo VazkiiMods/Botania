@@ -53,15 +53,13 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered() || !canOperate()) {
+		if (getLevel().isClientSide || isPowered() || !canOperate() || getMana() < getCost() || !shouldUpdateThisTick()) {
 			return;
 		}
 
-		if (getMana() >= getCost() && ticksExisted % getDelay() == 0) {
-			BlockPos coords = getCoordsToPut();
-			if (coords != null) {
-				trySetRecipe(coords, findMatchingRecipe(coords));
-			}
+		BlockPos coords = getCoordsToPut();
+		if (coords != null) {
+			trySetRecipe(coords, findMatchingRecipe(coords));
 		}
 	}
 
@@ -95,6 +93,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 		});
 	}
 
+	@Nullable
 	private BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 		var matcher = getReplaceMatcher();
@@ -132,7 +131,8 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 		return XplatAbstractions.INSTANCE.gogLoaded() ? COST_GOG : COST;
 	}
 
-	public int getDelay() {
+	@Override
+	public int getUpdateInterval() {
 		return XplatAbstractions.INSTANCE.gogLoaded() ? DELAY_GOG : DELAY;
 	}
 

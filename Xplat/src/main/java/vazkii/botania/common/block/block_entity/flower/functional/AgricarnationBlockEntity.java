@@ -42,56 +42,55 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!(getLevel() instanceof ServerLevel serverLevel)) {
+		if (!(getLevel() instanceof ServerLevel serverLevel) || isPowered() || !shouldUpdateThisTick()) {
 			return;
 		}
 
-		if (ticksExisted % 200 == 0) {
-			sync();
-		}
+		int range = getRange();
+		int x = getEffectivePos().getX() + serverLevel.random.nextInt(range * 2 + 1) - range;
+		int z = getEffectivePos().getZ() + serverLevel.random.nextInt(range * 2 + 1) - range;
 
-		if (ticksExisted % 6 == 0 && !isPowered()) {
-			int range = getRange();
-			int x = getEffectivePos().getX() + serverLevel.random.nextInt(range * 2 + 1) - range;
-			int z = getEffectivePos().getZ() + serverLevel.random.nextInt(range * 2 + 1) - range;
+		for (int i = 4; i > -2; i--) {
+			int y = getEffectivePos().getY() + i;
+			BlockPos pos = new BlockPos(x, y, z);
+			BlockState state = serverLevel.getBlockState(pos);
+			if (state.isAir()) {
+				continue;
+			}
 
-			for (int i = 4; i > -2; i--) {
-				int y = getEffectivePos().getY() + i;
-				BlockPos pos = new BlockPos(x, y, z);
-				BlockState state = serverLevel.getBlockState(pos);
-				if (state.isAir()) {
-					continue;
-				}
-
-				Block block = state.getBlock();
-				if (block instanceof GrowingPlantBodyBlock) {
-					var headPos = ((GrowingPlantBodyBlockMixin) block).botania_getHeadPos(serverLevel, pos, block);
-					if (headPos.isPresent()) {
-						pos = headPos.get();
-					}
-				}
-
-				if (isPlant(serverLevel, pos, state, block) && getMana() > MANA_COST) {
-					addMana(-MANA_COST);
-					if (state.is(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL)
-							&& block instanceof BonemealableBlock bonemealableBlock
-							&& bonemealableBlock.isValidBonemealTarget(serverLevel, pos, state)) {
-						if (serverLevel.random.nextFloat() < BONEMEAL_SUCCESS_CHANCE
-								&& bonemealableBlock.isBonemealSuccess(serverLevel, serverLevel.random, pos, state)) {
-							bonemealableBlock.performBonemeal(serverLevel, serverLevel.random, pos, state);
-						}
-					} else {
-						state.randomTick(serverLevel, pos, serverLevel.random);
-					}
-					if (BotaniaConfig.common().blockBreakParticles()) {
-						serverLevel.levelEvent(LevelEvent.PARTICLES_BEE_GROWTH, pos, 6 + serverLevel.random.nextInt(4));
-					}
-					serverLevel.playSound(null, x, y, z, BotaniaSounds.agricarnation, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
-
-					break;
+			Block block = state.getBlock();
+			if (block instanceof GrowingPlantBodyBlock) {
+				var headPos = ((GrowingPlantBodyBlockMixin) block).botania_getHeadPos(serverLevel, pos, block);
+				if (headPos.isPresent()) {
+					pos = headPos.get();
 				}
 			}
+
+			if (isPlant(serverLevel, pos, state, block) && getMana() > MANA_COST) {
+				addMana(-MANA_COST);
+				if (state.is(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL)
+						&& block instanceof BonemealableBlock bonemealableBlock
+						&& bonemealableBlock.isValidBonemealTarget(serverLevel, pos, state)) {
+					if (serverLevel.random.nextFloat() < BONEMEAL_SUCCESS_CHANCE
+							&& bonemealableBlock.isBonemealSuccess(serverLevel, serverLevel.random, pos, state)) {
+						bonemealableBlock.performBonemeal(serverLevel, serverLevel.random, pos, state);
+					}
+				} else {
+					state.randomTick(serverLevel, pos, serverLevel.random);
+				}
+				if (BotaniaConfig.common().blockBreakParticles()) {
+					serverLevel.levelEvent(LevelEvent.PARTICLES_BEE_GROWTH, pos, 6 + serverLevel.random.nextInt(4));
+				}
+				serverLevel.playSound(null, x, y, z, BotaniaSounds.agricarnation, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
+
+				break;
+			}
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 6;
 	}
 
 	/**

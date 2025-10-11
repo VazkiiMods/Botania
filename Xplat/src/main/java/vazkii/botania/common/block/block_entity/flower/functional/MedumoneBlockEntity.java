@@ -36,9 +36,11 @@ public class MedumoneBlockEntity extends FunctionalFlowerBlockEntity {
 		if (getLevel().isClientSide || getMana() == 0 || isPowered()) {
 			return;
 		}
+		var testInstance = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 100);
 		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
 				new AABB(getEffectivePos()).inflate(RANGE),
-				livingEntity -> livingEntity.isAlive() && !(livingEntity instanceof Player));
+				livingEntity -> livingEntity.isAlive() && !(livingEntity instanceof Player)
+						&& livingEntity.canBeAffected(testInstance));
 
 		for (LivingEntity entity : entities) {
 			entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 100));
@@ -47,6 +49,11 @@ public class MedumoneBlockEntity extends FunctionalFlowerBlockEntity {
 				return;
 			}
 		}
+	}
+
+	@Override
+	public boolean isOvergrowthAffected() {
+		return false;
 	}
 
 	@Override

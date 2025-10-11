@@ -59,28 +59,34 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide) {
-			if (shouldTick(getLevel().getGameTime())) {
-				runSimulation();
-			} else if (shouldTick(getLevel().getGameTime() + 1)) {
-				int diameter = radius * 2;
+		if (level.isClientSide || !isPowered()) {
+			return;
+		}
+		if (shouldUpdateThisTick()) {
+			runSimulation();
+		} else if (shouldTick(level.getGameTime() + 1, getUpdateInterval())) {
+			int diameter = radius * 2;
 
-				for (int i = 0; i <= diameter; i++) {
-					for (int j = 0; j <= diameter; j++) {
-						BlockPos pos = getEffectivePos().offset(-radius + i, 0, -radius + j);
-						if (getLevel().getBlockEntity(pos) instanceof CellularBlockEntity cell) {
-							cell.claim(this);
-						}
+			for (int i = 0; i <= diameter; i++) {
+				for (int j = 0; j <= diameter; j++) {
+					BlockPos pos = getEffectivePos().offset(-radius + i, 0, -radius + j);
+					if (level.getBlockEntity(pos) instanceof CellularBlockEntity cell) {
+						cell.claim(this);
 					}
 				}
 			}
 		}
 	}
 
-	private boolean shouldTick(long gameTime) {
-		// regular steps should not happen during bonus tick, while bonus steps should not happen during regular ticks
-		return (!overgrowthBoost && gameTime % SPEED == 0 || overgrowthBoost && (gameTime + OVERGROWN_SPEED) % SPEED == 0)
-				&& isPowered();
+	@Override
+	protected int getUpdateInterval() {
+		return SPEED;
+	}
+
+	protected boolean shouldTick(long gameTime, int interval) {
+		// don't randomize based on position
+		int relativeTick = (int) (gameTime % interval);
+		return relativeTick == 0 || overgrowth && relativeTick == interval / 2;
 	}
 
 	private void runSimulation() {

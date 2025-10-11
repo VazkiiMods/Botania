@@ -50,7 +50,7 @@ public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 						0.5 + Math.random() * 0.25 - 0.125,
 						0, (float) Math.random() / 50, 0);
 			}
-		} else if (ticksExisted % 4 == 0 || lastMana < 0) {
+		} else if (shouldUpdateThisTick() || lastMana < 0) {
 			int mana = 0;
 			for (Direction dir : Direction.Plane.HORIZONTAL) {
 				BlockPos pos = getEffectivePos().relative(dir);
@@ -77,10 +77,15 @@ public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 						Block.UPDATE_CLIENTS);
 			}
 
-			if (ticksExisted % 60 == 0) {
+			if (shouldTick(level.getGameTime(), 60)) {
 				lastMana = mana;
 			}
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 4;
 	}
 
 	@Override

@@ -69,7 +69,9 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	}
 
 	public boolean hasActiveParent(DandelifeonBlockEntity dandie) {
-		return flowerCoords != null && dandie.getLevel().getBlockEntity(flowerCoords) instanceof DandelifeonBlockEntity parent && dandie.getLevel().hasNeighborSignal(flowerCoords) && (!dandie.overgrowthBoost || parent.isOnSpecialSoil());
+		return flowerCoords != null
+				&& dandie.getLevel().getBlockEntity(flowerCoords) instanceof DandelifeonBlockEntity parent
+				&& parent.shouldUpdateThisTick() && parent.isPowered();
 	}
 
 	public int getGeneration() {

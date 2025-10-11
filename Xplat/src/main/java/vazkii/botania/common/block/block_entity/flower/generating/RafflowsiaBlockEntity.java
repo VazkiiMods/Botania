@@ -88,27 +88,32 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		int mana = 2100;
+		if (getLevel().isClientSide || getMaxMana() - this.getMana() < 2100 || !shouldUpdateThisTick()) {
+			return;
+		}
 
-		if (getMaxMana() - this.getMana() >= mana && !getLevel().isClientSide && ticksExisted % 40 == 0) {
-			for (int i = 0; i < RANGE * 2 + 1; i++) {
-				for (int j = 0; j < RANGE * 2 + 1; j++) {
-					for (int k = 0; k < RANGE * 2 + 1; k++) {
-						BlockPos pos = getEffectivePos().offset(i - RANGE, j - RANGE, k - RANGE);
+		for (int i = 0; i < RANGE * 2 + 1; i++) {
+			for (int j = 0; j < RANGE * 2 + 1; j++) {
+				for (int k = 0; k < RANGE * 2 + 1; k++) {
+					BlockPos pos = getEffectivePos().offset(i - RANGE, j - RANGE, k - RANGE);
 
-						BlockState state = getLevel().getBlockState(pos);
-						if (state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS) && !state.is(BotaniaBlocks.rafflowsia)) {
-							streakLength = Math.min(streakLength + 1, processFlower(state.getBlock()));
+					BlockState state = getLevel().getBlockState(pos);
+					if (state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS) && !state.is(BotaniaBlocks.rafflowsia)) {
+						streakLength = Math.min(streakLength + 1, processFlower(state.getBlock()));
 
-							getLevel().destroyBlock(pos, false);
-							addMana(getValueForStreak(streakLength));
-							sync();
-							return;
-						}
+						getLevel().destroyBlock(pos, false);
+						addMana(getValueForStreak(streakLength));
+						sync();
+						return;
 					}
 				}
 			}
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 40;
 	}
 
 	@Override

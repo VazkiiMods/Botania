@@ -23,6 +23,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class KekimurusBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int RANGE = 5;
+	public static final int MANA_PER_SLICE = 1800;
 
 	public KekimurusBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.KEKIMURUS, pos, state);
@@ -32,39 +33,40 @@ public class KekimurusBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide) {
+		if (getLevel().isClientSide || getMaxMana() - this.getMana() < MANA_PER_SLICE || getLevel().isClientSide || !shouldUpdateThisTick()) {
 			return;
 		}
 
-		int mana = 1800;
-
-		if (getMaxMana() - this.getMana() >= mana && !getLevel().isClientSide && ticksExisted % 80 == 0) {
-			for (int i = 0; i < RANGE * 2 + 1; i++) {
-				for (int j = 0; j < RANGE * 2 + 1; j++) {
-					for (int k = 0; k < RANGE * 2 + 1; k++) {
-						BlockPos pos = getEffectivePos().offset(i - RANGE, j - RANGE, k - RANGE);
-						BlockState state = getLevel().getBlockState(pos);
-						Block block = state.getBlock();
-						if (block instanceof CakeBlock) {
-							int nextSlicesEaten = state.getValue(CakeBlock.BITES) + 1;
-							if (nextSlicesEaten > 6) {
-								getLevel().removeBlock(pos, false);
-							} else {
-								getLevel().setBlockAndUpdate(pos, state.setValue(CakeBlock.BITES, nextSlicesEaten));
-							}
-
-							getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-							getLevel().gameEvent(null, GameEvent.EAT, getEffectivePos());
-							//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
-							getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
-							addMana(mana);
-							sync();
-							return;
+		for (int i = 0; i < RANGE * 2 + 1; i++) {
+			for (int j = 0; j < RANGE * 2 + 1; j++) {
+				for (int k = 0; k < RANGE * 2 + 1; k++) {
+					BlockPos pos = getEffectivePos().offset(i - RANGE, j - RANGE, k - RANGE);
+					BlockState state = getLevel().getBlockState(pos);
+					Block block = state.getBlock();
+					if (block instanceof CakeBlock) {
+						int nextSlicesEaten = state.getValue(CakeBlock.BITES) + 1;
+						if (nextSlicesEaten > 6) {
+							getLevel().removeBlock(pos, false);
+						} else {
+							getLevel().setBlockAndUpdate(pos, state.setValue(CakeBlock.BITES, nextSlicesEaten));
 						}
+
+						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+						getLevel().gameEvent(null, GameEvent.EAT, getEffectivePos());
+						//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
+						getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
+						addMana(MANA_PER_SLICE);
+						sync();
+						return;
 					}
 				}
 			}
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 80;
 	}
 
 	@Override

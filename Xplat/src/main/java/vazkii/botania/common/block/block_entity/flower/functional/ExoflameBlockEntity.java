@@ -36,6 +36,7 @@ public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		boolean did = false;
+		boolean updateThisTick = shouldUpdateThisTick();
 
 		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-RANGE, -RANGE_Y, -RANGE),
 				getEffectivePos().offset(RANGE, RANGE_Y, RANGE))) {
@@ -50,7 +51,7 @@ public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 							did = true;
 						}
 
-						if (ticksExisted % 2 == 0) {
+						if (updateThisTick) {
 							heatable.boostCookTime();
 						}
 
@@ -64,6 +65,11 @@ public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 		if (did) {
 			sync();
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 2;
 	}
 
 	@Override

@@ -38,12 +38,13 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide) {
-			if (++passiveDecayTicks > DECAY_TIME) {
-				getLevel().destroyBlock(getBlockPos(), false);
-				if (Blocks.DEAD_BUSH.defaultBlockState().canSurvive(getLevel(), getBlockPos())) {
-					getLevel().setBlockAndUpdate(getBlockPos(), Blocks.DEAD_BUSH.defaultBlockState());
-				}
+		if (getLevel().isClientSide) {
+			return;
+		}
+		if (++passiveDecayTicks > DECAY_TIME) {
+			getLevel().destroyBlock(getBlockPos(), false);
+			if (Blocks.DEAD_BUSH.defaultBlockState().canSurvive(getLevel(), getBlockPos())) {
+				getLevel().setBlockAndUpdate(getBlockPos(), Blocks.DEAD_BUSH.defaultBlockState());
 			}
 		}
 	}
@@ -83,16 +84,11 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	}
 
 	@Override
-	public int getGenerationDelay() {
+	public int getUpdateInterval() {
 		boolean rain = getLevel().getBiome(getEffectivePos()).value()
 				.getPrecipitationAt(getEffectivePos()) == Biome.Precipitation.RAIN
 				&& (getLevel().isRaining() || getLevel().isThundering());
 		return rain ? 2 : 3;
-	}
-
-	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
 	}
 
 	@Override

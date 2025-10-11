@@ -33,39 +33,42 @@ public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered()) {
+		if (getLevel().isClientSide || isPowered() || getMana() < COST || !shouldUpdateThisTick()) {
 			return;
 		}
 
-		if (ticksExisted % 30 == 0 && getMana() >= COST) {
-			BlockPos pos = new BlockPos(
-					getEffectivePos().getX() - RANGE + getLevel().random.nextInt(RANGE * 2 + 1),
-					getEffectivePos().getY() + RANGE,
-					getEffectivePos().getZ() - RANGE + getLevel().random.nextInt(RANGE * 2 + 1)
-			);
+		BlockPos pos = new BlockPos(
+				getEffectivePos().getX() - RANGE + getLevel().random.nextInt(RANGE * 2 + 1),
+				getEffectivePos().getY() + RANGE,
+				getEffectivePos().getZ() - RANGE + getLevel().random.nextInt(RANGE * 2 + 1)
+		);
 
-			BlockPos up = pos.above();
+		BlockPos up = pos.above();
 
-			for (int i = 0; i < RANGE * 2; i++) {
-				DyeColor color = DyeColor.byId(getLevel().random.nextInt(16));
-				BlockState flower = BotaniaBlocks.getFlower(color).defaultBlockState();
+		for (int i = 0; i < RANGE * 2; i++) {
+			DyeColor color = DyeColor.byId(getLevel().random.nextInt(16));
+			BlockState flower = BotaniaBlocks.getFlower(color).defaultBlockState();
 
-				if (getLevel().isEmptyBlock(up) && flower.canSurvive(getLevel(), up)) {
-					if (BotaniaConfig.common().blockBreakParticles()) {
-						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, up, Block.getId(flower));
-					}
-					getLevel().setBlockAndUpdate(up, flower);
-					getLevel().gameEvent(null, GameEvent.BLOCK_PLACE, up);
-					addMana(-COST);
-					sync();
-
-					break;
+			if (getLevel().isEmptyBlock(up) && flower.canSurvive(getLevel(), up)) {
+				if (BotaniaConfig.common().blockBreakParticles()) {
+					getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, up, Block.getId(flower));
 				}
+				getLevel().setBlockAndUpdate(up, flower);
+				getLevel().gameEvent(null, GameEvent.BLOCK_PLACE, up);
+				addMana(-COST);
+				sync();
 
-				up = pos;
-				pos = pos.below();
+				break;
 			}
+
+			up = pos;
+			pos = pos.below();
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 30;
 	}
 
 	@Override

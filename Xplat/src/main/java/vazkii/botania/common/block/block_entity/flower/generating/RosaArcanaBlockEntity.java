@@ -114,6 +114,11 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 	}
 
+	@Override
+	public boolean isOvergrowthAffected() {
+		return false;
+	}
+
 	// [VanillaCopy] GrindstoneMenu
 	private static int getEnchantmentXpValue(ItemStack stack) {
 		int ret = 0;

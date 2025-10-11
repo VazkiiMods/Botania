@@ -68,12 +68,12 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		if (cooldown > 0) {
-			cooldown--;
+			cooldown -= getOvergrowthFactor();
 			setChanged();
 			return;
 		}
 
-		if (ticksExisted % 4 == 0) {
+		if (shouldUpdateThisTick()) {
 			if (getMaxMana() - getMana() >= MANA_PER_LEAF && eatLeaves()) {
 				if (!getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
 					level.setBlock(getBlockPos(),
@@ -83,7 +83,8 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 							Block.UPDATE_CLIENTS);
 				}
 				return;
-			} else if (getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
+			}
+			if (getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
 				level.setBlock(getBlockPos(),
 						getBlockState()
 								.setValue(BotaniaStateProperties.GENERATING, false)
@@ -99,6 +100,11 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 					getBlockState().setValue(BotaniaStateProperties.ON_COOLDOWN, false),
 					Block.UPDATE_CLIENTS);
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 4;
 	}
 
 	private boolean eatLeaves() {

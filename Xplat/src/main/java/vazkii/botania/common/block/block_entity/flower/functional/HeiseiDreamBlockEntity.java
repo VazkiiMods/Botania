@@ -46,15 +46,21 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, new AABB(getEffectivePos()).inflate(RANGE),
 				mob -> mob instanceof Enemy && mob.isAlive());
 
-		if (mobs.size() > 1) {
-			for (Mob mob : mobs) {
-				if (brainwashEntity(mob, mobs)) {
-					addMana(-COST);
-					sync();
-					break;
-				}
+		if (mobs.size() <= 1) {
+			return;
+		}
+		for (Mob mob : mobs) {
+			if (brainwashEntity(mob, mobs)) {
+				addMana(-COST);
+				sync();
+				break;
 			}
 		}
+	}
+
+	@Override
+	public boolean isOvergrowthAffected() {
+		return false;
 	}
 
 	public static boolean brainwashEntity(Mob entity, List<Mob> mobs) {

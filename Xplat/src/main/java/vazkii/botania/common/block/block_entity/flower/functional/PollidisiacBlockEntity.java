@@ -56,13 +56,19 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide && getMana() >= MANA_COST) {
-			List<ItemEntity> items = getItems();
-			if (!items.isEmpty()) {
-				List<Animal> animals = getAnimals();
-				feedAnimal(animals, items);
-			}
+		if (getLevel().isClientSide || getMana() < MANA_COST) {
+			return;
 		}
+		List<ItemEntity> items = getItems();
+		if (!items.isEmpty()) {
+			List<Animal> animals = getAnimals();
+			feedAnimal(animals, items);
+		}
+	}
+
+	@Override
+	public boolean isOvergrowthAffected() {
+		return false;
 	}
 
 	/**

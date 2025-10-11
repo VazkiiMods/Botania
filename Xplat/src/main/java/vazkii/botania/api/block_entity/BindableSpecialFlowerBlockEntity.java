@@ -46,17 +46,29 @@ import java.util.Objects;
  * @param <T> Type of block entity this special flower can bind to.
  */
 public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerBlockEntity implements WandBindable, Bound {
+	private static final String TAG_BINDING = "binding";
+	private static final String TAG_AUTO_BINDING = "autoBinding";
+
 	/**
 	 * Superclass (or interface) of all BlockEntities that this flower is able to bind to.
 	 */
 	private final Class<T> bindClass;
 
-	protected @Nullable BlockPos bindingPos = null;
-	private static final String TAG_BINDING = "binding";
+	private boolean autoBinding = true;
+	private @Nullable BlockPos bindingPos = null;
 
 	public BindableSpecialFlowerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Class<T> bindClass) {
 		super(type, pos, state);
 		this.bindClass = bindClass;
+	}
+
+	/**
+	 * Instructs the flower to make an attempt to find a valid binding target next time it is ticked.
+	 * Has no effect if the flower already has a valid binding.
+	 */
+	public void attemptAutoBinding() {
+		autoBinding = !isValidBinding();
+		// no explicit chunk updating here, this will be cleared next tick anyway
 	}
 
 	public abstract int getBindingRadius();
@@ -72,15 +84,15 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 		//First time the flower has been placed. This is the best time to check it; /setblock and friends don't call
 		//the typical setPlacedBy method that player-placements do.
-		if (Bound.UNBOUND_POS.equals(bindingPos)) {
-			setBindingPos(null);
-		} else if (ticksExisted == 1 && !level.isClientSide) {
+		if (autoBinding && !level.isClientSide) {
+			autoBinding = false;
+			setChanged();
 			//Situations to consider:
 			// the flower has been placed in the void, and there is nothing for it to bind to;
 			// the flower has been placed next to a bind target, and I want to automatically bind to it;
 			// the flower already has a valid binding due to ctrl-pick placement, and I should keep it;
 			// the flower already has a binding from ctrl-pick placement, but it's invalid (out of range etc) and I should delete it.
-			if (bindingPos == null || !isValidBinding()) {
+			if (!isValidBinding()) {
 				setBindingPos(findClosestTarget());
 			}
 		}
@@ -89,12 +101,13 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		if (placer != null && placer.isHolding(BotaniaItems.obedienceStick)) {
-			setBindingPos(Bound.UNBOUND_POS);
+			autoBinding = false;
 		}
 		super.setPlacedBy(level, pos, state, placer, stack);
 	}
 
-	public @Nullable BlockPos getBindingPos() {
+	@Nullable
+	public BlockPos getBindingPos() {
 		return bindingPos;
 	}
 
@@ -158,6 +171,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 		if (bindingPos != null) {
 			cmp.put(TAG_BINDING, NbtUtils.writeBlockPos(bindingPos));
 		}
+		cmp.putBoolean(TAG_AUTO_BINDING, autoBinding);
 	}
 
 	@Override
@@ -165,6 +179,9 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 		super.readFromPacketNBT(cmp, registries);
 
 		NbtUtils.readBlockPos(cmp, TAG_BINDING).ifPresent(this::setBindingPos);
+		if (cmp.contains(TAG_AUTO_BINDING)) {
+			autoBinding = cmp.getBoolean(TAG_AUTO_BINDING);
+		}
 	}
 
 	public abstract int getMana();

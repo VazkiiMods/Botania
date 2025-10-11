@@ -44,7 +44,7 @@ public class MarimorphosisBlockEntity extends OrechidBlockEntity {
 	}
 
 	@Override
-	public int getDelay() {
+	public int getUpdateInterval() {
 		return 2;
 	}
 

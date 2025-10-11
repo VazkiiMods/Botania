@@ -43,33 +43,32 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide) {
+		if (getLevel().isClientSide || getMana() < COST_PER_TICK + 1) {
 			return;
 		}
 
-		if (ticksExisted % 200 == 0) {
-			sync();
+		addMana(-COST_PER_TICK);
+
+		if (range < getRange() && shouldUpdateThisTick()) {
+			range++;
 		}
 
-		if (getMana() > COST_PER_TICK) {
-			addMana(-COST_PER_TICK);
-
-			if (ticksExisted % 10 == 0 && range < getRange()) {
-				range++;
-			}
-
-			for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-range, -range, -range), getEffectivePos().offset(range, range, range))) {
-				if (getEffectivePos().distSqr(pos) < range * range) {
-					BlockState state = getLevel().getBlockState(pos);
-					if (state.is(Blocks.WATER)) {
-						getLevel().setBlock(pos, BotaniaBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);
-						if (getLevel().getBlockEntity(pos) instanceof FakeAirBlockEntity air) {
-							air.setFlower(this);
-						}
+		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-range, -range, -range), getEffectivePos().offset(range, range, range))) {
+			if (getEffectivePos().distSqr(pos) < range * range) {
+				BlockState state = getLevel().getBlockState(pos);
+				if (state.is(Blocks.WATER)) {
+					getLevel().setBlock(pos, BotaniaBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);
+					if (getLevel().getBlockEntity(pos) instanceof FakeAirBlockEntity air) {
+						air.setFlower(this);
 					}
 				}
 			}
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 10;
 	}
 
 	public static boolean isValidBubbell(Level world, BlockPos pos) {

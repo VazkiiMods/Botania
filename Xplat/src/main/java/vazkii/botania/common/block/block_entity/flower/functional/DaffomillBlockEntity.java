@@ -69,11 +69,12 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 			if (axis != null) {
 				List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, axis,
 						itemEntity -> DelayHelper.canInteractWithImmediate(this, itemEntity));
+				double v = overgrowth ? 0.1 : 0.05;
 				for (ItemEntity item : items) {
 					item.setDeltaMovement(
-							item.getDeltaMovement().x() + orientation.getStepX() * 0.05,
-							item.getDeltaMovement().y() + orientation.getStepY() * 0.05,
-							item.getDeltaMovement().z() + orientation.getStepZ() * 0.05
+							item.getDeltaMovement().x() + orientation.getStepX() * v,
+							item.getDeltaMovement().y() + orientation.getStepY() * v,
+							item.getDeltaMovement().z() + orientation.getStepZ() * v
 					);
 				}
 			}

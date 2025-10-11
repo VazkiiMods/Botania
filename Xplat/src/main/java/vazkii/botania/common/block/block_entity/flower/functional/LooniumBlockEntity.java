@@ -172,7 +172,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			detectStructure(world);
 		}
 
-		if (isPowered() || ticksExisted % 100 != 0 || world.getDifficulty() == Difficulty.PEACEFUL
+		if (isPowered() || !shouldUpdateThisTick() || world.getDifficulty() == Difficulty.PEACEFUL
 		// so mobs won't spawn in unloaded or border chunks
 				|| !world.isPositionEntityTicking(getEffectivePos())) {
 			return;
@@ -206,6 +206,11 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		spawnMob(world, pickedMobType, pickedConfig, pickedLootTable);
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 100;
 	}
 
 	private void spawnMob(ServerLevel world, LooniumMobSpawnData pickedMobType,

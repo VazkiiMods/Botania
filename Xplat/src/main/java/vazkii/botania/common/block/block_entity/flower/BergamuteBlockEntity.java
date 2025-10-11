@@ -75,7 +75,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 				if (count == 0 || level.random.nextInt(count) == 0) {
 					tile = f;
 				}
-				count += f.isOnSpecialSoil() ? 2 : 1;
+				count += f.getOvergrowthFactor();
 				if (count >= maxCount) {
 					break;
 				}

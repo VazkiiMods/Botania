@@ -19,6 +19,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -47,24 +49,32 @@ public class ClayconiaBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide && ticksExisted % 5 == 0) {
-			if (getMana() >= COST) {
-				BlockPos coords = getCoordsToPut();
-				if (coords != null) {
-					int stateId = Block.getId(getLevel().getBlockState(coords));
-					getLevel().removeBlock(coords, false);
-					if (BotaniaConfig.common().blockBreakParticles()) {
-						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, stateId);
-					}
-					getLevel().gameEvent(null, GameEvent.BLOCK_DESTROY, coords);
-					ItemEntity item = new ItemEntity(getLevel(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
-					getLevel().addFreshEntity(item);
-					addMana(-COST);
-				}
+		if (getLevel().isClientSide || !shouldUpdateThisTick() || getMana() < COST) {
+			return;
+		}
+
+		BlockPos coords = getCoordsToPut();
+		if (coords != null) {
+			int stateId = Block.getId(getLevel().getBlockState(coords));
+			getLevel().removeBlock(coords, false);
+			if (BotaniaConfig.common().blockBreakParticles()) {
+				getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, stateId);
 			}
+			getLevel().gameEvent(null, GameEvent.BLOCK_DESTROY, coords);
+			ItemEntity item = new ItemEntity(getLevel(),
+					coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5,
+					new ItemStack(Items.CLAY_BALL));
+			getLevel().addFreshEntity(item);
+			addMana(-COST);
 		}
 	}
 
+	@Override
+	protected int getUpdateInterval() {
+		return 5;
+	}
+
+	@Nullable
 	public BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 

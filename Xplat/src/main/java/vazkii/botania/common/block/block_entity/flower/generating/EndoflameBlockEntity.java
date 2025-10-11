@@ -56,44 +56,49 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 
 		boolean wasBurning = burnTime > 0;
 		if (wasBurning) {
-			burnTime--;
+			burnTime -= getOvergrowthFactor();
 		}
 
-		if (burnTime > 0 && ticksExisted % 2 == 0) {
-			addMana(3);
+		if (burnTime > 0) {
+			if (shouldUpdateThisTick()) {
+				addMana(3);
+			}
+			return;
 		}
 
-		if (burnTime == 0) {
-			if (getMana() < getMaxMana()) {
+		if (getMana() < getMaxMana()) {
+			for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE),
+					itemEntity -> DelayHelper.canInteractWith(this, itemEntity)
+							&& !itemEntity.getItem().is(BotaniaTags.Items.IGNORED_BY_ENDOFLAME)
+							&& !itemEntity.getItem().getItem().hasCraftingRemainingItem())) {
+				ItemStack stack = item.getItem();
+				int burnTime = getBurnTime(stack);
+				if (burnTime > 0) {
+					this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
-				for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE),
-						itemEntity -> DelayHelper.canInteractWith(this, itemEntity)
-								&& !itemEntity.getItem().is(BotaniaTags.Items.IGNORED_BY_ENDOFLAME)
-								&& !itemEntity.getItem().getItem().hasCraftingRemainingItem())) {
-					ItemStack stack = item.getItem();
-					int burnTime = getBurnTime(stack);
-					if (burnTime > 0) {
-						this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
-
-						EntityHelper.shrinkItem(item);
-						level.playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
-						level.blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
-						level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
-						if (!getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
-							level.setBlock(getBlockPos(),
-									getBlockState().setValue(BotaniaStateProperties.GENERATING, true),
-									Block.UPDATE_CLIENTS);
-						}
-						return;
+					EntityHelper.shrinkItem(item);
+					level.playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
+					level.blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
+					level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
+					if (!getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
+						level.setBlock(getBlockPos(),
+								getBlockState().setValue(BotaniaStateProperties.GENERATING, true),
+								Block.UPDATE_CLIENTS);
 					}
+					return;
 				}
 			}
-			if (wasBurning) {
-				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
-				level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.GENERATING, false),
-						Block.UPDATE_CLIENTS);
-			}
 		}
+		if (wasBurning) {
+			level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
+			level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.GENERATING, false),
+					Block.UPDATE_CLIENTS);
+		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 2;
 	}
 
 	@Override

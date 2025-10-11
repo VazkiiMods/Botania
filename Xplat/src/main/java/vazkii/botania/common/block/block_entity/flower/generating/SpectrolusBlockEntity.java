@@ -101,6 +101,11 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 	}
 
+	@Override
+	public boolean isOvergrowthAffected() {
+		return false;
+	}
+
 	private void addManaAndCycle(int toAdd) {
 		addMana(toAdd);
 		nextColor = nextColor == DyeColor.BLACK ? DyeColor.WHITE : DyeColor.byId(nextColor.getId() + 1);

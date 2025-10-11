@@ -13,7 +13,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
@@ -59,7 +58,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide) {
+		if (level.isClientSide) {
 			for (int i = 0; i < POSITIONS.length; i++) {
 				if (ticksRemaining[i] > 0) {
 					BlockPos coords = getEffectivePos().offset(POSITIONS[i]);
@@ -78,18 +77,17 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 
 		BlockPos atCoords = POSITIONS[positionAt];
 		BlockPos coords = getEffectivePos().offset(atCoords);
-		Level world = getLevel();
-		if (!world.isEmptyBlock(coords)) {
-			world.getProfiler().push("findRecipe");
+		if (!level.isEmptyBlock(coords)) {
+			level.getProfiler().push("findRecipe");
 			PureDaisyRecipe recipe = findRecipe(coords);
-			world.getProfiler().pop();
+			level.getProfiler().pop();
 
 			if (recipe != null) {
 				if (ticksRemaining[positionAt] == -1) {
 					ticksRemaining[positionAt] = recipe.getTime();
 				}
 
-				ticksRemaining[positionAt]--;
+				ticksRemaining[positionAt] -= getOvergrowthFactor();
 
 				if (ticksRemaining[positionAt] <= 0) {
 					ticksRemaining[positionAt] = -1;

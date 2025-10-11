@@ -49,17 +49,13 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered()) {
+		if (getLevel().isClientSide || isPowered() || !shouldUpdateThisTick()) {
 			return;
-		}
-
-		if (ticksExisted % 200 == 0) {
-			sync();
 		}
 
 		final int manaToUse = getManaCost();
 
-		if (ticksExisted % 5 == 0 && getMana() >= manaToUse) {
+		if (getMana() >= manaToUse) {
 			int range = getRange();
 			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
 					new AABB(getEffectivePos()).inflate(range), getSelector().and(e -> e.hurtTime == 0));
@@ -77,6 +73,11 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected int getUpdateInterval() {
+		return 5;
 	}
 
 	public int getManaCost() {

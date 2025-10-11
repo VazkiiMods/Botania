@@ -67,6 +67,11 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 	}
 
+	@Override
+	public boolean isOvergrowthAffected() {
+		return false;
+	}
+
 	public static void pacifyAfterLoad(Entity entity, ServerLevel level) {
 		if (entity instanceof Creeper creeper && XplatAbstractions.INSTANCE.tigersEyeComponent(creeper).isPacified()) {
 			pacifyCreeper(creeper);

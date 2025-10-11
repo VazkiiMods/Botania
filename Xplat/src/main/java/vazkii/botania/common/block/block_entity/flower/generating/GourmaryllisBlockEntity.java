@@ -132,7 +132,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		if (cooldown > -1) {
-			cooldown--;
+			cooldown -= getOvergrowthFactor();
 			setChanged();
 		}
 		if (digestingMana != 0) {
