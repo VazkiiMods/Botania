@@ -93,7 +93,7 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 		blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, null, getCubeModel(), 1, 1, 1, light, overlay);
 		ms.popPose();
 
-		if (!stack.isEmpty() && cube != null && !cube.hideCount) {
+		if (!stack.isEmpty() && cube != null && !cube.isHiddenCount()) {
 			int count = cube.getItemCount();
 			String countStr;
 			int color;

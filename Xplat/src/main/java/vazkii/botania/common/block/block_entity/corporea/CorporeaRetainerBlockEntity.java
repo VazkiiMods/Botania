@@ -21,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -30,7 +31,7 @@ import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.*;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
@@ -55,16 +56,19 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	@Nullable
 	private CorporeaRequestMatcher request;
 	private int requestCount;
-	private boolean retainMissing = false;
 
 	public CorporeaRetainerBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.CORPOREA_RETAINER, pos, state);
 	}
 
+	public boolean shouldRetainMissing() {
+		return getBlockState().getValue(BotaniaStateProperties.RETAIN_MISSING);
+	}
+
 	public void remember(BlockPos pos, CorporeaRequestMatcher request, int count, int missing) {
 		this.requestPos = pos;
 		this.request = request;
-		this.requestCount = retainMissing ? missing : count;
+		this.requestCount = shouldRetainMissing() ? missing : count;
 
 		setChanged();
 	}
@@ -114,7 +118,6 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 			request.writeToNBT(cmp, registries);
 			cmp.putInt(TAG_REQUEST_COUNT, requestCount);
 		}
-		cmp.putBoolean(TAG_RETAIN_MISSING, retainMissing);
 	}
 
 	@Override
@@ -133,7 +136,6 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 			request = null;
 		}
 		requestCount = cmp.getInt(TAG_REQUEST_COUNT);
-		retainMissing = cmp.getBoolean(TAG_RETAIN_MISSING);
 	}
 
 	public static <T extends CorporeaRequestMatcher> void addCorporeaRequestMatcher(ResourceLocation id, Class<T> clazz, BiFunction<CompoundTag, HolderLookup.Provider, T> deserializer) {
@@ -150,7 +152,7 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 
 		@Override
 		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
-			String mode = I18n.get("botaniamisc.retainer." + (retainer.retainMissing ? "retain_missing" : "retain_all"));
+			String mode = I18n.get("botaniamisc.retainer." + (retainer.shouldRetainMissing() ? "retain_missing" : "retain_all"));
 			int strWidth = font.width(mode);
 			int x = (window.getGuiScaledWidth() - strWidth) / 2;
 			int y = window.getGuiScaledHeight() / 2 + 8;
@@ -163,9 +165,8 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	@Override
 	public boolean onUsedByWand(Player player, ItemStack stack, Direction side) {
 		if (!level.isClientSide) {
-			retainMissing = !retainMissing;
-			setChanged();
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.setBlock(getBlockPos(), getBlockState().cycle(BotaniaStateProperties.RETAIN_MISSING),
+					Block.UPDATE_CLIENTS);
 		}
 		return true;
 	}

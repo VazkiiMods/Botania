@@ -25,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +36,7 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaRequestor;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
@@ -44,15 +45,11 @@ import java.util.List;
 public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor, Wandable, PhantomInkableBlock {
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
-	private static final String TAG_LOCK = "lock";
-	private static final String TAG_HIDE_COUNT = "hideCount";
 
 	private ItemStack requestTarget = ItemStack.EMPTY;
 	private int itemCount = 0;
 	private int ticks = 0;
 	private int compValue = 0;
-	public boolean locked = false;
-	public boolean hideCount = false;
 
 	public CorporeaCrystalCubeBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE, pos, state);
@@ -65,8 +62,16 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		}
 	}
 
+	public boolean isLocked() {
+		return getBlockState().getValue(BlockStateProperties.LOCKED);
+	}
+
+	public boolean isHiddenCount() {
+		return getBlockState().getValue(BotaniaStateProperties.HIDDEN);
+	}
+
 	public void setRequestTarget(ItemStack stack) {
-		if (!stack.isEmpty() && !locked) {
+		if (!stack.isEmpty() && !isLocked()) {
 			requestTarget = stack.copyWithCount(1);
 			setChanged();
 			updateCount();
@@ -129,8 +134,6 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 			tag.put(TAG_REQUEST_TARGET, requestTarget.save(registries));
 		}
 		tag.putInt(TAG_ITEM_COUNT, itemCount);
-		tag.putBoolean(TAG_LOCK, locked);
-		tag.putBoolean(TAG_HIDE_COUNT, hideCount);
 	}
 
 	@Override
@@ -139,8 +142,6 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		CompoundTag cmp = tag.getCompound(TAG_REQUEST_TARGET);
 		requestTarget = ItemStack.parse(registries, cmp).orElse(ItemStack.EMPTY);
 		setCount(tag.getInt(TAG_ITEM_COUNT));
-		locked = tag.getBoolean(TAG_LOCK);
-		hideCount = tag.getBoolean(TAG_HIDE_COUNT);
 	}
 
 	public int getComparatorValue() {
@@ -172,8 +173,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
-			this.locked = !this.locked;
-			setChanged();
+			level.setBlock(getBlockPos(), getBlockState().cycle(BlockStateProperties.LOCKED), Block.UPDATE_CLIENTS);
 			return true;
 		}
 		return false;
@@ -181,27 +181,18 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 
 	@Override
 	public boolean onPhantomInked(@Nullable Player player, ItemStack stack, Direction side) {
-		if (hideCount) {
+		if (isHiddenCount()) {
 			return false;
 		}
 		if (!level.isClientSide()) {
 			if (player == null || !player.getAbilities().instabuild) {
 				stack.shrink(1);
 			}
-			hideCount = true;
-			setChanged();
+			level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.HIDDEN, true),
+					Block.UPDATE_CLIENTS);
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return true;
-	}
-
-	@Override
-	public void setChanged() {
-		super.setChanged();
-		if (level != null) {
-			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
-		}
 	}
 
 	public static class Hud {
@@ -215,7 +206,8 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 				String lockedStr = I18n.get("botaniamisc.locked");
 
 				int strlen = Math.max(font.width(nameStr), font.width(countStr));
-				if (cube.locked) {
+				boolean locked = cube.isLocked();
+				if (locked) {
 					strlen = Math.max(strlen, font.width(lockedStr));
 				}
 
@@ -224,11 +216,11 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 				ps.pushPose();
 				ps.translate(centerX, centerY, 0);
 
-				RenderHelper.renderHUDBox(gui, 8, -11, strlen + 32, cube.locked ? 21 : 11);
+				RenderHelper.renderHUDBox(gui, 8, -11, strlen + 32, locked ? 21 : 11);
 
 				gui.drawString(font, nameStr, 30, -9, 0x6666FF);
 				gui.drawString(font, countStr, 30, 1, 0xFFFFFF);
-				if (cube.locked) {
+				if (locked) {
 					gui.drawString(font, lockedStr, 30, 11, 0xFFAA00);
 				}
 

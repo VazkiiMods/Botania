@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
@@ -27,12 +28,15 @@ public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 
 	public CorporeaRetainerBlock(BlockBehaviour.Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+		registerDefaultState(defaultBlockState()
+				.setValue(BlockStateProperties.POWERED, false)
+				.setValue(BotaniaStateProperties.RETAIN_MISSING, false));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(BlockStateProperties.POWERED);
+		super.createBlockStateDefinition(
+				builder.add(BlockStateProperties.POWERED, BotaniaStateProperties.RETAIN_MISSING));
 	}
 
 	@Override

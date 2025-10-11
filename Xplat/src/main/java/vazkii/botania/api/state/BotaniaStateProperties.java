@@ -49,6 +49,12 @@ public final class BotaniaStateProperties {
 	// ManaPoolBlock
 	public static final BooleanProperty OUTPUTTING = BooleanProperty.create("outputting");
 
+	// Corporea Retainer
+	public static final BooleanProperty RETAIN_MISSING = BooleanProperty.create("retain_missing");
+
+	// Corporea Crystal Cube
+	public static final BooleanProperty HIDDEN = BooleanProperty.create("hidden");
+
 	// various flowers
 	public static final BooleanProperty DIMMED = BooleanProperty.create("dimmed");
 	public static final BooleanProperty GENERATING = BooleanProperty.create("generating");
