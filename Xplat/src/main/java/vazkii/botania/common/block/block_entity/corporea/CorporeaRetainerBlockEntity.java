@@ -46,7 +46,6 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	private static final String TAG_REQUEST_Z = "requestZ";
 	private static final String TAG_REQUEST_TYPE = "requestType";
 	private static final String TAG_REQUEST_COUNT = "requestCount";
-	private static final String TAG_RETAIN_MISSING = "retainMissing";
 
 	private static final Map<ResourceLocation, BiFunction<CompoundTag, HolderLookup.Provider, ? extends CorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
 	private static final Map<Class<? extends CorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers = new ConcurrentHashMap<>();
