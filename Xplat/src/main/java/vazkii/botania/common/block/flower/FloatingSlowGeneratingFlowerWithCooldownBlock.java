@@ -12,20 +12,19 @@ import vazkii.botania.common.component.BotaniaDataComponents;
 
 import java.util.function.Supplier;
 
-public class FloatingGeneratingFlowerWithCooldownBlock extends FloatingSpecialFlowerBlock {
+public class FloatingSlowGeneratingFlowerWithCooldownBlock extends FloatingSlowGeneratingFlowerBlock {
 
-	public FloatingGeneratingFlowerWithCooldownBlock(Properties props,
+	public FloatingSlowGeneratingFlowerWithCooldownBlock(Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
 		super(props, blockEntityType);
 		registerDefaultState(defaultBlockState()
-				.setValue(BotaniaStateProperties.GENERATING, false)
 				.setValue(BotaniaStateProperties.ON_COOLDOWN, false));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BotaniaStateProperties.GENERATING, BotaniaStateProperties.ON_COOLDOWN);
+		builder.add(BotaniaStateProperties.ON_COOLDOWN);
 	}
 
 	@Override

@@ -302,24 +302,24 @@ public final class BotaniaBlocks {
 	public static final Block manastarFloating = make(floating(LibBlockNames.SUBTILE_MANASTAR), new FloatingManastarBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MANASTAR));
 	public static final Block manastarPotted = make(potted(LibBlockNames.SUBTILE_MANASTAR), BotaniaBlocks.flowerPot(manastar, 0));
 
-	public static final Block hydroangeas = make(LibBlockNames.SUBTILE_HYDROANGEAS, new GeneratingFlowerWithCooldownBlock(MobEffects.UNLUCK, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS));
-	public static final Block hydroangeasFloating = make(floating(LibBlockNames.SUBTILE_HYDROANGEAS), new FloatingGeneratingFlowerWithCooldownBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS));
+	public static final Block hydroangeas = make(LibBlockNames.SUBTILE_HYDROANGEAS, new SlowGeneratingFlowerWithCooldownBlock(MobEffects.UNLUCK, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS));
+	public static final Block hydroangeasFloating = make(floating(LibBlockNames.SUBTILE_HYDROANGEAS), new FloatingSlowGeneratingFlowerWithCooldownBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS));
 	public static final Block hydroangeasPotted = make(potted(LibBlockNames.SUBTILE_HYDROANGEAS), BotaniaBlocks.flowerPot(hydroangeas, 0));
 
-	public static final Block endoflame = make(LibBlockNames.SUBTILE_ENDOFLAME, new SpecialFlowerBlock(MobEffects.MOVEMENT_SLOWDOWN, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.ENDOFLAME));
-	public static final Block endoflameFloating = make(floating(LibBlockNames.SUBTILE_ENDOFLAME), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ENDOFLAME));
+	public static final Block endoflame = make(LibBlockNames.SUBTILE_ENDOFLAME, new SlowGeneratingFlowerBlock(MobEffects.MOVEMENT_SLOWDOWN, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.ENDOFLAME));
+	public static final Block endoflameFloating = make(floating(LibBlockNames.SUBTILE_ENDOFLAME), new FloatingSlowGeneratingFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ENDOFLAME));
 	public static final Block endoflamePotted = make(potted(LibBlockNames.SUBTILE_ENDOFLAME), BotaniaBlocks.flowerPot(endoflame, 0));
 
-	public static final Block thermalily = make(LibBlockNames.SUBTILE_THERMALILY, new GeneratingFlowerWithCooldownBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.THERMALILY));
-	public static final Block thermalilyFloating = make(floating(LibBlockNames.SUBTILE_THERMALILY), new FloatingGeneratingFlowerWithCooldownBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.THERMALILY));
+	public static final Block thermalily = make(LibBlockNames.SUBTILE_THERMALILY, new SlowGeneratingFlowerWithCooldownBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.THERMALILY));
+	public static final Block thermalilyFloating = make(floating(LibBlockNames.SUBTILE_THERMALILY), new FloatingSlowGeneratingFlowerWithCooldownBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.THERMALILY));
 	public static final Block thermalilyPotted = make(potted(LibBlockNames.SUBTILE_THERMALILY), BotaniaBlocks.flowerPot(thermalily, 0));
 
 	public static final Block rosaArcana = make(LibBlockNames.SUBTILE_ARCANE_ROSE, new SpecialFlowerBlock(MobEffects.LUCK, 64, FLOWER_PROPS, () -> BotaniaBlockEntities.ROSA_ARCANA));
 	public static final Block rosaArcanaFloating = make(floating(LibBlockNames.SUBTILE_ARCANE_ROSE), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ROSA_ARCANA));
 	public static final Block rosaArcanaPotted = make(potted(LibBlockNames.SUBTILE_ARCANE_ROSE), BotaniaBlocks.flowerPot(rosaArcana, 0));
 
-	public static final Block munchdew = make(LibBlockNames.SUBTILE_MUNCHDEW, new GeneratingFlowerWithCooldownBlock(MobEffects.SLOW_FALLING, 300, FLOWER_PROPS, () -> BotaniaBlockEntities.MUNCHDEW));
-	public static final Block munchdewFloating = make(floating(LibBlockNames.SUBTILE_MUNCHDEW), new FloatingGeneratingFlowerWithCooldownBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MUNCHDEW));
+	public static final Block munchdew = make(LibBlockNames.SUBTILE_MUNCHDEW, new SlowGeneratingFlowerWithCooldownBlock(MobEffects.SLOW_FALLING, 300, FLOWER_PROPS, () -> BotaniaBlockEntities.MUNCHDEW));
+	public static final Block munchdewFloating = make(floating(LibBlockNames.SUBTILE_MUNCHDEW), new FloatingSlowGeneratingFlowerWithCooldownBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MUNCHDEW));
 	public static final Block munchdewPotted = make(potted(LibBlockNames.SUBTILE_MUNCHDEW), BotaniaBlocks.flowerPot(munchdew, 0));
 
 	public static final Block entropinnyum = make(LibBlockNames.SUBTILE_ENTROPINNYUM, new SpecialFlowerBlock(MobEffects.DAMAGE_RESISTANCE, 72, FLOWER_PROPS, () -> BotaniaBlockEntities.ENTROPINNYUM));
@@ -330,8 +330,8 @@ public final class BotaniaBlocks {
 	public static final Block kekimurusFloating = make(floating(LibBlockNames.SUBTILE_KEKIMURUS), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.KEKIMURUS));
 	public static final Block kekimurusPotted = make(potted(LibBlockNames.SUBTILE_KEKIMURUS), BotaniaBlocks.flowerPot(kekimurus, 0));
 
-	public static final Block gourmaryllis = make(LibBlockNames.SUBTILE_GOURMARYLLIS, new SpecialFlowerBlock(MobEffects.HUNGER, 180, FLOWER_PROPS, () -> BotaniaBlockEntities.GOURMARYLLIS));
-	public static final Block gourmaryllisFloating = make(floating(LibBlockNames.SUBTILE_GOURMARYLLIS), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.GOURMARYLLIS));
+	public static final Block gourmaryllis = make(LibBlockNames.SUBTILE_GOURMARYLLIS, new SlowGeneratingFlowerBlock(MobEffects.HUNGER, 180, FLOWER_PROPS, () -> BotaniaBlockEntities.GOURMARYLLIS));
+	public static final Block gourmaryllisFloating = make(floating(LibBlockNames.SUBTILE_GOURMARYLLIS), new FloatingSlowGeneratingFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.GOURMARYLLIS));
 	public static final Block gourmaryllisPotted = make(potted(LibBlockNames.SUBTILE_GOURMARYLLIS), BotaniaBlocks.flowerPot(gourmaryllis, 0));
 
 	public static final Block narslimmus = make(LibBlockNames.SUBTILE_NARSLIMMUS, new SpecialFlowerBlock(BotaniaMobEffects.FEATHER_FEET, 240, FLOWER_PROPS, () -> BotaniaBlockEntities.NARSLIMMUS));

@@ -23,6 +23,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -30,6 +31,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DelayHelper;
@@ -106,12 +108,13 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide) {
+		if (level.isClientSide) {
 			return;
 		}
 
 		if (cooldown > -1) {
 			cooldown--;
+			setChanged();
 		}
 		if (digestingMana != 0) {
 			int munchInterval = 2 + (2 * lastFoodCount);
@@ -122,41 +125,52 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 
 				float burpPitch = (float) Math.pow(2.0, (streakLength == 0 ? -lastFoodCount : streakLength) / 12.0);
 				//Usage of vanilla sound event: Subtitle is just "Burp", at least in English, and not specific to players.
-				getLevel().playSound(null, getEffectivePos(), SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 1F, burpPitch);
-				getLevel().gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getEffectivePos());
+				level.playSound(null, getEffectivePos(), SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 1, burpPitch);
+				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getEffectivePos());
 				sync();
 			} else if (cooldown % munchInterval == 0) {
 				//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
-				getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 0.5F, 1F);
+				level.playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 0.5f, 1);
 
-				Vec3 offset = getLevel().getBlockState(getEffectivePos()).getOffset(getLevel(), getEffectivePos()).add(0.5, 0.6, 0.5);
+				Vec3 offset = level.getBlockState(getEffectivePos()).getOffset(level, getEffectivePos()).add(0.5, 0.6, 0.5);
 
-				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, lastFoods.getFirst()), getEffectivePos().getX() + offset.x, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
+				((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, lastFoods.getFirst()),
+						getEffectivePos().getX() + offset.x,
+						getEffectivePos().getY() + offset.y,
+						getEffectivePos().getZ() + offset.z,
+						10, 0.1, 0.1, 0.1, 0.03);
 			}
 		}
 
-		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE));
+		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE),
+				item -> DelayHelper.canInteractWithImmediate(this, item)
+						&& item.getItem().getItem().components().has(DataComponents.FOOD));
 
 		for (ItemEntity item : items) {
-			ItemStack stack = item.getItem();
+			level.gameEvent(null, GameEvent.EAT, item.position());
+			if (cooldown <= 0) {
+				ItemStack stack = item.getItem();
+				streakLength = Math.min(streakLength + 1, processFood(stack));
 
-			if (DelayHelper.canInteractWithImmediate(this, item) && stack.getItem().components().has(DataComponents.FOOD)) {
-				if (cooldown <= 0) {
-					streakLength = Math.min(streakLength + 1, processFood(stack));
-
-					int val = getFoodValue(stack);
-					digestingMana = getDigestingMana(val, getMultiplierForStreak(streakLength));
-					cooldown = getCooldown(val);
-					//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
-					item.playSound(SoundEvents.GENERIC_EAT, 0.2F, 0.6F);
-					getLevel().gameEvent(null, GameEvent.EAT, item.position());
-					getLevel().gameEvent(null, GameEvent.BLOCK_ACTIVATE, getEffectivePos());
-					sync();
-					((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), item.getX(), item.getY(), item.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
-				}
-
-				item.discard();
+				int val = getFoodValue(stack);
+				digestingMana = getDigestingMana(val, getMultiplierForStreak(streakLength));
+				cooldown = getCooldown(val);
+				//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
+				item.playSound(SoundEvents.GENERIC_EAT, 0.2f, 0.6f);
+				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getEffectivePos());
+				setChanged();
+				((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack),
+						item.getX(), item.getY(), item.getZ(),
+						20, 0.1, 0.1, 0.1, 0.05);
 			}
+
+			item.discard();
+		}
+
+		boolean isEating = digestingMana != 0;
+		if (getBlockState().getValue(BotaniaStateProperties.GENERATING) != isEating) {
+			level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.GENERATING, isEating),
+					Block.UPDATE_CLIENTS);
 		}
 	}
 

@@ -23,6 +23,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -46,26 +47,26 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
+		if (level.isClientSide) {
+			if (getBlockState().getValue(BotaniaStateProperties.GENERATING) && level.random.nextInt(10) == 0) {
+				emitParticle(ParticleTypes.FLAME, 0.4 + Math.random() * 0.2, 0.7, 0.4 + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+			}
+			return;
+		}
+
 		boolean wasBurning = burnTime > 0;
 		if (wasBurning) {
 			burnTime--;
 		}
 
-		if (getLevel().isClientSide) {
-			if (burnTime > 0 && getLevel().random.nextInt(10) == 0) {
-				emitParticle(ParticleTypes.FLAME, 0.4 + Math.random() * 0.2, 0.7, 0.4 + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
-			}
-			return;
-		} else {
-			if (burnTime > 0 && ticksExisted % 2 == 0) {
-				addMana(3);
-			}
+		if (burnTime > 0 && ticksExisted % 2 == 0) {
+			addMana(3);
 		}
 
 		if (burnTime == 0) {
 			if (getMana() < getMaxMana()) {
 
-				for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE),
+				for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE),
 						itemEntity -> DelayHelper.canInteractWith(this, itemEntity))) {
 					ItemStack stack = item.getItem();
 					if (stack.getItem().hasCraftingRemainingItem()) {
@@ -77,17 +78,22 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 						this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 						EntityHelper.shrinkItem(item);
-						getLevel().playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
-						getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
-						getLevel().gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
-						sync();
-
+						level.playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
+						level.blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
+						level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
+						if (!getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
+							level.setBlock(getBlockPos(),
+									getBlockState().setValue(BotaniaStateProperties.GENERATING, true),
+									Block.UPDATE_CLIENTS);
+						}
 						return;
 					}
 				}
 			}
 			if (wasBurning) {
-				getLevel().gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
+				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
+				level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.GENERATING, false),
+						Block.UPDATE_CLIENTS);
 			}
 		}
 	}
@@ -95,7 +101,7 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 	@Override
 	public boolean triggerEvent(int event, int param) {
 		if (event == START_BURN_EVENT) {
-			Entity e = getLevel().getEntity(param);
+			Entity e = level.getEntity(param);
 			if (e != null) {
 				e.level().addParticle(ParticleTypes.LARGE_SMOKE, e.getX(), e.getY() + 0.1, e.getZ(), 0.0D, 0.0D, 0.0D);
 				e.level().addParticle(ParticleTypes.FLAME, e.getX(), e.getY(), e.getZ(), 0.0D, 0.0D, 0.0D);
