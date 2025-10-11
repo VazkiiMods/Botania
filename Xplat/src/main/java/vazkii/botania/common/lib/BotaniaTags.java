@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.lib;
 
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
@@ -431,6 +432,14 @@ public class BotaniaTags {
 
 		private static TagKey<DamageType> tag(String name) {
 			return TagKey.create(Registries.DAMAGE_TYPE, botaniaRL(name));
+		}
+	}
+
+	public static class DataComponentTypes {
+		public static final TagKey<DataComponentType<?>> GOURMARYLLIS_RELEVANT = tag("gourmaryllis_relevant");
+
+		private static TagKey<DataComponentType<?>> tag(String name) {
+			return TagKey.create(Registries.DATA_COMPONENT_TYPE, botaniaRL(name));
 		}
 	}
 }

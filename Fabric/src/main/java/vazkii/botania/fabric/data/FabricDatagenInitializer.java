@@ -86,6 +86,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		pack.addProvider(ConventionalBiomeTagProvider::new);
 		pack.addProvider(BotaniaDynamicRegistryProvider::new);
 		pack.addProvider(DamageTypeTagProvider::new);
+		pack.addProvider(DataComponentTypeTagProvider::new);
 		pack.addProvider(StonecuttingProvider::new);
 		pack.addProvider(CraftingRecipeProvider::new);
 		pack.addProvider(SmeltingProvider::new);

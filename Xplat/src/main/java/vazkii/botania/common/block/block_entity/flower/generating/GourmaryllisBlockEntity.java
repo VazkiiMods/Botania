@@ -10,10 +10,14 @@ package vazkii.botania.common.block.block_entity.flower.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -35,12 +39,14 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 
 public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final String TAG_COOLDOWN = "cooldown";
@@ -54,6 +60,10 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int FOOD_COOLDOWN_FACTOR = 10;
 	private static final int FOOD_MANA_FACTOR = 70;
 	private static final int MAX_MANA = getDigestingMana(MAX_FOOD_VALUE, STREAK_MULTIPLIERS[STREAK_MULTIPLIERS.length - 1]);
+
+	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+	private final Optional<HolderSet.Named<DataComponentType<?>>> RELEVANT_COMPONENTS_TAG =
+			BuiltInRegistries.DATA_COMPONENT_TYPE.getTag(BotaniaTags.DataComponentTypes.GOURMARYLLIS_RELEVANT);
 
 	private int cooldown = 0;
 	private int digestingMana = 0;
@@ -85,23 +95,32 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	 * @return the last time the food showed up in history.
 	 */
 	private int processFood(ItemStack food) {
+		// strip any non-standard data components from the stack, unless they seem relevant for the flower
+		DataComponentPatch patch = food.getComponentsPatch().forget(this::isIrrelevantComponent);
+		ItemStack newestFood = new ItemStack(food.getItemHolder(), 1, patch);
+
 		for (ListIterator<ItemStack> it = lastFoods.listIterator(); it.hasNext();) {
 			int index = it.nextIndex();
 			ItemStack streakFood = it.next();
-			if (ItemStack.isSameItemSameComponents(streakFood, food)) {
+			if (ItemStack.isSameItemSameComponents(streakFood, newestFood)) {
 				it.remove();
 				lastFoods.addFirst(streakFood);
 				return index;
 			}
 		}
-		ItemStack newestFood = food.copyWithCount(1);
-		newestFood.remove(DataComponents.CUSTOM_NAME);
-		// TODO: VazkiiMods/Botania#4455 - strip other irrelevant components
 		lastFoods.addFirst(newestFood);
 		if (lastFoods.size() >= getMaxStreak()) {
 			lastFoods.removeLast();
 		}
 		return getMaxStreak();
+	}
+
+	private boolean isIrrelevantComponent(DataComponentType<?> dataComponentType) {
+		return !RELEVANT_COMPONENTS_TAG.map(
+				holders -> BuiltInRegistries.DATA_COMPONENT_TYPE.getResourceKey(dataComponentType)
+						.flatMap(BuiltInRegistries.DATA_COMPONENT_TYPE::getHolder).map(holders::contains)
+						.orElseThrow()
+		).orElse(dataComponentType == DataComponents.FOOD);
 	}
 
 	@Override
