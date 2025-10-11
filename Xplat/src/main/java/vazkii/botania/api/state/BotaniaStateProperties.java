@@ -51,6 +51,8 @@ public final class BotaniaStateProperties {
 
 	// various flowers
 	public static final BooleanProperty DIMMED = BooleanProperty.create("dimmed");
+	public static final BooleanProperty GENERATING = BooleanProperty.create("generating");
+	public static final BooleanProperty ON_COOLDOWN = BooleanProperty.create("on_cooldown");
 	public static final EnumProperty<ManastarState> MANASTAR_STATE = EnumProperty.create("state", ManastarState.class);
 	public static final EnumProperty<HopperhockFilterType> HOPPERHOCK_FILTER = EnumProperty.create("filter_type", HopperhockFilterType.class);
 	public static final EnumProperty<RannuncarpusMode> RANNUNCARPUS_MODE = EnumProperty.create("mode", RannuncarpusMode.class);
