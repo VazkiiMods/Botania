@@ -83,7 +83,7 @@ public final class ColorHandler {
 							c -> FastColor.ARGB32.lerp(0.8f, 0xFFFFFF, MysticalPetalItem.getPetalLikeColor(c)));
 					if (poolBlock.isFabulous()) {
 						float time = (ClientTickHandler.getEntityTicksInGame() + ClientTickHandler.getEntityPartialTick()) * 0.005F;
-						float posOffset = pos != null ? new Random(pos.asLong()).nextFloat() : 0;
+						float posOffset = pos != null ? new Random(state.getSeed(pos)).nextFloat() : 0;
 						int fabulousColor = Mth.hsvToRgb((time + posOffset) % 1f, 0.4F, 1F);
 						return color.map(c -> FastColor.ARGB32.multiply(fabulousColor, c)).orElse(fabulousColor);
 					}

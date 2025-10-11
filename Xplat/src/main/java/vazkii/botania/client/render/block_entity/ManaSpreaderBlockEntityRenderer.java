@@ -67,7 +67,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 
 		ms.translate(-0.5F, -0.5F, -0.5F);
 
-		float time = ClientTickHandler.getEntityTicksInGame() + partialTick + new Random(spreader.getBlockPos().asLong()).nextFloat() * 360;
+		float time = ClientTickHandler.getEntityTicksInGame() + partialTick + new Random(spreader.getBlockState().getSeed(spreader.getBlockPos())).nextFloat() * 360;
 
 		float r = 1, g = 1, b = 1;
 		ManaSpreaderBlock spreaderBlock = spreader.getSpreaderBlock();
