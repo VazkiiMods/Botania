@@ -11,16 +11,21 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.AnimalMode;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.EyeOfTheAncientsBlockEntity;
 
@@ -30,6 +35,15 @@ public class EyeOfTheAncientsBlock extends BotaniaWaterloggedBlock implements En
 
 	public EyeOfTheAncientsBlock(Properties builder) {
 		super(builder);
+		registerDefaultState(defaultBlockState()
+				.setValue(BotaniaStateProperties.ANIMAL_MODE, AnimalMode.ALL)
+				.setValue(BlockStateProperties.POWER, 0));
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BotaniaStateProperties.ANIMAL_MODE, BlockStateProperties.POWER);
 	}
 
 	@Override
@@ -44,9 +58,7 @@ public class EyeOfTheAncientsBlock extends BotaniaWaterloggedBlock implements En
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return world.getBlockEntity(pos) instanceof EyeOfTheAncientsBlockEntity eye
-				? Math.min(15, Math.max(0, eye.entities - 1))
-				: 0;
+		return state.getOptionalValue(BlockStateProperties.POWER).orElse(0);
 	}
 
 	@Override

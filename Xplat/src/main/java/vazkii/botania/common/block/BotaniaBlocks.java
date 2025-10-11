@@ -432,8 +432,8 @@ public final class BotaniaBlocks {
 	public static final Block hyacidusFloating = make(floating(LibBlockNames.SUBTILE_HYACIDUS), new PoweredFloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HYACIDUS));
 	public static final Block hyacidusPotted = make(potted(LibBlockNames.SUBTILE_HYACIDUS), BotaniaBlocks.flowerPot(hyacidus, 0));
 
-	public static final Block pollidisiac = make(LibBlockNames.SUBTILE_POLLIDISIAC, new SpecialFlowerBlock(MobEffects.DIG_SPEED, 369, FLOWER_PROPS, () -> BotaniaBlockEntities.POLLIDISIAC));
-	public static final Block pollidisiacFloating = make(floating(LibBlockNames.SUBTILE_POLLIDISIAC), new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.POLLIDISIAC));
+	public static final Block pollidisiac = make(LibBlockNames.SUBTILE_POLLIDISIAC, new PollidisiacBlock(MobEffects.DIG_SPEED, 369, FLOWER_PROPS, () -> BotaniaBlockEntities.POLLIDISIAC));
+	public static final Block pollidisiacFloating = make(floating(LibBlockNames.SUBTILE_POLLIDISIAC), new FloatingPollidisiacBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.POLLIDISIAC));
 	public static final Block pollidisiacPotted = make(potted(LibBlockNames.SUBTILE_POLLIDISIAC), BotaniaBlocks.flowerPot(pollidisiac, 0));
 
 	public static final Block clayconia = make(LibBlockNames.SUBTILE_CLAYCONIA, new SpecialFlowerBlock(MobEffects.WEAKNESS, 30, FLOWER_PROPS, () -> BotaniaBlockEntities.CLAYCONIA));

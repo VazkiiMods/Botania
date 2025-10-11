@@ -213,6 +213,7 @@ public class BotaniaBlockEntities {
 		consumer.accept(be -> new CorporeaRetainerBlockEntity.WandHud((CorporeaRetainerBlockEntity) be), BotaniaBlockEntities.CORPOREA_RETAINER);
 		consumer.accept(be -> new CraftyCrateBlockEntity.WandHud((CraftyCrateBlockEntity) be), BotaniaBlockEntities.CRAFT_CRATE);
 		consumer.accept(be -> new ManaEnchanterBlockEntity.WandHud((ManaEnchanterBlockEntity) be), BotaniaBlockEntities.ENCHANTER);
+		consumer.accept(be -> new EyeOfTheAncientsBlockEntity.WandHud((EyeOfTheAncientsBlockEntity) be), BotaniaBlockEntities.FOREST_EYE);
 		consumer.accept(be -> new HoveringHourglassBlockEntity.WandHud((HoveringHourglassBlockEntity) be), BotaniaBlockEntities.HOURGLASS);
 		consumer.accept(be -> new ManaPoolBlockEntity.WandHud((ManaPoolBlockEntity) be), BotaniaBlockEntities.POOL);
 		consumer.accept(be -> new ManaPrismBlockEntity.WandHud((ManaPrismBlockEntity) be), BotaniaBlockEntities.PRISM);

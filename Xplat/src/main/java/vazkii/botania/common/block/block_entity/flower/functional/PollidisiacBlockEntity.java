@@ -15,11 +15,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.animal.Animal;
@@ -27,6 +24,7 @@ import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -36,6 +34,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.AnimalMode;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
@@ -43,14 +43,10 @@ import vazkii.botania.mixin.AnimalAccessor;
 import vazkii.botania.mixin.MushroomCowAccessor;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implements Wandable {
-	private static final String TAG_FEEDING_MODE = "mode";
 	private static final int RANGE = 6;
 	private static final int MANA_COST = 12;
-
-	private Mode mode = Mode.FEED_ADULTS;
 
 	public PollidisiacBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.POLLIDISIAC, pos, state);
@@ -83,7 +79,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	 */
 	private List<Animal> getAnimals() {
 		var bounds = new AABB(getEffectivePos()).inflate(RANGE);
-		return getLevel().getEntitiesOfClass(Animal.class, bounds, mode);
+		return getLevel().getEntitiesOfClass(Animal.class, bounds, getMode());
 	}
 
 	/**
@@ -180,69 +176,18 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 		return 0xCF4919;
 	}
 
-	public Mode getMode() {
-		return this.mode;
+	public AnimalMode getMode() {
+		return getBlockState().getValue(BotaniaStateProperties.ANIMAL_MODE);
 	}
 
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
-			this.mode = this.mode.getNextMode();
-			setChanged();
-			sync();
-
+			level.setBlock(getBlockPos(), getBlockState().cycle(BotaniaStateProperties.ANIMAL_MODE),
+					Block.UPDATE_CLIENTS);
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
-		this.mode = Mode.forName(cmp.getString(TAG_FEEDING_MODE));
-	}
-
-	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
-		cmp.putString(TAG_FEEDING_MODE, this.mode.getSerializedName());
-	}
-
-	public enum Mode implements StringRepresentable, Predicate<Animal> {
-		FEED_ADULTS("feed_adults", animal -> animal.isAlive() && !animal.isBaby()),
-		FEED_BABIES("feed_babies", animal -> animal.isAlive() && animal.isBaby()),
-		FEED_ALL("feed_all", Animal::isAlive);
-
-		@SuppressWarnings("deprecation")
-		private static final EnumCodec<Mode> CODEC = StringRepresentable.fromEnum(Mode::values);
-
-		public static Mode forName(String name) {
-			return CODEC.byName(name, FEED_ADULTS);
-		}
-
-		private final String name;
-		private final Predicate<Animal> predicate;
-
-		Mode(String name, Predicate<Animal> predicate) {
-			this.name = name;
-			this.predicate = predicate;
-		}
-
-		@Override
-		public boolean test(Animal animal) {
-			return predicate.test(animal);
-		}
-
-		@Override
-		public String getSerializedName() {
-			return this.name;
-		}
-
-		public Mode getNextMode() {
-			Mode[] modes = values();
-			int nextMode = ordinal() + 1;
-			return modes[nextMode % modes.length];
-		}
 	}
 
 	public static class WandHud extends BindableFlowerWandHud<PollidisiacBlockEntity> {
