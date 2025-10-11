@@ -1,20 +1,20 @@
 {
   "values": [
-    "#c:storage_blocks/petal/brown",
-    "#c:storage_blocks/petal/lime",
-    "#c:storage_blocks/petal/purple",
-    "#c:storage_blocks/petal/red",
-    "#c:storage_blocks/petal/gray",
-    "#c:storage_blocks/petal/pink",
-    "#c:storage_blocks/petal/yellow",
-    "#c:storage_blocks/petal/blue",
-    "#c:storage_blocks/petal/cyan",
-    "#c:storage_blocks/petal/magenta",
-    "#c:storage_blocks/petal/black",
-    "#c:storage_blocks/petal/light_blue",
-    "#c:storage_blocks/petal/light_gray",
     "#c:storage_blocks/petal/white",
+    "#c:storage_blocks/petal/light_gray",
+    "#c:storage_blocks/petal/gray",
+    "#c:storage_blocks/petal/black",
+    "#c:storage_blocks/petal/brown",
+    "#c:storage_blocks/petal/red",
     "#c:storage_blocks/petal/orange",
-    "#c:storage_blocks/petal/green"
+    "#c:storage_blocks/petal/yellow",
+    "#c:storage_blocks/petal/lime",
+    "#c:storage_blocks/petal/green",
+    "#c:storage_blocks/petal/cyan",
+    "#c:storage_blocks/petal/light_blue",
+    "#c:storage_blocks/petal/blue",
+    "#c:storage_blocks/petal/purple",
+    "#c:storage_blocks/petal/magenta",
+    "#c:storage_blocks/petal/pink"
   ]
 }
