@@ -31,7 +31,7 @@ import vazkii.botania.api.configdata.ConfigDataManager;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.block_entity.flower.functional.SolegnoliaBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.SolegnoliaBlockEntity;
 import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;

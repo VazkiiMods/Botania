@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.functional;
+package vazkii.botania.common.block.block_entity.flower;
 
 import com.google.common.collect.MapMaker;
 
@@ -15,14 +15,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.Collections;
 import java.util.Set;
 
-public class SolegnoliaBlockEntity extends FunctionalFlowerBlockEntity {
+public class SolegnoliaBlockEntity extends SpecialFlowerBlockEntity {
 	private static final double RANGE = 5;
 	private static final double RANGE_MINI = 1;
 
@@ -60,16 +60,6 @@ public class SolegnoliaBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public int getMaxMana() {
-		return 1;
-	}
-
-	@Override
-	public int getColor() {
-		return 0xC99C4D;
 	}
 
 	public double getRange() {

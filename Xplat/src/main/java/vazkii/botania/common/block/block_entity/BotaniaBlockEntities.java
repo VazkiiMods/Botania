@@ -25,6 +25,7 @@ import vazkii.botania.common.block.block_entity.flower.BergamuteBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.ManastarBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.PureDaisyBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.SolegnoliaBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.functional.*;
 import vazkii.botania.common.block.block_entity.flower.generating.*;
 import vazkii.botania.common.block.block_entity.mana.*;
