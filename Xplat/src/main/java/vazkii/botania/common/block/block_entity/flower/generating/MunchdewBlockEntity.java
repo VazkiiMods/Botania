@@ -12,7 +12,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.LevelEvent;
@@ -134,6 +138,10 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 		level.removeBlock(breakCoords, false);
 		if (BotaniaConfig.common().blockBreakParticles()) {
 			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, breakCoords, Block.getId(state));
+			Vec3 offset = level.getBlockState(pos).getOffset(level, pos).add(0.5, 0.75, 0.5);
+			((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(state.getBlock())),
+					pos.getX() + offset.x, pos.getY() + offset.y, pos.getZ() + offset.z,
+					5, 0.1, 0.1, 0.1, 0.03);
 		}
 		level.gameEvent(null, GameEvent.BLOCK_DESTROY, breakCoords);
 		addMana(MANA_PER_LEAF);
