@@ -135,6 +135,11 @@ public class BotaniaTags {
 		public static final TagKey<Item> DIMS_FLOATING_FLOWERS = tag("dims_floating_flowers");
 		public static final TagKey<Item> UNDIMS_FLOATING_FLOWERS = tag("undims_floating_flowers");
 
+		/**
+		 * Items in this tag are ignored by the Endoflame, even if they are technically fuel items.
+		 */
+		public static final TagKey<Item> IGNORED_BY_ENDOFLAME = tag("ignored_by_endoflame");
+
 		public static TagKey<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
 				case WHITE -> PETALS_WHITE;

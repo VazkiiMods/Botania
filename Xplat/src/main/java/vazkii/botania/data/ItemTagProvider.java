@@ -19,13 +19,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OptionallyColored;
+import vazkii.botania.api.mana.ManaSpreader;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.AncientWillItem;
 import vazkii.botania.common.item.lens.LensItem;
@@ -104,12 +107,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem(), BotaniaBlocks.motifHydroangeas.asItem());
 
 		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);
-		TagsProvider.TagAppender<Item> lensTag = this.tag(BotaniaTags.Items.LENS);
-		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof LensItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(
-				BotaniaAPI.MODID))
-				.map(BuiltInRegistries.ITEM::getKey)
-				.sorted()
-				.forEach(item -> lensTag.add(ResourceKey.create(Registries.ITEM, item)));
+		this.tag(BotaniaTags.Items.LENS).add(getItems(LensItem.class::isInstance));
 
 		this.tag(BotaniaTags.Items.LENS_GLUE).add(Items.SLIME_BALL).add(Items.HONEY_BOTTLE);
 
@@ -147,12 +145,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				runeSloth, runeWrath, runeEnvy, runePride
 		);
 
-		TagsProvider.TagAppender<Item> willsTag = this.tag(BotaniaTags.Items.ANCIENT_WILLS);
-		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof AncientWillItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(
-				BotaniaAPI.MODID))
-				.map(BuiltInRegistries.ITEM::getKey)
-				.sorted()
-				.forEach(item -> willsTag.add(ResourceKey.create(Registries.ITEM, item)));
+		this.tag(BotaniaTags.Items.ANCIENT_WILLS).add(getItems(AncientWillItem.class::isInstance));
 
 		TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
 		ColorHelper.supportedColors().forEach(color -> {
@@ -264,6 +257,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		tag(BotaniaTags.Items.DIMS_FLOATING_FLOWERS).add(Items.INK_SAC);
 		tag(BotaniaTags.Items.UNDIMS_FLOATING_FLOWERS).add(Items.GLOW_INK_SAC);
+
+		tag(BotaniaTags.Items.IGNORED_BY_ENDOFLAME).add(getItems(
+				item -> item instanceof BlockItem blockItem && blockItem.getBlock() instanceof ManaSpreaderBlock));
 
 		copy(BotaniaTags.Blocks.COVERED_MANA_SPREADERS, BotaniaTags.Items.COVERED_MANA_SPREADERS);
 		copy(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS, BotaniaTags.Items.COVERED_PULSE_SPREADERS);

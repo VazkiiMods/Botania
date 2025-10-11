@@ -25,10 +25,10 @@ import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
@@ -67,14 +67,12 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 			if (getMana() < getMaxMana()) {
 
 				for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE),
-						itemEntity -> DelayHelper.canInteractWith(this, itemEntity))) {
+						itemEntity -> DelayHelper.canInteractWith(this, itemEntity)
+								&& !itemEntity.getItem().is(BotaniaTags.Items.IGNORED_BY_ENDOFLAME)
+								&& !itemEntity.getItem().getItem().hasCraftingRemainingItem())) {
 					ItemStack stack = item.getItem();
-					if (stack.getItem().hasCraftingRemainingItem()) {
-						continue;
-					}
-
 					int burnTime = getBurnTime(stack);
-					if (burnTime > 0 && stack.getCount() > 0) {
+					if (burnTime > 0) {
 						this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 						EntityHelper.shrinkItem(item);
@@ -142,11 +140,7 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	private int getBurnTime(ItemStack stack) {
-		if (stack.isEmpty() || Block.byItem(stack.getItem()) instanceof ManaSpreaderBlock) {
-			return 0;
-		} else {
-			return XplatAbstractions.INSTANCE.getSmeltingBurnTime(stack);
-		}
+		return stack.isEmpty() ? 0 : XplatAbstractions.INSTANCE.getSmeltingBurnTime(stack);
 	}
 
 }

@@ -20,6 +20,7 @@ c9af2e1986fcbb302a3a285c8ba32305c3d18aac data/botania/tags/item/functional_speci
 d8c0b82b62c4f8e76f7d0be581205211b90a8f0f data/botania/tags/item/generating_special_flowers.json
 44dbaa657d1cdd33c235a2b4fd292986765aa097 data/botania/tags/item/glimmering_dreamwood_logs.json
 5dc32f38ab92b5305bdf06a8d9f2259c132a1450 data/botania/tags/item/glimmering_livingwood_logs.json
+1c630e5ab194a3faf2797ce15bf06b9c372e9337 data/botania/tags/item/ignored_by_endoflame.json
 2fee618b5e30ac2e40be8ef0c0f218d72fbbbb88 data/botania/tags/item/lens.json
 7031861956185905c0b33100ef95db464a21453f data/botania/tags/item/lens_glue.json
 feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/item/livingwood_logs.json
