@@ -43,8 +43,7 @@ public final class BlockEntityConstants {
 			BotaniaBlockEntities.LOONIUM, BotaniaBlockEntities.MARIMORPHOSIS, BotaniaBlockEntities.MARIMORPHOSIS_CHIBI,
 			BotaniaBlockEntities.MEDUMONE, BotaniaBlockEntities.ORECHID, BotaniaBlockEntities.ORECHID_IGNEM,
 			BotaniaBlockEntities.POLLIDISIAC, BotaniaBlockEntities.RANNUNCARPUS,
-			BotaniaBlockEntities.RANNUNCARPUS_CHIBI, BotaniaBlockEntities.SOLEGNOLIA,
-			BotaniaBlockEntities.SOLEGNOLIA_CHIBI, BotaniaBlockEntities.SPECTRANTHEMUM,
+			BotaniaBlockEntities.RANNUNCARPUS_CHIBI, BotaniaBlockEntities.SPECTRANTHEMUM,
 			BotaniaBlockEntities.TANGLEBERRIE, BotaniaBlockEntities.TANGLEBERRIE_CHIBI, BotaniaBlockEntities.TIGERSEYE,
 			BotaniaBlockEntities.VINCULOTUS,
 
