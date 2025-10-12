@@ -70,7 +70,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 
 		if (burnTime > 0) {
 			if (shouldUpdateThisTick()) {
-				addMana(manaPerTick);
+				addMana(getUpdateInterval() <= 1 ? getOvergrowthFactor() * manaPerTick : manaPerTick);
 				// TODO: only sync mana if a nearby player cares
 				sync();
 			}
