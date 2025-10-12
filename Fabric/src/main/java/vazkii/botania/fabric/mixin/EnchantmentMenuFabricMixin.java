@@ -31,16 +31,18 @@ public class EnchantmentMenuFabricMixin {
 	)
 	private int botaniaPylonEnchanting(int inPower, ItemStack stack, Level level, BlockPos pos) {
 		float power = inPower;
+		BlockPos.MutableBlockPos testPos = new BlockPos.MutableBlockPos();
 		for (int x = -1; x <= 1; ++x) {
 			for (int z = -1; z <= 1; ++z) {
-				if ((x != 0 || z != 0) && level.isEmptyBlock(pos.offset(x, 0, z)) && level.isEmptyBlock(pos.offset(x, 1, z))) {
-					power += getPylonValue(level.getBlockState(pos.offset(x * 2, 0, z * 2)), level, pos);
-					power += getPylonValue(level.getBlockState(pos.offset(x * 2, 1, z * 2)), level, pos);
+				if ((x != 0 || z != 0) && level.isEmptyBlock(testPos.setWithOffset(pos, x, 0, z))
+						&& level.isEmptyBlock(testPos.setWithOffset(pos, x, 1, z))) {
+					power += getPylonValue(level.getBlockState(testPos.setWithOffset(pos, x * 2, 0, z * 2)), level, pos);
+					power += getPylonValue(level.getBlockState(testPos.setWithOffset(pos, x * 2, 1, z * 2)), level, pos);
 					if (x != 0 && z != 0) {
-						power += getPylonValue(level.getBlockState(pos.offset(x * 2, 0, z)), level, pos);
-						power += getPylonValue(level.getBlockState(pos.offset(x * 2, 1, z)), level, pos);
-						power += getPylonValue(level.getBlockState(pos.offset(x, 0, z * 2)), level, pos);
-						power += getPylonValue(level.getBlockState(pos.offset(x, 1, z * 2)), level, pos);
+						power += getPylonValue(level.getBlockState(testPos.setWithOffset(pos, x * 2, 0, z)), level, pos);
+						power += getPylonValue(level.getBlockState(testPos.setWithOffset(pos, x * 2, 1, z)), level, pos);
+						power += getPylonValue(level.getBlockState(testPos.setWithOffset(pos, x, 0, z * 2)), level, pos);
+						power += getPylonValue(level.getBlockState(testPos.setWithOffset(pos, x, 1, z * 2)), level, pos);
 					}
 				}
 			}

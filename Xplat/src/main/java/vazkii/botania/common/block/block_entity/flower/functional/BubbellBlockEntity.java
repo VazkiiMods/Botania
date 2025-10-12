@@ -22,6 +22,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.FakeAirBlockEntity;
+import vazkii.botania.common.helper.MathHelper;
 
 public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 12;
@@ -53,8 +54,10 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 			range++;
 		}
 
-		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-range, -range, -range), getEffectivePos().offset(range, range, range))) {
-			if (getEffectivePos().distSqr(pos) < range * range) {
+		int rangeSqr = range * range;
+		BlockPos effectivePos = getEffectivePos();
+		for (BlockPos pos : MathHelper.aroundPosClosed(effectivePos, range)) {
+			if (effectivePos.distSqr(pos) < rangeSqr) {
 				BlockState state = getLevel().getBlockState(pos);
 				if (state.is(Blocks.WATER)) {
 					getLevel().setBlock(pos, BotaniaBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);

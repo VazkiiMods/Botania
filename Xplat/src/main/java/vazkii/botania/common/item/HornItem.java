@@ -23,6 +23,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.common.block.block_entity.flower.misc.BergamuteBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.MathHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,12 +69,9 @@ public abstract class HornItem extends Item {
 	protected abstract int getNumBlocksToBreak();
 
 	public static void breakBlocks(Level world, HornItem horn, BlockPos srcPos) {
-		int range = horn.getRange();
-		int rangeY = horn.getRangeY();
 		List<BlockPos> coords = new ArrayList<>();
 
-		for (BlockPos pos : BlockPos.betweenClosed(srcPos.offset(-range, -rangeY, -range),
-				srcPos.offset(range, rangeY, range))) {
+		for (BlockPos pos : MathHelper.aroundPosClosed(srcPos, horn.getRange(), horn.getRangeY())) {
 			if (horn.canHarvest(world, pos) && !BergamuteBlockEntity.isBergamuteNearby(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				coords.add(pos.immutable());
 			}

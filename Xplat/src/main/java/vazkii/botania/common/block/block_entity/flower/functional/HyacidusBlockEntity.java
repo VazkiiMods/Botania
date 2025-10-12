@@ -15,11 +15,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.MathHelper;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class HyacidusBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
-				new AABB(getEffectivePos()).inflate(RANGE),
+				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				livingEntity -> livingEntity.isAlive() && !(livingEntity instanceof Player)
 						&& livingEntity.getEffect(MobEffects.POISON) == null
 						&& !livingEntity.getType().is(EntityTypeTags.UNDEAD));

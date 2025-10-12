@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
@@ -81,15 +82,10 @@ public class ClayconiaBlockEntity extends FunctionalFlowerBlockEntity {
 		int range = getRange();
 		int rangeY = getRangeY();
 
-		for (int i = -range; i < range + 1; i++) {
-			for (int j = -rangeY; j < rangeY + 1; j++) {
-				for (int k = -range; k < range + 1; k++) {
-					BlockPos pos = getEffectivePos().offset(i, j, k);
-					BlockState state = getLevel().getBlockState(pos);
-					if (state.is(BlockTags.SAND)) {
-						possibleCoords.add(pos);
-					}
-				}
+		for (BlockPos pos : MathHelper.aroundPosClosed(getEffectivePos(), range, rangeY)) {
+			BlockState state = getLevel().getBlockState(pos);
+			if (state.is(BlockTags.SAND)) {
+				possibleCoords.add(pos.immutable());
 			}
 		}
 

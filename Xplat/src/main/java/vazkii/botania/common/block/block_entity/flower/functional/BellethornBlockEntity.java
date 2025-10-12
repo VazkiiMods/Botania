@@ -14,11 +14,11 @@ import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.MathHelper;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -58,7 +58,7 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 		if (getMana() >= manaToUse) {
 			int range = getRange();
 			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
-					new AABB(getEffectivePos()).inflate(range), getSelector().and(e -> e.hurtTime == 0));
+					MathHelper.inflateBoxAround(getEffectivePos(), range), getSelector().and(e -> e.hurtTime == 0));
 
 			for (LivingEntity entity : entities) {
 				int dmg = 4;

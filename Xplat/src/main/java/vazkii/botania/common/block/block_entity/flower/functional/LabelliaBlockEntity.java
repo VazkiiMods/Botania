@@ -30,6 +30,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.helper.MathHelper;
 
 import java.util.List;
 
@@ -56,18 +57,14 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 		BlockPos effPos = getEffectivePos();
 		BlockPos realPos = getBlockPos();
-		int x = effPos.getX();
-		int y = effPos.getY();
-		int z = effPos.getZ();
 
 		for (ItemEntity nameTagEnt : level.getEntitiesOfClass(ItemEntity.class,
-				AABB.encapsulatingFullBlocks(realPos.offset(-PICKUP_RANGE, 0, -PICKUP_RANGE),
-						realPos.offset(PICKUP_RANGE + 1, 1, PICKUP_RANGE + 1)),
+				MathHelper.inflateBoxAround(realPos, PICKUP_RANGE, 0),
 				item -> item.getItem().is(Items.NAME_TAG)
 						&& item.getItem().has(DataComponents.CUSTOM_NAME)
 						&& DelayHelper.canInteractWith(this, item))) {
 			ItemStack nameTag = nameTagEnt.getItem();
-			AABB renameArea = new AABB(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
+			AABB renameArea = MathHelper.inflateBoxAround(effPos, RENAME_RANGE, 0);
 			Component name = nameTag.getHoverName();
 			List<LivingEntity> nameableEntities = level.getEntitiesOfClass(LivingEntity.class, renameArea,
 					EntitySelector.ENTITY_STILL_ALIVE.and(e -> !name.equals(e.getCustomName()) && !(e instanceof Player)));
@@ -97,7 +94,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 			addMana(-COST);
 			EntityHelper.shrinkItem(nameTagEnt);
-			level.playSound(null, x + 0.5, y + 0.5, z + 0.5, BotaniaSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, effPos, BotaniaSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
 			break;
 		}
 	}

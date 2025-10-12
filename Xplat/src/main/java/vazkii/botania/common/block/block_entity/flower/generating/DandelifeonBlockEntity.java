@@ -20,6 +20,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.CellularBlockEntity;
+import vazkii.botania.common.helper.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,14 +66,9 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		if (shouldUpdateThisTick()) {
 			runSimulation();
 		} else if (shouldTick(level.getGameTime() + 1, getUpdateInterval())) {
-			int diameter = radius * 2;
-
-			for (int i = 0; i <= diameter; i++) {
-				for (int j = 0; j <= diameter; j++) {
-					BlockPos pos = getEffectivePos().offset(-radius + i, 0, -radius + j);
-					if (level.getBlockEntity(pos) instanceof CellularBlockEntity cell) {
-						cell.claim(this);
-					}
+			for (BlockPos pos : MathHelper.aroundPosClosed(getEffectivePos(), radius, 0)) {
+				if (level.getBlockEntity(pos) instanceof CellularBlockEntity cell) {
+					cell.claim(this);
 				}
 			}
 		}
@@ -132,14 +128,15 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 			}
 		}
 
+		BlockPos.MutableBlockPos changePos = new BlockPos.MutableBlockPos();
 		for (var change : changes) {
-			BlockPos pos_ = table.center.offset(-radius + change.x(), 0, -radius + change.z());
+			changePos.setWithOffset(table.center, change.x() - radius, 0, change.z() - radius);
 			int newLife = change.newLife();
-			if (newLife != Cell.CONSUME && wipe) {
+			if (wipe && newLife != Cell.CONSUME) {
 				newLife = Cell.DEAD;
 			}
 
-			setBlockForGeneration(pos_, Math.min(newLife, MAX_MANA_GENERATIONS), change.oldLife());
+			setBlockForGeneration(changePos, Math.min(newLife, MAX_MANA_GENERATIONS), change.oldLife());
 		}
 	}
 
@@ -190,9 +187,10 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 			// store everything in range + one outside
 			cells = new int[diameter + 2][diameter + 2];
 
+			BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 			for (int i = -1; i <= diameter; i++) {
 				for (int j = -1; j <= diameter; j++) {
-					BlockPos pos = center.offset(-range + i, 0, -range + j);
+					pos.setWithOffset(center, i - range, 0, j - range);
 					cells[i + 1][j + 1] = getCellGeneration(pos, dandie, onBoundary(i, j));
 				}
 			}

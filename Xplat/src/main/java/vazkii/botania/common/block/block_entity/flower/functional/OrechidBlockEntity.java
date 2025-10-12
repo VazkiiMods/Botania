@@ -27,6 +27,7 @@ import vazkii.botania.common.crafting.BlockStateRecipe;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.OrechidManager;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
@@ -97,8 +98,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	private BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 		var matcher = getReplaceMatcher();
-		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-getRange(), -getRangeY(), -getRange()),
-				getEffectivePos().offset(getRange(), getRangeY(), getRange()))) {
+		for (BlockPos pos : MathHelper.aroundPosClosed(getEffectivePos(), getRange(), getRangeY())) {
 			BlockState state = getLevel().getBlockState(pos);
 			if (matcher.test(state)) {
 				possibleCoords.add(pos.immutable());

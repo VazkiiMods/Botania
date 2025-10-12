@@ -30,6 +30,7 @@ import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class TerraFirmaRodItem extends Item {
 
 		List<CoordsWithBlock> blocks = new ArrayList<>();
 
-		for (BlockPos pos : BlockPos.betweenClosed(startCenter.offset(-range, -range, -range), startCenter.offset(range, range, range))) {
+		for (BlockPos pos : MathHelper.aroundPosClosed(startCenter, range)) {
 			BlockState state = world.getBlockState(pos);
 			if (state.isAir()) {
 				continue;

@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -50,6 +49,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.FilterHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.*;
@@ -83,8 +83,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		}
 
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class,
-				AABB.encapsulatingFullBlocks(getBlockPos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE),
-						getBlockPos().offset(PICKUP_RANGE, PICKUP_RANGE_Y, PICKUP_RANGE)),
+				MathHelper.inflateBoxAround(getBlockPos(), PICKUP_RANGE, PICKUP_RANGE_Y),
 				itemEntity -> DelayHelper.canInteractWith(this, itemEntity));
 
 		List<ItemStack> filter = FilterHelper.getFiltersOnBlock(getLevel(), getFilterPos(), false);
@@ -165,10 +164,10 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		List<BlockPos> emptyPositions = new ArrayList<>();
 		List<BlockPos> additivePositions = new ArrayList<>();
 
-		for (BlockPos pos : BlockPos.betweenClosed(center.offset(-rangePlace, -rangePlaceY, -rangePlace),
-				center.offset(rangePlace, rangePlaceY, rangePlace))) {
+		BlockPos.MutableBlockPos placementPos = new BlockPos.MutableBlockPos();
+		for (BlockPos pos : MathHelper.aroundPosClosed(center, rangePlace, rangePlaceY)) {
 			BlockState state = getLevel().getBlockState(pos);
-			BlockPos placementPos = pos.above();
+			placementPos.setWithOffset(pos, 0, 1, 0);
 			BlockState up = getLevel().getBlockState(placementPos);
 
 			boolean matches;

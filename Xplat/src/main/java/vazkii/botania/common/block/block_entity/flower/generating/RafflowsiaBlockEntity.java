@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 
 public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 	public static final String TAG_LAST_FLOWERS = "lastFlowers";
@@ -92,22 +93,20 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 
-		for (int i = 0; i < RANGE * 2 + 1; i++) {
-			for (int j = 0; j < RANGE * 2 + 1; j++) {
-				for (int k = 0; k < RANGE * 2 + 1; k++) {
-					BlockPos pos = getEffectivePos().offset(i - RANGE, j - RANGE, k - RANGE);
-
+		Optional<BlockPos> flowerPos = BlockPos.findClosestMatch(getEffectivePos(), RANGE, RANGE,
+				pos -> {
 					BlockState state = getLevel().getBlockState(pos);
-					if (state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS) && !state.is(BotaniaBlocks.rafflowsia)) {
-						streakLength = Math.min(streakLength + 1, processFlower(state.getBlock()));
+					return !state.is(BotaniaBlocks.rafflowsia) && state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS);
+				});
+		if (flowerPos.isPresent()) {
+			BlockPos pos = flowerPos.get();
 
-						getLevel().destroyBlock(pos, false);
-						addMana(getValueForStreak(streakLength));
-						sync();
-						return;
-					}
-				}
-			}
+			BlockState state = getLevel().getBlockState(pos);
+			streakLength = Math.min(streakLength + 1, processFlower(state.getBlock()));
+
+			getLevel().destroyBlock(pos, false);
+			addMana(getValueForStreak(streakLength));
+			sync();
 		}
 	}
 

@@ -151,15 +151,13 @@ public class BifrostRodItem extends SelfReturningItem {
 			int h = 1;
 			int l = 20;
 
-			AABB axis = null;
-			switch (world.getBlockState(tePos).getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-				case NORTH -> axis = AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
-				case SOUTH -> axis = AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
-				case WEST -> axis = AABB.encapsulatingFullBlocks(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
-				case EAST -> axis = AABB.encapsulatingFullBlocks(tePos.offset(1, -h, -w), tePos.offset(l + 1, h, w + 1));
-				default -> {
-				}
-			}
+			AABB axis = switch (world.getBlockState(tePos).getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+				case NORTH -> AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
+				case SOUTH -> AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
+				case WEST -> AABB.encapsulatingFullBlocks(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
+				case EAST -> AABB.encapsulatingFullBlocks(tePos.offset(1, -h, -w), tePos.offset(l + 1, h, w + 1));
+				default -> null;
+			};
 
 			List<Player> players = world.getEntitiesOfClass(Player.class, axis);
 			for (Player p : players) {

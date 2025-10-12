@@ -35,6 +35,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
@@ -45,6 +46,8 @@ import java.util.List;
 
 public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSupplier {
 	public static final int PARTICLE_COLOR = 0x000008;
+	public static final int CONVERSION_RANGE = 4;
+	public static final int CONVERSION_RANGE_Y = 4;
 
 	public EnderAirBottleEntity(EntityType<EnderAirBottleEntity> type, Level world) {
 		super(type, world);
@@ -122,11 +125,8 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 
 	private List<BlockPos> getCoordsToPut(BlockPos pos) {
 		List<BlockPos> possibleCoords = new ArrayList<>();
-		int range = 4;
-		int rangeY = 4;
 
-		for (BlockPos bPos : BlockPos.betweenClosed(pos.offset(-range, -rangeY, -range),
-				pos.offset(range, rangeY, range))) {
+		for (BlockPos bPos : MathHelper.aroundPosClosed(pos, CONVERSION_RANGE, CONVERSION_RANGE_Y)) {
 			BlockState state = level().getBlockState(bPos);
 			if (state.is(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE)) {
 				possibleCoords.add(bPos.immutable());

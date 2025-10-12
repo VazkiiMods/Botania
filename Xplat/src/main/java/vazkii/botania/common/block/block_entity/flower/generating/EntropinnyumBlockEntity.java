@@ -13,16 +13,17 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.world.level.entity.EntityTypeTest;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
@@ -41,20 +42,26 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 		if (getLevel().isClientSide || getMana() != 0) {
 			return;
 		}
-		List<PrimedTnt> tnts = getLevel().getEntitiesOfClass(PrimedTnt.class, new AABB(getEffectivePos()).inflate(RANGE));
-		for (PrimedTnt tnt : tnts) {
-			FluidState fluid = getLevel().getFluidState(tnt.blockPosition());
-			if (tnt.getFuse() == 1 && tnt.isAlive() && fluid.isEmpty()) {
-				boolean unethical = XplatAbstractions.INSTANCE.ethicalComponent(tnt).isUnethical();
-				tnt.playSound(unethical ? BotaniaSounds.entropinnyumAngry : BotaniaSounds.entropinnyumHappy, 1F, (1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
-				tnt.discard();
-				addMana(unethical ? 3 : getMaxMana());
-				sync();
-
-				getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), unethical ? ANGRY_EFFECT_EVENT : EXPLODE_EFFECT_EVENT, tnt.getId());
-				break;
-			}
+		List<PrimedTnt> tnts = new ArrayList<>(1);
+		getLevel().getEntities(EntityTypeTest.forClass(PrimedTnt.class),
+				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
+				primedTnt -> primedTnt.isAlive() && primedTnt.getFuse() == 1
+						&& getLevel().getFluidState(primedTnt.blockPosition()).isEmpty(),
+				tnts, 1);
+		if (tnts.isEmpty()) {
+			return;
 		}
+		PrimedTnt tnt = tnts.getFirst();
+		boolean unethical = XplatAbstractions.INSTANCE.ethicalComponent(tnt).isUnethical();
+		tnt.playSound(unethical ? BotaniaSounds.entropinnyumAngry : BotaniaSounds.entropinnyumHappy, 1F,
+				(1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
+		tnt.discard();
+		addMana(unethical ? 3 : getMaxMana());
+		sync();
+
+		getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(),
+				unethical ? ANGRY_EFFECT_EVENT : EXPLODE_EFFECT_EVENT,
+				tnt.getId());
 	}
 
 	@Override

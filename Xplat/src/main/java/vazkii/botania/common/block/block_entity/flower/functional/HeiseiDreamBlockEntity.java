@@ -16,11 +16,11 @@ import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.mixin.HurtByTargetGoalAccessor;
 import vazkii.botania.mixin.MobAccessor;
 
@@ -43,7 +43,7 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, new AABB(getEffectivePos()).inflate(RANGE),
+		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				mob -> mob instanceof Enemy && mob.isAlive());
 
 		if (mobs.size() <= 1) {

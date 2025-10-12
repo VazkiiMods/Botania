@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Predicate;
@@ -50,8 +51,7 @@ public class MagnetizingLens extends Lens {
 		}
 
 		if (!magnetized) {
-			for (BlockPos pos : BlockPos.betweenClosed(basePos.offset(-range, -range, -range),
-					basePos.offset(range, range, range))) {
+			for (BlockPos pos : MathHelper.aroundPosClosed(basePos, range)) {
 				target = pos;
 				if (predicate.test(target)) {
 					break;

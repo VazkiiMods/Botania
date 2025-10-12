@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import java.util.Optional;
 
 public class FloralFertilizerItem extends Item {
 	private static final int RANGE = 3;
+	private static final int RANGE_Y = 2;
 
 	public FloralFertilizerItem(Properties props) {
 		super(props);
@@ -48,9 +50,7 @@ public class FloralFertilizerItem extends Item {
 
 			List<BlockPos> validCoords = new ArrayList<>();
 
-			for (BlockPos candidatePos : BlockPos.betweenClosed(
-					pos.getX() - RANGE, pos.getY() - 2, pos.getZ() - RANGE,
-					pos.getX() + RANGE, pos.getY() + 2, pos.getZ() + RANGE)) {
+			for (BlockPos candidatePos : MathHelper.aroundPosClosed(pos, RANGE, RANGE_Y)) {
 				if (!world.isInWorldBounds(candidatePos) || !world.isEmptyBlock(candidatePos)) {
 					continue;
 				}

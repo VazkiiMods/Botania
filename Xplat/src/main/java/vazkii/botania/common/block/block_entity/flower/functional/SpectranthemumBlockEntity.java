@@ -17,7 +17,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -27,6 +26,7 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
@@ -57,7 +57,6 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 		if (getLevel().isClientSide || isPowered() || !getLevel().hasChunkAt(bindPos)) {
 			return;
 		}
-		BlockPos pos = getEffectivePos();
 
 		Predicate<ItemEntity> shouldPickup = item -> {
 			if (XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
@@ -72,7 +71,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 			return DelayHelper.canInteractWith(this, item);
 		};
-		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(RANGE), shouldPickup);
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, MathHelper.inflateBoxAround(getEffectivePos(), RANGE), shouldPickup);
 
 		boolean did = false;
 		for (ItemEntity item : items) {

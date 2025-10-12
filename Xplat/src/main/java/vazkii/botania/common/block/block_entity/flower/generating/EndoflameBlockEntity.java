@@ -19,7 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -28,6 +27,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -67,7 +67,8 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		if (getMana() < getMaxMana()) {
-			for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE),
+			for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class,
+					MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 					itemEntity -> DelayHelper.canInteractWith(this, itemEntity)
 							&& !itemEntity.getItem().is(BotaniaTags.Items.IGNORED_BY_ENDOFLAME)
 							&& !itemEntity.getItem().getItem().hasCraftingRemainingItem())) {

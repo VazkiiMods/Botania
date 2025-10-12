@@ -29,9 +29,8 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.mixin.FlowingFluidAccessor;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final String TAG_BURN_TIME = "burnTime";
@@ -86,50 +85,43 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 		// flower is not generating mana anymore, but may or may not be in cooldown now
 
 		if (getMana() < getMaxMana()) {
-			BlockPos effectivePos = getEffectivePos();
-			List<BlockPos> positions = new ArrayList<>(9);
-			for (BlockPos pos : BlockPos.betweenClosed(
-					effectivePos.getX() - 1, effectivePos.getY(), effectivePos.getZ() - 1,
-					effectivePos.getX() + 1, effectivePos.getY(), effectivePos.getZ() + 1)) {
-				positions.add(pos.immutable());
-			}
-			Collections.shuffle(positions);
 
-			for (BlockPos pos : positions) {
+			for (BlockPos pos : getShuffledPositionsAround(getEffectivePos())) {
 
 				FluidState fluidState = level.getFluidState(pos);
-				if (fluidState.is(consumedFluid) && fluidState.isSource()) {
-					BlockState blockState = level.getBlockState(pos);
-					if (!(fluidState.getType() instanceof FlowingFluid flowing)
-							|| !((FlowingFluidAccessor) flowing).botania_getNewLiquid(level, pos, blockState).isSource()) {
-						// liquid would not form a new source here if this one was removed, so consume it
-						if (!(blockState.getBlock() instanceof BucketPickup bucketPickup)
-								|| bucketPickup.pickupBlock(null, level, pos, blockState).isEmpty()) {
-							continue;
-						}
-						level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
-					}
-
-					if (cooldown == 0) {
-						// slightly vary actual burn time to prevent flowers from eternally being in sync,
-						// thus requiring a proper infinite source setup
-						burnTime += startBurnTime + level.getRandom().nextInt(2) - level.getRandom().nextInt(2);
-						if (!getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
-							level.setBlock(getBlockPos(),
-									getBlockState()
-											.setValue(BotaniaStateProperties.GENERATING, true)
-											.setValue(BotaniaStateProperties.ON_COOLDOWN, false),
-									Block.UPDATE_CLIENTS);
-						}
-						level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
-					}
-					// reset cooldown here, as it should be set anyway when the flower is broken while generating mana
-					cooldown = cooldownTime;
-
-					setChanged();
-					playSound();
-					return;
+				if (!fluidState.is(consumedFluid) || !fluidState.isSource()) {
+					continue;
 				}
+				BlockState blockState = level.getBlockState(pos);
+				if (!(fluidState.getType() instanceof FlowingFluid flowing)
+						|| !((FlowingFluidAccessor) flowing).botania_getNewLiquid(level, pos, blockState).isSource()) {
+					// liquid would not form a new source here if this one was removed, so consume it
+					if (!(blockState.getBlock() instanceof BucketPickup bucketPickup)
+							|| bucketPickup.pickupBlock(null, level, pos, blockState).isEmpty()) {
+						continue;
+					}
+					level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
+				}
+
+				if (cooldown == 0) {
+					// slightly vary actual burn time to prevent flowers from eternally being in sync,
+					// thus requiring a proper infinite source setup
+					burnTime += startBurnTime + level.getRandom().nextInt(2) - level.getRandom().nextInt(2);
+					if (!getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
+						level.setBlock(getBlockPos(),
+								getBlockState()
+										.setValue(BotaniaStateProperties.GENERATING, true)
+										.setValue(BotaniaStateProperties.ON_COOLDOWN, false),
+								Block.UPDATE_CLIENTS);
+					}
+					level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
+				}
+				// reset cooldown here, as it should be set anyway when the flower is broken while generating mana
+				cooldown = cooldownTime;
+
+				setChanged();
+				playSound();
+				return;
 			}
 		}
 
@@ -146,6 +138,18 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 					getBlockState().setValue(BotaniaStateProperties.ON_COOLDOWN, false),
 					Block.UPDATE_CLIENTS);
 		}
+	}
+
+	private static BlockPos[] getShuffledPositionsAround(BlockPos pos) {
+		BlockPos[] posArray = new BlockPos[9];
+		int i = 0;
+		for (int x = -1; x <= 1; x++) {
+			for (int z = -1; z <= 1; z++) {
+				posArray[i++] = pos.offset(x, 0, z);
+			}
+		}
+		Collections.shuffle(Arrays.asList(posArray));
+		return posArray;
 	}
 
 	public int getUpdateInterval() {

@@ -18,12 +18,12 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
-import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
@@ -47,7 +47,8 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 
-		List<Slime> slimes = getLevel().getEntitiesOfClass(Slime.class, new AABB(getEffectivePos()).inflate(RANGE),
+		List<Slime> slimes = getLevel().getEntitiesOfClass(Slime.class,
+				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				slime -> slime.isAlive() && XplatAbstractions.INSTANCE.narslimmusComponent(slime).isNaturalSpawned());
 		for (Slime slime : slimes) {
 			int size = slime.getSize();

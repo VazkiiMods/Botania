@@ -27,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -39,6 +38,7 @@ import vazkii.botania.api.state.enums.AnimalMode;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.mixin.AnimalAccessor;
 import vazkii.botania.mixin.MushroomCowAccessor;
 
@@ -75,7 +75,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	 * Finds items around flower's actual position.
 	 */
 	private List<ItemEntity> getItems() {
-		var pickupBounds = new AABB(getBlockPos()).inflate(RANGE);
+		var pickupBounds = MathHelper.inflateBoxAround(getBlockPos(), RANGE);
 		return getLevel().getEntitiesOfClass(ItemEntity.class, pickupBounds,
 				itemEntity -> DelayHelper.canInteractWith(this, itemEntity));
 	}
@@ -84,7 +84,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	 * Finds animals around flower's effective position. Depending on mode, adults, babies, or both will be selected.
 	 */
 	private List<Animal> getAnimals() {
-		var bounds = new AABB(getEffectivePos()).inflate(RANGE);
+		var bounds = MathHelper.inflateBoxAround(getEffectivePos(), RANGE);
 		return getLevel().getEntitiesOfClass(Animal.class, bounds, getMode());
 	}
 

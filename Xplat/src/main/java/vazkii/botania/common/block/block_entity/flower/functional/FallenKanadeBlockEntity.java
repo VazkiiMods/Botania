@@ -16,11 +16,11 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.MathHelper;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class FallenKanadeBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 		boolean did = false;
 		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
-				new AABB(getEffectivePos()).inflate(RANGE),
+				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				e -> canHeal(e) && e.getEffect(MobEffects.REGENERATION) == null);
 		for (LivingEntity toHeal : entities) {
 			toHeal.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 59, overgrowth ? 3 : 2, true, true));

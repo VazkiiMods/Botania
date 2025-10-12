@@ -49,7 +49,6 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Team;
@@ -65,6 +64,7 @@ import vazkii.botania.api.configdata.LooniumMobEffectToApply;
 import vazkii.botania.api.configdata.LooniumMobSpawnData;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.internal_caps.LooniumComponent;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
@@ -367,7 +367,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	private int countNearbyMobs(ServerLevel world, LooniumStructureConfiguration pickedConfig) {
 		var setOfMobTypes = pickedConfig.spawnedMobs.unwrap().stream().map(msd -> msd.type).collect(Collectors.toSet());
-		return world.getEntitiesOfClass(Mob.class, new AABB(getEffectivePos()).inflate(CHECK_RANGE),
+		return world.getEntitiesOfClass(Mob.class, MathHelper.inflateBoxAround(getEffectivePos(), CHECK_RANGE),
 				m -> setOfMobTypes.contains(m.getType())).size();
 	}
 

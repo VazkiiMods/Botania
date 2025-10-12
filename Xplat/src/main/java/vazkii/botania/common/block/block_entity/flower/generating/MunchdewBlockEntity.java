@@ -16,6 +16,7 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -30,6 +31,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -109,16 +111,16 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 
 	private boolean eatLeaves() {
 		Map<BlockPos, Float> coordsMap = new HashMap<>();
-		Random rng = new Random();
-		BlockPos pos = getEffectivePos();
+		RandomSource rng = level.getRandom();
+		BlockPos effectivePos = getEffectivePos();
 
-		for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-RANGE, 0, -RANGE),
-				pos.offset(RANGE, RANGE_Y, RANGE))) {
-			BlockState state = level.getBlockState(pos_);
+		BlockPos.MutableBlockPos checkPos = new BlockPos.MutableBlockPos();
+		for (BlockPos pos : MathHelper.aroundPosClosed(effectivePos, RANGE, 0, RANGE_Y)) {
+			BlockState state = level.getBlockState(pos);
 			if (state.is(BotaniaTags.Blocks.MUNCHDEW_CONSUMABLE)) {
 				for (Direction dir : Direction.values()) {
-					if (level.isEmptyBlock(pos_.relative(dir))) {
-						coordsMap.put(pos_.immutable(), (state.hasProperty(LeavesBlock.DISTANCE)
+					if (level.isEmptyBlock(checkPos.setWithOffset(pos, dir))) {
+						coordsMap.put(pos.immutable(), (state.hasProperty(LeavesBlock.DISTANCE)
 								? state.getValue(LeavesBlock.DISTANCE) : 1) + 2.0f * rng.nextFloat());
 						break;
 					}
@@ -139,14 +141,14 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 		coordsMap.values().removeIf(dist -> dist < finalMaxDistance - 1f);
 		List<BlockPos> coords = new ArrayList<>(coordsMap.keySet());
 
-		BlockPos breakCoords = coords.get(level.getRandom().nextInt(coords.size()));
+		BlockPos breakCoords = coords.get(rng.nextInt(coords.size()));
 		BlockState state = level.getBlockState(breakCoords);
 		level.removeBlock(breakCoords, false);
 		if (BotaniaConfig.common().blockBreakParticles()) {
 			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, breakCoords, Block.getId(state));
-			Vec3 offset = level.getBlockState(pos).getOffset(level, pos).add(0.5, 0.75, 0.5);
+			Vec3 offset = level.getBlockState(effectivePos).getOffset(level, effectivePos).add(0.5, 0.75, 0.5);
 			((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(state.getBlock())),
-					pos.getX() + offset.x, pos.getY() + offset.y, pos.getZ() + offset.z,
+					effectivePos.getX() + offset.x, effectivePos.getY() + offset.y, effectivePos.getZ() + offset.z,
 					5, 0.1, 0.1, 0.1, 0.03);
 		}
 		level.gameEvent(null, GameEvent.BLOCK_DESTROY, breakCoords);

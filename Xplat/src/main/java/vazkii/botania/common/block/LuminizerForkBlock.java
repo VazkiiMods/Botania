@@ -19,23 +19,25 @@ public class LuminizerForkBlock extends LuminizerBlock {
 	@Nullable
 	public BlockPos getNextDestination(Level level, BlockState state, BlockPos blockPos, LuminizerBlockEntity blockEntity) {
 		BlockPos torchPos = null;
+		BlockPos.MutableBlockPos testPos = new BlockPos.MutableBlockPos();
 		for (int i = -2; i < 3; i++) {
-			BlockPos testPos = blockPos.offset(0, i, 0);
+			testPos.setWithOffset(blockPos, 0, i, 0);
 
 			BlockState testState = level.getBlockState(testPos);
 			if (testState.is(BotaniaBlocks.animatedTorch)) {
-				torchPos = testPos;
+				torchPos = testPos.immutable();
 				break;
 			}
 		}
 
 		if (torchPos != null && level.getBlockEntity(torchPos) instanceof AnimatedTorchBlockEntity torch) {
 			Direction side = AnimatedTorchBlockEntity.SIDES[torch.side].getOpposite();
+			testPos.set(blockPos);
 			for (int i = 1; i < LuminizerBlockEntity.MAX_DIST; i++) {
-				BlockPos testPos = blockPos.relative(side, i);
+				testPos.move(side);
 				BlockState testState = level.getBlockState(testPos);
 				if (testState.getBlock() instanceof LuminizerBlock) {
-					return testPos;
+					return testPos.immutable();
 				}
 			}
 		}

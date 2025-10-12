@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.block_entity.flower.generating;
 
-import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.platform.Window;
 
 import net.minecraft.client.gui.Font;
@@ -36,6 +35,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.MathHelper;
 
 import java.util.function.Predicate;
 
@@ -62,42 +62,42 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		// sheep need to enter the actual block space
-		var sheeps = getLevel().getEntitiesOfClass(Sheep.class, new AABB(getEffectivePos()), Entity::isAlive);
+		for (Sheep sheep : getLevel().getEntitiesOfClass(Sheep.class, new AABB(getEffectivePos()), Entity::isAlive)) {
+			if (!sheep.isSheared() && sheep.getColor() == nextColor) {
+				addManaAndCycle(sheep.isBaby() ? BABY_SHEEP_GEN : SHEEP_GEN);
+				float pitch = sheep.isBaby()
+						? (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.5F
+						: (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F;
+				//Usage of vanilla sound event: this sheep do be dying though. And generic sounds are meant to be reused.
+				sheep.playSound(SoundEvents.SHEEP_DEATH, 0.9F, pitch);
+				sheep.playSound(SoundEvents.GENERIC_EAT, 1, 1);
 
-		AABB itemAABB = new AABB(getEffectivePos()).inflate(RANGE);
-		Predicate<ItemEntity> selector = e -> DelayHelper.canInteractWithImmediate(this, e);
-		var items = getLevel().getEntitiesOfClass(ItemEntity.class, itemAABB, selector);
+				ItemStack morbid = new ItemStack(sheep.isOnFire() ? Items.COOKED_MUTTON : Items.MUTTON);
+				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, morbid),
+						sheep.getX(), sheep.getY() + sheep.getEyeHeight(), sheep.getZ(),
+						20, 0.1, 0.1, 0.1, 0.05);
 
-		for (Entity target : Iterables.concat(sheeps, items)) {
-			if (target instanceof Sheep sheep) {
-				if (!sheep.isSheared() && sheep.getColor() == nextColor) {
-					addManaAndCycle(sheep.isBaby() ? BABY_SHEEP_GEN : SHEEP_GEN);
-					float pitch = sheep.isBaby() ? (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.5F : (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F;
-					//Usage of vanilla sound event: this sheep do be dying though. And generic sounds are meant to be reused.
-					sheep.playSound(SoundEvents.SHEEP_DEATH, 0.9F, pitch);
-					sheep.playSound(SoundEvents.GENERIC_EAT, 1, 1);
-
-					ItemStack morbid = new ItemStack(sheep.isOnFire() ? Items.COOKED_MUTTON : Items.MUTTON);
-					((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, morbid), target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
-
-					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.apply(sheep.getColor()));
-					((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, wool), target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
-				}
-				sheep.setHealth(0);
-			} else if (target instanceof ItemEntity item) {
-				ItemStack stack = item.getItem();
-
-				if (!stack.isEmpty() && ColorHelper.isWool(stack.getItem())) {
-					Block expected = ColorHelper.WOOL_MAP.apply(nextColor);
-
-					if (expected.asItem() == stack.getItem()) {
-						addManaAndCycle(WOOL_GEN);
-						((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), target.getX(), target.getY(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
-					}
-
-					target.discard();
-				}
+				ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.apply(sheep.getColor()));
+				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, wool),
+						sheep.getX(), sheep.getY() + sheep.getEyeHeight(), sheep.getZ(),
+						20, 0.1, 0.1, 0.1, 0.05);
 			}
+			sheep.setHealth(0);
+		}
+
+		AABB itemAABB = MathHelper.inflateBoxAround(getEffectivePos(), RANGE);
+		Predicate<ItemEntity> selector = e -> DelayHelper.canInteractWithImmediate(this, e)
+				&& ColorHelper.isWool(e.getItem().getItem());
+		for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, itemAABB, selector)) {
+			ItemStack stack = item.getItem();
+			Block expected = ColorHelper.WOOL_MAP.apply(nextColor);
+
+			if (expected.asItem() == stack.getItem()) {
+				addManaAndCycle(WOOL_GEN);
+				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), item.getX(), item.getY(), item.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
+			}
+
+			item.discard();
 		}
 	}
 
@@ -143,8 +143,8 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 				int centerY = window.getGuiScaledHeight() / 2;
 
 				super.renderHUD(gui, window, font, halfWidth + 2, halfWidth + 2, 48);
-				RenderHelper.renderItemWithNameCentered(gui, window, font, stack, centerY + 30, ColorHelper.getColorLegibleOnGrayBackground(flower.nextColor)
-				);
+				RenderHelper.renderItemWithNameCentered(gui, window, font, stack, centerY + 30,
+						ColorHelper.getColorLegibleOnGrayBackground(flower.nextColor));
 			}
 		}
 	}

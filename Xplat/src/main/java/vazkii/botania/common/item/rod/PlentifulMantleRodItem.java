@@ -30,6 +30,7 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Random;
@@ -63,8 +64,7 @@ public class PlentifulMantleRodItem extends Item {
 	}
 
 	private static void doHighlight(Level world, BlockPos pos, int range, long seedxor) {
-		for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-range, -range, -range),
-				pos.offset(range, range, range))) {
+		for (BlockPos pos_ : MathHelper.aroundPosClosed(pos, range)) {
 			BlockState state = world.getBlockState(pos_);
 
 			Block block = state.getBlock();

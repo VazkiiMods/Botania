@@ -28,6 +28,7 @@ import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.*;
@@ -186,12 +187,12 @@ public class GrassSeedsItem extends Item {
 		public boolean tick() {
 			if (++ticksExisted % 20 == 0) {
 				var tickPositions = new ArrayList<BlockPos>();
-				for (BlockPos pos : BlockPos.betweenClosed(startCoords.offset(-RANGE, -RANGE, -RANGE),
-						startCoords.offset(RANGE, RANGE, RANGE))) {
+				for (BlockPos pos : MathHelper.aroundPosClosed(startCoords, RANGE)) {
 					if (world.getBlockState(pos) == stateToSet && canPropagate(pos)) {
 						tickPositions.add(pos.immutable());
 					}
 				}
+				Collections.shuffle(tickPositions);
 				tickPositions.forEach(this::tickBlock);
 			}
 
@@ -209,8 +210,7 @@ public class GrassSeedsItem extends Item {
 			List<BlockPos> validCoords = new ArrayList<>();
 
 			// Go around this block and aggregate valid blocks.
-			for (BlockPos targetPos : BlockPos.betweenClosed(pos.offset(-TICK_RANGE_HORIZONTAL, -TICK_RANGE_VERTICAL, -TICK_RANGE_HORIZONTAL),
-					pos.offset(TICK_RANGE_HORIZONTAL, TICK_RANGE_VERTICAL, TICK_RANGE_HORIZONTAL))) {
+			for (BlockPos targetPos : MathHelper.aroundPosClosed(pos, TICK_RANGE_HORIZONTAL, TICK_RANGE_VERTICAL)) {
 				// Skip the current block, and any blocks that are already converted
 				if (targetPos.equals(pos) || world.getBlockState(targetPos) == stateToSet) {
 					continue;

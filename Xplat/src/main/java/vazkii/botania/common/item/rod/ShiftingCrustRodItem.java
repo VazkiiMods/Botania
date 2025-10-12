@@ -184,10 +184,12 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		int zRange = getRange(stack, axis, Direction.Axis.Z);
 
 		// Iterate in all 3 dimensions through our possible positions.
+		BlockPos.MutableBlockPos pos_ = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos adjPos = new BlockPos.MutableBlockPos();
 		for (int offsetX = -xRange; offsetX <= xRange; offsetX++) {
 			for (int offsetY = -yRange; offsetY <= yRange; offsetY++) {
 				for (int offsetZ = -zRange; offsetZ <= zRange; offsetZ++) {
-					BlockPos pos_ = pos.offset(offsetX, offsetY, offsetZ);
+					pos_.setWithOffset(pos, offsetX, offsetY, offsetZ);
 
 					BlockState currentState = world.getBlockState(pos_);
 
@@ -205,11 +207,11 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 
 					// Check to see if the block is visible on any side:
 					for (Direction dir : Direction.values()) {
-						BlockPos adjPos = pos_.relative(dir);
+						adjPos.setWithOffset(pos_, dir);
 						BlockState adjState = world.getBlockState(adjPos);
 
 						if (!Block.isFaceFull(adjState.getBlockSupportShape(world, pos), dir.getOpposite())) {
-							coordsList.add(pos_);
+							coordsList.add(pos_.immutable());
 							break;
 						}
 					}

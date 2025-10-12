@@ -30,7 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
@@ -39,6 +38,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -161,7 +161,8 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 			}
 		}
 
-		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE),
+		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class,
+				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				item -> DelayHelper.canInteractWithImmediate(this, item)
 						&& item.getItem().getItem().components().has(DataComponents.FOOD));
 

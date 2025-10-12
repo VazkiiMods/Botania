@@ -23,6 +23,7 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.item.SpecialBlockBreakingHandler;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelAxeItem;
@@ -223,7 +224,10 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 
 				// Then, go through all of the adjacent blocks and look if
 				// any of them are any good.
-				for (BlockPos adj : adjacent(cand.coordinates)) {
+				for (BlockPos adj : MathHelper.aroundPosClosed(cand.coordinates, 1)) {
+					if (adj.equals(cand.coordinates)) {
+						continue;
+					}
 					var state = world.getBlockState(adj);
 
 					boolean isWood = state.is(BlockTags.LOGS);
@@ -241,32 +245,12 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 					// Otherwise, it gets the standard range - 1.
 					int newRange = isLeaf ? Math.min(LEAF_BLOCK_RANGE, cand.range - 1) : cand.range - 1;
 
-					candidateQueue.offer(new SwapCandidate(adj, newRange));
+					candidateQueue.offer(new SwapCandidate(adj.immutable(), newRange));
 				}
 			}
 
 			// If we did any iteration, then hang around until next tick.
 			return true;
-		}
-
-		public List<BlockPos> adjacent(BlockPos original) {
-			List<BlockPos> coords = new ArrayList<>();
-			// Visit all the surrounding blocks in the provided radius.
-			// Gotta love these nested loops, right?
-			for (int dx = -SINGLE_BLOCK_RADIUS; dx <= SINGLE_BLOCK_RADIUS; dx++) {
-				for (int dy = -SINGLE_BLOCK_RADIUS; dy <= SINGLE_BLOCK_RADIUS; dy++) {
-					for (int dz = -SINGLE_BLOCK_RADIUS; dz <= SINGLE_BLOCK_RADIUS; dz++) {
-						// Skip the central tile.
-						if (dx == 0 && dy == 0 && dz == 0) {
-							continue;
-						}
-
-						coords.add(original.offset(dx, dy, dz));
-					}
-				}
-			}
-
-			return coords;
 		}
 
 		/**

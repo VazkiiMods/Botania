@@ -56,6 +56,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.world.BotaniaExplosionDamageCalculator;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -125,6 +126,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	public static final int MANA_COST = 500;
 	public static final int MANA_COST_OPENING = 200000;
 	public static final int MIN_REQUIRED_PYLONS = 2;
+	public static final int PYLON_SEARCH_RANGE = 5;
 	private static final String TAG_TICKS_OPEN = "ticksOpen";
 	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
 	private static final String TAG_STACK_COUNT = "stackCount";
@@ -275,8 +277,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	private AABB getPortalAABB(AlfheimPortalState state) {
 		return state == AlfheimPortalState.ON_X
-				? AABB.encapsulatingFullBlocks(worldPosition.offset(0, 1, -1), worldPosition.offset(1, 4, 2))
-				: AABB.encapsulatingFullBlocks(worldPosition.offset(-1, 1, 0), worldPosition.offset(2, 4, 1));
+				? MathHelper.inflateBoxAround(worldPosition, 0, 1, -1, 4)
+				: MathHelper.inflateBoxAround(worldPosition, 1, 0, -1, 4);
 	}
 
 	private void addItem(ItemStack stack) {
@@ -408,11 +410,9 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 			// not enough valid cached pylons, scan again
 		}
 
-		int range = 5;
 		List<BlockPos> result = new ArrayList<>();
 
-		for (BlockPos pos : BlockPos.betweenClosed(getBlockPos().offset(-range, -range, -range),
-				getBlockPos().offset(range, range, range))) {
+		for (BlockPos pos : MathHelper.aroundPosClosed(getBlockPos(), PYLON_SEARCH_RANGE)) {
 			if (isValidPylonPosition(pos)) {
 				result.add(pos.immutable());
 			}

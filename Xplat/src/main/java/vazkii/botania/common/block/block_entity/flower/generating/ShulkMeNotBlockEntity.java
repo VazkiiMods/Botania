@@ -19,13 +19,13 @@ import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.MathHelper;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class ShulkMeNotBlockEntity extends GeneratingFlowerBlockEntity {
 
 		BlockPos pos = getEffectivePos();
 		Vec3 posD = pos.getCenter();
-		List<Shulker> shulkers = world.getEntitiesOfClass(Shulker.class, new AABB(pos).inflate(RADIUS),
+		List<Shulker> shulkers = world.getEntitiesOfClass(Shulker.class, MathHelper.inflateBoxAround(pos, RADIUS),
 				shulker -> shulker.isAlive() && shulker.distanceToSqr(posD) < RADIUS * RADIUS);
 		for (Shulker shulker : shulkers) {
 			LivingEntity target = shulker.getTarget();

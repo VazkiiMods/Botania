@@ -42,8 +42,9 @@ public class FloralObedienceStickItem extends Item {
 		if (receiver instanceof ManaPool || receiver instanceof ManaCollector) {
 			int range = receiver instanceof ManaPool ? FunctionalFlowerBlockEntity.LINK_RANGE : GeneratingFlowerBlockEntity.LINK_RANGE;
 
-			for (BlockPos iterPos : BlockPos.betweenClosed(pos.offset(-range, -range, -range), pos.offset(range, range, range))) {
-				if (MathHelper.distSqr(iterPos, pos) > range * range) {
+			int rangeSqr = range * range;
+			for (BlockPos iterPos : MathHelper.aroundPosClosed(pos, range)) {
+				if (MathHelper.distSqr(iterPos, pos) > rangeSqr) {
 					continue;
 				}
 

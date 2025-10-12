@@ -8,8 +8,10 @@
  */
 package vazkii.botania.common.helper;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public final class MathHelper {
@@ -45,5 +47,34 @@ public final class MathHelper {
 		long dy = a.getY() - b.getY();
 		long dz = a.getZ() - b.getZ();
 		return dx * dx + dy * dy + dz * dz;
+	}
+
+	public static AABB inflateBoxAround(Vec3i pos, int amount) {
+		return inflateBoxAround(pos, amount, amount, amount, amount);
+	}
+
+	public static AABB inflateBoxAround(Vec3i pos, int amountH, int amountV) {
+		return inflateBoxAround(pos, amountH, amountH, amountV, amountV);
+	}
+
+	public static AABB inflateBoxAround(Vec3i pos, int amountX, int amountZ, int amountDown, int amountUp) {
+		return new AABB(
+				pos.getX() - amountX, pos.getY() - amountDown, pos.getZ() - amountZ,
+				pos.getX() + amountX + 1, pos.getY() + amountUp + 1, pos.getZ() + amountZ + 1
+		);
+	}
+
+	public static Iterable<BlockPos> aroundPosClosed(BlockPos pos, int range) {
+		return aroundPosClosed(pos, range, range, range);
+	}
+
+	public static Iterable<BlockPos> aroundPosClosed(BlockPos pos, int rangeH, int rangeV) {
+		return aroundPosClosed(pos, rangeH, rangeV, rangeV);
+	}
+
+	public static Iterable<BlockPos> aroundPosClosed(BlockPos pos, int rangeH, int rangeDown, int rangeUp) {
+		return BlockPos.betweenClosed(
+				pos.getX() - rangeH, pos.getY() - rangeDown, pos.getZ() - rangeH,
+				pos.getX() + rangeH, pos.getY() + rangeUp, pos.getZ() + rangeH);
 	}
 }

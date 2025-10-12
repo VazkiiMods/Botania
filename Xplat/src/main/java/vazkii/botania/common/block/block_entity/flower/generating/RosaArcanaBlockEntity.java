@@ -33,6 +33,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.mixin.ExperienceOrbAccessor;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 
-		AABB effectBounds = new AABB(getEffectivePos()).inflate(RANGE);
+		AABB effectBounds = MathHelper.inflateBoxAround(getEffectivePos(), RANGE);
 
 		/* TODO: Now that player and orb yields are identical, it might look better/funnier
 		to instead make xp orbs leak out of the player's head instead directly consuming.

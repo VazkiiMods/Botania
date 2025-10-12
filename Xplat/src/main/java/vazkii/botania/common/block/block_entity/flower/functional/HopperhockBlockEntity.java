@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -106,7 +105,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			}
 			return DelayHelper.canInteractWith(this, item);
 		};
-		return getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(inPos).inflate(range), shouldPickup);
+		return getLevel().getEntitiesOfClass(ItemEntity.class, MathHelper.inflateBoxAround(inPos, range), shouldPickup);
 	}
 
 	private void findFilterDirections(BlockPos outPos, Set<Direction> unfilteredDirections,

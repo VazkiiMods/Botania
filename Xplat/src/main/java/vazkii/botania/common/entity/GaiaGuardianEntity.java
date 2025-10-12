@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -315,7 +316,7 @@ public class GaiaGuardianEntity extends Mob {
 	private static List<BlockPos> checkArena(Level world, BlockPos beaconPos) {
 		List<BlockPos> trippedPositions = new ArrayList<>();
 		int range = (int) Math.ceil(ARENA_RANGE);
-		BlockPos pos;
+		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
 		for (int x = -range; x <= range; x++) {
 			for (int z = -range; z <= range; z++) {
@@ -330,7 +331,7 @@ public class GaiaGuardianEntity extends Mob {
 						continue; //the beacon
 					}
 
-					pos = beaconPos.offset(x, y, z);
+					pos.setWithOffset(beaconPos, x, y, z);
 
 					BlockState state = world.getBlockState(pos);
 
@@ -342,14 +343,14 @@ public class GaiaGuardianEntity extends Mob {
 						hasFloor = true;
 					}
 
-					if (y == 0 && !hasFloor) //column is entirely missing floor
-					{
-						trippedPositions.add(pos.below());
-					}
-
 					if (!allowBlockHere && isBlockHere && !state.is(BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE)) //ceiling is obstructed in this column
 					{
-						trippedPositions.add(pos);
+						trippedPositions.add(pos.immutable());
+					}
+
+					if (y == 0 && !hasFloor) //column is entirely missing floor
+					{
+						trippedPositions.add(pos.move(Direction.DOWN).immutable());
 					}
 				}
 			}
