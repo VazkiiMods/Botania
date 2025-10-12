@@ -21,7 +21,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import vazkii.botania.common.block.block_entity.flower.BergamuteBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.misc.BergamuteBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.ArrayList;

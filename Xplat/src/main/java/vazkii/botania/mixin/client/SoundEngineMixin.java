@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.block_entity.flower.BergamuteBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.misc.BergamuteBlockEntity;
 
 import java.util.Collections;
 import java.util.Set;
