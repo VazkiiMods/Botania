@@ -303,7 +303,7 @@ public class BotaniaDataComponents {
 		}
 	}
 
-	private static <T> DataComponentType<T> make(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
+	protected static <T> DataComponentType<T> make(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
 		if (!name.matches("[a-z]+(?:_[a-z0-9]+)*")) {
 			throw new IllegalArgumentException("Typo? Name should be in snake_case: " + name);
 		}
@@ -315,11 +315,11 @@ public class BotaniaDataComponents {
 		return type;
 	}
 
-	private static DataComponentType<Unit> makeUnit(String name) {
+	protected static DataComponentType<Unit> makeUnit(String name) {
 		return make(name, builder -> builder.persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
 	}
 
-	private static DataComponentType<Unit> makeTransientUnit(String name) {
+	protected static DataComponentType<Unit> makeTransientUnit(String name) {
 		return make(name, builder -> builder.networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
 	}
 

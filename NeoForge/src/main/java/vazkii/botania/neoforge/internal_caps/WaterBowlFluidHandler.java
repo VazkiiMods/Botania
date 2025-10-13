@@ -19,7 +19,7 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStackS
 
 public class WaterBowlFluidHandler extends FluidHandlerItemStackSimple.SwapEmpty {
 	public WaterBowlFluidHandler(ItemStack stack) {
-		super(null /* TODO: define fluid content component */, stack, new ItemStack(Items.BOWL),
+		super(() -> BotaniaNeoforgeDataComponents.BOWL_FLUID, stack, new ItemStack(Items.BOWL),
 				FluidType.BUCKET_VOLUME);
 		setFluid(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME));
 	}

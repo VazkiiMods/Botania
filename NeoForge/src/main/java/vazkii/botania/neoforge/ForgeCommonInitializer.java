@@ -96,7 +96,6 @@ import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.command.SkyblockCommand;
-import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredients;
@@ -124,6 +123,7 @@ import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.neoforge.integration.InventorySorterIntegration;
 import vazkii.botania.neoforge.integration.corporea.ForgeCapCorporeaNodeDetector;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
+import vazkii.botania.neoforge.internal_caps.BotaniaNeoforgeDataComponents;
 import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.neoforge.internal_caps.WaterBowlFluidHandler;
@@ -203,7 +203,7 @@ public class ForgeCommonInitializer {
 		// Core item/block/BE
 		runRegistration(event, Registries.SOUND_EVENT, BotaniaSounds::init);
 		runRegistration(event, Registries.ARMOR_MATERIAL, BotaniaArmorMaterials::registerArmorMaterials);
-		bind(event, Registries.DATA_COMPONENT_TYPE, BotaniaDataComponents::registerComponents);
+		bind(event, Registries.DATA_COMPONENT_TYPE, BotaniaNeoforgeDataComponents::registerComponents);
 		bind(event, Registries.BLOCK, consumer -> {
 			BotaniaBlocks.registerBlocks(consumer);
 			BotaniaBlockFlammability.register();
