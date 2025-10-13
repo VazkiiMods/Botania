@@ -8,20 +8,8 @@
         "type": "botania:any_of",
         "ingredients": [
           {
-            "type": "botania:tag",
-            "tag": "#botania:livingwood_logs"
-          },
-          {
-            "type": "botania:tag",
-            "tag": "#botania:dreamwood_logs"
-          },
-          {
-            "type": "botania:tag",
-            "tag": "#c:stripped_logs"
-          },
-          {
-            "type": "botania:tag",
-            "tag": "#c:stripped_woods"
+            "type": "botania:block",
+            "block": "botania:livingwood_log"
           }
         ]
       }
