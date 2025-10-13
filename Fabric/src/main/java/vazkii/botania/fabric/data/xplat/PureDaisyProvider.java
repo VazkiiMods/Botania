@@ -9,6 +9,7 @@
  */
 package vazkii.botania.fabric.data.xplat;
 
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -25,6 +26,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.PureDaisyRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -40,7 +42,32 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	public void buildRecipes(RecipeOutput consumer) {
 
 		normal(consumer, id("livingrock"), StateIngredients.of(Blocks.STONE), BotaniaBlocks.livingrock.defaultBlockState());
-		stateCopying(consumer, id("livingwood"), StateIngredients.of(BlockTags.LOGS), BotaniaBlocks.livingwoodLog);
+		stateCopying(consumer, id("livingwood_log"),
+				StateIngredients.ofExcept(
+						StateIngredients.of(BlockTags.LOGS),
+						StateIngredients.anyOf(
+								// somehow 6-sided woods have no tag, so we can't distinguish them from logs
+								StateIngredients.of(BotaniaTags.Blocks.LIVINGWOOD_LOGS),
+								StateIngredients.of(BotaniaTags.Blocks.DREAMWOOD_LOGS),
+								StateIngredients.of(ConventionalBlockTags.STRIPPED_LOGS),
+								StateIngredients.of(ConventionalBlockTags.STRIPPED_WOODS))),
+				BotaniaBlocks.livingwoodLog);
+
+		stateCopying(consumer, id("stripped_livingwood_log"),
+				StateIngredients.ofExcept(
+						StateIngredients.of(ConventionalBlockTags.STRIPPED_LOGS),
+						StateIngredients.anyOf(
+								StateIngredients.of(BotaniaTags.Blocks.LIVINGWOOD_LOGS),
+								StateIngredients.of(BotaniaTags.Blocks.DREAMWOOD_LOGS))),
+				BotaniaBlocks.livingwoodLogStripped);
+
+		stateCopying(consumer, id("stripped_livingwood"),
+				StateIngredients.ofExcept(
+						StateIngredients.of(ConventionalBlockTags.STRIPPED_WOODS),
+						StateIngredients.anyOf(
+								StateIngredients.of(BotaniaTags.Blocks.LIVINGWOOD_LOGS),
+								StateIngredients.of(BotaniaTags.Blocks.DREAMWOOD_LOGS))),
+				BotaniaBlocks.livingwoodStripped);
 
 		normal(consumer, id("cobblestone"), StateIngredients.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState());
 		withFunction(consumer, id("end_stone_to_cobbled_deepslate"), StateIngredients.of(Blocks.END_STONE),

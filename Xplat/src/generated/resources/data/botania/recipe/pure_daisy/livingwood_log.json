@@ -1,0 +1,41 @@
+{
+  "type": "botania:pure_daisy",
+  "copy_properties": true,
+  "input": {
+    "type": "botania:all_of_excluding",
+    "excluding": [
+      {
+        "type": "botania:any_of",
+        "ingredients": [
+          {
+            "type": "botania:tag",
+            "tag": "#botania:livingwood_logs"
+          },
+          {
+            "type": "botania:tag",
+            "tag": "#botania:dreamwood_logs"
+          },
+          {
+            "type": "botania:tag",
+            "tag": "#c:stripped_logs"
+          },
+          {
+            "type": "botania:tag",
+            "tag": "#c:stripped_woods"
+          }
+        ]
+      }
+    ],
+    "ingredients": [
+      {
+        "type": "botania:tag",
+        "tag": "#minecraft:logs"
+      }
+    ]
+  },
+  "output": {
+    "type": "botania:block",
+    "block": "botania:livingwood_log"
+  },
+  "time": 150
+}

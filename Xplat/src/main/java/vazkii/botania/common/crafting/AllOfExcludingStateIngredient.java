@@ -66,7 +66,8 @@ public class AllOfExcludingStateIngredient implements StateIngredient {
 
 	@Override
 	public boolean test(BlockState state) {
-		return resolvedBlocksStates.get().contains(state);
+		return ingredients.stream().allMatch(stateIngredient -> stateIngredient.test(state))
+				&& exclusions.stream().noneMatch(stateIngredient -> stateIngredient.test(state));
 	}
 
 	@Override

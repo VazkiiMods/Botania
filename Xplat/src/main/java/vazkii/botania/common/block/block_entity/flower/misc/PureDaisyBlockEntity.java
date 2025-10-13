@@ -59,9 +59,10 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 		super.tickFlower();
 
 		if (level.isClientSide) {
+			BlockPos.MutableBlockPos coords = new BlockPos.MutableBlockPos();
 			for (int i = 0; i < POSITIONS.length; i++) {
 				if (ticksRemaining[i] > 0) {
-					BlockPos coords = getEffectivePos().offset(POSITIONS[i]);
+					coords.setWithOffset(getEffectivePos(), POSITIONS[i]);
 					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), 1F, 1F, 1F, 5);
 					level.addParticle(data, coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 0, 0, 0);
 				}
@@ -75,8 +76,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 			positionAt = 0;
 		}
 
-		BlockPos atCoords = POSITIONS[positionAt];
-		BlockPos coords = getEffectivePos().offset(atCoords);
+		BlockPos coords = getEffectivePos().offset(POSITIONS[positionAt]);
 		if (!level.isEmptyBlock(coords)) {
 			level.getProfiler().push("findRecipe");
 			PureDaisyRecipe recipe = findRecipe(coords);
@@ -95,7 +95,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 					BlockState recipeOutputState = recipe.getOutput().pick(level.random);
 					BlockState stateToPlace;
 					if (recipe.isCopyInputProperties()) {
-						BlockState stateToReplace = level.getBlockState(atCoords);
+						BlockState stateToReplace = level.getBlockState(coords);
 						stateToPlace = recipeOutputState.getBlock().withPropertiesOf(stateToReplace);
 					} else {
 						stateToPlace = recipeOutputState;
@@ -133,25 +133,22 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 
 	@Override
 	public boolean triggerEvent(int type, int param) {
-		switch (type) {
-			case RECIPE_COMPLETE_EVENT: {
-				if (getLevel().isClientSide) {
-					BlockPos coords = getEffectivePos().offset(POSITIONS[param]);
-					for (int i = 0; i < 25; i++) {
-						double x = coords.getX() + Math.random();
-						double y = coords.getY() + Math.random() + 0.5;
-						double z = coords.getZ() + Math.random();
+		if (type == RECIPE_COMPLETE_EVENT) {
+			if (getLevel().isClientSide) {
+				BlockPos coords = getEffectivePos().offset(POSITIONS[param]);
+				for (int i = 0; i < 25; i++) {
+					double x = coords.getX() + Math.random();
+					double y = coords.getY() + Math.random() + 0.5;
+					double z = coords.getZ() + Math.random();
 
-						WispParticleData data = WispParticleData.wisp((float) Math.random() / 2F, 1, 1, 1);
-						getLevel().addParticle(data, x, y, z, 0, 0, 0);
-					}
+					WispParticleData data = WispParticleData.wisp((float) Math.random() / 2F, 1, 1, 1);
+					getLevel().addParticle(data, x, y, z, 0, 0, 0);
 				}
-
-				return true;
 			}
-			default:
-				return super.triggerEvent(type, param);
+
+			return true;
 		}
+		return super.triggerEvent(type, param);
 	}
 
 	@Override
