@@ -124,6 +124,7 @@ import vazkii.botania.neoforge.integration.InventorySorterIntegration;
 import vazkii.botania.neoforge.integration.corporea.ForgeCapCorporeaNodeDetector;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
 import vazkii.botania.neoforge.internal_caps.BotaniaNeoforgeDataComponents;
+import vazkii.botania.neoforge.internal_caps.ExtrapolatedBucketFluidHandler;
 import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.neoforge.internal_caps.WaterBowlFluidHandler;
@@ -518,6 +519,9 @@ public class ForgeCommonInitializer {
 		e.registerItem(Capabilities.FluidHandler.ITEM,
 				(stack, context) -> new WaterBowlFluidHandler(stack),
 				BotaniaItems.waterBowl);
+		e.registerItem(Capabilities.FluidHandler.ITEM,
+				(stack, context) -> new ExtrapolatedBucketFluidHandler(stack),
+				BotaniaItems.openBucket);
 
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.AVATAR_WIELDABLE, AVATAR_WIELDABLES.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.BLOCK_PROVIDER, BLOCK_PROVIDER.get());
