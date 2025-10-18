@@ -87,7 +87,8 @@
     "patchouli": "*"
   },
   "conflicts": {
-    "fastitemframes": "*"
+    "fastitemframes": "*",
+    "openpartiesandclaims": "*"
   },
 
   "custom": {
