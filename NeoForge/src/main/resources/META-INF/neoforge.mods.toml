@@ -58,3 +58,9 @@ modId = "fastitemframes"
 type = "discouraged"
 versionRange = "*"
 reason = "Breaks Botania's various item frame-based filtering functionalities"
+
+[[dependencies.botania]]
+modId = "openpartiesandclaims"
+type = "discouraged"
+versionRange = "*"
+reason = "Default claiming behavior breaks basic Botania automation (e.g. mana spreaders)"

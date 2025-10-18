@@ -91,7 +91,8 @@
     "patchouli": "*"
   },
   "conflicts": {
-    "fastitemframes": "*"
+    "fastitemframes": "*",
+    "openpartiesandclaims": "*"
   },
   "breaks": {
     "gardenofglass": "<=1.13"
