@@ -9,6 +9,8 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
@@ -16,6 +18,8 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -63,6 +67,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	private static final String TAG_SPREADER_X = "spreaderX";
 	private static final String TAG_SPREADER_Y = "spreaderY";
 	private static final String TAG_SPREADER_Z = "spreaderZ";
+	private static final String TAG_SPREADER_DIM = "spreaderDim";
 	private static final String TAG_GRAVITY = "gravity";
 	private static final String TAG_LENS_STACK = "lensStack";
 	private static final String TAG_HAS_SHOOTER = "hasShooter";
@@ -83,7 +88,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	private static final EntityDataAccessor<Integer> MIN_MANA_LOSS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> MANA_LOSS_PER_TICK = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<BlockPos> SOURCE_COORDS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.BLOCK_POS);
+	private static final EntityDataAccessor<Optional<GlobalPos>> SOURCE_COORDS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.OPTIONAL_GLOBAL_POS);
 	private static final EntityDataAccessor<ItemStack> SOURCE_LENS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Boolean> LEFT_SOURCE_POS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -114,7 +119,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		entityData.define(MIN_MANA_LOSS, 0);
 		entityData.define(MANA_LOSS_PER_TICK, 0F);
 		entityData.define(GRAVITY, 0F);
-		entityData.define(SOURCE_COORDS, ManaBurst.NO_SOURCE);
+		entityData.define(SOURCE_COORDS, Optional.<GlobalPos>empty());
 		entityData.define(SOURCE_LENS, ItemStack.EMPTY);
 		entityData.define(LEFT_SOURCE_POS, false);
 	}
@@ -158,7 +163,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		setTicksExisted(getTicksExisted() + 1);
 		if ((!level().isClientSide || fake)
 				&& !hasLeftSource()
-				&& !blockPosition().equals(getBurstSourceBlockPos())) {
+				&& (!blockPosition().equals(getBurstSourceBlockPos()) || !isBurstSourceDimension(level()))) {
 			// XXX: Should this check by bounding box instead of simply blockPosition()?
 			// The burst's origin could be in another coord but part of its box still intersecting the source block
 			// Not sure if that will trigger a collision then
@@ -262,10 +267,14 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		}
 		tag.put(TAG_LENS_STACK, lensCmp);
 
-		BlockPos coords = getBurstSourceBlockPos();
+		Optional<GlobalPos> sourcePos = getBurstSource();
+		BlockPos coords = sourcePos.map(GlobalPos::pos).orElse(NO_SOURCE);
 		tag.putInt(TAG_SPREADER_X, coords.getX());
 		tag.putInt(TAG_SPREADER_Y, coords.getY());
 		tag.putInt(TAG_SPREADER_Z, coords.getZ());
+		if (sourcePos.isPresent()) {
+			tag.putString(TAG_SPREADER_DIM, sourcePos.get().dimension().location().toString());
+		}
 
 		if (lastCollision != null) {
 			tag.putInt(TAG_LAST_COLLISION_X, lastCollision.getX());
@@ -316,8 +325,13 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		int x = cmp.getInt(TAG_SPREADER_X);
 		int y = cmp.getInt(TAG_SPREADER_Y);
 		int z = cmp.getInt(TAG_SPREADER_Z);
-
-		setBurstSourceCoords(new BlockPos(x, y, z));
+		BlockPos sourceCoords = new BlockPos(x, y, z);
+		if (NO_SOURCE.equals(sourceCoords)) {
+			setBurstSource(null);
+		} else {
+			ResourceLocation dim = cmp.contains(TAG_SPREADER_DIM) ? ResourceLocation.tryParse(cmp.getString(TAG_SPREADER_DIM)) : null;
+			setBurstSource(GlobalPos.of(dim != null ? ResourceKey.create(Registries.DIMENSION, dim) : level().dimension(), sourceCoords));
+		}
 
 		if (cmp.contains(TAG_LAST_COLLISION_X)) {
 			x = cmp.getInt(TAG_LAST_COLLISION_X);
@@ -610,9 +624,17 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Nullable
 	private ManaSpreader getShooter() {
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level(), getBurstSourceBlockPos(), null);
+		if (!isBurstSourceDimension(level())) {
+			return null;
+		}
+		BlockPos sourceBlockPos = getBurstSourceBlockPos();
+		if (!level().hasChunkAt(sourceBlockPos)) {
+			return null;
+		}
+		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level(), sourceBlockPos, null);
 		return receiver instanceof ManaSpreader spreader ? spreader : null;
 	}
 
@@ -697,12 +719,28 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 	@Override
 	public BlockPos getBurstSourceBlockPos() {
-		return entityData.get(SOURCE_COORDS);
+		return entityData.get(SOURCE_COORDS).map(GlobalPos::pos).orElse(NO_SOURCE);
 	}
 
 	@Override
 	public void setBurstSourceCoords(BlockPos pos) {
-		entityData.set(SOURCE_COORDS, pos);
+		if (pos.equals(NO_SOURCE)) {
+			entityData.set(SOURCE_COORDS, Optional.empty());
+		} else {
+			Optional<GlobalPos> source = entityData.get(SOURCE_COORDS);
+			entityData.set(SOURCE_COORDS,
+					Optional.of(GlobalPos.of(source.map(GlobalPos::dimension).orElse(level().dimension()), pos)));
+		}
+	}
+
+	@Override
+	public Optional<GlobalPos> getBurstSource() {
+		return entityData.get(SOURCE_COORDS);
+	}
+
+	@Override
+	public void setBurstSource(@Nullable GlobalPos sourcePos) {
+		entityData.set(SOURCE_COORDS, Optional.ofNullable(sourcePos));
 	}
 
 	@Override

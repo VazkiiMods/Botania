@@ -18,6 +18,7 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
+import vazkii.botania.common.helper.EntityHelper;
 
 public class WarpLens extends Lens {
 
@@ -33,12 +34,14 @@ public class WarpLens extends Lens {
 		}
 
 		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-		if (entity.level().getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
-			ForceRelayBlock.WorldData data = ForceRelayBlock.WorldData.get(entity.level());
+		if (world.getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
+			ForceRelayBlock.WorldData data = ForceRelayBlock.WorldData.get(world);
 			BlockPos dest = data.mapping.get(hit);
 
 			if (dest != null) {
-				entity.setPos(dest.getX() + 0.5, dest.getY() + 0.5, dest.getZ() + 0.5);
+				BlockPos sourcePos = entity.blockPosition();
+				entity.setPos(dest.getCenter());
+				EntityHelper.addTeleportTicketIfFarAway(entity, sourcePos);
 				burst.setCollidedAt(dest);
 
 				burst.setWarped(true);
