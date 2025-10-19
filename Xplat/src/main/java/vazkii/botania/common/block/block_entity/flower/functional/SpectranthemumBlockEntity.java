@@ -26,6 +26,7 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.common.proxy.Proxy;
@@ -84,7 +85,9 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 			double cost = BASE_COST * stack.getCount() * Math.sqrt(bindPos.distToCenterSqr(item.position()));
 			if (getMana() >= cost) {
 				spawnExplosionParticles(item, 10);
+				BlockPos sourcePos = item.blockPosition();
 				item.setPos(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
+				EntityHelper.addTeleportTicketIfFarAway(item, sourcePos);
 				item.setDeltaMovement(Vec3.ZERO);
 				spawnExplosionParticles(item, 10);
 				addMana(-(int) cost);

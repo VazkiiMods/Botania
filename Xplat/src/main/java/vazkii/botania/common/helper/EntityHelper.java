@@ -1,11 +1,16 @@
 package vazkii.botania.common.helper;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.TicketType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 
 public class EntityHelper {
 	/**
@@ -63,6 +68,20 @@ public class EntityHelper {
 		MobEffectInstance effect = living.getEffect(mobEffect);
 		if (effect != null && effect.getAmplifier() == expectedAmplifier && effect.isInfiniteDuration()) {
 			living.removeEffect(mobEffect);
+		}
+	}
+
+	/**
+	 * Creates a "post-teleport" chunk loading ticket for the specified entity if it is located at least two chunks
+	 * away from the specified source position in one of the cardinal directions.
+	 * The post-teleport ticket only keeps the target chunk loaded for a bit to potentially reduce loading/unloading
+	 * related lag spikes, but does not necessarily make the target chunk entity-/redstone-processing.
+	 */
+	public static void addTeleportTicketIfFarAway(Entity entity, BlockPos sourcePos) {
+		ChunkPos entityChunk = new ChunkPos(entity.blockPosition());
+		ChunkPos sourceChunk = new ChunkPos(sourcePos);
+		if (entity.level() instanceof ServerLevel serverLevel && entityChunk.getChessboardDistance(sourceChunk) > 2) {
+			serverLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, entityChunk, 0, entity.getId());
 		}
 	}
 }

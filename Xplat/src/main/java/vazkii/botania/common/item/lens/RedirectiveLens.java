@@ -10,7 +10,11 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -22,16 +26,17 @@ import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.Optional;
+
 public class RedirectiveLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
-		BlockPos sourcePos = burst.getBurstSourceBlockPos();
 		var burstEntity = burst.entity();
-		if (!burstEntity.level().isClientSide && !burst.isFake()) {
+		if (!burstEntity.level().isClientSide && !burst.isFake() && burst.isBurstSourceDimension(burstEntity.level())) {
 			if (pos instanceof BlockHitResult result
 					&& result.getType() != HitResult.Type.MISS
-					&& !result.getBlockPos().equals(sourcePos)) {
+					&& !burst.isBurstSourcePosition(result.getBlockPos())) {
 				handleHitBlock(burst, result);
 			} else if (pos instanceof EntityHitResult result
 					&& result.getEntity() != burstEntity.getOwner()) {
@@ -42,19 +47,22 @@ public class RedirectiveLens extends Lens {
 		return shouldKill;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Nullable
 	private static Vec3 getSourceVec(ManaBurst burst) {
-		var entity = burst.entity();
-		var owner = entity.getOwner();
-		var sourcePos = burst.getBurstSourceBlockPos();
-		if (!sourcePos.equals(ManaBurst.NO_SOURCE)) {
-			var sourceVec = Vec3.atCenterOf(sourcePos);
+		Projectile entity = burst.entity();
+		Entity owner = entity.getOwner();
+		Optional<GlobalPos> sourcePos = burst.getBurstSourcePosition();
+		Level level = entity.level();
+		if (sourcePos.isPresent() && burst.isBurstSourceDimension(level) && level.hasChunkAt(sourcePos.get().pos())) {
+			BlockPos sourceBlockPos = sourcePos.get().pos();
+			Vec3 sourceVec = Vec3.atCenterOf(sourceBlockPos);
 			AABB axis;
-			VoxelShape collideShape = entity.level().getBlockState(sourcePos).getCollisionShape(entity.level(), sourcePos);
+			VoxelShape collideShape = level.getBlockState(sourceBlockPos).getCollisionShape(level, sourceBlockPos);
 			if (collideShape.isEmpty()) {
-				axis = new AABB(sourcePos);
+				axis = new AABB(sourceBlockPos);
 			} else {
-				axis = collideShape.bounds().move(sourcePos);
+				axis = collideShape.bounds().move(sourceBlockPos);
 			}
 
 			if (!axis.contains(sourceVec)) {

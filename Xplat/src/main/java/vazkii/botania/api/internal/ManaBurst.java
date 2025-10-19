@@ -9,11 +9,14 @@
 package vazkii.botania.api.internal;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ManaBurst {
@@ -54,12 +57,22 @@ public interface ManaBurst {
 
 	/**
 	 * The block position of the block entity that spawned this burst.
-	 * If the burst wasn't fired from a block entity, returns {@link #NO_SOURCE}
 	 */
-	@Nullable
-	BlockPos getBurstSourceBlockPos();
+	Optional<GlobalPos> getBurstSourcePosition();
 
-	void setBurstSourceCoords(BlockPos pos);
+	void setBurstSourcePosition(@Nullable GlobalPos pos);
+
+	default boolean isBurstSourcePosition(GlobalPos collidePos) {
+		return getBurstSourcePosition().filter(collidePos::equals).isPresent();
+	}
+
+	default boolean isBurstSourcePosition(BlockPos collidePos) {
+		return getBurstSourcePosition().map(GlobalPos::pos).filter(collidePos::equals).isPresent();
+	}
+
+	default boolean isBurstSourceDimension(Level testLevel) {
+		return getBurstSourcePosition().map(GlobalPos::dimension).filter(testLevel.dimension()::equals).isPresent();
+	}
 
 	ItemStack getSourceLens();
 
@@ -107,7 +120,7 @@ public interface ManaBurst {
 	void setMagnetizePos(@Nullable BlockPos pos);
 
 	/**
-	 * @return True if the burst has ticked at least once outside of {@link #getBurstSourceBlockPos()}.
+	 * @return True if the burst has ticked at least once outside of {@link #getBurstSourcePosition()}.
 	 */
 	boolean hasLeftSource();
 

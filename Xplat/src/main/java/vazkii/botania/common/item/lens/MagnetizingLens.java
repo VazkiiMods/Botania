@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -17,6 +18,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class MagnetizingLens extends Lens {
@@ -28,13 +30,13 @@ public class MagnetizingLens extends Lens {
 		boolean magnetized = burst.getMagnetizedPos() != null;
 		int range = 3;
 
-		BlockPos source = burst.getBurstSourceBlockPos();
-		final boolean sourceless = source.equals(ManaBurst.NO_SOURCE);
+		Optional<GlobalPos> source = burst.getBurstSourcePosition();
+		final boolean sourceless = source.isEmpty() || !burst.isBurstSourceDimension(entity.level());
 
 		Predicate<BlockPos> predicate = pos -> {
 			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.level(), pos, null);
 			return receiver != null
-					&& (sourceless || pos.distSqr(source) > 9)
+					&& (sourceless || pos.distSqr(source.get().pos()) > 9)
 					&& receiver.canReceiveManaFromBursts()
 					&& !receiver.isFull();
 		};
