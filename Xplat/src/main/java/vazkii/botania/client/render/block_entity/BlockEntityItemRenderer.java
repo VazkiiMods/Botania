@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.api.block.Bound;
 
 import java.util.function.Supplier;
 
@@ -32,7 +32,7 @@ public class BlockEntityItemRenderer {
 	public BlockEntityItemRenderer(Block block) {
 		Preconditions.checkArgument(block instanceof EntityBlock);
 		this.block = block;
-		this.dummy = Suppliers.memoize(() -> ((EntityBlock) block).newBlockEntity(ManaBurst.NO_SOURCE, block.defaultBlockState()));
+		this.dummy = Suppliers.memoize(() -> ((EntityBlock) block).newBlockEntity(Bound.UNBOUND_POS, block.defaultBlockState()));
 	}
 
 	public void render(ItemStack stack, ItemDisplayContext mode, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

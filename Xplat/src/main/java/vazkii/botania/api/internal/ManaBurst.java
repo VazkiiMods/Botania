@@ -20,14 +20,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ManaBurst {
-	/**
-	 * Used a sentinel "no position" position. Note that using BlockPos.ZERO is incorrect
-	 * in most cases, due to the world height limit now going below y=0.
-	 *
-	 * @deprecated TODO: figure out if it should even still be used for mana bursts themselves.
-	 */
-	@Deprecated
-	BlockPos NO_SOURCE = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	boolean isFake();
 

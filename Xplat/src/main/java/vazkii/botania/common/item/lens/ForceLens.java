@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ForcePushHelper;
@@ -42,7 +43,7 @@ public class ForceLens extends Lens {
 			}
 
 			// mana burst could have been warped here, so don't assume that any block is unmovable
-			moveBlocks(entity.level(), rtr.getBlockPos().relative(rtr.getDirection()), rtr.getDirection().getOpposite(), ManaBurst.NO_SOURCE);
+			moveBlocks(entity.level(), rtr.getBlockPos().relative(rtr.getDirection()), rtr.getDirection().getOpposite(), Bound.UNBOUND_POS);
 		}
 
 		return shouldKill;

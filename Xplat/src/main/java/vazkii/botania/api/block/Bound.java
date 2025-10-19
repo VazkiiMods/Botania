@@ -12,8 +12,6 @@ import net.minecraft.core.BlockPos;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.ManaBurst;
-
 /**
  * Any BlockEntity that implements this is technically bound
  * to something, and the binding will be shown when hovering
@@ -24,7 +22,7 @@ public interface Bound {
 	 * @deprecated use {@code null} instead
 	 */
 	@Deprecated
-	BlockPos UNBOUND_POS = ManaBurst.NO_SOURCE;
+	BlockPos UNBOUND_POS = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	/**
 	 * Gets where this block is bound to

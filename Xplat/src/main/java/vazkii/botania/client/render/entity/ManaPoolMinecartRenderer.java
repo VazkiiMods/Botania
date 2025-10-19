@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.client.render.block_entity.ManaPoolBlockEntityRenderer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
@@ -26,7 +26,7 @@ import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.entity.ManaPoolMinecartEntity;
 
 public class ManaPoolMinecartRenderer extends MinecartRenderer<ManaPoolMinecartEntity> {
-	private static final ManaPoolBlockEntity DUMMY = new ManaPoolBlockEntity(ManaBurst.NO_SOURCE, BotaniaBlocks.manaPool.defaultBlockState());
+	private static final ManaPoolBlockEntity DUMMY = new ManaPoolBlockEntity(Bound.UNBOUND_POS, BotaniaBlocks.manaPool.defaultBlockState());
 
 	public ManaPoolMinecartRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx, ModelLayers.MINECART);
