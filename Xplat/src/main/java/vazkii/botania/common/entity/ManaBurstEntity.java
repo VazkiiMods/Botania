@@ -319,7 +319,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		setGravity(cmp.getFloat(TAG_GRAVITY));
 
 		CompoundTag lensCmp = cmp.getCompound(TAG_LENS_STACK);
-		ItemStack stack = ItemStack.parse(level().registryAccess(), lensCmp).orElse(ItemStack.EMPTY);
+		ItemStack stack = ItemStack.parseOptional(level().registryAccess(), lensCmp);
 		if (!stack.isEmpty()) {
 			setSourceLens(stack);
 		} else {
