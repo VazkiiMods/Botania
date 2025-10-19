@@ -11,12 +11,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
+import net.minecraftforge.fluids.capability.templates.VoidFluidHandler;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -52,6 +55,35 @@ public final class CapabilityUtil {
 		@Override
 		public boolean canDrainFluidType(FluidStack fluid) {
 			return fluid.getFluid() == Fluids.WATER;
+		}
+	}
+
+	public static class ExtrapolatedBucketFluidHandler extends VoidFluidHandler implements IFluidHandlerItem, ICapabilityProvider {
+		private final LazyOptional<IFluidHandlerItem> holder = LazyOptional.of(() -> this);
+		private final ItemStack container;
+
+		public ExtrapolatedBucketFluidHandler(ItemStack container) {
+			this.container = container;
+		}
+
+		@NotNull
+		@Override
+		public ItemStack getContainer() {
+			return container;
+		}
+
+		/**
+		 * Drain things one bucket worth of fluid at a time.
+		 */
+		@Override
+		public int fill(FluidStack resource, FluidAction action) {
+			return Math.min(FluidType.BUCKET_VOLUME, resource.getAmount());
+		}
+
+		@NotNull
+		@Override
+		public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
+			return ForgeCapabilities.FLUID_HANDLER_ITEM.orEmpty(capability, this.holder);
 		}
 	}
 
