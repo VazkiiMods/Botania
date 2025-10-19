@@ -9,11 +9,14 @@
 package vazkii.botania.api.internal;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ManaBurst {
@@ -56,6 +59,14 @@ public interface ManaBurst {
 	BlockPos getBurstSourceBlockPos();
 
 	void setBurstSourceCoords(BlockPos pos);
+
+	Optional<GlobalPos> getBurstSource();
+
+	void setBurstSource(@Nullable GlobalPos sourcePos);
+
+	default boolean isBurstSourceDimension(Level testLevel) {
+		return getBurstSource().map(GlobalPos::dimension).map(testLevel.dimension()::equals).orElse(false);
+	}
 
 	ItemStack getSourceLens();
 
