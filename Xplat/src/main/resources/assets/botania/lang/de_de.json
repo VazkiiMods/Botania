@@ -3723,7 +3723,7 @@
 
   "botania.entry.miningRing": "Ring des Erdmantels",
   "botania.tagline.miningRing": "Grabe schneller mit Eile",
-  "botania.page.miningRing0": "Der $(item)Ring des Erdmantels$(0) nutzt einfach $(thing)Mana$(0) um seinem Träger den $(thing)Eile$(0)-Effekt zu geben. Beachte, dass ein Rinnsal von $(thing)Mana$(0) verbraucht wird, während der Träger seinen Arm oder einen gehaltenen Gegenstand bewegt, egal ob zum Angreifen, zum Abbauen, oder nur zum Herumfuchteln.",
+  "botania.page.miningRing0": "Der $(item)Ring des Erdmantels$(0) nutzt $(thing)Mana$(0) um seinem Träger den $(thing)Eile$(0)-Effekt zu geben und die Härte robusterer steinartiger Blöcken auf die von natürlichem $(item)Stein$(0) zu reduzieren. Beachte, dass ein Rinnsal von $(thing)Mana$(0) verbraucht wird, während der Träger seinen Arm oder einen gehaltenen Gegenstand bewegt, egal ob zum Angreifen, zum Abbauen, oder nur zum Herumfuchteln.",
   "botania.page.miningRing1": "Diggy diggy hole",
 
   "botania.entry.magnetRing": "Ring der Magnetisierung",

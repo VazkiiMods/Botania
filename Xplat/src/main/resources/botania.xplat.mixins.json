@@ -15,6 +15,7 @@
     "BaseSpawnerMixin",
     "BeeMixin",
     "BiomeAccessor",
+    "BlockBehaviorMixin",
     "BlockModelGeneratorsAccessor",
     "BlockPropertiesAccessor",
     "BushBlockMixin",

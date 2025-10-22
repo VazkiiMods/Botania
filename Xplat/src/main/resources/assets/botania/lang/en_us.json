@@ -3724,7 +3724,7 @@
 
   "botania.entry.miningRing": "Ring of the Mantle",
   "botania.tagline.miningRing": "Mine faster with Haste",
-  "botania.page.miningRing0": "The $(item)Ring of the Mantle$(0) simply uses $(thing)Mana$(0) to provide a $(thing)Haste$(0) effect for its wearer. Note that a trickle of $(thing)Mana$(0) is used while the wearer swings their arm or equipped item for anything, including but not limited to attacking, mining, or just flailing.",
+  "botania.page.miningRing0": "The $(item)Ring of the Mantle$(0) uses $(thing)Mana$(0) to provide a $(thing)Haste$(0) effect for its wearer, and to soften sturdier stone-like blocks to the hardness of natural $(item)stone$(0). Note that a trickle of $(thing)Mana$(0) is used while the wearer swings their arm or equipped item for anything, including but not limited to attacking, mining, or just flailing.",
   "botania.page.miningRing1": "Diggy diggy hole",
 
   "botania.entry.magnetRing": "Ring of Magnetization",
