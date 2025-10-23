@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -139,24 +138,5 @@ public class TerraFirmaRodItem extends Item {
 			this.block = block;
 		}
 
-	}
-
-	public static class BlockProviderImpl implements BlockProvider {
-		@Override
-		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
-			if (block == Blocks.DIRT) {
-				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, LandsRodItem.COST, true)) ||
-						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, LandsRodItem.COST, false));
-			}
-			return false;
-		}
-
-		@Override
-		public int getBlockCount(Player player, ItemStack requestor, Block block) {
-			if (block == Blocks.DIRT) {
-				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, LandsRodItem.COST);
-			}
-			return 0;
-		}
 	}
 }

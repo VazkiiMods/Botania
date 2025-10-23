@@ -82,7 +82,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 			}
 
 			int swigs = getSwigsLeft(stack);
-			if (living instanceof Player player && !player.getAbilities().instabuild) {
+			if (living instanceof Player player && !player.hasInfiniteMaterials()) {
 				if (swigs <= 1) {
 					ItemStack result = getBaseStack();
 					if (!player.getInventory().add(result)) {

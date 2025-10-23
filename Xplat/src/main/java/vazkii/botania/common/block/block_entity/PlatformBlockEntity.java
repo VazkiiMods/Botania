@@ -68,7 +68,7 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable,
 			return false;
 		}
 		if (!level.isClientSide) {
-			if (player == null || !player.getAbilities().instabuild) {
+			if (player == null || !player.hasInfiniteMaterials()) {
 				stack.shrink(1);
 			}
 			setCamoState(Blocks.BARRIER.defaultBlockState());

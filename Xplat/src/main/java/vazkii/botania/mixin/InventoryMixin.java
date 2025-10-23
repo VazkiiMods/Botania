@@ -32,7 +32,7 @@ public class InventoryMixin {
 	 */
 	@Inject(method = "findSlotMatchingItem", at = @At("RETURN"), cancellable = true)
 	private void findBlockProviderItem(ItemStack searchStack, CallbackInfoReturnable<Integer> cir) {
-		if (this.player.getAbilities().instabuild || cir.getReturnValue() != -1
+		if (this.player.hasInfiniteMaterials() || cir.getReturnValue() != -1
 				|| !(searchStack.getItem() instanceof BlockItem blockItem)) {
 			// skip when in creative mode, when an exact match was already found, or when not looking for a block item
 			return;

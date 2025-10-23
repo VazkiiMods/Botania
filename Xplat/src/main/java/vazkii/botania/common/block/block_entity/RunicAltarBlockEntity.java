@@ -92,7 +92,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 		if (currentRecipe != null && currentRecipe.value().getReagent().test(stack)) {
 			if (!level.isClientSide) {
-				ItemStack toSpawn = player != null && player.getAbilities().instabuild ? stack.copy().split(1) : stack.split(1);
+				ItemStack toSpawn = player != null && player.hasInfiniteMaterials() ? stack.copy().split(1) : stack.split(1);
 				ItemEntity item = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1, getBlockPos().getZ() + 0.5, toSpawn);
 				item.setPickUpDelay(40);
 				item.setDeltaMovement(Vec3.ZERO);
@@ -114,7 +114,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				ItemStack stackToAdd = stack.copyWithCount(1);
 				getItemHandler().setItem(i, stackToAdd);
 
-				if (player == null || !player.getAbilities().instabuild) {
+				if (player == null || !player.hasInfiniteMaterials()) {
 					stack.shrink(1);
 				}
 
@@ -306,7 +306,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
 
 				saveLastRecipe();
-				if (player == null || !player.getAbilities().instabuild) {
+				if (player == null || !player.hasInfiniteMaterials()) {
 					for (ItemStack remainingStack : recipe.value().getRemainingItems(getRecipeInput())) {
 						if (remainingStack.isEmpty()) {
 							continue;

@@ -74,27 +74,20 @@ public class LandsRodItem extends Item {
 	}
 
 	public static class BlockProviderImpl implements BlockProvider {
-		private final ItemStack stack;
 
-		public BlockProviderImpl(ItemStack stack) {
-			this.stack = stack;
-		}
+		public BlockProviderImpl() {}
 
 		@Override
 		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
-			if (block == Blocks.DIRT) {
-				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
-						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
-			}
-			return false;
+			return block == Blocks.DIRT
+					&& ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, doit);
 		}
 
 		@Override
 		public int getBlockCount(Player player, ItemStack requestor, Block block) {
-			if (block == Blocks.DIRT) {
-				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
-			}
-			return 0;
+			return block == Blocks.DIRT
+					? ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST)
+					: 0;
 		}
 	}
 

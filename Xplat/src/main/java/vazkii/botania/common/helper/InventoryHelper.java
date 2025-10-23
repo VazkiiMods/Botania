@@ -164,13 +164,16 @@ public class InventoryHelper {
 				continue;
 			}
 
-			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-				ItemStack pstack = player.getInventory().getItem(i);
-				if (player.isCreative() || (!pstack.isEmpty() && ItemStack.isSameItemSameComponents(stack, pstack))) {
-					inv.setItem(index, player.isCreative() ? stack.copy() : pstack.split(1));
+			if (player.hasInfiniteMaterials()) {
+				inv.setItem(index++, stack.copy());
+				didAny = true;
+			} else {
+				int slot = player.getInventory().findSlotMatchingItem(stack);
+				if (slot >= 0) {
+					inv.setItem(index++, player.getInventory().getItem(slot).split(1));
 					didAny = true;
-					index++;
-					break;
+				} else {
+					// TODO: find ingredient providers and pull matching items from those
 				}
 			}
 		}

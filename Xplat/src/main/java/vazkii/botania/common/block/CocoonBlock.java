@@ -69,7 +69,7 @@ public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 
 	@Override
 	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		return addStack(level, pos, stack, player.getAbilities().instabuild);
+		return addStack(level, pos, stack, player.hasInfiniteMaterials());
 	}
 
 	private ItemInteractionResult addStack(Level world, BlockPos pos, ItemStack stack, boolean creative) {

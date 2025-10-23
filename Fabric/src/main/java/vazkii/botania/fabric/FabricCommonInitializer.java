@@ -312,11 +312,11 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new BifrostRodItem.AvatarBehavior(), BotaniaItems.rainbowRod);
 		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new SkiesRodItem.AvatarBehavior(), BotaniaItems.tornadoRod);
 
-		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new LandsRodItem.BlockProviderImpl(stack), BotaniaItems.dirtRod, BotaniaItems.skyDirtRod);
+		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new LandsRodItem.BlockProviderImpl(),
+				BotaniaItems.dirtRod, BotaniaItems.skyDirtRod, BotaniaItems.terraformRod);
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new BlackHoleTalismanItem.BlockProviderImpl(stack), BotaniaItems.blackHoleTalisman);
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new DepthsRodItem.BlockProviderImpl(), BotaniaItems.cobbleRod);
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new EnderHandItem.BlockProviderImpl(stack), BotaniaItems.enderHand);
-		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new TerraFirmaRodItem.BlockProviderImpl(), BotaniaItems.terraformRod);
 
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.flugelEye);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.manaMirror);

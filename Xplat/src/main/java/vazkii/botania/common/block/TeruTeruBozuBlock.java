@@ -61,7 +61,7 @@ public class TeruTeruBozuBlock extends BotaniaWaterloggedBlock implements Entity
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
 			Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (isSunflower(stack) && removeRain(level) || isBlueOrchid(stack) && startRain(level)) {
-			if (!player.getAbilities().instabuild) {
+			if (!player.hasInfiniteMaterials()) {
 				stack.shrink(1);
 			}
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());

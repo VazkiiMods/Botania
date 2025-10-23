@@ -37,7 +37,7 @@ public class LivingwoodSlingshotItem extends Item {
 	public void releaseUsing(ItemStack stack, Level world, LivingEntity living, int duration) {
 		int j = getUseDuration(stack, living) - duration;
 
-		if (!world.isClientSide && (!(living instanceof Player player) || player.getAbilities().instabuild || PlayerHelper.hasAmmo(player, AMMO_FUNC))) {
+		if (!world.isClientSide && (!(living instanceof Player player) || player.hasInfiniteMaterials() || PlayerHelper.hasAmmo(player, AMMO_FUNC))) {
 			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
@@ -45,7 +45,7 @@ public class LivingwoodSlingshotItem extends Item {
 				return;
 			}
 
-			if (living instanceof Player player && !player.getAbilities().instabuild) {
+			if (living instanceof Player player && !player.hasInfiniteMaterials()) {
 				PlayerHelper.consumeAmmo(player, AMMO_FUNC);
 			}
 
@@ -70,7 +70,7 @@ public class LivingwoodSlingshotItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (player.getAbilities().instabuild || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
+		if (player.hasInfiniteMaterials() || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
 			return ItemUtils.startUsingInstantly(world, player, hand);
 		}
 

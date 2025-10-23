@@ -35,19 +35,15 @@ public class DepthsRodItem extends Item {
 	public static class BlockProviderImpl implements BlockProvider {
 		@Override
 		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
-			if (block == Blocks.COBBLESTONE) {
-				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
-						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
-			}
-			return false;
+			return block == Blocks.COBBLESTONE
+					&& ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, doit);
 		}
 
 		@Override
 		public int getBlockCount(Player player, ItemStack requestor, Block block) {
-			if (block == Blocks.COBBLESTONE) {
-				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
-			}
-			return 0;
+			return block == Blocks.COBBLESTONE
+					? ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST)
+					: 0;
 		}
 	}
 

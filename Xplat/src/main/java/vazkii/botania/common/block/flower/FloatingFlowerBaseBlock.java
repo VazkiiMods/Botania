@@ -88,7 +88,7 @@ public abstract class FloatingFlowerBaseBlock extends BotaniaWaterloggedBlock im
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(te);
 				}
 
-				if (!player.getAbilities().instabuild) {
+				if (!player.hasInfiniteMaterials()) {
 					stack.shrink(1);
 				}
 				return ItemInteractionResult.sidedSuccess(level.isClientSide());
@@ -102,7 +102,7 @@ public abstract class FloatingFlowerBaseBlock extends BotaniaWaterloggedBlock im
 					SoundSource.BLOCKS, 1, 1);
 			player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 			level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
-			if (!player.getAbilities().instabuild) {
+			if (!player.hasInfiniteMaterials()) {
 				stack.shrink(1);
 			}
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());

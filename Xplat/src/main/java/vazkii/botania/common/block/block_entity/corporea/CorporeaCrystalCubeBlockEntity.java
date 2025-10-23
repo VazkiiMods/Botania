@@ -185,7 +185,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 			return false;
 		}
 		if (!level.isClientSide()) {
-			if (player == null || !player.getAbilities().instabuild) {
+			if (player == null || !player.hasInfiniteMaterials()) {
 				stack.shrink(1);
 			}
 			level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.HIDDEN, true),

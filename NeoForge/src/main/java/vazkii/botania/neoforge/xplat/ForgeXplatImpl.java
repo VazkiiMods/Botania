@@ -250,7 +250,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		}
 		var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
 		var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
-		if (success && !player.getAbilities().instabuild) {
+		if (success && !player.hasInfiniteMaterials()) {
 			h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
 			player.setItemInHand(hand, h.getContainer());
 		}
@@ -275,7 +275,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 			int filled = fluidHandler.fill(fluidToFill, IFluidHandler.FluidAction.SIMULATE);
 
 			if (filled == FluidType.BUCKET_VOLUME) {
-				if (!player.getAbilities().instabuild) {
+				if (!player.hasInfiniteMaterials()) {
 					fluidHandler.fill(fluidToFill, IFluidHandler.FluidAction.EXECUTE);
 					stack.shrink(1);
 					ItemStack result = fluidHandler.getContainer();

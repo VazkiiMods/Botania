@@ -218,7 +218,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 			return false;
 		}
 		if (!level.isClientSide) {
-			if (player == null || !player.getAbilities().instabuild) {
+			if (player == null || !player.hasInfiniteMaterials()) {
 				stack.shrink(1);
 			}
 			setNoParticle();

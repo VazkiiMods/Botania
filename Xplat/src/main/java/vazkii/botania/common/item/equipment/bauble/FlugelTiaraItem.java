@@ -166,7 +166,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 					}
 				}
 			} else {
-				if (!player.isSpectator() && !player.getAbilities().instabuild) {
+				if (!player.isSpectator() && !player.isCreative()) {
 					player.getAbilities().mayfly = false;
 					player.getAbilities().flying = false;
 					player.getAbilities().invulnerable = false;

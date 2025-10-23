@@ -768,8 +768,8 @@ public class GaiaGuardianEntity extends Mob {
 		if (level().isClientSide) {
 			particles();
 			Player player = Proxy.INSTANCE.getClientPlayer();
-			if (getPlayersAround().contains(player)) {
-				player.getAbilities().flying &= player.getAbilities().instabuild;
+			if (!player.isCreative() && getPlayersAround().contains(player)) {
+				player.getAbilities().flying = false;
 			}
 			return;
 		}
@@ -806,7 +806,7 @@ public class GaiaGuardianEntity extends Mob {
 
 				clearPotions(player);
 				keepInsideArena(player);
-				player.getAbilities().flying &= player.getAbilities().instabuild;
+				player.getAbilities().flying &= player.isCreative();
 			}
 		}
 

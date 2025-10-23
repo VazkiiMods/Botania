@@ -160,7 +160,7 @@ public class AstrolabeItem extends Item {
 	}
 
 	public static boolean hasBlocks(ItemStack requester, Player player, int required, Block block) {
-		if (player.getAbilities().instabuild) {
+		if (player.hasInfiniteMaterials()) {
 			return true;
 		}
 
@@ -171,7 +171,7 @@ public class AstrolabeItem extends Item {
 		if (block == Blocks.AIR || required == 0) {
 			return List.of();
 		}
-		if (player.getAbilities().instabuild) {
+		if (player.hasInfiniteMaterials()) {
 			return List.of(BlockProviderHelper.asInfiniteBlockProvider(new ItemStack(block)));
 		}
 

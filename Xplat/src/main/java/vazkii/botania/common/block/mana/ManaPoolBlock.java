@@ -170,7 +170,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 			if (!itemColor.equals(this.color)) {
 				ManaPoolBlock dyedBlock = BotaniaBlocks.findOptionallyDyedBlock(this, itemColor);
 				level.setBlockAndUpdate(pos, dyedBlock.withPropertiesOf(state));
-				if (!player.getAbilities().instabuild) {
+				if (!player.hasInfiniteMaterials()) {
 					stack.shrink(1);
 				}
 				return ItemInteractionResult.sidedSuccess(level.isClientSide());
@@ -179,7 +179,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		if (stack.is(BotaniaTags.Items.MANA_POOL_DYE_REMOVER) && this.color != null) {
 			ManaPoolBlock undyedBlock = getUndyedBlock(this);
 			level.setBlockAndUpdate(pos, undyedBlock.withPropertiesOf(state));
-			if (!player.getAbilities().instabuild) {
+			if (!player.hasInfiniteMaterials()) {
 				stack.shrink(1);
 			}
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());

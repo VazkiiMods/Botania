@@ -239,13 +239,13 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 						if (neighborUpdater instanceof CollectingNeighborUpdaterAccess access) {
 							access.botania$pauseUpdates();
 						}
-						world.destroyBlock(pos, !player.getAbilities().instabuild, player);
+						world.destroyBlock(pos, !player.hasInfiniteMaterials(), player);
 						BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapTemplateDirection(rod), pos, false);
 						InteractionResult result = PlayerHelper.substituteUse(new UseOnContext(player, InteractionHand.MAIN_HAND, hit), placeStack);
 						// TODO: provide an use context that overrides player facing direction/yaw?
 						//  currently it pulls from the player directly
 
-						if (!player.getAbilities().instabuild) {
+						if (!player.hasInfiniteMaterials()) {
 							if (result.consumesAction()) {
 								removeFromInventory(player, rod, replacement, true);
 								displayRemainderCounter(player, rod);
@@ -309,7 +309,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	public static ItemStack removeFromInventory(Player player, ItemStack tool, Item item, boolean doit) {
-		if (player.getAbilities().instabuild) {
+		if (player.hasInfiniteMaterials()) {
 			return new ItemStack(item);
 		}
 
@@ -321,7 +321,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	public static int getInventoryItemCount(Player player, ItemStack stack, Item item) {
-		if (player.getAbilities().instabuild) {
+		if (player.hasInfiniteMaterials()) {
 			return -1;
 		}
 
@@ -339,7 +339,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	public static int getInventoryItemCount(Player player, Container inv, ItemStack stack, Item requested) {
-		if (player.getAbilities().instabuild) {
+		if (player.hasInfiniteMaterials()) {
 			return -1;
 		}
 

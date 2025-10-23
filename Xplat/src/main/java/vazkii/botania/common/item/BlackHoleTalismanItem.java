@@ -93,7 +93,7 @@ public class BlackHoleTalismanItem extends Item {
 				}
 				return InteractionResult.sidedSuccess(world.isClientSide());
 			} else {
-				if (player == null || player.getAbilities().instabuild || getBlockCount(stack) > 0) {
+				if (player == null || player.hasInfiniteMaterials() || getBlockCount(stack) > 0) {
 					ItemStack toUse = new ItemStack(bBlock);
 					InteractionResult result = PlayerHelper.substituteUse(ctx, toUse);
 

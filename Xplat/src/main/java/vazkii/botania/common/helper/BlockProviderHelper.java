@@ -20,7 +20,7 @@ public class BlockProviderHelper {
 		@Override
 		public boolean provideBlock(Player player, ItemStack requester, Block block, boolean doIt) {
 			final boolean canDo = !stack.isEmpty() && stack.is(block.asItem());
-			if (canDo && doIt && !player.getAbilities().instabuild) {
+			if (canDo && doIt && !player.hasInfiniteMaterials()) {
 				stack.shrink(1);
 			}
 			return canDo;
@@ -31,7 +31,7 @@ public class BlockProviderHelper {
 			if (!stack.is(block.asItem())) {
 				return 0;
 			}
-			return player.getAbilities().instabuild ? -1 : stack.getCount();
+			return player.hasInfiniteMaterials() ? -1 : stack.getCount();
 		}
 	}
 

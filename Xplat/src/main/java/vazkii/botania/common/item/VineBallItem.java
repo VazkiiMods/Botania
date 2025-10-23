@@ -31,7 +31,7 @@ public class VineBallItem extends Item implements ProjectileItem {
 
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-		if (!player.getAbilities().instabuild) {
+		if (!player.hasInfiniteMaterials()) {
 			player.getItemInHand(hand).shrink(1);
 		}
 

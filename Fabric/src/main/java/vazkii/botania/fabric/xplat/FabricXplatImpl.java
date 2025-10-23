@@ -286,7 +286,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		try (Transaction txn = Transaction.openOuter()) {
 			long extracted = fluidStorage.extract(FluidVariant.of(fluid), FluidConstants.BUCKET, txn);
 			if (extracted == FluidConstants.BUCKET) {
-				if (!player.getAbilities().instabuild) {
+				if (!player.hasInfiniteMaterials()) {
 					// Only perform inventory side effects in survival
 					txn.commit();
 				}
@@ -307,7 +307,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		try (Transaction txn = Transaction.openOuter()) {
 			long inserted = fluidStorage.insert(FluidVariant.of(fluid), FluidConstants.BUCKET, txn);
 			if (inserted == FluidConstants.BUCKET) {
-				if (!player.getAbilities().instabuild) {
+				if (!player.hasInfiniteMaterials()) {
 					// Only perform inventory side effects in survival
 					txn.commit();
 				}

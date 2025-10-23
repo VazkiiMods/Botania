@@ -81,7 +81,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 				plate.ignite();
 				RandomSource randomsource = world.getRandom();
 				world.playSound(player, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (randomsource.nextFloat() - randomsource.nextFloat()) * 0.2F + 1.0F);
-				if (!player.getAbilities().instabuild) {
+				if (!player.hasInfiniteMaterials()) {
 					stack.shrink(1);
 				}
 			} else if (XplatAbstractions.INSTANCE.canToolLightFire(stack)) {

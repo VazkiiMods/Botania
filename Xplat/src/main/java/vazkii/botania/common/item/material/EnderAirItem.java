@@ -95,7 +95,7 @@ public class EnderAirItem extends Item implements ProjectileItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!player.getAbilities().instabuild) {
+		if (!player.hasInfiniteMaterials()) {
 			stack.shrink(1);
 		}
 

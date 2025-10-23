@@ -77,7 +77,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 				ItemStack stackToAdd = stack.copyWithCount(1);
 				getItemHandler().setItem(i, stackToAdd);
 
-				if (player == null || !player.getAbilities().instabuild) {
+				if (player == null || !player.hasInfiniteMaterials()) {
 					stack.shrink(1);
 					if (stack.isEmpty() && player != null && hand != null) {
 						player.setItemInHand(hand, ItemStack.EMPTY);

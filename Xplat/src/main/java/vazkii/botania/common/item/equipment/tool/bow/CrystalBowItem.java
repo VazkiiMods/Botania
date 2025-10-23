@@ -49,7 +49,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
 		boolean canMaterializeArrow = canFire(itemstack, playerIn); // Botania - custom check
 
-		if (!playerIn.getAbilities().instabuild && !canMaterializeArrow) {
+		if (!playerIn.hasInfiniteMaterials() && !canMaterializeArrow) {
 			return InteractionResultHolder.fail(itemstack);
 		} else {
 			playerIn.startUsingItem(handIn);
@@ -76,7 +76,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 
 				float power = getPowerForTime(i);
 				if (!((double) power < 0.1D)) {
-					boolean markUnpickable = player.getAbilities().instabuild || arrowStack.is(Items.ARROW); // Botania
+					boolean markUnpickable = player.hasInfiniteMaterials() || arrowStack.is(Items.ARROW); // Botania
 					if (!level.isClientSide) {
 						ArrowItem arrowItem = (ArrowItem) (arrowStack.getItem() instanceof ArrowItem ? arrowStack.getItem() : Items.ARROW);
 						AbstractArrow arrow = arrowItem.createArrow(level, arrowStack, player, stack);
@@ -96,7 +96,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 							arrow.setRemainingFireTicks(100 * 20);
 						}
 
-						if (markUnpickable || player.getAbilities().instabuild && (arrowStack.is(Items.SPECTRAL_ARROW) || arrowStack.is(Items.TIPPED_ARROW))) {
+						if (markUnpickable || player.hasInfiniteMaterials() && (arrowStack.is(Items.SPECTRAL_ARROW) || arrowStack.is(Items.TIPPED_ARROW))) {
 							arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 						}
 
@@ -106,7 +106,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 					level.playSound(null, player.getX(), player.getY(), player.getZ(),
 							SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS,
 							1.0F, 1.0F / (player.getRandom().nextFloat() * 0.4F + 1.2F) + power * 0.5F);
-					if (!markUnpickable && !player.getAbilities().instabuild) {
+					if (!markUnpickable && !player.hasInfiniteMaterials()) {
 						arrowStack.shrink(1);
 						if (arrowStack.isEmpty()) {
 							player.getInventory().removeItem(arrowStack);
@@ -127,7 +127,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 	private boolean canFire(ItemStack stack, Player player) {
 		HolderLookup<Enchantment> enchLookup = player.level().holderLookup(Registries.ENCHANTMENT);
 		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(enchLookup.getOrThrow(Enchantments.INFINITY), stack) > 0;
-		return player.getAbilities().instabuild || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
+		return player.hasInfiniteMaterials() || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 	@Override
