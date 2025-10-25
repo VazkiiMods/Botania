@@ -39,6 +39,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Fix: Astrolabe no longer attempts to place blocks in the player's head location while underwater
 * Fix: Mana bursts going through a nether portal could cause lag spikes
 * Fix: Potential client memory leak in ManaNetworkHandler
+* Fix: Guardian of Gaia stopped teleporting until getting hit after a world reload
 
 ---
 
