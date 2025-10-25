@@ -38,6 +38,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Fix: Don't let Alfheim portal grab items in the tick it shuts down (e.g. for gluten reasons)
 * Fix: Astrolabe no longer attempts to place blocks in the player's head location while underwater
 * Fix: Mana bursts going through a nether portal could cause lag spikes
+* Fix: Potential client memory leak in ManaNetworkHandler
 
 ---
 
