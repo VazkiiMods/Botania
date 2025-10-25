@@ -106,7 +106,7 @@ public final class ManaNetworkHandler implements ManaNetwork {
 	}
 
 	private <T> void add(Map<Level, Set<T>> map, Level level, T thing) {
-		map.computeIfAbsent(level, k -> new HashSet<>()).add(thing);
+		map.computeIfAbsent(level, k -> Collections.newSetFromMap(new WeakHashMap<>())).add(thing);
 	}
 
 	@Override
