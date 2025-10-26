@@ -21,10 +21,12 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -32,10 +34,14 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -76,7 +82,44 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 	/**
 	 * Returns the BlockPos of the nearest target within the binding radius, or `null` if there aren't any.
 	 */
-	public abstract @Nullable BlockPos findClosestTarget();
+	@Nullable
+	public BlockPos findClosestTarget() {
+		return getClosestManaReceiver(bindClass, getLevel(), getBlockPos(), getBindingRadius());
+	}
+
+	@Nullable
+	protected BlockPos getClosestManaReceiver(Class<T> receiverType, Level level, BlockPos center, int rangeLimit) {
+		long minDist = Long.MAX_VALUE;
+		long limitSquared = (long) rangeLimit * rangeLimit;
+		BlockPos closestPos = null;
+
+		// TODO: if we get around to doing data fixers, using POIs for this would be even more efficient
+		List<ChunkPos> chunkPosList = ChunkPos.rangeClosed(
+				new ChunkPos(center.offset(-rangeLimit, 0, -rangeLimit)),
+				new ChunkPos(center.offset(rangeLimit, 0, rangeLimit))
+		).toList();
+
+		for (ChunkPos chunkPos : chunkPosList) {
+			LevelChunk chunk = level.getChunkSource().getChunkNow(chunkPos.x, chunkPos.z);
+			if (chunk != null) {
+				for (Map.Entry<BlockPos, BlockEntity> entry : chunk.getBlockEntities().entrySet()) {
+					BlockPos pos = entry.getKey();
+					long dist = MathHelper.distSqr(center, pos);
+					if (dist > minDist || dist > limitSquared) {
+						continue;
+					}
+					BlockEntity be = entry.getValue();
+					ManaReceiver manaReceiver = XplatAbstractions.instance().findManaReceiver(be);
+					if (receiverType.isInstance(manaReceiver)) {
+						minDist = dist;
+						closestPos = pos;
+					}
+				}
+			}
+		}
+
+		return closestPos;
+	}
 
 	@Override
 	protected void tickFlower() {

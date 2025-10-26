@@ -18,10 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.ManaPool;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -62,14 +59,6 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 	@Override
 	public int getBindingRadius() {
 		return LINK_RANGE;
-	}
-
-	@Nullable
-	@Override
-	public BlockPos findClosestTarget() {
-		ManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-		var closestPool = network.getClosestPool(getBlockPos(), getLevel(), getBindingRadius());
-		return closestPool == null ? null : closestPool.getManaReceiverPos();
 	}
 
 	public void drawManaFromPool() {

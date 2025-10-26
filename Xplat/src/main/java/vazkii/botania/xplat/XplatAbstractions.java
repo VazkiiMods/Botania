@@ -116,6 +116,11 @@ public interface XplatAbstractions {
 	}
 
 	@Nullable
+	default ManaReceiver findManaReceiver(BlockEntity be) {
+		return findManaReceiver(be.getLevel(), be.getBlockPos(), be.getBlockState(), be, null);
+	}
+
+	@Nullable
 	ManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction);
 
 	@Nullable

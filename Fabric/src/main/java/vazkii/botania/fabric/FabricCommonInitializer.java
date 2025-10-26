@@ -422,7 +422,6 @@ public class FabricCommonInitializer implements ModInitializer {
 	}
 
 	private void serverStopping(MinecraftServer server) {
-		ManaNetworkHandler.instance.clear();
 		CorporeaIndexBlockEntity.clearIndexCache();
 	}
 

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.*;
@@ -24,22 +23,7 @@ public class DummyManaNetwork implements ManaNetwork {
 	public void clear() {}
 
 	@Override
-	public ManaPool getClosestPool(BlockPos pos, Level world, int limit) {
-		return null;
-	}
-
-	@Override
-	public ManaCollector getClosestCollector(BlockPos pos, Level world, int limit) {
-		return null;
-	}
-
-	@Override
 	public Set<ManaCollector> getAllCollectorsInWorld(Level world) {
-		return Collections.emptySet();
-	}
-
-	@Override
-	public Set<ManaPool> getAllPoolsInWorld(Level world) {
 		return Collections.emptySet();
 	}
 

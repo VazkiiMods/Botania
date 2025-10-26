@@ -656,7 +656,6 @@ public class ForgeCommonInitializer {
 	}
 
 	private void serverStopping(MinecraftServer server) {
-		ManaNetworkHandler.instance.clear();
 		CorporeaIndexBlockEntity.clearIndexCache();
 	}
 

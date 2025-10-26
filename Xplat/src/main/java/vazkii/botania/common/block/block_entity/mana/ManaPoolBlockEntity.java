@@ -37,7 +37,6 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
@@ -58,7 +57,6 @@ import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.ManaTabletItem;
@@ -123,12 +121,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			setChanged();
 			markDispatchable();
 		}
-	}
-
-	@Override
-	public void setRemoved() {
-		super.setRemoved();
-		BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.REMOVE);
 	}
 
 	public static int calculateComparatorLevel(int mana, int max) {
@@ -248,9 +240,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	private void initManaCapAndNetwork() {
 		if (getMaxMana() == -1) {
 			manaCap = ((ManaPoolBlock) getBlockState().getBlock()).getManaCapacity();
-		}
-		if (!ManaNetworkHandler.instance.isPoolIn(level, this) && !isRemoved()) {
-			BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.ADD);
 		}
 	}
 

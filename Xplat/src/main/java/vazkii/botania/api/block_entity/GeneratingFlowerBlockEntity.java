@@ -21,7 +21,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.ManaCollector;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -76,14 +75,6 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 	@Override
 	public int getBindingRadius() {
 		return LINK_RANGE;
-	}
-
-	@Nullable
-	@Override
-	public BlockPos findClosestTarget() {
-		ManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-		var closestCollector = network.getClosestCollector(getBlockPos(), getLevel(), getBindingRadius());
-		return closestCollector == null ? null : closestCollector.getManaReceiverPos();
 	}
 
 	public void emptyManaIntoCollector() {

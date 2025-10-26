@@ -154,14 +154,18 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.COLLECTOR, ManaNetworkAction.REMOVE);
+		if (getLevel().isClientSide()) {
+			BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.COLLECTOR, ManaNetworkAction.REMOVE);
+		}
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, ManaSpreaderBlockEntity self) {
-		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(level, self);
-		boolean wasInNetwork = inNetwork;
-		if (!inNetwork && !self.isRemoved()) {
-			BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(self, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
+		if (level.isClientSide) {
+			boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(level, self);
+			if (!inNetwork && !self.isRemoved()) {
+				BotaniaAPI.instance().getManaNetworkInstance()
+						.fireManaNetworkEvent(self, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
+			}
 		}
 
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
@@ -171,7 +175,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			if (level.hasChunkAt(relPos)) {
 				var receiverAt = XplatAbstractions.INSTANCE.findManaReceiver(level, relPos, dir.getOpposite());
 				if (receiverAt instanceof ManaPool pool) {
-					if (wasInNetwork && (pool != self.receiver || self.getSpreaderBlock().isRedstoneTriggered())) {
+					if (pool != self.receiver || self.getSpreaderBlock().isRedstoneTriggered()) {
 						if (pool instanceof KeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
 							continue;
 						}
