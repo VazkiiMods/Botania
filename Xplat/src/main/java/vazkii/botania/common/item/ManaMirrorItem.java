@@ -73,13 +73,14 @@ public class ManaMirrorItem extends Item {
 
 		ManaPool pool = getManaPool(world.getServer(), stack);
 		if (!(pool instanceof DummyPool)) {
-			if (pool == null) {
-				setMana(stack, 0);
-			} else {
+			if (pool != null) {
 				pool.receiveMana(getManaBacklog(stack));
 				clearManaBacklog(stack);
 				setMana(stack, pool.getCurrentMana());
 				setMaxMana(stack, pool.getMaxMana());
+			} else if (stack.has(BotaniaDataComponents.MANA)) {
+				setMana(stack, 0);
+				setMaxMana(stack, 0);
 			}
 		}
 	}
@@ -137,15 +138,19 @@ public class ManaMirrorItem extends Item {
 
 		GlobalPos pos = getBoundPos(stack);
 		if (pos == null) {
-			return fallbackPool;
+			return null;
 		}
 
 		ResourceKey<Level> type = pos.dimension();
 		Level world = server.getLevel(type);
 		if (world != null) {
-			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos.pos(), null);
-			if (receiver instanceof ManaPool pool) {
-				return pool;
+			if (world.hasChunkAt(pos.pos())) {
+				var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos.pos(), null);
+				if (receiver instanceof ManaPool pool) {
+					return pool;
+				}
+			} else {
+				return fallbackPool;
 			}
 		}
 
