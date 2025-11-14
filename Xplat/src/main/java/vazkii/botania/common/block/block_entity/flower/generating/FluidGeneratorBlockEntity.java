@@ -24,6 +24,7 @@ import net.minecraft.world.level.material.FluidState;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.component.BotaniaDataComponents;
@@ -58,11 +59,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 					doBurnParticles();
 				}
 			} else if (getBlockState().getValue(BotaniaStateProperties.ON_COOLDOWN)) {
-				for (int i = 0; i < 3; i++) {
-					WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
-					emitParticle(data, 0.5 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1,
-							0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 30, 0);
-				}
+				doCooldownParticles(this);
 			}
 			return;
 		}
@@ -137,6 +134,14 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 			level.setBlock(getBlockPos(),
 					getBlockState().setValue(BotaniaStateProperties.ON_COOLDOWN, false),
 					Block.UPDATE_CLIENTS);
+		}
+	}
+
+	public static void doCooldownParticles(SpecialFlowerBlockEntity self) {
+		for (int i = 0; i < 3; i++) {
+			WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
+			self.emitParticle(data, 0.5 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1,
+					0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 30, 0);
 		}
 	}
 

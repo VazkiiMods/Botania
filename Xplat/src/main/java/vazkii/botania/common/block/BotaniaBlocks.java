@@ -306,8 +306,8 @@ public final class BotaniaBlocks {
 	public static final Block hydroangeasFloating = make(floating(LibBlockNames.SUBTILE_HYDROANGEAS), new FloatingSlowGeneratingFlowerWithCooldownBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS));
 	public static final Block hydroangeasPotted = make(potted(LibBlockNames.SUBTILE_HYDROANGEAS), BotaniaBlocks.flowerPot(hydroangeas, 0));
 
-	public static final Block endoflame = make(LibBlockNames.SUBTILE_ENDOFLAME, new SlowGeneratingFlowerBlock(MobEffects.MOVEMENT_SLOWDOWN, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.ENDOFLAME));
-	public static final Block endoflameFloating = make(floating(LibBlockNames.SUBTILE_ENDOFLAME), new FloatingSlowGeneratingFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ENDOFLAME));
+	public static final Block endoflame = make(LibBlockNames.SUBTILE_ENDOFLAME, new SlowGeneratingFlowerWithCooldownBlock(MobEffects.MOVEMENT_SLOWDOWN, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.ENDOFLAME));
+	public static final Block endoflameFloating = make(floating(LibBlockNames.SUBTILE_ENDOFLAME), new FloatingSlowGeneratingFlowerWithCooldownBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.ENDOFLAME));
 	public static final Block endoflamePotted = make(potted(LibBlockNames.SUBTILE_ENDOFLAME), BotaniaBlocks.flowerPot(endoflame, 0));
 
 	public static final Block thermalily = make(LibBlockNames.SUBTILE_THERMALILY, new SlowGeneratingFlowerWithCooldownBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaBlockEntities.THERMALILY));

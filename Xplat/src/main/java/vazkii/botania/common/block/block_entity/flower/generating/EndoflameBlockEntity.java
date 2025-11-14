@@ -33,11 +33,15 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final String TAG_BURN_TIME = "burnTime";
+	private static final String TAG_COOLDOWN_TIME = "cooldownTime";
 	private static final int FUEL_CAP = 32000;
 	private static final int RANGE = 3;
 	private static final int START_BURN_EVENT = 0;
+	private static final int COOLDOWN_TIME = 40;
 
 	private int burnTime = 0;
+	private int cooldownTime = 0;
+	private boolean wasBurningOnClient = false;
 
 	public EndoflameBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.ENDOFLAME, pos, state);
@@ -48,15 +52,35 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 		super.tickFlower();
 
 		if (level.isClientSide) {
-			if (getBlockState().getValue(BotaniaStateProperties.GENERATING) && level.random.nextInt(10) == 0) {
-				emitParticle(ParticleTypes.FLAME, 0.4 + Math.random() * 0.2, 0.7, 0.4 + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+			if (getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
+				if (!wasBurningOnClient || level.random.nextInt(10) == 0) {
+					wasBurningOnClient = true;
+					emitParticle(ParticleTypes.FLAME, 0.4 + Math.random() * 0.2, 0.7, 0.4 + Math.random() * 0.2, 0.0D,
+							0.0D, 0.0D);
+				}
+			} else {
+				wasBurningOnClient = false;
+				if (getBlockState().getValue(BotaniaStateProperties.ON_COOLDOWN)) {
+					FluidGeneratorBlockEntity.doCooldownParticles(this);
+				}
 			}
 			return;
 		}
 
 		boolean wasBurning = burnTime > 0;
-		if (wasBurning) {
+		boolean onCooldown = cooldownTime > 0;
+		if (onCooldown) {
+			cooldownTime -= getOvergrowthFactor();
+		} else if (wasBurning) {
 			burnTime -= getOvergrowthFactor();
+			if (burnTime <= 0) {
+				cooldownTime = COOLDOWN_TIME;
+				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
+				level.setBlock(getBlockPos(), getBlockState()
+						.setValue(BotaniaStateProperties.GENERATING, false)
+						.setValue(BotaniaStateProperties.ON_COOLDOWN, true),
+						Block.UPDATE_CLIENTS);
+			}
 		}
 
 		if (burnTime > 0) {
@@ -65,8 +89,11 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 			}
 			return;
 		}
+		if (cooldownTime > 0) {
+			return;
+		}
 
-		if (getMana() < getMaxMana()) {
+		if (getMana() < getMaxMana() && cooldownTime <= 0) {
 			for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class,
 					MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 					itemEntity -> DelayHelper.canInteractWith(this, itemEntity)
@@ -81,18 +108,17 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 					level.playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
 					level.blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
 					level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
-					if (!getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
-						level.setBlock(getBlockPos(),
-								getBlockState().setValue(BotaniaStateProperties.GENERATING, true),
-								Block.UPDATE_CLIENTS);
-					}
+					level.setBlock(getBlockPos(),
+							getBlockState()
+									.setValue(BotaniaStateProperties.GENERATING, true)
+									.setValue(BotaniaStateProperties.ON_COOLDOWN, false),
+							Block.UPDATE_CLIENTS);
 					return;
 				}
 			}
 		}
-		if (wasBurning) {
-			level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
-			level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.GENERATING, false),
+		if (onCooldown) {
+			level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.ON_COOLDOWN, false),
 					Block.UPDATE_CLIENTS);
 		}
 	}
@@ -136,6 +162,7 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 		super.writeToPacketNBT(cmp, registries);
 
 		cmp.putInt(TAG_BURN_TIME, burnTime);
+		cmp.putInt(TAG_COOLDOWN_TIME, cooldownTime);
 	}
 
 	@Override
@@ -143,6 +170,7 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 		super.readFromPacketNBT(cmp, registries);
 
 		burnTime = cmp.getInt(TAG_BURN_TIME);
+		cooldownTime = cmp.getInt(TAG_COOLDOWN_TIME);
 	}
 
 	private int getBurnTime(ItemStack stack) {
