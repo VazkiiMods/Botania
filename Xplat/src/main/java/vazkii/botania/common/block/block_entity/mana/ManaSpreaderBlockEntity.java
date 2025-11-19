@@ -168,8 +168,6 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			}
 		}
 
-		boolean powered = state.getValue(BlockStateProperties.POWERED);
-
 		for (Direction dir : Direction.values()) {
 			var relPos = worldPosition.relative(dir);
 			if (level.hasChunkAt(relPos)) {
@@ -189,7 +187,6 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 						}
 					}
 				}
-				powered = powered || level.hasSignal(relPos, dir);
 			}
 		}
 
@@ -224,6 +221,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			}
 		}
 
+		boolean powered = state.getValue(BlockStateProperties.POWERED);
 		boolean shouldShoot = !powered;
 
 		boolean redstoneSpreader = self.getSpreaderBlock().isRedstoneTriggered();
