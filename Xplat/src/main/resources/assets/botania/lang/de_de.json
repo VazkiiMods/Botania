@@ -150,7 +150,7 @@
 
 
 
-    
+
 
 
 
@@ -1383,7 +1383,7 @@
     "item.botania.brown_petal": "Mystisches Braunes Blütenblatt",
     "item.botania.green_petal": "Mystisches Grünes Blütenblatt",
     "item.botania.red_petal": "Mystisches Red Blütenblatt",
-    "item.botania.black_petal": "Mystisches Black Blütenblatt",
+    "item.botania.black_petal": "Mystisches Schwarzes Blütenblatt",
     "item.botania.twig_wand": "Stab des Waldes",
     "item.botania.dreamwood_wand": "Stab des Elfenwaldes",
     "item.botania.manasteel_ingot": "Manastahlbarren",
@@ -2886,7 +2886,7 @@
     "botania.tagline.terraPick": "Aufrüstbare Spitzhacke mit großem Wirkbereich",
     "botania.page.terraPick0": "Der $(item)Terra-Trümmerer$(0) ist ein Werkzeug, das dank der Menge von $(l:basics/terrasteel)$(item)Terrastahl$(0)$(/l) in seinem Rezept absolut groteske $(thing)Mana$(0)beträge absorbieren kann.$(p)Er funktioniert wie eine $(l:mana/mana_tablet)$(item)Manatafel$(0)$(/l) wenn er in ein $(l:mana/pool)$(item)Manabecken$(0)$(/l) geworfen wird. Das absorbierte $(thing)Mana$(0) kann jedoch nicht wieder freigesetzt werden, so dass er nicht als Speichermedium brauchbar ist.",
     "botania.page.terraPick1": "Aus der gespeicherten $(thing)Mana$(0)menge leitet sich sein $(thing)Rang$(0) ab. Der Rang-Fortschritt ist wie folgt: $(thing)D$(0), $(thing)C$(0), $(thing)B$(0), $(thing)A$(0), $(thing)S$(0) und $(thing)SS$(0), wobei $(thing)D$(0) der niedrigste Rang ist und $(thing)SS$(0) der höchste.$(p)Der benötigte $(thing)Mana$(0)betrag, um von einem Rang zum nächsten aufzusteigen erhöht sich exponenziell mit dem Rang. Um am Anfang von $(thing)D$(0) nach $(thing)C$(0) zu kommen, braucht der Trümmerer den Inhalt eines $(l:mana/pool)$(item)Verdünnten Manabeckens$(0)$(/l).",
-    "botania.page.terraPick2": "Um von Rang $(thing)C$(0) nach Rang $(thing)B$(0) aufzusteigen wird bereits ein volles $(l:mana/pool)$(item)Manabecken$(0)$(/l) benötigt, danach erhöhen sich die Mengen jeweils auf das Zehnfache pro Rang bis hin zu $(thing)SS$(0).$(p)Der Rang des Werkzeugs ändert nicht seine Geschwindigkeit. Stattdessen erhöht sich die Reichweite seiner $(thing)Aktivierten Fähigkeit$(0).$(p)Ein Schleich-Rechtsklick in der Luft schaltet die Fähigkeit des Trümmerers an oder aus.",
+    "botania.page.terraPick2": "Um von Rang $(thing)C$(0) nach Rang $(thing)B$(0) aufzusteigen wird bereits ein volles $(l:mana/pool)$(item)Manabecken$(0)$(/l) benötigt, danach erhöhen sich die Mengen jeweils auf das Zehnfache pro Rang bis hin zu $(thing)SS$(0).$(p)Der Rang des Werkzeugs ändert nicht seine Geschwindigkeit. Stattdessen erhöht sich die Reichweite seiner $(thing)Aktivierten Fähigkeit$(0).$(p)Ein Schleich-Rechtsklick schaltet die Fähigkeit des Trümmerers an oder aus.",
     "botania.page.terraPick3": "Wenn die Fähigkeit des Trümmerers aktiviert ist, kann dieser viele Blöcke auf einer breiten Fläche abbauen. Auf Rang $(thing)C$(0) baut er eine schmale Säule von Blöcken ab. Auf Rang $(thing)B$(0) erweitert sich die Form zu einem Quadrat, dessen Fläche sich bei höheren Rängen vergrößert. Ein Rang-$(thing)D$(0)-Werkzeug hat die Fähigkeit nicht. Wenn der Trümmerer aktiv ist, konsumiert er sein internes $(thing)Mana$(0) wenn $(l)nicht$() gegraben wird.",
     "botania.page.terraPick4": "Das Werkzeug nimmt für jeden einzelnen Block Schaden, so dass ein guter $(thing)Mana$(0)vorrat im Inventar des Nutzers ein Muss ist: Der Trümmerer braucht $(thing)Mana$(0) für die Haltbarkeit, wie $(l:tools/mana_gear)$(item)Manastahlwerkzeuge$(0)$(/l).$(p)Wenn der Trümmerer auf dem Boden liegt, wird er nicht despawnen.",
     "botania.page.terraPick5": "WIR GRABEN IN DER DATENBANK WOW WOW",

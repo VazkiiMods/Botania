@@ -31,6 +31,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.entity.ManaBurstEntity;
+import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -81,7 +82,7 @@ public class BoreLens extends Lens {
 						world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, collidePos, Block.getId(state));
 					}
 
-					boolean sourceless = source.equals(ManaBurst.NO_SOURCE);
+					boolean sourceless = source.equals(ManaBurst.NO_SOURCE) || !burst.isBurstSourceDimension(world);
 					boolean doWarp = warpItems && !sourceless;
 					Vec3 dropPosition;
 					if (doWarp && world.getBlockEntity(source) instanceof ManaSpreaderBlockEntity spreader) {
@@ -104,7 +105,7 @@ public class BoreLens extends Lens {
 						for (ItemStack stack_ : items) {
 							ItemEntity itemEntity = new ItemEntity(world, dropPosition.x, dropPosition.y, dropPosition.z, stack_);
 							itemEntity.setDefaultPickUpDelay();
-							world.addFreshEntity(itemEntity);
+							EntityHelper.addTeleportTicketIfFarAway(itemEntity, collidePos);
 						}
 					}
 

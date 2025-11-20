@@ -530,6 +530,10 @@ public class ForgeCommonInitializer {
 			e.addCapability(prefix("water_bowl"), new CapabilityUtil.WaterBowlFluidHandler(stack));
 		}
 
+		if (stack.is(BotaniaItems.openBucket)) {
+			e.addCapability(prefix("open_bucket"), new CapabilityUtil.ExtrapolatedBucketFluidHandler(stack));
+		}
+
 		var makeAvatarWieldable = AVATAR_WIELDABLES.get().get(stack.getItem());
 		if (makeAvatarWieldable != null) {
 			e.addCapability(prefix("avatar_wieldable"),

@@ -21,6 +21,26 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+* Add: Extrapolated Bucket can void fluids from modded blocks that support draining fluids into items used on them
+* Change: Terra Shatterer activation rules have been adjusted
+  * With an item in the off-hand that item gets priority, unless sneaking and not aiming at any blocks
+  * With an empty off-hand, sneak right-click toggles active state, unless at rank D (i.e. no stored mana)
+  * If at rank D or not sneaking, Manasteel pickaxe logic for torch placing applies
+* Change: Rod of the Skies acceleration for elytra gliding works more like using a fireworks rocket
+* Change: Several mods have been marked as potentially conflicting on Fabric. When trying to run them together with
+  Botania, Fabric generates a warning.
+  (The same issues exist with their Forge versions, but Forge does not support this kind of declaration.)
+  * Fast Item Frames – It replaces item frame entities with blocks, where possible.
+    With it present, Hopperhock, Rannuncarpus, and various Corporea features no longer work properly.
+  * Open Parties and Claims – Its default configuration disallows unowned projectiles in claimed chunks, completely
+    breaking mana spreaders. From Botania's side there is no good way to opt in, except to change semantics in regards
+    to mana burst ownership, which would serve no purpose for Botania itself whatsoever.
+* Fix: Don't let Alfheim portal grab items in the tick it shuts down (e.g. for gluten reasons)
+* Fix: Astrolabe no longer attempts to place blocks in the player's head location while underwater
+* Fix: Mana bursts going through a nether portal could cause lag spikes
+* Fix: Potential client memory leak in ManaNetworkHandler
+* Fix: Guardian of Gaia stopped teleporting until getting hit after a world reload
+
 ---
 
 {% include changelog_header.html version="1.20.1-450" %}

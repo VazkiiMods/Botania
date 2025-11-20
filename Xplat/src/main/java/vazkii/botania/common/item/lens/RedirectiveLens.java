@@ -11,6 +11,7 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -42,15 +43,17 @@ public class RedirectiveLens extends Lens {
 		return shouldKill;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Nullable
 	private static Vec3 getSourceVec(ManaBurst burst) {
 		var entity = burst.entity();
 		var owner = entity.getOwner();
 		var sourcePos = burst.getBurstSourceBlockPos();
-		if (!sourcePos.equals(ManaBurst.NO_SOURCE)) {
+		Level level = entity.level();
+		if (!sourcePos.equals(ManaBurst.NO_SOURCE) && burst.isBurstSourceDimension(level) && level.hasChunkAt(sourcePos)) {
 			var sourceVec = Vec3.atCenterOf(sourcePos);
 			AABB axis;
-			VoxelShape collideShape = entity.level().getBlockState(sourcePos).getCollisionShape(entity.level(), sourcePos);
+			VoxelShape collideShape = level.getBlockState(sourcePos).getCollisionShape(level, sourcePos);
 			if (collideShape.isEmpty()) {
 				axis = new AABB(sourcePos, sourcePos.offset(1, 1, 1));
 			} else {

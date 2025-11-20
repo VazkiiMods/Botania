@@ -871,6 +871,9 @@ public class GaiaGuardianEntity extends Mob {
 						spawnLandmines = true;
 						spawnPixies = false;
 					}
+				} else {
+					// in case of reload during fight
+					tpDelay = 30;
 				}
 
 				if (spawnMissiles) {
