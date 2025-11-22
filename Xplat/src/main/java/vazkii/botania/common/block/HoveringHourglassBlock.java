@@ -19,6 +19,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -39,6 +40,8 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.HoveringHourglassBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.item.WandOfTheForestItem;
+
+import java.util.function.BiConsumer;
 
 public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -129,5 +132,14 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, BotaniaBlockEntities.HOURGLASS, HoveringHourglassBlockEntity::commonTick);
+	}
+
+	@Override
+	protected void onExplosionHit(BlockState state, Level level, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> dropConsumer) {
+		if (explosion.canTriggerBlocks() && level.getBlockEntity(pos) instanceof HoveringHourglassBlockEntity hourglass) {
+			hourglass.flipEarly();
+		}
+
+		super.onExplosionHit(state, level, pos, explosion, dropConsumer);
 	}
 }

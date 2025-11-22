@@ -12,8 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,6 +34,8 @@ import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.BellowsBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
+
+import java.util.function.BiConsumer;
 
 public class BellowsBlock extends BotaniaBlock implements EntityBlock {
 
@@ -91,5 +95,14 @@ public class BellowsBlock extends BotaniaBlock implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, BotaniaBlockEntities.BELLOWS, BellowsBlockEntity::commonTick);
+	}
+
+	@Override
+	protected void onExplosionHit(BlockState state, Level level, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> dropConsumer) {
+		if (explosion.canTriggerBlocks() && level.getBlockEntity(pos) instanceof BellowsBlockEntity bellows) {
+			bellows.interact();
+		}
+
+		super.onExplosionHit(state, level, pos, explosion, dropConsumer);
 	}
 }

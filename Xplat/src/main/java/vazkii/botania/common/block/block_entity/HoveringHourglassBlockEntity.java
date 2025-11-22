@@ -116,6 +116,12 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 		}
 	}
 
+	public void flipEarly() {
+		time = getTotalTime();
+		move = getTotalTime() > 0;
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+	}
+
 	public int getTotalTime() {
 		ItemStack stack = getItemHandler().getItem(0);
 		if (stack.isEmpty()) {
