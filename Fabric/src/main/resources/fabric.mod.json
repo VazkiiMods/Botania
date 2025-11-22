@@ -56,6 +56,7 @@
       "vazkii.botania.test.item.RarityConsistencyTest",
       "vazkii.botania.test.item.SpectatorScanTest",
       "vazkii.botania.test.item.lens.BoreLensTest",
+      "vazkii.botania.test.item.lens.BoreWarpLensTest",
       "vazkii.botania.test.item.lens.EntropicWarpLensTest",
       "vazkii.botania.test.item.lens.PaintslingerLensTest",
       "vazkii.botania.test.item.lens.WarpForceTest"
