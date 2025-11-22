@@ -34,6 +34,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.NeighborUpdater;
@@ -47,7 +48,6 @@ import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.CollectingNeighborUpdaterAccess;
-import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -78,7 +78,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 
 		if (player != null && player.isSecondaryUseActive()) {
 			if (world.getBlockEntity(pos) == null && block.asItem() != Items.AIR
-					&& PlatformBlock.isValidBlock(wstate, world, pos)
+					&& (wstate.isSolidRender(world, pos) || wstate.getRenderShape() == RenderShape.MODEL)
 					&& (wstate.canOcclude() || block instanceof TransparentBlock || block instanceof IronBarsBlock)
 					&& block.asItem() instanceof BlockItem) {
 				setItemToPlace(stack, block.asItem());

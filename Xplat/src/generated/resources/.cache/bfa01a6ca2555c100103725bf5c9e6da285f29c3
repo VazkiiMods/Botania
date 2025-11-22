@@ -42,6 +42,7 @@ ee84abd7f036b1dae32bbc7eac3ffca7b5cf7f42 data/botania/tags/block/special_floatin
 f9cbec686df06a01e62d90f653c978deb25369f9 data/botania/tags/block/special_flowers.json
 278ec3a8809be9375b28aeae7dad72a2e2099eeb data/botania/tags/block/terra_plate_base.json
 b2fa3d698e295620056cd88eb6225ad1b2da6238 data/botania/tags/block/unethical_tnt_check.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/block/unsupported_platform_disguise.json
 fe541fc12bc978f6f71844ecddde271e0ab25390 data/botania/tags/block/unwandable.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/block/weight_lens_affected.json
 adaca5770638de00a54b51b571726f4734e24671 data/minecraft/tags/block/beacon_base_blocks.json

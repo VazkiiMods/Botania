@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 
 		BlockState heldState = data.state();
 
-		if (heldState == null) {
+		if (heldState == null || heldState.is(BotaniaTags.Blocks.UNSUPPORTED_PLATFORM_DISGUISE)) {
 			// No camo
 			return super.getQuads(state, side, rand, extraData, renderType);
 		} else {

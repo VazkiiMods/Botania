@@ -288,6 +288,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 		tag(BotaniaTags.Blocks.SINGLE_ITEM_INSERT).add(Blocks.CRAFTER);
 
+		tag(BotaniaTags.Blocks.UNSUPPORTED_PLATFORM_DISGUISE);
+
 		tag(BlockTags.FLOWER_POTS)
 				.add(ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getPottedFlower)
