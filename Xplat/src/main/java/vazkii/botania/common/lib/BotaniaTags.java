@@ -288,6 +288,13 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Block> SINGLE_ITEM_INSERT = tag("single_item_insert");
 
+		/**
+		 * Blocks in this tag work are likely to cause major issues when used with Abstruse/Spectral Platform blocks.
+		 * This tag can only be a last resort option, as it is likely an error in Botania or the block's origin mod
+		 * that causes the issues, which should be fixed properly.
+		 */
+		public static final TagKey<Block> UNSUPPORTED_PLATFORM_DISGUISE = tag("unsupported_platform_disguise");
+
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, prefix(name));
 		}

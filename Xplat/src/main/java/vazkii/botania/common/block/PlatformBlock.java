@@ -37,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 import java.util.function.BiPredicate;
@@ -121,10 +122,6 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 		return Behaviour.SKIP_ALL;
 	}
 
-	public static boolean isValidBlock(@Nullable BlockState state, Level world, BlockPos pos) {
-		return state != null && (state.isSolidRender(world, pos) || state.getRenderShape() == RenderShape.MODEL);
-	}
-
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		if (variant.indestructible) {
@@ -147,7 +144,8 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hit);
 			BlockState changeState = Block.byItem(currentStack.getItem()).getStateForPlacement(ctx);
 
-			if (isValidBlock(changeState, world, pos)
+			if (changeState != null && !changeState.is(BotaniaTags.Blocks.UNSUPPORTED_PLATFORM_DISGUISE)
+					&& (changeState.isSolidRender(world, pos) || changeState.getRenderShape() == RenderShape.MODEL)
 					&& !(changeState.getBlock() instanceof PlatformBlock)
 					&& !changeState.isAir()) {
 				if (!world.isClientSide) {

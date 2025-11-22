@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.function.Supplier;
 
@@ -45,7 +46,7 @@ public class FabricPlatformModel extends ForwardingBakedModel {
 			BlockPos heldPos = ((PlatformBlockEntity.PlatformData) data).pos();
 			BlockState heldState = ((PlatformBlockEntity.PlatformData) data).state();
 
-			if (heldState == null) {
+			if (heldState == null || heldState.is(BotaniaTags.Blocks.UNSUPPORTED_PLATFORM_DISGUISE)) {
 				// No camo
 				super.emitBlockQuads(blockView, state, pos, randomSupplier, context);
 			} else {
