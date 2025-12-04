@@ -42,6 +42,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Fix: Mana bursts going through a nether portal could cause lag spikes
 * Fix: Potential client memory leak in ManaNetworkHandler
 * Fix: Guardian of Gaia stopped teleporting until getting hit after a world reload
+* Fix: Elementium Axe beheading logic could run twice and still duplicate LootJS script executions on Forge
 
 ---
 

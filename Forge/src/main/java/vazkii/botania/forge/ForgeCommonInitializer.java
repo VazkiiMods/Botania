@@ -110,7 +110,6 @@ import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
-import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
@@ -396,11 +395,6 @@ public class ForgeCommonInitializer {
 		{
 			bus.addListener((LivingDropsEvent e) -> {
 				var living = e.getEntity();
-				ElementiumAxeItem.onEntityDrops(e.isRecentlyHit(), e.getSource(), living, stack -> {
-					var ent = new ItemEntity(living.level(), living.getX(), living.getY(), living.getZ(), stack);
-					ent.setDefaultPickUpDelay();
-					e.getDrops().add(ent);
-				});
 				LooniumBlockEntity.dropLooniumItems(living, stack -> {
 					e.getDrops().clear();
 					if (!stack.isEmpty()) {
