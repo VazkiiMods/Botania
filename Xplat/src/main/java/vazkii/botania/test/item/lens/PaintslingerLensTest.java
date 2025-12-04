@@ -26,8 +26,8 @@ public class PaintslingerLensTest {
 		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(bindPos), Direction.UP),
 				() -> "Failed to bind spreader");
 
-		helper.pressButton(buttonPos);
 		helper.startSequence()
+				.thenExecuteAfter(1, () -> helper.pressButton(buttonPos))
 				.thenWaitUntil(() -> helper.assertBlockPresent(Blocks.BLUE_CANDLE, bindPos))
 				.thenExecute(() -> {
 					// check candle colors and properties

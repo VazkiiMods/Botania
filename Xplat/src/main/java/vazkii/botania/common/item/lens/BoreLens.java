@@ -105,6 +105,7 @@ public class BoreLens extends Lens {
 						for (ItemStack stack_ : items) {
 							ItemEntity itemEntity = new ItemEntity(world, dropPosition.x, dropPosition.y, dropPosition.z, stack_);
 							itemEntity.setDefaultPickUpDelay();
+							world.addFreshEntity(itemEntity);
 							EntityHelper.addTeleportTicketIfFarAway(itemEntity, collidePos);
 						}
 					}

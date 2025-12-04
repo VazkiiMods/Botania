@@ -38,6 +38,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractGlassBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.redstone.NeighborUpdater;
@@ -53,7 +54,6 @@ import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.CollectingNeighborUpdaterAccess;
-import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
@@ -96,7 +96,8 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 
 		if (player != null && player.isSecondaryUseActive()) {
 			BlockEntity tile = world.getBlockEntity(pos);
-			if (tile == null && block.asItem() != Items.AIR && PlatformBlock.isValidBlock(wstate, world, pos)
+			if (tile == null && block.asItem() != Items.AIR
+					&& (wstate.isSolidRender(world, pos) || wstate.getRenderShape() == RenderShape.MODEL)
 					&& (wstate.canOcclude() || block instanceof AbstractGlassBlock || block instanceof IronBarsBlock)
 					&& block.asItem() instanceof BlockItem) {
 				setItemToPlace(stack, block.asItem());

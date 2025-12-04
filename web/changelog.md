@@ -22,6 +22,8 @@ of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
 * Add: Extrapolated Bucket can void fluids from modded blocks that support draining fluids into items used on them
+* Add: Block tag `botania:unsupported_platform_disguise` can be used to explicitly disallow incompatible blocks to be
+  used as the disguise for Abstruse or Spectral Platforms
 * Change: Terra Shatterer activation rules have been adjusted
   * With an item in the off-hand that item gets priority, unless sneaking and not aiming at any blocks
   * With an empty off-hand, sneak right-click toggles active state, unless at rank D (i.e. no stored mana)
