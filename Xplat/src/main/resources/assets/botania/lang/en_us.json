@@ -3087,7 +3087,7 @@
 
   "botania.entry.manaConjuration": "Conjuring with Mana",
   "botania.tagline.manaConjuration": "Duplicate your resources with mana",
-  "botania.page.manaConjuration0": "Similar to the $(thing)Alchemy Catalyst$(0), a catalyst also exists for $(thing)Conjuration$(0), the magic of cloning simple resources from pure $(thing)Mana$(0). Conjuration is performed similarly to $(l:devices/mana_alchemy)$(item)Alchemy$(0)$(/l), by tossing the relevant item into a $(l:mana/pool)$(item)Mana Pool$(0)$(/l) with a catalyst attached below.",
+  "botania.page.manaConjuration0": "Similar to the $(item)Alchemy Catalyst$(0), a catalyst also exists for $(thing)Conjuration$(0), the magic of cloning simple resources from pure $(thing)Mana$(0). Conjuration is performed similarly to $(l:devices/mana_alchemy)$(thing)Alchemy$(0)$(/l), by tossing the relevant item into a $(l:mana/pool)$(item)Mana Pool$(0)$(/l) with a catalyst attached below.",
   "botania.page.manaConjuration1": "Creating the catalyst",
   "botania.page.manaConjuration2": "Conjuring $(item)Redstone$(0)",
   "botania.page.manaConjuration3": "Conjuring $(item)Glowstone$(0)",
@@ -3153,7 +3153,7 @@
 
   "botania.entry.manaBomb": "Manastorm Charge",
   "botania.tagline.manaBomb": "Manastorm Charge go BOOM. BOOM BOOM. BOOMBOOMBOOMBOOMBOOMBOOM",
-  "botania.page.manaBomb0": "Infusing a $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirit$(0)$(/l) with some $(item)TNT$(0) creates a $(item)Manastorm Charge$(0), a type of explosive. In a sense. Once ignited with a $(item)Mana Burst$(0), the charge will create an unstable $(item)Manastorm Epicenter$(0). This will, over time, spawn supercharged explosive $(item)Mana Bursts$(0).$(p)Needless to say, only a maniac would unleash such a destructive force near anything valuable or important.",
+  "botania.page.manaBomb0": "Infusing a $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirit$(0)$(/l) with some $(item)TNT$(0) creates a $(item)Manastorm Charge$(0), a type of explosive. In a sense. Once ignited with a $(thing)Mana Burst$(0), the charge will create an unstable $(thing)Manastorm Epicenter$(0). This will, over time, spawn supercharged explosive $(thing)Mana Bursts$(0).$(p)Needless to say, only a maniac would unleash such a destructive force near anything valuable or important.",
   "botania.page.manaBomb1": "Prepare to face the mighty...",
 
   "botania.entry.teruTeruBozu": "Teru Teru Bozu",
@@ -3286,7 +3286,7 @@
 
   "botania.entry.rainbowRod": "Rod of the Bifrost",
   "botania.tagline.rainbowRod": "A rod for creating rainbow bridges (and fancy building blocks)",
-  "botania.page.rainbowRod0": "The $(thing)Bifrost$(0) is the legendary rainbow bridge that connects our world and the realm of the gods.$(p)While the $(item)Rod of the Bifrost$(0) can't really do $(o)that$(), it allows wielder to summon a rainbow bridge from $(thing)Mana$(0) in the direction they look.",
+  "botania.page.rainbowRod0": "The $(thing)Bifrost$(0) is the legendary rainbow bridge that connects our world and the realm of the gods.$(p)While the $(item)Rod of the Bifrost$(0) can't really do $(o)that$(), it allows the wielder to summon a rainbow bridge from $(thing)Mana$(0) in the direction they look.",
   "botania.page.rainbowRod1": "This bridge can extend up to a hundred blocks away, and will vanish after about thirty seconds.$(p)Only one bridge can be created for any given $(item)Rod of the Bifrost$(0) at a time; as soon as the old bridge vanishes, a new one can be created.",
   "botania.page.rainbowRod6": "This rod can be given to a $(l:devices/avatar)$(item)Livingwood Avatar$(0)$(/l). An avatar holding one will use its $(thing)Mana$(0) to create a rainbow bridge along its line of sight whenever a player approaches.",
   "botania.page.rainbowRod2": "Going my way!! Cut open a path and go!",
@@ -3839,7 +3839,7 @@
   "botania.page.aIntro3": "Crafting $(item)Natura Pylons$(0)",
   "botania.page.aIntro4": "Alfheim Portal",
   "botania.page.aIntro5": "At least two $(l:mana/pool)$(item)Mana Pools$(0)$(/l) with $(item)Natura Pylons$(0) directly above them would be needed within an 11x11x11 area around the Core. The initial activation of the portal, we believe, would cost a huge amount of $(thing)Mana$(0) from said Pools, and would be performed by right-clicking the core with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l).$(p)The portal is designed to draw $(thing)Mana$(0) from all pools with Pylons equally; if any pool ran out, any connection a portal might have would close.",
-  "botania.page.aIntro6": "Even with all these preparations, any link the portal could establish would be too weak to transfer living beings (so an $(thing)Alfheim$(0) vacation's off the table no matter what), but items might just make it through-- though $(thing)Mana$(0) from the surrounding $(l:mana/pool)$(thing)Mana Pools$(0)$(/l) would be needed for items to survive a return trip.",
+  "botania.page.aIntro6": "Even with all these preparations, any link the portal could establish would be too weak to transfer living beings (so an $(thing)Alfheim$(0) vacation's off the table no matter what), but items might just make it through-- though $(thing)Mana$(0) from the surrounding $(l:mana/pool)$(item)Mana Pools$(0)$(/l) would be needed for items to survive a return trip.",
   "botania.page.aIntro7": "All knowledge about $(thing)Alfheim$(0) in this lexicon is, at this point, limited to what you find in this entry-- it seems that Elven knowledge has been almost totally lost.$(p)Perhaps if $(thing)the Elves could have a look at this book$(0), they could provide further insight.",
 
   "botania.entry.elfMessage": "A Message from Elven Garde",

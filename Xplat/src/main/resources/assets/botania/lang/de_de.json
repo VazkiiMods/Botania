@@ -3086,7 +3086,7 @@
 
   "botania.entry.manaConjuration": "Herbeizaubern mit Mana",
   "botania.tagline.manaConjuration": "Dupliziere deine Ressourcen mit Mana",
-  "botania.page.manaConjuration0": "Es existiert neben dem $(thing)Alchemiekatalysator$(0) auch ein Katalysator für das $(thing)Herbeizaubern$(0), der Magie zum Klonen einfacher Ressourcen aus purem $(thing)Mana$(0). Herbeizaubern wird ähnlich ausgeführt wie $(l:devices/mana_alchemy)$(thing)Alchemie$(0)$(/l), indem ein entsprechender Gegenstand in ein $(l:mana/pool)$(item)Manabecken$(0)$(/l) mit darunter befestigtem Katalysator geworfen wird.",
+  "botania.page.manaConjuration0": "Neben dem $(item)Alchemiekatalysator$(0) existiert auch ein Katalysator für das $(thing)Herbeizaubern$(0), der Magie zum Klonen einfacher Ressourcen aus purem $(thing)Mana$(0). Herbeizaubern wird ähnlich ausgeführt wie $(l:devices/mana_alchemy)$(thing)Alchemie$(0)$(/l), indem ein entsprechender Gegenstand in ein $(l:mana/pool)$(item)Manabecken$(0)$(/l) mit darunter befestigtem Katalysator geworfen wird.",
   "botania.page.manaConjuration1": "Herstellen des Katalysators",
   "botania.page.manaConjuration2": "Herbeizaubern von $(item)Redstone$(0)",
   "botania.page.manaConjuration3": "Herbeizaubern von $(item)Leuchtstein$(0)",
@@ -3152,7 +3152,7 @@
 
   "botania.entry.manaBomb": "Manasturm-Sprengsatz",
   "botania.tagline.manaBomb": "Manasturm-Sprengsatz macht BUMM. BUMM. BUMM. BUMMBUMMBUMMBUMMBUMM",
-  "botania.page.manaBomb0": "Wenn eine $(l:alfhomancy/gaia_ritual)$(item)Gaia-Seele$(0)$(/l) mit etwas $(item)TNT$(0) versetzt wird, entsteht ein $(item)Manasturm-Sprengsatz$(0), quasi eine Art Sprengstoff. Er wird per $(item)Manasalve$(0) gezündet und erzeugt ein instabiles $(item)Manasturm-Epizentrum$(0). Dieses erzeugt hochaufgeladene explosive $(item)Manasalven$(0).$(br)Natürlich würde nur ein Irrer so eine zerstörerische Kraft in der Nähe von irgend etwas Wertvollem oder Wichtigem entfesseln.",
+  "botania.page.manaBomb0": "Wenn eine $(l:alfhomancy/gaia_ritual)$(item)Gaia-Seele$(0)$(/l) mit etwas $(item)TNT$(0) versetzt wird, entsteht ein $(item)Manasturm-Sprengsatz$(0), quasi eine Art Sprengstoff. Er wird per $(thing)Manasalve$(0) gezündet und erzeugt ein instabiles $(thing)Manasturm-Epizentrum$(0). Dieses erzeugt hochaufgeladene explosive $(thing)Manasalven$(0).$(br)Natürlich würde nur ein Irrer so eine zerstörerische Kraft in der Nähe von irgend etwas Wertvollem oder Wichtigem entfesseln.",
   "botania.page.manaBomb1": "Sei bereit, dem Mächtigen zu begegnen...",
 
   "botania.entry.teruTeruBozu": "Teru Teru Bozu",
@@ -3838,7 +3838,7 @@
   "botania.page.aIntro3": "Herstellen eines $(item)Natura-Pylons$(0)",
   "botania.page.aIntro4": "Alfheim-Portal",
   "botania.page.aIntro5": "Mindestens zwei $(l:mana/pool)$(item)Manabecken$(0)$(/l) mit $(item)Natura-Pylonen$(0) darüber würden innerhalb von 11x11x11 Blöcken um das Herzstück benötigt. Bei der erstmaligen Aktivierung, die durch einen Rechtsklick mit einem $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) ausgelöst wird, werden vermutlich große Mengen $(thing)Mana$(0) aus diesen Becken verbraucht.$(br)Das Portal ist so gebaut, dass es $(thing)Mana$(0) gleichmäßig aus allen Becken mit Pylonen bezieht. Falls ein Becken leer läuft, dürfte jegliche aktive Verbindung des Portals abbrechen.",
-  "botania.page.aIntro6": "Selbst mit all diesen Vorbereitungen dürfte jegliche Verbindung, die ein Portal aufbaut, zu schwach sein, um Lebewesen zu transportieren (ein $(thing)Alfheim$(0)-Urlaub ist also vom Tisch), aber Gegenstände sollten es gerade so hindurch schaffen — allerdings würde $(thing)Mana$(0) aus den umliegenden $(l:mana/pool)$(thing)Manabecken$(0)$(/l) notwendig sein, damit die Gegenstände den Trip überstehen.",
+  "botania.page.aIntro6": "Selbst mit all diesen Vorbereitungen dürfte jegliche Verbindung, die ein Portal aufbaut, zu schwach sein, um Lebewesen zu transportieren (ein $(thing)Alfheim$(0)-Urlaub ist also vom Tisch), aber Gegenstände sollten es gerade so hindurch schaffen — allerdings würde $(thing)Mana$(0) aus den umliegenden $(l:mana/pool)$(item)Manabecken$(0)$(/l) notwendig sein, damit die Gegenstände den Trip überstehen.",
   "botania.page.aIntro7": "Das Wissen über $(thing)Alfheim$(0) in diesem Lexikon ist, zu diesem Zeitpunkt, auf diesen Eintrag begrenzt — es scheint, das Elfenwissen ist fast vollständig verloren gegangen.$(p)Wenn $(thing)die Elfen einen Blick auf dieses Buch werfen$(0), können sie vielleicht weitere Erkenntnisse liefern.",
 
   "botania.entry.elfMessage": "Eine Nachricht der Elfengarde",
