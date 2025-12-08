@@ -1906,7 +1906,7 @@
 
   "botania.entry.manaBomb": "Manastorm Lading",
   "botania.tagline.manaBomb": "Manastorm Lading doet BOEM. BOEM BOEM. BOEMBOEMBOEMBOEMBOEMBOEM",
-  "botania.page.manaBomb0": "Het samenbinden van wat $(item)TNT$(0) en een $(item)Geest van Gaia$(0) maakt een $(item)Manastorm Lading$(0), zeg maar een soort explosief. Aangestoken met een $(item)Mana Burst$(0) vormt de lading een instabiel $(item)Manastorm Epicenter$(0), die gedurende een tijd sterk geladen $(item)Mana Bursts$(0) afvuurt, die exploderen bij contact met andere blokken. Moge duidelijk zijn dat je het epicenter beter uit de buurt kunt houden van kostbare bouwwerken.",
+  "botania.page.manaBomb0": "Het samenbinden van wat $(item)TNT$(0) en een $(item)Geest van Gaia$(0) maakt een $(item)Manastorm Lading$(0), zeg maar een soort explosief. Aangestoken met een $(thing)Mana Burst$(0) vormt de lading een instabiel $(thing)Manastorm Epicenter$(0), die gedurende een tijd sterk geladen $(thing)Mana Bursts$(0) afvuurt, die exploderen bij contact met andere blokken. Moge duidelijk zijn dat je het epicenter beter uit de buurt kunt houden van kostbare bouwwerken.",
   "botania.page.manaBomb1": "Bereidt je voor op het ergste..",
 
   "botania.entry.teruTeruBozu": "Teru Teru Bozu",

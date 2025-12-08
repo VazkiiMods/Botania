@@ -1828,7 +1828,7 @@
   "botania.tagline.runeAltar": "더 강력한 꽃과 아이템을 위한 룬 생성",
   "botania.page.runeAltar21": "룬 문자 생성은 복잡한 주제이지만 식물학자의 커리어를 발전시키는 데 중요한 주제입니다. 하지만 이 제작 방식을 사용하려면 $(thing)마나 조작$(0)의 개념을 확실히 이해해야 합니다. 더 진행하기 전에, $(l:basics/lexicon)$(item)보타니아 사전$(0)$(/l)의 해당 섹션에 있는 중요한 항목($(o)이텔릭체$())로 쓰인 부분)을 읽어보면 도움이 될 수 있습니다.",
   "botania.page.runeAltar0": "$(item)룬$(0)은 $(item)신비로운 제단$(0)에서 만드는 복잡한 마법 장치나 식물의 필수 구성 요소입니다.$(p)$(item)신비로운 제단$(0)을 사용하려면, 먼저 제단 위에 생성하려는 룬의 구성 요소를 마우스 우클릭 또는 간단한 던지기를 통해 배치합니다.",
-  "botania.page.runeAltar1": "$(l:mana/spreader)$(item)마나 공급기$(0)$(/l)가 제단을 기리키게 하여 $(thing)마나$(0)를 공급합니다. $(p)완드에 전송 진행률이 표시되며; 제단이 충분한 마나$(thing)마나$(0)를 공급 받게되면 확인할 수 있습니다. 그 뒤, $(l:basics/pure_daisy)$(thing)생명의 돌$(0)$(/l)을 제단에 떨어뜨리거나 완드로 우클릭하여 룬을 수집하세요.",
+  "botania.page.runeAltar1": "$(l:mana/spreader)$(item)마나 공급기$(0)$(/l)가 제단을 기리키게 하여 $(thing)마나$(0)를 공급합니다. $(p)완드에 전송 진행률이 표시되며; 제단이 충분한 마나$(thing)마나$(0)를 공급 받게되면 확인할 수 있습니다. 그 뒤, $(l:basics/pure_daisy)$(item)생명의 돌$(0)$(/l)을 제단에 떨어뜨리거나 완드로 우클릭하여 룬을 수집하세요.",
   "botania.page.runeAltar2": "$(item)신비로운 제단$(0) 제작하기",
   "botania.page.runeAltar3": "총 16가지의 $(item)룬$(0)이 존재합니다.$(p)가장 기본적인 룬들은 $(thing)4대 원소$(0)의 이름을 따서 명명합니다. 중급(intermediate) 룬은 $(thing)사계절$(0)의 이름을, 상급(advenced) 룬은 $(thing)일곱 대죄$(0)의 이름을 사용합니다. 그 외로 $(item)마나의 룬$(0)이 있습니다.",
   "botania.page.runeAltar20": "마나를 공급하지 않는 상태에서 빈 손으로  $(item)신비로운 제단$(0)을 마우스 오른쪽 버튼으로 클릭하면 마지막으로 넣은 아이템을 꺼낼 수 있습니다.$(p)또한, 부착된 $(item)비교기$(0)는 제단이 $(item)마나$(0)를 받아들이고 있으면 신호 강도 $(item)1$(0)을, 룬을 제작할 준비가 되면 신호 강도 $(item)2$(0)를 발산합니다.",
@@ -1852,7 +1852,7 @@
 
   "botania.entry.terrasteel": "테라스틸",
   "botania.tagline.terrasteel": "마나와 자연에서 추출한 강력한 금속",
-  "botania.page.terrasteel0": "$(item)테라스틸$(0)은 복잡하고 유용한 마법 합금으로, 엄청난 양의 $(thing)마나$(0)가 주입되어 있습니다. 이 합금을 합성하는 것은 결코 쉬운 일이 아닙니다. 우선, $(item)청금석 블록$(0)과 $(l:basics/pure_daisy)$(thing)생명의 돌$(0)$(/l) (또는$(l:tools/rainbow_rod)$(item)Shimmerrock$(0)$(/l))의 체크무늬 패턴 위에 $(item)테라스틸 집적 판$(0)을 두어 만들 수 있습니다. 이 블록에는 $(thing)마나$(0)를 제공해야 하며, 가장 효율적인 전송 방식은 $(l:mana/sparks)$(item)스파크$(0)$(/l) 방식입니다.",
+  "botania.page.terrasteel0": "$(item)테라스틸$(0)은 복잡하고 유용한 마법 합금으로, 엄청난 양의 $(thing)마나$(0)가 주입되어 있습니다. 이 합금을 합성하는 것은 결코 쉬운 일이 아닙니다. 우선, $(item)청금석 블록$(0)과 $(l:basics/pure_daisy)$(item)생명의 돌$(0)$(/l) (또는$(l:tools/rainbow_rod)$(item)Shimmerrock$(0)$(/l))의 체크무늬 패턴 위에 $(item)테라스틸 집적 판$(0)을 두어 만들 수 있습니다. 이 블록에는 $(thing)마나$(0)를 제공해야 하며, 가장 효율적인 전송 방식은 $(l:mana/sparks)$(item)스파크$(0)$(/l) 방식입니다.",
   "botania.page.terrasteel1": "집적 판 만들기",
   "botania.page.terrasteel2": "집적 판이 준비되어 $(thing)마나$(0)를 받을 준비가 되면, 집적 판 위에 $(l:mana/pool)$(item)마나합금 주괴, 마나 다이아몬드, 마나 진주$(0)$(/l)를 각각 하나씩 던져 넣으면 주입이 시작됩니다.$(p)아이템을 하나라도 집어 들면 주입이 중단되어 심각한 $(thing)마나 손실$(0)이 발생합니다(집적판으로 이동한 모든 마나가 손실됩니다). 마나 주입은 $(l:mana/pool)$(item)마나 웅덩이$(0)$(/l)의 절반 정도의 마나를 사용하여 $(thing)테라스틸$(0) 조각 하나를 생성합니다. 여러 개의 $(l:mana/sparks)$(item)스파크$(0)$(/l)를 전달하면 프로세스가 가속화됩니다.",
   "botania.page.terrasteel3": "$(item)테라스틸$(0)을 만듭니다(집적판 아래에 $(l:basics/pure_daisy)$(thing)생명의 돌$(0)$(/l)이 있습니다).",
@@ -2549,7 +2549,7 @@
 
   "botania.entry.manaBomb": "마나 폭풍 차지",
   "botania.tagline.manaBomb": "마나 폭풍 차지가 폭발합니다. 폭발합니다. 폭발합니다. 폭발합니다. 폭발합니다. 폭발합니다.",
-  "botania.page.manaBomb0": "$(l:alfhomancy/gaia_ritual)$(item)가이아 스피릿$(0)$(/l)에 $(item)TNT$(0)를 몇 개 넣으면 $(item)Manastorm Charge$(0)가 생성되며, 이는 종류별 폭발물입니다. 어떤 의미로는요. $(item)Mana Burst$(0)로 점화된 후에 차지는 불안정한 $(item)Manastorm Epicenter$(0)를 생성합니다. 이것은 시간이 지남에 따라 초고충전 폭발성 $(item)Mana Burst$(0)를 소환합니다.$(p)말할 것도 없이, 어떤 현명한 사람도 가치 있거나 중요한 것 근처에 이러한 파괴적인 힘을 풀어놓지 않을 것입니다.",
+  "botania.page.manaBomb0": "$(l:alfhomancy/gaia_ritual)$(item)가이아 스피릿$(0)$(/l)에 $(item)TNT$(0)를 몇 개 넣으면 $(item)Manastorm Charge$(0)가 생성되며, 이는 종류별 폭발물입니다. 어떤 의미로는요. $(thing)Mana Burst$(0)로 점화된 후에 차지는 불안정한 $(thing)Manastorm Epicenter$(0)를 생성합니다. 이것은 시간이 지남에 따라 초고충전 폭발성 $(thing)Mana Burst$(0)를 소환합니다.$(p)말할 것도 없이, 어떤 현명한 사람도 가치 있거나 중요한 것 근처에 이러한 파괴적인 힘을 풀어놓지 않을 것입니다.",
   "botania.page.manaBomb1": "강력함에 맞서 준비하라...",
 
   "botania.entry.teruTeruBozu": "테루 테루 보즈",
@@ -3231,7 +3231,7 @@
   "botania.page.aIntro3": "$(item)Natura Pylon$(0) 제작",
   "botania.page.aIntro4": "알펠하임 창",
   "botania.page.aIntro5": "코어 주위의 11x11x11 영역 내에 최소한 2개의 $(l:mana/pool)$(item)마나 웅덩이$(0)가 있어야 하며 그 위에 $(item)Natura Pylon$(0)이 있어야 합니다. 창을 최초 활성화하려면 $(l:basics/wand)$(item)숲의 완드$(0)로 코어를 우클릭하면 됩니다.$(p)이 포털은 모든 파이론과 함께 $(thing)마나$(0)를 모으도록 설계되었습니다. 모든 풀이 소진되면 창의 모든 연결이 닫힙니다.",
-  "botania.page.aIntro6": "이 모든 준비에도 불구하고 창이 설정할 수 있는 어떠한 연결도 살아 있는 존재를 전송하기에는 너무 약해서 $(thing)알펠하임$(0) 휴가는 어려울 것이지만, 아이템은 어쨌든 통과할 수 있습니다. 반환 트립을 위해 주변 $(l:mana/pool)$(thing)마나 웅덩이$(0)의 $(thing)마나$(0)가 필요합니다.",
+  "botania.page.aIntro6": "이 모든 준비에도 불구하고 창이 설정할 수 있는 어떠한 연결도 살아 있는 존재를 전송하기에는 너무 약해서 $(thing)알펠하임$(0) 휴가는 어려울 것이지만, 아이템은 어쨌든 통과할 수 있습니다. 반환 트립을 위해 주변 $(l:mana/pool)$(item)마나 웅덩이$(0)의 $(thing)마나$(0)가 필요합니다.",
   "botania.page.aIntro7": "이 렉시콘에서의 $(thing)알펠하임$(0)에 관한 모든 지식은 이 항목에서 찾을 수 있는 것으로 한정되어 있습니다. 엘븐 지식이 거의 완전히 손실된 것 같습니다.$(p)혹시라도 $(thing)엘프가 이 책을 살펴본다면$(0), 추가적인 통찰력을 제공할 수 있을 것입니다.",
 
   "botania.entry.elfMessage": "엘븐 가르드에서의 메시지",
@@ -3362,7 +3362,7 @@
 
   "botania.entry.headCreating": "머리 생성",
   "botania.tagline.headCreating": "어떤 플레이어의 머리도 만들어냅니다",
-  "botania.page.headCreating0": "엘프들이 자주 사용하는 주문 중 하나는 몇 가지 자원과 $(item)이름 태그$(0)를 사용하여 $(l:basics/pure_daisy)$(thing)생명의 돌$(0)$(/l) 조각을 태그에 의해 지정된 $(thing)플레이어$(0)의 머리로 변형하는 것입니다.$(p)정확한 작동 방식은 알려지지 않았지만, 이 주문은 $(l:basics/rune_altar)$(item)신비로운 제단$(0)$(/l)에서 쉽게 복제할 수 있는 것으로 보입니다.",
+  "botania.page.headCreating0": "엘프들이 자주 사용하는 주문 중 하나는 몇 가지 자원과 $(item)이름 태그$(0)를 사용하여 $(l:basics/pure_daisy)$(item)생명의 돌$(0)$(/l) 조각을 태그에 의해 지정된 $(thing)플레이어$(0)의 머리로 변형하는 것입니다.$(p)정확한 작동 방식은 알려지지 않았지만, 이 주문은 $(l:basics/rune_altar)$(item)신비로운 제단$(0)$(/l)에서 쉽게 복제할 수 있는 것으로 보입니다.",
   "botania.page.headCreating2": "$(thing)마인크래프트$(0) 커뮤니티의 일부 (이게 무슨 일벽?)는 모든 종류의 장식으로 사용되는 머리를 만드는 데 전념했습니다. 열성적인 장식가들은 이러한 머리를 집계하는 일부 커뮤니티 웹사이트를 방문하는 것이 좋습니다.",
   "botania.page.headCreating1": "게임에 집중하십시오",
 

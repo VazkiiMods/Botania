@@ -1715,7 +1715,7 @@
   "botania.page.cocoon2": "Un mundo nuevo, un mundo perfecto",
 
   "botania.entry.manaBomb": "Carga de tormenta de maná",
-  "botania.page.manaBomb0": "Mezclando algo de $(item)TNT$(0) con un $(item)espíritu de Gaia$(0) crea una $(item)carga de tormenta de maná$(0), un tipo de explosivo. Encendida con un $(item)pulso de maná$(0), la carga creará un $(item)epicentro de tormenta de maná$(0) inestable, que con el tiempo, engendrará $(item)pulso de maná$(0) supercargado, que explotará al tocar otros bloques.$(p)No es necesario decir, que solo un maníaco desataría tal poder cerca de algo que aprecie.",
+  "botania.page.manaBomb0": "Mezclando algo de $(item)TNT$(0) con un $(item)espíritu de Gaia$(0) crea una $(item)carga de tormenta de maná$(0), un tipo de explosivo. Encendida con un $(thing)pulso de maná$(0), la carga creará un $(thing)epicentro de tormenta de maná$(0) inestable, que con el tiempo, engendrará $(thing)pulso de maná$(0) supercargado, que explotará al tocar otros bloques.$(p)No es necesario decir, que solo un maníaco desataría tal poder cerca de algo que aprecie.",
   "botania.page.manaBomb1": "Te enfrentas a molino.....",
 
   "botania.entry.manaBlaster": "Pistola de maná",

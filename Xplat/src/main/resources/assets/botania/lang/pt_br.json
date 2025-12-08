@@ -2805,7 +2805,7 @@
 
   "botania.entry.manaBomb": "Devastador Manico",
   "botania.tagline.manaBomb": "O Devastador Manico faz BOOM. BOOM BOOM. BOOMBOOMBOOMBOOMBOOMBOOM",
-  "botania.page.manaBomb0": "Quando algumas $(item)dinamites$(0) são infundidas com um $(l:alfhomancy/gaia_ritual)$(item)Espírito de Gaia$(0)$(/l) é criado um $(item)Devastador Manico$(0), um tipo de explosivo, de certa forma.$(p)Quando ativado com uma $(item)Rajada de Mana$(0), ele criará um $(item)Epicentro de Devastação Manica$(0). Que irá, ao longo do tempo, invocar $(item)Rajadas de Mana$(0) explosivas supercarregadas.",
+  "botania.page.manaBomb0": "Quando algumas $(item)dinamites$(0) são infundidas com um $(l:alfhomancy/gaia_ritual)$(item)Espírito de Gaia$(0)$(/l) é criado um $(item)Devastador Manico$(0), um tipo de explosivo, de certa forma.$(p)Quando ativado com uma $(thing)Rajada de Mana$(0), ele criará um $(thing)Epicentro de Devastação Manica$(0). Que irá, ao longo do tempo, invocar $(thing)Rajadas de Mana$(0) explosivas supercarregadas.",
   "botania.page.manaBomb1": "Prepare-se para o espetáculo...$(br)$(br2)Não é preciso dizer, apenas um maníaco liberaria uma força tão destrutiva perto de qualquer coisa valiosa ou importante.",
 
   "botania.entry.teruTeruBozu": "Teru Teru Bozu",
@@ -3490,7 +3490,7 @@
   "botania.page.aIntro3": "Fazendo $(item)Pilões de Natureza$(0)",
   "botania.page.aIntro4": "Portal para Alfheim",
   "botania.page.aIntro5": "Para fornecer mana ao portal, seriam necessários pelo menos dois $(l:mana/pool)$(item)Poços de Mana$(0)$(/l) com $(item)Pilões de Natureza$(0) diretamente acima deles em uma área de 11x11x11 ao redor do Núcleo. O portal foi projetado para drenar $(thing)Mana$(0) igualmente desses poços; caso um fique vazio, ele se fechará.$(br2)Sua ativação inicial pode custar grandes quantidades de $(thing)Mana$(0), e poderia ser realizada clicando no núcleo com o botão direito usando uma $(l:basics/wand)$(item)Varinha da Floresta$(0)$(/l).",
-  "botania.page.aIntro6": "Mesmo com todos esses preparos, qualquer conexão que o portal poderia estabelecer seria muito fraca pra transferir seres vivos (então férias em $(thing)Alfheim$(0) estão fora de cogitação), mas itens poderiam passar -- embora $(thing)Mana$(0) dos $(l:mana/pool)$(thing)Poços de Mana$(0)$(/l) próximos seria necessária para que itens sobrevivam a viajem de volta.",
+  "botania.page.aIntro6": "Mesmo com todos esses preparos, qualquer conexão que o portal poderia estabelecer seria muito fraca pra transferir seres vivos (então férias em $(thing)Alfheim$(0) estão fora de cogitação), mas itens poderiam passar -- embora $(thing)Mana$(0) dos $(l:mana/pool)$(item)Poços de Mana$(0)$(/l) próximos seria necessária para que itens sobrevivam a viajem de volta.",
   "botania.page.aIntro7": "Todo o conhecimento sobre $(thing)Alfheim$(0) nesse lexicon está, nesse ponto, limitado ao que você pode encontrar nessa entrada -- parece que o conhecimento Élfico foi quase totalmente perdido.$(p)Talvez se $(thing)os Elfos pudessem dar uma olhada nesse livro$(0), eles poderiam fornecer mais informações.",
 
   "botania.entry.elfMessage": "Mensagem da Guarda Élfica",
