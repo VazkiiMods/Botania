@@ -14,6 +14,9 @@
   "stat.botania.corporea_items_requested": "코포리아 인덱스를 통해 요청된 항목",
   "stat.botania.tiny_potatoes_petted": "귀여운 작은 감자",
   "stat.botania.luminizer_one_cm": "발광체 거리",
+  "stat.botania.mana_pools_cleaned": "지워진 마나 풀",
+  "stat.botania.mana_lenses_cleaned": "지워진 마나렌즈",
+  "stat.botania.phantom_ink_cleaned": "씻긴 팬텀 잉크",
 
   "botaniamisc.color": "%s 색",
   "botaniamisc.manaUsage": "마나 사용량",
@@ -29,6 +32,7 @@
   "botaniamisc.retainer.retain_all": "요청된 항목 수 유지",
   "botaniamisc.retainer.retain_missing": "누락된 항목 수 유지",
   "botaniamisc.optifine_warning": "§4[WARNING]§r <Botania>: 옵티파인이 감지되었습니다. 옵티파인은 보타니아에 많은 문제를 일으킵니다. 꽃과 스프레더 사이에서 마나가 움직이지 않거나 완드를 들고 마나 풀이나 스프레더를 볼 때 정보가 표시되지 않는 등의 문제가 발생할 수 있습니다. 성능을 개선하기 위한 대안으로 Sodium 을 추천합니다.",
+  "botaniamisc.dev_build_warning": "§4[WARNING]§r <Botania>: 이 모드의 개발 빌드를 사용하고 있다는 점을 유의해 주시기 바랍니다. 이 빌드에는 월드 세이브를 손상시킬 수 있는 심각한 버그가 포함되어 있을 수 있습니다. 이 버전으로 생성되거나 업그레이드된 월드는 향후 보타니아의 공식 릴리스에서도 제대로 작동하지 않을 수 있습니다. (월드 다운그레이드는 불가능하므로 백업을 하셨기를 바랍니다.)",
 
   "botaniamisc.creativePool0": "크리에이티브 모드를 위한 마나 풀로써, 용량이 무한대입니다.",
   "botaniamisc.creativePool1": "이기주의자에게 잘 어울립니다.",
