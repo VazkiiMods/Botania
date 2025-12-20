@@ -37,15 +37,17 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
   * Open Parties and Claims – Its default configuration disallows unowned projectiles in claimed chunks, completely
     breaking mana spreaders. From Botania's side there is no good way to opt in, except to change semantics in regards
     to mana burst ownership, which would serve no purpose for Botania itself whatsoever.
+* Change: VMinus 3.2.0+ has been marked as incompatible due to the long-standing serious issues with recipes it causes
+  in Botania (and other mods)
 * Fix: Don't let Alfheim portal grab items in the tick it shuts down (e.g. for gluten reasons)
 * Fix: Astrolabe no longer attempts to place blocks in the player's head location while underwater
 * Fix: Mana bursts going through a nether portal could cause lag spikes
 * Fix: Potential client memory leak in ManaNetworkHandler
 * Fix: Guardian of Gaia stopped teleporting until getting hit after a world reload
 * Fix: Elementium Axe beheading logic could run twice and still duplicate LootJS script executions on Forge
-* Fix: Various minor typo and formatting fixes in the Lexica Botania
 * Language updates:
-    * ko_kr updated (UnineVesiKass)
+  * ko_kr updated (UnineVesiKass)
+  * Various minor typo and formatting fixes in the Lexica Botania
 
 ---
 
