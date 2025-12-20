@@ -45,3 +45,10 @@ configBackground="botania:textures/block/livingrock_bricks.png" # background for
     modId="ears"
     mandatory=false
     versionRange="[1.4.5,)"
+
+# The Naughty List:
+# VMinus notoriously breaks custom recipe handling in many mods, including Botania.
+[[dependencies.botania]]
+    modId="vminus"
+    mandatory=false
+    versionRange="[1.0.0,3.2.0)"
