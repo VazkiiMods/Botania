@@ -1,33 +1,34 @@
 name: Bug Report
-description: Report an issue with supported versions of Botania
+description: Report an issue with supported versions of Botania (Not for help requests!)
 body:
   - type: markdown
     attributes:
       value: |
-        Please do not use GitHub issues to post ideas.
-        Ideas should be posted on the [Botania forums](https://forum.violetmoon.org/t/botania), or discussed on the [Violet Moon discord](https://discord.gg/SFrYxxD).
+        Please do not use GitHub issues to post ideas or request help.
+        Ideas should be posted on the [Botania forums](https://forum.violetmoon.org/t/botania), or discussed on the [Violet Moon discord](https://discord.gg/vm).
+        The Discord is also the place to request help with compatibility issues first, especially for older Minecraft versions.
   - type: dropdown
     id: modloader
     attributes:
       label: Mod Loader
       options:
-        - Forge
+        - (Neo)Forge
         - Fabric
-        - Both Fabric and Forge (I confirm that I have tested both loaders and will specify both loader versions below)
+        - Both Fabric and (Neo)Forge (I confirm that I have tested both loaders and will specify both loader versions below)
     validations:
       required: true
   - type: input
     id: mc-version
     attributes:
       label: Minecraft Version
-      placeholder: eg. 1.17.1
+      placeholder: eg. 1.20.1
     validations:
       required: true
   - type: input
     id: mod-version
     attributes:
       label: Botania version
-      placeholder: eg. 1.16.5-419
+      placeholder: eg. 1.20.1-440
     validations:
       required: true
   - type: input
@@ -37,7 +38,7 @@ body:
       description: |
         List the version of the mod loader you are using.
         If on Fabric, post the versions of both Fabric Loader and Fabric API.
-      placeholder: "eg. Forge: 36.2.9 / Fabric: Loader 0.10.6 + API 0.42.1"
+      placeholder: "eg. Forge: 47.1.3 / NeoForge: 21.1.217 / Fabric: Loader 0.18.4 + API 0.92.6"
     validations:
       required: true
   - type: input
