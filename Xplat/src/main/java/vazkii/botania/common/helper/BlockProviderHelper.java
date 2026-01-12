@@ -1,9 +1,11 @@
 package vazkii.botania.common.helper;
 
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.item.BlockProvider;
 
 public class BlockProviderHelper {
@@ -32,6 +34,11 @@ public class BlockProviderHelper {
 				return 0;
 			}
 			return player.getAbilities().instabuild ? -1 : stack.getCount();
+		}
+
+		@Override
+		public @Nullable Block getProvidedBlock(Player player, ItemStack requestor) {
+			return stack.getItem() instanceof BlockItem blockItem ? blockItem.getBlock() : null;
 		}
 	}
 

@@ -52,6 +52,11 @@ public class DepthsRodItem extends Item {
 			}
 			return 0;
 		}
+
+		@Override
+		public Block getProvidedBlock(Player player, ItemStack requestor) {
+			return Blocks.COBBLESTONE;
+		}
 	}
 
 }
