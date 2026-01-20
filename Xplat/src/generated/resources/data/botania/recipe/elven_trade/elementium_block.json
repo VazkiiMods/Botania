@@ -9,6 +9,8 @@
     }
   ],
   "output": [
-    "botania:elementium_block"
+    {
+      "id": "botania:elementium_block"
+    }
   ]
 }

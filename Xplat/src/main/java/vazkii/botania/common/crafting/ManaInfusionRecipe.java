@@ -94,7 +94,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 
 	public static class Serializer implements RecipeSerializer<ManaInfusionRecipe> {
 		public static final MapCodec<ManaInfusionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-				ItemStack.CODEC.fieldOf("output").forGetter(ManaInfusionRecipe::getOutput),
+				ItemStack.STRICT_CODEC.fieldOf("output").forGetter(ManaInfusionRecipe::getOutput),
 				Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(ManaInfusionRecipe::getInput),
 				// Leaving wiggle room for a certain modpack having creative-pool-only recipes
 				ExtraCodecs.intRange(1, ManaPoolBlock.MAX_MANA + 1).fieldOf("mana")

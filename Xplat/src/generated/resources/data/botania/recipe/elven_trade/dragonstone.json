@@ -6,6 +6,8 @@
     }
   ],
   "output": [
-    "botania:dragonstone"
+    {
+      "id": "botania:dragonstone"
+    }
   ]
 }

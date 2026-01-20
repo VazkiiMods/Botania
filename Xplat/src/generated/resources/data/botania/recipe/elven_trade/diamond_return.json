@@ -6,6 +6,8 @@
     }
   ],
   "output": [
-    "minecraft:diamond"
+    {
+      "id": "minecraft:diamond"
+    }
   ]
 }

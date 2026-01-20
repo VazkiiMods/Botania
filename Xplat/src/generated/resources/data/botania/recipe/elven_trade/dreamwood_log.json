@@ -6,6 +6,8 @@
     }
   ],
   "output": [
-    "botania:dreamwood_log"
+    {
+      "id": "botania:dreamwood_log"
+    }
   ]
 }

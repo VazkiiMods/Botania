@@ -113,7 +113,7 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 
 	public static class Serializer implements RecipeSerializer<ElvenTradeRecipe> {
 		public static final MapCodec<ElvenTradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-				ExtraCodecs.nonEmptyList(ItemStack.SIMPLE_ITEM_CODEC.listOf()).fieldOf("output").forGetter(ElvenTradeRecipe::getOutputs),
+				ExtraCodecs.nonEmptyList(ItemStack.STRICT_SINGLE_ITEM_CODEC.listOf()).fieldOf("output").forGetter(ElvenTradeRecipe::getOutputs),
 				ExtraCodecs.nonEmptyList(Ingredient.CODEC_NONEMPTY.listOf()).fieldOf("ingredients").forGetter(ElvenTradeRecipe::getIngredients)
 		).apply(instance, ElvenTradeRecipe::new));
 		public static final StreamCodec<RegistryFriendlyByteBuf, ElvenTradeRecipe> STREAM_CODEC = StreamCodec.composite(

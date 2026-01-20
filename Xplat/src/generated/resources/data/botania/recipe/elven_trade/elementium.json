@@ -9,6 +9,8 @@
     }
   ],
   "output": [
-    "botania:elementium_ingot"
+    {
+      "id": "botania:elementium_ingot"
+    }
   ]
 }

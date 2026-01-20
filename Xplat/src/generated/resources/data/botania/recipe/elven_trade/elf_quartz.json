@@ -6,6 +6,8 @@
     }
   ],
   "output": [
-    "botania:quartz_elven"
+    {
+      "id": "botania:quartz_elven"
+    }
   ]
 }

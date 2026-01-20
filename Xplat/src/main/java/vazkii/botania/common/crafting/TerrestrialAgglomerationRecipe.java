@@ -95,7 +95,7 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 				ExtraCodecs.nonEmptyList(Ingredient.CODEC_NONEMPTY.listOf()).fieldOf("ingredients")
 						.forGetter(TerrestrialAgglomerationRecipe::getIngredients),
 				ExtraCodecs.POSITIVE_INT.fieldOf("mana").forGetter(TerrestrialAgglomerationRecipe::getMana),
-				ItemStack.CODEC.fieldOf("result").forGetter(TerrestrialAgglomerationRecipe::getOutput)
+				ItemStack.STRICT_CODEC.fieldOf("result").forGetter(TerrestrialAgglomerationRecipe::getOutput)
 		).apply(instance, TerrestrialAgglomerationRecipe::of));
 		public static final StreamCodec<RegistryFriendlyByteBuf, TerrestrialAgglomerationRecipe> STREAM_CODEC = StreamCodec.composite(
 				Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), TerrestrialAgglomerationRecipe::getIngredients,

@@ -6,6 +6,8 @@
     }
   ],
   "output": [
-    "botania:pixie_dust"
+    {
+      "id": "botania:pixie_dust"
+    }
   ]
 }

@@ -6,6 +6,8 @@
     }
   ],
   "output": [
-    "botania:elf_glass"
+    {
+      "id": "botania:elf_glass"
+    }
   ]
 }

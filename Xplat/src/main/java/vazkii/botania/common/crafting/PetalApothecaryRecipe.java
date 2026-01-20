@@ -84,7 +84,7 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 
 	public static class Serializer implements RecipeSerializer<PetalApothecaryRecipe> {
 		public final MapCodec<PetalApothecaryRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-				ItemStack.CODEC.fieldOf("output").forGetter(PetalApothecaryRecipe::getOutput),
+				ItemStack.STRICT_CODEC.fieldOf("output").forGetter(PetalApothecaryRecipe::getOutput),
 				Ingredient.CODEC_NONEMPTY.fieldOf("reagent").forGetter(PetalApothecaryRecipe::getReagent),
 				Ingredient.CODEC_NONEMPTY.listOf(1, 16).fieldOf("ingredients").forGetter(PetalApothecaryRecipe::getIngredients)
 		).apply(instance, PetalApothecaryRecipe::of));
