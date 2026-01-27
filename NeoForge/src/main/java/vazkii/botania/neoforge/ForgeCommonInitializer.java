@@ -35,9 +35,9 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -159,7 +159,6 @@ public class ForgeCommonInitializer {
 
 	@SubscribeEvent
 	public void commonSetup(FMLCommonSetupEvent evt) {
-		IEventBus gameBus = NeoForge.EVENT_BUS;
 		registerEvents();
 
 		evt.enqueueWork(BotaniaBlocks::addDispenserBehaviours);
@@ -184,9 +183,11 @@ public class ForgeCommonInitializer {
 		ConfigDataManagerImpl.registerListener();
 		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new ForgeCapCorporeaNodeDetector());
-		if (ModList.get().isLoaded("inventorysorter")) {
-			InventorySorterIntegration.init(gameBus);
-		}
+	}
+
+	@SubscribeEvent
+	private void sendInterModCommunication(InterModEnqueueEvent evt) {
+		InventorySorterIntegration.sendImc();
 	}
 
 	@SubscribeEvent
