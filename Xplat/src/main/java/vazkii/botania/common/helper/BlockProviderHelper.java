@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.item.BlockProvider;
 
 public class BlockProviderHelper {
