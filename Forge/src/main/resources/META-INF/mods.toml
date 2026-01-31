@@ -51,4 +51,4 @@ configBackground="botania:textures/block/livingrock_bricks.png" # background for
 [[dependencies.botania]]
     modId="vminus"
     mandatory=false
-    versionRange="[1.0.0,3.2.0)"
+    versionRange="(,3.2.0)"
