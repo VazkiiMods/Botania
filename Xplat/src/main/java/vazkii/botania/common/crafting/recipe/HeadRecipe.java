@@ -10,6 +10,9 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -52,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,6 +68,15 @@ public class HeadRecipe extends RunicAltarRecipe {
 	private static final Supplier<Gson> gson = Suppliers.memoize(() -> new GsonBuilder()
 			.registerTypeAdapter(UUID.class, new UUIDTypeAdapter()).create());
 	private static final GameProfile PROFILE_VALID_RESULT = new GameProfile(null, "valid");
+	private static final LoadingCache<String, UUID> GENERATED_UUID_CACHE = CacheBuilder.newBuilder()
+			.expireAfterAccess(1, TimeUnit.MINUTES).build(
+					new CacheLoader<>() {
+						@NotNull
+						@Override
+						public UUID load(@NotNull String key) {
+							return UUID.nameUUIDFromBytes(key.getBytes(StandardCharsets.UTF_8));
+						}
+					});
 
 	public HeadRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
 		super(id, output, mana, inputs);
@@ -175,8 +188,8 @@ public class HeadRecipe extends RunicAltarRecipe {
 				}
 				// we got something that looks like a valid skin texture URL, now build rudimentary profile data
 				String profileTextureJson = "{textures:{SKIN:{url:\"%s\"}}}".formatted(textureUrl);
-				var profile = new GameProfile(null, name);
 				String propertyBase64 = Base64.getEncoder().encodeToString(profileTextureJson.getBytes(StandardCharsets.UTF_8));
+				var profile = new GameProfile(GENERATED_UUID_CACHE.getUnchecked(propertyBase64), name);
 				profile.getProperties().put("textures", new Property("Value", propertyBase64));
 				return profile;
 			}
