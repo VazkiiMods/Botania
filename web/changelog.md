@@ -21,6 +21,10 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+---
+
+{% include changelog_header.html version="1.20.1-451" %}
+
 * Add: Extrapolated Bucket can void fluids from modded blocks that support draining fluids into items used on them
 * Add: Block tag `botania:unsupported_platform_disguise` can be used to explicitly disallow incompatible blocks to be
   used as the disguise for Abstruse or Spectral Platforms
@@ -45,6 +49,8 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Fix: Potential client memory leak in ManaNetworkHandler
 * Fix: Guardian of Gaia stopped teleporting until getting hit after a world reload
 * Fix: Elementium Axe beheading logic could run twice and still duplicate LootJS script executions on Forge
+* Fix: Player heads created with a written book would reset based on the given name when placed in the world
+* Fix: Rewrote dominant spark transfer logic to finally fix transfers incorrectly shutting down in certain situation (NEstoll)
 * Language updates:
   * ko_kr updated (UnineVesiKass)
   * Various minor typo and formatting fixes in the Lexica Botania
