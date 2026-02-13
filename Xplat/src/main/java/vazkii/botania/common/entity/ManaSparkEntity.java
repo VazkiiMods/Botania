@@ -52,7 +52,6 @@ import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	private static final int TRANSFER_RATE = 1000;
@@ -296,11 +295,11 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		XplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
 				getId(), e.getId(), ColorHelper.getColorValue(getNetwork())));
 	}
+
 	private void particlesFrom(Entity e) {
 		XplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, e.getX(), e.getY(), e.getZ(),
 				e.getId(), getId(), ColorHelper.getColorValue(getNetwork())));
 	}
-
 
 	public static void particleBeam(Player player, Entity e1, Entity e2) {
 		if (e1 != null && e2 != null && !e1.level().isClientSide) {
@@ -437,7 +436,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					|| arecv.getCurrentMana() == 0
 					|| getAttachedManaReceiver().isFull()
 					|| !(upgr == SparkUpgradeType.DOMINANT && supgr == SparkUpgradeType.NONE
-					|| !(arecv instanceof ManaPool))) {
+							|| !(arecv instanceof ManaPool))) {
 				iter2.remove();
 			}
 		}
