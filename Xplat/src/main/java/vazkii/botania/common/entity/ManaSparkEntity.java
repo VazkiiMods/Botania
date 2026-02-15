@@ -237,10 +237,12 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					}
 
 					int gained = Math.min(attachedReceiver.getCurrentMana(), (manaNeeded - manaRecieved) / (count + 1));
-					attachedReceiver.receiveMana(-gained);
-					manaRecieved += gained;
+					if (gained > 0) {
+						attachedReceiver.receiveMana(-gained);
+						manaRecieved += gained;
 
-					particlesFrom(spark.entity());
+						particlesFrom(spark.entity());
+					}
 				}
 				receiver.receiveMana(manaRecieved);
 			}
