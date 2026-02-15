@@ -284,6 +284,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					SparkUpgradeType otherUpgrade = spark.getUpgrade();
 					if (spark != this && otherUpgrade == SparkUpgradeType.NONE && spark.getAttachedManaReceiver() instanceof ManaPool) {
 						inboundTransfers.add(spark);
+						break; // Only add one spark
 					}
 				}
 			}
