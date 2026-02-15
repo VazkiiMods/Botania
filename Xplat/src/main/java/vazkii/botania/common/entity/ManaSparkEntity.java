@@ -60,7 +60,8 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	private final Set<ManaSpark> outgoingTransfers = Collections.newSetFromMap(new WeakHashMap<>());
 
-	private final ArrayList<ManaSpark> inboundTransfers = new ArrayList<>();
+	@Nullable
+	private ManaSpark inboundTransfer = null;
 
 	private boolean shouldFilterTransfers = true;
 	private boolean receiverWasFull = true;
@@ -215,34 +216,26 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				receiver.receiveMana(-manaSpent);
 			}
 		}
-		if (!inboundTransfers.isEmpty()) {
-			int manaNeeded = Math.min(TRANSFER_RATE * inboundTransfers.size(), tile.getAvailableSpaceForMana());
-			int count = inboundTransfers.size();
-			int manaRecieved = 0;
+		int manaNeeded = Math.min(TRANSFER_RATE, tile.getAvailableSpaceForMana());
 
-			if (manaNeeded > 0) {
-				if (shouldFilterTransfers) {
-					filterTransfers();
-					shouldFilterTransfers = false;
-				}
+		if (manaNeeded > 0) {
+			if (shouldFilterTransfers) {
+				filterTransfers();
+				shouldFilterTransfers = false;
+			}
 
-				inboundTransfers.sort(Comparator.comparingInt(s -> s.getAttachedManaReceiver().getCurrentMana()));
-				for (ManaSpark spark : inboundTransfers) {
-					count--;
-					SparkAttachable attached = spark.getAttachedTile();
-					var attachedReceiver = spark.getAttachedManaReceiver();
-					if (attached == null || attachedReceiver == null) {
-						shouldFilterTransfers = true;
-						continue;
-					}
-
-					int gained = Math.min(attachedReceiver.getCurrentMana(), (manaNeeded - manaRecieved) / (count + 1));
+			if (inboundTransfer != null) {
+				SparkAttachable attached = inboundTransfer.getAttachedTile();
+				var attachedReceiver = inboundTransfer.getAttachedManaReceiver();
+				if (attached == null || attachedReceiver == null) {
+					shouldFilterTransfers = true;
+				} else {
+					int gained = Math.min(attachedReceiver.getCurrentMana(), manaNeeded);
 					attachedReceiver.receiveMana(-gained);
-					manaRecieved += gained;
+					receiver.receiveMana(gained);
 
-					particlesFrom(spark.entity());
+					particlesFrom(inboundTransfer.entity());
 				}
-				receiver.receiveMana(manaRecieved);
 			}
 		}
 
@@ -261,7 +254,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	@Override
 	public void updateTransfers() {
-		inboundTransfers.clear();
+		inboundTransfer = null;
 		outgoingTransfers.clear();
 		switch (getUpgrade()) {
 			case RECESSIVE -> {
@@ -283,8 +276,8 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				for (var spark : validSparks) {
 					SparkUpgradeType otherUpgrade = spark.getUpgrade();
 					if (spark != this && otherUpgrade == SparkUpgradeType.NONE && spark.getAttachedManaReceiver() instanceof ManaPool) {
-						inboundTransfers.add(spark);
-						break; // Only add one spark
+						inboundTransfer = spark;
+						break;
 					}
 				}
 			}
@@ -424,9 +417,8 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			}
 		}
 
-		Iterator<ManaSpark> iter2 = inboundTransfers.iterator();
-		while (iter2.hasNext()) {
-			ManaSpark spark = iter2.next();
+		if (inboundTransfer != null) {
+			ManaSpark spark = inboundTransfer;
 			SparkUpgradeType supgr = spark.getUpgrade();
 			ManaReceiver arecv = spark.getAttachedManaReceiver();
 
@@ -438,7 +430,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					|| getAttachedManaReceiver().isFull()
 					|| !(upgr == SparkUpgradeType.DOMINANT && supgr == SparkUpgradeType.NONE
 							|| !(arecv instanceof ManaPool))) {
-				iter2.remove();
+				inboundTransfer = null;
 			}
 		}
 	}
