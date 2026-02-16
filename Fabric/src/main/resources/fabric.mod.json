@@ -46,6 +46,7 @@
       "vazkii.botania.test.block.ApothecaryRecipeTest",
       "vazkii.botania.test.block.EntropinnyumUnethicalTntDetectionTest",
       "vazkii.botania.test.block.DrumBlockTest",
+      "vazkii.botania.test.block.ManaSpreaderTest",
       "vazkii.botania.test.item.AstrolabeTest",
       "vazkii.botania.test.item.CacophoniumTest",
       "vazkii.botania.test.item.FlowerPouchTest",
