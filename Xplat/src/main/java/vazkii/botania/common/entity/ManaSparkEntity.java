@@ -206,11 +206,14 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					}
 
 					int spend = Math.min(attached.getAvailableSpaceForMana(), (manaTotal - manaSpent) / (count + 1));
-					attachedReceiver.receiveMana(spend);
-					manaSpent += spend;
-					spark.checkReceiverFull();
 
-					particlesTowards(spark.entity());
+					if (spend > 0) {
+						attachedReceiver.receiveMana(spend);
+						manaSpent += spend;
+						spark.checkReceiverFull();
+
+						particlesTowards(spark.entity());
+					}
 				}
 				receiver.receiveMana(-manaSpent);
 			}
