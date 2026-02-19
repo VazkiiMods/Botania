@@ -46,6 +46,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Fix: Guardian of Gaia stopped teleporting until getting hit after a world reload
 * Fix: Elementium Axe beheading logic could run twice and still duplicate LootJS script executions on Forge
 * Fix: Player heads created with a written book would reset based on the given name when placed in the world
+* Fix: Rewrote dominant spark transfer logic to finally fix transfers incorrectly shutting down in certain situation (NEstoll)
 * Language updates:
   * ko_kr updated (UnineVesiKass)
   * Various minor typo and formatting fixes in the Lexica Botania
