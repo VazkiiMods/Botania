@@ -21,6 +21,10 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+---
+
+{% include changelog_header.html version="1.20.1-451" %}
+
 * Add: Extrapolated Bucket can void fluids from modded blocks that support draining fluids into items used on them
 * Add: Block tag `botania:unsupported_platform_disguise` can be used to explicitly disallow incompatible blocks to be
   used as the disguise for Abstruse or Spectral Platforms
