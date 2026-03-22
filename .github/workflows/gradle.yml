@@ -13,7 +13,7 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
     - name: Validate gradlew integrity
-      uses: gradle/actions/wrapper-validation@v3
+      uses: gradle/actions/wrapper-validation@v5
     - name: Cache
       uses: actions/cache@v5
       with:
@@ -50,10 +50,10 @@ jobs:
         RELEASE_MODE=${{ startsWith(github.ref, 'refs/tags/release-') && '1' || '0' }} \
         ./gradlew pmdMain spotlessJavaCheck build
     - name: PMD report
-      uses: jwgmeligmeyling/pmd-github-action@v1
+      uses: pmd/pmd-github-action@v2
       if: failure()
       with:
-        path: '**/reports/pmd/main.xml'
+        rulesets: '**/reports/pmd/main.xml'
     - name: Check generated files up to date
       run: ./scripts/check_datagen.sh
     - name: Run GameTests (Fabric)
