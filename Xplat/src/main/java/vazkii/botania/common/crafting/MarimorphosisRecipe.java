@@ -27,13 +27,13 @@ import java.util.function.Function;
 public class MarimorphosisRecipe extends OrechidRecipe {
 	public static final RecipeSerializer<MarimorphosisRecipe> SERIALIZER = new Serializer();
 
-	public MarimorphosisRecipe(StateIngredient input, StateIngredient output, int weight, int weightBonus, @Nullable TagKey<Biome> biomes) {
-		super(input, output, weight, null, null, weightBonus, biomes);
+	public MarimorphosisRecipe(StateIngredient input, StateIngredient output, int manaCost, int weight, int weightBonus, @Nullable TagKey<Biome> biomes) {
+		super(input, output, 0, manaCost, weight, null, null, weightBonus, biomes);
 	}
 
 	private MarimorphosisRecipe(OrechidRecipe orechidRecipe) {
-		this(orechidRecipe.getInput(), orechidRecipe.getOutput(), orechidRecipe.getWeight(),
-				orechidRecipe.getWeightBonus(),
+		this(orechidRecipe.getInput(), orechidRecipe.getOutput(), orechidRecipe.getManaCost(),
+				orechidRecipe.getWeight(), orechidRecipe.getWeightBonus(),
 				orechidRecipe.getBiomes().orElse(null));
 	}
 

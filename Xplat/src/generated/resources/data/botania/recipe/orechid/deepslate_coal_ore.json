@@ -1,9 +1,11 @@
 {
   "type": "botania:orechid",
+  "cooldown": 100,
   "input": {
     "type": "botania:block",
     "block": "minecraft:deepslate"
   },
+  "mana": 17500,
   "output": {
     "type": "botania:block",
     "block": "minecraft:deepslate_coal_ore"

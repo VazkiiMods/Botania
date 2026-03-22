@@ -1,9 +1,11 @@
 {
   "type": "botania:orechid_ignem",
+  "cooldown": 100,
   "input": {
     "type": "botania:block",
     "block": "minecraft:netherrack"
   },
+  "mana": 20000,
   "output": {
     "type": "botania:block",
     "block": "minecraft:nether_gold_ore"

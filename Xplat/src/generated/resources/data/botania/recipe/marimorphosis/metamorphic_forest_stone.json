@@ -6,6 +6,7 @@
     "type": "botania:tag",
     "tag": "#botania:marimorphosis_convertable"
   },
+  "mana": 12,
   "output": {
     "type": "botania:block",
     "block": "botania:metamorphic_forest_stone"

@@ -92,6 +92,10 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 				BotaniaDataComponents.NEXT_COLOR);
 		saveSpecialFlowerState(specialCases, BotaniaBlocks.thermalily, BotaniaBlocks.thermalilyFloating,
 				BotaniaDataComponents.COOLDOWN);
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.orechid, BotaniaBlocks.orechidFloating,
+				BotaniaDataComponents.COOLDOWN);
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.orechidIgnem, BotaniaBlocks.orechidIgnemFloating,
+				BotaniaDataComponents.COOLDOWN);
 
 		Map.of(
 				BotaniaBlocks.biomeStoneDesert, BotaniaBlocks.biomeCobblestoneDesert,

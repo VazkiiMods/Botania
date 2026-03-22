@@ -9,6 +9,9 @@
 package vazkii.botania.common.block.block_entity.flower.functional;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.random.WeightedEntry;
@@ -23,24 +26,27 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.BlockStateRecipe;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.OrechidManager;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
-	private static final int COST = 17500;
-	private static final int COST_GOG = 700;
-	private static final int DELAY = 100;
-	private static final int DELAY_GOG = 2;
+	public static final int DEFAULT_COST = 17500;
+	public static final int DEFAULT_COST_GOG = 700;
+	public static final int DEFAULT_DELAY = 100;
+	public static final int DELAY_GOG = 2;
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
+	public static final String TAG_COOLDOWN = "cooldown";
+
+	private int cooldown = 0;
 
 	protected OrechidBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -54,14 +60,33 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered() || !canOperate() || getMana() < getCost() || !shouldUpdateThisTick()) {
+		if (getLevel().isClientSide || !canOperate()) {
+			return;
+		}
+
+		if (cooldown > 0) {
+			cooldown -= getOvergrowthFactor();
+			setChanged();
+			return;
+		}
+
+		if (isPowered() || !shouldUpdateThisTick()
+				|| getMana() < OrechidManager.getMinManaCost(level, getRecipeType())) {
 			return;
 		}
 
 		BlockPos coords = getCoordsToPut();
-		if (coords != null) {
-			trySetRecipe(coords, findMatchingRecipe(coords));
+		if (coords == null) {
+			return;
 		}
+		OrechidRecipe recipe = findMatchingRecipe(coords);
+		if (recipe == null) {
+			return;
+		}
+		if (recipe.getManaCost() <= getMana()) {
+			trySetRecipe(coords, recipe);
+		}
+		cooldown = recipe.getCooldown();
 	}
 
 	protected void playSound(BlockPos coords) {
@@ -70,7 +95,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Nullable
 	private OrechidRecipe findMatchingRecipe(BlockPos coords) {
-		BlockState input = level.getBlockState(coords);
+		BlockState input = getLevel().getBlockState(coords);
 		List<WeightedEntry.Wrapper<OrechidRecipe>> values = new ArrayList<>();
 		for (OrechidRecipe recipe : OrechidManager.getMatchingRecipes(getLevel().getRecipeManager(), getRecipeType(), input)) {
 			values.add(WeightedEntry.wrap(recipe, recipe.getWeight(getLevel(), coords)));
@@ -80,16 +105,12 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 				.orElse(null);
 	}
 
-	private void trySetRecipe(BlockPos coords, @Nullable OrechidRecipe recipe) {
-		if (recipe == null) {
-			return;
-		}
-
+	private void trySetRecipe(BlockPos coords, OrechidRecipe recipe) {
 		BlockState stateToPlace = recipe.getOutput(level, coords).pick(level.random);
 
 		BlockStateRecipe.replaceBlock(coords, recipe, stateToPlace, (ServerLevel) level, () -> {
 			playSound(coords);
-			addMana(-getCost());
+			addMana(-recipe.getManaCost());
 			sync();
 		});
 	}
@@ -127,13 +148,23 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 		).isEmpty();
 	}
 
-	public int getCost() {
-		return XplatAbstractions.INSTANCE.gogLoaded() ? COST_GOG : COST;
+	@Override
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
+
+		cmp.putInt(TAG_COOLDOWN, cooldown);
+	}
+
+	@Override
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
+
+		cooldown = cmp.getInt(TAG_COOLDOWN);
 	}
 
 	@Override
 	public int getUpdateInterval() {
-		return XplatAbstractions.INSTANCE.gogLoaded() ? DELAY_GOG : DELAY;
+		return 2;
 	}
 
 	@Override
@@ -156,7 +187,18 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Override
 	public int getMaxMana() {
-		return getCost();
+		return Math.max(getMana(), OrechidManager.getMaxManaCost(getLevel(), getRecipeType()));
 	}
 
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		if (cooldown > 0) {
+			components.set(BotaniaDataComponents.COOLDOWN, cooldown);
+		}
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		cooldown = componentInput.getOrDefault(BotaniaDataComponents.COOLDOWN, 0);
+	}
 }

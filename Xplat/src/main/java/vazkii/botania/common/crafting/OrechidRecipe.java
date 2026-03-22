@@ -34,31 +34,48 @@ import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Optional;
 
+import io.netty.buffer.ByteBuf;
+
 public class OrechidRecipe extends BlockStateRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	public static final RecipeSerializer<OrechidRecipe> SERIALIZER = new Serializer();
+	private final int cooldown;
+	private final int manaCost;
 	private final int weight;
 	private final int weightBonus;
 	@Nullable
 	private final TagKey<Biome> biomes;
 
-	public OrechidRecipe(StateIngredient input, StateIngredient output, int weight) {
-		this(input, output, weight, null, null, 0, null);
+	public OrechidRecipe(StateIngredient input, StateIngredient output, int cooldown, int manaCost, int weight) {
+		this(input, output, cooldown, manaCost, weight, null, null, 0, null);
 	}
 
-	public OrechidRecipe(StateIngredient input, StateIngredient output, int weight,
+	public OrechidRecipe(StateIngredient input, StateIngredient output, int cooldown, int manaCost, int weight,
 			@Nullable CacheableFunction preUpdateFunction, @Nullable CacheableFunction successFunction,
 			int weightBonus, @Nullable TagKey<Biome> biomes) {
 		super(input, output, preUpdateFunction, successFunction);
 		this.weight = weight;
 		this.weightBonus = weightBonus;
+		this.cooldown = cooldown;
+		this.manaCost = manaCost;
 		this.biomes = biomes;
 	}
 
 	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-	private static OrechidRecipe of(StateIngredient input, StateIngredient output, int weight, int biomeWeight,
-			Optional<TagKey<Biome>> biomeTag, Optional<CacheableFunction> preUpdateFunction, Optional<CacheableFunction> successFunction) {
-		return new OrechidRecipe(input, output, weight, preUpdateFunction.orElse(null),
+	private static OrechidRecipe of(StateIngredient input, StateIngredient output, int delay, int manaCost, int weight,
+			int biomeWeight, Optional<TagKey<Biome>> biomeTag, Optional<CacheableFunction> preUpdateFunction,
+			Optional<CacheableFunction> successFunction) {
+		return new OrechidRecipe(input, output, delay, manaCost, weight, preUpdateFunction.orElse(null),
 				successFunction.orElse(null), biomeWeight, biomeTag.orElse(null));
+	}
+
+	@Override
+	public int getCooldown() {
+		return cooldown;
+	}
+
+	@Override
+	public int getManaCost() {
+		return manaCost;
 	}
 
 	@Override
@@ -96,6 +113,8 @@ public class OrechidRecipe extends BlockStateRecipe implements vazkii.botania.ap
 		private static final MapCodec<OrechidRecipe> RAW_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				StateIngredients.TYPED_CODEC.fieldOf("input").forGetter(OrechidRecipe::getInput),
 				StateIngredients.TYPED_CODEC.fieldOf("output").forGetter(OrechidRecipe::getOutput),
+				ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("cooldown", 0).forGetter(OrechidRecipe::getCooldown),
+				ExtraCodecs.POSITIVE_INT.fieldOf("mana").forGetter(OrechidRecipe::getManaCost),
 				ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("weight", 0).forGetter(OrechidRecipe::getWeight),
 				Codec.INT.optionalFieldOf("biome_bonus_weight", 0).forGetter(OrechidRecipe::getWeightBonus),
 				TagKey.codec(Registries.BIOME).optionalFieldOf("biome_bonus_tag").forGetter(OrechidRecipe::getBiomes),
@@ -111,16 +130,40 @@ public class OrechidRecipe extends BlockStateRecipe implements vazkii.botania.ap
 			}
 			return DataResult.success(orechidRecipe);
 		});
-		public static final StreamCodec<RegistryFriendlyByteBuf, OrechidRecipe> STREAM_CODEC = StreamCodec.composite(
-				StateIngredients.TYPED_STREAM_CODEC, OrechidRecipe::getInput,
-				StateIngredients.TYPED_STREAM_CODEC, OrechidRecipe::getOutput,
-				ByteBufCodecs.VAR_INT, OrechidRecipe::getWeight,
-				ByteBufCodecs.VAR_INT, OrechidRecipe::getWeightBonus,
-				ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC.map(
-						id -> TagKey.create(Registries.BIOME, id), TagKey::location
-				)), OrechidRecipe::getBiomes,
-				(in, out, weight, weightBonus, biomes) -> new OrechidRecipe(in, out, weight, null, null, weightBonus, biomes.orElse(null))
-		);
+		public static final StreamCodec<RegistryFriendlyByteBuf, OrechidRecipe> STREAM_CODEC = new StreamCodec<>() {
+
+			private static final StreamCodec<ByteBuf, Optional<TagKey<Biome>>> BIOMES_CODEC = ByteBufCodecs.optional(
+					ResourceLocation.STREAM_CODEC.map(
+							id -> TagKey.create(Registries.BIOME, id),
+							TagKey::location
+					));
+
+			@Override
+			public OrechidRecipe decode(RegistryFriendlyByteBuf buffer) {
+				return new OrechidRecipe(
+						StateIngredients.TYPED_STREAM_CODEC.decode(buffer),
+						StateIngredients.TYPED_STREAM_CODEC.decode(buffer),
+						ByteBufCodecs.VAR_INT.decode(buffer),
+						ByteBufCodecs.VAR_INT.decode(buffer),
+						ByteBufCodecs.VAR_INT.decode(buffer),
+						null,
+						null,
+						ByteBufCodecs.VAR_INT.decode(buffer),
+						BIOMES_CODEC.decode(buffer).orElse(null)
+				);
+			}
+
+			@Override
+			public void encode(RegistryFriendlyByteBuf buffer, OrechidRecipe recipe) {
+				StateIngredients.TYPED_STREAM_CODEC.encode(buffer, recipe.getInput());
+				StateIngredients.TYPED_STREAM_CODEC.encode(buffer, recipe.getOutput());
+				ByteBufCodecs.VAR_INT.encode(buffer, recipe.getCooldown());
+				ByteBufCodecs.VAR_INT.encode(buffer, recipe.getManaCost());
+				ByteBufCodecs.VAR_INT.encode(buffer, recipe.getWeight());
+				ByteBufCodecs.VAR_INT.encode(buffer, recipe.getWeightBonus());
+				BIOMES_CODEC.encode(buffer, recipe.getBiomes());
+			}
+		};
 
 		@Override
 		public MapCodec<OrechidRecipe> codec() {

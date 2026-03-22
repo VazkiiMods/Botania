@@ -39,4 +39,13 @@ public interface OrechidRecipe extends BlockStateRecipe {
 		return getWeight();
 	}
 
+	/**
+	 * Cooldown duration after this recipe was applied.
+	 */
+	int getCooldown();
+
+	/**
+	 * Mana cost of this recipe.
+	 */
+	int getManaCost();
 }

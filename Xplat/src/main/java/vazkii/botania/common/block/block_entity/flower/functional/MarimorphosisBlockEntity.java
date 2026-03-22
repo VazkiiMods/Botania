@@ -18,7 +18,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 
 public class MarimorphosisBlockEntity extends OrechidBlockEntity {
-	private static final int COST = 12;
+	public static final int COST = 12;
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 5;
 
@@ -41,16 +41,6 @@ public class MarimorphosisBlockEntity extends OrechidBlockEntity {
 	@Override
 	public RecipeType<? extends OrechidRecipe> getRecipeType() {
 		return BotaniaRecipeTypes.MARIMORPHOSIS_TYPE;
-	}
-
-	@Override
-	public int getUpdateInterval() {
-		return 2;
-	}
-
-	@Override
-	public int getCost() {
-		return COST;
 	}
 
 	@Override

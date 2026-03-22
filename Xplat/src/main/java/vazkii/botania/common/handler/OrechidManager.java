@@ -10,12 +10,14 @@ package vazkii.botania.common.handler;
 
 import com.google.common.collect.ImmutableList;
 
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -34,6 +36,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class OrechidManager implements ResourceManagerReloadListener {
 	private static final Map<RecipeType<? extends OrechidRecipe>, Map<BlockState, List<? extends OrechidRecipe>>> BY_TYPE = new IdentityHashMap<>();
 	private static final Map<RecipeType<? extends OrechidRecipe>, Object2IntOpenHashMap<BlockState>> TOTAL_WEIGHTS_WITHOUT_POSITION = new IdentityHashMap<>();
+	private static final Map<RecipeType<? extends OrechidRecipe>, IntIntPair> MANA_COST_RANGES = new IdentityHashMap<>();
 
 	public static void registerListener() {
 		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, botaniaRL("orechid"), new OrechidManager());
@@ -43,6 +46,7 @@ public class OrechidManager implements ResourceManagerReloadListener {
 	public void onResourceManagerReload(ResourceManager manager) {
 		BY_TYPE.clear();
 		TOTAL_WEIGHTS_WITHOUT_POSITION.clear();
+		MANA_COST_RANGES.clear();
 	}
 
 	public static <T extends OrechidRecipe> Collection<T> getMatchingRecipes(
@@ -71,6 +75,14 @@ public class OrechidManager implements ResourceManagerReloadListener {
 				: calculateTotalDisplayWeightAtPosition(level, type, state, pos);
 	}
 
+	public static int getMinManaCost(Level level, RecipeType<? extends OrechidRecipe> type) {
+		return MANA_COST_RANGES.computeIfAbsent(type, t -> calculateManaCostRange(level, t)).firstInt();
+	}
+
+	public static int getMaxManaCost(Level level, RecipeType<? extends OrechidRecipe> type) {
+		return MANA_COST_RANGES.computeIfAbsent(type, t -> calculateManaCostRange(level, t)).secondInt();
+	}
+
 	private static int getCachedTotalDisplayWeightWithoutPosition(Level level, RecipeType<? extends OrechidRecipe> type, BlockState state) {
 		final var byState = TOTAL_WEIGHTS_WITHOUT_POSITION.computeIfAbsent(type, t -> new Object2IntOpenHashMap<>());
 		return byState.computeIfAbsent(state, s -> calculateTotalDisplayWeightAtPosition(level, type, state, null));
@@ -86,6 +98,13 @@ public class OrechidManager implements ResourceManagerReloadListener {
 				? r -> r.getWeight(level, pos)
 				: OrechidRecipe::getWeight;
 		return recipeList.stream().mapToInt(weightFunction).sum();
+	}
+
+	private static IntIntPair calculateManaCostRange(Level level, RecipeType<? extends OrechidRecipe> type) {
+		final var recipes = level.getRecipeManager().getAllRecipesFor(type);
+		return IntIntPair.of(
+				recipes.stream().map(RecipeHolder::value).mapToInt(OrechidRecipe::getManaCost).min().orElse(0),
+				recipes.stream().map(RecipeHolder::value).mapToInt(OrechidRecipe::getManaCost).max().orElse(0));
 	}
 
 }

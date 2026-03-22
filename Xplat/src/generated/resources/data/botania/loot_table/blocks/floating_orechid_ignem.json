@@ -11,6 +11,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "botania:cooldown"
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "botania:floating_orechid_ignem"
         }
       ],

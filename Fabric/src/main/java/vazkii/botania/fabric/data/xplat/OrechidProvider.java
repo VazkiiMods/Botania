@@ -21,6 +21,9 @@ import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.block_entity.flower.functional.MarimorphosisBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.OrechidBlockEntity;
+import vazkii.botania.common.block.block_entity.flower.functional.OrechidIgnemBlockEntity;
 import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
@@ -84,20 +87,24 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	}
 
 	protected void stone(RecipeOutput consumer, Block output, int weight) {
-		consumer.accept(orechidId(output), new OrechidRecipe(forBlock(Blocks.STONE), forBlock(output), weight), null);
+		consumer.accept(orechidId(output), new OrechidRecipe(forBlock(Blocks.STONE), forBlock(output),
+				OrechidBlockEntity.DEFAULT_DELAY, OrechidBlockEntity.DEFAULT_COST, weight), null);
 	}
 
 	protected void deepslate(RecipeOutput consumer, Block output, int weight) {
-		consumer.accept(orechidId(output), new OrechidRecipe(forBlock(Blocks.DEEPSLATE), forBlock(output), weight), null);
+		consumer.accept(orechidId(output), new OrechidRecipe(forBlock(Blocks.DEEPSLATE), forBlock(output),
+				OrechidBlockEntity.DEFAULT_DELAY, OrechidBlockEntity.DEFAULT_COST, weight), null);
 	}
 
 	protected void netherrack(RecipeOutput consumer, Block output, int weight) {
-		consumer.accept(ignemId(output), new OrechidIgnemRecipe(forBlock(Blocks.NETHERRACK), forBlock(output), weight), null);
+		consumer.accept(ignemId(output), new OrechidIgnemRecipe(forBlock(Blocks.NETHERRACK), forBlock(output),
+				OrechidBlockEntity.DEFAULT_DELAY, OrechidIgnemBlockEntity.DEFAULT_COST, weight), null);
 	}
 
 	protected void biomeStone(RecipeOutput consumer, Block output, TagKey<Biome> biome) {
-		consumer.accept(marimorphosisId(output), new MarimorphosisRecipe(forTag(BotaniaTags.Blocks.MARIMORPHOSIS_CONVERTABLE),
-				forBlock(output), 1, 11, biome), null);
+		consumer.accept(marimorphosisId(output), new MarimorphosisRecipe(
+				forTag(BotaniaTags.Blocks.MARIMORPHOSIS_CONVERTABLE), forBlock(output),
+				MarimorphosisBlockEntity.COST, 1, 11, biome), null);
 	}
 
 	protected static StateIngredient forBlock(Block block) {

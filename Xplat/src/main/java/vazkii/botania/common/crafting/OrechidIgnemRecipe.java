@@ -28,19 +28,19 @@ import java.util.function.Function;
 public class OrechidIgnemRecipe extends OrechidRecipe {
 	public static final RecipeSerializer<OrechidIgnemRecipe> SERIALIZER = new Serializer();
 
-	public OrechidIgnemRecipe(StateIngredient input, StateIngredient output, int weight,
+	public OrechidIgnemRecipe(StateIngredient input, StateIngredient output, int cooldown, int manaCost, int weight,
 			@Nullable CacheableFunction preUpdateFunction, @Nullable CacheableFunction successFunction,
 			int weightBonus, @Nullable TagKey<Biome> biomes) {
-		super(input, output, weight, preUpdateFunction, successFunction, weightBonus, biomes);
+		super(input, output, cooldown, manaCost, weight, preUpdateFunction, successFunction, weightBonus, biomes);
 	}
 
-	public OrechidIgnemRecipe(StateIngredient input, StateIngredient output, int weight) {
-		this(input, output, weight, null, null, 0, null);
+	public OrechidIgnemRecipe(StateIngredient input, StateIngredient output, int delay, int manaCost, int weight) {
+		this(input, output, delay, manaCost, weight, null, null, 0, null);
 	}
 
 	private OrechidIgnemRecipe(OrechidRecipe orechidRecipe) {
-		this(orechidRecipe.getInput(), orechidRecipe.getOutput(), orechidRecipe.getWeight(),
-				orechidRecipe.getPreUpdateFunction().orElse(null),
+		this(orechidRecipe.getInput(), orechidRecipe.getOutput(), orechidRecipe.getCooldown(), orechidRecipe.getManaCost(),
+				orechidRecipe.getWeight(), orechidRecipe.getPreUpdateFunction().orElse(null),
 				orechidRecipe.getSuccessFunction().orElse(null), orechidRecipe.getWeightBonus(),
 				orechidRecipe.getBiomes().orElse(null));
 	}

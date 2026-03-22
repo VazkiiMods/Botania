@@ -17,7 +17,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 
 public class OrechidIgnemBlockEntity extends OrechidBlockEntity {
-	private static final int COST = 20000;
+	public static final int DEFAULT_COST = 20000;
 
 	public OrechidIgnemBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.ORECHID_IGNEM, pos, state);
@@ -31,11 +31,6 @@ public class OrechidIgnemBlockEntity extends OrechidBlockEntity {
 	@Override
 	public RecipeType<? extends OrechidRecipe> getRecipeType() {
 		return BotaniaRecipeTypes.ORECHID_IGNEM_TYPE;
-	}
-
-	@Override
-	public int getCost() {
-		return COST;
 	}
 
 	@Override
