@@ -118,7 +118,7 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 
 				entity.setPos(placePos.getX() + 0.5, placePos.getY() + 0.5, placePos.getZ() + 0.5);
 				if (entity instanceof AgeableMob ageable) {
-					ageable.setAge(-24000);
+					ageable.setBaby(true);
 				}
 				entity.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(getBlockPos()), MobSpawnType.EVENT, null);
 				entity.setPersistenceRequired();
