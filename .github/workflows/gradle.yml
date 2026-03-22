@@ -6,16 +6,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Set up JDK
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         distribution: 'temurin'
         java-version: '21'
     - name: Validate gradlew integrity
-      uses: gradle/wrapper-validation-action@v2
+      uses: gradle/actions/wrapper-validation@v3
     - name: Cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           ~/.gradle/caches
@@ -73,21 +73,21 @@ jobs:
         gpg --local-user "Violet Moon Signing Key" --armor \
           --detach-sign ${{ steps.calculate_artifact_names.outputs.gog }}
     - name: Archive Fabric Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: Fabric
         path: |
           ${{ steps.calculate_artifact_names.outputs.fabric }}
           ${{ steps.calculate_artifact_names.outputs.fabric }}.asc
     - name: Archive NeoForge Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: NeoForge
         path: |
           ${{ steps.calculate_artifact_names.outputs.neoforge }}
           ${{ steps.calculate_artifact_names.outputs.neoforge }}.asc
     - name: Archive GoG Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: GoG
         path: |
