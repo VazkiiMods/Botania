@@ -157,7 +157,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				if (!receivingPlayers.isEmpty()) {
 					List<Player> keys = new ArrayList<>(receivingPlayers.keySet());
 					Collections.shuffle(keys);
-					Player player = keys.iterator().next();
+					Player player = keys.getFirst();
 
 					Map<ManaItem, Integer> items = receivingPlayers.get(player);
 					var e = items.entrySet().iterator().next();
@@ -263,6 +263,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	public void updateTransfers() {
 		inboundTransfers.clear();
 		outgoingTransfers.clear();
+		if (isRemoved()) {
+			return;
+		}
 		switch (getUpgrade()) {
 			case RECESSIVE -> {
 				var otherSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
@@ -342,6 +345,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 							// Recalculate transfers, recessive and dominant will register the proper transfers
 							outgoingTransfers.clear();
+							inboundTransfers.clear();
 							notifyOthers(getNetwork());
 						} else {
 							dropAndKill();
@@ -428,16 +432,18 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		while (iter2.hasNext()) {
 			ManaSpark spark = iter2.next();
 			SparkUpgradeType supgr = spark.getUpgrade();
-			ManaReceiver arecv = spark.getAttachedManaReceiver();
+			ManaReceiver otherManaReceiver = spark.getAttachedManaReceiver();
+			ManaReceiver myManaReceiver = getAttachedManaReceiver();
 
 			if (spark == this
 					|| !((Entity) spark).isAlive()
 					|| getNetwork() != spark.getNetwork()
-					|| arecv == null
-					|| arecv.getCurrentMana() == 0
-					|| getAttachedManaReceiver().isFull()
+					|| otherManaReceiver == null
+					|| otherManaReceiver.getCurrentMana() == 0
+					|| myManaReceiver == null
+					|| myManaReceiver.isFull()
 					|| !(upgr == SparkUpgradeType.DOMINANT && supgr == SparkUpgradeType.NONE
-							|| !(arecv instanceof ManaPool))) {
+							|| !(otherManaReceiver instanceof ManaPool))) {
 				iter2.remove();
 			}
 		}
@@ -454,7 +460,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	@Override
 	public void registerTransfer(ManaSpark entity) {
-		if (hasTransfer(entity)) {
+		if (isRemoved() || hasTransfer(entity)) {
 			return;
 		}
 		outgoingTransfers.add(entity);
