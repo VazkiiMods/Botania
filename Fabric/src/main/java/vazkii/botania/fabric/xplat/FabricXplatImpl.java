@@ -1,6 +1,7 @@
 package vazkii.botania.fabric.xplat;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
+import com.redlimerl.speedrunigt.timer.InGameTimer;
 
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 
@@ -125,6 +126,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
 
 public class FabricXplatImpl implements XplatAbstractions {
 	@Override
@@ -686,5 +688,22 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
 		return WoodTypeRegistry.register(prefix(name), setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen);
+	}
+
+	private final boolean speedrunIGTLoaded = isModLoaded("speedrunigt");
+
+	@Override
+	public boolean isRunningCategory(BotaniaSpeedrunCategory category) {
+		return speedrunIGTLoaded && isRunningWhenLoaded(category);
+	}
+
+	private boolean isRunningWhenLoaded(BotaniaSpeedrunCategory category) {
+		InGameTimer timer = InGameTimer.getInstance();
+		return timer.getCategory().getID().equals(category.idWithNamespace()) && timer.isPlaying() && !timer.isCompleted();
+	}
+
+	@Override
+	public void completeSpeedrunTimer() {
+		InGameTimer.complete();
 	}
 }

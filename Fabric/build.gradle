@@ -143,6 +143,8 @@ dependencies {
     compileOnly "mezz.jei:jei-1.20.1-common-api:15.2.0.27"
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
+
+    modImplementation "maven.modrinth:speedrunigt:14.2+1.20.1"
 }
 
 compileJava {

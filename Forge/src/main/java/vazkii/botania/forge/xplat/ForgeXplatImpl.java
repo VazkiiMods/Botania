@@ -120,6 +120,8 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import static vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
+
 public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean isForge() {
@@ -663,4 +665,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	public WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
 		return WoodType.register(new WoodType("botania:" + name, setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen));
 	}
+
+	@Override
+	public boolean isRunningCategory(BotaniaSpeedrunCategory category) {
+		return false;
+	}
+
+	@Override
+	public void completeSpeedrunTimer() {}
 }

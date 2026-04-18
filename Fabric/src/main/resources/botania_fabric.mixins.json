@@ -23,6 +23,7 @@
     "PowderSnowBlockMixin",
     "RepairItemRecipeFabricMixin",
     "ResultSlotFabricMixin",
+    "ServerPlayerContainerListenerFabricMixin",
     "ServerPlayerGameModeFabricMixin"
   ],
   "client": [

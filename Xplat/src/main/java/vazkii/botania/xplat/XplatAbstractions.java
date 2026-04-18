@@ -72,6 +72,8 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import static vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
+
 public interface XplatAbstractions {
 	// FML/Fabric Loader
 	default boolean gogLoaded() {
@@ -228,6 +230,10 @@ public interface XplatAbstractions {
 	}
 
 	WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen);
+
+	// SpeedrunIGT integration
+	boolean isRunningCategory(BotaniaSpeedrunCategory category);
+	void completeSpeedrunTimer();
 
 	XplatAbstractions INSTANCE = ServiceUtil.findService(XplatAbstractions.class, null);
 
