@@ -268,6 +268,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 					if (isRunningBlessing()) {
 						XplatAbstractions.instance().completeSpeedrunTimer();
 					}
+					birthdayTick = 0;
 				}
 			}
 		}

@@ -89,6 +89,7 @@ The following changes will be released in an upcoming version of Botania for 1.2
   but you won't get the advancement if it's not July 19th. Feel free to suggest more categories if there's something
   specific you'd like to run that's different enough from these!
 * Fix: Tiny potato now continuously checks whether it is its birthday, instead of checking once on game/server start.
+* Fix: A single Tiny Potato can now celebrate its birthday multiple times.
 
 ---
 
