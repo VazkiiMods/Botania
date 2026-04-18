@@ -50,6 +50,8 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
+import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -196,7 +198,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 			if (self.nextDoIt > 0) {
 				self.nextDoIt--;
 			}
-			if (isTinyPotatoBirthday()) {
+			if (isTinyPotatoBirthday() || isRunningBlessing()) {
 				self.tickBirthday();
 			}
 		}
@@ -219,11 +221,18 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 				var messageTimes = List.of(100, 170, 240, 310, 380);
 				var messageIndex = messageTimes.indexOf(birthdayTick);
 				if (messageIndex != -1) {
-					Object[] args = messageIndex == 1 ? new Object[] { getTinyPotatoAge() } : ObjectArrays.EMPTY_ARRAY;
+					Object[] args = messageIndex == 1 && isTinyPotatoBirthday()
+							? new Object[] { getTinyPotatoAge() }
+							: ObjectArrays.EMPTY_ARRAY;
 					var message = Component.literal("<")
 							.append(getDisplayName())
 							.append("> ")
-							.append(Component.translatable("botania.tater_birthday." + messageIndex, args));
+							.append(Component.translatable(
+									"botania.tater_birthday." +
+											(!isTinyPotatoBirthday() ? "speedrun." : "") +
+											messageIndex,
+									args
+							));
 
 					for (var player : players) {
 						player.sendSystemMessage(message);
@@ -233,26 +242,31 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 				}
 
 				if (messageIndex == messageTimes.size() - 1) {
-					FireworkExplosion explosion = new FireworkExplosion(
-							FireworkExplosion.Shape.LARGE_BALL,
-							IntList.of(cakeColor.getFireworkColor(),
-									0xD260A5, 0xE4AFCD, 0xFEFEFE, 0x57CEF8),
-							IntList.of(), true, true
-					);
+					if (isTinyPotatoBirthday()) {
+						FireworkExplosion explosion = new FireworkExplosion(
+								FireworkExplosion.Shape.LARGE_BALL,
+								IntList.of(cakeColor.getFireworkColor(),
+										0xD260A5, 0xE4AFCD, 0xFEFEFE, 0x57CEF8),
+								IntList.of(), true, true
+						);
 
-					Fireworks fireworks = new Fireworks(0, List.of(explosion));
+						Fireworks fireworks = new Fireworks(0, List.of(explosion));
 
-					ItemStack rocket = new ItemStack(Items.FIREWORK_ROCKET);
-					rocket.set(DataComponents.FIREWORKS, fireworks);
+						ItemStack rocket = new ItemStack(Items.FIREWORK_ROCKET);
+						rocket.set(DataComponents.FIREWORKS, fireworks);
 
-					level.addFreshEntity(new FireworkRocketEntity(level, facingPos.getX() + 0.5, facingPos.getY() + 0.5, facingPos.getZ() + 0.5, rocket));
-					level.removeBlock(facingPos, false);
-					level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, facingPos, Block.getId(facingState));
-					// Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
-					level.playSound(null, getBlockPos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
+						level.addFreshEntity(new FireworkRocketEntity(level, facingPos.getX() + 0.5, facingPos.getY() + 0.5, facingPos.getZ() + 0.5, rocket));
+						level.removeBlock(facingPos, false);
+						level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, facingPos, Block.getId(facingState));
+						// Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
+						level.playSound(null, getBlockPos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 
-					for (var player : players) {
-						PlayerHelper.grantCriterion((ServerPlayer) player, BIRTHDAY_ADVANCEMENT, "code_triggered");
+						for (var player : players) {
+							PlayerHelper.grantCriterion((ServerPlayer) player, BIRTHDAY_ADVANCEMENT, "code_triggered");
+						}
+					}
+					if (isRunningBlessing()) {
+						XplatAbstractions.instance().completeSpeedrunTimer();
 					}
 				}
 			}
@@ -361,5 +375,9 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	private static int getTinyPotatoAge() {
 		var now = LocalDate.now();
 		return now.getYear() - BIRTHDAY.getYear();
+	}
+
+	private static boolean isRunningBlessing() {
+		return XplatAbstractions.instance().isRunningCategory(BotaniaSpeedrunCategories.BLESSING);
 	}
 }

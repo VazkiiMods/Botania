@@ -102,6 +102,7 @@ import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
 import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
@@ -578,4 +579,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	public boolean shouldShowExtendedItemTooltip(TooltipFlag flags) {
 		return flags.hasShiftDown();
 	}
+
+	@Override
+	public boolean isRunningCategory(BotaniaSpeedrunCategories.BotaniaSpeedrunCategory category) {
+		return false;
+	}
+
+	@Override
+	public void completeSpeedrunTimer() {}
 }

@@ -112,4 +112,6 @@ dependencies {
     }
 
     testImplementation "net.fabricmc:fabric-loader-junit:${fabric_loader_version}"
+
+    modImplementation "maven.modrinth:speedrunigt:14.2+1.21.1"
 }

@@ -87,6 +87,7 @@ import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
 import vazkii.botania.mixin.BeaconBlockEntityAccessor;
 import vazkii.botania.mixin.MobAccessor;
 import vazkii.botania.network.clientbound.ArenaIndicatorEffectPacket;
@@ -625,6 +626,10 @@ public class GaiaGuardianEntity extends Mob {
 			for (MagicLandmineEntity landmine : level().getEntitiesOfClass(MagicLandmineEntity.class,
 					MathHelper.inflateBoxAround(getSource(), ARENA_PLAYER_RANGE))) {
 				landmine.discard();
+			}
+			if ((XplatAbstractions.instance().isRunningCategory(BotaniaSpeedrunCategories.GAIA_I) && !hardMode) ||
+					(XplatAbstractions.instance().isRunningCategory(BotaniaSpeedrunCategories.GAIA_II) && hardMode)) {
+				XplatAbstractions.instance().completeSpeedrunTimer();
 			}
 		}
 

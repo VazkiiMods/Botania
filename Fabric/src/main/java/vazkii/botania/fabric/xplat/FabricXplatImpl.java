@@ -9,6 +9,8 @@
 
 package vazkii.botania.fabric.xplat;
 
+import com.redlimerl.speedrunigt.timer.InGameTimer;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -127,6 +129,7 @@ import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
 
 @SuppressWarnings("UnstableApiUsage")
 public class FabricXplatImpl implements XplatAbstractions {
@@ -662,5 +665,22 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean shouldShowExtendedItemTooltip(TooltipFlag flags) {
 		return Proxy.INSTANCE.hasShiftDown();
+	}
+
+	private final boolean speedrunIGTLoaded = isModLoaded("speedrunigt");
+
+	@Override
+	public boolean isRunningCategory(BotaniaSpeedrunCategory category) {
+		return speedrunIGTLoaded && isRunningWhenLoaded(category);
+	}
+
+	private boolean isRunningWhenLoaded(BotaniaSpeedrunCategory category) {
+		InGameTimer timer = InGameTimer.getInstance();
+		return timer.getCategory().getID().equals(category.idWithNamespace()) && timer.isPlaying() && !timer.isCompleted();
+	}
+
+	@Override
+	public void completeSpeedrunTimer() {
+		InGameTimer.complete();
 	}
 }

@@ -75,6 +75,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
+
 public interface XplatAbstractions {
 	// FML/Fabric Loader
 	default boolean gogLoaded() {
@@ -211,6 +213,10 @@ public interface XplatAbstractions {
 	interface RecipeAcceptor {
 		void accept(ResourceLocation location, Recipe<?> recipe, @Nullable AdvancementHolder advancement);
 	}
+
+	// SpeedrunIGT integration
+	boolean isRunningCategory(BotaniaSpeedrunCategory category);
+	void completeSpeedrunTimer();
 
 	/**
 	 * @deprecated Use {@link #instance()}
