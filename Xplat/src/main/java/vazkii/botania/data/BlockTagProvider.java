@@ -359,8 +359,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				)
 		);
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
-				getModBlocks(b -> b == BotaniaBlocks.enchantedSoil
-						|| b instanceof FloatingFlowerBaseBlock || b instanceof BotaniaGrassBlock)
+				getModBlocks(b -> b instanceof FloatingFlowerBaseBlock || b instanceof BotaniaGrassBlock)
 		);
 		var pickaxe = Set.of(
 				BotaniaBlocks.alchemyCatalyst, BotaniaBlocks.conjurationCatalyst,

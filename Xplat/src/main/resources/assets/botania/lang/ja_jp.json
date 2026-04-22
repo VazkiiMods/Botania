@@ -1194,7 +1194,6 @@
   "block.botania.red_string_interceptor": "赤い糸で結ばれた開閉感知器",
   "block.botania.mana_flame": "マナの閃光",
   "block.botania.prism": "マナプリズム",
-  "block.botania.enchanted_soil": "エンチャントされた土",
   "block.botania.metamorphic_forest_stone": "クロム雲母",
   "block.botania.metamorphic_plains_stone": "滑石",
   "block.botania.metamorphic_mountain_stone": "片麻岩",
@@ -1934,7 +1933,6 @@
   "item.botania.spell_cloth": "呪文が織り込まれた布",
   "item.botania.thorn_chakram": "棘のチャクラム",
   "item.botania.flare_chakram": "炎のチャクラム",
-  "item.botania.overgrowth_seed": "育ちすぎた種",
   "item.botania.pattern_1_1": "クラフトパターン #1: 1x1",
   "item.botania.pattern_2_2": "クラフトパターン #2: 2x2",
   "item.botania.pattern_1_2": "クラフトパターン #3: 1x2",
@@ -3413,11 +3411,6 @@
   "botania.tagline.fireChakram": "燃える棘のチャクラム",
   "botania.page.fireChakram0": "$(item)ブレイズパウダー$(0)と$(l:alfhomancy/elf_resources)$(item)ピクシーダスト$(0)$(/l)を$(l:tools/thorn_chakram)$(item)棘のチャクラム$(0)$(/l)にかけると、強力な武器$(item)炎のチャクラム$(0)に変化します。$(p)$(item)炎のチャクラム$(0)は、元の$(l:tools/thorn_chakram)$(item)棘のチャクラム$(0)$(/l)とほぼ同じ働きを持ち、モブに火を点ける事ができます。植物だけでは、ベーコンは作れませんよね？",
   "botania.page.fireChakram1": "とっても綺麗！",
-
-  "botania.entry.overgrowthSeed": "育ちすぎた種",
-  "botania.tagline.overgrowthSeed": "花をパワーアップさせる捉えどころのないアイテム",
-  "botania.page.overgrowthSeed0": "$(item)育ちすぎた種$(0)は、$(item)草ブロック$(0)に植えると$(item)エンチャントされた土$(0)に変化する不思議なアイテムです。この土に植えられた花は、通常の2倍の速さで成長します。",
-  "botania.page.overgrowthSeed1": "残念ながら、この捉えどころのない種を実際に作成する方法は知られていません。しかし、古代の建築物や寺院で発見されたと言われています。もしかしたら......？",
 
   "botania.entry.livingwoodBow": "リビングウッドの弓",
   "botania.tagline.livingwoodBow": "マナで再生するより強い弓",

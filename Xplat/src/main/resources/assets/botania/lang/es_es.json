@@ -1194,7 +1194,6 @@
 
   "block.botania.mana_flame": "Destello de maná",
   "block.botania.prism": "Prisma de maná",
-  "block.botania.enchanted_soil": "Suelo encantado",
   "block.botania.metamorphic_forest_stone": "Piedra metamórfica de bosque",
   "block.botania.metamorphic_plains_stone": "Piedra metamórfica de llanura",
   "block.botania.metamorphic_mountain_stone": "Piedra metamórfica de montaña",
@@ -1934,7 +1933,6 @@
   "item.botania.spell_cloth": "Paño de vínculo encantado",
 
 
-  "item.botania.overgrowth_seed": "Semilla de sobrecrecimiento",
   "item.botania.pattern_1_1": "Patrón de trabajo #1: 1x1",
   "item.botania.pattern_2_2": "Patrón de trabajo #2: 2x2",
   "item.botania.pattern_1_2": "Patrón de trabajo #3: 1x2",
@@ -3412,11 +3410,6 @@
 
 
 
-
-
-  "botania.entry.overgrowthSeed": "Semilla de sobrecrecimiento",
-
-  "botania.page.overgrowthSeed0": "Una $(item)semilla de sobrecrecimiento$(0) es un objeto esquivo, que se puede usar para encantar $(item)césped$(0), haciendo clic derecho sobre él, creando $(item)suelo encantado$(0). Las flores que enraícen en este $(item)suelo encantado$(0) funcionarán al doble de velocidad.$(p)Hay un problema, No hay ningún método para crearlas, pero se han visto en antiguas estructuras y similares.",
 
 
   "botania.entry.livingwoodBow": "Arco de madera viviente",

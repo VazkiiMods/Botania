@@ -1194,7 +1194,6 @@
   "block.botania.red_string_interceptor": "Intercepteur de viveroche",
   "block.botania.mana_flame": "Flash de mana",
   "block.botania.prism": "Prisme de mana",
-  "block.botania.enchanted_soil": "Herbe enchantée",
 
 
 
@@ -1934,7 +1933,6 @@
   "item.botania.spell_cloth": "Tissu purifiant",
   "item.botania.thorn_chakram": "Chakram épineux",
   "item.botania.flare_chakram": "Chakram ardent",
-  "item.botania.overgrowth_seed": "Graine enchantée",
   "item.botania.pattern_1_1": "Motif 1x1",
   "item.botania.pattern_2_2": "Motif 2x2",
   "item.botania.pattern_1_2": "Motif 1x2",
@@ -3414,11 +3412,6 @@
   "botania.page.fireChakram0": "Faire tomber ($(o)accidentellement$()) votre sac de $(item)poudre de Blaze$(0) et votre sac de $(l:alfhomancy/elf_resources)poudre de fée$(/l) sur un $(l:tools/thorn_chakram)chakram épineux$(/l) s'est révélé être une brillante idée.$(p)Il fonctionne comme avant; mais maintenant il va brûler vos ennemis, au lieu de les empoisonner.",
   "botania.page.fireChakram1": "$(o)Magician's Red$()",
 
-  "botania.entry.overgrowthSeed": "Graine enchantée",
-  "botania.tagline.overgrowthSeed": "TAGLINE",
-  "botania.page.overgrowthSeed0": "Les légendes parlent d'une graine mystérieuse: la $(item)graine enchantée$(0). Cependant, il n'existe pas de moyen connu pour en cultiver.$(p)Néanmoins, il est connu que cette $(item)graine$(0) peut transformer un $(item)bloc d'herbe$(0) en $(item)herbe enchantée$(0). Ce qui va multiplier par deux la vitesse d'une $(l)$(t:fonctionnelle ou génératrice)fleur$() plantée dessus.",
-  "botania.page.overgrowthSeed1": "Tout comme pour le $(l:basics/black_lotus)lotus noir$(/l), il est absolument nécessaire d'aller dans d'anciennes ruines pour espérer en trouver.",
-
   "botania.entry.livingwoodBow": "Arc en vifbois",
   "botania.tagline.livingwoodBow": "TAGLINE",
   "botania.page.livingwoodBow0": "L'$(item)arc en vifbois$(0) ($(o)comme son nom l'indique$()) est un arc en $(l:basics/pure_daisy)vifbois$(/l), avec des $(l:mana/pool)ficelles de mana$(/l). Il se répare avec du $(thing)mana$(0), comme les $(l:tools/mana_gear)outils en manacier$(/l).$(p)La rigidité de ces matériaux permet d'avoir une meilleur durabilité.",
@@ -4246,7 +4239,6 @@
   "_comment.elfGear.tag": "$(l:mana/pool#manasteel)",
   "_comment.fireRod.alt": "Bâton des enfers",
   "_comment.laputaShard.alt": "Éclat de Laputa, Fragment de Laputa",
-  "_comment.overgrowthSeed.alt": "Graine de surcroissance",
   "_comment.botania.page.sextant1.todo": "Le texte d'origine est pas clair",
   "_comment.botania.page.sextant_modes.todo": "Le texte d'origine est pas clair",
   "_comment.corporeaBlock1.tag": "$(l:misc/decorative_blocks#livingrock_bricks)",

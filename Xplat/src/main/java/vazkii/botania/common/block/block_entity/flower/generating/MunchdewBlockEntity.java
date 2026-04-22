@@ -70,7 +70,7 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		if (cooldown > 0) {
-			cooldown -= getOvergrowthFactor();
+			cooldown--;
 			setChanged();
 			return;
 		}

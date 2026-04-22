@@ -744,7 +744,6 @@ public final class BotaniaBlocks {
 	public static final Block root = make(LibBlockNames.ROOT, new LivingRootBlock(BlockBehaviour.Properties.of().strength(1.2F).sound(SoundType.WOOD)));
 	public static final Block felPumpkin = make(LibBlockNames.FEL_PUMPKIN, new FelPumpkinBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CARVED_PUMPKIN)));
 	public static final Block cocoon = make(LibBlockNames.COCOON, new CocoonBlock(BlockBehaviour.Properties.of().strength(3, 60).sound(SoundType.WOOL)));
-	public static final Block enchantedSoil = make(LibBlockNames.ENCHANTED_SOIL, new EnchantedSoilBlock(BlockBehaviour.Properties.of().strength(0.6F).sound(SoundType.GRASS).mapColor(MapColor.GRASS)));
 	public static final Block animatedTorch = make(LibBlockNames.ANIMATED_TORCH, new AnimatedTorchBlock(BlockBehaviour.Properties.of().lightLevel(s -> 7).noOcclusion()));
 	public static final Block starfield = make(LibBlockNames.STARFIELD, new StarfieldCreatorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.PINK).strength(5, 2000).sound(SoundType.METAL)));
 
@@ -1422,7 +1421,6 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(root, props), BuiltInRegistries.BLOCK.getKey(root));
 		r.accept(new BlockItem(felPumpkin, props), BuiltInRegistries.BLOCK.getKey(felPumpkin));
 		r.accept(new BlockItem(cocoon, props), BuiltInRegistries.BLOCK.getKey(cocoon));
-		r.accept(new BlockItem(enchantedSoil, rareProps), BuiltInRegistries.BLOCK.getKey(enchantedSoil));
 		r.accept(new BlockItem(animatedTorch, props), BuiltInRegistries.BLOCK.getKey(animatedTorch));
 		r.accept(new BlockItem(starfield, props), BuiltInRegistries.BLOCK.getKey(starfield));
 		r.accept(new BlockItem(azulejo0, props), BuiltInRegistries.BLOCK.getKey(azulejo0));

@@ -1194,7 +1194,6 @@
   "block.botania.red_string_interceptor": "Interceptador de Fio Vermelho",
   "block.botania.mana_flame": "Clarão de Mana",
   "block.botania.prism": "Prisma de Mana",
-  "block.botania.enchanted_soil": "Solo Encantado",
   "block.botania.metamorphic_forest_stone": "Fuchsita",
   "block.botania.metamorphic_plains_stone": "Talco",
   "block.botania.metamorphic_mountain_stone": "Gnaisse",
@@ -1934,7 +1933,6 @@
   "item.botania.spell_cloth": "Tecido Encantador",
   "item.botania.thorn_chakram": "Chakram de Espinhos",
   "item.botania.flare_chakram": "Chakram Flamejante",
-  "item.botania.overgrowth_seed": "Semente do Encanto",
   "item.botania.pattern_1_1": "Padrão de Criação #1: 1x1",
   "item.botania.pattern_2_2": "Padrão de Criação #2: 2x2",
   "item.botania.pattern_1_2": "Padrão de Criação #3: 1x2",
@@ -3413,11 +3411,6 @@
   "botania.tagline.fireChakram": "Um Chakram de Espinhos flamejante",
   "botania.page.fireChakram0": "$(item)Pó de Blaze$(0) e $(l:alfhomancy/elf_resources)$(item)Pó de Fada$(0)$(/l), quando aplicados a um $(l:tools/thorn_chakram)$(item)Chakram de Espinhos$(0)$(/l), transformam a arma já potente em um $(item)Chakram Flamejante$(0).$(p)O $(item)Chakram Flamejante$(0) funciona quase da mesma forma que o $(l:tools/thorn_chakram)$(item)Chakram de Espinhos$(0)$(/l) original, exceto pelo fato que ele coloca fogo em criaturas também. Afinal, você não pode fazer bacon com apenas matéria vegetal, pode?",
   "botania.page.fireChakram1": "Isso é um bem quente",
-
-  "botania.entry.overgrowthSeed": "Semente do Encanto",
-  "botania.tagline.overgrowthSeed": "Um objeto raro que potencializa as flores",
-  "botania.page.overgrowthSeed0": "A $(item)Semente do Encanto$(0) é um item raro que, quando plantada em $(item)Grama$(0), a transforma em $(item)Solo Encantado$(0).$(br2)Flores que são plantadas em $(item)Solo Encantado$(0) funcionarão com o dobro da velocidade normal.",
-  "botania.page.overgrowthSeed1": "Infelizmente, nenhum método de criar essas sementes raras é atualmente conhecido. $(br2)Elas, entretanto, alegadamente tem sido encontradas por historiadores em estruturas antigas e templos. Será que...?",
 
   "botania.entry.livingwoodBow": "Arco de Madeira Viva",
   "botania.tagline.livingwoodBow": "Um poderoso arco que se regenera usando Mana",

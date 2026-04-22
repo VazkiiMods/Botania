@@ -218,7 +218,7 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		copy(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOODS);
 
 		tag(BotaniaTags.Items.LOONIUM_EXCLUDED)
-				.add(BotaniaItems.lexicon, BotaniaItems.overgrowthSeed, BotaniaItems.blackLotus, BotaniaItems.blackerLotus, Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
+				.add(BotaniaItems.lexicon, BotaniaItems.blackLotus, BotaniaItems.blackerLotus, Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
 				.addTag(ConventionalItemTags.MUSIC_DISCS);
 	}
 

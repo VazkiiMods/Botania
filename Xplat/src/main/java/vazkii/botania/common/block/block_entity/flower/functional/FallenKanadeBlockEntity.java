@@ -44,7 +44,7 @@ public class FallenKanadeBlockEntity extends FunctionalFlowerBlockEntity {
 				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				e -> canHeal(e) && e.getEffect(MobEffects.REGENERATION) == null);
 		for (LivingEntity toHeal : entities) {
-			toHeal.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 59, overgrowth ? 3 : 2, true, true));
+			toHeal.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 59, 2, true, true));
 			addMana(-COST);
 			did = true;
 			if (getMana() < COST) {

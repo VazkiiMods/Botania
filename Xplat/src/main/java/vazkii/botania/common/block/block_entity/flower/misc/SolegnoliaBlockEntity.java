@@ -46,11 +46,6 @@ public class SolegnoliaBlockEntity extends SpecialFlowerBlockEntity {
 	}
 
 	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
-	}
-
-	@Override
 	public void setRemoved() {
 		super.setRemoved();
 		existingFlowers.remove(this);

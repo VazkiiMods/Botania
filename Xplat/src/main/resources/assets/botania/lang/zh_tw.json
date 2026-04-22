@@ -1194,7 +1194,6 @@
   "block.botania.red_string_interceptor": "紅線攔截器",
   "block.botania.mana_flame": "瑪那閃光",
   "block.botania.prism": "瑪那稜鏡",
-  "block.botania.enchanted_soil": "蘊魔土",
   "block.botania.metamorphic_forest_stone": "變質森林石頭",
   "block.botania.metamorphic_plains_stone": "變質平原石頭",
   "block.botania.metamorphic_mountain_stone": "變質高山石頭",
@@ -1934,7 +1933,6 @@
   "item.botania.spell_cloth": "封印之布",
   "item.botania.thorn_chakram": "尖刺飛輪",
   "item.botania.flare_chakram": "閃耀飛輪",
-  "item.botania.overgrowth_seed": "增生之種",
   "item.botania.pattern_1_1": "合成模板#1：1×1",
   "item.botania.pattern_2_2": "合成模板#2：2×2",
   "item.botania.pattern_1_2": "合成模板#3：1×2",
@@ -3413,11 +3411,6 @@
   "botania.tagline.fireChakram": "火焰版的尖刺飛輪",
   "botania.page.fireChakram0": "將一些$(item)烈焰粉$(0)和$(l:alfhomancy/elf_resources)$(item)精靈塵$(0)$(/l)用在$(l:tools/thorn_chakram)$(item)尖刺飛輪$(0)$(/l)上，這件強有力的武器就會進化成$(item)閃耀飛輪$(0)。$(p)$(item)閃耀飛輪$(0)有著和$(l:tools/thorn_chakram)$(item)尖刺飛輪$(0)$(/l)一樣的能力，唯一不同的是它會使得所有生物著火。畢竟只用蔬菜做不了培根，不是嗎？",
   "botania.page.fireChakram1": "如同fenn的專輯",
-
-  "botania.entry.overgrowthSeed": "增生之種",
-  "botania.tagline.overgrowthSeed": "被動產能花在這裡不會死亡",
-  "botania.page.overgrowthSeed0": "$(item)增生之種$(0)是一種神奇的東西，可以賦予$(item)草地$(0)以瑪那，在世界裡右鍵，就會創造一塊$(item)蘊$(0)$(item)魔土$(0)。在$(item)蘊魔土$(0)裡扎根的花會以正常2倍的速度工作。",
-  "botania.page.overgrowthSeed1": "但是還有一個問題。沒有創造這種東西的方法存在，但它們會在古遺蹟或類似的結構內生成。",
 
   "botania.entry.livingwoodBow": "活木弓",
   "botania.tagline.livingwoodBow": "用瑪那自我修復的強大之弓",

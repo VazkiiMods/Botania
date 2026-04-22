@@ -57,11 +57,6 @@ public class MedumoneBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
-	}
-
-	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
 	}

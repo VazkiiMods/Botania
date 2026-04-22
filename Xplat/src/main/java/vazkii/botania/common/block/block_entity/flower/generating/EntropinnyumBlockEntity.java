@@ -65,11 +65,6 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
-	}
-
-	@Override
 	public boolean triggerEvent(int event, int param) {
 		if (event == EXPLODE_EFFECT_EVENT) {
 			if (getLevel().isClientSide && getLevel().getEntity(param) instanceof PrimedTnt) {

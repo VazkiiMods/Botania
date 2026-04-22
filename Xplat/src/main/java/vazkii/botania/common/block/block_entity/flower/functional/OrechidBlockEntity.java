@@ -65,7 +65,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		if (cooldown > 0) {
-			cooldown -= getOvergrowthFactor();
+			cooldown--;
 			setChanged();
 			return;
 		}

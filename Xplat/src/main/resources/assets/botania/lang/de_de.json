@@ -1194,7 +1194,6 @@
   "block.botania.red_string_interceptor": "Rotfadenabfänger",
   "block.botania.mana_flame": "Mana-Flamme",
   "block.botania.prism": "Manaprisma",
-  "block.botania.enchanted_soil": "Verzauberter Boden",
   "block.botania.metamorphic_forest_stone": "Fuchsit",
   "block.botania.metamorphic_plains_stone": "Talk",
   "block.botania.metamorphic_mountain_stone": "Gneis",
@@ -1934,7 +1933,6 @@
   "item.botania.spell_cloth": "Zauberbindendes Tuch",
   "item.botania.thorn_chakram": "Dornenchakram",
   "item.botania.flare_chakram": "Loderchakram",
-  "item.botania.overgrowth_seed": "Überwachsender Samen",
   "item.botania.pattern_1_1": "Herstellungsmuster #1: 1x1",
   "item.botania.pattern_2_2": "Herstellungsmuster #2: 2x2",
   "item.botania.pattern_1_2": "Herstellungsmuster #3: 1x2",
@@ -3413,11 +3411,6 @@
   "botania.tagline.fireChakram": "ein brennendes Dornenchakram",
   "botania.page.fireChakram0": "Werden $(item)Lohenstaub$(0) und $(l:alfhomancy/elf_resources)$(item)Feenstaub$(0)$(/l) auf ein $(l:tools/thorn_chakram)$(item)Dornenchakram$(0)$(/l) angewendet, verwandeln sie die bereits potente Waffe in ein $(item)Loderchakram$(0).$(p)Das $(item)Loderchakram$(0) funktioniert fast genau wie das ursprüngliche $(l:tools/thorn_chakram)$(item)Dornenchakram$(0)$(/l), nur dass es Gegner anzündet. Man kann nunmal keinen Speck nur aus Gemüse herstellen, oder?",
   "botania.page.fireChakram1": "Ziemlich heiß",
-
-  "botania.entry.overgrowthSeed": "Überwachsender Samen",
-  "botania.tagline.overgrowthSeed": "Ein seltenes Objekt, das Blumen verstärkt",
-  "botania.page.overgrowthSeed0": "Ein $(item)Überwachsender Samen$(0) ist ein seltenes Objekt, welches $(item)Gras$(0) zu $(item)Verzaubertem Boden$(0) umwandelt, wenn es darauf gepflanzt wird. Viele Blumen, die auf diesem $(item)Verzauberten Boden$(0) gepflanzt werden, arbeiten mit doppelter Geschwindigkeit.",
-  "botania.page.overgrowthSeed1": "Leider ist keine Methode zum tatsächlichen Herstellen dieses seltenen Samens bekannt. Sie wurden jedoch angeblich von Historikern in uralten Bauten und Tempeln gesichtet. Vielleicht...?",
 
   "botania.entry.livingwoodBow": "Lebeholzbogen",
   "botania.tagline.livingwoodBow": "Ein stärkerer Bogen, der mit Mana regeneriert",

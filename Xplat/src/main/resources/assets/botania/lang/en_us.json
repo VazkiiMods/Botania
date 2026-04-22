@@ -1194,7 +1194,6 @@
   "block.botania.red_string_interceptor": "Red Stringed Interceptor",
   "block.botania.mana_flame": "Mana Flash",
   "block.botania.prism": "Mana Prism",
-  "block.botania.enchanted_soil": "Enchanted Soil",
   "block.botania.metamorphic_forest_stone": "Fuchsite",
   "block.botania.metamorphic_plains_stone": "Talc",
   "block.botania.metamorphic_mountain_stone": "Gneiss",
@@ -1934,7 +1933,6 @@
   "item.botania.spell_cloth": "Spellbinding Cloth",
   "item.botania.thorn_chakram": "Thorn Chakram",
   "item.botania.flare_chakram": "Flare Chakram",
-  "item.botania.overgrowth_seed": "Overgrowth Seed",
   "item.botania.pattern_1_1": "Crafting Pattern #1: 1x1",
   "item.botania.pattern_2_2": "Crafting Pattern #2: 2x2",
   "item.botania.pattern_1_2": "Crafting Pattern #3: 1x2",
@@ -3413,11 +3411,6 @@
   "botania.tagline.fireChakram": "A burning Thorn Chakram",
   "botania.page.fireChakram0": "$(item)Blaze Powder$(0) and $(l:alfhomancy/elf_resources)$(item)Pixie Dust$(0)$(/l), when applied to a $(l:tools/thorn_chakram)$(item)Thorn Chakram$(0)$(/l), turn the already potent weapon into a $(item)Flare Chakram$(0).$(p)The $(item)Flare Chakram$(0) works nearly the same as the original $(l:tools/thorn_chakram)$(item)Thorn Chakram$(0)$(/l), except it sets mobs on fire too. After all, you can't make bacon from just vegetable matter, can you?",
   "botania.page.fireChakram1": "It's pretty lit",
-
-  "botania.entry.overgrowthSeed": "Overgrowth Seed",
-  "botania.tagline.overgrowthSeed": "An elusive object that powers up flowers",
-  "botania.page.overgrowthSeed0": "An $(item)Overgrowth Seed$(0) is an elusive item that, when planted on $(item)Grass$(0), spells it into $(item)Enchanted Soil$(0). Flowers that are planted on this $(item)Enchanted Soil$(0) will function at twice their normal speed.",
-  "botania.page.overgrowthSeed1": "Unfortunately, no method of actually creating these elusive seeds is known. They have, however, allegedly been spotted by historians in ancient structures and temples. Perhaps...?",
 
   "botania.entry.livingwoodBow": "Livingwood Bow",
   "botania.tagline.livingwoodBow": "A stronger bow that regenerates using Mana",

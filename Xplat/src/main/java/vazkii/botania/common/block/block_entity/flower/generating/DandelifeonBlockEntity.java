@@ -81,8 +81,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 
 	protected boolean shouldTick(long gameTime, int interval) {
 		// don't randomize based on position
-		int relativeTick = (int) (gameTime % interval);
-		return relativeTick == 0 || overgrowth && relativeTick == interval / 2;
+		return (int) (gameTime % interval) == 0;
 	}
 
 	private void runSimulation() {

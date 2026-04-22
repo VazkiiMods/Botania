@@ -66,17 +66,17 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 
 		if (burnTime > 0) {
 			if (shouldUpdateThisTick()) {
-				addMana(getUpdateInterval() <= 1 ? getOvergrowthFactor() * manaPerTick : manaPerTick);
+				addMana(manaPerTick);
 				// TODO: only sync mana if a nearby player cares
 				sync();
 			}
-			burnTime -= getOvergrowthFactor();
+			burnTime--;
 			level.blockEntityChanged(getBlockPos());
 			return;
 		}
 
 		if (cooldown > 0) {
-			cooldown -= getOvergrowthFactor();
+			cooldown--;
 			level.blockEntityChanged(getBlockPos());
 		}
 		// flower is not generating mana anymore, but may or may not be in cooldown now

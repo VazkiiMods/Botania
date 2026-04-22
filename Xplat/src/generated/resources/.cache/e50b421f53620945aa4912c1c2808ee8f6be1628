@@ -287,7 +287,6 @@ d115c4a8040b1695ae8727b02e8ebbecb0ae9619 assets/botania/models/item/elf_quartz_s
 52bd4beec157acaa24ecc577f0614fc5290a5be9 assets/botania/models/item/elf_quartz_stairs.json
 6359913640111eca519e85d1164c386b7ed26ba9 assets/botania/models/item/elucidator.json
 1d2ed9fa7300dc6d61f3892d9ddb2b804c56d9cd assets/botania/models/item/elven_spreader.json
-83ef3507b43a0b98b46d885d2783bbd6c1ac2df9 assets/botania/models/item/enchanted_soil.json
 30937f23213466f0b9496b9bde2fc3c1aa902a78 assets/botania/models/item/enchanter.json
 2506aacc273b482e11bc21ac6b1fbca05776dcb9 assets/botania/models/item/ender_air_bottle.json
 b57afee407a9e4c357b352ca5117689823514941 assets/botania/models/item/ender_dagger.json
@@ -721,7 +720,6 @@ e7a28d1f84d1db2306e1f1c0fcf71e0673f7ca38 assets/botania/models/item/orange_creat
 17eb2360d9f9333da90b8a79438587b068c5dfad assets/botania/models/item/orange_shiny_flower.json
 e4b58f610a51492177a7fcb370f3f1aaf0744b55 assets/botania/models/item/orechid.json
 6a3cba3c2a1efa5dd3edeb429d4e99afa4b932c3 assets/botania/models/item/orechid_ignem.json
-196581a3facc8c1c93e69c40b86e5b31cc2cc633 assets/botania/models/item/overgrowth_seed.json
 214aa0c911f0a840f3c2b801cea71668b7dfe049 assets/botania/models/item/pattern_1_1.json
 12960545f8a71a90da15ce4655f69a7001ddcee4 assets/botania/models/item/pattern_1_2.json
 8aac7e339e2dd2822e5f90aaff61dd8a8bc6352b assets/botania/models/item/pattern_1_3.json

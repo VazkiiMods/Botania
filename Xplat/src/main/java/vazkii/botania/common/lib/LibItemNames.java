@@ -149,7 +149,6 @@ public final class LibItemNames {
 	public static final String SPELL_CLOTH = "spell_cloth";
 	public static final String THORN_CHAKRAM = "thorn_chakram";
 	public static final String FLARE_CHAKRAM = "flare_chakram";
-	public static final String OVERGROWTH_SEED = "overgrowth_seed";
 	public static final String CRAFT_PATTERN_PREFIX = "pattern_";
 	public static final String ANCIENT_WILL_PREFIX = "ancient_will_";
 	public static final String CORPOREA_SPARK = "corporea_spark";
