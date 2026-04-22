@@ -22,12 +22,10 @@
     "CollectingNeighborUpdaterMixin",
     "CreeperAccessor",
     "CreeperMixin",
-    "DispenserBlockAccessor",
     "EntityAccessor",
     "EntityMixin",
     "ExperienceOrbAccessor",
     "FarmBlockMixin",
-    "FireBlockAccessor",
     "FlowingFluidAccessor",
     "GrowingPlantBodyBlockMixin",
     "HopperBlockEntityAccessor",
@@ -56,8 +54,6 @@
     "PointedDripstoneBlockMixin",
     "PollinateGoalMixin",
     "ProjectileAccessor",
-    "RandomizableContainerBlockEntityAccessor",
-    "RecipeManagerAccessor",
     "RecipeProviderAccessor",
     "ServerLevelMixin",
     "ServerPlayerGameModeAccessor",
@@ -94,5 +90,8 @@
   "server": [],
   "injectors": {
     "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
   }
 }

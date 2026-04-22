@@ -25,12 +25,12 @@ public interface MobAccessor {
 	@Invoker("getAmbientSound")
 	SoundEvent botania_getAmbientSound();
 
-	@Accessor
-	void setLootTable(ResourceKey<LootTable> id);
+	@Accessor("lootTable")
+	void botania_setLootTable(ResourceKey<LootTable> id);
 
-	@Accessor
-	GoalSelector getGoalSelector();
+	@Accessor("goalSelector")
+	GoalSelector botania_getGoalSelector();
 
-	@Accessor
-	GoalSelector getTargetSelector();
+	@Accessor("targetSelector")
+	GoalSelector botania_getTargetSelector();
 }

@@ -73,9 +73,9 @@ public class CharmOfTheDivaItem extends BaubleItem {
 					getCharmTargetPredicate(player, target));
 			if (!potentialTargets.isEmpty() && HeiseiDreamBlockEntity.brainwashEntity(target, potentialTargets)) {
 				target.heal(target.getMaxHealth());
-				((EntityAccessor) target).callUnsetRemoved();
+				((EntityAccessor) target).botania_unsetRemoved();
 				if (target instanceof Creeper) {
-					((CreeperAccessor) target).setCurrentFuseTime(2);
+					((CreeperAccessor) target).botania_setSwell(2);
 				}
 
 				ManaItemHandler.instance().requestManaExact(amulet, player, MANA_COST, true);

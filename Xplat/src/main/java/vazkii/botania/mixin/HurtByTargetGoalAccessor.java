@@ -8,5 +8,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(HurtByTargetGoal.class)
 public interface HurtByTargetGoalAccessor {
 	@Accessor("toIgnoreDamage")
-	Class<?>[] getIgnoreDamageClasses();
+	Class<?>[] botania_getToIgnoreDamage();
 }

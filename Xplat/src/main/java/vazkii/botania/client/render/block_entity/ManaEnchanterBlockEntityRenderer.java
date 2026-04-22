@@ -63,7 +63,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 				item = new ItemEntity(enchanter.getLevel(), enchanter.getBlockPos().getX(), enchanter.getBlockPos().getY() + 1, enchanter.getBlockPos().getZ(), enchanter.itemToEnchant);
 			}
 
-			((ItemEntityAccessor) item).setAge(ticksInGame);
+			((ItemEntityAccessor) item).botania_setAge(ticksInGame);
 			item.setItem(enchanter.itemToEnchant);
 
 			ms.translate(0.5F, 1.25F, 0.5F);

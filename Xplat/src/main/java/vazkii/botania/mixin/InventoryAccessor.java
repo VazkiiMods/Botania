@@ -11,6 +11,6 @@ import java.util.List;
 
 @Mixin(Inventory.class)
 public interface InventoryAccessor {
-	@Accessor
-	List<NonNullList<ItemStack>> getCompartments();
+	@Accessor("compartments")
+	List<NonNullList<ItemStack>> botania_getCompartments();
 }

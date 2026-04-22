@@ -547,12 +547,12 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize) {
-		return AbstractFurnaceBlockEntityFabricAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize);
+		return AbstractFurnaceBlockEntityFabricAccessor.botania_canBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize);
 	}
 
 	@Override
 	public Fluid getBucketFluid(BucketItem item) {
-		return ((BucketItemFabricAccessor) item).getContent();
+		return ((BucketItemFabricAccessor) item).botania_getContent();
 	}
 
 	@Override

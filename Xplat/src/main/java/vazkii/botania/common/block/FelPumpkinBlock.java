@@ -97,7 +97,7 @@ public class FelPumpkinBlock extends BotaniaBlock {
 			Blaze blaze = EntityType.BLAZE.create(level);
 			if (blaze != null) {
 				blaze.setPersistenceRequired();
-				((MobAccessor) blaze).setLootTable(BotaniaLootTables.FEL_BLAZE);
+				((MobAccessor) blaze).botania_setLootTable(BotaniaLootTables.FEL_BLAZE);
 				spawnBlazeInWorld(level, blockPatternMatch, blaze, blockPatternMatch.getBlock(0, 2, 0).getPos());
 			}
 		}

@@ -69,17 +69,17 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ItemModelProvider implements DataProvider {
-	private static final TextureSlot LAYER1 = TextureSlotAccessor.make("layer1");
-	private static final TextureSlot LAYER2 = TextureSlotAccessor.make("layer2");
-	private static final TextureSlot LAYER3 = TextureSlotAccessor.make("layer3");
+	private static final TextureSlot LAYER1 = TextureSlotAccessor.botania_create("layer1");
+	private static final TextureSlot LAYER2 = TextureSlotAccessor.botania_create("layer2");
+	private static final TextureSlot LAYER3 = TextureSlotAccessor.botania_create("layer3");
 	private static final ModelTemplate GENERATED_1 = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
 	private static final ModelTemplate GENERATED_2 = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2);
 	private static final ModelTemplate HANDHELD_1 = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
 	private static final ModelTemplate HANDHELD_3 = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2, LAYER3);
 	private static final ModelTemplate WALL_INVENTORY = new ModelTemplate(Optional.of(botaniaRL("block/shapes/wall_inventory")), Optional.empty(), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.WALL);
 	private static final ModelTemplate WALL_INVENTORY_CHECKERED = new ModelTemplate(Optional.of(botaniaRL("block/shapes/wall_inventory_checkered")), Optional.empty(), TextureSlot.NORTH, TextureSlot.SIDE);
-	private static final TextureSlot OUTSIDE = TextureSlotAccessor.make("outside");
-	private static final TextureSlot CORE = TextureSlotAccessor.make("core");
+	private static final TextureSlot OUTSIDE = TextureSlotAccessor.botania_create("outside");
+	private static final TextureSlot CORE = TextureSlotAccessor.botania_create("core");
 	private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, OUTSIDE, CORE);
 	private static final ModelTemplate COVERED_SPREADER = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_item_covered")), Optional.empty(), TextureSlot.INSIDE, OUTSIDE, CORE, TextureSlot.WOOL);
 	private static final ModelWithOverrides GENERATED_OVERRIDES = new ModelWithOverrides(ResourceLocation.withDefaultNamespace("item/generated"), TextureSlot.LAYER0);

@@ -28,7 +28,7 @@ public class ThrownItemEntity extends ItemEntity {
 
 	public ThrownItemEntity(Level world, double x, double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());
-		setPickUpDelay(((ItemEntityAccessor) item).getPickupDelay());
+		setPickUpDelay(((ItemEntityAccessor) item).botania_getPickupDelay());
 		setDeltaMovement(item.getDeltaMovement());
 		setInvulnerable(true);
 	}
@@ -46,7 +46,7 @@ public class ThrownItemEntity extends ItemEntity {
 			return;
 		}
 
-		int pickupDelay = ((ItemEntityAccessor) this).getPickupDelay();
+		int pickupDelay = ((ItemEntityAccessor) this).botania_getPickupDelay();
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.isPickable()
 				&& (!(e instanceof Player) || pickupDelay == 0);
 		HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, filter);

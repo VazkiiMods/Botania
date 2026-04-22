@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(RecipeBookPage.class)
 public interface RecipeBookPageAccessor {
-	@Accessor
 	@Nullable
-	RecipeButton getHoveredButton();
+	@Accessor("hoveredButton")
+	RecipeButton botania_getHoveredButton();
 }

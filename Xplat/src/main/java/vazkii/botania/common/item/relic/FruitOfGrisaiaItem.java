@@ -66,7 +66,7 @@ public class FruitOfGrisaiaItem extends RelicItem {
 
 			if (count == 5) {
 				if (player.canEat(false)) {
-					((LivingEntityAccessor) player).setUseItemRemaining(20);
+					((LivingEntityAccessor) player).botania_setUseItemRemaining(20);
 				}
 			}
 		}

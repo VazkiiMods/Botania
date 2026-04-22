@@ -166,7 +166,7 @@ public final class ColorHandler {
 		items.register((stack, tintIndex) -> {
 			ItemStack lens = ManaBlasterItem.getLens(stack);
 			if (!lens.isEmpty() && tintIndex == 0) {
-				return ((MinecraftAccessor) Minecraft.getInstance()).getItemColors().getColor(lens, tintIndex);
+				return ((MinecraftAccessor) Minecraft.getInstance()).botania_getItemColors().getColor(lens, tintIndex);
 			}
 
 			if (tintIndex == 2) {

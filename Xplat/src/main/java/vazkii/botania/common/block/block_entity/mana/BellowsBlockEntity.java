@@ -78,8 +78,8 @@ public class BellowsBlockEntity extends BotaniaBlockEntity {
 			if (tile instanceof AbstractFurnaceBlockEntity furnace) {
 				if (ExoflameFurnaceHandler.canSmelt(furnace)) {
 					AbstractFurnaceBlockEntityAccessor mFurnace = (AbstractFurnaceBlockEntityAccessor) furnace;
-					mFurnace.setCookingProgress(Math.min(mFurnace.getCookingTotalTime() - 1, mFurnace.getCookingProgress() + 20));
-					mFurnace.setLitTime(Math.max(0, mFurnace.getLitTime() - 10));
+					mFurnace.botania_setCookingProgress(Math.min(mFurnace.botania_getCookingTotalTime() - 1, mFurnace.botania_getCookingProgress() + 20));
+					mFurnace.botania_setLitTime(Math.max(0, mFurnace.botania_getLitTime() - 10));
 				}
 
 				if (furnace instanceof FurnaceBlockEntity

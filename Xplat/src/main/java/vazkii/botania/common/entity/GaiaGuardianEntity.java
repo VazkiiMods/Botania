@@ -564,7 +564,7 @@ public class GaiaGuardianEntity extends Mob {
 			lastHurtByPlayer = player; // Fake attacking player as the killer
 			// Spoof pos so drops spawn at the player
 			setPos(player.getX(), player.getY(), player.getZ());
-			((MobAccessor) this).setLootTable(hardMode
+			((MobAccessor) this).botania_setLootTable(hardMode
 					? BotaniaLootTables.GAIA_GUARDIAN_REWARD_HARD
 					: BotaniaLootTables.GAIA_GUARDIAN_REWARD);
 			super.dropFromLootTable(player.damageSources().playerAttack(player), wasRecentlyHit);

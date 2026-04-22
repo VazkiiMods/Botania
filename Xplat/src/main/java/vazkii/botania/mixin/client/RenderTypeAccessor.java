@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(RenderType.class)
 public interface RenderTypeAccessor {
 	@Invoker("create")
-	static RenderType.CompositeRenderType create(String string, VertexFormat vertexFormat,
+	static RenderType.CompositeRenderType botania_create(String string, VertexFormat vertexFormat,
 			VertexFormat.Mode mode, int bufSize, boolean hasCrumbling, boolean sortOnUpload,
 			RenderType.CompositeState compositeState) {
 		throw new IllegalStateException();

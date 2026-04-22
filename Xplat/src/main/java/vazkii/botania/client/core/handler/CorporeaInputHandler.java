@@ -72,15 +72,15 @@ public class CorporeaInputHandler {
 	private static ItemStack getStackUnderMouse() {
 		Screen screen = Minecraft.getInstance().screen;
 		if (screen instanceof AbstractContainerScreen) {
-			Slot slotUnderMouse = ((AbstractContainerScreenAccessor) screen).getHoveredSlot();
+			Slot slotUnderMouse = ((AbstractContainerScreenAccessor) screen).botania_getHoveredSlot();
 			if (slotUnderMouse != null && slotUnderMouse.hasItem()) {
 				return slotUnderMouse.getItem().copy();
 			}
 
 			if (screen instanceof RecipeUpdateListener recipeScreen && recipeScreen.getRecipeBookComponent().isVisible()) {
 				RecipeBookComponent recipeBook = recipeScreen.getRecipeBookComponent();
-				RecipeBookPage page = ((RecipeBookComponentAccessor) recipeBook).getRecipesArea();
-				RecipeButton widget = ((RecipeBookPageAccessor) page).getHoveredButton();
+				RecipeBookPage page = ((RecipeBookComponentAccessor) recipeBook).botania_getRecipeBookPage();
+				RecipeButton widget = ((RecipeBookPageAccessor) page).botania_getHoveredButton();
 				if (widget != null) {
 					return widget.getRecipe().value().getResultItem(Minecraft.getInstance().level.registryAccess());
 				}

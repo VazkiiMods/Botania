@@ -36,7 +36,6 @@ import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.mixin.RecipeManagerAccessor;
 
 public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -70,7 +69,8 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 	}
 
 	private static boolean usesItem(ItemStack stack, Level world) {
-		for (RecipeHolder<TerrestrialAgglomerationRecipe> value : ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(BotaniaRecipeTypes.TERRA_PLATE_TYPE)) {
+		// TODO: check if any other RecipeManager method might work if we wrap the stack in some kind of "Input"
+		for (RecipeHolder<TerrestrialAgglomerationRecipe> value : world.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE)) {
 			for (Ingredient i : value.value().getIngredients()) {
 				if (i.test(stack)) {
 					return true;

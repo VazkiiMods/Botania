@@ -17,7 +17,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.crafting.recipe.*;
-import vazkii.botania.mixin.RecipeManagerAccessor;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -114,7 +113,8 @@ public class BotaniaRecipeTypes {
 	}
 
 	public static <C extends RecipeInput, T extends Recipe<C>> Collection<RecipeHolder<T>> getRecipes(Level world, RecipeType<T> type) {
-		return ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(type);
+		// TODO: maybe inline and check for more specific options on case-by-case basis
+		return world.getRecipeManager().getAllRecipesFor(type);
 	}
 
 	@SuppressWarnings("unchecked")

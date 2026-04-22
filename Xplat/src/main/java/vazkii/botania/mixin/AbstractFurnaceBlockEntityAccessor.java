@@ -21,23 +21,23 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(AbstractFurnaceBlockEntity.class)
 public interface AbstractFurnaceBlockEntityAccessor {
 	@Accessor("items")
-	NonNullList<ItemStack> getItems();
+	NonNullList<ItemStack> botania_getItems();
 
 	@Accessor("quickCheck")
-	RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> getQuickCheck();
+	RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> botania_getQuickCheck();
 
-	@Accessor
-	int getLitTime();
+	@Accessor("litTime")
+	int botania_getLitTime();
 
-	@Accessor
-	void setLitTime(int burnTime);
+	@Accessor("litTime")
+	void botania_setLitTime(int burnTime);
 
-	@Accessor
-	int getCookingProgress();
+	@Accessor("cookingProgress")
+	int botania_getCookingProgress();
 
-	@Accessor
-	int getCookingTotalTime();
+	@Accessor("cookingTotalTime")
+	int botania_getCookingTotalTime();
 
-	@Accessor
-	void setCookingProgress(int cookTime);
+	@Accessor("cookingProgress")
+	void botania_setCookingProgress(int cookTime);
 }

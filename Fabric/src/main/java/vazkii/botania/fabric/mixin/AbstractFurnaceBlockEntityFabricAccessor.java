@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(AbstractFurnaceBlockEntity.class)
 public interface AbstractFurnaceBlockEntityFabricAccessor {
 	@Invoker("canBurn")
-	static boolean callCanBurn(RegistryAccess registryAccess, @Nullable RecipeHolder<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
+	static boolean botania_canBurn(RegistryAccess registryAccess, @Nullable RecipeHolder<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
 		throw new IllegalStateException();
 	}
 }

@@ -111,7 +111,7 @@ public final class RenderHelper extends RenderType {
 
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
 			int bufSize, boolean hasCrumbling, boolean sortOnUpload, CompositeState glState) {
-		return RenderTypeAccessor.create(name, format, mode, bufSize, hasCrumbling, sortOnUpload, glState);
+		return RenderTypeAccessor.botania_create(name, format, mode, bufSize, hasCrumbling, sortOnUpload, glState);
 	}
 
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
@@ -439,7 +439,7 @@ public final class RenderHelper extends RenderType {
 			}
 		};
 		((ItemRendererAccessor) itemRenderer)
-				.callRenderQuadList(ms, buffer, quads, stack, light, overlay);
+				.botania_renderQuadList(ms, buffer, quads, stack, light, overlay);
 	}
 
 	/**

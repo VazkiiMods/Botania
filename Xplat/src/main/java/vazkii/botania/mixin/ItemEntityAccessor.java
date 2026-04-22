@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(ItemEntity.class)
 public interface ItemEntityAccessor {
-	@Accessor
-	void setAge(int age);
+	@Accessor("age")
+	void botania_setAge(int age);
 
-	@Accessor
-	int getPickupDelay();
+	@Accessor("pickupDelay")
+	int botania_getPickupDelay();
 }

@@ -43,7 +43,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 						: i).toArray(Ingredient[]::new));
 		return new ShapedRecipePattern(pattern.width(), pattern.height(), ingredients,
 				// TODO: verify
-				((ShapedRecipePatternAccessor) (Object) pattern).getData());
+				((ShapedRecipePatternAccessor) (Object) pattern).botania_getData());
 	}
 
 	public WaterBottleMatchingRecipe(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result) {

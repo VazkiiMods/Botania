@@ -234,7 +234,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 					&& stateAt.getBlock().asItem() != replacement) {
 				float hardness = stateAt.getDestroySpeed(world, pos);
 				if (!world.isClientSide) {
-					final NeighborUpdater neighborUpdater = ((LevelAccessor) world).getNeighborUpdater();
+					final NeighborUpdater neighborUpdater = ((LevelAccessor) world).botania_getNeighborUpdater();
 					try {
 						if (neighborUpdater instanceof CollectingNeighborUpdaterAccess access) {
 							access.botania$pauseUpdates();

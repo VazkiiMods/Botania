@@ -60,14 +60,14 @@ public class InventoryHelper {
 	// [VanillaCopy] HopperBlockEntity without modifying the destination inventory. `stack` is still modified
 	private static ItemStack simulateTransfer(Container to, ItemStack stack, int slot, @Nullable Direction direction) {
 		ItemStack itemStack = to.getItem(slot);
-		if (HopperBlockEntityAccessor.botania_canInsert(to, stack, slot, direction)) {
+		if (HopperBlockEntityAccessor.botania_canPlaceItemInContainer(to, stack, slot, direction)) {
 			boolean bl = false;
 			boolean bl2 = to.isEmpty();
 			if (itemStack.isEmpty()) {
 				// to.setStack(slot, stack);
 				stack = ItemStack.EMPTY;
 				bl = true;
-			} else if (HopperBlockEntityAccessor.botania_canMerge(itemStack, stack)) {
+			} else if (HopperBlockEntityAccessor.botania_canMergeItems(itemStack, stack)) {
 				int i = stack.getMaxStackSize() - itemStack.getCount();
 				int j = Math.min(stack.getCount(), i);
 				stack.shrink(j);
@@ -196,7 +196,7 @@ public class InventoryHelper {
 	 * @return {@code true} if the inventory contains an item of the specified type, otherwise {@code false}.
 	 */
 	public static boolean containsType(Inventory inventory, Item item) {
-		for (List<ItemStack> compartment : ((InventoryAccessor) inventory).getCompartments()) {
+		for (List<ItemStack> compartment : ((InventoryAccessor) inventory).botania_getCompartments()) {
 			for (ItemStack stack : compartment) {
 				if (stack.is(item)) {
 					return true;

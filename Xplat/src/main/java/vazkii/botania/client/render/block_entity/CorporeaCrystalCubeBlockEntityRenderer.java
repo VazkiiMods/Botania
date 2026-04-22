@@ -58,7 +58,7 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 				entity = new ItemEntity(cube.getLevel(), cube.getBlockPos().getX(), cube.getBlockPos().getY(), cube.getBlockPos().getZ(), new ItemStack(Blocks.STONE));
 			}
 
-			((ItemEntityAccessor) entity).setAge(ClientTickHandler.getEntityTicksInGame());
+			((ItemEntityAccessor) entity).botania_setAge(ClientTickHandler.getEntityTicksInGame());
 			stack = cube.getRequestTarget();
 			entity.setItem(stack);
 		} else {

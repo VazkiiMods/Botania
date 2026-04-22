@@ -1,14 +1,13 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.world.level.block.Blocks;
-
-import vazkii.botania.mixin.FireBlockAccessor;
+import net.minecraft.world.level.block.FireBlock;
 
 import static vazkii.botania.common.block.BotaniaBlocks.*;
 
 public abstract class BotaniaBlockFlammability {
 	public static void register() {
-		FireBlockAccessor b = (FireBlockAccessor) Blocks.FIRE;
+		FireBlock b = (FireBlock) Blocks.FIRE;
 		// [VanillaCopy] FireBlock
 		int logIgnite = 5;
 		int logBurn = 5;
@@ -16,63 +15,63 @@ public abstract class BotaniaBlockFlammability {
 		int nonLogIgnite = 5;
 		int nonLogBurn = 20;
 
-		b.botania_register(livingwoodLog, logIgnite, logBurn);
-		b.botania_register(livingwoodLogStripped, logIgnite, logBurn);
-		b.botania_register(livingwoodLogGlimmering, logIgnite, logBurn);
-		b.botania_register(livingwoodLogStrippedGlimmering, logIgnite, logBurn);
-		b.botania_register(livingwood, logIgnite, logBurn);
-		b.botania_register(livingwoodStripped, logIgnite, logBurn);
-		b.botania_register(livingwoodGlimmering, logIgnite, logBurn);
-		b.botania_register(livingwoodStrippedGlimmering, logIgnite, logBurn);
-		b.botania_register(livingwoodPlanks, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodPlanks, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodPlanksMossy, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodFramed, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodPatternFramed, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodLog, logIgnite, logBurn);
+		b.setFlammable(livingwoodLogStripped, logIgnite, logBurn);
+		b.setFlammable(livingwoodLogGlimmering, logIgnite, logBurn);
+		b.setFlammable(livingwoodLogStrippedGlimmering, logIgnite, logBurn);
+		b.setFlammable(livingwood, logIgnite, logBurn);
+		b.setFlammable(livingwoodStripped, logIgnite, logBurn);
+		b.setFlammable(livingwoodGlimmering, logIgnite, logBurn);
+		b.setFlammable(livingwoodStrippedGlimmering, logIgnite, logBurn);
+		b.setFlammable(livingwoodPlanks, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodPlanks, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodPlanksMossy, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodFramed, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodPatternFramed, nonLogIgnite, nonLogBurn);
 
-		b.botania_register(dreamwoodLog, logIgnite, logBurn);
-		b.botania_register(dreamwoodLogStripped, logIgnite, logBurn);
-		b.botania_register(dreamwoodLogGlimmering, logIgnite, logBurn);
-		b.botania_register(dreamwoodLogStrippedGlimmering, logIgnite, logBurn);
-		b.botania_register(dreamwood, logIgnite, logBurn);
-		b.botania_register(dreamwoodStripped, logIgnite, logBurn);
-		b.botania_register(dreamwoodGlimmering, logIgnite, logBurn);
-		b.botania_register(dreamwoodStrippedGlimmering, logIgnite, logBurn);
-		b.botania_register(dreamwoodPlanks, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodPlanks, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodPlanksMossy, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodFramed, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodPatternFramed, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodLog, logIgnite, logBurn);
+		b.setFlammable(dreamwoodLogStripped, logIgnite, logBurn);
+		b.setFlammable(dreamwoodLogGlimmering, logIgnite, logBurn);
+		b.setFlammable(dreamwoodLogStrippedGlimmering, logIgnite, logBurn);
+		b.setFlammable(dreamwood, logIgnite, logBurn);
+		b.setFlammable(dreamwoodStripped, logIgnite, logBurn);
+		b.setFlammable(dreamwoodGlimmering, logIgnite, logBurn);
+		b.setFlammable(dreamwoodStrippedGlimmering, logIgnite, logBurn);
+		b.setFlammable(dreamwoodPlanks, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodPlanks, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodPlanksMossy, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodFramed, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodPatternFramed, nonLogIgnite, nonLogBurn);
 
-		b.botania_register(solidVines, 15, 100); // matches vines
-		b.botania_register(cellBlock, 30, 60); // matches leaves
-		b.botania_register(shimmerwoodPlanks, nonLogIgnite, nonLogBurn);
+		b.setFlammable(solidVines, 15, 100); // matches vines
+		b.setFlammable(cellBlock, 30, 60); // matches leaves
+		b.setFlammable(shimmerwoodPlanks, nonLogIgnite, nonLogBurn);
 
-		b.botania_register(livingwoodStairs, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodSlab, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodWall, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodFence, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodFenceGate, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodStrippedStairs, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodStrippedSlab, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodStrippedWall, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodPlankStairs, nonLogIgnite, nonLogBurn);
-		b.botania_register(livingwoodPlankSlab, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodStairs, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodSlab, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodWall, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodFence, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodFenceGate, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodStrippedStairs, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodStrippedSlab, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodStrippedWall, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodPlankStairs, nonLogIgnite, nonLogBurn);
+		b.setFlammable(livingwoodPlankSlab, nonLogIgnite, nonLogBurn);
 
-		b.botania_register(dreamwoodStairs, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodSlab, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodWall, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodFence, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodFenceGate, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodStrippedStairs, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodStrippedSlab, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodStrippedWall, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodPlankStairs, nonLogIgnite, nonLogBurn);
-		b.botania_register(dreamwoodPlankSlab, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodStairs, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodSlab, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodWall, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodFence, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodFenceGate, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodStrippedStairs, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodStrippedSlab, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodStrippedWall, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodPlankStairs, nonLogIgnite, nonLogBurn);
+		b.setFlammable(dreamwoodPlankSlab, nonLogIgnite, nonLogBurn);
 
-		b.botania_register(shimmerwoodPlankSlab, nonLogIgnite, nonLogBurn);
-		b.botania_register(shimmerwoodPlankStairs, nonLogIgnite, nonLogBurn);
-		b.botania_register(shimmerwoodFence, nonLogIgnite, nonLogBurn);
-		b.botania_register(shimmerwoodFenceGate, nonLogIgnite, nonLogBurn);
+		b.setFlammable(shimmerwoodPlankSlab, nonLogIgnite, nonLogBurn);
+		b.setFlammable(shimmerwoodPlankStairs, nonLogIgnite, nonLogBurn);
+		b.setFlammable(shimmerwoodFence, nonLogIgnite, nonLogBurn);
+		b.setFlammable(shimmerwoodFenceGate, nonLogIgnite, nonLogBurn);
 	}
 }

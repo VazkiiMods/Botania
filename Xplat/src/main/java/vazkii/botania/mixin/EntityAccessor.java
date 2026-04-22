@@ -15,6 +15,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(Entity.class)
 public interface EntityAccessor {
-	@Invoker
-	void callUnsetRemoved();
+	@Invoker("unsetRemoved")
+	void botania_unsetRemoved();
 }

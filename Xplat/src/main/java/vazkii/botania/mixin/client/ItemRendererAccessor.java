@@ -22,6 +22,6 @@ import java.util.List;
 
 @Mixin(ItemRenderer.class)
 public interface ItemRendererAccessor {
-	@Invoker
-	void callRenderQuadList(PoseStack matrixStack, VertexConsumer buffer, List<BakedQuad> quads, ItemStack itemStack, int combinedLight, int combinedOverlay);
+	@Invoker("renderQuadList")
+	void botania_renderQuadList(PoseStack matrixStack, VertexConsumer buffer, List<BakedQuad> quads, ItemStack itemStack, int combinedLight, int combinedOverlay);
 }

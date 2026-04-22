@@ -23,7 +23,6 @@ import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.SpectatorItem;
 import vazkii.botania.mixin.AbstractHorseAccessor;
-import vazkii.botania.mixin.RandomizableContainerBlockEntityAccessor;
 import vazkii.botania.test.TestingUtil;
 
 import java.util.Collections;
@@ -86,7 +85,7 @@ public class SpectatorScanTest {
 		donkey.setTamed(true);
 		donkey.setChest(true);
 		((AbstractHorseAccessor) donkey).botania_createInventory();
-		var donkeyInventory = ((AbstractHorseAccessor) donkey).getInventory();
+		var donkeyInventory = ((AbstractHorseAccessor) donkey).botania_getInventory();
 		donkeyInventory.setItem(3, new ItemStack(Items.COAL));
 		donkeyInventory.setItem(4, new ItemStack(Items.IRON_INGOT));
 
@@ -111,8 +110,7 @@ public class SpectatorScanTest {
 
 		// ensure loot content has not been rolled
 		TestingUtil.assertThat(lootChestCart.getLootTable() != null, () -> "Chest loot was rolled");
-		TestingUtil.assertThat(((RandomizableContainerBlockEntityAccessor) lootChest).getLootTable() != null,
-				() -> "Chest loot was rolled");
+		TestingUtil.assertThat(lootChest.getLootTable() != null, () -> "Chest loot was rolled");
 
 		// check that exactly the relevant positions have been found
 		List<BlockPos> blocks = spectatorStack.getOrDefault(BotaniaDataComponents.SPECTATOR_HIGHLIGHT_BLOCKS, Collections.emptyList());

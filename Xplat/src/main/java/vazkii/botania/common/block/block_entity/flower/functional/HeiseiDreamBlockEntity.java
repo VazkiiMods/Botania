@@ -76,13 +76,13 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 			entity.setTarget(null);
 
 			// Move any HurtByTargetGoal to highest priority
-			GoalSelector targetSelector = ((MobAccessor) entity).getTargetSelector();
+			GoalSelector targetSelector = ((MobAccessor) entity).botania_getTargetSelector();
 			for (WrappedGoal entry : targetSelector.getAvailableGoals()) {
 				if (entry.getGoal() instanceof HurtByTargetGoal goal) {
 					// Remove all ignorals. We can't actually resize or overwrite
 					// the array, but we can fill it with classes that will never pass
 					// the game logic's checks.
-					var ignoreClasses = ((HurtByTargetGoalAccessor) goal).getIgnoreDamageClasses();
+					var ignoreClasses = ((HurtByTargetGoalAccessor) goal).botania_getToIgnoreDamage();
 					Arrays.fill(ignoreClasses, Void.TYPE);
 
 					// Concurrent modification OK since we break out of the loop

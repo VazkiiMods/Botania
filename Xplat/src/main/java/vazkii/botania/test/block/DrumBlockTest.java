@@ -80,7 +80,7 @@ public class DrumBlockTest {
 		var cow = setup(helper, EntityType.MOOSHROOM, Items.BOWL);
 		cow.setVariant(MushroomCow.MushroomType.BROWN);
 		var cowAccessor = (MushroomCowAccessor) cow;
-		cowAccessor.setStewEffects(new SuspiciousStewEffects(List.of(new SuspiciousStewEffects.Entry(MobEffects.BLINDNESS, 15))));
+		cowAccessor.botania_setStewEffects(new SuspiciousStewEffects(List.of(new SuspiciousStewEffects.Entry(MobEffects.BLINDNESS, 15))));
 		helper.startSequence()
 				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.SUSPICIOUS_STEW, POSITION_MOB, 1.0))

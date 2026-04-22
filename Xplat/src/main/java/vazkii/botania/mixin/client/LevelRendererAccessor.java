@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(LevelRenderer.class)
 public interface LevelRendererAccessor {
 	@Invoker("renderShape")
-	static void renderShape(PoseStack poseStack, VertexConsumer vertexConsumer, VoxelShape voxelShape, double offsetX, double offsetY, double offsetZ, float r, float g, float b, float a) {
+	static void botania_renderShape(PoseStack poseStack, VertexConsumer vertexConsumer, VoxelShape voxelShape, double offsetX, double offsetY, double offsetZ, float r, float g, float b, float a) {
 		throw new IllegalStateException();
 	}
 }

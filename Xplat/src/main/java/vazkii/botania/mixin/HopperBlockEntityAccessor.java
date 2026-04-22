@@ -20,12 +20,12 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(HopperBlockEntity.class)
 public interface HopperBlockEntityAccessor {
 	@Invoker("canPlaceItemInContainer")
-	static boolean botania_canInsert(Container to, ItemStack stack, int slot, @Nullable Direction direction) {
+	static boolean botania_canPlaceItemInContainer(Container container, ItemStack stack, int slot, @Nullable Direction direction) {
 		throw new IllegalStateException("");
 	}
 
 	@Invoker("canMergeItems")
-	static boolean botania_canMerge(ItemStack a, ItemStack b) {
+	static boolean botania_canMergeItems(ItemStack a, ItemStack b) {
 		throw new IllegalStateException("");
 	}
 }

@@ -141,7 +141,7 @@ public class DrumOfTheGatheringBlock extends DrumBlock {
 
 	private static void fillBowlSuspiciously(MushroomCow mushroomCow) {
 		MushroomCowAccessor mushroomCowAccessor = (MushroomCowAccessor) mushroomCow;
-		var stewEffects = mushroomCowAccessor.getStewEffects();
+		var stewEffects = mushroomCowAccessor.botania_getStewEffects();
 		if (stewEffects == null) {
 			return;
 		}
@@ -152,7 +152,7 @@ public class DrumOfTheGatheringBlock extends DrumBlock {
 		for (ItemEntity bowlItemEntity : bowlItemEntities) {
 			ItemStack bowlItem = bowlItemEntity.getItem();
 			ItemStack stewItem = new ItemStack(Items.SUSPICIOUS_STEW);
-			stewItem.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, mushroomCowAccessor.getStewEffects());
+			stewItem.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, mushroomCowAccessor.botania_getStewEffects());
 			spawnItem(mushroomCow, stewItem);
 
 			EntityHelper.shrinkItem(bowlItemEntity);
@@ -161,7 +161,7 @@ public class DrumOfTheGatheringBlock extends DrumBlock {
 			}
 
 			// only one suspicious stew per flower fed
-			mushroomCowAccessor.setStewEffects(null);
+			mushroomCowAccessor.botania_setStewEffects(null);
 			break;
 		}
 	}

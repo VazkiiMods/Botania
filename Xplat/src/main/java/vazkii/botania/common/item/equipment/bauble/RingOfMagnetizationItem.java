@@ -94,7 +94,7 @@ public class RingOfMagnetizationItem extends BaubleItem {
 	}
 
 	private static boolean canPullItem(ItemEntity item) {
-		int pickupDelay = ((ItemEntityAccessor) item).getPickupDelay();
+		int pickupDelay = ((ItemEntityAccessor) item).botania_getPickupDelay();
 		if (!item.isAlive() || pickupDelay >= 40
 				|| BotaniaAPI.instance().hasSolegnoliaAround(item)
 				|| XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {

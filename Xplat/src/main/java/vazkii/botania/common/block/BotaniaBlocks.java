@@ -52,7 +52,6 @@ import vazkii.botania.common.item.block.ColoredBlockItem;
 import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.mixin.DispenserBlockAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
@@ -1749,7 +1748,7 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkMaster, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkCreative, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior(BotaniaItems.enderAirBottle));
-		behavior = DispenserBlockAccessor.getDispenserRegistry().get(Items.GLASS_BOTTLE);
+		behavior = DispenserBlock.DISPENSER_REGISTRY.get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
 
 		behavior = new GrassSeedsBehavior();

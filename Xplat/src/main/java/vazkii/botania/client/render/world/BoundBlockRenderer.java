@@ -141,6 +141,6 @@ public final class BoundBlockRenderer {
 		float r = ((color >> 16) & 0xFF) / 255.0F;
 		float g = ((color >> 8) & 0xFF) / 255.0F;
 		float b = (color & 0xFF) / 255.F;
-		LevelRendererAccessor.renderShape(pose, buffer, shape, 0.0, 0.0, 0.0, r, g, b, a);
+		LevelRendererAccessor.botania_renderShape(pose, buffer, shape, 0.0, 0.0, 0.0, r, g, b, a);
 	}
 }

@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(MushroomCow.class)
 public interface MushroomCowAccessor {
-	@Accessor
 	@Nullable
-	SuspiciousStewEffects getStewEffects();
+	@Accessor("stewEffects")
+	SuspiciousStewEffects botania_getStewEffects();
 
-	@Accessor
-	void setStewEffects(@Nullable SuspiciousStewEffects stewEffects);
+	@Accessor("stewEffects")
+	void botania_setStewEffects(@Nullable SuspiciousStewEffects stewEffects);
 }

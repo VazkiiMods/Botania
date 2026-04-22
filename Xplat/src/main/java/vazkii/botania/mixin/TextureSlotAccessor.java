@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(TextureSlot.class)
 public interface TextureSlotAccessor {
 	@Invoker("create")
-	static TextureSlot make(String name) {
+	static TextureSlot botania_create(String name) {
 		throw new IllegalStateException("");
 	}
 }

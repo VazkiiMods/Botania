@@ -17,5 +17,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(RecipeBookComponent.class)
 public interface RecipeBookComponentAccessor {
 	@Accessor("recipeBookPage")
-	RecipeBookPage getRecipesArea();
+	RecipeBookPage botania_getRecipeBookPage();
 }

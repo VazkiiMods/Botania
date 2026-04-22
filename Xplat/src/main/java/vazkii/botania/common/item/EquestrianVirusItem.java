@@ -45,7 +45,7 @@ public class EquestrianVirusItem extends Item {
 				return InteractionResult.SUCCESS;
 			}
 			if (horse.isTamed()) {
-				SimpleContainer inv = ((AbstractHorseAccessor) horse).getInventory();
+				SimpleContainer inv = ((AbstractHorseAccessor) horse).botania_getInventory();
 				ItemStack saddle = inv.getItem(0);
 
 				// Not all AbstractHorse's have saddles in slot 0
@@ -70,7 +70,7 @@ public class EquestrianVirusItem extends Item {
 
 				// Put the saddle back
 				if (!saddle.isEmpty()) {
-					SimpleContainer newInv = ((AbstractHorseAccessor) newHorse).getInventory();
+					SimpleContainer newInv = ((AbstractHorseAccessor) newHorse).botania_getInventory();
 					newInv.setItem(0, saddle);
 				}
 

@@ -16,5 +16,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(Creeper.class)
 public interface CreeperAccessor {
 	@Accessor("swell")
-	void setCurrentFuseTime(int time);
+	void botania_setSwell(int swell);
 }

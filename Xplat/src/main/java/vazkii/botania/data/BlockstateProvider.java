@@ -169,7 +169,7 @@ public class BlockstateProvider implements DataProvider {
 				new TextureMapping()
 						.put(TextureSlot.SIDE, corpSlabSide).put(TextureSlot.BOTTOM, corpBlock).put(TextureSlot.TOP, corpBlock),
 				this.modelOutput);
-		blockstates.add(BlockModelGeneratorsAccessor.makeSlabState(corporeaSlab, corpSlabBottomModel, corpSlabTopModel, corpSlabDoubleModel));
+		blockstates.add(BlockModelGeneratorsAccessor.botania_createSlab(corporeaSlab, corpSlabBottomModel, corpSlabTopModel, corpSlabDoubleModel));
 		remainingBlocks.remove(corporeaSlab);
 
 		stairsBlock(remainingBlocks, corporeaStairs, corpBlock, corpBlock, corpBlock);
@@ -199,7 +199,7 @@ public class BlockstateProvider implements DataProvider {
 				this.modelOutput
 		);
 		this.blockstates.add(MultiVariantGenerator.multiVariant(felPumpkin, Variant.variant().with(VariantProperties.MODEL, pumpkinModel))
-				.with(BlockModelGeneratorsAccessor.horizontalDispatch()));
+				.with(BlockModelGeneratorsAccessor.botania_createHorizontalFacingDispatch()));
 		remainingBlocks.remove(felPumpkin);
 
 		ModelTemplate eightByEightTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/eightbyeight")),
@@ -218,7 +218,7 @@ public class BlockstateProvider implements DataProvider {
 
 		var plateFile = getModelLocation(incensePlate);
 		this.blockstates.add(MultiVariantGenerator.multiVariant(incensePlate, Variant.variant().with(VariantProperties.MODEL, plateFile))
-				.with(BlockModelGeneratorsAccessor.horizontalDispatch()));
+				.with(BlockModelGeneratorsAccessor.botania_createHorizontalFacingDispatch()));
 		remainingBlocks.remove(incensePlate);
 
 		var fourHighBottomTopTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/four_high_bottom_top")),
@@ -421,8 +421,8 @@ public class BlockstateProvider implements DataProvider {
 					this.modelOutput));
 		});
 
-		var outsideSlot = TextureSlotAccessor.make("outside");
-		var coreSlot = TextureSlotAccessor.make("core");
+		var outsideSlot = TextureSlotAccessor.botania_create("outside");
+		var coreSlot = TextureSlotAccessor.botania_create("core");
 		var spreaderTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader")), Optional.empty(),
 				TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, outsideSlot);
 		var coveredSpreaderTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_covered")), Optional.empty(),
@@ -519,7 +519,7 @@ public class BlockstateProvider implements DataProvider {
 		});
 
 		takeAll(remainingBlocks, pump, tinyPotato).forEach(b -> this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, getModelLocation(b)))
-				.with(BlockModelGeneratorsAccessor.horizontalDispatch()))
+				.with(BlockModelGeneratorsAccessor.botania_createHorizontalFacingDispatch()))
 		);
 
 		takeAll(remainingBlocks, enderEye, manaDetector).forEach(b -> {
@@ -540,7 +540,7 @@ public class BlockstateProvider implements DataProvider {
 					.put(TextureSlot.TOP, getBlockTexture(b, "_top")),
 					this.modelOutput
 			);
-			this.blockstates.add(MultiVariantGenerator.multiVariant(b, BlockModelGeneratorsAccessor.createRotatedVariants(model)));
+			this.blockstates.add(MultiVariantGenerator.multiVariant(b, BlockModelGeneratorsAccessor.botania_createRotatedVariants(model)));
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof RedStringBlock).forEach(this::redStringBlock);
@@ -683,7 +683,7 @@ public class BlockstateProvider implements DataProvider {
 			var pillarModel = ModelTemplates.CUBE_COLUMN.create(pillar,
 					TextureMapping.column(getBlockTexture(pillar, "_side"), getBlockTexture(pillar, "_end")),
 					this.modelOutput);
-			this.blockstates.add(BlockModelGeneratorsAccessor.createAxisAlignedPillarBlock(pillar, pillarModel));
+			this.blockstates.add(BlockModelGeneratorsAccessor.botania_createAxisAlignedPillarBlock(pillar, pillarModel));
 
 			ResourceLocation bricksId = quartzId.withSuffix("_bricks");
 			Block bricks = BuiltInRegistries.BLOCK.get(bricksId);
@@ -1118,7 +1118,7 @@ public class BlockstateProvider implements DataProvider {
 		var mapping = TextureMapping.defaultTexture(tex);
 		var postModel = ModelTemplates.FENCE_POST.create(block, mapping, this.modelOutput);
 		var sideModel = ModelTemplates.FENCE_SIDE.create(block, mapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceState(block, postModel, sideModel));
+		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createFence(block, postModel, sideModel));
 		blocks.remove(block);
 	}
 
@@ -1128,7 +1128,7 @@ public class BlockstateProvider implements DataProvider {
 		var closedModel = ModelTemplates.FENCE_GATE_CLOSED.create(block, mapping, this.modelOutput);
 		var openWallModel = ModelTemplates.FENCE_GATE_WALL_OPEN.create(block, mapping, this.modelOutput);
 		var closedWallModel = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(block, mapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel, false));
+		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createFenceGate(block, openModel, closedModel, openWallModel, closedWallModel, false));
 		blocks.remove(block);
 	}
 
@@ -1142,7 +1142,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation topLeftOpenModel = ModelTemplates.DOOR_TOP_LEFT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
 		ResourceLocation topRightModel = ModelTemplates.DOOR_TOP_RIGHT.create(doorBlock, texturemapping, this.modelOutput);
 		ResourceLocation topRightOpenModel = ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.makeDoorState(doorBlock, bottomLeftModel, bottomLeftOpenModel, bottomRightModel, bottomRightOpenModel, topLeftModel, topLeftOpenModel, topRightModel, topRightOpenModel));
+		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createDoor(doorBlock, bottomLeftModel, bottomLeftOpenModel, bottomRightModel, bottomRightOpenModel, topLeftModel, topLeftOpenModel, topRightModel, topRightOpenModel));
 		blocks.remove(doorBlock);
 	}
 
@@ -1151,7 +1151,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation topModel = ModelTemplates.TRAPDOOR_TOP.create(trapdoorBlock, texturemapping, this.modelOutput);
 		ResourceLocation bottomModel = ModelTemplates.TRAPDOOR_BOTTOM.create(trapdoorBlock, texturemapping, this.modelOutput);
 		ResourceLocation openModel = ModelTemplates.TRAPDOOR_OPEN.create(trapdoorBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.makeTrapdoorState(trapdoorBlock, topModel, bottomModel, openModel));
+		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createTrapdoor(trapdoorBlock, topModel, bottomModel, openModel));
 		blocks.remove(trapdoorBlock);
 	}
 
@@ -1160,7 +1160,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation topModel = ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.create(trapdoorBlock, texturemapping, this.modelOutput);
 		ResourceLocation bottomModel = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.create(trapdoorBlock, texturemapping, this.modelOutput);
 		ResourceLocation openModel = ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.create(trapdoorBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.makeOrientableTrapdoorState(trapdoorBlock, topModel, bottomModel, openModel));
+		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createOrientableTrapdoor(trapdoorBlock, topModel, bottomModel, openModel));
 		blocks.remove(trapdoorBlock);
 	}
 
@@ -1186,7 +1186,7 @@ public class BlockstateProvider implements DataProvider {
 		TextureMapping texturemapping = TextureMapping.defaultTexture(blockTexture);
 		ResourceLocation unpoweredModel = ModelTemplates.BUTTON.create(buttonBlock, texturemapping, this.modelOutput);
 		ResourceLocation poweredModel = ModelTemplates.BUTTON_PRESSED.create(buttonBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.makeButtonState(buttonBlock, unpoweredModel, poweredModel));
+		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createButton(buttonBlock, unpoweredModel, poweredModel));
 		ModelTemplates.BUTTON_INVENTORY.create(buttonBlock, texturemapping, this.modelOutput);
 		blocks.remove(buttonBlock);
 	}
@@ -1195,7 +1195,7 @@ public class BlockstateProvider implements DataProvider {
 		TextureMapping texturemapping = TextureMapping.defaultTexture(blockTexture);
 		ResourceLocation unpoweredModel = ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlateBlock, texturemapping, this.modelOutput);
 		ResourceLocation poweredModel = ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlateBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.makePressurePlateState(pressurePlateBlock, unpoweredModel, poweredModel));
+		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createPreasurePlate(pressurePlateBlock, unpoweredModel, poweredModel));
 		blocks.remove(pressurePlateBlock);
 	}
 
@@ -1515,6 +1515,6 @@ public class BlockstateProvider implements DataProvider {
 				.put(TextureSlot.FRONT, front)
 				.put(TextureSlot.SIDE, selfName), this.modelOutput);
 		this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, model))
-				.with(BlockModelGeneratorsAccessor.facingDispatch()));
+				.with(BlockModelGeneratorsAccessor.botania_createFacingDispatch()));
 	}
 }

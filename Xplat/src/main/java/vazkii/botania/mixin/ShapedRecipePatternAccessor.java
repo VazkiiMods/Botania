@@ -20,5 +20,5 @@ import java.util.Optional;
 @Mixin(ShapedRecipePattern.class)
 public interface ShapedRecipePatternAccessor {
 	@Accessor("data")
-	Optional<ShapedRecipePattern.Data> getData();
+	Optional<ShapedRecipePattern.Data> botania_getData();
 }

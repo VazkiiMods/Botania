@@ -48,7 +48,6 @@ import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.AbstractHorseAccessor;
-import vazkii.botania.mixin.RandomizableContainerBlockEntityAccessor;
 
 import java.util.Collections;
 import java.util.List;
@@ -161,7 +160,7 @@ public class SpectatorItem extends BaubleItem {
 					}
 				}
 			} else if (e instanceof AbstractChestedHorse horse && horse.hasChest()) {
-				if (scanInventory(((AbstractHorseAccessor) horse).getInventory(), mainHandStack, offHandStack)) {
+				if (scanInventory(((AbstractHorseAccessor) horse).botania_getInventory(), mainHandStack, offHandStack)) {
 					entityIds.add(horse.getId());
 				}
 			} else if (e instanceof Allay allay && allay.hasItemInHand()) {
@@ -204,7 +203,7 @@ public class SpectatorItem extends BaubleItem {
 		}
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		return blockEntity instanceof Container inv && (!(blockEntity instanceof RandomizableContainerBlockEntity lootInv)
-				|| ((RandomizableContainerBlockEntityAccessor) lootInv).getLootTable() == null)
+				|| lootInv.getLootTable() == null)
 				&& scanInventory(inv, mainHandStack, offHandStack);
 	}
 

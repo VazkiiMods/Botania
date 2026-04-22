@@ -10,11 +10,13 @@
     "IDeathMessageProviderMixin"
   ],
   "client": [
-    "client.ModelBakeryForgeAccessor",
     "client.ParticleEngineNeoForgeMixin"
   ],
   "server": [],
   "injectors": {
     "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
   }
 }
