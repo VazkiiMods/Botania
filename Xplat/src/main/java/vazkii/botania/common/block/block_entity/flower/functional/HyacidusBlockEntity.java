@@ -44,7 +44,7 @@ public class HyacidusBlockEntity extends FunctionalFlowerBlockEntity {
 						&& !livingEntity.hasEffect(MobEffects.POISON));
 		boolean did = false;
 		for (LivingEntity entity : entities) {
-			if (entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, overgrowth ? 1 : 0))) {
+			if (entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0))) {
 				addMana(-COST);
 				did = true;
 				if (getMana() < COST) {

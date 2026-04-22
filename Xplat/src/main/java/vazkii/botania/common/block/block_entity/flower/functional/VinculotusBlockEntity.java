@@ -40,11 +40,6 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
-	}
-
-	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Circle(getEffectivePos(), RANGE);
 	}

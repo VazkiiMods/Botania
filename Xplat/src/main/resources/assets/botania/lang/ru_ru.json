@@ -1188,7 +1188,6 @@
   "block.botania.red_string_interceptor": "Перехватчик связанной судьбы",
   "block.botania.mana_flame": "Мана-огонёк",
   "block.botania.prism": "Призма маны",
-  "block.botania.enchanted_soil": "Зачарованная почва",
   "block.botania.metamorphic_forest_stone": "Фуксит",
   "block.botania.metamorphic_plains_stone": "Тальк",
   "block.botania.metamorphic_mountain_stone": "Гнейс",
@@ -1928,7 +1927,6 @@
   "item.botania.spell_cloth": "Ткань снятия чар",
   "item.botania.thorn_chakram": "Шипастый чакрам",
   "item.botania.flare_chakram": "Пылающий чакрам",
-  "item.botania.overgrowth_seed": "Семя разрастания",
   "item.botania.pattern_1_1": "Шаблон создания «№1 — 1x1»",
   "item.botania.pattern_2_2": "Шаблон создания «№2 — 2x2»",
   "item.botania.pattern_1_2": "Шаблон создания «№3 —1x2»",
@@ -3407,11 +3405,6 @@
   "botania.tagline.fireChakram": "Горящий шипастый чакрам",
   "botania.page.fireChakram0": "$(item)Огненный порошок$(0) и $(l:alfhomancy/elf_resources)пыльца феи$(/l) превращают опасный $(l:tools/thorn_chakram)шипастый чакрам$(/l) в огненное оружие. $(item)Пылающий чакрам$(0) ничем не отличается от шипастого, кроме того, что поджигает жертв, а не отравляет. В конце концов, из одних только растений бекон не приготовишь, не так ли?",
   "botania.page.fireChakram1": "$(o)Давай зажжём$()",
-
-  "botania.entry.overgrowthSeed": "Семя разрастания",
-  "botania.tagline.overgrowthSeed": "Таинственный предмет, ускоряющий работу цветов",
-  "botania.page.overgrowthSeed0": "$(item)Семя разрастания$(0) — мистический предмет, способный зачаровать $(item)дёрн$(0), если посадить его в почву (на [$(k:use)] по $(item)дёрну$(0)). Цветы, посаженные на $(item)зачарованной почве$(0), работают в два раза быстрее от нормальной скорости.",
-  "botania.page.overgrowthSeed1": "Однако, есть одна проблема. $(p)Не существует известного способа создания семян. Однако их, по слухам, находили искатели сокровищ в древних сооружениях и храмах. Возможно, стоит начать поиски оттуда.",
 
   "botania.entry.livingwoodBow": "Жизнедеревянный лук",
   "botania.tagline.livingwoodBow": "Мощный лук, что может саморемонтироваться за ману",

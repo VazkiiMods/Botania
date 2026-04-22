@@ -87,7 +87,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 					ticksRemaining[positionAt] = recipe.getTime();
 				}
 
-				ticksRemaining[positionAt] -= getOvergrowthFactor();
+				ticksRemaining[positionAt]--;
 
 				if (ticksRemaining[positionAt] <= 0) {
 					ticksRemaining[positionAt] = -1;

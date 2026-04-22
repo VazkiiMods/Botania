@@ -1188,7 +1188,6 @@
   "block.botania.red_string_interceptor": "Червоний струнний перехоплювач",
   "block.botania.mana_flame": "Спалах мани",
   "block.botania.prism": "Призма мани",
-  "block.botania.enchanted_soil": "Зачарований ґрунт",
   "block.botania.metamorphic_forest_stone": "Фуксит",
   "block.botania.metamorphic_plains_stone": "Тальк",
   "block.botania.metamorphic_mountain_stone": "Гнеїс",
@@ -1928,7 +1927,6 @@
   "item.botania.spell_cloth": "Чарівна тканина",
   "item.botania.thorn_chakram": "Терновий чакрам",
   "item.botania.flare_chakram": "Палючий чакрам",
-  "item.botania.overgrowth_seed": "Насіння розростання",
   "item.botania.pattern_1_1": "Створення візерунка #1: 1x1",
   "item.botania.pattern_2_2": "Створення візерунка #2: 2x2",
   "item.botania.pattern_1_2": "Створення візерунка #3: 1x2",
@@ -3407,11 +3405,6 @@
   "botania.tagline.fireChakram": "Палючий терновий чакрам",
   "botania.page.fireChakram0": "$(item)Порошок пломеня$(0) і $(l:alfhomancy/elf_resources)$(item)Пилок феї$(0)$(/l), якщо нанести на $(l:tools/thorn_chakram)$(item)Терновий чакрам$(0)$(/l), перетворить вже потужну зброю на $(item)Палючий чакрам$(0).$(p)$(item)Палючий чакрам$(0) працює майже так само як оригінальний $(l:tools/thorn_chakram)$(item)Терновий чакрам$(0)$(/l), за винятком того, що він також підпалює мобів. Зрештою, ви не можете зробити бекон лише з рослинного матеріалу, чи не так?",
   "botania.page.fireChakram1": "Ця штука - вогонь!",
-
-  "botania.entry.overgrowthSeed": "Насіння розростання",
-  "botania.tagline.overgrowthSeed": "Невловимий предмет, який живить квіти",
-  "botania.page.overgrowthSeed0": "$(item)Насіння розростання$(0) — це невловимий предмет, який, посадивши на $(item)Траву$(0), перетворює її на $(item)Зачарований ґрунт$(0). Квіти, висаджені на цьому $(item)Ґрунті$(0), функціонуватимуть із подвійною швидкістю.",
-  "botania.page.overgrowthSeed1": "На жаль, невідомо жодного способу створення цього невловимого насіння. Однак історики нібито помітили їх у стародавніх спорудах і храмах. Можливо...?",
 
   "botania.entry.livingwoodBow": "Лук з життєдрева",
   "botania.tagline.livingwoodBow": "Сильніший лук, який відновлюється за допомогою мани",

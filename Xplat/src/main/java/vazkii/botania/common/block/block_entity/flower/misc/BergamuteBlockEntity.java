@@ -60,12 +60,6 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 		}
 	}
 
-	@Override
-	public boolean isOvergrowthAffected() {
-		// no point double ticking
-		return false;
-	}
-
 	public static Pair<Integer, BergamuteBlockEntity> getBergamutesNearby(Level level, double x, double y, double z, int maxCount) {
 		int count = 0;
 		BergamuteBlockEntity tile = null;
@@ -75,7 +69,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 				if (count == 0 || level.random.nextInt(count) == 0) {
 					tile = f;
 				}
-				count += f.getOvergrowthFactor();
+				count++;
 				if (count >= maxCount) {
 					break;
 				}

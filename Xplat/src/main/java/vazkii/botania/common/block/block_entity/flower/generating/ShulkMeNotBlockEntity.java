@@ -88,11 +88,6 @@ public class ShulkMeNotBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
-	}
-
-	@Override
 	public int getColor() {
 		return 0x815598;
 	}

@@ -83,11 +83,6 @@ public class TangleberrieBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
-	}
-
-	@Override
 	protected int getUpdateInterval() {
 		return 4;
 	}

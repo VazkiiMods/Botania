@@ -1188,7 +1188,6 @@
   "block.botania.red_string_interceptor": "Rood Gestreepte Onderschepper",
   "block.botania.mana_flame": "Mana Flits",
   "block.botania.prism": "Mana Prisma",
-  "block.botania.enchanted_soil": "Betoverde Grond",
   "block.botania.metamorphic_forest_stone": "Veranderlijke Woudsteen",
   "block.botania.metamorphic_plains_stone": "Veranderlijke Veldsteen",
   "block.botania.metamorphic_mountain_stone": "Veranderlijke Bergsteen",
@@ -1928,7 +1927,6 @@
   "item.botania.spell_cloth": "Betoveringsdoek",
   "item.botania.thorn_chakram": "Doorn van Chakram",
   "item.botania.flare_chakram": "Vlam van Chakram",
-  "item.botania.overgrowth_seed": "Overwoekeringszaad",
   "item.botania.pattern_1_1": "Vervaardigingspatroon #1: 1x1",
   "item.botania.pattern_2_2": "Vervaardigingspatroon #2: 2x2",
   "item.botania.pattern_1_2": "Vervaardigingspatroon #3: 1x2",
@@ -3407,11 +3405,6 @@
   "botania.tagline.fireChakram": "Een brandende Doorn van Chakram",
   "botania.page.fireChakram0": "Een beetje $(item)Blazepoeder$(0) en $(item)Sterrenstof$(0) doet wonderen op een $(item)Doorn van Chakram$(0). Deze combinatie verandert het op zich al krachtige wapen in een $(item)Vlam van Chakram$(0).$(p)De $(item)Vlam van Chakram$(0) werkt precies hetzelfde als de $(item)Doorn van Chakram$(0), het enige verschil is dat het levende wezens die het aanraakt in brand zet. Zeg nou zelf, je kunt niet barbecuen met enkel wat doornen, of wel?",
   "botania.page.fireChakram1": "Als een lopend vuurtje",
-
-  "botania.entry.overgrowthSeed": "Overwoekeringszaad",
-  "botania.tagline.overgrowthSeed": "Zeldzame zaden om bloemen te versterken en in leven te houden",
-  "botania.page.overgrowthSeed0": "Een $(item)Overwoekeringszaad$(0) is een ongrijpbaar voorwerp, dat $(item)Gras$(0) kan betoveren middels een rechts-klik erop in de wereld. Er ontstaat dan $(item)Betoverde Grond$(0), wat de eigenschap heeft dat alle bloemen die erop groeien tweemaal zo snel werken als normaal.",
-  "botania.page.overgrowthSeed1": "Er is slechts een probleem. Het is niet bekend hoe het gemaakt kan worden, maar het is gezien in oude bouwwerken en dergelijke.",
 
   "botania.entry.livingwoodBow": "Levenshouten Boog",
   "botania.tagline.livingwoodBow": "Een sterkere boog die herstelt met Mana",

@@ -70,9 +70,9 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 		boolean wasBurning = burnTime > 0;
 		boolean onCooldown = cooldownTime > 0;
 		if (onCooldown) {
-			cooldownTime -= getOvergrowthFactor();
+			cooldownTime--;
 		} else if (wasBurning) {
-			burnTime -= getOvergrowthFactor();
+			burnTime--;
 			if (burnTime <= 0) {
 				cooldownTime = COOLDOWN_TIME;
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());

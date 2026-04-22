@@ -66,11 +66,6 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 		}
 	}
 
-	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
-	}
-
 	/**
 	 * Finds items around flower's actual position.
 	 */

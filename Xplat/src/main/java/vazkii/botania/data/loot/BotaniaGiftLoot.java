@@ -37,7 +37,7 @@ public class BotaniaGiftLoot implements LootTableSubProvider {
 		output.accept(BotaniaLootTables.getDiceRollTable(2), LootTable.lootTable()
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.lifeEssence)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)))))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.overgrowthSeed)))
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.pinkinator)))
 		);
 
 		output.accept(BotaniaLootTables.getDiceRollTable(3), LootTable.lootTable()

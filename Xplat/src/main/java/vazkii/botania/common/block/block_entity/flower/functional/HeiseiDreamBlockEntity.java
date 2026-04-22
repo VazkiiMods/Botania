@@ -58,11 +58,6 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 	}
 
-	@Override
-	public boolean isOvergrowthAffected() {
-		return false;
-	}
-
 	public static boolean brainwashEntity(Mob entity, List<Mob> mobs) {
 		LivingEntity target = entity.getTarget();
 		boolean did = false;

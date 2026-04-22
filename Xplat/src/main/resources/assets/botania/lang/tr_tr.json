@@ -1188,7 +1188,6 @@
   "block.botania.red_string_interceptor": "Kırmızı İpli Engelleyici",
   "block.botania.mana_flame": "Mana Parıltısı",
   "block.botania.prism": "Mana Prizması",
-  "block.botania.enchanted_soil": "Büyülü Toprak",
   "block.botania.metamorphic_forest_stone": "Fuksit",
   "block.botania.metamorphic_plains_stone": "Talk",
   "block.botania.metamorphic_mountain_stone": "Gnays",
@@ -1928,7 +1927,6 @@
   "item.botania.spell_cloth": "Büyüleyici Kumaş",
   "item.botania.thorn_chakram": "Diken Çakramı",
   "item.botania.flare_chakram": "Alev Çakramı",
-  "item.botania.overgrowth_seed": "Aşırı Büyüme Tohumu",
   "item.botania.pattern_1_1": "Üretim Deseni #1: 1x1",
   "item.botania.pattern_2_2": "Üretim Deseni #2: 2x2",
   "item.botania.pattern_1_2": "Üretim Deseni #3: 1x2",
@@ -2355,11 +2353,6 @@
   "botania.category.alfhomancy": "Alfheim Büyüsü",
 
   "botania.category.misc": "Çeşitli"
-
-
-
-
-
 
 
 

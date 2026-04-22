@@ -73,36 +73,6 @@
       "conditions": [
         {
           "condition": "minecraft:killed_by_player"
-        },
-        {
-          "chance": 0.25,
-          "condition": "minecraft:random_chance"
-        }
-      ],
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "botania:overgrowth_seed"
-        }
-      ],
-      "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
         }
       ],
       "entries": [
@@ -139,7 +109,7 @@
           "condition": "minecraft:killed_by_player"
         },
         {
-          "chance": 0.2,
+          "chance": 0.1,
           "condition": "minecraft:random_chance"
         }
       ],

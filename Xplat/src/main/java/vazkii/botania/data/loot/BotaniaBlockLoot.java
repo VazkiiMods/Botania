@@ -70,7 +70,6 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 
 		// Redirects
 		specialCases.put(BotaniaBlocks.cacophonium, createSingleItemTable(Blocks.NOTE_BLOCK));
-		specialCases.put(BotaniaBlocks.enchantedSoil, createSingleItemTable(Blocks.DIRT));
 		specialCases.put(BotaniaBlocks.enchanter, createSingleItemTable(Blocks.LAPIS_BLOCK));
 
 		// Special

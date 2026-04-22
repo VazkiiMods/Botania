@@ -185,13 +185,6 @@ public class BlockstateProvider implements DataProvider {
 				.toArray(Variant[]::new)));
 		remainingBlocks.remove(elfGlass);
 
-		singleVariantBlockState(enchantedSoil, ModelTemplates.CUBE_BOTTOM_TOP.create(
-				enchantedSoil,
-				TextureMapping.cubeBottomTop(enchantedSoil).put(TextureSlot.BOTTOM, getBlockTexture(Blocks.DIRT)),
-				this.modelOutput
-		));
-		remainingBlocks.remove(enchantedSoil);
-
 		var pumpkinModel = ModelTemplates.CUBE_ORIENTABLE.create(felPumpkin, new TextureMapping()
 				.put(TextureSlot.SIDE, getBlockTexture(Blocks.PUMPKIN, "_side"))
 				.put(TextureSlot.FRONT, getBlockTexture(felPumpkin))

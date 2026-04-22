@@ -1212,7 +1212,6 @@
 
 
 
-
   "block.botania.chiseled_metamorphic_forest_bricks": "Chiselled Fuchsite Bricks",
   "block.botania.chiseled_metamorphic_plains_bricks": "Chiselled Talc Bricks",
   "block.botania.chiseled_metamorphic_mountain_bricks": "Chiselled Gneiss Bricks",
@@ -1851,7 +1850,6 @@
 
 
   "item.botania.magnet_ring": "Ring of Magnetisation",
-
 
 
 
@@ -3391,11 +3389,6 @@
 
 
   "botania.page.worldSeed0": "$(item)World Seeds$(0) are energised pieces of elemental matter with the ability to return their user to the world's spawn point.$(p)If its user is 24 or more blocks from the world's spawnpoint, a right-click with one held will instantly teleport them to that location, consuming the seed in the process.",
-
-
-
-
-
 
 
 

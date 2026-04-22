@@ -88,12 +88,6 @@ public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 		return 4;
 	}
 
-	@Override
-	public boolean isOvergrowthAffected() {
-		// no point double ticking, ever
-		return false;
-	}
-
 	@Nullable
 	@Override
 	public RadiusDescriptor getRadius() {

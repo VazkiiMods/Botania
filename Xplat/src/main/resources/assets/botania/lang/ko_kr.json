@@ -1188,7 +1188,6 @@
   "block.botania.red_string_interceptor": "붉은 실 인터셉터",
   "block.botania.mana_flame": "마나 불꽃",
   "block.botania.prism": "마나 프리즘",
-  "block.botania.enchanted_soil": "마법의 토양",
   "block.botania.metamorphic_forest_stone": "크롬운모",
   "block.botania.metamorphic_plains_stone": "활석",
   "block.botania.metamorphic_mountain_stone": "편마암",
@@ -1928,7 +1927,6 @@
   "item.botania.spell_cloth": "주문결합 옷감",
   "item.botania.thorn_chakram": "가시 차크람",
   "item.botania.flare_chakram": "화염 차크람",
-  "item.botania.overgrowth_seed": "과성장 씨앗",
   "item.botania.pattern_1_1": "제작 패턴 #1: 1x1",
   "item.botania.pattern_2_2": "제작 패턴 #2: 2x2",
   "item.botania.pattern_1_2": "제작 패턴 #3: 1x2",
@@ -3407,11 +3405,6 @@
   "botania.tagline.fireChakram": "불타는 가시 차크람",
   "botania.page.fireChakram0": "$(item)블레이즈 가루$(0)와 $(l:alfhomancy/elf_resources)$(item)요정 가루$(0)$(/l)를 $(l:tools/thorn_chakram)$(item)가시 차크람$(0)$(/l)에 적용하면 이미 강력한 무기를 $(item)화염 차크람$(0)으로 변환합니다.$(p)$(item)화염 차크람$(0)은 원래의 $(l:tools/thorn_chakram)$(item)가시 차크람$(0)$(/l)과 거의 동일하게 작동하지만 몹에게 불을 붙입니다. 결국, 채소로는 베이컨을 만들 수 없으니까요.",
   "botania.page.fireChakram1": "아주 뜨거운",
-
-  "botania.entry.overgrowthSeed": "성장씨앗",
-  "botania.tagline.overgrowthSeed": "꽃을 강화하는 특별한 물건",
-  "botania.page.overgrowthSeed0": "$(item)성장씨앗$(0)은 $(item)잔디$(0)에 심으면 그것을 $(item)마법 흙$(0)으로 변환시키는 특별한 아이템입니다. 이 $(item)마법 흙$(0) 위에 심은 꽃들은 일반 속도의 두 배로 작동합니다.",
-  "botania.page.overgrowthSeed1": "불행히도, 이 돌기 힘든 씨앗을 만드는 실질적인 방법은 알려져 있지 않습니다. 그러나 이 씨앗이 고대 구조물과 사원에서 역사학자들에 의해 발견되었다는 주장도 있습니다. 어쩌면...?",
 
   "botania.entry.livingwoodBow": "생명의 나무 활",
   "botania.tagline.livingwoodBow": "마나를 사용하여 자가 회복하는 강력한 활",

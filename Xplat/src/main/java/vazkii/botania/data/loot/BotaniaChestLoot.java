@@ -31,24 +31,21 @@ public class BotaniaChestLoot implements LootTableSubProvider {
 		output.accept(BotaniaLootTables.INJECTED_CHEST_ABANDONED_MINESHAFT, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
 						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(35))
-						.add(LootItem.lootTableItem(BotaniaItems.overgrowthSeed).setWeight(5))
-						.add(EmptyLootItem.emptyItem().setWeight(60))
+						.add(EmptyLootItem.emptyItem().setWeight(65))
 				)
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_DESERT_PYRAMID, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
 						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(35))
-						.add(LootItem.lootTableItem(BotaniaItems.overgrowthSeed).setWeight(5))
-						.add(EmptyLootItem.emptyItem().setWeight(60))
+						.add(EmptyLootItem.emptyItem().setWeight(65))
 				)
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_JUNGLE_TEMPLE, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
 						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(25))
-						.add(LootItem.lootTableItem(BotaniaItems.overgrowthSeed).setWeight(5))
-						.add(EmptyLootItem.emptyItem().setWeight(70))
+						.add(EmptyLootItem.emptyItem().setWeight(75))
 				)
 		);
 
@@ -60,8 +57,7 @@ public class BotaniaChestLoot implements LootTableSubProvider {
 						.add(LootItem.lootTableItem(BotaniaItems.lexicon).setWeight(20))
 						.add(LootItem.lootTableItem(BotaniaItems.manaBottle).setWeight(10))
 						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(5))
-						.add(LootItem.lootTableItem(BotaniaItems.overgrowthSeed).setWeight(2))
-						.add(EmptyLootItem.emptyItem().setWeight(38))
+						.add(EmptyLootItem.emptyItem().setWeight(40))
 				)
 		);
 
@@ -79,8 +75,7 @@ public class BotaniaChestLoot implements LootTableSubProvider {
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3)))
 						)
 						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(10))
-						.add(LootItem.lootTableItem(BotaniaItems.overgrowthSeed).setWeight(5))
-						.add(EmptyLootItem.emptyItem().setWeight(40))
+						.add(EmptyLootItem.emptyItem().setWeight(45))
 				)
 		);
 
