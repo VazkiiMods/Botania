@@ -31,6 +31,7 @@ loom {
         configureEach {
             runDir "../run"
             ideConfigGenerated(true)
+            vmArg "-Dfabric-tag-conventions-v2.missingTagTranslationWarning=VERBOSE"
         }
     }
 
