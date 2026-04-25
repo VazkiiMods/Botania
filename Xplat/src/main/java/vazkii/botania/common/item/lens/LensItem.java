@@ -59,7 +59,6 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		if (isRainbow || lensColor != null) {
 
 			var colorName = Component.translatable(isRainbow ? "botania.color.rainbow" : "color.minecraft." + lensColor.getName());
-			// TODO: can't do rainbow without level reference anymore
 			TextColor realColor = TextColor.fromRgb(getLensColor(stack, null));
 			stacks.add(Component.translatable("botaniamisc.color", colorName).withStyle(s -> s.withColor(realColor)));
 		}
@@ -123,10 +122,13 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 	@Override
 	public int getLensColor(ItemStack stack, @UnknownNullability Level level) {
 		if (isLensRainbow(stack)) {
-			if (level == null) {
-				return 0xFFFFFF;
-			}
-			return Mth.hsvToRgb(level.getGameTime() * 2 % 360 / 360F, 1F, 1F);
+			//noinspection IntegerDivisionInFloatingPointContext
+			return Mth.hsvToRgb(
+					(level == null
+							? System.currentTimeMillis() / 40
+							: level.getGameTime() * 2) % 360 / 360F,
+					1,
+					1);
 		}
 
 		DyeColor lensColor = getLensColor(stack);
