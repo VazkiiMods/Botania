@@ -5,7 +5,7 @@
   "_comment3": "Untranslated entries will automatically be inherited from this file.",
   "_comment4": "Once again, don't copy from English, and THANK YOU for your hard work!",
 
-  "itemGroup.botania": "Botania",
+
   "botania.landing": "Магія, техніка. Природно.$(br2)Botania — це технічний мод, присвячений магії природи. Основна ідея полягає у створенні магічних квітів і пристроїв, використовуючи силу землі у формі $(thing)Мани$().",
   "botania.desc": "Магія, техніка. Природно",
 
@@ -15,12 +15,15 @@
   "stat.botania.tiny_potatoes_petted": "Крихітна картопля в мундирах",
   "stat.botania.luminizer_one_cm": "Відстань за допомогою люмінайзера",
 
+
+
+
   "botaniamisc.color": "%s Тонований",
   "botaniamisc.manaUsage": "Використання мани",
   "botaniamisc.flareColor": "%s Раундів",
   "botaniamisc.outputtingPower": "Віддавати ману предметам",
   "botaniamisc.inputtingPower": "Отримувати ману від предметів",
-  "botaniamisc.creative": "Creative",
+
   "botaniamisc.invFull": "Ваш інвентар повний.",
   "botaniamisc.composite_lens": "Складено з %s",
   "botaniamisc.filter.items_in_frames": "Підбирати лише предмети в рамках",
@@ -29,6 +32,7 @@
   "botaniamisc.retainer.retain_all": "Зберігати оригінальну кількість запитаних предметів",
   "botaniamisc.retainer.retain_missing": "Зберігати кількість відсутніх предметів",
   "botaniamisc.optifine_warning": "§4[WARNING]§r <Botania>: Optifine detected. Виявлено Optifine. Будь ласка, зверніть увагу, що Optifine спричиняє багато проблем з Botania, і ви можете стикнутися з проблемами, такими як мана не переміщується між квітами та розсіювачами, та відсутність інформації, коли ви тримаєте жезл і дивитеся на мана-басейн або розсіювач. Ми рекомендуємо Sodium як альтернативу для покращення продуктивності Optifine.",
+
 
   "botaniamisc.creativePool0": "Креативний басейн мани містить нескінченну ману",
   "botaniamisc.creativePool1": "Гідно егоїста",
@@ -52,6 +56,8 @@
   "botaniamisc.wandMode.bind": "Режим прив'язки",
   "botaniamisc.wandMode.function": "Функціональний режим",
   "botaniamisc.sextantMode.circle": "Режим кола",
+
+
   "botaniamisc.sextantMode.sphere": "Режим сфери",
   "botaniamisc.brewOf": "Вариво %s",
   "botaniamisc.needsCatalysts": "Як би ви не намагалися штовхнути злиток у Маяк, здається, нічого не відбувається. Можливо, ваша конфігурація пілонів каталізатора вимкнена.",
@@ -59,6 +65,7 @@
   "botaniamisc.notInfused": "Не вливається",
   "botaniamisc.getALife": "Поживи життя",
   "botaniamisc.floatingPrefix": "Плаває %s",
+
   "botaniamisc.unsetRecipe": "[Немає рецепту] ПКМ, щоб встановити:",
   "botaniamisc.cantCraft": "Недостатньо матеріалів!",
   "botaniamisc.lotusDesc": "Він випромінює сильні магічні вібрації",
@@ -130,6 +137,31 @@
   "botaniamisc.invalidDodge": "Недійсний пакет",
   "botaniamisc.rannuncarpus.state_sensitive": "Точна відповідність стану",
   "botaniamisc.rannuncarpus.state_insensitive": "Відповідність лише блоку",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "botania.tater_birthday.0": "Вау, це для мене?",
   "botania.tater_birthday.1": "У мене сьогодні день народження; Зараз мені %d років!",
   "botania.tater_birthday.2": "Дуже дякую! Я сподіваюся, що цей рік також був хорошим для вас.",
@@ -138,6 +170,7 @@
   "botania.tater.my_son": "Ніколи більше не розмовляй ні зі мною, ні з моїм сином.",
   "botania.tater.my_daughter": "Ніколи більше не розмовляй ні зі мною, ні з моєю донькою.",
   "botania.tater.my_child": "Ніколи більше не розмовляй ні зі мною, ні з моєю дитиною.",
+
   "botania.tater.my_children": "Ніколи більше не розмовляй ні зі мною, ні з моїми дітьми.",
   "botania.tater.you_came_to_the_wrong_neighborhood.0": "Слово з шести літер просто для того, щоб Я тримався далі",
   "botania.tater.you_came_to_the_wrong_neighborhood.1": "Це складно, і Я кодую у своєму настрої, і Я",
@@ -181,35 +214,129 @@
   "emi.category.botania.orechid_ignem": "Рудорхідея палюча",
   "emi.category.botania.marimorphosis": "Чорнобривець перетворень",
 
+
+
+
+
+
+
+
+
+
   "tag.block.botania.double_mystical_flowers": "Високі містичні квіти",
   "tag.block.botania.dreamwood_logs": "Колоди мрійдрева",
+
+
   "tag.block.botania.floating_flowers": "Квіти, що плавають",
   "tag.block.botania.functional_special_flowers": "Функціональні спеціальні квіти",
+
   "tag.block.botania.generating_special_flowers": "Генерувальні спеціальні квіти",
+
   "tag.block.botania.glimmering_dreamwood_logs": "Мерехтливі колоди мрійдрева",
   "tag.block.botania.glimmering_livingwood_logs": "Мерехтливі колоди життєдрева",
+
+
+
+
+
+
+
   "tag.block.botania.livingwood_logs": "Колоди життєдрева",
+
+
   "tag.block.botania.mini_flowers": "Маленькі квіти",
   "tag.block.botania.misc_special_flowers": "Різні спеціальні квіти",
   "tag.block.botania.mundane_floating_flowers": "Земні квіти, що плавають",
   "tag.block.botania.mystical_flowers": "Містичні квіти",
+
+
+
+
+
+
   "tag.block.botania.special_floating_flowers": "Спеціальні квіти, що плавають",
   "tag.block.botania.special_flowers": "Спеціальні квіти",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "tag.block.c.storage_blocks.elementium": "Блоки елементія",
+
   "tag.block.c.storage_blocks.manasteel": "Блоки манасталі",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "tag.block.c.storage_blocks.terrasteel": "Блоки терасталі",
 
+
+
+
+
+
+
+
+
+
+
+
   "tag.item.botania.burst_viewers": "Переглядачі сплесків",
+
+
+
+
+
+
+
+
   "tag.item.botania.double_mystical_flowers": "Високі містичні квіти",
   "tag.item.botania.dreamwood_logs": "Колоди мрійдрева",
+
+
+
+
   "tag.item.botania.floating_flowers": "Квіти, що плавають",
   "tag.item.botania.functional_special_flowers": "Функціональні спеціальні квіти",
   "tag.item.botania.generating_special_flowers": "Генерувальні спеціальні квіти",
   "tag.item.botania.glimmering_dreamwood_logs": "Мерехтливі колоди мрійдрева",
   "tag.item.botania.glimmering_livingwood_logs": "Мерехтливі колоди життєдрева",
+
   "tag.item.botania.lens": "Лінзи мани",
   "tag.item.botania.lens_glue": "Клей для лінз",
   "tag.item.botania.livingwood_logs": "Колоди життєдрева",
+
+
+
+
   "tag.item.botania.mana_using_items": "Предмети, що використовують ману",
   "tag.item.botania.mini_flowers": "Маленькі квіти",
   "tag.item.botania.misc_special_flowers": "Різні спеціальні квіти",
@@ -232,23 +359,107 @@
   "tag.item.botania.petals.red": "Червоні пелюстки",
   "tag.item.botania.petals.white": "Білі пелюстки",
   "tag.item.botania.petals.yellow": "Жовті пелюстки",
+
+
   "tag.item.botania.rods": "Жезли",
   "tag.item.botania.runes": "Руни",
   "tag.item.botania.seed_apothecary_reagent": "Реагенти для насіння",
+
+
+
   "tag.item.botania.special_floating_flowers": "Спеціальні квіти, що плавають",
   "tag.item.botania.special_flowers": "Спеціальні квіти",
+
+
+
+
+
+
+
+
+
+
+
   "tag.item.c.dusts.mana": "Мана порошки",
+
   "tag.item.c.gems.dragonstone": "Дракон-камені",
   "tag.item.c.gems.mana_diamond": "Мана-діаманти",
+
+
+
   "tag.item.c.ingots.elementium": "Злитки елементія",
+
   "tag.item.c.ingots.manasteel": "Злитки манасталі",
   "tag.item.c.ingots.terrasteel": "Злитки терасталі",
   "tag.item.c.nuggets.elementium": "Самородки елементія",
   "tag.item.c.nuggets.manasteel": "Самородки манасталі",
   "tag.item.c.nuggets.terrasteel": "Самородки терасталі",
+
+
+
+
   "tag.item.c.storage_blocks.elementium": "Блоки елементія",
+
   "tag.item.c.storage_blocks.manasteel": "Блоки манасталі",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "tag.item.c.storage_blocks.terrasteel": "Блоки терасталі",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   "key.botania_corporea_request": "Запит у Корпорею",
 
@@ -261,12 +472,12 @@
 
   "botania.color.rainbow": "Веселка",
 
-  "botania.rank0": "\u00a7cD",
-  "botania.rank1": "\u00a7eC",
-  "botania.rank2": "\u00a7bB",
-  "botania.rank3": "\u00a7aA",
-  "botania.rank4": "\u00a7dS",
-  "botania.rank5": "\u00a76SS",
+
+
+
+
+
+
 
   "botania.sign0": "Овен",
   "botania.sign1": "Телець",
@@ -322,37 +533,37 @@
   "botania.armorset.will_verac.shortDesc": "Критичні удари пробивають броню",
   "botania.armorset.will_karil.shortDesc": "Критичні удари застосовують ефект в'янення",
 
-  "botania.roman0": "",
-  "botania.roman1": "I",
-  "botania.roman2": "II",
-  "botania.roman3": "III",
-  "botania.roman4": "IV",
-  "botania.roman5": "V",
-  "botania.roman6": "VI",
-  "botania.roman7": "VII",
-  "botania.roman8": "VIII",
-  "botania.roman9": "IX",
-  "botania.roman10": "X",
-  "botania.roman11": "XI",
-  "botania.roman12": "XII",
-  "botania.roman13": "XIII",
-  "botania.roman14": "XIV",
-  "botania.roman15": "XV",
-  "botania.roman16": "XVI",
-  "botania.roman17": "XVII",
-  "botania.roman18": "XVIII",
-  "botania.roman19": "XIX",
-  "botania.roman20": "XX",
-  "botania.roman21": "XXI",
-  "botania.roman22": "XXII",
-  "botania.roman23": "XXIII",
-  "botania.roman24": "XXIV",
-  "botania.roman25": "XXV",
-  "botania.roman26": "XXVI",
-  "botania.roman27": "XXVII",
-  "botania.roman28": "XXVIII",
-  "botania.roman29": "XXIX",
-  "botania.roman30": "XXX",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   "botania.flowerType.generating": "Генерувальні квіти",
   "botania.flowerType.functional": "Функціональні квіти",
@@ -420,6 +631,9 @@
   "death.attack.botania.relic": "%s було покарано за використання реліквії, яка не належить йому",
   "death.attack.botania.key_explosion": "%2$s потонув %1$s у скарбах",
 
+
+
+
   "effect.botania.allure.description": "Подвоює швидкість риболовлі.",
   "effect.botania.bloodthirst.description": "Дозволяє ворожим мобам з'являтися в радіусі 64 блоків, незалежно від умов спавну. Не працює, якщо під впливом Емптінес.",
   "effect.botania.clear.description": "Скасовує всі ефекти стану, як позитивні, так і негативні.",
@@ -469,7 +683,7 @@
   "advancement.botania:manaCookieEat.desc": "Настоюйте та їжте смачне печиво всеосяжності",
   "advancement.botania:runePickup": "Дроп-Поп Цукерка",
   "advancement.botania:runePickup.desc": "Використовуйте Рунічний вівтар, щоб створити руну",
-  "advancement.botania:manaBlasterShoot": "M'aider Stranded Girl",
+
   "advancement.botania:manaBlasterShoot.desc": "Зробіть Мана-бластер та шмальніть з нього",
   "advancement.botania:tiaraWings": "Купідон",
   "advancement.botania:tiaraWings.desc": "Зробіть тіару Флігеля та прикрасіть крилами Флігеля",
@@ -553,6 +767,8 @@
   "advancement.botania:tinyPotatoBirthday": "Благословення",
   "advancement.botania:tinyPotatoBirthday.desc": "Відсвяткуйте День народження Картоплика 19 липня",
 
+
+
   "botania.challengelevel.easy": "Легкий",
   "botania.challengelevel.normal": "Помірний",
   "botania.challengelevel.hard": "Важкий",
@@ -618,6 +834,22 @@
   "block.botania.green_mystical_flower": "Містична зелена квітка",
   "block.botania.red_mystical_flower": "Містична червона квітка",
   "block.botania.black_mystical_flower": "Містична чорна квітка",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.apothecary_default": "Пелюстковий аптекар",
   "block.botania.apothecary_forest": "Лісовий пелюстковий аптекар",
   "block.botania.apothecary_plains": "Луговий пелюстковий аптекар",
@@ -653,13 +885,125 @@
   "block.botania.stripped_livingwood": "Обтесане життєдрево",
   "block.botania.glimmering_stripped_livingwood": "Мерехтливе обтесане життєдрево",
   "block.botania.mana_spreader": "Розсіювач мани",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.redstone_spreader": "Імпульсовий розсіювач мани",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.elven_spreader": "Ельфійський розсіювач мани",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.gaia_spreader": "Розсіювач мани Ґаї",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.mana_pool": "Басейн мани",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.creative_pool": "Нескінченний басейн мани",
   "block.botania.diluted_pool": "Розбавлений басейн мани",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.fabulous_pool": "Гарний басейн мани",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.runic_altar": "Рунічний вівтар",
   "block.botania.piston_relay": "Силове реле",
   "block.botania.mana_distributor": "Розділювач мани",
@@ -699,6 +1043,22 @@
   "block.botania.green_shiny_flower": "Мерехтлива зелена квітка",
   "block.botania.red_shiny_flower": "Мерехтлива червона квітка",
   "block.botania.black_shiny_flower": "Мерехтлива чорна квітка",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.abstruse_platform": "Нерозбірлива платформа",
   "block.botania.spectral_platform": "Примарна платформа",
   "block.botania.infrangible_platform": "Незламна платформа",
@@ -759,6 +1119,8 @@
   "block.botania.stripped_livingwood_wall": "Стіна з обтесаного життєдрева",
   "block.botania.livingrock_stairs": "Сходи з життєкаменю",
   "block.botania.livingrock_slab": "Плита з життєкаменю",
+
+
   "block.botania.livingrock_bricks_stairs": "Сходи з цегли з життєкаменю",
   "block.botania.livingrock_bricks_slab": "Плита з цегли з життєкаменю",
   "block.botania.mossy_livingrock_bricks_stairs": "Сходи з моховитої цегли з життєкаменю",
@@ -925,6 +1287,22 @@
   "block.botania.metamorphic_desert_bricks_wall": "Стіна з солітової цегли",
   "block.botania.metamorphic_taiga_bricks_wall": "Стіна з лунітової цегли",
   "block.botania.metamorphic_mesa_bricks_wall": "Стіна з рожевої талькової цегли",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.white_petal_block": "Білий пелюстковий блок",
   "block.botania.orange_petal_block": "Помаранчевий пелюстковий блок",
   "block.botania.magenta_petal_block": "Пурпуровий пелюстковий блок",
@@ -959,6 +1337,22 @@
   "block.botania.green_mushroom": "Зелений мерехтливий гриб",
   "block.botania.red_mushroom": "Червоний мерехтливий гриб",
   "block.botania.black_mushroom": "Чорний мерехтливий гриб",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.pump": "Помпа мани",
   "block.botania.white_double_flower": "Висока містична біла квітка",
   "block.botania.orange_double_flower": "Висока містична помаранчева квітка",
@@ -998,8 +1392,28 @@
   "block.botania.dreamwood_wall": "Стіна з мрійдрева",
   "block.botania.livingwood_fence": "Парка з життєдрева",
   "block.botania.dreamwood_fence": "Паркан з мрійдрева",
+
   "block.botania.livingwood_fence_gate": "Хвіртка з життєдрева",
   "block.botania.dreamwood_fence_gate": "Хвіртка з мрійдрева",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.mana_bomb": "Заряд мана-шторму",
   "block.botania.white_buried_petals": "Закопана біла пелюстка",
   "block.botania.orange_buried_petals": "Закопана помаранчева пелюстка",
@@ -1044,6 +1458,9 @@
   "block.botania.corporea_block": "Блок Корпореї",
   "block.botania.corporea_slab": "Плита Корпореї",
   "block.botania.corporea_stairs": "Сходи Корпореї",
+
+
+
   "block.botania.corporea_brick": "Цегла Корпореї",
   "block.botania.corporea_brick_slab": "Плита з цегли Корпореї",
   "block.botania.corporea_brick_stairs": "Сходи з цегли Корпореї",
@@ -1056,6 +1473,9 @@
   "block.botania.shimmerrock": "Мерехтливий камінь",
   "block.botania.shimmerrock_slab": "Плита з мерехтливого каменю",
   "block.botania.shimmerrock_stairs": "Сходи з мерехтливого каменю",
+
+
+
   "block.botania.shimmerwood_planks": "Дошки мерехтливого дерева",
   "block.botania.shimmerwood_planks_slab": "Плита з дощок з мерехтливого дерева",
   "block.botania.shimmerwood_planks_stairs": "Сходи з дощок з мерехтливого дерева",
@@ -1070,165 +1490,220 @@
 
   "block.botania.pure_daisy": "Чиста ромашка",
   "block.botania.pure_daisy.reference": "Якого кольору ти хочеш бути?",
+
   "block.botania.floating_pure_daisy": "Плавуча Чиста ромашка",
   "block.botania.manastar": "Зірка мани",
   "block.botania.manastar.reference": "Побажання зірці",
+
   "block.botania.floating_manastar": "Зірка мани",
 
   "block.botania.endoflame": "Жаржина",
   "block.botania.endoflame.reference": "Ендотермічно реактивний",
+
   "block.botania.floating_endoflame": "Плавуча Жаржина",
   "block.botania.hydroangeas": "Гідрогортензія",
   "block.botania.hydroangeas.reference": "Просто дружні ракоподібні",
+
   "block.botania.floating_hydroangeas": "Плавуча Гідрогортензія",
   "block.botania.thermalily": "Термолілія",
   "block.botania.thermalily.reference": "Не рекомендується для магів крові",
+
   "block.botania.floating_thermalily": "Плавуча Термолілія",
   "block.botania.rosa_arcana": "Таємнича троянда",
   "block.botania.rosa_arcana.reference": "Десять синіх куль у кутку",
+
   "block.botania.floating_rosa_arcana": "Плавуча Таємнича троянда",
   "block.botania.munchdew": "Плямк-роса",
   "block.botania.munchdew.reference": "Чи вважається це канібалізмом?",
+
   "block.botania.floating_munchdew": "Плавуча Плямк-роса",
   "block.botania.entropinnyum": "Ентропінніум",
   "block.botania.entropinnyum.reference": "Поводьтеся обережно",
+
   "block.botania.floating_entropinnyum": "Плавучий Ентропінніум",
   "block.botania.kekimurus": "Кекімурус",
   "block.botania.kekimurus.reference": "Ця квітка - брехня",
+
   "block.botania.floating_kekimurus": "Плавучий Кекімурус",
   "block.botania.gourmaryllis": "Гурмариліс",
   "block.botania.gourmaryllis.reference": "Як неприємно",
+
   "block.botania.floating_gourmaryllis": "Плавучий Гурмариліс",
   "block.botania.narslimmus": "Нарцислиз",
   "block.botania.narslimmus.reference": "Що це? Це все липке",
+
   "block.botania.floating_narslimmus": "Плавучий Нарцислиз",
   "block.botania.spectrolus": "Спектродіолус",
   "block.botania.spectrolus.reference": "Наживаючись на ненависті",
+
   "block.botania.floating_spectrolus": "Плавучий Спектродіолус",
   "block.botania.dandelifeon": "Кульбаба життя",
-  "block.botania.dandelifeon.reference": "C'est la vie",
+
+
   "block.botania.floating_dandelifeon": "Плавуча Кульбаба життя",
   "block.botania.rafflowsia": "Квітозбір",
   "block.botania.rafflowsia.reference": "Жахлива пастка",
+
   "block.botania.floating_rafflowsia": "Плавучий Квітозбір",
   "block.botania.shulk_me_not": "Незашалкерутка",
   "block.botania.shulk_me_not.reference": "Справді це відчуваю",
+
   "block.botania.floating_shulk_me_not": "Плавуча Незашалкерутка",
 
   "block.botania.bellethorn": "Шиподзвоник",
   "block.botania.bellethorn.reference": "Поцілунок троянди",
+
   "block.botania.floating_bellethorn": "Плавучий Шиподзвоник",
   "block.botania.bellethorn_chibi": "Шиподзвоник мініатюрний",
   "block.botania.bellethorn_chibi.reference": "Поцілунок троянди",
+
   "block.botania.floating_bellethorn_chibi": "Плавучий Шиподзвоник мініатюрний",
   "block.botania.dreadthorn": "Жахокактус",
   "block.botania.dreadthorn.reference": "Просто укол",
+
   "block.botania.floating_dreadthorn": "Плавучий Жахокактус",
   "block.botania.heisei_dream": "Мрія Хейсея",
   "block.botania.heisei_dream.reference": "Хейсей хейсей",
+
   "block.botania.floating_heisei_dream": "Плавуча Мрія Хейсея",
   "block.botania.tigerseye": "Тигрове око",
   "block.botania.tigerseye.reference": "Кишеньковий тигр",
+
   "block.botania.floating_tigerseye": "Плавуче Тигрове око",
   "block.botania.jaded_amaranthus": "Нефритовий амарант",
   "block.botania.jaded_amaranthus.reference": "За це загинуло подружжя",
+
   "block.botania.floating_jaded_amaranthus": "Плавучий Нефритовий амарант",
   "block.botania.orechid": "Рудорхідея",
   "block.botania.orechid.reference": "Я бачу, що ти там зробив",
+
   "block.botania.floating_orechid": "Плавуча Рудорхідея",
   "block.botania.orechid_ignem": "Рудорхідея палюча",
   "block.botania.orechid_ignem.reference": "Червоні, як троянди",
+
   "block.botania.floating_orechid_ignem": "Плавуча Рудорхідея палюча",
   "block.botania.fallen_kanade": "Полеглий Канаде",
   "block.botania.fallen_kanade.reference": "Я не ангел",
+
   "block.botania.floating_fallen_kanade": "Плавучий Полеглий Канаде",
   "block.botania.exoflame": "Спалахайстра",
   "block.botania.exoflame.reference": "Екзотермічна реактивність",
+
   "block.botania.floating_exoflame": "Плавуча Спалахайстра",
   "block.botania.agricarnation": "Агриконвалія",
   "block.botania.agricarnation.reference": "Носіть 25 квітня",
+
   "block.botania.floating_agricarnation": "Плавуча Агриконвалія",
   "block.botania.agricarnation_chibi": "Агриконвалія мініатюрна",
   "block.botania.agricarnation_chibi.reference": "Носіть 25 квітня",
+
   "block.botania.floating_agricarnation_chibi": "Плавуча Агриконвалія мініатюрна",
   "block.botania.hopperhock": "Воронкальва",
   "block.botania.hopperhock.reference": "Це все вливається в нього",
+
   "block.botania.floating_hopperhock": "Плавуча Воронкальва",
   "block.botania.hopperhock_chibi": "Воронкальва мініатюрна",
   "block.botania.hopperhock_chibi.reference": "Це все вливається в нього",
+
   "block.botania.floating_hopperhock_chibi": "Плавуча Воронкальва мініатюрна",
   "block.botania.tangleberrie": "Плутосальвія",
   "block.botania.tangleberrie_chibi": "Плутосальвія мініатюрна",
   "block.botania.tangleberrie.reference": "Сковороди заборонені",
   "block.botania.tangleberrie_chibi.reference": "Сковороди заборонені",
+
   "block.botania.floating_tangleberrie": "Плавуча Плутосальвія",
+
   "block.botania.floating_tangleberrie_chibi": "Плавуча Плутосальвія мініатюрна",
   "block.botania.jiyuulia": "Джіюуля",
   "block.botania.jiyuulia_chibi": "Джіюуля мініатюрна",
   "block.botania.jiyuulia.reference": "Крила свободи",
   "block.botania.jiyuulia_chibi.reference": "Крила свободи",
+
   "block.botania.floating_jiyuulia": "Плавуча Джіюуля",
+
   "block.botania.floating_jiyuulia_chibi": "Плавуча Джіюуля мініатюрна",
   "block.botania.rannuncarpus": "Ранункарпус",
   "block.botania.rannuncarpus.reference": "Це зручно",
+
   "block.botania.floating_rannuncarpus": "Плавучий Ранункарпус",
   "block.botania.rannuncarpus_chibi": "Ранункарпус мініатюрний",
   "block.botania.rannuncarpus_chibi.reference": "Це зручно",
+
   "block.botania.floating_rannuncarpus_chibi": "Плавучий Ранункарпус мініатюрний",
   "block.botania.hyacidus": "Кислотний гіацинт",
   "block.botania.hyacidus.reference": "Якщо не ходити, то не боляче",
+
   "block.botania.floating_hyacidus": "Плавучий Кислотний гіацинт",
   "block.botania.pollidisiac": "Пилкозодіак",
   "block.botania.pollidisiac.reference": "Птахи і бджоли",
+
   "block.botania.floating_pollidisiac": "Плавучий Пилкозодіак",
   "block.botania.clayconia": "Глинольон",
   "block.botania.clayconia.reference": "Рупії не включені",
+
   "block.botania.floating_clayconia": "Плавучий Глинольон",
   "block.botania.clayconia_chibi": "Глинольон мініатюрний",
   "block.botania.clayconia_chibi.reference": "Рупії не включені",
+
   "block.botania.floating_clayconia_chibi": "Плавучий Глинольон мініатюрний",
   "block.botania.loonium": "Луній",
   "block.botania.loonium.reference": "Тримайте його над головою",
+
   "block.botania.floating_loonium": "Плавучий Луній",
   "block.botania.daffomill": "Нарцимлин",
   "block.botania.daffomill.reference": "Помічник кухаря",
+
   "block.botania.floating_daffomill": "Плавучий Нарцимлин",
   "block.botania.vinculotus": "Живолотос",
   "block.botania.vinculotus.reference": "Абсолютно додаткова утиліта",
+
   "block.botania.floating_vinculotus": "Плавучий Живолотос",
   "block.botania.spectranthemum": "Спектрантемума",
   "block.botania.spectranthemum.reference": "В оболонці",
+
   "block.botania.floating_spectranthemum": "Плавуча Спектрантемума",
   "block.botania.medumone": "Меданемона",
   "block.botania.medumone.reference": "Тверда, як камінь",
+
   "block.botania.floating_medumone": "Плавуча Меданемона",
   "block.botania.marimorphosis": "Чорнобривець перетворень",
   "block.botania.marimorphosis.reference": "U-M-R",
+
   "block.botania.floating_marimorphosis": "Плавучий Чорнобривець перетворень",
   "block.botania.marimorphosis_chibi": "Чорнобривець перетворень мініатюрний",
   "block.botania.marimorphosis_chibi.reference": "U-M-R",
+
   "block.botania.floating_marimorphosis_chibi": "Плавучий Чорнобривець перетворень мініатюрний",
   "block.botania.bubbell": "Булькодзвоник",
   "block.botania.bubbell.reference": "І свистіть",
+
   "block.botania.floating_bubbell": "Плавучий Булькодзвоник",
   "block.botania.bubbell_chibi": "Булькодзвоник мініатюрний",
   "block.botania.bubbell_chibi.reference": "І свистіть",
+
   "block.botania.floating_bubbell_chibi": "Плавучий Булькодзвоник мініатюрний",
   "block.botania.solegnolia": "Солегнолія",
   "block.botania.solegnolia.reference": "Усі ваші магніти належать нам",
+
   "block.botania.floating_solegnolia": "Плавуча Солегнолія",
   "block.botania.solegnolia_chibi": "Солегнолія мініатюрна",
   "block.botania.solegnolia_chibi.reference": "Усі ваші магніти належать нам",
+
   "block.botania.floating_solegnolia_chibi": "Плавуча Солегнолія мініатюрна",
   "block.botania.bergamute": "Бергамовч",
   "block.botania.bergamute.reference": "Мій рот на замку",
+
   "block.botania.floating_bergamute": "Плавучий Бергамовч",
   "block.botania.labellia": "Лабелія",
   "block.botania.labellia.reference": "Друга за складністю проблема інженера",
+
   "block.botania.floating_labellia": "Плавуча Лабелія",
   "block.botania.daybloom_motif": "Мотив деньцвіту",
+
   "block.botania.nightshade_motif": "Мотив пасльону",
+
   "block.botania.hydroangeas_motif": "Мотив гідрогортензії",
+
   "block.botania.daybloom_motif.description": "Декоративна квітка минулої епохи",
   "block.botania.hydroangeas_motif.description": "Декоративна, не в'яне",
 
@@ -1506,6 +1981,7 @@
   "item.botania.mana_string": "Мана-нитка",
   "item.botania.swap_ring": "Каблучка виправлення",
   "item.botania.flower_bag": "Квітковий мішечок",
+
   "item.botania.phantom_ink": "Фантомне чорнило",
   "item.botania.pool_minecart": "Вагонетка з басейном мани",
   "item.botania.pinkinator": "Орожевлювач",
@@ -1589,6 +2065,15 @@
 
   "item.botania.record_gaia_1.desc": "Kain Vinosec - Витримай порожнечу",
   "item.botania.record_gaia_2.desc": "Kain Vinosec - Борись за спокій",
+
+
+
+
+
+
+
+
+
 
   "block.minecraft.banner.botania.flower.black": "Чорна містична квітка",
   "block.minecraft.banner.botania.flower.red": "Червона містична квітка",
@@ -1846,15 +2331,25 @@
   "block.minecraft.banner.botania.sword.white": "Білий меч",
 
   "botania.category.basics": "Основи та механіка",
+
   "botania.category.mana": "Маніпуляція маною",
+
   "botania.category.functionalFlowers": "Функціональна флора",
+
   "botania.category.generationFlowers": "Генерувальна флора",
+
   "botania.category.devices": "Природні апарати",
+
   "botania.category.tools": "Містичні предмети",
+
   "botania.category.baubles": "Брелоки та аксесуари",
+
   "botania.category.ender": "Артефакти Ендера",
+
   "botania.category.alfhomancy": "Ельфомансія",
+
   "botania.category.misc": "Різне",
+
 
 
   "botania.entry.welcome": "Ласкаво просимо до Ботанії",
@@ -1907,11 +2402,6 @@
   "botania.page.flowers16": "Пелюстковий блок",
   "botania.page.flowers9": "З пелюсток також можна зробити блоки",
   "botania.page.flowers13": "І навпаки",
-
-
-
-
-
 
   "botania.entry.apothecary": "Пелюстковий аптекар",
   "botania.tagline.apothecary": "Те, що ви використовуєте для виготовлення квітів",
@@ -1982,6 +2472,11 @@
   "botania.page.flowerBag2": "Квіти не будуть підібрані мішечком, якщо мішечок тримається вашою основною рукою.$(p)Крім того, ПКМ мішечком на $(item)Скрині$(0) або іншому інвентарі скине всі квіти туди.",
   "botania.page.flowerBag1": "Він приблизно такого ж розміру всередині (підходять будь-які кольори)",
 
+
+
+
+
+
   "botania.entry.mIntro": "Введення в ману",
   "botania.tagline.mIntro": "Почніть роботу з маною",
   "botania.page.mIntro0": "$(thing)Мана$(0) — це по суті ефірна субстанція, це містична форма $(thing)енергії$(0). Її існування не піддається відчуттям, а колір залежить від навколишнього середовища.$(p)Маніпуляції з $(thing)Маною$(0) — це, ймовірно, найважливіша навичка, яку має опанувати ботанік.",
@@ -2011,6 +2506,7 @@
   "botania.page.pool8": "Натиснувши ПКМ будь-яким кольором $(item)барвника$(0) на басейні, ви отримаєте басейн цього кольору; для прикраси або легшого маркування.",
   "botania.page.pool16": "Манасталь",
   "botania.page.pool3": "Наповнення $(item)Манасталі$(0)",
+
   "botania.page.pool4": "Наповнення $(item)Перлин мани$(0)",
   "botania.page.pool5": "Наповнення $(item)Мана-діамантів$(0)",
   "botania.page.pool6": "Наповнення $(item)Пилку мани$(0)",
@@ -2239,7 +2735,7 @@
   "botania.entry.agricarnation": "Агриконвалія",
   "botania.tagline.agricarnation": "Швидше вирощує врожай",
   "botania.page.agricarnation0": "Повільний ріст посівів є постійною проблемою в харчуванні мас. $(item)Агриконвалія$(0) перетворює $(thing)Ману$(0) на тип природного добрива, що змушує рослини поблизу рости швидше.",
-  "botania.page.agricarnation1": "$(o)Grandola Vila Morena$()...",
+
 
   "botania.entry.hopperhock": "Воронкальва",
   "botania.tagline.hopperhock": "Підбирає предмети",
@@ -2278,6 +2774,7 @@
   "botania.page.pollidisiac0": "Тварини люблять їсти. Це все, що вони насправді роблять. Як не дивно, але вони їдять лише те, чим їх годують.$(p)$(item)Пилкозодіак$(0) просто зробить це; він використовує ману, щоб годувати тварин у радіусі найближчими харчами на землі ($(item)Пшениця$(0), $(item)Морква$(0) тощо), надаючи їм $(o)кращий настрій$().",
   "botania.page.pollidisiac1": "$(o)Пекельна кухня$().",
 
+
   "botania.entry.clayconia": "Глинольон",
   "botania.tagline.clayconia": "Створює глину з піску",
   "botania.page.clayconia0": "$(item)Глинольон$(0) — проста квітка. Все, що вона робить, це зволожує $(item)Пісок$(0) поблизу, перетворюючи його на кульки $(item)Глини$(0). Цей процес використовує пристойну кількість $(thing)Мани$(0), але не зруйнує банк (чи так би мовити басейн).",
@@ -2286,6 +2783,7 @@
   "botania.entry.loonium": "Луній",
   "botania.tagline.loonium": "Викликає здобич підземелля",
   "botania.page.loonium0": "Будь-який шукач пригод знає, що $(thing)Підземелля$(0) може містити цінні смаколики. $(item)Луній$(0), отримавши трохи $(thing)мани$(0), викличе ці предмети, щоб їх зібрали авантюристи.$(p)Однак є підступ: кожен предмет тримається монстром, який захищає його. Ці монстри надзвичайно сильні, але після вбивства вони віддадуть свою дорогоцінну $(thing)здобич з підземелля$(0).",
+
   "botania.page.loonium1": "$(o)Я МАТІМУ ЗИЛНИЙ УЛОВ$()?",
 
   "botania.entry.daffomill": "Нарцимлин",
@@ -2303,7 +2801,7 @@
   "botania.page.spectranthemum0": "Перевезення предметів на великі відстані може бути важким завданням; у якийсь момент водні канали та $(l:functional_flowers/daffomill)$(item)Нарцимлин$(0)$(/l) просто не впораються. $(item)Спектрантемума$(0) використовує $(thing)Ману$(0), щоб деформувати тканину реальності навколо будь-яких предметів поблизу, телепортуючи їх в іншу точку світу. Зауважте, що предмети, що містять $(thing)Ману$(0) і переносні предмети не можуть бути телепортовані.",
   "botania.page.spectranthemum1": "Щоб указати призначення телепортованих предметів, скористайтеся $(l:basics/wand)$(item)Жезлом лісу$(0)$(/l) у $(thing)Режимі прив'язки$(0), щоб зв’язати квітку до місця в межах 12 блоків, так само, як до басейну. Щоб побачити, до якого блоку прив’язана квітка (на відміну від басейну, з якого вона витягує $(thing)Ману$(0)), присядьте, дивлячись на неї з жезлом.",
   "botania.page.spectranthemum2": "Ця квітка пов’язана з аксіомою $(thing)завантаження чанків$(0); тобто вона не надсилатиме предмети до незавантажених блоків. Однак ця тема виходить за рамки цього лексикону.",
-  "botania.page.spectranthemum3": "$(o)(n)spooky(n+2)me$().",
+
 
   "botania.entry.medumone": "Меданемона",
   "botania.tagline.medumone": "Заморожує мобів",
@@ -2317,7 +2815,6 @@
   "botania.page.marimorphosis1": "Різні смаки $(item)Метаморфічного каменю$(0)",
   "botania.page.marimorphosis2": "$(o)Ця квітка симпатична, гадаю$().",
   "botania.page.marimorphosis3": "Колір для кожного",
-
 
   "botania.entry.bubbell": "Булькодзвоник",
   "botania.tagline.bubbell": "Робить підводні бульбашки",
@@ -2342,6 +2839,7 @@
   "botania.page.gIntro2": "Ці квіти прив’язуються до одного $(l:mana/spreader)$(item)Розсіювач мани$(0)$(/l) одночасно для виведення $(thing)Мани$(0). Вони прив’яжуться до найближчого розсіювача, наявного під час їх розміщення (або найближчого розміщеного пізніше, якщо жоден не був у радіусі), і їх можна прив’язати до іншого розсіювача за допомогою жезла в $(thing)Режимі прив'язки$(0), за бажанням.",
   "botania.page.gIntro3": "Вибір вашої першої $(thing)Генерувальної флори$(0) є досить простим завданням; найпростішими двома варіантами для будь-якого ботаніка-початківця є $(l:generating_flowers/endoflame)$(item)Жаржина$(0)$(/l) і $(l:generating_flowers/hydroangeas)$(item)Гідрогортензія$(0)$(/l).$(p)Перший використовує $(item)Вугілля$(0) або інші джерела палива для створення $(thing)Мани$(0). Останній використовує джерела $(item)Води$(0) для того самого завдання, але в'яне приблизно через три дні.",
   "botania.page.gIntro4": "Пізніше ви, можливо, захочете розширитися на інші $(thing)Флори, що Генерують Енергію$(0). Квіти, які потребують більш складної інфраструктури для автоматизації, зазвичай виробляють більше $(thing)Мани$(0).",
+
 
   "botania.entry.endoflame": "Жаржина",
   "botania.tagline.endoflame": "Мана з палива",
@@ -2372,7 +2870,7 @@
   "botania.tagline.munchdew": "Мана з листя",
   "botania.page.munchdew0": "Генерування форми природної енергії, якою є $(thing)Мана$(0), найкраще робити з інших живих матеріалів. $(item)Плямк-роса$(0) з’їсть будь-яке $(item)Листя$(0) поблизу та перетворить його на $(thing)Ману$(0).$(p)Однак жодних саджанців (або будь-які інші предмети) не будуть скинуті з листя.",
   "botania.page.munchdew1": "Ця квітка виділяє значну кількість мани за листя дерева.$(p)Однак, щойно вона закінчить з’їдати все листя в діапазоні, $(item)Плямк-роса$(0) зробить коротку перерву в травленні й їстиме знову лише приблизно через хвилину.",
-  "botania.page.munchdew2": "$(o)Itadakimasu~$()",
+
 
   "botania.entry.entropinnyum": "Ентропінніум",
   "botania.tagline.entropinnyum": "Мана з ТНТ",
@@ -2383,7 +2881,7 @@
   "botania.entry.kekimurus": "Кекімурус",
   "botania.tagline.kekimurus": "Мана з торта",
   "botania.page.kekimurus0": "$(item)Торт$(0) смачний; усі люблять його, квіти також.$(p)$(item)Кекімурус$(0) є одним із цих шанувальників $(item)Тортиків$(0) і з’їсть будь-який поблизу нього, синтезуючи багаті поживні речовини в солодку-солодку $(thing)Ману$(0).",
-  "botania.page.kekimurus1": "$(o)top kek$()",
+
 
   "botania.entry.gourmaryllis": "Гурмариліс",
   "botania.tagline.gourmaryllis": "Мана з їжі",
@@ -2420,7 +2918,7 @@
   "botania.page.dandelifeon6": "Зона 3x3, зосереджена навколо $(item)Кульбаби життя$(0), сама поглинатиме всі клітини, які інакше могли б утворюватися в цій області, перетворюючи їх на відверто величезну кількість $(thing)Мани$(0). Що старша клітина, яку буде створено, то більше $(thing)Мани$(0) вона дає. Клітини нульового віку не виробляють $(thing)Мани$(0).",
   "botania.page.dandelifeon10": "Щоразу, коли будь-які живі клітини поглинаються зоною 3x3 у центрі, усі інші клітини на дошці гинуть.$(p)Крім того, будь-яка клітина в межах двох або більше $(item)Кульбаб життя$(0) гине.",
   "botania.page.dandelifeon7": "$(item)Клітинні блоки$(0) створюють з $(item)Кактуса$(0), $(item)Моркви$(0), $(item)Картоплі$(0) і $(item)Буряка$(0), і вони надзвичайно крихкі. Вони нічого не дадуть, коли розіб’ються, і їх не можна перемістити $(item)Поршнем$(0). Вони не будуть згенеровані $(item)Кульбабою життя$(0) у будь-якій клітинці, яка не містить повітря.$(p)Однак, якщо вони не в межах діапазону $(item)Кульбаби життя$(0) вони не мають інших особливих властивостей.",
-  "botania.page.dandelifeon8": "$(o)CellCraft^2$().",
+
   "botania.page.dandelifeon9": "Утворення $(item)Клітинних блоків$(0)",
 
   "botania.entry.shulk_me_not": "Незашалкерутка",
@@ -2449,7 +2947,7 @@
   "botania.tagline.turntable": "Крути розсіювачі навколо",
   "botania.page.turntable0": "$(item)Розсіювальний поворотний стіл$(0), як випливає з його назви, постійно обертає $(l:mana/spreader)$(item)Розсіювач мани$(0)$(/l), розміщений на ньому. Розміщення розсіювача на поворотній платформі призведе до його обертання; сигнал редстоуна призупиняє обертання.$(p)Щоб змінити швидкість вертушки, клацніть її ПКМ $(l:basics/wand)$(item)Жезлом лісу$(0)$(/l) ; Шифт+ПКМ змінить напрямок.",
   "botania.page.turntable2": "Так само $(item)Роздавач$(0) із $(l:basics/wand)$(item)Жезлом лісу$(0)$(/l) збоку змінюватиме швидкість, а один зі сторони дна - напрямок.",
-  "botania.page.turntable1": "You spin me right round",
+
 
   "botania.entry.manaAlchemy": "Алхімія з маною",
   "botania.tagline.manaAlchemy": "Перетворіть A на B. Еквівалентність обміну не гарантована",
@@ -2493,6 +2991,7 @@
   "botania.page.manaAlchemy24": "Трансмутація $(item)Високої трави$(0)",
   "botania.page.manaAlchemy40": "Квіти",
   "botania.page.manaAlchemy25": "Трансмутація земних квітів",
+
   "botania.page.manaAlchemy37": "Камінь",
   "botania.page.manaAlchemy26": "Трансмутація каміння",
   "botania.page.manaAlchemy27": "Перетворення $(item)фрукта Хорусу$(0) в $(item)квітки Хорусу$(0)",
@@ -2509,9 +3008,9 @@
   "botania.page.brewery3": "Утворення $(item)Флаконів$(0)",
   "botania.page.brewery4": "Працювати з $(item)Ботанічною бродильнею$(0) досить просто.$(p)Почніть із додавання $(item)Флакона$(0) (клацніть ПКМ або киньте) у неї. Таким же чином додайте всі необхідні інгредієнти. Коли $(thing)Вариво$(0) отримає всі необхідні реагенти, дайте йому кілька хвилин, щоб прийняти необхідну $(thing)Ману$(0), і воно автоматично потрапить у ваш інвентар.",
   "botania.page.brewery5a": "Просте вариво, що імітує $(item)Зілля Стрімкості$(0). Коли п'ється, воно дає своєму питцю ефект $(thing)Швидкість II$(0).",
-  "botania.page.brewery5b": "Gotta go fast",
+
   "botania.page.brewery6a": "Просте вариво, що імітує $(item)Зілля Сили$(0). Коли п'ється, воно дає своєму питцю ефект $(thing)Сила II$(0).",
-  "botania.page.brewery6b": "Hodor",
+
   "botania.page.brewery7a": "Просте вариво, що імітує $(item)Зілля Поспіху$(0). Коли п'ється, воно дає своєму питцю ефект $(thing)Поспіх II$(0).",
   "botania.page.brewery7b": "Повно C9H13NO3",
   "botania.page.brewery8a": "Просте вариво, що імітує $(item)Зілля Зцілення$(0). Коли п'ється, воно дає своєму питцю ефект $(thing)Миттєве здоров'я II$(0).",
@@ -2523,7 +3022,7 @@
   "botania.page.brewery17a": "Просте вариво, що імітує $(item)Зілля Регенерації$(0). Коли п'ється, воно дає своєму питцю ефект $(thing)Регенерація I$(0), хоча й довше, ніж вариво Ревіталізації.",
   "botania.page.brewery17b": "Я думаю, що вона була просто більш витривалою",
   "botania.page.brewery11a": "Просте вариво, що імітує $(item)Зілля Опору$(0). Коли п'ється, воно дає своєму питцю ефект $(thing)Опір II$(0).",
-  "botania.page.brewery11b": "Can't touch this",
+
   "botania.page.brewery12a": "Просте вариво, що імітує $(item)Зілля Вогнестійкості$(0). Коли п'ється, воно дає своєму питцю ефект $(thing)Вогнестійкість$(0).",
   "botania.page.brewery12b": "Він не справжній дракон, вогонь не може вбити дракона",
   "botania.page.brewery13a": "Просте вариво, що імітує $(item)Зілля Підводного дихання$(0). Коли п'ється, воно дає своєму питцю ефект $(thing)Підводне дихання$(0).",
@@ -2668,6 +3167,7 @@
   "botania.page.teruTeruBozu0": "$(item)Теру-теру-бодзу$(0) — амулети, які захищають від негоди. Просто створення одного з них і розміщення його у світі зменшить тривалість $(item)Дощових$(0) і $(item)Сніжних бур$(0). Під час поганої погоди, якщо запропонувати (клацнувши ПКМ або кинувши) $(item)Соняшник$(0), сонце повернеться. Прикріплення $(item)Компаратора$(0) до одного з них дозволяє виявляти погану погоду.",
   "botania.page.teruTeruBozu1": "Що ж робить Соняшник таким особливим?",
 
+
   "botania.entry.avatar": "Аватар з життєдрева",
   "botania.tagline.avatar": "Жезли в блоці",
   "botania.page.avatar0": "Вирізання гуманоїда з $(l:basics/pure_daisy)$(item)Життєдрева$(0)$(/l) та надання йому $(l:mana/pool)$(item)Діаманта мани$(0)$(/l), як серця, дає апарат, відомий як $(item)Аватар з життєдрева$(0). Сам по собі блок — просто гарне обличчя; однак, надавши йому $(thing)Жезл$(0), він дає змогу чаклувати. Ціною $(thing)Мани$(0), звичайно, від розсіювача.",
@@ -2691,7 +3191,7 @@
   "botania.page.manaBlaster0": "$(item)Мана-бласте$(0) просто запускає $(thing)Сплески мани$(0). Хоча форма нагадує пістолет для зручного використання, це не стільки вогнепальна зброя, скільки портативний $(l:mana/spreader)$(item)Розсіювач мани$(0)$(/l).$(p)Витягуванням $(thing)Мани$(0) з $(thing)предметів, що несуть ману$(0) в інвентарі власника, він запускає сплески мани з поточної позиції власника.",
   "botania.page.manaBlaster1": "Ці сплески дещо відрізняються від тих, які стріляють із розсіювачів: вони рухаються швидше, але несуть лише три чверті $(thing)Мани$(0), яку мав би сплеск розсіювача. Бластер також має короткий час відновлення після пострілу, перш ніж він зможе стріляти знову.",
   "botania.page.manaBlaster2": "$(l:mana/lens)$(item)Лінзи мани$(0)$(/l) функціонують у поєднанні з бластером. Щоб прикріпити один до бластера, створіть їх разом на верстаті; щоб зняти лінзу, просто помістіть $(item)Мана-бластер$(0) назад на сітку створення.$(p)Ефект $(item)Поспіху$(0) на носієві зменшує час відновлення його бластера.",
-  "botania.page.manaBlaster3": "We need moar dakka",
+
 
   "botania.entry.grassSeeds": "Насіння пасовищ",
   "botania.tagline.grassSeeds": "Насіння для створення трави, підзолу та міцелію",
@@ -2931,12 +3431,13 @@
   "botania.entry.obedienceStick": "Палиця квіткової слухняності",
   "botania.tagline.obedienceStick": "Масова прив'язка квітів до локації",
   "botania.page.obedienceStick0": "З якоїсь незрозумілої причини шматок $(item)Манасталі$(0), прикріплений до якоїсь $(item)Гілки життєдрева$(0) — це річ, на яку квіти $(o)звертають увагу$().$(br)Коли використовується на $(l:mana/spreader)$(item)Розсіювачі мани$(0)$(/l) або $(l:mana/pool)$(item)Басейні мани$(0)$(/l) , цей інструмент (який отримав назву $(item)Палиця квіткової слухняності$(0)) прив’язує всі сусідні $(thing)Генерувальні$(0) або $(thing)Функціональні$(0) квіти відповідно до цього блоку.$(br)$(item)Роздавач$(0) також може використовувати $(item)Палицю квіткової слухняності$(0).",
+
   "botania.page.obedienceStick1": "Генеруйте, або типу того!",
 
   "botania.entry.slimeBottle": "Слиз у пляшці",
   "botania.tagline.slimeBottle": "Детектор слайм-чанків",
   "botania.page.slimeBottle0": "Розміщення $(item)Кульки слизу$(0) у контейнері з $(l:alfhomancy/elf_resources)$(item)Елементія$(0)$(/l), здається, має цікавий ефект на цю слизову кулю: коли в область, де $(thing)Слайми$(0) природно породжуватиметься під землею, нежива пляма слизу оживає та підстрибує навколо контейнера.$(p)Для збору $(item)Кульок слизу$(0) або налаштування $(l:generating_flowers/narslimmus)$(item)Нарцислиза$(0)$(/l), це дорогоцінний інструмент.",
-  "botania.page.slimeBottle1": "JUMPYDOLL",
+
 
   "botania.entry.exchangeRod": "Жезл рухомої кори",
   "botania.tagline.exchangeRod": "Стрижень для перестановки блоків",
@@ -3071,6 +3572,7 @@
   "botania.page.corporeaFunnel1": "Щоб повідомити $(item)Воронці$(0), що запитувати, помістіть предмет у $(item)Рамку$(0) на блоці; якщо в блоці є більше однієї $(item)Рамки$(0), $(item)Воронка$(0) вибере один випадковим чином.$(p)Обертання предмета у фреймі змінить запит кількості; при обертанні за замовчуванням воронка запитуватиме один предмет, а ротації відповідно зроблять запити воронки на 2, 4, 8, 16, 32, 48 і 64 предмета.",
   "botania.page.corporeaFunnel2": "Енергетично прикладний",
 
+
   "botania.entry.corporeaInterceptor": "Перехоплювач Корпореї",
   "botania.tagline.corporeaInterceptor": "Ловити невиконувані запити",
   "botania.page.corporeaInterceptor0": "$(item)Перехоплювач Корпореї$(0) робить саме те, що випливає з назви: він перехоплює невиконувані запити Корпореї. Предмети в $(item)Рамках$(0), приєднані до блоку, фільтруватимуть запити, які він перехопить. Якщо їх немає або всі вони порожні, він перехопить усі невиконані запити.",
@@ -3114,8 +3616,11 @@
   "botania.entry.luminizerTransport": "Світловий транспорт",
   "botania.tagline.luminizerTransport": "Летіть по небесах",
   "botania.page.luminizerTransport0": "$(item)Світлювачі$(0) просто переміщують гравців (та інші сутності), літаючи ними по повітрю на слідах світла.$(p)$(item)Світлювачі$(0) розміщуються у світі як блоки та працюють при прив’язці до інших $(item)Світлювачів$(0) (з $(l:basics/wand)$(item)Жезлом лісу$(0)$(/l)). ПКМ по $(item)Світлювачі$(0) перенесе його користувача до $(item)Світлювача$(0), до якого той прив’язаний.",
-  "botania.page.luminizerTransport1": "$(item)Світлювачі$(0) мають діапазон із двадцяти блоків кожен, але їх можна об’єднати, щоб створити досить довгі та складні шляхи.$(p)Прив’язки $(item)Світлювача$(0) є односпрямованими, якщо вони явно не зв’язані як обидва шляхи. Однак зауважте, що таке зв’язування створить нескінченний цикл.$(p)Кілька $(item)Світлювачів$(0) можуть прив’язуватися до однієї кінцевої точки.",
   "botania.page.luminizerTransport2": "Світіть у майбутнє",
+  "botania.page.luminizerTransport1": "$(item)Світлювачі$(0) мають діапазон із двадцяти блоків кожен, але їх можна об’єднати, щоб створити досить довгі та складні шляхи.$(p)Прив’язки $(item)Світлювача$(0) є односпрямованими, якщо вони явно не зв’язані як обидва шляхи. Однак зауважте, що таке зв’язування створить нескінченний цикл.$(p)Кілька $(item)Світлювачів$(0) можуть прив’язуватися до однієї кінцевої точки.",
+
+  "botania.page.luminizerTransport5": "Гравці можуть просто клацнути ПКМ на $(item)Світлювачі$(0), щоб сісти на нього, але щоб доставити тварин, скинуті предмети тощо, потрібна $(item)Панель запуску світлювача$(0). Її слід розмістити поруч з одним або кількома $(item)Світлювачами$(0). Коли пускова установка отримує $(thing)імпульс червоного каменю$(0), вона надсилає всі живі істоти та предмети на ній у сусідній $(item)Світлювач$(0) (або випадковий $(item)Світлювач$(0) на сутність, якщо поруч більше ніж одна), відправляючи їх у веселу дорогу.",
+  "botania.page.luminizerTransport6": "Пристрій примусової евакуації",
   "botania.page.luminizerTransport3": "Додавання $(item)Редстоуна$(0) до $(item)Світлювача$(0) перетворює його на $(item)Детектор світлювача$(0), який функціонує так само, як звичайний $(item)Світлювач$(0), але додатково випромінює імпульс $(thing)редстоуна$(0), коли щось досягає (або проходить через) нього.",
   "botania.page.luminizerTransport4": "Вихід сигналу",
   "botania.page.luminizerTransport7": "Додавання $(item)Важеля$(0) до $(item)Світлювача$(0) перетворює його на $(item)Перемикач світлювача$(0), який приймає сигнал $(thing)редстоуна$(0). При включенні $(item)Перемикач світлювача$(0) скине все, що проходить через нього; він працює нормально, коли немає живлення.",
@@ -3123,8 +3628,6 @@
   "botania.page.luminizerTransport9": "$(item)Світлювач$(0) і $(item)Червоний факел$(0) дають $(item)Розвилку світлювача$(0).$(p)Вони реагуватимуть на $(l:devices/animated_torch)$(item)Анімований факел$(0)$(/l), що розміщується до двох блоків над або під ним; будь-які вхідні сутності будуть відправлені до $(item)Світлювача$(0) в напрямку, куди вказує факел.",
   "botania.page.luminizerTransport10": "$(item)Розвилка світлювача$(0) все ще може бути прив’язана, як і будь-який інший стиль Світлювача, але вона використовуватиме свою прив’язку, лише якщо немає $(l:devices/animated_torch)$(item)Анімованого факела$(0) $(/l) поруч, щоб вказати йому, куди йти (або якщо немає $(item)Світлювачів$(0) у напрямку, на який вказує Факел).",
   "botania.page.luminizerTransport11": "Так чи інакше",
-  "botania.page.luminizerTransport5": "Гравці можуть просто клацнути ПКМ на $(item)Світлювачі$(0), щоб сісти на нього, але щоб доставити тварин, скинуті предмети тощо, потрібна $(item)Панель запуску світлювача$(0). Її слід розмістити поруч з одним або кількома $(item)Світлювачами$(0). Коли пускова установка отримує $(thing)імпульс червоного каменю$(0), вона надсилає всі живі істоти та предмети на ній у сусідній $(item)Світлювач$(0) (або випадковий $(item)Світлювач$(0) на сутність, якщо поруч більше ніж одна), відправляючи їх у веселу дорогу.",
-  "botania.page.luminizerTransport6": "Пристрій примусової евакуації",
 
   "botania.entry.starSword": "Зореклич",
   "botania.tagline.starSword": "Меч, що викликає зірки з неба",
@@ -3254,7 +3757,7 @@
   "botania.page.pixieRing1": "У нас квадратні голови, великі гострі шапки",
 
   "botania.entry.superTravelBelt": "Пояс мандрівника",
-  "botania.tagline.superTravelBelt": "Gotta go fast",
+
   "botania.page.superTravelBelt0": "$(item)Пояс мандрівника$(0) — це не що інше, як оновлення до $(l:baubles/travel_belt)$(item)Пояса подорожей$(0)$(/l). $(l:alfhomancy/gaia_ritual)$(item)Дух гаї$(0)$(/l) й $(l:alfhomancy/elf_resources)$(item)Ельфійські ресурси$(0)$(/l) дозволяють власнику пояса (звичайно, за певну кількість $(thing)Мани$(0) досягти неймовірних швидкостей - $(l:baubles/travel_belt)$(item)Пояса подорожей$(0)$(/l) навіть і поруч не стоїть.",
   "botania.page.superTravelBelt1": "Немає часу гадати, дотримуйтесь мого плану",
 
@@ -3305,7 +3808,7 @@
   "botania.page.baubleBox1": "Це може бути навіть човен!",
 
   "botania.entry.dodgeRing": "Каблучка спритного руху",
-  "botania.tagline.dodgeRing": "Sweep to the side to dodge attacks",
+
   "botania.page.dodgeRing0": "$(item)Каблучка спритного руху$(0) — чудовий $(thing)Брелок$(0), щоб уникнути пошкоджень під час дуелей. Його власник може двічі тиснути клавішу руху, щоб кинутися в цьому напрямку та ухилятися від наступних атак/мобів.$(p)Ухилення має короткий час відновлення та спалює частину голоду користувача.",
   "botania.page.dodgeRing1": "Бонус спритності",
 
@@ -3347,7 +3850,7 @@
 
   "botania.entry.elfMessage": "Повідомлення з Ельфійського саду",
   "botania.tagline.elfMessage": "Вітаю, колега-авантюрист",
-  "botania.page.elfMessage0": "",
+
   "botania.page.elfMessage1": "$(o)Вітаю. Ми знайшли цю книгу, коли один із наших старих рамок порталу спонтанно відкрив зв'язок з іншим світом — для нас справді був шок. Від імені всього Саду Ельфів ми щиро дякуємо вам за те, що ви надали нам сховище знань із вашого світу. Минув деякий час з тих пір, як ми повинні були піти, тож приємно бачити, що все йде добре.",
   "botania.page.elfMessage2": "$(o)Після тривалого обговорення у Вищій раді Ельфійського Саду ми вирішили співпрацювати з вами. Розумієте, у вашій «Лексиці Ботанії» є посилання на певні ресурси з вашого світу, які ми могли б дуже захотіти отримати - цих ресурсів просто не існує на наших землях.",
   "botania.page.elfMessage3": "$(o) Зв’язок, який ви встановили, на жаль, надто слабкий, щоб переміщати живих істот — здається, це наслідок величезної відстані між нашими царствами. Шкода: ми б хотіли особисто зустрітися з нашим торговим партнером. Проте, з іншого боку, зв’язок дозволяє нам змінити синхронізацію часу в наших світах – саме так ви отримаєте свою книгу так швидко, принаймні з вашої точки зору.",
@@ -3474,6 +3977,7 @@
   "botania.entry.headCreating": "Утворення голів",
   "botania.tagline.headCreating": "Створіть будь-яку голову гравця",
   "botania.page.headCreating0": "Часто використовуване заклинання ельфів — це використання кількох ресурсів і $(item)Ярлика$(0) для трансмутації шматка $(l:basics/pure_daisy)$(item)Життєкаменя$(0)$(/l) в голову $(thing)Гравця$(0), названого в Ярлику.$(p)Його точна механіка невідома, але заклинання здається досить легким для копіювання на $(l:basics/rune_altar)$(item)Рунічному вівтарі$(0)$(/l).",
+
   "botania.page.headCreating2": "Підгрупа спільноти $(thing)Minecraft$(0) (ух, четверта стіна) присвятила себе створенню голів, які служать усілякими прикрасами. Завзяті декоратори можуть розглянути можливість відвідування веб-сайтів спільноти, які збирають ці голови.",
   "botania.page.headCreating1": "Включайтеся в гру",
 
@@ -3500,10 +4004,11 @@
   "botania.page.phantomInk0": "Мати свою красиву шкіру та аксесуари, заховані під набором незграбних обладунків, - не є чиєюсь мрією. Броня громіздка, пласка і, що найгірше, немодна!$(br)На щастя, бризка $(item)Фантомними чорнилами$(0) на броні в сітці крафта зробить останню абсолютно невидимою, але при цьому забезпечить усі її переваги. ($(item)Фантомні чорнила$(0) працюють лише з наборами броні, які використовують $(thing)Ману$(0).)",
   "botania.page.phantomInk1": "Кому ти подзвониш?",
 
+
   "botania.entry.blazeBlock": "Полум'яні сітки",
   "botania.tagline.blazeBlock": "Компактне сховище вогняного стрижня та поновлюване джерело обсидіану",
   "botania.page.blazeBlock0": "Змішування купи вогняних есенцій разом дає функціональний (грубо кажучи) декоративний світловий блок.$(p)Як і $(item)Блок вугілля$(0), $(item)Полум'яну сітку$(0) можна спалити в печах (або $(l:generating_flowers/endoflame)$(item)Жаржині$(0)$(/l)). Як не дивно, коли помістити її біля $(l:basics/pure_daisy)$(item)Чистої ромашки$(0)$(/l), вона перетворюється на $(item)Обсидіан$(0).",
-  "botania.page.blazeBlock1": "0x1a4",
+
 
   "botania.entry.challenges": "Виклики",
   "botania.tagline.challenges": "Киньте собі виклик",
@@ -3514,7 +4019,7 @@
   "botania.entry.cacophonium": "Какофоній",
   "botania.tagline.cacophonium": "Імітація звуків мобів",
   "botania.page.cacophonium0": "$(item)Какофоній$(0) — це інструмент, який може імітувати крики живих істот, дозволяючи «музиканту» відтворювати звуки природи за бажанням. Клацання ПКМ на об’єкті зберігає звуки, які він може видавати, у $(item)Какофоній$(0). Тоді, утримуючи ПКМ, ці звуки відтворюватимуться.$(p)Однак чому хтось взагалі $(o)захоче$() використовувати цю штуковину - поза моральними розуміннями.",
-  "botania.page.cacophonium1": "Hibike! Cacophonium",
+
   "botania.page.cacophonium2": "Для повного хаосу $(item)Какофоній$(0) можна помістити в $(item)Нотний блок$(0) клацанням ПКМ, даючи блоку можливість відтворювати звуки тварин або монстрів на вимогу.$(p) Ти монстр.",
 
   "botania.entry.pavement": "Португальська бруківка",
@@ -3533,7 +4038,7 @@
 
   "botania.entry.preventingDecay": "Числова мана",
   "botania.tagline.preventingDecay": "Бачити числа в мані",
-  "botania.page.preventingDecay0": "no",
+
 
   "botania.subtitle.agricarnation": "Агриконвалія мерехтить",
   "botania.subtitle.airRod": "Жезл небес свистить",
@@ -3551,7 +4056,7 @@
   "botania.subtitle.ding": "Жезл лісу дзвенить",
   "botania.subtitle.divaCharm": "Шарм діви лунає",
   "botania.subtitle.divinationRod": "Жезл великого вкриття гуде",
-  "botania.subtitle.doit": "DO IT!!",
+
   "botania.subtitle.drum": "Барабанний стукіт",
   "botania.subtitle.enchanterEnchant": "Зачаровувач мани свистить",
   "botania.subtitle.enchanterFade": "Зачаровувач мани зникає",
@@ -3585,12 +4090,16 @@
   "botania.subtitle.manaBlasterCycle": "Затиск для лінз дзижчить",
   "botania.subtitle.manaBlasterMisfire": "Мана-бластер дає осічку",
   "botania.subtitle.manaPoolCraft": "Басейн мани наповнює",
+  "botania.subtitle.manufactoryHaloConfigure": "Ореол мануфактури дзвенить",
   "botania.subtitle.missile": "Чарівний снаряд стріляє",
   "botania.subtitle.missileFunny": "піу піу",
   "botania.subtitle.narslimmusEat": "Нарцислиз жмакає",
   "botania.subtitle.orechid": "Рудорхідея бахкає",
+
   "botania.subtitle.pinkinator": "Орожевлювач орожевлює",
   "botania.subtitle.potionCreate": "Бродильня тріщить",
+  "botania.subtitle.prismAddLens": "Мана-лінзу прикріплено до призми",
+  "botania.subtitle.prismRemoveLens": "Мана-лінзу знято з призми",
   "botania.subtitle.redStringInterceptorClick": "Червоний струнний перехоплювач клацає",
   "botania.subtitle.runeAltarCraft": "Рунічний вівтар тріщить",
   "botania.subtitle.runeAltarStart": "Рунічний вівтар починає",
@@ -3598,17 +4107,14 @@
   "botania.subtitle.smeltRod": "Жезл розплавленого ядра готує",
   "botania.subtitle.smeltRodSimmer": "Жезл розплавленого ядра кипить",
   "botania.subtitle.spreaderAddLens": "Мана-лінзу прикріплено до розсіювача",
-  "botania.subtitle.prismAddLens": "Мана-лінзу прикріплено до призми",
-  "botania.subtitle.prismRemoveLens": "Мана-лінзу знято з призми",
-  "botania.subtitle.spreaderRemoveLens": "Мана-лінзу знято з розсіювача",
   "botania.subtitle.spreaderCover": "Розсіювач закритий",
-  "botania.subtitle.spreaderUncover": "Розсіювач відкритий",
+  "botania.subtitle.spreaderFire": "Розсіювач стріляє",
+  "botania.subtitle.spreaderRemoveLens": "Мана-лінзу знято з розсіювача",
   "botania.subtitle.spreaderScaffold": "На розсіювач застосовано риштування",
   "botania.subtitle.spreaderUnScaffold": "Риштування знімається з розсіювача",
-  "botania.subtitle.spreaderFire": "Розсіювач стріляє",
+  "botania.subtitle.spreaderUncover": "Розсіювач відкритий",
   "botania.subtitle.starcaller": "З неба спадають зорі",
   "botania.subtitle.temperanceStoneConfigure": "Камінь поміркованості дзвенить",
-  "botania.subtitle.manufactoryHaloConfigure": "Ореол мануфактури дзвенить",
   "botania.subtitle.terraBlade": "Терасталь меч активується",
   "botania.subtitle.terraPickMode": "Терарозколювач посилюється",
   "botania.subtitle.terraformRod": "Ґрунт змінюється",
@@ -3619,7 +4125,7 @@
   "botania.subtitle.unholyCloak": "Плащ гріха активується",
   "botania.subtitle.vineBallThrow": "Лозова кулька летить",
   "botania.subtitle.virusInfect": "Вірус заражає",
-  "botania.subtitle.worldSeedTeleport": "Світлове насіння телепортується",
+  "botania.subtitle.worldSeedTeleport": "Світлове насіння телепортується"
 
-  "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
+
 }

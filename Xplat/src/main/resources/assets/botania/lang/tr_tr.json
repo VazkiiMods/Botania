@@ -1,14 +1,23 @@
 {
-  "itemGroup.botania": "Botania",
+  "_comment0": "Note to translators: DO NOT COPY ENTRIES FROM ENGLISH",
+  "_comment1": "I repeat: do NOT copy entries from English!!",
+  "_comment2": "Copying English entries will cause them to become outdated when this file changes",
+  "_comment3": "Untranslated entries will automatically be inherited from this file.",
+  "_comment4": "Once again, don't copy from English, and THANK YOU for your hard work!",
+
+
   "botania.landing": "Büyü, Teknoloji. Doğal Olarak.$(br2)Botania, doğal büyü temalı bir teknoloji modudur. Ana konsept, yeryüzünün gücünü $(thing)Mana$() biçiminde kullanan büyülü çiçekler ve cihazlar yaratmaktır.",
   "botania.desc": "Büyü, Teknoloji. Doğal Olarak",
-  
+
   "attribute.name.botania.pixieSpawnChance": "Peri Oluşma Şansı",
-  
+
   "stat.botania.corporea_items_requested": "Corporea Dizini Üzerinden İstenen Eşyalar",
   "stat.botania.tiny_potatoes_petted": "Sevilen Minik Patatesler",
   "stat.botania.luminizer_one_cm": "Luminizer ile Gidilen Mesafe",
-  
+
+
+
+
   "botaniamisc.color": "%s Renkli",
   "botaniamisc.manaUsage": "Mana Kullanımı",
   "botaniamisc.flareColor": "%s Tur",
@@ -23,7 +32,8 @@
   "botaniamisc.retainer.retain_all": "İstenen orijinal eşya sayısını koru",
   "botaniamisc.retainer.retain_missing": "Eksik eşya sayısını koru",
   "botaniamisc.optifine_warning": "§4[UYARI]§r <Botania>: Optifine tespit edildi. Lütfen Optifine'ın Botania ile birçok soruna neden olabileceğini ve çiçekler ile yayıcılar arasında mana hareket etmemesi, bir asa tutarken mana havuzuna veya yayıcıya bakıldığında hiçbir bilgi görüntülenmemesi gibi sorunlar yaşayabileceğinizi unutmayın. Optifine'ın performans iyileştirmelerine alternatif olarak Sodium'u öneriyoruz.",
-  
+
+
   "botaniamisc.creativePool0": "Sonsuz Manaya Sahip Yaratıcı Mana Havuzu",
   "botaniamisc.creativePool1": "Bir Egoiste Yakışır",
   "botaniamisc.creativeSpark": "İstek üzerine bağlı bloğun içindeki eşyaları çoğaltır",
@@ -138,10 +148,20 @@
   "botaniamisc.catalyst_not_consumed": "(tüketilmedi)",
   "botaniamisc.monocle.frame.contains": "%s§r içerir:",
   "botaniamisc.monocle.frame.additional_stacks": "+%s daha fazla istif",
-  "botaniamisc.monocle.repeater.delay": "%ss",
-  "botaniamisc.monocle.comparator.compare": "\u2265",
-  "botaniamisc.monocle.comparator.subtract": "-",
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "botania.tater_birthday.0": "Vay canına, bu benim için mi?",
   "botania.tater_birthday.1": "Bugün doğum günüm; artık %d yaşındayım!",
   "botania.tater_birthday.2": "Çok teşekkür ederim! Umarım bu yıl sizin için de iyi geçmiştir.",
@@ -169,47 +189,80 @@
   "botania.tater.you_came_to_the_wrong_neighborhood.14": "Bu benim adım değil",
   "botania.tater.you_came_to_the_wrong_neighborhood.15": "Bu benim adım değil",
   "botania.tater.you_came_to_the_wrong_neighborhood.16": "Bu benim adım değil",
-  
-  "botania.nei.brewery": "Botanical Brewery",
+
+
   "botania.nei.elvenTrade": "Elf Ticareti",
   "botania.nei.floatingFlowers": "Yüzen Çiçekler",
   "botania.nei.manaPool": "Mana İnfüzyonu",
   "botania.nei.petalApothecary": "Taç Yaprağı Eczanesi",
   "botania.nei.runicAltar": "Rünik Sunak",
   "botania.nei.pureDaisy": "Saf Papatya",
-  "botania.nei.lexica": "Lexica Botania",
-  "botania.nei.orechid": "Orechid",
-  "botania.nei.orechidIgnem": "Orechid Ignem",
+
+
+
   "botania.nei.marimorphosis": "Marimorfoz",
   "botania.nei.terraPlate": "Karasal Yığınlaşma",
-  
+
   "emi.category.botania.petal_apothecary": "Taç Yaprağı Eczanesi",
   "emi.category.botania.mana_infusion": "Mana İnfüzyonu",
   "emi.category.botania.runic_altar": "Rünik Sunak",
   "emi.category.botania.terrestrial_agglomeration": "Karasal Yığınlaşma",
   "emi.category.botania.elven_trade": "Elf Ticareti",
-  "emi.category.botania.botanical_brewery": "Botanical Brewery",
+
   "emi.category.botania.pure_daisy": "Saf Papatya",
-  "emi.category.botania.orechid": "Orechid",
-  "emi.category.botania.orechid_ignem": "Orechid Ignem",
+
+
   "emi.category.botania.marimorphosis": "Marimorfoz",
+
+
+
+
+
+
+
+
+
 
   "tag.block.botania.double_mystical_flowers": "Uzun Mistik Çiçekler",
   "tag.block.botania.dreamwood_logs": "Rüya Ağacı Kütükleri",
+
+
   "tag.block.botania.floating_flowers": "Yüzen Çiçekler",
   "tag.block.botania.functional_special_flowers": "Fonksiyonel Özel Çiçekler",
+
   "tag.block.botania.generating_special_flowers": "Üreten Özel Çiçekler",
+
   "tag.block.botania.glimmering_dreamwood_logs": "Parıldayan Rüya Ağacı Kütükleri",
   "tag.block.botania.glimmering_livingwood_logs": "Parıldayan Yaşayan Ağaç Kütükleri",
+
+
+
+
+
+
+
   "tag.block.botania.livingwood_logs": "Yaşayan Ağaç Kütükleri",
+
+
   "tag.block.botania.mini_flowers": "Minik Çiçekler",
   "tag.block.botania.misc_special_flowers": "Çeşitli Özel Çiçekler",
   "tag.block.botania.mundane_floating_flowers": "Sıradan Yüzen Çiçekler",
   "tag.block.botania.mystical_flowers": "Mistik Çiçekler",
+
   "tag.block.botania.quartz_blocks": "Kuvars Blokları",
+
   "tag.block.botania.shimmering_mushrooms": "Parıldayan Mantarlar",
+
+
   "tag.block.botania.special_floating_flowers": "Özel Yüzen Çiçekler",
   "tag.block.botania.special_flowers": "Özel Çiçekler",
+
+
+
+
+
+
+
   "tag.block.c.cobblestones.metamorphic": "Metamorfik Kaldırım Taşları",
   "tag.block.c.cobblestones.metamorphic.desert": "Solit Kaldırım Taşları",
   "tag.block.c.cobblestones.metamorphic.forest": "Fuksit Kaldırım Taşları",
@@ -245,20 +298,45 @@
   "tag.block.c.storage_blocks.petal.yellow": "Sarı Taç Yaprağı Depolama Blokları",
   "tag.block.c.storage_blocks.terrasteel": "Terrasteel Depolama Blokları",
 
+
+
+
+
+
+
+
+
+
+
   "tag.item.botania.ancient_wills": "Kadim İradeler",
   "tag.item.botania.burst_viewers": "Patlama Görüntüleyicileri",
+
+
+
+
+
+
+
+
   "tag.item.botania.double_mystical_flowers": "Uzun Mistik Çiçekler",
   "tag.item.botania.dreamwood_logs": "Rüya Ağacı Kütükleri",
+
+
+
+
   "tag.item.botania.floating_flowers": "Yüzen Çiçekler",
   "tag.item.botania.functional_special_flowers": "Fonksiyonel Özel Çiçekler",
   "tag.item.botania.generating_special_flowers": "Üreten Özel Çiçekler",
   "tag.item.botania.glimmering_dreamwood_logs": "Parıldayan Rüya Ağacı Kütükleri",
   "tag.item.botania.glimmering_livingwood_logs": "Parıldayan Yaşayan Ağaç Kütükleri",
+
   "tag.item.botania.lens": "Mana Mercekleri",
   "tag.item.botania.lens_glue": "Mercek Yapıştırıcıları",
   "tag.item.botania.livingwood_logs": "Yaşayan Ağaç Kütükleri",
   "tag.item.botania.loonium_excluded": "Loonium Hariç Tutulanlar",
   "tag.item.botania.loonium_offhand_equipment": "Loonium İkincil El Ekipmanları",
+
+
   "tag.item.botania.mana_using_items": "Mana Kullanan Eşyalar",
   "tag.item.botania.mini_flowers": "Minik Çiçekler",
   "tag.item.botania.misc_special_flowers": "Çeşitli Özel Çiçekler",
@@ -281,13 +359,17 @@
   "tag.item.botania.petals.red": "Kırmızı Taç Yaprakları",
   "tag.item.botania.petals.white": "Beyaz Taç Yaprakları",
   "tag.item.botania.petals.yellow": "Sarı Taç Yaprakları",
+
   "tag.item.botania.quartz_blocks": "Kuvars Blokları",
   "tag.item.botania.rods": "Asalar",
   "tag.item.botania.runes": "Rünler",
   "tag.item.botania.seed_apothecary_reagent": "Tohum Eczanesi Reaktifleri",
+
   "tag.item.botania.shimmering_mushrooms": "Parıldayan Mantarlar",
+
   "tag.item.botania.special_floating_flowers": "Özel Yüzen Çiçekler",
   "tag.item.botania.special_flowers": "Özel Çiçekler",
+
   "tag.item.c.buckets.extrapolating": "Ekstrapolasyon Kovaları",
   "tag.item.c.cobblestones.metamorphic": "Metamorfik Kaldırım Taşları",
   "tag.item.c.cobblestones.metamorphic.desert": "Solit Kaldırım Taşları",
@@ -338,6 +420,15 @@
   "tag.item.c.storage_blocks.petal.yellow": "Sarı Taç Yaprağı Depolama Blokları",
   "tag.item.c.storage_blocks.terrasteel": "Terrasteel Depolama Blokları",
 
+
+
+
+
+
+
+
+
+
   "structure.minecraft.ancient_city": "Kadim Şehir",
   "structure.minecraft.bastion_remnant": "Bastion Kalıntısı",
   "structure.minecraft.buried_treasure": "Gömülü Hazine",
@@ -368,25 +459,26 @@
   "structure.minecraft.village_savanna": "Savana Köyü",
   "structure.minecraft.village_snowy": "Karlı Köy",
   "structure.minecraft.village_taiga": "Tayga Köyü",
-  
+
+
   "key.botania_corporea_request": "Corporea İsteği",
-  
+
   "botania.triggers.manaDetector": "Mana Patlaması",
   "botania.triggers.manaEmpty": "Mana Boş",
   "botania.triggers.manaSpace": "Mana İçin Alan",
   "botania.triggers.manaContains": "Mana İçeriyor",
   "botania.triggers.manaFull": "Mana Dolu",
   "botania.triggers.runeAltarCanCraft": "Sunak Üretebilir",
-  
+
   "botania.color.rainbow": "Gökkuşağı",
-  
-  "botania.rank0": "\u00a7cD",
-  "botania.rank1": "\u00a7eC",
-  "botania.rank2": "\u00a7bB",
-  "botania.rank3": "\u00a7aA",
-  "botania.rank4": "\u00a7dS",
-  "botania.rank5": "\u00a76SS",
-  
+
+
+
+
+
+
+
+
   "botania.sign0": "Koç",
   "botania.sign1": "Boğa",
   "botania.sign2": "İkizler",
@@ -410,11 +502,11 @@
   "botania.wings7": "Kanatlar: Sylph",
   "botania.wings8": "Kanatlar: Mega Ultra Tavuk",
   "botania.wings9": "Kanatlar: Tek Olan",
-  
+
   "botania.animatedTorch.toggle": "Aç/Kapa",
   "botania.animatedTorch.rotate": "Döndür",
   "botania.animatedTorch.random": "Rastgele",
-  
+
   "botania.armorset.manasteel.name": "Mana Yakınlığı",
   "botania.armorset.manasteel.desc": "Mana Aletleri ve Asalarında %10 daha az Mana maliyeti",
   "botania.armorset.elementium.name": "Büyük Peri'nin Lütfu",
@@ -426,57 +518,57 @@
   "botania.armorset.manaweave.name": "Mana Gelgit Mahareti",
   "botania.armorset.manaweave.desc0": "Mana Aletleri ve Asalarında %40 daha az Mana maliyeti",
   "botania.armorset.manaweave.desc1": "Büyülü Asalarda artırılmış ustalık",
+
   "botania.armorset.will_ahrim.desc": "Ahrim: Kritik Vuruşlar güçlü bir zayıflık efekti uygular",
-  
   "botania.armorset.will_dharok.desc": "Dharok: Kritik Vuruş hasarı düşük canla artar",
   "botania.armorset.will_guthan.desc": "Guthan: Kritik Vuruşlar verilen hasarın bir kısmını iyileştirir",
   "botania.armorset.will_torag.desc": "Torag: Kritik Vuruşlar güçlü bir yavaşlatma efekti uygular",
   "botania.armorset.will_verac.desc": "Verac: Kritik Vuruşlar zırhı deler",
   "botania.armorset.will_karil.desc": "Karil: Kritik Vuruşlar bir solma efekti uygular",
-  
+
   "botania.armorset.will_ahrim.shortDesc": "Kritik Vuruşlar zayıflık uygular",
   "botania.armorset.will_dharok.shortDesc": "Düşük HP'de daha güçlü Kritik Vuruşlar",
   "botania.armorset.will_guthan.shortDesc": "Kritik Vuruşlar kısmen iyileştirir",
   "botania.armorset.will_torag.shortDesc": "Kritik Vuruşlar yavaşlatma uygular",
   "botania.armorset.will_verac.shortDesc": "Kritik Vuruşlar zırhı deler",
   "botania.armorset.will_karil.shortDesc": "Kritik Vuruşlar solma uygular",
-  
-  "botania.roman0": "",
-  "botania.roman1": "I",
-  "botania.roman2": "II",
-  "botania.roman3": "III",
-  "botania.roman4": "IV",
-  "botania.roman5": "V",
-  "botania.roman6": "VI",
-  "botania.roman7": "VII",
-  "botania.roman8": "VIII",
-  "botania.roman9": "IX",
-  "botania.roman10": "X",
-  "botania.roman11": "XI",
-  "botania.roman12": "XII",
-  "botania.roman13": "XIII",
-  "botania.roman14": "XIV",
-  "botania.roman15": "XV",
-  "botania.roman16": "XVI",
-  "botania.roman17": "XVII",
-  "botania.roman18": "XVIII",
-  "botania.roman19": "XIX",
-  "botania.roman20": "XX",
-  "botania.roman21": "XXI",
-  "botania.roman22": "XXII",
-  "botania.roman23": "XXIII",
-  "botania.roman24": "XXIV",
-  "botania.roman25": "XXV",
-  "botania.roman26": "XXVI",
-  "botania.roman27": "XXVII",
-  "botania.roman28": "XXVIII",
-  "botania.roman29": "XXIX",
-  "botania.roman30": "XXX",
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "botania.flowerType.generating": "Üreten Çiçek",
   "botania.flowerType.functional": "Fonksiyonel Çiçek",
   "botania.flowerType.misc": "Çeşitli Çiçek",
-  
+
   "blockBreakingParticles.enabled": "Blok Kırma Parçacıkları",
   "blockBreakingParticlesTool.enabled": "Alet Blok Kırma Parçacıkları",
   "boundBlock.wireframe.enabled": "Bağlı Blok Tel Kafes",
@@ -528,24 +620,27 @@
   "harvestLevel.weightLens": "Ağırlık Merceği Hasat Seviyesi",
   "magnetRing.invert": "Ters Çevrilmiş Mıknatıs Yüzüğü Kontrolleri",
   "seasonalFeatures.enabled": "Mevsimsel Özellikler",
-  
+
   "botania.baubletooltip": "Aksesuar menüsünü açmak için %s tuşuna basın",
-  
+
   "item.botania.dice.poem0": "Cevabı bulmak için kartları dağıtır,",
   "item.botania.dice.poem1": "Şansın kutsal geometrisi,",
   "item.botania.dice.poem2": "Olası bir sonucun gizli yasaları,",
   "item.botania.dice.poem3": "Sayılar bir dansa öncülük eder.",
-  
+
   "death.attack.botania.relic": "%s kendilerine ait olmayan bir yadigarı kullandığı için cezalandırıldı",
   "death.attack.botania.key_explosion": "%2$s, %1$s'i hazineye boğdu",
-  
+
+
+
+
   "effect.botania.allure.description": "Balık tutma hızını ikiye katlar.",
   "effect.botania.bloodthirst.description": "Doğma koşulları ne olursa olsun, düşman yaratıkların 64 blok yarıçapında doğmasına izin verir. Boşluk etkisi altındayken çalışmaz.",
   "effect.botania.clear.description": "Pozitif veya negatif tüm durum etkilerini temizler.",
   "effect.botania.emptiness.description": "128 blok yarıçapında doğal yaratık doğmasını engeller.",
   "effect.botania.feather_feet.description": "Düşme hasarına karşı bağışıklık sağlar.",
   "effect.botania.soul_cross.description": "Yaratıkları öldürünce canı yeniler.",
-  
+
   "entity.botania.mana_burst": "Mana Patlaması",
   "entity.botania.pixie": "Peri",
   "entity.botania.flame_ring": "Alev Halkası",
@@ -565,7 +660,7 @@
   "entity.botania.mana_storm": "Manastorm Merkezi",
   "entity.botania.babylon_weapon": "Hazine Silahı",
   "entity.botania.falling_star": "Kayan Yıldız",
-  
+
   "advancement.botania_challenge": "Botania Mücadeleleri",
   "advancement.botania_challenge.desc": "Gelişmiş botanikçi için mücadeleler",
   "advancement.botania:flowerPickup": "Başlangıcın Gökyüzü",
@@ -604,7 +699,7 @@
   "advancement.botania:kekimurusPickup.desc": "Büyük miktarlarda Mana üretmeye yardımcı olması için bir Kekimurus oluştur",
   "advancement.botania:heiseiDreamPickup": "Heisei Kıyameti",
   "advancement.botania:heiseiDreamPickup.desc": "Yaratıklara zarar vermek için bir Heisei Rüyası oluştur",
-  "advancement.botania:dirtRodCraft": "Rockbell",
+
   "advancement.botania:dirtRodCraft.desc": "Kirli bir çubu- şey... Toprak Asası üret",
   "advancement.botania:spawnerMoverUse": "(Sansürlendi)'mi çıkarabilirim",
   "advancement.botania:spawnerMoverUse.desc": "Bir Canavar Çağırıcısını taşımak için bir Yaşam Toplayıcısı kullan",
@@ -636,8 +731,8 @@
   "advancement.botania:manaBombIgnite.desc": "Bir Manastorm Yükü üret, uzak bir yerde ateşle",
   "advancement.botania:dandelifeonPickup": "Donut Deliği",
   "advancement.botania:dandelifeonPickup.desc": "Bir Dandelifeon oluştur ve onunla zihnine meydan oku",
+
   "advancement.botania:l20ShardUse": "Adım Dışı",
-  
   "advancement.botania:l20ShardUse.desc": "Laputa'nın Güç XX Parçacığı ile yeri göğe yükselt",
   "advancement.botania:gaiaGuardianNoArmor": "Mitolojinin Sonu",
   "advancement.botania:gaiaGuardianNoArmor.desc": "Dövüş sırasında hiçbir zırh giymeden bir Gaia Muhafızını öldür",
@@ -647,7 +742,7 @@
   "advancement.botania:superCorporeaRequest.desc": "Bir Corporea Dizini'nde tek bir öğeden 65.536 adet başarıyla iste",
   "advancement.botania:pinkinator": "Dekoratör",
   "advancement.botania:pinkinator.desc": "Pembeleştiriciyi kullan",
-  
+
   "advancement.botania:gaiaGuardianHardmode": "Bir Rüyanın Merhametinde",
   "advancement.botania:gaiaGuardianHardmode.desc": "Gaia II Ritüeli'nde güçlendirilmiş bir Gaia Muhafızını çağır ve öldür",
   "advancement.botania:infiniteFruit": "İnnocentia",
@@ -666,19 +761,19 @@
   "advancement.botania:lokiRingMany.desc": "Loki'nin Yüzüğü ile aynı anda 255'ten fazla ek blok yerleştir",
   "advancement.botania:alfPortalBread": "Bu Yüzden Ekmek Pişirdim",
   "advancement.botania:alfPortalBread.desc": "Elflere ekmek gönder",
-  "advancement.botania:old_flower_pickup": "Deja Vu",
+
   "advancement.botania:old_flower_pickup.desc": "Gündüz Çiçeği Motifi veya Gece Gölgesi Motifini keşfet",
-  
+
   "advancement.botania:tinyPotatoBirthday": "Kutsama",
   "advancement.botania:tinyPotatoBirthday.desc": "19 Temmuz'da Minik Patates'in Doğum Gününü kutla",
   "advancement.botania:allLooniumMobs": "Kral",
   "advancement.botania:allLooniumMobs.desc": "Her Loonium doğumlu canavardan birini öldür",
-  
+
   "botania.challengelevel.easy": "Kolay",
-  "botania.challengelevel.normal": "Normal",
+
   "botania.challengelevel.hard": "Zor",
   "botania.challengelevel.lunatic": "Çılgın",
-  
+
   "botania.challenge.flowerFarm": "Çiçek Çiftliği",
   "botania.challenge.flowerFarm.desc": "Botania çiçeklerinin 16 renginin tamamını otomatik bir çiftlik oluşturun. Çiçekler sıralanmışsa bonus puan.",
   "botania.challenge.recordFarm": "Plak Çiftliği",
@@ -691,7 +786,7 @@
   "botania.challenge.pureDaisy.desc": "$(l:basics/pure_daisy)Saf Papatya$(/l)'yı tamamen otomatikleştirin. Sadece bir yayıcı kullanılıyorsa ve/veya ahşap/taş girişi de otomatikleştirilmişse bonus puan.",
   "botania.challenge.battery": "Mana Bataryası",
   "botania.challenge.battery.desc": "Mana Bataryası oluşturun, mananın bir havuza girip diğerinden çıktığı, tampon olarak çok sayıda havuzun bulunduğu bir sistem. Giriş veya çıkış değiştirilebiliyorsa bonus puan.",
-  
+
   "botania.challenge.apothecaryRefill": "Eczane Doldurucu",
   "botania.challenge.apothecaryRefill.desc": "$(l:basics/apothecary)Taç Yaprağı Eczanesi$(/l) boşsa otomatik olarak dolduran bir sistem oluşturun. Sistem, bileşenleri verildiğinde otomatik olarak çiçek de oluşturabiliyorsa bonus puan.",
   "botania.challenge.treeFarm": "Ağaç Çiftliği",
@@ -704,7 +799,7 @@
   "botania.challenge.boneMealFarm.desc": "İstenildiğinde ekinleri hızlı bir şekilde büyütmek için kemik tozu kullanan otomatik bir çiftlik oluşturun. $(l:devices/forest_drum)Vahşi Davul$(/l) kullanılmıyorsa bonus puan.",
   "botania.challenge.orechid": "Otomatik Orechid",
   "botania.challenge.orechid.desc": "$(l:functional_flowers/orechid)Orechid$(/l) çiçeğinin tamamen otomatikleştirilmesine izin veren bir sistem oluşturun. Çıktı eritilmiş ve sıralanmışsa bonus puan.",
-  
+
   "botania.challenge.mobTower": "Doğma Kulesi",
   "botania.challenge.mobTower.desc": "Kule tarzı bir yaratık çiftliği oluşturun. Yaratıklar sıralanmalı ve belirli odalara yerleştirilmelidir. Çağırıcılar kullanılabilir. Çiftlik bir oyuncunun etkileşimi olmadan %100 verimlilikte çalışıyorsa bonus puan.",
   "botania.challenge.entropinnyumSetup": "Entropinnyum Kurulumu",
@@ -715,14 +810,14 @@
   "botania.challenge.shulkMeNotSetup.desc": "Sistem dışından herhangi bir mana, öğe veya varlık olmadan, bir $(l:generating_flowers/shulk_me_not)Shulk Me Not$(/l)'un otomatik olarak mana üretmesini sağlayan bir sistem oluşturun. Gereksiz yaratık kavgaları yaşanmıyorsa bonus puan.",
   "botania.challenge.potionBrewer": "Otomatik İksir Yapımı",
   "botania.challenge.potionBrewer.desc": "İstenildiğinde her türlü birayı otomatik olarak yapabilen bir sistem oluşturun. Oyuncunun üssünde sürekli olarak bir dizi tütsü yanıyorsa bonus puan.",
-  
+
   "botania.challenge.kekimurusSetup": "Kekimurus Kurulumu",
   "botania.challenge.kekimurusSetup.desc": "Bir $(l:generating_flowers/kekimurus)Kekimurus$(/l)'u tamamen otomatikleştirin; sistemin her parçası otomatikleştirilmiş ve kendi kendine yeten olmalıdır. Yalnızca bir adet becerikli sandık kullanılıyorsa bonus puan.",
   "botania.challenge.autoQuarry": "Otomatik Taş Ocağı",
   "botania.challenge.autoQuarry.desc": "Yeraltında cevher ve taş için kazı yapan bir maden ocağı oluşturun. Arazi parçalarını kazmalı ve çıkarılan tüm kaynakları sıralayarak çıktı olarak vermelidir. Bir alanla işi bittikten sonra otomatik olarak yeniden konumlanabiliyorsa bonus puan.",
   "botania.challenge.runeCrafter": "Rün Üreticisi",
   "botania.challenge.runeCrafter.desc": "İstenildiğinde tüm rünleri üretebilen veya stokta tutabilen bir sistem oluşturun. Bu sistemin öğe girdileri dahil her parçası otomatikleştirilmiş ve kendi kendine yeten olmalıdır. Yalnızca bir adet Rünik Sunak bloğu kullanılıyorsa bonus puan. (Bunu denemek için oldukça çılgın olmanız gerekir.)",
-  
+
   "block.botania.white_mystical_flower": "Mistik Beyaz Çiçek",
   "block.botania.orange_mystical_flower": "Mistik Turuncu Çiçek",
   "block.botania.magenta_mystical_flower": "Mistik Eflatun Çiçek",
@@ -790,13 +885,125 @@
   "block.botania.stripped_livingwood": "Soyulmuş Yaşayan Ağaç",
   "block.botania.glimmering_stripped_livingwood": "Parıldayan Soyulmuş Yaşayan Ağaç",
   "block.botania.mana_spreader": "Mana Yayıcı",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.redstone_spreader": "Darbe Mana Yayıcı",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.elven_spreader": "Elf Mana Yayıcı",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.gaia_spreader": "Gaia Mana Yayıcı",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.mana_pool": "Mana Havuzu",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.creative_pool": "Ebedi Suçlu Havuz",
   "block.botania.diluted_pool": "Seyreltilmiş Mana Havuzu",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.fabulous_pool": "Muhteşem Mana Havuzu",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.runic_altar": "Rünik Sunak",
   "block.botania.piston_relay": "Kuvvet Rölesi",
   "block.botania.mana_distributor": "Mana Dağıtıcı",
@@ -912,6 +1119,8 @@
   "block.botania.stripped_livingwood_wall": "Soyulmuş Yaşayan Ağaç Duvarı",
   "block.botania.livingrock_stairs": "Yaşayan Kaya Merdiven",
   "block.botania.livingrock_slab": "Yaşayan Kaya Basamağı",
+
+
   "block.botania.livingrock_bricks_stairs": "Yaşayan Kaya Tuğlası Merdiven",
   "block.botania.livingrock_bricks_slab": "Yaşayan Kaya Tuğlası Basamağı",
   "block.botania.mossy_livingrock_bricks_stairs": "Yosunlu Yaşayan Kaya Tuğlası Merdiven",
@@ -942,22 +1151,22 @@
   "block.botania.black_floating_flower": "Yüzen Siyah Çiçek",
   "block.botania.tiny_potato": "Minik Patates",
   "block.botania.spawner_claw": "Yaşam Aşılayıcı",
-  "block.botania.azulejo_0": "Azulejo",
-  "block.botania.azulejo_1": "Azulejo",
-  "block.botania.azulejo_2": "Azulejo",
-  "block.botania.azulejo_3": "Azulejo",
-  "block.botania.azulejo_4": "Azulejo",
-  "block.botania.azulejo_5": "Azulejo",
-  "block.botania.azulejo_6": "Azulejo",
-  "block.botania.azulejo_7": "Azulejo",
-  "block.botania.azulejo_8": "Azulejo",
-  "block.botania.azulejo_9": "Azulejo",
-  "block.botania.azulejo_10": "Azulejo",
-  "block.botania.azulejo_11": "Azulejo",
-  "block.botania.azulejo_12": "Azulejo",
-  "block.botania.azulejo_13": "Azulejo",
-  "block.botania.azulejo_14": "Azulejo",
-  "block.botania.azulejo_15": "Azulejo",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.ender_eye_block": "Ender Gözlemcisi",
   "block.botania.starfield": "Yıldız Alanı Oluşturucu",
   "block.botania.mana_fluxfield": "Mana Akı Alanı",
@@ -1078,6 +1287,22 @@
   "block.botania.metamorphic_desert_bricks_wall": "Solit Tuğlası Duvarı",
   "block.botania.metamorphic_taiga_bricks_wall": "Lunit Tuğlası Duvarı",
   "block.botania.metamorphic_mesa_bricks_wall": "Pembe Talk Tuğlası Duvarı",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.white_petal_block": "Beyaz Taç Yaprağı Bloğu",
   "block.botania.orange_petal_block": "Turuncu Taç Yaprağı Bloğu",
   "block.botania.magenta_petal_block": "Eflatun Taç Yaprağı Bloğu",
@@ -1167,8 +1392,28 @@
   "block.botania.dreamwood_wall": "Rüya Ağacı Duvarı",
   "block.botania.livingwood_fence": "Yaşayan Ağaç Çiti",
   "block.botania.dreamwood_fence": "Rüya Ağacı Çiti",
+
   "block.botania.livingwood_fence_gate": "Yaşayan Ağaç Çit Kapısı",
   "block.botania.dreamwood_fence_gate": "Rüya Ağacı Çit Kapısı",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.mana_bomb": "Manastorm Yükü",
   "block.botania.white_buried_petals": "Gömülü Beyaz Taç Yaprağı",
   "block.botania.orange_buried_petals": "Gömülü Turuncu Taç Yaprağı",
@@ -1213,6 +1458,9 @@
   "block.botania.corporea_block": "Corporea Bloğu",
   "block.botania.corporea_slab": "Corporea Basamağı",
   "block.botania.corporea_stairs": "Corporea Merdiven",
+
+
+
   "block.botania.corporea_brick": "Corporea Tuğlası",
   "block.botania.corporea_brick_slab": "Corporea Tuğlası Basamağı",
   "block.botania.corporea_brick_stairs": "Corporea Tuğlası Merdiven",
@@ -1221,10 +1469,13 @@
   "block.botania.mana_glass_pane": "Mana Camı Paneli",
   "block.botania.elf_glass_pane": "Elf Camı Paneli",
   "block.botania.bifrost_pane": "Bifrost Paneli",
-  "block.botania.teru_teru_bozu": "Teru Teru Bozu",
+
   "block.botania.shimmerrock": "Parıltı Kayası",
   "block.botania.shimmerrock_slab": "Parıltı Kayası Basamağı",
   "block.botania.shimmerrock_stairs": "Parıltı Kayası Merdiven",
+
+
+
   "block.botania.shimmerwood_planks": "Parıltı Ağacı Tahtası",
   "block.botania.shimmerwood_planks_slab": "Parıltı Ağacı Tahtası Basamağı",
   "block.botania.shimmerwood_planks_stairs": "Parıltı Ağacı Tahtası Merdiven",
@@ -1236,73 +1487,73 @@
   "block.botania.infused_grass": "İnfüze Edilmiş Ot",
   "block.botania.mutated_grass": "Mutasyona Uğramış Ot",
   "block.botania.animated_torch": "Animasyonlu Meşale",
-  
+
   "block.botania.pure_daisy": "Saf Papatya",
   "block.botania.pure_daisy.reference": "Hangi renk olmak istersin?",
   "block.botania.potted_pure_daisy": "Saksıda Saf Papatya",
   "block.botania.floating_pure_daisy": "Yüzen Saf Papatya",
-  "block.botania.manastar": "Manastar",
+
   "block.botania.manastar.reference": "Bir yıldıza dilek tut",
   "block.botania.potted_manastar": "Saksıda Manastar",
   "block.botania.floating_manastar": "Yüzen Manastar",
-  
-  "block.botania.endoflame": "Endoflame",
+
+
   "block.botania.endoflame.reference": "Endotermik olarak reaktif",
   "block.botania.potted_endoflame": "Saksıda Endoflame",
   "block.botania.floating_endoflame": "Yüzen Endoflame",
-  "block.botania.hydroangeas": "Hydroangeas",
+
   "block.botania.hydroangeas.reference": "Sadece arkadaş canlısı kabuklular",
   "block.botania.potted_hydroangeas": "Saksıda Hydroangeas",
   "block.botania.floating_hydroangeas": "Yüzen Hydroangeas",
-  "block.botania.thermalily": "Thermalily",
+
   "block.botania.thermalily.reference": "Kan büyücüleri için tavsiye edilmez",
   "block.botania.potted_thermalily": "Saksıda Thermalily",
   "block.botania.floating_thermalily": "Yüzen Thermalily",
-  "block.botania.rosa_arcana": "Rosa Arcana",
+
   "block.botania.rosa_arcana.reference": "Köşede on mavi küre",
   "block.botania.potted_rosa_arcana": "Saksıda Rosa Arcana",
   "block.botania.floating_rosa_arcana": "Yüzen Rosa Arcana",
-  "block.botania.munchdew": "Munchdew",
+
   "block.botania.munchdew.reference": "Bu yamyamlık sayılır mı?",
   "block.botania.potted_munchdew": "Saksıda Munchdew",
   "block.botania.floating_munchdew": "Yüzen Munchdew",
-  "block.botania.entropinnyum": "Entropinnyum",
+
   "block.botania.entropinnyum.reference": "Dikkatli kullanın",
   "block.botania.potted_entropinnyum": "Saksıda Entropinnyum",
   "block.botania.floating_entropinnyum": "Yüzen Entropinnyum",
-  "block.botania.kekimurus": "Kekimurus",
+
   "block.botania.kekimurus.reference": "Bu çiçek bir yalan",
   "block.botania.potted_kekimurus": "Saksıda Kekimurus",
   "block.botania.floating_kekimurus": "Yüzen Kekimurus",
-  "block.botania.gourmaryllis": "Gourmaryllis",
+
   "block.botania.gourmaryllis.reference": "Ne kadar tatsız",
   "block.botania.potted_gourmaryllis": "Saksıda Gourmaryllis",
   "block.botania.floating_gourmaryllis": "Yüzen Gourmaryllis",
-  "block.botania.narslimmus": "Narslimmus",
+
   "block.botania.narslimmus.reference": "Bu ne? Her yeri yapış yapış",
   "block.botania.potted_narslimmus": "Saksıda Narslimmus",
   "block.botania.floating_narslimmus": "Yüzen Narslimmus",
-  "block.botania.spectrolus": "Spectrolus",
+
   "block.botania.spectrolus.reference": "Nefretten Kar Etmek",
   "block.botania.potted_spectrolus": "Saksıda Spectrolus",
   "block.botania.floating_spectrolus": "Yüzen Spectrolus",
-  "block.botania.dandelifeon": "Dandelifeon",
-  "block.botania.dandelifeon.reference": "C'est la vie",
+
+
   "block.botania.potted_dandelifeon": "Saksıda Dandelifeon",
   "block.botania.floating_dandelifeon": "Yüzen Dandelifeon",
-  "block.botania.rafflowsia": "Rafflowsia",
+
   "block.botania.rafflowsia.reference": "Tuzak Deliği Kabusu",
   "block.botania.potted_rafflowsia": "Saksıda Rafflowsia",
   "block.botania.floating_rafflowsia": "Yüzen Rafflowsia",
-  "block.botania.shulk_me_not": "Shulk Me Not",
+
   "block.botania.shulk_me_not.reference": "Gerçekten hissediyorum",
   "block.botania.potted_shulk_me_not": "Saksıda Shulk Me Not",
   "block.botania.floating_shulk_me_not": "Yüzen Shulk Me Not",
-  
-  "block.botania.bellethorn": "Bellethorne",
+
+
   "block.botania.bellethorn.reference": "Gül kokusu",
   "block.botania.potted_bellethorn": "Saksıda Bellethorne",
-  "block.botania.floating_bellethorne": "Yüzen Bellethorne",
+  "block.botania.floating_bellethorn": "Yüzen Bellethorne",
   "block.botania.bellethorn_chibi": "Minik Bellethorne",
   "block.botania.bellethorn_chibi.reference": "Gül kokusu",
   "block.botania.potted_bellethorn_chibi": "Saksıda Minik Bellethorne",
@@ -1312,7 +1563,7 @@
   "block.botania.potted_dreadthorn": "Saksıda Dikenli Dehşet",
   "block.botania.floating_dreadthorn": "Yüzen Dikenli Dehşet",
   "block.botania.heisei_dream": "Heisei Rüyası",
-  "block.botania.heisei_dream.reference": "Heisei heisei",
+
   "block.botania.potted_heisei_dream": "Saksıda Heisei Rüyası",
   "block.botania.floating_heisei_dream": "Yüzen Heisei Rüyası",
   "block.botania.tigerseye": "Kaplangözü",
@@ -1323,11 +1574,11 @@
   "block.botania.jaded_amaranthus.reference": "Bunun için bir çift öldü",
   "block.botania.potted_jaded_amaranthus": "Saksıda Yeşim Amarant",
   "block.botania.floating_jaded_amaranthus": "Yüzen Yeşim Amarant",
-  "block.botania.orechid": "Orechid",
+
   "block.botania.orechid.reference": "Ne yaptığını görüyorum",
   "block.botania.potted_orechid": "Saksıda Orechid",
   "block.botania.floating_orechid": "Yüzen Orechid",
-  "block.botania.orechid_ignem": "Orechid Ignem",
+
   "block.botania.orechid_ignem.reference": "Güller gibi kırmızı",
   "block.botania.potted_orechid_ignem": "Saksıda Orechid Ignem",
   "block.botania.floating_orechid_ignem": "Yüzen Orechid Ignem",
@@ -1335,11 +1586,11 @@
   "block.botania.fallen_kanade.reference": "Ben bir Melek değilim",
   "block.botania.potted_fallen_kanade": "Saksıda Düşmüş Kanade",
   "block.botania.floating_fallen_kanade": "Yüzen Düşmüş Kanade",
-  "block.botania.exoflame": "Exoflame",
+
   "block.botania.exoflame.reference": "Ekzotermik olarak reaktif",
   "block.botania.potted_exoflame": "Saksıda Exoflame",
   "block.botania.floating_exoflame": "Yüzen Exoflame",
-  "block.botania.agricarnation": "Agricarnation",
+
   "block.botania.agricarnation.reference": "25 Nisan'da giy",
   "block.botania.potted_agricarnation": "Saksıda Agricarnation",
   "block.botania.floating_agricarnation": "Yüzen Agricarnation",
@@ -1347,7 +1598,7 @@
   "block.botania.agricarnation_chibi.reference": "25 Nisan'da giy",
   "block.botania.potted_agricarnation_chibi": "Saksıda Minik Agricarnation",
   "block.botania.floating_agricarnation_chibi": "Yüzen Minik Agricarnation",
-  "block.botania.hopperhock": "Hopperhock",
+
   "block.botania.hopperhock.reference": "Her şey ona doğru akıyor",
   "block.botania.potted_hopperhock": "Saksıda Hopperhock",
   "block.botania.floating_hopperhock": "Yüzen Hopperhock",
@@ -1355,7 +1606,7 @@
   "block.botania.hopperhock_chibi.reference": "Her şey ona doğru akıyor",
   "block.botania.potted_hopperhock_chibi": "Saksıda Minik Hopperhock",
   "block.botania.floating_hopperhock_chibi": "Yüzen Minik Hopperhock",
-  "block.botania.tangleberrie": "Tangleberrie",
+
   "block.botania.tangleberrie_chibi": "Minik Tangleberrie",
   "block.botania.tangleberrie.reference": "Tava yasak",
   "block.botania.tangleberrie_chibi.reference": "Tava yasak",
@@ -1363,7 +1614,7 @@
   "block.botania.floating_tangleberrie": "Yüzen Tangleberrie",
   "block.botania.potted_tangleberrie_chibi": "Saksıda Minik Tangleberrie",
   "block.botania.floating_tangleberrie_chibi": "Yüzen Minik Tangleberrie",
-  "block.botania.jiyuulia": "Jiyuulia",
+
   "block.botania.jiyuulia_chibi": "Minik Jiyuulia",
   "block.botania.jiyuulia.reference": "Özgürlüğün Kanatları",
   "block.botania.jiyuulia_chibi.reference": "Özgürlüğün Kanatları",
@@ -1371,7 +1622,7 @@
   "block.botania.floating_jiyuulia": "Yüzen Jiyuulia",
   "block.botania.potted_jiyuulia_chibi": "Saksıda Minik Jiyuulia",
   "block.botania.floating_jiyuulia_chibi": "Yüzen Minik Jiyuulia",
-  "block.botania.rannuncarpus": "Rannuncarpus",
+
   "block.botania.rannuncarpus.reference": "Bu kullanışlı",
   "block.botania.potted_rannuncarpus": "Saksıda Rannuncarpus",
   "block.botania.floating_rannuncarpus": "Yüzen Rannuncarpus",
@@ -1379,15 +1630,15 @@
   "block.botania.rannuncarpus_chibi.reference": "Bu kullanışlı",
   "block.botania.potted_rannuncarpus_chibi": "Saksıda Minik Rannuncarpus",
   "block.botania.floating_rannuncarpus_chibi": "Yüzen Minik Rannuncarpus",
-  "block.botania.hyacidus": "Hyacidus",
+
   "block.botania.hyacidus.reference": "Yürümüyorsan acımaz",
   "block.botania.potted_hyacidus": "Saksıda Hyacidus",
   "block.botania.floating_hyacidus": "Yüzen Hyacidus",
-  "block.botania.pollidisiac": "Pollidisiac",
+
   "block.botania.pollidisiac.reference": "Kuşlar ve arılar",
   "block.botania.potted_pollidisiac": "Saksıda Pollidisiac",
   "block.botania.floating_pollidisiac": "Yüzen Pollidisiac",
-  "block.botania.clayconia": "Clayconia",
+
   "block.botania.clayconia.reference": "Rupi dahil değil",
   "block.botania.potted_clayconia": "Saksıda Clayconia",
   "block.botania.floating_clayconia": "Yüzen Clayconia",
@@ -1395,27 +1646,27 @@
   "block.botania.clayconia_chibi.reference": "Rupi dahil değil",
   "block.botania.potted_clayconia_chibi": "Saksıda Minik Clayconia",
   "block.botania.floating_clayconia_chibi": "Yüzen Minik Clayconia",
-  "block.botania.loonium": "Loonium",
+
   "block.botania.loonium.reference": "Başının üstünde tut",
   "block.botania.potted_loonium": "Saksıda Loonium",
   "block.botania.floating_loonium": "Yüzen Loonium",
-  "block.botania.daffomill": "Daffomill",
+
   "block.botania.daffomill.reference": "Aşçının Yardımcısı",
   "block.botania.potted_daffomill": "Saksıda Daffomill",
   "block.botania.floating_daffomill": "Yüzen Daffomill",
-  "block.botania.vinculotus": "Vinculotus",
+
   "block.botania.vinculotus.reference": "Kesinlikle Extra Utils çakması",
   "block.botania.potted_vinculotus": "Saksıda Vinculotus",
   "block.botania.floating_vinculotus": "Yüzen Vinculotus",
-  "block.botania.spectranthemum": "Spectranthemum",
+
   "block.botania.spectranthemum.reference": "Kabuğunda",
   "block.botania.potted_spectranthemum": "Saksıda Spectranthemum",
   "block.botania.floating_spectranthemum": "Yüzen Spectranthemum",
-  "block.botania.medumone": "Medumone",
+
   "block.botania.medumone.reference": "Kaya gibi sağlam",
   "block.botania.potted_medumone": "Saksıda Medumone",
   "block.botania.floating_medumone": "Yüzen Medumone",
-  "block.botania.marimorphosis": "Marimorphosis",
+
   "block.botania.marimorphosis.reference": "Günaydın, Dünya!",
   "block.botania.potted_marimorphosis": "Saksıda Marimorphosis",
   "block.botania.floating_marimorphosis": "Yüzen Marimorphosis",
@@ -1423,7 +1674,7 @@
   "block.botania.marimorphosis_chibi.reference": "Günaydın, Dünya!",
   "block.botania.potted_marimorphosis_chibi": "Saksıda Minik Marimorphosis",
   "block.botania.floating_marimorphosis_chibi": "Yüzen Minik Marimorphosis",
-  "block.botania.bubbell": "Bubbell",
+
   "block.botania.bubbell.reference": "Ve ıslık çal",
   "block.botania.potted_bubbell": "Saksıda Bubbell",
   "block.botania.floating_bubbell": "Yüzen Bubbell",
@@ -1431,7 +1682,7 @@
   "block.botania.bubbell_chibi.reference": "Ve ıslık çal",
   "block.botania.potted_bubbell_chibi": "Saksıda Minik Bubbell",
   "block.botania.floating_bubbell_chibi": "Yüzen Minik Bubbell",
-  "block.botania.solegnolia": "Solegnolia",
+
   "block.botania.solegnolia.reference": "Bütün mıknatıslarınız bize ait",
   "block.botania.potted_solegnolia": "Saksıda Solegnolia",
   "block.botania.floating_solegnolia": "Yüzen Solegnolia",
@@ -1439,11 +1690,11 @@
   "block.botania.solegnolia_chibi.reference": "Bütün mıknatıslarınız bize ait",
   "block.botania.potted_solegnolia_chibi": "Saksıda Minik Solegnolia",
   "block.botania.floating_solegnolia_chibi": "Yüzen Minik Solegnolia",
-  "block.botania.bergamute": "Bergamute",
+
   "block.botania.bergamute.reference": "Ağzım sıkı",
   "block.botania.potted_bergamute": "Saksıda Bergamute",
   "block.botania.floating_bergamute": "Yüzen Bergamute",
-  "block.botania.labellia": "Labellia",
+
   "block.botania.labellia.reference": "Mühendisin en zor ikinci problemi",
   "block.botania.potted_labellia": "Saksıda Labellia",
   "block.botania.floating_labellia": "Yüzen Labellia",
@@ -1455,10 +1706,10 @@
   "block.botania.potted_hydroangeas_motif": "Saksıda Hydroangeas Motifi",
   "block.botania.daybloom_motif.description": "Geçmiş bir çağdan kalma dekoratif çiçek",
   "block.botania.hydroangeas_motif.description": "Dekoratif, bozulmaz",
-  
-  "item.botania.lexicon": "Lexica Botania",
-  "item.botania.lexicon.bevo": "Lexica Botana",
-  "item.botania.lexicon.saice": "Lexica Botonia",
+
+
+
+
   "item.botania.white_petal": "Mistik Beyaz Taç Yaprağı",
   "item.botania.orange_petal": "Mistik Turuncu Taç Yaprağı",
   "item.botania.magenta_petal": "Mistik Eflatun Taç Yaprağı",
@@ -1733,7 +1984,7 @@
   "item.botania.petal_pouch": "Taç Yaprağı Kesesi",
   "item.botania.phantom_ink": "Hayalet Mürekkebi",
   "item.botania.pool_minecart": "Mana Havuzlu Vagon",
-  "item.botania.pinkinator": "The Pinkinator",
+
   "item.botania.infinite_fruit": "Grisaia'nın Meyvesi",
   "item.botania.king_key": "Kralın Hukuku Anahtarı",
   "item.botania.flugel_eye": "Flügel'in Gözü",
@@ -1782,7 +2033,7 @@
   "item.botania.third_eye": "Üçüncü Göz",
   "item.botania.astrolabe": "Dünya Şekillendiricinin Usturlabı",
   "item.botania.goddess_charm": "İyiliksever Tanrı Tılsımı",
-  
+
   "botania.brew.fallback": "Varsayılan",
   "botania.brew.speed": "Çevik Ayaklar",
   "botania.brew.strength": "Güç",
@@ -1792,7 +2043,7 @@
   "botania.brew.regen": "Yenilenme",
   "botania.brew.regen_weak": "Restorasyon",
   "botania.brew.resistance": "Direnç",
-  "botania.brew.fire_resistance": "Magmaskin",
+
   "botania.brew.water_breathing": "Solungaçlar",
   "botania.brew.invisibility": "Gizlenme",
   "botania.brew.night_vision": "Baykuş Görüşü",
@@ -1804,17 +2055,26 @@
   "botania.brew.overload": "Aşırı Yüklenme",
   "botania.brew.allure": "Deniz Cazibesi",
   "botania.brew.clear": "Aklanma",
-  
+
   "effect.botania.soul_cross": "Ruh Çaprazı",
   "effect.botania.feather_feet": "Tüy Ayaklar",
   "effect.botania.emptiness": "Boşluk",
   "effect.botania.bloodthirst": "Kan Arzusu",
   "effect.botania.allure": "Cazibe",
   "effect.botania.clear": "Aklanma",
-  
+
   "item.botania.record_gaia_1.desc": "Kain Vinosec - Boşluğa Katlanmak",
   "item.botania.record_gaia_2.desc": "Kain Vinosec - Dinginlik İçin Savaşmak",
-  
+
+
+
+
+
+
+
+
+
+
   "block.minecraft.banner.botania.flower.black": "Siyah Mistik Çiçek",
   "block.minecraft.banner.botania.flower.red": "Kırmızı Mistik Çiçek",
   "block.minecraft.banner.botania.flower.green": "Yeşil Mistik Çiçek",
@@ -1831,7 +2091,7 @@
   "block.minecraft.banner.botania.flower.magenta": "Eflatun Mistik Çiçek",
   "block.minecraft.banner.botania.flower.orange": "Turuncu Mistik Çiçek",
   "block.minecraft.banner.botania.flower.white": "Beyaz Mistik Çiçek",
-  
+
   "block.minecraft.banner.botania.lexicon.black": "Siyah Lexicon",
   "block.minecraft.banner.botania.lexicon.red": "Kırmızı Lexicon",
   "block.minecraft.banner.botania.lexicon.green": "Yeşil Lexicon",
@@ -1848,7 +2108,7 @@
   "block.minecraft.banner.botania.lexicon.magenta": "Eflatun Lexicon",
   "block.minecraft.banner.botania.lexicon.orange": "Turuncu Lexicon",
   "block.minecraft.banner.botania.lexicon.white": "Beyaz Lexicon",
-  
+
   "block.minecraft.banner.botania.logo.black": "Siyah Botania",
   "block.minecraft.banner.botania.logo.red": "Kırmızı Botania",
   "block.minecraft.banner.botania.logo.green": "Yeşil Botania",
@@ -1865,7 +2125,7 @@
   "block.minecraft.banner.botania.logo.magenta": "Eflatun Botania",
   "block.minecraft.banner.botania.logo.orange": "Turuncu Botania",
   "block.minecraft.banner.botania.logo.white": "Beyaz Botania",
-  
+
   "block.minecraft.banner.botania.sapling.black": "Siyah Ağaç",
   "block.minecraft.banner.botania.sapling.red": "Kırmızı Ağaç",
   "block.minecraft.banner.botania.sapling.green": "Yeşil Ağaç",
@@ -1882,7 +2142,7 @@
   "block.minecraft.banner.botania.sapling.magenta": "Eflatun Ağaç",
   "block.minecraft.banner.botania.sapling.orange": "Turuncu Ağaç",
   "block.minecraft.banner.botania.sapling.white": "Beyaz Ağaç",
-  
+
   "block.minecraft.banner.botania.tiny_potato.black": "Siyah Patates Yüzü",
   "block.minecraft.banner.botania.tiny_potato.red": "Kırmızı Patates Yüzü",
   "block.minecraft.banner.botania.tiny_potato.green": "Yeşil Patates Yüzü",
@@ -1899,7 +2159,7 @@
   "block.minecraft.banner.botania.tiny_potato.magenta": "Eflatun Patates Yüzü",
   "block.minecraft.banner.botania.tiny_potato.orange": "Turuncu Patates Yüzü",
   "block.minecraft.banner.botania.tiny_potato.white": "Beyaz Patates Yüzü",
-  
+
   "block.minecraft.banner.botania.spark_dispersive.black": "Siyah Dağıtıcı Sembol",
   "block.minecraft.banner.botania.spark_dispersive.red": "Kırmızı Dağıtıcı Sembol",
   "block.minecraft.banner.botania.spark_dispersive.green": "Yeşil Dağıtıcı Sembol",
@@ -1916,7 +2176,7 @@
   "block.minecraft.banner.botania.spark_dispersive.magenta": "Eflatun Dağıtıcı Sembol",
   "block.minecraft.banner.botania.spark_dispersive.orange": "Turuncu Dağıtıcı Sembol",
   "block.minecraft.banner.botania.spark_dispersive.white": "Beyaz Dağıtıcı Sembol",
-  
+
   "block.minecraft.banner.botania.spark_dominant.black": "Siyah Baskın Sembol",
   "block.minecraft.banner.botania.spark_dominant.red": "Kırmızı Baskın Sembol",
   "block.minecraft.banner.botania.spark_dominant.green": "Yeşil Baskın Sembol",
@@ -1933,7 +2193,7 @@
   "block.minecraft.banner.botania.spark_dominant.magenta": "Eflatun Baskın Sembol",
   "block.minecraft.banner.botania.spark_dominant.orange": "Turuncu Baskın Sembol",
   "block.minecraft.banner.botania.spark_dominant.white": "Beyaz Baskın Sembol",
-  
+
   "block.minecraft.banner.botania.spark_isolated.black": "Siyah İzole Sembol",
   "block.minecraft.banner.botania.spark_isolated.red": "Kırmızı İzole Sembol",
   "block.minecraft.banner.botania.spark_isolated.green": "Yeşil İzole Sembol",
@@ -1950,7 +2210,7 @@
   "block.minecraft.banner.botania.spark_isolated.magenta": "Eflatun İzole Sembol",
   "block.minecraft.banner.botania.spark_isolated.orange": "Turuncu İzole Sembol",
   "block.minecraft.banner.botania.spark_isolated.white": "Beyaz İzole Sembol",
-  
+
   "block.minecraft.banner.botania.spark_recessive.black": "Siyah Çekingen Sembol",
   "block.minecraft.banner.botania.spark_recessive.red": "Kırmızı Çekingen Sembol",
   "block.minecraft.banner.botania.spark_recessive.green": "Yeşil Çekingen Sembol",
@@ -1967,7 +2227,7 @@
   "block.minecraft.banner.botania.spark_recessive.magenta": "Eflatun Çekingen Sembol",
   "block.minecraft.banner.botania.spark_recessive.orange": "Turuncu Çekingen Sembol",
   "block.minecraft.banner.botania.spark_recessive.white": "Beyaz Çekingen Sembol",
-  
+
   "block.minecraft.banner.botania.fish.black": "Siyah Balık",
   "block.minecraft.banner.botania.fish.red": "Kırmızı Balık",
   "block.minecraft.banner.botania.fish.green": "Yeşil Balık",
@@ -1984,7 +2244,7 @@
   "block.minecraft.banner.botania.fish.magenta": "Eflatun Balık",
   "block.minecraft.banner.botania.fish.orange": "Turuncu Balık",
   "block.minecraft.banner.botania.fish.white": "Beyaz Balık",
-  
+
   "block.minecraft.banner.botania.axe.black": "Siyah Balta",
   "block.minecraft.banner.botania.axe.red": "Kırmızı Balta",
   "block.minecraft.banner.botania.axe.green": "Yeşil Balta",
@@ -2001,7 +2261,7 @@
   "block.minecraft.banner.botania.axe.magenta": "Eflatun Balta",
   "block.minecraft.banner.botania.axe.orange": "Turuncu Balta",
   "block.minecraft.banner.botania.axe.white": "Beyaz Balta",
-  
+
   "block.minecraft.banner.botania.hoe.black": "Siyah Çapa",
   "block.minecraft.banner.botania.hoe.red": "Kırmızı Çapa",
   "block.minecraft.banner.botania.hoe.green": "Yeşil Çapa",
@@ -2018,7 +2278,7 @@
   "block.minecraft.banner.botania.hoe.magenta": "Eflatun Çapa",
   "block.minecraft.banner.botania.hoe.orange": "Turuncu Çapa",
   "block.minecraft.banner.botania.hoe.white": "Beyaz Çapa",
-  
+
   "block.minecraft.banner.botania.pickaxe.black": "Siyah Kazma",
   "block.minecraft.banner.botania.pickaxe.red": "Kırmızı Kazma",
   "block.minecraft.banner.botania.pickaxe.green": "Yeşil Kazma",
@@ -2035,7 +2295,7 @@
   "block.minecraft.banner.botania.pickaxe.magenta": "Eflatun Kazma",
   "block.minecraft.banner.botania.pickaxe.orange": "Turuncu Kazma",
   "block.minecraft.banner.botania.pickaxe.white": "Beyaz Kazma",
-  
+
   "block.minecraft.banner.botania.shovel.black": "Siyah Kürek",
   "block.minecraft.banner.botania.shovel.red": "Kırmızı Kürek",
   "block.minecraft.banner.botania.shovel.green": "Yeşil Kürek",
@@ -2052,7 +2312,7 @@
   "block.minecraft.banner.botania.shovel.magenta": "Eflatun Kürek",
   "block.minecraft.banner.botania.shovel.orange": "Turuncu Kürek",
   "block.minecraft.banner.botania.shovel.white": "Beyaz Kürek",
-  
+
   "block.minecraft.banner.botania.sword.black": "Siyah Kılıç",
   "block.minecraft.banner.botania.sword.red": "Kırmızı Kılıç",
   "block.minecraft.banner.botania.sword.green": "Yeşil Kılıç",
@@ -2069,15 +2329,1803 @@
   "block.minecraft.banner.botania.sword.magenta": "Eflatun Kılıç",
   "block.minecraft.banner.botania.sword.orange": "Turuncu Kılıç",
   "block.minecraft.banner.botania.sword.white": "Beyaz Kılıç",
-  
+
   "botania.category.basics": "Temeller ve Mekanikler",
+
   "botania.category.mana": "Mana Manipülasyonu",
+
   "botania.category.functionalFlowers": "Fonksiyonel Bitkiler",
+
   "botania.category.generationFlowers": "Üretken Bitkiler",
+
   "botania.category.devices": "Doğal Aletler",
+
   "botania.category.tools": "Mistik Eşyalar",
+
   "botania.category.baubles": "Mücevherler ve Aksesuarlar",
+
   "botania.category.ender": "Ender Eserleri",
+
   "botania.category.alfhomancy": "Alfheim Büyüsü",
+
   "botania.category.misc": "Çeşitli"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

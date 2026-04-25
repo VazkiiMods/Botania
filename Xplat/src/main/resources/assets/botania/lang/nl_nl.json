@@ -1,12 +1,22 @@
 {
   "_comment0": "Note to translators: DO NOT COPY ENTRIES FROM ENGLISH",
   "_comment1": "I repeat: do NOT copy entries from English!!",
-  "_comment2": "Any entry in this lang file should be in nl_NL, or *should not be here at all*",
-  "_comment3": "Copying English entries will cause them to become outdated when the main English lang file changes",
-  "_comment4": "Untranslated entries will automatically be inherited from en_US",
-  "_comment5": "Once again, don't copy from English, and THANK YOU for your hard work!",
+  "_comment2": "Copying English entries will cause them to become outdated when this file changes",
+  "_comment3": "Untranslated entries will automatically be inherited from this file.",
+  "_comment4": "Once again, don't copy from English, and THANK YOU for your hard work!",
 
-  "itemGroup.botania": "Botania",
+
+
+
+
+
+
+
+
+
+
+
+
 
   "botaniamisc.color": "%s Gekleurd",
   "botaniamisc.manaUsage": "Mana Verbruik",
@@ -19,29 +29,43 @@
   "botaniamisc.filter.items_in_frames": "Alleen items binnen kader verzamelen",
   "botaniamisc.filter.items_not_in_frames": "Alleen items buiten kader verzamelen",
   "botaniamisc.filter.all_items": "Alle items verzamelen",
+
+
+
+
+
   "botaniamisc.creativePool0": "Creatieve Mana voorraad, heeft oneindig Mana",
   "botaniamisc.creativePool1": "Waardig voor een egoïst",
-  "botaniamisc.toolRank": "%s&7 Rang",
 
+  "botaniamisc.toolRank": "%s&7 Rang",
   "botaniamisc.lexiconcover0": "Uw gids voor alle",
   "botaniamisc.lexiconcover1": "Botanische benodigdheden",
   "botaniamisc.lexiconcover2": "Van best verkopende auteur",
   "botaniamisc.shiftinfo": "Druk %s voor meer informatie",
   "botaniamisc.ratio": "Inzoomen: %sx",
+
+
   "botaniamisc.bottleTooltip": "Het heeft een verworven smaak",
   "botaniamisc.shardLevel": "Schervenkracht %s",
-  "botaniamisc.lexiconIndex": "Lexicon Index",
+
+
   "botaniamisc.drop": "Laten vallen",
-  "botaniamisc.dropTip0": "Tip: Druk toets %s in je inventaris om te laten vallen",
+  "botaniamisc.dropTip2": "Tip: Druk toets %s in je",
+  "botaniamisc.dropTip3": "inventaris om te laten vallen",
   "botaniamisc.dropTip1": "CTRL-%s laat een hele stapel vallen",
   "botaniamisc.wandMode.bind": "Verbind Modus",
   "botaniamisc.wandMode.function": "Functie Modus",
+
+
+
+
   "botaniamisc.brewOf": "Brouwsel van %s",
   "botaniamisc.needsCatalysts": "Hoe hard je de staaf Terrastaal ook in het baken drukt, er lijkt niets te gebeuren, misschien is de configuratie van versnelzuilen verkeerd.",
   "botaniamisc.peacefulNoob": "Je probeert de staaf Terrastaal aan te bieden, maar de vreedzaamheid in je wereld voorkomt dat. Misschien moet je daar iets aan doen.",
   "botaniamisc.notInfused": "Niet doordrenkt",
   "botaniamisc.getALife": "Krijg een leven",
   "botaniamisc.floatingPrefix": "Drijvende %s",
+
   "botaniamisc.unsetRecipe": "[Geen recept] Rechts-klik om in te stellen:",
   "botaniamisc.cantCraft": "Niet genoeg materialen!",
   "botaniamisc.lotusDesc": "Hij straalt sterke Magie uit",
@@ -54,6 +78,7 @@
   "botaniamisc.nearIndex1": "Alles wat je zegt wordt",
   "botaniamisc.nearIndex2": "onderschept als verzoek",
   "botaniamisc.cosmeticBauble": "&oCosmetisch",
+
   "botaniamisc.hasCosmetic": "&oHeeft Cosmetische Verbetering: &r%s",
   "botaniamisc.hasPhantomInk": "&bGekleurd met Fantoom Inkt",
   "botaniamisc.pinkinatorDesc": "Direct toepassen op Verdorren",
@@ -62,6 +87,8 @@
   "botaniamisc.notYourSagittarius": "&4Deze reliek is niet van jou",
   "botaniamisc.diceRoll": "De dobbelsteen landt op een %s, en verandert dan in iets anders.",
   "botaniamisc.dudDiceRoll": "De dobbelsteen landt op een %s, en lijkt daarna in rook op te gaan.",
+
+
   "botaniamisc.blockAway": "1 Blok weg",
   "botaniamisc.blocksAway": "%s Blokken weg",
   "botaniamisc.clickToTeleport": "Rechts-klikken om te Teleporteren",
@@ -74,11 +101,25 @@
   "botaniamisc.advancements": "Botania Prestaties",
   "botaniamisc.dropIkea": "&bHet laten vallen van dit voorwerp doet het uiteenvallen in zijn bestandsdelen",
   "botaniamisc.hourglassLock": "Deze Zandloper is vergrendeld. Rechts-klik erop met een Staf van het Woud om hem te ontgrendelen.",
+
   "botaniamisc.locked": "Vergrendeld",
   "botaniamisc.stopped": "Gestopt",
   "botaniamisc.lockedStopped": "Vergrendeld, Gestopt",
   "botaniamisc.challenges": "Uitdagingen",
   "botaniamisc.challengeInfo": "Leer over de uitdagingen",
+
+
+
+
+
+
+
+
+
+
+
+
+
   "botaniamisc.pay2win": "Upgrade de Mana Voorraad om dit voorwerp te doordrenken",
   "botaniamisc.justDoIt": "DOE HET",
   "botaniamisc.changes0": "&aBotania&7 is veranderd sinds je het hiermee voor het laatst gebruikt hebt!",
@@ -89,6 +130,66 @@
   "botaniamisc.changes5": "&fLinks Klikken&7 om dit te sluiten",
   "botaniamisc.badArena": "Hoe hard je ook probeert, het Baken accepteert je offer niet. Misschien is de rituele grond onzuiver. Het is misschien goed om te kijken voor obstakels in de buurt, of grote gaten in de grond.",
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "botania.nei.brewery": "Botanische Brouwerij",
   "botania.nei.elvenTrade": "Elven Handel",
   "botania.nei.floatingFlowers": "Drijvende Bloemen",
@@ -97,7 +198,272 @@
   "botania.nei.runicAltar": "Runen Altaar",
   "botania.nei.pureDaisy": "Puur Madeliefje",
 
-  "botania.triggers.manaDetector": "Mana Burst",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "botania.triggers.manaEmpty": "Mana Leeg",
   "botania.triggers.manaSpace": "Ruimte voor Mana",
   "botania.triggers.manaContains": "Bevat Mana",
@@ -105,6 +471,13 @@
   "botania.triggers.runeAltarCanCraft": "Altaar kan vervaardigen",
 
   "botania.color.rainbow": "Regenboog",
+
+
+
+
+
+
+
 
   "botania.sign0": "Ram",
   "botania.sign1": "Stier",
@@ -130,6 +503,10 @@
   "botania.wings8": "Vleugels: Hele Grote Kip",
   "botania.wings9": "Vleugels: De Juiste",
 
+
+
+
+
   "botania.armorset.manasteel.name": "Mana Affiniteit",
   "botania.armorset.manasteel.desc": "10% minder Mana kosten voor Mana gereedschap en staven",
   "botania.armorset.elementium.name": "Grote Elfjes Zegen",
@@ -137,6 +514,7 @@
   "botania.armorset.terrasteel.name": "Wil der Ouden",
   "botania.armorset.terrasteel.desc0": "20% minder Mana kosten voor Mana gereedschap en staven",
   "botania.armorset.terrasteel.desc1": "Herstel ook als honger niet is afgevuld",
+
   "botania.armorset.manaweave.name": "Manavloed Moed",
   "botania.armorset.manaweave.desc0": "35% minder Mana kosten voor Mana Gereedschappen en Staven",
   "botania.armorset.manaweave.desc1": "Betere bekwaamheid met Magische Staven",
@@ -147,12 +525,49 @@
   "botania.armorset.will_torag.desc": "Voltreffers geven een sterk traagheid effect (Wil van Torag)",
   "botania.armorset.will_verac.desc": "Voltreffers doordringen armor (Wil van Verac)",
   "botania.armorset.will_karil.desc": "Voltreffers geven aantastend effect (Wil van Karil)",
+
   "botania.armorset.will_ahrim.shortDesc": "Voltreffers geven een sterk zwakheid effect effect",
   "botania.armorset.will_dharok.shortDesc": "Voltreffers geven meer schade bij minder HP",
   "botania.armorset.will_guthan.shortDesc": "Voltreffers genezen voor een deel van de schade",
   "botania.armorset.will_torag.shortDesc": "Voltreffers geven een sterk traagheid effect",
   "botania.armorset.will_verac.shortDesc": "Voltreffers doordringen armor",
   "botania.armorset.will_karil.shortDesc": "Voltreffers geven aantastend effect",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   "blockBreakingParticles.enabled": "Deeltjes bij breken blok",
   "blockBreakingParticlesTool.enabled": "Deeltjes bij breken blok ger.",
@@ -171,7 +586,7 @@
   "flowerParticles.frequency": "Frequentie bloemendeeltjes",
   "lexicon.enable.rotatingItems": "Lexicon rotatie items",
   "lexicon.enable.justifiedText": "Lexicon Uitgelijnde Text",
-  "lexicon.render.3D": "3D Lexicon Render",
+
   "manaBar.height": "Hoogte Mana indicator",
   "powerSystem.subtle": "Gebruik subtiel krachtsysteem",
   "pylonModel.old": "Gebruik oud zuilen model",
@@ -185,14 +600,26 @@
   "shaders.enabled": "Activeer schaduwen",
   "baubleRender.enabled": "Bauble Rendering Inschakelen",
   "spreader.posShift": "Verspreider positie verplaatsing",
+
+
+
   "versionChecking.enabled": "Versie controle inschakelen",
   "wandBeam.static": "Statische staf straal inschakelen",
   "worldgen.flower.density": "Worldgen bloemen dichtheid",
+  "worldgen.flower.quantity": "Worldgen bloemen hoeveelheid",
   "worldgen.flower.patchChance": "Worldgen bloembed kans",
   "worldgen.flower.patchSize": "Worldgen bloembed grootte",
-  "worldgen.flower.quantity": "Worldgen bloemen hoeveelheid",
   "worldgen.flower.tallChance": "Worldgen lange bloemen kans",
   "worldgen.mushroom.quantity": "Worldgen Paddenstoel hoeveelheid",
+
+
+
+
+
+
+
+
+
 
   "botania.baubletooltip": "Druk &b%s&7 om het Baubles menu te openen",
 
@@ -203,7 +630,18 @@
 
   "death.attack.botania.relic": "%s werd gestraft voor gebruik van een reliek van een ander",
 
-  "entity.botania.mana_burst": "Mana Burst",
+
+
+
+
+
+
+
+
+
+
+
+
   "entity.botania.pixie": "Elfje",
   "entity.botania.flame_ring": "Vuur Ring",
   "entity.botania.vine_ball": "Lianenbol",
@@ -215,7 +653,15 @@
   "entity.botania.thorn_chakram": "Doorn van Chakram",
   "entity.botania.corporea_spark": "Corporea Vonk",
   "entity.botania.ender_air_bottle": "Flesje Ender Lucht",
+
   "entity.botania.pool_minecart": "Mana Voorraad Mijnkar",
+
+
+
+
+
+
+
 
   "advancement.botania:flowerPickup": "Hemel van het Begin",
   "advancement.botania:flowerPickup.desc": "Pak een Mystieke Bloem op uit de wereld",
@@ -241,6 +687,7 @@
   "advancement.botania:manaBlasterShoot.desc": "Maak en schiet een Mana Blaster",
   "advancement.botania:tiaraWings": "Hartendief",
   "advancement.botania:tiaraWings.desc": "Maak en gebruik een Flügel Tiara met Flügel vleugels",
+
   "advancement.botania:terrasteelPickup.desc": "Roep een staaf Terrastaal op met een Bodemverbindingsplaat",
   "advancement.botania:elfPortalOpen": "De Wereld Roept",
   "advancement.botania:elfPortalOpen.desc": "Open een poort naar het Elvenrijk",
@@ -296,6 +743,8 @@
   "advancement.botania:pinkinator": "Versierder",
   "advancement.botania:pinkinator.desc": "Gebruik de Rozekleurder",
 
+
+
   "advancement.botania:infiniteFruit": "Onschuldigheid",
   "advancement.botania:infiniteFruit.desc": "Verdien Het Fruit van Grisaia voor een heldhaftige daad",
   "advancement.botania:kingKey": "Onder Valse Invloed",
@@ -308,6 +757,16 @@
   "advancement.botania:odinRing.desc": "Verdien de Ring van Odin voor een heldhaftige daad",
   "advancement.botania:lokiRing": "Rekenkunst",
   "advancement.botania:lokiRing.desc": "Verdien de Ring van Loki voor een heldhaftige daad",
+
+
+
+
+
+
+
+
+
+
 
 
   "botania.challengelevel.easy": "Makkelijk",
@@ -347,6 +806,8 @@
   "botania.challenge.entropinnyumSetup.desc": "Maak een systeem dat automatisch TNT vervaardigd, en het veilig voert aan een Entropinnium bloem om Mana te maken. Bonuspunten als het zand en buskruit voor de TNT niet handmatig hoeft te worden toegevoegd.",
   "botania.challenge.spectrolusSetup": "Spectrolus Opstelling",
   "botania.challenge.spectrolusSetup.desc": "Maak een systeem dat de Spectrolus bloem voedt om Mana te maken. Naast ruwe Mana, mogen er geen voorwerpen worden toegevoegd van buitenaf. Bonuspunten als het 100% efficient werkt, zonder wol te verspillen.",
+
+
   "botania.challenge.potionBrewer": "Geautomatiseerd Brouwen",
   "botania.challenge.potionBrewer.desc": "Maak een systeem dat dat alle soorten brouwsels kan maken op aanvraag. Bonuspunten als voordurend wierook brandend wordt gehouden.",
 
@@ -373,6 +834,22 @@
   "block.botania.green_mystical_flower": "Mystieke Groene Bloem",
   "block.botania.red_mystical_flower": "Mystieke Rode Bloem",
   "block.botania.black_mystical_flower": "Mystieke Zwarte Bloem",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.apothecary_default": "Bloemblad Apotheek",
   "block.botania.apothecary_forest": "Woud Bloemblad Apotheek",
   "block.botania.apothecary_plains": "Veld Bloemblad Apotheek",
@@ -382,7 +859,15 @@
   "block.botania.apothecary_desert": "Woestijn Bloemblad Apotheek",
   "block.botania.apothecary_taiga": "Winterwoud Bloemblad Apotheek",
   "block.botania.apothecary_mesa": "Hoogvlakte Bloemblad Apotheek",
+
+
+
   "block.botania.livingrock": "Levensteen",
+
+
+
+
+
   "block.botania.livingrock_bricks": "Levensteen Baksteen",
   "block.botania.mossy_livingrock_bricks": "Mossige Levensteen Baksteen",
   "block.botania.cracked_livingrock_bricks": "Gebarsten Levensteen Baksteen",
@@ -393,23 +878,146 @@
   "block.botania.framed_livingwood": "Omlijst Levenshout",
   "block.botania.pattern_framed_livingwood": "Patroon Omlijst Levenshout",
   "block.botania.glimmering_livingwood": "Glinsterend Levenshout",
+
+
+
+
+
+
   "block.botania.mana_spreader": "Mana Verspreider",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.redstone_spreader": "Redstone Mana Verspreider",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.elven_spreader": "Elven Mana Verspreider",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.gaia_spreader": "Gaia Mana Verspreider",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.mana_pool": "Mana Voorraad",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.creative_pool": "De Eeuwige Schuld Voorraad",
   "block.botania.diluted_pool": "Verdunde Mana Voorraad",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.runic_altar": "Runen Altaar",
   "block.botania.piston_relay": "Krachtverbinding",
   "block.botania.mana_distributor": "Mana Verdeler",
+
+
+
   "block.botania.mana_void": "Mana Leegte",
-  "block.botania.mana_detector": "Mana Detector",
+
   "block.botania.enchanter": "Mana Betoveraar",
   "block.botania.turntable": "Verspreider Draaischijf",
   "block.botania.tiny_planet_block": "Kleine Planeet",
   "block.botania.alchemy_catalyst": "Chemieversneller",
   "block.botania.open_crate": "Open Krat",
+
   "block.botania.forest_eye": "Oog der Ouden",
   "block.botania.manasteel_block": "Blok Manastaal",
   "block.botania.terrasteel_block": "Blok Terrastaal",
@@ -435,6 +1043,22 @@
   "block.botania.green_shiny_flower": "Glinsterende Groene Bloem",
   "block.botania.red_shiny_flower": "Glinsterende Rode Bloem",
   "block.botania.black_shiny_flower": "Glinsterende Zwarte Bloem",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.abstruse_platform": "Diepzinnig Platform",
   "block.botania.spectral_platform": "Spookachtig Platform",
   "block.botania.infrangible_platform": "Onbreekbaar Platform",
@@ -480,18 +1104,34 @@
   "block.botania.framed_dreamwood": "Omlijst Droomhout",
   "block.botania.pattern_framed_dreamwood": "Patroon Omlijst Droomhout",
   "block.botania.glimmering_dreamwood": "Glinsterend Droomhout",
+
+
+
+
+
+
   "block.botania.livingwood_stairs": "Levenshout Trap",
   "block.botania.livingwood_slab": "Levenshout Plaat",
   "block.botania.livingwood_planks_stairs": "Levenshout Plank Trap",
   "block.botania.livingwood_planks_slab": "Levenshout Plank Plaat",
+
+
+
   "block.botania.livingrock_stairs": "Levensteen Trap",
   "block.botania.livingrock_slab": "Levensteen Plaat",
+
+
   "block.botania.livingrock_bricks_stairs": "Levensteen Baksteen Trap",
   "block.botania.livingrock_bricks_slab": "Levensteen Baksteen Plaat",
+
+
   "block.botania.dreamwood_stairs": "Droomhout Trap",
   "block.botania.dreamwood_slab": "Droomhout Plaat",
   "block.botania.dreamwood_planks_stairs": "Droomhout Plank Trap",
   "block.botania.dreamwood_planks_slab": "Droomhout Plank Plaat",
+
+
+
   "block.botania.conjuration_catalyst": "Oproepversneller",
   "block.botania.white_floating_flower": "Drijvende Witte Bloem",
   "block.botania.orange_floating_flower": "Drijvende Oranje Bloem",
@@ -515,18 +1155,18 @@
   "block.botania.azulejo_1": "Zielen Baksteen",
   "block.botania.azulejo_2": "Bevroren Baksteen",
   "block.botania.azulejo_3": "Dakpan",
-  "block.botania.azulejo_4": "Azulejo",
-  "block.botania.azulejo_5": "Azulejo",
-  "block.botania.azulejo_6": "Azulejo",
-  "block.botania.azulejo_7": "Azulejo",
-  "block.botania.azulejo_8": "Azulejo",
-  "block.botania.azulejo_9": "Azulejo",
-  "block.botania.azulejo_10": "Azulejo",
-  "block.botania.azulejo_11": "Azulejo",
-  "block.botania.azulejo_12": "Azulejo",
-  "block.botania.azulejo_13": "Azulejo",
-  "block.botania.azulejo_14": "Azulejo",
-  "block.botania.azulejo_15": "Azulejo",
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.ender_eye_block": "Ender Opzichter",
   "block.botania.starfield": "Sterrenmaker",
   "block.botania.mana_fluxfield": "Mana Veld",
@@ -623,6 +1263,46 @@
   "block.botania.metamorphic_desert_bricks_slab": "Veranderlijke Woestijnsteen Baksteen Plaat",
   "block.botania.metamorphic_taiga_bricks_slab": "Veranderlijke Winterwoudsteen Baksteen Plaat",
   "block.botania.metamorphic_mesa_bricks_slab": "Veranderlijke Hoogvlaktesteen Baksteen Plaat",
+
+
+
+
+
+
+
+
+  "block.botania.metamorphic_forest_cobblestone_wall": "Veranderlijke Woudkeisteen Muur",
+  "block.botania.metamorphic_plains_cobblestone_wall": "Veranderlijke Veldkeisteen Muur",
+  "block.botania.metamorphic_mountain_cobblestone_wall": "Veranderlijke Bergkeisteen Muur",
+  "block.botania.metamorphic_fungal_cobblestone_wall": "Veranderlijke Schimmelkeisteen Muur",
+  "block.botania.metamorphic_swamp_cobblestone_wall": "Veranderlijke Moeraskeisteen Muur",
+  "block.botania.metamorphic_desert_cobblestone_wall": "Veranderlijke Woestijnkeisteen Muur",
+  "block.botania.metamorphic_taiga_cobblestone_wall": "Veranderlijke Winterwoudkeisteen Muur",
+  "block.botania.metamorphic_mesa_cobblestone_wall": "Veranderlijke Hoogvlaktekeisteen Muur",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.white_petal_block": "Wit Bloemblad Blok",
   "block.botania.orange_petal_block": "Oranje Bloemblad Blok",
   "block.botania.magenta_petal_block": "Magenta Bloemblad Blok",
@@ -639,7 +1319,7 @@
   "block.botania.green_petal_block": "Groen Bloemblad Blok",
   "block.botania.red_petal_block": "Rood Bloemblad Blok",
   "block.botania.black_petal_block": "Zwart Bloemblad Blok",
-  "block.botania.corporea_index": "Corporea Index",
+
   "block.botania.corporea_funnel": "Corporea Trechter",
   "block.botania.white_mushroom": "Witte Glinsterende Paddenstoel",
   "block.botania.orange_mushroom": "Oranje Glinsterende Paddenstoel",
@@ -657,6 +1337,22 @@
   "block.botania.green_mushroom": "Groene Glinsterende Paddenstoel",
   "block.botania.red_mushroom": "Rode Glinsterende Paddenstoel",
   "block.botania.black_mushroom": "Zwarte Glinsterende Paddenstoel",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.pump": "Mana Pomp",
   "block.botania.white_double_flower": "Lange Mystieke Witte Bloem",
   "block.botania.orange_double_flower": "Lange Mystieke Oranje Bloem",
@@ -686,18 +1382,38 @@
   "block.botania.cocoon": "Cocoon van Caprice",
   "block.botania.light_relay": "Verlichter",
   "block.botania.detector_light_relay": "Detector Verlichter",
+
+
   "block.botania.light_launcher": "Verlichter Lanceerder",
   "block.botania.livingrock_wall": "Levensteen Muur",
+
+
   "block.botania.livingwood_wall": "Levenshout Muur",
   "block.botania.dreamwood_wall": "Droomhout Muur",
-  "block.botania.metamorphic_forest_cobblestone_wall": "Veranderlijke Woudkeisteen Muur",
-  "block.botania.metamorphic_plains_cobblestone_wall": "Veranderlijke Veldkeisteen Muur",
-  "block.botania.metamorphic_mountain_cobblestone_wall": "Veranderlijke Bergkeisteen Muur",
-  "block.botania.metamorphic_fungal_cobblestone_wall": "Veranderlijke Schimmelkeisteen Muur",
-  "block.botania.metamorphic_swamp_cobblestone_wall": "Veranderlijke Moeraskeisteen Muur",
-  "block.botania.metamorphic_desert_cobblestone_wall": "Veranderlijke Woestijnkeisteen Muur",
-  "block.botania.metamorphic_taiga_cobblestone_wall": "Veranderlijke Winterwoudkeisteen Muur",
-  "block.botania.metamorphic_mesa_cobblestone_wall": "Veranderlijke Hoogvlaktekeisteen Muur",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.mana_bomb": "Manastorm Lading",
   "block.botania.white_buried_petals": "Begraven Witte Bloemblad",
   "block.botania.orange_buried_petals": "Begraven Oranje Bloemblad",
@@ -739,115 +1455,261 @@
   "block.botania.green_pavement_slab": "Groene Portugese Stoeptegel",
   "block.botania.cell_block": "Cellulair Blok",
   "block.botania.gaia_head": "Beschermer van Gaia's Hoofd",
+
+
+
+
+
+
+
+
+
+
   "block.botania.corporea_retainer": "Corporea Behouder",
   "block.botania.mana_glass_pane": "Managlas Ruit",
   "block.botania.elf_glass_pane": "Elvenglas Ruit",
   "block.botania.bifrost_pane": "Bifrost Ruit",
-  "block.botania.teru_teru_bozu": "Teru Teru Bozu",
+
   "block.botania.shimmerrock": "Glinstersteen",
   "block.botania.shimmerrock_slab": "Glinstersteen Plaat",
   "block.botania.shimmerrock_stairs": "Glinstersteen Trap",
+
+
+
   "block.botania.shimmerwood_planks": "Glinsterhout Planken",
   "block.botania.shimmerwood_planks_slab": "Glinsterhout Plank Plaat",
   "block.botania.shimmerwood_planks_stairs": "Glinsterhout Plank Trap",
   "block.botania.avatar": "Levenshout Avatar",
 
+
+
+
+
+
+
+
   "block.botania.pure_daisy": "Puur Madeliefje",
   "block.botania.pure_daisy.reference": "Welke kleur wil je dat hij is?",
+
+
   "block.botania.manastar": "Manaster",
   "block.botania.manastar.reference": "Wens bij een vallende ster",
 
+
+
   "block.botania.endoflame": "Endovlam",
   "block.botania.endoflame.reference": "Een endotherme reactie",
+
+
   "block.botania.hydroangeas": "Hydroangea",
   "block.botania.hydroangeas.reference": "Gewoon vriendelijke schaaldieren",
+
+
   "block.botania.thermalily": "Thermalelie",
   "block.botania.thermalily.reference": "Met oranjerode kleur",
-  "block.botania.rosa_arcana": "Rosa Arcana",
+
+
+
   "block.botania.rosa_arcana.reference": "Geheimelijk opvallend",
+
+
   "block.botania.munchdew": "Munchdauw",
   "block.botania.munchdew.reference": "Goed binnen te houden",
+
+
   "block.botania.entropinnyum": "Entropinnium",
   "block.botania.entropinnyum.reference": "Netjes op een rijtje",
-  "block.botania.kekimurus": "Kekimurus",
+
+
+
   "block.botania.kekimurus.reference": "Deze bloem bedriegt",
+
+
   "block.botania.gourmaryllis": "Gourmarie",
   "block.botania.gourmaryllis.reference": "Voor de fijnproever",
-  "block.botania.narslimmus": "Narslimmus",
+
+
+
   "block.botania.narslimmus.reference": "Wat is dit? Het is zo plakkerig.",
-  "block.botania.spectrolus": "Spectrolus",
+
+
+
   "block.botania.spectrolus.reference": "Profiteert van haat",
+
+
   "block.botania.dandelifeon": "Dandeleven",
   "block.botania.dandelifeon.reference": "Zo is het leven",
+
+
   "block.botania.rafflowsia": "Rommelkruid",
   "block.botania.rafflowsia.reference": "Venijnige Valkuil",
 
+
+
+
+
+
+
   "block.botania.bellethorn": "Bellendoorn",
   "block.botania.bellethorn.reference": "Prik je niet",
+
+
   "block.botania.bellethorn_chibi": "Bellendoorn Petite",
   "block.botania.bellethorn_chibi.reference": "Het einde van de wereld?",
+
+
   "block.botania.dreadthorn": "Schrikkeldoorn",
   "block.botania.dreadthorn.reference": "Plan C",
+
+
   "block.botania.heisei_dream": "Droomdoorn",
   "block.botania.heisei_dream.reference": "Blijf dromen",
+
+
   "block.botania.tigerseye": "Tijgersoog",
   "block.botania.tigerseye.reference": "Je eigen tijger",
-  "block.botania.jaded_amaranthus": "Jaded Amaranthus",
+
+
+
   "block.botania.jaded_amaranthus.reference": "Wat je hebben wilt",
+
+
   "block.botania.orechid": "Ertsidee",
   "block.botania.orechid.reference": "Je oogst wat je zaait",
+
+
   "block.botania.orechid_ignem": "Nertsidee",
   "block.botania.orechid_ignem.reference": "Als rode rozen",
+
+
   "block.botania.fallen_kanade": "Gevallen Engel",
   "block.botania.fallen_kanade.reference": "Hemels",
+
+
   "block.botania.exoflame": "Exovlam",
   "block.botania.exoflame.reference": "Een exotherme reactie",
+
+
   "block.botania.agricarnation": "Agranietje",
   "block.botania.agricarnation.reference": "Wat de boer niet kent",
+
+
   "block.botania.agricarnation_chibi": "Agraniet Petite",
   "block.botania.agricarnation_chibi.reference": "Dragen deze bloem",
+
+
   "block.botania.hopperhock": "Trechterkruid",
   "block.botania.hopperhock.reference": "Het gaat er allemaal in",
+
+
   "block.botania.hopperhock_chibi": "Kleint Trechterkruid",
   "block.botania.hopperhock_chibi.reference": "Het trechtert erin",
+
+
   "block.botania.tangleberrie": "Tangelbes",
+
   "block.botania.tangleberrie.reference": "Niet opbakken",
+
+
+
+
+
   "block.botania.jiyuulia": "Spreukbes",
+
   "block.botania.jiyuulia.reference": "Vleugel der vrijheid",
+
+
+
+
+
   "block.botania.rannuncarpus": "Rannakruid",
   "block.botania.rannuncarpus.reference": "Altijd handig",
+
+
   "block.botania.rannuncarpus_chibi": "Klein Rannakruid",
   "block.botania.rannuncarpus_chibi.reference": "Da's handig",
+
+
   "block.botania.hyacidus": "Hyacint",
   "block.botania.hyacidus.reference": "Gewoon niet doorheen lopen",
+
+
   "block.botania.pollidisiac": "Pollidesie",
   "block.botania.pollidisiac.reference": "Bloemen en bijen",
+
+
   "block.botania.clayconia": "Kleiconia",
   "block.botania.clayconia.reference": "Kleigoed",
-  "block.botania.loonium": "Loonium",
+
+
+
+
+
+
+
   "block.botania.loonium.reference": "Hou hem boven je hoofd",
+
+
   "block.botania.daffomill": "Daffolelie",
   "block.botania.daffomill.reference": "Assistent Chef",
-  "block.botania.vinculotus": "Vinculotus",
+
+
+
   "block.botania.vinculotus.reference": "Samen sterker",
+
+
   "block.botania.spectranthemum": "Spectranthemie",
   "block.botania.spectranthemum.reference": "In een notendop",
+
+
   "block.botania.medumone": "Medumeen",
   "block.botania.medumone.reference": "Hij gaat je pakken",
+
+
   "block.botania.marimorphosis": "Mariemorfose",
   "block.botania.marimorphosis.reference": "Stevig als een rots",
+
+
   "block.botania.marimorphosis_chibi": "Mariemorfose Petite",
   "block.botania.marimorphosis_chibi.reference": "Stevig als een rots",
+
+
   "block.botania.bubbell": "Bubbelbes",
   "block.botania.bubbell.reference": "En fluiten",
+
+
   "block.botania.bubbell_chibi": "Kleine Bubbelbes",
   "block.botania.bubbell_chibi.reference": "En fluiten",
+
+
   "block.botania.solegnolia": "Solegnolie",
   "block.botania.solegnolia.reference": "Anti-magneet",
 
-  "item.botania.lexicon": "Lexica Botania",
-  "item.botania.lexicon.bevo": "Lexica Botana",
-  "item.botania.lexicon.saice": "Lexica Botonia",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "item.botania.white_petal": "Mystiek Wit Bloemblad",
   "item.botania.orange_petal": "Mystiek Oranje Bloemblad",
   "item.botania.magenta_petal": "Mystiek Magenta Bloemblad",
@@ -856,6 +1718,7 @@
   "item.botania.lime_petal": "Mystiek Lichtgroen Bloemblad",
   "item.botania.pink_petal": "Mystiek Roze Bloemblad",
   "item.botania.gray_petal": "Mystiek Grijs Bloemblad",
+
   "item.botania.cyan_petal": "Mystiek Blauwgroen Bloemblad",
   "item.botania.purple_petal": "Mystiek Paars Bloemblad",
   "item.botania.blue_petal": "Mystiek Blauw Bloemblad",
@@ -864,10 +1727,11 @@
   "item.botania.red_petal": "Mystiek Rood Bloemblad",
   "item.botania.black_petal": "Mystiek Zwart Bloemblad",
   "item.botania.twig_wand": "Staf van het Woud",
+
   "item.botania.manasteel_ingot": "Staaf Manastaal",
   "item.botania.mana_pearl": "Mana Parel",
   "item.botania.mana_diamond": "Mana Diamant",
-  "item.botania.lens_normal": "Mana Lens",
+
   "item.botania.lens_speed": "Mana Lens: Snelheid",
   "item.botania.lens_speed.short": "Snelheid",
   "item.botania.lens_power": "Mana Lens: Sterkte",
@@ -904,6 +1768,18 @@
   "item.botania.lens_light.short": "Flits",
   "item.botania.lens_warp": "Mana Lens: Afbuiging",
   "item.botania.lens_warp.short": "Afbuiging",
+
+
+
+
+
+
+
+
+
+
+
+
   "item.botania.rune_water": "Rune der Water",
   "item.botania.rune_fire": "Rune der Vuur",
   "item.botania.rune_earth": "Rune der Aarde",
@@ -920,14 +1796,20 @@
   "item.botania.rune_wrath": "Rune der Woede",
   "item.botania.rune_envy": "Rune der Jaloezie",
   "item.botania.rune_pride": "Rune der Ijdelheid",
-  "item.botania.mana_tablet": "Mana Tablet",
-  "item.botania.mana_gun": "Mana Blaster",
+
+
   "item.botania.composite_lens": "Samengestelde Mana Lens: %s %s",
   "item.botania.mana_cookie": "Biscuit der Totaalheid",
   "item.botania.fertilizer": "Bloemenvoeding",
   "item.botania.grass_seeds": "Weidezaden",
   "item.botania.podzol_seeds": "Boreale Zaden",
   "item.botania.mycelium_seeds": "Ziektezaden",
+
+
+
+
+
+
   "item.botania.livingwood_twig": "Levenshout Twijgje",
   "item.botania.dirt_rod": "Staf van het Land",
   "item.botania.terraform_rod": "Terraformstaf",
@@ -939,6 +1821,7 @@
   "item.botania.manasteel_pick": "Manastaal Houweel",
   "item.botania.manasteel_shovel": "Manastaal Schep",
   "item.botania.manasteel_axe": "Manastaal Bijl",
+
   "item.botania.manasteel_sword": "Manastaal Zwaard",
   "item.botania.manasteel_shears": "Manastaal Schaar",
   "item.botania.horn_grass": "Hoorn van het Wild",
@@ -967,7 +1850,7 @@
   "item.botania.reach_ring": "Ring der Bereik",
   "item.botania.terra_pick": "Terrabreker",
   "item.botania.diva_charm": "Diva Talisman",
-  "item.botania.flight_tiara": "Flügel Tiara",
+
   "item.botania.ender_dagger": "Zielschrijver",
   "item.botania.quartz_dark": "Donker Kwarts",
   "item.botania.quartz_mana": "Mana Kwarts",
@@ -987,6 +1870,7 @@
   "item.botania.elementium_pickaxe": "Elementium Houweel",
   "item.botania.elementium_shovel": "Elementium Schep",
   "item.botania.elementium_axe": "Elementium Bijl",
+
   "item.botania.elementium_sword": "Elementium Zwaard",
   "item.botania.elementium_shears": "Elementium Schaar",
   "item.botania.open_bucket": "Bodemloze Emmer",
@@ -1024,6 +1908,7 @@
   "item.botania.missile_rod": "Staf van het Instabiele Reservoir",
   "item.botania.holy_cloak": "Mantel der Deugdzaamheid",
   "item.botania.unholy_cloak": "Mantel der Zonde",
+
   "item.botania.crafting_halo": "Vervaardigingshalo",
   "item.botania.auto_crafting_halo": "Productiehalo",
   "item.botania.black_lotus": "Zwarte Lotus",
@@ -1056,6 +1941,7 @@
   "item.botania.ancient_will_karil": "Wil van Karil",
   "item.botania.corporea_spark": "Corporea Vonk",
   "item.botania.corporea_spark_master": "Corporea Bronvonk",
+
   "item.botania.ender_air_bottle": "Ender Lucht Flesje",
   "item.botania.livingwood_bow": "Levenshout Boog",
   "item.botania.crystal_bow": "Kristallen Boog",
@@ -1079,7 +1965,7 @@
   "item.botania.cosmetic_clock_eye": "Kloks Oog",
   "item.botania.cosmetic_unicorn_horn": "Eenhoorn",
   "item.botania.cosmetic_devil_horns": "Duivelhoornen",
-  "item.botania.cosmetic_hyper_plus": "Hyper Plus",
+
   "item.botania.cosmetic_botanist_emblem": "Botanisten Embleem",
   "item.botania.cosmetic_ancient_mask": "Antiek Masker",
   "item.botania.cosmetic_eerie_mask": "Griezelig Masker",
@@ -1091,9 +1977,11 @@
   "item.botania.cosmetic_lusitanic_shield": "Lusitanisch Schild",
   "item.botania.cosmetic_tiny_potato_mask": "Kleine Aardappel Masker",
   "item.botania.cosmetic_questgiver_mark": "Spelleider Teken",
+
   "item.botania.mana_string": "Mana Doordrenkt Draad",
   "item.botania.swap_ring": "Ring der Correctie",
   "item.botania.flower_bag": "Bloementas",
+
   "item.botania.phantom_ink": "Fantoom Inkt",
   "item.botania.pool_minecart": "Mijnkar met Mana Voorraad",
   "item.botania.pinkinator": "De Rozekleurder",
@@ -1129,13 +2017,27 @@
   "item.botania.manaweave_chestplate": "Manaweefsel Mantel Bovenstuk",
   "item.botania.manaweave_leggings": "Manaweefsel Mantel Onderstuk",
   "item.botania.manaweave_boots": "Manaweefsel Laarzen",
+
+
+
+
   "item.botania.gaiahead": "Beschermer van Gaia's Hoofd",
   "item.botania.sextant": "Wereldbouwer Gradenboog",
+
+
+
+
+
+
+
+
+
+
 
   "botania.brew.fallback": "Terugval",
   "botania.brew.speed": "Supervoeten",
   "botania.brew.strength": "Kracht",
-  "botania.brew.haste": "Adrenaline",
+
   "botania.brew.healing": "Genezend",
   "botania.brew.jump_boost": "Opwaarts",
   "botania.brew.regen": "Vitaliserend",
@@ -1177,16 +2079,277 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "botania.category.basics": "Beginselen en Werking",
+
   "botania.category.mana": "Mana Manipulatie",
+
   "botania.category.functionalFlowers": "Functionele Flora",
+
   "botania.category.generationFlowers": "Genererende Flora",
+
   "botania.category.devices": "Natuurlijke Apparaten",
+
   "botania.category.tools": "Mystieke Items",
+
   "botania.category.baubles": "Baubles en Accessoires",
+
   "botania.category.ender": "Ender Voorwerpen",
+
   "botania.category.alfhomancy": "Elvenrijk",
+
   "botania.category.misc": "Diversen",
+
 
 
   "botania.entry.welcome": "Welkom in Botania",
@@ -1197,8 +2360,6 @@
   "botania.page.welcome3": "$(o)Stel je voor dat door jou harde werk - je zorg voor bloemen, je bewerking van mana, je kennis van de hoe de wereld werkt en redstone - het mogelijk is deze droom te verwezenlijken. Stel je voor dat alles wat je wilt geautomatiseerd is met mana. Bloemen, een beetje magie, en je eigen vindingrijkheid.",
   "botania.page.welcome5": "$(o)Het bevat de geheimen van de Elven, die lang geleden gevlucht zijn uit deze wereld, maar ook mogelijke aanwijzingen voor de oorsprong van de wereld zelf. Voor iedereen met een basiskennis van redstone, en de creativiteit om het in te zetten, geeft dit boek antwoorden op bijna alle problemen die de mens kent, zonder andere manieren van magie of techniek nodig te hebben.",
   "botania.page.welcome6": "$(o)Dit boek bevat instructies voor het uitvoeren van zowat elke taak die je ooit nodig kunt hebben, met alleen de middelen die erin beschreven worden, of die aanwezig zijn in de wereld van Minecraft, als je in staat bent om ze op ingenieuze wijze in elkaar te zetten.$(p)Probeer het eens, je zult versteld staan over wat je kunt bereiken.",
-
-
 
   "botania.entry.gardenOfGlass": "Glazen Tuin",
   "botania.tagline.gardenOfGlass": "Een nieuwe uitdaging",
@@ -1211,11 +2372,13 @@
   "botania.page.gardenOfGlass6": "Daarnaast zijn enkele dingen in Botania anders om te passen bij de Skyblock modus: De $(item)Ertsidee$(0) is eenvoudiger om te maken, sneller en veel goedkoper; De $(item)Cocoon van Caprice$(0) en de $(item)Mana Verspreider$(0) hebben andere recepten; de $(item)Blazelamp$(0), die gebruikt kan worden om $(item)Obsidiaan$(0) te maken, gebruikt poeder in plaats van staven; meloen- of pompoenzaden kunnen vallen uit lang gras; bloemenvoeding wordt in hoger aantal gemaakt, en $(item)Suikerriet$(0) en $(item)Slijmballen$(0) kunnen vervaardigd worden.",
   "botania.page.gardenOfGlass7": "Het maken van $(item)Suikerriet$(0)",
   "botania.page.gardenOfGlass8": "Het maken van $(item)Slijmballen$(0)",
+
   "botania.page.gardenOfGlass9": "Een $(item)Pompoen$(0) kan doordrenkt worden met de geesten van gevallen monsters, wat een $(item)Bezeten Pompoen$(0) maakt. Deze kan bovenop twee $(item)Tralies$(0) worden geplaatst, ongeveer zoals bij een $(item)Sneeuw Golem$(0), om een $(item)Blaze$(0) te laten komen.$(p)$(item)Blazes$(0) gemaakt met deze methode laten $(item)Blazepoeder$(0) vallen in plaats van $(item)Blazestaven$(0).",
   "botania.page.gardenOfGlass11": "Naast het geven van licht, geeft een $(item)Mana Flits$(0) aanwezig op het beginpunt de mogelijkheid aan een speler om een $(item)Lexica Botania$(0) te ruilen voor een $(item)Kiemplant$(0). Dit gaat door te rechts-klikken met de $(item)Kiemplant$(0) op de $(item)Mana Flits$(0).$(p)Het werkt alleen als de speler geen $(item)Lexica Botania$(0) bij zich heeft.",
   "botania.page.gardenOfGlass12": "Eindelijk een recept voor de $(item)End Portaal$(0)",
 
-  "botania.entry.lexicon": "Lexica Botania",
+
+
   "botania.tagline.lexicon": "Gewoon wat je nu leest",
   "botania.page.lexicon0": "De $(item)Lexica Botania$(0) is het archief van alle kennis over botanische zaken. Maar dat wist je waarschijnlijk al wel.$(p)Zoals verwacht staat alles erin. Voor gemak, als een bepaald blok vermeld wordt in de gids, kun je er ook op shift-klikken met de $(item)Lexica Botania$(0) om de bijbehorende pagina te openen.",
   "botania.page.lexicon3": "Alle vermeldingen in $(o)Cursief$(0) zijn $(item)beginsel$(0) vermeldingen, die de beginselen beschrijven om Botania te kunnen gebruiken. Geef ze voorrang boven andere vermeldingen, de meeste hoofdstukken bevatten er wel een paar, het vluchtig doorlezen hiervan is een goed idee.",
@@ -1227,13 +2390,18 @@
   "botania.page.flowers0": "In de wereld kun je allerlei soorten Mystieke Bloemen tegenkomen. Je kunt ze makkelijk herkennen omdat ze redelijk wat licht afgeven.$(p)Ze komen in totaal in $(thing)16 $(0)verschillende kleuren.$(p)Het is ook mogelijk om deze bloemen te kweken met $(item)Bloemenvoeding$(0) (lees verder).",
   "botania.page.flowers1": "Bloemen zo ver als het oog kan zien...",
   "botania.page.flowers2": "De bloemen kunnen geplukt worden voor $(item)Mystieke Bloemblaadjes$(0), die gebruikt kunnen worden voor het maken van magische instrumenten en planten. Door met een blaadje rechts te klikken op de grond wordt het $(thing)begraven$(0), waardoor het deeltjes gaat uitstralen. De blaadjes kunnen ook vermalen worden tot $(item)Bloempoeder$(0), om te werken als kleurstof.",
+
+
   "botania.page.flowers3": "Bloemblaadjes plukken vanaf Bloemen.",
+
   "botania.page.flowers5": "Bloemblaadjes vermalen tot poeder.",
   "botania.page.flowers6": "Door met het $(item)Bloempoeder$(0) te rechts-klikken op elke soort $(item)Wol$(0) of $(item)Tapijt$(0) verandert de kleur daarvan in de kleur van het poeder.$(p)Door het $(item)Bloempoeder$(0) te mengen met $(item)Beenderenmeel$(0), kan een andere soort bemesting worden gemaakt. De $(item)Bloemenvoeding$(0) kweekt een klein aantal $(item)Mystieke Bloemen$(0) in de nabije omgeving, mocht je ze ooit nodig hebben.",
   "botania.page.flowers8": "Het gebruik van normale bloembestanddelen werkt ook",
-  "botania.page.flowers10": "Er zijn ook wat langere varianten van $(item)Mystieke Bloemen$(0), overal verspreid. Deze kunnen alleen geplukt worden met een $(item)Schaar$(0), maar leveren tweemaal zoveel bloemblaadjes op als een normale bloem. Maar ze zijn iets te groot voor kleurstof.$(p)Ze kunnen handmatig gemaakt worden door $(item)Mystieke Bloem$(0) te bemesten met $(item)Beenderenmeel$(0).",
+
   "botania.page.flowers11": "Bereidt je voor op problemen",
+
   "botania.page.flowers9": "Van bloemblaadjes kun je ook een blok maken",
+
 
   "botania.entry.apothecary": "Bloemblad Apotheek",
   "botania.tagline.apothecary": "Wat je gebruikt om bloemem te maken",
@@ -1242,6 +2410,7 @@
   "botania.page.apothecary2": "Dit blok, als geplaatst en voorzien van water (door middel van een $(item)Emmer Water$(0)), accepteert alle $(item)Mystieke Bloemblaadjes$(0) die erin worden gegooid, waarbij hun energie vrijkomt. Wanneer de juiste bloemblaadjes erin zitten, hoeven vervolgens alleen $(item)Zaden$(0) te worden toegevoegd. Eventueel kan de hele emmer water erin worden gegooid, in plaats van alleen de inhoud.",
   "botania.page.apothecary3": "Veel soorten planten kunnen op deze manier gemaakt worden, lees voor meer informatie de hoofdstukken $(thing)Functionele Flora$(0) en $(thing)Genererende Flora$(0) in deze gids.$(p)Door Shift-rechts te klikken op de $(item)Bloemblad Apotheek$(0) met een lege hand, wordt het laatst gegooide item weggehaald.",
   "botania.page.apothecary4": "In plaats van $(item)Water$(0) kan er ook $(item)Lava$(0) in de Apotheek gegoten worden. Als dat gebeurt functioneert het blok als verbrander, die alle items vernietigt die aangeraakt worden.$(p)Tenslotte, door er $(item)Lianen$(0) tegenaan te gooien krijgt het blok een overgroeid uiterlijk.",
+
   "botania.page.apothecary6": "Een eenvoudige tip voor iedereen die uit elk blok de maximale efficientie wil halen gaat als volgt. Tot 20 seconden na het maken van een bloem, rechts-klik op de Apotheek met een lege hand, om de benodigde voorwerpen voor het recept uit je inventory te halen. Dit werkt alleen als er water in zit.",
 
   "botania.entry.pureDaisy": "Puur Madeliefje",
@@ -1303,6 +2472,11 @@
   "botania.page.flowerBag2": "Voorwerpen worden niet vanzelf in de tas gedaan, als het in de hand wordt gehouden.$(p)Verder, door te shift-rechts klikken met de tas op een $(item)Kist$(0) of andere inventory, worden de bloemen uit de tas erin gestopt.",
   "botania.page.flowerBag1": "Handige uitvinding",
 
+
+
+
+
+
   "botania.entry.mIntro": "Een introductie in Mana",
   "botania.tagline.mIntro": "Maak een begin met Mana",
   "botania.page.mIntro0": "$(thing)Mana$(0) is an vluchtige substantie. In leken taal, het is een vorm van $(thing)Mystieke Energie$(0). Het zintuiglijke bestaan ervan is inconsequent, en de kleur ervan hangt af van de omgeving waarin het zich bevindt.$(p)Het meester worden over $(thing)Mana$(0) is één van de belangrijkste vaardigheden die een botanist onder de knie moet krijgen.",
@@ -1320,15 +2494,19 @@
   "botania.page.spreader5": "Het maken van de $(item)Mana Verspreider$(0)",
   "botania.page.spreader10": "Rechts-klikken op de verspreider met $(item)Wol$(0) zal er een hoes omheen doen. Niet alleen ziet het er mooier uit, het dempt ook het geluid bij het afgeven van een burst, wat het minder ergerlijk maakt als er veel verspreiders in de buurt zijn.$(p)Rechts-klikken met lege hand haalt de hoes eraf.",
 
+
   "botania.entry.pool": "Mana Voorraad",
   "botania.tagline.pool": "Mana opslag voor iedereen",
   "botania.page.pool0": "De $(item)Mana Voorraad$(0) is, simpel gezegd, een opslag voor $(thing)Mana$(0).$(p)Mana kan eraan worden toegevoegd door gebruik van een $(item)Mana Verspreider$(0), en elke dichtbijzijnde $(item)Mana Verspreiders$(0) zal mana eraan onttrekken om zijn interne buffer te vullen.$(p)Alle $(thing)Functionele Bloemen$(0) hebben een dichtbijzijnde $(item)Mana Voorraad$(0) nodig om kracht aan te onttrekken.",
   "botania.page.pool9": "De $(item)Mana Voorraad$(0) komt in twee soorten, een zwakkere $(item)Verdunde$(0) soort die maar een kleine hoeveelheid $(thing)Mana$(0) op kan slaan en geen voorwerpen kan doordrenken, en een $(item)Normale$(0) soort, die honderd maal zoveel kan opslaan als de verdunde soort en ook items kan doordrenken.$(p)Als ergens \"Mana Voorraad\" wordt genoemd, wordt de normale soort bedoeld.",
   "botania.page.pool1": "Het maken van een $(item)Verdunde Mana Voorraad$(0).",
   "botania.page.pool10": "Het doordrenken van een normale $(item)Mana Voorraad$(0)",
+
   "botania.page.pool2": "Het gooien van bepaalde items in een $(item)Mana Voorraad$(0) zorgt dat ze doordrenkt raken met $(thing)Mana$(0), waardoor het krachtigere varianten worden. Enkele voorbeelden zijn $(item)Staven Ijzer$(0) en $(item)Mystieke Bloemblaadjes$(0).$(p)Het uitlezen van de $(thing)Mana$(0) uit dit blok gaat zoals bij de $(item)Mana Verspreider$(0). Een $(item)Redstone Comparator$(0) kan ook een signaal afgeven gebaseerd op de inhoud.",
   "botania.page.pool8": "Voor de artistieke types, het gooien van elke kleur $(item)Bloempoeder$(0) in de voorraad zal de kleur ervan veranderen, alle 16 kleuren zijn toegestaan.",
+
   "botania.page.pool3": "Het doordrenken van $(item)Manastaal$(0)",
+
   "botania.page.pool4": "Het doordrenken van $(item)Mana Parels$(0)",
   "botania.page.pool5": "Het doordrenken van $(item)Mana Diamanten$(0)",
   "botania.page.pool6": "Het doordrenken van $(item)Mana Bloemblaadjes$(0)",
@@ -1337,10 +2515,12 @@
   "botania.page.pool13": "Used $(item)Mana Infused String$(0) to make $(item)Cobwebs$(0)",
   "botania.page.pool7": "Een koekje van eigen deeg",
 
+
   "botania.entry.sparks": "Vonken",
   "botania.tagline.sparks": "Simpel en snel Mana transport voor dichtbij",
   "botania.page.sparks0": "$(item)Vonken$(0) zijn interessante dingen. Gemaakt uit een combinatie van pure energie en $(thing)Mana$(0), kunnen ze geplaatst worden boven op enkele blokken die $(thing)Mana$(0) bevatten of accepteren, zoals de $(item)Mana Voorraad$(0).$(p)Sommige blokken kunnen $(thing)Mana$(0) halen uit $(item)Vonken$(0), maar daar dat zijn er momenteel slechts enkele.",
   "botania.page.sparks1": "Door een $(item)Vonk$(0) bovenop een $(item)Mana Voorraad$(0) te plaatsen, en nog eentje bovenop een blok dat mana kan accepteren, kan deze de $(item)Mana Voorraad$(0) op afstand gebruiken, mits hij niet te ver weg staat.$(p)Om een $(item)Vonk$(0) weg te halen, klik shift-rechts erop met een $(item)Staf van het Woud$(0). Door normaal rechts te klikken wordt getoond naar welke andere $(item)Vonken$(0) energie kan worden overgebracht.",
+
   "botania.page.sparks2": "$(o)Het maken van de Vonk$(0)",
 
   "botania.entry.sparkUpgrades": "Vonk Uitbreidingen",
@@ -1385,6 +2565,8 @@
   "botania.page.lens13": "Rendement Lens",
   "botania.page.lens14": "De $(item)Reflectie Lens$(0) zorgt ervoor dat de $(thing)Mana Burst$(0) reflecteert op muren, in plaats van de dissiperen.",
   "botania.page.lens15": "Reflectie Lens",
+
+
   "botania.page.lens16": "De $(item)Zwaartekracht Lens$(0) zorgt ervoor dat de $(thing)Mana Burst$(0) wordt aangetrokken door de zwaartekracht, zodat de straal gebogen wordt. Als compensatie verhoogt het de tijd voordat $(thing)Mana$(0) verlies optreedt een beetje.",
   "botania.page.lens17": "Zwaartekracht Lens",
   "botania.page.lens18": "De $(item)Doorboren Lens$(0) geeft de $(thing)Mana Burst$(0) de mogelijkheid om blokken te vernietigen die in de weg staan, ten koste van $(thing)Mana$(0) wanneer dat gebeurt.",
@@ -1408,7 +2590,7 @@
   "botania.page.lens36": "De $(item)Flits Lens$(0) maakt bij contact met een blok een vlam van dezelfde kleur als de burst. De vlam geeft licht en is puur decoratief.$(p)Als de straal een vlam raakt, wordt deze gedoofd.",
   "botania.page.lens37": "Flits Lens",
 
-  "botania.entry.manaTablet": "Mana Tablet",
+
   "botania.tagline.manaTablet": "Draagbare Mana opslag",
   "botania.page.manaTablet0": "Het gebruik van $(item)Mana Verspreiders$(0) voor transport van $(thing)Mana$(0) is handig, maar het kan ook op een andere manier.$(p)De $(item)Mana Tablet$(0) is een draagbaar object dat zelf $(thing)Mana$(0) kan bevatten.$(p)Maar niet alleen dat, andere voorwerpen kunnen het er ook uit halen als ze het nodig hebben.",
   "botania.page.manaTablet1": "Door een tablet bovenop een $(item)Mana Voorraad$(0) te gooien kun je $(thing)Mana$(0) transporteren tussen voorraden.$(p)Shift-rechts klikken op de $(item)Mana Voorraad$(0) met een $(item)Staf van het Woud$(0) verandert de richting waarin de $(thing)Mana$(0) stroomt.$(p)Tenslotte, afwijkende van normale items, tabletten zullen niet despawnen als ze op de grond liggen.",
@@ -1419,7 +2601,7 @@
   "botania.page.manaMirror0": "Een alternatief voor voorwerpen die $(thing)Mana$(0) bevatten zoals de $(item)Mana Tablet$(0), is de $(item)Mana Spiegel$(0). Deze kan verbonden worden aan een $(item)Mana Voorraad$(0), waardoor items de benodigde $(thing)Mana$(0) direct uit de voorraad halen. Om een spiegel te binden aan een voorraad, moet je $(thing)shift rechts-klikken$(0) op de voorraad met de spiegel. De spiegel kan geen mana in of uit de voorraad halen op een andere manier.",
   "botania.page.manaMirror1": "Spiegeltje spiegeltje aan de wand...",
 
-  "botania.entry.manaDetector": "Mana Detector",
+
   "botania.tagline.manaDetector": "Detecteert Mana Bursts en geeft Redstone signalen af",
   "botania.page.manaDetector0": "Een apparaat als de $(item)Mana Detector$(0) is in staat te detecteren wanneer de $(thing)Mana Burst$(0) er doorheen begint te stromen. De burst kan vrij passeren door dit blok. Als er een burst door de detector komt zal deze een redstone signaal afgeven.",
   "botania.page.manaDetector1": "Het maken van de detector",
@@ -1440,6 +2622,20 @@
   "botania.page.dreamwoodSpreader1": "Betere spreiders, dat is alles",
   "botania.page.dreamwoodSpreader2": "Door deze al vrij krachtige verspreider te combineren met een $(item)Geest van Gaia$(0) en een $(item)Drakensteen$(0) juweel, is het mogelijk een nog krachtigere variant te maken. De $(item)Gaia Verspreider$(0) staat in de absolute top van Mana Verspreiders, met zo ongeveer alle upgrades die er zijn.$(p)Let op dat deze verspreider meer Mana per burst verstuurt, wat daardoor minder vaak gebeurt.",
   "botania.page.dreamwoodSpreader3": "De ultieme Verspreider",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1483,7 +2679,13 @@
   "botania.page.flowerShrinking0": "Sommige functionele bloemen reiken iets te ver. Soms zou je willen dat dat niet zo was. Door een van deze bloemen in een $(item)Mana Voorraad$(0) met $(item)Chemieversneller$(0) te gooien zal hij, tegen betaling van wat $(thing)Mana$(0), gekrompen worden waardoor hij minder ver reikt. Alle andere functies blijven hetzelfde.$(p)Dit kan ook gedaan worden voor genererende bloemen, waardoor het decoratieve versies worden die niet verwelken.",
   "botania.page.flowerShrinking1": "Krimpen als een malle",
 
-  "botania.entry.jadedAmaranthus": "Jaded Amaranthus",
+
+
+
+
+
+
+
   "botania.tagline.jadedAmaranthus": "Maak meer Mystieke Bloemen",
   "botania.page.jadedAmaranthus0": "Iedereen houdt van bloemen toch? De $(item)Jaded Amaranthus$(0) is juist daarvoor gemaakt.$(p)Door hem $(thing)Mana$(0) te geven uit de $(item)Mana Voorraden$(0) zullen er snel nieuwe $(item)Mystieke Bloemen$(0) gaan groeien in zijn buurt, overal waar het maar kan.",
   "botania.page.jadedAmaranthus1": "$(o)Jaded Amaranthus$(0)",
@@ -1551,6 +2753,11 @@
   "botania.page.jiyuulia0": "De $(item)Spreukbes$(0) is een bloem die, tegen betaling van een kleine hoeveelheid $(thing)Mana$(0), alle dieren en monsters buiten een cirkel om de bloem op afstand houdt.",
   "botania.page.jiyuulia1": "$(o)Spreukbes$(0)",
 
+
+
+
+
+
   "botania.entry.rannuncarpus": "Rannakruid",
   "botania.tagline.rannuncarpus": "Plaatst blokken",
   "botania.page.rannuncarpus0": "Zeker een handige bloem, dat $(item)Rannakruid$(0). Deze bloem verzamelt alle blokken die in oppakbare vorm zijn, en plaatst ze in de wereld in de buurt. Hij zal echter alleen blokken plaatsen boven een bepaald blok. Dit blok kan ingesteld worden door het te plaatsen recht onder de grond waarop de bloem groeit.",
@@ -1567,14 +2774,16 @@
   "botania.page.pollidisiac0": "Dieren lusten wel eten, dat is alles wat ze doen lijkt het soms. Interessant gedrag is dat ze alleen dingen lijken te lusten die ze worden gevoerd.$(p)En dat is nou precies wat de $(item)Pollidesie$(0) doet, tegen betaling van wat $(thing)Mana$(0). Al het geschikte eten in de buurt ($(item)Tarwe$(0), $(item)Wortels$(0), etc) zullen gevoerd worden aan de dieren, waar ze blij van worden.",
   "botania.page.pollidisiac1": "$(o)Pollidesie$(0)",
 
+
   "botania.entry.clayconia": "Kleiconia",
   "botania.tagline.clayconia": "Maakt klei uit zand",
   "botania.page.clayconia0": "De $(item)Kleiconia$(0) is in essentie een eenvoudige bloem. Alles wat hij doet is al het $(item)Zand$(0) in de buurt bevochtigen, waardoor het verandert in $(item)Klei$(0). Dit verbruikt redelijk wat $(thing)Mana$(0), maar niets geks.",
   "botania.page.clayconia1": "$(o)Kleiconia$(0)",
 
-  "botania.entry.loonium": "Loonium",
+
   "botania.tagline.loonium": "Maakt kerkerschatten",
   "botania.page.loonium0": "Elke avonturier weer dat in $(thing)Kerkers$(0) waardevolle spullen te vinden kunnen zijn. De $(item)Loonium$(0) kan, tegen de prijs van een extreme hoeveelheid $(thing)Mana$(0), deze items materialiseren, en laten vallen in de buurt van de bloem.",
+
   "botania.page.loonium1": "$(o)Loonium$(0)",
 
   "botania.entry.daffomill": "Daffolelie",
@@ -1582,7 +2791,7 @@
   "botania.page.daffomill0": "De $(item)Daffolelie$(0) werkt als een soort ventilator. Hij duwt, tegen betaling van een beetje $(thing)Mana$(0), tegen alle items die voor hem liggen.$(p)Door te shift-rechts klikken op de bloem met een $(item)Staf van het Woud$(0) verandert kan hij gericht worden. Aan de subtiele winddeeltjes die de bloem vertoont is te zien waarop hij gericht is.",
   "botania.page.daffomill1": "$(o)Wind Turbines? Ik ben fan.$(0)",
 
-  "botania.entry.vinculotus": "Vinculotus",
+
   "botania.tagline.vinculotus": "Onderschept enderman teleportatie",
   "botania.page.vinculotus0": "De $(item)Vinculotus$(0) heeft de kracht om een verstoring te maken in de teleportatie mogelijkheden van de $(thing)Enderman$(0), tot op redelijk grote afstand. Tegen de prijs van $(thing)Mana$(0), wanneer een $(thing)Enderman$(0) ergens heen zou teleporteren, wordt de $(thing)Enderman$(0) in plaats daarvan geteleporteerd naar de $(item)Vinculotus$(0).",
   "botania.page.vinculotus1": "$(o)Raak deze bloem aan met je vingers$(0)",
@@ -1602,9 +2811,10 @@
   "botania.entry.marimorphosis": "Mariemorfose",
   "botania.tagline.marimorphosis": "Maakt nieuwe steentypen",
   "botania.page.marimorphosis0": "De $(item)Mariemorfose$(0) is een bloem die dichtbijzijnde $(item)Steen$(0) blokken metamorfose-achtige veranderingen laat ondergaan. Deze blokken worden veranderd in 1 van 8 typen $(item)Veranderlijke Steen$(0). Alle 8 typen zullen voorkomen, maar afhankelijk van de biome sommige meer dan andere. Allemaal kunnen ze gebruikt worden om (gebeitelde) bakstenen, platen en trappen te maken, en zelfs varianten van de $(item)Bloemblad Apotheek$(0).",
+
   "botania.page.marimorphosis1": "De verschillende smaken $(item)Veranderlijke Steen$(0)",
-  "botania.page.marimorphosis3": "Kleurrijk als de regenboog",
   "botania.page.marimorphosis2": "$(o)Best een puike bloem.$(0).",
+  "botania.page.marimorphosis3": "Kleurrijk als de regenboog",
 
   "botania.entry.bubbell": "Bubbelbes",
   "botania.tagline.bubbell": "Maakt lucht onderwater",
@@ -1616,6 +2826,12 @@
   "botania.page.solegnolia0": "De $(item)Ring der Magnetisatie$(0) is een handig gereedschap voor mijners of verzamelaars. Hij heeft alleen de vervelende bijkomstigheid om ongewenste spullen op te pakken in de buurt van complexe systemen.$(p)De $(item)Solegnolie$(0) verstoort de ring, en voorkomt dat spullen in de buurt van de bloem naar de ringdrager worden getrokken. Hij verbruikt daarvoor een klein beetje $(thing)Mana$(0).",
   "botania.page.solegnolia1": "Aan/Uit",
 
+
+
+
+
+
+
   "botania.entry.gIntro": "Over Genererende Bloemen",
   "botania.tagline.gIntro": "Bloemen die grondstoffen gebruiken om mana te maken",
   "botania.page.gIntro0": "$(thing)Mana Genereren$(0) moet bovenaan de prioriteitenlijst staan voor elke botanist. Gelukkig zijn er een aantal $(thing)Genererende Bloemen$(0) die graag dat werk willen doen.$(p)Deze bloemen, zoals de naam al zegt, genereren $(thing)Mana$(0), zowel passief als actief. Tenzij anders vermeld genereren alle $(thing)Genererende Bloemen$(0) passief $(thing)Mana$(0) onder bepaalde omstandigheden.",
@@ -1625,11 +2841,11 @@
 
 
 
-
   "botania.entry.endoflame": "Endovlam",
   "botania.tagline.endoflame": "Mana uit brandstof",
   "botania.page.endoflame0": "Terwijl de $(item)Dagbloem$(0) een prima bloem is, heeft een botanist soms een meer effectieve manier nodig om $(thing)Mana$(0) te verkrijgen.$(p)De $(item)Endovlam$(0) doet precies dat, hij zal alle ontvlambare blokken die worden neergegooid in de nabije omgeving oppakken (met één tegelijk) en ze stuk voor stuk verbranden om passief $(thing)Mana$(0) te genereren.",
   "botania.page.endoflame1": "Met een klein voorbehoud, de $(item)Endovlam$(0) zal niets verbranden dat een restproduct oplevert, zoals een $(item)Emmer Lava$(0) die een lege $(item)Emmer$(0) achterlaat.$(p)Door het gedrag van de bloem, is een $(item)Open Krat$(0) aan te bevelen om de bloem zelfvoorzienend te maken, waar je over kunt lezen in het hoofdstuk $(thing)Magische Apparaten$(0).",
+
   "botania.page.endoflame2": "$(o)Endovlam$(0)",
 
   "botania.entry.hydroangeas": "Hydroangea",
@@ -1640,9 +2856,12 @@
   "botania.entry.thermalily": "Thermalelie",
   "botania.tagline.thermalily": "Mana uit lava",
   "botania.page.thermalily0": "Er komt een punt waarop het langzaam genereren van $(thing)Mana$(0), zoals de $(item)Hydroangea$(0) en de $(item)Endovlam$(0) doen, niet genoeg is. Een antwoord daarop is de $(item)Thermalelie$(0), die net zo werkt als de $(item)Hydroangea$(0), alleen met $(item)Lava$(0). Bij het drinken van de Lava komt erg veel Mana vrij, maar de bloem warmt erdoor op waardoor hij tijd nodig heeft om af te koelen.",
+
+
+
   "botania.page.thermalily4": "$(o)Thermalelie$(0)",
 
-  "botania.entry.arcanerose": "Rosa Arcana",
+
   "botania.tagline.arcanerose": "Mana uit ervaring",
   "botania.page.arcanerose0": "$(thing)Ervaringspunten$(0) zijn een soort magie. De $(item)Rosa Arcana$(0) kan dat aftappen, en de ervaring van spelers in de buurt absorberen, waarbij het verandert in $(item)Mana$(0).",
   "botania.page.arcanerose1": "$(o)Rosa Arcana$(0)",
@@ -1658,7 +2877,8 @@
   "botania.page.entropinnyum0": "Om een heleboel $(thing)Mana$(0) te genereren is soms een ontploffing nodig. Door een blok $(item)TNT$(0) aan te steken in de buurt van een $(item)Entropinnium$(0), mits hij niet in het water valt, zal de bloem de energie absorberen, waardoor een grote hoeveelheid $(thing)Mana$(0) ontstaat en eventuele toegebrachte schade wordt tenietgedaan. De bloem moet wel leeg zijn, anders werkt het niet.",
   "botania.page.entropinnyum1": "$(o)Echte mannen kijken niet naar ontploffingen$(0).",
 
-  "botania.entry.kekimurus": "Kekimurus",
+
+
   "botania.tagline.kekimurus": "Mana uit taart",
   "botania.page.kekimurus0": "$(item)Taart$(0) is heerlijk, iedereen houdt ervan, zelfs bloemen.$(p)De $(item)Kekimurus$(0) is een van deze $(item)Taart$(0) enthousiastelingen, en zal elke taart opeten die in de buurt verschijnt, waarbij hij de voedzame ingrediënten gebruikt om $(thing)Mana$(0) te maken.",
   "botania.page.kekimurus1": "$(o)Kekimurus$(0)",
@@ -1670,15 +2890,16 @@
   "botania.page.gourmaryllis2": "De hoeveelheid $(thing)Mana$(0) die ontstaat hangt ook af van de voedingswaarde, maar hoe hoger deze waarde, hoe hoger de efficientie. Bijvoorbeeld, een $(item)Biefstuk$(0) produceert meer $(item)Mana$(0) dan twee $(item)Wortels$(0), per seconde en in totaal.",
   "botania.page.gourmaryllis3": "$(o)Gourmarie$(0)",
 
-  "botania.entry.narslimmus": "Narslimmus",
+
   "botania.tagline.narslimmus": "Mana uit slijm",
   "botania.page.narslimmus0": "Er is een soort onbevangen kracht in de wereld die $(item)Slijmkubussen$(0) maakt op willekeurige plekken. De $(item)Narslimmus$(0) is een bloem met de mogelijkheid om die energie af te tappen. Als hij wordt neergezet naast een $(item)Slijmkubus$(0) maakt hij hem kapot, en verzamelt hij alle $(thing)Mana$(0) die door de kracht is gegenegeerd. Hoe groter de $(item)Slijmkubus$(0), hoe meer $(thing)Mana$(0) wordt gemaakt. Het maakt ook een beetje een plakkerige rommel.",
   "botania.page.narslimmus1": "$(o)Blijf je nog even plakken$(0)?",
 
-  "botania.entry.spectrolus": "Spectrolus",
+
   "botania.tagline.spectrolus": "Mana uit wol",
   "botania.page.spectrolus0": "De $(item)Spectrolus$(0) is een bloem die erg gesteld is op de verscheidenheid aan $(item)Wol$(0). Hij zal alle blokken $(item)Wol$(0) die dichtbij worden neergegooid consumeren voor $(thing)Mana$(0).$(p)Maar er zit een addertje onder het gras. Hij is kieskeurig over welke kleur hij wil. Beginnend bij wit, als het een blok $(item)Wol$(0) gehad heeft, verwacht hij daarna de volgende kleur uit het spectrum.",
   "botania.page.spectrolus1": "Terwijl hij al het $(item)Wol$(0) consumeert, maakt hij alleen mana als de kleur klopt, dus willekeurig $(item)Wol$(0) gooien is een slecht idee.$(p)De gewenste kleur kan worden gezien door de bloem te bekijken met een $(item)Staf van het Woud$(0).",
+
   "botania.page.spectrolus2": "$(o)Proef de regenboog$(0).",
 
   "botania.entry.rafflowsia": "Rommelkruid",
@@ -1700,6 +2921,12 @@
   "botania.page.dandelifeon8": "$(o)CelCraft^2$(0).",
   "botania.page.dandelifeon9": "Het maken van $(item)Cellulaire Blokken$(0)",
 
+
+
+
+
+
+
   "botania.entry.pylon": "Mana Zuil",
   "botania.tagline.pylon": "Betoveringsversneller",
   "botania.page.pylon0": "Een $(item)Mana Zuil$(0) is een constructie die energie uit de aarde kan onttrekken om te gebruiken voor betoverende processen.$(p)Bijvoorbeeld, door er een te plaatsen als een $(item)Betoveringstafel$(0) alsof het een $(item)Boekenkast$(0) is, zal de kracht die hij kan overbrengen doen toenemen, slechts twee hiervan is genoeg om $(thing)Level 30$(0) te bereiken.",
@@ -1719,6 +2946,7 @@
   "botania.entry.turntable": "Verspreider Draaischijf",
   "botania.tagline.turntable": "Roteer Mana verspreiders",
   "botania.page.turntable0": "De $(item)Verspreider Draaischijf$(0), zoals zijn naam al zegt, kan een $(item)Mana Verspreiders$(0) ronddraaien. Door een verspreiden te plaatsen bovenop een draaischijf zal hem doen draaien, tenzij er een redstone signaal wordt aangeboden.$(p)Om de snelheid van de draaischijf aan te passen, rechts-klik erop met een $(item)Staf van het Woud$(0), met shift-rechts kan de richting worden omgedraaid.",
+
   "botania.page.turntable1": "Je draait me rond",
 
   "botania.entry.manaAlchemy": "Alchemie met Mana",
@@ -1726,29 +2954,51 @@
   "botania.page.manaAlchemy0": "$(thing)Mana$(0) is een zeer vluchtige substantie, waardoor de complete eigenschappen en mogelijkheden nog niet bekend zijn.$(p)Maar één mogelijkheid, gebruik makend van een $(item)Chemieversneller$(0), gemaakt met een mix van materialen van een andere wereld en vastgemaakt aan de onderkant van een $(item)Mana Voorraad$(0), stelt de voorraad in staat om $(thing)Alchemie$(0) te bedrijven.",
   "botania.page.manaAlchemy1": "Het maken van de $(item)Chemieversneller$(0)",
   "botania.page.manaAlchemy2": "$(item)Bedorven Vlees$(0) naar $(item)Leer$(0)",
+
   "botania.page.manaAlchemy3": "Verschillende soorten $(item)Hout$(0)",
+
   "botania.page.manaAlchemy4": "Verschillende soorten $(item)Kiemplanten$(0)",
+
+
   "botania.page.manaAlchemy5": "Het afbreken van $(item)Gloeisteen Blokken$(0)",
+
   "botania.page.manaAlchemy6": "Het afbreken van $(item)Kwarts Blokken$(0)",
   "botania.page.manaAlchemy7": "Het maken van $(item)Gebeiteld Steen Baksteen$(0)",
   "botania.page.manaAlchemy8": "Het verder bevriezen van $(item)Sneeuw$(0) tot $(item)Ijs$(0)",
+
   "botania.page.manaAlchemy9": "$(item)Lianen$(0) omzetten in $(item)Waterlelies$(0) en andersom",
+
   "botania.page.manaAlchemy10": "Verschillende soorten $(item)Vissen$(0)",
+
   "botania.page.manaAlchemy11": "Het transformeren van $(item)Zaden$(0) en $(item)Gewassen$(0)",
   "botania.page.manaAlchemy12": "Het eetbaar maken van $(item)Giftige Aardappels$(0)",
   "botania.page.manaAlchemy13": "Het oproepen van $(item)Netherkruid$(0)",
   "botania.page.manaAlchemy14": "$(item)Buskruit$(0) omzetten in $(item)Vuursteen$(0) en andersom",
   "botania.page.manaAlchemy15": "Het maken van $(item)Naamkaartjes$(0)",
   "botania.page.manaAlchemy16": "$(item)Wol$(0) scheiden tot $(item)Draad$(0)",
+
   "botania.page.manaAlchemy17": "$(item)Slijmballen$(0) omzetten in $(item)Cactus$(0) en andersom",
   "botania.page.manaAlchemy18": "Het maken van $(item)Ender Parels$(0)",
+
   "botania.page.manaAlchemy19": "$(item)Gloeisteen$(0) omzetten in $(item)Redstone$(0) en andersom",
   "botania.page.manaAlchemy20": "$(item)Keisteen$(0) breken tot $(item)Zand$(0)",
   "botania.page.manaAlchemy21": "$(item)Geharde Klei$(0) breken tot $(item)Rood Zand$(0)",
+
   "botania.page.manaAlchemy22": "Het afbreken van $(item)Klei$(0) en $(item)Bakstenen$(0)",
   "botania.page.manaAlchemy23": "Het maken van $(item)Gemende Aarde$(0)",
+
+
   "botania.page.manaAlchemy24": "Het transformeren van typen $(item)Lang Gras$(0)",
+
   "botania.page.manaAlchemy25": "Het transformeren van normale bloemen",
+
+
+
+
+
+
+
+
 
   "botania.entry.brewery": "Botanische Brouwerij",
   "botania.tagline.brewery": "Maak brouwsels, effectievere dranken",
@@ -1772,7 +3022,7 @@
   "botania.page.brewery17a": "Een eenvoudig brouwsel, het imiteert een $(item)Drank der Hergeneratie$(0), wanneer ingenomen geeft het de speler een soortgelijk $(thing)Hergeneratie$(0) effect, maar dan langer dan het voorgaande brouwsel.",
   "botania.page.brewery17b": "Nog iets sterker dan",
   "botania.page.brewery11a": "Een eenvoudig brouwsel, het imiteert een $(item)Drank der Weerstand$(0), wanneer ingenomen geeft het de speler een soortgelijk $(thing)Weerstand II$(0) effect.",
-  "botania.page.brewery11b": "Can't touch this",
+
   "botania.page.brewery12a": "Een eenvoudig brouwsel, het imiteert een $(item)Drank der Vuurbestendigheid $(0), wanneer ingenomen geeft het de speler een soortgelijk $(thing)Vuurbestendigheid$(0) effect.",
   "botania.page.brewery12b": "Hij is geen echte draak, vuur doodt geen draken",
   "botania.page.brewery13a": "Een eenvoudig brouwsel, het imiteert een $(item)Drank der Water-ademen$(0), wanneer ingenomen geeft het de speler een soortgelijk $(thing)Water-ademen$(0) effect.",
@@ -1853,6 +3103,7 @@
   "botania.page.manaConjuration7": "$(item)Netherrack$(0) oproepen",
   "botania.page.manaConjuration8": "$(item)Zielenzand$(0) oproepen",
   "botania.page.manaConjuration9": "$(item)Grind$(0) oproepen",
+
   "botania.page.manaConjuration10": "$(item)Bladeren$(0) oproepen",
   "botania.page.manaConjuration11": "$(item)Gras$(0) oproepen",
 
@@ -1877,6 +3128,7 @@
   "botania.page.craftCrate5": "Het vervaardigen van een $(item)Diamanten Houweel$(0)",
   "botania.page.craftCrate6": "Gemaakt in Portugal",
   "botania.page.craftCrate8": "Het $(item)Vervaardigings Krat$(0) kan ook worden aangevuld met patronen. Een patroon sluit specifieke plaatsen in het recept, waardoor voorwerpen niet op deze plaatsen kunnen komen. De gesloten plaatsen tellen als plaatshouders.$(p)Er zijn slechts een paar standaard patronen, die kunnen worden toegepast middels een rechts-klik op het krat (ze worden hierbij niet verbruikt).",
+
   "botania.page.craftCrate9": "9 verschillende patronen",
 
   "botania.entry.hourglass": "Zwevende Zandloper",
@@ -1886,6 +3138,7 @@
   "botania.page.hourglass2": "De tijd tussen elk signaal is afhankelijk van hoeveel en welk type zand er in de lopen zit. Met $(item)Zand$(0) duurt een blok 1 seconde, $(item)Rood Zand$(0) tien seconden, en $(item)Zielenzand$(0) een minuut. Typen zand kunnen niet gemengd worden. De tijd per signaal kan gezien worden door het blok te bekijken met een $(item)Staf van het Woud$(0).",
   "botania.page.hourglass3": "Let op dat het zand tegelijk moet worden toegevoegd, dus de toe te voegen stapel moet worden gemaakt in de inventory.$(p)Zand kan niet worden toegevoegd aan de zandloper nadat er al zand in zit, hierdoor wordt in plaats daarvan het zand eruit gehaald. Het zand in het blok kan worden aan- of afgevoerd met bijvoorbeeld $(item)Trechters$(0).",
   "botania.page.hourglass4": "Rechts-klikken op het blok met een $(item)Staf van het Woud$(0) vergrendelt (en ontgrendelt) het. Wanneer vergrendeld kan er geen zand worden toegevoegd of weggehaald, om te voorkomen dat iemand dat per ongeluk doet.$(p)Als een $(thing)Mana Burst$(0) het blok raakt, stopt de stroom van het zand en pauzeert de timer, een tweede burst laat hem verder gaan.",
+
   "botania.page.hourglass5": "Het zand des tijds",
 
   "botania.entry.ghostRail": "Spookachtige Rails",
@@ -1909,10 +3162,11 @@
   "botania.page.manaBomb0": "Het samenbinden van wat $(item)TNT$(0) en een $(item)Geest van Gaia$(0) maakt een $(item)Manastorm Lading$(0), zeg maar een soort explosief. Aangestoken met een $(thing)Mana Burst$(0) vormt de lading een instabiel $(thing)Manastorm Epicenter$(0), die gedurende een tijd sterk geladen $(thing)Mana Bursts$(0) afvuurt, die exploderen bij contact met andere blokken. Moge duidelijk zijn dat je het epicenter beter uit de buurt kunt houden van kostbare bouwwerken.",
   "botania.page.manaBomb1": "Bereidt je voor op het ergste..",
 
-  "botania.entry.teruTeruBozu": "Teru Teru Bozu",
+
   "botania.tagline.teruTeruBozu": "Controle over het weer en een cuteness overload",
   "botania.page.teruTeruBozu0": "$(item)Teru Teru Bozu$(0) zijn bekend als amuletten die slecht weer kunnen afwenden. Door er simpelweg eentje te maken en te plaatsen in de wereld, zal de duur van periodes met $(item)Regen$(0) of $(item)Sneeuw$(0) afnemen. Tijdens slecht weer is het mogelijk om erop te rechts-klikken met een $(item)Zonnebloem$(0) (of hem te gooien) om de zon terug te brengen. Met een $(item)Redstone Comparator$(0) eraan verbonden is het mogelijk om slecht weer te detecteren.",
   "botania.page.teruTeruBozu1": "Het zonnetje in huis",
+
 
   "botania.entry.avatar": "Levenshout Avatar",
   "botania.tagline.avatar": "Het effect van een staf, in een blok",
@@ -1920,7 +3174,19 @@
   "botania.page.avatar1": "Niet alle $(thing)Staven$(0) hebben deze mogelijkheid. Maar deze die dat wel hebben, hebben bij hun vermelding een uitleg over hun werking in een $(item)Levenshout Avatar$(0).$(p)Voorbeelden van staven die werken zijn de $(item)Staf der Hemelen$(0), $(item)Staf der Hellevuur$(0) en de $(item)Wichelroede$(0).",
   "botania.page.avatar2": "Deze Avatar is niet blauw",
 
-  "botania.entry.manaBlaster": "Mana Blaster",
+
+
+
+
+
+
+
+
+
+
+
+
+
   "botania.tagline.manaBlaster": "Draagbare Mana Verspreider, met lenzen!",
   "botania.page.manaBlaster0": "De $(item)Mana Blaster$(0) is als een draagbare $(item)Mana Verspreider$(0). Hij ziet eruit als een pistool om goed vast te kunnen worden gehouden, maar het is niet echt een wapen, meer een draagbare verspreider.$(p)Door gebruik van $(thing)Mana$(0) uit voorwerpen in de inventory die $(thing)Mana$(0) bevatten, kan het een Mana Burst afvuren naar waar de eigenaar het pistool op gericht heeft.",
   "botania.page.manaBlaster1": "Deze burst is is wat anders als die afgevuurd wordt door verspreiders, hij gaat sneller, maar draagt slechts drie kwart van de Mana die een verspreider zou sturen. Na het vuren van een burst kan het pistool even niet gebruikt worden.",
@@ -1934,9 +3200,12 @@
   "botania.page.grassSeeds2": "$(item)Boreale Zaden$(0) voor podzol",
   "botania.page.grassSeeds3": "$(item)Ziektezaden$(0) voor mycelium",
 
+
+
   "botania.entry.dirtRod": "Staf van het Land",
   "botania.tagline.dirtRod": "Een staf om aarde te maken",
   "botania.page.dirtRod0": "De $(item)Staf van het Land$(0) is een eenvoudig gereedschap. Door $(thing)Mana$(0) te gebruiken uit de gebruikers inventory (uit een $(item)Mana Tablet$(0) of iets anders), kan het een blok $(item)Aarde$(0) materialiseren op de grond. $(p)Voor evenveel $(thing)Mana$(0) kan de staf ook $(item)Aarde$(0) geven aan de $(item)Staf der Aardverschuiving$(0).",
+
   "botania.page.dirtRod1": "De zanderige stok",
 
   "botania.entry.terraformRod": "Terraformstaf",
@@ -1953,6 +3222,7 @@
   "botania.page.manaGear1": "De $(item)Manastaal Houweel$(0)",
   "botania.page.manaGear2": "De $(item)Manastaal Schep$(0)",
   "botania.page.manaGear3": "De $(item)Manastaal Bijl$(0)",
+
   "botania.page.manaGear4": "De $(item)Manastaal Schaar$(0)",
   "botania.page.manaGear5": "De $(item)Manastaal Zwaard$(0)",
   "botania.page.manaGear6": "De $(item)Manastaal Helm$(0)",
@@ -2004,6 +3274,8 @@
   "botania.page.elfGear5": "Het juiste blok boven krijgen",
   "botania.page.elfGear6": "De $(item)Elementium Bijl$(0) doet het ook goed als wapen. Als het gebruikt wordt om een $(thing)Zombie$(0), $(thing)Skelet$(0), $(thing)Creeper$(0) of zelfs een andere $(thing)Speler$(0) te doden, maakt het een kans om het slachtoffer te onthoofden, waarbij het afgehakte hoofd achterblijft.",
   "botania.page.elfGear7": "Eraf met die hoofden",
+
+
   "botania.page.elfGear8": "De $(item)Elementium Schaar$(0) heeft de kracht om, wanneer hij gespannen wordt gehouden zoals de handboog, alle dichtbijzijnde schapen in rap tempo te scheren in een wijd gebied om de drager heen.",
   "botania.page.elfGear9": "Kan geen kwaad",
   "botania.page.elfGear10": "Tenslotte, het $(item)Elementium Zwaard$(0) zal de kans vergroten dat een $(thing)Elfje$(0) tevoorschijn komt als je geraakt wordt (ook als geen $(item)Elementium Armor$(0) gedragen wordt) en maakt ook de $(thing)Elfjes$(0) sterker.",
@@ -2026,6 +3298,7 @@
   "botania.page.rainbowRod2": "Aan de kant! Maak een pad en ga.",
   "botania.page.rainbowRod4": "Regenboog $(item)Glinstersteen$(0)",
   "botania.page.rainbowRod5": "Regenboog $(item)Glinsterhout Planken$(0)",
+
 
   "botania.entry.tornadoRod": "Staf der Hemelen",
   "botania.tagline.tornadoRod": "Een staf om hoog in de lucht te springen",
@@ -2085,7 +3358,7 @@
   "botania.tagline.missileRod": "Een staf om te schieten",
   "botania.page.missileRod0": "De $(item)Staf van het Instabiele Reservoir$(0) is een vrij krachtig wapen in de strijd tegen de vijanden. Het loslaten van zijn krachten zal talloze raketten materialiseren die willekeurig op de vijanden af gaan, tegen de prijs van best veel $(thing)Mana$(0).",
   "botania.page.missileRod2": "Deze staf kan aan een $(item)Levenshout Avatar$(0) gegeven worden. Hij maakt dan raketten om vijanden in de buurt aan te vallen, net als de staf normaal doet.$(p)Dit proces gebruikt $(thing)Mana$(0) van de avatar, en kan worden uitgezet middels een redstone signaal.",
-  "botania.page.missileRod1": "Zapzapzapzap",
+
 
   "botania.entry.craftingHalo": "Vervaardigingshalo",
   "botania.tagline.craftingHalo": "Draagbare vervaardiging, snel of met een raster",
@@ -2148,7 +3421,7 @@
   "botania.tagline.temperanceStone": "Een demper voor de kracht van de Terrabreker",
   "botania.page.temperanceStone0": "Een $(item)Terrabreker$(0) op volledige sterkte kan hele landmassa's afbreken, maar misschien is dat niet altijd de bedoeling. Een kleine 3x3 tunnel is meer passend in sommige situaties. Met een actieve $(item)Steen der Beheersing$(0) in je inventory wordt voorkomen dat de breker meer weghaalt dan een gebied van 3x3.",
   "botania.page.temperanceStone1": "Niet kwijtraken",
-  "botania.page.temperanceStone0": "Dit beïnvloed ook de $(item)Terrakapper$(0). De steen kan aan en uit worden gezet door te shift-rechts-klikken.",
+  "botania.page.temperanceStone2": "Dit beïnvloed ook de $(item)Terrakapper$(0). De steen kan aan en uit worden gezet door te shift-rechts-klikken.",
 
   "botania.entry.terraAxe": "Terrakapper",
   "botania.tagline.terraAxe": "Een bijl die hele bomen kapt",
@@ -2158,6 +3431,7 @@
   "botania.entry.obedienceStick": "Bloemen Gehoorzaamheidsstok",
   "botania.tagline.obedienceStick": "Verbindt meerdere bloemen met een plek",
   "botania.page.obedienceStick0": "Niemand weet waarom, maar wat $(item)Manastaal$(0) vastmaken aan $(item)Levenshout Twijgjes$(0) maakt een soort stok waarmee alle bloemen in de buurt zich richten op een enkel punt van focus.$(p)Hij is genaamd de $(item)Bloemen Gehoorzaamheidsstok$(0). Ermee rechts-klikken op een $(item)Mana Verspreider$(0) of $(item)Mana Voorraad$(0) verbindt alle relevante bloemen in de buurt daarmee.",
+
   "botania.page.obedienceStick1": "Steek er een stokje voor",
 
   "botania.entry.slimeBottle": "Slijm in een Flesje",
@@ -2193,9 +3467,17 @@
   "botania.page.sextant1": "Een blauwe cirkel verschijnt wanneer de gradenboog gebruikt wordt, als een simpel voorbeeld van waar de cirkel zal komen. Bij het loslaten verschijnt een cirkel van neppe $(item)Keisteen$(0) blokken, te gebruiken als bouwaanwijzing.$(p)Shift-rechts klikken met de gradenboog herstelt of verwijdert de cirkel.",
   "botania.page.sextant2": "Je schetst een cirkel, vol met vastberadenheid",
 
+
+
+
+
+
+
+
   "botania.entry.enderAir": "Verkrijgen van Ender Lucht",
   "botania.tagline.enderAir": "Werpbare flesjes die Endsteen maken",
   "botania.page.enderAir0": "De lucht in de wereld van de $(item)End$(0) lijkt wat muterende eigenschappen te bezitten. Door te rechts-klikken met een leeg $(item)Glazen Flesje$(0) in de $(item)End$(0) is het mogelijk een beetje van deze lucht te vangen. Deze kan later geworpen worden net als een $(item)Spattende Drank$(0), waardoor $(item)Steen$(0) in de buurt zal veranderen in $(item)Endsteen$(0).",
+
 
   "botania.entry.enderEyeBlock": "Ender Opzichter",
   "botania.tagline.enderEyeBlock": "Zicht-geactiveerde redstone detector",
@@ -2230,6 +3512,7 @@
   "botania.entry.redString": "Rode Veter",
   "botania.tagline.redString": "Onder andere inventories op afstand",
   "botania.page.redString0": "Men zegt dat de Goden een rode veter om de enkels bindt bij mensen die elkaars leven zouden moeten beïnvloeden. Vandaar dat blokken die op afstand met elkaar zijn te verbinden, de naam $(item)Rode Veter$(0) mag dragen. Blokken gemaakt met dit materiaal kunnen alle 6 basis richtingen op gericht zijn, en zich binden aan het eerste blok van hetzelfde soort, binnen een bepaalde afstand.",
+
   "botania.page.redString1": "Elk $(thing)Rood Gestreepte$(0) blok heeft verschillende vereisten voor waaraan het zich kan binden, maar de afstand waarop ze elkaar kunnen vinden is altijd constant. De veter kan worden gezien, als een blok verbonden is, door een $(item)Staf van het Woud$(0) vast te houden. Blokken die in de weg staan zullen de verbinding niet verbreken. Tenslotte, blokken met $(item)Rode Veter$(0) kunnen niet worden aaneengeschakeld.",
   "botania.page.redString2": "Toe aan een nieuw snufje?",
   "botania.page.redString3": "Om te beginnen, de $(item)Rood Gestreepte Container$(0) zal zich binden aan elke inventory ($(item)Kisten$(0), $(item)Ovens$(0), $(item)Trechters$(0), etc). Voorwerpen kunnen erin worden geplaatst middels $(item)Trechters$(0) of elke andere manier van invoer. De voorwerpen zullen verschijnen in het verbonden blok, en zullen aan dezelfde kant binnenkomen, alsof ze op de $(item)Rood Gestreepte Container$(0) zelf geplaatst zijn.",
@@ -2245,7 +3528,7 @@
   "botania.page.redString13": "Tenslotte, de $(item)Rood Gestreepte Onderschepper$(0) zal zich binden aan elk complex blok zoals een $(item)Kist$(0), $(item)Oven$(0), $(item)Bloemblad Apotheek$(0), etc. Als de speler rechts-klikt op het verbonden blok, geeft de onderschepper een redstone signaal af.",
   "botania.page.redString14": "De $(item)Rood Gestreepte Onderschepper$(0).",
 
-  "botania.entry.flightTiara": "Flügel Tiara",
+
   "botania.tagline.flightTiara": "De mogelijkheid voor vliegen... eventjes",
   "botania.page.flightTiara0": "De $(thing)Flügel$(0) waren ooit de dominante soort op het land, nu is het slechts een ras van lang geleden. Ooit gemaakt als Godendoders, met de kracht om te kunnen vliegen.$(p)Door het gebruik van de $(item)Geest van Gaia$(0) kan een beetje van deze kracht worden teruggebracht, in de vorm van de $(item)Flügel Tiara$(0), die tegen de prijs van van $(thing)Mana$(0) het mogelijk maakt om te vliegen.",
   "botania.page.flightTiara4": "Maar het terugbrengen van de kracht gaat niet zonder slag of stoot, de tiara heeft zijn tekortkomingen. Hij kan niet continu de kracht geven om te vliegen. Na dertig seconden aaneengesloten gebruik, kan hij de kracht niet meer opbrengen.$(p)Een \"vlucht bar\" wordt weergegeven om dit in de gaten te houden.",
@@ -2267,7 +3550,11 @@
   "botania.page.corporea7": "Het maken van $(item)Corporea Vonken$(0)",
   "botania.page.corporea8": "$(item)Corporea Bronvonken$(0) toevoegen",
 
-  "botania.entry.corporeaIndex": "Corporea Index",
+
+
+
+
+
   "botania.tagline.corporeaIndex": "Vraag voorwerpen uit een Corporea netwerk via chat",
   "botania.page.corporeaIndex0": "De belangrijkste voorziening van het $(thing)Corporea Netwerk$(0) is het kunnen opvragen van voorwerpen bij naam. De $(item)Corporea Index$(0) is een blok zoals een ender-kristal die zich kan verbinden met een $(thing)Corporea Netwerk$(0) door er een $(item)Corporea Vonk$(0) bovenop te plaatsen.$(p)Bij het benaderen van een geplaatste index zal deze activeren, en het gebied aangeven waarin hij geactiveerd blijft.",
   "botania.page.corporeaIndex1": "Wanneer geactiveerd zal de index $(thing)Chat Berichten$(0) onderscheppen verzonden door spelers in de buurt. Deze worden beschouwd als $(thing)verzoek$(0) en niet verstuurd als chat bericht. De index vraagt de voorwerpen uit zijn netwerk op, waarvan de Engelse naam overeenkomt met het verzoek. Bijvoorbeeld \"iron ingot\" laat de index zoeken naar een $(item)Staaf ijzer$(0), om op te halen en te materialiseren in de wereld.",
@@ -2278,11 +3565,13 @@
   "botania.page.corporeaIndex6": "Tenslotte, wanneer dichtbij een $(item)Corporea Index$(0), kan de TAB toets gebruikt worden voor het auto-aanvullen van voorwerpnamen bij invoer in de chat.",
   "botania.page.corporeaIndex7": "Bijhoorlijk magisch zou je zeggen",
 
+
   "botania.entry.corporeaFunnel": "Corporea Trechter",
   "botania.tagline.corporeaFunnel": "Vraag voorwerpen uit een Corporea netwerk via redstone",
   "botania.page.corporeaFunnel0": "Een eenvoudiger blok die de mogelijkheden van het $(thing)Corporea Netwerk$(0) gebruikt is de $(item)Corporea Trechter$(0). Wanneer toegang gegeven tot een netwerk middels een $(item)Corporea Vonk$(0) erbovenop, vraagt hij een enkel voorwerp op uit het netwerk wanneer een redstone signaal wordt aangeboden. Het voorwerp wordt in een inventory gezet 1 of 2 blokken eronder, of als dat niet mogelijk is in de wereld gegooid recht erboven.",
   "botania.page.corporeaFunnel1": "De $(item)Corporea Trechter$(0) vraagt alleen voorwerpen die voldoen aan zijn filter. Net als bij $(item)Trechterkruid$(0), wordt het filter aangegeven middels voorwerpen op $(item)Voorwerplijsten$(0) die erop geplaatst zijn. Het voorwerp dat wordt opgevraagd is een willekeurige van een lijst.",
   "botania.page.corporeaFunnel2": "Toegepaste trechter",
+
 
   "botania.entry.corporeaInterceptor": "Corporea Onderschepper",
   "botania.tagline.corporeaInterceptor": "Onderschep Corporea verzoeken en stuur redstone signalen",
@@ -2295,6 +3584,7 @@
   "botania.page.corporeaCrystalCube0": "Een waarzegger kijkt meestal door een kristallen bol om de toekomst te zien. Nou een Corporea gebruiker kijkt door een kristallen kubus om het heden te zien. De $(item)Corporea Kristallen Kubus$(0) gedraagt zich als medium voor toegang tot een $(thing)Corporea Netwerk$(0). Het blok moet geplaatst worden met een $(item)Corporea Vonk$(0) erop, om toegang te krijgen tot het netwerk.",
   "botania.page.corporeaCrystalCube1": "Als het blok is aangesloten, zorgt het rechts-klikken erop met een voorwerp ervoor dat de kubus dit voorwerp in de gaten houdt. Het wordt dan zichtbaar voor een speler hoeveel ervan zijn in het netwerk. De telling wordt ongeveer elke seconde bijgewerkt. Als er een voorwerp geselecteerd is, vraagt links-klikken op het blok dit voorwerp op uit het netwerk. Shift-links klikken vraagt een hele stack.",
   "botania.page.corporeaCrystalCube3": "De $(item)Corporea Kristallen Kubus$(0) kan naast een $(item)Redstone Comparator$(0) gebruikt worden. Dit zal het aantal afgeven van het type voorwerp gezocht in het systeem. De uitgangswaarde heeft een logarithmisch verloop, ofwel elke volgende waarde vereist tweemaal zoveel voorwerpen als de vorige beginnend bij 1. Bij 0 voorwerpen is het 0, bij 1 is het 1, 2 voor 2, 4 voor 3, 8 voor 4, 16 voor 5 enzovoort tot 15.",
+
   "botania.page.corporeaCrystalCube2": "Voor altijd zichtbaar",
 
   "botania.entry.corporeaRetainer": "Corporea Behouder",
@@ -2326,12 +3616,18 @@
   "botania.entry.luminizerTransport": "Verlichter Transport",
   "botania.tagline.luminizerTransport": "Zweef door de lucht",
   "botania.page.luminizerTransport0": "$(item)Verlichters$(0) zijn een eenvoudige manier om spelers en andere levende wezens te vervoeren, door ze te laten rijden op sporen van licht. Ze worden geplaatst als blokken. Om goed te kunnen werken moet een $(item)Verlichter$(0) verbonden zijn met een andere, middels de $(item)Staf van het Woud$(0) in verbind mode. Rechts-klikken op een $(item)Verlichter$(0) vervoert de klikker naar de $(item)Verlichter$(0) waaraan hij verbonden is.",
-  "botania.page.luminizerTransport1": "$(item)Verlichters$(0) hebben een bereik van 20 blokken, maar kunnen samen langere banen vormen. De verbinding tussen twee $(item)Verlichters$(0) geldt in één richting, tenzij de verbinding echt in beide richting gemaakt is, wat een eindeloze lus zou zijn. Het is mogelijk dat meerdere $(item)Verlichters$(0) dezelfde verlichter als eindpunt hebben.",
   "botania.page.luminizerTransport2": "Verlicht de toekomst",
-  "botania.page.luminizerTransport3": "Redstone toevoegen aan een $(item)Verlichter$(0) maakt een $(item)Detector Verlichter$(0). In de praktijk werkt deze net als een normale $(item)Verlichter$(0), maar hij stuurt ook een $(thing)redstone signaal$(0) uit wanneer er iets doorheen beweest, of aankomt als eindpunt.",
-  "botania.page.luminizerTransport4": "Klaar voor vertrek?",
+  "botania.page.luminizerTransport1": "$(item)Verlichters$(0) hebben een bereik van 20 blokken, maar kunnen samen langere banen vormen. De verbinding tussen twee $(item)Verlichters$(0) geldt in één richting, tenzij de verbinding echt in beide richting gemaakt is, wat een eindeloze lus zou zijn. Het is mogelijk dat meerdere $(item)Verlichters$(0) dezelfde verlichter als eindpunt hebben.",
+
   "botania.page.luminizerTransport5": "Hoewel spelers gewoon kunnen rechts-klikken op $(item)Verlichters$(0), is voor het vervoer van dieren, gevallen voorwerpen en andere wezens een $(item)Verlichter Lanceerder$(0) nodig. Dit blok moet worden neergezet naast $(item)Verlichters$(0), en wanneer het een $(thing)redstone signaal$(0) ontvangt, verdeelt het alle wezens en voorwerpen erbovenop over de $(item)Verlichters$(0) in de buurt, waardoor ze op weg gaan.",
   "botania.page.luminizerTransport6": "Je ziet ze nog vliegen",
+  "botania.page.luminizerTransport3": "Redstone toevoegen aan een $(item)Verlichter$(0) maakt een $(item)Detector Verlichter$(0). In de praktijk werkt deze net als een normale $(item)Verlichter$(0), maar hij stuurt ook een $(thing)redstone signaal$(0) uit wanneer er iets doorheen beweest, of aankomt als eindpunt.",
+  "botania.page.luminizerTransport4": "Klaar voor vertrek?",
+
+
+
+
+
 
   "botania.entry.starSword": "Sterrenroeper",
   "botania.tagline.starSword": "Een zwaard die vallende sterren aanroept",
@@ -2370,7 +3666,7 @@
   "botania.page.cosmeticBaubles13": "Tja",
   "botania.page.cosmeticBaubles14": "Niet te hard van stapel",
   "botania.page.cosmeticBaubles15": "Hoezo slecht?",
-  "botania.page.cosmeticBaubles16": "Nudistoooooooooo",
+
   "botania.page.cosmeticBaubles17": "(hier verwijzing invoegen)",
   "botania.page.cosmeticBaubles18": "Kijk eens",
   "botania.page.cosmeticBaubles19": "Heb je even voor mij",
@@ -2388,6 +3684,7 @@
   "botania.page.cosmeticBaubles31": "Geen onderdeel van Spanje hoor",
   "botania.page.cosmeticBaubles32": "Geloof jij het nu ook?",
   "botania.page.cosmeticBaubles33": "Lopen maar",
+
 
   "botania.entry.tinyPlanet": "Kleine Planeet",
   "botania.tagline.tinyPlanet": "Vang Mana bursts in een baan om je heen",
@@ -2420,6 +3717,7 @@
   "botania.entry.icePendant": "Sneeuwvlok Hanger",
   "botania.tagline.icePendant": "Loop op water door ijs te maken",
   "botania.page.icePendant0": "De $(item)Sneeuwvlok Hanger$(0) is een $(thing)Bauble$(0) die ijskoude energie ademt. Wanneer gedragen, zal elk stilstaand $(item)Water$(0) in de buurt op voet niveau veranderd worden in $(item)Ijs$(0).$(p)Het $(item)Ijs$(0) zal smelten kort nadat de drager uit de buurt is. De hanger zal geen water bevriezen als de drager sluipt of volledig onder water is.",
+
   "botania.page.icePendant2": "Sneeuwpop maken?",
 
   "botania.entry.lavaPendant": "Pyroclastische Hanger",
@@ -2487,6 +3785,7 @@
   "botania.page.judgementCloaks2": "Een heilige mantel",
   "botania.page.judgementCloaks3": "De Smaak van Wraak",
 
+
   "botania.entry.monocle": "Manazicht Oogglas",
   "botania.tagline.monocle": "Geeft inzicht in het bereik van bloemen",
   "botania.page.monocle0": "Een handige accessoire voor iemand die goed inzicht wil hebben in waar zijn $(thing)Mana Bursts$(0) heen gaan, is het $(item)Manazicht Oogglas$(0). Niet alleen staat hij goed, hij stelt de drager in staat om alle dichtbijzijnde $(thing)Mana Bursts$(0) te zien, zelfs als er iets in de weg staat.",
@@ -2497,6 +3796,46 @@
   "botania.tagline.swapRing": "Zorg dat je altijd het juiste gereedschap gebruikt",
   "botania.page.swapRing0": "Het wisselen van gereedschap is vervelend. Vaak sta je te graven met... een houweel? Met de $(item)Ring der Correctie$(0) kan dan worden, tja, verholpen.$(p)Als deze ring wordt gedragen, zal het gereedschap in de hand altijd de juiste zijn voor het blok dat wordt gebroken, laat het een houweel, bijl of schep zijn. Maar het werkt alleen met gereedschap dat $(thing)Mana$(0) gebruikt.",
   "botania.page.swapRing1": "Gebruik het juiste gereedschap",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   "botania.entry.aIntro": "De Poort naar Alfheim",
   "botania.tagline.aIntro": "De volgende stap in de reis...",
@@ -2511,7 +3850,7 @@
 
   "botania.entry.elfMessage": "Een bericht van Elven Garde",
   "botania.tagline.elfMessage": "Zeker een bericht. Klopt.",
-  "botania.page.elfMessage0": "",
+
   "botania.page.elfMessage1": "$(o)Gegroet. We hebben gemerkt dat onze poort is geopend vanuit een andere wereld. Vriendelijk bedankt voor het verstrekken van een archief aan informatie uit uw wereld, om ons op de hoogte te houden van wat er is gebeurd sinds we deze verlaten hebben. Veel tijd is verstreken sindsdien, we zijn verheugd om te horen dat alles goed gaat.",
   "botania.page.elfMessage2": "$(o)Na overleg met de Hoge Raad van de Elven Garde, hebben we besloten om medewerking te verlenen. Ziet u, het lezen van de \"Lexica Botania\" heeft ons veel hulpmiddelen getoond uit uw wereld, die we erg graag zouden verkrijgen, omdat ze niet voorkomen op ons land.",
   "botania.page.elfMessage3": "$(o)De verbinding die u heeft kunnen openen is slechts zwak, geen levende wezens kunnen erdoor passeren, zoals u waarschijnlijk al weet. Maar er is een positieve kant hieraan, de verbinding raakt aan de materie van de tijd in onze beide werelden, op een manier waarop ze niet gelijk worden gehouden, wat de reden is dat we uw boek zo snel terug konden gegeven.",
@@ -2523,6 +3862,7 @@
   "botania.tagline.elfResources": "Wat zich achter de poort bevindt",
   "botania.page.elfResources0": "$(thing)Alfheim$(0) bevat een gevarieerde hoeveelheid bijzondere grondstoffen. Helaas zijn de meeste daarvan extreem schaars, en moeilijk te verkrijgen wegens de strijd tussen de verschillende clans. De Elven willen enkele materialen graag verhandelen, zoals $(item)Droomhout$(0), $(item)Elementium$(0), $(item)Sterrenstof$(0) en $(item)Drakensteen$(0), grondstoffen die voorkomen op hun land.",
   "botania.page.elfResources1": "Handelen voor $(item)Droomhout$(0)",
+
   "botania.page.elfResources3": "Handelen voor $(item)Elementium$(0)",
   "botania.page.elfResources4": "Handelen voor $(item)Sterrenstof$(0)",
   "botania.page.elfResources5": "Handelen voor $(item)Drakensteen$(0)",
@@ -2591,9 +3931,9 @@
   "botania.page.elvenLore3": "$(o)Jotunheim opende zich overal, wat veel van de Reuzen die er leefden fataal werd. Zijn huidige toestand is onbekend. Niflheim leek te blijven bestaan, anders dan Muspelheim, opmerkelijk genoeg. Omdat er geen bekend leven voorkwam, moeten we erkennen dat de schade er niet toe doet. Tenslotte, wijzelf de (...)",
   "botania.page.elvenLore4": "$(o)elven van Alfheim, de schade aan onze wereld was verdeeld. De Salamander en Undine clans leden een enorme terugslag op hun bevolking, door de instabiliteit van hun vulkanische en waterige leefomgevingen. De meeste van de Sylph bleven intact door hun buitengewone mogelijkheden om te vliegen. De (...)",
   "botania.page.elvenLore5": "$(o)Spriggan bleven ook ongeveer even groot. Tijdens deze tijd waren de vooruitzichten voor onze beschaving niet zo best. Onze onderkomens om ons te beschermen bestonden uit Droomhout, dus gelukkig was wederopbouw niet veel werk. Allewyn, onze afgezant in Asgard was getuige van deze gebeurtenissen, alles gebeurde sneller dan de geboorte van een (...)",
+
   "botania.page.elvenLore6": "$(o)Elfje. Thor versplinterde de Bifrost met Mjolnir, haar opdracht was om alle Elven beschavingen in Midgard te evacueren. Gelukkig bleef ze ongedeerd, of tenminste dat is wat de geschiedenis zegt, maar hoe dan ook ze is alsnog gestorven, enkele millennia later en lang geleden. Momenteel is onze hoofdzorg de toestand van Midgard. (...)",
   "botania.page.elvenLore7": "$(o)De instorting van Bifrost heeft alle interactie tussen de verschillende werelden verbroken, maar de grote hoeveelheid Mana die is achtergebleven heeft de wereld met zekerheid weer voorzien van nieuw leven. Dieren, planten en schimmels, natuurlijk of magisch in bestaan. We hopen dat het genoeg is om intelligent leven voort te brengen die de tand des tijds aan kan.",
-
 
   "botania.entry.decorativeBlocks": "Decoratieve Blokken",
   "botania.tagline.decorativeBlocks": "Precies wat er staat, eigenlijk",
@@ -2623,23 +3963,25 @@
   "botania.tagline.shinyFlowers": "Lichtgevende en drijvende bloemen",
   "botania.page.shinyFlowers0": "Door $(item)Mystieke Bloemen$(0) te combineren met wat $(item)Gloeisteenstof$(0), kun je ze laten glinsteren en zelfs helderder maken. Ze zullen zichtbaar licht afgeven, van dezelfde sterkte als een $(item)Gloeisteen Blok$(0).$(p)Met wat $(item)Aarde$(0) en $(item)Weidezaden$(0), is het mogelijk om ze om te zetten in een soort miniatuur eilandje dat niet alleen licht uitstraalt, maar er ook erg leuk uitziet.",
   "botania.page.shinyFlowers3": "Het combineren van elke kleur $(item)Drijvende Bloem$(0) met elke bloem die een effect heeft (elke $(thing)Functionele of Genererende Bloem$(0), enz) bij het vervaardigen, zal de twee doen samensmelten, waardoor hij het aanzien en de eigenschappen krijgt van de $(item)Drijvende Bloem$(0) maar ook het effect heeft van de gekozen bloem. Tenslotte, rechts-klikken op een $(item)Drijvende Bloem$(0) met $(item)Weidezaden$(0) of een $(item)Sneeuwbal$(0) verandert zijn uiterlijk.",
+
   "botania.page.shinyFlowers1": "Mooi Helder",
+
   "botania.page.shinyFlowers2": "Zoals Laputa maar dan (veel) kleiner",
-
-
 
   "botania.entry.tinyPotato": "Kleine Aardappel",
   "botania.tagline.tinyPotato": "Een aardappelvriend voor iedereen",
   "botania.page.tinyPotato0": "Het is een kleine aardappel, hij gelooft in jou, je kunt het.$(p)Nee echt, dat is het, door een $(item)Aardappel$(0) in een $(item)Mana Voorraad$(0) te werpen, krijgt hij een beetje levensenergie en blije gevoelens. Het is een levendige aardappel, en het geven van een rechts-klik erop zal dat niet minder maken!$(p)Hij kan ook genaamd worden op een $(item)Aambeeld$(0).",
+
   "botania.page.tinyPotato1": "Zet hem op Kickstarter, het zal aanslaan",
 
   "botania.entry.headCreating": "Het maken van hoofden",
   "botania.tagline.headCreating": "Maak het hoofd van elke speler",
   "botania.page.headCreating0": "Een typische uitspraak van de Elven, gecombineerd met wat grondstoffen en een $(item)Naamkaartje$(0) zorgt voor de creatie van een replica van het hoofd van de persoon die wordt genoemd op het naamkaartje.$(p)Hoe het werkt is niet precies bekend, maar het lijkt mogelijk te zijn om te doen met een $(item)Runen Altaar$(0).",
+
   "botania.page.headCreating2": "Een deel van de gebruikersgemeenschap heeft zich gericht op het maken van hoofden ter gebruik als decoratie. Met een klik op de knop $(item)Bekijk Online$(0) links van deze pagina opent een webpagina met een lijst van namen ter gebruik hiervoor. Deze lijst houdt geen verband met Botania, en is beslist niet de enige plek om dit soort hoofden te kunnen vinden.",
   "botania.page.headCreating1": "Hou je hoofd bij het spel",
 
-  "botania.entry.azulejo": "Azulejos",
+
   "botania.tagline.azulejo": "Blauw-witte decoratieve tegels",
   "botania.page.azulejo0": "$(item)Azulejos$(0) zijn een soort decoratieve blokken, simpel gezegd zijn het tegelbare patronen van blauw en wit. Om ze te maken, hoef je simpelweg een stuk $(item)Lapis Lazuli$(0) te mengen met een $(item)Blok Kwarts$(0).$(p)Vervolgens kan door het te plaatsen in het vervaardigingsrooster gekozen worden tussen de twaalf verschillende patronen.",
   "botania.page.azulejo1": "De verschillende patronen",
@@ -2651,16 +3993,16 @@
   "botania.page.starfield0": "De $(item)Sterrenmaker$(0) doet precies wat hij zegt. Door de energie van Elven af te geven in de lucht wanneer hij geplaatst is in de wereld, zal hij gedurende de nacht een sterrenhemel creëren die zich uitstrekt tot op redelijke afstand.",
   "botania.page.starfield1": "Twinkel Twinkel",
 
-
   "botania.entry.mushrooms": "Glinsterende Paddenstoelen",
   "botania.tagline.mushrooms": "Een beetje wazig, maar maakt je niet duizelig",
   "botania.page.mushrooms0": "Het strooien van wat $(item)Bloempoeder$(0) op $(item)Paddenstoelen$(0) lijkt het interessante effect te hebben dat ze veranderen in de kleur van het poeder, een nieuwe vorm krijgen en zwak licht gaan afgeven. Ze lijken niet echt wat te doen behalve er apart uitzien.$(p)Ze kunnen ook zeldzaam voorkomen diep onder de grond in afgelegen delen.",
+
   "botania.page.mushrooms1": "Ze maken je niet groter",
 
   "botania.entry.phantomInk": "Fantoom Inkt",
   "botania.tagline.phantomInk": "Maak armor en baubles onzichtbaar",
   "botania.page.phantomInk0": "Het verbergen van je mooie huid en accessoires achter een ijzeren harnas vindt niemand leuk. Het is lomp, plat, en erger nog, niet modieus!$(p)Gelukkig, door de harnasdelen te kleuren in een Vervaardigingspatroon met $(item)Fantoom Inkt$(0), wordt het volledig onzichtbaar, terwijl het nog steeds alle voordelen heeft. Het werkt alleen met armor dat $(thing)Mana$(0) gebruikt.",
-  "botania.page.phantomInk1": "Who you gonna call?",
+
 
 
   "botania.entry.blazeBlock": "Blazelamp",
@@ -2692,5 +4034,101 @@
   "botania.entry.banners": "Vaandel Uitbreidingen",
   "botania.tagline.banners": "Vele nieuwe vaandel patronen",
   "botania.page.banners0": "Naast de $(item)Vaandels$(0) van de toekomst voegt $(item)Botania$(0) wel $(thing)15$(0) nieuwe iconen toe, die kunnen worden gemixed met de originele patronen en iconen.$(p)De volgende voorwerpen kunnen worden gebruikt naast een kleurstof op een werkbank om een icoon toe te voegen aan een $(item)Vaandel$(0): $(item)Ijzeren gereedschappen$(0), $(item)Vonk Uitbreidingen$(0), $(item)Rauwe Vis$(0), $(item)Levenshout en Droomhout Twijgjes$(0), $(item)Lexica Botania$(0), $(item)Terrastaal$(0) en de $(item)Kleine Aardappel$(0).",
-  "botania.page.banners1": "De verschillende vaandels"
+  "botania.page.banners1": "De verschillende vaandels",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.flowers10": "Er zijn ook wat langere varianten van $(item)Mystieke Bloemen$(0), overal verspreid. Deze kunnen alleen geplukt worden met een $(item)Schaar$(0), maar leveren tweemaal zoveel bloemblaadjes op als een normale bloem. Maar ze zijn iets te groot voor kleurstof.$(p)Ze kunnen handmatig gemaakt worden door $(item)Mystieke Bloem$(0) te bemesten met $(item)Beenderenmeel$(0)."
 }

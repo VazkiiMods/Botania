@@ -1,12 +1,11 @@
 {
   "_comment0": "Note to translators: DO NOT COPY ENTRIES FROM ENGLISH",
   "_comment1": "I repeat: do NOT copy entries from English!!",
-  "_comment2": "Any entry in this lang file should be in their translated state, or *shouldn't be here AT ALL*",
-  "_comment3": "Copying English entries will cause them to become outdated when the main English lang file changes",
-  "_comment4": "Untranslated entries will automatically be inherited from en_us",
-  "_comment5" : "Once again, don't copy from English, and THANK YOU for your hard work!",
+  "_comment2": "Copying English entries will cause them to become outdated when this file changes",
+  "_comment3": "Untranslated entries will automatically be inherited from this file.",
+  "_comment4": "Once again, don't copy from English, and THANK YOU for your hard work!",
 
-  "itemGroup.botania": "Botania",
+
   "botania.landing": "Магия и технология, природа и естество.$(br2)Ботания — это технический мод, посвящённый магии и природе. Создавайте магические цветы и устройства, использующие $(thing)ману$(), — форму силы земли.",
   "botania.desc": "Магия и технология, природа и естество.",
 
@@ -15,6 +14,9 @@
   "stat.botania.corporea_items_requested": "Предметов запрошено через эфирный индекс",
   "stat.botania.tiny_potatoes_petted": "Поглаживаний крошки-картошки",
   "stat.botania.luminizer_one_cm": "Преодолено в люкседуке",
+
+
+
 
   "botaniamisc.color": "Окрашено в «%s» цвет",
   "botaniamisc.manaUsage": "Потребление маны",
@@ -30,6 +32,7 @@
   "botaniamisc.retainer.retain_all": "Сохранить исходное количество запрошенных предметов",
   "botaniamisc.retainer.retain_missing": "Сохранить количество недостающих предметов",
   "botaniamisc.optifine_warning": "§4[ПРЕДУПРЕЖДЕНИЕ]§r <Botania>: Обнаружен Optifine. Обратите внимание, что Optifine вызывает множество проблем с Ботанией, и вы можете столкнуться со следующими проблемами:\n• отсутствие движения маны между цветами и распространителями маны;\n• отсутствие информации с жезлом леса в руке, когда курсор наведён на бассейн маны или распространитель.\nМы рекомендуем использовать Sodium как альтернативу улучшениям производительности Optifine.",
+
 
   "botaniamisc.creativePool0": "Творческий бассейн маны (бесконечная мана)",
   "botaniamisc.creativePool1": "Достойно эгоиста",
@@ -53,6 +56,8 @@
   "botaniamisc.wandMode.bind": "Режим привязки",
   "botaniamisc.wandMode.function": "Функциональный режим",
   "botaniamisc.sextantMode.circle": "Режим круга",
+
+
   "botaniamisc.sextantMode.sphere": "Режим сферы",
   "botaniamisc.brewOf": "Отвар %s",
   "botaniamisc.needsCatalysts": "Неважно, как сильно вы пытаетесь вставить слиток в маяк, — ничего не происходит. Возможно, конфигурация ваших пилонов отключена.",
@@ -140,11 +145,22 @@
   "botaniamisc.pollidisiac.adult_animals": "Кормит взрослых особей",
   "botaniamisc.pollidisiac.baby_animals": "Кормит детёнышей",
   "botaniamisc.pollidisiac.all_animals": "Кормит любых животных",
+
   "botaniamisc.monocle.frame.contains": "%s§r содержит:",
   "botaniamisc.monocle.frame.additional_stacks": "+ещё %s стаков",
   "botaniamisc.monocle.repeater.delay": "%s сек.",
   "botaniamisc.monocle.comparator.compare": "≥",
-  "botaniamisc.monocle.comparator.subtract": "-",
+
+
+
+
+
+
+
+
+
+
+
 
   "botania.tater_birthday.0": "Вау, это для меня?",
   "botania.tater_birthday.1": "Сегодня мой день рождения; теперь мне %d лет!",
@@ -198,37 +214,129 @@
   "emi.category.botania.orechid_ignem": "Огненное обогащение",
   "emi.category.botania.marimorphosis": "Трансмутация камня",
 
+
+
+
+
+
+
+
+
+
   "tag.block.botania.double_mystical_flowers": "Высокие мистические цветы",
   "tag.block.botania.dreamwood_logs": "Брёвна дерева мечтаний",
+
+
   "tag.block.botania.floating_flowers": "Парящие цветы",
   "tag.block.botania.functional_special_flowers": "Функциональные особые цветы",
+
   "tag.block.botania.generating_special_flowers": "Генерирующие особые цветы",
+
   "tag.block.botania.glimmering_dreamwood_logs": "Светящиеся брёвна дерева мечтаний",
   "tag.block.botania.glimmering_livingwood_logs": "Брёвна сияющего жизнедерева",
+
+
+
+
+
+
+
   "tag.block.botania.livingwood_logs": "Брёвна жизнедерева",
+
+
   "tag.block.botania.mini_flowers": "Миниатюрные цветы",
   "tag.block.botania.misc_special_flowers": "Некатегорированные особые цветы",
   "tag.block.botania.mundane_floating_flowers": "Мирские парящие цветы",
   "tag.block.botania.mystical_flowers": "Мистические цветы",
+
+
+
   "tag.block.botania.shimmering_mushrooms": "Мерцающие грибы",
+
+
   "tag.block.botania.special_floating_flowers": "Особые парящие цветы",
   "tag.block.botania.special_flowers": "Особые цветы",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "tag.block.c.storage_blocks.elementium": "Элементиевые блоки",
+
   "tag.block.c.storage_blocks.manasteel": "Манастальные блоки",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "tag.block.c.storage_blocks.terrasteel": "Террастальные блоки",
 
+
+
+
+
+
+
+
+
+
+
+
   "tag.item.botania.burst_viewers": "Окуляры наблюдения сгустков маны",
+
+
+
+
+
+
+
+
   "tag.item.botania.double_mystical_flowers": "Высокие мистические цветы",
   "tag.item.botania.dreamwood_logs": "Брёвна дерева мечтаний",
+
+
+
+
   "tag.item.botania.floating_flowers": "Парящие цветы",
   "tag.item.botania.functional_special_flowers": "Функциональные особые цветы",
   "tag.item.botania.generating_special_flowers": "Генерирующие особые цветы",
   "tag.item.botania.glimmering_dreamwood_logs": "Светящиеся брёвна дерева мечтаний",
   "tag.item.botania.glimmering_livingwood_logs": "Брёвна сияющего жизнедерева",
+
   "tag.item.botania.lens": "Линзы маны",
   "tag.item.botania.lens_glue": "Клей для линз",
   "tag.item.botania.livingwood_logs": "Брёвна жизнедерева",
+
   "tag.item.botania.loonium_offhand_equipment": "Экипировка во вторую руку из лутюльпана",
+
+
   "tag.item.botania.mana_using_items": "Предметы, использующие ману",
   "tag.item.botania.mini_flowers": "Миниатюрные цветы",
   "tag.item.botania.misc_special_flowers": "Некатегорированные особые цветы",
@@ -251,24 +359,75 @@
   "tag.item.botania.petals.red": "Красные лепестки",
   "tag.item.botania.petals.white": "Белые лепестки",
   "tag.item.botania.petals.yellow": "Жёлтые лепестки",
+
+
   "tag.item.botania.rods": "Скипетры",
   "tag.item.botania.runes": "Руны",
   "tag.item.botania.seed_apothecary_reagent": "Семена-реагенты",
+
   "tag.item.botania.shimmering_mushrooms": "Мерцающие грибы",
+
   "tag.item.botania.special_floating_flowers": "Особые парящие цветы",
   "tag.item.botania.special_flowers": "Особые цветы",
+
+
+
+
+
+
+
+
+
+
+
   "tag.item.c.dusts.mana": "Манапыль",
+
   "tag.item.c.gems.dragonstone": "Самоцветы драконьего камня",
   "tag.item.c.gems.mana_diamond": "Манаалмазные самоцветы",
+
+
+
   "tag.item.c.ingots.elementium": "Элементиевые слитки",
+
   "tag.item.c.ingots.manasteel": "Манастальные слитки",
   "tag.item.c.ingots.terrasteel": "Террастальные слитки",
   "tag.item.c.nuggets.elementium": "Кусочки элементия",
   "tag.item.c.nuggets.manasteel": "Кусочки манастали",
   "tag.item.c.nuggets.terrasteel": "Кусочки террастали",
+
+
+
+
   "tag.item.c.storage_blocks.elementium": "Элементиевые блоки",
+
   "tag.item.c.storage_blocks.manasteel": "Манастальные блоки",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "tag.item.c.storage_blocks.terrasteel": "Террастальные блоки",
+
+
+
+
+
+
+
+
+
 
   "structure.minecraft.ancient_city": "Древний город",
   "structure.minecraft.bastion_remnant": "Развалины бастиона",
@@ -300,6 +459,7 @@
   "structure.minecraft.village_savanna": "Саванная деревня",
   "structure.minecraft.village_snowy": "Снежная деревня",
   "structure.minecraft.village_taiga": "Таёжная деревня",
+
 
   "key.botania_corporea_request": "Запрос эфирному хранилищу",
 
@@ -373,37 +533,37 @@
   "botania.armorset.will_verac.shortDesc": "Критические удары пробивают броню",
   "botania.armorset.will_karil.shortDesc": "Критические удары накладывают иссушение",
 
-  "botania.roman0": "",
-  "botania.roman1": "I",
-  "botania.roman2": "II",
-  "botania.roman3": "III",
-  "botania.roman4": "IV",
-  "botania.roman5": "V",
-  "botania.roman6": "VI",
-  "botania.roman7": "VII",
-  "botania.roman8": "VIII",
-  "botania.roman9": "IX",
-  "botania.roman10": "X",
-  "botania.roman11": "XI",
-  "botania.roman12": "XII",
-  "botania.roman13": "XIII",
-  "botania.roman14": "XIV",
-  "botania.roman15": "XV",
-  "botania.roman16": "XVI",
-  "botania.roman17": "XVII",
-  "botania.roman18": "XVIII",
-  "botania.roman19": "XIX",
-  "botania.roman20": "XX",
-  "botania.roman21": "XXI",
-  "botania.roman22": "XXII",
-  "botania.roman23": "XXIII",
-  "botania.roman24": "XXIV",
-  "botania.roman25": "XXV",
-  "botania.roman26": "XXVI",
-  "botania.roman27": "XXVII",
-  "botania.roman28": "XXVIII",
-  "botania.roman29": "XXIX",
-  "botania.roman30": "XXX",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   "botania.flowerType.generating": "Генерирующий цветок",
   "botania.flowerType.functional": "Функциональный цветок",
@@ -470,6 +630,9 @@
 
   "death.attack.botania.relic": "%s был наказан за использование чужой реликвии",
   "death.attack.botania.key_explosion": "%2$s утопил %1$s в сокровищах",
+
+
+
 
   "effect.botania.allure.description": "Удваивает скорость рыбалки",
   "effect.botania.bloodthirst.description": "Враждебные мобы могут появляться рядом не соблюдая условий появления. Не работает с эффектом «Умиротворение» одновременно",
@@ -722,13 +885,125 @@
   "block.botania.stripped_livingwood": "Обтёсанное жизнедерево",
   "block.botania.glimmering_stripped_livingwood": "Светящаяся обтёсанная жизнедревесина",
   "block.botania.mana_spreader": "Распространитель маны",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.redstone_spreader": "Редстоуновый распространитель маны",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.elven_spreader": "Эльфийский распространитель маны",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.gaia_spreader": "Распространитель маны Гайи",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.mana_pool": "Бассейн маны",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.creative_pool": "Неиссякаемый бассейн порочного удовольствия",
   "block.botania.diluted_pool": "Бассейн разбавленной маны",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.fabulous_pool": "Сказочный бассейн маны",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.runic_altar": "Рунический алтарь",
   "block.botania.piston_relay": "Силовое реле",
   "block.botania.mana_distributor": "Распределитель маны",
@@ -844,6 +1119,8 @@
   "block.botania.stripped_livingwood_wall": "Ограда из обтёсанного жизнедерева",
   "block.botania.livingrock_stairs": "Жизнекаменные ступеньки",
   "block.botania.livingrock_slab": "Жизнекаменная плита",
+
+
   "block.botania.livingrock_bricks_stairs": "Ступеньки из жизнекаменного кирпича",
   "block.botania.livingrock_bricks_slab": "Плита из жизнекаменного кирпича",
   "block.botania.mossy_livingrock_bricks_stairs": "Ступеньки из замшелого жизнекаменного кирпича",
@@ -1010,6 +1287,22 @@
   "block.botania.metamorphic_desert_bricks_wall": "Ограда из солитового кирпича",
   "block.botania.metamorphic_taiga_bricks_wall": "Ограда из лунитового кирпича",
   "block.botania.metamorphic_mesa_bricks_wall": "Ограда из розового талькового кирпича",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.white_petal_block": "Блок белых лепестков",
   "block.botania.orange_petal_block": "Блок оранжевых лепестков",
   "block.botania.magenta_petal_block": "Блок пурпурных лепестков",
@@ -1099,8 +1392,28 @@
   "block.botania.dreamwood_wall": "Ограда из дерева мечтаний",
   "block.botania.livingwood_fence": "Жизнедеревянный забор",
   "block.botania.dreamwood_fence": "Мечтадеревянный забор",
+
   "block.botania.livingwood_fence_gate": "Жизнедеревянный калитка",
   "block.botania.dreamwood_fence_gate": "Мечтадеревянная калитка",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "block.botania.mana_bomb": "Манаштормовый заряд",
   "block.botania.white_buried_petals": "Закопанный белый лепесток",
   "block.botania.orange_buried_petals": "Закопанный оранжевый лепесток",
@@ -1145,6 +1458,9 @@
   "block.botania.corporea_block": "Эфир",
   "block.botania.corporea_slab": "Эфирная плита",
   "block.botania.corporea_stairs": "Эфирные ступеньки",
+
+
+
   "block.botania.corporea_brick": "Эфирные кирпичи",
   "block.botania.corporea_brick_slab": "Плита из эфирного кирпича",
   "block.botania.corporea_brick_stairs": "Ступеньки из эфирного кирпича",
@@ -1157,6 +1473,9 @@
   "block.botania.shimmerrock": "Мерцающий камень",
   "block.botania.shimmerrock_slab": "Плита из мерцающего камня",
   "block.botania.shimmerrock_stairs": "Ступеньки из мерцающего камня",
+
+
+
   "block.botania.shimmerwood_planks": "Мерцающие доски",
   "block.botania.shimmerwood_planks_slab": "Плита из мерцающих досок",
   "block.botania.shimmerwood_planks_stairs": "Ступеньки из мерцающих досок",
@@ -1662,6 +1981,7 @@
   "item.botania.mana_string": "Мананить",
   "item.botania.swap_ring": "Кольцо исправления",
   "item.botania.flower_bag": "Мешочек для цветов",
+
   "item.botania.phantom_ink": "Фантомные чернила",
   "item.botania.pool_minecart": "Вагонетка с бассейном маны",
   "item.botania.pinkinator": "Розовинатор",
@@ -1745,6 +2065,15 @@
 
   "item.botania.record_gaia_1.desc": "Kain Vinosec — Endure Emptiness",
   "item.botania.record_gaia_2.desc": "Kain Vinosec — Fight For Quiescence",
+
+
+
+
+
+
+
+
+
 
   "block.minecraft.banner.botania.flower.black": "Чёрный мистический цветок",
   "block.minecraft.banner.botania.flower.red": "Красный мистический цветок",
@@ -2143,6 +2472,11 @@
   "botania.page.flowerBag2": "Цветы не будут собираться в мешочек, если он находится в вашей ведущей руке.$(p)Если крадучись нажать [$(k:use)] мешочком по $(item)сундуку$(0) или другому инвентарю, то все цветы из мешочка сложатся в указанный инвентарь.",
   "botania.page.flowerBag1": "Внутри он примерно такого же размера (подойдут любые цвета)",
 
+
+
+
+
+
   "botania.entry.mIntro": "Знакомство с маной",
   "botania.tagline.mIntro": "Начнём с маны!",
   "botania.page.mIntro0": "$(thing)Мана$(0) — это особое неосязаемое вещество, по сути, некая мистическая форма $(thing)энергии$(0). Её трудно уловить, а цвет $(thing)маны$(0) меняется в зависимости от окружающей среды.$(p)Управление $(thing)маной$(0) — это одно из самых важных умений, которым должен овладеть ботаник.",
@@ -2172,6 +2506,7 @@
   "botania.page.pool8": "Бассейн можно окрасить в цвет $(l:basics/flowers)мистического лепестка$(/l) нажатием [$(k:use)] лепестком по бассейну, — для красоты или для цветовой разметки. Цвет вымывается $(item)комком глины$(0).",
   "botania.page.pool16": "Манасталь",
   "botania.page.pool3": "Создание $(item)манастали$(0)",
+
   "botania.page.pool4": "Создание $(item)манажемчуга$(0)",
   "botania.page.pool5": "Создание $(item)манаалмазов$(0)",
   "botania.page.pool6": "Создание $(item)манапыли$(0)",
@@ -2583,7 +2918,7 @@
   "botania.page.dandelifeon6": "Область размером 3×3 вокруг $(item)жизнеодуванчика$(0) поглощает все клетки, которые иначе появились бы в этой области, превращая их в $(thing)ману$(0) (было бы честнее сказать в «колоссальное количество маны»). Чем старше создаваемая клетка, тем больше $(thing)маны$(0) она произведёт. Клетки нулевого возраста не стоят $(thing)маны$(0).",
   "botania.page.dandelifeon10": "Каждый раз, когда живые клетки поглощаются областью 3×3 в центре, все остальные клетки на поле умирают.$(p)Кроме того, живые клетки в зоне действия двух или более $(item)жизнеодуванчиков$(0) также погибают при срабатывании области лишь одного из цветков, хотя хорошо расположенные $(item)жизнеодуванчики$(0) $(l)могут$() передавать клетки между собой (хоть и с небольшой потерей маны на границе).",
   "botania.page.dandelifeon7": "$(item)Клеточные блоки$(0) создаются из $(item)кактусов$(0), $(item)моркови$(0), $(item)картошки$(0) и $(item)cвёклы$(0) и чрезвычайно хрупки. Их нельзя собрать даже с чарами «$(thing)Шёлковое касание$(0)» и нельзя сдвинуть $(item)поршнем$(0). $(item)Жизнеодуванчик$(0) не будет создавать их на позициях, где нет воздуха (т.е. стоит какой-то другой блок).$(p)За пределами зоны действия $(item)жизнеодуванчика$(0), они не имеют никаких особых свойств.",
-  "botania.page.dandelifeon8": "$(o)CellCraft^2$().",
+
   "botania.page.dandelifeon9": "Создание $(item)клеточных блоков$(0)",
 
   "botania.entry.shulk_me_not": "Дешалкерия",
@@ -3281,8 +3616,11 @@
   "botania.entry.luminizerTransport": "Перемещение люкседуками",
   "botania.tagline.luminizerTransport": "Запускает пользователя по течению света",
   "botania.page.luminizerTransport0": "$(item)Люкседуки$(0) (lux + ducere — \"направлять свет\") перемещают игроков (и других сущностей), пронося их через воздух по течениям света.$(p)$(item)Люкседук$(0) сначала нужно поставить в мире как блок, а затем связать с другим $(item)люкседуком$(0) с помощью $(l:basics/wand)жезла леса$(/l). Нажатие [$(k:use)] по $(item)люкседуку$(0) переместит пользователя ко второму $(item)люкседуку$(0), связанному течением света.",
-  "botania.page.luminizerTransport1": "$(item)Люкседуки$(0) имеют дальность действия двадцать блоков, но их можно соединять в цепочки, создавая довольно длинные и сложные маршруты.$(p)Если не связать $(item)люкседуки$(0) в обе стороны, то связь будет лишь односторонней, однако учтите, что такая связь создаст бесконечный цикл.$(p)Несколько $(item)люкседуков$(0) могут быть связаны с одной конечной точкой.",
   "botania.page.luminizerTransport2": "$(o)— Сотки путь в будущее своими руками$(br)— Что-за сотка то?$(br)— Неважно…",
+  "botania.page.luminizerTransport1": "$(item)Люкседуки$(0) имеют дальность действия двадцать блоков, но их можно соединять в цепочки, создавая довольно длинные и сложные маршруты.$(p)Если не связать $(item)люкседуки$(0) в обе стороны, то связь будет лишь односторонней, однако учтите, что такая связь создаст бесконечный цикл.$(p)Несколько $(item)люкседуков$(0) могут быть связаны с одной конечной точкой.",
+
+  "botania.page.luminizerTransport5": "Игроки могут просто нажать [$(k:use)] по $(item)люкседуку$(0), чтобы отправиться с ним, но для отправки животных, предметов или чего-либо ещё потребуется $(item)люкседук-пластина$(0). Она должна быть установлена рядом с одним или несколькими $(item)люкседуками$(0). Когда пластина получает $(thing)редстоун-сигнал$(0), она отправит все живые и неживые сущности на ней через соседний $(item)люкседук$(0) (или по существу/предмету через случайный $(item)люкседук$(0), если их рядом несколько).",
+  "botania.page.luminizerTransport6": "$(o)Лети, лети, лепесток$()",
   "botania.page.luminizerTransport3": "Напылением $(item)люкседука$(0) $(item)редстоуновой пылью$(0) получается $(item)датчик-люкседук$(0). Он работает точно так же, как обычный $(item)люкседук$(0), но ещё у него есть функция излучения $(thing)редстоун-сигнала$(0), когда что-то достигает его/проходит через него (в цепочке $(item)люкседуков$(0)).",
   "botania.page.luminizerTransport4": "$(o)Сигнал отправлен$()",
   "botania.page.luminizerTransport7": "Соединением $(item)рычага$(0) и $(item)люкседука$(0) получается $(item)переключаемый люкседук$(0), управляемый $(thing)редстоун-сигналом$(0). Когда $(item)переключаемый люкседук$(0) запитан, он сбросит всё, что проходит через него; без сигнала он работает как обычный $(item)люкседук$(0).",
@@ -3290,8 +3628,6 @@
   "botania.page.luminizerTransport9": "Соединением $(item)люкседука$(0) и $(item)редстоунового факела$(0) получается $(item)направляемый люкседук$(0).$(p)Направляемый реагирует на $(l:devices/animated_torch)оживлённый факел$(/l), установленный на расстоянии до двух блоков выше или ниже него; любые входящие в него сущности будут отправлены к тому $(item)люкседуку$(0), на который указывает $(item)оживлённый факел$(0).",
   "botania.page.luminizerTransport10": "$(item)Направляемый люкседук$(0) можно привязать так же, как и любой другой тип люкседука, но он будет использовать эту привязку только в том случае, если нет $(l:devices/animated_torch)оживлённого факела$(/l), указывающего ему направление (или если в направлении, указанном факелом, нет $(item)люкседука$(0)).",
   "botania.page.luminizerTransport11": "$(o)Так или иначе$()",
-  "botania.page.luminizerTransport5": "Игроки могут просто нажать [$(k:use)] по $(item)люкседуку$(0), чтобы отправиться с ним, но для отправки животных, предметов или чего-либо ещё потребуется $(item)люкседук-пластина$(0). Она должна быть установлена рядом с одним или несколькими $(item)люкседуками$(0). Когда пластина получает $(thing)редстоун-сигнал$(0), она отправит все живые и неживые сущности на ней через соседний $(item)люкседук$(0) (или по существу/предмету через случайный $(item)люкседук$(0), если их рядом несколько).",
-  "botania.page.luminizerTransport6": "$(o)Лети, лети, лепесток$()",
 
   "botania.entry.starSword": "Звёздный меч",
   "botania.tagline.starSword": "Меч, призывающий опасный для врагов звездопад",
@@ -3514,7 +3850,7 @@
 
   "botania.entry.elfMessage": "Письмо от Эльфийских Садов",
   "botania.tagline.elfMessage": "Приветствуем, искатель приключений",
-  "botania.page.elfMessage0": "",
+
   "botania.page.elfMessage1": "$(o)Приветствуем! Мы заметили, что наш давно закрытый портал резко открыл связь с другим миром — довольно шокирующая новость для нас, скажу я вам! От имени Эльфийских Садов, сердечно благодарим вас за предоставление энциклопедии вашего мира. Давным-давно нам пришлось уйти в Альвхейм, и было радостно узнать, что старый мир процветает.",
   "botania.page.elfMessage2": "$(o)Собранием Верховного совета Эльфийских Садов, мы решили, что будем сотрудничать с вами. Видите ли, в вашей книге «лексикон Ботании» описаны ресурсы, которые нас чрезвычайно интересуют, — они попросту не существуют в наших землях.",
   "botania.page.elfMessage3": "$(o)Связь, которую вы сумели установить, к сожалению, слишком слаба, чтобы переправить живое существо, — видимо, это следствие огромного расстояния между нашими измерениями. Досадно, нам бы хотелось увидеть нашего торгового партнёра во плоти. Однако у такой связи есть и положительная сторона: она проходит вне ткани времени наших миров. Поэтому вы получите книгу обратно невероятно быстро — по крайней мере, с вашей точки зрения.",
@@ -3641,6 +3977,7 @@
   "botania.entry.headCreating": "Создание голов",
   "botania.tagline.headCreating": "Создание головы любого игрока",
   "botania.page.headCreating0": "Эльфы — мастера магической скульптуры. Для этого дела они даже изобрели рецепт преобразования куска $(l:basics/pure_daisy)жизнекамня$(/l) в голову $(thing)игрока$(0), чьё имя указанно в $(item)бирке$(0).$(p)Точные механизмы этого заклинания неизвестны, но, кажется, его легко воспроизвести на $(l:basics/rune_altar)руническом алтаре$(/l).",
+
   "botania.page.headCreating2": "Часть сообщества $(thing)Minecraft$(0) (упс, опять уронил четвёртую стену) посвятила себя созданию голов, служащих только как декор. Увлечённым декораторам стоит рассмотреть возможность посетить несколько сайтов сообщества, собирающие такие декоративные головы.",
   "botania.page.headCreating1": "$(o)У меня это просто в голове не укладывается$()",
 
@@ -3666,6 +4003,7 @@
   "botania.tagline.phantomInk": "Делают вашу броню и аксессуары невидимыми",
   "botania.page.phantomInk0": "Раздражает, когда громоздкая и неаккуратная броня скрывает прекрасную блестящую кожу и завораживающие драгоценные аксессуары!$(p)К счастью, покрасив доспехи $(item)фантомными чернилами$(0) (соединив их в сетке создания) можно сделать броню полностью невидимой, хотя при этом она будет сохранять все свои свойства. Чернила работают только с бронёй, работающей на $(thing)мане$(0).",
   "botania.page.phantomInk1": "$(o)Тени будто плыли и я боялся их спугнуть$()",
+
 
   "botania.entry.blazeBlock": "Огненная сетка",
   "botania.tagline.blazeBlock": "Компактный вариант огненных стержней и возобновляемый источник обсидиана",
@@ -3752,30 +4090,31 @@
   "botania.subtitle.manaBlasterCycle": "Щелчок обоймы для линз",
   "botania.subtitle.manaBlasterMisfire": "Мана-бластер дал осечку",
   "botania.subtitle.manaPoolCraft": "Использован бассейн маны",
+  "botania.subtitle.manufactoryHaloConfigure": "Переключён фабричный венец",
   "botania.subtitle.missile": "Летит магический снаряд",
   "botania.subtitle.missileFunny": "магия такая «тыщ-тыщ», а враги такие «аааа»",
   "botania.subtitle.narslimmusEat": "Гибислизь хлюпает",
   "botania.subtitle.orechid": "Рудоцвет гремит",
+
   "botania.subtitle.pinkinator": "Розовинатор розовинирует",
   "botania.subtitle.potionCreate": "Гудение отварщика",
+  "botania.subtitle.prismAddLens": "Линза маны закреплена на призму",
+  "botania.subtitle.prismRemoveLens": "Линза маны снята с призмы",
   "botania.subtitle.redStringInterceptorClick": "Щелчок перехватчика связанной судьбы",
   "botania.subtitle.runeAltarCraft": "Треск рунического алтаря",
   "botania.subtitle.runeAltarStart": "Рунический алтарь запускается",
   "botania.subtitle.shulkMeNot": "Дешалкерия грохочет",
   "botania.subtitle.smeltRod": "Скипетр огненных недр обжигает",
   "botania.subtitle.smeltRodSimmer": "Треск скипетра огненных недр",
-  "botania.subtitle.prismAddLens": "Линза маны закреплена на призму",
-  "botania.subtitle.prismRemoveLens": "Линза маны снята с призмы",
   "botania.subtitle.spreaderAddLens": "Линза маны закреплена на распространитель",
-  "botania.subtitle.spreaderRemoveLens": "Линза маны снята с распространителя",
   "botania.subtitle.spreaderCover": "Распространитель накрыт",
-  "botania.subtitle.spreaderUncover": "Распространитель раскрыт",
+  "botania.subtitle.spreaderFire": "Распростарнитель вспыхивает",
+  "botania.subtitle.spreaderRemoveLens": "Линза маны снята с распространителя",
   "botania.subtitle.spreaderScaffold": "Подмостки закреплены на распространитель",
   "botania.subtitle.spreaderUnScaffold": "Подмостки сняты с распространителя",
-  "botania.subtitle.spreaderFire": "Распростарнитель вспыхивает",
+  "botania.subtitle.spreaderUncover": "Распространитель раскрыт",
   "botania.subtitle.starcaller": "Свист звезды",
   "botania.subtitle.temperanceStoneConfigure": "Переключён камень сдержанности",
-  "botania.subtitle.manufactoryHaloConfigure": "Переключён фабричный венец",
   "botania.subtitle.terraBlade": "Активация терра-лезвия",
   "botania.subtitle.terraPickMode": "Терра-крушитель усиливается",
   "botania.subtitle.terraformRod": "Грохот движения земли",
@@ -3786,7 +4125,7 @@
   "botania.subtitle.unholyCloak": "Плащ греха разделяет раны",
   "botania.subtitle.vineBallThrow": "Летит шар лозы",
   "botania.subtitle.virusInfect": "Вирус вошёл в действие",
-  "botania.subtitle.worldSeedTeleport": "Телепорт мировым семенем",
+  "botania.subtitle.worldSeedTeleport": "Телепорт мировым семенем"
 
-  "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
+
 }

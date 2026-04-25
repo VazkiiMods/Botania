@@ -1,11 +1,11 @@
 {
   "_comment0": "Note to translators: DO NOT COPY ENTRIES FROM ENGLISH",
   "_comment1": "I repeat: do NOT copy entries from English!!",
-  "_comment2": "Any entry in this lang file should be in de_DE, or *should not be here at all*",
-  "_comment3": "Copying English entries will cause them to become outdated when the main English lang file changes",
-  "_comment4": "Untranslated entries will automatically be inherited from en_US",
-  "_comment5": "Once again, don't copy from English, and THANK YOU for your hard work!",
-  "itemGroup.botania": "Botania",
+  "_comment2": "Copying English entries will cause them to become outdated when this file changes",
+  "_comment3": "Untranslated entries will automatically be inherited from this file.",
+  "_comment4": "Once again, don't copy from English, and THANK YOU for your hard work!",
+
+
   "botania.landing": "Magie, Technik. Natürlich.$(br)Botania ist eine thematisch an Naturmagie ausgerichtete Tech-Mod. Die Grundidee ist, magische Blumen und Vorrichtungen herzustellen, welche die Macht der Erde, in Form von $(thing)Mana$(), nutzen.",
   "botania.desc": "Magie, Technik. Natürlich",
 
@@ -47,7 +47,7 @@
   "botaniamisc.conversionChanceBiome": "%s in %s-Biom",
   "botaniamisc.bottleTooltip": "Es hat einen gewöhnungsbedürftigen Geschmack",
   "botaniamisc.shardLevel": "Scherbenstärke %s",
-  "botaniamisc.shardRange": "Radius: %s",
+
   "botaniamisc.lexiconIndex": "Lexikon-Index",
   "botaniamisc.drop": "Fallen lassen",
   "botaniamisc.dropTip2": "Tipp: Drücke %s um Gegenstände",
@@ -93,7 +93,7 @@
   "botaniamisc.blocksAway": "%s Blöcke entfernt",
   "botaniamisc.clickToTeleport": "Rechtsklick für teleport",
   "botaniamisc.clickToRemoveWarp": "Schleich-Angreifen zum Entfernen",
-  "botaniamisc.unboundWarp": "Unbound Warp Point",
+
   "botaniamisc.clickToAddWarp": "Rechtsklick zum Binden an diese Position",
   "botaniamisc.hasKeepIvy": "Hat Entschlossenen Efeu",
   "botaniamisc.active": "§aAktiv",
@@ -197,7 +197,7 @@
   "botania.nei.petalApothecary": "Blütenapotheke",
   "botania.nei.runicAltar": "Runenaltar",
   "botania.nei.pureDaisy": "Reines Gänseblümchen",
-  "botania.nei.lexica": "Lexica Botania",
+
   "botania.nei.orechid": "Erchidee",
   "botania.nei.orechidIgnem": "Flammende Erchidee",
   "botania.nei.marimorphosis": "Tagemorphes",
@@ -229,7 +229,7 @@
   "tag.block.botania.ender_air_convertable": "Durch Ender-Luft konvertierbar",
   "tag.block.botania.floating_flowers": "Schwebende Blumen",
   "tag.block.botania.functional_special_flowers": "Funktionale schwebende Blumen",
-  "tag.block.botania.gaia_guardian_immune": "Immune to Guardian of Gaia",
+  "tag.block.botania.gaia_guardian_immune": "Immun gegenüber Wächter von Gaia",
   "tag.block.botania.generating_special_flowers": "Generierende schwebende Blumen",
   "tag.block.botania.ghost_rail_barrier": "Barriere für Geisterschiene",
   "tag.block.botania.glimmering_dreamwood_logs": "Schimmernde Traumholzstämme",
@@ -268,7 +268,7 @@
   "tag.block.c.cobblestones.metamorphic.forest": "Fuchsit-Bruchsteine",
   "tag.block.c.cobblestones.metamorphic.fungal": "Myzelit-Bruchsteine",
   "tag.block.c.cobblestones.metamorphic.mesa": "Rosentalk-Bruchsteine",
-  "tag.block.c.cobblestones.metamorphic.mountain": "Gneiss-Bruchsteine",
+  "tag.block.c.cobblestones.metamorphic.mountain": "Gneis-Bruchsteine",
   "tag.block.c.cobblestones.metamorphic.plains": "Talk-Bruchsteine",
   "tag.block.c.cobblestones.metamorphic.swamp": "Kataklasit-Bruchsteine",
   "tag.block.c.cobblestones.metamorphic.taiga": "Lunit-Bruchsteine",
@@ -370,13 +370,13 @@
   "tag.item.botania.special_floating_flowers": "Spezielle schwebende Blumen",
   "tag.item.botania.special_flowers": "Spezielle Blumen",
   "tag.item.botania.undims_floating_flowers": "Entdimmt schwebende Blumen",
-  "tag.item.c.buckets.extrapolating": "Extrapolating Buckets",
+  "tag.item.c.buckets.extrapolating": "Extrapolierte Eimer",
   "tag.item.c.cobblestones.metamorphic": "Metamorphische Bruchsteine",
   "tag.item.c.cobblestones.metamorphic.desert": "Solit-Bruchsteine",
   "tag.item.c.cobblestones.metamorphic.forest": "Fuchsit-Bruchsteine",
   "tag.item.c.cobblestones.metamorphic.fungal": "Myzelit-Bruchsteine",
   "tag.item.c.cobblestones.metamorphic.mesa": "Rosentalk-Bruchsteine",
-  "tag.item.c.cobblestones.metamorphic.mountain": "Gneiss-Bruchsteine",
+  "tag.item.c.cobblestones.metamorphic.mountain": "Gneis-Bruchsteine",
   "tag.item.c.cobblestones.metamorphic.plains": "Talk-Bruchsteine",
   "tag.item.c.cobblestones.metamorphic.swamp": "Kataklasit-Bruchsteine",
   "tag.item.c.cobblestones.metamorphic.taiga": "Lunit-Bruchsteine",
@@ -460,9 +460,10 @@
   "structure.minecraft.village_snowy": "Verschneites Dorf",
   "structure.minecraft.village_taiga": "Taigadorf",
 
+
   "key.botania_corporea_request": "Corporea-Anfrage",
 
-  "botania.triggers.manaDetector": "Mana Burst",
+  "botania.triggers.manaDetector": "Mana-Salve",
   "botania.triggers.manaEmpty": "Mana leer",
   "botania.triggers.manaSpace": "Platz für Mana",
   "botania.triggers.manaContains": "Enthält Mana",
@@ -597,7 +598,7 @@
   "matrixMode.enabled": "Matrixmodus aktivieren",
   "references.enabled": "Kurzinfo-Referenzen aktivieren",
   "shaders.enabled": "Shader-Benutzung aktivieren",
-  "baubleRender.enabled": "Enable Trinket Rendering",
+  "baubleRender.enabled": "Aktiviere Schmuckdarstellung",
   "spreader.posShift": "Verbreiterpositionsverschiebung",
   "spreader.traceTime": "Verbreiterspurzeit",
   "staticFloaters.enabled": "Statische schwebende Blumen aktivieren",
@@ -638,9 +639,9 @@
   "effect.botania.clear.description": "Entfernt alle Statuseffekte, sowohl nützliche als auch schädliche.",
   "effect.botania.emptiness.description": "Verhindert natürliches Spawnen von Kreaturen in einem Radius von 128 Metern.",
   "effect.botania.feather_feet.description": "Gewährt Immunität gegenüber Fallschaden.",
-  "effect.botania.soul_cross.description": "Restores health upon killing mobs.",
+  "effect.botania.soul_cross.description": "Stellt Gesundheit durch Töten von Monstern wieder her.",
 
-  "entity.botania.mana_burst": "Mana Burst",
+  "entity.botania.mana_burst": "Mana-Salve",
   "entity.botania.pixie": "Fee",
   "entity.botania.flame_ring": "Flammenring",
   "entity.botania.vine_ball": "Rankenknäuel",
@@ -852,7 +853,7 @@
   "block.botania.apothecary_default": "Blütenapotheke",
   "block.botania.apothecary_forest": "Fuchsit-Blütenapotheke",
   "block.botania.apothecary_plains": "Talk-Blütenapotheke",
-  "block.botania.apothecary_mountain": "Gneiss-Blütenapotheke",
+  "block.botania.apothecary_mountain": "Gneis-Blütenapotheke",
   "block.botania.apothecary_fungal": "Myzelit-Blütenapotheke",
   "block.botania.apothecary_swamp": "Kataklasit-Blütenapotheke",
   "block.botania.apothecary_desert": "Solit-Blütenapotheke",
@@ -1184,7 +1185,7 @@
   "block.botania.enchanted_soil": "Verzauberter Boden",
   "block.botania.metamorphic_forest_stone": "Fuchsit",
   "block.botania.metamorphic_plains_stone": "Talk",
-  "block.botania.metamorphic_mountain_stone": "Gneiss",
+  "block.botania.metamorphic_mountain_stone": "Gneis",
   "block.botania.metamorphic_fungal_stone": "Myzelit",
   "block.botania.metamorphic_swamp_stone": "Kataklasit",
   "block.botania.metamorphic_desert_stone": "Solit",
@@ -1192,7 +1193,7 @@
   "block.botania.metamorphic_mesa_stone": "Rosentalk",
   "block.botania.metamorphic_forest_cobblestone": "Bruchfuchsit",
   "block.botania.metamorphic_plains_cobblestone": "Bruchtalk",
-  "block.botania.metamorphic_mountain_cobblestone": "Bruchgneiss",
+  "block.botania.metamorphic_mountain_cobblestone": "Bruchgneis",
   "block.botania.metamorphic_fungal_cobblestone": "Bruchmycelit",
   "block.botania.metamorphic_swamp_cobblestone": "Bruchkataklasit",
   "block.botania.metamorphic_desert_cobblestone": "Bruchsolit",
@@ -1200,7 +1201,7 @@
   "block.botania.metamorphic_mesa_cobblestone": "Bruchrosentalk",
   "block.botania.metamorphic_forest_bricks": "Fuchsitziegel",
   "block.botania.metamorphic_plains_bricks": "Talkziegel",
-  "block.botania.metamorphic_mountain_bricks": "Gneissziegel",
+  "block.botania.metamorphic_mountain_bricks": "Gneisziegel",
   "block.botania.metamorphic_fungal_bricks": "Myzelitziegel",
   "block.botania.metamorphic_swamp_bricks": "Kataklasitziegel",
   "block.botania.metamorphic_desert_bricks": "Solitziegel",
@@ -1208,7 +1209,7 @@
   "block.botania.metamorphic_mesa_bricks": "Rosentalkziegel",
   "block.botania.chiseled_metamorphic_forest_bricks": "Gemeißelter Fuchsitziegel",
   "block.botania.chiseled_metamorphic_plains_bricks": "Gemeißelter Talkziegel",
-  "block.botania.chiseled_metamorphic_mountain_bricks": "Gemeißelter Gneissziegel",
+  "block.botania.chiseled_metamorphic_mountain_bricks": "Gemeißelter Gneisziegel",
   "block.botania.chiseled_metamorphic_fungal_bricks": "Gemeißelter Myzelitziegel",
   "block.botania.chiseled_metamorphic_swamp_bricks": "Gemeißelter Kataklasitziegel",
   "block.botania.chiseled_metamorphic_desert_bricks": "Gemeißelter Solitziegel",
@@ -1216,7 +1217,7 @@
   "block.botania.chiseled_metamorphic_mesa_bricks": "Gemeißelter Rosentalkziegel",
   "block.botania.metamorphic_forest_stone_stairs": "Fuchsittreppe",
   "block.botania.metamorphic_plains_stone_stairs": "Talktreppe",
-  "block.botania.metamorphic_mountain_stone_stairs": "Gneisstreppe",
+  "block.botania.metamorphic_mountain_stone_stairs": "Gneistreppe",
   "block.botania.metamorphic_fungal_stone_stairs": "Myzelittreppe",
   "block.botania.metamorphic_swamp_stone_stairs": "Kataklasittreppe",
   "block.botania.metamorphic_desert_stone_stairs": "Solittreppe",
@@ -1224,7 +1225,7 @@
   "block.botania.metamorphic_mesa_stone_stairs": "Rosentalktreppe",
   "block.botania.metamorphic_forest_cobblestone_stairs": "Bruchfuchsittreppe",
   "block.botania.metamorphic_plains_cobblestone_stairs": "Bruchtalktreppe",
-  "block.botania.metamorphic_mountain_cobblestone_stairs": "Bruchgneisstreppe",
+  "block.botania.metamorphic_mountain_cobblestone_stairs": "Bruchgneistreppe",
   "block.botania.metamorphic_fungal_cobblestone_stairs": "Bruchmycelittreppe",
   "block.botania.metamorphic_swamp_cobblestone_stairs": "Bruchkataklasittreppe",
   "block.botania.metamorphic_desert_cobblestone_stairs": "Bruchsolittreppe",
@@ -1232,7 +1233,7 @@
   "block.botania.metamorphic_mesa_cobblestone_stairs": "Bruchrosentalktreppe",
   "block.botania.metamorphic_forest_bricks_stairs": "Fuchsitziegeltreppe",
   "block.botania.metamorphic_plains_bricks_stairs": "Talkziegeltreppe",
-  "block.botania.metamorphic_mountain_bricks_stairs": "Gneissziegeltreppe",
+  "block.botania.metamorphic_mountain_bricks_stairs": "Gneisziegeltreppe",
   "block.botania.metamorphic_fungal_bricks_stairs": "Myzelitziegeltreppe",
   "block.botania.metamorphic_swamp_bricks_stairs": "Kataklasitziegeltreppe",
   "block.botania.metamorphic_desert_bricks_stairs": "Solitziegeltreppe",
@@ -1240,7 +1241,7 @@
   "block.botania.metamorphic_mesa_bricks_stairs": "Rosentalkziegeltreppe",
   "block.botania.metamorphic_forest_stone_slab": "Fuchsitstufe",
   "block.botania.metamorphic_plains_stone_slab": "Talkstufe",
-  "block.botania.metamorphic_mountain_stone_slab": "Gneissstufe",
+  "block.botania.metamorphic_mountain_stone_slab": "Gneisstufe",
   "block.botania.metamorphic_fungal_stone_slab": "Myzelitstufe",
   "block.botania.metamorphic_swamp_stone_slab": "Kataklasitstufe",
   "block.botania.metamorphic_desert_stone_slab": "Solitstufe",
@@ -1248,7 +1249,7 @@
   "block.botania.metamorphic_mesa_stone_slab": "Rosentalkstufe",
   "block.botania.metamorphic_forest_cobblestone_slab": "Bruchfuchsitstufe",
   "block.botania.metamorphic_plains_cobblestone_slab": "Bruchtalkstufe",
-  "block.botania.metamorphic_mountain_cobblestone_slab": "Bruchgneissstufe",
+  "block.botania.metamorphic_mountain_cobblestone_slab": "Bruchgneisstufe",
   "block.botania.metamorphic_fungal_cobblestone_slab": "Bruchmycelitstufe",
   "block.botania.metamorphic_swamp_cobblestone_slab": "Bruchkataklasitstufe",
   "block.botania.metamorphic_desert_cobblestone_slab": "Bruchsolitstufe",
@@ -1256,7 +1257,7 @@
   "block.botania.metamorphic_mesa_cobblestone_slab": "Bruchrosentalkstufe",
   "block.botania.metamorphic_forest_bricks_slab": "Fuchsitziegelstufe",
   "block.botania.metamorphic_plains_bricks_slab": "Talkziegelstufe",
-  "block.botania.metamorphic_mountain_bricks_slab": "Gneissziegelstufe",
+  "block.botania.metamorphic_mountain_bricks_slab": "Gneisziegelstufe",
   "block.botania.metamorphic_fungal_bricks_slab": "Myzelitziegelstufe",
   "block.botania.metamorphic_swamp_bricks_slab": "Kataklasitziegelstufe",
   "block.botania.metamorphic_desert_bricks_slab": "Solitziegelstufe",
@@ -1264,7 +1265,7 @@
   "block.botania.metamorphic_mesa_bricks_slab": "Rosentalkziegelstufe",
   "block.botania.metamorphic_forest_stone_wall": "Fuchsitmauer",
   "block.botania.metamorphic_plains_stone_wall": "Talkmauer",
-  "block.botania.metamorphic_mountain_stone_wall": "Gneissmauer",
+  "block.botania.metamorphic_mountain_stone_wall": "Gneismauer",
   "block.botania.metamorphic_fungal_stone_wall": "Myzelitmauer",
   "block.botania.metamorphic_swamp_stone_wall": "Kataklasitmauer",
   "block.botania.metamorphic_desert_stone_wall": "Solitmauer",
@@ -1272,7 +1273,7 @@
   "block.botania.metamorphic_mesa_stone_wall": "Rosentalkmauer",
   "block.botania.metamorphic_forest_cobblestone_wall": "Bruchfuchsitmauer",
   "block.botania.metamorphic_plains_cobblestone_wall": "Bruchtalkmauer",
-  "block.botania.metamorphic_mountain_cobblestone_wall": "Bruchgneissmauer",
+  "block.botania.metamorphic_mountain_cobblestone_wall": "Bruchgneismauer",
   "block.botania.metamorphic_fungal_cobblestone_wall": "Bruchmycelitmauer",
   "block.botania.metamorphic_swamp_cobblestone_wall": "Bruchkataklasitmauer",
   "block.botania.metamorphic_desert_cobblestone_wall": "Bruchsolitmauer",
@@ -1280,7 +1281,7 @@
   "block.botania.metamorphic_mesa_cobblestone_wall": "Bruchrosentalkmauer",
   "block.botania.metamorphic_forest_bricks_wall": "Fuchsitziegelmauer",
   "block.botania.metamorphic_plains_bricks_wall": "Talkziegelmauer",
-  "block.botania.metamorphic_mountain_bricks_wall": "Gneissziegelmauer",
+  "block.botania.metamorphic_mountain_bricks_wall": "Gneisziegelmauer",
   "block.botania.metamorphic_fungal_bricks_wall": "Myzelitziegelmauer",
   "block.botania.metamorphic_swamp_bricks_wall": "Kataklasitziegelmauer",
   "block.botania.metamorphic_desert_bricks_wall": "Solitziegelmauer",
@@ -1403,6 +1404,8 @@
   "block.botania.dreamwood_hanging_sign": "Traumholzhängeschild",
   "block.botania.dreamwood_wall_sign": "Traumholzwandschild",
   "block.botania.dreamwood_wall_hanging_sign": "Traumholzwandhängeschild",
+  "block.botania.shimmerwood_button": "Schillerholzknopf",
+  "block.botania.shimmerwood_pressure_plate": "Schillerholzdruckplatte",
   "block.botania.livingwood_button": "Lebeholzknopf",
   "block.botania.livingwood_pressure_plate": "Lebeholzdruckplatte",
   "block.botania.livingwood_door": "Lebeholztür",
@@ -1411,8 +1414,6 @@
   "block.botania.livingwood_hanging_sign": "Lebeholzhängeschild",
   "block.botania.livingwood_wall_sign": "Lebeholzwandschild",
   "block.botania.livingwood_wall_hanging_sign": "Lebeholzwandhängeschild",
-  "block.botania.shimmerwood_button": "Schillerholzknopf",
-  "block.botania.shimmerwood_pressure_plate": "Schillerholzdruckplatte",
   "block.botania.mana_bomb": "Manasturm-Sprengsatz",
   "block.botania.white_buried_petals": "Vergrabenes Weißes Blütenblatt",
   "block.botania.orange_buried_petals": "Vergrabenes Oranges Blütenblatt",
@@ -1508,7 +1509,7 @@
   "block.botania.thermalily.reference": "Scharlachrot",
   "block.botania.potted_thermalily": "Eingetopfte Thermalilie",
   "block.botania.floating_thermalily": "Schwebende Thermalilie",
-  "block.botania.rosa_arcana": "Rosa Arcana",
+
   "block.botania.rosa_arcana.reference": "Erfahrung ist wichtig",
   "block.botania.potted_rosa_arcana": "Eingetopfte Rosa Arcana",
   "block.botania.floating_rosa_arcana": "Schwebende Rosa Arcana",
@@ -1516,15 +1517,15 @@
   "block.botania.munchdew.reference": "Zählt das als Kannibalismus?",
   "block.botania.potted_munchdew": "Eingetopfter Mampftau",
   "block.botania.floating_munchdew": "Schwebender Mampftau",
-  "block.botania.entropinnyum": "Entropinnyum",
+
   "block.botania.entropinnyum.reference": "Mit Vorsicht zu handhaben",
   "block.botania.potted_entropinnyum": "Eingetopfte Entropinnyum",
   "block.botania.floating_entropinnyum": "Schwebende Entropinnyum",
-  "block.botania.kekimurus": "Kekimurus",
+
   "block.botania.kekimurus.reference": "Zu finden in jeder Konditorei",
   "block.botania.potted_kekimurus": "Eingetopfte Kekimurus",
   "block.botania.floating_kekimurus": "Schwebende Kekimurus",
-  "block.botania.gourmaryllis": "Gourmaryllis",
+
   "block.botania.gourmaryllis.reference": "Wie unangenehm",
   "block.botania.potted_gourmaryllis": "Eingetopfte Gourmaryllis",
   "block.botania.floating_gourmaryllis": "Schwebende Gourmaryllis",
@@ -1661,7 +1662,7 @@
   "block.botania.spectranthemum.reference": "In der Schale",
   "block.botania.potted_spectranthemum": "Eingetopfte Spektrantheme",
   "block.botania.floating_spectranthemum": "Schwebende Spektrantheme",
-  "block.botania.medumone": "Medumone",
+
   "block.botania.medumone.reference": "Starr wie eine Salzsäule",
   "block.botania.potted_medumone": "Eingetopfte Medumone",
   "block.botania.floating_medumone": "Schwebende Medumone",
@@ -1689,7 +1690,7 @@
   "block.botania.solegnolia_chibi.reference": "Alle deine Magnete gehören uns",
   "block.botania.potted_solegnolia_chibi": "Eingetopfte Zierliche Spulegnolie",
   "block.botania.floating_solegnolia_chibi": "Schwebende Zierliche Spulegnolie",
-  "block.botania.bergamute": "Bergamute",
+
   "block.botania.bergamute.reference": "Meine Lippen sind verschlossen",
   "block.botania.potted_bergamute": "Eingetopfte Bergamute",
   "block.botania.floating_bergamute": "Schwebende Bergamute",
@@ -1706,7 +1707,7 @@
   "block.botania.daybloom_motif.description": "Dekorative Blume einer vergangenen Ära",
   "block.botania.hydroangeas_motif.description": "Dekorativ, verwelkt nicht",
 
-  "item.botania.lexicon": "Lexica Botania",
+
 
 
   "item.botania.white_petal": "Mystisches Weißes Blütenblatt",
@@ -1748,7 +1749,7 @@
   "item.botania.lens_damage": "Schadenslinse",
   "item.botania.lens_damage.short": "Schaden",
   "item.botania.lens_phantom": "Phantomlinse",
-  "item.botania.lens_phantom.short": "Phantom",
+
   "item.botania.lens_magnet": "Magnetisierungslinse",
   "item.botania.lens_magnet.short": "Magnetisierung",
   "item.botania.lens_explosive": "Entropische Linse",
@@ -2053,20 +2054,20 @@
   "botania.brew.bloodthirst": "Karmesinschatten",
   "botania.brew.overload": "Überladung",
   "botania.brew.allure": "Meerescharme",
-  "botania.brew.clear": "Absolution",
+
 
   "effect.botania.soul_cross": "Seelenkreuzung",
   "effect.botania.feather_feet": "Federfuß",
   "effect.botania.emptiness": "Bedeutungslosigkeit",
   "effect.botania.bloodthirst": "Blutdurst",
   "effect.botania.allure": "Meerescharme",
-  "effect.botania.clear": "Absolution",
+
 
 
 
 
   "item.botania.botania_banner_pattern": "Bannervorlage",
-  "item.botania.botania_banner_pattern.desc": "Botania",
+
   "item.botania.materials_banner_pattern": "Bannervorlage",
   "item.botania.materials_banner_pattern.desc": "Materialien",
   "item.botania.spark_augments_banner_pattern": "Bannervorlage",
@@ -2377,7 +2378,7 @@
   "botania.page.gardenOfGlass12": "Zu guter Letzt, ein Weg das Ende zu erreichen",
   "botania.page.gardenOfGlass14": "Herstellung des $(item)Herz des Meeres$(0)",
 
-  "botania.entry.lexicon": "Lexica Botania",
+
   "botania.tagline.lexicon": "Was du gerade liest, Dummerchen",
   "botania.page.lexicon0": "Die $(item)Lexica Botania$(0) ist das Archiv allen Wissens zu botanischen Angelegenheiten. (Aber vermutlich wusstest du das schon.)$(p)Das bekannte botanische Wissen ist auf diesen Seiten niedergeschrieben. Falls ein Block einen Eintrag hier haben sollte, kann dieser über Schleich-Rechtsklick mit der $(item)Lexica Botania$(0) auf den Block geöffnet werden.",
   "botania.page.lexicon3": "Einträge in $(o)kursiv$() sind $(thing)Grundlagen$(0)einträge, die Kernwissen zum Spielen von $(thing)Botania$(0) enthalten — du solltest diese Einträge zuerst lesen. Die meisten Abschnitte enthalten einen oder mehrere dieser Einträge, und es wäre eine gute Idee, einen genaueren Blick auf sie zu werfen.",
@@ -2646,7 +2647,7 @@
   "botania.page.prism3": "Ein weiterer Pixel in der Wand",
 
   "botania.entry.poolCart": "Mana auf Schienen",
-  "botania.tagline.poolCart": "Not a web framework",
+  "botania.tagline.poolCart": "Kein Web-Framework",
   "botania.page.poolCart0": "Welchen besseren Weg, $(thing)Mana$(0) über längere Strecken zu transportieren, könnte es geben, als ein $(l:mana/pool)$(item)Manabecken$(0)$(/l) an einer $(item)Lore$(0) zu befestigen? Ganz einfach! Analog zu anderen Arten von Loren, kann eine $(item)Lore mit Manabecken$(0), nun ja, $(thing)Mana$(0) speichern und transportieren. Auf Schienen.$(br)Wenn eine Lore mit enthaltenem $(thing)Mana$(0) abgebaut wird, so verliert sie dieses, also sei vorsichtig.",
   "botania.page.poolCart1": "Der Transfer von $(thing)Mana$(0) zwischen einer Loren und einem Becken passiert mit der $(item)Manapumpe$(0). Sie kann in jede der vier Himmelsrichtungen zeigen und transferiert $(thing)Mana$(0) zwischen einem angrenzenden Becken und einer Beckenlore auf der anderen Seite.$(p)Die Transferrate ist sehr hoch. So hoch, dass ein Überlaufen möglich ist, welches bis zur Kapazität eines verdünnten Manabeckens an $(thing)Manaverlust$(0) führen kann.",
   "botania.page.poolCart2": "$(thing)Mana$(0) fließt von der blauen Seite der Pumpe in Richtung des Pfeils.$(p)Die Pumpe kann mit einem Redstone-Signal ausgeschaltet werden. Ein angeschlossener $(item)Komparator$(0) misst die Menge an $(thing)Mana$(0) in der Lore.$(p)Das Becken in der Lore dient ausschließlich dem Transport, es kann kein $(thing)Mana$(0) empfangen, senden oder übertragen, noch kann es Gegenstände infundieren.",
@@ -2800,9 +2801,9 @@
   "botania.page.spectranthemum0": "Der Gegenstand-Transport über größere Distanzen kann mühsam sein. Irgendwann reichen Wasserkanäle und $(l:functional_flowers/daffomill)$(item)Ostermühlen$(0)$(/l) nicht mehr aus. Die $(item)Spectrantheme$(0) benutzt $(thing)Mana$(0) um das Gewebe der Realität um Gegenstände in der Nähe zu verzerren und diese zu teleportieren. Beachte, dass $(thing)Mana$(0)-enthaltende Gegenstände die Verzerrung stören und nicht teleportiert werden können.",
   "botania.page.spectranthemum1": "Außerdem skaliert der Preis mit der Distanz der Teleportation — einzelne Gegenstände können über 2000 Blöcke bewegt werden, aber deine Manabecken werden es nicht mögen!$(br)Zum Festlegen des Ziels für die Gegenstände benutzt man einen $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) im $(thing)Bindemodus$(0), ähnlich wie beim Binden an ein Becken. Zum Prüfen, an welchen Block die Blume (statt des Beckens für $(thing)Mana$(0)) gebunden ist, schleiche während du sie mit dem Stab ansiehst.",
   "botania.page.spectranthemum2": "Diese Blume ist an das $(thing)Axiom des Chunk-Ladens$(0) gebunden, das heißt sie kann keine Gegenstände in nicht geladene Chunks senden. Dieses Thema würde jedoch den Rahmen dieses Lexikons sprengen.",
-  "botania.page.spectranthemum3": "$(o)(n)spooky(n+2)me$().",
 
-  "botania.entry.medumone": "Medumone",
+
+
   "botania.tagline.medumone": "Lässt Kreaturen erstarren",
   "botania.page.medumone0": "Die $(item)Medumone$(0) ist eine Blume mit der Fähigkeit, die Bewegung von Kreaturen komplett zu stoppen.$(p)Sie konvertiert $(thing)Mana$(0) in ein starkes Verlangsamungsfeld, das jegliche Kreaturen in der Nähe anhält.",
   "botania.page.medumone1": "$(o)Bleib sofort stehen, krimineller Abschaum",
@@ -2825,11 +2826,11 @@
   "botania.page.solegnolia0": "Der $(l:baubles/magnet_ring)$(item)Ring der Magnetisierung$(0)$(/l) ist schon ziemlich praktisch für Gräber und Sammler. Allerdings kann er auch unerwünschte Gegenstände aufheben, wodurch er automatisierte Prozesse stört. Die $(item)Spulegnolie$(0) unterbricht das Feld des Rings und verhindert, dass Gegenstände in ihrer Nähe zu einem Ringträger gezogen werden. Sie verhindert auch, dass Ringträger in ihrer Nähe Gegenstände anziehen. Sie verbraucht kein $(thing)Mana$(0).",
   "botania.page.solegnolia1": "An/Aus",
 
-  "botania.entry.bergamute": "Bergamute",
+
   "botania.tagline.bergamute": "Absorbiert Geräusche",
   "botania.page.bergamute0": "Wer sich bereits an Viehzucht versucht hat, kennt den kakofonen Lärm, der von Tierherden abgegeben wird. Glücklicherweise kann die $(item)Bergamute$(0) diesen Krach dämpfen.",
   "botania.page.bergamute1": "Die $(item)Bergamute$(0) absorbiert Geräuschenergie in ihrer Umgebung und wandelt diese in Spurenmengen von Mana um, die sich harmlos auflösen. Sie halbiert die Lautstärke von Geräuschen in der Umgebung, und zusätzliche $(item)Bergamuten$(0) überlagern ihre Effekte entsprechend$(p)Zusätzlich verhindert sie, dass $(l:tools/grass_horn)$(item)Hörner$(0)$(/l) oder $(l:devices/forest_drum)$(item)Trommeln$(0)$(/l) Blöcke in ihrer Umgebung abbauen, und dämpft Vibrationen, die sich durch ihren Einzugsbereich bewegen.",
-  "botania.page.bergamute2": "Deaf to All but the Song",
+
 
   "botania.entry.gIntro": "Generierende Flora",
   "botania.tagline.gIntro": "Blumen, die Ressourcen konsumieren, um Mana zu erzeugen",
@@ -2860,7 +2861,7 @@
   "botania.page.thermalily3": "Während das Platzieren von $(item)Lava$(0) in der Welt definitiv mit einem $(item)Werfer$(0) möglich ist, trifft das nicht notwendigerweise auf das Sammeln im $(thing)Nether$(0) oder tief unter der Oberfläche zu.$(p)Die $(item)Thermalilie$(0) wird daher als \"halb-automatisierbare\" Blume klassifiziert.",
   "botania.page.thermalily4": "$(o)Die schwerste Blume im Spiel$().",
 
-  "botania.entry.arcanerose": "Rosa Arcana",
+
   "botania.tagline.arcanerose": "Mana aus Erfahrung",
   "botania.page.arcanerose0": "$(thing)Erfahrungspunkte$(0) enthalten ihre eigene Magie. Die $(item)Rosa Arcana$(0) kann diese Magie nutzbar machen, indem sie die Erfahrung von Spielern in der Nähe absorbiert und in $(thing)Mana$(0) umwandelt.$(p)Sie kann auch Mana aus Erfahrungskugeln und verzauberten Gegenständen synthetisieren.",
   "botania.page.arcanerose1": "$(o)Wirf eine Münze wenn diese Blume gepflanzt wird$().",
@@ -2871,18 +2872,18 @@
   "botania.page.munchdew1": "Diese Blume erzeugt eine ordentliche Menge an Mana aus den Blättern eines Baumes.$(p)Wenn er aber alle Blätter in Reichweite aufgegessen hat, legt der $(item)Mampftau$(0) eine Verdauungspause ein und fängt erst nach etwas über einer Minute wieder mit dem Essen an.",
   "botania.page.munchdew2": "$(o)Guten Appetit$()",
 
-  "botania.entry.entropinnyum": "Entropinnyum",
+
   "botania.tagline.entropinnyum": "Mana aus TNT",
   "botania.page.entropinnyum0": "Um eine Stoßwelle aus $(thing)Mana$(0) zu erzeugen braucht es wohl tatsächlich eine Stoßwelle. Wenn ein $(item)TNT$(0)-Block auf trockenem Land in der Nähe einer $(item)Entropinnyum$(0) gezündet wird, absorbiert diese die Druckwelle und konvertiert sie zu $(thing)Mana$(0), wobei jeglicher Schaden verhindert wird. Um die Explosion zu absorbieren darf die Blume aber keinerlei $(thing)Mana$(0) enthalten, sonst gibt es eine Explosion wie üblich.",
   "botania.page.entropinnyum1": "$(o)Coole Leute schauen nicht auf die Explosion$().",
   "botania.page.entropinnyum2": "Beachte, dass die Entropinnyum Gefallen an $(o)ethisch beschafftem$() TNT gefunden hat, das auf natürliche Weise produziert wurde. Wenn die Blume mit unethisch erzeugtem (beispielsweise dupliziertem) TNT gefüttert wird, führt das zu massivem Effizienzverlust.",
 
-  "botania.entry.kekimurus": "Kekimurus",
+
   "botania.tagline.kekimurus": "Mana aus Kuchen",
   "botania.page.kekimurus0": "$(item)Kuchen$(0) ist lecker. Jeder mag ihn, Blumen eingeschlossen.$(p)Die $(item)Kekimurus$(0) ist einer dieser $(item)Kuchen$(0)-Liebhaber und isst jeglichen in der Nähe platzierten Kuchen, um aus den angereicherten Nährstoffen süßes, süßes $(thing)Mana$(0) zu synthetisieren.",
 
 
-  "botania.entry.gourmaryllis": "Gourmaryllis",
+
   "botania.tagline.gourmaryllis": "Mana aus Essen",
   "botania.page.gourmaryllis0": "Die $(item)Gourmaryllis$(0) ist eine hungrige Blume. Sie isst jedes Essen, das sie als Gegenstand in der Nähe findet, und macht daraus $(thing)Mana$(0).$(p)Es gibt einen Haken: Sie kann nur einen Essensgegenstand auf einmal verdauen und gibt $(thing)Mana$(0) aus, wenn sie damit fertig ist. Sie wird auch anderes Essen verschlingen während sie verdaut, nur ergeben sich daraus keine Erträge.",
   "botania.page.gourmaryllis1": "Die Zeit zum Verdauen einer Delikatesse hängt von deren Nährwert ab, also der Anzahl der Nahrungspunkte, die sie wiederherstellt.$(p)So benötigt ein $(item)Steak$(0) vier Sekunden zum Verdauen, ein $(item)Apfel$(0) braucht zwei, ein $(item)Brot$(0) braucht zweieinhalb, und so weiter.$(p)Die Rate der $(thing)Mana$(0)produktion hängt auch vom Nährwert ab: Die $(item)Gourmaryllis$(0) bevorzugt größere Lebensmittel.",
@@ -3161,7 +3162,7 @@
   "botania.page.manaBomb0": "Wenn eine $(l:alfhomancy/gaia_ritual)$(item)Gaia-Seele$(0)$(/l) mit etwas $(item)TNT$(0) versetzt wird, entsteht ein $(item)Manasturm-Sprengsatz$(0), quasi eine Art Sprengstoff. Er wird per $(thing)Manasalve$(0) gezündet und erzeugt ein instabiles $(thing)Manasturm-Epizentrum$(0). Dieses erzeugt hochaufgeladene explosive $(thing)Manasalven$(0).$(br)Natürlich würde nur ein Irrer so eine zerstörerische Kraft in der Nähe von irgend etwas Wertvollem oder Wichtigem entfesseln.",
   "botania.page.manaBomb1": "Sei bereit, dem Mächtigen zu begegnen...",
 
-  "botania.entry.teruTeruBozu": "Teru Teru Bozu",
+
   "botania.tagline.teruTeruBozu": "Wetterkontrolle und Niedlichkeitsüberlauf",
   "botania.page.teruTeruBozu0": "$(item)Teru Teru Bozu$(0) sind Amulette, die schlechtes Wetter abwehren. Einfach einen von dieser Herstellen und in der Welt platzieren reduziert die Dauer von $(thing)Regen$(0) und $(thing)Schneefall$(0). Bei schlechtem Wetter kann eine $(item)Sonnenblume$(0) (per Rechtsklick oder durch Werfen) offeriert werden, um die Sonne zurückkehren zu lassen. Mit einem $(item)Redstone-Komparator$(0) kann man schlechtes Wetter erkennen.",
   "botania.page.teruTeruBozu1": "Was ist eigentlich so besonders an einer Sonnenblume?",
@@ -3294,7 +3295,7 @@
   "botania.page.rainbowRod0": "Der $(thing)Bifrost$(0) ist die legendäre Regenbogenbrücke, die unsere Welt und das Reich der Götter verbindet.$(p)Auch wenn die $(item)Rute des Bifrosts$(0) $(o)das$() nicht schafft, ermöglicht sie ihrem Nutzer, eine Regenbogenbrücke aus $(thing)Mana$(0) in Blickrichtung zu kreieren.",
   "botania.page.rainbowRod1": "Diese Brücke kann bis zu hundert Blöcke weit reichen und verschwindet nach etwa 30 Sekunden wieder.$(p)Jede $(item)Rute des Bifrosts$(0) kann nur eine Brücke gleichzeitig aufrecht erhalten. Sobald die vorherige verschwunden ist, kann eine neue erzeugt werden.",
   "botania.page.rainbowRod6": "Diese Rute kann einem $(l:devices/avatar)$(item)Lebeholz-Avatar$(0)$(/l) gegeben werden. Ein Avatar mit dieser Rute nutzt sein $(thing)Mana$(0), um eine Brücke entlang seiner Ausrichtung zu erzeugen, sobald sich ein Spieler nähert.",
-  "botania.page.rainbowRod2": "Going my way!! Cut open a path and go!",
+
   "botania.page.rainbowRod4": "Regenbogen-$(item)Schillerstein$(0)",
   "botania.page.rainbowRod5": "Regenbogen-$(item)Schillerholzbretter$(0)",
   "botania.page.rainbowRod7": "Speichert so viel wie ein normales.",
@@ -3351,7 +3352,7 @@
   "botania.tagline.gravityRod": "Eine Rute zum Anheben und Werfen von Kreaturen",
   "botania.page.gravityRod0": "Die $(item)Rute der Schattigen Mesa$(0) ist ein mächtiges Artefakt. Es wird erzählt, das erste dieser Geräte wurde auf dem Gipfel eines geografischen Objekts neben einem Brecheisen liegend gefunden.$(br)Um das Gerät zu nutzen, wird es auf eine Kreatur gerichtet und Rechtsklick gehalten. Das Loslassen von Rechtsklick lässt das Wesen fallen, während ein Linksklick es wegstößt.",
   "botania.page.gravityRod1": "Diese Macht ist selbstverständlich nicht umsonst. Ihre Anwendung verursacht einen konstanten $(thing)Mana$(0)verbrauch aus dem Inventar des Nutzers.",
-  "botania.page.gravityRod2": "bun pls",
+
 
   "botania.entry.missileRod": "Rute des instabilen Reservoirs",
   "botania.tagline.missileRod": "Eine Rute für Pengpeng",
@@ -3551,7 +3552,7 @@
 
   "botania.entry.corporeaBlock": "Corporea-Dekoration",
   "botania.page.corporeaBlock0": "Normaler $(thing)Lebestein$(0) kann mit einem $(thing)Corporea-Funken$(0) kombiniert werden, um dekorative Blöcke zu produzieren. Diese haben neben ihrem üblichen dekorativen Zweck auch die besondere Eigenschaft, dass sie $(thing)Corporea-Funken$(0) tragen können, ohne ein Inventar zu haben. Entsprechend sind sie eine günstige und Lag-freie Option, ein $(thing)Corporea$(0)-Netzwerk über große Distanzen zu erweitern.",
-  "botania.page.corporeaBlock1": "Incorporeal",
+
 
   "botania.entry.corporeaIndex": "Corporea-Index",
   "botania.tagline.corporeaIndex": "Gegenstände per Chat aus einem Corporea-Netzwerk anfordern",
@@ -3664,14 +3665,14 @@
   "botania.page.cosmeticBaubles12": "Der Nachbarsklub",
   "botania.page.cosmeticBaubles13": "Miau",
   "botania.page.cosmeticBaubles14": "Handle nicht zu vorschnell",
-  "botania.page.cosmeticBaubles15": "Evil up!",
-  "botania.page.cosmeticBaubles16": "Nudistoooooooooo",
+
+
   "botania.page.cosmeticBaubles17": "(hier Referenz einfügen)",
-  "botania.page.cosmeticBaubles18": "Lurk moar",
+
   "botania.page.cosmeticBaubles19": "Ich brauche deine Zeit",
   "botania.page.cosmeticBaubles20": "So selten",
-  "botania.page.cosmeticBaubles21": "Oh hey, Loki",
-  "botania.page.cosmeticBaubles22": "Challenge up!",
+
+
   "botania.page.cosmeticBaubles23": "Repräsentation!",
   "botania.page.cosmeticBaubles24": "Erinnert mich an ein Puzzle",
   "botania.page.cosmeticBaubles25": "Du hast einem schrecklichen Schicksal entgegengesehen, oder?",
@@ -3682,7 +3683,7 @@
   "botania.page.cosmeticBaubles30": "Mit diesen kann ich fliegen",
   "botania.page.cosmeticBaubles31": "Eigentlich kein Teil Spaniens",
   "botania.page.cosmeticBaubles32": "Jetzt kannst auch du glauben",
-  "botania.page.cosmeticBaubles33": "Get on the treadmill, angbadang",
+
   "botania.page.cosmeticBaubles34": "Stimmt wirklich nachdenklich",
 
   "botania.entry.tinyPlanet": "Winziger Planet",
@@ -3706,7 +3707,7 @@
   "botania.entry.travelBelt": "Schärpe des Reisenden",
   "botania.tagline.travelBelt": "Laufe schneller, springe höher, und steige sanfter",
   "botania.page.travelBelt0": "Viel Gelände zu durchqueren kann manchmal mühsam sein. Die $(item)Schärpe des Reisenden$(0) ist ein $(thing)Gürtel$(0), der beim Tragen etwas $(thing)Mana$(0) verwendet, um die Geschwindigkeit, Sprunghöhe und Resistenz gegen Fallschaden seines Trägers zu verbessern. Sie erlaubt dem Träger sogar, sofern dieser nicht Schleicht, Höhenunterschiede von bis zu einem Block zu ersteigen, als ob es Stufen wären.",
-  "botania.page.travelBelt1": "...everell",
+
 
   "botania.entry.knockbackBelt": "Tektonikgürtel",
   "botania.tagline.knockbackBelt": "Verhindert alle Arten von Rückstoß",
@@ -3732,7 +3733,7 @@
   "botania.entry.miningRing": "Ring des Erdmantels",
   "botania.tagline.miningRing": "Grabe schneller mit Eile",
   "botania.page.miningRing0": "Der $(item)Ring des Erdmantels$(0) nutzt $(thing)Mana$(0) um seinem Träger den $(thing)Eile$(0)-Effekt zu geben und die Härte robusterer steinartiger Blöcken auf die von natürlichem $(item)Stein$(0) zu reduzieren. Beachte, dass ein Rinnsal von $(thing)Mana$(0) verbraucht wird, während der Träger seinen Arm oder einen gehaltenen Gegenstand bewegt, egal ob zum Angreifen, zum Abbauen, oder nur zum Herumfuchteln.",
-  "botania.page.miningRing1": "Diggy diggy hole",
+
 
   "botania.entry.magnetRing": "Ring der Magnetisierung",
   "botania.tagline.magnetRing": "Zieht Gegenstände zu dir",
@@ -3849,7 +3850,7 @@
 
   "botania.entry.elfMessage": "Eine Nachricht der Elfengarde",
   "botania.tagline.elfMessage": "Sei gegrüßt, Abenteuergefährte",
-  "botania.page.elfMessage0": "",
+
   "botania.page.elfMessage1": "$(o)Seid gegrüßt.$(br)Wir fanden dieses Buch als einer unserer alten Portalrahmen spontan eine Verbindung zu einer anderen Welt öffnete – ein ziemlicher Schock für uns. Im Namen der Elfengarde danken wir Euch aufrichtig, uns eine Wissensquelle über Eure Welt zur Verfügung zu stellen. Es ist einige Zeit vergangen, seit wir sie verlassen mussten, daher ist es gut, sie wohlauf zu sehen.",
   "botania.page.elfMessage2": "$(o)Nach ausgiebigen Diskussionen innerhalb des Hohen Rates der Elfengarde haben wir entschieden, mit Euch zusammenzuarbeiten. Eure \"Lexica Botania\" bezieht sich auf bestimmte Ressourcen, an denen wir potenziell sehr interessiert sind, da sie in unseren Ländern einfach nicht existieren.",
   "botania.page.elfMessage3": "$(o)Die Verbindung, die Ihr hergestellt habt ist leider zu schwach für den Transfer von Lebewesen — offenbar eine Konsequenz der schieren Distanz zwischen unsere Welten. Schade, wir hätten gern unseren Handelspartner persönlich getroffen. Das Gute ist jedoch, dass die Verbindung uns erlaubt ihre Synchronisation zu variieren, weswegen Ihr Euer Buch so schnell zurückerhaltet, zumindest aus Eurer Perspektive.",
@@ -3993,7 +3994,7 @@
   "botania.page.starfield1": "Funkel funkel",
 
   "botania.entry.mushrooms": "Schimmernde Pilze",
-  "botania.tagline.mushrooms": "Touch fuzzy, but don't get dizzy",
+
   "botania.page.mushrooms0": "Durch streuen von $(item)Farbstoff$(0) auf einen $(item)Pilz$(0) scheint dieser zu mutieren. Der $(item)Pilz$(0) wechselt die Form, nimmt die Farbe des Farbstoff an und leuchtet schwach. Zusätzlich kann er als Ersatz für $(l:basics/flowers)$(item)Mystische Blütenblätter$(0)$(/l) benutzt werden. $(p)$(item)Schimmernde Pilze$(0) sind selten auch unterirdisch in isolierten Flecken zu finden.",
   "botania.page.mushrooms2": "Schimmernder Pilz",
   "botania.page.mushrooms1": "Sie machen dich nicht größer",
@@ -4007,7 +4008,7 @@
   "botania.entry.blazeBlock": "Lohengeflecht",
   "botania.tagline.blazeBlock": "Kompakte Aufbewahrung für Lohenruten und erneuerbare Obsidianquelle",
   "botania.page.blazeBlock0": "Wenn man eine Menge Lohenessenzen zusammendrückt, erhält man einen funkionalen (wenn auch kruden) dekorativen Lichtblock.$(p)Wie ein $(item)Kohleblock$(0) kann $(item)Lohengeflecht$(0) in Öfen verbrannt werden (oder durch $(l:generating_flowers/endoflame)$(item)Endoflammen$(0)$(/l)). Seltsamerweise wandelt es sich, wenn es neben einem $(l:basics/pure_daisy)$(item)Reinen Gänseblümchen$(0)$(/l) platziert wird, in $(item)Obsidian$(0) um.",
-  "botania.page.blazeBlock1": "0x1a4",
+
 
   "botania.entry.challenges": "Herausforderungen",
   "botania.tagline.challenges": "Fordere dich selbst heraus",
@@ -4116,7 +4117,7 @@
   "botania.subtitle.temperanceStoneConfigure": "Stein der Mäßigung klingelt",
   "botania.subtitle.terraBlade": "Terraklinge rauscht",
   "botania.subtitle.terraPickMode": "Terra-Trümmerer aktiviert",
-  "botania.subtitle.terraformRod": "Land terraforms",
+  "botania.subtitle.terraformRod": "Land terraformt",
   "botania.subtitle.terrasteelCraft": "Terrastahl glänzt",
   "botania.subtitle.thermalily": "Thermalilie schlürft",
   "botania.subtitle.thornChakramThrow": "Dornenchakram geworfen",
