@@ -27,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.PlatformBlock;
 
@@ -73,7 +72,7 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable,
 			}
 			setCamoState(Blocks.BARRIER.defaultBlockState());
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
 		}
 		return true;
 	}

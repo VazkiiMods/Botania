@@ -24,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -31,7 +32,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
@@ -94,7 +94,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 				ManaSpark spark = SparkAttachable.getAttachedSpark(level, self.getBlockPos());
 				SparkHelper.registerTransferFromSparksAround(spark, level, worldPosition);
 				if (self.mana > 0) {
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+					level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
 					int proportion = Float.floatToIntBits(self.getCompletion());
 					XplatAbstractions.INSTANCE.sendToNear(level, worldPosition,
 							new BotaniaEffectPacket(EffectType.TERRA_PLATE, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), proportion));
@@ -118,7 +118,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 					level.playSound(null, item.getX(), item.getY(), item.getZ(), BotaniaSounds.terrasteelCraft, SoundSource.BLOCKS, 1F, 1F);
 					self.mana = 0;
 					level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+					level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
 				}
 			}
 		}

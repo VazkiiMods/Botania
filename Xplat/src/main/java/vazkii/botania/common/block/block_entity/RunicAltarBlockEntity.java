@@ -31,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -41,7 +42,6 @@ import org.jetbrains.annotations.UnknownNullability;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -124,7 +124,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 		if (did) {
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 
 		return true;
@@ -235,7 +235,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 		if (oldManaToGet != this.manaToGet && level instanceof ServerLevel) {
 			level.playSound(null, worldPosition, BotaniaSounds.runeAltarStart, SoundSource.BLOCKS, 1F, 1F);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}
 
@@ -262,7 +262,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		boolean success = InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, null);
 		if (success) {
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
 		}
 		return success
 				? ItemInteractionResult.sidedSuccess(false)

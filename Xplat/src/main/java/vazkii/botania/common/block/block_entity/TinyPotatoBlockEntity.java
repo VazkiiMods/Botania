@@ -43,7 +43,6 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.TinyPotatoBlock;
@@ -265,7 +264,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	public void setChanged() {
 		super.setChanged();
 		if (level != null && !level.isClientSide) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}
 

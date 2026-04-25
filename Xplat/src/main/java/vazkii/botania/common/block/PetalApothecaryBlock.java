@@ -46,7 +46,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.block.PetalApothecary.State;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
@@ -92,7 +91,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		if (!world.isClientSide && entity instanceof ItemEntity itemEntity
 				&& world.getBlockEntity(pos) instanceof PetalApothecaryBlockEntity apothecary
 				&& apothecary.collideEntityItem(itemEntity)) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(apothecary);
+			world.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 		}
 	}
 
@@ -118,7 +117,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 			return apothecary.trySetLastRecipe(player);
 		} else if (!apothecary.isEmpty()) {
 			InventoryHelper.withdrawFromInventory(apothecary, player);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(apothecary);
+			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 			return InteractionResult.sidedSuccess(level.isClientSide());
 		}
 		return InteractionResult.PASS;

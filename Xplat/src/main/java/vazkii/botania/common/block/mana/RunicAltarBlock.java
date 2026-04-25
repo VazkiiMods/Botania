@@ -30,7 +30,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
@@ -60,14 +59,14 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 				return altar.trySetLastRecipe(player);
 			} else if (!altar.isEmpty() && altar.manaToGet == 0) {
 				InventoryHelper.withdrawFromInventory(altar, player);
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+				level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 				return ItemInteractionResult.sidedSuccess(level.isClientSide());
 			}
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
 
 		boolean result = altar.addItem(player, stack, hand);
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+		level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 		if (result) {
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}

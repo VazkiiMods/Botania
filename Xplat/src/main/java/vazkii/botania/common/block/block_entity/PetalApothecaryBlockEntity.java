@@ -29,6 +29,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
@@ -38,7 +39,6 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4fStack;
 
 import vazkii.botania.api.block.PetalApothecary;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.recipe.CustomApothecaryColor;
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -202,7 +202,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		boolean success = InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, SoundEvents.GENERIC_SPLASH);
 		if (success) {
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 		return success
 				? InteractionResult.sidedSuccess(false)
@@ -238,7 +238,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		}
 
 		if (didChange) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+			level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
 		}
 
 		self.tickRecipeKeep();

@@ -29,7 +29,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.block.RedstoneSensitiveBlock;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.red_string.RedStringSpooferBlockEntity;
@@ -212,7 +211,8 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	}
 
 	public void sync() {
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(),
+				FloatingSpecialFlowerBlock.UPDATE_CLIENTS);
 	}
 
 	/**

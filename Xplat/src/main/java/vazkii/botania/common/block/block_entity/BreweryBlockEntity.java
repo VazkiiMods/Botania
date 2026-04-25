@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
@@ -33,7 +34,6 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.brew.BrewItem;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -89,8 +89,8 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		}
 
 		if (did) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			findRecipe();
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 
 		return true;

@@ -12,9 +12,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -85,7 +85,7 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 	public void setChanged() {
 		super.setChanged();
 		if (level != null && !level.isClientSide) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}
 

@@ -23,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -31,7 +32,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -95,7 +95,7 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 		if (!level.isClientSide) {
 			level.blockEvent(getBlockPos(), BotaniaBlocks.animatedTorch, 0, torchMode.modeSwitcher.rotate(this, side));
 			nextRandomRotation = level.random.nextInt(4);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}
 

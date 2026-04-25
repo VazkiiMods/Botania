@@ -17,12 +17,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ManaTrigger;
@@ -84,7 +84,7 @@ public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 	public void setChanged() {
 		super.setChanged();
 		if (level != null && !level.isClientSide) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 			BlockState state = getBlockState();
 			boolean hasLens = !getItemHandler().getItem(0).isEmpty();
 			if (!state.is(BotaniaBlocks.prism) || state.getValue(BotaniaStateProperties.HAS_LENS) != hasLens) {

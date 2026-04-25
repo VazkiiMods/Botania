@@ -28,7 +28,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.api.block.IslandType;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
@@ -85,7 +84,7 @@ public abstract class FloatingFlowerBaseBlock extends BotaniaWaterloggedBlock im
 					level.playSound(null, pos, type.changeSound(), SoundSource.BLOCKS, 1, 1);
 					player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 					level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(te);
+					level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 				}
 
 				if (!player.hasInfiniteMaterials()) {

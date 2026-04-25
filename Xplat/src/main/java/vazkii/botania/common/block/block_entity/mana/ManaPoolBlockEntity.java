@@ -26,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -40,7 +41,6 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.ManaDissolvable;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
@@ -337,7 +337,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		}
 
 		if (self.sendPacket && self.ticks % 10 == 0) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+			level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
 			self.sendPacket = false;
 		}
 
@@ -400,7 +400,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		} else {
 			self.ticksDoingTransfer = 0;
 			if (wasDoingTransfer) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+				level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
 			}
 		}
 

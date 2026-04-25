@@ -30,13 +30,13 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -124,7 +124,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 		if (self.dirty) {
 			self.dirty = false;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+			level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
 		}
 	}
 

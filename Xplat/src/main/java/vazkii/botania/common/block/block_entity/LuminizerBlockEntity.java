@@ -31,7 +31,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.LuminizerBlock;
 import vazkii.botania.common.entity.LuminizerMoverEntity;
@@ -208,7 +207,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 
 		bindPos = pos;
 		setChanged();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		return true;
 	}
 
@@ -223,7 +222,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 			}
 			setNoParticle();
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, getBlockPos());
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 		return true;
 	}

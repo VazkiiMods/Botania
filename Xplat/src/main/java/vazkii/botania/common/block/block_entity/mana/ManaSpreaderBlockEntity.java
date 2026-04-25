@@ -24,6 +24,7 @@ import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,7 +45,6 @@ import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -253,7 +253,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 		if (self.receiverLastTick != self.receiver && !level.isClientSide) {
 			self.requestsClientUpdate = true;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+			level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
 		}
 
 		self.poweredLastTick = powered;
@@ -378,7 +378,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 
 		if (!player.isShiftKeyDown()) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
 		} else {
 			BlockHitResult bpos = LexicaBotaniaItem.doRayTrace(level, player, ClipContext.Fluid.NONE);
 			if (!level.isClientSide) {
@@ -595,7 +595,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		if (level != null) {
 			if (!level.isClientSide) {
 				checkForReceiver();
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+				level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 			}
 		}
 	}

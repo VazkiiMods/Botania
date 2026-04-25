@@ -43,7 +43,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -540,10 +539,11 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 		if (!fake && !noParticles && !level().isClientSide) {
 			if (receiver != null && receiver.canReceiveManaFromBursts() && onReceiverImpact(receiver)) {
+				// TODO: This should be the block entity's job to figure out
 				if (tile instanceof ThrottledPacket throttledPacket) {
 					throttledPacket.markDispatchable();
 				} else if (tile != null) {
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
+					level().sendBlockUpdated(collidePos, state, state, Block.UPDATE_CLIENTS);
 				}
 			}
 		}

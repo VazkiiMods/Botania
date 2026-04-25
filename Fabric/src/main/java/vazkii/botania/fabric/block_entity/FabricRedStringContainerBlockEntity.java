@@ -6,11 +6,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 
@@ -47,7 +47,7 @@ public class FabricRedStringContainerBlockEntity extends RedStringContainerBlock
 
 	@Override
 	public void onBound(@Nullable BlockPos pos) {
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 	}
 
 	@Override

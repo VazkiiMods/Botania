@@ -32,7 +32,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -112,14 +111,14 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 			} else {
 				move = !move;
 			}
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}
 
 	public void flipEarly() {
 		time = getTotalTime();
 		move = getTotalTime() > 0;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 	}
 
 	public int getTotalTime() {
@@ -190,7 +189,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 		if (level != null && !level.isClientSide) {
 			time = 0;
 			timeFraction = 0F;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(HoveringHourglassBlockEntity.this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
 		}
 	}
 
@@ -268,7 +267,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		this.lock = !this.lock;
 		if (!getLevel().isClientSide) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
 		}
 		return true;
 	}
