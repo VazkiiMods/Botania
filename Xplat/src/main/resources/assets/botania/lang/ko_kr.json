@@ -948,7 +948,7 @@
   "block.botania.shimmerwood_planks_slab": "심머우드 반 블록",
   "block.botania.shimmerwood_planks_stairs": "심머우드 계단",
   "block.botania.avatar": "생명의 나무 아바타",
-  "block.botania.avatar": "리빙우드 아바타",
+  "_block.botania.avatar": "리빙우드 아바타",
   "block.botania.dry_grass": "메마른 잔디",
   "block.botania.golden_grass": "금빛 잔디",
   "block.botania.vivid_grass": "비비드 잔디",
@@ -1001,7 +1001,6 @@
   "block.botania.rafflowsia.reference": "트랩 홀 나이트메어",
   "block.botania.floating_rafflowsia": "떠다니는 래플로시아",
   "block.botania.shulk_me_not": "셜크 미 낫",
-  "block.botania.shulk_me_not.reference": "실감나네",
   "block.botania.shulk_me_not.reference": "실감나네",
  
   "block.botania.floating_shulk_me_not": "떠다니는 셜크 미 낫",
@@ -1075,7 +1074,6 @@
   "block.botania.clayconia.reference": "루피는 없어요",
   "block.botania.clayconia_chibi": "작은 점토코니아",
   "block.botania.clayconia_chibi.reference": "루피는 없어요",
-  "block.botania.clayconia_chibi.reference": "루피는 없어요",
   "block.botania.floating_clayconia_chibi": "떠다니는 작은 점토코니아",
   "block.botania.floating_clayconia": "떠다니는 점토코니아",
   "block.botania.loonium": "탐사초",
@@ -1121,7 +1119,6 @@
   "block.botania.nightshade_motif": "나이트셰이드 모티프",
   "block.botania.hydroangeas_motif": "수국 모티프",
   "block.botania.daybloom_motif.description": "과거를 풍미한 꽃",
-  "block.botania.hydroangeas_motif.description": "화사하며 으스러지지 않는다",
   "block.botania.hydroangeas_motif.description": "화사하며 으스러지지 않는다",
 
   "item.botania.lexicon": "보타니아 사전",
