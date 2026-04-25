@@ -40,6 +40,7 @@ import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.block.block_entity.flower.generating.HydroangeasBlockEntity;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.flower.*;
@@ -49,6 +50,7 @@ import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.ColoredBlockItem;
+import vazkii.botania.common.item.block.DecayableSpecialFlowerBlockItem;
 import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -1095,8 +1097,8 @@ public final class BotaniaBlocks {
 		r.accept(new SpecialFlowerBlockItem(manastar, props), BuiltInRegistries.BLOCK.getKey(manastar));
 		r.accept(new SpecialFlowerBlockItem(manastarFloating, props), BuiltInRegistries.BLOCK.getKey(manastarFloating));
 
-		r.accept(new SpecialFlowerBlockItem(hydroangeas, props), BuiltInRegistries.BLOCK.getKey(hydroangeas));
-		r.accept(new SpecialFlowerBlockItem(hydroangeasFloating, props), BuiltInRegistries.BLOCK.getKey(hydroangeasFloating));
+		r.accept(new DecayableSpecialFlowerBlockItem(hydroangeas, HydroangeasBlockEntity.DECAY_TIME, props), BuiltInRegistries.BLOCK.getKey(hydroangeas));
+		r.accept(new DecayableSpecialFlowerBlockItem(hydroangeasFloating, HydroangeasBlockEntity.DECAY_TIME, props), BuiltInRegistries.BLOCK.getKey(hydroangeasFloating));
 
 		r.accept(new SpecialFlowerBlockItem(endoflame, props), BuiltInRegistries.BLOCK.getKey(endoflame));
 		r.accept(new SpecialFlowerBlockItem(endoflameFloating, props), BuiltInRegistries.BLOCK.getKey(endoflameFloating));
