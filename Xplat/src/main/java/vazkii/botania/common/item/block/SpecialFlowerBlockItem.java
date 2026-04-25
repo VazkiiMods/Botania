@@ -11,9 +11,7 @@ package vazkii.botania.common.item.block;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
@@ -24,9 +22,6 @@ import vazkii.botania.xplat.BotaniaConfig;
 import java.util.List;
 
 public class SpecialFlowerBlockItem extends BlockItem {
-	private static final TagKey<Item> GENERATING = BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS;
-	private static final TagKey<Item> FUNCTIONAL = BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
-	private static final TagKey<Item> MISC = BotaniaTags.Items.MISC_SPECIAL_FLOWERS;
 
 	public SpecialFlowerBlockItem(Block block, Properties props) {
 		super(block, props);
@@ -37,11 +32,14 @@ public class SpecialFlowerBlockItem extends BlockItem {
 		// Prevent crash when tooltips queried before configs load
 		// TODO: This should be moved to being builtin tooltip text components on the relevant items
 		if (BotaniaConfig.client() != null) {
-			if (stack.is(GENERATING)) {
+			if (stack.is(BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS)
+					|| stack.is(BotaniaTags.Items.GENERATING_SPECIAL_FLOATING_FLOWERS)) {
 				tooltip.add(Component.translatable("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
-			} else if (stack.is(FUNCTIONAL)) {
+			} else if (stack.is(BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOWERS)
+					|| stack.is(BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS)) {
 				tooltip.add(Component.translatable("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
-			} else if (stack.is(MISC)) {
+			} else if (stack.is(BotaniaTags.Items.MISC_SPECIAL_FLOWERS)
+					|| stack.is(BotaniaTags.Items.MISC_SPECIAL_FLOATING_FLOWERS)) {
 				tooltip.add(Component.translatable("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 			}
 

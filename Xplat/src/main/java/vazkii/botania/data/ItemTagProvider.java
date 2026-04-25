@@ -79,6 +79,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BlockTags.STONE_BUTTONS, ItemTags.STONE_BUTTONS);
 
 		this.copy(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS, BotaniaTags.Items.MUNDANE_FLOATING_FLOWERS);
+		this.copy(BotaniaTags.Blocks.MISC_SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.MISC_SPECIAL_FLOATING_FLOWERS);
+		this.copy(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.GENERATING_SPECIAL_FLOATING_FLOWERS);
+		this.copy(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.SPECIAL_FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.FLOATING_FLOWERS, BotaniaTags.Items.FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);

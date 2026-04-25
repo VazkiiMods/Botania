@@ -31,7 +31,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
-import vazkii.botania.common.block.flower.FloatingSpecialFlowerBlock;
 import vazkii.botania.common.block.flower.SpecialFlowerBlock;
 import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
@@ -48,6 +47,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
 import static vazkii.botania.common.block.BotaniaBlocks.*;
+import static vazkii.botania.common.block.BotaniaBlocks.exoflameFloating;
+import static vazkii.botania.common.block.BotaniaBlocks.hyacidusFloating;
+import static vazkii.botania.common.block.BotaniaBlocks.jiyuuliaFloating;
+import static vazkii.botania.common.block.BotaniaBlocks.labelliaFloating;
+import static vazkii.botania.common.block.BotaniaBlocks.medumoneFloating;
+import static vazkii.botania.common.block.BotaniaBlocks.munchdewFloating;
 
 public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final Predicate<Block> BOTANIA_BLOCK = b -> BotaniaAPI.MODID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());
@@ -109,11 +114,27 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						.toArray(Block[]::new)
 		);
 
-		tag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(BuiltInRegistries.BLOCK.stream().filter(BOTANIA_BLOCK)
-				.filter(b -> b instanceof FloatingSpecialFlowerBlock)
-				.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
-				.toArray(Block[]::new)
+		tag(BotaniaTags.Blocks.MISC_SPECIAL_FLOATING_FLOWERS).add(
+				manastarFloating, pureDaisyFloating, bergamuteFloating, solegnoliaFloating, solegnoliaChibiFloating);
+		tag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOATING_FLOWERS).add(
+				dandelifeonFloating, endoflameFloating, entropinnyumFloating,
+				gourmaryllisFloating, hydroangeasFloating, kekimurusFloating,
+				munchdewFloating, narslimmusFloating, rafflowsiaFloating, rosaArcanaFloating,
+				shulkMeNotFloating, spectrolusFloating, thermalilyFloating
 		);
+		tag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS).add(
+				agricarnationFloating, agricarnationChibiFloating, bellethornFloating, bellethornChibiFloating,
+				bubbellFloating, bubbellChibiFloating, clayconiaFloating, clayconiaChibiFloating,
+				daffomillFloating, dreadthornFloating, exoflameFloating, fallenKanadeFloating, heiseiDreamFloating,
+				hopperhockFloating, hopperhockChibiFloating, hyacidusFloating, jadedAmaranthusFloating,
+				jiyuuliaFloating, jiyuuliaChibiFloating, labelliaFloating, looniumFloating, marimorphosisFloating,
+				marimorphosisChibiFloating, medumoneFloating, orechidFloating, orechidIgnemFloating,
+				pollidisiacFloating, rannuncarpusFloating, rannuncarpusChibiFloating, spectranthemumFloating,
+				tangleberrieFloating, tangleberrieChibiFloating, tigerseyeFloating, vinculotusFloating
+		);
+		tag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS).addTag(BotaniaTags.Blocks.MISC_SPECIAL_FLOATING_FLOWERS)
+				.addTag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOATING_FLOWERS)
+				.addTag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS);
 
 		tag(BotaniaTags.Blocks.FLOATING_FLOWERS).addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS)
 				.addTag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS);
@@ -146,7 +167,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						.toArray(Block[]::new)
 		);
 
-		tag(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS).add(manastar, pureDaisy, bergamute);
+		tag(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS).add(manastar, pureDaisy, bergamute, solegnolia, solegnoliaChibi);
 		tag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(
 				dandelifeon, endoflame, entropinnyum,
 				gourmaryllis, hydroangeas, kekimurus,
@@ -160,7 +181,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				hopperhock, hopperhockChibi, hyacidus, jadedAmaranthus,
 				jiyuulia, jiyuuliaChibi, labellia, loonium, marimorphosis, marimorphosisChibi,
 				medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
-				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tangleberrieChibi, tigerseye, vinculotus
+				spectranthemum, tangleberrie, tangleberrieChibi, tigerseye, vinculotus
 		);
 		tag(BotaniaTags.Blocks.SPECIAL_FLOWERS).addTag(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS)
 				.addTag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS)

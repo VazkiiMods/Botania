@@ -44,6 +44,9 @@ public class BotaniaTags {
 		public static final TagKey<Item> FLOATING_FLOWERS = tag("floating_flowers");
 		public static final TagKey<Item> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
 		public static final TagKey<Item> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
+		public static final TagKey<Item> MISC_SPECIAL_FLOATING_FLOWERS = tag("misc_special_floating_flowers");
+		public static final TagKey<Item> FUNCTIONAL_SPECIAL_FLOATING_FLOWERS = tag("functional_special_floating_flowers");
+		public static final TagKey<Item> GENERATING_SPECIAL_FLOATING_FLOWERS = tag("generating_special_floating_flowers");
 
 		public static final TagKey<Item> LENS = tag("lens");
 
@@ -181,6 +184,9 @@ public class BotaniaTags {
 		public static final TagKey<Block> FLOATING_FLOWERS = tag("floating_flowers");
 		public static final TagKey<Block> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
 		public static final TagKey<Block> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
+		public static final TagKey<Block> MISC_SPECIAL_FLOATING_FLOWERS = tag("misc_special_floating_flowers");
+		public static final TagKey<Block> FUNCTIONAL_SPECIAL_FLOATING_FLOWERS = tag("functional_special_floating_flowers");
+		public static final TagKey<Block> GENERATING_SPECIAL_FLOATING_FLOWERS = tag("generating_special_floating_flowers");
 
 		/**
 		 * Blocks in this tag can be used in the Enchanter multiblock
