@@ -230,7 +230,9 @@
   "tag.block.botania.floating_flowers": "떠다니는 꽃",
   "tag.block.botania.functional_special_flowers": "기능적인 특별한 꽃",
 
+
   "tag.block.botania.generating_special_flowers": "생산하는 특별한 꽃",
+
 
   "tag.block.botania.glimmering_dreamwood_logs": "빛나는 꿈나무 원목",
   "tag.block.botania.glimmering_livingwood_logs": "빛나는 생기있는 나무 원목",
@@ -246,6 +248,7 @@
 
   "tag.block.botania.mini_flowers": "작은 꽃",
   "tag.block.botania.misc_special_flowers": "기타 특별한 꽃",
+
   "tag.block.botania.mundane_floating_flowers": "수수한 떠다니는 꽃",
   "tag.block.botania.mystical_flowers": "신비로운 꽃",
 
@@ -326,7 +329,9 @@
 
   "tag.item.botania.floating_flowers": "떠다니는 꽃",
   "tag.item.botania.functional_special_flowers": "기능적인 특별한 꽃",
+
   "tag.item.botania.generating_special_flowers": "생산하는 특별한 꽃",
+
   "tag.item.botania.glimmering_dreamwood_logs": "빛나는 꿈나무 원목",
   "tag.item.botania.glimmering_livingwood_logs": "빛나는 생기있는 나무 원목",
 
@@ -340,6 +345,7 @@
   "tag.item.botania.mana_using_items": "마나를 사용하는 아이템",
   "tag.item.botania.mini_flowers": "작은 꽃",
   "tag.item.botania.misc_special_flowers": "기타 특별한 꽃",
+
   "tag.item.botania.mundane_floating_flowers": "수수한 떠다니는 꽃",
   "tag.item.botania.mystical_flowers": "신비로운 꽃",
   "tag.item.botania.petals": "꽃잎",

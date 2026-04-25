@@ -230,7 +230,9 @@
   "tag.block.botania.floating_flowers": "Парящие цветы",
   "tag.block.botania.functional_special_flowers": "Функциональные особые цветы",
 
+
   "tag.block.botania.generating_special_flowers": "Генерирующие особые цветы",
+
 
   "tag.block.botania.glimmering_dreamwood_logs": "Светящиеся брёвна дерева мечтаний",
   "tag.block.botania.glimmering_livingwood_logs": "Брёвна сияющего жизнедерева",
@@ -246,6 +248,7 @@
 
   "tag.block.botania.mini_flowers": "Миниатюрные цветы",
   "tag.block.botania.misc_special_flowers": "Некатегорированные особые цветы",
+
   "tag.block.botania.mundane_floating_flowers": "Мирские парящие цветы",
   "tag.block.botania.mystical_flowers": "Мистические цветы",
 
@@ -326,7 +329,9 @@
 
   "tag.item.botania.floating_flowers": "Парящие цветы",
   "tag.item.botania.functional_special_flowers": "Функциональные особые цветы",
+
   "tag.item.botania.generating_special_flowers": "Генерирующие особые цветы",
+
   "tag.item.botania.glimmering_dreamwood_logs": "Светящиеся брёвна дерева мечтаний",
   "tag.item.botania.glimmering_livingwood_logs": "Брёвна сияющего жизнедерева",
 
@@ -340,6 +345,7 @@
   "tag.item.botania.mana_using_items": "Предметы, использующие ману",
   "tag.item.botania.mini_flowers": "Миниатюрные цветы",
   "tag.item.botania.misc_special_flowers": "Некатегорированные особые цветы",
+
   "tag.item.botania.mundane_floating_flowers": "Мирские парящие цветы",
   "tag.item.botania.mystical_flowers": "Мистические цветы",
   "tag.item.botania.petals": "Лепестки",

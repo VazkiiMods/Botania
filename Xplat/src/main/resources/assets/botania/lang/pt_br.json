@@ -230,7 +230,9 @@
   "tag.block.botania.floating_flowers": "Flores Flutuantes",
   "tag.block.botania.functional_special_flowers": "Flores Funcionais Especiais",
 
+
   "tag.block.botania.generating_special_flowers": "Flores Geradoras Especiais",
+
 
   "tag.block.botania.glimmering_dreamwood_logs": "Troncos de Madeira dos Sonhos Reluzente",
   "tag.block.botania.glimmering_livingwood_logs": "Troncos de Madeira Viva Reluzente",
@@ -246,6 +248,7 @@
 
   "tag.block.botania.mini_flowers": "Flores Pequeninas",
   "tag.block.botania.misc_special_flowers": "Flores Variadas Especiais",
+
   "tag.block.botania.mundane_floating_flowers": "Flores Mundanas Flutuantes",
   "tag.block.botania.mystical_flowers": "Flores Místicas",
 
@@ -326,7 +329,9 @@
 
   "tag.item.botania.floating_flowers": "Flores Flutuantes",
   "tag.item.botania.functional_special_flowers": "Flores Funcionais Especiais",
+
   "tag.item.botania.generating_special_flowers": "Flores Geradoras Especiais",
+
   "tag.item.botania.glimmering_dreamwood_logs": "Troncos de Madeira dos Sonhos Reluzente",
   "tag.item.botania.glimmering_livingwood_logs": "Troncos de Madeira Viva Reluzente",
 
@@ -340,6 +345,7 @@
   "tag.item.botania.mana_using_items": "Itens que usam Mana",
   "tag.item.botania.mini_flowers": "Flores Pequeninas",
   "tag.item.botania.misc_special_flowers": "Flores Variadas Especiais",
+
   "tag.item.botania.mundane_floating_flowers": "Flores Mundanas Flutuantes",
   "tag.item.botania.mystical_flowers": "Flores Místicas",
   "tag.item.botania.petals": "Pétalas",

@@ -230,7 +230,9 @@
   "tag.block.botania.floating_flowers": "Yüzen Çiçekler",
   "tag.block.botania.functional_special_flowers": "Fonksiyonel Özel Çiçekler",
 
+
   "tag.block.botania.generating_special_flowers": "Üreten Özel Çiçekler",
+
 
   "tag.block.botania.glimmering_dreamwood_logs": "Parıldayan Rüya Ağacı Kütükleri",
   "tag.block.botania.glimmering_livingwood_logs": "Parıldayan Yaşayan Ağaç Kütükleri",
@@ -246,6 +248,7 @@
 
   "tag.block.botania.mini_flowers": "Minik Çiçekler",
   "tag.block.botania.misc_special_flowers": "Çeşitli Özel Çiçekler",
+
   "tag.block.botania.mundane_floating_flowers": "Sıradan Yüzen Çiçekler",
   "tag.block.botania.mystical_flowers": "Mistik Çiçekler",
 
@@ -326,7 +329,9 @@
 
   "tag.item.botania.floating_flowers": "Yüzen Çiçekler",
   "tag.item.botania.functional_special_flowers": "Fonksiyonel Özel Çiçekler",
+
   "tag.item.botania.generating_special_flowers": "Üreten Özel Çiçekler",
+
   "tag.item.botania.glimmering_dreamwood_logs": "Parıldayan Rüya Ağacı Kütükleri",
   "tag.item.botania.glimmering_livingwood_logs": "Parıldayan Yaşayan Ağaç Kütükleri",
 
@@ -340,6 +345,7 @@
   "tag.item.botania.mana_using_items": "Mana Kullanan Eşyalar",
   "tag.item.botania.mini_flowers": "Minik Çiçekler",
   "tag.item.botania.misc_special_flowers": "Çeşitli Özel Çiçekler",
+
   "tag.item.botania.mundane_floating_flowers": "Sıradan Yüzen Çiçekler",
   "tag.item.botania.mystical_flowers": "Mistik Çiçekler",
   "tag.item.botania.petals": "Taç Yaprakları",

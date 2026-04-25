@@ -230,7 +230,9 @@
   "tag.block.botania.floating_flowers": "浮遊している花",
   "tag.block.botania.functional_special_flowers": "機能を持つ特別な花",
 
+
   "tag.block.botania.generating_special_flowers": "マナを生み出す特別な花",
+
 
   "tag.block.botania.glimmering_dreamwood_logs": "光り輝くドリームウッドの原木",
   "tag.block.botania.glimmering_livingwood_logs": "光り輝くリビングウッドの原木",
@@ -246,6 +248,7 @@
 
   "tag.block.botania.mini_flowers": "プチな花",
   "tag.block.botania.misc_special_flowers": "その他の特別な花",
+
   "tag.block.botania.mundane_floating_flowers": "ありふれた浮遊している花",
   "tag.block.botania.mystical_flowers": "神秘的な花",
 
@@ -326,7 +329,9 @@
 
   "tag.item.botania.floating_flowers": "浮遊している花",
   "tag.item.botania.functional_special_flowers": "機能を持つ特別な花",
+
   "tag.item.botania.generating_special_flowers": "マナを生み出す特別な花",
+
   "tag.item.botania.glimmering_dreamwood_logs": "光り輝くドリームウッドの原木",
   "tag.item.botania.glimmering_livingwood_logs": "光り輝くリビングウッドの原木",
 
@@ -340,6 +345,7 @@
   "tag.item.botania.mana_using_items": "マナを使うアイテム",
   "tag.item.botania.mini_flowers": "プチな花",
   "tag.item.botania.misc_special_flowers": "その他の特別な花",
+
   "tag.item.botania.mundane_floating_flowers": "ありふれた浮遊している花",
   "tag.item.botania.mystical_flowers": "神秘的な花",
   "tag.item.botania.petals": "花びら",

@@ -230,7 +230,9 @@
   "tag.block.botania.floating_flowers": "浮空花",
   "tag.block.botania.functional_special_flowers": "功能花",
 
+
   "tag.block.botania.generating_special_flowers": "产能花",
+
 
   "tag.block.botania.glimmering_dreamwood_logs": "微光活木原木",
   "tag.block.botania.glimmering_livingwood_logs": "微光梦之木原木",
@@ -246,6 +248,7 @@
 
   "tag.block.botania.mini_flowers": "缩小花",
   "tag.block.botania.misc_special_flowers": "杂项花",
+
   "tag.block.botania.mundane_floating_flowers": "普通浮空花",
   "tag.block.botania.mystical_flowers": "神秘花",
 
@@ -326,7 +329,9 @@
 
   "tag.item.botania.floating_flowers": "浮空花",
   "tag.item.botania.functional_special_flowers": "功能花",
+
   "tag.item.botania.generating_special_flowers": "产能花",
+
   "tag.item.botania.glimmering_dreamwood_logs": "微光活木原木",
   "tag.item.botania.glimmering_livingwood_logs": "微光梦之木原木",
 
@@ -340,6 +345,7 @@
   "tag.item.botania.mana_using_items": "魔力工具",
   "tag.item.botania.mini_flowers": "缩小花",
   "tag.item.botania.misc_special_flowers": "杂项花",
+
   "tag.item.botania.mundane_floating_flowers": "普通浮空花",
   "tag.item.botania.mystical_flowers": "神秘花",
   "tag.item.botania.petals": "神秘花瓣",

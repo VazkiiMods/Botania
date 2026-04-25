@@ -230,7 +230,9 @@
   "tag.block.botania.floating_flowers": "Fleurs flottantes",
   "tag.block.botania.functional_special_flowers": "Flore fonctionnelle",
 
+
   "tag.block.botania.generating_special_flowers": "Flore génératrice",
+
 
   "tag.block.botania.glimmering_dreamwood_logs": "Boisrêve scintillant",
   "tag.block.botania.glimmering_livingwood_logs": "Vifbois scintillant",
@@ -246,6 +248,7 @@
 
   "tag.block.botania.mini_flowers": "Petites fleurs",
   "tag.block.botania.misc_special_flowers": "Flore diverse",
+
   "tag.block.botania.mundane_floating_flowers": "Fleurs flottantes basiques",
   "tag.block.botania.mystical_flowers": "Fleurs mystiques",
 
@@ -326,7 +329,9 @@
 
   "tag.item.botania.floating_flowers": "Fleurs flottantes",
   "tag.item.botania.functional_special_flowers": "Flore fonctionnelle",
+
   "tag.item.botania.generating_special_flowers": "Flore génératrice",
+
   "tag.item.botania.glimmering_dreamwood_logs": "Boisrêve scintillant",
   "tag.item.botania.glimmering_livingwood_logs": "Vifbois scintillant",
 
@@ -340,6 +345,7 @@
   "tag.item.botania.mana_using_items": "Consommateur de mana",
   "tag.item.botania.mini_flowers": "Petites fleurs",
   "tag.item.botania.misc_special_flowers": "Flore diverse",
+
   "tag.item.botania.mundane_floating_flowers": "Fleurs flottantes basiques",
   "tag.item.botania.mystical_flowers": "Fleurs mystiques",
   "tag.item.botania.petals": "Pétales",

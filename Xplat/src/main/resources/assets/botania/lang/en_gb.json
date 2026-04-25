@@ -253,6 +253,9 @@
 
 
 
+  "tag.block.botania.shields_from_magnet_ring": "Shields from Ring of Magnetisation",
+
+
 
 
 
@@ -335,6 +338,9 @@
 
 
 
+
+
+  "tag.item.botania.magnet_ring_ignored": "Ignored by Ring of Magnetisation",
 
 
 
@@ -3977,7 +3983,7 @@
 
 
 
-
+  "botania.page.headCreating3": "Replacing the name tag with a $(item)Written Book$(0) (copies work as well) allows channelling even more information into the process:$(p)If the secret code to evoke a past $(thing)Skin$(0) is known in the arcane language of $(thing)Base64$(0), it may be written into a book to conjure that specific historic look of the $(thing)Player$(0)'s head.",
 
 
 
