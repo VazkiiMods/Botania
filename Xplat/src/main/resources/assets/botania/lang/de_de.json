@@ -625,7 +625,7 @@
   "worldgen.mushroom.quantity": "Pilzqualität (Weltgenerierung)",
   "armorModels.enable": "Angepasste Rüstungsmodelle",
   "fancySkybox.enable": "Hübsche Skybox",
-  "fancySkybox.normalWorlds": "Hübsche Skybox in Nicht-GoG-Welten",
+  "fancySkybox.normalWorlds": "Hübsche Skybox nicht nur in Garten-aus-Glass-Welten",
   "flightBar.height": "Flügel-Tiara Flugleistenhöhe",
   "flightBarBreath.height": "Flügel-Tiara Flugleistenhöhe mit Atemanzeige",
   "harvestLevel.boreLens": "Bohrlinsen-Abbaustufe",
