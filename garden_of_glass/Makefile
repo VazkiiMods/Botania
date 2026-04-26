@@ -1,4 +1,4 @@
-VERSION=1.13
+VERSION=14
 
 .PHONY: jar
 jar: build
@@ -7,7 +7,7 @@ jar: build
 .PHONY: build
 build:
 	@mkdir -p build
-	@cp -r assets data fabric.mod.json logo_gog.png META-INF pack.mcmeta build/
+	@cp -r src/main/resources/. src/generated/resources/. build/
 	@sed -i 's/@VERSION@/${VERSION}/' build/fabric.mod.json build/META-INF/neoforge.mods.toml
 
 .PHONY: clean
