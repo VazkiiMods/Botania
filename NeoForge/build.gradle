@@ -35,9 +35,18 @@ neoForge {
             client()
             systemProperty('neoforge.logging.console.level', 'debug')
         }
-        data {
+        neoforgeDatagen {
             data()
-            programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll '--mod', mod_id, '--all',
+                    '--output', file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+        gardenOfGlassDatagen {
+            data()
+            programArguments.addAll('--mod', mod_id, '--all',
+                    '--output', file('../garden_of_glass/src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('../garden_of_glass/src/main/resources/').getAbsolutePath())
+            systemProperty('botania.gog_datagen', '1')
         }
         server {
             server()

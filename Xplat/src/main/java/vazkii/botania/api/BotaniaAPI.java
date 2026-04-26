@@ -57,6 +57,10 @@ public interface BotaniaAPI {
 		return ResourceLocation.fromNamespaceAndPath(MODID, path);
 	}
 
+	static ResourceLocation gogRL(String path) {
+		return ResourceLocation.fromNamespaceAndPath(GOG_MODID, path);
+	}
+
 	/**
 	 * @return A unique version number for this version of the API. When anything is added, this number will be
 	 *         incremented

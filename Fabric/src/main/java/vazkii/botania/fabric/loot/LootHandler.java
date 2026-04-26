@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.loot;
+package vazkii.botania.fabric.loot;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -16,13 +16,15 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 
-import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Consumer;
 
+import static vazkii.botania.api.BotaniaAPI.gogRL;
+
 public final class LootHandler {
-	public static final ResourceLocation GOG_SEEDS_TABLE = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "extra_seeds");
+	public static final ResourceLocation GOG_SEEDS_TABLE = gogRL("extra_seeds");
 
 	// only for Fabric, since we generate global loot modifiers for NeoForge
 	public static void injectLoot(ResourceLocation id, Consumer<LootPool.Builder> addPool) {

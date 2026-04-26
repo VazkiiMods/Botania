@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -48,15 +47,16 @@ import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static vazkii.botania.api.BotaniaAPI.gogRL;
 
 public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
 	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registries.BLOCK,
-			ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "pebble_sources"));
+			gogRL("pebble_sources"));
 	private static final ResourceKey<LootTable> PEBBLES_TABLE = ResourceKey.create(Registries.LOOT_TABLE,
-			ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "pebbles"));
+			gogRL("pebbles"));
 
 	public static void syncGogStatus(ServerPlayer e) {
 		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level());

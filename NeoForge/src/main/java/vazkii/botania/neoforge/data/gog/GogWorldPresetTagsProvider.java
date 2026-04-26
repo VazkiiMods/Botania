@@ -1,0 +1,29 @@
+package vazkii.botania.neoforge.data.gog;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.WorldPresetTags;
+import net.minecraft.world.level.levelgen.presets.WorldPreset;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.neoforge.data.ForgeDatagenInitializer;
+
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+
+public class GogWorldPresetTagsProvider extends TagsProvider<WorldPreset> {
+	public GogWorldPresetTagsProvider(PackOutput output,
+			CompletableFuture<HolderLookup.Provider> provider) {
+		super(output, Registries.WORLD_PRESET, provider, BotaniaAPI.MODID,
+				new ExistingFileHelper(List.of(), Set.of(), false, null, null));
+	}
+
+	@Override
+	protected void addTags(HolderLookup.Provider provider) {
+		this.tag(WorldPresetTags.NORMAL).add(ForgeDatagenInitializer.SKYBLOCK_PRESET);
+	}
+}
