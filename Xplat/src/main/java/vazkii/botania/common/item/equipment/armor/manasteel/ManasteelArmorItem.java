@@ -175,4 +175,9 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	public void setPhantomInk(ItemStack stack, boolean ink) {
 		DataComponentHelper.setFlag(stack, BotaniaDataComponents.PHANTOM_INKED, ink);
 	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
 }
