@@ -24,7 +24,6 @@ import vazkii.botania.common.loot.BotaniaLootTables;
 
 import java.util.concurrent.CompletableFuture;
 
-@SuppressWarnings("unused")
 public class BotaniaGlobalLootModifierProvider extends GlobalLootModifierProvider {
 	public BotaniaGlobalLootModifierProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries, BotaniaAPI.MODID);
@@ -41,14 +40,5 @@ public class BotaniaGlobalLootModifierProvider extends GlobalLootModifierProvide
 				);
 			}
 		}
-/* Not for Botania itself, but useful for producing the GoG extra seeds injection:
-		add("extra_seeds", new AddTableLootModifier(new LootItemCondition[] {
-				AnyOfCondition.anyOf(
-						LootTableIdCondition.builder(Blocks.SHORT_GRASS.getLootTable().location()),
-						LootTableIdCondition.builder(Blocks.TALL_GRASS.getLootTable().location())
-				).build()
-		}, ResourceKey.create(Registries.LOOT_TABLE,
-				ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "extra_seeds"))));
-*/
 	}
 }

@@ -1,5 +1,4 @@
 {
-  "__comment": "[VanillaCopy] normal world preset, with own overworld generator type",
   "dimensions": {
     "minecraft:overworld": {
       "type": "minecraft:overworld",

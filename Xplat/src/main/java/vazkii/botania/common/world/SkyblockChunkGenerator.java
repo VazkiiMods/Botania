@@ -43,7 +43,7 @@ public class SkyblockChunkGenerator extends NoiseBasedChunkGenerator {
 		return world.getChunkSource() instanceof ServerChunkCache chunkCache && chunkCache.getGenerator() instanceof SkyblockChunkGenerator;
 	}
 
-	private SkyblockChunkGenerator(BiomeSource biomeSource, Holder<NoiseGeneratorSettings> settings) {
+	public SkyblockChunkGenerator(BiomeSource biomeSource, Holder<NoiseGeneratorSettings> settings) {
 		super(biomeSource, settings);
 	}
 

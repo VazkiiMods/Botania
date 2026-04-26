@@ -116,7 +116,6 @@ import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.loot.BotaniaLootModifiers;
-import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.world.BotaniaFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
@@ -321,8 +320,6 @@ public class ForgeCommonInitializer {
 			}
 		});
 		bus.addListener((PlayerEvent.StartTracking e) -> DaffomillBlockEntity.onItemTrack(e.getEntity(), (ServerPlayer) e.getEntity()));
-		// TODO: move to global loot modifier in GoG data pack, then move injection code to Fabric module
-		bus.addListener((LootTableLoadEvent e) -> LootHandler.injectGogLoot(e.getName(), b -> e.getTable().addPool(b.build())));
 		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getReceiver(), e.getType(), e.getAction()));
 		bus.addListener((EntityJoinLevelEvent e) -> {
 			if (!e.getLevel().isClientSide) {
