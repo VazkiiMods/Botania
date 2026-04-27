@@ -90,7 +90,7 @@
 
 
   "botaniamisc.blockAway": "한 블록 전",
-  "botaniamisc.blocksAway": "%s블록 전",
+  "botaniamisc.blocksAway": "%s 블록 전",
   "botaniamisc.clickToTeleport": "우클릭 시 텔레포트",
   "botaniamisc.clickToRemoveWarp": "쉬프트-좌클릭 시 삭제",
   "botaniamisc.unboundWarp": "설정되지 않은 워프 포인트",
