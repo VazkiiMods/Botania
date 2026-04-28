@@ -158,7 +158,6 @@ public class AssemblyHaloItem extends Item {
 
 		CraftingMenu dummy = new CraftingMenu(-999, player.getInventory());
 		CraftingContainer craftInv = (CraftingContainer) dummy.getSlot(1).container;
-		CraftingInput craftInput = CraftingInput.of(craftInv.getWidth(), craftInv.getHeight(), craftInv.getItems());
 		RecipePlacer<CraftingInput, CraftingRecipe> placer = new RecipePlacer<>(dummy);
 
 		// Try placing the recipe into the dummy workbench, extracting items from player's inventory to do so
@@ -167,6 +166,7 @@ public class AssemblyHaloItem extends Item {
 		}
 
 		// Double check that the recipe matches
+        CraftingInput craftInput = CraftingInput.of(craftInv.getWidth(), craftInv.getHeight(), craftInv.getItems());
 		if (!recipe.value().matches(craftInput, player.level())) {
 			// If the placer worked but the recipe still didn't, this might be a dynamic recipe with special conditions.
 			// Return items to the inventory and bail.
