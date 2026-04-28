@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_living_root": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:living_root"
-            ]
+            "items": "botania:living_root"
           }
         ]
       },
@@ -15,21 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "gardenofglass:root_to_sapling"
+        "recipe": "gardenofglass:oak_sapling_from_living_root"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_item",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_living_root"
     ]
   ],
   "rewards": {
     "recipes": [
-      "gardenofglass:root_to_sapling"
+      "gardenofglass:oak_sapling_from_living_root"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

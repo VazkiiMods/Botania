@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "botania:fertilizer",
+  "ingredients": [
+    {
+      "item": "botania:living_root"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:fertilizer"
+  }
+}

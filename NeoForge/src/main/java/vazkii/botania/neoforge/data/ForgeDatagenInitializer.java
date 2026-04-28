@@ -4,6 +4,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.world.BiomeModifier;
@@ -28,10 +30,14 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
+import vazkii.botania.neoforge.data.gog.GogBlockLootSubProvider;
+import vazkii.botania.neoforge.data.gog.GogBlockTagsProvider;
+import vazkii.botania.neoforge.data.gog.GogBlockUseLootProvider;
 import vazkii.botania.neoforge.data.gog.GogGlobalLootModifierProvider;
 import vazkii.botania.neoforge.data.gog.GogRecipeProvider;
 import vazkii.botania.neoforge.data.gog.GogWorldPresetTagsProvider;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -74,10 +80,15 @@ public class ForgeDatagenInitializer {
 	}
 
 	private static void configureGogDatagen(GatherDataEvent evt) {
+		evt.createProvider(GogBlockTagsProvider::new);
 		evt.createProvider(GogRecipeProvider::new);
 		evt.createProvider(GogGlobalLootModifierProvider::new);
 		evt.createDatapackRegistryObjects(addWorldPresets(), Set.of(BotaniaAPI.GOG_MODID));
 		evt.createProvider(GogWorldPresetTagsProvider::new);
+		evt.addProvider(new LootTableProvider(evt.getGenerator().getPackOutput(), Set.of(), List.of(
+				new LootTableProvider.SubProviderEntry(GogBlockUseLootProvider::new, LootContextParamSets.BLOCK_USE),
+				new LootTableProvider.SubProviderEntry(GogBlockLootSubProvider::new, LootContextParamSets.BLOCK)
+		), evt.getLookupProvider()));
 	}
 
 	private static RegistrySetBuilder addBiomeModifiers() {

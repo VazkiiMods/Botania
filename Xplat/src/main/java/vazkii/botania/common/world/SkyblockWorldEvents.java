@@ -11,12 +11,9 @@ package vazkii.botania.common.world;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -42,21 +38,17 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.network.clientbound.GogWorldPacket;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-import static vazkii.botania.api.BotaniaAPI.gogRL;
 
 public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
-
-	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registries.BLOCK,
-			gogRL("pebble_sources"));
-	private static final ResourceKey<LootTable> PEBBLES_TABLE = ResourceKey.create(Registries.LOOT_TABLE,
-			gogRL("pebbles"));
 
 	public static void syncGogStatus(ServerPlayer e) {
 		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level());
@@ -85,7 +77,7 @@ public final class SkyblockWorldEvents {
 			if (equipped.isEmpty() && player.isShiftKeyDown()) {
 				BlockState state = world.getBlockState(hit.getBlockPos());
 
-				if (state.is(PEBBLE_SOURCES)) {
+				if (state.is(BotaniaTags.Blocks.GOG_PEBBLE_SOURCES)) {
 					SoundType st = state.getSoundType();
 					SoundEvent sound = st.getBreakSound();
 					player.playSound(sound, st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
@@ -93,14 +85,13 @@ public final class SkyblockWorldEvents {
 					if (world.isClientSide) {
 						player.swing(hand);
 					} else if (world instanceof ServerLevel level) {
-						var table = level.getServer().reloadableRegistries().getLootTable(PEBBLES_TABLE);
+						var table = level.getServer().reloadableRegistries().getLootTable(
+								BotaniaLootTables.GOG_PEBBLES_TABLE);
 						var context = new LootParams.Builder(level)
 								.withParameter(LootContextParams.BLOCK_STATE, state)
 								.withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(hit.getBlockPos()))
-								.withParameter(LootContextParams.TOOL, equipped)
 								.withParameter(LootContextParams.THIS_ENTITY, player)
-								.withOptionalParameter(LootContextParams.BLOCK_ENTITY, level.getBlockEntity(hit.getBlockPos()))
-								.create(LootContextParamSets.BLOCK);
+								.create(LootContextParamSets.BLOCK_USE);
 						table.getRandomItems(context, s -> player.drop(s, false));
 					}
 

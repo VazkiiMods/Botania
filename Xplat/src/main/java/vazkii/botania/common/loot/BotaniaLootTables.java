@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.MODID;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static vazkii.botania.api.BotaniaAPI.gogRL;
 
 public class BotaniaLootTables {
 	private static final Set<ResourceKey<LootTable>> LOCATIONS = Sets.newLinkedHashSet();
@@ -132,8 +133,15 @@ public class BotaniaLootTables {
 
 	public static final ResourceKey<LootTable> LOONIUM_ZOMBIE_VILLAGER = register("equipment/loonium/zombie_villager");
 
+	public static final ResourceKey<LootTable> GOG_EXTRA_SEEDS = registerGog("extra_seeds");
+	public static final ResourceKey<LootTable> GOG_PEBBLES_TABLE = registerGog("pebbles");
+
 	private static ResourceKey<LootTable> register(String path) {
 		return register(ResourceKey.create(Registries.LOOT_TABLE, botaniaRL(path)));
+	}
+
+	private static ResourceKey<LootTable> registerGog(String path) {
+		return register(ResourceKey.create(Registries.LOOT_TABLE, gogRL(path)));
 	}
 
 	private static ResourceKey<LootTable> register(ResourceKey<LootTable> location) {

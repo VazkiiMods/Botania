@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.material.Fluid;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static vazkii.botania.api.BotaniaAPI.gogRL;
 
 public class BotaniaTags {
 	public static class Items {
@@ -340,6 +341,9 @@ public class BotaniaTags {
 		 * that causes the issues, which should be fixed properly.
 		 */
 		public static final TagKey<Block> UNSUPPORTED_PLATFORM_DISGUISE = tag("unsupported_platform_disguise");
+
+		public static final TagKey<Block> GOG_PEBBLE_SOURCES =
+				TagKey.create(Registries.BLOCK, gogRL("pebble_sources"));
 
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, botaniaRL(name));
