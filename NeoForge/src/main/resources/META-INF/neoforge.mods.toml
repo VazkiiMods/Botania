@@ -44,9 +44,8 @@ versionRange = "*"
 
 [[dependencies.botania]]
 modId = "gardenofglass"
-type = "incompatible"
-versionRange = "(,1.13]"
-reason = "GoG has not been updated for 1.21 yet"
+type = "optional"
+versionRange = "[${gog_version},)"
 
 [[dependencies.botania]]
 modId = "ears"
