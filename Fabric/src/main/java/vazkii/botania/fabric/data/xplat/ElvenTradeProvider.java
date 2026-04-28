@@ -23,6 +23,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.ElvenTradeRecipe;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.lib.ConventionalBotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;

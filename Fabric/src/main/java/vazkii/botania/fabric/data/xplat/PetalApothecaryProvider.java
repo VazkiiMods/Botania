@@ -11,36 +11,40 @@ package vazkii.botania.fabric.data.xplat;
 
 import com.mojang.authlib.properties.PropertyMap;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.fabricmc.fabric.impl.resource.conditions.conditions.AllModsLoadedResourceCondition;
+import net.fabricmc.fabric.impl.resource.conditions.conditions.NotResourceCondition;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.PetalApothecaryRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.data.recipes.BotaniaRecipeProvider;
+import vazkii.botania.common.lib.ConventionalBotaniaTags;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+public class PetalApothecaryProvider extends FabricRecipeProvider {
+	@SuppressWarnings("UnstableApiUsage")
+	public static final NotResourceCondition GOG_NOT_LOADED_CONDITION =
+			new NotResourceCondition(new AllModsLoadedResourceCondition(List.of(BotaniaAPI.GOG_MODID)));
 
-public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 	private static final Ingredient DEFAULT_REAGENT = Ingredient.of(BotaniaTags.Items.SEED_APOTHECARY_REAGENT);
 
-	public PetalApothecaryProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+	public PetalApothecaryProvider(FabricDataOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(packOutput, lookupProvider);
 	}
 
@@ -51,22 +55,22 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		Ingredient white = tagIngr("petals/white");
-		Ingredient orange = tagIngr("petals/orange");
-		Ingredient magenta = tagIngr("petals/magenta");
-		Ingredient lightBlue = tagIngr("petals/light_blue");
-		Ingredient yellow = tagIngr("petals/yellow");
-		Ingredient lime = tagIngr("petals/lime");
-		Ingredient pink = tagIngr("petals/pink");
-		Ingredient gray = tagIngr("petals/gray");
-		Ingredient lightGray = tagIngr("petals/light_gray");
-		Ingredient cyan = tagIngr("petals/cyan");
-		Ingredient purple = tagIngr("petals/purple");
-		Ingredient blue = tagIngr("petals/blue");
-		Ingredient brown = tagIngr("petals/brown");
-		Ingredient green = tagIngr("petals/green");
-		Ingredient red = tagIngr("petals/red");
-		Ingredient black = tagIngr("petals/black");
+		Ingredient white = Ingredient.of(BotaniaTags.Items.PETALS_WHITE);
+		Ingredient orange = Ingredient.of(BotaniaTags.Items.PETALS_ORANGE);
+		Ingredient magenta = Ingredient.of(BotaniaTags.Items.PETALS_MAGENTA);
+		Ingredient lightBlue = Ingredient.of(BotaniaTags.Items.PETALS_LIGHT_BLUE);
+		Ingredient yellow = Ingredient.of(BotaniaTags.Items.PETALS_YELLOW);
+		Ingredient lime = Ingredient.of(BotaniaTags.Items.PETALS_LIME);
+		Ingredient pink = Ingredient.of(BotaniaTags.Items.PETALS_PINK);
+		Ingredient gray = Ingredient.of(BotaniaTags.Items.PETALS_GRAY);
+		Ingredient lightGray = Ingredient.of(BotaniaTags.Items.PETALS_LIGHT_GRAY);
+		Ingredient cyan = Ingredient.of(BotaniaTags.Items.PETALS_CYAN);
+		Ingredient purple = Ingredient.of(BotaniaTags.Items.PETALS_PURPLE);
+		Ingredient blue = Ingredient.of(BotaniaTags.Items.PETALS_BLUE);
+		Ingredient brown = Ingredient.of(BotaniaTags.Items.PETALS_BROWN);
+		Ingredient green = Ingredient.of(BotaniaTags.Items.PETALS_GREEN);
+		Ingredient red = Ingredient.of(BotaniaTags.Items.PETALS_RED);
+		Ingredient black = Ingredient.of(BotaniaTags.Items.PETALS_BLACK);
 		Ingredient runeWater = Ingredient.of(BotaniaItems.runeWater);
 		Ingredient runeFire = Ingredient.of(BotaniaItems.runeFire);
 		Ingredient runeEarth = Ingredient.of(BotaniaItems.runeEarth);
@@ -111,10 +115,8 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 		make(consumer, BotaniaBlocks.heiseiDream, magenta, magenta, purple, pink, runeWrath, pixieDust);
 		make(consumer, BotaniaBlocks.tigerseye, yellow, brown, orange, lime, runeAutumn);
 
-		PetalApothecaryRecipe base = new PetalApothecaryRecipe(new ItemStack(BotaniaBlocks.orechid), DEFAULT_REAGENT, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
-		// TODO: move to GoG data pack
-		//PetalApothecaryRecipe gog = new PetalApothecaryRecipe(new ItemStack(BotaniaBlocks.orechid), DEFAULT_REAGENT, gray, gray, yellow, yellow, green, green, red, red);
-		consumer.accept(idFor(botaniaRL("orechid")), /*new GogAlternationRecipe<>(*/base/*, gog)*/, null);
+		make(withConditions(consumer, GOG_NOT_LOADED_CONDITION), BotaniaBlocks.orechid,
+				gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
 
 		make(consumer, BotaniaBlocks.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust);
 		make(consumer, BotaniaBlocks.fallenKanade, white, white, yellow, yellow, orange, runeSpring);
@@ -146,20 +148,13 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 				new ResolvableProfile(Optional.of("Vazkii"), Optional.empty(), new PropertyMap()));
 		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
-		consumer.accept(idFor(botaniaRL("vazkii_head")),
+		consumer.accept(BotaniaAPI.botaniaRL("vazkii_head").withPrefix("petal_apothecary/"),
 				new PetalApothecaryRecipe(vazkiiHead, DEFAULT_REAGENT, inputs), null);
 	}
 
-	protected static Ingredient tagIngr(String tag) {
-		return Ingredient.of(TagKey.create(Registries.ITEM, botaniaRL(tag)));
-	}
-
 	protected static void make(RecipeOutput consumer, ItemLike output, Ingredient... ingredients) {
-		consumer.accept(idFor(BuiltInRegistries.ITEM.getKey(output.asItem())),
+		consumer.accept(BuiltInRegistries.ITEM.getKey(output.asItem()).withPrefix("petal_apothecary/"),
 				new PetalApothecaryRecipe(new ItemStack(output), DEFAULT_REAGENT, ingredients), null);
 	}
 
-	protected static ResourceLocation idFor(ResourceLocation name) {
-		return ResourceLocation.fromNamespaceAndPath(name.getNamespace(), "petal_apothecary/" + name.getPath());
-	}
 }

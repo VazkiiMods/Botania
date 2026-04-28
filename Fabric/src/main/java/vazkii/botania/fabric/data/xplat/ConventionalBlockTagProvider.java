@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.lib.ConventionalBotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.data.BlockTagProvider;
 import vazkii.botania.data.util.DummyTagLookup;

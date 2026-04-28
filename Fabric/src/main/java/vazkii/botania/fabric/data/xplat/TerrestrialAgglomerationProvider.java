@@ -19,6 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.lib.ConventionalBotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;

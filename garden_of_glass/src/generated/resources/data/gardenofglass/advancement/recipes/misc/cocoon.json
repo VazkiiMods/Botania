@@ -1,24 +1,4 @@
 {
-  "fabric:load_conditions": [
-    {
-      "condition": "fabric:not",
-      "value": {
-        "condition": "fabric:all_mods_loaded",
-        "values": [
-          "gardenofglass"
-        ]
-      }
-    }
-  ],
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:mod_loaded",
-        "modid": "gardenofglass"
-      }
-    }
-  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_item": {
@@ -33,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:cocoon"
+        "recipe": "gardenofglass:cocoon"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -46,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "botania:cocoon"
+      "gardenofglass:cocoon"
     ]
   }
 }

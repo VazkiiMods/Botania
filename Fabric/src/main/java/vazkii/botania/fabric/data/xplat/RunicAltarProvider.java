@@ -24,6 +24,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.lib.ConventionalBotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -87,7 +88,8 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 		Ingredient winter = Ingredient.of(BotaniaItems.runeWinter);
 
 		defaultReagent(consumer, idFor("mana"), new ItemStack(BotaniaItems.runeMana), costTier2,
-				manaSteel, manaSteel, manaSteel, manaSteel, manaSteel, Ingredient.of(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS));
+				manaSteel, manaSteel, manaSteel, manaSteel, manaSteel, Ingredient.of(
+						ConventionalBotaniaTags.Items.MANA_PEARL_GEMS));
 
 		defaultReagent(consumer, idFor("lust"), new ItemStack(BotaniaItems.runeLust), costTier3,
 				new Ingredient[] { manaDiamond, manaDiamond }, summer, air);
