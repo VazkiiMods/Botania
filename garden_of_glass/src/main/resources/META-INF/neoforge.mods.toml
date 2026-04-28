@@ -1,20 +1,26 @@
-modLoader="lowcodefml"
-loaderVersion="[38,)"
-license="Botania License"
-issueTrackerURL="https://github.com/Vazkii/Botania/issues"
-logoFile="logo_gog.png"
+modLoader = "lowcodefml"
+loaderVersion = "[38,)"
+license = "Botania License"
+issueTrackerURL = "https://github.com/Vazkii/Botania/issues"
+logoFile = "logo_gog.png"
 
 [[mods]]
-modId="gardenofglass"
-version="@VERSION@"
-displayName="Garden of Glass"
-displayURL="https://botaniamod.net/gardenofglass.php"
-description="An extension to Botania that adds skyblock like gameplay."
-authors="Vazkii, wiiv, williewillus, Hubry, artemisSystem, Wormbo"
+modId = "gardenofglass"
+version = "@VERSION@"
+displayName = "Garden of Glass"
+displayURL = "https://botaniamod.net/gardenofglass.php"
+description = "An extension to Botania that adds skyblock like gameplay."
+authors = "Vazkii, wiiv, williewillus, Hubry, artemisSystem, Wormbo"
 
-itemIcon="botania:cosmetic_botanist_emblem" # custom icon for Catalogue's mod list
+itemIcon = "botania:cosmetic_botanist_emblem" # custom icon for Catalogue's mod list
 
 [[dependencies.gardenofglass]]
-modId="botania"
-versionRange="*"
+modId = "minecraft"
+versionRange = "[1.21,)"
 type = "required"
+
+[[dependencies.gardenofglass]]
+modId = "botania"
+versionRange = "*"
+type = "required"
+reason = "GoG is an add-on for Botania, not a standalone mod"

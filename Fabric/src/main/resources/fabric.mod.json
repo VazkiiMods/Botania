@@ -97,7 +97,7 @@
     "openpartiesandclaims": "*"
   },
   "breaks": {
-    "gardenofglass": "<=1.13"
+    "gardenofglass": "<${gog_version}"
   },
 
   "custom": {
