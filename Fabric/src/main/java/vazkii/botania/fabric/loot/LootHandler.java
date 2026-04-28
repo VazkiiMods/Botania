@@ -8,7 +8,6 @@
  */
 package vazkii.botania.fabric.loot;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
@@ -21,12 +20,10 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Consumer;
 
-import static vazkii.botania.api.BotaniaAPI.gogRL;
-
+/**
+ * Fabric-specific loot table injection. Neoforge has global loot modifiers for this.
+ */
 public final class LootHandler {
-	public static final ResourceLocation GOG_SEEDS_TABLE = gogRL("extra_seeds");
-
-	// only for Fabric, since we generate global loot modifiers for NeoForge
 	public static void injectLoot(ResourceLocation id, Consumer<LootPool.Builder> addPool) {
 		ResourceKey<LootTable> injectedLootTable = BotaniaLootTables.getInjectedLootTable(id);
 		if (BotaniaLootTables.all().contains(injectedLootTable)) {
@@ -37,8 +34,7 @@ public final class LootHandler {
 	public static void injectGogLoot(ResourceLocation id, Consumer<LootPool.Builder> addPool) {
 		if (XplatAbstractions.INSTANCE.gogLoaded() && (Blocks.SHORT_GRASS.getLootTable().location().equals(id)
 				|| Blocks.TALL_GRASS.getLootTable().location().equals(id))) {
-			ResourceKey<LootTable> gogSeedsKey = ResourceKey.create(Registries.LOOT_TABLE, GOG_SEEDS_TABLE);
-			addPool.accept(LootPool.lootPool().add(NestedLootTable.lootTableReference(gogSeedsKey)));
+			addPool.accept(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.GOG_EXTRA_SEEDS)));
 		}
 	}
 }

@@ -1,0 +1,15 @@
+{
+  "type": "botania:mana_infusion",
+  "catalyst": {
+    "type": "botania:block",
+    "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:nautilus_shell"
+  },
+  "mana": 20000,
+  "output": {
+    "count": 1,
+    "id": "minecraft:heart_of_the_sea"
+  }
+}

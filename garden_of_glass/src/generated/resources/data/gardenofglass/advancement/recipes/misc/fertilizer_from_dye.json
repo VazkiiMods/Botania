@@ -11,7 +11,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_bonemeal": {
+    "has_bone_meal": {
       "conditions": {
         "items": [
           {
@@ -31,7 +31,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_bonemeal",
+      "has_bone_meal",
       "has_any_dye"
     ]
   ],

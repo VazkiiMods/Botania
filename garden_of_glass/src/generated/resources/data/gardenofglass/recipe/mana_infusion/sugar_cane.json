@@ -3,8 +3,9 @@
   "input": {
     "item": "minecraft:hay_block"
   },
+  "mana": 2000,
   "output": {
-    "item": "minecraft:sugar_cane"
-  },
-  "mana": 2000
+    "count": 1,
+    "id": "minecraft:sugar_cane"
+  }
 }

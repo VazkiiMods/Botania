@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_gaia_spirit": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:life_essence"
-            ]
+            "items": "botania:life_essence"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_item",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_gaia_spirit"
     ]
   ],
   "rewards": {
     "recipes": [
       "gardenofglass:end_portal_frame"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

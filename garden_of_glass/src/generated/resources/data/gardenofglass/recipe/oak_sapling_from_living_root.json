@@ -11,7 +11,7 @@
     "##"
   ],
   "result": {
-    "item": "minecraft:oak_sapling"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "minecraft:oak_sapling"
+  }
 }

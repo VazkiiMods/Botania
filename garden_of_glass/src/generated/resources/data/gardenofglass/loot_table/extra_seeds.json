@@ -2,29 +2,18 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "main",
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:melon_seeds"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:pumpkin_seeds"
-        }
-      ],
+      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:any_of",
           "terms": [
             {
-              "condition": "minecraft:block_state_property",
-              "block": "minecraft:grass"
+              "block": "minecraft:short_grass",
+              "condition": "minecraft:block_state_property"
             },
             {
-              "condition": "minecraft:block_state_property",
               "block": "minecraft:tall_grass",
+              "condition": "minecraft:block_state_property",
               "properties": {
                 "half": "lower"
               }
@@ -35,19 +24,31 @@
           "condition": "minecraft:survives_explosion"
         },
         {
-          "condition": "minecraft:random_chance",
-          "chance": 0.03125
+          "chance": 0.03125,
+          "condition": "minecraft:random_chance"
         },
         {
           "condition": "minecraft:inverted",
           "term": {
             "condition": "minecraft:match_tool",
             "predicate": {
-              "tag": "gardenofglass:shears"
+              "items": "#c:tools/shear"
             }
           }
         }
-      ]
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:melon_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_seeds"
+        }
+      ],
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "gardenofglass:extra_seeds"
 }

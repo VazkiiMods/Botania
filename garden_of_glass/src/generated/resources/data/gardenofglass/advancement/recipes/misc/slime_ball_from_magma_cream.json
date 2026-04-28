@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_magma_cream": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:living_root"
-            ]
+            "items": "minecraft:magma_cream"
           }
         ]
       },
@@ -15,21 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "gardenofglass:root_to_fertilizer"
+        "recipe": "gardenofglass:slime_ball_from_magma_cream"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_item",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_magma_cream"
     ]
   ],
   "rewards": {
     "recipes": [
-      "gardenofglass:root_to_fertilizer"
+      "gardenofglass:slime_ball_from_magma_cream"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
