@@ -23,11 +23,23 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "botania:blaze_block"
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "tag": "c:dyes"
+    },
+    {
+      "tag": "c:dyes"
+    },
+    {
+      "tag": "c:dyes"
+    },
+    {
+      "tag": "c:dyes"
     }
   ],
   "result": {
-    "count": 9,
-    "id": "minecraft:blaze_rod"
+    "count": 1,
+    "id": "botania:fertilizer"
   }
 }

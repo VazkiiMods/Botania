@@ -29,6 +29,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.neoforge.data.gog.GogGlobalLootModifierProvider;
+import vazkii.botania.neoforge.data.gog.GogRecipeProvider;
 import vazkii.botania.neoforge.data.gog.GogWorldPresetTagsProvider;
 
 import java.util.Map;
@@ -73,6 +74,7 @@ public class ForgeDatagenInitializer {
 	}
 
 	private static void configureGogDatagen(GatherDataEvent evt) {
+		evt.createProvider(GogRecipeProvider::new);
 		evt.createProvider(GogGlobalLootModifierProvider::new);
 		evt.createDatapackRegistryObjects(addWorldPresets(), Set.of(BotaniaAPI.GOG_MODID));
 		evt.createProvider(GogWorldPresetTagsProvider::new);

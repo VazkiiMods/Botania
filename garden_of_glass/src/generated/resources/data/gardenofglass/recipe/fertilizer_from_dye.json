@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
+  "group": "botania:fertilizer",
   "ingredients": [
     {
       "item": "minecraft:bone_meal"

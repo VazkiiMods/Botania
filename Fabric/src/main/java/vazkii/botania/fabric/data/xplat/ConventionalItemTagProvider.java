@@ -26,6 +26,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.lib.ConventionalBotaniaTags;
 import vazkii.botania.data.util.DummyTagLookup;
 
 import java.util.Set;

@@ -21,11 +21,21 @@
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_blaze_block": {
+    "has_any_dye": {
       "conditions": {
         "items": [
           {
-            "items": "botania:blaze_block"
+            "items": "#c:dyes"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_bonemeal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:bone_meal"
           }
         ]
       },
@@ -33,7 +43,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:conversions/blazeblock_deconstruct"
+        "recipe": "botania:fertilizer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -41,12 +51,13 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_blaze_block"
+      "has_bonemeal",
+      "has_any_dye"
     ]
   ],
   "rewards": {
     "recipes": [
-      "botania:conversions/blazeblock_deconstruct"
+      "botania:fertilizer"
     ]
   }
 }

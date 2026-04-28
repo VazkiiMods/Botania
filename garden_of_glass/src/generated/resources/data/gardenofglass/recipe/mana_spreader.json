@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "botania:spreader",
+  "key": {
+    "P": {
+      "tag": "botania:petals"
+    },
+    "W": {
+      "tag": "botania:livingwood_logs"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "WP ",
+    "WWW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:mana_spreader"
+  }
+}

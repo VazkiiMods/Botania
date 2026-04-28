@@ -9,7 +9,11 @@
  */
 package vazkii.botania.fabric.data.xplat;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+import net.fabricmc.fabric.impl.resource.conditions.conditions.AllModsLoadedResourceCondition;
+import net.fabricmc.fabric.impl.resource.conditions.conditions.NotResourceCondition;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -17,7 +21,6 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -39,9 +42,9 @@ import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.lib.ConventionalBotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 import vazkii.botania.data.recipes.builder.BotaniaSpecialRecipeBuilder;
 import vazkii.botania.data.recipes.builder.TiaraWingsRecipeBuilder;
 import vazkii.botania.data.recipes.builder.WrapperRecipeBuilder;
@@ -53,8 +56,15 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class CraftingRecipeProvider extends BotaniaRecipeProvider {
-	public CraftingRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+public class CraftingRecipeProvider extends FabricRecipeProvider {
+
+	@SuppressWarnings("UnstableApiUsage")
+	public static final NotResourceCondition GOG_NOT_LOADED_CONDITION =
+			new NotResourceCondition(new AllModsLoadedResourceCondition(List.of(BotaniaAPI.GOG_MODID)));
+
+	public CraftingRecipeProvider(FabricDataOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(packOutput, lookupProvider);
 	}
 
@@ -107,14 +117,10 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 	/** Addons: override this to return your modid */
 	protected ResourceLocation prefix(String path) {
-		return BotaniaAPI.botaniaRL(path);
+		return botaniaRL(path);
 	}
 
 	private void registerMain(RecipeOutput recipeOutput) {
-		Criterion<InventoryChangeTrigger.TriggerInstance> hasAnyDye = conditionsFromItems(
-				ColorHelper.supportedColors().map(DyeItem::byColor).toArray(ItemLike[]::new)
-		);
-		//GogAlternationRecipeBuilder.alternatives(
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
@@ -123,18 +129,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("CP ")
 				.pattern("WWW")
 				.group("botania:spreader")
-				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))/*,
-																								TODO: move to GoG data pack
-																								ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
-																								.define('P', BotaniaTags.Items.PETALS)
-																								.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
-																								.pattern("WWW")
-																								.pattern("WP ")
-																								.pattern("WWW")
-																								.group("botania:spreader")
-																								.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
-																								)*/
-				.save(recipeOutput);
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
+				.save(withConditions(recipeOutput, GOG_NOT_LOADED_CONDITION));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.redstoneSpreader)
 				.requires(BotaniaBlocks.manaSpreader)
 				.requires(ConventionalItemTags.REDSTONE_DUSTS)
@@ -503,7 +499,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" G ")
 				.unlockedBy("has_item", conditionsFromItem(Items.PUMPKIN))
 				.save(recipeOutput);
-		//GogAlternationRecipeBuilder.alternatives(
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
 				.define('S', Items.STRING)
 				.define('C', BotaniaItems.manaweaveCloth)
@@ -512,17 +507,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SSS")
 				.pattern("CPC")
 				.pattern("SDS")
-				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin))/*,
-																						TODO: move to GoG data pack
-																						ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
-																						.define('S', Items.STRING)
-																						.define('P', BotaniaBlocks.felPumpkin)
-																						.define('I', ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
-																						.pattern("SSS")
-																						.pattern("SPS")
-																						.pattern("SIS")
-																						.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin))
-																						)*/.save(recipeOutput);
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin))
+				.save(withConditions(recipeOutput, GOG_NOT_LOADED_CONDITION));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaBlocks.lightRelayDefault)
 				.requires(BotaniaItems.redString)
 				.requires(ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS)
@@ -637,18 +623,12 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaString))
 				.save(recipeOutput);
-		//GogAlternationRecipeBuilder.alternatives(
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer)
 				.requires(Items.BONE_MEAL)
 				.requires(Ingredient.of(ConventionalItemTags.DYES), 4)
-				.unlockedBy("has_item", hasAnyDye)/*,
-													TODO: move to GoG data pack
-													ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer, 3)
-													.requires(Items.BONE_MEAL)
-													.requires(dyes, 4)
-													.unlockedBy("has_item", hasAnyDye)
-													)*/
-				.save(recipeOutput, "botania:fertilizer_dye");
+				.unlockedBy("has_bonemeal", has(Items.BONE_MEAL))
+				.unlockedBy("has_any_dye", has(ConventionalItemTags.DYES))
+				.save(withConditions(recipeOutput, GOG_NOT_LOADED_CONDITION));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.drySeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.DEAD_BUSH)
@@ -1114,8 +1094,10 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeAir))
 				.save(recipeOutput);
 
-		registerSimpleArmorSet(recipeOutput, Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS), "manasteel", conditionsFromTag(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS));
-		registerSimpleArmorSet(recipeOutput, Ingredient.of(ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS), "elementium", conditionsFromTag(ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS));
+		registerSimpleArmorSet(recipeOutput, Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS), "manasteel", conditionsFromTag(
+				ConventionalBotaniaTags.Items.MANASTEEL_INGOTS));
+		registerSimpleArmorSet(recipeOutput, Ingredient.of(ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS), "elementium", conditionsFromTag(
+				ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS));
 		registerSimpleArmorSet(recipeOutput, Ingredient.of(BotaniaItems.manaweaveCloth), "manaweave", conditionsFromItem(BotaniaItems.manaweaveCloth));
 
 		registerTerrasteelUpgradeRecipe(recipeOutput, BotaniaItems.terrasteelHelm, BotaniaItems.manasteelHelm, BotaniaItems.runeSpring);
@@ -2128,12 +2110,10 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		compression(BotaniaBlocks.manaDiamondBlock, ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS).save(recipeOutput);
 		compression(BotaniaBlocks.dragonstoneBlock, ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS).save(recipeOutput);
 
-		//GogAlternationRecipeBuilder.alternatives(
-		compression(BotaniaBlocks.blazeBlock, Items.BLAZE_ROD)//,
-				// TODO: move to GoG data pack
-				//		compression(BotaniaBlocks.blazeBlock, Items.BLAZE_POWDER)
-				//)
-				.save(recipeOutput);
+		nineBlockStorageRecipesRecipesWithCustomUnpacking(withConditions(recipeOutput, GOG_NOT_LOADED_CONDITION),
+				RecipeCategory.MISC, Items.BLAZE_ROD,
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.blazeBlock,
+				"botania:conversions/blazeblock_deconstruct", null);
 
 		deconstructPetalBlock(recipeOutput, BotaniaItems.whitePetal, BotaniaBlocks.petalBlockWhite);
 		deconstructPetalBlock(recipeOutput, BotaniaItems.orangePetal, BotaniaBlocks.petalBlockOrange);
@@ -2151,12 +2131,6 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		deconstructPetalBlock(recipeOutput, BotaniaItems.greenPetal, BotaniaBlocks.petalBlockGreen);
 		deconstructPetalBlock(recipeOutput, BotaniaItems.redPetal, BotaniaBlocks.petalBlockRed);
 		deconstructPetalBlock(recipeOutput, BotaniaItems.blackPetal, BotaniaBlocks.petalBlockBlack);
-
-		/*GogAlternationRecipeBuilder.saveAlternatives(recipeOutput,
-				output ->*/ deconstruct(recipeOutput, Items.BLAZE_ROD, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct")/*,
-																															TODO: move to GoG data pack
-																															output -> deconstruct(output, Items.BLAZE_POWDER, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct")
-																															)*/;
 
 		deconstruct(recipeOutput, BotaniaItems.manaSteel, ConventionalBotaniaTags.Items.MANASTEEL_STORAGE_BLOCKS, "manasteel_block_deconstruct");
 		deconstruct(recipeOutput, BotaniaItems.manaDiamond, ConventionalBotaniaTags.Items.MANA_DIAMOND_STORAGE_BLOCKS, "manadiamond_block_deconstruct");
