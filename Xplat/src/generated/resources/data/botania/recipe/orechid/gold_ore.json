@@ -1,5 +1,27 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "gardenofglass"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "gardenofglass"
+      }
+    }
+  ],
   "type": "botania:orechid",
+  "biome_bonus_tag": "botania:orechid_stone_gold_bonus",
+  "biome_bonus_weight": 1790,
   "cooldown": 100,
   "input": {
     "type": "botania:block",
@@ -10,5 +32,5 @@
     "type": "botania:block",
     "block": "minecraft:gold_ore"
   },
-  "weight": 2647
+  "weight": 106
 }

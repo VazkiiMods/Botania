@@ -17,6 +17,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.util.DummyTagLookup;
@@ -84,6 +85,17 @@ public class ConventionalBiomeTagProvider extends TagsProvider<Biome> {
 				.addTag(ConventionalBiomeTags.IS_CONIFEROUS_TREE)
 				.addTag(ConventionalBiomeTags.IS_COLD)
 				.addTag(ConventionalBiomeTags.IS_SNOWY);
+
+		tag(BotaniaTags.Biomes.ORECHID_STONE_COPPER_BONUS)
+				.add(Biomes.DRIPSTONE_CAVES);
+		tag(BotaniaTags.Biomes.ORECHID_STONE_EMERALD_BONUS)
+				.addTag(ConventionalBiomeTags.IS_MOUNTAIN);
+		tag(BotaniaTags.Biomes.ORECHID_STONE_GOLD_BONUS)
+				.addTag(ConventionalBiomeTags.IS_BADLANDS);
+		tag(BotaniaTags.Biomes.ORECHID_DEEPSLATE_COPPER_BONUS)
+				.add(Biomes.DRIPSTONE_CAVES);
+		tag(BotaniaTags.Biomes.ORECHID_DEEPSLATE_EMERALD_BONUS)
+				.addTag(ConventionalBiomeTags.IS_MOUNTAIN);
 	}
 
 	@Override

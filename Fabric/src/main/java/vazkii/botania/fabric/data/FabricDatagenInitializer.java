@@ -10,6 +10,8 @@ package vazkii.botania.fabric.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.impl.resource.conditions.conditions.AllModsLoadedResourceCondition;
+import net.fabricmc.fabric.impl.resource.conditions.conditions.NotResourceCondition;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -17,6 +19,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBannerPatterns;
 import vazkii.botania.data.*;
 import vazkii.botania.data.loot.BotaniaBlockLoot;
@@ -25,7 +28,6 @@ import vazkii.botania.data.loot.BotaniaEntityLoot;
 import vazkii.botania.data.loot.BotaniaEquipmentLoot;
 import vazkii.botania.data.loot.BotaniaGenericLoot;
 import vazkii.botania.data.loot.BotaniaGiftLoot;
-import vazkii.botania.fabric.data.fabric.FabricBlockLootProvider;
 import vazkii.botania.fabric.data.fabric.FabricBlockTagProvider;
 import vazkii.botania.fabric.data.fabric.FabricItemTagProvider;
 import vazkii.botania.fabric.data.xplat.BrewProvider;
@@ -45,9 +47,15 @@ import vazkii.botania.fabric.data.xplat.SmeltingProvider;
 import vazkii.botania.fabric.data.xplat.StonecuttingProvider;
 import vazkii.botania.fabric.data.xplat.TerrestrialAgglomerationProvider;
 
+import java.util.List;
+
 import static vazkii.botania.common.BotaniaDamageTypes.*;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
+	@SuppressWarnings("UnstableApiUsage")
+	public static final NotResourceCondition GOG_NOT_LOADED_CONDITION =
+			new NotResourceCondition(new AllModsLoadedResourceCondition(List.of(BotaniaAPI.GOG_MODID)));
+
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
 		if (System.getProperty("botania.xplat_datagen") != null) {
@@ -58,7 +66,6 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	}
 
 	private static void configureFabricDatagen(FabricDataGenerator.Pack pack) {
-		pack.addProvider(FabricBlockLootProvider::new);
 		BlockTagProvider blockTagProvider = pack.addProvider(FabricBlockTagProvider::new);
 		pack.addProvider((output,
 				registriesFuture) -> new FabricItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));

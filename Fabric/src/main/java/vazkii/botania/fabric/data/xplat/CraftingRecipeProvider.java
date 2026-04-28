@@ -12,8 +12,6 @@ package vazkii.botania.fabric.data.xplat;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.fabricmc.fabric.impl.resource.conditions.conditions.AllModsLoadedResourceCondition;
-import net.fabricmc.fabric.impl.resource.conditions.conditions.NotResourceCondition;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -48,6 +46,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.data.recipes.builder.BotaniaSpecialRecipeBuilder;
 import vazkii.botania.data.recipes.builder.TiaraWingsRecipeBuilder;
 import vazkii.botania.data.recipes.builder.WrapperRecipeBuilder;
+import vazkii.botania.fabric.data.FabricDatagenInitializer;
 import vazkii.botania.mixin.RecipeProviderAccessor;
 
 import java.util.List;
@@ -59,10 +58,6 @@ import java.util.stream.IntStream;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class CraftingRecipeProvider extends FabricRecipeProvider {
-
-	@SuppressWarnings("UnstableApiUsage")
-	public static final NotResourceCondition GOG_NOT_LOADED_CONDITION =
-			new NotResourceCondition(new AllModsLoadedResourceCondition(List.of(BotaniaAPI.GOG_MODID)));
 
 	public CraftingRecipeProvider(FabricDataOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(packOutput, lookupProvider);
@@ -130,7 +125,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("WWW")
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
-				.save(withConditions(recipeOutput, GOG_NOT_LOADED_CONDITION));
+				.save(withConditions(recipeOutput, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.redstoneSpreader)
 				.requires(BotaniaBlocks.manaSpreader)
 				.requires(ConventionalItemTags.REDSTONE_DUSTS)
@@ -508,7 +503,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("CPC")
 				.pattern("SDS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin))
-				.save(withConditions(recipeOutput, GOG_NOT_LOADED_CONDITION));
+				.save(withConditions(recipeOutput, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaBlocks.lightRelayDefault)
 				.requires(BotaniaItems.redString)
 				.requires(ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS)
@@ -628,7 +623,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(Ingredient.of(ConventionalItemTags.DYES), 4)
 				.unlockedBy("has_bonemeal", has(Items.BONE_MEAL))
 				.unlockedBy("has_any_dye", has(ConventionalItemTags.DYES))
-				.save(withConditions(recipeOutput, GOG_NOT_LOADED_CONDITION));
+				.save(withConditions(recipeOutput, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.drySeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.DEAD_BUSH)
@@ -2110,7 +2105,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		compression(BotaniaBlocks.manaDiamondBlock, ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS).save(recipeOutput);
 		compression(BotaniaBlocks.dragonstoneBlock, ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS).save(recipeOutput);
 
-		nineBlockStorageRecipesRecipesWithCustomUnpacking(withConditions(recipeOutput, GOG_NOT_LOADED_CONDITION),
+		nineBlockStorageRecipesRecipesWithCustomUnpacking(withConditions(recipeOutput, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION),
 				RecipeCategory.MISC, Items.BLAZE_ROD,
 				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.blazeBlock,
 				"botania:conversions/blazeblock_deconstruct", null);

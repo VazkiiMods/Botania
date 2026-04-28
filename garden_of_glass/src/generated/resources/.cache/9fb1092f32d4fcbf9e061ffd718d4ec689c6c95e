@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-28T16:13:06.892849489	Recipes
+// 1.21.1	2026-04-28T19:44:59.264504415	Recipes
 be493667b9f071160b120f28a2c7b0eb29134b25 data/gardenofglass/advancement/recipes/brewing/blaze_powder_from_blaze_block.json
 ea6d6ba5da229f87a1f26b56c0d80325895fd1cd data/gardenofglass/advancement/recipes/building_blocks/blaze_block.json
 a3e3b3c4fd200d862c44b3e9f72c3dfe621309a7 data/gardenofglass/advancement/recipes/building_blocks/cobblestone_from_pebble.json
@@ -22,5 +22,13 @@ af28d08f899acfdf904c9f96d320c82a34daedb2 data/gardenofglass/recipe/mana_infusion
 5e55623260639894aeca4d8fe6afb406d80cf7c1 data/gardenofglass/recipe/mana_infusion/sugar_cane.json
 7f00891a6d74bcc1867853a53cebe590c1a0b831 data/gardenofglass/recipe/mana_spreader.json
 979d9cc5c9109c071f25f58dfb3305a3e2894cae data/gardenofglass/recipe/oak_sapling_from_living_root.json
+407e10a18346e08e03cb2062995e2501103e11f4 data/gardenofglass/recipe/orechid/coal_ore.json
+938e696a7eebf729c4dcef5d124c3c2809facb1b data/gardenofglass/recipe/orechid/copper_ore.json
+7bafd504b4d5bcce93e3de9d357ea7d03dba9d62 data/gardenofglass/recipe/orechid/diamond_ore.json
+f61b072a8b69802ace5032613f42f2884b74e663 data/gardenofglass/recipe/orechid/emerald_ore.json
+8d0e06f77010bcdc564a05d4d760509b80727bfe data/gardenofglass/recipe/orechid/gold_ore.json
+93686a77b62d6365aefd01239ca453c48235d63c data/gardenofglass/recipe/orechid/iron_ore.json
+ec6e692cd96d9d35bf0b754d9ef4cab6160b2045 data/gardenofglass/recipe/orechid/lapis_ore.json
+b5998fb7fa030e8f1b91c4e362230bf156b25a99 data/gardenofglass/recipe/orechid/redstone_ore.json
 d3cf1ff54112e4cdb5e11a2734471c219dad4605 data/gardenofglass/recipe/petal_apothecary/orechid.json
 47685641c022f19574eeec78e7e19e96342e3e67 data/gardenofglass/recipe/slime_ball_from_magma_cream.json

@@ -33,7 +33,7 @@ public class FabricBlockTagProvider extends BlockTagProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		// nothing so far
+		// nothing so far, but required for item tag provider
 	}
 
 }

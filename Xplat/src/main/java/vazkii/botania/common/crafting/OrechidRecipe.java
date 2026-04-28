@@ -50,6 +50,11 @@ public class OrechidRecipe extends BlockStateRecipe implements vazkii.botania.ap
 	}
 
 	public OrechidRecipe(StateIngredient input, StateIngredient output, int cooldown, int manaCost, int weight,
+			int weightBonus, @Nullable TagKey<Biome> biomes) {
+		this(input, output, cooldown, manaCost, weight, null, null, weightBonus, biomes);
+	}
+
+	public OrechidRecipe(StateIngredient input, StateIngredient output, int cooldown, int manaCost, int weight,
 			@Nullable CacheableFunction preUpdateFunction, @Nullable CacheableFunction successFunction,
 			int weightBonus, @Nullable TagKey<Biome> biomes) {
 		super(input, output, preUpdateFunction, successFunction);

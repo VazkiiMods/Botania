@@ -1,16 +1,19 @@
 package vazkii.botania.neoforge.data.gog;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
@@ -18,7 +21,9 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.block_entity.flower.functional.OrechidBlockEntity;
 import vazkii.botania.common.crafting.ManaInfusionRecipe;
+import vazkii.botania.common.crafting.OrechidRecipe;
 import vazkii.botania.common.crafting.PetalApothecaryRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.item.BotaniaItems;
@@ -116,6 +121,16 @@ public class GogRecipeProvider extends RecipeProvider {
 		manaInfusion(recipeOutput, Items.PRISMARINE_CRYSTALS, Items.PRISMARINE_SHARD, 500, ALCHEMY_CATALYST);
 		manaInfusion(recipeOutput, Items.PRISMARINE_SHARD, Items.QUARTZ, 1000, ALCHEMY_CATALYST);
 		manaInfusion(recipeOutput, Blocks.SUGAR_CANE, Blocks.HAY_BLOCK, 2000, null);
+
+		// no biome bonus, but weights shifted towards useful materials
+		stone(recipeOutput, Blocks.COAL_ORE, 5748);
+		stone(recipeOutput, Blocks.IRON_ORE, 1568);
+		stone(recipeOutput, Blocks.REDSTONE_ORE, 271);
+		stone(recipeOutput, Blocks.COPPER_ORE, 2030);
+		stone(recipeOutput, Blocks.GOLD_ORE, 106);
+		stone(recipeOutput, Blocks.EMERALD_ORE, 10);
+		stone(recipeOutput, Blocks.LAPIS_ORE, 81);
+		stone(recipeOutput, Blocks.DIAMOND_ORE, 75);
 	}
 
 	private static void manaInfusion(RecipeOutput recipeOutput, ItemLike resultItem, ItemLike ingredient, int mana,
@@ -123,5 +138,18 @@ public class GogRecipeProvider extends RecipeProvider {
 		recipeOutput.accept(gogRL("mana_infusion/" + getItemName(resultItem)),
 				new ManaInfusionRecipe(new ItemStack(resultItem), Ingredient.of(ingredient), mana, null, catalyst),
 				null);
+	}
+
+	protected static StateIngredient forBlock(Block block) {
+		return StateIngredients.of(block);
+	}
+
+	protected ResourceLocation orechidId(Block b) {
+		return gogRL("orechid/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
+	}
+
+	protected void stone(RecipeOutput consumer, Block output, int weight) {
+		consumer.accept(orechidId(output), new OrechidRecipe(forBlock(Blocks.STONE), forBlock(output),
+				OrechidBlockEntity.DELAY_GOG, OrechidBlockEntity.DEFAULT_COST_GOG, weight), null);
 	}
 }

@@ -1,4 +1,24 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "gardenofglass"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "gardenofglass"
+      }
+    }
+  ],
   "type": "botania:orechid",
   "cooldown": 100,
   "input": {
@@ -10,5 +30,5 @@
     "type": "botania:block",
     "block": "minecraft:redstone_ore"
   },
-  "weight": 7654
+  "weight": 71
 }
