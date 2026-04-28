@@ -13,8 +13,6 @@ import com.mojang.authlib.properties.PropertyMap;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.impl.resource.conditions.conditions.AllModsLoadedResourceCondition;
-import net.fabricmc.fabric.impl.resource.conditions.conditions.NotResourceCondition;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -31,17 +29,13 @@ import vazkii.botania.common.crafting.PetalApothecaryRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.ConventionalBotaniaTags;
+import vazkii.botania.fabric.data.FabricDatagenInitializer;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class PetalApothecaryProvider extends FabricRecipeProvider {
-	@SuppressWarnings("UnstableApiUsage")
-	public static final NotResourceCondition GOG_NOT_LOADED_CONDITION =
-			new NotResourceCondition(new AllModsLoadedResourceCondition(List.of(BotaniaAPI.GOG_MODID)));
-
 	private static final Ingredient DEFAULT_REAGENT = Ingredient.of(BotaniaTags.Items.SEED_APOTHECARY_REAGENT);
 
 	public PetalApothecaryProvider(FabricDataOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -115,7 +109,7 @@ public class PetalApothecaryProvider extends FabricRecipeProvider {
 		make(consumer, BotaniaBlocks.heiseiDream, magenta, magenta, purple, pink, runeWrath, pixieDust);
 		make(consumer, BotaniaBlocks.tigerseye, yellow, brown, orange, lime, runeAutumn);
 
-		make(withConditions(consumer, GOG_NOT_LOADED_CONDITION), BotaniaBlocks.orechid,
+		make(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), BotaniaBlocks.orechid,
 				gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
 
 		make(consumer, BotaniaBlocks.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust);

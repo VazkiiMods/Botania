@@ -411,6 +411,13 @@ public class BotaniaTags {
 		public static final TagKey<Biome> MARIMORPHOSIS_SWAMP_BONUS = tag("marimorphosis_swamp_bonus");
 		public static final TagKey<Biome> MARIMORPHOSIS_TAIGA_BONUS = tag("marimorphosis_taiga_bonus");
 
+		public static final TagKey<Biome> ORECHID_STONE_COPPER_BONUS = tag("orechid_stone_copper_bonus");
+		public static final TagKey<Biome> ORECHID_STONE_EMERALD_BONUS = tag("orechid_stone_emerald_bonus");
+		public static final TagKey<Biome> ORECHID_STONE_GOLD_BONUS = tag("orechid_stone_gold_bonus");
+
+		public static final TagKey<Biome> ORECHID_DEEPSLATE_COPPER_BONUS = tag("orechid_deepslate_copper_bonus");
+		public static final TagKey<Biome> ORECHID_DEEPSLATE_EMERALD_BONUS = tag("orechid_deepslate_emerald_bonus");
+
 		/**
 		 * Biomes in this tag are eligible for the mystical_flower placed_feature.
 		 */

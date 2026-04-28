@@ -1,5 +1,7 @@
 {
   "type": "botania:orechid",
+  "biome_bonus_tag": "botania:orechid_deepslate_copper_bonus",
+  "biome_bonus_weight": 1350,
   "cooldown": 100,
   "input": {
     "type": "botania:block",
@@ -10,5 +12,5 @@
     "type": "botania:block",
     "block": "minecraft:deepslate_copper_ore"
   },
-  "weight": 75
+  "weight": 471
 }

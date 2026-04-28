@@ -1,0 +1,14 @@
+{
+  "type": "botania:orechid",
+  "cooldown": 2,
+  "input": {
+    "type": "botania:block",
+    "block": "minecraft:stone"
+  },
+  "mana": 700,
+  "output": {
+    "type": "botania:block",
+    "block": "minecraft:emerald_ore"
+  },
+  "weight": 10
+}

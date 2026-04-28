@@ -9,15 +9,18 @@
  */
 package vazkii.botania.fabric.data.xplat;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -26,15 +29,15 @@ import vazkii.botania.common.block.block_entity.flower.functional.OrechidBlockEn
 import vazkii.botania.common.block.block_entity.flower.functional.OrechidIgnemBlockEntity;
 import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.data.recipes.BotaniaRecipeProvider;
+import vazkii.botania.fabric.data.FabricDatagenInitializer;
 
 import java.util.concurrent.CompletableFuture;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class OrechidProvider extends BotaniaRecipeProvider {
+public class OrechidProvider extends FabricRecipeProvider {
 
-	public OrechidProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+	public OrechidProvider(FabricDataOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(packOutput, lookupProvider);
 	}
 
@@ -42,23 +45,26 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	//       The old data needs to be completely revised.
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		stone(consumer, Blocks.COAL_ORE, 67415);
-		stone(consumer, Blocks.IRON_ORE, 29371);
-		stone(consumer, Blocks.REDSTONE_ORE, 7654);
-		stone(consumer, Blocks.COPPER_ORE, 7000);
-		stone(consumer, Blocks.GOLD_ORE, 2647);
-		stone(consumer, Blocks.EMERALD_ORE, 1239);
-		stone(consumer, Blocks.LAPIS_ORE, 1079);
-		stone(consumer, Blocks.DIAMOND_ORE, 883);
+		stone(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), Blocks.COAL_ORE, 5129);
+		stone(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), Blocks.IRON_ORE, 1568);
+		stone(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), Blocks.REDSTONE_ORE, 71);
+		stone(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), Blocks.COPPER_ORE, 2724,
+				BotaniaTags.Biomes.ORECHID_STONE_COPPER_BONUS, 2500);
+		stone(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), Blocks.GOLD_ORE, 106,
+				BotaniaTags.Biomes.ORECHID_STONE_GOLD_BONUS, 1790);
+		stone(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), Blocks.EMERALD_ORE, 1,
+				BotaniaTags.Biomes.ORECHID_STONE_EMERALD_BONUS, 111);
+		stone(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), Blocks.LAPIS_ORE, 281);
+		stone(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), Blocks.DIAMOND_ORE, 10);
 
-		deepslate(consumer, Blocks.DEEPSLATE_COAL_ORE, 75);
-		deepslate(consumer, Blocks.DEEPSLATE_IRON_ORE, 250);
-		deepslate(consumer, Blocks.DEEPSLATE_REDSTONE_ORE, 150);
-		deepslate(consumer, Blocks.DEEPSLATE_COPPER_ORE, 75);
-		deepslate(consumer, Blocks.DEEPSLATE_GOLD_ORE, 125);
-		deepslate(consumer, Blocks.DEEPSLATE_EMERALD_ORE, 50);
-		deepslate(consumer, Blocks.DEEPSLATE_LAPIS_ORE, 175);
-		deepslate(consumer, Blocks.DEEPSLATE_DIAMOND_ORE, 100);
+		deepslate(consumer, Blocks.DEEPSLATE_COAL_ORE, 57);
+		deepslate(consumer, Blocks.DEEPSLATE_IRON_ORE, 2513);
+		deepslate(consumer, Blocks.DEEPSLATE_REDSTONE_ORE, 2510);
+		deepslate(consumer, Blocks.DEEPSLATE_COPPER_ORE, 471, BotaniaTags.Biomes.ORECHID_DEEPSLATE_COPPER_BONUS, 1350);
+		deepslate(consumer, Blocks.DEEPSLATE_GOLD_ORE, 1605);
+		deepslate(consumer, Blocks.DEEPSLATE_EMERALD_ORE, 1, BotaniaTags.Biomes.ORECHID_DEEPSLATE_EMERALD_BONUS, 10);
+		deepslate(consumer, Blocks.DEEPSLATE_LAPIS_ORE, 1033);
+		deepslate(consumer, Blocks.DEEPSLATE_DIAMOND_ORE, 1801);
 
 		netherrack(consumer, Blocks.NETHER_QUARTZ_ORE, 19600);
 		netherrack(consumer, Blocks.NETHER_GOLD_ORE, 3635);
@@ -87,13 +93,21 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	}
 
 	protected void stone(RecipeOutput consumer, Block output, int weight) {
+		stone(consumer, output, weight, null, 0);
+	}
+
+	private void stone(RecipeOutput consumer, Block output, int weight, @Nullable TagKey<Biome> bonusBiomes, int bonusWeight) {
 		consumer.accept(orechidId(output), new OrechidRecipe(forBlock(Blocks.STONE), forBlock(output),
-				OrechidBlockEntity.DEFAULT_DELAY, OrechidBlockEntity.DEFAULT_COST, weight), null);
+				OrechidBlockEntity.DEFAULT_DELAY, OrechidBlockEntity.DEFAULT_COST, weight, bonusWeight, bonusBiomes), null);
 	}
 
 	protected void deepslate(RecipeOutput consumer, Block output, int weight) {
+		deepslate(consumer, output, weight, null, 0);
+	}
+
+	protected void deepslate(RecipeOutput consumer, Block output, int weight, @Nullable TagKey<Biome> bonusBiome, int bonusWeight) {
 		consumer.accept(orechidId(output), new OrechidRecipe(forBlock(Blocks.DEEPSLATE), forBlock(output),
-				OrechidBlockEntity.DEFAULT_DELAY, OrechidBlockEntity.DEFAULT_COST, weight), null);
+				OrechidBlockEntity.DEFAULT_DELAY, OrechidBlockEntity.DEFAULT_COST, weight, bonusWeight, bonusBiome), null);
 	}
 
 	protected void netherrack(RecipeOutput consumer, Block output, int weight) {
