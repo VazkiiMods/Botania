@@ -1,5 +1,5 @@
 modLoader = "lowcodefml"
-loaderVersion = "[38,)"
+loaderVersion = "[4,)"
 license = "Botania License"
 issueTrackerURL = "https://github.com/Vazkii/Botania/issues"
 logoFile = "logo_gog.png"
