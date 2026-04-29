@@ -93,7 +93,10 @@ dependencies {
 
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
 
+    // for xplat data load condition generating
+    modLocalRuntime files('lib/forged-conditions-21.1.0.jar')
+
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
 
-    compileOnly group: 'org.jetbrains', name: 'annotations', version: '26.0.2'
+    compileOnly "org.jetbrains:annotations:26.0.2"
 }
