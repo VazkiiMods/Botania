@@ -17,7 +17,7 @@
     {
       "type": "crafting",
       "text": "botania.page.cocoon2",
-      "recipe": "botania:cocoon"
+      "recipe": "gardenofglass:cocoon"
     }
   ]
 }

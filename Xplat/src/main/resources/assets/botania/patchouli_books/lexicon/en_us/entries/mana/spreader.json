@@ -34,8 +34,15 @@
     },
     {
       "type": "crafting",
+      "flag": "!mod:gardenofglass",
       "text": "botania.page.spreader5",
       "recipe": "botania:mana_spreader"
+    },
+    {
+      "type": "crafting",
+      "flag": "|debug,mod:gardenofglass",
+      "text": "botania.page.spreader5",
+      "recipe": "gardenofglass:mana_spreader"
     },
     {
       "type": "text",
