@@ -120,8 +120,8 @@
       "heading": "botania.page.manaAlchemy35",
       "text": "botania.page.manaAlchemy17",
       "recipes": [
-        "botania:mana_infusion/slime_to_cactus",
-        "botania:mana_infusion/cactus_to_slime"
+        "botania:mana_infusion/slime_ball_to_cactus",
+        "botania:mana_infusion/cactus_to_slime_ball"
       ]
     },
     {

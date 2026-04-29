@@ -9,8 +9,15 @@
     },
     {
       "type": "crafting",
+      "flag": "!mod:gardenofglass",
       "text": "botania.page.blazeBlock1",
       "recipe": "botania:blaze_block"
+    },
+    {
+      "type": "crafting",
+      "flag": "|debug,mod:gardenofglass",
+      "text": "botania.page.blazeBlock1",
+      "recipe": "gardenofglass:blaze_block"
     }
   ]
 }

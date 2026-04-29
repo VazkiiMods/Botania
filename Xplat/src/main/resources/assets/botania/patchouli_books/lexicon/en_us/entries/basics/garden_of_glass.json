@@ -20,17 +20,17 @@
     {
       "type": "crafting",
       "text": "botania.page.gardenOfGlass3",
-      "recipe": "gardenofglass:root_to_sapling"
+      "recipe": "gardenofglass:oak_sapling_from_living_root"
     },
     {
       "type": "crafting",
       "text": "botania.page.gardenOfGlass4",
-      "recipe": "gardenofglass:root_to_fertilizer"
+      "recipe": "gardenofglass:fertilizer_from_living_root"
     },
     {
       "type": "crafting",
       "text": "botania.page.gardenOfGlass5",
-      "recipe": "gardenofglass:pebble_to_cobblestone"
+      "recipe": "gardenofglass:cobblestone_from_pebble"
     },
     {
       "type": "text",
@@ -44,7 +44,7 @@
     {
       "type": "crafting",
       "text": "botania.page.gardenOfGlass8",
-      "recipe": "gardenofglass:magma_cream_to_slime_ball"
+      "recipe": "gardenofglass:slime_ball_from_magma_cream"
     },
     {
       "type": "botania:mana_infusion",

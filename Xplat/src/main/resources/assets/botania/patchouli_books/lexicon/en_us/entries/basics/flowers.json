@@ -76,8 +76,15 @@
     },
     {
       "type": "crafting",
+      "flag": "!mod:gardenofglass",
       "text": "botania.page.flowers8",
-      "recipe": "botania:fertilizer_dye"
+      "recipe": "botania:fertilizer"
+    },
+    {
+      "type": "crafting",
+      "flag": "|debug,mod:gardenofglass",
+      "text": "botania.page.flowers8",
+      "recipe": "gardenofglass:fertilizer_from_living_root"
     },
     {
       "type": "text",
