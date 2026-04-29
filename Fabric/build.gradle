@@ -99,4 +99,8 @@ dependencies {
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
 
     compileOnly "org.jetbrains:annotations:26.0.2"
+
+    if (file("../garden_of_glass/gardenofglass-${gog_version}.jar").exists()) {
+        modLocalRuntime files("../garden_of_glass/gardenofglass-${gog_version}.jar")
+    }
 }
