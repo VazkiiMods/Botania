@@ -37,7 +37,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class TerrasteelArmorItem extends ManasteelArmorItem {
 
 	public TerrasteelArmorItem(Type type, Properties props) {
-		super(type, BotaniaAPI.instance().getTerrasteelArmorMaterial(), props);
+		super(type, BotaniaAPI.instance().getTerrasteelArmorMaterial(), props.durability(type.getDurability(34)));
 	}
 
 	@Override

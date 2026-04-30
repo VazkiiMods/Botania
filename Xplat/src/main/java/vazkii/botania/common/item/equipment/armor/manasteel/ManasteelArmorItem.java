@@ -48,7 +48,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	public final Type type;
 
 	public ManasteelArmorItem(Type type, Properties props) {
-		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props);
+		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props.durability(type.getDurability(16)));
 	}
 
 	public ManasteelArmorItem(Type type, Holder<ArmorMaterial> mat, Properties props) {
@@ -174,10 +174,5 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	@Override
 	public void setPhantomInk(ItemStack stack, boolean ink) {
 		DataComponentHelper.setFlag(stack, BotaniaDataComponents.PHANTOM_INKED, ink);
-	}
-
-	@Override
-	public boolean isEnchantable(ItemStack stack) {
-		return true;
 	}
 }

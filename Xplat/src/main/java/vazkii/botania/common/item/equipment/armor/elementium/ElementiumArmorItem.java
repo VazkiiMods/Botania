@@ -11,7 +11,6 @@ package vazkii.botania.common.item.equipment.armor.elementium;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -31,14 +30,11 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ElementiumArmorItem extends ManasteelArmorItem {
+	private final double pixieChance;
 
 	public ElementiumArmorItem(Type type, Properties props, double pixieChance) {
-		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(),
-				props.component(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder()
-						.add(PixieHandler.PIXIE_SPAWN_CHANCE,
-								PixieHandler.makeModifier(ResourceLocation.withDefaultNamespace("armor." + type.getName()), pixieChance),
-								EquipmentSlotGroup.bySlot(type.getSlot()))
-						.build()));
+		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), props.durability(type.getDurability(18)));
+		this.pixieChance = pixieChance;
 	}
 
 	@Override
@@ -88,6 +84,14 @@ public class ElementiumArmorItem extends ManasteelArmorItem {
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		super.addArmorSetDescription(stack, list);
 		list.add(Component.translatable("botania.armorset.elementium.desc").withStyle(ChatFormatting.GRAY));
+	}
+
+	@Override
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		return super.getDefaultAttributeModifiers()
+				.withModifierAdded(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(
+						ResourceLocation.withDefaultNamespace("armor." + type.getName()), pixieChance),
+						EquipmentSlotGroup.bySlot(type.getSlot()));
 	}
 
 }
