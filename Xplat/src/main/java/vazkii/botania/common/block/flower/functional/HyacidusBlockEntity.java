@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -40,11 +39,17 @@ public class HyacidusBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+		boolean did = false;
 		for (LivingEntity entity : entities) {
-			if (!(entity instanceof Player) && entity.getEffect(MobEffects.POISON) == null && getMana() >= COST && !entity.level().isClientSide && entity.getMobType() != MobType.UNDEAD) {
-				entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
+			if (!(entity instanceof Player) && !entity.hasEffect(MobEffects.POISON) && getMana() >= COST && !entity.level().isClientSide
+					&& entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0))) {
 				addMana(-COST);
+				did = true;
 			}
+		}
+
+		if (did) {
+			sync();
 		}
 	}
 

@@ -99,6 +99,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 
 						}
 						addMana(-COST);
+						sync();
 						EntityHelper.shrinkItem(nameTagEnt);
 						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, BotaniaSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
 						break;
