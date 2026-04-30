@@ -29,11 +29,13 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
 public class ElementiumArmorItem extends ManasteelArmorItem {
 	private final double pixieChance;
 
 	public ElementiumArmorItem(Type type, Properties props, double pixieChance) {
-		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), props.durability(type.getDurability(18)));
+		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), props);
 		this.pixieChance = pixieChance;
 	}
 
@@ -90,7 +92,7 @@ public class ElementiumArmorItem extends ManasteelArmorItem {
 	public ItemAttributeModifiers getDefaultAttributeModifiers() {
 		return super.getDefaultAttributeModifiers()
 				.withModifierAdded(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(
-						ResourceLocation.withDefaultNamespace("armor." + type.getName()), pixieChance),
+						botaniaRL("armor." + type.getName()), pixieChance),
 						EquipmentSlotGroup.bySlot(type.getSlot()));
 	}
 

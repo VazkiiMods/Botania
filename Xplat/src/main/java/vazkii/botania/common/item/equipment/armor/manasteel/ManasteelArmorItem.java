@@ -48,7 +48,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	public final Type type;
 
 	public ManasteelArmorItem(Type type, Properties props) {
-		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props.durability(type.getDurability(16)));
+		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props);
 	}
 
 	public ManasteelArmorItem(Type type, Holder<ArmorMaterial> mat, Properties props) {
