@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.block_entity.flower.functional;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -42,14 +41,20 @@ public class HyacidusBlockEntity extends FunctionalFlowerBlockEntity {
 		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
 				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				livingEntity -> livingEntity.isAlive() && !(livingEntity instanceof Player)
-						&& livingEntity.getEffect(MobEffects.POISON) == null
-						&& !livingEntity.getType().is(EntityTypeTags.UNDEAD));
+						&& !livingEntity.hasEffect(MobEffects.POISON));
+		boolean did = false;
 		for (LivingEntity entity : entities) {
-			entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, overgrowth ? 1 : 0));
-			addMana(-COST);
-			if (getMana() < COST) {
-				break;
+			if (entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, overgrowth ? 1 : 0))) {
+				addMana(-COST);
+				did = true;
+				if (getMana() < COST) {
+					break;
+				}
 			}
+		}
+
+		if (did) {
+			sync();
 		}
 	}
 

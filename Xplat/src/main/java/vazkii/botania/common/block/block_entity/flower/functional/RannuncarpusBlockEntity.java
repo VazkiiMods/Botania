@@ -123,6 +123,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 					}
 					if (getMana() > 1) {
 						addMana(-1);
+						sync();
 					}
 					EntityHelper.syncItem(item);
 					return;

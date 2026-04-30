@@ -61,6 +61,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 		if (windTicks == 0 && getMana() > 0) {
 			windTicks = 20;
 			addMana(-1);
+			sync();
 		}
 
 		if (windTicks > 0) {
