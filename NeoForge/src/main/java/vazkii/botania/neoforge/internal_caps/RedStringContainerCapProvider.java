@@ -19,7 +19,7 @@ public class RedStringContainerCapProvider implements ICapabilityProvider<RedStr
 	public IItemHandler getCapability(RedStringContainerBlockEntity container, @Nullable Direction side) {
 		BlockPos bindingPos = container.getBinding();
 		if (bindingPos != null) {
-			IItemHandler handler = container.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, container.getBlockPos(), side);
+			IItemHandler handler = container.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, bindingPos, side);
 			if (handler != null) {
 				return handler;
 			}
