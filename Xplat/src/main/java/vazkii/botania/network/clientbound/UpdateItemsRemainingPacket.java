@@ -29,7 +29,7 @@ public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable C
 
 	public static final Type<UpdateItemsRemainingPacket> ID = new Type<>(botaniaRL("rem"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, UpdateItemsRemainingPacket> STREAM_CODEC = StreamCodec.composite(
-			ItemStack.STREAM_CODEC, UpdateItemsRemainingPacket::stack,
+			ItemStack.OPTIONAL_STREAM_CODEC, UpdateItemsRemainingPacket::stack,
 			ByteBufCodecs.VAR_INT, UpdateItemsRemainingPacket::count,
 			ComponentSerialization.OPTIONAL_STREAM_CODEC.map(o -> o.orElse(null), Optional::ofNullable), UpdateItemsRemainingPacket::tooltip,
 			UpdateItemsRemainingPacket::new

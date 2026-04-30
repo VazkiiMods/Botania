@@ -36,6 +36,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.advancements.ManaBlasterTrigger;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -309,5 +310,19 @@ public class ManaBlasterItem extends Item {
 
 	private void setCooldown(ItemStack stack, int cooldown) {
 		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.COOLDOWN, cooldown);
+	}
+
+	@SoftImplement("IItemExtension")
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return slotChanged || reequipAnimation(oldStack, newStack);
+	}
+
+	@SoftImplement("FabricItem")
+	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+		return reequipAnimation(oldStack, newStack);
+	}
+
+	private boolean reequipAnimation(ItemStack before, ItemStack after) {
+		return hasClip(before) != hasClip(after) || !ItemStack.matches(getLens(before), getLens(after));
 	}
 }

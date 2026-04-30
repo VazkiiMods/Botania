@@ -237,8 +237,8 @@ public class BotaniaDataComponents {
 			builder -> builder.persistent(ExtraCodecs.intRange(0, ManaBlasterItem.CLIP_SLOTS - 1))
 					.networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DataComponentType<List<ItemStack>> ATTACHED_LENSES = make(LibComponentNames.ATTACHED_LENSES,
-			builder -> builder.persistent(ExtraCodecs.nonEmptyList(ItemStack.CODEC.sizeLimitedListOf(ManaBlasterItem.CLIP_SLOTS)))
-					.cacheEncoding().networkSynchronized(ItemStack.LIST_STREAM_CODEC));
+			builder -> builder.persistent(ExtraCodecs.nonEmptyList(ItemStack.OPTIONAL_CODEC.sizeLimitedListOf(ManaBlasterItem.CLIP_SLOTS)))
+					.cacheEncoding().networkSynchronized(ItemStack.OPTIONAL_LIST_STREAM_CODEC));
 	public static final DataComponentType<Integer> COOLDOWN = make(LibComponentNames.COOLDOWN,
 			builder -> builder.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
