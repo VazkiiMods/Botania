@@ -21,6 +21,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.rod.ShiftingCrustRodItem;
@@ -102,6 +104,12 @@ public class EnderHandItem extends Item {
 			}
 
 			return ShiftingCrustRodItem.getInventoryItemCount(player, player.getEnderChestInventory(), stack, block.asItem());
+		}
+
+		@Nullable
+		@Override
+		public Block getProvidedBlock(Player player, ItemStack requestor) {
+			return null;
 		}
 	}
 

@@ -45,6 +45,11 @@ public class DepthsRodItem extends Item {
 					? ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST)
 					: 0;
 		}
+
+		@Override
+		public Block getProvidedBlock(Player player, ItemStack requestor) {
+			return Blocks.COBBLESTONE;
+		}
 	}
 
 }

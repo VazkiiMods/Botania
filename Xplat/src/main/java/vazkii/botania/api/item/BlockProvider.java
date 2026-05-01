@@ -13,6 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.Nullable;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -42,4 +44,13 @@ public interface BlockProvider {
 	 */
 	int getBlockCount(Player player, ItemStack requestor, Block block);
 
+	/**
+	 * The value returned here may be null, to represent that the block that this provides is not easily
+	 * determinable or that this can provide multiple blocks and none of them are a 'main' block that this
+	 * item intuitively provides.
+	 *
+	 * @return the block that this provides.
+	 */
+	@Nullable
+	Block getProvidedBlock(Player player, ItemStack requestor);
 }

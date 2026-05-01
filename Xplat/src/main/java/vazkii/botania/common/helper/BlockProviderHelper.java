@@ -1,8 +1,11 @@
 package vazkii.botania.common.helper;
 
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.BlockProvider;
 
@@ -33,6 +36,12 @@ public class BlockProviderHelper {
 			}
 			return player.hasInfiniteMaterials() ? -1 : stack.getCount();
 		}
+
+		@Nullable
+		@Override
+		public Block getProvidedBlock(Player player, ItemStack requestor) {
+			return stack.getItem() instanceof BlockItem blockItem ? blockItem.getBlock() : null;
+		}
 	}
 
 	private record InfiniteItemStackBlockProvider(ItemStack stack) implements BlockProvider {
@@ -49,6 +58,12 @@ public class BlockProviderHelper {
 		@Override
 		public int getBlockCount(Player player, ItemStack requester, Block block) {
 			return stack.is(block.asItem()) ? -1 : 0;
+		}
+
+		@Nullable
+		@Override
+		public Block getProvidedBlock(Player player, ItemStack requestor) {
+			return stack.getItem() instanceof BlockItem blockItem ? blockItem.getBlock() : null;
 		}
 	}
 }

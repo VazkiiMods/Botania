@@ -245,6 +245,11 @@ public class BlackHoleTalismanItem extends Item {
 			}
 			return 0;
 		}
+
+		@Override
+		public @Nullable Block getProvidedBlock(Player player, ItemStack requestor) {
+			return getBlock(stack);
+		}
 	}
 
 	@Override

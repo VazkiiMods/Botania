@@ -89,6 +89,11 @@ public class LandsRodItem extends Item {
 					? ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST)
 					: 0;
 		}
+
+		@Override
+		public Block getProvidedBlock(Player player, ItemStack requestor) {
+			return Blocks.DIRT;
+		}
 	}
 
 	public static class AvatarBehavior implements AvatarWieldable {
