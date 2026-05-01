@@ -12,6 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * An Item that has this capability can provide blocks to other items that use them.
  * For example, the Black Hole Talisman uses this in order to allow for
@@ -37,4 +39,15 @@ public interface BlockProvider {
 	 */
 	int getBlockCount(Player player, ItemStack requestor, Block block);
 
+	/**
+	 * The value returned here may be null, to represent that the block that this provides is not easily
+	 * determinable or that this can provide multiple blocks and none of them are a 'main' block that this
+	 * item intuitively provides.
+	 * 
+	 * @return the block that this provides.
+	 */
+	@Nullable // TODO: in 1.21 this may be able to be made not default as a breaking API change
+	default Block getProvidedBlock(Player player, ItemStack requestor) {
+		return null;
+	}
 }

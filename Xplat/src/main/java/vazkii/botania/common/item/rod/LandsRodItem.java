@@ -99,6 +99,11 @@ public class LandsRodItem extends Item {
 			}
 			return 0;
 		}
+
+		@Override
+		public Block getProvidedBlock(Player player, ItemStack requestor) {
+			return Blocks.DIRT;
+		}
 	}
 
 	public static class AvatarBehavior implements AvatarWieldable {
