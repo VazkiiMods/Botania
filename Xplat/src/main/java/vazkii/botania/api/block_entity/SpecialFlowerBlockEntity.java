@@ -18,6 +18,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -211,8 +212,9 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	}
 
 	public void sync() {
-		level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(),
-				FloatingSpecialFlowerBlock.UPDATE_CLIENTS);
+		if (level != null) {
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+		}
 	}
 
 	/**
