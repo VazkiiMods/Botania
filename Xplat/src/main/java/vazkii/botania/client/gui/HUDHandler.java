@@ -131,7 +131,7 @@ public final class HUDHandler {
 
 			ClientLevel level = mc.level;
 			BlockState state = level.getBlockState(bpos);
-			BlockEntity tile = level.getBlockEntity(bpos);
+			BlockEntity tile = state.hasBlockEntity() ? level.getBlockEntity(bpos) : null;
 
 			if (PlayerHelper.hasAnyHeldItem(localPlayer)) {
 				boolean alternateRecipeHudPosition = false;
@@ -162,14 +162,31 @@ public final class HUDHandler {
 					profiler.push("crystalCube");
 					CorporeaCrystalCubeBlockEntity.Hud.render(cube, gui, window, font, partialTick);
 					profiler.pop();
+				} else if (ManaseerMonocleItem.hasMonocle(localPlayer)) {
+					var hud = ClientXplatAbstractions.INSTANCE.findMonocleHud(level, bpos, state, tile);
+					if (hud != null) {
+						profiler.push("monocle");
+						hud.renderHUD(gui, window, font, partialTick);
+						profiler.pop();
+					}
 				}
 			}
 		} else if (pos instanceof EntityHitResult result) {
-			var hud = ClientXplatAbstractions.INSTANCE.findWandHud(result.getEntity());
-			if (hud != null && PlayerHelper.hasHeldItemClass(localPlayer, WandOfTheForestItem.class)) {
-				profiler.push("wandItemEntityHud");
-				hud.renderHUD(gui, window, font, partialTick);
-				profiler.pop();
+			if (PlayerHelper.hasHeldItemClass(localPlayer, WandOfTheForestItem.class)) {
+				var hud = ClientXplatAbstractions.INSTANCE.findWandHud(result.getEntity());
+				if (hud != null) {
+					profiler.push("wandItemEntityHud");
+					hud.renderHUD(gui, window, font, partialTick);
+					profiler.pop();
+				}
+			}
+			if (ManaseerMonocleItem.hasMonocle(localPlayer)) {
+				var hud = ClientXplatAbstractions.INSTANCE.findMonocleHud(result.getEntity());
+				if (hud != null) {
+					profiler.push("monocleEntityHud");
+					hud.renderHUD(gui, window, font, partialTick);
+					profiler.pop();
+				}
 			}
 		}
 
@@ -192,12 +209,6 @@ public final class HUDHandler {
 		if (!main.isEmpty() && main.getItem() instanceof SextantItem) {
 			profiler.push("sextant");
 			SextantItem.Hud.render(gui, localPlayer, main);
-			profiler.pop();
-		}
-
-		if (ManaseerMonocleItem.hasMonocle(localPlayer)) {
-			profiler.push("monocle");
-			ManaseerMonocleItem.Hud.render(gui, localPlayer);
 			profiler.pop();
 		}
 

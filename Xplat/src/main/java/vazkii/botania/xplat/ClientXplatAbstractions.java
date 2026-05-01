@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.ServiceUtil;
+import vazkii.botania.api.block.MonocleHud;
 import vazkii.botania.api.block.WandHUD;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -38,6 +39,12 @@ public interface ClientXplatAbstractions {
 
 	@Nullable
 	WandHUD findWandHud(Entity entity);
+
+	@Nullable
+	MonocleHud findMonocleHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity);
+
+	@Nullable
+	MonocleHud findMonocleHud(Entity entity);
 
 	// Rendering stuff
 

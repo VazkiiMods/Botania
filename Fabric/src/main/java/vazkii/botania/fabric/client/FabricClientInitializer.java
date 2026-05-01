@@ -11,6 +11,8 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
+import net.fabricmc.fabric.api.lookup.v1.entity.EntityApiLookup;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.particle.ParticleProvider;
@@ -45,12 +47,14 @@ import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.gui.bag.ColoredContentsPouchScreen;
 import vazkii.botania.client.gui.box.BaubleBoxGui;
+import vazkii.botania.client.gui.monocle.MonocleHUDs;
 import vazkii.botania.client.integration.ears.EarsIntegration;
 import vazkii.botania.client.model.BotaniaLayerDefinitions;
 import vazkii.botania.client.model.armor.ArmorModels;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.*;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
@@ -138,8 +142,35 @@ public class FabricClientInitializer implements ClientModInitializer {
 	}
 
 	private static void registerCapabilities() {
-		BotaniaEntities.registerWandHudCaps((factory, types) -> BotaniaFabricClientCapabilities.ENTITY_WAND_HUD.registerForTypes((e, c) -> factory.apply(e), types));
-		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> factory.apply(be), types));
+		BotaniaEntities.registerWandHudCaps(getECapConsumer(BotaniaFabricClientCapabilities.ENTITY_WAND_HUD));
+		MonocleHUDs.registerMonocleHudCaps(getECapConsumer(BotaniaFabricClientCapabilities.ENTITY_MONOCLE_HUD), false);
+		MonocleHUDs.registerMonocleHudFallbackCaps(getEntityFallbackCapsConsumer(BotaniaFabricClientCapabilities.ENTITY_MONOCLE_HUD));
+
+		BotaniaBlockEntities.registerWandHudCaps(
+				(factory, types) -> BotaniaFabricClientCapabilities.BLOCK_WAND_HUD.registerForBlockEntities(
+						(be, c) -> factory.apply(be), types));
+
+		MonocleHUDs.registerMonocleHudCaps(getBCapConsumer(BotaniaFabricClientCapabilities.BLOCK_MONOCLE_HUD), null);
+		MonocleHUDs.registerMonocleHudFallbackCaps(getBFallbackCapConsumer(BotaniaFabricClientCapabilities.BLOCK_MONOCLE_HUD));
+	}
+
+	private static <T, C> BotaniaBlocks.BCapConsumer<T> getBCapConsumer(BlockApiLookup<T, C> apiLookup) {
+		return (factory, blocks) -> apiLookup.registerForBlocks(
+				(world, pos, state, blockEntity, context) -> factory.apply(state), blocks);
+	}
+
+	private static <T, C> BotaniaBlocks.BCapFallbackConsumer<T> getBFallbackCapConsumer(BlockApiLookup<T, C> apiLookup) {
+		return factory -> apiLookup.registerFallback(
+				(world, pos, state, blockEntity, context) -> factory.apply(state));
+	}
+
+	private static <T, C> BotaniaEntities.ECapConsumer<T> getECapConsumer(EntityApiLookup<T, C> apiLookup) {
+		return (factory, types) -> apiLookup.registerForTypes(
+				(e, c) -> factory.apply(e), types);
+	}
+
+	private static <T, C> BotaniaEntities.ECapFallbackConsumer<T> getEntityFallbackCapsConsumer(EntityApiLookup<T, C> apiLookup) {
+		return factory -> apiLookup.registerFallback((e, c) -> factory.apply(e));
 	}
 
 	private static void registerArmors() {

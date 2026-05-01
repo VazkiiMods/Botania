@@ -27,6 +27,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
+import vazkii.botania.api.block.MonocleHud;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.neoforge.client.integration.embeddium.EmbeddiumHelper;
@@ -55,6 +56,18 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public WandHUD findWandHud(Entity entity) {
 		return entity.getCapability(BotaniaForgeClientCapabilities.ENTITY_WAND_HUD);
+	}
+
+	@Nullable
+	@Override
+	public MonocleHud findMonocleHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		return level.getCapability(BotaniaForgeClientCapabilities.BLOCK_MONOCLE_HUD, pos, state, be);
+	}
+
+	@Nullable
+	@Override
+	public MonocleHud findMonocleHud(Entity entity) {
+		return entity.getCapability(BotaniaForgeClientCapabilities.ENTITY_MONOCLE_HUD);
 	}
 
 	@Nullable

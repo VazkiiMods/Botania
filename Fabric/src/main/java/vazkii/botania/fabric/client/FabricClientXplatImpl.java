@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
+import vazkii.botania.api.block.MonocleHud;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.fabric.integration.sodium.SodiumFabricHelper;
@@ -44,14 +45,26 @@ public class FabricClientXplatImpl implements ClientXplatAbstractions {
 
 	@Nullable
 	@Override
-	public WandHUD findWandHud(Level level, BlockPos pos, BlockState state, BlockEntity be) {
-		return BotaniaFabricClientCapabilities.WAND_HUD.find(level, pos, state, be, Unit.INSTANCE);
+	public WandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		return BotaniaFabricClientCapabilities.BLOCK_WAND_HUD.find(level, pos, state, be, Unit.INSTANCE);
 	}
 
 	@Nullable
 	@Override
 	public WandHUD findWandHud(Entity entity) {
 		return BotaniaFabricClientCapabilities.ENTITY_WAND_HUD.find(entity, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public MonocleHud findMonocleHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		return BotaniaFabricClientCapabilities.BLOCK_MONOCLE_HUD.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public MonocleHud findMonocleHud(Entity entity) {
+		return BotaniaFabricClientCapabilities.ENTITY_MONOCLE_HUD.find(entity, Unit.INSTANCE);
 	}
 
 	@Override

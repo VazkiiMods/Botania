@@ -18,6 +18,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.common.lib.LibEntityNames;
 
@@ -164,8 +166,14 @@ public final class BotaniaEntities {
 		void accept(Function<Entity, T> factory, EntityType<?>... types);
 	}
 
+	@FunctionalInterface
+	public interface ECapFallbackConsumer<T> {
+		void accept(Function<Entity, @Nullable T> factory);
+	}
+
 	public static void registerWandHudCaps(ECapConsumer<WandHUD> consumer) {
 		consumer.accept(e -> new ManaSparkEntity.WandHud((ManaSparkEntity) e), SPARK);
 		consumer.accept(e -> new CorporeaSparkEntity.WandHud((CorporeaSparkEntity) e), CORPOREA_SPARK);
 	}
+
 }

@@ -27,6 +27,7 @@ import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -2123,5 +2124,15 @@ public final class BotaniaBlocks {
 
 		//noinspection unchecked
 		return (T) targetBlock;
+	}
+
+	@FunctionalInterface
+	public interface BCapConsumer<T> {
+		void accept(Function<BlockState, T> factory, Block... blocks);
+	}
+
+	@FunctionalInterface
+	public interface BCapFallbackConsumer<T> {
+		void accept(Function<BlockState, @Nullable T> factory);
 	}
 }

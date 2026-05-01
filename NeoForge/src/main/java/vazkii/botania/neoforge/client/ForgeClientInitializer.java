@@ -14,6 +14,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -24,6 +25,8 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.capabilities.BlockCapability;
+import net.neoforged.neoforge.capabilities.EntityCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
@@ -46,6 +49,7 @@ import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.gui.bag.ColoredContentsPouchScreen;
 import vazkii.botania.client.gui.box.BaubleBoxGui;
+import vazkii.botania.client.gui.monocle.MonocleHUDs;
 import vazkii.botania.client.integration.ears.EarsIntegration;
 import vazkii.botania.client.model.BotaniaLayerDefinitions;
 import vazkii.botania.client.model.armor.ArmorModels;
@@ -166,11 +170,37 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	private static void attachClientCapabilities(RegisterCapabilitiesEvent e) {
-		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> Stream.of(types).forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeClientCapabilities.BLOCK_WAND_HUD, blockEntityType,
-				(blockEntity, context) -> factory.apply(blockEntity))));
+		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> Stream.of(types).forEach(
+				blockEntityType -> e.registerBlockEntity(
+						BotaniaForgeClientCapabilities.BLOCK_WAND_HUD,
+						blockEntityType,
+						(blockEntity, context) -> factory.apply(blockEntity)
+				)
+		));
 
-		BotaniaEntities.registerWandHudCaps((factory, types) -> Stream.of(types).forEach(entityType -> e.registerEntity(BotaniaForgeClientCapabilities.ENTITY_WAND_HUD, entityType,
-				(entity, context) -> factory.apply(entity))));
+		BotaniaEntities.registerWandHudCaps(getECapConsumer(e, BotaniaForgeClientCapabilities.ENTITY_WAND_HUD));
+		MonocleHUDs.registerMonocleHudCaps(getECapConsumer(e, BotaniaForgeClientCapabilities.ENTITY_MONOCLE_HUD), true);
+
+		MonocleHUDs.registerMonocleHudCaps(getBCapsConsumer(e, BotaniaForgeClientCapabilities.BLOCK_MONOCLE_HUD),
+				b -> !e.isBlockRegistered(BotaniaForgeClientCapabilities.BLOCK_MONOCLE_HUD, b));
+	}
+
+	private static <T, C> BotaniaBlocks.BCapConsumer<T> getBCapsConsumer(RegisterCapabilitiesEvent e,
+			BlockCapability<T, C> capability) {
+		return (factory, blocks) -> e.registerBlock(
+				capability,
+				(level, pos, state, blockEntity, context) -> factory.apply(state),
+				blocks
+		);
+	}
+
+	private static <C> BotaniaEntities.ECapConsumer<C> getECapConsumer(RegisterCapabilitiesEvent e,
+			EntityCapability<C, Void> capability) {
+		return (factory, types) -> {
+			for (EntityType<?> entityType : types) {
+				e.registerEntity(capability, entityType, (entity, context) -> factory.apply(entity));
+			}
+		};
 	}
 
 	@SubscribeEvent
