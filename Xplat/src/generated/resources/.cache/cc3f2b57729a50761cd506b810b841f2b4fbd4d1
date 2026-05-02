@@ -1,18 +1,18 @@
 // 1.21.1	Botania/Botania runic altar recipes
 2efb405bb8bb7c30d05ff6dfe28608ebe40da087 data/botania/recipe/runic_altar/air.json
 152b1f4c2303af6844efe68f3eedbce209699bc5 data/botania/recipe/runic_altar/autumn.json
-c4b067d77dd149f3280f7e38f31808a0517b11db data/botania/recipe/runic_altar/earth.json
-f4ec56a0dbbf85a3f5eebfb27af26d3af58f1467 data/botania/recipe/runic_altar/envy.json
-187436bf0a63a7c2f71dc03f902e1b685982c049 data/botania/recipe/runic_altar/fire.json
-5769692a1677bb4547254832a4fdc7a951cbdb28 data/botania/recipe/runic_altar/gluttony.json
-620ea5bd40e1b39d4782ddf42a1f6525361fdba5 data/botania/recipe/runic_altar/greed.json
+3af7d291f982d8109e52e073d0f21f8500e7c411 data/botania/recipe/runic_altar/earth.json
+59fff07a4b6c50c99bfd5a5d8ead903d242346b2 data/botania/recipe/runic_altar/envy.json
+7ac8be326c5d3983f688a06e58a3f36cb73db4f3 data/botania/recipe/runic_altar/fire.json
+f162af0120099601faf7636c765376c4e5e4e2f5 data/botania/recipe/runic_altar/gluttony.json
+232258251e0450b2ad23e2941515fb8862252b75 data/botania/recipe/runic_altar/greed.json
 24323ab684f5cd99a4ddff0bf4f7fbb7a1772af9 data/botania/recipe/runic_altar/head.json
-885dd289ad724bb8d15f4d1ac5b73bb2a4d3544c data/botania/recipe/runic_altar/lust.json
+d2c8b10e84ac34f93cfd1f2ae327ec3fa46e6ef8 data/botania/recipe/runic_altar/lust.json
 b7d66030a0dc7304d9ae88de3c044ace04b43705 data/botania/recipe/runic_altar/mana.json
-b8ee42abe9b059f01ef0a7a32124c0793b07f0d9 data/botania/recipe/runic_altar/pride.json
-f8770c68b156583822378e0d19f062a9629f949c data/botania/recipe/runic_altar/sloth.json
+18864367d6f156387bac9647855170287b757ad9 data/botania/recipe/runic_altar/pride.json
+77e37b2319411f4b5b243d49e55c00d9a0c2cdab data/botania/recipe/runic_altar/sloth.json
 feee7cb971ab9c3395c22dea35b254100f4a026a data/botania/recipe/runic_altar/spring.json
 c20d2067c26d4a29dd3dae05ead13e503f26e008 data/botania/recipe/runic_altar/summer.json
 1ad7888923723abcf341bae996f96f01b756d186 data/botania/recipe/runic_altar/water.json
 c5ad0b83565cd9c03c22f82c17829385f7e5ba45 data/botania/recipe/runic_altar/winter.json
-b9f5ae6f2460c654d81da664e3dfd94ad1412819 data/botania/recipe/runic_altar/wrath.json
+bbef56a1ea8bda4d686ced618a1a241618b38473 data/botania/recipe/runic_altar/wrath.json

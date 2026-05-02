@@ -21,7 +21,7 @@
       "tag": "c:storage_blocks/lapis"
     },
     "M": {
-      "tag": "c:storage_blocks/manasteel"
+      "item": "botania:mana_quartz"
     }
   },
   "pattern": [
