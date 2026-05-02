@@ -428,7 +428,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.define('3', BotaniaItems.runeAir)
 				.define('8', BotaniaItems.runeMana)
 				.define('L', ConventionalItemTags.STORAGE_BLOCKS_LAPIS)
-				.define('M', ConventionalBotaniaTags.Items.MANASTEEL_STORAGE_BLOCKS)
+				.define('M', BotaniaBlocks.manaQuartz)
 				.pattern("LLL")
 				.pattern("0M1")
 				.pattern("283")

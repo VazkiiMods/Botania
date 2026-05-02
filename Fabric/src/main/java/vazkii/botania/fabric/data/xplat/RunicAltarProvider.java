@@ -48,17 +48,15 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 		final int costTier3 = 12000;
 
 		Ingredient manaSteel = Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS);
-		Ingredient manaDiamond = Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS);
 		Ingredient manaPowder = Ingredient.of(ConventionalBotaniaTags.Items.MANA_DUSTS);
 
 		Ingredient stone = Ingredient.of(Blocks.STONE);
-		Ingredient coalBlock = Ingredient.of(ConventionalItemTags.STORAGE_BLOCKS_COAL);
 		defaultReagent(consumer, idFor("water"), new ItemStack(BotaniaItems.runeWater, 2), costTier1,
 				manaPowder, manaSteel, Ingredient.of(Items.BONE_MEAL), Ingredient.of(Blocks.SUGAR_CANE), Ingredient.of(ConventionalItemTags.FISHING_ROD_TOOLS));
 		defaultReagent(consumer, idFor("fire"), new ItemStack(BotaniaItems.runeFire, 2), costTier1,
-				manaPowder, manaSteel, Ingredient.of(ConventionalItemTags.NETHER_BRICKS), Ingredient.of(Items.GUNPOWDER), Ingredient.of(Items.NETHER_WART));
+				manaPowder, manaSteel, Ingredient.of(ConventionalItemTags.NETHER_BRICKS), Ingredient.of(Items.GUNPOWDER), Ingredient.of(Items.COAL, Items.CHARCOAL));
 		defaultReagent(consumer, idFor("earth"), new ItemStack(BotaniaItems.runeEarth, 2), costTier1,
-				manaPowder, manaSteel, stone, coalBlock, Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM));
+				manaPowder, manaSteel, stone, Ingredient.of(Blocks.MUD), Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM));
 		defaultReagent(consumer, idFor("air"), new ItemStack(BotaniaItems.runeAir, 2), costTier1,
 				manaPowder, manaSteel, Ingredient.of(ItemTags.WOOL_CARPETS), Ingredient.of(Items.FEATHER), Ingredient.of(Items.STRING));
 
@@ -91,20 +89,23 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 				manaSteel, manaSteel, manaSteel, manaSteel, manaSteel, Ingredient.of(
 						ConventionalBotaniaTags.Items.MANA_PEARL_GEMS));
 
+		Ingredient manaDiamond = Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS);
+		Ingredient manaQuartz = Ingredient.of(ConventionalBotaniaTags.Items.MANA_QUARTZ_GEMS);
+
 		defaultReagent(consumer, idFor("lust"), new ItemStack(BotaniaItems.runeLust), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, summer, air);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, summer, air);
 		defaultReagent(consumer, idFor("gluttony"), new ItemStack(BotaniaItems.runeGluttony), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, winter, fire);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, winter, fire);
 		defaultReagent(consumer, idFor("greed"), new ItemStack(BotaniaItems.runeGreed), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, spring, water);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, spring, water);
 		defaultReagent(consumer, idFor("sloth"), new ItemStack(BotaniaItems.runeSloth), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, autumn, air);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, autumn, air);
 		defaultReagent(consumer, idFor("wrath"), new ItemStack(BotaniaItems.runeWrath), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, winter, earth);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, winter, earth);
 		defaultReagent(consumer, idFor("envy"), new ItemStack(BotaniaItems.runeEnvy), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, winter, water);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, winter, water);
 		defaultReagent(consumer, idFor("pride"), new ItemStack(BotaniaItems.runePride), costTier3,
-				new Ingredient[] { manaDiamond, manaDiamond }, summer, fire);
+				new Ingredient[] { manaDiamond, manaDiamond, manaQuartz }, summer, fire);
 
 		consumer.accept(idFor("head"), new HeadRecipe(new ItemStack(Items.PLAYER_HEAD), DEFAULT_REAGENT, 22500,
 				Ingredient.of(Items.SKELETON_SKULL), Ingredient.of(ConventionalBotaniaTags.Items.PIXIE_DUSTS),
