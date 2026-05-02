@@ -131,6 +131,7 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Item> MANA_USING_ITEMS = tag("mana_using_items");
 		public static final TagKey<Item> SEED_APOTHECARY_REAGENT = tag("seed_apothecary_reagent");
+		public static final TagKey<Item> MANA_POWDER_SOURCE_DUSTS = tag("mana_powder_source_dusts");
 
 		/**
 		 * Block provider items in this tag can be auto-selected via the vanilla "Pick Block" feature.

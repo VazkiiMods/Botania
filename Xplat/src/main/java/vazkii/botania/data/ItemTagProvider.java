@@ -245,6 +245,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(icePendant,
 				manaweaveHelm, manaweaveChest, manaweaveLegs, manaweaveBoots);
 
+		this.tag(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS)
+				.add(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
+
 		this.tag(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER)
 				.add(dirtRod, skyDirtRod, cobbleRod, blackHoleTalisman);
 
