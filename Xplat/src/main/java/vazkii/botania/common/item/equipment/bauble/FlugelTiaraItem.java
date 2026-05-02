@@ -81,7 +81,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
 		for (int i = 0; i < SUBTYPES + 1; i++) {
 			ItemStack stack = new ItemStack(this);
-			stack.set(BotaniaDataComponents.TIARA_VARIANT, i);
+			setVariant(stack, i);
 			output.accept(stack);
 		}
 

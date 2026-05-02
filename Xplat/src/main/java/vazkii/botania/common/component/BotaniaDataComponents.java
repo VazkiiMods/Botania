@@ -204,7 +204,7 @@ public class BotaniaDataComponents {
 
 	// Flügel Tiara components, TODO: subject to future reorganization
 	public static final DataComponentType<Integer> TIARA_VARIANT = make(LibComponentNames.TIARA_VARIANT,
-			builder -> builder.persistent(ExtraCodecs.intRange(0, 9)).networkSynchronized(ByteBufCodecs.VAR_INT));
+			builder -> builder.persistent(ExtraCodecs.intRange(1, 9)).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DataComponentType<Integer> REMAINING_TICKS = make(LibComponentNames.REMAINING_TICKS,
 			builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DataComponentType<Integer> MAX_USE_TICKS = make(LibComponentNames.MAX_USE_TICKS,
