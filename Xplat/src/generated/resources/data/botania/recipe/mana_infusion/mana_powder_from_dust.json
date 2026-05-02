@@ -1,5 +1,6 @@
 {
   "type": "botania:mana_infusion",
+  "group": "botania:mana_powder",
   "input": {
     "tag": "botania:mana_powder_source_dusts"
   },
