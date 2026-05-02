@@ -57,7 +57,7 @@ public abstract class BotaniaEmiRecipe implements EmiRecipe {
 		return group;
 	}
 
-	protected RegistryAccess getRegistryAccess() {
+	public static RegistryAccess getRegistryAccess() {
 		var level = Minecraft.getInstance().level;
 		return level != null ? level.registryAccess() : RegistryAccess.EMPTY;
 	}

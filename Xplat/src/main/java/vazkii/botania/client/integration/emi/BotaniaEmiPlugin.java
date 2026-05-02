@@ -12,9 +12,14 @@ import dev.emi.emi.api.stack.EmiStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
@@ -26,7 +31,10 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.*;
+import vazkii.botania.common.crafting.recipe.TiaraWingsRecipe;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.GrassSeedsItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -156,6 +164,12 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.setDefaultComparison(BotaniaItems.incenseStick, Comparison.compareComponents());
 		registry.setDefaultComparison(BotaniaItems.flightTiara, Comparison.compareComponents());
 
+		for (RecipeHolder<CraftingRecipe> recipe : registry.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING)) {
+			if (recipe.value() instanceof TiaraWingsRecipe tiaraWingsRecipe) {
+				registry.addRecipe(new TiaraWingsEmiRecipe(tiaraWingsRecipe, recipe.id()));
+			}
+		}
+
 		registry.addRecipe(new AncientWillEmiRecipe(EmiStack.of(BotaniaItems.terrasteelHelm), EmiIngredient.of(List.of(
 				EmiStack.of(BotaniaItems.ancientWillAhrim),
 				EmiStack.of(BotaniaItems.ancientWillDharok),
@@ -230,15 +244,51 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 				BotaniaTags.Items.DYED_CREATIVE_POOLS, BotaniaBlocks.creativePool
 		).entrySet()) {
 			ManaPoolBlock poolBlock = e.getValue();
+			ResourceLocation poolBlockId = BuiltInRegistries.BLOCK.getKey(poolBlock);
+			EmiIngredient inputPool = EmiIngredient.of(e.getKey());
+			EmiStack undyedPool = EmiStack.of(poolBlock);
 			registry.addRecipe(EmiWorldInteractionRecipe.builder()
-					.id(BuiltInRegistries.BLOCK.getKey(poolBlock).withPrefix("/world/cauldron_washing/"))
-					.leftInput(EmiIngredient.of(e.getKey()))
+					.id(poolBlockId.withPrefix("/world/cauldron_washing/"))
+					.leftInput(inputPool)
 					.rightInput(cauldron, true)
 					.rightInput(waterThird, false)
-					.output(EmiStack.of(poolBlock))
+					.output(undyedPool)
 					.supportsRecipeTree(false)
 					.build());
+			registry.addRecipe(EmiWorldInteractionRecipe.builder()
+					.id(poolBlockId.withPrefix("/world/pool_cleaning/"))
+					.leftInput(inputPool)
+					.rightInput(EmiIngredient.of(BotaniaTags.Items.MANA_POOL_DYE_REMOVER), false)
+					.output(undyedPool)
+					.supportsRecipeTree(false)
+					.build());
+			ColorHelper.supportedColors().forEach(color -> {
+				Item petalItem = BotaniaItems.getPetal(color);
+				ManaPoolBlock dyedPoolBlock = BotaniaBlocks.findOptionallyDyedBlock(poolBlock, color);
+				ResourceLocation dyedPoolBlockId = BuiltInRegistries.BLOCK.getKey(dyedPoolBlock);
+				registry.addRecipe(EmiWorldInteractionRecipe.builder()
+						.id(dyedPoolBlockId.withPrefix("/world/pool_dyeing/"))
+						.leftInput(EmiIngredient.of(List.of(inputPool, undyedPool)))
+						.rightInput(EmiStack.of(petalItem), false)
+						.output(EmiStack.of(dyedPoolBlock))
+						.supportsRecipeTree(false)
+						.build());
+			});
 		}
+
+		// pasture seed usage
+		EmiIngredient dirtBlock = EmiIngredient.of(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE);
+		BuiltInRegistries.ITEM.stream().filter(GrassSeedsItem.class::isInstance).map(GrassSeedsItem.class::cast)
+				.forEach(item -> {
+					Block grassBlock = item.getGrassBlock();
+					registry.addRecipe(EmiWorldInteractionRecipe.builder()
+							.id(BuiltInRegistries.ITEM.getKey(item).withPrefix("/world/grass_conversion/"))
+							.leftInput(dirtBlock)
+							.rightInput(EmiIngredient.of(Ingredient.of(item)), false)
+							.output(EmiStack.of(grassBlock))
+							.supportsRecipeTree(false)
+							.build());
+				});
 	}
 
 	public static int rotateXAround(int x, int y, int cx, int cy, double degrees) {
