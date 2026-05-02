@@ -33,6 +33,7 @@ import vazkii.botania.common.crafting.ManaInfusionRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -59,13 +60,10 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		normal(consumer, id("mana_diamond"), new ItemStack(BotaniaItems.manaDiamond), Ingredient.of(ConventionalItemTags.DIAMOND_GEMS), 10000);
 		normal(consumer, id("mana_diamond_block"), new ItemStack(BotaniaBlocks.manaDiamondBlock), ingr(ConventionalItemTags.STORAGE_BLOCKS_DIAMOND), 90000);
 
-		// TODO: make this a tag
-		// I think the tag exists, so EMI picks it up, but it might as well be in the recipe
-		Ingredient dust = Ingredient.of(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
-		normal(consumer, id("mana_powder_dust"), new ItemStack(BotaniaItems.manaPowder), dust, 500);
-		// TODO: this one too
-		Ingredient dyeIngredient = Ingredient.of(ColorHelper.supportedColors().map(DyeItem::byColor).toArray(Item[]::new));
-		normal(consumer, id("mana_powder_dye"), new ItemStack(BotaniaItems.manaPowder), dyeIngredient, 400);
+		normal(consumer, id("mana_powder_from_dust"), new ItemStack(BotaniaItems.manaPowder),
+				Ingredient.of(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS), 500);
+		normal(consumer, id("mana_powder_from_dye"), new ItemStack(BotaniaItems.manaPowder),
+				Ingredient.of(ConventionalItemTags.DYES), 400);
 
 		normal(consumer, id("piston_relay"), new ItemStack(BotaniaBlocks.pistonRelay), ingr(Blocks.PISTON), 15000);
 		normal(consumer, id("mana_cookie"), new ItemStack(BotaniaItems.manaCookie), ingr(Items.COOKIE), 20000);

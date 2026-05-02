@@ -78,8 +78,8 @@
       "text": "botania.page.pool6",
       "anchor": "mana_dust",
       "recipes": [
-        "botania:mana_infusion/mana_powder_dust",
-        "botania:mana_infusion/mana_powder_dye"
+        "botania:mana_infusion/mana_powder_from_dust",
+        "botania:mana_infusion/mana_powder_from_dye"
       ]
     },
     {
