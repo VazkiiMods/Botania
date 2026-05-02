@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.mana_using_items": "Consommateur de mana",
   "tag.item.botania.mini_flowers": "Petites fleurs",
   "tag.item.botania.misc_special_flowers": "Flore diverse",
@@ -2987,47 +2988,42 @@
   "botania.page.manaAlchemy3": "Transmuter les $(item)bûches$(0)",
   "botania.page.manaAlchemy30": "Pousse",
   "botania.page.manaAlchemy4": "Transmuter les $(item)pousses$(0)",
-  "botania.page.manaAlchemyFroglightCycle.title": "Grelampe",
-  "botania.page.manaAlchemyFroglightCycle": "Transmuter en $(item)grelampe$(0)",
-  "botania.page.manaAlchemy5": "Transmuter en$(br)$(item)poudre lumineuse$(0)",
 
-  "botania.page.manaAlchemy6": "Transmuter en $(item)quartz$(0)",
-  "botania.page.manaAlchemy7": "Transmuter en $(item)pierre sculptée$(0)",
-  "botania.page.manaAlchemy8": "Transmuter en $(item)glace$(0)",
-  "botania.page.manaAlchemy32": "Lianes & nénuphars",
-  "botania.page.manaAlchemy9": "Transmuter les $(item)lianes$(0)$(br)et les $(item)nénuphars$(0)",
-  "botania.page.manaAlchemy33": "Poisson",
-  "botania.page.manaAlchemy10": "Transmuter les $(item)poissons$(0)",
+
+
+
   "botania.page.manaAlchemy34": "Graines & légumes",
   "botania.page.manaAlchemy11": "Transmuter les $(item)graines$(0)$(br)et les légumes",
-  "botania.page.manaAlchemy12": "Purifier les $(item)pommes de terre empoisonnées$(0)",
-  "botania.page.manaAlchemy13": "Transmuter en$(br)$(item)verrues du nether$(0)",
-  "botania.page.manaAlchemy14": "Transmuter en $(item)poudre à cannon$(0)",
-  "botania.page.manaAlchemy15": "Transmuter en $(item)étiquette$(0)",
-  "botania.page.manaAlchemy16": "Transmuter en $(item)ficelles$(0)",
-  "botania.page.manaAlchemy35": "Slime & cactus",
-  "botania.page.manaAlchemy17": "Transmuter les $(item)boules de Slime$(0) et le $(item)cactus$(0)",
-  "botania.page.manaAlchemy18": "Transmuter en $(item)perle de l'Ender$(0)",
-  "botania.page.manaAlchemy36": "Poudres",
-  "botania.page.manaAlchemy19": "Transmuter la $(item)poudre lumineuse$(0) et la $(item)redstone$(0)",
-  "botania.page.manaAlchemy20": "Transmuter en $(item)sable$(0)",
-  "botania.page.manaAlchemy21": "Transmuter en $(item)sable rouge$(0)",
-  "botania.page.manaAlchemy38": "Brique & argile",
-  "botania.page.manaAlchemy22": "Transmuter les $(item)briques$(0)$(br)et les $(item)mottes d'argiles$(0)",
-  "botania.page.manaAlchemy23": "Transmuter en $(item)terre stérile$(0)",
-
-  "botania.page.manaAlchemy39": "Herbe",
-  "botania.page.manaAlchemy24": "Transmuter les $(item)herbes$(0)",
   "botania.page.manaAlchemy40": "Fleur",
   "botania.page.manaAlchemy25": "Transmuter les $(item)fleurs$(0)",
 
+
+
+
   "botania.page.manaAlchemy37": "Roche",
   "botania.page.manaAlchemy26": "Transmuter les roches",
-  "botania.page.manaAlchemy27": "Transmuter en $(item)fleur de chorus$(0)",
+
+
+
+
+
+
+
+  "botania.page.manaAlchemy14": "Transmuter en $(item)poudre à cannon$(0)",
+  "botania.page.manaAlchemy36": "Poudres",
+  "botania.page.manaAlchemy19": "Transmuter la $(item)poudre lumineuse$(0) et la $(item)redstone$(0)",
   "botania.page.manaAlchemy41": "Pomme & baies",
   "botania.page.manaAlchemy28": "Transmuter les $(item)pommes$(0) et $(item)baies$(0)",
-  "botania.page.manaAlchemy42": "Roche des profondeurs",
-  "botania.page.manaAlchemy43": "Transmuter les roches des profondeurs",
+  "botania.page.manaAlchemy39": "Herbe",
+  "botania.page.manaAlchemy24": "Transmuter les $(item)herbes$(0)",
+  "botania.page.manaAlchemy33": "Poisson",
+  "botania.page.manaAlchemy10": "Transmuter les $(item)poissons$(0)",
+  "botania.page.manaAlchemy35": "Slime & cactus",
+  "botania.page.manaAlchemy17": "Transmuter les $(item)boules de Slime$(0) et le $(item)cactus$(0)",
+  "botania.page.manaAlchemy32": "Lianes & nénuphars",
+  "botania.page.manaAlchemy9": "Transmuter les $(item)lianes$(0)$(br)et les $(item)nénuphars$(0)",
+  "botania.page.manaAlchemyFroglightCycle.title": "Grelampe",
+  "botania.page.manaAlchemyFroglightCycle": "Transmuter en $(item)grelampe$(0)",
 
   "botania.entry.brewery": "Alambic botanique",
   "botania.tagline.brewery": "TAGLINE",
@@ -4155,6 +4151,21 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.manaAlchemy5": "Transmuter en$(br)$(item)poudre lumineuse$(0)",
+  "botania.page.manaAlchemy6": "Transmuter en $(item)quartz$(0)",
+  "botania.page.manaAlchemy7": "Transmuter en $(item)pierre sculptée$(0)",
+  "botania.page.manaAlchemy8": "Transmuter en $(item)glace$(0)",
+  "botania.page.manaAlchemy12": "Purifier les $(item)pommes de terre empoisonnées$(0)",
+  "botania.page.manaAlchemy13": "Transmuter en$(br)$(item)verrues du nether$(0)",
+  "botania.page.manaAlchemy15": "Transmuter en $(item)étiquette$(0)",
+  "botania.page.manaAlchemy16": "Transmuter en $(item)ficelles$(0)",
+  "botania.page.manaAlchemy18": "Transmuter en $(item)perle de l'Ender$(0)",
+  "botania.page.manaAlchemy20": "Transmuter en $(item)sable$(0)",
+  "botania.page.manaAlchemy21": "Transmuter en $(item)sable rouge$(0)",
+  "botania.page.manaAlchemy38": "Brique & argile",
+  "botania.page.manaAlchemy22": "Transmuter les $(item)briques$(0)$(br)et les $(item)mottes d'argiles$(0)",
+  "botania.page.manaAlchemy23": "Transmuter en $(item)terre stérile$(0)",
+  "botania.page.manaAlchemy27": "Transmuter en $(item)fleur de chorus$(0)",
   "_comment.alt": "Traductions alternatives",
   "_comment.lex": "Lexique de mots pertinents",
   "_comment.exp": "Explication sur la structure",

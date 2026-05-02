@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.mana_using_items": "마나를 사용하는 아이템",
   "tag.item.botania.mini_flowers": "작은 꽃",
   "tag.item.botania.misc_special_flowers": "기타 특별한 꽃",
@@ -2987,47 +2988,42 @@
   "botania.page.manaAlchemy3": "$(item)목재$(0) 변환",
   "botania.page.manaAlchemy30": "나무 묘목",
   "botania.page.manaAlchemy4": "$(item)나무 묘목$(0) 변환",
-  "botania.page.manaAlchemyFroglightCycle.title": "개구리 불빛",
-  "botania.page.manaAlchemyFroglightCycle": "$(item)개구리 불빛$(0) 변환",
-  "botania.page.manaAlchemy5": "$(item)발광석 블록$(0) 분해",
-  "botania.page.manaAlchemy31": "석영",
-  "botania.page.manaAlchemy6": "$(item)석영 블록$(0) 분해",
-  "botania.page.manaAlchemy7": "$(item)조각된 돌 벽돌$(0) 만들기",
-  "botania.page.manaAlchemy8": "$(item)눈$(0)을 $(item)얼음$(0)으로 압축",
-  "botania.page.manaAlchemy32": "덩쿨 및 연꽃",
-  "botania.page.manaAlchemy9": "$(item)덩쿨$(0) 및 $(item)연꽃$(0) 간 전환",
-  "botania.page.manaAlchemy33": "물고기",
-  "botania.page.manaAlchemy10": "$(item)물고기$(0)의 종 간 변환",
+
+
+
+
   "botania.page.manaAlchemy34": "씨앗 및 작물",
   "botania.page.manaAlchemy11": "$(item)씨앗$(0) 및 $(item)작물$(0) 간 전환",
-  "botania.page.manaAlchemy12": "$(item)독이 있는 감자$(0) 정화",
-  "botania.page.manaAlchemy13": "$(item)네더 와트$(0) 생성",
-  "botania.page.manaAlchemy14": "$(item)화약$(0)과 $(item)부싯돌$(0) 간 전환",
-  "botania.page.manaAlchemy15": "$(item)네임 태그$(0) 생성",
-  "botania.page.manaAlchemy16": "$(item)양털$(0)을 $(item)실$(0)로 분리",
-  "botania.page.manaAlchemy35": "슬라임볼 및 선인장",
-  "botania.page.manaAlchemy17": "$(item)슬라임볼$(0)과 $(item)선인장$(0) 간 전환",
-  "botania.page.manaAlchemy18": "$(item)엔더 진주$(0) 생성",
-  "botania.page.manaAlchemy36": "발광석과 레드스톤",
-  "botania.page.manaAlchemy19": "$(item)발광석$(0)과 $(item)레드스톤$(0) 간 전환",
-  "botania.page.manaAlchemy20": "$(item)자갈$(0)을 $(item)모래$(0)로 깨기",
-  "botania.page.manaAlchemy21": "$(item)점토 블록$(0)을 $(item)붉은 모래$(0)로 깨기",
-  "botania.page.manaAlchemy38": "벽돌 및 점토 공",
-  "botania.page.manaAlchemy22": "$(item)점토$(0)와 $(item)벽돌$(0) 분해",
-  "botania.page.manaAlchemy23": "$(item)거친 흙$(0) 만들기",
-
-  "botania.page.manaAlchemy39": "잔디",
-  "botania.page.manaAlchemy24": "$(item)키 큰 잔디$(0) 전환",
   "botania.page.manaAlchemy40": "꽃",
   "botania.page.manaAlchemy25": "보통의 꽃 전환",
 
+
+
+
   "botania.page.manaAlchemy37": "돌",
   "botania.page.manaAlchemy26": "돌 전환",
-  "botania.page.manaAlchemy27": "$(item)코러스 프룻$(0)을 $(item)코러스 꽃$(0)으로 전환",
+
+
+
+
+
+
+
+  "botania.page.manaAlchemy14": "$(item)화약$(0)과 $(item)부싯돌$(0) 간 전환",
+  "botania.page.manaAlchemy36": "발광석과 레드스톤",
+  "botania.page.manaAlchemy19": "$(item)발광석$(0)과 $(item)레드스톤$(0) 간 전환",
   "botania.page.manaAlchemy41": "사과 및 열매",
   "botania.page.manaAlchemy28": "$(item)사과$(0)와 $(item)열매$(0) 간 전환",
-  "botania.page.manaAlchemy42": "깊은 돌",
-  "botania.page.manaAlchemy43": "깊은 돌 전환",
+  "botania.page.manaAlchemy39": "잔디",
+  "botania.page.manaAlchemy24": "$(item)키 큰 잔디$(0) 전환",
+  "botania.page.manaAlchemy33": "물고기",
+  "botania.page.manaAlchemy10": "$(item)물고기$(0)의 종 간 변환",
+  "botania.page.manaAlchemy35": "슬라임볼 및 선인장",
+  "botania.page.manaAlchemy17": "$(item)슬라임볼$(0)과 $(item)선인장$(0) 간 전환",
+  "botania.page.manaAlchemy32": "덩쿨 및 연꽃",
+  "botania.page.manaAlchemy9": "$(item)덩쿨$(0) 및 $(item)연꽃$(0) 간 전환",
+  "botania.page.manaAlchemyFroglightCycle.title": "개구리 불빛",
+  "botania.page.manaAlchemyFroglightCycle": "$(item)개구리 불빛$(0) 변환",
 
   "botania.entry.brewery": "식물 양조장",
   "botania.tagline.brewery": "양조: 더 나은 물약 만들기",
@@ -4062,7 +4058,7 @@
   "botania.page.banners1": "현수막 패턴",
 
   "botania.entry.preventingDecay": "수치형 마나",
-  "botania.tagline.preventingDecay": "마나의 수치를 확인하기"
+  "botania.tagline.preventingDecay": "마나의 수치를 확인하기",
 
 
 
@@ -4153,4 +4149,22 @@
 
 
 
+
+  "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.manaAlchemy5": "$(item)발광석 블록$(0) 분해",
+  "botania.page.manaAlchemy31": "석영",
+  "botania.page.manaAlchemy6": "$(item)석영 블록$(0) 분해",
+  "botania.page.manaAlchemy7": "$(item)조각된 돌 벽돌$(0) 만들기",
+  "botania.page.manaAlchemy8": "$(item)눈$(0)을 $(item)얼음$(0)으로 압축",
+  "botania.page.manaAlchemy12": "$(item)독이 있는 감자$(0) 정화",
+  "botania.page.manaAlchemy13": "$(item)네더 와트$(0) 생성",
+  "botania.page.manaAlchemy15": "$(item)네임 태그$(0) 생성",
+  "botania.page.manaAlchemy16": "$(item)양털$(0)을 $(item)실$(0)로 분리",
+  "botania.page.manaAlchemy18": "$(item)엔더 진주$(0) 생성",
+  "botania.page.manaAlchemy20": "$(item)자갈$(0)을 $(item)모래$(0)로 깨기",
+  "botania.page.manaAlchemy21": "$(item)점토 블록$(0)을 $(item)붉은 모래$(0)로 깨기",
+  "botania.page.manaAlchemy38": "벽돌 및 점토 공",
+  "botania.page.manaAlchemy22": "$(item)점토$(0)와 $(item)벽돌$(0) 분해",
+  "botania.page.manaAlchemy23": "$(item)거친 흙$(0) 만들기",
+  "botania.page.manaAlchemy27": "$(item)코러스 프룻$(0)을 $(item)코러스 꽃$(0)으로 전환"
 }

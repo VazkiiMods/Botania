@@ -351,6 +351,7 @@
   "tag.item.botania.loonium_offhand_equipment": "Экипировка во вторую руку из лутюльпана",
 
 
+
   "tag.item.botania.mana_using_items": "Предметы, использующие ману",
   "tag.item.botania.mini_flowers": "Миниатюрные цветы",
   "tag.item.botania.misc_special_flowers": "Некатегорированные особые цветы",
@@ -2987,47 +2988,42 @@
   "botania.page.manaAlchemy3": "Трансмутация $(item)дерева$(0) из вида в вид",
   "botania.page.manaAlchemy30": "Саженец",
   "botania.page.manaAlchemy4": "Трансмутация $(item)саженцев$(0) из вида в вид",
-  "botania.page.manaAlchemyFroglightCycle.title": "Квампа",
-  "botania.page.manaAlchemyFroglightCycle": "Трансмутация $(item)квамп$(0) из вида в вид",
-  "botania.page.manaAlchemy5": "Распадение $(item)светокаменных блоков$(0)",
-  "botania.page.manaAlchemy31": "Кварц",
-  "botania.page.manaAlchemy6": "Распадение $(item)кварцевых блоков$(0)",
-  "botania.page.manaAlchemy7": "Создание $(item)резных каменных кирпичей$(0)",
-  "botania.page.manaAlchemy8": "Сжатие $(item)снега$(0) в $(item)лёд$(0)",
-  "botania.page.manaAlchemy32": "Лоза и кувшинка",
-  "botania.page.manaAlchemy9": "Обратимая конвертация $(item)кувшинок$(0) и $(item)лозы$(0)",
-  "botania.page.manaAlchemy33": "Рыба",
-  "botania.page.manaAlchemy10": "Трансмутация $(item)рыб$(0) из вида в вид",
+
+
+
+
   "botania.page.manaAlchemy34": "Семена и культуры",
   "botania.page.manaAlchemy11": "Трансмутация $(item)семян$(0) и $(item)культур$(0)",
-  "botania.page.manaAlchemy12": "Очищение $(item)ядовитого картофеля$(0)",
-  "botania.page.manaAlchemy13": "Создание $(item)незерского нароста$(0)",
-  "botania.page.manaAlchemy14": "Обратимая конвертация $(item)пороха$(0) и $(item)кремня$(0)",
-  "botania.page.manaAlchemy15": "Создание $(item)бирок$(0)",
-  "botania.page.manaAlchemy16": "Расплетение $(item)шерсти$(0) на $(item)нити$(0)",
-  "botania.page.manaAlchemy35": "Слизь и кактус",
-  "botania.page.manaAlchemy17": "Обратимая конвертация $(item)сгустка слизи$(0) и $(item)кактуса$(0)",
-  "botania.page.manaAlchemy18": "Создание $(item)эндер-жемчуга$(0)",
-  "botania.page.manaAlchemy36": "Светокамень и редстоун",
-  "botania.page.manaAlchemy19": "Обратимая конвертация $(item)светокамня$(0) и $(item)редстоуна$(0)",
-  "botania.page.manaAlchemy20": "Распадение $(item)булыжника$(0) до $(item)песка$(0)",
-  "botania.page.manaAlchemy21": "Распадение $(item)терракоты$(0) до $(item)красного песка$(0)",
-  "botania.page.manaAlchemy38": "Кирпич и комок глины",
-  "botania.page.manaAlchemy22": "Распадение $(item)глины$(0) и $(item)кирпичей$(0)",
-  "botania.page.manaAlchemy23": "Создание $(item)каменистой земли$(0)",
-  "botania.page.manaAlchemy44": "Создание $(item)почвы душ$(0)",
-  "botania.page.manaAlchemy39": "Трава",
-  "botania.page.manaAlchemy24": "Трансмутация $(item)травы$(0) из вида в вид",
   "botania.page.manaAlchemy40": "Мирской цветок",
   "botania.page.manaAlchemy25": "Трансмутация $(item)мирских цветов$(0) из вида в вид",
-  "botania.page.manaAlchemyDripleafShrinking": "Уменьшение $(item)большой бросянки$(0)",
+
+
+
+
   "botania.page.manaAlchemy37": "Камень",
   "botania.page.manaAlchemy26": "Трансмутация $(item)камней$(0) из вида в вид",
-  "botania.page.manaAlchemy27": "Конвертация $(item)плода хоруса$(0) в $(item)цветок хоруса$(0)",
+
+
+
+
+
+
+
+  "botania.page.manaAlchemy14": "Обратимая конвертация $(item)пороха$(0) и $(item)кремня$(0)",
+  "botania.page.manaAlchemy36": "Светокамень и редстоун",
+  "botania.page.manaAlchemy19": "Обратимая конвертация $(item)светокамня$(0) и $(item)редстоуна$(0)",
   "botania.page.manaAlchemy41": "Яблоко и ягода",
   "botania.page.manaAlchemy28": "Обратимая конвертация $(item)яблок$(0) и $(item)ягод$(0)",
-  "botania.page.manaAlchemy42": "Глубинный камень",
-  "botania.page.manaAlchemy43": "Трансмутация $(item)глубинных камней$(0) из вида в вид",
+  "botania.page.manaAlchemy39": "Трава",
+  "botania.page.manaAlchemy24": "Трансмутация $(item)травы$(0) из вида в вид",
+  "botania.page.manaAlchemy33": "Рыба",
+  "botania.page.manaAlchemy10": "Трансмутация $(item)рыб$(0) из вида в вид",
+  "botania.page.manaAlchemy35": "Слизь и кактус",
+  "botania.page.manaAlchemy17": "Обратимая конвертация $(item)сгустка слизи$(0) и $(item)кактуса$(0)",
+  "botania.page.manaAlchemy32": "Лоза и кувшинка",
+  "botania.page.manaAlchemy9": "Обратимая конвертация $(item)кувшинок$(0) и $(item)лозы$(0)",
+  "botania.page.manaAlchemyFroglightCycle.title": "Квампа",
+  "botania.page.manaAlchemyFroglightCycle": "Трансмутация $(item)квамп$(0) из вида в вид",
 
   "botania.entry.brewery": "Ботанический отварщик",
   "botania.tagline.brewery": "Создаёт отвары — более эффективные зелья",
@@ -4150,7 +4146,27 @@
   "botania.subtitle.unholyCloak": "Плащ греха разделяет раны",
   "botania.subtitle.vineBallThrow": "Летит шар лозы",
   "botania.subtitle.virusInfect": "Вирус вошёл в действие",
-  "botania.subtitle.worldSeedTeleport": "Телепорт мировым семенем"
+  "botania.subtitle.worldSeedTeleport": "Телепорт мировым семенем",
 
 
+
+  "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.manaAlchemy5": "Распадение $(item)светокаменных блоков$(0)",
+  "botania.page.manaAlchemy31": "Кварц",
+  "botania.page.manaAlchemy6": "Распадение $(item)кварцевых блоков$(0)",
+  "botania.page.manaAlchemy7": "Создание $(item)резных каменных кирпичей$(0)",
+  "botania.page.manaAlchemy8": "Сжатие $(item)снега$(0) в $(item)лёд$(0)",
+  "botania.page.manaAlchemy12": "Очищение $(item)ядовитого картофеля$(0)",
+  "botania.page.manaAlchemy13": "Создание $(item)незерского нароста$(0)",
+  "botania.page.manaAlchemy15": "Создание $(item)бирок$(0)",
+  "botania.page.manaAlchemy16": "Расплетение $(item)шерсти$(0) на $(item)нити$(0)",
+  "botania.page.manaAlchemy18": "Создание $(item)эндер-жемчуга$(0)",
+  "botania.page.manaAlchemy20": "Распадение $(item)булыжника$(0) до $(item)песка$(0)",
+  "botania.page.manaAlchemy21": "Распадение $(item)терракоты$(0) до $(item)красного песка$(0)",
+  "botania.page.manaAlchemy38": "Кирпич и комок глины",
+  "botania.page.manaAlchemy22": "Распадение $(item)глины$(0) и $(item)кирпичей$(0)",
+  "botania.page.manaAlchemy23": "Создание $(item)каменистой земли$(0)",
+  "botania.page.manaAlchemy44": "Создание $(item)почвы душ$(0)",
+  "botania.page.manaAlchemyDripleafShrinking": "Уменьшение $(item)большой бросянки$(0)",
+  "botania.page.manaAlchemy27": "Конвертация $(item)плода хоруса$(0) в $(item)цветок хоруса$(0)"
 }

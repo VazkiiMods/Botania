@@ -486,6 +486,7 @@
 
 
 
+
   "botania.triggers.manaDetector": "Pulso de maná",
   "botania.triggers.manaEmpty": "Vacío de maná",
   "botania.triggers.manaSpace": "Espacio para maná",
@@ -2989,35 +2990,10 @@
   "botania.page.manaAlchemy4": "Varios tipos de $(item)brotes$(0)",
 
 
-  "botania.page.manaAlchemy5": "Rompiendo $(item)bloques de piedra luminosa$(0)",
 
-  "botania.page.manaAlchemy6": "Rompiendo $(item)bloques de cuarzo$(0)",
-  "botania.page.manaAlchemy7": "Creando $(item)ladrillos cincelados de piedra$(0)",
-  "botania.page.manaAlchemy8": "Congelando $(item)nieve$(0) en $(item)hielo$(0)",
 
-  "botania.page.manaAlchemy9": "Convirtiendo entre $(item)enredadera$(0) y $(item)nenúfar$(0)",
-
-  "botania.page.manaAlchemy10": "Varias especies de $(item)peces$(0)",
 
   "botania.page.manaAlchemy11": "Transmutando $(item)semillas$(0) y $(item)cultivos$(0)",
-  "botania.page.manaAlchemy12": "Purificando $(item)patatas venenosas$(0)",
-  "botania.page.manaAlchemy13": "Creando $(item)verrugas$(0)",
-  "botania.page.manaAlchemy14": "Convirtiendo entre $(item)pólvora$(0) y $(item)pedernal$(0)",
-  "botania.page.manaAlchemy15": "Haciendo $(item)etiquetas$(0)",
-  "botania.page.manaAlchemy16": "Separando $(item)lana$(0) en $(item)hilo$(0)",
-
-  "botania.page.manaAlchemy17": "Convirtiendo entre $(item)bolas de slime$(0) y $(item)cactus$(0)",
-  "botania.page.manaAlchemy18": "Creando $(item)perlas de enderman$(0)",
-
-  "botania.page.manaAlchemy19": "Convirtiendo entre $(item)piedra luminosa$(0) y $(item)redstone$(0)",
-  "botania.page.manaAlchemy20": "Rompiendo $(item)roca$(0) en $(item)arena$(0)",
-  "botania.page.manaAlchemy21": "Rompiendo $(item)arcilla endurecida$(0) en $(item)arena roja$(0)",
-
-  "botania.page.manaAlchemy22": "Rompiendo $(item)arcilla$(0) y $(item)ladrillos$(0)",
-  "botania.page.manaAlchemy23": "Haciendo $(item)tierra basta$(0)",
-
-
-  "botania.page.manaAlchemy24": "Transmutando tipos de $(item)hierbas$(0)",
 
   "botania.page.manaAlchemy25": "Transmutando flores mundanas",
 
@@ -3026,6 +3002,26 @@
 
 
 
+
+
+
+
+
+
+
+  "botania.page.manaAlchemy14": "Convirtiendo entre $(item)pólvora$(0) y $(item)pedernal$(0)",
+
+  "botania.page.manaAlchemy19": "Convirtiendo entre $(item)piedra luminosa$(0) y $(item)redstone$(0)",
+
+
+
+  "botania.page.manaAlchemy24": "Transmutando tipos de $(item)hierbas$(0)",
+
+  "botania.page.manaAlchemy10": "Varias especies de $(item)peces$(0)",
+
+  "botania.page.manaAlchemy17": "Convirtiendo entre $(item)bolas de slime$(0) y $(item)cactus$(0)",
+
+  "botania.page.manaAlchemy9": "Convirtiendo entre $(item)enredadera$(0) y $(item)nenúfar$(0)",
 
 
 
@@ -4155,5 +4151,18 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.manaAlchemy5": "Rompiendo $(item)bloques de piedra luminosa$(0)",
+  "botania.page.manaAlchemy6": "Rompiendo $(item)bloques de cuarzo$(0)",
+  "botania.page.manaAlchemy7": "Creando $(item)ladrillos cincelados de piedra$(0)",
+  "botania.page.manaAlchemy8": "Congelando $(item)nieve$(0) en $(item)hielo$(0)",
+  "botania.page.manaAlchemy12": "Purificando $(item)patatas venenosas$(0)",
+  "botania.page.manaAlchemy13": "Creando $(item)verrugas$(0)",
+  "botania.page.manaAlchemy15": "Haciendo $(item)etiquetas$(0)",
+  "botania.page.manaAlchemy16": "Separando $(item)lana$(0) en $(item)hilo$(0)",
+  "botania.page.manaAlchemy18": "Creando $(item)perlas de enderman$(0)",
+  "botania.page.manaAlchemy20": "Rompiendo $(item)roca$(0) en $(item)arena$(0)",
+  "botania.page.manaAlchemy21": "Rompiendo $(item)arcilla endurecida$(0) en $(item)arena roja$(0)",
+  "botania.page.manaAlchemy22": "Rompiendo $(item)arcilla$(0) y $(item)ladrillos$(0)",
+  "botania.page.manaAlchemy23": "Haciendo $(item)tierra basta$(0)",
   "botania.page.flowers10": "Existen también una variante más alta de las típicas $(item)flores místicas$(0), repartidas por todas partes. Estas solo pueden recogerse con $(item)tijeras$(0), pero se obtiene el doble de pétalos de lo que da una flor normal. Aunque son casi demasiado grandes para teñir.$(p)Se pueden crear fertilizando una $(item)flor mística$(0) con $(item)polvo de huesos$(0)."
 }

@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.mana_using_items": "マナを使うアイテム",
   "tag.item.botania.mini_flowers": "プチな花",
   "tag.item.botania.misc_special_flowers": "その他の特別な花",
@@ -2989,43 +2990,38 @@
   "botania.page.manaAlchemy4": "$(item)苗木$(0)の変換",
 
 
-  "botania.page.manaAlchemy5": "$(item)グロウストーン$(0)の破壊",
-  "botania.page.manaAlchemy31": "クォーツ",
-  "botania.page.manaAlchemy6": "$(item)クォーツブロック$(0)の破壊",
-  "botania.page.manaAlchemy7": "$(item)模様入りの石レンガ$(0)の作成",
-  "botania.page.manaAlchemy8": "$(item)雪ブロック$(0)から$(item)氷$(0)への圧縮",
-  "botania.page.manaAlchemy32": "ツタ・スイレンの葉",
-  "botania.page.manaAlchemy9": "$(item)ツタ$(0)と$(item)スイレンの葉$(0)の交換",
-  "botania.page.manaAlchemy33": "魚",
-  "botania.page.manaAlchemy10": "$(item)魚$(0)の品種の変換",
+
+
   "botania.page.manaAlchemy34": "種・作物",
   "botania.page.manaAlchemy11": "$(item)種$(0)や$(item)作物$(0)の変換",
-  "botania.page.manaAlchemy12": "$(item)青くなったジャガイモ$(0)の浄化",
-  "botania.page.manaAlchemy13": "$(item)ネザーウォート$(0)への変換",
-  "botania.page.manaAlchemy14": "$(item)火薬$(0)と$(item)火打ち石$(0)の交換",
-  "botania.page.manaAlchemy15": "$(item)名札$(0)への変換",
-  "botania.page.manaAlchemy16": "$(item)羊毛$(0)の$(item)糸$(0)への分解",
-  "botania.page.manaAlchemy35": "スライムボール・サボテン",
-  "botania.page.manaAlchemy17": "$(item)スライムボール$(0)と$(item)サボテン$(0)の交換",
-  "botania.page.manaAlchemy18": "$(item)エンダーパール$(0)の作成",
-  "botania.page.manaAlchemy36": "グロウストーン・レッドストーン",
-  "botania.page.manaAlchemy19": "$(item)グロウストーンダスト$(0)と$(item)レッドストーンダスト$(0)の交換",
-  "botania.page.manaAlchemy20": "$(item)丸石$(0)の$(item)砂$(0)への分解",
-  "botania.page.manaAlchemy21": "$(item)テラコッタ$(0)の$(item)赤い砂$(0)への分解",
-  "botania.page.manaAlchemy38": "レンガ・粘土玉",
-  "botania.page.manaAlchemy22": "$(item)粘土$(0)と$(item)レンガ$(0)の分解",
-  "botania.page.manaAlchemy23": "$(item)荒い土$(0)の作成",
-
-  "botania.page.manaAlchemy39": "草",
-  "botania.page.manaAlchemy24": "$(item)草$(0)・$(item)シダ$(0)・$(item)枯れ木$(0)の変換",
   "botania.page.manaAlchemy40": "花",
   "botania.page.manaAlchemy25": "ありふれた花の変換",
 
+
+
+
   "botania.page.manaAlchemy37": "石",
   "botania.page.manaAlchemy26": "石の変換",
-  "botania.page.manaAlchemy27": "$(item)焼いたコーラスフルーツ$(0)から$(item)コーラスフラワー$(0)への変換",
+
+
+
+
+
+
+
+  "botania.page.manaAlchemy14": "$(item)火薬$(0)と$(item)火打ち石$(0)の交換",
+  "botania.page.manaAlchemy36": "グロウストーン・レッドストーン",
+  "botania.page.manaAlchemy19": "$(item)グロウストーンダスト$(0)と$(item)レッドストーンダスト$(0)の交換",
   "botania.page.manaAlchemy41": "リンゴ・ベリー",
   "botania.page.manaAlchemy28": "$(item)リンゴ$(0)・$(item)ベリー類$(0)の変換",
+  "botania.page.manaAlchemy39": "草",
+  "botania.page.manaAlchemy24": "$(item)草$(0)・$(item)シダ$(0)・$(item)枯れ木$(0)の変換",
+  "botania.page.manaAlchemy33": "魚",
+  "botania.page.manaAlchemy10": "$(item)魚$(0)の品種の変換",
+  "botania.page.manaAlchemy35": "スライムボール・サボテン",
+  "botania.page.manaAlchemy17": "$(item)スライムボール$(0)と$(item)サボテン$(0)の交換",
+  "botania.page.manaAlchemy32": "ツタ・スイレンの葉",
+  "botania.page.manaAlchemy9": "$(item)ツタ$(0)と$(item)スイレンの葉$(0)の交換",
 
 
 
@@ -4155,6 +4151,22 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.manaAlchemy5": "$(item)グロウストーン$(0)の破壊",
+  "botania.page.manaAlchemy31": "クォーツ",
+  "botania.page.manaAlchemy6": "$(item)クォーツブロック$(0)の破壊",
+  "botania.page.manaAlchemy7": "$(item)模様入りの石レンガ$(0)の作成",
+  "botania.page.manaAlchemy8": "$(item)雪ブロック$(0)から$(item)氷$(0)への圧縮",
+  "botania.page.manaAlchemy12": "$(item)青くなったジャガイモ$(0)の浄化",
+  "botania.page.manaAlchemy13": "$(item)ネザーウォート$(0)への変換",
+  "botania.page.manaAlchemy15": "$(item)名札$(0)への変換",
+  "botania.page.manaAlchemy16": "$(item)羊毛$(0)の$(item)糸$(0)への分解",
+  "botania.page.manaAlchemy18": "$(item)エンダーパール$(0)の作成",
+  "botania.page.manaAlchemy20": "$(item)丸石$(0)の$(item)砂$(0)への分解",
+  "botania.page.manaAlchemy21": "$(item)テラコッタ$(0)の$(item)赤い砂$(0)への分解",
+  "botania.page.manaAlchemy38": "レンガ・粘土玉",
+  "botania.page.manaAlchemy22": "$(item)粘土$(0)と$(item)レンガ$(0)の分解",
+  "botania.page.manaAlchemy23": "$(item)荒い土$(0)の作成",
+  "botania.page.manaAlchemy27": "$(item)焼いたコーラスフルーツ$(0)から$(item)コーラスフラワー$(0)への変換",
   "botania.page.flowers10": "$(item)神秘的な花$(0)にはいくつか背の高い変種も存在します。これらは通常の花の2倍の花びらを手に入れることができます。",
   "botania.page.flowers12": "背の高いタイプの花は、$(item)神秘的な花$(0)か$(item)埋まった花びら$(0)に$(item)骨粉$(0)を与えることで、手動で生み出すことも可能です。$(p)特定の色が不足している場合、その色の花びらを埋め、$(item)骨粉$(0)を使用してみてください。",
   "botania.page.rainbowRod3": "装飾用$(item)虹ブロック$(0)"

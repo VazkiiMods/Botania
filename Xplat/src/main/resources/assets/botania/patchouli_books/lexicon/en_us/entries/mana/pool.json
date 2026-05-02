@@ -47,7 +47,7 @@
       "text": "botania.page.pool3",
       "anchor": "manasteel",
       "recipes": [
-        "botania:mana_infusion/manasteel",
+        "botania:mana_infusion/manasteel_ingot",
         "botania:mana_infusion/manasteel_block"
       ]
     },

@@ -351,6 +351,7 @@
   "tag.item.botania.loonium_offhand_equipment": "聚宝花已装备于副手栏",
 
 
+
   "tag.item.botania.mana_using_items": "魔力工具",
   "tag.item.botania.mini_flowers": "缩小花",
   "tag.item.botania.misc_special_flowers": "杂项花",
@@ -2987,47 +2988,42 @@
   "botania.page.manaAlchemy3": "各种类型的$(item)木头$(0)",
   "botania.page.manaAlchemy30": "树苗",
   "botania.page.manaAlchemy4": "各种类型的$(item)树苗$(0)",
-  "botania.page.manaAlchemyFroglightCycle.title": "蛙明灯",
-  "botania.page.manaAlchemyFroglightCycle": "转化为$(item)蛙明灯$(0)",
-  "botania.page.manaAlchemy5": "粉碎$(item)萤石$(0)",
-  "botania.page.manaAlchemy31": "石英",
-  "botania.page.manaAlchemy6": "粉碎$(item)石英块$(0)",
-  "botania.page.manaAlchemy7": "制作$(item)錾制石砖$(0)",
-  "botania.page.manaAlchemy8": "将$(item)雪块$(0)完全冻结为$(item)冰$(0)",
-  "botania.page.manaAlchemy32": "藤蔓与睡莲",
-  "botania.page.manaAlchemy9": "$(item)藤蔓$(0)和$(item)睡莲$(0)间转化",
-  "botania.page.manaAlchemy33": "鱼",
-  "botania.page.manaAlchemy10": "各种类的$(item)鱼$(0)",
+
+
+
+
   "botania.page.manaAlchemy34": "种子与作物",
   "botania.page.manaAlchemy11": "$(item)种子$(0)与$(item)作物$(0)之间的转化",
-  "botania.page.manaAlchemy12": "净化$(item)毒马铃薯$(0)",
-  "botania.page.manaAlchemy13": "制作$(item)地狱疣$(0)",
-  "botania.page.manaAlchemy14": "$(item)火药$(0)与$(item)燧石$(0)间转化",
-  "botania.page.manaAlchemy15": "制造$(item)命名牌$(0)",
-  "botania.page.manaAlchemy16": "将$(item)羊毛$(0)变为$(item)线$(0)",
-  "botania.page.manaAlchemy35": "粘液球与仙人掌",
-  "botania.page.manaAlchemy17": "$(item)粘液球$(0)和$(item)仙人掌$(0)间转化",
-  "botania.page.manaAlchemy18": "制造$(item)末影珍珠$(0)",
-  "botania.page.manaAlchemy36": "萤石与红石",
-  "botania.page.manaAlchemy19": "$(item)萤石粉$(0)和$(item)红石$(0)间转化",
-  "botania.page.manaAlchemy20": "将$(item)圆石$(0)粉碎成$(item)沙子$(0)",
-  "botania.page.manaAlchemy21": "将$(item)硬化粘土$(0)变成$(item)红沙$(0)",
-  "botania.page.manaAlchemy38": "粘土与砖块",
-  "botania.page.manaAlchemy22": "粉碎$(item)粘土$(0)$(item)和砖块$(0)",
-  "botania.page.manaAlchemy23": "制作$(item)劣质土$(0)",
-  "botania.page.manaAlchemy44": "制作$(item)灵魂土$(0)",
-  "botania.page.manaAlchemy39": "草",
-  "botania.page.manaAlchemy24": "$(item)草类$(0)的转化",
   "botania.page.manaAlchemy40": "花",
   "botania.page.manaAlchemy25": "寻常花的转化",
-  "botania.page.manaAlchemyDripleafShrinking": "缩小$(item)大型垂滴叶$(0)",
+
+
+
+
   "botania.page.manaAlchemy37": "石头",
   "botania.page.manaAlchemy26": "石头的转化",
-  "botania.page.manaAlchemy27": "将$(item)紫颂果$(0)转化为$(item)紫颂花$(0)",
+
+
+
+
+
+
+
+  "botania.page.manaAlchemy14": "$(item)火药$(0)与$(item)燧石$(0)间转化",
+  "botania.page.manaAlchemy36": "萤石与红石",
+  "botania.page.manaAlchemy19": "$(item)萤石粉$(0)和$(item)红石$(0)间转化",
   "botania.page.manaAlchemy41": "苹果与莓果",
   "botania.page.manaAlchemy28": "$(item)苹果$(0)和$(item)莓果$(0)的转化",
-  "botania.page.manaAlchemy42": "地底岩石",
-  "botania.page.manaAlchemy43": "地底岩石的转化",
+  "botania.page.manaAlchemy39": "草",
+  "botania.page.manaAlchemy24": "$(item)草类$(0)的转化",
+  "botania.page.manaAlchemy33": "鱼",
+  "botania.page.manaAlchemy10": "各种类的$(item)鱼$(0)",
+  "botania.page.manaAlchemy35": "粘液球与仙人掌",
+  "botania.page.manaAlchemy17": "$(item)粘液球$(0)和$(item)仙人掌$(0)间转化",
+  "botania.page.manaAlchemy32": "藤蔓与睡莲",
+  "botania.page.manaAlchemy9": "$(item)藤蔓$(0)和$(item)睡莲$(0)间转化",
+  "botania.page.manaAlchemyFroglightCycle.title": "蛙明灯",
+  "botania.page.manaAlchemyFroglightCycle": "转化为$(item)蛙明灯$(0)",
 
   "botania.entry.brewery": "植物酿造",
   "botania.tagline.brewery": "酝酿更多地强力药水",
@@ -4150,7 +4146,27 @@
   "botania.subtitle.unholyCloak": "罪恶斗篷：激活",
   "botania.subtitle.vineBallThrow": "藤蔓球：飞出",
   "botania.subtitle.virusInfect": "病毒：感染",
-  "botania.subtitle.worldSeedTeleport": "世界之种：传送"
+  "botania.subtitle.worldSeedTeleport": "世界之种：传送",
 
 
+
+  "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.manaAlchemy5": "粉碎$(item)萤石$(0)",
+  "botania.page.manaAlchemy31": "石英",
+  "botania.page.manaAlchemy6": "粉碎$(item)石英块$(0)",
+  "botania.page.manaAlchemy7": "制作$(item)錾制石砖$(0)",
+  "botania.page.manaAlchemy8": "将$(item)雪块$(0)完全冻结为$(item)冰$(0)",
+  "botania.page.manaAlchemy12": "净化$(item)毒马铃薯$(0)",
+  "botania.page.manaAlchemy13": "制作$(item)地狱疣$(0)",
+  "botania.page.manaAlchemy15": "制造$(item)命名牌$(0)",
+  "botania.page.manaAlchemy16": "将$(item)羊毛$(0)变为$(item)线$(0)",
+  "botania.page.manaAlchemy18": "制造$(item)末影珍珠$(0)",
+  "botania.page.manaAlchemy20": "将$(item)圆石$(0)粉碎成$(item)沙子$(0)",
+  "botania.page.manaAlchemy21": "将$(item)硬化粘土$(0)变成$(item)红沙$(0)",
+  "botania.page.manaAlchemy38": "粘土与砖块",
+  "botania.page.manaAlchemy22": "粉碎$(item)粘土$(0)$(item)和砖块$(0)",
+  "botania.page.manaAlchemy23": "制作$(item)劣质土$(0)",
+  "botania.page.manaAlchemy44": "制作$(item)灵魂土$(0)",
+  "botania.page.manaAlchemyDripleafShrinking": "缩小$(item)大型垂滴叶$(0)",
+  "botania.page.manaAlchemy27": "将$(item)紫颂果$(0)转化为$(item)紫颂花$(0)"
 }

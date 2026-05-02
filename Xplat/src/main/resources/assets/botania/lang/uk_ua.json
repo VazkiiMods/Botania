@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.mana_using_items": "Предмети, що використовують ману",
   "tag.item.botania.mini_flowers": "Маленькі квіти",
   "tag.item.botania.misc_special_flowers": "Різні спеціальні квіти",
@@ -2987,47 +2988,42 @@
   "botania.page.manaAlchemy3": "Трансмутація $(item)Дерева$(0)",
   "botania.page.manaAlchemy30": "Саджанець",
   "botania.page.manaAlchemy4": "Трансмутація $(item)Саджанців$(0)",
-  "botania.page.manaAlchemyFroglightCycle.title": "Світлопад",
-  "botania.page.manaAlchemyFroglightCycle": "Перетворення $(item)Світлопадів$(0)",
-  "botania.page.manaAlchemy5": "Дроблення $(item)Світлокаменю$(0)",
-  "botania.page.manaAlchemy31": "Кварц",
-  "botania.page.manaAlchemy6": "Дроблення $(item)Кварцу$(0)",
-  "botania.page.manaAlchemy7": "Утворення $(item)Різьбленої кам'яної цегли$(0)",
-  "botania.page.manaAlchemy8": "Стиснення $(item)Снігу$(0) в $(item)Лід$(0)",
-  "botania.page.manaAlchemy32": "Лоза та Латаття",
-  "botania.page.manaAlchemy9": "Перетворення між $(item)Лозою$(0) та $(item)Лататтям$(0)",
-  "botania.page.manaAlchemy33": "Риба",
-  "botania.page.manaAlchemy10": "Трансмутація видів $(item)Риби$(0)",
+
+
+
+
   "botania.page.manaAlchemy34": "Насіння та культури",
   "botania.page.manaAlchemy11": "Трансмутація $(item)Насіння$(0) та $(item)Культур$(0)",
-  "botania.page.manaAlchemy12": "Очищення $(item)Отруйної картоплі$(0)",
-  "botania.page.manaAlchemy13": "Призов $(item)наросту Незеру$(0)",
-  "botania.page.manaAlchemy14": "Перетворення між $(item)Порохом$(0) та $(item)Кременем$(0)",
-  "botania.page.manaAlchemy15": "Призов $(item)Ярликів$(0)",
-  "botania.page.manaAlchemy16": "Розщеплення $(item)Вовни$(0) на $(item)Нитки$(0)",
-  "botania.page.manaAlchemy35": "Кулька слизу та Кактус",
-  "botania.page.manaAlchemy17": "Перетворення між $(item)Кульками слизу$(0) та $(item)Кактусом$(0)",
-  "botania.page.manaAlchemy18": "Утворення $(item)Перлин Ендера$(0)",
-  "botania.page.manaAlchemy36": "Світлокамінь та редстоун",
-  "botania.page.manaAlchemy19": "Перетворення між $(item)Світлокаменем$(0) та $(item)Редстоуном$(0)",
-  "botania.page.manaAlchemy20": "Дроблення $(item)Кругляку$(0) в $(item)Пісок$(0)",
-  "botania.page.manaAlchemy21": "Дроблення $(item)Кераміки$(0) в $(item)Червоний пісок$(0)",
-  "botania.page.manaAlchemy38": "Цегла та глина",
-  "botania.page.manaAlchemy22": "Дроблення $(item)Глини$(0) та $(item)Цегли$(0)",
-  "botania.page.manaAlchemy23": "Утворення $(item)Каменистої землі$(0)",
-  "botania.page.manaAlchemy44": "Утворення $(item)Грунту душ$(0)",
-  "botania.page.manaAlchemy39": "Трава",
-  "botania.page.manaAlchemy24": "Трансмутація $(item)Високої трави$(0)",
   "botania.page.manaAlchemy40": "Квіти",
   "botania.page.manaAlchemy25": "Трансмутація земних квітів",
 
+
+
+
   "botania.page.manaAlchemy37": "Камінь",
   "botania.page.manaAlchemy26": "Трансмутація каміння",
-  "botania.page.manaAlchemy27": "Перетворення $(item)фрукта Хорусу$(0) в $(item)квітки Хорусу$(0)",
+
+
+
+
+
+
+
+  "botania.page.manaAlchemy14": "Перетворення між $(item)Порохом$(0) та $(item)Кременем$(0)",
+  "botania.page.manaAlchemy36": "Світлокамінь та редстоун",
+  "botania.page.manaAlchemy19": "Перетворення між $(item)Світлокаменем$(0) та $(item)Редстоуном$(0)",
   "botania.page.manaAlchemy41": "Яблука та ягоди",
   "botania.page.manaAlchemy28": "Перетворення між $(item)Яблуками$(0) та $(item)Ягодами$(0)",
-  "botania.page.manaAlchemy42": "Глибокий камінь",
-  "botania.page.manaAlchemy43": "Перетворення глибокосланцевого каменю",
+  "botania.page.manaAlchemy39": "Трава",
+  "botania.page.manaAlchemy24": "Трансмутація $(item)Високої трави$(0)",
+  "botania.page.manaAlchemy33": "Риба",
+  "botania.page.manaAlchemy10": "Трансмутація видів $(item)Риби$(0)",
+  "botania.page.manaAlchemy35": "Кулька слизу та Кактус",
+  "botania.page.manaAlchemy17": "Перетворення між $(item)Кульками слизу$(0) та $(item)Кактусом$(0)",
+  "botania.page.manaAlchemy32": "Лоза та Латаття",
+  "botania.page.manaAlchemy9": "Перетворення між $(item)Лозою$(0) та $(item)Лататтям$(0)",
+  "botania.page.manaAlchemyFroglightCycle.title": "Світлопад",
+  "botania.page.manaAlchemyFroglightCycle": "Перетворення $(item)Світлопадів$(0)",
 
   "botania.entry.brewery": "Ботанічна бродильня",
   "botania.tagline.brewery": "Створення варив: кращі зілля",
@@ -4150,7 +4146,26 @@
   "botania.subtitle.unholyCloak": "Плащ гріха активується",
   "botania.subtitle.vineBallThrow": "Лозова кулька летить",
   "botania.subtitle.virusInfect": "Вірус заражає",
-  "botania.subtitle.worldSeedTeleport": "Світлове насіння телепортується"
+  "botania.subtitle.worldSeedTeleport": "Світлове насіння телепортується",
 
 
+
+  "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.manaAlchemy5": "Дроблення $(item)Світлокаменю$(0)",
+  "botania.page.manaAlchemy31": "Кварц",
+  "botania.page.manaAlchemy6": "Дроблення $(item)Кварцу$(0)",
+  "botania.page.manaAlchemy7": "Утворення $(item)Різьбленої кам'яної цегли$(0)",
+  "botania.page.manaAlchemy8": "Стиснення $(item)Снігу$(0) в $(item)Лід$(0)",
+  "botania.page.manaAlchemy12": "Очищення $(item)Отруйної картоплі$(0)",
+  "botania.page.manaAlchemy13": "Призов $(item)наросту Незеру$(0)",
+  "botania.page.manaAlchemy15": "Призов $(item)Ярликів$(0)",
+  "botania.page.manaAlchemy16": "Розщеплення $(item)Вовни$(0) на $(item)Нитки$(0)",
+  "botania.page.manaAlchemy18": "Утворення $(item)Перлин Ендера$(0)",
+  "botania.page.manaAlchemy20": "Дроблення $(item)Кругляку$(0) в $(item)Пісок$(0)",
+  "botania.page.manaAlchemy21": "Дроблення $(item)Кераміки$(0) в $(item)Червоний пісок$(0)",
+  "botania.page.manaAlchemy38": "Цегла та глина",
+  "botania.page.manaAlchemy22": "Дроблення $(item)Глини$(0) та $(item)Цегли$(0)",
+  "botania.page.manaAlchemy23": "Утворення $(item)Каменистої землі$(0)",
+  "botania.page.manaAlchemy44": "Утворення $(item)Грунту душ$(0)",
+  "botania.page.manaAlchemy27": "Перетворення $(item)фрукта Хорусу$(0) в $(item)квітки Хорусу$(0)"
 }

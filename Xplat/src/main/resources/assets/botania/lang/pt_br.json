@@ -351,6 +351,7 @@
   "tag.item.botania.loonium_offhand_equipment": "Equipamento de Gerânio-do-Saque para Mão Secundária",
 
 
+
   "tag.item.botania.mana_using_items": "Itens que usam Mana",
   "tag.item.botania.mini_flowers": "Flores Pequeninas",
   "tag.item.botania.misc_special_flowers": "Flores Variadas Especiais",
@@ -2987,47 +2988,42 @@
   "botania.page.manaAlchemy3": "Transmutando $(item)Madeiras$(0)",
   "botania.page.manaAlchemy30": "Muda",
   "botania.page.manaAlchemy4": "Transmutando $(item)Mudas$(0)",
-  "botania.page.manaAlchemyFroglightCycle.title": "Anfibrilho",
-  "botania.page.manaAlchemyFroglightCycle": "Transmutando $(item)Anfibrilhos$(0)",
-  "botania.page.manaAlchemy5": "Desfazendo $(item)Blocos de Pedra Luminosa$(0)",
-  "botania.page.manaAlchemy31": "Quartzo",
-  "botania.page.manaAlchemy6": "Desfazendo $(item)Blocos de Quartzo$(0)",
-  "botania.page.manaAlchemy7": "Criando $(item)Tijolos de Pedra Talhados$(0)",
-  "botania.page.manaAlchemy8": "Comprimindo $(item)Neve$(0) em $(item)Gelo$(0)",
-  "botania.page.manaAlchemy32": "Trepadeiras & Vitória-régia",
-  "botania.page.manaAlchemy9": "Convertendo entre $(item)Trepadeiras$(0) e $(item)Vitórias-régias$(0)",
-  "botania.page.manaAlchemy33": "Peixe",
-  "botania.page.manaAlchemy10": "Transmutando espécies de $(item)Peixe$(0)",
+
+
+
+
   "botania.page.manaAlchemy34": "Sementes & Plantáveis",
   "botania.page.manaAlchemy11": "Transmutando $(item)Sementes$(0) e $(item)Plantáveis$(0)",
-  "botania.page.manaAlchemy12": "Purificando $(item)Batatas Venenosas$(0)",
-  "botania.page.manaAlchemy13": "Conjurando $(item)Fungo do Nether$(0)",
-  "botania.page.manaAlchemy14": "Convertendo entre $(item)Pólvora$(0) e $(item)Sílex$(0)",
-  "botania.page.manaAlchemy15": "Conjurando $(item)Etiquetas$(0)",
-  "botania.page.manaAlchemy16": "Dividindo $(item)Lã$(0) em $(item)Linhas$(0)",
-  "botania.page.manaAlchemy35": "Bola de Slime & Cacto",
-  "botania.page.manaAlchemy17": "Convertendo entre $(item)Bolas de Slime$(0) e $(item)Cactos$(0)",
-  "botania.page.manaAlchemy18": "Criando $(item)Pérolas de Ender$(0)",
-  "botania.page.manaAlchemy36": "Pedra Luminosa & Redstone",
-  "botania.page.manaAlchemy19": "Convertendo entre $(item)Pedra Luminosa$(0) e $(item)Redstone$(0)",
-  "botania.page.manaAlchemy20": "Quebrando $(item)Pedregulho$(0) em $(item)Areia$(0)",
-  "botania.page.manaAlchemy21": "Quebrando $(item)Terracota$(0) em $(item)Areia Vermelha$(0)",
-  "botania.page.manaAlchemy38": "Tijolo & Bala de Argila",
-  "botania.page.manaAlchemy22": "Quebrando $(item)Argila$(0) e $(item)Tijolos$(0)",
-  "botania.page.manaAlchemy23": "Fazendo $(item)Terra Infértil$(0)",
-  "botania.page.manaAlchemy44": "Fazendo $(item)Terra das Almas$(0)",
-  "botania.page.manaAlchemy39": "Grama",
-  "botania.page.manaAlchemy24": "Transmutando $(item)Gramas Altas$(0)",
   "botania.page.manaAlchemy40": "Flor",
   "botania.page.manaAlchemy25": "Transmutando flores mundanas",
-  "botania.page.manaAlchemyDripleafShrinking": "Encolhendo $(item)Plantaformas Grandes$(0)",
+
+
+
+
   "botania.page.manaAlchemy37": "Pedra",
   "botania.page.manaAlchemy26": "Transmutando pedras",
-  "botania.page.manaAlchemy27": "Convertendo $(item)Frutas do Coro$(0) em $(item)Flores do Coro$(0)",
+
+
+
+
+
+
+
+  "botania.page.manaAlchemy14": "Convertendo entre $(item)Pólvora$(0) e $(item)Sílex$(0)",
+  "botania.page.manaAlchemy36": "Pedra Luminosa & Redstone",
+  "botania.page.manaAlchemy19": "Convertendo entre $(item)Pedra Luminosa$(0) e $(item)Redstone$(0)",
   "botania.page.manaAlchemy41": "Maçã & Bagas",
   "botania.page.manaAlchemy28": "Convertendo entre $(item)Maçãs$(0) e $(item)Bagas$(0)",
-  "botania.page.manaAlchemy42": "Pedra das profundezas",
-  "botania.page.manaAlchemy43": "Transmutando pedras das profundezas",
+  "botania.page.manaAlchemy39": "Grama",
+  "botania.page.manaAlchemy24": "Transmutando $(item)Gramas Altas$(0)",
+  "botania.page.manaAlchemy33": "Peixe",
+  "botania.page.manaAlchemy10": "Transmutando espécies de $(item)Peixe$(0)",
+  "botania.page.manaAlchemy35": "Bola de Slime & Cacto",
+  "botania.page.manaAlchemy17": "Convertendo entre $(item)Bolas de Slime$(0) e $(item)Cactos$(0)",
+  "botania.page.manaAlchemy32": "Trepadeiras & Vitória-régia",
+  "botania.page.manaAlchemy9": "Convertendo entre $(item)Trepadeiras$(0) e $(item)Vitórias-régias$(0)",
+  "botania.page.manaAlchemyFroglightCycle.title": "Anfibrilho",
+  "botania.page.manaAlchemyFroglightCycle": "Transmutando $(item)Anfibrilhos$(0)",
 
   "botania.entry.brewery": "Fermentador Botânico",
   "botania.tagline.brewery": "Criando Elixires: poções melhores",
@@ -4150,7 +4146,27 @@
   "botania.subtitle.unholyCloak": "Capa do Pecado ativada",
   "botania.subtitle.vineBallThrow": "Bola de Trepadeiras voa",
   "botania.subtitle.virusInfect": "Vírus infecta",
-  "botania.subtitle.worldSeedTeleport": "Semente Mundial teleporta"
+  "botania.subtitle.worldSeedTeleport": "Semente Mundial teleporta",
 
 
+
+  "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.manaAlchemy5": "Desfazendo $(item)Blocos de Pedra Luminosa$(0)",
+  "botania.page.manaAlchemy31": "Quartzo",
+  "botania.page.manaAlchemy6": "Desfazendo $(item)Blocos de Quartzo$(0)",
+  "botania.page.manaAlchemy7": "Criando $(item)Tijolos de Pedra Talhados$(0)",
+  "botania.page.manaAlchemy8": "Comprimindo $(item)Neve$(0) em $(item)Gelo$(0)",
+  "botania.page.manaAlchemy12": "Purificando $(item)Batatas Venenosas$(0)",
+  "botania.page.manaAlchemy13": "Conjurando $(item)Fungo do Nether$(0)",
+  "botania.page.manaAlchemy15": "Conjurando $(item)Etiquetas$(0)",
+  "botania.page.manaAlchemy16": "Dividindo $(item)Lã$(0) em $(item)Linhas$(0)",
+  "botania.page.manaAlchemy18": "Criando $(item)Pérolas de Ender$(0)",
+  "botania.page.manaAlchemy20": "Quebrando $(item)Pedregulho$(0) em $(item)Areia$(0)",
+  "botania.page.manaAlchemy21": "Quebrando $(item)Terracota$(0) em $(item)Areia Vermelha$(0)",
+  "botania.page.manaAlchemy38": "Tijolo & Bala de Argila",
+  "botania.page.manaAlchemy22": "Quebrando $(item)Argila$(0) e $(item)Tijolos$(0)",
+  "botania.page.manaAlchemy23": "Fazendo $(item)Terra Infértil$(0)",
+  "botania.page.manaAlchemy44": "Fazendo $(item)Terra das Almas$(0)",
+  "botania.page.manaAlchemyDripleafShrinking": "Encolhendo $(item)Plantaformas Grandes$(0)",
+  "botania.page.manaAlchemy27": "Convertendo $(item)Frutas do Coro$(0) em $(item)Flores do Coro$(0)"
 }
