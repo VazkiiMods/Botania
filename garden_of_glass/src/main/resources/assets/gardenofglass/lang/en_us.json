@@ -1,4 +1,6 @@
 {
   "generator.gardenofglass.gardenofglass": "Garden of Glass",
-  "generator.gardenofglass.gardenofglass.info": "Not recommended for Botania newcomers"
+  "generator.gardenofglass.gardenofglass.info": "Not recommended for Botania newcomers",
+
+  "tag.block.gardenofglass.pebble_sources": "Pebble Sources"
 }

@@ -71,6 +71,7 @@ public class LangSortTool {
 			return;
 		}
 
+		System.out.println("Processing " + langFile.getFileName());
 		final List<String> langLines;
 		try {
 			langLines = Files.readAllLines(langFile, StandardCharsets.UTF_8);
@@ -83,15 +84,15 @@ public class LangSortTool {
 			newLangLines.add("");
 		}
 
-		for (int i = 0; i < langLines.size(); i++) {
-			final String line = langLines.get(i);
+		for (int lineNo = 0; lineNo < langLines.size(); lineNo++) {
+			final String line = langLines.get(lineNo);
 			Matcher lineMatcher = jsonLinePattern.matcher(line);
 			if (lineMatcher.matches()) {
 				final String key = lineMatcher.group("key");
 				if (!preambleCommentKeyPattern.matcher(key).matches()) {
 					final String value = lineMatcher.group("value");
 					if (value.equals(enUsEntries.get(key))) {
-						System.out.println(langFile + "/" + i + ": Dropping copied value for '" + key + "'");
+						System.out.printf("%s[%d]: Dropping copied value for '%s'%n", langFile.getFileName(), lineNo, key);
 						continue;
 					}
 					if (keyLines.containsKey(key)) {
@@ -100,18 +101,18 @@ public class LangSortTool {
 							final String formattedLine = keyValueLineFormat.formatted(key, value);
 							newLangLines.set(lineIndex, formattedLine);
 						} else {
-							System.err.println(langFile + "/" + i + ": Duplicate key '" + key + "'");
+							System.err.printf("%s[%d]: Duplicate key '%s'%n", langFile.getFileName(), lineNo, key);
 							final String formattedLine = keyValueLineFormat.formatted("_" + key, value);
 							newLangLines.add(formattedLine);
 						}
 					} else {
-						System.err.println(langFile + "/" + i + ": Unknown key '" + key + "'");
+						System.err.printf("%s[%d]: Unknown key '%s'%n", langFile.getFileName(), lineNo, key);
 						final String formattedLine = keyValueLineFormat.formatted(key, value);
 						newLangLines.add(formattedLine);
 					}
 				}
 			} else if (!line.isBlank() && !line.equals("{") && !line.equals("}")) {
-				System.err.println(langFile + "/" + i + ": Not a key/value pair - " + line);
+				System.err.printf("%s[%d]: Not a key/value pair - %s%n", langFile.getFileName(), lineNo, line);
 			}
 		}
 

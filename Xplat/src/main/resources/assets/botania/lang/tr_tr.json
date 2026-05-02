@@ -317,6 +317,9 @@
 
 
 
+
+
+
   "tag.item.botania.ancient_wills": "Kadim İradeler",
   "tag.item.botania.burst_viewers": "Patlama Görüntüleyicileri",
 
@@ -394,9 +397,16 @@
   "tag.item.c.cobblestones.metamorphic.taiga": "Lunit Kaldırım Taşları",
   "tag.item.c.dusts.mana": "Mana Tozları",
   "tag.item.c.dusts.pixie": "Peri Tozları",
+
+
   "tag.item.c.gems.dragonstone": "Ejderha Taşı Cevherleri",
+
+
   "tag.item.c.gems.mana_diamond": "Mana Elması Cevherleri",
   "tag.item.c.gems.mana_pearl": "Mana İncisi Cevherleri",
+
+
+
   "tag.item.c.glass_blocks.mana": "Mana Cam Blokları",
   "tag.item.c.glass_panes.mana": "Mana Cam Panelleri",
   "tag.item.c.ingots.elementium": "Elementium Külçeleri",

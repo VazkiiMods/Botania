@@ -317,6 +317,9 @@
 
 
 
+
+
+
   "tag.item.botania.ancient_wills": "Vontades Ancestrais",
   "tag.item.botania.burst_viewers": "Visualizadores de Rajada",
 
@@ -394,9 +397,16 @@
   "tag.item.c.cobblestones.metamorphic.taiga": "Pedregulhos de Lunita",
   "tag.item.c.dusts.mana": "Pós de Mana",
   "tag.item.c.dusts.pixie": "Pós de Fada",
+
+
   "tag.item.c.gems.dragonstone": "Gemas de Pedra Dracônica",
+
+
   "tag.item.c.gems.mana_diamond": "Gemas de Diamante de Mana",
   "tag.item.c.gems.mana_pearl": "Gemas de Pérola de Mana",
+
+
+
   "tag.item.c.glass_blocks.mana": "Blocos de Vidro de Mana",
   "tag.item.c.glass_panes.mana": "Vidraça de Vidro de Mana",
   "tag.item.c.ingots.elementium": "Barras de Elementium",
