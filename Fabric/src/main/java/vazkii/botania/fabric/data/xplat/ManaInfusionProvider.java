@@ -9,15 +9,14 @@
  */
 package vazkii.botania.fabric.data.xplat;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -31,17 +30,15 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.ManaInfusionRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class ManaInfusionProvider extends BotaniaRecipeProvider {
-	public ManaInfusionProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+public class ManaInfusionProvider extends FabricRecipeProvider {
+	public ManaInfusionProvider(FabricDataOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(packOutput, lookupProvider);
 	}
 
@@ -52,104 +49,104 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		normal(consumer, id("manasteel"), new ItemStack(BotaniaItems.manaSteel), ingr(ConventionalItemTags.IRON_INGOTS), 3000);
-		normal(consumer, id("manasteel_block"), new ItemStack(BotaniaBlocks.manasteelBlock), ingr(ConventionalItemTags.STORAGE_BLOCKS_IRON), 27000);
+		normal(consumer, BotaniaItems.manaSteel, ConventionalItemTags.IRON_INGOTS, 3000);
+		normal(consumer, BotaniaBlocks.manasteelBlock, ConventionalItemTags.STORAGE_BLOCKS_IRON, 27000);
 
-		normal(consumer, id("mana_pearl"), new ItemStack(BotaniaItems.manaPearl), ingr(Items.ENDER_PEARL), 6000);
+		normal(consumer, BotaniaItems.manaPearl, Items.ENDER_PEARL, 6000);
 
-		normal(consumer, id("mana_diamond"), new ItemStack(BotaniaItems.manaDiamond), Ingredient.of(ConventionalItemTags.DIAMOND_GEMS), 10000);
-		normal(consumer, id("mana_diamond_block"), new ItemStack(BotaniaBlocks.manaDiamondBlock), ingr(ConventionalItemTags.STORAGE_BLOCKS_DIAMOND), 90000);
+		normal(consumer, BotaniaItems.manaDiamond, ConventionalItemTags.DIAMOND_GEMS, 10000);
+		normal(consumer, BotaniaBlocks.manaDiamondBlock, ConventionalItemTags.STORAGE_BLOCKS_DIAMOND, 90000);
 
-		normal(consumer, id("mana_powder_from_dust"), new ItemStack(BotaniaItems.manaPowder),
+		normal(consumer, id("mana_powder_from_dust"), "botania:mana_powder", BotaniaItems.manaPowder,
 				Ingredient.of(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS), 500);
-		normal(consumer, id("mana_powder_from_dye"), new ItemStack(BotaniaItems.manaPowder),
+		normal(consumer, id("mana_powder_from_dye"), "botania:mana_powder", BotaniaItems.manaPowder,
 				Ingredient.of(ConventionalItemTags.DYES), 400);
 
-		normal(consumer, id("piston_relay"), new ItemStack(BotaniaBlocks.pistonRelay), ingr(Blocks.PISTON), 15000);
-		normal(consumer, id("mana_cookie"), new ItemStack(BotaniaItems.manaCookie), ingr(Items.COOKIE), 20000);
-		normal(consumer, id("grass_seeds"), new ItemStack(BotaniaItems.grassSeeds), ingr(Blocks.SHORT_GRASS), 2500);
-		normal(consumer, id("podzol_seeds"), new ItemStack(BotaniaItems.podzolSeeds), ingr(Blocks.DEAD_BUSH), 2500);
+		normal(consumer, BotaniaBlocks.pistonRelay, Blocks.PISTON, 15000);
+		normal(consumer, BotaniaItems.manaCookie, Items.COOKIE, 20000);
+		normal(consumer, BotaniaItems.grassSeeds, Blocks.SHORT_GRASS, 2500);
+		normal(consumer, BotaniaItems.podzolSeeds, Blocks.DEAD_BUSH, 2500);
 
-		normal(consumer, id("mycel_seeds"), new ItemStack(BotaniaItems.mycelSeeds), ingr(ConventionalItemTags.MUSHROOMS), 6500);
+		normal(consumer, BotaniaItems.mycelSeeds, ConventionalItemTags.MUSHROOMS, 6500);
 
-		normal(consumer, id("mana_quartz"), new ItemStack(BotaniaItems.manaQuartz), ingr(Items.QUARTZ), 250);
-		normal(consumer, id("tiny_potato"), new ItemStack(BotaniaBlocks.tinyPotato), ingr(Items.POTATO), 1337);
+		normal(consumer, BotaniaItems.manaQuartz, Items.QUARTZ, 250);
+		normal(consumer, BotaniaBlocks.tinyPotato, Items.POTATO, 1337);
 
-		normal(consumer, id("mana_glass"), new ItemStack(BotaniaBlocks.manaGlass), ingr(ConventionalItemTags.GLASS_BLOCKS_COLORLESS), 150);
-		normal(consumer, id("mana_string"), new ItemStack(BotaniaItems.manaString), ingr(Items.STRING), 1250);
+		normal(consumer, BotaniaBlocks.manaGlass, ConventionalItemTags.GLASS_BLOCKS_COLORLESS, 150);
+		normal(consumer, BotaniaItems.manaString, Items.STRING, 1250);
 
-		normal(consumer, id("mana_bottle"), new ItemStack(BotaniaItems.manaBottle), ingr(Items.GLASS_BOTTLE), 5000);
+		normal(consumer, BotaniaItems.manaBottle, Items.GLASS_BOTTLE, 5000);
 
-		alchemy(consumer, id("rotten_flesh_to_leather"), new ItemStack(Items.LEATHER), ingr(Items.ROTTEN_FLESH), 600);
+		alchemy(consumer, Items.LEATHER, Items.ROTTEN_FLESH, 600);
 
-		cycle(consumer, 40, "botania:log_cycle",
+		cycle(consumer, 40, "log",
 				Blocks.OAK_LOG, Blocks.DARK_OAK_LOG, Blocks.SPRUCE_LOG, Blocks.MANGROVE_LOG,
 				Blocks.BIRCH_LOG, Blocks.CHERRY_LOG, Blocks.JUNGLE_LOG, Blocks.ACACIA_LOG);
-		cycle(consumer, 100, "botania:froglight_cycle", Blocks.OCHRE_FROGLIGHT, Blocks.VERDANT_FROGLIGHT, Blocks.PEARLESCENT_FROGLIGHT);
-		cycle(consumer, 12000, "botania:sapling_cycle",
+		cycle(consumer, 100, "froglight", Blocks.OCHRE_FROGLIGHT, Blocks.VERDANT_FROGLIGHT, Blocks.PEARLESCENT_FROGLIGHT);
+		cycle(consumer, 12000, "sapling",
 				Blocks.OAK_SAPLING, Blocks.DARK_OAK_SAPLING, Blocks.SPRUCE_SAPLING, Blocks.MANGROVE_PROPAGULE,
 				Blocks.BIRCH_SAPLING, Blocks.CHERRY_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.ACACIA_SAPLING);
 
-		deconstruct(consumer, id("glowstone_deconstruct"), Items.GLOWSTONE_DUST, Blocks.GLOWSTONE);
-		deconstruct(consumer, id("quartz_deconstruct"), Items.QUARTZ, Blocks.QUARTZ_BLOCK);
-		deconstruct(consumer, id("dark_quartz_deconstruct"), BotaniaItems.darkQuartz, BotaniaBlocks.darkQuartz);
-		deconstruct(consumer, id("mana_quartz_deconstruct"), BotaniaItems.manaQuartz, BotaniaBlocks.manaQuartz);
-		deconstruct(consumer, id("blaze_quartz_deconstruct"), BotaniaItems.blazeQuartz, BotaniaBlocks.blazeQuartz);
-		deconstruct(consumer, id("lavender_quartz_deconstruct"), BotaniaItems.lavenderQuartz, BotaniaBlocks.lavenderQuartz);
-		deconstruct(consumer, id("red_quartz_deconstruct"), BotaniaItems.redQuartz, BotaniaBlocks.redQuartz);
-		deconstruct(consumer, id("elf_quartz_deconstruct"), BotaniaItems.elfQuartz, BotaniaBlocks.elfQuartz);
-		deconstruct(consumer, id("sunny_quartz_deconstruct"), BotaniaItems.sunnyQuartz, BotaniaBlocks.sunnyQuartz);
+		deconstruct(consumer, Items.GLOWSTONE_DUST, Blocks.GLOWSTONE);
+		deconstruct(consumer, Items.QUARTZ, Blocks.QUARTZ_BLOCK);
+		deconstruct(consumer, BotaniaItems.darkQuartz, BotaniaBlocks.darkQuartz);
+		deconstruct(consumer, BotaniaItems.manaQuartz, BotaniaBlocks.manaQuartz);
+		deconstruct(consumer, BotaniaItems.blazeQuartz, BotaniaBlocks.blazeQuartz);
+		deconstruct(consumer, BotaniaItems.lavenderQuartz, BotaniaBlocks.lavenderQuartz);
+		deconstruct(consumer, BotaniaItems.redQuartz, BotaniaBlocks.redQuartz);
+		deconstruct(consumer, BotaniaItems.elfQuartz, BotaniaBlocks.elfQuartz);
+		deconstruct(consumer, BotaniaItems.sunnyQuartz, BotaniaBlocks.sunnyQuartz);
 
-		alchemy(consumer, id("chiseled_stone_bricks"), new ItemStack(Blocks.CHISELED_STONE_BRICKS, 1), ingr(Blocks.STONE_BRICKS), 150);
-		alchemy(consumer, id("ice"), new ItemStack(Blocks.ICE), ingr(Blocks.SNOW_BLOCK), 2250);
+		alchemy(consumer, Blocks.CHISELED_STONE_BRICKS, Blocks.STONE_BRICKS, 150);
+		alchemy(consumer, Blocks.ICE, Blocks.SNOW_BLOCK, 2250);
 
-		cycle(consumer, 320, "botania:vine_and_lily_pad_cycle", Items.LILY_PAD, Items.VINE);
+		cycle(consumer, 320, "vine_and_lily_pad", Items.LILY_PAD, Items.VINE);
 
-		cycle(consumer, 200, "botania:fish_cycle", Items.COD, Items.SALMON, Items.TROPICAL_FISH, Items.PUFFERFISH);
-		cycle(consumer, 6000, "botania:crop_cycle", Items.COCOA_BEANS, Items.WHEAT_SEEDS, Items.POTATO, Items.CARROT, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS);
+		cycle(consumer, 200, "fish", Items.COD, Items.SALMON, Items.TROPICAL_FISH, Items.PUFFERFISH);
+		cycle(consumer, 6000, "crop", Items.COCOA_BEANS, Items.WHEAT_SEEDS, Items.POTATO, Items.CARROT, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS);
 
-		alchemy(consumer, id("potato_unpoison"), new ItemStack(Items.POTATO), ingr(Items.POISONOUS_POTATO), 1200);
-		alchemy(consumer, id("blaze_rod_to_nether_wart"), new ItemStack(Items.NETHER_WART), ingr(Items.BLAZE_ROD), 4000);
+		alchemy(consumer, Items.POTATO, Items.POISONOUS_POTATO, 1200);
+		alchemy(consumer, Items.NETHER_WART, Items.BLAZE_ROD, 4000);
 
-		cycle(consumer, 200, "botania:gunpowder_and_flint_cycle", Items.GUNPOWDER, Items.FLINT);
+		cycle(consumer, 200, "gunpowder_and_flint", Items.GUNPOWDER, Items.FLINT);
 
-		alchemy(consumer, id("book_to_name_tag"), new ItemStack(Items.NAME_TAG), ingr(Items.WRITABLE_BOOK), 6000);
+		alchemy(consumer, Items.NAME_TAG, Items.WRITABLE_BOOK, 6000);
 
-		alchemy(consumer, id("wool_deconstruct"), new ItemStack(Items.STRING, 3), ingr(ItemTags.WOOL), 100);
+		deconstruct(consumer, Items.STRING, 3, ItemTags.WOOL, 100);
 
-		cycle(consumer, 1200, "botania:cactus_and_slime_cycle", Items.SLIME_BALL, Items.CACTUS);
+		cycle(consumer, 1200, "cactus_and_slime", Items.SLIME_BALL, Items.CACTUS);
 
-		alchemy(consumer, id("ender_pearl_from_ghast_tear"), new ItemStack(Items.ENDER_PEARL), ingr(Items.GHAST_TEAR), 28000);
+		alchemy(consumer, Items.ENDER_PEARL, Items.GHAST_TEAR, 28000);
 
-		cycle(consumer, 300, "botania:glowstone_and_redstone_cycle", Items.GLOWSTONE_DUST, Items.REDSTONE);
+		cycle(consumer, 300, "glowstone_and_redstone", Items.GLOWSTONE_DUST, Items.REDSTONE);
 
-		alchemy(consumer, id("cobble_to_sand"), new ItemStack(Blocks.SAND), ingr(ConventionalItemTags.COBBLESTONES), 50);
-		alchemy(consumer, id("terracotta_to_red_sand"), new ItemStack(Blocks.RED_SAND), ingr(Blocks.TERRACOTTA), 50);
+		alchemy(consumer, Blocks.SAND, ConventionalItemTags.COBBLESTONES, 50);
+		alchemy(consumer, Blocks.RED_SAND, Blocks.TERRACOTTA, 50);
 
-		deconstruct(consumer, id("clay_deconstruct"), Items.CLAY_BALL, Blocks.CLAY);
-		deconstruct(consumer, id("brick_deconstruct"), Items.BRICK, Blocks.BRICKS);
+		deconstruct(consumer, Items.CLAY_BALL, Blocks.CLAY);
+		deconstruct(consumer, Items.BRICK, Blocks.BRICKS);
 
-		alchemy(consumer, id("coarse_dirt"), new ItemStack(Blocks.COARSE_DIRT), ingr(Blocks.DIRT), 120);
-		alchemy(consumer, id("soul_soil"), new ItemStack(Blocks.SOUL_SOIL), ingr(Blocks.SOUL_SAND), 120);
+		alchemy(consumer, Blocks.COARSE_DIRT, Blocks.DIRT, 120);
+		alchemy(consumer, Blocks.SOUL_SOIL, Blocks.SOUL_SAND, 120);
 
-		alchemy(consumer, id("stone_to_andesite"), new ItemStack(Blocks.ANDESITE), ingr(Blocks.STONE), 200);
-		cycle(consumer, 200, "botania:stone_cycle", Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE);
+		alchemy(consumer, Blocks.ANDESITE, Blocks.STONE, 200);
+		cycle(consumer, 200, "stone", Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE);
 		// TODO: move tuff and calcite to stone cycle
-		cycle(consumer, 200, "botania:117_stone_cycle", Blocks.TUFF, Blocks.CALCITE, Blocks.DEEPSLATE);
-		cycle(consumer, 200, "botania:nether_stone_cycle", Blocks.BASALT, Blocks.NETHERRACK, Blocks.BLACKSTONE);
+		cycle(consumer, 200, "117_stone", Blocks.TUFF, Blocks.CALCITE, Blocks.DEEPSLATE);
+		cycle(consumer, 200, "nether_stone", Blocks.BASALT, Blocks.NETHERRACK, Blocks.BLACKSTONE);
 
-		cycle(consumer, 500, "botania:shrub_cycle", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.SHORT_GRASS);
+		cycle(consumer, 500, "shrub", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.SHORT_GRASS);
 
 		// NB: No wither rose or sniffer flowers is intentional
-		cycle(consumer, 400, "botania:flower_cycle", Blocks.DANDELION, Blocks.POPPY, Blocks.BLUE_ORCHID,
+		cycle(consumer, 400, "flower", Blocks.DANDELION, Blocks.POPPY, Blocks.BLUE_ORCHID,
 				Blocks.ALLIUM, Blocks.AZURE_BLUET, Blocks.RED_TULIP, Blocks.ORANGE_TULIP, Blocks.WHITE_TULIP,
 				Blocks.PINK_TULIP, Blocks.OXEYE_DAISY, Blocks.CORNFLOWER, Blocks.LILY_OF_THE_VALLEY,
 				Blocks.PINK_PETALS, Blocks.SUNFLOWER, Blocks.LILAC, Blocks.ROSE_BUSH, Blocks.PEONY);
 
-		alchemy(consumer, id("dripleaf_shrinking"), new ItemStack(Blocks.SMALL_DRIPLEAF), ingr(Items.BIG_DRIPLEAF), 500);
-		alchemy(consumer, id("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), ingr(Items.POPPED_CHORUS_FRUIT), 10000);
+		alchemy(consumer, Blocks.SMALL_DRIPLEAF, Items.BIG_DRIPLEAF, 500);
+		alchemy(consumer, Blocks.CHORUS_FLOWER, Items.POPPED_CHORUS_FRUIT, 10000);
 
-		cycle(consumer, 240, "botania:berry_cycle", Items.APPLE, Items.SWEET_BERRIES, Items.GLOW_BERRIES);
+		cycle(consumer, 240, "berry", Items.APPLE, Items.SWEET_BERRIES, Items.GLOW_BERRIES);
 
 		mini(consumer, BotaniaBlocks.agricarnationChibi, BotaniaBlocks.agricarnation);
 		mini(consumer, BotaniaBlocks.clayconiaChibi, BotaniaBlocks.clayconia);
@@ -162,68 +159,90 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		mini(consumer, BotaniaBlocks.rannuncarpusChibi, BotaniaBlocks.rannuncarpus);
 		mini(consumer, BotaniaBlocks.solegnoliaChibi, BotaniaBlocks.solegnolia);
 
-		alchemy(consumer, id("hydroangeas_motif"), new ItemStack(BotaniaBlocks.motifHydroangeas), ingr(BotaniaBlocks.hydroangeas), 2500);
+		alchemy(consumer, BotaniaBlocks.motifHydroangeas, BotaniaBlocks.hydroangeas, 2500);
 
-		conjuration(consumer, id("redstone_dupe"), new ItemStack(Items.REDSTONE, 2), ingr(Items.REDSTONE), 5000);
-		conjuration(consumer, id("glowstone_dupe"), new ItemStack(Items.GLOWSTONE_DUST, 2), ingr(Items.GLOWSTONE_DUST), 5000);
-		conjuration(consumer, id("quartz_dupe"), new ItemStack(Items.QUARTZ, 2), ingr(Items.QUARTZ), 2500);
-		conjuration(consumer, id("coal_dupe"), new ItemStack(Items.COAL, 2), ingr(Items.COAL), 2100);
-		conjuration(consumer, id("snowball_dupe"), new ItemStack(Items.SNOWBALL, 2), ingr(Items.SNOWBALL), 200);
-		conjuration(consumer, id("netherrack_dupe"), new ItemStack(Blocks.NETHERRACK, 2), ingr(Blocks.NETHERRACK), 200);
-		conjuration(consumer, id("soul_sand_dupe"), new ItemStack(Blocks.SOUL_SAND, 2), ingr(Blocks.SOUL_SAND), 1500);
-		conjuration(consumer, id("gravel_dupe"), new ItemStack(Blocks.GRAVEL, 2), ingr(Blocks.GRAVEL), 720);
+		conjuration(consumer, Items.REDSTONE, 5000);
+		conjuration(consumer, Items.GLOWSTONE_DUST, 5000);
+		conjuration(consumer, Items.QUARTZ, 2500);
+		conjuration(consumer, Items.COAL, 2100);
+		conjuration(consumer, Items.SNOWBALL, 200);
+		conjuration(consumer, Blocks.NETHERRACK, 200);
+		conjuration(consumer, Blocks.SOUL_SAND, 1500);
+		conjuration(consumer, Blocks.GRAVEL, 720);
 
-		conjuration(consumer, id("oak_leaves_dupe"), new ItemStack(Blocks.OAK_LEAVES, 2), ingr(Blocks.OAK_LEAVES), 2000);
-		conjuration(consumer, id("birch_leaves_dupe"), new ItemStack(Blocks.BIRCH_LEAVES, 2), ingr(Blocks.BIRCH_LEAVES), 2000);
-		conjuration(consumer, id("spruce_leaves_dupe"), new ItemStack(Blocks.SPRUCE_LEAVES, 2), ingr(Blocks.SPRUCE_LEAVES), 2000);
-		conjuration(consumer, id("jungle_leaves_dupe"), new ItemStack(Blocks.JUNGLE_LEAVES, 2), ingr(Blocks.JUNGLE_LEAVES), 2000);
-		conjuration(consumer, id("acacia_leaves_dupe"), new ItemStack(Blocks.ACACIA_LEAVES, 2), ingr(Blocks.ACACIA_LEAVES), 2000);
-		conjuration(consumer, id("dark_oak_leaves_dupe"), new ItemStack(Blocks.DARK_OAK_LEAVES, 2), ingr(Blocks.DARK_OAK_LEAVES), 2000);
-		conjuration(consumer, id("azalea_leaves_dupe"), new ItemStack(Blocks.AZALEA_LEAVES, 2), ingr(Blocks.AZALEA_LEAVES), 2000);
-		conjuration(consumer, id("flowering_azalea_leaves_dupe"), new ItemStack(Blocks.FLOWERING_AZALEA_LEAVES, 2), ingr(Blocks.FLOWERING_AZALEA_LEAVES), 2000);
-		conjuration(consumer, id("mangrove_leaves_dupe"), new ItemStack(Blocks.MANGROVE_LEAVES, 2), ingr(Blocks.MANGROVE_LEAVES), 2000);
-		conjuration(consumer, id("cherry_leaves_dupe"), new ItemStack(Blocks.CHERRY_LEAVES, 2), ingr(Blocks.CHERRY_LEAVES), 2000);
+		conjuration(consumer, Blocks.OAK_LEAVES, 2000);
+		conjuration(consumer, Blocks.BIRCH_LEAVES, 2000);
+		conjuration(consumer, Blocks.SPRUCE_LEAVES, 2000);
+		conjuration(consumer, Blocks.JUNGLE_LEAVES, 2000);
+		conjuration(consumer, Blocks.ACACIA_LEAVES, 2000);
+		conjuration(consumer, Blocks.DARK_OAK_LEAVES, 2000);
+		conjuration(consumer, Blocks.AZALEA_LEAVES, 2000);
+		conjuration(consumer, Blocks.FLOWERING_AZALEA_LEAVES, 2000);
+		conjuration(consumer, Blocks.MANGROVE_LEAVES, 2000);
+		conjuration(consumer, Blocks.CHERRY_LEAVES, 2000);
 
-		conjuration(consumer, id("grass"), new ItemStack(Blocks.SHORT_GRASS, 2), ingr(Blocks.SHORT_GRASS), 800);
+		conjuration(consumer, Blocks.SHORT_GRASS, 800);
 	}
 
 	private static final StateIngredient ALCHEMY = StateIngredients.of(BotaniaBlocks.alchemyCatalyst);
 	private static final StateIngredient CONJURATION = StateIngredients.of(BotaniaBlocks.conjurationCatalyst);
 
-	private static void normal(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana) {
-		consumer.accept(id, new ManaInfusionRecipe(output, input, mana, null, null), null);
+	private static void normal(RecipeOutput consumer, ItemLike output, ItemLike input, int mana) {
+		normal(consumer, output, ingr(input), mana);
 	}
 
-	private static void alchemy(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana, @Nullable String group) {
-		consumer.accept(id, new ManaInfusionRecipe(output, input, mana, group, ALCHEMY), null);
+	private static void normal(RecipeOutput consumer, ItemLike output, TagKey<Item> input, int mana) {
+		normal(consumer, output, ingr(input), mana);
 	}
 
-	private static void alchemy(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana) {
-		alchemy(consumer, id, output, input, mana, null);
+	private static void normal(RecipeOutput consumer, ItemLike output, Ingredient input, int mana) {
+		normal(consumer, id(getItemName(output)), null, output, input, mana);
 	}
 
-	private static void conjuration(RecipeOutput consumer, ResourceLocation id, ItemStack output, Ingredient input, int mana) {
-		consumer.accept(id, new ManaInfusionRecipe(output, input, mana, "", CONJURATION), null);
+	private static void normal(RecipeOutput consumer, ResourceLocation id, @Nullable String group, ItemLike output, Ingredient input, int mana) {
+		consumer.accept(id, new ManaInfusionRecipe(new ItemStack(output), input, mana, group, null), null);
 	}
 
-	protected void cycle(RecipeOutput consumer, int cost, String group, ItemLike... items) {
+	private static void alchemy(RecipeOutput consumer, String id, ItemStack output, Ingredient input, int mana, @Nullable String group) {
+		consumer.accept(id("alchemy/" + id), new ManaInfusionRecipe(output, input, mana, group, ALCHEMY), null);
+	}
+
+	private static void alchemy(RecipeOutput consumer, ItemLike output, ItemLike input, int mana) {
+		alchemy(consumer, getItemName(output), new ItemStack(output), ingr(input), mana, null);
+	}
+
+	private static void alchemy(RecipeOutput consumer, ItemLike output, TagKey<Item> input, int mana) {
+		alchemy(consumer, getItemName(output), new ItemStack(output), ingr(input), mana, null);
+	}
+
+	private static void conjuration(RecipeOutput consumer, ItemLike itemLike, int mana) {
+		consumer.accept(id("conjuration/" + getItemName(itemLike)),
+				new ManaInfusionRecipe(new ItemStack(itemLike, 2), Ingredient.of(itemLike), mana, null, CONJURATION),
+				null);
+	}
+
+	protected void cycle(RecipeOutput consumer, int cost, String cycleName, ItemLike... items) {
 		for (int i = 0; i < items.length; i++) {
-			Ingredient in = ingr(items[i]);
-			ItemStack out = new ItemStack(i == items.length - 1 ? items[0] : items[i + 1]);
-			String id = String.format("%s_to_%s", BuiltInRegistries.ITEM.getKey(items[i].asItem()).getPath(), BuiltInRegistries.ITEM.getKey(out.getItem()).getPath());
-			alchemy(consumer, id(id), out, in, cost, group);
+			ItemLike inItem = items[i];
+			ItemLike outItem = i == items.length - 1 ? items[0] : items[i + 1];
+			alchemy(consumer, "%s/%s".formatted(cycleName, getConversionRecipeName(outItem, inItem)),
+					new ItemStack(outItem), ingr(inItem), cost, "botania:%s_cycle".formatted(cycleName));
 		}
 	}
 
 	protected void mini(RecipeOutput consumer, ItemLike mini, ItemLike full) {
-		alchemy(consumer, id(BuiltInRegistries.ITEM.getKey(mini.asItem()).getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
+		alchemy(consumer, getItemName(mini), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
 	}
 
-	protected void deconstruct(RecipeOutput consumer, ResourceLocation id, ItemLike items, ItemLike block) {
-		alchemy(consumer, id, new ItemStack(items, 4), ingr(block), 25, "botania:block_deconstruction");
+	protected void deconstruct(RecipeOutput consumer, ItemLike items, ItemLike block) {
+		alchemy(consumer, getItemName(block) + "_deconstruct", new ItemStack(items, 4), ingr(block), 25, "botania:block_deconstruction");
 	}
 
-	protected ResourceLocation id(String s) {
+	protected void deconstruct(RecipeOutput consumer, ItemLike items, int count, TagKey<Item> block, int mana) {
+		alchemy(consumer, block.location().getPath() + "_deconstruct", new ItemStack(items, count), ingr(block), mana, null);
+	}
+
+	protected static ResourceLocation id(String s) {
 		return botaniaRL("mana_infusion/" + s);
 	}
 
