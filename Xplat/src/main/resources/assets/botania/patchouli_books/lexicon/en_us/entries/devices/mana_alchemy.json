@@ -15,11 +15,6 @@
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy2",
-      "recipes": "botania:mana_infusion/rotten_flesh_to_leather"
-    },
-    {
-      "type": "botania:mana_infusion",
       "heading": "botania.page.manaAlchemy29",
       "text": "botania.page.manaAlchemy3",
       "group": "botania:log_cycle"
@@ -32,54 +27,15 @@
     },
     {
       "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemyFroglightCycle.title",
-      "text": "botania.page.manaAlchemyFroglightCycle",
-      "group": "botania:froglight_cycle"
+      "heading": "botania.page.manaAlchemyStems.title",
+      "text": "botania.page.manaAlchemyStems",
+      "group": "botania:stem_cycle"
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy5",
-      "recipes": "botania:mana_infusion/glowstone_deconstruct"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemy31",
-      "text": "botania.page.manaAlchemy6",
-      "recipes": [
-        "botania:mana_infusion/quartz_deconstruct",
-        "botania:mana_infusion/dark_quartz_deconstruct",
-        "botania:mana_infusion/mana_quartz_deconstruct",
-        "botania:mana_infusion/blaze_quartz_deconstruct",
-        "botania:mana_infusion/lavender_quartz_deconstruct",
-        "botania:mana_infusion/red_quartz_deconstruct",
-        "botania:mana_infusion/elf_quartz_deconstruct",
-        "botania:mana_infusion/sunny_quartz_deconstruct"
-      ]
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy7",
-      "recipes": "botania:mana_infusion/chiseled_stone_bricks"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy8",
-      "recipes": "botania:mana_infusion/ice"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemy32",
-      "text": "botania.page.manaAlchemy9",
-      "recipes": [
-        "botania:mana_infusion/vine_to_lily_pad",
-        "botania:mana_infusion/lily_pad_to_vine"
-      ]
-    },
-    {
-      "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemy33",
-      "text": "botania.page.manaAlchemy10",
-      "group": "botania:fish_cycle"
+      "heading": "botania.page.manaAlchemyFungi.title",
+      "text": "botania.page.manaAlchemyFungi",
+      "group": "botania:fungus_cycle"
     },
     {
       "type": "botania:mana_infusion",
@@ -89,116 +45,76 @@
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy12",
-      "recipes": "botania:mana_infusion/potato_unpoison"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy13",
-      "recipes": "botania:mana_infusion/blaze_rod_to_nether_wart"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy14",
-      "recipes": [
-        "botania:mana_infusion/gunpowder_to_flint",
-        "botania:mana_infusion/flint_to_gunpowder"
-      ]
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy15",
-      "recipes": "botania:mana_infusion/book_to_name_tag"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy16",
-      "recipes": "botania:mana_infusion/wool_deconstruct"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemy35",
-      "text": "botania.page.manaAlchemy17",
-      "recipes": [
-        "botania:mana_infusion/slime_ball_to_cactus",
-        "botania:mana_infusion/cactus_to_slime_ball"
-      ]
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy18",
-      "recipes": "botania:mana_infusion/ender_pearl_from_ghast_tear"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemy36",
-      "text": "botania.page.manaAlchemy19",
-      "recipes": [
-        "botania:mana_infusion/glowstone_dust_to_redstone",
-        "botania:mana_infusion/redstone_to_glowstone_dust"
-      ]
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy20",
-      "recipes": "botania:mana_infusion/cobble_to_sand"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy21",
-      "recipes": "botania:mana_infusion/terracotta_to_red_sand"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemy37",
-      "text": "botania.page.manaAlchemy26",
-      "recipes": [
-        "botania:mana_infusion/granite_to_andesite",
-        "botania:mana_infusion/stone_to_andesite",
-        "botania:mana_infusion/andesite_to_diorite",
-        "botania:mana_infusion/diorite_to_granite"
-      ]
-    },
-    {
-      "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemy38",
-      "text": "botania.page.manaAlchemy22",
-      "recipes": [
-        "botania:mana_infusion/clay_deconstruct",
-        "botania:mana_infusion/brick_deconstruct"
-      ]
-    },
-    {
-      "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy27",
-      "recipes": "botania:mana_infusion/chorus_fruit_to_flower"
-    },
-    {
-      "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemy39",
-      "text": "botania.page.manaAlchemy24",
-      "group": "botania:shrub_cycle"
-    },
-    {
-      "type": "botania:mana_infusion",
       "heading": "botania.page.manaAlchemy40",
       "text": "botania.page.manaAlchemy25",
       "group": "botania:flower_cycle"
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemyDripleafShrinking",
-      "recipes": "botania:mana_infusion/dripleaf_shrinking"
+      "heading": "botania.page.manaAlchemyLosslessDeconstruction.title",
+      "text": "botania.page.manaAlchemyLosslessDeconstruction",
+      "group": "botania:lossless_deconstruction"
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy23",
-      "recipes": "botania:mana_infusion/coarse_dirt"
+      "heading": "botania.page.manaAlchemyLossyDeconstruction.title",
+      "text": "botania.page.manaAlchemyLossyDeconstruction",
+      "group": "botania:lossy_deconstruction"
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.manaAlchemy44",
-      "recipes": "botania:mana_infusion/soul_soil"
+      "heading": "botania.page.manaAlchemy37",
+      "text": "botania.page.manaAlchemy26",
+      "recipes": [
+        "botania:mana_infusion/alchemy/andesite",
+        "botania:mana_infusion/alchemy/stone/diorite_from_andesite",
+        "botania:mana_infusion/alchemy/stone/granite_from_diorite",
+        "botania:mana_infusion/alchemy/stone/tuff_from_granite",
+        "botania:mana_infusion/alchemy/stone/andesite_from_tuff"
+      ]
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemyNetherRocks.title",
+      "text": "botania.page.manaAlchemyNetherRocks",
+      "group": "botania:nether_stone_cycle"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemyBlockConversions.title",
+      "text": "botania.page.manaAlchemyBlockConversions",
+      "recipes": [
+        "botania:mana_infusion/alchemy/sand",
+        "botania:mana_infusion/alchemy/red_sand",
+        "botania:mana_infusion/alchemy/soul_soil",
+        "botania:mana_infusion/alchemy/coarse_dirt",
+        "botania:mana_infusion/alchemy/ice"
+      ]
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemyItemConversions.title",
+      "text": "botania.page.manaAlchemyItemConversions",
+      "recipes": [
+        "botania:mana_infusion/alchemy/leather",
+        "botania:mana_infusion/alchemy/potato",
+        "botania:mana_infusion/alchemy/nether_wart",
+        "botania:mana_infusion/alchemy/name_tag",
+        "botania:mana_infusion/alchemy/chorus_flower",
+        "botania:mana_infusion/alchemy/small_dripleaf"
+      ]
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemyGunpowderAndFlint.title",
+      "text": "botania.page.manaAlchemy14",
+      "group": "botania:gunpowder_and_flint_cycle"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy36",
+      "text": "botania.page.manaAlchemy19",
+      "group": "botania:glowstone_and_redstone_cycle"
     },
     {
       "type": "botania:mana_infusion",
@@ -208,9 +124,33 @@
     },
     {
       "type": "botania:mana_infusion",
-      "heading": "botania.page.manaAlchemy42",
-      "text": "botania.page.manaAlchemy43",
-      "group": "botania:117_stone_cycle"
+      "heading": "botania.page.manaAlchemy39",
+      "text": "botania.page.manaAlchemy24",
+      "group": "botania:shrub_cycle"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy33",
+      "text": "botania.page.manaAlchemy10",
+      "group": "botania:fish_cycle"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy35",
+      "text": "botania.page.manaAlchemy17",
+      "group": "botania:cactus_and_slime_cycle"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy32",
+      "text": "botania.page.manaAlchemy9",
+      "group": "botania:vine_and_lily_pad_cycle"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemyFroglightCycle.title",
+      "text": "botania.page.manaAlchemyFroglightCycle",
+      "group": "botania:froglight_cycle"
     }
   ]
 }

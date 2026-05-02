@@ -17,60 +17,64 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration2",
-      "recipes": "botania:mana_infusion/redstone_dupe"
+      "recipes": "botania:mana_infusion/conjuration/redstone"
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration3",
-      "recipes": "botania:mana_infusion/glowstone_dupe"
+      "recipes": "botania:mana_infusion/conjuration/glowstone_dust"
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration4",
-      "recipes": "botania:mana_infusion/quartz_dupe"
+      "recipes": "botania:mana_infusion/conjuration/quartz"
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration5",
-      "recipes": "botania:mana_infusion/coal_dupe"
+      "recipes": "botania:mana_infusion/conjuration/coal"
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration6",
-      "recipes": "botania:mana_infusion/snowball_dupe"
+      "recipes": "botania:mana_infusion/conjuration/snowball"
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration7",
-      "recipes": "botania:mana_infusion/netherrack_dupe"
+      "recipes": "botania:mana_infusion/conjuration/netherrack"
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration8",
-      "recipes": "botania:mana_infusion/soul_sand_dupe"
+      "recipes": "botania:mana_infusion/conjuration/soul_sand"
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration9",
-      "recipes": "botania:mana_infusion/gravel_dupe"
+      "recipes": "botania:mana_infusion/conjuration/gravel"
     },
     {
       "type": "botania:mana_infusion",
       "heading":"botania.page.manaConjuration12",
       "text": "botania.page.manaConjuration10",
       "recipes": [
-        "botania:mana_infusion/oak_leaves_dupe",
-        "botania:mana_infusion/spruce_leaves_dupe",
-        "botania:mana_infusion/birch_leaves_dupe",
-        "botania:mana_infusion/jungle_leaves_dupe",
-        "botania:mana_infusion/acacia_leaves_dupe",
-        "botania:mana_infusion/dark_oak_leaves_dupe"
+        "botania:mana_infusion/conjuration/oak_leaves",
+        "botania:mana_infusion/conjuration/dark_oak_leaves",
+        "botania:mana_infusion/conjuration/spruce_leaves",
+        "botania:mana_infusion/conjuration/mangrove_leaves",
+        "botania:mana_infusion/conjuration/birch_leaves",
+        "botania:mana_infusion/conjuration/cherry_leaves",
+        "botania:mana_infusion/conjuration/jungle_leaves",
+        "botania:mana_infusion/conjuration/acacia_leaves",
+        "botania:mana_infusion/conjuration/azalea_leaves",
+        "botania:mana_infusion/conjuration/flowering_azalea_leaves"
       ]
     },
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration11",
-      "recipes": "botania:mana_infusion/grass"
+      "recipes": "botania:mana_infusion/conjuration/short_grass"
     }
   ]
 }

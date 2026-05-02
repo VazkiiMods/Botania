@@ -21,7 +21,7 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.grassSeeds3",
-      "recipes": "botania:mana_infusion/mycel_seeds"
+      "recipes": "botania:mana_infusion/mycelium_seeds"
     },
     {
       "type": "text",

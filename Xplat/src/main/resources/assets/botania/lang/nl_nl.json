@@ -487,6 +487,7 @@
 
 
 
+
   "botania.triggers.manaEmpty": "Mana Leeg",
   "botania.triggers.manaSpace": "Ruimte voor Mana",
   "botania.triggers.manaContains": "Bevat Mana",
@@ -2989,35 +2990,10 @@
   "botania.page.manaAlchemy4": "Verschillende soorten $(item)Kiemplanten$(0)",
 
 
-  "botania.page.manaAlchemy5": "Het afbreken van $(item)Gloeisteen Blokken$(0)",
 
-  "botania.page.manaAlchemy6": "Het afbreken van $(item)Kwarts Blokken$(0)",
-  "botania.page.manaAlchemy7": "Het maken van $(item)Gebeiteld Steen Baksteen$(0)",
-  "botania.page.manaAlchemy8": "Het verder bevriezen van $(item)Sneeuw$(0) tot $(item)Ijs$(0)",
 
-  "botania.page.manaAlchemy9": "$(item)Lianen$(0) omzetten in $(item)Waterlelies$(0) en andersom",
-
-  "botania.page.manaAlchemy10": "Verschillende soorten $(item)Vissen$(0)",
 
   "botania.page.manaAlchemy11": "Het transformeren van $(item)Zaden$(0) en $(item)Gewassen$(0)",
-  "botania.page.manaAlchemy12": "Het eetbaar maken van $(item)Giftige Aardappels$(0)",
-  "botania.page.manaAlchemy13": "Het oproepen van $(item)Netherkruid$(0)",
-  "botania.page.manaAlchemy14": "$(item)Buskruit$(0) omzetten in $(item)Vuursteen$(0) en andersom",
-  "botania.page.manaAlchemy15": "Het maken van $(item)Naamkaartjes$(0)",
-  "botania.page.manaAlchemy16": "$(item)Wol$(0) scheiden tot $(item)Draad$(0)",
-
-  "botania.page.manaAlchemy17": "$(item)Slijmballen$(0) omzetten in $(item)Cactus$(0) en andersom",
-  "botania.page.manaAlchemy18": "Het maken van $(item)Ender Parels$(0)",
-
-  "botania.page.manaAlchemy19": "$(item)Gloeisteen$(0) omzetten in $(item)Redstone$(0) en andersom",
-  "botania.page.manaAlchemy20": "$(item)Keisteen$(0) breken tot $(item)Zand$(0)",
-  "botania.page.manaAlchemy21": "$(item)Geharde Klei$(0) breken tot $(item)Rood Zand$(0)",
-
-  "botania.page.manaAlchemy22": "Het afbreken van $(item)Klei$(0) en $(item)Bakstenen$(0)",
-  "botania.page.manaAlchemy23": "Het maken van $(item)Gemende Aarde$(0)",
-
-
-  "botania.page.manaAlchemy24": "Het transformeren van typen $(item)Lang Gras$(0)",
 
   "botania.page.manaAlchemy25": "Het transformeren van normale bloemen",
 
@@ -3026,6 +3002,26 @@
 
 
 
+
+
+
+
+
+
+
+  "botania.page.manaAlchemy14": "$(item)Buskruit$(0) omzetten in $(item)Vuursteen$(0) en andersom",
+
+  "botania.page.manaAlchemy19": "$(item)Gloeisteen$(0) omzetten in $(item)Redstone$(0) en andersom",
+
+
+
+  "botania.page.manaAlchemy24": "Het transformeren van typen $(item)Lang Gras$(0)",
+
+  "botania.page.manaAlchemy10": "Verschillende soorten $(item)Vissen$(0)",
+
+  "botania.page.manaAlchemy17": "$(item)Slijmballen$(0) omzetten in $(item)Cactus$(0) en andersom",
+
+  "botania.page.manaAlchemy9": "$(item)Lianen$(0) omzetten in $(item)Waterlelies$(0) en andersom",
 
 
 
@@ -4155,5 +4151,18 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.page.manaAlchemy5": "Het afbreken van $(item)Gloeisteen Blokken$(0)",
+  "botania.page.manaAlchemy6": "Het afbreken van $(item)Kwarts Blokken$(0)",
+  "botania.page.manaAlchemy7": "Het maken van $(item)Gebeiteld Steen Baksteen$(0)",
+  "botania.page.manaAlchemy8": "Het verder bevriezen van $(item)Sneeuw$(0) tot $(item)Ijs$(0)",
+  "botania.page.manaAlchemy12": "Het eetbaar maken van $(item)Giftige Aardappels$(0)",
+  "botania.page.manaAlchemy13": "Het oproepen van $(item)Netherkruid$(0)",
+  "botania.page.manaAlchemy15": "Het maken van $(item)Naamkaartjes$(0)",
+  "botania.page.manaAlchemy16": "$(item)Wol$(0) scheiden tot $(item)Draad$(0)",
+  "botania.page.manaAlchemy18": "Het maken van $(item)Ender Parels$(0)",
+  "botania.page.manaAlchemy20": "$(item)Keisteen$(0) breken tot $(item)Zand$(0)",
+  "botania.page.manaAlchemy21": "$(item)Geharde Klei$(0) breken tot $(item)Rood Zand$(0)",
+  "botania.page.manaAlchemy22": "Het afbreken van $(item)Klei$(0) en $(item)Bakstenen$(0)",
+  "botania.page.manaAlchemy23": "Het maken van $(item)Gemende Aarde$(0)",
   "botania.page.flowers10": "Er zijn ook wat langere varianten van $(item)Mystieke Bloemen$(0), overal verspreid. Deze kunnen alleen geplukt worden met een $(item)Schaar$(0), maar leveren tweemaal zoveel bloemblaadjes op als een normale bloem. Maar ze zijn iets te groot voor kleurstof.$(p)Ze kunnen handmatig gemaakt worden door $(item)Mystieke Bloem$(0) te bemesten met $(item)Beenderenmeel$(0)."
 }
