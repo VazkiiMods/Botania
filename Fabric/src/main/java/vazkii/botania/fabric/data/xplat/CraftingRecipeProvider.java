@@ -2272,6 +2272,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 
 		stairs(BotaniaBlocks.shimmerrockStairs, BotaniaBlocks.shimmerrock).save(recipeOutput);
 		slabShape(BotaniaBlocks.shimmerrockSlab, BotaniaBlocks.shimmerrock).save(recipeOutput);
+		wallShape(BotaniaBlocks.shimmerrockWall, BotaniaBlocks.shimmerrock, 6).save(recipeOutput);
 		button(BotaniaBlocks.shimmerrockButton, BotaniaBlocks.shimmerrock).save(recipeOutput);
 		pressurePlate(BotaniaBlocks.shimmerrockPressurePlate, BotaniaBlocks.shimmerrock).save(recipeOutput);
 

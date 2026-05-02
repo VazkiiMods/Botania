@@ -82,9 +82,11 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		stonecutting(consumer, BotaniaBlocks.livingrockBrickMossy, BotaniaBlocks.livingrockBrickMossyWall);
 		stonecutting(consumer, BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockSlab, 2);
 		stonecutting(consumer, BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockStairs);
+		stonecutting(consumer, BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockWall);
 
 		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaSlab, 2);
 		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaStairs);
+		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaWall);
 		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick);
 		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickSlab, 2);
 		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickStairs);

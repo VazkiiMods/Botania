@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:shimmerrock"
+  },
+  "result": {
+    "count": 1,
+    "id": "botania:shimmerrock_wall"
+  }
+}
