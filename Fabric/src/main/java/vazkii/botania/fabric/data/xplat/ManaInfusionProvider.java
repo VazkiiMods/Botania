@@ -130,9 +130,7 @@ public class ManaInfusionProvider extends FabricRecipeProvider {
 		alchemy(consumer, Blocks.SOUL_SOIL, Blocks.SOUL_SAND, 120);
 
 		alchemy(consumer, Blocks.ANDESITE, Blocks.STONE, 200);
-		cycle(consumer, 200, "stone", Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE);
-		// TODO: move tuff and calcite to stone cycle
-		cycle(consumer, 200, "117_stone", Blocks.TUFF, Blocks.CALCITE, Blocks.DEEPSLATE);
+		cycle(consumer, 200, "stone", Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.TUFF);
 		cycle(consumer, 200, "nether_stone", Blocks.BASALT, Blocks.NETHERRACK, Blocks.BLACKSTONE);
 
 		cycle(consumer, 500, "shrub", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.SHORT_GRASS);

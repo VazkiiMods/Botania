@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:117_stone_cycle",
+  "group": "botania:stone_cycle",
   "input": {
     "item": "minecraft:tuff"
   },
   "mana": 200,
   "output": {
     "count": 1,
-    "id": "minecraft:calcite"
+    "id": "minecraft:andesite"
   }
 }
