@@ -121,10 +121,24 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		tag(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS).add(BotaniaItems.manaDiamond);
 		tag(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS).add(BotaniaItems.manaPearl);
 		tag(ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS).add(BotaniaItems.dragonstone);
+		tag(ConventionalBotaniaTags.Items.BLAZE_QUARTZ_GEMS).add(BotaniaItems.blazeQuartz);
+		tag(ConventionalBotaniaTags.Items.DARK_QUARTZ_GEMS).add(BotaniaItems.darkQuartz);
+		tag(ConventionalBotaniaTags.Items.ELVEN_QUARTZ_GEMS).add(BotaniaItems.elfQuartz);
+		tag(ConventionalBotaniaTags.Items.LAVENDER_QUARTZ_GEMS).add(BotaniaItems.lavenderQuartz);
+		tag(ConventionalBotaniaTags.Items.MANA_QUARTZ_GEMS).add(BotaniaItems.manaQuartz);
+		tag(ConventionalBotaniaTags.Items.RED_QUARTZ_GEMS).add(BotaniaItems.redQuartz);
+		tag(ConventionalBotaniaTags.Items.SUNNY_QUARTZ_GEMS).add(BotaniaItems.sunnyQuartz);
 		tag(ConventionalItemTags.GEMS)
 				.addTag(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)
 				.addTag(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)
-				.addTag(ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS);
+				.addTag(ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.BLAZE_QUARTZ_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.DARK_QUARTZ_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.ELVEN_QUARTZ_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.LAVENDER_QUARTZ_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.MANA_QUARTZ_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.RED_QUARTZ_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.SUNNY_QUARTZ_GEMS);
 
 		// Glass blocks and panes
 		copy(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS, ConventionalBotaniaTags.Items.MANA_GLASS_BLOCKS);
