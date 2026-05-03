@@ -4,11 +4,11 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:block_deconstruction",
+  "group": "botania:lossless_deconstruction",
   "input": {
     "item": "minecraft:glowstone"
   },
-  "mana": 25,
+  "mana": 24,
   "output": {
     "count": 4,
     "id": "minecraft:glowstone_dust"

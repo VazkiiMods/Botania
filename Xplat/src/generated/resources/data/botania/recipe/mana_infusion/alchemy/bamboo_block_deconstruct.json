@@ -6,11 +6,11 @@
   },
   "group": "botania:lossy_deconstruction",
   "input": {
-    "tag": "minecraft:wool"
+    "item": "minecraft:bamboo_block"
   },
-  "mana": 100,
+  "mana": 164,
   "output": {
-    "count": 3,
-    "id": "minecraft:string"
+    "count": 8,
+    "id": "minecraft:bamboo"
   }
 }

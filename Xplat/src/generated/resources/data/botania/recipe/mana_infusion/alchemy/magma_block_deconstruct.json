@@ -6,11 +6,11 @@
   },
   "group": "botania:lossy_deconstruction",
   "input": {
-    "tag": "minecraft:wool"
+    "item": "minecraft:magma_block"
   },
   "mana": 100,
   "output": {
     "count": 3,
-    "id": "minecraft:string"
+    "id": "minecraft:magma_cream"
   }
 }

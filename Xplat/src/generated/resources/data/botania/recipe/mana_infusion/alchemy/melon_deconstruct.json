@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:lossy_deconstruction",
+  "group": "botania:lossless_deconstruction",
   "input": {
-    "tag": "minecraft:wool"
+    "item": "minecraft:melon"
   },
-  "mana": 100,
+  "mana": 36,
   "output": {
-    "count": 3,
-    "id": "minecraft:string"
+    "count": 9,
+    "id": "minecraft:melon_slice"
   }
 }
