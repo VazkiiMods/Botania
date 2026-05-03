@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:lossy_deconstruction",
+  "group": "botania:fungus_cycle",
   "input": {
-    "tag": "minecraft:wool"
+    "item": "minecraft:warped_fungus"
   },
-  "mana": 100,
+  "mana": 120,
   "output": {
-    "count": 3,
-    "id": "minecraft:string"
+    "count": 1,
+    "id": "minecraft:crimson_fungus"
   }
 }

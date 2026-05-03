@@ -4,13 +4,13 @@
     "type": "botania:block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:lossy_deconstruction",
+  "group": "botania:stem_cycle",
   "input": {
-    "tag": "minecraft:wool"
+    "item": "minecraft:crimson_stem"
   },
-  "mana": 100,
+  "mana": 40,
   "output": {
-    "count": 3,
-    "id": "minecraft:string"
+    "count": 1,
+    "id": "minecraft:warped_stem"
   }
 }
