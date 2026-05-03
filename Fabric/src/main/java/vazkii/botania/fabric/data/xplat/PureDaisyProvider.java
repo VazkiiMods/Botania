@@ -54,6 +54,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		normal(consumer, id("blue_ice"), StateIngredients.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.defaultBlockState());
 		normal(consumer, id("obsidian"), StateIngredients.of(BotaniaBlocks.blazeBlock), Blocks.OBSIDIAN.defaultBlockState());
 		normal(consumer, id("snow_block"), StateIngredients.of(Blocks.WATER), Blocks.SNOW_BLOCK.defaultBlockState());
+		normal(consumer, id("calcite"), StateIngredients.of(Blocks.DRIPSTONE_BLOCK), Blocks.CALCITE.defaultBlockState());
 	}
 
 	@Override
