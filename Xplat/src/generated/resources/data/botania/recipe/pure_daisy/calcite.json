@@ -1,0 +1,14 @@
+{
+  "type": "botania:pure_daisy",
+  "input": {
+    "type": "botania:block",
+    "block": "minecraft:dripstone_block"
+  },
+  "output": {
+    "type": "botania:state",
+    "state": {
+      "Name": "minecraft:calcite"
+    }
+  },
+  "time": 150
+}

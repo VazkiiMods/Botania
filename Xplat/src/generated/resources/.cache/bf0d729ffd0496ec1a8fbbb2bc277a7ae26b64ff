@@ -1,5 +1,6 @@
 // 1.21.1	Botania/Botania Pure Daisy recipes
 505906067bfdff7dfcc4da93044798e6773d2739 data/botania/recipe/pure_daisy/blue_ice.json
+c812035793ec50a265ec59fe3b1ec549289499a8 data/botania/recipe/pure_daisy/calcite.json
 0b9768797559057364e32161f393bb08becbefff data/botania/recipe/pure_daisy/cobblestone.json
 5b2ef590b4cbd958302882a6321705b6fa1621b7 data/botania/recipe/pure_daisy/end_stone_to_cobbled_deepslate.json
 32c6c3729dbd13720804d18ba30a030f212bdaa3 data/botania/recipe/pure_daisy/livingrock.json
