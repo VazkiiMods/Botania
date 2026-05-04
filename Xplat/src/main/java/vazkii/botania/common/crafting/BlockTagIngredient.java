@@ -19,11 +19,11 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.recipe.StateIngredientType;
@@ -54,16 +54,8 @@ public record BlockTagIngredient(TagKey<Block> tag) implements StateIngredient {
 	}
 
 	@Override
-	public StateIngredientType getType() {
+	public StateIngredientType<BlockTagIngredient> getType() {
 		return StateIngredients.BLOCK_TAG;
-	}
-
-	@Override
-	public List<ItemStack> getDisplayedStacks() {
-		return resolve()
-				.filter(b -> b.asItem() != Items.AIR)
-				.map(ItemStack::new)
-				.toList();
 	}
 
 	@Override
@@ -77,7 +69,7 @@ public record BlockTagIngredient(TagKey<Block> tag) implements StateIngredient {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(@Nullable Object o) {
 		if (this == o) {
 			return true;
 		}

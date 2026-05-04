@@ -17,8 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -47,15 +45,6 @@ public record BlockStateIngredient(BlockState state) implements StateIngredient 
 	@Override
 	public StateIngredientType<BlockStateIngredient> getType() {
 		return StateIngredients.BLOCK_STATE;
-	}
-
-	@Override
-	public List<ItemStack> getDisplayedStacks() {
-		Block block = state.getBlock();
-		if (block.asItem() == Items.AIR) {
-			return Collections.emptyList();
-		}
-		return Collections.singletonList(new ItemStack(block));
 	}
 
 	@Override

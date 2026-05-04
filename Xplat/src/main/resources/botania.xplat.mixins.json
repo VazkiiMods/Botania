@@ -38,6 +38,7 @@
     "ItemEntityMixin",
     "ItemMixin",
     "LevelAccessor",
+    "LiquidBlockAccessor",
     "LivingEntityAccessor",
     "LivingEntityMixin",
     "LootTableMixin",

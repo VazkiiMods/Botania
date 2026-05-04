@@ -19,7 +19,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -79,15 +78,6 @@ public class AllOfExcludingStateIngredient implements StateIngredient {
 	@Override
 	public StateIngredientType<AllOfExcludingStateIngredient> getType() {
 		return StateIngredients.ALL_OF_EXCLUDING;
-	}
-
-	@Override
-	public List<ItemStack> getDisplayedStacks() {
-		return streamBlockStates()
-				.filter(state -> state.is(Blocks.AIR))
-				.map(BlockState::getBlock)
-				.map(ItemStack::new)
-				.toList();
 	}
 
 	@Override
