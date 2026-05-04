@@ -17,9 +17,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.StateIngredient;
@@ -44,11 +42,6 @@ public record BlockTypeIngredient(Block block) implements StateIngredient {
 	@Override
 	public StateIngredientType<BlockTypeIngredient> getType() {
 		return StateIngredients.BLOCK_TYPE;
-	}
-
-	@Override
-	public List<ItemStack> getDisplayedStacks() {
-		return block == Blocks.AIR ? Collections.emptyList() : Collections.singletonList(new ItemStack(block.asItem()));
 	}
 
 	@Override

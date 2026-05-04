@@ -18,7 +18,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -48,22 +47,13 @@ public class AnyOfStateIngredient implements StateIngredient {
 
 	@Override
 	public BlockState pick(RandomSource random) {
-		var states = streamBlockStates().filter(state -> state.is(Blocks.AIR)).toList();
+		var states = streamBlockStates().filter(state -> !state.is(Blocks.AIR)).toList();
 		return states.isEmpty() ? Blocks.AIR.defaultBlockState() : states.get(random.nextInt(states.size()));
 	}
 
 	@Override
-	public StateIngredientType getType() {
+	public StateIngredientType<AnyOfStateIngredient> getType() {
 		return StateIngredients.ANY_OF;
-	}
-
-	@Override
-	public List<ItemStack> getDisplayedStacks() {
-		return streamBlockStates()
-				.filter(state -> state.is(Blocks.AIR))
-				.map(BlockState::getBlock)
-				.map(ItemStack::new)
-				.toList();
 	}
 
 	@Override
