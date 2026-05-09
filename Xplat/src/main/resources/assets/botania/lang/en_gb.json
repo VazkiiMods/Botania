@@ -2446,6 +2446,11 @@
 
 
 
+
+
+
+
+
   "botania.page.wand3": "The petals used determine the colours of the wand",
 
 
@@ -3480,6 +3485,7 @@
 
 
   "botania.page.sextant1": "To use the sextant, sneak-right click to choose a mode. Simply right-click and hold at a block to choose the shape's centre, and look around to choose its radius; blue circles will appear in the world as an outline of the final shape. Upon release of the sextant, a mirage of $(item)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the guide.",
+
 
 
 

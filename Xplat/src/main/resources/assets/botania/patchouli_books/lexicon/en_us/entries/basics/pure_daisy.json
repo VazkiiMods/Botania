@@ -18,40 +18,60 @@
       ]
     },
     {
-      "type": "crafting",
-      "text": "botania.page.pureDaisy2",
-      "recipe": "botania:livingwood_twig"
+      "type": "botania:petal_apothecary",
+      "text": "botania.page.pureDaisy3",
+      "recipe": "botania:petal_apothecary/pure_daisy"
+    },
+    {
+      "type": "botania:pure_daisy_double",
+      "text": "botania.page.pureDaisyLivingWood",
+      "recipes": "botania:pure_daisy/livingrock",
+      "recipes2": "botania:pure_daisy/livingwood_log"
     },
     {
       "type": "text",
       "text": "botania.page.pureDaisy4"
     },
     {
-      "type": "botania:petal_apothecary",
-      "text": "botania.page.pureDaisy3",
-      "recipe": "botania:petal_apothecary/pure_daisy"
+      "type": "botania:pure_daisy_double",
+      "title2": "botania.page.pureDaisyCompactingIce.title",
+      "text": "botania.page.pureDaisyCompactingIce",
+      "recipes": "botania:pure_daisy/snow_block",
+      "recipes2": [
+        "botania:pure_daisy/packed_ice",
+        "botania:pure_daisy/blue_ice"
+      ]
+    },
+    {
+      "type": "botania:pure_daisy_double",
+      "text": "botania.page.pureDaisyNetherResources",
+      "recipes": "botania:pure_daisy/cobblestone",
+      "recipes2": "botania:pure_daisy/sand"
+    },
+    {
+      "type": "botania:pure_daisy",
+      "text": "botania.page.pureDaisyObsidian",
+      "recipes": "botania:pure_daisy/obsidian"
+    },
+    {
+      "type": "botania:pure_daisy",
+      "text": "botania.page.pureDaisyCalcite",
+      "recipes": "botania:pure_daisy/calcite"
     }
   ],
   "extra_recipe_mappings": {
-    "botania:floating_pure_daisy": 1,
-    "botania:livingrock": 1,
-    "botania:livingrock_wall": 1,
-    "botania:livingrock_stairs": 1,
-    "botania:livingrock_slab": 1,
-    "botania:livingwood": 1,
-    "botania:livingwood_log": 1,
-    "botania:stripped_livingwood_slab": 1,
-    "botania:livingwood_slab": 1,
-    "botania:livingwood_stairs": 1,
-    "botania:livingwood_wall": 1,
-    "botania:stripped_livingwood_log": 1,
-    "botania:stripped_livingwood_wall": 1,
-    "botania:stripped_livingwood": 1,
-    "botania:stripped_livingwood_stairs": 1,
-    "minecraft:cobblestone": 3,
-    "minecraft:snow_block": 3,
-    "minecraft:packed_ice": 3,
-    "minecraft:blue_ice": 3,
-    "minecraft:obsidian": 3
+    "botania:floating_pure_daisy": 2,
+    "botania:livingrock_wall": 3,
+    "botania:livingrock_stairs": 3,
+    "botania:livingrock_slab": 3,
+    "botania:livingwood": 3,
+    "botania:stripped_livingwood_slab": 3,
+    "botania:livingwood_slab": 3,
+    "botania:livingwood_stairs": 3,
+    "botania:livingwood_wall": 3,
+    "botania:stripped_livingwood_log": 3,
+    "botania:stripped_livingwood_wall": 3,
+    "botania:stripped_livingwood": 3,
+    "botania:stripped_livingwood_stairs": 3
   }
 }

@@ -2437,9 +2437,14 @@
   "botania.tagline.pureDaisy": "Criador de Madeira Viva e Rocha Viva, entre outros",
   "botania.page.pureDaisy0": "Longe de ser apenas a mais básica, a $(item)Margarida Pura$(0) é a flor mais importante que um botanista pode ter.$(p)Esta flor purifica blocos adjacentes de $(item)Madeira$(0) e $(item)Pedra$(0) (como mostrado na próxima página) em suas versões purificadas, $(item)Madeira Viva$(0) e $(item)Rocha Viva$(0). Esses recursos são materiais de fabricação importantes para a carreira de um botanista.",
   "botania.page.pureDaisy1": "Espere só $(thing)um minuto$(0), ou quase isso...",
-  "botania.page.pureDaisy2": "$(item)Madeira Viva$(0) pode ser transformada em gravetos",
-  "botania.page.pureDaisy4": "Alguns outros blocos também podem ser purificados ao serem colocados ao redor da flor. Essas receitas podem ser úteis, apesar de produzirem recursos mais mundanos.$(p)$(item)Netherrack$(0) é purificada para $(item)Pedregulho$(0), $(item)Areia das Almas$(0) em $(item)Areia$(0), $(l:misc/blaze_block)Malha de Blazes$(/l) em $(item)Obsidiana$(0), $(item)Água$(0) em $(item)Neve$(0), $(item)Gelo$(0) em $(item)Gelo Compactado$(0), $(item)Gelo Compactado$(0) em $(item)Gelo Azul$(0), e $(item)Pedra do End$(0) em $(item)Pedregulho de Ardosiabissal$(0) (deixando uma pequena nuvem de $(l:ender/ender_air)Ar do End$(/l) no processo).",
   "botania.page.pureDaisy3": "Uma tela em branco para começar sua aventura",
+
+  "botania.page.pureDaisy4": "Alguns outros blocos também podem ser purificados ao serem colocados ao redor da flor. Essas receitas podem ser úteis, apesar de produzirem recursos mais mundanos.",
+
+
+
+
+
 
   "botania.entry.wand": "Varinha da Floresta",
   "botania.tagline.wand": "Sua multi-ferramenta essencial",
@@ -3492,6 +3497,7 @@
   "botania.entry.enderAir": "Extraindo ar do End",
   "botania.tagline.enderAir": "Garrafas arremessáveis que criam Pedra do End",
   "botania.page.enderAir0": "O ar do vazio do $(thing)End$(0) parece possuir propriedades mutativas. Clicar com o botão direito com um $(item)Frasco de Vidro$(0) vazio estando no $(thing)End$(0) irá capturar um pouco do ar de lá, que pode ser depois jogado como uma poção arremessável, transformando $(item)Pedras$(0) próximas do lugar atingido em $(item)Pedras do End$(0).$(br)$(item)Ejetores$(0) também podem capturar esse ar, se nada estiver bloqueando sua saída.",
+
   "botania.page.enderAir1": "Foi \"experimentalmente\" descoberto que os gases do vazio do $(thing)End$(0), quando misturados com o ar comum da $(thing)Superfície$(0), são muito tóxicos para certas criaturas do $(thing)Nether$(0), como o $(thing)Ghast$(0).$(p)Embora a quantidade armazenada em um $(item)Frasco de ar do End$(0) seja muito pequena para causar qualquer dano real, certamente é eficaz para irritar. Principalmente se conseguir atingir os olhos.",
 
   "botania.entry.enderEyeBlock": "Supervisor do End",

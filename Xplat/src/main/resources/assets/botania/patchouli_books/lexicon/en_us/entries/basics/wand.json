@@ -21,7 +21,8 @@
       "type": "crafting",
       "title":"botania.entry.wand",
       "text": "botania.page.wand3",
-      "recipe": "botania:twig_wand"
+      "recipe": "botania:livingwood_twig",
+      "recipe2": "botania:twig_wand"
     }
   ]
 }

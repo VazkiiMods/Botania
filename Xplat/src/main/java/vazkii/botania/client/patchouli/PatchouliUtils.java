@@ -14,7 +14,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IVariable;
@@ -29,9 +32,9 @@ public class PatchouliUtils {
 	/**
 	 * Gets a recipe of a specified type and ID, and replaces the namespace
 	 * with {@code crafttweaker} to try and find replacements if the recipe doesn't exist.
-	 *
 	 * If the recipe has no replacement, it will be logged.
 	 */
+	@Nullable
 	public static <T extends Recipe<C>, C extends RecipeInput> T getRecipe(Level level, RecipeType<T> type, ResourceLocation id) {
 		Optional<RecipeHolder<T>> directRecipe = BotaniaRecipeTypes.getRecipe(level, id, type);
 		if (directRecipe.isPresent()) {
@@ -100,6 +103,7 @@ public class PatchouliUtils {
 		ItemStack[] empty = { ItemStack.EMPTY };
 		List<ItemStack[]> stacks = new ArrayList<>();
 		for (Ingredient ingredient : ingredients) {
+			//noinspection ConstantValue
 			if (ingredient != null && !ingredient.isEmpty()) {
 				stacks.add(ingredient.getItems());
 			} else {
@@ -120,6 +124,43 @@ public class PatchouliUtils {
 	 */
 	public static IVariable interweaveIngredients(List<Ingredient> ingredients, Level level) {
 		return interweaveIngredients(ingredients, ingredients.stream().mapToInt(ingr -> ingr.getItems().length).max().orElse(1), level);
+	}
+
+	/**
+	 * Combines the state ingredients, returning the first matching display stack of each, then the second stack of
+	 * each, etc. looping back ingredients that run out of matched stacks, until the ingredients reach the length of the
+	 * longest ingredient in the recipe set.
+	 */
+	public static IVariable interweaveStateIngredients(List<StateIngredient> ingredients, Level level) {
+		if (ingredients.size() == 1) {
+			return IVariable.wrapList(ingredients.getFirst().getDisplayedStacks().stream()
+					.map(i -> IVariable.from(i, level.registryAccess()))
+					.toList(), level.registryAccess());
+		}
+
+		int longestIngredientSize = 1;
+		List<List<ItemStack>> stackLists = new ArrayList<>();
+		for (StateIngredient ingredient : ingredients) {
+			//noinspection ConstantValue
+			if (ingredient != null) {
+				List<ItemStack> ingredientStacks = ingredient.getDisplayedStacks();
+				if (!ingredientStacks.isEmpty()) {
+					stackLists.add(ingredientStacks);
+					if (ingredientStacks.size() > longestIngredientSize) {
+						longestIngredientSize = ingredientStacks.size();
+					}
+					continue;
+				}
+			}
+			stackLists.add(List.of(ItemStack.EMPTY));
+		}
+		List<IVariable> list = new ArrayList<>(stackLists.size() * longestIngredientSize);
+		for (int i = 0; i < longestIngredientSize; i++) {
+			for (List<ItemStack> stackList : stackLists) {
+				list.add(IVariable.from(stackList.get(i % stackList.size()), level.registryAccess()));
+			}
+		}
+		return IVariable.wrapList(list, level.registryAccess());
 	}
 
 	/**
