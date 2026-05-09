@@ -9,6 +9,7 @@
 package vazkii.botania.data;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -22,7 +23,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>> {
 	public EntityTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, Registries.ENTITY_TYPE, lookupProvider, (entityType) -> entityType.builtInRegistryHolder().key());
+		super(packOutput, Registries.ENTITY_TYPE, lookupProvider,
+				entityType -> BuiltInRegistries.ENTITY_TYPE.getResourceKey(entityType).orElseThrow());
 	}
 
 	@Override

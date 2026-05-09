@@ -64,7 +64,7 @@ public class ThundercallerItem extends ManasteelSwordItem {
 			XplatAbstractions.INSTANCE.sendToTracking(attacker,
 					new BotaniaEffectPacket(EffectType.THUNDERCALLER_EFFECT,
 							attacker.getX(), attacker.getY() + attacker.getBbHeight() / 2.0, attacker.getZ(),
-							alreadyTargetedEntities.toArray(new int[0])));
+							alreadyTargetedEntities));
 		}
 
 		return super.hurtEnemy(stack, entity, attacker);

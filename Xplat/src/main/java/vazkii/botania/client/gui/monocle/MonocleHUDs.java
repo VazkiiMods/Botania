@@ -17,7 +17,6 @@ import vazkii.botania.api.block.MonocleHud;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.entity.BotaniaEntities;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -25,7 +24,7 @@ import java.util.function.Predicate;
 public final class MonocleHUDs {
 	private static final List<EntityRegistration<? extends Entity>> ENTITY_REGISTRATIONS = List.of(
 			entityRegistration(ItemFrame.class, ItemFrameHud::new, ItemFrameHud::fallbackFactory,
-					EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME)
+					List.of(EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME))
 	);
 	private static final List<BlockRegistration> BLOCK_REGISTRATIONS = List.of(
 			BlockRegistration.fromList(RepeaterSettingHud::new, Blocks.REPEATER),
@@ -36,14 +35,12 @@ public final class MonocleHUDs {
 	);
 
 	@SuppressWarnings("SameParameterValue")
-	@SafeVarargs
 	private static <E extends Entity> EntityRegistration<E> entityRegistration(
 			Class<E> entityClass,
 			Function<E, MonocleHud> factory,
 			@Nullable Function<Entity, @Nullable MonocleHud> fallbackFactory,
-			EntityType<? extends E>... entityTypes) {
-		return new EntityRegistration<>(entityClass, factory, List.copyOf(Arrays.asList(entityTypes)),
-				fallbackFactory);
+			List<EntityType<? extends E>> entityTypes) {
+		return new EntityRegistration<>(entityClass, factory, List.copyOf(entityTypes), fallbackFactory);
 	}
 
 	/**
@@ -52,7 +49,7 @@ public final class MonocleHUDs {
 	 * @param consumer      The registration callback.
 	 * @param withFallbacks Whether to include elements that have a fallback factory.
 	 */
-	public static void registerMonocleHudCaps(BotaniaEntities.ECapConsumer<MonocleHud> consumer,
+	public static void registerMonocleHudEntityCaps(BotaniaEntities.ECapConsumer<MonocleHud> consumer,
 			boolean withFallbacks) {
 		for (EntityRegistration<? extends Entity> entry : ENTITY_REGISTRATIONS) {
 			if (entry.fallbackFactory() == null || withFallbacks) {
@@ -66,7 +63,7 @@ public final class MonocleHUDs {
 	 *
 	 * @param consumer The registration callback.
 	 */
-	public static void registerMonocleHudFallbackCaps(BotaniaEntities.ECapFallbackConsumer<MonocleHud> consumer) {
+	public static void registerMonocleHudFallbackEntityCaps(BotaniaEntities.ECapFallbackConsumer<MonocleHud> consumer) {
 		for (var entry : ENTITY_REGISTRATIONS) {
 			if (entry.fallbackFactory() != null) {
 				consumer.accept(entry.fallbackFactory());
@@ -83,7 +80,7 @@ public final class MonocleHUDs {
 	 *                                   instead of a fixed block list are registered as well, determining the list of
 	 *                                   blocks at registration time.
 	 */
-	public static void registerMonocleHudCaps(BotaniaBlocks.BCapConsumer<MonocleHud> consumer,
+	public static void registerMonocleHudBlockCaps(BotaniaBlocks.BCapConsumer<MonocleHud> consumer,
 			@Nullable Predicate<Block> fallbackNotRegisteredCheck) {
 		for (BlockRegistration entry : BLOCK_REGISTRATIONS) {
 			entry.blockListInfo.ifLeft(blocks -> consumer.accept(entry.factory(), blocks));
@@ -110,7 +107,7 @@ public final class MonocleHUDs {
 	 *
 	 * @param consumer The registration callback.
 	 */
-	public static void registerMonocleHudFallbackCaps(BotaniaBlocks.BCapFallbackConsumer<MonocleHud> consumer) {
+	public static void registerMonocleHudFallbackBlockCaps(BotaniaBlocks.BCapFallbackConsumer<MonocleHud> consumer) {
 		for (var entry : BLOCK_REGISTRATIONS) {
 			entry.blockListInfo().ifRight(predicate -> {
 				consumer.accept(state -> predicate.test(state) ? entry.factory().apply(state) : null);

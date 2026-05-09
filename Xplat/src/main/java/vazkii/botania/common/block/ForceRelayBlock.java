@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.block;
 
+import it.unimi.dsi.fastutil.ints.IntList;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
@@ -114,7 +116,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 			if (dest != null) {
 				XplatAbstractions.INSTANCE.sendToNear(level, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
 						pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-						dest.getX(), dest.getY(), dest.getZ()));
+						IntList.of(dest.getX(), dest.getY(), dest.getZ())));
 			}
 
 			return true;
@@ -134,7 +136,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 				XplatAbstractions.INSTANCE.sendToNear(level, targetPos,
 						new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
 								sourcePos.getX() + 0.5, sourcePos.getY() + 0.5, sourcePos.getZ() + 0.5,
-								targetPos.getX(), targetPos.getY(), targetPos.getZ()));
+								IntList.of(targetPos.getX(), targetPos.getY(), targetPos.getZ())));
 			}
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
 			return true;

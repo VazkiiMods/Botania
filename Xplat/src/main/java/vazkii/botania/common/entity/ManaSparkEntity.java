@@ -10,6 +10,8 @@ package vazkii.botania.common.entity;
 
 import com.mojang.blaze3d.platform.Window;
 
+import it.unimi.dsi.fastutil.ints.IntList;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -296,15 +298,15 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	private void particlesTowards(Entity e) {
 		XplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
-				getId(), e.getId(), getNetwork().getTextureDiffuseColor()));
+				IntList.of(getId(), e.getId(), getNetwork().getTextureDiffuseColor())));
 	}
 
 	private void particlesFrom(Entity e) {
 		XplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, e.getX(), e.getY(), e.getZ(),
-				e.getId(), getId(), getNetwork().getTextureDiffuseColor()));
+				IntList.of(e.getId(), getId(), getNetwork().getTextureDiffuseColor())));
 	}
 
-	public static void particleBeam(Player player, Entity e1, Entity e2) {
+	public static void particleBeam(Player player, @Nullable Entity e1, @Nullable Entity e2) {
 		if (e1 != null && e2 != null && !e1.level().isClientSide) {
 			XplatAbstractions.INSTANCE.sendToPlayer(player, new BotaniaEffectPacket(EffectType.SPARK_NET_INDICATOR,
 					e1.getX(), e1.getY(), e1.getZ(),

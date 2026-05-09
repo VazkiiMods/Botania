@@ -8,7 +8,8 @@
  */
 package vazkii.botania.network.clientbound;
 
-import com.google.common.primitives.Ints;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
@@ -45,18 +47,31 @@ import io.netty.buffer.ByteBuf;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
-public record BotaniaEffectPacket(EffectType effectType, double x, double y, double z, int... args) implements CustomPacketPayload {
+public record BotaniaEffectPacket(EffectType effectType, double x, double y, double z, IntList args) implements CustomPacketPayload {
 
 	public static final Type<BotaniaEffectPacket> ID = new Type<>(botaniaRL("eff"));
-	private static final int MAX_VARIABLE_ARGS = 128;
+	// highest count in use currently is Thundercaller effect with up to 10 arguments
+	private static final int MAX_VARIABLE_ARGS = 16;
 	public static final StreamCodec<ByteBuf, BotaniaEffectPacket> STREAM_CODEC = StreamCodec.composite(
 			EffectType.STREAM_CODEC, BotaniaEffectPacket::effectType,
 			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::x,
 			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::y,
 			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::z,
-			ByteBufCodecs.VAR_INT.apply(ByteBufCodecs.list()).map(Ints::toArray, is -> Ints.asList((int[]) is)), BotaniaEffectPacket::args,
-			(type, x, y, z, args) -> new BotaniaEffectPacket(type, x, y, z, (int[]) args)
+			ByteBufCodecs.VAR_INT.apply(ByteBufCodecs.list(MAX_VARIABLE_ARGS)), BotaniaEffectPacket::args,
+			(type, x, y, z, args) -> new BotaniaEffectPacket(type, x, y, z, new IntArrayList(args))
 	);
+
+	public BotaniaEffectPacket(EffectType effectType, double x, double y, double z) {
+		this(effectType, x, y, z, IntList.of());
+	}
+
+	public BotaniaEffectPacket(EffectType effectType, double x, double y, double z, int argument) {
+		this(effectType, x, y, z, IntList.of(argument));
+	}
+
+	public BotaniaEffectPacket(EffectType effectType, double x, double y, double z, int arg1, int arg2) {
+		this(effectType, x, y, z, IntList.of(arg1, arg2));
+	}
 
 	@Override
 	public Type<BotaniaEffectPacket> type() {
@@ -70,6 +85,11 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			var y = packet.y();
 			var z = packet.z();
 			var args = packet.args();
+			if (type.argCount != -1 && args.size() != type.argCount) {
+				BotaniaAPI.LOGGER.debug("Invalid argument count for effect packet type {}: {} (expected {})",
+						type, args.size(), type.argCount);
+				return;
+			}
 			// Using Lambda would somehow attempt to load ClientLevel on Neoforge dedicated server:
 			//noinspection Convert2Lambda
 			Minecraft.getInstance().execute(new Runnable() {
@@ -98,8 +118,8 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			});
 		}
 
-		private static void handlePaintLens(Level world, double x, double y, double z, int[] args) {
-			DyeColor placeColor = DyeColor.byId(args[0]);
+		private static void handlePaintLens(Level world, double x, double y, double z, IntList args) {
+			DyeColor placeColor = DyeColor.byId(args.getInt(0));
 			int color = placeColor.getTextureDiffuseColor();
 			float r = FastColor.ARGB32.red(color) / 255f;
 			float g = FastColor.ARGB32.green(color) / 255f;
@@ -122,14 +142,14 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleItemSmoke(Level world, double x, double y, double z, int[] args) {
+		private static void handleItemSmoke(Level world, double x, double y, double z, IntList args) {
 			RandomSource rng = world.getRandom();
-			Entity item = world.getEntity(args[0]);
+			Entity item = world.getEntity(args.getInt(0));
 			if (item == null) {
 				return;
 			}
 
-			int p = args[1];
+			int p = args.getInt(1);
 
 			for (int i = 0; i < p; i++) {
 				double d0 = rng.nextGaussian() * 0.01;
@@ -144,9 +164,9 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleSparkNetIndicator(Level world, int[] args) {
-			Entity e1 = world.getEntity(args[0]);
-			Entity e2 = world.getEntity(args[1]);
+		private static void handleSparkNetIndicator(Level world, IntList args) {
+			Entity e1 = world.getEntity(args.getInt(0));
+			Entity e2 = world.getEntity(args.getInt(1));
 
 			if (e1 == null || e2 == null) {
 				return;
@@ -174,10 +194,10 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleSparkManaFlow(Level world, int[] args) {
+		private static void handleSparkManaFlow(Level world, IntList args) {
 			RandomSource rng = world.getRandom();
-			Entity e1 = world.getEntity(args[0]);
-			Entity e2 = world.getEntity(args[1]);
+			Entity e1 = world.getEntity(args.getInt(0));
+			Entity e2 = world.getEntity(args.getInt(1));
 
 			if (e1 == null || e2 == null) {
 				return;
@@ -188,7 +208,7 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			Vec3 receiverVec = VecHelper.fromEntityCenter(e2).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
 
 			Vec3 motion = receiverVec.subtract(thisVec).scale(0.04);
-			int color = args[2];
+			int color = args.getInt(2);
 			float r = FastColor.ARGB32.red(color) / 255f;
 			float g = FastColor.ARGB32.green(color) / 255f;
 			float b = FastColor.ARGB32.blue(color) / 255f;
@@ -232,10 +252,10 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleTerraPlateEffect(Level world, double x, double y, double z, int[] args) {
+		private static void handleTerraPlateEffect(Level world, double x, double y, double z, IntList args) {
 			BlockEntity te = world.getBlockEntity(BlockPos.containing(x, y, z));
 			if (te instanceof TerrestrialAgglomerationPlateBlockEntity) {
-				float percentage = Float.intBitsToFloat(args[0]);
+				float percentage = Float.intBitsToFloat(args.getInt(0));
 				int ticks = (int) (100.0f * percentage);
 
 				int totalSpiritCount = 3;
@@ -279,8 +299,8 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleFlugelEffect(Level world, int[] args) {
-			Entity entity = world.getEntity(args[0]);
+		private static void handleFlugelEffect(Level world, IntList args) {
+			Entity entity = world.getEntity(args.getInt(0));
 			if (entity != null) {
 				for (int i = 0; i < 15; i++) {
 					double x1 = entity.getX() + Math.random();
@@ -292,14 +312,14 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleParticleBeam(Level world, double x, double y, double z, int[] args) {
+		private static void handleParticleBeam(Level world, double x, double y, double z, IntList args) {
 			WandOfTheForestItem.doParticleBeam(world,
 					new Vec3(x, y, z),
-					new Vec3(args[0] + 0.5, args[1] + 0.5, args[2] + 0.5));
+					new Vec3(args.getInt(0) + 0.5, args.getInt(1) + 0.5, args.getInt(2) + 0.5));
 		}
 
-		private static void handleDivaEffect(Level world, int[] args) {
-			Entity target = world.getEntity(args[0]);
+		private static void handleDivaEffect(Level world, IntList args) {
+			Entity target = world.getEntity(args.getInt(0));
 			if (target == null) {
 				return;
 			}
@@ -318,8 +338,8 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleHaloCraft(Level world, int[] args) {
-			Entity target = world.getEntity(args[0]);
+		private static void handleHaloCraft(Level world, IntList args) {
+			Entity target = world.getEntity(args.getInt(0));
 			if (target != null) {
 				Vec3 lookVec3 = target.getLookAngle();
 				Vec3 centerVector = VecHelper.fromEntityCenter(target).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
@@ -333,8 +353,8 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleAvatarTornadoJump(Level world, int[] args) {
-			Entity p = world.getEntity(args[0]);
+		private static void handleAvatarTornadoJump(Level world, IntList args) {
+			Entity p = world.getEntity(args.getInt(0));
 			if (p != null) {
 				for (int i = 0; i < 20; i++) {
 					for (int j = 0; j < 5; j++) {
@@ -349,8 +369,8 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleAvatarTornadoBoost(Level world, int[] args) {
-			Entity p = world.getEntity(args[0]);
+		private static void handleAvatarTornadoBoost(Level world, IntList args) {
+			Entity p = world.getEntity(args.getInt(0));
 			if (p != null) {
 				Vec3 lookDir = p.getLookAngle();
 				for (int i = 0; i < 20; i++) {
@@ -367,7 +387,7 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleThundercallerEffect(Level world, double x, double y, double z, int[] args) {
+		private static void handleThundercallerEffect(Level world, double x, double y, double z, IntList args) {
 			Vec3 source = new Vec3(x, y, z);
 			for (int id : args) {
 				var entity = world.getEntity(id);
@@ -380,8 +400,8 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			}
 		}
 
-		private static void handleGrassSeedParticles(Level world, double x, double y, double z, int[] args) {
-			int color = args[0];
+		private static void handleGrassSeedParticles(Level world, double x, double y, double z, IntList args) {
+			int color = args.getInt(0);
 			GrassSeedsItem.spawnParticles(world, BlockPos.containing(x, y, z), color);
 		}
 	}

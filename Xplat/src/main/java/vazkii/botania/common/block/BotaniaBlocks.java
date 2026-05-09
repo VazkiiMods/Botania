@@ -2053,6 +2053,7 @@ public final class BotaniaBlocks {
 	 * The ID part between the dye name and the base block ID (the color block infix) is often "_", but can be longer,
 	 * e.g. it would be "_stained_" for colored glass blocks, if those supported this operation.
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T extends Block & OptionallyColored> T findOptionallyDyedBlock(T referenceBlock,
 			@Nullable DyeColor targetColor, String coloredBlockInfix) {
 		@Nullable
@@ -2072,7 +2073,6 @@ public final class BotaniaBlocks {
 					"No target block for %s in %s (looked for %s, found %s)".formatted(referenceBlock, targetColor, targetId, targetBlock));
 		}
 
-		//noinspection unchecked
 		return (T) targetBlock;
 	}
 
@@ -2104,6 +2104,7 @@ public final class BotaniaBlocks {
 	 * Applies naming conventions to find a block of the same type in the specified color variant. The block ID is
 	 * expected to have the same format across all dye variants, with the dye name appearing once the ID.
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T extends Block & Colored> T findDyedBlock(T referenceBlock, DyeColor targetColor) {
 		DyeColor referenceColor = referenceBlock.getColor();
 		if (referenceColor == targetColor) {
@@ -2120,7 +2121,6 @@ public final class BotaniaBlocks {
 					"No target block for %s in %s (found %s)".formatted(referenceBlock, targetColor, targetBlock));
 		}
 
-		//noinspection unchecked
 		return (T) targetBlock;
 	}
 

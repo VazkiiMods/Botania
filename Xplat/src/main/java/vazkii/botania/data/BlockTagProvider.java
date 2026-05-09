@@ -67,7 +67,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 	protected BlockTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider,
 			CompletableFuture<TagLookup<Block>> parentProvider) {
-		super(packOutput, Registries.BLOCK, lookupProvider, parentProvider, (block) -> block.builtInRegistryHolder().key());
+		super(packOutput, Registries.BLOCK, lookupProvider, parentProvider,
+				block -> BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow());
 	}
 
 	@Override

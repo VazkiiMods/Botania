@@ -143,15 +143,15 @@ public class FabricClientInitializer implements ClientModInitializer {
 
 	private static void registerCapabilities() {
 		BotaniaEntities.registerWandHudCaps(getECapConsumer(BotaniaFabricClientCapabilities.ENTITY_WAND_HUD));
-		MonocleHUDs.registerMonocleHudCaps(getECapConsumer(BotaniaFabricClientCapabilities.ENTITY_MONOCLE_HUD), false);
-		MonocleHUDs.registerMonocleHudFallbackCaps(getEntityFallbackCapsConsumer(BotaniaFabricClientCapabilities.ENTITY_MONOCLE_HUD));
+		MonocleHUDs.registerMonocleHudEntityCaps(getECapConsumer(BotaniaFabricClientCapabilities.ENTITY_MONOCLE_HUD), false);
+		MonocleHUDs.registerMonocleHudFallbackEntityCaps(getEntityFallbackCapsConsumer(BotaniaFabricClientCapabilities.ENTITY_MONOCLE_HUD));
 
 		BotaniaBlockEntities.registerWandHudCaps(
 				(factory, types) -> BotaniaFabricClientCapabilities.BLOCK_WAND_HUD.registerForBlockEntities(
 						(be, c) -> factory.apply(be), types));
 
-		MonocleHUDs.registerMonocleHudCaps(getBCapConsumer(BotaniaFabricClientCapabilities.BLOCK_MONOCLE_HUD), null);
-		MonocleHUDs.registerMonocleHudFallbackCaps(getBFallbackCapConsumer(BotaniaFabricClientCapabilities.BLOCK_MONOCLE_HUD));
+		MonocleHUDs.registerMonocleHudBlockCaps(getBCapConsumer(BotaniaFabricClientCapabilities.BLOCK_MONOCLE_HUD), null);
+		MonocleHUDs.registerMonocleHudFallbackBlockCaps(getBFallbackCapConsumer(BotaniaFabricClientCapabilities.BLOCK_MONOCLE_HUD));
 	}
 
 	private static <T, C> BotaniaBlocks.BCapConsumer<T> getBCapConsumer(BlockApiLookup<T, C> apiLookup) {

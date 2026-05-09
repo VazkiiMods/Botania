@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
@@ -22,7 +23,12 @@ public class RunicAltarProcessor extends ReagentRecipeProcessor<RunicAltarRecipe
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
 		ResourceLocation id = ResourceLocation.parse(variables.get("recipe", level.registryAccess()).asString());
-		this.recipe = new RecipeHolder<>(id, PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.RUNE_TYPE, id));
+		RunicAltarRecipe altarRecipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.RUNE_TYPE, id);
+		if (altarRecipe != null) {
+			this.recipe = new RecipeHolder<>(id, altarRecipe);
+		} else {
+			BotaniaAPI.LOGGER.warn("Missing Runic Altar recipe {}", id);
+		}
 	}
 
 	@Override
@@ -31,7 +37,7 @@ public class RunicAltarProcessor extends ReagentRecipeProcessor<RunicAltarRecipe
 			return super.process(level, key);
 		}
 		if (key.equals("mana")) {
-			return IVariable.wrap(recipe.value().getMana());
+			return IVariable.wrap(recipe.value().getMana(), level.registryAccess());
 		}
 		return super.process(level, key);
 	}

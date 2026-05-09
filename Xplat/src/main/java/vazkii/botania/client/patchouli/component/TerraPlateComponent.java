@@ -26,13 +26,16 @@ import java.util.function.UnaryOperator;
  * Parameters: corner, center, edge, plate can be provided to override default blocks.
  */
 public class TerraPlateComponent implements ICustomComponent {
-	public IVariable corner = IVariable.wrap("botania:livingrock");
-	public IVariable center = IVariable.wrap("botania:livingrock");
-	public IVariable edge = IVariable.wrap("minecraft:lapis_block");
-	public IVariable plate = IVariable.wrap("botania:terra_plate");
 
 	private transient int x, y;
-	private transient ItemStack cornerBlock, centerBlock, middleBlock, plateBlock;
+	@SuppressWarnings("NotNullFieldNotInitialized")
+	private transient ItemStack cornerBlock;
+	@SuppressWarnings("NotNullFieldNotInitialized")
+	private transient ItemStack centerBlock;
+	@SuppressWarnings("NotNullFieldNotInitialized")
+	private transient ItemStack middleBlock;
+	@SuppressWarnings("NotNullFieldNotInitialized")
+	private transient ItemStack plateBlock;
 
 	@Override
 	public void build(int componentX, int componentY, int pageNum) {
@@ -70,9 +73,9 @@ public class TerraPlateComponent implements ICustomComponent {
 
 	@Override
 	public void onVariablesAvailable(UnaryOperator<IVariable> lookup, HolderLookup.Provider registries) {
-		cornerBlock = lookup.apply(corner).as(ItemStack.class);
-		centerBlock = lookup.apply(center).as(ItemStack.class);
-		middleBlock = lookup.apply(edge).as(ItemStack.class);
-		plateBlock = lookup.apply(plate).as(ItemStack.class);
+		cornerBlock = lookup.apply(IVariable.wrap("botania:livingrock", registries)).as(ItemStack.class);
+		centerBlock = lookup.apply(IVariable.wrap("botania:livingrock", registries)).as(ItemStack.class);
+		middleBlock = lookup.apply(IVariable.wrap("minecraft:lapis_block", registries)).as(ItemStack.class);
+		plateBlock = lookup.apply(IVariable.wrap("botania:terra_plate", registries)).as(ItemStack.class);
 	}
 }

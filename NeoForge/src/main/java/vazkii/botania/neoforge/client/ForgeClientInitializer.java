@@ -179,9 +179,9 @@ public class ForgeClientInitializer {
 		));
 
 		BotaniaEntities.registerWandHudCaps(getECapConsumer(e, BotaniaForgeClientCapabilities.ENTITY_WAND_HUD));
-		MonocleHUDs.registerMonocleHudCaps(getECapConsumer(e, BotaniaForgeClientCapabilities.ENTITY_MONOCLE_HUD), true);
+		MonocleHUDs.registerMonocleHudEntityCaps(getECapConsumer(e, BotaniaForgeClientCapabilities.ENTITY_MONOCLE_HUD), true);
 
-		MonocleHUDs.registerMonocleHudCaps(getBCapsConsumer(e, BotaniaForgeClientCapabilities.BLOCK_MONOCLE_HUD),
+		MonocleHUDs.registerMonocleHudBlockCaps(getBCapsConsumer(e, BotaniaForgeClientCapabilities.BLOCK_MONOCLE_HUD),
 				b -> !e.isBlockRegistered(BotaniaForgeClientCapabilities.BLOCK_MONOCLE_HUD, b));
 	}
 

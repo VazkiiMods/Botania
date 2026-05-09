@@ -27,6 +27,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -111,9 +113,9 @@ public class ContributorList {
 	private static void fetch() {
 		InputStream stream;
 		try {
-			URL url = new URL("https://raw.githubusercontent.com/Vazkii/Botania/master/contributors.properties");
+			URL url = new URI("https://raw.githubusercontent.com/Vazkii/Botania/master/contributors.properties").toURL();
 			stream = url.openStream();
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			BotaniaAPI.LOGGER.info("Could not load live contributors list. Either you're offline or GitHub is down. Loading bundled copy.");
 			stream = ContributorList.class.getClassLoader().getResourceAsStream("contributors.properties");
 			if (stream == null) {
