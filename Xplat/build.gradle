@@ -35,6 +35,14 @@ dependencies {
     compileOnly group: 'org.jetbrains', name: 'annotations', version: '26.0.2'
 }
 
+tasks.register('normalizeLanguageFiles', JavaExec) {
+    group = "verification"
+    description = "Normalize language file layout according to en_us.json"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'vazkii.botania.data.LangSortTool'
+    workingDir = projectDir.parent
+}
+
 configurations {
     commonJava {
         canBeResolved = false
