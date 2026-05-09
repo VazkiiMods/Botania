@@ -1,0 +1,86 @@
+{
+  "processor": "vazkii.botania.client.patchouli.processor.PureDaisyProcessor",
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "botania:textures/gui/mana_infusion_overlay.png",
+      "x": 1,
+      "y": -2,
+      "width": 116,
+      "height": 106,
+      "u": 17,
+      "v": 28
+    },
+    {
+      "type": "patchouli:header",
+      "text": "#title",
+      "x": -1,
+      "y": -3
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input",
+      "framed": "false",
+      "x": 20,
+      "y": 23
+    },
+    {
+      "type": "patchouli:item",
+      "item": "botania:pure_daisy",
+      "framed": "false",
+      "x": 49,
+      "y": 23
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "framed": "false",
+      "link_recipe": true,
+      "x": 78,
+      "y": 23
+    },
+    {
+      "type": "patchouli:image",
+      "image": "botania:textures/gui/mana_infusion_overlay.png",
+      "x": 1,
+      "y": 62,
+      "width": 116,
+      "height": 106,
+      "u": 17,
+      "v": 28
+    },
+    {
+      "type": "patchouli:header",
+      "text": "#title2",
+      "x": -1,
+      "y": 61
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input2",
+      "framed": "false",
+      "x": 20,
+      "y": 87
+    },
+    {
+      "type": "patchouli:item",
+      "item": "botania:pure_daisy",
+      "framed": "false",
+      "x": 49,
+      "y": 87
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output2",
+      "framed": "false",
+      "link_recipe": true,
+      "x": 78,
+      "y": 87
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "y": 124
+    }
+  ]
+}

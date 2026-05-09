@@ -2437,9 +2437,14 @@
   "botania.tagline.pureDaisy": "Maker van onder andere Levenshout en Levensteen",
   "botania.page.pureDaisy0": "Het $(item)Puur Madeliefje$(0) is niet alleen de meest eenvoudige, maar ook de meest belangrijke bloem voor een botanist.$(p)Deze bloem zorgt dat al het $(item)Hout$(0) en $(item)Steen$(0) in de buurt verandert in hun natuurlijke tegenhanger, $(item)Levenshout$(0) en $(item)Levensteen$(0), welke gebruikt kunnen worden bij vervaardiging van andere dingen. Meer info op de volgende pagina.",
   "botania.page.pureDaisy1": "Geef het ongeveer $(thing)een minuut$(0)...",
-  "botania.page.pureDaisy2": "Van $(item)Levenshout$(0) kunnen twijgjes gemaakt worden",
-  "botania.page.pureDaisy4": "Ook enkele andere blokken kunnen worden omgezet door ze naast de bloem te plaatsen. Deze zijn niet zo uniek en belangrijk als de andere, maar misschien wel handig. Mogelijk is $(item)Netherrack$(0) naar $(item)Keisteen$(0), $(item)Zielenzand$(0) naar $(item)Zand$(0), $(item)Ijs$(0) naar $(item)Pakijs$(0) of $(item)Water$(0) naar $(item)Sneeuw$(0) .",
   "botania.page.pureDaisy3": "Wit is helder en puur",
+
+  "botania.page.pureDaisy4": "Ook enkele andere blokken kunnen worden omgezet door ze naast de bloem te plaatsen. Deze zijn niet zo uniek en belangrijk als de andere, maar misschien wel handig.",
+
+
+
+
+
 
   "botania.entry.wand": "Staf van het Woud",
   "botania.tagline.wand": "Het noodzakelijke gereedschap",
@@ -3492,6 +3497,7 @@
   "botania.entry.enderAir": "Verkrijgen van Ender Lucht",
   "botania.tagline.enderAir": "Werpbare flesjes die Endsteen maken",
   "botania.page.enderAir0": "De lucht in de wereld van de $(item)End$(0) lijkt wat muterende eigenschappen te bezitten. Door te rechts-klikken met een leeg $(item)Glazen Flesje$(0) in de $(item)End$(0) is het mogelijk een beetje van deze lucht te vangen. Deze kan later geworpen worden net als een $(item)Spattende Drank$(0), waardoor $(item)Steen$(0) in de buurt zal veranderen in $(item)Endsteen$(0).",
+
 
 
   "botania.entry.enderEyeBlock": "Ender Opzichter",

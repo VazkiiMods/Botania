@@ -2437,9 +2437,14 @@
   "botania.tagline.pureDaisy": "活木，活石與其他的創造者",
   "botania.page.pureDaisy0": "$(item)白雛菊$(0)不僅是最基礎的，也是一個植物魔法師所有的最重要的花。$(p)這種花會將任何相鄰的$(item)木塊$(0)和$(item)石頭$(0)方塊淨化為$(item)活木$(0)和$(item)活石$(0)（如下一頁所示）。這兩種材料都是植物魔法師生涯中不可或缺的素材。",
   "botania.page.pureDaisy1": "給它$(thing)一分鐘$(0)就會……",
-  "botania.page.pureDaisy2": "$(item)活木$(0)可做成活木枝",
-  "botania.page.pureDaisy4": "此外還有一些方塊放在這朵花旁邊時也能被淨化。儘管它們並不像活木活石那樣是必需品，或許也能派上什麼用場。包括$(item)地獄石$(0)變為$(item)鵝卵石$(0)，$(item)靈魂砂$(0)變為$(item)沙$(0)，$(item)烈焰網$(0)變為$(item)黑曜石$(0)，$(item)水源$(0)變為$(item)雪$(0)，$(item)冰$(0)變為$(item)冰磚$(0)，$(item)冰磚$(0)變為$(item)藍冰$(0)，以及$(item)終界石$(0)變為$(item)深板岩碎石$(0)（在此過程中釋放一小朵$(l:ender/ender_air)終界空氣雲團$(/l)）。",
   "botania.page.pureDaisy3": "一張空白畫卷，繪出冒險之旅",
+
+  "botania.page.pureDaisy4": "此外還有一些方塊放在這朵花旁邊時也能被淨化。儘管它們並不像活木活石那樣是必需品，或許也能派上什麼用場。",
+
+
+
+
+
 
   "botania.entry.wand": "森林法杖",
   "botania.tagline.wand": "你最重要的萬能工具",
@@ -3492,6 +3497,7 @@
   "botania.entry.enderAir": "取得終界空氣",
   "botania.tagline.enderAir": "製造終界石的可投擲瓶子",
   "botania.page.enderAir0": "$(item)終界$(0)的空氣看起來有一些變異的功能。如果在$(item)終界$(0)用空的$(item)玻璃瓶$(0)右鍵就會收集到那裡的空氣，它也可以像飛濺藥水一樣扔出去，著陸點附近的$(item)石頭$(0)則會變成$(item)終界石$(0)。",
+
   "botania.page.enderAir1": "經「實驗」證明，$(item)終界$(0)空氣與$(thing)主世界$(0)空氣混合時會產生一種對某些$(thing)地獄$(0)生物（比如$(item)地獄幽靈$(0)）有劇毒的氣體。$(p)儘管$(item)瓶裝終界空氣$(0)的量還是小了些，以至於造成不了什麼實質性的傷害，但用來煩人還是可以的。$(p)特別是弄到它們眼睛裡的時候。",
 
   "botania.entry.enderEyeBlock": "終界監視者",

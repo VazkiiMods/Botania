@@ -8,13 +8,19 @@
       "type": "text",
       "text": "botania.page.enderAir0"
     },
-
+    {
+      "type": "botania:pure_daisy",
+      "text": "botania.page.enderAirFromEndstone",
+      "recipes": "botania:pure_daisy/end_stone_to_cobbled_deepslate"
+    },
     {
       "type": "text",
       "text": "botania.page.enderAir1"
     }
   ],
   "extra_recipe_mappings": {
-    "botania:ender_air_bottle": 1
+    "minecraft:end_stone": 0,
+    "botania:ender_air_bottle": 0,
+    "minecraft:ghast_tear": 2
   }
 }

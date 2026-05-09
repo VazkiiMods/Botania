@@ -2437,9 +2437,14 @@
 
   "botania.page.pureDaisy0": "La $(item)margarita pura$(0) no sólo es la más básica, sino también la flor más importante que un botánico puede tener.$(p)Esta flor purificará cualquier bloque de $(item)madera$(0) y $(item)piedra$(0) adyacentes, como se ve en la página siguiente, en sus correspondientes purificadas, $(item)madera viviente$(0) y $(item)piedra viviente$(0), que se pueden usar parar crear cosas.",
   "botania.page.pureDaisy1": "Dame $(thing)un minuto$(0) mas o menos...",
-  "botania.page.pureDaisy2": "La $(item)madera viviente$(0) se puede convertir en ramitas",
-  "botania.page.pureDaisy4": "Algunos otros bloque se puede purificar al ponerlo junto a la flor. Aunque no tan únicos y esenciales como los bloques vivientes, quizás pueda ser útil. Esto incluye de $(item)infiedra$(0) a $(item)roca$(0), de $(item)arena de almas$(0) a $(item)arena$(0), de $(item)hielo$(0) a $(item)hielo compacto$(0) o de $(item)agua$(0) a $(item)nieve$(0).",
   "botania.page.pureDaisy3": "Blanco nuclear",
+
+  "botania.page.pureDaisy4": "Algunos otros bloque se puede purificar al ponerlo junto a la flor. Aunque no tan únicos y esenciales como los bloques vivientes, quizás pueda ser útil.",
+
+
+
+
+
 
   "botania.entry.wand": "Varita del bosque",
 
@@ -3492,6 +3497,7 @@
   "botania.entry.enderAir": "Extrayendo el aire del Fin",
 
   "botania.page.enderAir0": "El aire presente en el vacío del $(item)Fin$(0) parece tener propiedades mutacionales. Haz clic derecho con una $(item)botella de cristal$(0) vacía estando en el Fin capturará aire, la cual puede lanzarse como cualquier poción arrojadiza, convirtiendo la $(item)piedra$(0) que toque en $(item)piedra del Fin$(0).",
+
 
 
   "botania.entry.enderEyeBlock": "Supervisor del Fin",

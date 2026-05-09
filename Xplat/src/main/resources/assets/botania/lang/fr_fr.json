@@ -2437,9 +2437,14 @@
   "botania.tagline.pureDaisy": "TAGLINE",
   "botania.page.pureDaisy0": "La $(item)pâquerette pure$(0) est l'une des fleurs les plus cruciales pour l'arsenal d'un botaniste.$(p)Cette fleur va purifier la $(item)roche$(0) et les $(item)bûches$(0), pour les transformer en $(item)viveroche$(0) et $(item)vifbois$(0).",
   "botania.page.pureDaisy1": "Attendez environ une minute ...",
-  "botania.page.pureDaisy2": "Taillé en $(item)brindille$(0)",
-  "botania.page.pureDaisy4": "D'autres blocs peuvent être purifiés. Même s'ils sont moins intéressants, il n'en sont pas moins utiles.$(p)La $(item)netherrack$(0) deviens des $(item)pierres$(0), le $(item)sable des âmes$(0) deviens du $(item)sable$(0), la $(item)glace$(0) deviens de la $(item)glace compactée$(0), et l'eau deviens de la $(item)neige$(0).",
   "botania.page.pureDaisy3": "$(o)un peu, beaucoup, à la folie$()",
+
+  "botania.page.pureDaisy4": "D'autres blocs peuvent être purifiés. Même s'ils sont moins intéressants, il n'en sont pas moins utiles.",
+
+
+
+
+
 
   "botania.entry.wand": "Baguette sylvestre",
   "botania.tagline.wand": "TAGLINE",
@@ -3492,6 +3497,7 @@
   "botania.entry.enderAir": "Récolter l'air du néant",
   "botania.tagline.enderAir": "TAGLINE",
   "botania.page.enderAir0": "L'air qui est présent dans l'$(thing)End$(0) semble avoir des propriétés mutagènes.$(p)Clic-droit dans l'$(thing)End$(0) avec une $(item)fiole$(0) vide vous donnera une $(item)fiole d'air du néant$(0). Un objet que l'on peut lancer, et qui transforme la $(item)roche$(0) en $(item)pierre de l'End$(0). Même un $(item)distributeur$(0) peut capturer cet air, tant qu'il n'est pas obstrué.",
+
   "botania.page.enderAir1": "En faisant des expériences; nous avons découvert que si des gaz de l'$(thing)End$(0) sont mélangés à l'air de la $(thing)Surface$(0), alors ils formeront un mélange toxique pour les créatures du $(thing)Nether$(0), comme le $(thing)Ghast$(0).$(p)Les $(item)fioles d'air du néant$(0) sont trop petites pour faire un vrai poison anti-$(thing)Nether$(0), mais elles sont suffisamment grandes pour faire $(o)un produit très irritant pour les yeux$().",
 
   "botania.entry.enderEyeBlock": "Veilleur du néant",
