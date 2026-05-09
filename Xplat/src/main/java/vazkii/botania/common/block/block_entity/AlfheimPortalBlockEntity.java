@@ -60,7 +60,8 @@ import java.util.stream.StreamSupport;
 
 public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wandable {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> {
-		record Matcher(TagKey<Block> tag, Direction.Axis displayedRotation, Block defaultBlock) implements IStateMatcher {
+		record Matcher(TagKey<Block> tag, Direction.Axis displayedRotation,
+				Block defaultBlock) implements IStateMatcher {
 			@Override
 			public BlockState getDisplayedState(long ticks) {
 				var blocks = StreamSupport.stream(BuiltInRegistries.BLOCK.getTagOrEmpty(this.tag).spliterator(), false)
@@ -205,6 +206,21 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		}
 	}
 
+	public static Collection<ElvenTradeRecipe> elvenTradeRecipes(Level world) {
+		// By virtue of IRecipeType's type parameter,
+		// we know all the recipes in the map must be ElvenTradeRecipe.
+		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
+		return BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.ELVEN_TRADE_TYPE).values();
+	}
+
+	private static Rotation getStateRotation(AlfheimPortalState state) {
+		return switch (state) {
+			case ON_X -> Rotation.CLOCKWISE_90;
+			case ON_Z -> Rotation.NONE;
+			default -> null;
+		};
+	}
+
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
 		for (Recipe<?> recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE).values()) {
@@ -226,7 +242,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	private void blockParticle(AlfheimPortalState state) {
 		// Pick one of the inner positions, offsets [-1,+1] and [+1,+3]
 		int rnd = level.random.nextInt(9);
-		double dh = (rnd / 3) - 1;
+		double dh = (double) rnd / 3 - 1;
 		double dy = (rnd % 3) + 1;
 		double dx = state == AlfheimPortalState.ON_X ? 0 : dh;
 		double dz = state == AlfheimPortalState.ON_Z ? 0 : dh;
@@ -265,13 +281,6 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		for (int i = 0; i < size; i++) {
 			stacksIn.add(stack.copy());
 		}
-	}
-
-	public static Collection<ElvenTradeRecipe> elvenTradeRecipes(Level world) {
-		// By virtue of IRecipeType's type parameter,
-		// we know all the recipes in the map must be ElvenTradeRecipe.
-		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
-		return BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.ELVEN_TRADE_TYPE).values();
 	}
 
 	private void resolveRecipes() {
@@ -339,14 +348,6 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	public void readPacketNBT(CompoundTag cmp) {
 		ticksOpen = cmp.getInt(TAG_TICKS_OPEN);
 		ticksSinceLastItem = cmp.getInt(TAG_TICKS_SINCE_LAST_ITEM);
-	}
-
-	private static Rotation getStateRotation(AlfheimPortalState state) {
-		return switch (state) {
-			case ON_X -> Rotation.CLOCKWISE_90;
-			case ON_Z -> Rotation.NONE;
-			default -> null;
-		};
 	}
 
 	private AlfheimPortalState getValidState(AlfheimPortalState oldState) {
