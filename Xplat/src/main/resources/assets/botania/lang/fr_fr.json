@@ -376,6 +376,7 @@
   "tag.item.botania.petals.yellow": "Pétales jaunes",
 
 
+
   "tag.item.botania.rods": "Bâtons",
 
   "tag.item.botania.seed_apothecary_reagent": "Graines",
@@ -884,6 +885,9 @@
   "block.botania.apothecary_mossy": "Apothicaire moussu",
   "block.botania.apothecary_livingrock": "Apothicaire de viveroche",
   "block.botania.apothecary_deepslate": "Apothicaire des abîmes",
+
+
+
   "block.botania.livingrock": "Viveroche",
   "block.botania.polished_livingrock": "Viveroche polie",
   "block.botania.livingrock_slate": "Ardoise de viveroche",

@@ -374,6 +374,7 @@
   "tag.item.botania.petals.red": "Rote Blütenblätter",
   "tag.item.botania.petals.white": "Weiße Blütenblätter",
   "tag.item.botania.petals.yellow": "Gelbe Blütenblätter",
+
   "tag.item.botania.pickable_block_providers": "Auswählbare Blocklieferanten",
   "tag.item.botania.quartz_blocks": "Quarzblöcke",
   "tag.item.botania.rods": "Stäbe",
@@ -884,6 +885,9 @@
   "block.botania.apothecary_mossy": "Moosige Blütenapotheke",
   "block.botania.apothecary_livingrock": "Lebestein-Blütenapotheke",
   "block.botania.apothecary_deepslate": "Tiefenschiefer-Blütenapotheke",
+
+
+
   "block.botania.livingrock": "Lebestein",
   "block.botania.polished_livingrock": "Polierter Lebestein",
   "block.botania.livingrock_slate": "Lebesteinplatte",

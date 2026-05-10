@@ -376,6 +376,7 @@
   "tag.item.botania.petals.yellow": "淺綠色神秘花瓣",
 
 
+
   "tag.item.botania.rods": "法杖",
   "tag.item.botania.runes": "符文",
   "tag.item.botania.seed_apothecary_reagent": "花葯台的種子",
@@ -884,6 +885,9 @@
   "block.botania.apothecary_mossy": "青苔石花葯台",
   "block.botania.apothecary_livingrock": "活石花葯台",
   "block.botania.apothecary_deepslate": "深板岩花葯台",
+
+
+
   "block.botania.livingrock": "活石",
   "block.botania.polished_livingrock": "拋光活石",
   "block.botania.livingrock_slate": "活石板",

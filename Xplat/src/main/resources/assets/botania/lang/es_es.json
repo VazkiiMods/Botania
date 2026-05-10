@@ -485,6 +485,7 @@
 
 
 
+
   "botania.triggers.manaDetector": "Pulso de maná",
   "botania.triggers.manaEmpty": "Vacío de maná",
   "botania.triggers.manaSpace": "Espacio para maná",
@@ -881,6 +882,9 @@
   "block.botania.apothecary_desert": "Botica de pétalos de desierto",
   "block.botania.apothecary_taiga": "Botica de pétalos de taiga",
   "block.botania.apothecary_mesa": "Botica de pétalos de mesa",
+
+
+
 
 
 

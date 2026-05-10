@@ -376,6 +376,7 @@
   "tag.item.botania.petals.yellow": "Жёлтые лепестки",
 
 
+
   "tag.item.botania.rods": "Скипетры",
   "tag.item.botania.runes": "Руны",
   "tag.item.botania.seed_apothecary_reagent": "Семена-реагенты",
@@ -884,6 +885,9 @@
   "block.botania.apothecary_mossy": "Замшелая лепестковая чаша",
   "block.botania.apothecary_livingrock": "Жизнекаменная лепестковая чаша",
   "block.botania.apothecary_deepslate": "Глубинносланцевая лепестковая чаша",
+
+
+
   "block.botania.livingrock": "Жизнекамень",
   "block.botania.polished_livingrock": "Полированный жизнекамень",
   "block.botania.livingrock_slate": "Жизнекаменный сланец",

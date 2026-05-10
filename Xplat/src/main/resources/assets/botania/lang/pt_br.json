@@ -375,6 +375,7 @@
   "tag.item.botania.petals.white": "Pétalas Brancas",
   "tag.item.botania.petals.yellow": "Pétalas Amarelas",
 
+
   "tag.item.botania.quartz_blocks": "Blocos de Quartzo",
   "tag.item.botania.rods": "Cajados",
   "tag.item.botania.runes": "Runas",
@@ -884,6 +885,9 @@
   "block.botania.apothecary_mossy": "Boticário de Pétalas Musgoso",
   "block.botania.apothecary_livingrock": "Boticário de Pétalas de Rocha Viva",
   "block.botania.apothecary_deepslate": "Boticário de Pétalas de Ardosiabissal",
+
+
+
   "block.botania.livingrock": "Rocha Viva",
   "block.botania.polished_livingrock": "Rocha Viva Polida",
   "block.botania.livingrock_slate": "Rocha Viva Lapidada",

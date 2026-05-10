@@ -486,6 +486,7 @@
 
 
 
+
   "botania.triggers.manaEmpty": "Mana Leeg",
   "botania.triggers.manaSpace": "Ruimte voor Mana",
   "botania.triggers.manaContains": "Bevat Mana",
@@ -881,6 +882,9 @@
   "block.botania.apothecary_desert": "Woestijn Bloemblad Apotheek",
   "block.botania.apothecary_taiga": "Winterwoud Bloemblad Apotheek",
   "block.botania.apothecary_mesa": "Hoogvlakte Bloemblad Apotheek",
+
+
+
 
 
 

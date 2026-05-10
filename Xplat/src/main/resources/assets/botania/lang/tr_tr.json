@@ -375,6 +375,7 @@
   "tag.item.botania.petals.white": "Beyaz Taç Yaprakları",
   "tag.item.botania.petals.yellow": "Sarı Taç Yaprakları",
 
+
   "tag.item.botania.quartz_blocks": "Kuvars Blokları",
   "tag.item.botania.rods": "Asalar",
   "tag.item.botania.runes": "Rünler",
@@ -884,6 +885,9 @@
   "block.botania.apothecary_mossy": "Yosunlu Taç Yaprağı Eczanesi",
   "block.botania.apothecary_livingrock": "Yaşayan Kaya Taç Yaprağı Eczanesi",
   "block.botania.apothecary_deepslate": "Derin Taş Taç Yaprağı Eczanesi",
+
+
+
   "block.botania.livingrock": "Yaşayan Kaya",
   "block.botania.polished_livingrock": "Parlatılmış Yaşayan Kaya",
   "block.botania.livingrock_slate": "Yaşayan Kaya Kayrak",

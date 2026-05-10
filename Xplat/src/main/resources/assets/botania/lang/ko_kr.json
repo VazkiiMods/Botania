@@ -376,6 +376,7 @@
   "tag.item.botania.petals.yellow": "노란색 꽃잎",
 
 
+
   "tag.item.botania.rods": "로드",
   "tag.item.botania.runes": "룬",
   "tag.item.botania.seed_apothecary_reagent": "종자 시약",
@@ -884,6 +885,9 @@
   "block.botania.apothecary_mossy": "이끼 낀 꽃잎 연금술기",
   "block.botania.apothecary_livingrock": "생명의 돌 꽃잎 연금술기",
   "block.botania.apothecary_deepslate": "심층암 꽃잎 연금술기",
+
+
+
   "block.botania.livingrock": "생명의 돌",
   "block.botania.polished_livingrock": "윤나는 생명의 돌",
   "block.botania.livingrock_slate": "생명의 돌 석판",

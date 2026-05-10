@@ -376,6 +376,7 @@
   "tag.item.botania.petals.yellow": "黄色の花びら",
 
 
+
   "tag.item.botania.rods": "杖",
   "tag.item.botania.runes": "ルーン",
 
@@ -882,6 +883,9 @@
   "block.botania.apothecary_taiga": "月輝岩の丸石",
   "block.botania.apothecary_mesa": "バラ滑石の丸石",
   "block.botania.apothecary_mossy": "苔むした花びらの調合所",
+
+
+
 
 
   "block.botania.livingrock": "リビングロック",

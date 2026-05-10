@@ -376,6 +376,7 @@
   "tag.item.botania.petals.yellow": "Жовті пелюстки",
 
 
+
   "tag.item.botania.rods": "Жезли",
   "tag.item.botania.runes": "Руни",
   "tag.item.botania.seed_apothecary_reagent": "Реагенти для насіння",
@@ -884,6 +885,9 @@
   "block.botania.apothecary_mossy": "Моховитий пелюстковий аптекар",
   "block.botania.apothecary_livingrock": "Живокаміний пелюстковий аптекар",
   "block.botania.apothecary_deepslate": "Глибокосланцевий пелюстковий аптекар",
+
+
+
   "block.botania.livingrock": "Живокамінь",
   "block.botania.polished_livingrock": "Полірований живокамінь",
   "block.botania.livingrock_slate": "Плита живокаменю",
