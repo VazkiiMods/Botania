@@ -135,9 +135,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.craftingHalo));
 		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.autocraftingHalo));
 
-		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
-			registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(apothecary));
-		}
+		registry.addWorkstation(PETAL_APOTHECARY, EmiIngredient.of(BotaniaTags.Items.PETAL_APOTHECARIES));
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.manaPool));
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.dilutedPool));
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.fabulousPool));

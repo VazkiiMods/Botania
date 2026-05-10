@@ -153,6 +153,11 @@ public class ItemTagProvider extends ItemTagsProvider {
 			allPetals.addTag(petalTag);
 		});
 
+		IntrinsicTagAppender<Item> petalApothecaries = this.tag(BotaniaTags.Items.PETAL_APOTHECARIES);
+		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
+			petalApothecaries.add(apothecary.asItem());
+		}
+
 		this.tag(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
 				.add(Items.FIREWORK_ROCKET, Items.TOTEM_OF_UNDYING)
 				.addTag(ItemTags.ARROWS);

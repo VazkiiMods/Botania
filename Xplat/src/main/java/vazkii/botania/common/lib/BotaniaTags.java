@@ -94,6 +94,8 @@ public class BotaniaTags {
 		public static final TagKey<Item> PETALS_WHITE = tag("petals/white");
 		public static final TagKey<Item> PETALS_YELLOW = tag("petals/yellow");
 
+		public static final TagKey<Item> PETAL_APOTHECARIES = tag("petal_apothecaries");
+
 		// for recipe use
 		public static final TagKey<Item> DYED_MANA_POOLS = tag("dyed_mana_pools");
 		public static final TagKey<Item> DYED_CREATIVE_POOLS = tag("dyed_creative_pools");
