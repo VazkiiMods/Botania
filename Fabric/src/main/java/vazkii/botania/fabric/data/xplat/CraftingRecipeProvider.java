@@ -2574,6 +2574,11 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		Block button = getBlockOrThrow(prefix(variant + "_button"));
 		Block pressurePlate = getBlockOrThrow(prefix(variant + "_pressure_plate"));
 
+		Block door = getBlockOrThrow(prefix(variant + "_door"));
+		Block trapdoor = getBlockOrThrow(prefix(variant + "_trapdoor"));
+		Block sign = getBlockOrThrow(prefix(variant + "_sign"));
+		Block hangingSign = getBlockOrThrow(prefix(variant + "_hanging_sign"));
+
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4).requires(tag).group("planks")
 				.unlockedBy("has_item", conditionsFromTag(tag)).save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, wood, 3).group("wood").unlockedBy("has_log", conditionsFromItem(log))
@@ -2650,6 +2655,41 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(planks))
 				.save(recipeOutput);
 		ringShape(patternFramed, planks).save(recipeOutput);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, door, 3)
+				.define('#', planks)
+				.pattern("##")
+				.pattern("##")
+				.pattern("##")
+				.unlockedBy("has_item", conditionsFromItem(planks))
+				.save(recipeOutput);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, trapdoor, 2)
+				.define('#', planks)
+				.pattern("###")
+				.pattern("###")
+				.unlockedBy("has_item", conditionsFromItem(planks))
+				.save(recipeOutput);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, sign, 3)
+				.group("sign")
+				.define('#', planks)
+				.define('X', Items.STICK)
+				.pattern("###")
+				.pattern("###")
+				.pattern(" X ")
+				.unlockedBy("has_item", conditionsFromItem(planks))
+				.save(recipeOutput);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, hangingSign, 6)
+				.group("hanging_sign")
+				.define('#', strippedLog)
+				.define('X', Items.CHAIN)
+				.pattern("X X")
+				.pattern("###")
+				.pattern("###")
+				.unlockedBy("has_stripped_logs", conditionsFromItem(strippedLog))
+				.save(recipeOutput);
 	}
 
 	private void registerForPavement(RecipeOutput recipeOutput, String color, Ingredient mainInput) {

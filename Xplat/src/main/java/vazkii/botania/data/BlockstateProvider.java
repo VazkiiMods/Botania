@@ -36,6 +36,7 @@ import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.data.util.BotaniaModelTemplates;
 import vazkii.botania.mixin.BlockModelGeneratorsAccessor;
 import vazkii.botania.mixin.TextureSlotAccessor;
 
@@ -321,8 +322,8 @@ public class BlockstateProvider implements DataProvider {
 
 		fenceBlock(remainingBlocks, dreamwoodFence, getBlockTexture(dreamwoodPlanks));
 		fenceGateBlock(remainingBlocks, dreamwoodFenceGate, getBlockTexture(dreamwoodPlanks));
-		doorBlock(remainingBlocks, dreamwoodDoor);
-		orientableTrapdoorBlock(remainingBlocks, dreamwoodTrapdoor);
+		specialDoorBlock(remainingBlocks, dreamwoodDoor);
+		specialTrapdoorBlock(remainingBlocks, dreamwoodTrapdoor);
 		buttonBlock(remainingBlocks, dreamwoodButton, getBlockTexture(dreamwoodPlanks));
 		pressurePlateBlock(remainingBlocks, dreamwoodPressurePlate, getBlockTexture(dreamwoodPlanks));
 		sign(remainingBlocks, dreamwoodPlanks, dreamwoodSign, dreamwoodWallSign);
@@ -330,8 +331,8 @@ public class BlockstateProvider implements DataProvider {
 
 		fenceBlock(remainingBlocks, livingwoodFence, getBlockTexture(livingwoodPlanks));
 		fenceGateBlock(remainingBlocks, livingwoodFenceGate, getBlockTexture(livingwoodPlanks));
-		doorBlock(remainingBlocks, livingwoodDoor);
-		trapdoorBlock(remainingBlocks, livingwoodTrapdoor);
+		specialDoorBlock(remainingBlocks, livingwoodDoor);
+		specialTrapdoorBlock(remainingBlocks, livingwoodTrapdoor);
 		buttonBlock(remainingBlocks, livingwoodButton, getBlockTexture(livingwoodPlanks));
 		pressurePlateBlock(remainingBlocks, livingwoodPressurePlate, getBlockTexture(livingwoodPlanks));
 		sign(remainingBlocks, livingwoodPlanks, livingwoodSign, livingwoodWallSign);
@@ -1125,34 +1126,25 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	protected void doorBlock(Set<Block> blocks, Block doorBlock) {
-		TextureMapping texturemapping = TextureMapping.door(doorBlock);
-		ResourceLocation bottomLeftModel = ModelTemplates.DOOR_BOTTOM_LEFT.create(doorBlock, texturemapping, this.modelOutput);
-		ResourceLocation bottomLeftOpenModel = ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
-		ResourceLocation bottomRightModel = ModelTemplates.DOOR_BOTTOM_RIGHT.create(doorBlock, texturemapping, this.modelOutput);
-		ResourceLocation bottomRightOpenModel = ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
-		ResourceLocation topLeftModel = ModelTemplates.DOOR_TOP_LEFT.create(doorBlock, texturemapping, this.modelOutput);
-		ResourceLocation topLeftOpenModel = ModelTemplates.DOOR_TOP_LEFT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
-		ResourceLocation topRightModel = ModelTemplates.DOOR_TOP_RIGHT.create(doorBlock, texturemapping, this.modelOutput);
-		ResourceLocation topRightOpenModel = ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
+	protected void specialDoorBlock(Set<Block> blocks, Block doorBlock) {
+		TextureMapping texturemapping = BotaniaModelTemplates.doorMapping(doorBlock);
+		ResourceLocation bottomLeftModel = BotaniaModelTemplates.DOOR_BOTTOM_LEFT.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation bottomLeftOpenModel = BotaniaModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation bottomRightModel = BotaniaModelTemplates.DOOR_BOTTOM_RIGHT.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation bottomRightOpenModel = BotaniaModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation topLeftModel = BotaniaModelTemplates.DOOR_TOP_LEFT.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation topLeftOpenModel = BotaniaModelTemplates.DOOR_TOP_LEFT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation topRightModel = BotaniaModelTemplates.DOOR_TOP_RIGHT.create(doorBlock, texturemapping, this.modelOutput);
+		ResourceLocation topRightOpenModel = BotaniaModelTemplates.DOOR_TOP_RIGHT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
 		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createDoor(doorBlock, bottomLeftModel, bottomLeftOpenModel, bottomRightModel, bottomRightOpenModel, topLeftModel, topLeftOpenModel, topRightModel, topRightOpenModel));
 		blocks.remove(doorBlock);
 	}
 
-	protected void trapdoorBlock(Set<Block> blocks, Block trapdoorBlock) {
-		TextureMapping texturemapping = TextureMapping.defaultTexture(trapdoorBlock);
-		ResourceLocation topModel = ModelTemplates.TRAPDOOR_TOP.create(trapdoorBlock, texturemapping, this.modelOutput);
-		ResourceLocation bottomModel = ModelTemplates.TRAPDOOR_BOTTOM.create(trapdoorBlock, texturemapping, this.modelOutput);
-		ResourceLocation openModel = ModelTemplates.TRAPDOOR_OPEN.create(trapdoorBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createTrapdoor(trapdoorBlock, topModel, bottomModel, openModel));
-		blocks.remove(trapdoorBlock);
-	}
-
-	protected void orientableTrapdoorBlock(Set<Block> blocks, Block trapdoorBlock) {
-		TextureMapping texturemapping = TextureMapping.defaultTexture(trapdoorBlock);
-		ResourceLocation topModel = ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.create(trapdoorBlock, texturemapping, this.modelOutput);
-		ResourceLocation bottomModel = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.create(trapdoorBlock, texturemapping, this.modelOutput);
-		ResourceLocation openModel = ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.create(trapdoorBlock, texturemapping, this.modelOutput);
+	protected void specialTrapdoorBlock(Set<Block> blocks, Block trapdoorBlock) {
+		TextureMapping texturemapping = BotaniaModelTemplates.trapdoorMapping(trapdoorBlock);
+		ResourceLocation topModel = BotaniaModelTemplates.TRAPDOOR_TOP.create(trapdoorBlock, texturemapping, this.modelOutput);
+		ResourceLocation bottomModel = BotaniaModelTemplates.TRAPDOOR_BOTTOM.create(trapdoorBlock, texturemapping, this.modelOutput);
+		ResourceLocation openModel = BotaniaModelTemplates.TRAPDOOR_OPEN.create(trapdoorBlock, texturemapping, this.modelOutput);
 		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createOrientableTrapdoor(trapdoorBlock, topModel, bottomModel, openModel));
 		blocks.remove(trapdoorBlock);
 	}

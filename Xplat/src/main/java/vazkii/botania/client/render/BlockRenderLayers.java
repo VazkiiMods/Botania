@@ -30,6 +30,10 @@ public final class BlockRenderLayers {
 		consumer.accept(BotaniaBlocks.mossyAltar, RenderType.cutout());
 		consumer.accept(BotaniaBlocks.ghostRail, RenderType.cutout());
 		consumer.accept(BotaniaBlocks.solidVines, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.livingwoodDoor, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.livingwoodTrapdoor, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.dreamwoodDoor, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.dreamwoodTrapdoor, RenderType.cutout());
 
 		consumer.accept(BotaniaBlocks.corporeaCrystalCube, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.manaGlass, RenderType.translucent());

@@ -120,6 +120,8 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 				add(block, createManaSpreaderTable(spreaderBlock));
 			} else if (block instanceof TallFlowerBlock) {
 				add(block, createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+			} else if (block instanceof DoorBlock) {
+				add(block, createSinglePropConditionTable(block, DoorBlock.HALF, DoubleBlockHalf.LOWER));
 			} else if (block instanceof BotaniaGrassBlock) {
 				add(block, createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
 			} else if (block instanceof FlowerPotBlock flowerPot) {

@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/template_trapdoor_bottom",
+  "parent": "botania:block/shapes/trapdoor_bottom",
   "textures": {
+    "side": "botania:block/livingwood_trapdoor_side",
     "texture": "botania:block/livingwood_trapdoor"
   }
 }
