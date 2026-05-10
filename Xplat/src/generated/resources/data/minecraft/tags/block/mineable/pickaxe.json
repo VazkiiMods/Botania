@@ -1,6 +1,7 @@
 {
   "values": [
     "botania:alchemy_catalyst",
+    "botania:apothecary_blackstone",
     "botania:apothecary_deepslate",
     "botania:apothecary_default",
     "botania:apothecary_desert",
@@ -10,7 +11,9 @@
     "botania:apothecary_mesa",
     "botania:apothecary_mossy",
     "botania:apothecary_mountain",
+    "botania:apothecary_nether_brick",
     "botania:apothecary_plains",
+    "botania:apothecary_red_nether_brick",
     "botania:apothecary_swamp",
     "botania:apothecary_taiga",
     "botania:azulejo_0",

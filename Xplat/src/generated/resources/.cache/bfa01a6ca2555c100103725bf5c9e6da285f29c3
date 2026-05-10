@@ -61,7 +61,7 @@ b2234cf7c7af048555dd21babd3321b908ed6686 data/minecraft/tags/block/ceiling_hangi
 6b553bb9832d565598020d5d025cb828c1918cdc data/minecraft/tags/block/logs_that_burn.json
 cf37c971abbdf651ab09fb494af2017df39cc81e data/minecraft/tags/block/mineable/axe.json
 615e0a6cac000af5aae7161c0b2e14d31dca597d data/minecraft/tags/block/mineable/hoe.json
-cc539294f9dbde0d76d51b59497302cc47b64212 data/minecraft/tags/block/mineable/pickaxe.json
+55c94f4b03f90f1e3ab53507a08be722b4c8f9cc data/minecraft/tags/block/mineable/pickaxe.json
 61f7021e3270e554ab03e7f26aa7e80dff5d192f data/minecraft/tags/block/mineable/shovel.json
 ccd3bb287d6acf22d5bd33ee553e84fbb44614ca data/minecraft/tags/block/mushroom_grow_block.json
 5d121827c667723ff6ad0aba43d197cf3df735af data/minecraft/tags/block/occludes_vibration_signals.json

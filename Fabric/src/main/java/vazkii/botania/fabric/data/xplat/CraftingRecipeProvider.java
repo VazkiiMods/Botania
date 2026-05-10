@@ -917,6 +917,15 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		petalApothecary(Items.COBBLED_DEEPSLATE, BotaniaBlocks.deepslateAltar)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
 				.save(recipeOutput);
+		petalApothecary(Items.BLACKSTONE, BotaniaBlocks.blackstoneAltar)
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
+				.save(recipeOutput);
+		petalApothecary(Items.NETHER_BRICKS, BotaniaBlocks.netherBrickAltar)
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
+				.save(recipeOutput);
+		petalApothecary(Items.RED_NETHER_BRICKS, BotaniaBlocks.redNetherBrickAltar)
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
+				.save(recipeOutput);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			Block apothecary = getBlockOrThrow(prefix("apothecary_" + metamorphicVariant));
 			Block cobble = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone"));

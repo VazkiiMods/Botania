@@ -501,6 +501,12 @@ public final class BotaniaBlocks {
 			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE).mapColor(MapColor.DEEPSLATE)));
 	public static final Block livingrockAltar = make(LibBlockNames.APOTHECARY_PREFIX + "livingrock", new PetalApothecaryBlock(
 			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.STONE).mapColor(MapColor.TERRACOTTA_WHITE)));
+	public static final Block blackstoneAltar = make(LibBlockNames.APOTHECARY_PREFIX + "blackstone", new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.STONE).mapColor(MapColor.COLOR_BLACK)));
+	public static final Block netherBrickAltar = make(LibBlockNames.APOTHECARY_PREFIX + "nether_brick", new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.NETHER_BRICKS).mapColor(MapColor.NETHER)));
+	public static final Block redNetherBrickAltar = make(LibBlockNames.APOTHECARY_PREFIX + "red_nether_brick", new PetalApothecaryBlock(
+			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.NETHER_BRICKS).mapColor(MapColor.NETHER)));
 	public static final Block mossyAltar = make(LibBlockNames.APOTHECARY_PREFIX + "mossy", new PetalApothecaryBlock(BlockBehaviour.Properties.ofFullCopy(defaultAltar)));
 	public static final Block forestAltar = make(LibBlockNames.APOTHECARY_PREFIX + "forest", new PetalApothecaryBlock(
 			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.TUFF).mapColor(MapColor.PLANT)));
@@ -518,7 +524,7 @@ public final class BotaniaBlocks {
 			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.DEEPSLATE).mapColor(DyeColor.BLUE)));
 	public static final Block mesaAltar = make(LibBlockNames.APOTHECARY_PREFIX + "mesa", new PetalApothecaryBlock(
 			BlockBehaviour.Properties.ofFullCopy(defaultAltar).sound(SoundType.CALCITE).mapColor(MapColor.TERRACOTTA_WHITE)));
-	public static final Block[] ALL_APOTHECARIES = new Block[] { defaultAltar, deepslateAltar, livingrockAltar, mossyAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar, swampAltar, desertAltar, taigaAltar, mesaAltar };
+	public static final Block[] ALL_APOTHECARIES = new Block[] { defaultAltar, deepslateAltar, livingrockAltar, blackstoneAltar, netherBrickAltar, redNetherBrickAltar, mossyAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar, swampAltar, desertAltar, taigaAltar, mesaAltar };
 
 	public static final Block livingrock = make(LibBlockNames.LIVING_ROCK, new Block(BlockBehaviour.Properties.of().strength(2, 10).sound(SoundType.STONE)
 			.instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
@@ -1240,6 +1246,9 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(defaultAltar, props), BuiltInRegistries.BLOCK.getKey(defaultAltar));
 		r.accept(new BlockItem(deepslateAltar, props), BuiltInRegistries.BLOCK.getKey(deepslateAltar));
 		r.accept(new BlockItem(livingrockAltar, props), BuiltInRegistries.BLOCK.getKey(livingrockAltar));
+		r.accept(new BlockItem(blackstoneAltar, props), BuiltInRegistries.BLOCK.getKey(blackstoneAltar));
+		r.accept(new BlockItem(netherBrickAltar, props), BuiltInRegistries.BLOCK.getKey(netherBrickAltar));
+		r.accept(new BlockItem(redNetherBrickAltar, props), BuiltInRegistries.BLOCK.getKey(redNetherBrickAltar));
 		r.accept(new BlockItem(mossyAltar, props), BuiltInRegistries.BLOCK.getKey(mossyAltar));
 		r.accept(new BlockItem(forestAltar, props), BuiltInRegistries.BLOCK.getKey(forestAltar));
 		r.accept(new BlockItem(plainsAltar, props), BuiltInRegistries.BLOCK.getKey(plainsAltar));

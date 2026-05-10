@@ -45,11 +45,7 @@ import static vazkii.botania.common.block.BotaniaBlocks.*;
 public class BotaniaBlockEntities {
 	private static final Map<ResourceLocation, BlockEntityType<?>> ALL = new HashMap<>();
 	private static final Map<Block, BlockEntityType<?>> ADD_TO_EXISTING = new HashMap<>();
-	public static final BlockEntityType<PetalApothecaryBlockEntity> ALTAR = type(LibBlockNames.ALTAR, PetalApothecaryBlockEntity::new,
-			defaultAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar,
-			swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar,
-			livingrockAltar, deepslateAltar
-	);
+	public static final BlockEntityType<PetalApothecaryBlockEntity> ALTAR = type(LibBlockNames.ALTAR, PetalApothecaryBlockEntity::new, ALL_APOTHECARIES);
 	public static final BlockEntityType<ManaSpreaderBlockEntity> SPREADER = type(LibBlockNames.SPREADER, ManaSpreaderBlockEntity::new, ManaSpreaderBlock.class::isInstance);
 	public static final BlockEntityType<ManaPoolBlockEntity> POOL = type(LibBlockNames.POOL, ManaPoolBlockEntity::new, ManaPoolBlock.class::isInstance);
 	public static final BlockEntityType<RunicAltarBlockEntity> RUNE_ALTAR = type(LibBlockNames.RUNE_ALTAR, RunicAltarBlockEntity::new, runeAltar);
