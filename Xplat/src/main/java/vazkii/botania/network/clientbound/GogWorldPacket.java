@@ -8,9 +8,9 @@
  */
 package vazkii.botania.network.clientbound;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.entity.player.Player;
 
 import vazkii.botania.client.core.SkyblockWorldInfo;
 
@@ -19,6 +19,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 import io.netty.buffer.ByteBuf;
 
 public class GogWorldPacket implements CustomPacketPayload {
+
 	public static final GogWorldPacket INSTANCE = new GogWorldPacket();
 	public static final Type<GogWorldPacket> ID = new Type<>(botaniaRL("gog"));
 	public static final StreamCodec<ByteBuf, GogWorldPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
@@ -29,12 +30,10 @@ public class GogWorldPacket implements CustomPacketPayload {
 	}
 
 	public static class Handler {
-		public static void handle(GogWorldPacket packet) {
-			Minecraft.getInstance().execute(() -> {
-				if (Minecraft.getInstance().level.getLevelData() instanceof SkyblockWorldInfo skyblockInfo) {
-					skyblockInfo.markGardenOfGlass();
-				}
-			});
+		public static void handle(GogWorldPacket packet, Player localPlayer) {
+			if (localPlayer.level().getLevelData() instanceof SkyblockWorldInfo skyblockInfo) {
+				skyblockInfo.markGardenOfGlass();
+			}
 		}
 	}
 }

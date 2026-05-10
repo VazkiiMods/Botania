@@ -3,7 +3,6 @@ package vazkii.botania.network.serverbound;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
@@ -22,7 +21,7 @@ public record IndexStringRequestPacket(String message) implements CustomPacketPa
 		return ID;
 	}
 
-	public void handle(MinecraftServer server, ServerPlayer player) {
-		server.execute(() -> CorporeaIndexBlockEntity.onChatMessage(player, message()));
+	public void handle(ServerPlayer player) {
+		CorporeaIndexBlockEntity.onChatMessage(player, message());
 	}
 }

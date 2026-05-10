@@ -8,12 +8,11 @@
  */
 package vazkii.botania.network.clientbound;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -36,15 +35,10 @@ public record ItemAgePacket(int entityId, int timeCounter) implements CustomPack
 	}
 
 	public static class Handler {
-		public static void handle(ItemAgePacket packet) {
-			int entityId = packet.entityId();
-			int counter = packet.timeCounter();
-			Minecraft.getInstance().execute(() -> {
-				Entity e = Minecraft.getInstance().level.getEntity(entityId);
-				if (e instanceof ItemEntity item) {
-					XplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter = counter;
-				}
-			});
+		public static void handle(ItemAgePacket packet, Player localPlayer) {
+			if (localPlayer.level().getEntity(packet.entityId()) instanceof ItemEntity item) {
+				XplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter = packet.timeCounter();
+			}
 		}
 	}
 

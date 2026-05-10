@@ -28,8 +28,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.SparkEntity;
 import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.PaintLensEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
@@ -92,8 +91,7 @@ public class PaintslingerLens extends Lens {
 						if (newBlock != stateThere.getBlock()) {
 							entity.level().setBlockAndUpdate(coords, newBlock.withPropertiesOf(stateThere));
 							XplatAbstractions.INSTANCE.sendToNear(entity.level(), coords,
-									new BotaniaEffectPacket(EffectType.PAINT_LENS,
-											coords.getX(), coords.getY(), coords.getZ(), placeColor.getId()));
+									new PaintLensEffectPacket(coords, placeColor));
 						}
 					}
 				}

@@ -20,8 +20,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.ThundercallerEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
@@ -62,9 +61,7 @@ public class ThundercallerItem extends ManasteelSwordItem {
 
 		if (!alreadyTargetedEntities.isEmpty()) {
 			XplatAbstractions.INSTANCE.sendToTracking(attacker,
-					new BotaniaEffectPacket(EffectType.THUNDERCALLER_EFFECT,
-							attacker.getX(), attacker.getY() + attacker.getBbHeight() / 2.0, attacker.getZ(),
-							alreadyTargetedEntities));
+					new ThundercallerEffectPacket(attacker.getId(), alreadyTargetedEntities));
 		}
 
 		return super.hurtEnemy(stack, entity, attacker);

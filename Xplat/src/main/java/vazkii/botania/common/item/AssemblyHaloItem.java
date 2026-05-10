@@ -63,8 +63,7 @@ import vazkii.botania.common.component.StoredIds;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.HaloCraftEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Objects;
@@ -192,8 +191,7 @@ public class AssemblyHaloItem extends Item {
 		// The items we consumed will stay in the dummy workbench and get deleted
 
 		if (particles) {
-			XplatAbstractions.INSTANCE.sendToTracking(player, new BotaniaEffectPacket(EffectType.HALO_CRAFT,
-					player.getX(), player.getY(), player.getZ(), player.getId()));
+			XplatAbstractions.INSTANCE.sendToTracking(player, new HaloCraftEffectPacket(player.getId()));
 		}
 	}
 

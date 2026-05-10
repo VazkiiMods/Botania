@@ -37,8 +37,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.FluegelEyeEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
@@ -126,7 +125,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 	}
 
 	private static void moveParticlesAndSound(Entity entity) {
-		XplatAbstractions.INSTANCE.sendToTracking(entity, new BotaniaEffectPacket(EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getId()));
+		XplatAbstractions.INSTANCE.sendToTracking(entity, new FluegelEyeEffectPacket(entity.getId()));
 		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), BotaniaSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
 	}
 

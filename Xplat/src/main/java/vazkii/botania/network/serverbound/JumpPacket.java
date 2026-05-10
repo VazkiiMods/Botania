@@ -10,7 +10,6 @@ package vazkii.botania.network.serverbound;
 
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
@@ -27,21 +26,21 @@ public class JumpPacket implements CustomPacketPayload {
 	public static final Type<JumpPacket> ID = new Type<>(botaniaRL("jmp"));
 	public static final StreamCodec<ByteBuf, JumpPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
+	private JumpPacket() {}
+
 	@Override
 	public Type<JumpPacket> type() {
 		return ID;
 	}
 
-	public void handle(MinecraftServer server, ServerPlayer player) {
-		server.execute(() -> {
-			ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof CirrusAmuletItem, player);
-			if (!amuletStack.isEmpty()) {
-				player.causeFoodExhaustion(0.3F);
-				player.fallDistance = 0;
+	public void handle(ServerPlayer player) {
+		ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof CirrusAmuletItem, player);
+		if (!amuletStack.isEmpty()) {
+			player.causeFoodExhaustion(0.3F);
+			player.fallDistance = 0;
 
-				PlayerHelper.setCurrentImpulseImpactPos(player, 0, player);
-				CirrusAmuletItem.setJumping(player);
-			}
-		});
+			PlayerHelper.setCurrentImpulseImpactPos(player, 0, player);
+			CirrusAmuletItem.setJumping(player);
+		}
 	}
 }

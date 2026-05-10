@@ -10,8 +10,6 @@ package vazkii.botania.common.entity;
 
 import com.mojang.blaze3d.platform.Window;
 
-import it.unimi.dsi.fastutil.ints.IntList;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -50,8 +48,8 @@ import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.SparkAugmentItem;
 import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.SparkManaFlowEffectPacket;
+import vazkii.botania.network.clientbound.SparkNetIndicatorEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
@@ -297,20 +295,18 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	private void particlesTowards(Entity e) {
-		XplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
-				IntList.of(getId(), e.getId(), getNetwork().getTextureDiffuseColor())));
+		XplatAbstractions.INSTANCE.sendToTracking(this,
+				new SparkManaFlowEffectPacket(getId(), e.getId(), getNetwork()));
 	}
 
 	private void particlesFrom(Entity e) {
-		XplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, e.getX(), e.getY(), e.getZ(),
-				IntList.of(e.getId(), getId(), getNetwork().getTextureDiffuseColor())));
+		XplatAbstractions.INSTANCE.sendToTracking(this,
+				new SparkManaFlowEffectPacket(e.getId(), getId(), getNetwork()));
 	}
 
 	public static void particleBeam(Player player, @Nullable Entity e1, @Nullable Entity e2) {
 		if (e1 != null && e2 != null && !e1.level().isClientSide) {
-			XplatAbstractions.INSTANCE.sendToPlayer(player, new BotaniaEffectPacket(EffectType.SPARK_NET_INDICATOR,
-					e1.getX(), e1.getY(), e1.getZ(),
-					e1.getId(), e2.getId()));
+			XplatAbstractions.INSTANCE.sendToPlayer(player, new SparkNetIndicatorEffectPacket(e1.getId(), e2.getId()));
 		}
 	}
 

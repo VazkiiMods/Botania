@@ -11,7 +11,6 @@ package vazkii.botania.network.serverbound;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
@@ -30,23 +29,23 @@ public class DodgePacket implements CustomPacketPayload {
 	public static final Type<DodgePacket> ID = new Type<>(botaniaRL("do"));
 	public static final StreamCodec<ByteBuf, DodgePacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
+	private DodgePacket() {}
+
 	@Override
 	public Type<DodgePacket> type() {
 		return ID;
 	}
 
-	public void handle(MinecraftServer server, ServerPlayer player) {
-		server.execute(() -> {
-			player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+	public void handle(ServerPlayer player) {
+		player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 
-			ItemStack ringStack = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, player);
-			if (ringStack.isEmpty()) {
-				player.connection.disconnect(Component.translatable("botaniamisc.invalidDodge"));
-				return;
-			}
+		ItemStack ringStack = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, player);
+		if (ringStack.isEmpty()) {
+			player.connection.disconnect(Component.translatable("botaniamisc.invalidDodge"));
+			return;
+		}
 
-			player.causeFoodExhaustion(0.3F);
-			player.getCooldowns().addCooldown(ringStack.getItem(), RingOfDexterousMotionItem.MAX_CD);
-		});
+		player.causeFoodExhaustion(0.3F);
+		player.getCooldowns().addCooldown(ringStack.getItem(), RingOfDexterousMotionItem.MAX_CD);
 	}
 }

@@ -41,8 +41,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.TerraPlateEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -95,9 +94,8 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 				SparkHelper.registerTransferFromSparksAround(spark, level, worldPosition);
 				if (self.mana > 0) {
 					level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
-					int proportion = Float.floatToIntBits(self.getCompletion());
 					XplatAbstractions.INSTANCE.sendToNear(level, worldPosition,
-							new BotaniaEffectPacket(EffectType.TERRA_PLATE, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), proportion));
+							new TerraPlateEffectPacket(worldPosition, (int) (100f * self.getCompletion())));
 				}
 
 				if (self.mana >= recipe.value().getMana()) {

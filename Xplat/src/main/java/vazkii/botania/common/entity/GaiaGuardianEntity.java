@@ -84,8 +84,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.MobAccessor;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.ArenaIndicatorEffectPacket;
 import vazkii.botania.network.clientbound.SpawnGaiaGuardianPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
@@ -236,7 +235,7 @@ public class GaiaGuardianEntity extends Mob {
 			if (world.isClientSide) {
 				warnInvalidBlocks(world, invalidArenaBlocks);
 			} else {
-				XplatAbstractions.INSTANCE.sendToPlayer(player, new BotaniaEffectPacket(EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
+				XplatAbstractions.INSTANCE.sendToPlayer(player, new ArenaIndicatorEffectPacket(pos));
 
 				player.sendSystemMessage(Component.translatable("botaniamisc.badArena").withStyle(ChatFormatting.RED));
 			}

@@ -8,13 +8,13 @@
  */
 package vazkii.botania.network.clientbound;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
@@ -41,11 +41,8 @@ public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable C
 	}
 
 	public static class Handler {
-		public static void handle(UpdateItemsRemainingPacket packet) {
-			ItemStack stack = packet.stack();
-			int count = packet.count();
-			Component tooltip = packet.tooltip();
-			Minecraft.getInstance().execute(() -> ItemsRemainingRenderHandler.set(stack, count, tooltip));
+		public static void handle(UpdateItemsRemainingPacket packet, Player localPlayer) {
+			ItemsRemainingRenderHandler.set(packet.stack(), packet.count(), packet.tooltip());
 		}
 	}
 }

@@ -34,9 +34,8 @@ import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.AvatarSkiesRodPacket;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.AvatarSkiesRodEffectPacket;
+import vazkii.botania.network.clientbound.AvatarSkiesRodUpdatePacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
@@ -208,11 +207,8 @@ public class SkiesRodItem extends Item {
 				p.getDeltaMovement().z() + lookDir.z() * mult);
 
 		if (!world.isClientSide) {
-			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodPacket(true));
-			XplatAbstractions.INSTANCE.sendToTracking(p,
-					new BotaniaEffectPacket(EffectType.AVATAR_TORNADO_BOOST,
-							p.getX(), p.getY(), p.getZ(),
-							p.getId()));
+			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodUpdatePacket(true));
+			XplatAbstractions.INSTANCE.sendToTracking(p, new AvatarSkiesRodEffectPacket(true, p.getId()));
 		}
 	}
 
@@ -221,12 +217,8 @@ public class SkiesRodItem extends Item {
 		p.setDeltaMovement(p.getDeltaMovement().x(), 2.8, p.getDeltaMovement().z());
 
 		if (!world.isClientSide) {
-			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodPacket(false));
-			XplatAbstractions.INSTANCE.sendToTracking(p,
-					new BotaniaEffectPacket(EffectType.AVATAR_TORNADO_JUMP,
-							p.getX(), p.getY(), p.getZ(),
-							p.getId())
-			);
+			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodUpdatePacket(false));
+			XplatAbstractions.INSTANCE.sendToTracking(p, new AvatarSkiesRodEffectPacket(false, p.getId()));
 		}
 	}
 

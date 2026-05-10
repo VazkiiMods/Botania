@@ -8,8 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DispenserBlock;
 
 import vazkii.botania.common.item.GrassSeedsItem;
-import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.GrassSeedsEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class GrassSeedsBehavior extends OptionalDispenseItemBehavior {
@@ -23,9 +22,7 @@ public class GrassSeedsBehavior extends OptionalDispenseItemBehavior {
 
 			if (isSuccess()) {
 				XplatAbstractions.INSTANCE.sendToNear(world, pos,
-						new BotaniaEffectPacket(EffectType.GRASS_SEED_PARTICLES,
-								pos.getX(), pos.getY(), pos.getZ(),
-								seedsItem.getColor()));
+						new GrassSeedsEffectPacket(pos, seedsItem.getColor()));
 				return stack;
 			}
 		}

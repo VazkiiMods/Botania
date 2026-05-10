@@ -10,7 +10,6 @@ package vazkii.botania.network.serverbound;
 
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
@@ -24,15 +23,14 @@ public class LeftClickPacket implements CustomPacketPayload {
 	public static final Type<LeftClickPacket> ID = new Type<>(botaniaRL("lc"));
 	public static final StreamCodec<ByteBuf, LeftClickPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
+	private LeftClickPacket() {}
+
 	@Override
 	public Type<LeftClickPacket> type() {
 		return ID;
 	}
 
-	public void handle(MinecraftServer server, ServerPlayer player) {
-		// The swing packet will run on the netty thread immediately,
-		// so we need to fetch the attack strength ahead of time
-		float scale = player.getAttackStrengthScale(0F);
-		server.execute(() -> TerraBladeItem.trySpawnBurst(player, scale));
+	public void handle(ServerPlayer player) {
+		TerraBladeItem.trySpawnBurst(player, player.getAttackStrengthScale(0F));
 	}
 }

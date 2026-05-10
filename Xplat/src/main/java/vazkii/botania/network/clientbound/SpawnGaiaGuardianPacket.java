@@ -8,14 +8,13 @@
  */
 package vazkii.botania.network.clientbound;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 
@@ -42,22 +41,10 @@ public record SpawnGaiaGuardianPacket(int entityId, int playerCount, boolean har
 	}
 
 	public static class Handler {
-		public static void handle(SpawnGaiaGuardianPacket packet) {
-			int playerCount = packet.playerCount();
-			boolean hardMode = packet.hardMode();
-			BlockPos source = packet.source();
-			UUID bossInfoUuid = packet.bossInfoId();
-
-			Minecraft.getInstance().execute(() -> {
-				var player = Minecraft.getInstance().player;
-				if (player != null) {
-					Entity e = player.level().getEntity(packet.entityId());
-					if (e instanceof GaiaGuardianEntity) {
-						GaiaGuardianEntity dopple = (GaiaGuardianEntity) e;
-						dopple.readSpawnData(playerCount, hardMode, source, bossInfoUuid);
-					}
-				}
-			});
+		public static void handle(SpawnGaiaGuardianPacket packet, Player localPlayer) {
+			if (localPlayer.level().getEntity(packet.entityId()) instanceof GaiaGuardianEntity gaiaGuardian) {
+				gaiaGuardian.readSpawnData(packet.playerCount(), packet.hardMode(), packet.source(), packet.bossInfoId());
+			}
 		}
 	}
 }
