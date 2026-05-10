@@ -3,12 +3,12 @@
   "cooldown": 100,
   "input": {
     "type": "botania:block",
-    "block": "minecraft:netherrack"
+    "block": "minecraft:blackstone"
   },
   "mana": 20000,
   "output": {
     "type": "botania:block",
-    "block": "minecraft:ancient_debris"
+    "block": "minecraft:gilded_blackstone"
   },
-  "weight": 148
+  "weight": 100
 }

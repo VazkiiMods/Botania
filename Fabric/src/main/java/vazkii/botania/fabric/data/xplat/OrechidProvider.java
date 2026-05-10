@@ -66,9 +66,9 @@ public class OrechidProvider extends FabricRecipeProvider {
 		deepslate(consumer, Blocks.DEEPSLATE_LAPIS_ORE, 1033);
 		deepslate(consumer, Blocks.DEEPSLATE_DIAMOND_ORE, 1801);
 
-		netherrack(consumer, Blocks.NETHER_QUARTZ_ORE, 19600);
-		netherrack(consumer, Blocks.NETHER_GOLD_ORE, 3635);
-		netherrack(consumer, Blocks.ANCIENT_DEBRIS, 148);
+		nether(consumer, Blocks.NETHERRACK, Blocks.NETHER_QUARTZ_ORE, 7387);
+		nether(consumer, Blocks.NETHERRACK, Blocks.NETHER_GOLD_ORE, 2613);
+		nether(consumer, Blocks.BLACKSTONE, Blocks.GILDED_BLACKSTONE, 100);
 
 		biomeStone(consumer, BotaniaBlocks.biomeStoneForest, BotaniaTags.Biomes.MARIMORPHOSIS_FOREST_BONUS);
 		biomeStone(consumer, BotaniaBlocks.biomeStonePlains, BotaniaTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS);
@@ -110,8 +110,8 @@ public class OrechidProvider extends FabricRecipeProvider {
 				OrechidBlockEntity.DEFAULT_DELAY, OrechidBlockEntity.DEFAULT_COST, weight, bonusWeight, bonusBiome), null);
 	}
 
-	protected void netherrack(RecipeOutput consumer, Block output, int weight) {
-		consumer.accept(ignemId(output), new OrechidIgnemRecipe(forBlock(Blocks.NETHERRACK), forBlock(output),
+	protected void nether(RecipeOutput consumer, Block input, Block output, int weight) {
+		consumer.accept(ignemId(output), new OrechidIgnemRecipe(forBlock(input), forBlock(output),
 				OrechidBlockEntity.DEFAULT_DELAY, OrechidIgnemBlockEntity.DEFAULT_COST, weight), null);
 	}
 
