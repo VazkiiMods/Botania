@@ -34,7 +34,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class ConventionalItemTagProvider extends ItemTagsProvider {
 	private static final Set<TagKey<Item>> RELEVANT_TAGS = Set.of(
-			BotaniaTags.Items.SHIMMERING_MUSHROOMS
+			BotaniaTags.Items.SHIMMERING_MUSHROOMS,
+			ConventionalItemTags.SEEDS
 	);
 
 	public ConventionalItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider) {
@@ -235,6 +236,10 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		tag(BotaniaTags.Items.LOONIUM_EXCLUDED)
 				.add(BotaniaItems.lexicon, BotaniaItems.blackLotus, BotaniaItems.blackerLotus, Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
 				.addTag(ConventionalItemTags.MUSIC_DISCS);
+
+		tag(BotaniaTags.Items.SEED_APOTHECARY_REAGENT)
+				.add(Items.NETHER_WART)
+				.addTag(ConventionalItemTags.SEEDS);
 	}
 
 	@Override
