@@ -2191,7 +2191,7 @@
 
   "botania.entry.rfGenerator": "魔力转换器",
   "botania.tagline.rfGenerator": "将魔力转化为能量",
-  "botania.page.rfGenerator0": "将$(thing)魔力$(0)引入红石能量场，就可以将其从自然能量源形态转为$(thing)FE能量$(0)。$(p)只需将魔力发射器对准这转换器，转换器就可以把输入的$(thing)魔力$(0)转化为$(thing)FE能量$(0)，并输出到邻近的能量传输设备中。",
+  "botania.page.rfGenerator0": "将$(thing)魔力$(0)引入红石能量场，就可以将其从自然能量源形态转为$(thing)FE能量$(0)或者$(thing)科技复兴能量$(0)。$(p)只需将魔力发射器对准这转换器，转换器就可以把输入的$(thing)魔力$(0)转化为$(thing)能量$(0)，并输出到邻近的能量传输设备中。",
   "botania.page.rfGenerator1": "传统的挑战者，历史的终结者",
 
   "botania.entry.lens": "魔力透镜",
@@ -2740,7 +2740,7 @@
 
   "botania.entry.manaConjuration": "魔力炼造",
   "botania.tagline.manaConjuration": "用魔力复制你的资源",
-  "botania.page.manaConjuration0": "类似$(thing)魔力炼金$(0)的能力，也存在着$(thing)炼造$(0)的催化器，只利用魔法能量制作材料的魔法。类似$(l:devices/mana_alchemy)$(item)炼金催化器$(0)$(/l)，只要将炼造器置于$(l:mana/pool)$(item)魔力池$(0)$(/l)下方，再投掷物品即可。",
+  "botania.page.manaConjuration0": "类似$(item)魔力炼金$(0)的能力，也存在着$(thing)炼造$(0)的催化器，只利用魔法能量制作材料的魔法。类似$(l:devices/mana_alchemy)$(thing)炼金催化器$(0)$(/l)，只要将炼造器置于$(l:mana/pool)$(item)魔力池$(0)$(/l)下方，再投掷物品即可。",
   "botania.page.manaConjuration1": "制作催化器",
   "botania.page.manaConjuration2": "炼造$(item)红石$(0)",
   "botania.page.manaConjuration3": "炼造$(item)萤石$(0)",
@@ -2806,7 +2806,7 @@
 
   "botania.entry.manaBomb": "魔力风暴",
   "botania.tagline.manaBomb": "魔力风暴充能~~砰。砰~砰砰~砰砰砰砰砰！",
-  "botania.page.manaBomb0": "将$(item)TNT$(0)放在一起再加上$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)来制作一个$(item)魔力风暴$(0)，它是爆炸的化身，毫不夸张的说。让他接受一个$(item)魔力脉冲$(0)，充能器会产生一个不稳定的$(item)魔力风暴震荡$(0)，这会造成一场长时间的$(item)魔力爆发$(0)，并摧毁附近所有方块。$(p)不用说，只有疯子才会在家里附近释放这只摧毁一切的力量。",
+  "botania.page.manaBomb0": "将$(item)TNT$(0)放在一起再加上$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)来制作一个$(thing)魔力风暴$(0)，它是爆炸的化身，毫不夸张的说。让他接受一个$(thing)魔力脉冲$(0)，充能器会产生一个不稳定的$(thing)魔力风暴震荡$(0)，这会造成一场长时间的$(thing)魔力爆发$(0)，并摧毁附近所有方块。$(p)不用说，只有疯子才会在家里附近释放这只摧毁一切的力量。",
   "botania.page.manaBomb1": "准备面对伟大的存在……",
 
   "botania.entry.teruTeruBozu": "晴天娃娃",
@@ -2818,7 +2818,7 @@
   "botania.entry.avatar": "活木化身",
   "botania.tagline.avatar": "替身施法",
   "botania.page.avatar0": "将$(l:basics/pure_daisy)$(item)活木$(0)$(/l)雕刻成形并用$(l:mana/pool)$(item)魔力钻石$(0)$(/l)作为其心脏，这样便制作了一个名为$(item)活木化身$(0)的著名设备。它本身并不能做任何事情 - 除了看起来十分可爱。$(p)然而，只要给它一根$(thing)法杖$(0)就能让他施展各种的魔法，这取决于给它法杖的类型。当然，它所需的$(thing)魔力$(0)由发射器供给。",
-  "botania.page.avatar1": "并非所有的$(thing)法杖$(0)都适合。然而，所有可用的法杖，都会在它们自己的页面解释放入$(item)活木化身$(0)中的效果$(p)一些可用法杖的例子比如$(l:tools/tornado_rod$(item)天空法杖$(0)(/l)，$(l:tools/fire_rod)$(item)地狱法杖$(0)$(/l)以及$(l:tools/divining_rod)$(item)彩虹桥法杖$(0)$(/l)。$(p)给化身一个红石信号会阻止它使用法杖。",
+  "botania.page.avatar1": "并非所有的$(thing)法杖$(0)都适合。然而，所有可用的法杖，都会在它们自己的页面解释放入$(item)活木化身$(0)中的效果$(p)一些可用法杖的例子比如$(l:tools/tornado_rod)$(item)天空法杖$(0)$(/l)，$(l:tools/fire_rod)$(item)地狱法杖$(0)$(/l)以及$(l:tools/divining_rod)$(item)彩虹桥法杖$(0)$(/l)。$(p)给化身一个红石信号会阻止它使用法杖。",
   "botania.page.avatar2": "但它有番剧吗？",
 
   "botania.entry.felPumpkin": "恶魔南瓜头",
@@ -2901,7 +2901,7 @@
   "botania.tagline.terraPick": "一把可升级的范围破坏工具",
   "botania.page.terraPick0": "$(item)泰拉粉碎者$(0)是个可以积攒大量魔力的工具，因为制作过程使用了相当的$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)。$(p)它的功能有点像$(item)魔力石板$(0)因为它可以通过投入$(l:mana/pool)$(item)魔力池$(0)$(/l)而获取$(item)魔力$(0)，尽管它不能返还$(thing)魔力$(0)，所以它功能又与储存不同。",
   "botania.page.terraPick1": "工具里储存的$(thing)魔力$(0)量决定了它的$(thing)阶位$(0)。阶位如下:$(thing)D$(0)，$(thing)C$(0)，$(thing)B$(0)，$(thing)A$(0)，$(thing)S$(0)，$(thing)SS$(0)。$(thing)D$(0)就是默认的阶位。$(p)阶位升级所需的$(thing)魔力$(0)量会随着阶位而增加。例如从$(thing)D$(0)升至$(thing)C$(0)，只需要在$(l:mana/pool)$(item)魔力池$(0)$(/l)待个几秒。",
-  "botania.page.terraPick2": "从$(thing)C$(0)升至$(thing)B$(0)，需要一个满的$(item)魔力$(0)$(item)池$(0)，每级是上一级的十倍消耗，最终到达$(thing)SS$(0)。$(p)工具的阶位不会改变它的速度，但会增强$(thing)激活能力$(0)。$(p)可以通过右击开启工具的能力。",
+  "botania.page.terraPick2": "从$(thing)C$(0)升至$(thing)B$(0)，需要一个满的$(item)魔力$(0)$(item)池$(0)，每级是上一级的十倍消耗，最终到达$(thing)SS$(0)。$(p)工具的阶位不会改变它的速度，但会增强$(thing)激活能力$(0)。$(p)可以通过潜行右键开启工具的能力。",
   "botania.page.terraPick3": "当工具激活时，它能破坏区域内的方块。阶位$(thing)C$(0)还是一小块，到了$(thing)B$(0)就成了一个区域，随着阶位升高区域也会增大。注意阶位$(thing)D$(0)的工具不能激活。$(p)激活时会消耗工具储存的$(thing)魔$(0)$(thing)力$(0)，哪怕不是用于挖掘。",
   "botania.page.terraPick4": "工具每次破坏方块时都会受到磨损，类似$(item)魔钢工具$(0)，因为它使用$(thing)魔力$(0)抵消磨损，所以当位阶较高时，最好能时刻保持物品栏内有充足的$(thing)魔力$(0)储存。$(p)最后，它也不会像普通掉落物品那样消失。",
   "botania.page.terraPick5": "畅游于数据之中WOW WOW",
@@ -3089,8 +3089,8 @@
   "botania.entry.exchangeRod": "移壳杆",
   "botania.tagline.exchangeRod": "改变方块的法杖",
   "botania.page.exchangeRod0": "$(item)移壳杆$(0)是一个能快速更替方块的神奇设备。为了做到这个，你必须先选择一个目标方块，潜行右击放在地上的方块即可。$(p)选择完以后，左击另一个你想要替换的方块，当然你的背包必须有目标方块。",
-  "botania.page.exchangeRod1": "右击这个方块会将你点击的方块替换成你选择的目标方块。很显然，这些方块来自你的背包。只有完整的方块才能够更替。花是不行的，火把及其他奇怪东西也是。使用这种力量自然需要背包里有$(thing)魔力$(0)",
-  "botania.page.exchangeRod2": "其他一些设备或法杖也能给$(item)移壳杆$(0)提供额外的能力。$(p)例如物品栏里的$(l:tools/dirt_rod)$(item)大地法杖$(0)$(/l)能给$(item)移壳杆$(0)无限的$(item)泥土$(0)，前提是你有供$(item)大地法杖$(0)消耗的额外$(thing)魔力$(0)。如果不想替换一个立方体区域，使用$(l:tools/temperance_stone)$(item)节制之石$(0)$(/l) 可以将作用区域缩小为一个平面区域",
+  "botania.page.exchangeRod1": "右击这个方块会将你点击的方块替换成你选择的目标方块。很显然，这些方块来自你的背包。只有完整的方块才能够更替。花是不行的，火把及其他奇怪东西也是。使用这种力量自然需要背包里有$(thing)魔力$(0)。",
+  "botania.page.exchangeRod2": "其他一些设备或法杖也能给$(item)移壳杆$(0)提供额外的能力。$(p)例如物品栏里的$(l:tools/dirt_rod)$(item)大地法杖$(0)$(/l)能给$(item)移壳杆$(0)无限的$(item)泥土$(0)，前提是你有供$(item)大地法杖$(0)消耗的额外$(thing)魔力$(0)。如果不想替换一个立方体区域，使用$(l:tools/temperance_stone)$(item)节制之石$(0)$(/l) 可以将作用区域缩小为一个平面区域。",
   "botania.page.exchangeRod3": "私自公平贸易",
 
   "botania.entry.manaweave": "魔源法袍",
@@ -3486,23 +3486,23 @@
   "botania.entry.aIntro": "精灵传送门",
   "botania.tagline.aIntro": "旅行的下一步……",
   "botania.page.aIntro0": "据说过去，$(thing)精灵$(0)曾与$(thing)Minecraft的玩家$(0)共享世界。然而未知的变故，使得他们被禁止回到自己的世界，$(thing)艾尔夫海姆$(0)。$(p)他们一直以来都在尝试着桥接两个世界，最终制作传送门的方法被发明了出来。",
-  "botania.page.aIntro1": "制作这个传送门看样子不是个简单的工作，需要一些特别的材料。如下:8个$(l:basics/pure_daisy)$(item)活木$(0)$(/l)方块，3个$(item)微光活木$(0)方块，1个$(item)精灵门$(0)$(item)核心$(0)（继续读），2个$(l:mana/pool)$(item)魔力池$(0)$(/l)和2个$(item)自然水晶$(0)（继续读）。",
+  "botania.page.aIntro1": "制作这个传送门看样子不是个简单的工作，需要一些特别的材料。如下:8个$(l:basics/pure_daisy)$(item)活木$(0)$(/l)方块，3个$(item)微光活木$(0)方块，1个$(item)精灵门$(0)$(item)核心$(0)，2个$(l:mana/pool)$(item)魔力池$(0)$(/l)和2个$(item)自然水晶$(0)。",
   "botania.page.aIntro2": "制作$(item)精灵门核心$(0)",
   "botania.page.aIntro3": "合成$(item)自然水晶$(0)",
   "botania.page.aIntro4": "加上$(item)微光活木$(0)",
   "botania.page.aIntro5": "以精灵门核心为中心的11x11范围内至少要有两个自然水晶和魔力池，位置任意。要打开传送门，只需用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右击核心。$(p)门需要两个池子中大量的$(thing)魔$(0)$(thing)力$(0)来开启，之后就只会缓慢抽取微量保持自身供能。如果$(thing)魔$(0)$(thing)力$(0)耗尽了，链接就会被破坏。",
-  "botania.page.aIntro6": "开启门所需的$(thing)魔力$(0)量远多于维持所需的，因此关闭传送门想节省$(thing)魔力$(0)的做法是下下策。$(p)此外，它的连接不足以强到能让生物通过，但$(thing)物品$(0)似乎可以。",
+  "botania.page.aIntro6": "即便做了所有这些准备，传送门建立的任何连接都过于微弱，以至于无法转移任何活体生物。（因此$(thing)艾尔夫海姆$(0)的度假计划无论如何都行不通），但物品或许能勉强通过————不过，为了让物品可以往返，需要利用周围的$(l:mana/pool)$(item)魔力池$(0)$(/l)中的$(thing)魔力$(0)。$(p)开启门所需的$(thing)魔力$(0)量远多于维持所需的，因此关闭传送门想节省$(thing)魔力$(0)的做法是下下策。",
   "botania.page.aIntro7": "这本书里关于$(item)艾尔夫海姆$(0)的情报也只有这么多了，或许你$(thing)让精灵看看这本书$(0)能获得更多情报。",
 
-  "botania.entry.elfMessage": "来自爱尔文·加尔得的消息",
+  "botania.entry.elfMessage": "来自精灵卫队的消息",
   "botania.tagline.elfMessage": "致以问候，冒险者们",
   "botania.page.elfMessage0": "",
   "botania.page.elfMessage1": "$(o)致以问候。我们注意到我们的传送门被其他世界的连接打开了。说起来的确有些令人震惊。感谢你向我们提供你所在世界的知识库，让我们能了解到在离开那里之后的事，真的过去很久了呢，我们也很高兴能看到那里的一切安好。",
-  "botania.page.elfMessage2": "$(o)经过与爱尔文·加尔德高级议会的讨论，我们决定与您合作。你看，你的“植物魔法辞典”让我们知道了诸多很难入手的你所在世界的资源，因为这些资源根本不存在于我们的土地。",
+  "botania.page.elfMessage2": "$(o)经过与精灵高阶议会的讨论，我们决定与您合作。你看，你的“植物魔法辞典”让我们知道了诸多很难入手的你所在世界的资源，因为这些资源根本不存在于我们的土地。",
   "botania.page.elfMessage3": "$(o)你所建立的连接十分脆弱，生物无法穿过，你现在应该已经知道了。然而，这也有积极的一面，我们两个世界之间的时间连接是不同步的，那就是为何你这么快就拿回了书。",
   "botania.page.elfMessage4": "$(o)谈到魔力和其他魔法能量，我们有充足的量，所以不用担心传送门在我们这一侧关闭。让我们展望未来，为了我们两个文明的发展，我们约定交换彼此缺乏的资源。",
   "botania.page.elfMessage5": "$(o)我们让最好的文士写下了我们世界的一些知识以分享，你可以像查看你的知识一样在你的辞典里找到它们。我们希望这能启发你并鼓励你与我们持续交易下去。",
-  "botania.page.elfMessage6": "$(o)最后，注意如果你送来我们没有约好交易的东西，我们会将它当作送给我们的礼物，提醒一下。不过我们还是更希望与你交换资源。$(p)诚挚的问候爱尔文·加尔得高级议会。",
+  "botania.page.elfMessage6": "$(o)最后，注意如果你送来我们没有约好交易的东西，我们会将它当作送给我们的礼物，提醒一下。不过我们还是更希望与你交换资源。$(p)诚挚的问候，$(p)精灵高阶议会。",
 
   "botania.entry.elfResources": "精灵的交易",
   "botania.tagline.elfResources": "我过去三天整天就在传送面包",
@@ -3563,7 +3563,7 @@
   "botania.page.lokiRing0": "$(thing)亚萨神族$(0)所持有的三神戒之一，$(item)洛基之戒$(0)让穿戴者能像恶作剧之神$(thing)洛基$(0)一样一次放置多个方块。$(p)要设定这项能力，首先戴着$(item)洛基之戒$(0)并空手shift右击一个方块。",
   "botania.page.lokiRing1": "一旦选定初始方块（称为“原点”），shift右击另一些方块会记录他们相对原点位置。再次shift右击原点方块就可以完成选择。$(p)shift右击一个已经选中的方块能够取消选中它。要清空选择的方块，只需潜行右击地面两次。",
   "botania.page.lokiRing2": "完成选择后，你会发现你看向的方块所选相对位置会有额外的框架标记。当你潜行放置一个方块时，框架标记的方块会模仿你的动作放下相同的方块，这让你能够一次性放置大量的方块。这个能力同样会使$(l:tools/terra_pick)$(item)泰拉粉碎者$(0)$(/l)和$(l:tools/terra_axe)$(item)泰拉断裂者$(0)$(/l)同时破坏那些位置的方块。",
-  "botania.page.lokiRing3": "当然这么强大的力量肯定不是免费的。每放置一个方块都会消耗穿戴者背包里的$(thing)魔力$(0)。选择的方块越多，$(thing)每一个放置方块$(0)消耗魔力越多。$(p)最后，请谨记$(item)洛基之戒$(0)仍然只能使用手中的物品。如果直接铺设方块的话，手中所持物品的数量可能会成为限制因素之一",
+  "botania.page.lokiRing3": "当然这么强大的力量肯定不是免费的。每放置一个方块都会消耗穿戴者背包里的$(thing)魔力$(0)。选择的方块越多，$(thing)每一个放置方块$(0)消耗魔力越多。$(p)最后，请谨记$(item)洛基之戒$(0)仍然只能使用手中的物品。如果直接铺设方块的话，手中所持物品的数量可能会成为限制因素之一。",
 
   "botania.entry.odinRing": "奥丁之戒",
   "botania.tagline.odinRing": "神佑",
@@ -3571,7 +3571,7 @@
 
   "botania.entry.elvenLore": "精灵传说-毁灭",
   "botania.tagline.elvenLore": "我在何方，因何在此",
-  "botania.page.elvenLore0": "$(o)看起来书中的这部分只是一堆纸片。但细看却能发现，这些似乎来自于爱尔文•加尔得图书馆的文献。$(p)其中的内容应该是历史相关的知识，但这和研究植物学有什么关系……",
+  "botania.page.elvenLore0": "$(o)看起来书中的这部分只是一堆纸片。但细看却能发现，这些似乎来自于精灵卫队图书馆的文献。$(p)其中的内容应该是历史相关的知识，但这和研究植物学有什么关系……",
   "botania.page.elvenLore1": "自$(thing)毁灭$(0)后已经过去了几千年。我们之中仅有少部分人还记得那天到底发生了什么。我写下这篇文章正意图归纳我们如今仍能确信的历史。",
   "botania.page.elvenLore2": "这一切始于发生在尼德威阿尔（矮人之乡）的最初的$(thing)崩坏$(0)。尽管矮人们顽强反抗，但他们的大部分科学和文明仍难逃一劫。",
   "botania.page.elvenLore3": "这事件震动的世界之树的根基，削弱了世界之树封印穆斯贝尔海姆（火之国）的结界。火之国与遥远的米德加尔德（人类之国）相撞，一场火之风暴消灭了火之国的所有生灵。许多人认为死亡女神赫尔操弄了火之国的堕落，但至今仍没有人发现确凿的证据。",
@@ -3623,7 +3623,7 @@
   "botania.entry.headCreating": "头颅制造",
   "botania.tagline.headCreating": "制造玩家的头颅",
   "botania.page.headCreating0": "一个特别的精灵咒语，配合一些材料和一个$(item)命名牌$(0)就能做出牌子里所写者头的复制品。虽然并不知道这是怎样的原理，但似乎可以用$(item)符文祭坛$(0)来制作。",
-  "botania.page.headCreating3": "将命名牌替换为$(item)成书(0)（副本同样有效）可将更多信息融入该流程：$(p)如果已知过去的$(thing)皮肤$(0)的秘密代码，且该代码以名为$(thing)Base64$(0)的奥法语言编写，则可将其写入书籍，以召唤$(thing)玩家$(0)特定皮肤的头颅。",
+  "botania.page.headCreating3": "将命名牌替换为$(item)成书$(0)（副本同样有效）可将更多信息融入该流程：$(p)如果已知过去的$(thing)皮肤$(0)的秘密代码，且该代码以名为$(thing)Base64$(0)的奥法语言编写，则可将其写入书籍，以召唤$(thing)玩家$(0)特定皮肤的头颅。",
   "botania.page.headCreating2": "这个社区的一小撮人（哎呀，打破了第四面墙）决意制作可用作装饰品的头颅。热衷于装饰的玩家可以考虑访问一些汇总这些头部模型的社区皮肤网站。$(br)部分网站还提供高级命令，其中包含合成表中成书所需的 Base64 编码纹理引用数据，皮肤 URL 或哈希值同样有效。",
   "botania.page.headCreating1": "在游戏中获得你的头",
 
