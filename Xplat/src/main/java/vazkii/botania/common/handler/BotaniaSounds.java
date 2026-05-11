@@ -122,8 +122,8 @@ public final class BotaniaSounds {
 	public static final SoundEvent doit = makeSoundEvent("doit");
 
 	//music
-	public static final SoundEvent gaiaMusic1 = makeSoundEvent("music.gaia1");
-	public static final SoundEvent gaiaMusic2 = makeSoundEvent("music.gaia2");
+	public static final SoundEvent musicDiscGaia1 = makeSoundEvent("music_disc.gaia1");
+	public static final SoundEvent musicDiscGaia2 = makeSoundEvent("music_disc.gaia2");
 	public static final SoundEvent way = makeSoundEvent("way");
 
 	private static SoundEvent makeSoundEvent(String name) {

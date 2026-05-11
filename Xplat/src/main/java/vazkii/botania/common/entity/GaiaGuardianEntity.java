@@ -1051,7 +1051,7 @@ public class GaiaGuardianEntity extends Mob {
 		private final GaiaGuardianEntity guardian;
 
 		private DopplegangerMusic(GaiaGuardianEntity guardian) {
-			super(guardian.hardMode ? BotaniaSounds.gaiaMusic2 : BotaniaSounds.gaiaMusic1, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
+			super(guardian.hardMode ? BotaniaSounds.musicDiscGaia2 : BotaniaSounds.musicDiscGaia1, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
 			this.guardian = guardian;
 			this.x = guardian.getSource().getX();
 			this.y = guardian.getSource().getY();

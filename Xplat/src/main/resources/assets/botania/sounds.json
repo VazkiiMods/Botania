@@ -412,18 +412,18 @@
 		],
 		"subtitle": "botania.subtitle.missileFunny"
 	},
-	"music.gaia1": {
+	"music_disc.gaia1": {
 		"sounds": [
 			{
-				"name": "botania:music/endureemptiness",
+				"name": "botania:records/endureemptiness",
 				"stream": true
 			}
 		]
 	},
-	"music.gaia2": {
+	"music_disc.gaia2": {
 		"sounds": [
 			{
-				"name": "botania:music/fightforquiescence",
+				"name": "botania:records/fightforquiescence",
 				"stream": true
 			}
 		]
