@@ -80,6 +80,8 @@
     "client.LevelRendererAccessor",
     "client.LevelRendererMixin",
     "client.MinecraftAccessor",
+    "client.MinecraftMixin",
+    "client.MusicManagerMixin",
     "client.RecipeBookComponentAccessor",
     "client.RecipeBookComponentMixin",
     "client.RecipeBookPageAccessor",

@@ -11,14 +11,14 @@ package vazkii.botania.common.entity;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 
+import it.unimi.dsi.fastutil.Pair;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -36,7 +36,6 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
 import net.minecraft.world.BossEvent;
@@ -98,6 +97,7 @@ import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 public class GaiaGuardianEntity extends Mob {
 	public static final float ARENA_RANGE = 12F;
 	public static final int ARENA_HEIGHT = 5;
+	public static final double ARENA_BB_RANGE = 15.0;
 
 	private static final int SPAWN_TICKS = 160;
 	public static final float MAX_HP = 320F;
@@ -177,6 +177,8 @@ public class GaiaGuardianEntity extends Mob {
 			ResourceLocation.fromNamespaceAndPath("openblocks", "beartrap"),
 			ResourceLocation.fromNamespaceAndPath("thaumictinkerer", "magnet")
 	);
+
+	private static final WeakHashMap<GaiaGuardianEntity, GaiaFightData> ACTIVE_GAIA_FIGHTS = new WeakHashMap<>();
 
 	private boolean spawnLandmines = false;
 	private boolean spawnPixies = false;
@@ -274,18 +276,7 @@ public class GaiaGuardianEntity extends Mob {
 			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null);
 			world.addFreshEntity(e);
 
-			if (!e.level().isClientSide) {
-				XplatAbstractions.INSTANCE.sendToTracking(
-						e,
-						new SpawnGaiaGuardianPacket(
-								e.getId(),
-								e.getPlayerCount(),
-								e.isHardMode(),
-								e.getSource(),
-								e.getBossInfoUuid()
-						)
-				);
-			}
+			e.startGaiaFight(pos, hard);
 
 			for (Player nearbyPlayer : playersAround) {
 				if (nearbyPlayer instanceof ServerPlayer serverPlayer) {
@@ -295,6 +286,22 @@ public class GaiaGuardianEntity extends Mob {
 		}
 
 		return true;
+	}
+
+	private void startGaiaFight(BlockPos pos, boolean hard) {
+		if (!level().isClientSide) {
+			XplatAbstractions.INSTANCE.sendToTracking(
+					this,
+					new SpawnGaiaGuardianPacket(
+							getId(),
+							getPlayerCount(),
+							isHardMode(),
+							getSource(),
+							getBossInfoUuid()
+					)
+			);
+		}
+		ACTIVE_GAIA_FIGHTS.put(this, new GaiaFightData(pos, hard, getArenaBB(pos)));
 	}
 
 	private static List<BlockPos> checkPylons(Level world, BlockPos beaconPos) {
@@ -487,6 +494,7 @@ public class GaiaGuardianEntity extends Mob {
 
 	@Override
 	public void die(DamageSource source) {
+		ACTIVE_GAIA_FIGHTS.remove(this);
 		super.die(source);
 		LivingEntity lastAttacker = getKillCredit();
 
@@ -576,10 +584,47 @@ public class GaiaGuardianEntity extends Mob {
 
 	@Override
 	public void remove(RemovalReason reason) {
-		if (level().isClientSide) {
-			Proxy.INSTANCE.removeBoss(this);
-		}
+		Proxy.INSTANCE.removeBoss(this);
+		ACTIVE_GAIA_FIGHTS.remove(this);
 		super.remove(reason);
+	}
+
+	@Nullable
+	public static Boolean isGaiaFightHardMode(Player player) {
+		if (player.isSpectator() || !player.isAlive()) {
+			return null;
+		}
+
+		var nearestFight = getNearestGaiaFight(player.position());
+		if (nearestFight == null) {
+			return null;
+		}
+		GaiaFightData fightData = nearestFight.second();
+		if (!player.getBoundingBox().intersects(fightData.arenaBB())) {
+			return null;
+		}
+
+		var gaiaGuardian = nearestFight.first();
+		return gaiaGuardian.isAlive() ? fightData.hardMode() : null;
+	}
+
+	@Nullable
+	public static Pair<GaiaGuardianEntity, GaiaFightData> getNearestGaiaFight(Position pos) {
+		double nearestDist = Double.POSITIVE_INFINITY;
+		GaiaGuardianEntity nearest = null;
+		for (var entry : ACTIVE_GAIA_FIGHTS.entrySet()) {
+			GaiaGuardianEntity gaiaGuardian = entry.getKey();
+			if (!gaiaGuardian.isAlive()) {
+				continue;
+			}
+			var fightData = entry.getValue();
+			double dist = fightData.arenaCenter().distToCenterSqr(pos);
+			if (nearestDist > dist) {
+				nearestDist = dist;
+				nearest = gaiaGuardian;
+			}
+		}
+		return nearest != null ? Pair.of(nearest, ACTIVE_GAIA_FIGHTS.get(nearest)) : null;
 	}
 
 	public List<Player> getPlayersAround() {
@@ -595,9 +640,8 @@ public class GaiaGuardianEntity extends Mob {
 		return l.size();
 	}
 
-	private static AABB getArenaBB(BlockPos source) {
-		double range = 15.0;
-		return new AABB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range);
+	public static AABB getArenaBB(BlockPos source) {
+		return new AABB(source).inflate(ARENA_BB_RANGE);
 	}
 
 	private void particles() {
@@ -781,6 +825,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		if (level().getDifficulty() == Difficulty.PEACEFUL) {
 			discard();
+			return;
 		}
 
 		smashBlocksAround(Mth.floor(getX()), Mth.floor(getY()), Mth.floor(getZ()), 1);
@@ -811,6 +856,10 @@ public class GaiaGuardianEntity extends Mob {
 
 		if (!isAlive() || players.isEmpty()) {
 			return;
+		}
+
+		if (!ACTIVE_GAIA_FIGHTS.containsKey(this)) {
+			startGaiaFight(source, hardMode);
 		}
 
 		boolean spawnMissiles = hardMode && tickCount % 15 < 4;
@@ -894,7 +943,7 @@ public class GaiaGuardianEntity extends Mob {
 					}
 				} else {
 					// in case of reload during fight
-					tpDelay = 30;
+					tpDelay = 60;
 				}
 
 				if (spawnMissiles) {
@@ -1034,7 +1083,9 @@ public class GaiaGuardianEntity extends Mob {
 		this.hardMode = hardMode;
 		this.source = source;
 		this.bossInfoUUID = bossInfoUUID;
-		Proxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
+		if (isAlive()) {
+			ACTIVE_GAIA_FIGHTS.put(this, new GaiaFightData(source, hardMode, getArenaBB(source)));
+		}
 	}
 
 	@Override
@@ -1047,27 +1098,6 @@ public class GaiaGuardianEntity extends Mob {
 		return false;
 	}
 
-	private static class DopplegangerMusic extends AbstractTickableSoundInstance {
-		private final GaiaGuardianEntity guardian;
-
-		private DopplegangerMusic(GaiaGuardianEntity guardian) {
-			super(guardian.hardMode ? BotaniaSounds.musicDiscGaia2 : BotaniaSounds.musicDiscGaia1, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
-			this.guardian = guardian;
-			this.x = guardian.getSource().getX();
-			this.y = guardian.getSource().getY();
-			this.z = guardian.getSource().getZ();
-			this.looping = true;
-		}
-
-		public static void play(GaiaGuardianEntity guardian) {
-			Minecraft.getInstance().getSoundManager().play(new DopplegangerMusic(guardian));
-		}
-
-		@Override
-		public void tick() {
-			if (!guardian.isAlive()) {
-				stop();
-			}
-		}
+	public record GaiaFightData(BlockPos arenaCenter, boolean hardMode, AABB arenaBB) {
 	}
 }

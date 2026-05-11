@@ -12,12 +12,14 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 
 import vazkii.botania.common.helper.RegistryHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -122,9 +124,16 @@ public final class BotaniaSounds {
 	public static final SoundEvent doit = makeSoundEvent("doit");
 
 	//music
+	public static final Holder<SoundEvent> musicGaiaBoss1 = makeSoundEventHolder("music.gaia1");
+	public static final Holder<SoundEvent> musicGaiaBoss2 = makeSoundEventHolder("music.gaia2");
 	public static final SoundEvent musicDiscGaia1 = makeSoundEvent("music_disc.gaia1");
 	public static final SoundEvent musicDiscGaia2 = makeSoundEvent("music_disc.gaia2");
 	public static final SoundEvent way = makeSoundEvent("way");
+
+	public static final Music GAIA1_BOSS = new Music(musicGaiaBoss1, 0, 0, true);
+	public static final Music GAIA2_BOSS = new Music(musicGaiaBoss2, 0, 0, true);
+
+	public static final Set<Music> GAIA_BOSS_MUSIC = Set.of(GAIA1_BOSS, GAIA2_BOSS);
 
 	private static SoundEvent makeSoundEvent(String name) {
 		return makeSoundEventHolder(name).value();

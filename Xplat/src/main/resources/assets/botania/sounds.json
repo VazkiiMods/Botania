@@ -428,6 +428,22 @@
 			}
 		]
 	},
+	"music.gaia1": {
+		"sounds": [
+			{
+				"name": "botania:music/endureemptiness",
+				"stream": true
+			}
+		]
+	},
+	"music.gaia2": {
+		"sounds": [
+			{
+				"name": "botania:music/fightforquiescence",
+				"stream": true
+			}
+		]
+	},
 	"narslimmus_eat_big": {
 		"sounds": [
 			{
