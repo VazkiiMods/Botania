@@ -109,7 +109,7 @@ public class BifrostRodItem extends SelfReturningItem {
 			if (placedAny) {
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.bifrostRod, SoundSource.PLAYERS, 1F, 1F);
 				player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false);
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, true);
 				player.getCooldowns().addCooldown(this, player.isCreative() ? 10 : TIME);
 			}
 		}
