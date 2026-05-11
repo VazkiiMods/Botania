@@ -25,6 +25,7 @@ No project is completable with just one contributor, and Botania is no exception
     *   **dylan4ever** for a bunch of old texture work.
     *   **Enterbrain** for a bunch of resources (audio and graphics) from the RPG Maker VX Ace RTP.
     *   **Falkory220** for a bunch of new 1.14+ style textures
+    *   **Firel** for several music tracks for the Botania anniversary CD, which are also found in Botania and Garden of Glass since 1.21
     *   **Futureazoo** for the Terra Shatterer texture and the alternate textures in the Unity texture pack style that were formerly available in the config.
     *   **Kain Vinosec** for the music, from _The Nothing Battles_ used in the Gaia Guardian fights.
     *   **Lorc** of [game-icons.net](http://game-icons.net/) for the icons that were formerly used in the main lexicon page.
