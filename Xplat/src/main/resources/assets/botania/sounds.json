@@ -428,6 +428,24 @@
 			}
 		]
 	},
+	"music.runes_of_air": {
+		"sounds": [
+			{
+				"name": "botania:music/runes_of_air",
+				"stream": true,
+				"volume": 0.4
+			}
+		]
+	},
+	"music.runes_of_mana": {
+		"sounds": [
+			{
+				"name": "botania:music_runes_of_mana",
+				"stream": true,
+				"volume": 0.4
+			}
+		]
+	},
 	"narslimmus_eat_big": {
 		"sounds": [
 			{

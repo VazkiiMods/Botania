@@ -1,0 +1,20 @@
+{
+  "music.game": {
+    "sounds": [
+      {
+        "name": "gardenofglass:music/garden_of_glass",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
+  "music.menu": {
+    "sounds": [
+      {
+        "name": "gardenofglass:music/garden_of_glass",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  }
+}

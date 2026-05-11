@@ -8,7 +8,7 @@ jar: build
 build:
 	@mkdir -p build
 	@cp -r src/main/resources/. build/
-	@cp -r src/generated/resources/data/. build/data/
+	@cp -r src/generated/resources/assets src/generated/resources/data build/
 	@sed -i 's/@VERSION@/${VERSION}/' build/fabric.mod.json build/META-INF/neoforge.mods.toml
 
 .PHONY: clean

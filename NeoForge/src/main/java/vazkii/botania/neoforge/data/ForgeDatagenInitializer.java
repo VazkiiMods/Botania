@@ -35,6 +35,7 @@ import vazkii.botania.neoforge.data.gog.GogBlockTagsProvider;
 import vazkii.botania.neoforge.data.gog.GogBlockUseLootProvider;
 import vazkii.botania.neoforge.data.gog.GogGlobalLootModifierProvider;
 import vazkii.botania.neoforge.data.gog.GogRecipeProvider;
+import vazkii.botania.neoforge.data.gog.GogSoundDefinitionProvider;
 import vazkii.botania.neoforge.data.gog.GogWorldPresetTagsProvider;
 
 import java.util.List;
@@ -89,6 +90,7 @@ public class ForgeDatagenInitializer {
 				new LootTableProvider.SubProviderEntry(GogBlockUseLootProvider::new, LootContextParamSets.BLOCK_USE),
 				new LootTableProvider.SubProviderEntry(GogBlockLootSubProvider::new, LootContextParamSets.BLOCK)
 		), evt.getLookupProvider()));
+		evt.addProvider(new GogSoundDefinitionProvider(evt.getGenerator().getPackOutput(), evt.getExistingFileHelper()));
 	}
 
 	private static RegistrySetBuilder addBiomeModifiers() {
