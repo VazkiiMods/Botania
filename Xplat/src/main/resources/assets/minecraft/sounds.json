@@ -1,0 +1,16 @@
+{
+  "music.game": {
+    "sounds": [
+      {
+        "name": "botania:music/runes_of_air",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "botania:music/runes_of_mana",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  }
+}
