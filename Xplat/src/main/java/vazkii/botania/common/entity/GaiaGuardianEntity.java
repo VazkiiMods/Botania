@@ -17,7 +17,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,7 +25,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
-import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -34,15 +32,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerEntity;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -84,7 +79,6 @@ import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.MobAccessor;
 import vazkii.botania.network.clientbound.ArenaIndicatorEffectPacket;
-import vazkii.botania.network.clientbound.SpawnGaiaGuardianPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -159,12 +153,16 @@ public class GaiaGuardianEntity extends Mob {
 	private static final String TAG_AGGRO = "aggro";
 	private static final String TAG_SOURCE_X = "sourceX";
 	private static final String TAG_SOURCE_Y = "sourceY";
-	private static final String TAG_SOURCE_Z = "sourcesZ";
+	private static final String TAG_SOURCE_Z = "sourceZ";
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 
-	private static final EntityDataAccessor<Integer> INVUL_TIME = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> DATA_INVUL_TIME = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Long> DATA_SOURCE_POS = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
+	private static final EntityDataAccessor<Integer> DATA_PLAYER_COUNT = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Long> DATA_BOSS_INFO_UUID_LOWER = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
+	private static final EntityDataAccessor<Long> DATA_BOSS_INFO_UUID_UPPER = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
 
 	private static final List<BlockPos> PYLON_LOCATIONS = ImmutableList.of(
 			new BlockPos(4, 1, 4),
@@ -178,7 +176,8 @@ public class GaiaGuardianEntity extends Mob {
 			ResourceLocation.fromNamespaceAndPath("thaumictinkerer", "magnet")
 	);
 
-	private static final WeakHashMap<GaiaGuardianEntity, GaiaFightData> ACTIVE_GAIA_FIGHTS = new WeakHashMap<>();
+	private static final WeakHashMap<GaiaGuardianEntity, GaiaFightData> SERVER_GAIA_FIGHTS = new WeakHashMap<>();
+	private static final WeakHashMap<GaiaGuardianEntity, GaiaFightData> CLIENT_GAIA_FIGHTS = new WeakHashMap<>();
 
 	private boolean spawnLandmines = false;
 	private boolean spawnPixies = false;
@@ -186,7 +185,6 @@ public class GaiaGuardianEntity extends Mob {
 	private boolean aggro = false;
 	private int tpDelay = 0;
 	private int mobSpawnTicks = 0;
-	private int playerCount = 0;
 	private boolean hardMode = false;
 	private BlockPos source = Bound.UNBOUND_POS;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
@@ -247,20 +245,25 @@ public class GaiaGuardianEntity extends Mob {
 
 		//all checks ok, spawn the boss
 		if (!world.isClientSide) {
+			GaiaGuardianEntity e = BotaniaEntities.DOPPLEGANGER.create(world);
+			if (e == null) {
+				return false;
+			}
 			stack.shrink(1);
 
-			GaiaGuardianEntity e = BotaniaEntities.DOPPLEGANGER.create(world);
 			e.setPos(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
 			e.setHealth(1F);
 			e.bossInfo.setProgress(0.0f);
-			e.source = pos;
+			e.setSource(pos);
 			e.mobSpawnTicks = MOB_SPAWN_TICKS;
 			e.hardMode = hard;
+			e.entityData.set(DATA_BOSS_INFO_UUID_LOWER, e.bossInfoUUID.getLeastSignificantBits());
+			e.entityData.set(DATA_BOSS_INFO_UUID_UPPER, e.bossInfoUUID.getMostSignificantBits());
 
 			List<Player> playersAround = e.getPlayersAround();
 			int playerCount = playersAround.size();
-			e.playerCount = playerCount;
+			e.setPlayerCount(playerCount);
 
 			float healthMultiplier = 1;
 			if (playerCount > 1) {
@@ -276,7 +279,7 @@ public class GaiaGuardianEntity extends Mob {
 			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null);
 			world.addFreshEntity(e);
 
-			e.startGaiaFight(pos, hard);
+			e.updateGaiaFight();
 
 			for (Player nearbyPlayer : playersAround) {
 				if (nearbyPlayer instanceof ServerPlayer serverPlayer) {
@@ -288,20 +291,17 @@ public class GaiaGuardianEntity extends Mob {
 		return true;
 	}
 
-	private void startGaiaFight(BlockPos pos, boolean hard) {
-		if (!level().isClientSide) {
-			XplatAbstractions.INSTANCE.sendToTracking(
-					this,
-					new SpawnGaiaGuardianPacket(
-							getId(),
-							getPlayerCount(),
-							isHardMode(),
-							getSource(),
-							getBossInfoUuid()
-					)
-			);
+	private void updateGaiaFight() {
+		if (isAlive()) {
+			BlockPos sourcePos = getSource();
+			getGaiaFightMap(level()).put(this, new GaiaFightData(sourcePos, hardMode, getArenaBB(sourcePos)));
+		} else {
+			getGaiaFightMap(level()).remove(this);
 		}
-		ACTIVE_GAIA_FIGHTS.put(this, new GaiaFightData(pos, hard, getArenaBB(pos)));
+	}
+
+	private static Map<GaiaGuardianEntity, GaiaFightData> getGaiaFightMap(Level level) {
+		return level.isClientSide() ? CLIENT_GAIA_FIGHTS : SERVER_GAIA_FIGHTS;
 	}
 
 	private static List<BlockPos> checkPylons(Level world, BlockPos beaconPos) {
@@ -381,11 +381,15 @@ public class GaiaGuardianEntity extends Mob {
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
-		builder.define(INVUL_TIME, 0);
+		builder.define(DATA_INVUL_TIME, 0);
+		builder.define(DATA_SOURCE_POS, 0L);
+		builder.define(DATA_PLAYER_COUNT, 0);
+		builder.define(DATA_BOSS_INFO_UUID_LOWER, 0L);
+		builder.define(DATA_BOSS_INFO_UUID_UPPER, 0L);
 	}
 
 	public int getInvulTime() {
-		return entityData.get(INVUL_TIME);
+		return entityData.get(DATA_INVUL_TIME);
 	}
 
 	public BlockPos getSource() {
@@ -393,7 +397,12 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	public void setInvulTime(int time) {
-		entityData.set(INVUL_TIME, time);
+		entityData.set(DATA_INVUL_TIME, time);
+	}
+
+	private void setSource(BlockPos source) {
+		this.source = source;
+		entityData.set(DATA_SOURCE_POS, source.asLong());
 	}
 
 	@Override
@@ -408,7 +417,7 @@ public class GaiaGuardianEntity extends Mob {
 		cmp.putInt(TAG_SOURCE_Z, source.getZ());
 
 		cmp.putBoolean(TAG_HARD_MODE, hardMode);
-		cmp.putInt(TAG_PLAYER_COUNT, playerCount);
+		cmp.putInt(TAG_PLAYER_COUNT, getPlayerCount());
 	}
 
 	@Override
@@ -421,14 +430,10 @@ public class GaiaGuardianEntity extends Mob {
 		int x = cmp.getInt(TAG_SOURCE_X);
 		int y = cmp.getInt(TAG_SOURCE_Y);
 		int z = cmp.getInt(TAG_SOURCE_Z);
-		source = new BlockPos(x, y, z);
+		setSource(new BlockPos(x, y, z));
 
 		hardMode = cmp.getBoolean(TAG_HARD_MODE);
-		if (cmp.contains(TAG_PLAYER_COUNT)) {
-			playerCount = cmp.getInt(TAG_PLAYER_COUNT);
-		} else {
-			playerCount = 1;
-		}
+		setPlayerCount(cmp.contains(TAG_PLAYER_COUNT) ? cmp.getInt(TAG_PLAYER_COUNT) : 1);
 
 		if (this.hasCustomName()) {
 			this.bossInfo.setName(this.getDisplayName());
@@ -494,8 +499,8 @@ public class GaiaGuardianEntity extends Mob {
 
 	@Override
 	public void die(DamageSource source) {
-		ACTIVE_GAIA_FIGHTS.remove(this);
 		super.die(source);
+		updateGaiaFight();
 		LivingEntity lastAttacker = getKillCredit();
 
 		if (!level().isClientSide) {
@@ -585,8 +590,8 @@ public class GaiaGuardianEntity extends Mob {
 	@Override
 	public void remove(RemovalReason reason) {
 		Proxy.INSTANCE.removeBoss(this);
-		ACTIVE_GAIA_FIGHTS.remove(this);
 		super.remove(reason);
+		updateGaiaFight();
 	}
 
 	@Nullable
@@ -595,7 +600,7 @@ public class GaiaGuardianEntity extends Mob {
 			return null;
 		}
 
-		var nearestFight = getNearestGaiaFight(player.position());
+		var nearestFight = getNearestGaiaFight(player.level(), player.position());
 		if (nearestFight == null) {
 			return null;
 		}
@@ -609,12 +614,13 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Nullable
-	public static Pair<GaiaGuardianEntity, GaiaFightData> getNearestGaiaFight(Position pos) {
+	public static Pair<GaiaGuardianEntity, GaiaFightData> getNearestGaiaFight(Level level, Position pos) {
 		double nearestDist = Double.POSITIVE_INFINITY;
 		GaiaGuardianEntity nearest = null;
-		for (var entry : ACTIVE_GAIA_FIGHTS.entrySet()) {
+		var gaiaFights = getGaiaFightMap(level);
+		for (var entry : gaiaFights.entrySet()) {
 			GaiaGuardianEntity gaiaGuardian = entry.getKey();
-			if (!gaiaGuardian.isAlive()) {
+			if (!gaiaGuardian.isAlive() || gaiaGuardian.level() != level) {
 				continue;
 			}
 			var fightData = entry.getValue();
@@ -624,7 +630,23 @@ public class GaiaGuardianEntity extends Mob {
 				nearest = gaiaGuardian;
 			}
 		}
-		return nearest != null ? Pair.of(nearest, ACTIVE_GAIA_FIGHTS.get(nearest)) : null;
+		return nearest != null ? Pair.of(nearest, gaiaFights.get(nearest)) : null;
+	}
+
+	public static boolean isGaiaFightBeacon(Level level, int x, int y, int z) {
+		var gaiaFights = getGaiaFightMap(level);
+		if (gaiaFights.isEmpty()) {
+			return false;
+		}
+		BlockPos checkPos = new BlockPos(x, y, z);
+		for (var entry : gaiaFights.entrySet()) {
+			GaiaGuardianEntity gaiaGuardian = entry.getKey();
+			if (gaiaGuardian.isAlive() && gaiaGuardian.level() == level
+					&& entry.getValue().arenaCenter().equals(checkPos)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<Player> getPlayersAround() {
@@ -632,7 +654,11 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	public int getPlayerCount() {
-		return playerCount;
+		return entityData.get(DATA_PLAYER_COUNT);
+	}
+
+	private void setPlayerCount(int playerCount) {
+		entityData.set(DATA_PLAYER_COUNT, playerCount);
 	}
 
 	private static int countGaiaGuardiansAround(Level world, BlockPos source) {
@@ -726,21 +752,6 @@ public class GaiaGuardianEntity extends Mob {
 		}
 	}
 
-	private void clearPotions(Player player) {
-		Set<Holder<MobEffect>> effectsToRemove = new HashSet<>();
-		for (var effectInstance : player.getActiveEffects()) {
-			if (effectInstance.getDuration() < 160 && effectInstance.isAmbient() && effectInstance.getEffect().value().getCategory() != MobEffectCategory.HARMFUL) {
-				effectsToRemove.add(effectInstance.getEffect());
-			}
-		}
-
-		for (var effect : effectsToRemove) {
-			player.removeEffect(effect);
-			((ServerLevel) level()).getChunkSource().broadcastAndSend(player,
-					new ClientboundRemoveMobEffectPacket(player.getId(), effect));
-		}
-	}
-
 	private void keepInsideArena(Player player) {
 		if (MathHelper.pointDistanceSpace(player.getX(), player.getY(), player.getZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
 			Vec3 sourceVector = new Vec3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
@@ -753,6 +764,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	private void spawnMobs(List<Player> players) {
+		int playerCount = getPlayerCount();
 		for (int pl = 0; pl < playerCount; pl++) {
 			for (int i = 0; i < 3 + level().random.nextInt(2); i++) {
 				Mob entity = switch (level().random.nextInt(3)) {
@@ -848,7 +860,6 @@ public class GaiaGuardianEntity extends Mob {
 					player.stopSleeping();
 				}
 
-				clearPotions(player);
 				keepInsideArena(player);
 				player.getAbilities().flying &= player.isCreative();
 			}
@@ -858,8 +869,8 @@ public class GaiaGuardianEntity extends Mob {
 			return;
 		}
 
-		if (!ACTIVE_GAIA_FIGHTS.containsKey(this)) {
-			startGaiaFight(source, hardMode);
+		if (!SERVER_GAIA_FIGHTS.containsKey(this)) {
+			updateGaiaFight();
 		}
 
 		boolean spawnMissiles = hardMode && tickCount % 15 < 4;
@@ -893,6 +904,7 @@ public class GaiaGuardianEntity extends Mob {
 						spawnMobs(players);
 
 						if (hardMode && tickCount % 3 < 2) {
+							int playerCount = getPlayerCount();
 							for (int i = 0; i < playerCount; i++) {
 								spawnMissile();
 							}
@@ -926,6 +938,7 @@ public class GaiaGuardianEntity extends Mob {
 
 						}
 
+						int playerCount = getPlayerCount();
 						for (int pl = 0; pl < playerCount; pl++) {
 							for (int i = 0; i < (spawnPixies ? level().random.nextInt(hardMode ? 6 : 3) : 1); i++) {
 								PixieEntity pixie = new PixieEntity(level());
@@ -1078,19 +1091,30 @@ public class GaiaGuardianEntity extends Mob {
 		return hardMode;
 	}
 
-	public void readSpawnData(int playerCount, boolean hardMode, BlockPos source, UUID bossInfoUUID) {
-		this.playerCount = playerCount;
-		this.hardMode = hardMode;
-		this.source = source;
-		this.bossInfoUUID = bossInfoUUID;
-		if (isAlive()) {
-			ACTIVE_GAIA_FIGHTS.put(this, new GaiaFightData(source, hardMode, getArenaBB(source)));
+	@Override
+	public void onSyncedDataUpdated(List<SynchedEntityData.DataValue<?>> dataValues) {
+		super.onSyncedDataUpdated(dataValues);
+
+		if (dataValues.stream().map(SynchedEntityData.DataValue::id)
+				.anyMatch(id -> id == DATA_SOURCE_POS.id())) {
+			this.source = BlockPos.of(entityData.get(DATA_SOURCE_POS));
+			updateGaiaFight();
+		}
+		if (dataValues.stream().map(SynchedEntityData.DataValue::id)
+				.anyMatch(Set.of(DATA_BOSS_INFO_UUID_LOWER.id(), DATA_BOSS_INFO_UUID_UPPER.id())::contains)) {
+			this.bossInfoUUID = new UUID(entityData.get(DATA_BOSS_INFO_UUID_UPPER), entityData.get(DATA_BOSS_INFO_UUID_LOWER));
 		}
 	}
 
 	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-		return new ClientboundAddEntityPacket(this, entity);
+		return new ClientboundAddEntityPacket(this, entity, hardMode ? 1 : 0);
+	}
+
+	@Override
+	public void recreateFromPacket(ClientboundAddEntityPacket packet) {
+		super.recreateFromPacket(packet);
+		this.hardMode = packet.getData() != 0;
 	}
 
 	@Override
