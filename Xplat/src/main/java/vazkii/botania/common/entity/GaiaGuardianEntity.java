@@ -1136,7 +1136,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public boolean addEffect(MobEffectInstance effectInstance, @javax.annotation.Nullable Entity entity) {
+	public boolean addEffect(MobEffectInstance effectInstance, @Nullable Entity entity) {
 		return false;
 	}
 
