@@ -40,16 +40,13 @@ public class ResoluteIvyItem extends Item {
 			}
 		}
 
-		// The capabilities are not yet invalidated at this point, no need to do reviveCaps
-		KeptItemsComponent data = XplatAbstractions.INSTANCE.keptItemsComponent(player, false);
+		KeptItemsComponent data = XplatAbstractions.INSTANCE.keptItemsComponent(player);
 		data.addAll(keeps);
 	}
 
 	public static void onPlayerRespawn(Player oldPlayer, Player newPlayer, boolean alive) {
 		if (!alive) {
-			// At this point, the Forge capabilities have been invalidated and are no longer
-			// accessible unless we do a hacky reviveCaps() call, see ForgeXplatImpl for details.
-			KeptItemsComponent keeps = XplatAbstractions.INSTANCE.keptItemsComponent(oldPlayer, true);
+			KeptItemsComponent keeps = XplatAbstractions.INSTANCE.keptItemsComponent(oldPlayer);
 
 			for (ItemStack stack : keeps.getStacks()) {
 				ItemStack copy = stack.copy();

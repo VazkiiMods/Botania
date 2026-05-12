@@ -334,7 +334,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps) {
+	public KeptItemsComponent keptItemsComponent(Player player) {
 		return player.getData(ForgeInternalEntityCapabilities.KEPT_ITEMS);
 	}
 

@@ -145,7 +145,7 @@ public interface XplatAbstractions {
 	EthicalComponent ethicalComponent(PrimedTnt tnt);
 	SpectralRailComponent ghostRailComponent(AbstractMinecart cart);
 	ItemFlagsComponent itemFlagsComponent(ItemEntity item);
-	KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps);
+	KeptItemsComponent keptItemsComponent(Player player);
 	@Nullable
 	LooniumComponent looniumComponent(LivingEntity entity);
 	NarslimmusComponent narslimmusComponent(Slime slime);
