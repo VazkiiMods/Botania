@@ -57,6 +57,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -77,6 +78,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.mixin.BeaconBlockEntityAccessor;
 import vazkii.botania.mixin.MobAccessor;
 import vazkii.botania.network.clientbound.ArenaIndicatorEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -321,6 +323,15 @@ public class GaiaGuardianEntity extends Mob {
 
 	private static List<BlockPos> checkArena(Level world, BlockPos beaconPos) {
 		List<BlockPos> trippedPositions = new ArrayList<>();
+		Optional<BeaconBlockEntity> beacon = world.getBlockEntity(beaconPos, BlockEntityType.BEACON);
+		if (beacon.isEmpty()) {
+			trippedPositions.add(beaconPos);
+		} else if (((BeaconBlockEntityAccessor) beacon.get()).botania_getLevels() <= 0) {
+			trippedPositions.add(beaconPos);
+			trippedPositions.add(beaconPos.above());
+			trippedPositions.add(beaconPos.above(2));
+		}
+
 		int range = (int) Math.ceil(ARENA_RANGE);
 		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
@@ -366,9 +377,11 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	private static void warnInvalidBlocks(Level world, Iterable<BlockPos> invalidPositions) {
-		WispParticleData data = WispParticleData.wisp(0.5F, 1, 0.2F, 0.2F, 8, false);
+		WispParticleData dataQuick = WispParticleData.wisp(0.5F, 1, 0.2F, 0.2F, 2, false);
+		WispParticleData dataSlow = WispParticleData.wisp(0.5F, 1, 0.2F, 0.2F, 8, false);
 		for (BlockPos pos_ : invalidPositions) {
-			world.addParticle(data, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 0, 0, 0);
+			world.addParticle(dataQuick, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 0, 0, 0);
+			world.addParticle(dataSlow, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 0, 0, 0);
 		}
 	}
 

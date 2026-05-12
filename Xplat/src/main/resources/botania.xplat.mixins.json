@@ -13,6 +13,7 @@
     "ArmadilloAccessor",
     "BaseRailBlockAccessor",
     "BaseSpawnerMixin",
+    "BeaconBlockEntityAccessor",
     "BeaconBlockEntityMixin",
     "BeeMixin",
     "BiomeAccessor",
