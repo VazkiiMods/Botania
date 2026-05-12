@@ -1031,7 +1031,7 @@ public class GaiaGuardianEntity extends Mob {
 			newZ = source.getZ() + (random.nextDouble() - .5) * ARENA_RANGE;
 			tries++;
 			//ensure it's inside the arena ring, and not just its bounding square
-		} while (tries < 50 && MathHelper.pointDistanceSpace(newX, newY, newZ, source.getX(), source.getY(), source.getZ()) > 12);
+		} while (tries < 50 && MathHelper.pointDistanceSpace(newX, newY, newZ, source.getX(), source.getY(), source.getZ()) > ARENA_RANGE);
 
 		if (tries == 50) {
 			//failsafe: teleport to the beacon
@@ -1132,6 +1132,21 @@ public class GaiaGuardianEntity extends Mob {
 
 	@Override
 	public boolean canBeLeashed() {
+		return false;
+	}
+
+	@Override
+	public boolean addEffect(MobEffectInstance effectInstance, @javax.annotation.Nullable Entity entity) {
+		return false;
+	}
+
+	@Override
+	protected boolean canRide(Entity entity) {
+		return false;
+	}
+
+	@Override
+	public boolean canUsePortal(boolean allowPassengers) {
 		return false;
 	}
 
