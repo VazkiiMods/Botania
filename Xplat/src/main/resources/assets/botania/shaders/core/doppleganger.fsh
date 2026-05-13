@@ -37,9 +37,8 @@ void main() {
 
     // Botania - Grayscale + Noise with grain intensity
     float r = rand(texCoord0);
-    vec3 offset = BotaniaGrainIntensity * vec3(r, r, r);
-    float gs = (color.r + color.g + color.b) / 50.0;
-    color = vec4(vec3(gs, gs, gs) + offset, color.a);
+    float gs = dot(vec3(0.3, 0.59, 0.11), color.rgb) / 4.5;
+    color.rgb = vec3(mix(gs, r, BotaniaGrainIntensity));
 
     fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
 }

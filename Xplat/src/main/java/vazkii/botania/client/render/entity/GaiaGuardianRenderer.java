@@ -47,7 +47,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 	@Override
 	public void render(GaiaGuardianEntity dopple, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		int invulTime = dopple.getInvulTime();
-		ShaderInstance shader = CoreShaders.doppleganger();
+		ShaderInstance shader = CoreShaders.gaiaGuardianDynamic();
 		if (shader != null) {
 			float grainIntensity, disfiguration;
 			if (invulTime > 0) {
@@ -61,10 +61,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 			shader.safeGetUniform("BotaniaDisfiguration").set(disfiguration);
 		}
 
-		Minecraft minecraft = Minecraft.getInstance();
-		AbstractClientPlayer player = minecraft.getCameraEntity() instanceof AbstractClientPlayer clientPlayer
-				? clientPlayer
-				: minecraft.player;
+		AbstractClientPlayer player = getViewingPlayer();
 		if (player != null && DefaultPlayerSkin.get(player.getUUID()).model().id().equals("slim")) {
 			this.model = slimModel;
 		} else {
@@ -73,6 +70,14 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 		this.setModelProperties(player);
 
 		super.render(dopple, yaw, partialTicks, ms, buffers, light);
+	}
+
+	@Nullable
+	public static AbstractClientPlayer getViewingPlayer() {
+		Minecraft minecraft = Minecraft.getInstance();
+		return minecraft.getCameraEntity() instanceof AbstractClientPlayer clientPlayer
+				? clientPlayer
+				: minecraft.player;
 	}
 
 	private void setModelProperties(@Nullable AbstractClientPlayer clientPlayer) {
@@ -97,13 +102,9 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 
 	@Override
 	public ResourceLocation getTextureLocation(GaiaGuardianEntity entity) {
-		Minecraft mc = Minecraft.getInstance();
-
-		if (!(mc.getCameraEntity() instanceof AbstractClientPlayer clientPlayer)) {
-			return DefaultPlayerSkin.get(entity.getUUID()).texture();
-		}
-
-		return clientPlayer.getSkin().texture();
+		return getViewingPlayer() instanceof AbstractClientPlayer clientPlayer
+				? clientPlayer.getSkin().texture()
+				: DefaultPlayerSkin.get(entity.getUUID()).texture();
 	}
 
 	@Override

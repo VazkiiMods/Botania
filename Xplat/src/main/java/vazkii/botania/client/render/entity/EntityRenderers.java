@@ -2,7 +2,6 @@ package vazkii.botania.client.render.entity;
 
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
@@ -19,7 +18,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import vazkii.botania.client.render.block_entity.*;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.GaiaHeadBlockEntity;
 import vazkii.botania.common.entity.BotaniaEntities;
 
 import java.util.Map;
@@ -95,9 +93,7 @@ public final class EntityRenderers {
 		consumer.register(BotaniaBlockEntities.COCOON, CocoonBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.LIGHT_RELAY, LuminizerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
-		@SuppressWarnings("unchecked")
-		BlockEntityRendererProvider<GaiaHeadBlockEntity> gaia = ctx -> (BlockEntityRenderer<GaiaHeadBlockEntity>) (BlockEntityRenderer<?>) new GaiaHeadBlockEntityRenderer(ctx);
-		consumer.register(BotaniaBlockEntities.GAIA_HEAD, gaia);
+		consumer.register(BotaniaBlockEntities.GAIA_HEAD, GaiaHeadBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.TERU_TERU_BOZU, TeruTeruBozuBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.AVATAR, AvatarBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.ANIMATED_TORCH, AnimatedTorchBlockEntityRenderer::new);

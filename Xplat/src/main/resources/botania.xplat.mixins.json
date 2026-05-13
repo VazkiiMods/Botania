@@ -79,6 +79,7 @@
     "client.AbstractContainerScreenAccessor",
     "client.BlockRenderDispatcherMixin",
     "client.ClientLevelDataMixin",
+    "client.GuiGraphicsMixin",
     "client.ItemInHandRendererMixin",
     "client.ItemRendererAccessor",
     "client.LevelRendererAccessor",
