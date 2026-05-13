@@ -15,6 +15,7 @@ import net.minecraft.world.item.CreativeModeTab;
 
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.recipe.StateIngredientType;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -33,4 +34,6 @@ public class BotaniaRegistries {
 
 	public static final ResourceKey<Registry<StateIngredientType<?>>> STATE_INGREDIENT_TYPE =
 			ResourceKey.createRegistryKey(botaniaRL("state_ingredient_type"));
+	public static final ResourceKey<Registry<ItemSource>> ITEM_SOURCE =
+			ResourceKey.createRegistryKey(botaniaRL("item_source"));
 }

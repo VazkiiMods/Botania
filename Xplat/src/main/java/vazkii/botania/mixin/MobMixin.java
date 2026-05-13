@@ -30,8 +30,7 @@ public class MobMixin {
 	)
 	private double reduceDistToNearestPlayer(double distToNearestPlayerSquared) {
 		Mob thisMob = (Mob) (Object) this;
-		var looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(thisMob);
-		if (looniumComponent != null && looniumComponent.isSlowDespawn()) {
+		if (XplatAbstractions.instance().isSlowDespawn(thisMob)) {
 			double justUnderDespawnDistance = thisMob.getType().getCategory().getDespawnDistance() - 1;
 			return Math.min(justUnderDespawnDistance * justUnderDespawnDistance, distToNearestPlayerSquared);
 		}

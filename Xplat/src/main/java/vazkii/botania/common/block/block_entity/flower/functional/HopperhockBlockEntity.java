@@ -31,7 +31,6 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.HopperhockFilterType;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.*;
-import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.EnumMap;
@@ -39,7 +38,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Predicate;
 
 public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implements Wandable {
 	private static final int RANGE_MANA = 10;
@@ -69,7 +67,9 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		BlockPos inPos = getBlockPos();
 		BlockPos outPos = getEffectivePos();
 
-		List<ItemEntity> items = getItemEntities(inPos, range);
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class,
+				MathHelper.inflateBoxAround(inPos, range),
+				DelayHelper.asPredicateFor(DelayHelper::canMove, this));
 		if (items.isEmpty()) {
 			return;
 		}
@@ -89,23 +89,6 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 	public HopperhockFilterType getFilterType() {
 		return getBlockState().getOptionalValue(BotaniaStateProperties.HOPPERHOCK_FILTER)
 				.orElse(HopperhockFilterType.ACCEPT_IN_FRAME);
-	}
-
-	private List<ItemEntity> getItemEntities(BlockPos inPos, int range) {
-		Predicate<ItemEntity> shouldPickup = item -> {
-			if (XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
-				return false;
-			}
-
-			final ItemFlagsComponent flags = XplatAbstractions.INSTANCE.itemFlagsComponent(item);
-
-			// Flat 5 tick delay for newly infused items
-			if (flags.spawnedByInWorldRecipe()) {
-				return flags.timeCounter >= 5 + getModulatedDelay();
-			}
-			return DelayHelper.canInteractWith(this, item);
-		};
-		return getLevel().getEntitiesOfClass(ItemEntity.class, MathHelper.inflateBoxAround(inPos, range), shouldPickup);
 	}
 
 	private void findFilterDirections(BlockPos outPos, Set<Direction> unfilteredDirections,

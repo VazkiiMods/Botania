@@ -65,9 +65,6 @@
     "fabric-datagen": [
       "vazkii.botania.fabric.data.FabricDatagenInitializer"
     ],
-    "cardinal-components-entity": [
-      "vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents"
-    ],
     "emi": [
       "vazkii.botania.client.integration.emi.BotaniaEmiPlugin"
     ],
@@ -98,18 +95,5 @@
   },
   "breaks": {
     "gardenofglass": "<${gog_version}"
-  },
-
-  "custom": {
-    "cardinal-components": [
-      "botania:exoflame_heatable",
-      "botania:ghost_rail",
-      "botania:iitem",
-      "botania:kept_items",
-      "botania:loonium_drop",
-      "botania:narslimmus",
-      "botania:tigerseye_pacified",
-      "botania:tnt_ethical"
-    ]
   }
 }

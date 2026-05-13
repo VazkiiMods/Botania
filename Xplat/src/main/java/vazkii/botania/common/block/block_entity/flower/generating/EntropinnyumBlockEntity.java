@@ -52,7 +52,7 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 		PrimedTnt tnt = tnts.getFirst();
-		boolean unethical = XplatAbstractions.INSTANCE.ethicalComponent(tnt).isUnethical();
+		boolean unethical = XplatAbstractions.instance().isUnethicalTnt(tnt);
 		tnt.playSound(unethical ? BotaniaSounds.entropinnyumAngry : BotaniaSounds.entropinnyumHappy, 1F,
 				(1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
 		tnt.discard();

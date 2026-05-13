@@ -28,13 +28,11 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.clientbound.ItemSmokeEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final String TAG_BIND_X = "bindX";
@@ -58,20 +56,9 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		Predicate<ItemEntity> shouldPickup = item -> {
-			if (XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
-				return false;
-			}
-
-			final ItemFlagsComponent flags = XplatAbstractions.INSTANCE.itemFlagsComponent(item);
-
-			// Flat 5 tick delay for newly infused items
-			if (flags.spawnedByInWorldRecipe()) {
-				return flags.timeCounter >= 5 + getModulatedDelay();
-			}
-			return DelayHelper.canInteractWith(this, item);
-		};
-		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, MathHelper.inflateBoxAround(getEffectivePos(), RANGE), shouldPickup);
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class,
+				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
+				DelayHelper.asPredicateFor(DelayHelper::canMove, this));
 
 		boolean did = false;
 		for (ItemEntity item : items) {

@@ -54,6 +54,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.proxy.Proxy;
@@ -174,7 +175,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.livingrock.asItem())
-						&& !XplatAbstractions.INSTANCE.itemFlagsComponent(item).runicAltarSpawned) {
+						&& XplatAbstractions.instance().getItemSource(item).filter(ItemSources.RUNIC_ALTAR::equals).isEmpty()) {
 					ItemStack stack = item.getItem();
 					if (self.addItem(null, stack, null)) {
 						EntityHelper.syncItem(item);
@@ -292,7 +293,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				receiveMana(-mana);
 				ItemStack output = recipe.value().assemble(getRecipeInput(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).runicAltarSpawned = true;
+				XplatAbstractions.instance().setItemSource(outputItem, ItemSources.RUNIC_ALTAR);
 				if (player != null) {
 					player.triggerRecipeCrafted(recipe, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
@@ -312,7 +313,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 							continue;
 						}
 						ItemEntity outputRune = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.5, getBlockPos().getZ() + 0.5, remainingStack.copy());
-						XplatAbstractions.INSTANCE.itemFlagsComponent(outputRune).runicAltarSpawned = true;
+						XplatAbstractions.instance().setItemSource(outputItem, ItemSources.RUNIC_ALTAR);
 						level.addFreshEntity(outputRune);
 					}
 				}

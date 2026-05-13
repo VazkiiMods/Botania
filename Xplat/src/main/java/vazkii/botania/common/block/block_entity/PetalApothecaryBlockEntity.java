@@ -49,6 +49,7 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
+import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
@@ -77,23 +78,23 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 
 		if (getFluid() == State.EMPTY) {
 			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
-			if (stack.getItem() instanceof MobBucketItem bucketItem && XplatAbstractions.INSTANCE.getBucketFluid(bucketItem) == Fluids.WATER) {
+			if (stack.getItem() instanceof MobBucketItem bucketItem && XplatAbstractions.instance().getBucketFluid(bucketItem) == Fluids.WATER) {
 				setFluid(State.WATER);
 				bucketItem.checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
 				item.setItem(new ItemStack(Items.BUCKET));
-				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
+				XplatAbstractions.instance().setItemSource(item, ItemSources.PETAL_APOTHECARY);
 				return true;
 			}
 
-			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.WATER)) {
+			if (XplatAbstractions.instance().extractFluidFromItemEntity(item, Fluids.WATER)) {
 				setFluid(State.WATER);
-				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
+				XplatAbstractions.instance().setItemSource(item, ItemSources.PETAL_APOTHECARY);
 				return true;
 			}
 
-			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.LAVA)) {
+			if (XplatAbstractions.instance().extractFluidFromItemEntity(item, Fluids.LAVA)) {
 				setFluid(State.LAVA);
-				XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned = true;
+				XplatAbstractions.instance().setItemSource(item, ItemSources.PETAL_APOTHECARY);
 				return true;
 			}
 
@@ -121,7 +122,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				EntityHelper.shrinkItem(item);
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
+				XplatAbstractions.instance().setItemSource(outputItem, ItemSources.PETAL_APOTHECARY);
 				if (thrower instanceof Player player) {
 					player.triggerRecipeCrafted(recipe, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
@@ -138,8 +139,8 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			}
 		}
 
-		if (!XplatAbstractions.INSTANCE.isFluidContainer(item)
-				&& !XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned) {
+		if (!XplatAbstractions.instance().isFluidContainer(item)
+				&& XplatAbstractions.instance().getItemSource(item).filter(ItemSources.PETAL_APOTHECARY::equals).isEmpty()) {
 			if (!getItemHandler().getItem(inventorySize() - 1).isEmpty()) {
 				return false;
 			}

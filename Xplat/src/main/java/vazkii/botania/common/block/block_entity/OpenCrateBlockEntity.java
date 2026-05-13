@@ -64,7 +64,7 @@ public class OpenCrateBlockEntity extends ExposedSimpleInventoryBlockEntity {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, ejectY, worldPosition.getZ() + 0.5, stack);
 		item.setDeltaMovement(Vec3.ZERO);
 		if (redstone) {
-			XplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter = -200;
+			XplatAbstractions.instance().setItemLifeTime(item, -200);
 		}
 
 		getItemHandler().setItem(0, ItemStack.EMPTY);

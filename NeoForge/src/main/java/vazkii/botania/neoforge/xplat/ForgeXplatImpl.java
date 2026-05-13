@@ -8,9 +8,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,10 +16,12 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.*;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.Creeper;
@@ -83,6 +83,7 @@ import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -102,6 +103,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class ForgeXplatImpl implements XplatAbstractions {
@@ -319,39 +321,111 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public EthicalComponent ethicalComponent(PrimedTnt tnt) {
-		return tnt.getData(ForgeInternalEntityCapabilities.TNT_ETHICAL);
+	public boolean isUnethicalTnt(PrimedTnt tnt) {
+		return tnt.hasData(ForgeInternalEntityCapabilities.UNETHICAL_TNT);
 	}
 
 	@Override
-	public SpectralRailComponent ghostRailComponent(AbstractMinecart cart) {
-		return cart.getData(ForgeInternalEntityCapabilities.GHOST_RAIL);
+	public void flagAsUnethicalTnt(PrimedTnt tnt) {
+		tnt.setData(ForgeInternalEntityCapabilities.UNETHICAL_TNT, Unit.INSTANCE);
 	}
 
 	@Override
-	public ItemFlagsComponent itemFlagsComponent(ItemEntity item) {
-		return item.getData(ForgeInternalEntityCapabilities.INTERNAL_ITEM);
+	public boolean isNotFloating(AbstractMinecart cart) {
+		return !cart.hasData(ForgeInternalEntityCapabilities.SPECTRAL_FLOAT_TICKS);
 	}
 
 	@Override
-	public KeptItemsComponent keptItemsComponent(Player player) {
-		return player.getData(ForgeInternalEntityCapabilities.KEPT_ITEMS);
+	public int getSpectralFloatTicks(AbstractMinecart cart) {
+		return cart.getExistingData(ForgeInternalEntityCapabilities.SPECTRAL_FLOAT_TICKS).orElse(0);
+	}
+
+	@Override
+	public void setSpectralFloatTicks(AbstractMinecart cart, int time) {
+		if (time > 0) {
+			cart.setData(ForgeInternalEntityCapabilities.SPECTRAL_FLOAT_TICKS, time);
+		} else {
+			cart.removeData(ForgeInternalEntityCapabilities.SPECTRAL_FLOAT_TICKS);
+		}
+	}
+
+	@Override
+	public Optional<ItemSource> getItemSource(ItemEntity item) {
+		return item.getExistingData(ForgeInternalEntityCapabilities.ITEM_SOURCE);
+	}
+
+	@Override
+	public void setItemSource(ItemEntity item, ItemSource source) {
+		item.setData(ForgeInternalEntityCapabilities.ITEM_SOURCE, source);
+	}
+
+	@Override
+	public int getItemLifeTime(ItemEntity item) {
+		return item.getExistingData(ForgeInternalEntityCapabilities.ITEM_LIFETIME).orElse((short) 0);
+	}
+
+	@Override
+	public void setItemLifeTime(ItemEntity item, int ticks) {
+		item.setData(ForgeInternalEntityCapabilities.ITEM_LIFETIME, (short) Math.min(Short.MAX_VALUE, ticks));
+	}
+
+	@Override
+	public List<ItemStack> getKeptItems(Player player) {
+		return player.getExistingData(ForgeInternalEntityCapabilities.KEPT_ITEMS).orElseGet(List::of);
+	}
+
+	@Override
+	public void setKeptItems(Player player, List<ItemStack> items) {
+		if (items.isEmpty()) {
+			player.removeData(ForgeInternalEntityCapabilities.KEPT_ITEMS);
+		} else {
+			player.setData(ForgeInternalEntityCapabilities.KEPT_ITEMS, List.copyOf(items));
+		}
 	}
 
 	@Nullable
 	@Override
-	public LooniumComponent looniumComponent(LivingEntity entity) {
-		return entity.getData(ForgeInternalEntityCapabilities.LOONIUM_DROP);
+	public ItemStack getLooniumDrop(LivingEntity entity) {
+		return entity.getExistingData(ForgeInternalEntityCapabilities.LOONIUM_DROP).map(SingleStack::stack).orElse(null);
 	}
 
 	@Override
-	public NarslimmusComponent narslimmusComponent(Slime slime) {
-		return slime.getData(ForgeInternalEntityCapabilities.NARSLIMMUS);
+	public void setLooniumDrop(LivingEntity entity, ItemStack stack) {
+		entity.setData(ForgeInternalEntityCapabilities.LOONIUM_DROP, new SingleStack(stack));
 	}
 
 	@Override
-	public TigerseyeComponent tigersEyeComponent(Creeper creeper) {
-		return creeper.getData(ForgeInternalEntityCapabilities.TIGERSEYE);
+	public boolean isSlimeChunkSpawned(Slime slime) {
+		return slime.hasData(ForgeInternalEntityCapabilities.SLIME_CHUNK_SPAWNED);
+	}
+
+	@Override
+	public void flagAsSlimeChunkSpawned(Slime slime) {
+		slime.setData(ForgeInternalEntityCapabilities.SLIME_CHUNK_SPAWNED, Unit.INSTANCE);
+	}
+
+	@Override
+	public boolean isSlowDespawn(Mob mob) {
+		return mob.hasData(ForgeInternalEntityCapabilities.SLOW_DESPAWN);
+	}
+
+	@Override
+	public void flagAsSlowDespawn(Mob mob) {
+		mob.setData(ForgeInternalEntityCapabilities.SLOW_DESPAWN, Unit.INSTANCE);
+	}
+
+	@Override
+	public boolean isTigerseyePacified(Creeper creeper) {
+		return creeper.hasData(ForgeInternalEntityCapabilities.TIGERSEYE_PACIFIED);
+	}
+
+	@Override
+	public void setTigersEyePacified(Creeper creeper, boolean pacified) {
+		if (pacified) {
+			creeper.setData(ForgeInternalEntityCapabilities.TIGERSEYE_PACIFIED, Unit.INSTANCE);
+		} else {
+			creeper.removeData(ForgeInternalEntityCapabilities.TIGERSEYE_PACIFIED);
+		}
 	}
 
 	@Override
@@ -391,12 +465,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
 		NeoForge.EVENT_BUS.post(new ManaNetworkEvent(thing, type, action));
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(CustomPacketPayload packet) {
-		return null; // FIXME, was: (Packet<ClientGamePacketListener>) ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
 	}
 
 	@Override

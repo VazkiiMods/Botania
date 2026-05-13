@@ -47,8 +47,7 @@ public abstract class EntityMixin {
 	@Inject(at = @At("HEAD"), method = "getTeam", cancellable = true)
 	private void getLooniumTeam(CallbackInfoReturnable<Team> cir) {
 		if (((Object) this) instanceof Mob self) {
-			var looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(self);
-			if (looniumComponent != null && looniumComponent.isSlowDespawn() && !looniumComponent.getDrop().isEmpty()) {
+			if (XplatAbstractions.instance().getLooniumDrop(self) != null) {
 				cir.setReturnValue(LooniumBlockEntity.LOONIUM_TEAM);
 			}
 		}

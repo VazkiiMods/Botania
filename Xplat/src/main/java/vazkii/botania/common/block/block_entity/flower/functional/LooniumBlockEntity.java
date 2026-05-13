@@ -65,7 +65,6 @@ import vazkii.botania.api.configdata.LooniumMobSpawnData;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.internal_caps.LooniumComponent;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -250,12 +249,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 		applyAttributesAndEffects(pickedMobType, pickedConfig, mob);
 
-		LooniumComponent looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(mob);
-		if (looniumComponent != null) {
-			looniumComponent.setSlowDespawn(true);
-			looniumComponent.setOverrideDrop(true);
-			looniumComponent.setDrop(lootStack);
-		}
+		XplatAbstractions.instance().flagAsSlowDespawn(mob);
+		XplatAbstractions.instance().setLooniumDrop(mob, lootStack);
 
 		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.SPAWNER, null);
 		if (Boolean.FALSE.equals(pickedMobType.spawnAsBaby) && mob.isBaby()) {
@@ -317,12 +312,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 					bonusLoot = ItemStack.EMPTY;
 				}
 
-				LooniumComponent otherLooniumComponent = XplatAbstractions.INSTANCE.looniumComponent(otherMob);
-				if (otherLooniumComponent != null) {
-					otherLooniumComponent.setSlowDespawn(true);
-					otherLooniumComponent.setOverrideDrop(true);
-					otherLooniumComponent.setDrop(bonusLoot);
-				}
+				XplatAbstractions.instance().flagAsSlowDespawn(otherMob);
+				XplatAbstractions.instance().setLooniumDrop(otherMob, bonusLoot);
 			}
 		});
 
@@ -565,9 +556,10 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public static void dropLooniumItems(LivingEntity living, Consumer<ItemStack> consumer) {
-		LooniumComponent comp = XplatAbstractions.INSTANCE.looniumComponent(living);
-		if (comp != null && comp.isOverrideDrop()) {
-			consumer.accept(comp.getDrop());
+		@Nullable
+		ItemStack stack = XplatAbstractions.instance().getLooniumDrop(living);
+		if (stack != null) {
+			consumer.accept(stack);
 		}
 	}
 

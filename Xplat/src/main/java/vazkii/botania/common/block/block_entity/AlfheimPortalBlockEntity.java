@@ -57,6 +57,7 @@ import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.world.BotaniaExplosionDamageCalculator;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -174,7 +175,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 					}
 
 					ItemStack stack = item.getItem();
-					if (XplatAbstractions.INSTANCE.itemFlagsComponent(item).elvenPortalSpawned) {
+					if (XplatAbstractions.instance().getItemSource(item).filter(ItemSources.ALFHEIM_PORTAL::equals).isPresent()) {
 						continue;
 					}
 
@@ -320,7 +321,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	private void spawnItem(ItemStack stack) {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, stack);
-		XplatAbstractions.INSTANCE.itemFlagsComponent(item).elvenPortalSpawned = true;
+		XplatAbstractions.instance().setItemSource(item, ItemSources.ALFHEIM_PORTAL);
 		// probably can't easily associate this with a player for tracking stats
 		stack.onCraftedBySystem(level);
 		level.addFreshEntity(item);

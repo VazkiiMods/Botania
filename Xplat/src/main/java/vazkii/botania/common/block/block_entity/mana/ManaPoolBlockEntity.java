@@ -58,6 +58,7 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.ManaTabletItem;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -161,7 +162,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			dissolvable.onDissolveTick(this, item);
 		}
 
-		if (XplatAbstractions.INSTANCE.itemFlagsComponent(item).manaInfusionSpawned) {
+		if (XplatAbstractions.instance().getItemSource(item).orElse(null) == ItemSources.MANA_INFUSION) {
 			return false;
 		}
 
@@ -177,7 +178,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).manaInfusionSpawned = true;
+				XplatAbstractions.instance().setItemSource(outputItem, ItemSources.MANA_INFUSION);
 				if (item.getOwner() instanceof Player player) {
 					player.triggerRecipeCrafted(recipe, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());

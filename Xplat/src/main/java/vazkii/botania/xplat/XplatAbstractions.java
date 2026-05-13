@@ -8,9 +8,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
@@ -21,6 +19,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.Creeper;
@@ -57,6 +56,7 @@ import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -65,10 +65,10 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.internal_caps.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public interface XplatAbstractions {
@@ -142,14 +142,34 @@ public interface XplatAbstractions {
 	ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate);
 
 	// Capability access (internal caps)
-	EthicalComponent ethicalComponent(PrimedTnt tnt);
-	SpectralRailComponent ghostRailComponent(AbstractMinecart cart);
-	ItemFlagsComponent itemFlagsComponent(ItemEntity item);
-	KeptItemsComponent keptItemsComponent(Player player);
+	boolean isUnethicalTnt(PrimedTnt tnt);
+	void flagAsUnethicalTnt(PrimedTnt tnt);
+
+	boolean isNotFloating(AbstractMinecart cart);
+	int getSpectralFloatTicks(AbstractMinecart cart);
+	void setSpectralFloatTicks(AbstractMinecart cart, int ticks);
+
+	Optional<ItemSource> getItemSource(ItemEntity item);
+	void setItemSource(ItemEntity item, ItemSource source);
+
+	int getItemLifeTime(ItemEntity item);
+	void setItemLifeTime(ItemEntity item, int ticks);
+
+	List<ItemStack> getKeptItems(Player player);
+	void setKeptItems(Player player, List<ItemStack> items);
+
 	@Nullable
-	LooniumComponent looniumComponent(LivingEntity entity);
-	NarslimmusComponent narslimmusComponent(Slime slime);
-	TigerseyeComponent tigersEyeComponent(Creeper creeper);
+	ItemStack getLooniumDrop(LivingEntity entity);
+	void setLooniumDrop(LivingEntity entity, ItemStack stack);
+
+	boolean isSlimeChunkSpawned(Slime slime);
+	void flagAsSlimeChunkSpawned(Slime slime);
+
+	boolean isSlowDespawn(Mob mob);
+	void flagAsSlowDespawn(Mob mob);
+
+	boolean isTigerseyePacified(Creeper creeper);
+	void setTigersEyePacified(Creeper creeper, boolean pacified);
 
 	// Events
 	boolean fireCorporeaRequestEvent(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean dryRun);
@@ -161,7 +181,6 @@ public interface XplatAbstractions {
 	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 
 	// Networking
-	Packet<ClientGamePacketListener> toVanillaClientboundPacket(CustomPacketPayload packet);
 	void sendToPlayer(@Nullable Player player, CustomPacketPayload packet);
 	void sendToNear(Level level, BlockPos pos, CustomPacketPayload packet);
 	void sendToTracking(Entity e, CustomPacketPayload packet);
@@ -236,6 +255,10 @@ public interface XplatAbstractions {
 		void accept(ResourceLocation location, Recipe<?> recipe, @Nullable AdvancementHolder advancement);
 	}
 
+	/**
+	 * @deprecated Use {@link #instance()}
+	 */
+	@Deprecated
 	XplatAbstractions INSTANCE = ServiceUtil.findService(XplatAbstractions.class, null);
 
 	static XplatAbstractions instance() {

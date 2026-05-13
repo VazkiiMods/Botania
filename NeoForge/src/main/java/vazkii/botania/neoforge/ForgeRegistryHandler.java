@@ -21,5 +21,6 @@ public class ForgeRegistryHandler {
 				.defaultKey(IslandType.DEFAULT_ID).sync(true));
 		evt.create(new RegistryBuilder<>(BotaniaRegistries.STATE_INGREDIENT_TYPE)
 				.defaultKey(StateIngredientType.DEFAULT_ID).sync(true));
+		evt.create(new RegistryBuilder<>(BotaniaRegistries.ITEM_SOURCE));
 	}
 }
