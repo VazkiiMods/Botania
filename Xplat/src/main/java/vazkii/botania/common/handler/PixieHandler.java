@@ -66,7 +66,7 @@ public final class PixieHandler {
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(BotaniaItems.elementiumSword));
 
 			if (Math.random() < chance) {
-				PixieEntity pixie = new PixieEntity(player.level());
+				PixieEntity pixie = new PixieEntity(player.level(), false);
 				pixie.setPos(player.getX(), player.getY() + 2, player.getZ());
 
 				if (((ElementiumHelmItem) BotaniaItems.elementiumHelm).hasArmorSet(player)) {
@@ -78,7 +78,7 @@ public final class PixieHandler {
 					dmg += 2;
 				}
 
-				pixie.setProps(livingSource, player, 0, dmg);
+				pixie.setProps(livingSource, player, dmg);
 				pixie.finalizeSpawn((ServerLevelAccessor) player.level(), player.level().getCurrentDifficultyAt(pixie.blockPosition()),
 						MobSpawnType.EVENT, null);
 				player.level().addFreshEntity(pixie);

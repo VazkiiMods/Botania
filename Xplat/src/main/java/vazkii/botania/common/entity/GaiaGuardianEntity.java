@@ -198,16 +198,17 @@ public class GaiaGuardianEntity extends Mob {
 	public GaiaGuardianEntity(EntityType<GaiaGuardianEntity> type, Level world) {
 		super(type, world);
 		xpReward = 825;
+		entityData.set(DATA_BOSS_INFO_UUID_LOWER, bossInfoUUID.getLeastSignificantBits());
+		entityData.set(DATA_BOSS_INFO_UUID_UPPER, bossInfoUUID.getMostSignificantBits());
 		if (world.isClientSide) {
 			Proxy.INSTANCE.addBoss(this);
 		}
 	}
 
-	public static boolean spawn(Player player, ItemStack stack, Level world, BlockPos pos, boolean hard) {
+	public static boolean validateArena(Player player, Level world, BlockPos pos) {
 		//initial checks
-		if (!(world.getBlockEntity(pos) instanceof BeaconBlockEntity) ||
-				!isTruePlayer(player) ||
-				countGaiaGuardiansAround(world, pos) > 0) {
+		if (!(world.getBlockEntity(pos) instanceof BeaconBlockEntity) || !isTruePlayer(player)
+				|| anyActiveArenasAround(world, pos)) {
 			return false;
 		}
 
@@ -244,49 +245,55 @@ public class GaiaGuardianEntity extends Mob {
 
 			return false;
 		}
+		return true;
+	}
+
+	public static boolean spawn(Player player, ItemStack stack, Level world, BlockPos pos, boolean hard) {
+		if (!validateArena(player, world, pos)) {
+			return false;
+		}
 
 		//all checks ok, spawn the boss
-		if (!world.isClientSide) {
-			GaiaGuardianEntity e = BotaniaEntities.DOPPLEGANGER.create(world);
-			if (e == null) {
-				return false;
-			}
-			stack.shrink(1);
+		if (world.isClientSide) {
+			return true;
+		}
+		GaiaGuardianEntity e = BotaniaEntities.DOPPLEGANGER.create(world);
+		if (e == null) {
+			return false;
+		}
+		stack.shrink(1);
 
-			e.setPos(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
-			e.setInvulTime(SPAWN_TICKS);
-			e.setHealth(1F);
-			e.bossInfo.setProgress(0.0f);
-			e.setSource(pos);
-			e.mobSpawnTicks = MOB_SPAWN_TICKS;
-			e.hardMode = hard;
-			e.entityData.set(DATA_BOSS_INFO_UUID_LOWER, e.bossInfoUUID.getLeastSignificantBits());
-			e.entityData.set(DATA_BOSS_INFO_UUID_UPPER, e.bossInfoUUID.getMostSignificantBits());
+		e.setPos(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
+		e.setInvulTime(SPAWN_TICKS);
+		e.setHealth(1F);
+		e.bossInfo.setProgress(0.0f);
+		e.setSource(pos);
+		e.mobSpawnTicks = MOB_SPAWN_TICKS;
+		e.hardMode = hard;
 
-			List<Player> playersAround = e.getPlayersAround();
-			int playerCount = playersAround.size();
-			e.setPlayerCount(playerCount);
+		List<Player> playersAround = e.getPlayersAround();
+		int playerCount = playersAround.size();
+		e.setPlayerCount(playerCount);
 
-			float healthMultiplier = 1;
-			if (playerCount > 1) {
-				healthMultiplier += playerCount * 0.25F;
-			}
-			e.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * healthMultiplier);
+		float healthMultiplier = 1;
+		if (playerCount > 1) {
+			healthMultiplier += playerCount * 0.25F;
+		}
+		e.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * healthMultiplier);
 
-			if (hard) {
-				e.getAttribute(Attributes.ARMOR).setBaseValue(15);
-			}
+		if (hard) {
+			e.getAttribute(Attributes.ARMOR).setBaseValue(15);
+		}
 
-			e.playSound(BotaniaSounds.gaiaSummon, 1F, 1F);
-			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null);
-			world.addFreshEntity(e);
+		e.playSound(BotaniaSounds.gaiaSummon, 1F, 1F);
+		e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null);
+		world.addFreshEntity(e);
 
-			e.updateGaiaFight();
+		e.updateGaiaFight();
 
-			for (Player nearbyPlayer : playersAround) {
-				if (nearbyPlayer instanceof ServerPlayer serverPlayer) {
-					CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, e);
-				}
+		for (Player nearbyPlayer : playersAround) {
+			if (nearbyPlayer instanceof ServerPlayer serverPlayer) {
+				CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, e);
 			}
 		}
 
@@ -540,7 +547,7 @@ public class GaiaGuardianEntity extends Mob {
 			}
 
 			// Stop all the pixies leftover from the fight
-			for (PixieEntity pixie : level().getEntitiesOfClass(PixieEntity.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
+			for (PixieEntity pixie : level().getEntitiesOfClass(PixieEntity.class, getArenaBB(getSource()), p -> p.isAlive() && p.isGaia())) {
 				pixie.spawnAnim();
 				pixie.discard();
 			}
@@ -674,9 +681,9 @@ public class GaiaGuardianEntity extends Mob {
 		entityData.set(DATA_PLAYER_COUNT, playerCount);
 	}
 
-	private static int countGaiaGuardiansAround(Level world, BlockPos source) {
-		List<GaiaGuardianEntity> l = world.getEntitiesOfClass(GaiaGuardianEntity.class, getArenaBB(source));
-		return l.size();
+	private static boolean anyActiveArenasAround(Level world, BlockPos source) {
+		var arena = getNearestGaiaFight(world, source.getCenter());
+		return arena != null && arena.second().arenaBB().intersects(getArenaBB(source));
 	}
 
 	public static AABB getArenaBB(BlockPos source) {
@@ -796,9 +803,9 @@ public class GaiaGuardianEntity extends Mob {
 					case 2 -> {
 						if (!players.isEmpty()) {
 							for (int j = 0; j < 1 + level().getRandom().nextInt(hardMode ? 8 : 5); j++) {
-								PixieEntity pixie = new PixieEntity(level());
-								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
-								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
+								PixieEntity pixie = new PixieEntity(level(), true);
+								pixie.setProps(players.get(random.nextInt(players.size())), this, 8);
+								pixie.setPos(getRandomX(2), getY() + 2, getRandomZ(2));
 								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
 										MobSpawnType.MOB_SUMMONED, null);
 								level().addFreshEntity(pixie);
@@ -905,28 +912,38 @@ public class GaiaGuardianEntity extends Mob {
 			if (aggro) {
 				boolean dying = getHealth() / getMaxHealth() < 0.2;
 				if (dying && mobSpawnTicks > 0) {
-					setDeltaMovement(Vec3.ZERO);
-
-					int reverseTicks = MOB_SPAWN_TICKS - mobSpawnTicks;
-					if (reverseTicks < MOB_SPAWN_START_TICKS) {
-						setDeltaMovement(getDeltaMovement().x(), 0.2, getDeltaMovement().z());
+					if (tpDelay > 0 && MOB_SPAWN_TICKS == mobSpawnTicks) {
+						tpDelay--;
 						setInvulTime(invul + 1);
-					}
-
-					if (reverseTicks > MOB_SPAWN_START_TICKS * 2 && mobSpawnTicks > MOB_SPAWN_END_TICKS && mobSpawnTicks % MOB_SPAWN_WAVE_TIME == 0) {
-						spawnMobs(players);
-
-						if (hardMode && tickCount % 3 < 2) {
-							int playerCount = getPlayerCount();
-							for (int i = 0; i < playerCount; i++) {
-								spawnMissile();
-							}
-							spawnMissiles = false;
+						if (tpDelay == 0 && getHealth() > 0) {
+							teleportToBeacon();
 						}
-					}
+					} else {
+						setDeltaMovement(Vec3.ZERO);
 
-					mobSpawnTicks--;
-					tpDelay = 10;
+						int reverseTicks = MOB_SPAWN_TICKS - mobSpawnTicks;
+						if (reverseTicks < MOB_SPAWN_START_TICKS) {
+							setDeltaMovement(getDeltaMovement().x(), 0.2, getDeltaMovement().z());
+							setInvulTime(invul + 1);
+						}
+
+						if (reverseTicks > MOB_SPAWN_START_TICKS * 2 &&
+								mobSpawnTicks > MOB_SPAWN_END_TICKS &&
+								mobSpawnTicks % MOB_SPAWN_WAVE_TIME == 0) {
+							spawnMobs(players);
+
+							if (hardMode && tickCount % 3 < 2) {
+								int playerCount = getPlayerCount();
+								for (int i = 0; i < playerCount; i++) {
+									spawnMissile();
+								}
+								spawnMissiles = false;
+							}
+						}
+
+						mobSpawnTicks--;
+						tpDelay = 10;
+					}
 				} else if (tpDelay > 0) {
 					if (invul > 0) {
 						setInvulTime(invul - 1);
@@ -954,9 +971,9 @@ public class GaiaGuardianEntity extends Mob {
 						int playerCount = getPlayerCount();
 						for (int pl = 0; pl < playerCount; pl++) {
 							for (int i = 0; i < (spawnPixies ? level().getRandom().nextInt(hardMode ? 6 : 3) : 1); i++) {
-								PixieEntity pixie = new PixieEntity(level());
-								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
-								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
+								PixieEntity pixie = new PixieEntity(level(), true);
+								pixie.setProps(players.get(random.nextInt(players.size())), this, 8);
+								pixie.setPos(getRandomX(1), getY() + 2, getRandomZ(1));
 								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
 										MobSpawnType.MOB_SUMMONED, null);
 								level().addFreshEntity(pixie);
@@ -1040,6 +1057,16 @@ public class GaiaGuardianEntity extends Mob {
 			newZ = source.getZ() + .5;
 		}
 
+		doTeleport(newX, newY, newZ, oldX, oldY, oldZ);
+	}
+
+	private void teleportToBeacon() {
+		Vec3 dest = source.getBottomCenter();
+
+		doTeleport(dest.x, dest.y + 1.6, dest.z, getX(), getY(), getZ());
+	}
+
+	private void doTeleport(double newX, double newY, double newZ, double oldX, double oldY, double oldZ) {
 		//for low-floor arenas, ensure landing on the ground
 		BlockPos tentativeFloorPos = BlockPos.containing(newX, newY - 1, newZ);
 		if (level().getBlockState(tentativeFloorPos).getCollisionShape(level(), tentativeFloorPos).isEmpty()) {

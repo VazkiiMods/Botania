@@ -181,7 +181,7 @@ public class BottledManaItem extends Item {
 
 	private static void effectPixieFriend(Level level, LivingEntity living) {
 		if (!level.isClientSide()) {
-			PixieEntity pixie = new PixieEntity(level);
+			PixieEntity pixie = new PixieEntity(level, false);
 			pixie.setPos(living.getX(), living.getY() + 1.5, living.getZ());
 			level.addFreshEntity(pixie);
 		}
