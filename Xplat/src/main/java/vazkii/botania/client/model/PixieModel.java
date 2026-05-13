@@ -78,7 +78,7 @@ public class PixieModel extends EntityModel<PixieEntity> {
 
 	@Override
 	public void setupAnim(PixieEntity entity, float f, float f1, float f2, float f3, float f4) {
-		evil = entity.getPixieType() == 1;
+		evil = entity.isGaia();
 		rightWingT.yRot = -(Mth.cos(f2 * 1.7F) * (float) Math.PI * 0.5F);
 		leftWingT.yRot = Mth.cos(f2 * 1.7F) * (float) Math.PI * 0.5F;
 		rightWingB.yRot = -(Mth.cos(f2 * 1.7F) * (float) Math.PI * 0.25F);
