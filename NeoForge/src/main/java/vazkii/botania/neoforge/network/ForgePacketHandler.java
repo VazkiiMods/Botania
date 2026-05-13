@@ -17,7 +17,6 @@ import vazkii.botania.network.clientbound.FluegelEyeEffectPacket;
 import vazkii.botania.network.clientbound.GogWorldPacket;
 import vazkii.botania.network.clientbound.GrassSeedsEffectPacket;
 import vazkii.botania.network.clientbound.HaloCraftEffectPacket;
-import vazkii.botania.network.clientbound.ItemAgePacket;
 import vazkii.botania.network.clientbound.ItemSmokeEffectPacket;
 import vazkii.botania.network.clientbound.PaintLensEffectPacket;
 import vazkii.botania.network.clientbound.ParticleBeamEffectPacket;
@@ -54,7 +53,6 @@ public class ForgePacketHandler {
 		registrar.playToClient(GogWorldPacket.ID, GogWorldPacket.STREAM_CODEC, makeClientBoundHandler(GogWorldPacket.Handler::handle));
 		registrar.playToClient(GrassSeedsEffectPacket.ID, GrassSeedsEffectPacket.STREAM_CODEC, makeClientBoundHandler(GrassSeedsEffectPacket.Handler::handle));
 		registrar.playToClient(HaloCraftEffectPacket.ID, HaloCraftEffectPacket.STREAM_CODEC, makeClientBoundHandler(HaloCraftEffectPacket.Handler::handle));
-		registrar.playToClient(ItemAgePacket.ID, ItemAgePacket.STREAM_CODEC, makeClientBoundHandler(ItemAgePacket.Handler::handle));
 		registrar.playToClient(ItemSmokeEffectPacket.ID, ItemSmokeEffectPacket.STREAM_CODEC, makeClientBoundHandler(ItemSmokeEffectPacket.Handler::handle));
 		registrar.playToClient(PaintLensEffectPacket.ID, PaintLensEffectPacket.STREAM_CODEC, makeClientBoundHandler(PaintLensEffectPacket.Handler::handle));
 		registrar.playToClient(ParticleBeamEffectPacket.ID, ParticleBeamEffectPacket.STREAM_CODEC, makeClientBoundHandler(ParticleBeamEffectPacket.Handler::handle));

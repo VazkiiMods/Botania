@@ -55,7 +55,7 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 			entity.setTarget(null);
 
 			if (pacifyCreeper(entity)) {
-				XplatAbstractions.INSTANCE.tigersEyeComponent(entity).setPacified();
+				XplatAbstractions.instance().setTigersEyePacified(entity, true);
 				entity.playSound(BotaniaSounds.tigerseyePacify, 1.0F, (float) level.random.triangle(1.0, 0.2));
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
 				addMana(-COST);
@@ -68,7 +68,7 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public static void pacifyAfterLoad(Entity entity, ServerLevel level) {
-		if (entity instanceof Creeper creeper && XplatAbstractions.INSTANCE.tigersEyeComponent(creeper).isPacified()) {
+		if (entity instanceof Creeper creeper && XplatAbstractions.instance().isTigerseyePacified(creeper)) {
 			pacifyCreeper(creeper);
 		}
 	}

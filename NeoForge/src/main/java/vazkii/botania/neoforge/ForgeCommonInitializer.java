@@ -49,6 +49,7 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.event.*;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import net.neoforged.neoforge.event.entity.EntityEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
@@ -83,7 +84,6 @@ import vazkii.botania.common.block.block_entity.BlockEntityConstants;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.BotaniaIslandTypes;
-import vazkii.botania.common.block.block_entity.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.functional.TigerseyeBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.functional.VinculotusBlockEntity;
@@ -107,6 +107,7 @@ import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
+import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
@@ -222,6 +223,7 @@ public class ForgeCommonInitializer {
 		// Entities
 		bind(event, Registries.ENTITY_TYPE, BotaniaEntities::registerEntities);
 		runRegistration(event, Registries.ATTRIBUTE, PixieHandler::registerAttribute);
+		bind(event, BotaniaRegistries.ITEM_SOURCE, ItemSources::submitRegistrations);
 
 		// Potions
 		runRegistration(event, Registries.MOB_EFFECT, BotaniaMobEffects::registerPotions);
@@ -319,7 +321,6 @@ public class ForgeCommonInitializer {
 				e.setProblem(problem);
 			}
 		});
-		bus.addListener((PlayerEvent.StartTracking e) -> DaffomillBlockEntity.onItemTrack(e.getEntity(), (ServerPlayer) e.getEntity()));
 		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getReceiver(), e.getType(), e.getAction()));
 		bus.addListener((EntityJoinLevelEvent e) -> {
 			if (!e.getLevel().isClientSide) {
@@ -349,6 +350,8 @@ public class ForgeCommonInitializer {
 				e.setCancellationResult(result.getResult());
 			}
 		});
+
+		bus.addListener(EntityEvent.EntityConstructing.class, ForgeInternalEntityCapabilities::trackTntSpawning);
 
 		// Below here are events implemented via Mixins on the Fabric side, ordered by Mixin name
 		// FabricMixinAnvilMenu

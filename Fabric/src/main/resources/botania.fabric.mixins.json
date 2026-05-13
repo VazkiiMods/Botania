@@ -24,6 +24,7 @@
     "PiglinAiFabricMixin",
     "PlayerFabricMixin",
     "PowderSnowBlockMixin",
+    "PrimedTntMixin",
     "RepairItemRecipeFabricMixin",
     "ResultSlotFabricMixin"
   ],

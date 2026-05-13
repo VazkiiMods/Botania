@@ -12,8 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,8 +28,6 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
-import vazkii.botania.network.clientbound.ItemAgePacket;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -151,14 +147,5 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 		super.readFromPacketNBT(cmp, registries);
 
 		windTicks = cmp.getInt(TAG_WIND_TICKS);
-	}
-
-	// Send timeCounter to client to prevent client desync when an item is e.g. dropped by a powered open crate
-	public static void onItemTrack(Entity entity, ServerPlayer player) {
-		if (entity instanceof ItemEntity item) {
-			int entityId = entity.getId();
-			int age = XplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter;
-			XplatAbstractions.INSTANCE.sendToPlayer(player, new ItemAgePacket(entityId, age));
-		}
 	}
 }

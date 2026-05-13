@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.internal_caps.SpectralRailComponent;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -46,8 +45,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 
 	private void updateFloating(AbstractMinecart cart) {
 		cart.level().getProfiler().push("cartFloating");
-		SpectralRailComponent persistentData = XplatAbstractions.INSTANCE.ghostRailComponent(cart);
-		int floatTicks = persistentData.floatTicks;
+		int floatTicks = XplatAbstractions.instance().getSpectralFloatTicks(cart);
 		Preconditions.checkState(floatTicks > 0);
 
 		BlockPos entPos = cart.blockPosition();
@@ -57,7 +55,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 		if (state.is(BotaniaTags.Blocks.GHOST_RAIL_BARRIER)
 				|| (!state.is(BotaniaBlocks.ghostRail) && state.is(BlockTags.RAILS))) {
 			cart.level().levelEvent(LevelEvent.PARTICLES_EYE_OF_ENDER_DEATH, entPos, 0);
-			persistentData.floatTicks = 0;
+			XplatAbstractions.instance().setSpectralFloatTicks(cart, 0);
 		} else {
 			BlockPos down = entPos.below();
 			BlockState stateBelow = cart.level().getBlockState(down);
@@ -66,7 +64,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 				cart.noPhysics = true;
 			}
 			cart.setDeltaMovement(cart.getDeltaMovement().x() * 1.4, 0.2, cart.getDeltaMovement().z() * 1.4);
-			persistentData.floatTicks--;
+			XplatAbstractions.instance().setSpectralFloatTicks(cart, floatTicks - 1);
 			cart.level().levelEvent(LevelEvent.PARTICLES_SHOOT_SMOKE, entPos, 0);
 		}
 
@@ -76,7 +74,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 	@SoftImplement("IBaseRailBlockExtension")
 	public void onMinecartPass(BlockState state, Level world, BlockPos pos, AbstractMinecart cart) {
 		if (!world.isClientSide) {
-			XplatAbstractions.INSTANCE.ghostRailComponent(cart).floatTicks = 20;
+			XplatAbstractions.instance().setSpectralFloatTicks(cart, 20);
 			updateFloating(cart);
 		}
 	}
@@ -86,15 +84,14 @@ public class SpectralRailBlock extends BaseRailBlock {
 			return;
 		}
 
-		SpectralRailComponent persistentData = XplatAbstractions.INSTANCE.ghostRailComponent(c);
-		if (!c.isAlive() || persistentData.floatTicks <= 0) {
+		if (!c.isAlive() || XplatAbstractions.instance().isNotFloating(c)) {
 			c.noPhysics = false;
 			return;
 		}
 
 		updateFloating(c);
 
-		if (persistentData.floatTicks <= 0) {
+		if (XplatAbstractions.instance().isNotFloating(c)) {
 			c.noPhysics = false;
 		}
 	}

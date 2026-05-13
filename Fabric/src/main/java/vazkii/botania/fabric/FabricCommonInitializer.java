@@ -28,7 +28,6 @@ import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
@@ -68,6 +67,7 @@ import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaNetworkCallback;
@@ -81,7 +81,6 @@ import vazkii.botania.common.block.block_entity.BlockEntityConstants;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.BotaniaIslandTypes;
-import vazkii.botania.common.block.block_entity.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.functional.TigerseyeBlockEntity;
 import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
@@ -102,6 +101,7 @@ import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
+import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
@@ -135,6 +135,8 @@ public class FabricCommonInitializer implements ModInitializer {
 			.createDefaulted(BotaniaRegistries.ISLAND_TYPES, IslandType.DEFAULT_ID).buildAndRegister();
 	private static final MappedRegistry<StateIngredientType<?>> STATE_INGREDIENT_TYPE_REGISTRY = FabricRegistryBuilder
 			.createDefaulted(BotaniaRegistries.STATE_INGREDIENT_TYPE, StateIngredientType.DEFAULT_ID).buildAndRegister();
+	private static final MappedRegistry<ItemSource> ITEM_SOURCE_REGISTRY = FabricRegistryBuilder
+			.createSimple(BotaniaRegistries.ITEM_SOURCE).buildAndRegister();
 
 	@Override
 	public void onInitialize() {
@@ -208,6 +210,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		PixieHandler.registerAttribute(BuiltInRegistries.ATTRIBUTE);
 		BotaniaEntities.registerAttributes(FabricDefaultAttributeRegistry::register);
 		MinecartComparatorLogicRegistry.register(BotaniaEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
+		ItemSources.submitRegistrations(bind(ITEM_SOURCE_REGISTRY));
 
 		// Potions
 		BotaniaMobEffects.registerPotions(BuiltInRegistries.MOB_EFFECT);
@@ -267,7 +270,6 @@ public class FabricCommonInitializer implements ModInitializer {
 		AttackEntityCallback.EVENT.register(TerraBladeItem::attackEntity);
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		EntitySleepEvents.ALLOW_SLEEPING.register(SleepingHandler::trySleep);
-		EntityTrackingEvents.START_TRACKING.register(DaffomillBlockEntity::onItemTrack);
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
 			if (source.isBuiltin()) {
 				LootHandler.injectLoot(key.location(), tableBuilder::withPool);

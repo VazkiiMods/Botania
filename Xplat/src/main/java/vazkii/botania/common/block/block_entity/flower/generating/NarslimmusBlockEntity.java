@@ -49,7 +49,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 
 		List<Slime> slimes = getLevel().getEntitiesOfClass(Slime.class,
 				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
-				slime -> slime.isAlive() && XplatAbstractions.INSTANCE.narslimmusComponent(slime).isNaturalSpawned());
+				slime -> slime.isAlive() && XplatAbstractions.instance().isSlimeChunkSpawned(slime));
 		for (Slime slime : slimes) {
 			int size = slime.getSize();
 			if (!slime.level().isClientSide) {
@@ -104,7 +104,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 		if (slimeChunk) {
 			entity.getSelfAndPassengers().forEach(e -> {
 				if (e instanceof Slime slime) {
-					XplatAbstractions.INSTANCE.narslimmusComponent(slime).setNaturalSpawn(true);
+					XplatAbstractions.instance().flagAsSlimeChunkSpawned(slime);
 				}
 			});
 		}

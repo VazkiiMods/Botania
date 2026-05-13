@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * block, the TNT entity was unethically sourced.
  *
  * @see EntropinnyumBlockEntity
- * @see vazkii.botania.common.internal_caps.EthicalComponent
+ * @see vazkii.botania.common.internal_caps.BotaniaDataAttachments#UNETHICAL_TNT
  * @see vazkii.botania.mixin.PistonBaseBlockMixin
  * @see vazkii.botania.common.item.lens.ForceLens#moveBlocks(Level, BlockPos, Direction, BlockPos)
  */
@@ -89,32 +89,22 @@ public class EthicalTntHelper {
 			for (final var entry : trackedTntEntities.entrySet()) {
 				final var level = entry.getKey();
 				final var trackedEntities = entry.getValue();
-				if (trackedEntities != null) {
-					for (final var tntId : trackedEntities) {
-						final var entity = level.getEntity(tntId);
-						if (entity instanceof PrimedTnt tnt) {
-							checkUnethical(tnt);
-						}
+				for (final var tntId : trackedEntities) {
+					final var entity = level.getEntity(tntId);
+					if (entity instanceof PrimedTnt tnt) {
+						checkUnethical(tnt);
 					}
-					trackedEntities.clear();
 				}
+				trackedEntities.clear();
 			}
 		}
 	}
 
 	private static void checkUnethical(PrimedTnt entity) {
 		BlockPos center = entity.blockPosition();
-		if (!entity.level().isLoaded(center)) {
-			return;
-		}
-
 		BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
 		for (final var dir : Direction.values()) {
 			blockPos.setWithOffset(center, dir);
-			if (!entity.level().isLoaded(blockPos)) {
-				continue;
-			}
-
 			final var blockState = entity.level().getBlockState(blockPos);
 			if (blockState.is(Blocks.MOVING_PISTON)
 					&& entity.level().getBlockEntity(blockPos) instanceof PistonMovingBlockEntity movingBlockEntity
@@ -122,7 +112,7 @@ public class EthicalTntHelper {
 					&& (movingBlockEntity.getMovedState().getBlock() instanceof TntBlock
 							|| movingBlockEntity.getMovedState().is(BotaniaTags.Blocks.UNETHICAL_TNT_CHECK))) {
 				// found a moving block that marks the destination of a TNT block moving away from the TNT entity
-				XplatAbstractions.INSTANCE.ethicalComponent(entity).markUnethical();
+				XplatAbstractions.instance().flagAsUnethicalTnt(entity);
 				break;
 			}
 		}

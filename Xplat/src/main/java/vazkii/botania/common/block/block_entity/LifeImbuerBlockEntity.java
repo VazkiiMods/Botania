@@ -23,7 +23,6 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.internal_caps.LooniumComponent;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaReceiver {
@@ -58,10 +57,7 @@ public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaRec
 			return;
 		}
 
-		LooniumComponent looniumComponent = XplatAbstractions.INSTANCE.looniumComponent(mob);
-		if (looniumComponent != null) {
-			looniumComponent.setSlowDespawn(true);
-		}
+		XplatAbstractions.instance().flagAsSlowDespawn(mob);
 	}
 
 	public boolean clientTickActive() {

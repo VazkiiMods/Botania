@@ -1,71 +1,81 @@
 package vazkii.botania.neoforge.internal_caps;
 
-import net.minecraft.nbt.CompoundTag;
+import com.mojang.serialization.Codec;
+
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.attachment.IAttachmentHolder;
-import net.neoforged.neoforge.common.util.INBTSerializable;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.event.entity.EntityEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.ItemSource;
+import vazkii.botania.common.helper.EthicalTntHelper;
 import vazkii.botania.common.internal_caps.*;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public final class ForgeInternalEntityCapabilities {
 	private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, BotaniaAPI.MODID);
-	public static final Supplier<AttachmentType<ForgeEthicalComponent>> TNT_ETHICAL = ATTACHMENT_TYPES.register(
-			ForgeEthicalComponent.ID.getPath(),
-			AttachmentType.serializable(ForgeEthicalComponent::new)::build);
-	public static final Supplier<AttachmentType<ForgeSpectralRailComponent>> GHOST_RAIL =
-			registerComponentAttachmentType(ForgeSpectralRailComponent.ID, ForgeSpectralRailComponent::new);
-	public static final Supplier<AttachmentType<ForgeItemFlagsComponent>> INTERNAL_ITEM =
-			registerComponentAttachmentType(ForgeItemFlagsComponent.ID, ForgeItemFlagsComponent::new);
-	public static final Supplier<AttachmentType<ForgeKeptItemsComponent>> KEPT_ITEMS = ATTACHMENT_TYPES.register(
-			ForgeKeptItemsComponent.ID.getPath(),
-			AttachmentType.serializable(ForgeKeptItemsComponent::new)::build);
-	public static final Supplier<AttachmentType<ForgeLooniumComponent>> LOONIUM_DROP =
-			registerComponentAttachmentType(ForgeLooniumComponent.ID, ForgeLooniumComponent::new);
-	public static final Supplier<AttachmentType<ForgeNarslimmusComponent>> NARSLIMMUS =
-			registerComponentAttachmentType(ForgeNarslimmusComponent.ID, ForgeNarslimmusComponent::new);
-	public static final Supplier<AttachmentType<ForgeTigerseyeComponent>> TIGERSEYE =
-			registerComponentAttachmentType(ForgeTigerseyeComponent.ID, ForgeTigerseyeComponent::new);
 
-	private static <T extends SerializableComponent & INBTSerializable<CompoundTag>> DeferredHolder<AttachmentType<?>, AttachmentType<T>> registerComponentAttachmentType(ResourceLocation componentId, Supplier<T> componentSupplier) {
-		return ATTACHMENT_TYPES.register(componentId.getPath(), AttachmentType.serializable(componentSupplier)::build);
+	public static final Supplier<AttachmentType<Short>> ITEM_LIFETIME =
+			registerSynchronized(BotaniaDataAttachments.ITEM_LIFETIME, Codec.SHORT, ByteBufCodecs.SHORT);
+	public static final Supplier<AttachmentType<ItemSource>> ITEM_SOURCE =
+			register(BotaniaDataAttachments.ITEM_SOURCE, ItemSources.CODEC);
+	public static final Supplier<AttachmentType<List<ItemStack>>> KEPT_ITEMS =
+			register(BotaniaDataAttachments.KEPT_ITEMS, ItemStack.CODEC.listOf());
+	public static final Supplier<AttachmentType<SingleStack>> LOONIUM_DROP =
+			register(BotaniaDataAttachments.LOONIUM_DROP, SingleStack.CODEC);
+	public static final Supplier<AttachmentType<Unit>> SLIME_CHUNK_SPAWNED =
+			registerUnit(BotaniaDataAttachments.SLIME_CHUNK_SPAWNED);
+	public static final Supplier<AttachmentType<Unit>> SLOW_DESPAWN =
+			registerUnit(BotaniaDataAttachments.SLOW_DESPAWN);
+	public static final Supplier<AttachmentType<Integer>> SPECTRAL_FLOAT_TICKS =
+			register(BotaniaDataAttachments.SPECTRAL_FLOAT_TICKS, Codec.INT);
+	public static final Supplier<AttachmentType<Unit>> TIGERSEYE_PACIFIED =
+			registerUnit(BotaniaDataAttachments.TIGERSEYE_PACIFIED);
+	public static final Supplier<AttachmentType<Unit>> UNETHICAL_TNT =
+			registerUnit(BotaniaDataAttachments.UNETHICAL_TNT);
+
+	private static Supplier<AttachmentType<Unit>> registerUnit(ResourceLocation id) {
+		return register(id, Unit.CODEC);
+	}
+
+	private static <T> Supplier<AttachmentType<T>> register(ResourceLocation id, Codec<T> codec) {
+		return registerSynchronized(id, codec, null);
+	}
+
+	private static <T> Supplier<AttachmentType<T>> registerSynchronized(ResourceLocation id, Codec<T> codec,
+			@Nullable StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
+		AttachmentType.Builder<T> builder = AttachmentType.builder((Supplier<T>) () -> {
+			throw new UnsupportedOperationException(
+					"This data attachments must not be created implicitly. Use hasData(), getExistingData(), or getExistingDataOrNull() instead of getData() for it.");
+		}).serialize(codec);
+		if (streamCodec != null) {
+			builder.sync(streamCodec);
+		}
+		return ATTACHMENT_TYPES.register(id.getPath(), builder::build);
 	}
 
 	public static void init(IEventBus eventBus) {
 		ATTACHMENT_TYPES.register(eventBus);
 	}
 
-	private ForgeInternalEntityCapabilities() {}
-
-	public static class ForgeEthicalComponent extends EthicalComponent implements INBTSerializable<CompoundTag> {
-		public ForgeEthicalComponent(IAttachmentHolder entity) {
-			super((PrimedTnt) entity);
+	public static void trackTntSpawning(EntityEvent.EntityConstructing e) {
+		if (e.getEntity() instanceof PrimedTnt tnt) {
+			EthicalTntHelper.addTrackedTntEntity(tnt);
 		}
 	}
 
-	public static class ForgeSpectralRailComponent extends SpectralRailComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	public static class ForgeItemFlagsComponent extends ItemFlagsComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	public static class ForgeKeptItemsComponent extends KeptItemsComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	public static class ForgeLooniumComponent extends LooniumComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	public static class ForgeNarslimmusComponent extends NarslimmusComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	public static class ForgeTigerseyeComponent extends TigerseyeComponent implements INBTSerializable<CompoundTag> {
-	}
+	private ForgeInternalEntityCapabilities() {}
 }

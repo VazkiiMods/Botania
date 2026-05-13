@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.Optionull;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
@@ -32,9 +33,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -49,6 +48,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.Creeper;
@@ -91,6 +91,7 @@ import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
@@ -106,7 +107,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
-import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
+import vazkii.botania.fabric.internal_caps.FabricInternalEntityAttachments;
 import vazkii.botania.fabric.mixin.AbstractFurnaceBlockEntityFabricAccessor;
 import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -115,12 +116,14 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
+@SuppressWarnings("UnstableApiUsage")
 public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean isFabric() {
@@ -368,39 +371,115 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public EthicalComponent ethicalComponent(PrimedTnt tnt) {
-		return CCAInternalEntityComponents.TNT_ETHICAL.get(tnt);
+	public boolean isUnethicalTnt(PrimedTnt tnt) {
+		return tnt.hasAttached(FabricInternalEntityAttachments.UNETHICAL_TNT);
 	}
 
 	@Override
-	public SpectralRailComponent ghostRailComponent(AbstractMinecart cart) {
-		return CCAInternalEntityComponents.GHOST_RAIL.get(cart);
+	public void flagAsUnethicalTnt(PrimedTnt tnt) {
+		tnt.setAttached(FabricInternalEntityAttachments.UNETHICAL_TNT, Unit.INSTANCE);
 	}
 
 	@Override
-	public ItemFlagsComponent itemFlagsComponent(ItemEntity item) {
-		return CCAInternalEntityComponents.INTERNAL_ITEM.get(item);
+	public boolean isNotFloating(AbstractMinecart cart) {
+		return !cart.hasAttached(FabricInternalEntityAttachments.SPECTRAL_FLOAT_TICKS);
 	}
 
 	@Override
-	public KeptItemsComponent keptItemsComponent(Player player) {
-		return CCAInternalEntityComponents.KEPT_ITEMS.get(player);
+	public int getSpectralFloatTicks(AbstractMinecart cart) {
+		return cart.getAttachedOrElse(FabricInternalEntityAttachments.SPECTRAL_FLOAT_TICKS, 0);
+	}
+
+	@Override
+	public void setSpectralFloatTicks(AbstractMinecart cart, int ticks) {
+		if (ticks > 0) {
+			cart.setAttached(FabricInternalEntityAttachments.SPECTRAL_FLOAT_TICKS, ticks);
+		} else {
+			cart.removeAttached(FabricInternalEntityAttachments.SPECTRAL_FLOAT_TICKS);
+		}
+	}
+
+	@Override
+	public Optional<ItemSource> getItemSource(ItemEntity item) {
+		return Optional.ofNullable(item.getAttached(FabricInternalEntityAttachments.ITEM_SOURCE));
+	}
+
+	@Override
+	public void setItemSource(ItemEntity item, ItemSource source) {
+		item.setAttached(FabricInternalEntityAttachments.ITEM_SOURCE, source);
+	}
+
+	@Override
+	public int getItemLifeTime(ItemEntity item) {
+		return item.getAttachedOrElse(FabricInternalEntityAttachments.ITEM_LIFETIME, (short) 0);
+	}
+
+	@Override
+	public void setItemLifeTime(ItemEntity item, int ticks) {
+		item.setAttached(FabricInternalEntityAttachments.ITEM_LIFETIME, (short) Math.min(Short.MAX_VALUE, ticks));
+	}
+
+	@Override
+	public List<ItemStack> getKeptItems(Player player) {
+		return player.getAttachedOrGet(FabricInternalEntityAttachments.KEPT_ITEMS, List::of);
+	}
+
+	@Override
+	public void setKeptItems(Player player, List<ItemStack> items) {
+		if (!items.isEmpty()) {
+			player.setAttached(FabricInternalEntityAttachments.KEPT_ITEMS, List.copyOf(items));
+		} else {
+			player.removeAttached(FabricInternalEntityAttachments.KEPT_ITEMS);
+		}
 	}
 
 	@Nullable
 	@Override
-	public LooniumComponent looniumComponent(LivingEntity entity) {
-		return CCAInternalEntityComponents.LOONIUM_DROP.getNullable(entity);
+	public ItemStack getLooniumDrop(LivingEntity entity) {
+		return Optionull.map(entity.getAttached(FabricInternalEntityAttachments.LOONIUM_DROP), SingleStack::stack);
 	}
 
 	@Override
-	public NarslimmusComponent narslimmusComponent(Slime slime) {
-		return CCAInternalEntityComponents.NARSLIMMUS.get(slime);
+	public void setLooniumDrop(LivingEntity entity, @Nullable ItemStack stack) {
+		if (stack != null) {
+			entity.setAttached(FabricInternalEntityAttachments.LOONIUM_DROP, new SingleStack(stack));
+		} else {
+			entity.removeAttached(FabricInternalEntityAttachments.LOONIUM_DROP);
+		}
 	}
 
 	@Override
-	public TigerseyeComponent tigersEyeComponent(Creeper creeper) {
-		return CCAInternalEntityComponents.TIGERSEYE.get(creeper);
+	public boolean isSlimeChunkSpawned(Slime slime) {
+		return slime.hasAttached(FabricInternalEntityAttachments.SLIME_CHUNK_SPAWNED);
+	}
+
+	@Override
+	public void flagAsSlimeChunkSpawned(Slime slime) {
+		slime.setAttached(FabricInternalEntityAttachments.SLIME_CHUNK_SPAWNED, Unit.INSTANCE);
+	}
+
+	@Override
+	public boolean isSlowDespawn(Mob mob) {
+		return mob.hasAttached(FabricInternalEntityAttachments.SLOW_DESPAWN);
+	}
+
+	@Override
+	public void flagAsSlowDespawn(Mob mob) {
+		mob.setAttached(FabricInternalEntityAttachments.SLOW_DESPAWN, Unit.INSTANCE);
+	}
+
+	@Override
+	public boolean isTigerseyePacified(Creeper creeper) {
+		return creeper.hasAttached(FabricInternalEntityAttachments.TIGERSEYE_PACIFIED);
+	}
+
+	@Override
+	public void setTigersEyePacified(Creeper creeper, boolean pacified) {
+		if (pacified) {
+			creeper.setAttached(FabricInternalEntityAttachments.TIGERSEYE_PACIFIED, Unit.INSTANCE);
+		} else {
+			creeper.removeAttached(FabricInternalEntityAttachments.TIGERSEYE_PACIFIED);
+		}
 	}
 
 	@Override
@@ -436,11 +515,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
 		ManaNetworkCallback.EVENT.invoker().onNetworkChange(thing, type, action);
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(CustomPacketPayload packet) {
-		return (Packet<ClientGamePacketListener>) (Packet) ServerPlayNetworking.createS2CPacket(packet);
 	}
 
 	@Override
