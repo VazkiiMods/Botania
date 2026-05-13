@@ -773,7 +773,7 @@ public final class BotaniaBlocks {
 	public static final Block manaFlame = make(LibBlockNames.MANA_FLAME, new ManaFlameBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).sound(SoundType.WOOL).lightLevel(s -> 15).noCollission()));
 	public static final Block blazeBlock = make(LibBlockNames.BLAZE_BLOCK, new Block(BlockBehaviour.Properties.ofFullCopy(manasteelBlock).instrument(NoteBlockInstrument.PLING).lightLevel(s -> 15).mapColor(MapColor.GOLD)));
 	public static final Block gaiaHead = make(LibBlockNames.GAIA_HEAD, new GaiaHeadBlock(BlockBehaviour.Properties.of().pushReaction(PushReaction.DESTROY).strength(1)));
-	public static final Block gaiaHeadWall = make(LibBlockNames.GAIA_WALL_HEAD, new WallGaiaHeadBlock(BlockBehaviour.Properties.ofFullCopy(gaiaHead)));
+	public static final Block gaiaHeadWall = make(LibBlockNames.GAIA_WALL_HEAD, new GaiaWallHeadBlock(BlockBehaviour.Properties.ofFullCopy(gaiaHead)));
 
 	public static final Block shimmerrock = make(LibBlockNames.SHIMMERROCK, new Block(BlockBehaviour.Properties.ofFullCopy(livingrock)));
 	public static final Block shimmerrockStairs = make(LibBlockNames.SHIMMERROCK + STAIR_SUFFIX, new StairBlock(shimmerrock.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(shimmerrock)));

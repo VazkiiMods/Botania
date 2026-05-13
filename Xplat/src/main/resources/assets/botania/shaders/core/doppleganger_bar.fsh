@@ -12,8 +12,17 @@ in vec2 texCoord0;
 
 out vec4 fragColor;
 
-float rand(vec2 co) {
-    return fract(sin(dot(co.xy, vec2(12.9898,78.233))) * 43758.5453);
+// Better randomness for the boss bar than the gaia entities:
+// Hash without Sine - https://www.shadertoy.com/view/4djSRW
+float hashwithoutsine13(vec3 p3)
+{
+    p3  = fract(p3 * .1031);
+    p3 += dot(p3, p3.yzx + 33.33);
+    return fract((p3.x + p3.y) * p3.z);
+}
+float rand(vec2 co, float seed)
+{
+    return hashwithoutsine13(vec3(1033.0 * co, seed));
 }
 
 void main() {
@@ -46,8 +55,8 @@ void main() {
     }
 
     if(BotaniaGrainIntensity > 0) {
-        float gs = rand(vec2(texCoord0.x + time, texCoord0.y));
-        newColor = mix(newColor, vec3(gs, gs, gs), BotaniaGrainIntensity);
+        float gs = rand(texCoord0, time);
+        newColor = mix(newColor, vec3(gs), BotaniaGrainIntensity);
     }
 
     fragColor = vec4(newColor, color.a) * ColorModulator;

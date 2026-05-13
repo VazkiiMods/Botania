@@ -272,7 +272,7 @@ public final class RenderHelper extends RenderType {
 	private static final Function<ResourceLocation, RenderType> DOPPLEGANGER = Util.memoize(texture -> {
 		// [VanillaCopy] entity_translucent, with own shader
 		CompositeState glState = RenderType.CompositeState.builder()
-				.setShaderState(new ShaderStateShard(CoreShaders::doppleganger))
+				.setShaderState(new ShaderStateShard(CoreShaders::gaiaGuardianDynamic))
 				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setCullState(NO_CULL)
@@ -282,8 +282,25 @@ public final class RenderHelper extends RenderType {
 		return makeLayer(ResourcesLib.PREFIX_MOD + "doppleganger", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
 	});
 
-	public static RenderType getDopplegangerLayer(ResourceLocation texture) {
+	private static final Function<ResourceLocation, RenderType> GAIA_PIXIE = Util.memoize(texture -> {
+		// [VanillaCopy] entity_translucent, with own shader
+		CompositeState glState = RenderType.CompositeState.builder()
+				.setShaderState(new ShaderStateShard(CoreShaders::gaiaGuardianStatic))
+				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setCullState(NO_CULL)
+				.setLightmapState(LIGHTMAP)
+				.setOverlayState(OVERLAY)
+				.createCompositeState(true);
+		return makeLayer(ResourcesLib.PREFIX_MOD + "gaia_pixie", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
+	});
+
+	public static RenderType getDynamicGaiaLayer(ResourceLocation texture) {
 		return DOPPLEGANGER.apply(texture);
+	}
+
+	public static RenderType getStaticGaiaLayer(ResourceLocation texture) {
+		return GAIA_PIXIE.apply(texture);
 	}
 
 	public static void drawTexturedModalRect(GuiGraphics gui, ResourceLocation textureId, int x, int y, int u, int v, int width, int height) {

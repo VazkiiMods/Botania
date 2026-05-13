@@ -15,6 +15,8 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.network.TriConsumer;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -23,15 +25,26 @@ import java.util.function.Consumer;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class CoreShaders {
+	@Nullable
 	private static ShaderInstance starfieldShaderInstance;
-	private static ShaderInstance doppleganger;
+	@Nullable
+	private static ShaderInstance gaiaGuardianDynamic;
+	@Nullable
+	private static ShaderInstance gaiaGuardianStatic;
+	@Nullable
 	private static ShaderInstance manaPool;
+	@Nullable
 	private static ShaderInstance terraPlate;
+	@Nullable
 	private static ShaderInstance enchanter;
+	@Nullable
 	private static ShaderInstance pylon;
+	@Nullable
 	private static ShaderInstance halo;
+	@Nullable
 	private static ShaderInstance filmGrainParticle;
-	private static ShaderInstance dopplegangerBar;
+	@Nullable
+	private static ShaderInstance gaiaBossBar;
 
 	// This is abstracted this way instead of just directly constructing the ShaderInstance
 	// Because Fabric is cute and hides the ResourceProvider from modders (why?)
@@ -44,7 +57,12 @@ public class CoreShaders {
 		registrations.accept(
 				botaniaRL("doppleganger"),
 				DefaultVertexFormat.NEW_ENTITY,
-				inst -> doppleganger = inst
+				inst -> gaiaGuardianDynamic = inst
+		);
+		registrations.accept(
+				botaniaRL("gaia_pixie"),
+				DefaultVertexFormat.NEW_ENTITY,
+				inst -> gaiaGuardianStatic = inst
 		);
 		registrations.accept(
 				botaniaRL("mana_pool"),
@@ -79,24 +97,36 @@ public class CoreShaders {
 		registrations.accept(
 				botaniaRL("doppleganger_bar"),
 				DefaultVertexFormat.POSITION_TEX,
-				inst -> dopplegangerBar = inst
+				inst -> gaiaBossBar = inst
 		);
 	}
 
+	@Nullable
 	public static ShaderInstance starfield() {
 		// Intended to not respect useShaders config. The render kind of relies entirely
 		// on the shader, like the end portal.
 		return starfieldShaderInstance;
 	}
 
-	public static ShaderInstance doppleganger() {
+	@Nullable
+	public static ShaderInstance gaiaGuardianDynamic() {
 		if (BotaniaConfig.client().useShaders()) {
-			return doppleganger;
+			return gaiaGuardianDynamic;
 		} else {
 			return GameRenderer.getRendertypeEntityTranslucentShader();
 		}
 	}
 
+	@Nullable
+	public static ShaderInstance gaiaGuardianStatic() {
+		if (BotaniaConfig.client().useShaders()) {
+			return gaiaGuardianStatic;
+		} else {
+			return GameRenderer.getRendertypeEntityTranslucentShader();
+		}
+	}
+
+	@Nullable
 	public static ShaderInstance manaPool() {
 		if (BotaniaConfig.client().useShaders()) {
 			return manaPool;
@@ -105,6 +135,7 @@ public class CoreShaders {
 		}
 	}
 
+	@Nullable
 	public static ShaderInstance terraPlate() {
 		if (BotaniaConfig.client().useShaders()) {
 			return terraPlate;
@@ -113,6 +144,7 @@ public class CoreShaders {
 		}
 	}
 
+	@Nullable
 	public static ShaderInstance enchanter() {
 		if (BotaniaConfig.client().useShaders()) {
 			return enchanter;
@@ -121,6 +153,7 @@ public class CoreShaders {
 		}
 	}
 
+	@Nullable
 	public static ShaderInstance pylon() {
 		if (BotaniaConfig.client().useShaders()) {
 			return pylon;
@@ -129,6 +162,7 @@ public class CoreShaders {
 		}
 	}
 
+	@Nullable
 	public static ShaderInstance halo() {
 		if (BotaniaConfig.client().useShaders()) {
 			return halo;
@@ -137,6 +171,7 @@ public class CoreShaders {
 		}
 	}
 
+	@Nullable
 	public static ShaderInstance filmGrainParticle() {
 		if (BotaniaConfig.client().useShaders()) {
 			return filmGrainParticle;
@@ -145,9 +180,10 @@ public class CoreShaders {
 		}
 	}
 
-	public static ShaderInstance dopplegangerBar() {
+	@Nullable
+	public static ShaderInstance gaiaBossBar() {
 		if (BotaniaConfig.client().useShaders()) {
-			return dopplegangerBar;
+			return gaiaBossBar;
 		} else {
 			return GameRenderer.getPositionTexShader();
 		}
