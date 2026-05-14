@@ -11,9 +11,7 @@ package vazkii.botania.client.render.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -21,24 +19,27 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.PlayerModelPart;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.helper.CoreShaders;
-import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.model.GaiaGuardianModel;
 import vazkii.botania.client.model.armor.ArmorModels;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 
-public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity, HumanoidModel<GaiaGuardianEntity>> {
+public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity, GaiaGuardianModel> {
 
 	public static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
 	public static final float DEFAULT_DISFIGURATION = 0.025F;
 
-	private final Model normalModel;
-	private final Model slimModel;
+	private final GaiaGuardianModel normalModel;
+	private final GaiaGuardianModel slimModel;
 
 	public GaiaGuardianRenderer(EntityRendererProvider.Context ctx) {
-		super(ctx, new Model(ctx.bakeLayer(ModelLayers.PLAYER)), 0F);
-		this.normalModel = (Model) this.getModel();
-		this.slimModel = new Model(ctx.bakeLayer(ModelLayers.PLAYER_SLIM));
+		super(ctx, new GaiaGuardianModel(ctx.bakeLayer(ModelLayers.PLAYER), false), 0F);
+		this.normalModel = this.getModel();
+		this.slimModel = new GaiaGuardianModel(ctx.bakeLayer(ModelLayers.PLAYER_SLIM), true);
 		// Call this here bc no other place with access to Context
 		ArmorModels.init(ctx);
 	}
@@ -60,14 +61,38 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 			shader.safeGetUniform("BotaniaDisfiguration").set(disfiguration);
 		}
 
-		var view = Minecraft.getInstance().getCameraEntity();
-		if (view instanceof AbstractClientPlayer && DefaultPlayerSkin.get(view.getUUID()).model().id().equals("slim")) {
+		Minecraft minecraft = Minecraft.getInstance();
+		AbstractClientPlayer player = minecraft.getCameraEntity() instanceof AbstractClientPlayer clientPlayer
+				? clientPlayer
+				: minecraft.player;
+		if (player != null && DefaultPlayerSkin.get(player.getUUID()).model().id().equals("slim")) {
 			this.model = slimModel;
 		} else {
 			this.model = normalModel;
 		}
+		this.setModelProperties(player);
 
 		super.render(dopple, yaw, partialTicks, ms, buffers, light);
+	}
+
+	private void setModelProperties(@Nullable AbstractClientPlayer clientPlayer) {
+		GaiaGuardianModel gaiaGuardianModel = this.getModel();
+		gaiaGuardianModel.setAllVisible(true);
+		if (clientPlayer == null) {
+			gaiaGuardianModel.hat.visible = false;
+			gaiaGuardianModel.jacket.visible = false;
+			gaiaGuardianModel.leftPants.visible = false;
+			gaiaGuardianModel.rightPants.visible = false;
+			gaiaGuardianModel.leftSleeve.visible = false;
+			gaiaGuardianModel.rightSleeve.visible = false;
+		} else {
+			gaiaGuardianModel.hat.visible = clientPlayer.isModelPartShown(PlayerModelPart.HAT);
+			gaiaGuardianModel.jacket.visible = clientPlayer.isModelPartShown(PlayerModelPart.JACKET);
+			gaiaGuardianModel.leftPants.visible = clientPlayer.isModelPartShown(PlayerModelPart.LEFT_PANTS_LEG);
+			gaiaGuardianModel.rightPants.visible = clientPlayer.isModelPartShown(PlayerModelPart.RIGHT_PANTS_LEG);
+			gaiaGuardianModel.leftSleeve.visible = clientPlayer.isModelPartShown(PlayerModelPart.LEFT_SLEEVE);
+			gaiaGuardianModel.rightSleeve.visible = clientPlayer.isModelPartShown(PlayerModelPart.RIGHT_SLEEVE);
+		}
 	}
 
 	@Override
@@ -84,12 +109,6 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 	@Override
 	protected boolean isBodyVisible(GaiaGuardianEntity dopple) {
 		return true;
-	}
-
-	private static class Model extends HumanoidModel<GaiaGuardianEntity> {
-		Model(ModelPart root) {
-			super(root, RenderHelper::getDopplegangerLayer);
-		}
 	}
 
 }
