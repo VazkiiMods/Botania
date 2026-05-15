@@ -1,0 +1,60 @@
+{
+  "dyingHealthPercent": 0.2,
+  "dyingMineCount": 6,
+  "dyingTeleportDelay": 40,
+  "mineCount": 6,
+  "mobSpawnsPerPlayer": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 4,
+    "min_inclusive": 3
+  },
+  "pixiesAfterHurtCount": {
+    "type": "minecraft:biased_to_bottom",
+    "max_inclusive": 2,
+    "min_inclusive": 0
+  },
+  "pixiesAfterTeleportCount": 1,
+  "rewardLootTable": "botania:gaia_guardian/reward",
+  "spawnedMobs": [
+    {
+      "type": "minecraft:witch",
+      "allowEquipmentDrops": true,
+      "weight": 2
+    },
+    {
+      "type": "minecraft:zombie",
+      "allowEquipmentDrops": true,
+      "effectsToApply": [
+        {
+          "effect": "minecraft:fire_resistance"
+        }
+      ],
+      "weight": 22
+    },
+    {
+      "type": "minecraft:skeleton",
+      "allowEquipmentDrops": true,
+      "effectsToApply": [
+        {
+          "effect": "minecraft:fire_resistance"
+        }
+      ],
+      "weight": 21
+    },
+    {
+      "type": "minecraft:wither_skeleton",
+      "allowEquipmentDrops": true,
+      "weight": 3
+    },
+    {
+      "type": "botania:pixie",
+      "count": {
+        "type": "minecraft:biased_to_bottom",
+        "max_inclusive": 5,
+        "min_inclusive": 1
+      },
+      "weight": 24
+    }
+  ],
+  "teleportDelay": 60
+}

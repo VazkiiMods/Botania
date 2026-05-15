@@ -11,22 +11,22 @@ import net.minecraft.world.effect.MobEffectInstance;
 
 import java.util.Objects;
 
-public class LooniumMobEffectToApply {
-	public static final Codec<LooniumMobEffectToApply> CODEC = RecordCodecBuilder.create(
+public class MobEffectToApply {
+	public static final Codec<MobEffectToApply> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
 					BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(me -> me.effect),
 					ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", MobEffectInstance.INFINITE_DURATION)
 							.forGetter(me -> me.duration),
 					Codec.intRange(0, 255).optionalFieldOf("amplifier", 0)
 							.forGetter(me -> me.amplifier)
-			).apply(instance, LooniumMobEffectToApply::new)
+			).apply(instance, MobEffectToApply::new)
 	);
 
 	private final Holder<MobEffect> effect;
 	private final int duration;
 	private final int amplifier;
 
-	private LooniumMobEffectToApply(Holder<MobEffect> effect, int duration, int amplifier) {
+	private MobEffectToApply(Holder<MobEffect> effect, int duration, int amplifier) {
 		this.effect = effect;
 		this.duration = duration;
 		this.amplifier = amplifier;
@@ -66,7 +66,7 @@ public class LooniumMobEffectToApply {
 		if (obj == this) {
 			return true;
 		}
-		return obj instanceof LooniumMobEffectToApply that && Objects.equals(this.effect, that.effect)
+		return obj instanceof MobEffectToApply that && Objects.equals(this.effect, that.effect)
 				&& this.duration == that.duration && this.amplifier == that.amplifier;
 	}
 
@@ -94,8 +94,8 @@ public class LooniumMobEffectToApply {
 			return this;
 		}
 
-		public LooniumMobEffectToApply build() {
-			return new LooniumMobEffectToApply(effect, duration, amplifier);
+		public MobEffectToApply build() {
+			return new MobEffectToApply(effect, duration, amplifier);
 		}
 	}
 }

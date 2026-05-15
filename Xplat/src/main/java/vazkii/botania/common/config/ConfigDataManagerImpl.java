@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.configdata.ConfigDataManager;
+import vazkii.botania.api.configdata.GaiaFightConfiguration;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -27,16 +28,28 @@ import java.util.function.Consumer;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ConfigDataManagerImpl implements ConfigDataManager {
+
+	public static final String LOONIUM_CONFIG_PATH = "loonium_config";
+	public static final String GAIA_CONFIG_PATH = "gaia_config";
+
 	public static void registerListener() {
-		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, botaniaRL("configdata"), new ConfigDataManagerImpl());
+		XplatAbstractions.instance().registerReloadListener(PackType.SERVER_DATA, botaniaRL("configdata"), new ConfigDataManagerImpl());
 	}
 
 	private final Map<ResourceLocation, LooniumStructureConfiguration> looniumConfigs = new HashMap<>();
+	private final Map<ResourceLocation, GaiaFightConfiguration> gaiaFightConfigs = new HashMap<>();
 
+	@Nullable
 	@Override
-	public @Nullable LooniumStructureConfiguration getEffectiveLooniumStructureConfiguration(ResourceLocation id) {
+	public LooniumStructureConfiguration getEffectiveLooniumStructureConfiguration(ResourceLocation id) {
 		LooniumStructureConfiguration configuration = this.looniumConfigs.get(id);
 		return configuration != null ? configuration.getEffectiveConfig(looniumConfigs::get) : null;
+	}
+
+	@Nullable
+	@Override
+	public GaiaFightConfiguration getGaiaFightConfiguration(ResourceLocation id) {
+		return gaiaFightConfigs.get(id);
 	}
 
 	private static void validateLooniumConfig(Map<ResourceLocation, LooniumStructureConfiguration> map) {
@@ -67,6 +80,15 @@ public class ConfigDataManagerImpl implements ConfigDataManager {
 		}
 	}
 
+	private static void validateGaiaFightConfig(Map<ResourceLocation, GaiaFightConfiguration> map) {
+		if (!map.containsKey(GaiaFightConfiguration.NORMAL)) {
+			BotaniaAPI.LOGGER.error("Normal gaia fight configuration not found!");
+		}
+		if (!map.containsKey(GaiaFightConfiguration.HARD)) {
+			BotaniaAPI.LOGGER.error("Hard mode gaia fight configuration not found!");
+		}
+	}
+
 	private static boolean findTopmostParent(Map<ResourceLocation, LooniumStructureConfiguration> map,
 			ResourceLocation id, @Nullable ResourceLocation parent, Set<ResourceLocation> visitedEntries) {
 		if (!visitedEntries.add(id)) {
@@ -85,13 +107,19 @@ public class ConfigDataManagerImpl implements ConfigDataManager {
 		this.looniumConfigs.putAll(looniumConfigs);
 	}
 
+	private void applyGaiaFightConfig(Map<ResourceLocation, GaiaFightConfiguration> gaiaFightConfigs) {
+		BotaniaAPI.LOGGER.info("Loaded {} gaia fight configurations", gaiaFightConfigs.size());
+		this.gaiaFightConfigs.putAll(gaiaFightConfigs);
+	}
+
 	@Override
 	public CompletableFuture<Void> reload(PreparationBarrier barrier, ResourceManager manager,
 			ProfilerFiller prepProfiler, ProfilerFiller reloadProfiler,
 			Executor backgroundExecutor, Executor gameExecutor) {
-		var looniumTask = scheduleConfigParse(barrier, manager, backgroundExecutor, gameExecutor, ConfigDataType.LOONUIM);
+		var looniumTask = scheduleConfigParse(barrier, manager, backgroundExecutor, gameExecutor, ConfigDataType.LOONIUM);
+		var gaiaFightTask = scheduleConfigParse(barrier, manager, backgroundExecutor, gameExecutor, ConfigDataType.GAIA_FIGHT);
 
-		return CompletableFuture.allOf(looniumTask).thenRun(() -> BotaniaAPI.instance().setConfigData(this));
+		return CompletableFuture.allOf(looniumTask, gaiaFightTask).thenRun(() -> BotaniaAPI.instance().setConfigData(this));
 	}
 
 	private <T> CompletableFuture<Void> scheduleConfigParse(PreparationBarrier barrier, ResourceManager manager,
@@ -116,9 +144,12 @@ public class ConfigDataManagerImpl implements ConfigDataManager {
 	private record ConfigDataType<T>(Codec<T> codec, String directory,
 			Consumer<Map<ResourceLocation, T>> validateFunction,
 			BiConsumer<ConfigDataManagerImpl, Map<ResourceLocation, T>> applyFunction) {
-		private static final ConfigDataType<LooniumStructureConfiguration> LOONUIM =
-				new ConfigDataType<>(LooniumStructureConfiguration.CODEC, "loonium_config",
+		private static final ConfigDataType<LooniumStructureConfiguration> LOONIUM =
+				new ConfigDataType<>(LooniumStructureConfiguration.CODEC, LOONIUM_CONFIG_PATH,
 						ConfigDataManagerImpl::validateLooniumConfig, ConfigDataManagerImpl::applyLooniumConfig);
+		private static final ConfigDataType<GaiaFightConfiguration> GAIA_FIGHT =
+				new ConfigDataType<>(GaiaFightConfiguration.CODEC, GAIA_CONFIG_PATH,
+						ConfigDataManagerImpl::validateGaiaFightConfig, ConfigDataManagerImpl::applyGaiaFightConfig);
 
 	}
 }

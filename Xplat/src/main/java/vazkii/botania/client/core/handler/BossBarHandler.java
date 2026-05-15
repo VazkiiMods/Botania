@@ -48,7 +48,7 @@ public final class BossBarHandler {
 				int healthY = y + (frameHeight - healthHeight) / 2;
 
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-				int playerCountHeight = drawPlayerCount(currentBoss.getPlayerCount(), gui, x, y);
+				int playerCountHeight = drawInitialPlayerCount(currentBoss.getInitialPlayerCount(), gui, x, y);
 				RenderHelper.drawTexturedModalRect(gui, BAR_TEXTURE, x, y, frameU, frameV,
 						frameWidth, frameHeight);
 				drawHealthBar(gui, currentBoss, healthX, healthY, healthU, healthV,
@@ -68,7 +68,7 @@ public final class BossBarHandler {
 		return OptionalInt.empty();
 	}
 
-	private static int drawPlayerCount(int playerCount, GuiGraphics gui, int x, int y) {
+	private static int drawInitialPlayerCount(int playerCount, GuiGraphics gui, int x, int y) {
 		PoseStack ps = gui.pose();
 		ps.pushPose();
 		int px = x + 160;

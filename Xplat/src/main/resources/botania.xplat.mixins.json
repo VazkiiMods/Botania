@@ -22,6 +22,7 @@
     "BlockPropertiesAccessor",
     "BushBlockMixin",
     "CollectingNeighborUpdaterMixin",
+    "ConstantIntMixin",
     "CreeperAccessor",
     "CreeperMixin",
     "EntityAccessor",

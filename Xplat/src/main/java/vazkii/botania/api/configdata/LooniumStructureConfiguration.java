@@ -32,13 +32,13 @@ public class LooniumStructureConfiguration {
 					StructureSpawnOverride.BoundingBoxType.CODEC
 							.optionalFieldOf("boundingBoxType")
 							.forGetter(lsc -> Optional.ofNullable(lsc.boundingBoxType)),
-					WeightedRandomList.codec(LooniumMobSpawnData.CODEC)
+					WeightedRandomList.codec(MobSpawnData.CODEC)
 							.optionalFieldOf("spawnedMobs")
 							.forGetter(lsc -> Optional.ofNullable(lsc.spawnedMobs)),
-					Codec.list(LooniumMobAttributeModifier.CODEC).validate(LooniumMobAttributeModifier::validateList)
+					Codec.list(MobAttributeModifier.CODEC).validate(MobAttributeModifier::validateList)
 							.optionalFieldOf("attributeModifiers")
 							.forGetter(lsc -> Optional.ofNullable(lsc.attributeModifiers)),
-					Codec.list(LooniumMobEffectToApply.CODEC)
+					Codec.list(MobEffectToApply.CODEC)
 							.optionalFieldOf("effectsToApply")
 							.forGetter(lsc -> Optional.ofNullable(lsc.effectsToApply))
 			).apply(instance, LooniumStructureConfiguration::create)
@@ -64,17 +64,17 @@ public class LooniumStructureConfiguration {
 	@Nullable
 	public final StructureSpawnOverride.BoundingBoxType boundingBoxType;
 	@Nullable
-	public final WeightedRandomList<LooniumMobSpawnData> spawnedMobs;
+	public final WeightedRandomList<MobSpawnData> spawnedMobs;
 	@Nullable
-	public final List<LooniumMobAttributeModifier> attributeModifiers;
+	public final List<MobAttributeModifier> attributeModifiers;
 	@Nullable
-	public final List<LooniumMobEffectToApply> effectsToApply;
+	public final List<MobEffectToApply> effectsToApply;
 	@Nullable
 	public final ResourceLocation parent;
 
 	private LooniumStructureConfiguration(@Nullable ResourceLocation parent, @Nullable Integer manaCost, @Nullable Integer maxNearbyMobs,
-			@Nullable StructureSpawnOverride.BoundingBoxType boundingBoxType, @Nullable WeightedRandomList<LooniumMobSpawnData> spawnedMobs,
-			@Nullable List<LooniumMobAttributeModifier> attributeModifiers, @Nullable List<LooniumMobEffectToApply> effectsToApply) {
+			@Nullable StructureSpawnOverride.BoundingBoxType boundingBoxType, @Nullable WeightedRandomList<MobSpawnData> spawnedMobs,
+			@Nullable List<MobAttributeModifier> attributeModifiers, @Nullable List<MobEffectToApply> effectsToApply) {
 		this.manaCost = manaCost;
 		this.maxNearbyMobs = maxNearbyMobs;
 		this.spawnedMobs = spawnedMobs;
@@ -127,9 +127,9 @@ public class LooniumStructureConfiguration {
 	private static LooniumStructureConfiguration create(Optional<ResourceLocation> parent,
 			Optional<Integer> manaCost, Optional<Integer> maxNearbyMobs,
 			Optional<StructureSpawnOverride.BoundingBoxType> boundingBoxType,
-			Optional<WeightedRandomList<LooniumMobSpawnData>> spawnedMobs,
-			Optional<List<LooniumMobAttributeModifier>> attributeModifiers,
-			Optional<List<LooniumMobEffectToApply>> effectsToApply) {
+			Optional<WeightedRandomList<MobSpawnData>> spawnedMobs,
+			Optional<List<MobAttributeModifier>> attributeModifiers,
+			Optional<List<MobEffectToApply>> effectsToApply) {
 		return new LooniumStructureConfiguration(
 				parent.orElse(null), manaCost.orElse(null), maxNearbyMobs.orElse(null),
 				boundingBoxType.orElse(null), spawnedMobs.orElse(null),
@@ -146,11 +146,11 @@ public class LooniumStructureConfiguration {
 		@Nullable
 		private StructureSpawnOverride.BoundingBoxType boundingBoxType;
 		@Nullable
-		private WeightedRandomList<LooniumMobSpawnData> spawnedMobs;
+		private WeightedRandomList<MobSpawnData> spawnedMobs;
 		@Nullable
-		private List<LooniumMobAttributeModifier> attributeModifiers;
+		private List<MobAttributeModifier> attributeModifiers;
 		@Nullable
-		private List<LooniumMobEffectToApply> effectsToApply;
+		private List<MobEffectToApply> effectsToApply;
 
 		private Builder() {}
 
@@ -174,17 +174,17 @@ public class LooniumStructureConfiguration {
 			return this;
 		}
 
-		public Builder spawnedMobs(LooniumMobSpawnData... spawnedMobs) {
+		public Builder spawnedMobs(MobSpawnData... spawnedMobs) {
 			this.spawnedMobs = WeightedRandomList.create(spawnedMobs);
 			return this;
 		}
 
-		public Builder attributeModifiers(LooniumMobAttributeModifier... attributeModifiers) {
+		public Builder attributeModifiers(MobAttributeModifier... attributeModifiers) {
 			this.attributeModifiers = List.of(attributeModifiers);
 			return this;
 		}
 
-		public Builder effectsToApply(LooniumMobEffectToApply... effectsToApply) {
+		public Builder effectsToApply(MobEffectToApply... effectsToApply) {
 			this.effectsToApply = List.of(effectsToApply);
 			return this;
 		}

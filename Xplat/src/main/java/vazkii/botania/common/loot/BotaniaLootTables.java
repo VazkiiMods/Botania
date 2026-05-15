@@ -68,6 +68,8 @@ public class BotaniaLootTables {
 	public static final ResourceKey<LootTable> GAIA_GUARDIAN_MATERIALS = register("gaia_guardian/materials");
 	public static final ResourceKey<LootTable> GAIA_GUARDIAN_RUNES = register("gaia_guardian/runes");
 
+	public static final ResourceKey<LootTable> GAIA_HARD_WITHER_SKELETON = register("equipment/gaia/hard/wither_skeleton");
+
 	public static final ResourceKey<LootTable> LOONIUM_DEFAULT_LOOT = register("loonium/default");
 
 	public static final ResourceKey<LootTable> LOONIUM_ARMOR_ANCIENT_CITY = register("equipment/loonium/armor_ancient_city");

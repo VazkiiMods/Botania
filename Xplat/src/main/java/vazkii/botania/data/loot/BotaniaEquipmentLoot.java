@@ -57,6 +57,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.loot.BotaniaLootTables;
 
 import java.util.List;
@@ -93,6 +94,8 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 
 	@Override
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+		defineGaiaHardWitherSkeletonEquipment(output);
+
 		defineDefaultEquipmentTables(output);
 		defineAncientCityEquipmentTables(output);
 		defineBastionRemnantEquipmentTables(output);
@@ -108,6 +111,12 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 		defineTrailRuinsEquipmentTables(output);
 		defineTrialChamberEquipmentTables(output);
 		defineWoodlandMansionEquipmentTables(output);
+	}
+
+	private void defineGaiaHardWitherSkeletonEquipment(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+		output.accept(BotaniaLootTables.GAIA_HARD_WITHER_SKELETON,
+				LootTable.lootTable().withPool(LootPool.lootPool()
+						.add(LootItem.lootTableItem(BotaniaItems.elementiumSword))));
 	}
 
 	private LootPoolEntryContainer.Builder<?> buildWeaponAxe() {
