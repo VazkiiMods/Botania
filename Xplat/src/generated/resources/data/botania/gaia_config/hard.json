@@ -1,0 +1,63 @@
+{
+  "dyingHealthPercent": 0.2,
+  "dyingMineCount": 7,
+  "dyingTeleportDelay": 35,
+  "mineCount": 6,
+  "missileSpawnCount": 4,
+  "missileSpawnInterval": 15,
+  "mobSpawnsPerPlayer": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 4,
+    "min_inclusive": 3
+  },
+  "pixiesAfterHurtCount": {
+    "type": "minecraft:biased_to_bottom",
+    "max_inclusive": 5,
+    "min_inclusive": 0
+  },
+  "pixiesAfterTeleportCount": 1,
+  "rewardLootTable": "botania:gaia_guardian/reward_hard",
+  "spawnedMobs": [
+    {
+      "type": "minecraft:witch",
+      "allowEquipmentDrops": true,
+      "weight": 8
+    },
+    {
+      "type": "minecraft:zombie",
+      "allowEquipmentDrops": true,
+      "effectsToApply": [
+        {
+          "effect": "minecraft:fire_resistance"
+        }
+      ],
+      "weight": 16
+    },
+    {
+      "type": "minecraft:skeleton",
+      "allowEquipmentDrops": true,
+      "effectsToApply": [
+        {
+          "effect": "minecraft:fire_resistance"
+        }
+      ],
+      "weight": 21
+    },
+    {
+      "type": "minecraft:wither_skeleton",
+      "allowEquipmentDrops": true,
+      "equipmentTable": "botania:equipment/gaia/hard/wither_skeleton",
+      "weight": 3
+    },
+    {
+      "type": "botania:pixie",
+      "count": {
+        "type": "minecraft:biased_to_bottom",
+        "max_inclusive": 8,
+        "min_inclusive": 1
+      },
+      "weight": 24
+    }
+  ],
+  "teleportDelay": 45
+}

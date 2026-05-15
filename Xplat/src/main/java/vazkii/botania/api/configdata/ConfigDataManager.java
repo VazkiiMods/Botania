@@ -8,4 +8,7 @@ import org.jetbrains.annotations.Nullable;
 public interface ConfigDataManager extends PreparableReloadListener {
 	@Nullable
 	LooniumStructureConfiguration getEffectiveLooniumStructureConfiguration(ResourceLocation id);
+
+	@Nullable
+	GaiaFightConfiguration getGaiaFightConfiguration(ResourceLocation id);
 }

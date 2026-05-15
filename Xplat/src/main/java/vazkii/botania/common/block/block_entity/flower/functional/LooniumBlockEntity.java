@@ -59,10 +59,10 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.configdata.ConfigDataManager;
-import vazkii.botania.api.configdata.LooniumMobAttributeModifier;
-import vazkii.botania.api.configdata.LooniumMobEffectToApply;
-import vazkii.botania.api.configdata.LooniumMobSpawnData;
 import vazkii.botania.api.configdata.LooniumStructureConfiguration;
+import vazkii.botania.api.configdata.MobAttributeModifier;
+import vazkii.botania.api.configdata.MobEffectToApply;
+import vazkii.botania.api.configdata.MobSpawnData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -89,13 +89,13 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 					.manaCost(LooniumStructureConfiguration.DEFAULT_COST)
 					.maxNearbyMobs(LooniumStructureConfiguration.DEFAULT_MAX_NEARBY_MOBS)
 					.boundingBoxType(StructureSpawnOverride.BoundingBoxType.PIECE)
-					.spawnedMobs(LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 1).build())
+					.spawnedMobs(MobSpawnData.entityWeight(EntityType.ZOMBIE, 1).build())
 					.attributeModifiers()
 					.effectsToApply(
-							LooniumMobEffectToApply.effect(MobEffects.REGENERATION).build(),
-							LooniumMobEffectToApply.effect(MobEffects.FIRE_RESISTANCE).build(),
-							LooniumMobEffectToApply.effect(MobEffects.DAMAGE_RESISTANCE).build(),
-							LooniumMobEffectToApply.effect(MobEffects.DAMAGE_BOOST).build()
+							MobEffectToApply.effect(MobEffects.REGENERATION).build(),
+							MobEffectToApply.effect(MobEffects.FIRE_RESISTANCE).build(),
+							MobEffectToApply.effect(MobEffects.DAMAGE_RESISTANCE).build(),
+							MobEffectToApply.effect(MobEffects.DAMAGE_BOOST).build()
 					)
 					.build());
 
@@ -178,7 +178,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		ConfigDataManager configData = BotaniaAPI.instance().getConfigData();
-		Map<ResourceLocation, LooniumStructureConfiguration> structureConfigs = determineStructureConfigs(configData, detectedStructures);
+		Map<ResourceLocation, LooniumStructureConfiguration> structureConfigs =
+				determineStructureConfigs(configData, detectedStructures);
 		List<Pair<ResourceLocation, LootTable>> lootTables = determineLootTables(world, structureConfigs.keySet());
 
 		if (lootTables.isEmpty()) {
@@ -199,12 +200,22 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		LooniumMobSpawnData pickedMobType = pickedConfig.spawnedMobs.getRandom(world.random).orElse(null);
+		MobSpawnData pickedMobType = pickedConfig.spawnedMobs.getRandom(world.random).orElse(null);
 		if (pickedMobType == null) {
 			return;
 		}
 
-		spawnMob(world, pickedMobType, pickedConfig, pickedLootTable);
+		int numToSpawn = pickedMobType.count.sample(world.random);
+		if (numToSpawn <= 0) {
+			return;
+		}
+		boolean spawnedAny = false;
+		for (int i = 0; i < numToSpawn; i++) {
+			spawnedAny |= spawnMob(world, pickedMobType, pickedConfig, pickedLootTable);
+		}
+		if (spawnedAny) {
+			addMana(-pickedConfig.manaCost);
+		}
 	}
 
 	@Override
@@ -212,12 +223,11 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		return 100;
 	}
 
-	private void spawnMob(ServerLevel world, LooniumMobSpawnData pickedMobType,
+	private boolean spawnMob(ServerLevel world, MobSpawnData pickedMobType,
 			LooniumStructureConfiguration pickedConfig, LootTable pickedLootTable) {
-
 		ItemStack lootStack = pickRandomLootItem(world, pickedLootTable);
 		if (lootStack.isEmpty()) {
-			return;
+			return false;
 		}
 
 		RandomSource random = world.random;
@@ -228,13 +238,13 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		while (!world.noCollision(pickedMobType.type.getSpawnAABB(x, y, z))) {
 			y += 1.0;
 			if (y >= world.getMaxBuildHeight()) {
-				return;
+				return false;
 			}
 		}
 
 		Entity entity = pickedMobType.type.create(world);
 		if (!(entity instanceof Mob mob)) {
-			return;
+			return false;
 		}
 
 		if (pickedMobType.nbt != null) {
@@ -253,6 +263,51 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		XplatAbstractions.instance().setLooniumDrop(mob, lootStack);
 
 		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.SPAWNER, null);
+		equipSpawnedMob(world, pickedMobType, mob);
+
+		// in case the mob spawned with a vehicle or passenger(s), ensure those don't drop unexpected loot
+		mob.getRootVehicle().getPassengersAndSelf().forEach(e -> {
+			if (e instanceof Mob otherMob) {
+				// prevent armor/weapon drops on player kill, also no nautilus shells from drowned:
+				Arrays.stream(EquipmentSlot.values()).forEach(slot -> otherMob.setDropChance(slot, 0));
+
+				if (mob instanceof PatrollingMonster patroller && patroller.isPatrolLeader()) {
+					//  Loonium may be presenting challenges, but not that type of challenge
+					patroller.setPatrolLeader(false);
+					patroller.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+				}
+
+				if (e == mob) {
+					return;
+				}
+
+				Optional<MobSpawnData> mobType = pickedConfig.spawnedMobs.unwrap().stream()
+						.filter(mobSpawnData -> mobSpawnData.type.tryCast(otherMob) != null).findFirst();
+
+				ItemStack bonusLoot;
+				if (mobType.isPresent()) {
+					applyAttributesAndEffects(mobType.get(), pickedConfig, mob);
+					bonusLoot = pickRandomLootItem(world, pickedLootTable);
+				} else {
+					bonusLoot = ItemStack.EMPTY;
+				}
+
+				XplatAbstractions.instance().flagAsSlowDespawn(otherMob);
+				XplatAbstractions.instance().setLooniumDrop(otherMob, bonusLoot);
+			}
+		});
+
+		if (!world.tryAddFreshEntityWithPassengers(mob)) {
+			return false;
+		}
+
+		mob.spawnAnim();
+		world.levelEvent(LevelEvent.PARTICLES_MOBBLOCK_SPAWN, getBlockPos(), 0);
+		world.gameEvent(mob, GameEvent.ENTITY_PLACE, mob.position());
+		return true;
+	}
+
+	public static void equipSpawnedMob(ServerLevel world, MobSpawnData pickedMobType, Mob mob) {
 		if (Boolean.FALSE.equals(pickedMobType.spawnAsBaby) && mob.isBaby()) {
 			// Note: might have already affected initial equipment/attribute selection, or even caused a special
 			// mob configuration (such as chicken jockey) to spawn, which may look weird when reverting to adult.
@@ -284,60 +339,24 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				});
 			}
 		}
-
-		// in case the mob spawned with a vehicle or passenger(s), ensure those don't drop unexpected loot
-		mob.getRootVehicle().getPassengersAndSelf().forEach(e -> {
-			if (e instanceof Mob otherMob) {
-				// prevent armor/weapon drops on player kill, also no nautilus shells from drowned:
-				Arrays.stream(EquipmentSlot.values()).forEach(slot -> otherMob.setDropChance(slot, 0));
-
-				if (mob instanceof PatrollingMonster patroller && patroller.isPatrolLeader()) {
-					//  Loonium may be presenting challenges, but not that type of challenge
-					patroller.setPatrolLeader(false);
-					patroller.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-				}
-
-				if (e == mob) {
-					return;
-				}
-
-				Optional<LooniumMobSpawnData> mobType = pickedConfig.spawnedMobs.unwrap().stream()
-						.filter(mobSpawnData -> mobSpawnData.type.tryCast(otherMob) != null).findFirst();
-
-				ItemStack bonusLoot;
-				if (mobType.isPresent()) {
-					applyAttributesAndEffects(mobType.get(), pickedConfig, mob);
-					bonusLoot = pickRandomLootItem(world, pickedLootTable);
-				} else {
-					bonusLoot = ItemStack.EMPTY;
-				}
-
-				XplatAbstractions.instance().flagAsSlowDespawn(otherMob);
-				XplatAbstractions.instance().setLooniumDrop(otherMob, bonusLoot);
-			}
-		});
-
-		if (!world.tryAddFreshEntityWithPassengers(mob)) {
-			return;
-		}
-
-		mob.spawnAnim();
-		world.levelEvent(LevelEvent.PARTICLES_MOBBLOCK_SPAWN, getBlockPos(), 0);
-		world.gameEvent(mob, GameEvent.ENTITY_PLACE, mob.position());
-
-		addMana(-pickedConfig.manaCost);
 	}
 
-	private static void applyAttributesAndEffects(LooniumMobSpawnData mobSpawnData,
-			LooniumStructureConfiguration pickedConfig, Mob mob) {
-		List<LooniumMobAttributeModifier> attributeModifiers = mobSpawnData.attributeModifiers != null
+	private static void applyAttributesAndEffects(MobSpawnData pickedMobType, LooniumStructureConfiguration pickedConfig, Mob mob) {
+		applyAttributesAndEffects(pickedMobType, mob, pickedConfig.attributeModifiers, pickedConfig.effectsToApply,
+				ATTRIBUTE_MODIFIER_ID);
+	}
+
+	public static void applyAttributesAndEffects(MobSpawnData mobSpawnData, Mob mob,
+			@Nullable List<MobAttributeModifier> fallbackAttributeModifiers,
+			@Nullable List<MobEffectToApply> fallbackEffectsToApply, ResourceLocation modifierId) {
+		List<MobAttributeModifier> attributeModifiers = mobSpawnData.attributeModifiers != null
 				? mobSpawnData.attributeModifiers
-				: pickedConfig.attributeModifiers;
+				: fallbackAttributeModifiers;
 		if (attributeModifiers != null) {
-			for (LooniumMobAttributeModifier attributeModifier : attributeModifiers) {
+			for (MobAttributeModifier attributeModifier : attributeModifiers) {
 				AttributeInstance attribute = mob.getAttribute(attributeModifier.attribute());
 				if (attribute != null) {
-					attribute.addPermanentModifier(attributeModifier.createAttributeModifier(ATTRIBUTE_MODIFIER_ID));
+					attribute.addPermanentModifier(attributeModifier.createAttributeModifier(modifierId));
 					if (attribute.getAttribute() == Attributes.MAX_HEALTH) {
 						mob.setHealth(mob.getMaxHealth());
 					}
@@ -345,11 +364,11 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 		}
 
-		List<LooniumMobEffectToApply> effectsToApply = mobSpawnData.effectsToApply != null
+		List<MobEffectToApply> effectsToApply = mobSpawnData.effectsToApply != null
 				? mobSpawnData.effectsToApply
-				: pickedConfig.effectsToApply;
+				: fallbackEffectsToApply;
 		if (effectsToApply != null) {
-			for (LooniumMobEffectToApply effectToApply : effectsToApply) {
+			for (MobEffectToApply effectToApply : effectsToApply) {
 				mob.addEffect(effectToApply.createMobEffectInstance());
 			}
 		}

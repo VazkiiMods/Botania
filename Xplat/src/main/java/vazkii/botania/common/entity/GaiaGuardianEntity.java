@@ -32,9 +32,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerEntity;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
+import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
@@ -49,7 +52,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -59,6 +62,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.AABB;
@@ -66,15 +70,18 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.Bound;
+import vazkii.botania.api.configdata.GaiaFightConfiguration;
+import vazkii.botania.api.configdata.MobSpawnData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.GaiaGuardianNoArmorTrigger;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.common.proxy.Proxy;
@@ -86,8 +93,11 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 
 public class GaiaGuardianEntity extends Mob {
@@ -162,7 +172,7 @@ public class GaiaGuardianEntity extends Mob {
 
 	private static final EntityDataAccessor<Integer> DATA_INVUL_TIME = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Long> DATA_SOURCE_POS = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
-	private static final EntityDataAccessor<Integer> DATA_PLAYER_COUNT = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> DATA_INITIAL_PLAYER_COUNT = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Long> DATA_BOSS_INFO_UUID_LOWER = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
 	private static final EntityDataAccessor<Long> DATA_BOSS_INFO_UUID_UPPER = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
 
@@ -180,6 +190,9 @@ public class GaiaGuardianEntity extends Mob {
 
 	private static final WeakHashMap<GaiaGuardianEntity, GaiaFightData> SERVER_GAIA_FIGHTS = new WeakHashMap<>();
 	private static final WeakHashMap<GaiaGuardianEntity, GaiaFightData> CLIENT_GAIA_FIGHTS = new WeakHashMap<>();
+	private static final Supplier<MobSpawnData> FALLBACK_MOB_SPAWN_DATA = Suppliers.memoize(
+			() -> MobSpawnData.entityWeight(BotaniaEntities.PIXIE, 1).build());
+	private static final ResourceLocation ATTRIBUTE_MODIFIER_ID = botaniaRL("gaia_fight_modifier");
 
 	private boolean spawnLandmines = false;
 	private boolean spawnPixies = false;
@@ -194,6 +207,8 @@ public class GaiaGuardianEntity extends Mob {
 	private UUID bossInfoUUID = bossInfo.getId();
 	@Nullable
 	public Player trueKiller = null;
+	@Nullable
+	private GaiaFightConfiguration config;
 
 	public GaiaGuardianEntity(EntityType<GaiaGuardianEntity> type, Level world) {
 		super(type, world);
@@ -203,6 +218,18 @@ public class GaiaGuardianEntity extends Mob {
 		if (world.isClientSide) {
 			Proxy.INSTANCE.addBoss(this);
 		}
+	}
+
+	private <T> Optional<T> getConfigData(Function<GaiaFightConfiguration, T> fieldGetter) {
+		return Optional.ofNullable(config).map(fieldGetter);
+	}
+
+	private OptionalInt getConfigDataInt(ToIntFunction<GaiaFightConfiguration> fieldGetter) {
+		return config == null ? OptionalInt.empty() : OptionalInt.of(fieldGetter.applyAsInt(config));
+	}
+
+	private OptionalInt getConfigDataIntSample(Function<GaiaFightConfiguration, IntProvider> fieldGetter) {
+		return config == null ? OptionalInt.empty() : OptionalInt.of(fieldGetter.apply(config).sample(random));
 	}
 
 	public static boolean validateArena(Player player, Level world, BlockPos pos) {
@@ -269,15 +296,15 @@ public class GaiaGuardianEntity extends Mob {
 		e.bossInfo.setProgress(0.0f);
 		e.setSource(pos);
 		e.mobSpawnTicks = MOB_SPAWN_TICKS;
-		e.hardMode = hard;
+		e.setHardMode(hard);
 
 		List<Player> playersAround = e.getPlayersAround();
-		int playerCount = playersAround.size();
-		e.setPlayerCount(playerCount);
+		int initialPlayerCount = playersAround.size();
+		e.setInitialPlayerCount(initialPlayerCount);
 
 		float healthMultiplier = 1;
-		if (playerCount > 1) {
-			healthMultiplier += playerCount * 0.25F;
+		if (initialPlayerCount > 1) {
+			healthMultiplier += initialPlayerCount * 0.25F;
 		}
 		e.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * healthMultiplier);
 
@@ -403,7 +430,7 @@ public class GaiaGuardianEntity extends Mob {
 		super.defineSynchedData(builder);
 		builder.define(DATA_INVUL_TIME, 0);
 		builder.define(DATA_SOURCE_POS, 0L);
-		builder.define(DATA_PLAYER_COUNT, 0);
+		builder.define(DATA_INITIAL_PLAYER_COUNT, 0);
 		builder.define(DATA_BOSS_INFO_UUID_LOWER, 0L);
 		builder.define(DATA_BOSS_INFO_UUID_UPPER, 0L);
 	}
@@ -437,7 +464,7 @@ public class GaiaGuardianEntity extends Mob {
 		cmp.putInt(TAG_SOURCE_Z, source.getZ());
 
 		cmp.putBoolean(TAG_HARD_MODE, hardMode);
-		cmp.putInt(TAG_PLAYER_COUNT, getPlayerCount());
+		cmp.putInt(TAG_PLAYER_COUNT, getInitialPlayerCount());
 	}
 
 	@Override
@@ -452,12 +479,18 @@ public class GaiaGuardianEntity extends Mob {
 		int z = cmp.getInt(TAG_SOURCE_Z);
 		setSource(new BlockPos(x, y, z));
 
-		hardMode = cmp.getBoolean(TAG_HARD_MODE);
-		setPlayerCount(cmp.contains(TAG_PLAYER_COUNT) ? cmp.getInt(TAG_PLAYER_COUNT) : 1);
+		setHardMode(cmp.getBoolean(TAG_HARD_MODE));
+		setInitialPlayerCount(cmp.contains(TAG_PLAYER_COUNT) ? cmp.getInt(TAG_PLAYER_COUNT) : 1);
 
 		if (this.hasCustomName()) {
 			this.bossInfo.setName(this.getDisplayName());
 		}
+	}
+
+	private void setHardMode(boolean hardMode) {
+		this.hardMode = hardMode;
+		this.config = BotaniaAPI.instance().getConfigData().getGaiaFightConfiguration(
+				hardMode ? GaiaFightConfiguration.HARD : GaiaFightConfiguration.NORMAL);
 	}
 
 	@Override
@@ -583,6 +616,8 @@ public class GaiaGuardianEntity extends Mob {
 		// potential head drop
 		super.dropFromLootTable(source, wasRecentlyHit);
 
+		ResourceKey<LootTable> playerLoot = getConfigData(GaiaFightConfiguration::getRewardLootTableKey)
+				.orElse(BotaniaLootTables.GAIA_GUARDIAN_REWARD);
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
 			Player player = level().getPlayerByUUID(u);
@@ -596,9 +631,7 @@ public class GaiaGuardianEntity extends Mob {
 			lastHurtByPlayer = player; // Fake attacking player as the killer
 			// Spoof pos so drops spawn at the player
 			setPos(player.getX(), player.getY(), player.getZ());
-			((MobAccessor) this).botania_setLootTable(hardMode
-					? BotaniaLootTables.GAIA_GUARDIAN_REWARD_HARD
-					: BotaniaLootTables.GAIA_GUARDIAN_REWARD);
+			((MobAccessor) this).botania_setLootTable(playerLoot);
 			super.dropFromLootTable(player.damageSources().playerAttack(player), wasRecentlyHit);
 			setPos(savePos.x(), savePos.y(), savePos.z());
 			lastHurtByPlayer = saveLastAttacker;
@@ -673,12 +706,12 @@ public class GaiaGuardianEntity extends Mob {
 		return PlayerHelper.getRealPlayersIn(level(), getArenaBB(source));
 	}
 
-	public int getPlayerCount() {
-		return entityData.get(DATA_PLAYER_COUNT);
+	public int getInitialPlayerCount() {
+		return entityData.get(DATA_INITIAL_PLAYER_COUNT);
 	}
 
-	private void setPlayerCount(int playerCount) {
-		entityData.set(DATA_PLAYER_COUNT, playerCount);
+	private void setInitialPlayerCount(int playerCount) {
+		entityData.set(DATA_INITIAL_PLAYER_COUNT, playerCount);
 	}
 
 	private static boolean anyActiveArenasAround(Level world, BlockPos source) {
@@ -784,54 +817,89 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	private void spawnMobs(List<Player> players) {
-		int playerCount = getPlayerCount();
-		for (int pl = 0; pl < playerCount; pl++) {
-			for (int i = 0; i < 3 + level().getRandom().nextInt(2); i++) {
-				Mob entity = switch (level().getRandom().nextInt(3)) {
-					case 0 -> {
-						if (level().getRandom().nextInt(hardMode ? 3 : 12) == 0) {
-							yield EntityType.WITCH.create(level());
+		int initialPlayerCount = getInitialPlayerCount();
+		ServerLevel serverLevel = (ServerLevel) level();
+		float range = 6F;
+		WeightedRandomList<MobSpawnData> spawnedMobs = getConfigData(GaiaFightConfiguration::spawnedMobs)
+				.orElseGet(WeightedRandomList::create);
+		for (int pl = 0; pl < initialPlayerCount; pl++) {
+			int numSpawnAttempts = getConfigDataIntSample(GaiaFightConfiguration::mobSpawnsPerPlayer).orElse(1);
+			for (int i = 0; i < numSpawnAttempts; i++) {
+				MobSpawnData pickedMobType = spawnedMobs.getRandom(random).orElseGet(FALLBACK_MOB_SPAWN_DATA);
+				int numToSpawn = pickedMobType.count.sample(random);
+				for (int j = 0; j < numToSpawn; j++) {
+					if (pickedMobType.type != BotaniaEntities.PIXIE) {
+						Entity entity = pickedMobType.type.create(serverLevel);
+						if (!(entity instanceof Mob mob)) {
+							continue;
 						}
-						yield EntityType.ZOMBIE.create(level());
-					}
-					case 1 -> {
-						if (level().getRandom().nextInt(8) == 0) {
-							yield EntityType.WITHER_SKELETON.create(level());
-						}
-						yield EntityType.SKELETON.create(level());
-					}
-					case 2 -> {
-						if (!players.isEmpty()) {
-							for (int j = 0; j < 1 + level().getRandom().nextInt(hardMode ? 8 : 5); j++) {
-								PixieEntity pixie = new PixieEntity(level(), true);
-								pixie.setProps(players.get(random.nextInt(players.size())), this, 8);
-								pixie.setPos(getRandomX(2), getY() + 2, getRandomZ(2));
-								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
-										MobSpawnType.MOB_SUMMONED, null);
-								level().addFreshEntity(pixie);
-							}
-						}
-						yield null;
-					}
-					default -> null;
-				};
 
-				if (entity != null) {
-					if (!entity.fireImmune()) {
-						entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 600, 0));
+						if (pickedMobType.nbt != null) {
+							mob.readAdditionalSaveData(pickedMobType.nbt);
+						}
+						if (pickedMobType.spawnAsBaby != null) {
+							mob.setBaby(pickedMobType.spawnAsBaby);
+						}
+
+						mob.absMoveTo(getX() + 0.5 + Math.random() * range - range / 2,
+								getY() - 1,
+								getZ() + 0.5 + Math.random() * range - range / 2,
+								random.nextFloat() * 360, 0);
+						mob.setDeltaMovement(Vec3.ZERO);
+
+						applyAttributesAndEffects(pickedMobType, mob);
+
+						mob.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+						LooniumBlockEntity.equipSpawnedMob(serverLevel, pickedMobType, mob);
+
+						// in case the mob spawned with a vehicle or passenger(s), ensure those don't drop unexpected loot
+						mob.getRootVehicle().getPassengersAndSelf().forEach(e -> {
+							if (e instanceof Mob otherMob) {
+								Optional<MobSpawnData> spawnData = spawnedMobs.unwrap().stream()
+										.filter(mobSpawnData -> mobSpawnData.type.tryCast(otherMob) != null)
+										.findFirst();
+								if (spawnData.isPresent() && !spawnData.get().allowEquipmentDrops) {
+									// prevent armor/weapon drops on player kill, also no nautilus shells from drowned:
+									Arrays.stream(EquipmentSlot.values())
+											.forEach(slot -> otherMob.setDropChance(slot, 0));
+								}
+								if (mob instanceof PatrollingMonster patroller && patroller.isPatrolLeader()) {
+									patroller.setPatrolLeader(false);
+									patroller.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+								}
+
+								if (e != mob && spawnData.isPresent()) {
+									applyAttributesAndEffects(spawnData.get(), mob);
+								}
+							}
+						});
+
+						if (!serverLevel.tryAddFreshEntityWithPassengers(mob)) {
+							return;
+						}
+
+						mob.spawnAnim();
+						serverLevel.gameEvent(mob, GameEvent.ENTITY_PLACE, mob.position());
+
+					} else if (!players.isEmpty()) {
+						// TODO: pixie entity should probably be adjusted to make this special handling redundant
+						PixieEntity pixie = new PixieEntity(serverLevel, true);
+						pixie.setProps(players.get(random.nextInt(players.size())), this, 8);
+						pixie.setPos(getRandomX(2), getY() + 2, getRandomZ(2));
+						pixie.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pixie.blockPosition()),
+								MobSpawnType.MOB_SUMMONED, null);
+						serverLevel.addFreshEntity(pixie);
 					}
-					float range = 6F;
-					entity.setPos(getX() + 0.5 + Math.random() * range - range / 2, getY() - 1,
-							getZ() + 0.5 + Math.random() * range - range / 2);
-					entity.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(entity.blockPosition()),
-							MobSpawnType.MOB_SUMMONED, null);
-					if (entity instanceof WitherSkeleton && hardMode) {
-						entity.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.elementiumSword));
-					}
-					level().addFreshEntity(entity);
 				}
 			}
 		}
+	}
+
+	private void applyAttributesAndEffects(MobSpawnData pickedMobType, Mob mob) {
+		LooniumBlockEntity.applyAttributesAndEffects(pickedMobType, mob,
+				getConfigData(GaiaFightConfiguration::attributeModifiers).orElse(null),
+				getConfigData(GaiaFightConfiguration::effectsToApply).orElse(null),
+				ATTRIBUTE_MODIFIER_ID);
 	}
 
 	@Override
@@ -893,14 +961,15 @@ public class GaiaGuardianEntity extends Mob {
 			updateGaiaFight();
 		}
 
-		boolean spawnMissiles = hardMode && tickCount % 15 < 4;
+		int missileSpawnInterval = getConfigData(GaiaFightConfiguration::missileSpawnInterval).orElse(0);
+		int missileSpawnCount = getConfigDataIntSample(GaiaFightConfiguration::missileSpawnCount).orElse(0);
+		boolean spawnMissiles = missileSpawnInterval > 0 && tickCount % missileSpawnInterval < missileSpawnCount;
 
 		if (invul > 0 && mobSpawnTicks == MOB_SPAWN_TICKS) {
-			if (invul < SPAWN_TICKS) {
-				if (invul > SPAWN_TICKS / 2 && level().getRandom().nextInt(SPAWN_TICKS - invul + 1) == 0) {
-					for (int i = 0; i < 2; i++) {
-						spawnAnim();
-					}
+			if (invul < SPAWN_TICKS && invul > SPAWN_TICKS / 2
+					&& level().getRandom().nextInt(SPAWN_TICKS - invul + 1) == 0) {
+				for (int i = 0; i < 2; i++) {
+					spawnAnim();
 				}
 			}
 
@@ -927,14 +996,14 @@ public class GaiaGuardianEntity extends Mob {
 							setInvulTime(invul + 1);
 						}
 
-						if (reverseTicks > MOB_SPAWN_START_TICKS * 2 &&
-								mobSpawnTicks > MOB_SPAWN_END_TICKS &&
-								mobSpawnTicks % MOB_SPAWN_WAVE_TIME == 0) {
+						if (reverseTicks > MOB_SPAWN_START_TICKS * 2 && mobSpawnTicks > MOB_SPAWN_END_TICKS
+								&& mobSpawnTicks % MOB_SPAWN_WAVE_TIME == 0) {
 							spawnMobs(players);
 
+							// TODO: move to config
 							if (hardMode && tickCount % 3 < 2) {
-								int playerCount = getPlayerCount();
-								for (int i = 0; i < playerCount; i++) {
+								int initialPlayerCount = getInitialPlayerCount();
+								for (int i = 0; i < initialPlayerCount; i++) {
 									spawnMissile();
 								}
 								spawnMissiles = false;
@@ -954,7 +1023,9 @@ public class GaiaGuardianEntity extends Mob {
 						teleportRandomly();
 
 						if (spawnLandmines) {
-							int count = dying && hardMode ? 7 : 6;
+							int count = getConfigDataIntSample(
+									dying ? GaiaFightConfiguration::dyingMineCount : GaiaFightConfiguration::mineCount
+							).orElse(6);
 							for (int i = 0; i < count; i++) {
 								int x = source.getX() - 10 + random.nextInt(20);
 								int y = (int) players.get(random.nextInt(players.size())).getY();
@@ -968,9 +1039,13 @@ public class GaiaGuardianEntity extends Mob {
 
 						}
 
-						int playerCount = getPlayerCount();
-						for (int pl = 0; pl < playerCount; pl++) {
-							for (int i = 0; i < (spawnPixies ? level().getRandom().nextInt(hardMode ? 6 : 3) : 1); i++) {
+						int initialPlayerCount = getInitialPlayerCount();
+						for (int pl = 0; pl < initialPlayerCount; pl++) {
+							int pixiesCount = getConfigDataIntSample(spawnPixies
+									? GaiaFightConfiguration::pixiesAfterHurtCount
+									: GaiaFightConfiguration::pixiesAfterTeleportCount
+							).orElse(1);
+							for (int i = 0; i < pixiesCount; i++) {
 								PixieEntity pixie = new PixieEntity(level(), true);
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 8);
 								pixie.setPos(getRandomX(1), getY() + 2, getRandomZ(1));
@@ -980,7 +1055,9 @@ public class GaiaGuardianEntity extends Mob {
 							}
 						}
 
-						tpDelay = hardMode ? dying ? 35 : 45 : dying ? 40 : 60;
+						tpDelay = getConfigDataInt(
+								dying ? GaiaFightConfiguration::dyingTeleportDelay : GaiaFightConfiguration::teleportDelay
+						).orElse(40);
 						spawnLandmines = true;
 						spawnPixies = false;
 					}

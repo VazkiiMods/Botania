@@ -74,6 +74,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
 		pack.addProvider(BotaniaBlockLootWrapper.wrap(BotaniaBlockLoot::new));
 		pack.addProvider(LooniumStructureConfigurationProvider::new);
+		pack.addProvider(GaiaFightConfigurationProvider::new);
 		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaGenericLoot::new, LootContextParamSets.ALL_PARAMS));
 		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaEquipmentLoot::new, LootContextParamSets.EQUIPMENT));
 		pack.addProvider(BotaniaSimpleLootWrapper.wrap(BotaniaEntityLoot::new, LootContextParamSets.ENTITY));

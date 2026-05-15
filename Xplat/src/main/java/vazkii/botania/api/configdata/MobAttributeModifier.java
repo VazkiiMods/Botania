@@ -15,15 +15,15 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public record LooniumMobAttributeModifier(Holder<Attribute> attribute, double amount, AttributeModifier.Operation operation) {
+public record MobAttributeModifier(Holder<Attribute> attribute, double amount, AttributeModifier.Operation operation) {
 
-	public static final Codec<LooniumMobAttributeModifier> CODEC = RecordCodecBuilder.create(
+	public static final Codec<MobAttributeModifier> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
 					BuiltInRegistries.ATTRIBUTE.holderByNameCodec().fieldOf("attribute")
 							.forGetter(mam -> mam.attribute),
 					Codec.DOUBLE.fieldOf("amount").forGetter(mam -> mam.amount),
 					AttributeModifier.Operation.CODEC.fieldOf("operation").forGetter(mam -> mam.operation)
-			).apply(instance, LooniumMobAttributeModifier::new)
+			).apply(instance, MobAttributeModifier::new)
 	);
 
 	public AttributeModifier createAttributeModifier(ResourceLocation id) {
@@ -39,7 +39,7 @@ public record LooniumMobAttributeModifier(Holder<Attribute> attribute, double am
 				'}';
 	}
 
-	public static DataResult<List<LooniumMobAttributeModifier>> validateList(List<LooniumMobAttributeModifier> modifiersList) {
+	public static DataResult<List<MobAttributeModifier>> validateList(List<MobAttributeModifier> modifiersList) {
 		Set<Pair<Holder<Attribute>, AttributeModifier.Operation>> uniqueAttributes = new LinkedHashSet<>();
 		for (var modifier : modifiersList) {
 			if (!uniqueAttributes.add(Pair.of(modifier.attribute, modifier.operation))) {
