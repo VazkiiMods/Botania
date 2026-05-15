@@ -29,8 +29,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ConfigDataManagerImpl implements ConfigDataManager {
 
-	public static final String LOONIUM_CONFIG_PATH = "loonium_config";
-	public static final String GAIA_CONFIG_PATH = "gaia_config";
+	public static final String LOONIUM_CONFIG_PATH = "config/loonium";
+	public static final String GAIA_CONFIG_PATH = "config/gaia";
 
 	public static void registerListener() {
 		XplatAbstractions.instance().registerReloadListener(PackType.SERVER_DATA, botaniaRL("configdata"), new ConfigDataManagerImpl());
