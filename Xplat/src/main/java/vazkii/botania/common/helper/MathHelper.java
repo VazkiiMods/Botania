@@ -49,6 +49,14 @@ public final class MathHelper {
 		return dx * dx + dy * dy + dz * dz;
 	}
 
+	public static long distSqr2D(int xDiff, int zDiff) {
+		return (long) xDiff * xDiff + (long) zDiff * zDiff;
+	}
+
+	public static double distSqr2D(double xDiff, double zDiff) {
+		return xDiff * xDiff + zDiff * zDiff;
+	}
+
 	public static AABB inflateBoxAround(Vec3i pos, int amount) {
 		return inflateBoxAround(pos, amount, amount, amount, amount);
 	}
