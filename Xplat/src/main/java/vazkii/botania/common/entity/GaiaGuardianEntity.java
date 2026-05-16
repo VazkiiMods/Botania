@@ -74,6 +74,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.configdata.GaiaFightConfiguration;
 import vazkii.botania.api.configdata.MobSpawnData;
+import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.GaiaGuardianNoArmorTrigger;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -345,11 +346,31 @@ public class GaiaGuardianEntity extends Mob {
 
 	private void updateGaiaFight() {
 		if (isAlive()) {
-			BlockPos sourcePos = getSource();
-			getGaiaFightMap(level()).put(this, new GaiaFightData(sourcePos, hardMode));
+			getGaiaFightMap(level()).put(this, new GaiaFightData(source, hardMode));
+			if (!level().isClientSide) {
+				level().getEntities(this, MathHelper.inflateBoxAround(source, ARENA_MOB_RANGE),
+						this::isGaiaFightParticipant)
+						.forEach(mob -> ((Mob) mob).restrictTo(source, ARENA_RANGE));
+			}
 		} else {
 			getGaiaFightMap(level()).remove(this);
+			if (!level().isClientSide) {
+				level().getEntities(this, MathHelper.inflateBoxAround(source, ARENA_MOB_RANGE),
+						this::isGaiaFightParticipant)
+						.forEach(mob -> {
+							XplatAbstractions.instance().setGaiaFightParticipant((Mob) mob, null);
+							((Mob) mob).clearRestriction();
+						});
+			}
 		}
+	}
+
+	private boolean isGaiaFightParticipant(Entity e) {
+		if (!(e instanceof Mob mob) || !mob.isAlive()) {
+			return false;
+		}
+		Optional<GaiaFightParticipant> participant = XplatAbstractions.instance().getGaiaFightParticipant(mob);
+		return participant.filter(p -> p.getSourcePos().equals(source)).isPresent();
 	}
 
 	private static Map<GaiaGuardianEntity, GaiaFightData> getGaiaFightMap(Level level) {
@@ -877,6 +898,7 @@ public class GaiaGuardianEntity extends Mob {
 						// in case the mob spawned with a vehicle or passenger(s), ensure those don't drop unexpected loot
 						mob.getRootVehicle().getPassengersAndSelf().forEach(e -> {
 							if (e instanceof Mob otherMob) {
+								mob.restrictTo(source, ARENA_RANGE);
 								XplatAbstractions.instance().setGaiaFightParticipant(mob, this);
 								Optional<MobSpawnData> spawnData = spawnedMobs.unwrap().stream()
 										.filter(mobSpawnData -> mobSpawnData.type.tryCast(otherMob) != null)
