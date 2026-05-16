@@ -17,6 +17,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.common.helper.EthicalTntHelper;
 import vazkii.botania.common.internal_caps.*;
@@ -27,6 +28,8 @@ import java.util.function.Supplier;
 public final class ForgeInternalEntityCapabilities {
 	private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, BotaniaAPI.MODID);
 
+	public static final Supplier<AttachmentType<GaiaFightParticipant>> GAIA_FIGHT_PARTICIPANT =
+			register(BotaniaDataAttachments.GAIA_FIGHT_PARTICIPANT, GaiaFightParticipant.CODEC);
 	public static final Supplier<AttachmentType<Short>> ITEM_LIFETIME =
 			register(BotaniaDataAttachments.ITEM_LIFETIME, Codec.SHORT);
 	public static final Supplier<AttachmentType<ItemSource>> ITEM_SOURCE =

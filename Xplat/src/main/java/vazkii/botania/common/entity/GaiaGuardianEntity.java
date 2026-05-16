@@ -67,6 +67,7 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.scores.Team;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -79,6 +80,7 @@ import vazkii.botania.common.advancements.GaiaGuardianNoArmorTrigger;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.BotaniaMonsterTeam;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -104,6 +106,7 @@ public class GaiaGuardianEntity extends Mob {
 	public static final float ARENA_RANGE = 12F;
 	public static final int ARENA_HEIGHT = 5;
 	public static final double ARENA_BB_RANGE = 15.0;
+	public static final double ARENA_MOB_RANGE = ARENA_RANGE + 5;
 
 	private static final int SPAWN_TICKS = 160;
 	public static final float MAX_HP = 320F;
@@ -193,6 +196,15 @@ public class GaiaGuardianEntity extends Mob {
 	private static final Supplier<MobSpawnData> FALLBACK_MOB_SPAWN_DATA = Suppliers.memoize(
 			() -> MobSpawnData.entityWeight(BotaniaEntities.PIXIE, 1).build());
 	private static final ResourceLocation ATTRIBUTE_MODIFIER_ID = botaniaRL("gaia_fight_modifier");
+
+	// this should never collide with the /team command, since space is not allowed in scoreboard team names
+	public static final String GAIA_FIGHT_TEAM_NAME = "Gaia-spawned Monsters";
+	/**
+	 * Team for mobs spawned in gaia fights.
+	 *
+	 * @see vazkii.botania.mixin.EntityMixin
+	 */
+	public static final Team GAIA_FIGHT_TEAM = new BotaniaMonsterTeam(GAIA_FIGHT_TEAM_NAME);
 
 	private boolean spawnLandmines = false;
 	private boolean spawnPixies = false;
@@ -855,6 +867,7 @@ public class GaiaGuardianEntity extends Mob {
 						// in case the mob spawned with a vehicle or passenger(s), ensure those don't drop unexpected loot
 						mob.getRootVehicle().getPassengersAndSelf().forEach(e -> {
 							if (e instanceof Mob otherMob) {
+								XplatAbstractions.instance().setGaiaFightParticipant(mob, this);
 								Optional<MobSpawnData> spawnData = spawnedMobs.unwrap().stream()
 										.filter(mobSpawnData -> mobSpawnData.type.tryCast(otherMob) != null)
 										.findFirst();

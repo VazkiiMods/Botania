@@ -8,6 +8,7 @@
  */
 package vazkii.botania.mixin;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.item.EquestrianVirusItem;
 import vazkii.botania.common.item.equipment.bauble.CrimsonPendantItem;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -41,14 +43,19 @@ public abstract class EntityMixin {
 	}
 
 	/**
-	 * Puts Loonium-spawned mobs on their own team.
+	 * Puts mobs spawned by a Loonium or gaia fight on their own team.
 	 * This is used both for easier identification in advancements and to prevent in-fighting.
 	 */
 	@Inject(at = @At("HEAD"), method = "getTeam", cancellable = true)
-	private void getLooniumTeam(CallbackInfoReturnable<Team> cir) {
+	private void getVirtualTeam(CallbackInfoReturnable<Team> cir) {
 		if (((Object) this) instanceof Mob self) {
 			if (XplatAbstractions.instance().getLooniumDrop(self) != null) {
 				cir.setReturnValue(LooniumBlockEntity.LOONIUM_TEAM);
+			} else if (self instanceof GaiaGuardianEntity || self.level() instanceof ServerLevel serverLevel
+					&& XplatAbstractions.instance().getGaiaFightParticipant(self)
+							.filter(gaiaFightParticipant -> gaiaFightParticipant.getGaiaGuardian(serverLevel) != null)
+							.isPresent()) {
+				cir.setReturnValue(GaiaGuardianEntity.GAIA_FIGHT_TEAM);
 			}
 		}
 	}

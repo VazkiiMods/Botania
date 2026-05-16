@@ -96,6 +96,7 @@ import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
@@ -105,6 +106,7 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
@@ -513,6 +515,30 @@ public class FabricXplatImpl implements XplatAbstractions {
 			creeper.setAttached(FabricInternalEntityAttachments.TIGERSEYE_PACIFIED, Unit.INSTANCE);
 		} else {
 			creeper.removeAttached(FabricInternalEntityAttachments.TIGERSEYE_PACIFIED);
+		}
+	}
+
+	@Override
+	public Optional<GaiaFightParticipant> getGaiaFightParticipant(Mob mob) {
+		GaiaFightParticipant participant = mob.getAttached(FabricInternalEntityAttachments.GAIA_FIGHT_PARTICIPANT);
+		if (participant != null) {
+			if (!participant.isInBounds(mob)) {
+				// mob left the arena area, consider it out permanently
+				setGaiaFightParticipant(mob, null);
+				return Optional.empty();
+			}
+			return Optional.of(participant);
+		}
+		return Optional.empty();
+	}
+
+	@Override
+	public void setGaiaFightParticipant(Mob mob, @Nullable GaiaGuardianEntity gaiaGuardian) {
+		if (gaiaGuardian != null && gaiaGuardian.isAlive()) {
+			mob.setAttached(FabricInternalEntityAttachments.GAIA_FIGHT_PARTICIPANT,
+					new GaiaFightParticipant(gaiaGuardian.getUUID(), gaiaGuardian.getSource()));
+		} else {
+			mob.removeAttached(FabricInternalEntityAttachments.GAIA_FIGHT_PARTICIPANT);
 		}
 	}
 

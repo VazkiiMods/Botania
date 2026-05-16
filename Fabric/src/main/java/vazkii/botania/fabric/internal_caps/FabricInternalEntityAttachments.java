@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.common.internal_caps.BotaniaDataAttachments;
 import vazkii.botania.common.internal_caps.ItemSources;
@@ -21,6 +22,8 @@ import java.util.List;
 @SuppressWarnings("UnstableApiUsage")
 public class FabricInternalEntityAttachments {
 
+	public static final AttachmentType<GaiaFightParticipant> GAIA_FIGHT_PARTICIPANT =
+			register(BotaniaDataAttachments.GAIA_FIGHT_PARTICIPANT, GaiaFightParticipant.CODEC);
 	public static final AttachmentType<Short> ITEM_LIFETIME =
 			register(BotaniaDataAttachments.ITEM_LIFETIME, Codec.SHORT);
 	public static final AttachmentType<ItemSource> ITEM_SOURCE =

@@ -9,6 +9,10 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public final class BotaniaDataAttachments {
 
 	/**
+	 * Marks a mob as a participant in a gaia fight on the side of the Guardian of Gaia.
+	 */
+	public static final ResourceLocation GAIA_FIGHT_PARTICIPANT = botaniaRL("gaia_fight_participant");
+	/**
 	 * Automatically attached to all item entities. Denotes the entity's lifetime in ticks, limited to
 	 * {@link Short#MAX_VALUE}.
 	 */

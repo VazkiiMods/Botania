@@ -15,7 +15,6 @@ import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.*;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
@@ -23,8 +22,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ReloadableServerRegistries;
@@ -50,7 +47,6 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Team;
 
 import org.jetbrains.annotations.Nullable;
@@ -64,6 +60,7 @@ import vazkii.botania.api.configdata.MobAttributeModifier;
 import vazkii.botania.api.configdata.MobEffectToApply;
 import vazkii.botania.api.configdata.MobSpawnData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.BotaniaMonsterTeam;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
@@ -101,48 +98,12 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	// this should never collide with the /team command, since space is not allowed in scoreboard team names
 	public static final String LOONIUM_TEAM_NAME = "Loonium Monsters";
-	public static final Team LOONIUM_TEAM = new PlayerTeam(null, LOONIUM_TEAM_NAME) {
-
-		@Override
-		public MutableComponent getFormattedName(Component component) {
-			return component.copy();
-		}
-
-		@Override
-		public boolean canSeeFriendlyInvisibles() {
-			return true;
-		}
-
-		@Override
-		public boolean isAllowFriendlyFire() {
-			return true;
-		}
-
-		@Override
-		public Visibility getNameTagVisibility() {
-			return Visibility.ALWAYS;
-		}
-
-		@Override
-		public ChatFormatting getColor() {
-			return ChatFormatting.RESET;
-		}
-
-		@Override
-		public Collection<String> getPlayers() {
-			return List.of();
-		}
-
-		@Override
-		public Visibility getDeathMessageVisibility() {
-			return Visibility.ALWAYS;
-		}
-
-		@Override
-		public CollisionRule getCollisionRule() {
-			return CollisionRule.ALWAYS;
-		}
-	};
+	/**
+	 * Team for Loonium-spawned mobs.
+	 * 
+	 * @see vazkii.botania.mixin.EntityMixin
+	 */
+	public static final Team LOONIUM_TEAM = new BotaniaMonsterTeam(LOONIUM_TEAM_NAME);
 
 	@Nullable
 	private ResourceKey<LootTable> lootTableOverride;
