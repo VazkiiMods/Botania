@@ -89,6 +89,7 @@ import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
@@ -98,6 +99,7 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -448,6 +450,28 @@ public class ForgeXplatImpl implements XplatAbstractions {
 			creeper.setData(ForgeInternalEntityCapabilities.TIGERSEYE_PACIFIED, Unit.INSTANCE);
 		} else {
 			creeper.removeData(ForgeInternalEntityCapabilities.TIGERSEYE_PACIFIED);
+		}
+	}
+
+	@Override
+	public Optional<GaiaFightParticipant> getGaiaFightParticipant(Mob mob) {
+		Optional<GaiaFightParticipant> participant =
+				mob.getExistingData(ForgeInternalEntityCapabilities.GAIA_FIGHT_PARTICIPANT);
+		if (participant.isPresent() && !participant.get().isInBounds(mob)) {
+			// mob left the arena area, consider it out permanently
+			setGaiaFightParticipant(mob, null);
+			return Optional.empty();
+		}
+		return participant;
+	}
+
+	@Override
+	public void setGaiaFightParticipant(Mob mob, @Nullable GaiaGuardianEntity gaiaGuardian) {
+		if (gaiaGuardian != null && gaiaGuardian.isAlive()) {
+			mob.setData(ForgeInternalEntityCapabilities.GAIA_FIGHT_PARTICIPANT,
+					new GaiaFightParticipant(gaiaGuardian.getUUID(), gaiaGuardian.getSource()));
+		} else {
+			mob.removeData(ForgeInternalEntityCapabilities.GAIA_FIGHT_PARTICIPANT);
 		}
 	}
 

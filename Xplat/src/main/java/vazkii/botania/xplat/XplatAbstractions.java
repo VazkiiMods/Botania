@@ -57,6 +57,7 @@ import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
@@ -65,6 +66,7 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 
 import java.util.List;
@@ -176,6 +178,9 @@ public interface XplatAbstractions {
 
 	boolean isTigerseyePacified(Creeper creeper);
 	void setTigersEyePacified(Creeper creeper, boolean pacified);
+
+	Optional<GaiaFightParticipant> getGaiaFightParticipant(Mob mob);
+	void setGaiaFightParticipant(Mob mob, @Nullable GaiaGuardianEntity gaiaGuardian);
 
 	// Events
 	boolean fireCorporeaRequestEvent(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean dryRun);
