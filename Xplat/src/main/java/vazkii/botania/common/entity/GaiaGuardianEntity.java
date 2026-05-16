@@ -65,7 +65,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
 
@@ -103,10 +102,14 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 
 public class GaiaGuardianEntity extends Mob {
-	public static final float ARENA_RANGE = 12F;
-	public static final int ARENA_HEIGHT = 5;
-	public static final double ARENA_BB_RANGE = 15.0;
-	public static final double ARENA_MOB_RANGE = ARENA_RANGE + 5;
+	public static final int ARENA_RANGE = 12;
+	public static final int ARENA_RANGE_UP = 5;
+	public static final int ARENA_RANGE_DOWN = 2;
+	public static final int ARENA_PLAYER_RANGE = (int) (ARENA_RANGE * 1.25);
+	public static final int DOUBLE_ARENA_PLAYER_RANGE_SQUARED = (2 * ARENA_PLAYER_RANGE) * (2 * ARENA_PLAYER_RANGE);
+	public static final int ARENA_TELEPORT_RANGE = ARENA_RANGE - 1;
+	public static final int ARENA_TELEPORT_RANGE_SQUARED = ARENA_TELEPORT_RANGE * ARENA_TELEPORT_RANGE;
+	public static final int ARENA_MOB_RANGE = (int) (ARENA_RANGE * 1.5);
 
 	private static final int SPAWN_TICKS = 160;
 	public static final float MAX_HP = 320F;
@@ -179,11 +182,12 @@ public class GaiaGuardianEntity extends Mob {
 	private static final EntityDataAccessor<Long> DATA_BOSS_INFO_UUID_LOWER = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
 	private static final EntityDataAccessor<Long> DATA_BOSS_INFO_UUID_UPPER = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
 
-	private static final List<BlockPos> PYLON_LOCATIONS = ImmutableList.of(
-			new BlockPos(4, 1, 4),
-			new BlockPos(4, 1, -4),
-			new BlockPos(-4, 1, 4),
-			new BlockPos(-4, 1, -4)
+	private static final int PYLON_OFFSET = 4;
+	private static final List<BlockPos> PYLON_OFFSETS = ImmutableList.of(
+			new BlockPos(PYLON_OFFSET, 1, PYLON_OFFSET),
+			new BlockPos(PYLON_OFFSET, 1, -PYLON_OFFSET),
+			new BlockPos(-PYLON_OFFSET, 1, PYLON_OFFSET),
+			new BlockPos(-PYLON_OFFSET, 1, -PYLON_OFFSET)
 	);
 
 	private static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
@@ -277,7 +281,7 @@ public class GaiaGuardianEntity extends Mob {
 			if (world.isClientSide) {
 				warnInvalidBlocks(world, invalidArenaBlocks);
 			} else {
-				XplatAbstractions.INSTANCE.sendToPlayer(player, new ArenaIndicatorEffectPacket(pos));
+				XplatAbstractions.instance().sendToPlayer(player, new ArenaIndicatorEffectPacket(pos));
 
 				player.sendSystemMessage(Component.translatable("botaniamisc.badArena").withStyle(ChatFormatting.RED));
 			}
@@ -342,7 +346,7 @@ public class GaiaGuardianEntity extends Mob {
 	private void updateGaiaFight() {
 		if (isAlive()) {
 			BlockPos sourcePos = getSource();
-			getGaiaFightMap(level()).put(this, new GaiaFightData(sourcePos, hardMode, getArenaBB(sourcePos)));
+			getGaiaFightMap(level()).put(this, new GaiaFightData(sourcePos, hardMode));
 		} else {
 			getGaiaFightMap(level()).remove(this);
 		}
@@ -355,12 +359,12 @@ public class GaiaGuardianEntity extends Mob {
 	private static List<BlockPos> checkPylons(Level world, BlockPos beaconPos) {
 		List<BlockPos> invalidPylonBlocks = new ArrayList<>();
 
-		for (BlockPos coords : PYLON_LOCATIONS) {
-			BlockPos pos_ = beaconPos.offset(coords);
+		for (BlockPos pylonOffset : PYLON_OFFSETS) {
+			BlockPos expectedPylonPos = beaconPos.offset(pylonOffset);
 
-			BlockState state = world.getBlockState(pos_);
+			BlockState state = world.getBlockState(expectedPylonPos);
 			if (!state.is(BotaniaBlocks.gaiaPylon)) {
-				invalidPylonBlocks.add(pos_);
+				invalidPylonBlocks.add(expectedPylonPos);
 			}
 		}
 
@@ -378,18 +382,18 @@ public class GaiaGuardianEntity extends Mob {
 			trippedPositions.add(beaconPos.above(2));
 		}
 
-		int range = (int) Math.ceil(ARENA_RANGE);
 		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
-		for (int x = -range; x <= range; x++) {
-			for (int z = -range; z <= range; z++) {
-				if (Math.abs(x) == 4 && Math.abs(z) == 4 || MathHelper.pointDistancePlane(x, z, 0, 0) > ARENA_RANGE) {
+		for (int x = -ARENA_RANGE; x <= ARENA_RANGE; x++) {
+			for (int z = -ARENA_RANGE; z <= ARENA_RANGE; z++) {
+				if (Math.abs(x) == PYLON_OFFSET && Math.abs(z) == PYLON_OFFSET
+						|| MathHelper.distSqr2D(x, z) > ARENA_RANGE * ARENA_RANGE) {
 					continue; // Ignore pylons and out of circle
 				}
 
 				boolean hasFloor = false;
 
-				for (int y = -2; y <= ARENA_HEIGHT; y++) {
+				for (int y = -ARENA_RANGE_DOWN; y <= ARENA_RANGE_UP; y++) {
 					if (x == 0 && y == 0 && z == 0) {
 						continue; //the beacon
 					}
@@ -434,7 +438,7 @@ public class GaiaGuardianEntity extends Mob {
 	@Override
 	protected void registerGoals() {
 		goalSelector.addGoal(0, new FloatGoal(this));
-		goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, ARENA_RANGE * 1.5F));
+		goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, ARENA_MOB_RANGE));
 	}
 
 	@Override
@@ -592,11 +596,13 @@ public class GaiaGuardianEntity extends Mob {
 			}
 
 			// Stop all the pixies leftover from the fight
-			for (PixieEntity pixie : level().getEntitiesOfClass(PixieEntity.class, getArenaBB(getSource()), p -> p.isAlive() && p.isGaia())) {
+			for (PixieEntity pixie : level().getEntitiesOfClass(PixieEntity.class,
+					MathHelper.inflateBoxAround(getSource(), ARENA_PLAYER_RANGE), p -> p.isAlive() && p.isGaia())) {
 				pixie.spawnAnim();
 				pixie.discard();
 			}
-			for (MagicLandmineEntity landmine : level().getEntitiesOfClass(MagicLandmineEntity.class, getArenaBB(getSource()))) {
+			for (MagicLandmineEntity landmine : level().getEntitiesOfClass(MagicLandmineEntity.class,
+					MathHelper.inflateBoxAround(getSource(), ARENA_PLAYER_RANGE))) {
 				landmine.discard();
 			}
 		}
@@ -670,7 +676,7 @@ public class GaiaGuardianEntity extends Mob {
 			return null;
 		}
 		GaiaFightData fightData = nearestFight.second();
-		if (!player.getBoundingBox().intersects(fightData.arenaBB())) {
+		if (!fightData.arenaCenter().closerToCenterThan(player.position(), ARENA_PLAYER_RANGE)) {
 			return null;
 		}
 
@@ -715,7 +721,10 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	public List<Player> getPlayersAround() {
-		return PlayerHelper.getRealPlayersIn(level(), getArenaBB(source));
+		List<Player> players = PlayerHelper.getRealPlayersIn(level(),
+				MathHelper.inflateBoxAround(source, ARENA_PLAYER_RANGE));
+		players.removeIf(player -> !source.closerToCenterThan(player.position(), ARENA_PLAYER_RANGE));
+		return players;
 	}
 
 	public int getInitialPlayerCount() {
@@ -728,14 +737,12 @@ public class GaiaGuardianEntity extends Mob {
 
 	private static boolean anyActiveArenasAround(Level world, BlockPos source) {
 		var arena = getNearestGaiaFight(world, source.getCenter());
-		return arena != null && arena.second().arenaBB().intersects(getArenaBB(source));
-	}
-
-	public static AABB getArenaBB(BlockPos source) {
-		return new AABB(source).inflate(ARENA_BB_RANGE);
+		return arena != null
+				&& MathHelper.distSqr(arena.second().arenaCenter(), source) < DOUBLE_ARENA_PLAYER_RANGE_SQUARED;
 	}
 
 	private void particles() {
+		Vec3 centerPos = source.getCenter();
 		for (int i = 0; i < 360; i += 8) {
 			float r = 0.6F;
 			float g = 0F;
@@ -743,35 +750,36 @@ public class GaiaGuardianEntity extends Mob {
 			float m = 0.15F;
 			float mv = 0.35F;
 
-			float rad = i * (float) Math.PI / 180F;
-			double x = source.getX() + 0.5 - Math.cos(rad) * ARENA_RANGE;
-			double y = source.getY() + 0.5;
-			double z = source.getZ() + 0.5 - Math.sin(rad) * ARENA_RANGE;
+			float rad = i * ((float) Math.PI / 180F);
 
 			WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
-			level().addAlwaysVisibleParticle(data, x, y, z, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
+			level().addAlwaysVisibleParticle(data,
+					centerPos.x() - Math.cos(rad) * ARENA_RANGE,
+					centerPos.y(),
+					centerPos.z() - Math.sin(rad) * ARENA_RANGE,
+					(random.nextFloat() - 0.5F) * m, (random.nextFloat() - 0.5F) * mv, (random.nextFloat() - 0.5F) * m);
 		}
 
 		if (getInvulTime() > 10) {
 			Vec3 pos = VecHelper.fromEntityCenter(this).subtract(0, 0.2, 0);
-			for (BlockPos arr : PYLON_LOCATIONS) {
-				Vec3 pylonPos = new Vec3(source.getX() + arr.getX(), source.getY() + arr.getY(), source.getZ() + arr.getZ());
+			for (BlockPos pylonOffset : PYLON_OFFSETS) {
+				Vec3 pylonPos = centerPos.add(pylonOffset.getX(), pylonOffset.getY(), pylonOffset.getZ());
 				double worldTime = tickCount;
 				worldTime /= 5;
 
-				float rad = 0.75F + (float) Math.random() * 0.05F;
-				double xp = pylonPos.x + 0.5 + Math.cos(worldTime) * rad;
-				double zp = pylonPos.z + 0.5 + Math.sin(worldTime) * rad;
+				float rad = 0.75F + random.nextFloat() * 0.05F;
+				double xp = Math.cos(worldTime) * rad;
+				double zp = Math.sin(worldTime) * rad;
 
 				Vec3 partPos = new Vec3(xp, pylonPos.y, zp);
 				Vec3 mot = pos.subtract(partPos).scale(0.04);
 
-				float r = 0.7F + (float) Math.random() * 0.3F;
-				float g = (float) Math.random() * 0.3F;
-				float b = 0.7F + (float) Math.random() * 0.3F;
+				float r = 0.7F + random.nextFloat() * 0.3F;
+				float g = random.nextFloat() * 0.3F;
+				float b = 0.7F + random.nextFloat() * 0.3F;
 
-				WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, r, g, b, 1);
-				level().addParticle(data, partPos.x, partPos.y, partPos.z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
+				WispParticleData data = WispParticleData.wisp(0.25F + random.nextFloat() * 0.1F, r, g, b, 1);
+				level().addParticle(data, partPos.x, partPos.y, partPos.z, 0, -(-0.075F - random.nextFloat() * 0.015F), 0);
 				WispParticleData data1 = WispParticleData.wisp(0.4F, r, g, b);
 				level().addParticle(data1, partPos.x, partPos.y, partPos.z, (float) mot.x, (float) mot.y, (float) mot.z);
 			}
@@ -818,12 +826,14 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	private void keepInsideArena(Player player) {
-		if (MathHelper.pointDistanceSpace(player.getX(), player.getY(), player.getZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
-			Vec3 sourceVector = new Vec3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
-			Vec3 playerVector = VecHelper.fromEntityCenter(player);
-			Vec3 motion = sourceVector.subtract(playerVector).normalize();
+		Vec3 center = source.getCenter();
+		Vec3 playerPos = player.position();
+		double distSq = center.distanceToSqr(playerPos);
+		if (distSq > ARENA_RANGE * ARENA_RANGE) {
+			Vec3 diff = center.subtract(playerPos);
+			Vec3 motion = diff.scale(1.0 / ARENA_RANGE);
 
-			player.setDeltaMovement(motion.x, 0.2, motion.z);
+			player.setDeltaMovement(motion.x, Math.min(motion.y, 0) + 0.2, motion.z);
 			player.hurtMarked = true;
 		}
 	}
@@ -1045,11 +1055,12 @@ public class GaiaGuardianEntity extends Mob {
 								int z = source.getZ() - 10 + random.nextInt(20);
 
 								MagicLandmineEntity landmine = BotaniaEntities.MAGIC_LANDMINE.create(level());
-								landmine.setPos(x + 0.5, y, z + 0.5);
-								landmine.summoner = this;
-								level().addFreshEntity(landmine);
+								if (landmine != null) {
+									landmine.setPos(x + 0.5, y, z + 0.5);
+									landmine.summoner = this;
+									level().addFreshEntity(landmine);
+								}
 							}
-
 						}
 
 						int initialPlayerCount = getInitialPlayerCount();
@@ -1062,7 +1073,8 @@ public class GaiaGuardianEntity extends Mob {
 								PixieEntity pixie = new PixieEntity(level(), true);
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 8);
 								pixie.setPos(getRandomX(1), getY() + 2, getRandomZ(1));
-								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
+								pixie.finalizeSpawn((ServerLevelAccessor) level(),
+										level().getCurrentDifficultyAt(pixie.blockPosition()),
 										MobSpawnType.MOB_SUMMONED, null);
 								level().addFreshEntity(pixie);
 							}
@@ -1130,30 +1142,30 @@ public class GaiaGuardianEntity extends Mob {
 	private void teleportRandomly() {
 		//choose a location to teleport to
 		double oldX = getX(), oldY = getY(), oldZ = getZ();
-		double newX, newY = source.getY(), newZ;
-		int tries = 0;
+		double newX, newY = 0, newZ;
 
+		int tries = 0;
 		do {
-			newX = source.getX() + (random.nextDouble() - .5) * ARENA_RANGE;
-			newZ = source.getZ() + (random.nextDouble() - .5) * ARENA_RANGE;
+			newX = (2 * random.nextDouble() - 1) * ARENA_TELEPORT_RANGE;
+			newZ = (2 * random.nextDouble() - 1) * ARENA_TELEPORT_RANGE;
 			tries++;
 			//ensure it's inside the arena ring, and not just its bounding square
-		} while (tries < 50 && MathHelper.pointDistanceSpace(newX, newY, newZ, source.getX(), source.getY(), source.getZ()) > ARENA_RANGE);
+		} while (tries < 10 && MathHelper.distSqr2D(newX, newZ) > ARENA_TELEPORT_RANGE_SQUARED);
 
-		if (tries == 50) {
+		if (tries == 10) {
 			//failsafe: teleport to the beacon
-			newX = source.getX() + .5;
-			newY = source.getY() + 1.6;
-			newZ = source.getZ() + .5;
+			newX = 0;
+			newY = 1.6;
+			newZ = 0;
 		}
 
-		doTeleport(newX, newY, newZ, oldX, oldY, oldZ);
+		doTeleport(source.getX() + 0.5 + newX, source.getY() + newY, source.getZ() + 0.5 + newZ, oldX, oldY, oldZ);
 	}
 
 	private void teleportToBeacon() {
 		Vec3 dest = source.getBottomCenter();
 
-		doTeleport(dest.x, dest.y + 1.6, dest.z, getX(), getY(), getZ());
+		doTeleport(dest.x, dest.y + 1, dest.z, getX(), getY(), getZ());
 	}
 
 	private void doTeleport(double newX, double newY, double newZ, double oldX, double oldY, double oldZ) {
@@ -1267,6 +1279,6 @@ public class GaiaGuardianEntity extends Mob {
 		return false;
 	}
 
-	public record GaiaFightData(BlockPos arenaCenter, boolean hardMode, AABB arenaBB) {
+	public record GaiaFightData(BlockPos arenaCenter, boolean hardMode) {
 	}
 }
