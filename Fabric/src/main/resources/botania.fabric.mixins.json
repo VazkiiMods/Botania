@@ -10,7 +10,6 @@
     "AnvilMenuFabricMixin",
     "AxeItemFabricMixin",
     "BeaconBlockEntityFabricMixin",
-    "BucketItemFabricAccessor",
     "CombatTrackerMixin",
     "EnchantmentFabricMixin",
     "EnchantmentMenuFabricMixin",

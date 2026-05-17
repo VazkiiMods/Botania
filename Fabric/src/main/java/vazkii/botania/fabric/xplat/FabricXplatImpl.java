@@ -18,8 +18,10 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper;
+import net.fabricmc.fabric.mixin.transfer.BucketItemAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.Optionull;
 import net.minecraft.advancements.Advancement;
@@ -78,6 +80,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
@@ -109,7 +112,6 @@ import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.FabricInternalEntityAttachments;
 import vazkii.botania.fabric.mixin.AbstractFurnaceBlockEntityFabricAccessor;
-import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Collections;
@@ -319,6 +321,35 @@ public class FabricXplatImpl implements XplatAbstractions {
 		}
 
 		return false;
+	}
+
+	@Override
+	public ItemStack fillItemWithWater(ItemStack stackToFill, Player player) {
+		ItemStack split = stackToFill.copyWithCount(1);
+		var context = new SingleStackStorage() {
+			private ItemStack stack = split;
+
+			@Override
+			protected ItemStack getStack() {
+				return stack;
+			}
+
+			@Override
+			protected void setStack(ItemStack stack) {
+				this.stack = stack;
+			}
+		};
+		Storage<FluidVariant> storageViews = FluidStorage.ITEM.find(split, ContainerItemContext.ofSingleSlot(context));
+		if (storageViews != null && storageViews.supportsInsertion()) {
+			try (var tx = Transaction.openOuter()) {
+				long inserted = storageViews.insert(FluidVariant.of(Fluids.WATER), FluidConstants.BUCKET, tx);
+				if (inserted > 0) {
+					tx.commit();
+					return context.getStack();
+				}
+			}
+		}
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -626,7 +657,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Fluid getBucketFluid(BucketItem item) {
-		return ((BucketItemFabricAccessor) item).botania_getContent();
+		return ((BucketItemAccessor) item).fabric_getFluid();
 	}
 
 	@Override

@@ -36,6 +36,8 @@ import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -51,6 +53,7 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModList;
@@ -67,6 +70,7 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -292,6 +296,22 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		}
 
 		return false;
+	}
+
+	@Override
+	public ItemStack fillItemWithWater(ItemStack stackToFill, Player player) {
+		ItemStack split = stackToFill.copyWithCount(1);
+		Optional<IFluidHandlerItem> optionalHandler = FluidUtil.getFluidHandler(split);
+		if (optionalHandler.isPresent()) {
+			var handler = optionalHandler.get();
+			if (handler.fill(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME),
+					IFluidHandler.FluidAction.EXECUTE) > 0) {
+				return handler.getContainer();
+			}
+		} else if (split.is(Items.GLASS_BOTTLE)) {
+			return PotionContents.createItemStack(Items.POTION, Potions.WATER);
+		}
+		return ItemStack.EMPTY;
 	}
 
 	@Override
