@@ -21,6 +21,7 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+* Change: Rod of the Seas can fill all kinds of fluid container item in the inventory, not just empty buckets
 * Fix: Hyacidus wasting mana on immune mobs that aren't undead
 * Fix: Various functional flowers never sent client updates when they used mana to perform their function
 * Fix: Rod of the Bifrost consumes mana again (AidaNightcore)
