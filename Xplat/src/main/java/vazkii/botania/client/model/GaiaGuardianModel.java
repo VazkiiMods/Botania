@@ -21,7 +21,7 @@ public class GaiaGuardianModel extends HumanoidModel<GaiaGuardianEntity> {
 	private final boolean slim;
 
 	public GaiaGuardianModel(ModelPart root, boolean slim) {
-		super(root, RenderHelper::getDynamicGaiaLayer);
+		super(root, RenderHelper::getGaiaNoiseDynamicLayer);
 		this.leftSleeve = root.getChild("left_sleeve");
 		this.rightSleeve = root.getChild("right_sleeve");
 		this.leftPants = root.getChild("left_pants");

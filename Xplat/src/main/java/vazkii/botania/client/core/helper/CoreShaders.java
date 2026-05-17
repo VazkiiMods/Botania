@@ -28,9 +28,9 @@ public class CoreShaders {
 	@Nullable
 	private static ShaderInstance starfieldShaderInstance;
 	@Nullable
-	private static ShaderInstance gaiaGuardianDynamic;
+	private static ShaderInstance gaiaNoiseDynamic;
 	@Nullable
-	private static ShaderInstance gaiaGuardianStatic;
+	private static ShaderInstance gaiaNoiseConstant;
 	@Nullable
 	private static ShaderInstance manaPool;
 	@Nullable
@@ -55,14 +55,14 @@ public class CoreShaders {
 				inst -> starfieldShaderInstance = inst
 		);
 		registrations.accept(
-				botaniaRL("doppleganger"),
+				botaniaRL("gaia_noise_dynamic"),
 				DefaultVertexFormat.NEW_ENTITY,
-				inst -> gaiaGuardianDynamic = inst
+				inst -> gaiaNoiseDynamic = inst
 		);
 		registrations.accept(
-				botaniaRL("gaia_pixie"),
+				botaniaRL("gaia_noise_constant"),
 				DefaultVertexFormat.NEW_ENTITY,
-				inst -> gaiaGuardianStatic = inst
+				inst -> gaiaNoiseConstant = inst
 		);
 		registrations.accept(
 				botaniaRL("mana_pool"),
@@ -95,7 +95,7 @@ public class CoreShaders {
 				inst -> filmGrainParticle = inst
 		);
 		registrations.accept(
-				botaniaRL("doppleganger_bar"),
+				botaniaRL("gaia_boss_bar"),
 				DefaultVertexFormat.POSITION_TEX,
 				inst -> gaiaBossBar = inst
 		);
@@ -109,18 +109,18 @@ public class CoreShaders {
 	}
 
 	@Nullable
-	public static ShaderInstance gaiaGuardianDynamic() {
+	public static ShaderInstance gaiaNoiseDynamic() {
 		if (BotaniaConfig.client().useShaders()) {
-			return gaiaGuardianDynamic;
+			return gaiaNoiseDynamic;
 		} else {
 			return GameRenderer.getRendertypeEntityTranslucentShader();
 		}
 	}
 
 	@Nullable
-	public static ShaderInstance gaiaGuardianStatic() {
+	public static ShaderInstance gaiaNoiseConstant() {
 		if (BotaniaConfig.client().useShaders()) {
-			return gaiaGuardianStatic;
+			return gaiaNoiseConstant;
 		} else {
 			return GameRenderer.getRendertypeEntityTranslucentShader();
 		}

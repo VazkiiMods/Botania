@@ -269,38 +269,38 @@ public final class RenderHelper extends RenderType {
 		return makeLayer(ResourcesLib.PREFIX_MOD + "crafting_halo", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 64, false, true, glState);
 	}
 
-	private static final Function<ResourceLocation, RenderType> DOPPLEGANGER = Util.memoize(texture -> {
+	private static final Function<ResourceLocation, RenderType> GAIA_NOISE_DYNAMIC_LAYER = Util.memoize(texture -> {
 		// [VanillaCopy] entity_translucent, with own shader
 		CompositeState glState = RenderType.CompositeState.builder()
-				.setShaderState(new ShaderStateShard(CoreShaders::gaiaGuardianDynamic))
+				.setShaderState(new ShaderStateShard(CoreShaders::gaiaNoiseDynamic))
 				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setCullState(NO_CULL)
 				.setLightmapState(LIGHTMAP)
 				.setOverlayState(OVERLAY)
 				.createCompositeState(true);
-		return makeLayer(ResourcesLib.PREFIX_MOD + "doppleganger", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
+		return makeLayer(ResourcesLib.PREFIX_MOD + "gaia_noise_dynamic", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
 	});
 
-	private static final Function<ResourceLocation, RenderType> GAIA_PIXIE = Util.memoize(texture -> {
+	private static final Function<ResourceLocation, RenderType> GAIA_NOISE_CONSTANT_LAYER = Util.memoize(texture -> {
 		// [VanillaCopy] entity_translucent, with own shader
 		CompositeState glState = RenderType.CompositeState.builder()
-				.setShaderState(new ShaderStateShard(CoreShaders::gaiaGuardianStatic))
+				.setShaderState(new ShaderStateShard(CoreShaders::gaiaNoiseConstant))
 				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setCullState(NO_CULL)
 				.setLightmapState(LIGHTMAP)
 				.setOverlayState(OVERLAY)
 				.createCompositeState(true);
-		return makeLayer(ResourcesLib.PREFIX_MOD + "gaia_pixie", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
+		return makeLayer(ResourcesLib.PREFIX_MOD + "gaia_noise_constant", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
 	});
 
-	public static RenderType getDynamicGaiaLayer(ResourceLocation texture) {
-		return DOPPLEGANGER.apply(texture);
+	public static RenderType getGaiaNoiseDynamicLayer(ResourceLocation texture) {
+		return GAIA_NOISE_DYNAMIC_LAYER.apply(texture);
 	}
 
-	public static RenderType getStaticGaiaLayer(ResourceLocation texture) {
-		return GAIA_PIXIE.apply(texture);
+	public static RenderType getGaiaNoiseConstantLayer(ResourceLocation texture) {
+		return GAIA_NOISE_CONSTANT_LAYER.apply(texture);
 	}
 
 	public static void drawTexturedModalRect(GuiGraphics gui, ResourceLocation textureId, int x, int y, int u, int v, int width, int height) {

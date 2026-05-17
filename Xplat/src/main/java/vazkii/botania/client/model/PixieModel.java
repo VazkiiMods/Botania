@@ -33,7 +33,7 @@ public class PixieModel extends EntityModel<PixieEntity> {
 	private static boolean evil = false;
 
 	private static RenderType pixieLayer(ResourceLocation texture) {
-		return evil ? RenderHelper.getStaticGaiaLayer(texture)
+		return evil ? RenderHelper.getGaiaNoiseConstantLayer(texture)
 				: RenderType.entityCutoutNoCull(texture);
 	}
 

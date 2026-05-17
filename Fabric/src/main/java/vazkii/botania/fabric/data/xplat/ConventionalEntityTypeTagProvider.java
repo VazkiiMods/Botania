@@ -26,7 +26,7 @@ public class ConventionalEntityTypeTagProvider extends FabricTagProvider.EntityT
 
 	@Override
 	protected void addTags(HolderLookup.Provider wrapperLookup) {
-		tag(ConventionalEntityTypeTags.BOSSES).add(reverseLookup(BotaniaEntities.DOPPLEGANGER));
+		tag(ConventionalEntityTypeTags.BOSSES).add(reverseLookup(BotaniaEntities.GAIA_GUARDIAN));
 
 		tag(ConventionalEntityTypeTags.MINECARTS).add(reverseLookup(BotaniaEntities.POOL_MINECART));
 	}

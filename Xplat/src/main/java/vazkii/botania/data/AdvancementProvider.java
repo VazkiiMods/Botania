@@ -105,7 +105,7 @@ public class AdvancementProvider {
 					.display(simple(BotaniaBlocks.gaiaHead, "gaiaGuardianKill", AdvancementType.TASK))
 					.parent(elfPortalOpen)
 					.addCriterion("guardian", KilledTrigger.TriggerInstance
-							.playerKilledEntity(EntityPredicate.Builder.entity().of(BotaniaEntities.DOPPLEGANGER)))
+							.playerKilledEntity(EntityPredicate.Builder.entity().of(BotaniaEntities.GAIA_GUARDIAN)))
 					.save(consumer, mainId("gaia_guardian_kill"));
 
 			AdvancementHolder enderAirMake = Advancement.Builder.advancement()
@@ -364,7 +364,7 @@ public class AdvancementProvider {
 					.rewards(AdvancementRewards.Builder.experience(100))
 					.addCriterion("guardian", KilledTrigger.TriggerInstance.playerKilledEntity(
 							EntityPredicate.Builder.entity()
-									.of(BotaniaEntities.DOPPLEGANGER)
+									.of(BotaniaEntities.GAIA_GUARDIAN)
 									.nbt(new NbtPredicate(hardmodeNbt))))
 					.save(consumer, challengeId("gaia_guardian_hardmode"));
 
