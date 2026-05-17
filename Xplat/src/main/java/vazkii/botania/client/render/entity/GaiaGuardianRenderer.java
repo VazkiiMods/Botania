@@ -45,17 +45,17 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 	}
 
 	@Override
-	public void render(GaiaGuardianEntity dopple, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
-		int invulTime = dopple.getInvulTime();
-		ShaderInstance shader = CoreShaders.gaiaGuardianDynamic();
+	public void render(GaiaGuardianEntity gaiaGuardian, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+		int invulTime = gaiaGuardian.getInvulTime();
+		ShaderInstance shader = CoreShaders.gaiaNoiseDynamic();
 		if (shader != null) {
 			float grainIntensity, disfiguration;
 			if (invulTime > 0) {
 				grainIntensity = invulTime > 20 ? 1F : invulTime * 0.05F;
 				disfiguration = grainIntensity * 0.3F;
 			} else {
-				disfiguration = (0.025F + dopple.hurtTime * ((1F - 0.15F) / 20F)) / 2F;
-				grainIntensity = 0.05F + dopple.hurtTime * ((1F - 0.15F) / 10F);
+				disfiguration = (0.025F + gaiaGuardian.hurtTime * ((1F - 0.15F) / 20F)) / 2F;
+				grainIntensity = 0.05F + gaiaGuardian.hurtTime * ((1F - 0.15F) / 10F);
 			}
 			shader.safeGetUniform("BotaniaGrainIntensity").set(grainIntensity);
 			shader.safeGetUniform("BotaniaDisfiguration").set(disfiguration);
@@ -69,7 +69,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 		}
 		this.setModelProperties(player);
 
-		super.render(dopple, yaw, partialTicks, ms, buffers, light);
+		super.render(gaiaGuardian, yaw, partialTicks, ms, buffers, light);
 	}
 
 	@Nullable
@@ -108,7 +108,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 	}
 
 	@Override
-	protected boolean isBodyVisible(GaiaGuardianEntity dopple) {
+	protected boolean isBodyVisible(GaiaGuardianEntity gaiaGuardian) {
 		return true;
 	}
 

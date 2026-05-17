@@ -48,12 +48,12 @@ public final class BotaniaEntities {
 			.clientTrackingRange(4)
 			.updateInterval(10)
 			.build(LibEntityNames.VINE_BALL.toString());
-	public static final EntityType<GaiaGuardianEntity> DOPPLEGANGER = EntityType.Builder.of(GaiaGuardianEntity::new, MobCategory.MONSTER)
+	public static final EntityType<GaiaGuardianEntity> GAIA_GUARDIAN = EntityType.Builder.of(GaiaGuardianEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.8F)
 			.fireImmune()
 			.clientTrackingRange(10)
 			.updateInterval(10)
-			.build(LibEntityNames.DOPPLEGANGER.toString());
+			.build(LibEntityNames.GAIA_GUARDIAN.toString());
 	public static final EntityType<MagicLandmineEntity> MAGIC_LANDMINE = EntityType.Builder.of(MagicLandmineEntity::new, MobCategory.MISC)
 			.sized(5F, 0.1F)
 			.clientTrackingRange(8)
@@ -134,7 +134,7 @@ public final class BotaniaEntities {
 		r.accept(PIXIE, LibEntityNames.PIXIE);
 		r.accept(FLAME_RING, LibEntityNames.FLAME_RING);
 		r.accept(VINE_BALL, LibEntityNames.VINE_BALL);
-		r.accept(DOPPLEGANGER, LibEntityNames.DOPPLEGANGER);
+		r.accept(GAIA_GUARDIAN, LibEntityNames.GAIA_GUARDIAN);
 		r.accept(MAGIC_LANDMINE, LibEntityNames.MAGIC_LANDMINE);
 		r.accept(SPARK, LibEntityNames.SPARK);
 		r.accept(THROWN_ITEM, LibEntityNames.THROWN_ITEM);
@@ -152,7 +152,7 @@ public final class BotaniaEntities {
 	}
 
 	public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> consumer) {
-		consumer.accept(BotaniaEntities.DOPPLEGANGER, Mob.createMobAttributes()
+		consumer.accept(BotaniaEntities.GAIA_GUARDIAN, Mob.createMobAttributes()
 				.add(Attributes.MOVEMENT_SPEED, 0.4)
 				.add(Attributes.MAX_HEALTH, GaiaGuardianEntity.MAX_HP)
 				.add(Attributes.KNOCKBACK_RESISTANCE, 1.0));

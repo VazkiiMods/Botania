@@ -17,7 +17,7 @@ public final class LibEntityNames {
 	public static final ResourceLocation PIXIE = botaniaRL("pixie");
 	public static final ResourceLocation FLAME_RING = botaniaRL("flame_ring");
 	public static final ResourceLocation VINE_BALL = botaniaRL("vine_ball");
-	public static final ResourceLocation DOPPLEGANGER = botaniaRL("doppleganger");
+	public static final ResourceLocation GAIA_GUARDIAN = botaniaRL("doppleganger");
 	public static final ResourceLocation MAGIC_LANDMINE = botaniaRL("magic_landmine");
 	public static final ResourceLocation SPARK = botaniaRL("spark");
 	public static final ResourceLocation THROWN_ITEM = botaniaRL("thrown_item");

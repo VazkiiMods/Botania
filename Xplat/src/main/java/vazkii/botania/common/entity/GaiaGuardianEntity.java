@@ -220,7 +220,7 @@ public class GaiaGuardianEntity extends Mob {
 	private boolean hardMode = false;
 	private BlockPos source = Bound.UNBOUND_POS;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(BotaniaEntities.DOPPLEGANGER.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
+	private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(BotaniaEntities.GAIA_GUARDIAN.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
 	private UUID bossInfoUUID = bossInfo.getId();
 	@Nullable
 	public Player trueKiller = null;
@@ -301,7 +301,7 @@ public class GaiaGuardianEntity extends Mob {
 		if (world.isClientSide) {
 			return true;
 		}
-		GaiaGuardianEntity e = BotaniaEntities.DOPPLEGANGER.create(world);
+		GaiaGuardianEntity e = BotaniaEntities.GAIA_GUARDIAN.create(world);
 		if (e == null) {
 			return false;
 		}

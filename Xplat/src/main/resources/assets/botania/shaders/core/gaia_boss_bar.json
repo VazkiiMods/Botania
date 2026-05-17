@@ -6,7 +6,7 @@
     "dstrgb": "1-srcalpha"
   },
   "vertex": "position_tex",
-  "fragment": "botania:doppleganger_bar",
+  "fragment": "botania:gaia_boss_bar",
   "attributes": [
     "Position",
     "UV0"

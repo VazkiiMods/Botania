@@ -5,8 +5,8 @@
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "botania:doppleganger",
-  "fragment": "botania:doppleganger",
+  "vertex": "botania:gaia_noise",
+  "fragment": "botania:gaia_noise",
   "attributes": [
     "Position",
     "Color",

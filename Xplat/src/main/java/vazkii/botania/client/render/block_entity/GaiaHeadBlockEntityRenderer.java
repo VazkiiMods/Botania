@@ -122,9 +122,9 @@ public class GaiaHeadBlockEntityRenderer implements BlockEntityRenderer<GaiaHead
 					() -> {
 						compose.setupRenderState();
 						// Override the shader to ours
-						ShaderInstance shader = CoreShaders.gaiaGuardianStatic();
+						ShaderInstance shader = CoreShaders.gaiaNoiseConstant();
 						if (shader != null) {
-							RenderSystem.setShader(CoreShaders::gaiaGuardianStatic);
+							RenderSystem.setShader(CoreShaders::gaiaNoiseConstant);
 						}
 					}, compose::clearRenderState);
 		}
