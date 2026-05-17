@@ -33,7 +33,11 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.AbstractCauldronBlockAccessor;
+import vazkii.botania.xplat.XplatAbstractions;
+
+import java.util.function.Consumer;
 
 public class SeasRodItem extends Item {
 
@@ -107,35 +111,30 @@ public class SeasRodItem extends Item {
 	}
 
 	@Override
-	public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
-		if (action != ClickAction.SECONDARY) {
-			return false;
-		}
-		ItemStack other = slot.getItem();
-		if (other.is(Items.BUCKET) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true)) {
-			if (other.getCount() == 1) {
-				slot.set(new ItemStack(Items.WATER_BUCKET));
-			} else {
-				other.shrink(1);
-				player.getInventory().placeItemBackInInventory(new ItemStack(Items.WATER_BUCKET));
-			}
-			return true;
-		}
-
-		return false;
+	public boolean overrideStackedOnOther(ItemStack seasRod, Slot slot, ClickAction action, Player player) {
+		return fillItemWithWater(seasRod, action, player, slot.getItem(), slot::set);
 	}
 
 	@Override
-	public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess access) {
-		if (action != ClickAction.SECONDARY) {
+	public boolean overrideOtherStackedOnMe(ItemStack seasRod, ItemStack other, Slot slot, ClickAction action,
+			Player player, SlotAccess access) {
+		return fillItemWithWater(seasRod, action, player, other, access::set);
+	}
+
+	private static boolean fillItemWithWater(ItemStack seasRod, ClickAction action, Player player,
+			ItemStack stackToFill, Consumer<ItemStack> slotSetter) {
+		if (action != ClickAction.SECONDARY || stackToFill.is(BotaniaItems.openBucket)
+				|| !ManaItemHandler.instance().requestManaExactForTool(seasRod, player, COST, false)) {
 			return false;
 		}
-		if (other.is(Items.BUCKET) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true)) {
-			if (other.getCount() == 1) {
-				access.set(new ItemStack(Items.WATER_BUCKET));
+		ItemStack filled = XplatAbstractions.instance().fillItemWithWater(stackToFill, player);
+		if (!filled.isEmpty()) {
+			ManaItemHandler.instance().requestManaExactForTool(seasRod, player, COST, true);
+			if (stackToFill.getCount() == 1) {
+				slotSetter.accept(filled);
 			} else {
-				other.shrink(1);
-				player.getInventory().placeItemBackInInventory(new ItemStack(Items.WATER_BUCKET));
+				stackToFill.shrink(1);
+				player.getInventory().placeItemBackInInventory(filled);
 			}
 			return true;
 		}

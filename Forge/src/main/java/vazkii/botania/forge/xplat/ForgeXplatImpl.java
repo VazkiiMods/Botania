@@ -36,6 +36,8 @@ import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ChunkPos;
@@ -51,6 +53,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
@@ -66,7 +69,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.items.IItemHandler;
@@ -110,6 +115,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -295,6 +301,22 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		}
 
 		return false;
+	}
+
+	@Override
+	public ItemStack fillItemWithWater(ItemStack stackToFill, Player player) {
+		ItemStack split = stackToFill.copyWithCount(1);
+		Optional<IFluidHandlerItem> optionalHandler = FluidUtil.getFluidHandler(split).resolve();
+		if (optionalHandler.isPresent()) {
+			var handler = optionalHandler.get();
+			if (handler.fill(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME),
+					IFluidHandler.FluidAction.EXECUTE) > 0) {
+				return handler.getContainer();
+			}
+		} else if (split.is(Items.GLASS_BOTTLE)) {
+			return PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER);
+		}
+		return ItemStack.EMPTY;
 	}
 
 	@Override

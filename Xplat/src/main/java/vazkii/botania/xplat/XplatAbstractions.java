@@ -133,6 +133,7 @@ public interface XplatAbstractions {
 	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);
 	boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid);
 	boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid);
+	ItemStack fillItemWithWater(ItemStack stackToFill, Player player);
 	boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos);
 	ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate);
 
