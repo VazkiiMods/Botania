@@ -11,15 +11,18 @@ package vazkii.botania.common.block.block_entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block.Bound;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity.Cell;
 
-public class CellularBlockEntity extends BotaniaBlockEntity {
+public class CellularBlockEntity extends BlockEntity {
 	private static final String TAG_GENERATION = "generation";
 	private static final String TAG_TICKED = "ticked";
 	private static final String TAG_FLOWER_X = "flowerX";
@@ -32,8 +35,10 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	private int generation;
 	private int nextGeneration;
 	private boolean ticked;
-	private BlockPos flowerCoords = Bound.UNBOUND_POS;
-	private BlockPos validCoords = Bound.UNBOUND_POS;
+	@Nullable
+	private BlockPos flowerCoords;
+	@Nullable
+	private BlockPos validCoords;
 
 	public CellularBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.CELL_BLOCK, pos, state);
@@ -49,7 +54,7 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 		if (!ticked) {
 			claim(flower);
 			ticked = true;
-		} else if (!validCoords.equals(getBlockPos()) || !flowerCoords.equals(flower.getEffectivePos())) {
+		} else if (!getBlockPos().equals(validCoords) || !flower.getEffectivePos().equals(flowerCoords)) {
 			level.removeBlock(worldPosition, false);
 		}
 	}
@@ -79,34 +84,42 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_GENERATION, generation);
 		cmp.putBoolean(TAG_TICKED, ticked);
 		if (ticked) {
-			cmp.putInt(TAG_FLOWER_X, flowerCoords.getX());
-			cmp.putInt(TAG_FLOWER_Y, flowerCoords.getY());
-			cmp.putInt(TAG_FLOWER_Z, flowerCoords.getZ());
-			cmp.putInt(TAG_VALID_X, validCoords.getX());
-			cmp.putInt(TAG_VALID_Y, validCoords.getY());
-			cmp.putInt(TAG_VALID_Z, validCoords.getZ());
+			if (flowerCoords != null) {
+				cmp.putInt(TAG_FLOWER_X, flowerCoords.getX());
+				cmp.putInt(TAG_FLOWER_Y, flowerCoords.getY());
+				cmp.putInt(TAG_FLOWER_Z, flowerCoords.getZ());
+			}
+			if (validCoords != null) {
+				cmp.putInt(TAG_VALID_X, validCoords.getX());
+				cmp.putInt(TAG_VALID_Y, validCoords.getY());
+				cmp.putInt(TAG_VALID_Z, validCoords.getZ());
+			}
 		}
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		generation = cmp.getInt(TAG_GENERATION);
 		ticked = cmp.getBoolean(TAG_TICKED);
 		if (ticked) {
-			flowerCoords = new BlockPos(
-					cmp.getInt(TAG_FLOWER_X),
-					cmp.getInt(TAG_FLOWER_Y),
-					cmp.getInt(TAG_FLOWER_Z)
-			);
-			validCoords = new BlockPos(
-					cmp.getInt(TAG_VALID_X),
-					cmp.getInt(TAG_VALID_Y),
-					cmp.getInt(TAG_VALID_Z)
-			);
+			if (cmp.contains(TAG_FLOWER_X, Tag.TAG_INT)) {
+				flowerCoords = new BlockPos(
+						cmp.getInt(TAG_FLOWER_X),
+						cmp.getInt(TAG_FLOWER_Y),
+						cmp.getInt(TAG_FLOWER_Z)
+				);
+			}
+			if (cmp.contains(TAG_VALID_X, Tag.TAG_INT)) {
+				validCoords = new BlockPos(
+						cmp.getInt(TAG_VALID_X),
+						cmp.getInt(TAG_VALID_Y),
+						cmp.getInt(TAG_VALID_Z)
+				);
+			}
 		}
 	}
 

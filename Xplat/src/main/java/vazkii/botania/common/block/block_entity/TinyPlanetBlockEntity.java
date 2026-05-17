@@ -10,11 +10,12 @@ package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.item.equipment.bauble.TinyPlanetItem;
 
-public class TinyPlanetBlockEntity extends BotaniaBlockEntity {
+public class TinyPlanetBlockEntity extends BlockEntity {
 	public TinyPlanetBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.TINY_PLANET, pos, state);
 	}

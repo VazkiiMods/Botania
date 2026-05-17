@@ -54,7 +54,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 	public boolean move = true;
 
 	public HoveringHourglassBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.HOURGLASS, pos, state);
+		super(BotaniaBlockEntities.HOURGLASS, pos, state, true);
 	}
 
 	private boolean isDust() {
@@ -194,8 +194,8 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.writePacketNBT(tag, registries);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 		tag.putInt(TAG_TIME, time);
 		tag.putFloat(TAG_TIME_FRACTION, timeFraction);
 		tag.putBoolean(TAG_FLIP, flip);
@@ -205,14 +205,27 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.readPacketNBT(tag, registries);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
 		time = tag.getInt(TAG_TIME);
 		timeFraction = tag.getFloat(TAG_TIME_FRACTION);
 		flip = tag.getBoolean(TAG_FLIP);
 		flipTicks = tag.getInt(TAG_FLIP_TICKS);
 		move = tag.getBoolean(TAG_MOVE);
 		lock = tag.getBoolean(TAG_LOCK);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		// FIXME: this is very likely lots of data that's not required
+		tag.putInt(TAG_TIME, time);
+		tag.putFloat(TAG_TIME_FRACTION, timeFraction);
+		tag.putBoolean(TAG_FLIP, flip);
+		tag.putInt(TAG_FLIP_TICKS, flipTicks);
+		tag.putBoolean(TAG_MOVE, move);
+		tag.putBoolean(TAG_LOCK, lock);
+		return tag;
 	}
 
 	public static class WandHud implements WandHUD {

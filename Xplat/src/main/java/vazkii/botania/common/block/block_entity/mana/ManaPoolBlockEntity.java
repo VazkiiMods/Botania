@@ -19,6 +19,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -52,12 +56,12 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.helper.NbtHelper;
 import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.ManaTabletItem;
@@ -67,7 +71,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool, KeyLocked, SparkAttachable,
+public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLocked, SparkAttachable,
 		ThrottledPacket, Wandable {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final float PARTICLE_COLOR_BLUE = (PARTICLE_COLOR & 0xFF) / 255F;
@@ -442,10 +446,10 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_MANA, getCurrentMana());
 
-		cmp.putInt(TAG_MANA_CAP, getMaxMana());
+		cmp.putInt(TAG_MANA_CAP, manaCap);
 		cmp.putBoolean(TAG_CAN_ACCEPT, canAccept);
 		cmp.putBoolean(TAG_CAN_SPARE, canSpare);
 
@@ -454,25 +458,33 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		mana = cmp.getInt(TAG_MANA);
 
-		if (cmp.contains(TAG_MANA_CAP)) {
+		if (cmp.contains(TAG_MANA_CAP, Tag.TAG_ANY_NUMERIC)) {
 			manaCap = cmp.getInt(TAG_MANA_CAP);
+		} else {
+			manaCap = -1;
 		}
-		if (cmp.contains(TAG_CAN_ACCEPT)) {
-			canAccept = cmp.getBoolean(TAG_CAN_ACCEPT);
-		}
-		if (cmp.contains(TAG_CAN_SPARE)) {
-			canSpare = cmp.getBoolean(TAG_CAN_SPARE);
-		}
+		canAccept = !cmp.contains(TAG_CAN_ACCEPT, Tag.TAG_ANY_NUMERIC) || cmp.getBoolean(TAG_CAN_ACCEPT);
+		canSpare = !cmp.contains(TAG_CAN_SPARE, Tag.TAG_ANY_NUMERIC) || cmp.getBoolean(TAG_CAN_SPARE);
+		inputKey = cmp.getString(TAG_INPUT_KEY);
+		outputKey = cmp.getString(TAG_OUTPUT_KEY);
+	}
 
-		if (cmp.contains(TAG_INPUT_KEY)) {
-			inputKey = cmp.getString(TAG_INPUT_KEY);
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		NbtHelper.putVarInt(tag, TAG_MANA, mana);
+		if (manaCap != -1) {
+			NbtHelper.putVarInt(tag, TAG_MANA_CAP, manaCap);
 		}
-		if (cmp.contains(TAG_OUTPUT_KEY)) {
-			outputKey = cmp.getString(TAG_OUTPUT_KEY);
-		}
+		return tag;
+	}
+
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override

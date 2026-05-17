@@ -11,14 +11,14 @@ package vazkii.botania.common.block.block_entity.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 
-public class ManaPumpBlockEntity extends BotaniaBlockEntity {
+public class ManaPumpBlockEntity extends BlockEntity {
 	public float innerRingPos;
 	public boolean hasCart = false;
 	public boolean hasCartOnTop = false;

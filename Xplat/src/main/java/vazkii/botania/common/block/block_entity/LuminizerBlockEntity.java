@@ -12,6 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -43,7 +47,7 @@ import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBindable, Bound, PhantomInkableBlock {
+public class LuminizerBlockEntity extends BlockEntity implements WandBindable, Bound, PhantomInkableBlock {
 	public static final int MAX_DIST = 20;
 
 	private static final String TAG_BIND_X = "bindX";
@@ -51,7 +55,8 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 	private static final String TAG_BIND_Z = "bindZ";
 	private static final String TAG_NO_PARTICLE = "noParticle";
 
-	private BlockPos bindPos = Bound.UNBOUND_POS;
+	@Nullable
+	private BlockPos bindPos;
 	private int ticksElapsed = 0;
 	private boolean noParticle = false;
 
@@ -187,6 +192,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 		return new Vec3(dest.getX() - worldPosition.getX(), dest.getY() - worldPosition.getY(), dest.getZ() - worldPosition.getZ());
 	}
 
+	@Nullable
 	@Override
 	public BlockPos getBinding() {
 		return bindPos;
@@ -228,21 +234,36 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		bindPos = new BlockPos(
-				cmp.getInt(TAG_BIND_X),
-				cmp.getInt(TAG_BIND_Y),
-				cmp.getInt(TAG_BIND_Z)
-		);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		if (cmp.contains(TAG_BIND_X, Tag.TAG_INT)) {
+			bindPos = new BlockPos(
+					cmp.getInt(TAG_BIND_X),
+					cmp.getInt(TAG_BIND_Y),
+					cmp.getInt(TAG_BIND_Z)
+			);
+		}
 		noParticle = cmp.getBoolean(TAG_NO_PARTICLE);
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		cmp.putInt(TAG_BIND_X, bindPos.getX());
-		cmp.putInt(TAG_BIND_Y, bindPos.getY());
-		cmp.putInt(TAG_BIND_Z, bindPos.getZ());
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		if (bindPos != null) {
+			cmp.putInt(TAG_BIND_X, bindPos.getX());
+			cmp.putInt(TAG_BIND_Y, bindPos.getY());
+			cmp.putInt(TAG_BIND_Z, bindPos.getZ());
+		}
 		cmp.putBoolean(TAG_NO_PARTICLE, noParticle);
 	}
 
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		saveAdditional(tag, registries);
+		return tag;
+	}
+
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
 }

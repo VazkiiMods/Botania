@@ -110,7 +110,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	private int birthdayTick = 0;
 
 	public TinyPotatoBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.TINY_POTATO, pos, state);
+		super(BotaniaBlockEntities.TINY_POTATO, pos, state, true);
 	}
 
 	public void interact(Player player, InteractionHand hand, ItemStack stack, Direction side) {
@@ -269,21 +269,30 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writePacketNBT(cmp, registries);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		if (name != null) {
 			cmp.putString(TAG_NAME, Component.Serializer.toJson(name, registries));
 		}
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readPacketNBT(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		if (cmp.contains(TAG_NAME, Tag.TAG_STRING)) {
 			name = Component.Serializer.fromJson(cmp.getString(TAG_NAME), registries);
 		} else {
 			name = null;
 		}
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		if (name != null) {
+			tag.putString(TAG_NAME, Component.Serializer.toJson(name, registries));
+		}
+		return tag;
 	}
 
 	@Override

@@ -53,6 +53,7 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
+import vazkii.botania.common.helper.NbtHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.item.BotaniaItems;
@@ -83,7 +84,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	private int recipeKeepTicks = 0;
 
 	public RunicAltarBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.RUNE_ALTAR, pos, state);
+		super(BotaniaBlockEntities.RUNE_ALTAR, pos, state, true);
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
@@ -336,19 +337,27 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.writePacketNBT(tag, registries);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 
 		tag.putInt(TAG_MANA, mana);
 		tag.putInt(TAG_MANA_TO_GET, manaToGet);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.readPacketNBT(tag, registries);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
 
 		mana = tag.getInt(TAG_MANA);
 		manaToGet = tag.getInt(TAG_MANA_TO_GET);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		NbtHelper.putVarInt(tag, TAG_MANA, mana);
+		NbtHelper.putVarInt(tag, TAG_MANA_TO_GET, manaToGet);
+		return tag;
 	}
 
 	@Override

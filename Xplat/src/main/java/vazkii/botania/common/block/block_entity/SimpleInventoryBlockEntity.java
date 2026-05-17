@@ -16,6 +16,9 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -23,15 +26,20 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class SimpleInventoryBlockEntity extends BotaniaBlockEntity implements Clearable {
+import org.jetbrains.annotations.Nullable;
 
+public abstract class SimpleInventoryBlockEntity extends BlockEntity implements Clearable {
+
+	private final boolean synchronize;
 	private final SimpleContainer itemHandler = createItemHandler();
 
-	protected SimpleInventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected SimpleInventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, boolean synchronize) {
 		super(type, pos, state);
+		this.synchronize = synchronize;
 		itemHandler.addListener(i -> setChanged());
 	}
 
@@ -51,15 +59,30 @@ public abstract class SimpleInventoryBlockEntity extends BotaniaBlockEntity impl
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		NonNullList<ItemStack> tmp = NonNullList.withSize(inventorySize(), ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(tag, tmp, registries);
 		copyToInv(tmp, itemHandler);
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler), registries);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		if (synchronize) {
+			ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler), registries);
+		}
+		return tag;
+	}
+
+	@Nullable
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return synchronize ? ClientboundBlockEntityDataPacket.create(this) : null;
 	}
 
 	// NB: Cannot be named the same as the corresponding method in vanilla's interface -- causes obf issues with MCP

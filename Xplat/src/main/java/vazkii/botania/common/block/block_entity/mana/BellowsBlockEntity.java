@@ -13,6 +13,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -27,17 +30,16 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.ExoflameFurnaceHandler;
 import vazkii.botania.mixin.AbstractFurnaceBlockEntityAccessor;
 
-public class BellowsBlockEntity extends BotaniaBlockEntity {
+public class BellowsBlockEntity extends BlockEntity {
 	private static final String TAG_ACTIVE = "active";
 
 	public float movePos;
-	public boolean active = false;
-	public float moving = 0F;
+	public boolean active;
+	public float moving;
 
 	public BellowsBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.BELLOWS, pos, state);
@@ -129,12 +131,12 @@ public class BellowsBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putBoolean(TAG_ACTIVE, active);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		active = cmp.getBoolean(TAG_ACTIVE);
 	}
 
@@ -148,4 +150,15 @@ public class BellowsBlockEntity extends BotaniaBlockEntity {
 		}
 	}
 
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = new CompoundTag();
+		tag.putBoolean(TAG_ACTIVE, active);
+		return tag;
+	}
 }

@@ -31,8 +31,8 @@ import java.util.stream.IntStream;
 public abstract class ExposedSimpleInventoryBlockEntity extends SimpleInventoryBlockEntity implements WorldlyContainer {
 	private final Supplier<int[]> slots = Suppliers.memoize(() -> IntStream.range(0, getContainerSize()).toArray());
 
-	protected ExposedSimpleInventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
+	protected ExposedSimpleInventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, boolean synchronize) {
+		super(type, pos, state, synchronize);
 	}
 
 	@Override

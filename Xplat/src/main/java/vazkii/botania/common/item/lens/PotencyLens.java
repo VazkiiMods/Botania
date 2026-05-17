@@ -14,9 +14,11 @@ import vazkii.botania.api.mana.BurstProperties;
 
 public class PotencyLens extends Lens {
 
+	public static final int MAX_MANA_FACTOR = 2;
+
 	@Override
 	public void apply(ItemStack stack, BurstProperties props) {
-		props.maxMana *= 2;
+		props.maxMana *= MAX_MANA_FACTOR;
 		props.motionModifier *= 0.85F;
 		props.manaLossPerTick *= 2F;
 	}

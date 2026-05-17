@@ -69,7 +69,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	}
 
 	public CraftyCrateBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.CRAFT_CRATE, pos, state);
+		super(BotaniaBlockEntities.CRAFT_CRATE, pos, state, true);
 	}
 
 	@Override

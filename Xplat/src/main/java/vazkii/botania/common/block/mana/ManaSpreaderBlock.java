@@ -75,17 +75,23 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			Supplier<BurstProperties> burstPropertiesSupplier, boolean rainbowRendered, int hudColor) {
 	}
 
-	public static final SpreaderParameters DEFAULT_SPREADER_PARAMETERS = new SpreaderParameters(1000, false,
-			() -> new BurstProperties(160, 60, 4f, 0f, 1f, 0x20FF20),
+	public static final int BURST_SIZE_DEFAULT = 160;
+	public static final int BURST_SIZE_ELVEN = (int) (1.5 * BURST_SIZE_DEFAULT);
+	public static final int BURST_SIZE_GAIA = 4 * BURST_SIZE_DEFAULT;
+	public static final int SPREADER_CAPACITY_DEFAULT = 1000;
+	public static final int SPREADER_CAPACITY_GAIA = 10 * BURST_SIZE_GAIA;
+
+	public static final SpreaderParameters DEFAULT_SPREADER_PARAMETERS = new SpreaderParameters(SPREADER_CAPACITY_DEFAULT, false,
+			() -> new BurstProperties(BURST_SIZE_DEFAULT, 60, 4f, 0f, 1f, 0x20FF20),
 			false, 0x00FF00);
-	public static final SpreaderParameters PULSE_SPREADER_PARAMETERS = new SpreaderParameters(1000, true,
-			() -> new BurstProperties(160, 60, 4f, 0f, 1f, 0xFF2020),
+	public static final SpreaderParameters PULSE_SPREADER_PARAMETERS = new SpreaderParameters(SPREADER_CAPACITY_DEFAULT, true,
+			() -> new BurstProperties(BURST_SIZE_DEFAULT, 60, 4f, 0f, 1f, 0xFF2020),
 			false, 0xFF0000);
-	public static final SpreaderParameters ELVEN_SPREADER_PARAMETERS = new SpreaderParameters(1000, false,
-			() -> new BurstProperties(240, 80, 4f, 0f, 1.25f, 0xFF45C4),
+	public static final SpreaderParameters ELVEN_SPREADER_PARAMETERS = new SpreaderParameters(SPREADER_CAPACITY_DEFAULT, false,
+			() -> new BurstProperties(BURST_SIZE_ELVEN, 80, 4f, 0f, 1.25f, 0xFF45C4),
 			false, 0xFF00AE);
-	public static final SpreaderParameters GAIA_SPREADER_PARAMETERS = new SpreaderParameters(6400, false,
-			() -> new BurstProperties(640, 120, 20f, 0f, 2f, 0x20FF20),
+	public static final SpreaderParameters GAIA_SPREADER_PARAMETERS = new SpreaderParameters(SPREADER_CAPACITY_GAIA, false,
+			() -> new BurstProperties(BURST_SIZE_GAIA, 120, 20f, 0f, 2f, 0x20FF20),
 			true, 0x00FF00);
 
 	private final SpreaderParameters spreaderParameters;

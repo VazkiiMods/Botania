@@ -18,6 +18,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -39,6 +42,7 @@ import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.NbtHelper;
 
 import java.util.List;
 
@@ -128,8 +132,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.writePacketNBT(tag, registries);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		if (!requestTarget.isEmpty()) {
 			tag.put(TAG_REQUEST_TARGET, requestTarget.save(registries));
 		}
@@ -137,11 +140,26 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.readPacketNBT(tag, registries);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		CompoundTag cmp = tag.getCompound(TAG_REQUEST_TARGET);
 		requestTarget = ItemStack.parse(registries, cmp).orElse(ItemStack.EMPTY);
 		setCount(tag.getInt(TAG_ITEM_COUNT));
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		if (!requestTarget.isEmpty()) {
+			tag.put(TAG_REQUEST_TARGET, requestTarget.save(registries));
+		}
+		NbtHelper.putVarInt(tag, TAG_ITEM_COUNT, itemCount);
+		return tag;
+	}
+
+	@Nullable
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	public int getComparatorValue() {

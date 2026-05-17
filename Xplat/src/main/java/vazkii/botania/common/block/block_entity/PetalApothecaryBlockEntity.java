@@ -67,7 +67,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 	private int recipeKeepTicks = 0;
 
 	public PetalApothecaryBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.ALTAR, pos, state);
+		super(BotaniaBlockEntities.ALTAR, pos, state, true);
 	}
 
 	public boolean collideEntityItem(ItemEntity item) {

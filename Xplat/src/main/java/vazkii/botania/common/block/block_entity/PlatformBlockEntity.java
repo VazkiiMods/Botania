@@ -16,10 +16,14 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
@@ -32,7 +36,7 @@ import vazkii.botania.common.block.PlatformBlock;
 
 import java.util.Optional;
 
-public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable, PhantomInkableBlock {
+public class PlatformBlockEntity extends BlockEntity implements Wandable, PhantomInkableBlock {
 	private static final String TAG_CAMO = "camo";
 
 	@Nullable
@@ -116,14 +120,14 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable,
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (getCamoState() != null) {
 			cmp.put(TAG_CAMO, NbtUtils.writeBlockState(getCamoState()));
 		}
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		HolderGetter<Block> holderGetter = this.level != null ? this.level.holderLookup(Registries.BLOCK) : BuiltInRegistries.BLOCK.asLookup();
 		BlockState state = NbtUtils.readBlockState(holderGetter, cmp.getCompound(TAG_CAMO));
 		if (state.isAir()) {
@@ -133,6 +137,20 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable,
 		if (level != null && level.isClientSide) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
 		}
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		BlockState state = getCamoState();
+		// never leave the update tag completely empty, or data won't be loaded
+		tag.put(TAG_CAMO, state != null ? NbtUtils.writeBlockState(state) : new CompoundTag());
+		return tag;
+	}
+
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@SoftImplement("RenderDataBlockEntity")

@@ -10,12 +10,13 @@ package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.proxy.Proxy;
 
-public class StarfieldCreatorBlockEntity extends BotaniaBlockEntity {
+public class StarfieldCreatorBlockEntity extends BlockEntity {
 	public StarfieldCreatorBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.STARFIELD, pos, state);
 	}

@@ -35,6 +35,7 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.NbtHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.brew.IncenseStickItem;
 
@@ -48,7 +49,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	public int comparatorOutput = 0;
 
 	public IncensePlateBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.INCENSE_PLATE, pos, state);
+		super(BotaniaBlockEntities.INCENSE_PLATE, pos, state, true);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, IncensePlateBlockEntity self) {
@@ -153,15 +154,22 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.writePacketNBT(tag, registries);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 		tag.putInt(TAG_TIME_LEFT, timeLeft);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.readPacketNBT(tag, registries);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
 		timeLeft = tag.getInt(TAG_TIME_LEFT);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		NbtHelper.putVarInt(tag, TAG_TIME_LEFT, timeLeft);
+		return tag;
 	}
 
 	public boolean acceptsItem(ItemStack stack) {

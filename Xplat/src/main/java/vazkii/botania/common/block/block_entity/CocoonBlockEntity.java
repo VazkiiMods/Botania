@@ -23,6 +23,7 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +33,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CocoonBlockEntity extends BotaniaBlockEntity {
+public class CocoonBlockEntity extends BlockEntity {
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
 	private static final String TAG_CHORUS_FRUIT_GIVEN = "chorusFruitGiven";
@@ -52,20 +53,24 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 		super(BotaniaBlockEntities.COCOON, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, CocoonBlockEntity self) {
+	public static void commonTick(Level level, BlockPos pos, BlockState state, CocoonBlockEntity self) {
 		self.timePassed++;
+		if (level.isClientSide) {
+			return;
+		}
+		level.blockEntityChanged(pos);
 		if (self.timePassed >= TOTAL_TIME) {
-			self.hatch();
+			self.hatch(pos);
 		}
 	}
 
-	private void hatch() {
+	private void hatch(BlockPos pos) {
 		if (!level.isClientSide) {
 			timePassed = 0;
-			level.destroyBlock(worldPosition, false);
+			level.destroyBlock(pos, false);
 
-			Mob entity = null;
-			BlockPos placePos = worldPosition;
+			Mob entity;
+			BlockPos placePos = pos;
 			float rareChance = gaiaSpiritGiven ? 1F : SPECIAL_CHANCE;
 
 			float villagerChance = Math.min(1F, (float) emeraldsGiven / (float) MAX_EMERALDS);
@@ -73,7 +78,7 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 
 			List<BlockPos> validWater = new ArrayList<>();
 			for (Direction d : Direction.values()) {
-				BlockPos blockPos = (d == Direction.UP) ? worldPosition : worldPosition.relative(d);
+				BlockPos blockPos = (d == Direction.UP) ? pos : pos.relative(d);
 				if (level.hasChunkAt(blockPos)
 						&& level.getBlockState(blockPos).is(Blocks.WATER)) {
 					validWater.add(blockPos);
@@ -85,7 +90,7 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 			} else if (Math.random() < villagerChance) {
 				Villager villager = EntityType.VILLAGER.create(level);
 				if (villager != null) {
-					VillagerType type = VillagerType.byBiome(level.getBiome(worldPosition));
+					VillagerType type = VillagerType.byBiome(level.getBiome(pos));
 					villager.setVillagerData(villager.getVillagerData().setType(type));
 				}
 				entity = villager;
@@ -151,7 +156,7 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_TIME_PASSED, timePassed);
 		cmp.putInt(TAG_EMERALDS_GIVEN, emeraldsGiven);
 		cmp.putInt(TAG_CHORUS_FRUIT_GIVEN, chorusFruitGiven);
@@ -159,7 +164,7 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		timePassed = cmp.getInt(TAG_TIME_PASSED);
 		emeraldsGiven = cmp.getInt(TAG_EMERALDS_GIVEN);
 		chorusFruitGiven = cmp.getInt(TAG_CHORUS_FRUIT_GIVEN);

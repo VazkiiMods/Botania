@@ -27,11 +27,11 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 public class OpenCrateBlockEntity extends ExposedSimpleInventoryBlockEntity {
 	public OpenCrateBlockEntity(BlockPos pos, BlockState state) {
-		this(BotaniaBlockEntities.OPEN_CRATE, pos, state);
+		this(BotaniaBlockEntities.OPEN_CRATE, pos, state, false);
 	}
 
-	protected OpenCrateBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
+	protected OpenCrateBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, boolean synchronize) {
+		super(type, pos, state, synchronize);
 	}
 
 	@Override

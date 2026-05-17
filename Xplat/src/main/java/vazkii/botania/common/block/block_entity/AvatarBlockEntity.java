@@ -44,7 +44,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	private final Map<UUID, Integer> boostCooldowns = new HashMap<>();
 
 	public AvatarBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.AVATAR, pos, state);
+		super(BotaniaBlockEntities.AVATAR, pos, state, true);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, AvatarBlockEntity self) {
@@ -62,8 +62,8 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.writePacketNBT(tag, registries);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 		tag.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
 		tag.putInt(TAG_MANA, mana);
 		ListTag boostCooldowns = new ListTag();
@@ -77,8 +77,8 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.readPacketNBT(tag, registries);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
 		ticksElapsed = tag.getInt(TAG_TICKS_ELAPSED);
 		mana = tag.getInt(TAG_MANA);
 		boostCooldowns.clear();
@@ -89,6 +89,14 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 			int cooldown = cmp.getInt("cooldown");
 			this.boostCooldowns.put(id, cooldown);
 		}
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		// FIXME: The client shouldn't need this!
+		tag.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
+		return tag;
 	}
 
 	@Override

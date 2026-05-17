@@ -31,9 +31,8 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 
-public class SpreaderTurntableBlockEntity extends BotaniaBlockEntity implements Wandable {
+public class SpreaderTurntableBlockEntity extends BlockEntity implements Wandable {
 
 	public SpreaderTurntableBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.TURNTABLE, pos, state);

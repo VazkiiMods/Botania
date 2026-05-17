@@ -44,6 +44,7 @@ import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.helper.NbtHelper;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	public int signal = 0;
 
 	public BreweryBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.BREWERY, pos, state);
+		super(BotaniaBlockEntities.BREWERY, pos, state, true);
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
@@ -215,17 +216,24 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.writePacketNBT(tag, registries);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 
 		tag.putInt(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
-		super.readPacketNBT(tag, registries);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
 
 		mana = tag.getInt(TAG_MANA);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		NbtHelper.putVarInt(tag, TAG_MANA, mana);
+		return tag;
 	}
 
 	@Override

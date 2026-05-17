@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity {
 	public SparkTinkererBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.SPARK_CHANGER, pos, state);
+		super(BotaniaBlockEntities.SPARK_CHANGER, pos, state, true);
 	}
 
 	public void doSwap() {

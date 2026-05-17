@@ -18,6 +18,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -25,6 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
@@ -39,7 +43,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements ManaTrigger, Wandable {
+public class AnimatedTorchBlockEntity extends BlockEntity implements ManaTrigger, Wandable {
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
@@ -205,7 +209,7 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_SIDE, side);
 		cmp.putBoolean(TAG_ROTATING, rotating);
 		cmp.putInt(TAG_ROTATION_TICKS, rotationTicks);
@@ -215,7 +219,7 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		side = cmp.getInt(TAG_SIDE);
 		rotating = cmp.getBoolean(TAG_ROTATING);
 		if (level != null && !level.isClientSide) {
@@ -227,6 +231,19 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 		int modeOrdinal = cmp.getInt(TAG_TORCH_MODE);
 		TorchMode[] modes = TorchMode.values();
 		torchMode = modes[modeOrdinal % modes.length];
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		// TODO: refactor implementation to simplify updates
+		saveAdditional(tag, registries);
+		return tag;
+	}
+
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	public enum TorchMode {

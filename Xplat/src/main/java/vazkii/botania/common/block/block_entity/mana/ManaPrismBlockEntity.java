@@ -35,7 +35,7 @@ import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntit
 
 public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger {
 	public ManaPrismBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.PRISM, pos, state);
+		super(BotaniaBlockEntities.PRISM, pos, state, true);
 	}
 
 	@Override

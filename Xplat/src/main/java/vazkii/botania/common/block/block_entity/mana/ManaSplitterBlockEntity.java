@@ -11,6 +11,7 @@ package vazkii.botania.common.block.block_entity.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
@@ -18,13 +19,12 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManaSplitterBlockEntity extends BotaniaBlockEntity implements ManaReceiver {
+public class ManaSplitterBlockEntity extends BlockEntity implements ManaReceiver {
 	private final List<ManaReceiver> validPools = new ArrayList<>();
 
 	public ManaSplitterBlockEntity(BlockPos pos, BlockState state) {

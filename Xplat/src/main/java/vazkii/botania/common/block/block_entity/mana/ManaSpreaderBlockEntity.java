@@ -105,7 +105,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	private float mmForcedVelocityMultiplier = 1F;
 
 	private String inputKey = "";
-	private final String outputKey = "";
+	private String outputKey = "";
 
 	// End Map Maker Tags
 
@@ -137,7 +137,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	private boolean invalidTentativeBurst = false;
 
 	public ManaSpreaderBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.SPREADER, pos, state);
+		super(BotaniaBlockEntities.SPREADER, pos, state, true);
 	}
 
 	@Override
@@ -261,8 +261,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writePacketNBT(cmp, registries);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		cmp.putUUID(TAG_UUID, getIdentifier());
 
@@ -296,8 +296,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readPacketNBT(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		if (cmp.hasUUID(TAG_UUID)) {
 			identity = cmp.getUUID(TAG_UUID);
@@ -308,12 +308,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		rotationY = cmp.getFloat(TAG_ROTATION_Y);
 		requestsClientUpdate = cmp.getBoolean(TAG_REQUEST_UPDATE);
 
-		if (cmp.contains(TAG_INPUT_KEY)) {
-			inputKey = cmp.getString(TAG_INPUT_KEY);
-		}
-		if (cmp.contains(TAG_OUTPUT_KEY)) {
-			inputKey = cmp.getString(TAG_OUTPUT_KEY);
-		}
+		inputKey = cmp.getString(TAG_INPUT_KEY);
+		outputKey = cmp.getString(TAG_OUTPUT_KEY);
 
 		mapmakerOverride = cmp.getBoolean(TAG_MAPMAKER_OVERRIDE);
 		mmForcedColor = cmp.getInt(TAG_FORCED_COLOR);
@@ -323,9 +319,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		mmForcedGravity = cmp.getFloat(TAG_FORCED_GRAVITY);
 		mmForcedVelocityMultiplier = cmp.getFloat(TAG_FORCED_VELOCITY_MULTIPLIER);
 
-		if (cmp.contains(TAG_CAN_SHOOT_BURST)) {
-			canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT_BURST);
-		}
+		canShootBurst = !cmp.contains(TAG_CAN_SHOOT_BURST) || cmp.getBoolean(TAG_CAN_SHOOT_BURST);
 
 		pingbackTicks = cmp.getInt(TAG_PINGBACK_TICKS);
 		lastPingbackX = cmp.getDouble(TAG_LAST_PINGBACK_X);
@@ -347,6 +341,14 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		if (level != null && level.isClientSide) {
 			hasReceivedInitialPacket = true;
 		}
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = new CompoundTag();
+		// FIXME: figure this out separately
+		saveAdditional(tag, registries);
+		return tag;
 	}
 
 	@Override

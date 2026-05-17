@@ -27,20 +27,18 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
-public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements Wandable {
+public class CorporeaRetainerBlockEntity extends BlockEntity implements Wandable {
 	private static final String TAG_REQUEST_X = "requestX";
 	private static final String TAG_REQUEST_Y = "requestY";
 	private static final String TAG_REQUEST_Z = "requestZ";
@@ -50,7 +48,8 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	private static final Map<ResourceLocation, BiFunction<CompoundTag, HolderLookup.Provider, ? extends CorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
 	private static final Map<Class<? extends CorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers = new ConcurrentHashMap<>();
 
-	private BlockPos requestPos = Bound.UNBOUND_POS;
+	@Nullable
+	private BlockPos requestPos;
 
 	@Nullable
 	private CorporeaRequestMatcher request;
@@ -73,6 +72,7 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	}
 
 	public void forget() {
+		requestPos = null;
 		request = null;
 		requestCount = 0;
 	}
@@ -103,13 +103,12 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writePacketNBT(cmp, registries);
-
-		cmp.putInt(TAG_REQUEST_X, requestPos.getX());
-		cmp.putInt(TAG_REQUEST_Y, requestPos.getY());
-		cmp.putInt(TAG_REQUEST_Z, requestPos.getZ());
-
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		if (requestPos != null) {
+			cmp.putInt(TAG_REQUEST_X, requestPos.getX());
+			cmp.putInt(TAG_REQUEST_Y, requestPos.getY());
+			cmp.putInt(TAG_REQUEST_Z, requestPos.getZ());
+		}
 		ResourceLocation reqType = request != null ? corporeaMatcherSerializers.get(request.getClass()) : null;
 
 		if (reqType != null) {
@@ -120,14 +119,15 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readPacketNBT(cmp, registries);
-
-		int x = cmp.getInt(TAG_REQUEST_X);
-		int y = cmp.getInt(TAG_REQUEST_Y);
-		int z = cmp.getInt(TAG_REQUEST_Z);
-		requestPos = new BlockPos(x, y, z);
-
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		if (cmp.contains(TAG_REQUEST_X)) {
+			requestPos = new BlockPos(
+					cmp.getInt(TAG_REQUEST_X),
+					cmp.getInt(TAG_REQUEST_Y),
+					cmp.getInt(TAG_REQUEST_Z));
+		} else {
+			requestPos = null;
+		}
 		ResourceLocation reqType = ResourceLocation.tryParse(cmp.getString(TAG_REQUEST_TYPE));
 		if (reqType != null && corporeaMatcherDeserializers.containsKey(reqType)) {
 			request = corporeaMatcherDeserializers.get(reqType).apply(cmp, registries);

@@ -21,6 +21,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -75,7 +78,7 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements ManaReceiver, SparkAttachable, Wandable, Clearable {
+public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceiver, SparkAttachable, Wandable, Clearable {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -392,7 +395,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putInt(TAG_MANA_REQUIRED, manaRequired);
 		cmp.putInt(TAG_STAGE, stage.ordinal());
@@ -413,7 +416,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		mana = cmp.getInt(TAG_MANA);
 		manaRequired = cmp.getInt(TAG_MANA_REQUIRED);
 		stage = State.values()[cmp.getInt(TAG_STAGE)];
@@ -436,6 +439,20 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 						.ifPresent(ench -> enchants.add(new EnchantmentInstance(ench, lvl)));
 			}
 		}
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		// TODO: adjust implementation to simplify updates
+		saveAdditional(tag, registries);
+		return tag;
+	}
+
+	@Nullable
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	private boolean hasEnchantAlready(Holder<Enchantment> enchant) {

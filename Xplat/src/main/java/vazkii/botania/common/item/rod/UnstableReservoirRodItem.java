@@ -104,6 +104,7 @@ public class UnstableReservoirRodItem extends Item {
 			BlockPos pos = te.getBlockPos();
 			ManaReceiver receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 			if (receiver != null && receiver.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
+				// FIXME: Why are we spawning projectiles on the client?
 				if (spawnMissile(world, null, pos.getX() + 0.5 + (Math.random() - 0.5 * 0.1), pos.getY() + 2.5 + (Math.random() - 0.5 * 0.1), pos.getZ() + (Math.random() - 0.5 * 0.1))) {
 					if (!world.isClientSide) {
 						receiver.receiveMana(-COST_AVATAR);

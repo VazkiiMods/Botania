@@ -46,7 +46,10 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 			return;
 		}
 
-		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
+		float alpha = Math.min(1, ((float) Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 8) + 1) / 7 + 0.6f)
+				* ((float) Math.min(AlfheimPortalBlockEntity.TICKS_UNTIL_FULLY_OPENED, portal.ticksOpen)
+						/ AlfheimPortalBlockEntity.TICKS_UNTIL_FULLY_OPENED)
+				* 0.5F;
 
 		ms.pushPose();
 		if (state == AlfheimPortalState.ON_X) {

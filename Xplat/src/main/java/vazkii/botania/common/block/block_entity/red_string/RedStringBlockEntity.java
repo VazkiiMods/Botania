@@ -20,11 +20,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Bound;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 
 import java.util.Objects;
 
-public abstract class RedStringBlockEntity extends BotaniaBlockEntity implements Bound {
+public abstract class RedStringBlockEntity extends BlockEntity implements Bound {
 	@Nullable
 	private BlockPos binding;
 

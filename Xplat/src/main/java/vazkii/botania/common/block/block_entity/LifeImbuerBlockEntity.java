@@ -16,6 +16,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
@@ -25,7 +26,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.xplat.XplatAbstractions;
 
-public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaReceiver {
+public class LifeImbuerBlockEntity extends BlockEntity implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final int MAX_MANA = 160;
 	private static final int MANA_PER_TICK = 6;
@@ -79,12 +80,12 @@ public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaRec
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		mana = cmp.getInt(TAG_MANA);
 	}
 
@@ -112,6 +113,7 @@ public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaRec
 	@Override
 	public void receiveMana(int mana) {
 		this.mana = Math.min(3 * MAX_MANA, this.mana + mana);
+		level.blockEntityChanged(worldPosition);
 	}
 
 	@Override

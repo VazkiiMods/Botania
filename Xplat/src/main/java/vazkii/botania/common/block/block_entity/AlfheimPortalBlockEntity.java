@@ -21,6 +21,9 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
@@ -57,6 +60,7 @@ import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.helper.NbtHelper;
 import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.world.BotaniaExplosionDamageCalculator;
@@ -71,7 +75,7 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.StreamSupport;
 
-public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wandable {
+public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> {
 		record Matcher(TagKey<Block> tag, Direction.Axis displayedRotation, Block defaultBlock) implements IStateMatcher {
 			@Override
@@ -132,6 +136,9 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
 	private static final String TAG_STACK_COUNT = "stackCount";
 	private static final String TAG_STACK = "portalStack";
+	private static final int TICKS_TO_LIGHT_PYLONS = 50;
+	public static final int TICKS_UNTIL_FULLY_OPENED = 60;
+	private static final int TICKS_BETWEEN_ITEMS = 4;
 
 	private final List<ItemStack> stacksIn = new ArrayList<>();
 	private final List<BlockPos> cachedPylonPositions = new ArrayList<>();
@@ -150,19 +157,33 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState blockState, AlfheimPortalBlockEntity self) {
 		AlfheimPortalState state = blockState.getValue(BotaniaStateProperties.ALFPORTAL_STATE);
 		if (state == AlfheimPortalState.OFF) {
-			self.ticksOpen = 0;
+			if (self.ticksOpen != 0) {
+				self.ticksOpen = 0;
+				self.ticksSinceLastItem = 0;
+				self.setChanged();
+			}
 			return;
 		}
 		AlfheimPortalState newState = self.getValidState(state);
 
-		self.ticksOpen++;
+		if (self.ticksOpen <= TICKS_UNTIL_FULLY_OPENED) {
+			self.ticksOpen++;
+			if (self.ticksOpen > TICKS_UNTIL_FULLY_OPENED) {
+				self.setChanged();
+			} else {
+				level.blockEntityChanged(worldPosition);
+			}
+		}
 
 		AABB aabb = self.getPortalAABB(state);
-		boolean open = self.ticksOpen > 60;
+		boolean open = self.ticksOpen > TICKS_UNTIL_FULLY_OPENED;
 		XplatAbstractions.INSTANCE.fireElvenPortalUpdateEvent(self, aabb, open, self.stacksIn);
 
-		if (self.ticksOpen > 60 && !self.closeNow && newState != AlfheimPortalState.OFF) {
-			self.ticksSinceLastItem++;
+		if (self.ticksOpen > TICKS_UNTIL_FULLY_OPENED && !self.closeNow && newState != AlfheimPortalState.OFF) {
+			if (self.ticksSinceLastItem <= TICKS_BETWEEN_ITEMS) {
+				self.ticksSinceLastItem++;
+				level.blockEntityChanged(worldPosition);
+			}
 			if (level.isClientSide && BotaniaConfig.client().elfPortalParticlesEnabled()) {
 				self.blockParticle(state);
 			}
@@ -184,10 +205,11 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 						self.addItem(stack);
 					}
 					self.ticksSinceLastItem = 0;
+					self.setChanged();
 				}
 			}
 
-			if (!level.isClientSide && !self.stacksIn.isEmpty() && self.ticksSinceLastItem >= 4) {
+			if (!level.isClientSide && !self.stacksIn.isEmpty() && self.ticksSinceLastItem >= TICKS_BETWEEN_ITEMS) {
 				self.resolveRecipes();
 			}
 		}
@@ -313,6 +335,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 					for (ItemStack output : recipe.getOutputs(inputs)) {
 						spawnItem(output.copy());
 					}
+					setChanged();
 				}
 				break;
 			}
@@ -330,7 +353,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	@Override
 	public void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.saveAdditional(cmp, registries);
+		ticksOpen = cmp.getInt(TAG_TICKS_OPEN);
+		ticksSinceLastItem = cmp.getInt(TAG_TICKS_SINCE_LAST_ITEM);
 
 		cmp.putInt(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
@@ -342,7 +366,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	@Override
 	public void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.loadAdditional(cmp, registries);
+		cmp.putInt(TAG_TICKS_OPEN, ticksOpen);
+		cmp.putInt(TAG_TICKS_SINCE_LAST_ITEM, ticksSinceLastItem);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);
 		stacksIn.clear();
@@ -354,15 +379,15 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		cmp.putInt(TAG_TICKS_OPEN, ticksOpen);
-		cmp.putInt(TAG_TICKS_SINCE_LAST_ITEM, ticksSinceLastItem);
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		ticksOpen = cmp.getInt(TAG_TICKS_OPEN);
-		ticksSinceLastItem = cmp.getInt(TAG_TICKS_SINCE_LAST_ITEM);
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		NbtHelper.putVarInt(tag, TAG_TICKS_OPEN, ticksOpen);
+		return tag;
 	}
 
 	@Nullable
@@ -432,11 +457,11 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	}
 
 	public void lightPylons() {
-		if (ticksOpen < 50) {
+		if (ticksOpen < TICKS_TO_LIGHT_PYLONS) {
 			return;
 		}
 
-		boolean finishOpening = ticksOpen == 50;
+		boolean finishOpening = ticksOpen == TICKS_TO_LIGHT_PYLONS;
 		List<BlockPos> pylons = locatePylons(finishOpening);
 		for (BlockPos pos : pylons) {
 			BlockEntity tile = level.getBlockEntity(pos);

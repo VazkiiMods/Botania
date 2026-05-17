@@ -9,14 +9,14 @@
 package vazkii.botania.common.block.block_entity.corporea;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 
-public abstract class BaseCorporeaBlockEntity extends BotaniaBlockEntity {
+public abstract class BaseCorporeaBlockEntity extends BlockEntity {
 
 	protected BaseCorporeaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);

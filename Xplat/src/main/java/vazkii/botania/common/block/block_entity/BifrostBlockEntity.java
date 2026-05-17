@@ -12,9 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BifrostBlockEntity extends BotaniaBlockEntity {
+public class BifrostBlockEntity extends BlockEntity {
 	private static final String TAG_TICKS = "ticks";
 
 	public int ticks = 0;
@@ -23,23 +24,22 @@ public class BifrostBlockEntity extends BotaniaBlockEntity {
 		super(BotaniaBlockEntities.BIFROST, pos, state);
 	}
 
-	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, BifrostBlockEntity self) {
+	public static void serverTick(Level level, BlockPos pos, BlockState state, BifrostBlockEntity self) {
 		if (self.ticks <= 0) {
-			level.removeBlock(worldPosition, false);
+			level.removeBlock(pos, false);
 		} else {
 			self.ticks--;
+			level.blockEntityChanged(pos);
 		}
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.saveAdditional(tag, registries);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		tag.putInt(TAG_TICKS, ticks);
 	}
 
 	@Override
-	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		ticks = tag.getInt(TAG_TICKS);
 	}
 
