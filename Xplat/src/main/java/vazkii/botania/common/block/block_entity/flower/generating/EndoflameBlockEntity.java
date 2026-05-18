@@ -158,16 +158,16 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		cmp.putInt(TAG_BURN_TIME, burnTime);
 		cmp.putInt(TAG_COOLDOWN_TIME, cooldownTime);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		burnTime = cmp.getInt(TAG_BURN_TIME);
 		cooldownTime = cmp.getInt(TAG_COOLDOWN_TIME);

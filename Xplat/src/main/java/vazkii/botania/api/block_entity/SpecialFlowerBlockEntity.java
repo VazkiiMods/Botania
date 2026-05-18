@@ -131,62 +131,41 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		return (int) ((gameTime + cachedSeed) % interval) == 0;
 	}
 
-	protected long getPositionSeed() {
-		return getBlockState().getSeed(getBlockPos());
-	}
-
 	@Override
-	public final void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.loadAdditional(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (getBlockState().getBlock() instanceof FloatingSpecialFlowerBlock) {
 			setFloating(true);
 		}
 
 		IslandType oldType = floatingData.getIslandType();
-		readFromPacketNBT(cmp, registries);
-		if (isFloating() && oldType != floatingData.getIslandType() && level != null) {
+		if (cmp.contains(TAG_FLOATING_DATA)) {
+			floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA), registries);
+		}
+		if (isFloating() && oldType != floatingData.getIslandType() && level != null && level.isClientSide) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
 		}
 	}
 
 	@Override
-	public final void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.saveAdditional(cmp, registries);
-		writeToPacketNBT(cmp, registries);
-	}
-
-	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-		var tag = new CompoundTag();
-		writeToPacketNBT(tag, registries);
-		return tag;
-	}
-
-	/**
-	 * Writes some extra data to a network packet. This data is read
-	 * by readFromPacketNBT on the client that receives the packet.
-	 * Note: This method is also used to write to the world NBT.
-	 */
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (isFloating()) {
 			cmp.put(TAG_FLOATING_DATA, floatingData.writeNBT(registries));
 		}
 	}
 
-	/**
-	 * Reads data from a network packet. This data is written by
-	 * writeToPacketNBT in the server. Note: This method is also used
-	 * to read from the world NBT.
-	 */
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		if (cmp.contains(TAG_FLOATING_DATA)) {
-			floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA), registries);
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		if (isFloating()) {
+			tag.put(TAG_FLOATING_DATA, floatingData.writeNBT(registries));
 		}
+		return tag;
 	}
 
+	@Nullable
 	@Override
 	public Packet<ClientGamePacketListener> getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this);
+		return isFloating() ? ClientboundBlockEntityDataPacket.create(this) : null;
 	}
 
 	public void sync() {

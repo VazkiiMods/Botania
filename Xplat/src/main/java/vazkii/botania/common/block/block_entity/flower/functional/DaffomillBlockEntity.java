@@ -28,6 +28,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.NbtHelper;
 
 import java.util.List;
 
@@ -77,6 +78,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 			}
 
 			windTicks--;
+			level.blockEntityChanged(getBlockPos());
 		}
 	}
 
@@ -136,16 +138,23 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		cmp.putInt(TAG_WIND_TICKS, windTicks);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		windTicks = cmp.getInt(TAG_WIND_TICKS);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		NbtHelper.putVarInt(tag, TAG_WIND_TICKS, windTicks);
+		return tag;
 	}
 }

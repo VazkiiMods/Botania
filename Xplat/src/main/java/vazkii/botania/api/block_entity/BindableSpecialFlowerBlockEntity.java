@@ -208,8 +208,8 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		if (bindingPos != null) {
 			cmp.put(TAG_BINDING, NbtUtils.writeBlockPos(bindingPos));
@@ -218,13 +218,11 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
-		NbtUtils.readBlockPos(cmp, TAG_BINDING).ifPresent(this::setBindingPos);
-		if (cmp.contains(TAG_AUTO_BINDING)) {
-			autoBinding = cmp.getBoolean(TAG_AUTO_BINDING);
-		}
+		NbtUtils.readBlockPos(cmp, TAG_BINDING).ifPresentOrElse(this::setBindingPos, () -> setBindingPos(null));
+		autoBinding = !cmp.contains(TAG_AUTO_BINDING) || cmp.getBoolean(TAG_AUTO_BINDING);
 	}
 
 	public abstract int getMana();

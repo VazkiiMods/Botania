@@ -72,14 +72,14 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	public void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
+	public void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 	}
 

@@ -496,8 +496,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	public void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		if (cmp.contains(TAG_LOOT_TABLE)) {
 			lootTableOverride = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(cmp.getString(TAG_LOOT_TABLE)));
 		}
@@ -529,14 +529,25 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
+	public void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		if (lootTableOverride != null) {
 			cmp.putString(TAG_LOOT_TABLE, lootTableOverride.location().toString());
 		}
 		if (configOverride != null) {
 			cmp.putString(TAG_CONFIG_OVERRIDE, configOverride.toString());
 		}
+		writeStructureInfoNbt(cmp);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		writeStructureInfoNbt(tag);
+		return tag;
+	}
+
+	private void writeStructureInfoNbt(CompoundTag cmp) {
 		if (attuneDisplayOverride != null) {
 			cmp.putString(TAG_ATTUNE_DISPLAY_OVERRIDE, attuneDisplayOverride);
 		}

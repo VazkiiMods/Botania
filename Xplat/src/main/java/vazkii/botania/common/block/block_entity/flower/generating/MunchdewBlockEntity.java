@@ -164,15 +164,15 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		cmp.putInt(TAG_COOLDOWN, cooldown);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		cooldown = cmp.getInt(TAG_COOLDOWN);
 	}

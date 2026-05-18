@@ -116,8 +116,8 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		ListTag flowerList = new ListTag();
 		for (ResourceLocation flower : lastFlowers) {
@@ -129,8 +129,8 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		lastFlowers.clear();
 		ListTag flowerList = cmp.getList(TAG_LAST_FLOWERS, Tag.TAG_STRING);

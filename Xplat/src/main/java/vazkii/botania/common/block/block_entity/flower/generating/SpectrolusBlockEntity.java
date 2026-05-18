@@ -145,14 +145,21 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
-		cmp.putInt(TAG_NEXT_COLOR, nextColor.ordinal());
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
+		cmp.putByte(TAG_NEXT_COLOR, (byte) nextColor.getId());
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		nextColor = DyeColor.byId(cmp.getInt(TAG_NEXT_COLOR));
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		tag.putByte(TAG_NEXT_COLOR, (byte) nextColor.getId());
+		return tag;
 	}
 }

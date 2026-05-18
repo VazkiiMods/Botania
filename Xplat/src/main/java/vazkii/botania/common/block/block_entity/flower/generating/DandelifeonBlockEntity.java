@@ -21,6 +21,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.CellularBlockEntity;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.helper.NbtHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +29,6 @@ import java.util.List;
 public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	public static final int RANGE = 12;
 	public static final int SPEED = 10;
-	public static final int OVERGROWN_SPEED = SPEED / 2;
-//	private static final int MAX_GENERATIONS = 100;
 	public static final int MAX_MANA_GENERATIONS = 100;
 	public static final int MANA_PER_GEN = 60;
 
@@ -261,17 +260,25 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
+	public void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		if (radius != RANGE) {
 			cmp.putInt(TAG_RADIUS, radius);
 		}
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	public void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		radius = cmp.contains(TAG_RADIUS) ? cmp.getInt(TAG_RADIUS) : RANGE;
 	}
 
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		if (radius != RANGE) {
+			NbtHelper.putVarInt(tag, TAG_RADIUS, radius);
+		}
+		return tag;
+	}
 }

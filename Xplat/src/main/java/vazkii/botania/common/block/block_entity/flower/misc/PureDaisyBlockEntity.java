@@ -11,6 +11,9 @@ package vazkii.botania.common.block.block_entity.flower.misc;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,6 +34,7 @@ import java.util.Arrays;
 public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
+	private static final String TAG_TICKED_POSITIONS = "tickedPositions";
 	private static final int RECIPE_COMPLETE_EVENT = 0;
 
 	private static final BlockPos[] POSITIONS = {
@@ -157,22 +161,46 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
+	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		positionAt = cmp.getInt(TAG_POSITION);
 
-		for (int i = 0; i < ticksRemaining.length; i++) {
-			ticksRemaining[i] = cmp.getInt(TAG_TICKS_REMAINING + i);
+		if (level != null && level.isClientSide && cmp.contains(TAG_TICKED_POSITIONS)) {
+			byte tickedPositionBits = cmp.getByte(TAG_TICKED_POSITIONS);
+			for (int i = 0; i < 8; i++) {
+				ticksRemaining[i] = (tickedPositionBits >>> i) & 1;
+			}
+		} else {
+			for (int i = 0; i < ticksRemaining.length; i++) {
+				ticksRemaining[i] = cmp.getInt(TAG_TICKS_REMAINING + i);
+			}
 		}
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
+	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		cmp.putInt(TAG_POSITION, positionAt);
 		for (int i = 0; i < ticksRemaining.length; i++) {
 			cmp.putInt(TAG_TICKS_REMAINING + i, ticksRemaining[i]);
 		}
 	}
 
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		byte tickedPositionBits = 0;
+		for (int i = 0; i < 8; i++) {
+			if (ticksRemaining[i] > 0) {
+				tickedPositionBits |= (byte) (1 << i);
+			}
+		}
+		tag.putByte(TAG_TICKED_POSITIONS, tickedPositionBits);
+		return tag;
+	}
+
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
 }

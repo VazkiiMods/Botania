@@ -21,7 +21,6 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -42,7 +41,8 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int BASE_COST = 2;
 	private static final int RANGE = 2;
 
-	private BlockPos bindPos = Bound.UNBOUND_POS;
+	@Nullable
+	private BlockPos bindPos;
 
 	public SpectranthemumBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.SPECTRANTHEMUM, pos, state);
@@ -52,7 +52,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered() || !getLevel().hasChunkAt(bindPos)) {
+		if (getLevel().isClientSide || bindPos == null || isPowered() || !getLevel().hasChunkAt(bindPos)) {
 			return;
 		}
 
@@ -96,21 +96,38 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.writeToPacketNBT(cmp, registries);
-		cmp.putInt(TAG_BIND_X, bindPos.getX());
-		cmp.putInt(TAG_BIND_Y, bindPos.getY());
-		cmp.putInt(TAG_BIND_Z, bindPos.getZ());
+	public void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
+		if (bindPos != null) {
+			cmp.putInt(TAG_BIND_X, bindPos.getX());
+			cmp.putInt(TAG_BIND_Y, bindPos.getY());
+			cmp.putInt(TAG_BIND_Z, bindPos.getZ());
+		}
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
-		super.readFromPacketNBT(cmp, registries);
-		bindPos = new BlockPos(
-				cmp.getInt(TAG_BIND_X),
-				cmp.getInt(TAG_BIND_Y),
-				cmp.getInt(TAG_BIND_Z)
-		);
+	public void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
+		if (cmp.contains(TAG_BIND_X)) {
+			bindPos = new BlockPos(
+					cmp.getInt(TAG_BIND_X),
+					cmp.getInt(TAG_BIND_Y),
+					cmp.getInt(TAG_BIND_Z)
+			);
+		} else {
+			bindPos = null;
+		}
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		if (bindPos != null) {
+			tag.putInt(TAG_BIND_X, bindPos.getX());
+			tag.putInt(TAG_BIND_Y, bindPos.getY());
+			tag.putInt(TAG_BIND_Z, bindPos.getZ());
+		}
+		return tag;
 	}
 
 	@Override
@@ -140,7 +157,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	@Nullable
 	@Override
 	public BlockPos getBinding() {
-		return Proxy.INSTANCE.getClientPlayer().isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();
+		return Proxy.INSTANCE.getClientPlayer().isShiftKeyDown() && bindPos != null ? bindPos : super.getBinding();
 	}
 
 }
