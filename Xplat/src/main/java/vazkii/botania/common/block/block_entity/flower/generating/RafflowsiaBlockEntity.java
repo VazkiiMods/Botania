@@ -106,7 +106,6 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 
 			getLevel().destroyBlock(pos, false);
 			addMana(getValueForStreak(streakLength));
-			sync();
 		}
 	}
 

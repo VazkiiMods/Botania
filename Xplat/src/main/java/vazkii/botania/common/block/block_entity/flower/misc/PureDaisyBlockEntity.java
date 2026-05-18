@@ -51,6 +51,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	private int positionAt = 0;
 	private final int[] prevTicksRemaining = new int[POSITIONS.length];
 	private final int[] ticksRemaining = new int[POSITIONS.length];
+	private byte prevTickedPositions = 0;
 
 	public PureDaisyBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.PURE_DAISY, pos, state);
@@ -116,9 +117,13 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 		}
 
 		if (!Arrays.equals(ticksRemaining, prevTicksRemaining)) {
-			setChanged();
-			sync();
+			markForPersisting();
 			System.arraycopy(ticksRemaining, 0, prevTicksRemaining, 0, POSITIONS.length);
+		}
+		byte tickedPositions = getTickedPositionBits();
+		if (prevTickedPositions != tickedPositions) {
+			markForSync();
+			prevTickedPositions = tickedPositions;
 		}
 	}
 
@@ -189,14 +194,19 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		var tag = super.getUpdateTag(registries);
+		byte tickedPositionBits = getTickedPositionBits();
+		tag.putByte(TAG_TICKED_POSITIONS, tickedPositionBits);
+		return tag;
+	}
+
+	private byte getTickedPositionBits() {
 		byte tickedPositionBits = 0;
 		for (int i = 0; i < 8; i++) {
 			if (ticksRemaining[i] > 0) {
 				tickedPositionBits |= (byte) (1 << i);
 			}
 		}
-		tag.putByte(TAG_TICKED_POSITIONS, tickedPositionBits);
-		return tag;
+		return tickedPositionBits;
 	}
 
 	@Override

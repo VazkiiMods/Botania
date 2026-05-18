@@ -57,7 +57,6 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 				(1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
 		tnt.discard();
 		addMana(unethical ? 3 : getMaxMana());
-		sync();
 
 		getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(),
 				unethical ? ANGRY_EFFECT_EVENT : EXPLODE_EFFECT_EVENT,

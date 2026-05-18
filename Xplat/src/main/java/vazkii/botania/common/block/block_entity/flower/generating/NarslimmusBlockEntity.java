@@ -56,7 +56,6 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 				slime.discard();
 				slime.playSound(size > 1 ? BotaniaSounds.narslimmusEatBig : BotaniaSounds.narslimmusEatSmall, 1F, 1F);
 				addMana(manaForSize(size));
-				sync();
 			}
 
 			int times = 8 * (int) Math.pow(2, size);

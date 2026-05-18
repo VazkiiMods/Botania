@@ -146,7 +146,6 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 				int val = prevCell * MANA_PER_GEN;
 				world.removeBlock(pos, true);
 				addMana(val);
-				sync();
 			}
 		} else if (world.getBlockEntity(pos) instanceof CellularBlockEntity cellBlock) {
 			cellBlock.setNextGeneration(this, cell);

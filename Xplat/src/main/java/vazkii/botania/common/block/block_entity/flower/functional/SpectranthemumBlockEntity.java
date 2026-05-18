@@ -60,7 +60,6 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				DelayHelper.asPredicateFor(DelayHelper::canMove, this));
 
-		boolean did = false;
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 			if (XplatAbstractions.INSTANCE.findManaItem(stack) != null) {
@@ -77,12 +76,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 				item.setDeltaMovement(Vec3.ZERO);
 				spawnExplosionParticles(item, 10);
 				addMana(-(int) cost);
-				did = true;
 			}
-		}
-
-		if (did) {
-			sync();
 		}
 	}
 
@@ -146,7 +140,8 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 
 		if (!bound && !pos.equals(bindPos) && !pos.equals(getEffectivePos())) {
 			bindPos = pos;
-			sync();
+			markForSync();
+			setChanged();
 
 			return true;
 		}

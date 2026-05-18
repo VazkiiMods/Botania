@@ -39,20 +39,15 @@ public class FallenKanadeBlockEntity extends FunctionalFlowerBlockEntity {
 		if (getLevel().isClientSide || getMana() < COST) {
 			return;
 		}
-		boolean did = false;
 		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,
 				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				e -> canHeal(e) && e.getEffect(MobEffects.REGENERATION) == null);
 		for (LivingEntity toHeal : entities) {
 			toHeal.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 59, 2, true, true));
 			addMana(-COST);
-			did = true;
 			if (getMana() < COST) {
 				break;
 			}
-		}
-		if (did) {
-			sync();
 		}
 	}
 

@@ -168,9 +168,36 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		return isFloating() ? ClientboundBlockEntityDataPacket.create(this) : null;
 	}
 
-	public void sync() {
+	/**
+	 * Mark this block entity for client synchronization. Functional and generating flowers automatically mark
+	 * themselves for persisting and synchronization when their internal buffer fill level changes (compared to the
+	 * previous tick) after pushing to the bound spreader or pulling from the bound pool, respectively.
+	 */
+	public void markForSync() {
 		if (level != null) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+		}
+	}
+
+	/**
+	 * Mark the chunk containing this block entity as changed, i.e. let the game save it at the next opportunity.
+	 * Functional and generating flowers automatically mark themselves for persisting and synchronization when their
+	 * internal buffer fill level changes (compared to the previous tick) after pushing to the bound spreader or pulling
+	 * from the bound pool, respectively. (This is one half of the effect of {@link #setChanged()}.)
+	 */
+	public void markForPersisting() {
+		if (this.level != null) {
+			level.blockEntityChanged(worldPosition);
+		}
+	}
+
+	/**
+	 * Update nearby comparators. Usually makes sense if this flower has a comparator signal output.
+	 * (This is one half of the effect of {@link #setChanged()}.)
+	 */
+	public void sendComparatorUpdate() {
+		if (level != null) {
+			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
 		}
 	}
 

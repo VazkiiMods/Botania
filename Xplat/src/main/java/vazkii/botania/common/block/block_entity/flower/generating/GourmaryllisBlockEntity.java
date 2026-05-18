@@ -133,7 +133,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 
 		if (cooldown > -1) {
 			cooldown--;
-			setChanged();
+			markForPersisting();
 		}
 		if (digestingMana != 0) {
 			int munchInterval = 2 + (2 * lastFoodCount);
@@ -146,7 +146,6 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 				//Usage of vanilla sound event: Subtitle is just "Burp", at least in English, and not specific to players.
 				level.playSound(null, getEffectivePos(), SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 1, burpPitch);
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getEffectivePos());
-				sync();
 			} else if (cooldown % munchInterval == 0) {
 				//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
 				level.playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 0.5f, 1);

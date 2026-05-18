@@ -94,7 +94,6 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 		// feed adults first, then babies, youngest to oldest
 		animals.sort(Comparator.comparing(Animal::isBaby).thenComparingInt(animal -> Math.min(animal.getAge(), 0)));
 
-		boolean did = false;
 		for (Animal animal : animals) {
 			// Note: Empty item stacks are implicitly excluded in Animal::isFood and ItemStack::is(TagKey)
 			if (animal.getAge() == 0 && !animal.isInLove() || animal.getAge() < -600 && -animal.getAge() % 100 == 0) {
@@ -103,7 +102,6 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 						continue;
 					}
 					consumeFoodItemAndMana(item);
-					did = true;
 
 					if (animal.isBaby()) {
 						animal.ageUp(AgeableMob.getSpeedUpSecondsWhenFeeding(-animal.getAge()), true);
@@ -131,7 +129,6 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 						continue;
 					}
 					consumeFoodItemAndMana(item);
-					did = true;
 
 					MushroomCowAccessor cowAccessor = (MushroomCowAccessor) animal;
 					cowAccessor.botania_setStewEffects(effectHolder.getSuspiciousEffects());
@@ -143,9 +140,6 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 					break;
 				}
 			}
-		}
-		if (did) {
-			sync();
 		}
 	}
 

@@ -12,16 +12,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.common.helper.NbtHelper;
 
@@ -36,6 +32,7 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 	public static final int LINK_RANGE = 10;
 	private static final String TAG_MANA = "mana";
 
+	private int lastMana = -1;
 	private int mana;
 
 	public FunctionalFlowerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -46,16 +43,16 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 	public void tickFlower() {
 		super.tickFlower();
 
-		drawManaFromPool();
-
 		if (getLevel().isClientSide) {
-			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
-			int color = getColor();
-			float red = (color >> 16 & 0xFF) / 255F;
-			float green = (color >> 8 & 0xFF) / 255F;
-			float blue = (color & 0xFF) / 255F;
-			if (Math.random() > particleChance) {
-				BotaniaAPI.instance().sparkleFX(getLevel(), getBlockPos().getX() + 0.3 + Math.random() * 0.5, getBlockPos().getY() + 0.5 + Math.random() * 0.5, getBlockPos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+			doFillLevelSparkles();
+		} else {
+			drawManaFromPool();
+
+			// if mana after drawing from pool changed compared to previous tick, we probably need to synchronize things
+			if (lastMana != mana) {
+				lastMana = mana;
+				markForPersisting();
+				markForSync();
 			}
 		}
 	}
@@ -84,7 +81,6 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 	@Override
 	public void addMana(int mana) {
 		this.mana = Mth.clamp(this.mana + mana, 0, getMaxMana());
-		setChanged();
 	}
 
 	@Override
@@ -95,7 +91,7 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 	@Override
 	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.loadAdditional(cmp, registries);
-		mana = cmp.getInt(TAG_MANA);
+		lastMana = mana = cmp.getInt(TAG_MANA);
 	}
 
 	@Override
@@ -109,10 +105,5 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 		var tag = super.getUpdateTag(registries);
 		NbtHelper.putVarInt(tag, TAG_MANA, mana);
 		return tag;
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this);
 	}
 }

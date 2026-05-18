@@ -78,7 +78,6 @@ public class TangleberrieBlockEntity extends FunctionalFlowerBlockEntity {
 
 		if (shouldUpdateThisTick()) {
 			addMana(-1);
-			sync();
 		}
 	}
 

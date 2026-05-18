@@ -68,7 +68,6 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		for (Player player : players) {
 			player.giveExperiencePoints(-1);
 			addMana(MANA_PER_XP);
-			sync();
 			return;
 		}
 
@@ -84,7 +83,6 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 				float pitch = (level.random.nextFloat() - level.random.nextFloat()) * 0.35F + 0.9F;
 				//Usage of vanilla sound event: Subtitle is "Experience gained", and this is about gaining experience anyways.
 				level.playSound(null, getEffectivePos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.07F, pitch);
-				sync();
 				return;
 			}
 		}

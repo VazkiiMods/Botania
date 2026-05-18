@@ -17,7 +17,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,9 +32,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
@@ -141,6 +148,30 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 		}
 	}
 
+	public void doFillLevelSparkles() {
+		double particleChance = 1 - getMana() / (3.5 * getMaxMana());
+
+		RandomSource rng = level.random;
+		if (rng.nextDouble() > particleChance) {
+			BlockPos pos = getBlockPos();
+			Vec3 offset = level.getBlockState(pos).getOffset(level, pos);
+			double x = pos.getX() + offset.x;
+			double y = pos.getY() + offset.y;
+			double z = pos.getZ() + offset.z;
+
+			int color = getColor();
+			float red = (color >> 16 & 0xFF) / 255F;
+			float green = (color >> 8 & 0xFF) / 255F;
+			float blue = (color & 0xFF) / 255F;
+
+			BotaniaAPI.instance().sparkleFX(level,
+					x + 0.25 + rng.nextDouble() * 0.5,
+					y + 0.5 + rng.nextDouble() * 0.5,
+					z + 0.25 + rng.nextDouble() * 0.5,
+					red, green, blue, rng.nextFloat(), 5);
+		}
+	}
+
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		if (placer != null && placer.isHolding(BotaniaItems.obedienceStick)) {
@@ -161,7 +192,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 		if (changed) {
 			setChanged();
-			sync();
+			markForSync();
 		}
 	}
 
@@ -223,6 +254,19 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 		NbtUtils.readBlockPos(cmp, TAG_BINDING).ifPresentOrElse(this::setBindingPos, () -> setBindingPos(null));
 		autoBinding = !cmp.contains(TAG_AUTO_BINDING) || cmp.getBoolean(TAG_AUTO_BINDING);
+	}
+
+	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		var tag = super.getUpdateTag(registries);
+		tag.put(TAG_BINDING, bindingPos != null ? NbtUtils.writeBlockPos(bindingPos) : new IntArrayTag(List.of()));
+		return tag;
+	}
+
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		BotaniaAPI.LOGGER.info("Creating update packet for {}", this);
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	public abstract int getMana();

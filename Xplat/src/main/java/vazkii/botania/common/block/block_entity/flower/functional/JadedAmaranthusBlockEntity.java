@@ -56,7 +56,6 @@ public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
 				getLevel().setBlockAndUpdate(up, flower);
 				getLevel().gameEvent(null, GameEvent.BLOCK_PLACE, up);
 				addMana(-COST);
-				sync();
 
 				break;
 			}

@@ -86,7 +86,6 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 			double z = activePos.getZ() + 0.5;
 
 			flower.addMana(-cost);
-			flower.sync();
 
 			return new Vec3(x + Math.random() * 3 - 1, y, z + Math.random() * 3 - 1);
 		}

@@ -67,7 +67,6 @@ public class KekimurusBlockEntity extends GeneratingFlowerBlockEntity {
 					effectivePos.getX() + offset.x, effectivePos.getY() + offset.y, effectivePos.getZ() + offset.z,
 					5, 0.1, 0.1, 0.1, 0.03);
 			addMana(MANA_PER_SLICE);
-			sync();
 		}
 	}
 

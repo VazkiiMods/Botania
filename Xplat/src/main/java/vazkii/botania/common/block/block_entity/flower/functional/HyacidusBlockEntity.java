@@ -42,19 +42,13 @@ public class HyacidusBlockEntity extends FunctionalFlowerBlockEntity {
 				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
 				livingEntity -> livingEntity.isAlive() && !(livingEntity instanceof Player)
 						&& !livingEntity.hasEffect(MobEffects.POISON));
-		boolean did = false;
 		for (LivingEntity entity : entities) {
 			if (entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0))) {
 				addMana(-COST);
-				did = true;
 				if (getMana() < COST) {
 					break;
 				}
 			}
-		}
-
-		if (did) {
-			sync();
 		}
 	}
 

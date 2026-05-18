@@ -71,7 +71,7 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 
 		if (cooldown > 0) {
 			cooldown--;
-			setChanged();
+			markForPersisting();
 			return;
 		}
 
@@ -153,8 +153,6 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 		level.gameEvent(null, GameEvent.BLOCK_DESTROY, breakCoords);
 		addMana(MANA_PER_LEAF);
-		// TODO: only actually sync if a player might look at the mana amount?
-		sync();
 		return true;
 	}
 

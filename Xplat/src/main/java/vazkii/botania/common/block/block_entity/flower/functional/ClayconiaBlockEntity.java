@@ -67,7 +67,6 @@ public class ClayconiaBlockEntity extends FunctionalFlowerBlockEntity {
 					new ItemStack(Items.CLAY_BALL));
 			getLevel().addFreshEntity(item);
 			addMana(-COST);
-			sync();
 		}
 	}
 

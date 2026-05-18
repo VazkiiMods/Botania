@@ -52,7 +52,6 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 		for (Mob mob : mobs) {
 			if (brainwashEntity(mob, mobs)) {
 				addMana(-COST);
-				sync();
 				break;
 			}
 		}

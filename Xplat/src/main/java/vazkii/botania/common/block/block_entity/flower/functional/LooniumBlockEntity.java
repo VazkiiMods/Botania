@@ -326,7 +326,6 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		world.gameEvent(mob, GameEvent.ENTITY_PLACE, mob.position());
 
 		addMana(-pickedConfig.manaCost);
-		sync();
 	}
 
 	private static void applyAttributesAndEffects(LooniumMobSpawnData mobSpawnData,
@@ -472,7 +471,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		detectedStructures = new Object2BooleanArrayMap<>(structureMap);
 
 		setChanged();
-		sync();
+		markForSync();
 	}
 
 	@Override

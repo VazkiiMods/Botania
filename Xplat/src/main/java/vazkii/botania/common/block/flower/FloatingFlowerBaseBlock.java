@@ -84,6 +84,7 @@ public abstract class FloatingFlowerBaseBlock extends BotaniaWaterloggedBlock im
 					level.playSound(null, pos, type.changeSound(), SoundSource.BLOCKS, 1, 1);
 					player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 					level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
+					te.setChanged();
 					level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 				}
 

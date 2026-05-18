@@ -12,18 +12,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaCollector;
 import vazkii.botania.common.helper.NbtHelper;
 
@@ -38,6 +33,7 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 	public static final int LINK_RANGE = 6;
 	private static final String TAG_MANA = "mana";
 
+	private int lastMana = -1;
 	private int mana;
 	private boolean alreadyTicked = false;
 
@@ -50,22 +46,18 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 		super.tickFlower();
 
 		if (getLevel().isClientSide) {
-			double particleChance = 1F - (double) getMana() / (double) getMaxMana() / 3.5F;
-			int color = getColor();
-			float red = (color >> 16 & 0xFF) / 255F;
-			float green = (color >> 8 & 0xFF) / 255F;
-			float blue = (color & 0xFF) / 255F;
+			doFillLevelSparkles();
+		} else {
+			emptyManaIntoCollector();
 
-			if (Math.random() > particleChance) {
-				Vec3 offset = getLevel().getBlockState(getBlockPos()).getOffset(getLevel(), getBlockPos());
-				double x = getBlockPos().getX() + offset.x;
-				double y = getBlockPos().getY() + offset.y;
-				double z = getBlockPos().getZ() + offset.z;
-				BotaniaAPI.instance().sparkleFX(getLevel(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+			// if mana after pushing to spreader changed compared to previous tick, we should probably synchronize things
+			if (lastMana != mana) {
+				lastMana = mana;
+				markForPersisting();
+				markForSync();
 			}
 		}
 		alreadyTicked = true;
-		emptyManaIntoCollector();
 	}
 
 	@Override
@@ -73,6 +65,7 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 		super.setBindingPos(bindingPos);
 		if (alreadyTicked && getMana() > 0) {
 			emptyManaIntoCollector();
+			markForPersisting();
 		}
 	}
 
@@ -87,7 +80,6 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 			int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
 			addMana(-manaval);
 			collector.receiveMana(manaval);
-			sync();
 		}
 	}
 
@@ -99,7 +91,6 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 	@Override
 	public void addMana(int mana) {
 		this.mana = Math.min(getMaxMana(), this.getMana() + mana);
-		setChanged();
 	}
 
 	@Override
@@ -110,7 +101,7 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 	@Override
 	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.loadAdditional(cmp, registries);
-		mana = cmp.getInt(TAG_MANA);
+		lastMana = mana = cmp.getInt(TAG_MANA);
 	}
 
 	@Override
@@ -124,10 +115,5 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 		var tag = super.getUpdateTag(registries);
 		NbtHelper.putVarInt(tag, TAG_MANA, mana);
 		return tag;
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this);
 	}
 }

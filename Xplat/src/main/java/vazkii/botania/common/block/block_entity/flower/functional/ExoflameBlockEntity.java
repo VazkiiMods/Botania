@@ -36,7 +36,6 @@ public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		boolean did = false;
 		boolean updateThisTick = shouldUpdateThisTick();
 		BlockPos effectivePos = getEffectivePos();
 
@@ -49,7 +48,6 @@ public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 						if (heatable.getBurnTime() < 2) {
 							heatable.boostBurnTime();
 							addMana(-COST);
-							did = true;
 						}
 
 						if (updateThisTick) {
@@ -62,9 +60,6 @@ public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 					}
 				}
 			}
-		}
-		if (did) {
-			sync();
 		}
 	}
 

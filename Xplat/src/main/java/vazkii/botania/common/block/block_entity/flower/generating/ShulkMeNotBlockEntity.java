@@ -80,7 +80,6 @@ public class ShulkMeNotBlockEntity extends GeneratingFlowerBlockEntity {
 
 			world.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
 			addMana(generate);
-			sync();
 			if (getMaxMana() - getMana() < generate) {
 				break;
 			}

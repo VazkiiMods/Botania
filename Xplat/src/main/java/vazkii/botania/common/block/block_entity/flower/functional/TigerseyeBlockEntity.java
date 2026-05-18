@@ -59,7 +59,6 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 				entity.playSound(BotaniaSounds.tigerseyePacify, 1.0F, (float) level.random.triangle(1.0, 0.2));
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
 				addMana(-COST);
-				sync();
 				if (getMana() < COST) {
 					break;
 				}

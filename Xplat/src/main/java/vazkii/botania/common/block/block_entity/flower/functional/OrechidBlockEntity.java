@@ -66,7 +66,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 
 		if (cooldown > 0) {
 			cooldown--;
-			setChanged();
+			markForPersisting();
 			return;
 		}
 
@@ -111,7 +111,6 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 		BlockStateRecipe.replaceBlock(coords, recipe, stateToPlace, (ServerLevel) level, () -> {
 			playSound(coords);
 			addMana(-recipe.getManaCost());
-			sync();
 		});
 	}
 
