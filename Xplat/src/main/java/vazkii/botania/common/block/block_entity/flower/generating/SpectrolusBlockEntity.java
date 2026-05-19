@@ -104,7 +104,7 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 	private void addManaAndCycle(int toAdd) {
 		addMana(toAdd);
 		nextColor = nextColor == DyeColor.BLACK ? DyeColor.WHITE : DyeColor.byId(nextColor.getId() + 1);
-		markForSync();
+		markForImmediateSync();
 		markForPersisting();
 	}
 

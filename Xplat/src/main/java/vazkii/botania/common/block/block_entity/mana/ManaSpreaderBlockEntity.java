@@ -114,8 +114,10 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	private int mana;
 	public float rotationX, rotationY;
 
-	private boolean requestsClientUpdate = false;
-	private boolean hasReceivedInitialPacket = false;
+	private boolean requestsClientUpdate;
+	private boolean hasReceivedInitialPacket;
+	private boolean markedForSync;
+	private boolean firstTick = true;
 
 	@Nullable
 	private ManaReceiver receiver = null;
@@ -134,7 +136,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 	@Nullable
 	private List<PositionProperties> lastTentativeBurst;
-	private boolean invalidTentativeBurst = false;
+	private boolean invalidTentativeBurst;
 
 	public ManaSpreaderBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.SPREADER, pos, state, true);
@@ -148,7 +150,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	@Override
 	public void receiveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, getMaxMana());
-		this.setChanged();
+		markForPersisting();
+		markForPotentialSync();
 	}
 
 	@Override
@@ -190,8 +193,9 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			}
 		}
 
-		if (self.needsNewBurstSimulation()) {
+		if (self.firstTick || self.needsNewBurstSimulation()) {
 			self.checkForReceiver();
+			self.firstTick = false;
 		}
 
 		if (!self.canShootBurst) {
@@ -251,9 +255,13 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			self.tryShootBurst();
 		}
 
-		if (self.receiverLastTick != self.receiver && !level.isClientSide) {
-			self.requestsClientUpdate = true;
-			level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
+		if (!level.isClientSide) {
+			if (self.receiverLastTick != self.receiver) {
+				self.requestsClientUpdate = true;
+				self.markForImmediateSync();
+			} else {
+				self.maybeSyncNow();
+			}
 		}
 
 		self.poweredLastTick = powered;
@@ -291,8 +299,6 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		cmp.putFloat(TAG_FORCED_MANA_LOSS_PER_TICK, mmForcedManaLossPerTick);
 		cmp.putFloat(TAG_FORCED_GRAVITY, mmForcedGravity);
 		cmp.putFloat(TAG_FORCED_VELOCITY_MULTIPLIER, mmForcedVelocityMultiplier);
-
-		requestsClientUpdate = false;
 	}
 
 	@Override
@@ -348,6 +354,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		var tag = new CompoundTag();
 		// FIXME: figure this out separately
 		saveAdditional(tag, registries);
+
+		requestsClientUpdate = false;
 		return tag;
 	}
 
@@ -597,7 +605,6 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		if (level != null) {
 			if (!level.isClientSide) {
 				checkForReceiver();
-				level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 			}
 		}
 	}
@@ -654,11 +661,24 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		rotationY = (float) angle;
 
 		setChanged();
+		markForImmediateSync();
 		return true;
 	}
 
 	@Override
-	public void markDispatchable() {}
+	public boolean isMarkedForSync() {
+		return markedForSync;
+	}
+
+	@Override
+	public void setMarkedForSync(boolean markedForSync) {
+		this.markedForSync = markedForSync;
+	}
+
+	@Override
+	public int getSyncInterval() {
+		return 11;
+	}
 
 	@Override
 	public float getRotationX() {
@@ -710,6 +730,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	@Override
 	public void commitRedirection() {
 		setChanged();
+		markForImmediateSync();
 	}
 
 	@Override

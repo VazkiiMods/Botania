@@ -52,7 +52,7 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 			if (lastMana != mana) {
 				lastMana = mana;
 				markForPersisting();
-				markForSync();
+				markForPotentialSync();
 			}
 		}
 	}

@@ -140,7 +140,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 
 		if (!bound && !pos.equals(bindPos) && !pos.equals(getEffectivePos())) {
 			bindPos = pos;
-			markForSync();
+			markForImmediateSync();
 			setChanged();
 
 			return true;

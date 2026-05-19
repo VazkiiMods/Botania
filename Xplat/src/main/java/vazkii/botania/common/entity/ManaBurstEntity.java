@@ -46,7 +46,6 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.ProjectileAccessor;
@@ -538,13 +537,8 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		collidedTile = receiver;
 
 		if (!fake && !noParticles && !level().isClientSide) {
-			if (receiver != null && receiver.canReceiveManaFromBursts() && onReceiverImpact(receiver)) {
-				// TODO: This should be the block entity's job to figure out
-				if (tile instanceof ThrottledPacket throttledPacket) {
-					throttledPacket.markDispatchable();
-				} else if (tile != null) {
-					level().sendBlockUpdated(collidePos, state, state, Block.UPDATE_CLIENTS);
-				}
+			if (receiver != null && receiver.canReceiveManaFromBursts()) {
+				onReceiverImpact(receiver);
 			}
 		}
 
@@ -596,9 +590,9 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		}
 	}
 
-	private boolean onReceiverImpact(ManaReceiver receiver) {
+	private void onReceiverImpact(ManaReceiver receiver) {
 		if (hasWarped()) {
-			return false;
+			return;
 		}
 
 		LensEffectItem lens = getLensInstance();
@@ -615,10 +609,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 		if (mana > 0) {
 			receiver.receiveMana(mana);
-			return true;
 		}
-
-		return false;
 	}
 
 	@Override

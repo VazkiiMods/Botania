@@ -192,7 +192,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 		if (changed) {
 			setChanged();
-			markForSync();
+			markForImmediateSync();
 		}
 	}
 
@@ -265,7 +265,6 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 	@Override
 	public Packet<ClientGamePacketListener> getUpdatePacket() {
-		BotaniaAPI.LOGGER.info("Creating update packet for {}", this);
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 

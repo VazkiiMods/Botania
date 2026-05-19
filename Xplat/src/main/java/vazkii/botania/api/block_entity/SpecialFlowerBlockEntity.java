@@ -18,7 +18,6 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -31,6 +30,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.block.RedstoneSensitiveBlock;
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.block.block_entity.red_string.RedStringSpooferBlockEntity;
 import vazkii.botania.common.block.flower.FloatingSpecialFlowerBlock;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -38,7 +38,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 /**
  * Common superclass of all magical flower block entities
  */
-public abstract class SpecialFlowerBlockEntity extends BlockEntity implements FloatingFlowerProvider {
+public abstract class SpecialFlowerBlockEntity extends BlockEntity implements FloatingFlowerProvider, ThrottledPacket {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 	/** Block state seeds are 48 bit values, but appear to potentially fill the higher bits with ones */
@@ -50,6 +50,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	private BlockPos positionOverride;
 	private boolean isFloating;
 	private long cachedSeed;
+	private boolean markedForSync;
 
 	private static final String TAG_FLOATING_DATA = "floating";
 
@@ -74,6 +75,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		self.positionOverride = tileBelow instanceof RedStringSpooferBlockEntity relay ? relay.getBinding() : null;
 
 		self.tickFlower();
+		self.maybeSyncNow();
 	}
 
 	public boolean isPowered() {
@@ -168,37 +170,16 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		return isFloating() ? ClientboundBlockEntityDataPacket.create(this) : null;
 	}
 
-	/**
-	 * Mark this block entity for client synchronization. Functional and generating flowers automatically mark
-	 * themselves for persisting and synchronization when their internal buffer fill level changes (compared to the
-	 * previous tick) after pushing to the bound spreader or pulling from the bound pool, respectively.
-	 */
-	public void markForSync() {
-		if (level != null) {
-			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
-		}
+	public boolean isMarkedForSync() {
+		return markedForSync;
 	}
 
-	/**
-	 * Mark the chunk containing this block entity as changed, i.e. let the game save it at the next opportunity.
-	 * Functional and generating flowers automatically mark themselves for persisting and synchronization when their
-	 * internal buffer fill level changes (compared to the previous tick) after pushing to the bound spreader or pulling
-	 * from the bound pool, respectively. (This is one half of the effect of {@link #setChanged()}.)
-	 */
-	public void markForPersisting() {
-		if (this.level != null) {
-			level.blockEntityChanged(worldPosition);
-		}
+	public void setMarkedForSync(boolean markedForSync) {
+		this.markedForSync = markedForSync;
 	}
 
-	/**
-	 * Update nearby comparators. Usually makes sense if this flower has a comparator signal output.
-	 * (This is one half of the effect of {@link #setChanged()}.)
-	 */
-	public void sendComparatorUpdate() {
-		if (level != null) {
-			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
-		}
+	public int getSyncInterval() {
+		return 17;
 	}
 
 	/**

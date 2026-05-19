@@ -471,7 +471,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		detectedStructures = new Object2BooleanArrayMap<>(structureMap);
 
 		setChanged();
-		markForSync();
+		markForImmediateSync();
 	}
 
 	@Override

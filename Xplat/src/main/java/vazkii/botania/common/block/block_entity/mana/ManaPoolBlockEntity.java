@@ -91,6 +91,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 	private static final float CHARGING_GRAVITY = 0.003f;
 
 	private int mana;
+	private int lastSynchronizedMana;
 
 	private int manaCap = -1;
 	private boolean canAccept = true;
@@ -104,7 +105,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 
 	private int soundTicks = 0;
 	private int ticks = 0;
-	private boolean sendPacket = false;
+	private boolean markedForSync = false;
 	private final Int2ObjectMap<MutableInt> chargingParticles = new Int2ObjectOpenHashMap<>();
 	private final Int2ObjectMap<MutableInt> drainingParticles = new Int2ObjectOpenHashMap<>();
 
@@ -124,7 +125,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, getMaxMana()));
 		if (old != this.mana) {
 			setChanged();
-			markDispatchable();
+			markForPotentialSync();
 		}
 	}
 
@@ -341,10 +342,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 			self.soundTicks--;
 		}
 
-		if (self.sendPacket && self.ticks % 10 == 0) {
-			level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
-			self.sendPacket = false;
-		}
+		self.maybeSyncNow();
 
 		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 		for (ItemEntity item : items) {
@@ -459,7 +457,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 
 	@Override
 	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		mana = cmp.getInt(TAG_MANA);
+		lastSynchronizedMana = mana = cmp.getInt(TAG_MANA);
 
 		if (cmp.contains(TAG_MANA_CAP, Tag.TAG_ANY_NUMERIC)) {
 			manaCap = cmp.getInt(TAG_MANA_CAP);
@@ -601,7 +599,38 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 	}
 
 	@Override
-	public void markDispatchable() {
-		sendPacket = true;
+	public void markForImmediateSync() {
+		ThrottledPacket.super.markForImmediateSync();
+		lastSynchronizedMana = mana;
+	}
+
+	@Override
+	public boolean mayBeRelevantForClients(Level level) {
+		if ((lastSynchronizedMana == 0 ^ mana == 0
+				|| getMaxMana() > 0 && (float) Math.abs(lastSynchronizedMana - mana) / getMaxMana() > 0.01f)) {
+			// this is a visible change in mana level (change between empty and non-empty, or significant level change)
+			Vec3 pos = getBlockPos().getCenter();
+			for (Player player : level.players()) {
+				if (player.isAlive() && player.position().closerThan(pos, 64)) {
+					return true;
+				}
+			}
+		}
+		return ThrottledPacket.super.mayBeRelevantForClients(level);
+	}
+
+	@Override
+	public boolean isMarkedForSync() {
+		return markedForSync;
+	}
+
+	@Override
+	public void setMarkedForSync(boolean markedForSync) {
+		this.markedForSync = markedForSync;
+	}
+
+	@Override
+	public int getSyncInterval() {
+		return 13;
 	}
 }

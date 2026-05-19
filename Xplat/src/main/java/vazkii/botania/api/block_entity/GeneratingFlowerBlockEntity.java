@@ -54,7 +54,7 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 			if (lastMana != mana) {
 				lastMana = mana;
 				markForPersisting();
-				markForSync();
+				markForPotentialSync();
 			}
 		}
 		alreadyTicked = true;
@@ -65,7 +65,6 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 		super.setBindingPos(bindingPos);
 		if (alreadyTicked && getMana() > 0) {
 			emptyManaIntoCollector();
-			markForPersisting();
 		}
 	}
 

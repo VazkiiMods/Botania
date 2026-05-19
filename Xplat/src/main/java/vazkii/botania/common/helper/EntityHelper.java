@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.phys.Vec3;
 
 public class EntityHelper {
 	/**
@@ -83,5 +84,18 @@ public class EntityHelper {
 		if (entity.level() instanceof ServerLevel serverLevel && entityChunk.getChessboardDistance(sourceChunk) > 2) {
 			serverLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, entityChunk, 0, entity.getId());
 		}
+	}
+
+	/**
+	 * Determines whether the entity (usually a mob or player) is looking in the general direction of the specified
+	 * position.
+	 * 
+	 * @param entity The entity.
+	 * @param pos    The target position.
+	 * @return {@code true} if the target position is in front of the entity, relative to the entity's view direction,
+	 *         {@code false} otherwise.
+	 */
+	public static boolean isLookingTowards(Entity entity, Vec3 pos) {
+		return entity.getLookAngle().dot(pos.subtract(entity.getEyePosition())) > 0;
 	}
 }

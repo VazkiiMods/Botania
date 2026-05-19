@@ -122,7 +122,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 		}
 		byte tickedPositions = getTickedPositionBits();
 		if (prevTickedPositions != tickedPositions) {
-			markForSync();
+			markForImmediateSync();
 			prevTickedPositions = tickedPositions;
 		}
 	}
