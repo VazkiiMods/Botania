@@ -60,7 +60,7 @@ public record SparkManaFlowEffectPacket(int sparkId1, int sparkId2, DyeColor net
 			}
 			float size = 0.125f + 0.125f * rng.nextFloat();
 
-			WispParticleData data = WispParticleData.wisp(size, r, g, b).withNoClip(true);
+			WispParticleData data = WispParticleData.wispNoClip(size, r, g, b);
 			level.addAlwaysVisibleParticle(data, thisVec.x, thisVec.y, thisVec.z, motion.x, motion.y, motion.z);
 		}
 	}

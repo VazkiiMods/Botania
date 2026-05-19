@@ -326,8 +326,8 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 		double vX0 = horizontalDistance / lifetime;
 		Vec3 v0 = horizontalDir.scale(vX0).with(Direction.Axis.Y, vY0);
 
-		WispParticleData data = WispParticleData.wisp(0.1f, PARTICLE_COLOR_RED, PARTICLE_COLOR_GREEN,
-				PARTICLE_COLOR_BLUE, (float) (0.025 * lifetime), CHARGING_GRAVITY).withNoClip(true);
+		WispParticleData data = WispParticleData.wispNoClip(0.1f, PARTICLE_COLOR_RED, PARTICLE_COLOR_GREEN,
+				PARTICLE_COLOR_BLUE, (float) (0.025 * lifetime), CHARGING_GRAVITY);
 		level.addParticle(data, worldPosition.getX() + startPos.x, worldPosition.getY() + startPos.y,
 				worldPosition.getZ() + startPos.z, v0.x, v0.y, v0.z);
 	}

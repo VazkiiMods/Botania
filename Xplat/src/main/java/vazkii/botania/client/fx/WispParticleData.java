@@ -63,24 +63,48 @@ public class WispParticleData implements ParticleOptions {
 		return wisp(size, r, g, b, 1);
 	}
 
+	public static WispParticleData wispNoClip(float size, float r, float g, float b) {
+		return wispNoClip(size, r, g, b, 1);
+	}
+
 	public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul) {
 		return wisp(size, r, g, b, maxAgeMul, true);
+	}
+
+	public static WispParticleData wispNoClip(float size, float r, float g, float b, float maxAgeMul) {
+		return wispNoClip(size, r, g, b, maxAgeMul, true);
 	}
 
 	public static WispParticleData wisp(float size, float r, float g, float b, boolean depth) {
 		return wisp(size, r, g, b, 1, depth);
 	}
 
+	public static WispParticleData wispNoClip(float size, float r, float g, float b, boolean depth) {
+		return wispNoClip(size, r, g, b, 1, depth);
+	}
+
 	public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul, boolean depthTest) {
-		return wisp(size, r, g, b, maxAgeMul, depthTest, 0.0f);
+		return wisp(size, r, g, b, maxAgeMul, depthTest, 0);
+	}
+
+	public static WispParticleData wispNoClip(float size, float r, float g, float b, float maxAgeMul, boolean depthTest) {
+		return wispNoClip(size, r, g, b, maxAgeMul, depthTest, 0);
 	}
 
 	public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul, float gravity) {
 		return wisp(size, r, g, b, maxAgeMul, true, gravity);
 	}
 
+	public static WispParticleData wispNoClip(float size, float r, float g, float b, float maxAgeMul, float gravity) {
+		return wispNoClip(size, r, g, b, maxAgeMul, true, gravity);
+	}
+
 	public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul, boolean depthTest, float gravity) {
 		return new WispParticleData(size, r, g, b, maxAgeMul, depthTest, false, gravity);
+	}
+
+	public static WispParticleData wispNoClip(float size, float r, float g, float b, float maxAgeMul, boolean depthTest, float gravity) {
+		return new WispParticleData(size, r, g, b, maxAgeMul, depthTest, true, gravity);
 	}
 
 	private WispParticleData(float size, float r, float g, float b, float maxAgeMul, boolean depthTest, boolean noClip, float gravity) {
@@ -92,14 +116,6 @@ public class WispParticleData implements ParticleOptions {
 		this.depthTest = depthTest;
 		this.noClip = noClip;
 		this.gravity = gravity;
-	}
-
-	public WispParticleData withNoClip(boolean v) {
-		if (noClip == v) {
-			return this;
-		} else {
-			return new WispParticleData(size, r, g, b, maxAgeMul, depthTest, v, gravity);
-		}
 	}
 
 	@Override

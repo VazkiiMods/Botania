@@ -43,13 +43,13 @@ public class FXWisp extends TextureSheetParticle {
 		bCol = blue;
 		alpha = 0.375F;
 		gravity = g;
-		quadSize = (this.random.nextFloat() * 0.5F + 0.5F) * 2.0F * size;
+		quadSize = (this.random.nextFloat() * 0.5f + 0.5f) * 2 * size;
 		moteParticleScale = quadSize;
-		lifetime = (int) (28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
+		lifetime = (int) (maxAgeMul * 28 / (this.random.nextFloat() * 0.3f + 0.7f));
 		this.depthTest = depthTest;
 
 		moteHalfLife = lifetime / 2;
-		setSize(0.01F, 0.01F);
+		setSize(0.01f, 0.01f);
 
 		xo = x;
 		yo = y;
@@ -58,13 +58,13 @@ public class FXWisp extends TextureSheetParticle {
 	}
 
 	@Override
-	public float getQuadSize(float p_217561_1_) {
-		float agescale = (float) age / (float) moteHalfLife;
-		if (agescale > 1F) {
+	public float getQuadSize(float scaleFactor) {
+		float agescale = (float) age / moteHalfLife;
+		if (agescale > 1) {
 			agescale = 2 - agescale;
 		}
 
-		quadSize = moteParticleScale * agescale * 0.5F;
+		quadSize = moteParticleScale * agescale * 0.5f;
 		return quadSize;
 	}
 
@@ -91,7 +91,7 @@ public class FXWisp extends TextureSheetParticle {
 
 		this.yd -= this.gravity;
 		this.move(this.xd, this.yd, this.zd);
-		if (gravity == 0.0f) {
+		if (gravity == 0) {
 			this.xd *= 0.98;
 			this.yd *= 0.98;
 			this.zd *= 0.98;

@@ -1,6 +1,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,26 +37,35 @@ public class NaturaPylonBlock extends PylonBlock {
 				return;
 			}
 
-			Vec3 centerBlock = new Vec3(self.centerPos.getX() + 0.5, self.centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), self.centerPos.getZ() + 0.5);
-
 			if (BotaniaConfig.client().elfPortalParticlesEnabled()) {
-				double worldTime = level.getGameTime();
-				worldTime += new Random(worldPosition.hashCode()).nextInt(1000);
-				worldTime /= 5;
+				double worldTime = level.getGameTime() * 0.2
+						+ new Random(state.getSeed(worldPosition)).nextDouble(2 * Math.PI);
 
-				float r = 0.75F + (float) Math.random() * 0.05F;
-				double x = worldPosition.getX() + 0.5 + Math.cos(worldTime) * r;
-				double z = worldPosition.getZ() + 0.5 + Math.sin(worldTime) * r;
+				RandomSource rng = level.random;
+				double radius = 0.75 + rng.nextDouble() * 0.05;
+				double x = worldPosition.getX() + 0.5 + Math.cos(worldTime) * radius;
+				double y = worldPosition.getY();
+				double z = worldPosition.getZ() + 0.5 + Math.sin(worldTime) * radius;
 
-				Vec3 ourCoords = new Vec3(x, worldPosition.getY() + 0.25, z);
-				centerBlock = centerBlock.subtract(0, 0.5, 0);
-				Vec3 movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
+				WispParticleData upwardSpiralData = WispParticleData.wisp(rng.nextFloat() * 0.1f + 0.25f,
+						rng.nextFloat() * 0.25f, rng.nextFloat() * 0.25f + 0.75f, rng.nextFloat() * 0.25f);
+				level.addParticle(upwardSpiralData, x, y, z,
+						rng.nextDouble() * 0.005, rng.nextDouble() * 0.015 + 0.075, rng.nextDouble() * 0.005);
 
-				WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 1);
-				level.addParticle(data, x, worldPosition.getY() + 0.25, z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
 				if (level.random.nextInt(3) == 0) {
-					WispParticleData data1 = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F);
-					level.addParticle(data1, x, worldPosition.getY() + 0.25, z, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+					Vec3 centerBlock = new Vec3(
+							self.centerPos.getX() + 0.25 + 0.5 * rng.nextDouble(),
+							self.centerPos.getY() + 0.25 + 0.5 * rng.nextDouble(),
+							self.centerPos.getZ() + 0.25 + 0.5 * rng.nextDouble());
+
+					double yStart = y + 0.25;
+					Vec3 ourCoords = new Vec3(x, yStart, z);
+					Vec3 movementVector = centerBlock.subtract(ourCoords).scale(0.04);
+
+					WispParticleData towardsPortalData = WispParticleData.wispNoClip(rng.nextFloat() * 0.1f + 0.25f,
+							rng.nextFloat() * 0.25f, rng.nextFloat() * 0.25f + 0.75f, rng.nextFloat() * 0.25f);
+					level.addParticle(towardsPortalData, ourCoords.x, ourCoords.y, ourCoords.z,
+							movementVector.x, movementVector.y, movementVector.z);
 				}
 			}
 		}
@@ -63,8 +73,12 @@ public class NaturaPylonBlock extends PylonBlock {
 
 	@Override
 	public void addRandomParticle(Level level, BlockPos pos) {
-		SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), 0.5f, 1.0f, 0.5f, 2);
-		level.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.3, pos.getZ() + Math.random(), 0, 0, 0);
+		RandomSource rng = level.random;
+		level.addParticle(SparkleParticleData.sparkle(rng.nextFloat(), 0.5f, 1.0f, 0.5f, 2),
+				pos.getX() + rng.nextDouble(),
+				pos.getY() + rng.nextDouble() * 1.3,
+				pos.getZ() + rng.nextDouble(),
+				0, 0, 0);
 	}
 
 	public float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos) {
