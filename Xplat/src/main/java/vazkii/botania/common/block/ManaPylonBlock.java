@@ -75,7 +75,7 @@ public class ManaPylonBlock extends PylonBlock {
 						pos.getY() + 1.5,
 						pos.getZ() + 0.5 + (rng.nextDouble() - 0.5) * 0.125,
 						0, 0.001, 0);
-				level.addParticle(WispParticleData.wispNoClip(rng.nextFloat() / 8, r, g, b),
+				level.addAlwaysVisibleParticle(WispParticleData.wispNoClip(rng.nextFloat() / 8, r, g, b),
 						pos.getX() + 0.5 + (rng.nextDouble() - 0.5) * 0.25,
 						pos.getY() + 1.5,
 						pos.getZ() + 0.5 + (rng.nextDouble() - 0.5) * 0.25,

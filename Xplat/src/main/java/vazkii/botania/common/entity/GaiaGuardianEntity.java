@@ -697,7 +697,7 @@ public class GaiaGuardianEntity extends Mob {
 			double z = source.getZ() + 0.5 - Math.sin(rad) * ARENA_RANGE;
 
 			WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
-			level().addParticle(data, x, y, z, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
+			level().addAlwaysVisibleParticle(data, x, y, z, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 		}
 
 		if (getInvulTime() > 10) {

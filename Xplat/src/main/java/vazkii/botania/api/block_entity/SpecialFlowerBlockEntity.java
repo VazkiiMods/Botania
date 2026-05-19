@@ -240,7 +240,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 			return;
 		}
 		Vec3 offset = level.getBlockState(getEffectivePos()).getOffset(level, getEffectivePos());
-		level.addParticle(options,
+		level.addAlwaysVisibleParticle(options,
 				getEffectivePos().getX() + offset.x + xOffset,
 				getEffectivePos().getY() + offset.y + yOffset,
 				getEffectivePos().getZ() + offset.z + zOffset,

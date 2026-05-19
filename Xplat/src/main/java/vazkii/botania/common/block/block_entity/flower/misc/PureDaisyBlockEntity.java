@@ -15,6 +15,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -65,11 +66,16 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 
 		if (level.isClientSide) {
 			BlockPos.MutableBlockPos coords = new BlockPos.MutableBlockPos();
+			RandomSource rng = level.random;
 			for (int i = 0; i < POSITIONS.length; i++) {
 				if (ticksRemaining[i] > 0) {
 					coords.setWithOffset(getEffectivePos(), POSITIONS[i]);
-					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), 1F, 1F, 1F, 5);
-					level.addParticle(data, coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 0, 0, 0);
+					SparkleParticleData data = SparkleParticleData.sparkle(rng.nextFloat(), 1F, 1F, 1F, 5);
+					level.addAlwaysVisibleParticle(data,
+							coords.getX() + rng.nextDouble(),
+							coords.getY() + rng.nextDouble(),
+							coords.getZ() + rng.nextDouble(),
+							0, 0, 0);
 				}
 			}
 
