@@ -3,7 +3,6 @@ package vazkii.botania.neoforge.internal_caps;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
@@ -29,7 +28,7 @@ public final class ForgeInternalEntityCapabilities {
 	private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, BotaniaAPI.MODID);
 
 	public static final Supplier<AttachmentType<Short>> ITEM_LIFETIME =
-			registerSynchronized(BotaniaDataAttachments.ITEM_LIFETIME, Codec.SHORT, ByteBufCodecs.SHORT);
+			register(BotaniaDataAttachments.ITEM_LIFETIME, Codec.SHORT);
 	public static final Supplier<AttachmentType<ItemSource>> ITEM_SOURCE =
 			register(BotaniaDataAttachments.ITEM_SOURCE, ItemSources.CODEC);
 	public static final Supplier<AttachmentType<List<ItemStack>>> KEPT_ITEMS =
