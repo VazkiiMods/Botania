@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -235,5 +236,24 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		return state.getValue(FLUID) == State.WATER ? 15 : 0;
+	}
+
+	@Override
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		if (state.getValue(FLUID) == State.LAVA && level.getBlockState(pos.above()).isAir()
+				&& random.nextInt(4) == 0) {
+			level.addParticle(ParticleTypes.SMOKE,
+					pos.getX() + 0.5 + Math.random() * 0.4 - 0.2,
+					pos.getY() + 1,
+					pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2,
+					0, 0.05, 0);
+			if (random.nextInt(8) == 0) {
+				level.addParticle(ParticleTypes.LAVA,
+						pos.getX() + 0.5 + Math.random() * 0.4 - 0.2,
+						pos.getY() + 1,
+						pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2,
+						0, 0.01, 0);
+			}
+		}
 	}
 }

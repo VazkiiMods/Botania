@@ -15,7 +15,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -264,13 +263,6 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				}
 				SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
 				level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
-			}
-		}
-
-		if (self.getFluid() == State.LAVA) {
-			level.addParticle(ParticleTypes.SMOKE, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
-			if (Math.random() > 0.9) {
-				level.addParticle(ParticleTypes.LAVA, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
 			}
 		}
 
