@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class BotaniaRecipeDisplay<T extends Recipe<RecipeInput>> implements Display {
+public abstract class BotaniaRecipeDisplay<T extends Recipe<? extends RecipeInput>> implements Display {
 	protected final RecipeHolder<? extends T> recipe;
 	protected List<EntryIngredient> inputs;
 	protected EntryIngredient outputs;

@@ -17,12 +17,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -37,19 +38,22 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.recipe.BotaniaRecipeInput;
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.TerraPlateState;
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.network.clientbound.TerraPlateEffectPacket;
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.OptionalInt;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implements SparkAttachable, ManaReceiver {
@@ -71,59 +75,190 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 			'0', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
 			'L', PatchouliAPI.get().tagMatcher(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/lapis")))
 	));
+	public static final int BLOCK_EVENT_PROGRESS_UPDATE = 0;
+	public static final int BLOCK_EVENT_CRAFTING_EFFECT = 1;
+	public static final int BLOCK_EVENT_CRAFTING_ABORTED = 2;
 
 	private static final String TAG_MANA = "mana";
+	private static final String TAG_MANA_TO_GET = "mana_to_get";
 
 	private int mana;
+	private int manaToGet;
+	private int currentProgress = -1;
+	private long lastProgressTick;
+	private final RecipeManager.CachedCheck<BotaniaRecipeInput, TerrestrialAgglomerationRecipe> cachedCheck = RecipeManager.createCheck(BotaniaRecipeTypes.TERRA_PLATE_TYPE);
 
 	public TerrestrialAgglomerationPlateBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.TERRA_PLATE, pos, state);
 	}
 
-	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TerrestrialAgglomerationPlateBlockEntity self) {
-		boolean removeMana = true;
-
-		if (self.hasValidPlatform()) {
-			List<ItemEntity> itemEntities = self.getItemEntities();
-			List<ItemStack> items = self.getItems(itemEntities);
-			RecipeInput inv = self.getRecipeInput(items);
-
-			RecipeHolder<TerrestrialAgglomerationRecipe> recipe = self.getCurrentRecipe(inv);
-			if (recipe != null) {
-				removeMana = false;
-				ManaSpark spark = SparkAttachable.getAttachedSpark(level, self.getBlockPos());
-				SparkHelper.registerTransferFromSparksAround(spark, level, worldPosition);
-				if (self.mana > 0) {
-					level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
-					XplatAbstractions.INSTANCE.sendToNear(level, worldPosition,
-							new TerraPlateEffectPacket(worldPosition, (int) (100f * self.getCompletion())));
-				}
-
-				if (self.mana >= recipe.value().getMana()) {
-					Player player = getCraftingPlayer(itemEntities);
-					ItemStack result = recipe.value().assemble(inv, level.registryAccess());
-					if (player != null) {
-						player.triggerRecipeCrafted(recipe, List.of(result));
-						result.onCraftedBy(level, player, result.getCount());
-					} else {
-						result.onCraftedBySystem(level);
-					}
-					for (ItemStack item : items) {
-						item.setCount(0);
-					}
-					ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5, result);
-					item.setDeltaMovement(Vec3.ZERO);
-					level.addFreshEntity(item);
-					level.playSound(null, item.getX(), item.getY(), item.getZ(), BotaniaSounds.terrasteelCraft, SoundSource.BLOCKS, 1F, 1F);
-					self.mana = 0;
-					level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
-					level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
-				}
+	public static void serverCollectingTick(Level level, BlockPos pos, BlockState state,
+			TerrestrialAgglomerationPlateBlockEntity self) {
+		if (!self.hasValidPlatform()) {
+			self.stopCollecting();
+			return;
+		}
+		List<ItemEntity> itemEntities = self.getItemEntities();
+		BotaniaRecipeInput recipeInput = RecipeUtils.getInputFromEntities(itemEntities);
+		Optional<RecipeHolder<TerrestrialAgglomerationRecipe>> recipeHolderOptional = self.cachedCheck.getRecipeFor(recipeInput, level);
+		if (recipeHolderOptional.isEmpty()) {
+			self.stopCollecting();
+			return;
+		}
+		RecipeHolder<TerrestrialAgglomerationRecipe> recipeHolder = recipeHolderOptional.get();
+		TerrestrialAgglomerationRecipe recipe = recipeHolder.value();
+		if (self.manaToGet != recipe.getMana()) {
+			// recipe changed on-the-fly somehow?
+			self.manaToGet = recipe.getMana();
+			self.setChanged();
+		}
+		ManaSpark spark = SparkAttachable.getAttachedSpark(level, pos);
+		SparkHelper.registerTransferFromSparksAround(spark, level, pos);
+		if (self.mana > 0) {
+			int newProgress = 100 * self.mana / self.manaToGet;
+			if (newProgress != self.currentProgress || level.getGameTime() - self.lastProgressTick > 10) {
+				self.currentProgress = newProgress;
+				level.blockEvent(pos, state.getBlock(), BLOCK_EVENT_PROGRESS_UPDATE, newProgress);
 			}
 		}
+		if (self.mana < self.manaToGet) {
+			return;
+		}
+		self.finishCrafting(level, pos, state, itemEntities, recipeInput, recipeHolder);
+	}
 
-		if (removeMana) {
-			self.receiveMana(-1000);
+	private void finishCrafting(Level level, BlockPos pos, BlockState state, List<ItemEntity> itemEntities,
+			BotaniaRecipeInput recipeInput, RecipeHolder<TerrestrialAgglomerationRecipe> recipeHolder) {
+		Player player = getCraftingPlayer(itemEntities);
+		ItemStack result = recipeHolder.value().assemble(recipeInput, level.registryAccess());
+		if (player != null) {
+			player.triggerRecipeCrafted(recipeHolder, List.of(result));
+			result.onCraftedBy(level, player, result.getCount());
+		} else {
+			result.onCraftedBySystem(level);
+		}
+		for (ItemEntity item : itemEntities) {
+			item.discard();
+		}
+		ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5, result, 0, 0, 0);
+		level.addFreshEntity(item);
+		level.playSound(null, pos, BotaniaSounds.terrasteelCraft, SoundSource.BLOCKS, 1F, 1F);
+		mana = 0;
+		manaToGet = 0;
+		level.blockEvent(pos, state.getBlock(), BLOCK_EVENT_CRAFTING_EFFECT, 0);
+		level.setBlock(pos,
+				state.setValue(BotaniaStateProperties.TERRA_PLATE_STATE, TerraPlateState.DONE),
+				Block.UPDATE_ALL);
+		level.scheduleTick(pos, state.getBlock(), 4);
+	}
+
+	private void stopCollecting() {
+		manaToGet = 0;
+		level.setBlock(getBlockPos(),
+				getBlockState().setValue(BotaniaStateProperties.TERRA_PLATE_STATE,
+						mana > 0 ? TerraPlateState.DISSIPATING : TerraPlateState.IDLE),
+				Block.UPDATE_ALL);
+		level.blockEvent(getBlockPos(), getBlockState().getBlock(), BLOCK_EVENT_PROGRESS_UPDATE, -1);
+	}
+
+	public static void serverDissipatingTick(Level level, BlockPos pos, BlockState state,
+			TerrestrialAgglomerationPlateBlockEntity self) {
+		self.receiveMana(-1000);
+		if (self.mana == 0) {
+			level.setBlock(pos,
+					state.setValue(BotaniaStateProperties.TERRA_PLATE_STATE, TerraPlateState.IDLE),
+					Block.UPDATE_ALL);
+		}
+	}
+
+	public static void clientCollectingTick(Level level, BlockPos blockPos, BlockState state,
+			TerrestrialAgglomerationPlateBlockEntity self) {
+		if (self.currentProgress < 0 || level.getGameTime() - self.lastProgressTick > 30) {
+			return;
+		}
+
+		int ticks = self.currentProgress;
+
+		int totalSpiritCount = 3;
+		double tickIncrement = 360.0 / totalSpiritCount;
+
+		int speed = 5;
+		double wticks = ticks * speed - tickIncrement;
+
+		double radius = Math.sin((ticks - 100) / 10.0) * 2;
+		double vY = Math.sin(wticks * Math.PI / 180 * 0.55) * -0.05;
+
+		float r = 0F;
+		float g = ticks / 100f;
+		float b = 1f - ticks / 100f;
+		Vec3 pos = blockPos.getCenter();
+		RandomSource rng = level.random;
+
+		for (int i = 0; i < totalSpiritCount; i++) {
+			double angle = wticks * (Math.PI / 180);
+			double wx = pos.x + Math.sin(angle) * radius;
+			double wy = pos.y - 0.25 + Math.abs(radius) * 0.7;
+			double wz = pos.z + Math.cos(angle) * radius;
+
+			wticks += tickIncrement;
+			WispParticleData primaryData = WispParticleData.wisp(0.85f, r, g, b, 0.25f);
+			Proxy.INSTANCE.addParticleForceNear(level, primaryData, wx, wy, wz, 0, vY, 0);
+			WispParticleData data = WispParticleData.wisp(rng.nextFloat() * 0.1f + 0.1f, r, g, b, 0.9f);
+			level.addParticle(data, wx, wy, wz,
+					(rng.nextDouble() - 0.5) * 0.05,
+					(rng.nextDouble() - 0.5) * 0.05,
+					(rng.nextDouble() - 0.5) * 0.05);
+		}
+	}
+
+	@Override
+	public boolean triggerEvent(int id, int param) {
+		switch (id) {
+			case BLOCK_EVENT_CRAFTING_EFFECT -> {
+				this.currentProgress = -1;
+				if (level.isClientSide) {
+					float r = 0;
+					float g = 1;
+					float b = 0;
+					Vec3 pos = getBlockPos().getCenter();
+					RandomSource rng = level.random;
+
+					for (int j = 0; j < 15; j++) {
+						WispParticleData data = WispParticleData.wisp(rng.nextFloat() * 0.15f + 0.15f, r, g, b);
+						level.addParticle(data, pos.x, pos.y, pos.z,
+								(rng.nextDouble() - 0.5) * 0.125,
+								(rng.nextDouble() - 0.5) * 0.125,
+								(rng.nextDouble() - 0.5) * 0.125);
+					}
+				}
+				return true;
+			}
+			case BLOCK_EVENT_CRAFTING_ABORTED -> {
+				this.currentProgress = -1;
+				return true;
+			}
+			case BLOCK_EVENT_PROGRESS_UPDATE -> {
+				this.currentProgress = param;
+				this.lastProgressTick = level.getGameTime();
+				// no particles (handled by clientCollectingTick)
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void tryStartProcessing() {
+		if (!hasValidPlatform()) {
+			return;
+		}
+		List<ItemEntity> itemEntities = getItemEntities();
+		BotaniaRecipeInput recipeInput = RecipeUtils.getInputFromEntities(itemEntities);
+		Optional<RecipeHolder<TerrestrialAgglomerationRecipe>> recipe = cachedCheck.getRecipeFor(recipeInput, level);
+		if (recipe.isPresent()) {
+			manaToGet = recipe.get().value().getMana();
+			level.setBlock(getBlockPos(),
+					getBlockState().setValue(BotaniaStateProperties.TERRA_PLATE_STATE, TerraPlateState.COLLECTING),
+					Block.UPDATE_ALL);
 		}
 	}
 
@@ -140,78 +275,8 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 		return player;
 	}
 
-	private List<ItemStack> getItems(List<ItemEntity> entities) {
-		List<ItemStack> stacks = new ArrayList<>();
-		for (ItemEntity entity : entities) {
-			if (!entity.getItem().isEmpty()) {
-				stacks.add(entity.getItem());
-			}
-		}
-		return stacks;
-	}
-
 	private List<ItemEntity> getItemEntities() {
 		return level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition), EntitySelector.ENTITY_STILL_ALIVE);
-	}
-
-	private RecipeInput getRecipeInput(List<ItemStack> itemStacks) {
-		ItemStack[] items = flattenStacks(itemStacks);
-		return new RecipeInput() {
-			@Override
-			public ItemStack getItem(int index) {
-				return items[index];
-			}
-
-			@Override
-			public int size() {
-				return items.length;
-			}
-		};
-	}
-
-	/**
-	 * Flattens the list of stacks into an array of stacks with size 1,
-	 * for recipe matching purposes only.
-	 * If the total count of items exceeds 64, returns no items.
-	 */
-	private static ItemStack[] flattenStacks(List<ItemStack> items) {
-		ItemStack[] stacks;
-		int i = 0;
-		for (ItemStack item : items) {
-			i += item.getCount();
-		}
-		if (i > 64) {
-			return new ItemStack[0];
-		}
-
-		stacks = new ItemStack[i];
-		int j = 0;
-		for (ItemStack item : items) {
-			if (item.getCount() > 1) {
-				ItemStack temp = item.copyWithCount(1);
-				for (int count = 0; count < item.getCount(); count++) {
-					stacks[j] = temp.copy();
-					j++;
-				}
-			} else {
-				stacks[j] = item;
-				j++;
-			}
-		}
-		return stacks;
-	}
-
-	@Nullable
-	private RecipeHolder<TerrestrialAgglomerationRecipe> getCurrentRecipe(RecipeInput input) {
-		if (input.isEmpty()) {
-			return null;
-		}
-		return level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE, input, level)
-				.orElse(null);
-	}
-
-	private boolean isActive() {
-		return getCurrentRecipe(getRecipeInput(getItems(getItemEntities()))) != null;
 	}
 
 	private boolean hasValidPlatform() {
@@ -221,11 +286,13 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 	@Override
 	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_MANA, mana);
+		cmp.putInt(TAG_MANA_TO_GET, manaToGet);
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		mana = cmp.getInt(TAG_MANA);
+		manaToGet = cmp.getInt(TAG_MANA_TO_GET);
 	}
 
 	@Override
@@ -244,15 +311,9 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 		return mana;
 	}
 
-	private OptionalInt getCurrentRecipeMana() {
-		RecipeHolder<TerrestrialAgglomerationRecipe> recipe = getCurrentRecipe(getRecipeInput(getItems(getItemEntities())));
-		return recipe != null ? OptionalInt.of(recipe.value().getMana()) : OptionalInt.empty();
-	}
-
 	@Override
 	public boolean isFull() {
-		var mana = getCurrentRecipeMana();
-		return mana.isEmpty() || getCurrentMana() >= mana.getAsInt();
+		return mana >= manaToGet;
 	}
 
 	@Override
@@ -263,7 +324,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 
 	@Override
 	public boolean canReceiveManaFromBursts() {
-		return isActive();
+		return manaToGet > 0;
 	}
 
 	@Override
@@ -273,29 +334,21 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 
 	@Override
 	public boolean areIncomingTransfersDone() {
-		return !isActive();
+		return mana >= manaToGet;
 	}
 
 	@Override
 	public int getAvailableSpaceForMana() {
-		var mana = getCurrentRecipeMana();
-		return mana.isEmpty() ? 0 : Math.max(0, mana.getAsInt() - getCurrentMana());
+		return Math.max(0, manaToGet - mana);
 	}
 
 	public float getCompletion() {
-		var mana = getCurrentRecipeMana();
-		if (mana.isEmpty()) {
-			return 0;
-		}
-		return ((float) getCurrentMana()) / mana.getAsInt();
+		return manaToGet > 0 ? (float) mana / manaToGet : 0;
 	}
 
 	public int getComparatorLevel() {
-		int val = (int) (getCompletion() * 15.0);
-		if (getCurrentMana() > 0) {
-			val = Math.max(val, 1);
-		}
-		return val;
+		return manaToGet > 0
+				? Math.clamp(15L * mana / manaToGet, 1, 15)
+				: mana > 0 ? 1 : 0;
 	}
-
 }

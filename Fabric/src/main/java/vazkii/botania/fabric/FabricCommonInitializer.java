@@ -154,6 +154,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		PatchouliAPI.get().registerMultiblock(botaniaRL("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
+		BotaniaRecipeIngredientsCache.registerListener();
 		ConfigDataManagerImpl.registerListener();
 		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new FabricTransferCorporeaNodeDetector());

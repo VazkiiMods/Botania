@@ -22,7 +22,6 @@ import vazkii.botania.network.clientbound.PaintLensEffectPacket;
 import vazkii.botania.network.clientbound.ParticleBeamEffectPacket;
 import vazkii.botania.network.clientbound.SparkManaFlowEffectPacket;
 import vazkii.botania.network.clientbound.SparkNetIndicatorEffectPacket;
-import vazkii.botania.network.clientbound.TerraPlateEffectPacket;
 import vazkii.botania.network.clientbound.ThundercallerEffectPacket;
 import vazkii.botania.network.clientbound.UpdateItemsRemainingPacket;
 import vazkii.botania.network.serverbound.DodgePacket;
@@ -58,7 +57,6 @@ public class ForgePacketHandler {
 		registrar.playToClient(ParticleBeamEffectPacket.ID, ParticleBeamEffectPacket.STREAM_CODEC, makeClientBoundHandler(ParticleBeamEffectPacket.Handler::handle));
 		registrar.playToClient(SparkManaFlowEffectPacket.ID, SparkManaFlowEffectPacket.STREAM_CODEC, makeClientBoundHandler(SparkManaFlowEffectPacket.Handler::handle));
 		registrar.playToClient(SparkNetIndicatorEffectPacket.ID, SparkNetIndicatorEffectPacket.STREAM_CODEC, makeClientBoundHandler(SparkNetIndicatorEffectPacket.Handler::handle));
-		registrar.playToClient(TerraPlateEffectPacket.ID, TerraPlateEffectPacket.STREAM_CODEC, makeClientBoundHandler(TerraPlateEffectPacket.Handler::handle));
 		registrar.playToClient(ThundercallerEffectPacket.ID, ThundercallerEffectPacket.STREAM_CODEC, makeClientBoundHandler(ThundercallerEffectPacket.Handler::handle));
 		registrar.playToClient(UpdateItemsRemainingPacket.ID, UpdateItemsRemainingPacket.STREAM_CODEC, makeClientBoundHandler(UpdateItemsRemainingPacket.Handler::handle));
 	}

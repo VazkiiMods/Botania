@@ -11,18 +11,21 @@ package vazkii.botania.common.crafting.recipe;
 import it.unimi.dsi.fastutil.ints.IntSet;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeInput;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.recipe.BotaniaRecipeInput;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
-public class RecipeUtils {
+public final class RecipeUtils {
 	/**
 	 * Check if every ingredient in {@code inputs} and optionally {@code catalysts} is satisfied by {@code inv}.
 	 * Optionally, the slots from the inventory used to fulfill the inputs are placed into {@code matchedInputSlots}.
@@ -90,4 +93,28 @@ public class RecipeUtils {
 
 		return ret;
 	}
+
+	/**
+	 * Creates a {@link BotaniaRecipeInput} from the stacks in the provided item entities.
+	 * Stack sizes greater than one are counted as that many input items.
+	 */
+	public static BotaniaRecipeInput getInputFromEntities(List<ItemEntity> itemEntities) {
+		int count = itemEntities.stream().mapToInt(i -> i.getItem().getCount()).sum();
+		ItemStack[] stacks = new ItemStack[count];
+		int index = 0;
+		for (ItemEntity entity : itemEntities) {
+			ItemStack stack = entity.getItem();
+			if (stack.getCount() == 1) {
+				stacks[index++] = stack;
+			} else {
+				ItemStack copy = stack.copyWithCount(1);
+				for (int i = 0; i < stack.getCount(); i++) {
+					stacks[index++] = copy;
+				}
+			}
+		}
+		return new BotaniaRecipeInput(stacks);
+	}
+
+	private RecipeUtils() {}
 }

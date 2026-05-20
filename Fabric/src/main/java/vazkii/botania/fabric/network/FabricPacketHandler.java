@@ -30,7 +30,6 @@ import vazkii.botania.network.clientbound.PaintLensEffectPacket;
 import vazkii.botania.network.clientbound.ParticleBeamEffectPacket;
 import vazkii.botania.network.clientbound.SparkManaFlowEffectPacket;
 import vazkii.botania.network.clientbound.SparkNetIndicatorEffectPacket;
-import vazkii.botania.network.clientbound.TerraPlateEffectPacket;
 import vazkii.botania.network.clientbound.ThundercallerEffectPacket;
 import vazkii.botania.network.clientbound.UpdateItemsRemainingPacket;
 import vazkii.botania.network.serverbound.DodgePacket;
@@ -64,7 +63,6 @@ public final class FabricPacketHandler {
 		PayloadTypeRegistry.playS2C().register(ParticleBeamEffectPacket.ID, ParticleBeamEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(SparkManaFlowEffectPacket.ID, SparkManaFlowEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(SparkNetIndicatorEffectPacket.ID, SparkNetIndicatorEffectPacket.STREAM_CODEC);
-		PayloadTypeRegistry.playS2C().register(TerraPlateEffectPacket.ID, TerraPlateEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(ThundercallerEffectPacket.ID, ThundercallerEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(UpdateItemsRemainingPacket.ID, UpdateItemsRemainingPacket.STREAM_CODEC);
 
@@ -95,7 +93,6 @@ public final class FabricPacketHandler {
 		ClientPlayNetworking.registerGlobalReceiver(ParticleBeamEffectPacket.ID, makeClientBoundHandler(ParticleBeamEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(SparkManaFlowEffectPacket.ID, makeClientBoundHandler(SparkManaFlowEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(SparkNetIndicatorEffectPacket.ID, makeClientBoundHandler(SparkNetIndicatorEffectPacket.Handler::handle));
-		ClientPlayNetworking.registerGlobalReceiver(TerraPlateEffectPacket.ID, makeClientBoundHandler(TerraPlateEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(ThundercallerEffectPacket.ID, makeClientBoundHandler(ThundercallerEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(UpdateItemsRemainingPacket.ID, makeClientBoundHandler(UpdateItemsRemainingPacket.Handler::handle));
 	}

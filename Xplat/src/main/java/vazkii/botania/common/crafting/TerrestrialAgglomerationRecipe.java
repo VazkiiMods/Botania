@@ -11,8 +11,6 @@ package vazkii.botania.common.crafting;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -21,11 +19,10 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.crafting.recipe.RecipeUtils;
+import vazkii.botania.api.recipe.BotaniaRecipeInput;
 
 import java.util.List;
 
@@ -55,23 +52,17 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 	}
 
 	@Override
-	public boolean matches(RecipeInput inv, Level world) {
-		int nonEmptySlots = 0;
-		for (int i = 0; i < inv.size(); i++) {
-			if (!inv.getItem(i).isEmpty()) {
-				if (inv.getItem(i).getCount() > 1) {
-					return false;
-				}
-				nonEmptySlots++;
-			}
+	public boolean matches(BotaniaRecipeInput input, Level world) {
+		if (input.size() != ingredients.size()) {
+			return false;
 		}
-
-		IntOpenHashSet usedSlots = new IntOpenHashSet(inv.size());
-		return RecipeUtils.matches(ingredients, null, inv, usedSlots, null) && usedSlots.size() == nonEmptySlots;
+		return ingredients.size() == 1
+				? ingredients.getFirst().test(input.getItem(0))
+				: input.getStackedContents().canCraft(this, null);
 	}
 
 	@Override
-	public ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
+	public ItemStack assemble(BotaniaRecipeInput inv, HolderLookup.Provider registries) {
 		return output.copy();
 	}
 

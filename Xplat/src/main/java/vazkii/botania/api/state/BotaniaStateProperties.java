@@ -19,6 +19,7 @@ import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.api.state.enums.HopperhockFilterType;
 import vazkii.botania.api.state.enums.ManastarState;
 import vazkii.botania.api.state.enums.RannuncarpusMode;
+import vazkii.botania.api.state.enums.TerraPlateState;
 
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
@@ -49,6 +50,9 @@ public final class BotaniaStateProperties {
 
 	// ManaPoolBlock
 	public static final BooleanProperty OUTPUTTING = BooleanProperty.create("outputting");
+
+	// TerrestrialAgglomerationPlateBlock
+	public static final EnumProperty<TerraPlateState> TERRA_PLATE_STATE = EnumProperty.create("state", TerraPlateState.class);
 
 	// Corporea Retainer
 	public static final BooleanProperty RETAIN_MISSING = BooleanProperty.create("retain_missing");

@@ -60,6 +60,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.entity.BotaniaEntities;
+import vazkii.botania.common.handler.BotaniaRecipeIngredientsCache;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
@@ -111,6 +112,7 @@ public class ForgeClientInitializer {
 				e.setCanceled(true);
 			}
 		});
+		bus.addListener((RecipesUpdatedEvent e) -> BotaniaRecipeIngredientsCache.clearClientCache());
 		bus.addListener((CustomizeGuiOverlayEvent.BossEventProgress e) -> {
 			var result = BossBarHandler.onBarRender(e.getGuiGraphics(), e.getX(), e.getY(),
 					e.getBossEvent(), true);
