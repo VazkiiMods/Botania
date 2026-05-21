@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.item.BotaniaItems;
@@ -64,7 +65,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 			return ItemStack.EMPTY;
 		}
 
-		stackToDisenchant.remove(DataComponents.ENCHANTMENTS);
+		EnchantmentHelper.updateEnchantments(stackToDisenchant, mutable -> mutable.removeIf(enchantment -> true));
 		stackToDisenchant.remove(DataComponents.REPAIR_COST);
 
 		return stackToDisenchant;
