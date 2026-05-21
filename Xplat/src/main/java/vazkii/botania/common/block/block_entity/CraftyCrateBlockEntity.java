@@ -157,7 +157,8 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 		Optional<RecipeHolder<CraftingRecipe>> matchingRecipe = getMatchingRecipe(craft);
 		matchingRecipe.ifPresent(recipe -> {
-			CraftingInput input = CraftingInput.of(craft.getWidth(), craft.getHeight(), craft.getItems());
+			CraftingInput.Positioned positioned = CraftingInput.ofPositioned(craft.getWidth(), craft.getHeight(), craft.getItems());
+			CraftingInput input = positioned.input();
 			ItemStack result = recipe.value().assemble(input, this.getLevel().registryAccess());
 
 			// Given some mods can return air by a bad implementation of their recipe handler,
@@ -177,14 +178,19 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 			Container handler = getItemHandler();
 			List<ItemStack> remainders = recipe.value().getRemainingItems(input);
 
-			for (int i = 0; i < craft.getContainerSize(); i++) {
-				ItemStack s = remainders.get(i);
-				ItemStack inSlot = handler.getItem(i);
-				if ((inSlot.isEmpty() && s.isEmpty())
-						|| (!inSlot.isEmpty() && inSlot.is(BotaniaItems.placeholder))) {
-					continue;
+			// Remainders are aligned to the trimmed crafting input, so map them back into the 3x3 crate slots.
+			for (int row = 0; row < input.height(); row++) {
+				for (int col = 0; col < input.width(); col++) {
+					int remainderIndex = col + row * input.width();
+					int slot = positioned.left() + col + (positioned.top() + row) * craft.getWidth();
+					ItemStack s = remainders.get(remainderIndex);
+					ItemStack inSlot = handler.getItem(slot);
+					if ((inSlot.isEmpty() && s.isEmpty())
+							|| (!inSlot.isEmpty() && inSlot.is(BotaniaItems.placeholder))) {
+						continue;
+					}
+					handler.setItem(slot, s);
 				}
-				handler.setItem(i, s);
 			}
 
 			craftResult = result;
