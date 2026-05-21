@@ -13,6 +13,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EnchantmentTags;
@@ -36,11 +37,13 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.mixin.ExperienceOrbAccessor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int MANA_PER_XP = 50;
 	private static final int RANGE = 1;
+	public static final int PLAYER_TAKE_XP_DELAY = 10;
 
 	public RosaArcanaBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.ROSA_ARCANA, pos, state);
@@ -50,28 +53,49 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (level.isClientSide() || getMana() >= getMaxMana()) {
+		if (!(level instanceof ServerLevel serverLevel) || getMana() >= getMaxMana()) {
 			return;
 		}
 
 		AABB effectBounds = MathHelper.inflateBoxAround(getEffectivePos(), RANGE);
 
-		/* TODO: Now that player and orb yields are identical, it might look better/funnier
-		to instead make xp orbs leak out of the player's head instead directly consuming.
-		*/
-		List<Player> players = getLevel().getEntitiesOfClass(Player.class, effectBounds,
-				// You would think checking totalExperience is right, but it seems to be
-				// possibly equal to zero even when the level is > 0.
-				// Instead, check the level and intra-level progress separately.
-				player -> (player.experienceLevel > 0 || player.experienceProgress > 0)
-						&& player.onGround());
-		for (Player player : players) {
-			player.giveExperiencePoints(-1);
-			addMana(MANA_PER_XP);
+		if (consumeXpOrb(serverLevel, effectBounds)) {
 			return;
 		}
+		if (disenchantAnItem(serverLevel, effectBounds)) {
+			return;
+		}
+		drainPlayerXp(serverLevel, effectBounds);
+	}
 
-		List<ExperienceOrb> orbs = getLevel().getEntitiesOfClass(ExperienceOrb.class, effectBounds, ExperienceOrb::isAlive);
+	private static void drainPlayerXp(ServerLevel serverLevel, AABB effectBounds) {
+		List<Player> players = new ArrayList<>();
+		// entity search selects subchunks by assuming all entities are ghast-sized, so this is likely faster:
+		serverLevel.players().stream()
+				.filter(player -> player.isAlive() && !player.isSpectator()
+						&& player.getBoundingBox().intersects(effectBounds))
+				.forEach(players::add);
+		// prevent players from picking up XP orbs
+		for (Player player : players) {
+			player.takeXpDelay = Math.max(PLAYER_TAKE_XP_DELAY, player.takeXpDelay);
+		}
+		// You would think checking totalExperience is right, but it seems to be
+		// possibly equal to zero even when the level is > 0.
+		// Instead, check the level and intra-level progress separately.
+		players.removeIf(player -> player.experienceProgress == 0 && player.experienceLevel == 0);
+		if (players.isEmpty()) {
+			return;
+		}
+		// pull XP from one random player
+		Player player = players.get(serverLevel.random.nextInt(players.size()));
+		// this effectively only happens every other tick, so average out the XP drain to 1 per tick
+		int drainAmount = player.experienceLevel > 0 && serverLevel.random.nextBoolean() ? 3 : 1;
+		player.giveExperiencePoints(-drainAmount);
+		ExperienceOrb.award(serverLevel, player.position().add(0, 0.5 * player.getEyeHeight(), 0), drainAmount);
+	}
+
+	private boolean consumeXpOrb(ServerLevel serverLevel, AABB effectBounds) {
+		List<ExperienceOrb> orbs = serverLevel.getEntitiesOfClass(ExperienceOrb.class, effectBounds, ExperienceOrb::isAlive);
 		for (ExperienceOrb orb : orbs) {
 			int count = ((ExperienceOrbAccessor) orb).botania_getCount();
 			if (count > 0) {
@@ -80,96 +104,75 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 				if (count == 1) {
 					orb.discard();
 				}
-				float pitch = (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.35F + 0.9F;
+				// TODO: make a block-specific version of ClientboundTakeItemEntityPacket for this and the Hopperhock
+				// [VanillaCoppy] ClientPacketListener::handleTakeItemEntity (sound for ExperienceOrb)
+				float pitch = (serverLevel.getRandom().nextFloat() - serverLevel.getRandom().nextFloat()) * 0.35F + 0.9F;
 				//Usage of vanilla sound event: Subtitle is "Experience gained", and this is about gaining experience anyways.
-				level.playSound(null, getEffectivePos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.07F, pitch);
-				return;
+				serverLevel.playSound(null, getEffectivePos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.07F, pitch);
+				return true;
 			}
 		}
+		return false;
+	}
 
-		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, effectBounds, e -> e.isAlive() && !e.getItem().isEmpty());
+	private boolean disenchantAnItem(ServerLevel serverLevel, AABB effectBounds) {
+		List<ItemEntity> items = serverLevel.getEntitiesOfClass(ItemEntity.class, effectBounds,
+				e -> e.isAlive() && !e.getItem().isEmpty() && EnchantmentHelper.hasAnyEnchantments(e.getItem())
+		);
 		for (ItemEntity entity : items) {
 			ItemStack stack = entity.getItem();
-			if (stack.is(Items.ENCHANTED_BOOK) || stack.isEnchanted()) {
-				int xp = getEnchantmentXpValue(stack);
-				if (xp > 0) {
-					ItemStack newStack = removeNonCurses(stack);
-					newStack.setCount(1);
-					EntityHelper.shrinkItem(entity);
-
-					ItemEntity newEntity = new ItemEntity(level, entity.getX(), entity.getY(), entity.getZ(), newStack);
-					newEntity.setDeltaMovement(entity.getDeltaMovement());
-					level.addFreshEntity(newEntity);
-
-					level.playSound(null, getEffectivePos(), BotaniaSounds.arcaneRoseDisenchant, SoundSource.BLOCKS, 1F, this.level.getRandom().nextFloat() * 0.1F + 0.9F);
-					while (xp > 0) {
-						int i = ExperienceOrb.getExperienceValue(xp);
-						xp -= i;
-						level.addFreshEntity(new ExperienceOrb(level, getEffectivePos().getX() + 0.5D, getEffectivePos().getY() + 0.5D, getEffectivePos().getZ() + 0.5D, i));
-					}
-					return;
-				}
+			int xp = getEnchantmentXpValue(stack);
+			if (xp <= 0) {
+				continue;
 			}
+			ItemStack newStack = removeNonCurses(stack.copyWithCount(1));
+			EntityHelper.shrinkItem(entity);
+
+			ItemEntity newEntity = new ItemEntity(serverLevel, entity.getX(), entity.getY(), entity.getZ(), newStack);
+			newEntity.setDeltaMovement(entity.getDeltaMovement());
+			serverLevel.addFreshEntity(newEntity);
+
+			serverLevel.playSound(null, getEffectivePos(), BotaniaSounds.arcaneRoseDisenchant,
+					SoundSource.BLOCKS, 1F, serverLevel.random.nextFloat() * 0.1F + 0.9F);
+			ExperienceOrb.award(serverLevel, entity.getEyePosition(), xp);
+			return true;
 		}
+		return false;
 	}
 
-	// [VanillaCopy] GrindstoneMenu
-	private static int getEnchantmentXpValue(ItemStack stack) {
-		int ret = 0;
-		ItemEnchantments itemenchantments = EnchantmentHelper.getEnchantmentsForCrafting(stack);
+	// [VanillaCopy] GrindstoneMenu::<init> -> [anonymous class for resultSlot]::getExperienceFromItem
+	private static int getEnchantmentXpValue(ItemStack item) {
+		int amount = 0;
+		ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(item);
 
-		for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemenchantments.entrySet()) {
-			Holder<Enchantment> holder = entry.getKey();
-			int integer = entry.getIntValue();
-			if (!holder.is(EnchantmentTags.CURSE)) {
-				ret += holder.value().getMinCost(integer);
+		for (Object2IntMap.Entry<Holder<Enchantment>> entry : enchantments.entrySet()) {
+			Holder<Enchantment> enchant = entry.getKey();
+			int lvl = entry.getIntValue();
+			if (!enchant.is(EnchantmentTags.CURSE)) {
+				amount += enchant.value().getMinCost(lvl);
 			}
 		}
 
-		return ret;
+		return amount;
 	}
 
-	// [VanillaCopy] GrindstoneMenu, no damage and count setting
-	private static ItemStack removeNonCurses(ItemStack stack) {
-		/*
-		ItemStack itemstack = stack.copy();
-		itemstack.removeTagKey("Enchantments");
-		itemstack.removeTagKey("StoredEnchantments");
-		
-		Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
-		map.keySet().removeIf(e -> !e.isCurse());
-		EnchantmentHelper.setEnchantments(map, itemstack);
-		itemstack.setRepairCost(0);
-		if (itemstack.is(Items.ENCHANTED_BOOK) && map.size() == 0) {
-			itemstack = new ItemStack(Items.BOOK);
-			if (stack.hasCustomHoverName()) {
-				itemstack.setHoverName(stack.getHoverName());
-			}
-		}
-		
-		for (int i = 0; i < map.size(); ++i) {
-			itemstack.setRepairCost(AnvilMenu.calculateIncreasedRepairCost(itemstack.getBaseRepairCost()));
-		}
-		
-		return itemstack;
-		
-		 */
-		//TODO check if functionality is the same. I just copied the code from GrindstoneMenu
-		ItemEnchantments itemenchantments = EnchantmentHelper.updateEnchantments(
-				stack, p_330066_ -> p_330066_.removeIf(p_344368_ -> !p_344368_.is(EnchantmentTags.CURSE))
+	// [VanillaCopy] GrindstoneMenu::removeNonCursesFrom
+	private static ItemStack removeNonCurses(ItemStack item) {
+		ItemEnchantments newEnchantments = EnchantmentHelper.updateEnchantments(
+				item, enchantments -> enchantments.removeIf(enchantment -> !enchantment.is(EnchantmentTags.CURSE))
 		);
-		if (stack.is(Items.ENCHANTED_BOOK) && itemenchantments.isEmpty()) {
-			stack = stack.transmuteCopy(Items.BOOK);
+		if (item.is(Items.ENCHANTED_BOOK) && newEnchantments.isEmpty()) {
+			item = item.transmuteCopy(Items.BOOK);
 		}
 
-		int i = 0;
+		int repairCost = 0;
 
-		for (int j = 0; j < itemenchantments.size(); j++) {
-			i = AnvilMenu.calculateIncreasedRepairCost(i);
+		for (int i = 0; i < newEnchantments.size(); i++) {
+			repairCost = AnvilMenu.calculateIncreasedRepairCost(repairCost);
 		}
 
-		stack.set(DataComponents.REPAIR_COST, i);
-		return stack;
+		item.set(DataComponents.REPAIR_COST, repairCost);
+		return item;
 	}
 
 	@Override

@@ -27,6 +27,7 @@
     "EntityAccessor",
     "EntityMixin",
     "ExperienceOrbAccessor",
+    "ExperienceOrbMixin",
     "FarmBlockMixin",
     "FlowingFluidAccessor",
     "GrowingPlantBodyBlockMixin",
