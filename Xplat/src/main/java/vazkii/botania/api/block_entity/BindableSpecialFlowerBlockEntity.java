@@ -41,7 +41,6 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -50,6 +49,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Superclass of flowers that can be bound to some kind of target with the Wand of the Forest,
@@ -96,6 +96,16 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 	@Nullable
 	protected BlockPos getClosestManaReceiver(Class<T> receiverType, Level level, BlockPos center, int rangeLimit) {
+		return getClosestMatchingBlockEntity(
+				level, center, rangeLimit, blockEntity -> receiverType.isInstance(
+						XplatAbstractions.instance().findManaReceiver(blockEntity))
+		);
+	}
+
+	// TODO: maybe find a better home for this very generic helper method
+	@Nullable
+	public static BlockPos getClosestMatchingBlockEntity(Level level, BlockPos center,
+			int rangeLimit, Predicate<BlockEntity> blockEntityPredicate) {
 		long minDist = Long.MAX_VALUE;
 		long limitSquared = (long) rangeLimit * rangeLimit;
 		BlockPos closestPos = null;
@@ -115,9 +125,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 					if (dist > minDist || dist > limitSquared) {
 						continue;
 					}
-					BlockEntity be = entry.getValue();
-					ManaReceiver manaReceiver = XplatAbstractions.instance().findManaReceiver(be);
-					if (receiverType.isInstance(manaReceiver)) {
+					if (blockEntityPredicate.test(entry.getValue())) {
 						minDist = dist;
 						closestPos = pos;
 					}
