@@ -38,6 +38,9 @@ public class ItemEntityMixin {
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTick(CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
-		XplatAbstractions.instance().setItemLifeTime(self, XplatAbstractions.instance().getItemLifeTime(self) + 1);
+		short lifeTime = XplatAbstractions.instance().getItemLifeTime(self);
+		if (lifeTime != Short.MIN_VALUE) {
+			XplatAbstractions.instance().setItemLifeTime(self, lifeTime + 1);
+		}
 	}
 }

@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
@@ -120,6 +121,7 @@ import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 import vazkii.botania.fabric.loot.LootHandler;
 import vazkii.botania.fabric.network.FabricPacketHandler;
+import vazkii.botania.network.clientbound.ItemLifeTimePacket;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -271,6 +273,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		AttackEntityCallback.EVENT.register(TerraBladeItem::attackEntity);
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		EntitySleepEvents.ALLOW_SLEEPING.register(SleepingHandler::trySleep);
+		EntityTrackingEvents.START_TRACKING.register(ItemLifeTimePacket::onItemTrack);
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
 			if (source.isBuiltin()) {
 				LootHandler.injectLoot(key.location(), tableBuilder::withPool);

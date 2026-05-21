@@ -153,7 +153,7 @@ public interface XplatAbstractions {
 	Optional<ItemSource> getItemSource(ItemEntity item);
 	void setItemSource(ItemEntity item, ItemSource source);
 
-	int getItemLifeTime(ItemEntity item);
+	short getItemLifeTime(ItemEntity item);
 	void setItemLifeTime(ItemEntity item, int ticks);
 
 	List<ItemStack> getKeptItems(Player player);

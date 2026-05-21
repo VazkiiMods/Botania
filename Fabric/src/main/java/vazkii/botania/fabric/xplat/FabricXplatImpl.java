@@ -441,13 +441,14 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public int getItemLifeTime(ItemEntity item) {
+	public short getItemLifeTime(ItemEntity item) {
 		return item.getAttachedOrElse(FabricInternalEntityAttachments.ITEM_LIFETIME, (short) 0);
 	}
 
 	@Override
 	public void setItemLifeTime(ItemEntity item, int ticks) {
-		item.setAttached(FabricInternalEntityAttachments.ITEM_LIFETIME, (short) Math.min(Short.MAX_VALUE, ticks));
+		item.setAttached(FabricInternalEntityAttachments.ITEM_LIFETIME,
+				(short) Math.clamp(ticks, Short.MIN_VALUE, Short.MAX_VALUE));
 	}
 
 	@Override

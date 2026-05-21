@@ -130,6 +130,7 @@ import vazkii.botania.neoforge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.neoforge.internal_caps.WaterBowlFluidHandler;
 import vazkii.botania.neoforge.network.ForgePacketHandler;
 import vazkii.botania.neoforge.xplat.ForgeXplatImpl;
+import vazkii.botania.network.clientbound.ItemLifeTimePacket;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -322,6 +323,7 @@ public class ForgeCommonInitializer {
 				e.setProblem(problem);
 			}
 		});
+		bus.addListener((PlayerEvent.StartTracking e) -> ItemLifeTimePacket.onItemTrack(e.getTarget(), (ServerPlayer) e.getEntity()));
 		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getReceiver(), e.getType(), e.getAction()));
 		bus.addListener((EntityJoinLevelEvent e) -> {
 			if (!e.getLevel().isClientSide) {

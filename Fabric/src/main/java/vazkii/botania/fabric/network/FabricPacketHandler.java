@@ -25,6 +25,7 @@ import vazkii.botania.network.clientbound.FluegelEyeEffectPacket;
 import vazkii.botania.network.clientbound.GogWorldPacket;
 import vazkii.botania.network.clientbound.GrassSeedsEffectPacket;
 import vazkii.botania.network.clientbound.HaloCraftEffectPacket;
+import vazkii.botania.network.clientbound.ItemLifeTimePacket;
 import vazkii.botania.network.clientbound.ItemSmokeEffectPacket;
 import vazkii.botania.network.clientbound.PaintLensEffectPacket;
 import vazkii.botania.network.clientbound.ParticleBeamEffectPacket;
@@ -58,6 +59,7 @@ public final class FabricPacketHandler {
 		PayloadTypeRegistry.playS2C().register(GogWorldPacket.ID, GogWorldPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(GrassSeedsEffectPacket.ID, GrassSeedsEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(HaloCraftEffectPacket.ID, HaloCraftEffectPacket.STREAM_CODEC);
+		PayloadTypeRegistry.playS2C().register(ItemLifeTimePacket.ID, ItemLifeTimePacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(ItemSmokeEffectPacket.ID, ItemSmokeEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(PaintLensEffectPacket.ID, PaintLensEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(ParticleBeamEffectPacket.ID, ParticleBeamEffectPacket.STREAM_CODEC);
@@ -88,6 +90,7 @@ public final class FabricPacketHandler {
 		ClientPlayNetworking.registerGlobalReceiver(GogWorldPacket.ID, makeClientBoundHandler(GogWorldPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(GrassSeedsEffectPacket.ID, makeClientBoundHandler(GrassSeedsEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(HaloCraftEffectPacket.ID, makeClientBoundHandler(HaloCraftEffectPacket.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(ItemLifeTimePacket.ID, makeClientBoundHandler(ItemLifeTimePacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(ItemSmokeEffectPacket.ID, makeClientBoundHandler(ItemSmokeEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(PaintLensEffectPacket.ID, makeClientBoundHandler(PaintLensEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(ParticleBeamEffectPacket.ID, makeClientBoundHandler(ParticleBeamEffectPacket.Handler::handle));
