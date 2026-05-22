@@ -22,7 +22,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.recipe.BotaniaRecipeInput;
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 	}
 
 	@Override
-	public boolean matches(BotaniaRecipeInput input, Level world) {
+	public boolean matches(ProcessingRecipeInput input, Level world) {
 		if (input.size() != ingredients.size()) {
 			return false;
 		}
@@ -62,7 +62,7 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 	}
 
 	@Override
-	public ItemStack assemble(BotaniaRecipeInput inv, HolderLookup.Provider registries) {
+	public ItemStack assemble(ProcessingRecipeInput inv, HolderLookup.Provider registries) {
 		return output.copy();
 	}
 

@@ -38,7 +38,7 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
-import vazkii.botania.api.recipe.BotaniaRecipeInput;
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.TerraPlateState;
@@ -86,7 +86,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 	private int manaToGet;
 	private int currentProgress = -1;
 	private long lastProgressTick;
-	private final RecipeManager.CachedCheck<BotaniaRecipeInput, TerrestrialAgglomerationRecipe> cachedCheck = RecipeManager.createCheck(BotaniaRecipeTypes.TERRA_PLATE_TYPE);
+	private final RecipeManager.CachedCheck<ProcessingRecipeInput, TerrestrialAgglomerationRecipe> cachedCheck = RecipeManager.createCheck(BotaniaRecipeTypes.TERRA_PLATE_TYPE);
 
 	public TerrestrialAgglomerationPlateBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.TERRA_PLATE, pos, state);
@@ -99,7 +99,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 			return;
 		}
 		List<ItemEntity> itemEntities = self.getItemEntities();
-		BotaniaRecipeInput recipeInput = RecipeUtils.getInputFromEntities(itemEntities);
+		ProcessingRecipeInput recipeInput = RecipeUtils.getInputFromEntities(itemEntities);
 		Optional<RecipeHolder<TerrestrialAgglomerationRecipe>> recipeHolderOptional = self.cachedCheck.getRecipeFor(recipeInput, level);
 		if (recipeHolderOptional.isEmpty()) {
 			self.stopCollecting();
@@ -128,7 +128,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 	}
 
 	private void finishCrafting(Level level, BlockPos pos, BlockState state, List<ItemEntity> itemEntities,
-			BotaniaRecipeInput recipeInput, RecipeHolder<TerrestrialAgglomerationRecipe> recipeHolder) {
+			ProcessingRecipeInput recipeInput, RecipeHolder<TerrestrialAgglomerationRecipe> recipeHolder) {
 		Player player = getCraftingPlayer(itemEntities);
 		ItemStack result = recipeHolder.value().assemble(recipeInput, level.registryAccess());
 		if (player != null) {
@@ -252,7 +252,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 			return;
 		}
 		List<ItemEntity> itemEntities = getItemEntities();
-		BotaniaRecipeInput recipeInput = RecipeUtils.getInputFromEntities(itemEntities);
+		ProcessingRecipeInput recipeInput = RecipeUtils.getInputFromEntities(itemEntities);
 		Optional<RecipeHolder<TerrestrialAgglomerationRecipe>> recipe = cachedCheck.getRecipeFor(recipeInput, level);
 		if (recipe.isPresent()) {
 			manaToGet = recipe.get().value().getMana();

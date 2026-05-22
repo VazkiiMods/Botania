@@ -19,7 +19,7 @@ import java.util.Objects;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public interface TerrestrialAgglomerationRecipe extends Recipe<BotaniaRecipeInput> {
+public interface TerrestrialAgglomerationRecipe extends Recipe<ProcessingRecipeInput> {
 	ResourceLocation TERRA_PLATE_ID = botaniaRL("terra_plate");
 	ResourceLocation TYPE_ID = TERRA_PLATE_ID;
 
@@ -36,7 +36,7 @@ public interface TerrestrialAgglomerationRecipe extends Recipe<BotaniaRecipeInpu
 	}
 
 	@Override
-	default NonNullList<ItemStack> getRemainingItems(BotaniaRecipeInput input) {
+	default NonNullList<ItemStack> getRemainingItems(ProcessingRecipeInput input) {
 		// terra plate always consumes all input items
 		return NonNullList.create();
 	}

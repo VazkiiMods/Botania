@@ -1,16 +1,17 @@
-package vazkii.botania.api.recipe;
+package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeInput;
+
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 
 import java.util.Arrays;
 
-public class BotaniaRecipeInput implements RecipeInput {
+public class StacksProcessingRecipeInput implements ProcessingRecipeInput {
 	private final ItemStack[] stacks;
 	private final StackedContents stackedContents = new StackedContents();
 
-	public BotaniaRecipeInput(ItemStack[] stacks) {
+	public StacksProcessingRecipeInput(ItemStack[] stacks) {
 		this.stacks = stacks;
 		Arrays.stream(stacks).forEach(stackedContents::accountStack);
 	}
@@ -25,6 +26,7 @@ public class BotaniaRecipeInput implements RecipeInput {
 		return stacks.length;
 	}
 
+	@Override
 	public StackedContents getStackedContents() {
 		return stackedContents;
 	}

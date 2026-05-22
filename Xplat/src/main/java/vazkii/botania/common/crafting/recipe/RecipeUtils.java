@@ -11,6 +11,7 @@ package vazkii.botania.common.crafting.recipe;
 import it.unimi.dsi.fastutil.ints.IntSet;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -18,7 +19,7 @@ import net.minecraft.world.item.crafting.RecipeInput;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.BotaniaRecipeInput;
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,11 +96,11 @@ public final class RecipeUtils {
 	}
 
 	/**
-	 * Creates a {@link BotaniaRecipeInput} from the stacks in the provided item entities.
+	 * Creates a {@link ProcessingRecipeInput} from the stacks in the provided item entities.
 	 * Stack sizes greater than one are counted as that many input items.
 	 */
-	public static BotaniaRecipeInput getInputFromEntities(List<ItemEntity> itemEntities) {
-		int count = itemEntities.stream().mapToInt(i -> i.getItem().getCount()).sum();
+	public static ProcessingRecipeInput getInputFromEntities(List<ItemEntity> itemEntities) {
+		int count = itemEntities.stream().filter(Entity::isAlive).mapToInt(i -> i.getItem().getCount()).sum();
 		ItemStack[] stacks = new ItemStack[count];
 		int index = 0;
 		for (ItemEntity entity : itemEntities) {
@@ -113,7 +114,7 @@ public final class RecipeUtils {
 				}
 			}
 		}
-		return new BotaniaRecipeInput(stacks);
+		return new StacksProcessingRecipeInput(stacks);
 	}
 
 	private RecipeUtils() {}
