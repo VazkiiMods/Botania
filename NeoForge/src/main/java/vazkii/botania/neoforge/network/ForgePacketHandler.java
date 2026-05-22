@@ -13,6 +13,7 @@ import vazkii.botania.network.clientbound.AvatarSkiesRodUpdatePacket;
 import vazkii.botania.network.clientbound.BlackLotusDissolveEffectPacket;
 import vazkii.botania.network.clientbound.DivaCharmEffectPacket;
 import vazkii.botania.network.clientbound.EnchanterDestroyEffectPacket;
+import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
 import vazkii.botania.network.clientbound.FluegelEyeEffectPacket;
 import vazkii.botania.network.clientbound.GogWorldPacket;
 import vazkii.botania.network.clientbound.GrassSeedsEffectPacket;
@@ -49,6 +50,7 @@ public class ForgePacketHandler {
 		registrar.playToClient(BlackLotusDissolveEffectPacket.ID, BlackLotusDissolveEffectPacket.STREAM_CODEC, makeClientBoundHandler(BlackLotusDissolveEffectPacket.Handler::handle));
 		registrar.playToClient(DivaCharmEffectPacket.ID, DivaCharmEffectPacket.STREAM_CODEC, makeClientBoundHandler(DivaCharmEffectPacket.Handler::handle));
 		registrar.playToClient(EnchanterDestroyEffectPacket.ID, EnchanterDestroyEffectPacket.STREAM_CODEC, makeClientBoundHandler(EnchanterDestroyEffectPacket.Handler::handle));
+		registrar.playToClient(FlowerTakeItemEffectPacket.ID, FlowerTakeItemEffectPacket.STREAM_CODEC, makeClientBoundHandler(FlowerTakeItemEffectPacket.Handler::handle));
 		registrar.playToClient(FluegelEyeEffectPacket.ID, FluegelEyeEffectPacket.STREAM_CODEC, makeClientBoundHandler(FluegelEyeEffectPacket.Handler::handle));
 		registrar.playToClient(GogWorldPacket.ID, GogWorldPacket.STREAM_CODEC, makeClientBoundHandler(GogWorldPacket.Handler::handle));
 		registrar.playToClient(GrassSeedsEffectPacket.ID, GrassSeedsEffectPacket.STREAM_CODEC, makeClientBoundHandler(GrassSeedsEffectPacket.Handler::handle));

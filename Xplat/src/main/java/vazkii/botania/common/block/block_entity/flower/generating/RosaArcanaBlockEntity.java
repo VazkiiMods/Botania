@@ -14,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -36,6 +35,8 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.mixin.ExperienceOrbAccessor;
+import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,14 +102,11 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 			if (count > 0) {
 				addMana(orb.getValue() * MANA_PER_XP);
 				((ExperienceOrbAccessor) orb).botania_setCount(count - 1);
+				XplatAbstractions.instance().sendToTracking(orb,
+						new FlowerTakeItemEffectPacket(orb.getId(), getEffectivePos(), 1));
 				if (count == 1) {
 					orb.discard();
 				}
-				// TODO: make a block-specific version of ClientboundTakeItemEntityPacket for this and the Hopperhock
-				// [VanillaCoppy] ClientPacketListener::handleTakeItemEntity (sound for ExperienceOrb)
-				float pitch = (serverLevel.getRandom().nextFloat() - serverLevel.getRandom().nextFloat()) * 0.35F + 0.9F;
-				//Usage of vanilla sound event: Subtitle is "Experience gained", and this is about gaining experience anyways.
-				serverLevel.playSound(null, getEffectivePos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.07F, pitch);
 				return true;
 			}
 		}
