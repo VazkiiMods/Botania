@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.api.recipe.ProcessingRecipeInput;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class StacksProcessingRecipeInput implements ProcessingRecipeInput {
 	private final ItemStack[] stacks;
@@ -29,5 +30,10 @@ public class StacksProcessingRecipeInput implements ProcessingRecipeInput {
 	@Override
 	public StackedContents getStackedContents() {
 		return stackedContents;
+	}
+
+	@Override
+	public List<ItemStack> getItems() {
+		return List.of(stacks);
 	}
 }

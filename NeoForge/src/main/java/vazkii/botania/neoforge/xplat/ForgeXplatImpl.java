@@ -38,6 +38,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -65,6 +66,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.common.util.RecipeMatcher;
 import net.neoforged.neoforge.data.loading.DatagenModLoader;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
@@ -627,6 +629,22 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		return state.getBlock() instanceof BaseRailBlock block
 				? block.getRailDirection(state, level, pos, null)
 				: RailShape.NORTH_SOUTH;
+	}
+
+	@Override
+	public ItemStack getCraftingRemainingItem(ItemStack inputStack) {
+		return inputStack.getCraftingRemainingItem();
+	}
+
+	@Override
+	public boolean requiresCustomTesting(Ingredient ingredient) {
+		return !ingredient.isSimple();
+	}
+
+	@Override
+	public boolean matchesWithCustomTestIngredients(List<ItemStack> nonEmptyStacks,
+			List<Ingredient> ingredients) {
+		return RecipeMatcher.findMatches(nonEmptyStacks, ingredients) != null;
 	}
 
 	@Override

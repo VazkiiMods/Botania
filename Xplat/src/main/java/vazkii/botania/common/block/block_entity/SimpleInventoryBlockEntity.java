@@ -25,12 +25,14 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
 public abstract class SimpleInventoryBlockEntity extends BlockEntity implements Clearable {
 
@@ -101,18 +103,8 @@ public abstract class SimpleInventoryBlockEntity extends BlockEntity implements 
 		return itemHandler;
 	}
 
-	public RecipeInput getRecipeInput() {
-		return new RecipeInput() {
-			@Override
-			public ItemStack getItem(int index) {
-				return itemHandler.getItem(index);
-			}
-
-			@Override
-			public int size() {
-				return itemHandler.getContainerSize();
-			}
-		};
+	public ProcessingRecipeInput getRecipeInput() {
+		return RecipeUtils.getInputFromContainer(itemHandler);
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper;
+import net.fabricmc.fabric.impl.recipe.ingredient.ShapelessMatch;
 import net.fabricmc.fabric.mixin.transfer.BucketItemAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.Optionull;
@@ -65,6 +66,7 @@ import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
@@ -713,6 +715,21 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return state.getBlock() instanceof BaseRailBlock block
 				? state.getValue(block.getShapeProperty())
 				: RailShape.NORTH_SOUTH;
+	}
+
+	@Override
+	public ItemStack getCraftingRemainingItem(ItemStack inputStack) {
+		return inputStack.getRecipeRemainder();
+	}
+
+	@Override
+	public boolean requiresCustomTesting(Ingredient ingredient) {
+		return ingredient.requiresTesting();
+	}
+
+	@Override
+	public boolean matchesWithCustomTestIngredients(List<ItemStack> nonEmptyStacks, List<Ingredient> ingredients) {
+		return ShapelessMatch.isMatch(nonEmptyStacks, ingredients);
 	}
 
 	@Override

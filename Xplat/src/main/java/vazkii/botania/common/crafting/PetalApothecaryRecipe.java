@@ -18,13 +18,15 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
+import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApothecaryRecipe {
@@ -32,11 +34,13 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 	private final ItemStack output;
 	private final Ingredient reagent;
 	private final NonNullList<Ingredient> ingredients;
+	private final boolean requireSpecialMatching;
 
 	public PetalApothecaryRecipe(ItemStack output, Ingredient reagent, Ingredient... ingredients) {
 		this.output = output;
 		this.reagent = reagent;
 		this.ingredients = NonNullList.of(Ingredient.EMPTY, ingredients);
+		this.requireSpecialMatching = Arrays.stream(ingredients).anyMatch(XplatAbstractions.instance()::requiresCustomTesting);
 	}
 
 	private static PetalApothecaryRecipe of(ItemStack output, Ingredient reagent, List<Ingredient> ingredients) {
@@ -44,8 +48,8 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 	}
 
 	@Override
-	public boolean matches(RecipeInput inv, Level world) {
-		return RecipeUtils.matches(ingredients, null, inv, null, null);
+	public boolean matches(ProcessingRecipeInput input, Level level) {
+		return RecipeUtils.matches(this, input, requireSpecialMatching);
 	}
 
 	@Override
@@ -54,8 +58,13 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 	}
 
 	@Override
-	public ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
+	public ItemStack assemble(ProcessingRecipeInput inv, HolderLookup.Provider registries) {
 		return getResultItem(registries).copy();
+	}
+
+	@Override
+	public boolean canCraftInDimensions(int width, int height) {
+		return width * height >= ingredients.size();
 	}
 
 	public ItemStack getOutput() {

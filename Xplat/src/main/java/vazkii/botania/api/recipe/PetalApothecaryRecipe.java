@@ -16,7 +16,7 @@ import java.util.Objects;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public interface PetalApothecaryRecipe extends RecipeWithReagent {
+public interface PetalApothecaryRecipe extends RecipeWithReagent<ProcessingRecipeInput> {
 	ResourceLocation TYPE_ID = botaniaRL("petal_apothecary");
 
 	@Override

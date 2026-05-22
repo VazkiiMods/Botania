@@ -23,7 +23,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.recipe.ProcessingRecipeInput;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
+import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe {
@@ -31,11 +34,13 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 	private final int mana;
 	private final NonNullList<Ingredient> ingredients;
 	private final ItemStack output;
+	private final boolean requireSpecialMatching;
 
 	public TerrestrialAgglomerationRecipe(int mana, ItemStack output, Ingredient... ingredients) {
 		this.mana = mana;
 		this.ingredients = NonNullList.of(Ingredient.EMPTY, ingredients);
 		this.output = output;
+		this.requireSpecialMatching = Arrays.stream(ingredients).anyMatch(XplatAbstractions.instance()::requiresCustomTesting);
 	}
 
 	private static TerrestrialAgglomerationRecipe of(List<Ingredient> ingredients, int mana, ItemStack output) {
@@ -53,12 +58,7 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 
 	@Override
 	public boolean matches(ProcessingRecipeInput input, Level world) {
-		if (input.size() != ingredients.size()) {
-			return false;
-		}
-		return ingredients.size() == 1
-				? ingredients.getFirst().test(input.getItem(0))
-				: input.getStackedContents().canCraft(this, null);
+		return RecipeUtils.matches(this, input, requireSpecialMatching);
 	}
 
 	@Override

@@ -33,6 +33,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
@@ -225,6 +226,10 @@ public interface XplatAbstractions {
 	boolean canToolLightFire(ItemStack stack);
 	// Forge rails can define the shape through other means than the vanilla block state property
 	RailShape getRailDirection(BlockState state, BlockGetter level, BlockPos pos, @Nullable AbstractMinecart cart);
+	// both loaders provide stack-sensitive craft remainder implementations
+	ItemStack getCraftingRemainingItem(ItemStack inputStack);
+	boolean requiresCustomTesting(Ingredient ingredient);
+	boolean matchesWithCustomTestIngredients(List<ItemStack> nonEmptyStacks, List<Ingredient> ingredients);
 
 	// Red string container
 	boolean isRedStringContainerTarget(Level level, BlockPos pos);

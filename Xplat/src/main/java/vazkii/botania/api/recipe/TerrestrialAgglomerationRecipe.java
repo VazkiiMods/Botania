@@ -45,9 +45,4 @@ public interface TerrestrialAgglomerationRecipe extends Recipe<ProcessingRecipeI
 	default ItemStack getToastSymbol() {
 		return BuiltInRegistries.ITEM.getOptional(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
-
-	@Override
-	default boolean isSpecial() {
-		return true;
-	}
 }

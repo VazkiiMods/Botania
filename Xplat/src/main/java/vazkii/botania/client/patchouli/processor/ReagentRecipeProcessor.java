@@ -14,7 +14,7 @@ import vazkii.patchouli.api.IVariableProvider;
 
 import java.util.List;
 
-public abstract class ReagentRecipeProcessor<T extends RecipeWithReagent> implements IComponentProcessor {
+public abstract class ReagentRecipeProcessor<T extends RecipeWithReagent<?>> implements IComponentProcessor {
 	@Nullable
 	protected RecipeHolder<T> recipe;
 

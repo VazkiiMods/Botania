@@ -31,12 +31,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 
 import java.net.URI;
@@ -79,13 +79,13 @@ public class HeadRecipe extends RunicAltarRecipe {
 	}
 
 	@Override
-	public boolean matches(RecipeInput inv, Level world) {
-		boolean matches = super.matches(inv, world);
+	public boolean matches(ProcessingRecipeInput input, Level world) {
+		boolean matches = super.matches(input, world);
 		boolean foundName = false;
 
 		if (matches) {
-			for (int i = 0; i < inv.size(); i++) {
-				ItemStack stack = inv.getItem(i);
+			for (int i = 0; i < input.size(); i++) {
+				ItemStack stack = input.getItem(i);
 				if (stack.isEmpty()) {
 					break;
 				}
@@ -115,7 +115,7 @@ public class HeadRecipe extends RunicAltarRecipe {
 	}
 
 	@Override
-	public ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
+	public ItemStack assemble(ProcessingRecipeInput inv, HolderLookup.Provider registries) {
 		ItemStack stack = getResultItem(registries).copy();
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack ingr = inv.getItem(i);

@@ -13,8 +13,8 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 
 import net.minecraft.core.HolderLookup;
@@ -23,16 +23,18 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 import vazkii.botania.mixin.IngredientAccessor;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -59,6 +61,14 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 	}
 
 	private void validateIngredients(Ingredient[] ingredients, Ingredient[] catalysts, Ingredient reagent) {
+		// let's just entirely avoid this big headache
+		var customTestIngredients =
+				Stream.concat(Stream.concat(Stream.of(ingredients), Stream.of(catalysts)), Stream.of(reagent))
+						.filter(XplatAbstractions.instance()::requiresCustomTesting).toList();
+		if (!customTestIngredients.isEmpty()) {
+			throw new IllegalArgumentException("Ingredients with custom test implementations are not supported: " + customTestIngredients);
+		}
+
 		var ingredientItems = new ReferenceOpenHashSet<Item>(ingredients.length);
 		var catalystItems = new ReferenceOpenHashSet<Item>(catalysts.length);
 		var reagentItems = new ReferenceOpenHashSet<Item>(1);
@@ -108,21 +118,34 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 	}
 
 	@Override
-	public boolean matches(RecipeInput container, Level world) {
-		return RecipeUtils.matches(ingredients, catalysts, container, null, null);
+	public boolean matches(ProcessingRecipeInput input, Level world) {
+		if (input.size() != ingredients.size() + catalysts.size()) {
+			return false;
+		}
+		return input.getStackedContents().canCraft(RecipeUtils.wrapAllIngredients(this), null);
 	}
 
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(RecipeInput container) {
-		IntSet matchedCatalystSlots = new IntOpenHashSet(catalysts.size());
-		RecipeUtils.matches(ingredients, catalysts, container, null, matchedCatalystSlots);
-		NonNullList<ItemStack> foundCatalysts = NonNullList.createWithCapacity(matchedCatalystSlots.size());
-
-		for (int slot : matchedCatalystSlots) {
-			foundCatalysts.add(container.getItem(slot));
+	public NonNullList<ItemStack> getRemainingItems(ProcessingRecipeInput input) {
+		IntList catalystItemIds = new IntArrayList(catalysts.size());
+		if (!catalysts.isEmpty()) {
+			// we know ingredients and catalysts are disjoined sets of item types, so just try matching all catalysts
+			input.getStackedContents().canCraft(RecipeUtils.wrapCatalysts(this), catalystItemIds);
+		}
+		NonNullList<ItemStack> remainingItems = NonNullList.withSize(input.size(), ItemStack.EMPTY);
+		for (int slot = 0; slot < input.size(); slot++) {
+			ItemStack inputStack = input.getItem(slot);
+			if (catalystItemIds.contains(StackedContents.getStackingIndex(inputStack))) {
+				remainingItems.set(slot, inputStack);
+			} else {
+				ItemStack craftRemainder = XplatAbstractions.instance().getCraftingRemainingItem(inputStack);
+				if (!craftRemainder.isEmpty()) {
+					remainingItems.set(slot, craftRemainder);
+				}
+			}
 		}
 
-		return foundCatalysts;
+		return remainingItems;
 	}
 
 	@Override
@@ -131,8 +154,13 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 	}
 
 	@Override
-	public ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
+	public ItemStack assemble(ProcessingRecipeInput inv, HolderLookup.Provider registries) {
 		return getResultItem(registries).copy();
+	}
+
+	@Override
+	public boolean canCraftInDimensions(int width, int height) {
+		return width * height >= ingredients.size() + catalysts.size();
 	}
 
 	@Override
