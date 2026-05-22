@@ -31,6 +31,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.HopperhockFilterType;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.*;
+import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.EnumMap;
@@ -128,7 +129,8 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			}
 
 			if (stack.getCount() < originalCount && item.isAlive()) {
-				SpectranthemumBlockEntity.spawnExplosionParticles(item, 3);
+				XplatAbstractions.instance().sendToTracking(item, new FlowerTakeItemEffectPacket(item.getId(),
+						getEffectivePos(), originalCount - stack.getCount()));
 				item.setItem(stack);
 				if (stack == originalStack) {
 					EntityHelper.syncItem(item);
