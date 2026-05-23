@@ -196,7 +196,7 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 					}
 
 					ItemStack stack = item.getItem();
-					if (XplatAbstractions.instance().getItemSource(item).filter(ItemSources.ALFHEIM_PORTAL::equals).isPresent()) {
+					if (XplatAbstractions.instance().isItemSource(item, ItemSources.ALFHEIM_PORTAL)) {
 						continue;
 					}
 

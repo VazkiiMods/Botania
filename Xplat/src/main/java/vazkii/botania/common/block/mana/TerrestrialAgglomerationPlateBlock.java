@@ -94,7 +94,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 				&& state.getValue(BotaniaStateProperties.TERRA_PLATE_STATE).isLookingForIngredients()
 				&& !level.getBlockTicks().hasScheduledTick(pos, state.getBlock())
 				// while an output item might be used in a subsequent recipe, it's not allowed on its own right away
-				&& XplatAbstractions.instance().getItemSource(item).filter(ItemSources.TERRA_PLATE::equals).isEmpty()
+				&& !XplatAbstractions.instance().isItemSource(item, ItemSources.TERRA_PLATE)
 				&& BotaniaRecipeIngredientsCache.isTerraPlateInputItem(level, item.getItem().getItem())) {
 			level.scheduleTick(pos, state.getBlock(), 1);
 		}

@@ -154,6 +154,10 @@ public interface XplatAbstractions {
 	Optional<ItemSource> getItemSource(ItemEntity item);
 	void setItemSource(ItemEntity item, ItemSource source);
 
+	default boolean isItemSource(ItemEntity item, ItemSource source) {
+		return getItemSource(item).filter(source::equals).isPresent();
+	}
+
 	short getItemLifeTime(ItemEntity item);
 	void setItemLifeTime(ItemEntity item, int ticks);
 

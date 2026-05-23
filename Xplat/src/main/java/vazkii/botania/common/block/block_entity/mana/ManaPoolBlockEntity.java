@@ -167,7 +167,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 			dissolvable.onDissolveTick(this, item);
 		}
 
-		if (XplatAbstractions.instance().getItemSource(item).orElse(null) == ItemSources.MANA_INFUSION) {
+		if (XplatAbstractions.instance().isItemSource(item, ItemSources.MANA_INFUSION)) {
 			return false;
 		}
 

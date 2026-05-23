@@ -139,7 +139,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		}
 
 		if (!XplatAbstractions.instance().isFluidContainer(item)
-				&& XplatAbstractions.instance().getItemSource(item).filter(ItemSources.PETAL_APOTHECARY::equals).isEmpty()) {
+				&& !XplatAbstractions.instance().isItemSource(item, ItemSources.PETAL_APOTHECARY)) {
 			if (!getItemHandler().getItem(inventorySize() - 1).isEmpty()) {
 				return false;
 			}
