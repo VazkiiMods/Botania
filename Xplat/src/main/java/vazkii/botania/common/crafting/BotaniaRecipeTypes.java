@@ -108,11 +108,6 @@ public class BotaniaRecipeTypes {
 		r.accept(WaterBottleMatchingRecipe.SERIALIZER, botaniaRL("crafting_shaped_water_bottle_matching"));
 	}
 
-	public static <C extends RecipeInput, T extends Recipe<C>> Collection<RecipeHolder<T>> getRecipes(Level world, RecipeType<T> type) {
-		// TODO: maybe inline and check for more specific options on case-by-case basis
-		return world.getRecipeManager().getAllRecipesFor(type);
-	}
-
 	@SuppressWarnings("unchecked")
 	public static <C extends RecipeInput, T extends Recipe<C>> Optional<RecipeHolder<T>> getRecipe(Level world, ResourceLocation id, RecipeType<T> expectedType) {
 		var holder = world.getRecipeManager().byKey(id);

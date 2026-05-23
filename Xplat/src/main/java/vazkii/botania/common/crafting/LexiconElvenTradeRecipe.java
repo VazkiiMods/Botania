@@ -8,8 +8,10 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -21,28 +23,30 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	public static final LexiconElvenTradeRecipe INSTANCE = new LexiconElvenTradeRecipe();
 	public static final RecipeSerializer<LexiconElvenTradeRecipe> SERIALIZER = new Serializer();
+	public static final Supplier<Ingredient> LEXICON_INGREDIENT = Suppliers.memoize(() -> Ingredient.of(BotaniaItems.lexicon));
 
 	private LexiconElvenTradeRecipe() {}
 
 	@Override
-	public boolean containsItem(ItemStack stack) {
-		return stack.is(BotaniaItems.lexicon) && !stack.has(BotaniaDataComponents.ELVEN_UNLOCK);
+	public NonNullList<Ingredient> getIngredients() {
+		return NonNullList.of(Ingredient.EMPTY, LEXICON_INGREDIENT.get());
 	}
 
 	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return NonNullList.withSize(1, Ingredient.of(BotaniaItems.lexicon));
+	public boolean isSpecial() {
+		return true;
 	}
 
 	@Override
@@ -52,27 +56,26 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 
 	@Override
 	public List<ItemStack> getOutputs() {
-		ItemStack stack = new ItemStack(BotaniaItems.lexicon);
+		return List.of(getUpgradedLexicon(new ItemStack(BotaniaItems.lexicon)));
+	}
+
+	private static ItemStack getUpgradedLexicon(ItemStack stack) {
 		stack.set(BotaniaDataComponents.ELVEN_UNLOCK, Unit.INSTANCE);
 		stack.set(DataComponents.RARITY, Rarity.UNCOMMON);
-		return Collections.singletonList(stack);
+		return stack;
 	}
 
 	@Override
-	public Optional<List<ItemStack>> match(List<ItemStack> stacks) {
-		for (ItemStack stack : stacks) {
-			if (containsItem(stack)) {
-				return Optional.of(Collections.singletonList(stack));
+	public Optional<AssemblyResult> tryAssemble(ProcessingRecipeInput input,
+			HolderLookup.Provider registries) {
+		var lexiconIngredient = LEXICON_INGREDIENT.get();
+		for (int slot = 0; slot < input.size(); slot++) {
+			ItemStack inputItem = input.getItem(slot);
+			if (lexiconIngredient.test(inputItem)) {
+				return Optional.of(new AssemblyResult(getUpgradedLexicon(inputItem.copy()), slot));
 			}
 		}
 		return Optional.empty();
-	}
-
-	@Override
-	public List<ItemStack> getOutputs(List<ItemStack> inputs) {
-		ItemStack stack = inputs.getFirst().copy();
-		stack.set(BotaniaDataComponents.ELVEN_UNLOCK, Unit.INSTANCE);
-		return Collections.singletonList(stack);
 	}
 
 	@Override

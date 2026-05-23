@@ -11,6 +11,9 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.ApiStatus;
@@ -30,6 +33,15 @@ public class BotaniaRecipeIngredientsCache implements ResourceManagerReloadListe
 	private static final Supplier<BotaniaRecipeIngredientsCache> CLIENT_INSTANCE = Suppliers.memoize(BotaniaRecipeIngredientsCache::new);
 
 	private final IntSet terraPlateInputItemIds = new IntOpenHashSet();
+	private final IntSet elvenTradeInputItemIds = new IntOpenHashSet();
+
+	public static boolean isTerraPlateInputItem(Level level, Item item) {
+		return getInstance(level).isTerraPlateInputItemInternal(level, item);
+	}
+
+	public static boolean isElvenTradeInputItem(Level level, Item item) {
+		return getInstance(level).isElvenTradeInputItemInternal(level, item);
+	}
 
 	/**
 	 * Registers the server instance's cache reset.
@@ -58,26 +70,29 @@ public class BotaniaRecipeIngredientsCache implements ResourceManagerReloadListe
 
 	private void clearCache() {
 		terraPlateInputItemIds.clear();
-	}
-
-	public static boolean isTerraPlateInputItem(Level level, Item item) {
-		return getInstance(level).isTerraPlateInputItemInternal(level, item);
+		elvenTradeInputItemIds.clear();
 	}
 
 	private boolean isTerraPlateInputItemInternal(Level level, Item item) {
-		if (terraPlateInputItemIds.isEmpty()) {
-			scanTerraPlateIngredients(level);
-		}
-		return terraPlateInputItemIds.contains(BuiltInRegistries.ITEM.getId(item));
+		return isMatchingInputItem(level, item, BotaniaRecipeTypes.TERRA_PLATE_TYPE, terraPlateInputItemIds);
 	}
 
-	private void scanTerraPlateIngredients(Level level) {
-		level.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE).stream()
-				.flatMap(holder -> holder.value().getIngredients().stream())
-				.flatMap(ingredient -> Arrays.stream(ingredient.getItems()))
-				.map(ItemStack::getItem)
-				.mapToInt(BuiltInRegistries.ITEM::getId)
-				.forEach(terraPlateInputItemIds::add);
+	private boolean isElvenTradeInputItemInternal(Level level, Item item) {
+		return isMatchingInputItem(level, item, BotaniaRecipeTypes.ELVEN_TRADE_TYPE, elvenTradeInputItemIds);
+	}
+
+	private static <I extends RecipeInput, T extends Recipe<I>> boolean isMatchingInputItem(Level level, Item item,
+			RecipeType<T> recipeType, IntSet inputItemIds) {
+		if (inputItemIds.isEmpty()) {
+			// TODO: terra plate allows special ingredients, for which this caching approach is incorrect
+			level.getRecipeManager().getAllRecipesFor(recipeType).stream()
+					.flatMap(holder -> holder.value().getIngredients().stream())
+					.flatMap(ingredient -> Arrays.stream(ingredient.getItems()))
+					.map(ItemStack::getItem)
+					.mapToInt(BuiltInRegistries.ITEM::getId)
+					.forEach(inputItemIds::add);
+		}
+		return inputItemIds.contains(BuiltInRegistries.ITEM.getId(item));
 	}
 
 	private BotaniaRecipeIngredientsCache() {}

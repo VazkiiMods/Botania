@@ -137,7 +137,8 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	private PureDaisyRecipe findRecipe(BlockPos coords) {
 		BlockState state = getLevel().getBlockState(coords);
 
-		for (RecipeHolder<PureDaisyRecipe> recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.PURE_DAISY_TYPE)) {
+		for (RecipeHolder<PureDaisyRecipe> recipe : level.getRecipeManager().getAllRecipesFor(
+				BotaniaRecipeTypes.PURE_DAISY_TYPE)) {
 			if (recipe.value() instanceof PureDaisyRecipe daisyRecipe && daisyRecipe.matches(getLevel(), coords, state)) {
 				return daisyRecipe;
 			}

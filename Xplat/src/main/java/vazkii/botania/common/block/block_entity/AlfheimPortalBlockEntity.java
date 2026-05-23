@@ -10,6 +10,8 @@ package vazkii.botania.common.block.block_entity;
 
 import com.google.common.base.Suppliers;
 
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -49,6 +51,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.fx.WispParticleData;
@@ -59,6 +62,8 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
+import vazkii.botania.common.handler.BotaniaRecipeIngredientsCache;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.NbtHelper;
 import vazkii.botania.common.internal_caps.ItemSources;
@@ -252,10 +257,8 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
-		for (RecipeHolder<ElvenTradeRecipe> recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
-			if (recipe.value() instanceof ElvenTradeRecipe tradeRecipe && tradeRecipe.containsItem(inputStack)) {
-				return true;
-			}
+		if (BotaniaRecipeIngredientsCache.isElvenTradeInputItem(level, inputStack.getItem())) {
+			return true;
 		}
 		if (inputStack.is(Items.BREAD)) {
 			//Don't teleport bread. (See also: #2403)
@@ -306,34 +309,38 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 
 	private void addItem(ItemStack stack) {
 		int size = stack.getCount();
-		stack.setCount(1);
 		for (int i = 0; i < size; i++) {
-			stacksIn.add(stack.copy());
+			stacksIn.add(stack.copyWithCount(1));
 		}
-	}
-
-	public static Collection<RecipeHolder<ElvenTradeRecipe>> elvenTradeRecipes(Level world) {
-		// By virtue of IRecipeType's type parameter,
-		// we know all the recipes in the map must be ElvenTradeRecipe.
-		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
-		return BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.ELVEN_TRADE_TYPE);
 	}
 
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons(true);
-		for (RecipeHolder<ElvenTradeRecipe> r : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
-			if (!(r.value() instanceof ElvenTradeRecipe recipe)) {
-				continue;
-			}
-			Optional<List<ItemStack>> match = recipe.match(stacksIn);
+		ProcessingRecipeInput input = RecipeUtils.getInputFromList(this.stacksIn);
+		for (RecipeHolder<ElvenTradeRecipe> recipeHolder : level.getRecipeManager().getAllRecipesFor(
+				BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
+			ElvenTradeRecipe recipe = recipeHolder.value();
+			Optional<ElvenTradeRecipe.AssemblyResult> match = recipe.tryAssemble(input, level.registryAccess());
 			if (match.isPresent()) {
 				if (consumeMana(pylons, MANA_COST, false)) {
-					List<ItemStack> inputs = match.get();
-					for (ItemStack stack : inputs) {
-						stacksIn.remove(stack);
+					ElvenTradeRecipe.AssemblyResult result = match.get();
+					// remember input item in case of return recipe
+					ItemStack matchedSingleInput = null;
+					List<ItemStack> outputs = result.outputs();
+					Int2IntMap matchedSlots = result.matchedInputSlots();
+					for (int slot : matchedSlots.keySet()) {
+						int matchedCount = matchedSlots.get(slot);
+						ItemStack inputStack = stacksIn.get(slot);
+						if (inputStack.getCount() >= matchedCount) {
+							matchedSingleInput = inputStack.split(matchedCount);
+						}
 					}
-					for (ItemStack output : recipe.getOutputs(inputs)) {
-						spawnItem(output.copy());
+					stacksIn.removeIf(ItemStack::isEmpty);
+					// if returning item unchanged, don't track it as newly crafted
+					boolean isReturnedItem = recipe.isReturnRecipe() && matchedSingleInput != null
+							&& ItemStack.isSameItemSameComponents(outputs.getFirst(), matchedSingleInput);
+					for (ItemStack output : outputs) {
+						spawnItem(output.copy(), isReturnedItem);
 					}
 					setChanged();
 				}
@@ -342,11 +349,13 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 		}
 	}
 
-	private void spawnItem(ItemStack stack) {
+	private void spawnItem(ItemStack stack, boolean returnedItem) {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, stack);
 		XplatAbstractions.instance().setItemSource(item, ItemSources.ALFHEIM_PORTAL);
 		// probably can't easily associate this with a player for tracking stats
-		stack.onCraftedBySystem(level);
+		if (!returnedItem) {
+			stack.onCraftedBySystem(level);
+		}
 		level.addFreshEntity(item);
 		ticksSinceLastItem = 0;
 	}

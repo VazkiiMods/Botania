@@ -108,6 +108,27 @@ public final class RecipeUtils {
 	}
 
 	/**
+	 * Creates a {@link ProcessingRecipeInput} from the stacks in the provided list.
+	 * Stack sizes greater than one are counted as that many input items.
+	 */
+	public static ProcessingRecipeInput getInputFromList(List<ItemStack> itemStacks) {
+		int count = itemStacks.stream().mapToInt(ItemStack::getCount).sum();
+		ItemStack[] stacks = new ItemStack[count];
+		int index = 0;
+		for (ItemStack stack : itemStacks) {
+			if (stack.getCount() == 1) {
+				stacks[index++] = stack;
+			} else {
+				ItemStack copy = stack.copyWithCount(1);
+				for (int i = 0; i < stack.getCount(); i++) {
+					stacks[index++] = copy;
+				}
+			}
+		}
+		return new StacksProcessingRecipeInput(stacks);
+	}
+
+	/**
 	 * Creates a {@link ProcessingRecipeInput} from the stacks in the provided container.
 	 * Stack sizes greater than one are counted as that many input items.
 	 */

@@ -43,7 +43,6 @@ import vazkii.botania.client.integration.jei.orechid.MarimorphosisRecipeCategory
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
@@ -205,19 +204,18 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
+		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 		// Hide the return recipes (iron ingot/diamond/ender pearl returns, not lexicon)
-		for (RecipeHolder<ElvenTradeRecipe> recipe : AlfheimPortalBlockEntity.elvenTradeRecipes(Minecraft.getInstance().level)) {
+		for (RecipeHolder<ElvenTradeRecipe> recipe : recipeManager.getAllRecipesFor(BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
 			if (recipe.value() instanceof LexiconElvenTradeRecipe) {
 				continue;
 			}
-			List<Ingredient> inputs = recipe.value().getIngredients();
-			List<ItemStack> outputs = recipe.value().getOutputs();
-			if (inputs.size() == 1 && outputs.size() == 1 && recipe.value().containsItem(outputs.getFirst())) {
+			if (recipe.value().isReturnRecipe()) {
 				recipeRegistry.hideRecipes(ElvenTradeRecipeCategory.TYPE, List.of(recipe.value()));
 			}
 		}
 
-		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
+		// TODO: we should probably not hard-code recipe IDs this way here
 		recipeManager.byKey(botaniaRL("petal_apothecary/daybloom_motif"))
 				.ifPresent(r -> {
 					if (r.value() instanceof PetalApothecaryRecipe pr) {

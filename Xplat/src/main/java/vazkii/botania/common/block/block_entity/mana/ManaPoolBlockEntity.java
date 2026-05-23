@@ -142,7 +142,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 		List<RecipeHolder<ManaInfusionRecipe>> matchingNonCatRecipes = new ArrayList<>();
 		List<RecipeHolder<ManaInfusionRecipe>> matchingCatRecipes = new ArrayList<>();
 
-		for (var recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
+		for (var recipe : level.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
 			if (recipe.value().matches(stack)) {
 				if (recipe.value().getRecipeCatalyst() == StateIngredients.NONE) {
 					matchingNonCatRecipes.add(recipe);
