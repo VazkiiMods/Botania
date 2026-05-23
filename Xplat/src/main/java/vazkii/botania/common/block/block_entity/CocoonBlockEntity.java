@@ -55,7 +55,7 @@ public class CocoonBlockEntity extends BlockEntity {
 
 	public static void commonTick(Level level, BlockPos pos, BlockState state, CocoonBlockEntity self) {
 		self.timePassed++;
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return;
 		}
 		level.blockEntityChanged(pos);
@@ -65,7 +65,7 @@ public class CocoonBlockEntity extends BlockEntity {
 	}
 
 	private void hatch(BlockPos pos) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			timePassed = 0;
 			level.destroyBlock(pos, false);
 
@@ -95,7 +95,7 @@ public class CocoonBlockEntity extends BlockEntity {
 				}
 				entity = villager;
 			} else if (!validWater.isEmpty()) {
-				placePos = validWater.get(level.random.nextInt(validWater.size()));
+				placePos = validWater.get(level.getRandom().nextInt(validWater.size()));
 				if (Math.random() < rareChance) {
 					entity = random(BotaniaTags.Entities.COCOON_RARE_AQUATIC);
 				} else {
@@ -110,7 +110,7 @@ public class CocoonBlockEntity extends BlockEntity {
 			}
 
 			if (entity != null) {
-				if (level.random.nextFloat() < 0.01) {
+				if (level.getRandom().nextFloat() < 0.01) {
 					// gonna make modded minecraft items into a gacha game
 					// and somehow find a way to add jeanne d'arc to it
 					// - Vazkii 2021
@@ -141,14 +141,14 @@ public class CocoonBlockEntity extends BlockEntity {
 	@Nullable
 	private Mob random(TagKey<EntityType<?>> tag) {
 		EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getTag(tag)
-				.flatMap(t -> t.getRandomElement(level.random))
+				.flatMap(t -> t.getRandomElement(level.getRandom()))
 				.map(Holder::value)
 				.orElse(null);
 		if (type == null) {
 			return null;
 		}
 
-		if (type == EntityType.COW && level.random.nextFloat() < 0.01) {
+		if (type == EntityType.COW && level.getRandom().nextFloat() < 0.01) {
 			type = EntityType.MOOSHROOM;
 		}
 		Entity entity = type.create(level);

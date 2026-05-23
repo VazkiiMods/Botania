@@ -41,7 +41,7 @@ public class PaintslingerLens extends Lens {
 		Entity entity = burst.entity();
 		boolean isRainbowLens = LensItem.isLensRainbow(stack);
 		DyeColor lensColor = LensItem.getLensColor(stack);
-		if (!entity.level().isClientSide && !burst.isFake() && (isRainbowLens || lensColor != null)) {
+		if (!entity.level().isClientSide() && !burst.isFake() && (isRainbowLens || lensColor != null)) {
 			List<DyeColor> possibleColors = isRainbowLens ? ColorHelper.supportedColors().toList() : List.of(lensColor);
 			if (pos.getType() == HitResult.Type.ENTITY) {
 				Entity collidedWith = ((EntityHitResult) pos).getEntity();
@@ -102,7 +102,7 @@ public class PaintslingerLens extends Lens {
 	}
 
 	private static DyeColor getColorToApply(List<DyeColor> possibleColors, Level level) {
-		return possibleColors.get(level.random.nextInt(possibleColors.size()));
+		return possibleColors.get(level.getRandom().nextInt(possibleColors.size()));
 	}
 
 }

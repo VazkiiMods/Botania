@@ -43,7 +43,7 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide) {
+		if (getLevel().isClientSide()) {
 			doFillLevelSparkles();
 		} else {
 			drawManaFromPool();

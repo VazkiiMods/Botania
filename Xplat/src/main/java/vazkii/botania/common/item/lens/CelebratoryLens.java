@@ -29,7 +29,7 @@ public class CelebratoryLens extends Lens {
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (pos.getType() == HitResult.Type.BLOCK) {
-			if (!entity.level().isClientSide && !burst.isFake() && !isManaBlock) {
+			if (!entity.level().isClientSide() && !burst.isFake() && !isManaBlock) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
 				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), fireworkStack);

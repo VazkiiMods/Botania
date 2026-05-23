@@ -38,7 +38,7 @@ public class ManaVoidBlock extends BotaniaBlock implements PoolOverlayProvider {
 	@Override
 	public boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int payload) {
 		if (id == SPARKLE_EVENT) {
-			if (level.isClientSide) {
+			if (level.isClientSide()) {
 				for (int i = 0; i < 10; i++) {
 					SparkleParticleData data = SparkleParticleData.sparkle(0.7F + 0.5F * (float) Math.random(), 0.2F, 0.2F, 0.2F, 5);
 					level.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);

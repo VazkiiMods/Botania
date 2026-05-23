@@ -56,7 +56,7 @@ public class ManaPoolMinecartItem extends Item {
 			}
 
 			itemStack.shrink(1);
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return InteractionResult.sidedSuccess(level.isClientSide());
 		}
 	}
 

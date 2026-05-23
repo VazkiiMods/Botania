@@ -49,7 +49,7 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered() || !shouldUpdateThisTick()) {
+		if (getLevel().isClientSide() || isPowered() || !shouldUpdateThisTick()) {
 			return;
 		}
 

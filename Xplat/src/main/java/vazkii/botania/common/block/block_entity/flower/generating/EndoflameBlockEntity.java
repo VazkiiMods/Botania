@@ -51,9 +51,9 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			if (getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
-				if (!wasBurningOnClient || level.random.nextInt(10) == 0) {
+				if (!wasBurningOnClient || level.getRandom().nextInt(10) == 0) {
 					wasBurningOnClient = true;
 					emitParticle(ParticleTypes.FLAME, 0.4 + Math.random() * 0.2, 0.7, 0.4 + Math.random() * 0.2, 0.0D,
 							0.0D, 0.0D);

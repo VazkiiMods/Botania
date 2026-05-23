@@ -134,7 +134,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 		//First time the flower has been placed. This is the best time to check it; /setblock and friends don't call
 		//the typical setPlacedBy method that player-placements do.
-		if (autoBinding && !level.isClientSide) {
+		if (autoBinding && !level.isClientSide()) {
 			autoBinding = false;
 			setChanged();
 			//Situations to consider:
@@ -151,7 +151,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 	public void doFillLevelSparkles() {
 		double particleChance = 1 - getMana() / (3.5 * getMaxMana());
 
-		RandomSource rng = level.random;
+		RandomSource rng = level.getRandom();
 		if (rng.nextDouble() > particleChance) {
 			BlockPos pos = getBlockPos();
 			Vec3 offset = level.getBlockState(pos).getOffset(level, pos);

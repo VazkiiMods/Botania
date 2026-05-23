@@ -33,7 +33,7 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 
 		this.box = playerInv.player.getItemInHand(isMainHand ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
 		Container baubleBoxInv;
-		if (!playerInv.player.level().isClientSide) {
+		if (!playerInv.player.level().isClientSide()) {
 			baubleBoxInv = BaubleBoxItem.getInventory(box);
 		} else {
 			baubleBoxInv = new SimpleContainer(BaubleBoxItem.SIZE);
@@ -115,7 +115,7 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 
 	@Override
 	public void removed(Player player) {
-		if (!player.level().isClientSide) {
+		if (!player.level().isClientSide()) {
 			box.remove(BotaniaDataComponents.ACTIVE_TRANSIENT);
 		}
 		super.removed(player);

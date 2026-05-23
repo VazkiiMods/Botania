@@ -52,7 +52,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (level.isClientSide || isPowered() || getMana() < COST) {
+		if (level.isClientSide() || isPowered() || getMana() < COST) {
 			return;
 		}
 		BlockPos effPos = getEffectivePos();

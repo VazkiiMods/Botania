@@ -45,7 +45,7 @@ public class ColoredContentsPouchContainer extends AbstractContainerMenu {
 			pouch = BotaniaItems.flowerBag;
 		} else {
 			pouch = pouchItem;
-			if (!playerInv.player.level().isClientSide) {
+			if (!playerInv.player.level().isClientSide()) {
 				pouchInv = pouchItem.getInventory(this.pouch);
 			} else {
 				pouchInv = new SimpleContainer(pouchItem.getInventorySize(this.pouch));

@@ -59,7 +59,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (level.isClientSide || !isPowered()) {
+		if (level.isClientSide() || !isPowered()) {
 			return;
 		}
 		if (shouldUpdateThisTick()) {

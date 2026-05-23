@@ -127,7 +127,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return;
 		}
 

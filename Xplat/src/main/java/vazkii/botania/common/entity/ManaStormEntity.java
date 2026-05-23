@@ -50,7 +50,7 @@ public class ManaStormEntity extends Entity {
 
 		int diffTime = Math.max(1, 30 - (int) (liveTime / 45f));
 		if (burstsFired < TOTAL_BURSTS && liveTime % diffTime == 0) {
-			if (!level().isClientSide) {
+			if (!level().isClientSide()) {
 				spawnBurst();
 			}
 			burstsFired++;

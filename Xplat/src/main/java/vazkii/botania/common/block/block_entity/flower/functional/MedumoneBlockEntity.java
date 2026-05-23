@@ -33,7 +33,7 @@ public class MedumoneBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMana() == 0 || isPowered()) {
+		if (getLevel().isClientSide() || getMana() == 0 || isPowered()) {
 			return;
 		}
 		var testInstance = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 100);

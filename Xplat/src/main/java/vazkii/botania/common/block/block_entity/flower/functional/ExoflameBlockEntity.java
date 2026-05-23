@@ -32,7 +32,7 @@ public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMana() <= 2) {
+		if (getLevel().isClientSide() || getMana() <= 2) {
 			return;
 		}
 

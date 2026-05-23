@@ -40,7 +40,7 @@ public interface ThrottledPacket {
 	 */
 	default void markForImmediateSync() {
 		Level level = getLevel();
-		if (level != null && !level.isClientSide) {
+		if (level != null && !level.isClientSide()) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 			setMarkedForSync(false);
 		}
@@ -54,7 +54,7 @@ public interface ThrottledPacket {
 	 */
 	default void markForPersisting() {
 		Level level = getLevel();
-		if (level != null && !level.isClientSide) {
+		if (level != null && !level.isClientSide()) {
 			level.blockEntityChanged(getBlockPos());
 		}
 	}
@@ -66,7 +66,7 @@ public interface ThrottledPacket {
 	 */
 	default void maybeSyncNow() {
 		Level level = getLevel();
-		if (level != null && !level.isClientSide && isMarkedForSync()
+		if (level != null && !level.isClientSide() && isMarkedForSync()
 				&& (level.getGameTime() + getBlockState().getSeed(getBlockPos())) % getSyncInterval() == 0
 				&& mayBeRelevantForClients(level)) {
 			markForImmediateSync();

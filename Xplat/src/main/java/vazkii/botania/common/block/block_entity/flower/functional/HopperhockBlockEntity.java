@@ -58,7 +58,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered()) {
+		if (getLevel().isClientSide() || isPowered()) {
 			return;
 		}
 

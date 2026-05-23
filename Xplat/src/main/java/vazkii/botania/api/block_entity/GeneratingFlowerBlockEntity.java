@@ -45,7 +45,7 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide) {
+		if (getLevel().isClientSide()) {
 			doFillLevelSparkles();
 		} else {
 			emptyManaIntoCollector();

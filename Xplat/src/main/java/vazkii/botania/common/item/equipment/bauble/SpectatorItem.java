@@ -68,7 +68,7 @@ public class SpectatorItem extends BaubleItem {
 			return;
 		}
 
-		if (living.level().isClientSide) {
+		if (living.level().isClientSide()) {
 			this.showScanResults(stack, player);
 		} else if (living.tickCount % SCAN_INTERVAL_TICKS == 0) {
 			this.scanForItems(stack, player);

@@ -86,14 +86,14 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	@Override
 	protected void onHitEntity(EntityHitResult hit) {
 		super.onHitEntity(hit);
-		if (!level().isClientSide) {
+		if (!level().isClientSide()) {
 			effectAndDieWithDrop();
 		}
 	}
 
 	@Override
 	protected void onHitBlock(BlockHitResult hit) {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			Direction dir = hit.getDirection();
 
 			BlockPos pos = hit.getBlockPos();

@@ -50,7 +50,7 @@ public class ClayconiaBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || !shouldUpdateThisTick() || getMana() < COST) {
+		if (getLevel().isClientSide() || !shouldUpdateThisTick() || getMana() < COST) {
 			return;
 		}
 
@@ -92,7 +92,7 @@ public class ClayconiaBlockEntity extends FunctionalFlowerBlockEntity {
 		if (possibleCoords.isEmpty()) {
 			return null;
 		}
-		return possibleCoords.get(getLevel().random.nextInt(possibleCoords.size()));
+		return possibleCoords.get(getLevel().getRandom().nextInt(possibleCoords.size()));
 	}
 
 	@Override

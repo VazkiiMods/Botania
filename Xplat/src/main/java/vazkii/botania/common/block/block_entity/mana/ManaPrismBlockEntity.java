@@ -83,7 +83,7 @@ public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 	@Override
 	public void setChanged() {
 		super.setChanged();
-		if (level != null && !level.isClientSide) {
+		if (level != null && !level.isClientSide()) {
 			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 			BlockState state = getBlockState();
 			boolean hasLens = !getItemHandler().getItem(0).isEmpty();

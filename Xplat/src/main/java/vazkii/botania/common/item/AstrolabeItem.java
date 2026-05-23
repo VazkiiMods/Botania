@@ -260,7 +260,7 @@ public class AstrolabeItem extends Item {
 	public void displayRemainderCounter(Player player, ItemStack stack) {
 		Block block = getBlock(stack, player.level().holderLookup(Registries.BLOCK));
 		int count = ShiftingCrustRodItem.getInventoryItemCount(player, stack, block.asItem());
-		if (!player.level().isClientSide) {
+		if (!player.level().isClientSide()) {
 			ItemsRemainingRenderHandler.send(player, new ItemStack(block), count);
 		}
 	}

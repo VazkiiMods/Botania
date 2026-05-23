@@ -42,7 +42,7 @@ public class EnderHandItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (ManaItemHandler.instance().requestManaExact(stack, player, COST_SELF, false)) {
-			if (!player.level().isClientSide) {
+			if (!player.level().isClientSide()) {
 				player.openMenu(new SimpleMenuProvider((windowId, playerInv, p) -> {
 					return ChestMenu.threeRows(windowId, playerInv, p.getEnderChestInventory());
 				}, stack.getHoverName()));
@@ -57,7 +57,7 @@ public class EnderHandItem extends Item {
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
 		if (entity.isAlive() && BotaniaConfig.common().enderPickpocketEnabled() && entity instanceof Player other && ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, false)) {
-			if (!player.level().isClientSide) {
+			if (!player.level().isClientSide()) {
 				player.openMenu(new SimpleMenuProvider((windowId, playerInv, p) -> ChestMenu.threeRows(windowId, playerInv, other.getEnderChestInventory()), stack.getHoverName()));
 				ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, true);
 			}

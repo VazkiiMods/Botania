@@ -105,7 +105,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 	public void tick() {
 		super.tick();
 
-		if (level().isClientSide) {
+		if (level().isClientSide()) {
 			double particleChance = 1F - (double) getMana() / (double) ManaPoolBlock.MAX_MANA * 0.1;
 			int color = ManaPoolBlockEntity.PARTICLE_COLOR;
 			float red = (color >> 16 & 0xFF) / 255F;

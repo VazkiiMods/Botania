@@ -112,7 +112,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	@Override
 	public void setChanged() {
 		super.setChanged();
-		if (level != null && !level.isClientSide) {
+		if (level != null && !level.isClientSide()) {
 			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}

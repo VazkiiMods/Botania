@@ -41,7 +41,7 @@ public class EquestrianVirusItem extends Item {
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity living, InteractionHand hand) {
 		if (living.isAlive() && living instanceof Horse horse) {
-			if (player.level().isClientSide) {
+			if (player.level().isClientSide()) {
 				return InteractionResult.SUCCESS;
 			}
 			if (horse.isTamed()) {
@@ -88,7 +88,7 @@ public class EquestrianVirusItem extends Item {
 				jumpHeight.setBaseValue(horse.getAttribute(Attributes.JUMP_STRENGTH).getBaseValue());
 				jumpHeight.addPermanentModifier(new AttributeModifier(virusId, jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADD_VALUE));
 
-				newHorse.playSound(BotaniaSounds.virusInfect, 1.0F + living.level().random.nextFloat(), living.level().random.nextFloat() * 0.7F + 1.3F);
+				newHorse.playSound(BotaniaSounds.virusInfect, 1.0F + living.level().getRandom().nextFloat(), living.level().getRandom().nextFloat() * 0.7F + 1.3F);
 				newHorse.finalizeSpawn((ServerLevelAccessor) player.level(), player.level().getCurrentDifficultyAt(newHorse.blockPosition()), MobSpawnType.CONVERSION, null);
 				newHorse.setAge(horse.getAge());
 				player.level().addFreshEntity(newHorse);

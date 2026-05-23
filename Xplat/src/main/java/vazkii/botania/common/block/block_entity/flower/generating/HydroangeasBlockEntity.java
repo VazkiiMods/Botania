@@ -38,7 +38,7 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide) {
+		if (getLevel().isClientSide()) {
 			return;
 		}
 		if (++passiveDecayTicks > DECAY_TIME) {

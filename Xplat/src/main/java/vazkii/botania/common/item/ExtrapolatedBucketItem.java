@@ -66,7 +66,7 @@ public class ExtrapolatedBucketItem extends Item {
 						spawnParticles(level, blockPos);
 						level.gameEvent(player, GameEvent.FLUID_PICKUP, blockPos);
 						ItemStack itemStack3 = itemStack; // Botania: don't overwrite ourselves
-						if (!level.isClientSide) {
+						if (!level.isClientSide()) {
 							CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemStack2);
 						}
 

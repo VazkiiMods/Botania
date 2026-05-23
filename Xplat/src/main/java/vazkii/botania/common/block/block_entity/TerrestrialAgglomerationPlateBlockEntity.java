@@ -192,7 +192,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 		float g = ticks / 100f;
 		float b = 1f - ticks / 100f;
 		Vec3 pos = blockPos.getCenter();
-		RandomSource rng = level.random;
+		RandomSource rng = level.getRandom();
 
 		for (int i = 0; i < totalSpiritCount; i++) {
 			double angle = wticks * (Math.PI / 180);
@@ -216,12 +216,12 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 		switch (id) {
 			case BLOCK_EVENT_CRAFTING_EFFECT -> {
 				this.currentProgress = -1;
-				if (level.isClientSide) {
+				if (level.isClientSide()) {
 					float r = 0;
 					float g = 1;
 					float b = 0;
 					Vec3 pos = getBlockPos().getCenter();
-					RandomSource rng = level.random;
+					RandomSource rng = level.getRandom();
 
 					for (int j = 0; j < 15; j++) {
 						WispParticleData data = WispParticleData.wisp(rng.nextFloat() * 0.15f + 0.15f, r, g, b);

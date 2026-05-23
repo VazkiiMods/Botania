@@ -60,7 +60,7 @@ public abstract class LivingEntityFabricMixin extends Entity {
 	 */
 	@Inject(at = @At("RETURN"), method = "createWitherRose")
 	private void healKiller(@Nullable LivingEntity adversary, CallbackInfo ci) {
-		if (!level().isClientSide && adversary != null) {
+		if (!level().isClientSide() && adversary != null) {
 			SoulCrossMobEffect.onEntityKill((LivingEntity) (Object) this, adversary);
 		}
 
@@ -70,7 +70,7 @@ public abstract class LivingEntityFabricMixin extends Entity {
 	private void onSwing(InteractionHand hand, boolean bl, CallbackInfo ci) {
 		ItemStack stack = getItemInHand(hand);
 		LivingEntity self = (LivingEntity) (Object) this;
-		if (!level().isClientSide) {
+		if (!level().isClientSide()) {
 			if (stack.getItem() instanceof AssemblyHaloItem halo && halo.onEntitySwing(stack, self, hand)) {
 				ci.cancel();
 			} else if (stack.getItem() instanceof ShadedMesaRodItem rod) {

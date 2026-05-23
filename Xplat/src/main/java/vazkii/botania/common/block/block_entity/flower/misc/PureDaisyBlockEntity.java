@@ -64,9 +64,9 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			BlockPos.MutableBlockPos coords = new BlockPos.MutableBlockPos();
-			RandomSource rng = level.random;
+			RandomSource rng = level.getRandom();
 			for (int i = 0; i < POSITIONS.length; i++) {
 				if (ticksRemaining[i] > 0) {
 					coords.setWithOffset(getEffectivePos(), POSITIONS[i]);
@@ -103,7 +103,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 				if (ticksRemaining[positionAt] <= 0) {
 					ticksRemaining[positionAt] = -1;
 
-					BlockState recipeOutputState = recipe.getOutput().pick(level.random);
+					BlockState recipeOutputState = recipe.getOutput().pick(level.getRandom());
 					BlockState stateToPlace;
 					if (recipe.isCopyInputProperties()) {
 						BlockState stateToReplace = level.getBlockState(coords);
@@ -149,7 +149,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	@Override
 	public boolean triggerEvent(int type, int param) {
 		if (type == RECIPE_COMPLETE_EVENT) {
-			if (getLevel().isClientSide) {
+			if (getLevel().isClientSide()) {
 				BlockPos coords = getEffectivePos().offset(POSITIONS[param]);
 				for (int i = 0; i < 25; i++) {
 					double x = coords.getX() + Math.random();
@@ -176,7 +176,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 		super.loadAdditional(cmp, registries);
 		positionAt = cmp.getInt(TAG_POSITION);
 
-		if (level != null && level.isClientSide && cmp.contains(TAG_TICKED_POSITIONS)) {
+		if (level != null && level.isClientSide() && cmp.contains(TAG_TICKED_POSITIONS)) {
 			byte tickedPositionBits = cmp.getByte(TAG_TICKED_POSITIONS);
 			for (int i = 0; i < 8; i++) {
 				ticksRemaining[i] = (tickedPositionBits >>> i) & 1;

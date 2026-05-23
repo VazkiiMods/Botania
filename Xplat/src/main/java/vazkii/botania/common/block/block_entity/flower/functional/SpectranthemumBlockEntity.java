@@ -52,7 +52,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || bindPos == null || isPowered() || !getLevel().hasChunkAt(bindPos)) {
+		if (getLevel().isClientSide() || bindPos == null || isPowered() || !getLevel().hasChunkAt(bindPos)) {
 			return;
 		}
 

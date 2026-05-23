@@ -492,21 +492,21 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public void sendToPlayer(@Nullable Player player, CustomPacketPayload packet) {
-		if (player instanceof ServerPlayer serverPlayer && !player.level().isClientSide) {
+		if (player instanceof ServerPlayer serverPlayer && !player.level().isClientSide()) {
 			PacketDistributor.sendToPlayer(serverPlayer, packet);
 		}
 	}
 
 	@Override
 	public void sendToNear(Level level, BlockPos pos, CustomPacketPayload packet) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			PacketDistributor.sendToPlayersNear((ServerLevel) level, null, pos.getX(), pos.getY(), pos.getZ(), 64, packet);
 		}
 	}
 
 	@Override
 	public void sendToTracking(Entity e, CustomPacketPayload packet) {
-		if (!e.level().isClientSide) {
+		if (!e.level().isClientSide()) {
 			PacketDistributor.sendToPlayersTrackingEntityAndSelf(e, packet);
 		}
 	}

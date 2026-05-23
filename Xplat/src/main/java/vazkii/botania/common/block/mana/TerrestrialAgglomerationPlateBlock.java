@@ -68,7 +68,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
 			Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (BotaniaRecipeIngredientsCache.isTerraPlateInputItem(level, stack.getItem())) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				ItemStack target = stack.split(1);
 				ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
 				item.setThrower(player);
@@ -126,10 +126,10 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return switch (state.getValue(BotaniaStateProperties.TERRA_PLATE_STATE)) {
-			case COLLECTING -> createTickerHelper(type, BotaniaBlockEntities.TERRA_PLATE, level.isClientSide
+			case COLLECTING -> createTickerHelper(type, BotaniaBlockEntities.TERRA_PLATE, level.isClientSide()
 					? TerrestrialAgglomerationPlateBlockEntity::clientCollectingTick
 					: TerrestrialAgglomerationPlateBlockEntity::serverCollectingTick);
-			case DISSIPATING -> level.isClientSide
+			case DISSIPATING -> level.isClientSide()
 					? null
 					: createTickerHelper(type, BotaniaBlockEntities.TERRA_PLATE,
 							TerrestrialAgglomerationPlateBlockEntity::serverDissipatingTick);
@@ -156,7 +156,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (state.getValue(BotaniaStateProperties.TERRA_PLATE_STATE) == TerraPlateState.DISSIPATING) {
-			RandomSource rng = level.random;
+			RandomSource rng = level.getRandom();
 			level.addParticle(
 					WispParticleData.wisp(0.2f + 0.1f * rng.nextFloat(),
 							rng.nextFloat() * 0.1f, 0.7f + rng.nextFloat() * 0.1f, 1 - rng.nextFloat() * 0.1f,

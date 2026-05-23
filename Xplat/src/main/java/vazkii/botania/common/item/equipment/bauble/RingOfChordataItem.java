@@ -32,7 +32,7 @@ public class RingOfChordataItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		if (!(living instanceof Player player) || player.level().isClientSide) {
+		if (!(living instanceof Player player) || player.level().isClientSide()) {
 			return;
 		}
 		if (player.isInWaterOrBubble()) {

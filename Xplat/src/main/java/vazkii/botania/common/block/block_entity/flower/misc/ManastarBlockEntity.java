@@ -39,7 +39,7 @@ public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 
 		var state = getBlockState().getValue(BotaniaStateProperties.MANASTAR_STATE);
 
-		if (getLevel().isClientSide) {
+		if (getLevel().isClientSide()) {
 			if (state != ManastarState.NEUTRAL && Math.random() > 0.6) {
 				float r = state == ManastarState.INCREASING ? 0.05F : 1F;
 				float b = state == ManastarState.INCREASING ? 1F : 0.05F;

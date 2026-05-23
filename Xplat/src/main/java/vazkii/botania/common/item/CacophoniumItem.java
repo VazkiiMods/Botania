@@ -64,13 +64,13 @@ public class CacophoniumItem extends Item {
 			}
 
 			if (sound != null) {
-				if (!player.level().isClientSide) {
+				if (!player.level().isClientSide()) {
 					stack.set(DataComponents.NOTE_BLOCK_SOUND, BuiltInRegistries.SOUND_EVENT.getKey(sound));
 					stack.set(BotaniaDataComponents.MOB_TYPE, BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()));
 					player.setItemInHand(hand, stack);
 				}
 
-				return InteractionResult.sidedSuccess(player.level().isClientSide);
+				return InteractionResult.sidedSuccess(player.level().isClientSide());
 			}
 		}
 

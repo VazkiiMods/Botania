@@ -516,7 +516,7 @@ public class GaiaGuardianEntity extends Mob {
 		updateGaiaFight();
 		LivingEntity lastAttacker = getKillCredit();
 
-		if (!level().isClientSide) {
+		if (!level().isClientSide()) {
 			for (UUID u : playersWhoAttacked) {
 				Player player = level().getPlayerByUUID(u);
 				if (!isTruePlayer(player)) {
@@ -549,7 +549,7 @@ public class GaiaGuardianEntity extends Mob {
 			}
 		}
 
-		playSound(BotaniaSounds.gaiaDeath, 1F, (1F + (level().random.nextFloat() - level().random.nextFloat()) * 0.2F) * 0.7F);
+		playSound(BotaniaSounds.gaiaDeath, 1F, (1F + (level().getRandom().nextFloat() - level().getRandom().nextFloat()) * 0.2F) * 0.7F);
 		level().addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
 	}
 
@@ -779,23 +779,23 @@ public class GaiaGuardianEntity extends Mob {
 	private void spawnMobs(List<Player> players) {
 		int playerCount = getPlayerCount();
 		for (int pl = 0; pl < playerCount; pl++) {
-			for (int i = 0; i < 3 + level().random.nextInt(2); i++) {
-				Mob entity = switch (level().random.nextInt(3)) {
+			for (int i = 0; i < 3 + level().getRandom().nextInt(2); i++) {
+				Mob entity = switch (level().getRandom().nextInt(3)) {
 					case 0 -> {
-						if (level().random.nextInt(hardMode ? 3 : 12) == 0) {
+						if (level().getRandom().nextInt(hardMode ? 3 : 12) == 0) {
 							yield EntityType.WITCH.create(level());
 						}
 						yield EntityType.ZOMBIE.create(level());
 					}
 					case 1 -> {
-						if (level().random.nextInt(8) == 0) {
+						if (level().getRandom().nextInt(8) == 0) {
 							yield EntityType.WITHER_SKELETON.create(level());
 						}
 						yield EntityType.SKELETON.create(level());
 					}
 					case 2 -> {
 						if (!players.isEmpty()) {
-							for (int j = 0; j < 1 + level().random.nextInt(hardMode ? 8 : 5); j++) {
+							for (int j = 0; j < 1 + level().getRandom().nextInt(hardMode ? 8 : 5); j++) {
 								PixieEntity pixie = new PixieEntity(level());
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
@@ -833,7 +833,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		int invul = getInvulTime();
 
-		if (level().isClientSide) {
+		if (level().isClientSide()) {
 			particles();
 			Player player = Proxy.INSTANCE.getClientPlayer();
 			if (!player.isCreative() && getPlayersAround().contains(player)) {
@@ -890,7 +890,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		if (invul > 0 && mobSpawnTicks == MOB_SPAWN_TICKS) {
 			if (invul < SPAWN_TICKS) {
-				if (invul > SPAWN_TICKS / 2 && level().random.nextInt(SPAWN_TICKS - invul + 1) == 0) {
+				if (invul > SPAWN_TICKS / 2 && level().getRandom().nextInt(SPAWN_TICKS - invul + 1) == 0) {
 					for (int i = 0; i < 2; i++) {
 						spawnAnim();
 					}
@@ -953,7 +953,7 @@ public class GaiaGuardianEntity extends Mob {
 
 						int playerCount = getPlayerCount();
 						for (int pl = 0; pl < playerCount; pl++) {
-							for (int i = 0; i < (spawnPixies ? level().random.nextInt(hardMode ? 6 : 3) : 1); i++) {
+							for (int i = 0; i < (spawnPixies ? level().getRandom().nextInt(hardMode ? 6 : 3) : 1); i++) {
 								PixieEntity pixie = new PixieEntity(level());
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);

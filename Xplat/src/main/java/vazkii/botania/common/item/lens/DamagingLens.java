@@ -24,7 +24,7 @@ public class DamagingLens extends Lens {
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
-		if (entity.level().isClientSide) {
+		if (entity.level().isClientSide()) {
 			return;
 		}
 		AABB axis = new AABB(entity.getX(), entity.getY(), entity.getZ(), entity.xOld, entity.yOld, entity.zOld).inflate(1);

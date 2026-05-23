@@ -39,7 +39,7 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMana() != 0) {
+		if (getLevel().isClientSide() || getMana() != 0) {
 			return;
 		}
 		List<PrimedTnt> tnts = new ArrayList<>(1);
@@ -54,7 +54,7 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 		PrimedTnt tnt = tnts.getFirst();
 		boolean unethical = XplatAbstractions.instance().isUnethicalTnt(tnt);
 		tnt.playSound(unethical ? BotaniaSounds.entropinnyumAngry : BotaniaSounds.entropinnyumHappy, 1F,
-				(1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
+				(1F + (getLevel().getRandom().nextFloat() - getLevel().getRandom().nextFloat()) * 0.2F) * 0.7F);
 		tnt.discard();
 		addMana(unethical ? 3 : getMaxMana());
 
@@ -66,7 +66,7 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 	@Override
 	public boolean triggerEvent(int event, int param) {
 		if (event == EXPLODE_EFFECT_EVENT) {
-			if (getLevel().isClientSide && getLevel().getEntity(param) instanceof PrimedTnt) {
+			if (getLevel().isClientSide() && getLevel().getEntity(param) instanceof PrimedTnt) {
 				Entity e = getLevel().getEntity(param);
 
 				for (int i = 0; i < 50; i++) {
@@ -78,7 +78,7 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 			}
 			return true;
 		} else if (event == ANGRY_EFFECT_EVENT) {
-			if (getLevel().isClientSide && getLevel().getEntity(param) instanceof PrimedTnt) {
+			if (getLevel().isClientSide() && getLevel().getEntity(param) instanceof PrimedTnt) {
 				Entity e = getLevel().getEntity(param);
 
 				for (int i = 0; i < 50; i++) {

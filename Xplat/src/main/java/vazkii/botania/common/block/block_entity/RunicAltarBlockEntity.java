@@ -93,7 +93,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		}
 
 		if (currentRecipe != null && currentRecipe.value().getReagent().test(stack)) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				ItemStack toSpawn = player != null && player.hasInfiniteMaterials() ? stack.copy().split(1) : stack.split(1);
 				ItemEntity item = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1, getBlockPos().getZ() + 0.5, toSpawn);
 				item.setPickUpDelay(40);
@@ -142,7 +142,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				cooldown = param;
 				return true;
 			case CRAFT_EFFECT_EVENT: {
-				if (level.isClientSide) {
+				if (level.isClientSide()) {
 					for (int i = 0; i < 25; i++) {
 						float red = (float) Math.random();
 						float green = (float) Math.random();
@@ -204,7 +204,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, RunicAltarBlockEntity self) {
 		self.updateRecipe();
-		if (self.manaToGet > 0 && self.mana >= self.manaToGet && level.random.nextInt(20) == 0) {
+		if (self.manaToGet > 0 && self.mana >= self.manaToGet && level.getRandom().nextInt(20) == 0) {
 			Vec3 vec = Vec3.atCenterOf(self.getBlockPos());
 			Vec3 endVec = vec.add(0, 2.5, 0);
 			Proxy.INSTANCE.lightningFX(level, vec, endVec, 2F, 0x00948B, 0x00E4D7);
@@ -273,7 +273,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return true;
 		}
 

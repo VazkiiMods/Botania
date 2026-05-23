@@ -58,7 +58,7 @@ public class EnderOverseerBlock extends BotaniaBlock implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			return createTickerHelper(type, BotaniaBlockEntities.ENDER_EYE, EnderOverseerBlockEntity::serverTick);
 		}
 		return null;

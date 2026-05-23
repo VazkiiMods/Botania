@@ -88,6 +88,6 @@ public class FabricRedStringContainerBlockEntity extends RedStringContainerBlock
 	@Nullable
 	@Override
 	public BlockPos getBinding() {
-		return level.isClientSide ? clientPos : super.getBinding();
+		return level.isClientSide() ? clientPos : super.getBinding();
 	}
 }

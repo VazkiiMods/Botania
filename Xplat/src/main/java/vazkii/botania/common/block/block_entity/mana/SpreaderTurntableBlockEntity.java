@@ -51,7 +51,7 @@ public class SpreaderTurntableBlockEntity extends BlockEntity implements Wandabl
 			} else if (spreader.rotationX < 0F) {
 				spreader.rotationX += 360F;
 			}
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				spreader.checkForReceiver();
 			}
 		}

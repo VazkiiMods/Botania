@@ -45,7 +45,7 @@ public class TinyPotatoBlockItem extends BlockItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-		if (!level.isClientSide && entity instanceof Player player && entity.tickCount % 30 == 0
+		if (!level.isClientSide() && entity instanceof Player player && entity.tickCount % 30 == 0
 				&& TYPOS.matcher(stack.getHoverName().getString()).matches()) {
 			int ticks = stack.getOrDefault(BotaniaDataComponents.NOT_MY_NAME_STEP, 0);
 			if (ticks < NOT_MY_NAME) {

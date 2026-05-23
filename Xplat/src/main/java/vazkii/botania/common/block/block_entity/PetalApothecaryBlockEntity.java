@@ -71,7 +71,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 
 	public boolean collideEntityItem(ItemEntity item) {
 		ItemStack stack = item.getItem();
-		if (level.isClientSide || stack.isEmpty() || !item.isAlive()) {
+		if (level.isClientSide() || stack.isEmpty() || !item.isAlive()) {
 			return false;
 		}
 
@@ -276,7 +276,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				recipeKeepTicks = param;
 				return true;
 			case CRAFT_EFFECT_EVENT: {
-				if (level.isClientSide) {
+				if (level.isClientSide()) {
 					for (int i = 0; i < 25; i++) {
 						float red = (float) Math.random();
 						float green = (float) Math.random();

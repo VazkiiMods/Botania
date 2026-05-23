@@ -83,7 +83,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 
 	@Override
 	public void tick() {
-		if (level().isClientSide) {
+		if (level().isClientSide()) {
 			return;
 		}
 
@@ -257,7 +257,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 		ItemStack stack = player.getItemInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
 			if (stack.getItem() instanceof WandOfTheForestItem) {
-				if (!level().isClientSide) {
+				if (!level().isClientSide()) {
 					if (player.isShiftKeyDown() || !PlayerHelper.isTruePlayer(player)) {
 						dropAndKill();
 						if (isMaster()) {
@@ -267,23 +267,23 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 						displayRelatives(player, new ArrayList<>(), master);
 					}
 				}
-				return InteractionResult.sidedSuccess(level().isClientSide);
+				return InteractionResult.sidedSuccess(level().isClientSide());
 			} else if (stack.getItem() instanceof DyeItem dye) {
 				DyeColor color = dye.getDyeColor();
 				if (color != getNetwork()) {
-					if (!level().isClientSide) {
+					if (!level().isClientSide()) {
 						setNetwork(color);
 
 						stack.shrink(1);
 					}
 
-					return InteractionResult.sidedSuccess(level().isClientSide);
+					return InteractionResult.sidedSuccess(level().isClientSide());
 				}
 			} else if (stack.is(BotaniaItems.phantomInk)) {
-				if (!level().isClientSide) {
+				if (!level().isClientSide()) {
 					setInvisible(true);
 				}
-				return InteractionResult.sidedSuccess(level().isClientSide);
+				return InteractionResult.sidedSuccess(level().isClientSide());
 			}
 		}
 

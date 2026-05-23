@@ -152,7 +152,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 	public static void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {
 		Item item = stack.getItem();
 		ItemStack lokiRing = getLokiRing(player);
-		if (lokiRing.isEmpty() || player.level().isClientSide || !(item instanceof SequentialBreaker breaker)) {
+		if (lokiRing.isEmpty() || player.level().isClientSide() || !(item instanceof SequentialBreaker breaker)) {
 			return;
 		}
 

@@ -45,7 +45,7 @@ public class StarfieldCreatorBlock extends BotaniaWaterloggedBlock implements En
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return createTickerHelper(type, BotaniaBlockEntities.STARFIELD, StarfieldCreatorBlockEntity::clientTick);
 		}
 		return null;

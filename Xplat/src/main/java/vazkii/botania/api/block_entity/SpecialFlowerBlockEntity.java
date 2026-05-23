@@ -143,7 +143,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		if (cmp.contains(TAG_FLOATING_DATA)) {
 			floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA), registries);
 		}
-		if (isFloating() && oldType != floatingData.getIslandType() && level != null && level.isClientSide) {
+		if (isFloating() && oldType != floatingData.getIslandType() && level != null && level.isClientSide()) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
 		}
 	}
@@ -236,7 +236,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	}
 
 	public void emitParticle(ParticleOptions options, double xOffset, double yOffset, double zOffset, double xSpeed, double ySpeed, double zSpeed) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			return;
 		}
 		Vec3 offset = level.getBlockState(getEffectivePos()).getOffset(level, getEffectivePos());

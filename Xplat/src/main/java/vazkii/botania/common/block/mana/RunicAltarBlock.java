@@ -92,7 +92,7 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return createTickerHelper(type, BotaniaBlockEntities.RUNE_ALTAR, RunicAltarBlockEntity::clientTick);
 		} else {
 			return createTickerHelper(type, BotaniaBlockEntities.RUNE_ALTAR, RunicAltarBlockEntity::serverTick);

@@ -236,7 +236,7 @@ public class ShadedMesaRodItem extends Item {
 						item.setPickUpDelay(20);
 						float mot = ManaItemHandler.instance().hasProficiency(player, stack) ? 2.25F : 1.5F;
 						item.setDeltaMovement(moveVector.x * mot, moveVector.y, moveVector.z * mot);
-						if (!player.level().isClientSide) {
+						if (!player.level().isClientSide()) {
 							ThrownItemEntity thrown = new ThrownItemEntity(item.level(), item.getX(), item.getY(), item.getZ(), item);
 							item.level().addFreshEntity(thrown);
 						}

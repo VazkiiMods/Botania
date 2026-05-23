@@ -120,7 +120,7 @@ public class TeruTeruBozuBlock extends BotaniaWaterloggedBlock implements Entity
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			return createTickerHelper(type, BotaniaBlockEntities.TERU_TERU_BOZU, TeruTeruBozuBlockEntity::serverTick);
 		}
 		return null;

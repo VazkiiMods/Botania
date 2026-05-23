@@ -91,7 +91,7 @@ public class MagicMissileEntity extends ThrowableProjectile {
 
 		super.tick();
 
-		if (!level().isClientSide && (!findTarget() || time > 40)) {
+		if (!level().isClientSide() && (!findTarget() || time > 40)) {
 			discard();
 			return;
 		}
@@ -109,7 +109,7 @@ public class MagicMissileEntity extends ThrowableProjectile {
 		for (int i = 0; i < steps; i++) {
 			level().addParticle(data, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
 
-			if (level().random.nextInt(steps) <= 1) {
+			if (level().getRandom().nextInt(steps) <= 1) {
 				level().addParticle(data, particlePos.x + (Math.random() - 0.5) * 0.4, particlePos.y + (Math.random() - 0.5) * 0.4, particlePos.z + (Math.random() - 0.5) * 0.4, 0, 0, 0);
 			}
 
@@ -196,7 +196,7 @@ public class MagicMissileEntity extends ThrowableProjectile {
 		}
 
 		if (!entities.isEmpty()) {
-			target = entities.get(level().random.nextInt(entities.size()));
+			target = entities.get(level().getRandom().nextInt(entities.size()));
 			setTarget(target);
 		}
 
@@ -235,7 +235,7 @@ public class MagicMissileEntity extends ThrowableProjectile {
 	protected void onHitBlock(BlockHitResult hit) {
 		super.onHitBlock(hit);
 		BlockState state = level().getBlockState(hit.getBlockPos());
-		if (!level().isClientSide
+		if (!level().isClientSide()
 				&& !(state.getBlock() instanceof BushBlock)
 				&& !state.is(BlockTags.LEAVES)) {
 			discard();
@@ -245,7 +245,7 @@ public class MagicMissileEntity extends ThrowableProjectile {
 	@Override
 	protected void onHitEntity(EntityHitResult hit) {
 		super.onHitEntity(hit);
-		if (!level().isClientSide && hit.getEntity() == getTargetEntity()) {
+		if (!level().isClientSide() && hit.getEntity() == getTargetEntity()) {
 			discard();
 		}
 	}

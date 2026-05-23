@@ -70,7 +70,7 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.LIGHT_RELAY, level.isClientSide ? LuminizerBlockEntity::clientTick : LuminizerBlockEntity::serverTick);
+		return createTickerHelper(type, BotaniaBlockEntities.LIGHT_RELAY, level.isClientSide() ? LuminizerBlockEntity::clientTick : LuminizerBlockEntity::serverTick);
 	}
 
 	@Nullable

@@ -262,7 +262,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
-		if (!getLevel().isClientSide && canEject()) {
+		if (!getLevel().isClientSide() && canEject()) {
 			craft(false, player);
 			ejectAll();
 		}
@@ -272,7 +272,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	@Override
 	public void setChanged() {
 		super.setChanged();
-		if (level != null && !level.isClientSide) {
+		if (level != null && !level.isClientSide()) {
 			this.dirty = true;
 			this.matchFailed = false;
 		}

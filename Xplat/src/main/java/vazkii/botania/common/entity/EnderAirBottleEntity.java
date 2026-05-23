@@ -76,7 +76,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	@Override
 	protected void onHitBlock(BlockHitResult result) {
 		super.onHitBlock(result);
-		if (level().isClientSide) {
+		if (level().isClientSide()) {
 			return;
 		}
 		convertBlock(result.getBlockPos());
@@ -86,7 +86,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	@Override
 	protected void onHitEntity(EntityHitResult result) {
 		super.onHitEntity(result);
-		if (this.level().isClientSide) {
+		if (this.level().isClientSide()) {
 			return;
 		}
 		Entity entity = result.getEntity();

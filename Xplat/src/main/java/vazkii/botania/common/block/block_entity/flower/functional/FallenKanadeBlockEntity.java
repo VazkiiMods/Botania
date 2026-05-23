@@ -36,7 +36,7 @@ public class FallenKanadeBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMana() < COST) {
+		if (getLevel().isClientSide() || getMana() < COST) {
 			return;
 		}
 		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class,

@@ -47,7 +47,7 @@ public class ManaSplitterBlock extends BotaniaWaterloggedBlock implements Entity
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			return createTickerHelper(type, BotaniaBlockEntities.DISTRIBUTOR, ManaSplitterBlockEntity::serverTick);
 		}
 		return null;

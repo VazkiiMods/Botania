@@ -68,7 +68,7 @@ public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageIte
 					ItemStack displayStack = stackAt.copy();
 					InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
 					if (did.consumesAction()) {
-						if (!ctx.getLevel().isClientSide) {
+						if (!ctx.getLevel().isClientSide()) {
 							ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
 						}
 						player.getCooldowns().addCooldown(this, TIME);

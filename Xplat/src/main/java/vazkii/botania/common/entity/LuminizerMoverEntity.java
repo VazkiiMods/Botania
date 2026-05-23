@@ -57,7 +57,7 @@ public class LuminizerMoverEntity extends Entity {
 	public void tick() {
 		super.tick();
 
-		if (getPassengers().isEmpty() && !level().isClientSide) {
+		if (getPassengers().isEmpty() && !level().isClientSide()) {
 			discard();
 			return;
 		}
@@ -73,7 +73,7 @@ public class LuminizerMoverEntity extends Entity {
 		BlockPos pos = blockPosition();
 		BlockPos exitPos = getExitPos();
 
-		if (!level().isClientSide && pos.equals(exitPos)) {
+		if (!level().isClientSide() && pos.equals(exitPos)) {
 			boolean done = true;
 			if (level().getBlockEntity(pos) instanceof LuminizerBlockEntity relay) {
 				BlockState state = level().getBlockState(pos);

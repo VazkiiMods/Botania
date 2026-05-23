@@ -98,7 +98,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 	public record ForceRelayWandable(Level level, BlockPos pos) implements Wandable {
 		@Override
 		public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
-			if (player == null || level.isClientSide) {
+			if (player == null || level.isClientSide()) {
 				return false;
 			}
 
@@ -125,7 +125,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 	public record ForceRelayBindable(Level level, BlockPos sourcePos) implements WandBindable {
 		@Override
 		public boolean bindTo(Player player, ItemStack wand, BlockPos targetPos, Direction side) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				addBinding(level, sourcePos, targetPos);
 
 				XplatAbstractions.INSTANCE.sendToNear(level, targetPos,
@@ -138,7 +138,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 	}
 
 	public static void addBinding(Level level, BlockPos sourcePos, BlockPos targetPos) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			BotaniaAPI.LOGGER.warn("Tried to bind Force Relay on client: {}/{}", sourcePos, targetPos);
 			return;
 		}

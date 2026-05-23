@@ -157,7 +157,7 @@ public final class SkyblockWorldEvents {
 				startPoint,
 				startPoint,
 				new StructurePlaceSettings().addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK),
-				level.random,
+				level.getRandom(),
 				Block.UPDATE_ALL);
 		for (var info : structureBlockInfos) {
 			//noinspection DataFlowIssue (null NBT was already filtered above)
@@ -165,9 +165,9 @@ public final class SkyblockWorldEvents {
 				BlockPos lightPos = startPoint.offset(info.pos());
 				if (level.setBlockAndUpdate(lightPos, BotaniaBlocks.manaFlame.defaultBlockState())
 						&& level.getBlockEntity(lightPos) instanceof ManaFlameBlockEntity flame) {
-					int r = 70 + level.random.nextInt(185);
-					int g = 70 + level.random.nextInt(185);
-					int b = 70 + level.random.nextInt(185);
+					int r = 70 + level.getRandom().nextInt(185);
+					int g = 70 + level.getRandom().nextInt(185);
+					int b = 70 + level.getRandom().nextInt(185);
 					int color = r << 16 | g << 8 | b;
 					flame.setColor(color);
 				}

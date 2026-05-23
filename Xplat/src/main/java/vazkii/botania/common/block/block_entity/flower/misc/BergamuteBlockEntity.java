@@ -41,7 +41,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 		super.tickFlower();
 
 		if (!added) {
-			if (getLevel().isClientSide) {
+			if (getLevel().isClientSide()) {
 				clientFlowers.add(this);
 			} else {
 				serverFlowers.add(this);
@@ -53,7 +53,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		if (getLevel().isClientSide) {
+		if (getLevel().isClientSide()) {
 			clientFlowers.remove(this);
 		} else {
 			serverFlowers.remove(this);
@@ -64,9 +64,9 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 		int count = 0;
 		BergamuteBlockEntity tile = null;
 
-		for (BergamuteBlockEntity f : level.isClientSide ? clientFlowers : serverFlowers) {
+		for (BergamuteBlockEntity f : level.isClientSide() ? clientFlowers : serverFlowers) {
 			if (level == f.level && !f.isPowered() && f.getEffectivePos().distToCenterSqr(x, y, z) <= RANGE * RANGE) {
-				if (count == 0 || level.random.nextInt(count) == 0) {
+				if (count == 0 || level.getRandom().nextInt(count) == 0) {
 					tile = f;
 				}
 				count++;
@@ -101,7 +101,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 		double vibrationTravelDist = vibrationTravelVector.length();
 		Vec3 vibrationTravelDir = vibrationTravelVector.normalize();
 
-		for (BergamuteBlockEntity f : level.isClientSide ? clientFlowers : serverFlowers) {
+		for (BergamuteBlockEntity f : level.isClientSide() ? clientFlowers : serverFlowers) {
 			if (f.level != level || f.isPowered()) {
 				continue;
 			}

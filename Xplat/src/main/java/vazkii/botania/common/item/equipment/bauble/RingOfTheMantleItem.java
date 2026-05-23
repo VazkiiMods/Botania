@@ -35,7 +35,7 @@ public class RingOfTheMantleItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (!(entity instanceof Player player) || player.level().isClientSide) {
+		if (!(entity instanceof Player player) || player.level().isClientSide()) {
 			return;
 		}
 		boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, false);

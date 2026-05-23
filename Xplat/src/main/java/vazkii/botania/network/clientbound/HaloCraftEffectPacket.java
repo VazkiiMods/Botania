@@ -34,7 +34,7 @@ public record HaloCraftEffectPacket(int entityId) implements CustomPacketPayload
 			if (target != null) {
 				Vec3 lookVec3 = target.getLookAngle();
 				Vec3 centerVector = VecHelper.fromEntityCenter(target).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
-				RandomSource rng = level.random;
+				RandomSource rng = level.getRandom();
 				for (int i = 0; i < 4; i++) {
 					WispParticleData data = WispParticleData.wisp(0.2f + 0.2f * rng.nextFloat(), 1, 0, 1);
 					target.level().addParticle(data, centerVector.x, centerVector.y, centerVector.z,

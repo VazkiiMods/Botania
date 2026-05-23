@@ -76,7 +76,7 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 			return ItemInteractionResult.FAIL;
 		}
 		if (cube.isLocked()) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				player.displayClientMessage(Component.translatable("botaniamisc.crystalCubeLocked"), false);
 			}
 		} else {
@@ -93,7 +93,7 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			return createTickerHelper(type, BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE, CorporeaCrystalCubeBlockEntity::serverTick);
 		}
 		return null;

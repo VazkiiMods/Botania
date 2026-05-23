@@ -92,7 +92,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	}
 
 	public void doRequest(Player player) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return;
 		}
 
@@ -105,7 +105,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	}
 
 	private void updateCount() {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return;
 		}
 

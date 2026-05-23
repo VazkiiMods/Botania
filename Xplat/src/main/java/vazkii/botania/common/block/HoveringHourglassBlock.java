@@ -72,7 +72,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 		}
 
 		if (hourglass.lock) {
-			if (!player.level().isClientSide && hand == InteractionHand.OFF_HAND) {
+			if (!player.level().isClientSide() && hand == InteractionHand.OFF_HAND) {
 				player.displayClientMessage(Component.translatable("botaniamisc.hourglassLock"), true);
 			}
 			return ItemInteractionResult.FAIL;

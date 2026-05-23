@@ -81,7 +81,7 @@ public class BoltRenderer {
 	}
 
 	public void add(Level level, BoltParticleOptions options, float partialTicks) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			return;
 		}
 		var emitter = new BoltEmitter(options);

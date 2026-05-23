@@ -34,7 +34,7 @@ public class HyacidusBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMana() < COST || isPowered()) {
+		if (getLevel().isClientSide() || getMana() < COST || isPowered()) {
 			return;
 		}
 

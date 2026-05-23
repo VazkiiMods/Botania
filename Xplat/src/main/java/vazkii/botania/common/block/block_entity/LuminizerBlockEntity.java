@@ -66,7 +66,7 @@ public class LuminizerBlockEntity extends BlockEntity implements WandBindable, B
 
 	public void mountEntity(Entity e) {
 		BlockPos nextDest = getNextDestination();
-		if (e.isPassenger() || level.isClientSide || nextDest == null || !isValidBinding()) {
+		if (e.isPassenger() || level.isClientSide() || nextDest == null || !isValidBinding()) {
 			return;
 		}
 
@@ -222,7 +222,7 @@ public class LuminizerBlockEntity extends BlockEntity implements WandBindable, B
 		if (isNoParticle()) {
 			return false;
 		}
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			if (player == null || !player.hasInfiniteMaterials()) {
 				stack.shrink(1);
 			}

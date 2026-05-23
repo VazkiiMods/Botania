@@ -449,39 +449,39 @@ public final class BotaniaItems {
 		if (!(block instanceof ManaPoolBlock poolBlock)) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			ManaPoolBlock undyedPool = ManaPoolBlock.getUndyedBlock(poolBlock);
 			ItemStack itemstack = stack.transmuteCopy(undyedPool, 1);
 			player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, itemstack, false));
 			player.awardStat(BotaniaStats.MANA_POOLS_CLEANED);
 			LayeredCauldronBlock.lowerFillLevel(state, level, pos);
 		}
-		return ItemInteractionResult.sidedSuccess(level.isClientSide);
+		return ItemInteractionResult.sidedSuccess(level.isClientSide());
 	};
 
 	public static final CauldronInteraction MANA_LENS_INTERACTION = (state, level, pos, player, hand, stack) -> {
 		if (!LensItem.isLensTinted(stack)) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			stack.remove(BotaniaDataComponents.LENS_RAINBOW_TINT);
 			stack.remove(BotaniaDataComponents.LENS_TINT);
 			player.awardStat(BotaniaStats.MANA_LENSES_CLEANED);
 			LayeredCauldronBlock.lowerFillLevel(state, level, pos);
 		}
-		return ItemInteractionResult.sidedSuccess(level.isClientSide);
+		return ItemInteractionResult.sidedSuccess(level.isClientSide());
 	};
 
 	public static final CauldronInteraction PHANTOM_INK_INTERACTION = (state, level, pos, player, hand, stack) -> {
 		if (!(stack.getItem() instanceof PhantomInkable inkable) || !inkable.hasPhantomInk(stack)) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			inkable.setPhantomInk(stack, false);
 			player.awardStat(BotaniaStats.PHANTOM_INK_CLEANED);
 			LayeredCauldronBlock.lowerFillLevel(state, level, pos);
 		}
-		return ItemInteractionResult.sidedSuccess(level.isClientSide);
+		return ItemInteractionResult.sidedSuccess(level.isClientSide());
 	};
 
 	private static <T extends Item> T make(String name, T item) {

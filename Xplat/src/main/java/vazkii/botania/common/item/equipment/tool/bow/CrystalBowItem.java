@@ -77,7 +77,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 				float power = getPowerForTime(i);
 				if (!((double) power < 0.1D)) {
 					boolean markUnpickable = player.hasInfiniteMaterials() || arrowStack.is(Items.ARROW); // Botania
-					if (!level.isClientSide) {
+					if (!level.isClientSide()) {
 						ArrowItem arrowItem = (ArrowItem) (arrowStack.getItem() instanceof ArrowItem ? arrowStack.getItem() : Items.ARROW);
 						AbstractArrow arrow = arrowItem.createArrow(level, arrowStack, player, stack);
 						arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 1.0F);

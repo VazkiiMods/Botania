@@ -29,7 +29,7 @@ public class ManaSparkItem extends Item {
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		return attachSpark(ctx.getLevel(), ctx.getClickedPos(), ctx.getItemInHand())
-				? InteractionResult.sidedSuccess(ctx.getLevel().isClientSide)
+				? InteractionResult.sidedSuccess(ctx.getLevel().isClientSide())
 				: InteractionResult.PASS;
 	}
 

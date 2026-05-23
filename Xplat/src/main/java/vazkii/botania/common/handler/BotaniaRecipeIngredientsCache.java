@@ -47,7 +47,7 @@ public class BotaniaRecipeIngredientsCache implements ResourceManagerReloadListe
 	}
 
 	private static BotaniaRecipeIngredientsCache getInstance(Level level) {
-		return level.isClientSide ? CLIENT_INSTANCE.get() : SERVER_INSTANCE.get();
+		return level.isClientSide() ? CLIENT_INSTANCE.get() : SERVER_INSTANCE.get();
 	}
 
 	@ApiStatus.Internal

@@ -65,7 +65,7 @@ public abstract class ItemEntityMixin_NoDespawn extends Entity {
 	@WrapMethod(method = "getAge")
 	private int adjustClientAgeForRendering(Operation<Integer> original) {
 		int originalAge = original.call();
-		return originalAge == BOTANIA_UNLIMITED_LIFETIME && level().isClientSide
+		return originalAge == BOTANIA_UNLIMITED_LIFETIME && level().isClientSide()
 				&& BotaniaItems.isNoDespawn(getItem().getItem())
 						? originalAge + tickCount % BOTANIA_RESET_UNLIMITED_LIFETIME_AFTER_TICKS
 						: originalAge;

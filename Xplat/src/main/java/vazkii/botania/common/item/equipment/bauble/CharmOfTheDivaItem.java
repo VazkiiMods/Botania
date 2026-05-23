@@ -86,7 +86,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 
 	public static void onEntityDamaged(Player player, LivingEntity entity) {
 		if (entity instanceof Mob target
-				&& !target.level().isClientSide
+				&& !target.level().isClientSide()
 				// TODO 1.21: Use an actual boss identification method (likely via entity tag)
 				/*&& target.canChangeDimensions()*/
 				&& Math.random() < 0.6) {

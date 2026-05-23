@@ -35,7 +35,7 @@ public class RedStringInterceptorBlockEntity extends RedStringBlockEntity {
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, RedStringInterceptorBlockEntity self) {
 		RedStringBlockEntity.commonTick(level, worldPosition, state, self);
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			interceptors.add(self);
 		}
 	}

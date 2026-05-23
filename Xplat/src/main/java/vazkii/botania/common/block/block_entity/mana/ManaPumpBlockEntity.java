@@ -84,7 +84,7 @@ public class ManaPumpBlockEntity extends BlockEntity {
 	}
 
 	public void setActive(boolean active) {
-		if (!level.isClientSide && isActive() != active) {
+		if (!level.isClientSide() && isActive() != active) {
 			getBlockState().setValue(BotaniaStateProperties.ACTIVE, active);
 		}
 	}

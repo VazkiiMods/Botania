@@ -47,7 +47,7 @@ public class ManaPylonBlock extends PylonBlock {
 				float g = FastColor.ARGB32.green(hex) / 255f;
 				float b = FastColor.ARGB32.blue(hex) / 255f;
 
-				RandomSource rng = level.random;
+				RandomSource rng = level.getRandom();
 				Vec3 centerBlock = new Vec3(
 						self.centerPos.getX() + 0.5,
 						self.centerPos.getY() + 0.75 + (rng.nextDouble() - 0.5) * 0.25,
@@ -86,7 +86,7 @@ public class ManaPylonBlock extends PylonBlock {
 
 	@Override
 	public void addRandomParticle(Level level, BlockPos pos) {
-		RandomSource rng = level.random;
+		RandomSource rng = level.getRandom();
 		level.addParticle(SparkleParticleData.sparkle(rng.nextFloat(), 0.5f, 0.5f, 1.0f, 2),
 				pos.getX() + rng.nextDouble(),
 				pos.getY() + rng.nextDouble() * 1.3,

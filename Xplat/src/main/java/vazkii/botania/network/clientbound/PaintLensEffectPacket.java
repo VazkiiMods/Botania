@@ -38,7 +38,7 @@ public record PaintLensEffectPacket(BlockPos pos, DyeColor color) implements Cus
 			float g = FastColor.ARGB32.green(color) / 255f;
 			float b = FastColor.ARGB32.blue(color) / 255f;
 			Level level = localPlayer.level();
-			RandomSource random = level.random;
+			RandomSource random = level.getRandom();
 			for (int i = 0; i < 10; i++) {
 				Vec3 pos = Vec3.atLowerCornerOf(packet.pos().relative(Direction.getRandom(random)));
 				SparkleParticleData data = SparkleParticleData.sparkle(0.6f + random.nextFloat() * 0.5f, r, g, b, 5);

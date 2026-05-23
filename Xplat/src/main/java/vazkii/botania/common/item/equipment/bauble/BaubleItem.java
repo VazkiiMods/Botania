@@ -77,7 +77,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 	public void onWornTick(ItemStack stack, LivingEntity entity) {}
 
 	public void onEquipped(ItemStack stack, LivingEntity entity) {
-		if (!entity.level().isClientSide && entity instanceof ServerPlayer player) {
+		if (!entity.level().isClientSide() && entity instanceof ServerPlayer player) {
 			PlayerHelper.grantCriterion(player, botaniaRL("main/bauble_wear"), "code_triggered");
 		}
 	}

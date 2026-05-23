@@ -163,7 +163,7 @@ public class CorporeaRetainerBlockEntity extends BlockEntity implements Wandable
 
 	@Override
 	public boolean onUsedByWand(Player player, ItemStack stack, Direction side) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			level.setBlock(getBlockPos(), getBlockState().cycle(BotaniaStateProperties.RETAIN_MISSING),
 					Block.UPDATE_CLIENTS);
 		}

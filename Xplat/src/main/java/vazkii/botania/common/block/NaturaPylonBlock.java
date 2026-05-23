@@ -41,7 +41,7 @@ public class NaturaPylonBlock extends PylonBlock {
 				double worldTime = level.getGameTime() * 0.2
 						+ new Random(state.getSeed(worldPosition)).nextDouble(2 * Math.PI);
 
-				RandomSource rng = level.random;
+				RandomSource rng = level.getRandom();
 				double radius = 0.75 + rng.nextDouble() * 0.05;
 				double x = worldPosition.getX() + 0.5 + Math.cos(worldTime) * radius;
 				double y = worldPosition.getY();
@@ -52,7 +52,7 @@ public class NaturaPylonBlock extends PylonBlock {
 				level.addParticle(upwardSpiralData, x, y, z,
 						rng.nextDouble() * 0.005, rng.nextDouble() * 0.015 + 0.075, rng.nextDouble() * 0.005);
 
-				if (level.random.nextInt(3) == 0) {
+				if (level.getRandom().nextInt(3) == 0) {
 					Vec3 centerBlock = new Vec3(
 							self.centerPos.getX() + 0.25 + 0.5 * rng.nextDouble(),
 							self.centerPos.getY() + 0.25 + 0.5 * rng.nextDouble(),
@@ -73,7 +73,7 @@ public class NaturaPylonBlock extends PylonBlock {
 
 	@Override
 	public void addRandomParticle(Level level, BlockPos pos) {
-		RandomSource rng = level.random;
+		RandomSource rng = level.getRandom();
 		level.addParticle(SparkleParticleData.sparkle(rng.nextFloat(), 0.5f, 1.0f, 0.5f, 2),
 				pos.getX() + rng.nextDouble(),
 				pos.getY() + rng.nextDouble() * 1.3,

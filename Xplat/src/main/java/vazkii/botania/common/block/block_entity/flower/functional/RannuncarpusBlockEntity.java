@@ -78,7 +78,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || isPowered() || !shouldUpdateThisTick()) {
+		if (getLevel().isClientSide() || isPowered() || !shouldUpdateThisTick()) {
 			return;
 		}
 
@@ -102,7 +102,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 			}
 
 			if (stackItem instanceof BlockItem || stackItem instanceof FlowerPlaceable) {
-				BlockPos coords = getCandidatePosition(getLevel().random, stack);
+				BlockPos coords = getCandidatePosition(getLevel().getRandom(), stack);
 				if (coords == null) {
 					continue;
 				}

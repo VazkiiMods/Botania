@@ -27,7 +27,7 @@ public abstract class PylonBlock extends BotaniaWaterloggedBlock implements Enti
 	}
 
 	protected void clientTick(Level level, BlockPos worldPosition, BlockState state, PylonBlockEntity self) {
-		if (level.random.nextBoolean()) {
+		if (level.getRandom().nextBoolean()) {
 			PylonBlock variant = ((PylonBlock) state.getBlock());
 			variant.addRandomParticle(level, worldPosition);
 		}
@@ -53,7 +53,7 @@ public abstract class PylonBlock extends BotaniaWaterloggedBlock implements Enti
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return level.isClientSide
+		return level.isClientSide()
 				? createTickerHelper(type, BotaniaBlockEntities.PYLON, this::clientTick)
 				: null;
 	}

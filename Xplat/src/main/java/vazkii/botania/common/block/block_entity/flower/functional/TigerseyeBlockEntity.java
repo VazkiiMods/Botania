@@ -45,7 +45,7 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMana() < COST) {
+		if (getLevel().isClientSide() || getMana() < COST) {
 			return;
 		}
 
@@ -56,7 +56,7 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 
 			if (pacifyCreeper(entity)) {
 				XplatAbstractions.instance().setTigersEyePacified(entity, true);
-				entity.playSound(BotaniaSounds.tigerseyePacify, 1.0F, (float) level.random.triangle(1.0, 0.2));
+				entity.playSound(BotaniaSounds.tigerseyePacify, 1.0F, (float) level.getRandom().triangle(1.0, 0.2));
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
 				addMana(-COST);
 				if (getMana() < COST) {
@@ -100,19 +100,19 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 	@Override
 	public boolean triggerEvent(int id, int payload) {
 		if (id == SUCCESS_EVENT) {
-			if (level.isClientSide) {
+			if (level.isClientSide()) {
 				Entity e = level.getEntity(payload);
 				if (e != null) {
 					int color = getColor();
 					float r = FastColor.ARGB32.red(color) / 255f;
 					float g = FastColor.ARGB32.green(color) / 255f;
 					float b = FastColor.ARGB32.blue(color) / 255f;
-					SparkleParticleData data = SparkleParticleData.sparkle(level.random.nextFloat(), r, g, b, 10);
+					SparkleParticleData data = SparkleParticleData.sparkle(level.getRandom().nextFloat(), r, g, b, 10);
 
 					for (int i = 0; i < 50; i++) {
-						double x = e.getX() + level.random.nextDouble() - 0.5;
-						double y = e.getY() + e.getBbHeight() * level.random.nextDouble();
-						double z = e.getZ() + level.random.nextDouble() - 0.5;
+						double x = e.getX() + level.getRandom().nextDouble() - 0.5;
+						double y = e.getY() + e.getBbHeight() * level.getRandom().nextDouble();
+						double z = e.getZ() + level.getRandom().nextDouble() - 0.5;
 						level.addParticle(data, x, y, z, 0, 0, 0);
 					}
 				}

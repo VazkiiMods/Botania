@@ -369,7 +369,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	public void displayRemainderCounter(Player player, ItemStack stack) {
-		if (!player.level().isClientSide) {
+		if (!player.level().isClientSide()) {
 			Item item = getItemToPlace(stack);
 			int count = getInventoryItemCount(player, stack, item);
 			ItemsRemainingRenderHandler.send(player, new ItemStack(item), count);

@@ -129,7 +129,7 @@ public class RenderLexicon {
 			ms.scale(0.0030F, 0.0030F, -0.0030F);
 
 			if (misspelling == -1 && mc.level != null) {
-				misspelling = mc.level.random.nextInt(MISSPELLINGS.length);
+				misspelling = mc.level.getRandom().nextInt(MISSPELLINGS.length);
 			}
 
 			String title = LexicaBotaniaItem.getTitle(stack).getString();
@@ -144,7 +144,7 @@ public class RenderLexicon {
 			font.drawInBatch(edition, 0, 0, 0xA07100, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 
 			if (quote == -1 && mc.level != null) {
-				quote = mc.level.random.nextInt(QUOTES.length);
+				quote = mc.level.getRandom().nextInt(QUOTES.length);
 			}
 
 			String quoteStr = QUOTES[quote];

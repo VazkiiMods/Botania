@@ -30,7 +30,7 @@ public class TripwireLens extends Lens {
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (burst.isFake()) {
-			if (entity.level().isClientSide) {
+			if (entity.level().isClientSide()) {
 				return;
 			}
 

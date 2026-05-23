@@ -42,7 +42,7 @@ public class LuminizerDetectorBlock extends LuminizerPoweredBlock {
 	@Override
 	public boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int payload) {
 		if (id == POWERED_EVENT) {
-			if (level.isClientSide) {
+			if (level.isClientSide()) {
 				RandomSource random = RandomSource.create();
 				for (int i = 0; i < 5; i++) {
 					addRedstoneParticle(level, pos, random);

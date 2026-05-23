@@ -112,7 +112,7 @@ public class SextantItem extends Item {
 	 */
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-		if (!level.isClientSide || !(entity instanceof LocalPlayer)) {
+		if (!level.isClientSide() || !(entity instanceof LocalPlayer)) {
 			return;
 		}
 		GlobalPos centerPos = stack.get(BotaniaDataComponents.BINDING_POS);

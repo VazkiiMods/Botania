@@ -32,7 +32,7 @@ public class RedirectiveLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		var burstEntity = burst.entity();
-		if (!burstEntity.level().isClientSide && !burst.isFake() && burst.isBurstSourceDimension(burstEntity.level())) {
+		if (!burstEntity.level().isClientSide() && !burst.isFake() && burst.isBurstSourceDimension(burstEntity.level())) {
 			if (pos instanceof BlockHitResult result
 					&& result.getType() != HitResult.Type.MISS
 					&& !burst.isBurstSourcePosition(result.getBlockPos())) {

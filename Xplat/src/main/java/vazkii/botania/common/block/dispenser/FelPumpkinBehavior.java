@@ -28,7 +28,7 @@ public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {
 		FelPumpkinBlock felPumpkinBlock = (FelPumpkinBlock) BotaniaBlocks.felPumpkin;
 		this.setSuccess(false);
 		if (level.isEmptyBlock(blockpos) && felPumpkinBlock.canSpawnBlaze(level, source.pos())) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				level.setBlock(blockpos, felPumpkinBlock.defaultBlockState(), 3);
 				level.gameEvent(null, GameEvent.BLOCK_PLACE, blockpos);
 			}

@@ -47,8 +47,8 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		int range = getRange();
-		int x = getEffectivePos().getX() + serverLevel.random.nextInt(range * 2 + 1) - range;
-		int z = getEffectivePos().getZ() + serverLevel.random.nextInt(range * 2 + 1) - range;
+		int x = getEffectivePos().getX() + serverLevel.getRandom().nextInt(range * 2 + 1) - range;
+		int z = getEffectivePos().getZ() + serverLevel.getRandom().nextInt(range * 2 + 1) - range;
 
 		for (int i = 4; i > -2; i--) {
 			int y = getEffectivePos().getY() + i;
@@ -71,15 +71,15 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 				if (state.is(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL)
 						&& block instanceof BonemealableBlock bonemealableBlock
 						&& bonemealableBlock.isValidBonemealTarget(serverLevel, pos, state)) {
-					if (serverLevel.random.nextFloat() < BONEMEAL_SUCCESS_CHANCE
-							&& bonemealableBlock.isBonemealSuccess(serverLevel, serverLevel.random, pos, state)) {
-						bonemealableBlock.performBonemeal(serverLevel, serverLevel.random, pos, state);
+					if (serverLevel.getRandom().nextFloat() < BONEMEAL_SUCCESS_CHANCE
+							&& bonemealableBlock.isBonemealSuccess(serverLevel, serverLevel.getRandom(), pos, state)) {
+						bonemealableBlock.performBonemeal(serverLevel, serverLevel.getRandom(), pos, state);
 					}
 				} else {
-					state.randomTick(serverLevel, pos, serverLevel.random);
+					state.randomTick(serverLevel, pos, serverLevel.getRandom());
 				}
 				if (BotaniaConfig.common().blockBreakParticles()) {
-					serverLevel.levelEvent(LevelEvent.PARTICLES_BEE_GROWTH, pos, 6 + serverLevel.random.nextInt(4));
+					serverLevel.levelEvent(LevelEvent.PARTICLES_BEE_GROWTH, pos, 6 + serverLevel.getRandom().nextInt(4));
 				}
 				serverLevel.playSound(null, x, y, z, BotaniaSounds.agricarnation, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 

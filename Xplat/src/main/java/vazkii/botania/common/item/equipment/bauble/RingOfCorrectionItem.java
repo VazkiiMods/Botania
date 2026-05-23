@@ -28,7 +28,7 @@ public class RingOfCorrectionItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (entity.level().isClientSide || !(entity instanceof ServerPlayer player)) {
+		if (entity.level().isClientSide() || !(entity instanceof ServerPlayer player)) {
 			return;
 		}
 

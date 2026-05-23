@@ -30,7 +30,7 @@ public record FluegelEyeEffectPacket(int entityId) implements CustomPacketPayloa
 			Level level = localPlayer.level();
 			Entity entity = level.getEntity(packet.entityId());
 			if (entity != null) {
-				RandomSource rng = level.random;
+				RandomSource rng = level.getRandom();
 				for (int i = 0; i < 15; i++) {
 					double x1 = entity.getX() + Math.random();
 					double y1 = entity.getY() + Math.random();

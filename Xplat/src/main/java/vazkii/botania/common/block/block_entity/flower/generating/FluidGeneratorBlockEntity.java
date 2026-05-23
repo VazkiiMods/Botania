@@ -55,7 +55,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 
 		if (level.isClientSide()) {
 			if (getBlockState().getValue(BotaniaStateProperties.GENERATING)) {
-				if (level.random.nextInt(8) == 0) {
+				if (level.getRandom().nextInt(8) == 0) {
 					doBurnParticles();
 				}
 			} else if (getBlockState().getValue(BotaniaStateProperties.ON_COOLDOWN)) {

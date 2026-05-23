@@ -138,7 +138,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, BotaniaBlockEntities.INCENSE_PLATE,
-				level.isClientSide ? IncensePlateBlockEntity::clientTick : IncensePlateBlockEntity::serverTick);
+				level.isClientSide() ? IncensePlateBlockEntity::clientTick : IncensePlateBlockEntity::serverTick);
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 
 	@Override
 	public void onProjectileHit(Level level, BlockState blockState, BlockHitResult hit, Projectile projectile) {
-		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos()) && projectile.isOnFire()
+		if (!level.isClientSide() && projectile.mayInteract(level, hit.getBlockPos()) && projectile.isOnFire()
 				&& level.getBlockEntity(hit.getBlockPos()) instanceof IncensePlateBlockEntity plate) {
 			plate.ignite();
 		}

@@ -121,7 +121,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 		// Update every tick.
 		self.receiveMana(0);
 
-		if (!level.isClientSide && self.recipe == null) {
+		if (!level.isClientSide() && self.recipe == null) {
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 1, worldPosition.getZ() + 1));
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty()) {
@@ -155,7 +155,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 					}
 				}
 
-				if (self.mana >= self.getManaCost() && !level.isClientSide) {
+				if (self.mana >= self.getManaCost() && !level.isClientSide()) {
 					int mana = self.getManaCost();
 					self.receiveMana(-mana);
 
@@ -199,7 +199,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 	@Override
 	public boolean triggerEvent(int event, int param) {
 		if (event == CRAFT_EFFECT_EVENT) {
-			if (level.isClientSide) {
+			if (level.isClientSide()) {
 				for (int i = 0; i < 25; i++) {
 					float r = (param >> 16 & 0xFF) / 255F;
 					float g = (param >> 8 & 0xFF) / 255F;

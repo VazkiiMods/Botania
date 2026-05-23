@@ -50,7 +50,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 		}
 
 		var orientation = getOrientation();
-		if (level.isClientSide() && level.random.nextInt(4) == 0) {
+		if (level.isClientSide() && level.getRandom().nextInt(4) == 0) {
 			WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
 			emitParticle(data, Math.random(), Math.random(), Math.random(), orientation.getStepX() * 0.1F, orientation.getStepY() * 0.1F, orientation.getStepZ() * 0.1F);
 		}
@@ -111,7 +111,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 			return false;
 		}
 
-		if (!player.level().isClientSide) {
+		if (!player.level().isClientSide()) {
 			// TODO: should this make some kind of sound and/or indicate the new orientation more clearly?
 			level.setBlock(getBlockPos(),
 					getBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, getOrientation().getClockWise()),

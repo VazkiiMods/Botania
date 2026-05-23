@@ -66,7 +66,7 @@ public class TangleberrieBlockEntity extends FunctionalFlowerBlockEntity {
 
 			if (distance > maxDist && distance < range) {
 				MathHelper.setEntityMotionFromVector(entity, new Vec3(x1, y1, z1), getMotionVelocity(entity));
-				if (getLevel().random.nextInt(3) == 0) {
+				if (getLevel().getRandom().nextInt(3) == 0) {
 					level.addParticle(data,
 							x2 + Math.random() * entity.getBbWidth(),
 							y2 + Math.random() * entity.getBbHeight(),

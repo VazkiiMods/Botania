@@ -58,7 +58,7 @@ public final class PixieHandler {
 	}
 
 	public static void onDamageTaken(Player player, DamageSource source) {
-		if (!player.level().isClientSide && source.getEntity() instanceof LivingEntity livingSource) {
+		if (!player.level().isClientSide() && source.getEntity() instanceof LivingEntity livingSource) {
 			// Sometimes the player doesn't have the attribute, not sure why.
 			// Could be badly-written mixins on Fabric.
 			double chance = player.getAttributes().hasAttribute(PIXIE_SPAWN_CHANCE)
@@ -70,7 +70,7 @@ public final class PixieHandler {
 				pixie.setPos(player.getX(), player.getY() + 2, player.getZ());
 
 				if (((ElementiumHelmItem) BotaniaItems.elementiumHelm).hasArmorSet(player)) {
-					pixie.setApplyPotionEffect(effectSuppliers.get(player.level().random.nextInt(effectSuppliers.size())).get());
+					pixie.setApplyPotionEffect(effectSuppliers.get(player.level().getRandom().nextInt(effectSuppliers.size())).get());
 				}
 
 				float dmg = 4;

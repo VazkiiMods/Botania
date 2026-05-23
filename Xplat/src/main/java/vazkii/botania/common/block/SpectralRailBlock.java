@@ -80,7 +80,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 	}
 
 	public void tickCart(AbstractMinecart c) {
-		if (c.level().isClientSide || c.isRemoved()) {
+		if (c.level().isClientSide() || c.isRemoved()) {
 			return;
 		}
 

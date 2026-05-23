@@ -28,7 +28,7 @@ public record BlackLotusDissolveEffectPacket(BlockPos pos) implements CustomPack
 	public static class Handler {
 		public static void handle(BlackLotusDissolveEffectPacket packet, Player localPlayer) {
 			Level level = localPlayer.level();
-			RandomSource rng = level.random;
+			RandomSource rng = level.getRandom();
 			Vec3 pos = packet.pos().getCenter();
 			for (int i = 0; i < 50; i++) {
 				float r = rng.nextFloat() * 0.35f;

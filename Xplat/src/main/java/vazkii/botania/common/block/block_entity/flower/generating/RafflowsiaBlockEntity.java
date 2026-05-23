@@ -89,7 +89,7 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMaxMana() - this.getMana() < 2100 || !shouldUpdateThisTick()) {
+		if (getLevel().isClientSide() || getMaxMana() - this.getMana() < 2100 || !shouldUpdateThisTick()) {
 			return;
 		}
 

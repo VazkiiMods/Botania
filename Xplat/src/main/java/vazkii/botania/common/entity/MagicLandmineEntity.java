@@ -61,7 +61,7 @@ public class MagicLandmineEntity extends Entity {
 				level().addParticle(data, getX(), getY() + 1, getZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 			}
 
-			if (!level().isClientSide) {
+			if (!level().isClientSide()) {
 				List<Player> players = level().getEntitiesOfClass(Player.class, getBoundingBox());
 				for (Player player : players) {
 					player.hurt(this.damageSources().indirectMagic(this, summoner), 10);

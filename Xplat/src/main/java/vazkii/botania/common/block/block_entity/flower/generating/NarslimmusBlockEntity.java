@@ -52,7 +52,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 				slime -> slime.isAlive() && XplatAbstractions.instance().isSlimeChunkSpawned(slime));
 		for (Slime slime : slimes) {
 			int size = slime.getSize();
-			if (!slime.level().isClientSide) {
+			if (!slime.level().isClientSide()) {
 				slime.discard();
 				slime.playSound(size > 1 ? BotaniaSounds.narslimmusEatBig : BotaniaSounds.narslimmusEatSmall, 1F, 1F);
 				addMana(manaForSize(size));
@@ -60,11 +60,11 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 
 			int times = 8 * (int) Math.pow(2, size);
 			for (int j = 0; j < times; ++j) {
-				float f = slime.level().random.nextFloat() * (float) Math.PI * 2.0F;
-				float f1 = slime.level().random.nextFloat() * 0.5F + 0.5F;
+				float f = slime.level().getRandom().nextFloat() * (float) Math.PI * 2.0F;
+				float f1 = slime.level().getRandom().nextFloat() * 0.5F + 0.5F;
 				float f2 = Mth.sin(f) * size * 0.5F * f1;
 				float f3 = Mth.cos(f) * size * 0.5F * f1;
-				float f4 = slime.level().random.nextFloat() * size * 0.5F * f1;
+				float f4 = slime.level().getRandom().nextFloat() * size * 0.5F * f1;
 				slime.level().addParticle(ParticleTypes.ITEM_SLIME,
 						slime.getX() + f2, slime.getBoundingBox().minY + f4, slime.getZ() + f3,
 						0.0D, 0.0D, 0.0D);

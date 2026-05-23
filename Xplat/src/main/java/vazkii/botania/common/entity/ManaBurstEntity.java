@@ -161,7 +161,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	@Override
 	public void tick() {
 		setTicksExisted(getTicksExisted() + 1);
-		if ((!level().isClientSide || fake)
+		if ((!level().isClientSide() || fake)
 				&& !hasLeftSource()
 				&& (!isBurstSourcePosition(blockPosition()) || !isBurstSourceDimension(level()))) {
 			// XXX: Should this check by bounding box instead of simply blockPosition()?
@@ -380,7 +380,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	public void particles() {
-		if (!isAlive() || !level().isClientSide) {
+		if (!isAlive() || !level().isClientSide()) {
 			return;
 		}
 
@@ -536,7 +536,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level(), collidePos, state, tile, hit.getDirection());
 		collidedTile = receiver;
 
-		if (!fake && !noParticles && !level().isClientSide) {
+		if (!fake && !noParticles && !level().isClientSide()) {
 			if (receiver != null && receiver.canReceiveManaFromBursts()) {
 				onReceiverImpact(receiver);
 			}
@@ -583,7 +583,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		if (shouldKill && isAlive()) {
 			if (fake) {
 				discard();
-			} else if (!this.level().isClientSide) {
+			} else if (!this.level().isClientSide()) {
 				this.level().broadcastEntityEvent(this, EntityEvent.DEATH);
 				discard();
 			}

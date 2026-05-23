@@ -175,7 +175,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.getX() - 2, worldPosition.getY(), worldPosition.getZ() - 2, worldPosition.getX() + 3, worldPosition.getY() + 1, worldPosition.getZ() + 3));
 		int count = items.size();
 
-		if (count > 0 && !level.isClientSide) {
+		if (count > 0 && !level.isClientSide()) {
 			for (ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
 				if (item.is(Items.ENCHANTED_BOOK)) {
@@ -195,7 +195,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 	}
 
 	private void gatherEnchants() {
-		if (!level.isClientSide && stageTicks % 20 == 0) {
+		if (!level.isClientSide() && stageTicks % 20 == 0) {
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.getX() - 2, worldPosition.getY(), worldPosition.getZ() - 2, worldPosition.getX() + 3, worldPosition.getY() + 1, worldPosition.getZ() + 3));
 			boolean addedEnch = false;
 
@@ -277,7 +277,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 			self.idleTicks++;
 		}
 
-		if (level.isClientSide || self.stage == State.IDLE && self.idleTicks % IDLE_CHECK_INTERVAL_TICKS != 0) {
+		if (level.isClientSide() || self.stage == State.IDLE && self.idleTicks % IDLE_CHECK_INTERVAL_TICKS != 0) {
 			return;
 		}
 
@@ -341,7 +341,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 	@Override
 	public boolean triggerEvent(int event, int param) {
 		if (event == CRAFT_EFFECT_EVENT) {
-			if (level.isClientSide) {
+			if (level.isClientSide()) {
 				for (int i = 0; i < 25; i++) {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
@@ -529,7 +529,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 				return false;
 			}
 
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				level.setBlockAndUpdate(pos, BotaniaBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
 				level.playSound(null, pos, BotaniaSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
 				PlayerHelper.grantCriterion((ServerPlayer) player, botaniaRL("main/enchanter_make"), "code_triggered");

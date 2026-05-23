@@ -734,7 +734,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean isRedStringContainerTarget(Level level, BlockPos pos) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			return false;
 		}
 		BlockState state = level.getBlockState(pos);

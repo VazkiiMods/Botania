@@ -40,7 +40,7 @@ public class KekimurusBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMaxMana() - this.getMana() < MANA_PER_SLICE || !shouldUpdateThisTick()) {
+		if (getLevel().isClientSide() || getMaxMana() - this.getMana() < MANA_PER_SLICE || !shouldUpdateThisTick()) {
 			return;
 		}
 

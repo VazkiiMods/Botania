@@ -254,7 +254,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 		double speed = 0.35;
 		int targetDistance = BASE_OFFSET;
 		Entity entity = burst.entity();
-		if (!entity.level().isClientSide) {
+		if (!entity.level().isClientSide()) {
 			entity.setDeltaMovement(0, speed, 0);
 
 			final int spawnTicks = 2;

@@ -44,7 +44,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMana() < COST_PER_TICK + 1) {
+		if (getLevel().isClientSide() || getMana() < COST_PER_TICK + 1) {
 			return;
 		}
 

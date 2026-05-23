@@ -88,7 +88,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	@Override
 	public void tick() {
-		if (level().isClientSide) {
+		if (level().isClientSide()) {
 			return;
 		}
 
@@ -305,7 +305,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	public static void particleBeam(Player player, @Nullable Entity e1, @Nullable Entity e2) {
-		if (e1 != null && e2 != null && !e1.level().isClientSide) {
+		if (e1 != null && e2 != null && !e1.level().isClientSide()) {
 			XplatAbstractions.INSTANCE.sendToPlayer(player, new SparkNetIndicatorEffectPacket(e1.getId(), e2.getId()));
 		}
 	}
@@ -335,7 +335,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		if (isAlive() && !stack.isEmpty()) {
 			SparkUpgradeType upgrade = getUpgrade();
 			if (stack.getItem() instanceof WandOfTheForestItem) {
-				if (!level().isClientSide) {
+				if (!level().isClientSide()) {
 					if (player.isShiftKeyDown() || !PlayerHelper.isTruePlayer(player)) {
 						if (upgrade != SparkUpgradeType.NONE) {
 							spawnAtLocation(SparkAugmentItem.getByType(upgrade), 0F);
@@ -354,26 +354,26 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					}
 				}
 
-				return InteractionResult.sidedSuccess(level().isClientSide);
+				return InteractionResult.sidedSuccess(level().isClientSide());
 			} else if (stack.getItem() instanceof SparkAugmentItem newUpgrade && upgrade == SparkUpgradeType.NONE) {
-				if (!level().isClientSide) {
+				if (!level().isClientSide()) {
 					setUpgrade(newUpgrade.type);
 					stack.shrink(1);
 				}
-				return InteractionResult.sidedSuccess(level().isClientSide);
+				return InteractionResult.sidedSuccess(level().isClientSide());
 			} else if (stack.is(BotaniaItems.phantomInk)) {
-				if (!level().isClientSide) {
+				if (!level().isClientSide()) {
 					setInvisible(true);
 				}
-				return InteractionResult.sidedSuccess(level().isClientSide);
+				return InteractionResult.sidedSuccess(level().isClientSide());
 			} else if (stack.getItem() instanceof DyeItem dye) {
 				DyeColor color = dye.getDyeColor();
 				if (color != getNetwork()) {
-					if (!level().isClientSide) {
+					if (!level().isClientSide()) {
 						setNetwork(color);
 						stack.shrink(1);
 					}
-					return InteractionResult.sidedSuccess(level().isClientSide);
+					return InteractionResult.sidedSuccess(level().isClientSide());
 				}
 			}
 		}

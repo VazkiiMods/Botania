@@ -25,7 +25,7 @@ public class SlimeInABottleItem extends Item {
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			boolean slime = NarslimmusBlockEntity.isSlimeChunk(level, entity.blockPosition());
 			DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE_TRANSIENT, slime);
 		}

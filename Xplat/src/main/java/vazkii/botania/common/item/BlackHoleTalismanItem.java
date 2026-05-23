@@ -113,7 +113,7 @@ public class BlackHoleTalismanItem extends Item {
 
 	@Override
 	public void inventoryTick(ItemStack talisman, Level world, Entity entity, int slot, boolean selected) {
-		if (!(entity instanceof Player player) || entity.level().isClientSide
+		if (!(entity instanceof Player player) || entity.level().isClientSide()
 				|| !talisman.has(BotaniaDataComponents.ACTIVE)) {
 			return;
 		}

@@ -33,7 +33,7 @@ public class RedStringContainerStorage implements Storage<ItemVariant> {
 	private Storage<ItemVariant> getStorage() {
 		Level level = container.getLevel();
 		BlockPos pos = container.getBinding();
-		if (level.isClientSide || pos == null) {
+		if (level.isClientSide() || pos == null) {
 			return Storage.empty();
 		}
 

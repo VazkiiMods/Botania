@@ -56,7 +56,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getLevel().isClientSide || getMana() < MANA_COST) {
+		if (getLevel().isClientSide() || getMana() < MANA_COST) {
 			return;
 		}
 		List<ItemEntity> items = getItems();

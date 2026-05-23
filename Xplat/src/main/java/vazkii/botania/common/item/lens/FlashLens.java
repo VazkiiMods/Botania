@@ -26,7 +26,7 @@ public class FlashLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (!entity.level().isClientSide && pos.getType() == HitResult.Type.BLOCK && !burst.isFake() && !isManaBlock) {
+		if (!entity.level().isClientSide() && pos.getType() == HitResult.Type.BLOCK && !burst.isFake() && !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
 			BlockPos neighborPos = rtr.getBlockPos().relative(rtr.getDirection());
 

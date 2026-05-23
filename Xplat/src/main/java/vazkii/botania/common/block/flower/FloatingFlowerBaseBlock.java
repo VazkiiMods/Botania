@@ -79,7 +79,7 @@ public abstract class FloatingFlowerBaseBlock extends BotaniaWaterloggedBlock im
 			FloatingFlower flower = provider.getFloatingData();
 			IslandType type = getIslandTypeForItem(stack.getItem());
 			if (type != null && type != flower.getIslandType()) {
-				if (!level.isClientSide) {
+				if (!level.isClientSide()) {
 					flower.setIslandType(type);
 					level.playSound(null, pos, type.changeSound(), SoundSource.BLOCKS, 1, 1);
 					player.awardStat(Stats.ITEM_USED.get(stack.getItem()));

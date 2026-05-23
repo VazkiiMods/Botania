@@ -76,7 +76,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 					}
 				}
 
-				if (level.random.nextInt(20) == 0) {
+				if (level.getRandom().nextInt(20) == 0) {
 					level.playSound(null, worldPosition, SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 0.1F, 1);
 				}
 			} else {
@@ -189,7 +189,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	@Override
 	public void setChanged() {
 		super.setChanged();
-		if (level != null && !level.isClientSide) {
+		if (level != null && !level.isClientSide()) {
 			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}

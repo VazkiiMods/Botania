@@ -70,7 +70,7 @@ public class PlatformBlockEntity extends BlockEntity implements Wandable, Phanto
 		if (camoState == Blocks.BARRIER.defaultBlockState()) {
 			return false;
 		}
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			if (player == null || !player.hasInfiniteMaterials()) {
 				stack.shrink(1);
 			}
@@ -91,7 +91,7 @@ public class PlatformBlockEntity extends BlockEntity implements Wandable, Phanto
 
 		if (level != null) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				level.blockUpdated(worldPosition, getBlockState().getBlock());
 				setChanged();
 			}
@@ -134,7 +134,7 @@ public class PlatformBlockEntity extends BlockEntity implements Wandable, Phanto
 			state = null;
 		}
 		setCamoState(state);
-		if (level != null && level.isClientSide) {
+		if (level != null && level.isClientSide()) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
 		}
 	}

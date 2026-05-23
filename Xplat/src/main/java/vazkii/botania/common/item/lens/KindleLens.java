@@ -24,7 +24,7 @@ public class KindleLens extends Lens {
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (!entity.level().isClientSide) {
+		if (!entity.level().isClientSide()) {
 			entity.setRemainingFireTicks(3 * 20);
 		}
 	}
@@ -33,7 +33,7 @@ public class KindleLens extends Lens {
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 
-		if (!entity.level().isClientSide && rtr.getType() == HitResult.Type.BLOCK
+		if (!entity.level().isClientSide() && rtr.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {
 			BlockHitResult brtr = (BlockHitResult) rtr;
 			BlockPos pos = brtr.getBlockPos();

@@ -43,7 +43,7 @@ public class BifrostBlock extends PermanentBifrostBlock implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			return BotaniaBlock.createTickerHelper(type, BotaniaBlockEntities.BIFROST, BifrostBlockEntity::serverTick);
 		}
 		return null;

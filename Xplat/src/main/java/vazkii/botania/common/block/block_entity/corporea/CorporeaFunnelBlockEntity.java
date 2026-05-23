@@ -43,7 +43,7 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 					(itemFrame, stack) -> stack.copyWithCount(ROTATION_TO_STACK_SIZE[itemFrame.getRotation()]),
 					(itemFrame, stack) -> stack.getCount());
 			if (!filter.isEmpty()) {
-				ItemStack stack = filter.getRandom(level.random)
+				ItemStack stack = filter.getRandom(level.getRandom())
 						.map(FilterHelper.WeightedItemStack::stack)
 						.orElse(ItemStack.EMPTY);
 

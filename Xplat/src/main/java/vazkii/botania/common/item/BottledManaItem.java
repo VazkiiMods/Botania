@@ -68,7 +68,7 @@ public class BottledManaItem extends Item {
 	}
 
 	private static void effectWater(Level level, LivingEntity living) {
-		if (!level.isClientSide && !level.dimensionType().ultraWarm()) {
+		if (!level.isClientSide() && !level.dimensionType().ultraWarm()) {
 			BlockPos playerPos = living.blockPosition();
 			BlockState state = level.getBlockState(playerPos);
 			BlockState replacedState;
@@ -100,20 +100,20 @@ public class BottledManaItem extends Item {
 					placed = level.setBlockAndUpdate(waterPos, Blocks.WATER.defaultBlockState());
 				}
 				if (placed) {
-					level.playSound(living, waterPos, SoundEvents.WATER_AMBIENT, SoundSource.BLOCKS, 1.0f, level.random.nextFloat() + 0.5f);
+					level.playSound(living, waterPos, SoundEvents.WATER_AMBIENT, SoundSource.BLOCKS, 1.0f, level.getRandom().nextFloat() + 0.5f);
 				}
 			}
 		}
 	}
 
 	private static void effectSetOnFire(Level level, LivingEntity living) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			living.setRemainingFireTicks(4 * 20);
 		}
 	}
 
 	private static void effectMiniExplosion(Level level, LivingEntity living) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			level.explode(null, living.getX(), living.getY(),
 					living.getZ(), 0.25F, Level.ExplosionInteraction.NONE);
 		}
@@ -121,7 +121,7 @@ public class BottledManaItem extends Item {
 
 	private static void effectMegaJump(Level level, LivingEntity living) {
 		if (!level.dimensionType().ultraWarm()) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 5));
 			}
 			living.setDeltaMovement(living.getDeltaMovement().x(), 6, living.getDeltaMovement().z());
@@ -129,7 +129,7 @@ public class BottledManaItem extends Item {
 	}
 
 	private static void effectSetRandomHp(Level level, LivingEntity living) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			float nextHealth = (float) (Math.random() * living.getMaxHealth());
 			if (Mth.equal(nextHealth, 0.0F)) {
 				nextHealth = 0.5F;
@@ -139,7 +139,7 @@ public class BottledManaItem extends Item {
 	}
 
 	private static void effectLotsOfHearts(Level level, LivingEntity living) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			living.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 60 * 2, 9));
 		}
 	}
@@ -162,25 +162,25 @@ public class BottledManaItem extends Item {
 	}
 
 	private static void effectDropAllItems(Level level, LivingEntity living) {
-		if (!level.isClientSide && living instanceof Player player) {
+		if (!level.isClientSide() && living instanceof Player player) {
 			player.getInventory().dropAll();
 		}
 	}
 
 	private static void effectHyperspeed(Level level, LivingEntity living) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 200));
 		}
 	}
 
 	private static void effectNightVision(Level level, LivingEntity living) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			living.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0));
 		}
 	}
 
 	private static void effectPixieFriend(Level level, LivingEntity living) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			PixieEntity pixie = new PixieEntity(level);
 			pixie.setPos(living.getX(), living.getY() + 1.5, living.getZ());
 			level.addFreshEntity(pixie);
@@ -188,14 +188,14 @@ public class BottledManaItem extends Item {
 	}
 
 	private static void effectNauseaBlindness(Level level, LivingEntity living) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 160, 3));
 			living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 160, 0));
 		}
 	}
 
 	private static void effectDropOwnHead(Level level, LivingEntity living) {
-		if (!level.isClientSide && living instanceof Player player) {
+		if (!level.isClientSide() && living instanceof Player player) {
 			living.hurt(living.damageSources().magic(), living.getHealth() - 1);
 			ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
 			skull.set(DataComponents.PROFILE, new ResolvableProfile(player.getGameProfile()));

@@ -59,7 +59,7 @@ public class CraftyCrateBlock extends OpenCrateBlock {
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			return createTickerHelper(type, BotaniaBlockEntities.CRAFT_CRATE, CraftyCrateBlockEntity::serverTick);
 		}
 		return null;
