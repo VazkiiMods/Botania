@@ -308,15 +308,13 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
 
 				saveLastRecipe();
-				if (player == null || !player.hasInfiniteMaterials()) {
-					for (ItemStack remainingStack : recipe.value().getRemainingItems(getRecipeInput())) {
-						if (remainingStack.isEmpty()) {
-							continue;
-						}
-						ItemEntity outputRune = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.5, getBlockPos().getZ() + 0.5, remainingStack.copy());
-						XplatAbstractions.instance().setItemSource(outputItem, ItemSources.RUNIC_ALTAR);
-						level.addFreshEntity(outputRune);
+				for (ItemStack remainingStack : recipe.value().getRemainingItems(getRecipeInput())) {
+					if (remainingStack.isEmpty()) {
+						continue;
 					}
+					ItemEntity remainder = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.5, getBlockPos().getZ() + 0.5, remainingStack.copy());
+					XplatAbstractions.instance().setItemSource(outputItem, ItemSources.RUNIC_ALTAR);
+					level.addFreshEntity(remainder);
 				}
 				getItemHandler().clearContent();
 				EntityHelper.shrinkItem(reagent);
