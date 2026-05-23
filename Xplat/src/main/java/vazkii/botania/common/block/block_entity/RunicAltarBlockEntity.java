@@ -394,6 +394,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	@Override
 	public void receiveMana(int mana) {
 		this.mana = Math.min(this.mana + mana, manaToGet);
+		level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 	}
 
 	@Override
