@@ -17,9 +17,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
@@ -27,20 +25,22 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewContainer;
+import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.BotanicalBreweryRecipe {
 	public static final RecipeSerializer<BotanicalBreweryRecipe> SERIALIZER = new Serializer();
 	private final Brew brew;
 	private final NonNullList<Ingredient> inputs;
+	private final String group;
 
 	public BotanicalBreweryRecipe(Brew brew, Ingredient... inputs) {
 		this.brew = brew;
 		this.inputs = NonNullList.of(Ingredient.EMPTY, inputs);
+		this.group = BotaniaAPI.instance().getBrewRegistry().getKey(brew).toString();
 	}
 
 	public BotanicalBreweryRecipe(Brew brew, List<Ingredient> ingredients) {
@@ -48,42 +48,22 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 	}
 
 	@Override
-	public boolean matches(RecipeInput inv, Level world) {
-		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
-
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getItem(i);
-			if (stack.isEmpty()) {
-				break;
-			}
-
-			if (stack.getItem() instanceof BrewContainer) {
-				continue;
-			}
-
-			boolean matchedOne = false;
-
-			Iterator<Ingredient> iter = inputsMissing.iterator();
-			while (iter.hasNext()) {
-				Ingredient input = iter.next();
-				if (input.test(stack)) {
-					iter.remove();
-					matchedOne = true;
-					break;
-				}
-			}
-
-			if (!matchedOne) {
-				return false;
-			}
+	public boolean matches(ProcessingRecipeInput input, Level world) {
+		if (input.size() != inputs.size() + 1
+				|| !RecipeUtils.getBrewContainerIngredient().test(input.getItem(0))) {
+			return false;
 		}
-
-		return inputsMissing.isEmpty();
+		return input.getSubset(1, input.size()).getStackedContents().canCraft(this, null);
 	}
 
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
+	}
+
+	@Override
+	public String getGroup() {
+		return group;
 	}
 
 	@Override
@@ -109,7 +89,7 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 	@Override
 	public ItemStack getOutput(ItemStack stack) {
 		if (stack.isEmpty() || !(stack.getItem() instanceof BrewContainer container)) {
-			return new ItemStack(Items.GLASS_BOTTLE); // Fallback...
+			return stack;
 		}
 
 		return container.getItemForBrew(brew, stack);

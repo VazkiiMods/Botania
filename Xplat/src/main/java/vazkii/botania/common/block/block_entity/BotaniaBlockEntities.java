@@ -66,7 +66,7 @@ public class BotaniaBlockEntities {
 	public static final BlockEntityType<EnderOverseerBlockEntity> ENDER_EYE = type(LibBlockNames.ENDER_EYE_BLOCK, EnderOverseerBlockEntity::new, enderEye);
 	public static final BlockEntityType<StarfieldCreatorBlockEntity> STARFIELD = type(LibBlockNames.STARFIELD, StarfieldCreatorBlockEntity::new, starfield);
 	public static final BlockEntityType<PowerGeneratorBlockEntity> FLUXFIELD = type(LibBlockNames.FLUXFIELD, PowerGeneratorBlockEntity::new, rfGenerator);
-	public static final BlockEntityType<BreweryBlockEntity> BREWERY = type(LibBlockNames.BREWERY, BreweryBlockEntity::new, brewery);
+	public static final BlockEntityType<BotanicalBreweryBlockEntity> BREWERY = type(LibBlockNames.BREWERY, BotanicalBreweryBlockEntity::new, brewery);
 	public static final BlockEntityType<TerrestrialAgglomerationPlateBlockEntity> TERRA_PLATE = type(LibBlockNames.TERRA_PLATE, TerrestrialAgglomerationPlateBlockEntity::new, terraPlate);
 	public static final BlockEntityType<RedStringContainerBlockEntity> RED_STRING_CONTAINER = type(LibBlockNames.RED_STRING_CONTAINER, XplatAbstractions.INSTANCE::newRedStringContainer, redStringContainer);
 	public static final BlockEntityType<RedStringDispenserBlockEntity> RED_STRING_DISPENSER = type(LibBlockNames.RED_STRING_DISPENSER, RedStringDispenserBlockEntity::new, redStringDispenser);
@@ -203,7 +203,7 @@ public class BotaniaBlockEntities {
 
 	public static void registerWandHudCaps(BECapConsumer<WandHUD> consumer) {
 		consumer.accept(be -> new AnimatedTorchBlockEntity.WandHud((AnimatedTorchBlockEntity) be), BotaniaBlockEntities.ANIMATED_TORCH);
-		consumer.accept(be -> new BreweryBlockEntity.WandHud((BreweryBlockEntity) be), BotaniaBlockEntities.BREWERY);
+		consumer.accept(be -> new BotanicalBreweryBlockEntity.WandHud((BotanicalBreweryBlockEntity) be), BotaniaBlockEntities.BREWERY);
 		consumer.accept(be -> new CorporeaRetainerBlockEntity.WandHud((CorporeaRetainerBlockEntity) be), BotaniaBlockEntities.CORPOREA_RETAINER);
 		consumer.accept(be -> new CraftyCrateBlockEntity.WandHud((CraftyCrateBlockEntity) be), BotaniaBlockEntities.CRAFT_CRATE);
 		consumer.accept(be -> new ManaEnchanterBlockEntity.WandHud((ManaEnchanterBlockEntity) be), BotaniaBlockEntities.ENCHANTER);

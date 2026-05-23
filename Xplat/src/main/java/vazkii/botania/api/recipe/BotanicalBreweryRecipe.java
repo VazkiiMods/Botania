@@ -9,11 +9,11 @@
 package vazkii.botania.api.recipe;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import vazkii.botania.api.brew.Brew;
@@ -22,7 +22,7 @@ import java.util.Objects;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public interface BotanicalBreweryRecipe extends Recipe<RecipeInput> {
+public interface BotanicalBreweryRecipe extends Recipe<ProcessingRecipeInput> {
 	ResourceLocation TYPE_ID = botaniaRL("brew");
 
 	Brew getBrew();
@@ -42,17 +42,17 @@ public interface BotanicalBreweryRecipe extends Recipe<RecipeInput> {
 	}
 
 	@Override
-	default ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
-		return ItemStack.EMPTY;
+	default ItemStack assemble(ProcessingRecipeInput inv, HolderLookup.Provider registries) {
+		return inv.isEmpty() ? ItemStack.EMPTY : getOutput(inv.getItem(0));
+	}
+
+	@Override
+	default NonNullList<ItemStack> getRemainingItems(ProcessingRecipeInput input) {
+		return Recipe.super.getRemainingItems(input.isEmpty() ? input : input.getSubset(1, input.size()));
 	}
 
 	@Override
 	default boolean canCraftInDimensions(int width, int height) {
-		return false;
-	}
-
-	@Override
-	default boolean isSpecial() {
-		return true;
+		return width * height >= getIngredients().size() + 1;
 	}
 }

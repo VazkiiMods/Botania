@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,10 +54,7 @@ public class BreweryRecipeCategory extends BotaniaRecipeCategoryBase<BotanicalBr
 		List<ItemStack> outputs = new ArrayList<>();
 		List<ItemStack> containers = new ArrayList<>();
 
-		for (var container : new ItemStack[] {
-				new ItemStack(BotaniaItems.vial), new ItemStack(BotaniaItems.flask),
-				new ItemStack(BotaniaItems.incenseStick), new ItemStack(BotaniaItems.bloodPendant)
-		}) {
+		for (var container : RecipeUtils.getBrewContainerIngredient().getItems()) {
 			ItemStack brewed = recipe.getOutput(container);
 			if (!brewed.isEmpty()) {
 				containers.add(container);

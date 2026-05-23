@@ -31,6 +31,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.*;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
 import vazkii.botania.common.crafting.recipe.TiaraWingsRecipe;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -44,7 +45,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -205,10 +205,8 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
 			registry.addRecipe(new ElvenTradeEmiRecipe(recipe));
 		}
-		List<ItemStack> containers = Stream.of(BotaniaItems.vial, BotaniaItems.flask, BotaniaItems.incenseStick, BotaniaItems.bloodPendant)
-				.map(ItemStack::new).toList();
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.BREW_TYPE)) {
-			for (ItemStack container : containers) {
+			for (ItemStack container : RecipeUtils.getBrewContainerIngredient().getItems()) {
 				if (!recipe.value().getOutput(container.copy()).isEmpty()) {
 					registry.addRecipe(new BotanicalBreweryEmiRecipe(recipe, container));
 				}

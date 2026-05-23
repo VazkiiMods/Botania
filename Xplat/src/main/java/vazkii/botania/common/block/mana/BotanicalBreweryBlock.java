@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.BreweryBlockEntity;
+import vazkii.botania.common.block.block_entity.BotanicalBreweryBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.helper.InventoryHelper;
 
@@ -60,7 +60,7 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 
 	@Override
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		if (!state.getValue(BlockStateProperties.POWERED) && level.getBlockEntity(pos) instanceof BreweryBlockEntity brew) {
+		if (!state.getValue(BlockStateProperties.POWERED) && level.getBlockEntity(pos) instanceof BotanicalBreweryBlockEntity brew) {
 			InventoryHelper.withdrawFromInventory(brew, player);
 			return InteractionResult.sidedSuccess(level.isClientSide());
 		}
@@ -69,9 +69,9 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		return level.getBlockEntity(pos) instanceof BreweryBlockEntity brew && brew.addItem(player, stack, hand)
+		return level.getBlockEntity(pos) instanceof BotanicalBreweryBlockEntity brew && brew.addItem(player, stack, hand)
 				? ItemInteractionResult.sidedSuccess(level.isClientSide())
-				: ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+				: ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-		return level.getBlockEntity(pos) instanceof BreweryBlockEntity brew ? brew.signal : 0;
+		return level.getBlockEntity(pos) instanceof BotanicalBreweryBlockEntity brew ? brew.signal : 0;
 	}
 
 	@Override
@@ -101,13 +101,13 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new BreweryBlockEntity(pos, state);
+		return new BotanicalBreweryBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.BREWERY, BreweryBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.BREWERY, BotanicalBreweryBlockEntity::commonTick);
 	}
 
 }

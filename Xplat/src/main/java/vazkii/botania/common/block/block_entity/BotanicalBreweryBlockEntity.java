@@ -45,11 +45,13 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.NbtHelper;
+import vazkii.botania.common.internal_caps.ItemSources;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Optional;
 
-public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements ManaReceiver {
+public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
@@ -59,7 +61,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	private int manaLastTick = 0;
 	public int signal = 0;
 
-	public BreweryBlockEntity(BlockPos pos, BlockState state) {
+	public BotanicalBreweryBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.BREWERY, pos, state, true);
 	}
 
@@ -107,7 +109,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		});
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, BreweryBlockEntity self) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, BotanicalBreweryBlockEntity self) {
 		if (self.mana > 0 && self.recipe == null) {
 			self.findRecipe();
 
@@ -161,8 +163,18 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 					// probably can't easily associate this with a player
 					output.onCraftedBySystem(level);
 					ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
+					XplatAbstractions.instance().setItemSource(outputItem, ItemSources.BOTANICAL_BREWERY);
 					level.addFreshEntity(outputItem);
 					level.blockEvent(worldPosition, BotaniaBlocks.brewery, CRAFT_EFFECT_EVENT, self.recipe.getBrew().getColor(output));
+
+					for (ItemStack remainingStack : self.recipe.getRemainingItems(self.getRecipeInput())) {
+						if (remainingStack.isEmpty()) {
+							continue;
+						}
+						ItemEntity remainder = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, remainingStack);
+						XplatAbstractions.instance().setItemSource(remainder, ItemSources.BOTANICAL_BREWERY);
+						level.addFreshEntity(remainder);
+					}
 
 					for (int i = 0; i < self.inventorySize(); i++) {
 						self.getItemHandler().setItem(i, ItemStack.EMPTY);
@@ -278,9 +290,9 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	}
 
 	public static class WandHud implements WandHUD {
-		private final BreweryBlockEntity brewery;
+		private final BotanicalBreweryBlockEntity brewery;
 
-		public WandHud(BreweryBlockEntity brewery) {
+		public WandHud(BotanicalBreweryBlockEntity brewery) {
 			this.brewery = brewery;
 		}
 

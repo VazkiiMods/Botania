@@ -21,6 +21,7 @@ public class ItemSources {
 	public static final ItemSource RUNIC_ALTAR = new ItemSource(true);
 	public static final ItemSource ALFHEIM_PORTAL = new ItemSource(true);
 	public static final ItemSource TERRA_PLATE = new ItemSource(false);
+	public static final ItemSource BOTANICAL_BREWERY = new ItemSource(true);
 
 	public static void submitRegistrations(BiConsumer<ItemSource, ResourceLocation> r) {
 		r.accept(PETAL_APOTHECARY, botaniaRL("petal_apothecary"));
@@ -28,5 +29,6 @@ public class ItemSources {
 		r.accept(RUNIC_ALTAR, botaniaRL("runic_altar"));
 		r.accept(ALFHEIM_PORTAL, botaniaRL("alfheim_portal"));
 		r.accept(TERRA_PLATE, botaniaRL("terra_plate"));
+		r.accept(BOTANICAL_BREWERY, botaniaRL("botanical_brewery"));
 	}
 }

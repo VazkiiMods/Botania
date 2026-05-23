@@ -34,6 +34,53 @@ public class StacksProcessingRecipeInput implements ProcessingRecipeInput {
 
 	@Override
 	public List<ItemStack> getItems() {
-		return List.of(stacks);
+		return Arrays.asList(stacks);
+	}
+
+	@Override
+	public ProcessingRecipeInput getSubset(int startSlot, int endSlot) {
+		return new SubsetStacksProcessingRecipeInput(this, startSlot, endSlot);
+	}
+
+	private static class SubsetStacksProcessingRecipeInput implements ProcessingRecipeInput {
+
+		private final ProcessingRecipeInput input;
+		private final int startSlot;
+		private final int endSlot;
+		private final List<ItemStack> items;
+		private final StackedContents stackedContents = new StackedContents();
+
+		public SubsetStacksProcessingRecipeInput(ProcessingRecipeInput input, int startSlot, int endSlot) {
+			this.input = input;
+			this.startSlot = startSlot;
+			this.endSlot = endSlot;
+			this.items = input.getItems().subList(startSlot, endSlot);
+			this.items.forEach(stackedContents::accountStack);
+		}
+
+		@Override
+		public StackedContents getStackedContents() {
+			return this.stackedContents;
+		}
+
+		@Override
+		public List<ItemStack> getItems() {
+			return this.items;
+		}
+
+		@Override
+		public ProcessingRecipeInput getSubset(int startSlot, int endSlot) {
+			return input.getSubset(this.startSlot + startSlot, this.startSlot + endSlot);
+		}
+
+		@Override
+		public ItemStack getItem(int index) {
+			return items.get(index);
+		}
+
+		@Override
+		public int size() {
+			return endSlot - startSlot;
+		}
 	}
 }

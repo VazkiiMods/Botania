@@ -13,4 +13,5 @@ import java.util.List;
 public interface ProcessingRecipeInput extends RecipeInput {
 	StackedContents getStackedContents();
 	List<ItemStack> getItems();
+	ProcessingRecipeInput getSubset(int startSlot, int endSlot);
 }

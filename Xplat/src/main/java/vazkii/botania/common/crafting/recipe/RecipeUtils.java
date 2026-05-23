@@ -8,13 +8,17 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import com.google.common.base.Suppliers;
+
 import it.unimi.dsi.fastutil.ints.IntList;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -25,6 +29,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.api.recipe.RecipeWithCatalysts;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -32,6 +37,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 public final class RecipeUtils {
@@ -150,6 +156,17 @@ public final class RecipeUtils {
 		allIngredients.addAll(recipeWithCatalysts.getIngredients());
 		allIngredients.addAll(recipeWithCatalysts.getCatalysts());
 		return new DummyRecipe<>(allIngredients);
+	}
+
+	@SuppressWarnings("SuspiciousToArrayCall")
+	private static final Supplier<Item[]> BREW_CONTAINER_ITEMS_SUPPLIER = Suppliers.memoize(
+			() -> BuiltInRegistries.ITEM.stream().filter(BrewContainer.class::isInstance).toArray(Item[]::new));
+
+	/**
+	 * Defines an {@link Ingredient} that matches any item implementing {@link BrewContainer}.
+	 */
+	public static Ingredient getBrewContainerIngredient() {
+		return Ingredient.of(BREW_CONTAINER_ITEMS_SUPPLIER.get());
 	}
 
 	private RecipeUtils() {}

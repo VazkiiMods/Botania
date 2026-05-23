@@ -13,13 +13,13 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
-import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class BreweryREIDisplay extends BotaniaRecipeDisplay<BotanicalBreweryRecipe> {
@@ -27,10 +27,10 @@ public class BreweryREIDisplay extends BotaniaRecipeDisplay<BotanicalBreweryReci
 
 	public BreweryREIDisplay(RecipeHolder<? extends BotanicalBreweryRecipe> recipe) {
 		super(recipe);
-		List<ItemStack> items = Arrays.asList(new ItemStack(BotaniaItems.vial), new ItemStack(BotaniaItems.flask), new ItemStack(BotaniaItems.incenseStick), new ItemStack(BotaniaItems.bloodPendant));
-		this.containers = EntryIngredients.ofItemStacks(items);
+		Ingredient brewContainerIngredient = RecipeUtils.getBrewContainerIngredient();
+		this.containers = EntryIngredients.ofIngredient(brewContainerIngredient);
 		List<ItemStack> outputs = new ArrayList<>();
-		for (ItemStack stack : items) {
+		for (ItemStack stack : brewContainerIngredient.getItems()) {
 			ItemStack brewed = recipe.value().getOutput(stack);
 			if (!brewed.isEmpty()) {
 				outputs.add(brewed);

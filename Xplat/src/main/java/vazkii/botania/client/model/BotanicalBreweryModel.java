@@ -27,7 +27,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.block_entity.BreweryBlockEntity;
+import vazkii.botania.common.block.block_entity.BotanicalBreweryBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 
 public class BotanicalBreweryModel extends Model {
@@ -65,7 +65,7 @@ public class BotanicalBreweryModel extends Model {
 		return mesh;
 	}
 
-	public void render(@Nullable BreweryBlockEntity brewery, double time, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable BotanicalBreweryBlockEntity brewery, double time, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float offset = (float) Math.sin(time / 40) * 0.1F + 0.05F;
 		boolean hasTile = brewery != null;
 		int plates = hasTile ? brewery.inventorySize() - 1 : 7;
