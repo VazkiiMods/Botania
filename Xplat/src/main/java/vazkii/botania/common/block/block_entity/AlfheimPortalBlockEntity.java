@@ -19,6 +19,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
@@ -139,13 +141,12 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 	public static final int PYLON_SEARCH_RANGE = 5;
 	private static final String TAG_TICKS_OPEN = "ticksOpen";
 	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
-	private static final String TAG_STACK_COUNT = "stackCount";
-	private static final String TAG_STACK = "portalStack";
+	private static final String TAG_PORTAL_STACKS = "portalStacks";
 	private static final int TICKS_TO_LIGHT_PYLONS = 50;
 	public static final int TICKS_UNTIL_FULLY_OPENED = 60;
 	private static final int TICKS_BETWEEN_ITEMS = 4;
 
-	private final List<ItemStack> stacksIn = new ArrayList<>();
+	private final List<ItemStack> portalStacks = new ArrayList<>();
 	private final List<BlockPos> cachedPylonPositions = new ArrayList<>();
 
 	public int ticksOpen = 0;
@@ -182,7 +183,7 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 
 		AABB aabb = self.getPortalAABB(state);
 		boolean open = self.ticksOpen > TICKS_UNTIL_FULLY_OPENED;
-		XplatAbstractions.INSTANCE.fireElvenPortalUpdateEvent(self, aabb, open, self.stacksIn);
+		XplatAbstractions.INSTANCE.fireElvenPortalUpdateEvent(self, aabb, open, self.portalStacks);
 
 		if (self.ticksOpen > TICKS_UNTIL_FULLY_OPENED && !self.closeNow && newState != AlfheimPortalState.OFF) {
 			if (self.ticksSinceLastItem <= TICKS_BETWEEN_ITEMS) {
@@ -214,7 +215,7 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 				}
 			}
 
-			if (!level.isClientSide() && !self.stacksIn.isEmpty() && self.ticksSinceLastItem >= TICKS_BETWEEN_ITEMS) {
+			if (!level.isClientSide() && !self.portalStacks.isEmpty() && self.ticksSinceLastItem >= TICKS_BETWEEN_ITEMS) {
 				self.resolveRecipes();
 			}
 		}
@@ -307,16 +308,24 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 				: MathHelper.inflateBoxAround(worldPosition, 1, 0, -1, 4);
 	}
 
-	private void addItem(ItemStack stack) {
-		int size = stack.getCount();
-		for (int i = 0; i < size; i++) {
-			stacksIn.add(stack.copyWithCount(1));
+	private void addItem(ItemStack stackToAdd) {
+		if (!portalStacks.isEmpty()) {
+			ItemStack lastStack = portalStacks.getLast();
+			if (ItemStack.isSameItemSameComponents(lastStack, stackToAdd)) {
+				int remainingSpace = lastStack.getMaxStackSize() - lastStack.getCount();
+				int mergeAmount = Math.min(stackToAdd.getCount(), remainingSpace);
+				lastStack.grow(mergeAmount);
+				stackToAdd.shrink(mergeAmount);
+			}
+		}
+		if (!stackToAdd.isEmpty()) {
+			portalStacks.add(stackToAdd);
 		}
 	}
 
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons(true);
-		ProcessingRecipeInput input = RecipeUtils.getInputFromList(this.stacksIn);
+		ProcessingRecipeInput input = RecipeUtils.getInputFromListWithoutUnstacking(this.portalStacks);
 		for (RecipeHolder<ElvenTradeRecipe> recipeHolder : level.getRecipeManager().getAllRecipesFor(
 				BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
 			ElvenTradeRecipe recipe = recipeHolder.value();
@@ -330,12 +339,12 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 					Int2IntMap matchedSlots = result.matchedInputSlots();
 					for (int slot : matchedSlots.keySet()) {
 						int matchedCount = matchedSlots.get(slot);
-						ItemStack inputStack = stacksIn.get(slot);
+						ItemStack inputStack = portalStacks.get(slot);
 						if (inputStack.getCount() >= matchedCount) {
 							matchedSingleInput = inputStack.split(matchedCount);
 						}
 					}
-					stacksIn.removeIf(ItemStack::isEmpty);
+					portalStacks.removeIf(ItemStack::isEmpty);
 					// if returning item unchanged, don't track it as newly crafted
 					boolean isReturnedItem = recipe.isReturnRecipe() && matchedSingleInput != null
 							&& ItemStack.isSameItemSameComponents(outputs.getFirst(), matchedSingleInput);
@@ -365,12 +374,11 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 		cmp.putInt(TAG_TICKS_OPEN, ticksOpen);
 		cmp.putInt(TAG_TICKS_SINCE_LAST_ITEM, ticksSinceLastItem);
 
-		cmp.putInt(TAG_STACK_COUNT, stacksIn.size());
-		int i = 0;
-		for (ItemStack stack : stacksIn) {
-			cmp.put(TAG_STACK + i, stack.save(registries));
-			i++;
+		ListTag stacksList = new ListTag();
+		for (ItemStack stack : portalStacks) {
+			stacksList.add(stack.save(registries));
 		}
+		cmp.put(TAG_PORTAL_STACKS, stacksList);
 	}
 
 	@Override
@@ -378,12 +386,13 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 		ticksOpen = cmp.getInt(TAG_TICKS_OPEN);
 		ticksSinceLastItem = cmp.getInt(TAG_TICKS_SINCE_LAST_ITEM);
 
-		int count = cmp.getInt(TAG_STACK_COUNT);
-		stacksIn.clear();
-		for (int i = 0; i < count; i++) {
-			CompoundTag stackcmp = cmp.getCompound(TAG_STACK + i);
-			ItemStack stack = ItemStack.parse(registries, stackcmp).orElse(ItemStack.EMPTY);
-			stacksIn.add(stack);
+		ListTag stacksList = cmp.getList(TAG_PORTAL_STACKS, Tag.TAG_COMPOUND);
+		portalStacks.clear();
+		for (int i = 0; i < stacksList.size(); i++) {
+			ItemStack stack = ItemStack.parse(registries, stacksList.getCompound(i)).orElse(ItemStack.EMPTY);
+			if (!stack.isEmpty()) {
+				portalStacks.add(stack);
+			}
 		}
 	}
 
