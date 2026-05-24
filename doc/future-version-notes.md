@@ -207,6 +207,12 @@ Features in older versions are mentioned if there are issues or no real interact
 * Rendering changes (as in almost every version nowadays)
   * order-independent transparency (yay?)
 
+### 26.4
+* New zombie variant, maybe relevant for some loonium spawns
+
+### 27.? (The sift update)
+* If there is a "pure" form of sculk, pure daisy should be able to purify normal sculk into it
+
 ----
 
 ## General wish list
