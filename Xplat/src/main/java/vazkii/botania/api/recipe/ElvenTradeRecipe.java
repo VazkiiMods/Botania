@@ -8,8 +8,9 @@
  */
 package vazkii.botania.api.recipe;
 
-import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
-import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntSortedMap;
+import it.unimi.dsi.fastutil.ints.Int2IntSortedMaps;
+import it.unimi.dsi.fastutil.ints.IntBidirectionalIterator;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -101,24 +102,52 @@ public interface ElvenTradeRecipe extends Recipe<ProcessingRecipeInput> {
 	}
 
 	/**
-	 * The result of assembling the recipe.
+	 * The result of assembling the recipe. Defines a natural order based on the matched slots, which is not consistent
+	 * with equals
 	 * 
 	 * @param outputs           List of item stacks to return.
 	 * @param matchedInputSlots Map of input slots to number of matched items in that slot.
 	 */
-	record AssemblyResult(List<ItemStack> outputs, Int2IntMap matchedInputSlots) {
+	record AssemblyResult(List<ItemStack> outputs, Int2IntSortedMap matchedInputSlots) implements Comparable<AssemblyResult> {
 		public AssemblyResult(List<ItemStack> outputs, int matchedSlot) {
-			this(outputs, singleItemSlot(matchedSlot));
+			this(outputs, Int2IntSortedMaps.singleton(matchedSlot, 1));
 		}
 
 		public AssemblyResult(ItemStack output, int matchedSlot) {
-			this(List.of(output), singleItemSlot(matchedSlot));
+			this(List.of(output), Int2IntSortedMaps.singleton(matchedSlot, 1));
 		}
 
-		private static Int2IntMap singleItemSlot(int slot) {
-			Int2IntArrayMap map = new Int2IntArrayMap(1);
-			map.put(slot, 1);
-			return map;
+		/**
+		 * Defines a sorting order based on the matched input slots order. Earliest completed match wins. Ties are
+		 * broken by finding the earliest available ingredient items. If that still doesn't decide it, the match with
+		 * the fewest input slots wins.
+		 */
+		@Override
+		public int compareTo(ElvenTradeRecipe.AssemblyResult other) {
+			int thisLastSlot = this.matchedInputSlots().lastIntKey();
+			int otherLastSlot = other.matchedInputSlots().lastIntKey();
+			if (thisLastSlot != otherLastSlot) {
+				// one of these matches was completed earlier than the other
+				return thisLastSlot - otherLastSlot;
+			}
+			IntBidirectionalIterator thisIterator = this.matchedInputSlots().keySet().iterator();
+			IntBidirectionalIterator otherIterator = other.matchedInputSlots().keySet().iterator();
+			while (thisIterator.hasNext() && otherIterator.hasNext()) {
+				int thisSlot = thisIterator.nextInt();
+				int otherSlot = otherIterator.nextInt();
+				if (thisSlot != otherSlot) {
+					// one of these matches got an item earlier than the other
+					return thisSlot - otherSlot;
+				}
+				int thisNumItems = this.matchedInputSlots().get(thisSlot);
+				int otherNumItems = other.matchedInputSlots().get(thisSlot);
+				if (thisNumItems != otherNumItems) {
+					// one of these matches claimed more items earlier than the other
+					return thisNumItems - otherNumItems;
+				}
+			}
+			// as both matches end at same slot, both iterators should have reached their end, but try anyway
+			return thisIterator.hasNext() ? 1 : otherIterator.hasNext() ? -1 : 0;
 		}
 	}
 }

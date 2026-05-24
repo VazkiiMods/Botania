@@ -10,6 +10,7 @@ package vazkii.botania.common.block.block_entity;
 
 import com.google.common.base.Suppliers;
 
+import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 
 import net.minecraft.core.BlockPos;
@@ -63,7 +64,6 @@ import vazkii.botania.common.advancements.AlfheimPortalTrigger;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 import vazkii.botania.common.handler.BotaniaRecipeIngredientsCache;
 import vazkii.botania.common.helper.MathHelper;
@@ -323,38 +323,76 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 		}
 	}
 
+	private Optional<Pair<ElvenTradeRecipe, ElvenTradeRecipe.AssemblyResult>> determineBestRecipeToResolve() {
+		ProcessingRecipeInput input = RecipeUtils.getInputFromListWithoutUnstacking(this.portalStacks);
+
+		// recipes we won't bother trying to match again, even if we find more ingredients for them:
+		Set<RecipeHolder<ElvenTradeRecipe>> failedMatches = new HashSet<>();
+		// recipes we already know will match the entire input, we just need to figure out which one to resolve first:
+		Map<RecipeHolder<ElvenTradeRecipe>, ElvenTradeRecipe.AssemblyResult> matchedCandidates = new HashMap<>();
+
+		for (int slot = 0, lastSlotToCheck = input.size() - 1; slot <= lastSlotToCheck; slot++) {
+			var inputStack = input.getItem(slot);
+			// iterate over all recipes that involve the input item in this slot
+			for (RecipeHolder<ElvenTradeRecipe> candidate : BotaniaRecipeIngredientsCache
+					.getElvenTradeCandidates(level, inputStack.getItem())) {
+				if (failedMatches.contains(candidate) || matchedCandidates.containsKey(candidate)) {
+					// we already know this recipe and how it uses the input items (assuming it matches)
+					continue;
+				}
+				Optional<ElvenTradeRecipe.AssemblyResult> potentialMatch = candidate.value()
+						.tryAssemble(input, level.registryAccess());
+				if (potentialMatch.isPresent()) {
+					// input has all ingredients for this recipe
+					ElvenTradeRecipe.AssemblyResult result = potentialMatch.get();
+					// which input slot index is the last one needed to match this recipe?
+					int lastMatchedSlot = result.matchedInputSlots().lastIntKey();
+					if (lastMatchedSlot < lastSlotToCheck) {
+						// better upper bound for where we can stop looking for previously untested recipes,
+						// since we know we have a complete match before that point
+						lastSlotToCheck = lastMatchedSlot;
+					}
+					matchedCandidates.put(candidate, result);
+				} else {
+					// input has at least one required ingredient for this recipe, but not all of them
+					failedMatches.add(candidate);
+				}
+			}
+		}
+		// at this point we know the first recipe to resolve must be among the candidates
+
+		return matchedCandidates.entrySet().stream()
+				// find the recipe that matched the earliest provided inputs:
+				.min(Map.Entry.comparingByValue())
+				.map(entry -> Pair.of(entry.getKey().value(), entry.getValue()));
+	}
+
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons(true);
-		ProcessingRecipeInput input = RecipeUtils.getInputFromListWithoutUnstacking(this.portalStacks);
-		for (RecipeHolder<ElvenTradeRecipe> recipeHolder : level.getRecipeManager().getAllRecipesFor(
-				BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
-			ElvenTradeRecipe recipe = recipeHolder.value();
-			Optional<ElvenTradeRecipe.AssemblyResult> match = recipe.tryAssemble(input, level.registryAccess());
-			if (match.isPresent()) {
-				if (consumeMana(pylons, MANA_COST, false)) {
-					ElvenTradeRecipe.AssemblyResult result = match.get();
-					// remember input item in case of return recipe
-					ItemStack matchedSingleInput = null;
-					List<ItemStack> outputs = result.outputs();
-					Int2IntMap matchedSlots = result.matchedInputSlots();
-					for (int slot : matchedSlots.keySet()) {
-						int matchedCount = matchedSlots.get(slot);
-						ItemStack inputStack = portalStacks.get(slot);
-						if (inputStack.getCount() >= matchedCount) {
-							matchedSingleInput = inputStack.split(matchedCount);
-						}
-					}
-					portalStacks.removeIf(ItemStack::isEmpty);
-					// if returning item unchanged, don't track it as newly crafted
-					boolean isReturnedItem = recipe.isReturnRecipe() && matchedSingleInput != null
-							&& ItemStack.isSameItemSameComponents(outputs.getFirst(), matchedSingleInput);
-					for (ItemStack output : outputs) {
-						spawnItem(output.copy(), isReturnedItem);
-					}
-					setChanged();
+		Optional<Pair<ElvenTradeRecipe, ElvenTradeRecipe.AssemblyResult>> bestRecipe = determineBestRecipeToResolve();
+
+		if (bestRecipe.isPresent() && consumeMana(pylons, MANA_COST, false)) {
+			ElvenTradeRecipe recipe = bestRecipe.get().first();
+			ElvenTradeRecipe.AssemblyResult result = bestRecipe.get().second();
+			// remember input item in case of return recipe
+			ItemStack matchedSingleInput = null;
+			List<ItemStack> outputs = result.outputs();
+			Int2IntMap matchedSlots = result.matchedInputSlots();
+			for (int slot : matchedSlots.keySet()) {
+				int matchedCount = matchedSlots.get(slot);
+				ItemStack inputStack = portalStacks.get(slot);
+				if (inputStack.getCount() >= matchedCount) {
+					matchedSingleInput = inputStack.split(matchedCount);
 				}
-				break;
 			}
+			portalStacks.removeIf(ItemStack::isEmpty);
+			// if returning item unchanged, don't track it as newly crafted
+			boolean isReturnedItem = recipe.isReturnRecipe() && matchedSingleInput != null
+					&& ItemStack.isSameItemSameComponents(outputs.getFirst(), matchedSingleInput);
+			for (ItemStack output : outputs) {
+				spawnItem(output.copy(), isReturnedItem);
+			}
+			setChanged();
 		}
 	}
 

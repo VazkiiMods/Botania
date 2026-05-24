@@ -12,8 +12,8 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
-import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2IntSortedMap;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 
@@ -97,8 +97,8 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 		} else {
 			IntList matchedIngredientItemTypes = new IntArrayList(ingredients.size());
 			if (input.getStackedContents().canCraft(this, matchedIngredientItemTypes)) {
-				Int2IntMap matchedInputSlots = new Int2IntArrayMap(ingredients.size());
 				// TODO: figure out how to further optimize this
+				Int2IntSortedMap matchedInputSlots = new Int2IntLinkedOpenHashMap(ingredients.size());
 				for (int ingredientIndex = 0; ingredientIndex < ingredients.size(); ingredientIndex++) {
 					Item inputItem = Item.byId(matchedIngredientItemTypes.getInt(ingredientIndex));
 					for (int inputIndex = 0; inputIndex < input.size(); inputIndex++) {
