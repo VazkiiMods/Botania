@@ -5,7 +5,6 @@ plugins {
 
 loom {
     accessWidenerPath = file("src/main/resources/botania.accesswidener")
-    mixin.defaultRefmapName = "botania.refmap.json"
 
     runs {
         gameTest {

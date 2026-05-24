@@ -29,13 +29,3 @@ dependencies {
     runtimeOnly fg.deobf("vazkii.botania:Botania:[VERSION]")
 }
 ```
-## Mixin Troubleshooting
-
-Read this if you get crashes when depending on Botania and trying to launch in-dev.
-Botania uses Mixins to implement various features.
-This may cause issues when depending on Botania in-dev, since ForgeGradle/MixinGradle
-do not yet properly support this in-dev like Fabric does.
-As a workaround, disable refmaps by defining the `mixin.env.disableRefMap`
-JVM argument to `true`.
-
-
