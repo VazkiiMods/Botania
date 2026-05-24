@@ -14,15 +14,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -48,7 +44,6 @@ import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.ManaNetwork;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -57,7 +52,7 @@ public interface BotaniaAPI {
 	String GOG_MODID = "gardenofglass";
 	Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-	BotaniaAPI INSTANCE = ServiceUtil.findService(BotaniaAPI.class, () -> new BotaniaAPI() {});
+	BotaniaAPI INSTANCE = ServiceUtil.findService(BotaniaAPI.class, null);
 
 	static BotaniaAPI instance() {
 		return INSTANCE;
@@ -122,67 +117,19 @@ public interface BotaniaAPI {
 
 	}
 
-	Holder<ArmorMaterial> DUMMY_ARMOR_MATERIAL = Holder.direct(new ArmorMaterial(Map.of(), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY, List.of(), 0, 0));
+	Holder<ArmorMaterial> getManasteelArmorMaterial();
 
-	Tier DUMMY_ITEM_TIER = new Tier() {
-		@Override
-		public int getUses() {
-			return 0;
-		}
+	Holder<ArmorMaterial> getElementiumArmorMaterial();
 
-		@Override
-		public float getSpeed() {
-			return 0;
-		}
+	Holder<ArmorMaterial> getManaweaveArmorMaterial();
 
-		@Override
-		public float getAttackDamageBonus() {
-			return 0;
-		}
+	Holder<ArmorMaterial> getTerrasteelArmorMaterial();
 
-		@Override
-		public TagKey<Block> getIncorrectBlocksForDrops() {
-			return BlockTags.INCORRECT_FOR_WOODEN_TOOL;
-		}
+	Tier getManasteelItemTier();
 
-		@Override
-		public int getEnchantmentValue() {
-			return 0;
-		}
+	Tier getElementiumItemTier();
 
-		@Override
-		public Ingredient getRepairIngredient() {
-			return Ingredient.EMPTY;
-		}
-	};
-
-	default Holder<ArmorMaterial> getManasteelArmorMaterial() {
-		return DUMMY_ARMOR_MATERIAL;
-	}
-
-	default Holder<ArmorMaterial> getElementiumArmorMaterial() {
-		return DUMMY_ARMOR_MATERIAL;
-	}
-
-	default Holder<ArmorMaterial> getManaweaveArmorMaterial() {
-		return DUMMY_ARMOR_MATERIAL;
-	}
-
-	default Holder<ArmorMaterial> getTerrasteelArmorMaterial() {
-		return DUMMY_ARMOR_MATERIAL;
-	}
-
-	default Tier getManasteelItemTier() {
-		return DUMMY_ITEM_TIER;
-	}
-
-	default Tier getElementiumItemTier() {
-		return DUMMY_ITEM_TIER;
-	}
-
-	default Tier getTerrasteelItemTier() {
-		return DUMMY_ITEM_TIER;
-	}
+	Tier getTerrasteelItemTier();
 
 	default ManaNetwork getManaNetworkInstance() {
 		return DummyManaNetwork.instance;

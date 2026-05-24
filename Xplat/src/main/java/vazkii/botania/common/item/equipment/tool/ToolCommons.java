@@ -34,10 +34,10 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.component.ManaRepair;
+import vazkii.botania.common.item.BotaniaItemTiers;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
@@ -127,13 +127,13 @@ public final class ToolCommons {
 
 		Tier material = tool.getTier();
 		int materialLevel = 0;
-		if (material == BotaniaAPI.instance().getManasteelItemTier()) {
+		if (material == BotaniaItemTiers.MANASTEEL) {
 			materialLevel = 10;
 		}
-		if (material == BotaniaAPI.instance().getElementiumItemTier()) {
+		if (material == BotaniaItemTiers.ELEMENTIUM) {
 			materialLevel = 11;
 		}
-		if (material == BotaniaAPI.instance().getTerrasteelItemTier()) {
+		if (material == BotaniaItemTiers.TERRASTEEL) {
 			materialLevel = 20;
 		}
 
