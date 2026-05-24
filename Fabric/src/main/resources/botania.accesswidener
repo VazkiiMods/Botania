@@ -13,3 +13,6 @@ extendable method net/minecraft/world/entity/vehicle/VehicleEntity getDropItem (
 extendable class net/minecraft/world/item/crafting/Ingredient
 accessible class net/minecraft/data/HashCache$ProviderCache
 accessible class net/minecraft/data/HashCache$ProviderCacheBuilder
+accessible class net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData
+accessible field net/minecraft/util/datafix/fixes/ItemStackComponentizationFix$ItemStackData tag Lcom/mojang/serialization/Dynamic;
+accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
