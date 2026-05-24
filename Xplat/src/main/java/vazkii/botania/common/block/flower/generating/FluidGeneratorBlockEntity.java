@@ -51,7 +51,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (cooldown > 0) {
+		if (burnTime == 0 && cooldown > 0) {
 			cooldown--;
 			for (int i = 0; i < 3; i++) {
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
@@ -99,6 +99,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 
 						if (cooldown == 0) {
 							burnTime += startBurnTime;
+							cooldown = getCooldownTime(true);
 							getLevel().gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 						} else {
 							cooldown = getCooldownTime(false);
@@ -117,7 +118,6 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 			}
 			burnTime--;
 			if (burnTime == 0) {
-				cooldown = getCooldownTime(true);
 				getLevel().gameEvent(null, GameEvent.BLOCK_DEACTIVATE, getBlockPos());
 				setChanged();
 				sync();

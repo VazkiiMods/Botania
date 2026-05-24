@@ -33,6 +33,8 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 16;
+	public static final int MANA_PER_LEAF = 160;
+	public static final int COOLDOWN_TICKS = 1600;
 
 	private boolean ateOnce = false;
 	private int ticksWithoutEating = -1;
@@ -47,7 +49,7 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 		super.tickFlower();
 
 		if (getLevel().isClientSide) {
-			if (cooldown > 0) {
+			if (!ateOnce && cooldown > 0) {
 				if (Math.random() < 0.5) {
 					Vec3 offset = getLevel().getBlockState(getBlockPos()).getOffset(getLevel(), getBlockPos());
 					double x = getBlockPos().getX() + offset.x + 0.2 + Math.random() * 0.6;
@@ -61,16 +63,18 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 
-		if (cooldown > 0) {
+		if (!ateOnce && cooldown > 0) {
 			cooldown--;
-			ticksWithoutEating = 0;
-			ateOnce = false; // don't start ticking ticksWithoutEating again until we eat again
+			if (cooldown == 0) {
+				setChanged();
+			} else {
+				level.blockEntityChanged(getBlockPos());
+			}
 			return;
 		}
 
-		int manaPerLeaf = 160;
 		eatLeaves: {
-			if (getMaxMana() - getMana() >= manaPerLeaf && ticksExisted % 4 == 0) {
+			if (getMaxMana() - getMana() >= MANA_PER_LEAF && ticksExisted % 4 == 0) {
 				Map<BlockPos, Float> coordsMap = new HashMap<>();
 				Random rng = new Random();
 				BlockPos pos = getEffectivePos();
@@ -107,18 +111,22 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 				getLevel().removeBlock(breakCoords, false);
 				ticksWithoutEating = 0;
 				ateOnce = true;
+				cooldown = COOLDOWN_TICKS;
 				if (BotaniaConfig.common().blockBreakParticles()) {
 					getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, breakCoords, Block.getId(state));
 				}
 				getLevel().gameEvent(null, GameEvent.BLOCK_DESTROY, breakCoords);
-				addMana(manaPerLeaf);
+				addMana(MANA_PER_LEAF);
+				level.blockEntityChanged(getBlockPos());
 			}
 		}
 
 		if (ateOnce) {
 			ticksWithoutEating++;
 			if (ticksWithoutEating >= 5) {
-				cooldown = 1600;
+				ateOnce = false;
+				ticksWithoutEating = 0;
+				setChanged();
 				sync();
 			}
 		}
