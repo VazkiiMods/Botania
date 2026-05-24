@@ -92,8 +92,6 @@ dependencies {
     modCompileOnly(libs.teamreborn.energy)
     modCompileOnly(libs.speedrunigt)
 
-    modLocalRuntime(libs.here.be.no.dragons)
-
     if (rootProject.hasProperty("load_override_jei")) {
         modLocalRuntime(libs.jei.fabric.full)
     } else if (rootProject.hasProperty("load_override_rei")) {

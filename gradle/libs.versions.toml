@@ -32,7 +32,6 @@ sodium-neoforge = "mc1.21.1-0.6.13-neoforge"
 embeddium = "1.0.15+mc1.21.1"
 
 fiber = "0.23.0-2"
-here-be-no-dragons = "1.0.0"
 carpet = "1.21-1.4.147+v240613"
 speedrunigt = "14.2+1.21.1"
 
@@ -78,7 +77,6 @@ trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
 ears = { module = "com.unascribed:ears-api", version.ref = "ears" }
 teamreborn-energy = { module = "teamreborn:energy", version.ref = "teamreborn-energy" }
 fiber = { module = "me.zeroeightsix:fiber", version.ref = "fiber" }
-here-be-no-dragons = { module = "maven.modrinth:here-be-no-dragons", version.ref = "here-be-no-dragons" }
 sodium-fabric = { module = "maven.modrinth:sodium", version.ref = "sodium-fabric" }
 sodium-neoforge = { module = "maven.modrinth:sodium", version.ref = "sodium-neoforge" }
 embeddium = { module = "maven.modrinth:embeddium", version.ref = "embeddium" }

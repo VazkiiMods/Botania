@@ -83,7 +83,7 @@ repositories {
     }
     maven {
         name = "Modrinth"
-        url = "https://api.modrinth.com/maven" // for "here be no dragons", and Sodium/Embeddium
+        url = "https://api.modrinth.com/maven" // for Sodium/Embeddium
         content {
             includeGroup "maven.modrinth"
         }
