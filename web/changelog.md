@@ -21,17 +21,21 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
-* Change: Rod of the Seas can fill all kinds of fluid container item in the inventory, not just empty buckets
+---
+
+{% include changelog_header.html version="1.20.1-453" %}
+
+* Change: Rod of the Seas can fill all kinds of fluid container items in the inventory, not just empty buckets
 * Fix: Hyacidus wasting mana on immune mobs that aren't undead
 * Fix: Various functional flowers never sent client updates when they used mana to perform their function
 * Fix: Rod of the Bifrost consumes mana again (AidaNightcore)
 * Fix: Cooldown of Thermalily and Munchdew can no longer be skipped by breaking the flower before it goes into cooldown
 * API: The `BlockProvider` interface now defines a method that lets others find out what the provider's "primary" block
   is. This is meant to be used by implementers of features that don't look for one specific block type, but need to know
-  what's currently available.
+  what's currently available. (ChiefArug)
 * Language updates:
   * ko_kr updated (UnineVesiKass)
-  * zh_cn updated (Dawnwalker666)
+  * zh_cn updated (Dawnwalker666, MuuuShin)
   * zh_tw updated (Dawnwalker666)
 
 ---
