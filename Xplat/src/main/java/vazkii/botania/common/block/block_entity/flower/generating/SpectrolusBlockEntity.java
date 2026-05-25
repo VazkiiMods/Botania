@@ -14,6 +14,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -36,6 +37,7 @@ import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.MathHelper;
@@ -56,7 +58,8 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 
 	private static final int RANGE = 1;
 
-	private DyeColor nextColor = DyeColor.WHITE;
+	@UnknownNullability
+	private DyeColor nextColor;
 	@UnknownNullability
 	private List<DyeColor> colors;
 
@@ -161,11 +164,17 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 	public void setLevel(Level level) {
 		super.setLevel(level);
 		if (colors == null && level instanceof ServerLevel serverLevel) {
-			List<DyeColor> dyeColors = new ArrayList<>(ColorHelper.supportedColors().toList());
-			Collections.shuffle(dyeColors, new Random(serverLevel.getSeed()));
-			colors = dyeColors;
-			nextColor = colors.getFirst();
+			colors = getDefaultColorList(serverLevel);
 		}
+		if (nextColor == null) {
+			nextColor = colors != null && !colors.isEmpty() ? colors.getFirst() : DyeColor.WHITE;
+		}
+	}
+
+	private static List<DyeColor> getDefaultColorList(ServerLevel serverLevel) {
+		List<DyeColor> dyeColors = new ArrayList<>(ColorHelper.supportedColors().toList());
+		Collections.shuffle(dyeColors, new Random(serverLevel.getSeed()));
+		return dyeColors;
 	}
 
 	@Override
@@ -190,5 +199,30 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 		var tag = super.getUpdateTag(registries);
 		tag.putByte(TAG_NEXT_COLOR, (byte) nextColor.getId());
 		return tag;
+	}
+
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		if (level instanceof ServerLevel serverLevel) {
+			List<DyeColor> defaultColors = getDefaultColorList(serverLevel);
+			if (!defaultColors.equals(colors)) {
+				components.set(BotaniaDataComponents.COLOR_SEQUENCE, List.copyOf(colors));
+			}
+			if (colors == null || nextColor != colors.getFirst()) {
+				components.set(BotaniaDataComponents.NEXT_COLOR, nextColor);
+			}
+		} else {
+			components.set(BotaniaDataComponents.NEXT_COLOR, nextColor);
+		}
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		List<DyeColor> colorSequence = componentInput.get(BotaniaDataComponents.COLOR_SEQUENCE);
+		if (colorSequence != null) {
+			colors = colorSequence;
+		}
+		nextColor = componentInput.getOrDefault(BotaniaDataComponents.NEXT_COLOR,
+				colors != null && !colors.isEmpty() ? colors.getFirst() : DyeColor.WHITE);
 	}
 }

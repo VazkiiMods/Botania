@@ -88,7 +88,7 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 		saveSpecialFlowerState(specialCases, BotaniaBlocks.rafflowsia, BotaniaBlocks.rafflowsiaFloating,
 				BotaniaDataComponents.LAST_REPEATS, BotaniaDataComponents.LAST_FLOWERS);
 		saveSpecialFlowerState(specialCases, BotaniaBlocks.spectrolus, BotaniaBlocks.spectrolusFloating,
-				BotaniaDataComponents.NEXT_COLOR);
+				BotaniaDataComponents.NEXT_COLOR, BotaniaDataComponents.COLOR_SEQUENCE);
 		saveSpecialFlowerState(specialCases, BotaniaBlocks.thermalily, BotaniaBlocks.thermalilyFloating,
 				BotaniaDataComponents.COOLDOWN);
 		saveSpecialFlowerState(specialCases, BotaniaBlocks.orechid, BotaniaBlocks.orechidFloating,

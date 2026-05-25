@@ -296,6 +296,8 @@ public class BotaniaDataComponents {
 					.cacheEncoding().networkSynchronized(ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list(RafflowsiaBlockEntity.getMaxStreak()))));
 	public static final DataComponentType<DyeColor> NEXT_COLOR = make("next_color",
 			builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC));
+	public static final DataComponentType<List<DyeColor>> COLOR_SEQUENCE = make("color_sequence",
+			builder -> builder.persistent(DyeColor.CODEC.sizeLimitedListOf(128)).cacheEncoding());
 
 	public static void registerComponents(BiConsumer<DataComponentType<?>, ResourceLocation> biConsumer) {
 		for (Map.Entry<String, DataComponentType<?>> entry : ALL.entrySet()) {

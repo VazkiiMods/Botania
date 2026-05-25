@@ -15,7 +15,8 @@
             {
               "function": "minecraft:copy_components",
               "include": [
-                "botania:next_color"
+                "botania:next_color",
+                "botania:color_sequence"
               ],
               "source": "block_entity"
             }
