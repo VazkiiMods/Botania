@@ -9,15 +9,18 @@
 package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RedstoneTorchBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.AnimatedTorchBlock;
@@ -31,7 +34,11 @@ public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<Ani
 	private static final double ANIM_VERTICAL_TICK_SCALE = 0.04;
 	private static final double ANIM_TICK_CYCLE = 2 * Math.PI / ANIM_HORIZONTAL_TICK_SCALE / ANIM_VERTICAL_TICK_SCALE;
 
-	public AnimatedTorchBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
+	private final BlockRenderDispatcher blockRenderDispatcher;
+
+	public AnimatedTorchBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
+		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
+	}
 
 	@Override
 	public void render(AnimatedTorchBlockEntity torch, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
@@ -44,12 +51,7 @@ public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<Ani
 						+ partialTicks
 						+ new Random(torch.getBlockState().getSeed(torch.getBlockPos())).nextDouble(ANIM_TICK_CYCLE);
 
-		float xt = 0.5F + (float) Math.cos(time * ANIM_HORIZONTAL_TICK_SCALE) * 0.025F;
-		float yt = 0.1F + (float) (Math.sin(time * ANIM_VERTICAL_TICK_SCALE) + 1) * 0.05F;
-		float zt = 0.5F + (float) Math.sin(time * ANIM_HORIZONTAL_TICK_SCALE) * 0.025F;
-		ms.translate(xt, yt, zt);
-
-		ms.scale(2, 2, 2);
+		ms.translate(0.5, 0.2, 0.5);
 		ms.mulPose(VecHelper.rotateX(90));
 
 		if (level != null) {
@@ -78,8 +80,19 @@ public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<Ani
 			}
 			ms.mulPose(VecHelper.rotateZ(torch.rotation));
 		}
-		Minecraft.getInstance().getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH),
-				ItemDisplayContext.GROUND, light, overlay, ms, buffers, level, 0);
+
+		double xt = -0.5 + Math.cos(time * ANIM_HORIZONTAL_TICK_SCALE) * 0.025;
+		double yt = -0.3 + Math.sin(time * ANIM_VERTICAL_TICK_SCALE) * 0.05;
+		double zt = -0.5 + Math.sin(time * ANIM_HORIZONTAL_TICK_SCALE) * 0.025;
+		ms.translate(xt, yt, zt);
+
+		BlockState torchBaseState = Blocks.REDSTONE_TORCH.defaultBlockState();
+		BlockState torchState = torch.getBlockState().getValue(AnimatedTorchBlock.TRIGGERED)
+				? torchBaseState.setValue(RedstoneTorchBlock.LIT, false)
+				: torchBaseState;
+		BakedModel model = blockRenderDispatcher.getBlockModel(torchState);
+		VertexConsumer buffer = buffers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(torchState));
+		blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, torchState, model, 1, 1, 1, light, overlay);
 		ms.popPose();
 	}
 
