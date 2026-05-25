@@ -20,6 +20,7 @@ import vazkii.botania.api.state.enums.HopperhockFilterType;
 import vazkii.botania.api.state.enums.ManastarState;
 import vazkii.botania.api.state.enums.RannuncarpusMode;
 import vazkii.botania.api.state.enums.TerraPlateState;
+import vazkii.botania.api.state.enums.TorchMode;
 
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
@@ -70,6 +71,9 @@ public final class BotaniaStateProperties {
 
 	// Pollidisiac and Eye of the Ancients
 	public static final EnumProperty<AnimalMode> ANIMAL_MODE = EnumProperty.create("mode", AnimalMode.class);
+
+	// Animated Torch
+	public static final EnumProperty<TorchMode> TORCH_MODE = EnumProperty.create("mode", TorchMode.class);
 
 	private BotaniaStateProperties() {}
 

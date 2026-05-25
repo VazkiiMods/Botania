@@ -16,13 +16,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -37,39 +31,22 @@ import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
+import vazkii.botania.api.state.enums.TorchMode;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.BotaniaBlocks;
-
-import java.util.Arrays;
-import java.util.Locale;
+import vazkii.botania.common.block.AnimatedTorchBlock;
 
 public class AnimatedTorchBlockEntity extends BlockEntity implements ManaTrigger, Wandable {
-	private static final String TAG_SIDE = "side";
-	private static final String TAG_ROTATING = "rotating";
+	private static final int EVENT_TRIGGER_ROTATE = 0;
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
-	private static final String TAG_ANGLE_PER_TICK = "anglePerTick";
-	private static final String TAG_TORCH_MODE = "torchMode";
-	private static final String TAG_NEXT_RANDOM_ROTATION = "nextRandomRotation";
+	public static final int ROTATION_TICKS = 4;
 
-	public static final Direction[] SIDES = new Direction[] {
-			Direction.NORTH,
-			Direction.EAST,
-			Direction.SOUTH,
-			Direction.WEST
-	};
-
-	public int side;
-	public double rotation;
-	public boolean rotating;
-	public boolean directionInitialized;
-	public double lastTickRotation;
-	public int nextRandomRotation = Mth.floor(Math.random() * 3);
-	public int currentRandomRotation;
-
+	// server-side
 	private int rotationTicks;
-	public double anglePerTick;
 
-	private TorchMode torchMode = TorchMode.TOGGLE;
+	// client-side
+	public long rotationStartTime;
+	public float lastRotation = -1;
+	public float rotation;
 
 	public AnimatedTorchBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.ANIMATED_TORCH, pos, state);
@@ -77,72 +54,26 @@ public class AnimatedTorchBlockEntity extends BlockEntity implements ManaTrigger
 
 	public void handRotate() {
 		if (!level.isClientSide()) {
-			level.blockEvent(getBlockPos(), BotaniaBlocks.animatedTorch, 0, (side + 1) % 4);
+			triggerRotation(TorchMode.ROTATE);
 		}
 	}
 
-	public void onPlace(@Nullable LivingEntity entity) {
-		if (entity != null) {
-			side = Arrays.asList(SIDES).indexOf(entity.getDirection().getOpposite());
-		}
-		directionInitialized = true;
-		updateNeighbors(level, worldPosition, getBlockState(), side);
-	}
-
-	@Override
-	public void setRemoved() {
-		directionInitialized = false;
-		super.setRemoved();
+	private void triggerRotation(TorchMode rotate) {
+		BlockState state = getBlockState();
+		level.blockEvent(getBlockPos(), state.getBlock(), EVENT_TRIGGER_ROTATE,
+				rotate.getNewFacing(state.getValue(AnimatedTorchBlock.FACING)).ordinal()
+		);
 	}
 
 	public void toggle() {
 		if (!level.isClientSide()) {
-			level.blockEvent(getBlockPos(), BotaniaBlocks.animatedTorch, 0, torchMode.modeSwitcher.rotate(this, side));
-			nextRandomRotation = level.getRandom().nextInt(4);
-			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+			triggerRotation(getBlockState().getValue(AnimatedTorchBlock.MODE));
 		}
 	}
 
 	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Direction side) {
-		int modeOrdinal = torchMode.ordinal();
-		TorchMode[] modes = TorchMode.values();
-
-		torchMode = modes[(modeOrdinal + 1) % modes.length];
-		return true;
-	}
-
-	@Override
-	public boolean triggerEvent(int id, int param) {
-		if (id == 0) {
-			rotateTo(param);
-			return true;
-		} else {
-			return super.triggerEvent(id, param);
-		}
-	}
-
-	private void rotateTo(int side) {
-		if (rotating) {
-			return;
-		}
-
-		currentRandomRotation = nextRandomRotation;
-		int finalRotation = side * 90;
-
-		double diff = (finalRotation - rotation % 360) % 360;
-		if (diff < 0) {
-			diff = 360 + diff;
-		}
-
-		rotationTicks = 4;
-		anglePerTick = diff / rotationTicks;
-		int oldSide = this.side;
-		this.side = side;
-		rotating = true;
-
-		// tell neighbors that signal is off because we are rotating
-		updateNeighbors(level, worldPosition, getBlockState(), oldSide);
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
+		return level.setBlock(getBlockPos(), getBlockState().cycle(AnimatedTorchBlock.MODE), Block.UPDATE_ALL);
 	}
 
 	@Override
@@ -150,6 +81,44 @@ public class AnimatedTorchBlockEntity extends BlockEntity implements ManaTrigger
 		if (!burst.isFake()) {
 			toggle();
 		}
+	}
+
+	public static void serverRotatingTick(Level level, BlockPos pos, BlockState state, AnimatedTorchBlockEntity self) {
+		self.rotationTicks--;
+		if (self.rotationTicks <= 0) {
+			level.setBlock(pos, state.setValue(AnimatedTorchBlock.TRIGGERED, false), Block.UPDATE_ALL);
+		} else {
+			level.blockEntityChanged(pos);
+		}
+	}
+
+	@Override
+	public boolean triggerEvent(int id, int param) {
+		if (id != EVENT_TRIGGER_ROTATE) {
+			return super.triggerEvent(id, param);
+		}
+		Direction[] directions = Direction.values();
+		if (param < 0 || param >= directions.length) {
+			return false;
+		}
+		Direction newFacing = directions[param];
+		if (!AnimatedTorchBlock.FACING.getPossibleValues().contains(newFacing)) {
+			return false;
+		}
+		if (!level.isClientSide()) {
+			rotationTicks = ROTATION_TICKS;
+		} else {
+			lastRotation = rotation;
+			rotationStartTime = level.getGameTime();
+		}
+		level.setBlock(
+				getBlockPos(),
+				getBlockState()
+						.setValue(AnimatedTorchBlock.FACING, newFacing)
+						.setValue(AnimatedTorchBlock.TRIGGERED, true),
+				Block.UPDATE_ALL
+		);
+		return true;
 	}
 
 	public static class WandHud implements WandHUD {
@@ -164,101 +133,23 @@ public class AnimatedTorchBlockEntity extends BlockEntity implements ManaTrigger
 			int x = window.getGuiScaledWidth() / 2 + 8;
 			int y = window.getGuiScaledHeight() / 2 - 10;
 
-			String str = I18n.get("botania.animatedTorch." + torch.torchMode.name().toLowerCase(Locale.ROOT));
+			String str = I18n.get("botania.animatedTorch."
+					+ torch.getBlockState().getValue(AnimatedTorchBlock.MODE).getSerializedName());
 			RenderHelper.renderHUDBox(gui, x, y, x + 18 + font.width(str), y + 20);
 			gui.renderFakeItem(new ItemStack(Blocks.REDSTONE_TORCH), x, y + 2);
 			gui.drawString(font, str, x + 16, y + 6, 0xFF4444);
 		}
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, AnimatedTorchBlockEntity self) {
-		if (!self.directionInitialized) {
-			self.directionInitialized = true;
-		}
-		if (self.rotating) {
-			self.lastTickRotation = self.rotation;
-			self.rotation = (self.rotation + self.anglePerTick) % 360;
-			self.rotationTicks--;
-
-			if (self.rotationTicks <= 0) {
-				self.rotating = false;
-				// done rotating, tell neighbors
-				updateNeighbors(level, worldPosition, state, self.side);
-			}
-
-		} else {
-			self.rotation = self.side * 90;
-		}
-
-		if (level.isClientSide()) {
-			int amt = self.rotating ? 3 : Math.random() < 0.1 ? 1 : 0;
-			double x = worldPosition.getX() + 0.5 + Math.cos((self.rotation + 90) / 180.0 * Math.PI) * 0.35;
-			double y = worldPosition.getY() + 0.2;
-			double z = worldPosition.getZ() + 0.5 + Math.sin((self.rotation + 90) / 180.0 * Math.PI) * 0.35;
-
-			for (int i = 0; i < amt; i++) {
-				level.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0.0D, 0.0D, 0.0D);
-			}
-		}
-	}
-
-	private static void updateNeighbors(Level level, BlockPos worldPosition, BlockState state, int self) {
-		level.updateNeighborsAt(worldPosition, state.getBlock());
-		BlockPos targetPos = worldPosition.relative(SIDES[self].getOpposite());
-		level.updateNeighborsAtExceptFromFacing(targetPos, level.getBlockState(targetPos).getBlock(), SIDES[self]);
-	}
-
 	@Override
 	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		cmp.putInt(TAG_SIDE, side);
-		cmp.putBoolean(TAG_ROTATING, rotating);
 		cmp.putInt(TAG_ROTATION_TICKS, rotationTicks);
-		cmp.putDouble(TAG_ANGLE_PER_TICK, anglePerTick);
-		cmp.putInt(TAG_TORCH_MODE, torchMode.ordinal());
-		cmp.putInt(TAG_NEXT_RANDOM_ROTATION, nextRandomRotation);
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		side = cmp.getInt(TAG_SIDE);
-		rotating = cmp.getBoolean(TAG_ROTATING);
 		if (level != null && !level.isClientSide()) {
 			rotationTicks = cmp.getInt(TAG_ROTATION_TICKS);
-		}
-		anglePerTick = cmp.getDouble(TAG_ANGLE_PER_TICK);
-		nextRandomRotation = cmp.getInt(TAG_NEXT_RANDOM_ROTATION);
-
-		int modeOrdinal = cmp.getInt(TAG_TORCH_MODE);
-		TorchMode[] modes = TorchMode.values();
-		torchMode = modes[modeOrdinal % modes.length];
-	}
-
-	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-		var tag = super.getUpdateTag(registries);
-		// TODO: refactor implementation to simplify updates
-		saveAdditional(tag, registries);
-		return tag;
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this);
-	}
-
-	public enum TorchMode {
-		TOGGLE((t, i) -> (i + 2) % 4),
-		ROTATE((t, i) -> (i + 1) % 4),
-		RANDOM((t, i) -> t.currentRandomRotation);
-
-		TorchMode(RotationHandler modeSwitcher) {
-			this.modeSwitcher = modeSwitcher;
-		}
-
-		public final RotationHandler modeSwitcher;
-
-		private interface RotationHandler {
-			int rotate(AnimatedTorchBlockEntity tile, int curr);
 		}
 	}
 }

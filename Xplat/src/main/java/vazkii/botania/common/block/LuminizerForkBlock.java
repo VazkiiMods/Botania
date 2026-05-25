@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.block_entity.AnimatedTorchBlockEntity;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 
 public class LuminizerForkBlock extends LuminizerBlock {
@@ -30,8 +29,8 @@ public class LuminizerForkBlock extends LuminizerBlock {
 			}
 		}
 
-		if (torchPos != null && level.getBlockEntity(torchPos) instanceof AnimatedTorchBlockEntity torch) {
-			Direction side = AnimatedTorchBlockEntity.SIDES[torch.side].getOpposite();
+		if (torchPos != null && level.getBlockState(torchPos).is(BotaniaBlocks.animatedTorch)) {
+			Direction side = level.getBlockState(torchPos).getValue(AnimatedTorchBlock.FACING);
 			testPos.set(blockPos);
 			for (int i = 1; i < LuminizerBlockEntity.MAX_DIST; i++) {
 				testPos.move(side);
