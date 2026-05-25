@@ -3,7 +3,7 @@ set -e
 
 ./gradlew :Fabric:runXplatDatagen :NeoForge:runNeoforgeDatagen :Fabric:runFabricDatagen :NeoForge:runGardenOfGlassDatagen :Xplat:normalizeLanguageFiles || exit 1
 
-STATUS="$(git status --porcelain Xplat/src/generated/resources Xplat/src/main/resources/assets/botania/lang Fabric/src/generated/resources NeoForge/src/generated/resources)"
+STATUS="$(git status --porcelain Xplat/src/generated/resources Xplat/src/main/resources/assets/botania/lang Fabric/src/generated/resources NeoForge/src/generated/resources garden_of_glass/src/generated/resources)"
 if [ -z "$STATUS" ]
 then
   echo "Datagen ok"

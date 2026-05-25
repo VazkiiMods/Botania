@@ -13,7 +13,8 @@
       {
         "name": "gardenofglass:music/garden_of_glass",
         "stream": true,
-        "volume": 0.4
+        "volume": 0.4,
+        "weight": 2
       }
     ]
   }
