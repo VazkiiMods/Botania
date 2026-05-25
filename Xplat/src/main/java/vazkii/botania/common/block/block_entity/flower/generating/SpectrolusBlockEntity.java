@@ -25,9 +25,12 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
@@ -37,10 +40,16 @@ import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.MathHelper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 	public static final String TAG_NEXT_COLOR = "nextColor";
+	public static final String TAG_COLORS = "colors";
 	private static final int WOOL_GEN = 1200;
 	private static final int SHEEP_GEN = 5000;
 	private static final int BABY_SHEEP_GEN = 1; // you are a monster
@@ -48,6 +57,8 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int RANGE = 1;
 
 	private DyeColor nextColor = DyeColor.WHITE;
+	@UnknownNullability
+	private List<DyeColor> colors;
 
 	public SpectrolusBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.SPECTROLUS, pos, state);
@@ -103,7 +114,8 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 
 	private void addManaAndCycle(int toAdd) {
 		addMana(toAdd);
-		nextColor = nextColor == DyeColor.BLACK ? DyeColor.WHITE : DyeColor.byId(nextColor.getId() + 1);
+		int colorIndex = colors.indexOf(nextColor) + 1;
+		nextColor = colorIndex >= colors.size() ? colors.getFirst() : colors.get(colorIndex);
 		markForImmediateSync();
 		markForPersisting();
 	}
@@ -146,15 +158,31 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
+	public void setLevel(Level level) {
+		super.setLevel(level);
+		if (colors == null && level instanceof ServerLevel serverLevel) {
+			List<DyeColor> dyeColors = new ArrayList<>(ColorHelper.supportedColors().toList());
+			Collections.shuffle(dyeColors, new Random(serverLevel.getSeed()));
+			colors = dyeColors;
+			nextColor = colors.getFirst();
+		}
+	}
+
+	@Override
 	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.saveAdditional(cmp, registries);
 		cmp.putByte(TAG_NEXT_COLOR, (byte) nextColor.getId());
+		cmp.putByteArray(TAG_COLORS, colors.stream().map(color -> (byte) color.getId()).toList());
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.loadAdditional(cmp, registries);
 		nextColor = DyeColor.byId(cmp.getInt(TAG_NEXT_COLOR));
+		byte[] colorIds = cmp.getByteArray(TAG_COLORS);
+		colors = (colorIds.length == 0
+				? IntStream.range(0, 16)
+				: IntStream.range(0, colorIds.length).map(i -> colorIds[i])).mapToObj(DyeColor::byId).toList();
 	}
 
 	@Override
