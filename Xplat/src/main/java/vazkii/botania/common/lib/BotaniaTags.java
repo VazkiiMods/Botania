@@ -104,15 +104,6 @@ public class BotaniaTags {
 
 		public static final TagKey<Item> MANA_POOL_DYE_REMOVER = tag("mana_pool_dye_remover");
 
-		/**
-		 * Wool-covered spreader items. These dampen vibrations.
-		 */
-		public static final TagKey<Item> COVERED_SPREADERS = tag("covered_spreaders");
-		public static final TagKey<Item> COVERED_MANA_SPREADERS = tag("covered_mana_spreaders");
-		public static final TagKey<Item> COVERED_PULSE_SPREADERS = tag("covered_redstone_spreaders");
-		public static final TagKey<Item> COVERED_ELVEN_SPREADERS = tag("covered_elven_spreaders");
-		public static final TagKey<Item> COVERED_GAIA_SPREADERS = tag("covered_gaia_spreaders");
-
 		public static final TagKey<Item> RUNES = tag("runes");
 		public static final TagKey<Item> ANCIENT_WILLS = tag("ancient_wills");
 

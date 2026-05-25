@@ -88,11 +88,13 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 
 		// Dyed
 		ColorHelper.supportedColors().forEach(color -> {
-			var blockTag = TagKey.create(ConventionalBlockTags.DYED.registry(),
-					ConventionalBlockTags.DYED.location().withSuffix("/" + color.getSerializedName()));
-			var itemTag = TagKey.create(ConventionalItemTags.DYED.registry(),
-					ConventionalItemTags.DYED.location().withSuffix("/" + color.getSerializedName()));
-			copy(blockTag, itemTag);
+			tag(TagKey.create(ConventionalItemTags.DYED.registry(),
+					ConventionalItemTags.DYED.location().withSuffix("/" + color.getSerializedName())))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.manaPool, color).asItem())
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.creativePool, color).asItem())
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.dilutedPool, color).asItem())
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.fabulousPool, color).asItem());
+			// no items for spreaders, so can't just copy block tags
 		});
 
 		// Fences and fence gates

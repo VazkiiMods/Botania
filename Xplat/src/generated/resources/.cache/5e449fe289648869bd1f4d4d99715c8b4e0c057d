@@ -2,11 +2,6 @@
 3318866527e744966cf58948b7f3403f67295a09 data/botania/tags/item/ancient_wills.json
 a584506e7718c335115a9e3ee750260df4aa395b data/botania/tags/item/burst_viewers.json
 8ee9628e70cfdeee54a220e5d95216feedd99407 data/botania/tags/item/contributor_headflowers.json
-3d5e7c5b49ad1a2fae0250b57eb05a615ae86279 data/botania/tags/item/covered_elven_spreaders.json
-41849e97c2f51330a8b67c952bff8a61f899e10a data/botania/tags/item/covered_gaia_spreaders.json
-f9cc3772f4c6c7fd7d7234e541e6e5668b98965d data/botania/tags/item/covered_mana_spreaders.json
-eb06204956962fa49bd716297aed7a8b0fe2becc data/botania/tags/item/covered_redstone_spreaders.json
-803ec9d2081751f270143fc0339d053b2b8b26f3 data/botania/tags/item/covered_spreaders.json
 fec40aa3fa546ee2b14a4a8b1b7b7dbed3d4de9d data/botania/tags/item/dims_floating_flowers.json
 c78b8d439e4a26f1bfdd692b63cdce3c70b7fa0c data/botania/tags/item/disposable.json
 d7d4fa19fbc2cba6bcd55c98c298047c193cb0af data/botania/tags/item/double_mystical_flowers.json
@@ -22,7 +17,7 @@ c3f74e49e952b57124279732d6b99d35446cd050 data/botania/tags/item/generating_speci
 d8c0b82b62c4f8e76f7d0be581205211b90a8f0f data/botania/tags/item/generating_special_flowers.json
 44dbaa657d1cdd33c235a2b4fd292986765aa097 data/botania/tags/item/glimmering_dreamwood_logs.json
 5dc32f38ab92b5305bdf06a8d9f2259c132a1450 data/botania/tags/item/glimmering_livingwood_logs.json
-1c630e5ab194a3faf2797ce15bf06b9c372e9337 data/botania/tags/item/ignored_by_endoflame.json
+e5fbfac0c5f048cd4427dad89b2acd90b1b0f2b8 data/botania/tags/item/ignored_by_endoflame.json
 2fee618b5e30ac2e40be8ef0c0f218d72fbbbb88 data/botania/tags/item/lens.json
 7031861956185905c0b33100ef95db464a21453f data/botania/tags/item/lens_glue.json
 feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/item/livingwood_logs.json
@@ -69,7 +64,6 @@ c23ad2f264eacf9d5cf691d47aef8e4c5f2b0be3 data/botania/tags/item/undims_floating_
 85878dc98076b7f58e746da580cdd6d27c0c1e82 data/minecraft/tags/item/bookshelf_books.json
 66ead4b1b5ae40b90cf731cb209e4c7a8280f943 data/minecraft/tags/item/chest_armor.json
 db17fc2533475e8c4f17ebbe21ec3cf98f2bf4ea data/minecraft/tags/item/cluster_max_harvestables.json
-5d121827c667723ff6ad0aba43d197cf3df735af data/minecraft/tags/item/dampens_vibrations.json
 5e3d052fd880c72e6cf251feb7baf0f1cc4b92e5 data/minecraft/tags/item/fence_gates.json
 a1cc6f7061a825b4d500aa250d6d6ec1c46fbb81 data/minecraft/tags/item/foot_armor.json
 3e6cf94b6e0293310b7521ad0cc7858561699b1b data/minecraft/tags/item/freeze_immune_wearables.json

@@ -26,7 +26,6 @@ import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.Block;
@@ -47,7 +46,6 @@ import vazkii.botania.common.block.flower.FlowerMotifBlock;
 import vazkii.botania.common.block.flower.SpecialFlowerBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BottledManaItem;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.lens.LensItem;
@@ -81,7 +79,6 @@ public class ItemModelProvider implements DataProvider {
 	private static final TextureSlot OUTSIDE = TextureSlotAccessor.botania_create("outside");
 	private static final TextureSlot CORE = TextureSlotAccessor.botania_create("core");
 	private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, OUTSIDE, CORE);
-	private static final ModelTemplate COVERED_SPREADER = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_item_covered")), Optional.empty(), TextureSlot.INSIDE, OUTSIDE, CORE, TextureSlot.WOOL);
 	private static final ModelWithOverrides GENERATED_OVERRIDES = new ModelWithOverrides(ResourceLocation.withDefaultNamespace("item/generated"), TextureSlot.LAYER0);
 	private static final ModelWithOverrides GENERATED_OVERRIDES_1 = new ModelWithOverrides(ResourceLocation.withDefaultNamespace("item/generated"), TextureSlot.LAYER0, LAYER1);
 	private static final ModelWithOverrides HANDHELD_OVERRIDES = new ModelWithOverrides(ResourceLocation.withDefaultNamespace("item/handheld"), TextureSlot.LAYER0);
@@ -456,23 +453,13 @@ public class ItemModelProvider implements DataProvider {
 			} else {
 				inside = "stripped_livingwood_log";
 			}
-			DyeColor coverColor = block.getCoverColor();
-			if (coverColor != null) {
-				TextureMapping textureMapping = new TextureMapping()
-						.put(OUTSIDE, botaniaRL("block/" + outside))
-						.put(TextureSlot.INSIDE, botaniaRL("block/" + inside))
-						.put(CORE, TextureMapping.getBlockTexture(baseBlock, "_core"))
-						.put(TextureSlot.WOOL, TextureMapping.getBlockTexture(ColorHelper.WOOL_MAP.apply(coverColor)));
-				COVERED_SPREADER.create(ModelLocationUtils.getModelLocation(i), textureMapping, consumer);
-			} else {
-				TextureMapping textureMapping = new TextureMapping()
-						.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(baseBlock, "_side"))
-						.put(OUTSIDE, botaniaRL("block/" + outside))
-						.put(TextureSlot.BACK, TextureMapping.getBlockTexture(baseBlock, "_back"))
-						.put(TextureSlot.INSIDE, botaniaRL("block/" + inside))
-						.put(CORE, TextureMapping.getBlockTexture(baseBlock, "_core"));
-				SPREADER.create(ModelLocationUtils.getModelLocation(i), textureMapping, consumer);
-			}
+			TextureMapping textureMapping = new TextureMapping()
+					.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(baseBlock, "_side"))
+					.put(OUTSIDE, botaniaRL("block/" + outside))
+					.put(TextureSlot.BACK, TextureMapping.getBlockTexture(baseBlock, "_back"))
+					.put(TextureSlot.INSIDE, botaniaRL("block/" + inside))
+					.put(CORE, TextureMapping.getBlockTexture(baseBlock, "_core"));
+			SPREADER.create(ModelLocationUtils.getModelLocation(i), textureMapping, consumer);
 		});
 
 		takeAll(itemBlocks, BotaniaBlocks.avatar.asItem(), BotaniaBlocks.bellows.asItem(),

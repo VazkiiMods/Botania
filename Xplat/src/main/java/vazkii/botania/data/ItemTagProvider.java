@@ -263,13 +263,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		tag(BotaniaTags.Items.IGNORED_BY_ENDOFLAME).add(getItems(
 				item -> item instanceof BlockItem blockItem && blockItem.getBlock() instanceof ManaSpreaderBlock));
-
-		copy(BotaniaTags.Blocks.COVERED_MANA_SPREADERS, BotaniaTags.Items.COVERED_MANA_SPREADERS);
-		copy(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS, BotaniaTags.Items.COVERED_PULSE_SPREADERS);
-		copy(BotaniaTags.Blocks.COVERED_ELVEN_SPREADERS, BotaniaTags.Items.COVERED_ELVEN_SPREADERS);
-		copy(BotaniaTags.Blocks.COVERED_GAIA_SPREADERS, BotaniaTags.Items.COVERED_GAIA_SPREADERS);
-		copy(BotaniaTags.Blocks.COVERED_SPREADERS, BotaniaTags.Items.COVERED_SPREADERS);
-		copy(BlockTags.DAMPENS_VIBRATIONS, ItemTags.DAMPENS_VIBRATIONS);
 	}
 
 	private static <B extends Block & OptionallyColored> Item[] getColoredBlockItems(B baseBlock) {

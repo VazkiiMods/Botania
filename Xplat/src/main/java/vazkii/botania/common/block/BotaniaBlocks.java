@@ -1343,12 +1343,12 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(dreamwoodFramed, props), BuiltInRegistries.BLOCK.getKey(dreamwoodFramed));
 		r.accept(new BlockItem(dreamwoodPatternFramed, props), BuiltInRegistries.BLOCK.getKey(dreamwoodPatternFramed));
 
-		registerBlockItemWithColoredVariants(r, manaSpreader, props, COVERED_INFIX);
-		registerBlockItemWithColoredVariants(r, redstoneSpreader, props, COVERED_INFIX);
-		registerBlockItemWithColoredVariants(r, elvenSpreader, props, COVERED_INFIX);
-		registerBlockItemWithColoredVariants(r, gaiaSpreader, rareProps, COVERED_INFIX);
+		r.accept(new BlockItem(manaSpreader, props), BuiltInRegistries.BLOCK.getKey(manaSpreader));
+		r.accept(new BlockItem(redstoneSpreader, props), BuiltInRegistries.BLOCK.getKey(redstoneSpreader));
+		r.accept(new BlockItem(elvenSpreader, props), BuiltInRegistries.BLOCK.getKey(elvenSpreader));
+		r.accept(new BlockItem(gaiaSpreader, rareProps), BuiltInRegistries.BLOCK.getKey(gaiaSpreader));
 		registerBlockItemWithColoredVariants(r, manaPool, props);
-		registerBlockItemWithColoredVariants(r, creativePool, props);
+		registerBlockItemWithColoredVariants(r, creativePool, epicProps);
 		registerBlockItemWithColoredVariants(r, dilutedPool, props);
 		registerBlockItemWithColoredVariants(r, fabulousPool, props);
 		r.accept(new BlockItem(alchemyCatalyst, props), BuiltInRegistries.BLOCK.getKey(alchemyCatalyst));

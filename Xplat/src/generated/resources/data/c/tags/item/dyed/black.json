@@ -3,10 +3,6 @@
     "botania:black_mana_pool",
     "botania:black_creative_pool",
     "botania:black_diluted_pool",
-    "botania:black_fabulous_pool",
-    "botania:black_covered_mana_spreader",
-    "botania:black_covered_redstone_spreader",
-    "botania:black_covered_elven_spreader",
-    "botania:black_covered_gaia_spreader"
+    "botania:black_fabulous_pool"
   ]
 }

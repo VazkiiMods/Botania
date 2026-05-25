@@ -3,10 +3,6 @@
     "botania:lime_mana_pool",
     "botania:lime_creative_pool",
     "botania:lime_diluted_pool",
-    "botania:lime_fabulous_pool",
-    "botania:lime_covered_mana_spreader",
-    "botania:lime_covered_redstone_spreader",
-    "botania:lime_covered_elven_spreader",
-    "botania:lime_covered_gaia_spreader"
+    "botania:lime_fabulous_pool"
   ]
 }
