@@ -750,7 +750,7 @@ public final class BotaniaBlocks {
 	public static final Block root = make(LibBlockNames.ROOT, new LivingRootBlock(BlockBehaviour.Properties.of().strength(1.2F).sound(SoundType.WOOD)));
 	public static final Block felPumpkin = make(LibBlockNames.FEL_PUMPKIN, new FelPumpkinBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CARVED_PUMPKIN)));
 	public static final Block cocoon = make(LibBlockNames.COCOON, new CocoonBlock(BlockBehaviour.Properties.of().strength(3, 60).sound(SoundType.WOOL)));
-	public static final Block animatedTorch = make(LibBlockNames.ANIMATED_TORCH, new AnimatedTorchBlock(BlockBehaviour.Properties.of().lightLevel(s -> 7).noOcclusion()));
+	public static final Block animatedTorch = make(LibBlockNames.ANIMATED_TORCH, new AnimatedTorchBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(s -> s.getValue(AnimatedTorchBlock.TRIGGERED) ? 0 : 7).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)));
 	public static final Block starfield = make(LibBlockNames.STARFIELD, new StarfieldCreatorBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.PINK).strength(5, 2000).sound(SoundType.METAL)));
 
 	public static final Block azulejo0 = make(LibBlockNames.AZULEJO_PREFIX + 0, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.LAPIS).strength(2, 5)

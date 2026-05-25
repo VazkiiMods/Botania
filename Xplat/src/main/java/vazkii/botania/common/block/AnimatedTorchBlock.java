@@ -40,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.TorchMode;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.block_entity.AnimatedTorchBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
@@ -50,7 +51,7 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 	public static final EnumProperty<TorchMode> MODE = BotaniaStateProperties.TORCH_MODE;
 	public static final BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
 
-	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
+	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 6, 16);
 
 	public AnimatedTorchBlock(Properties builder) {
 		super(builder);
@@ -158,12 +159,28 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (!state.getValue(TRIGGERED)) {
-			Direction facing = state.getValue(FACING);
-			double x = pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.2 + facing.getStepX() * 0.35;
-			double y = pos.getY() + 0.2 + (random.nextDouble() - 0.5) * 0.2 + facing.getStepY() * 0.35;
-			double z = pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2 + facing.getStepZ() * 0.35;
-			level.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0.0, 0.0, 0.0);
+		Direction facing = state.getValue(FACING);
+		if (!state.getValue(TRIGGERED) && random.nextInt(3) != 0) {
+			level.addParticle(
+					DustParticleOptions.REDSTONE,
+					pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.2 + facing.getStepX() * 0.3,
+					pos.getY() + 0.3 + (random.nextDouble() - 0.5) * 0.2 + facing.getStepY() * 0.3,
+					pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.2 + facing.getStepZ() * 0.3,
+					0, 0, 0
+			);
+		}
+		if (random.nextInt(3) == 0) {
+			level.addParticle(
+					SparkleParticleData.sparkle(random.nextFloat(),
+							0.2f * random.nextFloat(),
+							0.5f + 0.2f * random.nextFloat(),
+							0.8f + 0.2f * random.nextFloat(),
+							5),
+					pos.getX() + 0.5 + (random.nextDouble() - 0.5) * (0.1 + 0.6 * facing.getStepX()),
+					pos.getY() + 0.2 + (random.nextDouble() - 0.5) * (0.1 + 0.6 * facing.getStepY()),
+					pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * (0.1 + 0.6 * facing.getStepZ()),
+					0, 0, 0
+			);
 		}
 	}
 }
