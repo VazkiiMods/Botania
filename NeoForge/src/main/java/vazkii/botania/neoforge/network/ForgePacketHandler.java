@@ -33,6 +33,7 @@ import vazkii.botania.network.serverbound.JumpPacket;
 import vazkii.botania.network.serverbound.LeftClickPacket;
 
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 public class ForgePacketHandler {
 	public static void registerPayloadHandlers(final RegisterPayloadHandlersEvent event) {
@@ -44,32 +45,32 @@ public class ForgePacketHandler {
 		registrar.playToServer(JumpPacket.ID, JumpPacket.STREAM_CODEC, makeServerBoundHandler(JumpPacket::handle));
 		registrar.playToServer(LeftClickPacket.ID, LeftClickPacket.STREAM_CODEC, makeServerBoundHandler(LeftClickPacket::handle));
 
-		registrar.playToClient(ArenaIndicatorEffectPacket.ID, ArenaIndicatorEffectPacket.STREAM_CODEC, makeClientBoundHandler(ArenaIndicatorEffectPacket.Handler::handle));
-		registrar.playToClient(AvatarSkiesRodUpdatePacket.ID, AvatarSkiesRodUpdatePacket.STREAM_CODEC, makeClientBoundHandler(AvatarSkiesRodUpdatePacket.Handler::handle));
-		registrar.playToClient(AvatarSkiesRodEffectPacket.ID, AvatarSkiesRodEffectPacket.STREAM_CODEC, makeClientBoundHandler(AvatarSkiesRodEffectPacket.Handler::handle));
-		registrar.playToClient(BlackLotusDissolveEffectPacket.ID, BlackLotusDissolveEffectPacket.STREAM_CODEC, makeClientBoundHandler(BlackLotusDissolveEffectPacket.Handler::handle));
-		registrar.playToClient(DivaCharmEffectPacket.ID, DivaCharmEffectPacket.STREAM_CODEC, makeClientBoundHandler(DivaCharmEffectPacket.Handler::handle));
-		registrar.playToClient(EnchanterDestroyEffectPacket.ID, EnchanterDestroyEffectPacket.STREAM_CODEC, makeClientBoundHandler(EnchanterDestroyEffectPacket.Handler::handle));
-		registrar.playToClient(FlowerTakeItemEffectPacket.ID, FlowerTakeItemEffectPacket.STREAM_CODEC, makeClientBoundHandler(FlowerTakeItemEffectPacket.Handler::handle));
-		registrar.playToClient(FluegelEyeEffectPacket.ID, FluegelEyeEffectPacket.STREAM_CODEC, makeClientBoundHandler(FluegelEyeEffectPacket.Handler::handle));
-		registrar.playToClient(GogWorldPacket.ID, GogWorldPacket.STREAM_CODEC, makeClientBoundHandler(GogWorldPacket.Handler::handle));
-		registrar.playToClient(GrassSeedsEffectPacket.ID, GrassSeedsEffectPacket.STREAM_CODEC, makeClientBoundHandler(GrassSeedsEffectPacket.Handler::handle));
-		registrar.playToClient(HaloCraftEffectPacket.ID, HaloCraftEffectPacket.STREAM_CODEC, makeClientBoundHandler(HaloCraftEffectPacket.Handler::handle));
-		registrar.playToClient(ItemLifeTimePacket.ID, ItemLifeTimePacket.STREAM_CODEC, makeClientBoundHandler(ItemLifeTimePacket.Handler::handle));
-		registrar.playToClient(ItemSmokeEffectPacket.ID, ItemSmokeEffectPacket.STREAM_CODEC, makeClientBoundHandler(ItemSmokeEffectPacket.Handler::handle));
-		registrar.playToClient(PaintLensEffectPacket.ID, PaintLensEffectPacket.STREAM_CODEC, makeClientBoundHandler(PaintLensEffectPacket.Handler::handle));
-		registrar.playToClient(ParticleBeamEffectPacket.ID, ParticleBeamEffectPacket.STREAM_CODEC, makeClientBoundHandler(ParticleBeamEffectPacket.Handler::handle));
-		registrar.playToClient(SparkManaFlowEffectPacket.ID, SparkManaFlowEffectPacket.STREAM_CODEC, makeClientBoundHandler(SparkManaFlowEffectPacket.Handler::handle));
-		registrar.playToClient(SparkNetIndicatorEffectPacket.ID, SparkNetIndicatorEffectPacket.STREAM_CODEC, makeClientBoundHandler(SparkNetIndicatorEffectPacket.Handler::handle));
-		registrar.playToClient(ThundercallerEffectPacket.ID, ThundercallerEffectPacket.STREAM_CODEC, makeClientBoundHandler(ThundercallerEffectPacket.Handler::handle));
-		registrar.playToClient(UpdateItemsRemainingPacket.ID, UpdateItemsRemainingPacket.STREAM_CODEC, makeClientBoundHandler(UpdateItemsRemainingPacket.Handler::handle));
+		registrar.playToClient(ArenaIndicatorEffectPacket.ID, ArenaIndicatorEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> ArenaIndicatorEffectPacket.Handler::handle));
+		registrar.playToClient(AvatarSkiesRodUpdatePacket.ID, AvatarSkiesRodUpdatePacket.STREAM_CODEC, makeClientBoundHandler(() -> AvatarSkiesRodUpdatePacket.Handler::handle));
+		registrar.playToClient(AvatarSkiesRodEffectPacket.ID, AvatarSkiesRodEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> AvatarSkiesRodEffectPacket.Handler::handle));
+		registrar.playToClient(BlackLotusDissolveEffectPacket.ID, BlackLotusDissolveEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> BlackLotusDissolveEffectPacket.Handler::handle));
+		registrar.playToClient(DivaCharmEffectPacket.ID, DivaCharmEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> DivaCharmEffectPacket.Handler::handle));
+		registrar.playToClient(EnchanterDestroyEffectPacket.ID, EnchanterDestroyEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> EnchanterDestroyEffectPacket.Handler::handle));
+		registrar.playToClient(FlowerTakeItemEffectPacket.ID, FlowerTakeItemEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> FlowerTakeItemEffectPacket.Handler::handle));
+		registrar.playToClient(FluegelEyeEffectPacket.ID, FluegelEyeEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> FluegelEyeEffectPacket.Handler::handle));
+		registrar.playToClient(GogWorldPacket.ID, GogWorldPacket.STREAM_CODEC, makeClientBoundHandler(() -> GogWorldPacket.Handler::handle));
+		registrar.playToClient(GrassSeedsEffectPacket.ID, GrassSeedsEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> GrassSeedsEffectPacket.Handler::handle));
+		registrar.playToClient(HaloCraftEffectPacket.ID, HaloCraftEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> HaloCraftEffectPacket.Handler::handle));
+		registrar.playToClient(ItemLifeTimePacket.ID, ItemLifeTimePacket.STREAM_CODEC, makeClientBoundHandler(() -> ItemLifeTimePacket.Handler::handle));
+		registrar.playToClient(ItemSmokeEffectPacket.ID, ItemSmokeEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> ItemSmokeEffectPacket.Handler::handle));
+		registrar.playToClient(PaintLensEffectPacket.ID, PaintLensEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> PaintLensEffectPacket.Handler::handle));
+		registrar.playToClient(ParticleBeamEffectPacket.ID, ParticleBeamEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> ParticleBeamEffectPacket.Handler::handle));
+		registrar.playToClient(SparkManaFlowEffectPacket.ID, SparkManaFlowEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> SparkManaFlowEffectPacket.Handler::handle));
+		registrar.playToClient(SparkNetIndicatorEffectPacket.ID, SparkNetIndicatorEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> SparkNetIndicatorEffectPacket.Handler::handle));
+		registrar.playToClient(ThundercallerEffectPacket.ID, ThundercallerEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> ThundercallerEffectPacket.Handler::handle));
+		registrar.playToClient(UpdateItemsRemainingPacket.ID, UpdateItemsRemainingPacket.STREAM_CODEC, makeClientBoundHandler(() -> UpdateItemsRemainingPacket.Handler::handle));
 	}
 
 	private static <T extends CustomPacketPayload> IPayloadHandler<T> makeServerBoundHandler(BiConsumer<T, ServerPlayer> handler) {
 		return (m, ctx) -> handler.accept(m, (ServerPlayer) ctx.player());
 	}
 
-	private static <T extends CustomPacketPayload> IPayloadHandler<T> makeClientBoundHandler(BiConsumer<T, Player> consumer) {
-		return (m, ctx) -> consumer.accept(m, ctx.player());
+	private static <T extends CustomPacketPayload> IPayloadHandler<T> makeClientBoundHandler(Supplier<BiConsumer<T, Player>> consumerGetter) {
+		return (m, ctx) -> consumerGetter.get().accept(m, ctx.player());
 	}
 }
