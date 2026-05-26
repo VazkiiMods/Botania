@@ -255,6 +255,23 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.DYED_CREATIVE_POOLS).add(getColoredBlockItems(BotaniaBlocks.creativePool));
 		this.tag(BotaniaTags.Items.DYED_DILUTED_POOLS).add(getColoredBlockItems(BotaniaBlocks.dilutedPool));
 		this.tag(BotaniaTags.Items.DYED_FABULOUS_POOLS).add(getColoredBlockItems(BotaniaBlocks.fabulousPool));
+		this.tag(BotaniaTags.Items.MANA_POOLS)
+				.add(BotaniaBlocks.manaPool.asItem())
+				.addTag(BotaniaTags.Items.DYED_MANA_POOLS);
+		this.tag(BotaniaTags.Items.CREATIVE_POOLS)
+				.add(BotaniaBlocks.creativePool.asItem())
+				.addTag(BotaniaTags.Items.DYED_CREATIVE_POOLS);
+		this.tag(BotaniaTags.Items.DILUTED_POOLS)
+				.add(BotaniaBlocks.dilutedPool.asItem())
+				.addTag(BotaniaTags.Items.DYED_DILUTED_POOLS);
+		this.tag(BotaniaTags.Items.FABULOUS_POOLS)
+				.add(BotaniaBlocks.fabulousPool.asItem())
+				.addTag(BotaniaTags.Items.DYED_FABULOUS_POOLS);
+		this.tag(BotaniaTags.Items.ALL_MANA_POOLS)
+				.addTag(BotaniaTags.Items.MANA_POOLS)
+				.addTag(BotaniaTags.Items.DILUTED_POOLS)
+				.addTag(BotaniaTags.Items.FABULOUS_POOLS)
+				.addTag(BotaniaTags.Items.CREATIVE_POOLS);
 
 		tag(BotaniaTags.Items.MANA_POOL_DYE_REMOVER).add(Items.CLAY_BALL);
 

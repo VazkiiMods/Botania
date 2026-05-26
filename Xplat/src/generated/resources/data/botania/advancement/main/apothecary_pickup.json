@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:apothecary_default"
+            "items": "#botania:petal_apothecaries"
           }
         ]
       },

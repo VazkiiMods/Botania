@@ -18,12 +18,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:mana_pool",
-              "botania:creative_pool",
-              "botania:diluted_pool",
-              "botania:fabulous_pool"
-            ]
+            "items": "#botania:all_mana_pools"
           }
         ]
       },

@@ -80,7 +80,7 @@ public class AdvancementProvider {
 			AdvancementHolder manaPoolPickup = Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.manaPool, "manaPoolPickup", AdvancementType.TASK))
 					.parent(flowerPickup)
-					.addCriterion("pickup", onPickup(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool, BotaniaBlocks.fabulousPool))
+					.addCriterion("pickup", onPickup(BotaniaTags.Items.ALL_MANA_POOLS))
 					.save(consumer, mainId("mana_pool_pickup"));
 
 			AdvancementHolder runePickup = Advancement.Builder.advancement()
@@ -279,12 +279,13 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.parent(root)
 					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
+					.addCriterion("double_flower", onPickup(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
 					.save(consumer, mainId("flower_pickup_lexicon"));
 			Advancement.Builder.advancement()
 					.parent(flowerPickup)
-					.addCriterion("apothecary", onPickup(BotaniaBlocks.defaultAltar))
+					.addCriterion("apothecary", onPickup(BotaniaTags.Items.PETAL_APOTHECARIES))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
 					.save(consumer, mainId("apothecary_pickup"));
@@ -296,7 +297,7 @@ public class AdvancementProvider {
 					.save(consumer, mainId("pure_daisy_pickup"));
 			Advancement.Builder.advancement()
 					.parent(root)
-					.addCriterion("pickup", onPickup(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool, BotaniaBlocks.fabulousPool))
+					.addCriterion("pickup", onPickup(BotaniaTags.Items.ALL_MANA_POOLS))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
 					.save(consumer, mainId("mana_pool_pickup_lexicon"));

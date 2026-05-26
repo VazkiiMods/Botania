@@ -1,6 +1,16 @@
 {
   "parent": "botania:main/root",
   "criteria": {
+    "double_flower": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#botania:double_mystical_flowers"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "elven_lexicon": {
       "conditions": {
         "items": [
@@ -28,6 +38,7 @@
   "requirements": [
     [
       "flower",
+      "double_flower",
       "elven_lexicon"
     ]
   ],

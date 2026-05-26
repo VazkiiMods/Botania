@@ -1,7 +1,10 @@
 // 1.21.1	Botania/Tags for minecraft:item
+8d8dd5ac4c63a8975b2ab208002e58a4c1fbfc5f data/botania/tags/item/all_mana_pools.json
 3318866527e744966cf58948b7f3403f67295a09 data/botania/tags/item/ancient_wills.json
 a584506e7718c335115a9e3ee750260df4aa395b data/botania/tags/item/burst_viewers.json
 8ee9628e70cfdeee54a220e5d95216feedd99407 data/botania/tags/item/contributor_headflowers.json
+0d33b1c92027d01c19fca4fa82922c2824253089 data/botania/tags/item/creative_pools.json
+01484957108bf53f5feea540e8cdae92361ca457 data/botania/tags/item/diluted_pools.json
 fec40aa3fa546ee2b14a4a8b1b7b7dbed3d4de9d data/botania/tags/item/dims_floating_flowers.json
 c78b8d439e4a26f1bfdd692b63cdce3c70b7fa0c data/botania/tags/item/disposable.json
 d7d4fa19fbc2cba6bcd55c98c298047c193cb0af data/botania/tags/item/double_mystical_flowers.json
@@ -10,6 +13,7 @@ f7a5b76af45d5dcf56b52ea73b6e305ddcb78606 data/botania/tags/item/dyed_creative_po
 9e273c26c684648550f204da720131098ce603a7 data/botania/tags/item/dyed_diluted_pools.json
 d881825e28a00500474f4f04ec9823be6fe33723 data/botania/tags/item/dyed_fabulous_pools.json
 1d807f5547dd751b4dbaa92547c3884491a087fb data/botania/tags/item/dyed_mana_pools.json
+c9e848bb5127b1764049de086b70ed5bec3c22a3 data/botania/tags/item/fabulous_pools.json
 c3cb51c6ce1dbe8639e8d7a826faeb5c6f4a6c54 data/botania/tags/item/floating_flowers.json
 0418a539785bec0f6ae07fbec20ddd8b68d0af1c data/botania/tags/item/functional_special_floating_flowers.json
 42adca72283fc236e23deddb2eb436680552fcb0 data/botania/tags/item/functional_special_flowers.json
@@ -24,6 +28,7 @@ feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/item/livingwood_logs.
 8cff8d18bc2a884d4d9bee2d69b6245c9f07930c data/botania/tags/item/loonium_offhand_equipment.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/item/magnet_ring_ignored.json
 0b4e9eb2e57b7d0790ad2a0344733be5de39a297 data/botania/tags/item/mana_pool_dye_remover.json
+bf3c3b31ae7a898f7e11a2fd8c1189bc032dd38a data/botania/tags/item/mana_pools.json
 91e30b7c18f772066a7c180452ec5c21958b5f43 data/botania/tags/item/mana_powder_source_dusts.json
 ecb948821908fac51e6017d655638fd20f7a26c7 data/botania/tags/item/mana_using_items.json
 9a4ebe9c9db467b9ab60b8be5eedcce82f2277ed data/botania/tags/item/mini_flowers.json

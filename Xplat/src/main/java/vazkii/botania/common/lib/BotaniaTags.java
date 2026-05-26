@@ -96,6 +96,13 @@ public class BotaniaTags {
 
 		public static final TagKey<Item> PETAL_APOTHECARIES = tag("petal_apothecaries");
 
+		// for advancement use
+		public static final TagKey<Item> ALL_MANA_POOLS = tag("all_mana_pools");
+		public static final TagKey<Item> MANA_POOLS = tag("mana_pools");
+		public static final TagKey<Item> CREATIVE_POOLS = tag("creative_pools");
+		public static final TagKey<Item> DILUTED_POOLS = tag("diluted_pools");
+		public static final TagKey<Item> FABULOUS_POOLS = tag("fabulous_pools");
+
 		// for recipe use
 		public static final TagKey<Item> DYED_MANA_POOLS = tag("dyed_mana_pools");
 		public static final TagKey<Item> DYED_CREATIVE_POOLS = tag("dyed_creative_pools");
