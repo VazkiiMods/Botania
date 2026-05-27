@@ -17,6 +17,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.Relic;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -103,8 +105,8 @@ public class RingOfMagnetizationItem extends BaubleItem {
 
 		ItemStack stack = item.getItem();
 		if (stack.isEmpty()
-				|| XplatAbstractions.INSTANCE.findManaItem(stack) != null
-				|| XplatAbstractions.INSTANCE.findRelic(stack) != null
+				|| ManaItem.LOOKUP.find(stack) != null
+				|| Relic.LOOKUP.find(stack) != null
 				|| stack.is(BotaniaTags.Items.MAGNET_RING_IGNORED)) {
 			return false;
 		}

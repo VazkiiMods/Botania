@@ -8,11 +8,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.PhantomInkableBlock;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class PhantomInkItem extends Item {
 
@@ -30,9 +27,7 @@ public class PhantomInkItem extends Item {
 
 		Level level = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
-		BlockState state = level.getBlockState(pos);
-		BlockEntity be = level.getBlockEntity(pos);
-		PhantomInkableBlock inkable = XplatAbstractions.INSTANCE.findPhantomInkable(level, pos, state, be);
+		PhantomInkableBlock inkable = PhantomInkableBlock.LOOKUP.find(level, pos);
 		if (inkable != null) {
 			ItemStack stack = ctx.getItemInHand();
 			Direction side = ctx.getClickedFace();

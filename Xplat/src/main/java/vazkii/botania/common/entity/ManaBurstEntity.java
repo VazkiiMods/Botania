@@ -50,7 +50,6 @@ import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.ProjectileAccessor;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
@@ -516,11 +515,12 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			return;
 		}
 		lastCollision = collidePos.immutable();
-		BlockEntity tile = level().getBlockEntity(collidePos);
 		BlockState state = level().getBlockState(collidePos);
 		Block block = state.getBlock();
+		@Nullable
+		BlockEntity tile = state.hasBlockEntity() ? level().getBlockEntity(collidePos) : null;
 
-		var ghost = XplatAbstractions.INSTANCE.findManaGhost(level(), collidePos, state, tile);
+		var ghost = ManaCollisionGhost.LOOKUP.find(level(), collidePos, state, tile);
 		var ghostBehaviour = ghost != null ? ghost.getGhostBehaviour() : ManaCollisionGhost.Behaviour.RUN_ALL;
 
 		if (ghostBehaviour == ManaCollisionGhost.Behaviour.SKIP_ALL
@@ -533,7 +533,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			return;
 		}
 
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level(), collidePos, state, tile, hit.getDirection());
+		var receiver = ManaReceiver.LOOKUP.find(level(), collidePos, state, tile, hit.getDirection());
 		collidedTile = receiver;
 
 		if (!fake && !noParticles && !level().isClientSide()) {
@@ -542,7 +542,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			}
 		}
 
-		var trigger = XplatAbstractions.INSTANCE.findManaTrigger(level(), collidePos, state, tile);
+		var trigger = ManaTrigger.LOOKUP.find(level(), collidePos, state, tile);
 		if (trigger != null) {
 			trigger.onBurstCollision(this);
 		}
@@ -636,7 +636,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		if (sourcePos.map(GlobalPos::pos).filter(level()::hasChunkAt).isEmpty()) {
 			return null;
 		}
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level(), sourcePos.get().pos(), null);
+		var receiver = ManaReceiver.LOOKUP.find(level(), sourcePos.get().pos(), null);
 		return receiver instanceof ManaSpreader spreader ? spreader : null;
 	}
 

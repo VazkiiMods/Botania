@@ -92,18 +92,19 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
+import vazkii.botania.api.capability.BlockApiNoContext;
+import vazkii.botania.api.capability.BlockApiWithContext;
+import vazkii.botania.api.capability.EntityApiNoContext;
+import vazkii.botania.api.capability.EntityApiWithContext;
+import vazkii.botania.api.capability.ItemApiNoContext;
+import vazkii.botania.api.capability.ItemApiWithContext;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
@@ -163,88 +164,36 @@ public class FabricXplatImpl implements XplatAbstractions {
 				.getMetadata().getVersion().getFriendlyString();
 	}
 
-	@Nullable
 	@Override
-	public AvatarWieldable findAvatarWieldable(ItemStack stack) {
-		return BotaniaFabricCapabilities.AVATAR_WIELDABLE.find(stack, Unit.INSTANCE);
+	public @Nullable <A> A findBlockApi(BlockApiNoContext<A> id, Level level, BlockPos pos, @Nullable BlockState state,
+			@Nullable BlockEntity entity) {
+		return BotaniaFabricCapabilities.getBlockApiLookupById(id).find(level, pos, state, entity, Unit.INSTANCE);
 	}
 
-	@Nullable
 	@Override
-	public BlockProvider findBlockProvider(ItemStack stack) {
-		return BotaniaFabricCapabilities.BLOCK_PROVIDER.find(stack, Unit.INSTANCE);
+	public @Nullable <A, C> A findBlockApi(BlockApiWithContext<A, C> id, Level level, BlockPos pos,
+			@Nullable BlockState state, @Nullable BlockEntity entity, @UnknownNullability C context) {
+		return BotaniaFabricCapabilities.getBlockApiLookupById(id).find(level, pos, state, entity, context);
 	}
 
-	@Nullable
 	@Override
-	public CoordBoundItem findCoordBoundItem(ItemStack stack) {
-		return BotaniaFabricCapabilities.COORD_BOUND_ITEM.find(stack, Unit.INSTANCE);
+	public @Nullable <A> A findEntityApi(EntityApiNoContext<A> id, Entity entity) {
+		return BotaniaFabricCapabilities.getEntityApiLookupById(id).find(entity, Unit.INSTANCE);
 	}
 
-	@Nullable
 	@Override
-	public ManaItem findManaItem(ItemStack stack) {
-		return BotaniaFabricCapabilities.MANA_ITEM.find(stack, Unit.INSTANCE);
+	public @Nullable <A, C> A findEntityApi(EntityApiWithContext<A, C> id, Entity entity, @UnknownNullability C context) {
+		return BotaniaFabricCapabilities.getEntityApiLookupById(id).find(entity, context);
 	}
 
-	@Nullable
 	@Override
-	public Relic findRelic(ItemStack stack) {
-		return BotaniaFabricCapabilities.RELIC.find(stack, Unit.INSTANCE);
+	public @Nullable <A> A findItemApi(ItemApiNoContext<A> id, ItemStack stack) {
+		return BotaniaFabricCapabilities.getItemApiLookupById(id).find(stack, Unit.INSTANCE);
 	}
 
-	@Nullable
 	@Override
-	public ExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return BotaniaFabricCapabilities.EXOFLAME_HEATABLE.find(level, pos, state, be, Unit.INSTANCE);
-	}
-
-	@Nullable
-	@Override
-	public HourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return BotaniaFabricCapabilities.HOURGLASS_TRIGGER.find(level, pos, state, be, Unit.INSTANCE);
-	}
-
-	@Nullable
-	@Override
-	public ManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
-		return BotaniaFabricCapabilities.MANA_GHOST.find(level, pos, state, be, Unit.INSTANCE);
-	}
-
-	@Nullable
-	@Override
-	public ManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @UnknownNullability Direction direction) {
-		return BotaniaFabricCapabilities.MANA_RECEIVER.find(level, pos, state, be, direction);
-	}
-
-	@Nullable
-	@Override
-	public SparkAttachable findSparkAttachable(Level level, BlockPos pos, BlockState blockState, @Nullable BlockEntity be, Direction direction) {
-		return BotaniaFabricCapabilities.SPARK_ATTACHABLE.find(level, pos, blockState, be, direction);
-	}
-
-	@Nullable
-	@Override
-	public ManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
-		return BotaniaFabricCapabilities.MANA_TRIGGER.find(level, pos, state, be, Unit.INSTANCE);
-	}
-
-	@Nullable
-	@Override
-	public Wandable findWandable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side) {
-		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, side);
-	}
-
-	@Nullable
-	@Override
-	public WandBindable findWandBindable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side) {
-		return BotaniaFabricCapabilities.WAND_BINDABLE.find(level, pos, state, be, side);
-	}
-
-	@Nullable
-	@Override
-	public PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return BotaniaFabricCapabilities.PHANTOM_INKABLE.find(level, pos, state, be, Unit.INSTANCE);
+	public @Nullable <A, C> A findItemApi(ItemApiWithContext<A, C> id, ItemStack stack, @UnknownNullability C context) {
+		return BotaniaFabricCapabilities.getItemApiLookupById(id).find(stack, context);
 	}
 
 	private static class SingleStackEntityStorage extends SingleStackStorage {

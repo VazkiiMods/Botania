@@ -19,11 +19,11 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.ManastarState;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 
@@ -55,7 +55,7 @@ public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 			for (Direction dir : Direction.Plane.HORIZONTAL) {
 				BlockPos pos = getEffectivePos().relative(dir);
 				if (getLevel().hasChunkAt(pos)) {
-					var receiver = XplatAbstractions.INSTANCE.findManaReceiver(getLevel(), pos, dir.getOpposite());
+					var receiver = ManaReceiver.LOOKUP.find(getLevel(), pos, dir.getOpposite());
 					if (receiver instanceof ManaPool pool) {
 						mana += pool.getCurrentMana();
 					}

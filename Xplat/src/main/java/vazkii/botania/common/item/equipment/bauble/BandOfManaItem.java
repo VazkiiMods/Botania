@@ -17,12 +17,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.ManaTabletItem;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Optional;
 
@@ -62,13 +62,13 @@ public class BandOfManaItem extends BaubleItem implements CustomCreativeTabConte
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = ManaItem.LOOKUP.find(stack);
 		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(manaItem));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = ManaItem.LOOKUP.find(stack);
 		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
 	}
 

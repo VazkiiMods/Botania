@@ -16,7 +16,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,9 +25,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaForgeClientCapabilities;
-import vazkii.botania.api.block.MonocleHud;
-import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.neoforge.client.integration.embeddium.EmbeddiumHelper;
 import vazkii.botania.neoforge.client.integration.sodium.SodiumNeoforgeHelper;
@@ -44,30 +40,6 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public void sendToServer(CustomPacketPayload packet) {
 		PacketDistributor.sendToServer(packet);
-	}
-
-	@Nullable
-	@Override
-	public WandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return level.getCapability(BotaniaForgeClientCapabilities.BLOCK_WAND_HUD, pos, state, be);
-	}
-
-	@Nullable
-	@Override
-	public WandHUD findWandHud(Entity entity) {
-		return entity.getCapability(BotaniaForgeClientCapabilities.ENTITY_WAND_HUD);
-	}
-
-	@Nullable
-	@Override
-	public MonocleHud findMonocleHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return level.getCapability(BotaniaForgeClientCapabilities.BLOCK_MONOCLE_HUD, pos, state, be);
-	}
-
-	@Nullable
-	@Override
-	public MonocleHud findMonocleHud(Entity entity) {
-		return entity.getCapability(BotaniaForgeClientCapabilities.ENTITY_MONOCLE_HUD);
 	}
 
 	@Nullable

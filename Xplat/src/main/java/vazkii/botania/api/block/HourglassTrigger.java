@@ -11,6 +11,8 @@ package vazkii.botania.api.block;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.api.capability.BlockApiNoContext;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -20,6 +22,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface HourglassTrigger {
 
 	ResourceLocation ID = botaniaRL("hourglass_trigger");
+	BlockApiNoContext<HourglassTrigger> LOOKUP = new BlockApiNoContext<>(ID, HourglassTrigger.class);
 
 	void onTriggeredByHourglass(BlockEntity hourglass);
 

@@ -7,6 +7,8 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.capability.BlockApiNoContext;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -14,6 +16,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
  */
 public interface PhantomInkableBlock {
 	ResourceLocation ID = botaniaRL("phantom_inkable");
+	BlockApiNoContext<PhantomInkableBlock> LOOKUP = new BlockApiNoContext<>(ID, PhantomInkableBlock.class);
 
 	/**
 	 * Called when the block is clicked with phantom ink.

@@ -10,6 +10,8 @@ package vazkii.botania.api.mana;
 
 import net.minecraft.resources.ResourceLocation;
 
+import vazkii.botania.api.capability.BlockApiNoContext;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -17,6 +19,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
  */
 public interface ManaCollisionGhost {
 	ResourceLocation ID = botaniaRL("mana_ghost");
+	BlockApiNoContext<ManaCollisionGhost> LOOKUP = new BlockApiNoContext<>(ID, ManaCollisionGhost.class);
 
 	enum Behaviour {
 		/**

@@ -57,7 +57,6 @@ import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -174,7 +173,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		for (Direction dir : Direction.values()) {
 			var relPos = worldPosition.relative(dir);
 			if (level.hasChunkAt(relPos)) {
-				var receiverAt = XplatAbstractions.INSTANCE.findManaReceiver(level, relPos, dir.getOpposite());
+				var receiverAt = ManaReceiver.LOOKUP.find(level, relPos, dir.getOpposite());
 				if (receiverAt instanceof ManaPool pool) {
 					if (pool != self.receiver || self.getSpreaderBlock().isRedstoneTriggered()) {
 						if (pool instanceof KeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
@@ -338,7 +337,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			int z = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Z);
 			if (y != Integer.MIN_VALUE) {
 				var pos = new BlockPos(x, y, z);
-				receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, pos, null);
+				receiver = ManaReceiver.LOOKUP.find(level, pos, null);
 			} else {
 				receiver = null;
 			}

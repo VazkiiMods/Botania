@@ -21,9 +21,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaSpreader;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Optional;
 
@@ -91,7 +91,7 @@ public class RedirectiveLens extends Lens {
 
 		var entity = burst.entity();
 		var hitPos = result.getBlockPos();
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.level(), hitPos, result.getDirection());
+		var receiver = ManaReceiver.LOOKUP.find(entity.level(), hitPos, result.getDirection());
 		if (receiver instanceof ManaSpreader spreader) {
 			Vec3 tileVec = Vec3.atCenterOf(hitPos);
 			Vec3 diffVec = sourceVec.subtract(tileVec);

@@ -25,13 +25,22 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.capability.BlockApiNoContext;
+import vazkii.botania.api.capability.BlockApiWithContext;
+import vazkii.botania.api.capability.EntityApiNoContext;
+import vazkii.botania.api.capability.EntityApiWithContext;
+import vazkii.botania.api.capability.ItemApiNoContext;
+import vazkii.botania.api.capability.ItemApiWithContext;
 import vazkii.botania.api.configdata.ConfigDataManager;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
@@ -194,16 +203,46 @@ public interface BotaniaAPI {
 
 	default void sparkleFX(Level world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
-	default void registerCorporeaNodeDetector(CorporeaNodeDetector detector) {
-
-	}
+	default void registerCorporeaNodeDetector(CorporeaNodeDetector detector) {}
 
 	@UnknownNullability
 	default ConfigDataManager getConfigData() {
 		return null;
 	}
 
-	default void setConfigData(ConfigDataManager configDataManager) {
+	default void setConfigData(ConfigDataManager configDataManager) {}
 
+	// API lookup helper methods, used by the API IDs
+
+	@Nullable
+	default <A> A findBlockApi(BlockApiNoContext<A> id, Level level, BlockPos pos, @Nullable BlockState state,
+			@Nullable BlockEntity blockEntity) {
+		return null;
+	}
+
+	@Nullable
+	default <A, C> A findBlockApi(BlockApiWithContext<A, C> id, Level level, BlockPos pos,
+			@Nullable BlockState state, @Nullable BlockEntity blockEntity, @Nullable C context) {
+		return null;
+	}
+
+	@Nullable
+	default <A> A findItemApi(ItemApiNoContext<A> id, ItemStack stack) {
+		return null;
+	}
+
+	@Nullable
+	default <A, C> A findItemApi(ItemApiWithContext<A, C> id, ItemStack stack, @Nullable C context) {
+		return null;
+	}
+
+	@Nullable
+	default <A> A findEntityApi(EntityApiNoContext<A> id, Entity entity) {
+		return null;
+	}
+
+	@Nullable
+	default <A, C> A findEntityApi(EntityApiWithContext<A, C> id, Entity entity, @Nullable C context) {
+		return null;
 	}
 }

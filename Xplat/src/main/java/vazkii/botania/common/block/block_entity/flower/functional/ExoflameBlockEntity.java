@@ -17,7 +17,6 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 5;
@@ -42,7 +41,7 @@ public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 		for (BlockPos pos : MathHelper.aroundPosClosed(effectivePos, RANGE, RANGE_Y)) {
 			BlockEntity tile = getLevel().getBlockEntity(pos);
 			if (tile != null) {
-				ExoflameHeatable heatable = XplatAbstractions.INSTANCE.findExoflameHeatable(getLevel(), pos, getLevel().getBlockState(pos), tile);
+				ExoflameHeatable heatable = ExoflameHeatable.LOOKUP.find(getLevel(), pos, getLevel().getBlockState(pos), tile);
 				if (heatable != null) {
 					if (heatable.canSmelt() && getMana() >= COST) {
 						if (heatable.getBurnTime() < 2) {

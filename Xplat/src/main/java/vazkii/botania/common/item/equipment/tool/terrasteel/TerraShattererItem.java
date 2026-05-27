@@ -37,6 +37,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.item.SpecialBlockBreakingHandler;
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -47,7 +48,6 @@ import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
 import vazkii.botania.common.item.relic.RingOfThorItem;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Objects;
@@ -141,7 +141,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 			if (level == 0) {
 				setEnabled(stack, false);
 			} else if (entity instanceof Player player && !player.swinging) {
-				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+				var manaItem = ManaItem.LOOKUP.find(stack);
 				manaItem.addMana(-level);
 			}
 		}

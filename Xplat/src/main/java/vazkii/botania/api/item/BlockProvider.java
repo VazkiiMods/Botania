@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.capability.ItemApiNoContext;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -27,6 +29,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface BlockProvider {
 
 	ResourceLocation ID = botaniaRL("block_provider");
+	ItemApiNoContext<BlockProvider> LOOKUP = new ItemApiNoContext<>(ID, BlockProvider.class);
 
 	/**
 	 * Provides the requested item. The doit paremeter specifies whether this is

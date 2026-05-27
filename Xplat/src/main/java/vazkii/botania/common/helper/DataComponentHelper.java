@@ -21,7 +21,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.component.SingleItem;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -145,7 +144,7 @@ public final class DataComponentHelper {
 	@Contract(pure = true)
 	public static ItemStack duplicateAndClearMana(ItemStack stack) {
 		ItemStack copy = stack.copy();
-		ManaItem manaItem = XplatAbstractions.INSTANCE.findManaItem(copy);
+		ManaItem manaItem = ManaItem.LOOKUP.find(copy);
 		if (manaItem != null) {
 			manaItem.addMana(-manaItem.getMana());
 		}
@@ -161,8 +160,8 @@ public final class DataComponentHelper {
 		if (!ItemStack.isSameItem(stack1, stack2)) {
 			return false;
 		}
-		ManaItem manaItem1 = XplatAbstractions.INSTANCE.findManaItem(stack1);
-		ManaItem manaItem2 = XplatAbstractions.INSTANCE.findManaItem(stack2);
+		ManaItem manaItem1 = ManaItem.LOOKUP.find(stack1);
+		ManaItem manaItem2 = ManaItem.LOOKUP.find(stack2);
 		if (manaItem1 != null && manaItem2 != null) {
 			if (getFullness(manaItem1) != getFullness(manaItem2)) {
 				return false;

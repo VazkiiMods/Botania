@@ -21,7 +21,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.mixin.LivingEntityAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Locale;
 
@@ -46,7 +45,7 @@ public class FruitOfGrisaiaItem extends RelicItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = Relic.LOOKUP.find(stack);
 		if (player.canEat(false) && relic != null && relic.isRightPlayer(player)) {
 			return ItemUtils.startUsingInstantly(world, player, hand);
 		}

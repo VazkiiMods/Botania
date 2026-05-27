@@ -6,6 +6,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -38,6 +39,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
+import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -68,13 +70,20 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.block.ExoflameHeatable;
+import vazkii.botania.api.block.HourglassTrigger;
+import vazkii.botania.api.block.PhantomInkableBlock;
+import vazkii.botania.api.block.WandBindable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
+import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.client.fx.BotaniaParticles;
+import vazkii.botania.common.BotaniaCapabilities;
 import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.BotaniaCriteriaTriggers;
@@ -511,6 +520,13 @@ public class ForgeCommonInitializer {
 	));
 
 	@SubscribeEvent
+	private void attachCapabilities(RegisterCapabilitiesEvent e) {
+		BotaniaCapabilities.registerCapabilities(BotaniaForgeCapabilities.getRegistration());
+
+		attachItemCaps(e);
+		registerBlockCapabilities(e);
+	}
+
 	private void attachItemCaps(RegisterCapabilitiesEvent e) {
 
 		if (EquipmentHandler.instance instanceof CurioIntegration ci) {
@@ -527,11 +543,11 @@ public class ForgeCommonInitializer {
 				(stack, context) -> new ExtrapolatedBucketFluidHandler(stack),
 				BotaniaItems.openBucket);
 
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.AVATAR_WIELDABLE, AVATAR_WIELDABLES.get());
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.BLOCK_PROVIDER, BLOCK_PROVIDER.get());
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.COORD_BOUND_ITEM, COORD_BOUND_ITEM.get());
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.MANA_ITEM, MANA_ITEM.get());
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.RELIC, RELIC.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(ManaItem.LOOKUP), MANA_ITEM.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(Relic.LOOKUP), RELIC.get());
 	}
 
 	private static <T> void attachMappedItemCaps(RegisterCapabilitiesEvent e, ItemCapability<T, Void> capability,
@@ -540,62 +556,76 @@ public class ForgeCommonInitializer {
 				capability, (stack, context) -> provider.apply(stack), item));
 	}
 
-	@SubscribeEvent
 	private void registerBlockCapabilities(RegisterCapabilitiesEvent e) {
 		// TODO: is there any way to identify all BlockEntityTypes for AbstractFurnaceBlock subclasses?
+		BlockCapability<ExoflameHeatable, Void> exoflameHeatableBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(ExoflameHeatable.LOOKUP);
 		Stream.of(BlockEntityType.FURNACE, BlockEntityType.BLAST_FURNACE, BlockEntityType.SMOKER)
 				.forEach(blockEntityType -> e.registerBlockEntity(
-						BotaniaForgeCapabilities.EXOFLAME_HEATABLE, blockEntityType,
+						exoflameHeatableBlockCap, blockEntityType,
 						(furnace, context) -> new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
 
-		e.registerBlockEntity(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, BotaniaBlockEntities.ANIMATED_TORCH,
+		BlockCapability<HourglassTrigger, Void> hourglassTriggerBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(HourglassTrigger.LOOKUP);
+		e.registerBlockEntity(hourglassTriggerBlockCap, BotaniaBlockEntities.ANIMATED_TORCH,
 				(torchBlockEntity, context) -> hourglass -> torchBlockEntity.toggle());
 
 		// TODO: ManaCollisionGhost feels like it could be represented by two tags for fully-ignored and trigger-only blocks, respectively
-		e.registerBlock(BotaniaForgeCapabilities.MANA_GHOST,
+		BlockCapability<ManaCollisionGhost, Void> manaCollisionGhostBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(ManaCollisionGhost.LOOKUP);
+		e.registerBlock(manaCollisionGhostBlockCap,
 				(level, pos, state, blockEntity, context) -> (ManaCollisionGhost) state.getBlock(),
 				BotaniaBlocks.manaDetector,
 				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
 				BotaniaBlocks.prism, BotaniaBlocks.tinyPlanet);
 
+		BlockCapability<ManaReceiver, Direction> manaReceiverBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(ManaReceiver.LOOKUP);
 		BlockEntityConstants.SELF_MANA_RECEIVER_BES.forEach(type -> e.registerBlockEntity(
-				BotaniaForgeCapabilities.MANA_RECEIVER, type, (blockEntity, context) -> blockEntity));
-		e.registerBlock(BotaniaForgeCapabilities.MANA_RECEIVER,
+				manaReceiverBlockCap, type, (blockEntity, context) -> blockEntity));
+		e.registerBlock(manaReceiverBlockCap,
 				(level, pos, state, blockEntity, context) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
 				BotaniaBlocks.manaVoid);
 
+		BlockCapability<SparkAttachable, Void> sparkAttachableBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
 		BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
-				BotaniaForgeCapabilities.SPARK_ATTACHABLE, blockEntityType, (blockEntity, context) -> blockEntity));
+				sparkAttachableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 
+		BlockCapability<ManaTrigger, Void> manaTriggerBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(ManaTrigger.LOOKUP);
 		BlockEntityConstants.SELF_MANA_TRIGGER_BES.forEach(blockEntityType -> e.registerBlockEntity(
-				BotaniaForgeCapabilities.MANA_TRIGGER, blockEntityType, (blockEntity, context) -> blockEntity));
-		e.registerBlock(BotaniaForgeCapabilities.MANA_TRIGGER,
+				manaTriggerBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
+		e.registerBlock(manaTriggerBlockCap,
 				(level, pos, state, blockEntity, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
 				BotaniaBlocks.canopyDrum, BotaniaBlocks.wildDrum, BotaniaBlocks.gatheringDrum);
-		e.registerBlock(BotaniaForgeCapabilities.MANA_TRIGGER,
+		e.registerBlock(manaTriggerBlockCap,
 				(level, pos, state, blockEntity, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos, state),
 				BotaniaBlocks.manaBomb);
-		e.registerBlock(BotaniaForgeCapabilities.MANA_TRIGGER,
+		e.registerBlock(manaTriggerBlockCap,
 				(level, pos, state, blockEntity, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
 				BotaniaBlocks.manaDetector);
 
+		BlockCapability<Wandable, Direction> wandableBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(Wandable.LOOKUP);
 		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
-				BotaniaForgeCapabilities.WANDABLE, blockEntityType, (blockEntity, context) -> blockEntity));
-		//noinspection DataFlowIssue
-		e.registerBlock(BotaniaForgeCapabilities.WANDABLE, ForceRelayBlock::createWandable,
+				wandableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
+		e.registerBlock(wandableBlockCap, ForceRelayBlock::createWandable,
 				BotaniaBlocks.pistonRelay);
-		//noinspection DataFlowIssue
-		e.registerBlock(BotaniaForgeCapabilities.WANDABLE, ManaEnchanterBlockEntity::createLapisBlockWandable,
+		e.registerBlock(wandableBlockCap, ManaEnchanterBlockEntity::createLapisBlockWandable,
 				Blocks.LAPIS_BLOCK);
 
+		BlockCapability<WandBindable, Direction> wandBindableBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(WandBindable.LOOKUP);
 		BlockEntityConstants.SELF_WAND_BINDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
-				BotaniaForgeCapabilities.WAND_BINDABLE, blockEntityType, (blockEntity, context) -> blockEntity));
-		//noinspection DataFlowIssue
-		e.registerBlock(BotaniaForgeCapabilities.WAND_BINDABLE, ForceRelayBlock::createWandBindable,
+				wandBindableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
+		e.registerBlock(wandBindableBlockCap, ForceRelayBlock::createWandBindable,
 				BotaniaBlocks.pistonRelay);
 
+		BlockCapability<PhantomInkableBlock, Void> phantomInkableBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(PhantomInkableBlock.LOOKUP);
 		BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
-				BotaniaForgeCapabilities.PHANTOM_INKABLE, blockEntityType, (blockEntity, context) -> blockEntity));
+				phantomInkableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 
 		Stream.of(BotaniaBlockEntities.RED_STRING_CONTAINER, BotaniaBlockEntities.RED_STRING_DISPENSER)
 				.forEach(blockEntityType -> e.registerBlockEntity(

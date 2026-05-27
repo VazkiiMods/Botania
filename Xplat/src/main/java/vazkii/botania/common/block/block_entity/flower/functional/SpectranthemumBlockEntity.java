@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
@@ -62,7 +63,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();
-			if (XplatAbstractions.INSTANCE.findManaItem(stack) != null) {
+			if (ManaItem.LOOKUP.find(stack) != null) {
 				continue;
 			}
 

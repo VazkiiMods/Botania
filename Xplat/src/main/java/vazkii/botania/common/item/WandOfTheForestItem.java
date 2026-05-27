@@ -39,6 +39,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -47,7 +48,6 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.WrenchingHelper;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -68,8 +68,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			Optional<Direction> srcSide = getBindingSide(wand);
 			setBindingAttempt(wand, null, null);
 
-			WandBindable bindable = XplatAbstractions.instance()
-					.findWandBindable(level, src.pos(), null, null, srcSide.orElse(null));
+			WandBindable bindable = WandBindable.LOOKUP.find(level, src.pos(), srcSide.orElse(null));
 			if (bindable != null) {
 				if (bindable.bindTo(player, wand, target, targetSide)) {
 					doParticleBeamWithOffset(level, src.pos(), target);
@@ -102,7 +101,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			}
 
 			if (getBindMode(stack)) {
-				WandBindable bindable = XplatAbstractions.instance().findWandBindable(world, pos, state, tile, side);
+				WandBindable bindable = WandBindable.LOOKUP.find(world, pos, state, tile, side);
 				if (bindable != null && bindable.canSelect(player, stack, side)) {
 					GlobalPos globalPos = GlobalPos.of(world.dimension(), pos);
 					if (boundPos.filter(globalPos::equals).isPresent()) {
@@ -120,7 +119,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			}
 		}
 
-		var wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, tile, side);
+		var wandable = Wandable.LOOKUP.find(world, pos, state, tile, side);
 		if (player.isSecondaryUseActive() && (wandable == null || getBindMode(stack))
 				&& (!(state.getBlock() instanceof GameMasterBlock) || player.canUseGameMasterBlocks())) {
 			Vec3 relativePos = ctx.getClickLocation().subtract(pos.getBottomCenter());
@@ -178,8 +177,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		getBindingAttempt(stack).ifPresent(pos -> {
 			if (!pos.dimension().equals(world.dimension())
-					|| XplatAbstractions.instance().findWandBindable(world, pos.pos(), null, null,
-							getBindingSide(stack).orElse(null)) == null) {
+					|| WandBindable.LOOKUP.find(world, pos.pos(), getBindingSide(stack).orElse(null)) == null) {
 				setBindingAttempt(stack, null, null);
 			}
 		});

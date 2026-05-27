@@ -19,6 +19,8 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.capability.BlockApiNoContext;
+
 import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -30,6 +32,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface SparkAttachable {
 
 	ResourceLocation ID = botaniaRL("spark_attachable");
+	BlockApiNoContext<SparkAttachable> LOOKUP = new BlockApiNoContext<>(ID, SparkAttachable.class);
 
 	/**
 	 * Can this block have a Spark attached to it. Note that this will not

@@ -14,6 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.capability.BlockApiWithContext;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -23,6 +25,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface WandBindable {
 
 	ResourceLocation ID = botaniaRL("wand_bindable");
+	BlockApiWithContext<WandBindable, Direction> LOOKUP =
+			new BlockApiWithContext<>(ID, WandBindable.class, Direction.class);
 
 	/**
 	 * Return true if the Wand can select this tile.

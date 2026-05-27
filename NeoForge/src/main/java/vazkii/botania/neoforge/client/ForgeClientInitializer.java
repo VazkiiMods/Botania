@@ -37,8 +37,12 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.BotaniaForgeClientCapabilities;
+import vazkii.botania.api.BotaniaForgeCapabilities;
+import vazkii.botania.api.block.MonocleHud;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.api.mana.ManaItem;
+import vazkii.botania.client.BotaniaClientCapabilities;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.CoreShaders;
@@ -127,7 +131,7 @@ public class ForgeClientInitializer {
 			KonamiHandler.handleInput(e.getKey(), e.getAction(), e.getModifiers());
 		});
 		bus.addListener(EventPriority.LOWEST, (RenderTooltipEvent.Color e) -> {
-			var manaItem = XplatAbstractions.INSTANCE.findManaItem(e.getItemStack());
+			var manaItem = ManaItem.LOOKUP.find(e.getItemStack());
 			if (manaItem == null) {
 				return;
 			}
@@ -172,19 +176,27 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	private static void attachClientCapabilities(RegisterCapabilitiesEvent e) {
+		BotaniaClientCapabilities.registerClientCapabilities(BotaniaForgeCapabilities.getRegistration());
+
+		BlockCapability<WandHUD, Void> wandHudBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(WandHUD.BLOCK_LOOKUP);
 		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> Stream.of(types).forEach(
-				blockEntityType -> e.registerBlockEntity(
-						BotaniaForgeClientCapabilities.BLOCK_WAND_HUD,
-						blockEntityType,
-						(blockEntity, context) -> factory.apply(blockEntity)
+				blockEntityType -> e.registerBlockEntity(wandHudBlockCap,
+						blockEntityType, (blockEntity, context) -> factory.apply(blockEntity)
 				)
 		));
 
-		BotaniaEntities.registerWandHudCaps(getECapConsumer(e, BotaniaForgeClientCapabilities.ENTITY_WAND_HUD));
-		MonocleHUDs.registerMonocleHudEntityCaps(getECapConsumer(e, BotaniaForgeClientCapabilities.ENTITY_MONOCLE_HUD), true);
+		EntityCapability<WandHUD, Void> wandHudEntityCap =
+				BotaniaForgeCapabilities.getEntityApiLookupById(WandHUD.ENTITY_LOOKUP);
+		BotaniaEntities.registerWandHudCaps(getECapConsumer(e, wandHudEntityCap));
+		EntityCapability<MonocleHud, Void> monocleHudEntityCap =
+				BotaniaForgeCapabilities.getEntityApiLookupById(MonocleHud.ENTITY_LOOKUP);
+		MonocleHUDs.registerMonocleHudEntityCaps(getECapConsumer(e, monocleHudEntityCap), true);
 
-		MonocleHUDs.registerMonocleHudBlockCaps(getBCapsConsumer(e, BotaniaForgeClientCapabilities.BLOCK_MONOCLE_HUD),
-				b -> !e.isBlockRegistered(BotaniaForgeClientCapabilities.BLOCK_MONOCLE_HUD, b));
+		BlockCapability<MonocleHud, Void> monocleHudBlockCap =
+				BotaniaForgeCapabilities.getBlockApiLookupById(MonocleHud.BLOCK_LOOKUP);
+		MonocleHUDs.registerMonocleHudBlockCaps(getBCapsConsumer(e, monocleHudBlockCap),
+				b -> !e.isBlockRegistered(monocleHudBlockCap, b));
 	}
 
 	private static <T, C> BotaniaBlocks.BCapConsumer<T> getBCapsConsumer(RegisterCapabilitiesEvent e,

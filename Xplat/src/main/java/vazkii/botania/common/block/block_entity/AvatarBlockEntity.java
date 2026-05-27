@@ -25,8 +25,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.block.Avatar;
+import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +50,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, AvatarBlockEntity self) {
 		ItemStack stack = self.getItemHandler().getItem(0);
 		if (!stack.isEmpty()) {
-			var wieldable = XplatAbstractions.INSTANCE.findAvatarWieldable(stack);
+			var wieldable = AvatarWieldable.LOOKUP.find(stack);
 			if (wieldable != null) {
 				wieldable.onAvatarUpdate(self);
 			}

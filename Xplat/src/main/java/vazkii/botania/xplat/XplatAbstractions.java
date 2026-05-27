@@ -55,16 +55,17 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.api.block.*;
+import vazkii.botania.api.capability.BlockApiNoContext;
+import vazkii.botania.api.capability.BlockApiWithContext;
+import vazkii.botania.api.capability.EntityApiNoContext;
+import vazkii.botania.api.capability.EntityApiWithContext;
+import vazkii.botania.api.capability.ItemApiNoContext;
+import vazkii.botania.api.capability.ItemApiWithContext;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -95,48 +96,20 @@ public interface XplatAbstractions {
 	boolean isPhysicalClient();
 	String getBotaniaVersion();
 
-	// Capability access (API-facing caps)
+	// capability API lookup helper methods
 	@Nullable
-	AvatarWieldable findAvatarWieldable(ItemStack stack);
+	<A> A findBlockApi(BlockApiNoContext<A> id, Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity blockEntity);
 	@Nullable
-	BlockProvider findBlockProvider(ItemStack stack);
+	<A, C> A findBlockApi(BlockApiWithContext<A, C> id, Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity blockEntity, @Nullable C context);
 	@Nullable
-	CoordBoundItem findCoordBoundItem(ItemStack stack);
+	<A> A findItemApi(ItemApiNoContext<A> id, ItemStack stack);
 	@Nullable
-	ManaItem findManaItem(ItemStack stack);
+	<A, C> A findItemApi(ItemApiWithContext<A, C> id, ItemStack stack, @Nullable C context);
 	@Nullable
-	Relic findRelic(ItemStack stack);
+	<A> A findEntityApi(EntityApiNoContext<A> id, Entity entity);
 	@Nullable
-	ExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
-	@Nullable
-	HourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
-	@Nullable
-	ManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	<A, C> A findEntityApi(EntityApiWithContext<A, C> id, Entity entity, @Nullable C context);
 
-	@Nullable
-	default ManaReceiver findManaReceiver(Level level, BlockPos pos, @Nullable Direction direction) {
-		return findManaReceiver(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), direction);
-	}
-
-	@Nullable
-	default ManaReceiver findManaReceiver(BlockEntity be) {
-		return findManaReceiver(be.getLevel(), be.getBlockPos(), be.getBlockState(), be, null);
-	}
-
-	@Nullable
-	ManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction);
-
-	@Nullable
-	SparkAttachable findSparkAttachable(Level level, BlockPos pos, BlockState blockState, @Nullable BlockEntity be, Direction direction);
-
-	@Nullable
-	ManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
-	@Nullable
-	Wandable findWandable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side);
-	@Nullable
-	WandBindable findWandBindable(Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity be, @Nullable Direction side);
-	@Nullable
-	PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	boolean isFluidContainer(ItemEntity item);
 	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);
 	boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid);

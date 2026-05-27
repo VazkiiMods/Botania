@@ -9,10 +9,13 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.UnknownNullability;
+
+import vazkii.botania.api.capability.BlockApiWithContext;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -21,6 +24,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
  */
 public interface ManaReceiver {
 	ResourceLocation ID = botaniaRL("mana_receiver");
+	BlockApiWithContext<ManaReceiver, Direction> LOOKUP =
+			new BlockApiWithContext<>(ID, ManaReceiver.class, Direction.class);
 
 	@UnknownNullability
 	Level getManaReceiverLevel();

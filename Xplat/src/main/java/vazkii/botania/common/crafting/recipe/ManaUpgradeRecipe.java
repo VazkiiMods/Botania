@@ -19,8 +19,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.mixin.ShapedRecipeAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Function;
 
@@ -34,13 +34,13 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 
 	public static ItemStack output(ItemStack output, CraftingInput inv) {
 		ItemStack out = output.copy();
-		var outItem = XplatAbstractions.INSTANCE.findManaItem(out);
+		var outItem = ManaItem.LOOKUP.find(out);
 		if (outItem == null) {
 			return out;
 		}
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
-			var item = XplatAbstractions.INSTANCE.findManaItem(stack);
+			var item = ManaItem.LOOKUP.find(stack);
 			if (!stack.isEmpty() && item != null) {
 				outItem.addMana(item.getMana());
 			}

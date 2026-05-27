@@ -40,6 +40,9 @@ import net.minecraft.world.phys.HitResult;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.MonocleHud;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -62,7 +65,6 @@ import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
@@ -137,7 +139,7 @@ public final class HUDHandler {
 				boolean alternateRecipeHudPosition = false;
 				if (PlayerHelper.hasHeldItemClass(localPlayer, WandOfTheForestItem.class)) {
 					checkForOneTimeWarnings();
-					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(level, bpos, state, tile);
+					var hud = WandHUD.BLOCK_LOOKUP.find(level, bpos, state, tile);
 					if (hud != null) {
 						alternateRecipeHudPosition = true;
 						profiler.push("wandItem");
@@ -163,7 +165,7 @@ public final class HUDHandler {
 					CorporeaCrystalCubeBlockEntity.Hud.render(cube, gui, window, font, partialTick);
 					profiler.pop();
 				} else if (ManaseerMonocleItem.hasMonocle(localPlayer)) {
-					var hud = ClientXplatAbstractions.INSTANCE.findMonocleHud(level, bpos, state, tile);
+					var hud = MonocleHud.BLOCK_LOOKUP.find(level, bpos, state, tile);
 					if (hud != null) {
 						profiler.push("monocle");
 						hud.renderHUD(gui, window, font, partialTick);
@@ -173,7 +175,7 @@ public final class HUDHandler {
 			}
 		} else if (pos instanceof EntityHitResult result) {
 			if (PlayerHelper.hasHeldItemClass(localPlayer, WandOfTheForestItem.class)) {
-				var hud = ClientXplatAbstractions.INSTANCE.findWandHud(result.getEntity());
+				var hud = WandHUD.ENTITY_LOOKUP.find(result.getEntity());
 				if (hud != null) {
 					profiler.push("wandItemEntityHud");
 					hud.renderHUD(gui, window, font, partialTick);
@@ -181,7 +183,7 @@ public final class HUDHandler {
 				}
 			}
 			if (ManaseerMonocleItem.hasMonocle(localPlayer)) {
-				var hud = ClientXplatAbstractions.INSTANCE.findMonocleHud(result.getEntity());
+				var hud = MonocleHud.ENTITY_LOOKUP.find(result.getEntity());
 				if (hud != null) {
 					profiler.push("monocleEntityHud");
 					hud.renderHUD(gui, window, font, partialTick);
@@ -238,7 +240,7 @@ public final class HUDHandler {
 			List<ItemStack> items = ManaItemHandler.instance().getManaItems(localPlayer);
 			List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(localPlayer);
 			for (ItemStack stack : Iterables.concat(items, acc)) {
-				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+				var manaItem = ManaItem.LOOKUP.find(stack);
 				if (!manaItem.isNoExport()) {
 					totalMana += manaItem.getMana();
 					totalMaxMana += manaItem.getMaxMana();

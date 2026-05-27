@@ -12,6 +12,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.api.capability.ItemApiNoContext;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -20,6 +22,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface ManaItem {
 
 	ResourceLocation ID = botaniaRL("mana_item");
+	ItemApiNoContext<ManaItem> LOOKUP = new ItemApiNoContext<>(ID, ManaItem.class);
 
 	/**
 	 * Gets the amount of mana this item contains

@@ -81,7 +81,7 @@ public class PlentifulMantleRodItem extends Item {
 		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			ManaReceiver receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
+			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, te.getBlockPos(), te.getBlockState(), te, null);
 			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
 				// TODO: This should really not be happening clientside
 				PlentifulMantleRodItem.doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());

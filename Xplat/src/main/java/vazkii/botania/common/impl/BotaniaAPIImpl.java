@@ -22,11 +22,21 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.capability.BlockApiNoContext;
+import vazkii.botania.api.capability.BlockApiWithContext;
+import vazkii.botania.api.capability.EntityApiNoContext;
+import vazkii.botania.api.capability.EntityApiWithContext;
+import vazkii.botania.api.capability.ItemApiNoContext;
+import vazkii.botania.api.capability.ItemApiWithContext;
 import vazkii.botania.api.configdata.ConfigDataManager;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
@@ -40,6 +50,7 @@ import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.BotaniaArmorMaterials;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -207,5 +218,43 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public void setConfigData(ConfigDataManager configDataManager) {
 		this.configDataManager = configDataManager;
+	}
+
+	@Nullable
+	@Override
+	public <A> A findBlockApi(BlockApiNoContext<A> id, Level level, BlockPos pos, @Nullable BlockState state,
+			@Nullable BlockEntity blockEntity) {
+		return XplatAbstractions.INSTANCE.findBlockApi(id, level, pos, state, blockEntity);
+	}
+
+	@Nullable
+	@Override
+	public <A, C> A findBlockApi(BlockApiWithContext<A, C> id, Level level, BlockPos pos,
+			@Nullable BlockState state, @Nullable BlockEntity blockEntity, @Nullable C context) {
+		return XplatAbstractions.INSTANCE.findBlockApi(id, level, pos, state, blockEntity, context);
+	}
+
+	@Nullable
+	@Override
+	public <A> A findItemApi(ItemApiNoContext<A> id, ItemStack stack) {
+		return XplatAbstractions.INSTANCE.findItemApi(id, stack);
+	}
+
+	@Nullable
+	@Override
+	public <A, C> A findItemApi(ItemApiWithContext<A, C> id, ItemStack stack, @Nullable C context) {
+		return XplatAbstractions.INSTANCE.findItemApi(id, stack, context);
+	}
+
+	@Nullable
+	@Override
+	public <A> A findEntityApi(EntityApiNoContext<A> id, Entity entity) {
+		return XplatAbstractions.INSTANCE.findEntityApi(id, entity);
+	}
+
+	@Nullable
+	@Override
+	public <A, C> A findEntityApi(EntityApiWithContext<A, C> id, Entity entity, @Nullable C context) {
+		return XplatAbstractions.INSTANCE.findEntityApi(id, entity, context);
 	}
 }

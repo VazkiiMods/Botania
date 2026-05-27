@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Bound;
+import vazkii.botania.api.capability.ItemApiNoContext;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -27,6 +28,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface CoordBoundItem {
 
 	ResourceLocation ID = botaniaRL("coord_bound_item");
+	ItemApiNoContext<CoordBoundItem> LOOKUP = new ItemApiNoContext<>(ID, CoordBoundItem.class);
 
 	@Nullable
 	BlockPos getBinding(Level world);

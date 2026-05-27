@@ -29,13 +29,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger, Wandable {
 	private static final String TAG_TIME = "time";
@@ -82,8 +82,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 
 				for (Direction facing : Direction.values()) {
 					BlockPos pos = worldPosition.relative(facing);
-					var trigger = XplatAbstractions.INSTANCE.findHourglassTrigger(level, pos,
-							level.getBlockState(pos), level.getBlockEntity(pos));
+					var trigger = HourglassTrigger.LOOKUP.find(level, pos);
 					if (trigger != null) {
 						trigger.onTriggeredByHourglass(self);
 					}

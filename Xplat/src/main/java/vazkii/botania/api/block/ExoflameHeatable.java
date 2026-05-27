@@ -10,6 +10,8 @@ package vazkii.botania.api.block;
 
 import net.minecraft.resources.ResourceLocation;
 
+import vazkii.botania.api.capability.BlockApiNoContext;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -18,6 +20,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
  */
 public interface ExoflameHeatable {
 	ResourceLocation ID = botaniaRL("exoflame_heatable");
+	BlockApiNoContext<ExoflameHeatable> LOOKUP = new BlockApiNoContext<>(ID, ExoflameHeatable.class);
 
 	/**
 	 * Can this BlockEntity smelt its contents. If true, the Exoflame is allowed

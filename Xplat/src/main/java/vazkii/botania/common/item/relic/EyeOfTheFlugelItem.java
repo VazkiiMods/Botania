@@ -162,7 +162,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 			return;
 		}
 
-		var coordBoundItem = XplatAbstractions.INSTANCE.findCoordBoundItem(stack);
+		var coordBoundItem = CoordBoundItem.LOOKUP.find(stack);
 		if (coordBoundItem == null) {
 			return;
 		}

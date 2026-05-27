@@ -13,6 +13,8 @@ import net.minecraft.world.entity.player.Player;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.capability.ItemApiNoContext;
+
 import java.util.UUID;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -24,6 +26,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface Relic {
 
 	ResourceLocation ID = botaniaRL("relic");
+	ItemApiNoContext<Relic> LOOKUP = new ItemApiNoContext<>(ID, Relic.class);
 
 	/**
 	 * Binds to the UUID passed in.

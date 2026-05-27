@@ -10,7 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,8 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.ServiceUtil;
-import vazkii.botania.api.block.MonocleHud;
-import vazkii.botania.api.block.WandHUD;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -32,19 +29,6 @@ public interface ClientXplatAbstractions {
 
 	// Networking
 	void sendToServer(CustomPacketPayload packet);
-
-	// Capability access
-	@Nullable
-	WandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
-
-	@Nullable
-	WandHUD findWandHud(Entity entity);
-
-	@Nullable
-	MonocleHud findMonocleHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity);
-
-	@Nullable
-	MonocleHud findMonocleHud(Entity entity);
 
 	// Rendering stuff
 

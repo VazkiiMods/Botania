@@ -128,7 +128,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					}
 
 					for (ItemStack stack : stacks) {
-						var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+						var manaItem = ManaItem.LOOKUP.find(stack);
 						if (stack.isEmpty() || manaItem == null) {
 							continue;
 						}
@@ -396,13 +396,13 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	@Nullable
 	@Override
 	public SparkAttachable getAttachedTile() {
-		return XplatAbstractions.INSTANCE.findSparkAttachable(level(), getAttachPos(), level().getBlockState(getAttachPos()), level().getBlockEntity(getAttachPos()), Direction.UP);
+		return SparkAttachable.LOOKUP.find(level(), getAttachPos());
 	}
 
 	@Nullable
 	@Override
 	public ManaReceiver getAttachedManaReceiver() {
-		return XplatAbstractions.INSTANCE.findManaReceiver(level(), getAttachPos(), Direction.UP);
+		return ManaReceiver.LOOKUP.find(level(), getAttachPos(), Direction.UP);
 	}
 
 	private void filterTransfers() {

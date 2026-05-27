@@ -9,7 +9,6 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.common.entity.ManaSparkEntity;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManaSparkItem extends Item {
 
@@ -34,7 +32,7 @@ public class ManaSparkItem extends Item {
 	}
 
 	public static boolean attachSpark(Level world, BlockPos pos, ItemStack stack) {
-		var attach = XplatAbstractions.INSTANCE.findSparkAttachable(world, pos, world.getBlockState(pos), world.getBlockEntity(pos), Direction.UP);
+		var attach = SparkAttachable.LOOKUP.find(world, pos);
 		if (attach != null) {
 			if (attach.canAttachSpark(stack) && SparkAttachable.getAttachedSpark(world, pos) == null) {
 				if (!world.isClientSide) {

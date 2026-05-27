@@ -32,7 +32,6 @@ import vazkii.botania.client.model.AvatarModel;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBlockEntity> {
 
@@ -70,7 +69,7 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 						light, overlay, ms, buffers, avatar.getLevel(), 0);
 				ms.popPose();
 
-				AvatarWieldable wieldable = XplatAbstractions.INSTANCE.findAvatarWieldable(stack);
+				AvatarWieldable wieldable = AvatarWieldable.LOOKUP.find(stack);
 				if (wieldable != null) {
 					buffer = buffers.getBuffer(RenderType.entityTranslucent(wieldable.getOverlayResource(avatar)));
 					s = 1.01F;

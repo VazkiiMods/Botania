@@ -53,7 +53,6 @@ import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.mixin.LevelAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -290,7 +289,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				return ret;
 			}
 
-			var provider = XplatAbstractions.INSTANCE.findBlockProvider(invStack);
+			var provider = BlockProvider.LOOKUP.find(invStack);
 			if (provider != null) {
 				providers.add(provider);
 			}
@@ -355,7 +354,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				count += invStack.getCount();
 			}
 
-			var prov = XplatAbstractions.INSTANCE.findBlockProvider(invStack);
+			var prov = BlockProvider.LOOKUP.find(invStack);
 			if (prov != null && requested instanceof BlockItem blockItem) {
 				int provCount = prov.getBlockCount(player, stack, blockItem.getBlock());
 				if (provCount == -1) {

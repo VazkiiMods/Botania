@@ -11,6 +11,7 @@ package vazkii.botania.api.item;
 import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.api.block.Avatar;
+import vazkii.botania.api.capability.ItemApiNoContext;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -20,6 +21,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface AvatarWieldable {
 
 	ResourceLocation ID = botaniaRL("avatar_wieldable");
+	ItemApiNoContext<AvatarWieldable> LOOKUP = new ItemApiNoContext<>(ID, AvatarWieldable.class);
 
 	/**
 	 * Called on update of the avatar tile.

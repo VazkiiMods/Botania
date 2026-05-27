@@ -19,10 +19,10 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Optional;
@@ -83,13 +83,13 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = ManaItem.LOOKUP.find(stack);
 		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(manaItem));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = ManaItem.LOOKUP.find(stack);
 		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
 	}
 

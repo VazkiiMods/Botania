@@ -31,7 +31,6 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class LandsRodItem extends Item {
 
@@ -101,7 +100,7 @@ public class LandsRodItem extends Item {
 		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			ManaReceiver receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
+			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, te.getBlockPos(), te.getBlockState(), te, null);
 			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
 				BlockPos pos = te.getBlockPos().relative(tile.getAvatarFacing());
 				BlockState state = world.getBlockState(pos);

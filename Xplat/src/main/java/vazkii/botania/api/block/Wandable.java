@@ -15,6 +15,8 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.capability.BlockApiWithContext;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -23,6 +25,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface Wandable {
 
 	ResourceLocation ID = botaniaRL("wandable");
+	BlockApiWithContext<Wandable, Direction> LOOKUP =
+			new BlockApiWithContext<>(ID, Wandable.class, Direction.class);
 
 	/**
 	 * Called when the block is used by a wand.

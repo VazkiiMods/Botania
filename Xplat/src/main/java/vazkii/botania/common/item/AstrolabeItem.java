@@ -44,7 +44,6 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
 import vazkii.botania.common.item.rod.ShiftingCrustRodItem;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,7 +186,7 @@ public class AstrolabeItem extends Item {
 				final var stackProvider = BlockProviderHelper.asBlockProvider(stackInSlot);
 				providersToCheck.add(stackProvider);
 			} else {
-				var provider = XplatAbstractions.INSTANCE.findBlockProvider(stackInSlot);
+				var provider = BlockProvider.LOOKUP.find(stackInSlot);
 				if (provider != null) {
 					final int count = provider.getBlockCount(player, requester, block);
 					if (count != 0) {

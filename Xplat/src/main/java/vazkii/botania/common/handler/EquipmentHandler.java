@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.UnknownNullability;
 
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -66,7 +67,7 @@ public abstract class EquipmentHandler {
 	public abstract void onInit(Item item);
 
 	public boolean isAccessory(ItemStack stack) {
-		return stack.is(BotaniaTags.Items.RODS) || stack.getItem() instanceof BaubleItem || XplatAbstractions.INSTANCE.findManaItem(stack) != null;
+		return stack.is(BotaniaTags.Items.RODS) || stack.getItem() instanceof BaubleItem || ManaItem.LOOKUP.find(stack) != null;
 	}
 
 	// Fallback equipment handler for curios-less (or baubles-less) installs.

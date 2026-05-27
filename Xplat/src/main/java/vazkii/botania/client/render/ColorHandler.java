@@ -28,6 +28,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.PlatformBlock;
@@ -40,7 +41,6 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.mixin.client.MinecraftAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Optional;
 import java.util.Random;
@@ -136,7 +136,7 @@ public final class ColorHandler {
 
 		items.register((stack, tintIndex) -> {
 			if (tintIndex == 1) {
-				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+				var manaItem = ManaItem.LOOKUP.find(stack);
 				return FastColor.ARGB32.opaque(Mth.hsvToRgb(MANA_HUE, manaItem != null ? (float) manaItem.getMana() / (float) Math.max(1, manaItem.getMaxMana()) : 0, 1));
 			}
 			return -1;

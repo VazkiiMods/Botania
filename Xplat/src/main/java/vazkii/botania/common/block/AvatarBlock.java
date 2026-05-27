@@ -37,10 +37,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.RedstoneSensitiveBlock;
+import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock, RedstoneSensitiveBlock {
 
@@ -78,7 +78,7 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 				player.getInventory().placeItemBackInInventory(stackOnAvatar);
 				return ItemInteractionResult.sidedSuccess(world.isClientSide());
 			} else if (!stackOnPlayer.isEmpty() &&
-					XplatAbstractions.INSTANCE.findAvatarWieldable(stackOnPlayer) != null) {
+					AvatarWieldable.LOOKUP.find(stackOnPlayer) != null) {
 				avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
 				return ItemInteractionResult.sidedSuccess(world.isClientSide());
 			}

@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 
-public class RedStringContainerCapProvider implements ICapabilityProvider<RedStringContainerBlockEntity, Direction, IItemHandler> {
+public class RedStringContainerCapProvider implements ICapabilityProvider<RedStringContainerBlockEntity, @Nullable Direction, IItemHandler> {
 	private static final Lazy<IItemHandler> EMPTY = Lazy.of(EmptyItemHandler::new);
 
 	@Override

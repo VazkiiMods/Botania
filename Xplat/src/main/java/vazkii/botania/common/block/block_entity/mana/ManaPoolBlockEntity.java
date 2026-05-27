@@ -351,7 +351,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 			}
 
 			ItemStack stack = item.getItem();
-			var mana = XplatAbstractions.INSTANCE.findManaItem(stack);
+			var mana = ManaItem.LOOKUP.find(stack);
 			if (!stack.isEmpty() && mana != null) {
 				boolean isOutputting = self.isOutputtingPower();
 				if (isOutputting && mana.canReceiveManaFromPool(self) || !isOutputting && mana.canDrainManaToPool(self)) {

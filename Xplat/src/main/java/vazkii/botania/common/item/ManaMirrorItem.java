@@ -30,12 +30,13 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -55,13 +56,13 @@ public class ManaMirrorItem extends Item {
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = ManaItem.LOOKUP.find(stack);
 		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(manaItem));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = ManaItem.LOOKUP.find(stack);
 		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
 	}
 
@@ -91,7 +92,7 @@ public class ManaMirrorItem extends Item {
 		Player player = ctx.getPlayer();
 
 		if (player != null && player.isSecondaryUseActive()) {
-			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, ctx.getClickedPos(), null);
+			var receiver = ManaReceiver.LOOKUP.find(world, ctx.getClickedPos(), null);
 			if (receiver instanceof ManaPool pool) {
 				if (!world.isClientSide) {
 					bindPool(ctx.getItemInHand(), pool);
@@ -145,7 +146,7 @@ public class ManaMirrorItem extends Item {
 		Level world = server.getLevel(type);
 		if (world != null) {
 			if (world.hasChunkAt(pos.pos())) {
-				var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos.pos(), null);
+				var receiver = ManaReceiver.LOOKUP.find(world, pos.pos(), null);
 				if (receiver instanceof ManaPool pool) {
 					return pool;
 				}

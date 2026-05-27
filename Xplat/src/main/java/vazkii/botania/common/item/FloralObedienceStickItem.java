@@ -19,8 +19,8 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaCollector;
 import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class FloralObedienceStickItem extends Item {
 
@@ -38,7 +38,7 @@ public class FloralObedienceStickItem extends Item {
 	}
 
 	public static boolean applyStick(Level world, BlockPos pos) {
-		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos, null);
+		var receiver = ManaReceiver.LOOKUP.find(world, pos, null);
 		if (receiver instanceof ManaPool || receiver instanceof ManaCollector) {
 			int range = receiver instanceof ManaPool ? FunctionalFlowerBlockEntity.LINK_RANGE : GeneratingFlowerBlockEntity.LINK_RANGE;
 

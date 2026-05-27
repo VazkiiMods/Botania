@@ -30,7 +30,6 @@ import vazkii.botania.common.item.ManaTabletItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.rod.DepthsRodItem;
 import vazkii.botania.test.TestingUtil;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Objects;
 
@@ -371,7 +370,7 @@ public class AstrolabeTest {
 
 	private void checkRemainingMana(Player player, int expectedMana) {
 		final ItemStack tablet = player.getInventory().getItem(SLOT_TABLET);
-		final ManaItem manaItem = XplatAbstractions.INSTANCE.findManaItem(tablet);
+		final ManaItem manaItem = ManaItem.LOOKUP.find(tablet);
 		TestingUtil.assertThat(manaItem != null, () -> "Missing mana tablet");
 		TestingUtil.assertEquals(expectedMana, manaItem.getMana(),
 				() -> String.format("Expected %d remaining mana, but found %d", expectedMana, manaItem.getMana()));
@@ -381,7 +380,7 @@ public class AstrolabeTest {
 		final Player player = helper.makeMockPlayer(GameType.CREATIVE);
 		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.astrolabe));
 		final ItemStack tablet = new ItemStack(BotaniaItems.manaTablet);
-		Objects.requireNonNull(XplatAbstractions.INSTANCE.findManaItem(tablet)).addMana(mana);
+		Objects.requireNonNull(ManaItem.LOOKUP.find(tablet)).addMana(mana);
 		player.getInventory().add(tablet);
 		player.setPos(helper.absoluteVec(posPlayer));
 		final Vec3 targetVec = helper.absoluteVec(lookTarget);

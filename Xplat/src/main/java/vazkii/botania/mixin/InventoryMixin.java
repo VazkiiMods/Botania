@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.XplatAbstractions;
 
 @Mixin(Inventory.class)
 public class InventoryMixin {
@@ -44,7 +44,7 @@ public class InventoryMixin {
 			if (!invStack.is(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER)) {
 				continue;
 			}
-			var provider = XplatAbstractions.INSTANCE.findBlockProvider(invStack);
+			var provider = BlockProvider.LOOKUP.find(invStack);
 			if (provider != null && provider.provideBlock(this.player, searchStack, block, false)) {
 				cir.setReturnValue(i);
 				return;

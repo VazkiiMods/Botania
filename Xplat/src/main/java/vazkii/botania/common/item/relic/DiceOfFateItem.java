@@ -32,7 +32,6 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.loot.BotaniaLootTables;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +55,7 @@ public class DiceOfFateItem extends RelicItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = Relic.LOOKUP.find(stack);
 
 		if (relic != null && relic.isRightPlayer(player)) {
 			if (world.isClientSide) {
@@ -128,7 +127,7 @@ public class DiceOfFateItem extends RelicItem {
 		}
 
 		var stack = RELIC_STACKS.get().get(relicId);
-		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = Relic.LOOKUP.find(stack);
 
 		if (relic != null && relic.getAdvancement() != null) {
 			return PlayerHelper.hasAdvancement(mpPlayer, relic.getAdvancement());

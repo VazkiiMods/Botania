@@ -28,7 +28,6 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.FlameRingEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class HellsRodItem extends Item {
 
@@ -73,7 +72,7 @@ public class HellsRodItem extends Item {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			BlockPos pos = te.getBlockPos();
-			ManaReceiver receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos, te.getBlockState(), te, null);
+			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, pos, te.getBlockState(), te, null);
 
 			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
 				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);

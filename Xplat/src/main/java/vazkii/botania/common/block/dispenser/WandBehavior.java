@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.xplat.XplatAbstractions;
 
 public class WandBehavior extends OptionalDispenseItemBehavior {
 
@@ -29,7 +28,7 @@ public class WandBehavior extends OptionalDispenseItemBehavior {
 		BlockPos pos = source.pos().relative(facing);
 		BlockState state = world.getBlockState(pos);
 		Direction side = facing.getOpposite();
-		Wandable wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, world.getBlockEntity(pos), side);
+		Wandable wandable = Wandable.LOOKUP.find(world, pos, state, null, side);
 		setSuccess(wandable != null && wandable.onUsedByWand(null, stack, side));
 		return stack;
 	}
