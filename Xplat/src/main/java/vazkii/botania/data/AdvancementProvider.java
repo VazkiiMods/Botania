@@ -318,6 +318,10 @@ public class AdvancementProvider {
 					.parent(elfPortalOpen)
 					.addCriterion("lexicon", elvenLexicon)
 					.save(consumer, mainId("elf_lexicon_pickup"));
+			Advancement.Builder.advancement()
+					.parent(root)
+					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
+					.save(consumer, mainId("dog"));
 		}
 	}
 

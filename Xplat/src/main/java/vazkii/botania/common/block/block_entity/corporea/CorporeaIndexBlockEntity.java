@@ -380,7 +380,9 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	public static class ClientHandler {
 		public static boolean onChat(Player player, String message) {
 			if (!getNearbyValidIndexes(player).isEmpty()) {
-				ClientXplatAbstractions.INSTANCE.sendToServer(new IndexStringRequestPacket(message));
+				if (!message.isBlank()) {
+					ClientXplatAbstractions.INSTANCE.sendToServer(new IndexStringRequestPacket(message));
+				}
 				return true;
 			}
 			return false;

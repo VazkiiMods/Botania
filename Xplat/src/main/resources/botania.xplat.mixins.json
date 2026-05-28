@@ -39,8 +39,8 @@
     "InventoryAccessor",
     "InventoryMixin",
     "ItemEntityAccessor",
-    "ItemEntityMixin_UpdateLifetimeData",
     "ItemEntityMixin_NoDespawn",
+    "ItemEntityMixin_UpdateLifetimeData",
     "ItemMixin",
     "LevelAccessor",
     "LiquidBlockAccessor",
@@ -73,6 +73,8 @@
     "ThrowableProjectileMixin",
     "VibrationSystemListenerMixin",
     "WitherEntityAccessor",
+    "client.BookEntryMixin",
+    "client.ClientAdvancementsAccessor",
     "client.MultiblockVisualizationHandlerMixin"
   ],
   "client": [
@@ -80,6 +82,8 @@
     "client.AbstractContainerScreenAccessor",
     "client.BlockRenderDispatcherMixin",
     "client.ClientLevelDataMixin",
+    "client.GuiBookEntryListMixin",
+    "client.GuiButtonEntryMixin",
     "client.GuiGraphicsMixin",
     "client.ItemInHandRendererMixin",
     "client.ItemRendererAccessor",

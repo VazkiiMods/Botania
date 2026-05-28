@@ -31,6 +31,7 @@ public final class ResourcesLib {
 	public static final String GUI_FLOWER_BAG = PREFIX_GUI + "flower_bag.png";
 	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "bauble_box.png";
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hud_icons.png";
+	public static final String GUI_DOG = PREFIX_GUI + "dog.png";
 
 	public static final String MODEL_PYLON_MANA = PREFIX_MODEL + "pylon_mana.png";
 	public static final String MODEL_PYLON_NATURA = PREFIX_MODEL + "pylon_natura.png";
