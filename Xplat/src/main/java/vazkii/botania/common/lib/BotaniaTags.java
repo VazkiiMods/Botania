@@ -373,6 +373,11 @@ public class BotaniaTags {
 		public static final TagKey<EntityType<?>> DRUM_NO_SHEARING = tag("drum/no_shearing");
 
 		/**
+		 * Mobs in this tag are immune to the effect of the Charm of the Diva
+		 */
+		public static final TagKey<EntityType<?>> NOT_CHARMABLE = tag("not_charmable");
+
+		/**
 		 * Entities in this tag are immune to damage from the Key of the King's Law
 		 */
 		public static final TagKey<EntityType<?>> KEY_IMMUNE = tag("key_immune");

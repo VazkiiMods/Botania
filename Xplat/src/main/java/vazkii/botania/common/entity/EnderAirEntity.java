@@ -11,11 +11,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -42,7 +38,8 @@ public class EnderAirEntity extends Entity {
 				double x = this.getX() + random.nextDouble();
 				double y = this.getY() + random.nextDouble();
 				double z = this.getZ() + random.nextDouble();
-				level().addAlwaysVisibleParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, r, g, b), x, y, z, r, g, b); //Todo why are the rgb values used for the particle speed?
+				level().addAlwaysVisibleParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, r, g, b),
+						x, y, z, 0, 0, 0);
 			}
 		}
 	}
@@ -60,8 +57,4 @@ public class EnderAirEntity extends Entity {
 		tag.putInt(TAG_AGE, tickCount);
 	}
 
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-		return new ClientboundAddEntityPacket(this, entity);
-	}
 }

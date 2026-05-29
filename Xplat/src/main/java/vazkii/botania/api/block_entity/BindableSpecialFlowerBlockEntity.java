@@ -110,7 +110,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 		long limitSquared = (long) rangeLimit * rangeLimit;
 		BlockPos closestPos = null;
 
-		// TODO: if we get around to doing data fixers, using POIs for this would be even more efficient
+		// POIs might be an even more efficient option for this, but there can only be one POI type per block state
 		List<ChunkPos> chunkPosList = ChunkPos.rangeClosed(
 				new ChunkPos(center.offset(-rangeLimit, 0, -rangeLimit)),
 				new ChunkPos(center.offset(rangeLimit, 0, rangeLimit))

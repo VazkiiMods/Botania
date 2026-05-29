@@ -89,7 +89,6 @@ public class AstrolabeItem extends Item {
 				int size = getSize(stack);
 				int newSize = size == 11 ? 3 : size + 2;
 				setSize(stack, newSize);
-				// TODO: should not format number server-side; maybe just send translation key and count?
 				ItemsRemainingRenderHandler.send(playerIn, stack, 0, Component.translatable("botaniamisc.astrolabe.size", newSize));
 			}
 

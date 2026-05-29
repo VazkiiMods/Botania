@@ -17,6 +17,7 @@ import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.item.BotaniaItems;
@@ -56,7 +57,8 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
 		if (pickupInEnd(world, blockpos) || EnderAirItem.pickupFromEntity(world, new AABB(blockpos))) {
 			this.setSuccess(true);
-			return this.defaultBehaviour.consumeWithRemainder(source, stack, new ItemStack(BotaniaItems.enderAirBottle)); //todo I hope this works
+			world.gameEvent(null, GameEvent.FLUID_PICKUP, source.pos());
+			return this.defaultBehaviour.consumeWithRemainder(source, stack, new ItemStack(BotaniaItems.enderAirBottle));
 		}
 		this.setSuccess(false);
 		return parent.dispense(source, stack);
