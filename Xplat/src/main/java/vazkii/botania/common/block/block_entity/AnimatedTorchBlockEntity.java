@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
@@ -35,7 +36,7 @@ import vazkii.botania.api.state.enums.TorchMode;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.AnimatedTorchBlock;
 
-public class AnimatedTorchBlockEntity extends BlockEntity implements ManaTrigger, Wandable {
+public class AnimatedTorchBlockEntity extends BlockEntity implements ManaTrigger, Wandable, HourglassTrigger {
 	private static final int EVENT_TRIGGER_ROTATE = 0;
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
 	public static final int ROTATION_TICKS = 4;
@@ -119,6 +120,11 @@ public class AnimatedTorchBlockEntity extends BlockEntity implements ManaTrigger
 				Block.UPDATE_ALL
 		);
 		return true;
+	}
+
+	@Override
+	public void onTriggeredByHourglass(BlockEntity hourglass) {
+		toggle();
 	}
 
 	public static class WandHud implements WandHUD {

@@ -381,10 +381,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		});
 
 		BlockApiLookup<HourglassTrigger, Unit> hourglassTriggerBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(HourglassTrigger.LOOKUP);
-		hourglassTriggerBlockLookup.registerForBlockEntities((be, c) -> {
-			var torch = (AnimatedTorchBlockEntity) be;
-			return hourglass -> torch.toggle();
-		}, BotaniaBlockEntities.ANIMATED_TORCH);
+		hourglassTriggerBlockLookup.registerSelf(BotaniaBlockEntities.ANIMATED_TORCH);
 
 		BlockApiLookup<ManaCollisionGhost, Unit> manaCollisionGhostBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ManaCollisionGhost.LOOKUP);
 		manaCollisionGhostBlockLookup.registerForBlocks(

@@ -577,7 +577,7 @@ public class ForgeCommonInitializer {
 		BlockCapability<HourglassTrigger, Void> hourglassTriggerBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(HourglassTrigger.LOOKUP);
 		e.registerBlockEntity(hourglassTriggerBlockCap, BotaniaBlockEntities.ANIMATED_TORCH,
-				(torchBlockEntity, context) -> hourglass -> torchBlockEntity.toggle());
+				(torchBlockEntity, context) -> torchBlockEntity);
 
 		// TODO: ManaCollisionGhost feels like it could be represented by two tags for fully-ignored and trigger-only blocks, respectively
 		BlockCapability<ManaCollisionGhost, Void> manaCollisionGhostBlockCap =
