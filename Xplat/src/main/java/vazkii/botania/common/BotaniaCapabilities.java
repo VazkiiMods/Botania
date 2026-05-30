@@ -16,6 +16,7 @@ import vazkii.botania.api.capability.ItemApiWithContext;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
+import vazkii.botania.api.item.HourglassMaterial;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaItem;
@@ -29,6 +30,7 @@ public final class BotaniaCapabilities {
 		registration.register(AvatarWieldable.LOOKUP);
 		registration.register(BlockProvider.LOOKUP);
 		registration.register(CoordBoundItem.LOOKUP);
+		registration.register(HourglassMaterial.LOOKUP);
 		registration.register(ManaItem.LOOKUP);
 		registration.register(Relic.LOOKUP);
 

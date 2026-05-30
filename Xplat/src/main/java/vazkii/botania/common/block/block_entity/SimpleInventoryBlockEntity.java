@@ -22,9 +22,11 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,6 +45,16 @@ public abstract class SimpleInventoryBlockEntity extends BlockEntity implements 
 		super(type, pos, state);
 		this.synchronize = synchronize;
 		itemHandler.addListener(i -> setChanged());
+	}
+
+	// [VanillaCopy] Containers::dropContentsOnDestroy, except for SimpleInventoryBlockEntity instead of Container
+	public static void dropContentsOnDestroy(BlockState state, BlockState newState, Level level, BlockPos pos) {
+		if (!state.is(newState.getBlock())) {
+			if (level.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity simpleInventory) {
+				Containers.dropContents(level, pos, simpleInventory.getItemHandler());
+				level.updateNeighbourForOutputSignal(pos, state.getBlock());
+			}
+		}
 	}
 
 	private static void copyToInv(NonNullList<ItemStack> src, Container dest) {

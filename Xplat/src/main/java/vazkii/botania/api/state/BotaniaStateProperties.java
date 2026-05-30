@@ -42,8 +42,9 @@ public final class BotaniaStateProperties {
 	// ManaSpreaderBlock
 	public static final BooleanProperty HAS_SCAFFOLDING = BooleanProperty.create("has_scaffolding");
 
-	// LifeImbuerBlock, ManaPumpBlock
+	// LifeImbuerBlock, ManaPumpBlock, Hourglass
 	public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+	public static final BooleanProperty FLIPPED = BooleanProperty.create("flipped");
 
 	// SpreaderTurntableBlock
 	public static final BooleanProperty BACKWARDS = BooleanProperty.create("backwards");

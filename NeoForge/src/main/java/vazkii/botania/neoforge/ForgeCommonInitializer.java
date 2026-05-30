@@ -79,6 +79,7 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
+import vazkii.botania.api.item.HourglassMaterial;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
@@ -501,6 +502,13 @@ public class ForgeCommonInitializer {
 			BotaniaItems.dreamwoodWand, WandOfTheForestItem.CoordBoundItemImpl::new
 	));
 
+	private static final Supplier<Map<Item, Function<ItemStack, HourglassMaterial>>> HOURGLASS_MATERIAL = Suppliers.memoize(() -> Map.of(
+			Items.SAND, s -> HourglassMaterial.SAND,
+			Items.RED_SAND, s -> HourglassMaterial.RED_SAND,
+			Items.SOUL_SAND, s -> HourglassMaterial.SOUL_SAND,
+			BotaniaItems.manaPowder, s -> HourglassMaterial.MANA_POWDER
+	));
+
 	private static final Supplier<Map<Item, Function<ItemStack, ManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
 			BotaniaItems.manaMirror, DefaultManaItemImpl::new,
 			BotaniaItems.manaRing, DefaultManaItemImpl::new,
@@ -546,6 +554,7 @@ public class ForgeCommonInitializer {
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP), HOURGLASS_MATERIAL.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(ManaItem.LOOKUP), MANA_ITEM.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(Relic.LOOKUP), RELIC.get());
 	}

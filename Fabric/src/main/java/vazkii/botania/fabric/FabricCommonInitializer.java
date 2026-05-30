@@ -81,6 +81,7 @@ import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
+import vazkii.botania.api.item.HourglassMaterial;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaItem;
@@ -351,6 +352,12 @@ public class FabricCommonInitializer implements ModInitializer {
 		coordBoundItemLookup.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.manaMirror);
 		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.twigWand);
 		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.dreamwoodWand);
+
+		ItemApiLookup<HourglassMaterial, Unit> hourglassMaterialLookup = BotaniaFabricCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP);
+		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.SAND, Items.SAND);
+		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.RED_SAND, Items.RED_SAND);
+		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.SOUL_SAND, Items.SOUL_SAND);
+		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.MANA_POWDER, BotaniaItems.manaPowder);
 
 		ItemApiLookup<ManaItem, Unit> manaItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(ManaItem.LOOKUP);
 		manaItemLookup.registerForItems((st, c) -> new DefaultManaItemImpl(st),

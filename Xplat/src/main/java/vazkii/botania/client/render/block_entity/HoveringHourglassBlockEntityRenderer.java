@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -24,12 +24,17 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.HourglassModel;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.HoveringHourglassBlock;
 import vazkii.botania.common.block.block_entity.HoveringHourglassBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Random;
 
 public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer<HoveringHourglassBlockEntity> {
+	private static final double ANIM_HORIZONTAL_TICK_SCALE = 0.05;
+	private static final double ANIM_VERTICAL_TICK_SCALE = 0.04;
+	private static final double ANIM_TICK_CYCLE = 2 * Math.PI / ANIM_HORIZONTAL_TICK_SCALE / ANIM_VERTICAL_TICK_SCALE;
 
 	final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_HOURGLASS);
 	private final HourglassModel model;
@@ -41,36 +46,54 @@ public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer
 	@Override
 	public void render(@Nullable HoveringHourglassBlockEntity hourglass, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
-		boolean hasWorld = hourglass != null && hourglass.getLevel() != null;
-		int wtime = !hasWorld ? 0 : ClientTickHandler.getEntityTicksInGame();
-		if (wtime != 0) {
-			wtime += new Random(hourglass.getBlockPos().hashCode()).nextInt(360);
+
+		Level level = hourglass != null ? hourglass.getLevel() : null;
+		BlockState state = hourglass != null ? hourglass.getBlockState() : BotaniaBlocks.hourglass.defaultBlockState();
+		double time = level == null
+				? 0
+				: ClientTickHandler.getEntityTicksInGame() % ANIM_TICK_CYCLE
+						+ partialTick
+						+ new Random(state.getSeed(hourglass.getBlockPos())).nextDouble(ANIM_TICK_CYCLE);
+		boolean flipped = state.getValue(HoveringHourglassBlock.FLIPPED);
+
+		double xt = 0.5 + Math.cos(time * ANIM_HORIZONTAL_TICK_SCALE) * 0.025;
+		double yt = 0.55 + Math.sin(time * ANIM_VERTICAL_TICK_SCALE) * 0.05;
+		double zt = 0.5 + Math.sin(time * ANIM_HORIZONTAL_TICK_SCALE) * 0.025;
+		ms.translate(xt, yt, zt);
+
+		if (level != null) {
+			float targetRotation = flipped ? 180 : 0;
+			if (hourglass.lastRotation == -1) {
+				// clientside rotation was not initialized yet
+				hourglass.lastRotation = targetRotation;
+				hourglass.rotation = targetRotation;
+			} else if (hourglass.rotation != targetRotation) {
+				float rotationDiff = targetRotation - hourglass.lastRotation;
+				float rotationProgress = Math.clamp(
+						((level.getGameTime() - hourglass.rotationStartTime) + partialTick)
+								/ HoveringHourglassBlockEntity.FLIP_TICKS,
+						0, 1);
+				if (rotationProgress >= 1) {
+					hourglass.lastRotation = targetRotation;
+					hourglass.rotation = targetRotation;
+				} else {
+					hourglass.rotation = hourglass.lastRotation + rotationProgress * rotationDiff;
+				}
+			}
+			ms.mulPose(VecHelper.rotateZ(hourglass.rotation));
 		}
 
-		float time = wtime == 0 ? 0 : wtime + partialTick;
-		float x = 0.5F + (float) Math.cos(time * 0.05F) * 0.025F;
-		float y = 0.55F + (float) (Math.sin(time * 0.04F) + 1F) * 0.05F;
-		float z = 0.5F + (float) Math.sin(time * 0.05F) * 0.025F;
-		ItemStack stack = hasWorld ? hourglass.getItemHandler().getItem(0) : ItemStack.EMPTY;
+		boolean active = state.getValue(HoveringHourglassBlock.ACTIVE);
+		int totalTicks = hourglass != null ? hourglass.getTotalTime() : 0;
+		float currentTicks = hourglass != null ? Math.max(0, hourglass.getTime() - (active ? partialTick : 0)) : 0;
+		float bottomFraction = totalTicks > 0 ? currentTicks / totalTicks : 0;
+		float topFraction = totalTicks > 0 ? 1 - bottomFraction : 0;
 
-		float activeFraction = stack.isEmpty() ? 0 : hourglass.lastFraction + (hourglass.timeFraction - hourglass.lastFraction) * partialTick;
-		float fract1 = stack.isEmpty() ? 0 : activeFraction;
-		float fract2 = stack.isEmpty() ? 0 : 1F - activeFraction;
-		ms.translate(x, y, z);
-
-		float rot = hasWorld && hourglass.flip ? 180F : 1F;
-		if (hasWorld && hourglass.flipTicks > 0) {
-			rot += (hourglass.flipTicks - partialTick) * (180F / 4F);
-		}
-		ms.mulPose(VecHelper.rotateZ(rot));
+		int color = hourglass != null ? hourglass.getColor() : 0;
 
 		ms.scale(1F, -1F, -1F);
-		int color = hasWorld ? hourglass.getColor() : 0;
-		float r = (color >> 16) / 255.0F;
-		float g = (color >> 8) / 255.0F;
-		float b = (color & 0xFF) / 255.0F;
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
-		model.render(ms, buffer, light, overlay, FastColor.ARGB32.colorFromFloat(1.0F, r, g, b), fract1, fract2, hasWorld && hourglass.flip);
+		model.render(ms, buffer, light, overlay, color | 0xFF000000, topFraction, bottomFraction, flipped);
 		ms.popPose();
 	}
 

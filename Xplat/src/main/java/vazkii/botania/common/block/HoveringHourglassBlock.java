@@ -12,9 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,12 +31,16 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.item.HourglassMaterial;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.HoveringHourglassBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
@@ -44,12 +49,38 @@ import vazkii.botania.common.item.WandOfTheForestItem;
 import java.util.function.BiConsumer;
 
 public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+	/**
+	 * Whether the hourglass is currently emitting a redstone signal.
+	 */
+	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+	/**
+	 * Whether the hourglass is generally enabled, i.e. will run when it contains sand.
+	 * (Toggled by mana burst hits unless containing a counter material.)
+	 */
+	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
+	/**
+	 * Whether the hourglass is currently running, i.e. enabled and containing a non-counter material.
+	 */
+	public static final BooleanProperty ACTIVE = BotaniaStateProperties.ACTIVE;
+	/**
+	 * Whether the hourglass's content is currently locked for player interactions.
+	 */
+	public static final BooleanProperty LOCKED = BlockStateProperties.LOCKED;
+	/**
+	 * Whether the hourglass is currently flipped upside down.
+	 */
+	public static final BooleanProperty FLIPPED = BotaniaStateProperties.FLIPPED;
 
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 18.4, 12);
 
 	protected HoveringHourglassBlock(Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+		registerDefaultState(defaultBlockState()
+				.setValue(POWERED, false)
+				.setValue(ENABLED, true)
+				.setValue(ACTIVE, false)
+				.setValue(LOCKED, false)
+				.setValue(FLIPPED, false));
 	}
 
 	@Override
@@ -60,35 +91,75 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BlockStateProperties.POWERED);
+		builder.add(POWERED).add(ENABLED).add(ACTIVE).add(LOCKED).add(FLIPPED);
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		HoveringHourglassBlockEntity hourglass = world.getBlockEntity(pos, BotaniaBlockEntities.HOURGLASS).orElseThrow();
-		ItemStack hgStack = hourglass.getItemHandler().getItem(0);
-		if (!stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+			Player player, InteractionHand hand, BlockHitResult hit) {
+		// implementation is inspired by ChiseledBookShelfBlock::useItemOn
+
+		if (stack.getItem() instanceof WandOfTheForestItem
+				|| !(level.getBlockEntity(pos) instanceof HoveringHourglassBlockEntity hourglass)) {
+			// player has wand or this block's entity data is invalid, so skip useWithoutItem
+			return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
 		}
 
-		if (hourglass.lock) {
-			if (!player.level().isClientSide() && hand == InteractionHand.OFF_HAND) {
+		boolean locked = state.getValue(LOCKED);
+		boolean canRemove = !hourglass.getContents().isEmpty();
+		boolean canInsert = HourglassMaterial.LOOKUP.find(stack) != null;
+		if (locked || canRemove || !canInsert) {
+			// hourglass is locked, already filled, or the item is not an hourglass material
+			return canRemove || locked && canInsert
+					// only show lock notice if trying to insert or remove material
+					? ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+					: ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+		}
+
+		// put the material into the hourglass
+		if (!level.isClientSide()) {
+			player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+			hourglass.setContents(stack.consumeAndReturn(stack.getCount(), player));
+			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+		}
+
+		return ItemInteractionResult.sidedSuccess(level.isClientSide());
+	}
+
+	@Override
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
+			BlockHitResult hitResult) {
+		// implementation is inspired by ChiseledBookShelfBlock::useWithoutItem
+
+		if (!(level.getBlockEntity(pos) instanceof HoveringHourglassBlockEntity hourglass)) {
+			// this block's entity data is invalid
+			return InteractionResult.PASS;
+		}
+
+		// we already know the player is not using a Wand of the Forest, so the interaction will be consumed
+
+		if (state.getValue(LOCKED)) {
+			if (level.isClientSide()) {
 				player.displayClientMessage(Component.translatable("botaniamisc.hourglassLock"), true);
 			}
-			return ItemInteractionResult.FAIL;
+			// There's BS going on in the server code. "Fail" doesn't prevent the item itself from being used/placed.
+			return InteractionResult.CONSUME_PARTIAL;
 		}
 
-		if (hgStack.isEmpty() && HoveringHourglassBlockEntity.getStackItemTime(stack) > 0) {
-			hourglass.getItemHandler().setItem(0, stack.copy());
-			stack.setCount(0);
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
-		} else if (!hgStack.isEmpty()) {
-			player.getInventory().placeItemBackInInventory(hgStack);
-			hourglass.getItemHandler().setItem(0, ItemStack.EMPTY);
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		ItemStack hourglassStack = hourglass.getContents();
+		if (hourglassStack.isEmpty()) {
+			return InteractionResult.CONSUME;
 		}
 
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		// remove material from the hourglass
+		if (!level.isClientSide()) {
+			hourglass.setContents(ItemStack.EMPTY);
+			if (!player.addItem(hourglassStack)) {
+				player.drop(hourglassStack, false);
+			}
+			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+		}
+		return InteractionResult.sidedSuccess(level.isClientSide());
 	}
 
 	@Override
@@ -109,13 +180,19 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!state.is(newState.getBlock())) {
-			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
-				Containers.dropContents(world, pos, inventory.getItemHandler());
-			}
-			super.onRemove(state, world, pos, newState, isMoving);
+	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+		// ensure hourglass doesn't stay powered forever if it doesn't have a scheduled tick to turn itself off
+		if (!level.isClientSide() && !state.is(oldState.getBlock()) && state.getValue(POWERED)
+				&& !level.getBlockTicks().hasScheduledTick(pos, this)) {
+			level.setBlock(pos, state.setValue(POWERED, false), Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
+			level.updateNeighborsAt(pos, state.getBlock());
 		}
+	}
+
+	@Override
+	protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+		SimpleInventoryBlockEntity.dropContentsOnDestroy(state, newState, level, pos);
+		super.onRemove(state, level, pos, newState, isMoving);
 	}
 
 	@Override
@@ -131,7 +208,9 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.HOURGLASS, HoveringHourglassBlockEntity::commonTick);
+		return state.getValue(ACTIVE)
+				? createTickerHelper(type, BotaniaBlockEntities.HOURGLASS, HoveringHourglassBlockEntity::commonTick)
+				: null;
 	}
 
 	@Override
