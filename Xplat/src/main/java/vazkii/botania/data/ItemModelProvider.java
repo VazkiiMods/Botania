@@ -55,6 +55,7 @@ import vazkii.botania.data.util.OverrideHolder;
 import vazkii.botania.data.util.SimpleModelSupplierWithOverrides;
 import vazkii.botania.mixin.TextureSlotAccessor;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -464,11 +465,14 @@ public class ItemModelProvider implements DataProvider {
 
 		takeAll(itemBlocks, BotaniaBlocks.avatar.asItem(), BotaniaBlocks.bellows.asItem(),
 				BotaniaBlocks.brewery.asItem(), BotaniaBlocks.corporeaIndex.asItem(), BotaniaBlocks.gaiaPylon.asItem(),
-				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), BotaniaBlocks.naturaPylon.asItem())
+				BotaniaBlocks.manaPylon.asItem(), BotaniaBlocks.naturaPylon.asItem())
 				.forEach(i -> builtinEntity(i, consumer));
 
+		takeAll(itemBlocks, BotaniaBlocks.hourglass.asItem())
+				.forEach(i -> builtinEntity(i, consumer, 1.375));
+
 		takeAll(itemBlocks, BotaniaBlocks.teruTeruBozu.asItem())
-				.forEach(i -> builtinEntity(i, consumer, 2.5));
+				.forEach(i -> builtinEntity(i, consumer, 1.0, 2.5));
 
 		Predicate<BlockItem> defaultGeneratedItem = i -> i instanceof MysticalPetalItem
 				|| i instanceof SignItem
@@ -550,20 +554,32 @@ public class ItemModelProvider implements DataProvider {
 					}""";
 	private static final JsonElement BUILTIN_ENTITY_DISPLAY = new Gson().fromJson(BUILTIN_ENTITY_DISPLAY_STR, JsonElement.class);
 
-	protected void builtinEntity(Item i, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
-		builtinEntity(i, consumer, 0.0);
+	protected void builtinEntity(Item item, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
+		builtinEntity(item, consumer, 1.0);
 	}
 
-	protected void builtinEntity(Item i, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer, double handYOffset) {
+	protected void builtinEntity(Item item, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer, double scale) {
+		builtinEntity(item, consumer, scale, 0.0);
+	}
+
+	protected void builtinEntity(Item item, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer, double scale, double handYOffset) {
 		final JsonElement display;
-		if (handYOffset == 0.0) {
+		if (handYOffset == 0.0 && scale == 1.0) {
 			display = BUILTIN_ENTITY_DISPLAY;
 		} else {
 			display = BUILTIN_ENTITY_DISPLAY.deepCopy();
-			display.getAsJsonObject().getAsJsonObject("firstperson_righthand")
+			JsonObject displayObject = display.getAsJsonObject();
+			var scaleDecimal = new BigDecimal(String.valueOf(scale));
+			displayObject.keySet().forEach(key -> {
+				var array = displayObject.getAsJsonObject(key).getAsJsonArray("scale");
+				for (int i = 0; i < array.size(); i++) {
+					array.set(i, new JsonPrimitive(new BigDecimal(array.get(i).toString()).multiply(scaleDecimal).stripTrailingZeros()));
+				}
+			});
+			displayObject.getAsJsonObject("firstperson_righthand")
 					.getAsJsonArray("translation").set(1, new JsonPrimitive(handYOffset));
 		}
-		consumer.accept(ModelLocationUtils.getModelLocation(i), () -> {
+		consumer.accept(ModelLocationUtils.getModelLocation(item), () -> {
 			JsonObject json = new JsonObject();
 			json.addProperty("parent", "minecraft:builtin/entity");
 			json.add("display", display);
