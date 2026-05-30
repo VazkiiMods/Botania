@@ -10,15 +10,12 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
 
 public abstract class BotaniaEmiRecipe implements EmiRecipe {
 	private final EmiRecipeCategory category;
 	private final ResourceLocation id;
 	protected List<EmiIngredient> input = List.of();
-	protected List<EmiIngredient> catalysts = List.of();
 	protected List<EmiStack> output = List.of();
 	private final String group;
 
@@ -34,18 +31,13 @@ public abstract class BotaniaEmiRecipe implements EmiRecipe {
 	}
 
 	@Override
-	public @Nullable ResourceLocation getId() {
+	public ResourceLocation getId() {
 		return id;
 	}
 
 	@Override
 	public List<EmiIngredient> getInputs() {
 		return input;
-	}
-
-	@Override
-	public List<EmiIngredient> getCatalysts() {
-		return catalysts;
 	}
 
 	@Override

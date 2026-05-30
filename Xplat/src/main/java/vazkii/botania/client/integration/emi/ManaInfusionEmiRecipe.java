@@ -23,6 +23,7 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/pure_daisy_overlay.png");
 	private static final EmiStack POOL;
 	private final int mana;
+	private final EmiIngredient catalyst;
 
 	static {
 		ItemStack stack = new ItemStack(BotaniaBlocks.manaPool);
@@ -34,11 +35,18 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 		super(BotaniaEmiPlugin.MANA_INFUSION, recipe);
 		this.input = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
 		if (recipe.value().getRecipeCatalyst() != StateIngredients.NONE) {
-			this.catalysts = List.of(EmiIngredient.of(recipe.value().getRecipeCatalyst().getDisplayed().stream()
-					.map(s -> EmiStack.of(s.getBlock())).toList()));
+			this.catalyst = EmiIngredient.of(recipe.value().getRecipeCatalyst().getDisplayed().stream()
+					.map(s -> EmiStack.of(s.getBlock())).toList());
+		} else {
+			this.catalyst = EmiStack.EMPTY;
 		}
 		this.output = List.of(EmiStack.of(recipe.value().getResultItem(getRegistryAccess())));
 		mana = recipe.value().getManaToConsume();
+	}
+
+	@Override
+	public List<EmiIngredient> getCatalysts() {
+		return this.catalyst.isEmpty() ? List.of() : List.of(this.catalyst);
 	}
 
 	@Override
@@ -57,8 +65,8 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 		widgets.add(new ManaWidget(7, 50, mana, ManaPoolBlock.MAX_MANA / 10));
 		widgets.addSlot(input.getFirst(), 21, 13).drawBack(false);
 		widgets.addSlot(POOL, 50, 13).catalyst(true).drawBack(false);
-		if (!catalysts.isEmpty()) {
-			widgets.addSlot(catalysts.getFirst(), 0, 13).catalyst(true).drawBack(false);
+		if (!catalyst.isEmpty()) {
+			widgets.addSlot(catalyst, 0, 13).catalyst(true).drawBack(false);
 		}
 		widgets.addSlot(output.getFirst(), 79, 13).drawBack(false).recipeContext(this);
 	}

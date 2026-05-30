@@ -27,6 +27,7 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	public static final int POS_X_REAGENTS = CENTER_X;
 	public static final int POS_Y_REAGENTS = 30;
 	private final List<EmiIngredient> ingredients;
+	private final List<EmiIngredient> catalysts;
 	private final EmiIngredient reagent;
 	private final int mana;
 
@@ -34,12 +35,12 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 		super(BotaniaEmiPlugin.RUNIC_ALTAR, recipe);
 		this.ingredients = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
 		this.catalysts = recipe.value().getCatalysts().stream().map(EmiIngredient::of).toList();
-		this.catalysts.forEach(catalysts -> catalysts.getEmiStacks().forEach(stack -> stack.setRemainder(stack)));
+		this.catalysts.forEach(catalyst -> catalyst.getEmiStacks().forEach(stack -> stack.setRemainder(stack)));
 		this.reagent = EmiIngredient.of(recipe.value().getReagent());
 		ArrayList<EmiIngredient> inputList = new ArrayList<>(ingredients.size() + catalysts.size() + 1);
-		inputList.addAll(ingredients);
-		inputList.addAll(catalysts);
-		inputList.add(reagent);
+		inputList.addAll(this.catalysts);
+		inputList.addAll(this.ingredients);
+		inputList.add(this.reagent);
 		this.input = List.copyOf(inputList);
 		this.output = List.of(EmiStack.of(recipe.value().getResultItem(getRegistryAccess())));
 		this.mana = recipe.value().getMana();

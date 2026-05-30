@@ -9,8 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 
 import java.util.List;
@@ -36,7 +34,7 @@ public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 	}
 
 	@Override
-	public @Nullable ResourceLocation getId() {
+	public ResourceLocation getId() {
 		return syntheticId;
 	}
 
