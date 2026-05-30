@@ -12,8 +12,8 @@ import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -33,9 +33,14 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	public RunicAltarEmiRecipe(RecipeHolder<? extends RunicAltarRecipe> recipe) {
 		super(BotaniaEmiPlugin.RUNIC_ALTAR, recipe);
 		this.ingredients = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
-		this.reagent = EmiIngredient.of(recipe.value().getReagent());
-		this.input = Stream.concat(ingredients.stream(), Stream.of(reagent)).toList();
 		this.catalysts = recipe.value().getCatalysts().stream().map(EmiIngredient::of).toList();
+		this.catalysts.forEach(catalysts -> catalysts.getEmiStacks().forEach(stack -> stack.setRemainder(stack)));
+		this.reagent = EmiIngredient.of(recipe.value().getReagent());
+		ArrayList<EmiIngredient> inputList = new ArrayList<>(ingredients.size() + catalysts.size() + 1);
+		inputList.addAll(ingredients);
+		inputList.addAll(catalysts);
+		inputList.add(reagent);
+		this.input = List.copyOf(inputList);
 		this.output = List.of(EmiStack.of(recipe.value().getResultItem(getRegistryAccess())));
 		this.mana = recipe.value().getMana();
 	}
