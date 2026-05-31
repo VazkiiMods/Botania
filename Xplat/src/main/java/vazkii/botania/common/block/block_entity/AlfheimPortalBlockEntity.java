@@ -53,6 +53,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.api.state.BotaniaStateProperties;
@@ -202,7 +203,7 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 					}
 
 					ItemStack stack = item.getItem();
-					if (XplatAbstractions.instance().isItemSource(item, ItemSources.ALFHEIM_PORTAL)) {
+					if (ItemSource.HOLDER.getFor(item) == ItemSources.ALFHEIM_PORTAL) {
 						continue;
 					}
 
@@ -398,7 +399,7 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 
 	private void spawnItem(ItemStack stack, boolean returnedItem) {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, stack);
-		XplatAbstractions.instance().setItemSource(item, ItemSources.ALFHEIM_PORTAL);
+		ItemSource.HOLDER.setFor(item, ItemSources.ALFHEIM_PORTAL);
 		// probably can't easily associate this with a player for tracking stats
 		if (!returnedItem) {
 			stack.onCraftedBySystem(level);

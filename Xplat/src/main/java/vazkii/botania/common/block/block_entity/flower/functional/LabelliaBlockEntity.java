@@ -28,9 +28,9 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 				MathHelper.inflateBoxAround(realPos, PICKUP_RANGE, 0),
 				item -> item.getItem().is(Items.NAME_TAG)
 						&& item.getItem().has(DataComponents.CUSTOM_NAME)
-						&& DelayHelper.canInteractWith(this, item))) {
+						&& ItemLifetime.canInteractWith(this, item))) {
 			ItemStack nameTag = nameTagEnt.getItem();
 			AABB renameArea = MathHelper.inflateBoxAround(effPos, RENAME_RANGE, 0);
 			Component name = nameTag.getHoverName();
@@ -70,7 +70,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 					EntitySelector.ENTITY_STILL_ALIVE.and(e -> !name.equals(e.getCustomName()) && !(e instanceof Player)));
 
 			List<ItemEntity> nameableItems = level.getEntitiesOfClass(ItemEntity.class, renameArea,
-					i -> DelayHelper.canInteractWith(this, i)
+					i -> ItemLifetime.canInteractWith(this, i)
 							&& i != nameTagEnt
 							&& !name.equals(i.getItem().getHoverName()));
 

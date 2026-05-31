@@ -37,8 +37,8 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -162,7 +162,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 
 		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class,
 				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
-				item -> DelayHelper.canInteractWithImmediate(this, item)
+				item -> ItemLifetime.canInteractWithImmediate(this, item)
 						&& item.getItem().getItem().components().has(DataComponents.FOOD));
 
 		for (ItemEntity item : items) {

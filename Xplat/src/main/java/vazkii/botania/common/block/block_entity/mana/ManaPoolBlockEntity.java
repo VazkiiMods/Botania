@@ -45,6 +45,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.ManaDissolvable;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
@@ -66,7 +67,6 @@ import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.ManaTabletItem;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,7 +167,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 			dissolvable.onDissolveTick(this, item);
 		}
 
-		if (XplatAbstractions.instance().isItemSource(item, ItemSources.MANA_INFUSION)) {
+		if (ItemSource.HOLDER.getFor(item) == ItemSources.MANA_INFUSION) {
 			return false;
 		}
 
@@ -183,7 +183,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				XplatAbstractions.instance().setItemSource(outputItem, ItemSources.MANA_INFUSION);
+				ItemSource.HOLDER.setFor(outputItem, ItemSources.MANA_INFUSION);
 				if (item.getOwner() instanceof Player player) {
 					player.triggerRecipeCrafted(recipe, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());

@@ -23,7 +23,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 
 public class OpenCrateBlockEntity extends ExposedSimpleInventoryBlockEntity {
 	public OpenCrateBlockEntity(BlockPos pos, BlockState state) {
@@ -64,7 +64,7 @@ public class OpenCrateBlockEntity extends ExposedSimpleInventoryBlockEntity {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, ejectY, worldPosition.getZ() + 0.5, stack);
 		item.setDeltaMovement(Vec3.ZERO);
 		if (redstone) {
-			XplatAbstractions.instance().setItemLifeTime(item, -200);
+			ItemLifetime.set(item, -200);
 		}
 
 		getItemHandler().setItem(0, ItemStack.EMPTY);

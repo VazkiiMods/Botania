@@ -31,6 +31,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.HopperhockFilterType;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.*;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -70,7 +71,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class,
 				MathHelper.inflateBoxAround(inPos, range),
-				DelayHelper.asPredicateFor(DelayHelper::canMove, this));
+				ItemLifetime.asPredicateFor(ItemLifetime::canMove, this));
 		if (items.isEmpty()) {
 			return;
 		}

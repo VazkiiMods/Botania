@@ -121,6 +121,7 @@ import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
+import vazkii.botania.common.internal_caps.BotaniaDataAttachments;
 import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
@@ -137,6 +138,7 @@ import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.corporea.FabricTransferCorporeaNodeDetector;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
+import vazkii.botania.fabric.internal_caps.FabricInternalEntityAttachments;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 import vazkii.botania.fabric.loot.LootHandler;
 import vazkii.botania.fabric.network.FabricPacketHandler;
@@ -326,6 +328,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
 	private void registerCapabilities() {
 		BotaniaCapabilities.registerCapabilities(BotaniaFabricCapabilities.getRegistration());
+		BotaniaDataAttachments.registerDataAttachments(FabricInternalEntityAttachments::register);
 
 		FluidStorage.ITEM.registerForItems((stack, context) -> new FullItemFluidStorage(context, Items.BOWL, FluidVariant.of(Fluids.WATER), FluidConstants.BLOCK),
 				BotaniaItems.waterBowl);

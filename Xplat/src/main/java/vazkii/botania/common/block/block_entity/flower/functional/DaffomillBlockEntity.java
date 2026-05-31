@@ -27,8 +27,8 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.NbtHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 
 import java.util.List;
 
@@ -67,7 +67,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 
 			if (axis != null) {
 				List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, axis,
-						itemEntity -> DelayHelper.canInteractWithImmediate(this, itemEntity));
+						itemEntity -> ItemLifetime.canInteractWithImmediate(this, itemEntity));
 				double v = 0.05;
 				for (ItemEntity item : items) {
 					item.setDeltaMovement(

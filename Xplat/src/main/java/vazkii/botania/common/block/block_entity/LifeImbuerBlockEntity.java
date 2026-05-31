@@ -24,7 +24,7 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.common.internal_caps.SlowDespawn;
 
 public class LifeImbuerBlockEntity extends BlockEntity implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
@@ -58,7 +58,7 @@ public class LifeImbuerBlockEntity extends BlockEntity implements ManaReceiver {
 			return;
 		}
 
-		XplatAbstractions.instance().flagAsSlowDespawn(mob);
+		SlowDespawn.MARKER.addFor(mob);
 	}
 
 	public boolean clientTickActive() {

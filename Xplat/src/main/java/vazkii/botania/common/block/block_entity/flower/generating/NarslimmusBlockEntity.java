@@ -10,20 +10,16 @@ package vazkii.botania.common.block.block_entity.flower.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.internal_caps.SlimeChunkSpawned;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
@@ -49,7 +45,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 
 		List<Slime> slimes = getLevel().getEntitiesOfClass(Slime.class,
 				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
-				slime -> slime.isAlive() && XplatAbstractions.instance().isSlimeChunkSpawned(slime));
+				slime -> slime.isAlive() && SlimeChunkSpawned.MARKER.existsFor(slime));
 		for (Slime slime : slimes) {
 			int size = slime.getSize();
 			if (!slime.level().isClientSide()) {
@@ -97,25 +93,4 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 	public int getColor() {
 		return 0x71C373;
 	}
-
-	public static void onSpawn(Entity entity) {
-		boolean slimeChunk = isSlimeChunk(entity.level(), entity.getX(), entity.getZ());
-		if (slimeChunk) {
-			entity.getSelfAndPassengers().forEach(e -> {
-				if (e instanceof Slime slime) {
-					XplatAbstractions.instance().flagAsSlimeChunkSpawned(slime);
-				}
-			});
-		}
-	}
-
-	private static boolean isSlimeChunk(Level world, double x, double z) {
-		return isSlimeChunk(world, BlockPos.containing(x, 0, z));
-	}
-
-	public static boolean isSlimeChunk(Level world, BlockPos pos) {
-		ChunkPos chunkpos = new ChunkPos(pos);
-		return WorldgenRandom.seedSlimeChunk(chunkpos.x, chunkpos.z, ((ServerLevel) world).getSeed(), 987234911L).nextInt(10) == 0;
-	}
-
 }

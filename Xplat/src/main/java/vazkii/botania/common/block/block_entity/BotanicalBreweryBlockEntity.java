@@ -34,6 +34,7 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.brew.BrewItem;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -46,7 +47,6 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.NbtHelper;
 import vazkii.botania.common.internal_caps.ItemSources;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Optional;
@@ -163,7 +163,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 					// probably can't easily associate this with a player
 					output.onCraftedBySystem(level);
 					ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-					XplatAbstractions.instance().setItemSource(outputItem, ItemSources.BOTANICAL_BREWERY);
+					ItemSource.HOLDER.setFor(outputItem, ItemSources.BOTANICAL_BREWERY);
 					level.addFreshEntity(outputItem);
 					level.blockEvent(worldPosition, BotaniaBlocks.brewery, CRAFT_EFFECT_EVENT, self.recipe.getBrew().getColor(output));
 
@@ -172,7 +172,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 							continue;
 						}
 						ItemEntity remainder = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, remainingStack);
-						XplatAbstractions.instance().setItemSource(remainder, ItemSources.BOTANICAL_BREWERY);
+						ItemSource.HOLDER.setFor(remainder, ItemSources.BOTANICAL_BREWERY);
 						level.addFreshEntity(remainder);
 					}
 

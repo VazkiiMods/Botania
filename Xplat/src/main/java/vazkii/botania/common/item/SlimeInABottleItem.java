@@ -13,9 +13,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.block.block_entity.flower.generating.NarslimmusBlockEntity;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DataComponentHelper;
+import vazkii.botania.common.internal_caps.SlimeChunkSpawned;
 
 public class SlimeInABottleItem extends Item {
 
@@ -26,7 +26,7 @@ public class SlimeInABottleItem extends Item {
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
 		if (!level.isClientSide()) {
-			boolean slime = NarslimmusBlockEntity.isSlimeChunk(level, entity.blockPosition());
+			boolean slime = SlimeChunkSpawned.isSlimeChunk(level, entity.blockPosition());
 			DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE_TRANSIENT, slime);
 		}
 	}

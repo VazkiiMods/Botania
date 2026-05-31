@@ -62,9 +62,10 @@ import vazkii.botania.api.configdata.MobSpawnData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.BotaniaMonsterTeam;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.internal_caps.LooniumDrop;
+import vazkii.botania.common.internal_caps.SlowDespawn;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -220,8 +221,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 		applyAttributesAndEffects(pickedMobType, pickedConfig, mob);
 
-		XplatAbstractions.instance().flagAsSlowDespawn(mob);
-		XplatAbstractions.instance().setLooniumDrop(mob, lootStack);
+		SlowDespawn.MARKER.addFor(mob);
+		LooniumDrop.HOLDER.setFor(mob, new LooniumDrop(lootStack));
 
 		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.SPAWNER, null);
 		equipSpawnedMob(world, pickedMobType, mob);
@@ -253,8 +254,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 					bonusLoot = ItemStack.EMPTY;
 				}
 
-				XplatAbstractions.instance().flagAsSlowDespawn(otherMob);
-				XplatAbstractions.instance().setLooniumDrop(otherMob, bonusLoot);
+				SlowDespawn.MARKER.addFor(otherMob);
+				LooniumDrop.HOLDER.setFor(otherMob, new LooniumDrop(bonusLoot));
 			}
 		});
 
@@ -547,9 +548,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static void dropLooniumItems(LivingEntity living, Consumer<ItemStack> consumer) {
 		@Nullable
-		ItemStack stack = XplatAbstractions.instance().getLooniumDrop(living);
-		if (stack != null) {
-			consumer.accept(stack);
+		LooniumDrop drop = LooniumDrop.HOLDER.getFor(living);
+		if (drop != null) {
+			consumer.accept(drop.stack());
 		}
 	}
 

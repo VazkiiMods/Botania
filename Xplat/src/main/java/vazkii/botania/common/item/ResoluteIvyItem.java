@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.common.internal_caps.KeptItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +39,12 @@ public class ResoluteIvyItem extends Item {
 			}
 		}
 
-		XplatAbstractions.instance().setKeptItems(player, keeps);
+		KeptItems.HOLDER.setFor(player, List.copyOf(keeps));
 	}
 
 	public static void onPlayerRespawn(Player oldPlayer, Player newPlayer, boolean alive) {
 		if (!alive) {
-			List<ItemStack> keeps = XplatAbstractions.instance().getKeptItems(oldPlayer);
+			List<ItemStack> keeps = KeptItems.HOLDER.getOrDefault(oldPlayer, List::of);
 
 			for (ItemStack stack : keeps) {
 				ItemStack copy = stack.copy();

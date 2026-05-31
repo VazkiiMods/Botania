@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.common.internal_caps.SlowDespawn;
 
 @Mixin(Mob.class)
 public class MobMixin {
@@ -30,7 +30,7 @@ public class MobMixin {
 	)
 	private double reduceDistToNearestPlayer(double distToNearestPlayerSquared) {
 		Mob thisMob = (Mob) (Object) this;
-		if (XplatAbstractions.instance().isSlowDespawn(thisMob)) {
+		if (SlowDespawn.MARKER.existsFor(thisMob)) {
 			double justUnderDespawnDistance = thisMob.getType().getCategory().getDespawnDistance() - 1;
 			return Math.min(justUnderDespawnDistance * justUnderDespawnDistance, distToNearestPlayerSquared);
 		}

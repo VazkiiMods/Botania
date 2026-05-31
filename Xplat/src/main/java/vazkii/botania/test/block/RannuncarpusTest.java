@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.SeaPickleBlock;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.block.block_entity.flower.functional.RannuncarpusBlockEntity;
-import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.test.TestingUtil;
 
 public class RannuncarpusTest {
@@ -46,9 +46,10 @@ public class RannuncarpusTest {
 			helper.killAllEntities();
 			helper.setBlock(FILTERED_POS, Blocks.POLISHED_ANDESITE);
 			helper.spawnItem(Blocks.STONE.asItem(), FLOWER_POS.getX(), FLOWER_POS.getY() + 1, FLOWER_POS.getZ());
-		}).thenExecuteFor(DelayHelper.FUNCTIONAL_INHERENT_DELAY + 1, () -> {
-			helper.assertBlockNotPresent(Blocks.STONE, EXPECTED_PLACE_POS);
-		}).thenSucceed();
+		}).thenExecuteFor(
+				ItemLifetime.FUNCTIONAL_INHERENT_DELAY + 1, () -> {
+					helper.assertBlockNotPresent(Blocks.STONE, EXPECTED_PLACE_POS);
+				}).thenSucceed();
 	}
 
 	@GameTest(template = TEMPLATE)
@@ -68,16 +69,17 @@ public class RannuncarpusTest {
 			var frame = getItemFrame(helper);
 			frame.setItem(new ItemStack(Blocks.COBBLESTONE));
 			helper.spawnItem(Blocks.STONE.asItem(), FLOWER_POS.getX(), FLOWER_POS.getY() + 1, FLOWER_POS.getZ());
-		}).thenExecuteFor(DelayHelper.FUNCTIONAL_INHERENT_DELAY + 1, () -> {
-			helper.assertBlockNotPresent(Blocks.STONE, EXPECTED_PLACE_POS);
-		}).thenSucceed();
+		}).thenExecuteFor(
+				ItemLifetime.FUNCTIONAL_INHERENT_DELAY + 1, () -> {
+					helper.assertBlockNotPresent(Blocks.STONE, EXPECTED_PLACE_POS);
+				}).thenSucceed();
 	}
 
 	private static final int MULTI_PLACEMENT_TIMEOUT_TICKS =
 			// 10 blocks to place, 1 interval where nothing should be placed, 1 interval leeway
 			(10 + 1 + 1) * RannuncarpusBlockEntity.PLACE_INTERVAL_TICKS
 					// new items are supplied twice during the test
-					+ 2 * DelayHelper.FUNCTIONAL_INHERENT_DELAY;
+					+ 2 * ItemLifetime.FUNCTIONAL_INHERENT_DELAY;
 
 	@GameTest(template = TEMPLATE_CANDLES, timeoutTicks = MULTI_PLACEMENT_TIMEOUT_TICKS, batch = "rannuncarpus3")
 	public void testMultiplePlacements(GameTestHelper helper) {
@@ -113,7 +115,7 @@ public class RannuncarpusTest {
 		}).thenSucceed();
 	}
 
-	@GameTest(template = TEMPLATE, timeoutTicks = DelayHelper.FUNCTIONAL_INHERENT_DELAY + 13 * RannuncarpusBlockEntity.PLACE_INTERVAL_TICKS)
+	@GameTest(template = TEMPLATE, timeoutTicks = ItemLifetime.FUNCTIONAL_INHERENT_DELAY + 13 * RannuncarpusBlockEntity.PLACE_INTERVAL_TICKS)
 	public void testMultiplePlacementsPrefersEmptySpots(GameTestHelper helper) {
 		// have the flower place across the entire platform
 		helper.setBlock(FILTER_POS, Blocks.POLISHED_ANDESITE);
@@ -132,19 +134,20 @@ public class RannuncarpusTest {
 		stack.setCount(12);
 		seaPickles.setItem(stack);
 
-		helper.startSequence().thenExecuteAfter(DelayHelper.FUNCTIONAL_INHERENT_DELAY + 12 * RannuncarpusBlockEntity.PLACE_INTERVAL_TICKS + 1, () -> {
-			// ensure every block has exactly one sea pickle
-			for (BlockPos pos : BlockPos.betweenClosed(1, 2, 1, 4, 2, 4)) {
-				if (pos.equals(FILTER_POS)) {
-					continue;
-				}
-				helper.assertBlockPresent(Blocks.SEA_PICKLE, pos);
-				helper.assertBlockProperty(pos, SeaPickleBlock.PICKLES, 1);
-			}
-			if (!stack.isEmpty()) {
-				helper.fail("Not all items used", seaPickles);
-			}
-		}).thenSucceed();
+		helper.startSequence().thenExecuteAfter(
+				ItemLifetime.FUNCTIONAL_INHERENT_DELAY + 12 * RannuncarpusBlockEntity.PLACE_INTERVAL_TICKS + 1, () -> {
+					// ensure every block has exactly one sea pickle
+					for (BlockPos pos : BlockPos.betweenClosed(1, 2, 1, 4, 2, 4)) {
+						if (pos.equals(FILTER_POS)) {
+							continue;
+						}
+						helper.assertBlockPresent(Blocks.SEA_PICKLE, pos);
+						helper.assertBlockProperty(pos, SeaPickleBlock.PICKLES, 1);
+					}
+					if (!stack.isEmpty()) {
+						helper.fail("Not all items used", seaPickles);
+					}
+				}).thenSucceed();
 	}
 
 	private static ItemFrame getItemFrame(GameTestHelper helper) {

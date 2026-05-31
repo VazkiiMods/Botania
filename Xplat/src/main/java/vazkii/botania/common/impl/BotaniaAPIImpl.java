@@ -29,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.attachment.DataIdBase;
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.capability.BlockApiNoContext;
@@ -220,6 +221,8 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		this.configDataManager = configDataManager;
 	}
 
+	// API lookup helper methods, used by the API IDs
+
 	@Nullable
 	@Override
 	public <A> A findBlockApi(BlockApiNoContext<A> id, Level level, BlockPos pos, @Nullable BlockState state,
@@ -256,5 +259,23 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public <A, C> A findEntityApi(EntityApiWithContext<A, C> id, Entity entity, @Nullable C context) {
 		return XplatAbstractions.INSTANCE.findEntityApi(id, entity, context);
+	}
+
+	// entity data attachment helper methods, used by the data IDs
+
+	@Nullable
+	@Override
+	public <T> T getEntityData(DataIdBase<T> id, Entity entity) {
+		return XplatAbstractions.INSTANCE.getEntityData(id, entity);
+	}
+
+	@Override
+	public <T> void setEntityData(DataIdBase<T> id, Entity entity, T data) {
+		XplatAbstractions.INSTANCE.setEntityData(id, entity, data);
+	}
+
+	@Override
+	public void removeEntityData(DataIdBase<?> id, Entity entity) {
+		XplatAbstractions.INSTANCE.removeEntityData(id, entity);
 	}
 }

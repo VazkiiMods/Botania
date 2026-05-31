@@ -39,8 +39,8 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -100,7 +100,7 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		AABB itemAABB = MathHelper.inflateBoxAround(getEffectivePos(), RANGE);
-		Predicate<ItemEntity> selector = e -> DelayHelper.canInteractWithImmediate(this, e)
+		Predicate<ItemEntity> selector = e -> ItemLifetime.canInteractWithImmediate(this, e)
 				&& ColorHelper.isWool(e.getItem().getItem());
 		for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, itemAABB, selector)) {
 			ItemStack stack = item.getItem();

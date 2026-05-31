@@ -36,9 +36,9 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AnimalMode;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.mixin.AnimalAccessor;
 import vazkii.botania.mixin.MushroomCowAccessor;
 
@@ -72,7 +72,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	private List<ItemEntity> getItems() {
 		var pickupBounds = MathHelper.inflateBoxAround(getBlockPos(), RANGE);
 		return getLevel().getEntitiesOfClass(ItemEntity.class, pickupBounds,
-				itemEntity -> DelayHelper.canInteractWith(this, itemEntity));
+				itemEntity -> ItemLifetime.canInteractWith(this, itemEntity));
 	}
 
 	/**

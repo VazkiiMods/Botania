@@ -33,6 +33,7 @@ import org.jetbrains.annotations.UnknownNullability;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import vazkii.botania.api.attachment.DataIdBase;
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.capability.BlockApiNoContext;
@@ -245,4 +246,15 @@ public interface BotaniaAPI {
 	default <A, C> A findEntityApi(EntityApiWithContext<A, C> id, Entity entity, @Nullable C context) {
 		return null;
 	}
+
+	// entity data attachment helper methods, used by the data IDs
+
+	@Nullable
+	default <T> T getEntityData(DataIdBase<T> id, Entity entity) {
+		return null;
+	}
+
+	default <T> void setEntityData(DataIdBase<T> id, Entity entity, T data) {}
+
+	default void removeEntityData(DataIdBase<?> id, Entity entity) {}
 }

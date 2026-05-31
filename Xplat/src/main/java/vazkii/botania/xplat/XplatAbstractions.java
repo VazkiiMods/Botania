@@ -18,12 +18,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -54,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.ServiceUtil;
-import vazkii.botania.api.block.*;
+import vazkii.botania.api.attachment.DataIdBase;
 import vazkii.botania.api.capability.BlockApiNoContext;
 import vazkii.botania.api.capability.BlockApiWithContext;
 import vazkii.botania.api.capability.EntityApiNoContext;
@@ -63,16 +58,12 @@ import vazkii.botania.api.capability.ItemApiNoContext;
 import vazkii.botania.api.capability.ItemApiWithContext;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.internal.GaiaFightParticipant;
-import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 public interface XplatAbstractions {
@@ -102,13 +93,19 @@ public interface XplatAbstractions {
 	@Nullable
 	<A, C> A findBlockApi(BlockApiWithContext<A, C> id, Level level, BlockPos pos, @Nullable BlockState state, @Nullable BlockEntity blockEntity, @Nullable C context);
 	@Nullable
-	<A> A findItemApi(ItemApiNoContext<A> id, ItemStack stack);
-	@Nullable
-	<A, C> A findItemApi(ItemApiWithContext<A, C> id, ItemStack stack, @Nullable C context);
-	@Nullable
 	<A> A findEntityApi(EntityApiNoContext<A> id, Entity entity);
 	@Nullable
 	<A, C> A findEntityApi(EntityApiWithContext<A, C> id, Entity entity, @Nullable C context);
+	@Nullable
+	<A> A findItemApi(ItemApiNoContext<A> id, ItemStack stack);
+	@Nullable
+	<A, C> A findItemApi(ItemApiWithContext<A, C> id, ItemStack stack, @Nullable C context);
+
+	// data attachment helper methods
+	@Nullable
+	<T> T getEntityData(DataIdBase<T> id, Entity entity);
+	<T> void setEntityData(DataIdBase<T> id, Entity entity, T data);
+	void removeEntityData(DataIdBase<?> id, Entity entity);
 
 	boolean isFluidContainer(ItemEntity item);
 	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);
@@ -117,43 +114,6 @@ public interface XplatAbstractions {
 	ItemStack fillItemWithWater(ItemStack stackToFill, Player player);
 	boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos);
 	ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate);
-
-	// Capability access (internal caps)
-	boolean isUnethicalTnt(PrimedTnt tnt);
-	void flagAsUnethicalTnt(PrimedTnt tnt);
-
-	boolean isNotFloating(AbstractMinecart cart);
-	int getSpectralFloatTicks(AbstractMinecart cart);
-	void setSpectralFloatTicks(AbstractMinecart cart, int ticks);
-
-	Optional<ItemSource> getItemSource(ItemEntity item);
-	void setItemSource(ItemEntity item, ItemSource source);
-
-	default boolean isItemSource(ItemEntity item, ItemSource source) {
-		return getItemSource(item).filter(source::equals).isPresent();
-	}
-
-	short getItemLifeTime(ItemEntity item);
-	void setItemLifeTime(ItemEntity item, int ticks);
-
-	List<ItemStack> getKeptItems(Player player);
-	void setKeptItems(Player player, List<ItemStack> items);
-
-	@Nullable
-	ItemStack getLooniumDrop(LivingEntity entity);
-	void setLooniumDrop(LivingEntity entity, ItemStack stack);
-
-	boolean isSlimeChunkSpawned(Slime slime);
-	void flagAsSlimeChunkSpawned(Slime slime);
-
-	boolean isSlowDespawn(Mob mob);
-	void flagAsSlowDespawn(Mob mob);
-
-	boolean isTigerseyePacified(Creeper creeper);
-	void setTigersEyePacified(Creeper creeper, boolean pacified);
-
-	Optional<GaiaFightParticipant> getGaiaFightParticipant(Mob mob);
-	void setGaiaFightParticipant(Mob mob, @Nullable GaiaGuardianEntity gaiaGuardian);
 
 	// Events
 	boolean fireCorporeaRequestEvent(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean dryRun);

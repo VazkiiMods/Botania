@@ -25,9 +25,9 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.clientbound.ItemSmokeEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -59,7 +59,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class,
 				MathHelper.inflateBoxAround(getEffectivePos(), RANGE),
-				DelayHelper.asPredicateFor(DelayHelper::canMove, this));
+				ItemLifetime.asPredicateFor(ItemLifetime::canMove, this));
 
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();

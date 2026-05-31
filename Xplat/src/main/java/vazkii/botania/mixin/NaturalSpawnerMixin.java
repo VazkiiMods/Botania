@@ -19,9 +19,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.block_entity.flower.generating.NarslimmusBlockEntity;
 import vazkii.botania.common.brew.effect.BloodthirstMobEffect;
 import vazkii.botania.common.brew.effect.EmptinessMobEffect;
+import vazkii.botania.common.internal_caps.SlimeChunkSpawned;
 
 @Mixin(NaturalSpawner.class)
 public class NaturalSpawnerMixin {
@@ -33,7 +33,7 @@ public class NaturalSpawnerMixin {
 		method = "spawnCategoryForPosition(Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/NaturalSpawner$SpawnPredicate;Lnet/minecraft/world/level/NaturalSpawner$AfterSpawnCallback;)V"
 	)
 	private static Entity onSpawned(Entity entity) {
-		NarslimmusBlockEntity.onSpawn(entity);
+		SlimeChunkSpawned.onSpawn(entity);
 		return entity;
 	}
 

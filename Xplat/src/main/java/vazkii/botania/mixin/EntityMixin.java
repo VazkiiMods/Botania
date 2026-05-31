@@ -16,15 +16,17 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.scores.Team;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
+import vazkii.botania.common.internal_caps.LooniumDrop;
 import vazkii.botania.common.item.EquestrianVirusItem;
 import vazkii.botania.common.item.equipment.bauble.CrimsonPendantItem;
-import vazkii.botania.xplat.XplatAbstractions;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
@@ -49,14 +51,18 @@ public abstract class EntityMixin {
 	@Inject(at = @At("HEAD"), method = "getTeam", cancellable = true)
 	private void getVirtualTeam(CallbackInfoReturnable<Team> cir) {
 		if (((Object) this) instanceof Mob self) {
-			if (XplatAbstractions.instance().getLooniumDrop(self) != null) {
+			if (LooniumDrop.HOLDER.existsFor(self)) {
 				cir.setReturnValue(LooniumBlockEntity.LOONIUM_TEAM);
 			} else if (self instanceof GaiaGuardianEntity || self.level() instanceof ServerLevel serverLevel
-					&& XplatAbstractions.instance().getGaiaFightParticipant(self)
-							.filter(gaiaFightParticipant -> gaiaFightParticipant.getGaiaGuardian(serverLevel) != null)
-							.isPresent()) {
+					&& botania_participatesInGaiaFight(self, serverLevel)) {
 				cir.setReturnValue(GaiaGuardianEntity.GAIA_FIGHT_TEAM);
 			}
 		}
+	}
+
+	@Unique
+	private static boolean botania_participatesInGaiaFight(Mob self, ServerLevel serverLevel) {
+		GaiaFightParticipant gaiaFightParticipant = GaiaFightParticipant.HOLDER.getFor(self);
+		return gaiaFightParticipant != null && gaiaFightParticipant.isGaiaGuardianAlive(serverLevel);
 	}
 }

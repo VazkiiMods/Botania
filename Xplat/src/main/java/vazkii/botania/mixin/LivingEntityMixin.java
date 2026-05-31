@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import vazkii.botania.api.internal.GaiaFightParticipant;
 import vazkii.botania.api.item.BlockChangedListenerBauble;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.xplat.XplatAbstractions;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
@@ -44,7 +44,7 @@ public class LivingEntityMixin {
 	)
 	private boolean isValidTargetWhileInGaiaFight(LivingEntity target, Operation<Boolean> original) {
 		return original.call(target) && (!(botania_self() instanceof Mob mob)
-				|| XplatAbstractions.instance().getGaiaFightParticipant(mob).isEmpty()
+				|| !GaiaFightParticipant.HOLDER.existsFor(mob)
 				|| mob.isWithinRestriction(target.blockPosition()));
 	}
 

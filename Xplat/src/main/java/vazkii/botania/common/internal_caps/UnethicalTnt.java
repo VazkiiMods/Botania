@@ -1,21 +1,23 @@
-package vazkii.botania.common.helper;
+package vazkii.botania.common.internal_caps;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 
-import vazkii.botania.common.block.block_entity.flower.generating.EntropinnyumBlockEntity;
+import vazkii.botania.api.attachment.DataMarkerId;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Helps track TNT entity spawning to check for unethical methods. Used with vanilla piston logic (via mixin) and
@@ -26,17 +28,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  * adjacent moving block entities that represent a TNT block and move away from the TNT entity. If we find such a moving
  * block, the TNT entity was unethically sourced.
  *
- * @see EntropinnyumBlockEntity
- * @see vazkii.botania.common.internal_caps.BotaniaDataAttachments#UNETHICAL_TNT
+ * @see vazkii.botania.common.block.block_entity.flower.generating.EntropinnyumBlockEntity
  * @see vazkii.botania.mixin.PistonBaseBlockMixin
  * @see vazkii.botania.common.item.lens.ForceLens#moveBlocks(Level, BlockPos, Direction, BlockPos)
  */
-public class EthicalTntHelper {
+public class UnethicalTnt {
+	public static final ResourceLocation ID = botaniaRL("unethical_tnt");
+	public static final DataMarkerId MARKER = new DataMarkerId(ID);
+
 	/**
 	 * In case the various loaded dimensions' tick loops are run in their own threads, tracking data is kept
 	 * thread-local.
 	 */
-	private static final ThreadLocal<EthicalTntHelper> tracker = ThreadLocal.withInitial(EthicalTntHelper::new);
+	private static final ThreadLocal<UnethicalTnt> tracker = ThreadLocal.withInitial(UnethicalTnt::new);
 
 	/**
 	 * While the moveBlocks method should not be reentrant, we can't know what crazy ideas some mixin authors might
@@ -112,7 +116,7 @@ public class EthicalTntHelper {
 					&& (movingBlockEntity.getMovedState().getBlock() instanceof TntBlock
 							|| movingBlockEntity.getMovedState().is(BotaniaTags.Blocks.UNETHICAL_TNT_CHECK))) {
 				// found a moving block that marks the destination of a TNT block moving away from the TNT entity
-				XplatAbstractions.instance().flagAsUnethicalTnt(entity);
+				MARKER.addFor(entity);
 				break;
 			}
 		}

@@ -358,7 +358,7 @@ public class GaiaGuardianEntity extends Mob {
 				level().getEntities(this, MathHelper.inflateBoxAround(source, ARENA_MOB_RANGE),
 						this::isGaiaFightParticipant)
 						.forEach(mob -> {
-							XplatAbstractions.instance().setGaiaFightParticipant((Mob) mob, null);
+							GaiaFightParticipant.HOLDER.removeFrom(mob);
 							((Mob) mob).clearRestriction();
 						});
 			}
@@ -369,8 +369,8 @@ public class GaiaGuardianEntity extends Mob {
 		if (!(e instanceof Mob mob) || !mob.isAlive()) {
 			return false;
 		}
-		Optional<GaiaFightParticipant> participant = XplatAbstractions.instance().getGaiaFightParticipant(mob);
-		return participant.filter(p -> p.getSourcePos().equals(source)).isPresent();
+		GaiaFightParticipant participant = GaiaFightParticipant.HOLDER.getFor(mob);
+		return participant != null && participant.getSourcePos().equals(source);
 	}
 
 	private static Map<GaiaGuardianEntity, GaiaFightData> getGaiaFightMap(Level level) {
@@ -899,7 +899,8 @@ public class GaiaGuardianEntity extends Mob {
 						mob.getRootVehicle().getPassengersAndSelf().forEach(e -> {
 							if (e instanceof Mob otherMob) {
 								mob.restrictTo(source, ARENA_RANGE);
-								XplatAbstractions.instance().setGaiaFightParticipant(mob, this);
+								GaiaFightParticipant.HOLDER.setFor(mob,
+										new GaiaFightParticipant(getUUID(), getSource()));
 								Optional<MobSpawnData> spawnData = spawnedMobs.unwrap().stream()
 										.filter(mobSpawnData -> mobSpawnData.type.tryCast(otherMob) != null)
 										.findFirst();

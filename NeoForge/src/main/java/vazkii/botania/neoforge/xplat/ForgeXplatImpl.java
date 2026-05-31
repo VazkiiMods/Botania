@@ -16,16 +16,10 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.*;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -84,7 +78,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
-import vazkii.botania.api.block.*;
+import vazkii.botania.api.attachment.DataIdBase;
 import vazkii.botania.api.capability.BlockApiNoContext;
 import vazkii.botania.api.capability.BlockApiWithContext;
 import vazkii.botania.api.capability.EntityApiNoContext;
@@ -95,14 +89,10 @@ import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.internal.GaiaFightParticipant;
-import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
 import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
@@ -148,6 +138,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 				.getModInfo().getVersion().toString();
 	}
 
+	// capability API lookup helper methods
+
 	@Override
 	public @Nullable <A> A findBlockApi(BlockApiNoContext<A> id, Level level, BlockPos pos, @Nullable BlockState state,
 			@Nullable BlockEntity entity) {
@@ -178,6 +170,24 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public @Nullable <A, C> A findItemApi(ItemApiWithContext<A, C> id, ItemStack stack, @Nullable C context) {
 		return stack.getCapability(BotaniaForgeCapabilities.getItemApiLookupById(id), context);
+	}
+
+	// data attachment helper methods
+
+	@Nullable
+	@Override
+	public <T> T getEntityData(DataIdBase<T> id, Entity entity) {
+		return entity.getExistingDataOrNull(ForgeInternalEntityCapabilities.getAttachmentTypeById(id));
+	}
+
+	@Override
+	public <T> void setEntityData(DataIdBase<T> id, Entity entity, T data) {
+		entity.setData(ForgeInternalEntityCapabilities.getAttachmentTypeById(id), data);
+	}
+
+	@Override
+	public void removeEntityData(DataIdBase<?> id, Entity entity) {
+		entity.removeData(ForgeInternalEntityCapabilities.getAttachmentTypeById(id));
 	}
 
 	@Override
@@ -291,137 +301,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 			toInsert.setCount(toInsert.getCount() - 1);
 		}
 		return toInsert;
-	}
-
-	@Override
-	public boolean isUnethicalTnt(PrimedTnt tnt) {
-		return tnt.hasData(ForgeInternalEntityCapabilities.UNETHICAL_TNT);
-	}
-
-	@Override
-	public void flagAsUnethicalTnt(PrimedTnt tnt) {
-		tnt.setData(ForgeInternalEntityCapabilities.UNETHICAL_TNT, Unit.INSTANCE);
-	}
-
-	@Override
-	public boolean isNotFloating(AbstractMinecart cart) {
-		return !cart.hasData(ForgeInternalEntityCapabilities.SPECTRAL_FLOAT_TICKS);
-	}
-
-	@Override
-	public int getSpectralFloatTicks(AbstractMinecart cart) {
-		return cart.getExistingData(ForgeInternalEntityCapabilities.SPECTRAL_FLOAT_TICKS).orElse(0);
-	}
-
-	@Override
-	public void setSpectralFloatTicks(AbstractMinecart cart, int time) {
-		if (time > 0) {
-			cart.setData(ForgeInternalEntityCapabilities.SPECTRAL_FLOAT_TICKS, time);
-		} else {
-			cart.removeData(ForgeInternalEntityCapabilities.SPECTRAL_FLOAT_TICKS);
-		}
-	}
-
-	@Override
-	public Optional<ItemSource> getItemSource(ItemEntity item) {
-		return item.getExistingData(ForgeInternalEntityCapabilities.ITEM_SOURCE);
-	}
-
-	@Override
-	public void setItemSource(ItemEntity item, ItemSource source) {
-		item.setData(ForgeInternalEntityCapabilities.ITEM_SOURCE, source);
-	}
-
-	@Override
-	public short getItemLifeTime(ItemEntity item) {
-		return item.getExistingData(ForgeInternalEntityCapabilities.ITEM_LIFETIME).orElse((short) 0);
-	}
-
-	@Override
-	public void setItemLifeTime(ItemEntity item, int ticks) {
-		item.setData(ForgeInternalEntityCapabilities.ITEM_LIFETIME,
-				(short) Math.clamp(ticks, Short.MIN_VALUE, Short.MAX_VALUE));
-	}
-
-	@Override
-	public List<ItemStack> getKeptItems(Player player) {
-		return player.getExistingData(ForgeInternalEntityCapabilities.KEPT_ITEMS).orElseGet(List::of);
-	}
-
-	@Override
-	public void setKeptItems(Player player, List<ItemStack> items) {
-		if (items.isEmpty()) {
-			player.removeData(ForgeInternalEntityCapabilities.KEPT_ITEMS);
-		} else {
-			player.setData(ForgeInternalEntityCapabilities.KEPT_ITEMS, List.copyOf(items));
-		}
-	}
-
-	@Nullable
-	@Override
-	public ItemStack getLooniumDrop(LivingEntity entity) {
-		return entity.getExistingData(ForgeInternalEntityCapabilities.LOONIUM_DROP).map(SingleStack::stack).orElse(null);
-	}
-
-	@Override
-	public void setLooniumDrop(LivingEntity entity, ItemStack stack) {
-		entity.setData(ForgeInternalEntityCapabilities.LOONIUM_DROP, new SingleStack(stack));
-	}
-
-	@Override
-	public boolean isSlimeChunkSpawned(Slime slime) {
-		return slime.hasData(ForgeInternalEntityCapabilities.SLIME_CHUNK_SPAWNED);
-	}
-
-	@Override
-	public void flagAsSlimeChunkSpawned(Slime slime) {
-		slime.setData(ForgeInternalEntityCapabilities.SLIME_CHUNK_SPAWNED, Unit.INSTANCE);
-	}
-
-	@Override
-	public boolean isSlowDespawn(Mob mob) {
-		return mob.hasData(ForgeInternalEntityCapabilities.SLOW_DESPAWN);
-	}
-
-	@Override
-	public void flagAsSlowDespawn(Mob mob) {
-		mob.setData(ForgeInternalEntityCapabilities.SLOW_DESPAWN, Unit.INSTANCE);
-	}
-
-	@Override
-	public boolean isTigerseyePacified(Creeper creeper) {
-		return creeper.hasData(ForgeInternalEntityCapabilities.TIGERSEYE_PACIFIED);
-	}
-
-	@Override
-	public void setTigersEyePacified(Creeper creeper, boolean pacified) {
-		if (pacified) {
-			creeper.setData(ForgeInternalEntityCapabilities.TIGERSEYE_PACIFIED, Unit.INSTANCE);
-		} else {
-			creeper.removeData(ForgeInternalEntityCapabilities.TIGERSEYE_PACIFIED);
-		}
-	}
-
-	@Override
-	public Optional<GaiaFightParticipant> getGaiaFightParticipant(Mob mob) {
-		Optional<GaiaFightParticipant> participant =
-				mob.getExistingData(ForgeInternalEntityCapabilities.GAIA_FIGHT_PARTICIPANT);
-		if (participant.isPresent() && !participant.get().isInBounds(mob)) {
-			// mob left the arena area, consider it out permanently
-			setGaiaFightParticipant(mob, null);
-			return Optional.empty();
-		}
-		return participant;
-	}
-
-	@Override
-	public void setGaiaFightParticipant(Mob mob, @Nullable GaiaGuardianEntity gaiaGuardian) {
-		if (gaiaGuardian != null && gaiaGuardian.isAlive()) {
-			mob.setData(ForgeInternalEntityCapabilities.GAIA_FIGHT_PARTICIPANT,
-					new GaiaFightParticipant(gaiaGuardian.getUUID(), gaiaGuardian.getSource()));
-		} else {
-			mob.removeData(ForgeInternalEntityCapabilities.GAIA_FIGHT_PARTICIPANT);
-		}
 	}
 
 	@Override

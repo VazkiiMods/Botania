@@ -46,10 +46,10 @@ import vazkii.botania.api.state.enums.HopperhockFilterType;
 import vazkii.botania.api.state.enums.RannuncarpusMode;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.FilterHelper;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.*;
@@ -84,7 +84,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class,
 				MathHelper.inflateBoxAround(getBlockPos(), PICKUP_RANGE, PICKUP_RANGE_Y),
-				itemEntity -> DelayHelper.canInteractWith(this, itemEntity));
+				itemEntity -> ItemLifetime.canInteractWith(this, itemEntity));
 
 		List<ItemStack> filter = FilterHelper.getFiltersOnBlock(getLevel(), getFilterPos(), false);
 

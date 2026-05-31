@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.block.red_string.RedStringBlock;
-import vazkii.botania.common.helper.EthicalTntHelper;
 import vazkii.botania.common.helper.ForcePushHelper;
+import vazkii.botania.common.internal_caps.UnethicalTnt;
 
 /**
  * Additional logic for pistons:
@@ -51,7 +51,7 @@ public abstract class PistonBaseBlockMixin {
 	private void preMoveBlocks(Level level, BlockPos pos, Direction dir, boolean extending,
 			CallbackInfoReturnable<Boolean> cir) {
 		if (!level.isClientSide()) {
-			EthicalTntHelper.startTrackingTntEntities();
+			UnethicalTnt.startTrackingTntEntities();
 			ForcePushHelper.pushMovementTypeContext(extending, dir);
 		}
 	}
@@ -64,7 +64,7 @@ public abstract class PistonBaseBlockMixin {
 			CallbackInfoReturnable<Boolean> cir) {
 		if (!level.isClientSide()) {
 			ForcePushHelper.popMovementTypeContext();
-			EthicalTntHelper.endTrackingTntEntitiesAndCheck();
+			UnethicalTnt.endTrackingTntEntitiesAndCheck();
 		}
 	}
 

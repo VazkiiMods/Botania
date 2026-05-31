@@ -24,7 +24,6 @@ import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper;
 import net.fabricmc.fabric.impl.recipe.ingredient.ShapelessMatch;
 import net.fabricmc.fabric.mixin.transfer.BucketItemAccessor;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.Optionull;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
@@ -50,12 +49,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -91,7 +85,7 @@ import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
-import vazkii.botania.api.block.*;
+import vazkii.botania.api.attachment.DataIdBase;
 import vazkii.botania.api.capability.BlockApiNoContext;
 import vazkii.botania.api.capability.BlockApiWithContext;
 import vazkii.botania.api.capability.EntityApiNoContext;
@@ -102,14 +96,10 @@ import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.internal.GaiaFightParticipant;
-import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
@@ -123,7 +113,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
@@ -164,6 +153,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 				.getMetadata().getVersion().getFriendlyString();
 	}
 
+	// capability API lookup helper methods
+
 	@Override
 	public @Nullable <A> A findBlockApi(BlockApiNoContext<A> id, Level level, BlockPos pos, @Nullable BlockState state,
 			@Nullable BlockEntity entity) {
@@ -194,6 +185,24 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public @Nullable <A, C> A findItemApi(ItemApiWithContext<A, C> id, ItemStack stack, @UnknownNullability C context) {
 		return BotaniaFabricCapabilities.getItemApiLookupById(id).find(stack, context);
+	}
+
+	// data attachment helper methods
+
+	@Nullable
+	@Override
+	public <T> T getEntityData(DataIdBase<T> id, Entity entity) {
+		return entity.getAttached(FabricInternalEntityAttachments.getAttachmentTypeById(id));
+	}
+
+	@Override
+	public <T> void setEntityData(DataIdBase<T> id, Entity entity, T data) {
+		entity.setAttached(FabricInternalEntityAttachments.getAttachmentTypeById(id), data);
+	}
+
+	@Override
+	public void removeEntityData(DataIdBase<?> id, Entity entity) {
+		entity.removeAttached(FabricInternalEntityAttachments.getAttachmentTypeById(id));
 	}
 
 	private static class SingleStackEntityStorage extends SingleStackStorage {
@@ -351,143 +360,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 				ret.setCount(toInsert.getCount() - inserted);
 				return ret;
 			}
-		}
-	}
-
-	@Override
-	public boolean isUnethicalTnt(PrimedTnt tnt) {
-		return tnt.hasAttached(FabricInternalEntityAttachments.UNETHICAL_TNT);
-	}
-
-	@Override
-	public void flagAsUnethicalTnt(PrimedTnt tnt) {
-		tnt.setAttached(FabricInternalEntityAttachments.UNETHICAL_TNT, Unit.INSTANCE);
-	}
-
-	@Override
-	public boolean isNotFloating(AbstractMinecart cart) {
-		return !cart.hasAttached(FabricInternalEntityAttachments.SPECTRAL_FLOAT_TICKS);
-	}
-
-	@Override
-	public int getSpectralFloatTicks(AbstractMinecart cart) {
-		return cart.getAttachedOrElse(FabricInternalEntityAttachments.SPECTRAL_FLOAT_TICKS, 0);
-	}
-
-	@Override
-	public void setSpectralFloatTicks(AbstractMinecart cart, int ticks) {
-		if (ticks > 0) {
-			cart.setAttached(FabricInternalEntityAttachments.SPECTRAL_FLOAT_TICKS, ticks);
-		} else {
-			cart.removeAttached(FabricInternalEntityAttachments.SPECTRAL_FLOAT_TICKS);
-		}
-	}
-
-	@Override
-	public Optional<ItemSource> getItemSource(ItemEntity item) {
-		return Optional.ofNullable(item.getAttached(FabricInternalEntityAttachments.ITEM_SOURCE));
-	}
-
-	@Override
-	public void setItemSource(ItemEntity item, ItemSource source) {
-		item.setAttached(FabricInternalEntityAttachments.ITEM_SOURCE, source);
-	}
-
-	@Override
-	public short getItemLifeTime(ItemEntity item) {
-		return item.getAttachedOrElse(FabricInternalEntityAttachments.ITEM_LIFETIME, (short) 0);
-	}
-
-	@Override
-	public void setItemLifeTime(ItemEntity item, int ticks) {
-		item.setAttached(FabricInternalEntityAttachments.ITEM_LIFETIME,
-				(short) Math.clamp(ticks, Short.MIN_VALUE, Short.MAX_VALUE));
-	}
-
-	@Override
-	public List<ItemStack> getKeptItems(Player player) {
-		return player.getAttachedOrGet(FabricInternalEntityAttachments.KEPT_ITEMS, List::of);
-	}
-
-	@Override
-	public void setKeptItems(Player player, List<ItemStack> items) {
-		if (!items.isEmpty()) {
-			player.setAttached(FabricInternalEntityAttachments.KEPT_ITEMS, List.copyOf(items));
-		} else {
-			player.removeAttached(FabricInternalEntityAttachments.KEPT_ITEMS);
-		}
-	}
-
-	@Nullable
-	@Override
-	public ItemStack getLooniumDrop(LivingEntity entity) {
-		return Optionull.map(entity.getAttached(FabricInternalEntityAttachments.LOONIUM_DROP), SingleStack::stack);
-	}
-
-	@Override
-	public void setLooniumDrop(LivingEntity entity, @Nullable ItemStack stack) {
-		if (stack != null) {
-			entity.setAttached(FabricInternalEntityAttachments.LOONIUM_DROP, new SingleStack(stack));
-		} else {
-			entity.removeAttached(FabricInternalEntityAttachments.LOONIUM_DROP);
-		}
-	}
-
-	@Override
-	public boolean isSlimeChunkSpawned(Slime slime) {
-		return slime.hasAttached(FabricInternalEntityAttachments.SLIME_CHUNK_SPAWNED);
-	}
-
-	@Override
-	public void flagAsSlimeChunkSpawned(Slime slime) {
-		slime.setAttached(FabricInternalEntityAttachments.SLIME_CHUNK_SPAWNED, Unit.INSTANCE);
-	}
-
-	@Override
-	public boolean isSlowDespawn(Mob mob) {
-		return mob.hasAttached(FabricInternalEntityAttachments.SLOW_DESPAWN);
-	}
-
-	@Override
-	public void flagAsSlowDespawn(Mob mob) {
-		mob.setAttached(FabricInternalEntityAttachments.SLOW_DESPAWN, Unit.INSTANCE);
-	}
-
-	@Override
-	public boolean isTigerseyePacified(Creeper creeper) {
-		return creeper.hasAttached(FabricInternalEntityAttachments.TIGERSEYE_PACIFIED);
-	}
-
-	@Override
-	public void setTigersEyePacified(Creeper creeper, boolean pacified) {
-		if (pacified) {
-			creeper.setAttached(FabricInternalEntityAttachments.TIGERSEYE_PACIFIED, Unit.INSTANCE);
-		} else {
-			creeper.removeAttached(FabricInternalEntityAttachments.TIGERSEYE_PACIFIED);
-		}
-	}
-
-	@Override
-	public Optional<GaiaFightParticipant> getGaiaFightParticipant(Mob mob) {
-		GaiaFightParticipant participant = mob.getAttached(FabricInternalEntityAttachments.GAIA_FIGHT_PARTICIPANT);
-		if (participant != null) {
-			if (!participant.isInBounds(mob)) {
-				// mob left the arena area, consider it out permanently
-				setGaiaFightParticipant(mob, null);
-				return Optional.empty();
-			}
-			return Optional.of(participant);
-		}
-		return Optional.empty();
-	}
-
-	@Override
-	public void setGaiaFightParticipant(Mob mob, @Nullable GaiaGuardianEntity gaiaGuardian) {
-		if (gaiaGuardian != null && gaiaGuardian.isAlive()) {
-			mob.setAttached(FabricInternalEntityAttachments.GAIA_FIGHT_PARTICIPANT,
-					new GaiaFightParticipant(gaiaGuardian.getUUID(), gaiaGuardian.getSource()));
-		} else {
-			mob.removeAttached(FabricInternalEntityAttachments.GAIA_FIGHT_PARTICIPANT);
 		}
 	}
 

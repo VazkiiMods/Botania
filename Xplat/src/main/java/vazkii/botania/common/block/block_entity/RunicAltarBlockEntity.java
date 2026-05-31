@@ -42,6 +42,7 @@ import org.jetbrains.annotations.UnknownNullability;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -59,7 +60,6 @@ import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,7 +176,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.livingrock.asItem())
-						&& !XplatAbstractions.instance().isItemSource(item, ItemSources.RUNIC_ALTAR)) {
+						&& ItemSource.HOLDER.getFor(item) == ItemSources.RUNIC_ALTAR) {
 					ItemStack stack = item.getItem();
 					if (self.addItem(null, stack, null)) {
 						EntityHelper.syncItem(item);
@@ -294,7 +294,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				receiveMana(-mana);
 				ItemStack output = recipe.value().assemble(getRecipeInput(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				XplatAbstractions.instance().setItemSource(outputItem, ItemSources.RUNIC_ALTAR);
+				ItemSource.HOLDER.setFor(outputItem, ItemSources.RUNIC_ALTAR);
 				if (player != null) {
 					player.triggerRecipeCrafted(recipe, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
@@ -313,7 +313,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						continue;
 					}
 					ItemEntity remainder = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.5, getBlockPos().getZ() + 0.5, remainingStack.copy());
-					XplatAbstractions.instance().setItemSource(outputItem, ItemSources.RUNIC_ALTAR);
+					ItemSource.HOLDER.setFor(outputItem, ItemSources.RUNIC_ALTAR);
 					level.addFreshEntity(remainder);
 				}
 				getItemHandler().clearContent();

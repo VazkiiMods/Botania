@@ -38,6 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4fStack;
 
 import vazkii.botania.api.block.PetalApothecary;
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.recipe.CustomApothecaryColor;
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -81,19 +82,19 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				setFluid(State.WATER);
 				bucketItem.checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
 				item.setItem(new ItemStack(Items.BUCKET));
-				XplatAbstractions.instance().setItemSource(item, ItemSources.PETAL_APOTHECARY);
+				ItemSource.HOLDER.setFor(item, ItemSources.PETAL_APOTHECARY);
 				return true;
 			}
 
 			if (XplatAbstractions.instance().extractFluidFromItemEntity(item, Fluids.WATER)) {
 				setFluid(State.WATER);
-				XplatAbstractions.instance().setItemSource(item, ItemSources.PETAL_APOTHECARY);
+				ItemSource.HOLDER.setFor(item, ItemSources.PETAL_APOTHECARY);
 				return true;
 			}
 
 			if (XplatAbstractions.instance().extractFluidFromItemEntity(item, Fluids.LAVA)) {
 				setFluid(State.LAVA);
-				XplatAbstractions.instance().setItemSource(item, ItemSources.PETAL_APOTHECARY);
+				ItemSource.HOLDER.setFor(item, ItemSources.PETAL_APOTHECARY);
 				return true;
 			}
 
@@ -121,7 +122,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				EntityHelper.shrinkItem(item);
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				XplatAbstractions.instance().setItemSource(outputItem, ItemSources.PETAL_APOTHECARY);
+				ItemSource.HOLDER.setFor(outputItem, ItemSources.PETAL_APOTHECARY);
 				if (thrower instanceof Player player) {
 					player.triggerRecipeCrafted(recipe, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
@@ -139,7 +140,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		}
 
 		if (!XplatAbstractions.instance().isFluidContainer(item)
-				&& !XplatAbstractions.instance().isItemSource(item, ItemSources.PETAL_APOTHECARY)) {
+				&& ItemSource.HOLDER.getFor(item) != ItemSources.PETAL_APOTHECARY) {
 			if (!getItemHandler().getItem(inventorySize() - 1).isEmpty()) {
 				return false;
 			}

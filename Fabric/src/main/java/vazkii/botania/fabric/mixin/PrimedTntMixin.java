@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.helper.EthicalTntHelper;
+import vazkii.botania.common.internal_caps.UnethicalTnt;
 
 @Mixin(PrimedTnt.class)
 public class PrimedTntMixin {
@@ -19,6 +19,6 @@ public class PrimedTntMixin {
 		at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/item/PrimedTnt;blocksBuilding:Z", opcode = Opcodes.PUTFIELD)
 	)
 	void trackTntEntity(EntityType<? extends PrimedTnt> entityType, Level level, CallbackInfo ci) {
-		EthicalTntHelper.addTrackedTntEntity((PrimedTnt) (Object) this);
+		UnethicalTnt.addTrackedTntEntity((PrimedTnt) (Object) this);
 	}
 }

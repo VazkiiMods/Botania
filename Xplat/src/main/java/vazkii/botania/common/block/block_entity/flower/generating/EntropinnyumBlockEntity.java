@@ -21,7 +21,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.common.internal_caps.UnethicalTnt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 		PrimedTnt tnt = tnts.getFirst();
-		boolean unethical = XplatAbstractions.instance().isUnethicalTnt(tnt);
+		boolean unethical = UnethicalTnt.MARKER.existsFor(tnt);
 		tnt.playSound(unethical ? BotaniaSounds.entropinnyumAngry : BotaniaSounds.entropinnyumHappy, 1F,
 				(1F + (getLevel().getRandom().nextFloat() - getLevel().getRandom().nextFloat()) * 0.2F) * 0.7F);
 		tnt.discard();

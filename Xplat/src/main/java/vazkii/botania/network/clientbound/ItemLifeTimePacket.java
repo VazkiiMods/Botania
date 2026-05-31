@@ -17,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 
+import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -38,7 +39,7 @@ public record ItemLifeTimePacket(int entityId, short timeCounter) implements Cus
 	 */
 	public static void onItemTrack(Entity entity, ServerPlayer player) {
 		if (entity instanceof ItemEntity item) {
-			short lifeTime = XplatAbstractions.INSTANCE.getItemLifeTime(item);
+			short lifeTime = ItemLifetime.get(item);
 			if (lifeTime != 0) {
 				// only send packet if necessary
 				// (Fabric calls this before actually sending the entity packet, so do this later during the same tick)
@@ -57,7 +58,8 @@ public record ItemLifeTimePacket(int entityId, short timeCounter) implements Cus
 		public static void handle(ItemLifeTimePacket packet, Player localPlayer) {
 			Entity entity = localPlayer.level().getEntity(packet.entityId());
 			if (entity instanceof ItemEntity item) {
-				XplatAbstractions.INSTANCE.setItemLifeTime(item, packet.timeCounter());
+				// guaranteed to not be zero (but wouldn't really matter anyway)
+				ItemLifetime.set(item, packet.timeCounter());
 			}
 		}
 	}
