@@ -69,6 +69,7 @@ import net.minecraft.world.level.material.Fluids;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.IslandType;
@@ -371,6 +372,12 @@ public class FabricCommonInitializer implements ModInitializer {
 		relicItemLookup.registerForItems((st, c) -> RingOfLokiItem.makeRelic(st), BotaniaItems.lokiRing);
 		relicItemLookup.registerForItems((st, c) -> RingOfOdinItem.makeRelic(st), BotaniaItems.odinRing);
 		relicItemLookup.registerForItems((st, c) -> RingOfThorItem.makeRelic(st), BotaniaItems.thorRing);
+
+		BlockApiLookup<EdibleBlockWithEffects, Unit> edibleBlockWithEffectLookup = BotaniaFabricCapabilities.getBlockApiLookupById(EdibleBlockWithEffects.LOOKUP);
+		// these two blocks implement the capability directly
+		edibleBlockWithEffectLookup.registerForBlocks(
+				(world, pos, state, blockEntity, context) -> (EdibleBlockWithEffects) state.getBlock(),
+				BotaniaBlocks.mutatedGrass, BotaniaBlocks.infusedGrass);
 
 		BlockApiLookup<ExoflameHeatable, Unit> exoflameHeatableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ExoflameHeatable.LOOKUP);
 		exoflameHeatableBlockLookup.registerFallback((world, pos, state, blockEntity, context) -> {

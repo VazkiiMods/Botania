@@ -25,6 +25,7 @@
     "ConstantIntMixin",
     "CreeperAccessor",
     "CreeperMixin",
+    "EatBlockGoalMixin",
     "EntityAccessor",
     "EntityMixin",
     "ExperienceOrbAccessor",
