@@ -11,6 +11,7 @@ package vazkii.botania.common;
 
 import org.jetbrains.annotations.ApiStatus;
 
+import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.PhantomInkableBlock;
@@ -44,6 +45,7 @@ public final class BotaniaCapabilities {
 		registration.register(Relic.LOOKUP);
 
 		// block capabilities
+		registration.register(EdibleBlockWithEffects.LOOKUP);
 		registration.register(ExoflameHeatable.LOOKUP);
 		registration.register(HourglassTrigger.LOOKUP);
 		registration.register(ManaCollisionGhost.LOOKUP);

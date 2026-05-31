@@ -12,12 +12,19 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.client.fx.SparkleParticleData;
 
-public class BotaniaInfusedGrassBlock extends BotaniaGrassBlock {
+public class BotaniaInfusedGrassBlock extends BotaniaGrassBlock implements EdibleBlockWithEffects {
+
+	public static final int EFFECT_DURATION = 160;
+
 	public BotaniaInfusedGrassBlock(Properties builder) {
 		super(builder);
 	}
@@ -29,5 +36,10 @@ public class BotaniaInfusedGrassBlock extends BotaniaGrassBlock {
 			SparkleParticleData data = SparkleParticleData.sparkle(random.nextFloat() * 0.2F + 1F, 0F, 1F, 1F, 5);
 			level.addParticle(data, pos.getX() + random.nextFloat(), pos.getY() + 1.05, pos.getZ() + random.nextFloat(), 0, 0, 0);
 		}
+	}
+
+	@Override
+	public void onEatenBy(BlockPos pos, BlockState state, LivingEntity entity) {
+		entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, EFFECT_DURATION, 0, true, true));
 	}
 }

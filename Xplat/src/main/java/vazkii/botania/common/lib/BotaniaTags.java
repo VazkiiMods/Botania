@@ -337,6 +337,11 @@ public class BotaniaTags {
 		public static final TagKey<Block> MUNCHDEW_CONSUMABLE = tag("munchdew_consumable");
 
 		/**
+		 * Grass blocks sheep try to eat, not including the vanilla grass.
+		 */
+		public static final TagKey<Block> SHEEP_EDIBLE_GRASSES = tag("sheep_edible_grasses");
+
+		/**
 		 * Blocks in this tag work are likely to cause major issues when used with Abstruse/Spectral Platform blocks.
 		 * This tag can only be a last resort option, as it is likely an error in Botania or the block's origin mod
 		 * that causes the issues, which should be fixed properly.

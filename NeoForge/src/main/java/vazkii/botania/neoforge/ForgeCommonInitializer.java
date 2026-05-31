@@ -79,6 +79,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.PhantomInkableBlock;
@@ -575,6 +576,13 @@ public class ForgeCommonInitializer {
 	}
 
 	private void registerBlockCapabilities(RegisterCapabilitiesEvent e) {
+		BlockCapability<EdibleBlockWithEffects, Void> edibleBlockWithEffectCapability =
+				BotaniaForgeCapabilities.getBlockApiLookupById(EdibleBlockWithEffects.LOOKUP);
+		// these two blocks implement the capability directly
+		e.registerBlock(edibleBlockWithEffectCapability,
+				(level, pos, state, blockEntity, context) -> (EdibleBlockWithEffects) state.getBlock(),
+				BotaniaBlocks.mutatedGrass, BotaniaBlocks.infusedGrass);
+
 		// TODO: is there any way to identify all BlockEntityTypes for AbstractFurnaceBlock subclasses?
 		BlockCapability<ExoflameHeatable, Void> exoflameHeatableBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(ExoflameHeatable.LOOKUP);

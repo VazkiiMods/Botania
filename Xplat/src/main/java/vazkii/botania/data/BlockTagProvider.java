@@ -108,6 +108,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.DRAGON_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 		tag(BlockTags.WITHER_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 
+		tag(BotaniaTags.Blocks.SHEEP_EDIBLE_GRASSES).add(
+				dryGrass, goldenGrass, infusedGrass, mutatedGrass, scorchedGrass, vividGrass
+		);
+
 		tag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
 				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getFloatingFlower)
