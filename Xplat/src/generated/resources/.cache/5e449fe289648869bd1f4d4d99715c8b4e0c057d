@@ -69,6 +69,9 @@ c23ad2f264eacf9d5cf691d47aef8e4c5f2b0be3 data/botania/tags/item/undims_floating_
 85878dc98076b7f58e746da580cdd6d27c0c1e82 data/minecraft/tags/item/bookshelf_books.json
 66ead4b1b5ae40b90cf731cb209e4c7a8280f943 data/minecraft/tags/item/chest_armor.json
 db17fc2533475e8c4f17ebbe21ec3cf98f2bf4ea data/minecraft/tags/item/cluster_max_harvestables.json
+68aabb17f89f25d64fabc2720017e6f9e5ce1fda data/minecraft/tags/item/enchantable/bow.json
+fed357581238ed8428552a38e518e90d6d6aed4d data/minecraft/tags/item/enchantable/durability.json
+61ae96e93e2303b4ea5e262006efa92df0fdc516 data/minecraft/tags/item/enchantable/mining.json
 5e3d052fd880c72e6cf251feb7baf0f1cc4b92e5 data/minecraft/tags/item/fence_gates.json
 a1cc6f7061a825b4d500aa250d6d6ec1c46fbb81 data/minecraft/tags/item/foot_armor.json
 3e6cf94b6e0293310b7521ad0cc7858561699b1b data/minecraft/tags/item/freeze_immune_wearables.json
