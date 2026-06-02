@@ -348,6 +348,18 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Block> UNSUPPORTED_PLATFORM_DISGUISE = tag("unsupported_platform_disguise");
 
+		/**
+		 * Blocks that comprise the trunks and branches of trees and tree-like plants.
+		 * The Terra Truncator's breaking effect traverses along these blocks for the full range.
+		 * Only axe-mineable blocks ({@link net.minecraft.tags.BlockTags#MINEABLE_WITH_AXE}) should be in this tag.
+		 */
+		public static final TagKey<Block> TERRA_TRUNCATOR_TRUNK_BLOCKS = tag("terra_truncator/trunk_blocks");
+		/**
+		 * Blocks that comprise the "crown" of trees or caps of huge mushrooms.
+		 * The Terra Truncator's breaking effect only traverses through these for a very limited range.
+		 */
+		public static final TagKey<Block> TERRA_TRUNCATOR_CROWN_BLOCKS = tag("terra_truncator/crownk_blocks");
+
 		public static final TagKey<Block> GOG_PEBBLE_SOURCES =
 				TagKey.create(Registries.BLOCK, gogRL("pebble_sources"));
 

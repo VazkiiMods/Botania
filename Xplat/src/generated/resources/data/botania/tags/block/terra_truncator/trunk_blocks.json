@@ -1,0 +1,11 @@
+{
+  "values": [
+    "#minecraft:logs",
+    "minecraft:mangrove_roots",
+    "minecraft:mushroom_stem",
+    {
+      "id": "quark:glow_shroom_stem",
+      "required": false
+    }
+  ]
+}

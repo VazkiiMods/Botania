@@ -16,7 +16,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -27,6 +26,7 @@ import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelAxeItem;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.*;
 
@@ -214,9 +214,9 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 				}
 
 				// Otherwise, perform the break and then look at the adjacent tiles.
-				ToolCommons.removeBlockWithDrops(player, truncator, world,
-						cand.coordinates,
-						state -> state.is(BlockTags.MINEABLE_WITH_AXE) || state.is(BlockTags.LEAVES));
+				ToolCommons.removeBlockWithDrops(player, truncator, world, cand.coordinates,
+						state -> state.is(BlockTags.MINEABLE_WITH_AXE)
+								|| state.is(BotaniaTags.Blocks.TERRA_TRUNCATOR_CROWN_BLOCKS));
 
 				remainingSwaps--;
 
@@ -224,19 +224,16 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 
 				// Then, go through all of the adjacent blocks and look if
 				// any of them are any good.
-				for (BlockPos adj : MathHelper.aroundPosClosed(cand.coordinates, 1)) {
+				for (BlockPos adj : MathHelper.aroundPosClosed(cand.coordinates, SINGLE_BLOCK_RADIUS)) {
 					if (adj.equals(cand.coordinates)) {
 						continue;
 					}
 					var state = world.getBlockState(adj);
 
-					boolean isWood = state.is(BlockTags.LOGS);
-					boolean isLeaf = state.is(BlockTags.LEAVES);
-					// TODO: Make "blocks the axe will propagate through" a tag
-					boolean shouldPropagateThrough = isWood || isLeaf
-							|| state.is(Blocks.MANGROVE_ROOTS);
+					boolean isWood = state.is(BotaniaTags.Blocks.TERRA_TRUNCATOR_TRUNK_BLOCKS);
+					boolean isLeaf = state.is(BotaniaTags.Blocks.TERRA_TRUNCATOR_CROWN_BLOCKS);
 
-					if (!shouldPropagateThrough) {
+					if (!isWood && !isLeaf) {
 						continue;
 					}
 

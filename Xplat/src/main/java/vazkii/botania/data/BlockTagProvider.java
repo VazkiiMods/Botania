@@ -58,6 +58,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final Predicate<Block> BOTANIA_BLOCK = b -> BotaniaAPI.MODID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());
 	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(
 			BlockTags.LEAVES,
+			BlockTags.LOGS,
 			BlockTags.FIRE
 	);
 
@@ -353,6 +354,19 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.AGRICARNATION_GROWTH_EXCLUDED).add(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM, Blocks.MANGROVE_LEAVES);
 
 		tag(BotaniaTags.Blocks.MUNCHDEW_CONSUMABLE).addTag(BlockTags.LEAVES);
+
+		tag(BotaniaTags.Blocks.TERRA_TRUNCATOR_TRUNK_BLOCKS)
+				.addTag(BlockTags.LOGS)
+				.add(Blocks.MANGROVE_ROOTS, Blocks.MUSHROOM_STEM)
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "glow_shroom_stem"));
+		tag(BotaniaTags.Blocks.TERRA_TRUNCATOR_CROWN_BLOCKS)
+				.addTag(BlockTags.LEAVES)
+				.add(
+						Blocks.NETHER_WART_BLOCK, Blocks.WARPED_WART_BLOCK, Blocks.SHROOMLIGHT,
+						Blocks.BROWN_MUSHROOM_BLOCK, Blocks.RED_MUSHROOM_BLOCK
+				)
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "glow_shroom_block"))
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "glow_shroom_ring"));
 
 		registerMiningTags();
 	}
