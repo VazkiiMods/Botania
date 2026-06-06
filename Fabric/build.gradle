@@ -37,6 +37,10 @@ loom {
 
 }
 
+test {
+    useJUnitPlatform()
+}
+
 repositories {
     maven {
         name = "Modmuss"
@@ -103,4 +107,6 @@ dependencies {
     if (file("../garden_of_glass/gardenofglass-${gog_version}.jar").exists()) {
         modLocalRuntime files("../garden_of_glass/gardenofglass-${gog_version}.jar")
     }
+
+    testImplementation "net.fabricmc:fabric-loader-junit:${fabric_loader_version}"
 }
