@@ -4026,6 +4026,7 @@
 
 
 
+
   "botania.entry.blazeBlock": "Malha de Blazes",
   "botania.tagline.blazeBlock": "Armazenamento compacto de varas de blaze e fonte renovável de obsidiana",
   "botania.page.blazeBlock0": "Esmagar várias essências de blaze juntas produz um bloco decorativo iluminado funcional (ainda que rudimentar).$(p)Como um $(item)Bloco de Carvão$(0), a $(item)Malha de Blazes$(0) pode ser queimada em fornalhas (ou $(l:generating_flowers/endoflame)$(item)Endochamas$(0)$(/l)). Curiosamente, quando colocado na área de efeito de uma $(l:basics/pure_daisy)$(item)Margarida Pura$(0)$(/l), ele se transforma em $(item)Obsidiana$(0).",

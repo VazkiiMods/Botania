@@ -4026,6 +4026,7 @@
   "botania.page.phantomInk1": "私を呼ぶのは誰だ？",
 
 
+
   "botania.entry.blazeBlock": "ブレイズメッシュ",
   "botania.tagline.blazeBlock": "コンパクトなブレイズロッドの貯蔵と、再生可能な黒曜石資源",
   "botania.page.blazeBlock0": "沢山のブレイズエッセンスを混ぜ合わせ、粗末ではあるが機能的な装飾用ライトブロックが作成できます。$(p)$(item)ブレイズメッシュ$(0)は、$(item)石炭ブロック$(0)のようにかまどや$(l:generating_flowers/endoflame)$(item)エンドフレイム$(0)$(/l)の燃料として使用できます。不思議な事に、$(l:basics/pure_daisy)$(item)ピュアデイジー$(0)$(/l)の隣に置くと、$(item)黒曜石$(0)に変換されます。",
