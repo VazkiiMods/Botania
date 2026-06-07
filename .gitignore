@@ -70,4 +70,4 @@ Temporary Items
 /docsOut
 
 # Logs
-Xplat/logs/latest.log
+*.log
