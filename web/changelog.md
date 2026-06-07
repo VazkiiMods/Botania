@@ -15,11 +15,74 @@ Before each release, rename the version below to the released version,
 and start a new "Upcoming" section.
 -->
 
-{% include changelog_header.html version="Upcoming" %}
-Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supporting both Fabric and NeoForge) are ongoing.
+{% include changelog_header.html version="Future" %}
+Porting efforts to bring Botania to Minecraft 1.21.1 (supporting both Fabric and NeoForge) are ongoing.
 We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
 of time the maintainers are able to spend on this effort.
-In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
+Here's a general overview of what you can expect to change in terms of gameplay:
+
+* Compatibility: Fully migrated existing Forge support to NeoForge (Forge is no longer supported at all)
+* Compatibility: Roughly Enough Items (REI) is now also supported on NeoForge (joining JEI and EMI)
+* Compatibility: "Fast Item Frames" and "Open Parties and Claims" are now considered "discouraged", due to their strictly negative impact on Botania features
+* Add: Stat tracking for items crafted using Botania facilities (e.g. mana pool or petal apothecary)
+* Add: Armadillo support – Cocoon of Caprice spawns them as rare animal, Drum of the Gathering can make them shed scutes
+* Add: Petal Pouch, an upgrade to the Flower Pouch that automatically breaks down flowers into petals and can also store shimmering mushrooms
+* Add: Trial Chamber structure loot from Loonium (trial keys are excluded)
+* Add: Bogged have joined the Loonium's random mob spawn pool
+* Add: Crafter support (Hopperhock single item insert, crafting pattern set locked slots, red-stringed dispenser binds to it)
+* Add: Pointed Dripstone stalagtites can fill the Petal Apothecary
+* Add: Phantom Ink can be applied by a dispenser, and can be aplied to Corporea Crystal Cube (hides the count) and item frames (hides the frame while containing an item)
+* Add: Sheep can eat Botania grass variants, though some of them may have special effects
+* Add: Wind Charge explosions can toggle some Botania blocks (e.g. Hovering Hourglass, Animated Torch)
+* Add: Mana pools can be dyed via crafting, not just in-world, and dye can be washed off in a cauldron
+* Add: Eye of the Ancients can be toggled between counting adults, babies, and all animals
+* Add: More block variants (buttons, pressure plates, fences, doors, trapdoors, signs, hanging signs, walls) for Botania materials (livingrock, shimmerrock, livingwood, dreamwood, shimmerwood planks, corporea, metamorphic stone variants)
+* Add: New Petal Apothecary variants (blackstone, netherbricks, red netherbricks)
+* Add: New ambient music by Firel - Runes of Air, Runes of Mana, and Garden of Glass (the latter only plays when the Garden of Glass mod is loaded)
+* Add: Dog. (IYKYK)
+* Change: Fel Blaze spawning now matches snow golem spawning, in that the block shape can be placed sideways or even upside down
+* Change: Botania's banner patterns now have dedicated pattern items instead of using certain Botania items directly
+* Change: Botania grass variants spread and decay like vanilla grass or mycelium
+* Change: Vitreous Pickaxe is a bit slower, but supports a wider variety of glass-like items
+* Change: Mobs spawned from a vanilla spawner with a Life Imbuer on top can exist without any players nearby (but still randomly despawn when idle for too long)
+* Change: Petal Apothecary accepts Nether Wart as reagent item
+* Change: Mana Infusion recipes received a minor overhaul
+  * cycling sapling types is way more expensive
+  * cycle order for logs and saplings has been adjusted to alternate between simpler (and thus easier to farm) and more complex tree shapes
+  * more block deconstruction recipes
+  * deconstruction recipes are more expensive and always lossy if the block cannot be deconstructed using vanilla means
+  * 1.17 stones cycle is gone, but the stone cycle now includes tuff (converted from granite and into andesite) and calcite can be obtained from purifying dripstone blocks with the Pure Daisy
+  * new "nether stones" cycle containing netherrack, blackstone, and basalt
+* Change: Rune-related progression was updated
+  * Rune of Fire now requires coal or charcoal instead of nether wart (i.e. Fire, Spring, and Autumn runes are now "pre-nether", along with various flowers and items crafted from them)
+  * Rune of Earth now requires a mud block instead of a coal block
+  * all "sin runes" now require mana quartz in addition to the two mana diamonds (i.e. Envy, Lust, and Wrath runes are now "post-nether", along with the Damage and Entropic mana lenses)
+  * Terrestrial Agglomeration Plate is crafted using a Manaquartz block instead of a Manasteel block (this keeps the plate "post-nether")
+* Change: Hydroangeas only keeps actually infinite water sources around
+* Change: Endoflame takes a short break of 2 seconds after each item it burned (meaning: low-duration fuels are now less efficient than high-duration fuels)
+* Change: Thermalily cooldown is no longer random
+* Change: Spectrolus color sequence now depends on the world seed (except for existing flowers placed in the world  before upgrading)
+* Change Solegnolia is now a miscellaneous flower that no longer binds to a mana pool
+* Change: Ring of the Mantle only applies Haste 1, but "softens" harder blocks such that they can be mined instantly with Efficency 5 and Haste 2 (except ores)
+* Change: Various updates to the gaia fight
+  * The beacon block is no longer a shiny jukebox, the music actually plays as (and replaces) ambient music during the fight.
+  * The beacon turns off during the fight, but the fight no longer suppresses any potion effects, regardless of source.
+  * The beacon must actually be active (i.e. emit a beam) to start thee fight.
+  * Mobs spawned by the Guardian of Gaia no longer in-fight and will focus on things within the arena
+* Change: Rosa Arcana is now focused on consuming only XP orbs; it extracts them from players and enchanted items, and even attracts them (players near the flower cannot pickup XP orbs anymore)
+* Change: Terra Truncator can cut down huge mushrooms and nether fungi, and properly breaks larger tree crowns (e.g. of large jungle trees)
+* Remove: Overgrowth Seed and Enchanted Soil
+* API: Runic Altar recipes define catalyst items separately (these are returned unchanged when crafting is complete)
+* API: Petal Apothecary, Runic Altar, and Botanical Brewery return craft remainder items
+* API: Many block attributes that were block entity NBT data before have moved to block state properties
+* API: Pure Daisy and Orechid recipes support a pre-update function
+
+---
+
+{% include changelog_header.html version="Upcoming" %}
+The following changes will be released in an upcoming version of Botania for 1.20.1:
+
+* (nothing so far)
 
 ---
 
