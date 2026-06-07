@@ -4026,6 +4026,7 @@
   "botania.page.phantomInk1": "你想找谁？",
 
 
+
   "botania.entry.blazeBlock": "烈焰网",
   "botania.tagline.blazeBlock": "压缩烈焰棒存储，新的黑曜石获取方式",
   "botania.page.blazeBlock0": "将一捆$(item)烈焰棒$(0)压实就能得到一个发光的装饰方块，尽管粗糙，却是个不错的光源。$(p)类似$(item)煤块$(0)，$(item)烈焰网$(0)也能用作燃料。将它放在$(item)白雏菊$(0)旁边则会被转化为$(item)黑曜石$(0)，真是见鬼了。",

@@ -4026,6 +4026,7 @@
   "botania.page.phantomInk1": "누구를 불러야 할까요?",
 
 
+
   "botania.entry.blazeBlock": "불꽃 메쉬",
   "botania.tagline.blazeBlock": "좁은 블레이즈 막대 저장 공간 및 재생 가능한 흑요석 원천",
   "botania.page.blazeBlock0": "다수의 불꽃 에센스를 함께 으깨면 (조잡하지만 기능적인) 장식용 빛 블록이 생성됩니다.$(p)$(item)석탄 블록$(0)처럼 $(item)불꽃 메쉬$(0)는 화로(또는 $(l:generating_flowers/endoflame)$(item)엔도플레임$(0)$(/l))에서 연소될 수 있습니다. 신기하게도 $(l:basics/pure_daisy)$(item)순수한 데이지$(0)$(/l)에 의해 배치되면 $(item)흑요석$(0)으로 변신합니다.",

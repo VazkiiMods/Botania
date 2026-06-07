@@ -4026,6 +4026,7 @@
   "botania.page.phantomInk1": "$(o)plutôt sympathique$()",
 
 
+
   "botania.entry.blazeBlock": "Bloc de Blaze",
   "botania.tagline.blazeBlock": "TAGLINE",
   "botania.page.blazeBlock0": "Combiner des $(item)bâtons de Blaze$(0) permet de créer cette lanterne.$(p)Comme un $(item)bloc de charbon$(0), le $(item)bloc de Blaze$(0) est un combustible. Il peut donc être utilisé par une $(l:generating_flowers/endoflame)endoflamme$(/l) ou un $(item)fourneau$(0).$(p)Il est possible de transformer ce bloc en $(item)obsidienne$(0) à l'aide d'une $(l:basics/pure_daisy)pâquerette pure$(/l).",

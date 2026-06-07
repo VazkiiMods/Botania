@@ -42,6 +42,7 @@
     "ItemEntityAccessor",
     "ItemEntityMixin_NoDespawn",
     "ItemEntityMixin_UpdateLifetimeData",
+    "ItemFrameMixin",
     "ItemMixin",
     "LevelAccessor",
     "LiquidBlockAccessor",

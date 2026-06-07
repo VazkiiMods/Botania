@@ -27,6 +27,7 @@ public final class BotaniaDataAttachments {
 		consumer.accept(SpectralFloatTicks.HOLDER);
 
 		// marker data
+		consumer.accept(PhantomInked.MARKER);
 		consumer.accept(SlimeChunkSpawned.MARKER);
 		consumer.accept(SlowDespawn.MARKER);
 		consumer.accept(TigerseyePacified.MARKER);

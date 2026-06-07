@@ -4025,6 +4025,7 @@
   "botania.page.phantomInk0": "Having your beautiful skin and accessories hidden under a set of clunky armor is nobody's dream. It's bulky, flat, and worst of all, unfashionable!$(p)Luckily, splashing $(item)Phantom Ink$(0) on armor in a crafting grid will make the latter completely invisible, while still providing all of its benefits. ($(item)Phantom Ink$(0) only works on armor sets that use $(thing)Mana$(0).)",
   "botania.page.phantomInk1": "Who you gonna call?",
   "botania.page.phantomInk2": "$(item)Phantom Ink$(0) can also be applied to smaller accessories, such as necklaces or charms, to hide them when worn. It will not work on tools or weapons, though.$(p)And should there ever be a change of mind regarding the (in)visibility of an item, the ink can also be washed off again in a water-filled cauldron.",
+  "botania.page.phantomInk3": "$(item)Phantom Ink$(0) can even be applied directly to certain things already placed in the world, like $(l:mana/sparks)$(item)Sparks$(0)$(/l), $(l:devices/platform)$(item)Abstruse Platforms$(0)$(/l), or $(item)Item Frames$(0), to reduce their visibility.$(p)Applying the ink in this way is less permanent, though. Breaking the object also ends the effect of the phantom ink on it.",
 
   "botania.entry.blazeBlock": "Blaze Mesh",
   "botania.tagline.blazeBlock": "Compact blaze rod storage and renewable obsidian source",

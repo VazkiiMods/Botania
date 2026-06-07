@@ -4025,6 +4025,7 @@
   "botania.page.phantomInk0": "Niemand träumt davon, sein Skin und Schmuck unter einer klobigen Rüstung zu verstecken. Sie ist sperrig, flach, und vor allem unmodisch!$(p)Glücklicherweise kann man Rüstungen durch Auftragen von $(item)Phantomtinte$(0) in einem Herstellungsquadrat komplett unsichtbar machen. ($(item)Phantomtinte$(0) funktioniert nur mit Rüstungen, die $(thing)Mana$(0) verwenden.)",
   "botania.page.phantomInk1": "Wen rufst du an?",
   "botania.page.phantomInk2": "$(item)Phantomtinte$(0) kann auch auf kleineres Accessoires angewendet werden, wie Halsketten oder Amulette, um diese versteckt zu tragen. Sie funktioniert allerdings nicht auf Werkzeugen oder Waffen.$(p)Und falls es jemals einen Sinneswandel in Bezug auf die (Un)Sichtbarkeit eines Gegenstandes geben sollte, kann die Tinte von diesem in einem wassergefüllten Kessen abgewaschen werden.",
+  "botania.page.phantomInk3": "$(item)Phantomtinte$(0) kann auch direkt auf einige Dinge angewendet werden, die in der Welt platziert wurden, wie zum Beispiel $(l:mana/sparks)$(item)Funken$(0)$(/l), $(l:devices/platform)$(item)Abstruse Plattformen$(0)$(/l) oder $(item)Rahmen$(0), um deren Sichtbarkeit zu reduzieren.$(p)Die Anwendung der Tinte auf diese Art ist allerdings weniger permanent. Ihr Effekt endet sobald das Objekt abgebaut wird.",
 
   "botania.entry.blazeBlock": "Lohengeflecht",
   "botania.tagline.blazeBlock": "Kompakte Aufbewahrung für Lohenruten und erneuerbare Obsidianquelle",
