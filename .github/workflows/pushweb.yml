@@ -25,6 +25,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     needs: determinator
+    if: github.ref == needs.determinator.outputs.default_branch
     steps:
     - uses: actions/checkout@v6
     - name: Cache
