@@ -18,8 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.flower.BotaniaFlowerBlock;
+import vazkii.botania.common.block.flower.MysticalFlowerBlock;
 
 /**
  * This Feature is essentially the same as vanilla's
@@ -38,14 +37,13 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 		BlockPos pos = ctx.origin();
 		BlockState state = config.toPlace().getState(ctx.random(), pos);
 		if (state.canSurvive(level, pos)) {
-			if (state.getBlock().getClass() == BotaniaFlowerBlock.class
+			if (state.getBlock() instanceof MysticalFlowerBlock flower
 					&& ctx.random().nextFloat() < config.tallChance()) {
-				if (!level.isEmptyBlock(pos.above())) {
+				if (!level.isEmptyBlock(pos.above())
+						|| !(flower.getTallFlower() instanceof DoublePlantBlock doubleFlower)) {
 					return false;
 				}
 
-				var color = ((BotaniaFlowerBlock) state.getBlock()).color;
-				var doubleFlower = BotaniaBlocks.getDoubleFlower(color);
 				DoublePlantBlock.placeAt(level, doubleFlower.defaultBlockState(), pos, Block.UPDATE_CLIENTS);
 			} else {
 				level.setBlock(pos, state, Block.UPDATE_CLIENTS);
