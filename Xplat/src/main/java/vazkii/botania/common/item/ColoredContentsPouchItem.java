@@ -43,11 +43,11 @@ import vazkii.botania.client.gui.bag.ColoredContentsPouchContainer;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * A pouch-like item that stores colored items, i.e. items implementing the {@link Colored} interface. The pouch uses
@@ -85,7 +85,7 @@ public abstract class ColoredContentsPouchItem extends Item {
 
 	public boolean isValidItemForSlot(int slot, ItemStack stack, List<DyeColor> supportedColors,
 			List<TagKey<Item>> supportedItemTypes) {
-		if (!(stack.getItem() instanceof Colored colored)) {
+		if (!(stack.getItem() instanceof Colored colored) || !stack.getItem().canFitInsideContainerItems()) {
 			return false;
 		}
 		int colorIndex = supportedColors.indexOf(colored.getColor());
@@ -149,17 +149,46 @@ public abstract class ColoredContentsPouchItem extends Item {
 
 	@Override
 	public boolean overrideStackedOnOther(ItemStack pouch, Slot slot, ClickAction clickAction, Player player) {
-		return InventoryHelper.overrideStackedOnOther(
-				this::getInventory, player.containerMenu instanceof ColoredContentsPouchContainer,
-				pouch, slot, clickAction, player);
+		if (clickAction != ClickAction.SECONDARY) {
+			return false;
+		}
+		ItemStack toInsert = slot.getItem();
+		if (!isSupportedItem(pouch, toInsert)) {
+			return false;
+		}
+
+		return tryPutItemStack(pouch, player, toInsert, slot::set);
 	}
 
 	@Override
 	public boolean overrideOtherStackedOnMe(ItemStack pouch, ItemStack toInsert, Slot slot, ClickAction clickAction,
 			Player player, SlotAccess cursorAccess) {
-		return InventoryHelper.overrideOtherStackedOnMe(
-				this::getInventory, player.containerMenu instanceof ColoredContentsPouchContainer,
-				pouch, toInsert, clickAction, cursorAccess);
+		if (clickAction != ClickAction.SECONDARY || !slot.allowModification(player)
+				|| !isSupportedItem(pouch, toInsert)) {
+			return false;
+		}
+
+		return tryPutItemStack(pouch, player, toInsert, cursorAccess::set);
+	}
+
+	private boolean tryPutItemStack(ItemStack pouch, Player player, ItemStack toInsert,
+			Consumer<ItemStack> slotSetter) {
+		IntList slots = findCandidateSlots(player.level(), pouch, toInsert);
+		if (slots.isEmpty()) {
+			return false;
+		}
+		SimpleContainer container = getInventory(pouch);
+		boolean inserted = false;
+		for (int slotIndex : slots) {
+			if (tryPutItem(player.level(), pouch, toInsert, container, slotIndex)) {
+				inserted = true;
+			}
+		}
+		if (inserted) {
+			slotSetter.accept(toInsert);
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isSupportedItem(ItemStack pouch, ItemStack pickupStack) {

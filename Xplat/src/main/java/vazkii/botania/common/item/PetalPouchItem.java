@@ -17,10 +17,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -133,10 +136,25 @@ public class PetalPouchItem extends ColoredContentsPouchItem {
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (player.isSecondaryUseActive()) {
-			DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !isActive(stack));
-			level.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.petalPouchConfigure, SoundSource.NEUTRAL, 1f, 1f);
+			toggleActive(level, player, stack);
 			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 		}
 		return super.use(level, player, hand);
+	}
+
+	private void toggleActive(Level level, Player player, ItemStack stack) {
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !isActive(stack));
+		level.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.petalPouchConfigure, SoundSource.NEUTRAL, 1f, 1f);
+	}
+
+	@Override
+	public boolean overrideOtherStackedOnMe(ItemStack pouch, ItemStack toInsert, Slot slot, ClickAction clickAction,
+			Player player, SlotAccess cursorAccess) {
+		if (clickAction == ClickAction.SECONDARY && cursorAccess.get().isEmpty()) {
+			toggleActive(player.level(), player, pouch);
+			slot.set(pouch);
+			return true;
+		}
+		return super.overrideOtherStackedOnMe(pouch, toInsert, slot, clickAction, player, cursorAccess);
 	}
 }
