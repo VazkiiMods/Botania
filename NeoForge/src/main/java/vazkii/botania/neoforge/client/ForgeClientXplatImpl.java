@@ -25,6 +25,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -61,6 +62,11 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public BakedModel wrapPlatformModel(BakedModel original) {
 		return new ForgePlatformModel(original);
+	}
+
+	@Override
+	public int getGuiRightHeight(Player player) {
+		return Minecraft.getInstance().gui.rightHeight;
 	}
 
 	@Override

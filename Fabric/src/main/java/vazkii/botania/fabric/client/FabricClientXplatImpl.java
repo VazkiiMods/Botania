@@ -24,7 +24,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -53,6 +57,24 @@ public class FabricClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public BakedModel wrapPlatformModel(BakedModel original) {
 		return new FabricPlatformModel(original);
+	}
+
+	@Override
+	public int getGuiRightHeight(Player player) {
+		int rightHeight = 49;
+
+		if (player.isEyeInFluid(FluidTags.WATER) || player.getAirSupply() < player.getMaxAirSupply()) {
+			// shift up single row if player is underwater or still recovering air
+			rightHeight += 10;
+		}
+
+		Entity playerVehicle = player.getVehicle();
+		if (playerVehicle instanceof LivingEntity vehicle && vehicle.showVehicleHealth()) {
+			// shift up if vehicle health requires more than one row (vanilla HUD limits vehicle hearts to 3 rows)
+			rightHeight += Math.min(30, (int) (vehicle.getMaxHealth() + 0.5) / 2) - 1;
+		}
+
+		return rightHeight;
 	}
 
 	@Override

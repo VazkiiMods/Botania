@@ -95,7 +95,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void registerGuiOverlays(RegisterGuiLayersEvent e) {
-		e.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, botaniaRL("hud"), HUDHandler::onDrawScreenPost);
+		e.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, botaniaRL("hud_early"), HUDHandler::onDrawExperienceBarPost);
+		e.registerAbove(VanillaGuiLayers.AIR_LEVEL, botaniaRL("hud_late"), HUDHandler::onDrawAirLevelPost);
 	}
 
 	@SubscribeEvent

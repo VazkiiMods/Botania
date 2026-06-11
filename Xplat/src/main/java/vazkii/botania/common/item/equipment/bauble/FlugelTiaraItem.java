@@ -495,7 +495,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 
 			Minecraft mc = Minecraft.getInstance();
 			int xo = mc.getWindow().getGuiScaledWidth() / 2 + 10;
-			int y = mc.getWindow().getGuiScaledHeight() - 10 * estimateAdditionalNumRowsRendered(player) - 49;
+			int y = mc.getWindow().getGuiScaledHeight() - ClientXplatAbstractions.INSTANCE.getGuiRightHeight(player);
 
 			int maxFlightTime = getMaxFlightTime(stack);
 			int left = stack.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, maxFlightTime);
