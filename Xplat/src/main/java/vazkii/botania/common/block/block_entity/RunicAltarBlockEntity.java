@@ -176,7 +176,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.livingrock.asItem())
-						&& ItemSource.HOLDER.getFor(item) == ItemSources.RUNIC_ALTAR) {
+						&& ItemSource.HOLDER.getFor(item) != ItemSources.RUNIC_ALTAR) {
 					ItemStack stack = item.getItem();
 					if (self.addItem(null, stack, null)) {
 						EntityHelper.syncItem(item);
