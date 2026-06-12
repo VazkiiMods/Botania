@@ -29,6 +29,7 @@ import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.client.gui.bag.ColoredContentsPouchContainer;
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
+import vazkii.botania.client.gui.enderhand.HandOfEnderMenu;
 import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
@@ -443,6 +444,7 @@ public final class BotaniaItems {
 
 	public static final MenuType<BaubleBoxContainer> BAUBLE_BOX_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(BaubleBoxContainer::new, ByteBufCodecs.BOOL);
 	public static final MenuType<ColoredContentsPouchContainer> COLORED_CONTENTS_POUCH_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(ColoredContentsPouchContainer::new, ByteBufCodecs.BOOL);
+	public static final MenuType<HandOfEnderMenu> HAND_OF_ENDER_MENU_TYPE = XplatAbstractions.INSTANCE.createMenuType(HandOfEnderMenu::new, ByteBufCodecs.BOOL);
 
 	public static final CauldronInteraction MANA_POOL_INTERACTION = (state, level, pos, player, hand, stack) -> {
 		Block block = Block.byItem(stack.getItem());
@@ -529,6 +531,7 @@ public final class BotaniaItems {
 	public static void registerMenuTypes(BiConsumer<MenuType<?>, ResourceLocation> consumer) {
 		consumer.accept(BAUBLE_BOX_CONTAINER, botaniaRL(LibItemNames.BAUBLE_BOX));
 		consumer.accept(COLORED_CONTENTS_POUCH_CONTAINER, botaniaRL(LibItemNames.FLOWER_BAG));
+		consumer.accept(HAND_OF_ENDER_MENU_TYPE, botaniaRL(LibItemNames.ENDER_HAND));
 	}
 
 	public static void registerCauldronInteractions() {
