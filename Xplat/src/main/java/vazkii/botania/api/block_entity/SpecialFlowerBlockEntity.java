@@ -38,7 +38,8 @@ import vazkii.botania.common.lib.BotaniaTags;
 /**
  * Common superclass of all magical flower block entities
  */
-public abstract class SpecialFlowerBlockEntity extends BlockEntity implements FloatingFlowerProvider, ThrottledPacket {
+public abstract class SpecialFlowerBlockEntity extends BlockEntity
+		implements FloatingFlowerProvider, ThrottledPacket<SpecialFlowerBlockEntity> {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 	/** Block state seeds are 48 bit values, but appear to potentially fill the higher bits with ones */
@@ -170,16 +171,24 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		return isFloating() ? ClientboundBlockEntityDataPacket.create(this) : null;
 	}
 
+	@Override
 	public boolean isMarkedForSync() {
 		return markedForSync;
 	}
 
+	@Override
 	public void setMarkedForSync(boolean markedForSync) {
 		this.markedForSync = markedForSync;
 	}
 
+	@Override
 	public int getSyncInterval() {
 		return 17;
+	}
+
+	@Override
+	public SpecialFlowerBlockEntity getSelf() {
+		return this;
 	}
 
 	/**

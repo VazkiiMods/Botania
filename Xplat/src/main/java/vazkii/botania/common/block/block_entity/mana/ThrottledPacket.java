@@ -12,19 +12,20 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.Nullable;
-
+import vazkii.botania.api.block_entity.BlockEntityInterface;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.WandOfTheForestItem;
 
 /**
  * A BlockEntity that will only send a few packets rather than one for every client-visible change.
+ *
+ * @param <T> The implementing BlockEntity's type.
  */
-public interface ThrottledPacket {
+public interface ThrottledPacket<T extends BlockEntity & ThrottledPacket<T>> extends BlockEntityInterface<T> {
 
 	// synchronization methods
 
@@ -39,9 +40,10 @@ public interface ThrottledPacket {
 	 * This block entity received an important change that should be synchronized with clients as soon as possible.
 	 */
 	default void markForImmediateSync() {
-		Level level = getLevel();
+		Level level = getSelf().getLevel();
 		if (level != null && !level.isClientSide()) {
-			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+			level.sendBlockUpdated(getSelf().getBlockPos(), getSelf().getBlockState(), getSelf().getBlockState(),
+					Block.UPDATE_CLIENTS);
 			setMarkedForSync(false);
 		}
 	}
@@ -53,9 +55,9 @@ public interface ThrottledPacket {
 	 * from the bound pool, respectively. (This is one half of the effect of {@code setChanged()}.)
 	 */
 	default void markForPersisting() {
-		Level level = getLevel();
+		Level level = getSelf().getLevel();
 		if (level != null && !level.isClientSide()) {
-			level.blockEntityChanged(getBlockPos());
+			level.blockEntityChanged(getSelf().getBlockPos());
 		}
 	}
 
@@ -65,9 +67,9 @@ public interface ThrottledPacket {
 	 * The implementing block entity should call this method regularly to synchronize potential pending changes.
 	 */
 	default void maybeSyncNow() {
-		Level level = getLevel();
+		Level level = getSelf().getLevel();
 		if (level != null && !level.isClientSide() && isMarkedForSync()
-				&& (level.getGameTime() + getBlockState().getSeed(getBlockPos())) % getSyncInterval() == 0
+				&& (level.getGameTime() + getSelf().getBlockState().getSeed(getSelf().getBlockPos())) % getSyncInterval() == 0
 				&& mayBeRelevantForClients(level)) {
 			markForImmediateSync();
 		}
@@ -77,7 +79,7 @@ public interface ThrottledPacket {
 	 * Determines whether a potential synchronization could be relevant to at least some players.
 	 */
 	default boolean mayBeRelevantForClients(Level level) {
-		BlockPos pos = getBlockPos();
+		BlockPos pos = getSelf().getBlockPos();
 		Vec3 posCenter = pos.getCenter();
 		for (Player player : level.players()) {
 			if (player.isAlive()
@@ -113,9 +115,4 @@ public interface ThrottledPacket {
 	 */
 	int getSyncInterval();
 
-	// existing BlockEntity methods
-	@Nullable
-	Level getLevel();
-	BlockPos getBlockPos();
-	BlockState getBlockState();
 }

@@ -63,7 +63,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity implements WandBindable, Bound, KeyLocked, ThrottledPacket, ManaSpreader, Wandable {
+public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
+		implements WandBindable, Bound, KeyLocked, ThrottledPacket<ManaSpreaderBlockEntity>, ManaSpreader, Wandable {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -677,6 +678,11 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	@Override
 	public int getSyncInterval() {
 		return 11;
+	}
+
+	@Override
+	public ManaSpreaderBlockEntity getSelf() {
+		return this;
 	}
 
 	@Override

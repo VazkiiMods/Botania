@@ -72,7 +72,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLocked, SparkAttachable,
-		ThrottledPacket, Wandable {
+		ThrottledPacket<ManaPoolBlockEntity>, Wandable {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final float PARTICLE_COLOR_BLUE = (PARTICLE_COLOR & 0xFF) / 255F;
 	public static final float PARTICLE_COLOR_GREEN = (PARTICLE_COLOR >> 8 & 0xFF) / 255F;
@@ -609,9 +609,9 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 		if ((lastSynchronizedMana == 0 ^ mana == 0
 				|| getMaxMana() > 0 && (float) Math.abs(lastSynchronizedMana - mana) / getMaxMana() > 0.01f)) {
 			// this is a visible change in mana level (change between empty and non-empty, or significant level change)
-			Vec3 pos = getBlockPos().getCenter();
+			Vec3 center = worldPosition.getCenter();
 			for (Player player : level.players()) {
-				if (player.isAlive() && player.position().closerThan(pos, 64)) {
+				if (player.isAlive() && player.position().closerThan(center, 64)) {
 					return true;
 				}
 			}
@@ -632,5 +632,10 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 	@Override
 	public int getSyncInterval() {
 		return 13;
+	}
+
+	@Override
+	public ManaPoolBlockEntity getSelf() {
+		return this;
 	}
 }
