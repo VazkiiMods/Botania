@@ -44,7 +44,7 @@ public class BaubleBoxItem extends Item {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
 			public boolean canPlaceItem(int index, ItemStack stack) {
-				return EquipmentHandler.instance.isAccessory(stack);
+				return EquipmentHandler.instance.isAccessory(stack) && stack.getItem().canFitInsideContainerItems();
 			}
 		};
 	}
