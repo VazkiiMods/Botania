@@ -136,7 +136,8 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		ClientTickEvents.END_CLIENT_TICK.register(KonamiHandler::clientTick);
-		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
+		HudRenderCallback.EVENT.register(HUDHandler::onDrawExperienceBarPost);
+		HudRenderCallback.EVENT.register(HUDHandler::onDrawAirLevelPost);
 		ItemTooltipCallback.EVENT.register(TooltipHandler::onTooltipEvent);
 		ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> ScreenKeyboardEvents.beforeKeyPress(screen)
 				.register((screen2, key, scancode, modifiers) -> CorporeaInputHandler.buttonPressed(key, scancode)));

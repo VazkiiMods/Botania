@@ -19,6 +19,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,6 +49,7 @@ public interface ClientXplatAbstractions {
 	@Nullable
 	BakedModel getResourceModel(ResourceLocation id);
 	BakedModel wrapPlatformModel(BakedModel original);
+	int getGuiRightHeight(Player player);
 	void setFilterSave(AbstractTexture texture, boolean filter, boolean mipmap);
 	void restoreLastFilter(AbstractTexture texture);
 	void tessellateBlock(Level level, BlockState state, BlockPos pos, PoseStack ps, MultiBufferSource buffers, int overlay);

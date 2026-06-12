@@ -96,7 +96,7 @@ public final class HUDHandler {
 		}
 	}
 
-	public static void onDrawScreenPost(GuiGraphics gui, DeltaTracker deltaTracker) {
+	public static void onDrawExperienceBarPost(GuiGraphics gui, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer localPlayer = mc.player;
 		if (mc.options.hideGui || localPlayer == null) {
@@ -106,17 +106,10 @@ public final class HUDHandler {
 		ItemStack main = localPlayer.getMainHandItem();
 		ItemStack offhand = localPlayer.getOffhandItem();
 
-		profiler.push("botania-hud");
+		profiler.push("botania-hud-early");
 
 		float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
 		if (mc.gameMode.canHurtPlayer()) {
-			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, localPlayer);
-			if (!tiara.isEmpty()) {
-				profiler.push("flugelTiara");
-				FlugelTiaraItem.ClientLogic.renderHUD(gui, partialTick, localPlayer, tiara);
-				profiler.pop();
-			}
-
 			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, localPlayer);
 			if (!dodgeRing.isEmpty()) {
 				profiler.push("dodgeRing");
@@ -255,6 +248,31 @@ public final class HUDHandler {
 		profiler.popPush("itemsRemaining");
 		ItemsRemainingRenderHandler.render(gui, partialTick);
 		profiler.pop();
+		profiler.pop();
+
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+	}
+
+	public static void onDrawAirLevelPost(GuiGraphics gui, DeltaTracker deltaTracker) {
+		Minecraft mc = Minecraft.getInstance();
+		LocalPlayer localPlayer = mc.player;
+		if (mc.options.hideGui || localPlayer == null) {
+			return;
+		}
+		ProfilerFiller profiler = mc.getProfiler();
+
+		profiler.push("botania-hud-late");
+
+		float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
+		if (mc.gameMode.canHurtPlayer()) {
+			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, localPlayer);
+			if (!tiara.isEmpty()) {
+				profiler.push("flugelTiara");
+				FlugelTiaraItem.ClientLogic.renderHUD(gui, partialTick, localPlayer, tiara);
+				profiler.pop();
+			}
+		}
+
 		profiler.pop();
 
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
