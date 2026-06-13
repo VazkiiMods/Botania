@@ -249,7 +249,6 @@
 
 
 
-
   "tag.block.botania.livingwood_logs": "Bûches de vifbois",
 
 
@@ -264,9 +263,11 @@
 
 
 
+
+
+
   "tag.block.botania.special_floating_flowers": "Fleurs flottantes spéciales",
   "tag.block.botania.special_flowers": "Fleurs spéciales",
-
 
 
 
@@ -322,10 +323,8 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "Mana-vision",
-
-
-
 
 
 
@@ -333,6 +332,7 @@
 
   "tag.item.botania.double_mystical_flowers": "Grandes fleurs mystiques",
   "tag.item.botania.dreamwood_logs": "Bûches en boisrêve",
+
 
 
 
@@ -348,6 +348,7 @@
   "tag.item.botania.lens": "Lentilles de mana",
   "tag.item.botania.lens_glue": "Colle de lentille",
   "tag.item.botania.livingwood_logs": "Bûches de vifbois",
+
 
 
 

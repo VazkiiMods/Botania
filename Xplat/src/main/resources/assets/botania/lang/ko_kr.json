@@ -249,7 +249,6 @@
 
 
 
-
   "tag.block.botania.livingwood_logs": "생기있는 나무 원목",
 
 
@@ -264,9 +263,11 @@
 
 
 
+
+
+
   "tag.block.botania.special_floating_flowers": "특별한 떠다니는 꽃",
   "tag.block.botania.special_flowers": "특별한 꽃",
-
 
 
 
@@ -322,10 +323,8 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "마나버스트 관측 장비",
-
-
-
 
 
 
@@ -333,6 +332,7 @@
 
   "tag.item.botania.double_mystical_flowers": "키 큰 신비로운 꽃",
   "tag.item.botania.dreamwood_logs": "꿈나무 원목",
+
 
 
 
@@ -348,6 +348,7 @@
   "tag.item.botania.lens": "마나 렌즈",
   "tag.item.botania.lens_glue": "렌즈 접착제",
   "tag.item.botania.livingwood_logs": "생기있는 나무 원목",
+
 
 
 

@@ -249,7 +249,6 @@
 
 
 
-
   "tag.block.botania.livingwood_logs": "Брёвна жизнедерева",
 
 
@@ -261,12 +260,14 @@
 
 
 
+
+
+
   "tag.block.botania.shimmering_mushrooms": "Мерцающие грибы",
 
 
   "tag.block.botania.special_floating_flowers": "Особые парящие цветы",
   "tag.block.botania.special_flowers": "Особые цветы",
-
 
 
 
@@ -322,10 +323,8 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "Окуляры наблюдения сгустков маны",
-
-
-
 
 
 
@@ -333,6 +332,7 @@
 
   "tag.item.botania.double_mystical_flowers": "Высокие мистические цветы",
   "tag.item.botania.dreamwood_logs": "Брёвна дерева мечтаний",
+
 
 
 
@@ -350,6 +350,7 @@
   "tag.item.botania.livingwood_logs": "Брёвна жизнедерева",
 
   "tag.item.botania.loonium_offhand_equipment": "Экипировка во вторую руку из лутюльпана",
+
 
 
 

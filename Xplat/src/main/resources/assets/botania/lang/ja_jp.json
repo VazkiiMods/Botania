@@ -249,7 +249,6 @@
 
 
 
-
   "tag.block.botania.livingwood_logs": "リビングウッドの原木",
 
 
@@ -264,9 +263,11 @@
 
 
 
+
+
+
   "tag.block.botania.special_floating_flowers": "特別な浮遊している花",
   "tag.block.botania.special_flowers": "特別な花",
-
 
 
 
@@ -322,10 +323,8 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "マナバーストの観測器具 ",
-
-
-
 
 
 
@@ -333,6 +332,7 @@
 
   "tag.item.botania.double_mystical_flowers": "背の高い神秘的な花",
   "tag.item.botania.dreamwood_logs": "ドリームウッドの原木",
+
 
 
 
@@ -348,6 +348,7 @@
   "tag.item.botania.lens": "マナレンズ",
 
   "tag.item.botania.livingwood_logs": "リビングウッドの原木",
+
 
 
 

@@ -249,7 +249,6 @@
 
 
 
-
   "tag.block.botania.livingwood_logs": "活木原木",
 
 
@@ -261,12 +260,14 @@
 
 
 
+
+
+
   "tag.block.botania.shimmering_mushrooms": "微光蘑菇",
 
 
   "tag.block.botania.special_floating_flowers": "特殊浮空花",
   "tag.block.botania.special_flowers": "植物魔法花",
-
 
 
 
@@ -322,10 +323,8 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "瑪那檢測",
-
-
-
 
 
 
@@ -333,6 +332,7 @@
 
   "tag.item.botania.double_mystical_flowers": "高神秘花",
   "tag.item.botania.dreamwood_logs": "夢之木原木",
+
 
 
 
@@ -350,6 +350,7 @@
   "tag.item.botania.livingwood_logs": "活木原木",
 
   "tag.item.botania.loonium_offhand_equipment": "聚寶花已裝備於非慣用手欄",
+
 
 
 

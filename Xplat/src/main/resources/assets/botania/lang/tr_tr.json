@@ -249,7 +249,6 @@
 
 
 
-
   "tag.block.botania.livingwood_logs": "Yaşayan Ağaç Kütükleri",
 
 
@@ -261,12 +260,14 @@
 
   "tag.block.botania.quartz_blocks": "Kuvars Blokları",
 
+
+
+
   "tag.block.botania.shimmering_mushrooms": "Parıldayan Mantarlar",
 
 
   "tag.block.botania.special_floating_flowers": "Özel Yüzen Çiçekler",
   "tag.block.botania.special_flowers": "Özel Çiçekler",
-
 
 
 
@@ -321,6 +322,7 @@
 
 
 
+
   "tag.item.botania.ancient_wills": "Kadim İradeler",
   "tag.item.botania.burst_viewers": "Patlama Görüntüleyicileri",
 
@@ -328,11 +330,9 @@
 
 
 
-
-
-
   "tag.item.botania.double_mystical_flowers": "Uzun Mistik Çiçekler",
   "tag.item.botania.dreamwood_logs": "Rüya Ağacı Kütükleri",
+
 
 
 
@@ -350,6 +350,7 @@
   "tag.item.botania.livingwood_logs": "Yaşayan Ağaç Kütükleri",
   "tag.item.botania.loonium_excluded": "Loonium Hariç Tutulanlar",
   "tag.item.botania.loonium_offhand_equipment": "Loonium İkincil El Ekipmanları",
+
 
 
 

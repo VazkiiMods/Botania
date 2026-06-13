@@ -249,7 +249,6 @@
 
 
 
-
   "tag.block.botania.livingwood_logs": "Troncos de Madeira Viva",
 
 
@@ -261,12 +260,14 @@
 
   "tag.block.botania.quartz_blocks": "Blocos de Quartzo",
 
+
+
+
   "tag.block.botania.shimmering_mushrooms": "Cogumelos Brilhantes",
 
 
   "tag.block.botania.special_floating_flowers": "Flores Especiais Flutuantes",
   "tag.block.botania.special_flowers": "Flores Especiais",
-
 
 
 
@@ -321,6 +322,7 @@
 
 
 
+
   "tag.item.botania.ancient_wills": "Vontades Ancestrais",
   "tag.item.botania.burst_viewers": "Visualizadores de Rajada",
 
@@ -328,11 +330,9 @@
 
 
 
-
-
-
   "tag.item.botania.double_mystical_flowers": "Flores Místicas Altas",
   "tag.item.botania.dreamwood_logs": "Troncos de Madeira dos Sonhos",
+
 
 
 
@@ -350,6 +350,7 @@
   "tag.item.botania.livingwood_logs": "Troncos de Madeira Viva",
   "tag.item.botania.loonium_excluded": "Excluidos do Gerânio-do-Saque",
   "tag.item.botania.loonium_offhand_equipment": "Equipamento de Gerânio-do-Saque para Mão Secundária",
+
 
 
 
