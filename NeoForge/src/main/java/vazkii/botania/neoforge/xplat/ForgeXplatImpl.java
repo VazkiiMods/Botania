@@ -24,7 +24,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
@@ -66,7 +65,6 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.common.util.RecipeMatcher;
@@ -410,11 +408,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public <D> void openMenu(ServerPlayer player, MenuProvider menu, D initialData, StreamCodec<? super RegistryFriendlyByteBuf, D> streamCodec) {
 		player.openMenu(menu, buf -> streamCodec.encode(buf, initialData));
-	}
-
-	@Override
-	public TagKey<Block> getOreTag() {
-		return Tags.Blocks.ORES;
 	}
 
 	@Override

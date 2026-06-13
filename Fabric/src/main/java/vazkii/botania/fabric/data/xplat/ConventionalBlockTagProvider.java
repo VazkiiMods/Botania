@@ -36,7 +36,8 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 			BlockTags.ICE,
 			BlockTags.SAND,
 			BlockTags.MINEABLE_WITH_PICKAXE,
-			ConventionalBlockTags.GRAVELS
+			ConventionalBlockTags.GRAVELS,
+			ConventionalBlockTags.ORES
 	);
 
 	public ConventionalBlockTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -156,6 +157,10 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 						Blocks.WAXED_COPPER_BULB, Blocks.WAXED_EXPOSED_COPPER_BULB,
 						Blocks.WAXED_WEATHERED_COPPER_BULB, Blocks.WAXED_OXIDIZED_COPPER_BULB
 				);
+
+		tag(BotaniaTags.Blocks.MANTLE_RING_AFFECTED).addTag(BlockTags.MINEABLE_WITH_PICKAXE);
+		tag(BotaniaTags.Blocks.MANTLE_RING_HARD).addTag(ConventionalBlockTags.ORES);
+		tag(BotaniaTags.Blocks.ROD_OF_THE_PLENTIFUL_MANTLE_HIGHLIGHTED).addTag(ConventionalBlockTags.ORES);
 	}
 
 	@Override

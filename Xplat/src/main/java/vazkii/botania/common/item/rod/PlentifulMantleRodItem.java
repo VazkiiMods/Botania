@@ -31,7 +31,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.Random;
 
@@ -68,7 +68,7 @@ public class PlentifulMantleRodItem extends Item {
 			BlockState state = world.getBlockState(pos_);
 
 			Block block = state.getBlock();
-			if (state.is(XplatAbstractions.INSTANCE.getOreTag())) {
+			if (state.is(BotaniaTags.Blocks.ROD_OF_THE_PLENTIFUL_MANTLE_HIGHLIGHTED)) {
 				Random rand = new Random(BuiltInRegistries.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, true, pos_.getX() + world.random.nextFloat(), pos_.getY() + world.random.nextFloat(), pos_.getZ() + world.random.nextFloat(), 0, 0, 0);

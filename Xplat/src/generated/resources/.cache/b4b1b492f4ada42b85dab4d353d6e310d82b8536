@@ -1,5 +1,8 @@
 // 1.21.1	Botania/Conventional Tags for minecraft:block
 7f1b84adc55b05faf4efce7a34eaeca050f0b2fe data/botania/tags/block/mineable/vitreous_pickaxe.json
+73d66f372d8c4d1b45f3aa477fbb0a97cfa88b10 data/botania/tags/block/ring_of_the_mantle/affected.json
+517625696f89da7636e3126a405201cc977453f0 data/botania/tags/block/ring_of_the_mantle/harder.json
+517625696f89da7636e3126a405201cc977453f0 data/botania/tags/block/rod_of_the_plentiful_mantle_highlighted.json
 3b93bdcd6e6318d00d1efbca963fd47441c34cac data/botania/tags/block/terraformable.json
 00925461bcd777520f670a259b704d0fc54f7f4b data/botania/tags/block/vitreous_pickaxe_silktouched.json
 d4c1ebf26864f7c9a1a27dcf11203634af83c4b7 data/c/tags/block/cobblestones.json

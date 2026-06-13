@@ -322,6 +322,22 @@ public class BotaniaTags {
 		public static final TagKey<Block> VITREOUS_PICKAXE_SILKTOUCHED = tag("vitreous_pickaxe_silktouched");
 
 		/**
+		 * Blocks to be highlighted by the Rod of the Plentiful Mantle.
+		 */
+		public static final TagKey<Block> ROD_OF_THE_PLENTIFUL_MANTLE_HIGHLIGHTED = tag("rod_of_the_plentiful_mantle_highlighted");
+
+		/**
+		 * Blocks that have their effective hardness reduced to that of stone or a stone ore by the Ring of the Mantle.
+		 */
+		public static final TagKey<Block> MANTLE_RING_AFFECTED = tag("ring_of_the_mantle/affected");
+
+		/**
+		 * Blocks treated as "hard" by the Ring of the Mantle. (If they are affected by the ring at all,
+		 * they get a higher minimum mining time to not be mined instantly with Efficiency 5 and Haste 2.)
+		 */
+		public static final TagKey<Block> MANTLE_RING_HARD = tag("ring_of_the_mantle/harder");
+
+		/**
 		 * Wool-covered spreader blocks. These dampen vibrations and occlude vibration signals.
 		 */
 		public static final TagKey<Block> COVERED_SPREADERS = tag("covered_spreaders");

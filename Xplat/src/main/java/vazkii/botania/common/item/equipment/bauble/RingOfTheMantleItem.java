@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +18,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.xplat.XplatAbstractions;
+import vazkii.botania.common.lib.BotaniaTags;
 
 public class RingOfTheMantleItem extends BaubleItem {
 
@@ -65,16 +64,16 @@ public class RingOfTheMantleItem extends BaubleItem {
 	}
 
 	/**
-	 * For blocks that must be mined with a pickaxe, the Ring of the Mantle reduces their hardness or "destroy speed"
-	 * by up to 2 points. For ores this is capped at the hardness of typical stone ores, while for other blocks it is
-	 * capped at the typical hardness of natural stone.
+	 * Reduce the hardness or "destroy speed" of affectable blocks by up to 2 points. For ores this is capped at the
+	 * hardness of typical stone ores, while for other blocks it is capped at the typical hardness of natural stone.
+	 * (A block is considered "affectable" if it is explicitly tagged as such and requires a correct tool.)
 	 */
 	public static float getModifiedBlockDestroySpeed(BlockState state, Player player, float originalDestroySpeed) {
-		if (!state.requiresCorrectToolForDrops() || !state.is(BlockTags.MINEABLE_WITH_PICKAXE)) {
+		if (!state.requiresCorrectToolForDrops() || !state.is(BotaniaTags.Blocks.MANTLE_RING_AFFECTED)) {
 			return originalDestroySpeed;
 		}
 
-		float targetSpeed = state.is(XplatAbstractions.instance().getOreTag()) ? ORE_TARGET_SPEED : STONE_TARGET_SPEED;
+		float targetSpeed = state.is(BotaniaTags.Blocks.MANTLE_RING_HARD) ? ORE_TARGET_SPEED : STONE_TARGET_SPEED;
 		if (targetSpeed >= originalDestroySpeed || EquipmentHandler.findOrEmpty(BotaniaItems.miningRing, player).isEmpty()) {
 			return originalDestroySpeed;
 		}
