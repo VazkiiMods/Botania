@@ -34,7 +34,7 @@ import vazkii.botania.common.helper.PlayerHelper;
 
 public class LandsRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_DIRT);
+	private static final ResourceLocation AVATAR_OVERLAY = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_DIRT);
 
 	static final int COST = 75;
 
@@ -100,8 +100,8 @@ public class LandsRodItem extends Item {
 		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, te.getBlockPos(), te.getBlockState(), te, null);
-			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
+			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
+			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
 				BlockPos pos = te.getBlockPos().relative(tile.getAvatarFacing());
 				BlockState state = world.getBlockState(pos);
 				if (state.isAir()) {
@@ -114,7 +114,7 @@ public class LandsRodItem extends Item {
 
 		@Override
 		public ResourceLocation getOverlayResource(Avatar tile) {
-			return avatarOverlay;
+			return AVATAR_OVERLAY;
 		}
 	}
 

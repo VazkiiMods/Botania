@@ -20,7 +20,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -39,7 +38,7 @@ import java.util.List;
 
 public class BifrostRodItem extends SelfReturningItem {
 
-	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_RAINBOW);
+	private static final ResourceLocation AVATAR_OVERLAY = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_RAINBOW);
 
 	private static final int MANA_COST = 750;
 	private static final int MANA_COST_AVATAR = 4;
@@ -138,9 +137,9 @@ public class BifrostRodItem extends SelfReturningItem {
 		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, te.getBlockPos(), te.getBlockState(), te, null);
+			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
 
-			if (world.isClientSide || receiver.getCurrentMana() < MANA_COST_AVATAR * 25
+			if (receiver.getCurrentMana() < MANA_COST_AVATAR * 25
 					|| !tile.isEnabled() || world.isOutsideBuildHeight(te.getBlockPos().getY() - 1)) {
 				return;
 			}
@@ -150,7 +149,7 @@ public class BifrostRodItem extends SelfReturningItem {
 			int h = 1;
 			int l = 20;
 
-			AABB axis = switch (world.getBlockState(tePos).getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+			AABB axis = switch (tile.getAvatarFacing()) {
 				case NORTH -> AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
 				case SOUTH -> AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
 				case WEST -> AABB.encapsulatingFullBlocks(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
@@ -197,7 +196,7 @@ public class BifrostRodItem extends SelfReturningItem {
 
 		@Override
 		public ResourceLocation getOverlayResource(Avatar tile) {
-			return avatarOverlay;
+			return AVATAR_OVERLAY;
 		}
 	}
 

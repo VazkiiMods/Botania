@@ -20,13 +20,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.ManaReceiver;
+import vazkii.botania.common.block.AvatarBlock;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +35,7 @@ import java.util.UUID;
 public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Avatar, ManaReceiver {
 	private static final int MAX_MANA = 6400;
 
+	// TODO: elapsed ticks and cooldowns should be handled entirely by the rods that need these things
 	private static final String TAG_TICKS_ELAPSED = "ticksElapsed";
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_COOLDOWNS = "boostCooldowns";
@@ -47,7 +48,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 		super(BotaniaBlockEntities.AVATAR, pos, state, true);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, AvatarBlockEntity self) {
+	public static void serverTick(Level level, BlockPos pos, BlockState state, AvatarBlockEntity self) {
 		ItemStack stack = self.getItemHandler().getItem(0);
 		if (!stack.isEmpty()) {
 			var wieldable = AvatarWieldable.LOOKUP.find(stack);
@@ -89,14 +90,6 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 			int cooldown = cmp.getInt("cooldown");
 			this.boostCooldowns.put(id, cooldown);
 		}
-	}
-
-	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-		var tag = super.getUpdateTag(registries);
-		// FIXME: The client shouldn't need this!
-		tag.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
-		return tag;
 	}
 
 	@Override
@@ -155,7 +148,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 
 	@Override
 	public Direction getAvatarFacing() {
-		return getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
+		return getBlockState().getValue(AvatarBlock.FACING);
 	}
 
 	@Override
@@ -165,7 +158,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 
 	@Override
 	public boolean isEnabled() {
-		return !getBlockState().getValue(BlockStateProperties.POWERED);
+		return !getBlockState().getValue(AvatarBlock.POWERED);
 	}
 
 	@Override

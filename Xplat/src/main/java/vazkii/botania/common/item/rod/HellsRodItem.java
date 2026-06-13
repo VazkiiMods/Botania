@@ -31,7 +31,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 
 public class HellsRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_FIRE);
+	private static final ResourceLocation AVATAR_OVERLAY = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_FIRE);
 
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;
@@ -72,9 +72,9 @@ public class HellsRodItem extends Item {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			BlockPos pos = te.getBlockPos();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, pos, te.getBlockState(), te, null);
+			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
 
-			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
+			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
 				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);
 				entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 				world.addFreshEntity(entity);
@@ -85,7 +85,7 @@ public class HellsRodItem extends Item {
 
 		@Override
 		public ResourceLocation getOverlayResource(Avatar tile) {
-			return avatarOverlay;
+			return AVATAR_OVERLAY;
 		}
 	}
 

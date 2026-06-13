@@ -30,6 +30,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -38,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.RedstoneSensitiveBlock;
 import vazkii.botania.api.item.AvatarWieldable;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
@@ -46,41 +49,48 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 
 	private static final VoxelShape X_AABB = box(5, 0, 3.5, 11, 17, 12.5);
 	private static final VoxelShape Z_AABB = box(3.5, 0, 5, 12.5, 17, 11);
+	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+	public static final BooleanProperty ACTIVE = BotaniaStateProperties.ACTIVE;
 
 	protected AvatarBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState()
-				.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
-				.setValue(BlockStateProperties.POWERED, false));
+				.setValue(FACING, Direction.NORTH)
+				.setValue(POWERED, false)
+				.setValue(ACTIVE, false));
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
-		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
-			return X_AABB;
-		} else {
-			return Z_AABB;
-		}
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx) {
+		return state.getValue(FACING).getAxis() == Direction.Axis.X ? X_AABB : Z_AABB;
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.POWERED);
+		builder.add(FACING, POWERED, ACTIVE);
 	}
 
 	@Override
-	public ItemInteractionResult useItemOn(ItemStack stackOnPlayer, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if (world.getBlockEntity(pos) instanceof AvatarBlockEntity avatar) {
+	public ItemInteractionResult useItemOn(ItemStack stackOnPlayer, BlockState state, Level level, BlockPos pos, Player player,
+			InteractionHand hand, BlockHitResult hitResult) {
+		if (level.getBlockEntity(pos) instanceof AvatarBlockEntity avatar) {
 			ItemStack stackOnAvatar = avatar.getItemHandler().getItem(0);
 			if (!stackOnAvatar.isEmpty()) {
-				avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
-				player.getInventory().placeItemBackInInventory(stackOnAvatar);
-				return ItemInteractionResult.sidedSuccess(world.isClientSide());
-			} else if (!stackOnPlayer.isEmpty() &&
-					AvatarWieldable.LOOKUP.find(stackOnPlayer) != null) {
-				avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
-				return ItemInteractionResult.sidedSuccess(world.isClientSide());
+				if (!level.isClientSide()) {
+					avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
+					player.getInventory().placeItemBackInInventory(stackOnAvatar);
+					level.setBlockAndUpdate(pos, state.setValue(ACTIVE, false));
+				}
+				return ItemInteractionResult.sidedSuccess(level.isClientSide());
+
+			} else if (!stackOnPlayer.isEmpty() && AvatarWieldable.LOOKUP.find(stackOnPlayer) != null) {
+				if (!level.isClientSide()) {
+					avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
+					level.setBlockAndUpdate(pos, state.setValue(ACTIVE, true));
+				}
+				return ItemInteractionResult.sidedSuccess(level.isClientSide());
 			}
 		}
 
@@ -88,24 +98,24 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newstate, boolean isMoving) {
-		if (!state.is(newstate.getBlock())) {
-			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
-				Containers.dropContents(world, pos, inventory.getItemHandler());
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+		if (!state.is(newState.getBlock())) {
+			if (level.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
+				Containers.dropContents(level, pos, inventory.getItemHandler());
 			}
-			super.onRemove(state, world, pos, newstate, isMoving);
+			super.onRemove(state, level, pos, newState, isMoving);
 		}
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return RedstoneSensitiveBlock.getPoweredStateForPlacement(super.getStateForPlacement(context), context)
-				.setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
+				.setValue(FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+		RedstoneSensitiveBlock.updateRedstonePower(state, level, pos);
 	}
 
 	@Override
@@ -121,23 +131,25 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.AVATAR, AvatarBlockEntity::commonTick);
+		return level.isClientSide() || !state.getValue(ACTIVE)
+				? null
+				: createTickerHelper(type, BotaniaBlockEntities.AVATAR, AvatarBlockEntity::serverTick);
 	}
 
 	@Override
 	public BlockState mirror(BlockState state, Mirror mirror) {
-		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+		return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
 	}
 
 	@Override
 	public BlockState rotate(BlockState state, Rotation rot) {
-		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (state.getValue(BlockStateProperties.POWERED)) {
-			RedstoneSensitiveBlock.redstoneParticlesInShape(state, world, pos, rand);
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
+		if (state.getValue(POWERED)) {
+			RedstoneSensitiveBlock.redstoneParticlesInShape(state, level, pos, rand);
 		}
 	}
 }

@@ -30,6 +30,7 @@ import vazkii.botania.network.clientbound.ItemLifeTimePacket;
 import vazkii.botania.network.clientbound.ItemSmokeEffectPacket;
 import vazkii.botania.network.clientbound.PaintLensEffectPacket;
 import vazkii.botania.network.clientbound.ParticleBeamEffectPacket;
+import vazkii.botania.network.clientbound.RodOfThePlentifulMantleEffectPacket;
 import vazkii.botania.network.clientbound.SparkManaFlowEffectPacket;
 import vazkii.botania.network.clientbound.SparkNetIndicatorEffectPacket;
 import vazkii.botania.network.clientbound.ThundercallerEffectPacket;
@@ -65,6 +66,7 @@ public final class FabricPacketHandler {
 		PayloadTypeRegistry.playS2C().register(ItemSmokeEffectPacket.ID, ItemSmokeEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(PaintLensEffectPacket.ID, PaintLensEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(ParticleBeamEffectPacket.ID, ParticleBeamEffectPacket.STREAM_CODEC);
+		PayloadTypeRegistry.playS2C().register(RodOfThePlentifulMantleEffectPacket.ID, RodOfThePlentifulMantleEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(SparkManaFlowEffectPacket.ID, SparkManaFlowEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(SparkNetIndicatorEffectPacket.ID, SparkNetIndicatorEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(ThundercallerEffectPacket.ID, ThundercallerEffectPacket.STREAM_CODEC);
@@ -97,6 +99,7 @@ public final class FabricPacketHandler {
 		ClientPlayNetworking.registerGlobalReceiver(ItemSmokeEffectPacket.ID, makeClientBoundHandler(ItemSmokeEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(PaintLensEffectPacket.ID, makeClientBoundHandler(PaintLensEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(ParticleBeamEffectPacket.ID, makeClientBoundHandler(ParticleBeamEffectPacket.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(RodOfThePlentifulMantleEffectPacket.ID, makeClientBoundHandler(RodOfThePlentifulMantleEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(SparkManaFlowEffectPacket.ID, makeClientBoundHandler(SparkManaFlowEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(SparkNetIndicatorEffectPacket.ID, makeClientBoundHandler(SparkNetIndicatorEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(ThundercallerEffectPacket.ID, makeClientBoundHandler(ThundercallerEffectPacket.Handler::handle));

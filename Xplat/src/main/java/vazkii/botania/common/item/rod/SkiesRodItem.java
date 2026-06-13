@@ -44,7 +44,7 @@ import java.util.UUID;
 
 public class SkiesRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_TORNADO);
+	private static final ResourceLocation AVATAR_OVERLAY = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_TORNADO);
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
@@ -161,12 +161,10 @@ public class SkiesRodItem extends Item {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, te.getBlockPos(), te.getBlockState(), te, null);
+			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
 
-			if (!world.isClientSide) {
-				decAvatarCooldowns(cooldowns);
-			}
-			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.isEnabled()) {
+			decAvatarCooldowns(cooldowns);
+			if (receiver.getCurrentMana() >= COST && tile.isEnabled()) {
 				double range = 5.5;
 				double rangeY = 3.5;
 				List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(
@@ -195,7 +193,7 @@ public class SkiesRodItem extends Item {
 
 		@Override
 		public ResourceLocation getOverlayResource(Avatar tile) {
-			return avatarOverlay;
+			return AVATAR_OVERLAY;
 		}
 	}
 

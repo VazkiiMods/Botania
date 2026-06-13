@@ -35,7 +35,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 
 public class UnstableReservoirRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_MISSILE);
+	private static final ResourceLocation AVATAR_OVERLAY = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_MISSILE);
 
 	private static final int COST_PER = 120;
 	private static final int COST_AVATAR = 40;
@@ -101,9 +101,8 @@ public class UnstableReservoirRodItem extends Item {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			BlockPos pos = te.getBlockPos();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, te.getBlockPos(), te.getBlockState(), te, null);
+			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
 			if (receiver != null && receiver.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
-				// FIXME: Why are we spawning projectiles on the client?
 				if (spawnMissile(world, null, pos.getX() + 0.5 + (Math.random() - 0.5 * 0.1), pos.getY() + 2.5 + (Math.random() - 0.5 * 0.1), pos.getZ() + (Math.random() - 0.5 * 0.1))) {
 					if (!world.isClientSide) {
 						receiver.receiveMana(-COST_AVATAR);
@@ -116,7 +115,7 @@ public class UnstableReservoirRodItem extends Item {
 
 		@Override
 		public ResourceLocation getOverlayResource(Avatar tile) {
-			return avatarOverlay;
+			return AVATAR_OVERLAY;
 		}
 	}
 }
