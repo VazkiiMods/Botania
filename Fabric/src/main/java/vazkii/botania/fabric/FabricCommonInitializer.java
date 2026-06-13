@@ -69,6 +69,7 @@ import net.minecraft.world.level.material.Fluids;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
@@ -336,13 +337,13 @@ public class FabricCommonInitializer implements ModInitializer {
 		FluidStorage.ITEM.registerForItems((itemStack, context) -> (InsertionOnlyStorage<FluidVariant>) (resource, maxAmount, transaction) -> Math.min(FluidConstants.BLOCK, maxAmount),
 				BotaniaItems.openBucket);
 
-		ItemApiLookup<AvatarWieldable, Unit> avatarWieldableItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP);
-		avatarWieldableItemLookup.registerForItems((stack, c) -> new LandsRodItem.AvatarBehavior(), BotaniaItems.dirtRod);
-		avatarWieldableItemLookup.registerForItems((stack, c) -> new PlentifulMantleRodItem.AvatarBehavior(), BotaniaItems.diviningRod);
-		avatarWieldableItemLookup.registerForItems((stack, c) -> new HellsRodItem.AvatarBehavior(), BotaniaItems.fireRod);
-		avatarWieldableItemLookup.registerForItems((stack, c) -> new UnstableReservoirRodItem.AvatarBehavior(), BotaniaItems.missileRod);
-		avatarWieldableItemLookup.registerForItems((stack, c) -> new BifrostRodItem.AvatarBehavior(), BotaniaItems.rainbowRod);
-		avatarWieldableItemLookup.registerForItems((stack, c) -> new SkiesRodItem.AvatarBehavior(), BotaniaItems.tornadoRod);
+		ItemApiLookup<AvatarWieldable, Avatar> avatarWieldableItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP);
+		avatarWieldableItemLookup.registerForItems(LandsRodItem.AvatarBehavior::new, BotaniaItems.dirtRod);
+		avatarWieldableItemLookup.registerForItems(PlentifulMantleRodItem.AvatarBehavior::new, BotaniaItems.diviningRod);
+		avatarWieldableItemLookup.registerForItems(HellsRodItem.AvatarBehavior::new, BotaniaItems.fireRod);
+		avatarWieldableItemLookup.registerForItems(UnstableReservoirRodItem.AvatarBehavior::new, BotaniaItems.missileRod);
+		avatarWieldableItemLookup.registerForItems(BifrostRodItem.AvatarBehavior::new, BotaniaItems.rainbowRod);
+		avatarWieldableItemLookup.registerForItems(SkiesRodItem.AvatarBehavior::new, BotaniaItems.tornadoRod);
 
 		ItemApiLookup<BlockProvider, Unit> blockProviderItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(BlockProvider.LOOKUP);
 		blockProviderItemLookup.registerForItems((stack, c) -> new LandsRodItem.BlockProviderImpl(),

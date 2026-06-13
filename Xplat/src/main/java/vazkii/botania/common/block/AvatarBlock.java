@@ -85,7 +85,7 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 				}
 				return ItemInteractionResult.sidedSuccess(level.isClientSide());
 
-			} else if (!stackOnPlayer.isEmpty() && AvatarWieldable.LOOKUP.find(stackOnPlayer) != null) {
+			} else if (!stackOnPlayer.isEmpty() && AvatarWieldable.LOOKUP.find(stackOnPlayer, avatar) != null) {
 				if (!level.isClientSide()) {
 					avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
 					level.setBlockAndUpdate(pos, state.setValue(ACTIVE, true));

@@ -10,6 +10,7 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +19,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -132,24 +132,19 @@ public class BifrostRodItem extends SelfReturningItem {
 		return placed;
 	}
 
-	public static class AvatarBehavior implements AvatarWieldable {
+	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(Avatar tile) {
-			BlockEntity te = (BlockEntity) tile;
-			Level world = te.getLevel();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
-
+		public void onAvatarUpdate(ServerLevel world, BlockPos tePos, ManaReceiver receiver) {
 			if (receiver.getCurrentMana() < MANA_COST_AVATAR * 25
-					|| !tile.isEnabled() || world.isOutsideBuildHeight(te.getBlockPos().getY() - 1)) {
+					|| !avatar.isEnabled() || world.isOutsideBuildHeight(tePos.getY() - 1)) {
 				return;
 			}
 
-			BlockPos tePos = te.getBlockPos();
 			int w = 1;
 			int h = 1;
 			int l = 20;
 
-			AABB axis = switch (tile.getAvatarFacing()) {
+			AABB axis = switch (avatar.getAvatarFacing()) {
 				case NORTH -> AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
 				case SOUTH -> AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
 				case WEST -> AABB.encapsulatingFullBlocks(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
@@ -157,6 +152,7 @@ public class BifrostRodItem extends SelfReturningItem {
 				default -> null;
 			};
 
+			BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 			List<Player> players = world.getEntitiesOfClass(Player.class, axis);
 			for (Player p : players) {
 				int px = Mth.floor(p.getX());
@@ -173,7 +169,7 @@ public class BifrostRodItem extends SelfReturningItem {
 						if (!axis.contains(new Vec3(ex + 0.5, py + 1, ez + 0.5))) {
 							continue;
 						}
-						BlockPos pos = new BlockPos(ex, py, ez);
+						pos.set(ex, py, ez);
 						BlockState state = world.getBlockState(pos);
 						if (state.isAir()) {
 							if (world.setBlockAndUpdate(pos, BotaniaBlocks.bifrost.defaultBlockState())) {
@@ -195,7 +191,7 @@ public class BifrostRodItem extends SelfReturningItem {
 		}
 
 		@Override
-		public ResourceLocation getOverlayResource(Avatar tile) {
+		public ResourceLocation getOverlayResource() {
 			return AVATAR_OVERLAY;
 		}
 	}

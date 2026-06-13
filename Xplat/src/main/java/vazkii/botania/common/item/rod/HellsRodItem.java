@@ -10,6 +10,7 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.block.Avatar;
@@ -66,25 +66,24 @@ public class HellsRodItem extends Item {
 		return InteractionResult.sidedSuccess(world.isClientSide());
 	}
 
-	public static class AvatarBehavior implements AvatarWieldable {
+	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(Avatar tile) {
-			BlockEntity te = (BlockEntity) tile;
-			Level world = te.getLevel();
-			BlockPos pos = te.getBlockPos();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
-
-			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
+		public void onAvatarUpdate(ServerLevel world, BlockPos pos, ManaReceiver receiver) {
+			if (receiver.getCurrentMana() >= COST && avatar.isEnabled() && getTimeSinceLastActivation(world) >= 300) {
 				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);
+				if (entity == null) {
+					return;
+				}
 				entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 				world.addFreshEntity(entity);
 				receiver.receiveMana(-COST);
 				world.gameEvent(null, GameEvent.PROJECTILE_SHOOT, pos);
+				setLastActivationTime(world);
 			}
 		}
 
 		@Override
-		public ResourceLocation getOverlayResource(Avatar tile) {
+		public ResourceLocation getOverlayResource() {
 			return AVATAR_OVERLAY;
 		}
 	}

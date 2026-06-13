@@ -8,7 +8,14 @@
  */
 package vazkii.botania.common.item.rod;
 
+import it.unimi.dsi.fastutil.objects.Object2LongArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2LongMap;
+import it.unimi.dsi.fastutil.objects.Object2LongMaps;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -18,10 +25,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
@@ -33,6 +41,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.network.clientbound.AvatarSkiesRodEffectPacket;
 import vazkii.botania.network.clientbound.AvatarSkiesRodUpdatePacket;
@@ -50,6 +59,7 @@ public class SkiesRodItem extends Item {
 	private static final int FALL_MULTIPLIER = 3;
 	private static final int MAX_COUNTER = FLY_TIME * FALL_MULTIPLIER;
 	private static final int COST = 350;
+	public static final int AVATAR_COOLDOWN = 20;
 
 	public SkiesRodItem(Properties props) {
 		super(props);
@@ -155,45 +165,117 @@ public class SkiesRodItem extends Item {
 		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.REMAINING_TICKS, counter);
 	}
 
-	public static class AvatarBehavior implements AvatarWieldable {
+	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(Avatar tile) {
-			BlockEntity te = (BlockEntity) tile;
-			Level world = te.getLevel();
-			Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
+		public void onAvatarUpdate(ServerLevel world, BlockPos pos, ManaReceiver receiver) {
+			long gameTime = world.getGameTime();
+			ActivationTimes activationTimes = new ActivationTimes(rod.get(BotaniaDataComponents.LAST_ACTIVATION_TIMES),
+					gameTime - AVATAR_COOLDOWN);
 
-			decAvatarCooldowns(cooldowns);
-			if (receiver.getCurrentMana() >= COST && tile.isEnabled()) {
-				double range = 5.5;
-				double rangeY = 3.5;
-				List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(
-						te.getBlockPos().getCenter().add(-range, -rangeY, -range),
-						te.getBlockPos().getCenter().add(range, rangeY, range)
-				));
+			if (receiver.getCurrentMana() >= COST && avatar.isEnabled()) {
+				AABB aabb = MathHelper.inflateBoxAround(pos, 5, 3);
+				List<ServerPlayer> players = world.getPlayers(
+						player -> player.canBeSeenByAnyone() && player.getBoundingBox().intersects(aabb));
 				for (Player p : players) {
-					int cooldown = 0;
-					if (cooldowns.containsKey(p.getUUID())) {
-						cooldown = cooldowns.get(p.getUUID());
-					}
-					if (!p.isShiftKeyDown() && cooldown <= 0) {
-						if (p.getDeltaMovement().length() > 0.2 && p.getDeltaMovement().length() < 5 && p.isFallFlying()) {
+					if (!p.isShiftKeyDown() && activationTimes.canActivate(p.getUUID())
+							&& receiver.getCurrentMana() >= COST) {
+						if (p.getDeltaMovement().lengthSqr() > 0.2 * 0.2
+								&& p.getDeltaMovement().lengthSqr() < 5 * 5 && p.isFallFlying()) {
 							doAvatarElytraBoost(p, world);
 							doAvatarMiscEffects(p, receiver);
-							cooldowns.put(p.getUUID(), 20);
-							te.setChanged();
-						} else if (p.getDeltaMovement().y() > 0.3 && p.getDeltaMovement().y() < 2 && !p.isFallFlying()) {
+							activationTimes.setActivationTime(p.getUUID(), gameTime);
+						} else if (p.getDeltaMovement().y() > 0.3 && p.getDeltaMovement().y() < 2
+								&& !p.isFallFlying()) {
 							doAvatarJump(p, world);
 							doAvatarMiscEffects(p, receiver);
+							avatar.markForPersisting();
 						}
 					}
 				}
 			}
+			if (activationTimes.hasChanged) {
+				DataComponentHelper.setUnlessDefault(rod, BotaniaDataComponents.LAST_ACTIVATION_TIMES,
+						activationTimes.uuidMap, Object2LongMaps.emptyMap());
+				avatar.markForPersisting();
+			}
 		}
 
 		@Override
-		public ResourceLocation getOverlayResource(Avatar tile) {
+		public ResourceLocation getOverlayResource() {
 			return AVATAR_OVERLAY;
+		}
+
+		/**
+		 * Wrapper around the cooldown map to minimize map allocations.
+		 * 
+		 * @implNote Internally this uses an {@link Object2LongArrayMap} for two reasons. Firstly, under normal
+		 *           circumstances there are never going to be more than a few entries in the map. Secondly, the entries
+		 *           that do exist in the map will likely be in ascending order of activation times, which is beneficial
+		 *           for detecting the need to remove an entry. (It's likely only going to be one at a time, unless
+		 *           multiple players somehow enter elytra boost range in the same tick.)
+		 */
+		private static class ActivationTimes {
+			@Nullable
+			public final Map<UUID, Long> immutableUuidMap;
+			public Object2LongMap<UUID> uuidMap = Object2LongMaps.emptyMap();
+			public boolean hasChanged;
+
+			public ActivationTimes(@Nullable Map<UUID, Long> immutableUuidMap, long cutOffTime) {
+				this.immutableUuidMap = immutableUuidMap;
+				removeOutdatedEntries(cutOffTime);
+			}
+
+			/**
+			 * If any entries have a time index on or before the cut-off time, make a copy of the immutable source map
+			 * without those entries.
+			 * (This method needs to run before any result of {@link #canActivate(UUID)} can be trusted.)
+			 */
+			private void removeOutdatedEntries(long cutOffTime) {
+				if (immutableUuidMap == null) {
+					// we currently store no activation times, nothing to do
+					return;
+				}
+
+				// check if there are any outdated activation times
+				for (long time : immutableUuidMap.values()) {
+					if (time <= cutOffTime) {
+						// we found an outdated activation time
+						copyRemainingEntries(immutableUuidMap, cutOffTime);
+						break;
+					}
+				}
+			}
+
+			private void copyRemainingEntries(Map<UUID, Long> immutableMap, long cutOffTime) {
+				for (Map.Entry<UUID, Long> entry : immutableMap.entrySet()) {
+					if (entry.getValue() > cutOffTime) {
+						if (uuidMap == Object2LongMaps.EMPTY_MAP) {
+							// it's unlikely we will have a lot of entries, so array map is the most efficient option
+							uuidMap = new Object2LongArrayMap<>(immutableMap.size());
+						}
+						uuidMap.put(entry.getKey(), (long) entry.getValue());
+					}
+				}
+				hasChanged = true;
+			}
+
+			public void setActivationTime(UUID uuid, long activationTime) {
+				if (uuidMap == Object2LongMaps.EMPTY_MAP) {
+					// initialize the proper UUID map
+					Map<UUID, Long> sourceMap = immutableUuidMap != null ? immutableUuidMap : uuidMap;
+					// it's very likely this is the only entry we will add this tick
+					uuidMap = new Object2LongArrayMap<>(sourceMap.size() + 1);
+					uuidMap.putAll(sourceMap);
+				}
+				uuidMap.put(uuid, activationTime);
+				hasChanged = true;
+			}
+
+			public boolean canActivate(UUID uuid) {
+				return hasChanged
+						? !uuidMap.containsKey(uuid)
+						: immutableUuidMap == null || !immutableUuidMap.containsKey(uuid);
+			}
 		}
 	}
 
@@ -224,17 +306,6 @@ public class SkiesRodItem extends Item {
 		p.level().playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 		p.gameEvent(GameEvent.FLAP);
 		tile.receiveMana(-COST);
-	}
-
-	private static void decAvatarCooldowns(Map<UUID, Integer> cooldownTag) {
-		for (UUID key : cooldownTag.keySet()) {
-			int val = cooldownTag.get(key);
-			if (val > 0) {
-				cooldownTag.put(key, val - 1);
-			} else {
-				cooldownTag.remove(key);
-			}
-		}
 	}
 
 	@SoftImplement("IItemExtension")

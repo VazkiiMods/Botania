@@ -9,20 +9,20 @@
 package vazkii.botania.api.block;
 
 import net.minecraft.core.Direction;
-import net.minecraft.world.Container;
+import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-import java.util.Map;
-import java.util.UUID;
+import vazkii.botania.api.block_entity.BlockEntityInterface;
 
 /**
  * Base interface for the Avatar Block Entity
  */
-public interface Avatar {
+public interface Avatar extends BlockEntityInterface<BlockEntity> {
 
 	/**
-	 * Gets the avatar's inventory
+	 * Gets the avatar's single inventory slot.
 	 */
-	Container getInventory();
+	SlotAccess getHeldItemSlot();
 
 	/**
 	 * Gets the avatar's facing.
@@ -30,19 +30,8 @@ public interface Avatar {
 	Direction getAvatarFacing();
 
 	/**
-	 * Gets the amount of ticks that have elapsed on this avatar while it's functional
-	 * (has redstone signal).
-	 */
-	int getElapsedFunctionalTicks();
-
-	/**
 	 * Gets if this avatar is enabled (is powered by a redstone signal).
 	 */
 	boolean isEnabled();
-
-	/**
-	 * @return Tag of UUID -> cooldown for Rod of the Skies boosting
-	 */
-	Map<UUID, Integer> getBoostCooldowns();
 
 }

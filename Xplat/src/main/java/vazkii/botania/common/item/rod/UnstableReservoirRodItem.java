@@ -10,6 +10,7 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -95,26 +95,22 @@ public class UnstableReservoirRodItem extends Item {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
-	public static class AvatarBehavior implements AvatarWieldable {
+	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(Avatar tile) {
-			BlockEntity te = (BlockEntity) tile;
-			Level world = te.getLevel();
-			BlockPos pos = te.getBlockPos();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
-			if (receiver != null && receiver.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
+		public void onAvatarUpdate(ServerLevel world, BlockPos pos, ManaReceiver receiver) {
+			if (receiver.getCurrentMana() >= COST_AVATAR && avatar.isEnabled() && getTimeSinceLastActivation(world) >= 3) {
 				if (spawnMissile(world, null, pos.getX() + 0.5 + (Math.random() - 0.5 * 0.1), pos.getY() + 2.5 + (Math.random() - 0.5 * 0.1), pos.getZ() + (Math.random() - 0.5 * 0.1))) {
-					if (!world.isClientSide) {
-						receiver.receiveMana(-COST_AVATAR);
-					}
+					receiver.receiveMana(-COST_AVATAR);
+					// TODO: make effect packet for this?
 					SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
-					world.addParticle(data, pos.getX() + 0.5, pos.getY() + 2.5, pos.getZ() + 0.5, 0, 0, 0);
+					world.sendParticles(data, pos.getX() + 0.5, pos.getY() + 2.5, pos.getZ() + 0.5, 1, 0, 0, 0, 0);
 				}
+				setLastActivationTime(world);
 			}
 		}
 
 		@Override
-		public ResourceLocation getOverlayResource(Avatar tile) {
+		public ResourceLocation getOverlayResource() {
 			return AVATAR_OVERLAY;
 		}
 	}

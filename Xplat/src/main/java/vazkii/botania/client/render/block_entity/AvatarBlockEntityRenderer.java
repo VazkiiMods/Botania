@@ -69,9 +69,9 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 						light, overlay, ms, buffers, avatar.getLevel(), 0);
 				ms.popPose();
 
-				AvatarWieldable wieldable = AvatarWieldable.LOOKUP.find(stack);
+				AvatarWieldable wieldable = AvatarWieldable.LOOKUP.find(stack, avatar);
 				if (wieldable != null) {
-					buffer = buffers.getBuffer(RenderType.entityTranslucent(wieldable.getOverlayResource(avatar)));
+					buffer = buffers.getBuffer(RenderType.entityTranslucent(wieldable.getOverlayResource()));
 					s = 1.01F;
 
 					ms.pushPose();

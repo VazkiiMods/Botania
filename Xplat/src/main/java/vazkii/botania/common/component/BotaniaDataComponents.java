@@ -308,6 +308,14 @@ public class BotaniaDataComponents {
 	public static final DataComponentType<List<DyeColor>> COLOR_SEQUENCE = make("color_sequence",
 			builder -> builder.persistent(DyeColor.CODEC.sizeLimitedListOf(128)).cacheEncoding());
 
+	// Livingwood Avatar wieldable properties
+	public static final DataComponentType<Long> LAST_ACTIVATION_TIME = make("last_activation_time",
+			builder -> builder.persistent(Codec.LONG));
+	public static final DataComponentType<Map<UUID, Long>> LAST_ACTIVATION_TIMES = make("last_activation_times",
+			builder -> builder.persistent(ExtraCodecs.strictUnboundedMap(
+					// map keys must be strings, but this is unlikely to have many values anyway, so it's probably fine
+					Codec.STRING.xmap(UUID::fromString, UUID::toString), Codec.LONG)).cacheEncoding());
+
 	public static void registerComponents(BiConsumer<DataComponentType<?>, ResourceLocation> biConsumer) {
 		for (Map.Entry<String, DataComponentType<?>> entry : ALL.entrySet()) {
 			biConsumer.accept(entry.getValue(), botaniaRL(entry.getKey()));

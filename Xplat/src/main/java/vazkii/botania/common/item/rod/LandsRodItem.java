@@ -11,6 +11,7 @@ package vazkii.botania.common.item.rod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -20,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.Avatar;
@@ -95,25 +95,25 @@ public class LandsRodItem extends Item {
 		}
 	}
 
-	public static class AvatarBehavior implements AvatarWieldable {
+	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(Avatar tile) {
-			BlockEntity te = (BlockEntity) tile;
-			Level world = te.getLevel();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(te, null);
-			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
-				BlockPos pos = te.getBlockPos().relative(tile.getAvatarFacing());
-				BlockState state = world.getBlockState(pos);
-				if (state.isAir()) {
-					world.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
-					world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
-					receiver.receiveMana(-COST);
+		public void onAvatarUpdate(ServerLevel world, BlockPos blockPos, ManaReceiver receiver) {
+			if (receiver.getCurrentMana() >= COST && avatar.isEnabled() && getTimeSinceLastActivation(world) >= 4) {
+				if (world.random.nextInt(8) == 0) {
+					BlockPos pos = blockPos.relative(avatar.getAvatarFacing());
+					BlockState state = world.getBlockState(pos);
+					if (state.isAir()) {
+						world.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
+						world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
+						receiver.receiveMana(-COST);
+					}
 				}
+				setLastActivationTime(world);
 			}
 		}
 
 		@Override
-		public ResourceLocation getOverlayResource(Avatar tile) {
+		public ResourceLocation getOverlayResource() {
 			return AVATAR_OVERLAY;
 		}
 	}

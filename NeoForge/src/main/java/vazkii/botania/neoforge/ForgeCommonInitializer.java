@@ -79,6 +79,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
@@ -156,6 +157,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -487,13 +489,13 @@ public class ForgeCommonInitializer {
 	// chains on items, and also doesn't match how Fabric is set up.
 	// Instead, let's declare ahead of time what items get which caps, similar to how we do it for Fabric.
 	// Needs to be lazy since items aren't initialized yet
-	private static final Supplier<Map<Item, Function<ItemStack, AvatarWieldable>>> AVATAR_WIELDABLES = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.dirtRod, s -> new LandsRodItem.AvatarBehavior(),
-			BotaniaItems.diviningRod, s -> new PlentifulMantleRodItem.AvatarBehavior(),
-			BotaniaItems.fireRod, s -> new HellsRodItem.AvatarBehavior(),
-			BotaniaItems.missileRod, s -> new UnstableReservoirRodItem.AvatarBehavior(),
-			BotaniaItems.rainbowRod, s -> new BifrostRodItem.AvatarBehavior(),
-			BotaniaItems.tornadoRod, s -> new SkiesRodItem.AvatarBehavior()
+	private static final Supplier<Map<Item, BiFunction<ItemStack, Avatar, AvatarWieldable>>> AVATAR_WIELDABLES = Suppliers.memoize(() -> Map.of(
+			BotaniaItems.dirtRod, LandsRodItem.AvatarBehavior::new,
+			BotaniaItems.diviningRod, PlentifulMantleRodItem.AvatarBehavior::new,
+			BotaniaItems.fireRod, HellsRodItem.AvatarBehavior::new,
+			BotaniaItems.missileRod, UnstableReservoirRodItem.AvatarBehavior::new,
+			BotaniaItems.rainbowRod, BifrostRodItem.AvatarBehavior::new,
+			BotaniaItems.tornadoRod, SkiesRodItem.AvatarBehavior::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, BlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
@@ -561,7 +563,7 @@ public class ForgeCommonInitializer {
 				(stack, context) -> new ExtrapolatedBucketFluidHandler(stack),
 				BotaniaItems.openBucket);
 
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
+		attachMappedItemCapsWithContext(e, BotaniaForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP), HOURGLASS_MATERIAL.get());
@@ -573,6 +575,12 @@ public class ForgeCommonInitializer {
 			Map<Item, Function<ItemStack, T>> itemProviderMap) {
 		itemProviderMap.forEach((item, provider) -> e.registerItem(
 				capability, (stack, context) -> provider.apply(stack), item));
+	}
+
+	private static <T, C> void attachMappedItemCapsWithContext(RegisterCapabilitiesEvent e, ItemCapability<T, C> capability,
+			Map<Item, BiFunction<ItemStack, C, T>> itemProviderMap) {
+		itemProviderMap.forEach((item, provider) -> e.registerItem(
+				capability, provider::apply, item));
 	}
 
 	private void registerBlockCapabilities(RegisterCapabilitiesEvent e) {
