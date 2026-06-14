@@ -26,7 +26,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/terrasteel_jei_overlay.png");
-	private static final EmiStack PLATE = EmiStack.of(BotaniaBlocks.terraPlate);
+	private static final EmiStack PLATE = EmiStack.of(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE);
 	public static final int CENTER_X = 45;
 	public static final int CENTER_Y = 30;
 	private final int mana;

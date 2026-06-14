@@ -37,7 +37,7 @@ public class RedStringContainerBlock extends RedStringBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.RED_STRING_CONTAINER, RedStringContainerBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.RED_STRINGED_CONTAINER, RedStringContainerBlockEntity::commonTick);
 	}
 
 }

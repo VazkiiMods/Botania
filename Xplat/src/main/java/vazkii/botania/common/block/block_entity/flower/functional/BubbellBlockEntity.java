@@ -60,7 +60,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 			if (effectivePos.distSqr(pos) < rangeSqr) {
 				BlockState state = getLevel().getBlockState(pos);
 				if (state.is(Blocks.WATER)) {
-					getLevel().setBlock(pos, BotaniaBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);
+					getLevel().setBlock(pos, BotaniaBlocks.FAKE_AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
 					if (getLevel().getBlockEntity(pos) instanceof FakeAirBlockEntity air) {
 						air.setFlower(this);
 					}
@@ -115,7 +115,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends BubbellBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.BUBBELL_CHIBI, pos, state);
+			super(BotaniaBlockEntities.BUBBELL_PETITE, pos, state);
 		}
 
 		@Override

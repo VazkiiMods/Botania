@@ -61,7 +61,7 @@ public class LuminizerBlockEntity extends BlockEntity implements WandBindable, B
 	private boolean noParticle = false;
 
 	public LuminizerBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.LIGHT_RELAY, pos, state);
+		super(BotaniaBlockEntities.LUMINIZER, pos, state);
 	}
 
 	public void mountEntity(Entity e) {

@@ -46,7 +46,7 @@ import static vazkii.botania.api.BotaniaAPI.gogRL;
 public class GogRecipeProvider extends RecipeProvider {
 
 	public static final vazkii.botania.api.recipe.StateIngredient ALCHEMY_CATALYST =
-			StateIngredients.of(BotaniaBlocks.alchemyCatalyst);
+			StateIngredients.of(BotaniaBlocks.ALCHEMY_CATALYST);
 
 	public GogRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
@@ -57,7 +57,7 @@ public class GogRecipeProvider extends RecipeProvider {
 		// modifications of standard Botania recipes:
 		nineBlockStorageRecipes(recipeOutput,
 				RecipeCategory.BREWING, Items.BLAZE_POWDER,
-				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.blazeBlock,
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.BLAZE_MESH,
 				"gardenofglass:blaze_block", null, "gardenofglass:blaze_powder_from_blaze_block", null);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer, 3)
 				.requires(Items.BONE_MEAL)
@@ -66,16 +66,16 @@ public class GogRecipeProvider extends RecipeProvider {
 				.unlockedBy(getHasName(Items.BONE_MEAL), has(Items.BONE_MEAL))
 				.unlockedBy("has_any_dye", has(Tags.Items.DYES))
 				.save(recipeOutput, gogRL("fertilizer_from_dye"));
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.COCOON_OF_CAPRICE)
 				.define('S', Items.STRING)
-				.define('P', BotaniaBlocks.felPumpkin)
+				.define('P', BotaniaBlocks.FEL_PUMPKIN)
 				.define('I', ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
 				.pattern("SSS")
 				.pattern("SPS")
 				.pattern("SIS")
-				.unlockedBy("has_item", has(BotaniaBlocks.felPumpkin))
-				.save(recipeOutput, gogRL(getItemName(BotaniaBlocks.cocoon)));
-		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
+				.unlockedBy("has_item", has(BotaniaBlocks.FEL_PUMPKIN))
+				.save(recipeOutput, gogRL(getItemName(BotaniaBlocks.COCOON_OF_CAPRICE)));
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.MANA_SPREADER)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
 				.pattern("WWW")
@@ -83,15 +83,15 @@ public class GogRecipeProvider extends RecipeProvider {
 				.pattern("WWW")
 				.group("botania:spreader")
 				.unlockedBy("has_item", has(BotaniaTags.Items.LIVINGWOOD_LOGS))
-				.save(recipeOutput, gogRL(getItemName(BotaniaBlocks.manaSpreader)));
+				.save(recipeOutput, gogRL(getItemName(BotaniaBlocks.MANA_SPREADER)));
 
 		Ingredient yellow = Ingredient.of(BotaniaTags.Items.PETALS_YELLOW);
 		Ingredient gray = Ingredient.of(BotaniaTags.Items.PETALS_GRAY);
 		Ingredient green = Ingredient.of(BotaniaTags.Items.PETALS_GREEN);
 		Ingredient red = Ingredient.of(BotaniaTags.Items.PETALS_RED);
 		recipeOutput.accept(
-				gogRL("petal_apothecary/" + getItemName(BotaniaBlocks.orechid.asItem())),
-				new PetalApothecaryRecipe(new ItemStack(BotaniaBlocks.orechid),
+				gogRL("petal_apothecary/" + getItemName(BotaniaBlocks.ORECHID.asItem())),
+				new PetalApothecaryRecipe(new ItemStack(BotaniaBlocks.ORECHID),
 						Ingredient.of(BotaniaTags.Items.SEED_APOTHECARY_REAGENT),
 						gray, gray, yellow, yellow, green, green, red, red),
 				null);

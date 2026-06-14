@@ -29,7 +29,7 @@ public class FloatingFlowerBlockEntity extends BlockEntity implements FloatingFl
 	private final FloatingFlower floatingData = new FloatingFlowerImpl();
 
 	public FloatingFlowerBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.MINI_ISLAND, pos, state);
+		super(BotaniaBlockEntities.FLOATING_MUNDANE_FLOWER, pos, state);
 	}
 
 	@Override

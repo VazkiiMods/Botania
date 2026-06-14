@@ -350,7 +350,7 @@ public final class HUDHandler {
 		int y = mc.getWindow().getGuiScaledHeight() - 60;
 
 		RenderHelper.renderHUDBox(gui, x - 4, y - 4, x + l + 4, y + 35);
-		gui.renderItem(new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
+		gui.renderItem(new ItemStack(BotaniaBlocks.CORPOREA_INDEX), x, y + 10);
 
 		gui.drawString(mc.font, txt0, x + 20, y, 0xFFFFFF);
 		gui.drawString(mc.font, txt1, x + 20, y + 14, 0xFFFFFF);

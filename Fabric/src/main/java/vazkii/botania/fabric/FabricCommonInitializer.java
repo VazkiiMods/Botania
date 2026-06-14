@@ -173,9 +173,9 @@ public class FabricCommonInitializer implements ModInitializer {
 		DefaultCorporeaMatchers.init();
 		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.ELVEN_GATEWAY_CORE), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.MANA_ENCHANTER), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(botaniaRL("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
@@ -213,9 +213,10 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaBlocks.addDispenserBehaviours();
 		BotaniaBlocks.addAxeStripping();
 		BotaniaItems.registerCauldronInteractions();
-		for (Block b : List.of(BotaniaBlocks.dryGrass, BotaniaBlocks.goldenGrass,
-				BotaniaBlocks.vividGrass, BotaniaBlocks.scorchedGrass,
-				BotaniaBlocks.infusedGrass, BotaniaBlocks.mutatedGrass)) {
+		for (Block b : List.of(BotaniaBlocks.DRY_GRASS_BLOCK, BotaniaBlocks.GOLDEN_GRASS_BLOCK,
+				BotaniaBlocks.VIVID_GRASS_BLOCK, BotaniaBlocks.SCORCHED_GRASS_BLOCK,
+				BotaniaBlocks.INFUSED_GRASS_BLOCK, BotaniaBlocks.MUTATED_GRASS_BLOCK
+		)) {
 			TillableBlockRegistry.register(b, HoeItem::onlyIfAirAbove,
 					Blocks.FARMLAND.defaultBlockState());
 			FlattenableBlockRegistry.register(b, Blocks.DIRT_PATH.defaultBlockState());
@@ -223,7 +224,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> target.is(BotaniaItems.elementiumAxe) && enchantment.is(Enchantments.LOOTING) ? TriState.TRUE : TriState.DEFAULT);
 
 		int blazeTime = 2400;
-		FuelRegistry.INSTANCE.add(BotaniaBlocks.blazeBlock.asItem(), blazeTime * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
+		FuelRegistry.INSTANCE.add(BotaniaBlocks.BLAZE_MESH.asItem(), blazeTime * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
 
 		// GUI and Recipe
 		BotaniaItems.registerMenuTypes(bind(BuiltInRegistries.MENU));
@@ -381,7 +382,8 @@ public class FabricCommonInitializer implements ModInitializer {
 		// these two blocks implement the capability directly
 		edibleBlockWithEffectLookup.registerForBlocks(
 				(world, pos, state, blockEntity, context) -> (EdibleBlockWithEffects) state.getBlock(),
-				BotaniaBlocks.mutatedGrass, BotaniaBlocks.infusedGrass);
+				BotaniaBlocks.MUTATED_GRASS_BLOCK, BotaniaBlocks.INFUSED_GRASS_BLOCK
+		);
 
 		BlockApiLookup<ExoflameHeatable, Unit> exoflameHeatableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ExoflameHeatable.LOOKUP);
 		exoflameHeatableBlockLookup.registerFallback((world, pos, state, blockEntity, context) -> {
@@ -397,9 +399,9 @@ public class FabricCommonInitializer implements ModInitializer {
 		BlockApiLookup<ManaCollisionGhost, Unit> manaCollisionGhostBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ManaCollisionGhost.LOOKUP);
 		manaCollisionGhostBlockLookup.registerForBlocks(
 				(level, pos, state, be, context) -> ((ManaCollisionGhost) state.getBlock()),
-				BotaniaBlocks.manaDetector,
-				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
-				BotaniaBlocks.prism, BotaniaBlocks.tinyPlanet
+				BotaniaBlocks.MANA_DETECTOR,
+				BotaniaBlocks.ABSTRUSE_PLATFORM, BotaniaBlocks.INFRANGIBLE_PLATFORM, BotaniaBlocks.SPECTRAL_PLATFORM,
+				BotaniaBlocks.MANA_PRISM, BotaniaBlocks.TINY_PLANET
 		);
 
 		BlockApiLookup<ManaReceiver, Direction> manaReceiverBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ManaReceiver.LOOKUP);
@@ -408,7 +410,8 @@ public class FabricCommonInitializer implements ModInitializer {
 		);
 		manaReceiverBlockLookup.registerForBlocks(
 				(level, pos, state, be, side) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
-				BotaniaBlocks.manaVoid);
+				BotaniaBlocks.MANA_VOID
+		);
 
 		BlockApiLookup<SparkAttachable, Unit> sparkAttachableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
 		sparkAttachableBlockLookup.registerSelf(BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.toArray(BlockEntityType[]::new));
@@ -418,22 +421,22 @@ public class FabricCommonInitializer implements ModInitializer {
 				BlockEntityConstants.SELF_MANA_TRIGGER_BES.toArray(BlockEntityType[]::new));
 		manaTriggerBlockLookup.registerForBlocks(
 				(level, pos, state, be, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.canopyDrum, BotaniaBlocks.gatheringDrum, BotaniaBlocks.wildDrum
+				BotaniaBlocks.DRUM_OF_THE_CANOPY, BotaniaBlocks.DRUM_OF_THE_GATHERING, BotaniaBlocks.DRUM_OF_THE_WILD
 		);
 		manaTriggerBlockLookup.registerForBlocks(
 				(level, pos, state, be, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.manaBomb
+				BotaniaBlocks.MANASTORM_CHARGE
 		);
 		manaTriggerBlockLookup.registerForBlocks(
 				(level, pos, state, be, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.manaDetector
+				BotaniaBlocks.MANA_DETECTOR
 		);
 
 		BlockApiLookup<Wandable, Direction> wandableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(Wandable.LOOKUP);
 		wandableBlockLookup.registerSelf(
 				BlockEntityConstants.SELF_WANDABLE_BES.toArray(BlockEntityType[]::new));
 		wandableBlockLookup.registerForBlocks(ForceRelayBlock::createWandable,
-				BotaniaBlocks.pistonRelay
+				BotaniaBlocks.FORCE_RELAY
 		);
 		wandableBlockLookup.registerForBlocks(ManaEnchanterBlockEntity::createLapisBlockWandable,
 				Blocks.LAPIS_BLOCK);
@@ -442,14 +445,15 @@ public class FabricCommonInitializer implements ModInitializer {
 		wandBindableBlockLookup.registerSelf(
 				BlockEntityConstants.SELF_WAND_BINDABLE_BES.toArray(BlockEntityType[]::new));
 		wandBindableBlockLookup.registerForBlocks(ForceRelayBlock::createWandBindable,
-				BotaniaBlocks.pistonRelay);
+				BotaniaBlocks.FORCE_RELAY
+		);
 
 		BlockApiLookup<PhantomInkableBlock, Unit> phantomInkableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(PhantomInkableBlock.LOOKUP);
 		phantomInkableBlockLookup.registerSelf(
 				BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.toArray(BlockEntityType[]::new));
 
-		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRING_CONTAINER);
-		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRING_DISPENSER);
+		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRINGED_CONTAINER);
+		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRINGED_DISPENSER);
 
 		if (XplatAbstractions.INSTANCE.isModLoaded("team_reborn_energy")) {
 			FluxfieldTRStorage.register();

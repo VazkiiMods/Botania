@@ -53,7 +53,7 @@ public class TinyPlanetItem extends BaubleItem {
 			bipedModel.head.translateAndRotate(ms);
 			ms.translate(-0.25, -0.4, 0);
 			ms.scale(0.5F, -0.5F, -0.5F);
-			Minecraft.getInstance().getBlockRenderer().renderSingleBlock(BotaniaBlocks.tinyPlanet.defaultBlockState(), ms, buffers, light, OverlayTexture.NO_OVERLAY);
+			Minecraft.getInstance().getBlockRenderer().renderSingleBlock(BotaniaBlocks.TINY_PLANET.defaultBlockState(), ms, buffers, light, OverlayTexture.NO_OVERLAY);
 		}
 	}
 

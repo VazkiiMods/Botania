@@ -59,7 +59,7 @@ public class BifrostRodItem extends SelfReturningItem {
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!level.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false)) {
-			BlockState bifrost = BotaniaBlocks.bifrost.defaultBlockState();
+			BlockState bifrost = BotaniaBlocks.TEMPORARY_BIFROST_BLOCK.defaultBlockState();
 			Vec3 vector = player.getLookAngle().normalize();
 
 			double x = player.getX();
@@ -120,7 +120,7 @@ public class BifrostRodItem extends SelfReturningItem {
 	}
 
 	private static boolean placeBridgeSegment(Level level, BlockPos center, BlockPos.MutableBlockPos placePos, int time) {
-		BlockState bifrost = BotaniaBlocks.bifrost.defaultBlockState();
+		BlockState bifrost = BotaniaBlocks.TEMPORARY_BIFROST_BLOCK.defaultBlockState();
 		boolean placed = false;
 
 		for (int i = -1; i <= 1; i++) {
@@ -182,13 +182,13 @@ public class BifrostRodItem extends SelfReturningItem {
 						placePos.set(x, y - 1, z);
 						BlockState state = level.getBlockState(placePos);
 						if (state.isAir()) {
-							if (level.setBlockAndUpdate(placePos, BotaniaBlocks.bifrost.defaultBlockState())) {
+							if (level.setBlockAndUpdate(placePos, BotaniaBlocks.TEMPORARY_BIFROST_BLOCK.defaultBlockState())) {
 								if (level.getBlockEntity(placePos) instanceof BifrostBlockEntity bifrostBlockEntity) {
 									bifrostBlockEntity.ticks = 10;
 								}
 								receiver.receiveMana(-MANA_COST_AVATAR);
 							}
-						} else if (state.is(BotaniaBlocks.bifrost)
+						} else if (state.is(BotaniaBlocks.TEMPORARY_BIFROST_BLOCK)
 								&& level.getBlockEntity(placePos) instanceof BifrostBlockEntity bifrostBlockEntity
 								&& bifrostBlockEntity.ticks < 2) {
 							bifrostBlockEntity.ticks += 10;

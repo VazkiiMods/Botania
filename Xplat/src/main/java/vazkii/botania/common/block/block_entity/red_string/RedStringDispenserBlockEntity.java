@@ -18,7 +18,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class RedStringDispenserBlockEntity extends RedStringContainerBlockEntity {
 	public RedStringDispenserBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.RED_STRING_DISPENSER, pos, state);
+		super(BotaniaBlockEntities.RED_STRINGED_DISPENSER, pos, state);
 	}
 
 	@Override

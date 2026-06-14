@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDisplay> {
-	private final EntryStack<ItemStack> gateway = EntryStacks.of(new ItemStack(BotaniaBlocks.alfPortal));
+	private final EntryStack<ItemStack> gateway = EntryStacks.of(new ItemStack(BotaniaBlocks.ELVEN_GATEWAY_CORE));
 	private final ResourceLocation TRADE_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/elven_trade_overlay.png");
 
 	@Override

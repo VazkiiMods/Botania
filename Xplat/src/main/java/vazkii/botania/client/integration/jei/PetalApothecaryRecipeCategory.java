@@ -46,7 +46,7 @@ public class PetalApothecaryRecipeCategory extends BotaniaRecipeCategoryBase<Pet
 
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		super(114, 97, Component.translatable("botania.nei.petalApothecary"),
-				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.defaultAltar)), null);
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.PETAL_APOTHECARY)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
 	}
@@ -66,7 +66,7 @@ public class PetalApothecaryRecipeCategory extends BotaniaRecipeCategoryBase<Pet
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, PetalApothecaryRecipe recipe, IFocusGroup focusGroup) {
-		setRecipeLayout(builder, recipe.getIngredients(), List.of(), BotaniaBlocks.defaultAltar,
+		setRecipeLayout(builder, recipe.getIngredients(), List.of(), BotaniaBlocks.PETAL_APOTHECARY,
 				recipe.getResultItem(getRegistryAccess()), WATER_BUCKET, recipe.getReagent());
 	}
 

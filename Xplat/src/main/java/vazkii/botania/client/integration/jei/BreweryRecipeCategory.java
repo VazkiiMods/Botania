@@ -40,7 +40,7 @@ public class BreweryRecipeCategory extends BotaniaRecipeCategoryBase<BotanicalBr
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
 		super(WIDTH, HEIGHT, Component.translatable("botania.nei.brewery"),
-				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.brewery)),
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.BOTANICAL_BREWERY)),
 				guiHelper.createDrawable(botaniaRL("textures/gui/nei_brewery.png"), 28, 6, WIDTH, HEIGHT));
 	}
 

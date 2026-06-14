@@ -35,7 +35,7 @@ import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntit
 
 public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger {
 	public ManaPrismBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.PRISM, pos, state, true);
+		super(BotaniaBlockEntities.MANA_PRISM, pos, state, true);
 	}
 
 	@Override
@@ -87,8 +87,8 @@ public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 			BlockState state = getBlockState();
 			boolean hasLens = !getItemHandler().getItem(0).isEmpty();
-			if (!state.is(BotaniaBlocks.prism) || state.getValue(BotaniaStateProperties.HAS_LENS) != hasLens) {
-				BlockState base = state.is(BotaniaBlocks.prism) ? state : BotaniaBlocks.prism.defaultBlockState();
+			if (!state.is(BotaniaBlocks.MANA_PRISM) || state.getValue(BotaniaStateProperties.HAS_LENS) != hasLens) {
+				BlockState base = state.is(BotaniaBlocks.MANA_PRISM) ? state : BotaniaBlocks.MANA_PRISM.defaultBlockState();
 				level.setBlockAndUpdate(worldPosition, base.setValue(BotaniaStateProperties.HAS_LENS, hasLens));
 			}
 		}

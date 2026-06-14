@@ -175,7 +175,7 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(BotaniaBlocks.runeAltar);
+		return new ItemStack(BotaniaBlocks.RUNIC_ALTAR);
 	}
 
 	@Override

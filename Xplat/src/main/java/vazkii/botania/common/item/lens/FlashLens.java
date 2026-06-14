@@ -33,13 +33,13 @@ public class FlashLens extends Lens {
 			BlockState stateAt = entity.level().getBlockState(rtr.getBlockPos());
 			BlockState neighbor = entity.level().getBlockState(neighborPos);
 
-			if (stateAt.is(BotaniaBlocks.manaFlame)) {
+			if (stateAt.is(BotaniaBlocks.MANA_FLAME)) {
 				entity.level().removeBlock(rtr.getBlockPos(), false);
 			} else if (neighbor.isAir() || neighbor.canBeReplaced()) {
 				var fluid = entity.level().getFluidState(neighborPos);
 				var water = fluid.isSource() && fluid.is(FluidTags.WATER);
 				entity.level().setBlockAndUpdate(neighborPos,
-						BotaniaBlocks.manaFlame.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, water));
+						BotaniaBlocks.MANA_FLAME.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, water));
 
 				if (entity.level().getBlockEntity(neighborPos) instanceof ManaFlameBlockEntity manaFlame) {
 					manaFlame.setColor(burst.getColor());

@@ -220,7 +220,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 
 	public static class Mini extends HopperhockBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.HOPPERHOCK_CHIBI, pos, state);
+			super(BotaniaBlockEntities.HOPPERHOCK_PETITE, pos, state);
 		}
 
 		@Override

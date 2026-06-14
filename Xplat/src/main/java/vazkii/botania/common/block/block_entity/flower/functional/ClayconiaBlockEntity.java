@@ -120,7 +120,7 @@ public class ClayconiaBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends ClayconiaBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.CLAYCONIA_CHIBI, pos, state);
+			super(BotaniaBlockEntities.CLAYCONIA_PETITE, pos, state);
 		}
 
 		@Override

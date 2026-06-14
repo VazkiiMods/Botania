@@ -37,29 +37,29 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		consumer.accept(id("dreamwood_log"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.dreamwoodLog),
-				Ingredient.of(BotaniaBlocks.livingwoodLog)), null);
-		consumer.accept(id("dreamwood"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.dreamwood),
-				Ingredient.of(BotaniaBlocks.livingwood)), null);
+		consumer.accept(id("dreamwood_log"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.DREAMWOOD_LOG),
+				Ingredient.of(BotaniaBlocks.LIVINGWOOD_LOG)), null);
+		consumer.accept(id("dreamwood"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.DREAMWOOD),
+				Ingredient.of(BotaniaBlocks.LIVINGWOOD)), null);
 
 		Ingredient manaSteel = Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS);
 		Ingredient manaSteelBlock = Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_STORAGE_BLOCKS);
 		consumer.accept(id("elementium"), new ElvenTradeRecipe(singleOutput(BotaniaItems.elementium),
 				manaSteel, manaSteel), null);
-		consumer.accept(id("elementium_block"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.elementiumBlock),
+		consumer.accept(id("elementium_block"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.ELEMENTIUM_BLOCK),
 				manaSteelBlock, manaSteelBlock), null);
 
 		consumer.accept(id("pixie_dust"), new ElvenTradeRecipe(singleOutput(BotaniaItems.pixieDust),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)), null);
 		consumer.accept(id("dragonstone"), new ElvenTradeRecipe(singleOutput(BotaniaItems.dragonstone),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)), null);
-		consumer.accept(id("dragonstone_block"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.dragonstoneBlock),
+		consumer.accept(id("dragonstone_block"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.DRAGONSTONE_BLOCK),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_STORAGE_BLOCKS)), null);
 
 		consumer.accept(id("elf_quartz"), new ElvenTradeRecipe(singleOutput(BotaniaItems.elfQuartz),
 				Ingredient.of(Items.QUARTZ)), null);
-		consumer.accept(id("elf_glass"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.elfGlass),
-				Ingredient.of(BotaniaBlocks.manaGlass)), null);
+		consumer.accept(id("elf_glass"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.ALFGLASS),
+				Ingredient.of(BotaniaBlocks.MANAGLASS)), null);
 
 		consumer.accept(id("iron_return"), new ElvenTradeRecipe(singleOutput(Items.IRON_INGOT),
 				Ingredient.of(Items.IRON_INGOT)), null);

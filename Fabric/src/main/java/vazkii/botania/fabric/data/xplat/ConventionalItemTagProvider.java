@@ -90,21 +90,21 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		ColorHelper.supportedColors().forEach(color -> {
 			tag(TagKey.create(ConventionalItemTags.DYED.registry(),
 					ConventionalItemTags.DYED.location().withSuffix("/" + color.getSerializedName())))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.manaPool, color).asItem())
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.creativePool, color).asItem())
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.dilutedPool, color).asItem())
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.fabulousPool, color).asItem());
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.MANA_POOL, color).asItem())
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.CREATIVE_MANA_POOL, color).asItem())
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.DILUTED_MANA_POOL, color).asItem())
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.FABULOUS_MANA_POOL, color).asItem());
 			// no items for spreaders, so can't just copy block tags
 		});
 
 		// Fences and fence gates
 		tag(ConventionalItemTags.WOODEN_FENCE_GATES).add(
-				BotaniaBlocks.livingwoodFenceGate.asItem(), BotaniaBlocks.dreamwoodFenceGate.asItem(),
-				BotaniaBlocks.shimmerwoodFenceGate.asItem()
+				BotaniaBlocks.LIVINGWOOD_FENCE_GATE.asItem(), BotaniaBlocks.DREAMWOOD_FENCE_GATE.asItem(),
+				BotaniaBlocks.SHIMMERWOOD_FENCE_GATE.asItem()
 		);
 		tag(ConventionalItemTags.WOODEN_FENCES).add(
-				BotaniaBlocks.livingwoodFence.asItem(), BotaniaBlocks.dreamwoodFence.asItem(),
-				BotaniaBlocks.shimmerwoodFence.asItem()
+				BotaniaBlocks.LIVINGWOOD_FENCE.asItem(), BotaniaBlocks.DREAMWOOD_FENCE.asItem(),
+				BotaniaBlocks.SHIMMERWOOD_FENCE.asItem()
 		);
 
 		// Foods and Drinks

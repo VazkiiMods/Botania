@@ -181,12 +181,12 @@ public final class BotaniaItems {
 	public static final Item grassSeeds = make(LibItemNames.GRASS_SEEDS, new GrassSeedsItem(Blocks.GRASS_BLOCK, 0x006600, defaultBuilder()));
 	public static final Item podzolSeeds = make(LibItemNames.PODZOL_SEEDS, new GrassSeedsItem(Blocks.PODZOL, 0x805E00, defaultBuilder()));
 	public static final Item mycelSeeds = make(LibItemNames.MYCEL_SEEDS, new GrassSeedsItem(Blocks.MYCELIUM, 0x5E0054, defaultBuilder()));
-	public static final Item drySeeds = make(LibItemNames.DRY_SEEDS, new GrassSeedsItem(BotaniaBlocks.dryGrass, 0x66800D, defaultBuilder()));
-	public static final Item goldenSeeds = make(LibItemNames.GOLDEN_SEEDS, new GrassSeedsItem(BotaniaBlocks.goldenGrass, 0xBFB300, defaultBuilder()));
-	public static final Item vividSeeds = make(LibItemNames.VIVID_SEEDS, new GrassSeedsItem(BotaniaBlocks.vividGrass, 0x00801A, defaultBuilder()));
-	public static final Item scorchedSeeds = make(LibItemNames.SCORCHED_SEEDS, new GrassSeedsItem(BotaniaBlocks.scorchedGrass, 0xBF0000, defaultBuilder()));
-	public static final Item infusedSeeds = make(LibItemNames.INFUSED_SEEDS, new GrassSeedsItem(BotaniaBlocks.infusedGrass, 0x008C8C, defaultBuilder()));
-	public static final Item mutatedSeeds = make(LibItemNames.MUTATED_SEEDS, new GrassSeedsItem(BotaniaBlocks.mutatedGrass, 0x661A66, defaultBuilder()));
+	public static final Item drySeeds = make(LibItemNames.DRY_SEEDS, new GrassSeedsItem(BotaniaBlocks.DRY_GRASS_BLOCK, 0x66800D, defaultBuilder()));
+	public static final Item goldenSeeds = make(LibItemNames.GOLDEN_SEEDS, new GrassSeedsItem(BotaniaBlocks.GOLDEN_GRASS_BLOCK, 0xBFB300, defaultBuilder()));
+	public static final Item vividSeeds = make(LibItemNames.VIVID_SEEDS, new GrassSeedsItem(BotaniaBlocks.VIVID_GRASS_BLOCK, 0x00801A, defaultBuilder()));
+	public static final Item scorchedSeeds = make(LibItemNames.SCORCHED_SEEDS, new GrassSeedsItem(BotaniaBlocks.SCORCHED_GRASS_BLOCK, 0xBF0000, defaultBuilder()));
+	public static final Item infusedSeeds = make(LibItemNames.INFUSED_SEEDS, new GrassSeedsItem(BotaniaBlocks.INFUSED_GRASS_BLOCK, 0x008C8C, defaultBuilder()));
+	public static final Item mutatedSeeds = make(LibItemNames.MUTATED_SEEDS, new GrassSeedsItem(BotaniaBlocks.MUTATED_GRASS_BLOCK, 0x661A66, defaultBuilder()));
 
 	public static final Item dirtRod = make(LibItemNames.DIRT_ROD, new LandsRodItem(unstackable()));
 	public static final Item skyDirtRod = make(LibItemNames.SKY_DIRT_ROD, new HighlandsRodItem(unstackable()));
@@ -537,16 +537,16 @@ public final class BotaniaItems {
 	public static void registerCauldronInteractions() {
 		ColorHelper.supportedColors().forEach(color -> {
 			CauldronInteraction.WATER.map()
-					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.manaPool, color).asItem(),
+					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.MANA_POOL, color).asItem(),
 							MANA_POOL_INTERACTION);
 			CauldronInteraction.WATER.map()
-					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.creativePool, color).asItem(),
+					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.CREATIVE_MANA_POOL, color).asItem(),
 							MANA_POOL_INTERACTION);
 			CauldronInteraction.WATER.map()
-					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.dilutedPool, color).asItem(),
+					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.DILUTED_MANA_POOL, color).asItem(),
 							MANA_POOL_INTERACTION);
 			CauldronInteraction.WATER.map()
-					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.fabulousPool, color).asItem(),
+					.put(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.FABULOUS_MANA_POOL, color).asItem(),
 							MANA_POOL_INTERACTION);
 		});
 

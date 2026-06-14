@@ -44,7 +44,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 	private final GaiaPylonModel gaiaModel;
 
 	// Overrides for when we call this without an actual pylon
-	private static Block forceVariant = BotaniaBlocks.manaPylon;
+	private static Block forceVariant = BotaniaBlocks.MANA_PYLON;
 	private static ItemDisplayContext forceTransform = ItemDisplayContext.NONE;
 
 	public PylonBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -61,11 +61,11 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 		PylonModel model;
 		ResourceLocation texture;
 		RenderType shaderLayer;
-		if (BotaniaBlocks.naturaPylon.equals(type)) {
+		if (BotaniaBlocks.NATURA_PYLON.equals(type)) {
 			model = naturaModel;
 			texture = NATURA_TEXTURE;
 			shaderLayer = direct ? RenderHelper.NATURA_PYLON_GLOW_DIRECT : RenderHelper.NATURA_PYLON_GLOW;
-		} else if (BotaniaBlocks.gaiaPylon.equals(type)) {
+		} else if (BotaniaBlocks.GAIA_PYLON.equals(type)) {
 			model = gaiaModel;
 			texture = GAIA_TEXTURE;
 			shaderLayer = direct ? RenderHelper.GAIA_PYLON_GLOW_DIRECT : RenderHelper.GAIA_PYLON_GLOW;

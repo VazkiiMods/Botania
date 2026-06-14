@@ -70,7 +70,7 @@ public class EyeOfTheAncientsBlock extends BotaniaWaterloggedBlock implements En
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide()) {
-			return createTickerHelper(type, BotaniaBlockEntities.FOREST_EYE, EyeOfTheAncientsBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.EYE_OF_THE_ANCIENTS, EyeOfTheAncientsBlockEntity::serverTick);
 		}
 		return null;
 	}

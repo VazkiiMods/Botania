@@ -64,7 +64,7 @@ public class EntropinnyumUnethicalTntDetectionTest {
 		helper.startSequence()
 				.thenExecute(() -> {
 					var player = helper.makeMockPlayer(GameType.CREATIVE);
-					var spreader = TestingUtil.assertBlockEntity(helper, POSITION_FORCE_LENS_MANA_SPREADER, BotaniaBlockEntities.SPREADER);
+					var spreader = TestingUtil.assertBlockEntity(helper, POSITION_FORCE_LENS_MANA_SPREADER, BotaniaBlockEntities.MANA_SPREADER);
 					TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand),
 							helper.absolutePos(POSITION_FORCE_LENS_PUSHED_SLIME_BLOCK), Direction.UP),
 							() -> "Failed to bind spreader");
@@ -84,7 +84,7 @@ public class EntropinnyumUnethicalTntDetectionTest {
 	public void testForceRelayDuper(GameTestHelper helper) {
 		helper.startSequence()
 				.thenExecute(() -> {
-					if (helper.getBlockState(POSITION_FORCE_RELAY).getBlock() != BotaniaBlocks.pistonRelay) {
+					if (helper.getBlockState(POSITION_FORCE_RELAY).getBlock() != BotaniaBlocks.FORCE_RELAY) {
 						throw new GameTestAssertException("Missing force relay at: " + POSITION_FORCE_RELAY);
 					}
 					TestingUtil.bindForceRelayTarget(helper, POSITION_FORCE_RELAY,

@@ -23,7 +23,7 @@ public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase {
 			mezz.jei.api.recipe.RecipeType.create(BotaniaAPI.MODID, "marimorphosis", OrechidRecipe.class);
 
 	public MarimorphosisRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(BotaniaBlocks.marimorphosis), Component.translatable("botania.nei.marimorphosis"));
+		super(guiHelper, new ItemStack(BotaniaBlocks.MARIMORPHOSIS), Component.translatable("botania.nei.marimorphosis"));
 	}
 
 	@Override

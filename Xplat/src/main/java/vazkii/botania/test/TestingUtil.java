@@ -134,7 +134,7 @@ public class TestingUtil {
 		final var firstLensStack = new ItemStack(firstLensType);
 		final var secondLensStack = new ItemStack(secondLensType);
 		final var compositeLens = ((LensItem) firstLensStack.getItem()).setCompositeLens(firstLensStack, secondLensStack);
-		final var spreaderEntity = assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.SPREADER);
+		final var spreaderEntity = assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.MANA_SPREADER);
 		spreaderEntity.getItemHandler().setItem(0, compositeLens);
 
 		bindWithWandOfTheForest(helper, spreaderPos, spreaderTargetPos);

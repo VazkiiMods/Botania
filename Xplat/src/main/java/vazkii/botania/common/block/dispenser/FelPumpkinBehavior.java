@@ -25,7 +25,7 @@ public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level level = source.level();
 		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
-		FelPumpkinBlock felPumpkinBlock = (FelPumpkinBlock) BotaniaBlocks.felPumpkin;
+		FelPumpkinBlock felPumpkinBlock = (FelPumpkinBlock) BotaniaBlocks.FEL_PUMPKIN;
 		this.setSuccess(false);
 		if (level.isEmptyBlock(blockpos) && felPumpkinBlock.canSpawnBlaze(level, source.pos())) {
 			if (!level.isClientSide()) {

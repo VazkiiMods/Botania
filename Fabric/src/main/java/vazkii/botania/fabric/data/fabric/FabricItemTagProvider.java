@@ -120,7 +120,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
 		this.tag(itemTag(ResourceLocation.fromNamespaceAndPath("modern_industrialization", "replicator_blacklist")))
 				.add(DiceOfFateItem.RELIC_STACKS.get().stream().map(ItemStack::getItem).toArray(Item[]::new))
 				.add(dice, manaTablet, manaRing, manaRingGreater, blackerLotus, blackHoleTalisman, flowerBag,
-						spawnerMover, terraPick, BotaniaBlocks.terrasteelBlock.asItem());
+						spawnerMover, terraPick, BotaniaBlocks.TERRASTEEL_BLOCK.asItem());
 	}
 
 	private static TagKey<Item> accessory(String name) {

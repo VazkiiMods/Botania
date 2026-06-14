@@ -62,7 +62,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 	public int signal = 0;
 
 	public BotanicalBreweryBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.BREWERY, pos, state, true);
+		super(BotaniaBlockEntities.BOTANICAL_BREWERY, pos, state, true);
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
@@ -105,7 +105,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 		maybeRecipe.ifPresent(recipeBrew -> {
 			this.recipe = recipeBrew.value();
 			level.setBlockAndUpdate(worldPosition,
-					BotaniaBlocks.brewery.defaultBlockState().setValue(BlockStateProperties.POWERED, true));
+					BotaniaBlocks.BOTANICAL_BREWERY.defaultBlockState().setValue(BlockStateProperties.POWERED, true));
 		});
 	}
 
@@ -136,7 +136,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 		if (self.recipe != null) {
 			if (!self.recipe.matches(self.getRecipeInput(), level)) {
 				self.recipe = null;
-				level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState());
+				level.setBlockAndUpdate(worldPosition, BotaniaBlocks.BOTANICAL_BREWERY.defaultBlockState());
 			}
 
 			if (self.recipe != null) {
@@ -165,7 +165,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 					ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 					ItemSource.HOLDER.setFor(outputItem, ItemSources.BOTANICAL_BREWERY);
 					level.addFreshEntity(outputItem);
-					level.blockEvent(worldPosition, BotaniaBlocks.brewery, CRAFT_EFFECT_EVENT, self.recipe.getBrew().getColor(output));
+					level.blockEvent(worldPosition, BotaniaBlocks.BOTANICAL_BREWERY, CRAFT_EFFECT_EVENT, self.recipe.getBrew().getColor(output));
 
 					for (ItemStack remainingStack : self.recipe.getRemainingItems(self.getRecipeInput())) {
 						if (remainingStack.isEmpty()) {

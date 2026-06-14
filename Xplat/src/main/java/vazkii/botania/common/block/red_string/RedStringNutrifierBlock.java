@@ -34,19 +34,19 @@ public class RedStringNutrifierBlock extends RedStringBlock implements Bonemeala
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
-		return world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRING_FERTILIZER)
+		return world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRINGED_NUTRIFIER)
 				.map(be -> be.canGrow(world)).orElse(false);
 	}
 
 	@Override
 	public boolean isBonemealSuccess(Level world, RandomSource rand, BlockPos pos, BlockState state) {
-		return world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRING_FERTILIZER)
+		return world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRINGED_NUTRIFIER)
 				.map(be -> be.canUseBonemeal(world, rand)).orElse(false);
 	}
 
 	@Override
 	public void performBonemeal(ServerLevel world, RandomSource rand, BlockPos pos, BlockState state) {
-		world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRING_FERTILIZER)
+		world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRINGED_NUTRIFIER)
 				.ifPresent(be -> be.grow(world, rand));
 	}
 
@@ -58,6 +58,6 @@ public class RedStringNutrifierBlock extends RedStringBlock implements Bonemeala
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.RED_STRING_FERTILIZER, RedStringNutrifierBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.RED_STRINGED_NUTRIFIER, RedStringNutrifierBlockEntity::commonTick);
 	}
 }

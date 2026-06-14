@@ -76,32 +76,32 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 	private static final Comparator<EmiRecipe> ORECHID_COMPARATOR = BY_WEIGHT.thenComparing(BY_ID);
 
 	public static final EmiRecipeCategory PETAL_APOTHECARY = createCategory("petal_apothecary",
-			EmiStack.of(BotaniaBlocks.defaultAltar), BY_ID);
+			EmiStack.of(BotaniaBlocks.PETAL_APOTHECARY), BY_ID);
 	public static final EmiRecipeCategory MANA_INFUSION = createCategory("mana_infusion",
 			EmiStack.of(makeFullManaPool()), BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID));
 	public static final EmiRecipeCategory RUNIC_ALTAR = createCategory("runic_altar",
-			EmiStack.of(BotaniaBlocks.runeAltar), BY_GROUP.thenComparing(BY_ID));
+			EmiStack.of(BotaniaBlocks.RUNIC_ALTAR), BY_GROUP.thenComparing(BY_ID));
 	public static final EmiRecipeCategory TERRESTRIAL_AGGLOMERATION = createCategory("terrestrial_agglomeration",
-			EmiStack.of(BotaniaBlocks.terraPlate), BY_ID);
+			EmiStack.of(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE), BY_ID);
 	public static final EmiRecipeCategory ELVEN_TRADE = createCategory("elven_trade",
-			EmiStack.of(BotaniaBlocks.alfPortal), BY_ID);
+			EmiStack.of(BotaniaBlocks.ELVEN_GATEWAY_CORE), BY_ID);
 	public static final EmiRecipeCategory BOTANICAL_BREWERY = createCategory("botanical_brewery",
-			EmiStack.of(BotaniaBlocks.brewery), BY_ID);
+			EmiStack.of(BotaniaBlocks.BOTANICAL_BREWERY), BY_ID);
 	public static final EmiRecipeCategory PURE_DAISY = createCategory("pure_daisy",
-			EmiStack.of(BotaniaBlocks.pureDaisy), BY_ID);
+			EmiStack.of(BotaniaBlocks.PURE_DAISY), BY_ID);
 	public static final EmiRecipeCategory ORECHID = createCategory("orechid",
-			EmiStack.of(BotaniaBlocks.orechid), ORECHID_COMPARATOR);
+			EmiStack.of(BotaniaBlocks.ORECHID), ORECHID_COMPARATOR);
 	public static final EmiRecipeCategory ORECHID_IGNEM = createCategory("orechid_ignem",
-			EmiStack.of(BotaniaBlocks.orechidIgnem), ORECHID_COMPARATOR);
+			EmiStack.of(BotaniaBlocks.ORECHID_IGNEM), ORECHID_COMPARATOR);
 	public static final EmiRecipeCategory MARIMORPHOSIS = createCategory("marimorphosis",
-			EmiStack.of(BotaniaBlocks.marimorphosis), ORECHID_COMPARATOR);
+			EmiStack.of(BotaniaBlocks.MARIMORPHOSIS), ORECHID_COMPARATOR);
 
 	private static EmiRecipeCategory createCategory(String idPath, EmiRenderable icon, Comparator<EmiRecipe> comp) {
 		return new EmiRecipeCategory(botaniaRL(idPath), icon, icon, comp);
 	}
 
 	private static ItemStack makeFullManaPool() {
-		ItemStack pool = new ItemStack(BotaniaBlocks.manaPool);
+		ItemStack pool = new ItemStack(BotaniaBlocks.MANA_POOL);
 		pool.set(BotaniaDataComponents.RENDER_FULL, Unit.INSTANCE);
 		return pool;
 	}
@@ -145,24 +145,24 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.autocraftingHalo));
 
 		registry.addWorkstation(PETAL_APOTHECARY, EmiIngredient.of(BotaniaTags.Items.PETAL_APOTHECARIES));
-		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.manaPool));
-		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.dilutedPool));
-		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.fabulousPool));
-		registry.addWorkstation(RUNIC_ALTAR, EmiStack.of(BotaniaBlocks.runeAltar));
-		registry.addWorkstation(TERRESTRIAL_AGGLOMERATION, EmiStack.of(BotaniaBlocks.terraPlate));
-		registry.addWorkstation(ELVEN_TRADE, EmiStack.of(BotaniaBlocks.alfPortal));
-		registry.addWorkstation(BOTANICAL_BREWERY, EmiStack.of(BotaniaBlocks.brewery));
+		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.MANA_POOL));
+		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.DILUTED_MANA_POOL));
+		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.FABULOUS_MANA_POOL));
+		registry.addWorkstation(RUNIC_ALTAR, EmiStack.of(BotaniaBlocks.RUNIC_ALTAR));
+		registry.addWorkstation(TERRESTRIAL_AGGLOMERATION, EmiStack.of(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE));
+		registry.addWorkstation(ELVEN_TRADE, EmiStack.of(BotaniaBlocks.ELVEN_GATEWAY_CORE));
+		registry.addWorkstation(BOTANICAL_BREWERY, EmiStack.of(BotaniaBlocks.BOTANICAL_BREWERY));
 
-		registry.addWorkstation(PURE_DAISY, EmiStack.of(BotaniaBlocks.pureDaisy));
-		registry.addWorkstation(PURE_DAISY, EmiStack.of(BotaniaBlocks.pureDaisyFloating));
-		registry.addWorkstation(ORECHID, EmiStack.of(BotaniaBlocks.orechid));
-		registry.addWorkstation(ORECHID, EmiStack.of(BotaniaBlocks.orechidFloating));
-		registry.addWorkstation(ORECHID_IGNEM, EmiStack.of(BotaniaBlocks.orechidIgnem));
-		registry.addWorkstation(ORECHID_IGNEM, EmiStack.of(BotaniaBlocks.orechidIgnemFloating));
-		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.marimorphosis));
-		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.marimorphosisFloating));
-		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.marimorphosisChibi));
-		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.marimorphosisChibiFloating));
+		registry.addWorkstation(PURE_DAISY, EmiStack.of(BotaniaBlocks.PURE_DAISY));
+		registry.addWorkstation(PURE_DAISY, EmiStack.of(BotaniaBlocks.FLOATING_PURE_DAISY));
+		registry.addWorkstation(ORECHID, EmiStack.of(BotaniaBlocks.ORECHID));
+		registry.addWorkstation(ORECHID, EmiStack.of(BotaniaBlocks.FLOATING_ORECHID));
+		registry.addWorkstation(ORECHID_IGNEM, EmiStack.of(BotaniaBlocks.ORECHID_IGNEM));
+		registry.addWorkstation(ORECHID_IGNEM, EmiStack.of(BotaniaBlocks.FLOATING_ORECHID_IGNEM));
+		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.MARIMORPHOSIS));
+		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.FLOATING_MARIMORPHOSIS));
+		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.MARIMORPHOSIS_PETITE));
+		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.FLOATING_MARIMORPHOSIS_PETITE));
 
 		registry.setDefaultComparison(BotaniaItems.lexicon, Comparison.compareComponents());
 		registry.setDefaultComparison(BotaniaItems.brewFlask, Comparison.compareComponents());
@@ -225,15 +225,15 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 			registry.addRecipe(new PureDaisyEmiRecipe(recipe));
 		}
 
-		EmiIngredient orechid = EmiStack.of(BotaniaBlocks.orechid);
+		EmiIngredient orechid = EmiStack.of(BotaniaBlocks.ORECHID);
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(ORECHID, recipe, orechid));
 		}
-		EmiIngredient orechidIgnem = EmiStack.of(BotaniaBlocks.orechidIgnem);
+		EmiIngredient orechidIgnem = EmiStack.of(BotaniaBlocks.ORECHID_IGNEM);
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, orechidIgnem));
 		}
-		EmiIngredient marimorphosis = EmiStack.of(BotaniaBlocks.marimorphosis);
+		EmiIngredient marimorphosis = EmiStack.of(BotaniaBlocks.MARIMORPHOSIS);
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(MARIMORPHOSIS, recipe, marimorphosis));
 		}
@@ -243,10 +243,10 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		int bottleAmount = XplatAbstractions.instance().isForge() ? 250 : 27_000;
 		EmiStack waterThird = EmiStack.of(Fluids.WATER, bottleAmount);
 		for (var e : Map.of(
-				BotaniaTags.Items.DYED_MANA_POOLS, BotaniaBlocks.manaPool,
-				BotaniaTags.Items.DYED_DILUTED_POOLS, BotaniaBlocks.dilutedPool,
-				BotaniaTags.Items.DYED_FABULOUS_POOLS, BotaniaBlocks.fabulousPool,
-				BotaniaTags.Items.DYED_CREATIVE_POOLS, BotaniaBlocks.creativePool
+				BotaniaTags.Items.DYED_MANA_POOLS, BotaniaBlocks.MANA_POOL,
+				BotaniaTags.Items.DYED_DILUTED_POOLS, BotaniaBlocks.DILUTED_MANA_POOL,
+				BotaniaTags.Items.DYED_FABULOUS_POOLS, BotaniaBlocks.FABULOUS_MANA_POOL,
+				BotaniaTags.Items.DYED_CREATIVE_POOLS, BotaniaBlocks.CREATIVE_MANA_POOL
 		).entrySet()) {
 			ManaPoolBlock poolBlock = e.getValue();
 			ResourceLocation poolBlockId = BuiltInRegistries.BLOCK.getKey(poolBlock);

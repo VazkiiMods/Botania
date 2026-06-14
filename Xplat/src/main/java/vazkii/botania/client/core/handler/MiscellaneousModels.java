@@ -98,8 +98,9 @@ public class MiscellaneousModels {
 	}
 
 	private void registerSpreaderComponents(Consumer<ResourceLocation> consumer) {
-		Stream.of(BotaniaBlocks.manaSpreader, BotaniaBlocks.redstoneSpreader,
-				BotaniaBlocks.elvenSpreader, BotaniaBlocks.gaiaSpreader)
+		Stream.of(BotaniaBlocks.MANA_SPREADER, BotaniaBlocks.PULSE_MANA_SPREADER,
+				BotaniaBlocks.ELVEN_MANA_SPREADER, BotaniaBlocks.GAIA_MANA_SPREADER
+		)
 				.flatMap(spreader -> Stream
 						.of(spreader.getSpreaderModelId(), spreader.getCoreModelId(), spreader.getScaffoldingModelId()))
 				.distinct()

@@ -68,7 +68,7 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(BotaniaBlocks.brewery);
+		return new ItemStack(BotaniaBlocks.BOTANICAL_BREWERY);
 	}
 
 	@Override

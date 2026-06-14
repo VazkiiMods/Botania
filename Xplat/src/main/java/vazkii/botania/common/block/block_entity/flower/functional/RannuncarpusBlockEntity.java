@@ -259,7 +259,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 
 	public static class Mini extends RannuncarpusBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.RANNUNCARPUS_CHIBI, pos, state);
+			super(BotaniaBlockEntities.RANNUNCARPUS_PETITE, pos, state);
 		}
 
 		@Override

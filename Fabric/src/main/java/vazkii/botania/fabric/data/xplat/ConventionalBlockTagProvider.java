@@ -49,14 +49,14 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 
 		// Cobblestones
 		// TODO: switch over biome block/item IDs to match their in-game names?
-		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_FOREST_COBBLESTONES).add(BotaniaBlocks.biomeCobblestoneForest);
-		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_PLAINS_COBBLESTONES).add(BotaniaBlocks.biomeCobblestonePlains);
-		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_MOUNTAIN_COBBLESTONES).add(BotaniaBlocks.biomeCobblestoneMountain);
-		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_FUNGAL_COBBLESTONES).add(BotaniaBlocks.biomeCobblestoneFungal);
-		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_SWAMP_COBBLESTONES).add(BotaniaBlocks.biomeCobblestoneSwamp);
-		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_DESERT_COBBLESTONES).add(BotaniaBlocks.biomeCobblestoneDesert);
-		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_TAIGA_COBBLESTONES).add(BotaniaBlocks.biomeCobblestoneTaiga);
-		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_MESA_COBBLESTONES).add(BotaniaBlocks.biomeCobblestoneMesa);
+		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_FOREST_COBBLESTONES).add(BotaniaBlocks.COBBLED_FUCHSITE);
+		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_PLAINS_COBBLESTONES).add(BotaniaBlocks.COBBLED_TALC);
+		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_MOUNTAIN_COBBLESTONES).add(BotaniaBlocks.COBBLED_GNEISS);
+		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_FUNGAL_COBBLESTONES).add(BotaniaBlocks.COBBLED_MYCELITE);
+		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_SWAMP_COBBLESTONES).add(BotaniaBlocks.COBBLED_CATACLASITE);
+		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_DESERT_COBBLESTONES).add(BotaniaBlocks.COBBLED_SOLITE);
+		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_TAIGA_COBBLESTONES).add(BotaniaBlocks.COBBLED_LUNITE);
+		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_MESA_COBBLESTONES).add(BotaniaBlocks.COBBLED_ROSY_TALC);
 
 		tag(ConventionalBotaniaTags.Blocks.METAMORPHIC_COBBLESTONES)
 				.addTag(ConventionalBotaniaTags.Blocks.METAMORPHIC_FOREST_COBBLESTONES)
@@ -69,40 +69,40 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 				.addTag(ConventionalBotaniaTags.Blocks.METAMORPHIC_MESA_COBBLESTONES);
 		tag(ConventionalBlockTags.COBBLESTONES).addTag(ConventionalBotaniaTags.Blocks.METAMORPHIC_COBBLESTONES);
 		tag(ConventionalBlockTags.STONES).add(
-				BotaniaBlocks.biomeStoneForest, BotaniaBlocks.biomeStonePlains,
-				BotaniaBlocks.biomeStoneMountain, BotaniaBlocks.biomeStoneFungal,
-				BotaniaBlocks.biomeStoneSwamp, BotaniaBlocks.biomeStoneDesert,
-				BotaniaBlocks.biomeStoneTaiga, BotaniaBlocks.biomeStoneMesa
+				BotaniaBlocks.FUCHSITE, BotaniaBlocks.TALC,
+				BotaniaBlocks.GNEISS, BotaniaBlocks.MYCELITE,
+				BotaniaBlocks.CATACLASITE, BotaniaBlocks.SOLITE,
+				BotaniaBlocks.LUNITE, BotaniaBlocks.ROSY_TALC
 		);
 
 		// Dyed blocks
 		ColorHelper.supportedColors().forEach(color -> {
 			tag(TagKey.create(ConventionalBlockTags.DYED.registry(),
 					ConventionalBlockTags.DYED.location().withSuffix("/" + color.getSerializedName())))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.manaPool, color))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.creativePool, color))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.dilutedPool, color))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.fabulousPool, color))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.manaSpreader, color, LibBlockNames.COVERED_INFIX))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.redstoneSpreader, color, LibBlockNames.COVERED_INFIX))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.elvenSpreader, color, LibBlockNames.COVERED_INFIX))
-					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.gaiaSpreader, color, LibBlockNames.COVERED_INFIX));
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.MANA_POOL, color))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.CREATIVE_MANA_POOL, color))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.DILUTED_MANA_POOL, color))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.FABULOUS_MANA_POOL, color))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.MANA_SPREADER, color, LibBlockNames.COVERED_INFIX))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.PULSE_MANA_SPREADER, color, LibBlockNames.COVERED_INFIX))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.ELVEN_MANA_SPREADER, color, LibBlockNames.COVERED_INFIX))
+					.add(BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.GAIA_MANA_SPREADER, color, LibBlockNames.COVERED_INFIX));
 		});
 
 		// Glass blocks and panes
-		tag(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS).add(BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm);
+		tag(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS).add(BotaniaBlocks.MANAGLASS, BotaniaBlocks.ALFGLASS, BotaniaBlocks.BIFROST_BLOCK);
 		tag(ConventionalBlockTags.GLASS_BLOCKS).addTag(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS);
 
-		tag(ConventionalBotaniaTags.Blocks.MANA_GLASS_PANES).add(BotaniaBlocks.managlassPane, BotaniaBlocks.alfglassPane, BotaniaBlocks.bifrostPane);
+		tag(ConventionalBotaniaTags.Blocks.MANA_GLASS_PANES).add(BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.ALFGLASS_PANE, BotaniaBlocks.BIFROST_PANE);
 		tag(ConventionalBlockTags.GLASS_PANES).addTag(ConventionalBotaniaTags.Blocks.MANA_GLASS_PANES);
 
 		// Storage blocks
-		tag(ConventionalBotaniaTags.Blocks.MANASTEEL_STORAGE_BLOCKS).add(BotaniaBlocks.manasteelBlock);
-		tag(ConventionalBotaniaTags.Blocks.TERRASTEEL_STORAGE_BLOCKS).add(BotaniaBlocks.terrasteelBlock);
-		tag(ConventionalBotaniaTags.Blocks.ELEMENTIUM_STORAGE_BLOCKS).add(BotaniaBlocks.elementiumBlock);
-		tag(ConventionalBotaniaTags.Blocks.MANA_DIAMOND_STORAGE_BLOCKS).add(BotaniaBlocks.manaDiamondBlock);
-		tag(ConventionalBotaniaTags.Blocks.DRAGONSTONE_STORAGE_BLOCKS).add(BotaniaBlocks.dragonstoneBlock);
-		tag(ConventionalBotaniaTags.Blocks.BLAZE_STORAGE_BLOCKS).add(BotaniaBlocks.blazeBlock);
+		tag(ConventionalBotaniaTags.Blocks.MANASTEEL_STORAGE_BLOCKS).add(BotaniaBlocks.MANASTEEL_BLOCK);
+		tag(ConventionalBotaniaTags.Blocks.TERRASTEEL_STORAGE_BLOCKS).add(BotaniaBlocks.TERRASTEEL_BLOCK);
+		tag(ConventionalBotaniaTags.Blocks.ELEMENTIUM_STORAGE_BLOCKS).add(BotaniaBlocks.ELEMENTIUM_BLOCK);
+		tag(ConventionalBotaniaTags.Blocks.MANA_DIAMOND_STORAGE_BLOCKS).add(BotaniaBlocks.MANA_DIAMOND_BLOCK);
+		tag(ConventionalBotaniaTags.Blocks.DRAGONSTONE_STORAGE_BLOCKS).add(BotaniaBlocks.DRAGONSTONE_BLOCK);
+		tag(ConventionalBotaniaTags.Blocks.BLAZE_STORAGE_BLOCKS).add(BotaniaBlocks.BLAZE_MESH);
 
 		ColorHelper.supportedColors().forEach(dyeColor -> {
 			var tag = ConventionalBotaniaTags.Blocks.PETAL_STORAGE_BLOCKS_BY_COLOR.get(dyeColor);
@@ -119,14 +119,14 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 				.addTag(ConventionalBotaniaTags.Blocks.PETAL_STORAGE_BLOCKS);
 
 		// Miscellaneous
-		tag(ConventionalBlockTags.SKULLS).add(BotaniaBlocks.gaiaHead, BotaniaBlocks.gaiaHeadWall);
+		tag(ConventionalBlockTags.SKULLS).add(BotaniaBlocks.GAIA_HEAD, BotaniaBlocks.GAIA_WALL_HEAD_BLOCK);
 		tag(ConventionalBlockTags.STRIPPED_LOGS).add(
-				BotaniaBlocks.livingwoodLogStripped, BotaniaBlocks.livingwoodLogStrippedGlimmering,
-				BotaniaBlocks.dreamwoodLogStripped, BotaniaBlocks.dreamwoodLogStrippedGlimmering
+				BotaniaBlocks.STRIPPED_LIVINGWOOD_LOG, BotaniaBlocks.STRIPPED_GLIMMERING_LIVINGWOOD_LOG,
+				BotaniaBlocks.STRIPPED_DREAMWOOD_LOG, BotaniaBlocks.STRIPPED_GLIMMERING_DREAMWOOD_LOG
 		);
 		tag(ConventionalBlockTags.STRIPPED_WOODS).add(
-				BotaniaBlocks.livingwoodStripped, BotaniaBlocks.livingwoodStrippedGlimmering,
-				BotaniaBlocks.dreamwoodStripped, BotaniaBlocks.dreamwoodStrippedGlimmering
+				BotaniaBlocks.STRIPPED_LIVINGWOOD, BotaniaBlocks.STRIPPED_GLIMMERING_LIVINGWOOD,
+				BotaniaBlocks.STRIPPED_DREAMWOOD, BotaniaBlocks.STRIPPED_GLIMMERING_DREAMWOOD
 		);
 
 		tag(BotaniaTags.Blocks.TERRAFORMABLE)

@@ -35,7 +35,7 @@ public class RedStringComparatorBlock extends RedStringBlock {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRING_COMPARATOR)
+		return world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRINGED_COMPARATOR)
 				.map(RedStringComparatorBlockEntity::getComparatorValue).orElse(0);
 	}
 
@@ -47,6 +47,6 @@ public class RedStringComparatorBlock extends RedStringBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.RED_STRING_COMPARATOR, RedStringComparatorBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.RED_STRINGED_COMPARATOR, RedStringComparatorBlockEntity::commonTick);
 	}
 }

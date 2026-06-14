@@ -30,7 +30,7 @@ public class CacophoniumBlockEntity extends BlockEntity {
 	public ItemStack stack = ItemStack.EMPTY;
 
 	public CacophoniumBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.CACOPHONIUM, pos, state);
+		super(BotaniaBlockEntities.CACOPHONIUM_BLOCK, pos, state);
 	}
 
 	public void annoyDirewolf() {

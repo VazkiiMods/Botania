@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BreweryREICategory implements DisplayCategory<BreweryREIDisplay> {
-	private final EntryStack<ItemStack> brewery = EntryStacks.of(new ItemStack(BotaniaBlocks.brewery));
+	private final EntryStack<ItemStack> brewery = EntryStacks.of(new ItemStack(BotaniaBlocks.BOTANICAL_BREWERY));
 	private final ResourceLocation BREWERY_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/nei_brewery.png");
 
 	@Override

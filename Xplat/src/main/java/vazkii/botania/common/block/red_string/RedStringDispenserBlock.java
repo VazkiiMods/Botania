@@ -47,7 +47,7 @@ public class RedStringDispenserBlock extends RedStringBlock {
 		boolean powered = state.getValue(POWERED);
 
 		if (power && !powered) {
-			world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRING_DISPENSER)
+			world.getBlockEntity(pos, BotaniaBlockEntities.RED_STRINGED_DISPENSER)
 					.ifPresent(RedStringDispenserBlockEntity::tickDispenser);
 			world.setBlock(pos, state.setValue(POWERED, true), Block.UPDATE_INVISIBLE);
 		} else if (!power && powered) {
@@ -63,6 +63,6 @@ public class RedStringDispenserBlock extends RedStringBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.RED_STRING_DISPENSER, RedStringDispenserBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.RED_STRINGED_DISPENSER, RedStringDispenserBlockEntity::commonTick);
 	}
 }

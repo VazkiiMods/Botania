@@ -33,7 +33,7 @@ public class PaintslingerLensTest {
 		BlockPos bindPos = new BlockPos(2, 2, 2);
 		Player player = helper.makeMockPlayer(GameType.CREATIVE);
 
-		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.SPREADER);
+		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.MANA_SPREADER);
 		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(bindPos), Direction.UP),
 				() -> "Failed to bind spreader");
 

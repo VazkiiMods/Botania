@@ -43,7 +43,7 @@ public class EyeOfTheAncientsBlockEntity extends BlockEntity implements Wandable
 	public static final int MAX_ANIMALS = 15;
 
 	public EyeOfTheAncientsBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.FOREST_EYE, pos, state);
+		super(BotaniaBlockEntities.EYE_OF_THE_ANCIENTS, pos, state);
 	}
 
 	public AnimalMode getMode() {

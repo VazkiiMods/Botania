@@ -84,7 +84,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	private int recipeKeepTicks = 0;
 
 	public RunicAltarBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.RUNE_ALTAR, pos, state, true);
+		super(BotaniaBlockEntities.RUNIC_ALTAR, pos, state, true);
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
@@ -175,7 +175,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (self.manaToGet == 0) {
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 			for (ItemEntity item : items) {
-				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.livingrock.asItem())
+				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.LIVINGROCK.asItem())
 						&& ItemSource.HOLDER.getFor(item) != ItemSources.RUNIC_ALTAR) {
 					ItemStack stack = item.getItem();
 					if (self.addItem(null, stack, null)) {
@@ -304,8 +304,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				level.addFreshEntity(outputItem);
 				currentRecipe = null;
 				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
-				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
-				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
+				level.blockEvent(getBlockPos(), BotaniaBlocks.RUNIC_ALTAR, SET_COOLDOWN_EVENT, 60);
+				level.blockEvent(getBlockPos(), BotaniaBlocks.RUNIC_ALTAR, CRAFT_EFFECT_EVENT, 0);
 
 				saveLastRecipe();
 				for (ItemStack remainingStack : recipe.value().getRemainingItems(getRecipeInput())) {

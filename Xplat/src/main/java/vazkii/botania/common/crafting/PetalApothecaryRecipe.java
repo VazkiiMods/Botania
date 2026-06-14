@@ -83,7 +83,7 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(BotaniaBlocks.defaultAltar);
+		return new ItemStack(BotaniaBlocks.PETAL_APOTHECARY);
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 	// (vanilla default: heads, shulker boxes, dragon egg, beacon, conduit)
 	private static final Set<Item> EXPLOSION_RESISTANT = Stream
 			.of(
-					BotaniaBlocks.gaiaHead
+					BotaniaBlocks.GAIA_HEAD
 			)
 			.map(Block::asItem)
 			.collect(Collectors.toSet());
@@ -62,49 +62,49 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 
 		// Empty
 		Stream.of(
-				BotaniaBlocks.bifrost,
-				BotaniaBlocks.cocoon,
-				BotaniaBlocks.fakeAir,
-				BotaniaBlocks.manaFlame
+				BotaniaBlocks.TEMPORARY_BIFROST_BLOCK,
+				BotaniaBlocks.COCOON_OF_CAPRICE,
+				BotaniaBlocks.FAKE_AIR,
+				BotaniaBlocks.MANA_FLAME
 		).forEach(b -> specialCases.put(b, noDrop()));
 
 		// Redirects
-		specialCases.put(BotaniaBlocks.cacophonium, createSingleItemTable(Blocks.NOTE_BLOCK));
-		specialCases.put(BotaniaBlocks.enchanter, createSingleItemTable(Blocks.LAPIS_BLOCK));
+		specialCases.put(BotaniaBlocks.CACOPHONIUM_BLOCK, createSingleItemTable(Blocks.NOTE_BLOCK));
+		specialCases.put(BotaniaBlocks.MANA_ENCHANTER, createSingleItemTable(Blocks.LAPIS_BLOCK));
 
 		// Special
-		dropWhenSilkTouch(BotaniaBlocks.cellBlock);
-		specialCases.put(BotaniaBlocks.root, createSingleItemTable(BotaniaItems.livingroot, ConstantValue.exactly(4)));
-		specialCases.put(BotaniaBlocks.solidVines, BotaniaLootTableProvider.copyReferencedLootTable(Blocks.VINE.getLootTable()));
-		specialCases.put(BotaniaBlocks.tinyPotato, createNameableBlockEntityTable(BotaniaBlocks.tinyPotato));
+		dropWhenSilkTouch(BotaniaBlocks.CELLULAR_BLOCK);
+		specialCases.put(BotaniaBlocks.LIVING_ROOT, createSingleItemTable(BotaniaItems.livingroot, ConstantValue.exactly(4)));
+		specialCases.put(BotaniaBlocks.SOLID_VINE, BotaniaLootTableProvider.copyReferencedLootTable(Blocks.VINE.getLootTable()));
+		specialCases.put(BotaniaBlocks.TINY_POTATO, createNameableBlockEntityTable(BotaniaBlocks.TINY_POTATO));
 
 		// Flower component saving
-		saveSpecialFlowerState(specialCases, BotaniaBlocks.gourmaryllis, BotaniaBlocks.gourmaryllisFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.GOURMARYLLIS, BotaniaBlocks.FLOATING_GOURMARYLLIS,
 				BotaniaDataComponents.STREAK_LENGTH, BotaniaDataComponents.LAST_REPEATS, BotaniaDataComponents.LAST_FOODS);
-		saveSpecialFlowerState(specialCases, BotaniaBlocks.hydroangeas, BotaniaBlocks.hydroangeasFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.HYDROANGEAS, BotaniaBlocks.FLOATING_HYDROANGEAS,
 				BotaniaDataComponents.COOLDOWN, BotaniaDataComponents.DECAY_TICKS);
-		saveSpecialFlowerState(specialCases, BotaniaBlocks.munchdew, BotaniaBlocks.munchdewFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.MUNCHDEW, BotaniaBlocks.FLOATING_MUNCHDEW,
 				BotaniaDataComponents.COOLDOWN, BotaniaDataComponents.ACTIVE);
-		saveSpecialFlowerState(specialCases, BotaniaBlocks.rafflowsia, BotaniaBlocks.rafflowsiaFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.RAFFLOWSIA, BotaniaBlocks.FLOATING_RAFFLOWSIA,
 				BotaniaDataComponents.LAST_REPEATS, BotaniaDataComponents.LAST_FLOWERS);
-		saveSpecialFlowerState(specialCases, BotaniaBlocks.spectrolus, BotaniaBlocks.spectrolusFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.SPECTROLUS, BotaniaBlocks.FLOATING_SPECTROLUS,
 				BotaniaDataComponents.NEXT_COLOR, BotaniaDataComponents.COLOR_SEQUENCE);
-		saveSpecialFlowerState(specialCases, BotaniaBlocks.thermalily, BotaniaBlocks.thermalilyFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.THERMALILY, BotaniaBlocks.FLOATING_THERMALILY,
 				BotaniaDataComponents.COOLDOWN);
-		saveSpecialFlowerState(specialCases, BotaniaBlocks.orechid, BotaniaBlocks.orechidFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.ORECHID, BotaniaBlocks.FLOATING_ORECHID,
 				BotaniaDataComponents.COOLDOWN);
-		saveSpecialFlowerState(specialCases, BotaniaBlocks.orechidIgnem, BotaniaBlocks.orechidIgnemFloating,
+		saveSpecialFlowerState(specialCases, BotaniaBlocks.ORECHID_IGNEM, BotaniaBlocks.FLOATING_ORECHID_IGNEM,
 				BotaniaDataComponents.COOLDOWN);
 
 		Map.of(
-				BotaniaBlocks.biomeStoneDesert, BotaniaBlocks.biomeCobblestoneDesert,
-				BotaniaBlocks.biomeStoneForest, BotaniaBlocks.biomeCobblestoneForest,
-				BotaniaBlocks.biomeStoneFungal, BotaniaBlocks.biomeCobblestoneFungal,
-				BotaniaBlocks.biomeStoneMesa, BotaniaBlocks.biomeCobblestoneMesa,
-				BotaniaBlocks.biomeStoneMountain, BotaniaBlocks.biomeCobblestoneMountain,
-				BotaniaBlocks.biomeStonePlains, BotaniaBlocks.biomeCobblestonePlains,
-				BotaniaBlocks.biomeStoneSwamp, BotaniaBlocks.biomeCobblestoneSwamp,
-				BotaniaBlocks.biomeStoneTaiga, BotaniaBlocks.biomeCobblestoneTaiga
+				BotaniaBlocks.SOLITE, BotaniaBlocks.COBBLED_SOLITE,
+				BotaniaBlocks.FUCHSITE, BotaniaBlocks.COBBLED_FUCHSITE,
+				BotaniaBlocks.MYCELITE, BotaniaBlocks.COBBLED_MYCELITE,
+				BotaniaBlocks.ROSY_TALC, BotaniaBlocks.COBBLED_ROSY_TALC,
+				BotaniaBlocks.GNEISS, BotaniaBlocks.COBBLED_GNEISS,
+				BotaniaBlocks.TALC, BotaniaBlocks.COBBLED_TALC,
+				BotaniaBlocks.CATACLASITE, BotaniaBlocks.COBBLED_CATACLASITE,
+				BotaniaBlocks.LUNITE, BotaniaBlocks.COBBLED_LUNITE
 		).forEach((stone, cobble) -> specialCases.put(stone, createSingleItemTableWithSilkTouch(stone, cobble)));
 
 		for (Block block : BuiltInRegistries.BLOCK) {

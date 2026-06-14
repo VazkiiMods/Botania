@@ -51,7 +51,7 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(BotaniaBlocks.alfPortal);
+		return new ItemStack(BotaniaBlocks.ELVEN_GATEWAY_CORE);
 	}
 
 	@Override

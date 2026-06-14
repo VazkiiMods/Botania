@@ -21,7 +21,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class RedStringNutrifierBlockEntity extends RedStringBlockEntity {
 	public RedStringNutrifierBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.RED_STRING_FERTILIZER, pos, state);
+		super(BotaniaBlockEntities.RED_STRINGED_NUTRIFIER, pos, state);
 	}
 
 	public boolean canGrow(LevelReader world) {

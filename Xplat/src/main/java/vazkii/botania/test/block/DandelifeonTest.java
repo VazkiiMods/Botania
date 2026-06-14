@@ -35,7 +35,7 @@ public class DandelifeonTest {
 			for (int x = LOWER_SQUARE.getX(); x <= UPPER_SQUARE.getX(); x++) {
 				for (int y = LOWER_SQUARE.getY(); y <= UPPER_SQUARE.getY(); y++) {
 					for (int z = LOWER_SQUARE.getZ(); z <= UPPER_SQUARE.getZ(); z++) {
-						helper.assertBlockPresent(BotaniaBlocks.cellBlock, new BlockPos(x, y, z));
+						helper.assertBlockPresent(BotaniaBlocks.CELLULAR_BLOCK, new BlockPos(x, y, z));
 					}
 				}
 			}
@@ -47,7 +47,7 @@ public class DandelifeonTest {
 			int radius = dandie.getRange();
 			for (int i = -radius; i <= radius; i++) {
 				for (int j = -radius; j <= radius; j++) {
-					helper.assertBlockNotPresent(BotaniaBlocks.cellBlock, new BlockPos(i + TARGET_POS.getX(), TARGET_POS.getY(), j + TARGET_POS.getZ()));
+					helper.assertBlockNotPresent(BotaniaBlocks.CELLULAR_BLOCK, new BlockPos(i + TARGET_POS.getX(), TARGET_POS.getY(), j + TARGET_POS.getZ()));
 				}
 			}
 			// test mana value is correct

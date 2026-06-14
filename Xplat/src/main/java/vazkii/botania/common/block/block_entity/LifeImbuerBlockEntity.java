@@ -34,7 +34,7 @@ public class LifeImbuerBlockEntity extends BlockEntity implements ManaReceiver {
 	private int mana = 0;
 
 	public LifeImbuerBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.SPAWNER_CLAW, pos, state);
+		super(BotaniaBlockEntities.LIFE_IMBUER, pos, state);
 	}
 
 	public boolean tryConsumeMana(boolean nearPlayer) {

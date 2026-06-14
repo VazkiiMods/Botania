@@ -53,7 +53,7 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		RunicAltarBlockEntity altar = level.getBlockEntity(pos, BotaniaBlockEntities.RUNE_ALTAR).orElseThrow();
+		RunicAltarBlockEntity altar = level.getBlockEntity(pos, BotaniaBlockEntities.RUNIC_ALTAR).orElseThrow();
 		if (stack.isEmpty()) {
 			if (altar.canAddLastRecipe()) {
 				return altar.trySetLastRecipe(player);
@@ -93,9 +93,9 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (level.isClientSide()) {
-			return createTickerHelper(type, BotaniaBlockEntities.RUNE_ALTAR, RunicAltarBlockEntity::clientTick);
+			return createTickerHelper(type, BotaniaBlockEntities.RUNIC_ALTAR, RunicAltarBlockEntity::clientTick);
 		} else {
-			return createTickerHelper(type, BotaniaBlockEntities.RUNE_ALTAR, RunicAltarBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.RUNIC_ALTAR, RunicAltarBlockEntity::serverTick);
 		}
 	}
 

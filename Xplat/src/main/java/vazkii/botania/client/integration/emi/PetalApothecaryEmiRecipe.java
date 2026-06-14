@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class PetalApothecaryEmiRecipe extends BotaniaEmiRecipe {
-	private static final EmiStack APOTHECARY = EmiStack.of(BotaniaBlocks.defaultAltar);
+	private static final EmiStack APOTHECARY = EmiStack.of(BotaniaBlocks.PETAL_APOTHECARY);
 	private static final EmiStack WATER_BUCKET = EmiStack.of(Items.WATER_BUCKET);
 	private static final EmiStack WATER = EmiStack.of(Fluids.WATER);
 

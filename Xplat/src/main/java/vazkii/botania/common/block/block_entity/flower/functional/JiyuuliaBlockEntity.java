@@ -49,7 +49,7 @@ public class JiyuuliaBlockEntity extends TangleberrieBlockEntity {
 
 	public static class Mini extends JiyuuliaBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.JIYUULIA_CHIBI, pos, state);
+			super(BotaniaBlockEntities.JIYUULIA_PETITE, pos, state);
 		}
 
 		@Override

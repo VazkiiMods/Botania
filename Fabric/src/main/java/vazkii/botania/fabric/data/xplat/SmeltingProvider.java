@@ -39,15 +39,15 @@ public class SmeltingProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.biomeCobblestoneForest, BotaniaBlocks.biomeStoneForest);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.biomeCobblestonePlains, BotaniaBlocks.biomeStonePlains);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.biomeCobblestoneMountain, BotaniaBlocks.biomeStoneMountain);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeStoneFungal);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.biomeCobblestoneSwamp, BotaniaBlocks.biomeStoneSwamp);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.biomeCobblestoneDesert, BotaniaBlocks.biomeStoneDesert);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.biomeCobblestoneTaiga, BotaniaBlocks.biomeStoneTaiga);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.biomeCobblestoneMesa, BotaniaBlocks.biomeStoneMesa);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickCracked);
+		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_FUCHSITE, BotaniaBlocks.FUCHSITE);
+		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_TALC, BotaniaBlocks.TALC);
+		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_GNEISS, BotaniaBlocks.GNEISS);
+		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_MYCELITE, BotaniaBlocks.MYCELITE);
+		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_CATACLASITE, BotaniaBlocks.CATACLASITE);
+		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_SOLITE, BotaniaBlocks.SOLITE);
+		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_LUNITE, BotaniaBlocks.LUNITE);
+		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_ROSY_TALC, BotaniaBlocks.ROSY_TALC);
+		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.LIVINGROCK_BRICKS, BotaniaBlocks.CRACKED_LIVINGROCK_BRICKS);
 	}
 
 	private static void makeDefaultSmeltingRecipe(RecipeOutput consumer, Block biomeCobblestone, Block biomeStone) {

@@ -20,6 +20,6 @@ public class PylonBlockEntity extends BlockEntity {
 	public BlockPos centerPos;
 
 	public PylonBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.PYLON, pos, state);
+		super(BotaniaBlockEntities.MANA_PYLON, pos, state);
 	}
 }

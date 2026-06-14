@@ -173,30 +173,30 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.brewery), BreweryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.alfPortal), ElvenTradeRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.BOTANICAL_BREWERY), BreweryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.ELVEN_GATEWAY_CORE), ElvenTradeRecipeCategory.TYPE);
 
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.manaPool), ManaPoolRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.dilutedPool), ManaPoolRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.fabulousPool), ManaPoolRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.MANA_POOL), ManaPoolRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.DILUTED_MANA_POOL), ManaPoolRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.FABULOUS_MANA_POOL), ManaPoolRecipeCategory.TYPE);
 
 		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
 			registry.addRecipeCatalyst(new ItemStack(apothecary), PetalApothecaryRecipeCategory.TYPE);
 		}
 
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.orechid), OrechidRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.orechidFloating), OrechidRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.orechidIgnem), OrechidIgnemRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.orechidIgnemFloating), OrechidIgnemRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.marimorphosis), MarimorphosisRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.marimorphosisChibi), MarimorphosisRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.marimorphosisFloating), MarimorphosisRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.marimorphosisChibiFloating), MarimorphosisRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.pureDaisy), PureDaisyRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.pureDaisyFloating), PureDaisyRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.ORECHID), OrechidRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.FLOATING_ORECHID), OrechidRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.ORECHID_IGNEM), OrechidIgnemRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.FLOATING_ORECHID_IGNEM), OrechidIgnemRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.MARIMORPHOSIS), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.MARIMORPHOSIS_PETITE), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.FLOATING_MARIMORPHOSIS), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.FLOATING_MARIMORPHOSIS_PETITE), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.PURE_DAISY), PureDaisyRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.FLOATING_PURE_DAISY), PureDaisyRecipeCategory.TYPE);
 
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.runeAltar), RunicAltarRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.terraPlate), TerrestrialAgglomerationRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.RUNIC_ALTAR), RunicAltarRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE), TerrestrialAgglomerationRecipeCategory.TYPE);
 		registry.addRecipeCatalyst(new ItemStack(BotaniaItems.autocraftingHalo), RecipeTypes.CRAFTING);
 		registry.addRecipeCatalyst(new ItemStack(BotaniaItems.craftingHalo), RecipeTypes.CRAFTING);
 	}

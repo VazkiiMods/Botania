@@ -48,7 +48,7 @@ public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer
 		ms.pushPose();
 
 		Level level = hourglass != null ? hourglass.getLevel() : null;
-		BlockState state = hourglass != null ? hourglass.getBlockState() : BotaniaBlocks.hourglass.defaultBlockState();
+		BlockState state = hourglass != null ? hourglass.getBlockState() : BotaniaBlocks.HOVERING_HOURGLASS.defaultBlockState();
 		double time = level == null
 				? 0
 				: ClientTickHandler.getEntityTicksInGame() % ANIM_TICK_CYCLE

@@ -46,7 +46,7 @@ public class DrumBlockTest {
 
 	private static <T extends Mob> T setup(GameTestHelper helper, EntityType<T> entityType, @Nullable Item item) {
 		var player = helper.makeMockPlayer(GameType.CREATIVE);
-		var spreader = TestingUtil.assertBlockEntity(helper, POSITION_SPREADER, BotaniaBlockEntities.SPREADER);
+		var spreader = TestingUtil.assertBlockEntity(helper, POSITION_SPREADER, BotaniaBlockEntities.MANA_SPREADER);
 		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand),
 				helper.absolutePos(POSITION_DRUM), Direction.UP),
 				() -> "Failed to bind spreader");
@@ -141,7 +141,7 @@ public class DrumBlockTest {
 	public void testMilkingNearBergamute(GameTestHelper helper) {
 		setup(helper, EntityType.COW, Items.BUCKET);
 		// Bergamute should protect from drum interactions
-		helper.setBlock(POSITION_BERGAMUTE, BotaniaBlocks.bergamuteFloating);
+		helper.setBlock(POSITION_BERGAMUTE, BotaniaBlocks.FLOATING_BERGAMUTE);
 		helper.startSequence()
 				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenExecuteAfter(20, () -> helper.assertItemEntityPresent(Items.BUCKET, POSITION_MOB, 1.0))

@@ -28,7 +28,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/petal_overlay.png");
-	private static final EmiStack ALTAR = EmiStack.of(BotaniaBlocks.runeAltar);
+	private static final EmiStack ALTAR = EmiStack.of(BotaniaBlocks.RUNIC_ALTAR);
 	public static final int CENTER_X = 44;
 	public static final int CENTER_Y = 40;
 	public static final int POS_X_INGREDIENTS = CENTER_X;

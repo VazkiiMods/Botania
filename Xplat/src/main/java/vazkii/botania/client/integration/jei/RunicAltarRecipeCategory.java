@@ -39,7 +39,7 @@ public class RunicAltarRecipeCategory extends BotaniaRecipeCategoryBase<RunicAlt
 
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		super(114, 104, Component.translatable("botania.nei.runicAltar"),
-				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.runeAltar)), null);
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.RUNIC_ALTAR)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
 	}
@@ -61,7 +61,7 @@ public class RunicAltarRecipeCategory extends BotaniaRecipeCategoryBase<RunicAlt
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, RunicAltarRecipe recipe, IFocusGroup focusGroup) {
 		PetalApothecaryRecipeCategory.setRecipeLayout(builder, recipe.getIngredients(), recipe.getCatalysts(),
-				BotaniaBlocks.runeAltar, recipe.getResultItem(RegistryAccess.EMPTY), recipe.getReagent());
+				BotaniaBlocks.RUNIC_ALTAR, recipe.getResultItem(RegistryAccess.EMPTY), recipe.getReagent());
 	}
 
 }

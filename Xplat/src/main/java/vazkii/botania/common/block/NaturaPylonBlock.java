@@ -39,7 +39,7 @@ public class NaturaPylonBlock extends PylonBlock {
 
 		if (self.activated && self.centerPos != null) {
 			BlockState centerState = level.getBlockState(self.centerPos);
-			if (!centerState.is(BotaniaBlocks.alfPortal)
+			if (!centerState.is(BotaniaBlocks.ELVEN_GATEWAY_CORE)
 					|| centerState.getValue(BotaniaStateProperties.ALFPORTAL_STATE) == AlfheimPortalState.OFF
 					|| !(level.getBlockState(worldPosition.below()).getBlock() instanceof ManaPoolBlock)) {
 				self.activated = false;

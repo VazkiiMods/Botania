@@ -150,7 +150,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		} else if (world.getBlockEntity(pos) instanceof CellularBlockEntity cellBlock) {
 			cellBlock.setNextGeneration(this, cell);
 		} else if (Cell.isLive(cell) && stateAt.isAir()) {
-			world.setBlockAndUpdate(pos, BotaniaBlocks.cellBlock.defaultBlockState());
+			world.setBlockAndUpdate(pos, BotaniaBlocks.CELLULAR_BLOCK.defaultBlockState());
 			if (world.getBlockEntity(pos) instanceof CellularBlockEntity cellBlock) {
 				cellBlock.setNextGeneration(this, cell);
 				cellBlock.setGeneration(Cell.DEAD); // so that other flowers know this is 'dead' this tick

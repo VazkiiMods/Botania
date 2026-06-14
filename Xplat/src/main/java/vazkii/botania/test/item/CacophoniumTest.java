@@ -49,9 +49,9 @@ public class CacophoniumTest {
 
 		//Use the cacophonium on the note block.
 		TestingUtil.useItemOn(helper, player, InteractionHand.MAIN_HAND, noteBlockPos);
-		helper.assertBlockPresent(BotaniaBlocks.cacophonium, noteBlockPos);
+		helper.assertBlockPresent(BotaniaBlocks.CACOPHONIUM_BLOCK, noteBlockPos);
 
-		CacophoniumBlockEntity cacophoniumBlock = TestingUtil.assertBlockEntity(helper, noteBlockPos, BotaniaBlockEntities.CACOPHONIUM);
+		CacophoniumBlockEntity cacophoniumBlock = TestingUtil.assertBlockEntity(helper, noteBlockPos, BotaniaBlockEntities.CACOPHONIUM_BLOCK);
 		TestingUtil.assertEqualsAt(helper, noteBlockPos, CacophoniumItem.getSound(cacophoniumBlock.stack), SoundEvents.COW_AMBIENT);
 
 		//Moo.

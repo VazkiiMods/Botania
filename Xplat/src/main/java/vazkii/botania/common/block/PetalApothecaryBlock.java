@@ -102,7 +102,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
 
-		PetalApothecaryBlockEntity apothecary = level.getBlockEntity(pos, BotaniaBlockEntities.ALTAR).orElseThrow();
+		PetalApothecaryBlockEntity apothecary = level.getBlockEntity(pos, BotaniaBlockEntities.PETAL_APOTHECARY).orElseThrow();
 		if (tryWithdrawFluid(player, hand, apothecary, pos) || tryDepositFluid(player, hand, apothecary, pos)) {
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
@@ -112,7 +112,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 
 	@Override
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		PetalApothecaryBlockEntity apothecary = level.getBlockEntity(pos, BotaniaBlockEntities.ALTAR).orElseThrow();
+		PetalApothecaryBlockEntity apothecary = level.getBlockEntity(pos, BotaniaBlockEntities.PETAL_APOTHECARY).orElseThrow();
 
 		if (apothecary.canAddLastRecipe()) {
 			return apothecary.trySetLastRecipe(player);
@@ -209,9 +209,9 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (level.isClientSide()) {
-			return createTickerHelper(type, BotaniaBlockEntities.ALTAR, PetalApothecaryBlockEntity::clientTick);
+			return createTickerHelper(type, BotaniaBlockEntities.PETAL_APOTHECARY, PetalApothecaryBlockEntity::clientTick);
 		} else {
-			return createTickerHelper(type, BotaniaBlockEntities.ALTAR, PetalApothecaryBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.PETAL_APOTHECARY, PetalApothecaryBlockEntity::serverTick);
 		}
 	}
 

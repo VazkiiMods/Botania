@@ -23,7 +23,7 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 public class FluxfieldTRStorage extends SimpleEnergyStorage {
 	public static void register() {
-		EnergyStorage.SIDED.registerForBlockEntity((be, dir) -> new FluxfieldTRStorage(be), BotaniaBlockEntities.FLUXFIELD);
+		EnergyStorage.SIDED.registerForBlockEntity((be, dir) -> new FluxfieldTRStorage(be), BotaniaBlockEntities.MANA_FLUXFIELD);
 	}
 
 	public static int transferEnergyToNeighbors(Level level, BlockPos pos, int energy) {

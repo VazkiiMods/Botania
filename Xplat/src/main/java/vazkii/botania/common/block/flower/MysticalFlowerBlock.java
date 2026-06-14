@@ -19,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 public class MysticalFlowerBlock extends BotaniaFlowerBlock implements TallFlowerGrower {
+	public static final int STEW_DURATION = 4;
 
 	private final Function<TallFlowerGrower, @Nullable Block> tallFlowerFunction;
 

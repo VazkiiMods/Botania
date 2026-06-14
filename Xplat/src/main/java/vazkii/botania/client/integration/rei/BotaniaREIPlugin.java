@@ -77,32 +77,32 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new ElvenTradeREICategory(),
 				new BreweryREICategory(),
 				new TerrestrialAgglomerationREICategory(),
-				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, BotaniaBlocks.orechid),
-				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, BotaniaBlocks.orechidIgnem),
-				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, BotaniaBlocks.marimorphosis)
+				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, BotaniaBlocks.ORECHID),
+				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, BotaniaBlocks.ORECHID_IGNEM),
+				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, BotaniaBlocks.MARIMORPHOSIS)
 		));
 
 		helper.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(BotaniaItems.craftingHalo), EntryStacks.of(BotaniaItems.autocraftingHalo));
 		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
 			helper.addWorkstations(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, EntryStacks.of(apothecary));
 		}
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.BREWERY, EntryStacks.of(BotaniaBlocks.brewery));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.ELVEN_TRADE, EntryStacks.of(BotaniaBlocks.alfPortal));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.BREWERY, EntryStacks.of(BotaniaBlocks.BOTANICAL_BREWERY));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.ELVEN_TRADE, EntryStacks.of(BotaniaBlocks.ELVEN_GATEWAY_CORE));
 		Set<Block> manaPools = ImmutableSet.of(
-				BotaniaBlocks.manaPool,
-				BotaniaBlocks.dilutedPool,
-				BotaniaBlocks.fabulousPool
+				BotaniaBlocks.MANA_POOL,
+				BotaniaBlocks.DILUTED_MANA_POOL,
+				BotaniaBlocks.FABULOUS_MANA_POOL
 		);
 		for (Block pool : manaPools) {
 			helper.addWorkstations(BotaniaREICategoryIdentifiers.MANA_INFUSION, EntryStacks.of(pool));
 		}
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID, EntryStacks.of(BotaniaBlocks.orechid), EntryStacks.of(BotaniaBlocks.orechidFloating));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, EntryStacks.of(BotaniaBlocks.orechidIgnem), EntryStacks.of(BotaniaBlocks.orechidIgnemFloating));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, EntryStacks.of(BotaniaBlocks.marimorphosis), EntryStacks.of(BotaniaBlocks.marimorphosisFloating),
-				EntryStacks.of(BotaniaBlocks.marimorphosisChibi), EntryStacks.of(BotaniaBlocks.marimorphosisChibiFloating));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.PURE_DAISY, EntryStacks.of(BotaniaBlocks.pureDaisy), EntryStacks.of(BotaniaBlocks.pureDaisyFloating));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.RUNE_ALTAR, EntryStacks.of(BotaniaBlocks.runeAltar));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.TERRA_PLATE, EntryStacks.of(BotaniaBlocks.terraPlate));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID, EntryStacks.of(BotaniaBlocks.ORECHID), EntryStacks.of(BotaniaBlocks.FLOATING_ORECHID));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, EntryStacks.of(BotaniaBlocks.ORECHID_IGNEM), EntryStacks.of(BotaniaBlocks.FLOATING_ORECHID_IGNEM));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, EntryStacks.of(BotaniaBlocks.MARIMORPHOSIS), EntryStacks.of(BotaniaBlocks.FLOATING_MARIMORPHOSIS),
+				EntryStacks.of(BotaniaBlocks.MARIMORPHOSIS_PETITE), EntryStacks.of(BotaniaBlocks.FLOATING_MARIMORPHOSIS_PETITE));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.PURE_DAISY, EntryStacks.of(BotaniaBlocks.PURE_DAISY), EntryStacks.of(BotaniaBlocks.FLOATING_PURE_DAISY));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.RUNE_ALTAR, EntryStacks.of(BotaniaBlocks.RUNIC_ALTAR));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.TERRA_PLATE, EntryStacks.of(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE));
 
 		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, null);
 		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.BREWERY, null);

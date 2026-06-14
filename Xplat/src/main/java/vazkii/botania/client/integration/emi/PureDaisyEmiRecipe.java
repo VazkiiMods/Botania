@@ -26,7 +26,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/pure_daisy_overlay.png");
-	private static final EmiStack PURE_DAISY = EmiStack.of(BotaniaBlocks.pureDaisy);
+	private static final EmiStack PURE_DAISY = EmiStack.of(BotaniaBlocks.PURE_DAISY);
 
 	public PureDaisyEmiRecipe(RecipeHolder<? extends PureDaisyRecipe> recipe) {
 		super(BotaniaEmiPlugin.PURE_DAISY, recipe);

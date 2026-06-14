@@ -76,7 +76,7 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(BotaniaBlocks.alfPortal);
+		return new ItemStack(BotaniaBlocks.ELVEN_GATEWAY_CORE);
 	}
 
 	@Override

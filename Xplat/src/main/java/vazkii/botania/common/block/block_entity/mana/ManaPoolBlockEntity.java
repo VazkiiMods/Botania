@@ -110,13 +110,13 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 	private final Int2ObjectMap<MutableInt> drainingParticles = new Int2ObjectOpenHashMap<>();
 
 	public ManaPoolBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.POOL, pos, state);
+		super(BotaniaBlockEntities.MANA_POOL, pos, state);
 	}
 
 	@Override
 	public boolean isFull() {
 		BlockState stateBelow = level.getBlockState(worldPosition.below());
-		return !stateBelow.is(BotaniaBlocks.manaVoid) && getCurrentMana() >= getMaxMana();
+		return !stateBelow.is(BotaniaBlocks.MANA_VOID) && getCurrentMana() >= getMaxMana();
 	}
 
 	@Override
@@ -377,7 +377,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 							}
 
 							int manaVal = Math.min(transfRate, Math.min(self.getMaxMana() - self.getCurrentMana(), mana.getMana()));
-							if (manaVal == 0 && self.level.getBlockState(worldPosition.below()).is(BotaniaBlocks.manaVoid)) {
+							if (manaVal == 0 && self.level.getBlockState(worldPosition.below()).is(BotaniaBlocks.MANA_VOID)) {
 								manaVal = Math.min(transfRate, mana.getMana());
 							}
 							mana.addMana(-manaVal);
@@ -591,7 +591,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 		int space = Math.max(0, getMaxMana() - getCurrentMana());
 		if (space > 0) {
 			return space;
-		} else if (level.getBlockState(worldPosition.below()).is(BotaniaBlocks.manaVoid)) {
+		} else if (level.getBlockState(worldPosition.below()).is(BotaniaBlocks.MANA_VOID)) {
 			return getMaxMana();
 		} else {
 			return 0;

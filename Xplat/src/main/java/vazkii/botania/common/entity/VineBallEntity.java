@@ -98,7 +98,7 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 
 			BlockPos pos = hit.getBlockPos();
 			BlockState hitState = this.level().getBlockState(hit.getBlockPos());
-			if (!hitState.is(BotaniaBlocks.solidVines)) {
+			if (!hitState.is(BotaniaBlocks.SOLID_VINE)) {
 				pos = pos.relative(dir);
 			}
 
@@ -106,8 +106,8 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 			if (dir.getAxis() != Direction.Axis.Y) {
 				while (pos.getY() > this.level().dimensionType().minY() && vinesPlaced < 9) {
 					BlockState state = this.level().getBlockState(pos);
-					if (state.canBeReplaced() && !state.is(BotaniaBlocks.solidVines)) {
-						BlockState stateToPlace = BotaniaBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
+					if (state.canBeReplaced() && !state.is(BotaniaBlocks.SOLID_VINE)) {
+						BlockState stateToPlace = BotaniaBlocks.SOLID_VINE.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
 
 						if (!stateToPlace.canSurvive(this.level(), pos)) {
 							break;
@@ -116,7 +116,7 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 						this.level().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(stateToPlace));
 						vinesPlaced++;
 					}
-					if (this.level().getBlockState(pos).is(BotaniaBlocks.solidVines)) {
+					if (this.level().getBlockState(pos).is(BotaniaBlocks.SOLID_VINE)) {
 						pos = pos.below();
 					} else {
 						break;

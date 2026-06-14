@@ -99,22 +99,22 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.MINI_FLOWERS, BotaniaTags.Items.MINI_FLOWERS);
 		this.tag(BotaniaTags.Items.CONTRIBUTOR_HEADFLOWERS)
 				.addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
-				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem());
+				.add(BotaniaBlocks.DAYBLOOM_MOTIF.asItem(), BotaniaBlocks.NIGHTSHADE_MOTIF.asItem());
 
 		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.tag(ItemTags.SMALL_FLOWERS)
 				.addTag(BotaniaTags.Items.MYSTICAL_FLOWERS)
 				.addTag(BotaniaTags.Items.SHINY_FLOWERS)
 				.addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
-				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem(), BotaniaBlocks.motifHydroangeas.asItem());
+				.add(BotaniaBlocks.DAYBLOOM_MOTIF.asItem(), BotaniaBlocks.NIGHTSHADE_MOTIF.asItem(), BotaniaBlocks.HYDROANGEAS_MOTIF.asItem());
 
 		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);
 		this.tag(BotaniaTags.Items.LENS).add(getItems(LensItem.class::isInstance));
 
 		this.tag(BotaniaTags.Items.LENS_GLUE).add(Items.SLIME_BALL).add(Items.HONEY_BOTTLE);
 
-		this.tag(ItemTags.PIGLIN_LOVED).add(BotaniaBlocks.alchemyCatalyst.asItem(), divaCharm,
-				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), monocle);
+		this.tag(ItemTags.PIGLIN_LOVED).add(BotaniaBlocks.ALCHEMY_CATALYST.asItem(), divaCharm,
+				BotaniaBlocks.HOVERING_HOURGLASS.asItem(), BotaniaBlocks.MANA_PYLON.asItem(), monocle);
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
 		this.tag(ItemTags.LECTERN_BOOKS).add(lexicon);
 		this.tag(ItemTags.BOOKSHELF_BOOKS).add(lexicon);
@@ -254,21 +254,21 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER)
 				.add(dirtRod, skyDirtRod, cobbleRod, blackHoleTalisman);
 
-		this.tag(BotaniaTags.Items.DYED_MANA_POOLS).add(getColoredBlockItems(BotaniaBlocks.manaPool));
-		this.tag(BotaniaTags.Items.DYED_CREATIVE_POOLS).add(getColoredBlockItems(BotaniaBlocks.creativePool));
-		this.tag(BotaniaTags.Items.DYED_DILUTED_POOLS).add(getColoredBlockItems(BotaniaBlocks.dilutedPool));
-		this.tag(BotaniaTags.Items.DYED_FABULOUS_POOLS).add(getColoredBlockItems(BotaniaBlocks.fabulousPool));
+		this.tag(BotaniaTags.Items.DYED_MANA_POOLS).add(getColoredBlockItems(BotaniaBlocks.MANA_POOL));
+		this.tag(BotaniaTags.Items.DYED_CREATIVE_POOLS).add(getColoredBlockItems(BotaniaBlocks.CREATIVE_MANA_POOL));
+		this.tag(BotaniaTags.Items.DYED_DILUTED_POOLS).add(getColoredBlockItems(BotaniaBlocks.DILUTED_MANA_POOL));
+		this.tag(BotaniaTags.Items.DYED_FABULOUS_POOLS).add(getColoredBlockItems(BotaniaBlocks.FABULOUS_MANA_POOL));
 		this.tag(BotaniaTags.Items.MANA_POOLS)
-				.add(BotaniaBlocks.manaPool.asItem())
+				.add(BotaniaBlocks.MANA_POOL.asItem())
 				.addTag(BotaniaTags.Items.DYED_MANA_POOLS);
 		this.tag(BotaniaTags.Items.CREATIVE_POOLS)
-				.add(BotaniaBlocks.creativePool.asItem())
+				.add(BotaniaBlocks.CREATIVE_MANA_POOL.asItem())
 				.addTag(BotaniaTags.Items.DYED_CREATIVE_POOLS);
 		this.tag(BotaniaTags.Items.DILUTED_POOLS)
-				.add(BotaniaBlocks.dilutedPool.asItem())
+				.add(BotaniaBlocks.DILUTED_MANA_POOL.asItem())
 				.addTag(BotaniaTags.Items.DYED_DILUTED_POOLS);
 		this.tag(BotaniaTags.Items.FABULOUS_POOLS)
-				.add(BotaniaBlocks.fabulousPool.asItem())
+				.add(BotaniaBlocks.FABULOUS_MANA_POOL.asItem())
 				.addTag(BotaniaTags.Items.DYED_FABULOUS_POOLS);
 		this.tag(BotaniaTags.Items.ALL_MANA_POOLS)
 				.addTag(BotaniaTags.Items.MANA_POOLS)

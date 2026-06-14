@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PureDaisyREICategory implements DisplayCategory<PureDaisyREIDisplay> {
-	private final EntryStack<ItemStack> daisy = EntryStacks.of(new ItemStack(BotaniaBlocks.pureDaisy));
+	private final EntryStack<ItemStack> daisy = EntryStacks.of(new ItemStack(BotaniaBlocks.PURE_DAISY));
 	private static final ResourceLocation OVERLAY = BotaniaAPI.botaniaRL("textures/gui/pure_daisy_overlay.png");
 
 	@Override

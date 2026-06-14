@@ -160,7 +160,7 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 						.apply(FillPlayerHead.fillPlayerHead(LootContext.EntityTarget.THIS)));
 
 		output.accept(BotaniaEntities.GAIA_GUARDIAN.getDefaultLootTable(),
-				defineAxeBeheadingDropTable(BotaniaBlocks.gaiaHead, 0.0769f, 0.0769f));
+				defineAxeBeheadingDropTable(BotaniaBlocks.GAIA_HEAD, 0.0769f, 0.0769f));
 	}
 
 	private LootTable.Builder defineAxeBeheadingDropTable(ItemLike head, float chance, float lootingMultiplier) {

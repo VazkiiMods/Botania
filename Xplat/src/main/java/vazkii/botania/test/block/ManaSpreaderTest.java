@@ -35,9 +35,9 @@ public class ManaSpreaderTest {
 		// point the spreaders at their corresponding sink block to aim them exactly horizontally
 		for (int i = 0; i < NUM_SPREADERS; i++) {
 			var spreaderName = SPREADERS[i];
-			var pool = TestingUtil.assertBlockEntity(helper, POOL_POS.south(i), BotaniaBlockEntities.POOL);
+			var pool = TestingUtil.assertBlockEntity(helper, POOL_POS.south(i), BotaniaBlockEntities.MANA_POOL);
 			TestingUtil.assertEquals(pool.getCurrentMana(), 0, () -> String.format("Pool for %s does not start empty", spreaderName));
-			var spreader = TestingUtil.assertBlockEntity(helper, SPREADER_POS.south(i), BotaniaBlockEntities.SPREADER);
+			var spreader = TestingUtil.assertBlockEntity(helper, SPREADER_POS.south(i), BotaniaBlockEntities.MANA_SPREADER);
 			var bindPos = SINK_POS.south(i);
 			TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(bindPos), Direction.UP),
 					() -> "Failed to bind spreader");
@@ -48,8 +48,8 @@ public class ManaSpreaderTest {
 				.thenExecuteAfter(10, () -> {
 					for (int i = 0; i < NUM_SPREADERS; i++) {
 						var spreaderName = SPREADERS[i];
-						var pool = TestingUtil.assertBlockEntity(helper, POOL_POS.south(i), BotaniaBlockEntities.POOL);
-						var sink = TestingUtil.assertBlockEntity(helper, SINK_POS.south(i), BotaniaBlockEntities.FLUXFIELD);
+						var pool = TestingUtil.assertBlockEntity(helper, POOL_POS.south(i), BotaniaBlockEntities.MANA_POOL);
+						var sink = TestingUtil.assertBlockEntity(helper, SINK_POS.south(i), BotaniaBlockEntities.MANA_FLUXFIELD);
 						TestingUtil.assertThat(pool.getCurrentMana() > 0, () -> String.format("Pool for %s did not receive mana", spreaderName));
 						TestingUtil.assertEquals(sink.getCurrentMana(), 0, () -> String.format("Sink for %s should not have received", spreaderName));
 					}

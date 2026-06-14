@@ -35,6 +35,6 @@ public class CompostingData {
 			registrationMethod.accept(BotaniaBlocks.getMushroom(dyeColor), chanceMid);
 		});
 
-		registrationMethod.accept(BotaniaBlocks.cellBlock, chanceHigh);
+		registrationMethod.accept(BotaniaBlocks.CELLULAR_BLOCK, chanceHigh);
 	}
 }

@@ -117,7 +117,7 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 		return botaniaRL("runic_altar/" + s);
 	}
 
-	protected static Ingredient DEFAULT_REAGENT = Ingredient.of(BotaniaBlocks.livingrock);
+	protected static Ingredient DEFAULT_REAGENT = Ingredient.of(BotaniaBlocks.LIVINGROCK);
 
 	protected static void defaultReagent(RecipeOutput consumer, ResourceLocation id, ItemStack output, int mana, Ingredient... ingredients) {
 		consumer.accept(id, new RunicAltarRecipe(output, DEFAULT_REAGENT, mana, ingredients, new Ingredient[] {}), null);

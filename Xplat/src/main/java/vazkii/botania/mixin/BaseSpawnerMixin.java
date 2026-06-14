@@ -43,7 +43,7 @@ public class BaseSpawnerMixin {
 	private boolean isNearPlayerClient(BaseSpawner instance, Level level, BlockPos pos, Operation<Boolean> original) {
 		boolean isNearPlayer = original.call(instance, level, pos);
 		if (!isNearPlayer) {
-			Optional<LifeImbuerBlockEntity> imbuerOptional = level.getBlockEntity(pos.above(), BotaniaBlockEntities.SPAWNER_CLAW);
+			Optional<LifeImbuerBlockEntity> imbuerOptional = level.getBlockEntity(pos.above(), BotaniaBlockEntities.LIFE_IMBUER);
 			return imbuerOptional.isPresent() && imbuerOptional.get().clientTickActive();
 		}
 		return true;
@@ -60,7 +60,7 @@ public class BaseSpawnerMixin {
 			@Share("hasImbuerWithMana") LocalRef<Boolean> hasImbuerWithMana) {
 		boolean nearPlayer = original.call(instance, level, pos);
 
-		Optional<LifeImbuerBlockEntity> imbuerOptional = level.getBlockEntity(pos.above(), BotaniaBlockEntities.SPAWNER_CLAW);
+		Optional<LifeImbuerBlockEntity> imbuerOptional = level.getBlockEntity(pos.above(), BotaniaBlockEntities.LIFE_IMBUER);
 		boolean imbuerWithMana = imbuerOptional.filter(imbuer -> imbuer.tryConsumeMana(nearPlayer)).isPresent();
 		hasImbuerWithMana.set(imbuerWithMana);
 

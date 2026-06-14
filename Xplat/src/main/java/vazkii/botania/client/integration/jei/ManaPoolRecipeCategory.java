@@ -50,7 +50,7 @@ public class ManaPoolRecipeCategory extends BotaniaRecipeCategoryBase<ManaInfusi
 	}
 
 	private static ItemStack makeFullPool() {
-		ItemStack stack = new ItemStack(BotaniaBlocks.manaPool);
+		ItemStack stack = new ItemStack(BotaniaBlocks.MANA_POOL);
 		stack.set(BotaniaDataComponents.RENDER_FULL, Unit.INSTANCE);
 		return stack;
 	}

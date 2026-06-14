@@ -353,6 +353,6 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.SPREADER, ManaSpreaderBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.MANA_SPREADER, ManaSpreaderBlockEntity::commonTick);
 	}
 }

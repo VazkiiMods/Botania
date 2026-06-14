@@ -42,10 +42,10 @@ public class TerrestrialAgglomerationRecipeCategory extends BotaniaRecipeCategor
 
 	public TerrestrialAgglomerationRecipeCategory(IGuiHelper guiHelper) {
 		super(114, 131, Component.translatable("botania.nei.terraPlate"),
-				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.terraPlate)), null);
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/terrasteel_jei_overlay.png"), 42, 29, 64, 64);
 
-		IDrawable livingrock = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.livingrock));
+		IDrawable livingrock = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.LIVINGROCK));
 		terraPlate = new TerrestrialAgglomerationDrawable(livingrock, livingrock,
 				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Blocks.LAPIS_BLOCK))
 		);
@@ -81,6 +81,6 @@ public class TerrestrialAgglomerationRecipeCategory extends BotaniaRecipeCategor
 		}
 
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 92)
-				.addItemStack(new ItemStack(BotaniaBlocks.terraPlate));
+				.addItemStack(new ItemStack(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE));
 	}
 }

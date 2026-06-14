@@ -50,7 +50,7 @@ public class CocoonBlockEntity extends BlockEntity {
 	public boolean gaiaSpiritGiven;
 
 	public CocoonBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.COCOON, pos, state);
+		super(BotaniaBlockEntities.COCOON_OF_CAPRICE, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos pos, BlockState state, CocoonBlockEntity self) {

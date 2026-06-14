@@ -153,7 +153,7 @@ public class GaiaGuardianEntity extends Mob {
 								"_________",
 						}
 				},
-				'P', BotaniaBlocks.gaiaPylon,
+				'P', BotaniaBlocks.GAIA_PYLON,
 				'B', Blocks.BEACON,
 				'I', beaconBase,
 				'0', beaconBase
@@ -384,7 +384,7 @@ public class GaiaGuardianEntity extends Mob {
 			BlockPos expectedPylonPos = beaconPos.offset(pylonOffset);
 
 			BlockState state = world.getBlockState(expectedPylonPos);
-			if (!state.is(BotaniaBlocks.gaiaPylon)) {
+			if (!state.is(BotaniaBlocks.GAIA_PYLON)) {
 				invalidPylonBlocks.add(expectedPylonPos);
 			}
 		}

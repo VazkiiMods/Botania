@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PetalApothecaryREICategory implements DisplayCategory<PetalApothecaryREIDisplay> {
-	private final EntryStack<ItemStack> apothecary = EntryStacks.of(new ItemStack(BotaniaBlocks.defaultAltar));
+	private final EntryStack<ItemStack> apothecary = EntryStacks.of(new ItemStack(BotaniaBlocks.PETAL_APOTHECARY));
 	private final EntryStack<ItemStack> waterBucket = EntryStacks.of(new ItemStack(Items.WATER_BUCKET));
 	private final ResourceLocation PETAL_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/petal_overlay.png");
 

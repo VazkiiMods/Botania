@@ -37,12 +37,12 @@ public class BindingTest {
 
 	@GameTest(template = TEMPLATE)
 	public void functionalFlowerAutoBindTest(GameTestHelper helper) {
-		autobindTest(helper, BotaniaBlocks.creativePool, BotaniaBlocks.clayconiaFloating, 10);
+		autobindTest(helper, BotaniaBlocks.CREATIVE_MANA_POOL, BotaniaBlocks.FLOATING_CLAYCONIA, 10);
 	}
 
 	@GameTest(template = TEMPLATE)
 	public void generatingFlowerAutoBindTest(GameTestHelper helper) {
-		autobindTest(helper, BotaniaBlocks.manaSpreader, BotaniaBlocks.endoflameFloating, 6);
+		autobindTest(helper, BotaniaBlocks.MANA_SPREADER, BotaniaBlocks.FLOATING_ENDOFLAME, 6);
 	}
 
 	private void autobindTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
@@ -62,12 +62,12 @@ public class BindingTest {
 
 	@GameTest(template = TEMPLATE)
 	public void functionalFlowerManualBindTest(GameTestHelper helper) {
-		manualBindTest(helper, BotaniaBlocks.creativePool, BotaniaBlocks.clayconiaFloating, 10);
+		manualBindTest(helper, BotaniaBlocks.CREATIVE_MANA_POOL, BotaniaBlocks.FLOATING_CLAYCONIA, 10);
 	}
 
 	@GameTest(template = TEMPLATE)
 	public void generatingFlowerManualBindTest(GameTestHelper helper) {
-		manualBindTest(helper, BotaniaBlocks.manaSpreader, BotaniaBlocks.endoflameFloating, 6);
+		manualBindTest(helper, BotaniaBlocks.MANA_SPREADER, BotaniaBlocks.FLOATING_ENDOFLAME, 6);
 	}
 
 	private void manualBindTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
@@ -93,12 +93,12 @@ public class BindingTest {
 
 	@GameTest(template = TEMPLATE)
 	public void functionalFlowerObedienceStick(GameTestHelper helper) {
-		obedienceStickTest(helper, BotaniaBlocks.creativePool, BotaniaBlocks.clayconiaFloating, 10);
+		obedienceStickTest(helper, BotaniaBlocks.CREATIVE_MANA_POOL, BotaniaBlocks.FLOATING_CLAYCONIA, 10);
 	}
 
 	@GameTest(template = TEMPLATE)
 	public void generatingFlowerObedienceStick(GameTestHelper helper) {
-		obedienceStickTest(helper, BotaniaBlocks.manaSpreader, BotaniaBlocks.endoflameFloating, 6);
+		obedienceStickTest(helper, BotaniaBlocks.MANA_SPREADER, BotaniaBlocks.FLOATING_ENDOFLAME, 6);
 	}
 
 	private void obedienceStickTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {

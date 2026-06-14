@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> {
-	private final EntryStack<ItemStack> manaPool = EntryStacks.of(new ItemStack(BotaniaBlocks.manaPool));
+	private final EntryStack<ItemStack> manaPool = EntryStacks.of(new ItemStack(BotaniaBlocks.MANA_POOL));
 	private final ResourceLocation OVERLAY = BotaniaAPI.botaniaRL("textures/gui/pure_daisy_overlay.png");
 
 	@Override

@@ -18,7 +18,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class RedStringSpooferBlockEntity extends RedStringBlockEntity {
 	public RedStringSpooferBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.RED_STRING_RELAY, pos, state);
+		super(BotaniaBlockEntities.RED_STRINGED_SPOOFER, pos, state);
 	}
 
 	@Override

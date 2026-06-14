@@ -70,7 +70,8 @@ public final class ColorHandler {
 		blocks.register((state, world, pos, tintIndex) -> world != null && pos != null
 				? BiomeColors.getAverageFoliageColor(world, pos)
 				: FoliageColor.getDefaultColor(),
-				BotaniaBlocks.solidVines);
+				BotaniaBlocks.SOLID_VINE
+		);
 
 		// Pool
 		blocks.register(
@@ -108,7 +109,8 @@ public final class ColorHandler {
 					}
 					return 0xFFFFFF;
 				},
-				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.spectralPlatform, BotaniaBlocks.infrangiblePlatform);
+				BotaniaBlocks.ABSTRUSE_PLATFORM, BotaniaBlocks.SPECTRAL_PLATFORM, BotaniaBlocks.INFRANGIBLE_PLATFORM
+		);
 	}
 
 	public static void submitItems(ItemHandlerConsumer items) {
@@ -120,7 +122,8 @@ public final class ColorHandler {
 		items.register((stack, tintIndex) -> tintIndex == 0
 				? FastColor.ARGB32.opaque(Mth.hsvToRgb(ClientTickHandler.getUiAnimationTicks() % 180 / 180, 0.4f, 0.9f))
 				: -1,
-				BotaniaBlocks.gaiaSpreader);
+				BotaniaBlocks.GAIA_MANA_SPREADER
+		);
 
 		items.register((stack, tintIndex) -> switch (tintIndex) {
 			case 1 -> FastColor.ARGB32.opaque(MysticalPetalItem.getPetalLikeColor(WandOfTheForestItem.getColor1(stack)));

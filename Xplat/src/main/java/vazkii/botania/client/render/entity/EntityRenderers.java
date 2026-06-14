@@ -74,34 +74,34 @@ public final class EntityRenderers {
 	}
 
 	public static void registerBlockEntityRenderers(BERConsumer consumer) {
-		consumer.register(BotaniaBlockEntities.ALTAR, PetalApothecaryBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.SPREADER, ManaSpreaderBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.POOL, ManaPoolBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.RUNE_ALTAR, RunicAltarBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.PYLON, PylonBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.ENCHANTER, ManaEnchanterBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.ALF_PORTAL, AlfheimPortalBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.MINI_ISLAND, FloatingFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.PETAL_APOTHECARY, PetalApothecaryBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.MANA_SPREADER, ManaSpreaderBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.MANA_POOL, ManaPoolBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.RUNIC_ALTAR, RunicAltarBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.MANA_PYLON, PylonBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.MANA_ENCHANTER, ManaEnchanterBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.ALFHEIM_PORTAL, AlfheimPortalBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.FLOATING_MUNDANE_FLOWER, FloatingFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.TINY_POTATO, TinyPotatoBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.STARFIELD, StarfieldCreatorBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.BREWERY, BotanicalBreweryBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.TERRA_PLATE, TerrestrialAgglomerationPlateBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.RED_STRING_COMPARATOR, RedStringBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.RED_STRING_CONTAINER, RedStringBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.RED_STRING_DISPENSER, RedStringBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.RED_STRING_FERTILIZER, RedStringBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.STARFIELD_CREATOR, StarfieldCreatorBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.BOTANICAL_BREWERY, BotanicalBreweryBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE, TerrestrialAgglomerationPlateBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.RED_STRINGED_COMPARATOR, RedStringBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.RED_STRINGED_CONTAINER, RedStringBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.RED_STRINGED_DISPENSER, RedStringBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.RED_STRINGED_NUTRIFIER, RedStringBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.RED_STRING_INTERCEPTOR, RedStringBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.RED_STRING_RELAY, RedStringBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.PRISM, ManaPrismBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.RED_STRINGED_SPOOFER, RedStringBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.MANA_PRISM, ManaPrismBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.CORPOREA_INDEX, CorporeaIndexBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.PUMP, ManaPumpBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.MANA_PUMP, ManaPumpBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE, CorporeaCrystalCubeBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.INCENSE_PLATE, IncensePlateBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.HOURGLASS, HoveringHourglassBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.SPARK_CHANGER, SparkTinkererBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.COCOON, CocoonBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.LIGHT_RELAY, LuminizerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.BELLOWS, BellowsBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.HOVERING_HOURGLASS, HoveringHourglassBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.SPARK_TINKERER, SparkTinkererBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.COCOON_OF_CAPRICE, CocoonBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.LUMINIZER, LuminizerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.MANATIDE_BELLOWS, BellowsBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.GAIA_HEAD, GaiaHeadBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.TERU_TERU_BOZU, TeruTeruBozuBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.AVATAR, AvatarBlockEntityRenderer::new);
@@ -123,7 +123,7 @@ public final class EntityRenderers {
 		consumer.register(BotaniaBlockEntities.RAFFLOWSIA, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.SHULK_ME_NOT, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.BELLETHORNE, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.BELLETHORNE_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.BELLETHORNE_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.BERGAMUTE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.DREADTHORN, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.HEISEI_DREAM, SpecialFlowerBlockEntityRenderer::new);
@@ -133,44 +133,44 @@ public final class EntityRenderers {
 		consumer.register(BotaniaBlockEntities.FALLEN_KANADE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.EXOFLAME, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.AGRICARNATION, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.AGRICARNATION_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.AGRICARNATION_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.HOPPERHOCK, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.HOPPERHOCK_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.HOPPERHOCK_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.TANGLEBERRIE, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.TANGLEBERRIE_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.TANGLEBERRIE_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.JIYUULIA, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.JIYUULIA_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.JIYUULIA_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.RANNUNCARPUS, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.RANNUNCARPUS_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.RANNUNCARPUS_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.HYACIDUS, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.POLLIDISIAC, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.CLAYCONIA, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.CLAYCONIA_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.CLAYCONIA_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.LOONIUM, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.DAFFOMILL, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.VINCULOTUS, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.SPECTRANTHEMUM, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.MEDUMONE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.MARIMORPHOSIS, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.MARIMORPHOSIS_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.MARIMORPHOSIS_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.BUBBELL, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.BUBBELL_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.BUBBELL_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.SOLEGNOLIA, SpecialFlowerBlockEntityRenderer::new);
-		consumer.register(BotaniaBlockEntities.SOLEGNOLIA_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(BotaniaBlockEntities.SOLEGNOLIA_PETITE, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.ORECHID_IGNEM, SpecialFlowerBlockEntityRenderer::new);
 		consumer.register(BotaniaBlockEntities.LABELLIA, SpecialFlowerBlockEntityRenderer::new);
 	}
 
 	public static final Map<Block, Function<Block, BlockEntityItemRenderer>> BE_ITEM_RENDERER_FACTORIES = Map.of(
-			BotaniaBlocks.manaPylon, PylonBlockEntityRenderer.ItemRenderer::new,
-			BotaniaBlocks.naturaPylon, PylonBlockEntityRenderer.ItemRenderer::new,
-			BotaniaBlocks.gaiaPylon, PylonBlockEntityRenderer.ItemRenderer::new,
-			BotaniaBlocks.teruTeruBozu, BlockEntityItemRenderer::new,
-			BotaniaBlocks.avatar, BlockEntityItemRenderer::new,
-			BotaniaBlocks.bellows, BlockEntityItemRenderer::new,
-			BotaniaBlocks.brewery, BlockEntityItemRenderer::new,
-			BotaniaBlocks.corporeaIndex, BlockEntityItemRenderer::new,
-			BotaniaBlocks.hourglass, BlockEntityItemRenderer::new
+			BotaniaBlocks.MANA_PYLON, PylonBlockEntityRenderer.ItemRenderer::new,
+			BotaniaBlocks.NATURA_PYLON, PylonBlockEntityRenderer.ItemRenderer::new,
+			BotaniaBlocks.GAIA_PYLON, PylonBlockEntityRenderer.ItemRenderer::new,
+			BotaniaBlocks.TERU_TERU_BOZU, BlockEntityItemRenderer::new,
+			BotaniaBlocks.LIVINGWOOD_AVATAR, BlockEntityItemRenderer::new,
+			BotaniaBlocks.MANATIDE_BELLOWS, BlockEntityItemRenderer::new,
+			BotaniaBlocks.BOTANICAL_BREWERY, BlockEntityItemRenderer::new,
+			BotaniaBlocks.CORPOREA_INDEX, BlockEntityItemRenderer::new,
+			BotaniaBlocks.HOVERING_HOURGLASS, BlockEntityItemRenderer::new
 	);
 
 	private EntityRenderers() {}

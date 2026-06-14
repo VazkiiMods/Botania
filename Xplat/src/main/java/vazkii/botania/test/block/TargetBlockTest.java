@@ -33,7 +33,7 @@ public class TargetBlockTest {
 		// Because Mojang removed the block entity rotation methods, we need to ensure
 		// that the spreader is pointed at the mana void properly, in case the test
 		// structure is placed rotated.
-		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.SPREADER);
+		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.MANA_SPREADER);
 		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(bindPos), Direction.UP),
 				() -> "Failed to bind spreader");
 

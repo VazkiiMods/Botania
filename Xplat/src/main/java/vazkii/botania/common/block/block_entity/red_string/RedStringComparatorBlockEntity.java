@@ -20,7 +20,7 @@ public class RedStringComparatorBlockEntity extends RedStringBlockEntity {
 	private int comparatorValue = 0;
 
 	public RedStringComparatorBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.RED_STRING_COMPARATOR, pos, state);
+		super(BotaniaBlockEntities.RED_STRINGED_COMPARATOR, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, RedStringComparatorBlockEntity self) {

@@ -35,7 +35,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 public class SpreaderTurntableBlockEntity extends BlockEntity implements Wandable {
 
 	public SpreaderTurntableBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.TURNTABLE, pos, state);
+		super(BotaniaBlockEntities.SPREADER_TURNTABLE, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, SpreaderTurntableBlockEntity self) {

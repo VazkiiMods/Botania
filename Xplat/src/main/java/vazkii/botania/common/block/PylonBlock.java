@@ -63,7 +63,7 @@ public abstract class PylonBlock extends BotaniaWaterloggedBlock implements Enti
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return level.isClientSide()
-				? createTickerHelper(type, BotaniaBlockEntities.PYLON, this::clientTick)
+				? createTickerHelper(type, BotaniaBlockEntities.MANA_PYLON, this::clientTick)
 				: null;
 	}
 

@@ -27,42 +27,42 @@ public final class BlockRenderLayers {
 	public static boolean skipPlatformBlocks;
 
 	public static void init(BiConsumer<Block, RenderType> consumer) {
-		consumer.accept(BotaniaBlocks.defaultAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.forestAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.plainsAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.mountainAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.fungalAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.swampAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.desertAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.taigaAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.mesaAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.mossyAltar, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.ghostRail, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.solidVines, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.livingwoodDoor, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.livingwoodTrapdoor, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.dreamwoodDoor, RenderType.cutout());
-		consumer.accept(BotaniaBlocks.dreamwoodTrapdoor, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY_FUCHSITE, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY_TALC, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY_GNEISS, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY_MYCELITE, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY_CATACLASITE, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY_SOLITE, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY_LUNITE, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY_ROSY_TALC, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.PETAL_APOTHECARY_MOSSY, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.SPECTRAL_RAIL, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.SOLID_VINE, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.LIVINGWOOD_DOOR, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.LIVINGWOOD_TRAPDOOR, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.DREAMWOOD_DOOR, RenderType.cutout());
+		consumer.accept(BotaniaBlocks.DREAMWOOD_TRAPDOOR, RenderType.cutout());
 
-		consumer.accept(BotaniaBlocks.corporeaCrystalCube, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.manaGlass, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.managlassPane, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.elfGlass, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.alfglassPane, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.bifrost, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.bifrostPane, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.bifrostPerm, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.prism, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.CORPOREA_CRYSTAL_CUBE, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.MANAGLASS, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.MANAGLASS_PANE, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.ALFGLASS, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.ALFGLASS_PANE, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.TEMPORARY_BIFROST_BLOCK, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.BIFROST_PANE, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.BIFROST_BLOCK, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.MANA_PRISM, RenderType.translucent());
 
-		consumer.accept(BotaniaBlocks.starfield, RenderType.cutoutMipped());
+		consumer.accept(BotaniaBlocks.STARFIELD_CREATOR, RenderType.cutoutMipped());
 		if (!skipPlatformBlocks) {
 			// Render type is set dynamically on Forge and undisguised platforms should render as "solid",
 			// but "translucent" is the best compromise on Fabric.
 			// Translucent comes with a couple of downsides, like hidden block breaking animation and bad
 			// Z-ordering for non-cubic block models that should be rendered with the "cutout" render type.
-			consumer.accept(BotaniaBlocks.abstrusePlatform, RenderType.translucent());
-			consumer.accept(BotaniaBlocks.infrangiblePlatform, RenderType.translucent());
-			consumer.accept(BotaniaBlocks.spectralPlatform, RenderType.translucent());
+			consumer.accept(BotaniaBlocks.ABSTRUSE_PLATFORM, RenderType.translucent());
+			consumer.accept(BotaniaBlocks.INFRANGIBLE_PLATFORM, RenderType.translucent());
+			consumer.accept(BotaniaBlocks.SPECTRAL_PLATFORM, RenderType.translucent());
 		}
 		BuiltInRegistries.BLOCK.stream().filter(b -> BuiltInRegistries.BLOCK.getKey(b).getNamespace().equals(
 				BotaniaAPI.MODID))

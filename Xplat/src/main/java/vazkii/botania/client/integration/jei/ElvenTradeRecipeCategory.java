@@ -46,7 +46,7 @@ public class ElvenTradeRecipeCategory extends BotaniaRecipeCategoryBase<ElvenTra
 
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
 		super(145, 95, Component.translatable("botania.nei.elvenTrade"),
-				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.alfPortal)), null);
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.ELVEN_GATEWAY_CORE)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
 	}
 

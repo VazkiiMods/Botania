@@ -81,7 +81,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(BotaniaBlocks.manaPool);
+		return new ItemStack(BotaniaBlocks.MANA_POOL);
 	}
 
 	protected Ingredient getInput() {

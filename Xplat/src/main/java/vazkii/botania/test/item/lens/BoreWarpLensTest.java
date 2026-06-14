@@ -41,7 +41,7 @@ public class BoreWarpLensTest {
 				.thenExecuteAfter(1, () -> helper.pressButton(BUTTON_POS))
 				.thenWaitUntil(() -> helper.assertBlockProperty(BUTTON_POS, ButtonBlock.POWERED, false))
 				.thenExecute(() -> {
-					helper.assertBlock(RELAY_POS, block -> block == BotaniaBlocks.pistonRelay, "Force relay was broken");
+					helper.assertBlock(RELAY_POS, block -> block == BotaniaBlocks.FORCE_RELAY, "Force relay was broken");
 					helper.assertBlockState(TARGET_BLOCK_POS, BlockState::isAir, () -> "Target block was not broken");
 					helper.assertContainerContains(UNWARPED_HOPPER_POS, Items.POLISHED_ANDESITE);
 					helper.assertContainerEmpty(WARPED_HOPPER_POS);
@@ -57,7 +57,7 @@ public class BoreWarpLensTest {
 				.thenExecuteAfter(1, () -> helper.pressButton(BUTTON_POS))
 				.thenWaitUntil(() -> helper.assertBlockProperty(BUTTON_POS, ButtonBlock.POWERED, false))
 				.thenExecute(() -> {
-					helper.assertBlock(RELAY_POS, block -> block == BotaniaBlocks.pistonRelay, "Force relay was broken");
+					helper.assertBlock(RELAY_POS, block -> block == BotaniaBlocks.FORCE_RELAY, "Force relay was broken");
 					helper.assertBlockState(TARGET_BLOCK_POS, BlockState::isAir, () -> "Target block was not broken");
 					helper.assertContainerEmpty(UNWARPED_HOPPER_POS);
 					helper.assertContainerContains(WARPED_HOPPER_POS, Items.POLISHED_ANDESITE);

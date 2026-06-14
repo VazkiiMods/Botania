@@ -23,7 +23,7 @@ public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase {
 			mezz.jei.api.recipe.RecipeType.create(BotaniaAPI.MODID, "orechid_ignem", OrechidRecipe.class);
 
 	public OrechidIgnemRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(BotaniaBlocks.orechidIgnem), Component.translatable("botania.nei.orechidIgnem"));
+		super(guiHelper, new ItemStack(BotaniaBlocks.ORECHID_IGNEM), Component.translatable("botania.nei.orechidIgnem"));
 	}
 
 	@Override

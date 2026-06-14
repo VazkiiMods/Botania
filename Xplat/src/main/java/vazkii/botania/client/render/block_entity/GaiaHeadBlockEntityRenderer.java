@@ -88,7 +88,7 @@ public class GaiaHeadBlockEntityRenderer implements BlockEntityRenderer<GaiaHead
 			MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
 		// Botania: block entity can be null when rendering the item form
 		float animationProgress = blockEntity != null ? blockEntity.getAnimation(partialTick) : 0;
-		BlockState blockstate = blockEntity != null ? blockEntity.getBlockState() : BotaniaBlocks.gaiaHead.defaultBlockState();
+		BlockState blockstate = blockEntity != null ? blockEntity.getBlockState() : BotaniaBlocks.GAIA_HEAD.defaultBlockState();
 		boolean isWallSkull = blockstate.getBlock() instanceof WallSkullBlock;
 		Direction facing = isWallSkull ? blockstate.getValue(WallSkullBlock.FACING) : null;
 		int segment = blockEntity == null ? 8 : isWallSkull

@@ -96,7 +96,7 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 		Optional<BlockPos> flowerPos = BlockPos.findClosestMatch(getEffectivePos(), RANGE, RANGE,
 				pos -> {
 					BlockState state = getLevel().getBlockState(pos);
-					return !state.is(BotaniaBlocks.rafflowsia) && state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS);
+					return !state.is(BotaniaBlocks.RAFFLOWSIA) && state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS);
 				});
 		if (flowerPos.isPresent()) {
 			BlockPos pos = flowerPos.get();

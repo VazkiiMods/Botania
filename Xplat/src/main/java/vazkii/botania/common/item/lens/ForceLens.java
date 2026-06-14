@@ -37,7 +37,7 @@ public class ForceLens extends Lens {
 			BlockState state = entity.level().getBlockState(rtr.getBlockPos());
 			ItemStack sourceLens = burst.getSourceLens();
 			boolean isWarp = sourceLens.is(BotaniaItems.lensWarp);
-			if (isWarp && state.is(BotaniaBlocks.pistonRelay)) {
+			if (isWarp && state.is(BotaniaBlocks.FORCE_RELAY)) {
 				// warp+force should not move the force relay
 				return false;
 			}

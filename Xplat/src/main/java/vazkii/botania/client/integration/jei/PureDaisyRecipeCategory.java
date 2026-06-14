@@ -41,7 +41,7 @@ public class PureDaisyRecipeCategory extends BotaniaRecipeCategoryBase<PureDaisy
 
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper, IPlatformFluidHelper<?> fluidHelper) {
 		super(96, 44, Component.translatable("botania.nei.pureDaisy"),
-				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.pureDaisy)), null);
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.PURE_DAISY)), null);
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 44);
 		this.fluidHelper = fluidHelper;
@@ -65,7 +65,7 @@ public class PureDaisyRecipeCategory extends BotaniaRecipeCategoryBase<PureDaisy
 		buildSlot(recipe.getInput(), builder, RecipeIngredientRole.INPUT, 9, 12);
 
 		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12)
-				.addItemStack(new ItemStack(BotaniaBlocks.pureDaisy));
+				.addItemStack(new ItemStack(BotaniaBlocks.PURE_DAISY));
 
 		buildSlot(recipe.getOutput(), builder, RecipeIngredientRole.OUTPUT, 68, 12);
 	}

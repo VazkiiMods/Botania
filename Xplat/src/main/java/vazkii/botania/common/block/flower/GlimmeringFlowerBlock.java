@@ -13,6 +13,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.DyeColor;
 
 public class GlimmeringFlowerBlock extends BotaniaFlowerBlock {
+	public static final int STEW_DURATION = 6;
 
 	public GlimmeringFlowerBlock(DyeColor color, Holder<MobEffect> effect, int seconds, Properties builder) {
 		super(color, effect, seconds, builder);

@@ -45,7 +45,7 @@ public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 		for (var direction : Direction.values()) {
 			var neighborPos = pos.relative(direction);
 			var neighborState = world.getBlockState(neighborPos);
-			if (!neighborState.is(BotaniaBlocks.corporeaInterceptor)) {
+			if (!neighborState.is(BotaniaBlocks.CORPOREA_INTERCEPTOR)) {
 				if (world.getSignal(neighborPos, direction) > 0) {
 					power = true;
 					break;

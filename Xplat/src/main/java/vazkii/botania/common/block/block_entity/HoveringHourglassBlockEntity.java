@@ -59,7 +59,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 	public float rotation;
 
 	public HoveringHourglassBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.HOURGLASS, pos, state, true);
+		super(BotaniaBlockEntities.HOVERING_HOURGLASS, pos, state, true);
 	}
 
 	public ItemStack getContents() {
@@ -256,7 +256,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 		public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 			ItemStack stack = hourglass.getItemHandler().getItem(0);
 			if (stack.isEmpty()) {
-				stack = BotaniaBlocks.hourglass.asItem().getDefaultInstance();
+				stack = BotaniaBlocks.HOVERING_HOURGLASS.asItem().getDefaultInstance();
 			}
 			int x = window.getGuiScaledWidth() / 2 + 8;
 			int y = window.getGuiScaledHeight() / 2 - 10;

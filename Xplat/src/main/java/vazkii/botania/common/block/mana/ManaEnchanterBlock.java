@@ -54,7 +54,7 @@ public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.ENCHANTER, ManaEnchanterBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.MANA_ENCHANTER, ManaEnchanterBlockEntity::commonTick);
 	}
 
 	@Override

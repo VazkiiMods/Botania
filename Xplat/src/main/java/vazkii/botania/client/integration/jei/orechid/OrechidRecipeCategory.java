@@ -22,7 +22,7 @@ public class OrechidRecipeCategory extends OrechidRecipeCategoryBase {
 			mezz.jei.api.recipe.RecipeType.create(BotaniaAPI.MODID, "orechid", OrechidRecipe.class);
 
 	public OrechidRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(BotaniaBlocks.orechid), Component.translatable("botania.nei.orechid"));
+		super(guiHelper, new ItemStack(BotaniaBlocks.ORECHID), Component.translatable("botania.nei.orechid"));
 	}
 
 	@Override

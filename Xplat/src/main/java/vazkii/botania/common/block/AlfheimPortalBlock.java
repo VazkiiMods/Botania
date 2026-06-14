@@ -45,6 +45,6 @@ public class AlfheimPortalBlock extends BotaniaBlock implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.ALF_PORTAL, AlfheimPortalBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.ALFHEIM_PORTAL, AlfheimPortalBlockEntity::commonTick);
 	}
 }

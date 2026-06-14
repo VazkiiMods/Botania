@@ -118,6 +118,6 @@ public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.COCOON, CocoonBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.COCOON_OF_CAPRICE, CocoonBlockEntity::commonTick);
 	}
 }

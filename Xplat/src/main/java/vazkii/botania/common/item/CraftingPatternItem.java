@@ -39,11 +39,11 @@ public class CraftingPatternItem extends Item {
 		BlockPos pos = ctx.getClickedPos();
 		BlockState state = world.getBlockState(pos);
 
-		if (state.is(BotaniaBlocks.craftCrate)) {
+		if (state.is(BotaniaBlocks.CRAFTY_CRATE)) {
 			if (pattern != state.getValue(BotaniaStateProperties.CRATE_PATTERN)) {
 				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.CRATE_PATTERN, this.pattern));
 				if (!world.isClientSide) {
-					world.getBlockEntity(pos, BotaniaBlockEntities.CRAFT_CRATE)
+					world.getBlockEntity(pos, BotaniaBlockEntities.CRAFTY_CRATE)
 							.ifPresent(CraftyCrateBlockEntity::ejectLocked);
 				}
 				return InteractionResult.sidedSuccess(world.isClientSide());

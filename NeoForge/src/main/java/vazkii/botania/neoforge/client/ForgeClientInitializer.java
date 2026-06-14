@@ -280,9 +280,9 @@ public class ForgeClientInitializer {
 		event.registerItem(
 				ForgeBlockEntityItemRendererHelper.PROPS,
 				Stream.of(
-						BotaniaBlocks.brewery, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon,
-						BotaniaBlocks.bellows, BotaniaBlocks.corporeaIndex, BotaniaBlocks.hourglass,
-						BotaniaBlocks.teruTeruBozu, BotaniaBlocks.avatar
+						BotaniaBlocks.BOTANICAL_BREWERY, BotaniaBlocks.MANA_PYLON, BotaniaBlocks.NATURA_PYLON, BotaniaBlocks.GAIA_PYLON,
+						BotaniaBlocks.MANATIDE_BELLOWS, BotaniaBlocks.CORPOREA_INDEX, BotaniaBlocks.HOVERING_HOURGLASS,
+						BotaniaBlocks.TERU_TERU_BOZU, BotaniaBlocks.LIVINGWOOD_AVATAR
 				).map(Block::asItem).toArray(Item[]::new)
 		);
 	}

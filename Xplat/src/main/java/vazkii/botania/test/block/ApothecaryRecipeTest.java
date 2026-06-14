@@ -47,7 +47,7 @@ public class ApothecaryRecipeTest {
 		}).thenExecuteAfter(1, () -> {
 			spawnItem(helper, Items.MELON_SEEDS);
 		}).thenExecuteAfter(10, () -> {
-			helper.assertItemEntityPresent(BotaniaBlocks.pureDaisy.asItem(), APOTHECARY.above(), 1.5);
+			helper.assertItemEntityPresent(BotaniaBlocks.PURE_DAISY.asItem(), APOTHECARY.above(), 1.5);
 			fillApothecary(helper);
 			// Remove the pure daisy craft result
 			helper.killAllEntities();

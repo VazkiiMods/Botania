@@ -35,7 +35,7 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 	private final EmiIngredient catalyst;
 
 	static {
-		ItemStack stack = new ItemStack(BotaniaBlocks.manaPool);
+		ItemStack stack = new ItemStack(BotaniaBlocks.MANA_POOL);
 		stack.set(BotaniaDataComponents.RENDER_FULL, Unit.INSTANCE);
 		POOL = EmiStack.of(stack);
 	}

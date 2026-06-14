@@ -69,7 +69,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	}
 
 	public CraftyCrateBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.CRAFT_CRATE, pos, state, true);
+		super(BotaniaBlockEntities.CRAFTY_CRATE, pos, state, true);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 	public CraftyCratePattern getPattern() {
 		BlockState state = getBlockState();
-		if (!state.is(BotaniaBlocks.craftCrate)) {
+		if (!state.is(BotaniaBlocks.CRAFTY_CRATE)) {
 			return CraftyCratePattern.NONE;
 		}
 		return state.getValue(BotaniaStateProperties.CRATE_PATTERN);

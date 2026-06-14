@@ -18,7 +18,7 @@ import vazkii.botania.common.proxy.Proxy;
 
 public class StarfieldCreatorBlockEntity extends BlockEntity {
 	public StarfieldCreatorBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.STARFIELD, pos, state);
+		super(BotaniaBlockEntities.STARFIELD_CREATOR, pos, state);
 	}
 
 	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, StarfieldCreatorBlockEntity self) {

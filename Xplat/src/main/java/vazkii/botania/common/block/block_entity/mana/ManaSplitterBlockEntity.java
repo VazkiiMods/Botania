@@ -27,7 +27,7 @@ public class ManaSplitterBlockEntity extends BlockEntity implements ManaReceiver
 	private final List<ManaReceiver> validPools = new ArrayList<>();
 
 	public ManaSplitterBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.DISTRIBUTOR, pos, state);
+		super(BotaniaBlockEntities.MANA_SPLITTER, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, ManaSplitterBlockEntity self) {

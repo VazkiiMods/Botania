@@ -73,7 +73,7 @@ public class SolegnoliaBlockEntity extends SpecialFlowerBlockEntity {
 
 	public static class Mini extends SolegnoliaBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.SOLEGNOLIA_CHIBI, pos, state);
+			super(BotaniaBlockEntities.SOLEGNOLIA_PETITE, pos, state);
 		}
 
 		@Override

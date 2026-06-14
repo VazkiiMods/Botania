@@ -42,7 +42,7 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 	public OrechidREICategory(CategoryIdentifier<? extends OrechidBaseREIDisplay> categoryId, Block orechid) {
 		this.categoryId = categoryId;
 		this.orechid = EntryStacks.of(orechid);
-		this.langKey = "botania.nei." + (orechid == BotaniaBlocks.orechidIgnem ? "orechidIgnem" : "orechid");
+		this.langKey = "botania.nei." + (orechid == BotaniaBlocks.ORECHID_IGNEM ? "orechidIgnem" : "orechid");
 	}
 
 	@Override

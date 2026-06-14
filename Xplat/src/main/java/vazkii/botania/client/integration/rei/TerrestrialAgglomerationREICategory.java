@@ -34,7 +34,7 @@ import java.util.List;
 
 public class TerrestrialAgglomerationREICategory implements DisplayCategory<TerrestrialAgglomerationREIDisplay> {
 	private static final ResourceLocation OVERLAY = BotaniaAPI.botaniaRL("textures/gui/terrasteel_jei_overlay.png");
-	private final EntryStack<ItemStack> icon = EntryStacks.of(BotaniaBlocks.terraPlate);
+	private final EntryStack<ItemStack> icon = EntryStacks.of(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE);
 
 	@Override
 	public CategoryIdentifier<TerrestrialAgglomerationREIDisplay> getCategoryIdentifier() {

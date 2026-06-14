@@ -34,7 +34,7 @@ public class EntropicWarpLensTest {
 
 		TestingUtil.bindForceRelayTarget(helper, relayPos, bindPos);
 
-		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.SPREADER);
+		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.MANA_SPREADER);
 
 		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(relayPos), Direction.DOWN),
 				() -> "Failed to bind spreader");

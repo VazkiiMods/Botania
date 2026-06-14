@@ -34,7 +34,7 @@ public class WarpLens extends Lens {
 		}
 
 		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-		if (world.getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
+		if (world.getBlockState(hit).is(BotaniaBlocks.FORCE_RELAY)) {
 			ForceRelayBlock.WorldData data = ForceRelayBlock.WorldData.get(world);
 			BlockPos dest = data.mapping.get(hit);
 

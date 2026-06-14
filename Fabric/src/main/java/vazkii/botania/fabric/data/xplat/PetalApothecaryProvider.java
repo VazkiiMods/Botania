@@ -86,56 +86,56 @@ public class PetalApothecaryProvider extends FabricRecipeProvider {
 		Ingredient pixieDust = Ingredient.of(ConventionalBotaniaTags.Items.PIXIE_DUSTS);
 		Ingredient gaiaSpirit = Ingredient.of(BotaniaItems.lifeEssence);
 
-		make(consumer, BotaniaBlocks.pureDaisy, white, white, white, white);
-		make(consumer, BotaniaBlocks.manastar, lightBlue, green, red, cyan);
+		make(consumer, BotaniaBlocks.PURE_DAISY, white, white, white, white);
+		make(consumer, BotaniaBlocks.MANASTAR, lightBlue, green, red, cyan);
 
-		make(consumer, BotaniaBlocks.endoflame, brown, brown, red, lightGray);
-		make(consumer, BotaniaBlocks.hydroangeas, blue, blue, cyan, cyan);
-		make(consumer, BotaniaBlocks.thermalily, red, orange, orange, runeEarth, runeFire);
-		make(consumer, BotaniaBlocks.rosaArcana, pink, pink, purple, purple, lime, runeMana);
-		make(consumer, BotaniaBlocks.munchdew, lime, lime, red, red, green, runeGluttony);
-		make(consumer, BotaniaBlocks.entropinnyum, red, red, gray, gray, white, white, runeWrath, runeFire);
-		make(consumer, BotaniaBlocks.kekimurus, white, white, orange, orange, brown, brown, runeGluttony, pixieDust);
-		make(consumer, BotaniaBlocks.gourmaryllis, lightGray, lightGray, yellow, yellow, red, runeFire, runeSummer);
-		make(consumer, BotaniaBlocks.narslimmus, lime, lime, green, green, black, runeSummer, runeWater);
-		make(consumer, BotaniaBlocks.spectrolus, red, red, green, green, blue, blue, white, white, runeWinter, runeAir, pixieDust);
-		make(consumer, BotaniaBlocks.rafflowsia, purple, purple, green, green, black, runeEarth, runePride, pixieDust);
-		make(consumer, BotaniaBlocks.shulkMeNot, purple, purple, magenta, magenta, lightGray, gaiaSpirit, runeEnvy, runeWrath);
-		make(consumer, BotaniaBlocks.dandelifeon, purple, purple, lime, green, runeWater, runeFire, runeEarth, runeAir, redstoneRoot, gaiaSpirit);
+		make(consumer, BotaniaBlocks.ENDOFLAME, brown, brown, red, lightGray);
+		make(consumer, BotaniaBlocks.HYDROANGEAS, blue, blue, cyan, cyan);
+		make(consumer, BotaniaBlocks.THERMALILY, red, orange, orange, runeEarth, runeFire);
+		make(consumer, BotaniaBlocks.ROSA_ARCANA, pink, pink, purple, purple, lime, runeMana);
+		make(consumer, BotaniaBlocks.MUNCHDEW, lime, lime, red, red, green, runeGluttony);
+		make(consumer, BotaniaBlocks.ENTROPINNYUM, red, red, gray, gray, white, white, runeWrath, runeFire);
+		make(consumer, BotaniaBlocks.KEKIMURUS, white, white, orange, orange, brown, brown, runeGluttony, pixieDust);
+		make(consumer, BotaniaBlocks.GOURMARYLLIS, lightGray, lightGray, yellow, yellow, red, runeFire, runeSummer);
+		make(consumer, BotaniaBlocks.NARSLIMMUS, lime, lime, green, green, black, runeSummer, runeWater);
+		make(consumer, BotaniaBlocks.SPECTROLUS, red, red, green, green, blue, blue, white, white, runeWinter, runeAir, pixieDust);
+		make(consumer, BotaniaBlocks.RAFFLOWSIA, purple, purple, green, green, black, runeEarth, runePride, pixieDust);
+		make(consumer, BotaniaBlocks.SHULK_ME_NOT, purple, purple, magenta, magenta, lightGray, gaiaSpirit, runeEnvy, runeWrath);
+		make(consumer, BotaniaBlocks.DANDELIFEON, purple, purple, lime, green, runeWater, runeFire, runeEarth, runeAir, redstoneRoot, gaiaSpirit);
 
-		make(consumer, BotaniaBlocks.jadedAmaranthus, purple, lime, green, runeSpring, redstoneRoot);
-		make(consumer, BotaniaBlocks.bellethorn, red, red, red, cyan, cyan, redstoneRoot);
-		make(consumer, BotaniaBlocks.dreadthorn, black, black, black, cyan, cyan, redstoneRoot);
-		make(consumer, BotaniaBlocks.heiseiDream, magenta, magenta, purple, pink, runeWrath, pixieDust);
-		make(consumer, BotaniaBlocks.tigerseye, yellow, brown, orange, lime, runeAutumn);
+		make(consumer, BotaniaBlocks.JADED_AMARANTHUS, purple, lime, green, runeSpring, redstoneRoot);
+		make(consumer, BotaniaBlocks.BELLETHORNE, red, red, red, cyan, cyan, redstoneRoot);
+		make(consumer, BotaniaBlocks.DREADTHORNE, black, black, black, cyan, cyan, redstoneRoot);
+		make(consumer, BotaniaBlocks.HEISEI_DREAM, magenta, magenta, purple, pink, runeWrath, pixieDust);
+		make(consumer, BotaniaBlocks.TIGERSEYE, yellow, brown, orange, lime, runeAutumn);
 
-		make(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), BotaniaBlocks.orechid,
+		make(withConditions(consumer, FabricDatagenInitializer.GOG_NOT_LOADED_CONDITION), BotaniaBlocks.ORECHID,
 				gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
 
-		make(consumer, BotaniaBlocks.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust);
-		make(consumer, BotaniaBlocks.fallenKanade, white, white, yellow, yellow, orange, runeSpring);
-		make(consumer, BotaniaBlocks.exoflame, red, red, gray, lightGray, runeFire, runeSummer);
-		make(consumer, BotaniaBlocks.agricarnation, lime, lime, green, yellow, runeSpring, redstoneRoot);
-		make(consumer, BotaniaBlocks.hopperhock, gray, gray, lightGray, lightGray, runeAir, redstoneRoot);
-		make(consumer, BotaniaBlocks.tangleberrie, cyan, cyan, gray, lightGray, runeAir, runeEarth);
-		make(consumer, BotaniaBlocks.jiyuulia, pink, pink, purple, lightGray, runeWater, runeAir);
-		make(consumer, BotaniaBlocks.rannuncarpus, orange, orange, yellow, runeEarth, redstoneRoot);
-		make(consumer, BotaniaBlocks.hyacidus, purple, purple, magenta, magenta, green, runeWater, runeAutumn, redstoneRoot);
-		make(consumer, BotaniaBlocks.pollidisiac, red, red, pink, pink, orange, runeLust, runeFire);
-		make(consumer, BotaniaBlocks.clayconia, lightGray, lightGray, gray, cyan, runeEarth);
-		make(consumer, BotaniaBlocks.loonium, green, green, green, green, gray, runeSloth, runeGluttony, runeEnvy, redstoneRoot, pixieDust);
-		make(consumer, BotaniaBlocks.daffomill, white, white, brown, yellow, runeAir, redstoneRoot);
-		make(consumer, BotaniaBlocks.vinculotus, black, black, purple, purple, green, runeWater, runeSloth, runeLust, redstoneRoot);
-		make(consumer, BotaniaBlocks.spectranthemum, white, white, lightGray, lightGray, cyan, runeEnvy, runeWater, redstoneRoot, pixieDust);
-		make(consumer, BotaniaBlocks.medumone, brown, brown, gray, gray, runeEarth, redstoneRoot);
-		make(consumer, BotaniaBlocks.marimorphosis, gray, yellow, green, red, runeEarth, runeFire, redstoneRoot);
-		make(consumer, BotaniaBlocks.bubbell, cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust);
-		make(consumer, BotaniaBlocks.solegnolia, brown, brown, red, blue, redstoneRoot);
-		make(consumer, BotaniaBlocks.bergamute, orange, green, green, redstoneRoot);
-		make(consumer, BotaniaBlocks.labellia, yellow, yellow, blue, white, black, runeAutumn, redstoneRoot, pixieDust);
+		make(consumer, BotaniaBlocks.ORECHID_IGNEM, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust);
+		make(consumer, BotaniaBlocks.FALLEN_KANADE, white, white, yellow, yellow, orange, runeSpring);
+		make(consumer, BotaniaBlocks.EXOFLAME, red, red, gray, lightGray, runeFire, runeSummer);
+		make(consumer, BotaniaBlocks.AGRICARNATION, lime, lime, green, yellow, runeSpring, redstoneRoot);
+		make(consumer, BotaniaBlocks.HOPPERHOCK, gray, gray, lightGray, lightGray, runeAir, redstoneRoot);
+		make(consumer, BotaniaBlocks.TANGLEBERRIE, cyan, cyan, gray, lightGray, runeAir, runeEarth);
+		make(consumer, BotaniaBlocks.JIYUULIA, pink, pink, purple, lightGray, runeWater, runeAir);
+		make(consumer, BotaniaBlocks.RANNUNCARPUS, orange, orange, yellow, runeEarth, redstoneRoot);
+		make(consumer, BotaniaBlocks.HYACIDUS, purple, purple, magenta, magenta, green, runeWater, runeAutumn, redstoneRoot);
+		make(consumer, BotaniaBlocks.POLLIDISIAC, red, red, pink, pink, orange, runeLust, runeFire);
+		make(consumer, BotaniaBlocks.CLAYCONIA, lightGray, lightGray, gray, cyan, runeEarth);
+		make(consumer, BotaniaBlocks.LOONIUM, green, green, green, green, gray, runeSloth, runeGluttony, runeEnvy, redstoneRoot, pixieDust);
+		make(consumer, BotaniaBlocks.DAFFOMILL, white, white, brown, yellow, runeAir, redstoneRoot);
+		make(consumer, BotaniaBlocks.VINCULOTUS, black, black, purple, purple, green, runeWater, runeSloth, runeLust, redstoneRoot);
+		make(consumer, BotaniaBlocks.SPECTRANTHEMUM, white, white, lightGray, lightGray, cyan, runeEnvy, runeWater, redstoneRoot, pixieDust);
+		make(consumer, BotaniaBlocks.MEDUMONE, brown, brown, gray, gray, runeEarth, redstoneRoot);
+		make(consumer, BotaniaBlocks.MARIMORPHOSIS, gray, yellow, green, red, runeEarth, runeFire, redstoneRoot);
+		make(consumer, BotaniaBlocks.BUBBELL, cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust);
+		make(consumer, BotaniaBlocks.SOLEGNOLIA, brown, brown, red, blue, redstoneRoot);
+		make(consumer, BotaniaBlocks.BERGAMUTE, orange, green, green, redstoneRoot);
+		make(consumer, BotaniaBlocks.LABELLIA, yellow, yellow, blue, white, black, runeAutumn, redstoneRoot, pixieDust);
 
-		make(consumer, BotaniaBlocks.motifDaybloom, yellow, yellow, orange, lightBlue);
-		make(consumer, BotaniaBlocks.motifNightshade, black, black, purple, gray);
+		make(consumer, BotaniaBlocks.DAYBLOOM_MOTIF, yellow, yellow, orange, lightBlue);
+		make(consumer, BotaniaBlocks.NIGHTSHADE_MOTIF, black, black, purple, gray);
 
 		ItemStack vazkiiHead = new ItemStack(Items.PLAYER_HEAD);
 		vazkiiHead.set(DataComponents.PROFILE,

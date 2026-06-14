@@ -99,7 +99,7 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends BellethornBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.BELLETHORNE_CHIBI, pos, state);
+			super(BotaniaBlockEntities.BELLETHORNE_PETITE, pos, state);
 		}
 
 		@Override

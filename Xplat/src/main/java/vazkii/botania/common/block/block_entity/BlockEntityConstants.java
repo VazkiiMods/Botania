@@ -25,13 +25,14 @@ import java.util.Set;
 
 public final class BlockEntityConstants {
 	public static final Set<BlockEntityType<? extends Wandable>> SELF_WANDABLE_BES = ImmutableSet.of(
-			BotaniaBlockEntities.ALF_PORTAL, BotaniaBlockEntities.ANIMATED_TORCH,
+			BotaniaBlockEntities.ALFHEIM_PORTAL, BotaniaBlockEntities.ANIMATED_TORCH,
 			BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE, BotaniaBlockEntities.CORPOREA_RETAINER,
-			BotaniaBlockEntities.CRAFT_CRATE, BotaniaBlockEntities.ENCHANTER, BotaniaBlockEntities.FOREST_EYE,
-			BotaniaBlockEntities.HOURGLASS, BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.POOL,
-			BotaniaBlockEntities.RUNE_ALTAR, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.TURNTABLE,
-			BotaniaBlockEntities.DAFFOMILL, BotaniaBlockEntities.HOPPERHOCK, BotaniaBlockEntities.HOPPERHOCK_CHIBI,
-			BotaniaBlockEntities.POLLIDISIAC, BotaniaBlockEntities.RANNUNCARPUS, BotaniaBlockEntities.RANNUNCARPUS_CHIBI
+			BotaniaBlockEntities.CRAFTY_CRATE, BotaniaBlockEntities.MANA_ENCHANTER,
+			BotaniaBlockEntities.EYE_OF_THE_ANCIENTS, BotaniaBlockEntities.HOVERING_HOURGLASS,
+			BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.MANA_POOL, BotaniaBlockEntities.RUNIC_ALTAR,
+			BotaniaBlockEntities.MANA_SPREADER, BotaniaBlockEntities.SPREADER_TURNTABLE, BotaniaBlockEntities.DAFFOMILL,
+			BotaniaBlockEntities.HOPPERHOCK, BotaniaBlockEntities.HOPPERHOCK_PETITE, BotaniaBlockEntities.POLLIDISIAC,
+			BotaniaBlockEntities.RANNUNCARPUS, BotaniaBlockEntities.RANNUNCARPUS_PETITE
 	);
 
 	public static final Set<BlockEntityType<? extends WandBindable>> SELF_WAND_BINDABLE_BES = ImmutableSet.of(
@@ -42,46 +43,49 @@ public final class BlockEntityConstants {
 			BotaniaBlockEntities.SHULK_ME_NOT, BotaniaBlockEntities.SPECTROLUS,
 
 			// functional flowers
-			BotaniaBlockEntities.AGRICARNATION, BotaniaBlockEntities.AGRICARNATION_CHIBI,
-			BotaniaBlockEntities.BELLETHORNE, BotaniaBlockEntities.BELLETHORNE_CHIBI, BotaniaBlockEntities.BUBBELL,
-			BotaniaBlockEntities.BUBBELL_CHIBI, BotaniaBlockEntities.CLAYCONIA, BotaniaBlockEntities.CLAYCONIA_CHIBI,
+			BotaniaBlockEntities.AGRICARNATION, BotaniaBlockEntities.AGRICARNATION_PETITE,
+			BotaniaBlockEntities.BELLETHORNE, BotaniaBlockEntities.BELLETHORNE_PETITE, BotaniaBlockEntities.BUBBELL,
+			BotaniaBlockEntities.BUBBELL_PETITE, BotaniaBlockEntities.CLAYCONIA, BotaniaBlockEntities.CLAYCONIA_PETITE,
 			BotaniaBlockEntities.DAFFOMILL, BotaniaBlockEntities.DREADTHORN, BotaniaBlockEntities.EXOFLAME,
 			BotaniaBlockEntities.FALLEN_KANADE, BotaniaBlockEntities.HEISEI_DREAM, BotaniaBlockEntities.HOPPERHOCK,
-			BotaniaBlockEntities.HOPPERHOCK_CHIBI, BotaniaBlockEntities.HYACIDUS, BotaniaBlockEntities.JADED_AMARANTHUS,
-			BotaniaBlockEntities.JIYUULIA, BotaniaBlockEntities.JIYUULIA_CHIBI, BotaniaBlockEntities.LABELLIA,
-			BotaniaBlockEntities.LOONIUM, BotaniaBlockEntities.MARIMORPHOSIS, BotaniaBlockEntities.MARIMORPHOSIS_CHIBI,
-			BotaniaBlockEntities.MEDUMONE, BotaniaBlockEntities.ORECHID, BotaniaBlockEntities.ORECHID_IGNEM,
-			BotaniaBlockEntities.POLLIDISIAC, BotaniaBlockEntities.RANNUNCARPUS,
-			BotaniaBlockEntities.RANNUNCARPUS_CHIBI, BotaniaBlockEntities.SPECTRANTHEMUM,
-			BotaniaBlockEntities.TANGLEBERRIE, BotaniaBlockEntities.TANGLEBERRIE_CHIBI, BotaniaBlockEntities.TIGERSEYE,
+			BotaniaBlockEntities.HOPPERHOCK_PETITE, BotaniaBlockEntities.HYACIDUS,
+			BotaniaBlockEntities.JADED_AMARANTHUS, BotaniaBlockEntities.JIYUULIA, BotaniaBlockEntities.JIYUULIA_PETITE,
+			BotaniaBlockEntities.LABELLIA, BotaniaBlockEntities.LOONIUM, BotaniaBlockEntities.MARIMORPHOSIS,
+			BotaniaBlockEntities.MARIMORPHOSIS_PETITE, BotaniaBlockEntities.MEDUMONE, BotaniaBlockEntities.ORECHID,
+			BotaniaBlockEntities.ORECHID_IGNEM, BotaniaBlockEntities.POLLIDISIAC, BotaniaBlockEntities.RANNUNCARPUS,
+			BotaniaBlockEntities.RANNUNCARPUS_PETITE, BotaniaBlockEntities.SPECTRANTHEMUM,
+			BotaniaBlockEntities.TANGLEBERRIE, BotaniaBlockEntities.TANGLEBERRIE_PETITE, BotaniaBlockEntities.TIGERSEYE,
 			BotaniaBlockEntities.VINCULOTUS,
 
 			// other
-			BotaniaBlockEntities.LIGHT_RELAY, BotaniaBlockEntities.SPREADER
+			BotaniaBlockEntities.LUMINIZER, BotaniaBlockEntities.MANA_SPREADER
 	);
 
 	public static final Set<BlockEntityType<? extends PhantomInkableBlock>> SELF_PHANTOM_INKABLE_BES = ImmutableSet.of(
-			BotaniaBlockEntities.LIGHT_RELAY, BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE
+			BotaniaBlockEntities.LUMINIZER, BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE
 	);
 
 	public static final Set<BlockEntityType<? extends ManaTrigger>> SELF_MANA_TRIGGER_BES = ImmutableSet.of(
-			BotaniaBlockEntities.ANIMATED_TORCH, BotaniaBlockEntities.HOURGLASS, BotaniaBlockEntities.PRISM
+			BotaniaBlockEntities.ANIMATED_TORCH, BotaniaBlockEntities.HOVERING_HOURGLASS,
+			BotaniaBlockEntities.MANA_PRISM
 	);
 
 	public static final Set<BlockEntityType<? extends ManaReceiver>> SELF_MANA_RECEIVER_BES = ImmutableSet.of(
-			BotaniaBlockEntities.AVATAR, BotaniaBlockEntities.BREWERY, BotaniaBlockEntities.DISTRIBUTOR, BotaniaBlockEntities.ENCHANTER,
-			BotaniaBlockEntities.POOL, BotaniaBlockEntities.FLUXFIELD, BotaniaBlockEntities.RUNE_ALTAR,
-			BotaniaBlockEntities.SPAWNER_CLAW, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.TERRA_PLATE
+			BotaniaBlockEntities.AVATAR, BotaniaBlockEntities.BOTANICAL_BREWERY, BotaniaBlockEntities.MANA_SPLITTER,
+			BotaniaBlockEntities.MANA_ENCHANTER, BotaniaBlockEntities.MANA_POOL, BotaniaBlockEntities.MANA_FLUXFIELD,
+			BotaniaBlockEntities.RUNIC_ALTAR, BotaniaBlockEntities.LIFE_IMBUER, BotaniaBlockEntities.MANA_SPREADER,
+			BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE
 	);
 
 	public static final Set<BlockEntityType<? extends SparkAttachable>> SELF_SPARK_ATTACHABLE_BES = ImmutableSet.of(
-			BotaniaBlockEntities.ENCHANTER, BotaniaBlockEntities.POOL, BotaniaBlockEntities.TERRA_PLATE
+			BotaniaBlockEntities.MANA_ENCHANTER, BotaniaBlockEntities.MANA_POOL,
+			BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE
 	);
 
 	public static final Set<BlockEntityType<? extends WorldlyContainer>> SELF_WORLDLY_CONTAINERS = ImmutableSet.of(
-			BotaniaBlockEntities.PRISM, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.HOURGLASS,
-			BotaniaBlockEntities.INCENSE_PLATE, BotaniaBlockEntities.OPEN_CRATE, BotaniaBlockEntities.SPARK_CHANGER,
-			BotaniaBlockEntities.TINY_POTATO
+			BotaniaBlockEntities.MANA_PRISM, BotaniaBlockEntities.MANA_SPREADER,
+			BotaniaBlockEntities.HOVERING_HOURGLASS, BotaniaBlockEntities.INCENSE_PLATE,
+			BotaniaBlockEntities.OPEN_CRATE, BotaniaBlockEntities.SPARK_TINKERER, BotaniaBlockEntities.TINY_POTATO
 	);
 
 	private BlockEntityConstants() {}

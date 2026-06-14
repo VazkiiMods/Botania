@@ -130,7 +130,7 @@ public class FelPumpkinBlock extends BotaniaBlock {
 		if (this.felBlazeFull == null) {
 			this.felBlazeFull = BlockPatternBuilder.start()
 					.aisle("^", "#", "#")
-					.where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.felPumpkin)))
+					.where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.FEL_PUMPKIN)))
 					.where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.IRON_BARS)))
 					.build();
 		}

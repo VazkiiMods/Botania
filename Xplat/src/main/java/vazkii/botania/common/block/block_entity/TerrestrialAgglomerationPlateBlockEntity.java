@@ -70,7 +70,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 							"RLR"
 					}
 			},
-			'P', BotaniaBlocks.terraPlate,
+			'P', BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE,
 			'R', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
 			'0', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
 			'L', PatchouliAPI.get().tagMatcher(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/lapis")))
@@ -89,7 +89,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 	private final RecipeManager.CachedCheck<ProcessingRecipeInput, TerrestrialAgglomerationRecipe> cachedCheck = RecipeManager.createCheck(BotaniaRecipeTypes.TERRA_PLATE_TYPE);
 
 	public TerrestrialAgglomerationPlateBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.TERRA_PLATE, pos, state);
+		super(BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE, pos, state);
 	}
 
 	public static void serverCollectingTick(Level level, BlockPos pos, BlockState state,

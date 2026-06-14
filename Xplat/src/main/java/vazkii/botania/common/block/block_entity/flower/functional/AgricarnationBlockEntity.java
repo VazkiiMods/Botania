@@ -143,7 +143,7 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends AgricarnationBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.AGRICARNATION_CHIBI, pos, state);
+			super(BotaniaBlockEntities.AGRICARNATION_PETITE, pos, state);
 		}
 
 		@Override

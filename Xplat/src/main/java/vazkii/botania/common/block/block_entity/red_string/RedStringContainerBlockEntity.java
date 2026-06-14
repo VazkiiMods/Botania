@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class RedStringContainerBlockEntity extends RedStringBlockEntity {
 	public RedStringContainerBlockEntity(BlockPos pos, BlockState state) {
-		this(BotaniaBlockEntities.RED_STRING_CONTAINER, pos, state);
+		this(BotaniaBlockEntities.RED_STRINGED_CONTAINER, pos, state);
 	}
 
 	protected RedStringContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

@@ -209,7 +209,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return state.getValue(ACTIVE)
-				? createTickerHelper(type, BotaniaBlockEntities.HOURGLASS, HoveringHourglassBlockEntity::commonTick)
+				? createTickerHelper(type, BotaniaBlockEntities.HOVERING_HOURGLASS, HoveringHourglassBlockEntity::commonTick)
 				: null;
 	}
 

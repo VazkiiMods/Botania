@@ -103,7 +103,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 	@Override
 	protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (state.getValue(BotaniaStateProperties.TERRA_PLATE_STATE).isLookingForIngredients()) {
-			level.getBlockEntity(pos, BotaniaBlockEntities.TERRA_PLATE)
+			level.getBlockEntity(pos, BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE)
 					.ifPresent(TerrestrialAgglomerationPlateBlockEntity::tryStartProcessing);
 		} else if (state.getValue(BotaniaStateProperties.TERRA_PLATE_STATE) == TerraPlateState.DONE) {
 			level.setBlock(pos,
@@ -126,12 +126,12 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return switch (state.getValue(BotaniaStateProperties.TERRA_PLATE_STATE)) {
-			case COLLECTING -> createTickerHelper(type, BotaniaBlockEntities.TERRA_PLATE, level.isClientSide()
+			case COLLECTING -> createTickerHelper(type, BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE, level.isClientSide()
 					? TerrestrialAgglomerationPlateBlockEntity::clientCollectingTick
 					: TerrestrialAgglomerationPlateBlockEntity::serverCollectingTick);
 			case DISSIPATING -> level.isClientSide()
 					? null
-					: createTickerHelper(type, BotaniaBlockEntities.TERRA_PLATE,
+					: createTickerHelper(type, BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE,
 							TerrestrialAgglomerationPlateBlockEntity::serverDissipatingTick);
 			default -> null;
 		};
@@ -147,7 +147,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 		return switch (state.getValue(BotaniaStateProperties.TERRA_PLATE_STATE)) {
 			case IDLE -> 0;
 			case DONE -> 15;
-			default -> level.getBlockEntity(pos, BotaniaBlockEntities.TERRA_PLATE)
+			default -> level.getBlockEntity(pos, BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE)
 					.map(TerrestrialAgglomerationPlateBlockEntity::getComparatorLevel)
 					.orElse(0);
 		};

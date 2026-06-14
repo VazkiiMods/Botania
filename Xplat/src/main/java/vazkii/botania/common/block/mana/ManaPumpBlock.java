@@ -102,7 +102,7 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.PUMP, ManaPumpBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.MANA_PUMP, ManaPumpBlockEntity::commonTick);
 	}
 
 	@Override

@@ -72,7 +72,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 	@Override
 	public BlockState getDisplayBlockState() {
-		return BotaniaBlocks.manaPool.defaultBlockState();
+		return BotaniaBlocks.MANA_POOL.defaultBlockState();
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockPos pumpPos = pos.relative(dir);
 			BlockState pumpState = level().getBlockState(pumpPos);
-			if (pumpState.is(BotaniaBlocks.pump)
+			if (pumpState.is(BotaniaBlocks.MANA_PUMP)
 					&& level().getBlockEntity(pumpPos) instanceof ManaPumpBlockEntity pump) {
 				BlockPos poolPos = pumpPos.relative(dir);
 				var receiver = ManaReceiver.LOOKUP.find(level(), poolPos, dir.getOpposite());

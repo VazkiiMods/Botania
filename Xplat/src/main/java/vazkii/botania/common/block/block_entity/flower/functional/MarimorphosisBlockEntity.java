@@ -65,7 +65,7 @@ public class MarimorphosisBlockEntity extends OrechidBlockEntity {
 
 	public static class Mini extends MarimorphosisBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.MARIMORPHOSIS_CHIBI, pos, state);
+			super(BotaniaBlockEntities.MARIMORPHOSIS_PETITE, pos, state);
 		}
 
 		@Override

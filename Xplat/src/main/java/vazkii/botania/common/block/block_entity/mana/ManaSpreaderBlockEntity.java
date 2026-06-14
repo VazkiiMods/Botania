@@ -139,7 +139,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 	private boolean invalidTentativeBurst;
 
 	public ManaSpreaderBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.SPREADER, pos, state, true);
+		super(BotaniaBlockEntities.MANA_SPREADER, pos, state, true);
 	}
 
 	@Override

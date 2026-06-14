@@ -163,7 +163,7 @@ public final class SkyblockWorldEvents {
 			//noinspection DataFlowIssue (null NBT was already filtered above)
 			if ("light".equals(info.nbt().getString("metadata"))) {
 				BlockPos lightPos = startPoint.offset(info.pos());
-				if (level.setBlockAndUpdate(lightPos, BotaniaBlocks.manaFlame.defaultBlockState())
+				if (level.setBlockAndUpdate(lightPos, BotaniaBlocks.MANA_FLAME.defaultBlockState())
 						&& level.getBlockEntity(lightPos) instanceof ManaFlameBlockEntity flame) {
 					int r = 70 + level.getRandom().nextInt(185);
 					int g = 70 + level.getRandom().nextInt(185);

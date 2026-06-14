@@ -107,7 +107,7 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.BREWERY, BotanicalBreweryBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.BOTANICAL_BREWERY, BotanicalBreweryBlockEntity::commonTick);
 	}
 
 }

@@ -36,7 +36,7 @@ public class RedStringSpooferBlock extends RedStringBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.RED_STRING_RELAY, RedStringSpooferBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.RED_STRINGED_SPOOFER, RedStringSpooferBlockEntity::commonTick);
 	}
 
 }

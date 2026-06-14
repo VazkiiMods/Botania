@@ -41,7 +41,7 @@ public class CellularBlockEntity extends BlockEntity {
 	private BlockPos validCoords;
 
 	public CellularBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.CELL_BLOCK, pos, state);
+		super(BotaniaBlockEntities.CELLULAR_BLOCK, pos, state);
 	}
 
 	public void setGeneration(int gen) {
@@ -50,7 +50,7 @@ public class CellularBlockEntity extends BlockEntity {
 
 	public void setNextGeneration(DandelifeonBlockEntity flower, int gen) {
 		nextGeneration = gen;
-		getLevel().scheduleTick(getBlockPos(), BotaniaBlocks.cellBlock, 1);
+		getLevel().scheduleTick(getBlockPos(), BotaniaBlocks.CELLULAR_BLOCK, 1);
 		if (!ticked) {
 			claim(flower);
 			ticked = true;

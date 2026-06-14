@@ -32,13 +32,13 @@ public class LuminizerForkBlock extends LuminizerBlock {
 			testPos.setWithOffset(blockPos, 0, i, 0);
 
 			BlockState testState = level.getBlockState(testPos);
-			if (testState.is(BotaniaBlocks.animatedTorch)) {
+			if (testState.is(BotaniaBlocks.ANIMATED_TORCH)) {
 				torchPos = testPos.immutable();
 				break;
 			}
 		}
 
-		if (torchPos != null && level.getBlockState(torchPos).is(BotaniaBlocks.animatedTorch)) {
+		if (torchPos != null && level.getBlockState(torchPos).is(BotaniaBlocks.ANIMATED_TORCH)) {
 			Direction side = level.getBlockState(torchPos).getValue(AnimatedTorchBlock.FACING);
 			testPos.set(blockPos);
 			for (int i = 1; i < LuminizerBlockEntity.MAX_DIST; i++) {

@@ -39,12 +39,13 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
 
-		normal(consumer, id("livingrock"), StateIngredients.of(Blocks.STONE), BotaniaBlocks.livingrock.defaultBlockState());
+		normal(consumer, id("livingrock"), StateIngredients.of(Blocks.STONE), BotaniaBlocks.LIVINGROCK.defaultBlockState());
 		stateCopying(consumer, id("livingwood_log"),
 				StateIngredients.ofExcept(
 						StateIngredients.of(BlockTags.LOGS),
-						StateIngredients.anyOf(StateIngredients.of(BotaniaBlocks.livingwoodLog))),
-				BotaniaBlocks.livingwoodLog);
+						StateIngredients.anyOf(StateIngredients.of(BotaniaBlocks.LIVINGWOOD_LOG))),
+				BotaniaBlocks.LIVINGWOOD_LOG
+		);
 
 		normal(consumer, id("cobblestone"), StateIngredients.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState());
 		withFunction(consumer, id("end_stone_to_cobbled_deepslate"), StateIngredients.of(Blocks.END_STONE),
@@ -52,7 +53,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		normal(consumer, id("sand"), StateIngredients.of(Blocks.SOUL_SAND), Blocks.SAND.defaultBlockState());
 		normal(consumer, id("packed_ice"), StateIngredients.of(Blocks.ICE), Blocks.PACKED_ICE.defaultBlockState());
 		normal(consumer, id("blue_ice"), StateIngredients.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.defaultBlockState());
-		normal(consumer, id("obsidian"), StateIngredients.of(BotaniaBlocks.blazeBlock), Blocks.OBSIDIAN.defaultBlockState());
+		normal(consumer, id("obsidian"), StateIngredients.of(BotaniaBlocks.BLAZE_MESH), Blocks.OBSIDIAN.defaultBlockState());
 		normal(consumer, id("snow_block"), StateIngredients.of(Blocks.WATER), Blocks.SNOW_BLOCK.defaultBlockState());
 		normal(consumer, id("calcite"), StateIngredients.of(Blocks.DRIPSTONE_BLOCK), Blocks.CALCITE.defaultBlockState());
 	}

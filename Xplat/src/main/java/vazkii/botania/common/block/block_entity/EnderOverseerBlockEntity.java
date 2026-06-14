@@ -27,7 +27,7 @@ import java.util.List;
 
 public class EnderOverseerBlockEntity extends BlockEntity {
 	public EnderOverseerBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.ENDER_EYE, pos, state);
+		super(BotaniaBlockEntities.ENDER_OVERSEER, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, EnderOverseerBlockEntity self) {

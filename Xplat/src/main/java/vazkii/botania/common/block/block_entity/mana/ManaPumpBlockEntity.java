@@ -28,7 +28,7 @@ public class ManaPumpBlockEntity extends BlockEntity {
 	private int lastComparator = 0;
 
 	public ManaPumpBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.PUMP, pos, state);
+		super(BotaniaBlockEntities.MANA_PUMP, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, ManaPumpBlockEntity self) {

@@ -24,6 +24,6 @@ public class AbstractMinecartMixin {
 	@Inject(at = @At("RETURN"), method = "tick")
 	private void onTick(CallbackInfo ci) {
 		AbstractMinecart self = (AbstractMinecart) (Object) this;
-		((SpectralRailBlock) BotaniaBlocks.ghostRail).tickCart(self);
+		((SpectralRailBlock) BotaniaBlocks.SPECTRAL_RAIL).tickCart(self);
 	}
 }

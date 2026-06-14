@@ -123,7 +123,7 @@ public class TangleberrieBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends TangleberrieBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(BotaniaBlockEntities.TANGLEBERRIE_CHIBI, pos, state);
+			super(BotaniaBlockEntities.TANGLEBERRIE_PETITE, pos, state);
 		}
 
 		@Override

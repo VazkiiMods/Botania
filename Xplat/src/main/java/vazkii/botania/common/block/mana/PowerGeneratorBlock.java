@@ -37,7 +37,7 @@ public class PowerGeneratorBlock extends BotaniaBlock implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide()) {
-			return createTickerHelper(type, BotaniaBlockEntities.FLUXFIELD, PowerGeneratorBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.MANA_FLUXFIELD, PowerGeneratorBlockEntity::serverTick);
 		}
 		return null;
 	}

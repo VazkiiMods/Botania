@@ -42,7 +42,7 @@ public class BellowsBlockEntity extends BlockEntity {
 	public float moving;
 
 	public BellowsBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.BELLOWS, pos, state);
+		super(BotaniaBlockEntities.MANATIDE_BELLOWS, pos, state);
 	}
 
 	public void interact() {

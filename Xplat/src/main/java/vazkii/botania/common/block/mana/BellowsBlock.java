@@ -94,7 +94,7 @@ public class BellowsBlock extends BotaniaBlock implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.BELLOWS, BellowsBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.MANATIDE_BELLOWS, BellowsBlockEntity::commonTick);
 	}
 
 	@Override

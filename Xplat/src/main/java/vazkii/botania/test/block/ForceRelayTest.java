@@ -34,7 +34,7 @@ public class ForceRelayTest {
 			var activateFirstPiston = new BlockPos(4, 2, 0);
 			helper.setBlock(activateFirstPiston, Blocks.REDSTONE_BLOCK);
 		}).thenExecuteAfter(4, () -> {
-			helper.assertBlockPresent(BotaniaBlocks.pistonRelay, initialRelay.south());
+			helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, initialRelay.south());
 			helper.assertBlockPresent(Blocks.ANDESITE, initialAndesite.south());
 			helper.assertBlockPresent(Blocks.SLIME_BLOCK, initialSlimeUnderAndesite.south());
 			helper.assertBlockPresent(Blocks.DIORITE, initialDiorite.south());
@@ -44,7 +44,7 @@ public class ForceRelayTest {
 			helper.setBlock(activateSecondPiston, Blocks.REDSTONE_BLOCK);
 		}).thenExecuteAfter(4, () -> {
 			var relayPos = initialRelay.south().west();
-			helper.assertBlockPresent(BotaniaBlocks.pistonRelay, relayPos);
+			helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, relayPos);
 			helper.assertBlockPresent(Blocks.ANDESITE, initialAndesite.south().west());
 			helper.assertBlockPresent(Blocks.SLIME_BLOCK, initialSlimeUnderAndesite.south().west());
 			helper.assertBlockPresent(Blocks.DIORITE, initialDiorite.south().west());
@@ -68,7 +68,7 @@ public class ForceRelayTest {
 			helper.pullLever(lever);
 		}).thenExecuteAfter(4, () -> {
 			var relayAfter = new BlockPos(0, 2, 1);
-			helper.assertBlockPresent(BotaniaBlocks.pistonRelay, relayAfter);
+			helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, relayAfter);
 			helper.assertBlockPresent(Blocks.COBBLESTONE, initialCobble);
 			TestingUtil.assertEquals(data.mapping.get(helper.absolutePos(relayAfter)),
 					helper.absolutePos(initialCobble),
@@ -92,7 +92,7 @@ public class ForceRelayTest {
 				.thenExecuteAfter(4, () -> {
 					// relay should have moved, but not the bound block
 					final var relayAfter = initialRelay.south();
-					helper.assertBlockPresent(BotaniaBlocks.pistonRelay, relayAfter);
+					helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, relayAfter);
 					helper.assertBlockPresent(Blocks.POLISHED_GRANITE, initialGranite);
 					TestingUtil.assertEquals(data.mapping.get(helper.absolutePos(relayAfter)),
 							helper.absolutePos(initialGranite),
@@ -104,7 +104,7 @@ public class ForceRelayTest {
 				.thenExecuteAfter(20, () -> {
 					// piston should have retracted by now, nothing else should have changed
 					final var relayAfter = initialRelay.south();
-					helper.assertBlockPresent(BotaniaBlocks.pistonRelay, relayAfter);
+					helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, relayAfter);
 					helper.assertBlockPresent(Blocks.POLISHED_GRANITE, initialGranite);
 					TestingUtil.assertEquals(data.mapping.get(helper.absolutePos(relayAfter)),
 							helper.absolutePos(initialGranite),
@@ -117,7 +117,7 @@ public class ForceRelayTest {
 				.thenExecuteAfter(4, () -> {
 					// relay should have moved back and also moved the bound block
 					final var graniteAfter = initialGranite.north();
-					helper.assertBlockPresent(BotaniaBlocks.pistonRelay, initialRelay);
+					helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, initialRelay);
 					helper.assertBlockPresent(Blocks.POLISHED_GRANITE, graniteAfter);
 					TestingUtil.assertEquals(data.mapping.get(helper.absolutePos(initialRelay)),
 							helper.absolutePos(graniteAfter),
@@ -147,8 +147,8 @@ public class ForceRelayTest {
 					// sticky piston should have moved the block structure with the first relay,
 					// which should have moved the other block structure with the second relay,
 					// which should have moved the andesite block
-					helper.assertBlockPresent(BotaniaBlocks.pistonRelay, initialRelay1.east());
-					helper.assertBlockPresent(BotaniaBlocks.pistonRelay, initialRelay2.east());
+					helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, initialRelay1.east());
+					helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, initialRelay2.east());
 					helper.assertBlockState(initialBoundSlime, BlockState::isAir,
 							() -> "Second slime block structure should have moved, " +
 									"leaving behind an air block at the originally bound location");
@@ -168,8 +168,8 @@ public class ForceRelayTest {
 				})
 				.thenExecuteAfter(24, () -> {
 					// the sticky piston should have retracted by now and everything should have moved back
-					helper.assertBlockPresent(BotaniaBlocks.pistonRelay, initialRelay1);
-					helper.assertBlockPresent(BotaniaBlocks.pistonRelay, initialRelay2);
+					helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, initialRelay1);
+					helper.assertBlockPresent(BotaniaBlocks.FORCE_RELAY, initialRelay2);
 					helper.assertBlockPresent(Blocks.SLIME_BLOCK, initialBoundSlime);
 					helper.assertBlockPresent(Blocks.POLISHED_ANDESITE, initialAndesite);
 					TestingUtil.assertEquals(data.mapping.get(helper.absolutePos(initialRelay1)),

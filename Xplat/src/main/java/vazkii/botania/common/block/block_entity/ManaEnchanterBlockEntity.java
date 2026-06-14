@@ -126,7 +126,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			PATTERN,
-			'P', BotaniaBlocks.manaPylon,
+			'P', BotaniaBlocks.MANA_PYLON,
 			'L', Blocks.LAPIS_BLOCK,
 			'B', OBSIDIAN_MATCHER.get(),
 			'0', OBSIDIAN_MATCHER.get(),
@@ -135,11 +135,11 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 
 	private static final Supplier<IMultiblock> FORMED_MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			PATTERN,
-			'P', BotaniaBlocks.manaPylon,
-			'L', BotaniaBlocks.enchanter,
+			'P', BotaniaBlocks.MANA_PYLON,
+			'L', BotaniaBlocks.MANA_ENCHANTER,
 			'B', OBSIDIAN_MATCHER.get(),
 			'0', OBSIDIAN_MATCHER.get(),
-			'F', PatchouliAPI.get().predicateMatcher(BotaniaBlocks.whiteFlower, state -> state.is(BotaniaTags.Blocks.ENCHANTER_FLOWERS))
+			'F', PatchouliAPI.get().predicateMatcher(BotaniaBlocks.WHITE_MYSTICAL_FLOWER, state -> state.is(BotaniaTags.Blocks.ENCHANTER_FLOWERS))
 	));
 
 	public State stage = State.IDLE;
@@ -163,7 +163,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 	}
 
 	public ManaEnchanterBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.ENCHANTER, pos, state);
+		super(BotaniaBlockEntities.MANA_ENCHANTER, pos, state);
 	}
 
 	@Override
@@ -304,7 +304,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 					self.manaRequired = -1;
 					self.mana = 0;
 
-					level.blockEvent(worldPosition, BotaniaBlocks.enchanter, CRAFT_EFFECT_EVENT, 0);
+					level.blockEvent(worldPosition, BotaniaBlocks.MANA_ENCHANTER, CRAFT_EFFECT_EVENT, 0);
 					self.advanceStage();
 				}
 			}
@@ -530,7 +530,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 			}
 
 			if (!level.isClientSide()) {
-				level.setBlockAndUpdate(pos, BotaniaBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
+				level.setBlockAndUpdate(pos, BotaniaBlocks.MANA_ENCHANTER.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
 				level.playSound(null, pos, BotaniaSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
 				PlayerHelper.grantCriterion((ServerPlayer) player, botaniaRL("main/enchanter_make"), "code_triggered");
 			} else {

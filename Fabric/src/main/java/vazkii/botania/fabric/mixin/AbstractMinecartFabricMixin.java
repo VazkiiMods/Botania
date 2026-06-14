@@ -24,9 +24,9 @@ import vazkii.botania.common.block.SpectralRailBlock;
 public class AbstractMinecartFabricMixin {
 	@Inject(at = @At("HEAD"), method = "moveAlongTrack")
 	private void handleOnRail(BlockPos pos, BlockState state, CallbackInfo ci) {
-		if (state.is(BotaniaBlocks.ghostRail)) {
+		if (state.is(BotaniaBlocks.SPECTRAL_RAIL)) {
 			AbstractMinecart self = (AbstractMinecart) (Object) this;
-			((SpectralRailBlock) BotaniaBlocks.ghostRail).onMinecartPass(state, self.level(), pos, self);
+			((SpectralRailBlock) BotaniaBlocks.SPECTRAL_RAIL).onMinecartPass(state, self.level(), pos, self);
 		}
 
 	}

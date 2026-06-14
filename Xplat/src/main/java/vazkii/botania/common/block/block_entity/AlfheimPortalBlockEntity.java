@@ -109,10 +109,10 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 				return (blockGetter, pos, state) -> state.is(tag());
 			}
 		}
-		var horizontal = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.X, BotaniaBlocks.livingwoodLog);
-		var vertical = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.Y, BotaniaBlocks.livingwoodLog);
-		var horizontalGlimmer = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.X, BotaniaBlocks.livingwoodLogGlimmering);
-		var verticalGlimmer = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.Y, BotaniaBlocks.livingwoodLogGlimmering);
+		var horizontal = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.X, BotaniaBlocks.LIVINGWOOD_LOG);
+		var vertical = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.Y, BotaniaBlocks.LIVINGWOOD_LOG);
+		var horizontalGlimmer = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.X, BotaniaBlocks.GLIMMERING_LIVINGWOOD_LOG);
+		var verticalGlimmer = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.Y, BotaniaBlocks.GLIMMERING_LIVINGWOOD_LOG);
 
 		return PatchouliAPI.get().makeMultiblock(
 				new String[][] {
@@ -126,7 +126,7 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 				'w', horizontal,
 				'G', verticalGlimmer,
 				'g', horizontalGlimmer,
-				'0', BotaniaBlocks.alfPortal
+				'0', BotaniaBlocks.ELVEN_GATEWAY_CORE
 		);
 	});
 
@@ -158,7 +158,7 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 	private UUID breadPlayer = null;
 
 	public AlfheimPortalBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.ALF_PORTAL, pos, state);
+		super(BotaniaBlockEntities.ALFHEIM_PORTAL, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState blockState, AlfheimPortalBlockEntity self) {
@@ -223,7 +223,7 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 
 		if (self.closeNow) {
 			if (!level.isClientSide()) {
-				level.setBlockAndUpdate(worldPosition, BotaniaBlocks.alfPortal.defaultBlockState());
+				level.setBlockAndUpdate(worldPosition, BotaniaBlocks.ELVEN_GATEWAY_CORE.defaultBlockState());
 			}
 			for (int i = 0; i < 36; i++) {
 				self.blockParticle(state);
@@ -509,7 +509,7 @@ public class AlfheimPortalBlockEntity extends BlockEntity implements Wandable {
 
 	private boolean isValidPylonPosition(BlockPos pos) {
 		return getLevel().hasChunkAt(pos)
-				&& getLevel().getBlockState(pos).is(BotaniaBlocks.naturaPylon)
+				&& getLevel().getBlockState(pos).is(BotaniaBlocks.NATURA_PYLON)
 				&& getLevel().getBlockState(pos.below()).getBlock() instanceof ManaPoolBlock;
 	}
 

@@ -197,9 +197,9 @@ public class ForgeCommonInitializer {
 		DefaultCorporeaMatchers.init();
 		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.ELVEN_GATEWAY_CORE), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.MANA_ENCHANTER), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(botaniaRL("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
@@ -318,7 +318,7 @@ public class ForgeCommonInitializer {
 
 		int blazeTime = 2400 * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
 		bus.addListener((FurnaceFuelBurnTimeEvent e) -> {
-			if (e.getItemStack().is(BotaniaBlocks.blazeBlock.asItem())) {
+			if (e.getItemStack().is(BotaniaBlocks.BLAZE_MESH.asItem())) {
 				e.setBurnTime(blazeTime);
 			}
 		});
@@ -589,7 +589,8 @@ public class ForgeCommonInitializer {
 		// these two blocks implement the capability directly
 		e.registerBlock(edibleBlockWithEffectCapability,
 				(level, pos, state, blockEntity, context) -> (EdibleBlockWithEffects) state.getBlock(),
-				BotaniaBlocks.mutatedGrass, BotaniaBlocks.infusedGrass);
+				BotaniaBlocks.MUTATED_GRASS_BLOCK, BotaniaBlocks.INFUSED_GRASS_BLOCK
+		);
 
 		// TODO: is there any way to identify all BlockEntityTypes for AbstractFurnaceBlock subclasses?
 		BlockCapability<ExoflameHeatable, Void> exoflameHeatableBlockCap =
@@ -609,9 +610,10 @@ public class ForgeCommonInitializer {
 				BotaniaForgeCapabilities.getBlockApiLookupById(ManaCollisionGhost.LOOKUP);
 		e.registerBlock(manaCollisionGhostBlockCap,
 				(level, pos, state, blockEntity, context) -> (ManaCollisionGhost) state.getBlock(),
-				BotaniaBlocks.manaDetector,
-				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
-				BotaniaBlocks.prism, BotaniaBlocks.tinyPlanet);
+				BotaniaBlocks.MANA_DETECTOR,
+				BotaniaBlocks.ABSTRUSE_PLATFORM, BotaniaBlocks.INFRANGIBLE_PLATFORM, BotaniaBlocks.SPECTRAL_PLATFORM,
+				BotaniaBlocks.MANA_PRISM, BotaniaBlocks.TINY_PLANET
+		);
 
 		BlockCapability<ManaReceiver, Direction> manaReceiverBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(ManaReceiver.LOOKUP);
@@ -619,7 +621,8 @@ public class ForgeCommonInitializer {
 				manaReceiverBlockCap, type, (blockEntity, context) -> blockEntity));
 		e.registerBlock(manaReceiverBlockCap,
 				(level, pos, state, blockEntity, context) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
-				BotaniaBlocks.manaVoid);
+				BotaniaBlocks.MANA_VOID
+		);
 
 		BlockCapability<SparkAttachable, Void> sparkAttachableBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
@@ -632,20 +635,24 @@ public class ForgeCommonInitializer {
 				manaTriggerBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(manaTriggerBlockCap,
 				(level, pos, state, blockEntity, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.canopyDrum, BotaniaBlocks.wildDrum, BotaniaBlocks.gatheringDrum);
+				BotaniaBlocks.DRUM_OF_THE_CANOPY, BotaniaBlocks.DRUM_OF_THE_WILD, BotaniaBlocks.DRUM_OF_THE_GATHERING
+		);
 		e.registerBlock(manaTriggerBlockCap,
 				(level, pos, state, blockEntity, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.manaBomb);
+				BotaniaBlocks.MANASTORM_CHARGE
+		);
 		e.registerBlock(manaTriggerBlockCap,
 				(level, pos, state, blockEntity, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.manaDetector);
+				BotaniaBlocks.MANA_DETECTOR
+		);
 
 		BlockCapability<Wandable, Direction> wandableBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(Wandable.LOOKUP);
 		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				wandableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(wandableBlockCap, ForceRelayBlock::createWandable,
-				BotaniaBlocks.pistonRelay);
+				BotaniaBlocks.FORCE_RELAY
+		);
 		e.registerBlock(wandableBlockCap, ManaEnchanterBlockEntity::createLapisBlockWandable,
 				Blocks.LAPIS_BLOCK);
 
@@ -654,21 +661,22 @@ public class ForgeCommonInitializer {
 		BlockEntityConstants.SELF_WAND_BINDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				wandBindableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(wandBindableBlockCap, ForceRelayBlock::createWandBindable,
-				BotaniaBlocks.pistonRelay);
+				BotaniaBlocks.FORCE_RELAY
+		);
 
 		BlockCapability<PhantomInkableBlock, Void> phantomInkableBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(PhantomInkableBlock.LOOKUP);
 		BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				phantomInkableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 
-		Stream.of(BotaniaBlockEntities.RED_STRING_CONTAINER, BotaniaBlockEntities.RED_STRING_DISPENSER)
+		Stream.of(BotaniaBlockEntities.RED_STRINGED_CONTAINER, BotaniaBlockEntities.RED_STRINGED_DISPENSER)
 				.forEach(blockEntityType -> e.registerBlockEntity(
 						Capabilities.ItemHandler.BLOCK, blockEntityType, new RedStringContainerCapProvider()));
 
 		BlockEntityConstants.SELF_WORLDLY_CONTAINERS.forEach(blockEntityType -> e.registerBlockEntity(
 				Capabilities.ItemHandler.BLOCK, blockEntityType, SidedInvWrapper::new));
 
-		e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BotaniaBlockEntities.FLUXFIELD,
+		e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BotaniaBlockEntities.MANA_FLUXFIELD,
 				// we only provide a view of the energy level, no interaction allowed
 				(gen, context) -> new IEnergyStorage() {
 					@Override

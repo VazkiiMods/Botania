@@ -37,7 +37,7 @@ public class PowerGeneratorBlockEntity extends BlockEntity implements ManaReceiv
 	private int energy = 0;
 
 	public PowerGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.FLUXFIELD, pos, state);
+		super(BotaniaBlockEntities.MANA_FLUXFIELD, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, PowerGeneratorBlockEntity self) {

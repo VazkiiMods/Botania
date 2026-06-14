@@ -34,7 +34,7 @@ public class ManaPylonBlock extends PylonBlock {
 		super.clientTick(level, pos, state, self);
 
 		if (self.activated && self.centerPos != null) {
-			if (!level.getBlockState(self.centerPos).is(BotaniaBlocks.enchanter)) {
+			if (!level.getBlockState(self.centerPos).is(BotaniaBlocks.MANA_ENCHANTER)) {
 				self.activated = false;
 				return;
 			}

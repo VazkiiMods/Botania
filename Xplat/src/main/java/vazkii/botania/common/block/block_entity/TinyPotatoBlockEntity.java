@@ -143,7 +143,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 			boolean manyTater = false;
 			for (int i = 0; i < getContainerSize(); i++) {
 				ItemStack otherStack = getItem(i);
-				if (!otherStack.isEmpty() && otherStack.is(BotaniaBlocks.tinyPotato.asItem())) {
+				if (!otherStack.isEmpty() && otherStack.is(BotaniaBlocks.TINY_POTATO.asItem())) {
 					if (tater.isEmpty()) {
 						tater = otherStack;
 					} else {
@@ -319,7 +319,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 
 	@Override
 	public Component getName() {
-		return name != null ? name : BotaniaBlocks.tinyPotato.getName();
+		return name != null ? name : BotaniaBlocks.TINY_POTATO.getName();
 	}
 
 	@Nullable

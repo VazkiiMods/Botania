@@ -58,7 +58,7 @@ public class BoreLens extends Lens {
 		ItemStack sourceLens = burst.getSourceLens();
 		boolean canWarp = warpItems || sourceLens.is(BotaniaItems.lensWarp);
 
-		if (canWarp && (state.is(BotaniaBlocks.pistonRelay) || state.is(Blocks.PISTON) || state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
+		if (canWarp && (state.is(BotaniaBlocks.FORCE_RELAY) || state.is(Blocks.PISTON) || state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
 			return false;
 		}
 
