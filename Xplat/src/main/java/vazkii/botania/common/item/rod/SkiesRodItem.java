@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -59,15 +58,15 @@ public class SkiesRodItem extends Item {
 	private static final int FALL_MULTIPLIER = 3;
 	private static final int MAX_COUNTER = FLY_TIME * FALL_MULTIPLIER;
 	private static final int COST = 350;
-	public static final int AVATAR_COOLDOWN = 20;
+	private static final int AVATAR_COOLDOWN = 20;
 
 	public SkiesRodItem(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity ent, int slot, boolean active) {
-		if (ent instanceof Player player) {
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean active) {
+		if (entity instanceof Player player) {
 			boolean preventingDamage = getFlyCounter(stack) > 0;
 			boolean held = player.getMainHandItem() == stack || player.getOffhandItem() == stack;
 
@@ -98,11 +97,12 @@ public class SkiesRodItem extends Item {
 						player.gameEvent(GameEvent.FLAP);
 					}
 					for (int i = 0; i < 5; i++) {
-						WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-						world.addParticle(data, player.getX(), player.getY(), player.getZ(),
-								0.2F * (float) (Math.random() - 0.5),
-								-0.01F * (float) Math.random(),
-								0.2F * (float) (Math.random() - 0.5));
+						WispParticleData data = WispParticleData.wisp(0.35f + level.getRandom().nextFloat() * 0.1F, 0.25F, 0.25F, 0.25F);
+						level.addParticle(data, player.getX(), player.getY(), player.getZ(),
+								0.2 * (level.getRandom().nextDouble() - 0.5),
+								-0.01 * level.getRandom().nextDouble(),
+								0.2 * (level.getRandom().nextDouble() - 0.5)
+						);
 					}
 				}
 
@@ -132,18 +132,18 @@ public class SkiesRodItem extends Item {
 	@Override
 	public int getBarColor(ItemStack stack) {
 		float frac = 1 - (getFlyCounter(stack) / (float) MAX_COUNTER);
-		return Mth.hsvToRgb(frac / 3.0F, 1.0F, 1.0F);
+		return Mth.hsvToRgb(frac / 3.0f, 1, 1);
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		int fly = getFlyCounter(stack);
 		if (fly == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 			setFlying(stack, true);
 			player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
+			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 		}
 
 		return InteractionResultHolder.pass(stack);
@@ -167,28 +167,31 @@ public class SkiesRodItem extends Item {
 
 	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(ServerLevel world, BlockPos pos, ManaReceiver receiver) {
-			long gameTime = world.getGameTime();
+		public void onAvatarUpdate(ServerLevel level, BlockPos pos, ManaReceiver receiver) {
+			long gameTime = level.getGameTime();
 			ActivationTimes activationTimes = new ActivationTimes(rod.get(BotaniaDataComponents.LAST_ACTIVATION_TIMES),
 					gameTime - AVATAR_COOLDOWN);
 
 			if (receiver.getCurrentMana() >= COST && avatar.isEnabled()) {
 				AABB aabb = MathHelper.inflateBoxAround(pos, 5, 3);
-				List<ServerPlayer> players = world.getPlayers(
+				List<ServerPlayer> players = level.getPlayers(
 						player -> player.canBeSeenByAnyone() && player.getBoundingBox().intersects(aabb));
-				for (Player p : players) {
-					if (!p.isShiftKeyDown() && activationTimes.canActivate(p.getUUID())
+				for (Player player : players) {
+					if (!player.isShiftKeyDown() && activationTimes.canActivate(player.getUUID())
 							&& receiver.getCurrentMana() >= COST) {
-						if (p.getDeltaMovement().lengthSqr() > 0.2 * 0.2
-								&& p.getDeltaMovement().lengthSqr() < 5 * 5 && p.isFallFlying()) {
-							doAvatarElytraBoost(p, world);
-							doAvatarMiscEffects(p, receiver);
-							activationTimes.setActivationTime(p.getUUID(), gameTime);
-						} else if (p.getDeltaMovement().y() > 0.3 && p.getDeltaMovement().y() < 2
-								&& !p.isFallFlying()) {
-							doAvatarJump(p, world);
-							doAvatarMiscEffects(p, receiver);
-							avatar.markForPersisting();
+						if (player.isFallFlying()) {
+							if (player.getDeltaMovement().lengthSqr() > 0.2 * 0.2
+									&& player.getDeltaMovement().lengthSqr() < 5 * 5 && player.isFallFlying()) {
+								doAvatarElytraBoost(player, level);
+								doAvatarMiscEffects(player, receiver);
+								activationTimes.setActivationTime(player.getUUID(), gameTime);
+							}
+						} else {
+							if (player.getDeltaMovement().y() > 0.3 && player.getDeltaMovement().y() < 2) {
+								doAvatarJump(player, level);
+								doAvatarMiscEffects(player, receiver);
+								avatar.markForPersisting();
+							}
 						}
 					}
 				}
@@ -279,33 +282,32 @@ public class SkiesRodItem extends Item {
 		}
 	}
 
-	public static void doAvatarElytraBoost(Player p, Level world) {
-		Vec3 lookDir = p.getLookAngle();
-		double mult = 1.25 * Math.pow(Math.E, -0.5 * p.getDeltaMovement().length());
-		p.setDeltaMovement(p.getDeltaMovement().x() + lookDir.x() * mult,
-				p.getDeltaMovement().y() + lookDir.y() * mult,
-				p.getDeltaMovement().z() + lookDir.z() * mult);
+	public static void doAvatarElytraBoost(Player player, Level level) {
+		Vec3 lookDir = player.getLookAngle();
+		double mult = 1.25 * Math.pow(Math.E, -0.5 * player.getDeltaMovement().length());
+		player.setDeltaMovement(player.getDeltaMovement().x() + lookDir.x() * mult,
+				player.getDeltaMovement().y() + lookDir.y() * mult,
+				player.getDeltaMovement().z() + lookDir.z() * mult);
 
-		if (!world.isClientSide) {
-			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodUpdatePacket(true));
-			XplatAbstractions.INSTANCE.sendToTracking(p, new AvatarSkiesRodEffectPacket(true, p.getId()));
+		if (!level.isClientSide()) {
+			XplatAbstractions.INSTANCE.sendToPlayer(player, new AvatarSkiesRodUpdatePacket(true));
+			XplatAbstractions.INSTANCE.sendToTracking(player, new AvatarSkiesRodEffectPacket(true, player.getId()));
 		}
 	}
 
-	public static void doAvatarJump(Player p, Level world) {
-		PlayerHelper.setCurrentImpulseImpactPos(p, 3, p);
-		p.setDeltaMovement(p.getDeltaMovement().x(), 2.8, p.getDeltaMovement().z());
+	public static void doAvatarJump(Player player, Level level) {
+		PlayerHelper.setCurrentImpulseImpactPos(player, 3, player);
+		player.setDeltaMovement(player.getDeltaMovement().x(), 2.8, player.getDeltaMovement().z());
 
-		if (!world.isClientSide) {
-			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodUpdatePacket(false));
-			XplatAbstractions.INSTANCE.sendToTracking(p, new AvatarSkiesRodEffectPacket(false, p.getId()));
+		if (!level.isClientSide()) {
+			XplatAbstractions.INSTANCE.sendToPlayer(player, new AvatarSkiesRodUpdatePacket(false));
+			XplatAbstractions.INSTANCE.sendToTracking(player, new AvatarSkiesRodEffectPacket(false, player.getId()));
 		}
 	}
 
-	private static void doAvatarMiscEffects(Player p, ManaReceiver tile) {
-		p.level().playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
-		p.gameEvent(GameEvent.FLAP);
-		tile.receiveMana(-COST);
+	private static void doAvatarMiscEffects(Player player, ManaReceiver receiver) {
+		player.gameEvent(GameEvent.FLAP);
+		receiver.receiveMana(-COST);
 	}
 
 	@SoftImplement("IItemExtension")

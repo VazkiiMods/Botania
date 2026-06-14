@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -43,6 +44,7 @@ public record AvatarSkiesRodEffectPacket(boolean elytra, int entityId) implement
 			Level world = localPlayer.level();
 			Entity p = world.getEntity(packet.entityId());
 			if (p != null) {
+				p.playSound(BotaniaSounds.dash, 1, 1);
 				RandomSource rng = world.random;
 				WispParticleData data =
 						WispParticleData.wisp(0.35f + rng.nextFloat() * 0.1f, 0.25f, 0.25f, 0.25f);

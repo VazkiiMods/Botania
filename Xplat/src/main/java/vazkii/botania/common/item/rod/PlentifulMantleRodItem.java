@@ -41,9 +41,10 @@ public class PlentifulMantleRodItem extends Item {
 	private static final ResourceLocation AVATAR_OVERLAY = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_DIVINING);
 
 	public static final int COST = 3000;
-	public static final int RANGE_PROFICIENCY = 20;
-	public static final int RANGE_DEFAULT = 15;
-	public static final int RANGE_AVATAR = 18;
+	public static final byte RANGE_PROFICIENCY = 20;
+	public static final byte RANGE_DEFAULT = 15;
+	public static final byte RANGE_AVATAR = 18;
+	public static final int COOLDOWN_AVATAR = 200;
 
 	public PlentifulMantleRodItem(Properties props) {
 		super(props);
@@ -54,13 +55,13 @@ public class PlentifulMantleRodItem extends Item {
 		ItemStack stack = player.getItemInHand(hand);
 		if (ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true)) {
 			if (!level.isClientSide()) {
-				int range = ManaItemHandler.instance().hasProficiency(player, stack) ? RANGE_PROFICIENCY : RANGE_DEFAULT;
+				byte range = ManaItemHandler.instance().hasProficiency(player, stack) ? RANGE_PROFICIENCY : RANGE_DEFAULT;
 				XplatAbstractions.instance().sendToPlayer(player,
-						new RodOfThePlentifulMantleEffectPacket(player.blockPosition(), (byte) range, true));
+						new RodOfThePlentifulMantleEffectPacket(player.blockPosition(), range, true));
 				player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 				player.getCooldowns().addCooldown(this, 20);
 			}
-			player.playSound(BotaniaSounds.divinationRod, 1F, 1F);
+			player.playSound(BotaniaSounds.divinationRod, 1, 1);
 			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 		}
 
@@ -91,12 +92,13 @@ public class PlentifulMantleRodItem extends Item {
 
 	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(ServerLevel world, BlockPos pos, ManaReceiver receiver) {
-			if (receiver.getCurrentMana() >= COST && avatar.isEnabled() && getTimeSinceLastActivation(world) >= 200) {
-				XplatAbstractions.instance().sendToNear(world, pos,
-						new RodOfThePlentifulMantleEffectPacket(pos, (byte) RANGE_AVATAR, false));
+		public void onAvatarUpdate(ServerLevel level, BlockPos pos, ManaReceiver receiver) {
+			if (receiver.getCurrentMana() >= COST && avatar.isEnabled()
+					&& getTimeSinceLastActivation(level) >= COOLDOWN_AVATAR) {
+				XplatAbstractions.instance().sendToNear(level, pos,
+						new RodOfThePlentifulMantleEffectPacket(pos, RANGE_AVATAR, false));
 				receiver.receiveMana(-COST);
-				setLastActivationTime(world);
+				setLastActivationTime(level);
 			}
 		}
 

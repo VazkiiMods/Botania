@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -27,11 +28,12 @@ import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.MagicMissileEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.network.clientbound.RodOfTheUnstableReservoirEffectPacket;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class UnstableReservoirRodItem extends Item {
 
@@ -55,34 +57,39 @@ public class UnstableReservoirRodItem extends Item {
 	}
 
 	@Override
-	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
-		if (!(living instanceof Player player)) {
+	public void onUseTick(Level level, LivingEntity living, ItemStack stack, int remainingUseDuration) {
+		if (level.isClientSide || !(living instanceof Player player)
+				|| remainingUseDuration == getUseDuration(stack, living)
+				|| remainingUseDuration % (ManaItemHandler.instance().hasProficiency(player, stack) ? 1 : 2) != 0
+				|| !ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
 			return;
 		}
 
-		if (count != getUseDuration(stack, living) && count % (ManaItemHandler.instance().hasProficiency(player, stack) ? 1 : 2) == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
-			if (!world.isClientSide && spawnMissile(world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1))) {
-				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, true);
-			}
-
-			SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
-			world.addParticle(data, player.getX(), player.getY() + 2.4, player.getZ(), 0, 0, 0);
+		if (spawnMissile(level, player,
+				player.getX() + (level.getRandom().nextDouble() - 0.5) * 0.1,
+				player.getY(1) + 0.5 + (level.getRandom().nextDouble() - 0.5) * 0.1,
+				player.getZ() + (level.getRandom().nextDouble() - 0.5) * 0.1)) {
+			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, true);
+			XplatAbstractions.instance().sendToNear(level, player.blockPosition(),
+					new RodOfTheUnstableReservoirEffectPacket(
+							new Vec3(player.getX(), player.getY(1) + 0.5, player.getZ()))
+			);
 		}
 	}
 
-	public static boolean spawnMissile(Level world, @Nullable LivingEntity thrower, double x, double y, double z) {
-		MagicMissileEntity missile;
-		if (thrower != null) {
-			missile = new MagicMissileEntity(thrower, false);
-		} else {
-			missile = BotaniaEntities.MAGIC_MISSILE.create(world);
+	public static boolean spawnMissile(Level level, @Nullable LivingEntity thrower, double x, double y, double z) {
+		MagicMissileEntity missile = thrower != null
+				? new MagicMissileEntity(thrower, false)
+				: BotaniaEntities.MAGIC_MISSILE.create(level);
+		if (missile == null) {
+			return false;
 		}
-
 		missile.setPos(x, y, z);
 		if (missile.findTarget()) {
-			if (!world.isClientSide) {
-				missile.playSound(world.random.nextInt(100) == 0 ? BotaniaSounds.missileFunny : BotaniaSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
-				world.addFreshEntity(missile);
+			if (!level.isClientSide) {
+				missile.playSound(level.random.nextInt(100) == 0 ? BotaniaSounds.missileFunny : BotaniaSounds.missile,
+						1, 0.8f + level.getRandom().nextFloat() * 0.2f);
+				level.addFreshEntity(missile);
 			}
 
 			return true;
@@ -91,21 +98,24 @@ public class UnstableReservoirRodItem extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-		return ItemUtils.startUsingInstantly(world, player, hand);
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+		return ItemUtils.startUsingInstantly(level, player, hand);
 	}
 
 	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(ServerLevel world, BlockPos pos, ManaReceiver receiver) {
-			if (receiver.getCurrentMana() >= COST_AVATAR && avatar.isEnabled() && getTimeSinceLastActivation(world) >= 3) {
-				if (spawnMissile(world, null, pos.getX() + 0.5 + (Math.random() - 0.5 * 0.1), pos.getY() + 2.5 + (Math.random() - 0.5 * 0.1), pos.getZ() + (Math.random() - 0.5 * 0.1))) {
+		public void onAvatarUpdate(ServerLevel level, BlockPos pos, ManaReceiver receiver) {
+			if (receiver.getCurrentMana() >= COST_AVATAR && avatar.isEnabled() && getTimeSinceLastActivation(level) >= 3) {
+				double yOffset = level.getBlockState(pos.above()).isAir() ? 1.5 : 2.5;
+				if (spawnMissile(level, null,
+						pos.getX() + 0.5 + (level.getRandom().nextDouble() - 0.5) * 0.1,
+						pos.getY() + yOffset + (level.getRandom().nextDouble() - 0.5) * 0.1,
+						pos.getZ() + 0.5 + (level.getRandom().nextDouble() - 0.5) * 0.1)) {
 					receiver.receiveMana(-COST_AVATAR);
-					// TODO: make effect packet for this?
-					SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
-					world.sendParticles(data, pos.getX() + 0.5, pos.getY() + 2.5, pos.getZ() + 0.5, 1, 0, 0, 0, 0);
+					XplatAbstractions.instance().sendToNear(level, pos, new RodOfTheUnstableReservoirEffectPacket(
+							new Vec3(pos.getX() + 0.5, pos.getY() + yOffset, pos.getZ() + 0.5)));
 				}
-				setLastActivationTime(world);
+				setLastActivationTime(level);
 			}
 		}
 

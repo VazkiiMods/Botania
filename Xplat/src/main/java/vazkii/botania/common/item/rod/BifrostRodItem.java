@@ -9,8 +9,10 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -42,16 +45,20 @@ public class BifrostRodItem extends SelfReturningItem {
 
 	private static final int MANA_COST = 750;
 	private static final int MANA_COST_AVATAR = 4;
+	private static final double PROFICIENCY_FACTOR = 1.6;
 	private static final int TIME = 600;
+	private static final int TIME_WITH_PROFICIENCY = (int) (TIME * PROFICIENCY_FACTOR);
+	private static final int MAX_LENGTH = 100;
+	private static final int MAX_LENGTH_WITH_PROFICIENCY = (int) (MAX_LENGTH * PROFICIENCY_FACTOR);
 
 	public BifrostRodItem(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!world.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false)) {
+		if (!level.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false)) {
 			BlockState bifrost = BotaniaBlocks.bifrost.defaultBlockState();
 			Vec3 vector = player.getLookAngle().normalize();
 
@@ -69,8 +76,8 @@ public class BifrostRodItem extends SelfReturningItem {
 			boolean placedAny = false;
 
 			boolean prof = ManaItemHandler.instance().hasProficiency(player, stack);
-			int maxlen = prof ? 160 : 100;
-			int time = prof ? (int) (TIME * 1.6) : TIME;
+			int maxlen = prof ? MAX_LENGTH_WITH_PROFICIENCY : MAX_LENGTH;
+			int time = prof ? TIME_WITH_PROFICIENCY : TIME;
 
 			BlockPos.MutableBlockPos placePos = new BlockPos.MutableBlockPos();
 
@@ -78,13 +85,13 @@ public class BifrostRodItem extends SelfReturningItem {
 				previousPos.set(lastX, lastY, lastZ);
 
 				if (!previousPos.equals(pos)) { // Occasionally moving to the next segment stays on the same location, skip it
-					if (!world.isEmptyBlock(pos) && world.getBlockState(pos) != bifrost && count >= 4) {
+					if (!level.isEmptyBlock(pos) && level.getBlockState(pos) != bifrost && count >= 4) {
 						break; // Stop placing if you hit a wall (bifrost blocks are fine), but only after 4 segments.
 					}
-					if (world.isOutsideBuildHeight(pos.getY())) {
+					if (level.isOutsideBuildHeight(pos.getY())) {
 						break;
 					}
-					if (placeBridgeSegment(world, pos, placePos, time)) {
+					if (placeBridgeSegment(level, pos, placePos, time)) {
 						placedAny = true;
 					}
 				}
@@ -102,27 +109,27 @@ public class BifrostRodItem extends SelfReturningItem {
 			}
 
 			if (placedAny) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.bifrostRod, SoundSource.PLAYERS, 1F, 1F);
+				level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.bifrostRod, SoundSource.PLAYERS, 1, 1);
 				player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, true);
 				player.getCooldowns().addCooldown(this, player.isCreative() ? 10 : TIME);
 			}
 		}
 
-		return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
+		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
 
-	private static boolean placeBridgeSegment(Level world, BlockPos center, BlockPos.MutableBlockPos placePos, int time) {
+	private static boolean placeBridgeSegment(Level level, BlockPos center, BlockPos.MutableBlockPos placePos, int time) {
 		BlockState bifrost = BotaniaBlocks.bifrost.defaultBlockState();
 		boolean placed = false;
 
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				placePos.set(center.getX() + i, center.getY(), center.getZ() + j);
-				if (world.isEmptyBlock(placePos) || world.getBlockState(placePos) == bifrost) {
-					world.setBlock(placePos, bifrost, Block.UPDATE_CLIENTS);
+				if (level.isEmptyBlock(placePos) || level.getBlockState(placePos) == bifrost) {
+					level.setBlock(placePos, bifrost, Block.UPDATE_CLIENTS);
 
-					if (world.getBlockEntity(placePos) instanceof BifrostBlockEntity bifrostBlockEntity) {
+					if (level.getBlockEntity(placePos) instanceof BifrostBlockEntity bifrostBlockEntity) {
 						bifrostBlockEntity.ticks = time;
 						placed = true;
 					}
@@ -133,53 +140,56 @@ public class BifrostRodItem extends SelfReturningItem {
 	}
 
 	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
+
+		public static final int BRIDGE_LENGTH = 20;
+
 		@Override
-		public void onAvatarUpdate(ServerLevel world, BlockPos tePos, ManaReceiver receiver) {
+		public void onAvatarUpdate(ServerLevel level, BlockPos pos, ManaReceiver receiver) {
 			if (receiver.getCurrentMana() < MANA_COST_AVATAR * 25
-					|| !avatar.isEnabled() || world.isOutsideBuildHeight(tePos.getY() - 1)) {
+					|| !avatar.isEnabled() || level.isOutsideBuildHeight(pos.getY() - 1)) {
 				return;
 			}
 
-			int w = 1;
-			int h = 1;
-			int l = 20;
-
-			AABB axis = switch (avatar.getAvatarFacing()) {
-				case NORTH -> AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
-				case SOUTH -> AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
-				case WEST -> AABB.encapsulatingFullBlocks(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
-				case EAST -> AABB.encapsulatingFullBlocks(tePos.offset(1, -h, -w), tePos.offset(l + 1, h, w + 1));
-				default -> null;
-			};
-
-			BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
-			List<Player> players = world.getEntitiesOfClass(Player.class, axis);
-			for (Player p : players) {
-				int px = Mth.floor(p.getX());
-				int py = Mth.floor(p.getY()) - 1;
-				int pz = Mth.floor(p.getZ());
-				int dist = 5;
-				int diff = dist / 2;
-
-				for (int i = 0; i < dist; i++) {
-					for (int j = 0; j < dist; j++) {
-						int ex = px + i - diff;
-						int ez = pz + j - diff;
-
-						if (!axis.contains(new Vec3(ex + 0.5, py + 1, ez + 0.5))) {
+			Direction facing = avatar.getAvatarFacing();
+			Direction sideways = facing.getClockWise();
+			BoundingBox bridgeBox = BoundingBox.fromCorners(
+					pos.offset(
+							facing.getStepX() + sideways.getStepX(),
+							0,
+							facing.getStepZ() + sideways.getStepZ()
+					),
+					pos.offset(
+							BRIDGE_LENGTH * facing.getStepX() - sideways.getStepX(),
+							0,
+							BRIDGE_LENGTH * facing.getStepZ() - sideways.getStepZ()
+					)
+			);
+			AABB axis = AABB.of(bridgeBox);
+			List<ServerPlayer> players = level.getPlayers(player -> isRelevantPlayer(player, axis));
+			int y = pos.getY();
+			BlockPos.MutableBlockPos placePos = new BlockPos.MutableBlockPos();
+			for (Player player : players) {
+				int xMin = Mth.floor(player.getX(-1.5)) - 1;
+				int xMax = Mth.floor(player.getX(1.5)) + 1;
+				int zMin = Mth.floor(player.getZ(-1.5)) - 1;
+				int zMax = Mth.floor(player.getZ(1.5)) + 1;
+				for (int x = xMin; x <= xMax; x++) {
+					for (int z = zMin; z <= zMax; z++) {
+						if (!bridgeBox.isInside(x, y, z)) {
 							continue;
 						}
-						pos.set(ex, py, ez);
-						BlockState state = world.getBlockState(pos);
+
+						placePos.set(x, y - 1, z);
+						BlockState state = level.getBlockState(placePos);
 						if (state.isAir()) {
-							if (world.setBlockAndUpdate(pos, BotaniaBlocks.bifrost.defaultBlockState())) {
-								if (world.getBlockEntity(pos) instanceof BifrostBlockEntity bifrostBlockEntity) {
+							if (level.setBlockAndUpdate(placePos, BotaniaBlocks.bifrost.defaultBlockState())) {
+								if (level.getBlockEntity(placePos) instanceof BifrostBlockEntity bifrostBlockEntity) {
 									bifrostBlockEntity.ticks = 10;
 								}
 								receiver.receiveMana(-MANA_COST_AVATAR);
 							}
 						} else if (state.is(BotaniaBlocks.bifrost)
-								&& world.getBlockEntity(pos) instanceof BifrostBlockEntity bifrostBlockEntity
+								&& level.getBlockEntity(placePos) instanceof BifrostBlockEntity bifrostBlockEntity
 								&& bifrostBlockEntity.ticks < 2) {
 							bifrostBlockEntity.ticks += 10;
 							receiver.receiveMana(-MANA_COST_AVATAR);
@@ -188,6 +198,17 @@ public class BifrostRodItem extends SelfReturningItem {
 				}
 			}
 
+		}
+
+		private static boolean isRelevantPlayer(Player player, AABB aabb) {
+			if (!player.canBeSeenByAnyone()) {
+				return false;
+			}
+			// check if feet are in relevant bounding box
+			AABB other = player.getBoundingBox();
+			return aabb.minX <= other.maxX && aabb.maxX >= other.minX
+					&& aabb.minY <= player.getY() && aabb.maxY >= player.getY()
+					&& aabb.minZ <= other.maxZ && aabb.maxZ >= other.minZ;
 		}
 
 		@Override
