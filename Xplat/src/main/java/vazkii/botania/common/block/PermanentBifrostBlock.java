@@ -16,13 +16,13 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BeaconBeamBlock;
-import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
 
-public class PermanentBifrostBlock extends HalfTransparentBlock implements BeaconBeamBlock {
+public class PermanentBifrostBlock extends TransparentBlock implements BeaconBeamBlock {
 	public PermanentBifrostBlock(Properties builder) {
 		super(builder);
 	}

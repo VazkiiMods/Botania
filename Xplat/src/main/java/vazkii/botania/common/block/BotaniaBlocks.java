@@ -659,9 +659,9 @@ public final class BotaniaBlocks {
 	public static final Block manaDiamondBlock = make(LibBlockNames.MANA_DIAMOND_BLOCK, new Block(BlockBehaviour.Properties.ofFullCopy(manasteelBlock).mapColor(MapColor.DIAMOND)));
 	public static final Block dragonstoneBlock = make(LibBlockNames.DRAGONSTONE_BLOCK, new Block(BlockBehaviour.Properties.ofFullCopy(manasteelBlock).instrument(NoteBlockInstrument.HARP).mapColor(MapColor.COLOR_PINK)));
 
-	public static final Block manaGlass = make(LibBlockNames.MANA_GLASS, new HalfTransparentBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).lightLevel(s -> 15).isViewBlocking(
+	public static final Block manaGlass = make(LibBlockNames.MANA_GLASS, new TransparentBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).lightLevel(s -> 15).isViewBlocking(
 			NEVER).isSuffocating(NEVER).isValidSpawn(NO_SPAWN)));
-	public static final Block elfGlass = make(LibBlockNames.ELF_GLASS, new HalfTransparentBlock(BlockBehaviour.Properties.ofFullCopy(manaGlass).isViewBlocking(
+	public static final Block elfGlass = make(LibBlockNames.ELF_GLASS, new TransparentBlock(BlockBehaviour.Properties.ofFullCopy(manaGlass).isViewBlocking(
 			NEVER).isSuffocating(NEVER).isValidSpawn(NO_SPAWN)));
 	public static final Block bifrost = make(LibBlockNames.BIFROST, new BifrostBlock(BlockBehaviour.Properties.of().strength(-1, 0.3F)
 			.lightLevel(s -> 15).sound(SoundType.GLASS).instrument(NoteBlockInstrument.HAT).noOcclusion()
