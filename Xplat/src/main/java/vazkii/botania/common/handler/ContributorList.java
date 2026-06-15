@@ -44,6 +44,8 @@ public class ContributorList {
 			.put("arcanerose", LibBlockNames.SUBTILE_ARCANE_ROSE)
 			.put("jadedamaranthus", LibBlockNames.SUBTILE_JADED_AMARANTHUS)
 			.put("orechidignem", LibBlockNames.SUBTILE_ORECHID_IGNEM)
+			.put("bellethorn", LibBlockNames.SUBTILE_BELLETHORN)
+			.put("dreadthorn", LibBlockNames.SUBTILE_DREADTHORN)
 			.build();
 	private static volatile Map<String, ItemStack> flowerMap = Collections.emptyMap();
 	private static boolean startedLoading = false;
@@ -85,7 +87,9 @@ public class ContributorList {
 				stack = cachedStacks.computeIfAbsent(BotaniaBlocks.getFlower(DyeColor.byId(i)).asItem(), ContributorList::configureStack);
 			} catch (NumberFormatException e) {
 				String rawName = value.toLowerCase(Locale.ROOT);
-				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
+				boolean petite = rawName.endsWith("_chibi") || rawName.endsWith("_petite");
+				String searchName = petite ? rawName.substring(0, rawName.lastIndexOf('_')) : rawName;
+				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(searchName, searchName) + (petite ? "_petite" : "");
 
 				var item = StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(BotaniaTags.Items.CONTRIBUTOR_HEADFLOWERS).spliterator(), false)
 						.filter(h -> h.is(resKey -> resKey.location().getPath().equals(flowerName)))

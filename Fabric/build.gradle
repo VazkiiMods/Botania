@@ -102,6 +102,9 @@ dependencies {
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
 
+    // for testing multiplayer features in singleplayer worlds, and weird things like movable block entities
+    //modRuntimeOnly "maven.modrinth:carpet:1.4.147"
+
     compileOnly "org.jetbrains:annotations:26.0.2"
 
     if (file("../garden_of_glass/gardenofglass-${gog_version}.jar").exists()) {
