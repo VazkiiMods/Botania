@@ -45,7 +45,7 @@ public class BotaniaBlockEntities {
 	private static final Map<Block, BlockEntityType<?>> ADD_TO_EXISTING = new HashMap<>();
 
 	public static final BlockEntityType<PetalApothecaryBlockEntity> PETAL_APOTHECARY = type(
-			"altar", PetalApothecaryBlockEntity::new,
+			"petal_apothecary", PetalApothecaryBlockEntity::new,
 			BotaniaBlocks.ALL_APOTHECARIES);
 	public static final BlockEntityType<ManaSpreaderBlockEntity> MANA_SPREADER = type(
 			"mana_spreader", ManaSpreaderBlockEntity::new,
@@ -62,19 +62,19 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.MANA_PYLON, BotaniaBlocks.NATURA_PYLON, BotaniaBlocks.GAIA_PYLON
 	);
 	public static final BlockEntityType<ManaSplitterBlockEntity> MANA_SPLITTER = type(
-			"mana_distributor", ManaSplitterBlockEntity::new,
+			"mana_splitter", ManaSplitterBlockEntity::new,
 			BotaniaBlocks.MANA_SPLITTER
 	);
 	public static final BlockEntityType<ManaEnchanterBlockEntity> MANA_ENCHANTER = type(
-			"enchanter", ManaEnchanterBlockEntity::new,
+			"mana_enchanter", ManaEnchanterBlockEntity::new,
 			BotaniaBlocks.MANA_ENCHANTER
 	);
 	public static final BlockEntityType<SpreaderTurntableBlockEntity> SPREADER_TURNTABLE = type(
-			"turntable", SpreaderTurntableBlockEntity::new,
+			"spreader_turntable", SpreaderTurntableBlockEntity::new,
 			BotaniaBlocks.SPREADER_TURNTABLE
 	);
 	public static final BlockEntityType<TinyPlanetBlockEntity> TINY_PLANET = type(
-			"tiny_planet_block", TinyPlanetBlockEntity::new,
+			"tiny_planet", TinyPlanetBlockEntity::new,
 			BotaniaBlocks.TINY_PLANET
 	);
 	public static final BlockEntityType<OpenCrateBlockEntity> OPEN_CRATE = type(
@@ -86,7 +86,7 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.CRAFTY_CRATE
 	);
 	public static final BlockEntityType<EyeOfTheAncientsBlockEntity> EYE_OF_THE_ANCIENTS = type(
-			"forest_eye", EyeOfTheAncientsBlockEntity::new,
+			"eye_of_the_ancients", EyeOfTheAncientsBlockEntity::new,
 			BotaniaBlocks.EYE_OF_THE_ANCIENTS
 	);
 	public static final BlockEntityType<PlatformBlockEntity> PLATFORM = type(
@@ -98,26 +98,26 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.ELVEN_GATEWAY_CORE
 	);
 	public static final BlockEntityType<BifrostBlockEntity> TEMPORARY_BIFROST_BLOCK = type(
-			"bifrost", BifrostBlockEntity::new,
+			"temporary_bifrost_block", BifrostBlockEntity::new,
 			BotaniaBlocks.TEMPORARY_BIFROST_BLOCK
 	);
 	public static final BlockEntityType<FloatingFlowerBlockEntity> FLOATING_MUNDANE_FLOWER = type(
-			"mini_island", FloatingFlowerBlockEntity::new,
+			"floating_mundane_flower", FloatingFlowerBlockEntity::new,
 			ColorHelper.supportedColors().map(BotaniaBlocks::getFloatingFlower).toArray(Block[]::new));
 	public static final BlockEntityType<TinyPotatoBlockEntity> TINY_POTATO = type(
 			"tiny_potato", TinyPotatoBlockEntity::new,
 			BotaniaBlocks.TINY_POTATO
 	);
 	public static final BlockEntityType<LifeImbuerBlockEntity> LIFE_IMBUER = type(
-			"spawner_claw", LifeImbuerBlockEntity::new,
+			"life_imbuer", LifeImbuerBlockEntity::new,
 			BotaniaBlocks.LIFE_IMBUER
 	);
 	public static final BlockEntityType<EnderOverseerBlockEntity> ENDER_OVERSEER = type(
-			"ender_eye_block", EnderOverseerBlockEntity::new,
+			"ender_overseer", EnderOverseerBlockEntity::new,
 			BotaniaBlocks.ENDER_OVERSEER
 	);
 	public static final BlockEntityType<StarfieldCreatorBlockEntity> STARFIELD_CREATOR = type(
-			"starfield", StarfieldCreatorBlockEntity::new,
+			"starfield_creator", StarfieldCreatorBlockEntity::new,
 			BotaniaBlocks.STARFIELD_CREATOR
 	);
 	public static final BlockEntityType<PowerGeneratorBlockEntity> MANA_FLUXFIELD = type(
@@ -125,31 +125,31 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.MANA_FLUXFIELD
 	);
 	public static final BlockEntityType<BotanicalBreweryBlockEntity> BOTANICAL_BREWERY = type(
-			"brewery", BotanicalBreweryBlockEntity::new,
+			"botanical_brewery", BotanicalBreweryBlockEntity::new,
 			BotaniaBlocks.BOTANICAL_BREWERY
 	);
 	public static final BlockEntityType<TerrestrialAgglomerationPlateBlockEntity> TERRESTRIAL_AGGLOMERATION_PLATE = type(
-			"terra_plate", TerrestrialAgglomerationPlateBlockEntity::new,
+			"terrestrial_agglomeration_plate", TerrestrialAgglomerationPlateBlockEntity::new,
 			BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE
 	);
 	public static final BlockEntityType<RedStringContainerBlockEntity> RED_STRINGED_CONTAINER = type(
-			"red_string_container", XplatAbstractions.INSTANCE::newRedStringContainer,
+			"red_stringed_container", XplatAbstractions.INSTANCE::newRedStringContainer,
 			BotaniaBlocks.RED_STRINGED_CONTAINER
 	);
 	public static final BlockEntityType<RedStringDispenserBlockEntity> RED_STRINGED_DISPENSER = type(
-			"red_string_dispenser", RedStringDispenserBlockEntity::new,
+			"red_stringed_dispenser", RedStringDispenserBlockEntity::new,
 			BotaniaBlocks.RED_STRINGED_DISPENSER
 	);
 	public static final BlockEntityType<RedStringNutrifierBlockEntity> RED_STRINGED_NUTRIFIER = type(
-			"red_string_fertilizer", RedStringNutrifierBlockEntity::new,
+			"red_stringed_fertilizer", RedStringNutrifierBlockEntity::new,
 			BotaniaBlocks.RED_STRINGED_NUTRIFIER
 	);
 	public static final BlockEntityType<RedStringComparatorBlockEntity> RED_STRINGED_COMPARATOR = type(
-			"red_string_comparator", RedStringComparatorBlockEntity::new,
+			"red_stringed_comparator", RedStringComparatorBlockEntity::new,
 			BotaniaBlocks.RED_STRINGED_COMPARATOR
 	);
 	public static final BlockEntityType<RedStringSpooferBlockEntity> RED_STRINGED_SPOOFER = type(
-			"red_string_relay", RedStringSpooferBlockEntity::new,
+			"red_stringed_relay", RedStringSpooferBlockEntity::new,
 			BotaniaBlocks.RED_STRINGED_SPOOFER
 	);
 	public static final BlockEntityType<ManaFlameBlockEntity> MANA_FLAME = type(
@@ -157,7 +157,7 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.MANA_FLAME
 	);
 	public static final BlockEntityType<ManaPrismBlockEntity> MANA_PRISM = type(
-			"prism", ManaPrismBlockEntity::new,
+			"mana_prism", ManaPrismBlockEntity::new,
 			BotaniaBlocks.MANA_PRISM
 	);
 	public static final BlockEntityType<CorporeaIndexBlockEntity> CORPOREA_INDEX = type(
@@ -169,7 +169,7 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.CORPOREA_FUNNEL
 	);
 	public static final BlockEntityType<ManaPumpBlockEntity> MANA_PUMP = type(
-			"pump", ManaPumpBlockEntity::new,
+			"mana_pump", ManaPumpBlockEntity::new,
 			BotaniaBlocks.MANA_PUMP
 	);
 	public static final BlockEntityType<FakeAirBlockEntity> FAKE_AIR = type(
@@ -189,19 +189,19 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.INCENSE_PLATE
 	);
 	public static final BlockEntityType<HoveringHourglassBlockEntity> HOVERING_HOURGLASS = type(
-			"hourglass", HoveringHourglassBlockEntity::new,
+			"hovering_hourglass", HoveringHourglassBlockEntity::new,
 			BotaniaBlocks.HOVERING_HOURGLASS
 	);
 	public static final BlockEntityType<SparkTinkererBlockEntity> SPARK_TINKERER = type(
-			"spark_changer", SparkTinkererBlockEntity::new,
+			"spark_tinkerer", SparkTinkererBlockEntity::new,
 			BotaniaBlocks.SPARK_TINKERER
 	);
 	public static final BlockEntityType<CocoonBlockEntity> COCOON_OF_CAPRICE = type(
-			"cocoon", CocoonBlockEntity::new,
+			"cocoon_of_caprice", CocoonBlockEntity::new,
 			BotaniaBlocks.COCOON_OF_CAPRICE
 	);
 	public static final BlockEntityType<LuminizerBlockEntity> LUMINIZER = type(
-			"light_relay", LuminizerBlockEntity::new,
+			"luminizer", LuminizerBlockEntity::new,
 			BotaniaBlocks.LUMINIZER, BotaniaBlocks.DETECTOR_LUMINIZER, BotaniaBlocks.TOGGLE_LUMINIZER, BotaniaBlocks.FORK_LUMINIZER
 	);
 	public static final BlockEntityType<CacophoniumBlockEntity> CACOPHONIUM_BLOCK = type(
@@ -209,15 +209,15 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.CACOPHONIUM_BLOCK
 	);
 	public static final BlockEntityType<BellowsBlockEntity> MANATIDE_BELLOWS = type(
-			"bellows", BellowsBlockEntity::new,
+			"manatide_bellows", BellowsBlockEntity::new,
 			BotaniaBlocks.MANATIDE_BELLOWS
 	);
 	public static final BlockEntityType<CellularBlockEntity> CELLULAR_BLOCK = type(
-			"cell_block", CellularBlockEntity::new,
+			"cellular_block", CellularBlockEntity::new,
 			BotaniaBlocks.CELLULAR_BLOCK
 	);
 	public static final BlockEntityType<RedStringInterceptorBlockEntity> RED_STRING_INTERCEPTOR = type(
-			"red_string_interceptor", RedStringInterceptorBlockEntity::new,
+			"red_stringed_interceptor", RedStringInterceptorBlockEntity::new,
 			BotaniaBlocks.RED_STRINGED_INTERCEPTOR
 	);
 	public static final BlockEntityType<GaiaHeadBlockEntity> GAIA_HEAD = type(
