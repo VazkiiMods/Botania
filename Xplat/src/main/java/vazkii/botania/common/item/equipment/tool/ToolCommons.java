@@ -138,7 +138,7 @@ public final class ToolCommons {
 		}
 
 		int modifier = 0;
-		if (stack.is(BotaniaItems.terraPick)) {
+		if (stack.is(BotaniaItems.TERRA_SHATTERER)) {
 			modifier = TerraShattererItem.getLevel(stack);
 		}
 

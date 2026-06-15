@@ -47,7 +47,7 @@ public class InfluenceLens extends Lens {
 
 				if (movable instanceof ManaBurst otherBurst) {
 					ItemStack lens = otherBurst.getSourceLens();
-					if (!lens.isEmpty() && lens.is(BotaniaItems.lensInfluence)) {
+					if (!lens.isEmpty() && lens.is(BotaniaItems.INFLUENCE_LENS)) {
 						continue;
 					}
 				}

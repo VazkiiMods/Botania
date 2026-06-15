@@ -38,8 +38,9 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 			ConventionalItemTags.SEEDS
 	);
 
-	public ConventionalItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider) {
-		super(packOutput, lookupProvider, DummyTagLookup.completedFuture(RELEVANT_TAGS), blockTagProvider);
+	public ConventionalItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
+			CompletableFuture<TagLookup<Block>> blockTags) {
+		super(output, lookupProvider, DummyTagLookup.completedFuture(RELEVANT_TAGS), blockTags);
 	}
 
 	@Override
@@ -75,13 +76,12 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		copy(ConventionalBlockTags.STONES, ConventionalItemTags.STONES);
 
 		// Buckets
-		tag(ConventionalBotaniaTags.Items.EXTRAPOLATING_BUCKETS).add(BotaniaItems.openBucket);
-		tag(ConventionalItemTags.BUCKETS)
-				.addTag(ConventionalBotaniaTags.Items.EXTRAPOLATING_BUCKETS);
+		tag(ConventionalBotaniaTags.Items.EXTRAPOLATING_BUCKETS).add(BotaniaItems.EXTRAPOLATED_BUCKET);
+		tag(ConventionalItemTags.BUCKETS).addTag(ConventionalBotaniaTags.Items.EXTRAPOLATING_BUCKETS);
 
 		// Dusts
-		tag(ConventionalBotaniaTags.Items.MANA_DUSTS).add(BotaniaItems.manaPowder);
-		tag(ConventionalBotaniaTags.Items.PIXIE_DUSTS).add(BotaniaItems.pixieDust);
+		tag(ConventionalBotaniaTags.Items.MANA_DUSTS).add(BotaniaItems.MANA_POWDER);
+		tag(ConventionalBotaniaTags.Items.PIXIE_DUSTS).add(BotaniaItems.PIXIE_DUST);
 		tag(ConventionalItemTags.DUSTS)
 				.addTag(ConventionalBotaniaTags.Items.MANA_DUSTS)
 				.addTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS);
@@ -99,38 +99,40 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 
 		// Fences and fence gates
 		tag(ConventionalItemTags.WOODEN_FENCE_GATES).add(
-				BotaniaBlocks.LIVINGWOOD_FENCE_GATE.asItem(), BotaniaBlocks.DREAMWOOD_FENCE_GATE.asItem(),
+				BotaniaBlocks.LIVINGWOOD_FENCE_GATE.asItem(),
+				BotaniaBlocks.DREAMWOOD_FENCE_GATE.asItem(),
 				BotaniaBlocks.SHIMMERWOOD_FENCE_GATE.asItem()
 		);
 		tag(ConventionalItemTags.WOODEN_FENCES).add(
-				BotaniaBlocks.LIVINGWOOD_FENCE.asItem(), BotaniaBlocks.DREAMWOOD_FENCE.asItem(),
+				BotaniaBlocks.LIVINGWOOD_FENCE.asItem(),
+				BotaniaBlocks.DREAMWOOD_FENCE.asItem(),
 				BotaniaBlocks.SHIMMERWOOD_FENCE.asItem()
 		);
 
 		// Foods and Drinks
-		tag(ConventionalItemTags.COOKIE_FOODS).add(BotaniaItems.manaCookie);
-		tag(ConventionalItemTags.FRUIT_FOODS).add(BotaniaItems.infiniteFruit);
+		tag(ConventionalItemTags.COOKIE_FOODS).add(BotaniaItems.BISCUIT_OF_TOTALITY);
+		tag(ConventionalItemTags.FRUIT_FOODS).add(BotaniaItems.FRUIT_OF_GRISAIA);
 		tag(ConventionalItemTags.MAGIC_DRINKS).add(
-				BotaniaItems.manaBottle, BotaniaItems.brewVial, BotaniaItems.brewFlask
+				BotaniaItems.MANA_IN_A_BOTTLE, BotaniaItems.BREW_VIAL, BotaniaItems.BREW_FLASK
 		);
 		tag(ConventionalItemTags.WATERY_DRINKS).add(
-				BotaniaItems.brewVial, BotaniaItems.brewFlask
+				BotaniaItems.BREW_VIAL, BotaniaItems.BREW_FLASK
 		);
 		tag(ConventionalItemTags.DRINK_CONTAINING_BOTTLE).add(
-				BotaniaItems.manaBottle, BotaniaItems.brewVial, BotaniaItems.brewFlask
+				BotaniaItems.MANA_IN_A_BOTTLE, BotaniaItems.BREW_VIAL, BotaniaItems.BREW_FLASK
 		);
 
 		// Gems
-		tag(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS).add(BotaniaItems.manaDiamond);
-		tag(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS).add(BotaniaItems.manaPearl);
-		tag(ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS).add(BotaniaItems.dragonstone);
-		tag(ConventionalBotaniaTags.Items.BLAZE_QUARTZ_GEMS).add(BotaniaItems.blazeQuartz);
-		tag(ConventionalBotaniaTags.Items.DARK_QUARTZ_GEMS).add(BotaniaItems.darkQuartz);
-		tag(ConventionalBotaniaTags.Items.ELVEN_QUARTZ_GEMS).add(BotaniaItems.elfQuartz);
-		tag(ConventionalBotaniaTags.Items.LAVENDER_QUARTZ_GEMS).add(BotaniaItems.lavenderQuartz);
-		tag(ConventionalBotaniaTags.Items.MANA_QUARTZ_GEMS).add(BotaniaItems.manaQuartz);
-		tag(ConventionalBotaniaTags.Items.RED_QUARTZ_GEMS).add(BotaniaItems.redQuartz);
-		tag(ConventionalBotaniaTags.Items.SUNNY_QUARTZ_GEMS).add(BotaniaItems.sunnyQuartz);
+		tag(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS).add(BotaniaItems.MANA_DIAMOND);
+		tag(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS).add(BotaniaItems.MANA_PEARL);
+		tag(ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS).add(BotaniaItems.DRAGONSTONE);
+		tag(ConventionalBotaniaTags.Items.BLAZE_QUARTZ_GEMS).add(BotaniaItems.BLAZE_QUARTZ);
+		tag(ConventionalBotaniaTags.Items.DARK_QUARTZ_GEMS).add(BotaniaItems.DARK_QUARTZ);
+		tag(ConventionalBotaniaTags.Items.ELVEN_QUARTZ_GEMS).add(BotaniaItems.ELVEN_QUARTZ);
+		tag(ConventionalBotaniaTags.Items.LAVENDER_QUARTZ_GEMS).add(BotaniaItems.LAVENDER_QUARTZ);
+		tag(ConventionalBotaniaTags.Items.MANA_QUARTZ_GEMS).add(BotaniaItems.MANA_QUARTZ);
+		tag(ConventionalBotaniaTags.Items.RED_QUARTZ_GEMS).add(BotaniaItems.RED_QUARTZ);
+		tag(ConventionalBotaniaTags.Items.SUNNY_QUARTZ_GEMS).add(BotaniaItems.SUNNY_QUARTZ);
 		tag(ConventionalItemTags.GEMS)
 				.addTag(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)
 				.addTag(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)
@@ -151,10 +153,10 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		tag(ConventionalItemTags.GLASS_PANES).addTag(ConventionalBotaniaTags.Items.MANA_GLASS_PANES);
 
 		// Ingots
-		tag(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS).add(BotaniaItems.manaSteel);
-		tag(ConventionalBotaniaTags.Items.TERRASTEEL_INGOTS).add(BotaniaItems.terrasteel);
-		tag(ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS).add(BotaniaItems.elementium);
-		tag(ConventionalBotaniaTags.Items.GAIA_INGOTS).add(BotaniaItems.gaiaIngot);
+		tag(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS).add(BotaniaItems.MANASTEEL_INGOT);
+		tag(ConventionalBotaniaTags.Items.TERRASTEEL_INGOTS).add(BotaniaItems.TERRASTEEL_INGOT);
+		tag(ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS).add(BotaniaItems.ELEMENTIUM_INGOT);
+		tag(ConventionalBotaniaTags.Items.GAIA_INGOTS).add(BotaniaItems.GAIA_INGOT);
 		tag(ConventionalItemTags.INGOTS)
 				.addTag(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
 				.addTag(ConventionalBotaniaTags.Items.TERRASTEEL_INGOTS)
@@ -162,17 +164,17 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 				.addTag(ConventionalBotaniaTags.Items.GAIA_INGOTS);
 
 		// Nuggets
-		tag(ConventionalBotaniaTags.Items.MANASTEEL_NUGGETS).add(BotaniaItems.manasteelNugget);
-		tag(ConventionalBotaniaTags.Items.TERRASTEEL_NUGGETS).add(BotaniaItems.terrasteelNugget);
-		tag(ConventionalBotaniaTags.Items.ELEMENTIUM_NUGGETS).add(BotaniaItems.elementiumNugget);
+		tag(ConventionalBotaniaTags.Items.MANASTEEL_NUGGETS).add(BotaniaItems.MANASTEEL_NUGGET);
+		tag(ConventionalBotaniaTags.Items.TERRASTEEL_NUGGETS).add(BotaniaItems.TERRASTEEL_NUGGET);
+		tag(ConventionalBotaniaTags.Items.ELEMENTIUM_NUGGETS).add(BotaniaItems.ELEMENTIUM_NUGGET);
 		tag(ConventionalItemTags.NUGGETS)
 				.addTag(ConventionalBotaniaTags.Items.MANASTEEL_NUGGETS)
 				.addTag(ConventionalBotaniaTags.Items.TERRASTEEL_NUGGETS)
 				.addTag(ConventionalBotaniaTags.Items.ELEMENTIUM_NUGGETS);
 
 		// Rods (intentionally not wooden rods)
-		tag(ConventionalBotaniaTags.Items.LIVINGWOOD_RODS).add(BotaniaItems.livingwoodTwig);
-		tag(ConventionalBotaniaTags.Items.DREAMWOOD_RODS).add(BotaniaItems.dreamwoodTwig);
+		tag(ConventionalBotaniaTags.Items.LIVINGWOOD_RODS).add(BotaniaItems.LIVINGWOOD_TWIG);
+		tag(ConventionalBotaniaTags.Items.DREAMWOOD_RODS).add(BotaniaItems.DREAMWOOD_TWIG);
 		tag(ConventionalItemTags.RODS)
 				.addTag(ConventionalBotaniaTags.Items.LIVINGWOOD_RODS)
 				.addTag(ConventionalBotaniaTags.Items.DREAMWOOD_RODS);
@@ -207,36 +209,39 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 
 		// Tools
 		tag(ConventionalItemTags.BOW_TOOLS).add(
-				BotaniaItems.livingwoodBow, BotaniaItems.crystalBow
+				BotaniaItems.LIVINGWOOD_BOW, BotaniaItems.CRYSTAL_BOW
 		);
 		tag(ConventionalItemTags.MELEE_WEAPON_TOOLS).add(
-				BotaniaItems.manasteelSword, BotaniaItems.manasteelAxe, BotaniaItems.enderDagger,
-				BotaniaItems.terraSword, BotaniaItems.terraAxe,
-				BotaniaItems.elementiumSword, BotaniaItems.elementiumAxe,
-				BotaniaItems.thunderSword, BotaniaItems.starSword
+				BotaniaItems.MANASTEEL_SWORD, BotaniaItems.MANASTEEL_AXE, BotaniaItems.SOULSCRIBE,
+				BotaniaItems.TERRA_BLADE, BotaniaItems.TERRA_TRUNCATOR,
+				BotaniaItems.ELEMENTIUM_SWORD, BotaniaItems.ELEMENTIUM_AXE,
+				BotaniaItems.THUNDERCALLER, BotaniaItems.STARCALLER
 		);
 		tag(ConventionalItemTags.MINING_TOOL_TOOLS).add(
-				BotaniaItems.manasteelPick, BotaniaItems.glassPick,
-				BotaniaItems.elementiumPick, BotaniaItems.terraPick
+				BotaniaItems.MANASTEEL_PICKAXE, BotaniaItems.VITREOUS_PICKAXE,
+				BotaniaItems.ELEMENTIUM_PICKAXE, BotaniaItems.TERRA_SHATTERER
 		);
 		tag(ConventionalItemTags.RANGED_WEAPON_TOOLS).add(
-				BotaniaItems.livingwoodBow, BotaniaItems.crystalBow
+				BotaniaItems.LIVINGWOOD_BOW, BotaniaItems.CRYSTAL_BOW
 		);
 		tag(ConventionalItemTags.SHEAR_TOOLS).add(
-				BotaniaItems.manasteelShears, BotaniaItems.elementiumShears
+				BotaniaItems.MANASTEEL_SHEARS, BotaniaItems.ELEMENTIUM_SHEARS
 		);
 		// this is a NeoForge tag, but appears to be missing on Fabric
 		tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "tools/wrench")))
-				.add(BotaniaItems.twigWand, BotaniaItems.dreamwoodWand);
+				.add(BotaniaItems.WAND_OF_THE_FOREST, BotaniaItems.WAND_OF_THE_ELVEN_FOREST);
 
 		// Miscellaneous
 		tag(ConventionalItemTags.MUSHROOMS).addTag(BotaniaTags.Items.SHIMMERING_MUSHROOMS);
-		tag(ConventionalItemTags.MUSIC_DISCS).add(BotaniaItems.recordGaia1, BotaniaItems.recordGaia2);
+		tag(ConventionalItemTags.MUSIC_DISCS).add(
+				BotaniaItems.MUSIC_DISC_ENDURE_EMPTINESS, BotaniaItems.MUSIC_DISC_FIGHT_FOR_QUIESCENCE);
 		copy(ConventionalBlockTags.STRIPPED_LOGS, ConventionalItemTags.STRIPPED_LOGS);
 		copy(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOODS);
 
 		tag(BotaniaTags.Items.LOONIUM_EXCLUDED)
-				.add(BotaniaItems.lexicon, BotaniaItems.blackLotus, BotaniaItems.blackerLotus, Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
+				.add(
+						BotaniaItems.LEXICA_BOTANIA, BotaniaItems.BLACK_LOTUS, BotaniaItems.BLACKER_LOTUS,
+						Items.TRIAL_KEY, Items.OMINOUS_TRIAL_KEY)
 				.addTag(ConventionalItemTags.MUSIC_DISCS);
 
 		tag(BotaniaTags.Items.SEED_APOTHECARY_REAGENT)

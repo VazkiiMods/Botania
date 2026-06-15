@@ -62,11 +62,11 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	private enum ItemTier implements Tier {
 		MANASTEEL(300, 6.2F, 2, 20,
-				() -> BotaniaItems.manaSteel, BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
+				() -> BotaniaItems.MANASTEEL_INGOT, BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
 		ELEMENTIUM(720, 6.2F, 2, 20,
-				() -> BotaniaItems.elementium, BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
+				() -> BotaniaItems.ELEMENTIUM_INGOT, BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
 		TERRASTEEL(2300, 9, 4, 26,
-				() -> BotaniaItems.terrasteel, BlockTags.INCORRECT_FOR_NETHERITE_TOOL);
+				() -> BotaniaItems.TERRASTEEL_INGOT, BlockTags.INCORRECT_FOR_NETHERITE_TOOL);
 
 		private final int maxUses;
 		private final float efficiency;

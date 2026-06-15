@@ -221,7 +221,7 @@ public class FabricCommonInitializer implements ModInitializer {
 					Blocks.FARMLAND.defaultBlockState());
 			FlattenableBlockRegistry.register(b, Blocks.DIRT_PATH.defaultBlockState());
 		}
-		EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> target.is(BotaniaItems.elementiumAxe) && enchantment.is(Enchantments.LOOTING) ? TriState.TRUE : TriState.DEFAULT);
+		EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, target, enchantingContext) -> target.is(BotaniaItems.ELEMENTIUM_AXE) && enchantment.is(Enchantments.LOOTING) ? TriState.TRUE : TriState.DEFAULT);
 
 		int blazeTime = 2400;
 		FuelRegistry.INSTANCE.add(BotaniaBlocks.BLAZE_MESH.asItem(), blazeTime * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
@@ -270,7 +270,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaRegistries.BOTANIA_TAB_KEY,
 				FabricItemGroup.builder()
 						.title(Component.translatable("itemGroup.botania").withStyle((style -> style.withColor(ChatFormatting.WHITE))))
-						.icon(() -> new ItemStack(BotaniaItems.lexicon))
+						.icon(() -> new ItemStack(BotaniaItems.LEXICA_BOTANIA))
 						.backgroundTexture(botaniaRL("textures/gui/tab_botania.png"))
 						.build()
 		);
@@ -292,7 +292,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
 		}
-		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> ((ShiftingCrustRodItem) BotaniaItems.exchangeRod).onLeftClick(player, world, hand, pos, direction));
+		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> ((ShiftingCrustRodItem) BotaniaItems.ROD_OF_THE_SHIFTING_CRUST).onLeftClick(player, world, hand, pos, direction));
 		AttackEntityCallback.EVENT.register(ShadedMesaRodItem::onAttack);
 		AttackEntityCallback.EVENT.register(TerraBladeItem::attackEntity);
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
@@ -334,49 +334,53 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaDataAttachments.registerDataAttachments(FabricInternalEntityAttachments::register);
 
 		FluidStorage.ITEM.registerForItems((stack, context) -> new FullItemFluidStorage(context, Items.BOWL, FluidVariant.of(Fluids.WATER), FluidConstants.BLOCK),
-				BotaniaItems.waterBowl);
+				BotaniaItems.WATER_BOWL
+		);
 		FluidStorage.ITEM.registerForItems((itemStack, context) -> (InsertionOnlyStorage<FluidVariant>) (resource, maxAmount, transaction) -> Math.min(FluidConstants.BLOCK, maxAmount),
-				BotaniaItems.openBucket);
+				BotaniaItems.EXTRAPOLATED_BUCKET
+		);
 
 		ItemApiLookup<AvatarWieldable, Avatar> avatarWieldableItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP);
-		avatarWieldableItemLookup.registerForItems(LandsRodItem.AvatarBehavior::new, BotaniaItems.dirtRod);
-		avatarWieldableItemLookup.registerForItems(PlentifulMantleRodItem.AvatarBehavior::new, BotaniaItems.diviningRod);
-		avatarWieldableItemLookup.registerForItems(HellsRodItem.AvatarBehavior::new, BotaniaItems.fireRod);
-		avatarWieldableItemLookup.registerForItems(UnstableReservoirRodItem.AvatarBehavior::new, BotaniaItems.missileRod);
-		avatarWieldableItemLookup.registerForItems(BifrostRodItem.AvatarBehavior::new, BotaniaItems.rainbowRod);
-		avatarWieldableItemLookup.registerForItems(SkiesRodItem.AvatarBehavior::new, BotaniaItems.tornadoRod);
+		avatarWieldableItemLookup.registerForItems(LandsRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_LANDS);
+		avatarWieldableItemLookup.registerForItems(PlentifulMantleRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_PLENTIFUL_MANTLE);
+		avatarWieldableItemLookup.registerForItems(HellsRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_HELLS);
+		avatarWieldableItemLookup.registerForItems(UnstableReservoirRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_UNSTABLE_RESERVOIR);
+		avatarWieldableItemLookup.registerForItems(BifrostRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_BIFROST);
+		avatarWieldableItemLookup.registerForItems(SkiesRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_SKIES);
 
 		ItemApiLookup<BlockProvider, Unit> blockProviderItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(BlockProvider.LOOKUP);
 		blockProviderItemLookup.registerForItems((stack, c) -> new LandsRodItem.BlockProviderImpl(),
-				BotaniaItems.dirtRod, BotaniaItems.skyDirtRod, BotaniaItems.terraformRod);
-		blockProviderItemLookup.registerForItems((stack, c) -> new BlackHoleTalismanItem.BlockProviderImpl(stack), BotaniaItems.blackHoleTalisman);
-		blockProviderItemLookup.registerForItems((stack, c) -> new DepthsRodItem.BlockProviderImpl(), BotaniaItems.cobbleRod);
-		blockProviderItemLookup.registerForItems((stack, c) -> new EnderHandItem.BlockProviderImpl(stack), BotaniaItems.enderHand);
+				BotaniaItems.ROD_OF_THE_LANDS, BotaniaItems.ROD_OF_THE_HIGHLANDS, BotaniaItems.ROD_OF_THE_TERRA_FIRMA
+		);
+		blockProviderItemLookup.registerForItems((stack, c) -> new BlackHoleTalismanItem.BlockProviderImpl(stack), BotaniaItems.BLACK_HOLE_TALISMAN);
+		blockProviderItemLookup.registerForItems((stack, c) -> new DepthsRodItem.BlockProviderImpl(), BotaniaItems.ROD_OF_THE_DEPTHS);
+		blockProviderItemLookup.registerForItems((stack, c) -> new EnderHandItem.BlockProviderImpl(stack), BotaniaItems.HAND_OF_ENDER);
 
 		ItemApiLookup<CoordBoundItem, Unit> coordBoundItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP);
-		coordBoundItemLookup.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.flugelEye);
-		coordBoundItemLookup.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.manaMirror);
-		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.twigWand);
-		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.dreamwoodWand);
+		coordBoundItemLookup.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.EYE_OF_THE_FLUEGEL);
+		coordBoundItemLookup.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.MANA_MIRROR);
+		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_FOREST);
+		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_ELVEN_FOREST);
 
 		ItemApiLookup<HourglassMaterial, Unit> hourglassMaterialLookup = BotaniaFabricCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP);
 		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.SAND, Items.SAND);
 		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.RED_SAND, Items.RED_SAND);
 		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.SOUL_SAND, Items.SOUL_SAND);
-		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.MANA_POWDER, BotaniaItems.manaPowder);
+		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.MANA_POWDER, BotaniaItems.MANA_POWDER);
 
 		ItemApiLookup<ManaItem, Unit> manaItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(ManaItem.LOOKUP);
 		manaItemLookup.registerForItems((st, c) -> new DefaultManaItemImpl(st),
-				BotaniaItems.manaMirror, BotaniaItems.manaRing, BotaniaItems.manaRingGreater, BotaniaItems.manaTablet, BotaniaItems.terraPick);
+				BotaniaItems.MANA_MIRROR, BotaniaItems.BAND_OF_MANA, BotaniaItems.GREATER_BAND_OF_MANA, BotaniaItems.MANA_TABLET, BotaniaItems.TERRA_SHATTERER
+		);
 
 		ItemApiLookup<Relic, Unit> relicItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(Relic.LOOKUP);
-		relicItemLookup.registerForItems((st, c) -> DiceOfFateItem.makeRelic(st), BotaniaItems.dice);
-		relicItemLookup.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), BotaniaItems.flugelEye);
-		relicItemLookup.registerForItems((st, c) -> FruitOfGrisaiaItem.makeRelic(st), BotaniaItems.infiniteFruit);
-		relicItemLookup.registerForItems((st, c) -> KeyOfTheKingsLawItem.makeRelic(st), BotaniaItems.kingKey);
-		relicItemLookup.registerForItems((st, c) -> RingOfLokiItem.makeRelic(st), BotaniaItems.lokiRing);
-		relicItemLookup.registerForItems((st, c) -> RingOfOdinItem.makeRelic(st), BotaniaItems.odinRing);
-		relicItemLookup.registerForItems((st, c) -> RingOfThorItem.makeRelic(st), BotaniaItems.thorRing);
+		relicItemLookup.registerForItems((st, c) -> DiceOfFateItem.makeRelic(st), BotaniaItems.DICE_OF_FATE);
+		relicItemLookup.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), BotaniaItems.EYE_OF_THE_FLUEGEL);
+		relicItemLookup.registerForItems((st, c) -> FruitOfGrisaiaItem.makeRelic(st), BotaniaItems.FRUIT_OF_GRISAIA);
+		relicItemLookup.registerForItems((st, c) -> KeyOfTheKingsLawItem.makeRelic(st), BotaniaItems.KEY_OF_THE_KINGS_LAW);
+		relicItemLookup.registerForItems((st, c) -> RingOfLokiItem.makeRelic(st), BotaniaItems.RING_OF_LOKI);
+		relicItemLookup.registerForItems((st, c) -> RingOfOdinItem.makeRelic(st), BotaniaItems.RING_OF_ODIN);
+		relicItemLookup.registerForItems((st, c) -> RingOfThorItem.makeRelic(st), BotaniaItems.RING_OF_THOR);
 
 		BlockApiLookup<EdibleBlockWithEffects, Unit> edibleBlockWithEffectLookup = BotaniaFabricCapabilities.getBlockApiLookupById(EdibleBlockWithEffects.LOOKUP);
 		// these two blocks implement the capability directly

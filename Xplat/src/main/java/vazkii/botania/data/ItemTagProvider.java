@@ -27,6 +27,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.AncientWillItem;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.util.DummyTagLookup;
@@ -36,33 +37,47 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
-import static vazkii.botania.common.item.BotaniaItems.*;
-
 public class ItemTagProvider extends ItemTagsProvider {
 	private static final Set<TagKey<Item>> REQUIRED_TAGS = Set.of(
 			ItemTags.SAND,
 			ItemTags.ARROWS
 	);
 
-	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
-		super(packOutput, lookupProvider, DummyTagLookup.completedFuture(REQUIRED_TAGS), blockTagProvider);
+	public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
+			CompletableFuture<TagsProvider.TagLookup<Block>> blockTags) {
+		super(output, lookupProvider, DummyTagLookup.completedFuture(REQUIRED_TAGS), blockTags);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		this.tag(ItemTags.AXES).add(manasteelAxe, elementiumAxe, terraAxe);
-		this.tag(ItemTags.HOES).add(manasteelHoe, elementiumHoe);
-		this.tag(ItemTags.PICKAXES).add(manasteelPick, elementiumPick, terraPick, glassPick);
-		this.tag(ItemTags.SHOVELS).add(manasteelShovel, elementiumShovel);
-		this.tag(ItemTags.SWORDS).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
-		this.tag(ItemTags.BOW_ENCHANTABLE).add(livingwoodBow, crystalBow);
-		this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(livingwoodBow, crystalBow, manasteelShears, elementiumShears);
-		this.tag(ItemTags.MINING_ENCHANTABLE).add(manasteelShears, elementiumShears);
+		this.tag(ItemTags.AXES)
+				.add(BotaniaItems.MANASTEEL_AXE, BotaniaItems.ELEMENTIUM_AXE, BotaniaItems.TERRA_TRUNCATOR);
+		this.tag(ItemTags.HOES).add(BotaniaItems.MANASTEEL_HOE, BotaniaItems.ELEMENTIUM_HOE);
+		this.tag(ItemTags.PICKAXES).add(
+				BotaniaItems.MANASTEEL_PICKAXE, BotaniaItems.ELEMENTIUM_PICKAXE, BotaniaItems.TERRA_SHATTERER,
+				BotaniaItems.VITREOUS_PICKAXE);
+		this.tag(ItemTags.SHOVELS).add(BotaniaItems.MANASTEEL_SHOVEL, BotaniaItems.ELEMENTIUM_SHOVEL);
+		this.tag(ItemTags.SWORDS).add(
+				BotaniaItems.MANASTEEL_SWORD, BotaniaItems.ELEMENTIUM_SWORD, BotaniaItems.TERRA_BLADE,
+				BotaniaItems.THUNDERCALLER, BotaniaItems.STARCALLER);
+		this.tag(ItemTags.BOW_ENCHANTABLE).add(BotaniaItems.LIVINGWOOD_BOW, BotaniaItems.CRYSTAL_BOW);
+		this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(
+				BotaniaItems.LIVINGWOOD_BOW, BotaniaItems.CRYSTAL_BOW, BotaniaItems.MANASTEEL_SHEARS,
+				BotaniaItems.ELEMENTIUM_SHEARS);
+		this.tag(ItemTags.MINING_ENCHANTABLE).add(BotaniaItems.MANASTEEL_SHEARS, BotaniaItems.ELEMENTIUM_SHEARS);
 
-		this.tag(ItemTags.HEAD_ARMOR).add(manasteelHelm, manaweaveHelm, elementiumHelm, terrasteelHelm);
-		this.tag(ItemTags.CHEST_ARMOR).add(manasteelChest, manaweaveChest, elementiumChest, terrasteelChest);
-		this.tag(ItemTags.LEG_ARMOR).add(manasteelLegs, manaweaveLegs, elementiumLegs, terrasteelLegs);
-		this.tag(ItemTags.FOOT_ARMOR).add(manasteelBoots, manaweaveBoots, elementiumBoots, terrasteelBoots);
+		this.tag(ItemTags.HEAD_ARMOR).add(
+				BotaniaItems.MANASTEEL_HELMET, BotaniaItems.MANAWEAVE_COWL,
+				BotaniaItems.ELEMENTIUM_HELMET, BotaniaItems.TERRASTEEL_HELMET);
+		this.tag(ItemTags.CHEST_ARMOR).add(
+				BotaniaItems.MANASTEEL_CHESTPLATE, BotaniaItems.MANAWEAVE_ROBE_TOP,
+				BotaniaItems.ELEMENTIUM_CHESTPLATE, BotaniaItems.TERRASTEEL_CHESTPLATE);
+		this.tag(ItemTags.LEG_ARMOR).add(
+				BotaniaItems.MANASTEEL_LEGGINGS, BotaniaItems.MANAWEAVE_ROBE_BOTTOM,
+				BotaniaItems.ELEMENTIUM_LEGGINGS, BotaniaItems.TERRASTEEL_LEGGINGS);
+		this.tag(ItemTags.FOOT_ARMOR).add(
+				BotaniaItems.MANASTEEL_BOOTS, BotaniaItems.MANAWEAVE_BOOTS,
+				BotaniaItems.ELEMENTIUM_BOOTS, BotaniaItems.TERRASTEEL_BOOTS);
 
 		this.copy(BlockTags.RAILS, ItemTags.RAILS);
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
@@ -106,19 +121,28 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.addTag(BotaniaTags.Items.MYSTICAL_FLOWERS)
 				.addTag(BotaniaTags.Items.SHINY_FLOWERS)
 				.addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
-				.add(BotaniaBlocks.DAYBLOOM_MOTIF.asItem(), BotaniaBlocks.NIGHTSHADE_MOTIF.asItem(), BotaniaBlocks.HYDROANGEAS_MOTIF.asItem());
+				.add(
+						BotaniaBlocks.DAYBLOOM_MOTIF.asItem(),
+						BotaniaBlocks.NIGHTSHADE_MOTIF.asItem(),
+						BotaniaBlocks.HYDROANGEAS_MOTIF.asItem());
 
-		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);
+		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(BotaniaItems.MANASEER_MONOCLE);
 		this.tag(BotaniaTags.Items.LENS).add(getItems(LensItem.class::isInstance));
 
 		this.tag(BotaniaTags.Items.LENS_GLUE).add(Items.SLIME_BALL).add(Items.HONEY_BOTTLE);
 
-		this.tag(ItemTags.PIGLIN_LOVED).add(BotaniaBlocks.ALCHEMY_CATALYST.asItem(), divaCharm,
-				BotaniaBlocks.HOVERING_HOURGLASS.asItem(), BotaniaBlocks.MANA_PYLON.asItem(), monocle);
-		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
-		this.tag(ItemTags.LECTERN_BOOKS).add(lexicon);
-		this.tag(ItemTags.BOOKSHELF_BOOKS).add(lexicon);
-		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(manaSteel, terrasteel, elementium, manaDiamond, dragonstone);
+		this.tag(ItemTags.PIGLIN_LOVED).add(
+				BotaniaBlocks.ALCHEMY_CATALYST.asItem(), BotaniaItems.CHARM_OF_THE_DIVA,
+				BotaniaBlocks.HOVERING_HOURGLASS.asItem(), BotaniaBlocks.MANA_PYLON.asItem(),
+				BotaniaItems.MANASEER_MONOCLE);
+		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(
+				BotaniaItems.MANASTEEL_PICKAXE, BotaniaItems.ELEMENTIUM_PICKAXE, BotaniaItems.TERRA_SHATTERER,
+				BotaniaItems.VITREOUS_PICKAXE);
+		this.tag(ItemTags.LECTERN_BOOKS).add(BotaniaItems.LEXICA_BOTANIA);
+		this.tag(ItemTags.BOOKSHELF_BOOKS).add(BotaniaItems.LEXICA_BOTANIA);
+		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(
+				BotaniaItems.MANASTEEL_INGOT, BotaniaItems.TERRASTEEL_INGOT, BotaniaItems.ELEMENTIUM_INGOT,
+				BotaniaItems.MANA_DIAMOND, BotaniaItems.DRAGONSTONE);
 
 		this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
 		this.copy(BotaniaTags.Blocks.LIVINGWOOD_LOGS, BotaniaTags.Items.LIVINGWOOD_LOGS);
@@ -126,13 +150,16 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.DREAMWOOD_LOGS, BotaniaTags.Items.DREAMWOOD_LOGS);
 		this.copy(BotaniaTags.Blocks.DREAMWOOD_LOGS_GLIMMERING, BotaniaTags.Items.DREAMWOOD_LOGS_GLIMMERING);
 
-		this.tag(BotaniaTags.Items.DISPOSABLE).add(Items.DIRT, Items.GRAVEL, Items.COBBLESTONE,
-				Items.NETHERRACK, Items.COBBLED_DEEPSLATE, Items.END_STONE)
+		this.tag(BotaniaTags.Items.DISPOSABLE)
+				.add(
+						Items.DIRT, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK, Items.COBBLED_DEEPSLATE,
+						Items.END_STONE)
 				.addTag(ItemTags.SAND);
-		this.tag(BotaniaTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE,
-				Items.TUFF, Items.CALCITE, Items.STONE, Items.BASALT, Items.BLACKSTONE,
-				Items.DEEPSLATE, Items.DRIPSTONE_BLOCK, Items.POINTED_DRIPSTONE, Items.MOSS_BLOCK,
-				Items.SANDSTONE, Items.RED_SANDSTONE)
+		this.tag(BotaniaTags.Items.SEMI_DISPOSABLE)
+				.add(
+						Items.ANDESITE, Items.DIORITE, Items.GRANITE, Items.TUFF, Items.CALCITE, Items.STONE,
+						Items.BASALT, Items.BLACKSTONE, Items.DEEPSLATE, Items.DRIPSTONE_BLOCK, Items.POINTED_DRIPSTONE,
+						Items.MOSS_BLOCK, Items.SANDSTONE, Items.RED_SANDSTONE)
 				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "jasper"))
 				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "limestone"))
 				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "marble"))
@@ -141,10 +168,12 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.BLOCKS_QUARTZ, BotaniaTags.Items.BLOCKS_QUARTZ);
 
 		this.tag(BotaniaTags.Items.RUNES).add(
-				runeWater, runeFire, runeEarth, runeAir,
-				runeSpring, runeSummer, runeAutumn, runeWinter,
-				runeMana, runeLust, runeGluttony, runeGreed,
-				runeSloth, runeWrath, runeEnvy, runePride
+				BotaniaItems.RUNE_OF_WATER, BotaniaItems.RUNE_OF_FIRE, BotaniaItems.RUNE_OF_EARTH,
+				BotaniaItems.RUNE_OF_AIR, BotaniaItems.RUNE_OF_SPRING, BotaniaItems.RUNE_OF_SUMMER,
+				BotaniaItems.RUNE_OF_AUTUMN, BotaniaItems.RUNE_OF_WINTER, BotaniaItems.RUNE_OF_MANA,
+				BotaniaItems.RUNE_OF_LUST, BotaniaItems.RUNE_OF_GLUTTONY, BotaniaItems.RUNE_OF_GREED,
+				BotaniaItems.RUNE_OF_SLOTH, BotaniaItems.RUNE_OF_WRATH, BotaniaItems.RUNE_OF_ENVY,
+				BotaniaItems.RUNE_OF_PRIDE
 		);
 
 		this.tag(BotaniaTags.Items.ANCIENT_WILLS).add(getItems(AncientWillItem.class::isInstance));
@@ -152,7 +181,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
 		ColorHelper.supportedColors().forEach(color -> {
 			var petalTag = BotaniaTags.Items.getPetalTag(color);
-			this.tag(petalTag).add(getPetal(color), BotaniaBlocks.getMushroom(color).asItem());
+			this.tag(petalTag).add(BotaniaItems.getPetal(color), BotaniaBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		});
 
@@ -166,93 +195,96 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.addTag(ItemTags.ARROWS);
 		this.tag(BotaniaTags.Items.MAGNET_RING_IGNORED);
 		this.tag(BotaniaTags.Items.RODS).add(
-				dirtRod,
-				skyDirtRod,
-				terraformRod,
-				cobbleRod,
-				waterRod,
-				tornadoRod,
-				fireRod,
-				diviningRod,
-				smeltRod,
-				exchangeRod,
-				rainbowRod,
-				gravityRod,
-				missileRod);
-		this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(
-				bloodPendant,
-				cobbleRod,
-				crystalBow,
-				dirtRod,
-				divaCharm,
-				diviningRod,
-				elementiumAxe,
-				elementiumBoots,
-				elementiumChest,
-				elementiumHelm,
-				elementiumHoe,
-				elementiumLegs,
-				elementiumPick,
-				elementiumShears,
-				elementiumShovel,
-				elementiumSword,
-				enderHand,
-				exchangeRod,
-				fireRod,
-				flightTiara,
-				flugelEye,
-				glassPick,
-				goddessCharm,
-				gravityRod,
-				infiniteFruit,
-				invisibilityCloak,
-				kingKey,
-				livingwoodBow,
-				lokiRing,
-				manasteelAxe,
-				manasteelBoots,
-				manasteelChest,
-				manasteelHelm,
-				manasteelHoe,
-				manasteelLegs,
-				manasteelPick,
-				manasteelShears,
-				manasteelShovel,
-				manasteelSword,
-				manaweaveBoots,
-				manaweaveChest,
-				manaweaveHelm,
-				manaweaveLegs,
-				miningRing,
-				missileRod,
-				rainbowRod,
-				skyDirtRod,
-				smeltRod,
-				starSword,
-				superTravelBelt,
-				terraAxe,
-				terraPick,
-				terraSword,
-				terraformRod,
-				terrasteelBoots,
-				terrasteelChest,
-				terrasteelHelm,
-				terrasteelLegs,
-				thirdEye,
-				thunderSword,
-				tornadoRod,
-				travelBelt,
-				waterRing,
-				waterRod
+				BotaniaItems.ROD_OF_THE_LANDS,
+				BotaniaItems.ROD_OF_THE_HIGHLANDS,
+				BotaniaItems.ROD_OF_THE_TERRA_FIRMA,
+				BotaniaItems.ROD_OF_THE_DEPTHS,
+				BotaniaItems.ROD_OF_THE_SEAS,
+				BotaniaItems.ROD_OF_THE_SKIES,
+				BotaniaItems.ROD_OF_THE_HELLS,
+				BotaniaItems.ROD_OF_THE_PLENTIFUL_MANTLE,
+				BotaniaItems.ROD_OF_THE_MOLTEN_CORE,
+				BotaniaItems.ROD_OF_THE_SHIFTING_CRUST,
+				BotaniaItems.ROD_OF_THE_BIFROST,
+				BotaniaItems.ROD_OF_THE_SHADED_MESA,
+				BotaniaItems.ROD_OF_THE_UNSTABLE_RESERVOIR
 		);
-		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(icePendant,
-				manaweaveHelm, manaweaveChest, manaweaveLegs, manaweaveBoots);
+		this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(
+				BotaniaItems.TAINTED_BLOOD_PENDANT,
+				BotaniaItems.ROD_OF_THE_DEPTHS,
+				BotaniaItems.CRYSTAL_BOW,
+				BotaniaItems.ROD_OF_THE_LANDS,
+				BotaniaItems.CHARM_OF_THE_DIVA,
+				BotaniaItems.ROD_OF_THE_PLENTIFUL_MANTLE,
+				BotaniaItems.ELEMENTIUM_AXE,
+				BotaniaItems.ELEMENTIUM_BOOTS,
+				BotaniaItems.ELEMENTIUM_CHESTPLATE,
+				BotaniaItems.ELEMENTIUM_HELMET,
+				BotaniaItems.ELEMENTIUM_HOE,
+				BotaniaItems.ELEMENTIUM_LEGGINGS,
+				BotaniaItems.ELEMENTIUM_PICKAXE,
+				BotaniaItems.ELEMENTIUM_SHEARS,
+				BotaniaItems.ELEMENTIUM_SHOVEL,
+				BotaniaItems.ELEMENTIUM_SWORD,
+				BotaniaItems.HAND_OF_ENDER,
+				BotaniaItems.ROD_OF_THE_SHIFTING_CRUST,
+				BotaniaItems.ROD_OF_THE_HELLS,
+				BotaniaItems.FLUEGEL_TIARA,
+				BotaniaItems.EYE_OF_THE_FLUEGEL,
+				BotaniaItems.VITREOUS_PICKAXE,
+				BotaniaItems.BENEVOLENT_GODDESS_CHARM,
+				BotaniaItems.ROD_OF_THE_SHADED_MESA,
+				BotaniaItems.FRUIT_OF_GRISAIA,
+				BotaniaItems.INVINSIBILITY_CLOAK,
+				BotaniaItems.KEY_OF_THE_KINGS_LAW,
+				BotaniaItems.LIVINGWOOD_BOW,
+				BotaniaItems.RING_OF_LOKI,
+				BotaniaItems.MANASTEEL_AXE,
+				BotaniaItems.MANASTEEL_BOOTS,
+				BotaniaItems.MANASTEEL_CHESTPLATE,
+				BotaniaItems.MANASTEEL_HELMET,
+				BotaniaItems.MANASTEEL_HOE,
+				BotaniaItems.MANASTEEL_LEGGINGS,
+				BotaniaItems.MANASTEEL_PICKAXE,
+				BotaniaItems.MANASTEEL_SHEARS,
+				BotaniaItems.MANASTEEL_SHOVEL,
+				BotaniaItems.MANASTEEL_SWORD,
+				BotaniaItems.MANAWEAVE_BOOTS,
+				BotaniaItems.MANAWEAVE_ROBE_TOP,
+				BotaniaItems.MANAWEAVE_COWL,
+				BotaniaItems.MANAWEAVE_ROBE_BOTTOM,
+				BotaniaItems.RING_OF_THE_MANTLE,
+				BotaniaItems.ROD_OF_THE_UNSTABLE_RESERVOIR,
+				BotaniaItems.ROD_OF_THE_BIFROST,
+				BotaniaItems.ROD_OF_THE_HIGHLANDS,
+				BotaniaItems.ROD_OF_THE_MOLTEN_CORE,
+				BotaniaItems.STARCALLER,
+				BotaniaItems.GLOBETROTTERS_SASH,
+				BotaniaItems.TERRA_TRUNCATOR,
+				BotaniaItems.TERRA_SHATTERER,
+				BotaniaItems.TERRA_BLADE,
+				BotaniaItems.ROD_OF_THE_TERRA_FIRMA,
+				BotaniaItems.TERRASTEEL_BOOTS,
+				BotaniaItems.TERRASTEEL_CHESTPLATE,
+				BotaniaItems.TERRASTEEL_HELMET,
+				BotaniaItems.TERRASTEEL_LEGGINGS,
+				BotaniaItems.THIRD_EYE,
+				BotaniaItems.THUNDERCALLER,
+				BotaniaItems.ROD_OF_THE_SKIES,
+				BotaniaItems.SOJOURNERS_SASH,
+				BotaniaItems.RING_OF_CHORDATA,
+				BotaniaItems.ROD_OF_THE_SEAS
+		);
+		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(
+				BotaniaItems.SNOWFLAKE_PENDANT, BotaniaItems.MANAWEAVE_COWL, BotaniaItems.MANAWEAVE_ROBE_TOP,
+				BotaniaItems.MANAWEAVE_ROBE_BOTTOM, BotaniaItems.MANAWEAVE_BOOTS);
 
-		this.tag(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS)
-				.add(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
+		this.tag(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS).add(
+				Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
 
-		this.tag(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER)
-				.add(dirtRod, skyDirtRod, cobbleRod, blackHoleTalisman);
+		this.tag(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER).add(
+				BotaniaItems.ROD_OF_THE_LANDS, BotaniaItems.ROD_OF_THE_HIGHLANDS, BotaniaItems.ROD_OF_THE_DEPTHS,
+				BotaniaItems.BLACK_HOLE_TALISMAN);
 
 		this.tag(BotaniaTags.Items.DYED_MANA_POOLS).add(getColoredBlockItems(BotaniaBlocks.MANA_POOL));
 		this.tag(BotaniaTags.Items.DYED_CREATIVE_POOLS).add(getColoredBlockItems(BotaniaBlocks.CREATIVE_MANA_POOL));
@@ -287,11 +319,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 	private static <B extends Block & OptionallyColored> Item[] getColoredBlockItems(B baseBlock) {
 		return ColorHelper.supportedColors().map(color -> BotaniaBlocks.findOptionallyDyedBlock(baseBlock, color))
-				.map(Block::asItem).toArray(Item[]::new);
-	}
-
-	private static <B extends Block & OptionallyColored> Item[] getColoredBlockItems(B baseBlock, String coloredBlockInfix) {
-		return ColorHelper.supportedColors().map(color -> BotaniaBlocks.findOptionallyDyedBlock(baseBlock, color, coloredBlockInfix))
 				.map(Block::asItem).toArray(Item[]::new);
 	}
 

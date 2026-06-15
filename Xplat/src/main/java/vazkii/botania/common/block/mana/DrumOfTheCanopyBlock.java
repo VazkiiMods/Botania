@@ -23,6 +23,6 @@ public class DrumOfTheCanopyBlock extends DrumBlock {
 
 	@Override
 	public void activate(Level level, BlockPos pos) {
-		HornItem.breakBlocks(level, BotaniaItems.leavesHorn, pos);
+		HornItem.breakBlocks(level, BotaniaItems.HORN_OF_THE_CANOPY, pos);
 	}
 }

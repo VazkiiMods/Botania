@@ -65,7 +65,7 @@ public class EntropinnyumUnethicalTntDetectionTest {
 				.thenExecute(() -> {
 					var player = helper.makeMockPlayer(GameType.CREATIVE);
 					var spreader = TestingUtil.assertBlockEntity(helper, POSITION_FORCE_LENS_MANA_SPREADER, BotaniaBlockEntities.MANA_SPREADER);
-					TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand),
+					TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.WAND_OF_THE_FOREST),
 							helper.absolutePos(POSITION_FORCE_LENS_PUSHED_SLIME_BLOCK), Direction.UP),
 							() -> "Failed to bind spreader");
 

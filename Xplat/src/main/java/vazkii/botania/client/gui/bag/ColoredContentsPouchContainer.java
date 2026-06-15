@@ -42,7 +42,7 @@ public class ColoredContentsPouchContainer extends AbstractContainerMenu {
 		if (!(this.pouch.getItem() instanceof ColoredContentsPouchItem pouchItem)) {
 			BotaniaAPI.LOGGER.warn("Not a pouch item: {}", this.pouch);
 			pouchInv = new SimpleContainer(0);
-			pouch = BotaniaItems.flowerBag;
+			pouch = BotaniaItems.FLOWER_POUCH;
 		} else {
 			pouch = pouchItem;
 			if (!playerInv.player.level().isClientSide()) {

@@ -60,29 +60,29 @@ public class ManaInfusionProvider extends FabricRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		normal(consumer, BotaniaItems.manaSteel, ConventionalItemTags.IRON_INGOTS, COST_MANASTEEL);
+		normal(consumer, BotaniaItems.MANASTEEL_INGOT, ConventionalItemTags.IRON_INGOTS, COST_MANASTEEL);
 		normal(consumer, BotaniaBlocks.MANASTEEL_BLOCK, ConventionalItemTags.STORAGE_BLOCKS_IRON,
 				BLOCK_COST_MULTIPLIER * COST_MANASTEEL);
-		normal(consumer, BotaniaItems.manaPearl, Items.ENDER_PEARL, 6000);
-		normal(consumer, BotaniaItems.manaDiamond, ConventionalItemTags.DIAMOND_GEMS, COST_MANA_DIAMOND);
+		normal(consumer, BotaniaItems.MANA_PEARL, Items.ENDER_PEARL, 6000);
+		normal(consumer, BotaniaItems.MANA_DIAMOND, ConventionalItemTags.DIAMOND_GEMS, COST_MANA_DIAMOND);
 		normal(consumer, BotaniaBlocks.MANA_DIAMOND_BLOCK, ConventionalItemTags.STORAGE_BLOCKS_DIAMOND,
 				BLOCK_COST_MULTIPLIER * COST_MANA_DIAMOND);
 
-		normalWithGroup(consumer, BotaniaItems.manaPowder, Ingredient.of(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS),
+		normalWithGroup(consumer, BotaniaItems.MANA_POWDER, Ingredient.of(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS),
 				500, "_from_dust");
-		normalWithGroup(consumer, BotaniaItems.manaPowder, Ingredient.of(ConventionalItemTags.DYES),
+		normalWithGroup(consumer, BotaniaItems.MANA_POWDER, Ingredient.of(ConventionalItemTags.DYES),
 				400, "_from_dye");
 
-		normal(consumer, BotaniaItems.manaCookie, Items.COOKIE, 20000);
-		normal(consumer, BotaniaItems.manaQuartz, Items.QUARTZ, 250);
+		normal(consumer, BotaniaItems.BISCUIT_OF_TOTALITY, Items.COOKIE, 20000);
+		normal(consumer, BotaniaItems.MANA_QUARTZ, Items.QUARTZ, 250);
 		normal(consumer, BotaniaBlocks.MANAGLASS, ConventionalItemTags.GLASS_BLOCKS_COLORLESS, 150);
-		normal(consumer, BotaniaItems.manaString, Items.STRING, 1250);
-		normal(consumer, BotaniaItems.manaBottle, Items.GLASS_BOTTLE, 5000);
+		normal(consumer, BotaniaItems.MANA_INFUSED_STRING, Items.STRING, 1250);
+		normal(consumer, BotaniaItems.MANA_IN_A_BOTTLE, Items.GLASS_BOTTLE, 5000);
 
 		normal(consumer, BotaniaBlocks.FORCE_RELAY, Blocks.PISTON, 15000);
-		normal(consumer, BotaniaItems.grassSeeds, Blocks.SHORT_GRASS, 2500);
-		normal(consumer, BotaniaItems.mycelSeeds, ConventionalItemTags.MUSHROOMS, 6500);
-		normal(consumer, BotaniaItems.podzolSeeds, Blocks.DEAD_BUSH, 2500);
+		normal(consumer, BotaniaItems.PASTURE_SEEDS, Blocks.SHORT_GRASS, 2500);
+		normal(consumer, BotaniaItems.INFESTATION_SPORES, ConventionalItemTags.MUSHROOMS, 6500);
+		normal(consumer, BotaniaItems.BOREAL_SEEDS, Blocks.DEAD_BUSH, 2500);
 		normal(consumer, BotaniaBlocks.TINY_POTATO, Items.POTATO, 1337);
 
 		alchemy(consumer, Blocks.CHORUS_FLOWER, Items.POPPED_CHORUS_FRUIT, 10000);
@@ -147,13 +147,13 @@ public class ManaInfusionProvider extends FabricRecipeProvider {
 		deconstructLossy(consumer, Items.NETHER_BRICK, 2, Blocks.RED_NETHER_BRICKS);
 		deconstructLossy(consumer, Items.POINTED_DRIPSTONE, Blocks.DRIPSTONE_BLOCK);
 		deconstructLossy(consumer, Items.QUARTZ, Blocks.QUARTZ_BLOCK);
-		deconstructLossy(consumer, BotaniaItems.darkQuartz, BotaniaBlocks.DARK_QUARTZ_BLOCK);
-		deconstructLossy(consumer, BotaniaItems.manaQuartz, BotaniaBlocks.MANA_QUARTZ_BLOCK);
-		deconstructLossy(consumer, BotaniaItems.blazeQuartz, BotaniaBlocks.BLAZE_QUARTZ_BLOCK);
-		deconstructLossy(consumer, BotaniaItems.lavenderQuartz, BotaniaBlocks.LAVENDER_QUARTZ_BLOCK);
-		deconstructLossy(consumer, BotaniaItems.redQuartz, BotaniaBlocks.RED_QUARTZ_BLOCK);
-		deconstructLossy(consumer, BotaniaItems.elfQuartz, BotaniaBlocks.ELVEN_QUARTZ_BLOCK);
-		deconstructLossy(consumer, BotaniaItems.sunnyQuartz, BotaniaBlocks.SUNNY_QUART_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.DARK_QUARTZ, BotaniaBlocks.DARK_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.MANA_QUARTZ, BotaniaBlocks.MANA_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.BLAZE_QUARTZ, BotaniaBlocks.BLAZE_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.LAVENDER_QUARTZ, BotaniaBlocks.LAVENDER_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.RED_QUARTZ, BotaniaBlocks.RED_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.ELVEN_QUARTZ, BotaniaBlocks.ELVEN_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.SUNNY_QUARTZ, BotaniaBlocks.SUNNY_QUART_BLOCK);
 		deconstructLossy(consumer, Items.STRING, ItemTags.WOOL);
 
 		alchemy(consumer, BotaniaBlocks.HYDROANGEAS_MOTIF, BotaniaBlocks.HYDROANGEAS, 2500);

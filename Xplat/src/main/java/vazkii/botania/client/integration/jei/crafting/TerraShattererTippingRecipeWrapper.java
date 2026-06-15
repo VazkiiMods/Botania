@@ -31,8 +31,8 @@ public class TerraShattererTippingRecipeWrapper implements ICraftingCategoryExte
 	private final ItemStack output;
 
 	public TerraShattererTippingRecipeWrapper() {
-		inputs = ImmutableList.of(ImmutableList.of(new ItemStack(BotaniaItems.terraPick)), ImmutableList.of(new ItemStack(BotaniaItems.elementiumPick)));
-		output = new ItemStack(BotaniaItems.terraPick);
+		inputs = ImmutableList.of(ImmutableList.of(new ItemStack(BotaniaItems.TERRA_SHATTERER)), ImmutableList.of(new ItemStack(BotaniaItems.ELEMENTIUM_PICKAXE)));
+		output = new ItemStack(BotaniaItems.TERRA_SHATTERER);
 		TerraShattererItem.setTipped(output);
 	}
 

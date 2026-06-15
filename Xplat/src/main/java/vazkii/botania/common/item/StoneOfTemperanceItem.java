@@ -51,7 +51,7 @@ public class StoneOfTemperanceItem extends Item {
 		Container inv = player.getInventory();
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.is(BotaniaItems.temperanceStone) && stack.has(BotaniaDataComponents.ACTIVE)) {
+			if (!stack.isEmpty() && stack.is(BotaniaItems.STONE_OF_TEMPERANCE) && stack.has(BotaniaDataComponents.ACTIVE)) {
 				return true;
 			}
 		}

@@ -123,7 +123,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	private ItemStack getItemStack() {
 		return !stack.isEmpty()
 				? stack.copy()
-				: isFire() ? new ItemStack(BotaniaItems.flareChakram) : new ItemStack(BotaniaItems.thornChakram);
+				: isFire() ? new ItemStack(BotaniaItems.FLARE_CHAKRAM) : new ItemStack(BotaniaItems.THORN_CHAKRAM);
 	}
 
 	@Override

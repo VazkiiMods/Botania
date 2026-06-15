@@ -36,7 +36,7 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.is(BotaniaItems.keepIvy) && !foundIvy) {
+				if (stack.is(BotaniaItems.RESOLUTE_IVY) && !foundIvy) {
 					foundIvy = true;
 				} else if (!foundItem
 						&& !stack.has(BotaniaDataComponents.RESOLUTE_IVY)
@@ -57,7 +57,7 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && !stack.is(BotaniaItems.keepIvy)) {
+			if (!stack.isEmpty() && !stack.is(BotaniaItems.RESOLUTE_IVY)) {
 				item = stack;
 			}
 		}

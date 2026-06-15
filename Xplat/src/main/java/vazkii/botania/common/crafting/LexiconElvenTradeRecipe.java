@@ -35,7 +35,7 @@ import java.util.function.Supplier;
 public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	public static final LexiconElvenTradeRecipe INSTANCE = new LexiconElvenTradeRecipe();
 	public static final RecipeSerializer<LexiconElvenTradeRecipe> SERIALIZER = new Serializer();
-	public static final Supplier<Ingredient> LEXICON_INGREDIENT = Suppliers.memoize(() -> Ingredient.of(BotaniaItems.lexicon));
+	public static final Supplier<Ingredient> LEXICON_INGREDIENT = Suppliers.memoize(() -> Ingredient.of(BotaniaItems.LEXICA_BOTANIA));
 
 	private LexiconElvenTradeRecipe() {}
 
@@ -56,7 +56,7 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 
 	@Override
 	public List<ItemStack> getOutputs() {
-		return List.of(getUpgradedLexicon(new ItemStack(BotaniaItems.lexicon)));
+		return List.of(getUpgradedLexicon(new ItemStack(BotaniaItems.LEXICA_BOTANIA)));
 	}
 
 	private static ItemStack getUpgradedLexicon(ItemStack stack) {

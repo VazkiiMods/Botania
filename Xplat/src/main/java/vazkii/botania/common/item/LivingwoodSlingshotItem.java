@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 
 public class LivingwoodSlingshotItem extends Item {
 
-	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.is(BotaniaItems.vineBall);
+	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.is(BotaniaItems.VINE_BALL);
 
 	public LivingwoodSlingshotItem(Properties builder) {
 		super(builder);

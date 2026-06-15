@@ -147,6 +147,6 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 
 	@Override
 	public ItemStack getItem() {
-		return new ItemStack(BotaniaItems.enderAirBottle);
+		return new ItemStack(BotaniaItems.ENDER_AIR_BOTTLE);
 	}
 }

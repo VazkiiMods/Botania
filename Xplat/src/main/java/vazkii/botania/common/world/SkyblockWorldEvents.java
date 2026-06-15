@@ -106,9 +106,9 @@ public final class SkyblockWorldEvents {
 							equipped.shrink(1);
 
 							if (equipped.isEmpty()) {
-								player.setItemInHand(hand, new ItemStack(BotaniaItems.waterBowl));
+								player.setItemInHand(hand, new ItemStack(BotaniaItems.WATER_BOWL));
 							} else {
-								player.getInventory().placeItemBackInInventory(new ItemStack(BotaniaItems.waterBowl));
+								player.getInventory().placeItemBackInInventory(new ItemStack(BotaniaItems.WATER_BOWL));
 							}
 						}
 
@@ -128,7 +128,7 @@ public final class SkyblockWorldEvents {
 			pmp.teleportTo(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 			pmp.setRespawnPosition(pmp.level().dimension(), pos, 0, true, false);
 			if (BotaniaConfig.common().gogSpawnWithLexicon()) {
-				player.getInventory().add(new ItemStack(BotaniaItems.lexicon));
+				player.getInventory().add(new ItemStack(BotaniaItems.LEXICA_BOTANIA));
 			}
 		}
 	}

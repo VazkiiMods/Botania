@@ -148,7 +148,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		for (int i = 0; i < craft.getContainerSize(); i++) {
 			ItemStack stack = getItemHandler().getItem(i);
 
-			if (stack.isEmpty() || isLocked(i) || stack.is(BotaniaItems.placeholder)) {
+			if (stack.isEmpty() || isLocked(i) || stack.is(BotaniaItems.CRAFTING_PLACEHOLDER)) {
 				continue;
 			}
 
@@ -186,7 +186,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 					ItemStack s = remainders.get(remainderIndex);
 					ItemStack inSlot = handler.getItem(slot);
 					if ((inSlot.isEmpty() && s.isEmpty())
-							|| (!inSlot.isEmpty() && inSlot.is(BotaniaItems.placeholder))) {
+							|| (!inSlot.isEmpty() && inSlot.is(BotaniaItems.CRAFTING_PLACEHOLDER))) {
 						continue;
 					}
 					handler.setItem(slot, s);

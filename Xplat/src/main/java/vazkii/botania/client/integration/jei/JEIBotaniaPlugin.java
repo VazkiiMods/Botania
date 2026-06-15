@@ -74,30 +74,30 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public void registerItemSubtypes(ISubtypeRegistration registry) {
 		//TODO use ISubtypeInterpreter instead? (weird interface, requiring you to implement a deprecated-for-removal method)
 		IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> BaseBrewItem.getSubtype(stack);
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.brewVial, interpreter);
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.brewFlask, interpreter);
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.incenseStick, interpreter);
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.bloodPendant, interpreter);
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.BREW_VIAL, interpreter);
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.BREW_FLASK, interpreter);
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.INCENSE_STICK, interpreter);
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.TAINTED_BLOOD_PENDANT, interpreter);
 
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.flightTiara,
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.FLUEGEL_TIARA,
 				(stack, ctx) -> String.valueOf(FlugelTiaraItem.getVariant(stack)));
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.lexicon,
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.LEXICA_BOTANIA,
 				(stack, ctx) -> String.valueOf(stack.has(BotaniaDataComponents.ELVEN_UNLOCK)));
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.laputaShard,
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.SHARD_OF_LAPUTA,
 				(stack, ctx) -> String.valueOf(LaputaShardItem.getShardLevel(stack)));
 
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.terraPick, (stack, ctx) -> {
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.TERRA_SHATTERER, (stack, ctx) -> {
 			if (ctx == UidContext.Recipe) {
 				return String.valueOf(TerraShattererItem.isTipped(stack));
 			}
 			return String.valueOf(TerraShattererItem.getLevel(stack)) + TerraShattererItem.isTipped(stack);
 		});
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.manaTablet, (stack, ctx) -> {
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.MANA_TABLET, (stack, ctx) -> {
 			int mana = ManaItem.LOOKUP.find(stack).getMana();
 			return String.valueOf(mana) + ManaTabletItem.isStackCreative(stack);
 		});
 
-		for (Item item : new Item[] { BotaniaItems.manaRing, BotaniaItems.manaRingGreater }) {
+		for (Item item : new Item[] { BotaniaItems.BAND_OF_MANA, BotaniaItems.GREATER_BAND_OF_MANA }) {
 			registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, item, (stack, ctx) -> {
 				int mana = ManaItem.LOOKUP.find(stack).getMana();
 				return String.valueOf(mana);
@@ -197,8 +197,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.RUNIC_ALTAR), RunicAltarRecipeCategory.TYPE);
 		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE), TerrestrialAgglomerationRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaItems.autocraftingHalo), RecipeTypes.CRAFTING);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaItems.craftingHalo), RecipeTypes.CRAFTING);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaItems.MANUFACTORY_HALO), RecipeTypes.CRAFTING);
+		registry.addRecipeCatalyst(new ItemStack(BotaniaItems.ASSEMBLY_HALO), RecipeTypes.CRAFTING);
 	}
 
 	@Override

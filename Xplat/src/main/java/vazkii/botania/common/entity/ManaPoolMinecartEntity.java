@@ -93,7 +93,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 	@Override
 	public ItemStack getPickResult() {
-		return new ItemStack(BotaniaItems.poolMinecart);
+		return new ItemStack(BotaniaItems.POOL_MINECART);
 	}
 
 	@Override
@@ -195,7 +195,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 	@Override
 	protected Item getDropItem() {
-		return BotaniaItems.poolMinecart;
+		return BotaniaItems.POOL_MINECART;
 	}
 
 	@SoftImplement("IAbstractMinecartExtension")

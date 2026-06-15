@@ -36,7 +36,7 @@ public class BlackLotusItem extends Item implements ManaDissolvable {
 
 	@Override
 	public boolean isFoil(ItemStack stack) {
-		return super.isFoil(stack) || stack.is(BotaniaItems.blackerLotus);
+		return super.isFoil(stack) || stack.is(BotaniaItems.BLACKER_LOTUS);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class BlackLotusItem extends Item implements ManaDissolvable {
 		}
 
 		BlockPos pos = pool.getManaReceiverPos();
-		boolean t2 = item.getItem().is(BotaniaItems.blackerLotus);
+		boolean t2 = item.getItem().is(BotaniaItems.BLACKER_LOTUS);
 
 		if (!item.level().isClientSide()) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);

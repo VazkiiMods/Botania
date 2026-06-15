@@ -24,8 +24,8 @@ public class ElementiumPickaxeItem extends ManasteelPickaxeItem {
 	}
 
 	public static boolean shouldFilterOut(Entity e, ItemStack tool, ItemStack drop) {
-		if (!tool.isEmpty() && (tool.is(BotaniaItems.elementiumPick)
-				|| tool.is(BotaniaItems.terraPick) && TerraShattererItem.isTipped(tool))) {
+		if (!tool.isEmpty() && (tool.is(BotaniaItems.ELEMENTIUM_PICKAXE)
+				|| tool.is(BotaniaItems.TERRA_SHATTERER) && TerraShattererItem.isTipped(tool))) {
 			return !drop.isEmpty() && (isDisposable(drop) || isSemiDisposable(drop) && !e.isShiftKeyDown());
 		}
 		return false;

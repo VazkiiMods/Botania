@@ -30,72 +30,72 @@ public class BotaniaChestLoot implements LootTableSubProvider {
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_ABANDONED_MINESHAFT, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
-						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(35))
+						.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(35))
 						.add(EmptyLootItem.emptyItem().setWeight(65))
 				)
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_DESERT_PYRAMID, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
-						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(35))
+						.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(35))
 						.add(EmptyLootItem.emptyItem().setWeight(65))
 				)
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_JUNGLE_TEMPLE, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
-						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(25))
+						.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(25))
 						.add(EmptyLootItem.emptyItem().setWeight(75))
 				)
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_SIMPLE_DUNGEON, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
-						.add(LootItem.lootTableItem(BotaniaItems.manaSteel).setWeight(25)
+						.add(LootItem.lootTableItem(BotaniaItems.MANASTEEL_INGOT).setWeight(25)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 5)))
 						)
-						.add(LootItem.lootTableItem(BotaniaItems.lexicon).setWeight(20))
-						.add(LootItem.lootTableItem(BotaniaItems.manaBottle).setWeight(10))
-						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(5))
+						.add(LootItem.lootTableItem(BotaniaItems.LEXICA_BOTANIA).setWeight(20))
+						.add(LootItem.lootTableItem(BotaniaItems.MANA_IN_A_BOTTLE).setWeight(10))
+						.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(5))
 						.add(EmptyLootItem.emptyItem().setWeight(40))
 				)
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_SPAWN_BONUS_CHEST, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
-						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(10))
+						.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(10))
 						.add(EmptyLootItem.emptyItem().setWeight(90))
 				)
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.lexicon)))
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.LEXICA_BOTANIA)))
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_STRONGHOLD_CORRIDOR, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
-						.add(LootItem.lootTableItem(BotaniaItems.manaSteel).setWeight(45)
+						.add(LootItem.lootTableItem(BotaniaItems.MANASTEEL_INGOT).setWeight(45)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3)))
 						)
-						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(10))
+						.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(10))
 						.add(EmptyLootItem.emptyItem().setWeight(45))
 				)
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_VILLAGE_TEMPLE, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
-						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(10))
+						.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(10))
 						.add(EmptyLootItem.emptyItem().setWeight(90))
 				)
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_VILLAGE_TOOLSMITH, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
-						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(10))
+						.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(10))
 						.add(EmptyLootItem.emptyItem().setWeight(90))
 				)
 		);
 
 		output.accept(BotaniaLootTables.INJECTED_CHEST_VILLAGE_WEAPONSMITH, LootTable.lootTable()
 				.withPool(LootPool.lootPool().setBonusRolls(UniformGenerator.between(0, 1))
-						.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(10))
+						.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(10))
 						.add(EmptyLootItem.emptyItem().setWeight(90))
 				)
 		);

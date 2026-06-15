@@ -52,7 +52,7 @@ public class LexicaBotaniaItem extends Item implements CustomCreativeTabContents
 	}
 
 	public static boolean isOpen() {
-		return BuiltInRegistries.ITEM.getKey(BotaniaItems.lexicon).equals(PatchouliAPI.get().getOpenBookGui());
+		return BuiltInRegistries.ITEM.getKey(BotaniaItems.LEXICA_BOTANIA).equals(PatchouliAPI.get().getOpenBookGui());
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class LexicaBotaniaItem extends Item implements CustomCreativeTabContents
 
 	public static Component getEdition() {
 		try {
-			return PatchouliAPI.get().getSubtitle(BuiltInRegistries.ITEM.getKey(BotaniaItems.lexicon));
+			return PatchouliAPI.get().getSubtitle(BuiltInRegistries.ITEM.getKey(BotaniaItems.LEXICA_BOTANIA));
 		} catch (IllegalArgumentException e) {
 			return Component.literal(""); // TODO Adjust Patchouli because first search tree creation is too early to get the edition
 		}

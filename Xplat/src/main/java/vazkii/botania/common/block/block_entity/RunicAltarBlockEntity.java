@@ -88,7 +88,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
-		if (cooldown > 0 || stack.getItem() instanceof WandOfTheForestItem || stack.is(BotaniaItems.lexicon)) {
+		if (cooldown > 0 || stack.getItem() instanceof WandOfTheForestItem || stack.is(BotaniaItems.LEXICA_BOTANIA)) {
 			return false;
 		}
 
@@ -448,7 +448,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						if (playerWand.isEmpty()) {
 							playerWand = PlayerHelper.getItemClassFromInventory(player, WandOfTheForestItem.class);
 						}
-						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.twigWand) : playerWand;
+						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.WAND_OF_THE_FOREST) : playerWand;
 						gui.renderFakeItem(wandToRender, xc + radius + 24, yc + 8);
 						ms.popPose();
 					}

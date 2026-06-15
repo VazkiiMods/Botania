@@ -32,7 +32,7 @@ public class WarpForceTest {
 
 	@GameTest(template = TEMPLATE, timeoutTicks = 50)
 	public void testWarpForceLens(GameTestHelper helper) {
-		setUpLensesAndBindings(helper, BotaniaItems.lensWarp, BotaniaItems.lensPiston);
+		setUpLensesAndBindings(helper, BotaniaItems.WARP_LENS, BotaniaItems.FORCE_LENS);
 
 		helper.startSequence()
 				// short delay to ensure spreader picks up mana from pool
@@ -66,7 +66,7 @@ public class WarpForceTest {
 
 	@GameTest(template = TEMPLATE, timeoutTicks = 50)
 	public void testForceWarpLens(GameTestHelper helper) {
-		setUpLensesAndBindings(helper, BotaniaItems.lensPiston, BotaniaItems.lensWarp);
+		setUpLensesAndBindings(helper, BotaniaItems.FORCE_LENS, BotaniaItems.WARP_LENS);
 
 		helper.startSequence()
 				// short delay to ensure spreader picks up mana from pool

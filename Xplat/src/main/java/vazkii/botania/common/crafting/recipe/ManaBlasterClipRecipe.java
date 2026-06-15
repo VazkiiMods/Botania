@@ -38,7 +38,7 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 				if (stack.getItem() instanceof ManaBlasterItem
 						&& !ManaBlasterItem.hasClip(stack) && !foundGun) {
 					foundGun = true;
-				} else if (stack.is(BotaniaItems.clip) && !foundClip) {
+				} else if (stack.is(BotaniaItems.LENS_CLIP) && !foundClip) {
 					foundClip = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe

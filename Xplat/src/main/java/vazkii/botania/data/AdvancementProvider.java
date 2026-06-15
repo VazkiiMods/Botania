@@ -54,9 +54,9 @@ public class AdvancementProvider {
 	public static class BotaniaStoryAdvancements implements AdvancementSubProvider {
 
 		@Override
-		public void generate(HolderLookup.Provider lookup, Consumer<AdvancementHolder> consumer) {
+		public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
 			Criterion<InventoryChangeTrigger.TriggerInstance> elvenLexicon = InventoryChangeTrigger.TriggerInstance.hasItems(
-					ItemPredicate.Builder.item().of(BotaniaItems.lexicon)
+					ItemPredicate.Builder.item().of(BotaniaItems.LEXICA_BOTANIA)
 							.hasComponents(DataComponentPredicate.builder()
 									.expect(BotaniaDataComponents.ELVEN_UNLOCK, Unit.INSTANCE).build())
 							.build()
@@ -64,10 +64,10 @@ public class AdvancementProvider {
 
 			// Main progression line
 			AdvancementHolder root = Advancement.Builder.advancement()
-					.display(rootDisplay(BotaniaItems.lexicon, "itemGroup.botania",
+					.display(rootDisplay(BotaniaItems.LEXICA_BOTANIA, "itemGroup.botania",
 							"botania.desc", botaniaRL("textures/block/livingwood_log.png")))
 					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
-					.save(consumer, mainId("root"));
+					.save(writer, mainId("root"));
 
 			AdvancementHolder flowerPickup = Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.PINK_MYSTICAL_FLOWER, "flowerPickup", AdvancementType.TASK))
@@ -75,167 +75,174 @@ public class AdvancementProvider {
 					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
 					.addCriterion("double_flower", onPickup(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))
 					.requirements(AdvancementRequirements.Strategy.OR)
-					.save(consumer, mainId("flower_pickup"));
+					.save(writer, mainId("flower_pickup"));
 
 			AdvancementHolder manaPoolPickup = Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.MANA_POOL, "manaPoolPickup", AdvancementType.TASK))
 					.parent(flowerPickup)
 					.addCriterion("pickup", onPickup(BotaniaTags.Items.ALL_MANA_POOLS))
-					.save(consumer, mainId("mana_pool_pickup"));
+					.save(writer, mainId("mana_pool_pickup"));
 
 			AdvancementHolder runePickup = Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.RUNIC_ALTAR, "runePickup", AdvancementType.TASK))
 					.parent(manaPoolPickup)
 					.addCriterion("rune", onPickup(BotaniaTags.Items.RUNES))
-					.save(consumer, mainId("rune_pickup"));
+					.save(writer, mainId("rune_pickup"));
 
 			AdvancementHolder terrasteelPickup = Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.terrasteel, "terrasteelPickup", AdvancementType.TASK))
+					.display(simple(BotaniaItems.TERRASTEEL_INGOT, "terrasteelPickup", AdvancementType.TASK))
 					.parent(runePickup)
-					.addCriterion("terrasteel", onPickup(BotaniaItems.terrasteel))
-					.save(consumer, mainId("terrasteel_pickup"));
+					.addCriterion("terrasteel", onPickup(BotaniaItems.TERRASTEEL_INGOT))
+					.save(writer, mainId("terrasteel_pickup"));
 
 			AdvancementHolder elfPortalOpen = Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.ELVEN_GATEWAY_CORE, "elfPortalOpen", AdvancementType.TASK))
 					.parent(terrasteelPickup)
 					.addCriterion("portal", AlfheimPortalTrigger.Instance.activatedPortal())
-					.save(consumer, mainId("elf_portal_open"));
+					.save(writer, mainId("elf_portal_open"));
 
 			AdvancementHolder gaiaGuardianKill = Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.GAIA_HEAD, "gaiaGuardianKill", AdvancementType.TASK))
 					.parent(elfPortalOpen)
 					.addCriterion("guardian", KilledTrigger.TriggerInstance
 							.playerKilledEntity(EntityPredicate.Builder.entity().of(BotaniaEntities.GAIA_GUARDIAN)))
-					.save(consumer, mainId("gaia_guardian_kill"));
+					.save(writer, mainId("gaia_guardian_kill"));
 
 			AdvancementHolder enderAirMake = Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.enderAirBottle, "enderAirMake", AdvancementType.TASK))
+					.display(simple(BotaniaItems.ENDER_AIR_BOTTLE, "enderAirMake", AdvancementType.TASK))
 					.parent(elfPortalOpen)
-					.addCriterion("air", onPickup(BotaniaItems.enderAirBottle))
-					.save(consumer, mainId("ender_air_make"));
+					.addCriterion("air", onPickup(BotaniaItems.ENDER_AIR_BOTTLE))
+					.save(writer, mainId("ender_air_make"));
 
 			// Parent: root
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.lexicon, "lexiconUse", AdvancementType.TASK))
+					.display(simple(BotaniaItems.LEXICA_BOTANIA, "lexiconUse", AdvancementType.TASK))
 					.parent(root)
-					.addCriterion("use_lexicon", UseItemSuccessTrigger.Instance.used(BotaniaItems.lexicon))
-					.save(consumer, mainId("lexicon_use"));
+					.addCriterion("use_lexicon", UseItemSuccessTrigger.Instance.used(BotaniaItems.LEXICA_BOTANIA))
+					.save(writer, mainId("lexicon_use"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.cacophonium, "cacophoniumCraft", AdvancementType.TASK))
+					.display(simple(BotaniaItems.CACOPHONIUM, "cacophoniumCraft", AdvancementType.TASK))
 					.parent(root)
-					.addCriterion("cacophonium", onPickup(BotaniaItems.cacophonium))
-					.save(consumer, mainId("cacophonium_craft"));
+					.addCriterion("cacophonium", onPickup(BotaniaItems.CACOPHONIUM))
+					.save(writer, mainId("cacophonium_craft"));
 
 			// Parent: mystical flowers
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.ENDOFLAME, "generatingFlower", AdvancementType.TASK))
 					.parent(flowerPickup)
 					.addCriterion("flower", onPickup(BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS))
-					.save(consumer, mainId("generating_flower"));
+					.save(writer, mainId("generating_flower"));
 
 			// Parent: mana pool
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.MANA_ENCHANTER, "enchanterMake", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-					.save(consumer, mainId("enchanter_make"));
+					.addCriterion("code_triggered",
+							CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
+					.save(writer, mainId("enchanter_make"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.BELLETHORNE, "functionalFlower", AdvancementType.TASK))
 					.parent(manaPoolPickup)
 					.addCriterion("flower", onPickup(BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOWERS))
-					.save(consumer, mainId("functional_flower"));
+					.save(writer, mainId("functional_flower"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.poolMinecart, "manaCartCraft", AdvancementType.TASK))
+					.display(simple(BotaniaItems.POOL_MINECART, "manaCartCraft", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("poolcart", onPickup(BotaniaItems.poolMinecart))
-					.save(consumer, mainId("mana_cart_craft"));
+					.addCriterion("poolcart", onPickup(BotaniaItems.POOL_MINECART))
+					.save(writer, mainId("mana_cart_craft"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.manaweaveCloth, "manaweaveArmorCraft", AdvancementType.TASK))
+					.display(simple(BotaniaItems.MANAWEAVE_CLOTH, "manaweaveArmorCraft", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("head", onPickup(BotaniaItems.manaweaveHelm, BotaniaItems.manaweaveChest, BotaniaItems.manaweaveLegs, BotaniaItems.manaweaveBoots))
-					.save(consumer, mainId("manaweave_armor_craft"));
+					.addCriterion("head", onPickup(
+							BotaniaItems.MANAWEAVE_COWL, BotaniaItems.MANAWEAVE_ROBE_TOP,
+							BotaniaItems.MANAWEAVE_ROBE_BOTTOM, BotaniaItems.MANAWEAVE_BOOTS))
+					.save(writer, mainId("manaweave_armor_craft"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.spark, "sparkCraft", AdvancementType.TASK))
+					.display(simple(BotaniaItems.SPARK, "sparkCraft", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("spark", onPickup(BotaniaItems.spark))
-					.save(consumer, mainId("spark_craft"));
+					.addCriterion("spark", onPickup(BotaniaItems.SPARK))
+					.save(writer, mainId("spark_craft"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.manaCookie, "manaCookieEat", AdvancementType.TASK))
+					.display(simple(BotaniaItems.BISCUIT_OF_TOTALITY, "manaCookieEat", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("cookie", ConsumeItemTrigger.TriggerInstance.usedItem(BotaniaItems.manaCookie))
-					.save(consumer, mainId("mana_cookie_eat"));
+					.addCriterion("cookie",
+							ConsumeItemTrigger.TriggerInstance.usedItem(BotaniaItems.BISCUIT_OF_TOTALITY))
+					.save(writer, mainId("mana_cookie_eat"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.craftingHalo, "craftingHaloCraft", AdvancementType.TASK))
+					.display(simple(BotaniaItems.ASSEMBLY_HALO, "craftingHaloCraft", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("pool", onPickup(BotaniaItems.craftingHalo))
-					.save(consumer, mainId("crafting_halo_craft"));
+					.addCriterion("pool", onPickup(BotaniaItems.ASSEMBLY_HALO))
+					.save(writer, mainId("crafting_halo_craft"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.manaRing, "baubleWear", AdvancementType.TASK))
+					.display(simple(BotaniaItems.BAND_OF_MANA, "baubleWear", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-					.save(consumer, mainId("bauble_wear"));
+					.addCriterion("code_triggered",
+							CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
+					.save(writer, mainId("bauble_wear"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.TINY_POTATO, "tinyPotatoPet", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-					.save(consumer, mainId("tiny_potato_pet"));
+					.addCriterion("code_triggered",
+							CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
+					.save(writer, mainId("tiny_potato_pet"));
 
 			// Parent: runes
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.manaGun, "manaBlasterShoot", AdvancementType.TASK))
+					.display(simple(BotaniaItems.MANA_BLASTER, "manaBlasterShoot", AdvancementType.TASK))
 					.parent(runePickup)
 					.addCriterion("shoot", ManaBlasterTrigger.Instance.shoot())
-					.save(consumer, mainId("mana_blaster_shoot"));
+					.save(writer, mainId("mana_blaster_shoot"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.POLLIDISIAC, "pollidisiacPickup", AdvancementType.TASK))
 					.parent(runePickup)
 					.addCriterion("pollidisiac", onPickup(BotaniaBlocks.POLLIDISIAC))
-					.save(consumer, mainId("pollidisiac_pickup"));
+					.save(writer, mainId("pollidisiac_pickup"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.dirtRod, "dirtRodCraft", AdvancementType.TASK))
+					.display(simple(BotaniaItems.ROD_OF_THE_LANDS, "dirtRodCraft", AdvancementType.TASK))
 					.parent(runePickup)
-					.addCriterion("dirtrod", onPickup(BotaniaItems.dirtRod))
-					.save(consumer, mainId("dirt_rod_craft"));
+					.addCriterion("dirtrod", onPickup(BotaniaItems.ROD_OF_THE_LANDS))
+					.save(writer, mainId("dirt_rod_craft"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.BOTANICAL_BREWERY, "brewPickup", AdvancementType.TASK))
 					.parent(runePickup)
-					.addCriterion("pickup", onPickup(BotaniaItems.brewFlask, BotaniaItems.brewVial))
-					.save(consumer, mainId("brew_pickup"));
+					.addCriterion("pickup", onPickup(BotaniaItems.BREW_FLASK, BotaniaItems.BREW_VIAL))
+					.save(writer, mainId("brew_pickup"));
 
 			// Parent: terrasteel
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.terraSword, "terrasteelWeaponCraft", AdvancementType.TASK))
+					.display(simple(BotaniaItems.TERRA_BLADE, "terrasteelWeaponCraft", AdvancementType.TASK))
 					.parent(terrasteelPickup)
-					.addCriterion("terrablade", onPickup(BotaniaItems.terraSword, BotaniaItems.thornChakram))
-					.save(consumer, mainId("terrasteel_weapon_craft"));
+					.addCriterion("terrablade", onPickup(BotaniaItems.TERRA_BLADE, BotaniaItems.THORN_CHAKRAM))
+					.save(writer, mainId("terrasteel_weapon_craft"));
 
 			// Parent: elven portal
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.HEISEI_DREAM, "heiseiDreamPickup", AdvancementType.TASK))
 					.parent(elfPortalOpen)
 					.addCriterion("heisei_dream", onPickup(BotaniaBlocks.HEISEI_DREAM))
-					.save(consumer, mainId("heisei_dream_pickup"));
+					.save(writer, mainId("heisei_dream_pickup"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.KEKIMURUS, "kekimurusPickup", AdvancementType.TASK))
 					.parent(elfPortalOpen)
 					.addCriterion("kekimurus", onPickup(BotaniaBlocks.KEKIMURUS))
-					.save(consumer, mainId("kekimurus_pickup"));
+					.save(writer, mainId("kekimurus_pickup"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.BUBBELL, "bubbellPickup", AdvancementType.TASK))
 					.parent(elfPortalOpen)
 					.addCriterion("bubbell", onPickup(BotaniaBlocks.BUBBELL))
-					.save(consumer, mainId("bubbell_pickup"));
+					.save(writer, mainId("bubbell_pickup"));
 
 			// Parent: gaia guardian
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.spawnerMover, "spawnerMoverUse", AdvancementType.TASK))
+					.display(simple(BotaniaItems.LIFE_AGGREGATOR, "spawnerMoverUse", AdvancementType.TASK))
 					.parent(gaiaGuardianKill)
-					.addCriterion("use_spawner_mover", UseItemSuccessTrigger.Instance.used(BotaniaItems.spawnerMover))
-					.save(consumer, mainId("spawner_mover_use"));
-			DisplayInfo tiaraWings = simple(BotaniaItems.flightTiara, "tiaraWings", AdvancementType.TASK);
+					.addCriterion("use_spawner_mover",
+							UseItemSuccessTrigger.Instance.used(BotaniaItems.LIFE_AGGREGATOR))
+					.save(writer, mainId("spawner_mover_use"));
+			DisplayInfo tiaraWings = simple(BotaniaItems.FLUEGEL_TIARA, "tiaraWings", AdvancementType.TASK);
 			tiaraWings.getIcon().set(BotaniaDataComponents.TIARA_VARIANT, 1);
 			Criterion<?>[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
-					.mapToObj(i -> ItemPredicate.Builder.item().of(BotaniaItems.flightTiara)
+					.mapToObj(i -> ItemPredicate.Builder.item().of(BotaniaItems.FLUEGEL_TIARA)
 							.hasComponents(DataComponentPredicate.builder()
 									.expect(BotaniaDataComponents.TIARA_VARIANT, i).build())
 							.build())
@@ -249,32 +256,35 @@ public class AdvancementProvider {
 				var variant = variants[i];
 				builder.addCriterion("tiara_" + (i + 1), variant);
 			}
-			builder.save(consumer, mainId("tiara_wings"));
+			builder.save(writer, mainId("tiara_wings"));
 
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.DANDELIFEON, "dandelifeonPickup", AdvancementType.TASK))
 					.parent(gaiaGuardianKill)
 					.addCriterion("dandelifeon", onPickup(BotaniaBlocks.DANDELIFEON))
-					.save(consumer, mainId("dandelifeon_pickup"));
+					.save(writer, mainId("dandelifeon_pickup"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.MANASTORM_CHARGE, "manaBombIgnite", AdvancementType.TASK))
 					.parent(gaiaGuardianKill)
 					.addCriterion("bomb", onPickup(BotaniaBlocks.MANASTORM_CHARGE))
-					.save(consumer, mainId("mana_bomb_ignite"));
+					.save(writer, mainId("mana_bomb_ignite"));
 
 			// Parent: ender air
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.LUMINIZER, "luminizerRide", AdvancementType.TASK))
 					.parent(enderAirMake)
-					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-					.save(consumer, mainId("luminizer_ride"));
+					.addCriterion("code_triggered",
+							CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
+					.save(writer, mainId("luminizer_ride"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.CORPOREA_CRYSTAL_CUBE, "corporeaCraft", AdvancementType.TASK))
 					.parent(enderAirMake)
-					.addCriterion("pickup", onPickup(BotaniaBlocks.CORPOREA_CRYSTAL_CUBE, BotaniaBlocks.CORPOREA_FUNNEL,
-							BotaniaBlocks.CORPOREA_INDEX, BotaniaBlocks.CORPOREA_INTERCEPTOR, BotaniaBlocks.CORPOREA_RETAINER
+					.addCriterion("pickup", onPickup(
+							BotaniaBlocks.CORPOREA_CRYSTAL_CUBE, BotaniaBlocks.CORPOREA_FUNNEL,
+							BotaniaBlocks.CORPOREA_INDEX, BotaniaBlocks.CORPOREA_INTERCEPTOR,
+							BotaniaBlocks.CORPOREA_RETAINER
 					))
-					.save(consumer, mainId("corporea_craft"));
+					.save(writer, mainId("corporea_craft"));
 
 			// Lexicon locks
 			Advancement.Builder.advancement()
@@ -283,46 +293,47 @@ public class AdvancementProvider {
 					.addCriterion("double_flower", onPickup(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
-					.save(consumer, mainId("flower_pickup_lexicon"));
+					.save(writer, mainId("flower_pickup_lexicon"));
 			Advancement.Builder.advancement()
 					.parent(flowerPickup)
 					.addCriterion("apothecary", onPickup(BotaniaTags.Items.PETAL_APOTHECARIES))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
-					.save(consumer, mainId("apothecary_pickup"));
+					.save(writer, mainId("apothecary_pickup"));
 			Advancement.Builder.advancement()
 					.parent(flowerPickup)
 					.addCriterion("daisy", onPickup(BotaniaBlocks.PURE_DAISY))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
-					.save(consumer, mainId("pure_daisy_pickup"));
+					.save(writer, mainId("pure_daisy_pickup"));
 			Advancement.Builder.advancement()
 					.parent(root)
 					.addCriterion("pickup", onPickup(BotaniaTags.Items.ALL_MANA_POOLS))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
-					.save(consumer, mainId("mana_pool_pickup_lexicon"));
+					.save(writer, mainId("mana_pool_pickup_lexicon"));
 			Advancement.Builder.advancement()
 					.parent(flowerPickup)
 					.addCriterion("altar", onPickup(BotaniaBlocks.RUNIC_ALTAR))
 					.addCriterion("rune", onPickup(BotaniaTags.Items.RUNES))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
-					.save(consumer, mainId("runic_altar_pickup"));
+					.save(writer, mainId("runic_altar_pickup"));
 			Advancement.Builder.advancement()
 					.parent(flowerPickup)
-					.addCriterion("terrasteel", onPickup(BotaniaItems.terrasteel))
+					.addCriterion("terrasteel", onPickup(BotaniaItems.TERRASTEEL_INGOT))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
-					.save(consumer, mainId("terrasteel_pickup_lexicon"));
+					.save(writer, mainId("terrasteel_pickup_lexicon"));
 			Advancement.Builder.advancement()
 					.parent(elfPortalOpen)
 					.addCriterion("lexicon", elvenLexicon)
-					.save(consumer, mainId("elf_lexicon_pickup"));
+					.save(writer, mainId("elf_lexicon_pickup"));
 			Advancement.Builder.advancement()
 					.parent(root)
-					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-					.save(consumer, mainId("dog"));
+					.addCriterion("code_triggered",
+							CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
+					.save(writer, mainId("dog"));
 		}
 	}
 
@@ -354,45 +365,49 @@ public class AdvancementProvider {
 		};
 
 		@Override
-		public void generate(HolderLookup.Provider lookup, Consumer<AdvancementHolder> consumer) {
+		public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
 			AdvancementHolder root = Advancement.Builder.advancement()
-					.display(rootDisplay(BotaniaItems.dice, "advancement.botania_challenge",
-							"advancement.botania_challenge.desc", botaniaRL("textures/block/livingrock_bricks.png")))
+					.display(rootDisplay(BotaniaItems.DICE_OF_FATE,
+							"advancement.botania_challenge",
+							"advancement.botania_challenge.desc",
+							botaniaRL("textures/block/livingrock_bricks.png")))
 					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
-					.save(consumer, challengeId("root"));
+					.save(writer, challengeId("root"));
 
 			// hardmode Gaia Guardian related
 			CompoundTag hardmodeNbt = new CompoundTag();
 			hardmodeNbt.putBoolean("hardMode", true);
 			AdvancementHolder hardMode = Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.lifeEssence, "gaiaGuardianHardmode", AdvancementType.CHALLENGE))
+					.display(simple(BotaniaItems.GAIA_SPIRIT, "gaiaGuardianHardmode", AdvancementType.CHALLENGE))
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(100))
 					.addCriterion("guardian", KilledTrigger.TriggerInstance.playerKilledEntity(
 							EntityPredicate.Builder.entity()
 									.of(BotaniaEntities.GAIA_GUARDIAN)
 									.nbt(new NbtPredicate(hardmodeNbt))))
-					.save(consumer, challengeId("gaia_guardian_hardmode"));
+					.save(writer, challengeId("gaia_guardian_hardmode"));
 
-			relicBindAdvancement(consumer, hardMode, BotaniaItems.infiniteFruit, "infiniteFruit", "fruit");
-			relicBindAdvancement(consumer, hardMode, BotaniaItems.kingKey, "kingKey", "key");
-			relicBindAdvancement(consumer, hardMode, BotaniaItems.flugelEye, "flugelEye", "eye");
-			relicBindAdvancement(consumer, hardMode, BotaniaItems.thorRing, "thorRing", "ring");
-			relicBindAdvancement(consumer, hardMode, BotaniaItems.odinRing, "odinRing", "ring");
-			AdvancementHolder lokiRing = relicBindAdvancement(consumer, hardMode, BotaniaItems.lokiRing, "lokiRing", "ring");
+			relicBindAdvancement(writer, hardMode, BotaniaItems.FRUIT_OF_GRISAIA, "infiniteFruit", "fruit");
+			relicBindAdvancement(writer, hardMode, BotaniaItems.KEY_OF_THE_KINGS_LAW, "kingKey", "key");
+			relicBindAdvancement(writer, hardMode, BotaniaItems.EYE_OF_THE_FLUEGEL, "flugelEye", "eye");
+			relicBindAdvancement(writer, hardMode, BotaniaItems.RING_OF_THOR, "thorRing", "ring");
+			relicBindAdvancement(writer, hardMode, BotaniaItems.RING_OF_ODIN, "odinRing", "ring");
+			AdvancementHolder lokiRing = relicBindAdvancement(writer, hardMode, BotaniaItems.RING_OF_LOKI, "lokiRing", "ring");
 
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.lokiRing, "lokiRingMany", AdvancementType.CHALLENGE))
+					.display(simple(BotaniaItems.RING_OF_LOKI, "lokiRingMany", AdvancementType.CHALLENGE))
 					.parent(lokiRing)
 					.rewards(AdvancementRewards.Builder.experience(85))
-					.addCriterion("place_blocks", LokiPlaceTrigger.Instance.blocksPlaced(MinMaxBounds.Ints.atLeast(255)))
-					.save(consumer, challengeId("loki_ring_many"));
+					.addCriterion("place_blocks",
+							LokiPlaceTrigger.Instance.blocksPlaced(MinMaxBounds.Ints.atLeast(255)))
+					.save(writer, challengeId("loki_ring_many"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.pinkinator, "pinkinator", AdvancementType.CHALLENGE))
+					.display(simple(BotaniaItems.THE_PINKINATOR, "pinkinator", AdvancementType.CHALLENGE))
 					.parent(hardMode)
 					.rewards(AdvancementRewards.Builder.experience(40))
-					.addCriterion("use_pinkinator", UseItemSuccessTrigger.Instance.used(BotaniaItems.pinkinator))
-					.save(consumer, challengeId("pinkinator"));
+					.addCriterion("use_pinkinator",
+							UseItemSuccessTrigger.Instance.used(BotaniaItems.THE_PINKINATOR))
+					.save(writer, challengeId("pinkinator"));
 
 			// Misc challenges
 			Advancement.Builder.advancement()
@@ -400,56 +415,58 @@ public class AdvancementProvider {
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(1000))
 					.addCriterion("no_armor", GaiaGuardianNoArmorTrigger.Instance.unarmoredKill())
-					.save(consumer, challengeId("gaia_guardian_no_armor"));
+					.save(writer, challengeId("gaia_guardian_no_armor"));
 			Advancement.Builder.advancement()
 					.display(hidden(BotaniaBlocks.DAYBLOOM_MOTIF, "old_flower_pickup", AdvancementType.CHALLENGE))
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(40))
 					.addCriterion("flower", onPickup(BotaniaBlocks.DAYBLOOM_MOTIF, BotaniaBlocks.NIGHTSHADE_MOTIF))
 					.requirements(AdvancementRequirements.Strategy.OR)
-					.save(consumer, challengeId("old_flower_pickup"));
+					.save(writer, challengeId("old_flower_pickup"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.CORPOREA_INDEX, "superCorporeaRequest", AdvancementType.CHALLENGE))
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(85))
 					.addCriterion("big_request", CorporeaRequestTrigger.Instance.numExtracted(
 							MinMaxBounds.Ints.atLeast(CorporeaIndexBlockEntity.MAX_REQUEST)))
-					.save(consumer, challengeId("super_corporea_request"));
+					.save(writer, challengeId("super_corporea_request"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.terraPick, "rankSSPick", AdvancementType.CHALLENGE))
+					.display(simple(BotaniaItems.TERRA_SHATTERER, "rankSSPick", AdvancementType.CHALLENGE))
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(500))
-					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-					.save(consumer, challengeId("rank_ss_pick"));
+					.addCriterion("code_triggered",
+							CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
+					.save(writer, challengeId("rank_ss_pick"));
 			CompoundTag level20Shard = new CompoundTag();
 			level20Shard.putInt("level", 19);
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.laputaShard, "l20ShardUse", AdvancementType.CHALLENGE))
+					.display(simple(BotaniaItems.SHARD_OF_LAPUTA, "l20ShardUse", AdvancementType.CHALLENGE))
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(65))
 					.addCriterion("use_l20_shard", InventoryChangeTrigger.TriggerInstance.hasItems(
-							ItemPredicate.Builder.item().of(BotaniaItems.laputaShard).hasComponents(
+							ItemPredicate.Builder.item().of(BotaniaItems.SHARD_OF_LAPUTA).hasComponents(
 									DataComponentPredicate.builder()
 											.expect(BotaniaDataComponents.SHARD_LEVEL, LaputaShardItem.MAX_LEVEL).build())
 									.build()))
-					.save(consumer, challengeId("l20_shard_use"));
+					.save(writer, challengeId("l20_shard_use"));
 			Advancement.Builder.advancement()
 					.display(hidden(Items.BREAD, "alfPortalBread", AdvancementType.CHALLENGE))
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(40))
 					.addCriterion("bread", AlfheimPortalBreadTrigger.Instance.sentBread())
-					.save(consumer, challengeId("alf_portal_bread"));
+					.save(writer, challengeId("alf_portal_bread"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.TINY_POTATO, "tinyPotatoBirthday", AdvancementType.CHALLENGE))
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(40))
-					.addCriterion("code_triggered", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-					.save(consumer, challengeId("tiny_potato_birthday"));
+					.addCriterion("code_triggered",
+							CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
+					.save(writer, challengeId("tiny_potato_birthday"));
 			addLooniumMobsToKill(Advancement.Builder.advancement())
 					.display(simple(BotaniaBlocks.LOONIUM, "allLooniumMobs", AdvancementType.CHALLENGE))
 					.parent(root)
 					.requirements(AdvancementRequirements.Strategy.AND)
-					.save(consumer, challengeId("all_loonium_mobs"));
+					.save(writer, challengeId("all_loonium_mobs"));
 		}
 
 		private static Advancement.Builder addLooniumMobsToKill(Advancement.Builder builder) {
@@ -489,20 +506,20 @@ public class AdvancementProvider {
 		return ItemPredicate.Builder.item().of(items).build();
 	}
 
-	protected static DisplayInfo simple(ItemLike icon, String name, AdvancementType AdvancementType) {
+	protected static DisplayInfo simple(ItemLike icon, String name, AdvancementType advancementType) {
 		String expandedName = "advancement.botania:" + name;
 		return new DisplayInfo(new ItemStack(icon.asItem()),
 				Component.translatable(expandedName),
 				Component.translatable(expandedName + ".desc"),
-				Optional.empty(), AdvancementType, true, true, false);
+				Optional.empty(), advancementType, true, true, false);
 	}
 
-	protected static DisplayInfo hidden(ItemLike icon, String name, AdvancementType AdvancementType) {
+	protected static DisplayInfo hidden(ItemLike icon, String name, AdvancementType advancementType) {
 		String expandedName = "advancement.botania:" + name;
 		return new DisplayInfo(new ItemStack(icon.asItem()),
 				Component.translatable(expandedName),
 				Component.translatable(expandedName + ".desc"),
-				Optional.empty(), AdvancementType, true, true, true);
+				Optional.empty(), advancementType, true, true, true);
 	}
 
 	protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {

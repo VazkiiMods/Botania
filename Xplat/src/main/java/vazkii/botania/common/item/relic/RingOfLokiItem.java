@@ -242,7 +242,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 	}
 
 	private static ItemStack getLokiRing(Player player) {
-		return EquipmentHandler.findOrEmpty(BotaniaItems.lokiRing, player);
+		return EquipmentHandler.findOrEmpty(BotaniaItems.RING_OF_LOKI, player);
 	}
 
 	@Nullable

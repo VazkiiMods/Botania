@@ -49,10 +49,10 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 					Component.translatable(recipe.getBrew().getTranslationKey())), level.registryAccess());
 		}
 		if (key.equals("vial")) {
-			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.vial)), level.registryAccess());
+			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.MANAGLASS_VIAL)), level.registryAccess());
 		}
 		if (key.equals("flask")) {
-			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.flask)), level.registryAccess());
+			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.ALFGLASS_FLASK)), level.registryAccess());
 		}
 		if (key.startsWith("input")) {
 			int requestedIndex = Integer.parseInt(key.substring(5)) - 1;

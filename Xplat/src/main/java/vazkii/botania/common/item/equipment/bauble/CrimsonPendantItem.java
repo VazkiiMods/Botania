@@ -39,7 +39,7 @@ public class CrimsonPendantItem extends BaubleItem {
 
 	public static boolean onDamage(LivingEntity entity, DamageSource source) {
 		return source.is(DamageTypeTags.IS_FIRE) &&
-				!EquipmentHandler.findOrEmpty(BotaniaItems.superLavaPendant, entity).isEmpty();
+				!EquipmentHandler.findOrEmpty(BotaniaItems.CRIMSON_PENDANT, entity).isEmpty();
 	}
 
 	@Override

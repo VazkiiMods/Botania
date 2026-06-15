@@ -35,8 +35,8 @@ public class RingOfMagnetizationItem extends BaubleItem {
 	public static final int DEFAULT_RANGE = 6;
 	public static final int DEFAULT_GREATER_RANGE = 16;
 
-	public RingOfMagnetizationItem(Properties props) {
-		super(props);
+	public RingOfMagnetizationItem(Properties properties) {
+		super(properties);
 	}
 
 	public static void onTossItem(Player player) {

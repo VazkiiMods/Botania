@@ -112,10 +112,10 @@ public class SpectatorScanTest {
 		var player = helper.makeMockPlayer(GameType.CREATIVE);
 		player.moveTo(helper.absoluteVec(new Vec3(24, 24, 24)));
 		additionalSetup.accept(helper, player);
-		var spectatorStack = new ItemStack(BotaniaItems.itemFinder);
+		var spectatorStack = new ItemStack(BotaniaItems.THE_SPECTATOR);
 
 		// execute test
-		((SpectatorItem) BotaniaItems.itemFinder).scanForItems(spectatorStack, player);
+		((SpectatorItem) BotaniaItems.THE_SPECTATOR).scanForItems(spectatorStack, player);
 
 		// ensure loot content has not been rolled
 		TestingUtil.assertThat(lootChestCart.getLootTable() != null, () -> "Chest loot was rolled");

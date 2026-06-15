@@ -31,6 +31,6 @@ public class AbstractClientPlayerMixin {
 	 */
 	@ModifyExpressionValue(method = "getFieldOfViewModifier", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
 	private boolean isBowItem(boolean originalResult, @Local ItemStack useStack) {
-		return originalResult || useStack.is(BotaniaItems.livingwoodBow) || useStack.is(BotaniaItems.crystalBow);
+		return originalResult || useStack.is(BotaniaItems.LIVINGWOOD_BOW) || useStack.is(BotaniaItems.CRYSTAL_BOW);
 	}
 }

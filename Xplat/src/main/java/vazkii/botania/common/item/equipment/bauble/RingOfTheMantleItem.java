@@ -74,7 +74,7 @@ public class RingOfTheMantleItem extends BaubleItem {
 		}
 
 		float targetSpeed = state.is(BotaniaTags.Blocks.MANTLE_RING_HARD) ? ORE_TARGET_SPEED : STONE_TARGET_SPEED;
-		if (targetSpeed >= originalDestroySpeed || EquipmentHandler.findOrEmpty(BotaniaItems.miningRing, player).isEmpty()) {
+		if (targetSpeed >= originalDestroySpeed || EquipmentHandler.findOrEmpty(BotaniaItems.RING_OF_THE_MANTLE, player).isEmpty()) {
 			return originalDestroySpeed;
 		}
 

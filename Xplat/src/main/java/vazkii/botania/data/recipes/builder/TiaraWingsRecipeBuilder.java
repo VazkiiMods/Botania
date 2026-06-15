@@ -51,7 +51,7 @@ public class TiaraWingsRecipeBuilder {
 	}
 
 	public void save(RecipeOutput recipeOutput) {
-		ResourceLocation tiaraId = BuiltInRegistries.ITEM.getKey(BotaniaItems.flightTiara);
+		ResourceLocation tiaraId = BuiltInRegistries.ITEM.getKey(BotaniaItems.FLUEGEL_TIARA);
 		ResourceLocation id = tiaraId.withSuffix("_" + variant);
 		Advancement.Builder builder = recipeOutput.advancement()
 				.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

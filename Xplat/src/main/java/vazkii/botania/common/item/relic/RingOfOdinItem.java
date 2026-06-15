@@ -49,7 +49,7 @@ public class RingOfOdinItem extends RelicBaubleItem {
 
 	public static boolean onPlayerAttacked(Player player, DamageSource src) {
 		return (src.is(BotaniaTags.DamageTypes.RING_OF_ODIN_IMMUNE))
-				&& !EquipmentHandler.findOrEmpty(BotaniaItems.odinRing, player).isEmpty();
+				&& !EquipmentHandler.findOrEmpty(BotaniaItems.RING_OF_ODIN, player).isEmpty();
 	}
 
 	public static Relic makeRelic(ItemStack stack) {

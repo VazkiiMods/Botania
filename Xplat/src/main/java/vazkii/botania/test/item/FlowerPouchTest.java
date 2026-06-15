@@ -26,7 +26,7 @@ public class FlowerPouchTest {
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)
 	public void testNoShinyFlowers(GameTestHelper helper) {
 		var player = helper.makeMockPlayer(GameType.CREATIVE);
-		var bag = new ItemStack(BotaniaItems.flowerBag);
+		var bag = new ItemStack(BotaniaItems.FLOWER_POUCH);
 		player.getInventory().setItem(1, bag);
 
 		var flower = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), new ItemStack(BotaniaBlocks.BLACK_GLIMMERING_FLOWER, 64));
@@ -35,7 +35,7 @@ public class FlowerPouchTest {
 		TestingUtil.assertEquals(flower.getItem().getItem(), BotaniaBlocks.BLACK_GLIMMERING_FLOWER.asItem());
 		TestingUtil.assertEquals(flower.getItem().getCount(), 64);
 
-		var inv = BotaniaItems.flowerBag.getInventory(bag);
+		var inv = BotaniaItems.FLOWER_POUCH.getInventory(bag);
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			TestingUtil.assertThat(inv.getItem(i).isEmpty(), () -> "Bag should be empty");
 		}
@@ -45,7 +45,7 @@ public class FlowerPouchTest {
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)
 	public void testPickupBasic(GameTestHelper helper) {
 		var player = helper.makeMockPlayer(GameType.CREATIVE);
-		var bag = new ItemStack(BotaniaItems.flowerBag);
+		var bag = new ItemStack(BotaniaItems.FLOWER_POUCH);
 		player.getInventory().setItem(1, bag);
 
 		var flower = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), new ItemStack(BotaniaBlocks.BLACK_MYSTICAL_FLOWER, 60));
@@ -53,7 +53,7 @@ public class FlowerPouchTest {
 		TestingUtil.assertThat(flower.getItem().isEmpty(), () -> "Should have consumed everything");
 
 		var slot = ColorHelper.supportedColors().toList().indexOf(DyeColor.BLACK);
-		var flowerInBag = BotaniaItems.flowerBag.getInventory(bag).getItem(slot);
+		var flowerInBag = BotaniaItems.FLOWER_POUCH.getInventory(bag).getItem(slot);
 		TestingUtil.assertThat(!flowerInBag.isEmpty(), () -> "Bag should have an item in black slot");
 		TestingUtil.assertEquals(flowerInBag.getItem(), BotaniaBlocks.BLACK_MYSTICAL_FLOWER.asItem());
 		TestingUtil.assertEquals(flowerInBag.getCount(), 60);
@@ -61,7 +61,7 @@ public class FlowerPouchTest {
 		flower.getItem().setCount(5);
 		TestingUtil.assertThat(!ColoredContentsPouchItem.onPickupItem(flower, player), () -> "Pickup should have remainder since slot is full");
 		TestingUtil.assertEquals(flower.getItem().getCount(), 1, () -> "Entity should have one left that didn't fit");
-		var updatedFlowerInBag = BotaniaItems.flowerBag.getInventory(bag).getItem(slot);
+		var updatedFlowerInBag = BotaniaItems.FLOWER_POUCH.getInventory(bag).getItem(slot);
 		TestingUtil.assertEquals(updatedFlowerInBag.getCount(), 64, () -> "Stack should be full now");
 
 		helper.succeed();

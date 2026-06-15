@@ -18,8 +18,8 @@ public class BandOfAuraItem extends BaubleItem {
 
 	private final int interval;
 
-	public BandOfAuraItem(Properties props, int interval) {
-		super(props);
+	public BandOfAuraItem(int interval, Properties properties) {
+		super(properties);
 		this.interval = 5 * interval;
 	}
 

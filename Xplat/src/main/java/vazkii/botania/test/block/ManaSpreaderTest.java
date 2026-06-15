@@ -39,7 +39,7 @@ public class ManaSpreaderTest {
 			TestingUtil.assertEquals(pool.getCurrentMana(), 0, () -> String.format("Pool for %s does not start empty", spreaderName));
 			var spreader = TestingUtil.assertBlockEntity(helper, SPREADER_POS.south(i), BotaniaBlockEntities.MANA_SPREADER);
 			var bindPos = SINK_POS.south(i);
-			TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(bindPos), Direction.UP),
+			TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.WAND_OF_THE_FOREST), helper.absolutePos(bindPos), Direction.UP),
 					() -> "Failed to bind spreader");
 		}
 

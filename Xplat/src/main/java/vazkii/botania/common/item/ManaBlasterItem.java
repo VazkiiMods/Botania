@@ -81,7 +81,7 @@ public class ManaBlasterItem extends Item {
 					world.addFreshEntity(burst);
 					ManaBlasterTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
 					setCooldown(stack, effCd);
-				} else if (!EquipmentHandler.getAllWorn(player).hasAnyMatching(k -> k.is(BotaniaItems.knockbackBelt))) {
+				} else if (!EquipmentHandler.getAllWorn(player).hasAnyMatching(k -> k.is(BotaniaItems.TECTONIC_GIRDLE))) {
 					player.setDeltaMovement(player.getDeltaMovement().subtract(burst.getDeltaMovement().multiply(0.1, 0.3, 0.1)));
 				}
 			} else {

@@ -118,7 +118,8 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	}
 
 	protected Item getSparkItem() {
-		return isCreative() ? BotaniaItems.corporeaSparkCreative : isMaster() ? BotaniaItems.corporeaSparkMaster : BotaniaItems.corporeaSpark;
+		return isCreative() ? BotaniaItems.CREATIVE_CORPOREA_SPARK : isMaster() ? BotaniaItems.MASTER_CORPOREA_SPARK
+				: BotaniaItems.CORPOREA_SPARK;
 	}
 
 	@Override
@@ -279,7 +280,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 
 					return InteractionResult.sidedSuccess(level().isClientSide());
 				}
-			} else if (stack.is(BotaniaItems.phantomInk)) {
+			} else if (stack.is(BotaniaItems.PHANTOM_INK)) {
 				if (!level().isClientSide()) {
 					setInvisible(true);
 				}

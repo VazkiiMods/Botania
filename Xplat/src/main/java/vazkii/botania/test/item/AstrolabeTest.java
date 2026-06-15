@@ -110,7 +110,7 @@ public class AstrolabeTest {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_CANDLES, LOOK_TARGET_CANDLES_HORIZONTAL,
 				ManaTabletItem.DEFAULT_MAX_MANA);
 		player.addItem(new ItemStack(BLOCK_CANDLES.asItem(), 5));
-		final ItemStack blackHoleTalisman = new ItemStack(BotaniaItems.blackHoleTalisman);
+		final ItemStack blackHoleTalisman = new ItemStack(BotaniaItems.BLACK_HOLE_TALISMAN);
 		BlackHoleTalismanItem.setBlock(blackHoleTalisman, BLOCK_CANDLES);
 		BlackHoleTalismanItem.setCount(blackHoleTalisman, 5);
 		player.addItem(blackHoleTalisman);
@@ -130,7 +130,7 @@ public class AstrolabeTest {
 	public void testCandlesHorizontal3x3MultipleSourcesTalismanFirst(final GameTestHelper helper) {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_CANDLES, LOOK_TARGET_CANDLES_HORIZONTAL,
 				ManaTabletItem.DEFAULT_MAX_MANA);
-		final ItemStack blackHoleTalisman = new ItemStack(BotaniaItems.blackHoleTalisman);
+		final ItemStack blackHoleTalisman = new ItemStack(BotaniaItems.BLACK_HOLE_TALISMAN);
 		BlackHoleTalismanItem.setBlock(blackHoleTalisman, BLOCK_CANDLES);
 		BlackHoleTalismanItem.setCount(blackHoleTalisman, 5);
 		player.addItem(blackHoleTalisman);
@@ -198,7 +198,7 @@ public class AstrolabeTest {
 
 	private void checkRemainingTalismanCandles(final Player player, final int expectedRemaining, final int talismanSlot) {
 		final ItemStack remainingTalisman = player.getInventory().getItem(talismanSlot);
-		TestingUtil.assertThat(expectedRemaining == 0 || remainingTalisman.is(BotaniaItems.blackHoleTalisman),
+		TestingUtil.assertThat(expectedRemaining == 0 || remainingTalisman.is(BotaniaItems.BLACK_HOLE_TALISMAN),
 				() -> "Unexpected item in talisman slot: " + remainingTalisman);
 		final int count = BlackHoleTalismanItem.getBlockCount(remainingTalisman);
 		TestingUtil.assertEquals(expectedRemaining, count,
@@ -359,7 +359,7 @@ public class AstrolabeTest {
 
 	private Player mockAstrolabeAndUseWithCobbleRod(GameTestHelper helper, int mana) {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_MANA, POS_PLAYER_MANA, mana);
-		player.addItem(new ItemStack(BotaniaItems.cobbleRod));
+		player.addItem(new ItemStack(BotaniaItems.ROD_OF_THE_DEPTHS));
 		final ItemStack stack = getAstrolabeForBlockType(player, Blocks.COBBLESTONE);
 		AstrolabeItem.setSize(stack, SIZE_ASTROLABE);
 
@@ -387,8 +387,8 @@ public class AstrolabeTest {
 
 	private Player mockPlayerWithAstrolabe(final GameTestHelper helper, Vec3 posPlayer, final Vec3 lookTarget, int mana) {
 		final Player player = helper.makeMockPlayer(GameType.CREATIVE);
-		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.astrolabe));
-		final ItemStack tablet = new ItemStack(BotaniaItems.manaTablet);
+		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.WORLDSHAPERS_ASTROLABE));
+		final ItemStack tablet = new ItemStack(BotaniaItems.MANA_TABLET);
 		Objects.requireNonNull(ManaItem.LOOKUP.find(tablet)).addMana(mana);
 		player.getInventory().add(tablet);
 		player.setPos(helper.absoluteVec(posPlayer));

@@ -62,7 +62,7 @@ public class EquestrianVirusItem extends Item {
 
 				horse.discard();
 
-				AbstractHorse newHorse = stack.is(BotaniaItems.necroVirus)
+				AbstractHorse newHorse = stack.is(BotaniaItems.NECRODERMAL_VIRUS)
 						? EntityType.ZOMBIE_HORSE.create(player.level())
 						: EntityType.SKELETON_HORSE.create(player.level());
 				newHorse.tameWithName(player);

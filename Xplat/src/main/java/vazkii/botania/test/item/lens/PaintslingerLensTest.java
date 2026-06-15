@@ -34,7 +34,7 @@ public class PaintslingerLensTest {
 		Player player = helper.makeMockPlayer(GameType.CREATIVE);
 
 		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.MANA_SPREADER);
-		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(bindPos), Direction.UP),
+		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.WAND_OF_THE_FOREST), helper.absolutePos(bindPos), Direction.UP),
 				() -> "Failed to bind spreader");
 
 		helper.startSequence()

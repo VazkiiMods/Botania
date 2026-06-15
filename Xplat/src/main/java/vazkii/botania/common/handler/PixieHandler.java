@@ -63,13 +63,13 @@ public final class PixieHandler {
 			// Could be badly-written mixins on Fabric.
 			double chance = player.getAttributes().hasAttribute(PIXIE_SPAWN_CHANCE)
 					? player.getAttributeValue(PIXIE_SPAWN_CHANCE) : 0;
-			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(BotaniaItems.elementiumSword));
+			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(BotaniaItems.ELEMENTIUM_SWORD));
 
 			if (Math.random() < chance) {
 				PixieEntity pixie = new PixieEntity(player.level(), false);
 				pixie.setPos(player.getX(), player.getY() + 2, player.getZ());
 
-				if (((ElementiumHelmItem) BotaniaItems.elementiumHelm).hasArmorSet(player)) {
+				if (((ElementiumHelmItem) BotaniaItems.ELEMENTIUM_HELMET).hasArmorSet(player)) {
 					pixie.setApplyPotionEffect(effectSuppliers.get(player.level().getRandom().nextInt(effectSuppliers.size())).get());
 				}
 

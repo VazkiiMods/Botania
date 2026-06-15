@@ -44,7 +44,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 	private final int drinkSpeed;
 	private final Supplier<Item> baseItem;
 
-	public BaseBrewItem(Properties builder, int drinkSpeed, Supplier<Item> baseItem) {
+	public BaseBrewItem(int drinkSpeed, Supplier<Item> baseItem, Properties builder) {
 		super(builder);
 		this.drinkSpeed = drinkSpeed;
 		this.baseItem = baseItem;

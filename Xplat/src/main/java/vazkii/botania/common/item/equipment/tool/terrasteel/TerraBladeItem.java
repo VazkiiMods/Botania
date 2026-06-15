@@ -65,7 +65,7 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffectItem
 	public static void trySpawnBurst(Player player, float attackStrength) {
 		if (!player.isSpectator()
 				&& !player.getMainHandItem().isEmpty()
-				&& player.getMainHandItem().is(BotaniaItems.terraSword)
+				&& player.getMainHandItem().is(BotaniaItems.TERRA_BLADE)
 				&& attackStrength == 1) {
 			ManaBurstEntity burst = getBurst(player, player.getMainHandItem());
 			player.level().addFreshEntity(burst);

@@ -74,7 +74,7 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 
 		// Special
 		dropWhenSilkTouch(BotaniaBlocks.CELLULAR_BLOCK);
-		specialCases.put(BotaniaBlocks.LIVING_ROOT, createSingleItemTable(BotaniaItems.livingroot, ConstantValue.exactly(4)));
+		specialCases.put(BotaniaBlocks.LIVING_ROOT, createSingleItemTable(BotaniaItems.LIVING_ROOT, ConstantValue.exactly(4)));
 		specialCases.put(BotaniaBlocks.SOLID_VINE, BotaniaLootTableProvider.copyReferencedLootTable(Blocks.VINE.getLootTable()));
 		specialCases.put(BotaniaBlocks.TINY_POTATO, createNameableBlockEntityTable(BotaniaBlocks.TINY_POTATO));
 

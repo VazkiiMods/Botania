@@ -44,19 +44,19 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 
 		Ingredient manaSteel = Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS);
 		Ingredient manaSteelBlock = Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_STORAGE_BLOCKS);
-		consumer.accept(id("elementium"), new ElvenTradeRecipe(singleOutput(BotaniaItems.elementium),
+		consumer.accept(id("elementium"), new ElvenTradeRecipe(singleOutput(BotaniaItems.ELEMENTIUM_INGOT),
 				manaSteel, manaSteel), null);
 		consumer.accept(id("elementium_block"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.ELEMENTIUM_BLOCK),
 				manaSteelBlock, manaSteelBlock), null);
 
-		consumer.accept(id("pixie_dust"), new ElvenTradeRecipe(singleOutput(BotaniaItems.pixieDust),
+		consumer.accept(id("pixie_dust"), new ElvenTradeRecipe(singleOutput(BotaniaItems.PIXIE_DUST),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)), null);
-		consumer.accept(id("dragonstone"), new ElvenTradeRecipe(singleOutput(BotaniaItems.dragonstone),
+		consumer.accept(id("dragonstone"), new ElvenTradeRecipe(singleOutput(BotaniaItems.DRAGONSTONE),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)), null);
 		consumer.accept(id("dragonstone_block"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.DRAGONSTONE_BLOCK),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_STORAGE_BLOCKS)), null);
 
-		consumer.accept(id("elf_quartz"), new ElvenTradeRecipe(singleOutput(BotaniaItems.elfQuartz),
+		consumer.accept(id("elf_quartz"), new ElvenTradeRecipe(singleOutput(BotaniaItems.ELVEN_QUARTZ),
 				Ingredient.of(Items.QUARTZ)), null);
 		consumer.accept(id("elf_glass"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.ALFGLASS),
 				Ingredient.of(BotaniaBlocks.MANAGLASS)), null);

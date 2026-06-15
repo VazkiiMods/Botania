@@ -47,7 +47,7 @@ public class DrumBlockTest {
 	private static <T extends Mob> T setup(GameTestHelper helper, EntityType<T> entityType, @Nullable Item item) {
 		var player = helper.makeMockPlayer(GameType.CREATIVE);
 		var spreader = TestingUtil.assertBlockEntity(helper, POSITION_SPREADER, BotaniaBlockEntities.MANA_SPREADER);
-		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand),
+		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.WAND_OF_THE_FOREST),
 				helper.absolutePos(POSITION_DRUM), Direction.UP),
 				() -> "Failed to bind spreader");
 		if (item != null) {

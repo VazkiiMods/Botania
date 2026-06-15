@@ -34,7 +34,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +52,6 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.StreamSupport;
 
@@ -64,12 +62,13 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		if (!CorporeaInputHandler.hoveredStackGetters.contains(HOVERED_STACK_GETTER)) {
 			CorporeaInputHandler.hoveredStackGetters.add(HOVERED_STACK_GETTER);
 		}
-		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(s -> s instanceof DisplayScreen);
+		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter
+				.or(screen -> screen instanceof DisplayScreen);
 	}
 
 	@Override
-	public void registerCategories(CategoryRegistry helper) {
-		helper.add(List.of(
+	public void registerCategories(CategoryRegistry registry) {
+		registry.add(List.of(
 				new PetalApothecaryREICategory(),
 				new PureDaisyREICategory(),
 				new ManaPoolREICategory(),
@@ -82,78 +81,113 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, BotaniaBlocks.MARIMORPHOSIS)
 		));
 
-		helper.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(BotaniaItems.craftingHalo), EntryStacks.of(BotaniaItems.autocraftingHalo));
+		registry.addWorkstations(BuiltinPlugin.CRAFTING,
+				EntryStacks.of(BotaniaItems.ASSEMBLY_HALO),
+				EntryStacks.of(BotaniaItems.MANUFACTORY_HALO));
 		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
-			helper.addWorkstations(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, EntryStacks.of(apothecary));
+			registry.addWorkstations(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, EntryStacks.of(apothecary));
 		}
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.BREWERY, EntryStacks.of(BotaniaBlocks.BOTANICAL_BREWERY));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.ELVEN_TRADE, EntryStacks.of(BotaniaBlocks.ELVEN_GATEWAY_CORE));
+		registry.addWorkstations(BotaniaREICategoryIdentifiers.BREWERY,
+				EntryStacks.of(BotaniaBlocks.BOTANICAL_BREWERY));
+		registry.addWorkstations(BotaniaREICategoryIdentifiers.ELVEN_TRADE,
+				EntryStacks.of(BotaniaBlocks.ELVEN_GATEWAY_CORE));
 		Set<Block> manaPools = ImmutableSet.of(
 				BotaniaBlocks.MANA_POOL,
 				BotaniaBlocks.DILUTED_MANA_POOL,
 				BotaniaBlocks.FABULOUS_MANA_POOL
 		);
 		for (Block pool : manaPools) {
-			helper.addWorkstations(BotaniaREICategoryIdentifiers.MANA_INFUSION, EntryStacks.of(pool));
+			registry.addWorkstations(BotaniaREICategoryIdentifiers.MANA_INFUSION, EntryStacks.of(pool));
 		}
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID, EntryStacks.of(BotaniaBlocks.ORECHID), EntryStacks.of(BotaniaBlocks.FLOATING_ORECHID));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, EntryStacks.of(BotaniaBlocks.ORECHID_IGNEM), EntryStacks.of(BotaniaBlocks.FLOATING_ORECHID_IGNEM));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, EntryStacks.of(BotaniaBlocks.MARIMORPHOSIS), EntryStacks.of(BotaniaBlocks.FLOATING_MARIMORPHOSIS),
-				EntryStacks.of(BotaniaBlocks.MARIMORPHOSIS_PETITE), EntryStacks.of(BotaniaBlocks.FLOATING_MARIMORPHOSIS_PETITE));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.PURE_DAISY, EntryStacks.of(BotaniaBlocks.PURE_DAISY), EntryStacks.of(BotaniaBlocks.FLOATING_PURE_DAISY));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.RUNE_ALTAR, EntryStacks.of(BotaniaBlocks.RUNIC_ALTAR));
-		helper.addWorkstations(BotaniaREICategoryIdentifiers.TERRA_PLATE, EntryStacks.of(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE));
+		registry.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID,
+				EntryStacks.of(BotaniaBlocks.ORECHID),
+				EntryStacks.of(BotaniaBlocks.FLOATING_ORECHID));
+		registry.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID_IGNEM,
+				EntryStacks.of(BotaniaBlocks.ORECHID_IGNEM),
+				EntryStacks.of(BotaniaBlocks.FLOATING_ORECHID_IGNEM));
+		registry.addWorkstations(BotaniaREICategoryIdentifiers.MARIMORPHOSIS,
+				EntryStacks.of(BotaniaBlocks.MARIMORPHOSIS),
+				EntryStacks.of(BotaniaBlocks.FLOATING_MARIMORPHOSIS),
+				EntryStacks.of(BotaniaBlocks.MARIMORPHOSIS_PETITE),
+				EntryStacks.of(BotaniaBlocks.FLOATING_MARIMORPHOSIS_PETITE));
+		registry.addWorkstations(BotaniaREICategoryIdentifiers.PURE_DAISY,
+				EntryStacks.of(BotaniaBlocks.PURE_DAISY),
+				EntryStacks.of(BotaniaBlocks.FLOATING_PURE_DAISY));
+		registry.addWorkstations(BotaniaREICategoryIdentifiers.RUNE_ALTAR,
+				EntryStacks.of(BotaniaBlocks.RUNIC_ALTAR));
+		registry.addWorkstations(BotaniaREICategoryIdentifiers.TERRA_PLATE,
+				EntryStacks.of(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE));
 
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, null);
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.BREWERY, null);
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.ELVEN_TRADE, null);
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.MANA_INFUSION, null);
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.ORECHID, null);
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, null);
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, null);
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.PURE_DAISY, null);
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.RUNE_ALTAR, null);
-		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.TERRA_PLATE, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.BREWERY, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.ELVEN_TRADE, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.MANA_INFUSION, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.ORECHID, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.PURE_DAISY, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.RUNE_ALTAR, null);
+		registry.setPlusButtonArea(BotaniaREICategoryIdentifiers.TERRA_PLATE, null);
 	}
 
 	@Override
-	public void registerDisplays(DisplayRegistry helper) {
-		registerAncientWillRecipeWrapper(helper);
-		registerCompositeLensRecipeWrapper(helper);
-		registerTerraPickTippingRecipeWrapper(helper);
+	public void registerDisplays(DisplayRegistry registry) {
+		registerAncientWillRecipeWrapper(registry);
+		registerCompositeLensRecipeWrapper(registry);
+		registerTerraPickTippingRecipeWrapper(registry);
 
-		helper.registerRecipeFiller(PetalApothecaryRecipe.class, BotaniaRecipeTypes.PETAL_TYPE, PetalApothecaryREIDisplay::new);
-		helper.registerRecipeFiller(BotanicalBreweryRecipe.class, BotaniaRecipeTypes.BREW_TYPE, BreweryREIDisplay::new);
-		Predicate<RecipeHolder<ElvenTradeRecipe>> pred = recipe -> !recipe.value().isReturnRecipe();
-		helper.registerRecipeFiller(ElvenTradeRecipe.class, BotaniaRecipeTypes.ELVEN_TRADE_TYPE::equals, pred, ElvenTradeREIDisplay::new);
-		helper.registerRecipeFiller(ManaInfusionRecipe.class, BotaniaRecipeTypes.MANA_INFUSION_TYPE, ManaPoolREIDisplay::new);
-		helper.registerRecipeFiller(PureDaisyRecipe.class, BotaniaRecipeTypes.PURE_DAISY_TYPE, PureDaisyREIDisplay::new);
-		helper.registerRecipeFiller(RunicAltarRecipe.class, BotaniaRecipeTypes.RUNE_TYPE, RunicAltarREIDisplay::new);
-		helper.registerRecipeFiller(TerrestrialAgglomerationRecipe.class, BotaniaRecipeTypes.TERRA_PLATE_TYPE, TerrestrialAgglomerationREIDisplay::new);
+		registry.registerRecipeFiller(PetalApothecaryRecipe.class,
+				BotaniaRecipeTypes.PETAL_TYPE,
+				PetalApothecaryREIDisplay::new);
+		registry.registerRecipeFiller(BotanicalBreweryRecipe.class,
+				BotaniaRecipeTypes.BREW_TYPE,
+				BreweryREIDisplay::new);
+		registry.registerRecipeFiller(ElvenTradeRecipe.class,
+				BotaniaRecipeTypes.ELVEN_TRADE_TYPE::equals,
+				recipe -> !recipe.value().isReturnRecipe(),
+				ElvenTradeREIDisplay::new);
+		registry.registerRecipeFiller(ManaInfusionRecipe.class,
+				BotaniaRecipeTypes.MANA_INFUSION_TYPE,
+				ManaPoolREIDisplay::new);
+		registry.registerRecipeFiller(PureDaisyRecipe.class,
+				BotaniaRecipeTypes.PURE_DAISY_TYPE,
+				PureDaisyREIDisplay::new);
+		registry.registerRecipeFiller(RunicAltarRecipe.class,
+				BotaniaRecipeTypes.RUNE_TYPE,
+				RunicAltarREIDisplay::new);
+		registry.registerRecipeFiller(TerrestrialAgglomerationRecipe.class,
+				BotaniaRecipeTypes.TERRA_PLATE_TYPE,
+				TerrestrialAgglomerationREIDisplay::new);
 
 		try {
 			for (var entry : XplatAbstractions.instance().getCustomStrippables().entrySet()) {
-				helper.add(new DefaultStrippingDisplay(EntryStacks.of(entry.getKey()), EntryStacks.of(entry.getValue())));
+				registry.add(new DefaultStrippingDisplay(EntryStacks.of(entry.getKey()), EntryStacks.of(entry.getValue())));
 			}
 		} catch (Exception e) {
 			BotaniaAPI.LOGGER.error("Error adding strippable entry to REI", e);
 		}
 
-		helper.registerRecipeFiller(OrechidRecipe.class, BotaniaRecipeTypes.ORECHID_TYPE,
+		registry.registerRecipeFiller(OrechidRecipe.class,
+				BotaniaRecipeTypes.ORECHID_TYPE,
 				OrechidREIDisplay::new);
-		helper.registerRecipeFiller(OrechidRecipe.class, BotaniaRecipeTypes.ORECHID_IGNEM_TYPE,
+		registry.registerRecipeFiller(OrechidRecipe.class,
+				BotaniaRecipeTypes.ORECHID_IGNEM_TYPE,
 				OrechidIgnemREIDisplay::new);
-		helper.registerRecipeFiller(OrechidRecipe.class, BotaniaRecipeTypes.MARIMORPHOSIS_TYPE,
+		registry.registerRecipeFiller(OrechidRecipe.class,
+				BotaniaRecipeTypes.MARIMORPHOSIS_TYPE,
 				MarimorphosisREIDisplay::new);
 	}
 
 	void registerAncientWillRecipeWrapper(DisplayRegistry helper) {
 		ImmutableList.Builder<EntryIngredient> input = ImmutableList.builder();
 		ImmutableList.Builder<EntryStack<ItemStack>> output = ImmutableList.builder();
-		Set<ItemStack> wills = ImmutableSet.of(new ItemStack(BotaniaItems.ancientWillAhrim), new ItemStack(BotaniaItems.ancientWillDharok), new ItemStack(BotaniaItems.ancientWillGuthan), new ItemStack(BotaniaItems.ancientWillKaril), new ItemStack(BotaniaItems.ancientWillTorag), new ItemStack(BotaniaItems.ancientWillVerac));
-		AncientWillContainer container = (AncientWillContainer) BotaniaItems.terrasteelHelm;
+		Set<ItemStack> wills = ImmutableSet.of(
+				new ItemStack(BotaniaItems.WILL_OF_AHRIM), new ItemStack(BotaniaItems.WILL_OF_DHAROK),
+				new ItemStack(BotaniaItems.WILL_OF_GUTHAN), new ItemStack(BotaniaItems.WILL_OF_KARIL),
+				new ItemStack(BotaniaItems.WILL_OF_TORAG), new ItemStack(BotaniaItems.WILL_OF_VERAC));
+		AncientWillContainer container = (AncientWillContainer) BotaniaItems.TERRASTEEL_HELMET;
 
-		ItemStack helmet = new ItemStack(BotaniaItems.terrasteelHelm);
+		ItemStack helmet = new ItemStack(BotaniaItems.TERRASTEEL_HELMET);
 		input.add(EntryIngredients.of(helmet));
 		input.add(EntryIngredients.ofItemStacks(wills));
 		for (ItemStack will : wills) {
@@ -161,18 +195,22 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 			container.addAncientWill(copy, ((AncientWillItem) will.getItem()).type);
 			output.add(EntryStacks.of(copy));
 		}
-		helper.add(new DefaultCustomDisplay(null, input.build(), Collections.singletonList(EntryIngredient.of(output.build()))));
+		helper.add(new DefaultCustomDisplay(null, input.build(),
+				Collections.singletonList(EntryIngredient.of(output.build()))));
 	}
 
 	void registerCompositeLensRecipeWrapper(DisplayRegistry helper) {
 		List<ItemStack> lensStacks =
 				StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS).spliterator(), false)
 						.map(ItemStack::new)
-						.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
-						.filter(s -> ((LensItem) s.getItem()).isCombinable(s))
+						.filter(stack -> !((LensItem) stack.getItem()).isControlLens(stack))
+						.filter(stack -> ((LensItem) stack.getItem()).isCombinable(stack))
 						.toList();
 		List<Item> lenses = lensStacks.stream().map(ItemStack::getItem).toList();
-		List<EntryIngredient> inputs = Arrays.asList(EntryIngredients.ofItemStacks(lensStacks), EntryIngredients.of(new ItemStack(Items.SLIME_BALL)), EntryIngredients.ofItemStacks(lensStacks));
+		List<EntryIngredient> inputs = Arrays.asList(
+				EntryIngredients.ofItemStacks(lensStacks),
+				EntryIngredients.of(new ItemStack(Items.SLIME_BALL)),
+				EntryIngredients.ofItemStacks(lensStacks));
 		int end = lenses.size() - 1;
 
 		List<ItemStack> firstInput = new ArrayList<>();
@@ -200,8 +238,10 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 	}
 
 	void registerTerraPickTippingRecipeWrapper(DisplayRegistry helper) {
-		List<EntryIngredient> inputs = ImmutableList.of(EntryIngredients.of(BotaniaItems.terraPick), EntryIngredients.of(BotaniaItems.elementiumPick));
-		ItemStack output = new ItemStack(BotaniaItems.terraPick);
+		List<EntryIngredient> inputs = ImmutableList.of(
+				EntryIngredients.of(BotaniaItems.TERRA_SHATTERER),
+				EntryIngredients.of(BotaniaItems.ELEMENTIUM_PICKAXE));
+		ItemStack output = new ItemStack(BotaniaItems.TERRA_SHATTERER);
 		TerraShattererItem.setTipped(output);
 
 		helper.add(new DefaultCustomDisplay(null, inputs, Collections.singletonList(EntryIngredients.of(output))));

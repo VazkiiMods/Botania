@@ -40,10 +40,10 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 			if (stack.isEmpty()) {
 				continue;
 			}
-			if (stack.is(BotaniaItems.laputaShard) && !foundShard
+			if (stack.is(BotaniaItems.SHARD_OF_LAPUTA) && !foundShard
 					&& LaputaShardItem.getShardLevel(stack) < LaputaShardItem.MAX_LEVEL) {
 				foundShard = true;
-			} else if (stack.is(BotaniaItems.lifeEssence) && !foundSpirit) {
+			} else if (stack.is(BotaniaItems.GAIA_SPIRIT) && !foundSpirit) {
 				foundSpirit = true;
 			} else {
 				return false;
@@ -54,21 +54,21 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 
 	@Override
 	public ItemStack getResultItem(HolderLookup.Provider registries) {
-		return new ItemStack(BotaniaItems.laputaShard);
+		return new ItemStack(BotaniaItems.SHARD_OF_LAPUTA);
 	}
 
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return NonNullList.of(Ingredient.EMPTY,
-				Ingredient.of(BotaniaItems.laputaShard),
-				Ingredient.of(BotaniaItems.lifeEssence));
+				Ingredient.of(BotaniaItems.SHARD_OF_LAPUTA),
+				Ingredient.of(BotaniaItems.GAIA_SPIRIT));
 	}
 
 	@Override
 	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (stack.is(BotaniaItems.laputaShard)) {
+			if (stack.is(BotaniaItems.SHARD_OF_LAPUTA)) {
 				ItemStack result = stack.copy();
 				result.set(BotaniaDataComponents.SHARD_LEVEL, LaputaShardItem.getShardLevel(stack) + 1);
 				if (LaputaShardItem.getShardLevel(result) == LaputaShardItem.MAX_LEVEL) {

@@ -79,7 +79,7 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(CraftingInput inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.is(BotaniaItems.manaGun)) {
+			if (s.is(BotaniaItems.MANA_BLASTER)) {
 				ItemStack stack = ManaBlasterItem.getLens(s);
 				stack.setCount(1);
 				return stack;

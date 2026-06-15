@@ -66,14 +66,14 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	public void handleEntityEvent(byte id) {
 		if (id == EntityEvent.DEATH) {
 			for (int j = 0; j < 16; j++) {
-				level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BotaniaItems.vineBall)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
+				level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BotaniaItems.VINE_BALL)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
 			}
 		}
 	}
 
 	private void effectAndDieWithDrop() {
 		effectAndDie();
-		ItemEntity itemEntity = new ItemEntity(level(), getX(), getY(), getZ(), new ItemStack(BotaniaItems.vineBall));
+		ItemEntity itemEntity = new ItemEntity(level(), getX(), getY(), getZ(), new ItemStack(BotaniaItems.VINE_BALL));
 		itemEntity.setDefaultPickUpDelay();
 		level().addFreshEntity(itemEntity);
 	}
@@ -139,6 +139,6 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 
 	@Override
 	public ItemStack getItem() {
-		return new ItemStack(BotaniaItems.vineBall);
+		return new ItemStack(BotaniaItems.VINE_BALL);
 	}
 }

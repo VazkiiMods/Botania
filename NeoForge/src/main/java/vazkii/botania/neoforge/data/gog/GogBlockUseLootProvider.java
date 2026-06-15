@@ -27,7 +27,7 @@ public class GogBlockUseLootProvider implements LootTableSubProvider {
 	@Override
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		output.accept(BotaniaLootTables.GOG_PEBBLES_TABLE,
-				LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.pebble))));
+				LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.PEBBLE))));
 	}
 
 }

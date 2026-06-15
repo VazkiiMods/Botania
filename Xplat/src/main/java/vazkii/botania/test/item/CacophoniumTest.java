@@ -41,7 +41,7 @@ public class CacophoniumTest {
 		Cow cow = helper.spawnWithNoFreeWill(EntityType.COW, cowPos);
 
 		//Give a cacophonium to the player.
-		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.cacophonium));
+		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.CACOPHONIUM));
 
 		//Use the cacophonium on the cow.
 		player.interactOn(cow, InteractionHand.MAIN_HAND);

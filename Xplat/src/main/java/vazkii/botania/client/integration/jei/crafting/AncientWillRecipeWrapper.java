@@ -36,23 +36,23 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension<Anci
 				.toList();
 
 		var willStacks = !foci.isEmpty() ? foci : List.of(
-				new ItemStack(BotaniaItems.ancientWillAhrim),
-				new ItemStack(BotaniaItems.ancientWillDharok),
-				new ItemStack(BotaniaItems.ancientWillGuthan),
-				new ItemStack(BotaniaItems.ancientWillTorag),
-				new ItemStack(BotaniaItems.ancientWillVerac),
-				new ItemStack(BotaniaItems.ancientWillKaril)
+				new ItemStack(BotaniaItems.WILL_OF_AHRIM),
+				new ItemStack(BotaniaItems.WILL_OF_DHAROK),
+				new ItemStack(BotaniaItems.WILL_OF_GUTHAN),
+				new ItemStack(BotaniaItems.WILL_OF_TORAG),
+				new ItemStack(BotaniaItems.WILL_OF_VERAC),
+				new ItemStack(BotaniaItems.WILL_OF_KARIL)
 		);
 
 		var outputStacks = new ArrayList<ItemStack>();
 		for (var will : !foci.isEmpty() ? foci : willStacks) {
-			var stack = new ItemStack(BotaniaItems.terrasteelHelm);
+			var stack = new ItemStack(BotaniaItems.TERRASTEEL_HELMET);
 			((AncientWillContainer) stack.getItem()).addAncientWill(stack, ((AncientWillItem) will.getItem()).type);
 			outputStacks.add(stack);
 		}
 
 		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK,
-				List.of(Collections.singletonList(new ItemStack(BotaniaItems.terrasteelHelm)), willStacks), 0, 0);
+				List.of(Collections.singletonList(new ItemStack(BotaniaItems.TERRASTEEL_HELMET)), willStacks), 0, 0);
 		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, outputStacks);
 	}
 }

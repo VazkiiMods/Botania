@@ -37,7 +37,7 @@ public class RingOfChordataItem extends BaubleItem {
 		}
 		if (player.isInWaterOrBubble()) {
 			// only activate for one ring at a time
-			ItemStack result = EquipmentHandler.findOrEmpty(BotaniaItems.waterRing, living);
+			ItemStack result = EquipmentHandler.findOrEmpty(BotaniaItems.RING_OF_CHORDATA, living);
 			if (result != stack) {
 				return;
 			}

@@ -48,14 +48,15 @@ public class ManasteelShearsItem extends ShearsItem implements CustomDamageItem,
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-		if (!world.isClientSide && entity instanceof Player player && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_DAMAGE * 2, true)) {
+		if (!world.isClientSide && entity instanceof Player player && stack.getDamageValue() > 0
+				&& ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamageValue(stack.getDamageValue() - 1);
 		}
 	}
 
 	@Override
 	public boolean isValidRepairItem(ItemStack shears, ItemStack material) {
-		return material.is(BotaniaItems.manaSteel) || super.isValidRepairItem(shears, material);
+		return material.is(BotaniaItems.MANASTEEL_INGOT) || super.isValidRepairItem(shears, material);
 	}
 
 	@Override

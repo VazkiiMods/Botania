@@ -23,14 +23,16 @@ public class VialItem extends Item implements BrewContainer {
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		ItemStack brewStack = new ItemStack(stack.is(BotaniaItems.flask) ? BotaniaItems.brewFlask : BotaniaItems.brewVial);
+		ItemStack brewStack = new ItemStack(stack.is(BotaniaItems.ALFGLASS_FLASK)
+				? BotaniaItems.BREW_FLASK
+				: BotaniaItems.BREW_VIAL);
 		BaseBrewItem.setBrew(brewStack, brew);
 		return brewStack;
 	}
 
 	@Override
 	public int getManaCost(Brew brew, ItemStack stack) {
-		if (stack.is(BotaniaItems.flask)) {
+		if (stack.is(BotaniaItems.ALFGLASS_FLASK)) {
 			return brew.getManaCost() * 2;
 		} else {
 			return brew.getManaCost();

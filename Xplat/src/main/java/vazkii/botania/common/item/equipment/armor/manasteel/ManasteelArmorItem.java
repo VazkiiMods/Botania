@@ -43,16 +43,14 @@ import java.util.function.Supplier;
 
 public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, PhantomInkable {
 
-	private static final String TAG_PHANTOM_INK = "phantomInk";
-
 	public final Type type;
 
-	public ManasteelArmorItem(Type type, Properties props) {
-		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props);
+	public ManasteelArmorItem(Type type, Properties properties) {
+		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), properties);
 	}
 
-	public ManasteelArmorItem(Type type, Holder<ArmorMaterial> mat, Properties props) {
-		super(mat, type, props);
+	public ManasteelArmorItem(Type type, Holder<ArmorMaterial> material, Properties properties) {
+		super(material, type, properties);
 		this.type = type;
 	}
 
@@ -105,10 +103,10 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
-			new ItemStack(BotaniaItems.manasteelHelm),
-			new ItemStack(BotaniaItems.manasteelChest),
-			new ItemStack(BotaniaItems.manasteelLegs),
-			new ItemStack(BotaniaItems.manasteelBoots)
+			new ItemStack(BotaniaItems.MANASTEEL_HELMET),
+			new ItemStack(BotaniaItems.MANASTEEL_CHESTPLATE),
+			new ItemStack(BotaniaItems.MANASTEEL_LEGGINGS),
+			new ItemStack(BotaniaItems.MANASTEEL_BOOTS)
 	});
 
 	public ItemStack[] getArmorSetStacks() {
@@ -130,10 +128,10 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 		}
 
 		return switch (slot) {
-			case HEAD -> stack.is(BotaniaItems.manasteelHelm);
-			case CHEST -> stack.is(BotaniaItems.manasteelChest);
-			case LEGS -> stack.is(BotaniaItems.manasteelLegs);
-			case FEET -> stack.is(BotaniaItems.manasteelBoots);
+			case HEAD -> stack.is(BotaniaItems.MANASTEEL_HELMET);
+			case CHEST -> stack.is(BotaniaItems.MANASTEEL_CHESTPLATE);
+			case LEGS -> stack.is(BotaniaItems.MANASTEEL_LEGGINGS);
+			case FEET -> stack.is(BotaniaItems.MANASTEEL_BOOTS);
 			default -> false;
 		};
 

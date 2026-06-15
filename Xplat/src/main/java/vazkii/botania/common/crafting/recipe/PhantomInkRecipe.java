@@ -35,7 +35,7 @@ public class PhantomInkRecipe extends CustomRecipe {
 		for (int i = 0; i < var1.size(); i++) {
 			ItemStack stack = var1.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.is(BotaniaItems.phantomInk) && !foundInk) {
+				if (stack.is(BotaniaItems.PHANTOM_INK) && !foundInk) {
 					foundInk = true;
 				} else if (!foundItem) {
 					if (stack.getItem() instanceof PhantomInkable && !stack.getItem().hasCraftingRemainingItem()) {

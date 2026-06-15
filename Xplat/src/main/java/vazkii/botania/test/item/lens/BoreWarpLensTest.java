@@ -35,7 +35,7 @@ public class BoreWarpLensTest {
 
 	@GameTest(template = TEMPLATE, timeoutTicks = 25)
 	public void testWarpBoreLens(GameTestHelper helper) {
-		setUpLensesAndBindings(helper, BotaniaItems.lensWarp, BotaniaItems.lensMine);
+		setUpLensesAndBindings(helper, BotaniaItems.WARP_LENS, BotaniaItems.BORE_LENS);
 
 		helper.startSequence()
 				.thenExecuteAfter(1, () -> helper.pressButton(BUTTON_POS))
@@ -51,7 +51,7 @@ public class BoreWarpLensTest {
 
 	@GameTest(template = TEMPLATE, timeoutTicks = 25)
 	public void testBoreWarpLens(GameTestHelper helper) {
-		setUpLensesAndBindings(helper, BotaniaItems.lensMine, BotaniaItems.lensWarp);
+		setUpLensesAndBindings(helper, BotaniaItems.BORE_LENS, BotaniaItems.WARP_LENS);
 
 		helper.startSequence()
 				.thenExecuteAfter(1, () -> helper.pressButton(BUTTON_POS))

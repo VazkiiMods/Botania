@@ -21,15 +21,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.common.item.BotaniaItems.*;
-
 public class ForgeItemTagProvider extends ItemTagsProvider {
-	public ForgeItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider,
-			CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
-		super(packOutput, lookupProvider, blockTagProvider, BotaniaAPI.MODID, null);
+	public ForgeItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
+			CompletableFuture<TagsProvider.TagLookup<Block>> blockTags) {
+		super(output, lookupProvider, blockTags, BotaniaAPI.MODID, null);
 	}
 
 	@Override
@@ -40,51 +39,52 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(accessory("belt")).add(
-				knockbackBelt, speedUpBelt, superTravelBelt, travelBelt
-		);
+				BotaniaItems.TECTONIC_GIRDLE, BotaniaItems.PLANESTRIDERS_SASH, BotaniaItems.GLOBETROTTERS_SASH,
+				BotaniaItems.SOJOURNERS_SASH);
 		tag(accessory("body")).add(
-				balanceCloak, holyCloak, invisibilityCloak, thirdEye, unholyCloak
-		);
+				BotaniaItems.CLOAK_OF_BALANCE, BotaniaItems.CLOAK_OF_VIRTUE, BotaniaItems.INVINSIBILITY_CLOAK,
+				BotaniaItems.THIRD_EYE, BotaniaItems.CLOAK_OF_SIN);
 		tag(accessory("charm")).add(
-				divaCharm, goddessCharm, monocle, tinyPlanet
-		);
-		tag(accessory("head")).add(flightTiara, itemFinder);
+				BotaniaItems.CHARM_OF_THE_DIVA, BotaniaItems.BENEVOLENT_GODDESS_CHARM, BotaniaItems.MANASEER_MONOCLE,
+				BotaniaItems.TINY_PLANET);
+		tag(accessory("head")).add(BotaniaItems.FLUEGEL_TIARA, BotaniaItems.THE_SPECTATOR);
 		tag(accessory("necklace")).add(
-				bloodPendant, cloudPendant, icePendant, lavaPendant,
-				superCloudPendant, superLavaPendant
-		);
+				BotaniaItems.TAINTED_BLOOD_PENDANT, BotaniaItems.CIRRUS_AMULET, BotaniaItems.SNOWFLAKE_PENDANT,
+				BotaniaItems.PYROCLAST_PENDANT, BotaniaItems.NIMBUS_AMULET, BotaniaItems.CRIMSON_PENDANT);
 		tag(accessory("ring")).add(
-				auraRing, auraRingGreater, dodgeRing, lokiRing, magnetRing, magnetRingGreater,
-				manaRing, manaRingGreater, miningRing, odinRing, pixieRing, reachRing,
-				swapRing, thorRing, waterRing
-		);
+				BotaniaItems.BAND_OF_AURA, BotaniaItems.GREATER_BAND_OF_AURA, BotaniaItems.RING_OF_DEXTEROUS_MOTION,
+				BotaniaItems.RING_OF_LOKI, BotaniaItems.RING_OF_MAGNETIZATION,
+				BotaniaItems.GREATER_RING_OF_MAGNETIZATION, BotaniaItems.BAND_OF_MANA,
+				BotaniaItems.GREATER_BAND_OF_MANA, BotaniaItems.RING_OF_THE_MANTLE, BotaniaItems.RING_OF_ODIN,
+				BotaniaItems.GREAT_FAIRY_RING, BotaniaItems.RING_OF_FAR_REACH, BotaniaItems.RING_OF_CORRECTION,
+				BotaniaItems.RING_OF_THOR, BotaniaItems.RING_OF_CHORDATA);
 		tag(accessory("curio")).add(
-				blackBowtie, blackTie,
-				redGlasses, puffyScarf,
-				engineerGoggles, eyepatch,
-				wickedEyepatch, redRibbons,
-				pinkFlowerBud, polkaDottedBows,
-				blueButterfly, catEars,
-				witchPin, devilTail,
-				kamuiEye, googlyEyes,
-				fourLeafClover, clockEye,
-				unicornHorn, devilHorns,
-				hyperPlus, botanistEmblem,
-				ancientMask, eerieMask,
-				alienAntenna, anaglyphGlasses,
-				orangeShades, grouchoGlasses,
-				thickEyebrows, lusitanicShield,
-				tinyPotatoMask, questgiverMark,
-				thinkingHand
+				BotaniaItems.COSMETIC_BLACK_BOWTIE, BotaniaItems.COSMETIC_BLACK_TIE,
+				BotaniaItems.COSMETIC_RED_GLASSES, BotaniaItems.COSMETIC_PUFFY_SCARF,
+				BotaniaItems.COSMETIC_ENGINEER_GOGGLES, BotaniaItems.COSMETIC_EYEPATCH,
+				BotaniaItems.COSMETIC_WICKED_EYEPATCH, BotaniaItems.COSMETIC_RED_RIBBONS,
+				BotaniaItems.COSMETIC_PINK_FLOWER_BUD, BotaniaItems.COSMETIC_POLKA_DOTTED_BOWS,
+				BotaniaItems.COSMETIC_BLUE_BUTTERFLY, BotaniaItems.COSMETIC_CAT_EARS,
+				BotaniaItems.COSMETIC_WITCH_PIN, BotaniaItems.COSMETIC_DEVIL_TAIL,
+				BotaniaItems.COSMETIC_KAMUI_EYE, BotaniaItems.COSMETIC_GOOGLY_EYES,
+				BotaniaItems.COSMETIC_FOUR_LEAFED_CLOVER, BotaniaItems.COSMETIC_CLOCK_EYE,
+				BotaniaItems.COSMETIC_UNICORN_HORN, BotaniaItems.COSMETIC_DEVIL_HORNS,
+				BotaniaItems.COSMETIC_HYPER_PLUS, BotaniaItems.COSMETIC_BOTANIST_EMBLEM,
+				BotaniaItems.COSMETIC_ANCIENT_MASK, BotaniaItems.COSMETIC_EERIE_MASK,
+				BotaniaItems.COSMETIC_ALIEN_ANTENNA, BotaniaItems.COSMETIC_ANAGLYPH_GLASSES,
+				BotaniaItems.COSMETIC_ORANGE_SHADES, BotaniaItems.COSMETIC_GROUCHO_GLASSES,
+				BotaniaItems.COSMETIC_THICK_EYEBROWS, BotaniaItems.COSMETIC_LUSITANIC_SHIELD,
+				BotaniaItems.COSMETIC_TINY_POTATO_MASK, BotaniaItems.COSMETIC_QUESTGIVER_MARK,
+				BotaniaItems.COSMETIC_THINKING_HAND
 		);
 
 		tag(TagKey.create(Registries.ITEM,
 				ResourceLocation.fromNamespaceAndPath("quark", "big_harvesting_hoes")))
-				.add(elementiumHoe);
+				.add(BotaniaItems.ELEMENTIUM_HOE);
 
-		tag(TagKey.create(Registries.ITEM,
-				ResourceLocation.fromNamespaceAndPath("quark", "reacharound_able")))
-				.add(dirtRod, skyDirtRod, cobbleRod, blackHoleTalisman);
+		tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("quark", "reacharound_able")))
+				.add(BotaniaItems.ROD_OF_THE_LANDS, BotaniaItems.ROD_OF_THE_HIGHLANDS, BotaniaItems.ROD_OF_THE_DEPTHS,
+						BotaniaItems.BLACK_HOLE_TALISMAN);
 	}
 
 	private static TagKey<Item> accessory(String name) {

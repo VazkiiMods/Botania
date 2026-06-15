@@ -36,8 +36,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrasteelArmorItem extends ManasteelArmorItem {
 
-	public TerrasteelArmorItem(Type type, Properties props) {
-		super(type, BotaniaAPI.instance().getTerrasteelArmorMaterial(), props);
+	public TerrasteelArmorItem(Type type, Properties properties) {
+		super(type, BotaniaAPI.instance().getTerrasteelArmorMaterial(), properties);
 	}
 
 	@Override
@@ -56,10 +56,10 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
-			new ItemStack(BotaniaItems.terrasteelHelm),
-			new ItemStack(BotaniaItems.terrasteelChest),
-			new ItemStack(BotaniaItems.terrasteelLegs),
-			new ItemStack(BotaniaItems.terrasteelBoots)
+			new ItemStack(BotaniaItems.TERRASTEEL_HELMET),
+			new ItemStack(BotaniaItems.TERRASTEEL_CHESTPLATE),
+			new ItemStack(BotaniaItems.TERRASTEEL_LEGGINGS),
+			new ItemStack(BotaniaItems.TERRASTEEL_BOOTS)
 	});
 
 	@Override
@@ -79,10 +79,10 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 		}
 
 		return switch (slot) {
-			case HEAD -> stack.is(BotaniaItems.terrasteelHelm);
-			case CHEST -> stack.is(BotaniaItems.terrasteelChest);
-			case LEGS -> stack.is(BotaniaItems.terrasteelLegs);
-			case FEET -> stack.is(BotaniaItems.terrasteelBoots);
+			case HEAD -> stack.is(BotaniaItems.TERRASTEEL_HELMET);
+			case CHEST -> stack.is(BotaniaItems.TERRASTEEL_CHESTPLATE);
+			case LEGS -> stack.is(BotaniaItems.TERRASTEEL_LEGGINGS);
+			case FEET -> stack.is(BotaniaItems.TERRASTEEL_BOOTS);
 			default -> false;
 		};
 

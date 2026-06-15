@@ -40,10 +40,10 @@ public class ApothecaryRecipeTest {
 	@GameTest(template = TEMPLATE, batch = "apothecary")
 	public void testItemEnterPrevention(GameTestHelper helper) {
 		helper.startSequence().thenExecute(() -> {
-			spawnItem(helper, BotaniaItems.whitePetal);
-			spawnItem(helper, BotaniaItems.whitePetal);
-			spawnItem(helper, BotaniaItems.whitePetal);
-			spawnItem(helper, BotaniaItems.whitePetal);
+			spawnItem(helper, BotaniaItems.WHITE_MYSTICAL_PETAL);
+			spawnItem(helper, BotaniaItems.WHITE_MYSTICAL_PETAL);
+			spawnItem(helper, BotaniaItems.WHITE_MYSTICAL_PETAL);
+			spawnItem(helper, BotaniaItems.WHITE_MYSTICAL_PETAL);
 		}).thenExecuteAfter(1, () -> {
 			spawnItem(helper, Items.MELON_SEEDS);
 		}).thenExecuteAfter(10, () -> {

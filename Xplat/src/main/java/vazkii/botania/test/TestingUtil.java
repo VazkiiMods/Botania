@@ -109,7 +109,7 @@ public class TestingUtil {
 	public static void bindWithWandOfTheForest(GameTestHelper helper, BlockPos first, BlockPos second) {
 		//Conjure a player with Wand of the Forest
 		Player player = helper.makeMockPlayer(GameType.CREATIVE);
-		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.twigWand));
+		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.WAND_OF_THE_FOREST));
 		player.setShiftKeyDown(true);
 
 		//Move the player to each destination just to make sure they're in-range

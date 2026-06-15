@@ -332,7 +332,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.mulPose(VecHelper.rotateZ(180F));
 					ms.translate(-0.3F, -2.7F, -1.2F);
 					ms.mulPose(VecHelper.rotateZ(15F));
-					ItemStack stack = new ItemStack(BotaniaItems.infiniteFruit);
+					ItemStack stack = new ItemStack(BotaniaItems.FRUIT_OF_GRISAIA);
 					stack.set(DataComponents.CUSTOM_NAME, Component.literal("das boot"));
 					renderItem(ms, buffers, potato.getLevel(), light, overlay, stack);
 				}
@@ -347,7 +347,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.mulPose(VecHelper.rotateY(90));
 					ms.pushPose();
 					ms.translate(0F, -2.5F, 0.65F);
-					ItemStack ring = new ItemStack(BotaniaItems.manaRing);
+					ItemStack ring = new ItemStack(BotaniaItems.BAND_OF_MANA);
 					renderItem(ms, buffers, potato.getLevel(), light, overlay, ring);
 					ms.translate(0F, 0F, -4F);
 					renderItem(ms, buffers, potato.getLevel(), light, overlay, ring);

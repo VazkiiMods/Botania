@@ -37,7 +37,7 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.is(BotaniaItems.blackHoleTalisman) && !foundTalisman) {
+				if (stack.is(BotaniaItems.BLACK_HOLE_TALISMAN) && !foundTalisman) {
 
 					// Avoid returning true for empty talismans
 					int count = BlackHoleTalismanItem.getBlockCount(stack);
@@ -90,7 +90,7 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(CraftingInput inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.is(BotaniaItems.blackHoleTalisman)) {
+			if (s.is(BotaniaItems.BLACK_HOLE_TALISMAN)) {
 				int count = BlackHoleTalismanItem.getBlockCount(s);
 				if (count == 0) {
 					return ItemStack.EMPTY;

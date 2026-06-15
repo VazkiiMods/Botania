@@ -58,7 +58,7 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 		if (pickupInEnd(world, blockpos) || EnderAirItem.pickupFromEntity(world, new AABB(blockpos))) {
 			this.setSuccess(true);
 			world.gameEvent(null, GameEvent.FLUID_PICKUP, source.pos());
-			return this.defaultBehaviour.consumeWithRemainder(source, stack, new ItemStack(BotaniaItems.enderAirBottle));
+			return this.defaultBehaviour.consumeWithRemainder(source, stack, new ItemStack(BotaniaItems.ENDER_AIR_BOTTLE));
 		}
 		this.setSuccess(false);
 		return parent.dispense(source, stack);

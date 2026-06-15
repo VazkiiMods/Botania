@@ -77,7 +77,7 @@ public class ManaStormEntity extends Entity {
 		burst.setManaLossPerTick(2.5F);
 		burst.setGravity(0F);
 
-		burst.setSourceLens(new ItemStack(BotaniaItems.lensStorm));
+		burst.setSourceLens(new ItemStack(BotaniaItems.STORM_LENS));
 
 		Vec3 motion = new Vec3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().scale(motionModifier);
 		burst.setDeltaMovement(motion);

@@ -16,17 +16,17 @@ import vazkii.botania.api.mana.spark.SparkUpgradeType;
 public class SparkAugmentItem extends Item {
 	public final SparkUpgradeType type;
 
-	public SparkAugmentItem(Properties builder, SparkUpgradeType type) {
-		super(builder);
+	public SparkAugmentItem(SparkUpgradeType type, Properties properties) {
+		super(properties);
 		this.type = type;
 	}
 
 	public static ItemStack getByType(SparkUpgradeType type) {
 		return switch (type) {
-			case DOMINANT -> new ItemStack(BotaniaItems.sparkUpgradeDominant);
-			case RECESSIVE -> new ItemStack(BotaniaItems.sparkUpgradeRecessive);
-			case DISPERSIVE -> new ItemStack(BotaniaItems.sparkUpgradeDispersive);
-			case ISOLATED -> new ItemStack(BotaniaItems.sparkUpgradeIsolated);
+			case DOMINANT -> new ItemStack(BotaniaItems.SPARK_AUGMENT_DOMINANT);
+			case RECESSIVE -> new ItemStack(BotaniaItems.SPARK_AUGMENT_RECESSIVE);
+			case DISPERSIVE -> new ItemStack(BotaniaItems.SPARK_AUGMENT_DISPERSIVE);
+			case ISOLATED -> new ItemStack(BotaniaItems.SPARK_AUGMENT_ISOLATED);
 			default -> ItemStack.EMPTY;
 		};
 	}

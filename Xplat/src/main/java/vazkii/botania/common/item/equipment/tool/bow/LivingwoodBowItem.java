@@ -45,7 +45,7 @@ public class LivingwoodBowItem extends BowItem implements CustomDamageItem {
 
 	@Override
 	public boolean isValidRepairItem(ItemStack bow, ItemStack material) {
-		return material.is(BotaniaItems.livingwoodTwig) || super.isValidRepairItem(bow, material);
+		return material.is(BotaniaItems.LIVINGWOOD_TWIG) || super.isValidRepairItem(bow, material);
 	}
 
 	@Override

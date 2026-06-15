@@ -16,8 +16,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.mana.ManaDiscountArmor;
 
 public class ElementiumHelmItem extends ElementiumArmorItem implements ManaDiscountArmor {
-	public ElementiumHelmItem(Properties props, double pixieChance) {
-		super(Type.HELMET, props, pixieChance);
+	public ElementiumHelmItem(double pixieChance, Properties properties) {
+		super(Type.HELMET, pixieChance, properties);
 	}
 
 	@Override

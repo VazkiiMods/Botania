@@ -54,7 +54,7 @@ public class EnderAirItem extends Item implements ProjectileItem {
 				|| pickupFromEntity(world, player.getBoundingBox().inflate(1.0))) {
 
 			if (!world.isClientSide) {
-				ItemStack enderAir = new ItemStack(BotaniaItems.enderAirBottle);
+				ItemStack enderAir = new ItemStack(BotaniaItems.ENDER_AIR_BOTTLE);
 				player.getInventory().placeItemBackInInventory(enderAir);
 				stack.shrink(1);
 				world.playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 0.5F, 1F);

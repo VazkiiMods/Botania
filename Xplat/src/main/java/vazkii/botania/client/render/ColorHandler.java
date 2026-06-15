@@ -61,7 +61,7 @@ public final class ColorHandler {
 	private static Block[] getModBlocks(Predicate<Block> blockPredicate) {
 		return BuiltInRegistries.BLOCK.stream()
 				.filter(blockPredicate)
-				.filter(b -> BuiltInRegistries.BLOCK.getKey(b).getNamespace().equals(BotaniaAPI.MODID))
+				.filter(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(BotaniaAPI.MODID))
 				.toArray(Block[]::new);
 	}
 
@@ -80,15 +80,16 @@ public final class ColorHandler {
 						return -1;
 					}
 
-					Optional<Integer> color = poolBlock.getOptionalColor().map(
-							c -> FastColor.ARGB32.lerp(0.8f, 0xFFFFFF, MysticalPetalItem.getPetalLikeColor(c)));
+					Optional<Integer> optionalColor = poolBlock.getOptionalColor().map(color -> FastColor.ARGB32
+							.lerp(0.8f, 0xFFFFFF, MysticalPetalItem.getPetalLikeColor(color)));
 					if (poolBlock.isFabulous()) {
 						float time = (ClientTickHandler.getEntityTicksInGame() + ClientTickHandler.getEntityPartialTick()) * 0.005F;
 						float posOffset = pos != null ? new Random(state.getSeed(pos)).nextFloat() : 0;
 						int fabulousColor = Mth.hsvToRgb((time + posOffset) % 1f, 0.4F, 1F);
-						return color.map(c -> FastColor.ARGB32.multiply(fabulousColor, c)).orElse(fabulousColor);
+						return optionalColor.map(color -> FastColor.ARGB32.multiply(fabulousColor, color))
+								.orElse(fabulousColor);
 					}
-					return color.orElse(-1);
+					return optionalColor.orElse(-1);
 				},
 				getModBlocks(block -> block instanceof ManaPoolBlock pool && (pool.color != null || pool.isFabulous()))
 		);
@@ -117,7 +118,8 @@ public final class ColorHandler {
 		items.register((stack, tintIndex) -> tintIndex == 0
 				? FastColor.ARGB32.opaque(Mth.hsvToRgb(ClientTickHandler.getUiAnimationTicks() % 180 / 180, 0.25f, 1.0f))
 				: -1,
-				BotaniaItems.lifeEssence, BotaniaItems.gaiaIngot);
+				BotaniaItems.GAIA_SPIRIT, BotaniaItems.GAIA_INGOT
+		);
 
 		items.register((stack, tintIndex) -> tintIndex == 0
 				? FastColor.ARGB32.opaque(Mth.hsvToRgb(ClientTickHandler.getUiAnimationTicks() % 180 / 180, 0.4f, 0.9f))
@@ -130,25 +132,35 @@ public final class ColorHandler {
 			case 2 -> FastColor.ARGB32.opaque(MysticalPetalItem.getPetalLikeColor(WandOfTheForestItem.getColor2(stack)));
 			default -> -1;
 		},
-				BotaniaItems.twigWand, BotaniaItems.dreamwoodWand);
+				BotaniaItems.WAND_OF_THE_FOREST, BotaniaItems.WAND_OF_THE_ELVEN_FOREST
+		);
 
 		items.register((stack, tintIndex) -> tintIndex == 0
-				? Minecraft.getInstance().getBlockColors().getColor(((BlockItem) stack.getItem()).getBlock().defaultBlockState(), null, null, tintIndex)
+				? Minecraft.getInstance().getBlockColors()
+						.getColor(((BlockItem) stack.getItem()).getBlock().defaultBlockState(), null, null, tintIndex)
 				: -1,
 				getModBlocks(block -> block instanceof ManaPoolBlock pool && (pool.color != null || pool.isFabulous())));
 
 		items.register((stack, tintIndex) -> {
 			if (tintIndex == 1) {
 				var manaItem = ManaItem.LOOKUP.find(stack);
-				return FastColor.ARGB32.opaque(Mth.hsvToRgb(MANA_HUE, manaItem != null ? (float) manaItem.getMana() / (float) Math.max(1, manaItem.getMaxMana()) : 0, 1));
+				return FastColor.ARGB32.opaque(Mth.hsvToRgb(
+						MANA_HUE,
+						manaItem != null ? (float) manaItem.getMana() / (float) Math.max(1, manaItem.getMaxMana()) : 0,
+						1));
 			}
 			return -1;
-		}, BotaniaItems.manaMirror, BotaniaItems.manaTablet);
+		}, BotaniaItems.MANA_MIRROR, BotaniaItems.MANA_TABLET
+		);
 
 		items.register((stack, tintIndex) -> tintIndex == 0
-				? FastColor.ARGB32.opaque(Mth.hsvToRgb(0.55F, ((float) stack.getMaxDamage() - (float) stack.getDamageValue()) / (float) stack.getMaxDamage() * 0.5F, 1F))
+				? FastColor.ARGB32.opaque(Mth.hsvToRgb(
+						0.55F,
+						((float) stack.getMaxDamage() - (float) stack.getDamageValue()) / (float) stack.getMaxDamage() * 0.5F,
+						1F))
 				: -1,
-				BotaniaItems.spellCloth);
+				BotaniaItems.SPELLBINDING_CLOTH
+		);
 
 		items.register((stack, tintIndex) -> {
 			if (tintIndex != 1) {
@@ -160,11 +172,12 @@ public final class ColorHandler {
 				return stack.getItem() instanceof TaintedBloodPendantItem ? 0xFFC6000E : 0xFF989898;
 			}
 
-			float speed = stack.is(BotaniaItems.brewFlask) || stack.is(BotaniaItems.brewVial) ? 0.1f : 0.2f;
+			float speed = stack.is(BotaniaItems.BREW_FLASK) || stack.is(BotaniaItems.BREW_VIAL) ? 0.1f : 0.2f;
 			int add = (int) (Mth.sin(ClientTickHandler.getUiAnimationTicks() * speed) * 24);
 
 			return addToColor(brew.getColor(stack), add);
-		}, BotaniaItems.bloodPendant, BotaniaItems.incenseStick, BotaniaItems.brewFlask, BotaniaItems.brewVial);
+		}, BotaniaItems.TAINTED_BLOOD_PENDANT, BotaniaItems.INCENSE_STICK, BotaniaItems.BREW_FLASK, BotaniaItems.BREW_VIAL
+		);
 
 		items.register((stack, tintIndex) -> {
 			ItemStack lens = ManaBlasterItem.getLens(stack);
@@ -173,46 +186,53 @@ public final class ColorHandler {
 			}
 
 			if (tintIndex == 2) {
-				BurstProperties props = ((ManaBlasterItem) stack.getItem()).getBurstProps(Minecraft.getInstance().player, stack, false, InteractionHand.MAIN_HAND);
+				BurstProperties props = ((ManaBlasterItem) stack.getItem())
+						.getBurstProps(Minecraft.getInstance().player, stack, false, InteractionHand.MAIN_HAND);
 				int add = FastColor.as8BitChannel(Mth.sin(ClientTickHandler.getUiAnimationTicks() / 5) * 0.15f);
 
 				return addToColor(props.color, add);
 			} else {
 				return -1;
 			}
-		}, BotaniaItems.manaGun);
+		}, BotaniaItems.MANA_BLASTER
+		);
 
 		items.register((stack, tintIndex) -> tintIndex == 1
 				? FastColor.ARGB32.opaque(Mth.hsvToRgb(0.75f, 1,
 						1.5f - Math.min(1, Mth.sin(ClientTickHandler.getUiAnimationTicks() / 2) * 0.5f + 1.2f)))
 				: -1,
-				BotaniaItems.enderDagger);
+				BotaniaItems.SOULSCRIBE
+		);
 
 		items.register((stack, tintIndex) -> tintIndex == 1 && TerraShattererItem.isEnabled(stack)
 				? FastColor.ARGB32.opaque(Mth.hsvToRgb(0.375f,
 						Math.min(1, Mth.sin(ClientTickHandler.getUiAnimationTicks() / 4) * 0.5f + 1f),
 						1))
 				: -1,
-				BotaniaItems.terraPick);
+				BotaniaItems.TERRA_SHATTERER
+		);
 
 		ItemColor lensHandler = (stack, tintIndex) -> tintIndex == 0
 				? FastColor.ARGB32.opaque(((LensItem) stack.getItem()).getLensColor(stack, Minecraft.getInstance().level))
 				: -1;
-		items.register(lensHandler, BotaniaItems.lensNormal, BotaniaItems.lensSpeed, BotaniaItems.lensPower, BotaniaItems.lensTime,
-				BotaniaItems.lensEfficiency, BotaniaItems.lensBounce, BotaniaItems.lensGravity, BotaniaItems.lensMine,
-				BotaniaItems.lensDamage, BotaniaItems.lensPhantom, BotaniaItems.lensMagnet, BotaniaItems.lensExplosive,
-				BotaniaItems.lensInfluence, BotaniaItems.lensWeight, BotaniaItems.lensPaint, BotaniaItems.lensFire,
-				BotaniaItems.lensPiston, BotaniaItems.lensLight, BotaniaItems.lensWarp, BotaniaItems.lensRedirect,
-				BotaniaItems.lensFirework, BotaniaItems.lensFlare, BotaniaItems.lensMessenger, BotaniaItems.lensTripwire,
-				BotaniaItems.lensStorm);
+		items.register(lensHandler,
+				BotaniaItems.MANA_LENS, BotaniaItems.VELOCITY_LENS, BotaniaItems.POTENCY_LENS,
+				BotaniaItems.RESISTANCE_LENS, BotaniaItems.EFFICIENCY_LENS, BotaniaItems.BOUNCE_LENS,
+				BotaniaItems.GRAVITY_LENS, BotaniaItems.BORE_LENS, BotaniaItems.DAMAGING_LENS,
+				BotaniaItems.PHANTOM_LENS, BotaniaItems.MAGNETIZING_LENS, BotaniaItems.ENTROPIC_LENS,
+				BotaniaItems.INFLUENCE_LENS, BotaniaItems.WEIGHT_LENS, BotaniaItems.PAINTSLINGER_LENS,
+				BotaniaItems.KINDLE_LENS, BotaniaItems.FORCE_LENS, BotaniaItems.FLASH_LENS, BotaniaItems.WARP_LENS,
+				BotaniaItems.REDIRECTIVE_LENS, BotaniaItems.CELEBRATORY_LENS, BotaniaItems.FLARE_LENS,
+				BotaniaItems.MESSENGER_LENS, BotaniaItems.TRIPWIRE_LENS, BotaniaItems.STORM_LENS
+		);
 	}
 
 	private static int addToColor(int color, int add) {
-		int r = Mth.clamp(FastColor.ARGB32.red(color) + add, 0, 255);
-		int g = Mth.clamp(FastColor.ARGB32.green(color) + add, 0, 255);
-		int b = Mth.clamp(FastColor.ARGB32.blue(color) + add, 0, 255);
+		int red = Mth.clamp(FastColor.ARGB32.red(color) + add, 0, 255);
+		int green = Mth.clamp(FastColor.ARGB32.green(color) + add, 0, 255);
+		int blue = Mth.clamp(FastColor.ARGB32.blue(color) + add, 0, 255);
 
-		return FastColor.ARGB32.color(r, g, b);
+		return FastColor.ARGB32.color(red, green, blue);
 	}
 
 	private ColorHandler() {}

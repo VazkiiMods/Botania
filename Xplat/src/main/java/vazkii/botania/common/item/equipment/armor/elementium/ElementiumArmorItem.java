@@ -34,8 +34,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class ElementiumArmorItem extends ManasteelArmorItem {
 	private final double pixieChance;
 
-	public ElementiumArmorItem(Type type, Properties props, double pixieChance) {
-		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), props);
+	public ElementiumArmorItem(Type type, double pixieChance, Properties properties) {
+		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), properties);
 		this.pixieChance = pixieChance;
 	}
 
@@ -45,10 +45,10 @@ public class ElementiumArmorItem extends ManasteelArmorItem {
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
-			new ItemStack(BotaniaItems.elementiumHelm),
-			new ItemStack(BotaniaItems.elementiumChest),
-			new ItemStack(BotaniaItems.elementiumLegs),
-			new ItemStack(BotaniaItems.elementiumBoots)
+			new ItemStack(BotaniaItems.ELEMENTIUM_HELMET),
+			new ItemStack(BotaniaItems.ELEMENTIUM_CHESTPLATE),
+			new ItemStack(BotaniaItems.ELEMENTIUM_LEGGINGS),
+			new ItemStack(BotaniaItems.ELEMENTIUM_BOOTS)
 	});
 
 	@Override
@@ -68,10 +68,10 @@ public class ElementiumArmorItem extends ManasteelArmorItem {
 		}
 
 		return switch (slot) {
-			case HEAD -> stack.is(BotaniaItems.elementiumHelm);
-			case CHEST -> stack.is(BotaniaItems.elementiumChest);
-			case LEGS -> stack.is(BotaniaItems.elementiumLegs);
-			case FEET -> stack.is(BotaniaItems.elementiumBoots);
+			case HEAD -> stack.is(BotaniaItems.ELEMENTIUM_HELMET);
+			case CHEST -> stack.is(BotaniaItems.ELEMENTIUM_CHESTPLATE);
+			case LEGS -> stack.is(BotaniaItems.ELEMENTIUM_LEGGINGS);
+			case FEET -> stack.is(BotaniaItems.ELEMENTIUM_BOOTS);
 			default -> false;
 		};
 

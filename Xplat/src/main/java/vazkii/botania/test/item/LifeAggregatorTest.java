@@ -35,7 +35,7 @@ public class LifeAggregatorTest {
 	public void testSpawnerMover(GameTestHelper helper) {
 		var spawnerPos = BlockPos.ZERO;
 		var player = helper.makeMockPlayer(GameType.CREATIVE);
-		var stack = new ItemStack(BotaniaItems.spawnerMover);
+		var stack = new ItemStack(BotaniaItems.LIFE_AGGREGATOR);
 
 		helper.setBlock(spawnerPos, Blocks.SPAWNER);
 		SpawnerBlockEntity be = helper.getBlockEntity(spawnerPos);

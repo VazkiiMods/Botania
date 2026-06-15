@@ -22,7 +22,7 @@ import java.util.List;
 
 public class TiaraWingsEmiRecipe extends EmiCraftingRecipe {
 	public TiaraWingsEmiRecipe(TiaraWingsRecipe recipe, ResourceLocation id) {
-		super(List.of(EmiStack.of(BotaniaItems.flightTiara), EmiIngredient.of(recipe.material())),
+		super(List.of(EmiStack.of(BotaniaItems.FLUEGEL_TIARA), EmiIngredient.of(recipe.material())),
 				EmiStack.of(recipe.getResultItem(BotaniaEmiRecipe.getRegistryAccess())),
 				id);
 	}

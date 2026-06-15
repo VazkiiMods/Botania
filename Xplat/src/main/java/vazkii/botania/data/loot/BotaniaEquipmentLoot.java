@@ -116,7 +116,7 @@ public class BotaniaEquipmentLoot implements LootTableSubProvider {
 	private void defineGaiaHardWitherSkeletonEquipment(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		output.accept(BotaniaLootTables.GAIA_HARD_WITHER_SKELETON,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootItem.lootTableItem(BotaniaItems.elementiumSword))));
+						.add(LootItem.lootTableItem(BotaniaItems.ELEMENTIUM_SWORD))));
 	}
 
 	private LootPoolEntryContainer.Builder<?> buildWeaponAxe() {

@@ -99,7 +99,7 @@ public class BabylonWeaponEntity extends LegallyDistinctThrowableProjectile {
 			return;
 		}
 		if (!level().isClientSide()) {
-			ItemStack stack = PlayerHelper.getFirstHeldItem(player, BotaniaItems.kingKey);
+			ItemStack stack = PlayerHelper.getFirstHeldItem(player, BotaniaItems.KEY_OF_THE_KINGS_LAW);
 			boolean newCharging = !stack.isEmpty() && KeyOfTheKingsLawItem.isCharging(stack);
 			if (isCharging() != newCharging) {
 				setCharging(newCharging);

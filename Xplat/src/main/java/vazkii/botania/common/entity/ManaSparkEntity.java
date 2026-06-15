@@ -311,7 +311,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	protected Item getSparkItem() {
-		return BotaniaItems.spark;
+		return BotaniaItems.SPARK;
 	}
 
 	private void dropAndKill() {
@@ -361,7 +361,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					stack.shrink(1);
 				}
 				return InteractionResult.sidedSuccess(level().isClientSide());
-			} else if (stack.is(BotaniaItems.phantomInk)) {
+			} else if (stack.is(BotaniaItems.PHANTOM_INK)) {
 				if (!level().isClientSide()) {
 					setInvisible(true);
 				}

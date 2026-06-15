@@ -34,7 +34,7 @@ public class TiaraWingsRecipe extends CustomRecipe {
 
 	public TiaraWingsRecipe(CraftingBookCategory category, Ingredient material, int variant) {
 		super(category);
-		if (material.test(BotaniaItems.flightTiara.getDefaultInstance())) {
+		if (material.test(BotaniaItems.FLUEGEL_TIARA.getDefaultInstance())) {
 			throw new IllegalArgumentException("Material cannot be a Flügel Tiara");
 		}
 		this.material = material;
@@ -67,12 +67,12 @@ public class TiaraWingsRecipe extends CustomRecipe {
 	}
 
 	private boolean matchesTiara(ItemStack stack) {
-		return stack.is(BotaniaItems.flightTiara) && FlugelTiaraItem.getVariant(stack) != variant;
+		return stack.is(BotaniaItems.FLUEGEL_TIARA) && FlugelTiaraItem.getVariant(stack) != variant;
 	}
 
 	@Override
 	public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
-		ItemStack tiara = input.items().stream().filter(stack -> stack.is(BotaniaItems.flightTiara))
+		ItemStack tiara = input.items().stream().filter(stack -> stack.is(BotaniaItems.FLUEGEL_TIARA))
 				.findFirst().orElseThrow().copy();
 		FlugelTiaraItem.setVariant(tiara, variant);
 		return tiara;
@@ -86,13 +86,13 @@ public class TiaraWingsRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return material.isEmpty()
-				? NonNullList.of(Ingredient.EMPTY, Ingredient.of(BotaniaItems.flightTiara))
-				: NonNullList.of(Ingredient.EMPTY, Ingredient.of(BotaniaItems.flightTiara), material);
+				? NonNullList.of(Ingredient.EMPTY, Ingredient.of(BotaniaItems.FLUEGEL_TIARA))
+				: NonNullList.of(Ingredient.EMPTY, Ingredient.of(BotaniaItems.FLUEGEL_TIARA), material);
 	}
 
 	@Override
 	public ItemStack getResultItem(HolderLookup.Provider registries) {
-		ItemStack tiara = new ItemStack(BotaniaItems.flightTiara);
+		ItemStack tiara = new ItemStack(BotaniaItems.FLUEGEL_TIARA);
 		FlugelTiaraItem.setVariant(tiara, variant);
 		return tiara;
 	}

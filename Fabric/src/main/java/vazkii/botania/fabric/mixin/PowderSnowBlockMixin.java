@@ -34,7 +34,7 @@ public class PowderSnowBlockMixin {
 		)
 	)
 	private static boolean canWalkOnPowderSnowWithBotaniaItems(ItemStack stack, Item item, Operation<Boolean> original, @Local(argsOnly = true) Entity entity) {
-		return original.call(stack, item) || stack.is(BotaniaItems.manaweaveBoots)
-				|| !EquipmentHandler.findOrEmpty(BotaniaItems.icePendant, (LivingEntity) entity).isEmpty();
+		return original.call(stack, item) || stack.is(BotaniaItems.MANAWEAVE_BOOTS)
+				|| !EquipmentHandler.findOrEmpty(BotaniaItems.SNOWFLAKE_PENDANT, (LivingEntity) entity).isEmpty();
 	}
 }

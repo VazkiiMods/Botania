@@ -34,8 +34,8 @@ import java.util.*;
 
 public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDiscountArmor, AncientWillContainer {
 
-	public TerrasteelHelmItem(Properties props) {
-		super(Type.HELMET, props);
+	public TerrasteelHelmItem(Properties properties) {
+		super(Type.HELMET, properties);
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 	}
 
 	public static boolean hasTerraArmorSet(Player player) {
-		return ((TerrasteelHelmItem) BotaniaItems.terrasteelHelm).hasArmorSet(player);
+		return ((TerrasteelHelmItem) BotaniaItems.TERRASTEEL_HELMET).hasArmorSet(player);
 	}
 
 	public static float getCritDamageMult(Player player) {

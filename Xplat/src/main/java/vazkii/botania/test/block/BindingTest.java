@@ -113,7 +113,7 @@ public class BindingTest {
 
 		//Use a Floral Obedience Stick on the pool
 		Player player = helper.makeMockPlayer(GameType.CREATIVE);
-		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.obedienceStick));
+		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.FLORAL_OBEDIENCE_STICK));
 		TestingUtil.useItemOn(helper, player, InteractionHand.MAIN_HAND, middle);
 
 		//All close-enough flowers should bind, all far-away ones should not

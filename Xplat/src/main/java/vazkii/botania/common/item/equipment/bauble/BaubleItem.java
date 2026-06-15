@@ -37,8 +37,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class BaubleItem extends Item implements CosmeticAttachable, PhantomInkable {
 
-	public BaubleItem(Properties props) {
-		super(props);
+	public BaubleItem(Properties properties) {
+		super(properties);
 		EquipmentHandler.instance.onInit(this);
 	}
 

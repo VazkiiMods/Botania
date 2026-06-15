@@ -43,7 +43,7 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 				if (stack.getItem() instanceof TerraShattererItem
 						&& !TerraShattererItem.isTipped(stack) && !foundTerraPick) {
 					foundTerraPick = true;
-				} else if (stack.is(BotaniaItems.elementiumPick) && !foundElementiumPick) {
+				} else if (stack.is(BotaniaItems.ELEMENTIUM_PICKAXE) && !foundElementiumPick) {
 					foundElementiumPick = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe

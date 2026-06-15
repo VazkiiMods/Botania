@@ -122,7 +122,7 @@ public class SeasRodItem extends Item {
 
 	private static boolean fillItemWithWater(ItemStack seasRod, ClickAction action, Player player,
 			ItemStack stackToFill, Consumer<ItemStack> slotSetter) {
-		if (action != ClickAction.SECONDARY || stackToFill.is(BotaniaItems.openBucket)
+		if (action != ClickAction.SECONDARY || stackToFill.is(BotaniaItems.EXTRAPOLATED_BUCKET)
 				|| !ManaItemHandler.instance().requestManaExactForTool(seasRod, player, COST, false)) {
 			return false;
 		}

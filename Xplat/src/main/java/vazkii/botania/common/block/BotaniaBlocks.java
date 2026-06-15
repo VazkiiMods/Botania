@@ -3231,49 +3231,49 @@ public final class BotaniaBlocks {
 	}
 
 	public static void addDispenserBehaviours() {
-		DispenserBlock.registerBehavior(BotaniaItems.twigWand, new WandBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.phantomInk, new PhantomInkBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.dreamwoodWand, new WandBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.obedienceStick, new StickBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.poolMinecart, new ManaPoolMinecartBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.WAND_OF_THE_FOREST, new WandBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.PHANTOM_INK, new PhantomInkBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.WAND_OF_THE_ELVEN_FOREST, new WandBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.FLORAL_OBEDIENCE_STICK, new StickBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.POOL_MINECART, new ManaPoolMinecartBehavior());
 		DispenserBlock.registerBehavior(FEL_PUMPKIN, new FelPumpkinBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.spark, new ManaSparkBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.SPARK, new ManaSparkBehavior());
 		DispenserBlock.registerBehavior(
 				GAIA_HEAD, new OptionalDispenseItemBehavior() {
 					@Override
-					protected ItemStack execute(BlockSource source, ItemStack stack) {
-						setSuccess(ArmorItem.dispenseArmor(source, stack));
-						return stack;
+					protected ItemStack execute(BlockSource blockSource, ItemStack item) {
+						setSuccess(ArmorItem.dispenseArmor(blockSource, item));
+						return item;
 					}
 				});
 
 		DispenseItemBehavior behavior = new CorporeaSparkBehavior();
-		DispenserBlock.registerBehavior(BotaniaItems.corporeaSpark, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkMaster, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkCreative, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior(BotaniaItems.enderAirBottle));
+		DispenserBlock.registerBehavior(BotaniaItems.CORPOREA_SPARK, behavior);
+		DispenserBlock.registerBehavior(BotaniaItems.MASTER_CORPOREA_SPARK, behavior);
+		DispenserBlock.registerBehavior(BotaniaItems.CREATIVE_CORPOREA_SPARK, behavior);
+		DispenserBlock.registerBehavior(BotaniaItems.ENDER_AIR_BOTTLE, new ProjectileDispenseBehavior(BotaniaItems.ENDER_AIR_BOTTLE));
 		behavior = DispenserBlock.DISPENSER_REGISTRY.get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
 
 		behavior = new GrassSeedsBehavior();
 		Item[] seedItems = {
-				BotaniaItems.grassSeeds,
-				BotaniaItems.podzolSeeds,
-				BotaniaItems.mycelSeeds,
-				BotaniaItems.drySeeds,
-				BotaniaItems.goldenSeeds,
-				BotaniaItems.vividSeeds,
-				BotaniaItems.scorchedSeeds,
-				BotaniaItems.infusedSeeds,
-				BotaniaItems.mutatedSeeds,
+				BotaniaItems.PASTURE_SEEDS,
+				BotaniaItems.BOREAL_SEEDS,
+				BotaniaItems.INFESTATION_SPORES,
+				BotaniaItems.DRY_SEEDS,
+				BotaniaItems.GOLDEN_SEEDS,
+				BotaniaItems.VIVID_SEEDS,
+				BotaniaItems.SCORCHED_SEEDS,
+				BotaniaItems.INFUSED_SEEDS,
+				BotaniaItems.MUTATED_SEEDS,
 		};
 		for (Item seed : seedItems) {
 			DispenserBlock.registerBehavior(seed, behavior);
 		}
 
-		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.elementiumShears, new ShearsDispenseItemBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new ProjectileDispenseBehavior(BotaniaItems.vineBall));
+		DispenserBlock.registerBehavior(BotaniaItems.MANASTEEL_SHEARS, new ShearsDispenseItemBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.ELEMENTIUM_SHEARS, new ShearsDispenseItemBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.VINE_BALL, new ProjectileDispenseBehavior(BotaniaItems.VINE_BALL));
 
 		SeedBehaviors.init();
 	}

@@ -79,7 +79,7 @@ public class RenderLexicon {
 		if (!BotaniaConfig.client().lexicon3dModel()
 				|| !type.firstPerson()
 				|| stack.isEmpty()
-				|| !stack.is(BotaniaItems.lexicon)) {
+				|| !stack.is(BotaniaItems.LEXICA_BOTANIA)) {
 			return false;
 		}
 		try {

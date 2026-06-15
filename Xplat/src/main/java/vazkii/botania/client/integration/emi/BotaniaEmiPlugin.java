@@ -141,8 +141,8 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addCategory(ORECHID_IGNEM);
 		registry.addCategory(MARIMORPHOSIS);
 
-		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.craftingHalo));
-		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.autocraftingHalo));
+		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.ASSEMBLY_HALO));
+		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.MANUFACTORY_HALO));
 
 		registry.addWorkstation(PETAL_APOTHECARY, EmiIngredient.of(BotaniaTags.Items.PETAL_APOTHECARIES));
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.MANA_POOL));
@@ -164,12 +164,12 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.MARIMORPHOSIS_PETITE));
 		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaBlocks.FLOATING_MARIMORPHOSIS_PETITE));
 
-		registry.setDefaultComparison(BotaniaItems.lexicon, Comparison.compareComponents());
-		registry.setDefaultComparison(BotaniaItems.brewFlask, Comparison.compareComponents());
-		registry.setDefaultComparison(BotaniaItems.brewVial, Comparison.compareComponents());
-		registry.setDefaultComparison(BotaniaItems.bloodPendant, Comparison.compareComponents());
-		registry.setDefaultComparison(BotaniaItems.incenseStick, Comparison.compareComponents());
-		registry.setDefaultComparison(BotaniaItems.flightTiara, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.LEXICA_BOTANIA, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.BREW_FLASK, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.BREW_VIAL, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.TAINTED_BLOOD_PENDANT, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.INCENSE_STICK, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.FLUEGEL_TIARA, Comparison.compareComponents());
 
 		for (RecipeHolder<CraftingRecipe> recipe : registry.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING)) {
 			if (recipe.value() instanceof TiaraWingsRecipe tiaraWingsRecipe) {
@@ -177,13 +177,13 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 			}
 		}
 
-		registry.addRecipe(new AncientWillEmiRecipe(EmiStack.of(BotaniaItems.terrasteelHelm), EmiIngredient.of(List.of(
-				EmiStack.of(BotaniaItems.ancientWillAhrim),
-				EmiStack.of(BotaniaItems.ancientWillDharok),
-				EmiStack.of(BotaniaItems.ancientWillGuthan),
-				EmiStack.of(BotaniaItems.ancientWillKaril),
-				EmiStack.of(BotaniaItems.ancientWillTorag),
-				EmiStack.of(BotaniaItems.ancientWillVerac)
+		registry.addRecipe(new AncientWillEmiRecipe(EmiStack.of(BotaniaItems.TERRASTEEL_HELMET), EmiIngredient.of(List.of(
+				EmiStack.of(BotaniaItems.WILL_OF_AHRIM),
+				EmiStack.of(BotaniaItems.WILL_OF_DHAROK),
+				EmiStack.of(BotaniaItems.WILL_OF_GUTHAN),
+				EmiStack.of(BotaniaItems.WILL_OF_KARIL),
+				EmiStack.of(BotaniaItems.WILL_OF_TORAG),
+				EmiStack.of(BotaniaItems.WILL_OF_VERAC)
 		))));
 
 		registry.addRecipe(new CompositeLensEmiRecipe(
@@ -194,10 +194,10 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 						.map(EmiStack::of)
 						.toList()));
 
-		ItemStack tipped = new ItemStack(BotaniaItems.terraPick);
+		ItemStack tipped = new ItemStack(BotaniaItems.TERRA_SHATTERER);
 		TerraShattererItem.setTipped(tipped);
-		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(BotaniaItems.terraPick),
-				EmiStack.of(BotaniaItems.elementiumPick)), EmiStack.of(tipped), null));
+		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(BotaniaItems.TERRA_SHATTERER),
+				EmiStack.of(BotaniaItems.ELEMENTIUM_PICKAXE)), EmiStack.of(tipped), null));
 
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_TYPE)) {
 			registry.addRecipe(new PetalApothecaryEmiRecipe(recipe));

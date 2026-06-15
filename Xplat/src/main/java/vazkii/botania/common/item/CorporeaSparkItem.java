@@ -46,10 +46,10 @@ public class CorporeaSparkItem extends Item {
 
 	public static boolean attachSpark(Level world, BlockPos pos, ItemStack stack) {
 		CorporeaSparkEntity spark = BotaniaEntities.CORPOREA_SPARK.create(world);
-		if (stack.is(BotaniaItems.corporeaSparkMaster)) {
+		if (stack.is(BotaniaItems.MASTER_CORPOREA_SPARK)) {
 			spark.setMaster(true);
 		}
-		if (stack.is(BotaniaItems.corporeaSparkCreative)) {
+		if (stack.is(BotaniaItems.CREATIVE_CORPOREA_SPARK)) {
 			spark.setCreative(true);
 		}
 		spark.setPos(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
@@ -66,7 +66,7 @@ public class CorporeaSparkItem extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-		if (stack.is(BotaniaItems.corporeaSparkCreative)) {
+		if (stack.is(BotaniaItems.CREATIVE_CORPOREA_SPARK)) {
 			tooltip.add(Component.translatable("botaniamisc.creativeSpark").withStyle(ChatFormatting.GRAY));
 		}
 	}

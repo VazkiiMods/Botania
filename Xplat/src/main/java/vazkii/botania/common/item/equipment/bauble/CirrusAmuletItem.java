@@ -95,7 +95,7 @@ public class CirrusAmuletItem extends BaubleItem {
 			ms.translate(-0.3, 0.4, armor ? 0.05 : 0.12);
 			ms.scale(0.5F, -0.5F, -0.5F);
 
-			BakedModel model = stack.is(BotaniaItems.superCloudPendant)
+			BakedModel model = stack.is(BotaniaItems.NIMBUS_AMULET)
 					? MiscellaneousModels.INSTANCE.nimbusGem
 					: MiscellaneousModels.INSTANCE.cirrusGem;
 			VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());

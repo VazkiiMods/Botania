@@ -99,7 +99,7 @@ public class ShadedMesaRodItem extends Item {
 	// Calls hook above on Fabric
 	public static InteractionResult onAttack(Player player, Level level, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.is(BotaniaItems.gravityRod) && ((ShadedMesaRodItem) stack.getItem()).onLeftClickEntity(stack, player, target)) {
+		if (stack.is(BotaniaItems.ROD_OF_THE_SHADED_MESA) && ((ShadedMesaRodItem) stack.getItem()).onLeftClickEntity(stack, player, target)) {
 			return InteractionResult.FAIL;
 		}
 		return InteractionResult.PASS;
@@ -209,7 +209,7 @@ public class ShadedMesaRodItem extends Item {
 
 	private static void leftClick(Player player) {
 		ItemStack stack = player.getMainHandItem();
-		if (!stack.isEmpty() && stack.is(BotaniaItems.gravityRod)) {
+		if (!stack.isEmpty() && stack.is(BotaniaItems.ROD_OF_THE_SHADED_MESA)) {
 			Integer targetID = stack.get(BotaniaDataComponents.TARGET_ENTITY);
 
 			if (targetID != null && player.level().getEntity(targetID) != null) {

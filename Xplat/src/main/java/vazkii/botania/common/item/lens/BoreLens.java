@@ -54,9 +54,9 @@ public class BoreLens extends Lens {
 		BlockState state = world.getBlockState(collidePos);
 
 		ItemStack composite = ((LensItem) stack.getItem()).getCompositeLens(stack);
-		boolean warpItems = !composite.isEmpty() && composite.is(BotaniaItems.lensWarp);
+		boolean warpItems = !composite.isEmpty() && composite.is(BotaniaItems.WARP_LENS);
 		ItemStack sourceLens = burst.getSourceLens();
-		boolean canWarp = warpItems || sourceLens.is(BotaniaItems.lensWarp);
+		boolean canWarp = warpItems || sourceLens.is(BotaniaItems.WARP_LENS);
 
 		if (canWarp && (state.is(BotaniaBlocks.FORCE_RELAY) || state.is(Blocks.PISTON) || state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
 			return false;

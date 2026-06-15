@@ -48,7 +48,7 @@ public class LexiconReturningShapelessRecipe extends ShapelessRecipe {
 			Item item = itemStack.getItem();
 			if (item.hasCraftingRemainingItem()) {
 				nonnulllist.set(i, new ItemStack(item.getCraftingRemainingItem()));
-			} else if (itemStack.is(BotaniaItems.lexicon)) {
+			} else if (itemStack.is(BotaniaItems.LEXICA_BOTANIA)) {
 				nonnulllist.set(i, itemStack.copy());
 			}
 		}

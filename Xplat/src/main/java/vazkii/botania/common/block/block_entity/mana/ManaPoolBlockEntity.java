@@ -522,7 +522,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 			RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, centerX - 11, centerY + 30, arrowU, arrowV, 22, 15);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-			ItemStack tablet = new ItemStack(BotaniaItems.manaTablet);
+			ItemStack tablet = new ItemStack(BotaniaItems.MANA_TABLET);
 			ManaTabletItem.setStackCreative(tablet);
 
 			gui.renderItem(tablet, centerX - 31, centerY + 30);

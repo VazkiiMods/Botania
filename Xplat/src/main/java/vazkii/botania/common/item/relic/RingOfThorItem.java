@@ -28,6 +28,6 @@ public class RingOfThorItem extends RelicBaubleItem {
 	}
 
 	public static ItemStack getThorRing(Player player) {
-		return EquipmentHandler.findOrEmpty(BotaniaItems.thorRing, player);
+		return EquipmentHandler.findOrEmpty(BotaniaItems.RING_OF_THOR, player);
 	}
 }

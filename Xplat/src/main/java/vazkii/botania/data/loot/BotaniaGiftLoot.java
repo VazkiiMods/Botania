@@ -29,20 +29,20 @@ public class BotaniaGiftLoot implements LootTableSubProvider {
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
 		output.accept(BotaniaLootTables.getDiceRollTable(1), LootTable.lootTable().withPool(LootPool.lootPool()
-				.add(LootItem.lootTableItem(BotaniaItems.lifeEssence)
+				.add(LootItem.lootTableItem(BotaniaItems.GAIA_SPIRIT)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 16)))
 				)
 		));
 
 		output.accept(BotaniaLootTables.getDiceRollTable(2), LootTable.lootTable()
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.lifeEssence)
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.GAIA_SPIRIT)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)))))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.pinkinator)))
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.THE_PINKINATOR)))
 		);
 
 		output.accept(BotaniaLootTables.getDiceRollTable(3), LootTable.lootTable()
 				.withPool(LootPool.lootPool()
-						.add(LootItem.lootTableItem(BotaniaItems.lifeEssence)
+						.add(LootItem.lootTableItem(BotaniaItems.GAIA_SPIRIT)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(4, 6)))))
 				.withPool(LootPool.lootPool()
 						.setRolls(UniformGenerator.between(2, 4))
@@ -52,7 +52,7 @@ public class BotaniaGiftLoot implements LootTableSubProvider {
 		);
 
 		output.accept(BotaniaLootTables.getDiceRollTable(4), LootTable.lootTable()
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.lifeEssence)
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.GAIA_SPIRIT)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(4, 8)))))
 				.withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.GAIA_GUARDIAN_MATERIALS))
@@ -61,7 +61,7 @@ public class BotaniaGiftLoot implements LootTableSubProvider {
 		);
 
 		output.accept(BotaniaLootTables.getDiceRollTable(5), LootTable.lootTable()
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.lifeEssence)
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.GAIA_SPIRIT)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(6, 10)))))
 				.withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.GAIA_GUARDIAN_MATERIALS))
@@ -75,7 +75,7 @@ public class BotaniaGiftLoot implements LootTableSubProvider {
 		);
 
 		output.accept(BotaniaLootTables.getDiceRollTable(6), LootTable.lootTable()
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.lifeEssence)
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.GAIA_SPIRIT)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(8, 12)))))
 				.withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.GAIA_GUARDIAN_MATERIALS))

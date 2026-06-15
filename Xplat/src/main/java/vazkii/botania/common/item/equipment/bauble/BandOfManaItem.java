@@ -33,8 +33,8 @@ public class BandOfManaItem extends BaubleItem implements CustomCreativeTabConte
 
 	private static final String TAG_MANA = "mana";
 
-	public BandOfManaItem(Properties props) {
-		super(props);
+	public BandOfManaItem(Properties properties) {
+		super(properties);
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class TargetBlockTest {
 		// that the spreader is pointed at the mana void properly, in case the test
 		// structure is placed rotated.
 		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.MANA_SPREADER);
-		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(bindPos), Direction.UP),
+		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.WAND_OF_THE_FOREST), helper.absolutePos(bindPos), Direction.UP),
 				() -> "Failed to bind spreader");
 
 		helper.startSequence()

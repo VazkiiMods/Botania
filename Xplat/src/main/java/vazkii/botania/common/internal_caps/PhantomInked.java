@@ -58,7 +58,7 @@ public final class PhantomInked {
 			return false;
 		}
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.isEmpty() || !stack.is(BotaniaItems.phantomInk)) {
+		if (stack.isEmpty() || !stack.is(BotaniaItems.PHANTOM_INK)) {
 			return false;
 		}
 

@@ -33,8 +33,8 @@ import java.util.function.Supplier;
 
 public class ManaweaveArmorItem extends ManasteelArmorItem {
 
-	public ManaweaveArmorItem(Type type, Properties props) {
-		super(type, BotaniaAPI.instance().getManaweaveArmorMaterial(), props);
+	public ManaweaveArmorItem(Type type, Properties properties) {
+		super(type, BotaniaAPI.instance().getManaweaveArmorMaterial(), properties);
 	}
 
 	@Override
@@ -52,10 +52,10 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
-			new ItemStack(BotaniaItems.manaweaveHelm),
-			new ItemStack(BotaniaItems.manaweaveChest),
-			new ItemStack(BotaniaItems.manaweaveLegs),
-			new ItemStack(BotaniaItems.manaweaveBoots)
+			new ItemStack(BotaniaItems.MANAWEAVE_COWL),
+			new ItemStack(BotaniaItems.MANAWEAVE_ROBE_TOP),
+			new ItemStack(BotaniaItems.MANAWEAVE_ROBE_BOTTOM),
+			new ItemStack(BotaniaItems.MANAWEAVE_BOOTS)
 	});
 
 	@Override
@@ -75,10 +75,10 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 		}
 
 		return switch (slot) {
-			case HEAD -> stack.is(BotaniaItems.manaweaveHelm);
-			case CHEST -> stack.is(BotaniaItems.manaweaveChest);
-			case LEGS -> stack.is(BotaniaItems.manaweaveLegs);
-			case FEET -> stack.is(BotaniaItems.manaweaveBoots);
+			case HEAD -> stack.is(BotaniaItems.MANAWEAVE_COWL);
+			case CHEST -> stack.is(BotaniaItems.MANAWEAVE_ROBE_TOP);
+			case LEGS -> stack.is(BotaniaItems.MANAWEAVE_ROBE_BOTTOM);
+			case FEET -> stack.is(BotaniaItems.MANAWEAVE_BOOTS);
 			default -> false;
 		};
 
@@ -107,6 +107,6 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 
 	@SoftImplement("IItemExtension")
 	public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
-		return stack.is(BotaniaItems.manaweaveBoots);
+		return stack.is(BotaniaItems.MANAWEAVE_BOOTS);
 	}
 }

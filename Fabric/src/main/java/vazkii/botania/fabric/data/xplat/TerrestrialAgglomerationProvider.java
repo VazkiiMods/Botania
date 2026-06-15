@@ -40,7 +40,7 @@ public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
 	public void buildRecipes(RecipeOutput consumer) {
 		consumer.accept(idFor("terrasteel_ingot"), new TerrestrialAgglomerationRecipe(
 				ManaPoolBlock.MAX_MANA / 2,
-				new ItemStack(BotaniaItems.terrasteel),
+				new ItemStack(BotaniaItems.TERRASTEEL_INGOT),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)

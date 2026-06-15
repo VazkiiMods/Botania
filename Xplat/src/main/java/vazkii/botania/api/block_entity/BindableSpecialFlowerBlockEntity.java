@@ -182,7 +182,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		if (placer != null && placer.isHolding(BotaniaItems.obedienceStick)) {
+		if (placer != null && placer.isHolding(BotaniaItems.FLORAL_OBEDIENCE_STICK)) {
 			autoBinding = false;
 		}
 		super.setPlacedBy(level, pos, state, placer, stack);

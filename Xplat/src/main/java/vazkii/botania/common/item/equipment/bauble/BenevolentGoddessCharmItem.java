@@ -45,7 +45,7 @@ public class BenevolentGoddessCharmItem extends BaubleItem {
 		List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).inflate(8));
 
 		for (Player player : players) {
-			ItemStack charm = EquipmentHandler.findOrEmpty(BotaniaItems.goddessCharm, player);
+			ItemStack charm = EquipmentHandler.findOrEmpty(BotaniaItems.BENEVOLENT_GODDESS_CHARM, player);
 			if (!charm.isEmpty() && ManaItemHandler.instance().requestManaExact(charm, player, COST, true)) {
 				return true;
 			}

@@ -39,7 +39,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 			if (!stack.isEmpty()) {
 				if (stack.isEnchanted() && !foundEnchanted) {
 					foundEnchanted = true;
-				} else if (stack.is(BotaniaItems.spellCloth) && !foundCloth) {
+				} else if (stack.is(BotaniaItems.SPELLBINDING_CLOTH) && !foundCloth) {
 					foundCloth = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
@@ -55,7 +55,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 		ItemStack stackToDisenchant = ItemStack.EMPTY;
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.isEnchanted() && !stack.is(BotaniaItems.spellCloth)) {
+			if (!stack.isEmpty() && stack.isEnchanted() && !stack.is(BotaniaItems.SPELLBINDING_CLOTH)) {
 				stackToDisenchant = stack.copyWithCount(1);
 				break;
 			}
@@ -84,7 +84,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(CraftingInput inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.is(BotaniaItems.spellCloth)) {
+			if (s.is(BotaniaItems.SPELLBINDING_CLOTH)) {
 				ItemStack copy = s.copyWithCount(1);
 				copy.setDamageValue(copy.getDamageValue() + 1);
 				return copy;

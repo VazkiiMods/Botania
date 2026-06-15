@@ -215,7 +215,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 
 	@Override
 	public boolean shouldPull(ItemStack stack) {
-		return !stack.is(BotaniaItems.lensStorm);
+		return !stack.is(BotaniaItems.STORM_LENS);
 	}
 
 	@Override
@@ -245,7 +245,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 
 	@Override
 	public boolean isCombinable(ItemStack stack) {
-		return !stack.is(BotaniaItems.lensNormal);
+		return !stack.is(BotaniaItems.MANA_LENS);
 	}
 
 }

@@ -43,7 +43,7 @@ public class LensDyeingRecipe extends CustomRecipe {
 			Ingredient.of(Items.PURPLE_DYE), Ingredient.of(Items.BLUE_DYE),
 			Ingredient.of(Items.BROWN_DYE), Ingredient.of(Items.GREEN_DYE),
 			Ingredient.of(Items.RED_DYE), Ingredient.of(Items.BLACK_DYE),
-			Ingredient.of(BotaniaItems.manaPearl)
+			Ingredient.of(BotaniaItems.MANA_PEARL)
 	));
 
 	public LensDyeingRecipe(CraftingBookCategory craftingBookCategory) {
@@ -67,7 +67,7 @@ public class LensDyeingRecipe extends CustomRecipe {
 					foundLens = true;
 				} else if (!foundDye) {
 					// TODO: rainbow tinting items should be a tag
-					if (stack.getItem() instanceof DyeItem || stack.is(BotaniaItems.manaPearl)) {
+					if (stack.getItem() instanceof DyeItem || stack.is(BotaniaItems.MANA_PEARL)) {
 						foundDye = true;
 					} else {
 						return false;

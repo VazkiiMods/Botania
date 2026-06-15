@@ -79,7 +79,7 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 
 		output.accept(BotaniaLootTables.GAIA_GUARDIAN_REWARD, LootTable.lootTable()
 				.withPool(LootPool.lootPool().when(LootItemKilledByPlayerCondition.killedByPlayer())
-						.add(LootItem.lootTableItem(BotaniaItems.lifeEssence)
+						.add(LootItem.lootTableItem(BotaniaItems.GAIA_SPIRIT)
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(6)))
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(8))
 										.when(TrueGuardianKiller.builder())
@@ -88,13 +88,13 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().when(LootItemKilledByPlayerCondition.killedByPlayer())
 						.when(LootItemRandomChanceCondition.randomChance(0.2f))
-						.add(LootItem.lootTableItem(BotaniaItems.recordGaia1))
+						.add(LootItem.lootTableItem(BotaniaItems.MUSIC_DISC_ENDURE_EMPTINESS))
 				)
 		);
 
 		output.accept(BotaniaLootTables.GAIA_GUARDIAN_REWARD_HARD, LootTable.lootTable()
 				.withPool(LootPool.lootPool().when(LootItemKilledByPlayerCondition.killedByPlayer())
-						.add(LootItem.lootTableItem(BotaniaItems.lifeEssence)
+						.add(LootItem.lootTableItem(BotaniaItems.GAIA_SPIRIT)
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(10)))
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(16))
 										.when(TrueGuardianKiller.builder())
@@ -117,17 +117,17 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().when(LootItemKilledByPlayerCondition.killedByPlayer())
 						.when(LootItemRandomChanceCondition.randomChance(0.1f))
-						.add(LootItem.lootTableItem(BotaniaItems.pinkinator))
+						.add(LootItem.lootTableItem(BotaniaItems.THE_PINKINATOR))
 				)
 				.withPool(LootPool.lootPool().when(LootItemKilledByPlayerCondition.killedByPlayer())
 						.when(LootItemRandomChanceCondition.randomChance(0.44f))
-						.add(LootItem.lootTableItem(BotaniaItems.recordGaia2).setWeight(14))
+						.add(LootItem.lootTableItem(BotaniaItems.MUSIC_DISC_FIGHT_FOR_QUIESCENCE).setWeight(14))
 						.add(LootItem.lootTableItem(Items.MUSIC_DISC_13).setWeight(15))
 						.add(LootItem.lootTableItem(Items.MUSIC_DISC_WAIT).setWeight(15))
 				)
 				.withPool(LootPool.lootPool().when(LootItemKilledByPlayerCondition.killedByPlayer())
 						.when(EnableRelics.builder())
-						.add(LootItem.lootTableItem(BotaniaItems.dice)
+						.add(LootItem.lootTableItem(BotaniaItems.DICE_OF_FATE)
 								.apply(BindUuid.builder())
 						)
 				)
@@ -168,7 +168,7 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 				.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKING_PLAYER,
 						EntityPredicate.Builder.entity().equipment(
 								EntityEquipmentPredicate.Builder.equipment().mainhand(
-										ItemPredicate.Builder.item().of(BotaniaItems.elementiumAxe)))))
+										ItemPredicate.Builder.item().of(BotaniaItems.ELEMENTIUM_AXE)))))
 				.when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(registries,
 						chance, lootingMultiplier))
 		);

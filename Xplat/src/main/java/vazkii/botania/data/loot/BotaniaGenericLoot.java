@@ -64,18 +64,18 @@ public class BotaniaGenericLoot implements LootTableSubProvider {
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 
 		output.accept(BotaniaLootTables.GAIA_GUARDIAN_LOTUSES, LootTable.lootTable().withPool(LootPool.lootPool()
-				.add(LootItem.lootTableItem(BotaniaItems.blackerLotus).setWeight(3).setQuality(1))
-				.add(LootItem.lootTableItem(BotaniaItems.blackLotus).setWeight(7)
+				.add(LootItem.lootTableItem(BotaniaItems.BLACKER_LOTUS).setWeight(3).setQuality(1))
+				.add(LootItem.lootTableItem(BotaniaItems.BLACK_LOTUS).setWeight(7)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
 		));
 		output.accept(BotaniaLootTables.GAIA_GUARDIAN_MATERIALS, LootTable.lootTable()
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.manaSteel)
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.MANASTEEL_INGOT)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(16, 27))))
 						.when(LootItemRandomChanceCondition.randomChance(0.9f)))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.manaPearl)
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.MANA_PEARL)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(8, 13))))
 						.when(LootItemRandomChanceCondition.randomChance(0.7f)))
-				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.manaDiamond)
+				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(BotaniaItems.MANA_DIAMOND)
 						.apply(SetItemCountFunction.setCount(UniformGenerator.between(4, 6))))
 						.when(LootItemRandomChanceCondition.randomChance(0.5f)))
 		);

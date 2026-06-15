@@ -28,7 +28,7 @@ public abstract class ItemStackFabricMixin {
 	@Inject(at = @At("HEAD"), method = "is(Lnet/minecraft/world/item/Item;)Z", cancellable = true)
 	private void isBotaniaShears(Item item, CallbackInfoReturnable<Boolean> cir) {
 		if (item == Items.SHEARS) {
-			if (is(BotaniaItems.manasteelShears) || is(BotaniaItems.elementiumShears)) {
+			if (is(BotaniaItems.MANASTEEL_SHEARS) || is(BotaniaItems.ELEMENTIUM_SHEARS)) {
 				cir.setReturnValue(true);
 			}
 		}

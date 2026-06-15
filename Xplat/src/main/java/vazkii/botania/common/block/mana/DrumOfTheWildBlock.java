@@ -23,6 +23,6 @@ public class DrumOfTheWildBlock extends DrumBlock {
 
 	@Override
 	public void activate(Level level, BlockPos pos) {
-		HornItem.breakBlocks(level, BotaniaItems.grassHorn, pos);
+		HornItem.breakBlocks(level, BotaniaItems.HORN_OF_THE_WILD, pos);
 	}
 }

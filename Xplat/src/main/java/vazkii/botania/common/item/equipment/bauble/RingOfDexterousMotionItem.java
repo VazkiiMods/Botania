@@ -42,7 +42,7 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 				return;
 			}
 
-			ItemStack ringStack = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, mc.player);
+			ItemStack ringStack = EquipmentHandler.findOrEmpty(BotaniaItems.RING_OF_DEXTEROUS_MOTION, mc.player);
 			if (ringStack.isEmpty() || mc.player.getCooldowns().isOnCooldown(ringStack.getItem())) {
 				return;
 			}

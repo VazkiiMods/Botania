@@ -178,7 +178,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty()
-				&& stack.is(BotaniaItems.waterRod)
+				&& stack.is(BotaniaItems.ROD_OF_THE_SEAS)
 				&& ManaItemHandler.instance().requestManaExact(stack, player, SeasRodItem.COST, false)) {
 			ManaItemHandler.instance().requestManaExact(stack, player, SeasRodItem.COST, true);
 			altar.setFluid(State.WATER);

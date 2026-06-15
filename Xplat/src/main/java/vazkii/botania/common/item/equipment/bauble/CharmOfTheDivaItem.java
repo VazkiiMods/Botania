@@ -46,8 +46,8 @@ public class CharmOfTheDivaItem extends BaubleItem {
 	public static final int MANA_COST = 250;
 	public static final int CHARM_RANGE = 20;
 
-	public CharmOfTheDivaItem(Properties props) {
-		super(props);
+	public CharmOfTheDivaItem(Properties properties) {
+		super(properties);
 		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
@@ -91,7 +91,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 				&& !target.getType().is(BotaniaTags.Entities.NOT_CHARMABLE)
 				&& Math.random() < 0.6) {
 			MinecraftServer server = player.level().getServer();
-			ItemStack amulet = EquipmentHandler.findOrEmpty(BotaniaItems.divaCharm, player);
+			ItemStack amulet = EquipmentHandler.findOrEmpty(BotaniaItems.CHARM_OF_THE_DIVA, player);
 
 			if (server != null && !amulet.isEmpty()) {
 				// schedule for immediate execution after everything else in this tick

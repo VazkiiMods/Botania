@@ -55,14 +55,14 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, IncensePlateBlockEntity self) {
 		ItemStack stack = self.getItemHandler().getItem(0);
 		int newComparator;
-		if (stack.is(BotaniaItems.incenseStick) && state.getValue(BlockStateProperties.LIT)) {
+		if (stack.is(BotaniaItems.INCENSE_STICK) && state.getValue(BlockStateProperties.LIT)) {
 			newComparator = 2;
 			if (state.getValue(BlockStateProperties.WATERLOGGED) && self.timeLeft > 1) {
 				self.timeLeft = 1;
 				self.spawnSmokeParticles();
 			}
 
-			Brew brew = ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack);
+			Brew brew = ((IncenseStickItem) BotaniaItems.INCENSE_STICK).getBrew(stack);
 			MobEffectInstance effect = brew.getPotionEffects(stack).getFirst();
 			if (self.timeLeft > 0) {
 				self.timeLeft--;
@@ -98,11 +98,11 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, IncensePlateBlockEntity self) {
 		ItemStack stack = self.getItemHandler().getItem(0);
-		if (stack.is(BotaniaItems.incenseStick) && state.getValue(BlockStateProperties.LIT)) {
+		if (stack.is(BotaniaItems.INCENSE_STICK) && state.getValue(BlockStateProperties.LIT)) {
 			if (self.timeLeft > 0) {
 				self.timeLeft--;
 			}
-			Brew brew = ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack);
+			Brew brew = ((IncenseStickItem) BotaniaItems.INCENSE_STICK).getBrew(stack);
 			double x = worldPosition.getX() + 0.5;
 			double y = worldPosition.getY() + 0.5;
 			double z = worldPosition.getZ() + 0.5;
@@ -146,7 +146,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 
 		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true));
-		Brew brew = ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack);
+		Brew brew = ((IncenseStickItem) BotaniaItems.INCENSE_STICK).getBrew(stack);
 		timeLeft = brew.getPotionEffects(stack).getFirst().getDuration() * IncenseStickItem.TIME_MULTIPLIER;
 		level.playSound(null, getBlockPos(), BotaniaSounds.incensePlateIgnite, SoundSource.BLOCKS, 0.5F, 1.75F);
 		level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
@@ -173,7 +173,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	public boolean acceptsItem(ItemStack stack) {
-		return !stack.isEmpty() && stack.is(BotaniaItems.incenseStick) && ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack) != BotaniaBrews.fallbackBrew;
+		return !stack.isEmpty() && stack.is(BotaniaItems.INCENSE_STICK) && ((IncenseStickItem) BotaniaItems.INCENSE_STICK).getBrew(stack) != BotaniaBrews.fallbackBrew;
 	}
 
 	@Override

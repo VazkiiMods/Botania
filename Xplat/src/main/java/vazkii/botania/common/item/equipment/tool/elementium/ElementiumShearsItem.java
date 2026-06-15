@@ -70,7 +70,7 @@ public class ElementiumShearsItem extends ManasteelShearsItem {
 
 	@Override
 	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repairBy) {
-		return repairBy.is(BotaniaItems.elementium) || super.isValidRepairItem(toRepair, repairBy);
+		return repairBy.is(BotaniaItems.ELEMENTIUM_INGOT) || super.isValidRepairItem(toRepair, repairBy);
 	}
 
 	@Override
