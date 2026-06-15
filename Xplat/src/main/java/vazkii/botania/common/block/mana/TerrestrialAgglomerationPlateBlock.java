@@ -34,6 +34,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.TerraPlateState;
@@ -94,7 +95,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 				&& state.getValue(BotaniaStateProperties.TERRA_PLATE_STATE).isLookingForIngredients()
 				&& !level.getBlockTicks().hasScheduledTick(pos, state.getBlock())
 				// while an output item might be used in a subsequent recipe, it's not allowed on its own right away
-				&& ItemSource.HOLDER.getFor(item) == ItemSources.TERRA_PLATE
+				&& ItemSource.HOLDER.getFor(item) != ItemSources.TERRA_PLATE
 				&& BotaniaRecipeIngredientsCache.isTerraPlateInputItem(level, item.getItem().getItem())) {
 			level.scheduleTick(pos, state.getBlock(), 1);
 		}
