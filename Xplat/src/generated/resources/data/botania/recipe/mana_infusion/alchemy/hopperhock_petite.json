@@ -1,0 +1,16 @@
+{
+  "type": "botania:mana_infusion",
+  "catalyst": {
+    "type": "botania:block",
+    "block": "botania:alchemy_catalyst"
+  },
+  "group": "botania:flower_shrinking",
+  "input": {
+    "item": "botania:hopperhock"
+  },
+  "mana": 2500,
+  "output": {
+    "count": 1,
+    "id": "botania:hopperhock_petite"
+  }
+}

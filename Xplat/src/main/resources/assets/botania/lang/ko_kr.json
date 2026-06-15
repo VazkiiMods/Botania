@@ -1578,18 +1578,18 @@
 
   "block.botania.floating_shulk_me_not": "떠다니는 셜크 미 낫",
 
-  "block.botania.bellethorn": "미인가시꽃",
-  "block.botania.bellethorn.reference": "세계의 끝에서 부르는 여성들의 론도",
+  "block.botania.bellethorne": "미인가시꽃",
+  "block.botania.bellethorne.reference": "세계의 끝에서 부르는 여성들의 론도",
 
-  "block.botania.floating_bellethorn": "떠다니는 미인가시꽃",
-  "block.botania.bellethorn_chibi": "작은 미인가시꽃",
-  "block.botania.bellethorn_chibi.reference": "세계의 끝에서 부르는 여성들의 론도",
+  "block.botania.floating_bellethorne": "떠다니는 미인가시꽃",
+  "block.botania.bellethorne_petite": "작은 미인가시꽃",
+  "block.botania.bellethorne_petite.reference": "세계의 끝에서 부르는 여성들의 론도",
 
-  "block.botania.floating_bellethorn_chibi": "떠다니는 작은 미인가시꽃",
-  "block.botania.dreadthorn": "공포의 덤불",
-  "block.botania.dreadthorn.reference": "플랜 C!",
+  "block.botania.floating_bellethorne_petite": "떠다니는 작은 미인가시꽃",
+  "block.botania.dreadthorne": "공포의 덤불",
+  "block.botania.dreadthorne.reference": "플랜 C!",
 
-  "block.botania.floating_dreadthorn": "떠다니는 공포의 덤불",
+  "block.botania.floating_dreadthorne": "떠다니는 공포의 덤불",
   "block.botania.heisei_dream": "길몽초",
   "block.botania.heisei_dream.reference": "광란! 코왈트!(*역자:일본 락밴드 음원 뜻은 쓸쓸함,죽음,탄생)",
 
@@ -1622,42 +1622,42 @@
   "block.botania.agricarnation.reference": "5월8일에 부모님께 달아드리자",
 
   "block.botania.floating_agricarnation": "떠다니는 성장의 카네이션",
-  "block.botania.agricarnation_chibi": "작은 성장의 카네이션",
-  "block.botania.agricarnation_chibi.reference": "5월8일에 부모님께 달아드리자",
+  "block.botania.agricarnation_petite": "작은 성장의 카네이션",
+  "block.botania.agricarnation_petite.reference": "5월8일에 부모님께 달아드리자",
 
-  "block.botania.floating_agricarnation_chibi": "떠다니는 작은 성장의 카네이션",
+  "block.botania.floating_agricarnation_petite": "떠다니는 작은 성장의 카네이션",
   "block.botania.hopperhock": "호퍼혹",
   "block.botania.hopperhock.reference": "모두 깔대기로",
 
   "block.botania.floating_hopperhock": "떠다니는 호퍼혹",
-  "block.botania.hopperhock_chibi": "작은 호퍼혹",
-  "block.botania.hopperhock_chibi.reference": "모두 깔대기로",
+  "block.botania.hopperhock_petite": "작은 호퍼혹",
+  "block.botania.hopperhock_petite.reference": "모두 깔대기로",
 
-  "block.botania.floating_hopperhock_chibi": "떠다니는 작은 호퍼혹",
+  "block.botania.floating_hopperhock_petite": "떠다니는 작은 호퍼혹",
   "block.botania.tangleberrie": "탱글베리",
-  "block.botania.tangleberrie_chibi": "작은 탱글베리",
+  "block.botania.tangleberrie_petite": "작은 탱글베리",
   "block.botania.tangleberrie.reference": "더 이상의 공중부양은...Naver..",
-  "block.botania.tangleberrie_chibi.reference": "프라이팬. 최고의 방어구.",
+  "block.botania.tangleberrie_petite.reference": "프라이팬. 최고의 방어구.",
 
   "block.botania.floating_tangleberrie": "떠다니는 탱글베리",
 
-  "block.botania.floating_tangleberrie_chibi": "떠다니는 작은 탱글베리",
+  "block.botania.floating_tangleberrie_petite": "떠다니는 작은 탱글베리",
   "block.botania.jiyuulia": "쥴리아",
-  "block.botania.jiyuulia_chibi": "작은 쥴리아",
+  "block.botania.jiyuulia_petite": "작은 쥴리아",
   "block.botania.jiyuulia.reference": "자유의 날개",
 
 
   "block.botania.floating_jiyuulia": "떠다니는 쥴리아",
 
-  "block.botania.floating_jiyuulia_chibi": "떠다니는 작은 쥴리아",
+  "block.botania.floating_jiyuulia_petite": "떠다니는 작은 쥴리아",
   "block.botania.rannuncarpus": "장난꾸러기꽃",
   "block.botania.rannuncarpus.reference": "이건 손이죠. 네.",
 
   "block.botania.floating_rannuncarpus": "떠다니는 장난꾸러기꽃",
-  "block.botania.rannuncarpus_chibi": "작은 장난꾸러기꽃",
-  "block.botania.rannuncarpus_chibi.reference": "이건 손이죠. 네.",
+  "block.botania.rannuncarpus_petite": "작은 장난꾸러기꽃",
+  "block.botania.rannuncarpus_petite.reference": "이건 손이죠. 네.",
 
-  "block.botania.floating_rannuncarpus_chibi": "떠다니는 작은 장난꾸러기꽃",
+  "block.botania.floating_rannuncarpus_petite": "떠다니는 작은 장난꾸러기꽃",
   "block.botania.hyacidus": "하이시더스",
   "block.botania.hyacidus.reference": "움직이지 않는다면 사냥할 수도 없어",
 
@@ -1670,10 +1670,10 @@
   "block.botania.clayconia.reference": "루피는 없어요. 아니 그냥 없어요.",
 
   "block.botania.floating_clayconia": "떠다니는 점토코니아",
-  "block.botania.clayconia_chibi": "작은 점토코니아",
-  "block.botania.clayconia_chibi.reference": "루피는 없어요. 아니 그냥 없어요.",
+  "block.botania.clayconia_petite": "작은 점토코니아",
+  "block.botania.clayconia_petite.reference": "루피는 없어요. 아니 그냥 없어요.",
 
-  "block.botania.floating_clayconia_chibi": "떠다니는 작은 점토코니아",
+  "block.botania.floating_clayconia_petite": "떠다니는 작은 점토코니아",
   "block.botania.loonium": "탐사초",
   "block.botania.loonium.reference": "머리 위에 있는 놈을 잡아버립시다.",
 
@@ -1698,26 +1698,26 @@
   "block.botania.marimorphosis.reference": "믿고 쓰는 변성초",
 
   "block.botania.floating_marimorphosis": "떠다니는 변성초",
-  "block.botania.marimorphosis_chibi": "작은 변성초",
-  "block.botania.marimorphosis_chibi.reference": "믿고 쓰는 변성초",
+  "block.botania.marimorphosis_petite": "작은 변성초",
+  "block.botania.marimorphosis_petite.reference": "믿고 쓰는 변성초",
 
-  "block.botania.floating_marimorphosis_chibi": "떠다니는 작은 변성초",
+  "block.botania.floating_marimorphosis_petite": "떠다니는 작은 변성초",
   "block.botania.bubbell": "습기제거초",
   "block.botania.bubbell.reference": "휘파람(BGM. 뇌내혁명걸)",
 
   "block.botania.floating_bubbell": "떠다니는 습기제거초",
-  "block.botania.bubbell_chibi": "작은 습기제거초",
-  "block.botania.bubbell_chibi.reference": "휘파람(BGM. 뇌내혁명걸)",
+  "block.botania.bubbell_petite": "작은 습기제거초",
+  "block.botania.bubbell_petite.reference": "휘파람(BGM. 뇌내혁명걸)",
 
-  "block.botania.floating_bubbell_chibi": "떠다니는 작은 습기제거초",
+  "block.botania.floating_bubbell_petite": "떠다니는 작은 습기제거초",
   "block.botania.solegnolia": "소그놀리아",
   "block.botania.solegnolia.reference": "자석은 이걸로 만들어진다카더라 아님 말고ㅋ",
 
   "block.botania.floating_solegnolia": "떠다니는 소그놀리아",
-  "block.botania.solegnolia_chibi": "작은 소그놀리아",
-  "block.botania.solegnolia_chibi.reference": "자석은 이걸로 만들어진다카더라 아님 말고ㅋ",
+  "block.botania.solegnolia_petite": "작은 소그놀리아",
+  "block.botania.solegnolia_petite.reference": "자석은 이걸로 만들어진다카더라 아님 말고ㅋ",
 
-  "block.botania.floating_solegnolia_chibi": "떠다니는 작은 소그놀리아 ",
+  "block.botania.floating_solegnolia_petite": "떠다니는 작은 소그놀리아 ",
   "block.botania.bergamute": "베르가무테",
   "block.botania.bergamute.reference": "비밀은 들키지 않도록 하겠어",
 

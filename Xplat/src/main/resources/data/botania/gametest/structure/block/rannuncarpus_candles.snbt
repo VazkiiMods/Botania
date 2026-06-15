@@ -28,7 +28,7 @@
         {pos: [4, 1, 2], state: "minecraft:polished_diorite"},
         {pos: [4, 1, 3], state: "minecraft:polished_diorite"},
         {pos: [4, 1, 4], state: "minecraft:polished_diorite"},
-        {pos: [2, 2, 2], state: "botania:floating_rannuncarpus_chibi{waterlogged:false}", nbt: {floating: {islandType: "GRASS"}, id: "botania:rannuncarpus_chibi", mana: 0, stateSensitive: 0b, ticksExisted: 7309}},
+        {pos: [2, 2, 2], state: "botania:floating_rannuncarpus_petite{waterlogged:false}", nbt: {floating: {islandType: "GRASS"}, id: "botania:rannuncarpus_petite", mana: 0, stateSensitive: 0b, ticksExisted: 7309}},
         {pos: [3, 2, 1], state: "minecraft:grass"},
         {pos: [3, 2, 3], state: "minecraft:magenta_candle{candles:1,lit:true,waterlogged:false}"},
         {pos: [1, 4, 2], state: "minecraft:yellow_candle{candles:1,lit:false,waterlogged:false}"}
@@ -41,6 +41,6 @@
         "minecraft:grass",
         "minecraft:magenta_candle{candles:1,lit:true,waterlogged:false}",
         "minecraft:yellow_candle{candles:1,lit:false,waterlogged:false}",
-        "botania:floating_rannuncarpus_chibi{waterlogged:false}"
+        "botania:floating_rannuncarpus_petite{waterlogged:false}"
     ]
 }

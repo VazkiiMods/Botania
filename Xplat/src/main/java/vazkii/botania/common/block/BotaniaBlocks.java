@@ -586,7 +586,7 @@ public final class BotaniaBlocks {
 					10,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.BELLETHORNE));
-	public static final Block BELLETHORNE_PETITE = make(chibi(LibBlockNames.SUBTILE_BELLETHORN),
+	public static final Block BELLETHORNE_PETITE = make(petite(LibBlockNames.SUBTILE_BELLETHORN),
 			new PoweredSpecialFlowerBlock(
 					MobEffects.WITHER,
 					10,
@@ -596,13 +596,13 @@ public final class BotaniaBlocks {
 			new PoweredFloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.BELLETHORNE));
-	public static final Block FLOATING_BELLETHORNE_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_BELLETHORN)),
+	public static final Block FLOATING_BELLETHORNE_PETITE = make(petite(floating(LibBlockNames.SUBTILE_BELLETHORN)),
 			new PoweredFloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.BELLETHORNE_PETITE));
 	public static final Block POTTED_BELLETHORNE = make(potted(LibBlockNames.SUBTILE_BELLETHORN),
 			flowerPot(BELLETHORNE, 0));
-	public static final Block POTTED_BELLETHORNE_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_BELLETHORN)),
+	public static final Block POTTED_BELLETHORNE_PETITE = make(petite(potted(LibBlockNames.SUBTILE_BELLETHORN)),
 			flowerPot(BELLETHORNE_PETITE, 0));
 
 	public static final Block BERGAMUTE = make(LibBlockNames.SUBTILE_BERGAMUTE,
@@ -714,7 +714,7 @@ public final class BotaniaBlocks {
 					48,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.AGRICARNATION));
-	public static final Block AGRICARNATION_PETITE = make(chibi(LibBlockNames.SUBTILE_AGRICARNATION),
+	public static final Block AGRICARNATION_PETITE = make(petite(LibBlockNames.SUBTILE_AGRICARNATION),
 			new PoweredSpecialFlowerBlock(
 					MobEffects.ABSORPTION,
 					48,
@@ -724,13 +724,13 @@ public final class BotaniaBlocks {
 			new PoweredFloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.AGRICARNATION));
-	public static final Block FLOATING_AGRICARNATION_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_AGRICARNATION)),
+	public static final Block FLOATING_AGRICARNATION_PETITE = make(petite(floating(LibBlockNames.SUBTILE_AGRICARNATION)),
 			new PoweredFloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.AGRICARNATION_PETITE));
 	public static final Block POTTED_AGRICARNATION = make(potted(LibBlockNames.SUBTILE_AGRICARNATION),
 			flowerPot(AGRICARNATION, 0));
-	public static final Block POTTED_AGRICARNATION_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_AGRICARNATION)),
+	public static final Block POTTED_AGRICARNATION_PETITE = make(petite(potted(LibBlockNames.SUBTILE_AGRICARNATION)),
 			flowerPot(AGRICARNATION_PETITE, 0));
 
 	public static final Block HOPPERHOCK = make(LibBlockNames.SUBTILE_HOPPERHOCK,
@@ -738,7 +738,7 @@ public final class BotaniaBlocks {
 					30,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.HOPPERHOCK));
-	public static final Block HOPPERHOCK_PETITE = make(chibi(LibBlockNames.SUBTILE_HOPPERHOCK),
+	public static final Block HOPPERHOCK_PETITE = make(petite(LibBlockNames.SUBTILE_HOPPERHOCK),
 			new HopperhockBlock(
 					MobEffects.MOVEMENT_SPEED,
 					30,
@@ -748,13 +748,13 @@ public final class BotaniaBlocks {
 			new FloatingHopperhockBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.HOPPERHOCK));
-	public static final Block FLOATING_HOPPERHOCK_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_HOPPERHOCK)),
+	public static final Block FLOATING_HOPPERHOCK_PETITE = make(petite(floating(LibBlockNames.SUBTILE_HOPPERHOCK)),
 			new FloatingHopperhockBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.HOPPERHOCK_PETITE));
 	public static final Block POTTED_HOPPERHOCK = make(potted(LibBlockNames.SUBTILE_HOPPERHOCK),
 			flowerPot(HOPPERHOCK, 0));
-	public static final Block POTTED_HOPPERHOCK_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_HOPPERHOCK)),
+	public static final Block POTTED_HOPPERHOCK_PETITE = make(petite(potted(LibBlockNames.SUBTILE_HOPPERHOCK)),
 			flowerPot(HOPPERHOCK_PETITE, 0));
 
 	public static final Block TANGLEBERRIE = make(LibBlockNames.SUBTILE_TANGLEBERRIE,
@@ -763,7 +763,7 @@ public final class BotaniaBlocks {
 					120,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.TANGLEBERRIE));
-	public static final Block TANGLEBERRIE_PETITE = make(chibi(LibBlockNames.SUBTILE_TANGLEBERRIE),
+	public static final Block TANGLEBERRIE_PETITE = make(petite(LibBlockNames.SUBTILE_TANGLEBERRIE),
 			new SpecialFlowerBlock(
 					BotaniaMobEffects.BLOODTHIRST,
 					120,
@@ -773,13 +773,13 @@ public final class BotaniaBlocks {
 			new FloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.TANGLEBERRIE));
-	public static final Block FLOATING_TANGLEBERRIE_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_TANGLEBERRIE)),
+	public static final Block FLOATING_TANGLEBERRIE_PETITE = make(petite(floating(LibBlockNames.SUBTILE_TANGLEBERRIE)),
 			new FloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.TANGLEBERRIE_PETITE));
 	public static final Block POTTED_TANGLEBERRIE = make(potted(LibBlockNames.SUBTILE_TANGLEBERRIE),
 			flowerPot(TANGLEBERRIE, 0));
-	public static final Block POTTED_TANGLEBERRIE_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_TANGLEBERRIE)),
+	public static final Block POTTED_TANGLEBERRIE_PETITE = make(petite(potted(LibBlockNames.SUBTILE_TANGLEBERRIE)),
 			flowerPot(TANGLEBERRIE_PETITE, 0));
 
 	public static final Block JIYUULIA = make(LibBlockNames.SUBTILE_JIYUULIA,
@@ -788,7 +788,7 @@ public final class BotaniaBlocks {
 					120,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.JIYUULIA));
-	public static final Block JIYUULIA_PETITE = make(chibi(LibBlockNames.SUBTILE_JIYUULIA),
+	public static final Block JIYUULIA_PETITE = make(petite(LibBlockNames.SUBTILE_JIYUULIA),
 			new SpecialFlowerBlock(
 					BotaniaMobEffects.EMPTINESS,
 					120,
@@ -798,13 +798,13 @@ public final class BotaniaBlocks {
 			new FloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.JIYUULIA));
-	public static final Block FLOATING_JIYUULIA_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_JIYUULIA)),
+	public static final Block FLOATING_JIYUULIA_PETITE = make(petite(floating(LibBlockNames.SUBTILE_JIYUULIA)),
 			new FloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.JIYUULIA_PETITE));
 	public static final Block POTTED_JIYULLIA = make(potted(LibBlockNames.SUBTILE_JIYUULIA),
 			flowerPot(JIYUULIA, 0));
-	public static final Block POTTED_JIYUULIA_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_JIYUULIA)),
+	public static final Block POTTED_JIYUULIA_PETITE = make(petite(potted(LibBlockNames.SUBTILE_JIYUULIA)),
 			flowerPot(JIYUULIA_PETITE, 0));
 
 	public static final Block RANNUNCARPUS = make(LibBlockNames.SUBTILE_RANNUNCARPUS,
@@ -813,7 +813,7 @@ public final class BotaniaBlocks {
 					30,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.RANNUNCARPUS));
-	public static final Block RANNUNCARPUS_PETITE = make(chibi(LibBlockNames.SUBTILE_RANNUNCARPUS),
+	public static final Block RANNUNCARPUS_PETITE = make(petite(LibBlockNames.SUBTILE_RANNUNCARPUS),
 			new RannuncarpusBlock(
 					MobEffects.JUMP,
 					30,
@@ -823,13 +823,13 @@ public final class BotaniaBlocks {
 			new FloatingRannuncarpusBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.RANNUNCARPUS));
-	public static final Block FLOATING_RANNUNCARPUS_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_RANNUNCARPUS)),
+	public static final Block FLOATING_RANNUNCARPUS_PETITE = make(petite(floating(LibBlockNames.SUBTILE_RANNUNCARPUS)),
 			new FloatingRannuncarpusBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.RANNUNCARPUS_PETITE));
 	public static final Block POTTED_RANNUNCARPUS = make(potted(LibBlockNames.SUBTILE_RANNUNCARPUS),
 			flowerPot(RANNUNCARPUS, 0));
-	public static final Block POTTED_RANNUNCARPUS_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_RANNUNCARPUS)),
+	public static final Block POTTED_RANNUNCARPUS_PETITE = make(petite(potted(LibBlockNames.SUBTILE_RANNUNCARPUS)),
 			flowerPot(RANNUNCARPUS_PETITE, 0));
 
 	public static final Block HYACIDUS = make(LibBlockNames.SUBTILE_HYACIDUS,
@@ -864,7 +864,7 @@ public final class BotaniaBlocks {
 					30,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.CLAYCONIA));
-	public static final Block CLAYCONIA_PETITE = make(chibi(LibBlockNames.SUBTILE_CLAYCONIA),
+	public static final Block CLAYCONIA_PETITE = make(petite(LibBlockNames.SUBTILE_CLAYCONIA),
 			new SpecialFlowerBlock(
 					MobEffects.WEAKNESS,
 					30,
@@ -874,13 +874,13 @@ public final class BotaniaBlocks {
 			new FloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.CLAYCONIA));
-	public static final Block FLOATING_CLAYCONIA_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_CLAYCONIA)),
+	public static final Block FLOATING_CLAYCONIA_PETITE = make(petite(floating(LibBlockNames.SUBTILE_CLAYCONIA)),
 			new FloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.CLAYCONIA_PETITE));
 	public static final Block POTTED_CLAYCONIA = make(potted(LibBlockNames.SUBTILE_CLAYCONIA),
 			flowerPot(CLAYCONIA, 0));
-	public static final Block POTTED_CLAYCONIA_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_CLAYCONIA)),
+	public static final Block POTTED_CLAYCONIA_PETITE = make(petite(potted(LibBlockNames.SUBTILE_CLAYCONIA)),
 			flowerPot(CLAYCONIA_PETITE, 0));
 
 	public static final Block LOONIUM = make(LibBlockNames.SUBTILE_LOONIUM,
@@ -954,7 +954,7 @@ public final class BotaniaBlocks {
 					60,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.MARIMORPHOSIS));
-	public static final Block MARIMORPHOSIS_PETITE = make(chibi(LibBlockNames.SUBTILE_MARIMORPHOSIS),
+	public static final Block MARIMORPHOSIS_PETITE = make(petite(LibBlockNames.SUBTILE_MARIMORPHOSIS),
 			new PoweredSpecialFlowerBlock(
 					MobEffects.DIG_SLOWDOWN,
 					60,
@@ -964,13 +964,13 @@ public final class BotaniaBlocks {
 			new PoweredFloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.MARIMORPHOSIS));
-	public static final Block FLOATING_MARIMORPHOSIS_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_MARIMORPHOSIS)),
+	public static final Block FLOATING_MARIMORPHOSIS_PETITE = make(petite(floating(LibBlockNames.SUBTILE_MARIMORPHOSIS)),
 			new PoweredFloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.MARIMORPHOSIS_PETITE));
 	public static final Block POTTED_MARIMORPHOSIS = make(potted(LibBlockNames.SUBTILE_MARIMORPHOSIS),
 			flowerPot(MARIMORPHOSIS, 0));
-	public static final Block POTTED_MARIMORPHOSIS_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_MARIMORPHOSIS)),
+	public static final Block POTTED_MARIMORPHOSIS_PETITE = make(petite(potted(LibBlockNames.SUBTILE_MARIMORPHOSIS)),
 			flowerPot(MARIMORPHOSIS_PETITE, 0));
 
 	public static final Block BUBBELL = make(LibBlockNames.SUBTILE_BUBBELL,
@@ -979,7 +979,7 @@ public final class BotaniaBlocks {
 					240,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.BUBBELL));
-	public static final Block BUBBELL_PETITE = make(chibi(LibBlockNames.SUBTILE_BUBBELL),
+	public static final Block BUBBELL_PETITE = make(petite(LibBlockNames.SUBTILE_BUBBELL),
 			new SpecialFlowerBlock(MobEffects.WATER_BREATHING,
 					240,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
@@ -988,13 +988,13 @@ public final class BotaniaBlocks {
 			new FloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.BUBBELL));
-	public static final Block FLOATING_BUBBELL_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_BUBBELL)),
+	public static final Block FLOATING_BUBBELL_PETITE = make(petite(floating(LibBlockNames.SUBTILE_BUBBELL)),
 			new FloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.BUBBELL_PETITE));
 	public static final Block POTTED_BUBBELL = make(potted(LibBlockNames.SUBTILE_BUBBELL),
 			flowerPot(BUBBELL, 0));
-	public static final Block POTTED_BUBBELL_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_BUBBELL)),
+	public static final Block POTTED_BUBBELL_PETITE = make(petite(potted(LibBlockNames.SUBTILE_BUBBELL)),
 			flowerPot(BUBBELL_PETITE, 0));
 
 	public static final Block SOLEGNOLIA = make(LibBlockNames.SUBTILE_SOLEGNOLIA,
@@ -1003,7 +1003,7 @@ public final class BotaniaBlocks {
 					1,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.SOLEGNOLIA));
-	public static final Block SOLEGNOLIA_PETITE = make(chibi(LibBlockNames.SUBTILE_SOLEGNOLIA),
+	public static final Block SOLEGNOLIA_PETITE = make(petite(LibBlockNames.SUBTILE_SOLEGNOLIA),
 			new PoweredSpecialFlowerBlock(
 					MobEffects.HARM,
 					1,
@@ -1013,13 +1013,13 @@ public final class BotaniaBlocks {
 			new PoweredFloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.SOLEGNOLIA));
-	public static final Block FLOATING_SOLEGNOLIA_PETITE = make(chibi(floating(LibBlockNames.SUBTILE_SOLEGNOLIA)),
+	public static final Block FLOATING_SOLEGNOLIA_PETITE = make(petite(floating(LibBlockNames.SUBTILE_SOLEGNOLIA)),
 			new PoweredFloatingSpecialFlowerBlock(
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.SOLEGNOLIA_PETITE));
 	public static final Block POTTED_SOLEGNOLIA = make(potted(LibBlockNames.SUBTILE_SOLEGNOLIA),
 			flowerPot(SOLEGNOLIA, 0));
-	public static final Block POTTED_SOLEGNOLIA_PETITE = make(chibi(potted(LibBlockNames.SUBTILE_SOLEGNOLIA)),
+	public static final Block POTTED_SOLEGNOLIA_PETITE = make(petite(potted(LibBlockNames.SUBTILE_SOLEGNOLIA)),
 			flowerPot(SOLEGNOLIA_PETITE, 0));
 
 	public static final Block ORECHID_IGNEM = make(LibBlockNames.SUBTILE_ORECHID_IGNEM,
@@ -2317,8 +2317,8 @@ public final class BotaniaBlocks {
 		return "potted_" + orig;
 	}
 
-	private static String chibi(String orig) {
-		return orig + "_chibi";
+	private static String petite(String orig) {
+		return orig + "_petite";
 	}
 
 	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {

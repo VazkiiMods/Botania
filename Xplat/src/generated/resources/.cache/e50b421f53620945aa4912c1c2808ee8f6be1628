@@ -1,7 +1,7 @@
 // 1.21.1	Botania/Botania item models
 d4b0ba0031453560fbcac5ba06e408d0ee6a8c4f assets/botania/models/item/abstruse_platform.json
 bf099805ffd7a8d3043459d5fa421695f2890c97 assets/botania/models/item/agricarnation.json
-7e549abdb5ceeae46f78cea4c1e835855536fe85 assets/botania/models/item/agricarnation_chibi.json
+c3ca3c034853dd545c042e51282bd3fee9398f6e assets/botania/models/item/agricarnation_petite.json
 5df5d65292ce012f365dcf3cc582b6b8ae38d9e4 assets/botania/models/item/alchemy_catalyst.json
 0f9a26ea39cd024b976daf5cbd7d203490e41557 assets/botania/models/item/alfheim_portal.json
 7f07a2df8f63eb18cf532e4649cecf0f1d66d966 assets/botania/models/item/ancient_will_ahrim.json
@@ -51,8 +51,8 @@ eb9c959e8d6d9115af38062f1560f7cb47706f92 assets/botania/models/item/azulejo_6.js
 bee061b7738b9e4ba0fec8470969096d904910a9 assets/botania/models/item/balance_cloak.json
 8179e7c39e1113fa431cd6d429d80ef9565d6078 assets/botania/models/item/bauble_box.json
 e07fd05e7be9087c5f29f226b033f28b88417cc7 assets/botania/models/item/bauble_box_open.json
-0754a108c9dd2fcbb2b63f675cba103bce8c83b3 assets/botania/models/item/bellethorn.json
-48b75ab2f607d7ed241fd0ed17e826050ebc90eb assets/botania/models/item/bellethorn_chibi.json
+dfbf5bdbc170b59712cd807866a6f5d7112032b7 assets/botania/models/item/bellethorne.json
+dc3002a9d196aefd8b23e06093b9245124e9a21a assets/botania/models/item/bellethorne_petite.json
 610f7e31086b03157d61a062a93c7e0026ffeeb1 assets/botania/models/item/bellows.json
 620a5b2987b251fcffacc4730b0b42aec4768534 assets/botania/models/item/bergamute.json
 87712e8eb87f7aa0d8c3de85ea9924e67e59000f assets/botania/models/item/bifrost_pane.json
@@ -117,7 +117,7 @@ ccb2b5610318ea0502934cad207bfa845e5c0a93 assets/botania/models/item/brown_petal.
 2b586116033c6dd2393e43546a04e08b06839bd9 assets/botania/models/item/brown_petal_block.json
 468ed7c9878f0037742f7d98bb21a309ae801af9 assets/botania/models/item/brown_shiny_flower.json
 0cd4e4dfcca421685c60a94a21291883579bac90 assets/botania/models/item/bubbell.json
-46900eef8da50850ec2b2e9a8142d60855b2ff53 assets/botania/models/item/bubbell_chibi.json
+dcd76ab897fd895770e132023623378c37c3a8e8 assets/botania/models/item/bubbell_petite.json
 2d7cddbd871eae25037b46424653d86ff1eef74c assets/botania/models/item/cacophonium.json
 c3a185b0c36cfd907256eef0f4d8cc13bdcd8bc4 assets/botania/models/item/cacophonium_block.json
 54bf69e1e45b515b875e5ebb2674b4525880786c assets/botania/models/item/cell_block.json
@@ -138,7 +138,7 @@ ca8952a38f78f0a7f0abcff4c99a47aa18fd8803 assets/botania/models/item/chiseled_met
 c13c9200efc7f945d398967e9688b2f00adc3633 assets/botania/models/item/chiseled_red_quartz.json
 ad5748bc1e9ebbef61b71fe93c0a5d7cb804dcd5 assets/botania/models/item/chiseled_sunny_quartz.json
 7d9769bba9682d7354d7ae57d7c74a0c51ab1fbd assets/botania/models/item/clayconia.json
-ce62e93d33edcfb8d33159b25453d10fd52f982d assets/botania/models/item/clayconia_chibi.json
+bb5acecb5e63832a1f777a4bfe2b7fa799d193d1 assets/botania/models/item/clayconia_petite.json
 7d005fcc37991488b4090ce56b765fcfb0ba6047 assets/botania/models/item/clip.json
 a30820003609ac867ce3b8d9860974defc1d791e assets/botania/models/item/cloud_pendant.json
 a0d55c06350ca686fea27cea567ba0fe3240bc49 assets/botania/models/item/cobble_rod.json
@@ -227,7 +227,7 @@ eed1dfa3c9c26cdf2dd5108e893c1880bc4ffc08 assets/botania/models/item/divining_rod
 368c5c74eb248d0823beb66e76bf39e255e3f139 assets/botania/models/item/dodge_ring.json
 06ed52160d5f04aeb52497b0de1048cc0666ee80 assets/botania/models/item/dragonstone.json
 a24ac299b21fa3ba89d2bccdad7108d7ddf5a6fa assets/botania/models/item/dragonstone_block.json
-fd8cd0349fe07a19ac43d2f8dc929e2dc9aac5e7 assets/botania/models/item/dreadthorn.json
+ccec50d38db56522f2881b4d9cf933d06c350114 assets/botania/models/item/dreadthorne.json
 c1744e582c14b3278119902543597d9e348b2b1b assets/botania/models/item/dreamwood.json
 8fd8d38e8f9149821cfc67aa54a089c4357ca2f5 assets/botania/models/item/dreamwood_button.json
 ef1389ffe46b3f883006ed9cb7520e1ce67d0747 assets/botania/models/item/dreamwood_door.json
@@ -343,7 +343,7 @@ f8fbb77a3ae08365bfec72d815df456cfb985a05 assets/botania/models/item/green_mushro
 5f2fdc195456c180dc4efd0cccf9bb05f7669537 assets/botania/models/item/heisei_dream.json
 3498a0426869d8a4ccc1ceb78b079ba31116e604 assets/botania/models/item/holy_cloak.json
 9cb4eab880c672cec7e3b0bed07c1b92f6e4cb70 assets/botania/models/item/hopperhock.json
-4364725c0dd6f68bb946873f4683cd9acdde7063 assets/botania/models/item/hopperhock_chibi.json
+e72923b957bb5f0576caf53389230ce053e43b2f assets/botania/models/item/hopperhock_petite.json
 50f3618a406e484a062ab2f804680758b3190b27 assets/botania/models/item/hourglass.json
 cf2b4f0222e5ada6414b9983cf38c945979d5595 assets/botania/models/item/hyacidus.json
 df67413ce0747de38288d38ace7ad96a5c60c770 assets/botania/models/item/hydroangeas.json
@@ -359,7 +359,7 @@ a77af8f895e018903e137de9e3ac53197a878ce0 assets/botania/models/item/invisibility
 f2294c1435fb161c4690343bebc0a53ed1903ac0 assets/botania/models/item/itemfinder.json
 dfa4220d8b919db0a461eefb2cbc178e663ff689 assets/botania/models/item/jaded_amaranthus.json
 36ad98f9b61553c5c8bdcd6575f7b5ef32cf6ff4 assets/botania/models/item/jiyuulia.json
-88b0e6d77a5d97adc20cb264c072d061bfbcdd02 assets/botania/models/item/jiyuulia_chibi.json
+e997b62c36f0af2dff8dd76381946b6db12e8633 assets/botania/models/item/jiyuulia_petite.json
 4bebbe43c0eb9176cc48ca378ebb5d57ee099bbf assets/botania/models/item/keep_ivy.json
 8f83856462a3f5f6245084fcde76556ec5db6879 assets/botania/models/item/kekimurus.json
 314a67df380a7cba929ba0cf8850eadf27a4b54b assets/botania/models/item/king_key.json
@@ -532,7 +532,7 @@ d47a9926dd301e337dd7edc237eeb6c8af51ca3f assets/botania/models/item/manaweave_ch
 940e6fc7ff326938dd9f294c356936d9e976c1a1 assets/botania/models/item/manaweave_leggings.json
 b846afd801d302bd94e2f22d386749d10516dc03 assets/botania/models/item/manaweave_leggings_holiday.json
 30d3b57090c47a5f59c8387bc0b28e2b308d5aa7 assets/botania/models/item/marimorphosis.json
-de27d2a614a5fe969c3c18f5e68f0a0bb588422f assets/botania/models/item/marimorphosis_chibi.json
+7916bbfabd606d11f52cda249afd5da57d01d4cd assets/botania/models/item/marimorphosis_petite.json
 487b59a3605f848828ed4962ef43986a045415b3 assets/botania/models/item/materials_banner_pattern.json
 7d4d8a62aa1b7e959eca4b79c4ed75e0c4521cc7 assets/botania/models/item/medumone.json
 41cb43850e421b92dff2bbbd54199c50921dbe8e assets/botania/models/item/metamorphic_desert_bricks.json
@@ -738,7 +738,7 @@ b0429f7b620c964b9d6d22dafc9140410072dcc1 assets/botania/models/item/quartz_sunny
 2b3eaa8d02a353ce22899427ada5784811b85bae assets/botania/models/item/rafflowsia.json
 1d59dc0964ec5c15fb3eb513e75b4a791f02a5bf assets/botania/models/item/rainbow_rod.json
 6360c6fcdfdead016a5296059fcfc60ac3e31f15 assets/botania/models/item/rannuncarpus.json
-8c96cef519da1067b624cf968bda07ae7114222d assets/botania/models/item/rannuncarpus_chibi.json
+a218c43503648329d5d2eab3e4d2dd87a370f0c4 assets/botania/models/item/rannuncarpus_petite.json
 2c3b9290785d123d67e959f0266dc518f6bcfd0d assets/botania/models/item/reach_ring.json
 bf9c0cac1b73e4c198c2ece8421a64d07adc6a88 assets/botania/models/item/record_gaia_1.json
 5f6f1e36a370d52913ef969ce14dab4cc9a19d03 assets/botania/models/item/record_gaia_2.json
@@ -832,7 +832,7 @@ bf13cc472216eaed66b98d6c3a42ff68ff12579e assets/botania/models/item/smooth_red_q
 2d8ea9fe1fbaa688ca63d165594747f962689d18 assets/botania/models/item/smooth_sunny_quartz_slab.json
 620ebac18e87a24ae5f5ccedeb0df34379ba91d1 assets/botania/models/item/smooth_sunny_quartz_stairs.json
 2ea2f9be28be0ec260210ccf6caba1d0dd6b83ad assets/botania/models/item/solegnolia.json
-a18f1dcff1c9f4e5a00723879e5b0d36702934e3 assets/botania/models/item/solegnolia_chibi.json
+e78020f6b66a4a4e99ed42f053d92afdd5f31ed7 assets/botania/models/item/solegnolia_petite.json
 edaf316dd8490d667ebf5d78dc29afdaa6fe5646 assets/botania/models/item/spark.json
 e017f016e3d41846c8942181f29230e19062b430 assets/botania/models/item/spark_augments_banner_pattern.json
 93fd41a97ae4eb696eb642e6b20b1ab46c423420 assets/botania/models/item/spark_changer.json
@@ -870,7 +870,7 @@ b95440912909e4f99f8f48ea241e623c3b336ab8 assets/botania/models/item/super_lava_p
 0bee05c76aa5d8c7c7e49872b95e0d9fe9d1023b assets/botania/models/item/super_travel_belt.json
 6f2d7721f1cf1164293d40a94325d0a47dda03bb assets/botania/models/item/swap_ring.json
 c2e4d99d413b3fadcdc891829269f35d91d47d16 assets/botania/models/item/tangleberrie.json
-5cd3024fe49c18958d90a725d4f53bf8313ffa0c assets/botania/models/item/tangleberrie_chibi.json
+a12a1e7c9d09dc4c5f471716b89671b7687b6248 assets/botania/models/item/tangleberrie_petite.json
 2199df18154c7869078980fdad5d99a1888fa30d assets/botania/models/item/temperance_stone.json
 a100dd5c2dad6bd615ba840dd41c9a1e5bfcee8b assets/botania/models/item/temperance_stone_active.json
 72be123b93f9cc1a98f31d7ea4856847eae12cf2 assets/botania/models/item/terra_axe.json

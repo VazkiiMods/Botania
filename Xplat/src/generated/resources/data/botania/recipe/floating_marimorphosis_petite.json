@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "botania:floating_flower",
+  "ingredients": [
+    {
+      "tag": "botania:floating_flowers"
+    },
+    {
+      "item": "botania:marimorphosis_petite"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:floating_marimorphosis_petite"
+  }
+}

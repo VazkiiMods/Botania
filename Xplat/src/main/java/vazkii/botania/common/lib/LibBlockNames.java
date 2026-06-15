@@ -205,9 +205,9 @@ public final class LibBlockNames {
 	public static final String SUBTILE_RAFFLOWSIA = "rafflowsia";
 	public static final String SUBTILE_SHULK_ME_NOT = "shulk_me_not";
 
-	public static final String SUBTILE_BELLETHORN = "bellethorn";
+	public static final String SUBTILE_BELLETHORN = "bellethorne";
 	public static final String SUBTILE_BERGAMUTE = "bergamute";
-	public static final String SUBTILE_DREADTHORN = "dreadthorn";
+	public static final String SUBTILE_DREADTHORN = "dreadthorne";
 	public static final String SUBTILE_HEISEI_DREAM = "heisei_dream";
 	public static final String SUBTILE_TIGERSEYE = "tigerseye";
 	public static final String SUBTILE_JADED_AMARANTHUS = "jaded_amaranthus";

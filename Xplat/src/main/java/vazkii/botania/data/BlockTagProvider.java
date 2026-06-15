@@ -219,8 +219,8 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addTag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
 		tag(BotaniaTags.Blocks.MINI_FLOWERS).add(
-				getModBlocks(b -> b instanceof SpecialFlowerBlock
-						&& BuiltInRegistries.BLOCK.getKey(b).getPath().endsWith("_chibi"))
+				getModBlocks(block -> block instanceof SpecialFlowerBlock
+						&& BuiltInRegistries.BLOCK.getKey(block).getPath().endsWith("_petite"))
 		);
 
 		tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)

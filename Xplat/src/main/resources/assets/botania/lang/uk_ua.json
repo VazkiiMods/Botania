@@ -1578,18 +1578,18 @@
 
   "block.botania.floating_shulk_me_not": "Плавуча Незашалкерутка",
 
-  "block.botania.bellethorn": "Шиподзвоник",
-  "block.botania.bellethorn.reference": "Поцілунок троянди",
+  "block.botania.bellethorne": "Шиподзвоник",
+  "block.botania.bellethorne.reference": "Поцілунок троянди",
 
-  "block.botania.floating_bellethorn": "Плавучий Шиподзвоник",
-  "block.botania.bellethorn_chibi": "Шиподзвоник мініатюрний",
-  "block.botania.bellethorn_chibi.reference": "Поцілунок троянди",
+  "block.botania.floating_bellethorne": "Плавучий Шиподзвоник",
+  "block.botania.bellethorne_petite": "Шиподзвоник мініатюрний",
+  "block.botania.bellethorne_petite.reference": "Поцілунок троянди",
 
-  "block.botania.floating_bellethorn_chibi": "Плавучий Шиподзвоник мініатюрний",
-  "block.botania.dreadthorn": "Жахокактус",
-  "block.botania.dreadthorn.reference": "Просто укол",
+  "block.botania.floating_bellethorne_petite": "Плавучий Шиподзвоник мініатюрний",
+  "block.botania.dreadthorne": "Жахокактус",
+  "block.botania.dreadthorne.reference": "Просто укол",
 
-  "block.botania.floating_dreadthorn": "Плавучий Жахокактус",
+  "block.botania.floating_dreadthorne": "Плавучий Жахокактус",
   "block.botania.heisei_dream": "Мрія Хейсея",
   "block.botania.heisei_dream.reference": "Хейсей хейсей",
 
@@ -1622,42 +1622,42 @@
   "block.botania.agricarnation.reference": "Носіть 25 квітня",
 
   "block.botania.floating_agricarnation": "Плавуча Агриконвалія",
-  "block.botania.agricarnation_chibi": "Агриконвалія мініатюрна",
-  "block.botania.agricarnation_chibi.reference": "Носіть 25 квітня",
+  "block.botania.agricarnation_petite": "Агриконвалія мініатюрна",
+  "block.botania.agricarnation_petite.reference": "Носіть 25 квітня",
 
-  "block.botania.floating_agricarnation_chibi": "Плавуча Агриконвалія мініатюрна",
+  "block.botania.floating_agricarnation_petite": "Плавуча Агриконвалія мініатюрна",
   "block.botania.hopperhock": "Воронкальва",
   "block.botania.hopperhock.reference": "Це все вливається в нього",
 
   "block.botania.floating_hopperhock": "Плавуча Воронкальва",
-  "block.botania.hopperhock_chibi": "Воронкальва мініатюрна",
-  "block.botania.hopperhock_chibi.reference": "Це все вливається в нього",
+  "block.botania.hopperhock_petite": "Воронкальва мініатюрна",
+  "block.botania.hopperhock_petite.reference": "Це все вливається в нього",
 
-  "block.botania.floating_hopperhock_chibi": "Плавуча Воронкальва мініатюрна",
+  "block.botania.floating_hopperhock_petite": "Плавуча Воронкальва мініатюрна",
   "block.botania.tangleberrie": "Плутосальвія",
-  "block.botania.tangleberrie_chibi": "Плутосальвія мініатюрна",
+  "block.botania.tangleberrie_petite": "Плутосальвія мініатюрна",
   "block.botania.tangleberrie.reference": "Сковороди заборонені",
-  "block.botania.tangleberrie_chibi.reference": "Сковороди заборонені",
+  "block.botania.tangleberrie_petite.reference": "Сковороди заборонені",
 
   "block.botania.floating_tangleberrie": "Плавуча Плутосальвія",
 
-  "block.botania.floating_tangleberrie_chibi": "Плавуча Плутосальвія мініатюрна",
+  "block.botania.floating_tangleberrie_petite": "Плавуча Плутосальвія мініатюрна",
   "block.botania.jiyuulia": "Джіюуля",
-  "block.botania.jiyuulia_chibi": "Джіюуля мініатюрна",
+  "block.botania.jiyuulia_petite": "Джіюуля мініатюрна",
   "block.botania.jiyuulia.reference": "Крила свободи",
-  "block.botania.jiyuulia_chibi.reference": "Крила свободи",
+  "block.botania.jiyuulia_petite.reference": "Крила свободи",
 
   "block.botania.floating_jiyuulia": "Плавуча Джіюуля",
 
-  "block.botania.floating_jiyuulia_chibi": "Плавуча Джіюуля мініатюрна",
+  "block.botania.floating_jiyuulia_petite": "Плавуча Джіюуля мініатюрна",
   "block.botania.rannuncarpus": "Ранункарпус",
   "block.botania.rannuncarpus.reference": "Це зручно",
 
   "block.botania.floating_rannuncarpus": "Плавучий Ранункарпус",
-  "block.botania.rannuncarpus_chibi": "Ранункарпус мініатюрний",
-  "block.botania.rannuncarpus_chibi.reference": "Це зручно",
+  "block.botania.rannuncarpus_petite": "Ранункарпус мініатюрний",
+  "block.botania.rannuncarpus_petite.reference": "Це зручно",
 
-  "block.botania.floating_rannuncarpus_chibi": "Плавучий Ранункарпус мініатюрний",
+  "block.botania.floating_rannuncarpus_petite": "Плавучий Ранункарпус мініатюрний",
   "block.botania.hyacidus": "Кислотний гіацинт",
   "block.botania.hyacidus.reference": "Якщо не ходити, то не боляче",
 
@@ -1670,10 +1670,10 @@
   "block.botania.clayconia.reference": "Рупії не включені",
 
   "block.botania.floating_clayconia": "Плавучий Глинольон",
-  "block.botania.clayconia_chibi": "Глинольон мініатюрний",
-  "block.botania.clayconia_chibi.reference": "Рупії не включені",
+  "block.botania.clayconia_petite": "Глинольон мініатюрний",
+  "block.botania.clayconia_petite.reference": "Рупії не включені",
 
-  "block.botania.floating_clayconia_chibi": "Плавучий Глинольон мініатюрний",
+  "block.botania.floating_clayconia_petite": "Плавучий Глинольон мініатюрний",
   "block.botania.loonium": "Луній",
   "block.botania.loonium.reference": "Тримайте його над головою",
 
@@ -1698,26 +1698,26 @@
   "block.botania.marimorphosis.reference": "U-M-R",
 
   "block.botania.floating_marimorphosis": "Плавучий Чорнобривець перетворень",
-  "block.botania.marimorphosis_chibi": "Чорнобривець перетворень мініатюрний",
-  "block.botania.marimorphosis_chibi.reference": "U-M-R",
+  "block.botania.marimorphosis_petite": "Чорнобривець перетворень мініатюрний",
+  "block.botania.marimorphosis_petite.reference": "U-M-R",
 
-  "block.botania.floating_marimorphosis_chibi": "Плавучий Чорнобривець перетворень мініатюрний",
+  "block.botania.floating_marimorphosis_petite": "Плавучий Чорнобривець перетворень мініатюрний",
   "block.botania.bubbell": "Булькодзвоник",
   "block.botania.bubbell.reference": "І свистіть",
 
   "block.botania.floating_bubbell": "Плавучий Булькодзвоник",
-  "block.botania.bubbell_chibi": "Булькодзвоник мініатюрний",
-  "block.botania.bubbell_chibi.reference": "І свистіть",
+  "block.botania.bubbell_petite": "Булькодзвоник мініатюрний",
+  "block.botania.bubbell_petite.reference": "І свистіть",
 
-  "block.botania.floating_bubbell_chibi": "Плавучий Булькодзвоник мініатюрний",
+  "block.botania.floating_bubbell_petite": "Плавучий Булькодзвоник мініатюрний",
   "block.botania.solegnolia": "Солегнолія",
   "block.botania.solegnolia.reference": "Усі ваші магніти належать нам",
 
   "block.botania.floating_solegnolia": "Плавуча Солегнолія",
-  "block.botania.solegnolia_chibi": "Солегнолія мініатюрна",
-  "block.botania.solegnolia_chibi.reference": "Усі ваші магніти належать нам",
+  "block.botania.solegnolia_petite": "Солегнолія мініатюрна",
+  "block.botania.solegnolia_petite.reference": "Усі ваші магніти належать нам",
 
-  "block.botania.floating_solegnolia_chibi": "Плавуча Солегнолія мініатюрна",
+  "block.botania.floating_solegnolia_petite": "Плавуча Солегнолія мініатюрна",
   "block.botania.bergamute": "Бергамовч",
   "block.botania.bergamute.reference": "Мій рот на замку",
 

@@ -29,13 +29,13 @@
         {pos: [4, 0, 4], state: "minecraft:polished_andesite"},
         {pos: [2, 1, 1], state: "minecraft:light_gray_stained_glass"},
         {pos: [2, 2, 1], state: "minecraft:air"},
-        {pos: [2, 2, 2], state: "botania:floating_hopperhock_chibi{waterlogged:false}", nbt: {filterType: 0, floating: {islandType: "GRASS"}, id: "botania:hopperhock_chibi", mana: 0, ticksExisted: 0}}
+        {pos: [2, 2, 2], state: "botania:floating_hopperhock_petite{waterlogged:false}", nbt: {filterType: 0, floating: {islandType: "GRASS"}, id: "botania:hopperhock_petite", mana: 0, ticksExisted: 0}}
     ],
     entities: [],
     palette: [
         "minecraft:polished_andesite",
         "minecraft:light_gray_stained_glass",
         "minecraft:air",
-        "botania:floating_hopperhock_chibi{waterlogged:false}"
+        "botania:floating_hopperhock_petite{waterlogged:false}"
     ]
 }

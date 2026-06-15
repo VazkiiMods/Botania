@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/block",
+  "flower": {
+    "parent": "botania:block/solegnolia_petite"
+  },
+  "loader": "botania:floating_flower"
+}

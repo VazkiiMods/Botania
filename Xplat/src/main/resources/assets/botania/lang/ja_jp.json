@@ -1578,18 +1578,18 @@
 
   "block.botania.floating_shulk_me_not": "浮遊するシュルク・ミー・ノット",
 
-  "block.botania.bellethorn": "ベレソーン",
-  "block.botania.bellethorn.reference": "バラのくちづけ",
+  "block.botania.bellethorne": "ベレソーン",
+  "block.botania.bellethorne.reference": "バラのくちづけ",
 
-  "block.botania.floating_bellethorn": "浮遊するベレソーン",
-  "block.botania.bellethorn_chibi": "ベレソーン・プチ",
-  "block.botania.bellethorn_chibi.reference": "バラのくちづけ",
+  "block.botania.floating_bellethorne": "浮遊するベレソーン",
+  "block.botania.bellethorne_petite": "ベレソーン・プチ",
+  "block.botania.bellethorne_petite.reference": "バラのくちづけ",
 
-  "block.botania.floating_bellethorn_chibi": "浮遊するベレソーン・プチ",
-  "block.botania.dreadthorn": "ドレッドソーン",
-  "block.botania.dreadthorn.reference": "ただ刺すだけ",
+  "block.botania.floating_bellethorne_petite": "浮遊するベレソーン・プチ",
+  "block.botania.dreadthorne": "ドレッドソーン",
+  "block.botania.dreadthorne.reference": "ただ刺すだけ",
 
-  "block.botania.floating_dreadthorn": "浮遊するドレッドソーン",
+  "block.botania.floating_dreadthorne": "浮遊するドレッドソーン",
   "block.botania.heisei_dream": "ヘイセイドリーム",
   "block.botania.heisei_dream.reference": "ヘイセイヘイセイ",
 
@@ -1622,42 +1622,42 @@
   "block.botania.agricarnation.reference": "4月25日に身に付ける",
 
   "block.botania.floating_agricarnation": "浮遊するアグリカーネーション",
-  "block.botania.agricarnation_chibi": "アグリカーネーション・プチ",
-  "block.botania.agricarnation_chibi.reference": "4月25日に身に付ける",
+  "block.botania.agricarnation_petite": "アグリカーネーション・プチ",
+  "block.botania.agricarnation_petite.reference": "4月25日に身に付ける",
 
-  "block.botania.floating_agricarnation_chibi": "浮遊するアグリカーネーション・プチ",
+  "block.botania.floating_agricarnation_petite": "浮遊するアグリカーネーション・プチ",
   "block.botania.hopperhock": "ホッパーホック",
   "block.botania.hopperhock.reference": "全部ここに流しこむ",
 
   "block.botania.floating_hopperhock": "浮遊するホッパーホック",
-  "block.botania.hopperhock_chibi": "ホッパーホック・プチ",
-  "block.botania.hopperhock_chibi.reference": "全部ここに流しこむ",
+  "block.botania.hopperhock_petite": "ホッパーホック・プチ",
+  "block.botania.hopperhock_petite.reference": "全部ここに流しこむ",
 
-  "block.botania.floating_hopperhock_chibi": "浮遊するホッパーホック・プチ",
+  "block.botania.floating_hopperhock_petite": "浮遊するホッパーホック・プチ",
   "block.botania.tangleberrie": "タングルベリー",
-  "block.botania.tangleberrie_chibi": "タングルベリー・プチ",
+  "block.botania.tangleberrie_petite": "タングルベリー・プチ",
   "block.botania.tangleberrie.reference": "フライパン禁止",
-  "block.botania.tangleberrie_chibi.reference": "フライパン禁止",
+  "block.botania.tangleberrie_petite.reference": "フライパン禁止",
 
   "block.botania.floating_tangleberrie": "浮遊するタングルベリー",
 
-  "block.botania.floating_tangleberrie_chibi": "浮遊するタングルベリー・プチ",
+  "block.botania.floating_tangleberrie_petite": "浮遊するタングルベリー・プチ",
   "block.botania.jiyuulia": "ジユーリア",
-  "block.botania.jiyuulia_chibi": "ジユーリア・プチ",
+  "block.botania.jiyuulia_petite": "ジユーリア・プチ",
   "block.botania.jiyuulia.reference": "フリューゲル・デア・フライハイト(自由の翼)",
-  "block.botania.jiyuulia_chibi.reference": "フリューゲル・デア・フライハイト(自由の翼)",
+  "block.botania.jiyuulia_petite.reference": "フリューゲル・デア・フライハイト(自由の翼)",
 
   "block.botania.floating_jiyuulia": "浮遊するジユーリア",
 
-  "block.botania.floating_jiyuulia_chibi": "浮遊するジユーリア・プチ",
+  "block.botania.floating_jiyuulia_petite": "浮遊するジユーリア・プチ",
   "block.botania.rannuncarpus": "ラナンカーパス",
   "block.botania.rannuncarpus.reference": "手のひらサイズ",
 
   "block.botania.floating_rannuncarpus": "浮遊するラナンカーパス",
-  "block.botania.rannuncarpus_chibi": "ラナンカーパス・プチ",
-  "block.botania.rannuncarpus_chibi.reference": "手のひらサイズ",
+  "block.botania.rannuncarpus_petite": "ラナンカーパス・プチ",
+  "block.botania.rannuncarpus_petite.reference": "手のひらサイズ",
 
-  "block.botania.floating_rannuncarpus_chibi": "浮遊するラナンカーパス・プチ",
+  "block.botania.floating_rannuncarpus_petite": "浮遊するラナンカーパス・プチ",
   "block.botania.hyacidus": "ヒヤシダス",
   "block.botania.hyacidus.reference": "歩かなければ、毒を受けない",
 
@@ -1670,10 +1670,10 @@
   "block.botania.clayconia.reference": "ルピーは入っていません",
 
   "block.botania.floating_clayconia": "浮遊するクレイコニア",
-  "block.botania.clayconia_chibi": "クレイコニア・プチ",
-  "block.botania.clayconia_chibi.reference": "ルピーは入っていません",
+  "block.botania.clayconia_petite": "クレイコニア・プチ",
+  "block.botania.clayconia_petite.reference": "ルピーは入っていません",
 
-  "block.botania.floating_clayconia_chibi": "浮遊するクレイコニア・プチ",
+  "block.botania.floating_clayconia_petite": "浮遊するクレイコニア・プチ",
   "block.botania.loonium": "ルーニウム",
   "block.botania.loonium.reference": "頭の上に掲げてください",
 
@@ -1698,26 +1698,26 @@
   "block.botania.marimorphosis.reference": "おはよう世界 ",
 
   "block.botania.floating_marimorphosis": "浮遊するマリモルフォシス",
-  "block.botania.marimorphosis_chibi": "マリモルフォシス・プチ",
-  "block.botania.marimorphosis_chibi.reference": "おはよう世界 ",
+  "block.botania.marimorphosis_petite": "マリモルフォシス・プチ",
+  "block.botania.marimorphosis_petite.reference": "おはよう世界 ",
 
-  "block.botania.floating_marimorphosis_chibi": "浮遊するマリモルフォシス・プチ",
+  "block.botania.floating_marimorphosis_petite": "浮遊するマリモルフォシス・プチ",
   "block.botania.bubbell": "バッベル",
   "block.botania.bubbell.reference": "いまなら様々なオプション機能もついています",
 
   "block.botania.floating_bubbell": "浮遊するバッベル",
-  "block.botania.bubbell_chibi": "バッベル・プチ",
-  "block.botania.bubbell_chibi.reference": "いまなら様々なオプション機能もついています",
+  "block.botania.bubbell_petite": "バッベル・プチ",
+  "block.botania.bubbell_petite.reference": "いまなら様々なオプション機能もついています",
 
-  "block.botania.floating_bubbell_chibi": "浮遊するバッベル・プチ",
+  "block.botania.floating_bubbell_petite": "浮遊するバッベル・プチ",
   "block.botania.solegnolia": "ソレノリア",
   "block.botania.solegnolia.reference": "君たちの磁石は全て我々が頂いた!",
 
   "block.botania.floating_solegnolia": "浮遊するソレノリア",
-  "block.botania.solegnolia_chibi": "ソレノリア・プチ",
-  "block.botania.solegnolia_chibi.reference": "君たちの磁石は全て我々が頂いた!",
+  "block.botania.solegnolia_petite": "ソレノリア・プチ",
+  "block.botania.solegnolia_petite.reference": "君たちの磁石は全て我々が頂いた!",
 
-  "block.botania.floating_solegnolia_chibi": "浮遊するソレノリア・プチ",
+  "block.botania.floating_solegnolia_petite": "浮遊するソレノリア・プチ",
   "block.botania.bergamute": "ベルガミュート",
   "block.botania.bergamute.reference": "閉ざしたままの口唇",
 

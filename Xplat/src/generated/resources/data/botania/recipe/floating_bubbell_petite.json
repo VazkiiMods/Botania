@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "botania:floating_flower",
+  "ingredients": [
+    {
+      "tag": "botania:floating_flowers"
+    },
+    {
+      "item": "botania:bubbell_petite"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:floating_bubbell_petite"
+  }
+}

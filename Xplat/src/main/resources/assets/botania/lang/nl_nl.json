@@ -1578,16 +1578,16 @@
 
 
 
-  "block.botania.bellethorn": "Bellendoorn",
-  "block.botania.bellethorn.reference": "Prik je niet",
+  "block.botania.bellethorne": "Bellendoorn",
+  "block.botania.bellethorne.reference": "Prik je niet",
 
 
-  "block.botania.bellethorn_chibi": "Bellendoorn Petite",
-  "block.botania.bellethorn_chibi.reference": "Het einde van de wereld?",
+  "block.botania.bellethorne_petite": "Bellendoorn Petite",
+  "block.botania.bellethorne_petite.reference": "Het einde van de wereld?",
 
 
-  "block.botania.dreadthorn": "Schrikkeldoorn",
-  "block.botania.dreadthorn.reference": "Plan C",
+  "block.botania.dreadthorne": "Schrikkeldoorn",
+  "block.botania.dreadthorne.reference": "Plan C",
 
 
   "block.botania.heisei_dream": "Droomdoorn",
@@ -1622,16 +1622,16 @@
   "block.botania.agricarnation.reference": "Wat de boer niet kent",
 
 
-  "block.botania.agricarnation_chibi": "Agraniet Petite",
-  "block.botania.agricarnation_chibi.reference": "Dragen deze bloem",
+  "block.botania.agricarnation_petite": "Agraniet Petite",
+  "block.botania.agricarnation_petite.reference": "Dragen deze bloem",
 
 
   "block.botania.hopperhock": "Trechterkruid",
   "block.botania.hopperhock.reference": "Het gaat er allemaal in",
 
 
-  "block.botania.hopperhock_chibi": "Kleint Trechterkruid",
-  "block.botania.hopperhock_chibi.reference": "Het trechtert erin",
+  "block.botania.hopperhock_petite": "Kleint Trechterkruid",
+  "block.botania.hopperhock_petite.reference": "Het trechtert erin",
 
 
   "block.botania.tangleberrie": "Tangelbes",
@@ -1654,8 +1654,8 @@
   "block.botania.rannuncarpus.reference": "Altijd handig",
 
 
-  "block.botania.rannuncarpus_chibi": "Klein Rannakruid",
-  "block.botania.rannuncarpus_chibi.reference": "Da's handig",
+  "block.botania.rannuncarpus_petite": "Klein Rannakruid",
+  "block.botania.rannuncarpus_petite.reference": "Da's handig",
 
 
   "block.botania.hyacidus": "Hyacint",
@@ -1698,16 +1698,16 @@
   "block.botania.marimorphosis.reference": "Stevig als een rots",
 
 
-  "block.botania.marimorphosis_chibi": "Mariemorfose Petite",
-  "block.botania.marimorphosis_chibi.reference": "Stevig als een rots",
+  "block.botania.marimorphosis_petite": "Mariemorfose Petite",
+  "block.botania.marimorphosis_petite.reference": "Stevig als een rots",
 
 
   "block.botania.bubbell": "Bubbelbes",
   "block.botania.bubbell.reference": "En fluiten",
 
 
-  "block.botania.bubbell_chibi": "Kleine Bubbelbes",
-  "block.botania.bubbell_chibi.reference": "En fluiten",
+  "block.botania.bubbell_petite": "Kleine Bubbelbes",
+  "block.botania.bubbell_petite.reference": "En fluiten",
 
 
   "block.botania.solegnolia": "Solegnolie",

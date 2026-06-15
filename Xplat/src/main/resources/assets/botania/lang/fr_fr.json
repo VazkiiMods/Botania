@@ -1578,18 +1578,18 @@
 
   "block.botania.floating_shulk_me_not": "Myosato flottant",
 
-  "block.botania.bellethorn": "Bellépine",
-  "block.botania.bellethorn.reference": "Le nom de la rose",
+  "block.botania.bellethorne": "Bellépine",
+  "block.botania.bellethorne.reference": "Le nom de la rose",
 
-  "block.botania.floating_bellethorn": "Bellépine flottante",
-  "block.botania.bellethorn_chibi": "Petite bellépine",
-  "block.botania.bellethorn_chibi.reference": "Le nom de la rose",
+  "block.botania.floating_bellethorne": "Bellépine flottante",
+  "block.botania.bellethorne_petite": "Petite bellépine",
+  "block.botania.bellethorne_petite.reference": "Le nom de la rose",
 
-  "block.botania.floating_bellethorn_chibi": "Petite bellépine flottante",
-  "block.botania.dreadthorn": "Bêtépine",
-  "block.botania.dreadthorn.reference": "Au clair de la lune",
+  "block.botania.floating_bellethorne_petite": "Petite bellépine flottante",
+  "block.botania.dreadthorne": "Bêtépine",
+  "block.botania.dreadthorne.reference": "Au clair de la lune",
 
-  "block.botania.floating_dreadthorn": "Bêtépine flottante",
+  "block.botania.floating_dreadthorne": "Bêtépine flottante",
   "block.botania.heisei_dream": "Argénium",
   "block.botania.heisei_dream.reference": "Rêve de Heisei",
 
@@ -1622,42 +1622,42 @@
   "block.botania.agricarnation.reference": "Villaverde",
 
   "block.botania.floating_agricarnation": "Agricarnation flottante",
-  "block.botania.agricarnation_chibi": "Petite agricarnation",
-  "block.botania.agricarnation_chibi.reference": "Villaverde",
+  "block.botania.agricarnation_petite": "Petite agricarnation",
+  "block.botania.agricarnation_petite.reference": "Villaverde",
 
-  "block.botania.floating_agricarnation_chibi": "Petite agricarnation flottante",
+  "block.botania.floating_agricarnation_petite": "Petite agricarnation flottante",
   "block.botania.hopperhock": "Entunia",
   "block.botania.hopperhock.reference": "Jarret de trémie",
 
   "block.botania.floating_hopperhock": "Entunia flottant",
-  "block.botania.hopperhock_chibi": "Petit entunia",
-  "block.botania.hopperhock_chibi.reference": "Jarret de trémie",
+  "block.botania.hopperhock_petite": "Petit entunia",
+  "block.botania.hopperhock_petite.reference": "Jarret de trémie",
 
-  "block.botania.floating_hopperhock_chibi": "Petit entunia flottant",
+  "block.botania.floating_hopperhock_petite": "Petit entunia flottant",
   "block.botania.tangleberrie": "Raipronce",
-  "block.botania.tangleberrie_chibi": "Petite raipronce",
+  "block.botania.tangleberrie_petite": "Petite raipronce",
   "block.botania.tangleberrie.reference": "Baie emmêlée",
-  "block.botania.tangleberrie_chibi.reference": "Baie emmêlée",
+  "block.botania.tangleberrie_petite.reference": "Baie emmêlée",
 
   "block.botania.floating_tangleberrie": "Raipronce flottante",
 
-  "block.botania.floating_tangleberrie_chibi": "Petite raipronce flottante",
+  "block.botania.floating_tangleberrie_petite": "Petite raipronce flottante",
   "block.botania.jiyuulia": "Jiyuulipe",
-  "block.botania.jiyuulia_chibi": "Petite jiyuulipe",
+  "block.botania.jiyuulia_petite": "Petite jiyuulipe",
   "block.botania.jiyuulia.reference": "Sasageyo Sasageyo !",
-  "block.botania.jiyuulia_chibi.reference": "Sasageyo Sasageyo !",
+  "block.botania.jiyuulia_petite.reference": "Sasageyo Sasageyo !",
 
   "block.botania.floating_jiyuulia": "Jiyuulipe flottante",
 
-  "block.botania.floating_jiyuulia_chibi": "Petite jiyuulipe flottante",
+  "block.botania.floating_jiyuulia_petite": "Petite jiyuulipe flottante",
 
   "block.botania.rannuncarpus.reference": "Haut les mains",
 
   "block.botania.floating_rannuncarpus": "Rannuncarpus flottant",
-  "block.botania.rannuncarpus_chibi": "Petit rannuncarpus",
-  "block.botania.rannuncarpus_chibi.reference": "Haut les mains",
+  "block.botania.rannuncarpus_petite": "Petit rannuncarpus",
+  "block.botania.rannuncarpus_petite.reference": "Haut les mains",
 
-  "block.botania.floating_rannuncarpus_chibi": "Petit rannuncarpus flottant",
+  "block.botania.floating_rannuncarpus_petite": "Petit rannuncarpus flottant",
   "block.botania.hyacidus": "Jacidus",
   "block.botania.hyacidus.reference": "Neurotoxine non-toxique",
 
@@ -1670,10 +1670,10 @@
   "block.botania.clayconia.reference": "Parfaitement équilibré",
 
   "block.botania.floating_clayconia": "Argilonia flottante",
-  "block.botania.clayconia_chibi": "Petite argilonia",
-  "block.botania.clayconia_chibi.reference": "Parfaitement équilibré",
+  "block.botania.clayconia_petite": "Petite argilonia",
+  "block.botania.clayconia_petite.reference": "Parfaitement équilibré",
 
-  "block.botania.floating_clayconia_chibi": "Petite argilonia flottante",
+  "block.botania.floating_clayconia_petite": "Petite argilonia flottante",
   "block.botania.loonium": "Trésorthensia",
   "block.botania.loonium.reference": "Coffre Animé",
 
@@ -1698,26 +1698,26 @@
   "block.botania.marimorphosis.reference": "Métamorph utilise morphing",
 
   "block.botania.floating_marimorphosis": "Marimorphose flottante",
-  "block.botania.marimorphosis_chibi": "Petite marimorphose",
-  "block.botania.marimorphosis_chibi.reference": "Métamorph utilise morphing",
+  "block.botania.marimorphosis_petite": "Petite marimorphose",
+  "block.botania.marimorphosis_petite.reference": "Métamorph utilise morphing",
 
-  "block.botania.floating_marimorphosis_chibi": "Petite marimorphose flottante",
+  "block.botania.floating_marimorphosis_petite": "Petite marimorphose flottante",
   "block.botania.bubbell": "Cleauchette",
   "block.botania.bubbell.reference": "Sous l'océan",
 
   "block.botania.floating_bubbell": "Cleauchette flottante",
-  "block.botania.bubbell_chibi": "Petite cleauchette",
-  "block.botania.bubbell_chibi.reference": "Sous l'océan",
+  "block.botania.bubbell_petite": "Petite cleauchette",
+  "block.botania.bubbell_petite.reference": "Sous l'océan",
 
-  "block.botania.floating_bubbell_chibi": "Petite cleauchette flottante",
+  "block.botania.floating_bubbell_petite": "Petite cleauchette flottante",
   "block.botania.solegnolia": "Solégnolïa",
   "block.botania.solegnolia.reference": "Contient des traces de néodyme",
 
   "block.botania.floating_solegnolia": "Solégnolïa flottant",
-  "block.botania.solegnolia_chibi": "Petit solégnolïa",
-  "block.botania.solegnolia_chibi.reference": "Contient des traces de néodyme",
+  "block.botania.solegnolia_petite": "Petit solégnolïa",
+  "block.botania.solegnolia_petite.reference": "Contient des traces de néodyme",
 
-  "block.botania.floating_solegnolia_chibi": "Petit solégnolïa flottant",
+  "block.botania.floating_solegnolia_petite": "Petit solégnolïa flottant",
   "block.botania.bergamute": "Scillence",
   "block.botania.bergamute.reference": "Pasunmotdeplus",
 
