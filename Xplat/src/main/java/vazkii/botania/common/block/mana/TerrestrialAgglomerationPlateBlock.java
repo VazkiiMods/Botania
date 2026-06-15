@@ -34,7 +34,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.TerraPlateState;
