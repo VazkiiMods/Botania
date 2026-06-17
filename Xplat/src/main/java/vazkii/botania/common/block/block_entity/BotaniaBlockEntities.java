@@ -149,7 +149,7 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.RED_STRINGED_COMPARATOR
 	);
 	public static final BlockEntityType<RedStringSpooferBlockEntity> RED_STRINGED_SPOOFER = type(
-			"red_stringed_relay", RedStringSpooferBlockEntity::new,
+			"red_stringed_spoofer", RedStringSpooferBlockEntity::new,
 			BotaniaBlocks.RED_STRINGED_SPOOFER
 	);
 	public static final BlockEntityType<ManaFlameBlockEntity> MANA_FLAME = type(

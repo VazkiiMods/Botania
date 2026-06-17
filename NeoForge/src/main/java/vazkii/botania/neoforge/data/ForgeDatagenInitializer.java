@@ -112,16 +112,16 @@ public class ForgeDatagenInitializer {
 					GenerationStep.Decoration.VEGETAL_DECORATION));
 			context.register(
 					ADD_SHIMMERING_MUSHROOMS, new BiomeModifiers.AddFeaturesBiomeModifier(
-					biomes.getOrThrow(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_SPAWNLIST),
-					HolderSet.direct(placedFeatures.getOrThrow(SHIMMERING_MUSHROOMS_FEATURE)),
-					GenerationStep.Decoration.VEGETAL_DECORATION));
+							biomes.getOrThrow(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_SPAWNLIST),
+							HolderSet.direct(placedFeatures.getOrThrow(SHIMMERING_MUSHROOMS_FEATURE)),
+							GenerationStep.Decoration.VEGETAL_DECORATION));
 			context.register(REMOVE_MYSTICAL_FLOWERS, BiomeModifiers.RemoveFeaturesBiomeModifier.allSteps(
 					biomes.getOrThrow(BotaniaTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST),
 					HolderSet.direct(placedFeatures.getOrThrow(MYSTICAL_FLOWERS_FEATURE))));
 			context.register(
 					REMOVE_SHIMMERING_MUSHROOMS, BiomeModifiers.RemoveFeaturesBiomeModifier.allSteps(
-					biomes.getOrThrow(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_BLOCKLIST),
-					HolderSet.direct(placedFeatures.getOrThrow(SHIMMERING_MUSHROOMS_FEATURE))));
+							biomes.getOrThrow(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_BLOCKLIST),
+							HolderSet.direct(placedFeatures.getOrThrow(SHIMMERING_MUSHROOMS_FEATURE))));
 		});
 	}
 
