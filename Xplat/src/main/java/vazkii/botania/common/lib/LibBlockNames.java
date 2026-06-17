@@ -85,7 +85,7 @@ public final class LibBlockNames {
 	public static final String CONJURATION_CATALYST = "conjuration_catalyst";
 	public static final String BIFROST = "bifrost";
 	public static final String SOLID_VINE = "solid_vine";
-	public static final String BURIED_PETALS_SUFFIX = "_buried_petals";
+	public static final String BURIED_PETAL_SUFFIX = "_buried_petal";
 	public static final String PRISMARINE = "prismarine";
 	public static final String MINI_ISLAND = "mini_island";
 	public static final String FLOATING_FLOWER_SUFFIX = "_floating_flower";

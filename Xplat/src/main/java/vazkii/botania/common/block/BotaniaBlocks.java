@@ -3147,7 +3147,7 @@ public final class BotaniaBlocks {
 
 	private static BuriedPetalBlock makeBuriedPetal(DyeColor color, BlockBehaviour.Properties properties) {
 		return make(
-				color.getSerializedName() + LibBlockNames.BURIED_PETALS_SUFFIX,
+				color.getSerializedName() + LibBlockNames.BURIED_PETAL_SUFFIX,
 				new BuriedPetalBlock(
 						color,
 						BotaniaBlocks::getTallMysticalFlower,
