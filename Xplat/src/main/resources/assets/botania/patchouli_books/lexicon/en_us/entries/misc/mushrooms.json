@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.mushrooms",
   "category": "botania:misc",
-  "icon": "botania:white_mushroom",
+  "icon": "botania:white_shimmering_mushroom",
   "advancement": "botania:main/flower_pickup_lexicon",
   "pages": [
     {

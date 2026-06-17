@@ -1,0 +1,5 @@
+{
+  "type": "neoforge:remove_features",
+  "biomes": "#botania:shimmering_mushroom_blocklist",
+  "features": "botania:shimmering_mushrooms"
+}

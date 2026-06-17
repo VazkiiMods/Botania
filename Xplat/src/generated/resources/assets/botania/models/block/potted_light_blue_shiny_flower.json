@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/flower_pot_cross",
-  "textures": {
-    "plant": "botania:block/light_blue_shiny_flower"
-  }
-}

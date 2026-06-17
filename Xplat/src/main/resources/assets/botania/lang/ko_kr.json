@@ -230,7 +230,7 @@
 
 
 
-  "tag.block.botania.double_mystical_flowers": "키 큰 신비로운 꽃",
+  "tag.block.botania.tall_mystical_flowers": "키 큰 신비로운 꽃",
   "tag.block.botania.dreamwood_logs": "꿈나무 원목",
 
 
@@ -256,7 +256,7 @@
   "tag.block.botania.misc_special_flowers": "기타 특별한 꽃",
 
   "tag.block.botania.mundane_floating_flowers": "수수한 떠다니는 꽃",
-  "tag.block.botania.mystical_flowers": "신비로운 꽃",
+  "tag.block.botania.small_mystical_flowers": "신비로운 꽃",
 
 
 
@@ -330,7 +330,7 @@
 
 
 
-  "tag.item.botania.double_mystical_flowers": "키 큰 신비로운 꽃",
+  "tag.item.botania.tall_mystical_flowers": "키 큰 신비로운 꽃",
   "tag.item.botania.dreamwood_logs": "꿈나무 원목",
 
 
@@ -359,7 +359,7 @@
   "tag.item.botania.misc_special_flowers": "기타 특별한 꽃",
 
   "tag.item.botania.mundane_floating_flowers": "수수한 떠다니는 꽃",
-  "tag.item.botania.mystical_flowers": "신비로운 꽃",
+  "tag.item.botania.small_mystical_flowers": "신비로운 꽃",
   "tag.item.botania.petals": "꽃잎",
   "tag.item.botania.petals.black": "검은색 꽃잎",
   "tag.item.botania.petals.blue": "푸른색 꽃잎",
@@ -1056,22 +1056,22 @@
   "block.botania.drum_wild": "야생의 드럼",
   "block.botania.drum_gathering": "수집의 드럼",
   "block.botania.drum_canopy": "캐너피 드럼",
-  "block.botania.white_shiny_flower": "빛나는 하얀색 꽃",
-  "block.botania.orange_shiny_flower": "빛나는 주황색 꽃",
-  "block.botania.magenta_shiny_flower": "빛나는 자홍색 꽃",
-  "block.botania.light_blue_shiny_flower": "빛나는 하늘색 꽃",
-  "block.botania.yellow_shiny_flower": "빛나는 노란색 꽃",
-  "block.botania.lime_shiny_flower": "빛나는 연두색 꽃",
-  "block.botania.pink_shiny_flower": "빛나는 분홍색 꽃",
-  "block.botania.gray_shiny_flower": "빛나는 회색 꽃",
-  "block.botania.light_gray_shiny_flower": "빛나는 밝은 회색 꽃",
-  "block.botania.cyan_shiny_flower": "빛나는 청록색 꽃",
-  "block.botania.purple_shiny_flower": "빛나는 보라색 꽃",
-  "block.botania.blue_shiny_flower": "빛나는 파란색 꽃",
-  "block.botania.brown_shiny_flower": "빛나는 갈색 꽃",
-  "block.botania.green_shiny_flower": "빛나는 초록색 꽃",
-  "block.botania.red_shiny_flower": "빛나는 빨간색 꽃",
-  "block.botania.black_shiny_flower": "빛나는 검은색 꽃",
+  "block.botania.white_glimmering_flower": "빛나는 하얀색 꽃",
+  "block.botania.orange_glimmering_flower": "빛나는 주황색 꽃",
+  "block.botania.magenta_glimmering_flower": "빛나는 자홍색 꽃",
+  "block.botania.light_blue_glimmering_flower": "빛나는 하늘색 꽃",
+  "block.botania.yellow_glimmering_flower": "빛나는 노란색 꽃",
+  "block.botania.lime_glimmering_flower": "빛나는 연두색 꽃",
+  "block.botania.pink_glimmering_flower": "빛나는 분홍색 꽃",
+  "block.botania.gray_glimmering_flower": "빛나는 회색 꽃",
+  "block.botania.light_gray_glimmering_flower": "빛나는 밝은 회색 꽃",
+  "block.botania.cyan_glimmering_flower": "빛나는 청록색 꽃",
+  "block.botania.purple_glimmering_flower": "빛나는 보라색 꽃",
+  "block.botania.blue_glimmering_flower": "빛나는 파란색 꽃",
+  "block.botania.brown_glimmering_flower": "빛나는 갈색 꽃",
+  "block.botania.green_glimmering_flower": "빛나는 초록색 꽃",
+  "block.botania.red_glimmering_flower": "빛나는 빨간색 꽃",
+  "block.botania.black_glimmering_flower": "빛나는 검은색 꽃",
 
 
 
@@ -1349,22 +1349,22 @@
   "block.botania.black_petal_block": "검은색 꽃잎 블록",
   "block.botania.corporea_index": "코포리아 인덱스",
   "block.botania.corporea_funnel": "코포리아 퍼널",
-  "block.botania.white_mushroom": "반짝이는 하얀색  버섯",
-  "block.botania.orange_mushroom": "반짝이는 주황색  버섯",
-  "block.botania.magenta_mushroom": "반짝이는 자홍색 버섯",
-  "block.botania.light_blue_mushroom": "반짝이는 하늘색 버섯",
-  "block.botania.yellow_mushroom": "반짝이는 노란색 버섯",
-  "block.botania.lime_mushroom": "반짝이는 연두색 버섯",
-  "block.botania.pink_mushroom": "반짝이는 분홍색  버섯",
-  "block.botania.gray_mushroom": "반짝이는 회색 버섯",
-  "block.botania.light_gray_mushroom": "반짝이는 밝은 회색 버섯",
-  "block.botania.cyan_mushroom": "반짝이는 청록색 버섯",
-  "block.botania.purple_mushroom": "반짝이는 보라색 버섯",
-  "block.botania.blue_mushroom": "반짝이는 파란색 버섯",
-  "block.botania.brown_mushroom": "반짝이는 갈색 버섯",
-  "block.botania.green_mushroom": "반짝이는 초록색 버섯",
-  "block.botania.red_mushroom": "반짝이는 빨간색 버섯",
-  "block.botania.black_mushroom": "반짝이는 검은색 버섯",
+  "block.botania.white_shimmering_mushroom": "반짝이는 하얀색  버섯",
+  "block.botania.orange_shimmering_mushroom": "반짝이는 주황색  버섯",
+  "block.botania.magenta_shimmering_mushroom": "반짝이는 자홍색 버섯",
+  "block.botania.light_blue_shimmering_mushroom": "반짝이는 하늘색 버섯",
+  "block.botania.yellow_shimmering_mushroom": "반짝이는 노란색 버섯",
+  "block.botania.lime_shimmering_mushroom": "반짝이는 연두색 버섯",
+  "block.botania.pink_shimmering_mushroom": "반짝이는 분홍색  버섯",
+  "block.botania.gray_shimmering_mushroom": "반짝이는 회색 버섯",
+  "block.botania.light_gray_shimmering_mushroom": "반짝이는 밝은 회색 버섯",
+  "block.botania.cyan_shimmering_mushroom": "반짝이는 청록색 버섯",
+  "block.botania.purple_shimmering_mushroom": "반짝이는 보라색 버섯",
+  "block.botania.blue_shimmering_mushroom": "반짝이는 파란색 버섯",
+  "block.botania.brown_shimmering_mushroom": "반짝이는 갈색 버섯",
+  "block.botania.green_shimmering_mushroom": "반짝이는 초록색 버섯",
+  "block.botania.red_shimmering_mushroom": "반짝이는 빨간색 버섯",
+  "block.botania.black_shimmering_mushroom": "반짝이는 검은색 버섯",
 
 
 
@@ -1382,22 +1382,22 @@
 
 
   "block.botania.pump": "마나 펌프",
-  "block.botania.white_double_flower": "신비로운 하얀색 꽃",
-  "block.botania.orange_double_flower": "신비로운 주황색 꽃",
-  "block.botania.magenta_double_flower": "신비로운 자홍색 꽃",
-  "block.botania.light_blue_double_flower": "신비로운 하늘색 꽃",
-  "block.botania.yellow_double_flower": "신비로운 노란색 꽃",
-  "block.botania.lime_double_flower": "신비로운 연두색 꽃",
-  "block.botania.pink_double_flower": "신비로운 분홍색 꽃",
-  "block.botania.gray_double_flower": "신비로운 회색 꽃",
-  "block.botania.light_gray_double_flower": "신비로운 밝은 회색 꽃",
-  "block.botania.cyan_double_flower": "신비로운 청록색 꽃",
-  "block.botania.purple_double_flower": "신비로운 보라색 꽃",
-  "block.botania.blue_double_flower": "신비로운 파란색 꽃",
-  "block.botania.brown_double_flower": "신비로운 갈색 꽃",
-  "block.botania.green_double_flower": "신비로운 초록색 꽃",
-  "block.botania.red_double_flower": "신비로운 빨간색 꽃",
-  "block.botania.black_double_flower": "신비로운 검은색 꽃",
+  "block.botania.white_tall_mystical_flower": "신비로운 하얀색 꽃",
+  "block.botania.orange_tall_mystical_flower": "신비로운 주황색 꽃",
+  "block.botania.magenta_tall_mystical_flower": "신비로운 자홍색 꽃",
+  "block.botania.light_blue_tall_mystical_flower": "신비로운 하늘색 꽃",
+  "block.botania.yellow_tall_mystical_flower": "신비로운 노란색 꽃",
+  "block.botania.lime_tall_mystical_flower": "신비로운 연두색 꽃",
+  "block.botania.pink_tall_mystical_flower": "신비로운 분홍색 꽃",
+  "block.botania.gray_tall_mystical_flower": "신비로운 회색 꽃",
+  "block.botania.light_gray_tall_mystical_flower": "신비로운 밝은 회색 꽃",
+  "block.botania.cyan_tall_mystical_flower": "신비로운 청록색 꽃",
+  "block.botania.purple_tall_mystical_flower": "신비로운 보라색 꽃",
+  "block.botania.blue_tall_mystical_flower": "신비로운 파란색 꽃",
+  "block.botania.brown_tall_mystical_flower": "신비로운 갈색 꽃",
+  "block.botania.green_tall_mystical_flower": "신비로운 초록색 꽃",
+  "block.botania.red_tall_mystical_flower": "신비로운 빨간색 꽃",
+  "block.botania.black_tall_mystical_flower": "신비로운 검은색 꽃",
   "block.botania.blaze_block": "블레이즈 램프",
   "block.botania.corporea_interceptor": "코포리아 인터셉터",
   "block.botania.corporea_crystal_cube": "코포리아 크리스탈 큐브",

@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(
-			BotaniaTags.Blocks.MYSTICAL_FLOWERS,
+			BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS,
 			BotaniaTags.Blocks.SPECIAL_FLOWERS
 	);
 
@@ -46,7 +46,7 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		tag(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("buzzier_bees", "flower_blacklist")))
-				.addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)
+				.addTag(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS)
 				.addTag(BotaniaTags.Blocks.SPECIAL_FLOWERS);
 	}
 }

@@ -163,30 +163,30 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.FLOATING_FLOWERS).addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS)
 				.addTag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS);
 
-		tag(BotaniaTags.Blocks.MYSTICAL_FLOWERS).add(
+		tag(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS).add(
 				ColorHelper.supportedColors()
-						.map(BotaniaBlocks::getFlower)
+						.map(BotaniaBlocks::getMysticalFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
 		tag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS).add(
 				ColorHelper.supportedColors()
-						.map(BotaniaBlocks::getMushroom)
+						.map(BotaniaBlocks::getShimmeringMushroom)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		tag(BotaniaTags.Blocks.SHINY_FLOWERS).add(
+		tag(BotaniaTags.Blocks.GLIMMERING_FLOWERS).add(
 				ColorHelper.supportedColors()
-						.map(BotaniaBlocks::getShinyFlower)
+						.map(BotaniaBlocks::getGlimmeringFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		tag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
+		tag(BotaniaTags.Blocks.TALL_MYSTICAL_FLOWERS).add(
 				ColorHelper.supportedColors()
-						.map(BotaniaBlocks::getDoubleFlower)
+						.map(BotaniaBlocks::getTallMysticalFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
@@ -223,15 +223,15 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						&& BuiltInRegistries.BLOCK.getKey(block).getPath().endsWith("_petite"))
 		);
 
-		tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)
-				.addTag(BotaniaTags.Blocks.SHINY_FLOWERS)
+		tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS).addTag(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS)
+				.addTag(BotaniaTags.Blocks.GLIMMERING_FLOWERS)
 				.addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS);
 
 		// Special flowers intentionally excluded due to unwanted behaviors with tree growth and mod compat.
-		tag(BlockTags.TALL_FLOWERS).addTag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
-		tag(BlockTags.SMALL_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS);
+		tag(BlockTags.TALL_FLOWERS).addTag(BotaniaTags.Blocks.TALL_MYSTICAL_FLOWERS);
+		tag(BlockTags.SMALL_FLOWERS).addTag(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS);
 		// intentionally not added to small flowers so Endermen don't grab them
-		tag(BlockTags.FLOWERS).addTag(BotaniaTags.Blocks.SHINY_FLOWERS);
+		tag(BlockTags.FLOWERS).addTag(BotaniaTags.Blocks.GLIMMERING_FLOWERS);
 
 		tag(BlockTags.IMPERMEABLE).add(
 				BotaniaBlocks.ALFGLASS, BotaniaBlocks.MANAGLASS, BotaniaBlocks.TEMPORARY_BIFROST_BLOCK,
@@ -349,7 +349,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "high_grass"))
 				.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "high_grass_plant"));
 		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_IMMUNE)
-				.addTag(BotaniaTags.Blocks.SHINY_FLOWERS)
+				.addTag(BotaniaTags.Blocks.GLIMMERING_FLOWERS)
 				.addTag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS);
 		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE)
 				.addTag(BlockTags.LEAVES)

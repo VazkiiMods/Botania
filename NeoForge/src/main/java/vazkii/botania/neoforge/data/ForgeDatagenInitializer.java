@@ -57,17 +57,17 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class ForgeDatagenInitializer {
 	private static final ResourceKey<PlacedFeature> MYSTICAL_FLOWERS_FEATURE = ResourceKey.create(
 			Registries.PLACED_FEATURE, botaniaRL("mystical_flowers"));
-	private static final ResourceKey<PlacedFeature> MYSTICAL_MUSHROOMS_FEATURE = ResourceKey.create(
-			Registries.PLACED_FEATURE, botaniaRL("mystical_mushrooms"));
+	private static final ResourceKey<PlacedFeature> SHIMMERING_MUSHROOMS_FEATURE = ResourceKey.create(
+			Registries.PLACED_FEATURE, botaniaRL("shimmering_mushrooms"));
 
 	private static final ResourceKey<BiomeModifier> ADD_MYSTICAL_FLOWERS = ResourceKey.create(
 			NeoForgeRegistries.Keys.BIOME_MODIFIERS, botaniaRL("add_mystical_flowers"));
-	private static final ResourceKey<BiomeModifier> ADD_MYSTICAL_MUSHROOMS = ResourceKey.create(
-			NeoForgeRegistries.Keys.BIOME_MODIFIERS, botaniaRL("add_mystical_mushrooms"));
+	private static final ResourceKey<BiomeModifier> ADD_SHIMMERING_MUSHROOMS = ResourceKey.create(
+			NeoForgeRegistries.Keys.BIOME_MODIFIERS, botaniaRL("add_shimmering_mushrooms"));
 	private static final ResourceKey<BiomeModifier> REMOVE_MYSTICAL_FLOWERS = ResourceKey.create(
 			NeoForgeRegistries.Keys.BIOME_MODIFIERS, botaniaRL("remove_mystical_flowers"));
-	private static final ResourceKey<BiomeModifier> REMOVE_MYSTICAL_MUSHROOMS = ResourceKey.create(
-			NeoForgeRegistries.Keys.BIOME_MODIFIERS, botaniaRL("remove_mystical_mushrooms"));
+	private static final ResourceKey<BiomeModifier> REMOVE_SHIMMERING_MUSHROOMS = ResourceKey.create(
+			NeoForgeRegistries.Keys.BIOME_MODIFIERS, botaniaRL("remove_shimmering_mushrooms"));
 
 	public static final ResourceKey<WorldPreset> SKYBLOCK_PRESET = ResourceKey.create(
 			Registries.WORLD_PRESET, BotaniaAPI.gogRL("gardenofglass"));
@@ -110,16 +110,18 @@ public class ForgeDatagenInitializer {
 					biomes.getOrThrow(BotaniaTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST),
 					HolderSet.direct(placedFeatures.getOrThrow(MYSTICAL_FLOWERS_FEATURE)),
 					GenerationStep.Decoration.VEGETAL_DECORATION));
-			context.register(ADD_MYSTICAL_MUSHROOMS, new BiomeModifiers.AddFeaturesBiomeModifier(
-					biomes.getOrThrow(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST),
-					HolderSet.direct(placedFeatures.getOrThrow(MYSTICAL_MUSHROOMS_FEATURE)),
+			context.register(
+					ADD_SHIMMERING_MUSHROOMS, new BiomeModifiers.AddFeaturesBiomeModifier(
+					biomes.getOrThrow(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_SPAWNLIST),
+					HolderSet.direct(placedFeatures.getOrThrow(SHIMMERING_MUSHROOMS_FEATURE)),
 					GenerationStep.Decoration.VEGETAL_DECORATION));
 			context.register(REMOVE_MYSTICAL_FLOWERS, BiomeModifiers.RemoveFeaturesBiomeModifier.allSteps(
 					biomes.getOrThrow(BotaniaTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST),
 					HolderSet.direct(placedFeatures.getOrThrow(MYSTICAL_FLOWERS_FEATURE))));
-			context.register(REMOVE_MYSTICAL_MUSHROOMS, BiomeModifiers.RemoveFeaturesBiomeModifier.allSteps(
-					biomes.getOrThrow(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST),
-					HolderSet.direct(placedFeatures.getOrThrow(MYSTICAL_MUSHROOMS_FEATURE))));
+			context.register(
+					REMOVE_SHIMMERING_MUSHROOMS, BiomeModifiers.RemoveFeaturesBiomeModifier.allSteps(
+					biomes.getOrThrow(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_BLOCKLIST),
+					HolderSet.direct(placedFeatures.getOrThrow(SHIMMERING_MUSHROOMS_FEATURE))));
 		});
 	}
 

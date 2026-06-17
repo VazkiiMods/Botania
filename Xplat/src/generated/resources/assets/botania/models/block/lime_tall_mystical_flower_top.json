@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "botania:block/lime_tall_mystical_flower_top"
+  }
+}

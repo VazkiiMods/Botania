@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#botania:double_mystical_flowers"
+            "items": "#botania:tall_mystical_flowers"
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#botania:mystical_flowers"
+            "items": "#botania:small_mystical_flowers"
           }
         ]
       },

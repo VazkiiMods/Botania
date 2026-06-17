@@ -1,5 +1,0 @@
-{
-  "type": "neoforge:remove_features",
-  "biomes": "#botania:mystical_mushroom_blocklist",
-  "features": "botania:mystical_mushrooms"
-}

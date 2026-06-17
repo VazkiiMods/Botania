@@ -102,9 +102,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.SPECIAL_FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.FLOATING_FLOWERS, BotaniaTags.Items.FLOATING_FLOWERS);
-		this.copy(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.copy(BotaniaTags.Blocks.MYSTICAL_FLOWERS, BotaniaTags.Items.MYSTICAL_FLOWERS);
-		this.copy(BotaniaTags.Blocks.SHINY_FLOWERS, BotaniaTags.Items.SHINY_FLOWERS);
+		this.copy(BotaniaTags.Blocks.TALL_MYSTICAL_FLOWERS, BotaniaTags.Items.TALL_MYSTICAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS, BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.GLIMMERING_FLOWERS, BotaniaTags.Items.GLIMMERING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS, BotaniaTags.Items.SHIMMERING_MUSHROOMS);
 
 		this.copy(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS, BotaniaTags.Items.MISC_SPECIAL_FLOWERS);
@@ -116,10 +116,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
 				.add(BotaniaBlocks.DAYBLOOM_MOTIF.asItem(), BotaniaBlocks.NIGHTSHADE_MOTIF.asItem());
 
-		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
+		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.TALL_MYSTICAL_FLOWERS);
 		this.tag(ItemTags.SMALL_FLOWERS)
-				.addTag(BotaniaTags.Items.MYSTICAL_FLOWERS)
-				.addTag(BotaniaTags.Items.SHINY_FLOWERS)
+				.addTag(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS)
+				.addTag(BotaniaTags.Items.GLIMMERING_FLOWERS)
 				.addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
 				.add(
 						BotaniaBlocks.DAYBLOOM_MOTIF.asItem(),
@@ -181,7 +181,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
 		ColorHelper.supportedColors().forEach(color -> {
 			var petalTag = BotaniaTags.Items.getPetalTag(color);
-			this.tag(petalTag).add(BotaniaItems.getPetal(color), BotaniaBlocks.getMushroom(color).asItem());
+			this.tag(petalTag).add(BotaniaItems.getPetal(color), BotaniaBlocks.getShimmeringMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		});
 

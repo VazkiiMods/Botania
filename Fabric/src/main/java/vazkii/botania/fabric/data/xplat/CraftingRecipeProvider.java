@@ -864,10 +864,10 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.BANNER_PATTERN_MATERIALS)
 				.requires(Items.PAPER)
 				.requires(ConventionalItemTags.RAW_FISH_FOODS)
-				.requires(BotaniaTags.Items.MYSTICAL_FLOWERS)
+				.requires(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS)
 				.requires(ItemTags.SAPLINGS)
 				.unlockedBy("has_fish", conditionsFromTag(ConventionalItemTags.RAW_FISH_FOODS))
-				.unlockedBy("has_flower", conditionsFromTag(BotaniaTags.Items.MYSTICAL_FLOWERS))
+				.unlockedBy("has_flower", conditionsFromTag(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS))
 				.unlockedBy("has_sapling", conditionsFromTag(ItemTags.SAPLINGS))
 				.save(recipeOutput);
 
@@ -936,22 +936,22 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 					.save(recipeOutput);
 		}
 		ColorHelper.supportedColors().forEach(color -> {
-			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getShinyFlower(color))
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getGlimmeringFlower(color))
 					.requires(ConventionalItemTags.GLOWSTONE_DUSTS)
 					.requires(ConventionalItemTags.GLOWSTONE_DUSTS)
-					.requires(BotaniaBlocks.getFlower(color))
-					.group("botania:shiny_flower")
-					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getFlower(color)))
+					.requires(BotaniaBlocks.getMysticalFlower(color))
+					.group("botania:glimmering_flower")
+					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getMysticalFlower(color)))
 					.save(recipeOutput);
 			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.getFloatingFlower(color))
 					.define('S', BotaniaItems.PASTURE_SEEDS)
 					.define('D', Items.DIRT)
-					.define('F', BotaniaBlocks.getShinyFlower(color))
+					.define('F', BotaniaBlocks.getGlimmeringFlower(color))
 					.pattern("F")
 					.pattern("S")
 					.pattern("D")
 					.group("botania:floating_flowers")
-					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getShinyFlower(color)))
+					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getGlimmeringFlower(color)))
 					.save(recipeOutput);
 			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.getPetalBlock(color))
 					.define('P', BotaniaItems.getPetal(color))
@@ -961,25 +961,27 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 					.group("botania:petal_block")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.getPetal(color)))
 					.save(recipeOutput);
-			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getMushroom(color))
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getShimmeringMushroom(color))
 					.requires(Ingredient.of(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
 					.requires(DyeItem.byColor(color))
 					.group("botania:mushroom")
 					.unlockedBy("has_item", conditionsFromItem(Items.RED_MUSHROOM))
 					.unlockedBy("has_alt_item", conditionsFromItem(Items.BROWN_MUSHROOM))
-					.save(recipeOutput, "botania:mushroom_" + color.ordinal());
+					.save(recipeOutput);
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.getPetal(color), 4)
-					.requires(BotaniaBlocks.getDoubleFlower(color))
-					.group("botania:petal_double")
-					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getDoubleFlower(color)))
-					.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.getPetal(color)))
-					.save(recipeOutput, "botania:petal_" + color.getName() + "_double");
-			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.getPetal(color), 2)
-					.requires(BotaniaBlocks.getFlower(color))
+					.requires(BotaniaBlocks.getTallMysticalFlower(color))
 					.group("botania:petal")
-					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getFlower(color)))
+					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getTallMysticalFlower(color)))
 					.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.getPetal(color)))
-					.save(recipeOutput, "botania:petal_" + color.getName());
+					.save(recipeOutput, "botania:" + getConversionRecipeName(
+							BotaniaItems.getPetal(color), BotaniaBlocks.getTallMysticalFlower(color)));
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.getPetal(color), 2)
+					.requires(BotaniaBlocks.getMysticalFlower(color))
+					.group("botania:petal")
+					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getMysticalFlower(color)))
+					.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.getPetal(color)))
+					.save(recipeOutput, "botania:" + getConversionRecipeName(
+							BotaniaItems.getPetal(color), BotaniaBlocks.getMysticalFlower(color)));
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, DyeItem.byColor(color))
 					.requires(Ingredient.of(BotaniaTags.Items.getPetalTag(color)))
 					.group("botania:dye")
@@ -1427,7 +1429,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("WPW")
 				.pattern("W W")
 				.pattern(" W ")
-				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.MYSTICAL_FLOWERS))
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS))
 				.save(recipeOutput);
 		// TODO: temporary Petal Pouch recipe
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.PETAL_POUCH)

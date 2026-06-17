@@ -66,14 +66,14 @@ public class AdvancementProvider {
 			AdvancementHolder root = Advancement.Builder.advancement()
 					.display(rootDisplay(BotaniaItems.LEXICA_BOTANIA, "itemGroup.botania",
 							"botania.desc", botaniaRL("textures/block/livingwood_log.png")))
-					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
+					.addCriterion("flower", onPickup(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS))
 					.save(writer, mainId("root"));
 
 			AdvancementHolder flowerPickup = Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.PINK_MYSTICAL_FLOWER, "flowerPickup", AdvancementType.TASK))
 					.parent(root)
-					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
-					.addCriterion("double_flower", onPickup(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))
+					.addCriterion("flower", onPickup(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS))
+					.addCriterion("double_flower", onPickup(BotaniaTags.Items.TALL_MYSTICAL_FLOWERS))
 					.requirements(AdvancementRequirements.Strategy.OR)
 					.save(writer, mainId("flower_pickup"));
 
@@ -289,8 +289,8 @@ public class AdvancementProvider {
 			// Lexicon locks
 			Advancement.Builder.advancement()
 					.parent(root)
-					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
-					.addCriterion("double_flower", onPickup(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))
+					.addCriterion("flower", onPickup(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS))
+					.addCriterion("double_flower", onPickup(BotaniaTags.Items.TALL_MYSTICAL_FLOWERS))
 					.addCriterion("elven_lexicon", elvenLexicon)
 					.requirements(AdvancementRequirements.Strategy.OR)
 					.save(writer, mainId("flower_pickup_lexicon"));
@@ -371,7 +371,7 @@ public class AdvancementProvider {
 							"advancement.botania_challenge",
 							"advancement.botania_challenge.desc",
 							botaniaRL("textures/block/livingrock_bricks.png")))
-					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
+					.addCriterion("flower", onPickup(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS))
 					.save(writer, challengeId("root"));
 
 			// hardmode Gaia Guardian related

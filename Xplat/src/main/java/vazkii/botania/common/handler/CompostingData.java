@@ -30,9 +30,9 @@ public class CompostingData {
 		ColorHelper.supportedColors().forEach(dyeColor -> {
 			registrationMethod.accept(BotaniaItems.getPetal(dyeColor), chanceLowest);
 			registrationMethod.accept(BotaniaBlocks.getPetalBlock(dyeColor), chanceLow);
-			registrationMethod.accept(BotaniaBlocks.getFlower(dyeColor), chanceMid);
-			registrationMethod.accept(BotaniaBlocks.getDoubleFlower(dyeColor), chanceMid);
-			registrationMethod.accept(BotaniaBlocks.getMushroom(dyeColor), chanceMid);
+			registrationMethod.accept(BotaniaBlocks.getMysticalFlower(dyeColor), chanceMid);
+			registrationMethod.accept(BotaniaBlocks.getTallMysticalFlower(dyeColor), chanceMid);
+			registrationMethod.accept(BotaniaBlocks.getShimmeringMushroom(dyeColor), chanceMid);
 		});
 
 		registrationMethod.accept(BotaniaBlocks.CELLULAR_BLOCK, chanceHigh);

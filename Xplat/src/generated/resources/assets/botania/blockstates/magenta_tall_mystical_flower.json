@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "botania:block/magenta_tall_mystical_flower"
+    },
+    "half=upper": {
+      "model": "botania:block/magenta_tall_mystical_flower_top"
+    }
+  }
+}

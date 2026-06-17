@@ -84,7 +84,7 @@ public class ContributorList {
 				if (i < 0 || i >= 16) {
 					throw new NumberFormatException();
 				}
-				stack = cachedStacks.computeIfAbsent(BotaniaBlocks.getFlower(DyeColor.byId(i)).asItem(), ContributorList::configureStack);
+				stack = cachedStacks.computeIfAbsent(BotaniaBlocks.getMysticalFlower(DyeColor.byId(i)).asItem(), ContributorList::configureStack);
 			} catch (NumberFormatException e) {
 				String rawName = value.toLowerCase(Locale.ROOT);
 				boolean petite = rawName.endsWith("_chibi") || rawName.endsWith("_petite");

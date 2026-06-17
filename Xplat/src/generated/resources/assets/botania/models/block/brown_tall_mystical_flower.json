@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "botania:block/brown_tall_mystical_flower"
+  }
+}

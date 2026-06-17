@@ -230,7 +230,7 @@
 
 
 
-  "tag.block.botania.double_mystical_flowers": "Високі містичні квіти",
+  "tag.block.botania.tall_mystical_flowers": "Високі містичні квіти",
   "tag.block.botania.dreamwood_logs": "Колоди мрійдрева",
 
 
@@ -256,7 +256,7 @@
   "tag.block.botania.misc_special_flowers": "Різні спеціальні квіти",
 
   "tag.block.botania.mundane_floating_flowers": "Земні квіти, що плавають",
-  "tag.block.botania.mystical_flowers": "Містичні квіти",
+  "tag.block.botania.small_mystical_flowers": "Містичні квіти",
 
 
 
@@ -330,7 +330,7 @@
 
 
 
-  "tag.item.botania.double_mystical_flowers": "Високі містичні квіти",
+  "tag.item.botania.tall_mystical_flowers": "Високі містичні квіти",
   "tag.item.botania.dreamwood_logs": "Колоди мрійдрева",
 
 
@@ -359,7 +359,7 @@
   "tag.item.botania.misc_special_flowers": "Різні спеціальні квіти",
 
   "tag.item.botania.mundane_floating_flowers": "Земні квіти, що плавають",
-  "tag.item.botania.mystical_flowers": "Містичні квіти",
+  "tag.item.botania.small_mystical_flowers": "Містичні квіти",
   "tag.item.botania.petals": "Пелюстки",
   "tag.item.botania.petals.black": "Чорні пелюстки",
   "tag.item.botania.petals.blue": "Сині пелюстки",
@@ -1056,22 +1056,22 @@
   "block.botania.drum_wild": "Барабан дикої природи",
   "block.botania.drum_gathering": "Барабан зібрання",
   "block.botania.drum_canopy": "Барабан навісу",
-  "block.botania.white_shiny_flower": "Мерехтлива біла квітка",
-  "block.botania.orange_shiny_flower": "Мерехтлива помаранчева квітка",
-  "block.botania.magenta_shiny_flower": "Мерехтлива пурпурова квітка",
-  "block.botania.light_blue_shiny_flower": "Мерехтлива блакитна квітка",
-  "block.botania.yellow_shiny_flower": "Мерехтлива жовта квітка",
-  "block.botania.lime_shiny_flower": "Мерехтлива лаймова квітка",
-  "block.botania.pink_shiny_flower": "Мерехтлива рожева квітка",
-  "block.botania.gray_shiny_flower": "Мерехтлива сіра квітка",
-  "block.botania.light_gray_shiny_flower": "Мерехтлива світло-сіра квітка",
-  "block.botania.cyan_shiny_flower": "Мерехтлива бірюзова квітка",
-  "block.botania.purple_shiny_flower": "Мерехтлива фіолетова квітка",
-  "block.botania.blue_shiny_flower": "Мерехтлива синя квітка",
-  "block.botania.brown_shiny_flower": "Мерехтлива коричнева квітка",
-  "block.botania.green_shiny_flower": "Мерехтлива зелена квітка",
-  "block.botania.red_shiny_flower": "Мерехтлива червона квітка",
-  "block.botania.black_shiny_flower": "Мерехтлива чорна квітка",
+  "block.botania.white_glimmering_flower": "Мерехтлива біла квітка",
+  "block.botania.orange_glimmering_flower": "Мерехтлива помаранчева квітка",
+  "block.botania.magenta_glimmering_flower": "Мерехтлива пурпурова квітка",
+  "block.botania.light_blue_glimmering_flower": "Мерехтлива блакитна квітка",
+  "block.botania.yellow_glimmering_flower": "Мерехтлива жовта квітка",
+  "block.botania.lime_glimmering_flower": "Мерехтлива лаймова квітка",
+  "block.botania.pink_glimmering_flower": "Мерехтлива рожева квітка",
+  "block.botania.gray_glimmering_flower": "Мерехтлива сіра квітка",
+  "block.botania.light_gray_glimmering_flower": "Мерехтлива світло-сіра квітка",
+  "block.botania.cyan_glimmering_flower": "Мерехтлива бірюзова квітка",
+  "block.botania.purple_glimmering_flower": "Мерехтлива фіолетова квітка",
+  "block.botania.blue_glimmering_flower": "Мерехтлива синя квітка",
+  "block.botania.brown_glimmering_flower": "Мерехтлива коричнева квітка",
+  "block.botania.green_glimmering_flower": "Мерехтлива зелена квітка",
+  "block.botania.red_glimmering_flower": "Мерехтлива червона квітка",
+  "block.botania.black_glimmering_flower": "Мерехтлива чорна квітка",
 
 
 
@@ -1349,22 +1349,22 @@
   "block.botania.black_petal_block": "Чорний пелюстковий блок",
   "block.botania.corporea_index": "Індекс Корпореї",
   "block.botania.corporea_funnel": "Воронка Корпореї",
-  "block.botania.white_mushroom": "Білий мерехтливий гриб",
-  "block.botania.orange_mushroom": "Помаранчевий мерехтливий гриб",
-  "block.botania.magenta_mushroom": "Пурпуровий мерехтливий гриб",
-  "block.botania.light_blue_mushroom": "Блакитний мерехтливий гриб",
-  "block.botania.yellow_mushroom": "Жовтий мерехтливий гриб",
-  "block.botania.lime_mushroom": "Лаймовий мерехтливий гриб",
-  "block.botania.pink_mushroom": "Рожевий мерехтливий гриб",
-  "block.botania.gray_mushroom": "Сірий мерехтливий гриб",
-  "block.botania.light_gray_mushroom": "Світло-сірий мерехтливий гриб",
-  "block.botania.cyan_mushroom": "Бірюзовий мерехтливий гриб",
-  "block.botania.purple_mushroom": "Фіолетовий мерехтливий гриб",
-  "block.botania.blue_mushroom": "Синій мерехтливий гриб",
-  "block.botania.brown_mushroom": "Коричневий мерехтливий гриб",
-  "block.botania.green_mushroom": "Зелений мерехтливий гриб",
-  "block.botania.red_mushroom": "Червоний мерехтливий гриб",
-  "block.botania.black_mushroom": "Чорний мерехтливий гриб",
+  "block.botania.white_shimmering_mushroom": "Білий мерехтливий гриб",
+  "block.botania.orange_shimmering_mushroom": "Помаранчевий мерехтливий гриб",
+  "block.botania.magenta_shimmering_mushroom": "Пурпуровий мерехтливий гриб",
+  "block.botania.light_blue_shimmering_mushroom": "Блакитний мерехтливий гриб",
+  "block.botania.yellow_shimmering_mushroom": "Жовтий мерехтливий гриб",
+  "block.botania.lime_shimmering_mushroom": "Лаймовий мерехтливий гриб",
+  "block.botania.pink_shimmering_mushroom": "Рожевий мерехтливий гриб",
+  "block.botania.gray_shimmering_mushroom": "Сірий мерехтливий гриб",
+  "block.botania.light_gray_shimmering_mushroom": "Світло-сірий мерехтливий гриб",
+  "block.botania.cyan_shimmering_mushroom": "Бірюзовий мерехтливий гриб",
+  "block.botania.purple_shimmering_mushroom": "Фіолетовий мерехтливий гриб",
+  "block.botania.blue_shimmering_mushroom": "Синій мерехтливий гриб",
+  "block.botania.brown_shimmering_mushroom": "Коричневий мерехтливий гриб",
+  "block.botania.green_shimmering_mushroom": "Зелений мерехтливий гриб",
+  "block.botania.red_shimmering_mushroom": "Червоний мерехтливий гриб",
+  "block.botania.black_shimmering_mushroom": "Чорний мерехтливий гриб",
 
 
 
@@ -1382,22 +1382,22 @@
 
 
   "block.botania.pump": "Помпа мани",
-  "block.botania.white_double_flower": "Висока містична біла квітка",
-  "block.botania.orange_double_flower": "Висока містична помаранчева квітка",
-  "block.botania.magenta_double_flower": "Висока містична пурпурова квітка",
-  "block.botania.light_blue_double_flower": "Висока містична блакитна квітка",
-  "block.botania.yellow_double_flower": "Висока містична жовта квітка",
-  "block.botania.lime_double_flower": "Висока містична лаймова квітка",
-  "block.botania.pink_double_flower": "Висока містична рожева квітка",
-  "block.botania.gray_double_flower": "Висока містична сіра квітка",
-  "block.botania.light_gray_double_flower": "Висока містична світло-сіра квітка",
-  "block.botania.cyan_double_flower": "Висока містична бірюзова квітка",
-  "block.botania.purple_double_flower": "Висока містична фіолетова квітка",
-  "block.botania.blue_double_flower": "Висока містична синя квітка",
-  "block.botania.brown_double_flower": "Висока містична коричнева квітка",
-  "block.botania.green_double_flower": "Висока містична зелена квітка",
-  "block.botania.red_double_flower": "Висока містична червона квітка",
-  "block.botania.black_double_flower": "Висока містична чорна квітка",
+  "block.botania.white_tall_mystical_flower": "Висока містична біла квітка",
+  "block.botania.orange_tall_mystical_flower": "Висока містична помаранчева квітка",
+  "block.botania.magenta_tall_mystical_flower": "Висока містична пурпурова квітка",
+  "block.botania.light_blue_tall_mystical_flower": "Висока містична блакитна квітка",
+  "block.botania.yellow_tall_mystical_flower": "Висока містична жовта квітка",
+  "block.botania.lime_tall_mystical_flower": "Висока містична лаймова квітка",
+  "block.botania.pink_tall_mystical_flower": "Висока містична рожева квітка",
+  "block.botania.gray_tall_mystical_flower": "Висока містична сіра квітка",
+  "block.botania.light_gray_tall_mystical_flower": "Висока містична світло-сіра квітка",
+  "block.botania.cyan_tall_mystical_flower": "Висока містична бірюзова квітка",
+  "block.botania.purple_tall_mystical_flower": "Висока містична фіолетова квітка",
+  "block.botania.blue_tall_mystical_flower": "Висока містична синя квітка",
+  "block.botania.brown_tall_mystical_flower": "Висока містична коричнева квітка",
+  "block.botania.green_tall_mystical_flower": "Висока містична зелена квітка",
+  "block.botania.red_tall_mystical_flower": "Висока містична червона квітка",
+  "block.botania.black_tall_mystical_flower": "Висока містична чорна квітка",
   "block.botania.blaze_block": "Полум'яна сітка",
   "block.botania.corporea_interceptor": "Перехоплювач Корпореї",
   "block.botania.corporea_crystal_cube": "Кришталевий куб Корпореї",

@@ -64,7 +64,7 @@ public final class LibBlockNames {
 	public static final String DRUM_WILD = "drum_wild";
 	public static final String DRUM_GATHERING = "drum_gathering";
 	public static final String DRUM_CANOPY = "drum_canopy";
-	public static final String SHINY_FLOWER_SUFFIX = "_shiny_flower";
+	public static final String GLIMMERING_FLOWER_SUFFIX = "_glimmering_flower";
 	public static final String PLATFORM = "platform";
 	public static final String PLATFORM_ABSTRUSE = "abstruse_platform";
 	public static final String PLATFORM_SPECTRAL = "spectral_platform";
@@ -111,9 +111,9 @@ public final class LibBlockNames {
 	public static final String PETAL_BLOCK_SUFFIX = "_petal_block";
 	public static final String CORPOREA_INDEX = "corporea_index";
 	public static final String CORPOREA_FUNNEL = "corporea_funnel";
-	public static final String MUSHROOM_SUFFIX = "_mushroom";
+	public static final String SHIMMERING_MUSHROOM_SUFFIX = "_shimmering_mushroom";
 	public static final String PUMP = "pump";
-	public static final String DOUBLE_FLOWER_SUFFIX = "_double_flower";
+	public static final String TALL_MYSTICAL_FLOWER_SUFFIX = "_tall_mystical_flower";
 	public static final String STONE = "stone";
 	public static final String FAKE_AIR = "fake_air";
 	public static final String BLAZE_BLOCK = "blaze_block";

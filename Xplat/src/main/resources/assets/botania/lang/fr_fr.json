@@ -230,7 +230,7 @@
 
 
 
-  "tag.block.botania.double_mystical_flowers": "Grandes fleurs mystiques",
+  "tag.block.botania.tall_mystical_flowers": "Grandes fleurs mystiques",
   "tag.block.botania.dreamwood_logs": "Bûches en boisrêve",
 
 
@@ -256,7 +256,7 @@
   "tag.block.botania.misc_special_flowers": "Flore diverse",
 
   "tag.block.botania.mundane_floating_flowers": "Fleurs flottantes basiques",
-  "tag.block.botania.mystical_flowers": "Fleurs mystiques",
+  "tag.block.botania.small_mystical_flowers": "Fleurs mystiques",
 
 
 
@@ -330,7 +330,7 @@
 
 
 
-  "tag.item.botania.double_mystical_flowers": "Grandes fleurs mystiques",
+  "tag.item.botania.tall_mystical_flowers": "Grandes fleurs mystiques",
   "tag.item.botania.dreamwood_logs": "Bûches en boisrêve",
 
 
@@ -359,7 +359,7 @@
   "tag.item.botania.misc_special_flowers": "Flore diverse",
 
   "tag.item.botania.mundane_floating_flowers": "Fleurs flottantes basiques",
-  "tag.item.botania.mystical_flowers": "Fleurs mystiques",
+  "tag.item.botania.small_mystical_flowers": "Fleurs mystiques",
   "tag.item.botania.petals": "Pétales",
   "tag.item.botania.petals.black": "Pétales noirs",
   "tag.item.botania.petals.blue": "Pétales bleus",
@@ -1056,22 +1056,22 @@
   "block.botania.drum_wild": "Tambour sauvage",
   "block.botania.drum_gathering": "Tambour touffu",
   "block.botania.drum_canopy": "Tambour feuillu",
-  "block.botania.white_shiny_flower": "Fleur lumineuse blanche",
-  "block.botania.orange_shiny_flower": "Fleur lumineuse orange",
-  "block.botania.magenta_shiny_flower": "Fleur lumineuse magenta",
-  "block.botania.light_blue_shiny_flower": "Fleur lumineuse bleu ciel",
-  "block.botania.yellow_shiny_flower": "Fleur lumineuse jaune",
-  "block.botania.lime_shiny_flower": "Fleur lumineuse vert clair",
-  "block.botania.pink_shiny_flower": "Fleur lumineuse rose",
-  "block.botania.gray_shiny_flower": "Fleur lumineuse grise",
-  "block.botania.light_gray_shiny_flower": "Fleur lumineuse gris clair",
-  "block.botania.cyan_shiny_flower": "Fleur lumineuse cyan",
-  "block.botania.purple_shiny_flower": "Fleur lumineuse violette",
-  "block.botania.blue_shiny_flower": "Fleur lumineuse bleue",
-  "block.botania.brown_shiny_flower": "Fleur lumineuse marron",
-  "block.botania.green_shiny_flower": "Fleur lumineuse verte",
-  "block.botania.red_shiny_flower": "Fleur lumineuse rouge",
-  "block.botania.black_shiny_flower": "Fleur lumineuse noire",
+  "block.botania.white_glimmering_flower": "Fleur lumineuse blanche",
+  "block.botania.orange_glimmering_flower": "Fleur lumineuse orange",
+  "block.botania.magenta_glimmering_flower": "Fleur lumineuse magenta",
+  "block.botania.light_blue_glimmering_flower": "Fleur lumineuse bleu ciel",
+  "block.botania.yellow_glimmering_flower": "Fleur lumineuse jaune",
+  "block.botania.lime_glimmering_flower": "Fleur lumineuse vert clair",
+  "block.botania.pink_glimmering_flower": "Fleur lumineuse rose",
+  "block.botania.gray_glimmering_flower": "Fleur lumineuse grise",
+  "block.botania.light_gray_glimmering_flower": "Fleur lumineuse gris clair",
+  "block.botania.cyan_glimmering_flower": "Fleur lumineuse cyan",
+  "block.botania.purple_glimmering_flower": "Fleur lumineuse violette",
+  "block.botania.blue_glimmering_flower": "Fleur lumineuse bleue",
+  "block.botania.brown_glimmering_flower": "Fleur lumineuse marron",
+  "block.botania.green_glimmering_flower": "Fleur lumineuse verte",
+  "block.botania.red_glimmering_flower": "Fleur lumineuse rouge",
+  "block.botania.black_glimmering_flower": "Fleur lumineuse noire",
 
 
 
@@ -1349,22 +1349,22 @@
   "block.botania.black_petal_block": "Bloc de pétales noirs",
   "block.botania.corporea_index": "Index Corporea",
   "block.botania.corporea_funnel": "Distributeur Corporea",
-  "block.botania.white_mushroom": "Champignon blanc",
-  "block.botania.orange_mushroom": "Champignon orange",
-  "block.botania.magenta_mushroom": "Champignon magenta",
-  "block.botania.light_blue_mushroom": "Champignon bleu ciel",
-  "block.botania.yellow_mushroom": "Champignon jaune",
-  "block.botania.lime_mushroom": "Champignon vert clair",
-  "block.botania.pink_mushroom": "Champignon rose",
-  "block.botania.gray_mushroom": "Champignon gris",
-  "block.botania.light_gray_mushroom": "Champignon gris clair",
-  "block.botania.cyan_mushroom": "Champignon cyan",
-  "block.botania.purple_mushroom": "Champignon violet",
-  "block.botania.blue_mushroom": "Champignon bleu",
-  "block.botania.brown_mushroom": "Champignon marron",
-  "block.botania.green_mushroom": "Champignon vert",
-  "block.botania.red_mushroom": "Champignon rouge",
-  "block.botania.black_mushroom": "Champignon noir",
+  "block.botania.white_shimmering_mushroom": "Champignon blanc",
+  "block.botania.orange_shimmering_mushroom": "Champignon orange",
+  "block.botania.magenta_shimmering_mushroom": "Champignon magenta",
+  "block.botania.light_blue_shimmering_mushroom": "Champignon bleu ciel",
+  "block.botania.yellow_shimmering_mushroom": "Champignon jaune",
+  "block.botania.lime_shimmering_mushroom": "Champignon vert clair",
+  "block.botania.pink_shimmering_mushroom": "Champignon rose",
+  "block.botania.gray_shimmering_mushroom": "Champignon gris",
+  "block.botania.light_gray_shimmering_mushroom": "Champignon gris clair",
+  "block.botania.cyan_shimmering_mushroom": "Champignon cyan",
+  "block.botania.purple_shimmering_mushroom": "Champignon violet",
+  "block.botania.blue_shimmering_mushroom": "Champignon bleu",
+  "block.botania.brown_shimmering_mushroom": "Champignon marron",
+  "block.botania.green_shimmering_mushroom": "Champignon vert",
+  "block.botania.red_shimmering_mushroom": "Champignon rouge",
+  "block.botania.black_shimmering_mushroom": "Champignon noir",
 
 
 
@@ -1382,22 +1382,22 @@
 
 
   "block.botania.pump": "Pompe à mana",
-  "block.botania.white_double_flower": "Grande fleur mystique blanche",
-  "block.botania.orange_double_flower": "Grande fleur mystique orange",
-  "block.botania.magenta_double_flower": "Grande fleur mystique magenta",
-  "block.botania.light_blue_double_flower": "Grande fleur mystique bleu ciel",
-  "block.botania.yellow_double_flower": "Grande fleur mystique jaune",
-  "block.botania.lime_double_flower": "Grande fleur mystique vert clair",
-  "block.botania.pink_double_flower": "Grande fleur mystique rose",
-  "block.botania.gray_double_flower": "Grande fleur mystique grise",
-  "block.botania.light_gray_double_flower": "Grande fleur mystique gris clair",
-  "block.botania.cyan_double_flower": "Grande fleur mystique cyan",
-  "block.botania.purple_double_flower": "Grande fleur mystique violette",
-  "block.botania.blue_double_flower": "Grande fleur mystique bleue",
-  "block.botania.brown_double_flower": "Grande fleur mystique marron",
-  "block.botania.green_double_flower": "Grande fleur mystique verte",
-  "block.botania.red_double_flower": "Grande fleur mystique rouge",
-  "block.botania.black_double_flower": "Grande fleur mystique noire",
+  "block.botania.white_tall_mystical_flower": "Grande fleur mystique blanche",
+  "block.botania.orange_tall_mystical_flower": "Grande fleur mystique orange",
+  "block.botania.magenta_tall_mystical_flower": "Grande fleur mystique magenta",
+  "block.botania.light_blue_tall_mystical_flower": "Grande fleur mystique bleu ciel",
+  "block.botania.yellow_tall_mystical_flower": "Grande fleur mystique jaune",
+  "block.botania.lime_tall_mystical_flower": "Grande fleur mystique vert clair",
+  "block.botania.pink_tall_mystical_flower": "Grande fleur mystique rose",
+  "block.botania.gray_tall_mystical_flower": "Grande fleur mystique grise",
+  "block.botania.light_gray_tall_mystical_flower": "Grande fleur mystique gris clair",
+  "block.botania.cyan_tall_mystical_flower": "Grande fleur mystique cyan",
+  "block.botania.purple_tall_mystical_flower": "Grande fleur mystique violette",
+  "block.botania.blue_tall_mystical_flower": "Grande fleur mystique bleue",
+  "block.botania.brown_tall_mystical_flower": "Grande fleur mystique marron",
+  "block.botania.green_tall_mystical_flower": "Grande fleur mystique verte",
+  "block.botania.red_tall_mystical_flower": "Grande fleur mystique rouge",
+  "block.botania.black_tall_mystical_flower": "Grande fleur mystique noire",
   "block.botania.blaze_block": "Bloc de Blaze",
   "block.botania.corporea_interceptor": "Intercepteur Corporea",
   "block.botania.corporea_crystal_cube": "Cristal Corporea",

@@ -438,14 +438,14 @@ public final class BotaniaItems {
 	public static final FlowerPouchItem FLOWER_POUCH = make(LibItemNames.FLOWER_BAG,
 			new FlowerPouchItem(unstackable()
 					.component(BotaniaDataComponents.ITEM_TAGS,
-							List.of(BotaniaTags.Items.MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))));
+							List.of(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS, BotaniaTags.Items.TALL_MYSTICAL_FLOWERS))));
 	public static final PetalPouchItem PETAL_POUCH = make(LibItemNames.PETAL_POUCH,
 			new PetalPouchItem(unstackable()
 					.component(BotaniaDataComponents.ACTIVE, Unit.INSTANCE)
 					.component(BotaniaDataComponents.ITEM_TAGS,
 							List.of(BotaniaTags.Items.PETALS, BotaniaTags.Items.SHIMMERING_MUSHROOMS))
 					.component(BotaniaDataComponents.CRAFTABLE_ITEM_TAGS,
-							List.of(BotaniaTags.Items.MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))));
+							List.of(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS, BotaniaTags.Items.TALL_MYSTICAL_FLOWERS))));
 	public static final Item BLACK_HOLE_TALISMAN = make(LibItemNames.BLACK_HOLE_TALISMAN,
 			new BlackHoleTalismanItem(unstackable()
 					.rarity(Rarity.RARE)));

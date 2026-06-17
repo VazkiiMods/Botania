@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "botania:glimmering_flower",
+  "ingredients": [
+    {
+      "tag": "c:dusts/glowstone"
+    },
+    {
+      "tag": "c:dusts/glowstone"
+    },
+    {
+      "item": "botania:light_blue_mystical_flower"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:light_blue_glimmering_flower"
+  }
+}

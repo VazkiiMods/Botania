@@ -38,12 +38,12 @@ import net.minecraft.world.level.block.WallBlock;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.BotaniaMushroomBlock;
-import vazkii.botania.common.block.flower.BotaniaDoubleFlowerBlock;
+import vazkii.botania.common.block.ShimmeringMushroomBlock;
 import vazkii.botania.common.block.flower.BotaniaFlowerBlock;
 import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
 import vazkii.botania.common.block.flower.FlowerMotifBlock;
 import vazkii.botania.common.block.flower.SpecialFlowerBlock;
+import vazkii.botania.common.block.flower.TallMysticalFlowerBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.item.BotaniaItems;
@@ -398,7 +398,7 @@ public class ItemModelProvider implements DataProvider {
 		ModelTemplates.SKULL_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.GAIA_HEAD.asItem()), new TextureMapping(), consumer);
 		itemBlocks.remove(BotaniaBlocks.GAIA_HEAD.asItem());
 
-		takeAll(itemBlocks, item -> item.getBlock() instanceof BotaniaDoubleFlowerBlock).forEach(
+		takeAll(itemBlocks, item -> item.getBlock() instanceof TallMysticalFlowerBlock).forEach(
 				item -> ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item),
 						TextureMapping.layer0(TextureMapping.getBlockTexture(item.getBlock(), "_top")), consumer));
 
@@ -426,7 +426,7 @@ public class ItemModelProvider implements DataProvider {
 		Predicate<BlockItem> defaultGenerated = item -> {
 			Block block = item.getBlock();
 			return block instanceof SpecialFlowerBlock
-					|| block instanceof BotaniaMushroomBlock
+					|| block instanceof ShimmeringMushroomBlock
 					|| block instanceof LuminizerBlock
 					|| block instanceof BotaniaFlowerBlock
 					|| block == BotaniaBlocks.SPECTRAL_RAIL;

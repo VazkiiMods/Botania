@@ -1,6 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#botania:mystical_mushroom_spawnlist",
-  "features": "botania:mystical_mushrooms",
-  "step": "vegetal_decoration"
-}

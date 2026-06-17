@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.shinyFlowers",
   "category": "botania:misc",
-  "icon": "botania:white_shiny_flower",
+  "icon": "botania:white_glimmering_flower",
   "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
@@ -18,22 +18,22 @@
       "heading": "botania.page.shinyFlowers4",
       "text": "botania.page.shinyFlowers1",
       "recipes": [
-        "botania:white_shiny_flower",
-        "botania:orange_shiny_flower",
-        "botania:magenta_shiny_flower",
-        "botania:light_blue_shiny_flower",
-        "botania:yellow_shiny_flower",
-        "botania:lime_shiny_flower",
-        "botania:pink_shiny_flower",
-        "botania:gray_shiny_flower",
-        "botania:light_gray_shiny_flower",
-        "botania:cyan_shiny_flower",
-        "botania:purple_shiny_flower",
-        "botania:blue_shiny_flower",
-        "botania:brown_shiny_flower",
-        "botania:green_shiny_flower",
-        "botania:red_shiny_flower",
-        "botania:black_shiny_flower"
+        "botania:white_glimmering_flower",
+        "botania:orange_glimmering_flower",
+        "botania:magenta_glimmering_flower",
+        "botania:light_blue_glimmering_flower",
+        "botania:yellow_glimmering_flower",
+        "botania:lime_glimmering_flower",
+        "botania:pink_glimmering_flower",
+        "botania:gray_glimmering_flower",
+        "botania:light_gray_glimmering_flower",
+        "botania:cyan_glimmering_flower",
+        "botania:purple_glimmering_flower",
+        "botania:blue_glimmering_flower",
+        "botania:brown_glimmering_flower",
+        "botania:green_glimmering_flower",
+        "botania:red_glimmering_flower",
+        "botania:black_glimmering_flower"
       ]
     },
     {

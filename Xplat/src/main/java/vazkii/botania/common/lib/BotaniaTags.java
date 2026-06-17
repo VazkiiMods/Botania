@@ -27,9 +27,9 @@ public class BotaniaTags {
 	public static class Items {
 		public static final TagKey<Item> BLOCKS_QUARTZ = tag("quartz_blocks");
 
-		public static final TagKey<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
-		public static final TagKey<Item> SHINY_FLOWERS = tag("shiny_flowers");
-		public static final TagKey<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final TagKey<Item> SMALL_MYSTICAL_FLOWERS = tag("small_mystical_flowers");
+		public static final TagKey<Item> GLIMMERING_FLOWERS = tag("glimmering_flowers");
+		public static final TagKey<Item> TALL_MYSTICAL_FLOWERS = tag("tall_mystical_flowers");
 		public static final TagKey<Item> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		/**
@@ -172,9 +172,9 @@ public class BotaniaTags {
 	}
 
 	public static class Blocks {
-		public static final TagKey<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
-		public static final TagKey<Block> SHINY_FLOWERS = tag("shiny_flowers");
-		public static final TagKey<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final TagKey<Block> SMALL_MYSTICAL_FLOWERS = tag("small_mystical_flowers");
+		public static final TagKey<Block> GLIMMERING_FLOWERS = tag("glimmering_flowers");
+		public static final TagKey<Block> TALL_MYSTICAL_FLOWERS = tag("tall_mystical_flowers");
 		public static final TagKey<Block> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		public static final TagKey<Block> SPECIAL_FLOWERS = tag("special_flowers");
@@ -374,7 +374,7 @@ public class BotaniaTags {
 		 * Blocks that comprise the "crown" of trees or caps of huge mushrooms.
 		 * The Terra Truncator's breaking effect only traverses through these for a very limited range.
 		 */
-		public static final TagKey<Block> TERRA_TRUNCATOR_CROWN_BLOCKS = tag("terra_truncator/crownk_blocks");
+		public static final TagKey<Block> TERRA_TRUNCATOR_CROWN_BLOCKS = tag("terra_truncator/crown_blocks");
 
 		public static final TagKey<Block> GOG_PEBBLE_SOURCES =
 				TagKey.create(Registries.BLOCK, gogRL("pebble_sources"));
@@ -469,15 +469,15 @@ public class BotaniaTags {
 		public static final TagKey<Biome> MYSTICAL_FLOWER_BLOCKLIST = tag("mystical_flower_blocklist");
 
 		/**
-		 * Biomes in this tag are eligible for the mystical_mushroom placed_feature.
+		 * Biomes in this tag are eligible for the shimmering_mushroom placed_feature.
 		 */
-		public static final TagKey<Biome> MYSTICAL_MUSHROOM_SPAWNLIST = tag("mystical_mushroom_spawnlist");
+		public static final TagKey<Biome> SHIMMERING_MUSHROOM_SPAWNLIST = tag("shimmering_mushroom_spawnlist");
 
 		/**
-		 * Biomes in this tag are blocked from having the mystical_mushroom placed_feature.
+		 * Biomes in this tag are blocked from having the shimmering_mushroom placed_feature.
 		 * Overrides mystical_mushroom_spawnlist tag.
 		 */
-		public static final TagKey<Biome> MYSTICAL_MUSHROOM_BLOCKLIST = tag("mystical_mushroom_blocklist");
+		public static final TagKey<Biome> SHIMMERING_MUSHROOM_BLOCKLIST = tag("shimmering_mushroom_blocklist");
 
 		private static TagKey<Biome> tag(String name) {
 			return TagKey.create(Registries.BIOME, botaniaRL(name));

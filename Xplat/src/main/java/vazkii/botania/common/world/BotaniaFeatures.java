@@ -21,8 +21,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class BotaniaFeatures {
 	public static final ResourceKey<PlacedFeature> MYSTICAL_FLOWERS_PLACED_FEATURE =
 			ResourceKey.create(Registries.PLACED_FEATURE, botaniaRL("mystical_flowers"));
-	public static final ResourceKey<PlacedFeature> MYSTICAL_MUSHROOMS_PLACED_FEATURE =
-			ResourceKey.create(Registries.PLACED_FEATURE, botaniaRL("mystical_mushrooms"));
+	public static final ResourceKey<PlacedFeature> SHIMMERING_MUSHROOMS_PLACED_FEATURE =
+			ResourceKey.create(Registries.PLACED_FEATURE, botaniaRL("shimmering_mushrooms"));
 
 	public static void registerFeatures(BiConsumer<Feature<?>, ResourceLocation> r) {
 		r.accept(new MysticalFlowerFeature(MysticalFlowerConfig.CODEC), botaniaRL("mystical_flower"));

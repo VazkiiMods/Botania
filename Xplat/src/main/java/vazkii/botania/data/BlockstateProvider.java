@@ -491,7 +491,7 @@ public class BlockstateProvider implements DataProvider {
 
 		// Block groups
 		Predicate<Block> flowers = block -> block instanceof SpecialFlowerBlock
-				|| block instanceof BotaniaMushroomBlock
+				|| block instanceof ShimmeringMushroomBlock
 				|| block instanceof BotaniaFlowerBlock;
 		ModelTemplate crossTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/cross")), Optional.empty(), TextureSlot.CROSS);
 		takeAll(remainingBlocks, flowers).forEach(block -> singleVariantBlockState(block,
@@ -662,7 +662,7 @@ public class BlockstateProvider implements DataProvider {
 
 		takeAll(remainingBlocks, block -> block instanceof RedStringBlock).forEach(this::redStringBlock);
 
-		takeAll(remainingBlocks, block -> block instanceof BotaniaDoubleFlowerBlock).forEach(block -> {
+		takeAll(remainingBlocks, block -> block instanceof TallMysticalFlowerBlock).forEach(block -> {
 			var bottom = ModelTemplates.CROSS.create(block, TextureMapping.cross(block), this.modelOutput);
 			var top = ModelTemplates.CROSS.create(getModelLocation(block, "_top"),
 					TextureMapping.cross(getBlockTexture(block, "_top")), this.modelOutput);

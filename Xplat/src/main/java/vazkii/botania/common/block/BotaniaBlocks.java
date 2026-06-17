@@ -263,40 +263,40 @@ public final class BotaniaBlocks {
 			BlockBehaviour.Properties.ofFullCopy(WHITE_PETAL_BLOCK));
 
 	// shimmering mushrooms
-	public static final BotaniaMushroomBlock WHITE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.WHITE,
+	public static final ShimmeringMushroomBlock WHITE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.WHITE,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER)
 					.lightLevel(constInt(3))
 					.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
-	public static final BotaniaMushroomBlock ORANGE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.ORANGE,
+	public static final ShimmeringMushroomBlock ORANGE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.ORANGE,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock MAGENTA_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.MAGENTA,
+	public static final ShimmeringMushroomBlock MAGENTA_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.MAGENTA,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock LIGHT_BLUE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.LIGHT_BLUE,
+	public static final ShimmeringMushroomBlock LIGHT_BLUE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.LIGHT_BLUE,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock YELLOW_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.YELLOW,
+	public static final ShimmeringMushroomBlock YELLOW_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.YELLOW,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock LIME_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.LIME,
+	public static final ShimmeringMushroomBlock LIME_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.LIME,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock PINK_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.PINK,
+	public static final ShimmeringMushroomBlock PINK_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.PINK,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock GRAY_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.GRAY,
+	public static final ShimmeringMushroomBlock GRAY_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.GRAY,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock LIGHT_GRAY_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.LIGHT_GRAY,
+	public static final ShimmeringMushroomBlock LIGHT_GRAY_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.LIGHT_GRAY,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock CYAN_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.CYAN,
+	public static final ShimmeringMushroomBlock CYAN_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.CYAN,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock PURPLE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.PURPLE,
+	public static final ShimmeringMushroomBlock PURPLE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.PURPLE,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock BLUE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.BLUE,
+	public static final ShimmeringMushroomBlock BLUE_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.BLUE,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock BROWN_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.BROWN,
+	public static final ShimmeringMushroomBlock BROWN_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.BROWN,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock GREEN_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.GREEN,
+	public static final ShimmeringMushroomBlock GREEN_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.GREEN,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock RED_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.RED,
+	public static final ShimmeringMushroomBlock RED_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.RED,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
-	public static final BotaniaMushroomBlock BLACK_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.BLACK,
+	public static final ShimmeringMushroomBlock BLACK_SHIMMERING_MUSHROOM = makeShimmeringMushroom(DyeColor.BLACK,
 			BlockBehaviour.Properties.ofFullCopy(WHITE_SHIMMERING_MUSHROOM));
 
 	// tall mundane flowers
@@ -2337,12 +2337,12 @@ public final class BotaniaBlocks {
 		Item.Properties rareProps = BotaniaItems.defaultBuilder().rarity(Rarity.RARE);
 		Item.Properties epicProps = BotaniaItems.defaultBuilder().rarity(Rarity.EPIC);
 		Stream.<Function<DyeColor, Block>>of(
-				BotaniaBlocks::getFlower,
-				BotaniaBlocks::getShinyFlower,
+				BotaniaBlocks::getMysticalFlower,
+				BotaniaBlocks::getGlimmeringFlower,
 				BotaniaBlocks::getFloatingFlower,
 				BotaniaBlocks::getPetalBlock,
-				BotaniaBlocks::getMushroom,
-				BotaniaBlocks::getDoubleFlower
+				BotaniaBlocks::getShimmeringMushroom,
+				BotaniaBlocks::getTallMysticalFlower
 		).forEach(
 				blockGetter -> ColorHelper.supportedColors().map(blockGetter).forEach(
 						block -> r.accept(new ColoredBlockItem(block, ((Colored) block).getColor(), props), BuiltInRegistries.BLOCK.getKey(block))
@@ -3117,7 +3117,7 @@ public final class BotaniaBlocks {
 						color,
 						effectForFlower(color),
 						MysticalFlowerBlock.STEW_DURATION,
-						BotaniaBlocks::getDoubleFlower,
+						BotaniaBlocks::getTallMysticalFlower,
 						properties
 				)
 		);
@@ -3125,7 +3125,7 @@ public final class BotaniaBlocks {
 
 	private static GlimmeringFlowerBlock makeGlimmeringFlower(DyeColor color, BlockBehaviour.Properties properties) {
 		return make(
-				color.getSerializedName() + LibBlockNames.SHINY_FLOWER_SUFFIX,
+				color.getSerializedName() + LibBlockNames.GLIMMERING_FLOWER_SUFFIX,
 				new GlimmeringFlowerBlock(
 						color,
 						effectForFlower(color),
@@ -3150,7 +3150,7 @@ public final class BotaniaBlocks {
 				color.getSerializedName() + LibBlockNames.BURIED_PETALS_SUFFIX,
 				new BuriedPetalBlock(
 						color,
-						BotaniaBlocks::getDoubleFlower,
+						BotaniaBlocks::getTallMysticalFlower,
 						properties
 				)
 		);
@@ -3163,10 +3163,10 @@ public final class BotaniaBlocks {
 		);
 	}
 
-	private static BotaniaMushroomBlock makeShimmeringMushroom(DyeColor color, BlockBehaviour.Properties properties) {
+	private static ShimmeringMushroomBlock makeShimmeringMushroom(DyeColor color, BlockBehaviour.Properties properties) {
 		return make(
-				color.getSerializedName() + LibBlockNames.MUSHROOM_SUFFIX,
-				new BotaniaMushroomBlock(color, properties)
+				color.getSerializedName() + LibBlockNames.SHIMMERING_MUSHROOM_SUFFIX,
+				new ShimmeringMushroomBlock(color, properties)
 		);
 	}
 
@@ -3191,10 +3191,10 @@ public final class BotaniaBlocks {
 		return baseBlock;
 	}
 
-	private static BotaniaDoubleFlowerBlock makeTallMysticalFlower(DyeColor color, BlockBehaviour.Properties properties) {
+	private static TallMysticalFlowerBlock makeTallMysticalFlower(DyeColor color, BlockBehaviour.Properties properties) {
 		return make(
-				color.getSerializedName() + LibBlockNames.DOUBLE_FLOWER_SUFFIX,
-				new BotaniaDoubleFlowerBlock(color, properties)
+				color.getSerializedName() + LibBlockNames.TALL_MYSTICAL_FLOWER_SUFFIX,
+				new TallMysticalFlowerBlock(color, properties)
 		);
 	}
 
@@ -3207,14 +3207,14 @@ public final class BotaniaBlocks {
 
 	private static FlowerPotBlock makePottedGlimmeringFlower(GlimmeringFlowerBlock flower) {
 		return make(
-				LibBlockNames.POTTED_PREFIX + flower.color.getSerializedName() + LibBlockNames.SHINY_FLOWER_SUFFIX,
+				LibBlockNames.POTTED_PREFIX + flower.color.getSerializedName() + LibBlockNames.GLIMMERING_FLOWER_SUFFIX,
 				flowerPot(flower, 15)
 		);
 	}
 
-	private static FlowerPotBlock makePottedShimmeringMushroom(BotaniaMushroomBlock mushroom) {
+	private static FlowerPotBlock makePottedShimmeringMushroom(ShimmeringMushroomBlock mushroom) {
 		return make(
-				LibBlockNames.POTTED_PREFIX + mushroom.color.getSerializedName() + LibBlockNames.MUSHROOM_SUFFIX,
+				LibBlockNames.POTTED_PREFIX + mushroom.color.getSerializedName() + LibBlockNames.SHIMMERING_MUSHROOM_SUFFIX,
 				flowerPot(mushroom, 3)
 		);
 	}
@@ -3297,7 +3297,7 @@ public final class BotaniaBlocks {
 		xplat.addAxeStripping(DREAMWOOD_WALL, STRIPPED_DREAMWOOD_WALL);
 	}
 
-	public static Block getFlower(DyeColor color) {
+	public static Block getMysticalFlower(DyeColor color) {
 		return switch (color) {
 			case WHITE -> WHITE_MYSTICAL_FLOWER;
 			case ORANGE -> ORANGE_MYSTICAL_FLOWER;
@@ -3318,7 +3318,7 @@ public final class BotaniaBlocks {
 		};
 	}
 
-	public static Block getMushroom(DyeColor color) {
+	public static Block getShimmeringMushroom(DyeColor color) {
 		return switch (color) {
 			case WHITE -> WHITE_SHIMMERING_MUSHROOM;
 			case ORANGE -> ORANGE_SHIMMERING_MUSHROOM;
@@ -3360,7 +3360,7 @@ public final class BotaniaBlocks {
 		};
 	}
 
-	public static Block getShinyFlower(DyeColor color) {
+	public static Block getGlimmeringFlower(DyeColor color) {
 		return switch (color) {
 			case WHITE -> WHITE_GLIMMERING_FLOWER;
 			case ORANGE -> ORANGE_GLIMMERING_FLOWER;
@@ -3403,11 +3403,11 @@ public final class BotaniaBlocks {
 	}
 
 	@Nullable
-	public static Block getDoubleFlower(TallFlowerGrower grower) {
-		return grower instanceof Colored colored ? getDoubleFlower(colored.getColor()) : null;
+	public static Block getTallMysticalFlower(TallFlowerGrower grower) {
+		return grower instanceof Colored colored ? getTallMysticalFlower(colored.getColor()) : null;
 	}
 
-	public static Block getDoubleFlower(DyeColor color) {
+	public static Block getTallMysticalFlower(DyeColor color) {
 		return switch (color) {
 			case WHITE -> WHITE_TALL_MYSTICAL_FLOWER;
 			case ORANGE -> ORANGE_TALL_MYSTICAL_FLOWER;

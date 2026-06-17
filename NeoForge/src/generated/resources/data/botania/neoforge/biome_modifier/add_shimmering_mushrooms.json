@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#botania:shimmering_mushroom_spawnlist",
+  "features": "botania:shimmering_mushrooms",
+  "step": "vegetal_decoration"
+}

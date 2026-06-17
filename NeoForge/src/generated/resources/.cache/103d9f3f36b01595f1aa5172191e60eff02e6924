@@ -1,5 +1,5 @@
-// 1.21.1	2025-03-16T10:40:48.913046443	Registries
+// 1.21.1	2026-06-17T20:22:04.753546594	Registries
 e532c83c3418ed050a17b12f09d06aa942f8353d data/botania/neoforge/biome_modifier/add_mystical_flowers.json
-2704cee24920c6e276eff8e4b014f07225ac3802 data/botania/neoforge/biome_modifier/add_mystical_mushrooms.json
+2d4403b9d11e5e410dd87f99e795e874cc1b5903 data/botania/neoforge/biome_modifier/add_shimmering_mushrooms.json
 b5375f8ab3e5b7095efa2d9d26bad8ccd0167a3f data/botania/neoforge/biome_modifier/remove_mystical_flowers.json
-119c7c9cdc06e3ba087407043bbf5c2b94e5550c data/botania/neoforge/biome_modifier/remove_mystical_mushrooms.json
+ae2472804eba417748ddc0d4d1e2543195ebad3c data/botania/neoforge/biome_modifier/remove_shimmering_mushrooms.json

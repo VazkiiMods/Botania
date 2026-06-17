@@ -47,7 +47,7 @@ public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
 
 		for (int i = 0; i < RANGE * 2; i++) {
 			DyeColor color = DyeColor.byId(getLevel().getRandom().nextInt(16));
-			BlockState flower = BotaniaBlocks.getFlower(color).defaultBlockState();
+			BlockState flower = BotaniaBlocks.getMysticalFlower(color).defaultBlockState();
 
 			if (getLevel().isEmptyBlock(up) && flower.canSurvive(getLevel(), up)) {
 				if (BotaniaConfig.common().blockBreakParticles()) {
