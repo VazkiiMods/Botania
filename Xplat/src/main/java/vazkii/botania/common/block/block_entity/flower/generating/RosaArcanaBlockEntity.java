@@ -16,6 +16,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -69,6 +70,15 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		drainPlayerXp(serverLevel, effectBounds);
 	}
 
+	/**
+	 * "Plucks" XP orbs from players to be consumed by the flower.
+	 * If the player has more than one level, orb size is randomly selected between 1 and 3, otherwise if the player
+	 * still has any XP left, orb size 1 is extracted. Since the flower only extracts player XP when it can't already
+	 * consume an XP orb this tick, the average XP orb size of 2 means the flower extracts an average amount of 1 XP per
+	 * tick from the player. (This is the same speed as the direct drain in earlier versions.)
+	 * 
+	 * @see vazkii.botania.mixin.PlayerMixin#shouldPickupXp(Player, Entity)
+	 */
 	private static void drainPlayerXp(ServerLevel serverLevel, AABB effectBounds) {
 		List<Player> players = new ArrayList<>();
 		// entity search selects subchunks by assuming all entities are ghast-sized, so this is likely faster:
