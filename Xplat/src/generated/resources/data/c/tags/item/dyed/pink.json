@@ -1,8 +1,8 @@
 {
   "values": [
     "botania:pink_mana_pool",
-    "botania:pink_creative_pool",
-    "botania:pink_diluted_pool",
-    "botania:pink_fabulous_pool"
+    "botania:pink_creative_mana_pool",
+    "botania:pink_diluted_mana_pool",
+    "botania:pink_fabulous_mana_pool"
   ]
 }

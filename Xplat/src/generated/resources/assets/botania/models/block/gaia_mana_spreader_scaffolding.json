@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/spreader_scaffolding",
+  "textures": {
+    "bottom": "botania:block/gaia_mana_spreader_scaffolding_bottom",
+    "side": "botania:block/gaia_mana_spreader_scaffolding_side",
+    "top": "botania:block/gaia_mana_spreader_scaffolding_top"
+  }
+}

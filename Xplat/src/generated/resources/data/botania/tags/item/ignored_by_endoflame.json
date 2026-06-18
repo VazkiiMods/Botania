@@ -1,8 +1,8 @@
 {
   "values": [
-    "botania:elven_spreader",
-    "botania:gaia_spreader",
+    "botania:elven_mana_spreader",
+    "botania:gaia_mana_spreader",
     "botania:mana_spreader",
-    "botania:redstone_spreader"
+    "botania:pulse_mana_spreader"
   ]
 }

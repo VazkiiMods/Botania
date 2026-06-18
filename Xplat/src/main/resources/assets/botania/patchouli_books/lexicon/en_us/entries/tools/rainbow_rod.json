@@ -40,8 +40,8 @@
     {
       "type": "crafting",
       "text": "botania.page.rainbowRod7",
-      "recipe": "botania:fabulous_pool",
-      "recipe2": "botania:fabulous_pool_upgrade"
+      "recipe": "botania:fabulous_mana_pool",
+      "recipe2": "botania:fabulous_mana_pool_upgrade"
     }
   ],
   "extra_recipe_mappings": {

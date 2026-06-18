@@ -286,27 +286,15 @@ public class ItemTagProvider extends ItemTagsProvider {
 				BotaniaItems.ROD_OF_THE_LANDS, BotaniaItems.ROD_OF_THE_HIGHLANDS, BotaniaItems.ROD_OF_THE_DEPTHS,
 				BotaniaItems.BLACK_HOLE_TALISMAN);
 
-		this.tag(BotaniaTags.Items.DYED_MANA_POOLS).add(getColoredBlockItems(BotaniaBlocks.MANA_POOL));
-		this.tag(BotaniaTags.Items.DYED_CREATIVE_POOLS).add(getColoredBlockItems(BotaniaBlocks.CREATIVE_MANA_POOL));
-		this.tag(BotaniaTags.Items.DYED_DILUTED_POOLS).add(getColoredBlockItems(BotaniaBlocks.DILUTED_MANA_POOL));
-		this.tag(BotaniaTags.Items.DYED_FABULOUS_POOLS).add(getColoredBlockItems(BotaniaBlocks.FABULOUS_MANA_POOL));
-		this.tag(BotaniaTags.Items.MANA_POOLS)
-				.add(BotaniaBlocks.MANA_POOL.asItem())
-				.addTag(BotaniaTags.Items.DYED_MANA_POOLS);
-		this.tag(BotaniaTags.Items.CREATIVE_POOLS)
-				.add(BotaniaBlocks.CREATIVE_MANA_POOL.asItem())
-				.addTag(BotaniaTags.Items.DYED_CREATIVE_POOLS);
-		this.tag(BotaniaTags.Items.DILUTED_POOLS)
-				.add(BotaniaBlocks.DILUTED_MANA_POOL.asItem())
-				.addTag(BotaniaTags.Items.DYED_DILUTED_POOLS);
-		this.tag(BotaniaTags.Items.FABULOUS_POOLS)
-				.add(BotaniaBlocks.FABULOUS_MANA_POOL.asItem())
-				.addTag(BotaniaTags.Items.DYED_FABULOUS_POOLS);
-		this.tag(BotaniaTags.Items.ALL_MANA_POOLS)
-				.addTag(BotaniaTags.Items.MANA_POOLS)
-				.addTag(BotaniaTags.Items.DILUTED_POOLS)
-				.addTag(BotaniaTags.Items.FABULOUS_POOLS)
-				.addTag(BotaniaTags.Items.CREATIVE_POOLS);
+		copy(BotaniaTags.Blocks.DYED_MANA_POOLS, BotaniaTags.Items.DYED_MANA_POOLS);
+		copy(BotaniaTags.Blocks.DYED_CREATIVE_MANA_POOLS, BotaniaTags.Items.DYED_CREATIVE_MANA_POOLS);
+		copy(BotaniaTags.Blocks.DYED_DILUTED_MANA_POOLS, BotaniaTags.Items.DYED_DILUTED_MANA_POOLS);
+		copy(BotaniaTags.Blocks.DYED_FABULOUS_MANA_POOLS, BotaniaTags.Items.DYED_FABULOUS_MANA_POOLS);
+		copy(BotaniaTags.Blocks.MANA_POOLS, BotaniaTags.Items.MANA_POOLS);
+		copy(BotaniaTags.Blocks.CREATIVE_MANA_POOLS, BotaniaTags.Items.CREATIVE_MANA_POOLS);
+		copy(BotaniaTags.Blocks.DILUTED_MANA_POOLS, BotaniaTags.Items.DILUTED_MANA_POOLS);
+		copy(BotaniaTags.Blocks.FABULOUS_MANA_POOLS, BotaniaTags.Items.FABULOUS_MANA_POOLS);
+		copy(BotaniaTags.Blocks.ALL_MANA_POOLS, BotaniaTags.Items.ALL_MANA_POOLS);
 
 		tag(BotaniaTags.Items.MANA_POOL_DYE_REMOVER).add(Items.CLAY_BALL);
 

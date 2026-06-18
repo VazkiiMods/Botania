@@ -1,12 +1,12 @@
 {
   "values": [
     "botania:green_mana_pool",
-    "botania:green_creative_pool",
-    "botania:green_diluted_pool",
-    "botania:green_fabulous_pool",
+    "botania:green_creative_mana_pool",
+    "botania:green_diluted_mana_pool",
+    "botania:green_fabulous_mana_pool",
     "botania:green_covered_mana_spreader",
-    "botania:green_covered_redstone_spreader",
-    "botania:green_covered_elven_spreader",
-    "botania:green_covered_gaia_spreader"
+    "botania:green_covered_pulse_mana_spreader",
+    "botania:green_covered_elven_mana_spreader",
+    "botania:green_covered_gaia_mana_spreader"
   ]
 }

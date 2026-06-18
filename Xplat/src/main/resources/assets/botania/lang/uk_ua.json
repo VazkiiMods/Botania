@@ -230,8 +230,15 @@
 
 
 
+
+
+
   "tag.block.botania.tall_mystical_flowers": "Високі містичні квіти",
   "tag.block.botania.dreamwood_logs": "Колоди мрійдрева",
+
+
+
+
 
 
   "tag.block.botania.floating_flowers": "Квіти, що плавають",
@@ -930,7 +937,7 @@
 
 
 
-  "block.botania.redstone_spreader": "Імпульсовий розсіювач мани",
+  "block.botania.pulse_mana_spreader": "Імпульсовий розсіювач мани",
 
 
 
@@ -947,7 +954,7 @@
 
 
 
-  "block.botania.elven_spreader": "Ельфійський розсіювач мани",
+  "block.botania.elven_mana_spreader": "Ельфійський розсіювач мани",
 
 
 
@@ -964,7 +971,7 @@
 
 
 
-  "block.botania.gaia_spreader": "Розсіювач мани Ґаї",
+  "block.botania.gaia_mana_spreader": "Розсіювач мани Ґаї",
 
 
 
@@ -998,8 +1005,8 @@
 
 
 
-  "block.botania.creative_pool": "Нескінченний басейн мани",
-  "block.botania.diluted_pool": "Розбавлений басейн мани",
+  "block.botania.creative_mana_pool": "Нескінченний басейн мани",
+  "block.botania.diluted_mana_pool": "Розбавлений басейн мани",
 
 
 
@@ -1016,7 +1023,7 @@
 
 
 
-  "block.botania.fabulous_pool": "Гарний басейн мани",
+  "block.botania.fabulous_mana_pool": "Гарний басейн мани",
 
 
 

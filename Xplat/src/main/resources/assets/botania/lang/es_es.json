@@ -489,6 +489,13 @@
 
 
 
+
+
+
+
+
+
+
   "botania.triggers.manaDetector": "Pulso de maná",
   "botania.triggers.manaEmpty": "Vacío de maná",
   "botania.triggers.manaSpace": "Espacio para maná",
@@ -930,7 +937,7 @@
 
 
 
-  "block.botania.redstone_spreader": "Esparcidor de maná de redstone",
+  "block.botania.pulse_mana_spreader": "Esparcidor de maná de redstone",
 
 
 
@@ -947,7 +954,7 @@
 
 
 
-  "block.botania.elven_spreader": "Esparcidor de maná élfico",
+  "block.botania.elven_mana_spreader": "Esparcidor de maná élfico",
 
 
 
@@ -964,7 +971,7 @@
 
 
 
-  "block.botania.gaia_spreader": "Esparcidor de maná de Gaia",
+  "block.botania.gaia_mana_spreader": "Esparcidor de maná de Gaia",
 
 
 
@@ -998,8 +1005,8 @@
 
 
 
-  "block.botania.creative_pool": "Pila de culpa perpetua",
-  "block.botania.diluted_pool": "Pila de maná diluida",
+  "block.botania.creative_mana_pool": "Pila de culpa perpetua",
+  "block.botania.diluted_mana_pool": "Pila de maná diluida",
 
 
 

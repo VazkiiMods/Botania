@@ -244,9 +244,9 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		EmiStack waterThird = EmiStack.of(Fluids.WATER, bottleAmount);
 		for (var e : Map.of(
 				BotaniaTags.Items.DYED_MANA_POOLS, BotaniaBlocks.MANA_POOL,
-				BotaniaTags.Items.DYED_DILUTED_POOLS, BotaniaBlocks.DILUTED_MANA_POOL,
-				BotaniaTags.Items.DYED_FABULOUS_POOLS, BotaniaBlocks.FABULOUS_MANA_POOL,
-				BotaniaTags.Items.DYED_CREATIVE_POOLS, BotaniaBlocks.CREATIVE_MANA_POOL
+				BotaniaTags.Items.DYED_DILUTED_MANA_POOLS, BotaniaBlocks.DILUTED_MANA_POOL,
+				BotaniaTags.Items.DYED_FABULOUS_MANA_POOLS, BotaniaBlocks.FABULOUS_MANA_POOL,
+				BotaniaTags.Items.DYED_CREATIVE_MANA_POOLS, BotaniaBlocks.CREATIVE_MANA_POOL
 		).entrySet()) {
 			ManaPoolBlock poolBlock = e.getValue();
 			ResourceLocation poolBlockId = BuiltInRegistries.BLOCK.getKey(poolBlock);

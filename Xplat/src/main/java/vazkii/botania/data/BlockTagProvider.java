@@ -264,29 +264,53 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE).add(
 				Blocks.BEACON, BotaniaBlocks.MANA_PYLON, BotaniaBlocks.NATURA_PYLON, BotaniaBlocks.GAIA_PYLON
 		);
-		tag(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING).add(
-				BotaniaBlocks.MANA_POOL, BotaniaBlocks.CREATIVE_MANA_POOL, BotaniaBlocks.DILUTED_MANA_POOL,
-				BotaniaBlocks.FABULOUS_MANA_POOL, BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE,
-				BotaniaBlocks.RUNIC_ALTAR
-		);
+		tag(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING)
+				.add(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE, BotaniaBlocks.RUNIC_ALTAR)
+				.addTag(BotaniaTags.Blocks.ALL_MANA_POOLS);
 		tag(BotaniaTags.Blocks.LAPUTA_IMMOBILE);
 		tag(BotaniaTags.Blocks.LAPUTA_NO_DOUBLE_BLOCK);
 
 		tag(BotaniaTags.Blocks.COVERED_MANA_SPREADERS)
 				.add(getColoredBlocks(BotaniaBlocks.MANA_SPREADER, LibBlockNames.COVERED_INFIX));
-		tag(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS)
+		tag(BotaniaTags.Blocks.COVERED_PULSE_MANA_SPREADERS)
 				.add(getColoredBlocks(BotaniaBlocks.PULSE_MANA_SPREADER, LibBlockNames.COVERED_INFIX));
-		tag(BotaniaTags.Blocks.COVERED_ELVEN_SPREADERS)
+		tag(BotaniaTags.Blocks.COVERED_ELVEN_MANA_SPREADERS)
 				.add(getColoredBlocks(BotaniaBlocks.ELVEN_MANA_SPREADER, LibBlockNames.COVERED_INFIX));
-		tag(BotaniaTags.Blocks.COVERED_GAIA_SPREADERS)
+		tag(BotaniaTags.Blocks.COVERED_GAIA_MANA_SPREADERS)
 				.add(getColoredBlocks(BotaniaBlocks.GAIA_MANA_SPREADER, LibBlockNames.COVERED_INFIX));
-		tag(BotaniaTags.Blocks.COVERED_SPREADERS)
+		tag(BotaniaTags.Blocks.ALL_COVERED_MANA_SPREADERS)
 				.addTag(BotaniaTags.Blocks.COVERED_MANA_SPREADERS)
-				.addTag(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS)
-				.addTag(BotaniaTags.Blocks.COVERED_ELVEN_SPREADERS)
-				.addTag(BotaniaTags.Blocks.COVERED_GAIA_SPREADERS);
-		tag(BlockTags.OCCLUDES_VIBRATION_SIGNALS).addTag(BotaniaTags.Blocks.COVERED_SPREADERS);
-		tag(BlockTags.DAMPENS_VIBRATIONS).addTag(BotaniaTags.Blocks.COVERED_SPREADERS);
+				.addTag(BotaniaTags.Blocks.COVERED_PULSE_MANA_SPREADERS)
+				.addTag(BotaniaTags.Blocks.COVERED_ELVEN_MANA_SPREADERS)
+				.addTag(BotaniaTags.Blocks.COVERED_GAIA_MANA_SPREADERS);
+		tag(BlockTags.OCCLUDES_VIBRATION_SIGNALS).addTag(BotaniaTags.Blocks.ALL_COVERED_MANA_SPREADERS);
+		tag(BlockTags.DAMPENS_VIBRATIONS).addTag(BotaniaTags.Blocks.ALL_COVERED_MANA_SPREADERS);
+
+		tag(BotaniaTags.Blocks.DYED_MANA_POOLS)
+				.add(getColoredBlocks(BotaniaBlocks.MANA_POOL));
+		tag(BotaniaTags.Blocks.DYED_CREATIVE_MANA_POOLS)
+				.add(getColoredBlocks(BotaniaBlocks.CREATIVE_MANA_POOL));
+		tag(BotaniaTags.Blocks.DYED_DILUTED_MANA_POOLS)
+				.add(getColoredBlocks(BotaniaBlocks.DILUTED_MANA_POOL));
+		tag(BotaniaTags.Blocks.DYED_FABULOUS_MANA_POOLS)
+				.add(getColoredBlocks(BotaniaBlocks.FABULOUS_MANA_POOL));
+		tag(BotaniaTags.Blocks.MANA_POOLS)
+				.add(BotaniaBlocks.MANA_POOL)
+				.addTag(BotaniaTags.Blocks.DYED_MANA_POOLS);
+		tag(BotaniaTags.Blocks.CREATIVE_MANA_POOLS)
+				.add(BotaniaBlocks.CREATIVE_MANA_POOL)
+				.addTag(BotaniaTags.Blocks.DYED_CREATIVE_MANA_POOLS);
+		tag(BotaniaTags.Blocks.DILUTED_MANA_POOLS)
+				.add(BotaniaBlocks.DILUTED_MANA_POOL)
+				.addTag(BotaniaTags.Blocks.DYED_DILUTED_MANA_POOLS);
+		tag(BotaniaTags.Blocks.FABULOUS_MANA_POOLS)
+				.add(BotaniaBlocks.FABULOUS_MANA_POOL)
+				.addTag(BotaniaTags.Blocks.DYED_FABULOUS_MANA_POOLS);
+		tag(BotaniaTags.Blocks.ALL_MANA_POOLS)
+				.addTag(BotaniaTags.Blocks.MANA_POOLS)
+				.addTag(BotaniaTags.Blocks.CREATIVE_MANA_POOLS)
+				.addTag(BotaniaTags.Blocks.DILUTED_MANA_POOLS)
+				.addTag(BotaniaTags.Blocks.FABULOUS_MANA_POOLS);
 
 		tag(BotaniaTags.Blocks.TERRA_PLATE_BASE).add(BotaniaBlocks.LIVINGROCK, BotaniaBlocks.SHIMMERROCK);
 

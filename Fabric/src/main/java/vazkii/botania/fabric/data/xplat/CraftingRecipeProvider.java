@@ -163,7 +163,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.LIVINGROCK))
 				.save(recipeOutput);
-		dyedPools(recipeOutput, BotaniaBlocks.DILUTED_MANA_POOL, "diluted_pool_dyeing", BotaniaTags.Items.DYED_DILUTED_POOLS);
+		dyedPools(recipeOutput, BotaniaBlocks.DILUTED_MANA_POOL, "diluted_pool_dyeing", BotaniaTags.Items.DYED_DILUTED_MANA_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.FABULOUS_MANA_POOL)
 				.define('R', BotaniaBlocks.SHIMMERROCK)
 				.pattern("R R")
@@ -171,7 +171,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.SHIMMERROCK))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput);
-		dyedPools(recipeOutput, BotaniaBlocks.FABULOUS_MANA_POOL, "fabulous_pool_dyeing", BotaniaTags.Items.DYED_FABULOUS_POOLS);
+		dyedPools(recipeOutput, BotaniaBlocks.FABULOUS_MANA_POOL, "fabulous_pool_dyeing", BotaniaTags.Items.DYED_FABULOUS_MANA_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.FABULOUS_MANA_POOL)
 				.define('P', BotaniaBlocks.MANA_POOL)
 				.define('B', BotaniaBlocks.BIFROST_BLOCK)
@@ -180,7 +180,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST_BLOCK))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput, prefix(BuiltInRegistries.ITEM.getKey(BotaniaBlocks.FABULOUS_MANA_POOL.asItem()).getPath() + "_upgrade"));
-		dyedPools(recipeOutput, BotaniaBlocks.CREATIVE_MANA_POOL, "creative_pool_dyeing", BotaniaTags.Items.DYED_CREATIVE_POOLS);
+		dyedPools(recipeOutput, BotaniaBlocks.CREATIVE_MANA_POOL, "creative_pool_dyeing", BotaniaTags.Items.DYED_CREATIVE_MANA_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.RUNIC_ALTAR)
 				.define('P', ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)
 				.define('S', BotaniaBlocks.LIVINGROCK)

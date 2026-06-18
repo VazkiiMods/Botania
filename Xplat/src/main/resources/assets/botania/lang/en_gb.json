@@ -262,6 +262,13 @@
 
 
 
+
+
+
+
+
+
+
   "tag.block.botania.shields_from_magnet_ring": "Shields from Ring of Magnetisation",
 
 
@@ -932,8 +939,8 @@
 
 
 
-  "block.botania.light_gray_covered_redstone_spreader": "Light Grey Covered Pulse Mana Spreader",
-  "block.botania.gray_covered_redstone_spreader": "Grey Covered Pulse Mana Spreader",
+  "block.botania.light_gray_covered_pulse_mana_spreader": "Light Grey Covered Pulse Mana Spreader",
+  "block.botania.gray_covered_pulse_mana_spreader": "Grey Covered Pulse Mana Spreader",
 
 
 
@@ -949,8 +956,8 @@
 
 
 
-  "block.botania.light_gray_covered_elven_spreader": "Light Grey Covered Elven Mana Spreader",
-  "block.botania.gray_covered_elven_spreader": "Grey Covered elven Mana Spreader",
+  "block.botania.light_gray_covered_elven_mana_spreader": "Light Grey Covered Elven Mana Spreader",
+  "block.botania.gray_covered_elven_mana_spreader": "Grey Covered elven Mana Spreader",
 
 
 
@@ -966,8 +973,8 @@
 
 
 
-  "block.botania.light_gray_covered_gaia_spreader": "Light Grey Covered Gaia Mana Spreader",
-  "block.botania.gray_covered_gaia_spreader": "Grey Covered Gaia Mana Spreader",
+  "block.botania.light_gray_covered_gaia_mana_spreader": "Light Grey Covered Gaia Mana Spreader",
+  "block.botania.gray_covered_gaia_mana_spreader": "Grey Covered Gaia Mana Spreader",
 
 
 
@@ -1007,8 +1014,8 @@
 
 
 
-  "block.botania.gray_diluted_pool": "Grey Diluted Mana Pool",
-  "block.botania.light_gray_diluted_pool": "Light Grey Diluted Mana Pool",
+  "block.botania.gray_diluted_mana_pool": "Grey Diluted Mana Pool",
+  "block.botania.light_gray_diluted_mana_pool": "Light Grey Diluted Mana Pool",
 
 
 
@@ -1024,8 +1031,8 @@
 
 
 
-  "block.botania.gray_fabulous_pool": "Grey Fabulous Mana Pool",
-  "block.botania.light_gray_fabulous_pool": "Light Grey Fabulous Mana Pool",
+  "block.botania.gray_fabulous_mana_pool": "Grey Fabulous Mana Pool",
+  "block.botania.light_gray_fabulous_mana_pool": "Light Grey Fabulous Mana Pool",
 
 
 

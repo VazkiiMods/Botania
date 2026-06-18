@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.redstoneSpreader",
   "category": "botania:mana",
-  "icon": "botania:redstone_spreader",
+  "icon": "botania:pulse_mana_spreader",
   "advancement": "botania:main/pure_daisy_pickup",
   "priority": true,
   "pages": [
@@ -12,7 +12,7 @@
     {
       "type": "crafting",
       "text": "botania.page.redstoneSpreader1",
-      "recipe": "botania:redstone_spreader"
+      "recipe": "botania:pulse_mana_spreader"
     }
   ]
 }

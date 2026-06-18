@@ -1,12 +1,12 @@
 {
   "values": [
     "botania:gray_mana_pool",
-    "botania:gray_creative_pool",
-    "botania:gray_diluted_pool",
-    "botania:gray_fabulous_pool",
+    "botania:gray_creative_mana_pool",
+    "botania:gray_diluted_mana_pool",
+    "botania:gray_fabulous_mana_pool",
     "botania:gray_covered_mana_spreader",
-    "botania:gray_covered_redstone_spreader",
-    "botania:gray_covered_elven_spreader",
-    "botania:gray_covered_gaia_spreader"
+    "botania:gray_covered_pulse_mana_spreader",
+    "botania:gray_covered_elven_mana_spreader",
+    "botania:gray_covered_gaia_mana_spreader"
   ]
 }

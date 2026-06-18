@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "fabulous_pool_dyeing",
+  "ingredients": [
+    {
+      "item": "botania:fabulous_mana_pool"
+    },
+    {
+      "tag": "botania:petals/lime"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:lime_fabulous_mana_pool"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "botania:spreader",
+  "key": {
+    "E": {
+      "tag": "c:ingots/elementium"
+    },
+    "P": {
+      "tag": "botania:petals"
+    },
+    "W": {
+      "tag": "botania:dreamwood_logs"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "EP ",
+    "WWW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:elven_mana_spreader"
+  }
+}

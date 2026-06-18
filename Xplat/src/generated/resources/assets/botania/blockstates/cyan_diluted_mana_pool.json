@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "botania:block/diluted_mana_pool"
+    }
+  }
+}

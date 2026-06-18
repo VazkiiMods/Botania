@@ -230,8 +230,15 @@
 
 
 
+
+
+
   "tag.block.botania.tall_mystical_flowers": "키 큰 신비로운 꽃",
   "tag.block.botania.dreamwood_logs": "꿈나무 원목",
+
+
+
+
 
 
   "tag.block.botania.floating_flowers": "떠다니는 꽃",
@@ -930,7 +937,7 @@
 
 
 
-  "block.botania.redstone_spreader": "레드스톤 마나 공급기",
+  "block.botania.pulse_mana_spreader": "레드스톤 마나 공급기",
 
 
 
@@ -947,7 +954,7 @@
 
 
 
-  "block.botania.elven_spreader": "요정의 마나 공급기",
+  "block.botania.elven_mana_spreader": "요정의 마나 공급기",
 
 
 
@@ -964,7 +971,7 @@
 
 
 
-  "block.botania.gaia_spreader": "대지의 마나 공급기",
+  "block.botania.gaia_mana_spreader": "대지의 마나 공급기",
 
 
 
@@ -998,8 +1005,8 @@
 
 
 
-  "block.botania.creative_pool": "영원한 속죄의 웅덩이",
-  "block.botania.diluted_pool": "희박한 마나 웅덩이",
+  "block.botania.creative_mana_pool": "영원한 속죄의 웅덩이",
+  "block.botania.diluted_mana_pool": "희박한 마나 웅덩이",
 
 
 
@@ -1016,7 +1023,7 @@
 
 
 
-  "block.botania.fabulous_pool": "멋진 마나 웅덩이",
+  "block.botania.fabulous_mana_pool": "멋진 마나 웅덩이",
 
 
 

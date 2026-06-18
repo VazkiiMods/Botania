@@ -1,0 +1,20 @@
+{
+  "values": [
+    "botania:white_mana_pool",
+    "botania:light_gray_mana_pool",
+    "botania:gray_mana_pool",
+    "botania:black_mana_pool",
+    "botania:brown_mana_pool",
+    "botania:red_mana_pool",
+    "botania:orange_mana_pool",
+    "botania:yellow_mana_pool",
+    "botania:lime_mana_pool",
+    "botania:green_mana_pool",
+    "botania:cyan_mana_pool",
+    "botania:light_blue_mana_pool",
+    "botania:blue_mana_pool",
+    "botania:purple_mana_pool",
+    "botania:magenta_mana_pool",
+    "botania:pink_mana_pool"
+  ]
+}

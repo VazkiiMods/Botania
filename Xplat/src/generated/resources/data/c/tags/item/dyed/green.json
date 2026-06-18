@@ -1,8 +1,8 @@
 {
   "values": [
     "botania:green_mana_pool",
-    "botania:green_creative_pool",
-    "botania:green_diluted_pool",
-    "botania:green_fabulous_pool"
+    "botania:green_creative_mana_pool",
+    "botania:green_diluted_mana_pool",
+    "botania:green_fabulous_mana_pool"
   ]
 }

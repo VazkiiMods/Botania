@@ -99,15 +99,15 @@ public class BotaniaTags {
 		// for advancement use
 		public static final TagKey<Item> ALL_MANA_POOLS = tag("all_mana_pools");
 		public static final TagKey<Item> MANA_POOLS = tag("mana_pools");
-		public static final TagKey<Item> CREATIVE_POOLS = tag("creative_pools");
-		public static final TagKey<Item> DILUTED_POOLS = tag("diluted_pools");
-		public static final TagKey<Item> FABULOUS_POOLS = tag("fabulous_pools");
+		public static final TagKey<Item> CREATIVE_MANA_POOLS = tag("creative_mana_pools");
+		public static final TagKey<Item> DILUTED_MANA_POOLS = tag("diluted_mana_pools");
+		public static final TagKey<Item> FABULOUS_MANA_POOLS = tag("fabulous_mana_pools");
 
 		// for recipe use
 		public static final TagKey<Item> DYED_MANA_POOLS = tag("dyed_mana_pools");
-		public static final TagKey<Item> DYED_CREATIVE_POOLS = tag("dyed_creative_pools");
-		public static final TagKey<Item> DYED_DILUTED_POOLS = tag("dyed_diluted_pools");
-		public static final TagKey<Item> DYED_FABULOUS_POOLS = tag("dyed_fabulous_pools");
+		public static final TagKey<Item> DYED_CREATIVE_MANA_POOLS = tag("dyed_creative_mana_pools");
+		public static final TagKey<Item> DYED_DILUTED_MANA_POOLS = tag("dyed_diluted_mana_pools");
+		public static final TagKey<Item> DYED_FABULOUS_MANA_POOLS = tag("dyed_fabulous_mana_pools");
 
 		public static final TagKey<Item> MANA_POOL_DYE_REMOVER = tag("mana_pool_dye_remover");
 
@@ -340,11 +340,25 @@ public class BotaniaTags {
 		/**
 		 * Wool-covered spreader blocks. These dampen vibrations and occlude vibration signals.
 		 */
-		public static final TagKey<Block> COVERED_SPREADERS = tag("covered_spreaders");
+		public static final TagKey<Block> ALL_COVERED_MANA_SPREADERS = tag("all_covered_mana_spreaders");
 		public static final TagKey<Block> COVERED_MANA_SPREADERS = tag("covered_mana_spreaders");
-		public static final TagKey<Block> COVERED_PULSE_SPREADERS = tag("covered_redstone_spreaders");
-		public static final TagKey<Block> COVERED_ELVEN_SPREADERS = tag("covered_elven_spreaders");
-		public static final TagKey<Block> COVERED_GAIA_SPREADERS = tag("covered_gaia_spreaders");
+		public static final TagKey<Block> COVERED_PULSE_MANA_SPREADERS = tag("covered_pulse_mana_spreaders");
+		public static final TagKey<Block> COVERED_ELVEN_MANA_SPREADERS = tag("covered_elven_mana_spreaders");
+		public static final TagKey<Block> COVERED_GAIA_MANA_SPREADERS = tag("covered_gaia_mana_spreaders");
+
+		/**
+		 * The various types of mana pools. These all shield items from being attracted by a magnet ring.
+		 */
+		public static final TagKey<Block> ALL_MANA_POOLS = tag("all_mana_pools");
+		public static final TagKey<Block> MANA_POOLS = tag("mana_pools");
+		public static final TagKey<Block> CREATIVE_MANA_POOLS = tag("creative_mana_pools");
+		public static final TagKey<Block> DILUTED_MANA_POOLS = tag("diluted_mana_pools");
+		public static final TagKey<Block> FABULOUS_MANA_POOLS = tag("fabulous_mana_pools");
+
+		public static final TagKey<Block> DYED_MANA_POOLS = tag("dyed_mana_pools");
+		public static final TagKey<Block> DYED_CREATIVE_MANA_POOLS = tag("dyed_creative_mana_pools");
+		public static final TagKey<Block> DYED_DILUTED_MANA_POOLS = tag("dyed_diluted_mana_pools");
+		public static final TagKey<Block> DYED_FABULOUS_MANA_POOLS = tag("dyed_fabulous_mana_pools");
 
 		/**
 		 * Blocks consumed by the Munchdew flower.
