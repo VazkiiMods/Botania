@@ -126,7 +126,7 @@
         {pos: [3, 1, 5], state: "botania:mana_detector{powered:false}"},
         {pos: [5, 1, 5], state: "botania:mana_spreader{waterlogged:false}", nbt: {Items: [], canShootBurst: 1b, forceClientBindingX: 0, forceClientBindingY: -2147483648, forceClientBindingZ: 0, id: "botania:mana_spreader", inputKey: "", lastPingbackX: 0.0d, lastPingbackY: -2.147483648E9d, lastPingbackZ: 0.0d, mana: 1000, mapmakerOverrideEnabled: 0b, mmForcedColor: 2162464, mmForcedGravity: 0.0f, mmForcedManaLossPerTick: 4.0f, mmForcedManaPayload: 160, mmForcedTicksBeforeManaLoss: 60, mmForcedVelocityMultiplier: 1.0f, outputKey: "", paddingColor: -1, pingbackTicks: 0, requestUpdate: 0b, rotationX: 0.0f, rotationY: 0.0f, uuid: [I; -261994962, -1464121513, -1512190512, -369576865]}},
         {pos: [3, 2, 5], state: "minecraft:redstone_lamp{lit:false}"},
-        {pos: [5, 2, 5], state: "botania:creative_pool{waterlogged:false}", nbt: {canAccept: 1b, canSpare: 1b, color: 0, id: "botania:mana_pool", inputKey: "", mana: 0, manaCap: 1000000, outputKey: "", outputting: 0b}}
+        {pos: [5, 2, 5], state: "botania:creative_mana_pool{waterlogged:false}", nbt: {canAccept: 1b, canSpare: 1b, color: 0, id: "botania:mana_pool", inputKey: "", mana: 0, manaCap: 1000000, outputKey: "", outputting: 0b}}
     ],
     entities: [],
     palette: [
@@ -134,6 +134,6 @@
         "botania:mana_detector{powered:false}",
         "minecraft:redstone_lamp{lit:false}",
         "botania:mana_spreader{waterlogged:false}",
-        "botania:creative_pool{waterlogged:false}"
+        "botania:creative_mana_pool{waterlogged:false}"
     ]
 }

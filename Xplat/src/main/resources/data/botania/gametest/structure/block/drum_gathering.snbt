@@ -16,9 +16,9 @@
         {pos: [10, 3, 11], state: "minecraft:glass"},
         {pos: [11, 3, 10], state: "minecraft:glass"},
         {pos: [10, 8, 9], state: "minecraft:glass"},
-        {pos: [10, 8, 10], state: "botania:creative_pool{color:none,waterlogged:false}"},
+        {pos: [10, 8, 10], state: "botania:creative_mana_pool{color:none,waterlogged:false}"},
         {pos: [10, 9, 9], state: "minecraft:polished_blackstone_button{face:floor,facing:east,powered:false}"},
-        {pos: [10, 9, 10], state: "botania:redstone_spreader{has_scaffolding:false,waterlogged:false}"},
+        {pos: [10, 9, 10], state: "botania:pulse_mana_spreader{has_scaffolding:false,waterlogged:false}"},
         {pos: [10, 10, 10], state: "botania:drum_gathering{waterlogged:false}"}
     ],
     entities: [],
@@ -27,7 +27,7 @@
         "minecraft:glass",
         "minecraft:polished_blackstone_button{face:floor,facing:east,powered:false}",
         "botania:drum_gathering{waterlogged:false}",
-        "botania:creative_pool{color:none,waterlogged:false}",
-        "botania:redstone_spreader{has_scaffolding:false,waterlogged:false}"
+        "botania:creative_mana_pool{color:none,waterlogged:false}",
+        "botania:pulse_mana_spreader{has_scaffolding:false,waterlogged:false}"
     ]
 }

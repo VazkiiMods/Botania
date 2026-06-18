@@ -50,8 +50,8 @@
         {pos: [3, 3, 1], state: "minecraft:candle{candles:2,lit:true,waterlogged:false}"},
         {pos: [3, 3, 2], state: "minecraft:candle{candles:3,lit:true,waterlogged:false}"},
         {pos: [3, 3, 3], state: "minecraft:candle{candles:4,lit:true,waterlogged:false}"},
-        {pos: [2, 4, 1], state: "botania:creative_pool{color:none,waterlogged:false}", nbt: {canAccept: 1b, canSpare: 1b, id: "botania:mana_pool", inputKey: "", mana: 1000000, manaCap: 1000000, outputKey: "", outputting: 0b}},
-        {pos: [2, 4, 2], state: "botania:redstone_spreader{has_scaffolding:true,waterlogged:false}", nbt: {Items: [{Count: 1b, Slot: 0b, id: "botania:lens_paint", tag: {color: 11}}], canShootBurst: 1b, forceClientBindingX: 0, forceClientBindingY: -2147483648, forceClientBindingZ: 0, id: "botania:mana_spreader", inputKey: "", lastPingbackX: 0.0d, lastPingbackY: -2.147483648E9d, lastPingbackZ: 0.0d, mana: 1000, mapmakerOverrideEnabled: 0b, mmForcedColor: 2162464, mmForcedGravity: 0.0f, mmForcedManaLossPerTick: 4.0f, mmForcedManaPayload: 160, mmForcedTicksBeforeManaLoss: 60, mmForcedVelocityMultiplier: 1.0f, outputKey: "", paddingColor: -1, pingbackTicks: 0, requestUpdate: 0b, rotationX: 0.0f, rotationY: -90.0f, uuid: [I; 1881480509, -1857666166, -1981965685, 1678224203]}},
+        {pos: [2, 4, 1], state: "botania:creative_mana_pool{color:none,waterlogged:false}", nbt: {canAccept: 1b, canSpare: 1b, id: "botania:mana_pool", inputKey: "", mana: 1000000, manaCap: 1000000, outputKey: "", outputting: 0b}},
+        {pos: [2, 4, 2], state: "botania:pulse_mana_spreader{has_scaffolding:true,waterlogged:false}", nbt: {Items: [{Count: 1b, Slot: 0b, id: "botania:lens_paint", tag: {color: 11}}], canShootBurst: 1b, forceClientBindingX: 0, forceClientBindingY: -2147483648, forceClientBindingZ: 0, id: "botania:mana_spreader", inputKey: "", lastPingbackX: 0.0d, lastPingbackY: -2.147483648E9d, lastPingbackZ: 0.0d, mana: 1000, mapmakerOverrideEnabled: 0b, mmForcedColor: 2162464, mmForcedGravity: 0.0f, mmForcedManaLossPerTick: 4.0f, mmForcedManaPayload: 160, mmForcedTicksBeforeManaLoss: 60, mmForcedVelocityMultiplier: 1.0f, outputKey: "", paddingColor: -1, pingbackTicks: 0, requestUpdate: 0b, rotationX: 0.0f, rotationY: -90.0f, uuid: [I; 1881480509, -1857666166, -1981965685, 1678224203]}},
         {pos: [2, 4, 3], state: "minecraft:polished_blackstone_button{face:wall,facing:south,powered:false}"},
     ],
     entities: [],
@@ -67,7 +67,7 @@
         "minecraft:candle{candles:3,lit:true,waterlogged:false}",
         "minecraft:candle{candles:4,lit:true,waterlogged:false}",
         "minecraft:polished_blackstone_button{face:wall,facing:south,powered:false}",
-        "botania:creative_pool{color:none,waterlogged:false}",
-        "botania:redstone_spreader{has_scaffolding:true,waterlogged:false}"
+        "botania:creative_mana_pool{color:none,waterlogged:false}",
+        "botania:pulse_mana_spreader{has_scaffolding:true,waterlogged:false}"
     ]
 }
