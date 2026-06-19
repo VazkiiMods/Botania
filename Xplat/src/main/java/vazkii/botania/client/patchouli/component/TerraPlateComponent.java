@@ -76,6 +76,6 @@ public class TerraPlateComponent implements ICustomComponent {
 		cornerBlock = lookup.apply(IVariable.wrap("botania:livingrock", registries)).as(ItemStack.class);
 		centerBlock = lookup.apply(IVariable.wrap("botania:livingrock", registries)).as(ItemStack.class);
 		middleBlock = lookup.apply(IVariable.wrap("minecraft:lapis_block", registries)).as(ItemStack.class);
-		plateBlock = lookup.apply(IVariable.wrap("botania:terra_plate", registries)).as(ItemStack.class);
+		plateBlock = lookup.apply(IVariable.wrap("botania:terrestrial_agglomeration_plate", registries)).as(ItemStack.class);
 	}
 }

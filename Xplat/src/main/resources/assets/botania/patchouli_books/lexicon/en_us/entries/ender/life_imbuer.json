@@ -1,0 +1,22 @@
+{
+  "name": "botania.entry.spawnerClaw",
+  "category": "botania:ender",
+  "icon": "botania:life_imbuer",
+  "entry_color": "aa00",
+  "advancement": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.spawnerClaw0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.spawnerClaw1"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.spawnerClaw2",
+      "recipe": "botania:life_imbuer"
+    }
+  ]
+}

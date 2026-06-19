@@ -197,7 +197,7 @@
 
 
 
-  "botania.nei.brewery": "Botanische Brouwerij",
+  "botania.nei.botanical_brewery": "Botanische Brouwerij",
   "botania.nei.elvenTrade": "Elven Handel",
   "botania.nei.floatingFlowers": "Drijvende Bloemen",
   "botania.nei.manaPool": "Mana Voorraad",
@@ -1042,19 +1042,19 @@
 
   "block.botania.runic_altar": "Runen Altaar",
   "block.botania.piston_relay": "Krachtverbinding",
-  "block.botania.mana_distributor": "Mana Verdeler",
+  "block.botania.mana_splitter": "Mana Verdeler",
 
 
 
   "block.botania.mana_void": "Mana Leegte",
 
-  "block.botania.enchanter": "Mana Betoveraar",
-  "block.botania.turntable": "Verspreider Draaischijf",
+  "block.botania.mana_enchanter": "Mana Betoveraar",
+  "block.botania.spreader_turntable": "Verspreider Draaischijf",
   "block.botania.tiny_planet_block": "Kleine Planeet",
   "block.botania.alchemy_catalyst": "Chemieversneller",
   "block.botania.open_crate": "Open Krat",
 
-  "block.botania.forest_eye": "Oog der Ouden",
+  "block.botania.eye_of_the_ancients": "Oog der Ouden",
   "block.botania.manasteel_block": "Blok Manastaal",
   "block.botania.terrasteel_block": "Blok Terrastaal",
   "block.botania.elementium_block": "Blok Elementium",
@@ -1098,7 +1098,7 @@
   "block.botania.abstruse_platform": "Diepzinnig Platform",
   "block.botania.spectral_platform": "Spookachtig Platform",
   "block.botania.infrangible_platform": "Onbreekbaar Platform",
-  "block.botania.alfheim_portal": "Elven Toegangspoort",
+  "block.botania.elven_gateway_core": "Elven Toegangspoort",
   "block.botania.dark_quartz": "Donker Kwarts Blok",
   "block.botania.chiseled_dark_quartz": "Gebeiteld Donker Kwarts Blok",
   "block.botania.dark_quartz_pillar": "Donkere Kwarts Pilaar",
@@ -1186,7 +1186,7 @@
   "block.botania.red_floating_flower": "Drijvende Rode Bloem",
   "block.botania.black_floating_flower": "Drijvende Zwarte Bloem",
   "block.botania.tiny_potato": "Kleine Aardappel",
-  "block.botania.spawner_claw": "Levensbrenger",
+  "block.botania.life_imbuer": "Levensbrenger",
   "block.botania.azulejo_0": "Helse Baksteen",
   "block.botania.azulejo_1": "Zielen Baksteen",
   "block.botania.azulejo_2": "Bevroren Baksteen",
@@ -1203,21 +1203,21 @@
 
 
 
-  "block.botania.ender_eye_block": "Ender Opzichter",
-  "block.botania.starfield": "Sterrenmaker",
+  "block.botania.ender_overseer": "Ender Opzichter",
+  "block.botania.starfield_creator": "Sterrenmaker",
   "block.botania.mana_fluxfield": "Mana Veld",
   "block.botania.elf_glass": "Elvenglas",
-  "block.botania.brewery": "Botanische Brouwerij",
+  "block.botania.botanical_brewery": "Botanische Brouwerij",
   "block.botania.mana_glass": "Managlas",
-  "block.botania.terra_plate": "Bodemverbindingsplaat",
-  "block.botania.red_string_container": "Rood Gestreepte Container",
-  "block.botania.red_string_dispenser": "Rood Gestreepte Dispenser",
-  "block.botania.red_string_fertilizer": "Rood Gestreepte Bloemvoeder",
-  "block.botania.red_string_comparator": "Rood Gestreepte Comparator",
-  "block.botania.red_string_relay": "Rood Gestreepte Spoofer",
-  "block.botania.red_string_interceptor": "Rood Gestreepte Onderschepper",
+  "block.botania.terrestrial_agglomeration_plate": "Bodemverbindingsplaat",
+  "block.botania.red_stringed_container": "Rood Gestreepte Container",
+  "block.botania.red_stringed_dispenser": "Rood Gestreepte Dispenser",
+  "block.botania.red_stringed_nutrifier": "Rood Gestreepte Bloemvoeder",
+  "block.botania.red_stringed_comparator": "Rood Gestreepte Comparator",
+  "block.botania.red_stringed_spoofer": "Rood Gestreepte Spoofer",
+  "block.botania.red_stringed_interceptor": "Rood Gestreepte Onderschepper",
   "block.botania.mana_flame": "Mana Flits",
-  "block.botania.prism": "Mana Prisma",
+  "block.botania.mana_prism": "Mana Prisma",
   "block.botania.metamorphic_forest_stone": "Veranderlijke Woudsteen",
   "block.botania.metamorphic_plains_stone": "Veranderlijke Veldsteen",
   "block.botania.metamorphic_mountain_stone": "Veranderlijke Bergsteen",
@@ -1388,7 +1388,7 @@
 
 
 
-  "block.botania.pump": "Mana Pomp",
+  "block.botania.mana_pump": "Mana Pomp",
   "block.botania.white_tall_mystical_flower": "Lange Mystieke Witte Bloem",
   "block.botania.orange_tall_mystical_flower": "Lange Mystieke Oranje Bloem",
   "block.botania.magenta_tall_mystical_flower": "Lange Mystieke Magenta Bloem",
@@ -1409,17 +1409,17 @@
   "block.botania.corporea_interceptor": "Corporea Onderschepper",
   "block.botania.corporea_crystal_cube": "Corporea Kristallen Kubus",
   "block.botania.incense_plate": "Plaat Wierook",
-  "block.botania.hourglass": "Zwevende Zandloper",
+  "block.botania.hovering_hourglass": "Zwevende Zandloper",
   "block.botania.ghost_rail": "Spookachtige Rails",
-  "block.botania.spark_changer": "Vonkbewerker",
+  "block.botania.spark_tinkerer": "Vonkbewerker",
   "block.botania.root": "Levenswortel",
   "block.botania.fel_pumpkin": "Bezeten Pompoen",
   "block.botania.cocoon": "Cocoon van Caprice",
-  "block.botania.light_relay": "Verlichter",
-  "block.botania.detector_light_relay": "Detector Verlichter",
+  "block.botania.luminizer": "Verlichter",
+  "block.botania.detector_luminizer": "Detector Verlichter",
 
 
-  "block.botania.light_launcher": "Verlichter Lanceerder",
+  "block.botania.luminizer_launcher": "Verlichter Lanceerder",
   "block.botania.livingrock_wall": "Levensteen Muur",
 
 
@@ -1467,7 +1467,7 @@
   "block.botania.red_buried_petal": "Begraven Rode Bloemblad",
   "block.botania.black_buried_petal": "Begraven Zwart Bloemblad",
   "block.botania.cacophonium_block": "Kakofoon Blok",
-  "block.botania.bellows": "Manavloed Blaasbalg",
+  "block.botania.manatide_bellows": "Manavloed Blaasbalg",
   "block.botania.bifrost": "Tijdelijk Bifrost Blok",
   "block.botania.bifrost_perm": "Bifrost Blok",
   "block.botania.white_pavement": "Witte Portugese Stoep",
@@ -1488,7 +1488,7 @@
   "block.botania.red_pavement_slab": "Rode Portugese Stoeptegel",
   "block.botania.yellow_pavement_slab": "Gele Portugese Stoeptegel",
   "block.botania.green_pavement_slab": "Groene Portugese Stoeptegel",
-  "block.botania.cell_block": "Cellulair Blok",
+  "block.botania.cellular_block": "Cellulair Blok",
   "block.botania.gaia_head": "Beschermer van Gaia's Hoofd",
 
 
@@ -2678,8 +2678,8 @@
 
 
 
-  "botania.entry.prism": "Mana Prisma",
-  "botania.tagline.prism": "Wissel de werkzame lens op een Mana Burst",
+  "botania.entry.mana_prism": "Mana Prisma",
+  "botania.tagline.mana_prism": "Wissel de werkzame lens op een Mana Burst",
   "botania.page.prism0": "Het concept van de $(item)Mana Lens$(0) is de aanpassing van de kracht die wordt overgebracht door een $(thing)Mana Burst$(0). De $(item)Mana Prisma$(0) laat toe dat het effect van de lens op een burst kan worden omgeschakeld.$(p)Door gebruik van een $(item)Spookachtig Platform$(0) als bestandsdeel, heeft dit blok geen fysieke aanwezigheid, alles kan erdoorheen alsof het niet bestaat.",
   "botania.page.prism1": "Door erop te rechts-klikken met een willekeurige $(item)Mana Lens$(0), komt de lens op het prisma. Waneer een $(thing)Mana Burst$(0) erdoorheen gaat, wordt zijn kleur en effect dat van de lens in het prisma. Als de lens niet gekleurd is, worden de bursten wit.$(p)Het gebruik van 1 van de 4 basis lenzen vergoot de tijd alvorens $(thing)Mana$(0) verlies optreedt.",
   "botania.page.prism2": "Hij kan ook aan/uit geschakeld worden middels een redstone signaal.",
@@ -3165,8 +3165,8 @@
 
   "botania.page.craftCrate9": "9 verschillende patronen",
 
-  "botania.entry.hourglass": "Zwevende Zandloper",
-  "botania.tagline.hourglass": "Een eenvoudige timer",
+  "botania.entry.hovering_hourglass": "Zwevende Zandloper",
+  "botania.tagline.hovering_hourglass": "Een eenvoudige timer",
   "botania.page.hourglass0": "De mogelijkheid om de tijd te kunnen tellen is een noodzaak voor iedereen die dingen wil maken met redstone. Maar een enkele timer is in het algemeen al groot en langzaam. De $(item)Zwevende Zandloper$(0) is een simpele, nauwkeurige, zand-gebaseerde timer. Zoals de naam al zegt is het een zandloper die zweeft en vanzelf omdraait.",
   "botania.page.hourglass1": "De zandloper heeft een inventory, waarin een stack $(item)Zand$(0), $(item)Rood Zand$(0) of $(item)Zielenzand$(0) kan worden gezet middels een rechts-klik. Opnieuw rechts-klikken verwijdert het. Het zand zal gaan lopen van één kamer naar de andere, en als dat klaar is, een enkel redstone signaal afgeven, omdraaien en opnieuw beginnen.",
   "botania.page.hourglass2": "De tijd tussen elk signaal is afhankelijk van hoeveel en welk type zand er in de lopen zit. Met $(item)Zand$(0) duurt een blok 1 seconde, $(item)Rood Zand$(0) tien seconden, en $(item)Zielenzand$(0) een minuut. Typen zand kunnen niet gemengd worden. De tijd per signaal kan gezien worden door het blok te bekijken met een $(item)Staf van het Woud$(0).",

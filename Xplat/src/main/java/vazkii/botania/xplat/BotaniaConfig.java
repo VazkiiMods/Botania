@@ -82,7 +82,7 @@ public class BotaniaConfig {
 
 	public static void resetPatchouliFlags() {
 		PatchouliAPI.get().setConfigFlag("botania:relics", common().relicsEnabled());
-		PatchouliAPI.get().setConfigFlag("botania:enchanter", common().enchanterEnabled());
+		PatchouliAPI.get().setConfigFlag("botania:mana_enchanter", common().enchanterEnabled());
 		PatchouliAPI.get().setConfigFlag("botania:ender_hand_pickpocket", common().enderPickpocketEnabled());
 	}
 }

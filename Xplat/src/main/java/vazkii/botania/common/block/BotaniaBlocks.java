@@ -1323,34 +1323,34 @@ public final class BotaniaBlocks {
 			new Block(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)));
 
 	// mana spreaders
-	public static final ManaSpreaderBlock MANA_SPREADER = makeBlockWithColoredVariants(LibBlockNames.SPREADER,
+	public static final ManaSpreaderBlock MANA_SPREADER = makeBlockWithColoredVariants(LibBlockNames.MANA_SPREADER,
 			color -> new ManaSpreaderBlock(ManaSpreaderBlock.DEFAULT_SPREADER_PARAMETERS, color,
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)),
 			LibBlockNames.COVERED_INFIX);
-	public static final ManaSpreaderBlock PULSE_MANA_SPREADER = makeBlockWithColoredVariants(LibBlockNames.SPREADER_REDSTONE,
+	public static final ManaSpreaderBlock PULSE_MANA_SPREADER = makeBlockWithColoredVariants(LibBlockNames.PULSE_MANA_SPREADER,
 			color -> new ManaSpreaderBlock(ManaSpreaderBlock.PULSE_SPREADER_PARAMETERS, color,
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)),
 			LibBlockNames.COVERED_INFIX);
-	public static final ManaSpreaderBlock ELVEN_MANA_SPREADER = makeBlockWithColoredVariants(LibBlockNames.SPREADER_ELVEN,
+	public static final ManaSpreaderBlock ELVEN_MANA_SPREADER = makeBlockWithColoredVariants(LibBlockNames.ELVEN_MANA_SPREADER,
 			color -> new ManaSpreaderBlock(ManaSpreaderBlock.ELVEN_SPREADER_PARAMETERS, color,
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)),
 			LibBlockNames.COVERED_INFIX);
-	public static final ManaSpreaderBlock GAIA_MANA_SPREADER = makeBlockWithColoredVariants(LibBlockNames.SPREADER_GAIA,
+	public static final ManaSpreaderBlock GAIA_MANA_SPREADER = makeBlockWithColoredVariants(LibBlockNames.GAIA_MANA_SPREADER,
 			color -> new ManaSpreaderBlock(ManaSpreaderBlock.GAIA_SPREADER_PARAMETERS, color,
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD).isValidSpawn(NO_SPAWN).isRedstoneConductor(NEVER)),
 			LibBlockNames.COVERED_INFIX);
 
 	// mana pools
-	public static final ManaPoolBlock MANA_POOL = makeBlockWithColoredVariants(LibBlockNames.POOL,
+	public static final ManaPoolBlock MANA_POOL = makeBlockWithColoredVariants(LibBlockNames.MANA_POOL,
 			color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, false,
 					ManaPoolBlock.NORMAL_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final ManaPoolBlock CREATIVE_MANA_POOL = makeBlockWithColoredVariants(LibBlockNames.POOL_CREATIVE,
+	public static final ManaPoolBlock CREATIVE_MANA_POOL = makeBlockWithColoredVariants(LibBlockNames.CREATIVE_MANA_POOL,
 			color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, false, true,
 					ManaPoolBlock.BIG_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final ManaPoolBlock DILUTED_MANA_POOL = makeBlockWithColoredVariants(LibBlockNames.POOL_DILUTED,
+	public static final ManaPoolBlock DILUTED_MANA_POOL = makeBlockWithColoredVariants(LibBlockNames.DILUTED_MANA_POOL,
 			color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA_DILUTED, false, false,
 					ManaPoolBlock.SMALL_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final ManaPoolBlock FABULOUS_MANA_POOL = makeBlockWithColoredVariants(LibBlockNames.POOL_FABULOUS,
+	public static final ManaPoolBlock FABULOUS_MANA_POOL = makeBlockWithColoredVariants(LibBlockNames.FABULOUS_MANA_POOL,
 			color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, true, false,
 					ManaPoolBlock.NORMAL_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 	public static final Block ALCHEMY_CATALYST = make(LibBlockNames.ALCHEMY_CATALYST,
@@ -1403,24 +1403,24 @@ public final class BotaniaBlocks {
 			new PermanentBifrostBlock(BlockBehaviour.Properties.ofFullCopy(MANAGLASS)));
 
 	// recipe blocks
-	public static final Block RUNIC_ALTAR = make(LibBlockNames.RUNE_ALTAR,
+	public static final Block RUNIC_ALTAR = make(LibBlockNames.RUNIC_ALTAR,
 			new RunicAltarBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)
 					.requiresCorrectToolForDrops()));
-	public static final Block MANA_ENCHANTER = make(LibBlockNames.ENCHANTER,
+	public static final Block MANA_ENCHANTER = make(LibBlockNames.MANA_ENCHANTER,
 			new ManaEnchanterBlock(BlockBehaviour.Properties.of()
 					.mapColor(MapColor.LAPIS)
 					.strength(3, 5)
 					.lightLevel(constInt(15))
 					.sound(SoundType.STONE)));
-	public static final Block BOTANICAL_BREWERY = make(LibBlockNames.BREWERY,
+	public static final Block BOTANICAL_BREWERY = make(LibBlockNames.BOTANICAL_BREWERY,
 			new BotanicalBreweryBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block TERRESTRIAL_AGGLOMERATION_PLATE = make(LibBlockNames.TERRA_PLATE,
+	public static final Block TERRESTRIAL_AGGLOMERATION_PLATE = make(LibBlockNames.TERRESTRIAL_AGGLOMERATION_PLATE,
 			new TerrestrialAgglomerationPlateBlock(BlockBehaviour.Properties.of()
 					.mapColor(MapColor.LAPIS)
 					.strength(3, 10)
 					.sound(SoundType.METAL)
 					.requiresCorrectToolForDrops()));
-	public static final Block ELVEN_GATEWAY_CORE = make(LibBlockNames.ALF_PORTAL,
+	public static final Block ELVEN_GATEWAY_CORE = make(LibBlockNames.ELVEN_GATEWAY_CORE,
 			new AlfheimPortalBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)
 					.strength(10)
 					.sound(SoundType.WOOD)
@@ -1428,21 +1428,21 @@ public final class BotaniaBlocks {
 							BotaniaStateProperties.ALFPORTAL_STATE) != AlfheimPortalState.OFF ? 15 : 0)));
 
 	// pylons
-	public static final Block MANA_PYLON = make(LibBlockNames.PYLON,
+	public static final Block MANA_PYLON = make(LibBlockNames.MANA_PYLON,
 			new ManaPylonBlock(BlockBehaviour.Properties.of()
 					.mapColor(DyeColor.LIGHT_BLUE)
 					.strength(5.5F)
 					.sound(SoundType.METAL)
 					.lightLevel(constInt(7))
 					.requiresCorrectToolForDrops()));
-	public static final Block NATURA_PYLON = make(LibBlockNames.PYLON_NATURA,
+	public static final Block NATURA_PYLON = make(LibBlockNames.NATURA_PYLON,
 			new NaturaPylonBlock(BlockBehaviour.Properties.ofFullCopy(MANA_PYLON)
 					.mapColor(MapColor.EMERALD)));
-	public static final Block GAIA_PYLON = make(LibBlockNames.PYLON_GAIA,
+	public static final Block GAIA_PYLON = make(LibBlockNames.GAIA_PYLON,
 			new GaiaPylonBlock(BlockBehaviour.Properties.ofFullCopy(MANA_PYLON)
 					.mapColor(DyeColor.PINK)));
 
-	public static final Block MANA_SPLITTER = make(LibBlockNames.DISTRIBUTOR,
+	public static final Block MANA_SPLITTER = make(LibBlockNames.MANA_SPLITTER,
 			new ManaSplitterBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 	public static final Block MANA_VOID = make(LibBlockNames.MANA_VOID,
 			new ManaVoidBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)
@@ -1472,31 +1472,31 @@ public final class BotaniaBlocks {
 			new DrumOfTheGatheringBlock(BlockBehaviour.Properties.ofFullCopy(DRUM_OF_THE_WILD)));
 	public static final Block DRUM_OF_THE_CANOPY = make(LibBlockNames.DRUM_CANOPY,
 			new DrumOfTheCanopyBlock(BlockBehaviour.Properties.ofFullCopy(DRUM_OF_THE_WILD)));
-	public static final Block LIFE_IMBUER = make(LibBlockNames.SPAWNER_CLAW,
+	public static final Block LIFE_IMBUER = make(LibBlockNames.LIFE_IMBUER,
 			new LifeImbuerBlock(BlockBehaviour.Properties.of()
 					.sound(SoundType.METAL)
 					.strength(3)
 					.requiresCorrectToolForDrops()));
-	public static final Block MANA_FLUXFIELD = make(LibBlockNames.FLUXFIELD,
+	public static final Block MANA_FLUXFIELD = make(LibBlockNames.MANA_FLUXFIELD,
 			new PowerGeneratorBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block MANA_PRISM = make(LibBlockNames.PRISM,
+	public static final Block MANA_PRISM = make(LibBlockNames.MANA_PRISM,
 			new ManaPrismBlock(BlockBehaviour.Properties.ofFullCopy(ALFGLASS)
 					.noCollission()));
-	public static final Block MANA_PUMP = make(LibBlockNames.PUMP,
+	public static final Block MANA_PUMP = make(LibBlockNames.MANA_PUMP,
 			new ManaPumpBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block SPARK_TINKERER = make(LibBlockNames.SPARK_CHANGER,
+	public static final Block SPARK_TINKERER = make(LibBlockNames.SPARK_TINKERER,
 			new SparkTinkererBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 	public static final Block MANASTORM_CHARGE = make(LibBlockNames.MANA_BOMB,
 			new ManastormChargeBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)
 					.strength(12)));
-	public static final Block MANATIDE_BELLOWS = make(LibBlockNames.BELLOWS,
+	public static final Block MANATIDE_BELLOWS = make(LibBlockNames.MANATIDE_BELLOWS,
 			new BellowsBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
 
 	public static final Block OPEN_CRATE = make(LibBlockNames.OPEN_CRATE,
 			new OpenCrateBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
 	public static final Block CRAFTY_CRATE = make(LibBlockNames.CRAFT_CRATE,
 			new CraftyCrateBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block EYE_OF_THE_ANCIENTS = make(LibBlockNames.FOREST_EYE,
+	public static final Block EYE_OF_THE_ANCIENTS = make(LibBlockNames.EYE_OF_THE_ANCIENTS,
 			new EyeOfTheAncientsBlock(BlockBehaviour.Properties.of()
 					.strength(5, 10)
 					.sound(SoundType.METAL)
@@ -1521,19 +1521,19 @@ public final class BotaniaBlocks {
 			new TinyPotatoBlock(BlockBehaviour.Properties.of()
 					.strength(0.25F)
 					.mapColor(DyeColor.PINK)));
-	public static final Block ENDER_OVERSEER = make(LibBlockNames.ENDER_EYE_BLOCK,
+	public static final Block ENDER_OVERSEER = make(LibBlockNames.ENDER_OVERSEER,
 			new EnderOverseerBlock(BlockBehaviour.Properties.ofFullCopy(MANASTEEL_BLOCK)));
-	public static final Block RED_STRINGED_CONTAINER = make(LibBlockNames.RED_STRING_CONTAINER,
+	public static final Block RED_STRINGED_CONTAINER = make(LibBlockNames.RED_STRINGED_CONTAINER,
 			new RedStringContainerBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block RED_STRINGED_DISPENSER = make(LibBlockNames.RED_STRING_DISPENSER,
+	public static final Block RED_STRINGED_DISPENSER = make(LibBlockNames.RED_STRINGED_DISPENSER,
 			new RedStringDispenserBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block RED_STRINGED_NUTRIFIER = make(LibBlockNames.RED_STRING_FERTILIZER,
+	public static final Block RED_STRINGED_NUTRIFIER = make(LibBlockNames.RED_STRINGED_NUTRIFIER,
 			new RedStringNutrifierBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block RED_STRINGED_COMPARATOR = make(LibBlockNames.RED_STRING_COMPARATOR,
+	public static final Block RED_STRINGED_COMPARATOR = make(LibBlockNames.RED_STRINGED_COMPARATOR,
 			new RedStringComparatorBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block RED_STRINGED_SPOOFER = make(LibBlockNames.RED_STRING_RELAY,
+	public static final Block RED_STRINGED_SPOOFER = make(LibBlockNames.RED_STRINGED_SPOOFER,
 			new RedStringSpooferBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block RED_STRINGED_INTERCEPTOR = make(LibBlockNames.RED_STRING_INTERCEPTOR,
+	public static final Block RED_STRINGED_INTERCEPTOR = make(LibBlockNames.RED_STRINGED_INTERCEPTOR,
 			new RedStringInterceptorBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 
 	public static final Block CORPOREA_FUNNEL = make(LibBlockNames.CORPOREA_FUNNEL,
@@ -1581,28 +1581,28 @@ public final class BotaniaBlocks {
 	public static final Block INCENSE_PLATE = make(LibBlockNames.INCENSE_PLATE,
 			new IncensePlateBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)
 					.lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 2 : 0)));
-	public static final Block HOVERING_HOURGLASS = make(LibBlockNames.HOURGLASS,
+	public static final Block HOVERING_HOURGLASS = make(LibBlockNames.HOVERING_HOURGLASS,
 			new HoveringHourglassBlock(BlockBehaviour.Properties.of()
 					.mapColor(MapColor.GOLD)
 					.strength(2)
 					.sound(SoundType.METAL)));
 	public static final Block SPECTRAL_RAIL = make(LibBlockNames.GHOST_RAIL,
 			new SpectralRailBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RAIL)));
-	public static final Block LUMINIZER = make(LibBlockNames.LIGHT_RELAY,
+	public static final Block LUMINIZER = make(LibBlockNames.LUMINIZER,
 			new LuminizerBlock(BlockBehaviour.Properties.of()
 					.noCollission()));
-	public static final Block DETECTOR_LUMINIZER = make("detector" + LibBlockNames.LIGHT_RELAY_SUFFIX,
+	public static final Block DETECTOR_LUMINIZER = make("detector" + LibBlockNames.LUMINIZER_SUFFIX,
 			new LuminizerDetectorBlock(BlockBehaviour.Properties.ofFullCopy(LUMINIZER)));
-	public static final Block FORK_LUMINIZER = make("fork" + LibBlockNames.LIGHT_RELAY_SUFFIX,
+	public static final Block FORK_LUMINIZER = make("fork" + LibBlockNames.LUMINIZER_SUFFIX,
 			new LuminizerForkBlock(BlockBehaviour.Properties.ofFullCopy(LUMINIZER)));
-	public static final Block TOGGLE_LUMINIZER = make("toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX,
+	public static final Block TOGGLE_LUMINIZER = make("toggle" + LibBlockNames.LUMINIZER_SUFFIX,
 			new LuminizerToggleBlock(BlockBehaviour.Properties.ofFullCopy(LUMINIZER)));
-	public static final Block LUMINIZER_LAUNCHER = make(LibBlockNames.LIGHT_LAUNCHER,
+	public static final Block LUMINIZER_LAUNCHER = make(LibBlockNames.LUMINIZER_LAUNCHER,
 			new LuminizerLauncherBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
 	public static final Block CACOPHONIUM_BLOCK = make(LibBlockNames.CACOPHONIUM,
 			new CacophoniumBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.NOTE_BLOCK)
 					.strength(0.8F)));
-	public static final Block CELLULAR_BLOCK = make(LibBlockNames.CELL_BLOCK,
+	public static final Block CELLULAR_BLOCK = make(LibBlockNames.CELLULAR_BLOCK,
 			new CellularBlock(BlockBehaviour.Properties.of()
 					.pushReaction(PushReaction.DESTROY)
 					.sound(SoundType.WOOL)));
@@ -1636,7 +1636,7 @@ public final class BotaniaBlocks {
 					.lightLevel(state -> state.getValue(AnimatedTorchBlock.TRIGGERED) ? 0 : 7)
 					.sound(SoundType.WOOD)
 					.pushReaction(PushReaction.DESTROY)));
-	public static final Block STARFIELD_CREATOR = make(LibBlockNames.STARFIELD,
+	public static final Block STARFIELD_CREATOR = make(LibBlockNames.STARFIELD_CREATOR,
 			new StarfieldCreatorBlock(BlockBehaviour.Properties.of()
 					.mapColor(DyeColor.PINK)
 					.strength(5, 2000)

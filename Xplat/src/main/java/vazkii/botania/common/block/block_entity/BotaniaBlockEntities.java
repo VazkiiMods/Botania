@@ -141,7 +141,7 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.RED_STRINGED_DISPENSER
 	);
 	public static final BlockEntityType<RedStringNutrifierBlockEntity> RED_STRINGED_NUTRIFIER = type(
-			"red_stringed_fertilizer", RedStringNutrifierBlockEntity::new,
+			"red_stringed_nutrifier", RedStringNutrifierBlockEntity::new,
 			BotaniaBlocks.RED_STRINGED_NUTRIFIER
 	);
 	public static final BlockEntityType<RedStringComparatorBlockEntity> RED_STRINGED_COMPARATOR = type(
@@ -169,7 +169,7 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.CORPOREA_FUNNEL
 	);
 	public static final BlockEntityType<ManaPumpBlockEntity> MANA_PUMP = type(
-			"mana_pump", ManaPumpBlockEntity::new,
+			"mana_mana_pump", ManaPumpBlockEntity::new,
 			BotaniaBlocks.MANA_PUMP
 	);
 	public static final BlockEntityType<FakeAirBlockEntity> FAKE_AIR = type(

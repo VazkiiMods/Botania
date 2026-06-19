@@ -41,8 +41,8 @@ public class BellowsBlockEntity extends BlockEntity {
 	public boolean active;
 	public float moving;
 
-	public BellowsBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.MANATIDE_BELLOWS, pos, state);
+	public BellowsBlockEntity(BlockPos pos, BlockState blockState) {
+		super(BotaniaBlockEntities.MANATIDE_BELLOWS, pos, blockState);
 	}
 
 	public void interact() {
@@ -131,13 +131,13 @@ public class BellowsBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		cmp.putBoolean(TAG_ACTIVE, active);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		tag.putBoolean(TAG_ACTIVE, active);
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		active = cmp.getBoolean(TAG_ACTIVE);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		active = tag.getBoolean(TAG_ACTIVE);
 	}
 
 	public void setActive(boolean active) {

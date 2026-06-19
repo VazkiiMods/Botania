@@ -56,9 +56,9 @@ public final class ResourcesLib {
 	public static final String MODEL_CORPOREA_INDEX = PREFIX_MODEL + "corporea_index.png";
 	public static final String MODEL_INVISIBLE_ARMOR = PREFIX_MODEL + "armor_invisible.png";
 	public static final String MODEL_PINK_WITHER = PREFIX_MODEL + "wither_pink.png";
-	public static final String MODEL_BREWERY = PREFIX_MODEL + "brewery.png";
-	public static final String MODEL_HOURGLASS = PREFIX_MODEL + "hourglass.png";
-	public static final String MODEL_BELLOWS = PREFIX_MODEL + "bellows.png";
+	public static final String MODEL_BOTANICAL_BREWERY = PREFIX_MODEL + "botanical_brewery.png";
+	public static final String MODEL_HOVERING_HOURGLASS = PREFIX_MODEL + "hovering_hourglass.png";
+	public static final String MODEL_BELLOWS = PREFIX_MODEL + "manatide_bellows.png";
 	public static final String MODEL_TERU_TERU_BOZU = PREFIX_MODEL + "teru_teru_bozu.png";
 	public static final String MODEL_TERU_TERU_BOZU_HALLOWEEN = PREFIX_MODEL + "teru_teru_bozu_halloween.png";
 	public static final String MODEL_AVATAR = PREFIX_MODEL + "avatar.png";

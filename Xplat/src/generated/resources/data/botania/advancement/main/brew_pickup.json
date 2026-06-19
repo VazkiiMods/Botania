@@ -21,7 +21,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "botania:brewery"
+      "id": "botania:botanical_brewery"
     },
     "title": {
       "translate": "advancement.botania:brewPickup"

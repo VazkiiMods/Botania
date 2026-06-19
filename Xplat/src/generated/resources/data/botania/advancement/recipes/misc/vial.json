@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:brewery"
+            "items": "botania:botanical_brewery"
           }
         ]
       },

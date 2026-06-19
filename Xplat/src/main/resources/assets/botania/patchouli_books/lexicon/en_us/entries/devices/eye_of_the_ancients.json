@@ -1,0 +1,21 @@
+{
+  "name": "botania.entry.forestEye",
+  "category": "botania:devices",
+  "icon": "botania:eye_of_the_ancients",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.forestEye0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.forestEye1"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.forestEye2",
+      "recipe": "botania:eye_of_the_ancients"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "state=off": {
+      "model": "botania:block/elven_gateway_core"
+    },
+    "state=on_x": {
+      "model": "botania:block/elven_gateway_core_activated"
+    },
+    "state=on_z": {
+      "model": "botania:block/elven_gateway_core_activated"
+    }
+  }
+}

@@ -1,9 +1,9 @@
 {
   "name": "botania.entry.manaEnchanting",
   "category": "botania:devices",
-  "icon": "botania:enchanter",
+  "icon": "botania:mana_enchanter",
   "advancement": "botania:main/mana_pool_pickup_lexicon",
-  "flag": "botania:enchanter",
+  "flag": "botania:mana_enchanter",
   "pages": [
     {
       "type": "text",
@@ -15,7 +15,7 @@
     },
     {
       "type": "multiblock",
-      "multiblock_id": "botania:enchanter",
+      "multiblock_id": "botania:mana_enchanter",
       "text": "botania.page.manaEnchanting2"
     },
     {
@@ -40,6 +40,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:enchanter": 1
+    "botania:mana_enchanter": 1
   }
 }

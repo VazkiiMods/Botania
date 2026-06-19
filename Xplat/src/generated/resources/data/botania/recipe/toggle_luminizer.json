@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "botania:luminizer"
+    },
+    {
+      "item": "minecraft:lever"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:toggle_luminizer"
+  }
+}

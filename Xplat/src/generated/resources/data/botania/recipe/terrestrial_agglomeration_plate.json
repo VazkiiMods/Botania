@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "0": {
+      "item": "botania:rune_water"
+    },
+    "1": {
+      "item": "botania:rune_fire"
+    },
+    "2": {
+      "item": "botania:rune_earth"
+    },
+    "3": {
+      "item": "botania:rune_air"
+    },
+    "8": {
+      "item": "botania:rune_mana"
+    },
+    "L": {
+      "tag": "c:storage_blocks/lapis"
+    },
+    "M": {
+      "item": "botania:mana_quartz"
+    }
+  },
+  "pattern": [
+    "LLL",
+    "0M1",
+    "283"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:terrestrial_agglomeration_plate"
+  }
+}

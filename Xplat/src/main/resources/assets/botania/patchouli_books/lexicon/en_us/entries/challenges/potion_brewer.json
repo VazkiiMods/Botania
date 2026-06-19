@@ -1,7 +1,7 @@
 {
   "name": "botania.challenge.potionBrewer",
   "category": "botania:challenges",
-  "icon": "botania:brewery",
+  "icon": "botania:botanical_brewery",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup_lexicon",
   "entry_color": "aa0000",

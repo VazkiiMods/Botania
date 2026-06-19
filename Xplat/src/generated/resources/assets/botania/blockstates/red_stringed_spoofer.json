@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "botania:block/red_stringed_spoofer",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "botania:block/red_stringed_spoofer",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "botania:block/red_stringed_spoofer"
+    },
+    "facing=south": {
+      "model": "botania:block/red_stringed_spoofer",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "botania:block/red_stringed_spoofer",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "botania:block/red_stringed_spoofer",
+      "y": 270
+    }
+  }
+}

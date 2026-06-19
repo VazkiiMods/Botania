@@ -1,8 +1,0 @@
-{
-  "parent": "botania:block/shapes/four_high_bottom_top",
-  "textures": {
-    "bottom": "botania:block/light_launcher_end",
-    "side": "botania:block/light_launcher_side",
-    "top": "botania:block/light_launcher_end"
-  }
-}

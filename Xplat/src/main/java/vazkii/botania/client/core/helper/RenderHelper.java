@@ -155,7 +155,7 @@ public final class RenderHelper extends RenderType {
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.createCompositeState(true);
-		LIGHT_RELAY = makeLayer(ResourcesLib.PREFIX_MOD + "light_relay", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 64, glState);
+		LIGHT_RELAY = makeLayer(ResourcesLib.PREFIX_MOD + "luminizer", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 64, glState);
 
 		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
 				.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
@@ -174,13 +174,13 @@ public final class RenderHelper extends RenderType {
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.setLightmapState(LIGHTMAP).createCompositeState(false);
-		TERRA_PLATE = makeLayer(ResourcesLib.PREFIX_MOD + "terra_plate_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
+		TERRA_PLATE = makeLayer(ResourcesLib.PREFIX_MOD + "terrestrial_agglomeration_plate_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
 		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
 				.setShaderState(new ShaderStateShard(CoreShaders::enchanter))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.setLightmapState(LIGHTMAP).createCompositeState(false);
-		ENCHANTER = makeLayer(ResourcesLib.PREFIX_MOD + "enchanter_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
+		ENCHANTER = makeLayer(ResourcesLib.PREFIX_MOD + "mana_enchanter_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
 
 		RenderStateShard.TextureStateShard babylonTexture = new RenderStateShard.TextureStateShard(ResourceLocation.parse(ResourcesLib.MISC_BABYLON), false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(babylonTexture)
@@ -206,7 +206,7 @@ public final class RenderHelper extends RenderType {
 						.add(TheEndPortalRenderer.END_SKY_LOCATION, false, false)
 						.add(TheEndPortalRenderer.END_PORTAL_LOCATION, false, false).build())
 				.createCompositeState(false);
-		STARFIELD = makeLayer(ResourcesLib.PREFIX_MOD + "starfield", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, glState);
+		STARFIELD = makeLayer(ResourcesLib.PREFIX_MOD + "starfield_creator", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, glState);
 		glState = RenderType.CompositeState.builder()
 				.setShaderState(POSITION_COLOR_SHADER)
 				.setTransparencyState(LIGHTNING_TRANSPARENCY)

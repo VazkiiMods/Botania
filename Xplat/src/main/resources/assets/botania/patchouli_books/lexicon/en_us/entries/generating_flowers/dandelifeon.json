@@ -49,7 +49,7 @@
     {
       "type": "crafting",
       "text": "botania.page.dandelifeon9",
-      "recipe": "botania:cell_block"
+      "recipe": "botania:cellular_block"
     }
   ],
   "extra_recipe_mappings": {

@@ -46,7 +46,7 @@ a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/botania/tags/block/munchdew_consum
 59cf23d61f960b6b3a9ec635bc618ed84e654812 data/botania/tags/block/pasture_seed_replaceable.json
 cb5d86906c3b7a5c47f636395fc1880af8493190 data/botania/tags/block/quartz_blocks.json
 245211371d5edf3bb5b5acd2cba7ac8e359530c3 data/botania/tags/block/sheep_edible_grasses.json
-a4f5fd103d6cbb1c812a7fbd4da6051d6dc1dc43 data/botania/tags/block/shields_from_magnet_ring.json
+6972f231623194dfb30c49c3fbca17ff668ab09a data/botania/tags/block/shields_from_magnet_ring.json
 6e7296363bf47b7776be8b51965421a68f83583d data/botania/tags/block/shimmering_mushrooms.json
 b8f7ad101786922de58b38f716d236ef09f23ac9 data/botania/tags/block/single_item_insert.json
 663d521c50e341acbabb82cc9003e4e4002c16be data/botania/tags/block/small_mystical_flowers.json
@@ -71,9 +71,9 @@ ecce163938cc925fe079c2984cf7301b86cc49fa data/minecraft/tags/block/dampens_vibra
 08dcd70c9ce61b3db1c6f5df4024131856efb2a5 data/minecraft/tags/block/flowers.json
 6c0e30b59d2db092c64bc58b477e8432adf49698 data/minecraft/tags/block/impermeable.json
 6b553bb9832d565598020d5d025cb828c1918cdc data/minecraft/tags/block/logs_that_burn.json
-7ca4045d2631ff1a1c567d4eca52a8c600774db1 data/minecraft/tags/block/mineable/axe.json
-615e0a6cac000af5aae7161c0b2e14d31dca597d data/minecraft/tags/block/mineable/hoe.json
-45f928a35711e9814a99dc05438cbd2f5a2f45a1 data/minecraft/tags/block/mineable/pickaxe.json
+dbf4e05dfdf79c508e00b456b1fb7552272951e6 data/minecraft/tags/block/mineable/axe.json
+0a9898eba9e523237ac5d9c9946b669c4148e29b data/minecraft/tags/block/mineable/hoe.json
+a8ca97d05055a3b634277bb844946f020f514dc2 data/minecraft/tags/block/mineable/pickaxe.json
 6dc502923dba1a83ac5d5e380311c30ac7983924 data/minecraft/tags/block/mineable/shovel.json
 ccd3bb287d6acf22d5bd33ee553e84fbb44614ca data/minecraft/tags/block/mushroom_grow_block.json
 ecce163938cc925fe079c2984cf7301b86cc49fa data/minecraft/tags/block/occludes_vibration_signals.json

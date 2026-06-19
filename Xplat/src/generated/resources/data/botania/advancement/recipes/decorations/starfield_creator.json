@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_elementium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/elementium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_pixie_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:dusts/pixie"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "botania:starfield_creator"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pixie_dust",
+      "has_elementium"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "botania:starfield_creator"
+    ]
+  }
+}

@@ -36,7 +36,7 @@ public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer
 	private static final double ANIM_VERTICAL_TICK_SCALE = 0.04;
 	private static final double ANIM_TICK_CYCLE = 2 * Math.PI / ANIM_HORIZONTAL_TICK_SCALE / ANIM_VERTICAL_TICK_SCALE;
 
-	final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_HOURGLASS);
+	final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_HOVERING_HOURGLASS);
 	private final HourglassModel model;
 
 	public HoveringHourglassBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {

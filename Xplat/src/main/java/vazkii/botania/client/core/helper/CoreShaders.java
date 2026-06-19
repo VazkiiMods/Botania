@@ -50,7 +50,7 @@ public class CoreShaders {
 	// Because Fabric is cute and hides the ResourceProvider from modders (why?)
 	public static void init(TriConsumer<ResourceLocation, VertexFormat, Consumer<ShaderInstance>> registrations) {
 		registrations.accept(
-				botaniaRL("starfield"),
+				botaniaRL("starfield_creator"),
 				DefaultVertexFormat.POSITION,
 				inst -> starfieldShaderInstance = inst
 		);
@@ -70,12 +70,12 @@ public class CoreShaders {
 				inst -> manaPool = inst
 		);
 		registrations.accept(
-				botaniaRL("terra_plate_rune"),
+				botaniaRL("terrestrial_agglomeration_plate_rune"),
 				DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
 				inst -> terraPlate = inst
 		);
 		registrations.accept(
-				botaniaRL("enchanter_rune"),
+				botaniaRL("mana_enchanter_rune"),
 				DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
 				inst -> enchanter = inst
 		);

@@ -1,5 +1,5 @@
 {
-  "type": "botania:terra_plate",
+  "type": "botania:terrestrial_agglomeration_plate",
   "ingredients": [
     {
       "tag": "c:ingots/manasteel"

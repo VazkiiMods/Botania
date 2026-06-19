@@ -45,7 +45,7 @@ public class BreweryREICategory implements DisplayCategory<BreweryREIDisplay> {
 
 	@Override
 	public Component getTitle() {
-		return Component.translatable("botania.nei.brewery");
+		return Component.translatable("botania.nei.botanical_brewery");
 	}
 
 	@Override

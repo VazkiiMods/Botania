@@ -1415,11 +1415,11 @@
 
 
 
-  "block.botania.light_relay": "Luminiser",
-  "block.botania.detector_light_relay": "Detector Luminiser",
-  "block.botania.fork_light_relay": "Fork Luminiser",
-  "block.botania.toggle_light_relay": "Toggle Luminiser",
-  "block.botania.light_launcher": "Luminiser Launcher",
+  "block.botania.luminizer": "Luminiser",
+  "block.botania.detector_luminizer": "Detector Luminiser",
+  "block.botania.fork_luminizer": "Fork Luminiser",
+  "block.botania.toggle_luminizer": "Toggle Luminiser",
+  "block.botania.luminizer_launcher": "Luminiser Launcher",
 
 
 

@@ -1,0 +1,11 @@
+{
+  "parent": "botania:block/shapes/eightbyeight",
+  "textures": {
+    "bottom": "botania:block/eye_of_the_ancients_bottom",
+    "east": "botania:block/eye_of_the_ancients_east",
+    "north": "botania:block/eye_of_the_ancients_north",
+    "south": "botania:block/eye_of_the_ancients_south",
+    "top": "botania:block/eye_of_the_ancients_top",
+    "west": "botania:block/eye_of_the_ancients_west"
+  }
+}

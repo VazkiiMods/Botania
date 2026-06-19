@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "botania:block/ender_overseer"
+    },
+    "powered=true": {
+      "model": "botania:block/ender_overseer_powered"
+    }
+  }
+}

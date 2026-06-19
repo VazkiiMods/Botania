@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "M": {
+      "tag": "c:ingots/manasteel"
+    },
+    "S": {
+      "item": "botania:livingrock"
+    }
+  },
+  "pattern": [
+    "MSM",
+    "SES",
+    "MSM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:eye_of_the_ancients"
+  }
+}

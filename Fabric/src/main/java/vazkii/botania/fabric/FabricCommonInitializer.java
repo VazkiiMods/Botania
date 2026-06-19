@@ -173,7 +173,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		DefaultCorporeaMatchers.init();
 		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.ELVEN_GATEWAY_CORE), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(botaniaRL("alfheim_portal"), AlfheimPortalBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.MANA_ENCHANTER), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(botaniaRL("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());

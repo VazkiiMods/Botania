@@ -33,24 +33,25 @@ public class TerrestrialAgglomerationPlateBlockEntityRenderer implements BlockEn
 	public TerrestrialAgglomerationPlateBlockEntityRenderer(BlockEntityRendererProvider.Context manager) {
 		this.overlaySprite = Objects.requireNonNull(
 				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-						.apply(botaniaRL("block/terra_plate_overlay"))
+						.apply(botaniaRL("block/terrestrial_agglomeration_plate_overlay"))
 		);
 	}
 
 	@Override
-	public void render(TerrestrialAgglomerationPlateBlockEntity plate, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(TerrestrialAgglomerationPlateBlockEntity plate, float partialTick, PoseStack poseStack,
+			MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
 		float alphaMod = Math.min(1.0F, plate.getCompletion() / 0.1F);
 
-		ms.pushPose();
-		ms.translate(0F, 3F / 16F + 0.001F, 0F);
-		ms.mulPose(VecHelper.rotateX(90F));
+		poseStack.pushPose();
+		poseStack.translate(0F, 3F / 16F + 0.001F, 0F);
+		poseStack.mulPose(VecHelper.rotateX(90F));
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.getEntityTicksInGame() + partialTick) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
 
-		VertexConsumer buffer = buffers.getBuffer(RenderHelper.TERRA_PLATE);
-		RenderHelper.renderIconFullBright(ms, buffer, this.overlaySprite, alpha);
+		VertexConsumer buffer = bufferSource.getBuffer(RenderHelper.TERRA_PLATE);
+		RenderHelper.renderIconFullBright(poseStack, buffer, this.overlaySprite, alpha);
 
-		ms.popPose();
+		poseStack.popPose();
 	}
 
 }

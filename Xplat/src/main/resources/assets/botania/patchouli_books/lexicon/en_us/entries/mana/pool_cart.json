@@ -24,7 +24,7 @@
     {
       "type": "crafting",
       "text": "botania.page.poolCart4",
-      "recipe": "botania:pump"
+      "recipe": "botania:mana_pump"
     }
   ]
 }

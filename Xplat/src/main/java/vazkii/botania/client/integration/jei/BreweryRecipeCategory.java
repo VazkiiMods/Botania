@@ -34,12 +34,12 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BreweryRecipeCategory extends BotaniaRecipeCategoryBase<BotanicalBreweryRecipe> {
 
-	public static final RecipeType<BotanicalBreweryRecipe> TYPE = RecipeType.create(BotaniaAPI.MODID, "brewery", BotanicalBreweryRecipe.class);
+	public static final RecipeType<BotanicalBreweryRecipe> TYPE = RecipeType.create(BotaniaAPI.MODID, "botanical_brewery", BotanicalBreweryRecipe.class);
 	public static final int WIDTH = 131;
 	public static final int HEIGHT = 55;
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
-		super(WIDTH, HEIGHT, Component.translatable("botania.nei.brewery"),
+		super(WIDTH, HEIGHT, Component.translatable("botania.nei.botanical_brewery"),
 				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.BOTANICAL_BREWERY)),
 				guiHelper.createDrawable(botaniaRL("textures/gui/nei_brewery.png"), 28, 6, WIDTH, HEIGHT));
 	}

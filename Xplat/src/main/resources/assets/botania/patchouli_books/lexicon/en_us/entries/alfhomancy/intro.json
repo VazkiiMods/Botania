@@ -17,7 +17,7 @@
     {
       "type": "crafting",
       "text": "botania.page.aIntro2",
-      "recipe": "botania:alfheim_portal"
+      "recipe": "botania:elven_gateway_core"
     },
     {
       "type": "crafting",

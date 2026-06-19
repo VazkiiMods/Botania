@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/three_high_bottom_top",
+  "textures": {
+    "bottom": "botania:block/terrestrial_agglomeration_plate_bottom",
+    "side": "botania:block/terrestrial_agglomeration_plate_side",
+    "top": "botania:block/terrestrial_agglomeration_plate_top"
+  }
+}

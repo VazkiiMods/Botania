@@ -40,7 +40,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 	public ManaEnchanterBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		this.overlaySprite = Objects.requireNonNull(
 				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-						.apply(botaniaRL("block/enchanter_overlay"))
+						.apply(botaniaRL("block/mana_enchanter_overlay"))
 		);
 	}
 

@@ -1,6 +1,6 @@
 {
   "name": "botania.category.devices",
   "description": "botania.category.devices.description",
-  "icon": "botania:hourglass",
+  "icon": "botania:hovering_hourglass",
   "sortnum": 4
 }

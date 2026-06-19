@@ -11,7 +11,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "botania:enchanter"
+      "id": "botania:mana_enchanter"
     },
     "title": {
       "translate": "advancement.botania:enchanterMake"

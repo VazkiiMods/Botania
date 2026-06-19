@@ -55,7 +55,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class BlockstateProvider implements DataProvider {
 	protected final PackOutput packOutput;
 
-	protected final List<BlockStateGenerator> blockstates = new ArrayList<>();
+	protected final List<BlockStateGenerator> blockStateGenerators = new ArrayList<>();
 
 	protected final Map<ResourceLocation, Supplier<JsonElement>> models = new HashMap<>();
 	protected final BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput = models::put;
@@ -74,7 +74,7 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	@Override
-	public CompletableFuture<?> run(CachedOutput cache) {
+	public CompletableFuture<?> run(CachedOutput output) {
 		try {
 			registerStatesAndModels();
 		} catch (Exception e) {
@@ -83,20 +83,20 @@ public class BlockstateProvider implements DataProvider {
 
 		PackOutput.PathProvider blockstatePathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
 		PackOutput.PathProvider modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
-		List<CompletableFuture<?>> output = new ArrayList<>();
+		List<CompletableFuture<?>> outputList = new ArrayList<>();
 
-		for (BlockStateGenerator state : blockstates) {
+		for (BlockStateGenerator state : blockStateGenerators) {
 			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
 			Path path = blockstatePathProvider.json(id);
-			output.add(DataProvider.saveStable(cache, state.get(), path));
+			outputList.add(DataProvider.saveStable(output, state.get(), path));
 		}
 
 		for (Map.Entry<ResourceLocation, Supplier<JsonElement>> e : models.entrySet()) {
 			ResourceLocation modelId = e.getKey();
 			Path path = modelPathProvider.json(modelId);
-			output.add(DataProvider.saveStable(cache, e.getValue().get(), path));
+			outputList.add(DataProvider.saveStable(output, e.getValue().get(), path));
 		}
-		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
+		return CompletableFuture.allOf(outputList.toArray(CompletableFuture[]::new));
 	}
 
 	protected void registerStatesAndModels() {
@@ -125,7 +125,7 @@ public class BlockstateProvider implements DataProvider {
 				getModelLocation(BotaniaBlocks.ELVEN_GATEWAY_CORE, "_activated"),
 				TextureMapping.cube(getModelLocation(BotaniaBlocks.ELVEN_GATEWAY_CORE, "_activated")),
 				this.modelOutput);
-		this.blockstates.add(
+		this.blockStateGenerators.add(
 				MultiVariantGenerator.multiVariant(BotaniaBlocks.ELVEN_GATEWAY_CORE).with(
 						PropertyDispatch.property(BotaniaStateProperties.ALFPORTAL_STATE)
 								.select(AlfheimPortalState.OFF,
@@ -167,7 +167,7 @@ public class BlockstateProvider implements DataProvider {
 					this.modelOutput);
 			crateDispatch = crateDispatch.select(pattern, Variant.variant().with(VariantProperties.MODEL, model));
 		}
-		this.blockstates.add(MultiVariantGenerator.multiVariant(BotaniaBlocks.CRAFTY_CRATE).with(crateDispatch));
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(BotaniaBlocks.CRAFTY_CRATE).with(crateDispatch));
 		remainingBlocks.remove(BotaniaBlocks.CRAFTY_CRATE);
 
 		ResourceLocation corpSlabSide = botaniaRL("block/corporea_slab_side");
@@ -193,13 +193,13 @@ public class BlockstateProvider implements DataProvider {
 						.put(TextureSlot.BOTTOM, corpBlock)
 						.put(TextureSlot.TOP, corpBlock),
 				this.modelOutput);
-		blockstates.add(BlockModelGeneratorsAccessor.botania_createSlab(BotaniaBlocks.CORPOREA_SLAB,
+		blockStateGenerators.add(BlockModelGeneratorsAccessor.botania_createSlab(BotaniaBlocks.CORPOREA_SLAB,
 				corpSlabBottomModel, corpSlabTopModel, corpSlabDoubleModel));
 		remainingBlocks.remove(BotaniaBlocks.CORPOREA_SLAB);
 
 		stairsBlock(remainingBlocks, BotaniaBlocks.CORPOREA_STAIRS, corpBlock, corpBlock, corpBlock);
 
-		this.blockstates.add(MultiVariantGenerator.multiVariant(
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(
 				BotaniaBlocks.ALFGLASS, IntStream.rangeClosed(0, 3)
 						.mapToObj(i -> {
 							var model = ModelTemplates.CUBE_ALL.create(
@@ -218,7 +218,7 @@ public class BlockstateProvider implements DataProvider {
 						.put(TextureSlot.TOP, getBlockTexture(Blocks.PUMPKIN, "_top")),
 				this.modelOutput
 		);
-		this.blockstates.add(MultiVariantGenerator.multiVariant(
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(
 				BotaniaBlocks.FEL_PUMPKIN, Variant.variant().with(VariantProperties.MODEL, pumpkinModel))
 				.with(BlockModelGeneratorsAccessor.botania_createHorizontalFacingDispatch()));
 		remainingBlocks.remove(BotaniaBlocks.FEL_PUMPKIN);
@@ -240,7 +240,7 @@ public class BlockstateProvider implements DataProvider {
 		remainingBlocks.remove(BotaniaBlocks.EYE_OF_THE_ANCIENTS);
 
 		var plateFile = getModelLocation(BotaniaBlocks.INCENSE_PLATE);
-		this.blockstates.add(MultiVariantGenerator.multiVariant(
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(
 				BotaniaBlocks.INCENSE_PLATE, Variant.variant().with(VariantProperties.MODEL, plateFile))
 				.with(BlockModelGeneratorsAccessor.botania_createHorizontalFacingDispatch()));
 		remainingBlocks.remove(BotaniaBlocks.INCENSE_PLATE);
@@ -634,7 +634,7 @@ public class BlockstateProvider implements DataProvider {
 				});
 
 		takeAll(remainingBlocks, BotaniaBlocks.MANA_PUMP, BotaniaBlocks.TINY_POTATO)
-				.forEach(block -> this.blockstates.add(MultiVariantGenerator.multiVariant(block,
+				.forEach(block -> this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block,
 						Variant.variant().with(VariantProperties.MODEL, getModelLocation(block)))
 						.with(BlockModelGeneratorsAccessor.botania_createHorizontalFacingDispatch()))
 				);
@@ -643,7 +643,7 @@ public class BlockstateProvider implements DataProvider {
 			var offModel = ModelTemplates.CUBE_ALL.create(block, TextureMapping.cube(block), this.modelOutput);
 			var onModel = ModelTemplates.CUBE_ALL.create(getModelLocation(block, "_powered"),
 					TextureMapping.cube(getBlockTexture(block, "_powered")), this.modelOutput);
-			this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
+			this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block).with(
 					PropertyDispatch.property(BlockStateProperties.POWERED)
 							.select(false, Variant.variant().with(VariantProperties.MODEL, offModel))
 							.select(true, Variant.variant().with(VariantProperties.MODEL, onModel))
@@ -657,7 +657,7 @@ public class BlockstateProvider implements DataProvider {
 					.put(TextureSlot.TOP, getBlockTexture(block, "_top")),
 					this.modelOutput
 			);
-			this.blockstates.add(MultiVariantGenerator.multiVariant(block, BlockModelGeneratorsAccessor.botania_createRotatedVariants(model)));
+			this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block, BlockModelGeneratorsAccessor.botania_createRotatedVariants(model)));
 		});
 
 		takeAll(remainingBlocks, block -> block instanceof RedStringBlock).forEach(this::redStringBlock);
@@ -666,7 +666,7 @@ public class BlockstateProvider implements DataProvider {
 			var bottom = ModelTemplates.CROSS.create(block, TextureMapping.cross(block), this.modelOutput);
 			var top = ModelTemplates.CROSS.create(getModelLocation(block, "_top"),
 					TextureMapping.cross(getBlockTexture(block, "_top")), this.modelOutput);
-			this.blockstates.add(
+			this.blockStateGenerators.add(
 					MultiVariantGenerator.multiVariant(block)
 							.with(PropertyDispatch.property(TallFlowerBlock.HALF)
 									.select(DoubleBlockHalf.LOWER, Variant.variant().with(VariantProperties.MODEL, bottom))
@@ -834,7 +834,7 @@ public class BlockstateProvider implements DataProvider {
 			var pillarModel = ModelTemplates.CUBE_COLUMN.create(pillar,
 					TextureMapping.column(getBlockTexture(pillar, "_side"), getBlockTexture(pillar, "_end")),
 					this.modelOutput);
-			this.blockstates.add(BlockModelGeneratorsAccessor.botania_createAxisAlignedPillarBlock(pillar, pillarModel));
+			this.blockStateGenerators.add(BlockModelGeneratorsAccessor.botania_createAxisAlignedPillarBlock(pillar, pillarModel));
 
 			ResourceLocation bricksId = quartzId.withSuffix("_bricks");
 			Block bricks = BuiltInRegistries.BLOCK.get(bricksId);
@@ -894,7 +894,7 @@ public class BlockstateProvider implements DataProvider {
 			ResourceLocation noSideAltModel = ModelTemplates.STAINED_GLASS_PANE_NOSIDE_ALT.create(block, mapping, this.modelOutput);
 
 			// [VanillaCopy] BlockModelGenerator glass panes
-			this.blockstates.add(MultiPartGenerator.multiPart(block)
+			this.blockStateGenerators.add(MultiPartGenerator.multiPart(block)
 					.with(Variant.variant().with(VariantProperties.MODEL, postModel))
 					.with(Condition.condition().term(BlockStateProperties.NORTH, true),
 							Variant.variant().with(VariantProperties.MODEL, sideModel))
@@ -1138,7 +1138,7 @@ public class BlockstateProvider implements DataProvider {
 				}
 			}
 		}
-		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
 		blocks.remove(block);
 	}
 
@@ -1213,7 +1213,7 @@ public class BlockstateProvider implements DataProvider {
 		var indicesBottom = IntStream.range(0, length).boxed();
 		var indicesTop = IntStream.range(0, length).boxed();
 		var indicesDouble = IntStream.range(0, length).boxed();
-		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block).with(
 				PropertyDispatch.property(BlockStateProperties.SLAB_TYPE)
 						.select(SlabType.BOTTOM, indicesBottom.map(i -> maybeWeight(weights[i],
 								Variant.variant().with(VariantProperties.MODEL, bottomModels[i]))).toList())
@@ -1330,7 +1330,7 @@ public class BlockstateProvider implements DataProvider {
 
 	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels,
 			ResourceLocation[] lowModels, ResourceLocation[] lowModelsRot90, ResourceLocation[] tallModels,
-			ResourceLocation[] tallodelsRot90, Integer[] weights, Boolean uvlock) {
+			ResourceLocation[] tallModelsRot90, Integer[] weights, Boolean uvlock) {
 		int length = postModels.length;
 		if (length != lowModels.length || length != tallModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1364,10 +1364,10 @@ public class BlockstateProvider implements DataProvider {
 					.with(Condition.condition().term(wallSide, WallSide.TALL), indicesTall.map(
 							i -> maybeUVLock(uvlock, maybeWeight(weights[i], maybeYRot(yRot,
 									Variant.variant().with(VariantProperties.MODEL,
-											rotatedModel ? tallodelsRot90[i] : tallModels[i]))))
+											rotatedModel ? tallModelsRot90[i] : tallModels[i]))))
 					).toArray(Variant[]::new));
 		}
-		this.blockstates.add(multiPartGenerator);
+		this.blockStateGenerators.add(multiPartGenerator);
 		blocks.remove(block);
 	}
 
@@ -1375,7 +1375,7 @@ public class BlockstateProvider implements DataProvider {
 		var mapping = TextureMapping.defaultTexture(tex);
 		var postModel = ModelTemplates.FENCE_POST.create(block, mapping, this.modelOutput);
 		var sideModel = ModelTemplates.FENCE_SIDE.create(block, mapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createFence(block, postModel, sideModel));
+		this.blockStateGenerators.add(BlockModelGeneratorsAccessor.botania_createFence(block, postModel, sideModel));
 		blocks.remove(block);
 	}
 
@@ -1385,7 +1385,7 @@ public class BlockstateProvider implements DataProvider {
 		var closedModel = ModelTemplates.FENCE_GATE_CLOSED.create(block, mapping, this.modelOutput);
 		var openWallModel = ModelTemplates.FENCE_GATE_WALL_OPEN.create(block, mapping, this.modelOutput);
 		var closedWallModel = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(block, mapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createFenceGate(block, openModel, closedModel, openWallModel, closedWallModel, false));
+		this.blockStateGenerators.add(BlockModelGeneratorsAccessor.botania_createFenceGate(block, openModel, closedModel, openWallModel, closedWallModel, false));
 		blocks.remove(block);
 	}
 
@@ -1399,7 +1399,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation topLeftOpenModel = BotaniaModelTemplates.DOOR_TOP_LEFT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
 		ResourceLocation topRightModel = BotaniaModelTemplates.DOOR_TOP_RIGHT.create(doorBlock, texturemapping, this.modelOutput);
 		ResourceLocation topRightOpenModel = BotaniaModelTemplates.DOOR_TOP_RIGHT_OPEN.create(doorBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createDoor(doorBlock,
+		this.blockStateGenerators.add(BlockModelGeneratorsAccessor.botania_createDoor(doorBlock,
 				bottomLeftModel, bottomLeftOpenModel,
 				bottomRightModel, bottomRightOpenModel,
 				topLeftModel, topLeftOpenModel,
@@ -1412,7 +1412,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation topModel = BotaniaModelTemplates.TRAPDOOR_TOP.create(trapdoorBlock, texturemapping, this.modelOutput);
 		ResourceLocation bottomModel = BotaniaModelTemplates.TRAPDOOR_BOTTOM.create(trapdoorBlock, texturemapping, this.modelOutput);
 		ResourceLocation openModel = BotaniaModelTemplates.TRAPDOOR_OPEN.create(trapdoorBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createOrientableTrapdoor(trapdoorBlock, topModel, bottomModel, openModel));
+		this.blockStateGenerators.add(BlockModelGeneratorsAccessor.botania_createOrientableTrapdoor(trapdoorBlock, topModel, bottomModel, openModel));
 		blocks.remove(trapdoorBlock);
 	}
 
@@ -1438,7 +1438,7 @@ public class BlockstateProvider implements DataProvider {
 		TextureMapping texturemapping = TextureMapping.defaultTexture(blockTexture);
 		ResourceLocation unpoweredModel = ModelTemplates.BUTTON.create(buttonBlock, texturemapping, this.modelOutput);
 		ResourceLocation poweredModel = ModelTemplates.BUTTON_PRESSED.create(buttonBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createButton(buttonBlock, unpoweredModel, poweredModel));
+		this.blockStateGenerators.add(BlockModelGeneratorsAccessor.botania_createButton(buttonBlock, unpoweredModel, poweredModel));
 		ModelTemplates.BUTTON_INVENTORY.create(buttonBlock, texturemapping, this.modelOutput);
 		blocks.remove(buttonBlock);
 	}
@@ -1447,7 +1447,7 @@ public class BlockstateProvider implements DataProvider {
 		TextureMapping texturemapping = TextureMapping.defaultTexture(blockTexture);
 		ResourceLocation unpoweredModel = ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlateBlock, texturemapping, this.modelOutput);
 		ResourceLocation poweredModel = ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlateBlock, texturemapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.botania_createPreasurePlate(pressurePlateBlock, unpoweredModel, poweredModel));
+		this.blockStateGenerators.add(BlockModelGeneratorsAccessor.botania_createPreasurePlate(pressurePlateBlock, unpoweredModel, poweredModel));
 		blocks.remove(pressurePlateBlock);
 	}
 
@@ -1499,13 +1499,13 @@ public class BlockstateProvider implements DataProvider {
 			throw new IllegalArgumentException("Arrays must have equal length");
 		}
 		var indices = IntStream.range(0, length).boxed();
-		this.blockstates.add(MultiVariantGenerator.multiVariant(block, indices.map(i -> maybeWeight(weights[i],
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block, indices.map(i -> maybeWeight(weights[i],
 				Variant.variant().with(VariantProperties.MODEL, models[i]))).toArray(Variant[]::new)));
 		blocks.remove(block);
 	}
 
-	protected void singleVariantBlockState(Block b, ResourceLocation model) {
-		this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, model)));
+	protected void singleVariantBlockState(Block block, ResourceLocation model) {
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model)));
 	}
 
 	protected void rotatedMirrored(Set<Block> blocks, Block block, ResourceLocation texture) {
@@ -1542,7 +1542,7 @@ public class BlockstateProvider implements DataProvider {
 			throw new IllegalArgumentException("Arrays must have equal length");
 		}
 		var indices = IntStream.range(0, length).boxed();
-		this.blockstates.add(MultiVariantGenerator.multiVariant(block, indices.flatMap(i -> Stream.of(
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block, indices.flatMap(i -> Stream.of(
 				maybeWeight(weights[i], Variant.variant().with(VariantProperties.MODEL, models[i])),
 				maybeWeight(weights[i], Variant.variant().with(VariantProperties.MODEL, mirroredModels[i])),
 				maybeWeight(weights[i], Variant.variant()
@@ -1593,7 +1593,7 @@ public class BlockstateProvider implements DataProvider {
 		var indicesX = IntStream.range(0, length).boxed();
 		var indicesY = IntStream.range(0, length).boxed();
 		var indicesZ = IntStream.range(0, length).boxed();
-		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block).with(
 				PropertyDispatch.property(BlockStateProperties.AXIS)
 						.select(Direction.Axis.Y, indicesX.map(i -> maybeWeight(weights[i], Variant.variant()
 								.with(VariantProperties.MODEL, topModels[i]))).toList())
@@ -1645,7 +1645,7 @@ public class BlockstateProvider implements DataProvider {
 
 	protected void pillarAltWithModels(Set<Block> blocks, Block block, ResourceLocation[] yModels,
 			ResourceLocation[] xModels, ResourceLocation[] zModels) {
-		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block).with(
 				PropertyDispatch.property(BlockStateProperties.AXIS)
 						.select(Direction.Axis.Y, Stream.of(yModels)
 								.map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
@@ -1712,7 +1712,7 @@ public class BlockstateProvider implements DataProvider {
 		var indicesSouth = IntStream.range(0, length).boxed();
 		var indicesEast = IntStream.range(0, length).boxed();
 		var indicesWest = IntStream.range(0, length).boxed();
-		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block).with(
 				PropertyDispatch.property(BlockStateProperties.FACING)
 						.select(Direction.UP, indicesUp.map(i -> maybeWeight(weights[i], Variant.variant()
 								.with(VariantProperties.MODEL, topModels[i]))).toList())
@@ -1790,14 +1790,14 @@ public class BlockstateProvider implements DataProvider {
 		return ret;
 	}
 
-	protected void redStringBlock(Block b) {
-		ResourceLocation selfName = getBlockTexture(b);
-		ResourceLocation front = botaniaRL("block/red_string_sender");
-		var model = ModelTemplates.CUBE_ORIENTABLE.create(b, new TextureMapping()
+	protected void redStringBlock(Block block) {
+		ResourceLocation selfName = getBlockTexture(block);
+		ResourceLocation front = botaniaRL("block/red_stringed_sender");
+		var model = ModelTemplates.CUBE_ORIENTABLE.create(block, new TextureMapping()
 				.put(TextureSlot.TOP, selfName)
 				.put(TextureSlot.FRONT, front)
 				.put(TextureSlot.SIDE, selfName), this.modelOutput);
-		this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, model))
+		this.blockStateGenerators.add(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model))
 				.with(BlockModelGeneratorsAccessor.botania_createFacingDispatch()));
 	}
 }

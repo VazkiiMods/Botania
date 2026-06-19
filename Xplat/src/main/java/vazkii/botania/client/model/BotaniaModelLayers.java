@@ -14,11 +14,11 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaModelLayers {
 	public static final ModelLayerLocation AVATAR = make("avatar");
-	public static final ModelLayerLocation BELLOWS = make("bellows");
-	public static final ModelLayerLocation BREWERY = make("brewery");
+	public static final ModelLayerLocation BELLOWS = make("manatide_bellows");
+	public static final ModelLayerLocation BREWERY = make("botanical_brewery");
 	public static final ModelLayerLocation CLOAK = make("cloak");
 	public static final ModelLayerLocation CORPOREA_INDEX = make("corporea_index");
-	public static final ModelLayerLocation HOURGLASS = make("hourglass");
+	public static final ModelLayerLocation HOURGLASS = make("hovering_hourglass");
 	public static final ModelLayerLocation ELEMENTIUM_INNER_ARMOR = make("elementium_armor", "inner_armor");
 	public static final ModelLayerLocation ELEMENTIUM_OUTER_ARMOR = make("elementium_armor", "outer_armor");
 	public static final ModelLayerLocation MANASTEEL_INNER_ARMOR = make("manasteel_armor", "inner_armor");

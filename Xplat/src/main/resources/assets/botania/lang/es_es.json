@@ -197,7 +197,7 @@
   "botania.tater.you_came_to_the_wrong_neighborhood.15": "Ese no es mi nombre",
   "botania.tater.you_came_to_the_wrong_neighborhood.16": "Ese no es mi nombre",
 
-  "botania.nei.brewery": "Fermentador botánico",
+  "botania.nei.botanical_brewery": "Fermentador botánico",
   "botania.nei.elvenTrade": "Intercambio élfico",
   "botania.nei.floatingFlowers": "Flores flotantes",
   "botania.nei.manaPool": "Infusión de maná",
@@ -1042,19 +1042,19 @@
 
   "block.botania.runic_altar": "Altar rúnico",
   "block.botania.piston_relay": "Relé de fuerza",
-  "block.botania.mana_distributor": "Distribuidor de maná",
+  "block.botania.mana_splitter": "Distribuidor de maná",
 
 
 
   "block.botania.mana_void": "Vacío de maná",
   "block.botania.mana_detector": "Detector de maná",
-  "block.botania.enchanter": "Encantador de maná",
-  "block.botania.turntable": "Girador de esparcidor",
+  "block.botania.mana_enchanter": "Encantador de maná",
+  "block.botania.spreader_turntable": "Girador de esparcidor",
   "block.botania.tiny_planet_block": "Planeta diminuto",
   "block.botania.alchemy_catalyst": "Catalizador alquímico",
   "block.botania.open_crate": "Caja abierta",
 
-  "block.botania.forest_eye": "Ojo de los Antiguos",
+  "block.botania.eye_of_the_ancients": "Ojo de los Antiguos",
   "block.botania.manasteel_block": "Bloque de manacero",
   "block.botania.terrasteel_block": "Bloque de terracero",
   "block.botania.elementium_block": "Bloque de elementio",
@@ -1098,7 +1098,7 @@
   "block.botania.abstruse_platform": "Plataforma abstrusa",
   "block.botania.spectral_platform": "Plataforma espectral",
   "block.botania.infrangible_platform": "Plataforma irrompible",
-  "block.botania.alfheim_portal": "Núcleo de acceso élfico",
+  "block.botania.elven_gateway_core": "Núcleo de acceso élfico",
   "block.botania.dark_quartz": "Bloque de cuarzo ahumado",
   "block.botania.chiseled_dark_quartz": "Bloque cincelado de cuarzo ahumado",
   "block.botania.dark_quartz_pillar": "Pilar de cuarzo ahumado",
@@ -1186,7 +1186,7 @@
   "block.botania.red_floating_flower": "Flor flotante roja",
   "block.botania.black_floating_flower": "Flor flotante negra",
   "block.botania.tiny_potato": "Patatita",
-  "block.botania.spawner_claw": "Imbusor de vida",
+  "block.botania.life_imbuer": "Imbusor de vida",
   "block.botania.azulejo_0": "Ladrillo infernal",
   "block.botania.azulejo_1": "Ladrillo de almas",
   "block.botania.azulejo_2": "Ladrillo de escarcha",
@@ -1203,21 +1203,21 @@
 
 
 
-  "block.botania.ender_eye_block": "Supervisor del Fin",
-  "block.botania.starfield": "Creador de campo estrellado",
+  "block.botania.ender_overseer": "Supervisor del Fin",
+  "block.botania.starfield_creator": "Creador de campo estrellado",
   "block.botania.mana_fluxfield": "Flujificador de maná",
   "block.botania.elf_glass": "Alfcristal",
-  "block.botania.brewery": "Fermentador botánico",
+  "block.botania.botanical_brewery": "Fermentador botánico",
   "block.botania.mana_glass": "Manacristal",
-  "block.botania.terra_plate": "Placa de aglomeración terrestre",
-  "block.botania.red_string_container": "Contenedor de hilo rojo",
-  "block.botania.red_string_dispenser": "Dispensador de hilo rojo",
-  "block.botania.red_string_fertilizer": "Abonador de hilo rojo",
-  "block.botania.red_string_comparator": "Comparador de hilo rojo",
-  "block.botania.red_string_relay": "Suplantador de hilo rojo",
+  "block.botania.terrestrial_agglomeration_plate": "Placa de aglomeración terrestre",
+  "block.botania.red_stringed_container": "Contenedor de hilo rojo",
+  "block.botania.red_stringed_dispenser": "Dispensador de hilo rojo",
+  "block.botania.red_stringed_nutrifier": "Abonador de hilo rojo",
+  "block.botania.red_stringed_comparator": "Comparador de hilo rojo",
+  "block.botania.red_stringed_spoofer": "Suplantador de hilo rojo",
 
   "block.botania.mana_flame": "Destello de maná",
-  "block.botania.prism": "Prisma de maná",
+  "block.botania.mana_prism": "Prisma de maná",
   "block.botania.metamorphic_forest_stone": "Piedra metamórfica de bosque",
   "block.botania.metamorphic_plains_stone": "Piedra metamórfica de llanura",
   "block.botania.metamorphic_mountain_stone": "Piedra metamórfica de montaña",
@@ -1388,7 +1388,7 @@
 
 
 
-  "block.botania.pump": "Bomba de maná",
+  "block.botania.mana_pump": "Bomba de maná",
   "block.botania.white_tall_mystical_flower": "Flor mística alta blanca",
   "block.botania.orange_tall_mystical_flower": "Flor mística alta naranja",
   "block.botania.magenta_tall_mystical_flower": "Flor mística alta magenta",
@@ -1409,17 +1409,17 @@
   "block.botania.corporea_interceptor": "Interceptor de corporea",
   "block.botania.corporea_crystal_cube": "Cubo de cristal de corporea",
   "block.botania.incense_plate": "Placa de incienso",
-  "block.botania.hourglass": "Reloj de arena flotante",
+  "block.botania.hovering_hourglass": "Reloj de arena flotante",
   "block.botania.ghost_rail": "Raíl espectral",
-  "block.botania.spark_changer": "Ajustador de chispas",
+  "block.botania.spark_tinkerer": "Ajustador de chispas",
   "block.botania.root": "Raíz viviente",
   "block.botania.fel_pumpkin": "Calabaza vil",
   "block.botania.cocoon": "Capullo caprichoso",
-  "block.botania.light_relay": "Luminaria",
-  "block.botania.detector_light_relay": "Detector de luminaria",
+  "block.botania.luminizer": "Luminaria",
+  "block.botania.detector_luminizer": "Detector de luminaria",
 
 
-  "block.botania.light_launcher": "Lanzador de luminaria",
+  "block.botania.luminizer_launcher": "Lanzador de luminaria",
   "block.botania.livingrock_wall": "Muro de piedra viviente",
 
 
@@ -2678,7 +2678,7 @@
 
 
 
-  "botania.entry.prism": "Prisma de maná",
+  "botania.entry.mana_prism": "Prisma de maná",
 
   "botania.page.prism0": "El concepto de $(item)lente de maná$(0) permite la manipulación del poder transportado por los $(thing)pulsos de maná$(0), el $(thing)pisma de maná$(0) funciona con esa tecnología permitiendo al pulso cambiar su efecto durante su trayecto.$(p)Al usar una $(item)plataforma espectral$(0) como componente, este bloque no tiene presencia física, las entidades y los pulsos pueden atravesarlo como si no existiese.",
   "botania.page.prism1": "Haciendo clic derecho sobre él con cualquier $(item)lente de maná$(0) la coloca en el prisma. Siempre que un $(thing)pulso de maná$(0) pase a través del prisma, su color y efecto se cambiará al de la lente del prisma. En caso que la lente no esté teñida, el pulso se volverá blanco.$(p)Usando cualquiera de las cuatro lentes básicas incrementan el tiempo que el pulso puede viajar antes de que empiece a perder $(thing)maná$(0), permitiéndole ir más lejos.",
@@ -3165,7 +3165,7 @@
 
   "botania.page.craftCrate9": "9 patrones diferentes",
 
-  "botania.entry.hourglass": "Reloj de arena flotante",
+  "botania.entry.hovering_hourglass": "Reloj de arena flotante",
 
   "botania.page.hourglass0": "La habilidad de medir el tiempo es esencial para quien quiera desarrollar artilugios redstónicos. Un simple temporizador, sin embargo, puede ocupar mucho espacio y ser lento. El $(item)reloj de arena flotante$(0) se un sencillo y preciso temporizador que usa arena. Como el nombre indica, es reloj de arena que flota, y se da la vuelta él solo.",
   "botania.page.hourglass1": "El reloj contiene un inventario, que se le puede poner un montón de $(item)arena$(0), $(item)arena roja$(0) o $(item)arena de almas$(0) haciendo clic derecho. Haciendo clic derecho de nuevo lo elimina. La arena caerá de una cámara a la otra, y cuando acabe, emitirá un pulso de redstone y se dará la vuelta solo, empezando de nuevo.",

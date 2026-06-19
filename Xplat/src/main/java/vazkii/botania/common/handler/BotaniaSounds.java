@@ -27,17 +27,17 @@ public final class BotaniaSounds {
 	private static final List<RegistryHelper.HolderProxy<SoundEvent>> EVENTS = new ArrayList<>();
 	//blocks
 	public static final SoundEvent altarCraft = makeSoundEvent("altar_craft");
-	public static final SoundEvent bellows = makeSoundEvent("bellows");
+	public static final SoundEvent bellows = makeSoundEvent("manatide_bellows");
 	public static final SoundEvent drum = makeSoundEvent("drum");
 	public static final SoundEvent enchanterEnchant = makeSoundEvent("enchanter_enchant");
 	public static final SoundEvent enchanterFade = makeSoundEvent("enchanter_fade");
 	public static final SoundEvent enchanterForm = makeSoundEvent("enchanter_form");
 	public static final SoundEvent hornDoot = makeSoundEvent("horn_doot");
 	public static final SoundEvent incensePlateIgnite = makeSoundEvent("incense_plate_ignite");
-	public static final SoundEvent lightRelay = makeSoundEvent("light_relay");
+	public static final SoundEvent lightRelay = makeSoundEvent("luminizer");
 	public static final SoundEvent manaPoolCraft = makeSoundEvent("mana_pool_craft");
 	public static final SoundEvent potionCreate = makeSoundEvent("potion_create");
-	public static final SoundEvent redStringInterceptorClick = makeSoundEvent("red_string_interceptor_click");
+	public static final SoundEvent redStringInterceptorClick = makeSoundEvent("red_stringed_interceptor_click");
 	public static final SoundEvent runeAltarCraft = makeSoundEvent("rune_altar_craft");
 	public static final SoundEvent runeAltarStart = makeSoundEvent("rune_altar_start");
 	public static final SoundEvent prismAddLens = makeSoundEvent("prism_add_lens");

@@ -29,7 +29,7 @@ import java.util.Objects;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<ManaPumpBlockEntity> {
-	public static final ResourceLocation PUMP_HEAD_ID = botaniaRL("block/pump_head");
+	public static final ResourceLocation PUMP_HEAD_ID = botaniaRL("block/mana_pump_head");
 
 	private final BlockRenderDispatcher blockRenderDispatcher;
 

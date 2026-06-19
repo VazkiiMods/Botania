@@ -14,7 +14,7 @@
       "type": "crafting",
       "title": "botania.page.terrasteel4",
       "text": "botania.page.terrasteel1",
-      "recipe": "botania:terra_plate"
+      "recipe": "botania:terrestrial_agglomeration_plate"
     },
     {
       "type": "text",
@@ -22,7 +22,7 @@
     },
     {
       "type": "multiblock",
-      "multiblock_id": "botania:terra_plate",
+      "multiblock_id": "botania:terrestrial_agglomeration_plate",
       "text": "botania.page.terrasteel4",
       "symmetrical": true
     },
