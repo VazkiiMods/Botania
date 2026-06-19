@@ -158,7 +158,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 				getBlockState().setValue(BotaniaStateProperties.TERRA_PLATE_STATE,
 						mana > 0 ? TerraPlateState.DISSIPATING : TerraPlateState.IDLE),
 				Block.UPDATE_ALL);
-		level.blockEvent(getBlockPos(), getBlockState().getBlock(), BLOCK_EVENT_PROGRESS_UPDATE, -1);
+		level.blockEvent(getBlockPos(), getBlockState().getBlock(), BLOCK_EVENT_CRAFTING_ABORTED, -1);
 	}
 
 	public static void serverDissipatingTick(Level level, BlockPos pos, BlockState state,
@@ -235,6 +235,11 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 			}
 			case BLOCK_EVENT_CRAFTING_ABORTED -> {
 				this.currentProgress = -1;
+				if (level.isClientSide()) {
+					for (int i = 0; i < 10; i++) {
+						getBlockState().getBlock().animateTick(getBlockState(), level, getBlockPos(), level.random);
+					}
+				}
 				return true;
 			}
 			case BLOCK_EVENT_PROGRESS_UPDATE -> {
@@ -343,7 +348,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 	}
 
 	public float getCompletion() {
-		return manaToGet > 0 ? (float) mana / manaToGet : 0;
+		return currentProgress > 0 ? currentProgress / 100f : 0;
 	}
 
 	public int getComparatorLevel() {
