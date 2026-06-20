@@ -294,6 +294,21 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 							.supportsRecipeTree(false)
 							.build());
 				});
+		
+		// rods
+		Map.of(
+				BotaniaItems.ROD_OF_THE_LANDS, EmiStack.of(Blocks.DIRT),
+				BotaniaItems.ROD_OF_THE_HIGHLANDS, EmiStack.of(Blocks.DIRT),
+				BotaniaItems.ROD_OF_THE_DEPTHS, EmiStack.of(Blocks.COBBLESTONE),
+				BotaniaItems.ROD_OF_THE_SEAS, EmiStack.of(Fluids.WATER)
+		).forEach((in, out) -> {
+			registry.addRecipe(EmiWorldInteractionRecipe.builder()
+					.id(BuiltInRegistries.ITEM.getKey(in).withPrefix("/world/rod/"))
+					.leftInput(EmiStack.EMPTY)
+					.rightInput(EmiStack.of(in), true)
+					.output(out)
+					.build());
+		});
 	}
 
 	public static int rotateXAround(int x, int y, int cx, int cy, double degrees) {
