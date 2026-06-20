@@ -298,7 +298,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 							.supportsRecipeTree(false)
 							.build());
 				});
-		
+
 		// rods
 		Map.of(
 				BotaniaItems.ROD_OF_THE_LANDS, EmiStack.of(Blocks.DIRT),
@@ -313,7 +313,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 					.output(out)
 					.build());
 		});
-		
+
 		// rod of the molten core can smelt blocks into blocks
 		EmiIngredient moltenCoreRod = EmiStack.of(BotaniaItems.ROD_OF_THE_MOLTEN_CORE);
 		for (RecipeHolder<SmeltingRecipe> recipeHolder : registry.getRecipeManager().getAllRecipesFor(RecipeType.SMELTING)) {
