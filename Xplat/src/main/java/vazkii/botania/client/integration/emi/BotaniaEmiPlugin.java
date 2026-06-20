@@ -23,12 +23,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
@@ -50,6 +53,7 @@ import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -309,6 +313,35 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 					.output(out)
 					.build());
 		});
+		
+		// rod of the molten core can smelt blocks into blocks
+		EmiIngredient moltenCoreRod = EmiStack.of(BotaniaItems.ROD_OF_THE_MOLTEN_CORE);
+		for (RecipeHolder<SmeltingRecipe> recipeHolder : registry.getRecipeManager().getAllRecipesFor(RecipeType.SMELTING)) {
+			SmeltingRecipe recipe = recipeHolder.value();
+			ResourceLocation id = recipeHolder.id();
+			Level level = Minecraft.getInstance().level;
+			ItemStack output = recipe.getResultItem(level.registryAccess());
+			if (output.isEmpty() || !(output.getItem() instanceof BlockItem)) {
+				continue;
+			}
+			List<ItemStack> filteredInputStacks = new ArrayList<>();
+			for (ItemStack stack : recipe.getIngredients().getFirst().getItems()) {
+				if (stack.getItem() instanceof BlockItem) {
+					filteredInputStacks.add(stack);
+				}
+			}
+			if (filteredInputStacks.isEmpty()) {
+				continue;
+			}
+			Ingredient filteredInput = Ingredient.of(filteredInputStacks.stream());
+			registry.addRecipe(EmiWorldInteractionRecipe.builder()
+					.leftInput(EmiIngredient.of(filteredInput))
+					.rightInput(moltenCoreRod, true)
+					.output(EmiStack.of(output))
+					.id(id.withPrefix("/world/molten_core_rod/"))
+					.build());
+
+		}
 	}
 
 	public static int rotateXAround(int x, int y, int cx, int cy, double degrees) {
