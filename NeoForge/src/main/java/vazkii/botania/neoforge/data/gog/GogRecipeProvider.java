@@ -58,7 +58,7 @@ public class GogRecipeProvider extends RecipeProvider {
 		nineBlockStorageRecipes(recipeOutput,
 				RecipeCategory.BREWING, Items.BLAZE_POWDER,
 				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.BLAZE_MESH,
-				"gardenofglass:blaze_block", null, "gardenofglass:blaze_powder_from_blaze_block", null);
+				"gardenofglass:blaze_mesh", null, "gardenofglass:blaze_powder_from_blaze_mesh", null);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.FLORAL_FERTILIZER, 3)
 				.requires(Items.BONE_MEAL)
 				.requires(Ingredient.of(Tags.Items.DYES), 4)

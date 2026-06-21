@@ -1100,37 +1100,37 @@
 
 
 
-  "block.botania.chiseled_dark_quartz": "Chiselled Smokey Quartz Block",
+  "block.botania.chiseled_smokey_quartz_block": "Chiselled Smokey Quartz Block",
 
 
 
 
-  "block.botania.chiseled_mana_quartz": "Chiselled Mana Quartz Block",
+  "block.botania.chiseled_mana_quartz_block": "Chiselled Mana Quartz Block",
 
 
 
 
-  "block.botania.chiseled_blaze_quartz": "Chiselled Blaze Quartz Block",
+  "block.botania.chiseled_blaze_quartz_block": "Chiselled Blaze Quartz Block",
 
 
 
 
-  "block.botania.chiseled_lavender_quartz": "Chiselled Lavender Quartz Block",
+  "block.botania.chiseled_lavender_quartz_block": "Chiselled Lavender Quartz Block",
 
 
 
 
-  "block.botania.chiseled_red_quartz": "Chiselled Redquartz Block",
+  "block.botania.chiseled_red_quartz_block": "Chiselled Redquartz Block",
 
 
 
 
-  "block.botania.chiseled_elf_quartz": "Chiselled Elven Quartz Block",
+  "block.botania.chiseled_elven_quartz_block": "Chiselled Elven Quartz Block",
 
 
 
 
-  "block.botania.chiseled_sunny_quartz": "Chiselled Sunny Quartz Block",
+  "block.botania.chiseled_sunny_quartz_block": "Chiselled Sunny Quartz Block",
 
 
 
@@ -2403,7 +2403,7 @@
 
   "botania.page.gardenOfGlass4": "Creating $(l:basics/flowers)$(item)Floral Fertiliser$(0)$(/l)",
 
-  "botania.page.gardenOfGlass6": "Aside from that, some things in $(thing)Botania$(0) have been changed to fit Skyblock gameplay: The $(l:functional_flowers/orechid_gog)$(item)Orechid$(0)$(/l) is easier to make, faster, and much more $(thing)Mana$(0)-efficient; The $(l:devices/cocoon_gog)$(item)Cocoon of Caprice$(0)$(/l) and the $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) have simpler recipes; the $(l:misc/blaze_block)$(item)Blaze Mesh$(0)$(/l), which can be purified into $(item)Obsidian$(0), is made from powder instead of rods; melon and pumpkin seeds can drop from tall grass; floral fertiliser yields more per craft; and certain additional recipes have been added.",
+  "botania.page.gardenOfGlass6": "Aside from that, some things in $(thing)Botania$(0) have been changed to fit Skyblock gameplay: The $(l:functional_flowers/orechid_gog)$(item)Orechid$(0)$(/l) is easier to make, faster, and much more $(thing)Mana$(0)-efficient; The $(l:devices/cocoon_gog)$(item)Cocoon of Caprice$(0)$(/l) and the $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) have simpler recipes; the $(l:misc/blaze_mesh)$(item)Blaze Mesh$(0)$(/l), which can be purified into $(item)Obsidian$(0), is made from powder instead of rods; melon and pumpkin seeds can drop from tall grass; floral fertiliser yields more per craft; and certain additional recipes have been added.",
 
 
 

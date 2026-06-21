@@ -4,7 +4,7 @@
   "group": "botania:quartz_stairs",
   "key": {
     "Q": {
-      "item": "botania:blaze_quartz"
+      "item": "botania:blaze_quartz_block"
     }
   },
   "pattern": [

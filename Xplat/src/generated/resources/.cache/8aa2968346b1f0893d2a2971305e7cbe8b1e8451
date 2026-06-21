@@ -39,9 +39,8 @@ e3717e63a3c27d4f81eee22a2f69623c98772ba4 data/c/tags/item/dyed/red.json
 6d092e594b74b65fa615c5288451d3b165f728d9 data/c/tags/item/fences/wooden.json
 ddc40afc699861872a7cf3416eb760af71fb8d30 data/c/tags/item/foods/cookie.json
 96ac4488e2e8036d28a946eff5a242dabfed438b data/c/tags/item/foods/fruit.json
-cc5a9150bdbce39a460803f8e01106d52ebcc77b data/c/tags/item/gems.json
+f39114abea4c5d12f67bc085b968003b2b224d57 data/c/tags/item/gems.json
 645a4e0ba984f79a6b8549a316a2f0ba39cb7eb5 data/c/tags/item/gems/blaze_quartz.json
-4f1aa5a062e7e3ead0674560a07abe71e030c5db data/c/tags/item/gems/dark_quartz.json
 dac0610f30857965bf170f6620f6f521ef29db4d data/c/tags/item/gems/dragonstone.json
 311308daf6545cc0269430ab6b405d15991af525 data/c/tags/item/gems/elven_quartz.json
 a38435fe1265ff93b16cd609e148fce543052f4e data/c/tags/item/gems/lavender_quartz.json
@@ -49,6 +48,7 @@ ee0b3503c8673a0ca35b4a2057b5b40eea2e9757 data/c/tags/item/gems/mana_diamond.json
 5e4f671b4c8d21f98a1b7d8be586531669d3919b data/c/tags/item/gems/mana_pearl.json
 b9818ca50500d67a79b71e3128534577c92187b8 data/c/tags/item/gems/mana_quartz.json
 dc250cd600aa170dd63327af9e817324b9dabf4b data/c/tags/item/gems/red_quartz.json
+4f1aa5a062e7e3ead0674560a07abe71e030c5db data/c/tags/item/gems/smokey_quartz.json
 cac0fe723f03503e0c50cb9d988c9d4528949873 data/c/tags/item/gems/sunny_quartz.json
 40da6614d5316864442fb1da5f1a36d45e7f8727 data/c/tags/item/glass_blocks.json
 6a1036b99a685919aa710c85af3223bbeacd29b2 data/c/tags/item/glass_blocks/mana.json
@@ -70,7 +70,7 @@ d542490192617c3d1ffb3fe32860f26f3db8092b data/c/tags/item/rods/dreamwood.json
 5165b864bc0c8c8f989e548b5484eae8ac2fea7b data/c/tags/item/rods/livingwood.json
 197646dfba02a480309eb49302b5998bcc27247e data/c/tags/item/stones.json
 54698dd3380583a76149736fd538ec7314681200 data/c/tags/item/storage_blocks.json
-ab815e23fe4fa9ac2960f35452596b2c5a2ccafb data/c/tags/item/storage_blocks/blaze.json
+eddf6acfe001896d4d933f2b88e7c3895666c81c data/c/tags/item/storage_blocks/blaze.json
 e46d4922c566e3ab0b8d60d0a57f40b50e810df1 data/c/tags/item/storage_blocks/dragonstone.json
 0c10f93f102c025d31f7fecef9a10aed6b1310d6 data/c/tags/item/storage_blocks/elementium.json
 910046dca1d791f03ed50f893a6ce79a2d3b4737 data/c/tags/item/storage_blocks/mana_diamond.json

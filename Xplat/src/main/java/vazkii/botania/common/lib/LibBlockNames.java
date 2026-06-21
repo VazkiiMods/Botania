@@ -13,25 +13,19 @@ public final class LibBlockNames {
 	public static final String MYSTICAL_FLOWER_SUFFIX = "_mystical_flower";
 	public static final String PETAL_APOTHECARY = "petal_apothecary";
 	public static final String PETAL_APOTHECARY_SUFFIX = "_" + PETAL_APOTHECARY;
-	public static final String LIVING_ROCK = "livingrock";
-	public static final String LIVING_ROCK_POLISHED = "polished_livingrock";
-	public static final String LIVING_ROCK_SLATE = "livingrock_slate";
-	public static final String LIVING_ROCK_BRICK = "livingrock_bricks";
-	public static final String LIVING_ROCK_BRICK_MOSSY = "mossy_livingrock_bricks";
-	public static final String LIVING_ROCK_BRICK_CRACKED = "cracked_livingrock_bricks";
-	public static final String LIVING_ROCK_BRICK_CHISELED = "chiseled_livingrock_bricks";
-	public static final String LIVING_WOOD_LOG = "livingwood_log";
-	public static final String LIVING_WOOD_LOG_STRIPPED = "stripped_livingwood_log";
-	public static final String LIVING_WOOD_LOG_GLIMMERING = "glimmering_livingwood_log";
-	public static final String LIVING_WOOD_LOG_GLIMMERING_STRIPPED = "glimmering_stripped_livingwood_log";
-	public static final String LIVING_WOOD = "livingwood";
-	public static final String LIVING_WOOD_PLANKS = "livingwood_planks";
-	public static final String LIVING_WOOD_PLANKS_MOSSY = "mossy_livingwood_planks";
-	public static final String LIVING_WOOD_FRAMED = "framed_livingwood";
-	public static final String LIVING_WOOD_PATTERN_FRAMED = "pattern_framed_livingwood";
-	public static final String LIVING_WOOD_GLIMMERING = "glimmering_livingwood";
-	public static final String LIVING_WOOD_STRIPPED = "stripped_livingwood";
-	public static final String LIVING_WOOD_GLIMMERING_STRIPPED = "glimmering_stripped_livingwood";
+	public static final String LIVINGROCK = "livingrock";
+	public static final String POLISHED_PREFIX = "polished_";
+	public static final String SLATE_SUFFIX = "_slate";
+	public static final String MOSSY_PREFIX = "mossy_";
+	public static final String CRACKED_PREFIX = "cracked_";
+	public static final String LIVINGWOOD = "livingwood";
+	public static final String LOG_SUFFIX = "_log";
+	public static final String STRIPPED_PREFIX = "stripped_";
+	public static final String GLIMMERING_PREFIX = "glimmering_";
+	public static final String PLANKS_SUFFIX = "_planks";
+	public static final String PLANK_INFIX = "_plank";
+	public static final String FRAMED_PREFIX = "framed_";
+	public static final String PATTERN_FRAMED_PREFIX = "pattern_framed_";
 	public static final String MANA_SPREADER = "mana_spreader";
 	public static final String PULSE_MANA_SPREADER = "pulse_mana_spreader";
 	public static final String ELVEN_MANA_SPREADER = "elven_mana_spreader";
@@ -69,18 +63,7 @@ public final class LibBlockNames {
 	public static final String PLATFORM_SPECTRAL = "spectral_platform";
 	public static final String PLATFORM_INFRANGIBLE = "infrangible_platform";
 	public static final String ELVEN_GATEWAY_CORE = "elven_gateway_core";
-	public static final String DREAM_WOOD_LOG = "dreamwood_log";
-	public static final String DREAM_WOOD_LOG_STRIPPED = "stripped_dreamwood_log";
-	public static final String DREAM_WOOD_LOG_GLIMMERING = "glimmering_dreamwood_log";
-	public static final String DREAM_WOOD_LOG_GLIMMERING_STRIPPED = "glimmering_stripped_dreamwood_log";
-	public static final String DREAM_WOOD = "dreamwood";
-	public static final String DREAM_WOOD_PLANKS = "dreamwood_planks";
-	public static final String DREAM_WOOD_PLANKS_MOSSY = "mossy_dreamwood_planks";
-	public static final String DREAM_WOOD_FRAMED = "framed_dreamwood";
-	public static final String DREAM_WOOD_PATTERN_FRAMED = "pattern_framed_dreamwood";
-	public static final String DREAM_WOOD_GLIMMERING = "glimmering_dreamwood";
-	public static final String DREAM_WOOD_STRIPPED = "stripped_dreamwood";
-	public static final String DREAM_WOOD_GLIMMERING_STRIPPED = "glimmering_stripped_dreamwood";
+	public static final String DREAMWOOD = "dreamwood";
 	public static final String CONJURATION_CATALYST = "conjuration_catalyst";
 	public static final String BIFROST_BRIDGE = "bifrost_bridge";
 	public static final String SOLID_VINE = "solid_vine";
@@ -110,9 +93,8 @@ public final class LibBlockNames {
 	public static final String SHIMMERING_MUSHROOM_SUFFIX = "_shimmering_mushroom";
 	public static final String MANA_PUMP = "mana_pump";
 	public static final String TALL_MYSTICAL_FLOWER_SUFFIX = "_tall_mystical_flower";
-	public static final String STONE = "stone";
 	public static final String FAKE_AIR = "fake_air";
-	public static final String BLAZE_BLOCK = "blaze_block";
+	public static final String BLAZE_BLOCK = "blaze_mesh";
 	public static final String CORPOREA_INTERCEPTOR = "corporea_interceptor";
 	public static final String CORPOREA_CRYSTAL_CUBE = "corporea_crystal_cube";
 	public static final String INCENSE_PLATE = "incense_plate";
@@ -146,9 +128,8 @@ public final class LibBlockNames {
 	public static final String CORPOREA_RETAINER = "corporea_retainer";
 	public static final String TERU_TERU_BOZU = "teru_teru_bozu";
 	public static final String SHIMMERROCK = "shimmerrock";
-	public static final String SHIMMERWOOD_PREFIX = "shimmerwood";
-	public static final String SHIMMERWOOD_PLANKS = SHIMMERWOOD_PREFIX + "_planks";
-	public static final String AVATAR = "avatar";
+	public static final String SHIMMERWOOD = "shimmerwood";
+	public static final String LIVINGWOOD_AVATAR = "livingwood_avatar";
 	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animated_torch";
 	public static final String COBBLED_PREFIX = "cobbled_";
@@ -172,7 +153,7 @@ public final class LibBlockNames {
 	public static final String CORPOREA_PREFIX = "corporea";
 	public static final String BLOCK_SUFFIX = "_block";
 	public static final String SLAB_SUFFIX = "_slab";
-	public static final String STAIR_SUFFIX = "_stairs";
+	public static final String STAIRS_SUFFIX = "_stairs";
 	public static final String WALL_SUFFIX = "_wall";
 	public static final String FENCE_SUFFIX = "_fence";
 	public static final String FENCE_GATE_SUFFIX = "_fence_gate";
@@ -235,16 +216,17 @@ public final class LibBlockNames {
 	public static final String MOTIF_NIGHTSHADE = "nightshade_motif";
 	public static final String MOTIF_HYDROANGEAS = "hydroangeas_motif";
 
-	public static final String QUARTZ_DARK = "dark_quartz";
-	public static final String QUARTZ_MANA = "mana_quartz";
-	public static final String QUARTZ_BLAZE = "blaze_quartz";
-	public static final String QUARTZ_LAVENDER = "lavender_quartz";
-	public static final String QUARTZ_RED = "red_quartz";
-	public static final String QUARTZ_ELF = "elf_quartz";
-	public static final String QUARTZ_SUNNY = "sunny_quartz";
+	public static final String PILLAR_SUFFIX = "_pillar";
+	public static final String SMOKEY_QUARTZ = "smokey_quartz";
+	public static final String MANA_QUARTZ = "mana_quartz";
+	public static final String BLAZE_QUARTZ = "blaze_quartz";
+	public static final String LAVENDER_QUARTZ = "lavender_quartz";
+	public static final String RED_QUARTZ = "red_quartz";
+	public static final String ELVEN_QUARTZ = "elven_quartz";
+	public static final String SUNNY_QUARTZ = "sunny_quartz";
 	public static final String[] QUARTZ_VARIANTS = {
-			QUARTZ_DARK, QUARTZ_MANA, QUARTZ_BLAZE, QUARTZ_LAVENDER,
-			QUARTZ_RED, QUARTZ_ELF, QUARTZ_SUNNY
+			SMOKEY_QUARTZ, MANA_QUARTZ, BLAZE_QUARTZ, LAVENDER_QUARTZ,
+			RED_QUARTZ, ELVEN_QUARTZ, SUNNY_QUARTZ
 	};
 
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_top",
+  "textures": {
+    "side": "botania:block/mana_quartz_block_side",
+    "top": "botania:block/mana_quartz_block_top"
+  }
+}

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:sunny_quartz"
+            "items": "botania:sunny_quartz_block"
           }
         ]
       },

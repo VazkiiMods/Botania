@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:mossy_livingrock_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "botania:mossy_livingrock_brick_stairs"
+  }
+}

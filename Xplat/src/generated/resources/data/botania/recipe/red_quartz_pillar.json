@@ -4,7 +4,7 @@
   "group": "botania:quartz_pillar",
   "key": {
     "Q": {
-      "item": "botania:red_quartz"
+      "item": "botania:red_quartz_block"
     }
   },
   "pattern": [

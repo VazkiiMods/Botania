@@ -147,7 +147,7 @@ public class ManaInfusionProvider extends FabricRecipeProvider {
 		deconstructLossy(consumer, Items.NETHER_BRICK, 2, Blocks.RED_NETHER_BRICKS);
 		deconstructLossy(consumer, Items.POINTED_DRIPSTONE, Blocks.DRIPSTONE_BLOCK);
 		deconstructLossy(consumer, Items.QUARTZ, Blocks.QUARTZ_BLOCK);
-		deconstructLossy(consumer, BotaniaItems.DARK_QUARTZ, BotaniaBlocks.DARK_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.DARK_QUARTZ, BotaniaBlocks.SMOKEY_QUARTZ_BLOCK);
 		deconstructLossy(consumer, BotaniaItems.MANA_QUARTZ, BotaniaBlocks.MANA_QUARTZ_BLOCK);
 		deconstructLossy(consumer, BotaniaItems.BLAZE_QUARTZ, BotaniaBlocks.BLAZE_QUARTZ_BLOCK);
 		deconstructLossy(consumer, BotaniaItems.LAVENDER_QUARTZ, BotaniaBlocks.LAVENDER_QUARTZ_BLOCK);

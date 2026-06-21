@@ -1086,61 +1086,61 @@ public final class BotaniaBlocks {
 			PETAL_APOTHECARY_SOLITE, PETAL_APOTHECARY_LUNITE, PETAL_APOTHECARY_ROSY_TALC };
 
 	// livingrock blocks
-	public static final Block LIVINGROCK = make(LibBlockNames.LIVING_ROCK,
+	public static final Block LIVINGROCK = make(LibBlockNames.LIVINGROCK,
 			new Block(BlockBehaviour.Properties.of()
 					.strength(2, 10)
 					.sound(SoundType.STONE)
 					.instrument(NoteBlockInstrument.BASEDRUM)
 					.mapColor(MapColor.TERRACOTTA_WHITE)
 					.requiresCorrectToolForDrops()));
-	public static final Block LIVINGROCK_STAIRS = make(LibBlockNames.LIVING_ROCK + LibBlockNames.STAIR_SUFFIX,
+	public static final Block LIVINGROCK_STAIRS = make(LibBlockNames.LIVINGROCK + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(LIVINGROCK.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block LIVINGROCK_SLAB = make(LibBlockNames.LIVING_ROCK + LibBlockNames.SLAB_SUFFIX,
+	public static final Block LIVINGROCK_SLAB = make(LibBlockNames.LIVINGROCK + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block LIVINGROCK_WALL = make(LibBlockNames.LIVING_ROCK + LibBlockNames.WALL_SUFFIX,
+	public static final Block LIVINGROCK_WALL = make(LibBlockNames.LIVINGROCK + LibBlockNames.WALL_SUFFIX,
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block LIVINGROCK_BUTTON = make(LibBlockNames.LIVING_ROCK + LibBlockNames.BUTTON_SUFFIX,
+	public static final Block LIVINGROCK_BUTTON = make(LibBlockNames.LIVINGROCK + LibBlockNames.BUTTON_SUFFIX,
 			new ButtonBlock(BotaniaBlockSetTypes.LIVINGROCK_BLOCK_SET, 20,
 					BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BUTTON)
 							.mapColor(MapColor.TERRACOTTA_WHITE)));
-	public static final Block LIVINGROCK_PRESSURE_PLATE = make(LibBlockNames.LIVING_ROCK + LibBlockNames.PRESSURE_PLATE_SUFFIX,
+	public static final Block LIVINGROCK_PRESSURE_PLATE = make(LibBlockNames.LIVINGROCK + LibBlockNames.PRESSURE_PLATE_SUFFIX,
 			new PressurePlateBlock(BotaniaBlockSetTypes.LIVINGROCK_BLOCK_SET,
 					BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE)
 							.mapColor(MapColor.TERRACOTTA_WHITE)));
-	public static final Block POLISHED_LIVINGROCK = make(LibBlockNames.LIVING_ROCK_POLISHED,
+	public static final Block POLISHED_LIVINGROCK = make(LibBlockNames.POLISHED_PREFIX + LibBlockNames.LIVINGROCK,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block POLISHED_LIVINGROCK_STAIRS = make(LibBlockNames.LIVING_ROCK_POLISHED + LibBlockNames.STAIR_SUFFIX,
+	public static final Block POLISHED_LIVINGROCK_STAIRS = make(LibBlockNames.POLISHED_PREFIX + LibBlockNames.LIVINGROCK + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(LIVINGROCK.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(POLISHED_LIVINGROCK)));
-	public static final Block POLISHED_LIVINGROCK_SLAB = make(LibBlockNames.LIVING_ROCK_POLISHED + LibBlockNames.SLAB_SUFFIX,
+	public static final Block POLISHED_LIVINGROCK_SLAB = make(LibBlockNames.POLISHED_PREFIX + LibBlockNames.LIVINGROCK + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_LIVINGROCK)));
-	public static final Block POLISHED_LIVINGROCK_WALL = make(LibBlockNames.LIVING_ROCK_POLISHED + LibBlockNames.WALL_SUFFIX,
+	public static final Block POLISHED_LIVINGROCK_WALL = make(LibBlockNames.POLISHED_PREFIX + LibBlockNames.LIVINGROCK + LibBlockNames.WALL_SUFFIX,
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_LIVINGROCK)));
-	public static final Block LIVINGROCK_SLATE = make(LibBlockNames.LIVING_ROCK_SLATE,
+	public static final Block LIVINGROCK_SLATE = make(LibBlockNames.LIVINGROCK + LibBlockNames.SLATE_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block LIVINGROCK_BRICKS = make(LibBlockNames.LIVING_ROCK_BRICK,
+	public static final Block LIVINGROCK_BRICKS = make(LibBlockNames.LIVINGROCK + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block LIVINGROCK_BRICK_STAIRS = make(LibBlockNames.LIVING_ROCK_BRICK + LibBlockNames.STAIR_SUFFIX,
+	public static final Block LIVINGROCK_BRICK_STAIRS = make(LibBlockNames.LIVINGROCK + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(LIVINGROCK_BRICKS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LIVINGROCK_BRICKS)));
-	public static final Block LIVINGROCK_BRICK_SLAB = make(LibBlockNames.LIVING_ROCK_BRICK + LibBlockNames.SLAB_SUFFIX,
+	public static final Block LIVINGROCK_BRICK_SLAB = make(LibBlockNames.LIVINGROCK + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK_BRICKS)));
-	public static final Block LIVINGROCK_BRICK_WALL = make(LibBlockNames.LIVING_ROCK_BRICK + LibBlockNames.WALL_SUFFIX,
+	public static final Block LIVINGROCK_BRICK_WALL = make(LibBlockNames.LIVINGROCK + LibBlockNames.BRICK_INFIX + LibBlockNames.WALL_SUFFIX,
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK_BRICKS)));
-	public static final Block MOSSY_LIVINGROCK_BRICKS = make(LibBlockNames.LIVING_ROCK_BRICK_MOSSY,
+	public static final Block MOSSY_LIVINGROCK_BRICKS = make(LibBlockNames.MOSSY_PREFIX + LibBlockNames.LIVINGROCK + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block MOSSY_LIVINGROCK_BRICK_STAIRS = make(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + LibBlockNames.STAIR_SUFFIX,
+	public static final Block MOSSY_LIVINGROCK_BRICK_STAIRS = make(LibBlockNames.MOSSY_PREFIX + LibBlockNames.LIVINGROCK + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(MOSSY_LIVINGROCK_BRICKS.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(MOSSY_LIVINGROCK_BRICKS)));
-	public static final Block MOSSY_LIVINGROCK_BRICK_SLAB = make(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + LibBlockNames.SLAB_SUFFIX,
+	public static final Block MOSSY_LIVINGROCK_BRICK_SLAB = make(LibBlockNames.MOSSY_PREFIX + LibBlockNames.LIVINGROCK + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_LIVINGROCK_BRICKS)));
-	public static final Block MOSSY_LIVINGROCK_BRICK_WALL = make(LibBlockNames.LIVING_ROCK_BRICK_MOSSY + LibBlockNames.WALL_SUFFIX,
+	public static final Block MOSSY_LIVINGROCK_BRICK_WALL = make(LibBlockNames.MOSSY_PREFIX + LibBlockNames.LIVINGROCK + LibBlockNames.BRICK_INFIX + LibBlockNames.WALL_SUFFIX,
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(MOSSY_LIVINGROCK_BRICKS)));
-	public static final Block CRACKED_LIVINGROCK_BRICKS = make(LibBlockNames.LIVING_ROCK_BRICK_CRACKED,
+	public static final Block CRACKED_LIVINGROCK_BRICKS = make(LibBlockNames.CRACKED_PREFIX + LibBlockNames.LIVINGROCK + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block CHISELED_LIVINGROCK_BRICKS = make(LibBlockNames.LIVING_ROCK_BRICK_CHISELED,
+	public static final Block CHISELED_LIVINGROCK_BRICKS = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.LIVINGROCK + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 
 	// livingwood blocks
-	public static final Block LIVINGWOOD_LOG = make(LibBlockNames.LIVING_WOOD_LOG,
+	public static final Block LIVINGWOOD_LOG = make(LibBlockNames.LIVINGWOOD + LibBlockNames.LOG_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.of()
 					.strength(2)
 					.sound(SoundType.WOOD)
@@ -1148,178 +1148,178 @@ public final class BotaniaBlocks {
 					.mapColor(state -> state.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y
 							? MapColor.TERRACOTTA_RED
 							: MapColor.TERRACOTTA_BROWN)));
-	public static final Block LIVINGWOOD = make(LibBlockNames.LIVING_WOOD,
+	public static final Block LIVINGWOOD = make(LibBlockNames.LIVINGWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_LOG)
 					.mapColor(MapColor.TERRACOTTA_BROWN)));
-	public static final Block LIVINGWOOD_STAIRS = make(LibBlockNames.LIVING_WOOD + LibBlockNames.STAIR_SUFFIX,
+	public static final Block LIVINGWOOD_STAIRS = make(LibBlockNames.LIVINGWOOD + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(LIVINGWOOD.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block LIVINGWOOD_SLAB = make(LibBlockNames.LIVING_WOOD + LibBlockNames.SLAB_SUFFIX,
+	public static final Block LIVINGWOOD_SLAB = make(LibBlockNames.LIVINGWOOD + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block LIVINGWOOD_WALL = make(LibBlockNames.LIVING_WOOD + LibBlockNames.WALL_SUFFIX,
+	public static final Block LIVINGWOOD_WALL = make(LibBlockNames.LIVINGWOOD + LibBlockNames.WALL_SUFFIX,
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block STRIPPED_LIVINGWOOD_LOG = make(LibBlockNames.LIVING_WOOD_LOG_STRIPPED,
+	public static final Block STRIPPED_LIVINGWOOD_LOG = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.LIVINGWOOD + LibBlockNames.LOG_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_LOG)
 					.mapColor(MapColor.TERRACOTTA_RED)));
-	public static final Block STRIPPED_LIVINGWOOD = make(LibBlockNames.LIVING_WOOD_STRIPPED,
+	public static final Block STRIPPED_LIVINGWOOD = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.LIVINGWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(STRIPPED_LIVINGWOOD_LOG)));
-	public static final Block STRIPPED_LIVINGWOOD_STAIRS = make(LibBlockNames.LIVING_WOOD_STRIPPED + LibBlockNames.STAIR_SUFFIX,
+	public static final Block STRIPPED_LIVINGWOOD_STAIRS = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.LIVINGWOOD + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(STRIPPED_LIVINGWOOD.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block STRIPPED_LIVINGWOOD_SLAB = make(LibBlockNames.LIVING_WOOD_STRIPPED + LibBlockNames.SLAB_SUFFIX,
+	public static final Block STRIPPED_LIVINGWOOD_SLAB = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.LIVINGWOOD + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block STRIPPED_LIVINGWOOD_WALL = make(LibBlockNames.LIVING_WOOD_STRIPPED + LibBlockNames.WALL_SUFFIX,
+	public static final Block STRIPPED_LIVINGWOOD_WALL = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.LIVINGWOOD + LibBlockNames.WALL_SUFFIX,
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block GLIMMERING_LIVINGWOOD_LOG = make(LibBlockNames.LIVING_WOOD_LOG_GLIMMERING,
+	public static final Block GLIMMERING_LIVINGWOOD_LOG = make(LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.LIVINGWOOD + LibBlockNames.LOG_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_LOG)
 					.lightLevel(constInt(12))));
-	public static final Block GLIMMERING_LIVINGWOOD = make(LibBlockNames.LIVING_WOOD_GLIMMERING,
+	public static final Block GLIMMERING_LIVINGWOOD = make(LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.LIVINGWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(GLIMMERING_LIVINGWOOD_LOG)
 					.mapColor(MapColor.TERRACOTTA_BROWN)));
-	public static final Block STRIPPED_GLIMMERING_LIVINGWOOD_LOG = make(LibBlockNames.LIVING_WOOD_LOG_GLIMMERING_STRIPPED,
+	public static final Block STRIPPED_GLIMMERING_LIVINGWOOD_LOG = make(LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.STRIPPED_PREFIX + LibBlockNames.LIVINGWOOD + LibBlockNames.LOG_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(STRIPPED_LIVINGWOOD_LOG)
 					.lightLevel(b -> 8)));
-	public static final Block STRIPPED_GLIMMERING_LIVINGWOOD = make(LibBlockNames.LIVING_WOOD_GLIMMERING_STRIPPED,
+	public static final Block STRIPPED_GLIMMERING_LIVINGWOOD = make(LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.STRIPPED_PREFIX + LibBlockNames.LIVINGWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(STRIPPED_GLIMMERING_LIVINGWOOD_LOG)
 					.mapColor(MapColor.TERRACOTTA_BROWN)));
-	public static final Block LIVINGWOOD_PLANKS = make(LibBlockNames.LIVING_WOOD_PLANKS,
+	public static final Block LIVINGWOOD_PLANKS = make(LibBlockNames.LIVINGWOOD + LibBlockNames.PLANKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_LOG)
 					.mapColor(MapColor.TERRACOTTA_RED)));
-	public static final Block LIVINGWOOD_PLANK_STAIRS = make(LibBlockNames.LIVING_WOOD_PLANKS + LibBlockNames.STAIR_SUFFIX,
+	public static final Block LIVINGWOOD_PLANK_STAIRS = make(LibBlockNames.LIVINGWOOD + LibBlockNames.PLANK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(LIVINGWOOD_PLANKS.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)));
-	public static final Block LIVINGWOOD_PLANK_SLAB = make(LibBlockNames.LIVING_WOOD_PLANKS + LibBlockNames.SLAB_SUFFIX,
+	public static final Block LIVINGWOOD_PLANK_SLAB = make(LibBlockNames.LIVINGWOOD + LibBlockNames.PLANK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)));
-	public static final Block LIVINGWOOD_FENCE = make(LibBlockNames.LIVING_WOOD + LibBlockNames.FENCE_SUFFIX,
+	public static final Block LIVINGWOOD_FENCE = make(LibBlockNames.LIVINGWOOD + LibBlockNames.FENCE_SUFFIX,
 			new FenceBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block LIVINGWOOD_FENCE_GATE = make(LibBlockNames.LIVING_WOOD + LibBlockNames.FENCE_GATE_SUFFIX,
+	public static final Block LIVINGWOOD_FENCE_GATE = make(LibBlockNames.LIVINGWOOD + LibBlockNames.FENCE_GATE_SUFFIX,
 			new FenceGateBlock(BotaniaBlockSetTypes.LIVINGWOOD, BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block LIVINGWOOD_DOOR = make(LibBlockNames.LIVING_WOOD + LibBlockNames.DOOR_SUFFIX,
+	public static final Block LIVINGWOOD_DOOR = make(LibBlockNames.LIVINGWOOD + LibBlockNames.DOOR_SUFFIX,
 			new DoorBlock(BotaniaBlockSetTypes.LIVINGWOOD_BLOCK_SET,
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)
 							.noOcclusion()
 							.pushReaction(PushReaction.DESTROY)));
-	public static final Block LIVINGWOOD_TRAPDOOR = make(LibBlockNames.LIVING_WOOD + LibBlockNames.TRAPDOOR_SUFFIX,
+	public static final Block LIVINGWOOD_TRAPDOOR = make(LibBlockNames.LIVINGWOOD + LibBlockNames.TRAPDOOR_SUFFIX,
 			new TrapDoorBlock(BotaniaBlockSetTypes.LIVINGWOOD_BLOCK_SET,
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)
 							.noOcclusion()
 							.isValidSpawn(NO_SPAWN)));
-	public static final Block LIVINGWOOD_PRESSURE_PLATE = make(LibBlockNames.LIVING_WOOD + LibBlockNames.PRESSURE_PLATE_SUFFIX,
+	public static final Block LIVINGWOOD_PRESSURE_PLATE = make(LibBlockNames.LIVINGWOOD + LibBlockNames.PRESSURE_PLATE_SUFFIX,
 			new PressurePlateBlock(BotaniaBlockSetTypes.LIVINGWOOD_BLOCK_SET,
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)
 							.noCollission()
 							.strength(0.5F)
 							.forceSolidOn()
 							.pushReaction(PushReaction.DESTROY)));
-	public static final Block LIVINGWOOD_BUTTON = make(LibBlockNames.LIVING_WOOD + LibBlockNames.BUTTON_SUFFIX,
+	public static final Block LIVINGWOOD_BUTTON = make(LibBlockNames.LIVINGWOOD + LibBlockNames.BUTTON_SUFFIX,
 			new ButtonBlock(BotaniaBlockSetTypes.LIVINGWOOD_BLOCK_SET, 30,
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)
 							.noCollission()
 							.strength(0.5F)
 							.pushReaction(PushReaction.DESTROY)));
-	public static final Block LIVINGWOOD_SIGN = make(LibBlockNames.LIVING_WOOD + LibBlockNames.SIGN_SUFFIX,
+	public static final Block LIVINGWOOD_SIGN = make(LibBlockNames.LIVINGWOOD + LibBlockNames.SIGN_SUFFIX,
 			new StandingSignBlock(BotaniaBlockSetTypes.LIVINGWOOD,
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)
 							.noCollission()
 							.strength(1.0f)
 							.forceSolidOn()));
-	public static final Block LIVINGWOOD_WALL_SIGN = make(LibBlockNames.LIVING_WOOD + LibBlockNames.WALL_INFIX + LibBlockNames.SIGN_SUFFIX,
+	public static final Block LIVINGWOOD_WALL_SIGN = make(LibBlockNames.LIVINGWOOD + LibBlockNames.WALL_INFIX + LibBlockNames.SIGN_SUFFIX,
 			new WallSignBlock(BotaniaBlockSetTypes.LIVINGWOOD, BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_SIGN)));
-	public static final Block LIVINGWOOD_HANGING_SIGN = make(LibBlockNames.LIVING_WOOD + LibBlockNames.HANGING_SIGN_SUFFIX,
+	public static final Block LIVINGWOOD_HANGING_SIGN = make(LibBlockNames.LIVINGWOOD + LibBlockNames.HANGING_SIGN_SUFFIX,
 			new CeilingHangingSignBlock(BotaniaBlockSetTypes.LIVINGWOOD,
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_SIGN)));
-	public static final Block LIVINGWOOD_WALL_HANGING_SIGN = make(LibBlockNames.LIVING_WOOD + LibBlockNames.WALL_INFIX + LibBlockNames.HANGING_SIGN_SUFFIX,
+	public static final Block LIVINGWOOD_WALL_HANGING_SIGN = make(LibBlockNames.LIVINGWOOD + LibBlockNames.WALL_INFIX + LibBlockNames.HANGING_SIGN_SUFFIX,
 			new WallHangingSignBlock(BotaniaBlockSetTypes.LIVINGWOOD,
 					BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_SIGN)));
-	public static final Block MOSSY_LIVINGWOOD_PLANKS = make(LibBlockNames.LIVING_WOOD_PLANKS_MOSSY,
+	public static final Block MOSSY_LIVINGWOOD_PLANKS = make(LibBlockNames.MOSSY_PREFIX + LibBlockNames.LIVINGWOOD + LibBlockNames.PLANKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)));
-	public static final Block FRAMED_LIVINGWOOD = make(LibBlockNames.LIVING_WOOD_FRAMED,
+	public static final Block FRAMED_LIVINGWOOD = make(LibBlockNames.FRAMED_PREFIX + LibBlockNames.LIVINGWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)));
-	public static final Block PATTERN_FRAMED_LIVINGWOOD = make(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED,
+	public static final Block PATTERN_FRAMED_LIVINGWOOD = make(LibBlockNames.PATTERN_FRAMED_PREFIX + LibBlockNames.LIVINGWOOD,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_PLANKS)));
 
 	// dreamwood blocks
-	public static final Block DREAMWOOD_LOG = make(LibBlockNames.DREAM_WOOD_LOG,
+	public static final Block DREAMWOOD_LOG = make(LibBlockNames.DREAMWOOD + LibBlockNames.LOG_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD_LOG)
 					.mapColor(MapColor.QUARTZ)));
-	public static final Block DREAMWOOD = make(LibBlockNames.DREAM_WOOD,
+	public static final Block DREAMWOOD = make(LibBlockNames.DREAMWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_LOG)));
-	public static final Block DREAMWOOD_STAIRS = make(LibBlockNames.DREAM_WOOD + LibBlockNames.STAIR_SUFFIX,
+	public static final Block DREAMWOOD_STAIRS = make(LibBlockNames.DREAMWOOD + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(DREAMWOOD.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(DREAMWOOD)));
-	public static final Block DREAMWOOD_SLAB = make(LibBlockNames.DREAM_WOOD + LibBlockNames.SLAB_SUFFIX,
+	public static final Block DREAMWOOD_SLAB = make(LibBlockNames.DREAMWOOD + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD)));
-	public static final Block DREAMWOOD_WALL = make(LibBlockNames.DREAM_WOOD + LibBlockNames.WALL_SUFFIX,
+	public static final Block DREAMWOOD_WALL = make(LibBlockNames.DREAMWOOD + LibBlockNames.WALL_SUFFIX,
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD)));
-	public static final Block STRIPPED_DREAMWOOD_LOG = make(LibBlockNames.DREAM_WOOD_LOG_STRIPPED,
+	public static final Block STRIPPED_DREAMWOOD_LOG = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.DREAMWOOD + LibBlockNames.LOG_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_LOG)));
-	public static final Block STRIPPED_DREAMWOOD = make(LibBlockNames.DREAM_WOOD_STRIPPED,
+	public static final Block STRIPPED_DREAMWOOD = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.DREAMWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_LOG)));
-	public static final Block STRIPPED_DREAMWOOD_STAIRS = make(LibBlockNames.DREAM_WOOD_STRIPPED + LibBlockNames.STAIR_SUFFIX,
+	public static final Block STRIPPED_DREAMWOOD_STAIRS = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.DREAMWOOD + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(STRIPPED_DREAMWOOD.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(DREAMWOOD)));
-	public static final Block STRIPPED_DREAMWOOD_SLAB = make(LibBlockNames.DREAM_WOOD_STRIPPED + LibBlockNames.SLAB_SUFFIX,
+	public static final Block STRIPPED_DREAMWOOD_SLAB = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.DREAMWOOD + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD)));
-	public static final Block STRIPPED_DREAMWOOD_WALL = make(LibBlockNames.DREAM_WOOD_STRIPPED + LibBlockNames.WALL_SUFFIX,
+	public static final Block STRIPPED_DREAMWOOD_WALL = make(LibBlockNames.STRIPPED_PREFIX + LibBlockNames.DREAMWOOD + LibBlockNames.WALL_SUFFIX,
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD)));
-	public static final Block GLIMMERING_DREAMWOOD_LOG = make(LibBlockNames.DREAM_WOOD_LOG_GLIMMERING,
+	public static final Block GLIMMERING_DREAMWOOD_LOG = make(LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.DREAMWOOD + LibBlockNames.LOG_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(GLIMMERING_LIVINGWOOD_LOG).mapColor(MapColor.QUARTZ)));
-	public static final Block GLIMMERING_DREAMWOOD = make(LibBlockNames.DREAM_WOOD_GLIMMERING,
+	public static final Block GLIMMERING_DREAMWOOD = make(LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.DREAMWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(GLIMMERING_DREAMWOOD_LOG)));
-	public static final Block STRIPPED_GLIMMERING_DREAMWOOD_LOG = make(LibBlockNames.DREAM_WOOD_LOG_GLIMMERING_STRIPPED,
+	public static final Block STRIPPED_GLIMMERING_DREAMWOOD_LOG = make(LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.STRIPPED_PREFIX + LibBlockNames.DREAMWOOD + LibBlockNames.LOG_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(STRIPPED_GLIMMERING_LIVINGWOOD_LOG)
 					.mapColor(MapColor.QUARTZ)));
-	public static final Block STRIPPED_GLIMMERING_DREAMWOOD = make(LibBlockNames.DREAM_WOOD_GLIMMERING_STRIPPED,
+	public static final Block STRIPPED_GLIMMERING_DREAMWOOD = make(LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.STRIPPED_PREFIX + LibBlockNames.DREAMWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(STRIPPED_GLIMMERING_DREAMWOOD_LOG)));
-	public static final Block DREAMWOOD_PLANKS = make(LibBlockNames.DREAM_WOOD_PLANKS,
+	public static final Block DREAMWOOD_PLANKS = make(LibBlockNames.DREAMWOOD + LibBlockNames.PLANKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_LOG)));
-	public static final Block DREAMWOOD_PLANK_STAIRS = make(LibBlockNames.DREAM_WOOD_PLANKS + LibBlockNames.STAIR_SUFFIX,
+	public static final Block DREAMWOOD_PLANK_STAIRS = make(LibBlockNames.DREAMWOOD + LibBlockNames.PLANK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(DREAMWOOD_PLANKS.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)));
-	public static final Block DREAMWOOD_PLANK_SLAB = make(LibBlockNames.DREAM_WOOD_PLANKS + LibBlockNames.SLAB_SUFFIX,
+	public static final Block DREAMWOOD_PLANK_SLAB = make(LibBlockNames.DREAMWOOD + LibBlockNames.PLANK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)));
-	public static final Block DREAMWOOD_FENCE = make(LibBlockNames.DREAM_WOOD + LibBlockNames.FENCE_SUFFIX,
+	public static final Block DREAMWOOD_FENCE = make(LibBlockNames.DREAMWOOD + LibBlockNames.FENCE_SUFFIX,
 			new FenceBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)));
-	public static final Block DREAMWOOD_FENCE_GATE = make(LibBlockNames.DREAM_WOOD + LibBlockNames.FENCE_GATE_SUFFIX,
+	public static final Block DREAMWOOD_FENCE_GATE = make(LibBlockNames.DREAMWOOD + LibBlockNames.FENCE_GATE_SUFFIX,
 			new FenceGateBlock(BotaniaBlockSetTypes.DREAMWOOD, BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)));
-	public static final Block DREAMWOOD_DOOR = make(LibBlockNames.DREAM_WOOD + LibBlockNames.DOOR_SUFFIX,
+	public static final Block DREAMWOOD_DOOR = make(LibBlockNames.DREAMWOOD + LibBlockNames.DOOR_SUFFIX,
 			new DoorBlock(BotaniaBlockSetTypes.DREAMWOOD_BLOCK_SET,
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)
 							.noOcclusion()
 							.pushReaction(PushReaction.DESTROY)));
-	public static final Block DREAMWOOD_TRAPDOOR = make(LibBlockNames.DREAM_WOOD + LibBlockNames.TRAPDOOR_SUFFIX,
+	public static final Block DREAMWOOD_TRAPDOOR = make(LibBlockNames.DREAMWOOD + LibBlockNames.TRAPDOOR_SUFFIX,
 			new TrapDoorBlock(BotaniaBlockSetTypes.DREAMWOOD_BLOCK_SET,
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)
 							.noOcclusion()
 							.isValidSpawn(NO_SPAWN)));
-	public static final Block DREAMWOOD_PRESSURE_PLATE = make(LibBlockNames.DREAM_WOOD + LibBlockNames.PRESSURE_PLATE_SUFFIX,
+	public static final Block DREAMWOOD_PRESSURE_PLATE = make(LibBlockNames.DREAMWOOD + LibBlockNames.PRESSURE_PLATE_SUFFIX,
 			new PressurePlateBlock(BotaniaBlockSetTypes.DREAMWOOD_BLOCK_SET,
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)
 							.noCollission()
 							.strength(0.5F)
 							.forceSolidOn()
 							.pushReaction(PushReaction.DESTROY)));
-	public static final Block DREAMWOOD_BUTTON = make(LibBlockNames.DREAM_WOOD + LibBlockNames.BUTTON_SUFFIX,
+	public static final Block DREAMWOOD_BUTTON = make(LibBlockNames.DREAMWOOD + LibBlockNames.BUTTON_SUFFIX,
 			new ButtonBlock(BotaniaBlockSetTypes.DREAMWOOD_BLOCK_SET, 30,
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)
 							.noCollission()
 							.strength(0.5F)
 							.pushReaction(PushReaction.DESTROY)));
-	public static final Block DREAMWOOD_SIGN = make(LibBlockNames.DREAM_WOOD + LibBlockNames.SIGN_SUFFIX,
+	public static final Block DREAMWOOD_SIGN = make(LibBlockNames.DREAMWOOD + LibBlockNames.SIGN_SUFFIX,
 			new StandingSignBlock(BotaniaBlockSetTypes.DREAMWOOD,
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)
 							.noCollission()
 							.strength(1.0f)
 							.forceSolidOn()));
-	public static final Block DREAMWOOD_WALL_SIGN = make(LibBlockNames.DREAM_WOOD + LibBlockNames.WALL_INFIX + LibBlockNames.SIGN_SUFFIX,
+	public static final Block DREAMWOOD_WALL_SIGN = make(LibBlockNames.DREAMWOOD + LibBlockNames.WALL_INFIX + LibBlockNames.SIGN_SUFFIX,
 			new WallSignBlock(BotaniaBlockSetTypes.DREAMWOOD, BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_SIGN)));
-	public static final Block DREAMWOOD_HANGING_SIGN = make(LibBlockNames.DREAM_WOOD + LibBlockNames.HANGING_SIGN_SUFFIX,
+	public static final Block DREAMWOOD_HANGING_SIGN = make(LibBlockNames.DREAMWOOD + LibBlockNames.HANGING_SIGN_SUFFIX,
 			new CeilingHangingSignBlock(BotaniaBlockSetTypes.DREAMWOOD,
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_SIGN)));
-	public static final Block DREAMWOOD_WALL_HANGING_SIGN = make(LibBlockNames.DREAM_WOOD + LibBlockNames.WALL_INFIX + LibBlockNames.HANGING_SIGN_SUFFIX,
+	public static final Block DREAMWOOD_WALL_HANGING_SIGN = make(LibBlockNames.DREAMWOOD + LibBlockNames.WALL_INFIX + LibBlockNames.HANGING_SIGN_SUFFIX,
 			new WallHangingSignBlock(BotaniaBlockSetTypes.DREAMWOOD,
 					BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_SIGN)));
-	public static final Block MOSSY_DREAMWOOD_PLANKS = make(LibBlockNames.DREAM_WOOD_PLANKS_MOSSY,
+	public static final Block MOSSY_DREAMWOOD_PLANKS = make(LibBlockNames.MOSSY_PREFIX + LibBlockNames.DREAMWOOD + LibBlockNames.PLANKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)));
-	public static final Block FRAMED_DREAMWOOD = make(LibBlockNames.DREAM_WOOD_FRAMED,
+	public static final Block FRAMED_DREAMWOOD = make(LibBlockNames.FRAMED_PREFIX + LibBlockNames.DREAMWOOD,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)));
-	public static final Block PATTERN_FRAMED_DREAMWOOD = make(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED,
+	public static final Block PATTERN_FRAMED_DREAMWOOD = make(LibBlockNames.PATTERN_FRAMED_PREFIX + LibBlockNames.DREAMWOOD,
 			new Block(BlockBehaviour.Properties.ofFullCopy(DREAMWOOD_PLANKS)));
 
 	// mana spreaders
@@ -1555,7 +1555,7 @@ public final class BotaniaBlocks {
 
 	public static final Block CORPOREA_BLOCK = make(LibBlockNames.CORPOREA_BLOCK,
 			new Block(BlockBehaviour.Properties.ofFullCopy(CORPOREA_FUNNEL)));
-	public static final Block CORPOREA_STAIRS = make(LibBlockNames.CORPOREA_PREFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block CORPOREA_STAIRS = make(LibBlockNames.CORPOREA_PREFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(CORPOREA_BLOCK.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(CORPOREA_BLOCK)));
 	public static final Block CORPOREA_SLAB = make(LibBlockNames.CORPOREA_PREFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CORPOREA_BLOCK)));
@@ -1571,7 +1571,7 @@ public final class BotaniaBlocks {
 							.mapColor(DyeColor.PURPLE)));
 	public static final Block CORPOREA_BRICKS = make(LibBlockNames.CORPOREA_PREFIX + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(CORPOREA_BLOCK)));
-	public static final Block CORPOREA_BRICK_STAIRS = make(LibBlockNames.CORPOREA_PREFIX + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block CORPOREA_BRICK_STAIRS = make(LibBlockNames.CORPOREA_PREFIX + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(CORPOREA_BRICKS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(CORPOREA_BRICKS)));
 	public static final Block CORPOREA_BRICK_SLAB = make(LibBlockNames.CORPOREA_PREFIX + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CORPOREA_BRICKS)));
@@ -1610,7 +1610,7 @@ public final class BotaniaBlocks {
 			new TeruTeruBozuBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL)
 					.instrument(NoteBlockInstrument.GUITAR)
 					.mapColor(DyeColor.WHITE)));
-	public static final Block LIVINGWOOD_AVATAR = make(LibBlockNames.AVATAR,
+	public static final Block LIVINGWOOD_AVATAR = make(LibBlockNames.LIVINGWOOD_AVATAR,
 			new AvatarBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
 	public static final Block FAKE_AIR = make(LibBlockNames.FAKE_AIR,
 			new FakeAirBlock(BlockBehaviour.Properties.of()
@@ -1700,7 +1700,7 @@ public final class BotaniaBlocks {
 
 	public static final Block SHIMMERROCK = make(LibBlockNames.SHIMMERROCK,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block SHIMMERROCK_STAIRS = make(LibBlockNames.SHIMMERROCK + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SHIMMERROCK_STAIRS = make(LibBlockNames.SHIMMERROCK + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SHIMMERROCK.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(SHIMMERROCK)));
 	public static final Block SHIMMERROCK_SLAB = make(LibBlockNames.SHIMMERROCK + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SHIMMERROCK)));
@@ -1714,26 +1714,26 @@ public final class BotaniaBlocks {
 			new PressurePlateBlock(BotaniaBlockSetTypes.SHIMMERROCK_BLOCK_SET,
 					BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE)
 							.mapColor(MapColor.TERRACOTTA_WHITE)));
-	public static final Block SHIMMERWOOD_PLANKS = make(LibBlockNames.SHIMMERWOOD_PLANKS,
+	public static final Block SHIMMERWOOD_PLANKS = make(LibBlockNames.SHIMMERWOOD + LibBlockNames.PLANKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
-	public static final Block SHIMMERWOOD_PLANK_STAIRS = make(LibBlockNames.SHIMMERWOOD_PLANKS + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SHIMMERWOOD_PLANK_STAIRS = make(LibBlockNames.SHIMMERWOOD + LibBlockNames.PLANK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SHIMMERWOOD_PLANKS.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(SHIMMERWOOD_PLANKS)));
-	public static final Block SHIMMERWOOD_PLANK_SLAB = make(LibBlockNames.SHIMMERWOOD_PLANKS + LibBlockNames.SLAB_SUFFIX,
+	public static final Block SHIMMERWOOD_PLANK_SLAB = make(LibBlockNames.SHIMMERWOOD + LibBlockNames.PLANK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SHIMMERWOOD_PLANKS)));
-	public static final Block SHIMMERWOOD_FENCE = make(LibBlockNames.SHIMMERWOOD_PREFIX + LibBlockNames.FENCE_SUFFIX,
+	public static final Block SHIMMERWOOD_FENCE = make(LibBlockNames.SHIMMERWOOD + LibBlockNames.FENCE_SUFFIX,
 			new FenceBlock(BlockBehaviour.Properties.ofFullCopy(SHIMMERWOOD_PLANKS)));
-	public static final Block SHIMMERWOOD_FENCE_GATE = make(LibBlockNames.SHIMMERWOOD_PREFIX + LibBlockNames.FENCE_GATE_SUFFIX,
+	public static final Block SHIMMERWOOD_FENCE_GATE = make(LibBlockNames.SHIMMERWOOD + LibBlockNames.FENCE_GATE_SUFFIX,
 			new FenceGateBlock(BotaniaBlockSetTypes.SHIMMERWOOD,
 					BlockBehaviour.Properties.ofFullCopy(SHIMMERWOOD_PLANKS)));
-	public static final Block SHIMMERWOOD_PRESSURE_PLATE = make(LibBlockNames.SHIMMERWOOD_PREFIX + LibBlockNames.PRESSURE_PLATE_SUFFIX,
+	public static final Block SHIMMERWOOD_PRESSURE_PLATE = make(LibBlockNames.SHIMMERWOOD + LibBlockNames.PRESSURE_PLATE_SUFFIX,
 			new PressurePlateBlock(BotaniaBlockSetTypes.SHIMMERWOOD_BLOCK_SET,
 					BlockBehaviour.Properties.ofFullCopy(SHIMMERWOOD_PLANKS)
 							.noCollission()
 							.strength(0.5F)
 							.forceSolidOn()
 							.pushReaction(PushReaction.DESTROY)));
-	public static final Block SHIMMERWOOD_BUTTON = make(LibBlockNames.SHIMMERWOOD_PREFIX + LibBlockNames.BUTTON_SUFFIX,
+	public static final Block SHIMMERWOOD_BUTTON = make(LibBlockNames.SHIMMERWOOD + LibBlockNames.BUTTON_SUFFIX,
 			new ButtonBlock(BotaniaBlockSetTypes.SHIMMERWOOD_BLOCK_SET, 30,
 					BlockBehaviour.Properties.ofFullCopy(SHIMMERWOOD_PLANKS)
 							.noCollission()
@@ -1775,165 +1775,165 @@ public final class BotaniaBlocks {
 			flowerPot(HYDROANGEAS_MOTIF, 0));
 
 	// quartz variants
-	public static final Block DARK_QUARTZ_BLOCK = make(LibBlockNames.QUARTZ_DARK,
+	public static final Block SMOKEY_QUARTZ_BLOCK = make(LibBlockNames.SMOKEY_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK)
 					.mapColor(MapColor.COLOR_BLACK)));
-	public static final Block DARK_QUARTZ_STAIRS = make(LibBlockNames.QUARTZ_DARK + LibBlockNames.STAIR_SUFFIX,
-			new StairBlock(DARK_QUARTZ_BLOCK.defaultBlockState(),
-					BlockBehaviour.Properties.ofFullCopy(DARK_QUARTZ_BLOCK)));
-	public static final Block DARK_QUARTZ_SLAB = make(LibBlockNames.QUARTZ_DARK + LibBlockNames.SLAB_SUFFIX,
-			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(DARK_QUARTZ_BLOCK)));
-	public static final Block CHISELED_DARK_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.QUARTZ_DARK,
-			new Block(BlockBehaviour.Properties.ofFullCopy(DARK_QUARTZ_BLOCK)));
-	public static final Block DARK_QUARTZ_BRICKS = make(LibBlockNames.QUARTZ_DARK + "_bricks",
-			new Block(BlockBehaviour.Properties.ofFullCopy(DARK_QUARTZ_BLOCK)));
-	public static final Block DARK_QUARTZ_PILLAR = make(LibBlockNames.QUARTZ_DARK + "_pillar",
-			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(DARK_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_DARK_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_DARK,
+	public static final Block SMOKEY_QUARTZ_STAIRS = make(LibBlockNames.SMOKEY_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
+			new StairBlock(SMOKEY_QUARTZ_BLOCK.defaultBlockState(),
+					BlockBehaviour.Properties.ofFullCopy(SMOKEY_QUARTZ_BLOCK)));
+	public static final Block SMOKEY_QUARTZ_SLAB = make(LibBlockNames.SMOKEY_QUARTZ + LibBlockNames.SLAB_SUFFIX,
+			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMOKEY_QUARTZ_BLOCK)));
+	public static final Block CHISELED_SMOKEY_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.SMOKEY_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
+			new Block(BlockBehaviour.Properties.ofFullCopy(SMOKEY_QUARTZ_BLOCK)));
+	public static final Block SMOKEY_QUARTZ_BRICKS = make(LibBlockNames.SMOKEY_QUARTZ + LibBlockNames.BRICKS_SUFFIX,
+			new Block(BlockBehaviour.Properties.ofFullCopy(SMOKEY_QUARTZ_BLOCK)));
+	public static final Block SMOKEY_QUARTZ_PILLAR = make(LibBlockNames.SMOKEY_QUARTZ + LibBlockNames.PILLAR_SUFFIX,
+			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(SMOKEY_QUARTZ_BLOCK)));
+	public static final Block SMOOTH_SMOKEY_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.SMOKEY_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ)
 					.mapColor(MapColor.COLOR_BLACK)));
-	public static final Block SMOOTH_DARK_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_DARK + LibBlockNames.STAIR_SUFFIX,
-			new StairBlock(SMOOTH_DARK_QUARTZ_BLOCK.defaultBlockState(),
-					BlockBehaviour.Properties.ofFullCopy(SMOOTH_DARK_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_DARK_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_DARK + LibBlockNames.SLAB_SUFFIX,
-			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMOOTH_DARK_QUARTZ_BLOCK)));
+	public static final Block SMOOTH_SMOKEY_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.SMOKEY_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
+			new StairBlock(SMOOTH_SMOKEY_QUARTZ_BLOCK.defaultBlockState(),
+					BlockBehaviour.Properties.ofFullCopy(SMOOTH_SMOKEY_QUARTZ_BLOCK)));
+	public static final Block SMOOTH_SMOKEY_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.SMOKEY_QUARTZ + LibBlockNames.SLAB_SUFFIX,
+			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMOOTH_SMOKEY_QUARTZ_BLOCK)));
 
-	public static final Block MANA_QUARTZ_BLOCK = make(LibBlockNames.QUARTZ_MANA,
+	public static final Block MANA_QUARTZ_BLOCK = make(LibBlockNames.MANA_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK)
 					.mapColor(MapColor.DIAMOND)));
-	public static final Block MANA_QUARTZ_STAIRS = make(LibBlockNames.QUARTZ_MANA + LibBlockNames.STAIR_SUFFIX,
+	public static final Block MANA_QUARTZ_STAIRS = make(LibBlockNames.MANA_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(MANA_QUARTZ_BLOCK.defaultBlockState(),
-					BlockBehaviour.Properties.ofFullCopy(DARK_QUARTZ_BLOCK)));
-	public static final Block MANA_QUARTZ_SLAB = make(LibBlockNames.QUARTZ_MANA + LibBlockNames.SLAB_SUFFIX,
+					BlockBehaviour.Properties.ofFullCopy(SMOKEY_QUARTZ_BLOCK)));
+	public static final Block MANA_QUARTZ_SLAB = make(LibBlockNames.MANA_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MANA_QUARTZ_BLOCK)));
-	public static final Block CHISELED_MANA_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.QUARTZ_MANA,
+	public static final Block CHISELED_MANA_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.MANA_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(MANA_QUARTZ_BLOCK)));
-	public static final Block MANA_QUARTZ_BRICKS = make(LibBlockNames.QUARTZ_MANA + "_bricks",
+	public static final Block MANA_QUARTZ_BRICKS = make(LibBlockNames.MANA_QUARTZ + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(MANA_QUARTZ_BLOCK)));
-	public static final Block MANA_QUARTZ_PILLAR = make(LibBlockNames.QUARTZ_MANA + "_pillar",
+	public static final Block MANA_QUARTZ_PILLAR = make(LibBlockNames.MANA_QUARTZ + LibBlockNames.PILLAR_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(MANA_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_MANA_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_MANA,
+	public static final Block SMOOTH_MANA_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.MANA_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ)
 					.mapColor(MapColor.DIAMOND)));
-	public static final Block SMOOTH_MANA_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_MANA + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SMOOTH_MANA_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.MANA_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SMOOTH_MANA_QUARTZ_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(SMOOTH_MANA_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_MANA_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_MANA + LibBlockNames.SLAB_SUFFIX,
+	public static final Block SMOOTH_MANA_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.MANA_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMOOTH_MANA_QUARTZ_BLOCK)));
 
-	public static final Block BLAZE_QUARTZ_BLOCK = make(LibBlockNames.QUARTZ_BLAZE,
+	public static final Block BLAZE_QUARTZ_BLOCK = make(LibBlockNames.BLAZE_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK)
 					.mapColor(MapColor.SAND)));
-	public static final Block BLAZE_QUARTZ_STAIRS = make(LibBlockNames.QUARTZ_BLAZE + LibBlockNames.STAIR_SUFFIX,
+	public static final Block BLAZE_QUARTZ_STAIRS = make(LibBlockNames.BLAZE_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(BLAZE_QUARTZ_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(BLAZE_QUARTZ_BLOCK)));
-	public static final Block BLAZE_QUARTZ_SLAB = make(LibBlockNames.QUARTZ_BLAZE + LibBlockNames.SLAB_SUFFIX,
+	public static final Block BLAZE_QUARTZ_SLAB = make(LibBlockNames.BLAZE_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BLAZE_QUARTZ_BLOCK)));
-	public static final Block CHISELED_BLAZE_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.QUARTZ_BLAZE,
+	public static final Block CHISELED_BLAZE_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.BLAZE_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(BLAZE_QUARTZ_BLOCK)));
-	public static final Block BLAZE_QUARTZ_BRICKS = make(LibBlockNames.QUARTZ_BLAZE + "_bricks",
+	public static final Block BLAZE_QUARTZ_BRICKS = make(LibBlockNames.BLAZE_QUARTZ + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(BLAZE_QUARTZ_BLOCK)));
-	public static final Block BLAZE_QUARTZ_PILLAR = make(LibBlockNames.QUARTZ_BLAZE + "_pillar",
+	public static final Block BLAZE_QUARTZ_PILLAR = make(LibBlockNames.BLAZE_QUARTZ + LibBlockNames.PILLAR_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(BLAZE_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_BLAZE_QUARTZ_BLOCKS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_BLAZE,
+	public static final Block SMOOTH_BLAZE_QUARTZ_BLOCKS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.BLAZE_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ)
 					.mapColor(MapColor.SAND)));
-	public static final Block SMOOTH_BLAZE_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_BLAZE + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SMOOTH_BLAZE_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.BLAZE_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SMOOTH_BLAZE_QUARTZ_BLOCKS.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(SMOOTH_BLAZE_QUARTZ_BLOCKS)));
-	public static final Block SMOOTH_BLAZE_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_BLAZE + LibBlockNames.SLAB_SUFFIX,
+	public static final Block SMOOTH_BLAZE_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.BLAZE_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMOOTH_BLAZE_QUARTZ_BLOCKS)));
 
-	public static final Block LAVENDER_QUARTZ_BLOCK = make(LibBlockNames.QUARTZ_LAVENDER,
+	public static final Block LAVENDER_QUARTZ_BLOCK = make(LibBlockNames.LAVENDER_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK)
 					.mapColor(MapColor.COLOR_PINK)));
-	public static final Block LAVENDER_QUARTZ_STAIRS = make(LibBlockNames.QUARTZ_LAVENDER + LibBlockNames.STAIR_SUFFIX,
+	public static final Block LAVENDER_QUARTZ_STAIRS = make(LibBlockNames.LAVENDER_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(LAVENDER_QUARTZ_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(LAVENDER_QUARTZ_BLOCK)));
-	public static final Block LAVENDER_QUARTZ_SLAB = make(LibBlockNames.QUARTZ_LAVENDER + LibBlockNames.SLAB_SUFFIX,
+	public static final Block LAVENDER_QUARTZ_SLAB = make(LibBlockNames.LAVENDER_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LAVENDER_QUARTZ_BLOCK)));
-	public static final Block CHISELED_LAVENDER_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.QUARTZ_LAVENDER,
+	public static final Block CHISELED_LAVENDER_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.LAVENDER_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LAVENDER_QUARTZ_BLOCK)));
-	public static final Block LAVENDER_QUARTZ_BRICKS = make(LibBlockNames.QUARTZ_LAVENDER + "_bricks",
+	public static final Block LAVENDER_QUARTZ_BRICKS = make(LibBlockNames.LAVENDER_QUARTZ + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LAVENDER_QUARTZ_BLOCK)));
-	public static final Block LAVENDER_QUARTZ_PILLAR = make(LibBlockNames.QUARTZ_LAVENDER + "_pillar",
+	public static final Block LAVENDER_QUARTZ_PILLAR = make(LibBlockNames.LAVENDER_QUARTZ + LibBlockNames.PILLAR_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(LAVENDER_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_LAVENDER_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_LAVENDER,
+	public static final Block SMOOTH_LAVENDER_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.LAVENDER_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ)
 					.mapColor(MapColor.COLOR_PINK)));
-	public static final Block SMOOTH_LAVENDER_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_LAVENDER + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SMOOTH_LAVENDER_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.LAVENDER_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SMOOTH_LAVENDER_QUARTZ_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(SMOOTH_LAVENDER_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_LAVENDER_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_LAVENDER + LibBlockNames.SLAB_SUFFIX,
+	public static final Block SMOOTH_LAVENDER_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.LAVENDER_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMOOTH_LAVENDER_QUARTZ_BLOCK)));
 
-	public static final Block RED_QUARTZ_BLOCK = make(LibBlockNames.QUARTZ_RED,
+	public static final Block RED_QUARTZ_BLOCK = make(LibBlockNames.RED_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK)
 					.mapColor(MapColor.TERRACOTTA_WHITE)));
-	public static final Block RED_QUARTZ_STAIRS = make(LibBlockNames.QUARTZ_RED + LibBlockNames.STAIR_SUFFIX,
+	public static final Block RED_QUARTZ_STAIRS = make(LibBlockNames.RED_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(RED_QUARTZ_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(RED_QUARTZ_BLOCK)));
-	public static final Block RED_QUARTZ_SLAB = make(LibBlockNames.QUARTZ_RED + LibBlockNames.SLAB_SUFFIX,
+	public static final Block RED_QUARTZ_SLAB = make(LibBlockNames.RED_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(RED_QUARTZ_BLOCK)));
-	public static final Block CHISELED_RED_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.QUARTZ_RED,
+	public static final Block CHISELED_RED_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.RED_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(RED_QUARTZ_BLOCK)));
-	public static final Block RED_QUARTZ_BRICKS = make(LibBlockNames.QUARTZ_RED + "_bricks",
+	public static final Block RED_QUARTZ_BRICKS = make(LibBlockNames.RED_QUARTZ + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(RED_QUARTZ_BLOCK)));
-	public static final Block RED_QUARTZ_PILLAR = make(LibBlockNames.QUARTZ_RED + "_pillar",
+	public static final Block RED_QUARTZ_PILLAR = make(LibBlockNames.RED_QUARTZ + LibBlockNames.PILLAR_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(RED_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_RED_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_RED,
+	public static final Block SMOOTH_RED_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.RED_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ)
 					.mapColor(MapColor.TERRACOTTA_WHITE)));
-	public static final Block SMOOTH_RED_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_RED + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SMOOTH_RED_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.RED_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SMOOTH_RED_QUARTZ_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(SMOOTH_RED_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_RED_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_RED + LibBlockNames.SLAB_SUFFIX,
+	public static final Block SMOOTH_RED_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.RED_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMOOTH_RED_QUARTZ_BLOCK)));
 
-	public static final Block ELVEN_QUARTZ_BLOCK = make(LibBlockNames.QUARTZ_ELF,
+	public static final Block ELVEN_QUARTZ_BLOCK = make(LibBlockNames.ELVEN_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK)
 					.mapColor(MapColor.COLOR_LIGHT_GREEN)));
-	public static final Block ELVEN_QUARTZ_STAIRS = make(LibBlockNames.QUARTZ_ELF + LibBlockNames.STAIR_SUFFIX,
+	public static final Block ELVEN_QUARTZ_STAIRS = make(LibBlockNames.ELVEN_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(ELVEN_QUARTZ_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(ELVEN_QUARTZ_BLOCK)));
-	public static final Block ELVEN_QUARTZ_SLAB = make(LibBlockNames.QUARTZ_ELF + LibBlockNames.SLAB_SUFFIX,
+	public static final Block ELVEN_QUARTZ_SLAB = make(LibBlockNames.ELVEN_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ELVEN_QUARTZ_BLOCK)));
-	public static final Block CHISELED_ELVEN_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.QUARTZ_ELF,
+	public static final Block CHISELED_ELVEN_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.ELVEN_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(ELVEN_QUARTZ_BLOCK)));
-	public static final Block ELVEN_QUARTZ_BRICKS = make(LibBlockNames.QUARTZ_ELF + "_bricks",
+	public static final Block ELVEN_QUARTZ_BRICKS = make(LibBlockNames.ELVEN_QUARTZ + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(ELVEN_QUARTZ_BLOCK)));
-	public static final Block ELVEN_QUARTZ_PILLAR = make(LibBlockNames.QUARTZ_ELF + "_pillar",
+	public static final Block ELVEN_QUARTZ_PILLAR = make(LibBlockNames.ELVEN_QUARTZ + LibBlockNames.PILLAR_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(ELVEN_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_ELVEN_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_ELF,
+	public static final Block SMOOTH_ELVEN_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.ELVEN_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ)
 					.mapColor(MapColor.COLOR_LIGHT_GREEN)));
-	public static final Block SMOOTH_ELVEN_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_ELF + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SMOOTH_ELVEN_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.ELVEN_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SMOOTH_ELVEN_QUARTZ_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(SMOOTH_ELVEN_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_ELVEN_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_ELF + LibBlockNames.SLAB_SUFFIX,
+	public static final Block SMOOTH_ELVEN_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.ELVEN_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMOOTH_ELVEN_QUARTZ_BLOCK)));
 
-	public static final Block SUNNY_QUART_BLOCK = make(LibBlockNames.QUARTZ_SUNNY,
+	public static final Block SUNNY_QUART_BLOCK = make(LibBlockNames.SUNNY_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK)
 					.mapColor(MapColor.COLOR_YELLOW)));
-	public static final Block SUNNY_QUARTZ_STAIRS = make(LibBlockNames.QUARTZ_SUNNY + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SUNNY_QUARTZ_STAIRS = make(LibBlockNames.SUNNY_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SUNNY_QUART_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(SUNNY_QUART_BLOCK)));
-	public static final Block SUNNY_QUARTZ_SLAB = make(LibBlockNames.QUARTZ_SUNNY + LibBlockNames.SLAB_SUFFIX,
+	public static final Block SUNNY_QUARTZ_SLAB = make(LibBlockNames.SUNNY_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SUNNY_QUART_BLOCK)));
-	public static final Block CHISELED_SUNNY_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.QUARTZ_SUNNY,
+	public static final Block CHISELED_SUNNY_QUARTZ_BLOCK = make(LibBlockNames.CHISELED_PREFIX + LibBlockNames.SUNNY_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(SUNNY_QUART_BLOCK)));
-	public static final Block SUNNY_QUARTZ_BRICKS = make(LibBlockNames.QUARTZ_SUNNY + "_bricks",
+	public static final Block SUNNY_QUARTZ_BRICKS = make(LibBlockNames.SUNNY_QUARTZ + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(SUNNY_QUART_BLOCK)));
-	public static final Block SUNNY_QUARTZ_PILLAR = make(LibBlockNames.QUARTZ_SUNNY + "_pillar",
+	public static final Block SUNNY_QUARTZ_PILLAR = make(LibBlockNames.SUNNY_QUARTZ + LibBlockNames.PILLAR_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(SUNNY_QUART_BLOCK)));
-	public static final Block SMOOTH_SUNNY_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_SUNNY,
+	public static final Block SMOOTH_SUNNY_QUARTZ_BLOCK = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.SUNNY_QUARTZ + LibBlockNames.BLOCK_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_QUARTZ)
 					.mapColor(MapColor.COLOR_YELLOW)));
-	public static final Block SMOOTH_SUNNY_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_SUNNY + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SMOOTH_SUNNY_QUARTZ_STAIRS = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.SUNNY_QUARTZ + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SMOOTH_SUNNY_QUARTZ_BLOCK.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(SMOOTH_SUNNY_QUARTZ_BLOCK)));
-	public static final Block SMOOTH_SUNNY_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.QUARTZ_SUNNY + LibBlockNames.SLAB_SUFFIX,
+	public static final Block SMOOTH_SUNNY_QUARTZ_SLAB = make(LibBlockNames.SMOOTH_PREFIX + LibBlockNames.SUNNY_QUARTZ + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SMOOTH_SUNNY_QUARTZ_BLOCK)));
 
 	// metamorphic biome blocks
@@ -1944,7 +1944,7 @@ public final class BotaniaBlocks {
 					.instrument(NoteBlockInstrument.BASEDRUM)
 					.requiresCorrectToolForDrops()
 					.mapColor(MapColor.WARPED_NYLIUM)));
-	public static final Block FUCHSITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE + LibBlockNames.STAIR_SUFFIX,
+	public static final Block FUCHSITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(FUCHSITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(FUCHSITE)));
 	public static final Block FUCHSITE_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)));
@@ -1961,7 +1961,7 @@ public final class BotaniaBlocks {
 	public static final Block COBBLED_FUCHSITE = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE,
 			new Block(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)));
 	public static final Block COBBLED_FUCHSITE_STAIRS = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE
-			+ LibBlockNames.STAIR_SUFFIX,
+			+ LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(FUCHSITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(FUCHSITE)));
 	public static final Block COBBLED_FUCHSITE_SLAB = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE
 			+ LibBlockNames.SLAB_SUFFIX,
@@ -1971,7 +1971,7 @@ public final class BotaniaBlocks {
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)));
 	public static final Block FUCHSITE_BRICKS = make(LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)));
-	public static final Block FUCHSITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block FUCHSITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(FUCHSITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(FUCHSITE)));
 	public static final Block FUCHSITE_BRICK_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)));
@@ -1985,7 +1985,7 @@ public final class BotaniaBlocks {
 			new Block(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)
 					.sound(SoundType.CALCITE)
 					.mapColor(MapColor.QUARTZ)));
-	public static final Block TALC_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_TALC + LibBlockNames.STAIR_SUFFIX,
+	public static final Block TALC_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_TALC + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(TALC.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(TALC)));
 	public static final Block TALC_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_TALC + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(TALC)));
@@ -2002,7 +2002,7 @@ public final class BotaniaBlocks {
 	public static final Block COBBLED_TALC = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_TALC,
 			new Block(BlockBehaviour.Properties.ofFullCopy(TALC)));
 	public static final Block COBBLED_TALC_STAIRS = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_TALC
-			+ LibBlockNames.STAIR_SUFFIX,
+			+ LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(TALC.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(TALC)));
 	public static final Block COBBLED_TALC_SLAB = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_TALC
 			+ LibBlockNames.SLAB_SUFFIX,
@@ -2012,7 +2012,7 @@ public final class BotaniaBlocks {
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(TALC)));
 	public static final Block TALC_BRICKS = make(LibBlockNames.METAMORPHIC_VARIANT_TALC + LibBlockNames.BRICKS_SUFFIX,
 			new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(TALC)));
-	public static final Block TALC_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_TALC + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block TALC_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_TALC + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(TALC.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(TALC)));
 	public static final Block TALC_BRICK_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_TALC + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(TALC)));
@@ -2026,7 +2026,7 @@ public final class BotaniaBlocks {
 			new Block(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)
 					.sound(SoundType.DEEPSLATE_TILES)
 					.mapColor(MapColor.GLOW_LICHEN)));
-	public static final Block GNEISS_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_GNEISS + LibBlockNames.STAIR_SUFFIX,
+	public static final Block GNEISS_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_GNEISS + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(GNEISS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(GNEISS)));
 	public static final Block GNEISS_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_GNEISS + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(GNEISS)));
@@ -2043,7 +2043,7 @@ public final class BotaniaBlocks {
 	public static final Block COBBLED_GNEISS = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_GNEISS,
 			new Block(BlockBehaviour.Properties.ofFullCopy(GNEISS)));
 	public static final Block COBBLED_GNEISS_STAIRS = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_GNEISS
-			+ LibBlockNames.STAIR_SUFFIX,
+			+ LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(GNEISS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(GNEISS)));
 	public static final Block COBBLED_GNEISS_SLAB = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_GNEISS
 			+ LibBlockNames.SLAB_SUFFIX,
@@ -2053,7 +2053,7 @@ public final class BotaniaBlocks {
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(GNEISS)));
 	public static final Block GNEISS_BRICKS = make(LibBlockNames.METAMORPHIC_VARIANT_GNEISS + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(GNEISS)));
-	public static final Block GNEISS_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_GNEISS + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block GNEISS_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_GNEISS + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(GNEISS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(GNEISS)));
 	public static final Block GNEISS_BRICK_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_GNEISS + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(GNEISS)));
@@ -2067,7 +2067,7 @@ public final class BotaniaBlocks {
 			new Block(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)
 					.sound(SoundType.DEEPSLATE_BRICKS)
 					.mapColor(MapColor.TERRACOTTA_PURPLE)));
-	public static final Block MYCELITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_MYCELITE + LibBlockNames.STAIR_SUFFIX,
+	public static final Block MYCELITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_MYCELITE + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(MYCELITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(MYCELITE)));
 	public static final Block MYCELITE_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_MYCELITE + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MYCELITE)));
@@ -2084,7 +2084,7 @@ public final class BotaniaBlocks {
 	public static final Block COBBLED_MYCELITE = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_MYCELITE,
 			new Block(BlockBehaviour.Properties.ofFullCopy(MYCELITE)));
 	public static final Block COBBLED_MYCELITE_STAIRS = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_MYCELITE
-			+ LibBlockNames.STAIR_SUFFIX,
+			+ LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(MYCELITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(MYCELITE)));
 	public static final Block COBBLED_MYCELITE_SLAB = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_MYCELITE
 			+ LibBlockNames.SLAB_SUFFIX,
@@ -2094,7 +2094,7 @@ public final class BotaniaBlocks {
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(MYCELITE)));
 	public static final Block MYCELITE_BRICKS = make(LibBlockNames.METAMORPHIC_VARIANT_MYCELITE + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(MYCELITE)));
-	public static final Block MYCELITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_MYCELITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block MYCELITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_MYCELITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(MYCELITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(MYCELITE)));
 	public static final Block MYCELITE_BRICK_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_MYCELITE + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MYCELITE)));
@@ -2108,7 +2108,7 @@ public final class BotaniaBlocks {
 			new Block(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)
 					.sound(SoundType.DEEPSLATE_TILES)
 					.mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
-	public static final Block CATACLASITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE + LibBlockNames.STAIR_SUFFIX,
+	public static final Block CATACLASITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(CATACLASITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(CATACLASITE)));
 	public static final Block CATACLASITE_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CATACLASITE)));
@@ -2125,7 +2125,7 @@ public final class BotaniaBlocks {
 	public static final Block COBBLED_CATACLASITE = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE,
 			new Block(BlockBehaviour.Properties.ofFullCopy(CATACLASITE)));
 	public static final Block COBBLED_CATACLASITE_STAIRS = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE
-			+ LibBlockNames.STAIR_SUFFIX,
+			+ LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(CATACLASITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(CATACLASITE)));
 	public static final Block COBBLED_CATACLASITE_SLAB = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE
 			+ LibBlockNames.SLAB_SUFFIX,
@@ -2135,7 +2135,7 @@ public final class BotaniaBlocks {
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(CATACLASITE)));
 	public static final Block CATACLASITE_BRICKS = make(LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE + LibBlockNames.BRICKS_SUFFIX,
 			new BotaniaDirectionalBlock(BlockBehaviour.Properties.ofFullCopy(CATACLASITE)));
-	public static final Block CATACLASITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block CATACLASITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(CATACLASITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(CATACLASITE)));
 	public static final Block CATACLASITE_BRICK_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CATACLASITE)));
@@ -2149,7 +2149,7 @@ public final class BotaniaBlocks {
 			new Block(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)
 					.sound(SoundType.DEEPSLATE)
 					.mapColor(MapColor.DIRT)));
-	public static final Block SOLITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_SOLITE + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SOLITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_SOLITE + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SOLITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(SOLITE)));
 	public static final Block SOLITE_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_SOLITE + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SOLITE)));
@@ -2166,7 +2166,7 @@ public final class BotaniaBlocks {
 	public static final Block COBBLED_SOLITE = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_SOLITE,
 			new Block(BlockBehaviour.Properties.ofFullCopy(SOLITE)));
 	public static final Block COBBLED_SOLITE_STAIRS = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_SOLITE
-			+ LibBlockNames.STAIR_SUFFIX,
+			+ LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SOLITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(SOLITE)));
 	public static final Block COBBLED_SOLITE_SLAB = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_SOLITE
 			+ LibBlockNames.SLAB_SUFFIX,
@@ -2176,7 +2176,7 @@ public final class BotaniaBlocks {
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(SOLITE)));
 	public static final Block SOLITE_BRICKS = make(LibBlockNames.METAMORPHIC_VARIANT_SOLITE + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(SOLITE)));
-	public static final Block SOLITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_SOLITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block SOLITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_SOLITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(SOLITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(SOLITE)));
 	public static final Block SOLITE_BRICK_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_SOLITE + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SOLITE)));
@@ -2190,7 +2190,7 @@ public final class BotaniaBlocks {
 			new Block(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)
 					.sound(SoundType.DEEPSLATE)
 					.mapColor(MapColor.TERRACOTTA_BLUE)));
-	public static final Block LUNITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_LUNITE + LibBlockNames.STAIR_SUFFIX,
+	public static final Block LUNITE_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_LUNITE + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(LUNITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LUNITE)));
 	public static final Block LUNITE_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_LUNITE + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LUNITE)));
@@ -2207,7 +2207,7 @@ public final class BotaniaBlocks {
 	public static final Block COBBLED_LUNITE = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_LUNITE,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LUNITE)));
 	public static final Block COBBLED_LUNITE_STAIRS = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_LUNITE
-			+ LibBlockNames.STAIR_SUFFIX,
+			+ LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(LUNITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LUNITE)));
 	public static final Block COBBLED_LUNITE_SLAB = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_LUNITE
 			+ LibBlockNames.SLAB_SUFFIX,
@@ -2217,7 +2217,7 @@ public final class BotaniaBlocks {
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(LUNITE)));
 	public static final Block LUNITE_BRICKS = make(LibBlockNames.METAMORPHIC_VARIANT_LUNITE + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LUNITE)));
-	public static final Block LUNITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_LUNITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block LUNITE_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_LUNITE + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(LUNITE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LUNITE)));
 	public static final Block LUNITE_BRICK_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_LUNITE + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LUNITE)));
@@ -2231,7 +2231,7 @@ public final class BotaniaBlocks {
 			new Block(BlockBehaviour.Properties.ofFullCopy(FUCHSITE)
 					.sound(SoundType.CALCITE)
 					.mapColor(MapColor.TERRACOTTA_WHITE)));
-	public static final Block ROSY_TALC_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC + LibBlockNames.STAIR_SUFFIX,
+	public static final Block ROSY_TALC_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(ROSY_TALC.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(ROSY_TALC)));
 	public static final Block ROSY_TALC_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ROSY_TALC)));
@@ -2249,7 +2249,7 @@ public final class BotaniaBlocks {
 			new Block(BlockBehaviour.Properties.ofFullCopy(
 					ROSY_TALC)));
 	public static final Block COBBLED_ROSY_TALC_STAIRS = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC
-			+ LibBlockNames.STAIR_SUFFIX,
+			+ LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(ROSY_TALC.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(ROSY_TALC)));
 	public static final Block COBBLED_ROSY_TALC_SLAB = make(LibBlockNames.COBBLED_PREFIX + LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC
 			+ LibBlockNames.SLAB_SUFFIX,
@@ -2259,7 +2259,7 @@ public final class BotaniaBlocks {
 			new WallBlock(BlockBehaviour.Properties.ofFullCopy(ROSY_TALC)));
 	public static final Block ROSY_TALC_BRICKS = make(LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC + LibBlockNames.BRICKS_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(ROSY_TALC)));
-	public static final Block ROSY_TALC_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block ROSY_TALC_BRICK_STAIRS = make(LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(ROSY_TALC.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(ROSY_TALC)));
 	public static final Block ROSY_TALC_BRICK_SLAB = make(LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ROSY_TALC)));
@@ -2273,7 +2273,7 @@ public final class BotaniaBlocks {
 	public static final Block WHITE_PORTUGUESE_PAVEMENT = make(LibBlockNames.PAVEMENT_VARIANT_WHITE + LibBlockNames.PAVEMENT_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)
 					.mapColor(MapColor.TERRACOTTA_WHITE)));
-	public static final Block WHITE_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_WHITE + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block WHITE_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_WHITE + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(WHITE_PORTUGUESE_PAVEMENT.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(WHITE_PORTUGUESE_PAVEMENT)));
 	public static final Block WHITE_PORTUGUESE_PAVEMENT_SLAB = make(LibBlockNames.PAVEMENT_VARIANT_WHITE + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX,
@@ -2282,7 +2282,7 @@ public final class BotaniaBlocks {
 	public static final Block BLACK_PORTUGUESE_PAVEMENT = make(LibBlockNames.PAVEMENT_VARIANT_BLACK + LibBlockNames.PAVEMENT_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(WHITE_PORTUGUESE_PAVEMENT)
 					.mapColor(MapColor.COLOR_GRAY)));
-	public static final Block BLACK_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_BLACK + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block BLACK_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_BLACK + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(BLACK_PORTUGUESE_PAVEMENT.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(BLACK_PORTUGUESE_PAVEMENT)));
 	public static final Block BLACK_PORTUGUESE_PAVEMENT_SLAB = make(LibBlockNames.PAVEMENT_VARIANT_BLACK + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX,
@@ -2291,7 +2291,7 @@ public final class BotaniaBlocks {
 	public static final Block BLUE_PORTUGUESE_PAVEMENT = make(LibBlockNames.PAVEMENT_VARIANT_BLUE + LibBlockNames.PAVEMENT_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(WHITE_PORTUGUESE_PAVEMENT)
 					.mapColor(MapColor.COLOR_BLUE)));
-	public static final Block BLUE_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_BLUE + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block BLUE_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_BLUE + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(BLUE_PORTUGUESE_PAVEMENT.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(BLUE_PORTUGUESE_PAVEMENT)));
 	public static final Block BLUE_PORTUGUESE_PAVEMENT_SLAB = make(LibBlockNames.PAVEMENT_VARIANT_BLUE + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX,
@@ -2300,7 +2300,7 @@ public final class BotaniaBlocks {
 	public static final Block YELLOW_PORTUGUESE_PAVEMENT = make(LibBlockNames.PAVEMENT_VARIANT_YELLOW + LibBlockNames.PAVEMENT_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(WHITE_PORTUGUESE_PAVEMENT)
 					.mapColor(MapColor.TERRACOTTA_YELLOW)));
-	public static final Block YELLOW_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_YELLOW + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block YELLOW_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_YELLOW + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(YELLOW_PORTUGUESE_PAVEMENT.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(YELLOW_PORTUGUESE_PAVEMENT)));
 	public static final Block YELLOW_PORTUGUESE_PAVEMENT_SLAB = make(LibBlockNames.PAVEMENT_VARIANT_YELLOW + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX,
@@ -2309,7 +2309,7 @@ public final class BotaniaBlocks {
 	public static final Block RED_PORTUGUESE_PAVEMENT = make(LibBlockNames.PAVEMENT_VARIANT_RED + LibBlockNames.PAVEMENT_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(WHITE_PORTUGUESE_PAVEMENT)
 					.mapColor(MapColor.TERRACOTTA_RED)));
-	public static final Block RED_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_RED + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block RED_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_RED + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(RED_PORTUGUESE_PAVEMENT.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(RED_PORTUGUESE_PAVEMENT)));
 	public static final Block RED_PORTUGUESE_PAVEMENT_SLAB = make(LibBlockNames.PAVEMENT_VARIANT_RED + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX,
@@ -2318,7 +2318,7 @@ public final class BotaniaBlocks {
 	public static final Block GREEN_PORTUGUESE_PAVEMENT = make(LibBlockNames.PAVEMENT_VARIANT_GREEN + LibBlockNames.PAVEMENT_SUFFIX,
 			new Block(BlockBehaviour.Properties.ofFullCopy(WHITE_PORTUGUESE_PAVEMENT)
 					.mapColor(MapColor.TERRACOTTA_GREEN)));
-	public static final Block GREEN_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_GREEN + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX,
+	public static final Block GREEN_PORTUGUESE_PAVEMENT_STAIRS = make(LibBlockNames.PAVEMENT_VARIANT_GREEN + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIRS_SUFFIX,
 			new StairBlock(GREEN_PORTUGUESE_PAVEMENT.defaultBlockState(),
 					BlockBehaviour.Properties.ofFullCopy(GREEN_PORTUGUESE_PAVEMENT)));
 	public static final Block GREEN_PORTUGUESE_PAVEMENT_SLAB = make(LibBlockNames.PAVEMENT_VARIANT_GREEN + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX,
@@ -2847,18 +2847,19 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(NIGHTSHADE_MOTIF, props), BuiltInRegistries.BLOCK.getKey(NIGHTSHADE_MOTIF));
 		r.accept(new BlockItem(HYDROANGEAS_MOTIF, props), BuiltInRegistries.BLOCK.getKey(HYDROANGEAS_MOTIF));
 
-		r.accept(new BlockItem(DARK_QUARTZ_BLOCK, props), BuiltInRegistries.BLOCK.getKey(DARK_QUARTZ_BLOCK));
-		r.accept(new BlockItem(DARK_QUARTZ_STAIRS, props), BuiltInRegistries.BLOCK.getKey(DARK_QUARTZ_STAIRS));
-		r.accept(new BlockItem(DARK_QUARTZ_SLAB, props), BuiltInRegistries.BLOCK.getKey(DARK_QUARTZ_SLAB));
-		r.accept(new BlockItem(CHISELED_DARK_QUARTZ_BLOCK, props), BuiltInRegistries.BLOCK.getKey(
-				CHISELED_DARK_QUARTZ_BLOCK));
-		r.accept(new BlockItem(DARK_QUARTZ_BRICKS, props), BuiltInRegistries.BLOCK.getKey(DARK_QUARTZ_BRICKS));
-		r.accept(new BlockItem(DARK_QUARTZ_PILLAR, props), BuiltInRegistries.BLOCK.getKey(DARK_QUARTZ_PILLAR));
-		r.accept(new BlockItem(SMOOTH_DARK_QUARTZ_BLOCK, props), BuiltInRegistries.BLOCK.getKey(
-				SMOOTH_DARK_QUARTZ_BLOCK));
-		r.accept(new BlockItem(SMOOTH_DARK_QUARTZ_STAIRS, props), BuiltInRegistries.BLOCK.getKey(
-				SMOOTH_DARK_QUARTZ_STAIRS));
-		r.accept(new BlockItem(SMOOTH_DARK_QUARTZ_SLAB, props), BuiltInRegistries.BLOCK.getKey(SMOOTH_DARK_QUARTZ_SLAB));
+		r.accept(new BlockItem(SMOKEY_QUARTZ_BLOCK, props), BuiltInRegistries.BLOCK.getKey(SMOKEY_QUARTZ_BLOCK));
+		r.accept(new BlockItem(SMOKEY_QUARTZ_STAIRS, props), BuiltInRegistries.BLOCK.getKey(SMOKEY_QUARTZ_STAIRS));
+		r.accept(new BlockItem(SMOKEY_QUARTZ_SLAB, props), BuiltInRegistries.BLOCK.getKey(SMOKEY_QUARTZ_SLAB));
+		r.accept(new BlockItem(CHISELED_SMOKEY_QUARTZ_BLOCK, props), BuiltInRegistries.BLOCK.getKey(
+				CHISELED_SMOKEY_QUARTZ_BLOCK));
+		r.accept(new BlockItem(SMOKEY_QUARTZ_BRICKS, props), BuiltInRegistries.BLOCK.getKey(SMOKEY_QUARTZ_BRICKS));
+		r.accept(new BlockItem(SMOKEY_QUARTZ_PILLAR, props), BuiltInRegistries.BLOCK.getKey(SMOKEY_QUARTZ_PILLAR));
+		r.accept(new BlockItem(SMOOTH_SMOKEY_QUARTZ_BLOCK, props), BuiltInRegistries.BLOCK.getKey(
+				SMOOTH_SMOKEY_QUARTZ_BLOCK));
+		r.accept(new BlockItem(SMOOTH_SMOKEY_QUARTZ_STAIRS, props), BuiltInRegistries.BLOCK.getKey(
+				SMOOTH_SMOKEY_QUARTZ_STAIRS));
+		r.accept(new BlockItem(SMOOTH_SMOKEY_QUARTZ_SLAB, props), BuiltInRegistries.BLOCK.getKey(
+				SMOOTH_SMOKEY_QUARTZ_SLAB));
 
 		r.accept(new BlockItem(MANA_QUARTZ_BLOCK, props), BuiltInRegistries.BLOCK.getKey(MANA_QUARTZ_BLOCK));
 		r.accept(new BlockItem(MANA_QUARTZ_STAIRS, props), BuiltInRegistries.BLOCK.getKey(MANA_QUARTZ_STAIRS));

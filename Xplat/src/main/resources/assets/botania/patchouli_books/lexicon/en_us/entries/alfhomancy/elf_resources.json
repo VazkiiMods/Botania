@@ -44,7 +44,7 @@
     {
       "type": "botania:elven_trade",
       "text": "botania.page.elfResources7",
-      "recipes": "botania:elven_trade/elf_quartz"
+      "recipes": "botania:elven_trade/elven_quartz_block"
     },
     {
       "type": "text",
@@ -58,11 +58,11 @@
   ],
   "extra_recipe_mappings": {
     "botania:elementium_nugget": 3,
-    "botania:elf_quartz": 7,
-    "botania:chiseled_elf_quartz": 7,
-    "botania:elf_quartz_slab": 7,
-    "botania:elf_quartz_stairs": 7,
-    "botania:elf_quartz_pillar": 7,
+    "botania:elven_quartz_block": 7,
+    "botania:chiseled_elven_quartz_block": 7,
+    "botania:elven_quartz_slab": 7,
+    "botania:elven_quartz_stairs": 7,
+    "botania:elven_quartz_pillar": 7,
     "botania:alfglass_pane": 9
   }
 }

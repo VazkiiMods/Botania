@@ -249,7 +249,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.DIRT).add(grassBlockVariants);
 		tag(BlockTags.SNIFFER_DIGGABLE_BLOCK).add(grassBlockVariants);
 		tag(BotaniaTags.Blocks.BLOCKS_QUARTZ).add(
-				Blocks.QUARTZ_BLOCK, BotaniaBlocks.BLAZE_QUARTZ_BLOCK, BotaniaBlocks.DARK_QUARTZ_BLOCK, BotaniaBlocks.ELVEN_QUARTZ_BLOCK,
+				Blocks.QUARTZ_BLOCK, BotaniaBlocks.BLAZE_QUARTZ_BLOCK, BotaniaBlocks.SMOKEY_QUARTZ_BLOCK, BotaniaBlocks.ELVEN_QUARTZ_BLOCK,
 				BotaniaBlocks.LAVENDER_QUARTZ_BLOCK, BotaniaBlocks.MANA_QUARTZ_BLOCK, BotaniaBlocks.RED_QUARTZ_BLOCK, BotaniaBlocks.SUNNY_QUART_BLOCK
 		);
 
@@ -505,7 +505,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						|| metamorphicNames.stream().anyMatch(
 								variant -> BuiltInRegistries.BLOCK.getKey(block).getPath().contains(variant))
 								&& !(block instanceof WallBlock) // vanilla includes #wall already
-						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.LIVING_ROCK)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.LIVINGROCK)
 								&& !(block instanceof WallBlock) // vanilla includes #wall already
 						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.SHIMMERROCK)
 				)
@@ -521,9 +521,10 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						|| block instanceof OpenCrateBlock
 						|| block instanceof PlatformBlock
 						|| block instanceof ManaSpreaderBlock
-						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.LIVING_WOOD)
-						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.DREAM_WOOD)
-						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.LIVINGWOOD)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.DREAMWOOD)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(
+								LibBlockNames.SHIMMERWOOD + LibBlockNames.PLANKS_SUFFIX)
 				)
 		);
 	}

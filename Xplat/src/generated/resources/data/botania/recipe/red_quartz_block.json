@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:quartz_block",
+  "key": {
+    "Q": {
+      "item": "botania:quartz_red"
+    }
+  },
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:red_quartz_block"
+  }
+}

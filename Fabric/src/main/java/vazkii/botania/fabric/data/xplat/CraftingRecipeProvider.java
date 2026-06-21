@@ -2203,7 +2203,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		recombineSlab(recipeOutput, BotaniaBlocks.YELLOW_PORTUGUESE_PAVEMENT, BotaniaBlocks.YELLOW_PORTUGUESE_PAVEMENT_SLAB);
 		recombineSlab(recipeOutput, BotaniaBlocks.RED_PORTUGUESE_PAVEMENT, BotaniaBlocks.RED_PORTUGUESE_PAVEMENT_SLAB);
 		recombineSlab(recipeOutput, BotaniaBlocks.GREEN_PORTUGUESE_PAVEMENT, BotaniaBlocks.GREEN_PORTUGUESE_PAVEMENT_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.DARK_QUARTZ_BLOCK, BotaniaBlocks.DARK_QUARTZ_SLAB);
+		recombineSlab(recipeOutput, BotaniaBlocks.SMOKEY_QUARTZ_BLOCK, BotaniaBlocks.SMOKEY_QUARTZ_SLAB);
 		recombineSlab(recipeOutput, BotaniaBlocks.MANA_QUARTZ_BLOCK, BotaniaBlocks.MANA_QUARTZ_SLAB);
 		recombineSlab(recipeOutput, BotaniaBlocks.BLAZE_QUARTZ_BLOCK, BotaniaBlocks.BLAZE_QUARTZ_SLAB);
 		recombineSlab(recipeOutput, BotaniaBlocks.LAVENDER_QUARTZ_BLOCK, BotaniaBlocks.LAVENDER_QUARTZ_SLAB);
@@ -2262,16 +2262,16 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput);
 
-		registerForQuartz(recipeOutput, LibBlockNames.QUARTZ_DARK, BotaniaItems.DARK_QUARTZ);
-		registerForQuartz(recipeOutput, LibBlockNames.QUARTZ_MANA, BotaniaItems.MANA_QUARTZ);
-		registerForQuartz(recipeOutput, LibBlockNames.QUARTZ_BLAZE, BotaniaItems.BLAZE_QUARTZ);
-		registerForQuartz(recipeOutput, LibBlockNames.QUARTZ_LAVENDER, BotaniaItems.LAVENDER_QUARTZ);
-		registerForQuartz(recipeOutput, LibBlockNames.QUARTZ_RED, BotaniaItems.RED_QUARTZ);
-		registerForQuartz(recipeOutput, LibBlockNames.QUARTZ_ELF, BotaniaItems.ELVEN_QUARTZ);
-		registerForQuartz(recipeOutput, LibBlockNames.QUARTZ_SUNNY, BotaniaItems.SUNNY_QUARTZ);
+		registerForQuartz(recipeOutput, LibBlockNames.SMOKEY_QUARTZ, BotaniaItems.DARK_QUARTZ);
+		registerForQuartz(recipeOutput, LibBlockNames.MANA_QUARTZ, BotaniaItems.MANA_QUARTZ);
+		registerForQuartz(recipeOutput, LibBlockNames.BLAZE_QUARTZ, BotaniaItems.BLAZE_QUARTZ);
+		registerForQuartz(recipeOutput, LibBlockNames.LAVENDER_QUARTZ, BotaniaItems.LAVENDER_QUARTZ);
+		registerForQuartz(recipeOutput, LibBlockNames.RED_QUARTZ, BotaniaItems.RED_QUARTZ);
+		registerForQuartz(recipeOutput, LibBlockNames.ELVEN_QUARTZ, BotaniaItems.ELVEN_QUARTZ);
+		registerForQuartz(recipeOutput, LibBlockNames.SUNNY_QUARTZ, BotaniaItems.SUNNY_QUARTZ);
 
-		registerForWood(recipeOutput, LibBlockNames.LIVING_WOOD);
-		registerForWood(recipeOutput, LibBlockNames.DREAM_WOOD);
+		registerForWood(recipeOutput, LibBlockNames.LIVINGWOOD);
+		registerForWood(recipeOutput, LibBlockNames.DREAMWOOD);
 
 		stairs(BotaniaBlocks.SHIMMERWOOD_PLANK_STAIRS, BotaniaBlocks.SHIMMERWOOD_PLANKS).save(recipeOutput);
 		slabShape(BotaniaBlocks.SHIMMERWOOD_PLANK_SLAB, BotaniaBlocks.SHIMMERWOOD_PLANKS).save(recipeOutput);
@@ -2553,11 +2553,11 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 	}
 
 	protected void registerForQuartz(RecipeOutput recipeOutput, String variant, ItemLike baseItem) {
-		Block base = getBlockOrThrow(prefix(variant));
+		Block base = getBlockOrThrow(prefix(variant + LibBlockNames.BLOCK_SUFFIX));
 		Block slab = getBlockOrThrow(prefix(variant + LibBlockNames.SLAB_SUFFIX));
-		Block stairs = getBlockOrThrow(prefix(variant + LibBlockNames.STAIR_SUFFIX));
-		Block chiseled = getBlockOrThrow(prefix("chiseled_" + variant));
-		Block pillar = getBlockOrThrow(prefix(variant + "_pillar"));
+		Block stairs = getBlockOrThrow(prefix(variant + LibBlockNames.STAIRS_SUFFIX));
+		Block chiseled = getBlockOrThrow(prefix(LibBlockNames.CHISELED_PREFIX + variant + LibBlockNames.BLOCK_SUFFIX));
+		Block pillar = getBlockOrThrow(prefix(variant + LibBlockNames.PILLAR_SUFFIX));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, base)
 				.define('Q', baseItem)
@@ -2571,43 +2571,55 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		pillar(pillar, base).group("botania:quartz_pillar").save(recipeOutput);
 		chiseled(chiseled, slab).group("botania:quartz_chiseled")
 				.unlockedBy("has_base_item", conditionsFromItem(base)).save(recipeOutput);
+
+		// TODO: smooth block to stairs/slabs recipes
 	}
 
 	protected void registerForWood(RecipeOutput recipeOutput, String variant) {
 
-		TagKey<Item> tag = variant.contains("livingwood")
+		TagKey<Item> tag = variant.contains(LibBlockNames.LIVINGWOOD)
 				? BotaniaTags.Items.LIVINGWOOD_LOGS
 				: BotaniaTags.Items.DREAMWOOD_LOGS;
-		Block log = getBlockOrThrow(prefix(variant + "_log"));
+		Block log = getBlockOrThrow(prefix(variant + LibBlockNames.LOG_SUFFIX));
 		Block wood = getBlockOrThrow(prefix(variant));
-		Block strippedLog = getBlockOrThrow(prefix("stripped_" + variant + "_log"));
-		Block strippedWood = getBlockOrThrow(prefix("stripped_" + variant));
-		Block glimmeringLog = getBlockOrThrow(prefix("glimmering_" + variant + "_log"));
-		Block glimmeringWood = getBlockOrThrow(prefix("glimmering_" + variant));
-		Block glimmeringStrippedLog = getBlockOrThrow(prefix("glimmering_stripped_" + variant + "_log"));
-		Block glimmeringStrippedWood = getBlockOrThrow(prefix("glimmering_stripped_" + variant));
-		Block stairs = getBlockOrThrow(prefix(variant + "_stairs"));
-		Block slab = getBlockOrThrow(prefix(variant + "_slab"));
-		Block wall = getBlockOrThrow(prefix(variant + "_wall"));
-		Block strippedStairs = getBlockOrThrow(prefix("stripped_" + variant + "_stairs"));
-		Block strippedSlab = getBlockOrThrow(prefix("stripped_" + variant + "_slab"));
-		Block strippedWall = getBlockOrThrow(prefix("stripped_" + variant + "_wall"));
+		Block strippedLog = getBlockOrThrow(prefix(
+				LibBlockNames.STRIPPED_PREFIX + variant + LibBlockNames.LOG_SUFFIX));
+		Block strippedWood = getBlockOrThrow(prefix(LibBlockNames.STRIPPED_PREFIX + variant));
+		Block glimmeringLog = getBlockOrThrow(prefix(
+				LibBlockNames.GLIMMERING_PREFIX + variant + LibBlockNames.LOG_SUFFIX));
+		Block glimmeringWood = getBlockOrThrow(prefix(LibBlockNames.GLIMMERING_PREFIX + variant));
+		Block glimmeringStrippedLog = getBlockOrThrow(prefix(
+				LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.STRIPPED_PREFIX + variant + LibBlockNames.LOG_SUFFIX));
+		Block glimmeringStrippedWood = getBlockOrThrow(prefix(
+				LibBlockNames.GLIMMERING_PREFIX + LibBlockNames.STRIPPED_PREFIX + variant));
+		Block stairs = getBlockOrThrow(prefix(variant + LibBlockNames.STAIRS_SUFFIX));
+		Block slab = getBlockOrThrow(prefix(variant + LibBlockNames.SLAB_SUFFIX));
+		Block wall = getBlockOrThrow(prefix(variant + LibBlockNames.WALL_SUFFIX));
+		Block strippedStairs = getBlockOrThrow(prefix(
+				LibBlockNames.STRIPPED_PREFIX + variant + LibBlockNames.STAIRS_SUFFIX));
+		Block strippedSlab = getBlockOrThrow(prefix(
+				LibBlockNames.STRIPPED_PREFIX + variant + LibBlockNames.SLAB_SUFFIX));
+		Block strippedWall = getBlockOrThrow(prefix(
+				LibBlockNames.STRIPPED_PREFIX + variant + LibBlockNames.WALL_SUFFIX));
 
-		Block planks = getBlockOrThrow(prefix(variant + "_planks"));
-		Block planksStairs = getBlockOrThrow(prefix(variant + "_planks_stairs"));
-		Block planksSlab = getBlockOrThrow(prefix(variant + "_planks_slab"));
-		Block mossyPlanks = getBlockOrThrow(prefix("mossy_" + variant + "_planks"));
-		Block framed = getBlockOrThrow(prefix("framed_" + variant));
-		Block patternFramed = getBlockOrThrow(prefix("pattern_framed_" + variant));
-		Block fence = getBlockOrThrow(prefix(variant + "_fence"));
-		Block fenceGate = getBlockOrThrow(prefix(variant + "_fence_gate"));
-		Block button = getBlockOrThrow(prefix(variant + "_button"));
-		Block pressurePlate = getBlockOrThrow(prefix(variant + "_pressure_plate"));
+		Block planks = getBlockOrThrow(prefix(variant + LibBlockNames.PLANKS_SUFFIX));
+		Block planksStairs = getBlockOrThrow(prefix(
+				variant + LibBlockNames.PLANK_INFIX + LibBlockNames.STAIRS_SUFFIX));
+		Block planksSlab = getBlockOrThrow(prefix(
+				variant + LibBlockNames.PLANK_INFIX + LibBlockNames.SLAB_SUFFIX));
+		Block mossyPlanks = getBlockOrThrow(prefix(
+				LibBlockNames.MOSSY_PREFIX + variant + LibBlockNames.PLANKS_SUFFIX));
+		Block framed = getBlockOrThrow(prefix(LibBlockNames.FRAMED_PREFIX + variant));
+		Block patternFramed = getBlockOrThrow(prefix(LibBlockNames.PATTERN_FRAMED_PREFIX + variant));
+		Block fence = getBlockOrThrow(prefix(variant + LibBlockNames.FENCE_SUFFIX));
+		Block fenceGate = getBlockOrThrow(prefix(variant + LibBlockNames.FENCE_GATE_SUFFIX));
+		Block button = getBlockOrThrow(prefix(variant + LibBlockNames.BUTTON_SUFFIX));
+		Block pressurePlate = getBlockOrThrow(prefix(variant + LibBlockNames.PRESSURE_PLATE_SUFFIX));
 
-		Block door = getBlockOrThrow(prefix(variant + "_door"));
-		Block trapdoor = getBlockOrThrow(prefix(variant + "_trapdoor"));
-		Block sign = getBlockOrThrow(prefix(variant + "_sign"));
-		Block hangingSign = getBlockOrThrow(prefix(variant + "_hanging_sign"));
+		Block door = getBlockOrThrow(prefix(variant + LibBlockNames.DOOR_SUFFIX));
+		Block trapdoor = getBlockOrThrow(prefix(variant + LibBlockNames.TRAPDOOR_SUFFIX));
+		Block sign = getBlockOrThrow(prefix(variant + LibBlockNames.SIGN_SUFFIX));
+		Block hangingSign = getBlockOrThrow(prefix(variant + LibBlockNames.HANGING_SIGN_SUFFIX));
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4)
 				.requires(tag)
@@ -2737,7 +2749,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 	private void registerForPavement(RecipeOutput recipeOutput, String color, Ingredient mainInput) {
 		String baseName = color + LibBlockNames.PAVEMENT_SUFFIX;
 		Block base = getBlockOrThrow(prefix(baseName));
-		Block stair = getBlockOrThrow(prefix(baseName + LibBlockNames.STAIR_SUFFIX));
+		Block stair = getBlockOrThrow(prefix(baseName + LibBlockNames.STAIRS_SUFFIX));
 		Block slab = getBlockOrThrow(prefix(baseName + LibBlockNames.SLAB_SUFFIX));
 
 		ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, base, 3)
@@ -2758,18 +2770,18 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 	private void registerForMetamorphic(RecipeOutput recipeOutput, String variant) {
 		Block base = getBlockOrThrow(prefix(variant));
 		Block slab = getBlockOrThrow(prefix(variant + LibBlockNames.SLAB_SUFFIX));
-		Block stair = getBlockOrThrow(prefix(variant + LibBlockNames.STAIR_SUFFIX));
+		Block stair = getBlockOrThrow(prefix(variant + LibBlockNames.STAIRS_SUFFIX));
 		Block wall = getBlockOrThrow(prefix(variant + LibBlockNames.WALL_SUFFIX));
 		Block button = getBlockOrThrow(prefix(variant + LibBlockNames.BUTTON_SUFFIX));
 		Block pressurePlate = getBlockOrThrow(prefix(variant + LibBlockNames.PRESSURE_PLATE_SUFFIX));
 		Block brick = getBlockOrThrow(prefix(variant + LibBlockNames.BRICKS_SUFFIX));
 		Block brickSlab = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX));
-		Block brickStair = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX));
+		Block brickStair = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX));
 		Block brickWall = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.WALL_SUFFIX));
 		Block chiseledBrick = getBlockOrThrow(prefix(LibBlockNames.CHISELED_PREFIX + variant + LibBlockNames.BRICKS_SUFFIX));
 		Block cobble = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant));
 		Block cobbleSlab = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.SLAB_SUFFIX));
-		Block cobbleStair = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.STAIR_SUFFIX));
+		Block cobbleStair = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.STAIRS_SUFFIX));
 		Block cobbleWall = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.WALL_SUFFIX));
 
 		slabShape(slab, base).group("botania:metamorphic_stone_slab").save(recipeOutput);

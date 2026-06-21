@@ -2,7 +2,7 @@
   "type": "botania:pure_daisy",
   "input": {
     "type": "botania:block",
-    "block": "botania:blaze_block"
+    "block": "botania:blaze_mesh"
   },
   "output": {
     "type": "botania:state",

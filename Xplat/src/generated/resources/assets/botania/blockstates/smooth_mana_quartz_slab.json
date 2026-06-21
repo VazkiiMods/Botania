@@ -4,7 +4,7 @@
       "model": "botania:block/smooth_mana_quartz_slab"
     },
     "type=double": {
-      "model": "botania:block/smooth_mana_quartz"
+      "model": "botania:block/smooth_mana_quartz_block"
     },
     "type=top": {
       "model": "botania:block/smooth_mana_quartz_slab_top"

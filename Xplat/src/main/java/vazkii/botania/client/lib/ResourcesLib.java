@@ -61,7 +61,7 @@ public final class ResourcesLib {
 	public static final String MODEL_BELLOWS = PREFIX_MODEL + "manatide_bellows.png";
 	public static final String MODEL_TERU_TERU_BOZU = PREFIX_MODEL + "teru_teru_bozu.png";
 	public static final String MODEL_TERU_TERU_BOZU_HALLOWEEN = PREFIX_MODEL + "teru_teru_bozu_halloween.png";
-	public static final String MODEL_AVATAR = PREFIX_MODEL + "avatar.png";
+	public static final String MODEL_AVATAR = PREFIX_MODEL + "livingwood_avatar.png";
 	public static final String MODEL_AVATAR_DIVINING = PREFIX_MODEL + "avatar_divining.png";
 	public static final String MODEL_AVATAR_FIRE = PREFIX_MODEL + "avatar_fire.png";
 	public static final String MODEL_AVATAR_MISSILE = PREFIX_MODEL + "avatar_missile.png";

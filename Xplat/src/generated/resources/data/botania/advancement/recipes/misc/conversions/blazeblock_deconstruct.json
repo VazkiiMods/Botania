@@ -21,11 +21,11 @@
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_blaze_block": {
+    "has_blaze_mesh": {
       "conditions": {
         "items": [
           {
-            "items": "botania:blaze_block"
+            "items": "botania:blaze_mesh"
           }
         ]
       },
@@ -41,7 +41,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_blaze_block"
+      "has_blaze_mesh"
     ]
   ],
   "rewards": {

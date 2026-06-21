@@ -23,7 +23,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "botania:blaze_block"
+      "item": "botania:blaze_mesh"
     }
   ],
   "result": {

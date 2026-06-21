@@ -4,7 +4,7 @@
       "model": "botania:block/lavender_quartz_slab"
     },
     "type=double": {
-      "model": "botania:block/lavender_quartz"
+      "model": "botania:block/lavender_quartz_block"
     },
     "type=top": {
       "model": "botania:block/lavender_quartz_slab_top"

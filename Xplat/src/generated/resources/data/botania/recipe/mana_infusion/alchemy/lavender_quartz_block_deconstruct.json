@@ -1,0 +1,16 @@
+{
+  "type": "botania:mana_infusion",
+  "catalyst": {
+    "type": "botania:block",
+    "block": "botania:alchemy_catalyst"
+  },
+  "group": "botania:lossy_deconstruction",
+  "input": {
+    "item": "botania:lavender_quartz_block"
+  },
+  "mana": 100,
+  "output": {
+    "count": 3,
+    "id": "botania:quartz_lavender"
+  }
+}

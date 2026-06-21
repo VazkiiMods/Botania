@@ -822,34 +822,35 @@ public class BlockstateProvider implements DataProvider {
 			rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
 		}
 
-		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
-			ResourceLocation quartzId = botaniaRL(variant + "_quartz");
-			Block quartz = BuiltInRegistries.BLOCK.get(quartzId);
+		for (String variant : LibBlockNames.QUARTZ_VARIANTS) {
+			ResourceLocation quartzId = botaniaRL(variant);
+			Block quartz = BuiltInRegistries.BLOCK.get(quartzId.withSuffix(LibBlockNames.BLOCK_SUFFIX));
 			singleVariantBlockState(quartz, ModelTemplates.CUBE_TOP.create(quartz,
 					TextureMapping.cubeTop(quartz),
 					this.modelOutput));
 
-			ResourceLocation pillarId = quartzId.withSuffix("_pillar");
+			ResourceLocation pillarId = quartzId.withSuffix(LibBlockNames.PILLAR_SUFFIX);
 			Block pillar = BuiltInRegistries.BLOCK.get(pillarId);
 			var pillarModel = ModelTemplates.CUBE_COLUMN.create(pillar,
-					TextureMapping.column(getBlockTexture(pillar, "_side"), getBlockTexture(pillar, "_end")),
+					TextureMapping.column(getBlockTexture(pillar), getBlockTexture(pillar, "_top")),
 					this.modelOutput);
 			this.blockStateGenerators.add(BlockModelGeneratorsAccessor.botania_createAxisAlignedPillarBlock(pillar, pillarModel));
 
-			ResourceLocation bricksId = quartzId.withSuffix("_bricks");
+			ResourceLocation bricksId = quartzId.withSuffix(LibBlockNames.BRICKS_SUFFIX);
 			Block bricks = BuiltInRegistries.BLOCK.get(bricksId);
 			singleVariantBlockState(bricks, ModelTemplates.CUBE_ALL.create(bricks, TextureMapping.cube(bricks), this.modelOutput));
 
-			ResourceLocation chiseledId = quartzId.withPrefix("chiseled_");
+			ResourceLocation chiseledId = quartzId.withPrefix(LibBlockNames.CHISELED_PREFIX).withSuffix(LibBlockNames.BLOCK_SUFFIX);
 			Block chiseled = BuiltInRegistries.BLOCK.get(chiseledId);
 			singleVariantBlockState(chiseled,
 					ModelTemplates.CUBE_COLUMN.create(chiseled, new TextureMapping()
-							.put(TextureSlot.SIDE, getBlockTexture(chiseled, "_side"))
-							.put(TextureSlot.END, getBlockTexture(chiseled, "_end")), this.modelOutput));
+							.put(TextureSlot.SIDE, getBlockTexture(chiseled))
+							.put(TextureSlot.END, getBlockTexture(chiseled, "_top")), this.modelOutput));
 
-			ResourceLocation smoothId = quartzId.withPrefix("smooth_");
-			Block smooth = BuiltInRegistries.BLOCK.get(smoothId);
+			ResourceLocation smoothId = quartzId.withPrefix(LibBlockNames.SMOOTH_PREFIX);
+			Block smooth = BuiltInRegistries.BLOCK.get(smoothId.withSuffix(LibBlockNames.BLOCK_SUFFIX));
 			singleVariantBlockState(smooth, ModelTemplates.CUBE_ALL.create(smooth,
+					// it's a weird vanilla thing – regular block made of "top" and "side", smooth made of "bottom"
 					TextureMapping.cube(getBlockTexture(quartz, "_bottom")),
 					this.modelOutput));
 
@@ -920,9 +921,11 @@ public class BlockstateProvider implements DataProvider {
 
 		takeAll(remainingBlocks, block -> block instanceof StairBlock).forEach(block -> {
 			String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
-			String tentativeBaseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
-			String baseName = tentativeBaseName.endsWith("brick") ? tentativeBaseName + "s" : tentativeBaseName;
 			boolean quartz = name.contains("quartz");
+			String tentativeBaseName = name.substring(0, name.length() - LibBlockNames.STAIRS_SUFFIX.length());
+			String baseName = tentativeBaseName.endsWith("brick") || tentativeBaseName.endsWith("plank")
+					? tentativeBaseName + "s"
+					: quartz ? tentativeBaseName + LibBlockNames.BLOCK_SUFFIX : tentativeBaseName;
 			boolean smooth = name.contains("smooth");
 			if (quartz) {
 				if (smooth) {
@@ -942,10 +945,12 @@ public class BlockstateProvider implements DataProvider {
 
 		takeAll(remainingBlocks, block -> block instanceof SlabBlock).forEach(slabBlock -> {
 			String name = BuiltInRegistries.BLOCK.getKey(slabBlock).getPath();
-			String tentativeBaseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
-			String baseName = tentativeBaseName.endsWith("brick") ? tentativeBaseName + "s" : tentativeBaseName;
-			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
 			boolean quartz = name.contains("quartz");
+			String tentativeBaseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
+			String baseName = tentativeBaseName.endsWith("brick") || tentativeBaseName.endsWith("plank")
+					? tentativeBaseName + "s"
+					: quartz ? tentativeBaseName + LibBlockNames.BLOCK_SUFFIX : tentativeBaseName;
+			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
 			boolean smooth = name.contains("smooth");
 			if (quartz) {
 				if (smooth) {
@@ -978,7 +983,7 @@ public class BlockstateProvider implements DataProvider {
 		takeAll(remainingBlocks, blockClass::isInstance).forEach(block -> {
 			String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
 			String tentativeBaseName = name.substring(0, name.length() - suffix.length());
-			String baseName = tentativeBaseName.endsWith("brick") ? tentativeBaseName + "s" : tentativeBaseName;
+			String baseName = tentativeBaseName.endsWith("brick") || tentativeBaseName.endsWith("plank") ? tentativeBaseName + "s" : tentativeBaseName;
 			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
 			if (base == Blocks.AIR) {
 				BotaniaAPI.LOGGER.error("Invalid base block name {} for {}", baseName, name);

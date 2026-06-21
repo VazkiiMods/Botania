@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "botania:block/blaze_quartz_bottom",
-    "side": "botania:block/blaze_quartz_bottom",
-    "top": "botania:block/blaze_quartz_bottom"
+    "bottom": "botania:block/blaze_quartz_block_bottom",
+    "side": "botania:block/blaze_quartz_block_bottom",
+    "top": "botania:block/blaze_quartz_block_bottom"
   }
 }

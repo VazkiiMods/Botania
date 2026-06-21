@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:mana_quartz_block"
+  },
+  "result": {
+    "count": 1,
+    "id": "botania:mana_quartz_pillar"
+  }
+}

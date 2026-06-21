@@ -108,7 +108,7 @@ public class ConventionalBotaniaTags {
 		public static final TagKey<Item> MANA_DIAMOND_GEMS = createSuffixedTag(GEMS, "mana_diamond");
 		public static final TagKey<Item> MANA_PEARL_GEMS = createSuffixedTag(GEMS, "mana_pearl");
 		public static final TagKey<Item> MANA_QUARTZ_GEMS = createSuffixedTag(GEMS, "mana_quartz");
-		public static final TagKey<Item> DARK_QUARTZ_GEMS = createSuffixedTag(GEMS, "dark_quartz");
+		public static final TagKey<Item> DARK_QUARTZ_GEMS = createSuffixedTag(GEMS, "smokey_quartz");
 		public static final TagKey<Item> BLAZE_QUARTZ_GEMS = createSuffixedTag(GEMS, "blaze_quartz");
 		public static final TagKey<Item> LAVENDER_QUARTZ_GEMS = createSuffixedTag(GEMS, "lavender_quartz");
 		public static final TagKey<Item> RED_QUARTZ_GEMS = createSuffixedTag(GEMS, "red_quartz");

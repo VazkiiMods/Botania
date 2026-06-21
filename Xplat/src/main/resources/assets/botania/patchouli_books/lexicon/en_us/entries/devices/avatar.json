@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.avatar",
   "category": "botania:devices",
-  "icon": "botania:avatar",
+  "icon": "botania:livingwood_avatar",
   "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
@@ -15,7 +15,7 @@
     {
       "type": "crafting",
       "text": "botania.page.avatar2",
-      "recipe": "botania:avatar"
+      "recipe": "botania:livingwood_avatar"
     }
   ]
 }

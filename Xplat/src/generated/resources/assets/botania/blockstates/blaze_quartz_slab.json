@@ -4,7 +4,7 @@
       "model": "botania:block/blaze_quartz_slab"
     },
     "type=double": {
-      "model": "botania:block/blaze_quartz"
+      "model": "botania:block/blaze_quartz_block"
     },
     "type=top": {
       "model": "botania:block/blaze_quartz_slab_top"

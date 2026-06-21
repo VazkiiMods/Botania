@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/livingwood_plank_slab"
+    },
+    "type=double": {
+      "model": "botania:block/livingwood_planks"
+    },
+    "type=top": {
+      "model": "botania:block/livingwood_plank_slab_top"
+    }
+  }
+}

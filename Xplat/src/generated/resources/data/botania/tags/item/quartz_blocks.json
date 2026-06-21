@@ -1,12 +1,12 @@
 {
   "values": [
     "minecraft:quartz_block",
-    "botania:blaze_quartz",
-    "botania:dark_quartz",
-    "botania:elf_quartz",
-    "botania:lavender_quartz",
-    "botania:mana_quartz",
-    "botania:red_quartz",
-    "botania:sunny_quartz"
+    "botania:blaze_quartz_block",
+    "botania:smokey_quartz_block",
+    "botania:elven_quartz_block",
+    "botania:lavender_quartz_block",
+    "botania:mana_quartz_block",
+    "botania:red_quartz_block",
+    "botania:sunny_quartz_block"
   ]
 }

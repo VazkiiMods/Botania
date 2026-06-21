@@ -56,7 +56,7 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 		consumer.accept(id("dragonstone_block"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.DRAGONSTONE_BLOCK),
 				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_STORAGE_BLOCKS)), null);
 
-		consumer.accept(id("elf_quartz"), new ElvenTradeRecipe(singleOutput(BotaniaItems.ELVEN_QUARTZ),
+		consumer.accept(id("elven_quartz"), new ElvenTradeRecipe(singleOutput(BotaniaItems.ELVEN_QUARTZ),
 				Ingredient.of(Items.QUARTZ)), null);
 		consumer.accept(id("alfglass"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.ALFGLASS),
 				Ingredient.of(BotaniaBlocks.MANAGLASS)), null);

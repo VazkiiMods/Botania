@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:quartz_chiseled",
+  "key": {
+    "Q": {
+      "item": "botania:red_quartz_slab"
+    }
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:chiseled_red_quartz_block"
+  }
+}
