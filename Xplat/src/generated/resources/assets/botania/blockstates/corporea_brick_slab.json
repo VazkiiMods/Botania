@@ -4,7 +4,7 @@
       "model": "botania:block/corporea_brick_slab"
     },
     "type=double": {
-      "model": "botania:block/corporea_brick"
+      "model": "botania:block/corporea_bricks"
     },
     "type=top": {
       "model": "botania:block/corporea_brick_slab_top"

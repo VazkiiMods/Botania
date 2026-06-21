@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "botania:block/talc_bricks_top",
+    "side": "botania:block/talc_bricks"
+  }
+}

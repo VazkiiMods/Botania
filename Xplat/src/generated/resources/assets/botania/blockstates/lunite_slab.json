@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "botania:block/lunite_slab"
+      },
+      {
+        "model": "botania:block/lunite_slab_1"
+      }
+    ],
+    "type=double": [
+      {
+        "model": "botania:block/lunite"
+      },
+      {
+        "model": "botania:block/lunite_1"
+      }
+    ],
+    "type=top": [
+      {
+        "model": "botania:block/lunite_slab_top"
+      },
+      {
+        "model": "botania:block/lunite_slab_top_1"
+      }
+    ]
+  }
+}

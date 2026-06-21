@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:cobbled_mycelite"
+  },
+  "result": {
+    "count": 2,
+    "id": "botania:cobbled_mycelite_slab"
+  }
+}

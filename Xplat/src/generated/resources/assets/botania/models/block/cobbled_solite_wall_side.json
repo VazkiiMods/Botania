@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/wall_side",
+  "textures": {
+    "bottom": "botania:block/cobbled_solite",
+    "top": "botania:block/cobbled_solite",
+    "wall": "botania:block/cobbled_solite"
+  }
+}

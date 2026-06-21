@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/cobbled_cataclasite"
+      },
+      {
+        "model": "botania:block/cobbled_cataclasite_1"
+      }
+    ]
+  }
+}

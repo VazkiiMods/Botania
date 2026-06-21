@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:metamorphic_cobble_slab",
+  "key": {
+    "Q": {
+      "item": "botania:cobbled_mycelite"
+    }
+  },
+  "pattern": [
+    "QQQ"
+  ],
+  "result": {
+    "count": 6,
+    "id": "botania:cobbled_mycelite_slab"
+  }
+}

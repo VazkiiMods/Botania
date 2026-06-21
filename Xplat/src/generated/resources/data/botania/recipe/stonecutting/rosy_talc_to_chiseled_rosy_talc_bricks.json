@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:rosy_talc"
+  },
+  "result": {
+    "count": 1,
+    "id": "botania:chiseled_rosy_talc_bricks"
+  }
+}

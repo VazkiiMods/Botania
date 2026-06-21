@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/mycelite"
+      },
+      {
+        "model": "botania:block/mycelite_mirrored"
+      },
+      {
+        "model": "botania:block/mycelite",
+        "y": 180
+      },
+      {
+        "model": "botania:block/mycelite_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

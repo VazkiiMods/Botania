@@ -883,16 +883,16 @@
 
 
 
-  "block.botania.apothecary_default": "花びらの調合所",
-  "block.botania.apothecary_forest": "クロム雲母の丸石",
-  "block.botania.apothecary_plains": "滑石の丸石",
-  "block.botania.apothecary_mountain": "片麻岩の丸石",
-  "block.botania.apothecary_fungal": "菌糸岩の丸石",
-  "block.botania.apothecary_swamp": "断層岩の丸石",
-  "block.botania.apothecary_desert": "日閃岩の丸石",
-  "block.botania.apothecary_taiga": "月輝岩の丸石",
-  "block.botania.apothecary_mesa": "バラ滑石の丸石",
-  "block.botania.apothecary_mossy": "苔むした花びらの調合所",
+  "block.botania.petal_apothecary": "花びらの調合所",
+  "block.botania.fuchsite_petal_apothecary": "クロム雲母の丸石",
+  "block.botania.talc_petal_apothecary": "滑石の丸石",
+  "block.botania.gneiss_petal_apothecary": "片麻岩の丸石",
+  "block.botania.mycelite_petal_apothecary": "菌糸岩の丸石",
+  "block.botania.cataclasite_petal_apothecary": "断層岩の丸石",
+  "block.botania.solite_petal_apothecary": "日閃岩の丸石",
+  "block.botania.lunite_petal_apothecary": "月輝岩の丸石",
+  "block.botania.rosy_talc_petal_apothecary": "バラ滑石の丸石",
+  "block.botania.mossy_petal_apothecary": "苔むした花びらの調合所",
 
 
 

@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.apothecary",
   "category": "botania:basics",
-  "icon": "botania:apothecary_default",
+  "icon": "botania:petal_apothecary",
   "priority": true,
   "advancement": "botania:main/flower_pickup_lexicon",
   "turnin": "botania:main/apothecary_pickup",
@@ -39,8 +39,8 @@
     },
     {
       "type": "crafting",
-      "recipe": "botania:apothecary_default",
-      "recipe2": "botania:apothecary_mossy"
+      "recipe": "botania:petal_apothecary",
+      "recipe2": "botania:mossy_petal_apothecary"
     }
   ]
 }

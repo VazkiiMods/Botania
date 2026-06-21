@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "botania:block/gneiss_slab",
+        "weight": 5
+      },
+      {
+        "model": "botania:block/gneiss_slab_1"
+      }
+    ],
+    "type=double": [
+      {
+        "model": "botania:block/gneiss",
+        "weight": 5
+      },
+      {
+        "model": "botania:block/gneiss_1"
+      }
+    ],
+    "type=top": [
+      {
+        "model": "botania:block/gneiss_slab_top",
+        "weight": 5
+      },
+      {
+        "model": "botania:block/gneiss_slab_top_1"
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "botania:metamorphic_apothecary",
+  "key": {
+    "C": {
+      "item": "botania:cobbled_lunite"
+    },
+    "P": {
+      "tag": "botania:petals"
+    }
+  },
+  "pattern": [
+    "CPC",
+    " C ",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:lunite_petal_apothecary"
+  }
+}

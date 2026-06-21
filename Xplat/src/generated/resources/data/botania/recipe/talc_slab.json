@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:metamorphic_stone_slab",
+  "key": {
+    "Q": {
+      "item": "botania:talc"
+    }
+  },
+  "pattern": [
+    "QQQ"
+  ],
+  "result": {
+    "count": 6,
+    "id": "botania:talc_slab"
+  }
+}

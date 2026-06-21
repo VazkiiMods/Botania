@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "botania:block/cobbled_fuchsite",
+    "side": "botania:block/cobbled_fuchsite",
+    "top": "botania:block/cobbled_fuchsite"
+  }
+}

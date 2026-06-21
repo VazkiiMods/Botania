@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/cube_column_horizontal_z",
+  "textures": {
+    "end": "botania:block/talc_bricks_top",
+    "side": "botania:block/talc_bricks"
+  }
+}

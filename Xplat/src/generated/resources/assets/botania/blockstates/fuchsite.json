@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/fuchsite"
+      },
+      {
+        "model": "botania:block/fuchsite_mirrored"
+      },
+      {
+        "model": "botania:block/fuchsite",
+        "y": 180
+      },
+      {
+        "model": "botania:block/fuchsite_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

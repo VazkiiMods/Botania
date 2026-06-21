@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/cobbled_talc_slab"
+    },
+    "type=double": {
+      "model": "botania:block/cobbled_talc"
+    },
+    "type=top": {
+      "model": "botania:block/cobbled_talc_slab_top"
+    }
+  }
+}

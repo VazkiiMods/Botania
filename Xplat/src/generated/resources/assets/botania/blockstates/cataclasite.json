@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/cataclasite"
+      },
+      {
+        "model": "botania:block/cataclasite_mirrored"
+      },
+      {
+        "model": "botania:block/cataclasite",
+        "y": 180
+      },
+      {
+        "model": "botania:block/cataclasite_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

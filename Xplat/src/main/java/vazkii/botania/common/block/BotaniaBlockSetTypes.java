@@ -27,14 +27,14 @@ public class BotaniaBlockSetTypes {
 	public static final BlockSetType SHIMMERROCK_BLOCK_SET = registerStoneBlockSetType("shimmerrock");
 	public static final BlockSetType CORPOREA_BLOCK_SET = registerStoneBlockSetType("corporea");
 
-	public static final BlockSetType METAMORPHIC_FOREST_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_PREFIX + "_forest");
-	public static final BlockSetType METAMORPHIC_PLAINS_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_PREFIX + "_plains");
-	public static final BlockSetType METAMORPHIC_MOUNTAIN_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_PREFIX + "_mountain");
-	public static final BlockSetType METAMORPHIC_FUNGAL_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_PREFIX + "_fungal");
-	public static final BlockSetType METAMORPHIC_SWAMP_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_PREFIX + "_swamp");
-	public static final BlockSetType METAMORPHIC_DESERT_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_PREFIX + "_desert");
-	public static final BlockSetType METAMORPHIC_TAIGA_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_PREFIX + "_taiga");
-	public static final BlockSetType METAMORPHIC_MESA_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_PREFIX + "_mesa");
+	public static final BlockSetType METAMORPHIC_FOREST_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_VARIANT_FUCHSITE);
+	public static final BlockSetType METAMORPHIC_PLAINS_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_VARIANT_TALC);
+	public static final BlockSetType METAMORPHIC_MOUNTAIN_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_VARIANT_GNEISS);
+	public static final BlockSetType METAMORPHIC_FUNGAL_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_VARIANT_MYCELITE);
+	public static final BlockSetType METAMORPHIC_SWAMP_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_VARIANT_CATACLASITE);
+	public static final BlockSetType METAMORPHIC_DESERT_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_VARIANT_SOLITE);
+	public static final BlockSetType METAMORPHIC_TAIGA_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_VARIANT_LUNITE);
+	public static final BlockSetType METAMORPHIC_MESA_BLOCK_SET = registerStoneBlockSetType(LibBlockNames.METAMORPHIC_VARIANT_ROSY_TALC);
 
 	public static final WoodType LIVINGWOOD = registerWoodType("livingwood", LIVINGWOOD_BLOCK_SET);
 	public static final WoodType DREAMWOOD = registerWoodType("dreamwood", DREAMWOOD_BLOCK_SET);

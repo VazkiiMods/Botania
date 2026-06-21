@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "botania:block/chiseled_rosy_talc_bricks_top",
+    "side": "botania:block/chiseled_rosy_talc_bricks"
+  }
+}

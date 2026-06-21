@@ -64,7 +64,7 @@ import crafttweaker.api.item.IItemStack;
 
 // Petal Apothecary - nothing special here.
 <recipetype:botania:petal_apothecary>.remove(<item:botania:hydroangeas>);
-<recipetype:botania:petal_apothecary>.addRecipe("petal_apothecary_test", <item:minecraft:diamond>, <item:minecraft:dirt>);
+<recipetype:botania:petal_apothecary>.addRecipe("petal_test_petal_apothecary", <item:minecraft:diamond>, <item:minecraft:dirt>);
 
 // Runic Altar - recipes require mana, but nothing else is special here.
 <recipetype:botania:runic_altar>.remove(<item:botania:rune_wrath>);

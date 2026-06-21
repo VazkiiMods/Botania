@@ -3,13 +3,13 @@
     "botania:livingrock_button",
     "botania:shimmerrock_button",
     "botania:corporea_button",
-    "botania:metamorphic_forest_stone_button",
-    "botania:metamorphic_plains_stone_button",
-    "botania:metamorphic_mountain_stone_button",
-    "botania:metamorphic_fungal_stone_button",
-    "botania:metamorphic_swamp_stone_button",
-    "botania:metamorphic_desert_stone_button",
-    "botania:metamorphic_taiga_stone_button",
-    "botania:metamorphic_mesa_stone_button"
+    "botania:fuchsite_button",
+    "botania:talc_button",
+    "botania:gneiss_button",
+    "botania:mycelite_button",
+    "botania:cataclasite_button",
+    "botania:solite_button",
+    "botania:lunite_button",
+    "botania:rosy_talc_button"
   ]
 }

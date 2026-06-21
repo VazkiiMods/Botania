@@ -123,19 +123,19 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 	}
 
 	private void registerForMetamorphic(String variant, RecipeOutput consumer) {
-		Block base = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone"));
-		Block slab = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX));
-		Block stair = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX));
-		Block wall = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX));
-		Block brick = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks"));
-		Block brickSlab = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX));
-		Block brickStair = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX));
-		Block brickWall = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX));
-		Block chiseledBrick = BuiltInRegistries.BLOCK.get(botaniaRL("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks"));
-		Block cobble = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone"));
-		Block cobbleSlab = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX));
-		Block cobbleStair = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX));
-		Block cobbleWall = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX));
+		Block base = BuiltInRegistries.BLOCK.get(botaniaRL(variant));
+		Block slab = BuiltInRegistries.BLOCK.get(botaniaRL(variant + LibBlockNames.SLAB_SUFFIX));
+		Block stair = BuiltInRegistries.BLOCK.get(botaniaRL(variant + LibBlockNames.STAIR_SUFFIX));
+		Block wall = BuiltInRegistries.BLOCK.get(botaniaRL(variant + LibBlockNames.WALL_SUFFIX));
+		Block brick = BuiltInRegistries.BLOCK.get(botaniaRL(variant + LibBlockNames.BRICKS_SUFFIX));
+		Block brickSlab = BuiltInRegistries.BLOCK.get(botaniaRL(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX));
+		Block brickStair = BuiltInRegistries.BLOCK.get(botaniaRL(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX));
+		Block brickWall = BuiltInRegistries.BLOCK.get(botaniaRL(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.WALL_SUFFIX));
+		Block chiseledBrick = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.CHISELED_PREFIX + variant + LibBlockNames.BRICKS_SUFFIX));
+		Block cobble = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.COBBLED_PREFIX + variant));
+		Block cobbleSlab = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.SLAB_SUFFIX));
+		Block cobbleStair = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.STAIR_SUFFIX));
+		Block cobbleWall = BuiltInRegistries.BLOCK.get(botaniaRL(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.WALL_SUFFIX));
 
 		stonecutting(consumer, base, slab, 2);
 		stonecutting(consumer, base, stair);

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/talc_slab"
+    },
+    "type=double": {
+      "model": "botania:block/talc"
+    },
+    "type=top": {
+      "model": "botania:block/talc_slab_top"
+    }
+  }
+}

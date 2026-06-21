@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "botania:block/rosy_talc",
+    "side": "botania:block/rosy_talc",
+    "top": "botania:block/rosy_talc"
+  }
+}

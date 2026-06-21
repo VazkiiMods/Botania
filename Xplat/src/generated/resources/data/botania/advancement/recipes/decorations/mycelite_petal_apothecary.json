@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_flower_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "botania:marimorphosis"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "botania:cobbled_mycelite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "botania:mycelite_petal_apothecary"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_item",
+      "has_flower_item"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "botania:mycelite_petal_apothecary"
+    ]
+  }
+}

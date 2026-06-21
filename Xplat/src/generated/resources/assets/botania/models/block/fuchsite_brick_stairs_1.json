@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "botania:block/fuchsite_bricks_1",
+    "side": "botania:block/fuchsite_bricks_1",
+    "top": "botania:block/fuchsite_bricks_1"
+  }
+}

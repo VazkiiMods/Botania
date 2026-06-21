@@ -883,18 +883,18 @@
 
 
 
-  "block.botania.apothecary_default": "Apothicaire de pétales",
-  "block.botania.apothecary_forest": "Apothicaire en fuschite",
-  "block.botania.apothecary_plains": "Apothicaire en talc",
-  "block.botania.apothecary_mountain": "Apothicaire en gneiss",
-  "block.botania.apothecary_fungal": "Apothicaire en mycelite",
-  "block.botania.apothecary_swamp": "Apothicaire en cataclasite",
-  "block.botania.apothecary_desert": "Apothicaire des solite",
-  "block.botania.apothecary_taiga": "Apothicaire en lunite",
-  "block.botania.apothecary_mesa": "Apothicaire en rosite",
-  "block.botania.apothecary_mossy": "Apothicaire moussu",
-  "block.botania.apothecary_livingrock": "Apothicaire de viveroche",
-  "block.botania.apothecary_deepslate": "Apothicaire des abîmes",
+  "block.botania.petal_apothecary": "Apothicaire de pétales",
+  "block.botania.fuchsite_petal_apothecary": "Apothicaire en fuschite",
+  "block.botania.talc_petal_apothecary": "Apothicaire en talc",
+  "block.botania.gneiss_petal_apothecary": "Apothicaire en gneiss",
+  "block.botania.mycelite_petal_apothecary": "Apothicaire en mycelite",
+  "block.botania.cataclasite_petal_apothecary": "Apothicaire en cataclasite",
+  "block.botania.solite_petal_apothecary": "Apothicaire des solite",
+  "block.botania.lunite_petal_apothecary": "Apothicaire en lunite",
+  "block.botania.rosy_talc_petal_apothecary": "Apothicaire en rosite",
+  "block.botania.mossy_petal_apothecary": "Apothicaire moussu",
+  "block.botania.livingrock_petal_apothecary": "Apothicaire de viveroche",
+  "block.botania.deepslate_petal_apothecary": "Apothicaire des abîmes",
 
 
 

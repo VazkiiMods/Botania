@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "botania:block/cobbled_talc",
+    "side": "botania:block/cobbled_talc",
+    "top": "botania:block/cobbled_talc"
+  }
+}

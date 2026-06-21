@@ -1,12 +1,12 @@
 {
   "values": [
-    "botania:metamorphic_forest_stone",
-    "botania:metamorphic_plains_stone",
-    "botania:metamorphic_mountain_stone",
-    "botania:metamorphic_fungal_stone",
-    "botania:metamorphic_swamp_stone",
-    "botania:metamorphic_desert_stone",
-    "botania:metamorphic_taiga_stone",
-    "botania:metamorphic_mesa_stone"
+    "botania:fuchsite",
+    "botania:talc",
+    "botania:gneiss",
+    "botania:mycelite",
+    "botania:cataclasite",
+    "botania:solite",
+    "botania:lunite",
+    "botania:rosy_talc"
   ]
 }

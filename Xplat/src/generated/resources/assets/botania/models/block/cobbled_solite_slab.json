@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "botania:block/cobbled_solite",
+    "side": "botania:block/cobbled_solite",
+    "top": "botania:block/cobbled_solite"
+  }
+}

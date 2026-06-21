@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "botania:block/cobbled_cataclasite_slab"
+      },
+      {
+        "model": "botania:block/cobbled_cataclasite_slab_1"
+      }
+    ],
+    "type=double": [
+      {
+        "model": "botania:block/cobbled_cataclasite"
+      },
+      {
+        "model": "botania:block/cobbled_cataclasite_1"
+      }
+    ],
+    "type=top": [
+      {
+        "model": "botania:block/cobbled_cataclasite_slab_top"
+      },
+      {
+        "model": "botania:block/cobbled_cataclasite_slab_top_1"
+      }
+    ]
+  }
+}

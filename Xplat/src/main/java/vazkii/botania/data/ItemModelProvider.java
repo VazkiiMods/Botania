@@ -470,7 +470,8 @@ public class ItemModelProvider implements DataProvider {
 		itemBlocks.remove(BotaniaBlocks.CORPOREA_WALL.asItem());
 		takeAll(itemBlocks, item -> item.getBlock() instanceof WallBlock).forEach(item -> {
 			String name = BuiltInRegistries.ITEM.getKey(item).getPath();
-			String baseName = name.substring(0, name.length() - "_wall".length());
+			String tentativeBaseName = name.substring(0, name.length() - "_wall".length());
+			String baseName = tentativeBaseName.endsWith("brick") ? tentativeBaseName + "s" : tentativeBaseName;
 			ModelTemplates.WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(item),
 					new TextureMapping().put(TextureSlot.WALL, botaniaRL("block/" + baseName)), consumer);
 		});

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/cobbled_mycelite_slab"
+    },
+    "type=double": {
+      "model": "botania:block/cobbled_mycelite"
+    },
+    "type=top": {
+      "model": "botania:block/cobbled_mycelite_slab_top"
+    }
+  }
+}

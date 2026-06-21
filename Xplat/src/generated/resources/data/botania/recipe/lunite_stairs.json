@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:metamorphic_stone_stairs",
+  "key": {
+    "Q": {
+      "item": "botania:lunite"
+    }
+  },
+  "pattern": [
+    "Q  ",
+    "QQ ",
+    "QQQ"
+  ],
+  "result": {
+    "count": 4,
+    "id": "botania:lunite_stairs"
+  }
+}

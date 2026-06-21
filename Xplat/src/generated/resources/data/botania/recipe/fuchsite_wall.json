@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "botania:metamorphic_stone_wall",
+  "key": {
+    "B": {
+      "item": "botania:fuchsite"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "count": 6,
+    "id": "botania:fuchsite_wall"
+  }
+}

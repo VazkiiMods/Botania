@@ -471,12 +471,12 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 	private void registerMiningTags() {
 		tag(BlockTags.MINEABLE_WITH_HOE).add(
-				getModBlocks(b -> b == BotaniaBlocks.CELLULAR_BLOCK
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.PETAL_BLOCK_SUFFIX)
+				getModBlocks(block -> block == BotaniaBlocks.CELLULAR_BLOCK
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.PETAL_BLOCK_SUFFIX)
 				)
 		);
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
-				getModBlocks(b -> b instanceof FloatingFlowerBaseBlock || b instanceof BotaniaGrassBlock)
+				getModBlocks(block -> block instanceof FloatingFlowerBaseBlock || block instanceof BotaniaGrassBlock)
 		);
 		var pickaxe = Set.of(
 				BotaniaBlocks.ALCHEMY_CATALYST, BotaniaBlocks.CONJURATION_CATALYST, BotaniaBlocks.MANASTEEL_BLOCK,
@@ -491,21 +491,23 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.ENDER_OVERSEER, BotaniaBlocks.HOVERING_HOURGLASS, BotaniaBlocks.STARFIELD_CREATOR,
 				BotaniaBlocks.BLAZE_MESH
 		);
+		Set<String> metamorphicNames = Set.of(LibBlockNames.METAMORPHIC_VARIANTS);
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
-				getModBlocks(b -> pickaxe.contains(b)
-						|| b instanceof PetalApothecaryBlock
-						|| b instanceof PylonBlock
-						|| b instanceof ManaPoolBlock
-						|| b instanceof RedStringBlock
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains("corporea")
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.PAVEMENT_SUFFIX)
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains("_quartz")
-						|| (BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.METAMORPHIC_PREFIX)
-								&& !(b instanceof WallBlock)) // vanilla includes #wall already
-						|| (BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_ROCK)
-								&& !(b instanceof WallBlock)) // vanilla includes #wall already
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERROCK)
+				getModBlocks(block -> pickaxe.contains(block)
+						|| block instanceof PetalApothecaryBlock
+						|| block instanceof PylonBlock
+						|| block instanceof ManaPoolBlock
+						|| block instanceof RedStringBlock
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains("corporea")
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.PAVEMENT_SUFFIX)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains("_quartz")
+						|| metamorphicNames.stream().anyMatch(
+								variant -> BuiltInRegistries.BLOCK.getKey(block).getPath().contains(variant))
+								&& !(block instanceof WallBlock) // vanilla includes #wall already
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.LIVING_ROCK)
+								&& !(block instanceof WallBlock) // vanilla includes #wall already
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.SHIMMERROCK)
 				)
 		);
 		var axe = Set.of(
@@ -514,14 +516,14 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.LIVINGWOOD_AVATAR, BotaniaBlocks.LIVING_ROOT, BotaniaBlocks.FEL_PUMPKIN
 		);
 		tag(BlockTags.MINEABLE_WITH_AXE).add(
-				getModBlocks(b -> axe.contains(b)
-						|| b instanceof DrumBlock
-						|| b instanceof OpenCrateBlock
-						|| b instanceof PlatformBlock
-						|| b instanceof ManaSpreaderBlock
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_WOOD)
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.DREAM_WOOD)
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
+				getModBlocks(block -> axe.contains(block)
+						|| block instanceof DrumBlock
+						|| block instanceof OpenCrateBlock
+						|| block instanceof PlatformBlock
+						|| block instanceof ManaSpreaderBlock
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.LIVING_WOOD)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.DREAM_WOOD)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
 				)
 		);
 	}

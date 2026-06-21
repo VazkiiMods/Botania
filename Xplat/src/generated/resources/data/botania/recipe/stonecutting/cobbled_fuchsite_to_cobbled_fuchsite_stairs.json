@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:cobbled_fuchsite"
+  },
+  "result": {
+    "count": 1,
+    "id": "botania:cobbled_fuchsite_stairs"
+  }
+}

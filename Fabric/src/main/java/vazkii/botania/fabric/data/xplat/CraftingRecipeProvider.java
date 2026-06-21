@@ -927,8 +927,8 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
 				.save(recipeOutput);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			Block apothecary = getBlockOrThrow(prefix("apothecary_" + metamorphicVariant));
-			Block cobble = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone"));
+			Block apothecary = getBlockOrThrow(prefix(metamorphicVariant + LibBlockNames.PETAL_APOTHECARY_SUFFIX));
+			Block cobble = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + metamorphicVariant));
 			petalApothecary(cobble, apothecary)
 					.group("botania:metamorphic_apothecary")
 					.unlockedBy("has_item", conditionsFromItem(cobble))
@@ -2756,21 +2756,21 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 	}
 
 	private void registerForMetamorphic(RecipeOutput recipeOutput, String variant) {
-		Block base = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone"));
-		Block slab = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX));
-		Block stair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX));
-		Block wall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX));
-		Block button = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.BUTTON_SUFFIX));
-		Block pressurePlate = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.PRESSURE_PLATE_SUFFIX));
-		Block brick = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks"));
-		Block brickSlab = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX));
-		Block brickStair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX));
-		Block brickWall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX));
-		Block chiseledBrick = getBlockOrThrow(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks"));
-		Block cobble = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone"));
-		Block cobbleSlab = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX));
-		Block cobbleStair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX));
-		Block cobbleWall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX));
+		Block base = getBlockOrThrow(prefix(variant));
+		Block slab = getBlockOrThrow(prefix(variant + LibBlockNames.SLAB_SUFFIX));
+		Block stair = getBlockOrThrow(prefix(variant + LibBlockNames.STAIR_SUFFIX));
+		Block wall = getBlockOrThrow(prefix(variant + LibBlockNames.WALL_SUFFIX));
+		Block button = getBlockOrThrow(prefix(variant + LibBlockNames.BUTTON_SUFFIX));
+		Block pressurePlate = getBlockOrThrow(prefix(variant + LibBlockNames.PRESSURE_PLATE_SUFFIX));
+		Block brick = getBlockOrThrow(prefix(variant + LibBlockNames.BRICKS_SUFFIX));
+		Block brickSlab = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX));
+		Block brickStair = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX));
+		Block brickWall = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.WALL_SUFFIX));
+		Block chiseledBrick = getBlockOrThrow(prefix(LibBlockNames.CHISELED_PREFIX + variant + LibBlockNames.BRICKS_SUFFIX));
+		Block cobble = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant));
+		Block cobbleSlab = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.SLAB_SUFFIX));
+		Block cobbleStair = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.STAIR_SUFFIX));
+		Block cobbleWall = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.WALL_SUFFIX));
 
 		slabShape(slab, base).group("botania:metamorphic_stone_slab").save(recipeOutput);
 		stairs(stair, base).group("botania:metamorphic_stone_stairs").save(recipeOutput);

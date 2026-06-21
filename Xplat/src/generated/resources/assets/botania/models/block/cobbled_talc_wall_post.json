@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/wall_post",
+  "textures": {
+    "bottom": "botania:block/cobbled_talc",
+    "top": "botania:block/cobbled_talc",
+    "wall": "botania:block/cobbled_talc"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/wall_side_tall",
+  "textures": {
+    "bottom": "botania:block/solite_bricks",
+    "top": "botania:block/solite_bricks",
+    "wall": "botania:block/solite_bricks"
+  }
+}

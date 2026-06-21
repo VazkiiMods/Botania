@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "botania:block/mycelite_brick_slab"
+      },
+      {
+        "model": "botania:block/mycelite_brick_slab_1"
+      }
+    ],
+    "type=double": [
+      {
+        "model": "botania:block/mycelite_bricks"
+      },
+      {
+        "model": "botania:block/mycelite_bricks_1"
+      }
+    ],
+    "type=top": [
+      {
+        "model": "botania:block/mycelite_brick_slab_top"
+      },
+      {
+        "model": "botania:block/mycelite_brick_slab_top_1"
+      }
+    ]
+  }
+}

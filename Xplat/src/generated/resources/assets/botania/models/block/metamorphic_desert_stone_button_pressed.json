@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button_pressed",
-  "textures": {
-    "texture": "botania:block/metamorphic_desert_stone"
-  }
-}

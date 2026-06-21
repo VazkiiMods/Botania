@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:metamorphic_cobble_stairs",
+  "key": {
+    "Q": {
+      "item": "botania:cobbled_gneiss"
+    }
+  },
+  "pattern": [
+    "Q  ",
+    "QQ ",
+    "QQQ"
+  ],
+  "result": {
+    "count": 4,
+    "id": "botania:cobbled_gneiss_stairs"
+  }
+}

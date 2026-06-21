@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "botania:metamorphic_stone_button",
+  "ingredients": [
+    {
+      "item": "botania:rosy_talc"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:rosy_talc_button"
+  }
+}

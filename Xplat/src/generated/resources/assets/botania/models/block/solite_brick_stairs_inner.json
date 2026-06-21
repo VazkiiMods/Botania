@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "botania:block/solite_bricks",
+    "side": "botania:block/solite_bricks",
+    "top": "botania:block/solite_bricks"
+  }
+}

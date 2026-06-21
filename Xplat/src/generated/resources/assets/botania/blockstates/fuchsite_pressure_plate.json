@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "botania:block/fuchsite_pressure_plate"
+    },
+    "powered=true": {
+      "model": "botania:block/fuchsite_pressure_plate_down"
+    }
+  }
+}

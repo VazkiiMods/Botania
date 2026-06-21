@@ -883,18 +883,18 @@
 
 
 
-  "block.botania.apothecary_default": "꽃잎 연금술기",
-  "block.botania.apothecary_forest": "숲 꽃잎 연금술기",
-  "block.botania.apothecary_plains": "평원 꽃잎 연금술기",
-  "block.botania.apothecary_mountain": "산 꽃잎 연금술기",
-  "block.botania.apothecary_fungal": "균사 꽃잎 연금술기",
-  "block.botania.apothecary_swamp": "늪 꽃잎 연금술기",
-  "block.botania.apothecary_desert": "사막 꽃잎 연금술기",
-  "block.botania.apothecary_taiga": "타이가 꽃잎 연금술기",
-  "block.botania.apothecary_mesa": "메사 꽃잎 연금술기",
-  "block.botania.apothecary_mossy": "이끼 낀 꽃잎 연금술기",
-  "block.botania.apothecary_livingrock": "생명의 돌 꽃잎 연금술기",
-  "block.botania.apothecary_deepslate": "심층암 꽃잎 연금술기",
+  "block.botania.petal_apothecary": "꽃잎 연금술기",
+  "block.botania.fuchsite_petal_apothecary": "숲 꽃잎 연금술기",
+  "block.botania.talc_petal_apothecary": "평원 꽃잎 연금술기",
+  "block.botania.gneiss_petal_apothecary": "산 꽃잎 연금술기",
+  "block.botania.mycelite_petal_apothecary": "균사 꽃잎 연금술기",
+  "block.botania.cataclasite_petal_apothecary": "늪 꽃잎 연금술기",
+  "block.botania.solite_petal_apothecary": "사막 꽃잎 연금술기",
+  "block.botania.lunite_petal_apothecary": "타이가 꽃잎 연금술기",
+  "block.botania.rosy_talc_petal_apothecary": "메사 꽃잎 연금술기",
+  "block.botania.mossy_petal_apothecary": "이끼 낀 꽃잎 연금술기",
+  "block.botania.livingrock_petal_apothecary": "생명의 돌 꽃잎 연금술기",
+  "block.botania.deepslate_petal_apothecary": "심층암 꽃잎 연금술기",
 
 
 

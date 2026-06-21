@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "botania:block/gneiss",
+    "side": "botania:block/gneiss",
+    "top": "botania:block/gneiss"
+  }
+}

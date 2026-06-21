@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/wall_side_tall",
+  "textures": {
+    "bottom": "botania:block/cobbled_mycelite",
+    "top": "botania:block/cobbled_mycelite",
+    "wall": "botania:block/cobbled_mycelite"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/mycelite_bricks"
+      },
+      {
+        "model": "botania:block/mycelite_bricks_1"
+      }
+    ]
+  }
+}

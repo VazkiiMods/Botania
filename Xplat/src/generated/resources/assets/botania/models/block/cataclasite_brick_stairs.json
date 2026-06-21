@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "botania:block/cataclasite_bricks_bottom",
+    "side": "botania:block/cataclasite_bricks",
+    "top": "botania:block/cataclasite_bricks_top"
+  }
+}

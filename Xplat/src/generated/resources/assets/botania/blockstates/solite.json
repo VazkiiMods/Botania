@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/solite"
+      },
+      {
+        "model": "botania:block/solite_mirrored"
+      },
+      {
+        "model": "botania:block/solite",
+        "y": 180
+      },
+      {
+        "model": "botania:block/solite_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "botania:metamorphic_brick_wall",
+  "key": {
+    "B": {
+      "item": "botania:lunite_bricks"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "count": 6,
+    "id": "botania:lunite_brick_wall"
+  }
+}

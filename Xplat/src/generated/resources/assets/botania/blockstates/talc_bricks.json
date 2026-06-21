@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "botania:block/talc_bricks_horizontal_x"
+    },
+    "axis=y": {
+      "model": "botania:block/talc_bricks"
+    },
+    "axis=z": {
+      "model": "botania:block/talc_bricks_horizontal_z"
+    }
+  }
+}

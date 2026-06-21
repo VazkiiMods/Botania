@@ -1,7 +1,7 @@
 {
   "name": "botania.challenge.apothecaryRefill",
   "category": "botania:challenges",
-  "icon": "botania:apothecary_default",
+  "icon": "botania:petal_apothecary",
   "read_by_default": true,
   "advancement": "botania:main/mana_pool_pickup_lexicon",
   "entry_color": "ffaa00",

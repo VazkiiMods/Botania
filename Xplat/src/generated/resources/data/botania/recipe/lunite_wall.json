@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "botania:metamorphic_stone_wall",
+  "key": {
+    "B": {
+      "item": "botania:lunite"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "count": 6,
+    "id": "botania:lunite_wall"
+  }
+}

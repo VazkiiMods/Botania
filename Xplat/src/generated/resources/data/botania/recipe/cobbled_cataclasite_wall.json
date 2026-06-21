@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "botania:metamorphic_cobble_wall",
+  "key": {
+    "B": {
+      "item": "botania:cobbled_cataclasite"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "count": 6,
+    "id": "botania:cobbled_cataclasite_wall"
+  }
+}

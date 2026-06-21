@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/talc"
+      },
+      {
+        "model": "botania:block/talc_mirrored"
+      },
+      {
+        "model": "botania:block/talc",
+        "y": 180
+      },
+      {
+        "model": "botania:block/talc_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

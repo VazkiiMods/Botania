@@ -883,15 +883,15 @@
 
 
 
-  "block.botania.apothecary_default": "Bloemblad Apotheek",
-  "block.botania.apothecary_forest": "Woud Bloemblad Apotheek",
-  "block.botania.apothecary_plains": "Veld Bloemblad Apotheek",
-  "block.botania.apothecary_mountain": "Berg Bloemblad Apotheek",
-  "block.botania.apothecary_fungal": "Schimmel Bloemblad Apotheek",
-  "block.botania.apothecary_swamp": "Moeras Bloemblad Apotheek",
-  "block.botania.apothecary_desert": "Woestijn Bloemblad Apotheek",
-  "block.botania.apothecary_taiga": "Winterwoud Bloemblad Apotheek",
-  "block.botania.apothecary_mesa": "Hoogvlakte Bloemblad Apotheek",
+  "block.botania.petal_apothecary": "Bloemblad Apotheek",
+  "block.botania.fuchsite_petal_apothecary": "Woud Bloemblad Apotheek",
+  "block.botania.talc_petal_apothecary": "Veld Bloemblad Apotheek",
+  "block.botania.gneiss_petal_apothecary": "Berg Bloemblad Apotheek",
+  "block.botania.mycelite_petal_apothecary": "Schimmel Bloemblad Apotheek",
+  "block.botania.cataclasite_petal_apothecary": "Moeras Bloemblad Apotheek",
+  "block.botania.solite_petal_apothecary": "Woestijn Bloemblad Apotheek",
+  "block.botania.lunite_petal_apothecary": "Winterwoud Bloemblad Apotheek",
+  "block.botania.rosy_talc_petal_apothecary": "Hoogvlakte Bloemblad Apotheek",
 
 
 

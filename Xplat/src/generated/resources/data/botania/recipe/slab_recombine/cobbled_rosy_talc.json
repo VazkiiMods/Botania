@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "Q": {
+      "item": "botania:cobbled_rosy_talc_slab"
+    }
+  },
+  "pattern": [
+    "QQ"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:cobbled_rosy_talc"
+  }
+}

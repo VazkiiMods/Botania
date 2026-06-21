@@ -11,7 +11,8 @@ package vazkii.botania.common.lib;
 public final class LibBlockNames {
 
 	public static final String MYSTICAL_FLOWER_SUFFIX = "_mystical_flower";
-	public static final String APOTHECARY_PREFIX = "apothecary_";
+	public static final String PETAL_APOTHECARY = "petal_apothecary";
+	public static final String PETAL_APOTHECARY_SUFFIX = "_" + PETAL_APOTHECARY;
 	public static final String LIVING_ROCK = "livingrock";
 	public static final String LIVING_ROCK_POLISHED = "polished_livingrock";
 	public static final String LIVING_ROCK_SLATE = "livingrock_slate";
@@ -150,23 +151,25 @@ public final class LibBlockNames {
 	public static final String AVATAR = "avatar";
 	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animated_torch";
-	public static final String METAMORPHIC_PREFIX = "metamorphic_";
-	public static final String METAMORPHIC_VARIANT_FOREST = "forest";
-	public static final String METAMORPHIC_VARIANT_PLAINS = "plains";
-	public static final String METAMORPHIC_VARIANT_MOUNTAIN = "mountain";
-	public static final String METAMORPHIC_VARIANT_FUNGAL = "fungal";
-	public static final String METAMORPHIC_VARIANT_SWAMP = "swamp";
-	public static final String METAMORPHIC_VARIANT_DESERT = "desert";
-	public static final String METAMORPHIC_VARIANT_TAIGA = "taiga";
-	public static final String METAMORPHIC_VARIANT_MESA = "mesa";
+	public static final String COBBLED_PREFIX = "cobbled_";
+	public static final String CHISELED_PREFIX = "chiseled_";
+	public static final String BRICKS_SUFFIX = "_bricks";
+	public static final String BRICK_INFIX = "_brick";
+	public static final String METAMORPHIC_VARIANT_FUCHSITE = "fuchsite";
+	public static final String METAMORPHIC_VARIANT_TALC = "talc";
+	public static final String METAMORPHIC_VARIANT_GNEISS = "gneiss";
+	public static final String METAMORPHIC_VARIANT_MYCELITE = "mycelite";
+	public static final String METAMORPHIC_VARIANT_CATACLASITE = "cataclasite";
+	public static final String METAMORPHIC_VARIANT_SOLITE = "solite";
+	public static final String METAMORPHIC_VARIANT_LUNITE = "lunite";
+	public static final String METAMORPHIC_VARIANT_ROSY_TALC = "rosy_talc";
 	public static final String[] METAMORPHIC_VARIANTS = {
-			METAMORPHIC_VARIANT_FOREST, METAMORPHIC_VARIANT_PLAINS, METAMORPHIC_VARIANT_MOUNTAIN,
-			METAMORPHIC_VARIANT_FUNGAL, METAMORPHIC_VARIANT_SWAMP, METAMORPHIC_VARIANT_DESERT,
-			METAMORPHIC_VARIANT_TAIGA, METAMORPHIC_VARIANT_MESA
+			METAMORPHIC_VARIANT_FUCHSITE, METAMORPHIC_VARIANT_TALC, METAMORPHIC_VARIANT_GNEISS,
+			METAMORPHIC_VARIANT_MYCELITE, METAMORPHIC_VARIANT_CATACLASITE, METAMORPHIC_VARIANT_SOLITE,
+			METAMORPHIC_VARIANT_LUNITE, METAMORPHIC_VARIANT_ROSY_TALC
 	};
 	public static final String CORPOREA_BLOCK = "corporea_block";
 	public static final String CORPOREA_PREFIX = "corporea";
-	public static final String CORPOREA_BRICK = "corporea_brick";
 	public static final String BLOCK_SUFFIX = "_block";
 	public static final String SLAB_SUFFIX = "_slab";
 	public static final String STAIR_SUFFIX = "_stairs";

@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/petal_apothecary",
+  "textures": {
+    "bottom": "botania:block/red_nether_brick_petal_apothecary_bottom",
+    "side": "botania:block/red_nether_brick_petal_apothecary_side",
+    "top": "botania:block/red_nether_brick_petal_apothecary_top"
+  }
+}

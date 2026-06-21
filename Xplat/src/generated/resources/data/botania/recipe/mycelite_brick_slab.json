@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:metamorphic_brick_slab",
+  "key": {
+    "Q": {
+      "item": "botania:mycelite_bricks"
+    }
+  },
+  "pattern": [
+    "QQQ"
+  ],
+  "result": {
+    "count": 6,
+    "id": "botania:mycelite_brick_slab"
+  }
+}

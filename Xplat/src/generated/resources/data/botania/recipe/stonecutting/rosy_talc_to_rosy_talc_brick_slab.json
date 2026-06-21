@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:rosy_talc"
+  },
+  "result": {
+    "count": 2,
+    "id": "botania:rosy_talc_brick_slab"
+  }
+}

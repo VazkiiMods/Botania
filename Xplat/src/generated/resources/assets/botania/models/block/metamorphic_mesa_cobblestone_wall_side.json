@@ -1,8 +1,0 @@
-{
-  "parent": "botania:block/shapes/wall_side",
-  "textures": {
-    "bottom": "botania:block/metamorphic_mesa_cobblestone",
-    "top": "botania:block/metamorphic_mesa_cobblestone",
-    "wall": "botania:block/metamorphic_mesa_cobblestone"
-  }
-}

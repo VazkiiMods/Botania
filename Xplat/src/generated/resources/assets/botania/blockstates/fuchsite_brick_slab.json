@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "botania:block/fuchsite_brick_slab",
+        "weight": 2
+      },
+      {
+        "model": "botania:block/fuchsite_brick_slab_1"
+      }
+    ],
+    "type=double": [
+      {
+        "model": "botania:block/fuchsite_bricks",
+        "weight": 2
+      },
+      {
+        "model": "botania:block/fuchsite_bricks_1"
+      }
+    ],
+    "type=top": [
+      {
+        "model": "botania:block/fuchsite_brick_slab_top",
+        "weight": 2
+      },
+      {
+        "model": "botania:block/fuchsite_brick_slab_top_1"
+      }
+    ]
+  }
+}

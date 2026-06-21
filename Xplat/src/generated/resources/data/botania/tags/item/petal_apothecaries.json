@@ -1,19 +1,19 @@
 {
   "values": [
-    "botania:apothecary_default",
-    "botania:apothecary_deepslate",
-    "botania:apothecary_livingrock",
-    "botania:apothecary_blackstone",
-    "botania:apothecary_nether_brick",
-    "botania:apothecary_red_nether_brick",
-    "botania:apothecary_mossy",
-    "botania:apothecary_forest",
-    "botania:apothecary_plains",
-    "botania:apothecary_mountain",
-    "botania:apothecary_fungal",
-    "botania:apothecary_swamp",
-    "botania:apothecary_desert",
-    "botania:apothecary_taiga",
-    "botania:apothecary_mesa"
+    "botania:petal_apothecary",
+    "botania:deepslate_petal_apothecary",
+    "botania:livingrock_petal_apothecary",
+    "botania:blackstone_petal_apothecary",
+    "botania:nether_brick_petal_apothecary",
+    "botania:red_nether_brick_petal_apothecary",
+    "botania:mossy_petal_apothecary",
+    "botania:fuchsite_petal_apothecary",
+    "botania:talc_petal_apothecary",
+    "botania:gneiss_petal_apothecary",
+    "botania:mycelite_petal_apothecary",
+    "botania:cataclasite_petal_apothecary",
+    "botania:solite_petal_apothecary",
+    "botania:lunite_petal_apothecary",
+    "botania:rosy_talc_petal_apothecary"
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/cataclasite_slab"
+    },
+    "type=double": {
+      "model": "botania:block/cataclasite"
+    },
+    "type=top": {
+      "model": "botania:block/cataclasite_slab_top"
+    }
+  }
+}

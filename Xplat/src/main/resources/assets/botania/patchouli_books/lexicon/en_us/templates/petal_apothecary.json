@@ -49,7 +49,7 @@
     },
     {
       "type": "patchouli:item",
-      "item": "botania:apothecary_default",
+      "item": "botania:petal_apothecary",
       "framed": "false",
       "x": 49,
       "y": 61

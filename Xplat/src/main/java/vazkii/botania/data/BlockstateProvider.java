@@ -101,7 +101,7 @@ public class BlockstateProvider implements DataProvider {
 
 	protected void registerStatesAndModels() {
 		Set<Block> remainingBlocks = BuiltInRegistries.BLOCK.stream()
-				.filter(b -> BotaniaAPI.MODID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace()))
+				.filter(block -> BotaniaAPI.MODID.equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace()))
 				.collect(Collectors.toSet());
 
 		// Manually written blockstate + models
@@ -920,7 +920,8 @@ public class BlockstateProvider implements DataProvider {
 
 		takeAll(remainingBlocks, block -> block instanceof StairBlock).forEach(block -> {
 			String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
-			String baseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
+			String tentativeBaseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
+			String baseName = tentativeBaseName.endsWith("brick") ? tentativeBaseName + "s" : tentativeBaseName;
 			boolean quartz = name.contains("quartz");
 			boolean smooth = name.contains("smooth");
 			if (quartz) {
@@ -939,9 +940,10 @@ public class BlockstateProvider implements DataProvider {
 			}
 		});
 
-		takeAll(remainingBlocks, b -> b instanceof SlabBlock).forEach(slabBlock -> {
+		takeAll(remainingBlocks, block -> block instanceof SlabBlock).forEach(slabBlock -> {
 			String name = BuiltInRegistries.BLOCK.getKey(slabBlock).getPath();
-			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
+			String tentativeBaseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
+			String baseName = tentativeBaseName.endsWith("brick") ? tentativeBaseName + "s" : tentativeBaseName;
 			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
 			boolean quartz = name.contains("quartz");
 			boolean smooth = name.contains("smooth");
@@ -975,8 +977,12 @@ public class BlockstateProvider implements DataProvider {
 			String suffix, TriConsumer<Set<Block>, Block, ResourceLocation> modelBuilder) {
 		takeAll(remainingBlocks, blockClass::isInstance).forEach(block -> {
 			String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
-			String baseName = name.substring(0, name.length() - suffix.length());
+			String tentativeBaseName = name.substring(0, name.length() - suffix.length());
+			String baseName = tentativeBaseName.endsWith("brick") ? tentativeBaseName + "s" : tentativeBaseName;
 			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
+			if (base == Blocks.AIR) {
+				BotaniaAPI.LOGGER.error("Invalid base block name {} for {}", baseName, name);
+			}
 			var baseTexture = getBlockTexture(base);
 			modelBuilder.accept(new HashSet<>(), block, baseTexture);
 		});

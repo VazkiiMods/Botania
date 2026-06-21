@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:gneiss"
+  },
+  "result": {
+    "count": 2,
+    "id": "botania:gneiss_slab"
+  }
+}

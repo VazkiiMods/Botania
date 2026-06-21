@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:lunite_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "botania:lunite_brick_wall"
+  }
+}

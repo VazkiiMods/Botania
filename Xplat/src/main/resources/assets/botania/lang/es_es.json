@@ -883,15 +883,15 @@
 
 
 
-  "block.botania.apothecary_default": "Botica de pétalos",
-  "block.botania.apothecary_forest": "Botica de pétalos de bosque",
-  "block.botania.apothecary_plains": "Botica de pétalos de llanura",
-  "block.botania.apothecary_mountain": "Botica de pétalos de montaña",
-  "block.botania.apothecary_fungal": "Botica de pétalos de setas",
-  "block.botania.apothecary_swamp": "Botica de pétalos de pantano",
-  "block.botania.apothecary_desert": "Botica de pétalos de desierto",
-  "block.botania.apothecary_taiga": "Botica de pétalos de taiga",
-  "block.botania.apothecary_mesa": "Botica de pétalos de mesa",
+  "block.botania.petal_apothecary": "Botica de pétalos",
+  "block.botania.fuchsite_petal_apothecary": "Botica de pétalos de bosque",
+  "block.botania.talc_petal_apothecary": "Botica de pétalos de llanura",
+  "block.botania.gneiss_petal_apothecary": "Botica de pétalos de montaña",
+  "block.botania.mycelite_petal_apothecary": "Botica de pétalos de setas",
+  "block.botania.cataclasite_petal_apothecary": "Botica de pétalos de pantano",
+  "block.botania.solite_petal_apothecary": "Botica de pétalos de desierto",
+  "block.botania.lunite_petal_apothecary": "Botica de pétalos de taiga",
+  "block.botania.rosy_talc_petal_apothecary": "Botica de pétalos de mesa",
 
 
 

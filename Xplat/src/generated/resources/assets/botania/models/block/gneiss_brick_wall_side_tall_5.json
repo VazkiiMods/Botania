@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/wall_side_tall",
+  "textures": {
+    "bottom": "botania:block/gneiss_bricks_5",
+    "top": "botania:block/gneiss_bricks_5",
+    "wall": "botania:block/gneiss_bricks_5"
+  }
+}

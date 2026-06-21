@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/cobbled_gneiss_slab"
+    },
+    "type=double": {
+      "model": "botania:block/cobbled_gneiss"
+    },
+    "type=top": {
+      "model": "botania:block/cobbled_gneiss_slab_top"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/fuchsite_bricks",
+        "weight": 2
+      },
+      {
+        "model": "botania:block/fuchsite_bricks_1"
+      }
+    ]
+  }
+}

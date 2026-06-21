@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:cobbled_talc"
+  },
+  "result": {
+    "count": 2,
+    "id": "botania:cobbled_talc_slab"
+  }
+}

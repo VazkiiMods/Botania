@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "botania:block/lunite",
+    "side": "botania:block/lunite",
+    "top": "botania:block/lunite"
+  }
+}

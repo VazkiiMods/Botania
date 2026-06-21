@@ -1,8 +1,0 @@
-{
-  "parent": "botania:block/shapes/wall_post",
-  "textures": {
-    "bottom": "botania:block/metamorphic_fungal_bricks_1",
-    "top": "botania:block/metamorphic_fungal_bricks_1",
-    "wall": "botania:block/metamorphic_fungal_bricks_1"
-  }
-}

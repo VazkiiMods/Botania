@@ -13,7 +13,7 @@
         {pos: [2, 0, 2], state: "botania:metamorphic_mesa_bricks"},
         {pos: [0, 1, 1], state: "botania:managlass"},
         {pos: [1, 1, 0], state: "botania:managlass"},
-        {pos: [1, 1, 1], state: "botania:apothecary_mesa{fluid:water}", nbt: {Items: [], id: "botania:altar"}},
+        {pos: [1, 1, 1], state: "botania:rosy_talc_petal_apothecary{fluid:water}", nbt: {Items: [], id: "botania:altar"}},
         {pos: [1, 1, 2], state: "botania:managlass"},
         {pos: [2, 1, 1], state: "botania:managlass"},
         {pos: [0, 2, 1], state: "botania:managlass"},
@@ -30,6 +30,6 @@
     palette: [
         "botania:metamorphic_mesa_bricks",
         "botania:managlass",
-        "botania:apothecary_mesa{fluid:water}"
+        "botania:rosy_talc_petal_apothecary{fluid:water}"
     ]
 }

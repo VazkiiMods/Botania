@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:metamorphic_brick_slab",
+  "key": {
+    "Q": {
+      "item": "botania:gneiss_bricks"
+    }
+  },
+  "pattern": [
+    "QQQ"
+  ],
+  "result": {
+    "count": 6,
+    "id": "botania:gneiss_brick_slab"
+  }
+}

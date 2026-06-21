@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/cobbled_lunite_slab"
+    },
+    "type=double": {
+      "model": "botania:block/cobbled_lunite"
+    },
+    "type=top": {
+      "model": "botania:block/cobbled_lunite_slab_top"
+    }
+  }
+}

@@ -883,18 +883,18 @@
 
 
 
-  "block.botania.apothecary_default": "Пелюстковий аптекар",
-  "block.botania.apothecary_forest": "Лісовий пелюстковий аптекар",
-  "block.botania.apothecary_plains": "Луговий пелюстковий аптекар",
-  "block.botania.apothecary_mountain": "Гірський пелюстковий аптекар",
-  "block.botania.apothecary_fungal": "Грибний пелюстковий аптекар",
-  "block.botania.apothecary_swamp": "Болотний пелюстковий аптекар",
-  "block.botania.apothecary_desert": "Пустельний пелюстковий аптекар",
-  "block.botania.apothecary_taiga": "Сніжний пелюстковий аптекар",
-  "block.botania.apothecary_mesa": "Меса пелюстковий аптекар",
-  "block.botania.apothecary_mossy": "Моховитий пелюстковий аптекар",
-  "block.botania.apothecary_livingrock": "Живокаміний пелюстковий аптекар",
-  "block.botania.apothecary_deepslate": "Глибокосланцевий пелюстковий аптекар",
+  "block.botania.petal_apothecary": "Пелюстковий аптекар",
+  "block.botania.fuchsite_petal_apothecary": "Лісовий пелюстковий аптекар",
+  "block.botania.talc_petal_apothecary": "Луговий пелюстковий аптекар",
+  "block.botania.gneiss_petal_apothecary": "Гірський пелюстковий аптекар",
+  "block.botania.mycelite_petal_apothecary": "Грибний пелюстковий аптекар",
+  "block.botania.cataclasite_petal_apothecary": "Болотний пелюстковий аптекар",
+  "block.botania.solite_petal_apothecary": "Пустельний пелюстковий аптекар",
+  "block.botania.lunite_petal_apothecary": "Сніжний пелюстковий аптекар",
+  "block.botania.rosy_talc_petal_apothecary": "Меса пелюстковий аптекар",
+  "block.botania.mossy_petal_apothecary": "Моховитий пелюстковий аптекар",
+  "block.botania.livingrock_petal_apothecary": "Живокаміний пелюстковий аптекар",
+  "block.botania.deepslate_petal_apothecary": "Глибокосланцевий пелюстковий аптекар",
 
 
 

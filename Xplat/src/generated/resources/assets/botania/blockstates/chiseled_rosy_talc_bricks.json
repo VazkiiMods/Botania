@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "botania:block/chiseled_rosy_talc_bricks_horizontal_x"
+    },
+    "axis=y": {
+      "model": "botania:block/chiseled_rosy_talc_bricks"
+    },
+    "axis=z": {
+      "model": "botania:block/chiseled_rosy_talc_bricks_horizontal_z"
+    }
+  }
+}

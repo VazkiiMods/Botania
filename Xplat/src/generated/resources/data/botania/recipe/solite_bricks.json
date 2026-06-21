@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:metamorphic_brick",
+  "key": {
+    "Q": {
+      "item": "botania:solite"
+    }
+  },
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "result": {
+    "count": 4,
+    "id": "botania:solite_bricks"
+  }
+}

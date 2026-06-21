@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:lunite"
+  },
+  "result": {
+    "count": 1,
+    "id": "botania:lunite_stairs"
+  }
+}

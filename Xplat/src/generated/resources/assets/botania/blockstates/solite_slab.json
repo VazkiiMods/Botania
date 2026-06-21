@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/solite_slab"
+    },
+    "type=double": {
+      "model": "botania:block/solite"
+    },
+    "type=top": {
+      "model": "botania:block/solite_slab_top"
+    }
+  }
+}

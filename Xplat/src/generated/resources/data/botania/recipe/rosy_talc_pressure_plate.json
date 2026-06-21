@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "botania:metamorphic_stone_pressure_plate",
+  "key": {
+    "#": {
+      "item": "botania:rosy_talc"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:rosy_talc_pressure_plate"
+  }
+}

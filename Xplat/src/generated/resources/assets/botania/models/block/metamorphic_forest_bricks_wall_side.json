@@ -1,8 +1,0 @@
-{
-  "parent": "botania:block/shapes/wall_side",
-  "textures": {
-    "bottom": "botania:block/metamorphic_forest_bricks",
-    "top": "botania:block/metamorphic_forest_bricks",
-    "wall": "botania:block/metamorphic_forest_bricks"
-  }
-}

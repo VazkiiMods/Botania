@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/lunite"
+      },
+      {
+        "model": "botania:block/lunite_mirrored"
+      },
+      {
+        "model": "botania:block/lunite",
+        "y": 180
+      },
+      {
+        "model": "botania:block/lunite_mirrored",
+        "y": 180
+      },
+      {
+        "model": "botania:block/lunite_1"
+      },
+      {
+        "model": "botania:block/lunite_mirrored_1"
+      },
+      {
+        "model": "botania:block/lunite_1",
+        "y": 180
+      },
+      {
+        "model": "botania:block/lunite_mirrored_1",
+        "y": 180
+      }
+    ]
+  }
+}

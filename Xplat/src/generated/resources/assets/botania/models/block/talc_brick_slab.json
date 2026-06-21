@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "botania:block/talc_bricks_top",
+    "side": "botania:block/talc_bricks",
+    "top": "botania:block/talc_bricks_top"
+  }
+}
