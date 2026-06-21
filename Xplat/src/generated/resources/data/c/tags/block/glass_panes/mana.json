@@ -1,7 +1,7 @@
 {
   "values": [
-    "botania:mana_glass_pane",
-    "botania:elf_glass_pane",
+    "botania:managlass_pane",
+    "botania:alfglass_pane",
     "botania:bifrost_pane"
   ]
 }

@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "G": {
-      "item": "botania:mana_glass"
+      "item": "botania:managlass"
     },
     "I": {
       "tag": "c:ingots/manasteel"

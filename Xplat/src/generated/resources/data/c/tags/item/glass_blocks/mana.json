@@ -1,7 +1,7 @@
 {
   "values": [
-    "botania:mana_glass",
-    "botania:elf_glass",
-    "botania:bifrost_perm"
+    "botania:managlass",
+    "botania:alfglass",
+    "botania:bifrost"
   ]
 }

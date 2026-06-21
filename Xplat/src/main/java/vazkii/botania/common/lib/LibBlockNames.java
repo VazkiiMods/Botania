@@ -11,7 +11,6 @@ package vazkii.botania.common.lib;
 public final class LibBlockNames {
 
 	public static final String MYSTICAL_FLOWER_SUFFIX = "_mystical_flower";
-	public static final String ALTAR = "altar";
 	public static final String APOTHECARY_PREFIX = "apothecary_";
 	public static final String LIVING_ROCK = "livingrock";
 	public static final String LIVING_ROCK_POLISHED = "polished_livingrock";
@@ -45,7 +44,7 @@ public final class LibBlockNames {
 	public static final String MANA_PYLON = "mana_pylon";
 	public static final String NATURA_PYLON = "natura_pylon";
 	public static final String GAIA_PYLON = "gaia_pylon";
-	public static final String PISTON_RELAY = "piston_relay";
+	public static final String FORCE_RELAY = "force_relay";
 	public static final String MANA_SPLITTER = "mana_splitter";
 	public static final String MANA_VOID = "mana_void";
 	public static final String MANA_DETECTOR = "mana_detector";
@@ -61,11 +60,10 @@ public final class LibBlockNames {
 	public static final String ELEMENTIUM_BLOCK = "elementium_block";
 	public static final String MANA_DIAMOND_BLOCK = "mana_diamond_block";
 	public static final String DRAGONSTONE_BLOCK = "dragonstone_block";
-	public static final String DRUM_WILD = "drum_wild";
-	public static final String DRUM_GATHERING = "drum_gathering";
-	public static final String DRUM_CANOPY = "drum_canopy";
+	public static final String DRUM_OF_THE_WILD = "drum_of_the_wild";
+	public static final String DRUM_OF_THE_GATHERING = "drum_of_the_gathering";
+	public static final String DRUM_OF_THE_CANOPY = "drum_of_the_canopy";
 	public static final String GLIMMERING_FLOWER_SUFFIX = "_glimmering_flower";
-	public static final String PLATFORM = "platform";
 	public static final String PLATFORM_ABSTRUSE = "abstruse_platform";
 	public static final String PLATFORM_SPECTRAL = "spectral_platform";
 	public static final String PLATFORM_INFRANGIBLE = "infrangible_platform";
@@ -83,11 +81,9 @@ public final class LibBlockNames {
 	public static final String DREAM_WOOD_STRIPPED = "stripped_dreamwood";
 	public static final String DREAM_WOOD_GLIMMERING_STRIPPED = "glimmering_stripped_dreamwood";
 	public static final String CONJURATION_CATALYST = "conjuration_catalyst";
-	public static final String BIFROST = "bifrost";
+	public static final String BIFROST_BRIDGE = "bifrost_bridge";
 	public static final String SOLID_VINE = "solid_vine";
 	public static final String BURIED_PETAL_SUFFIX = "_buried_petal";
-	public static final String PRISMARINE = "prismarine";
-	public static final String MINI_ISLAND = "mini_island";
 	public static final String FLOATING_FLOWER_SUFFIX = "_floating_flower";
 	public static final String TINY_POTATO = "tiny_potato";
 	public static final String LIFE_IMBUER = "life_imbuer";
@@ -95,9 +91,9 @@ public final class LibBlockNames {
 	public static final String ENDER_OVERSEER = "ender_overseer";
 	public static final String STARFIELD_CREATOR = "starfield_creator";
 	public static final String MANA_FLUXFIELD = "mana_fluxfield";
-	public static final String ELF_GLASS = "elf_glass";
+	public static final String ALFGLASS = "alfglass";
 	public static final String BOTANICAL_BREWERY = "botanical_brewery";
-	public static final String MANA_GLASS = "mana_glass";
+	public static final String MANAGLASS = "managlass";
 	public static final String TERRESTRIAL_AGGLOMERATION_PLATE = "terrestrial_agglomeration_plate";
 	public static final String RED_STRINGED_CONTAINER = "red_stringed_container";
 	public static final String RED_STRINGED_DISPENSER = "red_stringed_dispenser";
@@ -105,7 +101,6 @@ public final class LibBlockNames {
 	public static final String RED_STRINGED_COMPARATOR = "red_stringed_comparator";
 	public static final String RED_STRINGED_SPOOFER = "red_stringed_spoofer";
 	public static final String RED_STRINGED_INTERCEPTOR = "red_stringed_interceptor";
-	public static final String FLOATING_SPECIAL_FLOWER = "floating_special_flower";
 	public static final String MANA_FLAME = "mana_flame";
 	public static final String MANA_PRISM = "mana_prism";
 	public static final String PETAL_BLOCK_SUFFIX = "_petal_block";
@@ -121,18 +116,18 @@ public final class LibBlockNames {
 	public static final String CORPOREA_CRYSTAL_CUBE = "corporea_crystal_cube";
 	public static final String INCENSE_PLATE = "incense_plate";
 	public static final String HOVERING_HOURGLASS = "hovering_hourglass";
-	public static final String GHOST_RAIL = "ghost_rail";
+	public static final String SPECTRAL_RAIL = "spectral_rail";
 	public static final String SPARK_TINKERER = "spark_tinkerer";
-	public static final String ROOT = "root";
+	public static final String LIVING_ROOTS = "living_roots";
 	public static final String FEL_PUMPKIN = "fel_pumpkin";
-	public static final String COCOON = "cocoon";
+	public static final String COCOON_OF_CAPRICE = "cocoon_of_caprice";
 	public static final String LUMINIZER = "luminizer";
 	public static final String LUMINIZER_SUFFIX = "_" + LUMINIZER;
 	public static final String LUMINIZER_LAUNCHER = "luminizer_launcher";
-	public static final String MANA_BOMB = "mana_bomb";
+	public static final String MANASTORM_CHARGE = "manastorm_charge";
 	public static final String CACOPHONIUM = "cacophonium_block";
 	public static final String MANATIDE_BELLOWS = "manatide_bellows";
-	public static final String BIFROST_PERM = "bifrost_perm";
+	public static final String BIFROST = "bifrost";
 	public static final String PAVEMENT_SUFFIX = "_pavement";
 	public static final String PAVEMENT_VARIANT_WHITE = "white";
 	public static final String PAVEMENT_VARIANT_BLACK = "black";

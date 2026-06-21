@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class DrumBlockTest {
-	private static final String TEMPLATE = "botania:block/drum_gathering";
+	private static final String TEMPLATE = "botania:block/drum_of_the_gathering";
 
 	private static final BlockPos POSITION_BUTTON = new BlockPos(10, 10, 9);
 	private static final BlockPos POSITION_SPREADER = new BlockPos(10, 10, 10);

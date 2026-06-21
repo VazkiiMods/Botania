@@ -267,7 +267,7 @@ public class AdvancementProvider {
 					.display(simple(BotaniaBlocks.MANASTORM_CHARGE, "manaBombIgnite", AdvancementType.TASK))
 					.parent(gaiaGuardianKill)
 					.addCriterion("bomb", onPickup(BotaniaBlocks.MANASTORM_CHARGE))
-					.save(writer, mainId("mana_bomb_ignite"));
+					.save(writer, mainId("manastorm_charge_ignite"));
 
 			// Parent: ender air
 			Advancement.Builder.advancement()

@@ -234,7 +234,7 @@ public class BotaniaTags {
 		 * Blocks in this tag can sub for livingrock in the terra plate multiblock
 		 */
 		public static final TagKey<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
-		public static final TagKey<Block> GHOST_RAIL_BARRIER = tag("ghost_rail_barrier");
+		public static final TagKey<Block> SPECTRAL_RAIL_BARRIER = tag("spectral_rail_barrier");
 
 		/**
 		 * Blocks in this tag can be turned into end stone by ender air

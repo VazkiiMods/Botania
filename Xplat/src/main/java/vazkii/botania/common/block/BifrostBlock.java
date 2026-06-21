@@ -9,43 +9,39 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.BeaconBeamBlock;
+import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.Nullable;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.annotations.SoftImplement;
 
-import vazkii.botania.common.block.block_entity.BifrostBlockEntity;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.item.BotaniaItems;
-
-public class BifrostBlock extends PermanentBifrostBlock implements EntityBlock {
-
+public class BifrostBlock extends TransparentBlock implements BeaconBeamBlock {
 	public BifrostBlock(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
-		return new ItemStack(BotaniaItems.ROD_OF_THE_BIFROST);
-	}
-
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new BifrostBlockEntity(pos, state);
-	}
-
-	@Nullable
-	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (!level.isClientSide()) {
-			return BotaniaBlock.createTickerHelper(type, BotaniaBlockEntities.TEMPORARY_BIFROST_BLOCK, BifrostBlockEntity::serverTick);
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
+		if (rand.nextBoolean()) {
+			SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
+			world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
 		}
-		return null;
+	}
+
+	@Override
+	public DyeColor getColor() {
+		return DyeColor.WHITE;
+	}
+
+	@SoftImplement("IBlockExtension")
+	public Integer getBeaconColorMultiplier(BlockState state, LevelReader level, BlockPos pos, BlockPos beaconPos) {
+		return FastColor.ARGB32.opaque(Mth.hsvToRgb(((Level) level).getGameTime() * 5 % 360 / 360F, 0.4F, 0.9F));
 	}
 }

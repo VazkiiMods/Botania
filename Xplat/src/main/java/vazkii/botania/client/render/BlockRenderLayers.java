@@ -49,9 +49,9 @@ public final class BlockRenderLayers {
 		consumer.accept(BotaniaBlocks.MANAGLASS_PANE, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.ALFGLASS, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.ALFGLASS_PANE, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.TEMPORARY_BIFROST_BLOCK, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.BIFROST_BRIDGE, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.BIFROST_PANE, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.BIFROST_BLOCK, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.BIFROST, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.MANA_PRISM, RenderType.translucent());
 
 		consumer.accept(BotaniaBlocks.STARFIELD_CREATOR, RenderType.cutoutMipped());

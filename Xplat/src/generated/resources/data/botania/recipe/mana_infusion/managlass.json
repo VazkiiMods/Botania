@@ -1,0 +1,11 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "tag": "c:glass_blocks/colorless"
+  },
+  "mana": 150,
+  "output": {
+    "count": 1,
+    "id": "botania:managlass"
+  }
+}

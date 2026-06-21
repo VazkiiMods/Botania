@@ -138,11 +138,11 @@ public class BlockstateProvider implements DataProvider {
 		remainingBlocks.remove(BotaniaBlocks.ELVEN_GATEWAY_CORE);
 
 		singleVariantBlockState(
-				BotaniaBlocks.BIFROST_BLOCK,
+				BotaniaBlocks.BIFROST_BRIDGE,
 				ModelTemplates.CUBE_ALL.create(
-						getModelLocation(BotaniaBlocks.BIFROST_BLOCK),
-						TextureMapping.cube(BotaniaBlocks.TEMPORARY_BIFROST_BLOCK), this.modelOutput));
-		remainingBlocks.remove(BotaniaBlocks.BIFROST_BLOCK);
+						getModelLocation(BotaniaBlocks.BIFROST_BRIDGE),
+						TextureMapping.cube(BotaniaBlocks.BIFROST), this.modelOutput));
+		remainingBlocks.remove(BotaniaBlocks.BIFROST_BRIDGE);
 
 		singleVariantBlockState(
 				BotaniaBlocks.CACOPHONIUM_BLOCK,

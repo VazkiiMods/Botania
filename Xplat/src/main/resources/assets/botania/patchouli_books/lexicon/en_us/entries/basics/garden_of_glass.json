@@ -74,6 +74,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:root": 1
+    "botania:living_roots": 1
   }
 }

@@ -21,7 +21,7 @@ public class BifrostBlockEntity extends BlockEntity {
 	public int ticks = 0;
 
 	public BifrostBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.TEMPORARY_BIFROST_BLOCK, pos, state);
+		super(BotaniaBlockEntities.BIFROST_BRIDGE, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, BifrostBlockEntity self) {

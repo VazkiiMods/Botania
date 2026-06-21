@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.gatherDrum",
   "category": "botania:devices",
-  "icon": "botania:drum_gathering",
+  "icon": "botania:drum_of_the_gathering",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
@@ -12,7 +12,7 @@
     {
       "type": "crafting",
       "text": "botania.page.gatherDrum1",
-      "recipe": "botania:drum_gathering"
+      "recipe": "botania:drum_of_the_gathering"
     }
   ]
 }

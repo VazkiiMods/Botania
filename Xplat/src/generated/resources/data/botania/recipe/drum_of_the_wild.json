@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "botania:horn_grass"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "W": {
+      "tag": "botania:livingwood_logs"
+    }
+  },
+  "pattern": [
+    "WLW",
+    "WHW",
+    "WLW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:drum_of_the_wild"
+  }
+}

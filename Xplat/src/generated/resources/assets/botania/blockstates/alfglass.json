@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "botania:block/alfglass_0"
+      },
+      {
+        "model": "botania:block/alfglass_1"
+      },
+      {
+        "model": "botania:block/alfglass_2"
+      },
+      {
+        "model": "botania:block/alfglass_3"
+      }
+    ]
+  }
+}

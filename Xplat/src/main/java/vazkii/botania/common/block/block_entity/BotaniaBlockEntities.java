@@ -97,9 +97,9 @@ public class BotaniaBlockEntities {
 			"alfheim_portal", AlfheimPortalBlockEntity::new,
 			BotaniaBlocks.ELVEN_GATEWAY_CORE
 	);
-	public static final BlockEntityType<BifrostBlockEntity> TEMPORARY_BIFROST_BLOCK = type(
-			"temporary_bifrost_block", BifrostBlockEntity::new,
-			BotaniaBlocks.TEMPORARY_BIFROST_BLOCK
+	public static final BlockEntityType<BifrostBlockEntity> BIFROST_BRIDGE = type(
+			"bifrost_bridge", BifrostBlockEntity::new,
+			BotaniaBlocks.BIFROST_BRIDGE
 	);
 	public static final BlockEntityType<FloatingFlowerBlockEntity> FLOATING_MUNDANE_FLOWER = type(
 			"floating_mundane_flower", FloatingFlowerBlockEntity::new,

@@ -24,7 +24,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "botania:bifrost_perm",
+      "recipe": "botania:bifrost",
       "recipe2": "botania:bifrost_pane"
     },
     {

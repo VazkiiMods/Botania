@@ -90,7 +90,7 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 		});
 
 		// Glass blocks and panes
-		tag(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS).add(BotaniaBlocks.MANAGLASS, BotaniaBlocks.ALFGLASS, BotaniaBlocks.BIFROST_BLOCK);
+		tag(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS).add(BotaniaBlocks.MANAGLASS, BotaniaBlocks.ALFGLASS, BotaniaBlocks.BIFROST);
 		tag(ConventionalBlockTags.GLASS_BLOCKS).addTag(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS);
 
 		tag(ConventionalBotaniaTags.Blocks.MANA_GLASS_PANES).add(BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.ALFGLASS_PANE, BotaniaBlocks.BIFROST_PANE);

@@ -1,0 +1,13 @@
+{
+  "type": "botania:elven_trade",
+  "ingredients": [
+    {
+      "item": "botania:managlass"
+    }
+  ],
+  "output": [
+    {
+      "id": "botania:alfglass"
+    }
+  ]
+}

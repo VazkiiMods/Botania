@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "botania:life_essence"
+    },
+    "L": {
+      "tag": "botania:livingwood_logs"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "pattern": [
+    "LTL",
+    "TGT",
+    "LTL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:manastorm_charge"
+  }
+}

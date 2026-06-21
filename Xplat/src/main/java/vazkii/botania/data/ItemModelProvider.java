@@ -534,7 +534,7 @@ public class ItemModelProvider implements DataProvider {
 				TextureMapping.defaultTexture(BotaniaBlocks.SHIMMERWOOD_PLANKS), consumer);
 		itemBlocks.remove(BotaniaBlocks.SHIMMERWOOD_FENCE.asItem());
 
-		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.ALFGLASS.asItem()), new DelegatedModel(botaniaRL("block/elf_glass_0")));
+		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.ALFGLASS.asItem()), new DelegatedModel(botaniaRL("block/alfglass_0")));
 		itemBlocks.remove(BotaniaBlocks.ALFGLASS.asItem());
 
 		WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.TALC_BRICK_WALL.asItem()),

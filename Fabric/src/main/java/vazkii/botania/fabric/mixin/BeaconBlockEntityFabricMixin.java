@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import vazkii.botania.common.block.PermanentBifrostBlock;
+import vazkii.botania.common.block.BifrostBlock;
 
 @Mixin(BeaconBlockEntity.class)
 public class BeaconBlockEntityFabricMixin {
@@ -30,7 +30,7 @@ public class BeaconBlockEntityFabricMixin {
 	private static int getBifrostColor(DyeColor instance, Operation<Integer> original,
 			@Local(argsOnly = true) Level level, @Local(argsOnly = true) BlockPos beaconPos,
 			@Local(ordinal = 1) BlockState blockState, @Local Block block, @Local(ordinal = 1) BlockPos blockPos) {
-		return block instanceof PermanentBifrostBlock bifrostBlock
+		return block instanceof BifrostBlock bifrostBlock
 				? bifrostBlock.getBeaconColorMultiplier(blockState, level, blockPos, beaconPos)
 				: original.call(instance);
 	}

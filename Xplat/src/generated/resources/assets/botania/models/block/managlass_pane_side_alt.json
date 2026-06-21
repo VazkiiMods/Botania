@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side_alt",
+  "textures": {
+    "edge": "botania:block/managlass_pane",
+    "pane": "botania:block/managlass"
+  }
+}

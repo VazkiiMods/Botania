@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:mana_glass"
+            "items": "botania:managlass"
           }
         ]
       },

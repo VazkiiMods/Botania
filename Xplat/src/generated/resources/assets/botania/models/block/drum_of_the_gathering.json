@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/drum",
+  "textures": {
+    "side": "botania:block/drum_of_the_gathering",
+    "top": "botania:block/drum_top"
+  }
+}

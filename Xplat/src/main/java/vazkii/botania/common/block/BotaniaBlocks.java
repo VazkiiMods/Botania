@@ -1381,7 +1381,7 @@ public final class BotaniaBlocks {
 					.mapColor(MapColor.COLOR_PINK)));
 
 	// glass blocks
-	public static final Block MANAGLASS = make(LibBlockNames.MANA_GLASS,
+	public static final Block MANAGLASS = make(LibBlockNames.MANAGLASS,
 			// [VanillaCopy] Blocks.GLASS
 			new TransparentBlock(BlockBehaviour.Properties.of()
 					.instrument(NoteBlockInstrument.HAT)
@@ -1394,13 +1394,13 @@ public final class BotaniaBlocks {
 					.isViewBlocking(NEVER)
 					// Botania: mana glasses emit a lot of light
 					.lightLevel(constInt(15))));
-	public static final Block ALFGLASS = make(LibBlockNames.ELF_GLASS,
+	public static final Block ALFGLASS = make(LibBlockNames.ALFGLASS,
 			new TransparentBlock(BlockBehaviour.Properties.ofFullCopy(MANAGLASS)));
-	public static final Block TEMPORARY_BIFROST_BLOCK = make(LibBlockNames.BIFROST,
-			new BifrostBlock(BlockBehaviour.Properties.ofFullCopy(MANAGLASS)
+	public static final Block BIFROST_BRIDGE = make(LibBlockNames.BIFROST_BRIDGE,
+			new BifrostBridgeBlock(BlockBehaviour.Properties.ofFullCopy(MANAGLASS)
 					.destroyTime(-1)));
-	public static final Block BIFROST_BLOCK = make(LibBlockNames.BIFROST_PERM,
-			new PermanentBifrostBlock(BlockBehaviour.Properties.ofFullCopy(MANAGLASS)));
+	public static final Block BIFROST = make(LibBlockNames.BIFROST,
+			new BifrostBlock(BlockBehaviour.Properties.ofFullCopy(MANAGLASS)));
 
 	// recipe blocks
 	public static final Block RUNIC_ALTAR = make(LibBlockNames.RUNIC_ALTAR,
@@ -1449,7 +1449,7 @@ public final class BotaniaBlocks {
 					.strength(2, 2000)));
 	public static final Block MANA_DETECTOR = make(LibBlockNames.MANA_DETECTOR,
 			new ManaDetectorBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block FORCE_RELAY = make(LibBlockNames.PISTON_RELAY,
+	public static final Block FORCE_RELAY = make(LibBlockNames.FORCE_RELAY,
 			new ForceRelayBlock(BlockBehaviour.Properties.of()
 					.strength(2, 10)
 					.sound(SoundType.METAL)
@@ -1464,13 +1464,13 @@ public final class BotaniaBlocks {
 					.sound(SoundType.DEEPSLATE)
 					.instrument(NoteBlockInstrument.BASEDRUM)
 					.requiresCorrectToolForDrops()));
-	public static final Block DRUM_OF_THE_WILD = make(LibBlockNames.DRUM_WILD,
+	public static final Block DRUM_OF_THE_WILD = make(LibBlockNames.DRUM_OF_THE_WILD,
 			new DrumOfTheWildBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)
 					.instrument(NoteBlockInstrument.BASEDRUM)
 					.mapColor(MapColor.TERRACOTTA_WHITE)));
-	public static final Block DRUM_OF_THE_GATHERING = make(LibBlockNames.DRUM_GATHERING,
+	public static final Block DRUM_OF_THE_GATHERING = make(LibBlockNames.DRUM_OF_THE_GATHERING,
 			new DrumOfTheGatheringBlock(BlockBehaviour.Properties.ofFullCopy(DRUM_OF_THE_WILD)));
-	public static final Block DRUM_OF_THE_CANOPY = make(LibBlockNames.DRUM_CANOPY,
+	public static final Block DRUM_OF_THE_CANOPY = make(LibBlockNames.DRUM_OF_THE_CANOPY,
 			new DrumOfTheCanopyBlock(BlockBehaviour.Properties.ofFullCopy(DRUM_OF_THE_WILD)));
 	public static final Block LIFE_IMBUER = make(LibBlockNames.LIFE_IMBUER,
 			new LifeImbuerBlock(BlockBehaviour.Properties.of()
@@ -1486,7 +1486,7 @@ public final class BotaniaBlocks {
 			new ManaPumpBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 	public static final Block SPARK_TINKERER = make(LibBlockNames.SPARK_TINKERER,
 			new SparkTinkererBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
-	public static final Block MANASTORM_CHARGE = make(LibBlockNames.MANA_BOMB,
+	public static final Block MANASTORM_CHARGE = make(LibBlockNames.MANASTORM_CHARGE,
 			new ManastormChargeBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)
 					.strength(12)));
 	public static final Block MANATIDE_BELLOWS = make(LibBlockNames.MANATIDE_BELLOWS,
@@ -1586,7 +1586,7 @@ public final class BotaniaBlocks {
 					.mapColor(MapColor.GOLD)
 					.strength(2)
 					.sound(SoundType.METAL)));
-	public static final Block SPECTRAL_RAIL = make(LibBlockNames.GHOST_RAIL,
+	public static final Block SPECTRAL_RAIL = make(LibBlockNames.SPECTRAL_RAIL,
 			new SpectralRailBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RAIL)));
 	public static final Block LUMINIZER = make(LibBlockNames.LUMINIZER,
 			new LuminizerBlock(BlockBehaviour.Properties.of()
@@ -1619,13 +1619,13 @@ public final class BotaniaBlocks {
 					.noLootTable()
 					.air()
 					.randomTicks()));
-	public static final Block LIVING_ROOT = make(LibBlockNames.ROOT,
+	public static final Block LIVING_ROOT = make(LibBlockNames.LIVING_ROOTS,
 			new LivingRootBlock(BlockBehaviour.Properties.of()
 					.strength(1.2F)
 					.sound(SoundType.WOOD)));
 	public static final Block FEL_PUMPKIN = make(LibBlockNames.FEL_PUMPKIN,
 			new FelPumpkinBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CARVED_PUMPKIN)));
-	public static final Block COCOON_OF_CAPRICE = make(LibBlockNames.COCOON,
+	public static final Block COCOON_OF_CAPRICE = make(LibBlockNames.COCOON_OF_CAPRICE,
 			new CocoonBlock(BlockBehaviour.Properties.of()
 					.strength(3, 60)
 					.sound(SoundType.WOOL)));
@@ -2292,12 +2292,12 @@ public final class BotaniaBlocks {
 	public static final Block GREEN_PORTUGUESE_PAVEMENT_SLAB = make("green" + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX,
 			new SlabBlock(BlockBehaviour.Properties.ofFullCopy(GREEN_PORTUGUESE_PAVEMENT)));
 
-	public static final Block MANAGLASS_PANE = make(LibBlockNames.MANA_GLASS + "_pane",
+	public static final Block MANAGLASS_PANE = make(LibBlockNames.MANAGLASS + "_pane",
 			new IronBarsBlock(BlockBehaviour.Properties.ofFullCopy(MANAGLASS)));
-	public static final Block ALFGLASS_PANE = make(LibBlockNames.ELF_GLASS + "_pane",
+	public static final Block ALFGLASS_PANE = make(LibBlockNames.ALFGLASS + "_pane",
 			new IronBarsBlock(BlockBehaviour.Properties.ofFullCopy(ALFGLASS)));
 	public static final Block BIFROST_PANE = make(LibBlockNames.BIFROST + "_pane",
-			new IronBarsBlock(BlockBehaviour.Properties.ofFullCopy(BIFROST_BLOCK)));
+			new IronBarsBlock(BlockBehaviour.Properties.ofFullCopy(BIFROST)));
 
 	static FlowerPotBlock flowerPot(Block block, int lightLevel) {
 		BlockBehaviour.Properties properties = BlockBehaviour.Properties.of()
@@ -2696,7 +2696,7 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(DRAGONSTONE_BLOCK, props), BuiltInRegistries.BLOCK.getKey(DRAGONSTONE_BLOCK));
 		r.accept(new BlockItem(MANAGLASS, props), BuiltInRegistries.BLOCK.getKey(MANAGLASS));
 		r.accept(new BlockItem(ALFGLASS, props), BuiltInRegistries.BLOCK.getKey(ALFGLASS));
-		r.accept(new BlockItem(BIFROST_BLOCK, props), BuiltInRegistries.BLOCK.getKey(BIFROST_BLOCK));
+		r.accept(new BlockItem(BIFROST, props), BuiltInRegistries.BLOCK.getKey(BIFROST));
 		r.accept(new BlockItem(RUNIC_ALTAR, props), BuiltInRegistries.BLOCK.getKey(RUNIC_ALTAR));
 		r.accept(new BlockItem(MANA_ENCHANTER, props), BuiltInRegistries.BLOCK.getKey(MANA_ENCHANTER));
 		r.accept(new BlockItem(BOTANICAL_BREWERY, props), BuiltInRegistries.BLOCK.getKey(BOTANICAL_BREWERY));

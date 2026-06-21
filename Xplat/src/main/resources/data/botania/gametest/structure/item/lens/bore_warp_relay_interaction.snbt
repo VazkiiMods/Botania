@@ -7,7 +7,7 @@
         {pos: [2, 1, 1], state: "botania:pulse_mana_spreader{has_scaffolding:false,waterlogged:false}"},
         {pos: [2, 1, 2], state: "botania:creative_mana_pool{color:none,waterlogged:false}"},
         {pos: [3, 1, 4], state: "minecraft:polished_andesite"},
-        {pos: [4, 1, 1], state: "botania:piston_relay"},
+        {pos: [4, 1, 1], state: "botania:force_relay"},
         {pos: [5, 1, 1], state: "botania:mana_void"},
         {pos: [5, 1, 4], state: "botania:mana_void"},
         {pos: [2, 2, 1], state: "minecraft:polished_andesite"},
@@ -16,7 +16,7 @@
     entities: [],
     palette: [
         "minecraft:polished_andesite",
-        "botania:piston_relay",
+        "botania:force_relay",
         "botania:mana_void",
         "minecraft:polished_blackstone_button{face:wall,facing:south,powered:false}",
         "minecraft:hopper{enabled:true,facing:north}",

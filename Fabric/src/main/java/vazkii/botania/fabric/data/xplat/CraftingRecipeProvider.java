@@ -174,10 +174,10 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		dyedPools(recipeOutput, BotaniaBlocks.FABULOUS_MANA_POOL, "fabulous_pool_dyeing", BotaniaTags.Items.DYED_FABULOUS_MANA_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.FABULOUS_MANA_POOL)
 				.define('P', BotaniaBlocks.MANA_POOL)
-				.define('B', BotaniaBlocks.BIFROST_BLOCK)
+				.define('B', BotaniaBlocks.BIFROST)
 				.pattern("BPB")
 				.pattern("BBB")
-				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST_BLOCK))
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput, prefix(BuiltInRegistries.ITEM.getKey(BotaniaBlocks.FABULOUS_MANA_POOL.asItem()).getPath() + "_upgrade"));
 		dyedPools(recipeOutput, BotaniaBlocks.CREATIVE_MANA_POOL, "creative_pool_dyeing", BotaniaTags.Items.DYED_CREATIVE_MANA_POOLS);
@@ -551,7 +551,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("SSS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.RUNE_OF_AIR))
 				.save(recipeOutput);
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.BIFROST_BLOCK)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.BIFROST)
 				.requires(BotaniaItems.ROD_OF_THE_BIFROST)
 				.requires(BotaniaBlocks.ALFGLASS)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
@@ -2251,14 +2251,14 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.save(recipeOutput, "botania:mossy_livingrock_bricks_vine");
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.SHIMMERROCK)
 				.requires(BotaniaBlocks.LIVINGROCK)
-				.requires(BotaniaBlocks.BIFROST_BLOCK)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST_BLOCK))
+				.requires(BotaniaBlocks.BIFROST)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.SHIMMERWOOD_PLANKS)
 				.requires(BotaniaBlocks.DREAMWOOD_PLANKS)
-				.requires(BotaniaBlocks.BIFROST_BLOCK)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST_BLOCK))
+				.requires(BotaniaBlocks.BIFROST)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput);
 
@@ -2322,7 +2322,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 
 		wallShape(BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.MANAGLASS, 16).save(recipeOutput);
 		wallShape(BotaniaBlocks.ALFGLASS_PANE, BotaniaBlocks.ALFGLASS, 16).save(recipeOutput);
-		wallShape(BotaniaBlocks.BIFROST_PANE, BotaniaBlocks.BIFROST_BLOCK, 16).save(recipeOutput);
+		wallShape(BotaniaBlocks.BIFROST_PANE, BotaniaBlocks.BIFROST, 16).save(recipeOutput);
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.AZULEJO_0)
 				.requires(Items.BLUE_DYE)

@@ -51,9 +51,9 @@ b9818ca50500d67a79b71e3128534577c92187b8 data/c/tags/item/gems/mana_quartz.json
 dc250cd600aa170dd63327af9e817324b9dabf4b data/c/tags/item/gems/red_quartz.json
 cac0fe723f03503e0c50cb9d988c9d4528949873 data/c/tags/item/gems/sunny_quartz.json
 40da6614d5316864442fb1da5f1a36d45e7f8727 data/c/tags/item/glass_blocks.json
-804281f2b135bd1cedaebd052fbba79f9aebb4ee data/c/tags/item/glass_blocks/mana.json
+6a1036b99a685919aa710c85af3223bbeacd29b2 data/c/tags/item/glass_blocks/mana.json
 b126ab62a537ef2c355214e12925b9ea1cdc6be6 data/c/tags/item/glass_panes.json
-f040b9a06513de92027387c440251e6542f53830 data/c/tags/item/glass_panes/mana.json
+3d55bffb08036b767e9e4cd9418fa71a31290e7f data/c/tags/item/glass_panes/mana.json
 74dd3b0bcb8fca2a12f28eea59de5c4529debe70 data/c/tags/item/ingots.json
 e84673de5e99b6e1a9b6b474b30c755a5815a4ef data/c/tags/item/ingots/elementium.json
 89a30f842874424669a9e08c55928cfb281d25ca data/c/tags/item/ingots/gaia.json

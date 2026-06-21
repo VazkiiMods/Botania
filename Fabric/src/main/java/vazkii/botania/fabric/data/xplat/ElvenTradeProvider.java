@@ -58,7 +58,7 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(id("elf_quartz"), new ElvenTradeRecipe(singleOutput(BotaniaItems.ELVEN_QUARTZ),
 				Ingredient.of(Items.QUARTZ)), null);
-		consumer.accept(id("elf_glass"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.ALFGLASS),
+		consumer.accept(id("alfglass"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.ALFGLASS),
 				Ingredient.of(BotaniaBlocks.MANAGLASS)), null);
 
 		consumer.accept(id("iron_return"), new ElvenTradeRecipe(singleOutput(Items.IRON_INGOT),

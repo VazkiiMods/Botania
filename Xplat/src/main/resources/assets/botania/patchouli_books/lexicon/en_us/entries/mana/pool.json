@@ -85,8 +85,8 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.pool11",
-      "anchor": "mana_glass",
-      "recipes": "botania:mana_infusion/mana_glass"
+      "anchor": "managlass",
+      "recipes": "botania:mana_infusion/managlass"
     },
     {
       "type": "botania:mana_infusion",
@@ -106,6 +106,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:mana_glass_pane": 13
+    "botania:managlass_pane": 13
   }
 }

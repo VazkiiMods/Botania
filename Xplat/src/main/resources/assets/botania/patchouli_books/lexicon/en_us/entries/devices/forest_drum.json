@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.forestDrum",
   "category": "botania:devices",
-  "icon": "botania:drum_wild",
+  "icon": "botania:drum_of_the_wild",
   "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
@@ -15,7 +15,7 @@
     {
       "type": "crafting",
       "text": "botania.page.forestDrum2",
-      "recipe": "botania:drum_wild"
+      "recipe": "botania:drum_of_the_wild"
     }
   ]
 }

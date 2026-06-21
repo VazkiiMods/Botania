@@ -52,7 +52,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 		BlockState state = cart.level().getBlockState(entPos);
 		boolean air = state.isAir();
 
-		if (state.is(BotaniaTags.Blocks.GHOST_RAIL_BARRIER)
+		if (state.is(BotaniaTags.Blocks.SPECTRAL_RAIL_BARRIER)
 				|| (!state.is(BotaniaBlocks.SPECTRAL_RAIL) && state.is(BlockTags.RAILS))) {
 			cart.level().levelEvent(LevelEvent.PARTICLES_EYE_OF_ENDER_DEATH, entPos, 0);
 			SpectralFloatTicks.HOLDER.removeFrom(cart);

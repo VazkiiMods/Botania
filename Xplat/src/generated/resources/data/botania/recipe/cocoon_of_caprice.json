@@ -1,0 +1,47 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "gardenofglass"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "gardenofglass"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "botania:manaweave_cloth"
+    },
+    "D": {
+      "tag": "c:dusts/pixie"
+    },
+    "P": {
+      "item": "botania:fel_pumpkin"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "CPC",
+    "SDS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:cocoon_of_caprice"
+  }
+}

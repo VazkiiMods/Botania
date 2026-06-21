@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "shape=north_south":  { "model": "botania:block/spectral_rail" },
+    "shape=east_west":  { "model": "botania:block/spectral_rail", "y": 90 },
+    "shape=ascending_east": { "model": "botania:block/spectral_rail_raised_ne", "y": 90 },
+    "shape=ascending_west": { "model": "botania:block/spectral_rail_raised_sw", "y": 90 },
+    "shape=ascending_north": { "model": "botania:block/spectral_rail_raised_ne" },
+    "shape=ascending_south": { "model": "botania:block/spectral_rail_raised_sw" }
+  }
+}

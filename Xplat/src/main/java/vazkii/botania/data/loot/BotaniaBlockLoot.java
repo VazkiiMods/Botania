@@ -62,7 +62,7 @@ public class BotaniaBlockLoot extends BlockLootSubProvider {
 
 		// Empty
 		Stream.of(
-				BotaniaBlocks.TEMPORARY_BIFROST_BLOCK,
+				BotaniaBlocks.BIFROST_BRIDGE,
 				BotaniaBlocks.COCOON_OF_CAPRICE,
 				BotaniaBlocks.FAKE_AIR,
 				BotaniaBlocks.MANA_FLAME

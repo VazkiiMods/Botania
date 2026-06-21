@@ -234,8 +234,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BlockTags.FLOWERS).addTag(BotaniaTags.Blocks.GLIMMERING_FLOWERS);
 
 		tag(BlockTags.IMPERMEABLE).add(
-				BotaniaBlocks.ALFGLASS, BotaniaBlocks.MANAGLASS, BotaniaBlocks.TEMPORARY_BIFROST_BLOCK,
-				BotaniaBlocks.BIFROST_BLOCK);
+				BotaniaBlocks.ALFGLASS, BotaniaBlocks.MANAGLASS, BotaniaBlocks.BIFROST_BRIDGE,
+				BotaniaBlocks.BIFROST
+		);
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(
 				BotaniaBlocks.MANASTEEL_BLOCK, BotaniaBlocks.TERRASTEEL_BLOCK, BotaniaBlocks.ELEMENTIUM_BLOCK,
 				BotaniaBlocks.MANA_DIAMOND_BLOCK, BotaniaBlocks.DRAGONSTONE_BLOCK
@@ -347,7 +348,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addTag(BotaniaTags.Blocks.LIVINGWOOD_LOGS)
 				.addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
-		tag(BotaniaTags.Blocks.GHOST_RAIL_BARRIER).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
+		tag(BotaniaTags.Blocks.SPECTRAL_RAIL_BARRIER).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
 		tag(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE).add(
 				Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE
@@ -481,7 +482,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.ALCHEMY_CATALYST, BotaniaBlocks.CONJURATION_CATALYST, BotaniaBlocks.MANASTEEL_BLOCK,
 				BotaniaBlocks.ELEMENTIUM_BLOCK, BotaniaBlocks.TERRASTEEL_BLOCK, BotaniaBlocks.MANA_DIAMOND_BLOCK,
 				BotaniaBlocks.DRAGONSTONE_BLOCK, BotaniaBlocks.MANAGLASS, BotaniaBlocks.ALFGLASS,
-				BotaniaBlocks.BIFROST_BLOCK, BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.ALFGLASS_PANE,
+				BotaniaBlocks.BIFROST, BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.ALFGLASS_PANE,
 				BotaniaBlocks.BIFROST_PANE, BotaniaBlocks.RUNIC_ALTAR, BotaniaBlocks.BOTANICAL_BREWERY,
 				BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE, BotaniaBlocks.MANA_SPLITTER, BotaniaBlocks.MANA_VOID,
 				BotaniaBlocks.MANA_DETECTOR, BotaniaBlocks.FORCE_RELAY, BotaniaBlocks.TINY_PLANET,

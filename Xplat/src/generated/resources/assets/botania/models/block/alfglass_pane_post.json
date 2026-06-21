@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_post",
+  "textures": {
+    "edge": "botania:block/alfglass_pane",
+    "pane": "botania:block/alfglass"
+  }
+}

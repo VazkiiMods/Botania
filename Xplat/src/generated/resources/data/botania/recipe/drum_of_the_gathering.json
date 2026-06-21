@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "tag": "c:ingots/elementium"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "W": {
+      "tag": "botania:dreamwood_logs"
+    }
+  },
+  "pattern": [
+    "WLW",
+    "WEW",
+    "WLW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:drum_of_the_gathering"
+  }
+}

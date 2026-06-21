@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/manasteel"
+    },
+    "P": {
+      "item": "botania:fel_pumpkin"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "SPS",
+    "SIS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:cocoon_of_caprice"
+  }
+}

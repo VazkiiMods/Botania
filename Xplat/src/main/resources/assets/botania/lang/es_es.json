@@ -1041,7 +1041,7 @@
 
 
   "block.botania.runic_altar": "Altar rúnico",
-  "block.botania.piston_relay": "Relé de fuerza",
+  "block.botania.force_relay": "Relé de fuerza",
   "block.botania.mana_splitter": "Distribuidor de maná",
 
 
@@ -1060,9 +1060,9 @@
   "block.botania.elementium_block": "Bloque de elementio",
   "block.botania.mana_diamond_block": "Bloque de diamante de maná",
   "block.botania.dragonstone_block": "Bloque de piedra de dragón",
-  "block.botania.drum_wild": "Tambor de lo salvaje",
-  "block.botania.drum_gathering": "Tambor de la recolección",
-  "block.botania.drum_canopy": "Tambor del follaje",
+  "block.botania.drum_of_the_wild": "Tambor de lo salvaje",
+  "block.botania.drum_of_the_gathering": "Tambor de la recolección",
+  "block.botania.drum_of_the_canopy": "Tambor del follaje",
   "block.botania.white_glimmering_flower": "Flor centelleante blanca",
   "block.botania.orange_glimmering_flower": "Flor centelleante naranja",
   "block.botania.magenta_glimmering_flower": "Flor centelleante magenta",
@@ -1206,9 +1206,9 @@
   "block.botania.ender_overseer": "Supervisor del Fin",
   "block.botania.starfield_creator": "Creador de campo estrellado",
   "block.botania.mana_fluxfield": "Flujificador de maná",
-  "block.botania.elf_glass": "Alfcristal",
+  "block.botania.alfglass": "Alfcristal",
   "block.botania.botanical_brewery": "Fermentador botánico",
-  "block.botania.mana_glass": "Manacristal",
+  "block.botania.managlass": "Manacristal",
   "block.botania.terrestrial_agglomeration_plate": "Placa de aglomeración terrestre",
   "block.botania.red_stringed_container": "Contenedor de hilo rojo",
   "block.botania.red_stringed_dispenser": "Dispensador de hilo rojo",
@@ -1410,11 +1410,11 @@
   "block.botania.corporea_crystal_cube": "Cubo de cristal de corporea",
   "block.botania.incense_plate": "Placa de incienso",
   "block.botania.hovering_hourglass": "Reloj de arena flotante",
-  "block.botania.ghost_rail": "Raíl espectral",
+  "block.botania.spectral_rail": "Raíl espectral",
   "block.botania.spark_tinkerer": "Ajustador de chispas",
-  "block.botania.root": "Raíz viviente",
+  "block.botania.living_roots": "Raíz viviente",
   "block.botania.fel_pumpkin": "Calabaza vil",
-  "block.botania.cocoon": "Capullo caprichoso",
+  "block.botania.cocoon_of_caprice": "Capullo caprichoso",
   "block.botania.luminizer": "Luminaria",
   "block.botania.detector_luminizer": "Detector de luminaria",
 
@@ -1449,7 +1449,7 @@
 
 
 
-  "block.botania.mana_bomb": "Carga de tormenta de maná",
+  "block.botania.manastorm_charge": "Carga de tormenta de maná",
   "block.botania.white_buried_petal": "Pétalo blanco enterrado",
   "block.botania.orange_buried_petal": "Pétalo naranja enterrado",
   "block.botania.magenta_buried_petal": "Pétalo magenta enterrado",
