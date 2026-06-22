@@ -27,14 +27,19 @@ import vazkii.botania.common.block.block_entity.FakeAirBlockEntity;
 
 public class FakeAirBlock extends AirBlock implements EntityBlock, LiquidBlockContainer {
 
-	public FakeAirBlock(Properties builder) {
-		super(builder);
+	public FakeAirBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		if (shouldRemove(world, pos)) {
-			world.scheduleTick(pos, this, 4);
+	public String getDescriptionId() {
+		return Blocks.AIR.getDescriptionId();
+	}
+
+	@Override
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+		if (shouldRemove(level, pos)) {
+			level.scheduleTick(pos, this, 4);
 		}
 	}
 
@@ -43,9 +48,9 @@ public class FakeAirBlock extends AirBlock implements EntityBlock, LiquidBlockCo
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
-		if (shouldRemove(world, pos)) {
-			world.setBlockAndUpdate(pos, rand.nextInt(10) == 0 ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState());
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		if (shouldRemove(level, pos)) {
+			level.setBlockAndUpdate(pos, random.nextInt(10) == 0 ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState());
 		}
 	}
 
@@ -55,12 +60,12 @@ public class FakeAirBlock extends AirBlock implements EntityBlock, LiquidBlockCo
 	}
 
 	@Override
-	public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockGetter, BlockPos pos, BlockState state, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
 		return false;
 	}
 
 	@Override
-	public boolean placeLiquid(LevelAccessor levelAccessor, BlockPos pos, BlockState blockState, FluidState fluidState) {
+	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
 		return false;
 	}
 }

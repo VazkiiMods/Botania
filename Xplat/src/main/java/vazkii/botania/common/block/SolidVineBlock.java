@@ -23,6 +23,11 @@ public class SolidVineBlock extends VineBlock {
 		super(unsetVanillaProps(builder));
 	}
 
+	@Override
+	public String getDescriptionId() {
+		return Blocks.VINE.getDescriptionId();
+	}
+
 	private static Properties unsetVanillaProps(Properties props) {
 		// Unset no-collision, random ticking, and replaceability from vanilla vines' properties
 		((BlockPropertiesAccessor) props).botania_setHasCollision(true);
@@ -32,7 +37,7 @@ public class SolidVineBlock extends VineBlock {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
 		return new ItemStack(Blocks.VINE);
 	}
 }

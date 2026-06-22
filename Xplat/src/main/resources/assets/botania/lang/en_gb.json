@@ -1105,7 +1105,15 @@
 
 
 
+
+
+
+
   "block.botania.chiseled_mana_quartz_block": "Chiselled Mana Quartz Block",
+
+
+
+
 
 
 
@@ -1115,7 +1123,15 @@
 
 
 
+
+
+
+
   "block.botania.chiseled_lavender_quartz_block": "Chiselled Lavender Quartz Block",
+
+
+
+
 
 
 
@@ -1125,12 +1141,24 @@
 
 
 
+
+
+
+
   "block.botania.chiseled_elven_quartz_block": "Chiselled Elven Quartz Block",
 
 
 
 
+
+
+
+
   "block.botania.chiseled_sunny_quartz_block": "Chiselled Sunny Quartz Block",
+
+
+
+
 
 
 
@@ -1242,14 +1270,14 @@
 
 
 
-  "block.botania.chiseled_metamorphic_forest_bricks": "Chiselled Fuchsite Bricks",
-  "block.botania.chiseled_metamorphic_plains_bricks": "Chiselled Talc Bricks",
-  "block.botania.chiseled_metamorphic_mountain_bricks": "Chiselled Gneiss Bricks",
-  "block.botania.chiseled_metamorphic_fungal_bricks": "Chiselled Mycelite Bricks",
-  "block.botania.chiseled_metamorphic_swamp_bricks": "Chiselled Cataclasite Bricks",
-  "block.botania.chiseled_metamorphic_desert_bricks": "Chiselled Solite Bricks",
-  "block.botania.chiseled_metamorphic_taiga_bricks": "Chiselled Lunite Bricks",
-  "block.botania.chiseled_metamorphic_mesa_bricks": "Chiselled Rosy Talc Bricks",
+  "block.botania.chiseled_fuchsite_bricks": "Chiselled Fuchsite Bricks",
+  "block.botania.chiseled_talc_bricks": "Chiselled Talc Bricks",
+  "block.botania.chiseled_gneiss_bricks": "Chiselled Gneiss Bricks",
+  "block.botania.chiseled_mycelite_bricks": "Chiselled Mycelite Bricks",
+  "block.botania.chiseled_cataclasite_bricks": "Chiselled Cataclasite Bricks",
+  "block.botania.chiseled_solite_bricks": "Chiselled Solite Bricks",
+  "block.botania.chiseled_lunite_bricks": "Chiselled Lunite Bricks",
+  "block.botania.chiseled_rosy_talc_bricks": "Chiselled Rosy Talc Bricks",
 
 
 
