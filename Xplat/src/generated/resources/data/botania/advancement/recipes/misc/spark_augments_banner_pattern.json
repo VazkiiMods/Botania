@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:spark_upgrade_dispersive"
+            "items": "botania:spark_augment_dispersive"
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:spark_upgrade_dominant"
+            "items": "botania:spark_augment_dominant"
           }
         ]
       },
@@ -25,7 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:spark_upgrade_isolated"
+            "items": "botania:spark_augment_isolated"
           }
         ]
       },
@@ -35,7 +35,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:spark_upgrade_recessive"
+            "items": "botania:spark_augment_recessive"
           }
         ]
       },

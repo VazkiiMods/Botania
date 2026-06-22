@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "A": {
-      "item": "botania:rune_air"
+      "item": "botania:rune_of_air"
     },
     "E": {
-      "item": "botania:rune_earth"
+      "item": "botania:rune_of_earth"
     },
     "L": {
       "item": "minecraft:leather"

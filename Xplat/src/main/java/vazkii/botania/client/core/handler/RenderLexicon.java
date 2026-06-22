@@ -46,8 +46,8 @@ public class RenderLexicon {
 	@Nullable
 	private static BookModel model = null;
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
-	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, botaniaRL("item/lexicon_3d"));
-	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, botaniaRL("item/lexicon_elven_3d"));
+	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, botaniaRL("item/lexica_botania_3d"));
+	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, botaniaRL("item/lexica_botania_elven_3d"));
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",

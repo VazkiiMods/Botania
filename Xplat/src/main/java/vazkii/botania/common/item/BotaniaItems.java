@@ -82,17 +82,17 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public final class BotaniaItems {
 	private static final Map<String, Item> ALL = new LinkedHashMap<>(); // Preserve insertion order
 
-	public static final LexicaBotaniaItem LEXICA_BOTANIA = make(LibItemNames.LEXICON,
+	public static final LexicaBotaniaItem LEXICA_BOTANIA = make(LibItemNames.LEXICA_BOTANIA,
 			new LexicaBotaniaItem(unstackable()));
-	public static final Item WAND_OF_THE_FOREST = make(LibItemNames.TWIG_WAND,
+	public static final Item WAND_OF_THE_FOREST = make(LibItemNames.WAND_OF_THE_FOREST,
 			new WandOfTheForestItem(ChatFormatting.DARK_GREEN, unstackable()
 					.component(BotaniaDataComponents.WAND_BIND_MODE, Unit.INSTANCE)));
-	public static final Item WAND_OF_THE_ELVEN_FOREST = make(LibItemNames.DREAMWOOD_WAND,
+	public static final Item WAND_OF_THE_ELVEN_FOREST = make(LibItemNames.WAND_OF_THE_ELVEN_FOREST,
 			new WandOfTheForestItem(ChatFormatting.LIGHT_PURPLE, unstackable()
 					.component(BotaniaDataComponents.WAND_BIND_MODE, Unit.INSTANCE)));
-	public static final Item FLORAL_OBEDIENCE_STICK = make(LibItemNames.OBEDIENCE_STICK,
+	public static final Item FLORAL_OBEDIENCE_STICK = make(LibItemNames.FLORAL_OBEDIENCE_STICK,
 			new FloralObedienceStickItem(unstackable()));
-	public static final Item FLORAL_FERTILIZER = make(LibItemNames.FERTILIZER,
+	public static final Item FLORAL_FERTILIZER = make(LibItemNames.FLORAL_FERTILIZER,
 			new FloralFertilizerItem(defaultBuilder()));
 
 	// mystical petals
@@ -120,7 +120,7 @@ public final class BotaniaItems {
 	public static final Item TERRASTEEL_INGOT = make(LibItemNames.TERRASTEEL_INGOT,
 			new GaiaRitualSacrificeItem(defaultBuilder()
 					.rarity(Rarity.UNCOMMON), false));
-	public static final Item GAIA_SPIRIT = make(LibItemNames.LIFE_ESSENCE,
+	public static final Item GAIA_SPIRIT = make(LibItemNames.GAIA_SPIRIT,
 			new Item(defaultBuilder()
 					.rarity(Rarity.RARE)));
 	public static final Item REDSTONE_ROOT = make(LibItemNames.REDSTONE_ROOT, new Item(defaultBuilder()));
@@ -206,22 +206,22 @@ public final class BotaniaItems {
 			new LensItem(stackTo16().rarity(Rarity.EPIC), new StormLens(), LensItem.PROP_NONE));
 
 	// runes
-	public static final Item RUNE_OF_WATER = make(LibItemNames.RUNE_WATER, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_FIRE = make(LibItemNames.RUNE_FIRE, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_EARTH = make(LibItemNames.RUNE_EARTH, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_AIR = make(LibItemNames.RUNE_AIR, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_SPRING = make(LibItemNames.RUNE_SPRING, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_SUMMER = make(LibItemNames.RUNE_SUMMER, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_AUTUMN = make(LibItemNames.RUNE_AUTUMN, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_WINTER = make(LibItemNames.RUNE_WINTER, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_MANA = make(LibItemNames.RUNE_MANA, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_LUST = make(LibItemNames.RUNE_LUST, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_GLUTTONY = make(LibItemNames.RUNE_GLUTTONY, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_GREED = make(LibItemNames.RUNE_GREED, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_SLOTH = make(LibItemNames.RUNE_SLOTH, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_WRATH = make(LibItemNames.RUNE_WRATH, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_ENVY = make(LibItemNames.RUNE_ENVY, new RuneItem(defaultBuilder()));
-	public static final Item RUNE_OF_PRIDE = make(LibItemNames.RUNE_PRIDE, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_WATER = make(LibItemNames.RUNE_OF_WATER, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_FIRE = make(LibItemNames.RUNE_OF_FIRE, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_EARTH = make(LibItemNames.RUNE_OF_EARTH, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_AIR = make(LibItemNames.RUNE_OF_AIR, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_SPRING = make(LibItemNames.RUNE_OF_SPRING, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_SUMMER = make(LibItemNames.RUNE_OF_SUMMER, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_AUTUMN = make(LibItemNames.RUNE_OF_AUTUMN, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_WINTER = make(LibItemNames.RUNE_OF_WINTER, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_MANA = make(LibItemNames.RUNE_OF_MANA, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_LUST = make(LibItemNames.RUNE_OF_LUST, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_GLUTTONY = make(LibItemNames.RUNE_OF_GLUTTONY, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_GREED = make(LibItemNames.RUNE_OF_GREED, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_SLOTH = make(LibItemNames.RUNE_OF_SLOTH, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_WRATH = make(LibItemNames.RUNE_OF_WRATH, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_ENVY = make(LibItemNames.RUNE_OF_ENVY, new RuneItem(defaultBuilder()));
+	public static final Item RUNE_OF_PRIDE = make(LibItemNames.RUNE_OF_PRIDE, new RuneItem(defaultBuilder()));
 
 	// seeds
 	public static final Item PASTURE_SEEDS = make(LibItemNames.GRASS_SEEDS,
@@ -847,7 +847,7 @@ public final class BotaniaItems {
 	}
 
 	private static MysticalPetalItem makePetal(DyeColor dyeColor) {
-		return make(dyeColor.getName() + LibItemNames.PETAL_SUFFIX,
+		return make(dyeColor.getName() + LibItemNames.MYSTICAL_PETAL_SUFFIX,
 				new MysticalPetalItem(BotaniaBlocks.getBuriedPetal(dyeColor), dyeColor, defaultBuilder()));
 	}
 

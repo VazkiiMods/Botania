@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:item/handheld",
+  "overrides": [
+    {
+      "model": "botania:item/wand_of_the_forest_bind",
+      "predicate": {
+        "botania:bindmode": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "botania:item/wand_of_the_forest",
+    "layer1": "botania:item/wand_of_the_forest_top",
+    "layer2": "botania:item/wand_of_the_forest_bottom"
+  }
+}

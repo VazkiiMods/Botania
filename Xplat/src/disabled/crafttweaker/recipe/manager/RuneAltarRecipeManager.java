@@ -53,10 +53,10 @@ public class RuneAltarRecipeManager implements IRecipeManager<IRuneAltarRecipe>,
 	 * @param output Output item
 	 * @param mana   Recipe mana cost
 	 * @param inputs Input items
-	 * @docParam name "rune_altar_test"
+	 * @docParam name "runic_altar_test"
 	 * @docParam output <item:minecraft:diamond>
 	 * @docParam mana 5000
-	 * @docParam inputs <item:botania:rune_air>, <item:botania:orange_petal>, <item:botania:red_petal>
+	 * @docParam inputs <item:botania:rune_of_air>, <item:botania:orange_petal>, <item:botania:red_petal>
 	 */
 	@ZenCodeType.Method
 	public void addRecipe(String name, IItemStack output, int mana, IIngredient... inputs) {

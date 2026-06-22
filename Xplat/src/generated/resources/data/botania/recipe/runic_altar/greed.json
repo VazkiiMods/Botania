@@ -2,10 +2,10 @@
   "type": "botania:runic_altar",
   "catalysts": [
     {
-      "item": "botania:rune_spring"
+      "item": "botania:rune_of_spring"
     },
     {
-      "item": "botania:rune_water"
+      "item": "botania:rune_of_water"
     }
   ],
   "ingredients": [
@@ -16,13 +16,13 @@
       "tag": "c:gems/mana_diamond"
     },
     {
-      "tag": "c:gems/mana_quartz_block"
+      "tag": "c:gems/mana_quartz"
     }
   ],
   "mana": 12000,
   "output": {
     "count": 1,
-    "id": "botania:rune_greed"
+    "id": "botania:rune_of_greed"
   },
   "reagent": {
     "item": "botania:livingrock"

@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "E": {
-      "item": "botania:rune_earth"
+      "item": "botania:rune_of_earth"
     },
     "M": {
       "tag": "c:ingots/manasteel"

@@ -67,8 +67,8 @@ import crafttweaker.api.item.IItemStack;
 <recipetype:botania:petal_apothecary>.addRecipe("petal_test_petal_apothecary", <item:minecraft:diamond>, <item:minecraft:dirt>);
 
 // Runic Altar - recipes require mana, but nothing else is special here.
-<recipetype:botania:runic_altar>.remove(<item:botania:rune_wrath>);
-<recipetype:botania:runic_altar>.addRecipe("rune_altar_test", <item:minecraft:diamond>, 200, <item:minecraft:dirt>, <item:minecraft:apple>);
+<recipetype:botania:runic_altar>.remove(<item:botania:rune_of_wrath>);
+<recipetype:botania:runic_altar>.addRecipe("runic_altar_test", <item:minecraft:diamond>, 200, <item:minecraft:dirt>, <item:minecraft:apple>);
 
 // Terrestrial Agglomeration Plate - same as above.
 <recipetype:botania:terra_plate>.remove(<item:botania:terrasteel_ingot>);

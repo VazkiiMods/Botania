@@ -2,10 +2,10 @@
   "type": "botania:runic_altar",
   "catalysts": [
     {
-      "item": "botania:rune_water"
+      "item": "botania:rune_of_water"
     },
     {
-      "item": "botania:rune_fire"
+      "item": "botania:rune_of_fire"
     }
   ],
   "ingredients": [
@@ -25,7 +25,7 @@
   "mana": 8000,
   "output": {
     "count": 1,
-    "id": "botania:rune_spring"
+    "id": "botania:rune_of_spring"
   },
   "reagent": {
     "item": "botania:livingrock"

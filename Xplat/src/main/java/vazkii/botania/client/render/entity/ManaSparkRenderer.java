@@ -28,10 +28,10 @@ public class ManaSparkRenderer extends BaseSparkRenderer<ManaSparkEntity> {
 	public ManaSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
-		this.dispersiveIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_upgrade_rune_dispersive")));
-		this.dominantIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_upgrade_rune_dominant")));
-		this.recessiveIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_upgrade_rune_recessive")));
-		this.isolatedIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_upgrade_rune_isolated")));
+		this.dispersiveIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_augment_rune_dispersive")));
+		this.dominantIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_augment_rune_dominant")));
+		this.recessiveIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_augment_rune_recessive")));
+		this.isolatedIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_augment_rune_isolated")));
 	}
 
 	@Override

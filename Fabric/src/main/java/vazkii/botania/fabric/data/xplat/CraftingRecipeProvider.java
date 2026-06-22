@@ -740,7 +740,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
 				.requires(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
 				.requires(BotaniaItems.RUNE_OF_WATER)
-				.group("botania:spark_upgrade")
+				.group("botania:spark_augment")
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
 				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.SPARK))
 				.save(recipeOutput);
@@ -748,7 +748,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
 				.requires(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
 				.requires(BotaniaItems.RUNE_OF_FIRE)
-				.group("botania:spark_upgrade")
+				.group("botania:spark_augment")
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
 				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.SPARK))
 				.save(recipeOutput);
@@ -756,7 +756,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
 				.requires(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
 				.requires(BotaniaItems.RUNE_OF_EARTH)
-				.group("botania:spark_upgrade")
+				.group("botania:spark_augment")
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
 				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.SPARK))
 				.save(recipeOutput);
@@ -764,7 +764,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
 				.requires(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
 				.requires(BotaniaItems.RUNE_OF_AIR)
-				.group("botania:spark_upgrade")
+				.group("botania:spark_augment")
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
 				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.SPARK))
 				.save(recipeOutput);
@@ -1004,7 +1004,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 						.pattern(" PS")
 						.pattern(" SP")
 						.pattern("S  ")
-						.group("botania:twig_wand")
+						.group("botania:wand_of_the_forest")
 						.unlockedBy("has_item", conditionsFromItem(BotaniaItems.LIVINGWOOD_TWIG))
 		).save(recipeOutput);
 		WrapperRecipeBuilder.wrap(WandOfTheForestRecipe.SERIALIZER,
@@ -1014,7 +1014,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 						.pattern(" PS")
 						.pattern(" SP")
 						.pattern("S  ")
-						.group("botania:twig_wand")
+						.group("botania:wand_of_the_forest")
 						.unlockedBy("has_item", conditionsFromItem(BotaniaItems.DREAMWOOD_TWIG))
 		).save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.MANA_TABLET)

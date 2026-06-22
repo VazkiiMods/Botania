@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:item/wand_of_the_forest",
+    "layer1": "botania:item/wand_of_the_forest_top",
+    "layer2": "botania:item/wand_of_the_forest_bottom",
+    "layer3": "botania:item/wand_of_the_forest_bind"
+  }
+}

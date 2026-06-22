@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "A": {
-      "item": "botania:rune_water"
+      "item": "botania:rune_of_water"
     },
     "D": {
       "tag": "c:gems/mana_diamond"
@@ -12,7 +12,7 @@
       "tag": "botania:petals/pink"
     },
     "S": {
-      "item": "botania:rune_spring"
+      "item": "botania:rune_of_spring"
     }
   },
   "pattern": [

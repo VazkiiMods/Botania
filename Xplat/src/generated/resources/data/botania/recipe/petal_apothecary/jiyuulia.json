@@ -14,10 +14,10 @@
       "tag": "botania:petals/light_gray"
     },
     {
-      "item": "botania:rune_water"
+      "item": "botania:rune_of_water"
     },
     {
-      "item": "botania:rune_air"
+      "item": "botania:rune_of_air"
     }
   ],
   "output": {

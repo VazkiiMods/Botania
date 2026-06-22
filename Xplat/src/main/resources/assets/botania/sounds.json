@@ -498,11 +498,11 @@
 		],
 		"subtitle": "botania.subtitle.redStringInterceptorClick"
 	},
-	"rune_altar_craft": {
+	"runic_altar_craft": {
 		"sounds": ["botania:runealtarcraft"],
 		"subtitle": "botania.subtitle.runeAltarCraft"
 	},
-	"rune_altar_start": {
+	"runic_altar_start": {
 		"sounds": ["botania:runealtarstart"],
 		"subtitle": "botania.subtitle.runeAltarStart"
 	},

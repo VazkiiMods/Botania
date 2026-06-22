@@ -14,22 +14,22 @@
       "tag": "botania:petals/green"
     },
     {
-      "item": "botania:rune_water"
+      "item": "botania:rune_of_water"
     },
     {
-      "item": "botania:rune_fire"
+      "item": "botania:rune_of_fire"
     },
     {
-      "item": "botania:rune_earth"
+      "item": "botania:rune_of_earth"
     },
     {
-      "item": "botania:rune_air"
+      "item": "botania:rune_of_air"
     },
     {
       "item": "botania:redstone_root"
     },
     {
-      "item": "botania:life_essence"
+      "item": "botania:gaia_spirit"
     }
   ],
   "output": {

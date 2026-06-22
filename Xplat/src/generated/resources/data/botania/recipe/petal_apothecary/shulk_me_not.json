@@ -17,13 +17,13 @@
       "tag": "botania:petals/light_gray"
     },
     {
-      "item": "botania:life_essence"
+      "item": "botania:gaia_spirit"
     },
     {
-      "item": "botania:rune_envy"
+      "item": "botania:rune_of_envy"
     },
     {
-      "item": "botania:rune_wrath"
+      "item": "botania:rune_of_wrath"
     }
   ],
   "output": {

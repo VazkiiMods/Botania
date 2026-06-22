@@ -10,35 +10,32 @@ package vazkii.botania.common.lib;
 
 public final class LibItemNames {
 
-	public static final String LEXICON = "lexicon";
-	public static final String PETAL = "petal";
-	public static final String PETAL_SUFFIX = "_" + PETAL;
-	public static final String DYE = "dye";
-	public static final String DYE_SUFFIX = "_" + DYE;
-	public static final String TWIG_WAND = "twig_wand";
-	public static final String DREAMWOOD_WAND = "dreamwood_wand";
+	public static final String LEXICA_BOTANIA = "lexica_botania";
+	public static final String MYSTICAL_PETAL_SUFFIX = "_mystical_petal";
+	public static final String WAND_OF_THE_FOREST = "wand_of_the_forest";
+	public static final String WAND_OF_THE_ELVEN_FOREST = "wand_of_the_elven_forest";
 
-	public static final String RUNE_WATER = "rune_water";
-	public static final String RUNE_FIRE = "rune_fire";
-	public static final String RUNE_EARTH = "rune_earth";
-	public static final String RUNE_AIR = "rune_air";
-	public static final String RUNE_SPRING = "rune_spring";
-	public static final String RUNE_SUMMER = "rune_summer";
-	public static final String RUNE_AUTUMN = "rune_autumn";
-	public static final String RUNE_WINTER = "rune_winter";
-	public static final String RUNE_MANA = "rune_mana";
-	public static final String RUNE_LUST = "rune_lust";
-	public static final String RUNE_GLUTTONY = "rune_gluttony";
-	public static final String RUNE_GREED = "rune_greed";
-	public static final String RUNE_SLOTH = "rune_sloth";
-	public static final String RUNE_WRATH = "rune_wrath";
-	public static final String RUNE_ENVY = "rune_envy";
-	public static final String RUNE_PRIDE = "rune_pride";
+	public static final String RUNE_OF_WATER = "rune_of_water";
+	public static final String RUNE_OF_FIRE = "rune_of_fire";
+	public static final String RUNE_OF_EARTH = "rune_of_earth";
+	public static final String RUNE_OF_AIR = "rune_of_air";
+	public static final String RUNE_OF_SPRING = "rune_of_spring";
+	public static final String RUNE_OF_SUMMER = "rune_of_summer";
+	public static final String RUNE_OF_AUTUMN = "rune_of_autumn";
+	public static final String RUNE_OF_WINTER = "rune_of_winter";
+	public static final String RUNE_OF_MANA = "rune_of_mana";
+	public static final String RUNE_OF_LUST = "rune_of_lust";
+	public static final String RUNE_OF_GLUTTONY = "rune_of_gluttony";
+	public static final String RUNE_OF_GREED = "rune_of_greed";
+	public static final String RUNE_OF_SLOTH = "rune_of_sloth";
+	public static final String RUNE_OF_WRATH = "rune_of_wrath";
+	public static final String RUNE_OF_ENVY = "rune_of_envy";
+	public static final String RUNE_OF_PRIDE = "rune_of_pride";
 
 	public static final String MANA_TABLET = "mana_tablet";
 	public static final String MANA_GUN = "mana_gun";
 	public static final String MANA_COOKIE = "mana_cookie";
-	public static final String FERTILIZER = "fertilizer";
+	public static final String FLORAL_FERTILIZER = "floral_fertilizer";
 	public static final String GRASS_SEEDS = "grass_seeds";
 	public static final String PODZOL_SEEDS = "podzol_seeds";
 	public static final String MYCEL_SEEDS = "mycelium_seeds";
@@ -87,13 +84,13 @@ public final class LibItemNames {
 	public static final String FLIGHT_TIARA = "flight_tiara";
 	public static final String ENDER_DAGGER = "ender_dagger";
 
-	public static final String QUARTZ_DARK = "quartz_dark";
-	public static final String QUARTZ_MANA = "quartz_mana";
-	public static final String QUARTZ_BLAZE = "quartz_blaze";
-	public static final String QUARTZ_LAVENDER = "quartz_lavender";
-	public static final String QUARTZ_RED = "quartz_red";
-	public static final String QUARTZ_ELVEN = "quartz_elven";
-	public static final String QUARTZ_SUNNY = "quartz_sunny";
+	public static final String QUARTZ_DARK = "smokey_quartz";
+	public static final String QUARTZ_MANA = "mana_quartz";
+	public static final String QUARTZ_BLAZE = "blaze_quartz";
+	public static final String QUARTZ_LAVENDER = "lavender_quartz";
+	public static final String QUARTZ_RED = "red_quartz";
+	public static final String QUARTZ_ELVEN = "elven_quartz";
+	public static final String QUARTZ_SUNNY = "sunny_quartz";
 
 	public static final String WATER_ROD = "water_rod";
 	public static final String ELEMENTIUM_HELM = "elementium_helmet";
@@ -126,7 +123,7 @@ public final class LibItemNames {
 	public static final String ENDER_HAND = "ender_hand";
 	public static final String GLASS_PICK = "glass_pickaxe";
 	public static final String SPARK = "spark";
-	public static final String SPARK_UPGRADE = "spark_upgrade";
+	public static final String SPARK_UPGRADE = "spark_augment";
 	public static final String DIVINING_ROD = "divining_rod";
 	public static final String GRAVITY_ROD = "gravity_rod";
 	public static final String VIAL = "vial";
@@ -177,7 +174,7 @@ public final class LibItemNames {
 	public static final String TEMPERANCE_STONE = "temperance_stone";
 	public static final String INCENSE_STICK = "incense_stick";
 	public static final String WATER_BOWL = "water_bowl";
-	public static final String OBEDIENCE_STICK = "obedience_stick";
+	public static final String FLORAL_OBEDIENCE_STICK = "floral_obedience_stick";
 	public static final String CACOPHONIUM = "cacophonium";
 	public static final String SLIME_BOTTLE = "slime_bottle";
 	public static final String STAR_SWORD = "star_sword";
@@ -232,7 +229,7 @@ public final class LibItemNames {
 	public static final String MANA_DIAMOND = "mana_diamond";
 	public static final String LIVINGWOOD_TWIG = "livingwood_twig";
 	public static final String TERRASTEEL_INGOT = "terrasteel_ingot";
-	public static final String LIFE_ESSENCE = "life_essence";
+	public static final String GAIA_SPIRIT = "gaia_spirit";
 	public static final String REDSTONE_ROOT = "redstone_root";
 	public static final String ELEMENTIUM_INGOT = "elementium_ingot";
 	public static final String PIXIE_DUST = "pixie_dust";

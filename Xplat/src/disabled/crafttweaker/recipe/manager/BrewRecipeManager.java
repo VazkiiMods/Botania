@@ -54,7 +54,7 @@ public class BrewRecipeManager implements IRecipeManager<IBrewRecipe>, IRecipeHa
 	 * @param name   Name of the recipe to add
 	 * @param output Output brew
 	 * @param inputs Input items
-	 * @docParam name "rune_altar_test"
+	 * @docParam name "runic_altar_test"
 	 * @docParam output <brew:botania:bloodthirst>
 	 * @docParam inputs <item:minecraft:dirt>, <item:minecraft:apple>
 	 */

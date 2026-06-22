@@ -7,16 +7,16 @@
     },
     [
       {
-        "item": "botania:spark_upgrade_dispersive"
+        "item": "botania:spark_augment_dispersive"
       },
       {
-        "item": "botania:spark_upgrade_dominant"
+        "item": "botania:spark_augment_dominant"
       },
       {
-        "item": "botania:spark_upgrade_isolated"
+        "item": "botania:spark_augment_isolated"
       },
       {
-        "item": "botania:spark_upgrade_recessive"
+        "item": "botania:spark_augment_recessive"
       }
     ]
   ],

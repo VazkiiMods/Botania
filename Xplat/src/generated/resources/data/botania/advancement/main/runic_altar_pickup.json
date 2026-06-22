@@ -18,7 +18,7 @@
             "components": {
               "botania:elven_unlock": {}
             },
-            "items": "botania:lexicon"
+            "items": "botania:lexica_botania"
           }
         ]
       },

@@ -1780,8 +1780,8 @@
 
 
 
-  "item.botania.gray_petal": "Mystical Grey Petal",
-  "item.botania.light_gray_petal": "Mystical Light Grey Petal",
+  "item.botania.gray_mystical_petal": "Mystical Grey Petal",
+  "item.botania.light_gray_mystical_petal": "Mystical Light Grey Petal",
 
 
 
@@ -1863,7 +1863,7 @@
 
 
 
-  "item.botania.fertilizer": "Floral Fertiliser",
+  "item.botania.floral_fertilizer": "Floral Fertiliser",
 
 
 

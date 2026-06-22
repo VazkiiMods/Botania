@@ -6,13 +6,13 @@
       "item": "minecraft:cobblestone"
     },
     "F": {
-      "item": "botania:rune_fire"
+      "item": "botania:rune_of_fire"
     },
     "T": {
       "item": "botania:livingwood_twig"
     },
     "W": {
-      "item": "botania:rune_water"
+      "item": "botania:rune_of_water"
     }
   },
   "pattern": [

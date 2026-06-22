@@ -6,10 +6,10 @@
       "tag": "c:ingots/manasteel"
     },
     "F": {
-      "item": "botania:rune_fire"
+      "item": "botania:rune_of_fire"
     },
     "M": {
-      "item": "botania:rune_summer"
+      "item": "botania:rune_of_summer"
     },
     "S": {
       "item": "botania:mana_string"

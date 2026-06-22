@@ -3,19 +3,19 @@
   "category": "misc",
   "key": {
     "0": {
-      "item": "botania:rune_water"
+      "item": "botania:rune_of_water"
     },
     "1": {
-      "item": "botania:rune_fire"
+      "item": "botania:rune_of_fire"
     },
     "2": {
-      "item": "botania:rune_earth"
+      "item": "botania:rune_of_earth"
     },
     "3": {
-      "item": "botania:rune_air"
+      "item": "botania:rune_of_air"
     },
     "8": {
-      "item": "botania:rune_mana"
+      "item": "botania:rune_of_mana"
     },
     "L": {
       "tag": "c:storage_blocks/lapis"

@@ -1,0 +1,22 @@
+{
+  "type": "botania:crafting_shaped_wand",
+  "category": "equipment",
+  "group": "botania:wand_of_the_forest",
+  "key": {
+    "P": {
+      "tag": "botania:petals"
+    },
+    "S": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "pattern": [
+    " PS",
+    " SP",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:wand_of_the_forest"
+  }
+}

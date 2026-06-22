@@ -11,10 +11,10 @@
       "tag": "botania:petals/orange"
     },
     {
-      "item": "botania:rune_earth"
+      "item": "botania:rune_of_earth"
     },
     {
-      "item": "botania:rune_fire"
+      "item": "botania:rune_of_fire"
     }
   ],
   "output": {

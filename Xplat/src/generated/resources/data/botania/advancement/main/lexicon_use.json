@@ -4,7 +4,7 @@
     "use_lexicon": {
       "conditions": {
         "item": {
-          "items": "botania:lexicon"
+          "items": "botania:lexica_botania"
         }
       },
       "trigger": "botania:use_item_success"
@@ -16,7 +16,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "botania:lexicon"
+      "id": "botania:lexica_botania"
     },
     "title": {
       "translate": "advancement.botania:lexiconUse"

@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "M": {
-      "item": "botania:fertilizer"
+      "item": "botania:floral_fertilizer"
     },
     "R": {
       "item": "botania:livingrock"

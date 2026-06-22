@@ -2,7 +2,7 @@
   "type": "botania:crafting_special_tiara_wings",
   "category": "equipment",
   "material": {
-    "item": "botania:quartz_lavender"
+    "item": "botania:lavender_quartz"
   },
   "variant": 5
 }

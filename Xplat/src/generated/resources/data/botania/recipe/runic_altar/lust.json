@@ -2,10 +2,10 @@
   "type": "botania:runic_altar",
   "catalysts": [
     {
-      "item": "botania:rune_summer"
+      "item": "botania:rune_of_summer"
     },
     {
-      "item": "botania:rune_air"
+      "item": "botania:rune_of_air"
     }
   ],
   "ingredients": [
@@ -16,13 +16,13 @@
       "tag": "c:gems/mana_diamond"
     },
     {
-      "tag": "c:gems/mana_quartz_block"
+      "tag": "c:gems/mana_quartz"
     }
   ],
   "mana": 12000,
   "output": {
     "count": 1,
-    "id": "botania:rune_lust"
+    "id": "botania:rune_of_lust"
   },
   "reagent": {
     "item": "botania:livingrock"

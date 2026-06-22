@@ -1,0 +1,28 @@
+{
+  "name": "botania.entry.wand",
+  "category": "botania:basics",
+  "icon": "botania:wand_of_the_forest",
+  "priority": true,
+  "advancement": "botania:main/pure_daisy_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.wand0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.wand1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.wand2"
+    },
+    {
+      "type": "crafting",
+      "title":"botania.entry.wand",
+      "text": "botania.page.wand3",
+      "recipe": "botania:livingwood_twig",
+      "recipe2": "botania:wand_of_the_forest"
+    }
+  ]
+}

@@ -2,10 +2,10 @@
   "type": "botania:runic_altar",
   "catalysts": [
     {
-      "item": "botania:rune_winter"
+      "item": "botania:rune_of_winter"
     },
     {
-      "item": "botania:rune_fire"
+      "item": "botania:rune_of_fire"
     }
   ],
   "ingredients": [
@@ -16,13 +16,13 @@
       "tag": "c:gems/mana_diamond"
     },
     {
-      "tag": "c:gems/mana_quartz_block"
+      "tag": "c:gems/mana_quartz"
     }
   ],
   "mana": 12000,
   "output": {
     "count": 1,
-    "id": "botania:rune_gluttony"
+    "id": "botania:rune_of_gluttony"
   },
   "reagent": {
     "item": "botania:livingrock"

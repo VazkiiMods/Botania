@@ -14,10 +14,10 @@
       "tag": "botania:petals/light_gray"
     },
     {
-      "item": "botania:rune_fire"
+      "item": "botania:rune_of_fire"
     },
     {
-      "item": "botania:rune_summer"
+      "item": "botania:rune_of_summer"
     }
   ],
   "output": {

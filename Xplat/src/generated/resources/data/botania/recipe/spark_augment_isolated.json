@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "botania:spark_augment",
+  "ingredients": [
+    {
+      "tag": "c:dusts/pixie"
+    },
+    {
+      "tag": "c:ingots/manasteel"
+    },
+    {
+      "item": "botania:rune_of_air"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:spark_augment_isolated"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "botania.entry.aIntro",
+  "category": "botania:alfhomancy",
+  "icon": "botania:lexica_botania",
+  "priority": true,
+  "advancement": "botania:main/terrasteel_pickup_lexicon",
+  "turnin": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.aIntro0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.aIntro1"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.aIntro2",
+      "recipe": "botania:elven_gateway_core"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.aIntro3",
+      "recipe": "botania:natura_pylon"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "botania:alfheim_portal",
+      "text": "botania.page.aIntro4",
+      "symmetrical": true
+    },
+    {
+      "type": "text",
+      "text": "botania.page.aIntro5"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.aIntro6"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.aIntro7"
+    }
+  ]
+}

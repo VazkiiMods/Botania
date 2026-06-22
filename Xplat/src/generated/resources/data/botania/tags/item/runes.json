@@ -1,20 +1,20 @@
 {
   "values": [
-    "botania:rune_water",
-    "botania:rune_fire",
-    "botania:rune_earth",
-    "botania:rune_air",
-    "botania:rune_spring",
-    "botania:rune_summer",
-    "botania:rune_autumn",
-    "botania:rune_winter",
-    "botania:rune_mana",
-    "botania:rune_lust",
-    "botania:rune_gluttony",
-    "botania:rune_greed",
-    "botania:rune_sloth",
-    "botania:rune_wrath",
-    "botania:rune_envy",
-    "botania:rune_pride"
+    "botania:rune_of_water",
+    "botania:rune_of_fire",
+    "botania:rune_of_earth",
+    "botania:rune_of_air",
+    "botania:rune_of_spring",
+    "botania:rune_of_summer",
+    "botania:rune_of_autumn",
+    "botania:rune_of_winter",
+    "botania:rune_of_mana",
+    "botania:rune_of_lust",
+    "botania:rune_of_gluttony",
+    "botania:rune_of_greed",
+    "botania:rune_of_sloth",
+    "botania:rune_of_wrath",
+    "botania:rune_of_envy",
+    "botania:rune_of_pride"
   ]
 }

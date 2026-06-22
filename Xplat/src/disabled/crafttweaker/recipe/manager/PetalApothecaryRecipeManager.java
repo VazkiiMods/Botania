@@ -53,7 +53,7 @@ public class PetalApothecaryRecipeManager implements IRecipeManager<IPetalRecipe
 	 * @param name   Name of the recipe to add
 	 * @param output Output item
 	 * @param inputs Input items
-	 * @docParam name "rune_altar_test"
+	 * @docParam name "runic_altar_test"
 	 * @docParam output <item:minecraft:diamond>
 	 * @docParam mana 2000
 	 * @docParam inputs <item:minecraft:dirt>, <item:minecraft:apple>

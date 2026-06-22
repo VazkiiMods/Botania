@@ -38,8 +38,8 @@ public final class BotaniaSounds {
 	public static final SoundEvent manaPoolCraft = makeSoundEvent("mana_pool_craft");
 	public static final SoundEvent potionCreate = makeSoundEvent("potion_create");
 	public static final SoundEvent redStringInterceptorClick = makeSoundEvent("red_stringed_interceptor_click");
-	public static final SoundEvent runeAltarCraft = makeSoundEvent("rune_altar_craft");
-	public static final SoundEvent runeAltarStart = makeSoundEvent("rune_altar_start");
+	public static final SoundEvent runeAltarCraft = makeSoundEvent("runic_altar_craft");
+	public static final SoundEvent runeAltarStart = makeSoundEvent("runic_altar_start");
 	public static final SoundEvent prismAddLens = makeSoundEvent("prism_add_lens");
 	public static final SoundEvent prismRemoveLens = makeSoundEvent("prism_remove_lens");
 	public static final SoundEvent spreaderAddLens = makeSoundEvent("spreader_add_lens");

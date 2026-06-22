@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "botania:rune_mana"
+      "item": "botania:rune_of_mana"
     },
     "M": {
       "tag": "c:storage_blocks/manasteel"

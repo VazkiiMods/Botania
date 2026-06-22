@@ -1,0 +1,11 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:quartz"
+  },
+  "mana": 250,
+  "output": {
+    "count": 1,
+    "id": "botania:mana_quartz"
+  }
+}
