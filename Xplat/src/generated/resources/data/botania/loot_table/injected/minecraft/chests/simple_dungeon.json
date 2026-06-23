@@ -31,7 +31,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "botania:mana_bottle",
+          "name": "botania:mana_in_a_bottle",
           "weight": 10
         },
         {

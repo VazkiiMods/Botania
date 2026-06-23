@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": {
+      "tag": "c:ingots/elementium"
+    },
+    "L": {
+      "item": "botania:gaia_spirit"
+    },
+    "S": {
+      "item": "botania:sojournors_sash"
+    }
+  },
+  "pattern": [
+    "E  ",
+    " S ",
+    "L E"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:globetrotters_sash"
+  }
+}

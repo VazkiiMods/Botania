@@ -63,7 +63,7 @@ public final class LibComponentNames {
 	public static final String MOB_TYPE = "mob_type";
 	public static final String NOT_MY_NAME_STEP = "not_my_name_step";
 	public static final String SEXTANT_MODE = "worldshapers_sextant_mode";
-	public static final String LOKI_RING_OFFSET_LIST = "loki_ring_offset_list";
+	public static final String LOKI_RING_OFFSET_LIST = "ring_of_loki_offset_list";
 	public static final String ANCIENT_WILLS = "ancient_wills";
 	public static final String SOULBOUND = "soulbound";
 	public static final String BOUND_POSITIONS = "bound_positions";

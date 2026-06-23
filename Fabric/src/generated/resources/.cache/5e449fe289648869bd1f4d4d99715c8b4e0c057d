@@ -1,10 +1,10 @@
 // 1.21.1	Botania/Tags for minecraft:item
-a42e129fa59fe55bfcdf2a368d6d91cb730fa2dd data/modern_industrialization/tags/item/replicator_blacklist.json
+c0e91169bc3d0e8c903e911983fed68a29d2cad0 data/modern_industrialization/tags/item/replicator_blacklist.json
 3677e53019d32bc9a7b7003218dc2a9690af2cfa data/trinkets/tags/item/all.json
-fe3b953f615d1562026ffb4231d05a51a2cc0a16 data/trinkets/tags/item/chest/cape.json
-34bf0f5f00d9be836bd5a29570d8b804312a3e3c data/trinkets/tags/item/chest/necklace.json
-0a9743c528ad404cfc2545e3db7f75385bb2f707 data/trinkets/tags/item/hand/ring.json
-05e10e68734ee3ac4f2a061ddb0432ebab0621d4 data/trinkets/tags/item/head/face.json
-0c7677c9166a88c295463eaa57a2ac2c32687830 data/trinkets/tags/item/head/hat.json
-aabe9dc2c91eb8822f833d19b258d7a5e8da3564 data/trinkets/tags/item/legs/belt.json
-0a9743c528ad404cfc2545e3db7f75385bb2f707 data/trinkets/tags/item/offhand/ring.json
+048a1700fa7a1402345280e1f13c6922193574bc data/trinkets/tags/item/chest/cape.json
+1cf2d2f09e4e112f466c5f94326e5b2bc508ecd7 data/trinkets/tags/item/chest/necklace.json
+0555ae3ea866001716f38da2f0a2d3d8aa14b08a data/trinkets/tags/item/hand/ring.json
+636485c96286cdb00139245e6da1dff9e509af0d data/trinkets/tags/item/head/face.json
+83546dcbbc52fe4a2b23c25d69e9791317dcc5a4 data/trinkets/tags/item/head/hat.json
+4692fc7375f45e2950d79df98e51360cf0e6b8f1 data/trinkets/tags/item/legs/belt.json
+0555ae3ea866001716f38da2f0a2d3d8aa14b08a data/trinkets/tags/item/offhand/ring.json

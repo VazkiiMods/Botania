@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "S": {
+      "item": "botania:gaia_spirit"
+    },
+    "W": {
+      "item": "minecraft:black_wool"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "RWR",
+    "RSR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:cloak_of_sin"
+  }
+}

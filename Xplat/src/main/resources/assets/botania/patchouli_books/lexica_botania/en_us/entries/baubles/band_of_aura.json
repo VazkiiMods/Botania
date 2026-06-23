@@ -1,0 +1,23 @@
+{
+  "name": "botania.entry.auraRing",
+  "category": "botania:baubles",
+  "icon": "botania:band_of_aura",
+  "advancement": "botania:main/runic_altar_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.auraRing0"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.auraRing1",
+      "recipe": "botania:band_of_aura"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.auraRing2",
+      "recipe": "botania:greater_band_of_aura",
+      "advancement": "botania:main/terrasteel_pickup_lexicon"
+    }
+  ]
+}

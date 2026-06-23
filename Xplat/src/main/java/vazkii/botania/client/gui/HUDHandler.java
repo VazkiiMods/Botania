@@ -160,7 +160,7 @@ public final class HUDHandler {
 				} else if (ManaseerMonocleItem.hasMonocle(localPlayer)) {
 					var hud = MonocleHud.BLOCK_LOOKUP.find(level, bpos, state, tile);
 					if (hud != null) {
-						profiler.push("monocle");
+						profiler.push("manaseer_monocle");
 						hud.renderHUD(gui, window, font, partialTick);
 						profiler.pop();
 					}

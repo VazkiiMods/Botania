@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "botania:craft_pattern",
+  "key": {
+    "P": {
+      "item": "botania:crafting_placeholder"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "RRP",
+    "RRP",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:crafting_pattern_2_2"
+  }
+}

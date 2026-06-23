@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:ghast_tear"
+    },
+    "E": {
+      "tag": "c:ingots/elementium"
+    },
+    "G": {
+      "item": "botania:gaia_spirit"
+    },
+    "N": {
+      "item": "minecraft:white_wool"
+    },
+    "P": {
+      "item": "botania:cirrus_amulet"
+    }
+  },
+  "pattern": [
+    "BEB",
+    "BPB",
+    "NGN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:nimbus_amulet"
+  }
+}

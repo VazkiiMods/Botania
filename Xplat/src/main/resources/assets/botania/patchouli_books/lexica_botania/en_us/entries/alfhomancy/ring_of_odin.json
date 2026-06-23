@@ -1,0 +1,17 @@
+{
+  "name": "botania.entry.odinRing",
+  "category": "botania:alfhomancy",
+  "icon": "botania:ring_of_odin",
+  "entry_color": "aa00aa",
+  "advancement": "botania:challenge/ring_of_odin",
+  "flag": "botania:relics",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.odinRing0"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "botania:ring_of_odin": 0
+  }
+}

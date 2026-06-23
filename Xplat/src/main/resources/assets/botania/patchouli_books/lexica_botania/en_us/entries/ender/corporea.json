@@ -42,7 +42,7 @@
     {
       "type": "crafting",
       "text": "botania.page.corporea8",
-      "recipe": "botania:corporea_spark_master"
+      "recipe": "botania:master_corporea_spark"
     }
   ]
 }

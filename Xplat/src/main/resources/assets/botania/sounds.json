@@ -108,7 +108,7 @@
 		"sounds": ["botania:ding"],
 		"subtitle": "botania.subtitle.ding"
 	},
-	"diva_charm": {
+	"charm_of_the_diva": {
 		"sounds": ["botania:divacharm"],
 		"subtitle": "botania.subtitle.divaCharm"
 	},
@@ -251,7 +251,7 @@
 		],
 		"subtitle": "botania.subtitle.flareChakramThrow"
 	},
-	"flugel_eye_bind": {
+	"eye_of_the_fluegel_bind": {
 		"sounds": [
 			{
 				"type": "event",
@@ -261,7 +261,7 @@
 		],
 		"subtitle": "botania.subtitle.flugelEyeBind"
 	},
-	"flugel_eye_teleport": {
+	"eye_of_the_fluegel_teleport": {
 		"sounds": [
 			{
 				"type": "event",
@@ -309,7 +309,7 @@
 		],
 		"subtitle": "botania.subtitle.gaiaTrap"
 	},
-	"holy_cloak": {
+	"cloak_of_virtue": {
 		"sounds": ["botania:holycloak"],
 		"subtitle": "botania.subtitle.holyCloak"
 	},
@@ -473,7 +473,7 @@
 		],
 		"subtitle": "botania.subtitle.orechid"
 	},
-	"pinkinator": {
+	"the_pinkinator": {
 		"sounds": [
 			{
 				"type": "event",
@@ -481,7 +481,7 @@
 				"volume": 4
 			}
 		],
-		"subtitle": "botania.subtitle.pinkinator"
+		"subtitle": "botania.subtitle.the_pinkinator"
 	},
 	"potion_create": {
 		"sounds": ["botania:potioncreate"],
@@ -619,15 +619,15 @@
 		"sounds": ["botania:spreaderfire"],
 		"subtitle": "botania.subtitle.spreaderFire"
 	},
-	"starcaller_sword": {
+	"starcaller": {
 		"sounds": [
 			{
-				"name": "botania:starcaller_sword",
+				"name": "botania:starcaller",
 				"volume": 0.4,
 				"pitch": 1.4
 			}
 		],
-		"subtitle": "botania.subtitle.starcaller_sword"
+		"subtitle": "botania.subtitle.starcaller"
 	},
 	"stone_of_temperance_configure": {
 		"sounds": [
@@ -662,7 +662,7 @@
 		],
 		"subtitle": "botania.subtitle.petalPouchConfigure"
 	},
-	"terrasteel_pickaxe_mode": {
+	"terra_shatterer_mode": {
 		"sounds": [
 			{
 				"name": "botania:terrapickmode",
@@ -723,7 +723,7 @@
 		],
 		"subtitle": "botania.subtitle.tigerseyePacify"
 	},
-	"unholy_cloak": {
+	"cloak_of_sin": {
 		"sounds": ["botania:unholycloak"],
 		"subtitle": "botania.subtitle.unholyCloak"
 	},

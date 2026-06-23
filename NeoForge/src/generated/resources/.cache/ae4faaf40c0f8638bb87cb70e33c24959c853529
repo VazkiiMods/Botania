@@ -1,10 +1,10 @@
-// 1.21.1	2026-06-23T18:42:30.929619236	Botania item tags (Forge-specific)
-aabe9dc2c91eb8822f833d19b258d7a5e8da3564 data/curios/tags/item/belt.json
-9bde6528555b75249a73b900157d7bc104d2baec data/curios/tags/item/body.json
-22dfca4dc9ed4dc390fadc33f03c602031f80fb1 data/curios/tags/item/charm.json
+// 1.21.1	2026-06-23T23:52:37.717486388	Botania item tags (Forge-specific)
+4692fc7375f45e2950d79df98e51360cf0e6b8f1 data/curios/tags/item/belt.json
+5b4aa6d0d5e7f599d9c6520cf5b9efa663d631ba data/curios/tags/item/body.json
+4b427de569c571503cc22b7d969830fc996b4a2f data/curios/tags/item/charm.json
 3677e53019d32bc9a7b7003218dc2a9690af2cfa data/curios/tags/item/curio.json
-69c483b37b5c044b394dd15f010b6e27e174492f data/curios/tags/item/head.json
-bc5e0c035ee528a632919766a9eec1cc94a2e8c4 data/curios/tags/item/necklace.json
-0a9743c528ad404cfc2545e3db7f75385bb2f707 data/curios/tags/item/ring.json
+61b8546e0327ea4eed36c76f2011d195040e8de8 data/curios/tags/item/head.json
+628f088c42cc3c92f01c11ed494c3764fa41b07e data/curios/tags/item/necklace.json
+0555ae3ea866001716f38da2f0a2d3d8aa14b08a data/curios/tags/item/ring.json
 a7ec43d58fd1c224a9f388647232158ea4ac99f1 data/quark/tags/item/big_harvesting_hoes.json
 19f439b3d61f5bf64da75a1784848d7edb78e976 data/quark/tags/item/reacharound_able.json

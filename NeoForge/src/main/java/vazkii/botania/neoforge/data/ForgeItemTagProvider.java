@@ -42,7 +42,7 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 				BotaniaItems.TECTONIC_GIRDLE, BotaniaItems.PLANESTRIDERS_SASH, BotaniaItems.GLOBETROTTERS_SASH,
 				BotaniaItems.SOJOURNERS_SASH);
 		tag(accessory("body")).add(
-				BotaniaItems.CLOAK_OF_BALANCE, BotaniaItems.CLOAK_OF_VIRTUE, BotaniaItems.INVINSIBILITY_CLOAK,
+				BotaniaItems.CLOAK_OF_BALANCE, BotaniaItems.CLOAK_OF_VIRTUE, BotaniaItems.INVISIBILITY_CLOAK,
 				BotaniaItems.THIRD_EYE, BotaniaItems.CLOAK_OF_SIN);
 		tag(accessory("charm")).add(
 				BotaniaItems.CHARM_OF_THE_DIVA, BotaniaItems.BENEVOLENT_GODDESS_CHARM, BotaniaItems.MANASEER_MONOCLE,

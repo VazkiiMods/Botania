@@ -192,7 +192,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, botaniaRL("challenge/flugel_eye"));
+		return new RelicImpl(stack, botaniaRL("challenge/eye_of_the_fluegel"));
 	}
 
 }

@@ -1,0 +1,31 @@
+{
+  "parent": "botania:main/mana_pool_pickup",
+  "criteria": {
+    "cookie": {
+      "conditions": {
+        "item": {
+          "items": "botania:biscuit_of_totality"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.botania:manaCookieEat.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "botania:biscuit_of_totality"
+    },
+    "title": {
+      "translate": "advancement.botania:manaCookieEat"
+    }
+  },
+  "requirements": [
+    [
+      "cookie"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

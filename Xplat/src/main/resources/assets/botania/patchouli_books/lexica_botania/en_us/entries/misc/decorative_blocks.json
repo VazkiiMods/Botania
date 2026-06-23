@@ -93,8 +93,8 @@
   "extra_recipe_mappings": {
     "botania:livingrock_brick_stairs": 1,
     "botania:livingrock_brick_slab": 1,
-    "botania:livingrock_bricks_wall": 1,
-    "botania:mossy_livingrock_bricks_wall": 2,
+    "botania:livingrock_brick_wall": 1,
+    "botania:mossy_livingrock_brick_wall": 2,
     "botania:mossy_livingrock_brick_stairs": 2,
     "botania:mossy_livingrock_brick_slab": 2,
     "botania:livingwood_fence": 5,

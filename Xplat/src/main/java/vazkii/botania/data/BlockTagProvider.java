@@ -464,7 +464,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						Blocks.BROWN_MUSHROOM_BLOCK, Blocks.RED_MUSHROOM_BLOCK
 				)
 				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "glow_shroom_block"))
-				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "glow_shroom_ring"));
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "glow_ring_of_shroom"));
 
 		registerMiningTags();
 	}

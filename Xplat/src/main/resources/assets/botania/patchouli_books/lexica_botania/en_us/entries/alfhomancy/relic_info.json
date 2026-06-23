@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.relicInfo",
   "category": "botania:alfhomancy",
-  "icon": "botania:dice",
+  "icon": "botania:dice_of_fate",
   "entry_color": "aa00aa",
   "advancement": "botania:challenge/gaia_guardian_hardmode",
   "flag": "botania:relics",
@@ -16,6 +16,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:dice": 1
+    "botania:dice_of_fate": 1
   }
 }

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": {
+      "tag": "c:gems/emerald"
+    },
+    "M": {
+      "tag": "c:ingots/manasteel"
+    },
+    "R": {
+      "item": "botania:rune_of_air"
+    }
+  },
+  "pattern": [
+    "EM ",
+    "M M",
+    " MR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:ring_of_dexterous_motion"
+  }
+}

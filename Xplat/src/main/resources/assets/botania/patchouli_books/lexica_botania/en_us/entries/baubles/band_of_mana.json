@@ -1,0 +1,23 @@
+{
+  "name": "botania.entry.manaRing",
+  "category": "botania:baubles",
+  "icon": "botania:band_of_mana",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.manaRing0"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.manaRing1",
+      "recipe": "botania:band_of_mana"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.manaRing2",
+      "recipe": "botania:greater_band_of_mana",
+      "advancement": "botania:main/terrasteel_pickup_lexicon"
+    }
+  ]
+}

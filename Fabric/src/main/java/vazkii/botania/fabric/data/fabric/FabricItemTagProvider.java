@@ -48,7 +48,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
 		this.tag(accessory("chest/cape")).add(
 				BotaniaItems.CLOAK_OF_BALANCE,
 				BotaniaItems.CLOAK_OF_VIRTUE,
-				BotaniaItems.INVINSIBILITY_CLOAK,
+				BotaniaItems.INVISIBILITY_CLOAK,
 				BotaniaItems.CLOAK_OF_SIN
 		);
 		this.tag(accessory("chest/necklace")).add(

@@ -8,7 +8,7 @@
             "components": {
               "botania:shard_level": 19
             },
-            "items": "botania:laputa_shard"
+            "items": "botania:shard_of_laputa"
           }
         ]
       },
@@ -22,7 +22,7 @@
     "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "botania:laputa_shard"
+      "id": "botania:shard_of_laputa"
     },
     "title": {
       "translate": "advancement.botania:l20ShardUse"

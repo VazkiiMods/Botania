@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "botania:sojournors_sash"
+    },
+    "M": {
+      "item": "minecraft:map"
+    },
+    "P": {
+      "item": "botania:pasture_seeds"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "pattern": [
+    " M ",
+    "PBP",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:planestriders_sash"
+  }
+}

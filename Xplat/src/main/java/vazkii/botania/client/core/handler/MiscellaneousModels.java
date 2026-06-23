@@ -42,19 +42,19 @@ public class MiscellaneousModels {
 	private static final ResourceLocation goldfishModelId = botaniaRL("icon/goldfish");
 	private static final ResourceLocation phiFlowerModelId = botaniaRL("icon/phiflower");
 	private static final ResourceLocation nerfBatModelId = botaniaRL("icon/nerfbat");
-	private static final ResourceLocation bloodPendantChainId = botaniaRL("icon/blood_pendant_chain");
-	private static final ResourceLocation bloodPendantGemId = botaniaRL("icon/blood_pendant_gem");
+	private static final ResourceLocation bloodPendantChainId = botaniaRL("icon/tainted_blood_pendant_chain");
+	private static final ResourceLocation bloodPendantGemId = botaniaRL("icon/tainted_blood_pendant_gem");
 	private static final ResourceLocation[] kingKeyWeaponModelIds = IntStream.range(0, KeyOfTheKingsLawItem.WEAPON_TYPES)
 			.mapToObj(i -> botaniaRL("icon/gate_weapon_" + i)).toArray(ResourceLocation[]::new);
 	private static final ResourceLocation terrasteelHelmWillModelId = botaniaRL("icon/will_flame");
 	private static final ResourceLocation[] thirdEyeLayerIds = IntStream.range(0, ThirdEyeItem.Renderer.NUM_LAYERS)
 			.mapToObj(i -> botaniaRL("icon/third_eye_" + i)).toArray(ResourceLocation[]::new);
-	private static final ResourceLocation pyroclastGemId = botaniaRL("icon/lava_pendant_gem");
-	private static final ResourceLocation crimsonGemId = botaniaRL("icon/super_lava_pendant_gem");
-	private static final ResourceLocation itemFinderGemId = botaniaRL("icon/itemfinder_gem");
-	private static final ResourceLocation cirrusGemId = botaniaRL("icon/cloud_pendant_gem");
-	private static final ResourceLocation nimbusGemId = botaniaRL("icon/super_cloud_pendant_gem");
-	private static final ResourceLocation snowflakePendantGemId = botaniaRL("icon/ice_pendant_gem");
+	private static final ResourceLocation pyroclastGemId = botaniaRL("icon/pyroclast_pendant_gem");
+	private static final ResourceLocation crimsonGemId = botaniaRL("icon/crimson_pendant_gem");
+	private static final ResourceLocation itemFinderGemId = botaniaRL("icon/the_spectator_gem");
+	private static final ResourceLocation cirrusGemId = botaniaRL("icon/cirrus_amulet_gem");
+	private static final ResourceLocation nimbusGemId = botaniaRL("icon/nimbus_amulet_gem");
+	private static final ResourceLocation snowflakePendantGemId = botaniaRL("icon/snowflake_pendant_gem");
 	private static final ResourceLocation[] tiaraWingIconIds = IntStream.range(0, FlugelTiaraItem.WING_TYPES)
 			.mapToObj(i -> botaniaRL("icon/tiara_wing_" + (i + 1))).toArray(ResourceLocation[]::new);
 

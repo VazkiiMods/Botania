@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:item/vial",
+    "layer0": "botania:item/managlass_vial",
     "layer1": "botania:item/brew_vial_3"
   }
 }

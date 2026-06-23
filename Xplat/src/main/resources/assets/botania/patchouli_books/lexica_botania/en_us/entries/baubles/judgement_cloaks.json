@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.judgementCloaks",
   "category": "botania:baubles",
-  "icon": "botania:holy_cloak",
+  "icon": "botania:cloak_of_virtue",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
@@ -16,17 +16,17 @@
     {
       "type": "crafting",
       "text": "botania.page.judgementCloaks2",
-      "recipe": "botania:holy_cloak"
+      "recipe": "botania:cloak_of_virtue"
     },
     {
       "type": "crafting",
       "text": "botania.page.judgementCloaks3",
-      "recipe": "botania:unholy_cloak"
+      "recipe": "botania:cloak_of_sin"
     },
     {
       "type": "crafting",
       "text": "botania.page.judgementCloaks4",
-      "recipe": "botania:balance_cloak"
+      "recipe": "botania:cloak_of_balance"
     }
   ]
 }

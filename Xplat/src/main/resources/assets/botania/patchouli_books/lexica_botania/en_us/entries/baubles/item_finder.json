@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.itemFinder",
   "category": "botania:baubles",
-  "icon": "botania:itemfinder",
+  "icon": "botania:the_spectator",
   "pages": [
     {
       "type": "text",
@@ -14,7 +14,7 @@
     {
       "type": "crafting",
       "text": "botania.page.itemFinder2",
-      "recipe": "botania:itemfinder"
+      "recipe": "botania:the_spectator"
     }
   ]
 }

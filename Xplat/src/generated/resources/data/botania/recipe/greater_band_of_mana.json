@@ -1,0 +1,16 @@
+{
+  "type": "botania:crafting_shapeless_mana_upgrade",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "tag": "c:ingots/terrasteel"
+    },
+    {
+      "item": "botania:band_of_mana"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:greater_band_of_mana"
+  }
+}

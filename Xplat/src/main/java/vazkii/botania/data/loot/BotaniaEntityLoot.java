@@ -88,7 +88,7 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().when(LootItemKilledByPlayerCondition.killedByPlayer())
 						.when(LootItemRandomChanceCondition.randomChance(0.2f))
-						.add(LootItem.lootTableItem(BotaniaItems.MUSIC_DISC_ENDURE_EMPTINESS))
+						.add(LootItem.lootTableItem(BotaniaItems.SCATHED_MUSIC_DISC_1))
 				)
 		);
 
@@ -121,7 +121,7 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 				)
 				.withPool(LootPool.lootPool().when(LootItemKilledByPlayerCondition.killedByPlayer())
 						.when(LootItemRandomChanceCondition.randomChance(0.44f))
-						.add(LootItem.lootTableItem(BotaniaItems.MUSIC_DISC_FIGHT_FOR_QUIESCENCE).setWeight(14))
+						.add(LootItem.lootTableItem(BotaniaItems.SCATHED_MUSIC_DISC_2).setWeight(14))
 						.add(LootItem.lootTableItem(Items.MUSIC_DISC_13).setWeight(15))
 						.add(LootItem.lootTableItem(Items.MUSIC_DISC_WAIT).setWeight(15))
 				)

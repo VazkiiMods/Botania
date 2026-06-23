@@ -167,7 +167,7 @@ public class AdvancementProvider {
 					.parent(manaPoolPickup)
 					.addCriterion("cookie",
 							ConsumeItemTrigger.TriggerInstance.usedItem(BotaniaItems.BISCUIT_OF_TOTALITY))
-					.save(writer, mainId("mana_cookie_eat"));
+					.save(writer, mainId("biscuit_of_totality_eat"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.ASSEMBLY_HALO, "craftingHaloCraft", AdvancementType.TASK))
 					.parent(manaPoolPickup)
@@ -400,14 +400,14 @@ public class AdvancementProvider {
 					.rewards(AdvancementRewards.Builder.experience(85))
 					.addCriterion("place_blocks",
 							LokiPlaceTrigger.Instance.blocksPlaced(MinMaxBounds.Ints.atLeast(255)))
-					.save(writer, challengeId("loki_ring_many"));
+					.save(writer, challengeId("ring_of_loki_many"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.THE_PINKINATOR, "pinkinator", AdvancementType.CHALLENGE))
+					.display(simple(BotaniaItems.THE_PINKINATOR, "the_pinkinator", AdvancementType.CHALLENGE))
 					.parent(hardMode)
 					.rewards(AdvancementRewards.Builder.experience(40))
 					.addCriterion("use_pinkinator",
 							UseItemSuccessTrigger.Instance.used(BotaniaItems.THE_PINKINATOR))
-					.save(writer, challengeId("pinkinator"));
+					.save(writer, challengeId("the_pinkinator"));
 
 			// Misc challenges
 			Advancement.Builder.advancement()

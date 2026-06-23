@@ -15,7 +15,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public final class LibEntityNames {
 	public static final ResourceLocation MANA_BURST = botaniaRL("mana_burst");
 	public static final ResourceLocation PIXIE = botaniaRL("pixie");
-	public static final ResourceLocation FLAME_RING = botaniaRL("flame_ring");
+	public static final ResourceLocation FLAME_RING = botaniaRL("ring_of_flame");
 	public static final ResourceLocation VINE_BALL = botaniaRL("vine_ball");
 	public static final ResourceLocation GAIA_GUARDIAN = botaniaRL("doppleganger");
 	public static final ResourceLocation MAGIC_LANDMINE = botaniaRL("magic_landmine");

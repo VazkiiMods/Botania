@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "botania:item/greater_ring_of_magnetization_active",
+      "predicate": {
+        "botania:active": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "botania:item/greater_ring_of_magnetization"
+  }
+}

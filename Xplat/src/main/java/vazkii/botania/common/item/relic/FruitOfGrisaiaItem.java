@@ -77,7 +77,7 @@ public class FruitOfGrisaiaItem extends RelicItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, botaniaRL("challenge/infinite_fruit"));
+		return new RelicImpl(stack, botaniaRL("challenge/the_fruit_of_grisaia"));
 	}
 
 }

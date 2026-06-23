@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dusts/pixie"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "botania:ender_air_bottle"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:resolute_ivy"
+  }
+}

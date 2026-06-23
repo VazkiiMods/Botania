@@ -234,7 +234,7 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		// Miscellaneous
 		tag(ConventionalItemTags.MUSHROOMS).addTag(BotaniaTags.Items.SHIMMERING_MUSHROOMS);
 		tag(ConventionalItemTags.MUSIC_DISCS).add(
-				BotaniaItems.MUSIC_DISC_ENDURE_EMPTINESS, BotaniaItems.MUSIC_DISC_FIGHT_FOR_QUIESCENCE);
+				BotaniaItems.SCATHED_MUSIC_DISC_1, BotaniaItems.SCATHED_MUSIC_DISC_2);
 		copy(ConventionalBlockTags.STRIPPED_LOGS, ConventionalItemTags.STRIPPED_LOGS);
 		copy(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOODS);
 

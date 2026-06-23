@@ -41,7 +41,7 @@ public class SojournersSashItem extends BaubleItem {
 
 	private static final UUID STEP_BOOST_UUID = UUID.fromString("8511cd62-2650-4078-8d69-9ebe80b21eb5");
 	private static final AttributeModifier STEP_BOOST = new AttributeModifier(
-			BotaniaAPI.botaniaRL("travel_belt"),
+			BotaniaAPI.botaniaRL("sojournors_sash"),
 			0.65, AttributeModifier.Operation.ADD_VALUE);
 
 	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_TRAVEL_BELT);

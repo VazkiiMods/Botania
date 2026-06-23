@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.flasks",
   "category": "botania:devices",
-  "icon": "botania:flask",
+  "icon": "botania:alfglass_flask",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
@@ -16,7 +16,7 @@
     {
       "type": "crafting",
       "text": "botania.page.flasks2",
-      "recipe": "botania:flask"
+      "recipe": "botania:alfglass_flask"
     }
   ]
 }

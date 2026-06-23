@@ -28,8 +28,8 @@ public class CorporeaSparkRenderer extends BaseSparkRenderer<CorporeaSparkEntity
 		super(ctx);
 		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
 		this.corporeaWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("item/corporea_spark")));
-		this.corporeaMasterWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("item/corporea_spark_master")));
-		this.corporeaCreativeWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("item/corporea_spark_creative")));
+		this.corporeaMasterWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("item/master_corporea_spark")));
+		this.corporeaCreativeWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("item/creative_corporea_spark")));
 	}
 
 	@Override

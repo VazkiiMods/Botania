@@ -20,7 +20,7 @@
     {
       "type": "crafting",
       "text": "botania.page.brewery3",
-      "recipe": "botania:vial"
+      "recipe": "botania:managlass_vial"
     },
     {
       "type": "text",

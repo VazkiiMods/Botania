@@ -235,7 +235,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				BotaniaItems.BENEVOLENT_GODDESS_CHARM,
 				BotaniaItems.ROD_OF_THE_SHADED_MESA,
 				BotaniaItems.FRUIT_OF_GRISAIA,
-				BotaniaItems.INVINSIBILITY_CLOAK,
+				BotaniaItems.INVISIBILITY_CLOAK,
 				BotaniaItems.KEY_OF_THE_KINGS_LAW,
 				BotaniaItems.LIVINGWOOD_BOW,
 				BotaniaItems.RING_OF_LOKI,

@@ -1235,7 +1235,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 			if (pattern == CraftyCratePattern.NONE) {
 				continue;
 			}
-			Item item = getItemOrThrow(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getSerializedName().split("_", 2)[1]));
+			Item item = getItemOrThrow(prefix(LibItemNames.CRAFTING_PATTERN_PREFIX + pattern.getSerializedName().split("_", 2)[1]));
 			String s = pattern.openSlots.stream().map(bool -> bool ? "R" : "P").collect(Collectors.joining());
 			ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, item)
 					.define('P', BotaniaItems.CRAFTING_PLACEHOLDER)
@@ -1774,7 +1774,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern(" MR")
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS))
 				.save(recipeOutput);
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.INVINSIBILITY_CLOAK)
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.INVISIBILITY_CLOAK)
 				.define('P', ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)
 				.define('C', ConventionalItemTags.PRISMARINE_GEMS)
 				.define('W', Items.WHITE_WOOL)

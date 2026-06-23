@@ -56,7 +56,7 @@ public class BotaniaTags {
 		/**
 		 * Items in this tag cannot be pulled by the magnet rings
 		 */
-		public static final TagKey<Item> MAGNET_RING_IGNORED = tag("magnet_ring_ignored");
+		public static final TagKey<Item> MAGNET_RING_IGNORED = tag("ring_of_magnetization_ignored");
 		/**
 		 * Items in this tag cannot be rolled by Looniums
 		 */
@@ -209,7 +209,7 @@ public class BotaniaTags {
 		/**
 		 * Items resting on blocks in this tag cannot be pulled by magnet rings
 		 */
-		public static final TagKey<Block> SHIELDS_FROM_MAGNET_RING = tag("shields_from_magnet_ring");
+		public static final TagKey<Block> SHIELDS_FROM_MAGNET_RING = tag("shields_from_ring_of_magnetization");
 		/**
 		 * Blocks in this tag cannot be moved by the Laputa Shard
 		 */
@@ -383,12 +383,12 @@ public class BotaniaTags {
 		 * The Terra Truncator's breaking effect traverses along these blocks for the full range.
 		 * Only axe-mineable blocks ({@link net.minecraft.tags.BlockTags#MINEABLE_WITH_AXE}) should be in this tag.
 		 */
-		public static final TagKey<Block> TERRA_TRUNCATOR_TRUNK_BLOCKS = tag("terrasteel_axe/trunk_blocks");
+		public static final TagKey<Block> TERRA_TRUNCATOR_TRUNK_BLOCKS = tag("terra_truncator/trunk_blocks");
 		/**
 		 * Blocks that comprise the "crown" of trees or caps of huge mushrooms.
 		 * The Terra Truncator's breaking effect only traverses through these for a very limited range.
 		 */
-		public static final TagKey<Block> TERRA_TRUNCATOR_CROWN_BLOCKS = tag("terrasteel_axe/crown_blocks");
+		public static final TagKey<Block> TERRA_TRUNCATOR_CROWN_BLOCKS = tag("terra_truncator/crown_blocks");
 
 		public static final TagKey<Block> GOG_PEBBLE_SOURCES =
 				TagKey.create(Registries.BLOCK, gogRL("pebble_sources"));

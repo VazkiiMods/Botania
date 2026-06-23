@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.superCloudPendant",
+  "category": "botania:baubles",
+  "icon": "botania:nimbus_amulet",
+  "entry_color": "aa00",
+  "advancement": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.superCloudPendant0"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.superCloudPendant1",
+      "recipe": "botania:nimbus_amulet"
+    }
+  ]
+}

@@ -6,10 +6,10 @@ advancement grant @s only botania:main/terrasteel_pickup_lexicon
 advancement grant @s only botania:main/elf_lexicon_pickup
 advancement grant @s only botania:main/gaia_guardian_kill
 advancement grant @s only botania:challenge/gaia_guardian_hardmode
-advancement grant @s only botania:challenge/infinite_fruit
-advancement grant @s only botania:challenge/king_key
-advancement grant @s only botania:challenge/flugel_eye
-advancement grant @s only botania:challenge/thor_ring
-advancement grant @s only botania:challenge/odin_ring
-advancement grant @s only botania:challenge/loki_ring
+advancement grant @s only botania:challenge/the_fruit_of_grisaia
+advancement grant @s only botania:challenge/key_of_the_kings_law
+advancement grant @s only botania:challenge/eye_of_the_fluegel
+advancement grant @s only botania:challenge/ring_of_thor
+advancement grant @s only botania:challenge/ring_of_odin
+advancement grant @s only botania:challenge/ring_of_loki
 tellraw @s {"translate":"botaniamisc.command.full_book_function"}

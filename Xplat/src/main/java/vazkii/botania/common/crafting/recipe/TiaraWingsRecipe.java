@@ -99,7 +99,7 @@ public class TiaraWingsRecipe extends CustomRecipe {
 
 	@Override
 	public String getGroup() {
-		return "botania:flight_tiara_wings";
+		return "botania:fluegel_tiara_wings";
 	}
 
 	public Ingredient material() {

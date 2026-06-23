@@ -1,19 +1,19 @@
 {
   "values": [
-    "botania:aura_ring",
-    "botania:aura_ring_greater",
-    "botania:dodge_ring",
-    "botania:loki_ring",
-    "botania:magnet_ring",
-    "botania:magnet_ring_greater",
-    "botania:mana_ring",
-    "botania:mana_ring_greater",
-    "botania:mining_ring",
-    "botania:odin_ring",
-    "botania:pixie_ring",
-    "botania:reach_ring",
-    "botania:swap_ring",
-    "botania:thor_ring",
-    "botania:water_ring"
+    "botania:band_of_aura",
+    "botania:greater_band_of_aura",
+    "botania:ring_of_dexterous_motion",
+    "botania:ring_of_loki",
+    "botania:ring_of_magnetization",
+    "botania:greater_ring_of_magnetization",
+    "botania:band_of_mana",
+    "botania:greater_band_of_mana",
+    "botania:ring_of_the_mantle",
+    "botania:ring_of_odin",
+    "botania:great_fairy_ring",
+    "botania:ring_of_far_reach",
+    "botania:ring_of_correction",
+    "botania:ring_of_thor",
+    "botania:ring_of_chordata"
   ]
 }

@@ -1,0 +1,29 @@
+{
+  "name": "botania.entry.lokiRing",
+  "category": "botania:alfhomancy",
+  "icon": "botania:ring_of_loki",
+  "entry_color": "aa00aa",
+  "advancement": "botania:challenge/ring_of_loki",
+  "flag": "botania:relics",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.lokiRing0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.lokiRing1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.lokiRing2"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.lokiRing3"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "botania:ring_of_loki": 0
+  }
+}

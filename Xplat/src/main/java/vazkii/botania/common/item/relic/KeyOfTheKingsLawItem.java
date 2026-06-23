@@ -124,6 +124,6 @@ public class KeyOfTheKingsLawItem extends RelicItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, botaniaRL("challenge/king_key"));
+		return new RelicImpl(stack, botaniaRL("challenge/key_of_the_kings_law"));
 	}
 }

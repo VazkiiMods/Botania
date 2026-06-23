@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:item/handheld",
+  "overrides": [
+    {
+      "model": "botania:item/terra_shatterer_active",
+      "predicate": {
+        "botania:active": 1.0
+      }
+    },
+    {
+      "model": "botania:item/terra_shatterer_tipped",
+      "predicate": {
+        "botania:tipped": 1.0
+      }
+    },
+    {
+      "model": "botania:item/terra_shatterer_tipped_active",
+      "predicate": {
+        "botania:active": 1.0,
+        "botania:tipped": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "botania:item/terra_shatterer"
+  }
+}

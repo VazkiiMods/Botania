@@ -16,7 +16,7 @@
     {
       "type": "crafting",
       "text": "botania.page.craftCrate2",
-      "recipe": "botania:placeholder"
+      "recipe": "botania:crafting_placeholder"
     },
     {
       "type": "text",
@@ -51,15 +51,15 @@
       "heading": "botania.page.craftCrate10",
       "text": "botania.page.craftCrate9",
       "recipes": [
-        "botania:pattern_1_1",
-        "botania:pattern_2_2",
-        "botania:pattern_1_2",
-        "botania:pattern_2_1",
-        "botania:pattern_1_3",
-        "botania:pattern_3_1",
-        "botania:pattern_2_3",
-        "botania:pattern_3_2",
-        "botania:pattern_donut"
+        "botania:crafting_pattern_1_1",
+        "botania:crafting_pattern_2_2",
+        "botania:crafting_pattern_1_2",
+        "botania:crafting_pattern_2_1",
+        "botania:crafting_pattern_1_3",
+        "botania:crafting_pattern_3_1",
+        "botania:crafting_pattern_2_3",
+        "botania:crafting_pattern_3_2",
+        "botania:crafting_pattern_donut"
       ]
     }
   ]

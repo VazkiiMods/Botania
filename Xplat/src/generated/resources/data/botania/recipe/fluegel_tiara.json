@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": {
+      "item": "botania:ender_air_bottle"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "I": {
+      "tag": "c:ingots/elementium"
+    },
+    "L": {
+      "item": "botania:gaia_spirit"
+    }
+  },
+  "pattern": [
+    "LLL",
+    "ILI",
+    "FEF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:fluegel_tiara"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "botania:challenge/gaia_guardian_hardmode",
+  "criteria": {
+    "eye": {
+      "conditions": {
+        "relic": {
+          "items": "botania:eye_of_the_fluegel"
+        }
+      },
+      "trigger": "botania:relic_bind"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.botania:flugelEye.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "botania:eye_of_the_fluegel"
+    },
+    "title": {
+      "translate": "advancement.botania:flugelEye"
+    }
+  },
+  "requirements": [
+    [
+      "eye"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

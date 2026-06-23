@@ -88,7 +88,7 @@ public class BotaniaRecipeTypes {
 		r.accept(CompositeLensRecipe.SERIALIZER, botaniaRL("crafting_special_composite_lens"));
 		r.accept(CosmeticAttachRecipe.SERIALIZER, botaniaRL("crafting_special_cosmetic_attach"));
 		r.accept(CosmeticRemoveRecipe.SERIALIZER, botaniaRL("crafting_special_cosmetic_remove"));
-		r.accept(LaputaShardUpgradeRecipe.SERIALIZER, botaniaRL("crafting_special_laputa_shard_upgrade"));
+		r.accept(LaputaShardUpgradeRecipe.SERIALIZER, botaniaRL("crafting_special_shard_of_laputa_upgrade"));
 		r.accept(LensDyeingRecipe.SERIALIZER, botaniaRL("crafting_special_lens_dye"));
 		r.accept(LexiconReturningShapelessRecipe.SERIALIZER, botaniaRL("crafting_shapeless_lexicon_return"));
 		r.accept(ManaBlasterClipRecipe.SERIALIZER, botaniaRL("crafting_special_mana_blaster_add_clip"));
@@ -97,12 +97,12 @@ public class BotaniaRecipeTypes {
 		r.accept(ManaUpgradeRecipe.SERIALIZER, botaniaRL("crafting_shaped_mana_upgrade"));
 		r.accept(MergeVialRecipe.SERIALIZER, botaniaRL("crafting_special_merge_vial"));
 		r.accept(PhantomInkRecipe.SERIALIZER, botaniaRL("crafting_special_phantom_ink_apply"));
-		r.accept(ResoluteIvyRecipe.SERIALIZER, botaniaRL("crafting_special_keep_ivy"));
+		r.accept(ResoluteIvyRecipe.SERIALIZER, botaniaRL("crafting_special_resolute_ivy"));
 		r.accept(ShapelessManaUpgradeRecipe.SERIALIZER, botaniaRL("crafting_shapeless_mana_upgrade"));
 		r.accept(ShapelessUncoverSpreaderRecipe.SERIALIZER, botaniaRL("crafting_shapeless_uncover_spreader"));
 		r.accept(SpellbindingClothRecipe.SERIALIZER, botaniaRL("crafting_special_spell_cloth_apply"));
 		r.accept(SplitLensRecipe.SERIALIZER, botaniaRL("crafting_special_split_lens"));
-		r.accept(TerraShattererTippingRecipe.SERIALIZER, botaniaRL("crafting_special_terrasteel_pickaxe_tipping"));
+		r.accept(TerraShattererTippingRecipe.SERIALIZER, botaniaRL("crafting_special_terra_shatterer_tipping"));
 		r.accept(TiaraWingsRecipe.SERIALIZER, botaniaRL("crafting_special_tiara_wings"));
 		r.accept(WandOfTheForestRecipe.SERIALIZER, botaniaRL("crafting_shaped_wand"));
 		r.accept(WaterBottleMatchingRecipe.SERIALIZER, botaniaRL("crafting_shaped_water_bottle_matching"));

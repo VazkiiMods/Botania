@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_crafty_crate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "botania:crafty_crate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_dreamwood": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#botania:dreamwood_logs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "botania:crafting_placeholder"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dreamwood",
+      "has_crafty_crate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "botania:crafting_placeholder"
+    ]
+  }
+}

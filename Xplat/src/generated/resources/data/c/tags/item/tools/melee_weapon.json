@@ -3,11 +3,11 @@
     "botania:manasteel_sword",
     "botania:manasteel_axe",
     "botania:soulscribe",
-    "botania:terrasteel_sword",
-    "botania:terrasteel_axe",
+    "botania:terra_blade",
+    "botania:terra_truncator",
     "botania:elementium_sword",
     "botania:elementium_axe",
-    "botania:thundercaller_sword",
-    "botania:starcaller_sword"
+    "botania:thundercaller",
+    "botania:starcaller"
   ]
 }

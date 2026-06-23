@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "botania:managlass"
+    },
+    "I": {
+      "tag": "c:ingots/manasteel"
+    },
+    "N": {
+      "tag": "c:nuggets/gold"
+    }
+  },
+  "pattern": [
+    "GN",
+    "IN",
+    " N"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:manaseer_monocle"
+  }
+}

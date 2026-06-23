@@ -1,0 +1,21 @@
+{
+  "name": "botania.entry.flugelEye",
+  "category": "botania:alfhomancy",
+  "icon": "botania:eye_of_the_fluegel",
+  "entry_color": "aa00aa",
+  "advancement": "botania:challenge/eye_of_the_fluegel",
+  "flag": "botania:relics",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.flugelEye0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.flugelEye1"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "botania:eye_of_the_fluegel": 0
+  }
+}

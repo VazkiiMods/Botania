@@ -1,0 +1,17 @@
+{
+  "name": "botania.entry.kingKey",
+  "category": "botania:alfhomancy",
+  "icon": "botania:key_of_the_kings_law",
+  "entry_color": "aa00aa",
+  "advancement": "botania:challenge/key_of_the_kings_law",
+  "flag": "botania:relics",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.kingKey0"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "botania:key_of_the_kings_law": 0
+  }
+}

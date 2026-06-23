@@ -269,7 +269,7 @@ public final class BotaniaItems {
 			new BifrostRodItem(unstackable()));
 	public static final Item ROD_OF_THE_SHADED_MESA = make(LibItemNames.ROD_OF_THE_SHADED_MESA,
 			new ShadedMesaRodItem(unstackable()));
-	public static final Item ROD_OF_THE_UNSTABLE_RESERVOIR = make(LibItemNames.ROD_OF_THE_UNSTABLE_RESERVIOR,
+	public static final Item ROD_OF_THE_UNSTABLE_RESERVOIR = make(LibItemNames.ROD_OF_THE_UNSTABLE_RESERVOIR,
 			new UnstableReservoirRodItem(unstackable()
 					.rarity(Rarity.RARE)));
 
@@ -344,23 +344,23 @@ public final class BotaniaItems {
 					.durability(ArmorItem.Type.BOOTS.getDurability(34))
 					.fireResistant()
 					.rarity(Rarity.UNCOMMON)));
-	public static final Item TERRA_SHATTERER = make(LibItemNames.TERRASTEEL_PICKAXE,
+	public static final Item TERRA_SHATTERER = make(LibItemNames.TERRA_SHATTERER,
 			new TerraShattererItem(unstackableCustomDamage()
 					.fireResistant()
 					.rarity(Rarity.UNCOMMON)
 					.component(BotaniaDataComponents.MAX_MANA, TerraShattererItem.MAX_MANA)
 					.component(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_POOL, Unit.INSTANCE)));
-	public static final Item TERRA_TRUNCATOR = make(LibItemNames.TERRASTEEL_AXE,
+	public static final Item TERRA_TRUNCATOR = make(LibItemNames.TERRA_TRUNCATOR,
 			new TerraTruncatorItem(unstackableCustomDamage()
 					.fireResistant()
 					.rarity(Rarity.UNCOMMON)));
-	public static final Item TERRA_BLADE = make(LibItemNames.TERRASTEEL_SWORD,
+	public static final Item TERRA_BLADE = make(LibItemNames.TERRA_BLADE,
 			new TerraBladeItem(unstackableCustomDamage()
 					.fireResistant()
 					.rarity(Rarity.UNCOMMON)));
-	public static final Item STARCALLER = make(LibItemNames.STARCALLER_SWORD,
+	public static final Item STARCALLER = make(LibItemNames.STARCALLER,
 			new StarcallerItem(unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
-	public static final Item THUNDERCALLER = make(LibItemNames.THUNDERCALLER_SWORD,
+	public static final Item THUNDERCALLER = make(LibItemNames.THUNDERCALLER,
 			new ThundercallerItem(unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
 	public static final Item MANAWEAVE_HELMET = make(LibItemNames.MANAWEAVE_HELMET,
 			new ManaweaveHelmItem(unstackableCustomDamage()
@@ -465,14 +465,14 @@ public final class BotaniaItems {
 			new BaubleBoxItem(unstackable()));
 
 	// Baubles / trinkets / curios / etc.
-	public static final Item BAND_OF_MANA = make(LibItemNames.MANA_RING,
+	public static final Item BAND_OF_MANA = make(LibItemNames.BAND_OF_MANA,
 			new BandOfManaItem(unstackable()
 					.component(BotaniaDataComponents.MAX_MANA, BandOfManaItem.DEFAULT_MAX_MANA)
 					.component(BotaniaDataComponents.CAN_PROVIDE_MANA_TO_ITEMS, Unit.INSTANCE)
 					.component(BotaniaDataComponents.CAN_DRAIN_MANA_TO_POOL, Unit.INSTANCE)
 					.component(BotaniaDataComponents.CAN_ACCEPT_MANA_FROM_ITEMS, Unit.INSTANCE)
 					.component(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_POOL, Unit.INSTANCE)));
-	public static final Item GREATER_BAND_OF_MANA = make(LibItemNames.MANA_RING_GREATER,
+	public static final Item GREATER_BAND_OF_MANA = make(LibItemNames.GREATER_BAND_OF_MANA,
 			new BandOfManaItem(unstackable()
 					.rarity(Rarity.UNCOMMON)
 					.fireResistant()
@@ -481,118 +481,118 @@ public final class BotaniaItems {
 					.component(BotaniaDataComponents.CAN_DRAIN_MANA_TO_POOL, Unit.INSTANCE)
 					.component(BotaniaDataComponents.CAN_ACCEPT_MANA_FROM_ITEMS, Unit.INSTANCE)
 					.component(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_POOL, Unit.INSTANCE)));
-	public static final Item BAND_OF_AURA = make(LibItemNames.AURA_RING,
+	public static final Item BAND_OF_AURA = make(LibItemNames.BAND_OF_AURA,
 			new BandOfAuraItem(10, unstackable()));
-	public static final Item GREATER_BAND_OF_AURA = make(LibItemNames.AURA_RING_GREATER,
+	public static final Item GREATER_BAND_OF_AURA = make(LibItemNames.GREATER_BAND_OF_AURA,
 			new BandOfAuraItem(2, unstackable()
 					.rarity(Rarity.UNCOMMON)
 					.fireResistant()));
-	public static final Item RING_OF_MAGNETIZATION = make(LibItemNames.MAGNET_RING,
+	public static final Item RING_OF_MAGNETIZATION = make(LibItemNames.RING_OF_MAGNETIZATION,
 			new RingOfMagnetizationItem(unstackable()
 					.component(BotaniaDataComponents.RANGE, RingOfMagnetizationItem.DEFAULT_RANGE)));
-	public static final Item GREATER_RING_OF_MAGNETIZATION = make(LibItemNames.MAGNET_RING_GREATER,
+	public static final Item GREATER_RING_OF_MAGNETIZATION = make(LibItemNames.GREATER_RING_OF_MAGNETIZATION,
 			new RingOfMagnetizationItem(unstackable()
 					.rarity(Rarity.UNCOMMON)
 					.fireResistant()
 					.component(BotaniaDataComponents.RANGE, RingOfMagnetizationItem.DEFAULT_GREATER_RANGE)));
-	public static final Item RING_OF_CHORDATA = make(LibItemNames.WATER_RING,
+	public static final Item RING_OF_CHORDATA = make(LibItemNames.RING_OF_CHORDATA,
 			new RingOfChordataItem(unstackable()
 					.rarity(Rarity.UNCOMMON)));
-	public static final Item RING_OF_CORRECTION = make(LibItemNames.SWAP_RING,
+	public static final Item RING_OF_CORRECTION = make(LibItemNames.RING_OF_CORRECTION,
 			new RingOfCorrectionItem(unstackable()));
-	public static final Item RING_OF_DEXTEROUS_MOTION = make(LibItemNames.DODGE_RING,
+	public static final Item RING_OF_DEXTEROUS_MOTION = make(LibItemNames.RING_OF_DEXTEROUS_MOTION,
 			new RingOfDexterousMotionItem(unstackable()));
-	public static final Item RING_OF_THE_MANTLE = make(LibItemNames.MINING_RING,
+	public static final Item RING_OF_THE_MANTLE = make(LibItemNames.RING_OF_THE_MANTLE,
 			new RingOfTheMantleItem(unstackable()));
-	public static final Item GREAT_FAIRY_RING = make(LibItemNames.PIXIE_RING,
+	public static final Item GREAT_FAIRY_RING = make(LibItemNames.GREAT_FAIRY_RING,
 			new GreatFairyRingItem(unstackable()));
-	public static final Item RING_OF_FAR_REACH = make(LibItemNames.REACH_RING,
+	public static final Item RING_OF_FAR_REACH = make(LibItemNames.RING_OF_FAR_REACH,
 			new RingOfFarReachItem(unstackable()));
-	public static final Item SOJOURNERS_SASH = make(LibItemNames.TRAVEL_BELT,
+	public static final Item SOJOURNERS_SASH = make(LibItemNames.SOJOURNORS_SASH,
 			new SojournersSashItem(unstackable()));
-	public static final Item GLOBETROTTERS_SASH = make(LibItemNames.SUPER_TRAVEL_BELT,
+	public static final Item GLOBETROTTERS_SASH = make(LibItemNames.GLOBETROTTERS_SASH,
 			new GlobetrottersSashItem(unstackable()
 					.rarity(Rarity.RARE)));
-	public static final Item PLANESTRIDERS_SASH = make(LibItemNames.SPEED_UP_BELT,
+	public static final Item PLANESTRIDERS_SASH = make(LibItemNames.PLANESTRIDERS_SASH,
 			new PlanestridersSashItem(unstackable()));
-	public static final Item TECTONIC_GIRDLE = make(LibItemNames.KNOCKBACK_BELT,
+	public static final Item TECTONIC_GIRDLE = make(LibItemNames.TECTONIC_GIRDLE,
 			new TectonicGirdleItem(unstackable()));
-	public static final Item SNOWFLAKE_PENDANT = make(LibItemNames.ICE_PENDANT,
+	public static final Item SNOWFLAKE_PENDANT = make(LibItemNames.SNOWFLAKE_PENDANT,
 			new SnowflakePendantItem(unstackable()));
-	public static final Item PYROCLAST_PENDANT = make(LibItemNames.LAVA_PENDANT,
+	public static final Item PYROCLAST_PENDANT = make(LibItemNames.PYROCLAST_PENDANT,
 			new PyroclastPendantItem(unstackable()));
-	public static final Item CRIMSON_PENDANT = make(LibItemNames.SUPER_LAVA_PENDANT,
+	public static final Item CRIMSON_PENDANT = make(LibItemNames.CRIMSON_PENDANT,
 			new CrimsonPendantItem(unstackable()
 					.rarity(Rarity.RARE)));
-	public static final Item CIRRUS_AMULET = make(LibItemNames.CLOUD_PENDANT,
+	public static final Item CIRRUS_AMULET = make(LibItemNames.CIRRUS_AMULET,
 			new CirrusAmuletItem(unstackable()));
-	public static final Item NIMBUS_AMULET = make(LibItemNames.SUPER_CLOUD_PENDANT,
+	public static final Item NIMBUS_AMULET = make(LibItemNames.NIMBUS_AMULET,
 			new NimbusAmuletItem(unstackable()
 					.rarity(Rarity.RARE)));
-	public static final Item CLOAK_OF_VIRTUE = make(LibItemNames.HOLY_CLOAK,
+	public static final Item CLOAK_OF_VIRTUE = make(LibItemNames.CLOAK_OF_VIRTUE,
 			new CloakOfVirtueItem(unstackable()
 					.rarity(Rarity.RARE)));
-	public static final Item CLOAK_OF_SIN = make(LibItemNames.UNHOLY_CLOAK,
+	public static final Item CLOAK_OF_SIN = make(LibItemNames.CLOAK_OF_SIN,
 			new CloakOfSinItem(unstackable()
 					.rarity(Rarity.RARE)));
-	public static final Item CLOAK_OF_BALANCE = make(LibItemNames.BALANCE_CLOAK,
+	public static final Item CLOAK_OF_BALANCE = make(LibItemNames.CLOAK_OF_BALANCE,
 			new CloakOfBalanceItem(unstackable()
 					.rarity(Rarity.RARE)));
-	public static final Item INVINSIBILITY_CLOAK = make(LibItemNames.INVISIBILITY_CLOAK,
+	public static final Item INVISIBILITY_CLOAK = make(LibItemNames.INVISIBILITY_CLOAK,
 			new InvisibilityCloakItem(unstackable()));
 	public static final Item THIRD_EYE = make(LibItemNames.THIRD_EYE,
 			new ThirdEyeItem(unstackable()));
-	public static final Item MANASEER_MONOCLE = make(LibItemNames.MONOCLE,
+	public static final Item MANASEER_MONOCLE = make(LibItemNames.MANASEER_MONOCLE,
 			new ManaseerMonocleItem(unstackable()));
 	public static final Item TINY_PLANET = make(LibItemNames.TINY_PLANET,
 			new TinyPlanetItem(unstackable()));
-	public static final Item BENEVOLENT_GODDESS_CHARM = make(LibItemNames.GODDESS_CHARM,
+	public static final Item BENEVOLENT_GODDESS_CHARM = make(LibItemNames.BENEVOLENT_GODDESS_CHARM,
 			new BenevolentGoddessCharmItem(unstackable()));
-	public static final Item CHARM_OF_THE_DIVA = make(LibItemNames.DIVA_CHARM,
+	public static final Item CHARM_OF_THE_DIVA = make(LibItemNames.CHARM_OF_THE_DIVA,
 			new CharmOfTheDivaItem(unstackable()
 					.rarity(Rarity.RARE)));
-	public static final Item THE_SPECTATOR = make(LibItemNames.ITEM_FINDER,
+	public static final Item THE_SPECTATOR = make(LibItemNames.THE_SPECTATOR,
 			new SpectatorItem(unstackable()));
-	public static final Item FLUEGEL_TIARA = make(LibItemNames.FLIGHT_TIARA,
+	public static final Item FLUEGEL_TIARA = make(LibItemNames.FLUEGEL_TIARA,
 			new FlugelTiaraItem(unstackable()
 					.rarity(Rarity.RARE)));
 
 	// Misc
-	public static final Item BISCUIT_OF_TOTALITY = make(LibItemNames.MANA_COOKIE,
+	public static final Item BISCUIT_OF_TOTALITY = make(LibItemNames.BISCUIT_OF_TOTALITY,
 			new Item(defaultBuilder()
 					.food(new FoodProperties.Builder()
 							.nutrition(0)
 							.saturationModifier(0.1F)
 							.effect(new MobEffectInstance(MobEffects.SATURATION, 20, 0), 1)
 							.build())));
-	public static final Item MANA_IN_A_BOTTLE = make(LibItemNames.MANA_BOTTLE,
+	public static final Item MANA_IN_A_BOTTLE = make(LibItemNames.MANA_IN_A_BOTTLE,
 			new BottledManaItem(unstackable()
 					// Mark as food just to fool foxes into using it
 					.food(new FoodProperties.Builder().alwaysEdible().build())
 					.component(BotaniaDataComponents.REMAINING_USES, BottledManaItem.SWIGS)));
-	public static final Item SHARD_OF_LAPUTA = make(LibItemNames.LAPUTA_SHARD,
+	public static final Item SHARD_OF_LAPUTA = make(LibItemNames.SHARD_OF_LAPUTA,
 			new LaputaShardItem(unstackable()
 					.rarity(Rarity.RARE)));
-	public static final Item NECRODERMAL_VIRUS = make(LibItemNames.NECRO_VIRUS,
+	public static final Item NECRODERMAL_VIRUS = make(LibItemNames.NECRODERMAL_VIRUS,
 			new EquestrianVirusItem(defaultBuilder()
 					.rarity(Rarity.UNCOMMON)));
-	public static final Item NULLODERMAL_VIRUS = make(LibItemNames.NULL_VIRUS,
+	public static final Item NULLODERMAL_VIRUS = make(LibItemNames.NULLODERMAL_VIRUS,
 			new EquestrianVirusItem(defaultBuilder()
 					.rarity(Rarity.UNCOMMON)));
 	public static final Item SPARK = make(LibItemNames.SPARK, new ManaSparkItem(defaultBuilder()));
-	public static final Item SPARK_AUGMENT_DISPERSIVE = make(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DISPERSIVE.name().toLowerCase(Locale.ROOT),
+	public static final Item SPARK_AUGMENT_DISPERSIVE = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.DISPERSIVE.name().toLowerCase(Locale.ROOT),
 			new SparkAugmentItem(SparkUpgradeType.DISPERSIVE, defaultBuilder()));
-	public static final Item SPARK_AUGMENT_DOMINANT = make(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DOMINANT.name().toLowerCase(Locale.ROOT),
+	public static final Item SPARK_AUGMENT_DOMINANT = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.DOMINANT.name().toLowerCase(Locale.ROOT),
 			new SparkAugmentItem(SparkUpgradeType.DOMINANT, defaultBuilder()));
-	public static final Item SPARK_AUGMENT_RECESSIVE = make(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.RECESSIVE.name().toLowerCase(Locale.ROOT),
+	public static final Item SPARK_AUGMENT_RECESSIVE = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.RECESSIVE.name().toLowerCase(Locale.ROOT),
 			new SparkAugmentItem(SparkUpgradeType.RECESSIVE, defaultBuilder()));
-	public static final Item SPARK_AUGMENT_ISOLATED = make(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT),
+	public static final Item SPARK_AUGMENT_ISOLATED = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT),
 			new SparkAugmentItem(SparkUpgradeType.ISOLATED, defaultBuilder()));
 	public static final Item CORPOREA_SPARK = make(LibItemNames.CORPOREA_SPARK,
 			new CorporeaSparkItem(defaultBuilder()));
-	public static final Item MASTER_CORPOREA_SPARK = make(LibItemNames.CORPOREA_SPARK_MASTER,
+	public static final Item MASTER_CORPOREA_SPARK = make(LibItemNames.MASTER_CORPOREA_SPARK,
 			new CorporeaSparkItem(defaultBuilder()));
-	public static final Item CREATIVE_CORPOREA_SPARK = make(LibItemNames.CORPOREA_SPARK_CREATIVE,
+	public static final Item CREATIVE_CORPOREA_SPARK = make(LibItemNames.CREATIVE_CORPOREA_SPARK,
 			new CorporeaSparkItem(defaultBuilder()
 					.rarity(Rarity.EPIC)));
 	public static final Item BLACK_LOTUS = make(LibItemNames.BLACK_LOTUS,
@@ -607,63 +607,63 @@ public final class BotaniaItems {
 			new PhantomInkItem(defaultBuilder()));
 	public static final Item POOL_MINECART = make(LibItemNames.POOL_MINECART,
 			new ManaPoolMinecartItem(unstackable()));
-	public static final Item RESOLUTE_IVY = make(LibItemNames.KEEP_IVY,
+	public static final Item RESOLUTE_IVY = make(LibItemNames.RESOLUTE_IVY,
 			new ResoluteIvyItem(defaultBuilder()));
-	public static final Item CRAFTING_PLACEHOLDER = make(LibItemNames.PLACEHOLDER,
+	public static final Item CRAFTING_PLACEHOLDER = make(LibItemNames.CRAFTING_PLACEHOLDER,
 			new SelfReturningItem(defaultBuilder()));
-	public static final Item CRAFTING_PATTERN_1_1 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "1_1",
+	public static final Item CRAFTING_PATTERN_1_1 = make(LibItemNames.CRAFTING_PATTERN_PREFIX + "1_1",
 			new CraftingPatternItem(CraftyCratePattern.CRAFTY_1_1, unstackable()));
-	public static final Item CRAFTING_PATTERN_2_2 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "2_2",
+	public static final Item CRAFTING_PATTERN_2_2 = make(LibItemNames.CRAFTING_PATTERN_PREFIX + "2_2",
 			new CraftingPatternItem(CraftyCratePattern.CRAFTY_2_2, unstackable()));
-	public static final Item CRAFTING_PATTERN_1_2 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "1_2",
+	public static final Item CRAFTING_PATTERN_1_2 = make(LibItemNames.CRAFTING_PATTERN_PREFIX + "1_2",
 			new CraftingPatternItem(CraftyCratePattern.CRAFTY_1_2, unstackable()));
-	public static final Item CRAFTING_PATTERN_2_1 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "2_1",
+	public static final Item CRAFTING_PATTERN_2_1 = make(LibItemNames.CRAFTING_PATTERN_PREFIX + "2_1",
 			new CraftingPatternItem(CraftyCratePattern.CRAFTY_2_1, unstackable()));
-	public static final Item CRAFTING_PATTERN_1_3 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "1_3",
+	public static final Item CRAFTING_PATTERN_1_3 = make(LibItemNames.CRAFTING_PATTERN_PREFIX + "1_3",
 			new CraftingPatternItem(CraftyCratePattern.CRAFTY_1_3, unstackable()));
-	public static final Item CRAFTING_PATTERN_3_1 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "3_1",
+	public static final Item CRAFTING_PATTERN_3_1 = make(LibItemNames.CRAFTING_PATTERN_PREFIX + "3_1",
 			new CraftingPatternItem(CraftyCratePattern.CRAFTY_3_1, unstackable()));
-	public static final Item CRAFTING_PATTERN_2_3 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "2_3",
+	public static final Item CRAFTING_PATTERN_2_3 = make(LibItemNames.CRAFTING_PATTERN_PREFIX + "2_3",
 			new CraftingPatternItem(CraftyCratePattern.CRAFTY_2_3, unstackable()));
-	public static final Item CRAFTING_PATTERN_3_2 = make(LibItemNames.CRAFT_PATTERN_PREFIX + "3_2",
+	public static final Item CRAFTING_PATTERN_3_2 = make(LibItemNames.CRAFTING_PATTERN_PREFIX + "3_2",
 			new CraftingPatternItem(CraftyCratePattern.CRAFTY_3_2, unstackable()));
-	public static final Item CRAFTING_PATTERN_DONUT = make(LibItemNames.CRAFT_PATTERN_PREFIX + "donut",
+	public static final Item CRAFTING_PATTERN_DONUT = make(LibItemNames.CRAFTING_PATTERN_PREFIX + "donut",
 			new CraftingPatternItem(CraftyCratePattern.CRAFTY_DONUT, unstackable()));
 
 	// Guardian of Gaia drops
-	public static final Item DICE_OF_FATE = make(LibItemNames.DICE,
+	public static final Item DICE_OF_FATE = make(LibItemNames.DICE_OF_FATE,
 			new DiceOfFateItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
-	public static final Item FRUIT_OF_GRISAIA = make(LibItemNames.INFINITE_FRUIT,
+	public static final Item FRUIT_OF_GRISAIA = make(LibItemNames.THE_FRUIT_OF_GRISAIA,
 			new FruitOfGrisaiaItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
-	public static final Item KEY_OF_THE_KINGS_LAW = make(LibItemNames.KING_KEY,
+	public static final Item KEY_OF_THE_KINGS_LAW = make(LibItemNames.KEY_OF_THE_KINGS_LAW,
 			new KeyOfTheKingsLawItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
-	public static final Item EYE_OF_THE_FLUEGEL = make(LibItemNames.FLUGEL_EYE,
+	public static final Item EYE_OF_THE_FLUEGEL = make(LibItemNames.EYE_OF_THE_FLUEGEL,
 			new EyeOfTheFlugelItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
-	public static final Item RING_OF_THOR = make(LibItemNames.THOR_RING,
+	public static final Item RING_OF_THOR = make(LibItemNames.RING_OF_THOR,
 			new RingOfThorItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
-	public static final Item RING_OF_ODIN = make(LibItemNames.ODIN_RING,
+	public static final Item RING_OF_ODIN = make(LibItemNames.RING_OF_ODIN,
 			new RingOfOdinItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
-	public static final Item RING_OF_LOKI = make(LibItemNames.LOKI_RING,
+	public static final Item RING_OF_LOKI = make(LibItemNames.RING_OF_LOKI,
 			new RingOfLokiItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
-	public static final Item MUSIC_DISC_ENDURE_EMPTINESS = make(LibItemNames.RECORD_GAIA1,
+	public static final Item SCATHED_MUSIC_DISC_1 = make(LibItemNames.SCATHED_MUSIC_DISC_1,
 			new Item(unstackable()
 					.rarity(Rarity.RARE)
 					.jukeboxPlayable(BotaniaJukeboxSongs.GAIA_MUSIC_1)));
-	public static final Item MUSIC_DISC_FIGHT_FOR_QUIESCENCE = make(LibItemNames.RECORD_GAIA2,
+	public static final Item SCATHED_MUSIC_DISC_2 = make(LibItemNames.SCATHED_MUSIC_DISC_2,
 			new Item(unstackable()
 					.rarity(Rarity.RARE)
 					.jukeboxPlayable(BotaniaJukeboxSongs.GAIA_MUSIC_2)));
@@ -685,14 +685,14 @@ public final class BotaniaItems {
 	public static final Item WILL_OF_KARIL = make(LibItemNames.ANCIENT_WILL_PREFIX + "karil",
 			new AncientWillItem(AncientWillContainer.AncientWillType.KARIL, unstackable()
 					.rarity(Rarity.RARE)));
-	public static final Item THE_PINKINATOR = make(LibItemNames.PINKINATOR,
+	public static final Item THE_PINKINATOR = make(LibItemNames.THE_PINKINATOR,
 			new PinkinatorItem(unstackable()
 					.rarity(Rarity.RARE)));
 
 	// Brewing
-	public static final Item MANAGLASS_VIAL = make(LibItemNames.VIAL,
+	public static final Item MANAGLASS_VIAL = make(LibItemNames.MANAGLASS_VIAL,
 			new VialItem(defaultBuilder()));
-	public static final Item ALFGLASS_FLASK = make(LibItemNames.FLASK,
+	public static final Item ALFGLASS_FLASK = make(LibItemNames.ALFGLASS_FLASK,
 			new VialItem(defaultBuilder()));
 	public static final BaseBrewItem BREW_VIAL = make(LibItemNames.BREW_VIAL,
 			new BaseBrewItem(32, () -> MANAGLASS_VIAL, unstackable()
@@ -700,7 +700,7 @@ public final class BotaniaItems {
 	public static final BaseBrewItem BREW_FLASK = make(LibItemNames.BREW_FLASK,
 			new BaseBrewItem(24, () -> ALFGLASS_FLASK, unstackable()
 					.component(BotaniaDataComponents.MAX_USES, BaseBrewItem.DEFAULT_USES_FLASK)));
-	public static final Item TAINTED_BLOOD_PENDANT = make(LibItemNames.BLOOD_PENDANT,
+	public static final Item TAINTED_BLOOD_PENDANT = make(LibItemNames.TAINTED_BLOOD_PENDANT,
 			new TaintedBloodPendantItem(unstackable()));
 	public static final Item INCENSE_STICK = make(LibItemNames.INCENSE_STICK,
 			new IncenseStickItem(unstackable()));

@@ -1,8 +1,8 @@
 {
   "values": [
-    "botania:balance_cloak",
-    "botania:holy_cloak",
+    "botania:cloak_of_balance",
+    "botania:cloak_of_virtue",
     "botania:invisibility_cloak",
-    "botania:unholy_cloak"
+    "botania:cloak_of_sin"
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "type": "botania:crafting_shaped_mana_upgrade",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "tag": "c:ingots/manasteel"
+    },
+    "T": {
+      "item": "botania:mana_tablet"
+    }
+  },
+  "pattern": [
+    "TI ",
+    "I I",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:band_of_mana"
+  }
+}

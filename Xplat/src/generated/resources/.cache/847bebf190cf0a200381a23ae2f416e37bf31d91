@@ -1,7 +1,7 @@
 // 1.21.1	Botania/minecraft:gift Loot Table
-a2ffb8b8ba3cf2da8815392981192cf950f93926 data/botania/loot_table/dice/roll_1.json
-53b5e623d9f4d29a51917d09275891d70b3c4e92 data/botania/loot_table/dice/roll_2.json
-df24712738344e14a82d0fbd099ce93bd937b0e3 data/botania/loot_table/dice/roll_3.json
-46dd283b058139d97aefd3bebde36e4ce482b417 data/botania/loot_table/dice/roll_4.json
-6a6563b10fe19cbca715060ded90789f7482a575 data/botania/loot_table/dice/roll_5.json
-c3f1d32a32371f1dc10c13600901f069bbe0686d data/botania/loot_table/dice/roll_6.json
+a2ffb8b8ba3cf2da8815392981192cf950f93926 data/botania/loot_table/dice_of_fate/roll_1.json
+2a5a5431f3564e20c86fca60265e9288996daf22 data/botania/loot_table/dice_of_fate/roll_2.json
+df24712738344e14a82d0fbd099ce93bd937b0e3 data/botania/loot_table/dice_of_fate/roll_3.json
+46dd283b058139d97aefd3bebde36e4ce482b417 data/botania/loot_table/dice_of_fate/roll_4.json
+6a6563b10fe19cbca715060ded90789f7482a575 data/botania/loot_table/dice_of_fate/roll_5.json
+c3f1d32a32371f1dc10c13600901f069bbe0686d data/botania/loot_table/dice_of_fate/roll_6.json

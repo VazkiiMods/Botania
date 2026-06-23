@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "botania:rune_of_air"
+    },
+    "E": {
+      "item": "botania:rune_of_earth"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "S": {
+      "tag": "c:ingots/manasteel"
+    }
+  },
+  "pattern": [
+    "EL ",
+    "L L",
+    "SLA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:sojournors_sash"
+  }
+}

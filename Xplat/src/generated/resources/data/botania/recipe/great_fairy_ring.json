@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "tag": "c:dusts/pixie"
+    },
+    "E": {
+      "tag": "c:ingots/elementium"
+    }
+  },
+  "pattern": [
+    "DE ",
+    "E E",
+    " E "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:great_fairy_ring"
+  }
+}

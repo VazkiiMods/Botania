@@ -268,7 +268,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, botaniaRL("challenge/loki_ring"));
+		return new RelicImpl(stack, botaniaRL("challenge/ring_of_loki"));
 	}
 
 }

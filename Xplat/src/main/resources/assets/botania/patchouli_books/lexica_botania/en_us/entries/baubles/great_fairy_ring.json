@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.pixieRing",
+  "category": "botania:baubles",
+  "icon": "botania:great_fairy_ring",
+  "entry_color": "aa00",
+  "advancement": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.pixieRing0"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.pixieRing1",
+      "recipe": "botania:great_fairy_ring"
+    }
+  ]
+}

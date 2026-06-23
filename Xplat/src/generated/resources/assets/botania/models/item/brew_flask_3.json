@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:item/flask",
+    "layer0": "botania:item/alfglass_flask",
     "layer1": "botania:item/brew_flask_3"
   }
 }

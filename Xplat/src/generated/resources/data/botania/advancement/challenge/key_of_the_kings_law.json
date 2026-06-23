@@ -1,0 +1,35 @@
+{
+  "parent": "botania:challenge/gaia_guardian_hardmode",
+  "criteria": {
+    "key": {
+      "conditions": {
+        "relic": {
+          "items": "botania:key_of_the_kings_law"
+        }
+      },
+      "trigger": "botania:relic_bind"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.botania:kingKey.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "botania:key_of_the_kings_law"
+    },
+    "title": {
+      "translate": "advancement.botania:kingKey"
+    }
+  },
+  "requirements": [
+    [
+      "key"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

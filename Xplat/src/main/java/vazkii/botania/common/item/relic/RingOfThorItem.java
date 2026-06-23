@@ -24,7 +24,7 @@ public class RingOfThorItem extends RelicBaubleItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, botaniaRL("challenge/thor_ring"));
+		return new RelicImpl(stack, botaniaRL("challenge/ring_of_thor"));
 	}
 
 	public static ItemStack getThorRing(Player player) {

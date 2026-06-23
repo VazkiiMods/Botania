@@ -102,7 +102,7 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.pool7",
-      "recipes": "botania:mana_infusion/mana_cookie"
+      "recipes": "botania:mana_infusion/biscuit_of_totality"
     }
   ],
   "extra_recipe_mappings": {

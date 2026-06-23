@@ -1,22 +1,22 @@
 {
   "values": [
-    "botania:infinite_fruit",
-    "botania:king_key",
-    "botania:flugel_eye",
-    "botania:thor_ring",
-    "botania:odin_ring",
-    "botania:loki_ring",
-    "botania:dice",
+    "botania:the_fruit_of_grisaia",
+    "botania:key_of_the_kings_law",
+    "botania:eye_of_the_fluegel",
+    "botania:ring_of_thor",
+    "botania:ring_of_odin",
+    "botania:ring_of_loki",
+    "botania:dice_of_fate",
     "botania:mana_tablet",
-    "botania:mana_ring",
-    "botania:mana_ring_greater",
+    "botania:band_of_mana",
+    "botania:greater_band_of_mana",
     "botania:blacker_lotus",
     "botania:black_hole_talisman",
     "botania:flower_pouch",
     "botania:petal_pouch",
     "botania:trinket_case",
     "botania:life_aggregator",
-    "botania:terrasteel_pickaxe",
+    "botania:terra_shatterer",
     "botania:terrasteel_block"
   ]
 }

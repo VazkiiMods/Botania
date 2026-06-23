@@ -13,8 +13,8 @@ a7e6d999c01c8eee57bbcfb684769c1762e74085 data/c/tags/item/cobblestones/metamorph
 d0de0e62599a34171af00512cb371b0d890e5ddd data/c/tags/item/cobblestones/metamorphic/plains.json
 5a071ae2f0d758b137c7a48b8356faeaa0e74952 data/c/tags/item/cobblestones/metamorphic/swamp.json
 b0d114fd7dd6390c27a3e46bc26ec2206f98765f data/c/tags/item/cobblestones/metamorphic/taiga.json
-fa01d0986130655296edf6408162c4fb172831d3 data/c/tags/item/drink_containing/bottle.json
-fa01d0986130655296edf6408162c4fb172831d3 data/c/tags/item/drinks/magic.json
+48c826129896bd09d93d98614ffe78859f193b43 data/c/tags/item/drink_containing/bottle.json
+48c826129896bd09d93d98614ffe78859f193b43 data/c/tags/item/drinks/magic.json
 4c164c91bfbd3c67a9f809e2c57c7b71b29d12fd data/c/tags/item/drinks/watery.json
 7fef5566f45c8e695007ed6dd5d40694bf3daa1e data/c/tags/item/dusts.json
 3b82ebfea27abfd970b1e746c92de795a2627931 data/c/tags/item/dusts/mana.json
@@ -37,8 +37,8 @@ e3717e63a3c27d4f81eee22a2f69623c98772ba4 data/c/tags/item/dyed/red.json
 186e7125ca0ce84adfa604c1e804833680a99594 data/c/tags/item/dyed/yellow.json
 977989ed56cd3a0282f8a458a3859fa27abf0ad3 data/c/tags/item/fence_gates/wooden.json
 6d092e594b74b65fa615c5288451d3b165f728d9 data/c/tags/item/fences/wooden.json
-ddc40afc699861872a7cf3416eb760af71fb8d30 data/c/tags/item/foods/cookie.json
-96ac4488e2e8036d28a946eff5a242dabfed438b data/c/tags/item/foods/fruit.json
+fbf0862ea7e3cc9175cd8cedf864587f89aa9808 data/c/tags/item/foods/cookie.json
+7358a89ff3842eee2c4492d01fab708af19079e0 data/c/tags/item/foods/fruit.json
 f39114abea4c5d12f67bc085b968003b2b224d57 data/c/tags/item/gems.json
 a3d294f04f0c11850a22c1f8865b8b2255ff32ac data/c/tags/item/gems/blaze_quartz.json
 dac0610f30857965bf170f6620f6f521ef29db4d data/c/tags/item/gems/dragonstone.json
@@ -60,7 +60,7 @@ e84673de5e99b6e1a9b6b474b30c755a5815a4ef data/c/tags/item/ingots/elementium.json
 5a11c97bcbfa5c7974f4a2feb4b9ec4389d084f2 data/c/tags/item/ingots/manasteel.json
 7a11bd85a16d2a2d2df94cc9f27d6f1c4e108b03 data/c/tags/item/ingots/terrasteel.json
 01d979ddd3cb401fafdb5951319cb59f169743e3 data/c/tags/item/mushrooms.json
-336d4eadc6fa23defadbd67aa4c2a6b1c19a1fb7 data/c/tags/item/music_discs.json
+917ba57f54b78ac1469219fc6d97d954269045bf data/c/tags/item/music_discs.json
 229760a5622e7841e9ef7fb7f9b4181f8211daf8 data/c/tags/item/nuggets.json
 0ac015617f54372dbb36d7c82c1a22557a8ff3d0 data/c/tags/item/nuggets/elementium.json
 71f2eaa6d15bbd439afda07d2a30c9439b926645 data/c/tags/item/nuggets/manasteel.json
@@ -96,8 +96,8 @@ ea9cf45b4b0bb66e9f47acdd27ec131f4aa8c44d data/c/tags/item/storage_blocks/petal/r
 b6dd8962115dab8db01217e0e488d9d336513652 data/c/tags/item/stripped_logs.json
 b7948eba5d0468dc3f6b9f4c17e5ab8d3b910099 data/c/tags/item/stripped_woods.json
 68aabb17f89f25d64fabc2720017e6f9e5ce1fda data/c/tags/item/tools/bow.json
-6b54ee7cab6182be7285405ac0513819a081cacc data/c/tags/item/tools/melee_weapon.json
-9f20ac331d58b338e6385f43fdc922ea019aa8e7 data/c/tags/item/tools/mining_tool.json
+f37a34e9860ebc833c12d5e5d7dc913be6f5a86f data/c/tags/item/tools/melee_weapon.json
+db897a2d71813971b384311e8b346b2555e5a763 data/c/tags/item/tools/mining_tool.json
 68aabb17f89f25d64fabc2720017e6f9e5ce1fda data/c/tags/item/tools/ranged_weapon.json
 61ae96e93e2303b4ea5e262006efa92df0fdc516 data/c/tags/item/tools/shear.json
 743d31257e96e0b4456213ace97636afba619c33 data/c/tags/item/tools/wrench.json

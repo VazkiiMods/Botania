@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.virus",
   "category": "botania:tools",
-  "icon": "botania:virus_necrodermal",
+  "icon": "botania:necrodermal_virus",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
@@ -12,12 +12,12 @@
     {
       "type": "crafting",
       "text": "botania.page.virus1",
-      "recipe": "botania:virus_necrodermal"
+      "recipe": "botania:necrodermal_virus"
     },
     {
       "type": "crafting",
       "text": "botania.page.virus2",
-      "recipe": "botania:virus_nullodermal"
+      "recipe": "botania:nullodermal_virus"
     }
   ]
 }

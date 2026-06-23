@@ -53,7 +53,7 @@ public class RingOfOdinItem extends RelicBaubleItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, botaniaRL("challenge/odin_ring"));
+		return new RelicImpl(stack, botaniaRL("challenge/ring_of_odin"));
 	}
 
 }

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "minecraft:cod"
+    },
+    "H": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "M": {
+      "tag": "c:ingots/manasteel"
+    },
+    "P": {
+      "item": "minecraft:pufferfish"
+    },
+    "W": {
+      "item": "botania:rune_of_water"
+    }
+  },
+  "pattern": [
+    "WMP",
+    "MHM",
+    "CM "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:ring_of_chordata"
+  }
+}

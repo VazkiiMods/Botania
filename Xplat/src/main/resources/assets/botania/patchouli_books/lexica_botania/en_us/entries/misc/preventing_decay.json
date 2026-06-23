@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.preventingDecay",
   "category": "botania:misc",
-  "icon": "botania:monocle",
+  "icon": "botania:manaseer_monocle",
   "secret": true,
   "advancement": "botania:main/dog",
   "pages": [

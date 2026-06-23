@@ -116,7 +116,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "botania:pinkinator"
+          "name": "botania:the_pinkinator"
         }
       ],
       "rolls": 1.0
@@ -135,7 +135,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "botania:record_gaia_2",
+          "name": "botania:scathed_music_disc_2",
           "weight": 14
         },
         {
@@ -169,7 +169,7 @@
               "function": "botania:bind_uuid"
             }
           ],
-          "name": "botania:dice"
+          "name": "botania:dice_of_fate"
         }
       ],
       "rolls": 1.0

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "G": {
+      "item": "botania:gaia_spirit"
+    },
+    "N": {
+      "tag": "c:bricks/nether"
+    },
+    "P": {
+      "item": "botania:pyroclast_pendant"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BPB",
+    "NGN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:crimson_pendant"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "tag": "c:gems/mana_diamond"
+    },
+    "G": {
+      "item": "minecraft:ghast_tear"
+    },
+    "P": {
+      "tag": "c:gems/prismarine"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PGP",
+    "DP "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:tainted_blood_pendant"
+  }
+}

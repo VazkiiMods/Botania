@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.superTravelBelt",
+  "category": "botania:baubles",
+  "icon": "botania:globetrotters_sash",
+  "entry_color": "aa00",
+  "advancement": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.superTravelBelt0"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.superTravelBelt1",
+      "recipe": "botania:globetrotters_sash"
+    }
+  ]
+}

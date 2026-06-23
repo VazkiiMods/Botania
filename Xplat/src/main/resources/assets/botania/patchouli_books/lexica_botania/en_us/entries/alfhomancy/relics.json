@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.relics",
   "category": "botania:alfhomancy",
-  "icon": "botania:dice",
+  "icon": "botania:dice_of_fate",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
   "flag": "botania:relics",

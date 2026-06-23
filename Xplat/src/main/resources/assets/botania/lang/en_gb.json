@@ -269,7 +269,7 @@
 
 
 
-  "tag.block.botania.shields_from_magnet_ring": "Shields from Ring of Magnetisation",
+  "tag.block.botania.shields_from_ring_of_magnetization": "Shields from Ring of Magnetisation",
 
 
 
@@ -357,7 +357,7 @@
 
 
 
-  "tag.item.botania.magnet_ring_ignored": "Ignored by Ring of Magnetisation",
+  "tag.item.botania.ring_of_magnetization_ignored": "Ignored by Ring of Magnetisation",
 
 
 
@@ -1907,7 +1907,7 @@
 
 
 
-  "item.botania.magnet_ring": "Ring of Magnetisation",
+  "item.botania.ring_of_magnetization": "Ring of Magnetisation",
 
 
 
@@ -2072,7 +2072,7 @@
 
 
 
-  "item.botania.magnet_ring_greater": "Greater Ring of Magnetisation",
+  "item.botania.greater_ring_of_magnetization": "Greater Ring of Magnetisation",
 
 
 
@@ -2890,7 +2890,7 @@
 
 
   "botania.tagline.solegnolia": "Creates spaces where the Ring of Magnetisation doesn't work",
-  "botania.page.solegnolia0": "The $(l:baubles/magnet_ring)$(item)Ring of Magnetisation$(0)$(/l) is quite the handy tool for any diggers or collectors. However, it can also pick up unwanted items, disrupting automation setups in the process. The $(item)Solegnolia$(0) disrupts the ring's field of effect and prevents any items in its range from being pulled towards a ring-bearer. It also prevents any ring-bearers in its range from pulling any items. It does not consume $(thing)Mana$(0).",
+  "botania.page.solegnolia0": "The $(l:baubles/ring_of_magnetization)$(item)Ring of Magnetisation$(0)$(/l) is quite the handy tool for any diggers or collectors. However, it can also pick up unwanted items, disrupting automation setups in the process. The $(item)Solegnolia$(0) disrupts the ring's field of effect and prevents any items in its range from being pulled towards a ring-bearer. It also prevents any ring-bearers in its range from pulling any items. It does not consume $(thing)Mana$(0).",
 
 
 
@@ -3935,7 +3935,7 @@
 
 
 
-  "botania.page.gaiaRitual4": "Standard gear for this ritual is a set of enchanted $(item)Elementium Armour$(0), a $(l:tools/terrasteel_sword)$(item)Terra Blade$(0)$(/l), and a miscellany of $(thing)Brews$(0) and $(thing)Trinkets$(0). Do note that the $(item)Beacon$(0)'s effect is forcibly nullified during the battle.$(p)The $(item)Guardian$(0) has a massive pool of health, so preparing with $(thing)Enchantments$(0) and $(thing)Brews$(0) is a must!",
+  "botania.page.gaiaRitual4": "Standard gear for this ritual is a set of enchanted $(item)Elementium Armour$(0), a $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l), and a miscellany of $(thing)Brews$(0) and $(thing)Trinkets$(0). Do note that the $(item)Beacon$(0)'s effect is forcibly nullified during the battle.$(p)The $(item)Guardian$(0) has a massive pool of health, so preparing with $(thing)Enchantments$(0) and $(thing)Brews$(0) is a must!",
 
 
 

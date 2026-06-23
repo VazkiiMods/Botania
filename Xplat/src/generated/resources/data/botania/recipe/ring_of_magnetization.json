@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": {
+      "item": "botania:magnetizing_lens"
+    },
+    "M": {
+      "tag": "c:ingots/manasteel"
+    }
+  },
+  "pattern": [
+    "LM ",
+    "M M",
+    " M "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:ring_of_magnetization"
+  }
+}

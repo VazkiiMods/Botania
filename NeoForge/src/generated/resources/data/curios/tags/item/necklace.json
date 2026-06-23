@@ -1,10 +1,10 @@
 {
   "values": [
-    "botania:blood_pendant",
-    "botania:cloud_pendant",
-    "botania:ice_pendant",
-    "botania:lava_pendant",
-    "botania:super_cloud_pendant",
-    "botania:super_lava_pendant"
+    "botania:tainted_blood_pendant",
+    "botania:cirrus_amulet",
+    "botania:snowflake_pendant",
+    "botania:pyroclast_pendant",
+    "botania:nimbus_amulet",
+    "botania:crimson_pendant"
   ]
 }
