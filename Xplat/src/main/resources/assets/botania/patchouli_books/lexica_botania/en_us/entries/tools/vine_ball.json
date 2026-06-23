@@ -20,7 +20,7 @@
     {
       "type": "crafting",
       "text": "botania.page.vineBall3",
-      "recipe": "botania:slingshot"
+      "recipe": "botania:livingwood_slingshot"
     }
   ]
 }

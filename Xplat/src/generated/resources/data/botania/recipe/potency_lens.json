@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "botania:mana_lens"
+    },
+    {
+      "item": "botania:rune_of_fire"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:potency_lens"
+  }
+}

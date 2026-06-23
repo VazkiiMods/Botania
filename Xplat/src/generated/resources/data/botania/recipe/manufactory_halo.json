@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "botania:assembly_halo"
+    },
+    {
+      "tag": "c:gems/mana_diamond"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:manufactory_halo"
+  }
+}

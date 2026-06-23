@@ -1,0 +1,33 @@
+{
+  "parent": "botania:main/rune_pickup",
+  "criteria": {
+    "dirtrod": {
+      "conditions": {
+        "items": [
+          {
+            "items": "botania:rod_of_the_lands"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.botania:dirtRodCraft.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "botania:rod_of_the_lands"
+    },
+    "title": {
+      "translate": "advancement.botania:dirtRodCraft"
+    }
+  },
+  "requirements": [
+    [
+      "dirtrod"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

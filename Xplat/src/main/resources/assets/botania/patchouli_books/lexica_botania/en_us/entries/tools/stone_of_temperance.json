@@ -1,0 +1,21 @@
+{
+  "name": "botania.entry.temperanceStone",
+  "category": "botania:tools",
+  "icon": "botania:stone_of_temperance",
+  "advancement": "botania:main/terrasteel_pickup_lexicon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.temperanceStone0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.temperanceStone2"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.temperanceStone1",
+      "recipe": "botania:stone_of_temperance"
+    }
+  ]
+}

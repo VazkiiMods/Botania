@@ -83,7 +83,7 @@ public class StarcallerItem extends ManasteelSwordItem {
 			}
 
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.starcaller_sword, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}
 

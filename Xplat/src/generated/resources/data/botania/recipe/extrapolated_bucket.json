@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": {
+      "tag": "c:ingots/elementium"
+    }
+  },
+  "pattern": [
+    "E E",
+    " E "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:extrapolated_bucket"
+  }
+}

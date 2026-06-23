@@ -202,7 +202,7 @@ public final class HUDHandler {
 		}
 
 		if (!main.isEmpty() && main.getItem() instanceof SextantItem) {
-			profiler.push("sextant");
+			profiler.push("worldshapers_sextant");
 			SextantItem.Hud.render(gui, localPlayer, main);
 			profiler.pop();
 		}

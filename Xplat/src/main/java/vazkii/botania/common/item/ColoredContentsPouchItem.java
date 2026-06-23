@@ -39,7 +39,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.internal.Colored;
-import vazkii.botania.client.gui.bag.ColoredContentsPouchContainer;
+import vazkii.botania.client.gui.bag.ColoredContentsPouchMenu;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.EntityHelper;
@@ -109,7 +109,7 @@ public abstract class ColoredContentsPouchItem extends Item {
 
 				@Override
 				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-					return new ColoredContentsPouchContainer(syncId, inv, hand == InteractionHand.MAIN_HAND);
+					return new ColoredContentsPouchMenu(syncId, inv, hand == InteractionHand.MAIN_HAND);
 				}
 			}, hand == InteractionHand.MAIN_HAND, ByteBufCodecs.BOOL);
 		}

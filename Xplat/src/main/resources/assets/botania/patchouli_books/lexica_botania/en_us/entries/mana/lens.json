@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.lens",
   "category": "botania:mana",
-  "icon": "botania:lens_normal",
+  "icon": "botania:mana_lens",
   "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
@@ -11,7 +11,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens1",
-      "recipe": "botania:lens_normal"
+      "recipe": "botania:mana_lens"
     },
     {
       "type": "text",
@@ -29,7 +29,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens7",
-      "recipe": "botania:lens_speed"
+      "recipe": "botania:velocity_lens"
     },
     {
       "anchor": "power",
@@ -39,7 +39,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens9",
-      "recipe": "botania:lens_power"
+      "recipe": "botania:potency_lens"
     },
     {
       "anchor": "time",
@@ -49,7 +49,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens11",
-      "recipe": "botania:lens_time"
+      "recipe": "botania:resistance_lens"
     },
     {
       "anchor": "efficiency",
@@ -59,7 +59,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens13",
-      "recipe": "botania:lens_efficiency"
+      "recipe": "botania:efficiency_lens"
     },
     {
       "anchor": "messenger",
@@ -69,7 +69,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens39",
-      "recipe": "botania:lens_messenger"
+      "recipe": "botania:messenger_lens"
     },
     {
       "anchor": "bounce",
@@ -79,7 +79,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens15",
-      "recipe": "botania:lens_bounce"
+      "recipe": "botania:bounce_lens"
     },
     {
       "anchor": "gravity",
@@ -89,7 +89,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens17",
-      "recipe": "botania:lens_gravity"
+      "recipe": "botania:gravity_lens"
     },
     {
       "anchor": "mine",
@@ -99,7 +99,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens19",
-      "recipe": "botania:lens_mine"
+      "recipe": "botania:bore_lens"
     },
     {
       "anchor": "damage",
@@ -109,7 +109,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens21",
-      "recipe": "botania:lens_damage"
+      "recipe": "botania:damaging_lens"
     },
     {
       "anchor": "phantom",
@@ -119,7 +119,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens23",
-      "recipe": "botania:lens_phantom"
+      "recipe": "botania:phantom_lens"
     },
     {
       "anchor": "magnet",
@@ -129,7 +129,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens25",
-      "recipe": "botania:lens_magnet"
+      "recipe": "botania:magnetizing_lens"
     },
     {
       "anchor": "explosive",
@@ -139,7 +139,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens27",
-      "recipe": "botania:lens_explosive"
+      "recipe": "botania:entropic_lens"
     },
     {
       "anchor": "influence",
@@ -149,7 +149,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens29",
-      "recipe": "botania:lens_influence"
+      "recipe": "botania:influence_lens"
     },
     {
       "anchor": "weight",
@@ -159,7 +159,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens31",
-      "recipe": "botania:lens_weight"
+      "recipe": "botania:weight_lens"
     },
     {
       "anchor": "fire",
@@ -169,7 +169,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens33",
-      "recipe": "botania:lens_fire"
+      "recipe": "botania:kindle_lens"
     },
     {
       "anchor": "piston",
@@ -179,7 +179,7 @@
     {
       "type": "crafting",
       "text": "botania.page.lens35",
-      "recipe": "botania:lens_piston"
+      "recipe": "botania:force_lens"
     },
     {
       "anchor": "light",
@@ -189,8 +189,8 @@
     {
       "type": "crafting",
       "text": "botania.page.lens37",
-      "recipe": "botania:lens_light",
-      "recipe2": "botania:lens_light_alt"
+      "recipe": "botania:flash_lens",
+      "recipe2": "botania:flash_lens_alt"
     }
   ]
 }

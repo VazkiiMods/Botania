@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "S": {
+      "item": "botania:pasture_seeds"
+    },
+    "W": {
+      "tag": "botania:livingwood_logs"
+    }
+  },
+  "pattern": [
+    " W ",
+    "WSW",
+    "WW "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:horn_of_the_wild"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:storage_blocks/lapis"
+    },
+    "L": {
+      "item": "botania:mana_lens"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    " P ",
+    "ALA",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:bore_lens"
+  }
+}

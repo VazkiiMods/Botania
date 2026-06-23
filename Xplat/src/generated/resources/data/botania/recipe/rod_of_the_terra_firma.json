@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "botania:rune_of_autumn"
+    },
+    "G": {
+      "item": "botania:pasture_seeds"
+    },
+    "M": {
+      "item": "botania:rune_of_summer"
+    },
+    "R": {
+      "item": "botania:rod_of_the_lands"
+    },
+    "S": {
+      "item": "botania:rune_of_spring"
+    },
+    "T": {
+      "tag": "c:ingots/terrasteel"
+    },
+    "W": {
+      "item": "botania:rune_of_winter"
+    }
+  },
+  "pattern": [
+    " WT",
+    "ARS",
+    "GM "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:rod_of_the_terra_firma"
+  }
+}

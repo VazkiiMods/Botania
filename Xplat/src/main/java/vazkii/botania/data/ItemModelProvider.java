@@ -313,14 +313,14 @@ public class ItemModelProvider implements DataProvider {
 		singleHandheldOverride(BotaniaItems.MANASTEEL_SWORD, botaniaRL("item/elucidator"), botaniaRL("elucidator"), 1.0, consumer);
 		items.remove(BotaniaItems.MANASTEEL_SWORD);
 
-		singleGeneratedSuffixOverride(BotaniaItems.MANAWEAVE_COWL, "_holiday", botaniaRL("holiday"), 1.0, consumer);
-		items.remove(BotaniaItems.MANAWEAVE_COWL);
+		singleGeneratedSuffixOverride(BotaniaItems.MANAWEAVE_HELMET, "_holiday", botaniaRL("holiday"), 1.0, consumer);
+		items.remove(BotaniaItems.MANAWEAVE_HELMET);
 
-		singleGeneratedSuffixOverride(BotaniaItems.MANAWEAVE_ROBE_TOP, "_holiday", botaniaRL("holiday"), 1.0, consumer);
-		items.remove(BotaniaItems.MANAWEAVE_ROBE_TOP);
+		singleGeneratedSuffixOverride(BotaniaItems.MANAWEAVE_CHESTPLATE, "_holiday", botaniaRL("holiday"), 1.0, consumer);
+		items.remove(BotaniaItems.MANAWEAVE_CHESTPLATE);
 
-		singleGeneratedSuffixOverride(BotaniaItems.MANAWEAVE_ROBE_BOTTOM, "_holiday", botaniaRL("holiday"), 1.0, consumer);
-		items.remove(BotaniaItems.MANAWEAVE_ROBE_BOTTOM);
+		singleGeneratedSuffixOverride(BotaniaItems.MANAWEAVE_LEGGINGS, "_holiday", botaniaRL("holiday"), 1.0, consumer);
+		items.remove(BotaniaItems.MANAWEAVE_LEGGINGS);
 
 		singleGeneratedSuffixOverride(BotaniaItems.MANAWEAVE_BOOTS, "_holiday", botaniaRL("holiday"), 1.0, consumer);
 		items.remove(BotaniaItems.MANAWEAVE_BOOTS);

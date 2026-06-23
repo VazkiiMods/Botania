@@ -1,0 +1,18 @@
+{
+  "name": "botania.entry.spawnerMover",
+  "category": "botania:ender",
+  "icon": "botania:life_aggregator",
+  "entry_color": "aa00",
+  "advancement": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.spawnerMover0"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.spawnerMover1",
+      "recipe": "botania:life_aggregator"
+    }
+  ]
+}

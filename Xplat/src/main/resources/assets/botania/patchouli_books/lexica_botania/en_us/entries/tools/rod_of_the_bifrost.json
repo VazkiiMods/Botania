@@ -1,0 +1,53 @@
+{
+  "name": "botania.entry.rainbowRod",
+  "category": "botania:tools",
+  "icon": "botania:rod_of_the_bifrost",
+  "entry_color": "aa00",
+  "advancement": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.rainbowRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.rainbowRod1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.rainbowRod6"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.rainbowRod2",
+      "recipe": "botania:rod_of_the_bifrost"
+    },
+    {
+      "type": "crafting",
+      "recipe": "botania:bifrost",
+      "recipe2": "botania:bifrost_pane"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.rainbowRod4",
+      "recipe": "botania:shimmerrock"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.rainbowRod5",
+      "recipe": "botania:shimmerwood_planks"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.rainbowRod7",
+      "recipe": "botania:fabulous_mana_pool",
+      "recipe2": "botania:fabulous_mana_pool_upgrade"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "botania:shimmerrock_slab": 5,
+    "botania:shimmerrock_stairs": 5,
+    "botania:shimmerwood_plank_slab": 6,
+    "botania:shimmerwood_plank_stairs": 6
+  }
+}

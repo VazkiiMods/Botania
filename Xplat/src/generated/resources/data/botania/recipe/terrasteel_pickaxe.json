@@ -1,0 +1,24 @@
+{
+  "type": "botania:crafting_shaped_mana_upgrade",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "tag": "c:ingots/terrasteel"
+    },
+    "L": {
+      "item": "botania:livingwood_twig"
+    },
+    "T": {
+      "item": "botania:mana_tablet"
+    }
+  },
+  "pattern": [
+    "ITI",
+    "ILI",
+    " L "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:terrasteel_pickaxe"
+  }
+}

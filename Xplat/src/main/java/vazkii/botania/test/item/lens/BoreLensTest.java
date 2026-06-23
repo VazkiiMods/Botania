@@ -26,11 +26,11 @@ import vazkii.botania.test.TestingUtil;
 import vazkii.botania.xplat.BotaniaConfig;
 
 public class BoreLensTest {
-	private static final String ARENA = "botania:item/lens/lens_mine";
-	private static final String WOOD_LEVEL_BATCH = "botania:lens_mine_test_mining_level_0";
-	private static final String STONE_LEVEL_BATCH = "botania:lens_mine_test_mining_level_1";
-	private static final String IRON_LEVEL_BATCH = "botania:lens_mine_test_mining_level_2";
-	private static final String DIAMOND_LEVEL_BATCH = "botania:lens_mine_test_mining_level_3";
+	private static final String ARENA = "botania:item/lens/bore_lens";
+	private static final String WOOD_LEVEL_BATCH = "botania:bore_lens_test_mining_level_0";
+	private static final String STONE_LEVEL_BATCH = "botania:bore_lens_test_mining_level_1";
+	private static final String IRON_LEVEL_BATCH = "botania:bore_lens_test_mining_level_2";
+	private static final String DIAMOND_LEVEL_BATCH = "botania:bore_lens_test_mining_level_3";
 
 	private void mockMiningLevel(int level) {
 		BotaniaConfig.setCommon(new DelegatingConfigAccess(BotaniaConfig.common()) {

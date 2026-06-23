@@ -52,9 +52,9 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
-			new ItemStack(BotaniaItems.MANAWEAVE_COWL),
-			new ItemStack(BotaniaItems.MANAWEAVE_ROBE_TOP),
-			new ItemStack(BotaniaItems.MANAWEAVE_ROBE_BOTTOM),
+			new ItemStack(BotaniaItems.MANAWEAVE_HELMET),
+			new ItemStack(BotaniaItems.MANAWEAVE_CHESTPLATE),
+			new ItemStack(BotaniaItems.MANAWEAVE_LEGGINGS),
 			new ItemStack(BotaniaItems.MANAWEAVE_BOOTS)
 	});
 
@@ -75,9 +75,9 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 		}
 
 		return switch (slot) {
-			case HEAD -> stack.is(BotaniaItems.MANAWEAVE_COWL);
-			case CHEST -> stack.is(BotaniaItems.MANAWEAVE_ROBE_TOP);
-			case LEGS -> stack.is(BotaniaItems.MANAWEAVE_ROBE_BOTTOM);
+			case HEAD -> stack.is(BotaniaItems.MANAWEAVE_HELMET);
+			case CHEST -> stack.is(BotaniaItems.MANAWEAVE_CHESTPLATE);
+			case LEGS -> stack.is(BotaniaItems.MANAWEAVE_LEGGINGS);
 			case FEET -> stack.is(BotaniaItems.MANAWEAVE_BOOTS);
 			default -> false;
 		};

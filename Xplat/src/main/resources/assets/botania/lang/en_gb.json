@@ -1813,8 +1813,8 @@
 
 
 
-  "item.botania.lens_magnet": "Magnetising Lens",
-  "item.botania.lens_magnet.short": "Magnetising",
+  "item.botania.magnetizing_lens": "Magnetising Lens",
+  "item.botania.magnetizing_lens.short": "Magnetising",
 
 
 
@@ -2523,7 +2523,7 @@
 
 
 
-  "botania.page.terrasteel0": "$(item)Terrasteel$(0) is a complex and useful magical alloy, infused with ridiculous amounts of $(thing)Mana$(0). Synthesising it proves to be no small task. For starters, its creation requires a $(item)Terrestrial Agglomeration Plate$(0) placed over a checkerboard pattern of $(item)Lapis Lazuli Blocks$(0) and $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) (or $(l:tools/rainbow_rod)$(item)Shimmerrock$(0)$(/l)). This block then needs to be provided with $(thing)Mana$(0), with $(l:mana/sparks)$(item)Sparks$(0)$(/l) being the most efficient mode of transfer.",
+  "botania.page.terrasteel0": "$(item)Terrasteel$(0) is a complex and useful magical alloy, infused with ridiculous amounts of $(thing)Mana$(0). Synthesising it proves to be no small task. For starters, its creation requires a $(item)Terrestrial Agglomeration Plate$(0) placed over a checkerboard pattern of $(item)Lapis Lazuli Blocks$(0) and $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) (or $(l:tools/rod_of_the_bifrost)$(item)Shimmerrock$(0)$(/l)). This block then needs to be provided with $(thing)Mana$(0), with $(l:mana/sparks)$(item)Sparks$(0)$(/l) being the most efficient mode of transfer.",
 
 
 
@@ -3785,7 +3785,7 @@
 
 
 
-  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, manoeuvrability, and mining speed, as well as the ability to breathe indefinitely.$(p)If the speed boost becomes an issue, an active $(l:tools/temperance_stone)$(item)Stone of Temperance$(0)$(/l) can disable it.",
+  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, manoeuvrability, and mining speed, as well as the ability to breathe indefinitely.$(p)If the speed boost becomes an issue, an active $(l:tools/stone_of_temperance)$(item)Stone of Temperance$(0)$(/l) can disable it.",
 
 
 
@@ -3935,7 +3935,7 @@
 
 
 
-  "botania.page.gaiaRitual4": "Standard gear for this ritual is a set of enchanted $(item)Elementium Armour$(0), a $(l:tools/terra_sword)$(item)Terra Blade$(0)$(/l), and a miscellany of $(thing)Brews$(0) and $(thing)Trinkets$(0). Do note that the $(item)Beacon$(0)'s effect is forcibly nullified during the battle.$(p)The $(item)Guardian$(0) has a massive pool of health, so preparing with $(thing)Enchantments$(0) and $(thing)Brews$(0) is a must!",
+  "botania.page.gaiaRitual4": "Standard gear for this ritual is a set of enchanted $(item)Elementium Armour$(0), a $(l:tools/terrasteel_sword)$(item)Terra Blade$(0)$(/l), and a miscellany of $(thing)Brews$(0) and $(thing)Trinkets$(0). Do note that the $(item)Beacon$(0)'s effect is forcibly nullified during the battle.$(p)The $(item)Guardian$(0) has a massive pool of health, so preparing with $(thing)Enchantments$(0) and $(thing)Brews$(0) is a must!",
 
 
 

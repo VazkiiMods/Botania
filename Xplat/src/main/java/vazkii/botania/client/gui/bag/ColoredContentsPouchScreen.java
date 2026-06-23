@@ -33,12 +33,12 @@ import vazkii.botania.common.item.ColoredContentsPouchItem;
 
 import java.util.List;
 
-public class ColoredContentsPouchScreen extends AbstractContainerScreen<ColoredContentsPouchContainer> {
+public class ColoredContentsPouchScreen extends AbstractContainerScreen<ColoredContentsPouchMenu> {
 
 	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.GUI_FLOWER_BAG);
 
-	public ColoredContentsPouchScreen(ColoredContentsPouchContainer container, Inventory playerInv, Component title) {
-		super(container, playerInv, title);
+	public ColoredContentsPouchScreen(ColoredContentsPouchMenu container, Inventory playerInventory, Component title) {
+		super(container, playerInventory, title);
 		imageHeight += 36;
 
 		// recompute, same as super
@@ -46,20 +46,20 @@ public class ColoredContentsPouchScreen extends AbstractContainerScreen<ColoredC
 	}
 
 	@Override
-	public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
-		super.render(gui, mouseX, mouseY, partialTicks);
-		this.renderTooltip(gui, mouseX, mouseY);
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		super.render(guiGraphics, mouseX, mouseY, partialTick);
+		this.renderTooltip(guiGraphics, mouseX, mouseY);
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {
-		PoseStack ms = gui.pose();
+	protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+		PoseStack ms = guiGraphics.pose();
 		Minecraft mc = Minecraft.getInstance();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		int k = (width - imageWidth) / 2;
 		int l = (height - imageHeight) / 2;
 		// TODO: adjust for other row counts
-		gui.blit(texture, k, l, 0, 0, imageWidth, imageHeight);
+		guiGraphics.blit(texture, k, l, 0, 0, imageWidth, imageHeight);
 
 		List<TagKey<Item>> itemTypes = ColoredContentsPouchItem.getStoredItemTypes(menu.getPouch());
 		List<DyeColor> colors = ColorHelper.supportedColors().toList();
@@ -84,7 +84,7 @@ public class ColoredContentsPouchScreen extends AbstractContainerScreen<ColoredC
 					ms.pushPose();
 					// Same as how much vanilla offsets when drawing item decorations in gui slots
 					ms.translate(0, 0, 100 + 200);
-					gui.drawString(mc.font, "1", x + 11, y + 9, 0xFFFFFF);
+					guiGraphics.drawString(mc.font, "1", x + 11, y + 9, 0xFFFFFF);
 					ms.popPose();
 				}
 			}

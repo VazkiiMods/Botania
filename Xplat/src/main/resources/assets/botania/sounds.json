@@ -32,7 +32,7 @@
 		],
 		"subtitle": "botania.subtitle.arcane_rose_disenchant"
 	},
-	"astrolabe_configure": {
+	"worldshapers_astrolabe_configure": {
 		"sounds": [
 			{
 				"type": "event",
@@ -232,7 +232,7 @@
 		],
 		"subtitle": "botania.subtitle.equipTerrasteel"
 	},
-	"fire_rod": {
+	"rod_of_the_hells": {
 		"sounds": [
 			{
 				"type": "event",
@@ -516,7 +516,7 @@
 		],
 		"subtitle": "botania.subtitle.shulkMeNot"
 	},
-	"smelt_rod": {
+	"rod_of_the_molten_core": {
 		"sounds": [
 			{
 				"type": "event",
@@ -526,7 +526,7 @@
 		],
 		"subtitle": "botania.subtitle.smeltRod"
 	},
-	"smelt_rod_extra_no_subtitle": {
+	"rod_of_the_molten_core_extra_no_subtitle": {
 		"sounds": [
 			{
 				"type": "event",
@@ -534,7 +534,7 @@
 			}
 		]
 	},
-	"smelt_rod_simmer": {
+	"rod_of_the_molten_core_simmer": {
 		"sounds": [
 			{
 				"type": "event",
@@ -619,17 +619,17 @@
 		"sounds": ["botania:spreaderfire"],
 		"subtitle": "botania.subtitle.spreaderFire"
 	},
-	"starcaller": {
+	"starcaller_sword": {
 		"sounds": [
 			{
-				"name": "botania:starcaller",
+				"name": "botania:starcaller_sword",
 				"volume": 0.4,
 				"pitch": 1.4
 			}
 		],
-		"subtitle": "botania.subtitle.starcaller"
+		"subtitle": "botania.subtitle.starcaller_sword"
 	},
-	"temperance_stone_configure": {
+	"stone_of_temperance_configure": {
 		"sounds": [
 			{
 				"type": "event",
@@ -662,7 +662,7 @@
 		],
 		"subtitle": "botania.subtitle.petalPouchConfigure"
 	},
-	"terra_pick_mode": {
+	"terrasteel_pickaxe_mode": {
 		"sounds": [
 			{
 				"name": "botania:terrapickmode",
@@ -682,7 +682,7 @@
 		],
 		"subtitle": "botania.subtitle.terraBlade"
 	},
-	"terraform_rod": {
+	"rod_of_the_terra_firma": {
 		"sounds": [
 			{
 				"name": "botania:terraformrod",

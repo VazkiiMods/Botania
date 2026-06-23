@@ -62,7 +62,7 @@ import java.util.stream.Stream;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class SextantItem extends Item {
-	public static final ResourceLocation MULTIBLOCK_ID = botaniaRL("sextant");
+	public static final ResourceLocation MULTIBLOCK_ID = botaniaRL("worldshapers_sextant");
 	private static final int MAX_RADIUS = 256;
 
 	public SextantItem(Properties builder) {

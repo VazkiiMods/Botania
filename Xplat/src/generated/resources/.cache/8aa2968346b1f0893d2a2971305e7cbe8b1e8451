@@ -2,7 +2,7 @@
 95c33e9800913c175f91dae06a25218876ef658b data/botania/tags/item/loonium_excluded.json
 8e674e5fd846c857a6124ffe61bc404e40e3c8ff data/botania/tags/item/seed_apothecary_reagent.json
 6d34257dc4fc446f83993138b42263769cc49939 data/c/tags/item/buckets.json
-f0b6a3972c8b417f1d8c78dd665e9c5d33809475 data/c/tags/item/buckets/extrapolating.json
+3118e125a10e8ea9961a8432d18ceda21c5ede75 data/c/tags/item/buckets/extrapolating.json
 d4c1ebf26864f7c9a1a27dcf11203634af83c4b7 data/c/tags/item/cobblestones.json
 92c7824935162d049c49fb6cd02a1b126db1560c data/c/tags/item/cobblestones/metamorphic.json
 70a5ac2ceca3d6bb5155a5e378874945011525c9 data/c/tags/item/cobblestones/metamorphic/desert.json
@@ -96,8 +96,8 @@ ea9cf45b4b0bb66e9f47acdd27ec131f4aa8c44d data/c/tags/item/storage_blocks/petal/r
 b6dd8962115dab8db01217e0e488d9d336513652 data/c/tags/item/stripped_logs.json
 b7948eba5d0468dc3f6b9f4c17e5ab8d3b910099 data/c/tags/item/stripped_woods.json
 68aabb17f89f25d64fabc2720017e6f9e5ce1fda data/c/tags/item/tools/bow.json
-d17aee2e0b034f45e50f96e9c573300f9c83e784 data/c/tags/item/tools/melee_weapon.json
-c886cdcf626d4af1a466eef4d6b9c693743fdccc data/c/tags/item/tools/mining_tool.json
+6b54ee7cab6182be7285405ac0513819a081cacc data/c/tags/item/tools/melee_weapon.json
+9f20ac331d58b338e6385f43fdc922ea019aa8e7 data/c/tags/item/tools/mining_tool.json
 68aabb17f89f25d64fabc2720017e6f9e5ce1fda data/c/tags/item/tools/ranged_weapon.json
 61ae96e93e2303b4ea5e262006efa92df0fdc516 data/c/tags/item/tools/shear.json
 743d31257e96e0b4456213ace97636afba619c33 data/c/tags/item/tools/wrench.json

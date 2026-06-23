@@ -188,19 +188,19 @@ public class ManaBlasterItem extends Item {
 	}
 
 	public static boolean hasClip(ItemStack stack) {
-		return stack.has(BotaniaDataComponents.CLIP);
+		return stack.has(BotaniaDataComponents.LENS_CLIP);
 	}
 
 	public static void setClip(ItemStack stack, boolean clip) {
-		DataComponentHelper.setFlag(stack, BotaniaDataComponents.CLIP, clip);
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.LENS_CLIP, clip);
 	}
 
 	public static int getClipPos(ItemStack stack) {
-		return stack.getOrDefault(BotaniaDataComponents.CLIP_POS, 0);
+		return stack.getOrDefault(BotaniaDataComponents.LENS_CLIP_POS, 0);
 	}
 
 	public static void setClipPos(ItemStack stack, int pos) {
-		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.CLIP_POS, pos);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.LENS_CLIP_POS, pos);
 	}
 
 	public static void rotatePos(ItemStack stack) {

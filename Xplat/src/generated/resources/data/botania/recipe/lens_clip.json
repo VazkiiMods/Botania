@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "tag": "botania:dreamwood_logs"
+    }
+  },
+  "pattern": [
+    " D ",
+    "D D",
+    "DD "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:lens_clip"
+  }
+}

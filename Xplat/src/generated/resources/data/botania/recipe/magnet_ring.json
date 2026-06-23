@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "L": {
-      "item": "botania:lens_magnet"
+      "item": "botania:magnetizing_lens"
     },
     "M": {
       "tag": "c:ingots/manasteel"

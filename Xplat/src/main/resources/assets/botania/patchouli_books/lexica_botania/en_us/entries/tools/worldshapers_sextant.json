@@ -1,0 +1,26 @@
+{
+  "name": "botania.entry.sextant",
+  "category": "botania:tools",
+  "icon": "botania:worldshapers_sextant",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.sextant0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.sextant1"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.sextant_modes"
+    },
+    {
+      "type": "crafting",
+      "title": "item.botania.worldshapers_sextant",
+      "text": "botania.page.sextant2",
+      "recipe": "botania:worldshapers_sextant"
+    }
+  ]
+}

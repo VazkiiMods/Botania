@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.manaBlaster",
   "category": "botania:tools",
-  "icon": "botania:mana_gun",
+  "icon": "botania:mana_blaster",
   "advancement": "botania:main/runic_altar_pickup",
   "pages": [
     {
@@ -19,7 +19,7 @@
     {
       "type": "crafting",
       "text": "botania.page.manaBlaster3",
-      "recipe": "botania:mana_gun"
+      "recipe": "botania:mana_blaster"
     }
   ]
 }

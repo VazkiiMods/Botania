@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "botania:item/life_aggregator_full",
+      "predicate": {
+        "botania:full": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "botania:item/life_aggregator"
+  }
+}

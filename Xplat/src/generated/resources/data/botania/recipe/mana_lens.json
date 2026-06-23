@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "botania:mana_lens",
+  "key": {
+    "G": {
+      "tag": "c:glass_blocks/colorless"
+    },
+    "S": {
+      "tag": "c:ingots/manasteel"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SGS",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:mana_lens"
+  }
+}

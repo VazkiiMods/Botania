@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "tag": "c:ingots/manasteel"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "pattern": [
+    " TI",
+    " TT",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:worldshapers_sextant"
+  }
+}

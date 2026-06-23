@@ -266,7 +266,7 @@ public final class RenderHelper extends RenderType {
 				.setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
 				.setCullState(new RenderStateShard.CullStateShard(false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY).createCompositeState(false);
-		return makeLayer(ResourcesLib.PREFIX_MOD + "crafting_halo", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 64, false, true, glState);
+		return makeLayer(ResourcesLib.PREFIX_MOD + "assembly_halo", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 64, false, true, glState);
 	}
 
 	private static final Function<ResourceLocation, RenderType> GAIA_NOISE_DYNAMIC_LAYER = Util.memoize(texture -> {
@@ -545,7 +545,7 @@ public final class RenderHelper extends RenderType {
 
 	private static class AstrolabeLayer extends RenderType {
 		public AstrolabeLayer() {
-			super(ResourcesLib.PREFIX_MOD + "astrolabe", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true,
+			super(ResourcesLib.PREFIX_MOD + "worldshapers_astrolabe", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true,
 					() -> {
 						Sheets.translucentCullBlockSheet().setupRenderState();
 						RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.4F);

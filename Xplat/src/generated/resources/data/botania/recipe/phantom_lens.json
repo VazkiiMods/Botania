@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "botania:mana_lens"
+    },
+    {
+      "item": "botania:abstruse_platform"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:phantom_lens"
+  }
+}

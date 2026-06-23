@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "botania:mana_lens"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PLP",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:messenger_lens"
+  }
+}

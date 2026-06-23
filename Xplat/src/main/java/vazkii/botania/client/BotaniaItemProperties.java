@@ -91,10 +91,10 @@ public final class BotaniaItemProperties {
 
 		ResourceLocation holidayId = botaniaRL("holiday");
 		ClampedItemPropertyFunction holidayGetter = (stack, worldIn, entityIn, seed) -> ClientProxy.jingleTheBells ? 1 : 0;
-		consumer.accept(BotaniaItems.MANAWEAVE_COWL, holidayId, holidayGetter);
-		consumer.accept(BotaniaItems.MANAWEAVE_ROBE_TOP, holidayId, holidayGetter);
+		consumer.accept(BotaniaItems.MANAWEAVE_HELMET, holidayId, holidayGetter);
+		consumer.accept(BotaniaItems.MANAWEAVE_CHESTPLATE, holidayId, holidayGetter);
 		consumer.accept(BotaniaItems.MANAWEAVE_BOOTS, holidayId, holidayGetter);
-		consumer.accept(BotaniaItems.MANAWEAVE_ROBE_BOTTOM, holidayId, holidayGetter);
+		consumer.accept(BotaniaItems.MANAWEAVE_LEGGINGS, holidayId, holidayGetter);
 
 		ClampedItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> {
 			if (entityIn instanceof Player player) {

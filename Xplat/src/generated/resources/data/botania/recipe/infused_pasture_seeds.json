@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "botania:seeds",
+  "ingredients": [
+    {
+      "item": "botania:pasture_seeds"
+    },
+    {
+      "item": "minecraft:prismarine_shard"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:infused_pasture_seeds"
+  }
+}

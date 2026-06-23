@@ -241,8 +241,8 @@ public class BotaniaDataComponents {
 					.networkSynchronized(LaputaState.STREAM_CODEC));
 
 	// Mana Blaster
-	public static final DataComponentType<Unit> CLIP = makeUnit(LibComponentNames.CLIP);
-	public static final DataComponentType<Integer> CLIP_POS = make(LibComponentNames.CLIP_POS,
+	public static final DataComponentType<Unit> LENS_CLIP = makeUnit(LibComponentNames.LENS_CLIP);
+	public static final DataComponentType<Integer> LENS_CLIP_POS = make(LibComponentNames.LENS_CLIP_POS,
 			builder -> builder.persistent(ExtraCodecs.intRange(0, ManaBlasterItem.CLIP_SLOTS - 1))
 					.networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DataComponentType<List<ItemStack>> ATTACHED_LENSES = make(LibComponentNames.ATTACHED_LENSES,

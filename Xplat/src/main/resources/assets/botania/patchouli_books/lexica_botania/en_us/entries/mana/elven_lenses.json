@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.elvenLenses",
   "category": "botania:mana",
-  "icon": "botania:lens_paint",
+  "icon": "botania:paintslinger_lens",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
@@ -19,7 +19,7 @@
     {
       "type": "crafting",
       "text": "botania.page.elvenLenses2",
-      "recipe": "botania:lens_paint"
+      "recipe": "botania:paintslinger_lens"
     },
     {
       "type": "text",
@@ -28,7 +28,7 @@
     {
       "type": "crafting",
       "text": "botania.page.elvenLenses4",
-      "recipe": "botania:lens_warp"
+      "recipe": "botania:warp_lens"
     },
     {
       "type": "text",
@@ -37,7 +37,7 @@
     {
       "type": "crafting",
       "text": "botania.page.elvenLenses6",
-      "recipe": "botania:lens_redirect"
+      "recipe": "botania:redirective_lens"
     },
     {
       "type": "text",
@@ -46,7 +46,7 @@
     {
       "type": "crafting",
       "text": "botania.page.elvenLenses8",
-      "recipe": "botania:lens_firework"
+      "recipe": "botania:celebratory_lens"
     },
     {
       "type": "text",
@@ -55,7 +55,7 @@
     {
       "type": "crafting",
       "text": "botania.page.elvenLenses10",
-      "recipe": "botania:lens_flare"
+      "recipe": "botania:flare_lens"
     },
     {
       "type": "text",
@@ -64,7 +64,7 @@
     {
       "type": "crafting",
       "text": "botania.page.elvenLenses12",
-      "recipe": "botania:lens_tripwire"
+      "recipe": "botania:tripwire_lens"
     }
   ]
 }

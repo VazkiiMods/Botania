@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "botania:rod_of_the_lands"
+    },
+    {
+      "tag": "c:dusts/pixie"
+    },
+    {
+      "item": "botania:rune_of_air"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:rod_of_the_highlands"
+  }
+}

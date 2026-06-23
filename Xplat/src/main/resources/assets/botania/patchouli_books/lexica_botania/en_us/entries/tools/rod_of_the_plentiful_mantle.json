@@ -1,0 +1,21 @@
+{
+  "name": "botania.entry.diviningRod",
+  "category": "botania:tools",
+  "icon": "botania:rod_of_the_plentiful_mantle",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.diviningRod0"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.diviningRod2"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.diviningRod1",
+      "recipe": "botania:rod_of_the_plentiful_mantle"
+    }
+  ]
+}

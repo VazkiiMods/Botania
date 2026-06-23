@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "botania:mana_lens"
+    },
+    "P": {
+      "tag": "c:gems/prismarine"
+    },
+    "R": {
+      "item": "botania:rune_of_water"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PLP",
+    "PRP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:weight_lens"
+  }
+}

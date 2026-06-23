@@ -12,9 +12,11 @@
     "botania:mana_ring_greater",
     "botania:blacker_lotus",
     "botania:black_hole_talisman",
-    "botania:flower_bag",
-    "botania:spawner_mover",
-    "botania:terra_pick",
+    "botania:flower_pouch",
+    "botania:petal_pouch",
+    "botania:trinket_case",
+    "botania:life_aggregator",
+    "botania:terrasteel_pickaxe",
     "botania:terrasteel_block"
   ]
 }

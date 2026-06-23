@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "F": {
+      "item": "botania:rune_of_fire"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "pattern": [
+    " BF",
+    " TB",
+    "T  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:rod_of_the_molten_core"
+  }
+}

@@ -32,7 +32,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface ClientXplatAbstractions {
 	ResourceLocation FLOATING_FLOWER_MODEL_LOADER_ID = botaniaRL("floating_flower");
-	ResourceLocation MANA_GUN_MODEL_LOADER_ID = botaniaRL("mana_gun");
+	ResourceLocation MANA_GUN_MODEL_LOADER_ID = botaniaRL("mana_blaster");
 
 	// Event firing
 	void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay);

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "tag": "c:gems/mana_diamond"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "pattern": [
+    " TD",
+    " TT",
+    "T  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:rod_of_the_plentiful_mantle"
+  }
+}

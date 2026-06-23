@@ -1,5 +1,0 @@
-{
-  "loader": "botania:mana_gun",
-  "gun_noclip": "botania:item/mana_gun_noclip",
-  "gun_clip": "botania:item/mana_gun_clip"
-}

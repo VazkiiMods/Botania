@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "botania:terra_sword",
+              "botania:terrasteel_sword",
               "botania:thorn_chakram"
             ]
           }
@@ -21,7 +21,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "botania:terra_sword"
+      "id": "botania:terrasteel_sword"
     },
     "title": {
       "translate": "advancement.botania:terrasteelWeaponCraft"

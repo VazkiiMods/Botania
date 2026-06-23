@@ -1,0 +1,55 @@
+{
+  "name": "botania.entry.grassSeeds",
+  "category": "botania:tools",
+  "icon": "botania:pasture_seeds",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.grassSeeds0"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "text": "botania.page.grassSeeds1",
+      "recipes": "botania:mana_infusion/pasture_seeds"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "text": "botania.page.grassSeeds2",
+      "recipes": "botania:mana_infusion/boreal_seeds"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "text": "botania.page.grassSeeds3",
+      "recipes": "botania:mana_infusion/infestation_spores"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.grassSeeds4"
+    },
+    {
+      "type": "botania:crafting_multi",
+      "heading":"botania.entry.grassSeeds",
+      "text": "botania.page.grassSeeds5",
+      "recipes": [
+        "botania:dry_pasture_seeds",
+        "botania:golden_pasture_seeds",
+        "botania:vivid_pasture_seeds",
+        "botania:scorched_pasture_seeds",
+        "botania:infused_pasture_seeds",
+        "botania:mutated_pasture_seeds"
+      ]
+    }
+  ],
+  "extra_recipe_mappings": {
+    "minecraft:grass_block": 2,
+    "minecraft:podzol": 3,
+    "minecraft:mycelium": 4,
+    "botania:dry_grass": 5,
+    "botania:golden_grass": 5,
+    "botania:vivid_grass": 5,
+    "botania:scorched_grass": 5,
+    "botania:infused_grass": 5,
+    "botania:mutated_grass": 5
+  }
+}

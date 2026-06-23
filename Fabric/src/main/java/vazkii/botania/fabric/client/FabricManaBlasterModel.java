@@ -69,8 +69,8 @@ public class FabricManaBlasterModel extends BlockModel {
 		if (loader != null && loader.isJsonPrimitive()
 				&& loader.getAsString().equals(ClientXplatAbstractions.MANA_GUN_MODEL_LOADER_ID.toString())) {
 			return new FabricManaBlasterModel(
-					ResourceLocation.parse(GsonHelper.getAsString(json, "gun_noclip")),
-					ResourceLocation.parse(GsonHelper.getAsString(json, "gun_clip"))
+					ResourceLocation.parse(GsonHelper.getAsString(json, "mana_blaster_noclip")),
+					ResourceLocation.parse(GsonHelper.getAsString(json, "mana_blaster_clip"))
 			);
 		}
 		return null;

@@ -1,0 +1,31 @@
+{
+  "parent": "botania:main/gaia_guardian_kill",
+  "criteria": {
+    "use_life_aggregator": {
+      "conditions": {
+        "item": {
+          "items": "botania:life_aggregator"
+        }
+      },
+      "trigger": "botania:use_item_success"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.botania:spawnerMoverUse.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "botania:life_aggregator"
+    },
+    "title": {
+      "translate": "advancement.botania:spawnerMoverUse"
+    }
+  },
+  "requirements": [
+    [
+      "use_life_aggregator"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

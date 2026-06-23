@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "botania:seeds",
+  "ingredients": [
+    {
+      "item": "botania:pasture_seeds"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:mutated_pasture_seeds"
+  }
+}

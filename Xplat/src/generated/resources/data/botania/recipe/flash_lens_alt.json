@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "minecraft:fire_charge"
+    },
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "L": {
+      "item": "botania:mana_lens"
+    }
+  },
+  "pattern": [
+    "FGF",
+    "GLG",
+    "FGF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:flash_lens"
+  }
+}

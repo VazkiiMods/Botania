@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "tag": "c:ingots/elementium"
+    },
+    "L": {
+      "item": "botania:mana_lens"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    " E ",
+    "WLW",
+    " E "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:paintslinger_lens"
+  }
+}

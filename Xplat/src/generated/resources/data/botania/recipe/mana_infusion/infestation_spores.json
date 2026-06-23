@@ -1,0 +1,11 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "tag": "c:mushrooms"
+  },
+  "mana": 6500,
+  "output": {
+    "count": 1,
+    "id": "botania:infestation_spores"
+  }
+}

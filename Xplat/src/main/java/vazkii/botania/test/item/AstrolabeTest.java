@@ -44,7 +44,7 @@ import java.util.Objects;
 
 public class AstrolabeTest {
 	//region Tests with candles
-	private static final String TEMPLATE_CANDLES = "botania:item/astrolabe_candles";
+	private static final String TEMPLATE_CANDLES = "botania:item/worldshapers_astrolabe_candles";
 	private static final Block BLOCK_CANDLES = Blocks.YELLOW_CANDLE;
 	private static final BlockPos POS_WATER_SLAB = new BlockPos(2, 2, 3);
 	private static final BlockPos POS_SEAGRASS = new BlockPos(2, 2, 1);
@@ -247,7 +247,7 @@ public class AstrolabeTest {
 	//endregion
 
 	//region Tests with directional blocks
-	private static final String TEMPLATE_DIRECTIONAL = "botania:item/astrolabe_directional";
+	private static final String TEMPLATE_DIRECTIONAL = "botania:item/worldshapers_astrolabe_directional";
 	private static final Block BLOCK_LOG = Blocks.OAK_LOG;
 	private static final Block BLOCK_PISTON = Blocks.PISTON;
 	private static final Vec3 POS_PLAYER_DIRECTIONAL = new Vec3(1.0, 2.0, 0.5);
@@ -315,7 +315,7 @@ public class AstrolabeTest {
 	//endregion
 
 	// region Mana consumption tests
-	private static final String TEMPLATE_MANA = "botania:item/astrolabe_mana";
+	private static final String TEMPLATE_MANA = "botania:item/worldshapers_astrolabe_mana";
 	private static final Vec3 POS_PLAYER_MANA = new Vec3(6.5, 2.0, 6.5);
 	private static final int SIZE_ASTROLABE = 11;
 	private static final int COST_ASTROLABE = AstrolabeItem.BASE_COST * SIZE_ASTROLABE;

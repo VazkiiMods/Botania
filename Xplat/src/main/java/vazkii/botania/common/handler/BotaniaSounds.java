@@ -53,7 +53,7 @@ public final class BotaniaSounds {
 
 	//items, rods, and trinkets
 	public static final SoundEvent airRod = makeSoundEvent("air_rod");
-	public static final SoundEvent astrolabeConfigure = makeSoundEvent("astrolabe_configure");
+	public static final SoundEvent astrolabeConfigure = makeSoundEvent("worldshapers_astrolabe_configure");
 	public static final SoundEvent bifrostRod = makeSoundEvent("bifrost_rod");
 	public static final SoundEvent blackHoleTalismanConfigure = makeSoundEvent("black_hole_talisman_configure");
 	public static final SoundEvent blackLotus = makeSoundEvent("black_lotus");
@@ -67,7 +67,7 @@ public final class BotaniaSounds {
 	public static final Holder<SoundEvent> equipManasteel = makeSoundEventHolder("equip_manasteel");
 	public static final Holder<SoundEvent> equipManaweave = makeSoundEventHolder("equip_manaweave");
 	public static final Holder<SoundEvent> equipTerrasteel = makeSoundEventHolder("equip_terrasteel");
-	public static final SoundEvent fireRod = makeSoundEvent("fire_rod");
+	public static final SoundEvent fireRod = makeSoundEvent("rod_of_the_hells");
 	public static final SoundEvent flareChakramThrow = makeSoundEvent("flare_chakram_throw");
 	public static final SoundEvent flugelEyeBind = makeSoundEvent("flugel_eye_bind");
 	public static final SoundEvent flugelEyeTeleport = makeSoundEvent("flugel_eye_teleport");
@@ -81,16 +81,16 @@ public final class BotaniaSounds {
 	public static final SoundEvent missile = makeSoundEvent("missile");
 	public static final SoundEvent missileFunny = makeSoundEvent("missile_funny"); //pew pew
 	public static final SoundEvent pinkinator = makeSoundEvent("pinkinator");
-	public static final SoundEvent smeltRod = makeSoundEvent("smelt_rod");
-	public static final SoundEvent smeltRod2 = makeSoundEvent("smelt_rod_extra_no_subtitle");
-	public static final SoundEvent smeltRodSimmer = makeSoundEvent("smelt_rod_simmer");
-	public static final SoundEvent starcaller = makeSoundEvent("starcaller");
-	public static final SoundEvent temperanceStoneConfigure = makeSoundEvent("temperance_stone_configure");
+	public static final SoundEvent smeltRod = makeSoundEvent("rod_of_the_molten_core");
+	public static final SoundEvent smeltRod2 = makeSoundEvent("rod_of_the_molten_core_extra_no_subtitle");
+	public static final SoundEvent smeltRodSimmer = makeSoundEvent("rod_of_the_molten_core_simmer");
+	public static final SoundEvent starcaller_sword = makeSoundEvent("starcaller_sword");
+	public static final SoundEvent temperanceStoneConfigure = makeSoundEvent("stone_of_temperance_configure");
 	public static final SoundEvent manufactoryHaloConfigure = makeSoundEvent("manufactory_halo_configure");
 	public static final SoundEvent petalPouchConfigure = makeSoundEvent("petal_pouch_configure");
 	public static final SoundEvent terraBlade = makeSoundEvent("terrablade");
-	public static final SoundEvent terraPickMode = makeSoundEvent("terra_pick_mode");
-	public static final SoundEvent terraformRod = makeSoundEvent("terraform_rod");
+	public static final SoundEvent terraPickMode = makeSoundEvent("terrasteel_pickaxe_mode");
+	public static final SoundEvent terraformRod = makeSoundEvent("rod_of_the_terra_firma");
 	public static final SoundEvent thornChakramThrow = makeSoundEvent("thorn_chakram_throw");
 	public static final SoundEvent unholyCloak = makeSoundEvent("unholy_cloak");
 	public static final SoundEvent vineBallThrow = makeSoundEvent("vine_ball_throw");

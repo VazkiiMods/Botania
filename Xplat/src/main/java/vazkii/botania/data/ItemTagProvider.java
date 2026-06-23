@@ -67,13 +67,13 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.MINING_ENCHANTABLE).add(BotaniaItems.MANASTEEL_SHEARS, BotaniaItems.ELEMENTIUM_SHEARS);
 
 		this.tag(ItemTags.HEAD_ARMOR).add(
-				BotaniaItems.MANASTEEL_HELMET, BotaniaItems.MANAWEAVE_COWL,
+				BotaniaItems.MANASTEEL_HELMET, BotaniaItems.MANAWEAVE_HELMET,
 				BotaniaItems.ELEMENTIUM_HELMET, BotaniaItems.TERRASTEEL_HELMET);
 		this.tag(ItemTags.CHEST_ARMOR).add(
-				BotaniaItems.MANASTEEL_CHESTPLATE, BotaniaItems.MANAWEAVE_ROBE_TOP,
+				BotaniaItems.MANASTEEL_CHESTPLATE, BotaniaItems.MANAWEAVE_CHESTPLATE,
 				BotaniaItems.ELEMENTIUM_CHESTPLATE, BotaniaItems.TERRASTEEL_CHESTPLATE);
 		this.tag(ItemTags.LEG_ARMOR).add(
-				BotaniaItems.MANASTEEL_LEGGINGS, BotaniaItems.MANAWEAVE_ROBE_BOTTOM,
+				BotaniaItems.MANASTEEL_LEGGINGS, BotaniaItems.MANAWEAVE_LEGGINGS,
 				BotaniaItems.ELEMENTIUM_LEGGINGS, BotaniaItems.TERRASTEEL_LEGGINGS);
 		this.tag(ItemTags.FOOT_ARMOR).add(
 				BotaniaItems.MANASTEEL_BOOTS, BotaniaItems.MANAWEAVE_BOOTS,
@@ -250,9 +250,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 				BotaniaItems.MANASTEEL_SHOVEL,
 				BotaniaItems.MANASTEEL_SWORD,
 				BotaniaItems.MANAWEAVE_BOOTS,
-				BotaniaItems.MANAWEAVE_ROBE_TOP,
-				BotaniaItems.MANAWEAVE_COWL,
-				BotaniaItems.MANAWEAVE_ROBE_BOTTOM,
+				BotaniaItems.MANAWEAVE_CHESTPLATE,
+				BotaniaItems.MANAWEAVE_HELMET,
+				BotaniaItems.MANAWEAVE_LEGGINGS,
 				BotaniaItems.RING_OF_THE_MANTLE,
 				BotaniaItems.ROD_OF_THE_UNSTABLE_RESERVOIR,
 				BotaniaItems.ROD_OF_THE_BIFROST,
@@ -276,8 +276,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 				BotaniaItems.ROD_OF_THE_SEAS
 		);
 		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(
-				BotaniaItems.SNOWFLAKE_PENDANT, BotaniaItems.MANAWEAVE_COWL, BotaniaItems.MANAWEAVE_ROBE_TOP,
-				BotaniaItems.MANAWEAVE_ROBE_BOTTOM, BotaniaItems.MANAWEAVE_BOOTS);
+				BotaniaItems.SNOWFLAKE_PENDANT, BotaniaItems.MANAWEAVE_HELMET, BotaniaItems.MANAWEAVE_CHESTPLATE,
+				BotaniaItems.MANAWEAVE_LEGGINGS, BotaniaItems.MANAWEAVE_BOOTS);
 
 		this.tag(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS).add(
 				Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "tag": "c:gems/dragonstone"
+    },
+    "E": {
+      "tag": "c:ingots/elementium"
+    },
+    "P": {
+      "tag": "c:dusts/pixie"
+    }
+  },
+  "pattern": [
+    " PD",
+    " EP",
+    "E  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:rod_of_the_bifrost"
+  }
+}

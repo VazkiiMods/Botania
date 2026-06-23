@@ -1,0 +1,27 @@
+{
+  "name": "botania.entry.enderHand",
+  "category": "botania:ender",
+  "icon": "botania:hand_of_ender",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.enderHand0",
+      "flag": "botania:ender_hand_pickpocket"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.enderHand0a",
+      "flag": "!botania:ender_hand_pickpocket"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.enderHand2"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.enderHand1",
+      "recipe": "botania:hand_of_ender"
+    }
+  ]
+}

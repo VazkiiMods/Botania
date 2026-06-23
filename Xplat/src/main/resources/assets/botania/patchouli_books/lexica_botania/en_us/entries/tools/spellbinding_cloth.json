@@ -1,0 +1,17 @@
+{
+  "name": "botania.entry.spellCloth",
+  "category": "botania:tools",
+  "icon": "botania:spellbinding_cloth",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.spellCloth0"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.spellCloth1",
+      "recipe": "botania:spellbinding_cloth"
+    }
+  ]
+}

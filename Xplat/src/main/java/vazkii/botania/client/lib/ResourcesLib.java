@@ -28,8 +28,8 @@ public final class ResourcesLib {
 	public static final String GUI_CREATIVE = "botania.png";
 	public static final String GUI_TOFF = PREFIX_GUI + "toff.png";
 	public static final String GUI_BOSS_BAR = PREFIX_GUI + "boss_bar.png";
-	public static final String GUI_FLOWER_BAG = PREFIX_GUI + "flower_bag.png";
-	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "bauble_box.png";
+	public static final String GUI_FLOWER_BAG = PREFIX_GUI + "flower_pouch.png";
+	public static final String GUI_BAUBLE_BOX = PREFIX_GUI + "trinket_case.png";
 	public static final String GUI_HUD_ICONS = PREFIX_GUI + "hud_icons.png";
 	public static final String GUI_DOG = PREFIX_GUI + "dog.png";
 

@@ -62,7 +62,7 @@ public final class LibComponentNames {
 	public static final String SIZE = "size";
 	public static final String MOB_TYPE = "mob_type";
 	public static final String NOT_MY_NAME_STEP = "not_my_name_step";
-	public static final String SEXTANT_MODE = "sextant_mode";
+	public static final String SEXTANT_MODE = "worldshapers_sextant_mode";
 	public static final String LOKI_RING_OFFSET_LIST = "loki_ring_offset_list";
 	public static final String ANCIENT_WILLS = "ancient_wills";
 	public static final String SOULBOUND = "soulbound";
@@ -85,8 +85,8 @@ public final class LibComponentNames {
 	public static final String SHARD_HEIGHT_SCALE = "shard_height_scale";
 	public static final String LAPUTA_STATE = "laputa_state";
 
-	public static final String CLIP = "clip";
-	public static final String CLIP_POS = "clip_pos";
+	public static final String LENS_CLIP = "lens_clip";
+	public static final String LENS_CLIP_POS = "lens_clip_pos";
 	public static final String ATTACHED_LENSES = "attached_lenses";
 	public static final String COOLDOWN = "cooldown";
 

@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.client.gui.box.BaubleBoxContainer;
+import vazkii.botania.client.gui.box.TrinketCaseMenu;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.InventoryHelper;
@@ -62,7 +62,7 @@ public class BaubleBoxItem extends Item {
 
 				@Override
 				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-					return new BaubleBoxContainer(syncId, inv, hand == InteractionHand.MAIN_HAND);
+					return new TrinketCaseMenu(syncId, inv, hand == InteractionHand.MAIN_HAND);
 				}
 			}, hand == InteractionHand.MAIN_HAND, ByteBufCodecs.BOOL);
 		}
@@ -83,7 +83,7 @@ public class BaubleBoxItem extends Item {
 	public boolean overrideStackedOnOther(ItemStack box, Slot slot, ClickAction clickAction, Player player) {
 		return InventoryHelper.overrideStackedOnOther(
 				BaubleBoxItem::getInventory,
-				player.containerMenu instanceof BaubleBoxContainer,
+				player.containerMenu instanceof TrinketCaseMenu,
 				box, slot, clickAction, player);
 	}
 
@@ -92,7 +92,7 @@ public class BaubleBoxItem extends Item {
 			Player player, SlotAccess cursorAccess) {
 		return InventoryHelper.overrideOtherStackedOnMe(
 				BaubleBoxItem::getInventory,
-				player.containerMenu instanceof BaubleBoxContainer,
+				player.containerMenu instanceof TrinketCaseMenu,
 				box, toInsert, clickAction, cursorAccess);
 	}
 }

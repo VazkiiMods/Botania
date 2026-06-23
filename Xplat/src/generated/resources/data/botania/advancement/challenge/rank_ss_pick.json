@@ -12,7 +12,7 @@
     "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "botania:terra_pick"
+      "id": "botania:terrasteel_pickaxe"
     },
     "title": {
       "translate": "advancement.botania:rankSSPick"

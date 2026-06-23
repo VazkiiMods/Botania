@@ -1925,7 +1925,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.MANA_LENS)
 				.define('S', ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
 				.define('G', Ingredient.of(ConventionalItemTags.GLASS_BLOCKS_COLORLESS))
-				.group("botania:lens_normal")
+				.group("botania:mana_lens")
 				.pattern(" S ")
 				.pattern("SGS")
 				.pattern(" S ")
@@ -1934,12 +1934,12 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.MANA_LENS)
 				.define('S', ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
 				.define('G', Ingredient.of(ConventionalItemTags.GLASS_PANES_COLORLESS))
-				.group("botania:lens_normal")
+				.group("botania:mana_lens")
 				.pattern(" S ")
 				.pattern("SGS")
 				.pattern(" S ")
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS))
-				.save(recipeOutput, "botania:lens_normal_pane");
+				.save(recipeOutput, "botania:mana_lens_pane");
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.VELOCITY_LENS)
 				.requires(BotaniaItems.MANA_LENS)
 				.requires(BotaniaItems.RUNE_OF_AIR)
@@ -2055,7 +2055,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("GLG")
 				.pattern("FGF")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.MANA_LENS))
-				.save(recipeOutput, "botania:lens_light_alt");
+				.save(recipeOutput, "botania:flash_lens_alt");
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.MESSENGER_LENS)
 				.define('P', Items.PAPER)
 				.define('L', BotaniaItems.MANA_LENS)
