@@ -40,7 +40,8 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 		Level world = Minecraft.getInstance().level;
 		if ("runic_altar".equals(recipeType)) {
 			var recipe = BotaniaRecipeTypes.getRecipe(world,
-					ResourceLocation.parse(recipeName), BotaniaRecipeTypes.RUNE_TYPE);
+					ResourceLocation.parse(recipeName), BotaniaRecipeTypes.RUNIC_ALTAR_TYPE
+			);
 			if (recipe.isEmpty()) {
 				return ImmutableList.of();
 			}
@@ -49,7 +50,8 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 			return NonNullList.of(Ingredient.EMPTY, ingredients.toArray(Ingredient[]::new));
 		} else if ("petal_apothecary".equals(recipeType)) {
 			var recipe = BotaniaRecipeTypes.getRecipe(world,
-					ResourceLocation.parse(recipeName), BotaniaRecipeTypes.PETAL_TYPE);
+					ResourceLocation.parse(recipeName), BotaniaRecipeTypes.PETAL_APOTHECARY_TYPE
+			);
 			return recipe.isPresent() ? recipe.get().value().getIngredients() : ImmutableList.of();
 		} else {
 			throw new IllegalArgumentException("Type must be 'runic_altar' or 'petal_apothecary'!");

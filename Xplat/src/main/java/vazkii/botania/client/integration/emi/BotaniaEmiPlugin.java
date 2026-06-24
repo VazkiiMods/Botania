@@ -199,13 +199,13 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(BotaniaItems.TERRA_SHATTERER),
 				EmiStack.of(BotaniaItems.ELEMENTIUM_PICKAXE)), EmiStack.of(tipped), null));
 
-		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_APOTHECARY_TYPE)) {
 			registry.addRecipe(new PetalApothecaryEmiRecipe(recipe));
 		}
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
 			registry.addRecipe(new ManaInfusionEmiRecipe(recipe));
 		}
-		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.RUNE_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.RUNIC_ALTAR_TYPE)) {
 			registry.addRecipe(new RunicAltarEmiRecipe(recipe));
 		}
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE)) {

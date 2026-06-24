@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_terrasteel_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "botania:terrasteel_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "botania:terrasteel_nugget"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_terrasteel_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "botania:terrasteel_nugget"
+    ]
+  }
+}

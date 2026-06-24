@@ -1,5 +1,6 @@
 // 1.21.1	Botania/Conventional Tags for minecraft:item
 95c33e9800913c175f91dae06a25218876ef658b data/botania/tags/item/loonium_excluded.json
+61e964ab7c5c5bb8be54f80a0060332e7a86f27f data/botania/tags/item/mana_gems.json
 8e674e5fd846c857a6124ffe61bc404e40e3c8ff data/botania/tags/item/seed_apothecary_reagent.json
 6d34257dc4fc446f83993138b42263769cc49939 data/c/tags/item/buckets.json
 3118e125a10e8ea9961a8432d18ceda21c5ede75 data/c/tags/item/buckets/extrapolating.json

@@ -1,0 +1,21 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:crossed_souls",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:soul_sand"
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:apple"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ]
+}

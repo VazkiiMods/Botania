@@ -23,7 +23,7 @@ public class RunicAltarProcessor extends ReagentRecipeProcessor<RunicAltarRecipe
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
 		ResourceLocation id = ResourceLocation.parse(variables.get("recipe", level.registryAccess()).asString());
-		RunicAltarRecipe altarRecipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.RUNE_TYPE, id);
+		RunicAltarRecipe altarRecipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.RUNIC_ALTAR_TYPE, id);
 		if (altarRecipe != null) {
 			this.recipe = new RecipeHolder<>(id, altarRecipe);
 		} else {

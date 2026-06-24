@@ -50,7 +50,7 @@ public class IncenseStickItem extends Item implements BrewItem, BrewContainer, C
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
 		Brew brew = getBrew(stack);
-		if (brew == BotaniaBrews.fallbackBrew) {
+		if (brew == BotaniaBrews.FALLBACK) {
 			list.add(Component.translatable("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
 			return;
 		}

@@ -1,0 +1,15 @@
+{
+  "type": "botania:brew",
+  "brew": "botania:gills",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:prismarine_crystals"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ]
+}

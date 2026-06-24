@@ -497,6 +497,7 @@
 
 
 
+
   "botania.triggers.manaEmpty": "Mana Leeg",
   "botania.triggers.manaSpace": "Ruimte voor Mana",
   "botania.triggers.manaContains": "Bevat Mana",
@@ -2097,33 +2098,33 @@
 
 
   "botania.brew.fallback": "Terugval",
-  "botania.brew.speed": "Supervoeten",
-  "botania.brew.strength": "Kracht",
+  "botania.brew.fleetfeet": "Supervoeten",
+  "botania.brew.vigor": "Kracht",
 
-  "botania.brew.healing": "Genezend",
-  "botania.brew.jump_boost": "Opwaarts",
-  "botania.brew.regen": "Vitaliserend",
-  "botania.brew.regen_weak": "Herstellend",
-  "botania.brew.resistance": "Standvastigheid",
-  "botania.brew.fire_resistance": "Magmahuid",
-  "botania.brew.water_breathing": "Kieuwen",
-  "botania.brew.invisibility": "Camouflage",
-  "botania.brew.night_vision": "Uilenzicht",
-  "botania.brew.absorption": "Afscherming",
-  "botania.brew.soul_cross": "Gekruisde Zielen",
+  "botania.brew.mending": "Genezend",
+  "botania.brew.upsurging": "Opwaarts",
+  "botania.brew.revitalization": "Vitaliserend",
+  "botania.brew.restoration": "Herstellend",
+  "botania.brew.fortitude": "Standvastigheid",
+  "botania.brew.magmaskin": "Magmahuid",
+  "botania.brew.gills": "Kieuwen",
+  "botania.brew.cloaking": "Camouflage",
+  "botania.brew.owlsight": "Uilenzicht",
+  "botania.brew.shielding": "Afscherming",
+  "botania.brew.crossed_souls": "Gekruisde Zielen",
   "botania.brew.feather_feet": "Lichtvoetig",
-  "botania.brew.emptiness": "Ijdelheid's Leegte",
-  "botania.brew.bloodthirst": "Crimson Schaduw",
+  "botania.brew.vanitys_emptiness": "Ijdelheid's Leegte",
+  "botania.brew.crimson_shade": "Crimson Schaduw",
   "botania.brew.overload": "Overbelasting",
-  "botania.brew.allure": "Waterverleiding",
-  "botania.brew.clear": "Totaalheid",
+  "botania.brew.marine_allure": "Waterverleiding",
+  "botania.brew.absolution": "Totaalheid",
 
   "effect.botania.soul_cross": "Gekruisde Zielen",
   "effect.botania.feather_feet": "Lichtvoetig",
   "effect.botania.emptiness": "Leegte",
   "effect.botania.bloodthirst": "Bloeddorst",
   "effect.botania.allure": "Verleiding",
-  "effect.botania.clear": "Totaalheid",
+  "effect.botania.absolution": "Totaalheid",
 
 
 

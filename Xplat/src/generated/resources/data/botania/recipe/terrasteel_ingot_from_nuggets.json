@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "botania:terrasteel_ingot",
+  "key": {
+    "#": {
+      "item": "botania:terrasteel_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:terrasteel_ingot"
+  }
+}

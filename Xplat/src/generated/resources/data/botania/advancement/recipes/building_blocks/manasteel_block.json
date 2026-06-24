@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_manasteel_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "#c:ingots/manasteel"
+            "items": "botania:manasteel_ingot"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item"
+      "has_manasteel_ingot"
     ]
   ],
   "rewards": {

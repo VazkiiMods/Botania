@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_manasteel_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "botania:manasteel_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "botania:manasteel_ingot_from_manasteel_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_manasteel_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "botania:manasteel_ingot_from_manasteel_block"
+    ]
+  }
+}

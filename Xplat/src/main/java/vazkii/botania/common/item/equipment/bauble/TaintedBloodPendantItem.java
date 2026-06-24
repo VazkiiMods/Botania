@@ -71,7 +71,7 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 		super.appendHoverText(stack, context, tooltip, adv);
 
 		Brew brew = getBrew(stack);
-		if (brew == BotaniaBrews.fallbackBrew) {
+		if (brew == BotaniaBrews.FALLBACK) {
 			tooltip.add(Component.translatable("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
 			return;
 		}
@@ -91,7 +91,7 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
 		Brew brew = ((BrewItem) stack.getItem()).getBrew(stack);
-		if (brew != BotaniaBrews.fallbackBrew && living instanceof Player player && !living.level().isClientSide()) {
+		if (brew != BotaniaBrews.FALLBACK && living instanceof Player player && !living.level().isClientSide()) {
 			MobEffectInstance effect = brew.getPotionEffects(stack).getFirst();
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;

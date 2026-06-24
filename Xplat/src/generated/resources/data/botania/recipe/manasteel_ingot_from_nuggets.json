@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "botania:manasteel_ingot",
+  "key": {
+    "#": {
+      "item": "botania:manasteel_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "botania:manasteel_ingot"
+  }
+}

@@ -130,6 +130,10 @@ public class BotaniaTags {
 		public static final TagKey<Item> MANA_USING_ITEMS = tag("mana_using_items");
 		public static final TagKey<Item> SEED_APOTHECARY_REAGENT = tag("seed_apothecary_reagent");
 		public static final TagKey<Item> MANA_POWDER_SOURCE_DUSTS = tag("mana_powder_source_dusts");
+		/**
+		 * Gem-like items that are used for crafting certain mana-related objects, such mana tablet or runic altar.
+		 */
+		public static final TagKey<Item> MANA_GEMS = tag("mana_gems");
 
 		/**
 		 * Block provider items in this tag can be auto-selected via the vanilla "Pick Block" feature.

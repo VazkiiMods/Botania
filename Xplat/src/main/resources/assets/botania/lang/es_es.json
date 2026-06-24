@@ -496,6 +496,7 @@
 
 
 
+
   "botania.triggers.manaDetector": "Pulso de maná",
   "botania.triggers.manaEmpty": "Vacío de maná",
   "botania.triggers.manaSpace": "Espacio para maná",
@@ -2097,33 +2098,33 @@
 
 
   "botania.brew.fallback": "retroceso",
-  "botania.brew.speed": "pies ligeros",
-  "botania.brew.strength": "vigor",
-  "botania.brew.haste": "adrenalina",
-  "botania.brew.healing": "reparación",
-  "botania.brew.jump_boost": "aumento",
-  "botania.brew.regen": "revitalización",
-  "botania.brew.regen_weak": "restauración",
-  "botania.brew.resistance": "fortaleza",
-  "botania.brew.fire_resistance": "piel magmática",
-  "botania.brew.water_breathing": "agallas",
-  "botania.brew.invisibility": "ocultamiento",
-  "botania.brew.night_vision": "vista de búho",
-  "botania.brew.absorption": "protección",
-  "botania.brew.soul_cross": "cruz de alma",
+  "botania.brew.fleetfeet": "pies ligeros",
+  "botania.brew.vigor": "vigor",
+  "botania.brew.adrenaline": "adrenalina",
+  "botania.brew.mending": "reparación",
+  "botania.brew.upsurging": "aumento",
+  "botania.brew.revitalization": "revitalización",
+  "botania.brew.restoration": "restauración",
+  "botania.brew.fortitude": "fortaleza",
+  "botania.brew.magmaskin": "piel magmática",
+  "botania.brew.gills": "agallas",
+  "botania.brew.cloaking": "ocultamiento",
+  "botania.brew.owlsight": "vista de búho",
+  "botania.brew.shielding": "protección",
+  "botania.brew.crossed_souls": "cruz de alma",
   "botania.brew.feather_feet": "pies de pluma",
-  "botania.brew.emptiness": "vacío vanal",
-  "botania.brew.bloodthirst": "sombra carmesí",
+  "botania.brew.vanitys_emptiness": "vacío vanal",
+  "botania.brew.crimson_shade": "sombra carmesí",
   "botania.brew.overload": "sobrecarga",
-  "botania.brew.allure": "atracción marina",
-  "botania.brew.clear": "absolución",
+  "botania.brew.marine_allure": "atracción marina",
+  "botania.brew.absolution": "absolución",
 
   "effect.botania.soul_cross": "Cruz de alma",
   "effect.botania.feather_feet": "Pies de pluma",
   "effect.botania.emptiness": "Vacio",
   "effect.botania.bloodthirst": "Sed de sangre",
   "effect.botania.allure": "Atracción",
-  "effect.botania.clear": "Absolución",
+  "effect.botania.absolution": "Absolución",
 
 
 

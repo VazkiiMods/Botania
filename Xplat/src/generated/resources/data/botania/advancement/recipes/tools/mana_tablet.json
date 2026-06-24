@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#c:gems/mana_pearl"
+            "items": "#botania:mana_gems"
           }
         ]
       },

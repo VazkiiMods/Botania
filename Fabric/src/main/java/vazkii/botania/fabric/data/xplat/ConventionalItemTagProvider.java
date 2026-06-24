@@ -144,6 +144,9 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 				.addTag(ConventionalBotaniaTags.Items.MANA_QUARTZ_GEMS)
 				.addTag(ConventionalBotaniaTags.Items.RED_QUARTZ_GEMS)
 				.addTag(ConventionalBotaniaTags.Items.SUNNY_QUARTZ_GEMS);
+		tag(BotaniaTags.Items.MANA_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS);
 
 		// Glass blocks and panes
 		copy(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS, ConventionalBotaniaTags.Items.MANA_GLASS_BLOCKS);

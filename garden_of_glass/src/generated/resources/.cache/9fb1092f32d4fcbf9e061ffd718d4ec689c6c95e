@@ -1,5 +1,5 @@
-// 1.21.1	2026-06-23T17:14:44.535196623	Recipes
-a391475f4c8532465cd20bdfd17d8f7d6b136f36 data/gardenofglass/advancement/recipes/brewing/blaze_powder_from_blaze_mesh.json
+// 1.21.1	2026-06-26T22:47:13.729546686	Recipes
+78c7d98b1a5eb4a27edf0657ac37a37680050225 data/gardenofglass/advancement/recipes/brewing/blaze_powder.json
 5b126562f0370dfb4042d487e7db7640cf61b05f data/gardenofglass/advancement/recipes/building_blocks/blaze_mesh.json
 a3e3b3c4fd200d862c44b3e9f72c3dfe621309a7 data/gardenofglass/advancement/recipes/building_blocks/cobblestone_from_pebble.json
 88ca77c67ead7ca02fc5722d8eea81058053f7c4 data/gardenofglass/advancement/recipes/decorations/end_portal_frame.json
@@ -10,7 +10,7 @@ e49227f582f390227724471ae13b75eaddf1e37d data/gardenofglass/advancement/recipes/
 662ed7331cb1c8a3c1b2f99804d2a3f9e42bd136 data/gardenofglass/advancement/recipes/misc/slime_ball_from_magma_cream.json
 6d7ba1e37b5faadca8bbfed0eeaf9cc797546544 data/gardenofglass/advancement/recipes/redstone/mana_spreader.json
 497c5a305596cd05aa45f158b320ef2fec4dfbe8 data/gardenofglass/recipe/blaze_mesh.json
-e4d4834d9876e48411d80b66e3ba2ddfd9945380 data/gardenofglass/recipe/blaze_powder_from_blaze_mesh.json
+e4d4834d9876e48411d80b66e3ba2ddfd9945380 data/gardenofglass/recipe/blaze_powder.json
 9939c79cdf45e169a6e6627acac8179c766fb7b7 data/gardenofglass/recipe/cobblestone_from_pebble.json
 62969d77cf349ab2568ba1c815e64d53eca25aee data/gardenofglass/recipe/cocoon_of_caprice.json
 c88db000a79e8044eb94a20b152187ef4efff3cc data/gardenofglass/recipe/end_portal_frame.json

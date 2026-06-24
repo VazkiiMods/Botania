@@ -9,10 +9,13 @@
  */
 package vazkii.botania.fabric.data.xplat;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -20,67 +23,82 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.ElvenTradeRecipe;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.ConventionalBotaniaTags;
-import vazkii.botania.data.recipes.BotaniaRecipeProvider;
+import vazkii.botania.data.util.BotaniaRecipeHelper;
 
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
-public class ElvenTradeProvider extends BotaniaRecipeProvider {
-	public ElvenTradeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, lookupProvider);
+public class ElvenTradeProvider extends FabricRecipeProvider {
+	public ElvenTradeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(output, registriesFuture);
 	}
 
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		consumer.accept(id("dreamwood_log"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.DREAMWOOD_LOG),
-				Ingredient.of(BotaniaBlocks.LIVINGWOOD_LOG)), null);
-		consumer.accept(id("dreamwood"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.DREAMWOOD),
-				Ingredient.of(BotaniaBlocks.LIVINGWOOD)), null);
+		oneToOneTrade(consumer, BotaniaBlocks.LIVINGWOOD_LOG, BotaniaBlocks.DREAMWOOD_LOG);
+		oneToOneTrade(consumer, BotaniaBlocks.LIVINGWOOD, BotaniaBlocks.DREAMWOOD);
 
-		Ingredient manaSteel = Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS);
-		Ingredient manaSteelBlock = Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_STORAGE_BLOCKS);
-		consumer.accept(id("elementium"), new ElvenTradeRecipe(singleOutput(BotaniaItems.ELEMENTIUM_INGOT),
-				manaSteel, manaSteel), null);
-		consumer.accept(id("elementium_block"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.ELEMENTIUM_BLOCK),
-				manaSteelBlock, manaSteelBlock), null);
+		twoToOneTrade(consumer, ConventionalBotaniaTags.Items.MANASTEEL_INGOTS, BotaniaItems.ELEMENTIUM_INGOT);
+		twoToOneTrade(consumer, ConventionalBotaniaTags.Items.MANASTEEL_STORAGE_BLOCKS, BotaniaBlocks.ELEMENTIUM_BLOCK);
+		// TODO: a bit of a debugging/convenience recipe that ensures recipes with different input item types work:
+		consumer.accept(id(BotaniaItems.ELEMENTIUM_INGOT, "_from_mixed_input"),
+				new ElvenTradeRecipe(
+						// ingot + block = 10 ingots, so resolve to a stack of 5 elementium ingots
+						new ItemStack[] { new ItemStack(BotaniaItems.ELEMENTIUM_INGOT, 5) },
+						Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS),
+						Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_STORAGE_BLOCKS)
+				), null);
 
-		consumer.accept(id("pixie_dust"), new ElvenTradeRecipe(singleOutput(BotaniaItems.PIXIE_DUST),
-				Ingredient.of(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)), null);
-		consumer.accept(id("dragonstone"), new ElvenTradeRecipe(singleOutput(BotaniaItems.DRAGONSTONE),
-				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)), null);
-		consumer.accept(id("dragonstone_block"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.DRAGONSTONE_BLOCK),
-				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_STORAGE_BLOCKS)), null);
+		oneToOneTrade(consumer, ConventionalBotaniaTags.Items.MANA_PEARL_GEMS, BotaniaItems.PIXIE_DUST);
+		oneToOneTrade(consumer, ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS, BotaniaItems.DRAGONSTONE);
+		oneToOneTrade(consumer, ConventionalBotaniaTags.Items.MANA_DIAMOND_STORAGE_BLOCKS, BotaniaBlocks.DRAGONSTONE_BLOCK);
 
-		consumer.accept(id("elven_quartz"), new ElvenTradeRecipe(singleOutput(BotaniaItems.ELVEN_QUARTZ),
-				Ingredient.of(Items.QUARTZ)), null);
-		consumer.accept(id("alfglass"), new ElvenTradeRecipe(singleOutput(BotaniaBlocks.ALFGLASS),
-				Ingredient.of(BotaniaBlocks.MANAGLASS)), null);
+		oneToOneTrade(consumer, Items.QUARTZ, BotaniaItems.ELVEN_QUARTZ);
+		oneToOneTrade(consumer, BotaniaBlocks.MANAGLASS, BotaniaBlocks.ALFGLASS);
 
-		consumer.accept(id("iron_return"), new ElvenTradeRecipe(singleOutput(Items.IRON_INGOT),
-				Ingredient.of(Items.IRON_INGOT)), null);
-		consumer.accept(id("iron_block_return"), new ElvenTradeRecipe(singleOutput(Blocks.IRON_BLOCK),
-				Ingredient.of(Blocks.IRON_BLOCK)), null);
-		consumer.accept(id("ender_pearl_return"), new ElvenTradeRecipe(singleOutput(Items.ENDER_PEARL),
-				Ingredient.of(Items.ENDER_PEARL)), null);
-		consumer.accept(id("diamond_return"), new ElvenTradeRecipe(singleOutput(Items.DIAMOND),
-				Ingredient.of(Items.DIAMOND)), null);
-		consumer.accept(id("diamond_block_return"), new ElvenTradeRecipe(singleOutput(Blocks.DIAMOND_BLOCK),
-				Ingredient.of(Blocks.DIAMOND_BLOCK)), null);
+		returnRecipe(consumer, Items.IRON_INGOT);
+		returnRecipe(consumer, Blocks.IRON_BLOCK);
+		returnRecipe(consumer, Items.ENDER_PEARL);
+		returnRecipe(consumer, Items.DIAMOND);
+		returnRecipe(consumer, Blocks.DIAMOND_BLOCK);
 
-		consumer.accept(id("lexicon_elven"), LexiconElvenTradeRecipe.INSTANCE, null);
+		consumer.accept(id(BotaniaItems.LEXICA_BOTANIA, "_upgrade"), LexiconElvenTradeRecipe.INSTANCE, null);
+	}
+
+	private void oneToOneTrade(RecipeOutput recipeOutput, ItemLike input, ItemLike output) {
+		recipeOutput.accept(id(output),
+				new ElvenTradeRecipe(singleOutput(output), Ingredient.of(input)), null);
+	}
+
+	private void oneToOneTrade(RecipeOutput recipeOutput, TagKey<Item> input, ItemLike output) {
+		recipeOutput.accept(id(output),
+				new ElvenTradeRecipe(singleOutput(output), Ingredient.of(input)), null);
+	}
+
+	private void twoToOneTrade(RecipeOutput recipeOutput, TagKey<Item> input, ItemLike output) {
+		recipeOutput.accept(id(output),
+				new ElvenTradeRecipe(singleOutput(output), Ingredient.of(input), Ingredient.of(input)), null);
+	}
+
+	private void returnRecipe(RecipeOutput recipeOutput, ItemLike item) {
+		recipeOutput.accept(id(item, "_return"),
+				new ElvenTradeRecipe(singleOutput(item), Ingredient.of(item)), null);
 	}
 
 	private static ItemStack[] singleOutput(ItemLike output) {
 		return new ItemStack[] { new ItemStack(output) };
 	}
 
-	private static ResourceLocation id(String path) {
-		return botaniaRL("elven_trade/" + path);
+	private static ResourceLocation id(ItemLike item) {
+		return BotaniaRecipeHelper.deriveRecipeId(BotaniaRecipeTypes.ELVEN_TRADE_TYPE, item);
+	}
+
+	private static ResourceLocation id(ItemLike item, String suffix) {
+		return BotaniaRecipeHelper.deriveRecipeId(BotaniaRecipeTypes.ELVEN_TRADE_TYPE, item, suffix);
 	}
 
 	@Override

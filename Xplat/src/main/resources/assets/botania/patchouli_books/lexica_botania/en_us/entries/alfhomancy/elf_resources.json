@@ -25,7 +25,7 @@
     {
       "type": "botania:elven_trade",
       "text": "botania.page.elfResources3",
-      "recipes": ["botania:elven_trade/elementium", "botania:elven_trade/elementium_block"]
+      "recipes": ["botania:elven_trade/elementium_ingot", "botania:elven_trade/elementium_block"]
     },
     {
       "type": "botania:elven_trade",
@@ -44,7 +44,7 @@
     {
       "type": "botania:elven_trade",
       "text": "botania.page.elfResources7",
-      "recipes": "botania:elven_trade/elven_quartz_block"
+      "recipes": "botania:elven_trade/elven_quartz"
     },
     {
       "type": "text",

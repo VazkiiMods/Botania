@@ -9,6 +9,10 @@
 package vazkii.botania.common.crafting;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.Encoder;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
@@ -118,8 +122,20 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 	}
 
 	public static class Serializer implements RecipeSerializer<ElvenTradeRecipe> {
+		private static final Codec<ItemStack> ITEM_STACK_COMPACT_CODEC = Codec.of(
+				new Encoder<>() {
+					@Override
+					public <T> DataResult<T> encode(ItemStack input, DynamicOps<T> ops, T prefix) {
+						return input.getCount() != 1
+								? ItemStack.STRICT_CODEC.encode(input, ops, prefix)
+								: ItemStack.STRICT_SINGLE_ITEM_CODEC.encode(input, ops, prefix);
+					}
+				},
+				// strict codec can handle the single item output
+				ItemStack.STRICT_CODEC::decode
+		);
 		public static final MapCodec<ElvenTradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-				ExtraCodecs.nonEmptyList(ItemStack.STRICT_SINGLE_ITEM_CODEC.listOf()).fieldOf("output").forGetter(ElvenTradeRecipe::getOutputs),
+				ExtraCodecs.nonEmptyList(ITEM_STACK_COMPACT_CODEC.listOf()).fieldOf("output").forGetter(ElvenTradeRecipe::getOutputs),
 				ExtraCodecs.nonEmptyList(Ingredient.CODEC_NONEMPTY.listOf()).fieldOf("ingredients").forGetter(ElvenTradeRecipe::getIngredients)
 		).apply(instance, ElvenTradeRecipe::new));
 		public static final StreamCodec<RegistryFriendlyByteBuf, ElvenTradeRecipe> STREAM_CODEC = StreamCodec.composite(

@@ -10,28 +10,26 @@ package vazkii.botania.common.lib;
 
 public final class LibBrewNames {
 
-	public static final String SPEED = "speed";
-	public static final String STRENGTH = "strength";
-	public static final String HASTE = "haste";
-	public static final String HEALING = "healing";
-	public static final String JUMP_BOOST = "jump_boost";
-	public static final String REGEN = "regen";
-	public static final String REGEN_WEAK = "regen_weak";
-	public static final String RESISTANCE = "resistance";
-	public static final String FIRE_RESISTANCE = "fire_resistance";
-	public static final String WATER_BREATHING = "water_breathing";
-	public static final String INVISIBILITY = "invisibility";
-	public static final String NIGHT_VISION = "night_vision";
-	public static final String ABSORPTION = "absorption";
+	public static final String FLEETFEET = "fleetfeet";
+	public static final String VIGOR = "vigor";
+	public static final String ADRENALINE = "adrenaline";
+	public static final String MENDING = "mending";
+	public static final String UPSURGING = "upsurging";
+	public static final String REVITALIZATION = "revitalization";
+	public static final String RESTORATION = "restoration";
+	public static final String FORTITUDE = "fortitude";
+	public static final String MAGMASKIN = "magmaskin";
+	public static final String GILLS = "gills";
+	public static final String CLOAKING = "cloaking";
+	public static final String OWLSIGHT = "owlsight";
+	public static final String SHIELDING = "shielding";
 
-	public static final String SOUL_CROSS = "soul_cross";
+	public static final String CROSSED_SOULS = "crossed_souls";
 	public static final String FEATHER_FEET = "feather_feet";
-	public static final String EMPTINESS = "emptiness";
-	public static final String BLOODTHIRST = "bloodthirst";
+	public static final String VANITYS_EMPTINESS = "vanitys_emptiness";
+	public static final String CRIMSON_SHADE = "crimson_shade";
 	public static final String OVERLOAD = "overload";
-	public static final String ALLURE = "allure";
-	public static final String CLEAR = "clear";
-
-	public static final String WARP_WARD = "warp_ward";
+	public static final String MARINE_ALLURE = "marine_allure";
+	public static final String ABSOLUTION = "absolution";
 
 }

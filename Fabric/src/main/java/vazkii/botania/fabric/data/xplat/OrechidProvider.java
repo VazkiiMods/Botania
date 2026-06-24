@@ -12,7 +12,6 @@ package vazkii.botania.fabric.data.xplat;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -29,11 +28,10 @@ import vazkii.botania.common.block.block_entity.flower.functional.OrechidBlockEn
 import vazkii.botania.common.block.block_entity.flower.functional.OrechidIgnemBlockEntity;
 import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.data.util.BotaniaRecipeHelper;
 import vazkii.botania.fabric.data.FabricDatagenInitializer;
 
 import java.util.concurrent.CompletableFuture;
-
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class OrechidProvider extends FabricRecipeProvider {
 
@@ -80,16 +78,16 @@ public class OrechidProvider extends FabricRecipeProvider {
 		biomeStone(consumer, BotaniaBlocks.ROSY_TALC, BotaniaTags.Biomes.MARIMORPHOSIS_MESA_BONUS);
 	}
 
-	protected ResourceLocation orechidId(Block b) {
-		return botaniaRL("orechid/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
+	protected ResourceLocation orechidId(Block block) {
+		return BotaniaRecipeHelper.deriveRecipeId(BotaniaRecipeTypes.ORECHID_TYPE, block);
 	}
 
-	protected ResourceLocation ignemId(Block b) {
-		return botaniaRL("orechid_ignem/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
+	protected ResourceLocation ignemId(Block block) {
+		return BotaniaRecipeHelper.deriveRecipeId(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE, block);
 	}
 
-	protected ResourceLocation marimorphosisId(Block b) {
-		return botaniaRL("marimorphosis/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
+	protected ResourceLocation marimorphosisId(Block block) {
+		return BotaniaRecipeHelper.deriveRecipeId(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE, block);
 	}
 
 	protected void stone(RecipeOutput consumer, Block output, int weight) {

@@ -107,7 +107,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		}
 
 		Optional<RecipeHolder<PetalApothecaryRecipe>> maybeRecipe = level.getRecipeManager()
-				.getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, getRecipeInput(), level);
+				.getRecipeFor(BotaniaRecipeTypes.PETAL_APOTHECARY_TYPE, getRecipeInput(), level);
 		if (maybeRecipe.isPresent()) {
 			var recipe = maybeRecipe.get();
 			if (recipe.value().getReagent().test(item.getItem())) {
@@ -344,7 +344,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				float anglePer = 360F / amt;
 
 				Optional<RecipeHolder<PetalApothecaryRecipe>> maybeRecipe = altar.level.getRecipeManager()
-						.getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, altar.getRecipeInput(), altar.level);
+						.getRecipeFor(BotaniaRecipeTypes.PETAL_APOTHECARY_TYPE, altar.getRecipeInput(), altar.level);
 				maybeRecipe.ifPresent(recipe -> {
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, xc + radius + 9, yc - 8, 0, 8, 22, 15);

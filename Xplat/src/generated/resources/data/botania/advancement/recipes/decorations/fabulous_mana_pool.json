@@ -1,21 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_alt_item": {
-      "conditions": {
-        "items": [
-          {
-            "items": "botania:rod_of_the_bifrost"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_item": {
       "conditions": {
         "items": [
           {
             "items": "botania:shimmerrock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": "botania:rod_of_the_bifrost"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_item",
-      "has_alt_item"
+      "has_rod"
     ]
   ],
   "rewards": {

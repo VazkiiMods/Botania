@@ -67,7 +67,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
 		if (recipe != null || stack.isEmpty()
-				|| stack.getItem() instanceof BrewItem brew && brew.getBrew(stack) != BotaniaBrews.fallbackBrew
+				|| stack.getItem() instanceof BrewItem brew && brew.getBrew(stack) != BotaniaBrews.FALLBACK
 				|| getItemHandler().getItem(0).isEmpty() != stack.getItem() instanceof BrewContainer) {
 			return false;
 		}

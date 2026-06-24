@@ -63,8 +63,9 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			}
 
 			Brew brew = ((IncenseStickItem) BotaniaItems.INCENSE_STICK).getBrew(stack);
-			MobEffectInstance effect = brew.getPotionEffects(stack).getFirst();
-			if (self.timeLeft > 0) {
+			// in case of invalid brew data, just get rid of the stick
+			MobEffectInstance effect = brew == BotaniaBrews.FALLBACK ? null : brew.getPotionEffects(stack).getFirst();
+			if (self.timeLeft > 0 && effect != null) {
 				self.timeLeft--;
 				List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(worldPosition.getX() + 0.5 - RANGE, worldPosition.getY() + 0.5 - RANGE, worldPosition.getZ() + 0.5 - RANGE, worldPosition.getX() + 0.5 + RANGE, worldPosition.getY() + 0.5 + RANGE, worldPosition.getZ() + 0.5 + RANGE));
 				for (Player player : players) {
@@ -145,8 +146,11 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			return;
 		}
 
-		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true));
 		Brew brew = ((IncenseStickItem) BotaniaItems.INCENSE_STICK).getBrew(stack);
+		if (brew == BotaniaBrews.FALLBACK) {
+			return;
+		}
+		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true));
 		timeLeft = brew.getPotionEffects(stack).getFirst().getDuration() * IncenseStickItem.TIME_MULTIPLIER;
 		level.playSound(null, getBlockPos(), BotaniaSounds.incensePlateIgnite, SoundSource.BLOCKS, 0.5F, 1.75F);
 		level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
@@ -173,7 +177,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	public boolean acceptsItem(ItemStack stack) {
-		return !stack.isEmpty() && stack.is(BotaniaItems.INCENSE_STICK) && ((IncenseStickItem) BotaniaItems.INCENSE_STICK).getBrew(stack) != BotaniaBrews.fallbackBrew;
+		return !stack.isEmpty() && stack.is(BotaniaItems.INCENSE_STICK) && ((IncenseStickItem) BotaniaItems.INCENSE_STICK).getBrew(stack) != BotaniaBrews.FALLBACK;
 	}
 
 	@Override

@@ -50,11 +50,11 @@ public class SmeltingProvider extends BotaniaRecipeProvider {
 		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.LIVINGROCK_BRICKS, BotaniaBlocks.CRACKED_LIVINGROCK_BRICKS);
 	}
 
-	private static void makeDefaultSmeltingRecipe(RecipeOutput consumer, Block biomeCobblestone, Block biomeStone) {
+	private static void makeDefaultSmeltingRecipe(RecipeOutput consumer, Block input, Block output) {
 		SimpleCookingRecipeBuilder
-				.smelting(Ingredient.of(biomeCobblestone), RecipeCategory.BUILDING_BLOCKS, biomeStone, 0.1f, 200)
-				.unlockedBy("has_item", conditionsFromItem(biomeCobblestone))
-				.save(consumer, deriveRecipeId(RecipeType.SMELTING, biomeStone));
+				.smelting(Ingredient.of(input), RecipeCategory.BUILDING_BLOCKS, output, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(input))
+				.save(consumer, deriveRecipeId(RecipeType.SMELTING, output));
 	}
 
 	@Override

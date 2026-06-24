@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "botania:dragonstone",
+  "ingredients": [
+    {
+      "item": "botania:dragonstone_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "botania:dragonstone"
+  }
+}

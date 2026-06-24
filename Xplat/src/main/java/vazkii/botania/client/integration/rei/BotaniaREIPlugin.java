@@ -137,7 +137,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		registerTerraPickTippingRecipeWrapper(registry);
 
 		registry.registerRecipeFiller(PetalApothecaryRecipe.class,
-				BotaniaRecipeTypes.PETAL_TYPE,
+				BotaniaRecipeTypes.PETAL_APOTHECARY_TYPE,
 				PetalApothecaryREIDisplay::new);
 		registry.registerRecipeFiller(BotanicalBreweryRecipe.class,
 				BotaniaRecipeTypes.BREW_TYPE,
@@ -153,7 +153,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				BotaniaRecipeTypes.PURE_DAISY_TYPE,
 				PureDaisyREIDisplay::new);
 		registry.registerRecipeFiller(RunicAltarRecipe.class,
-				BotaniaRecipeTypes.RUNE_TYPE,
+				BotaniaRecipeTypes.RUNIC_ALTAR_TYPE,
 				RunicAltarREIDisplay::new);
 		registry.registerRecipeFiller(TerrestrialAgglomerationRecipe.class,
 				BotaniaRecipeTypes.TERRA_PLATE_TYPE,

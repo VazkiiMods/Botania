@@ -9,27 +9,31 @@
  */
 package vazkii.botania.fabric.data.xplat;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.crafting.BotanicalBreweryRecipe;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class BrewProvider extends BotaniaRecipeProvider {
-	public BrewProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, lookupProvider);
+public class BrewProvider extends FabricRecipeProvider {
+	public BrewProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(output, registriesFuture);
 	}
 
 	@Override
@@ -39,108 +43,58 @@ public class BrewProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput recipeOutput) {
-		recipeOutput.accept(idFor("speed"),
-				new BotanicalBreweryRecipe(BotaniaBrews.speed,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.SUGAR), Ingredient.of(Items.REDSTONE)),
-				null);
-		recipeOutput.accept(idFor("strength"),
-				new BotanicalBreweryRecipe(BotaniaBrews.strength,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.BLAZE_POWDER),
-						Ingredient.of(Items.GLOWSTONE_DUST)),
-				null);
-		recipeOutput.accept(idFor("haste"),
-				new BotanicalBreweryRecipe(BotaniaBrews.haste,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.SUGAR),
-						Ingredient.of(Items.GOLD_NUGGET)),
-				null);
-		recipeOutput.accept(idFor("healing"),
-				new BotanicalBreweryRecipe(BotaniaBrews.healing,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.GLISTERING_MELON_SLICE),
-						Ingredient.of(Items.POTATO)),
-				null);
-		recipeOutput.accept(idFor("jump_boost"),
-				new BotanicalBreweryRecipe(BotaniaBrews.jumpBoost,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.FEATHER),
-						Ingredient.of(Items.CARROT)),
-				null);
-		recipeOutput.accept(idFor("regeneration"),
-				new BotanicalBreweryRecipe(BotaniaBrews.regen,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.GHAST_TEAR),
-						Ingredient.of(Items.GLOWSTONE_DUST)),
-				null);
-		recipeOutput.accept(idFor("weak_regeneration"),
-				new BotanicalBreweryRecipe(BotaniaBrews.regenWeak,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.GHAST_TEAR),
-						Ingredient.of(Items.REDSTONE)),
-				null);
-		recipeOutput.accept(idFor("resistance"),
-				new BotanicalBreweryRecipe(BotaniaBrews.resistance,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.IRON_INGOT),
-						Ingredient.of(Items.LEATHER)),
-				null);
-		recipeOutput.accept(idFor("fire_resistance"),
-				new BotanicalBreweryRecipe(BotaniaBrews.fireResistance,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.MAGMA_CREAM),
-						Ingredient.of(Blocks.NETHERRACK)),
-				null);
-		recipeOutput.accept(idFor("water_breathing"),
-				new BotanicalBreweryRecipe(BotaniaBrews.waterBreathing,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.PRISMARINE_CRYSTALS),
-						Ingredient.of(Items.GLOWSTONE_DUST)),
-				null);
-		recipeOutput.accept(idFor("invisibility"),
-				new BotanicalBreweryRecipe(BotaniaBrews.invisibility,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.SNOWBALL),
-						Ingredient.of(Items.GLOWSTONE_DUST)),
-				null);
-		recipeOutput.accept(idFor("night_vision"),
-				new BotanicalBreweryRecipe(BotaniaBrews.nightVision,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.SPIDER_EYE),
-						Ingredient.of(Items.GOLDEN_CARROT)),
-				null);
-		recipeOutput.accept(idFor("absorption"),
-				new BotanicalBreweryRecipe(BotaniaBrews.absorption,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.GOLDEN_APPLE),
-						Ingredient.of(Items.POTATO)),
-				null);
+		make(recipeOutput, BotaniaBrews.FLEETFEET,
+				Items.NETHER_WART, Items.SUGAR, Items.REDSTONE);
+		make(recipeOutput, BotaniaBrews.VIGOR,
+				Items.NETHER_WART, Items.BLAZE_POWDER, Items.GLOWSTONE_DUST);
+		make(recipeOutput, BotaniaBrews.ADRENALINE,
+				Items.NETHER_WART, Items.SUGAR, Items.GOLD_NUGGET);
+		make(recipeOutput, BotaniaBrews.MENDING,
+				Items.NETHER_WART, Items.GLISTERING_MELON_SLICE, Items.POTATO);
+		make(recipeOutput, BotaniaBrews.UPSURGING,
+				Items.NETHER_WART, Items.FEATHER, Items.CARROT);
+		make(recipeOutput, BotaniaBrews.REVITALIZATION,
+				Items.NETHER_WART, Items.GHAST_TEAR, Items.GLOWSTONE_DUST);
+		make(recipeOutput, BotaniaBrews.RESTORATION,
+				Items.NETHER_WART, Items.GHAST_TEAR, Items.REDSTONE);
+		make(recipeOutput, BotaniaBrews.FORTITUDE,
+				Items.NETHER_WART, Items.IRON_INGOT, Items.LEATHER);
+		make(recipeOutput, BotaniaBrews.MAGMASKIN,
+				Items.NETHER_WART, Items.MAGMA_CREAM, Blocks.NETHERRACK);
+		make(recipeOutput, BotaniaBrews.GILLS,
+				Items.NETHER_WART, Items.PRISMARINE_CRYSTALS, Items.GLOWSTONE_DUST);
+		make(recipeOutput, BotaniaBrews.CLOAKING,
+				Items.NETHER_WART, Items.SNOWBALL, Items.GLOWSTONE_DUST);
+		make(recipeOutput, BotaniaBrews.OWLSIGHT,
+				Items.NETHER_WART, Items.SPIDER_EYE, Items.GOLDEN_CARROT);
+		make(recipeOutput, BotaniaBrews.SHIELDING,
+				Items.NETHER_WART, Items.GOLDEN_APPLE, Items.POTATO);
 
-		recipeOutput.accept(idFor("overload"),
-				new BotanicalBreweryRecipe(BotaniaBrews.overload,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.BLAZE_POWDER),
-						Ingredient.of(Items.SUGAR), Ingredient.of(Items.GLOWSTONE_DUST),
-						Ingredient.of(BotaniaItems.MANASTEEL_INGOT), Ingredient.of(Items.SPIDER_EYE)),
-				null);
-		recipeOutput.accept(idFor("soul_cross"),
-				new BotanicalBreweryRecipe(BotaniaBrews.soulCross,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Blocks.SOUL_SAND), Ingredient.of(Items.PAPER),
-						Ingredient.of(Items.APPLE), Ingredient.of(Items.BONE)),
-				null);
-		recipeOutput.accept(idFor("feather_feet"),
-				new BotanicalBreweryRecipe(BotaniaBrews.featherfeet,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.FEATHER),
-						Ingredient.of(Items.LEATHER), Ingredient.of(ItemTags.WOOL)),
-				null);
-		recipeOutput.accept(idFor("emptiness"),
-				new BotanicalBreweryRecipe(BotaniaBrews.emptiness,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.GUNPOWDER),
-						Ingredient.of(Items.ROTTEN_FLESH), Ingredient.of(Items.BONE),
-						Ingredient.of(Items.STRING), Ingredient.of(Items.ENDER_PEARL)),
-				null);
-		recipeOutput.accept(idFor("bloodthirst"),
-				new BotanicalBreweryRecipe(BotaniaBrews.bloodthirst,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.FERMENTED_SPIDER_EYE),
-						Ingredient.of(Items.LAPIS_LAZULI), Ingredient.of(Items.FIRE_CHARGE),
-						Ingredient.of(Items.IRON_INGOT)),
-				null);
-		recipeOutput.accept(idFor("allure"),
-				new BotanicalBreweryRecipe(BotaniaBrews.allure,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.COD),
-						Ingredient.of(Items.QUARTZ), Ingredient.of(Items.GOLDEN_CARROT)),
-				null);
-		recipeOutput.accept(idFor("clear"),
-				new BotanicalBreweryRecipe(BotaniaBrews.clear,
-						Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.QUARTZ),
-						Ingredient.of(Items.EMERALD), Ingredient.of(Items.MELON_SLICE)),
+		make(recipeOutput, BotaniaBrews.OVERLOAD,
+				Items.NETHER_WART, Items.BLAZE_POWDER, Items.SUGAR, Items.GLOWSTONE_DUST,
+				BotaniaItems.MANASTEEL_INGOT, Items.SPIDER_EYE);
+		make(recipeOutput, BotaniaBrews.CROSSED_SOULS,
+				Items.NETHER_WART, Blocks.SOUL_SAND, Items.PAPER, Items.APPLE, Items.BONE);
+		make(recipeOutput, BotaniaBrews.FEATHER_FEET,
+				Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.FEATHER),
+				Ingredient.of(Items.LEATHER), Ingredient.of(ItemTags.WOOL));
+		make(recipeOutput, BotaniaBrews.VANITYS_EMPTINESS,
+				Items.NETHER_WART, Items.GUNPOWDER, Items.ROTTEN_FLESH, Items.BONE, Items.STRING, Items.ENDER_PEARL);
+		make(recipeOutput, BotaniaBrews.CRIMSON_SHADE,
+				Items.NETHER_WART, Items.FERMENTED_SPIDER_EYE, Items.LAPIS_LAZULI, Items.FIRE_CHARGE, Items.IRON_INGOT);
+		make(recipeOutput, BotaniaBrews.MARINE_ALLURE,
+				Items.NETHER_WART, Items.COD, Items.QUARTZ, Items.GOLDEN_CARROT);
+		make(recipeOutput, BotaniaBrews.ABSOLUTION,
+				Items.NETHER_WART, Items.QUARTZ, Items.EMERALD, Items.MELON_SLICE);
+	}
+
+	private void make(RecipeOutput recipeOutput, Brew brew, ItemLike... inputs) {
+		make(recipeOutput, brew, Arrays.stream(inputs).map(Ingredient::of).toArray(Ingredient[]::new));
+	}
+
+	private void make(RecipeOutput recipeOutput, Brew brew, Ingredient... inputs) {
+		recipeOutput.accept(idFor(BotaniaAPI.instance().getBrewRegistry().getKey(brew).getPath()),
+				new BotanicalBreweryRecipe(brew, inputs),
 				null);
 	}
 

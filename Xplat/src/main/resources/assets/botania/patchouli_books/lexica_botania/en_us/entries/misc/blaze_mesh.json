@@ -11,13 +11,15 @@
       "type": "crafting",
       "flag": "!mod:gardenofglass",
       "text": "botania.page.blazeBlock1",
-      "recipe": "botania:blaze_mesh"
+      "recipe": "botania:blaze_mesh",
+      "recipe2": "botania:blaze_rod"
     },
     {
       "type": "crafting",
       "flag": "|debug,mod:gardenofglass",
       "text": "botania.page.blazeBlock1",
-      "recipe": "gardenofglass:blaze_mesh"
+      "recipe": "gardenofglass:blaze_mesh",
+      "recipe2": "gardenofglass:blaze_powder"
     }
   ]
 }

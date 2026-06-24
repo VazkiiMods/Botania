@@ -15,7 +15,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,12 +22,13 @@ import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.PetalApothecaryRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.ConventionalBotaniaTags;
+import vazkii.botania.data.util.BotaniaRecipeHelper;
 import vazkii.botania.fabric.data.FabricDatagenInitializer;
 
 import java.util.Arrays;
@@ -142,12 +142,12 @@ public class PetalApothecaryProvider extends FabricRecipeProvider {
 				new ResolvableProfile(Optional.of("Vazkii"), Optional.empty(), new PropertyMap()));
 		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
-		consumer.accept(BotaniaAPI.botaniaRL("vazkii_head").withPrefix("petal_apothecary/"),
+		consumer.accept(BotaniaRecipeHelper.deriveRecipeId(BotaniaRecipeTypes.PETAL_APOTHECARY_TYPE, "vazkii_head"),
 				new PetalApothecaryRecipe(vazkiiHead, DEFAULT_REAGENT, inputs), null);
 	}
 
 	protected static void make(RecipeOutput consumer, ItemLike output, Ingredient... ingredients) {
-		consumer.accept(BuiltInRegistries.ITEM.getKey(output.asItem()).withPrefix("petal_apothecary/"),
+		consumer.accept(BotaniaRecipeHelper.deriveRecipeId(BotaniaRecipeTypes.PETAL_APOTHECARY_TYPE, output),
 				new PetalApothecaryRecipe(new ItemStack(output), DEFAULT_REAGENT, ingredients), null);
 	}
 

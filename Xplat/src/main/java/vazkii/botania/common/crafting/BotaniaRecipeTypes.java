@@ -34,9 +34,9 @@ public class BotaniaRecipeTypes {
 			vazkii.botania.api.recipe.PureDaisyRecipe.TYPE_ID);
 	public static final RecipeType<vazkii.botania.api.recipe.BotanicalBreweryRecipe> BREW_TYPE = register(
 			vazkii.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.PetalApothecaryRecipe> PETAL_TYPE = register(
+	public static final RecipeType<vazkii.botania.api.recipe.PetalApothecaryRecipe> PETAL_APOTHECARY_TYPE = register(
 			vazkii.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.RunicAltarRecipe> RUNE_TYPE = register(
+	public static final RecipeType<vazkii.botania.api.recipe.RunicAltarRecipe> RUNIC_ALTAR_TYPE = register(
 			vazkii.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
 	public static final RecipeType<vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe> TERRA_PLATE_TYPE = register(
 			vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);

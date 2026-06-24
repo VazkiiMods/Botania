@@ -1,0 +1,17 @@
+{
+  "type": "botania:elven_trade",
+  "ingredients": [
+    {
+      "tag": "c:ingots/manasteel"
+    },
+    {
+      "tag": "c:storage_blocks/manasteel"
+    }
+  ],
+  "output": [
+    {
+      "count": 5,
+      "id": "botania:elementium_ingot"
+    }
+  ]
+}

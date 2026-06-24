@@ -21,6 +21,6 @@ public class PetalApothecaryProcessor extends ReagentRecipeProcessor<PetalApothe
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
 		ResourceLocation id = ResourceLocation.parse(variables.get("recipe", level.registryAccess()).asString());
-		this.recipe = new RecipeHolder<>(id, PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.PETAL_TYPE, id));
+		this.recipe = new RecipeHolder<>(id, PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.PETAL_APOTHECARY_TYPE, id));
 	}
 }

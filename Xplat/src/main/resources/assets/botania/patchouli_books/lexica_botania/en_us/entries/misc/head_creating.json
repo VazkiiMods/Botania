@@ -20,7 +20,7 @@
     {
       "type": "botania:runic_altar",
       "text": "botania.page.headCreating1",
-      "recipe": "botania:runic_altar/head"
+      "recipe": "botania:runic_altar/player_head"
     }
   ]
 }

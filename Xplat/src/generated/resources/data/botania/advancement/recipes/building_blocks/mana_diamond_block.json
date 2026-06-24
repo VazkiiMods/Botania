@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_mana_diamond": {
       "conditions": {
         "items": [
           {
-            "items": "#c:gems/mana_diamond"
+            "items": "botania:mana_diamond"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item"
+      "has_mana_diamond"
     ]
   ],
   "rewards": {

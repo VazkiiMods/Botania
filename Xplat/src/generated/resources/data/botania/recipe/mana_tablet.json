@@ -1,10 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
-  "group": "botania:mana_tablet",
   "key": {
     "P": {
-      "tag": "c:gems/mana_pearl"
+      "tag": "botania:mana_gems"
     },
     "S": {
       "item": "botania:livingrock"

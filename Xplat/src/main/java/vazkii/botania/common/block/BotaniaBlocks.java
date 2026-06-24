@@ -390,7 +390,7 @@ public final class BotaniaBlocks {
 	// special flowers (regular, floating, and potted; potentially each with petite variants)
 	public static final Block PURE_DAISY = make(LibBlockNames.SUBTILE_PUREDAISY,
 			new SpecialFlowerBlock(
-					BotaniaMobEffects.CLEAR,
+					BotaniaMobEffects.ABSOLUTION,
 					1,
 					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
 					() -> BotaniaBlockEntities.PURE_DAISY));

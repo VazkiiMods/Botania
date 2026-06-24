@@ -11,7 +11,7 @@
     {
       "type": "botania:pure_daisy",
       "text": "botania.page.enderAirFromEndstone",
-      "recipes": "botania:pure_daisy/end_stone_to_cobbled_deepslate"
+      "recipes": "botania:pure_daisy/cobbled_deepslate"
     },
     {
       "type": "text",

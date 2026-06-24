@@ -28,7 +28,7 @@
     },
     {
       "type": "botania:terrasteel",
-      "recipe": "botania:terra_plate/terrasteel_ingot",
+      "recipe": "botania:terrestrial_agglomeration_plate/terrasteel_ingot",
       "text": "botania.page.terrasteel3"
     }
   ],

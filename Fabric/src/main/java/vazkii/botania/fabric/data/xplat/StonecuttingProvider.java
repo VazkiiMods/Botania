@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -25,6 +26,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
+import vazkii.botania.data.util.BotaniaRecipeHelper;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -166,7 +168,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 	protected ResourceLocation idFor(ItemLike a, ItemLike b) {
 		ResourceLocation aId = BuiltInRegistries.ITEM.getKey(a.asItem());
 		ResourceLocation bId = BuiltInRegistries.ITEM.getKey(b.asItem());
-		return botaniaRL("stonecutting/" + aId.getPath() + "_to_" + bId.getPath());
+		return BotaniaRecipeHelper.deriveRecipeId(RecipeType.STONECUTTING, aId.getPath() + "_to_" + bId.getPath());
 	}
 
 	protected void stonecutting(RecipeOutput consumer, ResourceLocation id, Ingredient input, ItemLike output) {
@@ -191,8 +193,9 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 
 	protected void anyToAnyStonecutting(RecipeOutput consumer, List<? extends ItemLike> inputs) {
 		for (ItemLike output : inputs) {
-			Ingredient input = Ingredient.of(inputs.stream().filter(thisInput -> output != thisInput).toArray(ItemLike[]::new));
-			ResourceLocation id = botaniaRL("stonecutting/" + BuiltInRegistries.ITEM.getKey(output.asItem()).getPath());
+			Ingredient input = Ingredient.of(inputs.stream()
+					.filter(thisInput -> output != thisInput).toArray(ItemLike[]::new));
+			ResourceLocation id = BotaniaRecipeHelper.deriveRecipeId(RecipeType.STONECUTTING, output.asItem());
 			stonecutting(consumer, id, input, output);
 		}
 	}

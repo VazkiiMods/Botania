@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_manasteel_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "botania:manasteel_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "botania:manasteel_ingot_from_nuggets"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_manasteel_nugget"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "botania:manasteel_ingot_from_nuggets"
+    ]
+  }
+}

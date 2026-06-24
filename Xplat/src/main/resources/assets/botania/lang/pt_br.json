@@ -361,6 +361,7 @@
 
 
 
+
   "tag.item.botania.mana_using_items": "Itens que usam Mana",
   "tag.item.botania.mini_flowers": "Flores Pequeninas",
   "tag.item.botania.misc_special_flowers": "Flores Variadas Especiais",
@@ -2097,33 +2098,33 @@
   "item.botania.benevolent_goddess_charm": "Amuleto da Boa Deusa",
 
   "botania.brew.fallback": "Não Fabricável",
-  "botania.brew.speed": "Pés Ligeiros",
+  "botania.brew.fleetfeet": "Pés Ligeiros",
 
-  "botania.brew.haste": "Adrenalina",
-  "botania.brew.healing": "Recuperação",
-  "botania.brew.jump_boost": "Super Pulo",
-  "botania.brew.regen": "Revitalização",
-  "botania.brew.regen_weak": "Restauração",
-  "botania.brew.resistance": "Resistência",
-  "botania.brew.fire_resistance": "Pele de Magma",
-  "botania.brew.water_breathing": "Guelras",
-  "botania.brew.invisibility": "Camuflagem",
-  "botania.brew.night_vision": "Visão de Coruja",
-  "botania.brew.absorption": "Blindagem",
-  "botania.brew.soul_cross": "Almas Cruzadas",
+  "botania.brew.adrenaline": "Adrenalina",
+  "botania.brew.mending": "Recuperação",
+  "botania.brew.upsurging": "Super Pulo",
+  "botania.brew.revitalization": "Revitalização",
+  "botania.brew.restoration": "Restauração",
+  "botania.brew.fortitude": "Resistência",
+  "botania.brew.magmaskin": "Pele de Magma",
+  "botania.brew.gills": "Guelras",
+  "botania.brew.cloaking": "Camuflagem",
+  "botania.brew.owlsight": "Visão de Coruja",
+  "botania.brew.shielding": "Blindagem",
+  "botania.brew.crossed_souls": "Almas Cruzadas",
   "botania.brew.feather_feet": "Pés de Penas",
-  "botania.brew.emptiness": "Vazio da Alma",
-  "botania.brew.bloodthirst": "Sombra Carmesim",
+  "botania.brew.vanitys_emptiness": "Vazio da Alma",
+  "botania.brew.crimson_shade": "Sombra Carmesim",
   "botania.brew.overload": "Sobrecarga",
-  "botania.brew.allure": "Sedução Marinha",
-  "botania.brew.clear": "Absolução",
+  "botania.brew.marine_allure": "Sedução Marinha",
+  "botania.brew.absolution": "Absolução",
 
   "effect.botania.soul_cross": "Almas Cruzadas",
   "effect.botania.feather_feet": "Pés de Penas",
   "effect.botania.emptiness": "Vazio",
   "effect.botania.bloodthirst": "Sede de Sangue",
   "effect.botania.allure": "Sedução",
-  "effect.botania.clear": "Absolução",
+  "effect.botania.absolution": "Absolução",
 
 
 

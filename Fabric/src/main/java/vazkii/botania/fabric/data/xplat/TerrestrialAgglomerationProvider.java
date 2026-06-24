@@ -12,19 +12,18 @@ package vazkii.botania.fabric.data.xplat;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.botania.common.block.mana.ManaPoolBlock;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.ConventionalBotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
+import vazkii.botania.data.util.BotaniaRecipeHelper;
 
 import java.util.concurrent.CompletableFuture;
-
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
 	public TerrestrialAgglomerationProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -38,16 +37,15 @@ public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		consumer.accept(idFor("terrasteel_ingot"), new TerrestrialAgglomerationRecipe(
-				ManaPoolBlock.MAX_MANA / 2,
-				new ItemStack(BotaniaItems.TERRASTEEL_INGOT),
-				Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS),
-				Ingredient.of(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS),
-				Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)
-		), null);
-	}
-
-	private static ResourceLocation idFor(String s) {
-		return botaniaRL("terra_plate/" + s);
+		consumer.accept(BotaniaRecipeHelper.deriveRecipeId(BotaniaRecipeTypes.TERRA_PLATE_TYPE,
+				BotaniaItems.TERRASTEEL_INGOT),
+				new TerrestrialAgglomerationRecipe(
+						ManaPoolBlock.MAX_MANA / 2,
+						new ItemStack(BotaniaItems.TERRASTEEL_INGOT),
+						Ingredient.of(ConventionalBotaniaTags.Items.MANASTEEL_INGOTS),
+						Ingredient.of(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS),
+						Ingredient.of(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)
+				),
+				null);
 	}
 }

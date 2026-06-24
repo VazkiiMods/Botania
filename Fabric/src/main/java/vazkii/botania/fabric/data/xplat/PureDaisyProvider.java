@@ -23,9 +23,11 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.PureDaisyRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
+import vazkii.botania.data.util.BotaniaRecipeHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -39,23 +41,23 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
 
-		normal(consumer, id("livingrock"), StateIngredients.of(Blocks.STONE), BotaniaBlocks.LIVINGROCK.defaultBlockState());
-		stateCopying(consumer, id("livingwood_log"),
+		normal(consumer, StateIngredients.of(Blocks.STONE), BotaniaBlocks.LIVINGROCK.defaultBlockState());
+		stateCopying(consumer,
 				StateIngredients.ofExcept(
 						StateIngredients.of(BlockTags.LOGS),
 						StateIngredients.anyOf(StateIngredients.of(BotaniaBlocks.LIVINGWOOD_LOG))),
 				BotaniaBlocks.LIVINGWOOD_LOG
 		);
 
-		normal(consumer, id("cobblestone"), StateIngredients.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState());
-		withFunction(consumer, id("end_stone_to_cobbled_deepslate"), StateIngredients.of(Blocks.END_STONE),
+		normal(consumer, StateIngredients.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState());
+		withFunction(consumer, StateIngredients.of(Blocks.END_STONE),
 				Blocks.COBBLED_DEEPSLATE.defaultBlockState(), new CacheableFunction(botaniaRL("ender_air_release")));
-		normal(consumer, id("sand"), StateIngredients.of(Blocks.SOUL_SAND), Blocks.SAND.defaultBlockState());
-		normal(consumer, id("packed_ice"), StateIngredients.of(Blocks.ICE), Blocks.PACKED_ICE.defaultBlockState());
-		normal(consumer, id("blue_ice"), StateIngredients.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.defaultBlockState());
-		normal(consumer, id("obsidian"), StateIngredients.of(BotaniaBlocks.BLAZE_MESH), Blocks.OBSIDIAN.defaultBlockState());
-		normal(consumer, id("snow_block"), StateIngredients.of(Blocks.WATER), Blocks.SNOW_BLOCK.defaultBlockState());
-		normal(consumer, id("calcite"), StateIngredients.of(Blocks.DRIPSTONE_BLOCK), Blocks.CALCITE.defaultBlockState());
+		normal(consumer, StateIngredients.of(Blocks.SOUL_SAND), Blocks.SAND.defaultBlockState());
+		normal(consumer, StateIngredients.of(Blocks.ICE), Blocks.PACKED_ICE.defaultBlockState());
+		normal(consumer, StateIngredients.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.defaultBlockState());
+		normal(consumer, StateIngredients.of(BotaniaBlocks.BLAZE_MESH), Blocks.OBSIDIAN.defaultBlockState());
+		normal(consumer, StateIngredients.of(Blocks.WATER), Blocks.SNOW_BLOCK.defaultBlockState());
+		normal(consumer, StateIngredients.of(Blocks.DRIPSTONE_BLOCK), Blocks.CALCITE.defaultBlockState());
 	}
 
 	@Override
@@ -63,25 +65,21 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		return "Botania Pure Daisy recipes";
 	}
 
-	private void normal(RecipeOutput consumer, ResourceLocation id, StateIngredient input, BlockState output) {
-		withFunction(consumer, id, input, output, null);
+	private void normal(RecipeOutput consumer, StateIngredient input, BlockState output) {
+		withFunction(consumer, input, output, null);
 	}
 
-	private void withFunction(RecipeOutput consumer, ResourceLocation id, StateIngredient input, BlockState output, @Nullable CacheableFunction successFunction) {
-		consumer.accept(id, new PureDaisyRecipe(input, StateIngredients.of(output), PureDaisyRecipe.DEFAULT_TIME,
-				false, null, successFunction), null);
+	private void withFunction(RecipeOutput consumer, StateIngredient input, BlockState output, @Nullable CacheableFunction successFunction) {
+		consumer.accept(id(output.getBlock()), new PureDaisyRecipe(input, StateIngredients.of(output),
+				PureDaisyRecipe.DEFAULT_TIME, false, null, successFunction), null);
 	}
 
-	private void stateCopying(RecipeOutput consumer, ResourceLocation id, StateIngredient input, Block output) {
-		stateCopying(consumer, id, input, output, PureDaisyRecipe.DEFAULT_TIME);
+	private void stateCopying(RecipeOutput consumer, StateIngredient input, Block output) {
+		consumer.accept(id(output), new PureDaisyRecipe(input, StateIngredients.of(output),
+				PureDaisyRecipe.DEFAULT_TIME, true, null, null), null);
 	}
 
-	private void stateCopying(RecipeOutput consumer, ResourceLocation id, StateIngredient input, Block output, int time) {
-		consumer.accept(id, new PureDaisyRecipe(input, StateIngredients.of(output), time,
-				true, null, null), null);
-	}
-
-	private static ResourceLocation id(String path) {
-		return botaniaRL("pure_daisy/" + path);
+	private static ResourceLocation id(Block block) {
+		return BotaniaRecipeHelper.deriveRecipeId(BotaniaRecipeTypes.PURE_DAISY_TYPE, block);
 	}
 }

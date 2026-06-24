@@ -56,12 +56,12 @@
       "heading": "botania.page.pool16",
       "text": "botania.page.pool3_crafting",
       "recipes": [
-        "botania:conversions/manasteel_from_nuggets",
+        "botania:manasteel_ingot_from_nuggets",
         "botania:manasteel_block"
       ],
       "recipes2": [
-        "botania:conversions/manasteel_to_nuggets",
-        "botania:conversions/manasteel_block_deconstruct"
+        "botania:manasteel_nugget",
+        "botania:manasteel_ingot_from_manasteel_block"
       ]
     },
     {
