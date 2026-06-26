@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.entity.LuminizerMoverEntity;
@@ -28,8 +29,17 @@ public class LuminizerDetectorBlock extends LuminizerPoweredBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
-		world.setBlockAndUpdate(pos, state.setValue(POWERED, false));
+	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+		if (!state.is(oldState.getBlock())) {
+			if (!level.isClientSide() && state.getValue(POWERED) && !level.getBlockTicks().hasScheduledTick(pos, this)) {
+				level.setBlock(pos, state.setValue(POWERED, false), Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
+			}
+		}
+	}
+
+	@Override
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		level.setBlockAndUpdate(pos, state.setValue(POWERED, false));
 	}
 
 	@Override
@@ -38,7 +48,7 @@ public class LuminizerDetectorBlock extends LuminizerPoweredBlock {
 	}
 
 	@Override
-	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction s) {
+	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction s) {
 		return state.getValue(POWERED) ? 15 : 0;
 	}
 
@@ -49,12 +59,12 @@ public class LuminizerDetectorBlock extends LuminizerPoweredBlock {
 	}
 
 	@Override
-	public boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int payload) {
+	public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int id, int param) {
 		if (id == POWERED_EVENT) {
-			if (level.isClientSide()) {
+			if (world.isClientSide()) {
 				RandomSource random = RandomSource.create();
 				for (int i = 0; i < 5; i++) {
-					addRedstoneParticle(level, pos, random);
+					addRedstoneParticle(world, pos, random);
 				}
 			}
 			return true;

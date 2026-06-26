@@ -11,12 +11,14 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.RedstoneSensitiveBlock;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 
 public class LuminizerToggleBlock extends LuminizerPoweredBlock {
@@ -26,12 +28,18 @@ public class LuminizerToggleBlock extends LuminizerPoweredBlock {
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-		if (!worldIn.isClientSide) {
-			if (state.getValue(POWERED) && !worldIn.hasNeighborSignal(pos)) {
-				worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, false));
-			} else if (!state.getValue(POWERED) && worldIn.hasNeighborSignal(pos)) {
-				worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, true));
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return RedstoneSensitiveBlock.getPoweredStateForPlacement(super.getStateForPlacement(context), context);
+	}
+
+	@Override
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos,
+			boolean movedByPiston) {
+		if (!level.isClientSide) {
+			if (state.getValue(POWERED) && !level.hasNeighborSignal(pos)) {
+				level.setBlock(pos, state.setValue(POWERED, false), Block.UPDATE_CLIENTS);
+			} else if (!state.getValue(POWERED) && level.hasNeighborSignal(pos)) {
+				level.setBlock(pos, state.setValue(POWERED, true), Block.UPDATE_CLIENTS);
 			}
 		}
 	}
