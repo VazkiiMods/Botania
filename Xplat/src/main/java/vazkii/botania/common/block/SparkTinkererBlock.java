@@ -40,7 +40,7 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -51,47 +51,49 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getBestNeighborSignal(pos) > 0;
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos,
+			boolean movedByPiston) {
+		boolean power = level.getBestNeighborSignal(pos) > 0;
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			if (world.getBlockEntity(pos) instanceof SparkTinkererBlockEntity tinkerer) {
+			if (level.getBlockEntity(pos) instanceof SparkTinkererBlockEntity tinkerer) {
 				tinkerer.doSwap();
 			}
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
+			level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_CLIENTS);
 		} else if (!power && powered) {
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
+			level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_CLIENTS);
 		}
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack pstack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if (!(world.getBlockEntity(pos) instanceof SparkTinkererBlockEntity changer)) {
+	protected ItemInteractionResult useItemOn(ItemStack pstack, BlockState state, Level level, BlockPos pos,
+			Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (!(level.getBlockEntity(pos) instanceof SparkTinkererBlockEntity changer)) {
 			return ItemInteractionResult.FAIL;
 		}
 		ItemStack cstack = changer.getItemHandler().getItem(0);
 		if (!cstack.isEmpty()) {
 			changer.getItemHandler().setItem(0, ItemStack.EMPTY);
 			player.getInventory().placeItemBackInInventory(cstack);
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		} else if (!pstack.isEmpty() && pstack.getItem() instanceof SparkAugmentItem) {
 			changer.getItemHandler().setItem(0, pstack.split(1));
 			changer.setChanged();
 
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
 
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
 		if (!state.is(newState.getBlock())) {
-			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
-				Containers.dropContents(world, pos, inventory.getItemHandler());
+			if (level.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
+				Containers.dropContents(level, pos, inventory.getItemHandler());
 			}
-			super.onRemove(state, world, pos, newState, isMoving);
+			super.onRemove(state, level, pos, newState, movedByPiston);
 		}
 	}
 
@@ -101,8 +103,8 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		if (world.getBlockEntity(pos) instanceof SparkTinkererBlockEntity changer) {
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		if (level.getBlockEntity(pos) instanceof SparkTinkererBlockEntity changer) {
 			ItemStack stack = changer.getItemHandler().getItem(0);
 			if (!stack.isEmpty() && stack.getItem() instanceof SparkAugmentItem upgrade) {
 				return upgrade.type.ordinal() + 1;
