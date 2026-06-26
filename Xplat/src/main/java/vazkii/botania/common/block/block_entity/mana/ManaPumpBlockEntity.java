@@ -11,6 +11,7 @@ package vazkii.botania.common.block.block_entity.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -27,11 +28,11 @@ public class ManaPumpBlockEntity extends BlockEntity {
 	public int comparator;
 	private int lastComparator = 0;
 
-	public ManaPumpBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.MANA_PUMP, pos, state);
+	public ManaPumpBlockEntity(BlockPos pos, BlockState blockState) {
+		super(BotaniaBlockEntities.MANA_PUMP, pos, blockState);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, ManaPumpBlockEntity self) {
+	public static void commonTick(Level level, BlockPos pos, BlockState state, ManaPumpBlockEntity self) {
 		float max = 8F;
 		float min = 0F;
 
@@ -44,7 +45,9 @@ public class ManaPumpBlockEntity extends BlockEntity {
 				self.innerRingPos = Math.min(max, self.innerRingPos);
 				self.moving = 0F;
 				for (int x = 0; x < 2; x++) {
-					level.addParticle(ParticleTypes.SMOKE, worldPosition.getX() + Math.random(), worldPosition.getY() + Math.random(), worldPosition.getZ() + Math.random(), 0, 0, 0);
+					level.addParticle(ParticleTypes.SMOKE,
+							pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(),
+							0, 0, 0);
 				}
 			}
 		} else if (self.innerRingPos > min) {
@@ -70,7 +73,7 @@ public class ManaPumpBlockEntity extends BlockEntity {
 		self.hasCartOnTop = false;
 
 		if (self.comparator != self.lastComparator) {
-			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
+			level.updateNeighbourForOutputSignal(pos, state.getBlock());
 		}
 		self.lastComparator = self.comparator;
 	}
@@ -85,7 +88,8 @@ public class ManaPumpBlockEntity extends BlockEntity {
 
 	public void setActive(boolean active) {
 		if (!level.isClientSide() && isActive() != active) {
-			getBlockState().setValue(BotaniaStateProperties.ACTIVE, active);
+			level.setBlock(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.ACTIVE, active),
+					Block.UPDATE_CLIENTS);
 		}
 	}
 }

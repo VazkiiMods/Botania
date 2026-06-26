@@ -61,22 +61,25 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos,
+			boolean movedByPiston) {
+		RedstoneSensitiveBlock.updateRedstonePower(state, level, pos);
 	}
 
 	@Override
 	public BlockState mirror(BlockState state, Mirror mirror) {
-		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+		return state.setValue(BlockStateProperties.HORIZONTAL_FACING,
+				mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	@Override
-	public BlockState rotate(BlockState state, Rotation rot) {
-		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(BlockStateProperties.HORIZONTAL_FACING,
+				rotation.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx) {
 		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_SHAPE;
 		} else {
@@ -90,8 +93,8 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return world.getBlockEntity(pos) instanceof ManaPumpBlockEntity pump ? pump.comparator : 0;
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		return level.getBlockEntity(pos) instanceof ManaPumpBlockEntity pump ? pump.comparator : 0;
 	}
 
 	@Override
@@ -106,9 +109,9 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (isPowered(state)) {
-			RedstoneSensitiveBlock.redstoneParticlesInShape(state, world, pos, rand);
+			RedstoneSensitiveBlock.redstoneParticlesInShape(state, level, pos, random);
 		}
 	}
 }
