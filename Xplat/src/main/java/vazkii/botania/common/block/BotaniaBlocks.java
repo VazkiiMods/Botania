@@ -1431,6 +1431,7 @@ public final class BotaniaBlocks {
 	public static final Block MANA_PYLON = make(LibBlockNames.MANA_PYLON,
 			new ManaPylonBlock(BlockBehaviour.Properties.of()
 					.mapColor(DyeColor.LIGHT_BLUE)
+					.noOcclusion()
 					.strength(5.5F)
 					.sound(SoundType.METAL)
 					.lightLevel(constInt(7))
