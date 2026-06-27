@@ -9,15 +9,15 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.ManaStormEntity;
+import vazkii.botania.mixin.ProjectileAccessor;
 
 public class ManastormChargeBlock extends BotaniaBlock {
 
@@ -38,10 +38,13 @@ public class ManastormChargeBlock extends BotaniaBlock {
 
 		@Override
 		public void onBurstCollision(ManaBurst burst) {
-			if (!burst.isFake() && !world.isClientSide) {
-				world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-				world.removeBlock(pos, false);
+			Projectile entity = burst.entity();
+			if (!burst.isFake() && !world.isClientSide && world.destroyBlock(pos, false, entity)) {
 				ManaStormEntity storm = BotaniaEntities.MANA_STORM.create(world);
+				if (storm == null) {
+					return;
+				}
+				storm.setOwner(entity.getOwner(), ((ProjectileAccessor) entity).botania_getOwnerUUID());
 				storm.burstColor = burst.getColor();
 				storm.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				world.addFreshEntity(storm);

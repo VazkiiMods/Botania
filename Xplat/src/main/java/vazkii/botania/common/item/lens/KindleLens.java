@@ -11,6 +11,7 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
@@ -31,7 +32,7 @@ public class KindleLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
-		Entity entity = burst.entity();
+		Projectile entity = burst.entity();
 
 		if (!entity.level().isClientSide && rtr.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {
@@ -44,11 +45,14 @@ public class KindleLens extends Lens {
 			BlockState stateAt = entity.level().getBlockState(pos);
 			BlockState stateAtOffset = entity.level().getBlockState(offPos);
 
-			if (stateAt.is(Blocks.NETHER_PORTAL)) {
-				entity.level().removeBlock(pos, false);
+			if (stateAt.is(Blocks.NETHER_PORTAL) && entity.mayInteract(entity.level(), pos)) {
+				entity.level().destroyBlock(pos, false, entity);
+			}
+			if (!entity.mayInteract(entity.level(), offPos)) {
+				return true;
 			}
 			if (stateAtOffset.is(Blocks.NETHER_PORTAL)) {
-				entity.level().removeBlock(offPos, false);
+				entity.level().destroyBlock(offPos, false, entity);
 			} else if (BaseFireBlock.canBePlacedAt(entity.level(), offPos, dir.getOpposite())) {
 				entity.level().setBlockAndUpdate(offPos, BaseFireBlock.getState(entity.level(), offPos));
 			}

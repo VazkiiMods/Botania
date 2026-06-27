@@ -28,14 +28,16 @@ public class FlashLens extends Lens {
 		Entity entity = burst.entity();
 		if (!entity.level().isClientSide && pos.getType() == HitResult.Type.BLOCK && !burst.isFake() && !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
-			BlockPos neighborPos = rtr.getBlockPos().relative(rtr.getDirection());
+			BlockPos blockPos = rtr.getBlockPos();
+			BlockPos neighborPos = blockPos.relative(rtr.getDirection());
 
-			BlockState stateAt = entity.level().getBlockState(rtr.getBlockPos());
+			BlockState stateAt = entity.level().getBlockState(blockPos);
 			BlockState neighbor = entity.level().getBlockState(neighborPos);
 
-			if (stateAt.is(BotaniaBlocks.manaFlame)) {
-				entity.level().removeBlock(rtr.getBlockPos(), false);
-			} else if (neighbor.isAir() || neighbor.canBeReplaced()) {
+			if (stateAt.is(BotaniaBlocks.manaFlame) && entity.mayInteract(entity.level(), blockPos)) {
+				entity.level().destroyBlock(blockPos, false, entity);
+			} else if ((neighbor.isAir() || neighbor.canBeReplaced())
+					&& entity.mayInteract(entity.level(), neighborPos)) {
 				var fluid = entity.level().getFluidState(neighborPos);
 				var water = fluid.isSource() && fluid.is(FluidTags.WATER);
 				entity.level().setBlockAndUpdate(neighborPos,

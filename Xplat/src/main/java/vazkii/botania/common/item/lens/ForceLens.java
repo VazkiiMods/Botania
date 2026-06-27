@@ -33,16 +33,19 @@ public class ForceLens extends Lens {
 				&& !burst.isFake()
 				&& !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
-			BlockState state = entity.level().getBlockState(rtr.getBlockPos());
+			BlockPos blockPos = rtr.getBlockPos();
+			BlockState state = entity.level().getBlockState(blockPos);
 			ItemStack sourceLens = burst.getSourceLens();
 			boolean isWarp = sourceLens.is(BotaniaItems.lensWarp);
 			if (isWarp && state.is(BotaniaBlocks.pistonRelay)) {
 				// warp+force should not move the force relay
 				return false;
 			}
-
-			// mana burst could have been warped here, so don't assume that any block is unmovable
-			moveBlocks(entity.level(), rtr.getBlockPos().relative(rtr.getDirection()), rtr.getDirection().getOpposite(), ManaBurst.NO_SOURCE);
+			if (entity.mayInteract(entity.level(), blockPos)) {
+				// mana burst could have been warped here, so don't assume that any block is unmovable
+				moveBlocks(entity.level(), blockPos.relative(rtr.getDirection()), rtr.getDirection().getOpposite(),
+						ManaBurst.NO_SOURCE);
+			}
 		}
 
 		return shouldKill;
