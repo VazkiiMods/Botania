@@ -10,7 +10,7 @@ package vazkii.botania.api.internal;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -116,7 +116,7 @@ public interface ManaBurst {
 	 */
 	boolean hasLeftSource();
 
-	default ThrowableProjectile entity() {
-		return (ThrowableProjectile) this;
+	default Projectile entity() {
+		return (Projectile) this;
 	}
 }

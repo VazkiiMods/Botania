@@ -9,20 +9,23 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerEntity;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.item.BotaniaItems;
+import org.jetbrains.annotations.Nullable;
 
-public class ManaStormEntity extends Entity {
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.mixin.ProjectileAccessor;
+
+import java.util.UUID;
+
+public class ManaStormEntity extends Entity implements TraceableEntity {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_BURST_COLOR = "burstColor";
 	private static final String TAG_BURSTS_FIRED = "burstsFired";
@@ -35,9 +38,35 @@ public class ManaStormEntity extends Entity {
 	public int burstColor;
 	public int burstsFired;
 	public int deathTime;
+	@Nullable
+	private UUID ownerUUID;
+	@Nullable
+	private Entity cachedOwner;
 
-	public ManaStormEntity(EntityType<ManaStormEntity> type, Level world) {
-		super(type, world);
+	public ManaStormEntity(EntityType<ManaStormEntity> type, Level level) {
+		super(type, level);
+	}
+
+	public void setOwner(@Nullable Entity owner, @Nullable UUID ownerUUID) {
+		if (owner != null) {
+			this.ownerUUID = owner.getUUID();
+			this.cachedOwner = owner;
+		} else if (ownerUUID != null) {
+			this.ownerUUID = ownerUUID;
+		}
+	}
+
+	@Nullable
+	@Override
+	public Entity getOwner() {
+		if (this.cachedOwner != null && !this.cachedOwner.isRemoved()) {
+			return this.cachedOwner;
+		} else if (this.ownerUUID != null && this.level() instanceof ServerLevel serverlevel) {
+			this.cachedOwner = serverlevel.getEntity(this.ownerUUID);
+			return this.cachedOwner;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -67,6 +96,14 @@ public class ManaStormEntity extends Entity {
 
 	private void spawnBurst() {
 		ManaBurstEntity burst = BotaniaEntities.MANA_BURST.create(level());
+		if (burst == null) {
+			return;
+		}
+		Entity owner = getOwner();
+		burst.setOwner(owner);
+		if (owner == null && ownerUUID != null) {
+			((ProjectileAccessor) burst).botania_setOwnerUUID(ownerUUID);
+		}
 		burst.setPos(getX(), getY(), getZ());
 
 		float motionModifier = 0.5F;
@@ -99,10 +136,4 @@ public class ManaStormEntity extends Entity {
 		cmp.putInt(TAG_BURSTS_FIRED, burstsFired);
 		cmp.putInt(TAG_DEATH_TIME, deathTime);
 	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-		return new ClientboundAddEntityPacket(this, entity);
-	}
-
 }

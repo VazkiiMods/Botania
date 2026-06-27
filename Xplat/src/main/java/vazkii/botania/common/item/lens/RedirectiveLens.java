@@ -91,6 +91,9 @@ public class RedirectiveLens extends Lens {
 
 		var entity = burst.entity();
 		var hitPos = result.getBlockPos();
+		if (!entity.mayInteract(entity.level(), hitPos)) {
+			return;
+		}
 		var receiver = ManaReceiver.LOOKUP.find(entity.level(), hitPos, result.getDirection());
 		if (receiver instanceof ManaSpreader spreader) {
 			Vec3 tileVec = Vec3.atCenterOf(hitPos);

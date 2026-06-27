@@ -9,7 +9,7 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -22,7 +22,7 @@ public class EntropicLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
-		ThrowableProjectile entity = burst.entity();
+		Projectile entity = burst.entity();
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			//TODO https://github.com/VazkiiMods/Botania/pull/4219#issuecomment-1321442839
 			BlockPos hit = ((BlockHitResult) pos).getBlockPos();

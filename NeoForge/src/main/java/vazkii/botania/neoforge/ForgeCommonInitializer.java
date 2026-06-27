@@ -640,7 +640,7 @@ public class ForgeCommonInitializer {
 				BotaniaBlocks.DRUM_OF_THE_CANOPY, BotaniaBlocks.DRUM_OF_THE_WILD, BotaniaBlocks.DRUM_OF_THE_GATHERING
 		);
 		e.registerBlock(manaTriggerBlockCap,
-				(level, pos, state, blockEntity, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos, state),
+				(level, pos, state, blockEntity, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos),
 				BotaniaBlocks.MANASTORM_CHARGE
 		);
 		e.registerBlock(manaTriggerBlockCap,

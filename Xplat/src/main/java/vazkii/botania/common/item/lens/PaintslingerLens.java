@@ -64,7 +64,8 @@ public class PaintslingerLens extends Lens {
 				Block hitBlock = entity.level().getBlockState(hitPos).getBlock();
 				ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(hitBlock);
 
-				if (BotaniaAPI.instance().getPaintableBlocks().containsKey(blockId)) {
+				if (BotaniaAPI.instance().getPaintableBlocks().containsKey(blockId)
+						&& entity.mayInteract(entity.level(), hitPos)) {
 					List<BlockPos> coordsToPaint = new ArrayList<>();
 					Queue<BlockPos> coordsToCheck = new ArrayDeque<>();
 					Set<BlockPos> checkedCoords = new HashSet<>();
@@ -77,7 +78,9 @@ public class PaintslingerLens extends Lens {
 
 						for (Direction dir : Direction.values()) {
 							BlockPos candidatePos = coords.relative(dir);
-							if (checkedCoords.add(candidatePos) && entity.level().getBlockState(candidatePos).is(hitBlock)) {
+							if (checkedCoords.add(candidatePos)
+									&& entity.level().getBlockState(candidatePos).is(hitBlock)
+									&& entity.mayInteract(entity.level(), hitPos)) {
 								coordsToCheck.add(candidatePos);
 							}
 						}

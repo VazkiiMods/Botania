@@ -429,7 +429,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaBlocks.DRUM_OF_THE_CANOPY, BotaniaBlocks.DRUM_OF_THE_GATHERING, BotaniaBlocks.DRUM_OF_THE_WILD
 		);
 		manaTriggerBlockLookup.registerForBlocks(
-				(level, pos, state, be, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos, state),
+				(level, pos, state, be, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos),
 				BotaniaBlocks.MANASTORM_CHARGE
 		);
 		manaTriggerBlockLookup.registerForBlocks(

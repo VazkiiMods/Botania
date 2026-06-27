@@ -20,10 +20,8 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -44,76 +42,73 @@ public class BoreLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
-		Level world = entity.level();
+		Level level = entity.level();
 
-		if (world.isClientSide || rtr.getType() != HitResult.Type.BLOCK) {
+		if (level.isClientSide || rtr.getType() != HitResult.Type.BLOCK) {
 			return false;
 		}
 
 		BlockPos collidePos = ((BlockHitResult) rtr).getBlockPos();
-		BlockState state = world.getBlockState(collidePos);
+		BlockState state = level.getBlockState(collidePos);
 
 		ItemStack composite = ((LensItem) stack.getItem()).getCompositeLens(stack);
 		boolean warpItems = !composite.isEmpty() && composite.is(BotaniaItems.WARP_LENS);
 		ItemStack sourceLens = burst.getSourceLens();
 		boolean canWarp = warpItems || sourceLens.is(BotaniaItems.WARP_LENS);
 
-		if (canWarp && (state.is(BotaniaBlocks.FORCE_RELAY) || state.is(Blocks.PISTON) || state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
+		if (canWarp && (state.is(BotaniaBlocks.FORCE_RELAY) || state.is(Blocks.PISTON)
+				|| state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
 			return false;
+		}
+		if (!entity.mayInteract(level, collidePos)) {
+			return true;
 		}
 
 		int harvestLevel = BotaniaConfig.common().harvestLevelBore();
 
-		BlockEntity tile = world.getBlockEntity(collidePos);
+		BlockEntity tile = level.getBlockEntity(collidePos);
 
-		float hardness = state.getDestroySpeed(world, collidePos);
+		float hardness = state.getDestroySpeed(level, collidePos);
 		int mana = burst.getMana();
 
 		Optional<GlobalPos> source = burst.getBurstSourcePosition();
-		if (!isManaBlock
-				&& canHarvest(harvestLevel, state)
-				&& hardness != -1
-				&& (burst.isFake() || mana >= 24)) {
-			if (!burst.hasAlreadyCollidedAt(collidePos)) {
-				if (!burst.isFake()) {
-					List<ItemStack> items = Block.getDrops(state, (ServerLevel) world, collidePos, tile);
+		if (!isManaBlock && canHarvest(harvestLevel, state) && hardness != -1 && (burst.isFake() || mana >= 24)) {
+			if (!burst.hasAlreadyCollidedAt(collidePos) && !burst.isFake()) {
+				List<ItemStack> items = Block.getDrops(state, (ServerLevel) level, collidePos, tile);
 
-					world.removeBlock(collidePos, false);
-					world.gameEvent(entity, GameEvent.BLOCK_DESTROY, collidePos);
-					if (BotaniaConfig.common().blockBreakParticles()) {
-						world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, collidePos, Block.getId(state));
-					}
-
-					boolean sourceless = source.isEmpty() || !burst.isBurstSourceDimension(world);
-					boolean doWarp = warpItems && !sourceless;
-					Vec3 dropPosition;
-					if (doWarp && world.getBlockEntity(source.get().pos()) instanceof ManaSpreaderBlockEntity spreader) {
-						Vec3 sourceVec = Vec3.atCenterOf(source.get().pos());
-						/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
-						* "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot
-						* to respectively mean "rotation *around* the X and Y axes".
-						* See also the ManaBurstEntity constructor.
-						* TODO consider renaming our versions to match vanilla
-						*/
-						float xRot = spreader.getRotationY();
-						float yRot = -(spreader.getRotationX() + 90F);
-						Vec3 inverseSpreaderDirection = ManaBurstEntity.calculateBurstVelocity(xRot, yRot).normalize().reverse();
-						dropPosition = sourceVec.add(inverseSpreaderDirection);
-					} else {
-						dropPosition = Vec3.atCenterOf(collidePos);
-					}
-
-					if (world.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
-						for (ItemStack stack_ : items) {
-							ItemEntity itemEntity = new ItemEntity(world, dropPosition.x, dropPosition.y, dropPosition.z, stack_);
-							itemEntity.setDefaultPickUpDelay();
-							world.addFreshEntity(itemEntity);
-							EntityHelper.addTeleportTicketIfFarAway(itemEntity, collidePos);
-						}
-					}
-
-					burst.setMana(mana - 24);
+				if (!level.destroyBlock(collidePos, false, entity)) {
+					return true;
 				}
+
+				boolean sourceless = source.isEmpty() || !burst.isBurstSourceDimension(level);
+				boolean doWarp = warpItems && !sourceless;
+				Vec3 dropPosition;
+				if (doWarp && level.getBlockEntity(source.get().pos()) instanceof ManaSpreaderBlockEntity spreader) {
+					Vec3 sourceVec = Vec3.atCenterOf(source.get().pos());
+					/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
+					 * "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot
+					 * to respectively mean "rotation *around* the X and Y axes".
+					 * See also the ManaBurstEntity constructor.
+					 * TODO consider renaming our versions to match vanilla
+					 */
+					float xRot = spreader.getRotationY();
+					float yRot = -(spreader.getRotationX() + 90F);
+					Vec3 inverseSpreaderDirection = ManaBurstEntity.calculateBurstVelocity(xRot, yRot).normalize().reverse();
+					dropPosition = sourceVec.add(inverseSpreaderDirection);
+				} else {
+					dropPosition = Vec3.atCenterOf(collidePos);
+				}
+
+				if (level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
+					for (ItemStack stack_ : items) {
+						ItemEntity itemEntity = new ItemEntity(level, dropPosition.x, dropPosition.y, dropPosition.z, stack_);
+						itemEntity.setDefaultPickUpDelay();
+						level.addFreshEntity(itemEntity);
+						EntityHelper.addTeleportTicketIfFarAway(itemEntity, collidePos);
+					}
+				}
+
+				burst.setMana(mana - 24);
 			}
 
 			shouldKill = false;

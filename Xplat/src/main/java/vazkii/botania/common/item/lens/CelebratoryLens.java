@@ -11,8 +11,8 @@ package vazkii.botania.common.item.lens;
 import it.unimi.dsi.fastutil.ints.IntList;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.FireworkExplosion;
@@ -27,12 +27,13 @@ public class CelebratoryLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
-		Entity entity = burst.entity();
+		Projectile entity = burst.entity();
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			if (!entity.level().isClientSide() && !burst.isFake() && !isManaBlock) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
 				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), fireworkStack);
+				rocket.setOwner(entity.getOwner());
 				entity.level().addFreshEntity(rocket);
 			}
 			return true;

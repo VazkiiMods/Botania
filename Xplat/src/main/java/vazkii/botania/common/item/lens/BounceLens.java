@@ -9,7 +9,7 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -21,7 +21,7 @@ public class BounceLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
-		ThrowableProjectile entity = burst.entity();
+		Projectile entity = burst.entity();
 		if (!isManaBlock && pos.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult rtr = (BlockHitResult) pos;
 			Vec3 currentMovementVec = entity.getDeltaMovement();

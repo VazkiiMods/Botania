@@ -15,7 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -34,7 +34,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 public class WeightLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
-		ThrowableProjectile entity = burst.entity();
+		Projectile entity = burst.entity();
 		if (!entity.level().isClientSide() && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
 			int harvestLevel = BotaniaConfig.common().harvestLevelWeight();
 
@@ -42,13 +42,16 @@ public class WeightLens extends Lens {
 			BlockPos bPos = ((BlockHitResult) pos).getBlockPos();
 			BlockState state = level.getBlockState(bPos);
 
-			if (FallingBlock.isFree(level.getBlockState(bPos.below()))
+			if (entity.mayInteract(entity.level(), bPos)
+					&& FallingBlock.isFree(level.getBlockState(bPos.below()))
 					&& state.getDestroySpeed(level, bPos) != -1
 					&& level.getBlockEntity(bPos) == null
 					&& canSilkTouch(level, bPos, state, harvestLevel, entity.getOwner())) {
 				FallingBlockEntity falling = FallingBlockEntity.fall(level, bPos, state);
 				falling.time = 1;
-				level.sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);
+				level.sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, state),
+						bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5,
+						10, 0.45, 0.45, 0.45, 5);
 			}
 		}
 
