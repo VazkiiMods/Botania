@@ -844,7 +844,7 @@ This changed when Labellia, a brilliant information studies student, thought to 
 the world's knowledge into a hierarchical and numerical system, where related topics would
 be placed near each other numerically.
 
-Labellia painstakingly promoted this system to all the flowers, and finally is was
+Labellia painstakingly promoted this system to all the flowers, and finally it was
 accepted and is the standard today for organizing knowledge. Recognizing the efforts of
 their wife Munchdew in supporting them during this difficult journey, Labellia named the
 new system the Munchdewey Decimal System in her honor.
