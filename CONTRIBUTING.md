@@ -8,7 +8,7 @@
 Minecraft, are **not accepted**
 * Duplicate issues or issues that have been solved already (use the search feature!) will
   be closed without warning.
-* Do not tag your issues' names. "Something Broke" is prefered to "[Bug] Something Broke"
+* Do not tag your issues' names. "Something Broke" is preferred to "[Bug] Something Broke"
   because there's a proper label system in place.
 * Suggestions are **not** accepted. In general, new features are added to Botania on
   a must-have basis. The bar for new features is quite high.
@@ -18,7 +18,7 @@ Minecraft, are **not accepted**
 * Run the `checkSyntax` Gradle task to make sure your changes pass our style guidelines
 * The `spotlessJavaApply` Gradle task can fix most violations for you.
 * Target the default branch of the repository in all PR's (unless it's a hotfix that only applies to an older version).
-  The maintainers will cherry pick things back ourselves when creating hotfixes.
+  The maintainers will cherry-pick things back ourselves when creating hotfixes.
 * **Keep PR's small**. The smaller it is, the faster we will review it. Only fix one thing
   per PR instead of piling everything into one massive PR.
 * Consider the patch workflow to help keep your changes small.  If you hate GitHub's PR
@@ -64,7 +64,7 @@ message.
 6. CI should automatically build and upload the release to GitHub releases, CurseForge, and Modrinth. Double check
    those places to make sure it made it there properly. The release script is at `scripts/upload_releases.sh` if you need
    to debug. Note that if the required Java version ever changes, the script will need adjusting.
-7. Announce the release on the Violet Moon forums under the `Botania` major tag and `twitter-mirror` minor tag, which will mirror
+7. Announce the release on the Violet Moon forums under the `Botania` major tag and `sns-mirror` minor tag, which will mirror
    the announcement to Discord's #mod_updates channel and the Violet Moon Twitter account.
 
 ## Working with GameTest
@@ -100,7 +100,7 @@ Structures, doMobSpawning, and doWeatherCycle all disabled as its testing enviro
 To run tests headlessly (all of these do the same thing):
 * Use the `Minecraft Game Test` run configuration in your IDE.
 * Launch the server with the argument `-Dfabric-api.gametest=1`.
-* Use `./gradlew runGameTest`. (Github Actions does this)
+* Use `./gradlew runGameTest`. (GitHub Actions does this)
 
 After running tests headlessly, the testing world will be saved to `run/world`. Copy this
 directory into `run/saves` and it will appear as a save file in singleplayer.
