@@ -25,6 +25,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
   and celebrating Tiny Potato's birthday (also known as Blessing%). That last one can be run on any day of the year,
   but you won't get the advancement if it's not July 19th. Feel free to suggest more categories if there's something
   specific you'd like to run that's different enough from these!
+* Add: Several world interactions for various rods are shown in EMI (Abbie)
 * Change: Ownership of mana bursts and the Manastorm Epicenter (the thing that happens when you trigger a Manastorm
   Charge) is tracked more consistenty, and the various lenses make more "may-interact" checks against e.g. the spawn
   protection area on dedicated servers

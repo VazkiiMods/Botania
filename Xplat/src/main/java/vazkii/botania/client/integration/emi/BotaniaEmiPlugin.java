@@ -7,6 +7,7 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import dev.emi.emi.api.recipe.EmiWorldInteractionRecipe;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.render.EmiRenderable;
 import dev.emi.emi.api.stack.Comparison;
@@ -15,8 +16,15 @@ import dev.emi.emi.api.stack.EmiStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluids;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -38,8 +46,10 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.StreamSupport;
 
@@ -216,6 +226,47 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		flower = EmiStack.of(BotaniaFlowerBlocks.marimorphosis);
 		for (MarimorphosisRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
 			registry.addRecipe(new MarimorphosisEmiRecipe(recipe, flower));
+		}
+
+		// rods
+		Map.of(
+				BotaniaItems.dirtRod, EmiStack.of(Blocks.DIRT),
+				BotaniaItems.skyDirtRod, EmiStack.of(Blocks.DIRT),
+				BotaniaItems.cobbleRod, EmiStack.of(Blocks.COBBLESTONE),
+				BotaniaItems.waterRod, EmiStack.of(Fluids.WATER)
+		).forEach((in, out) -> {
+			registry.addRecipe(EmiWorldInteractionRecipe.builder()
+					.id(BuiltInRegistries.ITEM.getKey(in).withPrefix("/world/rod/"))
+					.leftInput(EmiStack.EMPTY)
+					.rightInput(EmiStack.of(in), true)
+					.output(out)
+					.build());
+		});
+
+		// rod of the molten core can smelt blocks into blocks
+		EmiIngredient moltenCoreRod = EmiStack.of(BotaniaItems.smeltRod);
+		for (SmeltingRecipe recipe : registry.getRecipeManager().getAllRecipesFor(RecipeType.SMELTING)) {
+			Level level = Minecraft.getInstance().level;
+			ItemStack output = recipe.getResultItem(level.registryAccess());
+			if (output.isEmpty() || !(output.getItem() instanceof BlockItem)) {
+				continue;
+			}
+			List<ItemStack> filteredInputStacks = new ArrayList<>();
+			for (ItemStack stack : recipe.getIngredients().get(0).getItems()) {
+				if (stack.getItem() instanceof BlockItem) {
+					filteredInputStacks.add(stack);
+				}
+			}
+			if (filteredInputStacks.isEmpty()) {
+				continue;
+			}
+			Ingredient filteredInput = Ingredient.of(filteredInputStacks.stream());
+			registry.addRecipe(EmiWorldInteractionRecipe.builder()
+					.leftInput(EmiIngredient.of(filteredInput))
+					.rightInput(moltenCoreRod, true)
+					.output(EmiStack.of(output))
+					.id(recipe.getId().withPrefix("/world/molten_core_rod/"))
+					.build());
 		}
 	}
 
