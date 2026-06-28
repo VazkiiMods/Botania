@@ -37,6 +37,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
@@ -81,6 +82,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
+		BotaniaAPI.LOGGER.info("Wand used on {}", ctx.getClickedPos());
 		Player player = ctx.getPlayer();
 
 		if (player == null) {

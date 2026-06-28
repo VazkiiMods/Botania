@@ -18,6 +18,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.api.block.WandBindable;
+import vazkii.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.common.block.flower.FloatingSpecialFlowerBlock;
@@ -39,7 +41,7 @@ public class IdleFlowerTickingTest {
 	@GameTestGenerator
 	public Collection<TestFunction> generateTestForEachSpecialFlowerBlockEntity() {
 		return BuiltInRegistries.BLOCK.stream()
-				.filter(b -> b instanceof SpecialFlowerBlock || b instanceof FloatingSpecialFlowerBlock)
+				.filter(block -> block instanceof SpecialFlowerBlock || block instanceof FloatingSpecialFlowerBlock)
 				.map(block -> {
 					String testName = "%s.test_%s_idle".formatted(
 							IdleFlowerTickingTest.class.getSimpleName(),
@@ -66,6 +68,10 @@ public class IdleFlowerTickingTest {
 			BlockEntity be = helper.getBlockEntity(FLOWER_POS);
 			if (!(be instanceof SpecialFlowerBlockEntity specialFlower)) {
 				helper.fail("Missing special flower block entity");
+				return;
+			}
+			if (be instanceof BindableSpecialFlowerBlockEntity<?> && WandBindable.LOOKUP.find(be, null) == null) {
+				helper.fail("Bindable special flower block entity is not registered as WandBindable");
 				return;
 			}
 			if (specialFlower instanceof FunctionalFlowerBlockEntity functionalFlower) {

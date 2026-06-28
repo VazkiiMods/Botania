@@ -38,9 +38,10 @@ public final class BlockEntityConstants {
 	public static final Set<BlockEntityType<? extends WandBindable>> SELF_WAND_BINDABLE_BES = ImmutableSet.of(
 			// generating flowers
 			BotaniaBlockEntities.DANDELIFEON, BotaniaBlockEntities.ENDOFLAME, BotaniaBlockEntities.ENTROPINNYUM,
-			BotaniaBlockEntities.GOURMARYLLIS, BotaniaBlockEntities.KEKIMURUS, BotaniaBlockEntities.MUNCHDEW,
-			BotaniaBlockEntities.NARSLIMMUS, BotaniaBlockEntities.RAFFLOWSIA, BotaniaBlockEntities.ROSA_ARCANA,
-			BotaniaBlockEntities.SHULK_ME_NOT, BotaniaBlockEntities.SPECTROLUS,
+			BotaniaBlockEntities.GOURMARYLLIS, BotaniaBlockEntities.HYDROANGEAS, BotaniaBlockEntities.KEKIMURUS,
+			BotaniaBlockEntities.MUNCHDEW, BotaniaBlockEntities.NARSLIMMUS, BotaniaBlockEntities.RAFFLOWSIA,
+			BotaniaBlockEntities.ROSA_ARCANA, BotaniaBlockEntities.SHULK_ME_NOT, BotaniaBlockEntities.SPECTROLUS,
+			BotaniaBlockEntities.THERMALILY,
 
 			// functional flowers
 			BotaniaBlockEntities.AGRICARNATION, BotaniaBlockEntities.AGRICARNATION_PETITE,
