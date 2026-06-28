@@ -18,11 +18,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.inventory.BotaniaMenuWithLockedSlot;
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.item.BotaniaItems;
 
 // [VanillaCopy] ChestMenu (3 rows), except the slot containing the Hand of Ender is locked
-public class HandOfEnderMenu extends AbstractContainerMenu {
+public class HandOfEnderMenu extends AbstractContainerMenu implements BotaniaMenuWithLockedSlot {
 	private static final int SLOTS_PER_ROW = 9;
 	private static final int NUM_ROWS = 3;
 	private final Container container;
@@ -105,5 +106,10 @@ public class HandOfEnderMenu extends AbstractContainerMenu {
 	public void removed(Player player) {
 		super.removed(player);
 		this.container.stopOpen(player);
+	}
+
+	@Override
+	public boolean canMoveItem(ItemStack stack) {
+		return stack != enderHand || enderHand.isEmpty();
 	}
 }

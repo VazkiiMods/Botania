@@ -17,13 +17,14 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.inventory.BotaniaMenuWithLockedSlot;
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.BaubleBoxItem;
 import vazkii.botania.common.item.BotaniaItems;
 
-public class TrinketCaseMenu extends AbstractContainerMenu {
+public class TrinketCaseMenu extends AbstractContainerMenu implements BotaniaMenuWithLockedSlot {
 	private final ItemStack trinketCase;
 
 	public TrinketCaseMenu(int containerId, Inventory playerInv, boolean isMainHand) {
@@ -119,5 +120,10 @@ public class TrinketCaseMenu extends AbstractContainerMenu {
 			trinketCase.remove(BotaniaDataComponents.ACTIVE_TRANSIENT);
 		}
 		super.removed(player);
+	}
+
+	@Override
+	public boolean canMoveItem(ItemStack stack) {
+		return stack != trinketCase || trinketCase.isEmpty();
 	}
 }

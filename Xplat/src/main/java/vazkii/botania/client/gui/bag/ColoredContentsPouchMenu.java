@@ -23,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.inventory.BotaniaMenuWithLockedSlot;
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -30,7 +31,7 @@ import vazkii.botania.common.item.ColoredContentsPouchItem;
 
 import java.util.List;
 
-public class ColoredContentsPouchMenu extends AbstractContainerMenu {
+public class ColoredContentsPouchMenu extends AbstractContainerMenu implements BotaniaMenuWithLockedSlot {
 	private final ItemStack pouch;
 	public final Container pouchInv;
 
@@ -127,4 +128,8 @@ public class ColoredContentsPouchMenu extends AbstractContainerMenu {
 		return copyStack;
 	}
 
+	@Override
+	public boolean canMoveItem(ItemStack stack) {
+		return stack != pouch || pouch.isEmpty();
+	}
 }

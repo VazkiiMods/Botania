@@ -6,6 +6,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractCauldronBlockAccessor",
+    "AbstractContainerMenuMixin",
     "AbstractFurnaceBlockEntityAccessor",
     "AbstractHorseAccessor",
     "AbstractMinecartMixin",
