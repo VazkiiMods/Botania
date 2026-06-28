@@ -36,6 +36,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -203,6 +204,8 @@ public interface XplatAbstractions {
 
 	// (hopefully temporary) workaround for NeoForge changing RecipeOutput::accept signature
 	RecipeOutput createRecipeOutput(RecipeAcceptor recipeAcceptor, Supplier<Advancement.Builder> advancementBuilder);
+
+	boolean shouldShowExtendedItemTooltip(TooltipFlag flags);
 
 	@FunctionalInterface
 	interface RecipeAcceptor {

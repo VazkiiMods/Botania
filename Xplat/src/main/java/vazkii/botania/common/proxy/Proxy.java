@@ -88,4 +88,8 @@ public interface Proxy {
 	default Locale getLocale() {
 		return Locale.getDefault();
 	}
+
+	default boolean hasShiftDown() {
+		return false;
+	}
 }

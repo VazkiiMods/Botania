@@ -83,7 +83,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
-		TooltipHandler.addOnShift(list, () -> addInformationAfterShift(stack, context, list, flags));
+		TooltipHandler.addOnShift(list, flags, () -> addInformationAfterShift(stack, context, list, flags));
 	}
 
 	public void addInformationAfterShift(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {

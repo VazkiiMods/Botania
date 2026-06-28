@@ -38,6 +38,7 @@ import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -571,5 +572,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 				recipeAcceptor.accept(id, recipe, advancement);
 			}
 		};
+	}
+
+	@Override
+	public boolean shouldShowExtendedItemTooltip(TooltipFlag flags) {
+		return flags.hasShiftDown();
 	}
 }

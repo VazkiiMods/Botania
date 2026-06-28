@@ -133,7 +133,7 @@ public class ManaBlasterItem extends Item {
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		boolean clip = hasClip(stack);
 		if (clip) {
-			TooltipHandler.addOnShift(tooltip, () -> appendHoverTextImpl(stack, tooltip));
+			TooltipHandler.addOnShift(tooltip, flags, () -> appendHoverTextImpl(stack, tooltip));
 		} else {
 			appendHoverTextImpl(stack, tooltip);
 		}

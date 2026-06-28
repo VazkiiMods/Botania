@@ -11,6 +11,7 @@ package vazkii.botania.client.core.proxy;
 import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
@@ -144,5 +145,10 @@ public class ClientProxy implements Proxy {
 		return parts.length > 2
 				? Locale.of(parts[0], parts[1], parts[2])
 				: parts.length == 2 ? Locale.of(parts[0], parts[1]) : Locale.of(languageCode);
+	}
+
+	@Override
+	public boolean hasShiftDown() {
+		return Screen.hasShiftDown();
 	}
 }

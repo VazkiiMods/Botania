@@ -104,7 +104,7 @@ public class DiceOfFateItem extends RelicItem {
 	public void appendHoverText(ItemStack stack, TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, tooltipContext, tooltip, flags);
 		tooltip.add(Component.literal(""));
-		TooltipHandler.addOnShift(tooltip, () -> {
+		TooltipHandler.addOnShift(tooltip, flags, () -> {
 			String name = stack.getDescriptionId() + ".poem";
 			for (int i = 0; i < 4; i++) {
 				tooltip.add(Component.translatable(name + i).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));

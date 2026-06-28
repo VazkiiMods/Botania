@@ -94,7 +94,8 @@ public class TranslationKeysTest {
 						}
 					} catch (Exception e) {
 						BotaniaAPI.LOGGER.error("Failed to analyze tooltip of item {}. (Does it assume client context?)", id, e);
-						// TODO: treat this as test failure
+						// close enough...
+						missing.increment();
 					}
 
 					String descriptionId = item.getDescriptionId();
