@@ -2190,7 +2190,7 @@ thanks to Wormbo for a lot of work on this feature!
 * Added the Benevolent Goddess' Charm, it stops nearby explosions from breaking blocks.
 * Added the Worldshaper's Astrolabe, a new fancy tool to place a lot of blocks really quick.
 * Changed the crafting recipe for Cellular Blocks to include Beetroot.
-* Changed the secret code for the <span class="censored">------ -----</span>.
+* Changed the secret code for the <span class="censored">Matrix</span> <span class="censored">Wings</span>.
 * Fixed a texture being poorly sized and breaking mipmapping.
 * Fixed log spam when the Loonium is doing its thing.
 * Fixed Resolute Ivy not working.
@@ -4759,10 +4759,10 @@ in the Minecraft 1.8-1.10 era.
 * Fixed the Manasteel/Elementium Pick and Axe not removing the last item from the inventory but a ghost stack instead when their right click ability is used.
 * Fixed the Resolute Ivy being able to dupe items in the crafting grid.
 * Fixed the Ring of Odin displaying a fake player death animation when unequipped.
-* Having the <span class="censored">----</span> <span class="censored">--</span> <span class="censored">----</span> equipped increases the Terra Shatterer's level by 1.
-* Increased <span class="censored">---</span> <span class="censored">-----</span> <span class="censored">--</span> <span class="censored">-------</span>'s saturation output.
+* Having the <span class="censored">Ring</span> <span class="censored">of</span> <span class="censored">Thor</span> equipped increases the Terra Shatterer's level by 1.
+* Increased <span class="censored">The</span> <span class="censored">Fruit</span> <span class="censored">of</span> <span class="censored">Grisaia</span>'s saturation output.
 * Increased Thermalily cooldown from 6 minutes to 7 minutes.
-* Made the <span class="censored">----</span> <span class="censored">--</span> <span class="censored">----</span>'s regen effect slower.
+* Made the <span class="censored">Ring</span> <span class="censored">of</span> <span class="censored">Odin</span>'s regen effect slower.
 * Optimized flower (and other botania tile entities) client load on syncing by not marking blocks for update and rather directly sending packets to nearby players.
 * Optimized spark network usage and processing. They should work a lot better, both fps and tps wise.
 * Replaced Flugel Tiara Firelord Wings with Phoenix Wings.
@@ -6372,7 +6372,7 @@ in the Minecraft 1.8-1.10 era.
 * Added some checks to the Rod of the Lands to prevent players from suffocating themselves with it.
 * Added some new quartz types (might have gone overboard), find them in the Decorative Blocks entry under Miscellaneous.
 * Added the Soulscribe, a weapon to kill Endermen.
-* Some more work on <a href="https://gfycat.com/ShamefulGlitteringCentipede"><span class="censored">----------</span></a>.
+* Some more work on <a href="https://gfycat.com/ShamefulGlitteringCentipede"><span class="censored">Alfhomancy</span></a>.
 * *I wonder what happens if I throw sixteen pink petals in an apothecary...*
 * *I apologize for any possible issues in this patch, as I stayed up till 3 to finish it :')*
 
@@ -6383,7 +6383,7 @@ in the Minecraft 1.8-1.10 era.
 * Artificially increased the accuracy of the Damaging Lens and Terra Blade.
 * Commented the flower quantity and density config options.
 * Fixed the Kekimurus eating only from the south east.
-* Some behind the scenes work on <a href="https://gfycat.com/DarkUnhealthyEthiopianwolf"><span class="censored">----------</span></a>.
+* Some behind the scenes work on <a href="https://gfycat.com/DarkUnhealthyEthiopianwolf"><span class="censored">Alfhomancy</span></a>.
 
 ---
 
@@ -6397,7 +6397,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.0 47" %}
 
 * Added a config option to disable the references in the flowers' tooltips. *Though, be warned, I hate you if you do <3*
-* Added a tease for <span class="censored">----------</span>.
+* Added a tease for <span class="censored">Alfhomancy</span>.
 * Added two new generating flowers, the Entropinnyum and the Kekimurus. *Help, I'm running out of names :c*
 * Buffed the output of the Rosa Arcana.
 * Fixed Composite lenses not being localized.
