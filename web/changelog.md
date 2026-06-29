@@ -2916,7 +2916,7 @@ Built on Java 8, Baubles 1.2.0.0, Forge 1865
 - In the next build, I might add an item that you can use to convert blocks in-place in the world so you don't have to dig them all up
 
 Changes:
-- Gaia Guardian now uses loot tables! (see https://github.com/williewillus/Botania/tree/MC19/src/main/resources/assets/botania/loot_tables and https://minecraft.gamepedia.com/Loot_tables for more information)
+- Gaia Guardian now uses loot tables! (see https://github.com/williewillus/Botania/tree/MC19/src/main/resources/assets/botania/loot_tables and https://minecraft.wiki/w/Loot_table for more information)
 - Armor retains enchants when upgraded (yrsegal)
 - Ice Pendant now uses an effect equivalent to Frost Walker VIII
 - Change armor equip sounds 
@@ -5199,7 +5199,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.3 148" %}
 
 * *I could have fit this on 147 but I only decided to do it later :V*
-* Added support for [Colored Lights](https://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1445251-1-7-10-beta-wip-colored-light-progress-and). ([Picture 1](https://puu.sh/dKo8o/7c34ca4d3d.png)) ([Picture 2](https://puu.sh/dKozh/323db4f589.png)) You can find it in the following blocks:
+* Added support for [Colored Lights](https://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1445251-1-7-10-beta-wip-colored-light-progress-and). ([Picture 1](https://i.imgur.com/JszmQ0h.png)) ([Picture 2](https://i.imgur.com/UJjsWHI.jpg)) You can find it in the following blocks:
   *   Glimmering Flowers
   *   Floating Flowers (colored normal ones only)
   *   Buried Petals
@@ -5963,7 +5963,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.1 85" %}
 
 * **Botania should now work properly in a developer environment** and not complain about sand in it's eyes or something.
-* Added <a href="https://redd.it/2b3o3f">Futureazoo's Textures</a> as a config option. A <a href="https://www.curse.com/texture-packs/minecraft/222614-botania-retexture">Full Resource Pack</a> with other textures is also available.
+* Added <a href="https://redd.it/2b3o3f">Futureazoo's Textures</a> as a config option. A <a href="https://www.curseforge.com/minecraft/texture-packs/botania-retexture">Full Resource Pack</a> with other textures is also available.
 * Added the Infrangible Platform, a counterpart to the Abstruse and Spectral Platforms only available in creative, its' collision box is similar to a regular block and it's unbreakable, it's meant for mapmakers, see.
 * Added the Ring of Far Reach (Elven Knowledge), it increases your reach by 3 blocks.
 * Changed the Terra Shatterer texture to Futureazoo's. See previous link.
