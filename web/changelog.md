@@ -2398,7 +2398,7 @@ thanks to Wormbo for a lot of work on this feature!
 * **If you want to know what changed in between, have a look through the Releases page on <a href="https://github.com/williewillus/Botania/releases">williewillus/Botania.</a>**
 * **This is the first release for 1.10.2, which sets up for further content expansion, while removing obsolete and bloated pieces of content. More content is planned and will be coming soon.**
 * **You can mitigate your worlds from Botania Unofficial to Botania just fine, any of the removed pieces of content you had in your world will just disappear.**
-* **A few pieces of content from Botania's 1.7.10 releases was removed in Botania Unofficial due to them being added to <a href="http://quark.vazkii.net/">Quark</a>, another mod by me which I highly recommend you install alongside Botania.**
+* **A few pieces of content from Botania's 1.7.10 releases was removed in Botania Unofficial due to them being added to <a href="https://quark.vazkii.net/">Quark</a>, another mod by me which I highly recommend you install alongside Botania.**
 * **If you were looking for BotaniaV2, most of that project was scrapped in favour of this update instead. I decided that instead of reinventing a mod that's already good, I'd use the concepts there to make a new mod instead, which I am planning, but want to get some new stuff onto Botania and Quark before I move onto that.**
 * **And that's it for my important note. I'm back to Botania, and I hope you carry on enjoying it.**
 
@@ -2916,7 +2916,7 @@ Built on Java 8, Baubles 1.2.0.0, Forge 1865
 - In the next build, I might add an item that you can use to convert blocks in-place in the world so you don't have to dig them all up
 
 Changes:
-- Gaia Guardian now uses loot tables! (see https://github.com/williewillus/Botania/tree/MC19/src/main/resources/assets/botania/loot_tables and http://minecraft.gamepedia.com/Loot_tables for more information)
+- Gaia Guardian now uses loot tables! (see https://github.com/williewillus/Botania/tree/MC19/src/main/resources/assets/botania/loot_tables and https://minecraft.gamepedia.com/Loot_tables for more information)
 - Armor retains enchants when upgraded (yrsegal)
 - Ice Pendant now uses an effect equivalent to Frost Walker VIII
 - Change armor equip sounds 
@@ -3463,7 +3463,7 @@ Changes
 
 New build!
 
-Based on fresh out of the oven Botania 1.7.10 build 248, read all about that upstream! (http://botaniamod.net)
+Based on fresh out of the oven Botania 1.7.10 build 248, read all about that upstream! (https://botaniamod.net)
 
 Built on MinecraftForge 1.8.9 build 1656, should run on 1.8.8.
 
@@ -4108,7 +4108,7 @@ in the Minecraft 1.8-1.10 era.
 * Fixed the Slime in a Bottle not detecting slime chunks properly as it was ticking in the client where it doesn't know the world seed.
 * Petal and Rune recipe pages now animate a lot smoother.
 * Pixies (friendly and hostile) are now forced to despawn if they exist for more than 10 seconds.
-* The Head Creation page now links to the <a href="http://heads.freshcoal.com/usernames.php">player head database</a> to give you ideas on what cool stuff you can do with heads.
+* The Head Creation page now links to the <a href="https://heads.freshcoal.com/usernames.php">player head database</a> to give you ideas on what cool stuff you can do with heads.
 * The high council of Elven Garde, after having received countless unintended "gifts" of unenchanted Iron Ingots, Diamonds and Ender Pearls from unskilled skim-reading botanists are now returning those back to the senders.
 * Tweaked the Elven Portal's render a bit. The lighting on it doesn't spazz out and it renders properly when you're in it now.
 
@@ -5159,7 +5159,7 @@ in the Minecraft 1.8-1.10 era.
 
 * Added the Black Lotus, a dungeon loot consumable that can be tossed onto a Mana Pool for a boost of mana.
 * Added the Mana Prism, a new block that can change the properties of a Mana Burst on the fly.
-* Added Trodden Dirt, a new block that looks great for <a href="https://en.wikipedia.org/wiki/Desire_path">desire paths</a>. It also gives a slight speed boost. The texture and idea come from <a href="http://redd.it/2sqwu6">/u/LupusX's post on reddit</a>.
+* Added Trodden Dirt, a new block that looks great for <a href="https://en.wikipedia.org/wiki/Desire_path">desire paths</a>. It also gives a slight speed boost. The texture and idea come from <a href="https://redd.it/2sqwu6">/u/LupusX's post on reddit</a>.
 * Red String Spoofers will now also connect to mushrooms.
 * Shifted the Assembly Halo HUD down 10px so it fits on smaller resolution/render scales.
 * The Brewery and Enchanter now have the same progress pie as the Runic Altar.
@@ -5199,7 +5199,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.3 148" %}
 
 * *I could have fit this on 147 but I only decided to do it later :V*
-* Added support for [Colored Lights](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1445251-1-7-10-beta-wip-colored-light-progress-and). ([Picture 1](http://puu.sh/dKo8o/7c34ca4d3d.png)) ([Picture 2](http://puu.sh/dKozh/323db4f589.png)) You can find it in the following blocks:
+* Added support for [Colored Lights](https://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/1445251-1-7-10-beta-wip-colored-light-progress-and). ([Picture 1](https://puu.sh/dKo8o/7c34ca4d3d.png)) ([Picture 2](https://puu.sh/dKozh/323db4f589.png)) You can find it in the following blocks:
   *   Glimmering Flowers
   *   Floating Flowers (colored normal ones only)
   *   Buried Petals
@@ -5391,7 +5391,7 @@ in the Minecraft 1.8-1.10 era.
 * Fixed the Ring of Magnetization pulling items in the cilent side only when in a dedicated server.
 * Fixed tucking fypos. Again.
 * If the summoning of a Gaia Guardian fails, a chat message is now sent describing why.
-* Increased the max amount of mana a Terra Shatterer can hold up to <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#MAX_VALUE">2147483647</a>. If you manage to reach this value you also get a fancy congratulatory message.
+* Increased the max amount of mana a Terra Shatterer can hold up to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#MAX_VALUE">2147483647</a>. If you manage to reach this value you also get a fancy congratulatory message.
 * Lexicon Entries containing documents from Elven Garde now have a special type of paper.
 * The arena for the Gaia Guardian is now round, not square.
 * Trying to infuse an item that isn't a Diluted Mana Pool in a Diluted Mana Pool will show a yellow check with a line rather than just a green check.
@@ -5436,7 +5436,7 @@ in the Minecraft 1.8-1.10 era.
 * Changed the mana HUD texture. It now is less noisy and has points indicating the 25%, 50% and 75% marks.
 * Fixed not being able to look up petal apothecary recipes in NEI. (Tonius)
 * Manasteel, Terrasteel and Elementium tools now repair using mana in the inventory at double the cost of normal damage suppression.
-* The Gaia Guardian now has a new, much fancier, health bar. <a href="http://i.imgur.com/jHwDGVe.gif">Here's a gif</a> (endgame spoilers, I guess).
+* The Gaia Guardian now has a new, much fancier, health bar. <a href="https://i.imgur.com/jHwDGVe.gif">Here's a gif</a> (endgame spoilers, I guess).
 * The Runic Altar's render now has a smoother trail rather than a bunch of cubes all with the same alpha value.
 * [API] Added IGrassHornExcempt, for blocks that extend BlockBush but shouldn't be uprooted by the Horn of the Wild. Note that ISpecialFlower implementers will be excempt by default.
 * [API] Added stuff for bosses, IBotaniaBoss, IBotaniaBossWithShader interfaces and getDefaultBossBarTexture and setBossStatus to the Internal Method Handler.
@@ -5554,7 +5554,7 @@ in the Minecraft 1.8-1.10 era.
 
 * Added an alchemy recipe to change Hardened Clay into Red Sand.
 * Fixed botania particles rendering white if the NEI spawn overlay is enabled.
-* Flower generation is now done in patches of the same color rather than fully randomly. Here's a <a href="http://i.imgur.com/CnOFssk.png">Before</a> & <a href="http://i.imgur.com/ggICjfM.png">After</a> (with flower spawn rates turned higher than by default)
+* Flower generation is now done in patches of the same color rather than fully randomly. Here's a <a href="https://i.imgur.com/CnOFssk.png">Before</a> & <a href="https://i.imgur.com/ggICjfM.png">After</a> (with flower spawn rates turned higher than by default)
 * Removing lenses from the Mana Blaster is now done via placing it in a crafting grid rather than shift-right click.
 * The Ring of Magnetization now only works when sneaking rather than when not sneaking.
 
@@ -5835,7 +5835,7 @@ in the Minecraft 1.8-1.10 era.
 * The Shard of Laputa is now upgradable using aditional Gaia Spirits, each one increases the radius by 1 block, up to 20 can be used.
 * The Soujourner's and Globetrotter's Sashes no longer work underwater, so you can't go at hyperspeed underwater. *Godspeed, Godspeed, Godspeed, speed us away*
 * The Tangleberrie and Jyullia now ignore bosses. *soz.*
-* Updating botania through the ingame downloader now has a link to my <a href="http://www.patreon.com/Vazkii">Patreon.</a> *Dollah dollah bills y'all.*
+* Updating botania through the ingame downloader now has a link to my <a href="https://www.patreon.com/Vazkii">Patreon.</a> *Dollah dollah bills y'all.*
 * [API] Added a function to get all registered lexicon entries.
 * [API] Added IExtendedPlayerController.
 * [API] Exposed IPixieSpawner from internal classes.
@@ -5887,7 +5887,7 @@ in the Minecraft 1.8-1.10 era.
 
 {% include changelog_header.html version="r1.1 91" %}
 
-* Added new building blocks: Reed Block, Thatch, Netherrack Bricks, Soul Bricks, Snow Bricks, <a href="http://www.madeireirafalsarella.com.br/arquivos/produtos/telhas/portuguesa/01-g.jpg">Roof Tiles</a> (all with stair and slab variants) and 12 types of <a href="http://en.wikipedia.org/wiki/Azulejo">Azulejos</a> for use with white Quartz.
+* Added new building blocks: Reed Block, Thatch, Netherrack Bricks, Soul Bricks, Snow Bricks, <a href="https://www.madeireirafalsarella.com.br/arquivos/produtos/telhas/portuguesa/01-g.jpg">Roof Tiles</a> (all with stair and slab variants) and 12 types of <a href="https://en.wikipedia.org/wiki/Azulejo">Azulejos</a> for use with white Quartz.
 * Hopperhocks will no longer pick items up right after a mana pool crafts them.
 * I was playing with TC and realized I wanted Botania armor mixed in with the Goggles of Revealing, so you can do that now.
 * Lowered the chance for the Lexica Botania to spawn in the Bonus Chest, according to almighty reddit it was too high.
@@ -5963,7 +5963,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.1 85" %}
 
 * **Botania should now work properly in a developer environment** and not complain about sand in it's eyes or something.
-* Added <a href="http://redd.it/2b3o3f">Futureazoo's Textures</a> as a config option. A <a href="http://www.curse.com/texture-packs/minecraft/222614-botania-retexture">Full Resource Pack</a> with other textures is also available.
+* Added <a href="https://redd.it/2b3o3f">Futureazoo's Textures</a> as a config option. A <a href="https://www.curse.com/texture-packs/minecraft/222614-botania-retexture">Full Resource Pack</a> with other textures is also available.
 * Added the Infrangible Platform, a counterpart to the Abstruse and Spectral Platforms only available in creative, its' collision box is similar to a regular block and it's unbreakable, it's meant for mapmakers, see.
 * Added the Ring of Far Reach (Elven Knowledge), it increases your reach by 3 blocks.
 * Changed the Terra Shatterer texture to Futureazoo's. See previous link.
@@ -6306,7 +6306,7 @@ in the Minecraft 1.8-1.10 era.
 
 * Fixed moar tpyos (CatDany)
 * Fixed server crash.
-* Mana Spreaders can now be <a href="http://gfycat.com/EmotionalDisloyalCanary">remotely oriented</a> to a block rather than just by holding right click. There's some kinks to it, this is the best I can do.
+* Mana Spreaders can now be <a href="https://gfycat.com/EmotionalDisloyalCanary">remotely oriented</a> to a block rather than just by holding right click. There's some kinks to it, this is the best I can do.
 * Reworked mana network internals to, hopefully, fix the issue of flowers disconnecting once and for all. *Crosses fingers*
 
 ---
@@ -6365,7 +6365,7 @@ in the Minecraft 1.8-1.10 era.
 * Added some checks to the Rod of the Lands to prevent players from suffocating themselves with it.
 * Added some new quartz types (might have gone overboard), find them in the Decorative Blocks entry under Miscellaneous.
 * Added the Soulscribe, a weapon to kill Endermen.
-* Some more work on <a href="http://gfycat.com/ShamefulGlitteringCentipede"><span class="censored">----------</span></a>.
+* Some more work on <a href="https://gfycat.com/ShamefulGlitteringCentipede"><span class="censored">----------</span></a>.
 * *I wonder what happens if I throw sixteen pink petals in an apothecary...*
 * *I apologize for any possible issues in this patch, as I stayed up till 3 to finish it :')*
 
@@ -6376,7 +6376,7 @@ in the Minecraft 1.8-1.10 era.
 * Artificially increased the accuracy of the Damaging Lens and Terra Blade.
 * Commented the flower quantity and density config options.
 * Fixed the Kekimurus eating only from the south east.
-* Some behind the scenes work on <a href="http://gfycat.com/DarkUnhealthyEthiopianwolf"><span class="censored">----------</span></a>.
+* Some behind the scenes work on <a href="https://gfycat.com/DarkUnhealthyEthiopianwolf"><span class="censored">----------</span></a>.
 
 ---
 
@@ -6411,7 +6411,7 @@ in the Minecraft 1.8-1.10 era.
 
 {% include changelog_header.html version="r1.0 45" %}
 
-* Temporarilly removed the auto downloader, the reason can be found <a href="http://www.minecraftforum.net/topic/2440071-botania-an-innovative-natural-magic-themed-tech-mod-not-in-beta-any-more/page__st__420#entry31815845">here</a>.
+* Temporarilly removed the auto downloader, the reason can be found <a href="https://www.minecraftforum.net/topic/2440071-botania-an-innovative-natural-magic-themed-tech-mod-not-in-beta-any-more/page__st__420#entry31815845">here</a>.
 
 ---
 
