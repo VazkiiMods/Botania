@@ -874,7 +874,7 @@ thanks to Wormbo for a lot of work on this feature!
 
 {% include changelog_header.html version="1.18.1-428" %}
 
-* **Initial release for Forge on 1.18.1**, supporting both Fabric and Forge using the groundwork laid by Jared and Darkhax in the <a href="https://github.com/jaredlll08/MultiLoader-Template">MultiLoader template</a>.
+* **Initial release for Forge on 1.18.1**, supporting both Fabric and Forge using the groundwork laid by Jared and Darkhax in the [MultiLoader template](https://github.com/jaredlll08/MultiLoader-Template).
 * This involved a lot of internal changes - please report any regression from the previous 1.18 Fabric release and from 1.16 releases (team)
 * Add: Livingwood and Dreamwood now have log variants and a set of new textures (artemisSystem)
 * Add: Spreaders now have smaller hitboxes, which can be expanded by adding scaffolding onto them to allow placing redstone on top of them (artemisSystem)
@@ -2083,7 +2083,7 @@ thanks to Wormbo for a lot of work on this feature!
 * Fixed the Third Eye not highlighting all mobs properly.
 * Fixed the Thorn Chakram being able to be killed by explosions.
 * Made the Cocoon of Caprice accept dropped items as modifiers.
-* Re-enabled the tutorial video in the lexica botania, using the new <a href="https://www.youtube.com/watch?v=D75Aad-5QgQ">Bit by Bit video</a> from Mischief of Mice. *Only took me almost 2 years!*
+* Re-enabled the tutorial video in the lexica botania, using the new [Bit by Bit video](https://www.youtube.com/watch?v=D75Aad-5QgQ) from Mischief of Mice. *Only took me almost 2 years!*
 * Removed references to the previously removed Ring of the Aesir.
 * Removed the version checker and ingame updater because it's 2017 and nobody needs those.
 * The Lexica Botania can now swap between items in recipes that have multiple valid items in one slot (like ore dictionary recipes). *Only took me 3 and a half years!*
@@ -2104,7 +2104,7 @@ thanks to Wormbo for a lot of work on this feature!
 
 * **Updated to Minecraft 1.12.1** (williewillus)
 * **Retextured and remodeled a major part of the mod with a new art style by wiiv.**
-* Added support for <a href="https://twitter.com/Vazkii/status/904017697775767552">colored lights</a> with the <a href="https://minecraft.curseforge.com/projects/albedo">Albedo</a> mod.
+* Added support for [colored lights](https://twitter.com/Vazkii/status/904017697775767552) with the [Albedo](https://minecraft.curseforge.com/projects/albedo) mod.
 * Buffed the mana production of the Gourmaryllis by a bit.
 * Buffed the mana production of the Narslimmus by a lot.
 * Fixed a crash when clicking an Abstruse Platform disguised as a Chisel mod block. (williewillus)
@@ -2456,12 +2456,12 @@ thanks to Wormbo for a lot of work on this feature!
 * [API] Removed a bunch of stuff that is no longer used.
 * [API] Added a getFacing() method to IAvatarTile, this is used for the Rod of the Lands.
 * [API] Increased version number to 80.
-* **This version is for Minecraft 1.10.2, and carries on from the latest release of <a href="https://minecraft.curseforge.com/projects/botania-unofficial">Botania Unofficial</a>.**
-* **A massive thanks is due to <a href="https://twitter.com/williewillus">williewillus</a>, who took it upon himself to port and maintain the mod all the way through 1.8, 1.9 and to 1.10. Please go send him love and hugs, as us being here would not be possible without him.**
-* **If you want to know what changed in between, have a look through the Releases page on <a href="https://github.com/williewillus/Botania/releases">williewillus/Botania.</a>**
+* **This version is for Minecraft 1.10.2, and carries on from the latest release of [Botania Unofficial](https://minecraft.curseforge.com/projects/botania-unofficial).**
+* **A massive thanks is due to [williewillus](https://twitter.com/williewillus), who took it upon himself to port and maintain the mod all the way through 1.8, 1.9 and to 1.10. Please go send him love and hugs, as us being here would not be possible without him.**
+* **If you want to know what changed in between, have a look through the Releases page on [williewillus/Botania](https://github.com/williewillus/Botania/releases).**
 * **This is the first release for 1.10.2, which sets up for further content expansion, while removing obsolete and bloated pieces of content. More content is planned and will be coming soon.**
 * **You can mitigate your worlds from Botania Unofficial to Botania just fine, any of the removed pieces of content you had in your world will just disappear.**
-* **A few pieces of content from Botania's 1.7.10 releases was removed in Botania Unofficial due to them being added to <a href="https://quark.vazkii.net/">Quark</a>, another mod by me which I highly recommend you install alongside Botania.**
+* **A few pieces of content from Botania's 1.7.10 releases was removed in Botania Unofficial due to them being added to [Quark](https://quark.vazkii.net/), another mod by me which I highly recommend you install alongside Botania.**
 * **If you were looking for BotaniaV2, most of that project was scrapped in favour of this update instead. I decided that instead of reinventing a mod that's already good, I'd use the concepts there to make a new mod instead, which I am planning, but want to get some new stuff onto Botania and Quark before I move onto that.**
 * **And that's it for my important note. I'm back to Botania, and I hope you carry on enjoying it.**
 
@@ -3674,7 +3674,7 @@ in the Minecraft 1.8-1.10 era.
 
 {% include changelog_header.html version="r1.8 245" %}
 
-* Added a new fancy skybox effect to Garden of Glass. <a href="https://imgur.com/a/0ecOV">Here's an album.</a> It looks cooler ingame. (there are config options to disable it and enable it in normal worlds as well, if you want)
+* Added a new fancy skybox effect to Garden of Glass. [Here's an album.](https://imgur.com/a/0ecOV) It looks cooler ingame. (there are config options to disable it and enable it in normal worlds as well, if you want)
 * Added configs to move the Flugel Tiara's flight bar as apparently I'm not the only person that thought it was cute to put a bar there.
 * Changed the period in which the mod enabled Christmas features to be in sync with Winter's Veil in World of Warcraft. *Priorities!*
 * Fixed a bunch of stuff in the mod not rendering properly (going all gray) if some mod disables GL_LIGHTING (See: NEI, Neat).
@@ -4073,7 +4073,7 @@ in the Minecraft 1.8-1.10 era.
 * Overgrowth Seeds no longer speed up passive flowers, instead they prevent their decay.
 * Potion ID configs now work properly with DragonAPI's potion array extending.
 * Redstone Mana Spreaders can now pull mana from their target pools.
-* Removed passive wither config and locked it to 72000 ticks (3 ingame days, 1 IRL hour). Also added an entry to the Generating Flora section to explain it better. You can read about this change and why I made it <a href="https://vazkii.net/#blog/sins-of-a-solar-empire">right here</a>.
+* Removed passive wither config and locked it to 72000 ticks (3 ingame days, 1 IRL hour). Also added an entry to the Generating Flora section to explain it better. You can read about this change and why I made it [right here](https://vazkii.net/#blog/sins-of-a-solar-empire).
 * Some Dandelifeon tweaks, the 5x5 area around it will no longer kill generation 1 cells, the output rate has been lowered a bit and the recipe for Cellular Blocks has been changed.
 * Sparks now produce less, but bigger, particles to make it less likely to reach the particle limit.
 * The Mana Pool's "water" icon is now a different icon and not the one used for water. (it still looks the same, it's just in a different file)
@@ -4171,7 +4171,7 @@ in the Minecraft 1.8-1.10 era.
 * Fixed the Slime in a Bottle not detecting slime chunks properly as it was ticking in the client where it doesn't know the world seed.
 * Petal and Rune recipe pages now animate a lot smoother.
 * Pixies (friendly and hostile) are now forced to despawn if they exist for more than 10 seconds.
-* The Head Creation page now links to the <a href="https://heads.freshcoal.com/usernames.php">player head database</a> to give you ideas on what cool stuff you can do with heads.
+* The Head Creation page now links to the [player head database](https://heads.freshcoal.com/usernames.php) to give you ideas on what cool stuff you can do with heads.
 * The high council of Elven Garde, after having received countless unintended "gifts" of unenchanted Iron Ingots, Diamonds and Ender Pearls from unskilled skim-reading botanists are now returning those back to the senders.
 * Tweaked the Elven Portal's render a bit. The lighting on it doesn't spazz out and it renders properly when you're in it now.
 
@@ -4356,7 +4356,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.7 204" %}
 
 * Added an indicator to the generating and functional flower HUDs that shows if they're properly bound or not.
-* Added the Cacophonium, a <a href="https://www.youtube.com/watch?v=PwXAcA1M_m0">trolly</a> item :3 (don't hate on the terrible icon, wiiv wasn't around :C)
+* Added the Cacophonium, a [trolly](https://www.youtube.com/watch?v=PwXAcA1M_m0) item :3 (don't hate on the terrible icon, wiiv wasn't around :C)
 * Added the Floral Obedience Stick, a way to mass bind flowers, since that's more relevant now.
 * Doubled the Pebble drop rate in Garden of Glass. (TheWhiteWolves)
 * Fixed a crash with the Force Relay.
@@ -4388,7 +4388,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.7 202" %}
 
 * Added a /botania-skyblock-spread command for server owners. It sends the target player randomly into the world and created a GoG skyblock for them.
-* Added Luminizers, new star like blocks that let you transport players and other things around. <a href="https://www.youtube.com/watch?v=jLeKuUeune0">Here's</a> a demo.
+* Added Luminizers, new star like blocks that let you transport players and other things around. [Here's](https://www.youtube.com/watch?v=jLeKuUeune0) a demo.
 * Added the Detector Luminizer for redstone output on Luminizer paths.
 * Added the Luminizer Launcher to get mobs on the Luminizer paths.
 * Fixed the Ring of Loki being broken, again. (TheWhiteWolves)
@@ -4412,7 +4412,7 @@ in the Minecraft 1.8-1.10 era.
 
 {% include changelog_header.html version="r1.7 199" %}
 
-* **Added the Garden of Glass**. A new skyblock world type with recipe tweaks and some new blocks. This requires a separate jar file to be installed. Check <a href="gardenofglass.php">the page</a> for more info.
+* **Added the Garden of Glass**. A new skyblock world type with recipe tweaks and some new blocks. This requires a separate jar file to be installed. Check [the page](gardenofglass.php) for more info.
 * Added a recipe to create snow blocks using water and the Pure Daisy.
 * Added Alchemy Recipes to switch between all types of tall grass.
 * Added the 1.9 Ender Bricks to the Decorative Ender Blocks section. Textures may not be 100% percise as they were reproduced from the low quality screenshots available.
@@ -4503,7 +4503,7 @@ in the Minecraft 1.8-1.10 era.
 * Made the Endoflame produce a bit less.
 * Mana Petals are now cheaper, making starting off a lot easier.
 * The Force Relay now gives a ding sound when properly bound. (TheWhiteWolves)
-* (Technical) Introduced a <a href="https://github.com/Vazkii/Botania/commit/cb113050a7aaa8ac88e3326cf59859b33cab9e2d">Pinging system</a> between Mana Spreaders and Mana Bursts. Addon authors must adapt.
+* (Technical) Introduced a [Pinging system](https://github.com/Vazkii/Botania/commit/cb113050a7aaa8ac88e3326cf59859b33cab9e2d) between Mana Spreaders and Mana Bursts. Addon authors must adapt.
 * [API] Added IIdentifiable and IPingable.
 * [API] IManaSpreader now extends IPingable for the new Pinging system. Addon authors must adapt.
 * [API] Modified IManaBurst with new methods for the Pinging system. Addon authors must adapt.
@@ -4568,7 +4568,7 @@ in the Minecraft 1.8-1.10 era.
 * Fixed botania armorsets supposedly protecting against unblockable damage. (mDiyo)
 * Fixed Excaliber's beams only homing on players.
 * Fixed more NEI crashes. I think, I can't reproduce them.
-* Right clicking a Petal Apothecary or Runic Altar with an empty hand after a recipe is completed places the components of that recipe from your inventory into the block again for another crafting. <a href="https://www.youtube.com/watch?v=GjjZGyYcH9E">And there was much rejoicing</a>, again.
+* Right clicking a Petal Apothecary or Runic Altar with an empty hand after a recipe is completed places the components of that recipe from your inventory into the block again for another crafting. [And there was much rejoicing](https://www.youtube.com/watch?v=GjjZGyYcH9E), again.
 * Terrasteel tools now take more mana to maintain than Manasteel ones.
 * The Horn of the Canopy now has a better way to check for leaves. It might even pick up Thaumcraft leaves now, who knows. It also reaches a bit higher.
 * The Red Stringed Relay can now connect to double tall flowers.
@@ -4910,7 +4910,7 @@ in the Minecraft 1.8-1.10 era.
 
 * Added a Minecart with Mana Pool and a Mana Pump to go along with it.
 * Added Phantom Ink. Can be crafted with a piece of botania armor to hide the armor model in the player.
-* Added the Flower Pouch. You guessed it, it stores flowers. <a href="https://www.youtube.com/watch?v=GjjZGyYcH9E">And there was much rejoicing.</a>
+* Added the Flower Pouch. You guessed it, it stores flowers. [And there was much rejoicing.](https://www.youtube.com/watch?v=GjjZGyYcH9E)
 * Added the Horn of the Covering. An alternate version of the Horn of the Wild that clears snow.
 * Fixed a crash when crafting with a bauble that has a cosmetic override.
 * Fixed brew vials and flasks being repairable.
@@ -5063,7 +5063,7 @@ in the Minecraft 1.8-1.10 era.
 * *Huh, 1.4 was shortlived.*
 * **Added a new "Ender Artefacts" category to the Lexica Botania**, it contains new and old ender related things. Some entries from other categories have been moved over to this.
 * **Added a Tutorial Mode** which guides you through the pages you should read, in order, to get a good understanding of the mod's basics.
-* **Added Corporea, a new mechanic that allows for item verbal requesting.** <a href="https://www.youtube.com/watch?v=1HcUMVJKoX8">Here</a>'s a video of it in action while it was still in development, it looks a bit cooler now.*This is by no means meant to be an AE replacement or competitor, just throwing it out there.*
+* **Added Corporea, a new mechanic that allows for item verbal requesting.** [Here](https://www.youtube.com/watch?v=1HcUMVJKoX8)'s a video of it in action while it was still in development, it looks a bit cooler now.*This is by no means meant to be an AE replacement or competitor, just throwing it out there.*
 * Added a Bottle of Ender Air, used as a crafting material and as means to create renewable End Stone.
 * Added End Stone Bricks and Chiseled End Stone Bricks. *It's totally a good addition, stop judging me!*
 * Added more alternate textures in the Unity texture pack style by Tobbvald to join those by Futureazoo, you can enable them in the config file.
@@ -5112,7 +5112,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.4 156" %}
 
 * Fixed a crash when the Elementium Axe killed a player and dropped a skull.
-* Fixed the game completely freezing on the mojang splash screen on some AMD graphics cards. Technical details can be found <a href="https://github.com/Vazkii/Botania/commit/f8b0f2155d97944fcec7ab315864bb5f86ed9f54">here</a>.
+* Fixed the game completely freezing on the mojang splash screen on some AMD graphics cards. Technical details can be found [here](https://github.com/Vazkii/Botania/commit/f8b0f2155d97944fcec7ab315864bb5f86ed9f54).
 * Fixed the Mana Enchanter adding enchantments twice to items that already have an NBT compound for some reason.
 * Fixed the Trodden Dirt Slabs giving the wrong block when picked in creative.
 
@@ -5222,7 +5222,7 @@ in the Minecraft 1.8-1.10 era.
 
 * Added the Black Lotus, a dungeon loot consumable that can be tossed onto a Mana Pool for a boost of mana.
 * Added the Mana Prism, a new block that can change the properties of a Mana Burst on the fly.
-* Added Trodden Dirt, a new block that looks great for <a href="https://en.wikipedia.org/wiki/Desire_path">desire paths</a>. It also gives a slight speed boost. The texture and idea come from <a href="https://redd.it/2sqwu6">/u/LupusX's post on reddit</a>.
+* Added Trodden Dirt, a new block that looks great for [desire paths](https://en.wikipedia.org/wiki/Desire_path). It also gives a slight speed boost. The texture and idea come from [/u/LupusX's post on reddit](https://redd.it/2sqwu6).
 * Red String Spoofers will now also connect to mushrooms.
 * Shifted the Assembly Halo HUD down 10px so it fits on smaller resolution/render scales.
 * The Brewery and Enchanter now have the same progress pie as the Runic Altar.
@@ -5454,7 +5454,7 @@ in the Minecraft 1.8-1.10 era.
 * Fixed the Ring of Magnetization pulling items in the cilent side only when in a dedicated server.
 * Fixed tucking fypos. Again.
 * If the summoning of a Gaia Guardian fails, a chat message is now sent describing why.
-* Increased the max amount of mana a Terra Shatterer can hold up to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#MAX_VALUE">2147483647</a>. If you manage to reach this value you also get a fancy congratulatory message.
+* Increased the max amount of mana a Terra Shatterer can hold up to [2147483647](https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#MAX_VALUE). If you manage to reach this value you also get a fancy congratulatory message.
 * Lexicon Entries containing documents from Elven Garde now have a special type of paper.
 * The arena for the Gaia Guardian is now round, not square.
 * Trying to infuse an item that isn't a Diluted Mana Pool in a Diluted Mana Pool will show a yellow check with a line rather than just a green check.
@@ -5499,7 +5499,7 @@ in the Minecraft 1.8-1.10 era.
 * Changed the mana HUD texture. It now is less noisy and has points indicating the 25%, 50% and 75% marks.
 * Fixed not being able to look up petal apothecary recipes in NEI. (Tonius)
 * Manasteel, Terrasteel and Elementium tools now repair using mana in the inventory at double the cost of normal damage suppression.
-* The Gaia Guardian now has a new, much fancier, health bar. <a href="https://i.imgur.com/jHwDGVe.gif">Here's a gif</a> (endgame spoilers, I guess).
+* The Gaia Guardian now has a new, much fancier, health bar. [Here's a gif](https://i.imgur.com/jHwDGVe.gif) (endgame spoilers, I guess).
 * The Runic Altar's render now has a smoother trail rather than a bunch of cubes all with the same alpha value.
 * [API] Added IGrassHornExcempt, for blocks that extend BlockBush but shouldn't be uprooted by the Horn of the Wild. Note that ISpecialFlower implementers will be excempt by default.
 * [API] Added stuff for bosses, IBotaniaBoss, IBotaniaBossWithShader interfaces and getDefaultBossBarTexture and setBossStatus to the Internal Method Handler.
@@ -5617,7 +5617,7 @@ in the Minecraft 1.8-1.10 era.
 
 * Added an alchemy recipe to change Hardened Clay into Red Sand.
 * Fixed botania particles rendering white if the NEI spawn overlay is enabled.
-* Flower generation is now done in patches of the same color rather than fully randomly. Here's a <a href="https://i.imgur.com/CnOFssk.png">Before</a> & <a href="https://i.imgur.com/ggICjfM.png">After</a> (with flower spawn rates turned higher than by default)
+* Flower generation is now done in patches of the same color rather than fully randomly. Here's a [Before](https://i.imgur.com/CnOFssk.png) & [After](https://i.imgur.com/ggICjfM.png) (with flower spawn rates turned higher than by default)
 * Removing lenses from the Mana Blaster is now done via placing it in a crafting grid rather than shift-right click.
 * The Ring of Magnetization now only works when sneaking rather than when not sneaking.
 
@@ -5718,7 +5718,7 @@ in the Minecraft 1.8-1.10 era.
 
 {% include changelog_header.html version="r1.2 113" %}
 
-* Added a <a href="https://www.youtube.com/watch?v=rx0xyejC6fI">video guide</a> you can access from the lexica botania, courtesy of <a href="https://www.youtube.com/channel/UCBFiQsdlPYROelxYELr0usw">WTFG33ks</a>!
+* Added a [video guide](https://www.youtube.com/watch?v=rx0xyejC6fI) you can access from the lexica botania, courtesy of [WTFG33ks](https://www.youtube.com/channel/UCBFiQsdlPYROelxYELr0usw)!
 * Added Hardcore passive generation. You can now set a number in the config file in which a passive flower (daybloom, nightshade, hydroangeas) will die after that time, in ticks. This is off by default.
 * Added the Timeless Ivy, add it to a tool and it can pull mana from your inventory just as if it's made of Manasteel.
 * Changed the textures for the Brown Mystical Flower, powered Ender Overseer and Redstone Root.
@@ -5898,7 +5898,7 @@ in the Minecraft 1.8-1.10 era.
 * The Shard of Laputa is now upgradable using aditional Gaia Spirits, each one increases the radius by 1 block, up to 20 can be used.
 * The Soujourner's and Globetrotter's Sashes no longer work underwater, so you can't go at hyperspeed underwater. *Godspeed, Godspeed, Godspeed, speed us away*
 * The Tangleberrie and Jyullia now ignore bosses. *soz.*
-* Updating botania through the ingame downloader now has a link to my <a href="https://www.patreon.com/Vazkii">Patreon.</a> *Dollah dollah bills y'all.*
+* Updating botania through the ingame downloader now has a link to my [Patreon](https://www.patreon.com/Vazkii). *Dollah dollah bills y'all.*
 * [API] Added a function to get all registered lexicon entries.
 * [API] Added IExtendedPlayerController.
 * [API] Exposed IPixieSpawner from internal classes.
@@ -5950,7 +5950,7 @@ in the Minecraft 1.8-1.10 era.
 
 {% include changelog_header.html version="r1.1 91" %}
 
-* Added new building blocks: Reed Block, Thatch, Netherrack Bricks, Soul Bricks, Snow Bricks, <a href="https://www.madeireirafalsarella.com.br/arquivos/produtos/telhas/portuguesa/01-g.jpg">Roof Tiles</a> (all with stair and slab variants) and 12 types of <a href="https://en.wikipedia.org/wiki/Azulejo">Azulejos</a> for use with white Quartz.
+* Added new building blocks: Reed Block, Thatch, Netherrack Bricks, Soul Bricks, Snow Bricks, [Roof Tiles](https://www.madeireirafalsarella.com.br/arquivos/produtos/telhas/portuguesa/01-g.jpg) (all with stair and slab variants) and 12 types of [Azulejos](https://en.wikipedia.org/wiki/Azulejo) for use with white Quartz.
 * Hopperhocks will no longer pick items up right after a mana pool crafts them.
 * I was playing with TC and realized I wanted Botania armor mixed in with the Goggles of Revealing, so you can do that now.
 * Lowered the chance for the Lexica Botania to spawn in the Bonus Chest, according to almighty reddit it was too high.
@@ -6026,7 +6026,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.1 85" %}
 
 * **Botania should now work properly in a developer environment** and not complain about sand in it's eyes or something.
-* Added <a href="https://redd.it/2b3o3f">Futureazoo's Textures</a> as a config option. A <a href="https://www.curseforge.com/minecraft/texture-packs/botania-retexture">Full Resource Pack</a> with other textures is also available.
+* Added [Futureazoo's Textures](https://redd.it/2b3o3f) as a config option. A [Full Resource Pack](https://www.curseforge.com/minecraft/texture-packs/botania-retexture) with other textures is also available.
 * Added the Infrangible Platform, a counterpart to the Abstruse and Spectral Platforms only available in creative, its' collision box is similar to a regular block and it's unbreakable, it's meant for mapmakers, see.
 * Added the Ring of Far Reach (Elven Knowledge), it increases your reach by 3 blocks.
 * Changed the Terra Shatterer texture to Futureazoo's. See previous link.
@@ -6054,7 +6054,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.1 84" %}
 
 * Added a tooltip to the Mana Bottle.
-* Added the <a href="https://www.youtube.com/watch?v=8bNEIOkUuH0">Shard of Laputa</a>, endgame item, generates a floating island.
+* Added the [Shard of Laputa](https://www.youtube.com/watch?v=8bNEIOkUuH0), endgame item, generates a floating island.
 * Added the Drum of the Gathering. Kinda like the Drum of the Wild, but for animals.
 * Added the Necrodermal Virus and the Nullodermal Virus, when used on Horses they make them Skeleton or Zombie Horses and make them harder, better, faster, stronger.
 * Added the Tiny Potato, it believes in you, you can do the thing!
@@ -6216,7 +6216,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.1 70" %}
 
 * **Massively optimized the particle render code.** Botania particles will no longer kill your fps. In doing this they also render properly over water now, so that's neat. *Yo Azanor, you should do this too for nitor.*
-* Added <a href="https://twitter.com/Vazkii/status/484136285251309568">Matrix Mode</a> as a config option. This was a visual glitch I got while changing the particle code that I decided to leave in because it was funny.
+* Added [Matrix Mode](https://twitter.com/Vazkii/status/484136285251309568) as a config option. This was a visual glitch I got while changing the particle code that I decided to leave in because it was funny.
 
 ---
 
@@ -6369,7 +6369,7 @@ in the Minecraft 1.8-1.10 era.
 
 * Fixed moar tpyos (CatDany)
 * Fixed server crash.
-* Mana Spreaders can now be <a href="https://gfycat.com/EmotionalDisloyalCanary">remotely oriented</a> to a block rather than just by holding right click. There's some kinks to it, this is the best I can do.
+* Mana Spreaders can now be [remotely oriented](https://gfycat.com/EmotionalDisloyalCanary) to a block rather than just by holding right click. There's some kinks to it, this is the best I can do.
 * Reworked mana network internals to, hopefully, fix the issue of flowers disconnecting once and for all. *Crosses fingers*
 
 ---
@@ -6474,7 +6474,7 @@ in the Minecraft 1.8-1.10 era.
 
 {% include changelog_header.html version="r1.0 45" %}
 
-* Temporarilly removed the auto downloader, the reason can be found <a href="https://www.minecraftforum.net/topic/2440071-botania-an-innovative-natural-magic-themed-tech-mod-not-in-beta-any-more/page__st__420#entry31815845">here</a>.
+* Temporarilly removed the auto downloader, the reason can be found [here](https://www.minecraftforum.net/topic/2440071-botania-an-innovative-natural-magic-themed-tech-mod-not-in-beta-any-more/page__st__420#entry31815845).
 
 ---
 
