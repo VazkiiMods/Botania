@@ -66,7 +66,6 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	 * Tiny Potato was added in commit c225a134043922724e6ff141ff26f31097d4d9d0, created on July 19, 2014
 	 */
 	private static final LocalDate BIRTHDAY = LocalDate.of(2014, Month.JULY, 19);
-	private static final boolean IS_BIRTHDAY = isTinyPotatoBirthday();
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
 	private static final Map<String, String> GENDER = new HashMap<>(Map.ofEntries(
@@ -197,7 +196,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 			if (self.nextDoIt > 0) {
 				self.nextDoIt--;
 			}
-			if (IS_BIRTHDAY) {
+			if (isTinyPotatoBirthday()) {
 				self.tickBirthday();
 			}
 		}

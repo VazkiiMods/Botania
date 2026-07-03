@@ -84,6 +84,8 @@ The following changes will be released in an upcoming version of Botania for 1.2
 
 * (nothing so far)
 
+* Fix: Tiny potato now continuously checks whether it is its birthday, instead of checking once on game/server start.
+
 ---
 
 {% include changelog_header.html version="1.20.1-453" %}
