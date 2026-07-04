@@ -142,11 +142,23 @@
     "botaniamisc.monocle.frame.contains": "%s§r enthält:",
     "botaniamisc.monocle.frame.additional_stacks": "+%s weitere Stapel",
 
+
+
+    "botaniamisc.speedrun_category.gaia_i": "Besiege Gaia Wächter I",
+    "botaniamisc.speedrun_category.gaia_ii": "Besiege Gaia Wächter II",
+    "botaniamisc.speedrun_category.obtain_dreamwood": "Erhalte Traumholz",
+
+
     "botania.tater_birthday.0": "Wow, ist das für mich?",
     "botania.tater_birthday.1": "Heute ist mein Geburtstag, ich bin jetzt %d Jahre alt!",
     "botania.tater_birthday.2": "Vielen Dank! Ich hoffe das war auch für dich ein gutes Jahr.",
     "botania.tater_birthday.3": "Denk immer daran: Ich glaube an dich, und du kannst es schaffen! \u2764",
     "botania.tater_birthday.4": "Juhu!!!",
+    "botania.tater_birthday.speedrun.0": "Wow, ist das für mich?",
+    "botania.tater_birthday.speedrun.1": "Heute ist aber gar nicht mein Geburtstag.",
+    "botania.tater_birthday.speedrun.2": "Trotzdem danke! Ich hoffe du bist mit deinem Speedrun zufrieden.",
+    "botania.tater_birthday.speedrun.3": "Denk immer daran: Ich glaube an dich, und du kannst es schaffen! \u2764",
+    "botania.tater_birthday.speedrun.4": "Juhu!!!",
 
 
 
