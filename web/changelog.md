@@ -21,6 +21,10 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+---
+
+{% include changelog_header.html version="1.20.1-454" %}
+
 * Add: SpeedrunIGT integration. Currently supports four categories: defeating Gaia Guardian I/II, obtaining dreamwood,
   and celebrating Tiny Potato's birthday (also known as Blessing%). That last one can be run on any day of the year,
   but you won't get the advancement if it's not July 19th. Feel free to suggest more categories if there's something
