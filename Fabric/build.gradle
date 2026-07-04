@@ -89,7 +89,7 @@ dependencies {
 
     modCompileOnly("maven.modrinth:sodium:mc${minecraft_version}-${sodium_version}-fabric") { transitive = false }
 
-    compileOnly "mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}"
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}"
     //modLocalRuntime "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
     // for xplat data load condition generating
