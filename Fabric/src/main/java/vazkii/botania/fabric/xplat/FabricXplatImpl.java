@@ -114,6 +114,7 @@ import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
+import vazkii.botania.fabric.integration.speedrunigt.BotaniaSpeedrunIGTPlugin;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.FabricInternalEntityAttachments;
@@ -671,12 +672,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean isRunningCategory(BotaniaSpeedrunCategory category) {
-		return speedrunIGTLoaded && isRunningWhenLoaded(category);
-	}
-
-	private boolean isRunningWhenLoaded(BotaniaSpeedrunCategory category) {
-		InGameTimer timer = InGameTimer.getInstance();
-		return timer.getCategory().getID().equals(category.idWithNamespace()) && timer.isPlaying() && !timer.isCompleted();
+		return speedrunIGTLoaded && BotaniaSpeedrunIGTPlugin.isRunningBotaniaCategory(category);
 	}
 
 	@Override
