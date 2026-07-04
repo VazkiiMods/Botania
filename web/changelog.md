@@ -92,6 +92,9 @@ The following changes will be released in an upcoming version of Botania for 1.2
 * Change: Ownership of mana bursts and the Manastorm Epicenter (the thing that happens when you trigger a Manastorm
   Charge) is tracked more consistenty, and the various lenses make more "may-interact" checks against e.g. the spawn
   protection area on dedicated servers
+* Change: Mana bursts owned by a player in adventure mode can only apply the bore lens effect or trigger drums,
+  mana detectors, or manastorm charges if the player's currently held item (typically a mana blaster, but maybe also a
+  terra blade) allows such interactions
 * Fix: Tiny potato now continuously checks whether it is its birthday, instead of checking once on game/server start.
 * Fix: A single Tiny Potato can now celebrate its birthday multiple times.
 

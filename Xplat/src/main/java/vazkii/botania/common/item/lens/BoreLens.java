@@ -11,8 +11,9 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,7 +42,7 @@ import java.util.stream.Stream;
 public class BoreLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
-		Entity entity = burst.entity();
+		Projectile entity = burst.entity();
 		Level level = entity.level();
 
 		if (level.isClientSide || rtr.getType() != HitResult.Type.BLOCK) {
@@ -60,7 +61,8 @@ public class BoreLens extends Lens {
 				|| state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
 			return false;
 		}
-		if (!entity.mayInteract(level, collidePos)) {
+		if (!entity.mayInteract(level, collidePos) || entity.getOwner() instanceof ServerPlayer player
+				&& player.blockActionRestricted(level, collidePos, player.gameMode.getGameModeForPlayer())) {
 			return true;
 		}
 
