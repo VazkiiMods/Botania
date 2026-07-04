@@ -144,7 +144,8 @@ dependencies {
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
 
-    modImplementation "maven.modrinth:speedrunigt:14.2+1.20.1"
+    modCompileOnly "maven.modrinth:speedrunigt:14.2+1.20.1"
+    // modRuntimeOnly "maven.modrinth:speedrunigt:14.2+1.20.1"
 }
 
 compileJava {
