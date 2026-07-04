@@ -481,9 +481,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		var pickaxe = Set.of(
 				BotaniaBlocks.ALCHEMY_CATALYST, BotaniaBlocks.CONJURATION_CATALYST, BotaniaBlocks.MANASTEEL_BLOCK,
 				BotaniaBlocks.ELEMENTIUM_BLOCK, BotaniaBlocks.TERRASTEEL_BLOCK, BotaniaBlocks.MANA_DIAMOND_BLOCK,
-				BotaniaBlocks.DRAGONSTONE_BLOCK, BotaniaBlocks.MANAGLASS, BotaniaBlocks.ALFGLASS,
-				BotaniaBlocks.BIFROST, BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.ALFGLASS_PANE,
-				BotaniaBlocks.BIFROST_PANE, BotaniaBlocks.RUNIC_ALTAR, BotaniaBlocks.BOTANICAL_BREWERY,
+				BotaniaBlocks.DRAGONSTONE_BLOCK, BotaniaBlocks.RUNIC_ALTAR, BotaniaBlocks.BOTANICAL_BREWERY,
 				BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE, BotaniaBlocks.MANA_SPLITTER, BotaniaBlocks.MANA_VOID,
 				BotaniaBlocks.MANA_DETECTOR, BotaniaBlocks.FORCE_RELAY, BotaniaBlocks.TINY_PLANET,
 				BotaniaBlocks.LIFE_IMBUER, BotaniaBlocks.MANA_FLUXFIELD, BotaniaBlocks.MANA_PRISM,

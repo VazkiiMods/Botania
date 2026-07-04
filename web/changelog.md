@@ -71,6 +71,8 @@ Here's a general overview of what you can expect to change in terms of gameplay:
   * Mobs spawned by the Guardian of Gaia no longer in-fight and will focus on things within the arena
 * Change: Rosa Arcana is now focused on consuming only XP orbs; it extracts them from players and enchanted items, and even attracts them (players near the flower cannot pickup XP orbs anymore)
 * Change: Terra Truncator can cut down huge mushrooms and nether fungi, and properly breaks larger tree crowns (e.g. of large jungle trees)
+* Change: Managlass, Alfglass, and Bifrost blocks/panes are no longer faster to mine with any pickaxe
+  (you need a vitreous pickaxe for fast breaking now, but you can still obtain these blocks without any tools)
 * Remove: Overgrowth Seed and Enchanted Soil
 * Remove: Crafting recipes for recombining slabs into full blocks
 * API: Runic Altar recipes define catalyst items separately (these are returned unchanged when crafting is complete)

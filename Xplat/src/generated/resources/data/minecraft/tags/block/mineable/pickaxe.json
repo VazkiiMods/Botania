@@ -1,8 +1,6 @@
 {
   "values": [
     "botania:alchemy_catalyst",
-    "botania:alfglass",
-    "botania:alfglass_pane",
     "botania:azulejo_0",
     "botania:azulejo_1",
     "botania:azulejo_10",
@@ -19,8 +17,6 @@
     "botania:azulejo_7",
     "botania:azulejo_8",
     "botania:azulejo_9",
-    "botania:bifrost",
-    "botania:bifrost_pane",
     "botania:black_creative_mana_pool",
     "botania:black_diluted_mana_pool",
     "botania:black_fabulous_mana_pool",
@@ -217,8 +213,6 @@
     "botania:mana_quartz_stairs",
     "botania:mana_splitter",
     "botania:mana_void",
-    "botania:managlass",
-    "botania:managlass_pane",
     "botania:manasteel_block",
     "botania:mossy_livingrock_brick_slab",
     "botania:mossy_livingrock_brick_stairs",
