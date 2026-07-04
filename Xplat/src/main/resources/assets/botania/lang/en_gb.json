@@ -2974,7 +2974,7 @@
 
 
 
-  "botania.page.spectrolus0": "The $(item)Spectrolus$(0) is a flower that's particularly fond of the various hues of $(item)Wool$(0). It'll consume any and all $(item)Wool$(0) blocks dropped nearby, converting them to $(thing)Mana$(0).$(p)However, it's picky as to what colours it wants. Starting from $(item)White$(0), after it eats one piece of $(item)Wool$(0), it'll rotate to the next colour in the spectrum.",
+  "botania.page.spectrolus0": "The $(item)Spectrolus$(0) is a flower that's particularly fond of the various hues of $(item)Wool$(0). It'll consume any and all $(item)Wool$(0) blocks dropped nearby, converting them to $(thing)Mana$(0).$(p)However, it's picky as to what colours it wants. After it eats one piece of $(item)Wool$(0), it'll rotate to the next colour in the spectrum.",
   "botania.page.spectrolus1": "While it'll consume all $(item)Wool$(0) around it, it'll only create any mana if it gets the colour it wants-- so haphazardly tossing $(item)Wool$(0) at it is wasteful at best.$(p)The colour craves at any given moment can be seen by hovering over the flower with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l).",
 
 

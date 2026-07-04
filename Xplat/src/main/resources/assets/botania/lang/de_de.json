@@ -2974,8 +2974,8 @@
 
   "botania.entry.spectrolus": "Spektrole",
   "botania.tagline.spectrolus": "Mana aus Wolle",
-  "botania.page.spectrolus0": "Die $(item)Spektrole$(0) ist ein Blume, der besonders die vielen Farben von $(item)Wolle$(0) zusagen. Sie verzehrt jegliche $(item)Woll$(0)blöcke, die in ihrer Nähe fallengelassen werden, und konvertiert sie zu $(thing)Mana$(0).$(p)Sie ist jedoch wählerisch in Bezug auf die Farben. Beginnend mit $(item)weiß$(0) rotiert sie jeweils zur nächsten Farbe des Spektrums nachdem sie ein Stück $(item)Wolle$(0) gegessen hat.",
-  "botania.page.spectrolus1": "Auch wenn sie alle $(item)Wolle$(0) um sich herum verschlingt, erzeugt sie nur dann Mana, wenn die die Farbe bekommt, die siew haben möchte. Ihr willkürlich $(item)Wolle$(0) zuzuwerfen ist bestenfalls verschwenderisch.$(p)Die Farbe, nach der sie sich zu einem Zeitpunkt sehnt, kann man sehen wenn man mit dem $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) auf sie zeigt.",
+  "botania.page.spectrolus0": "Die $(item)Spektrole$(0) ist ein Blume, der besonders die vielen Farben von $(item)Wolle$(0) zusagen. Sie verzehrt jegliche $(item)Woll$(0)blöcke, die in ihrer Nähe fallengelassen werden, und konvertiert sie zu $(thing)Mana$(0).$(p)Sie ist jedoch wählerisch in Bezug auf die Farben. Sie rotiert jeweils zur nächsten Farbe des Spektrums nachdem sie ein Stück $(item)Wolle$(0) gegessen hat.",
+  "botania.page.spectrolus1": "Auch wenn sie alle $(item)Wolle$(0) um sich herum verschlingt, erzeugt sie nur dann Mana, wenn sie die Farbe bekommt, die sie haben möchte. Ihr willkürlich $(item)Wolle$(0) zuzuwerfen ist bestenfalls verschwenderisch.$(p)Die Farbe, nach der sie sich zu einem Zeitpunkt sehnt, kann man sehen wenn man mit dem $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) auf sie zeigt.",
   "botania.page.spectrolus1.5": "Die Blume ist bekannt dafür, Wolle zu verzehren, aber du fragst dich, was wohl passiert, wenn sie Wolle direkt \"von der Quelle\" bekommt?...",
 
 
