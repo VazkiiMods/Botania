@@ -85,6 +85,10 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 {% include changelog_header.html version="Upcoming" %}
 The following changes will be released in an upcoming version of Botania for 1.20.1:
 
+---
+
+{% include changelog_header.html version="1.20.1-454" %}
+
 * Add: SpeedrunIGT integration. Currently supports four categories: defeating Gaia Guardian I/II, obtaining dreamwood,
   and celebrating Tiny Potato's birthday (also known as Blessing%). That last one can be run on any day of the year,
   but you won't get the advancement if it's not July 19th. Feel free to suggest more categories if there's something
