@@ -347,6 +347,15 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 					.build());
 
 		}
+
+		// Lapis block turns into enchanter when using a wand
+		registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.leftInput(EmiStack.of(Blocks.LAPIS_BLOCK))
+				.rightInput(EmiIngredient.of(List.of(EmiStack.of(BotaniaItems.WAND_OF_THE_FOREST),
+						EmiStack.of(BotaniaItems.WAND_OF_THE_ELVEN_FOREST))), true)
+				.output(EmiStack.of(BotaniaBlocks.MANA_ENCHANTER))
+				.id(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.MANA_ENCHANTER).withPrefix("/world/wandable/"))
+				.build());
 	}
 
 	public static int rotateXAround(int x, int y, int cx, int cy, double degrees) {
