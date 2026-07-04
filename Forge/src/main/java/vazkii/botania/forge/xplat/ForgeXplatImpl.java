@@ -672,5 +672,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public void completeSpeedrunTimer() {}
+	public void completeSpeedrunTimer() {
+		throw new IllegalStateException("Attempted to complete a speedruntimer when speedrunIGT is not installed.");
+	}
 }
