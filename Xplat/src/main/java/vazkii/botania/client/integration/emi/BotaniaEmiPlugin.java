@@ -228,6 +228,34 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 			registry.addRecipe(new MarimorphosisEmiRecipe(recipe, flower));
 		}
 
+		// pasture seed usage
+		EmiIngredient dirtBlock = EmiIngredient.of(BotaniaTags.Blocks.PASTURE_SEED_REPLACEABLE);
+		Map.of(
+				BotaniaItems.grassSeeds, Blocks.GRASS_BLOCK,
+				BotaniaItems.mycelSeeds, Blocks.MYCELIUM,
+				BotaniaItems.podzolSeeds, Blocks.PODZOL,
+				BotaniaItems.drySeeds, BotaniaBlocks.dryGrass,
+				BotaniaItems.goldenSeeds, BotaniaBlocks.goldenGrass,
+				BotaniaItems.vividSeeds, BotaniaBlocks.vividGrass,
+				BotaniaItems.scorchedSeeds, BotaniaBlocks.scorchedGrass,
+				BotaniaItems.infusedSeeds, BotaniaBlocks.infusedGrass,
+				BotaniaItems.mutatedSeeds, BotaniaBlocks.mutatedGrass
+		).forEach((item, grassBlock) -> registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.id(BuiltInRegistries.ITEM.getKey(item).withPrefix("/world/grass_conversion/"))
+				.leftInput(dirtBlock)
+				.rightInput(EmiIngredient.of(Ingredient.of(item)), false)
+				.output(EmiStack.of(grassBlock))
+				.supportsRecipeTree(false)
+				.build()));
+
+		// Overgrowth seed turns grass, specifically, into enchanted soil
+		registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.leftInput(EmiStack.of(Blocks.GRASS_BLOCK))
+				.rightInput(EmiStack.of(BotaniaItems.overgrowthSeed), false)
+				.output(EmiStack.of(BotaniaBlocks.enchantedSoil))
+				.id(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.enchantedSoil).withPrefix("/world/grass_conversion/"))
+				.build());
+
 		// rods
 		Map.of(
 				BotaniaItems.dirtRod, EmiStack.of(Blocks.DIRT),
@@ -268,6 +296,15 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 					.id(recipe.getId().withPrefix("/world/molten_core_rod/"))
 					.build());
 		}
+
+		// Lapis block turns into enchanter when using a wand
+		registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.leftInput(EmiStack.of(Blocks.LAPIS_BLOCK))
+				.rightInput(EmiIngredient.of(List.of(EmiStack.of(BotaniaItems.twigWand),
+						EmiStack.of(BotaniaItems.dreamwoodWand))), true)
+				.output(EmiStack.of(BotaniaBlocks.enchanter))
+				.id(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.enchanter).withPrefix("/world/wandable/"))
+				.build());
 	}
 
 	public static int rotateXAround(int x, int y, int cx, int cy, double degrees) {
