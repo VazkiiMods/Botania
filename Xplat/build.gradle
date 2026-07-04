@@ -17,22 +17,22 @@ neoForge {
 }
 
 dependencies {
-    compileOnly group: 'net.fabricmc', name: 'sponge-mixin', version: '0.15.2+mixin.0.8.7'
+    compileOnly "net.fabricmc:sponge-mixin:0.15.2+mixin.0.8.7"
     // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
-    compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.4.1'
-    annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.4.1'
+    compileOnly "io.github.llamalad7:mixinextras-common:0.4.1"
+    annotationProcessor "io.github.llamalad7:mixinextras-common:0.4.1"
 
-    compileOnly group: 'vazkii.patchouli', name: 'Patchouli-xplat', version: patchouli_version
+    compileOnly "vazkii.patchouli:Patchouli-xplat:$patchouli_version"
 
-    compileOnly group: 'com.unascribed', name: 'ears-api', version: ears_version
+    compileOnly "com.unascribed:ears-api:$ears_version"
 
-    compileOnly group: 'mezz.jei', name:"jei-${minecraft_version}-common-api", version: jei_version
+    compileOnly "mezz.jei:jei-$minecraft_version-common-api:$jei_version"
     compileOnly "dev.emi:emi-xplat-mojmap:${emi_version}:api"
 
     // Looks weird, but actually seems to work (the -common variant would be in Intermediary mapping)
     compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 
-    compileOnly group: 'org.jetbrains', name: 'annotations', version: '26.0.2'
+    compileOnly "org.jetbrains:annotations:26.0.2"
 }
 
 tasks.register('normalizeLanguageFiles', JavaExec) {

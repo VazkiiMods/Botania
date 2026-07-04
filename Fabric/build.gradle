@@ -81,21 +81,16 @@ dependencies {
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
 
-    // Don't include base and entity as Trinkets includes it already
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cca_version}"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cca_version}"
+    modImplementation("dev.emi:trinkets:${trinkets_version}")
 
-    //compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
-
-    modImplementation("dev.emi:trinkets:${trinkets_version}") { transitive = false }
-
-    modCompileOnly("teamreborn:energy:${team_reborn_energy_version}") { transitive = false }
+    modCompileOnly("teamreborn:energy:${team_reborn_energy_version}")
 
     modCompileOnly "com.unascribed:ears-api:${ears_version}"
 
     modCompileOnly("maven.modrinth:sodium:mc${minecraft_version}-${sodium_version}-fabric") { transitive = false }
 
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}"
+    //modLocalRuntime "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
     // for xplat data load condition generating
     modLocalRuntime files('lib/forged-conditions-21.1.0.jar')
@@ -113,5 +108,6 @@ dependencies {
 
     testImplementation "net.fabricmc:fabric-loader-junit:${fabric_loader_version}"
 
-    modImplementation "maven.modrinth:speedrunigt:14.2+1.21.1"
+    modCompileOnly "maven.modrinth:speedrunigt:${speedrunigt_version}+${minecraft_version}"
+    //modLocalRuntime "maven.modrinth:speedrunigt:${speedrunigt_version}+${minecraft_version}"
 }
