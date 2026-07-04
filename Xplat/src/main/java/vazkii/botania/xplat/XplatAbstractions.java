@@ -216,6 +216,11 @@ public interface XplatAbstractions {
 
 	// SpeedrunIGT integration
 	boolean isRunningCategory(BotaniaSpeedrunCategory category);
+
+	/**
+	 * This method should only be used after checking that the player is running a given category.
+	 * It throws if speedrunIGT is not loaded.
+	 */
 	void completeSpeedrunTimer();
 
 	/**
