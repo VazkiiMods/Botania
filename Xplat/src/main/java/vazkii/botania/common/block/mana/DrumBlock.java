@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Mob;
@@ -186,6 +187,9 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 			}
 			if (world.isClientSide) {
 				world.addParticle(ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
+				return;
+			} else if (burst.entity().getOwner() instanceof ServerPlayer player
+					&& player.blockActionRestricted(world, pos, player.gameMode.getGameModeForPlayer())) {
 				return;
 			}
 			switch (variant) {

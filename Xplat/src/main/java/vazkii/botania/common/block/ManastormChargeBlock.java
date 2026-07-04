@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,7 +40,10 @@ public class ManastormChargeBlock extends BotaniaBlock {
 		@Override
 		public void onBurstCollision(ManaBurst burst) {
 			Projectile entity = burst.entity();
-			if (!burst.isFake() && !world.isClientSide && world.destroyBlock(pos, false, entity)) {
+			if (!burst.isFake() && !world.isClientSide()
+					&& (!(entity.getOwner() instanceof ServerPlayer player)
+							|| !player.blockActionRestricted(world, pos, player.gameMode.getGameModeForPlayer()))
+					&& world.destroyBlock(pos, false, entity)) {
 				ManaStormEntity storm = BotaniaEntities.MANA_STORM.create(world);
 				if (storm == null) {
 					return;
