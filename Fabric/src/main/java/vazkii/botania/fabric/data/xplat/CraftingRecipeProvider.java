@@ -2114,55 +2114,6 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		nuggetPacking(recipeOutput, BotaniaItems.MANASTEEL_NUGGET, BotaniaItems.MANASTEEL_INGOT);
 		nuggetPacking(recipeOutput, BotaniaItems.TERRASTEEL_NUGGET, BotaniaItems.TERRASTEEL_INGOT);
 		nuggetPacking(recipeOutput, BotaniaItems.ELEMENTIUM_NUGGET, BotaniaItems.ELEMENTIUM_INGOT);
-
-		recombineSlab(recipeOutput, BotaniaBlocks.LIVINGROCK, BotaniaBlocks.LIVINGROCK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.POLISHED_LIVINGROCK, BotaniaBlocks.POLISHED_LIVINGROCK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.LIVINGROCK_BRICKS, BotaniaBlocks.LIVINGROCK_BRICK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.LIVINGWOOD, BotaniaBlocks.LIVINGWOOD_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.LIVINGWOOD_PLANKS, BotaniaBlocks.LIVINGWOOD_PLANK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.DREAMWOOD, BotaniaBlocks.DREAMWOOD_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.DREAMWOOD_PLANKS, BotaniaBlocks.DREAMWOOD_PLANK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.SHIMMERROCK, BotaniaBlocks.SHIMMERROCK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.SHIMMERWOOD_PLANKS, BotaniaBlocks.SHIMMERWOOD_PLANK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.FUCHSITE, BotaniaBlocks.FUCHSITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.FUCHSITE_BRICKS, BotaniaBlocks.FUCHSITE_BRICK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.COBBLED_FUCHSITE, BotaniaBlocks.COBBLED_FUCHSITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.TALC, BotaniaBlocks.TALC_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.TALC_BRICKS, BotaniaBlocks.TALC_BRICK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.COBBLED_TALC, BotaniaBlocks.COBBLED_TALC_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.GNEISS, BotaniaBlocks.GNEISS_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.GNEISS_BRICKS, BotaniaBlocks.GNEISS_BRICK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.COBBLED_GNEISS, BotaniaBlocks.COBBLED_GNEISS_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.MYCELITE, BotaniaBlocks.MYCELITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.MYCELITE_BRICKS, BotaniaBlocks.MYCELITE_BRICK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.COBBLED_MYCELITE, BotaniaBlocks.COBBLED_MYCELITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.CATACLASITE, BotaniaBlocks.CATACLASITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.CATACLASITE_BRICKS, BotaniaBlocks.CATACLASITE_BRICK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.COBBLED_CATACLASITE, BotaniaBlocks.COBBLED_CATACLASITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.SOLITE, BotaniaBlocks.SOLITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.SOLITE_BRICKS, BotaniaBlocks.SOLITE_BRICK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.COBBLED_SOLITE, BotaniaBlocks.COBBLED_SOLITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.LUNITE, BotaniaBlocks.LUNITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.LUNITE_BRICKS, BotaniaBlocks.LUNITE_BRICK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.COBBLED_LUNITE, BotaniaBlocks.COBBLED_LUNITE_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.ROSY_TALC, BotaniaBlocks.ROSY_TALC_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.ROSY_TALC_BRICKS, BotaniaBlocks.ROSY_TALC_BRICK_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.COBBLED_ROSY_TALC, BotaniaBlocks.COBBLED_ROSY_TALC_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.WHITE_PORTUGUESE_PAVEMENT, BotaniaBlocks.WHITE_PORTUGUESE_PAVEMENT_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.BLACK_PORTUGUESE_PAVEMENT, BotaniaBlocks.BLACK_PORTUGUESE_PAVEMENT_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.BLUE_PORTUGUESE_PAVEMENT, BotaniaBlocks.BLUE_PORTUGUESE_PAVEMENT_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.YELLOW_PORTUGUESE_PAVEMENT, BotaniaBlocks.YELLOW_PORTUGUESE_PAVEMENT_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.RED_PORTUGUESE_PAVEMENT, BotaniaBlocks.RED_PORTUGUESE_PAVEMENT_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.GREEN_PORTUGUESE_PAVEMENT, BotaniaBlocks.GREEN_PORTUGUESE_PAVEMENT_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.SMOKEY_QUARTZ_BLOCK, BotaniaBlocks.SMOKEY_QUARTZ_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.MANA_QUARTZ_BLOCK, BotaniaBlocks.MANA_QUARTZ_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.BLAZE_QUARTZ_BLOCK, BotaniaBlocks.BLAZE_QUARTZ_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.LAVENDER_QUARTZ_BLOCK, BotaniaBlocks.LAVENDER_QUARTZ_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.RED_QUARTZ_BLOCK, BotaniaBlocks.RED_QUARTZ_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.ELVEN_QUARTZ_BLOCK, BotaniaBlocks.ELVEN_QUARTZ_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.SUNNY_QUART_BLOCK, BotaniaBlocks.SUNNY_QUARTZ_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.CORPOREA_BLOCK, BotaniaBlocks.CORPOREA_SLAB);
-		recombineSlab(recipeOutput, BotaniaBlocks.CORPOREA_BRICKS, BotaniaBlocks.CORPOREA_BRICK_SLAB);
 	}
 
 	private void registerDecor(RecipeOutput recipeOutput) {
@@ -2479,16 +2430,6 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				RecipeCategory.MISC, packed,
 				"botania:" + getItemName(packed) + "_from_nuggets",
 				"botania:" + getItemName(packed));
-	}
-
-	protected void recombineSlab(RecipeOutput recipeOutput, ItemLike fullBlock, ItemLike slab) {
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, fullBlock)
-				.define('Q', slab)
-				.pattern("QQ")
-				.unlockedBy("has_item", conditionsFromItem(slab))
-				.save(recipeOutput, botaniaRL(
-						"slab_recombine/" + BuiltInRegistries.ITEM.getKey(fullBlock.asItem()).getPath())
-				);
 	}
 
 	protected ShapedRecipeBuilder petalApothecary(ItemLike block, ItemLike apothecary) {

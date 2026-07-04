@@ -72,6 +72,7 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 * Change: Rosa Arcana is now focused on consuming only XP orbs; it extracts them from players and enchanted items, and even attracts them (players near the flower cannot pickup XP orbs anymore)
 * Change: Terra Truncator can cut down huge mushrooms and nether fungi, and properly breaks larger tree crowns (e.g. of large jungle trees)
 * Remove: Overgrowth Seed and Enchanted Soil
+* Remove: Crafting recipes for recombining slabs into full blocks
 * API: Runic Altar recipes define catalyst items separately (these are returned unchanged when crafting is complete)
 * API: Petal Apothecary, Runic Altar, and Botanical Brewery return craft remainder items
 * API: Many block attributes that were block entity NBT data before have moved to block state properties
