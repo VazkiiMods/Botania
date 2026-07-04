@@ -63,3 +63,9 @@ modId = "openpartiesandclaims"
 type = "discouraged"
 versionRange = "*"
 reason = "Default claiming behavior breaks basic Botania automation (e.g. mana spreaders)"
+
+[[dependencies.botania]]
+modId = "productivebees"
+type = "incompatible"
+versionRange = "[1.21.1-13.8.0,1.21.1-13.13.4)"
+reason = "These versions cause a crash in Botania due to a ClassCastException. This is fixed in later versions of Productive Bees."
