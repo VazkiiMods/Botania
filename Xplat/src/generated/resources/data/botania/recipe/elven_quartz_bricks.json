@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:quartz_bricks",
+  "key": {
+    "Q": {
+      "item": "botania:elven_quartz_block"
+    }
+  },
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "result": {
+    "count": 4,
+    "id": "botania:elven_quartz_bricks"
+  }
+}

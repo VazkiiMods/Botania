@@ -2448,6 +2448,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		Block chiseled = getBlockOrThrow(
 				botaniaRL(LibBlockNames.CHISELED_PREFIX + variant + LibBlockNames.BLOCK_SUFFIX));
 		Block pillar = getBlockOrThrow(botaniaRL(variant + LibBlockNames.PILLAR_SUFFIX));
+		Block bricks = getBlockOrThrow(botaniaRL(variant + LibBlockNames.BRICKS_SUFFIX));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, base)
 				.define('Q', baseItem)
@@ -2461,8 +2462,16 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		pillar(pillar, base).group("botania:quartz_pillar").save(recipeOutput);
 		chiseled(chiseled, slab).group("botania:quartz_chiseled")
 				.unlockedBy("has_base_item", conditionsFromItem(base)).save(recipeOutput);
+		bricks(bricks, base).group("botania:quartz_bricks").save(recipeOutput);
 
-		// TODO: smooth block to stairs/slabs recipes
+		Block smooth = getBlockOrThrow(
+				botaniaRL(LibBlockNames.SMOOTH_PREFIX + variant + LibBlockNames.BLOCK_SUFFIX));
+		Block smoothSlab = getBlockOrThrow(
+				botaniaRL(LibBlockNames.SMOOTH_PREFIX + variant + LibBlockNames.SLAB_SUFFIX));
+		Block smoothStairs = getBlockOrThrow(
+				botaniaRL(LibBlockNames.SMOOTH_PREFIX + variant + LibBlockNames.STAIRS_SUFFIX));
+		stairs(smoothStairs, smooth).group("botania:smooth_quartz_stairs").save(recipeOutput);
+		slabShape(smoothSlab, smooth).group("botania:smooth_quartz_slab").save(recipeOutput);
 	}
 
 	protected void registerForWood(RecipeOutput recipeOutput, String variant) {
@@ -2664,14 +2673,14 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		Block wall = getBlockOrThrow(botaniaRL(variant + LibBlockNames.WALL_SUFFIX));
 		Block button = getBlockOrThrow(botaniaRL(variant + LibBlockNames.BUTTON_SUFFIX));
 		Block pressurePlate = getBlockOrThrow(botaniaRL(variant + LibBlockNames.PRESSURE_PLATE_SUFFIX));
-		Block brick = getBlockOrThrow(botaniaRL(variant + LibBlockNames.BRICKS_SUFFIX));
+		Block bricks = getBlockOrThrow(botaniaRL(variant + LibBlockNames.BRICKS_SUFFIX));
 		Block brickSlab = getBlockOrThrow(
 				botaniaRL(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX));
 		Block brickStair = getBlockOrThrow(
 				botaniaRL(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIRS_SUFFIX));
 		Block brickWall = getBlockOrThrow(
 				botaniaRL(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.WALL_SUFFIX));
-		Block chiseledBrick = getBlockOrThrow(
+		Block chiseledBricks = getBlockOrThrow(
 				botaniaRL(LibBlockNames.CHISELED_PREFIX + variant + LibBlockNames.BRICKS_SUFFIX));
 		Block cobble = getBlockOrThrow(botaniaRL(LibBlockNames.COBBLED_PREFIX + variant));
 		Block cobbleSlab = getBlockOrThrow(
@@ -2687,18 +2696,18 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		button(button, base).group("botania:metamorphic_stone_button").save(recipeOutput);
 		pressurePlate(pressurePlate, base).group("botania:metamorphic_stone_pressure_plate").save(recipeOutput);
 
-		brick(brick, base).group("botania:metamorphic_brick").save(recipeOutput);
-		slabShape(brickSlab, brick).group("botania:metamorphic_brick_slab").save(recipeOutput);
-		stairs(brickStair, brick).group("botania:metamorphic_brick_stairs").save(recipeOutput);
-		wallShape(brickWall, brick, 6).group("botania:metamorphic_brick_wall").save(recipeOutput);
-		chiseled(chiseledBrick, brickSlab).unlockedBy("has_base_item", conditionsFromItem(brick)).save(recipeOutput);
+		bricks(bricks, base).group("botania:metamorphic_bricks").save(recipeOutput);
+		slabShape(brickSlab, bricks).group("botania:metamorphic_brick_slab").save(recipeOutput);
+		stairs(brickStair, bricks).group("botania:metamorphic_brick_stairs").save(recipeOutput);
+		wallShape(brickWall, bricks, 6).group("botania:metamorphic_brick_wall").save(recipeOutput);
+		chiseled(chiseledBricks, brickSlab).unlockedBy("has_base_item", conditionsFromItem(bricks)).save(recipeOutput);
 
 		slabShape(cobbleSlab, cobble).group("botania:metamorphic_cobble_slab").save(recipeOutput);
 		stairs(cobbleStair, cobble).group("botania:metamorphic_cobble_stairs").save(recipeOutput);
 		wallShape(cobbleWall, cobble, 6).group("botania:metamorphic_cobble_wall").save(recipeOutput);
 	}
 
-	protected ShapedRecipeBuilder brick(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder bricks(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 4)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('Q', input)

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "botania:metamorphic_brick",
+  "group": "botania:metamorphic_bricks",
   "key": {
     "Q": {
       "item": "botania:mycelite"

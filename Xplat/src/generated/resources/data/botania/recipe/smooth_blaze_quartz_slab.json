@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:smooth_quartz_slab",
+  "key": {
+    "Q": {
+      "item": "botania:smooth_blaze_quartz_block"
+    }
+  },
+  "pattern": [
+    "QQQ"
+  ],
+  "result": {
+    "count": 6,
+    "id": "botania:smooth_blaze_quartz_slab"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "botania:elven_quartz_block"
+  },
+  "result": {
+    "count": 1,
+    "id": "botania:elven_quartz_bricks"
+  }
+}

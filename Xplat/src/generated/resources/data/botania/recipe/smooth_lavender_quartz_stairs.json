@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "botania:smooth_quartz_stairs",
+  "key": {
+    "Q": {
+      "item": "botania:smooth_lavender_quartz_block"
+    }
+  },
+  "pattern": [
+    "Q  ",
+    "QQ ",
+    "QQQ"
+  ],
+  "result": {
+    "count": 4,
+    "id": "botania:smooth_lavender_quartz_stairs"
+  }
+}

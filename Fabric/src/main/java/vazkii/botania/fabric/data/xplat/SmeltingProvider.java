@@ -12,6 +12,7 @@ package vazkii.botania.fabric.data.xplat;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -22,10 +23,12 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 import static vazkii.botania.data.util.BotaniaRecipeHelper.deriveRecipeId;
 
 public class SmeltingProvider extends BotaniaRecipeProvider {
@@ -38,16 +41,23 @@ public class SmeltingProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void buildRecipes(RecipeOutput consumer) {
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_FUCHSITE, BotaniaBlocks.FUCHSITE);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_TALC, BotaniaBlocks.TALC);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_GNEISS, BotaniaBlocks.GNEISS);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_MYCELITE, BotaniaBlocks.MYCELITE);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_CATACLASITE, BotaniaBlocks.CATACLASITE);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_SOLITE, BotaniaBlocks.SOLITE);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_LUNITE, BotaniaBlocks.LUNITE);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.COBBLED_ROSY_TALC, BotaniaBlocks.ROSY_TALC);
-		makeDefaultSmeltingRecipe(consumer, BotaniaBlocks.LIVINGROCK_BRICKS, BotaniaBlocks.CRACKED_LIVINGROCK_BRICKS);
+	public void buildRecipes(RecipeOutput recipeOutput) {
+		makeDefaultSmeltingRecipe(recipeOutput, BotaniaBlocks.COBBLED_FUCHSITE, BotaniaBlocks.FUCHSITE);
+		makeDefaultSmeltingRecipe(recipeOutput, BotaniaBlocks.COBBLED_TALC, BotaniaBlocks.TALC);
+		makeDefaultSmeltingRecipe(recipeOutput, BotaniaBlocks.COBBLED_GNEISS, BotaniaBlocks.GNEISS);
+		makeDefaultSmeltingRecipe(recipeOutput, BotaniaBlocks.COBBLED_MYCELITE, BotaniaBlocks.MYCELITE);
+		makeDefaultSmeltingRecipe(recipeOutput, BotaniaBlocks.COBBLED_CATACLASITE, BotaniaBlocks.CATACLASITE);
+		makeDefaultSmeltingRecipe(recipeOutput, BotaniaBlocks.COBBLED_SOLITE, BotaniaBlocks.SOLITE);
+		makeDefaultSmeltingRecipe(recipeOutput, BotaniaBlocks.COBBLED_LUNITE, BotaniaBlocks.LUNITE);
+		makeDefaultSmeltingRecipe(recipeOutput, BotaniaBlocks.COBBLED_ROSY_TALC, BotaniaBlocks.ROSY_TALC);
+		makeDefaultSmeltingRecipe(recipeOutput, BotaniaBlocks.LIVINGROCK_BRICKS, BotaniaBlocks.CRACKED_LIVINGROCK_BRICKS);
+
+		for (String variant : LibBlockNames.QUARTZ_VARIANTS) {
+			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(variant + LibBlockNames.BLOCK_SUFFIX));
+			Block smooth = BuiltInRegistries.BLOCK.get(
+					botaniaRL(LibBlockNames.SMOOTH_PREFIX + variant + LibBlockNames.BLOCK_SUFFIX));
+			makeDefaultSmeltingRecipe(recipeOutput, base, smooth);
+		}
 	}
 
 	private static void makeDefaultSmeltingRecipe(RecipeOutput consumer, Block input, Block output) {
