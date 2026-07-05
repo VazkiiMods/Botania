@@ -9,28 +9,28 @@
 
 package vazkii.botania.fabric.mixin;
 
-import net.minecraft.world.item.crafting.CraftingInput;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RepairItemRecipe;
-import net.minecraft.world.level.Level;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import vazkii.botania.common.item.BotaniaItems;
 
 @Mixin(RepairItemRecipe.class)
 public class RepairItemRecipeFabricMixin {
-	@Inject(
-		at = @At("RETURN"),
-		method = "Lnet/minecraft/world/item/crafting/RepairItemRecipe;matches(Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/world/level/Level;)Z",
-		cancellable = true
+	@WrapOperation(
+		method = "getItemsToCombine",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/item/crafting/RepairItemRecipe;canCombine(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z"
+		)
 	)
-	private void preventSpellClothRepair(CraftingInput input, Level level, CallbackInfoReturnable<Boolean> cir) {
-		/*todo
-		if (craftingContainer.hasAnyMatching(s -> s.is(BotaniaItems.spellCloth))) {
-			cir.setReturnValue(false);
-		}
-		
-		 */
+	private boolean preventSpellClothRepair(ItemStack stack1, ItemStack stack2, Operation<Boolean> original) {
+		return !stack1.is(BotaniaItems.SPELLBINDING_CLOTH) && !stack2.is(BotaniaItems.SPELLBINDING_CLOTH)
+				&& original.call(stack1, stack2);
 	}
 }
