@@ -51,6 +51,7 @@ public class GogBlockLootSubProvider implements LootTableSubProvider {
 						))
 						.when(ExplosionCondition.survivesExplosion())
 						.when(LootItemRandomChanceCondition.randomChance(0.03125f))
+						// TODO: on NeoForge this should actually match the shears tool ability, not the item tag
 						.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_SHEAR)).invert())
 				));
 	}
