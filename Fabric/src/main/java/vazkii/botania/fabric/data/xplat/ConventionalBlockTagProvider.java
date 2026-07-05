@@ -48,7 +48,6 @@ public class ConventionalBlockTagProvider extends BlockTagProvider {
 	protected void addTags(HolderLookup.Provider provider) {
 
 		// Cobblestones
-		// TODO: switch over biome block/item IDs to match their in-game names?
 		tag(ConventionalBotaniaTags.Blocks.FUCHSITE_COBBLESTONES).add(BotaniaBlocks.COBBLED_FUCHSITE);
 		tag(ConventionalBotaniaTags.Blocks.TALC_COBBLESTONES).add(BotaniaBlocks.COBBLED_TALC);
 		tag(ConventionalBotaniaTags.Blocks.GNEISS_COBBLESTONES).add(BotaniaBlocks.COBBLED_GNEISS);
