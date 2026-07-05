@@ -1,12 +1,12 @@
 {
   "values": [
-    "#c:cobblestones/metamorphic/forest",
-    "#c:cobblestones/metamorphic/plains",
-    "#c:cobblestones/metamorphic/mountain",
-    "#c:cobblestones/metamorphic/fungal",
-    "#c:cobblestones/metamorphic/swamp",
-    "#c:cobblestones/metamorphic/desert",
-    "#c:cobblestones/metamorphic/taiga",
-    "#c:cobblestones/metamorphic/mesa"
+    "#c:cobblestones/metamorphic/fuchsite",
+    "#c:cobblestones/metamorphic/talc",
+    "#c:cobblestones/metamorphic/gneiss",
+    "#c:cobblestones/metamorphic/mycelite",
+    "#c:cobblestones/metamorphic/cataclasite",
+    "#c:cobblestones/metamorphic/solite",
+    "#c:cobblestones/metamorphic/lunite",
+    "#c:cobblestones/metamorphic/rosy_talc"
   ]
 }

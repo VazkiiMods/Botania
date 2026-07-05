@@ -250,6 +250,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "浮遊している花",
   "tag.block.botania.functional_special_flowers": "機能を持つ特別な花",
 
@@ -268,8 +269,10 @@
   "tag.block.botania.livingwood_logs": "リビングウッドの原木",
 
 
+
   "tag.block.botania.mini_flowers": "プチな花",
   "tag.block.botania.misc_special_flowers": "その他の特別な花",
+
 
   "tag.block.botania.mundane_floating_flowers": "ありふれた浮遊している花",
   "tag.block.botania.small_mystical_flowers": "神秘的な花",
@@ -282,8 +285,12 @@
 
 
 
+
   "tag.block.botania.special_floating_flowers": "特別な浮遊している花",
   "tag.block.botania.special_flowers": "特別な花",
+
+
+
 
 
 
@@ -324,6 +331,7 @@
 
 
   "tag.block.c.storage_blocks.terrasteel": "テラスチールブロック",
+
 
 
 
@@ -462,6 +470,10 @@
 
 
   "tag.item.c.storage_blocks.terrasteel": "テラスチールブロック",
+
+
+
+
 
 
 

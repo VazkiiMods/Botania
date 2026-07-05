@@ -68,14 +68,14 @@ public class OrechidProvider extends FabricRecipeProvider {
 		nether(consumer, Blocks.NETHERRACK, Blocks.NETHER_GOLD_ORE, 2613);
 		nether(consumer, Blocks.BLACKSTONE, Blocks.GILDED_BLACKSTONE, 100);
 
-		biomeStone(consumer, BotaniaBlocks.FUCHSITE, BotaniaTags.Biomes.MARIMORPHOSIS_FOREST_BONUS);
-		biomeStone(consumer, BotaniaBlocks.TALC, BotaniaTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS);
-		biomeStone(consumer, BotaniaBlocks.GNEISS, BotaniaTags.Biomes.MARIMORPHOSIS_MOUNTAIN_BONUS);
-		biomeStone(consumer, BotaniaBlocks.MYCELITE, BotaniaTags.Biomes.MARIMORPHOSIS_FUNGAL_BONUS);
-		biomeStone(consumer, BotaniaBlocks.CATACLASITE, BotaniaTags.Biomes.MARIMORPHOSIS_SWAMP_BONUS);
-		biomeStone(consumer, BotaniaBlocks.SOLITE, BotaniaTags.Biomes.MARIMORPHOSIS_DESERT_BONUS);
-		biomeStone(consumer, BotaniaBlocks.LUNITE, BotaniaTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS);
-		biomeStone(consumer, BotaniaBlocks.ROSY_TALC, BotaniaTags.Biomes.MARIMORPHOSIS_MESA_BONUS);
+		biomeStone(consumer, BotaniaBlocks.FUCHSITE, BotaniaTags.Biomes.MARIMORPHOSIS_FUCHSITE_BONUS);
+		biomeStone(consumer, BotaniaBlocks.TALC, BotaniaTags.Biomes.MARIMORPHOSIS_TALC_BONUS);
+		biomeStone(consumer, BotaniaBlocks.GNEISS, BotaniaTags.Biomes.MARIMORPHOSIS_GNEISS_BONUS);
+		biomeStone(consumer, BotaniaBlocks.MYCELITE, BotaniaTags.Biomes.MARIMORPHOSIS_MYCELITE_BONUS);
+		biomeStone(consumer, BotaniaBlocks.CATACLASITE, BotaniaTags.Biomes.MARIMORPHOSIS_CATACLASITE_BONUS);
+		biomeStone(consumer, BotaniaBlocks.SOLITE, BotaniaTags.Biomes.MARIMORPHOSIS_SOLITE_BONUS);
+		biomeStone(consumer, BotaniaBlocks.LUNITE, BotaniaTags.Biomes.MARIMORPHOSIS_LUNITE_BONUS);
+		biomeStone(consumer, BotaniaBlocks.ROSY_TALC, BotaniaTags.Biomes.MARIMORPHOSIS_ROSY_TALC_BONUS);
 	}
 
 	protected ResourceLocation orechidId(Block block) {

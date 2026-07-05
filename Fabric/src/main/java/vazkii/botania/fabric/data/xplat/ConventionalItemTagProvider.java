@@ -47,31 +47,31 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 	protected void addTags(HolderLookup.Provider provider) {
 
 		// Cobblestones
-		copy(ConventionalBotaniaTags.Blocks.METAMORPHIC_FOREST_COBBLESTONES,
-				ConventionalBotaniaTags.Items.METAMORPHIC_FOREST_COBBLESTONES);
-		copy(ConventionalBotaniaTags.Blocks.METAMORPHIC_PLAINS_COBBLESTONES,
-				ConventionalBotaniaTags.Items.METAMORPHIC_PLAINS_COBBLESTONES);
-		copy(ConventionalBotaniaTags.Blocks.METAMORPHIC_MOUNTAIN_COBBLESTONES,
-				ConventionalBotaniaTags.Items.METAMORPHIC_MOUNTAIN_COBBLESTONES);
-		copy(ConventionalBotaniaTags.Blocks.METAMORPHIC_FUNGAL_COBBLESTONES,
-				ConventionalBotaniaTags.Items.METAMORPHIC_FUNGAL_COBBLESTONES);
-		copy(ConventionalBotaniaTags.Blocks.METAMORPHIC_SWAMP_COBBLESTONES,
-				ConventionalBotaniaTags.Items.METAMORPHIC_SWAMP_COBBLESTONES);
-		copy(ConventionalBotaniaTags.Blocks.METAMORPHIC_DESERT_COBBLESTONES,
-				ConventionalBotaniaTags.Items.METAMORPHIC_DESERT_COBBLESTONES);
-		copy(ConventionalBotaniaTags.Blocks.METAMORPHIC_TAIGA_COBBLESTONES,
-				ConventionalBotaniaTags.Items.METAMORPHIC_TAIGA_COBBLESTONES);
-		copy(ConventionalBotaniaTags.Blocks.METAMORPHIC_MESA_COBBLESTONES,
-				ConventionalBotaniaTags.Items.METAMORPHIC_MESA_COBBLESTONES);
+		copy(ConventionalBotaniaTags.Blocks.FUCHSITE_COBBLESTONES,
+				ConventionalBotaniaTags.Items.FUCHSITE_COBBLESTONES);
+		copy(ConventionalBotaniaTags.Blocks.TALC_COBBLESTONES,
+				ConventionalBotaniaTags.Items.TALC_COBBLESTONES);
+		copy(ConventionalBotaniaTags.Blocks.GNEISS_COBBLESTONES,
+				ConventionalBotaniaTags.Items.GNEISS_COBBLESTONES);
+		copy(ConventionalBotaniaTags.Blocks.MYCELITE_COBBLESTONES,
+				ConventionalBotaniaTags.Items.MYCELITE_COBBLESTONES);
+		copy(ConventionalBotaniaTags.Blocks.CATACLASITE_COBBLESTONES,
+				ConventionalBotaniaTags.Items.CATACLASITE_COBBLESTONES);
+		copy(ConventionalBotaniaTags.Blocks.SOLITE_COBBLESTONES,
+				ConventionalBotaniaTags.Items.SOLITE_COBBLESTONES);
+		copy(ConventionalBotaniaTags.Blocks.LUNITE_COBBLESTONES,
+				ConventionalBotaniaTags.Items.LUNITE_COBBLESTONES);
+		copy(ConventionalBotaniaTags.Blocks.ROSY_TALC_COBBLESTONES,
+				ConventionalBotaniaTags.Items.ROSY_TALC_COBBLESTONES);
 		tag(ConventionalBotaniaTags.Items.METAMORPHIC_COBBLESTONES)
-				.addTag(ConventionalBotaniaTags.Items.METAMORPHIC_FOREST_COBBLESTONES)
-				.addTag(ConventionalBotaniaTags.Items.METAMORPHIC_PLAINS_COBBLESTONES)
-				.addTag(ConventionalBotaniaTags.Items.METAMORPHIC_MOUNTAIN_COBBLESTONES)
-				.addTag(ConventionalBotaniaTags.Items.METAMORPHIC_FUNGAL_COBBLESTONES)
-				.addTag(ConventionalBotaniaTags.Items.METAMORPHIC_SWAMP_COBBLESTONES)
-				.addTag(ConventionalBotaniaTags.Items.METAMORPHIC_DESERT_COBBLESTONES)
-				.addTag(ConventionalBotaniaTags.Items.METAMORPHIC_TAIGA_COBBLESTONES)
-				.addTag(ConventionalBotaniaTags.Items.METAMORPHIC_MESA_COBBLESTONES);
+				.addTag(ConventionalBotaniaTags.Items.FUCHSITE_COBBLESTONES)
+				.addTag(ConventionalBotaniaTags.Items.TALC_COBBLESTONES)
+				.addTag(ConventionalBotaniaTags.Items.GNEISS_COBBLESTONES)
+				.addTag(ConventionalBotaniaTags.Items.MYCELITE_COBBLESTONES)
+				.addTag(ConventionalBotaniaTags.Items.CATACLASITE_COBBLESTONES)
+				.addTag(ConventionalBotaniaTags.Items.SOLITE_COBBLESTONES)
+				.addTag(ConventionalBotaniaTags.Items.LUNITE_COBBLESTONES)
+				.addTag(ConventionalBotaniaTags.Items.ROSY_TALC_COBBLESTONES);
 		tag(ConventionalItemTags.COBBLESTONES).addTag(ConventionalBotaniaTags.Items.METAMORPHIC_COBBLESTONES);
 		copy(ConventionalBlockTags.STONES, ConventionalItemTags.STONES);
 

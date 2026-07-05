@@ -250,6 +250,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "Парящие цветы",
   "tag.block.botania.functional_special_flowers": "Функциональные особые цветы",
 
@@ -268,8 +269,10 @@
   "tag.block.botania.livingwood_logs": "Брёвна жизнедерева",
 
 
+
   "tag.block.botania.mini_flowers": "Миниатюрные цветы",
   "tag.block.botania.misc_special_flowers": "Некатегорированные особые цветы",
+
 
   "tag.block.botania.mundane_floating_flowers": "Мирские парящие цветы",
   "tag.block.botania.small_mystical_flowers": "Мистические цветы",
@@ -282,8 +285,12 @@
   "tag.block.botania.shimmering_mushrooms": "Мерцающие грибы",
 
 
+
   "tag.block.botania.special_floating_flowers": "Особые парящие цветы",
   "tag.block.botania.special_flowers": "Особые цветы",
+
+
+
 
 
 
@@ -324,6 +331,7 @@
 
 
   "tag.block.c.storage_blocks.terrasteel": "Террастальные блоки",
+
 
 
 
@@ -478,11 +486,13 @@
   "structure.minecraft.desert_pyramid": "Пустынный храм",
   "structure.minecraft.end_city": "Город Энда",
   "structure.minecraft.fortress": "Крепость Незера",
+
   "structure.minecraft.jungle_pyramid": "Храм в джунглях",
   "structure.minecraft.mansion": "Лесной особняк",
   "structure.minecraft.mineshaft_mesa": "Заброшенная шахта в месе",
   "structure.minecraft.mineshaft": "Заброшенная шахта",
   "structure.minecraft.monument": "Океанский монумент",
+
   "structure.minecraft.ocean_ruin_cold": "Руины холодного океана",
   "structure.minecraft.ocean_ruin_warm": "Руины тёплого океана",
   "structure.minecraft.pillager_outpost": "Аванпост разбойников",
@@ -496,7 +506,9 @@
   "structure.minecraft.shipwreck_beached": "Выброшенный на берег корабль",
   "structure.minecraft.shipwreck": "Кораблекрушение",
   "structure.minecraft.stronghold": "Крепость",
+
   "structure.minecraft.trail_ruins": "Дворец испытаний",
+
   "structure.minecraft.village_desert": "Пустынная деревня",
   "structure.minecraft.village_plains": "Равнинная деревня",
   "structure.minecraft.village_savanna": "Саванная деревня",

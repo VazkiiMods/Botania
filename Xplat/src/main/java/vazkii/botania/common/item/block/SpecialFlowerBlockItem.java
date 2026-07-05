@@ -33,13 +33,13 @@ public class SpecialFlowerBlockItem extends BlockItem {
 		// TODO: This should be moved to being builtin tooltip text components on the relevant items
 		if (BotaniaConfig.client() != null) {
 			if (stack.is(BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS)
-					|| stack.is(BotaniaTags.Items.GENERATING_SPECIAL_FLOATING_FLOWERS)) {
+					|| stack.is(BotaniaTags.Items.GENERATING_FLOATING_FLOWERS)) {
 				tooltip.add(Component.translatable("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 			} else if (stack.is(BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOWERS)
-					|| stack.is(BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS)) {
+					|| stack.is(BotaniaTags.Items.FUNCTIONAL_FLOATING_FLOWERS)) {
 				tooltip.add(Component.translatable("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 			} else if (stack.is(BotaniaTags.Items.MISC_SPECIAL_FLOWERS)
-					|| stack.is(BotaniaTags.Items.MISC_SPECIAL_FLOATING_FLOWERS)) {
+					|| stack.is(BotaniaTags.Items.MISC_FLOATING_FLOWERS)) {
 				tooltip.add(Component.translatable("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 			}
 

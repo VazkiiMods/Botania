@@ -1,6 +1,6 @@
 {
   "type": "botania:marimorphosis",
-  "biome_bonus_tag": "botania:marimorphosis_fungal_bonus",
+  "biome_bonus_tag": "botania:marimorphosis_mycelite_bonus",
   "biome_bonus_weight": 11,
   "input": {
     "type": "botania:tag",

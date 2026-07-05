@@ -62,26 +62,26 @@ public class ConventionalBiomeTagProvider extends TagsProvider<Biome> {
 				.addTag(ConventionalBiomeTags.IS_NETHER);
 		tag(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_BLOCKLIST);
 
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_DESERT_BONUS)
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_SOLITE_BONUS)
 				.addTag(ConventionalBiomeTags.IS_DESERT)
 				.addTag(ConventionalBiomeTags.IS_SAVANNA);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FOREST_BONUS)
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FUCHSITE_BONUS)
 				.addTag(ConventionalBiomeTags.IS_FOREST);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FUNGAL_BONUS)
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MYCELITE_BONUS)
 				.addTag(ConventionalBiomeTags.IS_MUSHROOM)
 				.addTag(ConventionalBiomeTags.IS_UNDERGROUND);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MESA_BONUS)
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_ROSY_TALC_BONUS)
 				.addTag(ConventionalBiomeTags.IS_BADLANDS)
 				.addTag(ConventionalBiomeTags.IS_SAVANNA);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MOUNTAIN_BONUS)
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_GNEISS_BONUS)
 				.addTag(ConventionalBiomeTags.IS_MOUNTAIN);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS)
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_TALC_BONUS)
 				.addTag(ConventionalBiomeTags.IS_PLAINS)
 				.addTag(ConventionalBiomeTags.IS_BEACH);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_SWAMP_BONUS)
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_CATACLASITE_BONUS)
 				.addTag(ConventionalBiomeTags.IS_SWAMP)
 				.addTag(ConventionalBiomeTags.IS_JUNGLE);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS)
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_LUNITE_BONUS)
 				.addTag(ConventionalBiomeTags.IS_CONIFEROUS_TREE)
 				.addTag(ConventionalBiomeTags.IS_COLD)
 				.addTag(ConventionalBiomeTags.IS_SNOWY);

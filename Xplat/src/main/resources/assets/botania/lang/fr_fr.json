@@ -250,6 +250,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "Fleurs flottantes",
   "tag.block.botania.functional_special_flowers": "Flore fonctionnelle",
 
@@ -268,8 +269,10 @@
   "tag.block.botania.livingwood_logs": "Bûches de vifbois",
 
 
+
   "tag.block.botania.mini_flowers": "Petites fleurs",
   "tag.block.botania.misc_special_flowers": "Flore diverse",
+
 
   "tag.block.botania.mundane_floating_flowers": "Fleurs flottantes basiques",
   "tag.block.botania.small_mystical_flowers": "Fleurs mystiques",
@@ -282,8 +285,12 @@
 
 
 
+
   "tag.block.botania.special_floating_flowers": "Fleurs flottantes spéciales",
   "tag.block.botania.special_flowers": "Fleurs spéciales",
+
+
+
 
 
 
@@ -324,6 +331,7 @@
 
 
   "tag.block.c.storage_blocks.terrasteel": "Blocs de terracier",
+
 
 
 
@@ -462,6 +470,10 @@
 
 
   "tag.item.c.storage_blocks.terrasteel": "Blocs de terracier",
+
+
+
+
 
 
 

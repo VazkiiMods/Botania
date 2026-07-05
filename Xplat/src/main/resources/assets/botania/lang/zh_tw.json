@@ -250,6 +250,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "浮空花",
   "tag.block.botania.functional_special_flowers": "功能花",
 
@@ -268,8 +269,10 @@
   "tag.block.botania.livingwood_logs": "活木原木",
 
 
+
   "tag.block.botania.mini_flowers": "縮小花",
   "tag.block.botania.misc_special_flowers": "雜項花",
+
 
   "tag.block.botania.mundane_floating_flowers": "普通浮空花",
   "tag.block.botania.small_mystical_flowers": "神秘花",
@@ -282,8 +285,12 @@
   "tag.block.botania.shimmering_mushrooms": "微光蘑菇",
 
 
+
   "tag.block.botania.special_floating_flowers": "特殊浮空花",
   "tag.block.botania.special_flowers": "植物魔法花",
+
+
+
 
 
 
@@ -324,6 +331,7 @@
 
 
   "tag.block.c.storage_blocks.terrasteel": "泰拉鋼方塊",
+
 
 
 
@@ -478,11 +486,13 @@
   "structure.minecraft.desert_pyramid": "沙漠神殿",
   "structure.minecraft.end_city": "終界城",
   "structure.minecraft.fortress": "地獄要塞",
+
   "structure.minecraft.jungle_pyramid": "叢林遺跡",
   "structure.minecraft.mansion": "綠林府邸",
   "structure.minecraft.mineshaft_mesa": "惡地廢棄礦坑",
   "structure.minecraft.mineshaft": "廢棄礦坑",
   "structure.minecraft.monument": "海底遺跡",
+
   "structure.minecraft.ocean_ruin_cold": "寒帶海底廢墟",
   "structure.minecraft.ocean_ruin_warm": "熱帶海底廢墟",
   "structure.minecraft.pillager_outpost": "掠奪者前哨站",
@@ -496,7 +506,9 @@
   "structure.minecraft.shipwreck_beached": "擱淺沉船",
   "structure.minecraft.shipwreck": "沉船",
   "structure.minecraft.stronghold": "要塞",
+
   "structure.minecraft.trail_ruins": "古蹟廢墟",
+
   "structure.minecraft.village_desert": "沙漠村莊",
   "structure.minecraft.village_plains": "平原村莊",
   "structure.minecraft.village_savanna": "莽原村莊",

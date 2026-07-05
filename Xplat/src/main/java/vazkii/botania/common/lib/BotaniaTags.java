@@ -45,9 +45,9 @@ public class BotaniaTags {
 		public static final TagKey<Item> FLOATING_FLOWERS = tag("floating_flowers");
 		public static final TagKey<Item> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
 		public static final TagKey<Item> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
-		public static final TagKey<Item> MISC_SPECIAL_FLOATING_FLOWERS = tag("misc_special_floating_flowers");
-		public static final TagKey<Item> FUNCTIONAL_SPECIAL_FLOATING_FLOWERS = tag("functional_special_floating_flowers");
-		public static final TagKey<Item> GENERATING_SPECIAL_FLOATING_FLOWERS = tag("generating_special_floating_flowers");
+		public static final TagKey<Item> MISC_FLOATING_FLOWERS = tag("misc_floating_flowers");
+		public static final TagKey<Item> FUNCTIONAL_FLOATING_FLOWERS = tag("functional_floating_flowers");
+		public static final TagKey<Item> GENERATING_FLOATING_FLOWERS = tag("generating_floating_flowers");
 
 		public static final TagKey<Item> LENS = tag("lens");
 
@@ -190,9 +190,9 @@ public class BotaniaTags {
 		public static final TagKey<Block> FLOATING_FLOWERS = tag("floating_flowers");
 		public static final TagKey<Block> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
 		public static final TagKey<Block> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
-		public static final TagKey<Block> MISC_SPECIAL_FLOATING_FLOWERS = tag("misc_special_floating_flowers");
-		public static final TagKey<Block> FUNCTIONAL_SPECIAL_FLOATING_FLOWERS = tag("functional_special_floating_flowers");
-		public static final TagKey<Block> GENERATING_SPECIAL_FLOATING_FLOWERS = tag("generating_special_floating_flowers");
+		public static final TagKey<Block> MISC_FLOATING_FLOWERS = tag("misc_floating_flowers");
+		public static final TagKey<Block> FUNCTIONAL_FLOATING_FLOWERS = tag("functional_floating_flowers");
+		public static final TagKey<Block> GENERATING_FLOATING_FLOWERS = tag("generating_floating_flowers");
 
 		/**
 		 * Blocks in this tag can be used in the Enchanter multiblock
@@ -459,14 +459,14 @@ public class BotaniaTags {
 	}
 
 	public static class Biomes {
-		public static final TagKey<Biome> MARIMORPHOSIS_DESERT_BONUS = tag("marimorphosis_desert_bonus");
-		public static final TagKey<Biome> MARIMORPHOSIS_FOREST_BONUS = tag("marimorphosis_forest_bonus");
-		public static final TagKey<Biome> MARIMORPHOSIS_FUNGAL_BONUS = tag("marimorphosis_fungal_bonus");
-		public static final TagKey<Biome> MARIMORPHOSIS_MESA_BONUS = tag("marimorphosis_mesa_bonus");
-		public static final TagKey<Biome> MARIMORPHOSIS_MOUNTAIN_BONUS = tag("marimorphosis_mountain_bonus");
-		public static final TagKey<Biome> MARIMORPHOSIS_PLAINS_BONUS = tag("marimorphosis_plains_bonus");
-		public static final TagKey<Biome> MARIMORPHOSIS_SWAMP_BONUS = tag("marimorphosis_swamp_bonus");
-		public static final TagKey<Biome> MARIMORPHOSIS_TAIGA_BONUS = tag("marimorphosis_taiga_bonus");
+		public static final TagKey<Biome> MARIMORPHOSIS_FUCHSITE_BONUS = tag("marimorphosis_fuchsite_bonus");
+		public static final TagKey<Biome> MARIMORPHOSIS_TALC_BONUS = tag("marimorphosis_talc_bonus");
+		public static final TagKey<Biome> MARIMORPHOSIS_GNEISS_BONUS = tag("marimorphosis_gneiss_bonus");
+		public static final TagKey<Biome> MARIMORPHOSIS_MYCELITE_BONUS = tag("marimorphosis_mycelite_bonus");
+		public static final TagKey<Biome> MARIMORPHOSIS_CATACLASITE_BONUS = tag("marimorphosis_cataclasite_bonus");
+		public static final TagKey<Biome> MARIMORPHOSIS_SOLITE_BONUS = tag("marimorphosis_solite_bonus");
+		public static final TagKey<Biome> MARIMORPHOSIS_LUNITE_BONUS = tag("marimorphosis_lunite_bonus");
+		public static final TagKey<Biome> MARIMORPHOSIS_ROSY_TALC_BONUS = tag("marimorphosis_rosy_talc_bonus");
 
 		public static final TagKey<Biome> ORECHID_STONE_COPPER_BONUS = tag("orechid_stone_copper_bonus");
 		public static final TagKey<Biome> ORECHID_STONE_EMERALD_BONUS = tag("orechid_stone_emerald_bonus");

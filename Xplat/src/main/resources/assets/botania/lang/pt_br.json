@@ -250,6 +250,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "Flores Flutuantes",
   "tag.block.botania.functional_special_flowers": "Flores Funcionais Especiais",
 
@@ -268,8 +269,10 @@
   "tag.block.botania.livingwood_logs": "Troncos de Madeira Viva",
 
 
+
   "tag.block.botania.mini_flowers": "Flores Pequeninas",
   "tag.block.botania.misc_special_flowers": "Flores Variadas Especiais",
+
 
   "tag.block.botania.mundane_floating_flowers": "Flores Mundanas Flutuantes",
   "tag.block.botania.small_mystical_flowers": "Flores Místicas",
@@ -282,6 +285,7 @@
   "tag.block.botania.shimmering_mushrooms": "Cogumelos Brilhantes",
 
 
+
   "tag.block.botania.special_floating_flowers": "Flores Especiais Flutuantes",
   "tag.block.botania.special_flowers": "Flores Especiais",
 
@@ -290,15 +294,18 @@
 
 
 
+
+
+
   "tag.block.c.cobblestones.metamorphic": "Pedregulhos Metamórficos",
-  "tag.block.c.cobblestones.metamorphic.desert": "Pedregulhos de Solite",
-  "tag.block.c.cobblestones.metamorphic.forest": "Pedregulhos de Fuchsita",
-  "tag.block.c.cobblestones.metamorphic.fungal": "Pedregulhos de Micélita",
-  "tag.block.c.cobblestones.metamorphic.mesa": "Pedregulhos de Talco Rosa",
-  "tag.block.c.cobblestones.metamorphic.mountain": "Pedregulhos de Gnaisse",
-  "tag.block.c.cobblestones.metamorphic.plains": "Pedregulhos de Talco",
-  "tag.block.c.cobblestones.metamorphic.swamp": "Pedregulhos de Cataclasito",
-  "tag.block.c.cobblestones.metamorphic.taiga": "Pedregulhos de Lunita",
+  "tag.block.c.cobblestones.metamorphic.solite": "Pedregulhos de Solite",
+  "tag.block.c.cobblestones.metamorphic.fuchsite": "Pedregulhos de Fuchsita",
+  "tag.block.c.cobblestones.metamorphic.mycelite": "Pedregulhos de Micélita",
+  "tag.block.c.cobblestones.metamorphic.rosy_talc": "Pedregulhos de Talco Rosa",
+  "tag.block.c.cobblestones.metamorphic.gneiss": "Pedregulhos de Gnaisse",
+  "tag.block.c.cobblestones.metamorphic.talc": "Pedregulhos de Talco",
+  "tag.block.c.cobblestones.metamorphic.cataclasite": "Pedregulhos de Cataclasito",
+  "tag.block.c.cobblestones.metamorphic.lunite": "Pedregulhos de Lunita",
   "tag.block.c.glass_blocks.mana": "Blocos de Vidro de Mana",
   "tag.block.c.glass_panes.mana": "Vidraça de Vidro de Mana",
   "tag.block.c.storage_blocks.blaze": "Blocos de Blaze",
@@ -324,6 +331,7 @@
   "tag.block.c.storage_blocks.petal.white": "Blocos de Pétalas Brancas",
   "tag.block.c.storage_blocks.petal.yellow": "Blocos de Pétalas Amarelas",
   "tag.block.c.storage_blocks.terrasteel": "Blocos de Aço-Terra",
+
 
 
 
@@ -408,14 +416,14 @@
 
   "tag.item.c.buckets.extrapolating": "Baldes sem Fundo",
   "tag.item.c.cobblestones.metamorphic": "Pedregulhos Metamórficos",
-  "tag.item.c.cobblestones.metamorphic.desert": "Pedregulhos de Solite",
-  "tag.item.c.cobblestones.metamorphic.forest": "Pedregulhos de Fuchsita",
-  "tag.item.c.cobblestones.metamorphic.fungal": "Pedregulhos de Micélita",
-  "tag.item.c.cobblestones.metamorphic.mesa": "Pedregulhos de Talco Rosa",
-  "tag.item.c.cobblestones.metamorphic.mountain": "Pedregulhos de Gnaisse",
-  "tag.item.c.cobblestones.metamorphic.plains": "Pedregulhos de Talco",
-  "tag.item.c.cobblestones.metamorphic.swamp": "Pedregulhos de Cataclasito",
-  "tag.item.c.cobblestones.metamorphic.taiga": "Pedregulhos de Lunita",
+  "tag.item.c.cobblestones.metamorphic.solite": "Pedregulhos de Solite",
+  "tag.item.c.cobblestones.metamorphic.fuchsite": "Pedregulhos de Fuchsita",
+  "tag.item.c.cobblestones.metamorphic.mycelite": "Pedregulhos de Micélita",
+  "tag.item.c.cobblestones.metamorphic.rosy_talc": "Pedregulhos de Talco Rosa",
+  "tag.item.c.cobblestones.metamorphic.gneiss": "Pedregulhos de Gnaisse",
+  "tag.item.c.cobblestones.metamorphic.talc": "Pedregulhos de Talco",
+  "tag.item.c.cobblestones.metamorphic.cataclasite": "Pedregulhos de Cataclasito",
+  "tag.item.c.cobblestones.metamorphic.lunite": "Pedregulhos de Lunita",
   "tag.item.c.dusts.mana": "Pós de Mana",
   "tag.item.c.dusts.pixie": "Pós de Fada",
 
@@ -478,11 +486,13 @@
   "structure.minecraft.desert_pyramid": "Templo do Deserto",
   "structure.minecraft.end_city": "Cidade do End",
   "structure.minecraft.fortress": "Fortaleza do Nether",
+
   "structure.minecraft.jungle_pyramid": "Templo da Selva",
   "structure.minecraft.mansion": "Mansão da Floresta",
   "structure.minecraft.mineshaft_mesa": "Mina Abandonada das Terras Áridas",
   "structure.minecraft.mineshaft": "Mina Abandonada",
   "structure.minecraft.monument": "Monumento Oceânico",
+
   "structure.minecraft.ocean_ruin_cold": "Ruínas Oceânicas Geladas",
   "structure.minecraft.ocean_ruin_warm": "Ruínas Oceânicas Quentes",
   "structure.minecraft.pillager_outpost": "Posto de Observação",
@@ -496,7 +506,9 @@
   "structure.minecraft.shipwreck_beached": "Naufrágio na Praia",
   "structure.minecraft.shipwreck": "Naufrágio",
   "structure.minecraft.stronghold": "Fortaleza",
+
   "structure.minecraft.trail_ruins": "Trilha em ruínas",
+
   "structure.minecraft.village_desert": "Vila do Deserto",
   "structure.minecraft.village_plains": "Vila das Planícies",
   "structure.minecraft.village_savanna": "Vila da Savana",

@@ -45,14 +45,14 @@ public class ConventionalBotaniaTags {
 		// Cobblestones
 		public static final TagKey<Block> METAMORPHIC_COBBLESTONES = createSuffixedTag(COBBLESTONES, "metamorphic");
 
-		public static final TagKey<Block> METAMORPHIC_FOREST_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "forest");
-		public static final TagKey<Block> METAMORPHIC_PLAINS_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "plains");
-		public static final TagKey<Block> METAMORPHIC_MOUNTAIN_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "mountain");
-		public static final TagKey<Block> METAMORPHIC_FUNGAL_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "fungal");
-		public static final TagKey<Block> METAMORPHIC_SWAMP_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "swamp");
-		public static final TagKey<Block> METAMORPHIC_DESERT_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "desert");
-		public static final TagKey<Block> METAMORPHIC_TAIGA_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "taiga");
-		public static final TagKey<Block> METAMORPHIC_MESA_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "mesa");
+		public static final TagKey<Block> FUCHSITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "fuchsite");
+		public static final TagKey<Block> TALC_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "talc");
+		public static final TagKey<Block> GNEISS_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "gneiss");
+		public static final TagKey<Block> MYCELITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "mycelite");
+		public static final TagKey<Block> CATACLASITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "cataclasite");
+		public static final TagKey<Block> SOLITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "solite");
+		public static final TagKey<Block> LUNITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "lunite");
+		public static final TagKey<Block> ROSY_TALC_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "rosy_talc");
 
 		// Glass
 		public static final TagKey<Block> MANA_GLASS_BLOCKS = createSuffixedTag(GLASS_BLOCKS, "mana");
@@ -91,14 +91,14 @@ public class ConventionalBotaniaTags {
 		// Cobblestones
 		public static final TagKey<Item> METAMORPHIC_COBBLESTONES = createSuffixedTag(COBBLESTONES, "metamorphic");
 
-		public static final TagKey<Item> METAMORPHIC_FOREST_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "forest");
-		public static final TagKey<Item> METAMORPHIC_PLAINS_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "plains");
-		public static final TagKey<Item> METAMORPHIC_MOUNTAIN_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "mountain");
-		public static final TagKey<Item> METAMORPHIC_FUNGAL_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "fungal");
-		public static final TagKey<Item> METAMORPHIC_SWAMP_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "swamp");
-		public static final TagKey<Item> METAMORPHIC_DESERT_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "desert");
-		public static final TagKey<Item> METAMORPHIC_TAIGA_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "taiga");
-		public static final TagKey<Item> METAMORPHIC_MESA_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "mesa");
+		public static final TagKey<Item> FUCHSITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "fuchsite");
+		public static final TagKey<Item> TALC_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "talc");
+		public static final TagKey<Item> GNEISS_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "gneiss");
+		public static final TagKey<Item> MYCELITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "mycelite");
+		public static final TagKey<Item> CATACLASITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "cataclasite");
+		public static final TagKey<Item> SOLITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "solite");
+		public static final TagKey<Item> LUNITE_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "lunite");
+		public static final TagKey<Item> ROSY_TALC_COBBLESTONES = createSuffixedTag(METAMORPHIC_COBBLESTONES, "rosy_talc");
 
 		// Dusts
 		public static final TagKey<Item> MANA_DUSTS = createSuffixedTag(DUSTS, "mana");

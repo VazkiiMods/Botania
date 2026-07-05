@@ -250,6 +250,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "Yüzen Çiçekler",
   "tag.block.botania.functional_special_flowers": "Fonksiyonel Özel Çiçekler",
 
@@ -268,8 +269,10 @@
   "tag.block.botania.livingwood_logs": "Yaşayan Ağaç Kütükleri",
 
 
+
   "tag.block.botania.mini_flowers": "Minik Çiçekler",
   "tag.block.botania.misc_special_flowers": "Çeşitli Özel Çiçekler",
+
 
   "tag.block.botania.mundane_floating_flowers": "Sıradan Yüzen Çiçekler",
   "tag.block.botania.small_mystical_flowers": "Mistik Çiçekler",
@@ -282,6 +285,7 @@
   "tag.block.botania.shimmering_mushrooms": "Parıldayan Mantarlar",
 
 
+
   "tag.block.botania.special_floating_flowers": "Özel Yüzen Çiçekler",
   "tag.block.botania.special_flowers": "Özel Çiçekler",
 
@@ -290,15 +294,18 @@
 
 
 
+
+
+
   "tag.block.c.cobblestones.metamorphic": "Metamorfik Kaldırım Taşları",
-  "tag.block.c.cobblestones.metamorphic.desert": "Solit Kaldırım Taşları",
-  "tag.block.c.cobblestones.metamorphic.forest": "Fuksit Kaldırım Taşları",
-  "tag.block.c.cobblestones.metamorphic.fungal": "Miselit Kaldırım Taşları",
-  "tag.block.c.cobblestones.metamorphic.mesa": "Pembe Talk Kaldırım Taşları",
-  "tag.block.c.cobblestones.metamorphic.mountain": "Gnays Kaldırım Taşları",
-  "tag.block.c.cobblestones.metamorphic.plains": "Talk Kaldırım Taşları",
-  "tag.block.c.cobblestones.metamorphic.swamp": "Kataklasit Kaldırım Taşları",
-  "tag.block.c.cobblestones.metamorphic.taiga": "Lunit Kaldırım Taşları",
+  "tag.block.c.cobblestones.metamorphic.solite": "Solit Kaldırım Taşları",
+  "tag.block.c.cobblestones.metamorphic.fuchsite": "Fuksit Kaldırım Taşları",
+  "tag.block.c.cobblestones.metamorphic.mycelite": "Miselit Kaldırım Taşları",
+  "tag.block.c.cobblestones.metamorphic.rosy_talc": "Pembe Talk Kaldırım Taşları",
+  "tag.block.c.cobblestones.metamorphic.gneiss": "Gnays Kaldırım Taşları",
+  "tag.block.c.cobblestones.metamorphic.talc": "Talk Kaldırım Taşları",
+  "tag.block.c.cobblestones.metamorphic.cataclasite": "Kataklasit Kaldırım Taşları",
+  "tag.block.c.cobblestones.metamorphic.lunite": "Lunit Kaldırım Taşları",
   "tag.block.c.glass_blocks.mana": "Mana Cam Blokları",
   "tag.block.c.glass_panes.mana": "Mana Cam Panelleri",
   "tag.block.c.storage_blocks.blaze": "Blaze Depolama Blokları",
@@ -324,6 +331,7 @@
   "tag.block.c.storage_blocks.petal.white": "Beyaz Taç Yaprağı Depolama Blokları",
   "tag.block.c.storage_blocks.petal.yellow": "Sarı Taç Yaprağı Depolama Blokları",
   "tag.block.c.storage_blocks.terrasteel": "Terrasteel Depolama Blokları",
+
 
 
 
@@ -408,14 +416,14 @@
 
   "tag.item.c.buckets.extrapolating": "Ekstrapolasyon Kovaları",
   "tag.item.c.cobblestones.metamorphic": "Metamorfik Kaldırım Taşları",
-  "tag.item.c.cobblestones.metamorphic.desert": "Solit Kaldırım Taşları",
-  "tag.item.c.cobblestones.metamorphic.forest": "Fuksit Kaldırım Taşları",
-  "tag.item.c.cobblestones.metamorphic.fungal": "Miselit Kaldırım Taşları",
-  "tag.item.c.cobblestones.metamorphic.mesa": "Pembe Talk Kaldırım Taşları",
-  "tag.item.c.cobblestones.metamorphic.mountain": "Gnays Kaldırım Taşları",
-  "tag.item.c.cobblestones.metamorphic.plains": "Talk Kaldırım Taşları",
-  "tag.item.c.cobblestones.metamorphic.swamp": "Kataklasit Kaldırım Taşları",
-  "tag.item.c.cobblestones.metamorphic.taiga": "Lunit Kaldırım Taşları",
+  "tag.item.c.cobblestones.metamorphic.solite": "Solit Kaldırım Taşları",
+  "tag.item.c.cobblestones.metamorphic.fuchsite": "Fuksit Kaldırım Taşları",
+  "tag.item.c.cobblestones.metamorphic.mycelite": "Miselit Kaldırım Taşları",
+  "tag.item.c.cobblestones.metamorphic.rosy_talc": "Pembe Talk Kaldırım Taşları",
+  "tag.item.c.cobblestones.metamorphic.gneiss": "Gnays Kaldırım Taşları",
+  "tag.item.c.cobblestones.metamorphic.talc": "Talk Kaldırım Taşları",
+  "tag.item.c.cobblestones.metamorphic.cataclasite": "Kataklasit Kaldırım Taşları",
+  "tag.item.c.cobblestones.metamorphic.lunite": "Lunit Kaldırım Taşları",
   "tag.item.c.dusts.mana": "Mana Tozları",
   "tag.item.c.dusts.pixie": "Peri Tozları",
 
@@ -478,11 +486,13 @@
   "structure.minecraft.desert_pyramid": "Çöl Piramidi",
   "structure.minecraft.end_city": "End Şehri",
   "structure.minecraft.fortress": "Nether Kalesi",
+
   "structure.minecraft.jungle_pyramid": "Orman Piramidi",
   "structure.minecraft.mansion": "Orman Köşkü",
   "structure.minecraft.mineshaft_mesa": "Kızıl Toprak Maden Ocağı",
   "structure.minecraft.mineshaft": "Maden Ocağı",
   "structure.minecraft.monument": "Okyanus Anıtı",
+
   "structure.minecraft.ocean_ruin_cold": "Soğuk Okyanus Harabesi",
   "structure.minecraft.ocean_ruin_warm": "Sıcak Okyanus Harabesi",
   "structure.minecraft.pillager_outpost": "Yağmacı Karakolu",
@@ -496,7 +506,9 @@
   "structure.minecraft.shipwreck_beached": "Karaya Oturmuş Gemi Enkazı",
   "structure.minecraft.shipwreck": "Gemi Enkazı",
   "structure.minecraft.stronghold": "Kale",
+
   "structure.minecraft.trail_ruins": "Patika Kalıntıları",
+
   "structure.minecraft.village_desert": "Çöl Köyü",
   "structure.minecraft.village_plains": "Ova Köyü",
   "structure.minecraft.village_savanna": "Savana Köyü",
