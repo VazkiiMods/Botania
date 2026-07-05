@@ -9,6 +9,9 @@
 
 package vazkii.botania.xplat;
 
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -53,13 +56,17 @@ public class BotaniaConfig {
 		boolean useShaders();
 	}
 
+	@Nullable
 	private static ConfigAccess config = null;
+	@Nullable
 	private static ClientConfigAccess clientConfig = null;
 
+	@UnknownNullability
 	public static ConfigAccess common() {
 		return config;
 	}
 
+	@UnknownNullability
 	public static ClientConfigAccess client() {
 		return clientConfig;
 	}

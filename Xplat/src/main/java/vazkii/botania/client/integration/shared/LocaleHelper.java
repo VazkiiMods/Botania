@@ -9,12 +9,22 @@
 
 package vazkii.botania.client.integration.shared;
 
+import net.minecraft.Util;
+
 import vazkii.botania.common.proxy.Proxy;
 
 import java.math.RoundingMode;
 import java.text.NumberFormat;
+import java.util.Arrays;
 
 public class LocaleHelper {
+	private static final String[] ENGLISH_ORDINAL_SUFFIXES = Util.make(new String[10], suffixes -> {
+		Arrays.fill(suffixes, "th");
+		suffixes[1] = "st";
+		suffixes[2] = "nd";
+		suffixes[3] = "rd";
+	});
+
 	public static NumberFormat getIntegerFormat() {
 		return NumberFormat.getIntegerInstance(Proxy.INSTANCE.getLocale());
 	}
@@ -46,5 +56,14 @@ public class LocaleHelper {
 	public static String formatAsDecimalFraction(double value, int fractionDigits) {
 		final NumberFormat formatter = getDecimalFractionFormat(fractionDigits);
 		return formatter.format(value).replace('\u00a0', ' ');
+	}
+
+	public static String formatAsEnglishOrdinal(int value) {
+		// just in case:
+		int abs = Math.abs(value);
+		return switch (abs % 100) {
+			case 11, 12, 13 -> value + "th";
+			default -> value + ENGLISH_ORDINAL_SUFFIXES[abs % 10];
+		};
 	}
 }
