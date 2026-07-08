@@ -54,8 +54,8 @@ public class ItemFlagsComponent extends SerializableComponent {
 	public void writeToNbt(CompoundTag tag) {
 		tag.putBoolean(TAG_PORTAL_SPAWNED, elvenPortalSpawned);
 		tag.putBoolean(TAG_APOTHECARY_SPAWNED, apothecarySpawned);
-		tag.putBoolean(TAG_INFUSION_SPAWNED, runicAltarSpawned);
-		tag.putBoolean(TAG_ALTAR_SPAWNED, manaInfusionSpawned);
+		tag.putBoolean(TAG_INFUSION_SPAWNED, manaInfusionSpawned);
+		tag.putBoolean(TAG_ALTAR_SPAWNED, runicAltarSpawned);
 		tag.putInt(TAG_TIME_COUNTER, timeCounter);
 	}
 
