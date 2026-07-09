@@ -86,6 +86,7 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 The following changes will be released in an upcoming version of Botania for 1.20.1:
 
 * Fix: The information whether an item entity was created via mana infusion or via the runic altar was deserialized incorrectly
+* Fix: Mobs were able to spawn on spectral platforms
 
 ---
 
