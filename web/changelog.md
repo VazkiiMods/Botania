@@ -22,6 +22,7 @@ of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
 * Fix: The information whether an item entity was created via mana infusion or via the runic altar was deserialized incorrectly
+* Fix: Mobs were able to spawn on spectral platforms
 
 ---
 
