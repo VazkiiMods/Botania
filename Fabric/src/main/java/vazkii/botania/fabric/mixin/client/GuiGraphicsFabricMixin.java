@@ -8,7 +8,10 @@
  */
 package vazkii.botania.fabric.mixin.client;
 
-import net.minecraft.client.gui.Font;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
@@ -16,9 +19,6 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositione
 import org.joml.Vector2ic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 
@@ -26,12 +26,23 @@ import java.util.List;
 
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsFabricMixin {
-	@Inject(method = "renderTooltipInternal", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void renderManaBar(Font font, List<ClientTooltipComponent> components, int oldX, int oldY, ClientTooltipPositioner positioner, CallbackInfo ci, int width, int height, int i, int j, Vector2ic vector2ic, int x, int y) {
+	@WrapOperation(
+		method = "renderTooltipInternal",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;positionTooltip(IIIIII)Lorg/joml/Vector2ic;"
+		)
+	)
+	private Vector2ic determineManaBarContext(ClientTooltipPositioner instance, int screenWidth, int screenHeight,
+			int mouseX, int mouseY, int tooltipWidth, int tooltipHeight, Operation<Vector2ic> original,
+			@Local(argsOnly = true) List<ClientTooltipComponent> components) {
+
+		Vector2ic result = original.call(instance, screenWidth, screenHeight, mouseX, mouseY, tooltipWidth, tooltipHeight);
 		for (ClientTooltipComponent component : components) {
 			if (component instanceof ManaBarTooltipComponent manaBar) {
-				manaBar.setContext(x, y, width);
+				manaBar.setContext(result.x(), result.y(), tooltipWidth);
 			}
 		}
+		return result;
 	}
 }
