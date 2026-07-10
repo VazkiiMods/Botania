@@ -177,7 +177,7 @@ public class RenderLexicon {
 		width -= 4;
 
 		Font font = Minecraft.getInstance().font;
-		String text = I18n.get(unlocalizedText).replaceAll("&", "\u00a7");
+		String text = I18n.get(unlocalizedText).replace("&", "\u00a7");
 		String[] textEntries = text.split("<br>");
 
 		List<List<String>> lines = new ArrayList<>();

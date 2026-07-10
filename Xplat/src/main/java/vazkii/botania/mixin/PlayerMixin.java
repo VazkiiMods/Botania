@@ -96,6 +96,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
 	 * @see vazkii.botania.common.block.block_entity.flower.generating.RosaArcanaBlockEntity#drainPlayerXp(ServerLevel,
 	 *      AABB)
 	 */
+	@SuppressWarnings("JavadocReference")
 	@WrapWithCondition(
 		method = "aiStep",
 		at = @At(

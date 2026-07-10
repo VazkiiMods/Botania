@@ -43,9 +43,6 @@ public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<ManaPump
 		ms.translate(0.5, 0, 0.5);
 		float angle = 0;
 		switch (pump.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-			default:
-			case NORTH:
-				break;
 			case SOUTH:
 				angle = 180;
 				break;
@@ -54,6 +51,9 @@ public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<ManaPump
 				break;
 			case WEST:
 				angle = 90;
+				break;
+			case NORTH:
+			default:
 				break;
 		}
 		ms.mulPose(VecHelper.rotateY(angle));

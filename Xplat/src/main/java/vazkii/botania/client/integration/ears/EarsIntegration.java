@@ -77,5 +77,5 @@ public class EarsIntegration {
 
 			return false;
 		}));
-	};
+	}
 }

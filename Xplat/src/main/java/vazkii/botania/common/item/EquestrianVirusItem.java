@@ -106,12 +106,8 @@ public class EquestrianVirusItem extends Item {
 			entity = vehicle;
 		}
 
-		if ((entity instanceof ZombieHorse || entity instanceof SkeletonHorse)
+		return (entity instanceof ZombieHorse || entity instanceof SkeletonHorse)
 				&& source == entity.damageSources().fall()
-				&& ((AbstractHorse) entity).isTamed()) {
-			return true;
-		}
-
-		return false;
+				&& ((AbstractHorse) entity).isTamed();
 	}
 }

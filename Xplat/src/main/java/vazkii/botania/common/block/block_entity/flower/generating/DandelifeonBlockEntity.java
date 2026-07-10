@@ -176,7 +176,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	private static class CellTable {
 		public final BlockPos center;
 		public final int diameter;
-		private int[][] cells;
+		private final int[][] cells;
 
 		public CellTable(int range, DandelifeonBlockEntity dandie) {
 			center = dandie.getEffectivePos();
@@ -235,7 +235,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 	}
 
-	private static record LifeUpdate(int x, int z, int newLife, int oldLife) {
+	private record LifeUpdate(int x, int z, int newLife, int oldLife) {
 	}
 
 	@Override

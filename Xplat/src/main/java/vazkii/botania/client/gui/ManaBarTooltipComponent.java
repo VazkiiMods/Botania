@@ -72,11 +72,11 @@ public class ManaBarTooltipComponent implements ClientTooltipComponent {
 		}
 
 		boolean ss = level >= TerraShattererItem.LEVELS.length - 1;
-		String rank = I18n.get("botania.rank" + pickLevel).replaceAll("&", "\u00a7");
+		String rank = I18n.get("botania.rank" + pickLevel).replace("&", "\u00a7");
 
 		font.drawInBatch(rank, mouseX, mouseY - 16, 0xFFFFFF, true, matrix, buffers, Font.DisplayMode.NORMAL, 0, 0xF000F0);
 		if (!ss) {
-			rank = I18n.get("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
+			rank = I18n.get("botania.rank" + (level + 1)).replace("&", "\u00a7");
 			font.drawInBatch(rank, mouseX + totalWidth - font.width(rank), mouseY - 16, 0xFFFFFF, true,
 					matrix, buffers, Font.DisplayMode.NORMAL, 0, 0xF000F0);
 		}

@@ -11,6 +11,7 @@ package vazkii.botania.mixin.client;
 import net.minecraft.client.multiplayer.ClientLevel;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -19,6 +20,7 @@ import vazkii.botania.client.core.SkyblockWorldInfo;
 
 @Mixin(ClientLevel.ClientLevelData.class)
 public abstract class ClientLevelDataMixin implements SkyblockWorldInfo {
+	@Unique
 	private boolean gardenOfGlass;
 
 	@Override

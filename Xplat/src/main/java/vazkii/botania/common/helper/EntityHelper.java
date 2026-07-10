@@ -33,7 +33,7 @@ public class EntityHelper {
 
 	/**
 	 * Forces an item entity to resync its item to the client.
-	 *
+	 * <p>
 	 * Entity data only resyncs when the old/new values are not Object.equals().
 	 * Since stacks do not implement equals, and we're not changing the actual stack object,
 	 * the old/new values are == and thus the game doesn't resync.

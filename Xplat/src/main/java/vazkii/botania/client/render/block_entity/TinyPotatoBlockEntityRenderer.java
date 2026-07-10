@@ -109,10 +109,6 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 		Direction potatoFacing = potato.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
 		float rotY = 0;
 		switch (potatoFacing) {
-			default:
-			case SOUTH:
-				rotY = 180F;
-				break;
 			case NORTH:
 				break;
 			case EAST:
@@ -120,6 +116,10 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				break;
 			case WEST:
 				rotY = 270F;
+				break;
+			case SOUTH:
+			default:
+				rotY = 180F;
 				break;
 		}
 		ms.mulPose(VecHelper.rotateY(-rotY));

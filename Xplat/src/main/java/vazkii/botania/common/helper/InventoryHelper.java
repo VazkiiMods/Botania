@@ -36,29 +36,31 @@ import java.util.function.Function;
 
 public class InventoryHelper {
 
-	// [VanillaCopy] HopperBlockEntity#transfer but simulates instead of doing it
+	// [VanillaCopy] HopperBlockEntity#addItem but simulates instead of doing it
+	// TODO: This seems rather complicated for something that's only supposed to test putting an item in the bauble box
 	public static ItemStack simulateTransfer(Container to, ItemStack stack, @Nullable Direction side) {
+		// Botania: operate on a copy of the stack
 		stack = stack.copy();
 
 		if (to instanceof WorldlyContainer sidedInventory && side != null) {
 			int[] is = sidedInventory.getSlotsForFace(side);
 
 			for (int i = 0; i < is.length && !stack.isEmpty(); ++i) {
-				stack = simulateTransfer(to, stack, is[i], side);
+				stack = simulateMoveInItem(to, stack, is[i], side);
 			}
 		} else {
 			int j = to.getContainerSize();
 
 			for (int k = 0; k < j && !stack.isEmpty(); ++k) {
-				stack = simulateTransfer(to, stack, k, side);
+				stack = simulateMoveInItem(to, stack, k, side);
 			}
 		}
 
 		return stack;
 	}
 
-	// [VanillaCopy] HopperBlockEntity without modifying the destination inventory. `stack` is still modified
-	private static ItemStack simulateTransfer(Container to, ItemStack stack, int slot, @Nullable Direction direction) {
+	// [VanillaCopy] HopperBlockEntity#tryMoveInItem without modifying the destination inventory. `stack` is still modified
+	private static ItemStack simulateMoveInItem(Container to, ItemStack stack, int slot, @Nullable Direction direction) {
 		ItemStack itemStack = to.getItem(slot);
 		if (HopperBlockEntityAccessor.botania_canPlaceItemInContainer(to, stack, slot, direction)) {
 			boolean bl = false;
@@ -75,7 +77,7 @@ public class InventoryHelper {
 				bl = j > 0;
 			}
 
-			/*
+			/* Botania: This part would only modify the container.
 			if (bl) {
 				if (bl2 && to instanceof HopperBlockEntity) {
 					HopperBlockEntity hopperBlockEntity = (HopperBlockEntity)to;

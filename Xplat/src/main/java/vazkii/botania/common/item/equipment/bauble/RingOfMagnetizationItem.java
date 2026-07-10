@@ -117,11 +117,7 @@ public class RingOfMagnetizationItem extends BaubleItem {
 			return false;
 		}
 
-		if (item.level().getBlockState(pos.below()).is(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING)) {
-			return false;
-		}
-
-		return true;
+		return !item.level().getBlockState(pos.below()).is(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING);
 	}
 
 }

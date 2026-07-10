@@ -13,10 +13,11 @@ import net.minecraft.world.item.Item;
 /**
  * Just a marker class, see {@link vazkii.botania.mixin.ItemMixin#returnSelf}
  */
+@SuppressWarnings("JavadocReference")
 public class SelfReturningItem extends Item {
 
-	public SelfReturningItem(Item.Properties builder) {
-		super(builder);
+	public SelfReturningItem(Item.Properties properties) {
+		super(properties);
 	}
 
 	@Override

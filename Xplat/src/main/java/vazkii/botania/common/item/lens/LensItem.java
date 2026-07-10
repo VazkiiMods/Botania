@@ -190,11 +190,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 			return false;
 		}
 
-		if (isDisallowed(sourceLens, compositeLens)) {
-			return false;
-		}
-
-		return true;
+		return !isDisallowed(sourceLens, compositeLens);
 	}
 
 	@Override

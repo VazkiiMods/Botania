@@ -23,7 +23,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
  * An Item that has this capability can provide blocks to other items that use them.
  * For example, the Black Hole Talisman uses this in order to allow for
  * the Rod of the Shifting Crust to pull blocks from it.
- *
+ * <p>
  * Mutations to objects of this type propagate directly to the underlying stack it was retrieved from.
  */
 public interface BlockProvider {

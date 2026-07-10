@@ -31,8 +31,6 @@ public class BandOfManaItem extends BaubleItem implements CustomCreativeTabConte
 	public static final int DEFAULT_MAX_MANA = ManaTabletItem.DEFAULT_MAX_MANA;
 	public static final int DEFAULT_GREATER_MAX_MANA = DEFAULT_MAX_MANA * 4;
 
-	private static final String TAG_MANA = "mana";
-
 	public BandOfManaItem(Properties properties) {
 		super(properties);
 	}

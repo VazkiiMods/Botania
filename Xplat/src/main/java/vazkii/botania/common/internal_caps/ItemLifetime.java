@@ -37,7 +37,7 @@ public final class ItemLifetime {
 	/**
 	 * Special value for infinite lifetime that also implies no flower interactions at all.
 	 */
-	public static short INFINITE = Short.MIN_VALUE;
+	public static final short INFINITE = Short.MIN_VALUE;
 
 	public static final int FUNCTIONAL_INHERENT_DELAY = 60;
 	public static final int GENERATING_INHERENT_DELAY = FUNCTIONAL_INHERENT_DELAY - 1;

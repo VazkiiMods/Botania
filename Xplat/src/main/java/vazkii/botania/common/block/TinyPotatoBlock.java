@@ -79,20 +79,6 @@ public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBl
 		return SHAPE;
 	}
 
-	/*
-	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof TinyPotatoBlockEntity tater) {
-			tater.interact(player, hand, player.getItemInHand(hand), hit.getDirection());
-			if (!world.isClientSide) {
-				spawnHearts((ServerLevel) world, pos);
-			}
-		}
-		return InteractionResult.sidedSuccess(world.isClientSide());
-	}
-	 */
-
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);

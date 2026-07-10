@@ -21,6 +21,7 @@ import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -75,7 +76,7 @@ public class BaseSpawnerMixin {
 		)
 	)
 	private void applySlowDespawn(ServerLevel serverLevel, BlockPos pos, CallbackInfo ci, @Local Mob mob,
-			@Share("hasImbuerWithMana") LocalRef<Boolean> hasImbuerWithMana) {
+			@Share("hasImbuerWithMana") LocalRef<@Nullable Boolean> hasImbuerWithMana) {
 		// ensure null-safety
 		if (Boolean.TRUE.equals(hasImbuerWithMana.get())) {
 			LifeImbuerBlockEntity.applySlowDespawn(serverLevel, pos, mob);

@@ -74,7 +74,7 @@ public class AnyOfStateIngredient implements StateIngredient {
 
 	@Override
 	public String toString() {
-		return "AnyOfStateIngredient{" + ingredients.toString() + "}";
+		return "AnyOfStateIngredient{" + ingredients + "}";
 	}
 
 	@Override

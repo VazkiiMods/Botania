@@ -44,7 +44,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 
 	private static final Map<Pattern, IRegexStacker> patterns = new LinkedHashMap<>();
 
-	/**
+	/*
 	 * (name) = Item name, or "this" for the name of the item in your hand
 	 * (n), (n1), (n2), etc = Numbers
 	 * [text] = Optional

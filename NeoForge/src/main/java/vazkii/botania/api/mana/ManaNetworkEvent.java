@@ -22,8 +22,7 @@ public class ManaNetworkEvent extends Event {
 	}
 
 	/**
-	 * @return If {@link #getType()} is {@link ManaBlockType#COLLECTOR}, an {@link ManaCollector},
-	 *         otherwise if {@link #getType()} is {@link ManaBlockType#POOL}, an {@link ManaPool}
+	 * @return If {@link #getType()} is {@link ManaBlockType#COLLECTOR}, a {@link ManaCollector}.
 	 */
 	public ManaReceiver getReceiver() {
 		return thing;

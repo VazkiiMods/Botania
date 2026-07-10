@@ -40,9 +40,9 @@ public interface IDeathMessageProviderMixin {
 		)
 	)
 	private static MutableComponent maybeSelectPortalExplainerStyle(MutableComponent instance, Style style,
-			Operation<MutableComponent> original, @Local DamageSource damageSource) {
+			Operation<MutableComponent> original, @Local(name = "dmgSrc") DamageSource dmgSrc) {
 		return original.call(instance,
-				damageSource.is(BotaniaDamageTypes.PORTAL_BREAD_EXPLOSION) ? AlfheimPortalBlockEntity.PORTAL_EXPLOSION_EXPLAINER_STYLE : style);
+				dmgSrc.is(BotaniaDamageTypes.PORTAL_BREAD_EXPLOSION) ? AlfheimPortalBlockEntity.PORTAL_EXPLOSION_EXPLAINER_STYLE : style);
 
 	}
 }

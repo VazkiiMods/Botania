@@ -27,7 +27,7 @@ public interface CorporeaSpark extends SparkEntity {
 	 * Look around this spark for neighbors and introduce them to the network by adding them
 	 * to {@code network}. If they weren't already in {@code network}, this method
 	 * should then recursively call this method on all newcomers.
-	 *
+	 * <p>
 	 * This spark should then retain the {@code network} object internally for quick
 	 * access to all members of the network.
 	 */

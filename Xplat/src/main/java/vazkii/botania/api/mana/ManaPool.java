@@ -8,22 +8,10 @@
  */
 package vazkii.botania.api.mana;
 
-import vazkii.botania.api.BotaniaAPI;
-
 /**
  * Any {@link ManaReceiver} that also implements this is considered a Mana Pool,
- * by which nearby functional flowers will pull mana from it.<br>
- * Mana Distributors will also accept it as valid output.<br>
- * <br>
- * <b>Implementation Instructions:</b><br>
- * - When joining the world (e.g. on first tick), call
- * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
- * with this object, type {@link ManaBlockType#POOL}, and action {@link ManaNetworkAction#ADD}.
- * - When leaving the world (e.g. in setRemoved), call
- * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
- * with this object, type {@link ManaBlockType#POOL}, and action {@link ManaNetworkAction#REMOVE}.
- *
- * Get the mana network using {@link BotaniaAPI#getManaNetworkInstance()}.
+ * by which nearby functional flowers will pull mana from it.
+ * Mana Distributors will also accept it as valid output.
  */
 public interface ManaPool extends ManaReceiver {
 

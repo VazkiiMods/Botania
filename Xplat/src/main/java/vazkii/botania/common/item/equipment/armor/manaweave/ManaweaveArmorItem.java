@@ -46,7 +46,7 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 	public String getDescriptionId(ItemStack stack) {
 		String name = super.getDescriptionId(stack);
 		if (XplatAbstractions.INSTANCE.isPhysicalClient() && ClientProxy.jingleTheBells) {
-			name = name.replaceAll("manaweave", "santaweave");
+			name = name.replace("manaweave", "santaweave");
 		}
 		return name;
 	}

@@ -271,10 +271,7 @@ public class ManaBlasterItem extends Item {
 		if (!(item instanceof BasicLensItem)) {
 			return false;
 		}
-		if (item instanceof ControlLensItem control && control.isControlLens(lens)) {
-			return false;
-		}
-		return true;
+		return !(item instanceof ControlLensItem control) || !control.isControlLens(lens);
 	}
 
 	public static List<ItemStack> getAllLens(ItemStack stack) {

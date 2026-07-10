@@ -80,6 +80,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	 * 
 	 * @see vazkii.botania.mixin.PlayerMixin#shouldPickupXp(Player, Entity)
 	 */
+	@SuppressWarnings("JavadocReference")
 	private static void drainPlayerXp(ServerLevel serverLevel, AABB effectBounds) {
 		List<Player> players = new ArrayList<>();
 		// entity search selects subchunks by assuming all entities are ghast-sized, so this is likely faster:

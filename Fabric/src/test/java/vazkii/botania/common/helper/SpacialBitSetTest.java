@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 import java.util.function.Predicate;
 
 public class SpacialBitSetTest {
-	public static BlockPos initPos = new BlockPos(1, 2, 3);
-	public static SpatialBitSet initSet = new SpatialBitSet(initPos);
+	public static final BlockPos initPos = new BlockPos(1, 2, 3);
+	public static final SpatialBitSet initSet = new SpatialBitSet(initPos);
 
 	@Test
 	void setCubeAround_EntirelyWithinRange_ExactlyCubePositionsAreSet() {

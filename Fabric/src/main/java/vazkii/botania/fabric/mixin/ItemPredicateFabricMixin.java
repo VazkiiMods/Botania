@@ -75,6 +75,7 @@ public abstract class ItemPredicateFabricMixin {
 		return original.call(groupResult, instance, botania_wrapDecodeForShears(function));
 	}
 
+	@Unique
 	private static Function4<Optional<HolderSet<Item>>, MinMaxBounds.Ints, DataComponentPredicate, Map<ItemSubPredicate.Type<?>, ItemSubPredicate>, ItemPredicate> botania_wrapDecodeForShears(
 			Function4<Optional<HolderSet<Item>>, MinMaxBounds.Ints, DataComponentPredicate, Map<ItemSubPredicate.Type<?>, ItemSubPredicate>, ItemPredicate> function) {
 		return (items, count, components, subPredicates) -> {

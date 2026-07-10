@@ -17,7 +17,7 @@ import vazkii.botania.api.BotaniaAPI;
 
 public record IslandType(ItemLike item, int modulatedDelay, SoundEvent changeSound) {
 
-	public static ResourceLocation DEFAULT_ID = BotaniaAPI.botaniaRL("grass");
+	public static final ResourceLocation DEFAULT_ID = BotaniaAPI.botaniaRL("grass");
 
 	public ResourceLocation islandModel() {
 		return BotaniaAPI.instance().getIslandTypeRegistry().getKey(this).withPrefix("block/islands/");

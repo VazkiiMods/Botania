@@ -14,15 +14,16 @@ import vazkii.botania.api.internal.ManaBurst;
 /**
  * Any {@link ManaReceiver} that also implements this is considered a mana collector, by
  * which nearby generating flowers will pump mana into it.<br>
- * <br>
- * <b>Implementation Instructions:</b><br>
- * - When joining the world (e.g. on first tick), call
+ * <p>
+ * <b>Implementation Instructions:</b>
+ * <ul>
+ * <li>When joining the world (e.g. on first tick), call
  * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
  * with this object, type {@link ManaBlockType#COLLECTOR}, and action {@link ManaNetworkAction#ADD}.
- * - When leaving the world (e.g. in setRemoved), call
+ * <li>When leaving the world (e.g. in setRemoved), call
  * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
  * with this object, type {@link ManaBlockType#COLLECTOR}, and action {@link ManaNetworkAction#REMOVE}.
- *
+ * </ul>
  * Get the mana network using {@link BotaniaAPI#getManaNetworkInstance()}.
  */
 public interface ManaCollector extends ManaReceiver {

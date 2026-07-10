@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -48,9 +49,9 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 	public SpecialFlowerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(SpecialFlowerBlockEntity tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		if (tile.isFloating()) {
-			FloatingFlowerBlockEntityRenderer.renderFloatingIsland(tile, partialTicks, ms, buffers, overlay);
+	public void render(SpecialFlowerBlockEntity flower, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		if (flower.isFloating()) {
+			FloatingFlowerBlockEntityRenderer.renderFloatingIsland(flower, partialTicks, ms, buffers, overlay);
 		}
 		if (!(Minecraft.getInstance().cameraEntity instanceof LivingEntity view)) {
 			return;
@@ -64,17 +65,16 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 		if (ray != null && ray.getType() == HitResult.Type.BLOCK) {
 			pos = ((BlockHitResult) ray).getBlockPos();
 		}
-		boolean hasBindingAttempt = hasBindingAttempt(view, tile.getBlockPos());
+		boolean hasBindingAttempt = hasBindingAttempt(view, flower.getBlockPos());
 
-		if (hasBindingAttempt || tile.getBlockPos().equals(pos)) {
-			SpecialFlowerBlockEntity flower = tile;
+		if (hasBindingAttempt || flower.getBlockPos().equals(pos)) {
 			ms.pushPose();
 			if (hasBindingAttempt) {
 				ms.translate(0, 0.005, 0);
 			}
-			renderRadius(tile, partialTicks, ms, buffers, flower.getRadius());
+			renderRadius(flower, partialTicks, ms, buffers, flower.getRadius());
 			ms.translate(0, 0.002, 0);
-			renderRadius(tile, partialTicks, ms, buffers, flower.getSecondaryRadius());
+			renderRadius(flower, partialTicks, ms, buffers, flower.getSecondaryRadius());
 			ms.popPose();
 
 		}
@@ -97,7 +97,7 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 	public static boolean hasBindingAttempt(LivingEntity view, BlockPos tilePos) {
 		ItemStack stackHeld = PlayerHelper.getFirstHeldItemClass(view, WandOfTheForestItem.class);
 		if (!stackHeld.isEmpty() && WandOfTheForestItem.getBindMode(stackHeld)) {
-			return WandOfTheForestItem.getBindingAttempt(stackHeld).filter(tilePos::equals).isPresent();
+			return WandOfTheForestItem.getBindingAttempt(stackHeld).map(GlobalPos::pos).filter(tilePos::equals).isPresent();
 		}
 		return false;
 	}

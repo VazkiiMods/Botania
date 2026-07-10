@@ -37,10 +37,10 @@ public class IncensePlateBlockEntityRenderer implements BlockEntityRenderer<Ince
 		ms.pushPose();
 		ms.translate(0.5F, 1.5F, 0.5F);
 		int degrees = switch (facing) {
-			default -> 0;
 			case WEST -> 90;
 			case SOUTH -> 180;
 			case EAST -> 270;
+			default -> 0;
 		};
 		ms.mulPose(VecHelper.rotateY(degrees));
 		float s = 0.6F;

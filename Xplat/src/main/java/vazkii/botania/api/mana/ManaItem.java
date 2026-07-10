@@ -73,7 +73,7 @@ public interface ManaItem {
 	/**
 	 * Can this item send mana to another item that requested it?
 	 *
-	 * @param The item that requested the mana, likely not a ManaItem itself.
+	 * @param otherStack The item that requested the mana, likely not a ManaItem itself.
 	 */
 	boolean canSendRequestedManaToItem(ItemStack otherStack);
 
