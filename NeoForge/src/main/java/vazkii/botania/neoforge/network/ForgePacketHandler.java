@@ -63,6 +63,7 @@ public class ForgePacketHandler {
 		registrar.playToClient(DivaCharmEffectPacket.ID, DivaCharmEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> DivaCharmEffectPacket.Handler::handle));
 		registrar.playToClient(EnchanterDestroyEffectPacket.ID, EnchanterDestroyEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> EnchanterDestroyEffectPacket.Handler::handle));
 		registrar.playToClient(FlowerTakeItemEffectPacket.ID, FlowerTakeItemEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> FlowerTakeItemEffectPacket.Handler::handle));
+		registrar.playToClient(FlowerTakeItemEffectPacket.FIRE_ID, FlowerTakeItemEffectPacket.STREAM_CODEC_FIRE, makeClientBoundHandler(() -> FlowerTakeItemEffectPacket.Handler::handle));
 		registrar.playToClient(FluegelEyeEffectPacket.ID, FluegelEyeEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> FluegelEyeEffectPacket.Handler::handle));
 		registrar.playToClient(GogWorldPacket.ID, GogWorldPacket.STREAM_CODEC, makeClientBoundHandler(() -> GogWorldPacket.Handler::handle));
 		registrar.playToClient(GrassSeedsEffectPacket.ID, GrassSeedsEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> GrassSeedsEffectPacket.Handler::handle));

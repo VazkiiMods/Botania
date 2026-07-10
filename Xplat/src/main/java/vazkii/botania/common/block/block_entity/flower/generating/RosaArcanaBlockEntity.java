@@ -37,6 +37,7 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.mixin.ExperienceOrbAccessor;
 import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
@@ -112,8 +113,10 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 			if (count > 0) {
 				addMana(orb.getValue() * MANA_PER_XP);
 				((ExperienceOrbAccessor) orb).botania_setCount(count - 1);
-				XplatAbstractions.instance().sendToTracking(orb,
-						new FlowerTakeItemEffectPacket(orb.getId(), getEffectivePos(), 1));
+				if (BotaniaConfig.common().flowerItemPickupAnimations()) {
+					XplatAbstractions.instance().sendToTracking(orb,
+							FlowerTakeItemEffectPacket.create(orb.getId(), getEffectivePos(), 1));
+				}
 				if (count == 1) {
 					orb.discard();
 				}

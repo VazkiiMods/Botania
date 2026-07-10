@@ -31,6 +31,9 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.internal_caps.ItemLifetime;
+import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -84,15 +87,19 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 					mob.setPersistenceRequired();
 				}
 			}
-			for (ItemEntity i : nameableItems) {
-				i.getItem().set(DataComponents.CUSTOM_NAME, name);
-				EntityHelper.syncItem(i);
+			for (ItemEntity itemEntity : nameableItems) {
+				itemEntity.getItem().set(DataComponents.CUSTOM_NAME, name);
+				EntityHelper.syncItem(itemEntity);
 				((ServerLevel) level).sendParticles(ParticleTypes.INSTANT_EFFECT,
-						i.getX(), i.getY(), i.getZ(),
+						itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(),
 						3, 0, 0, 0, 0);
 
 			}
 			addMana(-COST);
+			if (BotaniaConfig.common().flowerItemPickupAnimations()) {
+				XplatAbstractions.instance().sendToTracking(nameTagEnt,
+						FlowerTakeItemEffectPacket.create(nameTagEnt.getId(), getEffectivePos(), 1));
+			}
 			EntityHelper.shrinkItem(nameTagEnt);
 			level.playSound(null, effPos, BotaniaSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
 			break;

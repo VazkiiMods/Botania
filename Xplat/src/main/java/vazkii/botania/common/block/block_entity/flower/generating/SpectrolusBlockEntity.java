@@ -30,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.UnknownNullability;
 
@@ -41,6 +42,9 @@ import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.internal_caps.ItemLifetime;
+import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -108,9 +112,21 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 
 			if (expected.asItem() == stack.getItem()) {
 				addManaAndCycle(WOOL_GEN);
-				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), item.getX(), item.getY(), item.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
+
+				Vec3 offset = getLevel().getBlockState(getEffectivePos()).getOffset(getLevel(),
+						getEffectivePos()).add(0.5, 0.6, 0.5);
+
+				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack),
+						getEffectivePos().getX() + offset.x,
+						getEffectivePos().getY() + offset.y,
+						getEffectivePos().getZ() + offset.z,
+						10, 0.1, 0.1, 0.1, 0.03);
 			}
 
+			if (BotaniaConfig.common().flowerItemPickupAnimations()) {
+				XplatAbstractions.instance().sendToTracking(item,
+						FlowerTakeItemEffectPacket.create(item.getId(), getEffectivePos(), stack.getCount()));
+			}
 			item.discard();
 		}
 	}

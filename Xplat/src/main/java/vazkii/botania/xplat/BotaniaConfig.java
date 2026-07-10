@@ -21,6 +21,7 @@ public class BotaniaConfig {
 	public interface ConfigAccess {
 		boolean blockBreakParticles();
 		boolean blockBreakParticlesTool();
+		boolean flowerItemPickupAnimations();
 		boolean chargingAnimationEnabled();
 		boolean silentSpreaders();
 		int spreaderTraceTime();

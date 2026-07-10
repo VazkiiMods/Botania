@@ -36,21 +36,28 @@ public class FlowerItemPickupParticle extends Particle {
 	// Botania: target doesn't move, so no need for position updates (I can already hear Sable noises, though)
 
 	public FlowerItemPickupParticle(EntityRenderDispatcher entityRenderDispatcher, RenderBuffers buffers,
-			ClientLevel level, Entity itemEntity, BlockPos target) {
-		this(entityRenderDispatcher, buffers, level, itemEntity, target, itemEntity.getDeltaMovement());
+			ClientLevel level, Entity itemEntity, BlockPos target, boolean onFire) {
+		this(entityRenderDispatcher, buffers, level, itemEntity, target, onFire, itemEntity.getDeltaMovement());
 	}
 
 	private FlowerItemPickupParticle(EntityRenderDispatcher entityRenderDispatcher, RenderBuffers buffers,
-			ClientLevel level, Entity itemEntity, BlockPos target, Vec3 speedVector) {
+			ClientLevel level, Entity itemEntity, BlockPos target, boolean onFire, Vec3 speedVector) {
 		super(level, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), speedVector.x, speedVector.y, speedVector.z);
 		this.renderBuffers = buffers;
-		this.itemEntity = this.getSafeCopy(itemEntity);
+		this.itemEntity = this.getSafeCopy(itemEntity, onFire);
 		this.target = target;
 		this.entityRenderDispatcher = entityRenderDispatcher;
 	}
 
-	private Entity getSafeCopy(Entity entity) {
-		return !(entity instanceof ItemEntity) ? entity : ((ItemEntity) entity).copy();
+	private Entity getSafeCopy(Entity entity, boolean onFire) {
+		if (!(entity instanceof ItemEntity item)) {
+			return entity;
+		}
+		ItemEntity copy = item.copy();
+		if (onFire) {
+			copy.setSharedFlagOnFire(true);
+		}
+		return copy;
 	}
 
 	@Override

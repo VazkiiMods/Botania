@@ -59,6 +59,7 @@ public final class FabricPacketHandler {
 		PayloadTypeRegistry.playS2C().register(DivaCharmEffectPacket.ID, DivaCharmEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(EnchanterDestroyEffectPacket.ID, EnchanterDestroyEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(FlowerTakeItemEffectPacket.ID, FlowerTakeItemEffectPacket.STREAM_CODEC);
+		PayloadTypeRegistry.playS2C().register(FlowerTakeItemEffectPacket.FIRE_ID, FlowerTakeItemEffectPacket.STREAM_CODEC_FIRE);
 		PayloadTypeRegistry.playS2C().register(FluegelEyeEffectPacket.ID, FluegelEyeEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(GogWorldPacket.ID, GogWorldPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(GrassSeedsEffectPacket.ID, GrassSeedsEffectPacket.STREAM_CODEC);
@@ -93,6 +94,7 @@ public final class FabricPacketHandler {
 		ClientPlayNetworking.registerGlobalReceiver(DivaCharmEffectPacket.ID, makeClientBoundHandler(DivaCharmEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(EnchanterDestroyEffectPacket.ID, makeClientBoundHandler(EnchanterDestroyEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(FlowerTakeItemEffectPacket.ID, makeClientBoundHandler(FlowerTakeItemEffectPacket.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(FlowerTakeItemEffectPacket.FIRE_ID, makeClientBoundHandler(FlowerTakeItemEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(FluegelEyeEffectPacket.ID, makeClientBoundHandler(FluegelEyeEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(GogWorldPacket.ID, makeClientBoundHandler(GogWorldPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(GrassSeedsEffectPacket.ID, makeClientBoundHandler(GrassSeedsEffectPacket.Handler::handle));

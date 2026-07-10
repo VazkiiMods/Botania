@@ -258,6 +258,7 @@ public final class FiberBotaniaConfig {
 	private static class Common implements BotaniaConfig.ConfigAccess {
 		public final PropertyMirror<Boolean> blockBreakParticles = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> blockBreakParticlesTool = PropertyMirror.create(BOOLEAN);
+		public final PropertyMirror<Boolean> flowerItemPickupAnimations = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> chargingAnimationEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> silentSpreaders = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> spreaderTraceTime = PropertyMirror.create(INTEGER);
@@ -310,6 +311,10 @@ public final class FiberBotaniaConfig {
 					.withComment("Set this to false to disable the animation when an item is charging on top of a mana pool")
 					.finishValue(chargingAnimationEnabled::mirror)
 
+					.beginValue("flowerItemPickupAnimations", BOOLEAN, true)
+					.withComment("Set this to false to disable the animation for a flower 'picking up' an item")
+					.finishValue(flowerItemPickupAnimations::mirror)
+
 					.beginValue("enderPickpocket", BOOLEAN, true)
 					.withComment("Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests")
 					.finishValue(enderPickpocketEnabled::mirror)
@@ -358,6 +363,11 @@ public final class FiberBotaniaConfig {
 		@Override
 		public boolean blockBreakParticlesTool() {
 			return blockBreakParticlesTool.getValue();
+		}
+
+		@Override
+		public boolean flowerItemPickupAnimations() {
+			return flowerItemPickupAnimations.getValue();
 		}
 
 		@Override

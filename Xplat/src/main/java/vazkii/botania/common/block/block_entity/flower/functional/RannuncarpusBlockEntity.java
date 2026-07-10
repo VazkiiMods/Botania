@@ -50,7 +50,9 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.FilterHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.internal_caps.ItemLifetime;
+import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
@@ -106,6 +108,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 				if (coords == null) {
 					continue;
 				}
+				int prevCount = stack.getCount();
 				BlockPlaceContext ctx = getBlockPlaceContext(stack, coords);
 
 				boolean success = false;
@@ -117,6 +120,11 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 				}
 
 				if (success) {
+					if (BotaniaConfig.common().flowerItemPickupAnimations()) {
+						XplatAbstractions.instance().sendToTracking(item,
+								FlowerTakeItemEffectPacket.create(item.getId(),
+										getEffectivePos(), stack.getCount() - prevCount));
+					}
 					if (BotaniaConfig.common().blockBreakParticles()) {
 						BlockState state = getLevel().getBlockState(ctx.getClickedPos());
 						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));

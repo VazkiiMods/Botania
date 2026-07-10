@@ -33,6 +33,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.*;
 import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.EnumMap;
@@ -130,8 +131,11 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			}
 
 			if (stack.getCount() < originalCount && item.isAlive()) {
-				XplatAbstractions.instance().sendToTracking(item, new FlowerTakeItemEffectPacket(item.getId(),
-						getEffectivePos(), originalCount - stack.getCount()));
+				if (BotaniaConfig.common().flowerItemPickupAnimations()) {
+					XplatAbstractions.instance().sendToTracking(item,
+							FlowerTakeItemEffectPacket.create(item.getId(),
+									getEffectivePos(), originalCount - stack.getCount()));
+				}
 				item.setItem(stack);
 				if (stack == originalStack) {
 					EntityHelper.syncItem(item);

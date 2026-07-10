@@ -30,19 +30,35 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 import io.netty.buffer.ByteBuf;
 
-public record FlowerTakeItemEffectPacket(int itemId, BlockPos pos, int amount) implements CustomPacketPayload {
+public record FlowerTakeItemEffectPacket(int itemId, BlockPos pos, int amount, boolean onFire) implements CustomPacketPayload {
 
 	public static final Type<FlowerTakeItemEffectPacket> ID = new Type<>(botaniaRL("ti"));
+	// we encode the "on-fire" information in the packet ID, since it would take up an entire byte otherwise
+	public static final Type<FlowerTakeItemEffectPacket> FIRE_ID = new Type<>(botaniaRL("tf"));
 	public static final StreamCodec<ByteBuf, FlowerTakeItemEffectPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.VAR_INT, FlowerTakeItemEffectPacket::itemId,
 			BlockPos.STREAM_CODEC, FlowerTakeItemEffectPacket::pos,
 			ByteBufCodecs.VAR_INT, FlowerTakeItemEffectPacket::amount,
-			FlowerTakeItemEffectPacket::new
+			FlowerTakeItemEffectPacket::create
 	);
+	public static final StreamCodec<ByteBuf, FlowerTakeItemEffectPacket> STREAM_CODEC_FIRE = StreamCodec.composite(
+			ByteBufCodecs.VAR_INT, FlowerTakeItemEffectPacket::itemId,
+			BlockPos.STREAM_CODEC, FlowerTakeItemEffectPacket::pos,
+			ByteBufCodecs.VAR_INT, FlowerTakeItemEffectPacket::amount,
+			FlowerTakeItemEffectPacket::creatOnFire
+	);
+
+	public static FlowerTakeItemEffectPacket create(int itemId, BlockPos pos, int amount) {
+		return new FlowerTakeItemEffectPacket(itemId, pos, amount, false);
+	}
+
+	public static FlowerTakeItemEffectPacket creatOnFire(int itemId, BlockPos pos, int amount) {
+		return new FlowerTakeItemEffectPacket(itemId, pos, amount, true);
+	}
 
 	@Override
 	public Type<FlowerTakeItemEffectPacket> type() {
-		return ID;
+		return onFire ? FIRE_ID : ID;
 	}
 
 	public static class Handler {
@@ -80,7 +96,7 @@ public record FlowerTakeItemEffectPacket(int itemId, BlockPos pos, int amount) i
 
 				Minecraft minecraft = Minecraft.getInstance();
 				minecraft.particleEngine.add(new FlowerItemPickupParticle(minecraft.getEntityRenderDispatcher(),
-						minecraft.renderBuffers(), level, entity, packet.pos()));
+						minecraft.renderBuffers(), level, entity, packet.pos(), packet.onFire()));
 				if (entity instanceof ItemEntity itementity) {
 					ItemStack itemstack = itementity.getItem();
 					if (!itemstack.isEmpty()) {

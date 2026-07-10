@@ -211,6 +211,7 @@ public final class ForgeBotaniaConfig {
 	private static class Common implements BotaniaConfig.ConfigAccess {
 		public final ModConfigSpec.BooleanValue blockBreakParticles;
 		public final ModConfigSpec.BooleanValue blockBreakParticlesTool;
+		public final ModConfigSpec.BooleanValue flowerItemPickupAnimations;
 		public final ModConfigSpec.BooleanValue chargingAnimationEnabled;
 		public final ModConfigSpec.BooleanValue silentSpreaders;
 		public final ModConfigSpec.IntValue spreaderTraceTime;
@@ -261,6 +262,9 @@ public final class ForgeBotaniaConfig {
 			chargingAnimationEnabled = builder
 					.comment("Set this to false to disable the animation when an item is charging on top of a mana pool")
 					.define("chargeAnimation", true);
+			flowerItemPickupAnimations = builder
+					.comment("Set this to false to disable the animation for a flower 'picking up' an item")
+					.define("flowerItemPickupAnimations", true);
 			flowerForceCheck = builder
 					.comment("Turn this off ONLY IF you're on an extremely large world with an exaggerated count of Mana Spreaders/Mana Pools and are experiencing TPS lag. This toggles whether flowers are strict with their checking for connecting to pools/spreaders or just check whenever possible.")
 					.define("flowerBindingForceCheck", true);
@@ -303,6 +307,11 @@ public final class ForgeBotaniaConfig {
 		@Override
 		public boolean blockBreakParticlesTool() {
 			return blockBreakParticlesTool.get();
+		}
+
+		@Override
+		public boolean flowerItemPickupAnimations() {
+			return flowerItemPickupAnimations.get();
 		}
 
 		@Override

@@ -29,6 +29,8 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
@@ -102,6 +104,10 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 				ItemStack stack = item.getItem();
 				int burnTime = getBurnTime(stack);
 				if (burnTime > 0) {
+					if (BotaniaConfig.common().flowerItemPickupAnimations()) {
+						XplatAbstractions.instance().sendToTracking(item,
+								FlowerTakeItemEffectPacket.creatOnFire(item.getId(), getEffectivePos(), 1));
+					}
 					this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 					EntityHelper.shrinkItem(item);

@@ -39,6 +39,11 @@ public class DelegatingConfigAccess implements BotaniaConfig.ConfigAccess {
 	}
 
 	@Override
+	public boolean flowerItemPickupAnimations() {
+		return inner.flowerItemPickupAnimations();
+	}
+
+	@Override
 	public boolean chargingAnimationEnabled() {
 		return inner.chargingAnimationEnabled();
 	}
