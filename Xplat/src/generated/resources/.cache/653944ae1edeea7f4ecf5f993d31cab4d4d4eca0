@@ -1,7 +1,7 @@
 // 1.21.1	Botania/Tags for minecraft:entity_type
 d7fff98ebc6b9626b17cf86f8be00d279d1d3cf3 data/botania/tags/entity_type/cocoon/common.json
 1aaa6d2be4c24ea9186245cd3668e9f4f96d3f4a data/botania/tags/entity_type/cocoon/common_aquatic.json
-daa2aa89d1de6896401ef2383e2058aa8ecd36e0 data/botania/tags/entity_type/cocoon/rare.json
+c35bb54f216010511a32ebc2be4da3e86e8c679e data/botania/tags/entity_type/cocoon/rare.json
 92d1c364f275518579675aa8cd7995fbf9976f78 data/botania/tags/entity_type/cocoon/rare_aquatic.json
 efd0b9bc39be573af4c8f7f51f0fcb468f80fb88 data/botania/tags/entity_type/drum/milkable.json
 1ef430c55d1de22917fabe28a7b13acd1ccbc2cc data/botania/tags/entity_type/drum/no_shearing.json

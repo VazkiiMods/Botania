@@ -85,6 +85,7 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 {% include changelog_header.html version="Upcoming" %}
 The following changes will be released in an upcoming version of Botania for 1.20.1:
 
+* Remove: Quark frog as rare cocoon spawn (catching up to 1.19 – woo, so up-to-date!)
 * Fix: The information whether an item entity was created via mana infusion or via the runic altar was deserialized incorrectly
 * Fix: Mobs were able to spawn on spectral platforms
 
