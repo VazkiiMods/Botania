@@ -34,8 +34,7 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 		tag(BotaniaTags.Entities.COCOON_RARE)
 				.add(EntityType.HORSE, EntityType.DONKEY, EntityType.WOLF, EntityType.OCELOT,
 						EntityType.CAT, EntityType.PARROT, EntityType.LLAMA, EntityType.FOX,
-						EntityType.PANDA, EntityType.TURTLE, EntityType.GOAT, EntityType.CAMEL)
-				.addOptional(new ResourceLocation("quark", "frog"));
+						EntityType.PANDA, EntityType.TURTLE, EntityType.GOAT, EntityType.CAMEL);
 
 		tag(BotaniaTags.Entities.COCOON_COMMON_AQUATIC)
 				.add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.PUFFERFISH, EntityType.SQUID, EntityType.FROG)
