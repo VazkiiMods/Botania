@@ -21,13 +21,13 @@ import vazkii.botania.api.item.Relic;
 import java.util.List;
 
 public class RelicItem extends Item {
-	public RelicItem(Properties props) {
-		super(props);
+	public RelicItem(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-		if (!world.isClientSide && entity instanceof Player player) {
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+		if (!level.isClientSide && entity instanceof Player player) {
 			var relic = Relic.LOOKUP.find(stack);
 			if (relic != null) {
 				relic.tickBinding(player);

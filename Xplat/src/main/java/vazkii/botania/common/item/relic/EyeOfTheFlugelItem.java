@@ -36,6 +36,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.network.clientbound.FluegelEyeEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -46,15 +47,15 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class EyeOfTheFlugelItem extends RelicItem {
 
-	public EyeOfTheFlugelItem(Properties props) {
-		super(props);
+	public EyeOfTheFlugelItem(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public InteractionResult useOn(UseOnContext ctx) {
-		Level world = ctx.getLevel();
-		BlockPos pos = ctx.getClickedPos();
-		Player player = ctx.getPlayer();
+	public InteractionResult useOn(UseOnContext context) {
+		Level world = context.getLevel();
+		BlockPos pos = context.getClickedPos();
+		Player player = context.getPlayer();
 
 		if (player != null && player.isSecondaryUseActive()) {
 			if (world.isClientSide) {
@@ -66,7 +67,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 					world.addParticle(data, x1, y1, z1, 0, 0.05F - (float) Math.random() * 0.05F, 0);
 				}
 			} else {
-				ItemStack stack = ctx.getItemInHand();
+				ItemStack stack = context.getItemInHand();
 				Map<ResourceLocation, BlockPos> boundPositions = new HashMap<>(stack.getOrDefault(
 						BotaniaDataComponents.BOUND_POSITIONS, Collections.emptyMap()));
 				boundPositions.put(world.dimension().location(), pos);
@@ -81,28 +82,49 @@ public class EyeOfTheFlugelItem extends RelicItem {
 	}
 
 	@Override
-	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
-		if (world.isClientSide) {
-			float x = (float) (living.getX() - Math.random() * living.getBbWidth());
-			float y = (float) (living.getY() + Math.random());
-			float z = (float) (living.getZ() - Math.random() * living.getBbWidth());
+	public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
+		if (level.isClientSide) {
+			float x = (float) (livingEntity.getX() - Math.random() * livingEntity.getBbWidth());
+			float y = (float) (livingEntity.getY() + Math.random());
+			float z = (float) (livingEntity.getZ() - Math.random() * livingEntity.getBbWidth());
 			WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
-			world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
+			level.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
+		}
+	}
+
+	@Nullable
+	public static BlockPos getBoundPosInDimension(ItemStack stack, Level level) {
+		return stack.getOrDefault(BotaniaDataComponents.BOUND_POSITIONS, Map.<ResourceLocation, BlockPos>of())
+				.get(level.dimension().location());
+	}
+
+	@Override
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+		super.inventoryTick(stack, level, entity, slotId, isSelected);
+		// we can't access the level while building the tooltip, so the best we can do is figuring it out ahead of time
+		ResourceLocation dimension = level.dimension().location();
+		ResourceLocation knownDimension = stack.get(BotaniaDataComponents.LOCAL_DIMENSION);
+		if (!Objects.equals(dimension, knownDimension)) {
+			stack.set(BotaniaDataComponents.LOCAL_DIMENSION, dimension);
+		}
+		BlockPos boundPos = getBoundPosInDimension(stack, level);
+		BlockPos knownBoundPos = stack.get(BotaniaDataComponents.LOCAL_BOUND_POSITION);
+		if (!Objects.equals(boundPos, knownBoundPos)) {
+			DataComponentHelper.setOptional(stack, BotaniaDataComponents.LOCAL_BOUND_POSITION, boundPos);
 		}
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-		return ItemUtils.startUsingInstantly(world, player, hand);
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+		return ItemUtils.startUsingInstantly(level, player, usedHand);
 	}
 
 	@Override
-	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity living) {
-		if (world.isClientSide()) {
+	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+		if (level.isClientSide()) {
 			return stack;
 		}
-		BlockPos loc = stack.getOrDefault(BotaniaDataComponents.BOUND_POSITIONS, Map.<ResourceLocation, BlockPos>of())
-				.get(world.dimension().location());
+		BlockPos loc = getBoundPosInDimension(stack, level);
 		if (loc == null) {
 			return stack;
 		}
@@ -111,14 +133,15 @@ public class EyeOfTheFlugelItem extends RelicItem {
 		int y = loc.getY();
 		int z = loc.getZ();
 
-		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getX(), living.getY(), living.getZ()) * 10);
+		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5,
+				livingEntity.getX(), livingEntity.getY(), livingEntity.getZ()) * 10);
 
-		if (!(living instanceof Player player) || ManaItemHandler.instance().requestManaExact(stack, player, cost, true)) {
-			moveParticlesAndSound(living);
-			Vec3 sourcePos = living.position();
-			living.teleportTo(x + 0.5, y + 1.5, z + 0.5);
-			world.gameEvent(living, GameEvent.TELEPORT, sourcePos);
-			moveParticlesAndSound(living);
+		if (!(livingEntity instanceof Player player) || ManaItemHandler.instance().requestManaExact(stack, player, cost, true)) {
+			moveParticlesAndSound(livingEntity);
+			Vec3 sourcePos = livingEntity.position();
+			livingEntity.teleportTo(x + 0.5, y + 1.5, z + 0.5);
+			level.gameEvent(livingEntity, GameEvent.TELEPORT, sourcePos);
+			moveParticlesAndSound(livingEntity);
 		}
 
 		return stack;
@@ -126,7 +149,8 @@ public class EyeOfTheFlugelItem extends RelicItem {
 
 	private static void moveParticlesAndSound(Entity entity) {
 		XplatAbstractions.INSTANCE.sendToTracking(entity, new FluegelEyeEffectPacket(entity.getId()));
-		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), BotaniaSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
+		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
+				BotaniaSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
 	}
 
 	@Override
@@ -149,8 +173,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 		@Nullable
 		@Override
 		public BlockPos getBinding(Level world) {
-			return stack.getOrDefault(BotaniaDataComponents.BOUND_POSITIONS, Map.<ResourceLocation, BlockPos>of())
-					.get(world.dimension().location());
+			return getBoundPosInDimension(stack, world);
 		}
 	}
 
@@ -162,19 +185,12 @@ public class EyeOfTheFlugelItem extends RelicItem {
 			return;
 		}
 
-		var coordBoundItem = CoordBoundItem.LOOKUP.find(stack);
-		if (coordBoundItem == null) {
+		ResourceLocation dimension = stack.get(BotaniaDataComponents.LOCAL_DIMENSION);
+		if (dimension == null) {
 			return;
 		}
-
-		//Minecraft mc = Minecraft.getInstance();
-		//Todo check if it works with this level
-		Level level = null;//mc.level;
-		if (level == null)
-			return;
-
-		BlockPos binding = coordBoundItem.getBinding(level);
-		Component worldText = Component.literal(level.dimension().location().toString()).withStyle(ChatFormatting.GREEN);
+		BlockPos binding = stack.get(BotaniaDataComponents.LOCAL_BOUND_POSITION);
+		Component worldText = Component.literal(dimension.toString()).withStyle(ChatFormatting.GREEN);
 
 		if (binding == null) {
 			tooltip.add(Component.translatable("botaniamisc.flugelUnbound", worldText).withStyle(ChatFormatting.GRAY));

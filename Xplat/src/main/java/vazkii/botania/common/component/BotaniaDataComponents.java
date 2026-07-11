@@ -207,9 +207,16 @@ public class BotaniaDataComponents {
 					.networkSynchronized(ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list(16))));
 	public static final DataComponentType<UUID> SOULBOUND = make(LibComponentNames.SOULBOUND,
 			builder -> builder.persistent(UUIDUtil.CODEC).networkSynchronized(UUIDUtil.STREAM_CODEC));
+
+	// Eye of the Flügel
 	public static final DataComponentType<Map<ResourceLocation, BlockPos>> BOUND_POSITIONS = make(LibComponentNames.BOUND_POSITIONS,
 			builder -> builder.persistent(Codec.unboundedMap(ResourceLocation.CODEC, BlockPos.CODEC)).cacheEncoding()
 					.networkSynchronized(ByteBufCodecs.map(HashMap::new, ResourceLocation.STREAM_CODEC, BlockPos.STREAM_CODEC)));
+	// non-authoritative data copies for the current dimension (for tooltip rendering)
+	public static final DataComponentType<BlockPos> LOCAL_BOUND_POSITION = make(LibComponentNames.LOCAL_BOUND_POSITION,
+			builder -> builder.networkSynchronized(BlockPos.STREAM_CODEC));
+	public static final DataComponentType<ResourceLocation> LOCAL_DIMENSION = make(LibComponentNames.LOCAL_DIMENSION,
+			builder -> builder.networkSynchronized(ResourceLocation.STREAM_CODEC));
 
 	// Flügel Tiara components, TODO: subject to future reorganization
 	public static final DataComponentType<Integer> TIARA_VARIANT = make(LibComponentNames.TIARA_VARIANT,
