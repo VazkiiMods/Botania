@@ -233,7 +233,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				// prevent armor/weapon drops on player kill, also no nautilus shells from drowned:
 				Arrays.stream(EquipmentSlot.values()).forEach(slot -> otherMob.setDropChance(slot, 0));
 
-				if (mob instanceof PatrollingMonster patroller && patroller.isPatrolLeader()) {
+				if (otherMob instanceof PatrollingMonster patroller && patroller.isPatrolLeader()) {
 					//  Loonium may be presenting challenges, but not that type of challenge
 					patroller.setPatrolLeader(false);
 					patroller.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
@@ -248,7 +248,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 				ItemStack bonusLoot;
 				if (mobType.isPresent()) {
-					applyAttributesAndEffects(mobType.get(), pickedConfig, mob);
+					applyAttributesAndEffects(mobType.get(), pickedConfig, otherMob);
 					bonusLoot = pickRandomLootItem(world, pickedLootTable);
 				} else {
 					bonusLoot = ItemStack.EMPTY;
