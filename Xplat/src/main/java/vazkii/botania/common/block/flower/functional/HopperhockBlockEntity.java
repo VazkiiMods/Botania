@@ -217,11 +217,6 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), getRange());
 	}
 
-	@Override
-	public RadiusDescriptor getSecondaryRadius() {
-		return RadiusDescriptor.Rectangle.square(getBlockPos(), 1);
-	}
-
 	public int getRange() {
 		return getMana() > 0 ? RANGE_MANA : RANGE;
 	}

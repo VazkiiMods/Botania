@@ -21,6 +21,7 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+* Change: Hopperhock no longer shows a secondary range indicator, as it doesn't really match its container access pattern
 * Remove: Quark frog as rare cocoon spawn (catching up to 1.19 – woo, so up-to-date!)
 * Fix: The information whether an item entity was created via mana infusion or via the runic altar was deserialized incorrectly
 * Fix: Mobs were able to spawn on spectral platforms
