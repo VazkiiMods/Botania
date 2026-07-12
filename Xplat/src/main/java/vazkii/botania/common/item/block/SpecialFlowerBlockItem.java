@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.block;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.BlockItem;
@@ -45,6 +46,9 @@ public class SpecialFlowerBlockItem extends BlockItem {
 
 			if (BotaniaConfig.client().referencesEnabled()) {
 				String key = getDescriptionId() + ".reference";
+				if (key.contains("floating_") && !Language.getInstance().has(key)) {
+					key = key.replace("floating_", "");
+				}
 				MutableComponent lore = Component.translatable(key);
 				if (!lore.getString().equals(key)) {
 					tooltip.add(lore.withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
