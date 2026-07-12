@@ -20,7 +20,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,6 +28,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.mixin.MobAccessor;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -50,7 +50,8 @@ public class FelPumpkinBlock extends BotaniaBlock {
 	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
 		super.onPlace(state, world, pos, oldState, isMoving);
 
-		if (!world.isClientSide && world.getBlockState(pos.below()).is(Blocks.IRON_BARS) && world.getBlockState(pos.below(2)).is(Blocks.IRON_BARS)) {
+		if (!world.isClientSide && world.getBlockState(pos.below()).is(BotaniaTags.Blocks.FEL_BLAZE_BASE)
+				&& world.getBlockState(pos.below(2)).is(BotaniaTags.Blocks.FEL_BLAZE_BASE)) {
 			world.removeBlock(pos, false);
 			world.removeBlock(pos.below(), false);
 			world.removeBlock(pos.below(2), false);
