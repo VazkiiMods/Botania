@@ -25,6 +25,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Remove: Quark frog as rare cocoon spawn (catching up to 1.19 – woo, so up-to-date!)
 * Fix: The information whether an item entity was created via mana infusion or via the runic altar was deserialized incorrectly
 * Fix: Mobs were able to spawn on spectral platforms
+* Fix: Floating special flowers now show the type and reference lines, like their non-floating versions do
 
 ---
 

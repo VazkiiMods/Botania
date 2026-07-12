@@ -52,6 +52,9 @@ public class BotaniaTags {
 		public static final TagKey<Item> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
 		public static final TagKey<Item> FUNCTIONAL_SPECIAL_FLOWERS = tag("functional_special_flowers");
 		public static final TagKey<Item> GENERATING_SPECIAL_FLOWERS = tag("generating_special_flowers");
+		public static final TagKey<Item> MISC_FLOATING_FLOWERS = tag("misc_floating_flowers");
+		public static final TagKey<Item> FUNCTIONAL_FLOATING_FLOWERS = tag("functional_floating_flowers");
+		public static final TagKey<Item> GENERATING_FLOATING_FLOWERS = tag("generating_floating_flowers");
 
 		public static final TagKey<Item> FLOATING_FLOWERS = tag("floating_flowers");
 		public static final TagKey<Item> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
@@ -167,6 +170,9 @@ public class BotaniaTags {
 		public static final TagKey<Block> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
 		public static final TagKey<Block> FUNCTIONAL_SPECIAL_FLOWERS = tag("functional_special_flowers");
 		public static final TagKey<Block> GENERATING_SPECIAL_FLOWERS = tag("generating_special_flowers");
+		public static final TagKey<Block> MISC_FLOATING_FLOWERS = tag("misc_floating_flowers");
+		public static final TagKey<Block> FUNCTIONAL_FLOATING_FLOWERS = tag("functional_floating_flowers");
+		public static final TagKey<Block> GENERATING_FLOATING_FLOWERS = tag("generating_floating_flowers");
 
 		public static final TagKey<Block> FLOATING_FLOWERS = tag("floating_flowers");
 		public static final TagKey<Block> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
