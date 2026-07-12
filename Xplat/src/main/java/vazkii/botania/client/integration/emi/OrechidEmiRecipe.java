@@ -36,10 +36,10 @@ public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 	public OrechidEmiRecipe(EmiRecipeCategory category, RecipeHolder<? extends OrechidRecipe> recipe, EmiIngredient orechid) {
 		super(category, recipe);
 		try {
-			this.input = recipe.value().getInput().getDisplayed().stream()
-					.map(s -> EmiIngredient.of(Ingredient.of(s.getBlock()), 1)).toList();
+			this.input = List.of(EmiIngredient.of(recipe.value().getInput().getDisplayed().stream()
+					.map(state -> EmiIngredient.of(Ingredient.of(state.getBlock()), 1)).toList()));
 			this.output = recipe.value().getOutput().getDisplayed().stream()
-					.map(s -> EmiStack.of(new ItemStack(s.getBlock()))).toList();
+					.map(state -> EmiStack.of(new ItemStack(state.getBlock()))).toList();
 		} catch (Throwable e) {
 			throw new RuntimeException(e);
 		}
@@ -55,11 +55,6 @@ public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 	@Override
 	public int getDisplayWidth() {
 		return 96;
-	}
-
-	@Override
-	public boolean supportsRecipeTree() {
-		return false;
 	}
 
 	@Override
