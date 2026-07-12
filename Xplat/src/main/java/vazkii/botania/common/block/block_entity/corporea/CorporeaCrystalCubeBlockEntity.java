@@ -79,8 +79,10 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 			requestTarget = stack.copyWithCount(1);
 			setChanged();
 			updateCount();
+		} else {
+			setChanged();
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
-
 	}
 
 	public ItemStack getRequestTarget() {
@@ -128,6 +130,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		if (this.itemCount != oldCount) {
 			this.compValue = CorporeaHelper.instance().signalStrengthForRequestSize(itemCount);
 			setChanged();
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}
 
