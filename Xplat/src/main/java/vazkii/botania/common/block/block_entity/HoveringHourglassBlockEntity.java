@@ -157,6 +157,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 			level.blockEvent(getBlockPos(), getBlockState().getBlock(), EVENT_COUNT_BURST, 0);
 		} else {
 			level.setBlockAndUpdate(getBlockPos(), getBlockState().cycle(HoveringHourglassBlock.ENABLED));
+			setChanged();
 		}
 	}
 
@@ -196,7 +197,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 	protected SimpleContainer createItemHandler() {
 		return new SimpleContainer(1) {
 			@Override
-			public boolean canPlaceItem(int index, ItemStack stack) {
+			public boolean canPlaceItem(int slot, ItemStack stack) {
 				return !stack.isEmpty() && HourglassMaterial.LOOKUP.find(stack) != null;
 			}
 		};
@@ -204,7 +205,7 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 
 	@Override
 	public void setChanged() {
-		if (level == null) {
+		if (level == null || level.isClientSide()) {
 			return;
 		}
 		int totalTime = getTotalTime();
