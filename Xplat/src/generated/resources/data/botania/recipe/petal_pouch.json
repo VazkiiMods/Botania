@@ -6,13 +6,16 @@
       "tag": "c:dusts/mana"
     },
     "P": {
-      "item": "botania:flower_pouch"
+      "tag": "botania:petals"
+    },
+    "W": {
+      "tag": "minecraft:wool"
     }
   },
   "pattern": [
-    " D ",
-    "DPD",
-    " D "
+    "WPW",
+    "WDW",
+    " W "
   ],
   "result": {
     "count": 1,

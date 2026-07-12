@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:flower_pouch"
+            "items": "#c:dusts/mana"
           }
         ]
       },
