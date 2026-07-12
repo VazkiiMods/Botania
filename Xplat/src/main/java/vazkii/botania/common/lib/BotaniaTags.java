@@ -239,6 +239,7 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 		public static final TagKey<Block> SPECTRAL_RAIL_BARRIER = tag("spectral_rail_barrier");
+		public static final TagKey<Block> FEL_BLAZE_BASE = tag("fel_blaze_base");
 
 		/**
 		 * Blocks in this tag can be turned into end stone by ender air

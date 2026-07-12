@@ -89,6 +89,7 @@ The following changes will be released in an upcoming version of Botania for 1.2
 * Fix: The information whether an item entity was created via mana infusion or via the runic altar was deserialized incorrectly
 * Fix: Mobs were able to spawn on spectral platforms
 * Fix: Floating special flowers now show the type and reference lines, like their non-floating versions do
+* Fix: Diagonal Windows iron bars now also work for summoning fel blazes
 
 ---
 

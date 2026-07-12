@@ -466,6 +466,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "glow_shroom_block"))
 				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "glow_ring_of_shroom"));
 
+		// for Diagonal Windows compatibility (DW adds its version of the block to the tag automatically)
+		tag(BotaniaTags.Blocks.FEL_BLAZE_BASE).add(Blocks.IRON_BARS);
+
 		registerMiningTags();
 	}
 

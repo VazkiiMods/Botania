@@ -37,6 +37,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.mixin.MobAccessor;
 
@@ -131,7 +132,7 @@ public class FelPumpkinBlock extends BotaniaBlock {
 			this.felBlazeFull = BlockPatternBuilder.start()
 					.aisle("^", "#", "#")
 					.where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BotaniaBlocks.FEL_PUMPKIN)))
-					.where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.IRON_BARS)))
+					.where('#', BlockInWorld.hasState(state -> state.is(BotaniaTags.Blocks.FEL_BLAZE_BASE)))
 					.build();
 		}
 
