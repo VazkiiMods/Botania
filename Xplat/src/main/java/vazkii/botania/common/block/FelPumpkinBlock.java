@@ -21,7 +21,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
@@ -65,7 +64,7 @@ public class FelPumpkinBlock extends BotaniaBlock {
 	}
 
 	@Override
-	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
 		if (!oldState.is(state.getBlock())) {
 			this.trySpawnBlaze(level, pos);
 		}
@@ -73,17 +72,20 @@ public class FelPumpkinBlock extends BotaniaBlock {
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
+		return defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING,
+				context.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
 	public BlockState mirror(BlockState state, Mirror mirror) {
-		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+		return state.setValue(BlockStateProperties.HORIZONTAL_FACING,
+				mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	@Override
-	public BlockState rotate(BlockState state, Rotation rot) {
-		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(BlockStateProperties.HORIZONTAL_FACING,
+				rotation.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	// [VanillaCopy] all code relevant to snow golems from CarvedPumpkinBlock
@@ -120,7 +122,7 @@ public class FelPumpkinBlock extends BotaniaBlock {
 		if (this.felBlazeBase == null) {
 			this.felBlazeBase = BlockPatternBuilder.start()
 					.aisle(" ", "#", "#")
-					.where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.IRON_BARS)))
+					.where('#', BlockInWorld.hasState(state -> state.is(BotaniaTags.Blocks.FEL_BLAZE_BASE)))
 					.build();
 		}
 
