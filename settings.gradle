@@ -21,6 +21,7 @@ plugins {
 }
 
 rootProject.name = "Botania"
+includeBuild("build-logic")
 include("Xplat")
 include("Fabric")
 include("NeoForge")
