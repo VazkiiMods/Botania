@@ -3,24 +3,24 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
         maven {
-            name = 'Fabric'
-            url = uri('https://maven.fabricmc.net')
+            name = "Fabric"
+            url = uri("https://maven.fabricmc.net")
         }
         maven {
             name = "NeoForged"
-            url = 'https://maven.neoforged.net/releases'
+            url = "https://maven.neoforged.net/releases"
             content {
-                includeGroup "net.neoforged"
+                includeGroup("net.neoforged")
             }
         }
     }
 }
 
 plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = 'Botania'
-include('Xplat')
-include('Fabric')
-include('NeoForge')
+rootProject.name = "Botania"
+include("Xplat")
+include("Fabric")
+include("NeoForge")

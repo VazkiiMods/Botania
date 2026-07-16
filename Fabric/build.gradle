@@ -1,6 +1,6 @@
 plugins {
-    id 'multiloader-loader'
-    id 'net.fabricmc.fabric-loom-remap'
+    id("multiloader-loader")
+    id("net.fabricmc.fabric-loom-remap")
 }
 
 loom {
@@ -10,28 +10,28 @@ loom {
     runs {
         gameTest {
             server()
-            vmArg "-Dfabric-api.gametest=1"
+            vmArg("-Dfabric-api.gametest=1")
         }
 
         xplatDatagen {
             client()
-            vmArg "-Dbotania.xplat_datagen=1"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=botania"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("../Xplat/src/generated/resources")}"
+            vmArg("-Dbotania.xplat_datagen=1")
+            vmArg("-Dfabric-api.datagen")
+            vmArg("-Dfabric-api.datagen.modid=botania")
+            vmArg("-Dfabric-api.datagen.output-dir=${file("../Xplat/src/generated/resources")}")
         }
 
         fabricDatagen {
             client()
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=botania"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+            vmArg("-Dfabric-api.datagen")
+            vmArg("-Dfabric-api.datagen.modid=botania")
+            vmArg("-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}")
         }
 
         configureEach {
-            runDir "../run"
+            runDir("../run")
             ideConfigGenerated(true)
-            vmArg "-Dfabric-tag-conventions-v2.missingTagTranslationWarning=VERBOSE"
+            vmArg("-Dfabric-tag-conventions-v2.missingTagTranslationWarning=VERBOSE")
         }
     }
 
@@ -48,7 +48,7 @@ repositories {
     }
     maven {
           name = "Ladysnake Libs"
-          url = 'https://maven.ladysnake.org/releases'
+          url = "https://maven.ladysnake.org/releases"
     }
     maven {
         name = "BuildCraft" // for LBA
@@ -61,53 +61,53 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
+    minecraft("com.mojang:minecraft:${minecraft_version}")
     mappings loom.layered() {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
     }
 
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
 
-    modImplementation "vazkii.patchouli:Patchouli:${patchouli_version}-FABRIC"
+    modImplementation("vazkii.patchouli:Patchouli:${patchouli_version}-FABRIC")
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
-    //modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
+    //modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
 
-    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
-    modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
+    modCompileOnly("dev.emi:emi-fabric:${emi_version}:api")
+    modLocalRuntime("dev.emi:emi-fabric:${emi_version}")
 
-    modImplementation "me.zeroeightsix:fiber:0.23.0-2"
-    include "me.zeroeightsix:fiber:0.23.0-2"
+    modImplementation("me.zeroeightsix:fiber:0.23.0-2")
+    include("me.zeroeightsix:fiber:0.23.0-2")
 
     modImplementation("dev.emi:trinkets:${trinkets_version}")
 
     modCompileOnly("teamreborn:energy:${team_reborn_energy_version}")
 
-    modCompileOnly "com.unascribed:ears-api:${ears_version}"
+    modCompileOnly("com.unascribed:ears-api:${ears_version}")
 
     modCompileOnly("maven.modrinth:sodium:mc${minecraft_version}-${sodium_version}-fabric") { transitive = false }
 
-    modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}"
-    //modLocalRuntime "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+    modCompileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
+    //modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
 
     // for xplat data load condition generating
-    modLocalRuntime files('lib/forged-conditions-21.1.0.jar')
+    modLocalRuntime(files("lib/forged-conditions-21.1.0.jar"))
 
-    modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
+    modRuntimeOnly("maven.modrinth:here-be-no-dragons:1.0.0")
 
     // for testing multiplayer features in singleplayer worlds, and weird things like movable block entities
-    //modRuntimeOnly "maven.modrinth:carpet:1.4.147"
+    //modRuntimeOnly("maven.modrinth:carpet:1.4.147")
 
-    compileOnly "org.jetbrains:annotations:26.0.2"
+    compileOnly("org.jetbrains:annotations:26.0.2")
 
     if (file("../garden_of_glass/gardenofglass-${gog_version}.jar").exists()) {
-        modLocalRuntime files("../garden_of_glass/gardenofglass-${gog_version}.jar")
+        modLocalRuntime(files("../garden_of_glass/gardenofglass-${gog_version}.jar"))
     }
 
-    testImplementation "net.fabricmc:fabric-loader-junit:${fabric_loader_version}"
+    testImplementation("net.fabricmc:fabric-loader-junit:${fabric_loader_version}")
 
-    modCompileOnly "maven.modrinth:speedrunigt:${speedrunigt_version}+${minecraft_version}"
-    //modLocalRuntime "maven.modrinth:speedrunigt:${speedrunigt_version}+${minecraft_version}"
+    modCompileOnly("maven.modrinth:speedrunigt:${speedrunigt_version}+${minecraft_version}")
+    //modLocalRuntime("maven.modrinth:speedrunigt:${speedrunigt_version}+${minecraft_version}")
 }

@@ -1,14 +1,16 @@
 plugins {
-    id 'java-library'
-    id 'maven-publish'
-    id 'idea'
+    id("java-library")
+    id("maven-publish")
+    id("idea")
+    id("pmd")
+    id("com.diffplug.spotless")
 }
 
 base {
     archivesName = "${mod_id}-${project.name.toLowerCase()}-${minecraft_version}"
     version = build_number
-    if (System.getenv().RELEASE_MODE != '1') {
-        version += '-SNAPSHOT'
+    if (System.getenv().RELEASE_MODE != "1") {
+        version += "-SNAPSHOT"
     }
 }
 
@@ -28,41 +30,41 @@ repositories {
     exclusiveContent {
         forRepository {
             maven {
-                name = 'Sponge'
-                url = 'https://repo.spongepowered.org/repository/maven-public'
+                name = "Sponge"
+                url = "https://repo.spongepowered.org/repository/maven-public"
             }
         }
-        filter { includeGroupAndSubgroups('org.spongepowered') }
+        filter { includeGroupAndSubgroups("org.spongepowered") }
     }
     exclusiveContent {
         forRepositories(
                 maven {
-                    name = 'ParchmentMC'
-                    url = 'https://maven.parchmentmc.org/'
+                    name = "ParchmentMC"
+                    url = "https://maven.parchmentmc.org/"
                 },
                 maven {
                     name = "NeoForge"
-                    url = 'https://maven.neoforged.net/releases'
+                    url = "https://maven.neoforged.net/releases"
                 }
         )
-        filter { includeGroup('org.parchmentmc.data') }
+        filter { includeGroup("org.parchmentmc.data") }
     }
     maven {
-        name = 'BlameJared'
-        url = 'https://maven.blamejared.com'
+        name = "BlameJared"
+        url = "https://maven.blamejared.com"
     }
     maven {
-        name = 'TerraformersMC'
-        url = 'https://maven.terraformersmc.com/' // for emi
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/" // for emi
     }
     maven {
         url = "https://maven.shedaniel.me/" // for rei
     }
     maven {
-        name = 'Unascribed'
-        url = 'https://repo.unascribed.com' // for ears
+        name = "Unascribed"
+        url = "https://repo.unascribed.com" // for ears
         content {
-            includeGroup('com.unascribed')
+            includeGroup("com.unascribed")
         }
     }
     maven {
@@ -76,7 +78,7 @@ repositories {
 
 // Declare capabilities on the outgoing configurations.
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
-['apiElements', 'runtimeElements', 'sourcesElements'/*, 'javadocElements'*/].each { variant ->
+["apiElements", "runtimeElements", "sourcesElements"/*, "javadocElements"*/].each { variant ->
     configurations."$variant".outgoing {
         capability("$group:${base.archivesName.get()}:$version")
         capability("$group:$mod_id-${project.name.toLowerCase()}-${minecraft_version}:$version")
@@ -88,78 +90,78 @@ repositories {
 }
 
 sourceSets.main.resources {
-    srcDir('src/generated/resources')
+    srcDir("src/generated/resources")
 }
 
 jar {
-    from(rootProject.file('LICENSE')) {
+    from(rootProject.file("LICENSE")) {
         rename { "${it}_${mod_name}" }
     }
 
-    exclude "**/*.bat"
-    exclude "**/*.psd"
-    exclude "**/*.ase"
-    exclude "**/*.exe"
-    exclude "**/unused"
+    exclude("**/*.bat")
+    exclude("**/*.psd")
+    exclude("**/*.ase")
+    exclude("**/*.exe")
+    exclude("**/unused")
 
-    exclude ".cache"
-    exclude 'assets/botania/patchouli_books/lexicon/en_us/README'
+    exclude(".cache")
+    exclude("assets/botania/patchouli_books/lexicon/en_us/README")
 
     manifest {
         attributes([
-                'Specification-Title'   : mod_name,
-                'Specification-Vendor'  : mod_author,
-                'Specification-Version' : project.jar.archiveVersion,
-                'Implementation-Title'  : project.name,
-                'Implementation-Version': project.jar.archiveVersion,
-                'Implementation-Vendor' : mod_author,
-                'Built-On-Minecraft'    : minecraft_version
+                "Specification-Title"   : mod_name,
+                "Specification-Vendor"  : mod_author,
+                "Specification-Version" : project.jar.archiveVersion,
+                "Implementation-Title"  : project.name,
+                "Implementation-Version": project.jar.archiveVersion,
+                "Implementation-Vendor" : mod_author,
+                "Built-On-Minecraft"    : minecraft_version
         ])
     }
 }
 
 sourcesJar {
-    from(rootProject.file('LICENSE')) {
+    from(rootProject.file("LICENSE")) {
         rename { "${it}_${mod_name}" }
     }
 
     // Exclude datagenerator .cache directory
-    exclude '.cache'
+    exclude(".cache")
 }
 
 processResources {
-    from '../contributors.properties'
+    from("../contributors.properties")
     // Exclude datagenerator .cache directory
-    exclude '.cache'
+    exclude(".cache")
 
     var expandProps = [
-            'version'                      : version,
-            'build_number'                 : build_number,
-            'group'                        : project.group, //Else we target the task's group.
-            'minecraft_version'            : minecraft_version,
-            'minecraft_version_range'      : minecraft_version_range,
-            'fabric_version'               : fabric_version,
-            'fabric_loader_version'        : fabric_loader_version,
-            'mod_name'                     : mod_name,
-            'mod_author'                   : mod_author,
-            'mod_id'                       : mod_id,
-            'license'                      : license,
-            'description'                  : project.description,
-            'website_url'                  : website_url,
-            'sources_url'                  : sources_url,
-            'issues_url'                   : issue_url,
-            'neoforge_version'             : neoforge_version,
-            'neoforge_loader_version_range': neoforge_loader_version_range,
-            'java_version'                 : java_version,
-            'gog_version'                  : gog_version
+            "version"                      : version,
+            "build_number"                 : build_number,
+            "group"                        : project.group, //Else we target the task"s group.
+            "minecraft_version"            : minecraft_version,
+            "minecraft_version_range"      : minecraft_version_range,
+            "fabric_version"               : fabric_version,
+            "fabric_loader_version"        : fabric_loader_version,
+            "mod_name"                     : mod_name,
+            "mod_author"                   : mod_author,
+            "mod_id"                       : mod_id,
+            "license"                      : license,
+            "description"                  : project.description,
+            "website_url"                  : website_url,
+            "sources_url"                  : sources_url,
+            "issues_url"                   : issue_url,
+            "neoforge_version"             : neoforge_version,
+            "neoforge_loader_version_range": neoforge_loader_version_range,
+            "java_version"                 : java_version,
+            "gog_version"                  : gog_version
     ]
 
-    filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
+    filesMatching(["pack.mcmeta", "fabric.mod.json", "META-INF/neoforge.mods.toml", "*.mixins.json"]) {
         expand(expandProps)
     }
-    filesMatching('data/botania/patchouli_books/lexicon/book.json') {
+    filesMatching("data/botania/patchouli_books/lexicon/book.json") {
         filter {
-            it.replace('${build_number}', build_number)
+            it.replace("${build_number}", build_number)
         }
     }
 
@@ -168,14 +170,14 @@ processResources {
 
 publishing {
     publications {
-        register('mavenJava', MavenPublication) {
+        register("mavenJava", MavenPublication) {
             artifactId = base.archivesName.get()
-            from components.java
+            from(components.java)
         }
     }
     repositories {
         maven {
-            url = System.getenv('local_maven_url')
+            url = System.getenv("local_maven_url")
         }
     }
 }
@@ -184,5 +186,22 @@ idea {
     module {
         downloadSources = true
         downloadJavadoc = true
+    }
+}
+
+pmd {
+    toolVersion = "6.55.0"
+    incrementalAnalysis.set(true)
+    ruleSetFiles = rootProject.files("spotless/pmd-ruleset.xml")
+}
+
+spotless {
+    enforceCheck = false // workaround around jenkins having wrong line endings in some files
+    // we explicitly check in github actions builds
+    java {
+        indentWithTabs()
+        eclipse().configFile rootProject.file("spotless/eclipseformat.xml")
+        removeUnusedImports()
+        importOrderFile rootProject.file("spotless/eclipse.importorder")
     }
 }

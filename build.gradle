@@ -1,30 +1,8 @@
 plugins {
-    id 'com.diffplug.spotless' version '7.0.2' apply false
-    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
+    id("com.diffplug.spotless") version "7.0.2" apply false
+    id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.7"
     // see https://fabricmc.net/develop/ for new versions
-    id 'net.fabricmc.fabric-loom-remap' version '1.14.7' apply false
+    id("net.fabricmc.fabric-loom-remap") version "1.14.7" apply false
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
-    id 'net.neoforged.moddev' version '2.0.123' apply false
-}
-
-subprojects {
-    apply plugin: 'pmd'
-    apply plugin: 'com.diffplug.spotless'
-
-    pmd {
-        toolVersion = '6.55.0'
-        incrementalAnalysis.set(true)
-        ruleSetFiles = rootProject.files("spotless/pmd-ruleset.xml")
-    }
-
-    spotless {
-        enforceCheck = false // workaround around jenkins having wrong line endings in some files
-        // we explicitly check in github actions builds
-        java {
-            indentWithTabs()
-            eclipse().configFile rootProject.file('spotless/eclipseformat.xml')
-            removeUnusedImports()
-            importOrderFile rootProject.file('spotless/eclipse.importorder')
-        }
-    }
+    id("net.neoforged.moddev") version "2.0.123" apply false
 }

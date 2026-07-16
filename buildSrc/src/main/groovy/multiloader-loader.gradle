@@ -1,5 +1,5 @@
 plugins {
-    id 'multiloader-common'
+    id("multiloader-common")
 }
 
 configurations {
@@ -12,16 +12,16 @@ configurations {
 }
 
 dependencies {
-    compileOnly(project(':Xplat')) {
+    compileOnly(project(":Xplat")) {
         capabilities {
-            requireCapability "$group:$mod_id"
+            requireCapability("$group:$mod_id")
         }
     }
-    commonJava project(path: ':Xplat', configuration: 'commonJava')
-    commonResources project(path: ':Xplat', configuration: 'commonResources')
+    commonJava project(path: ":Xplat", configuration: "commonJava")
+    commonResources project(path: ":Xplat", configuration: "commonResources")
 }
 
-tasks.named('compileJava', JavaCompile) {
+tasks.named("compileJava", JavaCompile) {
     dependsOn(configurations.commonJava)
     source(configurations.commonJava)
 }
@@ -31,12 +31,12 @@ processResources {
     from(configurations.commonResources)
 }
 
-tasks.named('javadoc', Javadoc).configure {
+tasks.named("javadoc", Javadoc).configure {
     dependsOn(configurations.commonJava)
     source(configurations.commonJava)
 }
 
-tasks.named('sourcesJar', Jar) {
+tasks.named("sourcesJar", Jar) {
     dependsOn(configurations.commonJava)
     from(configurations.commonJava)
     dependsOn(configurations.commonResources)
