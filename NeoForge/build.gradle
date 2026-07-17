@@ -1,6 +1,6 @@
 plugins {
     id("multiloader-loader")
-    id("net.neoforged.moddev")
+    alias(libs.plugins.mdg)
 }
 
 repositories {
@@ -19,7 +19,7 @@ neoForge {
     }
 
     parchment {
-        minecraftVersion = parchment_minecraft
+        minecraftVersion = minecraft_version
         mappingsVersion = parchment_version
     }
 
@@ -63,26 +63,28 @@ neoForge {
 }
 
 dependencies {
-    implementation("vazkii.patchouli:Patchouli:${patchouli_version}-NEOFORGE")
-    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
-    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+    compileOnly(libs.jetbrains.annotations)
 
-    compileOnly("dev.emi:emi-neoforge:${emi_version}:api")
-    //runtimeOnly("dev.emi:emi-neoforge:${emi_version}")
+    implementation(libs.patchouli.neoforge)
+    compileOnly(variantOf(libs.curios) { classifier("api") })
 
-    compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
-    //runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
+    compileOnly(variantOf(libs.emi.neoforge) { classifier("api") })
+    compileOnly(libs.jei.neoforge.api)
+    compileOnly(libs.rei.neoforge)
 
-    compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}:api")
-    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}")
+    compileOnly(libs.ears)
+    compileOnly(libs.sodium.neoforge) { transitive = false }
+    compileOnly(libs.embeddium) { transitive = false }
 
-    compileOnly("com.unascribed:ears-api:${ears_version}")
+    runtimeOnly(libs.curios)
 
-    compileOnly("maven.modrinth:sodium:mc${minecraft_version}-${sodium_version}-neoforge") { transitive = false }
-
-    compileOnly("maven.modrinth:embeddium:${embeddium_version}+mc${minecraft_version}") { transitive = false }
-
-    compileOnly("org.jetbrains:annotations:26.0.2")
+    if (rootProject.hasProperty("load_override_emi")) {
+        runtimeOnly(libs.emi.neoforge)
+    } else if (rootProject.hasProperty("load_override_rei")) {
+        runtimeOnly(libs.rei.neoforge)
+    } else {
+        runtimeOnly(libs.jei.neoforge.full)
+    }
 
     if (file("../garden_of_glass/gardenofglass-${gog_version}.jar").exists()) {
         runtimeOnly(files("../garden_of_glass/gardenofglass-${gog_version}.jar"))

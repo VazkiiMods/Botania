@@ -1,6 +1,6 @@
 plugins {
     id("multiloader-loader")
-    id("net.fabricmc.fabric-loom-remap")
+    alias(libs.plugins.fabric.loom)
 }
 
 loom {
@@ -58,6 +58,10 @@ repositories {
         name = "ParchmentMC"
         url = "https://maven.parchmentmc.net/"
     }
+    maven {
+        name = "Masa"
+        url = uri('https://masa.dy.fi/maven')
+    }
 }
 
 dependencies {
@@ -67,47 +71,50 @@ dependencies {
         parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
     }
 
-    modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
+    modImplementation(libs.fabric.loader)
+    modImplementation(libs.fabric.api)
 
-    modImplementation("vazkii.patchouli:Patchouli:${patchouli_version}-FABRIC")
+    testImplementation(libs.fabric.junit)
 
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
-    //modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
+    compileOnly(libs.jetbrains.annotations)
 
-    modCompileOnly("dev.emi:emi-fabric:${emi_version}:api")
-    modLocalRuntime("dev.emi:emi-fabric:${emi_version}")
+    modImplementation(libs.patchouli.fabric)
+    modImplementation(libs.trinkets)
+    modImplementation(libs.fiber)
+    include(libs.fiber)
 
-    modImplementation("me.zeroeightsix:fiber:0.23.0-2")
-    include("me.zeroeightsix:fiber:0.23.0-2")
+    modCompileOnly(variantOf(libs.emi.fabric) { classifier("api") })
+    modCompileOnly(libs.jei.fabric.api)
+    modCompileOnly(libs.rei.fabric)
 
-    modImplementation("dev.emi:trinkets:${trinkets_version}")
+    modCompileOnly(libs.ears)
+    modCompileOnly(libs.sodium.fabric) { transitive = false }
+    modCompileOnly(libs.teamreborn.energy)
+    modCompileOnly(libs.speedrunigt)
 
-    modCompileOnly("teamreborn:energy:${team_reborn_energy_version}")
+    modLocalRuntime(libs.here.be.no.dragons)
 
-    modCompileOnly("com.unascribed:ears-api:${ears_version}")
-
-    modCompileOnly("maven.modrinth:sodium:mc${minecraft_version}-${sodium_version}-fabric") { transitive = false }
-
-    modCompileOnly("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
-    //modLocalRuntime("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
-
-    // for xplat data load condition generating
-    modLocalRuntime(files("lib/forged-conditions-21.1.0.jar"))
-
-    modRuntimeOnly("maven.modrinth:here-be-no-dragons:1.0.0")
+    if (rootProject.hasProperty("load_override_jei")) {
+        modLocalRuntime(libs.jei.fabric.full)
+    } else if (rootProject.hasProperty("load_override_rei")) {
+        modLocalRuntime(libs.rei.fabric)
+    } else {
+        modLocalRuntime(libs.emi.fabric)
+    }
 
     // for testing multiplayer features in singleplayer worlds, and weird things like movable block entities
-    //modRuntimeOnly("maven.modrinth:carpet:1.4.147")
+    if (rootProject.hasProperty("load_fabric_carpet")) {
+        modLocalRuntime(libs.carpet)
+    }
 
-    compileOnly("org.jetbrains:annotations:26.0.2")
+    if (rootProject.hasProperty("load_fabric_speedrunigt")) {
+        modLocalRuntime(libs.speedrunigt)
+    }
 
     if (file("../garden_of_glass/gardenofglass-${gog_version}.jar").exists()) {
         modLocalRuntime(files("../garden_of_glass/gardenofglass-${gog_version}.jar"))
     }
 
-    testImplementation("net.fabricmc:fabric-loader-junit:${fabric_loader_version}")
-
-    modCompileOnly("maven.modrinth:speedrunigt:${speedrunigt_version}+${minecraft_version}")
-    //modLocalRuntime("maven.modrinth:speedrunigt:${speedrunigt_version}+${minecraft_version}")
+    // for xplat data load condition generating
+    modLocalRuntime(files("lib/forged-conditions-21.1.0.jar"))
 }

@@ -1,0 +1,95 @@
+[versions]
+# see https://fabricmc.net/develop/ for new versions
+fabric-loom = "1.14.7"
+fabric-loader = "0.17.3"
+fabric-api = "0.116.12+1.21.1"
+
+# see https://projects.neoforged.net/neoforged/moddevgradle for new versions
+mdg = "2.0.123"
+
+# we need to manually depend on mixin (+extras) in common
+mixin = "0.15.2+mixin.0.8.7"
+mixin-extras = "0.4.1"
+
+jetbrains-annotations = "26.0.2"
+
+# Mods
+patchouli-xplat = "1.21.1-92"
+patchouli-fabric = "1.21.1-92-FABRIC" # this is part of why we changed the format in Botania for 1.21.1
+patchouli-neoforge = "1.21.1-92-NEOFORGE" # TODO: is there a good way to define these programatically?
+
+emi = "1.1.22+1.21.1"
+jei = "19.27.0.340"
+rei = "16.0.799"
+
+curios = "9.5.1+1.21.1"
+trinkets = "3.10.0"
+teamreborn-energy = "4.1.0"
+
+ears = "1.4.7"
+sodium-fabric = "mc1.21.1-0.6.13-fabric"
+sodium-neoforge = "mc1.21.1-0.6.13-neoforge"
+embeddium = "1.0.15+mc1.21.1"
+
+fiber = "0.23.0-2"
+here-be-no-dragons = "1.0.0"
+carpet = "1.21-1.4.147+v240613"
+speedrunigt = "14.2+1.21.1"
+
+# plugins
+spotless = "7.0.2"
+
+[libraries]
+fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
+fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api" }
+fabric-junit = { module = "net.fabricmc:fabric-loader-junit", version.ref = "fabric-loader" }
+
+mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "mixin" }
+mixin-extras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixin-extras" }
+
+jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+
+# Patchouli
+patchouli-xplat = { module = "vazkii.patchouli:Patchouli-xplat", version.ref = "patchouli-xplat" }
+patchouli-fabric = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli-fabric" }
+patchouli-neoforge = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli-neoforge" }
+
+# EMI
+emi-xplat = { module = "dev.emi:emi-xplat-mojmap", version.ref = "emi" }
+emi-fabric = { module = "dev.emi:emi-fabric", version.ref = "emi" }
+emi-neoforge = { module = "dev.emi:emi-neoforge", version.ref = "emi" }
+
+# JEI
+# TODO: requiring a version number in the artifact ID is suboptimal
+jei-common-api = { module = "mezz.jei:jei-1.21.1-common-api", version.ref = "jei" }
+jei-fabric-full = { module = "mezz.jei:jei-1.21.1-fabric", version.ref = "jei" }
+jei-fabric-api = { module = "mezz.jei:jei-1.21.1-fabric-api", version.ref = "jei" }
+jei-neoforge-full = { module = "mezz.jei:jei-1.21.1-neoforge", version.ref = "jei" }
+jei-neoforge-api = { module = "mezz.jei:jei-1.21.1-neoforge-api", version.ref = "jei" }
+
+# REI
+# (no Xplat/Common definition for REI, since it's Intermediary and thus useless to our Xplat module)
+rei-fabric = { module = "me.shedaniel:RoughlyEnoughItems-fabric", version.ref = "rei" }
+rei-neoforge = { module = "me.shedaniel:RoughlyEnoughItems-neoforge", version.ref = "rei" }
+
+# other mods
+curios = { module = "top.theillusivec4.curios:curios-neoforge", version.ref = "curios" }
+trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
+ears = { module = "com.unascribed:ears-api", version.ref = "ears" }
+teamreborn-energy = { module = "teamreborn:energy", version.ref = "teamreborn-energy" }
+fiber = { module = "me.zeroeightsix:fiber", version.ref = "fiber" }
+here-be-no-dragons = { module = "maven.modrinth:here-be-no-dragons", version.ref = "here-be-no-dragons" }
+sodium-fabric = { module = "maven.modrinth:sodium", version.ref = "sodium-fabric" }
+sodium-neoforge = { module = "maven.modrinth:sodium", version.ref = "sodium-neoforge" }
+embeddium = { module = "maven.modrinth:embeddium", version.ref = "embeddium" }
+carpet = { module = "carpet:fabric-carpet", version.ref = "carpet" }
+speedrunigt = { module = "maven.modrinth:speedrunigt", version.ref = "speedrunigt" }
+
+[bundles]
+mixin = [ "mixin", "mixin-extras" ]
+
+[plugins]
+mdg = { id = "net.neoforged.moddev", version.ref = "mdg" }
+fabric-loom = { id = "net.fabricmc.fabric-loom-remap", version.ref = "fabric-loom" }
+
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

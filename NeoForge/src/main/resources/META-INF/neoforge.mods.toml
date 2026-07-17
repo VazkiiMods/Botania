@@ -30,7 +30,7 @@ versionRange = "[${neoforge_version},)"
 [[dependencies.botania]]
 modId = "minecraft"
 type = "required"
-versionRange = "${minecraft_version_range}"
+versionRange = "${minecraft_version}"
 
 [[dependencies.botania]]
 modId = "patchouli"
