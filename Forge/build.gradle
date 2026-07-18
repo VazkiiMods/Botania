@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'java-library'
-    id 'net.neoforged.moddev.legacyforge' version '2.0.78'
+    id 'net.neoforged.moddev.legacyforge' version '2.0.142'
 }
 
 version = "${minecraft_version}-${build_number}-FORGE"
