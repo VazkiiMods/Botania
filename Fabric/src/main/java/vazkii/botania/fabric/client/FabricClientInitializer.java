@@ -43,9 +43,9 @@ import net.minecraft.world.item.Item;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.MonocleHud;
 import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.fabric.BotaniaFabricCapabilities;
 import vazkii.botania.client.BotaniaClientCapabilities;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;

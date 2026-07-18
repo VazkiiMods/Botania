@@ -77,7 +77,6 @@ import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.block.EdibleBlockWithEffects;
@@ -94,6 +93,8 @@ import vazkii.botania.api.item.HourglassMaterial;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.neoforge.BotaniaForgeCapabilities;
+import vazkii.botania.api.neoforge.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.BotaniaCapabilities;
 import vazkii.botania.common.BotaniaStats;

@@ -33,7 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.TinyPotatoRenderCallback;
+import vazkii.botania.api.fabric.item.TinyPotatoRenderCallback;
 import vazkii.botania.fabric.integration.sodium.SodiumFabricHelper;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;

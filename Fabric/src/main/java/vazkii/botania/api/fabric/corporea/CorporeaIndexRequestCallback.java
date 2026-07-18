@@ -6,11 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.corporea;
+package vazkii.botania.api.fabric.corporea;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.server.level.ServerPlayer;
+
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import vazkii.botania.api.corporea.CorporeaSpark;
 
 /**
  * CorporeaIndexRequestEvent is fired when a player attempts to request an item from a corporea index.

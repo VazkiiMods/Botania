@@ -6,22 +6,22 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana;
+package vazkii.botania.api.fabric.mana;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public interface ManaProficiencyCallback {
-	Event<ManaProficiencyCallback> EVENT = EventFactory.createArrayBacked(ManaProficiencyCallback.class,
-			listeners -> (pl, st, cur) -> {
-				for (ManaProficiencyCallback listener : listeners) {
-					cur = listener.getProficient(pl, st, cur);
+public interface ManaDiscountCallback {
+	Event<ManaDiscountCallback> EVENT = EventFactory.createArrayBacked(ManaDiscountCallback.class,
+			listeners -> (pl, cur, tool) -> {
+				for (ManaDiscountCallback listener : listeners) {
+					cur = listener.getManaDiscount(pl, cur, tool);
 				}
 
 				return cur;
 			});
 
-	boolean getProficient(Player player, ItemStack tool, boolean curProficient);
+	float getManaDiscount(Player player, float curDiscount, ItemStack tool);
 }

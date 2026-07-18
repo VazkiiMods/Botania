@@ -6,9 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana;
+package vazkii.botania.api.neoforge.mana;
 
 import net.neoforged.bus.api.Event;
+
+import vazkii.botania.api.mana.ManaBlockType;
+import vazkii.botania.api.mana.ManaCollector;
+import vazkii.botania.api.mana.ManaNetworkAction;
+import vazkii.botania.api.mana.ManaReceiver;
 
 public class ManaNetworkEvent extends Event {
 	private final ManaReceiver thing;

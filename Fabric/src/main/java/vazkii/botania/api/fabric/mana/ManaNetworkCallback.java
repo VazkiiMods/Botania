@@ -6,10 +6,15 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana;
+package vazkii.botania.api.fabric.mana;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
+
+import vazkii.botania.api.mana.ManaBlockType;
+import vazkii.botania.api.mana.ManaCollector;
+import vazkii.botania.api.mana.ManaNetworkAction;
+import vazkii.botania.api.mana.ManaReceiver;
 
 public interface ManaNetworkCallback {
 	Event<ManaNetworkCallback> EVENT = EventFactory.createArrayBacked(ManaNetworkCallback.class,

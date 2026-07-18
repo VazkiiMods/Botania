@@ -35,7 +35,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.TinyPotatoRenderEvent;
+import vazkii.botania.api.neoforge.item.TinyPotatoRenderEvent;
 import vazkii.botania.neoforge.client.integration.embeddium.EmbeddiumHelper;
 import vazkii.botania.neoforge.client.integration.sodium.SodiumNeoforgeHelper;
 import vazkii.botania.xplat.ClientXplatAbstractions;

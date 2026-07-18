@@ -6,10 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.corporea;
+package vazkii.botania.api.fabric.corporea;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
+
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import vazkii.botania.api.corporea.CorporeaSpark;
 
 /**
  * Fired when a corporea request is initiated. Can be cancelled.
