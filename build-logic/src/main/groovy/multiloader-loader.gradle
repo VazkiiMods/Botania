@@ -3,10 +3,10 @@ plugins {
 }
 
 configurations {
-    commonJava{
+    commonJava {
         canBeResolved = true
     }
-    commonResources{
+    commonResources {
         canBeResolved = true
     }
 }
@@ -22,6 +22,7 @@ dependencies {
 }
 
 tasks.named("compileJava", JavaCompile) {
+    dependsOn(tasks.generatePackageInfos)
     dependsOn(configurations.commonJava)
     source(configurations.commonJava)
 }
@@ -32,6 +33,7 @@ processResources {
 }
 
 tasks.named("javadoc", Javadoc).configure {
+    dependsOn(configurations.generatePackageInfos)
     dependsOn(configurations.commonJava)
     source(configurations.commonJava)
 }
@@ -41,4 +43,11 @@ tasks.named("sourcesJar", Jar) {
     from(configurations.commonJava)
     dependsOn(configurations.commonResources)
     from(configurations.commonResources)
+}
+
+// not great, but Gradle is way too focused on alphabetical order otherwise
+tasks.configureEach { task ->
+    project(":Xplat").tasks.matching { it.name == task.name }.configureEach {
+        task.dependsOn(it)
+    }
 }
