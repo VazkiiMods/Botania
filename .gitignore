@@ -71,3 +71,6 @@ Temporary Items
 
 # Logs
 *.log
+
+# Generated package-infos
+generatedPackageInfos/

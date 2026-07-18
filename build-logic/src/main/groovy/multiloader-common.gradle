@@ -4,6 +4,7 @@ plugins {
     id("idea")
     id("pmd")
     id("com.diffplug.spotless")
+    id("package-info")
 }
 
 base {

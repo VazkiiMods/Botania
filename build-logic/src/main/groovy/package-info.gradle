@@ -1,0 +1,88 @@
+// adapted from https://github.com/FabricMC/fabric-api/blob/26.2/gradle/package-info.gradle
+// and https://github.com/IThundxr/Flywheel/blob/26.1.2/dev/build-logic/src/main/kotlin/dev/engine_room/gradle/nullability/PackageInfosExtension.kt
+
+import java.nio.file.Files
+
+for (def sourceSet in [
+        sourceSets.main
+]) {
+    // We have to capture the source set name for the lazy string literals,
+    // otherwise it'll just be whatever the last source set is in the list.
+    def sourceSetName = sourceSet.name
+    def taskName = sourceSet.getTaskName('generate', 'PackageInfos')
+    def task = tasks.register(taskName, GeneratePackageInfos) {
+        group = 'other'
+        description = "Generates package-info files for $sourceSetName packages."
+
+        // Only apply to default source directory since we also add the generated
+        // sources to the source set.
+        sourceRoot = file("src/$sourceSetName/java")
+        outputDir = file("src/$sourceSetName/generatedPackageInfos")
+    }
+    sourceSet.java.srcDir task
+
+    project.tasks.matching { it.name == "ideaSyncTask" || it.name == "neoForgeIdeSync" }.configureEach {
+        finalizedBy(task)
+    }
+
+    def cleanTask = tasks.register(sourceSet.getTaskName('clean', 'PackageInfos'), Delete) {
+        group = 'other'
+        delete file("src/$sourceSetName/generatedPackageInfos")
+    }
+    clean.dependsOn cleanTask
+}
+
+abstract class GeneratePackageInfos extends DefaultTask {
+    @Input
+    abstract Property<String> getProjectName()
+
+    @SkipWhenEmpty
+    @InputDirectory
+    final DirectoryProperty sourceRoot = project.objects.directoryProperty()
+
+    @OutputDirectory
+    final DirectoryProperty outputDir = project.objects.directoryProperty()
+
+    GeneratePackageInfos() {
+        projectName.set(project.name)
+    }
+
+    @TaskAction
+    def run() {
+        def output = outputDir.get().asFile.toPath()
+        output.deleteDir()
+        def root = sourceRoot.get().asFile.toPath()
+
+        root.eachDirRecurse {
+            def containsJava = Files.list(it).any {
+                Files.isRegularFile(it) && it.fileName.toString().endsWith('.java')
+            }
+
+            if (!containsJava) {
+                return
+            }
+
+            // Check existing package-info.java to ensure it has @NullMarked
+            def existingPackageInfo = it.resolve('package-info.java')
+            if (Files.exists(existingPackageInfo)) {
+                if (!existingPackageInfo.text.contains("@NotNullByDefault")) {
+                    throw new RuntimeException("package-info.java ${existingPackageInfo} is missing @NotNullByDefault annotation.")
+                }
+
+                return
+            }
+
+            def relativePath = root.relativize(it)
+            def target = output.resolve(relativePath)
+            Files.createDirectories(target)
+
+            def packageName = relativePath.toString().replace(File.separator, '.')
+
+            target.resolve('package-info.java').withWriter {
+                it.write("""@org.jetbrains.annotations.NotNullByDefault
+                    |package $packageName;
+                    |""".stripMargin())
+            }
+        }
+    }
+}

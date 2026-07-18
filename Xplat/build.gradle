@@ -49,6 +49,6 @@ configurations {
 }
 
 artifacts {
-    commonJava(sourceSets.main.java.sourceDirectories.singleFile)
+    commonJava(sourceSets.main.java.sourceDirectories.files)
     commonResources(sourceSets.main.resources.sourceDirectories.files)
 }
