@@ -23,7 +23,7 @@ jobs:
           ./.gradle/loom-cache/remapped-mods
           ./NeoForge/build/moddev
           ./Xplat/build/moddev
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', './gradle.properties', '**/gradle-*.properties') }}
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', './gradle.properties', '**/gradle-*.properties', './gradle/*.versions.toml') }}
     - name: Check lang files
       run: ./scripts/check_lang.sh
     - name: Calculate artifact names
