@@ -46,7 +46,11 @@ repositories {
 }
 
 legacyForge {
-    version = "1.20.1-47.1.3"
+    enable {
+        forgeVersion = "1.20.1-47.1.3"
+        // TODO: Legacy MDG bug? Can't compile anonymous classes with more than one constructor parameter in CI mode.
+        disableRecompilation = false
+    }
     accessTransformers = [project(':Xplat').file('src/main/resources/META-INF/accesstransformer.cfg')]
 
     parchment {
