@@ -5,7 +5,7 @@ fabric-loader = "0.17.3"
 fabric-api = "0.116.12+1.21.1"
 
 # see https://projects.neoforged.net/neoforged/moddevgradle for new versions
-mdg = "2.0.123"
+mdg = "2.0.142"
 
 # we need to manually depend on mixin (+extras) in common
 mixin = "0.15.2+mixin.0.8.7"
