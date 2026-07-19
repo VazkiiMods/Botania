@@ -17,17 +17,22 @@ for (def sourceSet in [
         // Only apply to default source directory since we also add the generated
         // sources to the source set.
         sourceRoot = file("src/$sourceSetName/java")
-        outputDir = file("src/$sourceSetName/generatedPackageInfos")
     }
-    sourceSet.java.srcDir task
 
     project.tasks.matching { it.name == "ideaSyncTask" || it.name == "neoForgeIdeSync" }.configureEach {
         finalizedBy(task)
     }
 
-    def cleanTask = tasks.register(sourceSet.getTaskName('clean', 'PackageInfos'), Delete) {
+    // for backwards compatibility, could be removed eventually
+    def oldCleanTask = tasks.register(sourceSet.getTaskName('clean', 'OldPackageInfos'), Delete) {
         group = 'other'
         delete file("src/$sourceSetName/generatedPackageInfos")
+    }
+    clean.dependsOn oldCleanTask
+
+    def cleanTask = tasks.register(sourceSet.getTaskName('clean', 'PackageInfos'), Exec) {
+        group = "other"
+        commandLine("git", "clean", "-d", "-x", "-f", "*/package-info.java")
     }
     clean.dependsOn cleanTask
 }
@@ -40,17 +45,12 @@ abstract class GeneratePackageInfos extends DefaultTask {
     @InputDirectory
     final DirectoryProperty sourceRoot = project.objects.directoryProperty()
 
-    @OutputDirectory
-    final DirectoryProperty outputDir = project.objects.directoryProperty()
-
     GeneratePackageInfos() {
         projectName.set(project.name)
     }
 
     @TaskAction
     def run() {
-        def output = outputDir.get().asFile.toPath()
-        output.deleteDir()
         def root = sourceRoot.get().asFile.toPath()
 
         root.eachDirRecurse {
@@ -62,10 +62,10 @@ abstract class GeneratePackageInfos extends DefaultTask {
                 return
             }
 
-            // Check existing package-info.java to ensure it has @NullMarked
+            // Check existing package-info.java to ensure it has @NotNullByDefault
             def existingPackageInfo = it.resolve('package-info.java')
             if (Files.exists(existingPackageInfo)) {
-                if (!existingPackageInfo.text.contains("@NotNullByDefault")) {
+                if (!(existingPackageInfo.text =~ /@(?:\w+\.)*NotNullByDefault/)) {
                     throw new RuntimeException("package-info.java ${existingPackageInfo} is missing @NotNullByDefault annotation.")
                 }
 
@@ -73,12 +73,10 @@ abstract class GeneratePackageInfos extends DefaultTask {
             }
 
             def relativePath = root.relativize(it)
-            def target = output.resolve(relativePath)
-            Files.createDirectories(target)
 
             def packageName = relativePath.toString().replace(File.separator, '.')
 
-            target.resolve('package-info.java').withWriter {
+            it.resolve('package-info.java').withWriter {
                 it.write("""@org.jetbrains.annotations.NotNullByDefault
                     |package $packageName;
                     |""".stripMargin())
