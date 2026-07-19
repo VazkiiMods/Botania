@@ -50,7 +50,7 @@ import vazkii.botania.api.block.MonocleHud;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.api.neoforge.BotaniaForgeCapabilities;
+import vazkii.botania.api.neoforge.BotaniaNeoForgeCapabilities;
 import vazkii.botania.client.BotaniaClientCapabilities;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.*;
@@ -93,7 +93,7 @@ import java.util.stream.Stream;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 @EventBusSubscriber(modid = BotaniaAPI.MODID, value = Dist.CLIENT)
-public class ForgeClientInitializer {
+public class NeoForgeClientInitializer {
 	@SubscribeEvent
 	public static void registerGuiOverlays(RegisterGuiLayersEvent e) {
 		e.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, botaniaRL("hud_early"), HUDHandler::onDrawExperienceBarPost);
@@ -106,7 +106,7 @@ public class ForgeClientInitializer {
 		BotaniaAPI.LOGGER.debug("Client API instances: {}",
 				List.of(BotaniaAPIClient.instance(), ClientXplatAbstractions.instance()));
 
-		BlockRenderLayers.skipPlatformBlocks = true; // platforms can use standard rendering on Forge
+		BlockRenderLayers.skipPlatformBlocks = true; // platforms can use standard rendering on NeoForge
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 
 		// Events
@@ -120,7 +120,7 @@ public class ForgeClientInitializer {
 		bus.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getContext(), e.getFlags(), e.getToolTip()));
 		bus.addListener((ScreenEvent.KeyPressed.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
 
-		// Forge bus events done with Mixins on Fabric
+		// NeoForge bus events done with Mixins on Fabric
 		bus.addListener(EventPriority.HIGH, (ClientChatEvent e) -> {
 			var player = Minecraft.getInstance().player;
 			if (player != null && CorporeaIndexBlockEntity.ClientHandler.onChat(player, e.getMessage())) {
@@ -146,7 +146,7 @@ public class ForgeClientInitializer {
 			if (manaItem == null) {
 				return;
 			}
-			// Forge does not pass the tooltip width to any tooltip event.
+			// NeoForge does not pass the tooltip width to any tooltip event.
 			// To avoid a mixin here, we just duplicate the width checking part.
 			int width = 0;
 			ManaBarTooltipComponent manaBar = null;
@@ -188,10 +188,10 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	private static void attachClientCapabilities(RegisterCapabilitiesEvent e) {
-		BotaniaClientCapabilities.registerClientCapabilities(BotaniaForgeCapabilities.getRegistration());
+		BotaniaClientCapabilities.registerClientCapabilities(BotaniaNeoForgeCapabilities.getRegistration());
 
 		BlockCapability<WandHUD, Void> wandHudBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(WandHUD.BLOCK_LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(WandHUD.BLOCK_LOOKUP);
 		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> Stream.of(types).forEach(
 				blockEntityType -> e.registerBlockEntity(wandHudBlockCap,
 						blockEntityType, (blockEntity, context) -> factory.apply(blockEntity)
@@ -199,14 +199,14 @@ public class ForgeClientInitializer {
 		));
 
 		EntityCapability<WandHUD, Void> wandHudEntityCap =
-				BotaniaForgeCapabilities.getEntityApiLookupById(WandHUD.ENTITY_LOOKUP);
+				BotaniaNeoForgeCapabilities.getEntityApiLookupById(WandHUD.ENTITY_LOOKUP);
 		BotaniaEntities.registerWandHudCaps(getECapConsumer(e, wandHudEntityCap));
 		EntityCapability<MonocleHud, Void> monocleHudEntityCap =
-				BotaniaForgeCapabilities.getEntityApiLookupById(MonocleHud.ENTITY_LOOKUP);
+				BotaniaNeoForgeCapabilities.getEntityApiLookupById(MonocleHud.ENTITY_LOOKUP);
 		MonocleHUDs.registerMonocleHudEntityCaps(getECapConsumer(e, monocleHudEntityCap), true);
 
 		BlockCapability<MonocleHud, Void> monocleHudBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(MonocleHud.BLOCK_LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(MonocleHud.BLOCK_LOOKUP);
 		MonocleHUDs.registerMonocleHudBlockCaps(getBCapsConsumer(e, monocleHudBlockCap),
 				b -> !e.isBlockRegistered(monocleHudBlockCap, b));
 	}
@@ -232,9 +232,9 @@ public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void registerModelLoader(ModelEvent.RegisterGeometryLoaders evt) {
 		evt.register(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
-				ForgeFloatingFlowerModel.Loader.INSTANCE);
+				NeoForgeFloatingFlowerModel.Loader.INSTANCE);
 		evt.register(ClientXplatAbstractions.MANA_GUN_MODEL_LOADER_ID,
-				ForgeManaBlasterModel.Loader.INSTANCE);
+				NeoForgeManaBlasterModel.Loader.INSTANCE);
 	}
 
 	@SubscribeEvent
@@ -278,7 +278,7 @@ public class ForgeClientInitializer {
 		);
 
 		event.registerItem(
-				ForgeBlockEntityItemRendererHelper.PROPS,
+				NeoForgeBlockEntityItemRendererHelper.PROPS,
 				Stream.of(
 						BotaniaBlocks.BOTANICAL_BREWERY, BotaniaBlocks.MANA_PYLON, BotaniaBlocks.NATURA_PYLON, BotaniaBlocks.GAIA_PYLON,
 						BotaniaBlocks.MANATIDE_BELLOWS, BotaniaBlocks.CORPOREA_INDEX, BotaniaBlocks.HOVERING_HOURGLASS,

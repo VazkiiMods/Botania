@@ -85,10 +85,10 @@ public interface XplatAbstractions {
 
 	// Yes, this forms a loop by default. Each loader overrides their own to break the loop
 	default boolean isFabric() {
-		return !isForge();
+		return !isNeoForge();
 	}
 
-	default boolean isForge() {
+	default boolean isNeoForge() {
 		return !isFabric();
 	}
 
@@ -149,10 +149,10 @@ public interface XplatAbstractions {
 	}
 
 	/**
-	 * Forge allows items to opt out of craft-repairing using the builder.
+	 * NeoForge allows items to opt out of craft-repairing using the builder.
 	 * Fabric we handle it manually in RepairItemRecipeFabricMixin
 	 */
-	default Item.Properties noRepairOnForge(Item.Properties builder) {
+	default Item.Properties noRepairOnNeoForge(Item.Properties builder) {
 		return builder;
 	}
 
@@ -163,9 +163,9 @@ public interface XplatAbstractions {
 	// Misc
 	<D> void openMenu(ServerPlayer player, MenuProvider menu, D initialData, StreamCodec<? super RegistryFriendlyByteBuf, D> streamCodec);
 
-	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
+	// NeoForge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we need to abstract it
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize);
-	// Forge patches BucketItem to use a supplier for the fluid, and exposes it, while Fabric needs an accessor
+	// NeoForge patches BucketItem to use a supplier for the fluid, and exposes it, while Fabric needs an accessor
 	Fluid getBucketFluid(BucketItem item);
 	int getSmeltingBurnTime(ItemStack stack);
 	boolean preventsRemoteMovement(ItemEntity entity);
@@ -175,7 +175,7 @@ public interface XplatAbstractions {
 	@Nullable
 	FoodProperties getFoodProperties(ItemStack stack);
 	boolean canToolLightFire(ItemStack stack);
-	// Forge rails can define the shape through other means than the vanilla block state property
+	// NeoForge rails can define the shape through other means than the vanilla block state property
 	RailShape getRailDirection(BlockState state, BlockGetter level, BlockPos pos, @Nullable AbstractMinecart cart);
 	// both loaders provide stack-sensitive craft remainder implementations
 	ItemStack getCraftingRemainingItem(ItemStack inputStack);

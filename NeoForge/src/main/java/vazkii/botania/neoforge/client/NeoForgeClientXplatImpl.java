@@ -41,7 +41,7 @@ import vazkii.botania.neoforge.client.integration.sodium.SodiumNeoforgeHelper;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 
-public class ForgeClientXplatImpl implements ClientXplatAbstractions {
+public class NeoForgeClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		NeoForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, name, tickDelta, ms, buffers, light, overlay));
@@ -61,7 +61,7 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 
 	@Override
 	public BakedModel wrapPlatformModel(BakedModel original) {
-		return new ForgePlatformModel(original);
+		return new NeoForgePlatformModel(original);
 	}
 
 	@Override

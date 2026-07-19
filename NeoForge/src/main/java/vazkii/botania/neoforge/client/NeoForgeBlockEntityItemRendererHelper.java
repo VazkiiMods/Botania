@@ -25,7 +25,7 @@ import vazkii.botania.client.render.entity.EntityRenderers;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-public class ForgeBlockEntityItemRendererHelper {
+public class NeoForgeBlockEntityItemRendererHelper {
 	// Nulls in ctor call are fine, we don't use those fields
 	private static final BlockEntityWithoutLevelRenderer RENDERER = new BlockEntityWithoutLevelRenderer(null, null) {
 		private final Map<Item, BlockEntityItemRenderer> renderers = new IdentityHashMap<>();
@@ -44,7 +44,7 @@ public class ForgeBlockEntityItemRendererHelper {
 	public static final IClientItemExtensions PROPS = new IClientItemExtensions() {
 		@Override
 		public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-			return ForgeBlockEntityItemRendererHelper.RENDERER;
+			return NeoForgeBlockEntityItemRendererHelper.RENDERER;
 		}
 	};
 }

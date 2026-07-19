@@ -205,7 +205,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	private static int getFoodValue(ItemStack stack) {
-		// support for Forge's NBT-based food properties
+		// support for NeoForge's DataComponent-based food properties
 		FoodProperties foodProperties = XplatAbstractions.INSTANCE.getFoodProperties(stack);
 		int nutrition = foodProperties != null ? foodProperties.nutrition() : 0;
 		return Math.min(MAX_FOOD_VALUE, nutrition);

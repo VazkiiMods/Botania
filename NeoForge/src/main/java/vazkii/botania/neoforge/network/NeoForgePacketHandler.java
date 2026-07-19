@@ -46,7 +46,7 @@ import vazkii.botania.network.serverbound.LeftClickPacket;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-public class ForgePacketHandler {
+public class NeoForgePacketHandler {
 	public static void registerPayloadHandlers(final RegisterPayloadHandlersEvent event) {
 		PayloadRegistrar registrar = event.registrar("1");
 

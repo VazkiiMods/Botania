@@ -433,7 +433,7 @@ public final class BotaniaItems {
 			new ManufactoryHaloItem(unstackable()
 					.component(BotaniaDataComponents.ACTIVE, Unit.INSTANCE)));
 	public static final Item SPELLBINDING_CLOTH = make(LibItemNames.SPELLBINDING_CLOTH,
-			new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnForge(unstackable()
+			new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnNeoForge(unstackable()
 					.durability(35))));
 	public static final FlowerPouchItem FLOWER_POUCH = make(LibItemNames.FLOWER_POUCH,
 			new FlowerPouchItem(unstackable()
@@ -855,7 +855,7 @@ public final class BotaniaItems {
 		return XplatAbstractions.INSTANCE.defaultItemBuilder();
 	}
 
-	// Forge does custom damage by just implementing a method on Item,
+	// NeoForge does custom damage by just implementing a method on Item,
 	// Fabric does it by an extra lambda to the Properties object
 	public static Item.Properties defaultBuilderCustomDamage() {
 		return XplatAbstractions.INSTANCE.defaultItemBuilderWithCustomDamageOnFabric();

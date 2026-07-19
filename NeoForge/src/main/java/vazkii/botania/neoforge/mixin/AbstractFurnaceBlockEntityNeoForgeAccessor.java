@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(AbstractFurnaceBlockEntity.class)
-public interface AbstractFurnaceBlockEntityForgeAccessor {
+public interface AbstractFurnaceBlockEntityNeoForgeAccessor {
 	@Invoker("canBurn")
 	static boolean botania_canBurn(RegistryAccess registryAccess, @Nullable RecipeHolder<?> recipe, NonNullList<ItemStack> inventory, int maxStackSize, AbstractFurnaceBlockEntity furnace) {
 		throw new IllegalStateException();

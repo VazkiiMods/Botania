@@ -29,7 +29,7 @@ import vazkii.botania.common.BotaniaCapabilities;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-public final class BotaniaForgeCapabilities {
+public final class BotaniaNeoForgeCapabilities {
 	private static final Map<ApiIdBlock<?>, BlockCapability<?, ?>> FOR_BLOCKS = new IdentityHashMap<>();
 	private static final Map<ApiIdEntity<?>, EntityCapability<?, ?>> FOR_ENTITIES = new IdentityHashMap<>();
 	private static final Map<ApiIdItem<?>, ItemCapability<?, ?>> FOR_ITEMS = new IdentityHashMap<>();
@@ -146,5 +146,5 @@ public final class BotaniaForgeCapabilities {
 		};
 	}
 
-	private BotaniaForgeCapabilities() {}
+	private BotaniaNeoForgeCapabilities() {}
 }

@@ -86,7 +86,7 @@ public class SnowflakePendantItem extends BaubleItem implements BlockChangedList
 		entity.setOnGround(lastOnGround);
 	}
 
-	// called via Curio API on Forge
+	// called via Curio API on NeoForge
 	@SoftImplement("IItemExtension")
 	public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
 		return true;

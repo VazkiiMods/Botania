@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.List;
 
 @EventBusSubscriber(modid = BotaniaAPI.MODID)
-public final class ForgeBotaniaConfig {
+public final class NeoForgeBotaniaConfig {
 
 	private static class Client implements BotaniaConfig.ClientConfigAccess {
 		public final ModConfigSpec.BooleanValue useShaders;

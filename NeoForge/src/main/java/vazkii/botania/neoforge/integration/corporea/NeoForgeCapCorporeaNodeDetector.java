@@ -21,13 +21,13 @@ import vazkii.botania.api.corporea.CorporeaNode;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.corporea.CorporeaSpark;
 
-public class ForgeCapCorporeaNodeDetector implements CorporeaNodeDetector {
+public class NeoForgeCapCorporeaNodeDetector implements CorporeaNodeDetector {
 	@Nullable
 	@Override
 	public CorporeaNode getNode(Level world, CorporeaSpark spark) {
 		IItemHandler inv = getInventory(world, spark.getAttachPos());
 		if (inv != null) {
-			return new ForgeCapCorporeaNode(world, spark.getAttachPos(), inv, spark);
+			return new NeoForgeCapCorporeaNode(world, spark.getAttachPos(), inv, spark);
 		}
 		return null;
 	}

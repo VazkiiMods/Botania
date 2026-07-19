@@ -22,10 +22,10 @@ import vazkii.botania.common.impl.corporea.AbstractCorporeaNode;
 
 import java.util.List;
 
-public class ForgeCapCorporeaNode extends AbstractCorporeaNode {
+public class NeoForgeCapCorporeaNode extends AbstractCorporeaNode {
 	protected final IItemHandler inv;
 
-	public ForgeCapCorporeaNode(Level world, BlockPos pos, IItemHandler inv, CorporeaSpark spark) {
+	public NeoForgeCapCorporeaNode(Level world, BlockPos pos, IItemHandler inv, CorporeaSpark spark) {
 		super(world, pos, spark);
 		this.inv = inv;
 	}

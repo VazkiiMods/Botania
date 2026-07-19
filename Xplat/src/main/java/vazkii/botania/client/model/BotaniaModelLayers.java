@@ -39,7 +39,7 @@ public class BotaniaModelLayers {
 
 	private static ModelLayerLocation make(String name, String layer) {
 		// Don't add to vanilla's ModelLayers. It seems to only be used for error checking
-		// And would be annoying to do under Forge's parallel mod loading
+		// And would be annoying to do under NeoForge's parallel mod loading
 		return new ModelLayerLocation(botaniaRL(name), layer);
 	}
 

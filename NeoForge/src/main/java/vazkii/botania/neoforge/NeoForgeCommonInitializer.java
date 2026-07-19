@@ -93,7 +93,7 @@ import vazkii.botania.api.item.HourglassMaterial;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
-import vazkii.botania.api.neoforge.BotaniaForgeCapabilities;
+import vazkii.botania.api.neoforge.BotaniaNeoForgeCapabilities;
 import vazkii.botania.api.neoforge.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.BotaniaCapabilities;
@@ -143,15 +143,15 @@ import vazkii.botania.common.world.BotaniaFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.neoforge.integration.InventorySorterIntegration;
-import vazkii.botania.neoforge.integration.corporea.ForgeCapCorporeaNodeDetector;
+import vazkii.botania.neoforge.integration.corporea.NeoForgeCapCorporeaNodeDetector;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
 import vazkii.botania.neoforge.internal_caps.BotaniaNeoforgeDataComponents;
 import vazkii.botania.neoforge.internal_caps.ExtrapolatedBucketFluidHandler;
-import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
+import vazkii.botania.neoforge.internal_caps.NeoForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.neoforge.internal_caps.WaterBowlFluidHandler;
-import vazkii.botania.neoforge.network.ForgePacketHandler;
-import vazkii.botania.neoforge.xplat.ForgeXplatImpl;
+import vazkii.botania.neoforge.network.NeoForgePacketHandler;
+import vazkii.botania.neoforge.xplat.NeoForgeXplatImpl;
 import vazkii.botania.network.clientbound.ItemLifeTimePacket;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -167,18 +167,18 @@ import java.util.stream.Stream;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 @Mod(BotaniaAPI.MODID)
-public class ForgeCommonInitializer {
-	public ForgeCommonInitializer(IEventBus modBus, ModContainer modContainer) {
+public class NeoForgeCommonInitializer {
+	public NeoForgeCommonInitializer(IEventBus modBus, ModContainer modContainer) {
 		// ensure API implementations are loaded
 		BotaniaAPI.LOGGER.debug("API instances: {}",
 				List.of(BotaniaAPI.instance(), XplatAbstractions.instance(),
 						CorporeaHelper.instance(), ManaItemHandler.instance()));
 
-		ForgeBotaniaConfig.setup(modContainer);
+		NeoForgeBotaniaConfig.setup(modContainer);
 		EquipmentHandler.init();
 		modBus.register(this);
-		modBus.addListener(ForgePacketHandler::registerPayloadHandlers);
-		ForgeInternalEntityCapabilities.init(modBus);
+		modBus.addListener(NeoForgePacketHandler::registerPayloadHandlers);
+		NeoForgeInternalEntityCapabilities.init(modBus);
 	}
 
 	@SubscribeEvent
@@ -207,7 +207,7 @@ public class ForgeCommonInitializer {
 		BotaniaRecipeIngredientsCache.registerListener();
 		ConfigDataManagerImpl.registerListener();
 		CraftyCrateBlockEntity.registerListener();
-		CorporeaNodeDetectors.register(new ForgeCapCorporeaNodeDetector());
+		CorporeaNodeDetectors.register(new NeoForgeCapCorporeaNodeDetector());
 	}
 
 	@SubscribeEvent
@@ -377,7 +377,7 @@ public class ForgeCommonInitializer {
 			}
 		});
 
-		bus.addListener(EntityEvent.EntityConstructing.class, ForgeInternalEntityCapabilities::trackTntSpawning);
+		bus.addListener(EntityEvent.EntityConstructing.class, NeoForgeInternalEntityCapabilities::trackTntSpawning);
 
 		// Below here are events implemented via Mixins on the Fabric side, ordered by Mixin name
 		// FabricMixinAnvilMenu
@@ -390,7 +390,7 @@ public class ForgeCommonInitializer {
 		bus.addListener((BlockEvent.BlockToolModificationEvent e) -> {
 			if (e.getItemAbility() == ItemAbilities.AXE_STRIP) {
 				BlockState input = e.getState();
-				Block output = ForgeXplatImpl.CUSTOM_STRIPPABLES.get(input.getBlock());
+				Block output = NeoForgeXplatImpl.CUSTOM_STRIPPABLES.get(input.getBlock());
 				if (output != null) {
 					e.setFinalState(output.withPropertiesOf(input));
 				}
@@ -542,7 +542,7 @@ public class ForgeCommonInitializer {
 
 	@SubscribeEvent
 	private void attachCapabilities(RegisterCapabilitiesEvent e) {
-		BotaniaCapabilities.registerCapabilities(BotaniaForgeCapabilities.getRegistration());
+		BotaniaCapabilities.registerCapabilities(BotaniaNeoForgeCapabilities.getRegistration());
 
 		attachItemCaps(e);
 		registerBlockCapabilities(e);
@@ -566,12 +566,12 @@ public class ForgeCommonInitializer {
 				BotaniaItems.EXTRAPOLATED_BUCKET
 		);
 
-		attachMappedItemCapsWithContext(e, BotaniaForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP), HOURGLASS_MATERIAL.get());
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(ManaItem.LOOKUP), MANA_ITEM.get());
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(Relic.LOOKUP), RELIC.get());
+		attachMappedItemCapsWithContext(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
+		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
+		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
+		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP), HOURGLASS_MATERIAL.get());
+		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(ManaItem.LOOKUP), MANA_ITEM.get());
+		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(Relic.LOOKUP), RELIC.get());
 	}
 
 	private static <T> void attachMappedItemCaps(RegisterCapabilitiesEvent e, ItemCapability<T, Void> capability,
@@ -588,7 +588,7 @@ public class ForgeCommonInitializer {
 
 	private void registerBlockCapabilities(RegisterCapabilitiesEvent e) {
 		BlockCapability<EdibleBlockWithEffects, Void> edibleBlockWithEffectCapability =
-				BotaniaForgeCapabilities.getBlockApiLookupById(EdibleBlockWithEffects.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(EdibleBlockWithEffects.LOOKUP);
 		// these two blocks implement the capability directly
 		e.registerBlock(edibleBlockWithEffectCapability,
 				(level, pos, state, blockEntity, context) -> (EdibleBlockWithEffects) state.getBlock(),
@@ -597,20 +597,20 @@ public class ForgeCommonInitializer {
 
 		// TODO: is there any way to identify all BlockEntityTypes for AbstractFurnaceBlock subclasses?
 		BlockCapability<ExoflameHeatable, Void> exoflameHeatableBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(ExoflameHeatable.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(ExoflameHeatable.LOOKUP);
 		Stream.of(BlockEntityType.FURNACE, BlockEntityType.BLAST_FURNACE, BlockEntityType.SMOKER)
 				.forEach(blockEntityType -> e.registerBlockEntity(
 						exoflameHeatableBlockCap, blockEntityType,
 						(furnace, context) -> new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
 
 		BlockCapability<HourglassTrigger, Void> hourglassTriggerBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(HourglassTrigger.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(HourglassTrigger.LOOKUP);
 		e.registerBlockEntity(hourglassTriggerBlockCap, BotaniaBlockEntities.ANIMATED_TORCH,
 				(torchBlockEntity, context) -> torchBlockEntity);
 
 		// TODO: ManaCollisionGhost feels like it could be represented by two tags for fully-ignored and trigger-only blocks, respectively
 		BlockCapability<ManaCollisionGhost, Void> manaCollisionGhostBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(ManaCollisionGhost.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(ManaCollisionGhost.LOOKUP);
 		e.registerBlock(manaCollisionGhostBlockCap,
 				(level, pos, state, blockEntity, context) -> (ManaCollisionGhost) state.getBlock(),
 				BotaniaBlocks.MANA_DETECTOR,
@@ -619,7 +619,7 @@ public class ForgeCommonInitializer {
 		);
 
 		BlockCapability<ManaReceiver, Direction> manaReceiverBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(ManaReceiver.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(ManaReceiver.LOOKUP);
 		BlockEntityConstants.SELF_MANA_RECEIVER_BES.forEach(type -> e.registerBlockEntity(
 				manaReceiverBlockCap, type, (blockEntity, context) -> blockEntity));
 		e.registerBlock(manaReceiverBlockCap,
@@ -628,12 +628,12 @@ public class ForgeCommonInitializer {
 		);
 
 		BlockCapability<SparkAttachable, Void> sparkAttachableBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
 		BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				sparkAttachableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 
 		BlockCapability<ManaTrigger, Void> manaTriggerBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(ManaTrigger.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(ManaTrigger.LOOKUP);
 		BlockEntityConstants.SELF_MANA_TRIGGER_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				manaTriggerBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(manaTriggerBlockCap,
@@ -650,7 +650,7 @@ public class ForgeCommonInitializer {
 		);
 
 		BlockCapability<Wandable, Direction> wandableBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(Wandable.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(Wandable.LOOKUP);
 		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				wandableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(wandableBlockCap, ForceRelayBlock::createWandable,
@@ -660,7 +660,7 @@ public class ForgeCommonInitializer {
 				Blocks.LAPIS_BLOCK);
 
 		BlockCapability<WandBindable, Direction> wandBindableBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(WandBindable.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(WandBindable.LOOKUP);
 		BlockEntityConstants.SELF_WAND_BINDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				wandBindableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(wandBindableBlockCap, ForceRelayBlock::createWandBindable,
@@ -668,7 +668,7 @@ public class ForgeCommonInitializer {
 		);
 
 		BlockCapability<PhantomInkableBlock, Void> phantomInkableBlockCap =
-				BotaniaForgeCapabilities.getBlockApiLookupById(PhantomInkableBlock.LOOKUP);
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(PhantomInkableBlock.LOOKUP);
 		BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				phantomInkableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 

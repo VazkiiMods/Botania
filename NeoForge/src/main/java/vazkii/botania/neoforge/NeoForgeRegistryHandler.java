@@ -21,7 +21,7 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.recipe.StateIngredientType;
 
 @EventBusSubscriber(modid = BotaniaAPI.MODID)
-public class ForgeRegistryHandler {
+public class NeoForgeRegistryHandler {
 	@SubscribeEvent
 	public static void registerRegistry(NewRegistryEvent evt) {
 		evt.create(new RegistryBuilder<>(BotaniaRegistries.BREWS)

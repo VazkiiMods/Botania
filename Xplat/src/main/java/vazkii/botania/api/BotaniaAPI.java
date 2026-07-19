@@ -82,7 +82,7 @@ public interface BotaniaAPI {
 	/**
 	 * Get the registry for brews.
 	 * This should only be called after the registry is registered.
-	 * In Forge, that is after NewRegistryEvent. In Fabric, that is after Botania's common initializer
+	 * In NeoForge, that is after NewRegistryEvent. In Fabric, that is after Botania's common initializer
 	 * is loaded.
 	 * Note that this registry is neither saved nor synced, and thus its integer ID's should not be relied upon.
 	 */
@@ -94,7 +94,7 @@ public interface BotaniaAPI {
 	/**
 	 * Get the registry for floating flower island types.
 	 * This should only be called after the registry is registered.
-	 * In Forge, that is after NewRegistryEvent. In Fabric, that is after Botania's common initializer
+	 * In NeoForge, that is after NewRegistryEvent. In Fabric, that is after Botania's common initializer
 	 * is loaded.
 	 * Note that this registry is neither saved nor synced, and thus its integer ID's should not be relied upon.
 	 */

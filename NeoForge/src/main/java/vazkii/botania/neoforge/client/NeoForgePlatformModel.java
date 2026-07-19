@@ -31,10 +31,10 @@ import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 
-public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
+public class NeoForgePlatformModel extends BakedModelWrapper<BakedModel> {
 	public static final ModelProperty<PlatformBlockEntity.PlatformData> PROPERTY = new ModelProperty<>();
 
-	public ForgePlatformModel(BakedModel originalModel) {
+	public NeoForgePlatformModel(BakedModel originalModel) {
 		super(originalModel);
 	}
 

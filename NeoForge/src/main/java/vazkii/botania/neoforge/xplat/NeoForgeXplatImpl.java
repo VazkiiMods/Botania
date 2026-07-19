@@ -95,7 +95,7 @@ import vazkii.botania.api.capability.ItemApiWithContext;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.neoforge.BotaniaForgeCapabilities;
+import vazkii.botania.api.neoforge.BotaniaNeoForgeCapabilities;
 import vazkii.botania.api.neoforge.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.neoforge.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.neoforge.mana.ManaDiscountEvent;
@@ -108,8 +108,8 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
-import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
-import vazkii.botania.neoforge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
+import vazkii.botania.neoforge.internal_caps.NeoForgeInternalEntityCapabilities;
+import vazkii.botania.neoforge.mixin.AbstractFurnaceBlockEntityNeoForgeAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.HashMap;
@@ -118,10 +118,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class ForgeXplatImpl implements XplatAbstractions {
+public class NeoForgeXplatImpl implements XplatAbstractions {
 
 	@Override
-	public boolean isForge() {
+	public boolean isNeoForge() {
 		return true;
 	}
 
@@ -156,33 +156,33 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public @Nullable <A> A findBlockApi(BlockApiNoContext<A> id, Level level, BlockPos pos, @Nullable BlockState state,
 			@Nullable BlockEntity entity) {
-		return level.getCapability(BotaniaForgeCapabilities.getBlockApiLookupById(id), pos, state, entity);
+		return level.getCapability(BotaniaNeoForgeCapabilities.getBlockApiLookupById(id), pos, state, entity);
 	}
 
 	@Override
 	public @Nullable <A, C> A findBlockApi(BlockApiWithContext<A, C> id, Level level, BlockPos pos,
 			@Nullable BlockState state, @Nullable BlockEntity entity, @Nullable C context) {
-		return level.getCapability(BotaniaForgeCapabilities.getBlockApiLookupById(id), pos, state, entity, context);
+		return level.getCapability(BotaniaNeoForgeCapabilities.getBlockApiLookupById(id), pos, state, entity, context);
 	}
 
 	@Override
 	public @Nullable <A> A findEntityApi(EntityApiNoContext<A> id, Entity entity) {
-		return entity.getCapability(BotaniaForgeCapabilities.getEntityApiLookupById(id));
+		return entity.getCapability(BotaniaNeoForgeCapabilities.getEntityApiLookupById(id));
 	}
 
 	@Override
 	public @Nullable <A, C> A findEntityApi(EntityApiWithContext<A, C> id, Entity entity, @Nullable C context) {
-		return entity.getCapability(BotaniaForgeCapabilities.getEntityApiLookupById(id), context);
+		return entity.getCapability(BotaniaNeoForgeCapabilities.getEntityApiLookupById(id), context);
 	}
 
 	@Override
 	public @Nullable <A> A findItemApi(ItemApiNoContext<A> id, ItemStack stack) {
-		return stack.getCapability(BotaniaForgeCapabilities.getItemApiLookupById(id));
+		return stack.getCapability(BotaniaNeoForgeCapabilities.getItemApiLookupById(id));
 	}
 
 	@Override
 	public @Nullable <A, C> A findItemApi(ItemApiWithContext<A, C> id, ItemStack stack, @Nullable C context) {
-		return stack.getCapability(BotaniaForgeCapabilities.getItemApiLookupById(id), context);
+		return stack.getCapability(BotaniaNeoForgeCapabilities.getItemApiLookupById(id), context);
 	}
 
 	// data attachment helper methods
@@ -190,17 +190,17 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Nullable
 	@Override
 	public <T> T getEntityData(DataIdBase<T> id, Entity entity) {
-		return entity.getExistingDataOrNull(ForgeInternalEntityCapabilities.getAttachmentTypeById(id));
+		return entity.getExistingDataOrNull(NeoForgeInternalEntityCapabilities.getAttachmentTypeById(id));
 	}
 
 	@Override
 	public <T> void setEntityData(DataIdBase<T> id, Entity entity, T data) {
-		entity.setData(ForgeInternalEntityCapabilities.getAttachmentTypeById(id), data);
+		entity.setData(NeoForgeInternalEntityCapabilities.getAttachmentTypeById(id), data);
 	}
 
 	@Override
 	public void removeEntityData(DataIdBase<?> id, Entity entity) {
-		entity.removeData(ForgeInternalEntityCapabilities.getAttachmentTypeById(id));
+		entity.removeData(NeoForgeInternalEntityCapabilities.getAttachmentTypeById(id));
 	}
 
 	@Override
@@ -247,7 +247,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		}
 
 		// Have to copy and simulate on a stack of size 1, because buckets don't accept
-		// fluid input if they're stacked (why Forge??)
+		// fluid input if they're stacked (why NeoForge??)
 		ItemStack toFill = stack.copy();
 		toFill.setCount(1);
 
@@ -392,7 +392,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Item.Properties noRepairOnForge(Item.Properties builder) {
+	public Item.Properties noRepairOnNeoForge(Item.Properties builder) {
 		return builder.setNoRepair();
 	}
 
@@ -418,7 +418,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize) {
-		return AbstractFurnaceBlockEntityForgeAccessor.botania_canBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize, furnace);
+		return AbstractFurnaceBlockEntityNeoForgeAccessor.botania_canBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize, furnace);
 	}
 
 	@Override

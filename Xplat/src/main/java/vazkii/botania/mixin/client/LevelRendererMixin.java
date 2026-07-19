@@ -154,7 +154,7 @@ public class LevelRendererMixin {
 		}
 	}
 
-	@SuppressWarnings("mapping") // applyModelViewMatrix is unobfuscated - not mapped on Fabric, mapped on Forge
+	@SuppressWarnings("mapping") // applyModelViewMatrix is unobfuscated - not mapped on Fabric, mapped on NeoForge
 	@Inject(
 		method = "renderLevel",
 		at = @At(
@@ -166,7 +166,7 @@ public class LevelRendererMixin {
 	)
 	private void renderOverlays(DeltaTracker deltaTracker, boolean renderBlockOutline, Camera camera,
 			GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f frustumMatrix, Matrix4f projectionMatrix, CallbackInfo ci) {
-		// Called from our own mixin instead of e.g. Forge's render world last event,
+		// Called from our own mixin instead of e.g. NeoForge's render world last event,
 		// because that event is too late for Fabulous mode
 		PoseStack poseStack = new PoseStack();
 		WorldOverlays.renderWorldLast(camera,

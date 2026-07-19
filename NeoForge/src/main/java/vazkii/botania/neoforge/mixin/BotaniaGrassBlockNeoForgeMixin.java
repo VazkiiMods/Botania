@@ -24,7 +24,7 @@ import vazkii.botania.common.block.BotaniaGrassBlock;
 
 // Self-mixin to implement a method which has a forge-only param
 @Mixin(BotaniaGrassBlock.class)
-public abstract class BotaniaGrassBlockForgeMixin implements IBlockExtension {
+public abstract class BotaniaGrassBlockNeoForgeMixin implements IBlockExtension {
 	@Override
 	public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
 		if (itemAbility == ItemAbilities.HOE_TILL && HoeItem.onlyIfAirAbove(context)) {

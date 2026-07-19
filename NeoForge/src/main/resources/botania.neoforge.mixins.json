@@ -5,10 +5,10 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AbstractFurnaceBlockEntityForgeAccessor",
-    "BotaniaGrassBlockForgeMixin",
-    "IDeathMessageProviderMixin",
-    "WorldPresetAccessor"
+    "AbstractFurnaceBlockEntityNeoForgeAccessor",
+    "BotaniaGrassBlockNeoForgeMixin",
+    "IDeathMessageProviderNeoForgeMixin",
+    "WorldPresetNeoForgeAccessor"
   ],
   "client": [
     "client.ParticleEngineNeoForgeMixin"

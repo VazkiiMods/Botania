@@ -73,15 +73,15 @@ public class NeoForgeDatagenInitializer {
 			Registries.WORLD_PRESET, BotaniaAPI.gogRL("gardenofglass"));
 
 	@SubscribeEvent
-	public static void configureForgeDatagen(GatherDataEvent evt) {
+	public static void configureDatagen(GatherDataEvent evt) {
 		if (System.getProperty("botania.gog_datagen") != null) {
 			configureGogDatagen(evt);
 		} else {
-			configureNeoforgeDatagen(evt);
+			configureNeoForgeDatagen(evt);
 		}
 	}
 
-	private static void configureNeoforgeDatagen(GatherDataEvent evt) {
+	private static void configureNeoForgeDatagen(GatherDataEvent evt) {
 		evt.createBlockAndItemTags(NeoForgeBlockTagProvider::new, NeoForgeItemTagProvider::new);
 		evt.createProvider(NeoForgeEntityTagProvider::new);
 		evt.createDatapackRegistryObjects(addBiomeModifiers());

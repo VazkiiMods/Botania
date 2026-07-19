@@ -56,7 +56,7 @@ public final class BlockRenderLayers {
 
 		consumer.accept(BotaniaBlocks.STARFIELD_CREATOR, RenderType.cutoutMipped());
 		if (!skipPlatformBlocks) {
-			// Render type is set dynamically on Forge and undisguised platforms should render as "solid",
+			// Render type is set dynamically on NeoForge and undisguised platforms should render as "solid",
 			// but "translucent" is the best compromise on Fabric.
 			// Translucent comes with a couple of downsides, like hidden block breaking animation and bad
 			// Z-ordering for non-cubic block models that should be rendered with the "cutout" render type.

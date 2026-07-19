@@ -26,10 +26,10 @@ import vazkii.botania.client.model.ManaBlasterBakedModel;
 
 import java.util.function.Function;
 
-public class ForgeManaBlasterModel implements IUnbakedGeometry<ForgeManaBlasterModel> {
+public class NeoForgeManaBlasterModel implements IUnbakedGeometry<NeoForgeManaBlasterModel> {
 	private final ResourceLocation gunNoClip, gunClip;
 
-	public ForgeManaBlasterModel(ResourceLocation gunNoClip, ResourceLocation gunClip) {
+	public NeoForgeManaBlasterModel(ResourceLocation gunNoClip, ResourceLocation gunClip) {
 		this.gunNoClip = gunNoClip;
 		this.gunClip = gunClip;
 	}
@@ -53,12 +53,12 @@ public class ForgeManaBlasterModel implements IUnbakedGeometry<ForgeManaBlasterM
 		return ManaBlasterBakedModel.create(baker, this.gunNoClip, this.gunClip, state);
 	}
 
-	enum Loader implements IGeometryLoader<ForgeManaBlasterModel> {
+	enum Loader implements IGeometryLoader<NeoForgeManaBlasterModel> {
 		INSTANCE;
 
 		@Override
-		public ForgeManaBlasterModel read(JsonObject json, JsonDeserializationContext deserializationContext) {
-			return new ForgeManaBlasterModel(
+		public NeoForgeManaBlasterModel read(JsonObject json, JsonDeserializationContext deserializationContext) {
+			return new NeoForgeManaBlasterModel(
 					ResourceLocation.parse(GsonHelper.getAsString(json, "mana_blaster_noclip")),
 					ResourceLocation.parse(GsonHelper.getAsString(json, "mana_blaster_clip"))
 			);

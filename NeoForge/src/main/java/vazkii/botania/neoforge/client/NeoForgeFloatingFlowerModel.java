@@ -47,12 +47,12 @@ import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity
 import java.util.*;
 import java.util.function.Function;
 
-public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingFlowerModel> {
+public class NeoForgeFloatingFlowerModel implements IUnbakedGeometry<NeoForgeFloatingFlowerModel> {
 	public static final ModelProperty<FloatingFlower> FLOATING_PROPERTY = new ModelProperty<>();
 	private final UnbakedModel unbakedFlower;
 	private final Map<IslandType, UnbakedModel> unbakedIslands = new HashMap<>();
 
-	private ForgeFloatingFlowerModel(UnbakedModel flower) {
+	private NeoForgeFloatingFlowerModel(UnbakedModel flower) {
 		this.unbakedFlower = flower;
 	}
 
@@ -189,13 +189,13 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		}
 	}
 
-	public enum Loader implements IGeometryLoader<ForgeFloatingFlowerModel> {
+	public enum Loader implements IGeometryLoader<NeoForgeFloatingFlowerModel> {
 		INSTANCE;
 
 		@Override
-		public ForgeFloatingFlowerModel read(JsonObject model, JsonDeserializationContext ctx) {
+		public NeoForgeFloatingFlowerModel read(JsonObject model, JsonDeserializationContext ctx) {
 			BlockModel flower = ctx.deserialize(model.getAsJsonObject("flower"), BlockModel.class);
-			return new ForgeFloatingFlowerModel(flower);
+			return new NeoForgeFloatingFlowerModel(flower);
 		}
 	}
 }

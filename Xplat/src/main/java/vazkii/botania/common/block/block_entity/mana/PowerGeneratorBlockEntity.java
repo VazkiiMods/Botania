@@ -28,7 +28,7 @@ import vazkii.botania.common.item.lens.PotencyLens;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class PowerGeneratorBlockEntity extends BlockEntity implements ManaReceiver {
-	private static final int MANA_TO_ENERGY_UNITS = XplatAbstractions.INSTANCE.isForge() ? 10 : 3;
+	private static final int MANA_TO_ENERGY_UNITS = XplatAbstractions.INSTANCE.isNeoForge() ? 10 : 3;
 	private static final int MAX_MANA = PotencyLens.MAX_MANA_FACTOR * ManaSpreaderBlock.BURST_SIZE_GAIA;
 	public static final int MAX_ENERGY = MANA_TO_ENERGY_UNITS * MAX_MANA;
 	private static final int MAX_ENERGY_TRANSFER = MANA_TO_ENERGY_UNITS * ManaSpreaderBlock.BURST_SIZE_DEFAULT;

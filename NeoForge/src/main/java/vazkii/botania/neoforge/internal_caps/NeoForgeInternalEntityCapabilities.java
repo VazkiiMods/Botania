@@ -26,7 +26,7 @@ import vazkii.botania.common.internal_caps.UnethicalTnt;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public final class ForgeInternalEntityCapabilities {
+public final class NeoForgeInternalEntityCapabilities {
 	private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES =
 			DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, BotaniaAPI.MODID);
 	private static final Map<DataIdBase<?>, Supplier<? extends AttachmentType<?>>> FOR_ENTITIES =
@@ -45,7 +45,7 @@ public final class ForgeInternalEntityCapabilities {
 	}
 
 	public static void init(IEventBus eventBus) {
-		BotaniaDataAttachments.registerDataAttachments(ForgeInternalEntityCapabilities::register);
+		BotaniaDataAttachments.registerDataAttachments(NeoForgeInternalEntityCapabilities::register);
 		ATTACHMENT_TYPES.register(eventBus);
 	}
 
@@ -60,5 +60,5 @@ public final class ForgeInternalEntityCapabilities {
 		}
 	}
 
-	private ForgeInternalEntityCapabilities() {}
+	private NeoForgeInternalEntityCapabilities() {}
 }

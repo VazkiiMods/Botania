@@ -27,7 +27,7 @@ import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 
 // FIXME: This is not how it's supposed to be done, but I don't feel like extending NeoForge-extendable enums right now
 @Mixin(IDeathMessageProvider.class)
-public interface IDeathMessageProviderMixin {
+public interface IDeathMessageProviderNeoForgeMixin {
 	/**
 	 * When building the death message due to throwing bread into an Alfheim portal, link the issue to blame for it.
 	 */

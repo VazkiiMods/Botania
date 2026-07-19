@@ -252,7 +252,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 
 		// pool item washing
 		EmiIngredient cauldron = EmiIngredient.of(Ingredient.of(Blocks.CAULDRON));
-		int bottleAmount = XplatAbstractions.instance().isForge() ? 250 : 27_000;
+		int bottleAmount = XplatAbstractions.instance().isNeoForge() ? 250 : 27_000;
 		EmiStack waterThird = EmiStack.of(Fluids.WATER, bottleAmount);
 		for (var e : Map.of(
 				BotaniaTags.Items.DYED_MANA_POOLS, BotaniaBlocks.MANA_POOL,
