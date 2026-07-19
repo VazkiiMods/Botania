@@ -11,3 +11,5 @@ accessible class net/minecraft/client/resources/model/ModelManager$ReloadState
 accessible method net/minecraft/core/dispenser/DefaultDispenseItemBehavior consumeWithRemainder (Lnet/minecraft/core/dispenser/BlockSource;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
 extendable method net/minecraft/world/entity/vehicle/VehicleEntity getDropItem ()Lnet/minecraft/world/item/Item;
 extendable class net/minecraft/world/item/crafting/Ingredient
+accessible class net/minecraft/data/HashCache$ProviderCache
+accessible class net/minecraft/data/HashCache$ProviderCacheBuilder

@@ -10,62 +10,59 @@
 package vazkii.botania.fabric.mixin;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.hash.HashCode;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.llamalad7.mixinextras.sugar.Local;
 
+import net.minecraft.WorldVersion;
+import net.minecraft.data.HashCache;
+
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.fabric.data.FabricDatagenMixinHelper;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.TreeMap;
+import java.util.Collection;
+import java.util.Map;
 
 /**
- * Patches HashCache to write its results using system-agnostic paths, and in sorted order,
- * so that the datagen cache files can be committed.
- * Similar to the patch Forge does
+ * Patches HashCache to only write cache files that are missing or contain a changed set of hashes.
  */
-@Mixin(targets = { "net.minecraft.data.HashCache$ProviderCache" })
+@Mixin(HashCache.class)
 public abstract class HashCacheFabricMixin {
-	@Shadow
-	public abstract String version();
+	@Unique
+	private Map<String, HashCache.ProviderCache> botania_originalCaches;
 
-	@Shadow
-	public abstract ImmutableMap<Path, HashCode> data();
+	@Inject(
+		method = "<init>",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/data/HashCache;caches:Ljava/util/Map;",
+			opcode = Opcodes.PUTFIELD
+		)
+	)
+	private void rememberOriginalHashes(Path rootDir, Collection<String> providers, WorldVersion version,
+			CallbackInfo ci, @Local Map<String, HashCache.ProviderCache> map) {
+		botania_originalCaches = ImmutableMap.copyOf(map);
+	}
 
-	@Inject(at = @At("HEAD"), method = "save", cancellable = true)
-	private void hookWrite(Path path, Path outputPath, String header, CallbackInfo ci) throws IOException {
-		if (!BotaniaAPI.MODID.equals(System.getProperty("fabric-api.datagen.modid"))) {
-			return;
-		}
+	@WrapWithCondition(
+		method = "method_46571",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/data/HashCache$ProviderCache;save(Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/lang/String;)V"
+		)
+	)
+	private boolean hasCacheChanged(HashCache.ProviderCache instance, Path rootDir, Path cachePath, String date,
+			@Local(argsOnly = true) String providerId) {
 
-		ci.cancel();
-		// [VanillaCopy] Vanilla method but use system-agnostic paths, sort by file path
-		// before writing, and don't write date as part of header.
-		// Forge has a patch to not rewrite if the contents are the same, to reduce git churn,
-		// here we just remove the date from the header to reduce churn.
-		try (BufferedWriter writer = Files.newBufferedWriter(outputPath, StandardCharsets.UTF_8)) {
-			writer.write("// ");
-			writer.write(this.version());
-			writer.write('\t');
-			writer.write(header.substring(header.indexOf('\t') + 1));
-			writer.newLine();
-			var sorted = new TreeMap<String, String>();
-			for (var e : this.data().entrySet()) {
-				var relativePath = path.relativize(e.getKey()).toString().replace('\\', '/');
-				sorted.put(relativePath, e.getValue().toString());
-			}
-			for (var e : sorted.entrySet()) {
-				writer.write(e.getValue() + ' ' + e.getKey());
-				writer.newLine();
-			}
-		}
+		return !FabricDatagenMixinHelper.isBotaniaDatagen()
+				|| !instance.equals(botania_originalCaches.get(providerId))
+				|| !Files.exists(cachePath);
 	}
 }
