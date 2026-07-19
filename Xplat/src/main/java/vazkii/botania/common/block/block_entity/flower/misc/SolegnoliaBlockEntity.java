@@ -53,7 +53,7 @@ public class SolegnoliaBlockEntity extends SpecialFlowerBlockEntity {
 
 	public static boolean hasSolegnoliaAround(Entity e) {
 		for (var flower : existingFlowers) {
-			if (flower.isPowered() && flower.getLevel() == e.level()
+			if (!flower.isPowered() && flower.getLevel() == e.level()
 					&& flower.getEffectivePos().distToCenterSqr(e.getX(), e.getY(), e.getZ())
 							<= flower.getRange() * flower.getRange()) {
 				return true;
