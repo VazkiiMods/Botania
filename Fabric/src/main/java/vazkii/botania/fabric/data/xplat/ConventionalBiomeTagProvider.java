@@ -60,7 +60,8 @@ public class ConventionalBiomeTagProvider extends TagsProvider<Biome> {
 		tag(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_SPAWNLIST)
 				.addTag(ConventionalBiomeTags.IS_OVERWORLD)
 				.addTag(ConventionalBiomeTags.IS_NETHER);
-		tag(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_BLOCKLIST);
+		tag(BotaniaTags.Biomes.SHIMMERING_MUSHROOM_BLOCKLIST)
+				.add(Biomes.DEEP_DARK);
 
 		tag(BotaniaTags.Biomes.MARIMORPHOSIS_SOLITE_BONUS)
 				.addTag(ConventionalBiomeTags.IS_DESERT)

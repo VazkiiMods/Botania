@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Conventional Tags for minecraft:worldgen/biome
+// 1.21.1	2026-07-19T16:54:20.163845934	Botania/Conventional Tags for minecraft:worldgen/biome
 753f5a4ad9ea341baccece14db04a72921019471 data/botania/tags/worldgen/biome/marimorphosis_cataclasite_bonus.json
 9bfe31c6e257cb8d2b5918fd9d91445485ed706e data/botania/tags/worldgen/biome/marimorphosis_fuchsite_bonus.json
 9e76bc2da4bb8739a47c222866b1d7fcbe83f719 data/botania/tags/worldgen/biome/marimorphosis_gneiss_bonus.json
@@ -14,5 +14,5 @@ dd44a61ce8693e1a4e7456e7e88b36bc9548b881 data/botania/tags/worldgen/biome/orechi
 dd44a61ce8693e1a4e7456e7e88b36bc9548b881 data/botania/tags/worldgen/biome/orechid_stone_copper_bonus.json
 9e76bc2da4bb8739a47c222866b1d7fcbe83f719 data/botania/tags/worldgen/biome/orechid_stone_emerald_bonus.json
 c782b9e9919e6c5261aafe5b694fd163a8c2c1d9 data/botania/tags/worldgen/biome/orechid_stone_gold_bonus.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/worldgen/biome/shimmering_mushroom_blocklist.json
+45e2314b6fbf2e847bd70c163e678e0e756a1640 data/botania/tags/worldgen/biome/shimmering_mushroom_blocklist.json
 10218d719cb3f67bb586d76118a2d98acf6221e2 data/botania/tags/worldgen/biome/shimmering_mushroom_spawnlist.json
