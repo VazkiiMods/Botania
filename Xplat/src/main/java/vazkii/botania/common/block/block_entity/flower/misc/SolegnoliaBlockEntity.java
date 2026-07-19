@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.block_entity.flower.misc;
 
-import com.google.common.collect.MapMaker;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,12 +19,16 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 public class SolegnoliaBlockEntity extends SpecialFlowerBlockEntity {
 	private static final double RANGE = 5;
 	private static final double RANGE_MINI = 1;
 
-	private static final Set<SolegnoliaBlockEntity> existingFlowers = Collections.newSetFromMap(new MapMaker().concurrencyLevel(2).weakKeys().makeMap());
+	private static final Set<SolegnoliaBlockEntity> clientFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<SolegnoliaBlockEntity> serverFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+
+	private boolean added = false;
 
 	protected SolegnoliaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -40,19 +42,28 @@ public class SolegnoliaBlockEntity extends SpecialFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!existingFlowers.contains(this)) {
-			existingFlowers.add(this);
+		if (!added) {
+			if (getLevel().isClientSide()) {
+				clientFlowers.add(this);
+			} else {
+				serverFlowers.add(this);
+			}
+			added = true;
 		}
 	}
 
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		existingFlowers.remove(this);
+		if (getLevel().isClientSide()) {
+			clientFlowers.remove(this);
+		} else {
+			serverFlowers.remove(this);
+		}
 	}
 
 	public static boolean hasSolegnoliaAround(Entity e) {
-		for (var flower : existingFlowers) {
+		for (var flower : e.level().isClientSide() ? clientFlowers : serverFlowers) {
 			if (!flower.isPowered() && flower.getLevel() == e.level()
 					&& flower.getEffectivePos().distToCenterSqr(e.getX(), e.getY(), e.getZ())
 							<= flower.getRange() * flower.getRange()) {
