@@ -19,16 +19,24 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.entity.BotaniaEntities;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ForgeEntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>> {
-	public ForgeEntityTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+public class NeoForgeEntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>> {
+	public NeoForgeEntityTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(packOutput, Registries.ENTITY_TYPE, lookupProvider, (entityType) -> ResourceKey
 				.create(Registries.ENTITY_TYPE, BuiltInRegistries.ENTITY_TYPE.getKey(entityType)),
 				BotaniaAPI.MODID, null);
+	}
+
+	@NotNull
+	@Override
+	public String getName() {
+		return "Botania entity type tags (NeoForge-specific)";
 	}
 
 	@Override

@@ -54,7 +54,7 @@ import java.util.Set;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 @EventBusSubscriber(modid = BotaniaAPI.MODID)
-public class ForgeDatagenInitializer {
+public class NeoForgeDatagenInitializer {
 	private static final ResourceKey<PlacedFeature> MYSTICAL_FLOWERS_FEATURE = ResourceKey.create(
 			Registries.PLACED_FEATURE, botaniaRL("mystical_flowers"));
 	private static final ResourceKey<PlacedFeature> SHIMMERING_MUSHROOMS_FEATURE = ResourceKey.create(
@@ -82,8 +82,8 @@ public class ForgeDatagenInitializer {
 	}
 
 	private static void configureNeoforgeDatagen(GatherDataEvent evt) {
-		evt.createBlockAndItemTags(ForgeBlockTagProvider::new, ForgeItemTagProvider::new);
-		evt.createProvider(ForgeEntityTagProvider::new);
+		evt.createBlockAndItemTags(NeoForgeBlockTagProvider::new, NeoForgeItemTagProvider::new);
+		evt.createProvider(NeoForgeEntityTagProvider::new);
 		evt.createDatapackRegistryObjects(addBiomeModifiers());
 		evt.createProvider(BotaniaCuriosDataProvider::new);
 		evt.createProvider(BotaniaGlobalLootModifierProvider::new);

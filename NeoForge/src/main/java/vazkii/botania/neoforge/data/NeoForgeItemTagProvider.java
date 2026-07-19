@@ -20,20 +20,23 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ForgeItemTagProvider extends ItemTagsProvider {
-	public ForgeItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
+public class NeoForgeItemTagProvider extends ItemTagsProvider {
+	public NeoForgeItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
 			CompletableFuture<TagsProvider.TagLookup<Block>> blockTags) {
 		super(output, lookupProvider, blockTags, BotaniaAPI.MODID, null);
 	}
 
+	@NotNull
 	@Override
 	public String getName() {
-		return "Botania item tags (Forge-specific)";
+		return "Botania item tags (NeoForge-specific)";
 	}
 
 	@Override

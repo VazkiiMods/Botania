@@ -19,6 +19,8 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.data.util.DummyTagLookup;
 
@@ -36,6 +38,12 @@ public class GogBlockTagsProvider extends IntrinsicHolderTagsProvider<Block> {
 		super(output, Registries.BLOCK, provider, DummyTagLookup.completedFuture(REQUIRED_TAGS),
 				block -> ResourceKey.create(Registries.BLOCK, BuiltInRegistries.BLOCK.getKey(block)),
 				BotaniaAPI.MODID, null);
+	}
+
+	@NotNull
+	@Override
+	public String getName() {
+		return "GoG block tags";
 	}
 
 	@Override

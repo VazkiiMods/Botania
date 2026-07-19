@@ -20,6 +20,8 @@ import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
 import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 
 import java.util.concurrent.CompletableFuture;
@@ -29,6 +31,12 @@ import static vazkii.botania.api.BotaniaAPI.gogRL;
 public class GogGlobalLootModifierProvider extends GlobalLootModifierProvider {
 	public GogGlobalLootModifierProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries, BotaniaAPI.GOG_MODID);
+	}
+
+	@NotNull
+	@Override
+	public String getName() {
+		return "GoG Global Loot Modifiers";
 	}
 
 	@Override

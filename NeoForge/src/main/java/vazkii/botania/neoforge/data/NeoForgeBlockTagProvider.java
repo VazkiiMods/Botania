@@ -19,6 +19,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.util.DummyTagLookup;
@@ -26,21 +28,22 @@ import vazkii.botania.data.util.DummyTagLookup;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
+public class NeoForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(
 			BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS,
 			BotaniaTags.Blocks.SPECIAL_FLOWERS
 	);
 
-	public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+	public NeoForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
 		super(output, Registries.BLOCK, provider, DummyTagLookup.completedFuture(REQUIRED_TAGS),
 				block -> ResourceKey.create(Registries.BLOCK, BuiltInRegistries.BLOCK.getKey(block)),
 				BotaniaAPI.MODID, null);
 	}
 
+	@NotNull
 	@Override
 	public String getName() {
-		return "Botania block tags (Forge-specific)";
+		return "Botania block tags (NeoForge-specific)";
 	}
 
 	@Override

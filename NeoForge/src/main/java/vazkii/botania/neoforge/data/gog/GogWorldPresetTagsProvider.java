@@ -17,8 +17,10 @@ import net.minecraft.tags.WorldPresetTags;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.neoforge.data.ForgeDatagenInitializer;
+import vazkii.botania.neoforge.data.NeoForgeDatagenInitializer;
 
 import java.util.List;
 import java.util.Set;
@@ -31,8 +33,14 @@ public class GogWorldPresetTagsProvider extends TagsProvider<WorldPreset> {
 				new ExistingFileHelper(List.of(), Set.of(), false, null, null));
 	}
 
+	@NotNull
+	@Override
+	public String getName() {
+		return "GoG world preset tags";
+	}
+
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		this.tag(WorldPresetTags.NORMAL).add(ForgeDatagenInitializer.SKYBLOCK_PRESET);
+		this.tag(WorldPresetTags.NORMAL).add(NeoForgeDatagenInitializer.SKYBLOCK_PRESET);
 	}
 }
