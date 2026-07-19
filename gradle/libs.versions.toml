@@ -11,7 +11,7 @@ mdg = "2.0.142"
 mixin = "0.15.2+mixin.0.8.7"
 mixin-extras = "0.4.1"
 
-jetbrains-annotations = "26.0.2"
+jetbrains-annotations = "26.1.0"
 
 # Mods
 patchouli-xplat = "1.21.1-92"
