@@ -75,15 +75,14 @@
     "TextureSlotAccessor",
     "ThrowableProjectileMixin",
     "VibrationSystemListenerMixin",
-    "WitherEntityAccessor",
-    "client.BookEntryMixin",
-    "client.ClientAdvancementsAccessor",
-    "client.MultiblockVisualizationHandlerMixin"
+    "WitherEntityAccessor"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
     "client.AbstractContainerScreenAccessor",
     "client.BlockRenderDispatcherMixin",
+    "client.BookEntryMixin",
+    "client.ClientAdvancementsAccessor",
     "client.ClientLevelDataMixin",
     "client.GuiBookEntryListMixin",
     "client.GuiButtonEntryMixin",
@@ -94,6 +93,7 @@
     "client.LevelRendererMixin",
     "client.MinecraftAccessor",
     "client.MinecraftMixin",
+    "client.MultiblockVisualizationHandlerMixin",
     "client.MusicManagerMixin",
     "client.RecipeBookComponentAccessor",
     "client.RecipeBookComponentMixin",
