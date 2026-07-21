@@ -129,8 +129,11 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		this.itemCount = count;
 		if (this.itemCount != oldCount) {
 			this.compValue = CorporeaHelper.instance().signalStrengthForRequestSize(itemCount);
-			setChanged();
-			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+			// don't do run any update logic while this is getting loaded along with a chunk
+			if (this.level != null) {
+				setChanged();
+				level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+			}
 		}
 	}
 
