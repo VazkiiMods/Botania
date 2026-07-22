@@ -66,7 +66,7 @@ public class WeightLens extends Lens {
 		if (harvestToolStack.isEmpty()) {
 			return false;
 		}
-		harvestToolStack.enchant(level.holderLookup(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), 1);
+		harvestToolStack.enchant(level.holderLookup(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
 
 		Item blockItem = state.getBlock().asItem();
 		for (var drop : Block.getDrops(state, level, pos, null, owner, harvestToolStack)) {
