@@ -50,7 +50,7 @@ public class NeoForgeItemTagProvider extends ItemTagsProvider {
 		tag(accessory("charm")).add(
 				BotaniaItems.CHARM_OF_THE_DIVA, BotaniaItems.BENEVOLENT_GODDESS_CHARM, BotaniaItems.MANASEER_MONOCLE,
 				BotaniaItems.TINY_PLANET);
-		tag(accessory("head")).add(BotaniaItems.FLUEGEL_TIARA, BotaniaItems.THE_SPECTATOR);
+		tag(accessory("head")).add(BotaniaItems.FLUGEL_TIARA, BotaniaItems.THE_SPECTATOR);
 		tag(accessory("necklace")).add(
 				BotaniaItems.TAINTED_BLOOD_PENDANT, BotaniaItems.CIRRUS_AMULET, BotaniaItems.SNOWFLAKE_PENDANT,
 				BotaniaItems.PYROCLAST_PENDANT, BotaniaItems.NIMBUS_AMULET, BotaniaItems.CRIMSON_PENDANT);

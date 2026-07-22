@@ -251,7 +251,7 @@
 		],
 		"subtitle": "botania.subtitle.flareChakramThrow"
 	},
-	"eye_of_the_fluegel_bind": {
+	"eye_of_the_flugel_bind": {
 		"sounds": [
 			{
 				"type": "event",
@@ -261,7 +261,7 @@
 		],
 		"subtitle": "botania.subtitle.flugelEyeBind"
 	},
-	"eye_of_the_fluegel_teleport": {
+	"eye_of_the_flugel_teleport": {
 		"sounds": [
 			{
 				"type": "event",

@@ -1945,7 +1945,7 @@
   "item.botania.ring_of_far_reach": "Ring of Far Reach",
   "item.botania.terra_shatterer": "Terra Shatterer",
   "item.botania.charm_of_the_diva": "Charm of the Diva",
-  "item.botania.fluegel_tiara": "Flügel Tiara",
+  "item.botania.flugel_tiara": "Flügel Tiara",
   "item.botania.soulscribe": "Soulscribe",
   "item.botania.smokey_quartz": "Smokey Quartz",
   "item.botania.mana_quartz": "Mana Quartz",
@@ -2081,7 +2081,7 @@
   "item.botania.the_pinkinator": "The Pinkinator",
   "item.botania.the_fruit_of_grisaia": "The Fruit of Grisaia",
   "item.botania.key_of_the_kings_law": "Key of the King's Law",
-  "item.botania.eye_of_the_fluegel": "Eye of the Flügel",
+  "item.botania.eye_of_the_flugel": "Eye of the Flügel",
   "item.botania.ring_of_thor": "Ring of Thor",
   "item.botania.ring_of_odin": "Ring of Odin",
   "item.botania.ring_of_loki": "Ring of Loki",
@@ -3995,8 +3995,8 @@
 
   "botania.entry.flugelEye": "Eye of the Flügel",
   "botania.tagline.flugelEye": "The true powers of a Flügel",
-  "botania.page.flugelEye0": "Unlike the crafted $(l:ender/fluegel_tiara)$(item)Flügel Tiara$(0)$(/l), the $(item)Eye of the Flügel$(0) contains primordial $(thing)Flügel$(0) magic. Magic strong enough, in fact, to harness the $(thing)Flügels$(0)' ability to recall themselves to a previously-visited location.$(p)Sneak-right clicking this eye somewhere will bind it to that position. Holding right-click with a bound Eye will then use $(thing)Mana$(0) to warp its owner back to its bound location.",
-  "botania.page.flugelEye1": "Unfortunately, the Eye is still but a fragment of the $(thing)Flügels$(0)' true potential, so it can't warp its user across dimensions.$(p)However, just having an $(item)Eye of the Flügel$(0) on hand allows a $(l:ender/fluegel_tiara)$(item)Flügel Tiara$(0)$(/l) user to fly with an empty flight bar (at a higher $(thing)Mana$(0) cost).",
+  "botania.page.flugelEye0": "Unlike the crafted $(l:ender/flugel_tiara)$(item)Flügel Tiara$(0)$(/l), the $(item)Eye of the Flügel$(0) contains primordial $(thing)Flügel$(0) magic. Magic strong enough, in fact, to harness the $(thing)Flügels$(0)' ability to recall themselves to a previously-visited location.$(p)Sneak-right clicking this eye somewhere will bind it to that position. Holding right-click with a bound Eye will then use $(thing)Mana$(0) to warp its owner back to its bound location.",
+  "botania.page.flugelEye1": "Unfortunately, the Eye is still but a fragment of the $(thing)Flügels$(0)' true potential, so it can't warp its user across dimensions.$(p)However, just having an $(item)Eye of the Flügel$(0) on hand allows a $(l:ender/flugel_tiara)$(item)Flügel Tiara$(0)$(/l) user to fly with an empty flight bar (at a higher $(thing)Mana$(0) cost).",
 
   "botania.entry.thorRing": "Ring of Thor",
   "botania.tagline.thorRing": "Because your Terra Shatterer wasn't strong enough",

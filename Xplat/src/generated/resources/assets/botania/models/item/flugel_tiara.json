@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:item/eye_of_the_fluegel"
+    "layer0": "botania:item/flugel_tiara"
   }
 }

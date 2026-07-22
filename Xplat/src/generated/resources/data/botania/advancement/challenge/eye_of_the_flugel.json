@@ -4,7 +4,7 @@
     "eye": {
       "conditions": {
         "relic": {
-          "items": "botania:eye_of_the_fluegel"
+          "items": "botania:eye_of_the_flugel"
         }
       },
       "trigger": "botania:relic_bind"
@@ -17,7 +17,7 @@
     "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "botania:eye_of_the_fluegel"
+      "id": "botania:eye_of_the_flugel"
     },
     "title": {
       "translate": "advancement.botania:flugelEye"

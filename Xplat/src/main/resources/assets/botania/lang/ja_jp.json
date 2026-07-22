@@ -1945,7 +1945,7 @@
   "item.botania.ring_of_far_reach": "広範の指輪",
   "item.botania.terra_shatterer": "テラシャッタラー",
   "item.botania.charm_of_the_diva": "歌姫のお守り",
-  "item.botania.fluegel_tiara": "フリューゲルのティアラ",
+  "item.botania.flugel_tiara": "フリューゲルのティアラ",
   "item.botania.soulscribe": "ソウルスクライブ",
   "item.botania.smokey_quartz": "煙がかったクォーツ",
   "item.botania.mana_quartz": "マナクォーツ",
@@ -2081,7 +2081,7 @@
   "item.botania.the_pinkinator": "ピンキネイター",
   "item.botania.the_fruit_of_grisaia": "グリザイアの果実",
   "item.botania.key_of_the_kings_law": "王律鍵",
-  "item.botania.eye_of_the_fluegel": "フリューゲルの目",
+  "item.botania.eye_of_the_flugel": "フリューゲルの目",
   "item.botania.ring_of_thor": "トールの指輪",
   "item.botania.ring_of_odin": "オーディンの指輪",
   "item.botania.ring_of_loki": "ロキの指輪",
@@ -3995,8 +3995,8 @@
 
   "botania.entry.flugelEye": "フリューゲルの目",
   "botania.tagline.flugelEye": "フリューゲルの真の力",
-  "botania.page.flugelEye0": "模造品の$(l:ender/fluegel_tiara)$(item)フリューゲルのティアラ$(0)$(/l)とは異なり、$(item)フリューゲルの目$(0)には原初の$(thing)フリューゲル$(0)の魔力が秘められています。$(thing)フリューゲル$(0)達が訪れたことのある場所へ自身を呼び戻すという能力を利用するのに十分な魔力です。$(p)この目を持ち、どこかをスニーク右クリックで位置を紐付け、その後右クリックを押し続けると、$(thing)マナ$(0)を消費してその位置へワープすることが出来ます。",
-  "botania.page.flugelEye1": "残念ながら、目だけでは$(thing)フリューゲル$(0)の真の能力の断片に過ぎない為、使用者が次元を超えてワープすることは出来ません。$(p)しかし、$(l:ender/fluegel_tiara)$(item)フリューゲルのティアラ$(0)$(/l)の使用者は$(item)フリューゲルの目$(0)を所持しておくだけで、飛行ゲージが空になっても飛行し続ける事が出来ます。ただし、より高い$(thing)マナ$(0)コストが必要になります。",
+  "botania.page.flugelEye0": "模造品の$(l:ender/flugel_tiara)$(item)フリューゲルのティアラ$(0)$(/l)とは異なり、$(item)フリューゲルの目$(0)には原初の$(thing)フリューゲル$(0)の魔力が秘められています。$(thing)フリューゲル$(0)達が訪れたことのある場所へ自身を呼び戻すという能力を利用するのに十分な魔力です。$(p)この目を持ち、どこかをスニーク右クリックで位置を紐付け、その後右クリックを押し続けると、$(thing)マナ$(0)を消費してその位置へワープすることが出来ます。",
+  "botania.page.flugelEye1": "残念ながら、目だけでは$(thing)フリューゲル$(0)の真の能力の断片に過ぎない為、使用者が次元を超えてワープすることは出来ません。$(p)しかし、$(l:ender/flugel_tiara)$(item)フリューゲルのティアラ$(0)$(/l)の使用者は$(item)フリューゲルの目$(0)を所持しておくだけで、飛行ゲージが空になっても飛行し続ける事が出来ます。ただし、より高い$(thing)マナ$(0)コストが必要になります。",
 
   "botania.entry.thorRing": "トールの指輪",
   "botania.tagline.thorRing": "テラシャッタラーが十分な強さではなかったので",

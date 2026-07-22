@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:gaia_spirit"
+            "items": "botania:flugel_tiara"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:fluegel_tiara"
+        "recipe": "botania:flugel_tiara_7"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "botania:fluegel_tiara"
+      "botania:flugel_tiara_7"
     ]
   }
 }

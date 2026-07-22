@@ -34,7 +34,7 @@ public class TiaraWingsRecipe extends CustomRecipe {
 
 	public TiaraWingsRecipe(CraftingBookCategory category, Ingredient material, int variant) {
 		super(category);
-		if (material.test(BotaniaItems.FLUEGEL_TIARA.getDefaultInstance())) {
+		if (material.test(BotaniaItems.FLUGEL_TIARA.getDefaultInstance())) {
 			throw new IllegalArgumentException("Material cannot be a Flügel Tiara");
 		}
 		this.material = material;
@@ -67,12 +67,12 @@ public class TiaraWingsRecipe extends CustomRecipe {
 	}
 
 	private boolean matchesTiara(ItemStack stack) {
-		return stack.is(BotaniaItems.FLUEGEL_TIARA) && FlugelTiaraItem.getVariant(stack) != variant;
+		return stack.is(BotaniaItems.FLUGEL_TIARA) && FlugelTiaraItem.getVariant(stack) != variant;
 	}
 
 	@Override
 	public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
-		ItemStack tiara = input.items().stream().filter(stack -> stack.is(BotaniaItems.FLUEGEL_TIARA))
+		ItemStack tiara = input.items().stream().filter(stack -> stack.is(BotaniaItems.FLUGEL_TIARA))
 				.findFirst().orElseThrow().copy();
 		FlugelTiaraItem.setVariant(tiara, variant);
 		return tiara;
@@ -86,20 +86,20 @@ public class TiaraWingsRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return material.isEmpty()
-				? NonNullList.of(Ingredient.EMPTY, Ingredient.of(BotaniaItems.FLUEGEL_TIARA))
-				: NonNullList.of(Ingredient.EMPTY, Ingredient.of(BotaniaItems.FLUEGEL_TIARA), material);
+				? NonNullList.of(Ingredient.EMPTY, Ingredient.of(BotaniaItems.FLUGEL_TIARA))
+				: NonNullList.of(Ingredient.EMPTY, Ingredient.of(BotaniaItems.FLUGEL_TIARA), material);
 	}
 
 	@Override
 	public ItemStack getResultItem(HolderLookup.Provider registries) {
-		ItemStack tiara = new ItemStack(BotaniaItems.FLUEGEL_TIARA);
+		ItemStack tiara = new ItemStack(BotaniaItems.FLUGEL_TIARA);
 		FlugelTiaraItem.setVariant(tiara, variant);
 		return tiara;
 	}
 
 	@Override
 	public String getGroup() {
-		return "botania:fluegel_tiara_wings";
+		return "botania:flugel_tiara_wings";
 	}
 
 	public Ingredient material() {

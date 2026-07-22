@@ -1611,7 +1611,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern(" GL")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.GAIA_SPIRIT))
 				.save(recipeOutput);
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.FLUEGEL_TIARA)
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.FLUGEL_TIARA)
 				.define('E', BotaniaItems.ENDER_AIR_BOTTLE)
 				.define('F', Items.FEATHER)
 				.define('I', ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS)
@@ -1631,7 +1631,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		for (int variant = 0; variant < items.length; variant++) {
 			Ingredient material = items[variant] == null ? Ingredient.EMPTY : Ingredient.of(items[variant]);
 			TiaraWingsRecipeBuilder.with(material, variant)
-					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.FLUEGEL_TIARA))
+					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.FLUGEL_TIARA))
 					.save(recipeOutput);
 		}
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.GREAT_FAIRY_RING)

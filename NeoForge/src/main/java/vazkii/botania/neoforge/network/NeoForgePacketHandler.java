@@ -23,7 +23,7 @@ import vazkii.botania.network.clientbound.BlackLotusDissolveEffectPacket;
 import vazkii.botania.network.clientbound.DivaCharmEffectPacket;
 import vazkii.botania.network.clientbound.EnchanterDestroyEffectPacket;
 import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
-import vazkii.botania.network.clientbound.FluegelEyeEffectPacket;
+import vazkii.botania.network.clientbound.FlugelEyeEffectPacket;
 import vazkii.botania.network.clientbound.GogWorldPacket;
 import vazkii.botania.network.clientbound.GrassSeedsEffectPacket;
 import vazkii.botania.network.clientbound.HaloCraftEffectPacket;
@@ -64,7 +64,7 @@ public class NeoForgePacketHandler {
 		registrar.playToClient(EnchanterDestroyEffectPacket.ID, EnchanterDestroyEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> EnchanterDestroyEffectPacket.Handler::handle));
 		registrar.playToClient(FlowerTakeItemEffectPacket.ID, FlowerTakeItemEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> FlowerTakeItemEffectPacket.Handler::handle));
 		registrar.playToClient(FlowerTakeItemEffectPacket.FIRE_ID, FlowerTakeItemEffectPacket.STREAM_CODEC_FIRE, makeClientBoundHandler(() -> FlowerTakeItemEffectPacket.Handler::handle));
-		registrar.playToClient(FluegelEyeEffectPacket.ID, FluegelEyeEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> FluegelEyeEffectPacket.Handler::handle));
+		registrar.playToClient(FlugelEyeEffectPacket.ID, FlugelEyeEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> FlugelEyeEffectPacket.Handler::handle));
 		registrar.playToClient(GogWorldPacket.ID, GogWorldPacket.STREAM_CODEC, makeClientBoundHandler(() -> GogWorldPacket.Handler::handle));
 		registrar.playToClient(GrassSeedsEffectPacket.ID, GrassSeedsEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> GrassSeedsEffectPacket.Handler::handle));
 		registrar.playToClient(HaloCraftEffectPacket.ID, HaloCraftEffectPacket.STREAM_CODEC, makeClientBoundHandler(() -> HaloCraftEffectPacket.Handler::handle));

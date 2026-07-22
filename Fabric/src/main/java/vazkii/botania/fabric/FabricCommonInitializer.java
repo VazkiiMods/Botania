@@ -358,7 +358,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		blockProviderItemLookup.registerForItems((stack, c) -> new EnderHandItem.BlockProviderImpl(stack), BotaniaItems.HAND_OF_ENDER);
 
 		ItemApiLookup<CoordBoundItem, Unit> coordBoundItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP);
-		coordBoundItemLookup.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.EYE_OF_THE_FLUEGEL);
+		coordBoundItemLookup.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.EYE_OF_THE_FLUGEL);
 		coordBoundItemLookup.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.MANA_MIRROR);
 		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_FOREST);
 		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_ELVEN_FOREST);
@@ -376,7 +376,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		ItemApiLookup<Relic, Unit> relicItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(Relic.LOOKUP);
 		relicItemLookup.registerForItems((st, c) -> DiceOfFateItem.makeRelic(st), BotaniaItems.DICE_OF_FATE);
-		relicItemLookup.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), BotaniaItems.EYE_OF_THE_FLUEGEL);
+		relicItemLookup.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), BotaniaItems.EYE_OF_THE_FLUGEL);
 		relicItemLookup.registerForItems((st, c) -> FruitOfGrisaiaItem.makeRelic(st), BotaniaItems.FRUIT_OF_GRISAIA);
 		relicItemLookup.registerForItems((st, c) -> KeyOfTheKingsLawItem.makeRelic(st), BotaniaItems.KEY_OF_THE_KINGS_LAW);
 		relicItemLookup.registerForItems((st, c) -> RingOfLokiItem.makeRelic(st), BotaniaItems.RING_OF_LOKI);

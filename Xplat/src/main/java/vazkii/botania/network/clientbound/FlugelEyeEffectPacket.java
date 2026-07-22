@@ -23,19 +23,19 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 import io.netty.buffer.ByteBuf;
 
-public record FluegelEyeEffectPacket(int entityId) implements CustomPacketPayload {
+public record FlugelEyeEffectPacket(int entityId) implements CustomPacketPayload {
 
-	public static final Type<FluegelEyeEffectPacket> ID = new Type<>(botaniaRL("fe"));
-	public static final StreamCodec<ByteBuf, FluegelEyeEffectPacket> STREAM_CODEC = ByteBufCodecs.VAR_INT
-			.map(FluegelEyeEffectPacket::new, FluegelEyeEffectPacket::entityId);
+	public static final Type<FlugelEyeEffectPacket> ID = new Type<>(botaniaRL("fe"));
+	public static final StreamCodec<ByteBuf, FlugelEyeEffectPacket> STREAM_CODEC = ByteBufCodecs.VAR_INT
+			.map(FlugelEyeEffectPacket::new, FlugelEyeEffectPacket::entityId);
 
 	@Override
-	public Type<FluegelEyeEffectPacket> type() {
+	public Type<FlugelEyeEffectPacket> type() {
 		return ID;
 	}
 
 	public static class Handler {
-		public static void handle(FluegelEyeEffectPacket packet, Player localPlayer) {
+		public static void handle(FlugelEyeEffectPacket packet, Player localPlayer) {
 			Level level = localPlayer.level();
 			Entity entity = level.getEntity(packet.entityId());
 			if (entity != null) {

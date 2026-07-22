@@ -1945,7 +1945,7 @@
   "item.botania.ring_of_far_reach": "장거리의 반지",
   "item.botania.terra_shatterer": "대지 파괴",
   "item.botania.charm_of_the_diva": "디바의 매력",
-  "item.botania.fluegel_tiara": "플뤼겔 티아라",
+  "item.botania.flugel_tiara": "플뤼겔 티아라",
   "item.botania.soulscribe": "영혼 스크라이브",
   "item.botania.smokey_quartz": "스모키 석영",
   "item.botania.mana_quartz": "마나석영",
@@ -2081,7 +2081,7 @@
   "item.botania.the_pinkinator": "핑키네이터",
   "item.botania.the_fruit_of_grisaia": "그리자이아의 과실",
   "item.botania.key_of_the_kings_law": "성검 엑스칼리버",
-  "item.botania.eye_of_the_fluegel": "플뤼겔의 눈",
+  "item.botania.eye_of_the_flugel": "플뤼겔의 눈",
   "item.botania.ring_of_thor": "토르의 반지",
   "item.botania.ring_of_odin": "오딘의 반지",
   "item.botania.ring_of_loki": "로키의 반지",
@@ -3995,8 +3995,8 @@
 
   "botania.entry.flugelEye": "플뤼겔의 눈",
   "botania.tagline.flugelEye": "플뤼겔의 진정한 능력",
-  "botania.page.flugelEye0": "만들어진 $(l:ender/fluegel_tiara)$(item)플뤼겔 티아라$(0)$(/l)와는 달리 $(item)플뤼겔의 눈$(0)은 원시적인 $(thing)플뤼겔$(0) 마법을 포함하고 있습니다. 사실, 충분히 강력한 마법이라서 $(thing)플뤼겔$(0)이 이전에 방문한 위치로 자신을 호출하는 능력을 이용할 수 있습니다.$(p)이 눈을 어딘가에 sneak-right 클릭하면 그 위치에 묶입니다. 묶인 눈을 가지고 오른쪽 마우스 버튼을 길게 누르면 $(thing)마나$(0)를 사용하여 주인을 묶인 위치로 순간이동시킵니다.",
-  "botania.page.flugelEye1": "유감스럽게도 눈은 여전히 $(thing)플뤼겔$(0)의 진정한 잠재력의 조각에 불과하기 때문에 사용자를 차원을 초월해 순간이동시킬 수는 없습니다.$(p)하지만 $(item)플뤼겔의 눈$(0)을 소지하고 있다면 $(l:ender/fluegel_tiara)$(item)플뤼겔 티아라$(0)$(/l) 사용자는 비어있는 비행 바로도 비행할 수 있습니다 (더 높은 $(thing)마나$(0) 비용으로).",
+  "botania.page.flugelEye0": "만들어진 $(l:ender/flugel_tiara)$(item)플뤼겔 티아라$(0)$(/l)와는 달리 $(item)플뤼겔의 눈$(0)은 원시적인 $(thing)플뤼겔$(0) 마법을 포함하고 있습니다. 사실, 충분히 강력한 마법이라서 $(thing)플뤼겔$(0)이 이전에 방문한 위치로 자신을 호출하는 능력을 이용할 수 있습니다.$(p)이 눈을 어딘가에 sneak-right 클릭하면 그 위치에 묶입니다. 묶인 눈을 가지고 오른쪽 마우스 버튼을 길게 누르면 $(thing)마나$(0)를 사용하여 주인을 묶인 위치로 순간이동시킵니다.",
+  "botania.page.flugelEye1": "유감스럽게도 눈은 여전히 $(thing)플뤼겔$(0)의 진정한 잠재력의 조각에 불과하기 때문에 사용자를 차원을 초월해 순간이동시킬 수는 없습니다.$(p)하지만 $(item)플뤼겔의 눈$(0)을 소지하고 있다면 $(l:ender/flugel_tiara)$(item)플뤼겔 티아라$(0)$(/l) 사용자는 비어있는 비행 바로도 비행할 수 있습니다 (더 높은 $(thing)마나$(0) 비용으로).",
 
   "botania.entry.thorRing": "토르의 반지",
   "botania.tagline.thorRing": "당신의 테라 샤터러가 충분히 강하지 않아서",

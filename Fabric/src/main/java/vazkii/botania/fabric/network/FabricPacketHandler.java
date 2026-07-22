@@ -22,7 +22,7 @@ import vazkii.botania.network.clientbound.BlackLotusDissolveEffectPacket;
 import vazkii.botania.network.clientbound.DivaCharmEffectPacket;
 import vazkii.botania.network.clientbound.EnchanterDestroyEffectPacket;
 import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
-import vazkii.botania.network.clientbound.FluegelEyeEffectPacket;
+import vazkii.botania.network.clientbound.FlugelEyeEffectPacket;
 import vazkii.botania.network.clientbound.GogWorldPacket;
 import vazkii.botania.network.clientbound.GrassSeedsEffectPacket;
 import vazkii.botania.network.clientbound.HaloCraftEffectPacket;
@@ -60,7 +60,7 @@ public final class FabricPacketHandler {
 		PayloadTypeRegistry.playS2C().register(EnchanterDestroyEffectPacket.ID, EnchanterDestroyEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(FlowerTakeItemEffectPacket.ID, FlowerTakeItemEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(FlowerTakeItemEffectPacket.FIRE_ID, FlowerTakeItemEffectPacket.STREAM_CODEC_FIRE);
-		PayloadTypeRegistry.playS2C().register(FluegelEyeEffectPacket.ID, FluegelEyeEffectPacket.STREAM_CODEC);
+		PayloadTypeRegistry.playS2C().register(FlugelEyeEffectPacket.ID, FlugelEyeEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(GogWorldPacket.ID, GogWorldPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(GrassSeedsEffectPacket.ID, GrassSeedsEffectPacket.STREAM_CODEC);
 		PayloadTypeRegistry.playS2C().register(HaloCraftEffectPacket.ID, HaloCraftEffectPacket.STREAM_CODEC);
@@ -95,7 +95,7 @@ public final class FabricPacketHandler {
 		ClientPlayNetworking.registerGlobalReceiver(EnchanterDestroyEffectPacket.ID, makeClientBoundHandler(EnchanterDestroyEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(FlowerTakeItemEffectPacket.ID, makeClientBoundHandler(FlowerTakeItemEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(FlowerTakeItemEffectPacket.FIRE_ID, makeClientBoundHandler(FlowerTakeItemEffectPacket.Handler::handle));
-		ClientPlayNetworking.registerGlobalReceiver(FluegelEyeEffectPacket.ID, makeClientBoundHandler(FluegelEyeEffectPacket.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(FlugelEyeEffectPacket.ID, makeClientBoundHandler(FlugelEyeEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(GogWorldPacket.ID, makeClientBoundHandler(GogWorldPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(GrassSeedsEffectPacket.ID, makeClientBoundHandler(GrassSeedsEffectPacket.Handler::handle));
 		ClientPlayNetworking.registerGlobalReceiver(HaloCraftEffectPacket.ID, makeClientBoundHandler(HaloCraftEffectPacket.Handler::handle));

@@ -1945,7 +1945,7 @@
   "item.botania.ring_of_far_reach": "触物指环",
   "item.botania.terra_shatterer": "泰拉粉碎者",
   "item.botania.charm_of_the_diva": "女王之魅",
-  "item.botania.fluegel_tiara": "天翼族之冠",
+  "item.botania.flugel_tiara": "天翼族之冠",
   "item.botania.soulscribe": "灵魂匕首",
   "item.botania.smokey_quartz": "烟熏石英",
   "item.botania.mana_quartz": "魔力石英",
@@ -2081,7 +2081,7 @@
   "item.botania.the_pinkinator": "粉色手炮",
   "item.botania.the_fruit_of_grisaia": "禁忌之果",
   "item.botania.key_of_the_kings_law": "王之宝钥",
-  "item.botania.eye_of_the_fluegel": "天翼族之眼",
+  "item.botania.eye_of_the_flugel": "天翼族之眼",
   "item.botania.ring_of_thor": "托尔之戒",
   "item.botania.ring_of_odin": "奥丁之戒",
   "item.botania.ring_of_loki": "洛基之戒",
@@ -3995,8 +3995,8 @@
 
   "botania.entry.flugelEye": "天翼族之眼",
   "botania.tagline.flugelEye": "天翼族的真正力量",
-  "botania.page.flugelEye0": "不同于制造出来的$(l:ender/fluegel_tiara)$(item)天翼族之冠$(0)$(/l)，$(item)天翼族之眼$(0)拥有原生的$(thing)天翼族$(0)魔力。其中蕴含的魔力足以利用$(thing)天翼族$(0)的力量将使用者召回曾经抵达之地。$(p)手持眼潜行右击就能记录持有者所指的位置，按住右键就能将返回这个位置。",
-  "botania.page.flugelEye1": "不幸的是，你手中的这只眼睛仍然只是天翼族真正力量的一瞥，因此它并不能跨维度传送。$(p)然而，只要将$(item)天翼族之眼$(0)拿在手上，持有者就能在$(l:ender/fluegel_tiara)$(item)天翼族之冠$(0)$(/l)的飞行条变空时仍继续飞行，但此时$(thing)魔力$(0)消耗也会变多些。",
+  "botania.page.flugelEye0": "不同于制造出来的$(l:ender/flugel_tiara)$(item)天翼族之冠$(0)$(/l)，$(item)天翼族之眼$(0)拥有原生的$(thing)天翼族$(0)魔力。其中蕴含的魔力足以利用$(thing)天翼族$(0)的力量将使用者召回曾经抵达之地。$(p)手持眼潜行右击就能记录持有者所指的位置，按住右键就能将返回这个位置。",
+  "botania.page.flugelEye1": "不幸的是，你手中的这只眼睛仍然只是天翼族真正力量的一瞥，因此它并不能跨维度传送。$(p)然而，只要将$(item)天翼族之眼$(0)拿在手上，持有者就能在$(l:ender/flugel_tiara)$(item)天翼族之冠$(0)$(/l)的飞行条变空时仍继续飞行，但此时$(thing)魔力$(0)消耗也会变多些。",
 
   "botania.entry.thorRing": "托尔之戒",
   "botania.tagline.thorRing": "因为泰拉粉碎者不够强大",

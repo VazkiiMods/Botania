@@ -553,7 +553,7 @@ public final class BotaniaItems {
 					.rarity(Rarity.RARE)));
 	public static final Item THE_SPECTATOR = make(LibItemNames.THE_SPECTATOR,
 			new SpectatorItem(unstackable()));
-	public static final Item FLUEGEL_TIARA = make(LibItemNames.FLUEGEL_TIARA,
+	public static final Item FLUGEL_TIARA = make(LibItemNames.FLUGEL_TIARA,
 			new FlugelTiaraItem(unstackable()
 					.rarity(Rarity.RARE)));
 
@@ -643,7 +643,7 @@ public final class BotaniaItems {
 			new KeyOfTheKingsLawItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
-	public static final Item EYE_OF_THE_FLUEGEL = make(LibItemNames.EYE_OF_THE_FLUEGEL,
+	public static final Item EYE_OF_THE_FLUGEL = make(LibItemNames.EYE_OF_THE_FLUGEL,
 			new EyeOfTheFlugelItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));

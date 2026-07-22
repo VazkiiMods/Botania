@@ -81,7 +81,7 @@ public final class LibItemNames {
 	public static final String RING_OF_CHORDATA = "ring_of_chordata";
 	public static final String RING_OF_THE_MANTLE = "ring_of_the_mantle";
 	public static final String CHARM_OF_THE_DIVA = "charm_of_the_diva";
-	public static final String FLUEGEL_TIARA = "fluegel_tiara";
+	public static final String FLUGEL_TIARA = "flugel_tiara";
 	public static final String SOULSCRIBE = "soulscribe";
 
 	public static final String SMOKEY_QUARTZ = "smokey_quartz";
@@ -162,7 +162,7 @@ public final class LibItemNames {
 	public static final String THE_PINKINATOR = "the_pinkinator";
 	public static final String THE_FRUIT_OF_GRISAIA = "the_fruit_of_grisaia";
 	public static final String KEY_OF_THE_KINGS_LAW = "key_of_the_kings_law";
-	public static final String EYE_OF_THE_FLUEGEL = "eye_of_the_fluegel";
+	public static final String EYE_OF_THE_FLUGEL = "eye_of_the_flugel";
 	public static final String RING_OF_THOR = "ring_of_thor";
 	public static final String RING_OF_ODIN = "ring_of_odin";
 	public static final String RING_OF_LOKI = "ring_of_loki";

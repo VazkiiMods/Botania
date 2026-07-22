@@ -265,7 +265,7 @@ public final class HUDHandler {
 
 		float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
 		if (mc.gameMode.canHurtPlayer()) {
-			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.FLUEGEL_TIARA, localPlayer);
+			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.FLUGEL_TIARA, localPlayer);
 			if (!tiara.isEmpty()) {
 				profiler.push("flugelTiara");
 				FlugelTiaraItem.ClientLogic.renderHUD(gui, partialTick, localPlayer, tiara);

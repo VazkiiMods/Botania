@@ -1945,7 +1945,7 @@
   "item.botania.ring_of_far_reach": "Ring der großen Reichweite",
   "item.botania.terra_shatterer": "Terra-Trümmerer",
   "item.botania.charm_of_the_diva": "Zauber der Diva",
-  "item.botania.fluegel_tiara": "Flügel-Tiara",
+  "item.botania.flugel_tiara": "Flügel-Tiara",
   "item.botania.soulscribe": "Seelendolch",
   "item.botania.smokey_quartz": "Rauchquarz",
   "item.botania.mana_quartz": "Manaquarz",
@@ -2081,7 +2081,7 @@
   "item.botania.the_pinkinator": "Der Pinkinator",
   "item.botania.the_fruit_of_grisaia": "Die Frucht von Grisaia",
   "item.botania.key_of_the_kings_law": "Schlüssel für des Königs Gesetz",
-  "item.botania.eye_of_the_fluegel": "Auge der Flügel",
+  "item.botania.eye_of_the_flugel": "Auge der Flügel",
   "item.botania.ring_of_thor": "Ring des Thor",
   "item.botania.ring_of_odin": "Ring des Odin",
   "item.botania.ring_of_loki": "Ring des Loki",
@@ -3995,8 +3995,8 @@
 
   "botania.entry.flugelEye": "Auge der Flügel",
   "botania.tagline.flugelEye": "Die wahre Macht der Flügel",
-  "botania.page.flugelEye0": "Anders als die hergestellte $(l:ender/fluegel_tiara)$(item)Flügel-Tiara$(0)$(/l) enthält das $(item)Auge der Flügel$(0) ursprüngliche $(thing)Flügel$(0)-Magie. Magie, die stark genug ist, um die Fähigkeit der $(thing)Flügel$(0) zu nutzen, sich an einer zuvor besuchten Ort zu versetzen.$(br)Schleich-Rechtsklick mit dem Auge bindet es an die aktuelle Position. Halten von Rechtsklick nutzt dann $(thing)Mana$(0), um den Nutzer dorthin zu teleportieren.",
-  "botania.page.flugelEye1": "Leider ist das Auge nur ein Fragment des vollen Potenzials der $(thing)Flügel$(0), es kann beispielsweise nicht über Dimensionen hinweg teleportieren.$(p)Wenn man jedoch ein $(item)Auge der Flügel$(0) dabei hat, erlaubt es Nutzern der $(l:ender/fluegel_tiara)$(item)Flügel-Tiara$(0)$(/l) mit leerer Flugleiste zu fliegen (zu höheren $(thing)Mana$(0)kostem).",
+  "botania.page.flugelEye0": "Anders als die hergestellte $(l:ender/flugel_tiara)$(item)Flügel-Tiara$(0)$(/l) enthält das $(item)Auge der Flügel$(0) ursprüngliche $(thing)Flügel$(0)-Magie. Magie, die stark genug ist, um die Fähigkeit der $(thing)Flügel$(0) zu nutzen, sich an einer zuvor besuchten Ort zu versetzen.$(br)Schleich-Rechtsklick mit dem Auge bindet es an die aktuelle Position. Halten von Rechtsklick nutzt dann $(thing)Mana$(0), um den Nutzer dorthin zu teleportieren.",
+  "botania.page.flugelEye1": "Leider ist das Auge nur ein Fragment des vollen Potenzials der $(thing)Flügel$(0), es kann beispielsweise nicht über Dimensionen hinweg teleportieren.$(p)Wenn man jedoch ein $(item)Auge der Flügel$(0) dabei hat, erlaubt es Nutzern der $(l:ender/flugel_tiara)$(item)Flügel-Tiara$(0)$(/l) mit leerer Flugleiste zu fliegen (zu höheren $(thing)Mana$(0)kostem).",
 
   "botania.entry.thorRing": "Ring des Thor",
   "botania.tagline.thorRing": "Weil dein Terra-Trümmerer nicht stark genug war",

@@ -79,7 +79,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.INCENSE_STICK, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.TAINTED_BLOOD_PENDANT, interpreter);
 
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.FLUEGEL_TIARA,
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.FLUGEL_TIARA,
 				(stack, ctx) -> String.valueOf(FlugelTiaraItem.getVariant(stack)));
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.LEXICA_BOTANIA,
 				(stack, ctx) -> String.valueOf(stack.has(BotaniaDataComponents.ELVEN_UNLOCK)));

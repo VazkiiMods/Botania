@@ -509,7 +509,7 @@ public class NeoForgeCommonInitializer {
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.EYE_OF_THE_FLUEGEL, EyeOfTheFlugelItem.CoordBoundItemImpl::new,
+			BotaniaItems.EYE_OF_THE_FLUGEL, EyeOfTheFlugelItem.CoordBoundItemImpl::new,
 			BotaniaItems.MANA_MIRROR, ManaMirrorItem.CoordBoundItemImpl::new,
 			BotaniaItems.WAND_OF_THE_FOREST, WandOfTheForestItem.CoordBoundItemImpl::new,
 			BotaniaItems.WAND_OF_THE_ELVEN_FOREST, WandOfTheForestItem.CoordBoundItemImpl::new
@@ -532,7 +532,7 @@ public class NeoForgeCommonInitializer {
 
 	private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
 			BotaniaItems.DICE_OF_FATE, DiceOfFateItem::makeRelic,
-			BotaniaItems.EYE_OF_THE_FLUEGEL, EyeOfTheFlugelItem::makeRelic,
+			BotaniaItems.EYE_OF_THE_FLUGEL, EyeOfTheFlugelItem::makeRelic,
 			BotaniaItems.FRUIT_OF_GRISAIA, FruitOfGrisaiaItem::makeRelic,
 			BotaniaItems.KEY_OF_THE_KINGS_LAW, KeyOfTheKingsLawItem::makeRelic,
 			BotaniaItems.RING_OF_LOKI, RingOfLokiItem::makeRelic,

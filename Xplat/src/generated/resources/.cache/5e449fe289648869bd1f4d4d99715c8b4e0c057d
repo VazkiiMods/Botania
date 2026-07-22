@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Tags for minecraft:item
+// 1.21.1	2026-07-22T21:10:28.217071	Botania/Tags for minecraft:item
 665aee3cc41d8f1e66408e198692f4ebec572aba data/botania/tags/item/all_mana_pools.json
 2b5505ddf6b15ea500a714fd10bc4ec05fa3eef5 data/botania/tags/item/ancient_wills.json
 9c05adc2a63d8b6a2636d766d8858160e1308c25 data/botania/tags/item/burst_viewers.json
@@ -29,7 +29,7 @@ feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/item/livingwood_logs.
 0b4e9eb2e57b7d0790ad2a0344733be5de39a297 data/botania/tags/item/mana_pool_dye_remover.json
 bf3c3b31ae7a898f7e11a2fd8c1189bc032dd38a data/botania/tags/item/mana_pools.json
 91e30b7c18f772066a7c180452ec5c21958b5f43 data/botania/tags/item/mana_powder_source_dusts.json
-54409df85edf59f276d4f865ec69db7d4af475f3 data/botania/tags/item/mana_using_items.json
+f368c9bc4242b28fb92c65d9e9af268d4b2d4478 data/botania/tags/item/mana_using_items.json
 e51fab8358421c8502b0d945a000b5f6639d7d8f data/botania/tags/item/mini_flowers.json
 ec5a92238e82278a7259e4aeffddd970e047faa5 data/botania/tags/item/misc_floating_flowers.json
 bbe7e8372a043fbe4be724477e8a19b865735818 data/botania/tags/item/misc_special_flowers.json

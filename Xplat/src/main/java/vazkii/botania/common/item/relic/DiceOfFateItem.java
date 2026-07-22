@@ -45,7 +45,7 @@ public class DiceOfFateItem extends RelicItem {
 	public static final Supplier<List<ItemStack>> RELIC_STACKS = Suppliers.memoize(() -> List.of(
 			new ItemStack(BotaniaItems.FRUIT_OF_GRISAIA),
 			new ItemStack(BotaniaItems.KEY_OF_THE_KINGS_LAW),
-			new ItemStack(BotaniaItems.EYE_OF_THE_FLUEGEL),
+			new ItemStack(BotaniaItems.EYE_OF_THE_FLUGEL),
 			new ItemStack(BotaniaItems.RING_OF_THOR),
 			new ItemStack(BotaniaItems.RING_OF_ODIN),
 			new ItemStack(BotaniaItems.RING_OF_LOKI)

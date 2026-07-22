@@ -98,7 +98,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	}
 
 	public static void updatePlayerFlyStatus(Player player) {
-		ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.FLUEGEL_TIARA, player);
+		ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.FLUGEL_TIARA, player);
 		int left = tiara.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, getMaxFlightTime(tiara));
 
 		if (playersWithFlight.contains(playerStr(player))) {
@@ -190,12 +190,12 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	}
 
 	private static boolean shouldPlayerHaveFlight(Player player) {
-		ItemStack armor = EquipmentHandler.findOrEmpty(BotaniaItems.FLUEGEL_TIARA, player);
+		ItemStack armor = EquipmentHandler.findOrEmpty(BotaniaItems.FLUGEL_TIARA, player);
 		if (!armor.isEmpty()) {
 			int maxFlightTime = getMaxFlightTime(armor);
 			int left = armor.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, maxFlightTime);
 			boolean flying = armor.has(BotaniaDataComponents.FLYING);
-			return (left > (flying ? 0 : maxFlightTime / 10) || InventoryHelper.containsType(player.getInventory(), BotaniaItems.EYE_OF_THE_FLUEGEL)) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
+			return (left > (flying ? 0 : maxFlightTime / 10) || InventoryHelper.containsType(player.getInventory(), BotaniaItems.EYE_OF_THE_FLUGEL)) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
 		}
 
 		return false;

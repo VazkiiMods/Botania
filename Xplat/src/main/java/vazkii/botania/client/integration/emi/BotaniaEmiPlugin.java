@@ -181,7 +181,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.setDefaultComparison(BotaniaItems.BREW_VIAL, Comparison.compareComponents());
 		registry.setDefaultComparison(BotaniaItems.TAINTED_BLOOD_PENDANT, Comparison.compareComponents());
 		registry.setDefaultComparison(BotaniaItems.INCENSE_STICK, Comparison.compareComponents());
-		registry.setDefaultComparison(BotaniaItems.FLUEGEL_TIARA, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.FLUGEL_TIARA, Comparison.compareComponents());
 
 		for (RecipeHolder<CraftingRecipe> recipe : registry.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING)) {
 			if (recipe.value() instanceof TiaraWingsRecipe tiaraWingsRecipe) {

@@ -1,7 +1,7 @@
-// 1.21.1	Botania/Advancements
+// 1.21.1	2026-07-22T21:10:28.213723	Botania/Advancements
 847906414692dac44ece4a0a783b9673ffdc9501 data/botania/advancement/challenge/alf_portal_bread.json
 5f712ead128501e8f996f545d91f792de66bc101 data/botania/advancement/challenge/all_loonium_mobs.json
-6a4dff299b07eeaef064f058f8482891216e0deb data/botania/advancement/challenge/eye_of_the_fluegel.json
+bf4fa511640cae8ba7243a7f477053f3bea02f09 data/botania/advancement/challenge/eye_of_the_flugel.json
 eb20f0458678c7c4efb9fcbbb8713bbefad25f40 data/botania/advancement/challenge/gaia_guardian_hardmode.json
 1f15cf9dbf8c5566f5e5430d2ecd90b35058f0ad data/botania/advancement/challenge/gaia_guardian_no_armor.json
 b6ecc51c8331b6dc2fe4fec63dbf9d2dcd90a51e data/botania/advancement/challenge/key_of_the_kings_law.json
@@ -57,5 +57,5 @@ b713e8e82de6e65d1edb20cff51445959b5ce0bc data/botania/advancement/main/spark_cra
 3fcc570d302892a2eb71fec283c0f815ea074c92 data/botania/advancement/main/terrasteel_pickup.json
 b9ba108549bd4940ee910613981e7e50057c5011 data/botania/advancement/main/terrasteel_pickup_lexicon.json
 7c22aa12f6b85c0e5251d1fbe5e8adf3fc9b9b30 data/botania/advancement/main/terrasteel_weapon_craft.json
-c3ea0bdea08a00a30f6684dcdf8c6d995fb45535 data/botania/advancement/main/tiara_wings.json
+77d299136be20a21724c62987df3c1e867bee0cb data/botania/advancement/main/tiara_wings.json
 05525846f36f461cfa967158980efb251fe7f2b1 data/botania/advancement/main/tiny_potato_pet.json

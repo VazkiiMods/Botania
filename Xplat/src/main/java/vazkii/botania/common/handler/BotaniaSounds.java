@@ -69,8 +69,8 @@ public final class BotaniaSounds {
 	public static final Holder<SoundEvent> equipTerrasteel = makeSoundEventHolder("equip_terrasteel");
 	public static final SoundEvent fireRod = makeSoundEvent("rod_of_the_hells");
 	public static final SoundEvent flareChakramThrow = makeSoundEvent("flare_chakram_throw");
-	public static final SoundEvent flugelEyeBind = makeSoundEvent("eye_of_the_fluegel_bind");
-	public static final SoundEvent flugelEyeTeleport = makeSoundEvent("eye_of_the_fluegel_teleport");
+	public static final SoundEvent flugelEyeBind = makeSoundEvent("eye_of_the_flugel_bind");
+	public static final SoundEvent flugelEyeTeleport = makeSoundEvent("eye_of_the_flugel_teleport");
 	public static final SoundEvent holyCloak = makeSoundEvent("cloak_of_virtue");
 	public static final SoundEvent laputaStart = makeSoundEvent("laputa_start");
 	public static final SoundEvent lexiconOpen = makeSoundEvent("lexicon_open");

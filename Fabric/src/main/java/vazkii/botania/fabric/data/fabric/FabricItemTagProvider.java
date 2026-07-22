@@ -87,7 +87,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
 				BotaniaItems.TINY_PLANET
 		);
 		this.tag(accessory("head/hat")).add(
-				BotaniaItems.FLUEGEL_TIARA
+				BotaniaItems.FLUGEL_TIARA
 		);
 		this.tag(accessory("legs/belt")).add(
 				BotaniaItems.TECTONIC_GIRDLE,

@@ -1945,7 +1945,7 @@
   "item.botania.ring_of_far_reach": "Anel do Longo Alcance",
   "item.botania.terra_shatterer": "Terra-Destruidor",
   "item.botania.charm_of_the_diva": "Amuleto da Diva",
-  "item.botania.fluegel_tiara": "Tiara de Flügel",
+  "item.botania.flugel_tiara": "Tiara de Flügel",
   "item.botania.soulscribe": "Risca-Almas",
   "item.botania.smokey_quartz": "Quartzo Fumê",
   "item.botania.mana_quartz": "Quartzo de Mana",
@@ -2081,7 +2081,7 @@
   "item.botania.the_pinkinator": "O Rosanator",
   "item.botania.the_fruit_of_grisaia": "A Fruta de Grisaia",
   "item.botania.key_of_the_kings_law": "Chave da Lei do Rei",
-  "item.botania.eye_of_the_fluegel": "Olho de Flügel",
+  "item.botania.eye_of_the_flugel": "Olho de Flügel",
   "item.botania.ring_of_thor": "Anel de Thor",
   "item.botania.ring_of_odin": "Anel de Odin",
   "item.botania.ring_of_loki": "Anel de Loki",
@@ -3995,8 +3995,8 @@
 
   "botania.entry.flugelEye": "Olho de Flügel",
   "botania.tagline.flugelEye": "Os verdadeiros poderes de um Flügel",
-  "botania.page.flugelEye0": "Diferente de uma $(l:ender/fluegel_tiara)$(item)Tiara de Flügel$(0)$(/l) fabricada, o $(item)Olho de Flügel$(0) contém magia primordial dos $(thing)Flügels$(0). Forte o bastante para utilizar a habilidade deles de se transportar de volta a um local já visitado.$(br)Agachar e clicar com o botão direito com ele em um bloco irá o vincular a esse lugar. Segurar o botão direito com um olho vinculado irá então usar $(thing)Mana$(0) para teletransportar seu dono de volta ao local.",
-  "botania.page.flugelEye1": "Infelizmente, o Olho ainda é apenas um fragmento do verdadeiro potencial dos $(thing)Flügels$(0), então ele não pode teleportar seu usuário através de dimensões.$(p)Entretanto, apenas possuir um $(item)Olho de Flügel$(0) em mãos permite que um usuário de $(l:ender/fluegel_tiara)$(item)Tiara de Flügel$(0)$(/l) voe mesmo com um barra de voo vazia (a um custo maior de $(thing)Mana$(0)).",
+  "botania.page.flugelEye0": "Diferente de uma $(l:ender/flugel_tiara)$(item)Tiara de Flügel$(0)$(/l) fabricada, o $(item)Olho de Flügel$(0) contém magia primordial dos $(thing)Flügels$(0). Forte o bastante para utilizar a habilidade deles de se transportar de volta a um local já visitado.$(br)Agachar e clicar com o botão direito com ele em um bloco irá o vincular a esse lugar. Segurar o botão direito com um olho vinculado irá então usar $(thing)Mana$(0) para teletransportar seu dono de volta ao local.",
+  "botania.page.flugelEye1": "Infelizmente, o Olho ainda é apenas um fragmento do verdadeiro potencial dos $(thing)Flügels$(0), então ele não pode teleportar seu usuário através de dimensões.$(p)Entretanto, apenas possuir um $(item)Olho de Flügel$(0) em mãos permite que um usuário de $(l:ender/flugel_tiara)$(item)Tiara de Flügel$(0)$(/l) voe mesmo com um barra de voo vazia (a um custo maior de $(thing)Mana$(0)).",
 
   "botania.entry.thorRing": "Anel de Thor",
   "botania.tagline.thorRing": "Porque seu Terra-Destruidor não era forte o bastante",

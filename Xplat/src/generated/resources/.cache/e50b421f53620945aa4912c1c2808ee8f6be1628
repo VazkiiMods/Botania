@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Botania item models
+// 1.21.1	2026-07-22T21:10:28.218192	Botania/Botania item models
 d4b0ba0031453560fbcac5ba06e408d0ee6a8c4f assets/botania/models/item/abstruse_platform.json
 bf099805ffd7a8d3043459d5fa421695f2890c97 assets/botania/models/item/agricarnation.json
 c3ca3c034853dd545c042e51282bd3fee9398f6e assets/botania/models/item/agricarnation_petite.json
@@ -309,7 +309,7 @@ c318b1e4212b72bdb449dad041218c6842f20511 assets/botania/models/item/entropinnyum
 78609297e67371eaaa3b174a870069f86cd8a7cb assets/botania/models/item/exoflame.json
 58f1313cd999443d44158cab281515b5adb536af assets/botania/models/item/extrapolated_bucket.json
 52e3d893104b51c526708f53c7e068801332d195 assets/botania/models/item/eye_of_the_ancients.json
-5783d211d857a165ce94480d53318104b1eb36bc assets/botania/models/item/eye_of_the_fluegel.json
+5f8b896867541c4e2b5c7eeab5163ecbb7cf6c38 assets/botania/models/item/eye_of_the_flugel.json
 8517056cc5ee26632977c76151423f4d0f67c628 assets/botania/models/item/fabulous_mana_pool.json
 7e693840cccb4bdc3be8fb80627c49d7eff26974 assets/botania/models/item/fallen_kanade.json
 c945d62cbe1c3d8c9127d25f40a587c6f6c034ab assets/botania/models/item/fel_pumpkin.json
@@ -319,7 +319,7 @@ c945d62cbe1c3d8c9127d25f40a587c6f6c034ab assets/botania/models/item/fel_pumpkin.
 e9fc210986fc3dc7eb795dadfd72e7d437dea119 assets/botania/models/item/floral_fertilizer.json
 9963033fb6095eb66e4a8853da85f9aebd5da1de assets/botania/models/item/floral_obedience_stick.json
 512040f02a9af0f31f8380fc24d995bb1fb62a47 assets/botania/models/item/flower_pouch.json
-fbe001322b2d648d681875fa670dabf6d6f8b0c4 assets/botania/models/item/fluegel_tiara.json
+60ece96ab208a6dcf504d0e71081de0f9614cb78 assets/botania/models/item/flugel_tiara.json
 eeaa2b2e6539646cc5f3a6a720559e0b4f549a59 assets/botania/models/item/force_lens.json
 96cb9722a598d04d4fd90582194876a5780a360e assets/botania/models/item/force_relay.json
 deb7fe2dcbe4891182c3d47d55c1d967b32b0bed assets/botania/models/item/fork_luminizer.json

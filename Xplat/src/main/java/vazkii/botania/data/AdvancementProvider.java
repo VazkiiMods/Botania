@@ -239,10 +239,10 @@ public class AdvancementProvider {
 					.addCriterion("use_life_aggregator",
 							UseItemSuccessTrigger.Instance.used(BotaniaItems.LIFE_AGGREGATOR))
 					.save(writer, mainId("life_aggregator_use"));
-			DisplayInfo tiaraWings = simple(BotaniaItems.FLUEGEL_TIARA, "tiaraWings", AdvancementType.TASK);
+			DisplayInfo tiaraWings = simple(BotaniaItems.FLUGEL_TIARA, "tiaraWings", AdvancementType.TASK);
 			tiaraWings.getIcon().set(BotaniaDataComponents.TIARA_VARIANT, 1);
 			Criterion<?>[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
-					.mapToObj(i -> ItemPredicate.Builder.item().of(BotaniaItems.FLUEGEL_TIARA)
+					.mapToObj(i -> ItemPredicate.Builder.item().of(BotaniaItems.FLUGEL_TIARA)
 							.hasComponents(DataComponentPredicate.builder()
 									.expect(BotaniaDataComponents.TIARA_VARIANT, i).build())
 							.build())
@@ -389,7 +389,7 @@ public class AdvancementProvider {
 
 			relicBindAdvancement(writer, hardMode, BotaniaItems.FRUIT_OF_GRISAIA, "infiniteFruit", "fruit");
 			relicBindAdvancement(writer, hardMode, BotaniaItems.KEY_OF_THE_KINGS_LAW, "kingKey", "key");
-			relicBindAdvancement(writer, hardMode, BotaniaItems.EYE_OF_THE_FLUEGEL, "flugelEye", "eye");
+			relicBindAdvancement(writer, hardMode, BotaniaItems.EYE_OF_THE_FLUGEL, "flugelEye", "eye");
 			relicBindAdvancement(writer, hardMode, BotaniaItems.RING_OF_THOR, "thorRing", "ring");
 			relicBindAdvancement(writer, hardMode, BotaniaItems.RING_OF_ODIN, "odinRing", "ring");
 			AdvancementHolder lokiRing = relicBindAdvancement(writer, hardMode, BotaniaItems.RING_OF_LOKI, "lokiRing", "ring");
