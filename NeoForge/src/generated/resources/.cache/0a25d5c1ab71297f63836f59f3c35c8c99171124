@@ -1,9 +1,9 @@
-// 1.21.1	2026-07-19T08:38:04.513990333	Botania item tags (NeoForge-specific)
+// 1.21.1	2026-07-23T18:18:39.376709351	Botania item tags (NeoForge-specific)
 4692fc7375f45e2950d79df98e51360cf0e6b8f1 data/curios/tags/item/belt.json
 5b4aa6d0d5e7f599d9c6520cf5b9efa663d631ba data/curios/tags/item/body.json
 4b427de569c571503cc22b7d969830fc996b4a2f data/curios/tags/item/charm.json
 3677e53019d32bc9a7b7003218dc2a9690af2cfa data/curios/tags/item/curio.json
-61b8546e0327ea4eed36c76f2011d195040e8de8 data/curios/tags/item/head.json
+8a3ee4e905c79a7318b9ea5f1d8585ef7c223f19 data/curios/tags/item/head.json
 628f088c42cc3c92f01c11ed494c3764fa41b07e data/curios/tags/item/necklace.json
 0555ae3ea866001716f38da2f0a2d3d8aa14b08a data/curios/tags/item/ring.json
 a7ec43d58fd1c224a9f388647232158ea4ac99f1 data/quark/tags/item/big_harvesting_hoes.json
