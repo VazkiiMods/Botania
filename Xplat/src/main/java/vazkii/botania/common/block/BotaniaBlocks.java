@@ -396,7 +396,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.PURE_DAISY));
 	public static final Block FLOATING_PURE_DAISY = make(floating(LibBlockNames.SUBTILE_PUREDAISY),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.PURE_DAISY));
 	public static final Block POTTED_PURE_DAISY = make(potted(LibBlockNames.SUBTILE_PUREDAISY),
 			flowerPot(PURE_DAISY, 0));
@@ -409,7 +409,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.MANASTAR));
 	public static final Block FLOATING_MANASTAR = make(floating(LibBlockNames.SUBTILE_MANASTAR),
 			new FloatingManastarBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.MANASTAR));
 	public static final Block POTTED_MANASTAR = make(potted(LibBlockNames.SUBTILE_MANASTAR),
 			flowerPot(MANASTAR, 0));
@@ -422,7 +422,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.HYDROANGEAS));
 	public static final Block FLOATING_HYDROANGEAS = make(floating(LibBlockNames.SUBTILE_HYDROANGEAS),
 			new FloatingSlowGeneratingFlowerWithCooldownBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.HYDROANGEAS));
 	public static final Block POTTED_HYDROANGEAS = make(potted(LibBlockNames.SUBTILE_HYDROANGEAS),
 			flowerPot(HYDROANGEAS, 0));
@@ -435,7 +435,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.ENDOFLAME));
 	public static final Block FLOATING_ENDOFLAME = make(floating(LibBlockNames.SUBTILE_ENDOFLAME),
 			new FloatingSlowGeneratingFlowerWithCooldownBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.ENDOFLAME));
 	public static final Block POTTED_ENDOFLAME = make(potted(LibBlockNames.SUBTILE_ENDOFLAME),
 			flowerPot(ENDOFLAME, 0));
@@ -448,7 +448,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.THERMALILY));
 	public static final Block FLOATING_THERMALILY = make(floating(LibBlockNames.SUBTILE_THERMALILY),
 			new FloatingSlowGeneratingFlowerWithCooldownBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.THERMALILY));
 	public static final Block POTTED_THERMALILY = make(potted(LibBlockNames.SUBTILE_THERMALILY),
 			flowerPot(THERMALILY, 0));
@@ -460,7 +460,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.ROSA_ARCANA));
 	public static final Block FLOATING_ROSA_ARCANA = make(floating(LibBlockNames.SUBTILE_ARCANE_ROSE),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.ROSA_ARCANA));
 	public static final Block POTTED_ROSA_ARCANA = make(potted(LibBlockNames.SUBTILE_ARCANE_ROSE),
 			flowerPot(ROSA_ARCANA, 0));
@@ -473,7 +473,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.MUNCHDEW));
 	public static final Block FLOATING_MUNCHDEW = make(floating(LibBlockNames.SUBTILE_MUNCHDEW),
 			new FloatingSlowGeneratingFlowerWithCooldownBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.MUNCHDEW));
 	public static final Block POTTED_MUNCHDEW = make(potted(LibBlockNames.SUBTILE_MUNCHDEW),
 			flowerPot(MUNCHDEW, 0));
@@ -486,7 +486,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.ENTROPINNYUM));
 	public static final Block FLOATING_ENTROPINNYUM = make(floating(LibBlockNames.SUBTILE_ENTROPINNYUM),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.ENTROPINNYUM));
 	public static final Block POTTED_ENTROPINNYUM = make(potted(LibBlockNames.SUBTILE_ENTROPINNYUM),
 			flowerPot(ENTROPINNYUM, 0));
@@ -498,7 +498,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.KEKIMURUS));
 	public static final Block FLOATING_KEKIMURUS = make(floating(LibBlockNames.SUBTILE_KEKIMURUS),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.KEKIMURUS));
 	public static final Block POTTED_KEKIMURUS = make(potted(LibBlockNames.SUBTILE_KEKIMURUS),
 			flowerPot(KEKIMURUS, 0));
@@ -511,7 +511,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.GOURMARYLLIS));
 	public static final Block FLOATING_GOURMARYLLIS = make(floating(LibBlockNames.SUBTILE_GOURMARYLLIS),
 			new FloatingSlowGeneratingFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.GOURMARYLLIS));
 	public static final Block POTTED_GOURMARYLLIS = make(potted(LibBlockNames.SUBTILE_GOURMARYLLIS),
 			flowerPot(GOURMARYLLIS, 0));
@@ -523,7 +523,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.NARSLIMMUS));
 	public static final Block FLOATING_NARSLIMMUS = make(floating(LibBlockNames.SUBTILE_NARSLIMMUS),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.NARSLIMMUS));
 	public static final Block POTTED_NARSLIMMUS = make(potted(LibBlockNames.SUBTILE_NARSLIMMUS),
 			flowerPot(NARSLIMMUS, 0));
@@ -536,7 +536,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.SPECTROLUS));
 	public static final Block FLOATING_SPECTROLUS = make(floating(LibBlockNames.SUBTILE_SPECTROLUS),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.SPECTROLUS));
 	public static final Block POTTED_SPECTROLUS = make(potted(LibBlockNames.SUBTILE_SPECTROLUS),
 			flowerPot(SPECTROLUS, 0));
@@ -549,7 +549,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.DANDELIFEON));
 	public static final Block FLOATING_DANDELIFEON = make(floating(LibBlockNames.SUBTILE_DANDELIFEON),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.DANDELIFEON));
 	public static final Block POTTED_DANDELIFEON = make(potted(LibBlockNames.SUBTILE_DANDELIFEON),
 			flowerPot(DANDELIFEON, 0));
@@ -562,7 +562,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.RAFFLOWSIA));
 	public static final Block FLOATING_RAFFLOWSIA = make(floating(LibBlockNames.SUBTILE_RAFFLOWSIA),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.RAFFLOWSIA));
 	public static final Block POTTED_RAFFLOWSIA = make(potted(LibBlockNames.SUBTILE_RAFFLOWSIA),
 			flowerPot(RAFFLOWSIA, 0));
@@ -575,7 +575,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.SHULK_ME_NOT));
 	public static final Block FLOATING_SHULK_ME_NOT = make(floating(LibBlockNames.SUBTILE_SHULK_ME_NOT),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.SHULK_ME_NOT));
 	public static final Block POTTED_SHULK_ME_NOT = make(potted(LibBlockNames.SUBTILE_SHULK_ME_NOT),
 			flowerPot(SHULK_ME_NOT, 0));
@@ -594,11 +594,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.BELLETHORNE_PETITE));
 	public static final Block FLOATING_BELLETHORNE = make(floating(LibBlockNames.SUBTILE_BELLETHORN),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.BELLETHORNE));
 	public static final Block FLOATING_BELLETHORNE_PETITE = make(petite(floating(LibBlockNames.SUBTILE_BELLETHORN)),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.BELLETHORNE_PETITE));
 	public static final Block POTTED_BELLETHORNE = make(potted(LibBlockNames.SUBTILE_BELLETHORN),
 			flowerPot(BELLETHORNE, 0));
@@ -613,7 +613,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.BERGAMUTE));
 	public static final Block FLOATING_BERGAMUTE = make(floating(LibBlockNames.SUBTILE_BERGAMUTE),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.BERGAMUTE));
 	public static final Block POTTED_BERGAMUTE = make(potted(LibBlockNames.SUBTILE_BERGAMUTE),
 			flowerPot(BERGAMUTE, 0));
@@ -626,7 +626,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.DREADTHORN));
 	public static final Block FLOATING_DREADTHORNE = make(floating(LibBlockNames.SUBTILE_DREADTHORN),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.DREADTHORN));
 	public static final Block POTTED_DREADTHORNE = make(potted(LibBlockNames.SUBTILE_DREADTHORN),
 			flowerPot(DREADTHORNE, 0));
@@ -639,7 +639,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.HEISEI_DREAM));
 	public static final Block FLOATING_HEISEI_DREAM = make(floating(LibBlockNames.SUBTILE_HEISEI_DREAM),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.HEISEI_DREAM));
 	public static final Block POTTED_HEISEI_DREAM = make(potted(LibBlockNames.SUBTILE_HEISEI_DREAM),
 			flowerPot(HEISEI_DREAM, 0));
@@ -652,7 +652,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.TIGERSEYE));
 	public static final Block FLOATING_TIGERSEYE = make(floating(LibBlockNames.SUBTILE_TIGERSEYE),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.TIGERSEYE));
 	public static final Block POTTED_TIGERSEYE = make(potted(LibBlockNames.SUBTILE_TIGERSEYE),
 			flowerPot(TIGERSEYE, 0));
@@ -665,7 +665,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.JADED_AMARANTHUS));
 	public static final Block FLOATING_JADED_AMARANTHUS = make(floating(LibBlockNames.SUBTILE_JADED_AMARANTHUS),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.JADED_AMARANTHUS));
 	public static final Block POTTED_JADED_AMARANTHUS = make(potted(LibBlockNames.SUBTILE_JADED_AMARANTHUS),
 			flowerPot(JADED_AMARANTHUS, 0));
@@ -678,7 +678,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.ORECHID));
 	public static final Block FLOATING_ORECHID = make(floating(LibBlockNames.SUBTILE_ORECHID),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.ORECHID));
 	public static final Block POTTED_ORECHID = make(potted(LibBlockNames.SUBTILE_ORECHID),
 			flowerPot(ORECHID, 0));
@@ -691,7 +691,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.FALLEN_KANADE));
 	public static final Block FLOATING_FALLEN_KANADE = make(floating(LibBlockNames.SUBTILE_FALLEN_KANADE),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.FALLEN_KANADE));
 	public static final Block POTTED_FALLEN_KANADE = make(potted(LibBlockNames.SUBTILE_FALLEN_KANADE),
 			flowerPot(FALLEN_KANADE, 0));
@@ -703,7 +703,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.EXOFLAME));
 	public static final Block FLOATING_EXOFLAME = make(floating(LibBlockNames.SUBTILE_EXOFLAME),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.EXOFLAME));
 	public static final Block POTTED_EXOFLAME = make(potted(LibBlockNames.SUBTILE_EXOFLAME),
 			flowerPot(EXOFLAME, 0));
@@ -722,11 +722,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.AGRICARNATION_PETITE));
 	public static final Block FLOATING_AGRICARNATION = make(floating(LibBlockNames.SUBTILE_AGRICARNATION),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.AGRICARNATION));
 	public static final Block FLOATING_AGRICARNATION_PETITE = make(petite(floating(LibBlockNames.SUBTILE_AGRICARNATION)),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.AGRICARNATION_PETITE));
 	public static final Block POTTED_AGRICARNATION = make(potted(LibBlockNames.SUBTILE_AGRICARNATION),
 			flowerPot(AGRICARNATION, 0));
@@ -746,11 +746,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.HOPPERHOCK_PETITE));
 	public static final Block FLOATING_HOPPERHOCK = make(floating(LibBlockNames.SUBTILE_HOPPERHOCK),
 			new FloatingHopperhockBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.HOPPERHOCK));
 	public static final Block FLOATING_HOPPERHOCK_PETITE = make(petite(floating(LibBlockNames.SUBTILE_HOPPERHOCK)),
 			new FloatingHopperhockBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.HOPPERHOCK_PETITE));
 	public static final Block POTTED_HOPPERHOCK = make(potted(LibBlockNames.SUBTILE_HOPPERHOCK),
 			flowerPot(HOPPERHOCK, 0));
@@ -771,11 +771,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.TANGLEBERRIE_PETITE));
 	public static final Block FLOATING_TANGLEBERRIE = make(floating(LibBlockNames.SUBTILE_TANGLEBERRIE),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.TANGLEBERRIE));
 	public static final Block FLOATING_TANGLEBERRIE_PETITE = make(petite(floating(LibBlockNames.SUBTILE_TANGLEBERRIE)),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.TANGLEBERRIE_PETITE));
 	public static final Block POTTED_TANGLEBERRIE = make(potted(LibBlockNames.SUBTILE_TANGLEBERRIE),
 			flowerPot(TANGLEBERRIE, 0));
@@ -796,11 +796,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.JIYUULIA_PETITE));
 	public static final Block FLOATING_JIYUULIA = make(floating(LibBlockNames.SUBTILE_JIYUULIA),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.JIYUULIA));
 	public static final Block FLOATING_JIYUULIA_PETITE = make(petite(floating(LibBlockNames.SUBTILE_JIYUULIA)),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.JIYUULIA_PETITE));
 	public static final Block POTTED_JIYULLIA = make(potted(LibBlockNames.SUBTILE_JIYUULIA),
 			flowerPot(JIYUULIA, 0));
@@ -821,11 +821,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.RANNUNCARPUS_PETITE));
 	public static final Block FLOATING_RANNUNCARPUS = make(floating(LibBlockNames.SUBTILE_RANNUNCARPUS),
 			new FloatingRannuncarpusBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.RANNUNCARPUS));
 	public static final Block FLOATING_RANNUNCARPUS_PETITE = make(petite(floating(LibBlockNames.SUBTILE_RANNUNCARPUS)),
 			new FloatingRannuncarpusBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.RANNUNCARPUS_PETITE));
 	public static final Block POTTED_RANNUNCARPUS = make(potted(LibBlockNames.SUBTILE_RANNUNCARPUS),
 			flowerPot(RANNUNCARPUS, 0));
@@ -840,7 +840,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.HYACIDUS));
 	public static final Block FLOATING_HYACIDUS = make(floating(LibBlockNames.SUBTILE_HYACIDUS),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.HYACIDUS));
 	public static final Block POTTED_HYACIDUS = make(potted(LibBlockNames.SUBTILE_HYACIDUS),
 			flowerPot(HYACIDUS, 0));
@@ -853,7 +853,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.POLLIDISIAC));
 	public static final Block FLOATING_POLLIDISIAC = make(floating(LibBlockNames.SUBTILE_POLLIDISIAC),
 			new FloatingPollidisiacBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.POLLIDISIAC));
 	public static final Block POTTED_POLLIDISIAC = make(potted(LibBlockNames.SUBTILE_POLLIDISIAC),
 			flowerPot(POLLIDISIAC, 0));
@@ -872,11 +872,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.CLAYCONIA_PETITE));
 	public static final Block FLOATING_CLAYCONIA = make(floating(LibBlockNames.SUBTILE_CLAYCONIA),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.CLAYCONIA));
 	public static final Block FLOATING_CLAYCONIA_PETITE = make(petite(floating(LibBlockNames.SUBTILE_CLAYCONIA)),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.CLAYCONIA_PETITE));
 	public static final Block POTTED_CLAYCONIA = make(potted(LibBlockNames.SUBTILE_CLAYCONIA),
 			flowerPot(CLAYCONIA, 0));
@@ -891,7 +891,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.LOONIUM));
 	public static final Block FLOATING_LOONIUM = make(floating(LibBlockNames.SUBTILE_LOONIUM),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.LOONIUM));
 	public static final Block POTTED_LOONIUM = make(potted(LibBlockNames.SUBTILE_LOONIUM),
 			flowerPot(LOONIUM, 0));
@@ -904,7 +904,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.DAFFOMILL));
 	public static final Block FLOATING_DAFFOMILL = make(floating(LibBlockNames.SUBTILE_DAFFOMILL),
 			new FloatingDaffomillBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.DAFFOMILL));
 	public static final Block POTTED_DAFFOMILL = make(potted(LibBlockNames.SUBTILE_DAFFOMILL),
 			flowerPot(DAFFOMILL, 0));
@@ -917,7 +917,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.VINCULOTUS));
 	public static final Block FLOATING_VINCULOTUS = make(floating(LibBlockNames.SUBTILE_VINCULOTUS),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.VINCULOTUS));
 	public static final Block POTTED_VINCULOTUS = make(potted(LibBlockNames.SUBTILE_VINCULOTUS),
 			flowerPot(VINCULOTUS, 0));
@@ -930,7 +930,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.SPECTRANTHEMUM));
 	public static final Block FLOATING_SPECTRANTHEMUM = make(floating(LibBlockNames.SUBTILE_SPECTRANTHEMUM),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.SPECTRANTHEMUM));
 	public static final Block POTTED_SPECTRANTHEMUM = make(potted(LibBlockNames.SUBTILE_SPECTRANTHEMUM),
 			flowerPot(SPECTRANTHEMUM, 0));
@@ -943,7 +943,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.MEDUMONE));
 	public static final Block FLOATING_MEDUMONE = make(floating(LibBlockNames.SUBTILE_MEDUMONE),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.MEDUMONE));
 	public static final Block POTTED_MEDUMONE = make(potted(LibBlockNames.SUBTILE_MEDUMONE),
 			flowerPot(MEDUMONE, 0));
@@ -962,11 +962,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.MARIMORPHOSIS_PETITE));
 	public static final Block FLOATING_MARIMORPHOSIS = make(floating(LibBlockNames.SUBTILE_MARIMORPHOSIS),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.MARIMORPHOSIS));
 	public static final Block FLOATING_MARIMORPHOSIS_PETITE = make(petite(floating(LibBlockNames.SUBTILE_MARIMORPHOSIS)),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.MARIMORPHOSIS_PETITE));
 	public static final Block POTTED_MARIMORPHOSIS = make(potted(LibBlockNames.SUBTILE_MARIMORPHOSIS),
 			flowerPot(MARIMORPHOSIS, 0));
@@ -986,11 +986,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.BUBBELL_PETITE));
 	public static final Block FLOATING_BUBBELL = make(floating(LibBlockNames.SUBTILE_BUBBELL),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.BUBBELL));
 	public static final Block FLOATING_BUBBELL_PETITE = make(petite(floating(LibBlockNames.SUBTILE_BUBBELL)),
 			new FloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.BUBBELL_PETITE));
 	public static final Block POTTED_BUBBELL = make(potted(LibBlockNames.SUBTILE_BUBBELL),
 			flowerPot(BUBBELL, 0));
@@ -1011,11 +1011,11 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.SOLEGNOLIA_PETITE));
 	public static final Block FLOATING_SOLEGNOLIA = make(floating(LibBlockNames.SUBTILE_SOLEGNOLIA),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.SOLEGNOLIA));
 	public static final Block FLOATING_SOLEGNOLIA_PETITE = make(petite(floating(LibBlockNames.SUBTILE_SOLEGNOLIA)),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.SOLEGNOLIA_PETITE));
 	public static final Block POTTED_SOLEGNOLIA = make(potted(LibBlockNames.SUBTILE_SOLEGNOLIA),
 			flowerPot(SOLEGNOLIA, 0));
@@ -1030,7 +1030,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.ORECHID_IGNEM));
 	public static final Block FLOATING_ORECHID_IGNEM = make(floating(LibBlockNames.SUBTILE_ORECHID_IGNEM),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.ORECHID_IGNEM));
 	public static final Block POTTED_ORECHID_IGNEM = make(potted(LibBlockNames.SUBTILE_ORECHID_IGNEM),
 			flowerPot(ORECHID_IGNEM, 0));
@@ -1043,7 +1043,7 @@ public final class BotaniaBlocks {
 					() -> BotaniaBlockEntities.LABELLIA));
 	public static final Block FLOATING_LABELLIA = make(floating(LibBlockNames.SUBTILE_LABELLIA),
 			new PoweredFloatingSpecialFlowerBlock(
-					BlockBehaviour.Properties.ofFullCopy(WHITE_MYSTICAL_FLOWER),
+					BlockBehaviour.Properties.ofFullCopy(WHITE_FLOATING_FLOWER),
 					() -> BotaniaBlockEntities.LABELLIA));
 	public static final Block POTTED_LABELLIA = make(potted(LibBlockNames.SUBTILE_LABELLIA),
 			flowerPot(LABELLIA, 0));
