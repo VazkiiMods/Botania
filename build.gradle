@@ -9,3 +9,12 @@ idea.module {
     downloadJavadoc = true
     downloadSources = true
 }
+
+tasks.register("runAllDatagen") {
+    dependsOn(
+            project("Fabric").tasks.named("runXplatDatagen"),
+            project("Fabric").tasks.named("runFabricDatagen"),
+            project("NeoForge").tasks.named("runNeoforgeDatagen"),
+            project("NeoForge").tasks.named("runGardenOfGlassDatagen")
+    )
+}
