@@ -25,6 +25,22 @@ tasks.withType(JavaCompile).configureEach {
     it.options.compilerArgs << "-Xmaxerrs" << "2000"
 }
 
+tasks.withType(Javadoc).configureEach {
+    options.jFlags(
+            "-Duser.language=en",
+            "-Duser.country=us"
+    )
+
+    // for some reason these officially used tags never made it into the default configuration of the Javadoc tool
+    options.tags(
+            'apiNote:a:API Note:',
+            'implSpec:a:Implementation Requirements:',
+            'implNote:a:Implementation Note:'
+    )
+    // (This method is weird. It won't work without a second string parameter, so we use something reasonably harmless.)
+    options.addStringOption("Xdoclint:all,-missing", "-quiet")
+}
+
 repositories {
     mavenCentral()
     // https://docs.gradle.org/current/userguide/declaring_repositories.html#declaring_content_exclusively_found_in_one_repository

@@ -29,7 +29,7 @@ import org.jetbrains.annotations.UnknownNullability;
  * <li>Override {@link Block#createBlockStateDefinition(StateDefinition.Builder)} to add
  * {@link BlockStateProperties#POWERED}.</li>
  * <li>Call {@link Block#registerDefaultState(net.minecraft.world.level.block.state.BlockState)} in constructor to have
- * {@link BlockStateProperties#POWERED} default to <ccode>false</ccode>.</li>
+ * {@link BlockStateProperties#POWERED} default to <code>false</code>.</li>
  * <li>Override {@link Block#getStateForPlacement(BlockPlaceContext)} to include a call to
  * {@link #getPoweredStateForPlacement(BlockState, BlockPlaceContext)}.</li>
  * <li>Override
