@@ -33,7 +33,7 @@ processResources {
 }
 
 tasks.named("javadoc", Javadoc).configure {
-    dependsOn(configurations.generatePackageInfos)
+    dependsOn(tasks.generatePackageInfos)
     dependsOn(configurations.commonJava)
     source(configurations.commonJava)
 }
