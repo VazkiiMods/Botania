@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.poolCart",
   "category": "botania:mana",
-  "icon": "botania:pool_minecart",
+  "icon": "botania:mana_pool_minecart",
   "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
@@ -19,7 +19,7 @@
     {
       "type": "crafting",
       "text": "botania.page.poolCart3",
-      "recipe": "botania:pool_minecart"
+      "recipe": "botania:mana_pool_minecart"
     },
     {
       "type": "crafting",

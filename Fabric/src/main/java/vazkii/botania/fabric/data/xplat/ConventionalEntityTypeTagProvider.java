@@ -34,7 +34,7 @@ public class ConventionalEntityTypeTagProvider extends FabricTagProvider.EntityT
 				.add(reverseLookup(EntityType.WARDEN))
 				.addTag(ConventionalEntityTypeTags.BOSSES);
 
-		tag(ConventionalEntityTypeTags.MINECARTS).add(reverseLookup(BotaniaEntities.POOL_MINECART));
+		tag(ConventionalEntityTypeTags.MINECARTS).add(reverseLookup(BotaniaEntities.MANA_POOL_MINECART));
 	}
 
 	@Override

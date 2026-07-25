@@ -32,7 +32,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.common.entity.EnderAirBottleEntity;
-import vazkii.botania.common.entity.EnderAirEntity;
+import vazkii.botania.common.entity.EnderAirCloudEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -84,7 +84,7 @@ public class EnderAirItem extends Item implements ProjectileItem {
 	}
 
 	public static boolean pickupFromEntity(Level level, AABB area) {
-		var entities = level.getEntitiesOfClass(EnderAirEntity.class, area, EntitySelector.ENTITY_STILL_ALIVE);
+		var entities = level.getEntitiesOfClass(EnderAirCloudEntity.class, area, EntitySelector.ENTITY_STILL_ALIVE);
 		if (!entities.isEmpty()) {
 			entities.get(0).discard();
 			return true;

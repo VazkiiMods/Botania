@@ -41,7 +41,7 @@ public class ManastormChargeBlock extends BotaniaBlock {
 					&& (!(entity.getOwner() instanceof ServerPlayer player)
 							|| !player.blockActionRestricted(world, pos, player.gameMode.getGameModeForPlayer()))
 					&& world.destroyBlock(pos, false, entity)) {
-				ManaStormEntity storm = BotaniaEntities.MANA_STORM.create(world);
+				ManaStormEntity storm = BotaniaEntities.MANASTORM_EPICENTER.create(world);
 				if (storm == null) {
 					return;
 				}

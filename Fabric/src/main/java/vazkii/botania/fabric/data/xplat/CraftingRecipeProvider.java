@@ -1422,7 +1422,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern(" W ")
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.MANA_DUSTS))
 				.save(recipeOutput);
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaItems.POOL_MINECART)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaItems.MANA_POOL_MINECART)
 				.requires(Items.MINECART)
 				.requires(BotaniaBlocks.MANA_POOL)
 				.unlockedBy("has_item", conditionsFromItem(Items.MINECART))

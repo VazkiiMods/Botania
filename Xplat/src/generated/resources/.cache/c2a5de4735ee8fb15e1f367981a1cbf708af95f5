@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-22T21:10:28.205033	Botania/Botania crafting recipes
+// 1.21.1	2026-07-25T08:00:00.444529252	Botania/Botania crafting recipes
 4fc6a6e0146080f262812d027422b8c3ba619eb2 data/botania/advancement/recipes/building_blocks/azulejo.json
 5b05795ca796eb20c546e92191703aebbb01d41f data/botania/advancement/recipes/building_blocks/azulejo_0.json
 6c0b7f734d9ae390de487b13559a00dc0d029145 data/botania/advancement/recipes/building_blocks/azulejo_1.json
@@ -874,7 +874,7 @@ ea1996158525aa7014ff53711080de4c8fd57935 data/botania/advancement/recipes/tools/
 b09c69088d2da65fca8aa1753b6ee9780e88f585 data/botania/advancement/recipes/transportation/detector_luminizer.json
 458af20a12d4b89a33cc4aa6bb1555516a0285b5 data/botania/advancement/recipes/transportation/fork_luminizer.json
 758ee50911762dad996b1b3dfa9e364076a68ca8 data/botania/advancement/recipes/transportation/luminizer.json
-f32ba77e1219f27f17e1913a9f9ce3b8b74042ff data/botania/advancement/recipes/transportation/pool_minecart.json
+aa4669b80465319b3c6a55a4d6172abcafb5295c data/botania/advancement/recipes/transportation/mana_pool_minecart.json
 fc1ee202dd9049b91d869c7275c61d8da702b35f data/botania/advancement/recipes/transportation/spectral_rail.json
 62ab6746d2b037417992d70dd69796cac3abef8d data/botania/advancement/recipes/transportation/toggle_luminizer.json
 a31175740cabbc9232fb30730987301062bdcbd1 data/botania/recipe/abstruse_platform.json
@@ -1439,6 +1439,7 @@ e1ea52f5ac2198d060c94aab1e64e83d971bb99e data/botania/recipe/mana_lens.json
 2539276fe864f6e9af8bd0f0ab3102bd5378bc05 data/botania/recipe/mana_lens_pane.json
 442645f9e12fe923a4619d350a906860bf10dac8 data/botania/recipe/mana_mirror.json
 b373c65f60ec9d6b99d1ea57b8f45b5b426d9e8e data/botania/recipe/mana_pool.json
+87c82d808624bcebbc0b2059014353245c9b8a23 data/botania/recipe/mana_pool_minecart.json
 e4962d5625b96f0d4b52d8a614e2a37bbdd32c32 data/botania/recipe/mana_pool_undyed.json
 409ded16ef82b057e5b97ff37d426d891e49ac96 data/botania/recipe/mana_prism.json
 3ad7f7e4d94a89bffa34e157038c5bc996e35ac3 data/botania/recipe/mana_pump.json
@@ -1542,7 +1543,6 @@ c1ff1b721c0657c02f7e77fd8cedc758497979b9 data/botania/recipe/polished_livingrock
 8b00aa7d80b9066f01f95124675d6c6de042ef42 data/botania/recipe/polished_livingrock_slab.json
 9c5443afd580639010d617f6dc4d23553226c94c data/botania/recipe/polished_livingrock_stairs.json
 5038b87abcc9abfaae7fcba8c6aa251f60501c61 data/botania/recipe/polished_livingrock_wall.json
-6d3fcdf38628dca9db282d4bd115bb9d50493ba6 data/botania/recipe/pool_minecart.json
 d26d9c01d0ae2dbe237730a3fb99503c7f0892bc data/botania/recipe/potency_lens.json
 d73500adc6706aaf0268ba12c94b9bf26a01df54 data/botania/recipe/pulse_mana_spreader.json
 853edc912bb6983c11d30174904fbb9b849bb88a data/botania/recipe/purple_creative_mana_pool.json

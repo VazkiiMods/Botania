@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:item/pool_minecart"
+    "layer0": "botania:item/mana_pool_minecart"
   }
 }

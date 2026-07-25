@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Tags for minecraft:entity_type
+// 1.21.1	2026-07-25T08:00:00.45818036	Botania/Tags for minecraft:entity_type
 d7fff98ebc6b9626b17cf86f8be00d279d1d3cf3 data/botania/tags/entity_type/cocoon/common.json
 1aaa6d2be4c24ea9186245cd3668e9f4f96d3f4a data/botania/tags/entity_type/cocoon/common_aquatic.json
 c35bb54f216010511a32ebc2be4da3e86e8c679e data/botania/tags/entity_type/cocoon/rare.json
@@ -7,4 +7,4 @@ efd0b9bc39be573af4c8f7f51f0fcb468f80fb88 data/botania/tags/entity_type/drum/milk
 1ef430c55d1de22917fabe28a7b13acd1ccbc2cc data/botania/tags/entity_type/drum/no_shearing.json
 fa2fc1c87a800ac4d8b5b6fe2bdeed6a902255a2 data/botania/tags/entity_type/key_immune.json
 c922a1dd9635b859b5ef273b97b42a7112d348c9 data/botania/tags/entity_type/portal_bread_immune.json
-7055f42722a300862160853db524a4f982b5b455 data/botania/tags/entity_type/shaded_mesa_no_pickup.json
+10ade84a91c8f90a0abdd83e00c6d87bbf92c752 data/botania/tags/entity_type/shaded_mesa_no_pickup.json

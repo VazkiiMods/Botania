@@ -1,5 +1,5 @@
 // 1.21.1	Botania/minecraft:entity Loot Table
-febc32b8daf33fb9397e0245f7e3f2478f638e7a data/botania/loot_table/entities/doppleganger.json
+febc32b8daf33fb9397e0245f7e3f2478f638e7a data/botania/loot_table/entities/gaia_guardian.json
 61c09f397050f42acd9bf30d25f1f15f512b177e data/botania/loot_table/entities/fel_blaze.json
 f7819cf859b041300eac9c81bfec40e146defec5 data/botania/loot_table/gaia_guardian/reward.json
 9830dbf327365d93ab9f5c1d770108cdff74e5a7 data/botania/loot_table/gaia_guardian/reward_hard.json

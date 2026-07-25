@@ -1,1 +1,1 @@
-summon botania:ender_air ~ ~1 ~
+summon botania:ender_air_cloud ~ ~1 ~

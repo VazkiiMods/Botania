@@ -17,13 +17,13 @@
     "minecraft:interaction",
     "minecraft:marker",
     "botania:corporea_spark",
-    "botania:doppleganger",
-    "botania:ring_of_flame",
-    "botania:magic_landmine",
+    "botania:gaia_guardian",
+    "botania:flame_ring",
+    "botania:gaia_trap",
     "botania:magic_missile",
     "botania:mana_burst",
     "botania:pink_wither",
     "botania:spark",
-    "botania:player_mover"
+    "botania:luminizer_beam"
   ]
 }

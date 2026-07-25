@@ -708,10 +708,10 @@
 
   "entity.botania.mana_burst": "マナバースト",
   "entity.botania.pixie": "ピクシー",
-  "entity.botania.ring_of_flame": "炎の輪",
+  "entity.botania.flame_ring": "炎の輪",
   "entity.botania.vine_ball": "ツタ玉",
-  "entity.botania.doppleganger": "ガイアの守護者",
-  "entity.botania.magic_landmine": "ガイアの罠",
+  "entity.botania.gaia_guardian": "ガイアの守護者",
+  "entity.botania.gaia_trap": "ガイアの罠",
   "entity.botania.spark": "スパーク",
   "entity.botania.thrown_item": "投げ込まれたアイテム",
   "entity.botania.magic_missile": "魔弾",
@@ -719,11 +719,11 @@
   "entity.botania.corporea_spark": "コーポリアスパーク",
   "entity.botania.ender_air_bottle": "エンドの空気入り瓶",
 
-  "entity.botania.pool_minecart": "マナプールマインカート",
+  "entity.botania.mana_pool_minecart": "マナプールマインカート",
   "entity.botania.pink_wither": "桃色ウィザー",
-  "entity.botania.player_mover": "ルミナイザ光線",
-  "entity.botania.mana_storm": "マナストームの発生地",
-  "entity.botania.babylon_weapon": "宝物庫の武器",
+  "entity.botania.luminizer_beam": "ルミナイザ光線",
+  "entity.botania.manastorm_epicenter": "マナストームの発生地",
+  "entity.botania.treasury_weapon": "宝物庫の武器",
   "entity.botania.falling_star": "流星",
 
   "advancement.botania_challenge": "Botaniaチャレンジ",
@@ -2077,7 +2077,7 @@
   "item.botania.flower_pouch": "花入れ小袋",
 
   "item.botania.phantom_ink": "幻影インク",
-  "item.botania.pool_minecart": "マナプールカート",
+  "item.botania.mana_pool_minecart": "マナプールカート",
   "item.botania.the_pinkinator": "ピンキネイター",
   "item.botania.the_fruit_of_grisaia": "グリザイアの果実",
   "item.botania.key_of_the_kings_law": "王律鍵",

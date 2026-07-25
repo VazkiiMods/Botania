@@ -1,8 +1,8 @@
-// 1.21.1	2026-07-22T21:10:28.213723	Botania/Advancements
+// 1.21.1	2026-07-25T08:00:00.458948668	Botania/Advancements
 847906414692dac44ece4a0a783b9673ffdc9501 data/botania/advancement/challenge/alf_portal_bread.json
 5f712ead128501e8f996f545d91f792de66bc101 data/botania/advancement/challenge/all_loonium_mobs.json
 bf4fa511640cae8ba7243a7f477053f3bea02f09 data/botania/advancement/challenge/eye_of_the_flugel.json
-eb20f0458678c7c4efb9fcbbb8713bbefad25f40 data/botania/advancement/challenge/gaia_guardian_hardmode.json
+ba8b79332b9c0dce8e498c88563f266bf3fa70e7 data/botania/advancement/challenge/gaia_guardian_hardmode.json
 1f15cf9dbf8c5566f5e5430d2ecd90b35058f0ad data/botania/advancement/challenge/gaia_guardian_no_armor.json
 b6ecc51c8331b6dc2fe4fec63dbf9d2dcd90a51e data/botania/advancement/challenge/key_of_the_kings_law.json
 295b5ed0b1e04cb08b821f6213680a419edd4fd7 data/botania/advancement/challenge/l20_shard_use.json
@@ -34,7 +34,7 @@ a7eadccb730f3a21452f5ac243ebc4875d3eba77 data/botania/advancement/main/ender_air
 e45f6dc7f68ef209afa7361d8bd7baa92e3a0702 data/botania/advancement/main/flower_pickup.json
 0624a2978a656bcef6327c07604cdb40832031a1 data/botania/advancement/main/flower_pickup_lexicon.json
 99ae0e7681d5378491ed82398cce39ad8dd8e7f1 data/botania/advancement/main/functional_flower.json
-91dc3723e83781b2767ff95666872c0ec48deeab data/botania/advancement/main/gaia_guardian_kill.json
+bc83a8ee82ed5c341615b77a9b478f7e68e2f891 data/botania/advancement/main/gaia_guardian_kill.json
 6eecabf72c51fe1732cc8a754617285601fff80d data/botania/advancement/main/generating_flower.json
 8f6cbeea82a1b76e42500a063aeb703e1acde611 data/botania/advancement/main/heisei_dream_pickup.json
 13428ceab64cabee1cfd84b75416d904888aa322 data/botania/advancement/main/kekimurus_pickup.json
@@ -42,7 +42,7 @@ e45f6dc7f68ef209afa7361d8bd7baa92e3a0702 data/botania/advancement/main/flower_pi
 1722f528efb625486e04f7baca0b458e7066713d data/botania/advancement/main/life_aggregator_use.json
 d6d64d68ef593ab5afa3cb74ec1a9b9bb32ad9aa data/botania/advancement/main/luminizer_ride.json
 a59e5e3a4b66dc8ca832a995345248b80b71e559 data/botania/advancement/main/mana_blaster_shoot.json
-bf0f6b51ab3eb7eaffae5b8c782da276bb1e77d9 data/botania/advancement/main/mana_cart_craft.json
+e62184fd8ffdb0fcb8f385db73bbfef5557cd691 data/botania/advancement/main/mana_cart_craft.json
 9cde3cf59970bbfe91d81818b961cee75d126d3a data/botania/advancement/main/mana_pool_pickup.json
 611e6a57ab4506b4f1d369738df00f15084209cd data/botania/advancement/main/mana_pool_pickup_lexicon.json
 23547f89d0ac44bb0edd2006363b54168d77d2ba data/botania/advancement/main/manastorm_charge_ignite.json

@@ -41,21 +41,21 @@ public final class EntityRenderers {
 
 	public static void registerEntityRenderers(EntityRendererConsumer consumer) {
 		consumer.accept(BotaniaEntities.MANA_BURST, NoopRenderer::new);
-		consumer.accept(BotaniaEntities.PLAYER_MOVER, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.LUMINIZER_BEAM, NoopRenderer::new);
 		consumer.accept(BotaniaEntities.FLAME_RING, NoopRenderer::new);
-		consumer.accept(BotaniaEntities.MAGIC_LANDMINE, MagicLandmineRenderer::new);
+		consumer.accept(BotaniaEntities.GAIA_TRAP, MagicLandmineRenderer::new);
 		consumer.accept(BotaniaEntities.MAGIC_MISSILE, NoopRenderer::new);
 		consumer.accept(BotaniaEntities.FALLING_STAR, NoopRenderer::new);
-		consumer.accept(BotaniaEntities.ENDER_AIR, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.ENDER_AIR_CLOUD, NoopRenderer::new);
 		consumer.accept(BotaniaEntities.THROWN_ITEM, ItemEntityRenderer::new);
 		consumer.accept(BotaniaEntities.PIXIE, PixieRenderer::new);
 		consumer.accept(BotaniaEntities.GAIA_GUARDIAN, GaiaGuardianRenderer::new);
 		consumer.accept(BotaniaEntities.SPARK, ManaSparkRenderer::new);
 		consumer.accept(BotaniaEntities.CORPOREA_SPARK, CorporeaSparkRenderer::new);
-		consumer.accept(BotaniaEntities.POOL_MINECART, ManaPoolMinecartRenderer::new);
+		consumer.accept(BotaniaEntities.MANA_POOL_MINECART, ManaPoolMinecartRenderer::new);
 		consumer.accept(BotaniaEntities.PINK_WITHER, PinkWitherRenderer::new);
-		consumer.accept(BotaniaEntities.MANA_STORM, ManaStormRenderer::new);
-		consumer.accept(BotaniaEntities.BABYLON_WEAPON, BabylonWeaponRenderer::new);
+		consumer.accept(BotaniaEntities.MANASTORM_EPICENTER, ManaStormRenderer::new);
+		consumer.accept(BotaniaEntities.TREASURY_WEAPON, BabylonWeaponRenderer::new);
 
 		consumer.accept(BotaniaEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
 		consumer.accept(BotaniaEntities.VINE_BALL, ThrownItemRenderer::new);

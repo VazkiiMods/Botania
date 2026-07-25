@@ -708,10 +708,10 @@
 
   "entity.botania.mana_burst": "Pulso de maná",
   "entity.botania.pixie": "Hada",
-  "entity.botania.ring_of_flame": "Anillo de llama",
+  "entity.botania.flame_ring": "Anillo de llama",
   "entity.botania.vine_ball": "Bola de enredadera",
-  "entity.botania.doppleganger": "Guardián de Gaia",
-  "entity.botania.magic_landmine": "Trampa de Gaia",
+  "entity.botania.gaia_guardian": "Guardián de Gaia",
+  "entity.botania.gaia_trap": "Trampa de Gaia",
   "entity.botania.spark": "Chispa",
   "entity.botania.thrown_item": "Objeto lanzado",
   "entity.botania.magic_missile": "Misil mágico",
@@ -719,11 +719,11 @@
   "entity.botania.corporea_spark": "Chispa de corporea",
   "entity.botania.ender_air_bottle": "Botella de aire del Fin",
 
-  "entity.botania.pool_minecart": "Vagoneta de pila de maná",
+  "entity.botania.mana_pool_minecart": "Vagoneta de pila de maná",
   "entity.botania.pink_wither": "Wither rosa",
-  "entity.botania.player_mover": "Rayo de luminizador",
-  "entity.botania.mana_storm": "Epicentro de tormenta de maná",
-  "entity.botania.babylon_weapon": "Arma del tesoro",
+  "entity.botania.luminizer_beam": "Rayo de luminizador",
+  "entity.botania.manastorm_epicenter": "Epicentro de tormenta de maná",
+  "entity.botania.treasury_weapon": "Arma del tesoro",
   "entity.botania.falling_star": "Estrella caída",
 
 
@@ -2077,7 +2077,7 @@
   "item.botania.flower_pouch": "Bolsa de flores",
 
   "item.botania.phantom_ink": "Tinta fantasma",
-  "item.botania.pool_minecart": "Vagoneta con pila de maná",
+  "item.botania.mana_pool_minecart": "Vagoneta con pila de maná",
   "item.botania.the_pinkinator": "El rosanator",
   "item.botania.the_fruit_of_grisaia": "La fruta de Grisaia",
   "item.botania.key_of_the_kings_law": "Llave de la ley real",

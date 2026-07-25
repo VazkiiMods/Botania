@@ -48,7 +48,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 	}
 
 	public ManaPoolMinecartEntity(Level world, double x, double y, double z) {
-		super(BotaniaEntities.POOL_MINECART, world, x, y, z);
+		super(BotaniaEntities.MANA_POOL_MINECART, world, x, y, z);
 	}
 
 	// [VanillaCopy] AbstractMinecart.createMinecart without type switch
@@ -93,7 +93,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 	@Override
 	public ItemStack getPickResult() {
-		return new ItemStack(BotaniaItems.POOL_MINECART);
+		return new ItemStack(BotaniaItems.MANA_POOL_MINECART);
 	}
 
 	@Override
@@ -195,7 +195,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 	@Override
 	protected Item getDropItem() {
-		return BotaniaItems.POOL_MINECART;
+		return BotaniaItems.MANA_POOL_MINECART;
 	}
 
 	@SoftImplement("IAbstractMinecartExtension")

@@ -3269,7 +3269,7 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.PHANTOM_INK, new PhantomInkBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.WAND_OF_THE_ELVEN_FOREST, new WandBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.FLORAL_OBEDIENCE_STICK, new StickBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.POOL_MINECART, new ManaPoolMinecartBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.MANA_POOL_MINECART, new ManaPoolMinecartBehavior());
 		DispenserBlock.registerBehavior(FEL_PUMPKIN, new FelPumpkinBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.SPARK, new ManaSparkBehavior());
 		DispenserBlock.registerBehavior(

@@ -66,7 +66,7 @@ public class BabylonWeaponEntity extends LegallyDistinctThrowableProjectile {
 	}
 
 	public BabylonWeaponEntity(LivingEntity thrower, Level world) {
-		super(BotaniaEntities.BABYLON_WEAPON, thrower, world);
+		super(BotaniaEntities.TREASURY_WEAPON, thrower, world);
 	}
 
 	@Override

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:pool_minecart"
+        "recipe": "botania:mana_pool_minecart"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "botania:pool_minecart"
+      "botania:mana_pool_minecart"
     ]
   }
 }

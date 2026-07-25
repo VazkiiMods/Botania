@@ -48,7 +48,7 @@ public class LuminizerMoverEntity extends Entity {
 	}
 
 	public LuminizerMoverEntity(Level world, BlockPos pos, BlockPos exitPos) {
-		this(BotaniaEntities.PLAYER_MOVER, world);
+		this(BotaniaEntities.LUMINIZER_BEAM, world);
 		setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 		setExit(exitPos);
 	}

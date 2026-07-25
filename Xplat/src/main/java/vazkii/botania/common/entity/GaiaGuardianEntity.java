@@ -1082,7 +1082,7 @@ public class GaiaGuardianEntity extends Mob {
 								int y = (int) players.get(random.nextInt(players.size())).getY();
 								int z = source.getZ() - 10 + random.nextInt(20);
 
-								MagicLandmineEntity landmine = BotaniaEntities.MAGIC_LANDMINE.create(level());
+								MagicLandmineEntity landmine = BotaniaEntities.GAIA_TRAP.create(level());
 								if (landmine != null) {
 									landmine.setPos(x + 0.5, y, z + 0.5);
 									landmine.summoner = this;

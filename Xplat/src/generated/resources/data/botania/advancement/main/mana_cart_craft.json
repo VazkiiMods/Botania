@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:pool_minecart"
+            "items": "botania:mana_pool_minecart"
           }
         ]
       },
@@ -18,7 +18,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "botania:pool_minecart"
+      "id": "botania:mana_pool_minecart"
     },
     "title": {
       "translate": "advancement.botania:manaCartCraft"

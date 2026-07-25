@@ -16,12 +16,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
-public class EnderAirEntity extends Entity {
+public class EnderAirCloudEntity extends Entity {
 	private static final String TAG_AGE = "Age";
 	private static final int MAX_AGE = 3 * 20;
 
-	public EnderAirEntity(EntityType<?> type, Level level) {
-		super(type, level);
+	public EnderAirCloudEntity(EntityType<?> entityType, Level level) {
+		super(entityType, level);
 	}
 
 	@Override

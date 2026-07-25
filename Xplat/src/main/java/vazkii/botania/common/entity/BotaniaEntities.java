@@ -54,11 +54,11 @@ public final class BotaniaEntities {
 			.clientTrackingRange(10)
 			.updateInterval(10)
 			.build(LibEntityNames.GAIA_GUARDIAN.toString());
-	public static final EntityType<MagicLandmineEntity> MAGIC_LANDMINE = EntityType.Builder.of(MagicLandmineEntity::new, MobCategory.MISC)
+	public static final EntityType<MagicLandmineEntity> GAIA_TRAP = EntityType.Builder.of(MagicLandmineEntity::new, MobCategory.MISC)
 			.sized(5F, 0.1F)
 			.clientTrackingRange(8)
 			.updateInterval(40)
-			.build(LibEntityNames.MAGIC_LANDMINE.toString());
+			.build(LibEntityNames.GAIA_TRAP.toString());
 	public static final EntityType<ManaSparkEntity> SPARK = EntityType.Builder.<ManaSparkEntity>of(ManaSparkEntity::new, MobCategory.MISC)
 			.sized(0.2F, 0.5F)
 			.fireImmune()
@@ -91,43 +91,42 @@ public final class BotaniaEntities {
 			.clientTrackingRange(4)
 			.updateInterval(10)
 			.build(LibEntityNames.ENDER_AIR_BOTTLE.toString());
-	public static final EntityType<ManaPoolMinecartEntity> POOL_MINECART = EntityType.Builder.<ManaPoolMinecartEntity>of(ManaPoolMinecartEntity::new, MobCategory.MISC)
+	public static final EntityType<ManaPoolMinecartEntity> MANA_POOL_MINECART = EntityType.Builder.<ManaPoolMinecartEntity>of(ManaPoolMinecartEntity::new, MobCategory.MISC)
 			.sized(0.98F, 0.7F)
 			.clientTrackingRange(5)
 			.updateInterval(3)
-			.build(LibEntityNames.POOL_MINECART.toString());
+			.build(LibEntityNames.MANA_POOL_MINECART.toString());
 	public static final EntityType<PinkWitherEntity> PINK_WITHER = EntityType.Builder.of(PinkWitherEntity::new, MobCategory.MISC)
 			.sized(0.9F, 3.5F)
 			.clientTrackingRange(6)
 			.updateInterval(3)
 			.build(LibEntityNames.PINK_WITHER.toString());
-	public static final EntityType<LuminizerMoverEntity> PLAYER_MOVER = EntityType.Builder.<LuminizerMoverEntity>of(
-			LuminizerMoverEntity::new, MobCategory.MISC)
+	public static final EntityType<LuminizerMoverEntity> LUMINIZER_BEAM = EntityType.Builder.<LuminizerMoverEntity>of(LuminizerMoverEntity::new, MobCategory.MISC)
 			.sized(0, 0)
 			.clientTrackingRange(10)
 			.updateInterval(3)
-			.build(LibEntityNames.PLAYER_MOVER.toString());
-	public static final EntityType<ManaStormEntity> MANA_STORM = EntityType.Builder.of(ManaStormEntity::new, MobCategory.MISC)
+			.build(LibEntityNames.LUMINIZER_BEAM.toString());
+	public static final EntityType<ManaStormEntity> MANASTORM_EPICENTER = EntityType.Builder.of(ManaStormEntity::new, MobCategory.MISC)
 			.sized(0.98F, 0.98F)
 			.clientTrackingRange(4)
 			.updateInterval(10)
-			.build(LibEntityNames.MANA_STORM.toString());
-	public static final EntityType<BabylonWeaponEntity> BABYLON_WEAPON = EntityType.Builder.<BabylonWeaponEntity>of(BabylonWeaponEntity::new, MobCategory.MISC)
+			.build(LibEntityNames.MANASTORM_EPICENTER.toString());
+	public static final EntityType<BabylonWeaponEntity> TREASURY_WEAPON = EntityType.Builder.<BabylonWeaponEntity>of(BabylonWeaponEntity::new, MobCategory.MISC)
 			.sized(0, 0)
 			.clientTrackingRange(6)
 			.updateInterval(10)
-			.build(LibEntityNames.BABYLON_WEAPON.toString());
+			.build(LibEntityNames.TREASURY_WEAPON.toString());
 	public static final EntityType<FallingStarEntity> FALLING_STAR = EntityType.Builder.<FallingStarEntity>of(FallingStarEntity::new, MobCategory.MISC)
 			.sized(0, 0)
 			.clientTrackingRange(4)
 			.updateInterval(10)
 			.build(LibEntityNames.FALLING_STAR.toString());
-	public static final EntityType<EnderAirEntity> ENDER_AIR = EntityType.Builder.of(EnderAirEntity::new, MobCategory.MISC)
+	public static final EntityType<EnderAirCloudEntity> ENDER_AIR_CLOUD = EntityType.Builder.of(EnderAirCloudEntity::new, MobCategory.MISC)
 			.fireImmune()
 			.sized(1, 1)
 			.clientTrackingRange(4)
 			.updateInterval(Integer.MAX_VALUE)
-			.build(LibEntityNames.ENDER_AIR.toString());
+			.build(LibEntityNames.ENDER_AIR_CLOUD.toString());
 
 	public static void registerEntities(BiConsumer<EntityType<?>, ResourceLocation> r) {
 		r.accept(MANA_BURST, LibEntityNames.MANA_BURST);
@@ -135,20 +134,20 @@ public final class BotaniaEntities {
 		r.accept(FLAME_RING, LibEntityNames.FLAME_RING);
 		r.accept(VINE_BALL, LibEntityNames.VINE_BALL);
 		r.accept(GAIA_GUARDIAN, LibEntityNames.GAIA_GUARDIAN);
-		r.accept(MAGIC_LANDMINE, LibEntityNames.MAGIC_LANDMINE);
+		r.accept(GAIA_TRAP, LibEntityNames.GAIA_TRAP);
 		r.accept(SPARK, LibEntityNames.SPARK);
 		r.accept(THROWN_ITEM, LibEntityNames.THROWN_ITEM);
 		r.accept(MAGIC_MISSILE, LibEntityNames.MAGIC_MISSILE);
 		r.accept(THORN_CHAKRAM, LibEntityNames.THORN_CHAKRAM);
 		r.accept(CORPOREA_SPARK, LibEntityNames.CORPOREA_SPARK);
 		r.accept(ENDER_AIR_BOTTLE, LibEntityNames.ENDER_AIR_BOTTLE);
-		r.accept(POOL_MINECART, LibEntityNames.POOL_MINECART);
+		r.accept(MANA_POOL_MINECART, LibEntityNames.MANA_POOL_MINECART);
 		r.accept(PINK_WITHER, LibEntityNames.PINK_WITHER);
-		r.accept(PLAYER_MOVER, LibEntityNames.PLAYER_MOVER);
-		r.accept(MANA_STORM, LibEntityNames.MANA_STORM);
-		r.accept(BABYLON_WEAPON, LibEntityNames.BABYLON_WEAPON);
+		r.accept(LUMINIZER_BEAM, LibEntityNames.LUMINIZER_BEAM);
+		r.accept(MANASTORM_EPICENTER, LibEntityNames.MANASTORM_EPICENTER);
+		r.accept(TREASURY_WEAPON, LibEntityNames.TREASURY_WEAPON);
 		r.accept(FALLING_STAR, LibEntityNames.FALLING_STAR);
-		r.accept(ENDER_AIR, LibEntityNames.ENDER_AIR);
+		r.accept(ENDER_AIR_CLOUD, LibEntityNames.ENDER_AIR_CLOUD);
 	}
 
 	public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> consumer) {

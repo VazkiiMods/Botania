@@ -605,7 +605,7 @@ public final class BotaniaItems {
 			new WorldSeedItem(defaultBuilder()));
 	public static final Item PHANTOM_INK = make(LibItemNames.PHANTOM_INK,
 			new PhantomInkItem(defaultBuilder()));
-	public static final Item POOL_MINECART = make(LibItemNames.POOL_MINECART,
+	public static final Item MANA_POOL_MINECART = make(LibItemNames.MANA_POOL_MINECART,
 			new ManaPoolMinecartItem(unstackable()));
 	public static final Item RESOLUTE_IVY = make(LibItemNames.RESOLUTE_IVY,
 			new ResoluteIvyItem(defaultBuilder()));

@@ -236,7 +236,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaEntities.registerEntities(bind(BuiltInRegistries.ENTITY_TYPE));
 		PixieHandler.registerAttribute(BuiltInRegistries.ATTRIBUTE);
 		BotaniaEntities.registerAttributes(FabricDefaultAttributeRegistry::register);
-		MinecartComparatorLogicRegistry.register(BotaniaEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
+		MinecartComparatorLogicRegistry.register(BotaniaEntities.MANA_POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
 		ItemSources.submitRegistrations(bind(ITEM_SOURCE_REGISTRY));
 
 		// Potions

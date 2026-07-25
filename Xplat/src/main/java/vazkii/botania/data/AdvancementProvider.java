@@ -146,9 +146,9 @@ public class AdvancementProvider {
 					.addCriterion("flower", onPickup(BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOWERS))
 					.save(writer, mainId("functional_flower"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.POOL_MINECART, "manaCartCraft", AdvancementType.TASK))
+					.display(simple(BotaniaItems.MANA_POOL_MINECART, "manaCartCraft", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("poolcart", onPickup(BotaniaItems.POOL_MINECART))
+					.addCriterion("poolcart", onPickup(BotaniaItems.MANA_POOL_MINECART))
 					.save(writer, mainId("mana_cart_craft"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.MANAWEAVE_CLOTH, "manaweaveArmorCraft", AdvancementType.TASK))
