@@ -55,8 +55,12 @@ repositories {
         url = "https://maven.blamejared.com/" // for JEI and Patchouli
     }
     maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/" // for trinkets and emi
+        name = "Sleeping Town"
+        url = "https://repo.sleeping.town/" // for emi, trinkets, and ears
+        content {
+            includeGroup("com.unascribed")
+            includeGroup("dev.emi")
+        }
     }
     maven {
           name = "Ladysnake Libs"
@@ -79,13 +83,6 @@ repositories {
     maven {
         name = "ParchmentMC"
         url = "https://maven.parchmentmc.net/"
-    }
-    maven {
-        name = "Unascribed"
-        url "https://repo.unascribed.com" // for ears
-        content {
-            includeGroup "com.unascribed"
-        }
     }
     maven {
         name = "Modrinth"
@@ -112,8 +109,8 @@ dependencies {
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.0.625"
 
-    modCompileOnly "dev.emi:emi-fabric:1.0.28+${minecraft_version}:api"
-    modLocalRuntime "dev.emi:emi-fabric:1.1.22+${minecraft_version}"
+    modCompileOnly "dev.emi:emi-fabric:1.0.4+${minecraft_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:1.1.24+${minecraft_version}"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"  
     include "me.zeroeightsix:fiber:0.23.0-2"

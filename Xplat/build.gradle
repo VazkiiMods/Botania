@@ -26,14 +26,11 @@ repositories {
         url = "https://maven.blamejared.com/"
     }
     maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/" // for emi
-    }
-    maven {
-        name = "Unascribed"
-        url "https://repo.unascribed.com" // for ears
+        name = "Sleeping Town"
+        url = "https://repo.sleeping.town/" // for emi and ears
         content {
-            includeGroup "com.unascribed"
+            includeGroup("com.unascribed")
+            includeGroup("dev.emi")
         }
     }
 }
@@ -50,7 +47,7 @@ dependencies {
     compileOnly "com.unascribed:ears-api:1.4.5"
 
     compileOnly "mezz.jei:jei-1.20.1-common-api:15.2.0.27"
-    compileOnly "dev.emi:emi-xplat-mojmap:1.0.4+${minecraft_version}"
+    compileOnly "dev.emi:emi-xplat-mojmap:1.0.4+${minecraft_version}:api"
 
     compileOnly "org.jetbrains:annotations:24.0.1"
 
