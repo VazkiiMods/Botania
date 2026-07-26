@@ -71,18 +71,15 @@ repositories {
         url = "https://maven.blamejared.com"
     }
     maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/" // for emi
+        name = "Sleeping Town"
+        url = "https://repo.sleeping.town/" // for emi, trinkets, and ears
+        content {
+            includeGroup("com.unascribed")
+            includeGroup("dev.emi")
+        }
     }
     maven {
         url = "https://maven.shedaniel.me/" // for rei
-    }
-    maven {
-        name = "Unascribed"
-        url = "https://repo.unascribed.com" // for ears
-        content {
-            includeGroup("com.unascribed")
-        }
     }
     maven {
         name = "Modrinth"
