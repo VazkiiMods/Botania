@@ -18,7 +18,7 @@ patchouli-xplat = "1.21.1-92"
 patchouli-fabric = "1.21.1-92-FABRIC" # this is part of why we changed the format in Botania for 1.21.1
 patchouli-neoforge = "1.21.1-92-NEOFORGE" # TODO: is there a good way to define these programatically?
 
-emi = "1.1.22+1.21.1"
+emi = "1.1.24+1.21.1"
 jei = "19.27.0.340"
 rei = "16.0.799"
 

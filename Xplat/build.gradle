@@ -23,7 +23,7 @@ dependencies {
     compileOnly(libs.patchouli.xplat)
     compileOnly(libs.ears)
     compileOnly(libs.jei.common.api)
-    compileOnly(variantOf(libs.emi.xplat) { classifier("api") })
+    compileOnly(variantOf(libs.emi.neoforge) { classifier("api") }) // xplat variant is currently missing
     compileOnly(libs.rei.neoforge) // (the -common variant would be in Intermediary mapping)
 
     compileOnly(libs.jetbrains.annotations)
