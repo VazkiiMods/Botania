@@ -99,8 +99,8 @@ dependencies {
     modCompileOnly("mezz.jei:jei-1.20.1-common-api:15.2.0.27")
     modRuntimeOnly("mezz.jei:jei-1.20.1-forge:15.2.0.27")
 
-    modCompileOnlyApi("dev.emi:emi-forge:1.0.12+${minecraft_version}")
-    //modRuntimeOnly("dev.emi:emi-forge:1.1.4+${minecraft_version}")
+    modCompileOnlyApi("dev.emi:emi-forge:1.0.4+${minecraft_version}")
+    //modRuntimeOnly("dev.emi:emi-forge:1.1.22+${minecraft_version}")
 
     modCompileOnly("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1:api")
     modRuntimeOnly("top.theillusivec4.curios:curios-forge:5.4.2+1.20.1")

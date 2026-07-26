@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    compileOnly "org.spongepowered:mixin:0.8.5"
     compileOnly "vazkii.patchouli:Patchouli-xplat:${minecraft_version}-84"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
@@ -50,7 +50,7 @@ dependencies {
     compileOnly "com.unascribed:ears-api:1.4.5"
 
     compileOnly "mezz.jei:jei-1.20.1-common-api:15.2.0.27"
-    compileOnly "dev.emi:emi-xplat-mojmap:1.0.12+${minecraft_version}:api"
+    compileOnly "dev.emi:emi-xplat-mojmap:1.0.4+${minecraft_version}"
 
     compileOnly "org.jetbrains:annotations:24.0.1"
 
