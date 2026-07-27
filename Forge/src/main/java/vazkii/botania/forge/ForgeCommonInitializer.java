@@ -440,6 +440,9 @@ public class ForgeCommonInitializer {
 				if (e.getEntity() instanceof Player player) {
 					FlugelTiaraItem.updatePlayerFlyStatus(player);
 					SojournersSashItem.tickBelt(player);
+					if (!player.level().isClientSide()) {
+						EnderOverseerBlockEntity.checkLookingAtEnderOverseer(player);
+					}
 				}
 			});
 			bus.addListener((LivingFallEvent e) -> {

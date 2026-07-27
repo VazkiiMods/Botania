@@ -34,6 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import vazkii.botania.common.PlayerAccess;
+import vazkii.botania.common.block.block_entity.EnderOverseerBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
@@ -104,8 +105,12 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 
 	@Inject(at = @At("RETURN"), method = "tick")
 	private void tickBeltTiara(CallbackInfo ci) {
-		FlugelTiaraItem.updatePlayerFlyStatus((Player) (Object) this);
-		SojournersSashItem.tickBelt((Player) (Object) this);
+		Player player = (Player) (Object) this;
+		FlugelTiaraItem.updatePlayerFlyStatus(player);
+		SojournersSashItem.tickBelt(player);
+		if (!player.level().isClientSide()) {
+			EnderOverseerBlockEntity.checkLookingAtEnderOverseer(player);
+		}
 	}
 
 	@ModifyArg(index = 0, method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;causeFallDamage(FFLnet/minecraft/world/damagesource/DamageSource;)Z"))
