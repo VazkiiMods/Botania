@@ -462,8 +462,12 @@ public class NeoForgeCommonInitializer {
 				}
 			});
 			bus.addListener((PlayerTickEvent.Pre e) -> {
-				FlugelTiaraItem.updatePlayerFlyStatus(e.getEntity());
-				SojournersSashItem.tickBelt(e.getEntity());
+				Player player = e.getEntity();
+				FlugelTiaraItem.updatePlayerFlyStatus(player);
+				SojournersSashItem.tickBelt(player);
+				if (!player.level().isClientSide()) {
+					EnderOverseerBlockEntity.checkLookingAtEnderOverseer(player);
+				}
 			});
 			bus.addListener((LivingFallEvent e) -> {
 				if (e.getEntity() instanceof Player player) {
