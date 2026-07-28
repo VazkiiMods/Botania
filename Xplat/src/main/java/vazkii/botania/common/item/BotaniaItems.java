@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
@@ -298,7 +299,8 @@ public final class BotaniaItems {
 			new ManasteelSwordItem(unstackableCustomDamage()));
 	public static final Item MANASTEEL_SHEARS = make(LibItemNames.MANASTEEL_SHEARS,
 			new ManasteelShearsItem(unstackableCustomDamage()
-					.durability(238)));
+					.durability(238)
+					.component(DataComponents.TOOL, ShearsItem.createToolProperties())));
 	public static final Item ELEMENTIUM_HELMET = make(LibItemNames.ELEMENTIUM_HELMET,
 			new ElementiumHelmItem(0.11, unstackableCustomDamage()
 					.durability(ArmorItem.Type.HELMET.getDurability(18))));
@@ -323,7 +325,8 @@ public final class BotaniaItems {
 			new ElementiumSwordItem(unstackableCustomDamage()));
 	public static final Item ELEMENTIUM_SHEARS = make(LibItemNames.ELEMENTIUM_SHEARS,
 			new ElementiumShearsItem(unstackableCustomDamage()
-					.durability(238)));
+					.durability(238)
+					.component(DataComponents.TOOL, ShearsItem.createToolProperties())));
 	public static final Item TERRASTEEL_HELMET = make(LibItemNames.TERRASTEEL_HELMET,
 			new TerrasteelHelmItem(unstackableCustomDamage()
 					.durability(ArmorItem.Type.HELMET.getDurability(34))
