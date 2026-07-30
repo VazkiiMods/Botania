@@ -32,11 +32,14 @@ import java.util.function.Supplier;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElementiumArmorItem extends ManasteelArmorItem {
-	private final double pixieChance;
+	private final Supplier<ItemAttributeModifiers> defaultModifiers;
 
 	public ElementiumArmorItem(Type type, double pixieChance, Properties properties) {
 		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), properties);
-		this.pixieChance = pixieChance;
+		this.defaultModifiers = Suppliers.memoize(() -> super.getDefaultAttributeModifiers()
+				.withModifierAdded(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(
+						botaniaRL("armor." + type.getName()), pixieChance),
+						EquipmentSlotGroup.bySlot(type.getSlot())));
 	}
 
 	@Override
@@ -90,10 +93,7 @@ public class ElementiumArmorItem extends ManasteelArmorItem {
 
 	@Override
 	public ItemAttributeModifiers getDefaultAttributeModifiers() {
-		return super.getDefaultAttributeModifiers()
-				.withModifierAdded(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(
-						botaniaRL("armor." + type.getName()), pixieChance),
-						EquipmentSlotGroup.bySlot(type.getSlot()));
+		return this.defaultModifiers.get();
 	}
 
 }
