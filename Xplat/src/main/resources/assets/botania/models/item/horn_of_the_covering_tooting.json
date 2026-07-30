@@ -1,5 +1,5 @@
 {
-  "parent": "botania:item/horn_grass_tooting",
+  "parent": "botania:item/horn_of_the_wild_tooting",
   "textures": {
     "layer0": "botania:item/horn_of_the_covering"
   }

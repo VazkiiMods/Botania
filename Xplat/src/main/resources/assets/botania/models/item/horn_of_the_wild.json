@@ -24,7 +24,7 @@
   },
   "overrides": [
     {
-      "model": "botania:item/horn_grass_tooting",
+      "model": "botania:item/horn_of_the_wild_tooting",
       "predicate": {
         "minecraft:tooting": 1.0
       }

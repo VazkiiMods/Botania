@@ -2,7 +2,7 @@
   "parent": "botania:item/horn_of_the_wild",
   "overrides": [
     {
-      "model": "botania:item/horn_leaves_tooting",
+      "model": "botania:item/horn_of_the_canopy_tooting",
       "predicate": {
         "minecraft:tooting": 1.0
       }
