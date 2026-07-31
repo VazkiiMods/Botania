@@ -275,18 +275,19 @@ public final class BotaniaItems {
 					.rarity(Rarity.RARE)));
 
 	// Equipment
+	public static final int MANASTEEL_DURABILITY_FACTOR = 18;
 	public static final Item MANASTEEL_HELMET = make(LibItemNames.MANASTEEL_HELMET,
 			new ManasteelHelmItem(unstackableCustomDamage()
-					.durability(ArmorItem.Type.HELMET.getDurability(16))));
+					.durability(ArmorItem.Type.HELMET.getDurability(MANASTEEL_DURABILITY_FACTOR))));
 	public static final Item MANASTEEL_CHESTPLATE = make(LibItemNames.MANASTEEL_CHESTPLATE,
 			new ManasteelArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()
-					.durability(ArmorItem.Type.CHESTPLATE.getDurability(16))));
+					.durability(ArmorItem.Type.CHESTPLATE.getDurability(MANASTEEL_DURABILITY_FACTOR))));
 	public static final Item MANASTEEL_LEGGINGS = make(LibItemNames.MANASTEEL_LEGGINGS,
 			new ManasteelArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()
-					.durability(ArmorItem.Type.LEGGINGS.getDurability(16))));
+					.durability(ArmorItem.Type.LEGGINGS.getDurability(MANASTEEL_DURABILITY_FACTOR))));
 	public static final Item MANASTEEL_BOOTS = make(LibItemNames.MANASTEEL_BOOTS,
 			new ManasteelArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()
-					.durability(ArmorItem.Type.BOOTS.getDurability(16))));
+					.durability(ArmorItem.Type.BOOTS.getDurability(MANASTEEL_DURABILITY_FACTOR))));
 	public static final Item MANASTEEL_PICKAXE = make(LibItemNames.MANASTEEL_PICKAXE,
 			new ManasteelPickaxeItem(unstackableCustomDamage()));
 	public static final Item MANASTEEL_SHOVEL = make(LibItemNames.MANASTEEL_SHOVEL,
@@ -297,22 +298,24 @@ public final class BotaniaItems {
 			new ManasteelHoeItem(unstackableCustomDamage()));
 	public static final Item MANASTEEL_SWORD = make(LibItemNames.MANASTEEL_SWORD,
 			new ManasteelSwordItem(unstackableCustomDamage()));
+	public static final int SHEARS_DURABILITY = 238;
 	public static final Item MANASTEEL_SHEARS = make(LibItemNames.MANASTEEL_SHEARS,
 			new ManasteelShearsItem(unstackableCustomDamage()
-					.durability(238)
+					.durability(SHEARS_DURABILITY)
 					.component(DataComponents.TOOL, ShearsItem.createToolProperties())));
+	public static final int ELEMENTIUM_DURABILITY_FACTOR = 18;
 	public static final Item ELEMENTIUM_HELMET = make(LibItemNames.ELEMENTIUM_HELMET,
 			new ElementiumHelmItem(0.11, unstackableCustomDamage()
-					.durability(ArmorItem.Type.HELMET.getDurability(18))));
+					.durability(ArmorItem.Type.HELMET.getDurability(ELEMENTIUM_DURABILITY_FACTOR))));
 	public static final Item ELEMENTIUM_CHESTPLATE = make(LibItemNames.ELEMENTIUM_CHESTPLATE,
 			new ElementiumArmorItem(ArmorItem.Type.CHESTPLATE, 0.17, unstackableCustomDamage()
-					.durability(ArmorItem.Type.CHESTPLATE.getDurability(18))));
+					.durability(ArmorItem.Type.CHESTPLATE.getDurability(ELEMENTIUM_DURABILITY_FACTOR))));
 	public static final Item ELEMENTIUM_LEGGINGS = make(LibItemNames.ELEMENTIUM_LEGGINGS,
 			new ElementiumArmorItem(ArmorItem.Type.LEGGINGS, 0.15, unstackableCustomDamage()
-					.durability(ArmorItem.Type.LEGGINGS.getDurability(18))));
+					.durability(ArmorItem.Type.LEGGINGS.getDurability(ELEMENTIUM_DURABILITY_FACTOR))));
 	public static final Item ELEMENTIUM_BOOTS = make(LibItemNames.ELEMENTIUM_BOOTS,
 			new ElementiumArmorItem(ArmorItem.Type.BOOTS, 0.09, unstackableCustomDamage()
-					.durability(ArmorItem.Type.BOOTS.getDurability(18))));
+					.durability(ArmorItem.Type.BOOTS.getDurability(ELEMENTIUM_DURABILITY_FACTOR))));
 	public static final Item ELEMENTIUM_PICKAXE = make(LibItemNames.ELEMENTIUM_PICKAXE,
 			new ElementiumPickaxeItem(unstackableCustomDamage()));
 	public static final Item ELEMENTIUM_SHOVEL = make(LibItemNames.ELEMENTIUM_SHOVEL,
@@ -325,26 +328,27 @@ public final class BotaniaItems {
 			new ElementiumSwordItem(unstackableCustomDamage()));
 	public static final Item ELEMENTIUM_SHEARS = make(LibItemNames.ELEMENTIUM_SHEARS,
 			new ElementiumShearsItem(unstackableCustomDamage()
-					.durability(238)
+					.durability(SHEARS_DURABILITY)
 					.component(DataComponents.TOOL, ShearsItem.createToolProperties())));
+	public static final int TERRASTEEL_DURABILITY_FACTOR = 34;
 	public static final Item TERRASTEEL_HELMET = make(LibItemNames.TERRASTEEL_HELMET,
 			new TerrasteelHelmItem(unstackableCustomDamage()
-					.durability(ArmorItem.Type.HELMET.getDurability(34))
+					.durability(ArmorItem.Type.HELMET.getDurability(TERRASTEEL_DURABILITY_FACTOR))
 					.fireResistant()
 					.rarity(Rarity.UNCOMMON)));
 	public static final Item TERRASTEEL_CHESTPLATE = make(LibItemNames.TERRASTEEL_CHESTPLATE,
 			new TerrasteelArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()
-					.durability(ArmorItem.Type.CHESTPLATE.getDurability(34))
+					.durability(ArmorItem.Type.CHESTPLATE.getDurability(TERRASTEEL_DURABILITY_FACTOR))
 					.fireResistant()
 					.rarity(Rarity.UNCOMMON)));
 	public static final Item TERRASTEEL_LEGGINGS = make(LibItemNames.TERRASTEEL_LEGGINGS,
 			new TerrasteelArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()
-					.durability(ArmorItem.Type.LEGGINGS.getDurability(34))
+					.durability(ArmorItem.Type.LEGGINGS.getDurability(TERRASTEEL_DURABILITY_FACTOR))
 					.fireResistant()
 					.rarity(Rarity.UNCOMMON)));
 	public static final Item TERRASTEEL_BOOTS = make(LibItemNames.TERRASTEEL_BOOTS,
 			new TerrasteelArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()
-					.durability(ArmorItem.Type.BOOTS.getDurability(34))
+					.durability(ArmorItem.Type.BOOTS.getDurability(TERRASTEEL_DURABILITY_FACTOR))
 					.fireResistant()
 					.rarity(Rarity.UNCOMMON)));
 	public static final Item TERRA_SHATTERER = make(LibItemNames.TERRA_SHATTERER,
@@ -365,36 +369,39 @@ public final class BotaniaItems {
 			new StarcallerItem(unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
 	public static final Item THUNDERCALLER = make(LibItemNames.THUNDERCALLER,
 			new ThundercallerItem(unstackableCustomDamage().rarity(Rarity.UNCOMMON)));
+	public static final int MANAWEAVE_DURABILITY_FACTOR = 5;
 	public static final Item MANAWEAVE_HELMET = make(LibItemNames.MANAWEAVE_HELMET,
 			new ManaweaveHelmItem(unstackableCustomDamage()
-					.durability(ArmorItem.Type.HELMET.getDurability(5))));
+					.durability(ArmorItem.Type.HELMET.getDurability(MANAWEAVE_DURABILITY_FACTOR))));
 	public static final Item MANAWEAVE_CHESTPLATE = make(LibItemNames.MANAWEAVE_CHESTPLATE,
 			new ManaweaveArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()
-					.durability(ArmorItem.Type.CHESTPLATE.getDurability(5))));
+					.durability(ArmorItem.Type.CHESTPLATE.getDurability(MANAWEAVE_DURABILITY_FACTOR))));
 	public static final Item MANAWEAVE_LEGGINGS = make(LibItemNames.MANAWEAVE_LEGGINGS,
 			new ManaweaveArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()
-					.durability(ArmorItem.Type.LEGGINGS.getDurability(5))));
+					.durability(ArmorItem.Type.LEGGINGS.getDurability(MANAWEAVE_DURABILITY_FACTOR))));
 	public static final Item MANAWEAVE_BOOTS = make(LibItemNames.MANAWEAVE_BOOTS,
 			new ManaweaveArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()
-					.durability(ArmorItem.Type.BOOTS.getDurability(5))));
+					.durability(ArmorItem.Type.BOOTS.getDurability(MANAWEAVE_DURABILITY_FACTOR))));
 	public static final Item SOULSCRIBE = make(LibItemNames.SOULSCRIBE,
 			new SoulscribeItem(unstackable()
 					.durability(69))); // What you looking at?
 	public static final Item VITREOUS_PICKAXE = make(LibItemNames.VITREOUS_PICKAXE,
 			new VitreousPickaxeItem(unstackableCustomDamage()));
+	public static final int BOW_DURABILITY = 500; // (vanilla bow is 384)
 	public static final Item LIVINGWOOD_BOW = make(LibItemNames.LIVINGWOOD_BOW,
 			new LivingwoodBowItem(defaultBuilderCustomDamage()
-					.durability(500)));
+					.durability(BOW_DURABILITY)));
 	public static final Item CRYSTAL_BOW = make(LibItemNames.CRYSTAL_BOW,
 			new CrystalBowItem(defaultBuilderCustomDamage()
-					.durability(500)));
+					.durability(BOW_DURABILITY)));
+	public static final int CHAKRAM_STACK_SIZE = 6;
 	public static final Item THORN_CHAKRAM = make(LibItemNames.THORN_CHAKRAM,
 			new ThornChakramItem(defaultBuilder()
-					.stacksTo(6)
+					.stacksTo(CHAKRAM_STACK_SIZE)
 					.rarity(Rarity.UNCOMMON)));
 	public static final Item FLARE_CHAKRAM = make(LibItemNames.FLARE_CHAKRAM,
 			new ThornChakramItem(defaultBuilder()
-					.stacksTo(6)
+					.stacksTo(CHAKRAM_STACK_SIZE)
 					.rarity(Rarity.UNCOMMON)));
 
 	// Misc tools
