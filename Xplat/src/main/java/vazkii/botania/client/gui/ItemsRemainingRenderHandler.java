@@ -14,8 +14,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
@@ -25,12 +27,11 @@ import vazkii.botania.network.clientbound.UpdateItemsRemainingPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.text.NumberFormat;
-import java.util.regex.Pattern;
 
 public final class ItemsRemainingRenderHandler {
 
-	private static final int maxTicks = 30;
-	private static final int leaveTicks = 20;
+	private static final int MAX_TICKS = 30;
+	private static final int LEAVE_TICKS = 20;
 
 	private static ItemStack stack = ItemStack.EMPTY;
 	@Nullable
@@ -40,12 +41,12 @@ public final class ItemsRemainingRenderHandler {
 	public static void render(GuiGraphics gui, float partialTick) {
 		PoseStack ms = gui.pose();
 		if (ticks > 0 && !stack.isEmpty()) {
-			int pos = maxTicks - ticks;
+			int pos = MAX_TICKS - ticks;
 			Minecraft mc = Minecraft.getInstance();
-			int x = mc.getWindow().getGuiScaledWidth() / 2 + 10 + Math.max(0, pos - leaveTicks);
+			int x = mc.getWindow().getGuiScaledWidth() / 2 + 10 + Math.max(0, pos - LEAVE_TICKS);
 			int y = mc.getWindow().getGuiScaledHeight() / 2;
 
-			int start = maxTicks - leaveTicks;
+			int start = MAX_TICKS - LEAVE_TICKS;
 			float alpha = ticks + partialTick > start ? 1F : (ticks + partialTick) / start;
 
 			// RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
@@ -99,31 +100,30 @@ public final class ItemsRemainingRenderHandler {
 		}
 	}
 
-	public static void send(@Nullable Player player, ItemStack stack, int count) {
-		send(player, stack, count, null);
+	public static void send(@Nullable Player player, ItemStack displayStack, int count) {
+		send(player, displayStack, count, null);
 	}
 
 	public static void set(ItemStack stack, int count, @Nullable Component str) {
 		ItemsRemainingRenderHandler.stack = stack;
 		ItemsRemainingRenderHandler.count = count;
 		ItemsRemainingRenderHandler.customString = str;
-		ticks = stack.isEmpty() ? 0 : maxTicks;
+		ticks = stack.isEmpty() ? 0 : MAX_TICKS;
 	}
 
-	public static void send(@Nullable Player entity, ItemStack stack, int count, @Nullable Component str) {
-		XplatAbstractions.INSTANCE.sendToPlayer(entity, new UpdateItemsRemainingPacket(stack, count, str));
+	public static void send(@Nullable Player player, ItemStack displayStack, int count, @Nullable Component str) {
+		XplatAbstractions.INSTANCE.sendToPlayer(player, new UpdateItemsRemainingPacket(displayStack, count, str));
 	}
 
-	public static void send(Player player, ItemStack displayStack, Pattern pattern) {
+	public static void send(Player player, ItemStack displayStack, TagKey<Item> itemTag) {
 		int count = 0;
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stack = player.getInventory().getItem(i);
-			if (!stack.isEmpty() && pattern.matcher(stack.getDescriptionId()).find()) {
+			if (!stack.isEmpty() && stack.is(itemTag)) {
 				count += stack.getCount();
 			}
 		}
 
 		send(player, displayStack, count, null);
 	}
-
 }

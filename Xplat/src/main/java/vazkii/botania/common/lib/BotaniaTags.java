@@ -149,6 +149,16 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Item> IGNORED_BY_ENDOFLAME = tag("ignored_by_endoflame");
 
+		/**
+		 * Items that can be placed by using a Botania axe while the item is in the player's inventory.
+		 */
+		public static final TagKey<Item> TOOL_PLACEABLE_AXE = tag("tool_placeable/axe");
+
+		/**
+		 * Items that can be placed by using a Botania pickaxe while the item is in the player's inventory.
+		 */
+		public static final TagKey<Item> TOOL_PLACEABLE_PICKAXE = tag("tool_placeable/pickaxe");
+
 		public static TagKey<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
 				case WHITE -> PETALS_WHITE;

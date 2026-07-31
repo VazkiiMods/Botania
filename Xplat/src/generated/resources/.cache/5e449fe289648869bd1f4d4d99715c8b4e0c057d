@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-22T21:10:28.217071	Botania/Tags for minecraft:item
+// 1.21.1	2026-07-31T09:48:59.025157185	Botania/Tags for minecraft:item
 665aee3cc41d8f1e66408e198692f4ebec572aba data/botania/tags/item/all_mana_pools.json
 2b5505ddf6b15ea500a714fd10bc4ec05fa3eef5 data/botania/tags/item/ancient_wills.json
 9c05adc2a63d8b6a2636d766d8858160e1308c25 data/botania/tags/item/burst_viewers.json
@@ -63,6 +63,8 @@ b3e901e6961e758d2af56cfd3b9dfc6d492bd493 data/botania/tags/item/semi_disposable.
 06b30f36782652172c2351006c32cd59afff7d5d data/botania/tags/item/special_floating_flowers.json
 f9cbec686df06a01e62d90f653c978deb25369f9 data/botania/tags/item/special_flowers.json
 1f3db3ee3bda4037aac8f9a0db0ff20de6969c96 data/botania/tags/item/tall_mystical_flowers.json
+347d7db9633b91359c616fd62d97385b7de8bc73 data/botania/tags/item/tool_placeable/axe.json
+d81233d08961fa958029849ef6b97e84ef74769e data/botania/tags/item/tool_placeable/pickaxe.json
 c23ad2f264eacf9d5cf691d47aef8e4c5f2b0be3 data/botania/tags/item/undims_floating_flowers.json
 8d6337f7d60553cf4fed78628e04f0b1d81102bb data/minecraft/tags/item/axes.json
 650b856880292b1dd224f572067b4b85f1f03418 data/minecraft/tags/item/beacon_payment_items.json

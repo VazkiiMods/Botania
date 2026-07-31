@@ -414,6 +414,8 @@
   "tag.item.botania.glimmering_flowers": "Glimmering Flowers",
   "tag.item.botania.special_floating_flowers": "Special Floating Flowers",
   "tag.item.botania.special_flowers": "Special Flowers",
+  "tag.item.botania.tool_placeable.axe": "Placeable by Mana Axes",
+  "tag.item.botania.tool_placeable.pickaxe": "Placeable by Mana Pickaxes",
   "tag.item.botania.undims_floating_flowers": "Un-dims Floating Flowers",
   "tag.item.c.buckets.extrapolating": "Extrapolating Buckets",
   "tag.item.c.cobblestones.metamorphic": "Metamorphic Cobblestones",

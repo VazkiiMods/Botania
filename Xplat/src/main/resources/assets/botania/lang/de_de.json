@@ -414,6 +414,8 @@
   "tag.item.botania.glimmering_flowers": "Schimmernde Blumen",
   "tag.item.botania.special_floating_flowers": "Spezielle schwebende Blumen",
   "tag.item.botania.special_flowers": "Spezielle Blumen",
+  "tag.item.botania.tool_placeable.axe": "Platzierbar durch Mana-Äxte",
+  "tag.item.botania.tool_placeable.pickaxe": "Platzierbar durch Mana-Spitzhacken",
   "tag.item.botania.undims_floating_flowers": "Entdimmt schwebende Blumen",
   "tag.item.c.buckets.extrapolating": "Extrapolierte Eimer",
   "tag.item.c.cobblestones.metamorphic": "Metamorphische Bruchsteine",

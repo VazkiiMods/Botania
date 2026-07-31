@@ -1,0 +1,31 @@
+{
+  "values": [
+    "minecraft:torch",
+    "minecraft:soul_torch",
+    "minecraft:redstone_torch",
+    {
+      "id": "copperagebackport:copper_torch",
+      "required": false
+    },
+    {
+      "id": "occultism:spirit_torch",
+      "required": false
+    },
+    {
+      "id": "torches:stone_torch",
+      "required": false
+    },
+    {
+      "id": "#quad-mstv-mtv:fire_torch_variants",
+      "required": false
+    },
+    {
+      "id": "#quad-mstv-mtv:redstone_torch_variants",
+      "required": false
+    },
+    {
+      "id": "#quad-mstv-mtv:soul_torch_variants",
+      "required": false
+    }
+  ]
+}

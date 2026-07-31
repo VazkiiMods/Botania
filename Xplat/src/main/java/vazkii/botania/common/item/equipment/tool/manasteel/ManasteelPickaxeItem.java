@@ -27,13 +27,11 @@ import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.function.Consumer;
-import java.util.regex.Pattern;
 
 public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageItem, SortableTool {
-
-	private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:[A-Z-_.:]|^)torch|(?:[a-z-_.:]|^)Torch)(?:[A-Z-_.:]|$)");
 
 	private static final int MANA_PER_DAMAGE = 60;
 
@@ -43,8 +41,8 @@ public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageIte
 		this(BotaniaAPI.instance().getManasteelItemTier(), props, -2.8F);
 	}
 
-	public ManasteelPickaxeItem(Tier mat, Properties props, float attackSpeed) {
-		super(mat, props.attributes(ManasteelPickaxeItem.createAttributes(mat, 1, attackSpeed)));
+	public ManasteelPickaxeItem(Tier tier, Properties props, float attackSpeed) {
+		super(tier, props.attributes(ManasteelPickaxeItem.createAttributes(tier, 1, attackSpeed)));
 	}
 
 	@Override
@@ -54,22 +52,22 @@ public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageIte
 	}
 
 	@Override
-	public InteractionResult useOn(UseOnContext ctx) {
-		Player player = ctx.getPlayer();
+	public InteractionResult useOn(UseOnContext context) {
+		Player player = context.getPlayer();
 
 		if (player != null) {
-			if (ctx.getHand() == InteractionHand.MAIN_HAND && player.getOffhandItem().getItem() instanceof BlockItem) {
+			if (context.getHand() == InteractionHand.MAIN_HAND && player.getOffhandItem().getItem() instanceof BlockItem) {
 				return InteractionResult.PASS;
 			}
 
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				ItemStack stackAt = player.getInventory().getItem(i);
-				if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
+				if (!stackAt.isEmpty() && stackAt.is(BotaniaTags.Items.TOOL_PLACEABLE_PICKAXE)) {
 					ItemStack displayStack = stackAt.copy();
-					InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
+					InteractionResult did = PlayerHelper.substituteUse(context, stackAt);
 					if (did.consumesAction()) {
-						if (!ctx.getLevel().isClientSide()) {
-							ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
+						if (!context.getLevel().isClientSide()) {
+							ItemsRemainingRenderHandler.send(player, displayStack, BotaniaTags.Items.TOOL_PLACEABLE_PICKAXE);
 						}
 						player.getCooldowns().addCooldown(this, TIME);
 						return did;
@@ -85,8 +83,9 @@ public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageIte
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-		if (!world.isClientSide && entity instanceof Player player && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_DAMAGE * 2, true)) {
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+		if (!level.isClientSide && entity instanceof Player player && stack.getDamageValue() > 0
+				&& ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamageValue(stack.getDamageValue() - 1);
 		}
 	}

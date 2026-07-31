@@ -40,7 +40,8 @@ import java.util.function.Predicate;
 public class ItemTagProvider extends ItemTagsProvider {
 	private static final Set<TagKey<Item>> REQUIRED_TAGS = Set.of(
 			ItemTags.SAND,
-			ItemTags.ARROWS
+			ItemTags.ARROWS,
+			ItemTags.SAPLINGS
 	);
 
 	public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
@@ -303,6 +304,17 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		tag(BotaniaTags.Items.IGNORED_BY_ENDOFLAME).add(getItems(
 				item -> item instanceof BlockItem blockItem && blockItem.getBlock() instanceof ManaSpreaderBlock));
+
+		tag(BotaniaTags.Items.TOOL_PLACEABLE_AXE).addTag(ItemTags.SAPLINGS);
+		tag(BotaniaTags.Items.TOOL_PLACEABLE_PICKAXE)
+				.add(Items.TORCH, Items.SOUL_TORCH, Items.REDSTONE_TORCH)
+				.addOptional(ResourceLocation.fromNamespaceAndPath("copperagebackport", "copper_torch"))
+				.addOptional(ResourceLocation.fromNamespaceAndPath("occultism", "spirit_torch"))
+				.addOptional(ResourceLocation.fromNamespaceAndPath("torches", "stone_torch"))
+				// Well, "More Beautiful Torches", this could be your spot if you were tagging your countless items
+				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("quad-mstv-mtv", "fire_torch_variants"))
+				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("quad-mstv-mtv", "redstone_torch_variants"))
+				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("quad-mstv-mtv", "soul_torch_variants"));
 	}
 
 	private static <B extends Block & OptionallyColored> Item[] getColoredBlockItems(B baseBlock) {
