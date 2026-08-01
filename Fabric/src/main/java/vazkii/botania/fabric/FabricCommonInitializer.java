@@ -91,7 +91,7 @@ import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 import vazkii.botania.api.recipe.StateIngredientType;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.BotaniaCapabilities;
@@ -418,7 +418,8 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaBlocks.MANA_VOID
 		);
 
-		BlockApiLookup<SparkAttachable, Unit> sparkAttachableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
+		BlockApiLookup<ManaSparkAttachable, Unit> sparkAttachableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(
+				ManaSparkAttachable.LOOKUP);
 		sparkAttachableBlockLookup.registerSelf(BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.toArray(BlockEntityType[]::new));
 
 		BlockApiLookup<ManaTrigger, Unit> manaTriggerBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ManaTrigger.LOOKUP);

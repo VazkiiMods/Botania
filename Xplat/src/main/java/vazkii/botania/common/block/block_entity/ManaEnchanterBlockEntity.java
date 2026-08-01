@@ -53,8 +53,8 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.spark.SparkAttachable;
-import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkHelper;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -78,7 +78,7 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceiver, SparkAttachable, Wandable, Clearable {
+public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceiver, ManaSparkAttachable, Wandable, Clearable {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -250,7 +250,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 
 			advanceStage();
 		} else {
-			SparkHelper.registerTransferFromSparksAround(SparkAttachable.getAttachedSpark(level, getBlockPos()), level, worldPosition);
+			ManaSparkHelper.registerTransferFromSparksAround(ManaSparkHelper.getAttachedSpark(level, getBlockPos()), level, worldPosition);
 			if (stageTicks % 5 == 0) {
 				sync();
 			}

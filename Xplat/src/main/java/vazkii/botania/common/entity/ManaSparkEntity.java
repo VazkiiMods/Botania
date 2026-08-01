@@ -38,8 +38,8 @@ import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.spark.ManaSpark;
-import vazkii.botania.api.mana.spark.SparkAttachable;
-import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.ColorHelper;
@@ -97,7 +97,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			updateTransfers();
 		}
 
-		SparkAttachable tile = getAttachedTile();
+		ManaSparkAttachable tile = getAttachedTile();
 		if (tile == null) {
 			dropAndKill();
 			return;
@@ -111,7 +111,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			case DISPERSIVE -> {
 				AABB aabb = VecHelper.boxForRange(
 						this.position().with(Direction.Axis.Y, getY() + (getBbHeight() / 2.0)),
-						SparkHelper.SPARK_SCAN_RANGE);
+						ManaSparkHelper.SPARK_SCAN_RANGE);
 				List<Player> players = level().getEntitiesOfClass(Player.class, aabb, EntitySelector.ENTITY_STILL_ALIVE);
 
 				Map<Player, Map<ManaItem, Integer>> receivingPlayers = new HashMap<>();
@@ -198,7 +198,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 				for (ManaSpark spark : outgoingTransfers) {
 					count--;
-					SparkAttachable attached = spark.getAttachedTile();
+					ManaSparkAttachable attached = spark.getAttachedTile();
 					var attachedReceiver = spark.getAttachedManaReceiver();
 					if (attached == null || attachedReceiver == null || attachedReceiver.isFull() || spark.areIncomingTransfersDone()) {
 						shouldFilterTransfers = true;
@@ -229,7 +229,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				inboundTransfers.sort(Comparator.comparingInt(s -> s.getAttachedManaReceiver().getCurrentMana()));
 				for (ManaSpark spark : inboundTransfers) {
 					count--;
-					SparkAttachable attached = spark.getAttachedTile();
+					ManaSparkAttachable attached = spark.getAttachedTile();
 					var attachedReceiver = spark.getAttachedManaReceiver();
 					if (attached == null || attachedReceiver == null) {
 						shouldFilterTransfers = true;
@@ -268,7 +268,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		}
 		switch (getUpgrade()) {
 			case RECESSIVE -> {
-				var otherSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				var otherSparks = ManaSparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
 				Collections.shuffle(otherSparks);
 				for (var otherSpark : otherSparks) {
 					SparkUpgradeType otherUpgrade = otherSpark.getUpgrade();
@@ -281,7 +281,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				}
 			}
 			case DOMINANT -> {
-				List<ManaSpark> validSparks = SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				List<ManaSpark> validSparks = ManaSparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
 				Collections.shuffle(validSparks);
 				for (var spark : validSparks) {
 					SparkUpgradeType otherUpgrade = spark.getUpgrade();
@@ -349,7 +349,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 							dropAndKill();
 						}
 					} else {
-						SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
+						ManaSparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
 								.forEach(s -> particleBeam(player, this, s.entity()));
 					}
 				}
@@ -395,8 +395,8 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	@Nullable
 	@Override
-	public SparkAttachable getAttachedTile() {
-		return SparkAttachable.LOOKUP.find(level(), getAttachPos());
+	public ManaSparkAttachable getAttachedTile() {
+		return ManaSparkAttachable.LOOKUP.find(level(), getAttachPos());
 	}
 
 	@Nullable
@@ -466,7 +466,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	private void notifyOthers(DyeColor network) {
-		for (var spark : SparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), network)) {
+		for (var spark : ManaSparkHelper.getSparksAround(level(), getX(), getY() + (getBbHeight() / 2), getZ(), network)) {
 			spark.updateTransfers();
 		}
 	}
@@ -499,7 +499,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			return false;
 		}
 
-		SparkAttachable attachable = getAttachedTile();
+		ManaSparkAttachable attachable = getAttachedTile();
 		return attachable != null && attachable.areIncomingTransfersDone();
 	}
 

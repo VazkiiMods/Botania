@@ -48,7 +48,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.ManaDissolvable;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -71,7 +71,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLocked, SparkAttachable,
+public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLocked, ManaSparkAttachable,
 		ThrottledPacket<ManaPoolBlockEntity>, Wandable {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final float PARTICLE_COLOR_BLUE = (PARTICLE_COLOR & 0xFF) / 255F;

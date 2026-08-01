@@ -21,7 +21,7 @@ import vazkii.botania.api.mana.ManaPool;
 import java.util.List;
 import java.util.function.Predicate;
 
-public final class SparkHelper {
+public final class ManaSparkHelper {
 
 	public static final int SPARK_SCAN_RANGE = 12;
 
@@ -43,5 +43,22 @@ public final class SparkHelper {
 				otherSpark.registerTransfer(spark);
 			}
 		}
+	}
+
+	/**
+	 * Gets the Spark that is attached to this block. The default implementation is
+	 * to check for Spark entities above using world.getEntitiesWithinAABB()
+	 */
+	@Nullable
+	public static ManaSpark getAttachedSpark(Level level, BlockPos blockPos) {
+		BlockPos sparkPos = blockPos.above();
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(sparkPos),
+				entity -> entity instanceof ManaSpark && sparkPos.equals(entity.blockPosition()));
+		if (sparks.size() == 1) {
+			Entity e = sparks.getFirst();
+			return (ManaSpark) e;
+		}
+
+		return null;
 	}
 }

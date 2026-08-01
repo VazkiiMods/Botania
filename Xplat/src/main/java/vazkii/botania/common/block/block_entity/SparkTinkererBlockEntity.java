@@ -16,7 +16,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.spark.ManaSpark;
-import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.SparkAugmentItem;
 
@@ -36,13 +37,13 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 		}
 
 		ItemStack changeStack = getItemHandler().getItem(0);
-		List<SparkAttachable> attachables = new ArrayList<>();
-		Map<SparkAttachable, ManaSpark> attachedSparks = new LinkedHashMap<>();
+		List<ManaSparkAttachable> attachables = new ArrayList<>();
+		Map<ManaSparkAttachable, ManaSpark> attachedSparks = new LinkedHashMap<>();
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			var pos = worldPosition.relative(dir);
-			var attach = SparkAttachable.LOOKUP.find(level, pos);
+			var attach = ManaSparkAttachable.LOOKUP.find(level, pos);
 			if (attach != null) {
-				ManaSpark spark = SparkAttachable.getAttachedSpark(level, pos);
+				ManaSpark spark = ManaSparkHelper.getAttachedSpark(level, pos);
 				if (spark != null) {
 					SparkUpgradeType upg = spark.getUpgrade();
 					SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((SparkAugmentItem) changeStack.getItem()).type;
@@ -55,7 +56,7 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 		}
 
 		if (!attachables.isEmpty()) {
-			SparkAttachable attach = attachables.get(level.getRandom().nextInt(attachables.size()));
+			ManaSparkAttachable attach = attachables.get(level.getRandom().nextInt(attachables.size()));
 			ManaSpark spark = attachedSparks.get(attach);
 			SparkUpgradeType upg = spark.getUpgrade();
 			ItemStack sparkStack = SparkAugmentItem.getByType(upg);

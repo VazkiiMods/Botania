@@ -92,7 +92,7 @@ import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.HourglassMaterial;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 import vazkii.botania.api.neoforge.BotaniaNeoForgeCapabilities;
 import vazkii.botania.api.neoforge.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.BotaniaParticles;
@@ -631,8 +631,8 @@ public class NeoForgeCommonInitializer {
 				BotaniaBlocks.MANA_VOID
 		);
 
-		BlockCapability<SparkAttachable, Void> sparkAttachableBlockCap =
-				BotaniaNeoForgeCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
+		BlockCapability<ManaSparkAttachable, Void> sparkAttachableBlockCap =
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(ManaSparkAttachable.LOOKUP);
 		BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				sparkAttachableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 

@@ -23,7 +23,7 @@ public interface ManaSpark extends SparkEntity {
 	 * Get the thing this spark is attached to, if any
 	 */
 	@Nullable
-	SparkAttachable getAttachedTile();
+	ManaSparkAttachable getAttachedTile();
 
 	/**
 	 * @return The attached mana receiver under the spark, if available
@@ -57,7 +57,7 @@ public interface ManaSpark extends SparkEntity {
 	void setUpgrade(SparkUpgradeType upgrade);
 
 	/**
-	 * See {@link SparkAttachable#areIncomingTransfersDone()}
+	 * See {@link ManaSparkAttachable#areIncomingTransfersDone()}
 	 */
 	boolean areIncomingTransfersDone();
 }

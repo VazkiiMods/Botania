@@ -19,7 +19,7 @@ import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 
 import java.util.Set;
 
@@ -78,7 +78,7 @@ public final class BlockEntityConstants {
 			BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE
 	);
 
-	public static final Set<BlockEntityType<? extends SparkAttachable>> SELF_SPARK_ATTACHABLE_BES = ImmutableSet.of(
+	public static final Set<BlockEntityType<? extends ManaSparkAttachable>> SELF_SPARK_ATTACHABLE_BES = ImmutableSet.of(
 			BotaniaBlockEntities.MANA_ENCHANTER, BotaniaBlockEntities.MANA_POOL,
 			BotaniaBlockEntities.TERRESTRIAL_AGGLOMERATION_PLATE
 	);

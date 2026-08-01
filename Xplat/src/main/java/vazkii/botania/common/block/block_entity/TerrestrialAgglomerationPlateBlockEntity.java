@@ -36,8 +36,8 @@ import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.spark.ManaSpark;
-import vazkii.botania.api.mana.spark.SparkAttachable;
-import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkHelper;
 import vazkii.botania.api.recipe.ProcessingRecipeInput;
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.api.state.BotaniaStateProperties;
@@ -56,7 +56,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implements SparkAttachable, ManaReceiver {
+public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implements ManaSparkAttachable, ManaReceiver {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{
@@ -112,8 +112,8 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 			self.manaToGet = recipe.getMana();
 			self.setChanged();
 		}
-		ManaSpark spark = SparkAttachable.getAttachedSpark(level, pos);
-		SparkHelper.registerTransferFromSparksAround(spark, level, pos);
+		ManaSpark spark = ManaSparkHelper.getAttachedSpark(level, pos);
+		ManaSparkHelper.registerTransferFromSparksAround(spark, level, pos);
 		if (self.mana > 0) {
 			int newProgress = 100 * self.mana / self.manaToGet;
 			if (newProgress != self.currentProgress || level.getGameTime() - self.lastProgressTick > 10) {

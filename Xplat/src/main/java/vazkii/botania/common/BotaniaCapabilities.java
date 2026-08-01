@@ -32,7 +32,7 @@ import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 
 public final class BotaniaCapabilities {
 	public static void registerCapabilities(ApiIdRegistration registration) {
@@ -50,7 +50,7 @@ public final class BotaniaCapabilities {
 		registration.register(HourglassTrigger.LOOKUP);
 		registration.register(ManaCollisionGhost.LOOKUP);
 		registration.register(ManaReceiver.LOOKUP);
-		registration.register(SparkAttachable.LOOKUP);
+		registration.register(ManaSparkAttachable.LOOKUP);
 		registration.register(ManaTrigger.LOOKUP);
 		registration.register(Wandable.LOOKUP);
 		registration.register(WandBindable.LOOKUP);
