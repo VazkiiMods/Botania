@@ -93,6 +93,7 @@ The following changes will be released in an upcoming version of Botania for 1.2
 * Fix: Floating special flowers now show the type and reference lines, like their non-floating versions do
 * Fix: Diagonal Windows iron bars now also work for summoning fel blazes
 * Fix: Loonium could cause a crash when spawning a spider jockey
+* Fix: Potential crashes related to failed block entity access due to other mods using Botania blocks in weird ways
 
 ---
 
