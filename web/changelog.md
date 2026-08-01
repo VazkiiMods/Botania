@@ -94,6 +94,7 @@ The following changes will be released in an upcoming version of Botania for 1.2
 * Fix: Diagonal Windows iron bars now also work for summoning fel blazes
 * Fix: Loonium could cause a crash when spawning a spider jockey
 * Fix: Potential crashes related to failed block entity access due to other mods using Botania blocks in weird ways
+* Fix: Warning log spam related to `botania:pylon` and `botania:film_grain_particle` shaders (ErythroCraft)
 
 ---
 
