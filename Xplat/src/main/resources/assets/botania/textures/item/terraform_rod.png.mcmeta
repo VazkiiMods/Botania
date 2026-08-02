@@ -3,15 +3,16 @@
         "frames": [
             {
                 "index": 0,
-                "time": 2
+                "time": 4
             }, {
                 "index": 1,
-                "time": 2
+                "time": 4
             }, {
                 "index": 2,
-                "time": 2
+                "time": 4
             }, {
                 "index": 3,
+<<<<<<<< HEAD:Xplat/src/main/resources/assets/botania/textures/item/terraform_rod.png.mcmeta
                 "time": 2
             }, {
                 "index": 4,
@@ -22,6 +23,18 @@
             }, {
                 "index": 6,
                 "time": 2
+========
+                "time": 4
+            }, {
+                "index": 4,
+                "time": 4
+            }, {
+                "index": 5,
+                "time": 4
+            }, {
+                "index": 6,
+                "time": 4
+>>>>>>>> origin/1.21.1-porting:Xplat/src/main/resources/assets/botania/textures/item/fire_rod.png.mcmeta
             }
         ]
     }
