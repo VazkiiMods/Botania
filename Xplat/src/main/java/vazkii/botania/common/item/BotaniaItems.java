@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.item.PhantomInkable;
-import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.client.gui.bag.ColoredContentsPouchMenu;
 import vazkii.botania.client.gui.box.TrinketCaseMenu;
@@ -74,7 +73,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -590,14 +588,22 @@ public final class BotaniaItems {
 			new EquestrianVirusItem(defaultBuilder()
 					.rarity(Rarity.UNCOMMON)));
 	public static final Item SPARK = make(LibItemNames.SPARK, new ManaSparkItem(defaultBuilder()));
-	public static final Item SPARK_AUGMENT_DISPERSIVE = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.DISPERSIVE.name().toLowerCase(Locale.ROOT),
-			new SparkAugmentItem(SparkUpgradeType.DISPERSIVE, defaultBuilder()));
-	public static final Item SPARK_AUGMENT_DOMINANT = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.DOMINANT.name().toLowerCase(Locale.ROOT),
-			new SparkAugmentItem(SparkUpgradeType.DOMINANT, defaultBuilder()));
-	public static final Item SPARK_AUGMENT_RECESSIVE = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.RECESSIVE.name().toLowerCase(Locale.ROOT),
-			new SparkAugmentItem(SparkUpgradeType.RECESSIVE, defaultBuilder()));
-	public static final Item SPARK_AUGMENT_ISOLATED = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT),
-			new SparkAugmentItem(SparkUpgradeType.ISOLATED, defaultBuilder()));
+	public static final Item SPARK_AUGMENT_DISPERSIVE = make(LibItemNames.SPARK_AUGMENT + "_dispersive",
+			new Item(defaultBuilder()
+					.component(BotaniaDataComponents.AUGMENT_ICON, botaniaRL("item/spark_augment_rune_dispersive"))
+					.component(BotaniaDataComponents.AUGMENT_ID, (byte) 1)));
+	public static final Item SPARK_AUGMENT_DOMINANT = make(LibItemNames.SPARK_AUGMENT + "_dominant",
+			new Item(defaultBuilder()
+					.component(BotaniaDataComponents.AUGMENT_ICON, botaniaRL("item/spark_augment_rune_dominant"))
+					.component(BotaniaDataComponents.AUGMENT_ID, (byte) 2)));
+	public static final Item SPARK_AUGMENT_RECESSIVE = make(LibItemNames.SPARK_AUGMENT + "_recessive",
+			new Item(defaultBuilder()
+					.component(BotaniaDataComponents.AUGMENT_ICON, botaniaRL("item/spark_augment_rune_recessive"))
+					.component(BotaniaDataComponents.AUGMENT_ID, (byte) 3)));
+	public static final Item SPARK_AUGMENT_ISOLATED = make(LibItemNames.SPARK_AUGMENT + "_isolated",
+			new Item(defaultBuilder()
+					.component(BotaniaDataComponents.AUGMENT_ICON, botaniaRL("item/spark_augment_rune_isolated"))
+					.component(BotaniaDataComponents.AUGMENT_ID, (byte) 4)));
 	public static final Item CORPOREA_SPARK = make(LibItemNames.CORPOREA_SPARK,
 			new CorporeaSparkItem(defaultBuilder()));
 	public static final Item MASTER_CORPOREA_SPARK = make(LibItemNames.MASTER_CORPOREA_SPARK,

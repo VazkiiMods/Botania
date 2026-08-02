@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-31T09:48:59.025157185	Botania/Tags for minecraft:item
+// 1.21.1	2026-08-02T14:43:56.610000883	Botania/Tags for minecraft:item
 665aee3cc41d8f1e66408e198692f4ebec572aba data/botania/tags/item/all_mana_pools.json
 2b5505ddf6b15ea500a714fd10bc4ec05fa3eef5 data/botania/tags/item/ancient_wills.json
 9c05adc2a63d8b6a2636d766d8858160e1308c25 data/botania/tags/item/burst_viewers.json
@@ -7,6 +7,7 @@ d2673ea3e8e84c0de624a95e8d604d94dded9754 data/botania/tags/item/creative_mana_po
 90fc3950000ea73db9a223244dd3f78da90ad08c data/botania/tags/item/diluted_mana_pools.json
 fec40aa3fa546ee2b14a4a8b1b7b7dbed3d4de9d data/botania/tags/item/dims_floating_flowers.json
 c78b8d439e4a26f1bfdd692b63cdce3c70b7fa0c data/botania/tags/item/disposable.json
+8a3b6c43de5696d22edea798ffefe18769ecd1fb data/botania/tags/item/dominant_spark_pull_source.json
 870b465005dcaf5732efc8a592eeb6837de27a3a data/botania/tags/item/dreamwood_logs.json
 4d1aa482fe710adb8351d464773e70996eacbb5d data/botania/tags/item/dyed_creative_mana_pools.json
 6eea66f4b1170c6042447221975bee67a1f4ea43 data/botania/tags/item/dyed_diluted_mana_pools.json
@@ -29,6 +30,7 @@ feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/item/livingwood_logs.
 0b4e9eb2e57b7d0790ad2a0344733be5de39a297 data/botania/tags/item/mana_pool_dye_remover.json
 bf3c3b31ae7a898f7e11a2fd8c1189bc032dd38a data/botania/tags/item/mana_pools.json
 91e30b7c18f772066a7c180452ec5c21958b5f43 data/botania/tags/item/mana_powder_source_dusts.json
+396c3bff90826930860a95960225c1f96a1e5b96 data/botania/tags/item/mana_spark_augments.json
 f368c9bc4242b28fb92c65d9e9af268d4b2d4478 data/botania/tags/item/mana_using_items.json
 e51fab8358421c8502b0d945a000b5f6639d7d8f data/botania/tags/item/mini_flowers.json
 ec5a92238e82278a7259e4aeffddd970e047faa5 data/botania/tags/item/misc_floating_flowers.json
@@ -54,6 +56,7 @@ cbc631c6dcffc472e64a5bddc7e97e13f8996fb3 data/botania/tags/item/petals/white.jso
 aa13b97caae2b476f3e43a011f72a93d1156fff0 data/botania/tags/item/petals/yellow.json
 19f439b3d61f5bf64da75a1784848d7edb78e976 data/botania/tags/item/pickable_block_providers.json
 292ab940fc5daac7fe88d0a04fcf26a7c58cf255 data/botania/tags/item/quartz_blocks.json
+602d90124eb0d09e42cd1e04d6ac11ec1c454ac2 data/botania/tags/item/recessive_spark_push_target.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/item/ring_of_magnetization_ignored.json
 52133f14f7716b040dc43cd944d0829359906466 data/botania/tags/item/rods.json
 057646247e883c12f6682f096113a5e98e4281ae data/botania/tags/item/runes.json

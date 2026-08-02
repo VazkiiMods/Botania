@@ -356,6 +356,7 @@
   "tag.item.botania.dims_floating_flowers": "Dimmt schwebende Blumen",
   "tag.item.botania.disposable": "Entsorgbare Drops",
   "tag.item.botania.tall_mystical_flowers": "Große Mystische Blumen",
+  "tag.item.botania.dominant_spark_pull_source": "Quellen für Transfers dominanter Funken",
   "tag.item.botania.dreamwood_logs": "Traumholzstämme",
   "tag.item.botania.dyed_creative_mana_pools": "Gefärbte Kreative Manabecken",
   "tag.item.botania.dyed_diluted_mana_pools": "Gefärbte Verdünnte Manabecken",
@@ -380,6 +381,7 @@
   "tag.item.botania.mana_pool_dye_remover": "Entfernt Färbung von Manabecken",
   "tag.item.botania.mana_pools": "Manabecken",
   "tag.item.botania.mana_powder_source_dusts": "Quellstäube für Manapuder",
+  "tag.item.botania.mana_spark_augments": "Manafunkenverbesserungen",
   "tag.item.botania.mana_using_items": "Mananutzende Gegenstände",
   "tag.item.botania.mini_flowers": "Zierliche Blumen",
   "tag.item.botania.misc_special_flowers": "Sonstige spezielle Blumen",
@@ -406,6 +408,7 @@
 
   "tag.item.botania.pickable_block_providers": "Auswählbare Blocklieferanten",
   "tag.item.botania.quartz_blocks": "Quarzblöcke",
+  "tag.item.botania.recessive_spark_push_target": "Ziele für Transfers rezessiver Funken",
   "tag.item.botania.rods": "Stäbe",
   "tag.item.botania.runes": "Runen",
   "tag.item.botania.seed_apothecary_reagent": "Samenreagenzen",

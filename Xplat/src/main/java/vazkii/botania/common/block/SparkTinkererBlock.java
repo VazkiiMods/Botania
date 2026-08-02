@@ -28,7 +28,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.block_entity.SparkTinkererBlockEntity;
-import vazkii.botania.common.item.SparkAugmentItem;
+import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.lib.BotaniaTags;
 
 public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -67,7 +68,7 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack pstack, BlockState state, Level level, BlockPos pos,
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
 			Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (!(level.getBlockEntity(pos) instanceof SparkTinkererBlockEntity changer)) {
 			return ItemInteractionResult.FAIL;
@@ -77,8 +78,8 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 			changer.getItemHandler().setItem(0, ItemStack.EMPTY);
 			player.getInventory().placeItemBackInInventory(cstack);
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());
-		} else if (!pstack.isEmpty() && pstack.getItem() instanceof SparkAugmentItem) {
-			changer.getItemHandler().setItem(0, pstack.split(1));
+		} else if (!stack.isEmpty() && stack.is(BotaniaTags.Items.MANA_SPARK_AUGMENTS)) {
+			changer.getItemHandler().setItem(0, stack.split(1));
 			changer.setChanged();
 
 			return ItemInteractionResult.sidedSuccess(level.isClientSide());
@@ -106,8 +107,8 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof SparkTinkererBlockEntity changer) {
 			ItemStack stack = changer.getItemHandler().getItem(0);
-			if (!stack.isEmpty() && stack.getItem() instanceof SparkAugmentItem upgrade) {
-				return upgrade.type.ordinal() + 1;
+			if (!stack.isEmpty() && stack.is(BotaniaTags.Items.MANA_SPARK_AUGMENTS)) {
+				return stack.getOrDefault(BotaniaDataComponents.AUGMENT_ID, (byte) 0) + 1;
 			}
 		}
 		return 0;

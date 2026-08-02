@@ -8,6 +8,8 @@
  */
 package vazkii.botania.api.mana.spark;
 
+import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.SparkEntity;
@@ -52,9 +54,9 @@ public interface ManaSpark extends SparkEntity {
 	 */
 	void updateTransfers();
 
-	SparkUpgradeType getUpgrade();
+	ItemStack getUpgrade();
 
-	void setUpgrade(SparkUpgradeType upgrade);
+	void setUpgrade(ItemStack upgrade);
 
 	/**
 	 * See {@link ManaSparkAttachable#areIncomingTransfersDone()}

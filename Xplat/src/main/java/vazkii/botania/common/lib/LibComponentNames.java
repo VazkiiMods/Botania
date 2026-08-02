@@ -112,4 +112,7 @@ public final class LibComponentNames {
 
 	public static final String ITEM_TAGS = "item_tags";
 	public static final String CRAFTABLE_ITEM_TAGS = "craftable_item_tags";
+
+	public static final String AUGMENT_ICON = "augment_icon";
+	public static final String AUGMENT_ID = "augment_id";
 }

@@ -10,6 +10,7 @@
 package vazkii.botania.common.component;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -286,6 +287,17 @@ public class BotaniaDataComponents {
 			// TODO: must be double precision to work further from origin, but does client need it at all?
 			builder -> builder.networkSynchronized(ByteBufCodecs.fromCodec(Vec3.CODEC)));
 
+	// spark augments
+	public static final DataComponentType<ResourceLocation> AUGMENT_ICON = make(LibComponentNames.AUGMENT_ICON,
+			builder -> builder.persistent(ResourceLocation.CODEC).networkSynchronized(ResourceLocation.STREAM_CODEC));
+	public static final DataComponentType<Byte> AUGMENT_ID = make(LibComponentNames.AUGMENT_ID,
+			builder -> builder.persistent(Codec.BYTE.validate(
+					id -> id.compareTo((byte) 1) >= 0 && id.compareTo((byte) 15) <= 0
+							? DataResult.success(id)
+							: DataResult.error(() -> "Augment ID must be within range [1;15]")))
+					.networkSynchronized(ByteBufCodecs.BYTE));
+
+	// Shaded Mesa rod
 	public static final DataComponentType<Integer> TARGET_ENTITY = make(LibComponentNames.TARGET_ENTITY,
 			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DataComponentType<Float> TARGET_DIST = make(LibComponentNames.TARGET_DIST,

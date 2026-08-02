@@ -18,8 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 import vazkii.botania.api.mana.spark.ManaSparkHelper;
-import vazkii.botania.api.mana.spark.SparkUpgradeType;
-import vazkii.botania.common.item.SparkAugmentItem;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -45,9 +44,8 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 			if (attach != null) {
 				ManaSpark spark = ManaSparkHelper.getAttachedSpark(level, pos);
 				if (spark != null) {
-					SparkUpgradeType upg = spark.getUpgrade();
-					SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((SparkAugmentItem) changeStack.getItem()).type;
-					if (upg != newUpg) {
+					ItemStack upg = spark.getUpgrade();
+					if (!ItemStack.isSameItemSameComponents(upg, changeStack)) {
 						attachables.add(attach);
 						attachedSparks.put(attach, spark);
 					}
@@ -58,10 +56,8 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 		if (!attachables.isEmpty()) {
 			ManaSparkAttachable attach = attachables.get(level.getRandom().nextInt(attachables.size()));
 			ManaSpark spark = attachedSparks.get(attach);
-			SparkUpgradeType upg = spark.getUpgrade();
-			ItemStack sparkStack = SparkAugmentItem.getByType(upg);
-			SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((SparkAugmentItem) changeStack.getItem()).type;
-			spark.setUpgrade(newUpg);
+			ItemStack sparkStack = spark.getUpgrade();
+			spark.setUpgrade(changeStack);
 			getItemHandler().setItem(0, sparkStack);
 		}
 	}
@@ -75,8 +71,8 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 			}
 
 			@Override
-			public boolean canPlaceItem(int index, ItemStack stack) {
-				return !stack.isEmpty() && stack.getItem() instanceof SparkAugmentItem;
+			public boolean canPlaceItem(int slot, ItemStack stack) {
+				return !stack.isEmpty() && stack.is(BotaniaTags.Items.MANA_SPARK_AUGMENTS);
 			}
 		};
 	}

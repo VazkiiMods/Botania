@@ -315,6 +315,15 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("quad-mstv-mtv", "fire_torch_variants"))
 				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("quad-mstv-mtv", "redstone_torch_variants"))
 				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("quad-mstv-mtv", "soul_torch_variants"));
+
+		tag(BotaniaTags.Items.MANA_SPARK_AUGMENTS).add(
+				BotaniaItems.SPARK_AUGMENT_DISPERSIVE, BotaniaItems.SPARK_AUGMENT_DOMINANT,
+				BotaniaItems.SPARK_AUGMENT_RECESSIVE, BotaniaItems.SPARK_AUGMENT_ISOLATED);
+		// Note: empty stacks are matched as air, which we use to represent unaugmented sparks
+		tag(BotaniaTags.Items.RECESSIVE_SPARK_PUSH_TARGET)
+				.add(Items.AIR, BotaniaItems.SPARK_AUGMENT_DISPERSIVE);
+		tag(BotaniaTags.Items.DOMINANT_SPARK_PULL_SOURCE)
+				.add(Items.AIR);
 	}
 
 	private static <B extends Block & OptionallyColored> Item[] getColoredBlockItems(B baseBlock) {

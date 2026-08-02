@@ -159,6 +159,13 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Item> TOOL_PLACEABLE_PICKAXE = tag("tool_placeable/pickaxe");
 
+		/**
+		 * Items in this tag can be added to mana sparks as an augment.
+		 */
+		public static final TagKey<Item> MANA_SPARK_AUGMENTS = tag("mana_spark_augments");
+		public static final TagKey<Item> RECESSIVE_SPARK_PUSH_TARGET = tag("recessive_spark_push_target");
+		public static final TagKey<Item> DOMINANT_SPARK_PULL_SOURCE = tag("dominant_spark_pull_source");
+
 		public static TagKey<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
 				case WHITE -> PETALS_WHITE;

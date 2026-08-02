@@ -11,38 +11,35 @@ package vazkii.botania.client.render.entity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.ManaSparkEntity;
 
-import java.util.Objects;
-
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 public class ManaSparkRenderer extends BaseSparkRenderer<ManaSparkEntity> {
-	private final TextureAtlasSprite dispersiveIcon;
-	private final TextureAtlasSprite dominantIcon;
-	private final TextureAtlasSprite recessiveIcon;
-	private final TextureAtlasSprite isolatedIcon;
 
 	public ManaSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
-		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
-		this.dispersiveIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_augment_rune_dispersive")));
-		this.dominantIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_augment_rune_dominant")));
-		this.recessiveIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_augment_rune_recessive")));
-		this.isolatedIcon = Objects.requireNonNull(atlas.apply(botaniaRL("item/spark_augment_rune_isolated")));
 	}
 
+	@Nullable
 	@Override
 	public TextureAtlasSprite getSpinningIcon(ManaSparkEntity entity) {
-		return switch (entity.getUpgrade()) {
-			case NONE -> null;
-			case DISPERSIVE -> this.dispersiveIcon;
-			case DOMINANT -> this.dominantIcon;
-			case RECESSIVE -> this.recessiveIcon;
-			case ISOLATED -> this.isolatedIcon;
-		};
+		ItemStack upgrade = entity.getUpgrade();
+		if (upgrade.isEmpty()) {
+			return null;
+		}
+
+		ResourceLocation icon = upgrade.get(BotaniaDataComponents.AUGMENT_ICON);
+		if (icon == null) {
+			return null;
+		}
+
+		return Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(icon);
 	}
 
 }
