@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.TicketType;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -95,10 +96,14 @@ public class EntityHelper {
 		}
 	}
 
+	public static InteractionHand otherHand(InteractionHand hand) {
+		return hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
+	}
+
 	/**
 	 * Determines whether the entity (usually a mob or player) is looking in the general direction of the specified
 	 * position.
-	 * 
+	 *
 	 * @param entity The entity.
 	 * @param pos    The target position.
 	 * @return {@code true} if the target position is in front of the entity, relative to the entity's view direction,

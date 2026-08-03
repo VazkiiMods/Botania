@@ -26,7 +26,7 @@ public class CorporeaSparkBehavior extends OptionalDispenseItemBehavior {
 		Direction facing = source.state().getValue(DispenserBlock.FACING);
 		BlockPos pos = source.pos().relative(facing);
 
-		setSuccess(CorporeaSparkItem.attachSpark(world, pos, stack));
+		setSuccess(CorporeaSparkItem.attachSpark(world, pos, stack, ItemStack.EMPTY));
 
 		return stack;
 	}

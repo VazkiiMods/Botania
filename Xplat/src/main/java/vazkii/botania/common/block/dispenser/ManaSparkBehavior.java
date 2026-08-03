@@ -26,7 +26,7 @@ public class ManaSparkBehavior extends OptionalDispenseItemBehavior {
 		Direction facing = source.state().getValue(DispenserBlock.FACING);
 		BlockPos pos = source.pos().relative(facing);
 
-		setSuccess(ManaSparkItem.attachSpark(world, pos, stack));
+		setSuccess(ManaSparkItem.attachSpark(world, pos, stack, ItemStack.EMPTY));
 
 		return stack;
 	}
