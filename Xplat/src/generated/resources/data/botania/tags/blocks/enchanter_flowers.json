@@ -3,6 +3,8 @@
   "values": [
     "#botania:mystical_flowers",
     "#botania:shiny_flowers",
-    "#botania:mundane_floating_flowers"
+    "#botania:mundane_floating_flowers",
+    "#botania:potted_mystical_flowers",
+    "#botania:potted_shiny_flowers"
   ]
 }

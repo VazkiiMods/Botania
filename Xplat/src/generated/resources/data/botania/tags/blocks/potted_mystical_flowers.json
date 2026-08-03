@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "botania:potted_black_mystical_flower",
+    "botania:potted_blue_mystical_flower",
+    "botania:potted_brown_mystical_flower",
+    "botania:potted_cyan_mystical_flower",
+    "botania:potted_gray_mystical_flower",
+    "botania:potted_green_mystical_flower",
+    "botania:potted_light_blue_mystical_flower",
+    "botania:potted_light_gray_mystical_flower",
+    "botania:potted_lime_mystical_flower",
+    "botania:potted_magenta_mystical_flower",
+    "botania:potted_orange_mystical_flower",
+    "botania:potted_pink_mystical_flower",
+    "botania:potted_purple_mystical_flower",
+    "botania:potted_red_mystical_flower",
+    "botania:potted_white_mystical_flower",
+    "botania:potted_yellow_mystical_flower"
+  ]
+}

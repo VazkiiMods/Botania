@@ -23,6 +23,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 
 * Add: Manaseer Monocle on the Vinculotus shows where Endermen will teleport to
 * Add: Placing sparks while holding dye in your other hand will dye the spark that color
+* Add: Mana Enchanter also accepts mystical 
 * Change: Hopperhock no longer shows a secondary range indicator, as it doesn't really match its container access pattern
 * Change: Ender Overseer line of sight check type switched from collision to visual (like 3rd-person camera or trial spawners)
 * Remove: Quark frog as rare cocoon spawn (catching up to 1.19 – woo, so up-to-date!)

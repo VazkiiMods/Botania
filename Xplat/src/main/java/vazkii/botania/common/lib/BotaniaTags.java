@@ -162,6 +162,8 @@ public class BotaniaTags {
 	public static class Blocks {
 		public static final TagKey<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final TagKey<Block> SHINY_FLOWERS = tag("shiny_flowers");
+		public static final TagKey<Block> POTTED_MYSTICAL_FLOWERS = tag("potted_mystical_flowers");
+		public static final TagKey<Block> POTTED_SHINY_FLOWERS = tag("potted_shiny_flowers");
 		public static final TagKey<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 		public static final TagKey<Block> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
