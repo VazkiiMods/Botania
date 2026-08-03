@@ -85,6 +85,7 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 {% include changelog_header.html version="Upcoming" %}
 The following changes will be released in an upcoming version of Botania for 1.20.1:
 
+* Add: Manaseer Monocle on the Vinculotus shows where Endermen will teleport to
 * Change: Hopperhock no longer shows a secondary range indicator, as it doesn't really match its container access pattern
 * Change: Ender Overseer line of sight check type switched from collision to visual (like 3rd-person camera or trial spawners)
 * Remove: Quark frog as rare cocoon spawn (catching up to 1.19 – woo, so up-to-date!)
@@ -95,6 +96,7 @@ The following changes will be released in an upcoming version of Botania for 1.2
 * Fix: Loonium could cause a crash when spawning a spider jockey
 * Fix: Potential crashes related to failed block entity access due to other mods using Botania blocks in weird ways
 * Fix: Warning log spam related to `botania:pylon` and `botania:film_grain_particle` shaders (ErythroCraft)
+* Fix: Lopsided teleportation target zone around the Vinculotus
 
 ---
 
