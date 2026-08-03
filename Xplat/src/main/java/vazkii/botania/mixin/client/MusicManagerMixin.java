@@ -14,6 +14,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.sounds.MusicManager;
 import net.minecraft.sounds.Music;
 
+import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -37,12 +38,17 @@ public class MusicManagerMixin {
 			target = "Lnet/minecraft/client/sounds/MusicManager;currentMusic:Lnet/minecraft/client/resources/sounds/SoundInstance;"
 		)
 	)
-	private void botania_stopGaiaMusicIfFightOver(CallbackInfo ci, @Local Music music) {
-		if (BotaniaSounds.GAIA_BOSS_MUSIC.contains(music)) {
+	private void botania_stopGaiaMusicIfFightOver(CallbackInfo ci, @Local @Nullable Music music) {
+		if (music != null && botania_isGaiaMusic(music)) {
 			botania_playingGaiaFightMusic = true;
 		} else if (botania_playingGaiaFightMusic) {
 			botania_playingGaiaFightMusic = false;
 			((MusicManager) (Object) this).stopPlaying();
 		}
+	}
+
+	@Unique
+	private static boolean botania_isGaiaMusic(Music music) {
+		return BotaniaSounds.GAIA_BOSS_MUSIC.contains(music);
 	}
 }
