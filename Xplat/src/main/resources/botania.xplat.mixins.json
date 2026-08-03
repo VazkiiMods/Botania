@@ -27,6 +27,7 @@
     "CreeperAccessor",
     "CreeperMixin",
     "EatBlockGoalMixin",
+    "EnderManMixin",
     "EntityAccessor",
     "EntityMixin",
     "ExperienceOrbAccessor",

@@ -19,6 +19,7 @@ public final class BotaniaDataAttachments {
 
 	public static void registerDataAttachments(Consumer<DataIdBase<?>> consumer) {
 		// data holders
+		consumer.accept(EnderEssenceCaptured.HOLDER);
 		consumer.accept(GaiaFightParticipant.HOLDER);
 		consumer.accept(ItemLifetime.HOLDER);
 		consumer.accept(ItemSource.HOLDER);
