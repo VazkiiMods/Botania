@@ -170,6 +170,13 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						.toArray(Block[]::new)
 		);
 
+		tag(BotaniaTags.Blocks.POTTED_MYSTICAL_FLOWERS).add(
+				ColorHelper.supportedColors()
+						.map(BotaniaBlocks::getPottedFlower)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new)
+		);
+
 		tag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS).add(
 				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getShimmeringMushroom)
@@ -180,6 +187,13 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.GLIMMERING_FLOWERS).add(
 				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getGlimmeringFlower)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new)
+		);
+
+		tag(BotaniaTags.Blocks.POTTED_GLIMMERING_FLOWERS).add(
+				ColorHelper.supportedColors()
+						.map(BotaniaBlocks::getPottedShinyFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
@@ -225,7 +239,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 		tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS).addTag(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS)
 				.addTag(BotaniaTags.Blocks.GLIMMERING_FLOWERS)
-				.addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS);
+				.addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS)
+				.addTag(BotaniaTags.Blocks.POTTED_MYSTICAL_FLOWERS)
+				.addTag(BotaniaTags.Blocks.POTTED_GLIMMERING_FLOWERS);
 
 		// Special flowers intentionally excluded due to unwanted behaviors with tree growth and mod compat.
 		tag(BlockTags.TALL_FLOWERS).addTag(BotaniaTags.Blocks.TALL_MYSTICAL_FLOWERS);

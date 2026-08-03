@@ -196,6 +196,8 @@ public class BotaniaTags {
 		public static final TagKey<Block> SMALL_MYSTICAL_FLOWERS = tag("small_mystical_flowers");
 		public static final TagKey<Block> GLIMMERING_FLOWERS = tag("glimmering_flowers");
 		public static final TagKey<Block> TALL_MYSTICAL_FLOWERS = tag("tall_mystical_flowers");
+		public static final TagKey<Block> POTTED_MYSTICAL_FLOWERS = tag("potted_mystical_flowers");
+		public static final TagKey<Block> POTTED_GLIMMERING_FLOWERS = tag("potted_glimmering_flowers");
 		public static final TagKey<Block> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		public static final TagKey<Block> SPECIAL_FLOWERS = tag("special_flowers");

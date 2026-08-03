@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Tags for minecraft:block
+// 1.21.1	2026-08-04T08:08:32.992410167	Botania/Tags for minecraft:block
 7a68ff158ad853180a69e6a2276ae92648e36622 data/botania/tags/block/agricarnation/apply_bonemeal.json
 875c72992696488f2f82f9474864d8b56c9c7c85 data/botania/tags/block/agricarnation/growth_candidate.json
 e016f3ffb8b5cd781715f6f9dbbd57a21d8a0e31 data/botania/tags/block/agricarnation/growth_excluded.json
@@ -16,7 +16,7 @@ d2673ea3e8e84c0de624a95e8d604d94dded9754 data/botania/tags/block/creative_mana_p
 6eea66f4b1170c6042447221975bee67a1f4ea43 data/botania/tags/block/dyed_diluted_mana_pools.json
 c3a6c71abc370fbf9f980d2cd44d3314bbc4a4dc data/botania/tags/block/dyed_fabulous_mana_pools.json
 1d807f5547dd751b4dbaa92547c3884491a087fb data/botania/tags/block/dyed_mana_pools.json
-f30196a0f47e8b29507a6d9abb8f7ba31d634738 data/botania/tags/block/enchanter_flowers.json
+b034746a557dcaa9c50673f5120a3c7d3e1acf40 data/botania/tags/block/enchanter_flowers.json
 e701caf7820c6917af091e9445e5b65bbdea84a7 data/botania/tags/block/ender_air_convertable.json
 aa54c6d57f3514b1a61424ffd6c314669b345625 data/botania/tags/block/fabulous_mana_pools.json
 cffcdac0c57dcecbcbf6b213e4a0a1b5c8ccadde data/botania/tags/block/fel_blaze_base.json
@@ -44,6 +44,8 @@ bbe7e8372a043fbe4be724477e8a19b865735818 data/botania/tags/block/misc_special_fl
 a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/botania/tags/block/munchdew_consumable.json
 378df5bfdc9d35a43fb0a05ad1020788b24e08fd data/botania/tags/block/mundane_floating_flowers.json
 59cf23d61f960b6b3a9ec635bc618ed84e654812 data/botania/tags/block/pasture_seed_replaceable.json
+d235ac35132e9f2414a9f50f9904b8faa585fe9f data/botania/tags/block/potted_glimmering_flowers.json
+38e3d6642139547f90bba8dc4e9c3ae73c5cabda data/botania/tags/block/potted_mystical_flowers.json
 292ab940fc5daac7fe88d0a04fcf26a7c58cf255 data/botania/tags/block/quartz_blocks.json
 245211371d5edf3bb5b5acd2cba7ac8e359530c3 data/botania/tags/block/sheep_edible_grasses.json
 6972f231623194dfb30c49c3fbca17ff668ab09a data/botania/tags/block/shields_from_ring_of_magnetization.json

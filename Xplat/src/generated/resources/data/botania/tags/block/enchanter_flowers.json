@@ -2,6 +2,8 @@
   "values": [
     "#botania:small_mystical_flowers",
     "#botania:glimmering_flowers",
-    "#botania:mundane_floating_flowers"
+    "#botania:mundane_floating_flowers",
+    "#botania:potted_mystical_flowers",
+    "#botania:potted_glimmering_flowers"
   ]
 }
