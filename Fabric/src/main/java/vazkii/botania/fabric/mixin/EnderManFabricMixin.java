@@ -8,45 +8,27 @@
  */
 package vazkii.botania.fabric.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.phys.Vec3;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import vazkii.botania.common.block.block_entity.flower.functional.VinculotusBlockEntity;
 
 @Mixin(EnderMan.class)
 public class EnderManFabricMixin {
-	/**
-	 * Implements the vinculotus for random teleports
-	 */
-	@ModifyArgs(method = "teleport()Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/EnderMan;teleport(DDD)Z"))
-	private void randomVinculotus(Args args) {
-		checkForVincs(args);
-	}
-
-	/**
-	 * Implements the vinculotus for teleports towards a specific entity
-	 */
-	@ModifyArgs(method = "teleportTowards", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/EnderMan;teleport(DDD)Z"))
-	private void entityVinculotus(Args args) {
-		checkForVincs(args);
-	}
-
-	@Unique
-	private void checkForVincs(Args args) {
-		double x = args.get(0);
-		double y = args.get(1);
-		double z = args.get(2);
-		Vec3 vincPos = VinculotusBlockEntity.onEndermanTeleport((EnderMan) (Object) this, x, y, z);
+	@WrapOperation(method = "teleport(DDD)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/EnderMan;randomTeleport(DDDZ)Z"))
+	private boolean checkForVincs(EnderMan instance, double x, double y, double z, boolean broadcastTeleport, Operation<Boolean> original) {
+		Vec3 vincPos = VinculotusBlockEntity.onEndermanTeleport(instance, x, y, z);
 		if (vincPos != null) {
-			args.set(0, vincPos.x());
-			args.set(1, vincPos.y());
-			args.set(2, vincPos.z());
+			x = vincPos.x();
+			y = vincPos.y();
+			z = vincPos.z();
 		}
+		return original.call(instance, x, y, z, broadcastTeleport);
 	}
 }
