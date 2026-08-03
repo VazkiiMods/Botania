@@ -25,6 +25,7 @@ import java.util.*;
 public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 	public static final Set<VinculotusBlockEntity> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final int RANGE = 64;
+	private static final int TARGET_RANGE = 2;
 
 	public VinculotusBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaFlowerBlocks.VINCULOTUS, pos, state);
@@ -42,6 +43,11 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Circle(getEffectivePos(), RANGE);
+	}
+
+	@Override
+	public RadiusDescriptor getSecondaryRadius() {
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), TARGET_RANGE);
 	}
 
 	@Override
@@ -93,7 +99,7 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 			flower.addMana(-cost);
 			flower.sync();
 
-			return new Vec3(x + Math.random() * 3 - 1, y, z + Math.random() * 3 - 1);
+			return new Vec3(x + (Math.random() * 2.4 - 1.2), y, z + (Math.random() * 2.4 - 1.2));
 		}
 
 		return null;

@@ -21,6 +21,7 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+* Add: Manaseer Monocle on the Vinculotus shows where Endermen will teleport to
 * Change: Hopperhock no longer shows a secondary range indicator, as it doesn't really match its container access pattern
 * Change: Ender Overseer line of sight check type switched from collision to visual (like 3rd-person camera or trial spawners)
 * Remove: Quark frog as rare cocoon spawn (catching up to 1.19 – woo, so up-to-date!)
@@ -31,6 +32,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Fix: Loonium could cause a crash when spawning a spider jockey
 * Fix: Potential crashes related to failed block entity access due to other mods using Botania blocks in weird ways
 * Fix: Warning log spam related to `botania:pylon` and `botania:film_grain_particle` shaders (ErythroCraft)
+* Fix: Lopsided teleportation target zone around the Vinculotus
 
 ---
 
