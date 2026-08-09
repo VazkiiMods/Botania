@@ -25,7 +25,7 @@ import java.util.*;
 public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 	public static final Set<VinculotusBlockEntity> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final int RANGE = 64;
-	private static final int TARGET_RANGE = 2;
+	private static final int TARGET_RANGE = 1;
 
 	public VinculotusBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaFlowerBlocks.VINCULOTUS, pos, state);
