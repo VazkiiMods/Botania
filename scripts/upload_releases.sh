@@ -6,6 +6,8 @@ TAGNAME="${GIT_REF/#refs\/tags\/}"
 
 # Remove 'release-' from front
 VERSION="${TAGNAME/#release-}"
+# also remove '_<anything>' from end (for potential retries)
+VERSION="${VERSION/%_*}"
 MC_VERSION=$(echo "${VERSION}" | cut -d '-' -f 1)
 CHANGELOG_FRAGMENT=$(echo "${VERSION}" | tr . -)
 CHANGELOG_LINK="https://botaniamod.net/changelog.html#${CHANGELOG_FRAGMENT}"
@@ -111,61 +113,37 @@ EOF
 function release_curseforge() {
 	# Java versions, Loaders, and Environment tags are actually "game versions" (lmfao), as are real game versions.
 
-	# Hardcoded from https://minecraft.curseforge.com/api/game/versions
-	# I'm not betting on these changing any time soon, so hardcoding is ok
-	local CURSEFORGE_JAVA_VERSION=11135 # Java 21
-	local CURSEFORGE_FABRIC_VERSION=7499
-	local CURSEFORGE_NEOFORGE_VERSION=10150
-	local CURSEFORGE_CLIENT_VERSION=9638
-	local CURSEFORGE_SERVER_VERSION=9639
-	# For the Minecraft one, don't hardcode so we don't have to remember to come change this every time.
-	# Each game version seems to be duplicated three times:
-	# Once with type ID 1 (unused?), once with its major-version-specific type ID, and once with the type ID for "Addons" 615
-	# We want the second one. Just dirtily pluck it out based on this.
-	local CURSEFORGE_GAME_VERSION
-	CURSEFORGE_GAME_VERSION=$(curl https://minecraft.curseforge.com/api/game/versions \
-								   -H 'Accept: application/json' \
-								   -H "X-Api-Token: ${CURSEFORGE_TOKEN}" | \
-								  jq --arg mcver "${MC_VERSION}" \
-									 'map(select(.name == $ARGS.named.mcver and .gameVersionTypeID != 1 and .gameVersionTypeID != 615)) | first | .id')
-
 	echo >&2 'Uploading Fabric Jar to CurseForge'
 	local CURSEFORGE_FABRIC_SPEC
 	CURSEFORGE_FABRIC_SPEC=$(cat <<EOF
 {
-	"changelogType": "text",
-	"releaseType": "release",
-	"relations": {
-		"projects": [
-			{
-				"slug": "fabric-api",
-				"type": "requiredDependency"
-			},
-			{
-				"slug": "patchouli",
-				"type": "requiredDependency"
-			},
-			{
-				"slug": "trinkets",
-				"type": "requiredDependency"
-			}
-		]
-	}
+  "changelogType": "text",
+  "releaseType": "release",
+  "relations": {
+    "projects": [
+      {
+        "slug": "fabric-api",
+        "type": "requiredDependency"
+      },
+      {
+        "slug": "patchouli",
+        "type": "requiredDependency"
+      },
+      {
+        "slug": "trinkets",
+        "type": "requiredDependency"
+      }
+    ]
+  },
+  "gameVersionNames": ["Client", "Server", "Fabric"]
 }
 EOF
 						  )
 
-	local CURSEFORGE_FABRIC_GAMEVERS="[\
-$CURSEFORGE_JAVA_VERSION,\
-$CURSEFORGE_CLIENT_VERSION,\
-$CURSEFORGE_SERVER_VERSION,\
-$CURSEFORGE_FABRIC_VERSION,\
-$CURSEFORGE_GAME_VERSION]"
-
 	CURSEFORGE_FABRIC_SPEC=$(echo "$CURSEFORGE_FABRIC_SPEC" | \
 								 jq --arg changelog "$CHANGELOG_LINK" \
-									--argjson gamevers "$CURSEFORGE_FABRIC_GAMEVERS" \
-									'.gameVersions=$ARGS.named.gamevers | .changelog=$ARGS.named.changelog')
+									--arg mcver "$MC_VERSION" \
+									'.gameVersionNames += [$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
 	curl 'https://minecraft.curseforge.com/api/projects/421839/upload-file' \
 		 -H "X-Api-Token: $CURSEFORGE_TOKEN" \
 		 -F "metadata=$CURSEFORGE_FABRIC_SPEC" \
@@ -176,35 +154,29 @@ $CURSEFORGE_GAME_VERSION]"
 	local CURSEFORGE_NEOFORGE_SPEC
 	CURSEFORGE_NEOFORGE_SPEC=$(cat <<EOF
 {
-    "changelogType": "text",
-    "releaseType": "release",
-	"relations": {
-		"projects": [
-			{
-				"slug": "patchouli",
-				"type": "requiredDependency"
-			},
-			{
-				"slug": "curios",
-				"type": "requiredDependency"
-			}
-		]
-	}
+  "changelogType": "text",
+  "releaseType": "release",
+  "relations": {
+    "projects": [
+      {
+        "slug": "patchouli",
+        "type": "requiredDependency"
+      },
+      {
+        "slug": "curios",
+        "type": "requiredDependency"
+      }
+    ]
+  },
+  "gameVersionNames": ["Client", "Server", "NeoForge"]
 }
 EOF
 						 )
 
-	local CURSEFORGE_NEOFORGE_GAMEVERS="[\
-$CURSEFORGE_JAVA_VERSION,\
-$CURSEFORGE_CLIENT_VERSION,\
-$CURSEFORGE_SERVER_VERSION,\
-$CURSEFORGE_NEOFORGE_VERSION,\
-$CURSEFORGE_GAME_VERSION]"
-
 	CURSEFORGE_NEOFORGE_SPEC=$(echo "$CURSEFORGE_NEOFORGE_SPEC" | \
 								jq --arg changelog "$CHANGELOG_LINK" \
-								   --argjson gamevers "$CURSEFORGE_NEOFORGE_GAMEVERS" \
-								   '.gameVersions=$ARGS.named.gamevers | .changelog=$ARGS.named.changelog')
+								   --arg mcver "$MC_VERSION" \
+								   '.gameVersionNames += [$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
 	curl 'https://minecraft.curseforge.com/api/projects/225643/upload-file' \
 		 -H "X-Api-Token: $CURSEFORGE_TOKEN" \
 		 -F "metadata=$CURSEFORGE_NEOFORGE_SPEC" \
