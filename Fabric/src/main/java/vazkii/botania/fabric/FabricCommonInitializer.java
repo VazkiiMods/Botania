@@ -22,7 +22,6 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -129,7 +128,6 @@ import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
-import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -316,7 +314,6 @@ public class FabricCommonInitializer implements ModInitializer {
 		ServerTickEvents.END_WORLD_TICK.register(TerraTruncatorItem::onTickEnd);
 		UseBlockCallback.EVENT.register(RedStringInterceptorBlock::onInteract);
 		UseBlockCallback.EVENT.register(RingOfLokiItem::onPlayerInteract);
-		UseItemCallback.EVENT.register(EnderAirItem::onPlayerInteract);
 	}
 
 	private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {

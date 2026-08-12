@@ -21,7 +21,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
@@ -3285,9 +3284,8 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.CORPOREA_SPARK, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.MASTER_CORPOREA_SPARK, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.CREATIVE_CORPOREA_SPARK, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.ENDER_AIR_BOTTLE, new ProjectileDispenseBehavior(BotaniaItems.ENDER_AIR_BOTTLE));
-		behavior = DispenserBlock.DISPENSER_REGISTRY.get(Items.GLASS_BOTTLE);
-		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
+		DispenserBlock.registerBehavior(BotaniaItems.PURE_ENDER_ESSENCE, new ProjectileDispenseBehavior(BotaniaItems.PURE_ENDER_ESSENCE));
+		DispenserBlock.registerBehavior(BotaniaItems.ALFGLASS_FLASK, new EnderAirBottlingBehavior());
 
 		behavior = new GrassSeedsBehavior();
 		Item[] seedItems = {

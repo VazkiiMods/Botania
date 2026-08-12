@@ -45,7 +45,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSupplier {
-	public static final int PARTICLE_COLOR = 0x000008;
+	public static final int PARTICLE_COLOR = 0xFF000008;
 	public static final int CONVERSION_RANGE = 4;
 	public static final int CONVERSION_RANGE_Y = 4;
 
@@ -54,11 +54,11 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	}
 
 	public EnderAirBottleEntity(LivingEntity entity, Level world) {
-		super(BotaniaEntities.ENDER_AIR_BOTTLE, entity, world);
+		super(BotaniaEntities.ENDER_ESSENCE_FLASK, entity, world);
 	}
 
 	public EnderAirBottleEntity(double x, double y, double z, Level world) {
-		super(BotaniaEntities.ENDER_AIR_BOTTLE, x, y, z, world);
+		super(BotaniaEntities.ENDER_ESSENCE_FLASK, x, y, z, world);
 	}
 
 	private void convertBlock(BlockPos pos) {
@@ -106,7 +106,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 					40,
 					Math.abs(vec.z) + 0.15, 0.2, Math.abs(vec.x) + 0.15, 0.2);
 
-			LootTable table = this.level().getServer().reloadableRegistries().getLootTable(BotaniaLootTables.GHAST_LOOT_TABLE);
+			LootTable table = this.level().getServer().reloadableRegistries().getLootTable(BotaniaLootTables.GHAST_ENDER_ESSENCE_CRYING);
 			LootParams.Builder builder = new LootParams.Builder(((ServerLevel) level()));
 			builder.withParameter(LootContextParams.THIS_ENTITY, entity);
 			builder.withParameter(LootContextParams.ORIGIN, entity.position());
@@ -128,7 +128,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 
 		for (BlockPos bPos : MathHelper.aroundPosClosed(pos, CONVERSION_RANGE, CONVERSION_RANGE_Y)) {
 			BlockState state = level().getBlockState(bPos);
-			if (state.is(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE)) {
+			if (state.is(BotaniaTags.Blocks.ENDER_ESSENCE_CONVERTABLE)) {
 				possibleCoords.add(bPos.immutable());
 			}
 		}
@@ -147,6 +147,6 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 
 	@Override
 	public ItemStack getItem() {
-		return new ItemStack(BotaniaItems.ENDER_AIR_BOTTLE);
+		return new ItemStack(BotaniaItems.PURE_ENDER_ESSENCE);
 	}
 }

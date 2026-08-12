@@ -238,7 +238,8 @@ public final class LibItemNames {
 	public static final String RED_STRING = "red_string";
 	public static final String DREAMWOOD_TWIG = "dreamwood_twig";
 	public static final String GAIA_INGOT = "gaia_ingot";
-	public static final String ENDER_AIR_BOTTLE = "ender_air_bottle";
+	public static final String PURE_ENDER_ESSENCE = "pure_ender_essence";
+	public static final String DILUTED_ENDER_ESSENCE = "diluted_ender_essence";
 	public static final String MANA_STRING = "mana_string";
 	public static final String MANASTEEL_NUGGET = "manasteel_nugget";
 	public static final String TERRASTEEL_NUGGET = "terrasteel_nugget";

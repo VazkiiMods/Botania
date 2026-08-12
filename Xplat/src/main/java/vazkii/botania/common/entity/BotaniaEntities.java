@@ -86,11 +86,11 @@ public final class BotaniaEntities {
 			.clientTrackingRange(4)
 			.updateInterval(40)
 			.build(LibEntityNames.CORPOREA_SPARK.toString());
-	public static final EntityType<EnderAirBottleEntity> ENDER_AIR_BOTTLE = EntityType.Builder.<EnderAirBottleEntity>of(EnderAirBottleEntity::new, MobCategory.MISC)
+	public static final EntityType<EnderAirBottleEntity> ENDER_ESSENCE_FLASK = EntityType.Builder.<EnderAirBottleEntity>of(EnderAirBottleEntity::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(4)
 			.updateInterval(10)
-			.build(LibEntityNames.ENDER_AIR_BOTTLE.toString());
+			.build(LibEntityNames.ENDER_ESSENCE_FLASK.toString());
 	public static final EntityType<ManaPoolMinecartEntity> MANA_POOL_MINECART = EntityType.Builder.<ManaPoolMinecartEntity>of(ManaPoolMinecartEntity::new, MobCategory.MISC)
 			.sized(0.98F, 0.7F)
 			.clientTrackingRange(5)
@@ -121,12 +121,18 @@ public final class BotaniaEntities {
 			.clientTrackingRange(4)
 			.updateInterval(10)
 			.build(LibEntityNames.FALLING_STAR.toString());
-	public static final EntityType<EnderAirCloudEntity> ENDER_AIR_CLOUD = EntityType.Builder.of(EnderAirCloudEntity::new, MobCategory.MISC)
+	public static final EntityType<EnderAirCloudEntity> PURE_ENDER_ESSENCE_CLOUD = EntityType.Builder.of(EnderAirCloudEntity::createPure, MobCategory.MISC)
 			.fireImmune()
 			.sized(1, 1)
 			.clientTrackingRange(4)
 			.updateInterval(Integer.MAX_VALUE)
-			.build(LibEntityNames.ENDER_AIR_CLOUD.toString());
+			.build(LibEntityNames.PURE_ENDER_ESSENCE_CLOUD.toString());
+	public static final EntityType<EnderAirCloudEntity> DILUTED_ENDER_ESSENCE_CLOUD = EntityType.Builder.of(EnderAirCloudEntity::createDiluted, MobCategory.MISC)
+			.fireImmune()
+			.sized(1, 1)
+			.clientTrackingRange(4)
+			.updateInterval(Integer.MAX_VALUE)
+			.build(LibEntityNames.DILUTED_ENDER_ESSENCE_CLOUD.toString());
 
 	public static void registerEntities(BiConsumer<EntityType<?>, ResourceLocation> r) {
 		r.accept(MANA_BURST, LibEntityNames.MANA_BURST);
@@ -140,14 +146,15 @@ public final class BotaniaEntities {
 		r.accept(MAGIC_MISSILE, LibEntityNames.MAGIC_MISSILE);
 		r.accept(THORN_CHAKRAM, LibEntityNames.THORN_CHAKRAM);
 		r.accept(CORPOREA_SPARK, LibEntityNames.CORPOREA_SPARK);
-		r.accept(ENDER_AIR_BOTTLE, LibEntityNames.ENDER_AIR_BOTTLE);
+		r.accept(ENDER_ESSENCE_FLASK, LibEntityNames.ENDER_ESSENCE_FLASK);
 		r.accept(MANA_POOL_MINECART, LibEntityNames.MANA_POOL_MINECART);
 		r.accept(PINK_WITHER, LibEntityNames.PINK_WITHER);
 		r.accept(LUMINIZER_BEAM, LibEntityNames.LUMINIZER_BEAM);
 		r.accept(MANASTORM_EPICENTER, LibEntityNames.MANASTORM_EPICENTER);
 		r.accept(TREASURY_WEAPON, LibEntityNames.TREASURY_WEAPON);
 		r.accept(FALLING_STAR, LibEntityNames.FALLING_STAR);
-		r.accept(ENDER_AIR_CLOUD, LibEntityNames.ENDER_AIR_CLOUD);
+		r.accept(PURE_ENDER_ESSENCE_CLOUD, LibEntityNames.PURE_ENDER_ESSENCE_CLOUD);
+		r.accept(DILUTED_ENDER_ESSENCE_CLOUD, LibEntityNames.DILUTED_ENDER_ESSENCE_CLOUD);
 	}
 
 	public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> consumer) {

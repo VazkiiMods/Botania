@@ -366,7 +366,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 		tag(BotaniaTags.Blocks.SPECTRAL_RAIL_BARRIER).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
-		tag(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE).add(
+		tag(BotaniaTags.Blocks.ENDER_ESSENCE_CONVERTABLE).add(
 				Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE
 		);
 		tag(BotaniaTags.Blocks.MARIMORPHOSIS_CONVERTABLE).add(

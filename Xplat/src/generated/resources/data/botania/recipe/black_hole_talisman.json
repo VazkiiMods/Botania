@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "A": {
-      "item": "botania:ender_air_bottle"
+      "item": "botania:pure_ender_essence"
     },
     "E": {
       "tag": "c:ingots/elementium"

@@ -350,6 +350,7 @@
 
 
 
+
   "tag.item.botania.ancient_wills": "Vontades Ancestrais",
   "tag.item.botania.burst_viewers": "Visualizadores de Rajada",
 
@@ -360,6 +361,7 @@
   "tag.item.botania.tall_mystical_flowers": "Flores Místicas Altas",
 
   "tag.item.botania.dreamwood_logs": "Troncos de Madeira dos Sonhos",
+
 
 
 
@@ -724,8 +726,9 @@
   "entity.botania.magic_missile": "Míssil Mágico",
   "entity.botania.thorn_chakram": "Chakram Espinhento",
   "entity.botania.corporea_spark": "Fagulha Corporea",
-  "entity.botania.ender_air_bottle": "Frasco de ar do End",
-  "entity.botania.ender_air_cloud": "Nuvem de ar do End",
+
+
+
   "entity.botania.mana_pool_minecart": "Carrinho com Poço de Mana",
   "entity.botania.pink_wither": "Wither Rosa",
   "entity.botania.luminizer_beam": "Feixe de Luminizador",
@@ -775,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Crie um graveto su- er... Cajado das Terras",
   "advancement.botania:spawnerMoverUse": "Posso tirar meu (rasurado)",
   "advancement.botania:spawnerMoverUse.desc": "Use um Agregador de Vida para transportar um Invocador de Monstros",
-  "advancement.botania:enderAirMake": "Imitação de Ar",
-  "advancement.botania:enderAirMake.desc": "Colete um Frasco de ar do End",
+
+
   "advancement.botania:corporeaCraft": "Herói de Pacotes",
   "advancement.botania:corporeaCraft.desc": "Crie um bloco que faça uso da Rede de Corporea",
   "advancement.botania:cacophoniumCraft": "Alma Amante de Barulho",
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "Fagulha Corporea",
   "item.botania.master_corporea_spark": "Fagulha Corporea Mestra",
   "item.botania.creative_corporea_spark": "Fagulha Corporea Criativa",
-  "item.botania.ender_air_bottle": "Frasco de ar do End",
+
+
   "item.botania.livingwood_bow": "Arco de Madeira Viva",
   "item.botania.crystal_bow": "Arco de Cristal",
   "item.botania.cosmetic_black_bowtie": "Gravata Borboleta Preta",
@@ -4159,7 +4163,8 @@
   "botania.subtitle.enchanterEnchant": "Encantador de Mana sibila",
   "botania.subtitle.enchanterFade": "Encantador de Mana enfraquece",
   "botania.subtitle.enchanterForm": "Encantador de Mana forma",
-  "botania.subtitle.enderAirThrow": "Frasco de Ar do End lançado",
+
+
   "botania.subtitle.endoflame": "Endochama incinera item",
   "botania.subtitle.entropinnyumAngry": "Entropilóbio fica insatisfeito",
   "botania.subtitle.entropinnyumHappy": "Entropilóbio crepita",
@@ -4228,6 +4233,12 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "Frasco de ar do End",
+  "entity.botania.ender_air_cloud": "Nuvem de ar do End",
+  "advancement.botania:enderAirMake": "Imitação de Ar",
+  "advancement.botania:enderAirMake.desc": "Colete um Frasco de ar do End",
+  "item.botania.ender_air_bottle": "Frasco de ar do End",
+  "botania.subtitle.enderAirThrow": "Frasco de Ar do End lançado",
   "botania.page.manaAlchemy5": "Desfazendo $(item)Blocos de Pedra Luminosa$(0)",
   "botania.page.manaAlchemy31": "Quartzo",
   "botania.page.manaAlchemy6": "Desfazendo $(item)Blocos de Quartzo$(0)",

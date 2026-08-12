@@ -536,6 +536,8 @@
 
 
 
+
+
   "botania.triggers.manaEmpty": "Mana Leeg",
   "botania.triggers.manaSpace": "Ruimte voor Mana",
   "botania.triggers.manaContains": "Bevat Mana",
@@ -724,7 +726,8 @@
   "entity.botania.magic_missile": "Magische Raket",
   "entity.botania.thorn_chakram": "Doorn van Chakram",
   "entity.botania.corporea_spark": "Corporea Vonk",
-  "entity.botania.ender_air_bottle": "Flesje Ender Lucht",
+
+
 
   "entity.botania.mana_pool_minecart": "Mana Voorraad Mijnkar",
 
@@ -775,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Maak een Staf van het Land",
   "advancement.botania:spawnerMoverUse": "Houdt het netjes",
   "advancement.botania:spawnerMoverUse.desc": "Gebruik een Levensverzamelaar om een Monsterkooi te verplaatsen",
-  "advancement.botania:enderAirMake": "Imitatie Lucht",
-  "advancement.botania:enderAirMake.desc": "Verzamel een Flesje Ender Lucht",
+
+
   "advancement.botania:corporeaCraft": "Online",
   "advancement.botania:corporeaCraft.desc": "Vervaardig een blok die gebruik maakt van het Corporea Netwerk",
   "advancement.botania:cacophoniumCraft": "Rumoerige Zielsverwant",
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "Corporea Vonk",
   "item.botania.master_corporea_spark": "Corporea Bronvonk",
 
-  "item.botania.ender_air_bottle": "Ender Lucht Flesje",
+
+
   "item.botania.livingwood_bow": "Levenshout Boog",
   "item.botania.crystal_bow": "Kristallen Boog",
   "item.botania.cosmetic_black_bowtie": "Zwarte Vlinderdas",
@@ -4227,7 +4231,12 @@
 
 
 
+
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "Flesje Ender Lucht",
+  "advancement.botania:enderAirMake": "Imitatie Lucht",
+  "advancement.botania:enderAirMake.desc": "Verzamel een Flesje Ender Lucht",
+  "item.botania.ender_air_bottle": "Ender Lucht Flesje",
   "botania.page.manaAlchemy5": "Het afbreken van $(item)Gloeisteen Blokken$(0)",
   "botania.page.manaAlchemy6": "Het afbreken van $(item)Kwarts Blokken$(0)",
   "botania.page.manaAlchemy7": "Het maken van $(item)Gebeiteld Steen Baksteen$(0)",

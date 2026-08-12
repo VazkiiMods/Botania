@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "瑪那檢測",
 
 
@@ -360,6 +361,7 @@
   "tag.item.botania.tall_mystical_flowers": "高神秘花",
 
   "tag.item.botania.dreamwood_logs": "夢之木原木",
+
 
 
 
@@ -724,8 +726,9 @@
   "entity.botania.magic_missile": "瑪那飛彈",
   "entity.botania.thorn_chakram": "尖刺飛輪",
   "entity.botania.corporea_spark": "多媒體火花",
-  "entity.botania.ender_air_bottle": "瓶裝終界空氣",
-  "entity.botania.ender_air_cloud": "終界空氣雲團",
+
+
+
   "entity.botania.mana_pool_minecart": "瑪那池礦車",
   "entity.botania.pink_wither": "粉色凋零怪",
   "entity.botania.luminizer_beam": "微光束",
@@ -776,7 +779,7 @@
   "advancement.botania:spawnerMoverUse": "◯◯◯脱げるもん！",
   "advancement.botania:spawnerMoverUse.desc": "用一個生命聚合器來轉移生怪磚",
 
-  "advancement.botania:enderAirMake.desc": "收集一瓶終界空氣",
+
 
   "advancement.botania:corporeaCraft.desc": "合成一個使用多媒體網路的方塊",
   "advancement.botania:cacophoniumCraft": "ノイジーラバーソウル",
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "多媒體火花",
   "item.botania.master_corporea_spark": "主媒體火花",
   "item.botania.creative_corporea_spark": "創造多媒體火花",
-  "item.botania.ender_air_bottle": "瓶裝終界空氣",
+
+
   "item.botania.livingwood_bow": "活木弓",
   "item.botania.crystal_bow": "水晶弓",
   "item.botania.cosmetic_black_bowtie": "黑領結",
@@ -4159,7 +4163,8 @@
   "botania.subtitle.enchanterEnchant": "瑪那附魔結束",
   "botania.subtitle.enchanterFade": "瑪那附魔台崩解",
   "botania.subtitle.enchanterForm": "瑪那附魔台成型",
-  "botania.subtitle.enderAirThrow": "瓶裝終界空氣被扔出",
+
+
   "botania.subtitle.endoflame": "火紅蓮燃燒物品",
   "botania.subtitle.entropinnyumAngry": "熱爆花生氣",
   "botania.subtitle.entropinnyumHappy": "熱爆花湮滅",
@@ -4228,6 +4233,11 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "瓶裝終界空氣",
+  "entity.botania.ender_air_cloud": "終界空氣雲團",
+  "advancement.botania:enderAirMake.desc": "收集一瓶終界空氣",
+  "item.botania.ender_air_bottle": "瓶裝終界空氣",
+  "botania.subtitle.enderAirThrow": "瓶裝終界空氣被扔出",
   "botania.page.manaAlchemy5": "粉碎$(item)螢石$(0)",
   "botania.page.manaAlchemy31": "石英",
   "botania.page.manaAlchemy6": "粉碎$(item)石英方塊$(0)",

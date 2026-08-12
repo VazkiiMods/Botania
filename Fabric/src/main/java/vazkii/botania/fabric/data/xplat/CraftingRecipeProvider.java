@@ -363,12 +363,12 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.define('P', Items.PRISMARINE_BRICKS)
 				.define('B', Items.BLAZE_ROD)
 				.define('S', ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS)
-				.define('E', BotaniaItems.ENDER_AIR_BOTTLE)
+				.define('E', BotaniaItems.PURE_ENDER_ESSENCE)
 				.define('M', ConventionalBotaniaTags.Items.MANASTEEL_STORAGE_BLOCKS)
 				.pattern("BSB")
 				.pattern("PMP")
 				.pattern("PEP")
-				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.ENDER_AIR_BOTTLE))
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.PURE_ENDER_ESSENCE))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.ENDER_OVERSEER)
 				.define('R', ConventionalItemTags.REDSTONE_DUSTS)
@@ -807,8 +807,8 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.RESOLUTE_IVY)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
 				.requires(Items.VINE)
-				.requires(BotaniaItems.ENDER_AIR_BOTTLE)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.ENDER_AIR_BOTTLE))
+				.requires(BotaniaItems.PURE_ENDER_ESSENCE)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.PURE_ENDER_ESSENCE))
 				.save(recipeOutput);
 
 	}
@@ -1063,7 +1063,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.LIFE_AGGREGATOR)
-				.define('A', BotaniaItems.ENDER_AIR_BOTTLE)
+				.define('A', BotaniaItems.PURE_ENDER_ESSENCE)
 				.define('D', ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS)
 				.define('E', BotaniaItems.GAIA_SPIRIT)
 				.define('I', ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS)
@@ -1137,7 +1137,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.TERRASTEEL_INGOTS))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.STARCALLER)
-				.define('A', BotaniaItems.ENDER_AIR_BOTTLE)
+				.define('A', BotaniaItems.PURE_ENDER_ESSENCE)
 				.define('D', ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS)
 				.define('T', BotaniaItems.TERRA_BLADE)
 				.define('I', ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS)
@@ -1147,7 +1147,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.TERRA_BLADE))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.THUNDERCALLER)
-				.define('A', BotaniaItems.ENDER_AIR_BOTTLE)
+				.define('A', BotaniaItems.PURE_ENDER_ESSENCE)
 				.define('D', ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)
 				.define('T', BotaniaItems.TERRA_BLADE)
 				.define('I', ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS)
@@ -1428,7 +1428,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(Items.MINECART))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.BLACK_HOLE_TALISMAN)
-				.define('A', BotaniaItems.ENDER_AIR_BOTTLE)
+				.define('A', BotaniaItems.PURE_ENDER_ESSENCE)
 				.define('E', ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS)
 				.define('G', BotaniaItems.GAIA_SPIRIT)
 				.pattern(" G ")
@@ -1612,7 +1612,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.GAIA_SPIRIT))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.FLUGEL_TIARA)
-				.define('E', BotaniaItems.ENDER_AIR_BOTTLE)
+				.define('E', BotaniaItems.PURE_ENDER_ESSENCE)
 				.define('F', Items.FEATHER)
 				.define('I', ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS)
 				.define('L', BotaniaItems.GAIA_SPIRIT)
@@ -1817,18 +1817,18 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(Items.STRING)
 				.requires(ConventionalItemTags.STORAGE_BLOCKS_REDSTONE)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
-				.requires(BotaniaItems.ENDER_AIR_BOTTLE)
+				.requires(BotaniaItems.PURE_ENDER_ESSENCE)
 				.group("botania:red_string")
-				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.ENDER_AIR_BOTTLE))
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.PURE_ENDER_ESSENCE))
 				.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.RED_STRING)
 				.requires(Items.STRING)
 				.requires(ConventionalItemTags.STORAGE_BLOCKS_REDSTONE)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
-				.requires(BotaniaItems.ENDER_AIR_BOTTLE)
+				.requires(BotaniaItems.PURE_ENDER_ESSENCE)
 				.requires(Items.PUMPKIN)
 				.group("botania:red_string")
-				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.ENDER_AIR_BOTTLE))
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.PURE_ENDER_ESSENCE))
 				.save(recipeOutput, "botania:red_string_alt");
 		registerRedStringBlock(recipeOutput, BotaniaBlocks.RED_STRINGED_CONTAINER, Ingredient.of(ConventionalItemTags.WOODEN_CHESTS));
 		registerRedStringBlock(recipeOutput, BotaniaBlocks.RED_STRINGED_DISPENSER, Ingredient.of(Items.DISPENSER));
@@ -1839,8 +1839,8 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaItems.CORPOREA_SPARK, 4)
 				.requires(BotaniaItems.SPARK)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
-				.requires(BotaniaItems.ENDER_AIR_BOTTLE)
-				.unlockedBy("has_bottle", conditionsFromItem(BotaniaItems.ENDER_AIR_BOTTLE))
+				.requires(BotaniaItems.PURE_ENDER_ESSENCE)
+				.unlockedBy("has_bottle", conditionsFromItem(BotaniaItems.PURE_ENDER_ESSENCE))
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
 				.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaItems.MASTER_CORPOREA_SPARK)
@@ -1849,7 +1849,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.CORPOREA_SPARK))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.CORPOREA_INDEX)
-				.define('A', BotaniaItems.ENDER_AIR_BOTTLE)
+				.define('A', BotaniaItems.PURE_ENDER_ESSENCE)
 				.define('S', BotaniaItems.CORPOREA_SPARK)
 				.define('D', ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS)
 				.define('O', Items.OBSIDIAN)

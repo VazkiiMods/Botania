@@ -24,13 +24,14 @@ public final class LibEntityNames {
 	public static final ResourceLocation MAGIC_MISSILE = botaniaRL("magic_missile");
 	public static final ResourceLocation THORN_CHAKRAM = botaniaRL("thorn_chakram");
 	public static final ResourceLocation CORPOREA_SPARK = botaniaRL("corporea_spark");
-	public static final ResourceLocation ENDER_AIR_BOTTLE = botaniaRL("ender_air_bottle");
+	public static final ResourceLocation ENDER_ESSENCE_FLASK = botaniaRL("ender_essence_flask");
 	public static final ResourceLocation MANA_POOL_MINECART = botaniaRL("mana_pool_minecart");
 	public static final ResourceLocation PINK_WITHER = botaniaRL("pink_wither");
 	public static final ResourceLocation LUMINIZER_BEAM = botaniaRL("luminizer_beam");
 	public static final ResourceLocation MANASTORM_EPICENTER = botaniaRL("manastorm_epicenter");
 	public static final ResourceLocation TREASURY_WEAPON = botaniaRL("treasury_weapon");
 	public static final ResourceLocation FALLING_STAR = botaniaRL("falling_star");
-	public static final ResourceLocation ENDER_AIR_CLOUD = botaniaRL("ender_air_cloud");
+	public static final ResourceLocation PURE_ENDER_ESSENCE_CLOUD = botaniaRL("pure_ender_essence_cloud");
+	public static final ResourceLocation DILUTED_ENDER_ESSENCE_CLOUD = botaniaRL("diluted_ender_essence_cloud");
 
 }

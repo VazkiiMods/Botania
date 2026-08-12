@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-25T08:00:00.458948668	Botania/Advancements
+// 1.21.1	2026-08-15T15:30:06.154798297	Botania/Advancements
 847906414692dac44ece4a0a783b9673ffdc9501 data/botania/advancement/challenge/alf_portal_bread.json
 5f712ead128501e8f996f545d91f792de66bc101 data/botania/advancement/challenge/all_loonium_mobs.json
 bf4fa511640cae8ba7243a7f477053f3bea02f09 data/botania/advancement/challenge/eye_of_the_flugel.json
@@ -24,13 +24,13 @@ c60ea0cc590e5a389df748c09472172f5a574ad3 data/botania/advancement/challenge/tiny
 2bfaa38a7163261597b8d9af16da645a5300f851 data/botania/advancement/main/brew_pickup.json
 16cea78a8d764375f10e2ee774cd6e06d312ccbc data/botania/advancement/main/bubbell_pickup.json
 41b1775c9970ce23f7b898a6d362e5db2b60659b data/botania/advancement/main/cacophonium_craft.json
-5f46297b4f0fc03cd210c9eff8a0097a42546ff4 data/botania/advancement/main/corporea_craft.json
+635cb82d82ec8e7824bcbf79cee0562a72904afb data/botania/advancement/main/corporea_craft.json
 ea0c7c9afb0cbe25796f7b174474088564cc0e5b data/botania/advancement/main/dandelifeon_pickup.json
 c684f3f1ab21308e2c32cb13180631326facc7e5 data/botania/advancement/main/dog.json
 f9872f450e80cc3a875c56cb3acacb65dc9e3f91 data/botania/advancement/main/elf_lexicon_pickup.json
 bde52d8b350aaf9e7e9299519686d14da37d4861 data/botania/advancement/main/elf_portal_open.json
 ddf2941f4e6a3869cc4ef4d92e07560e24958974 data/botania/advancement/main/enchanter_make.json
-a7eadccb730f3a21452f5ac243ebc4875d3eba77 data/botania/advancement/main/ender_air_make.json
+db9925ed1b63a087f881b248e1759c5825816d0e data/botania/advancement/main/ender_essence_make.json
 e45f6dc7f68ef209afa7361d8bd7baa92e3a0702 data/botania/advancement/main/flower_pickup.json
 0624a2978a656bcef6327c07604cdb40832031a1 data/botania/advancement/main/flower_pickup_lexicon.json
 99ae0e7681d5378491ed82398cce39ad8dd8e7f1 data/botania/advancement/main/functional_flower.json
@@ -40,7 +40,7 @@ bc83a8ee82ed5c341615b77a9b478f7e68e2f891 data/botania/advancement/main/gaia_guar
 13428ceab64cabee1cfd84b75416d904888aa322 data/botania/advancement/main/kekimurus_pickup.json
 53dc99cc216d520983f00804791472add1e2c4e8 data/botania/advancement/main/lexicon_use.json
 1722f528efb625486e04f7baca0b458e7066713d data/botania/advancement/main/life_aggregator_use.json
-d6d64d68ef593ab5afa3cb74ec1a9b9bb32ad9aa data/botania/advancement/main/luminizer_ride.json
+fab2d1e3c3dce97241962ef212875062ceeac653 data/botania/advancement/main/luminizer_ride.json
 a59e5e3a4b66dc8ca832a995345248b80b71e559 data/botania/advancement/main/mana_blaster_shoot.json
 e62184fd8ffdb0fcb8f385db73bbfef5557cd691 data/botania/advancement/main/mana_cart_craft.json
 9cde3cf59970bbfe91d81818b961cee75d126d3a data/botania/advancement/main/mana_pool_pickup.json

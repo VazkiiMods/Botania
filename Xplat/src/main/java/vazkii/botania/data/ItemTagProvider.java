@@ -324,6 +324,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.add(Items.AIR, BotaniaItems.SPARK_AUGMENT_DISPERSIVE);
 		tag(BotaniaTags.Items.DOMINANT_SPARK_PULL_SOURCE)
 				.add(Items.AIR);
+
+		tag(BotaniaTags.Items.ENDER_ESSENCES).add(BotaniaItems.DILUTED_ENDER_ESSENCE, BotaniaItems.PURE_ENDER_ESSENCE);
 	}
 
 	private static <B extends Block & OptionallyColored> Item[] getColoredBlockItems(B baseBlock) {

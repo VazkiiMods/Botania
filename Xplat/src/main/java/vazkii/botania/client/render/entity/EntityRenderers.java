@@ -46,7 +46,8 @@ public final class EntityRenderers {
 		consumer.accept(BotaniaEntities.GAIA_TRAP, MagicLandmineRenderer::new);
 		consumer.accept(BotaniaEntities.MAGIC_MISSILE, NoopRenderer::new);
 		consumer.accept(BotaniaEntities.FALLING_STAR, NoopRenderer::new);
-		consumer.accept(BotaniaEntities.ENDER_AIR_CLOUD, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.PURE_ENDER_ESSENCE_CLOUD, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.DILUTED_ENDER_ESSENCE_CLOUD, NoopRenderer::new);
 		consumer.accept(BotaniaEntities.THROWN_ITEM, ItemEntityRenderer::new);
 		consumer.accept(BotaniaEntities.PIXIE, PixieRenderer::new);
 		consumer.accept(BotaniaEntities.GAIA_GUARDIAN, GaiaGuardianRenderer::new);
@@ -59,7 +60,7 @@ public final class EntityRenderers {
 
 		consumer.accept(BotaniaEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
 		consumer.accept(BotaniaEntities.VINE_BALL, ThrownItemRenderer::new);
-		consumer.accept(BotaniaEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
+		consumer.accept(BotaniaEntities.ENDER_ESSENCE_FLASK, ThrownItemRenderer::new);
 	}
 
 	public static void addAuxiliaryPlayerRenders(PlayerRenderer renderer,

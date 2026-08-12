@@ -61,7 +61,8 @@ public final class BotaniaSounds {
 	public static final SoundEvent diceOfFate = makeSoundEvent("dice_of_fate");
 	public static final SoundEvent divaCharm = makeSoundEvent("charm_of_the_diva");
 	public static final SoundEvent divinationRod = makeSoundEvent("divination_rod");
-	public static final SoundEvent enderAirThrow = makeSoundEvent("ender_air_throw");
+	public static final SoundEvent enderEssenceFill = makeSoundEvent("ender_essence_fill");
+	public static final SoundEvent enderEssenceThrow = makeSoundEvent("ender_essence_throw");
 	public static final SoundEvent equipBauble = makeSoundEvent("equip_bauble");
 	public static final Holder<SoundEvent> equipElementium = makeSoundEventHolder("equip_elementium");
 	public static final Holder<SoundEvent> equipManasteel = makeSoundEventHolder("equip_manasteel");

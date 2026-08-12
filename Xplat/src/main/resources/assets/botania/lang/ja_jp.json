@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "マナバーストの観測器具 ",
 
 
@@ -360,6 +361,7 @@
   "tag.item.botania.tall_mystical_flowers": "背の高い神秘的な花",
 
   "tag.item.botania.dreamwood_logs": "ドリームウッドの原木",
+
 
 
 
@@ -724,7 +726,8 @@
   "entity.botania.magic_missile": "魔弾",
   "entity.botania.thorn_chakram": "棘のチャクラム",
   "entity.botania.corporea_spark": "コーポリアスパーク",
-  "entity.botania.ender_air_bottle": "エンドの空気入り瓶",
+
+
 
   "entity.botania.mana_pool_minecart": "マナプールマインカート",
   "entity.botania.pink_wither": "桃色ウィザー",
@@ -776,7 +779,7 @@
   "advancement.botania:spawnerMoverUse": "◯◯◯脱げるもん！",
   "advancement.botania:spawnerMoverUse.desc": "生命集積器をつかってモンスタースポナーを移動させる",
 
-  "advancement.botania:enderAirMake.desc": "エンドの空気入り瓶を集める",
+
   "advancement.botania:corporeaCraft": "パケットヒーロー",
   "advancement.botania:corporeaCraft.desc": "コーポリア・ネットワークに役立つブロックをクラフトする",
   "advancement.botania:cacophoniumCraft": "ノイジーラバーソウル",
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "コーポリアスパーク",
   "item.botania.master_corporea_spark": "マスターコーポリアスパーク",
   "item.botania.creative_corporea_spark": "クリエイティブコーポリアスパーク",
-  "item.botania.ender_air_bottle": "エンドの空気入り瓶",
+
+
   "item.botania.livingwood_bow": "リビングウッドの弓",
   "item.botania.crystal_bow": "水晶の弓",
   "item.botania.cosmetic_black_bowtie": "黒色の蝶ネクタイ",
@@ -4159,7 +4163,8 @@
   "botania.subtitle.enchanterEnchant": "マナでのエンチャントが完了する",
   "botania.subtitle.enchanterFade": "マナエンチャンターが機能停止する",
   "botania.subtitle.enchanterForm": "マナエンチャンターが起動する",
-  "botania.subtitle.enderAirThrow": "エンドの空気入り瓶を投擲",
+
+
   "botania.subtitle.endoflame": "エンドフレイムが燃料を燃やす",
   "botania.subtitle.entropinnyumAngry": "エントロピニウムが不満そうにする",
   "botania.subtitle.entropinnyumHappy": "エントロピニウムがマナを生む",
@@ -4228,6 +4233,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "エンドの空気入り瓶",
+  "advancement.botania:enderAirMake.desc": "エンドの空気入り瓶を集める",
+  "item.botania.ender_air_bottle": "エンドの空気入り瓶",
+  "botania.subtitle.enderAirThrow": "エンドの空気入り瓶を投擲",
   "botania.page.manaAlchemy5": "$(item)グロウストーン$(0)の破壊",
   "botania.page.manaAlchemy31": "クォーツ",
   "botania.page.manaAlchemy6": "$(item)クォーツブロック$(0)の破壊",

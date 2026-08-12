@@ -41,6 +41,7 @@ import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.brew.BaseBrewItem;
+import vazkii.botania.common.item.brew.FlaskItem;
 import vazkii.botania.common.item.brew.IncenseStickItem;
 import vazkii.botania.common.item.brew.VialItem;
 import vazkii.botania.common.item.equipment.armor.elementium.*;
@@ -130,7 +131,8 @@ public final class BotaniaItems {
 	public static final Item DREAMWOOD_TWIG = make(LibItemNames.DREAMWOOD_TWIG, new Item(defaultBuilder()));
 	public static final Item GAIA_INGOT = make(LibItemNames.GAIA_INGOT,
 			new GaiaRitualSacrificeItem(defaultBuilder().rarity(Rarity.RARE), true));
-	public static final Item ENDER_AIR_BOTTLE = make(LibItemNames.ENDER_AIR_BOTTLE, new EnderAirItem(defaultBuilder()));
+	public static final Item PURE_ENDER_ESSENCE = make(LibItemNames.PURE_ENDER_ESSENCE, new EnderAirItem(defaultBuilder()));
+	public static final Item DILUTED_ENDER_ESSENCE = make(LibItemNames.DILUTED_ENDER_ESSENCE, new Item(defaultBuilder()));
 	public static final Item MANA_INFUSED_STRING = make(LibItemNames.MANA_STRING, new Item(defaultBuilder()));
 	public static final Item MANASTEEL_NUGGET = make(LibItemNames.MANASTEEL_NUGGET, new Item(defaultBuilder()));
 	public static final Item TERRASTEEL_NUGGET = make(LibItemNames.TERRASTEEL_NUGGET,
@@ -709,7 +711,7 @@ public final class BotaniaItems {
 	public static final Item MANAGLASS_VIAL = make(LibItemNames.MANAGLASS_VIAL,
 			new VialItem(defaultBuilder()));
 	public static final Item ALFGLASS_FLASK = make(LibItemNames.ALFGLASS_FLASK,
-			new VialItem(defaultBuilder()));
+			new FlaskItem(defaultBuilder()));
 	public static final BaseBrewItem BREW_VIAL = make(LibItemNames.BREW_VIAL,
 			new BaseBrewItem(32, () -> MANAGLASS_VIAL, unstackable()
 					.component(BotaniaDataComponents.MAX_USES, BaseBrewItem.DEFAULT_USES_VIAL)));

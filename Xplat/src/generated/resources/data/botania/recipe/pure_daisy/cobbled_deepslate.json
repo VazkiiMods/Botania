@@ -10,6 +10,6 @@
       "Name": "minecraft:cobbled_deepslate"
     }
   },
-  "success_function": "botania:ender_air_release",
+  "success_function": "botania:ender_essence_release",
   "time": 150
 }

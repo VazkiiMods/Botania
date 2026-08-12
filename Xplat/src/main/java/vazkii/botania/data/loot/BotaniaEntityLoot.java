@@ -72,7 +72,7 @@ public class BotaniaEntityLoot implements LootTableSubProvider {
 				)
 		));
 
-		output.accept(BotaniaLootTables.GHAST_LOOT_TABLE, LootTable.lootTable().withPool(LootPool.lootPool()
+		output.accept(BotaniaLootTables.GHAST_ENDER_ESSENCE_CRYING, LootTable.lootTable().withPool(LootPool.lootPool()
 				.add(LootItem.lootTableItem(Items.GHAST_TEAR))
 				.add(EmptyLootItem.emptyItem().setWeight(7))
 		));

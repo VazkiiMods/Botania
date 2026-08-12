@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.enderAir",
   "category": "botania:ender",
-  "icon": "botania:ender_air_bottle",
+  "icon": "botania:pure_ender_essence",
   "priority": true,
   "pages": [
     {
@@ -20,7 +20,8 @@
   ],
   "extra_recipe_mappings": {
     "minecraft:end_stone": 0,
-    "botania:ender_air_bottle": 0,
+    "botania:diluted_ender_essence": 0,
+    "botania:pure_ender_essence": 0,
     "minecraft:ghast_tear": 2
   }
 }

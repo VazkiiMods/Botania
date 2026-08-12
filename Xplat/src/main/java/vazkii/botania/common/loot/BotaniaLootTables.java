@@ -66,7 +66,7 @@ public class BotaniaLootTables {
 
 	public static final List<ResourceKey<LootTable>> DICE_ROLL_LOOT_TABLES = IntStream.rangeClosed(1, 6)
 			.mapToObj(i -> register("dice_of_fate/roll_" + i)).toList();
-	public static final ResourceKey<LootTable> GHAST_LOOT_TABLE = register("gameplay/ghast_ender_air_crying");
+	public static final ResourceKey<LootTable> GHAST_ENDER_ESSENCE_CRYING = register("gameplay/ghast_ender_essence_crying");
 
 	public static final ResourceKey<LootTable> FEL_BLAZE = register("entities/fel_blaze");
 

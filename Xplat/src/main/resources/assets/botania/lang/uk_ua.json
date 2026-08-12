@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "Переглядачі сплесків",
 
 
@@ -360,6 +361,7 @@
   "tag.item.botania.tall_mystical_flowers": "Високі містичні квіти",
 
   "tag.item.botania.dreamwood_logs": "Колоди мрійдрева",
+
 
 
 
@@ -724,8 +726,9 @@
   "entity.botania.magic_missile": "Чарівний снаряд",
   "entity.botania.thorn_chakram": "Терновий чакрам",
   "entity.botania.corporea_spark": "Іскра Корпореї",
-  "entity.botania.ender_air_bottle": "Пляшка з повітрям Енду",
-  "entity.botania.ender_air_cloud": "Хмара повітря Енду",
+
+
+
   "entity.botania.mana_pool_minecart": "Вагонетка з басейном мани",
   "entity.botania.pink_wither": "Гламурний Візер",
   "entity.botania.luminizer_beam": "Промінь світлювача",
@@ -775,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Створіть брудну пали... ой... Жезл Земель",
   "advancement.botania:spawnerMoverUse": "Я можу зняти свій (відредаговано)",
   "advancement.botania:spawnerMoverUse.desc": "Використовуйте Агрегатор життя, щоб транспортувати розсадник монстрів",
-  "advancement.botania:enderAirMake": "Імітація повітря",
-  "advancement.botania:enderAirMake.desc": "Зберіть пляшку повітря Енду",
+
+
   "advancement.botania:corporeaCraft": "Кишеньковий герой",
   "advancement.botania:corporeaCraft.desc": "Створіть блок, який використовує мережу Корпореї",
   "advancement.botania:cacophoniumCraft": "Душа голосливого коханця",
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "Іскра Корпореї",
   "item.botania.master_corporea_spark": "Головна іскра Корпореї",
   "item.botania.creative_corporea_spark": "Творча іскра Корпореї",
-  "item.botania.ender_air_bottle": "Пляшка повітря Енда",
+
+
   "item.botania.livingwood_bow": "Лук з життєдрева",
   "item.botania.crystal_bow": "Кристальний лук",
   "item.botania.cosmetic_black_bowtie": "Чорний метелик",
@@ -4159,7 +4163,8 @@
   "botania.subtitle.enchanterEnchant": "Зачаровувач мани свистить",
   "botania.subtitle.enchanterFade": "Зачаровувач мани зникає",
   "botania.subtitle.enchanterForm": "Зачаровувач мани формує",
-  "botania.subtitle.enderAirThrow": "Пляшечка кинута",
+
+
   "botania.subtitle.endoflame": "Жаржина спалює предмет",
   "botania.subtitle.entropinnyumAngry": "Ентропінніум незадоволений",
   "botania.subtitle.entropinnyumHappy": "Ентропінніум шипить",
@@ -4228,6 +4233,12 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "Пляшка з повітрям Енду",
+  "entity.botania.ender_air_cloud": "Хмара повітря Енду",
+  "advancement.botania:enderAirMake": "Імітація повітря",
+  "advancement.botania:enderAirMake.desc": "Зберіть пляшку повітря Енду",
+  "item.botania.ender_air_bottle": "Пляшка повітря Енда",
+  "botania.subtitle.enderAirThrow": "Пляшечка кинута",
   "botania.page.manaAlchemy5": "Дроблення $(item)Світлокаменю$(0)",
   "botania.page.manaAlchemy31": "Кварц",
   "botania.page.manaAlchemy6": "Дроблення $(item)Кварцу$(0)",

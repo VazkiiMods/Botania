@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "마나버스트 관측 장비",
 
 
@@ -360,6 +361,7 @@
   "tag.item.botania.tall_mystical_flowers": "키 큰 신비로운 꽃",
 
   "tag.item.botania.dreamwood_logs": "꿈나무 원목",
+
 
 
 
@@ -724,8 +726,9 @@
   "entity.botania.magic_missile": "매직미사일",
   "entity.botania.thorn_chakram": "던져지는 챠크람",
   "entity.botania.corporea_spark": "코포리아 스파크",
-  "entity.botania.ender_air_bottle": "엔더 공기가 담겨 있는 병",
-  "entity.botania.ender_air_cloud": "엔더 공기 구름",
+
+
+
   "entity.botania.mana_pool_minecart": "마나 웅덩이 마인카트",
   "entity.botania.pink_wither": "분홍 위더",
   "entity.botania.luminizer_beam": "루미나이저 빔",
@@ -776,7 +779,7 @@
   "advancement.botania:spawnerMoverUse": "(검열삭제)를 벗을 수 있는 걸",
   "advancement.botania:spawnerMoverUse.desc": "생명 수집기를 사용하여 몬스터 생성자 스포너 이동시키기",
 
-  "advancement.botania:enderAirMake.desc": "엔더의 공기를 병에 넣어보세요",
+
 
   "advancement.botania:corporeaCraft.desc": "코포리아 네트워크를 활용한 블록 생성",
 
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "코포리아 스파크",
   "item.botania.master_corporea_spark": "마스터 코포리아 스파크",
   "item.botania.creative_corporea_spark": "영원한 코포리아 스파크",
-  "item.botania.ender_air_bottle": "엔더 공기가 담긴 병",
+
+
   "item.botania.livingwood_bow": "생명의 나무 활",
   "item.botania.crystal_bow": "수정 활",
   "item.botania.cosmetic_black_bowtie": "검은색 나비넥타이",
@@ -4227,7 +4231,12 @@
 
 
 
+
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "엔더 공기가 담겨 있는 병",
+  "entity.botania.ender_air_cloud": "엔더 공기 구름",
+  "advancement.botania:enderAirMake.desc": "엔더의 공기를 병에 넣어보세요",
+  "item.botania.ender_air_bottle": "엔더 공기가 담긴 병",
   "botania.page.manaAlchemy5": "$(item)발광석 블록$(0) 분해",
   "botania.page.manaAlchemy31": "석영",
   "botania.page.manaAlchemy6": "$(item)석영 블록$(0) 분해",

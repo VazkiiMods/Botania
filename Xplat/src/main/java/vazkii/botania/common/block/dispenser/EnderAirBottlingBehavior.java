@@ -9,58 +9,39 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.material.EnderAirItem;
+import vazkii.botania.common.entity.EnderAirCloudEntity;
+import vazkii.botania.common.handler.BotaniaSounds;
+
+import java.util.List;
 
 public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
-	private final DefaultDispenseItemBehavior defaultBehaviour = new DefaultDispenseItemBehavior();
-	private final DispenseItemBehavior parent;
-
-	public EnderAirBottlingBehavior(DispenseItemBehavior parent) {
-		this.parent = parent;
-	}
-
-	@Override
-	protected void playSound(BlockSource source) {
-		if (this.isSuccess()) {
-			super.playSound(source);
-		}
-	}
-
-	@Override
-	protected void playAnimation(BlockSource source, Direction facingIn) {
-		if (this.isSuccess()) {
-			super.playAnimation(source, facingIn);
-		}
-	}
-
-	private static boolean pickupInEnd(Level world, BlockPos facingPos) {
-		return world.dimension() == Level.END
-				&& world.isEmptyBlock(facingPos) && world.isEmptyBlock(facingPos.above())
-				&& EnderAirItem.isClearFromDragonBreath(world, new AABB(facingPos).inflate(2.0D));
-	}
 
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
-		Level world = source.level();
-		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
-		if (pickupInEnd(world, blockpos) || EnderAirItem.pickupFromEntity(world, new AABB(blockpos))) {
-			this.setSuccess(true);
-			world.gameEvent(null, GameEvent.FLUID_PICKUP, source.pos());
-			return this.defaultBehaviour.consumeWithRemainder(source, stack, new ItemStack(BotaniaItems.ENDER_AIR_BOTTLE));
+		BlockPos blockPos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
+		List<EnderAirCloudEntity> entities = source.level().getEntitiesOfClass(EnderAirCloudEntity.class,
+				new AABB(blockPos), EntitySelector.ENTITY_STILL_ALIVE);
+		if (!entities.isEmpty()) {
+			EnderAirCloudEntity cloud = entities.getFirst();
+			ItemStack bottledStack = cloud.getBottledItem();
+			if (!bottledStack.isEmpty()) {
+				source.level().playSound(null, blockPos, BotaniaSounds.enderEssenceFill, SoundSource.BLOCKS, 1, 1);
+				source.level().gameEvent(null, GameEvent.FLUID_PICKUP, source.pos());
+				cloud.discard();
+				setSuccess(true);
+				return consumeWithRemainder(source, bottledStack, stack);
+			}
 		}
 		this.setSuccess(false);
-		return parent.dispense(source, stack);
+		return dispense(source, stack);
 	}
 }
