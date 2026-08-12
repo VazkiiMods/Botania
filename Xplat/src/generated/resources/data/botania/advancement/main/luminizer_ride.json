@@ -1,5 +1,5 @@
 {
-  "parent": "botania:main/ender_air_make",
+  "parent": "botania:main/ender_essence_make",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"

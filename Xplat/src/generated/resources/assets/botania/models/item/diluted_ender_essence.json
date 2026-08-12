@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:item/ender_air_bottle"
+    "layer0": "botania:item/diluted_ender_essence"
   }
 }

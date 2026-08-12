@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "A": {
-      "item": "botania:ender_air_bottle"
+      "item": "botania:pure_ender_essence"
     },
     "D": {
       "tag": "c:gems/dragonstone"

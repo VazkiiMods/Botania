@@ -51,7 +51,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 
 		normal(consumer, StateIngredients.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState());
 		withFunction(consumer, StateIngredients.of(Blocks.END_STONE),
-				Blocks.COBBLED_DEEPSLATE.defaultBlockState(), new CacheableFunction(botaniaRL("ender_air_release")));
+				Blocks.COBBLED_DEEPSLATE.defaultBlockState(), new CacheableFunction(botaniaRL("ender_essence_release")));
 		normal(consumer, StateIngredients.of(Blocks.SOUL_SAND), Blocks.SAND.defaultBlockState());
 		normal(consumer, StateIngredients.of(Blocks.ICE), Blocks.PACKED_ICE.defaultBlockState());
 		normal(consumer, StateIngredients.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.defaultBlockState());

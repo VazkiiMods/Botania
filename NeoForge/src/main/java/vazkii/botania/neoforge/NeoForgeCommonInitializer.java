@@ -28,7 +28,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -135,7 +134,6 @@ import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
-import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.loot.BotaniaLootModifiers;
@@ -368,13 +366,6 @@ public class NeoForgeCommonInitializer {
 		bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
 			RedStringInterceptorBlock.onInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
 			RingOfLokiItem.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
-		});
-		bus.addListener((PlayerInteractEvent.RightClickItem e) -> {
-			InteractionResultHolder<ItemStack> result = EnderAirItem.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand());
-			if (result.getResult().consumesAction()) {
-				e.setCanceled(true);
-				e.setCancellationResult(result.getResult());
-			}
 		});
 
 		bus.addListener(EntityEvent.EntityConstructing.class, NeoForgeInternalEntityCapabilities::trackTntSpawning);

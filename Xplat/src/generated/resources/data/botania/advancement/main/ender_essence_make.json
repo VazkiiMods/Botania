@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:ender_air_bottle"
+            "items": "botania:pure_ender_essence"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.botania:enderAirMake.desc"
+      "translate": "advancement.botania:enderEssenceMake.desc"
     },
     "icon": {
       "count": 1,
-      "id": "botania:ender_air_bottle"
+      "id": "botania:pure_ender_essence"
     },
     "title": {
-      "translate": "advancement.botania:enderAirMake"
+      "translate": "advancement.botania:enderEssenceMake"
     }
   },
   "requirements": [

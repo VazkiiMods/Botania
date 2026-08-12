@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-25T08:00:00.464301822	Botania/Botania item models
+// 1.21.1	2026-08-15T15:30:06.15964287	Botania/Botania item models
 d4b0ba0031453560fbcac5ba06e408d0ee6a8c4f assets/botania/models/item/abstruse_platform.json
 bf099805ffd7a8d3043459d5fa421695f2890c97 assets/botania/models/item/agricarnation.json
 c3ca3c034853dd545c042e51282bd3fee9398f6e assets/botania/models/item/agricarnation_petite.json
@@ -252,6 +252,7 @@ f3cc6084efda50d29d91a68a5900e3e9ece3b978 assets/botania/models/item/daybloom_mot
 e8b09eef19f77a2ad6760e2f72f200345ba0757e assets/botania/models/item/deepslate_petal_apothecary.json
 dbd8a16cd5a9551b03fb092dca4e06839d42bb04 assets/botania/models/item/detector_luminizer.json
 a5a1137768b121dbb5528e22f46b41149ad15ebc assets/botania/models/item/dice_of_fate.json
+dbb43e9b16ed09a346a253ebd45265c0383fc3bc assets/botania/models/item/diluted_ender_essence.json
 8a583cf2fbe62cdd29f6d54b2c8eee23e8b283ab assets/botania/models/item/diluted_mana_pool.json
 06ed52160d5f04aeb52497b0de1048cc0666ee80 assets/botania/models/item/dragonstone.json
 a24ac299b21fa3ba89d2bccdad7108d7ddf5a6fa assets/botania/models/item/dragonstone_block.json
@@ -301,7 +302,6 @@ b448b593a2fe2e2cbd2adb2665743e390779bd01 assets/botania/models/item/elven_gatewa
 970912f883688fd6ff80256d4c93007fcdbc1cc3 assets/botania/models/item/elven_quartz_pillar.json
 34767fa4df5a91996dd4c40d105e8ade38242f3c assets/botania/models/item/elven_quartz_slab.json
 ad40e9ecd73cc6c9ab1c083baf21639c2014ef9a assets/botania/models/item/elven_quartz_stairs.json
-2506aacc273b482e11bc21ac6b1fbca05776dcb9 assets/botania/models/item/ender_air_bottle.json
 70203495d5351ccb24aebb52d351ca93c5b8efd1 assets/botania/models/item/ender_overseer.json
 68268a26dc4fc695166dce76413a5ce06f1f7aa9 assets/botania/models/item/endoflame.json
 e8754ca6ea2622b4e477f62f6077ae873cefa7c2 assets/botania/models/item/entropic_lens.json
@@ -654,6 +654,7 @@ cedfcbe394729f2a2abcd048b038a173daba429f assets/botania/models/item/pink_tall_my
 334320f4ff0c9c8dcd0c643ac685dfe782891dd2 assets/botania/models/item/potency_lens.json
 c610e0f0fe292f55be0941dc49f6765d5fab9bba assets/botania/models/item/pulse_mana_spreader.json
 13940d58a058f76cf79f71d183931f0562b4f5d1 assets/botania/models/item/pure_daisy.json
+c1132812593a7b871d147aecfa2f5bddb6a02680 assets/botania/models/item/pure_ender_essence.json
 279b4d21b9d3e7e6fda663ab98a11535142cd628 assets/botania/models/item/purple_creative_mana_pool.json
 8a583cf2fbe62cdd29f6d54b2c8eee23e8b283ab assets/botania/models/item/purple_diluted_mana_pool.json
 8517056cc5ee26632977c76151423f4d0f67c628 assets/botania/models/item/purple_fabulous_mana_pool.json

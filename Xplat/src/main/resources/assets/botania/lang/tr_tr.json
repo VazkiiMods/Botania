@@ -350,6 +350,7 @@
 
 
 
+
   "tag.item.botania.ancient_wills": "Kadim İradeler",
   "tag.item.botania.burst_viewers": "Patlama Görüntüleyicileri",
 
@@ -360,6 +361,7 @@
   "tag.item.botania.tall_mystical_flowers": "Uzun Mistik Çiçekler",
 
   "tag.item.botania.dreamwood_logs": "Rüya Ağacı Kütükleri",
+
 
 
 
@@ -724,8 +726,9 @@
   "entity.botania.magic_missile": "Büyülü Füze",
   "entity.botania.thorn_chakram": "Dikenli Çakram",
   "entity.botania.corporea_spark": "Corporea Kıvılcımı",
-  "entity.botania.ender_air_bottle": "Ender Havası Şişesi",
-  "entity.botania.ender_air_cloud": "Ender Havası Bulutu",
+
+
+
   "entity.botania.mana_pool_minecart": "Mana Havuzu Vagonu",
   "entity.botania.pink_wither": "Pembe Wither",
   "entity.botania.luminizer_beam": "Luminizer Işını",
@@ -775,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Kirli bir çubu- şey... Toprak Asası üret",
   "advancement.botania:spawnerMoverUse": "(Sansürlendi)'mi çıkarabilirim",
   "advancement.botania:spawnerMoverUse.desc": "Bir Canavar Çağırıcısını taşımak için bir Yaşam Toplayıcısı kullan",
-  "advancement.botania:enderAirMake": "Taklit Hava",
-  "advancement.botania:enderAirMake.desc": "Bir Şişe Ender Havası topla",
+
+
   "advancement.botania:corporeaCraft": "Paket Kahramanı",
   "advancement.botania:corporeaCraft.desc": "Corporea Ağı'nı kullanan bir blok üret",
   "advancement.botania:cacophoniumCraft": "Gürültülü Aşık Ruh",
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "Corporea Kıvılcımı",
   "item.botania.master_corporea_spark": "Usta Corporea Kıvılcımı",
   "item.botania.creative_corporea_spark": "Yaratıcı Corporea Kıvılcımı",
-  "item.botania.ender_air_bottle": "Ender Havası Şişesi",
+
+
   "item.botania.livingwood_bow": "Yaşayan Ağaç Yayı",
   "item.botania.crystal_bow": "Kristal Yay",
   "item.botania.cosmetic_black_bowtie": "Siyah Papyon",
@@ -2449,7 +2453,7 @@
 
   "botania.category.alfhomancy": "Alfheim Büyüsü",
 
-  "botania.category.misc": "Çeşitli"
+  "botania.category.misc": "Çeşitli",
 
 
 
@@ -4226,4 +4230,12 @@
 
 
 
+
+
+  "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "Ender Havası Şişesi",
+  "entity.botania.ender_air_cloud": "Ender Havası Bulutu",
+  "advancement.botania:enderAirMake": "Taklit Hava",
+  "advancement.botania:enderAirMake.desc": "Bir Şişe Ender Havası topla",
+  "item.botania.ender_air_bottle": "Ender Havası Şişesi"
 }

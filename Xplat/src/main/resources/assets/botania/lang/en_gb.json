@@ -378,6 +378,8 @@
 
 
 
+
+
   "tag.item.botania.ring_of_magnetization_ignored": "Ignored by Ring of Magnetisation",
 
 
@@ -684,6 +686,7 @@
 
 
   "armorModels.enable": "Custom Armour Models",
+
 
 
 
@@ -1947,6 +1950,7 @@
 
 
   "item.botania.ring_of_magnetization": "Ring of Magnetisation",
+
 
 
 
@@ -4123,6 +4127,7 @@
 
 
   "botania.page.pavement0": "$(item)Portuguese Pavement$(0) is a building block designed for the construction of detailed roads. It comes in various colours, and is stairable and slabbable.$(p)For those with experience in the arts of \"multiparts\" and \"microblocks\", these blocks provide a fantastic source of patterns.",
+
 
 
 

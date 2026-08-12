@@ -58,5 +58,8 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 		tag(BotaniaTags.Entities.KEY_IMMUNE).add(EntityType.ITEM, EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME,
 				EntityType.PAINTING, EntityType.EXPERIENCE_ORB);
 		tag(BotaniaTags.Entities.PORTAL_BREAD_IMMUNE).add(EntityType.ITEM, EntityType.EXPERIENCE_ORB);
+
+		tag(BotaniaTags.Entities.ENDER_ESSENCE_CLOUDS)
+				.add(BotaniaEntities.DILUTED_ENDER_ESSENCE_CLOUD, BotaniaEntities.PURE_ENDER_ESSENCE_CLOUD);
 	}
 }

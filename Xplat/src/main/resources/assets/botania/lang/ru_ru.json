@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "Окуляры наблюдения сгустков маны",
 
 
@@ -360,6 +361,7 @@
   "tag.item.botania.tall_mystical_flowers": "Высокие мистические цветы",
 
   "tag.item.botania.dreamwood_logs": "Брёвна дерева мечтаний",
+
 
 
 
@@ -724,8 +726,9 @@
   "entity.botania.magic_missile": "Магический снаряд",
   "entity.botania.thorn_chakram": "Шипастый чакрам",
   "entity.botania.corporea_spark": "Эфирная искра",
-  "entity.botania.ender_air_bottle": "Пузырёк с воздухом Энда",
-  "entity.botania.ender_air_cloud": "Облако воздуха Энда",
+
+
+
   "entity.botania.mana_pool_minecart": "Вагонетка с бассейном для маны",
   "entity.botania.pink_wither": "Розовый Визер",
   "entity.botania.luminizer_beam": "Течение люкседука",
@@ -775,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Создайте грязную пал- ээ… Скипетр лугов, даааа, ага",
   "advancement.botania:spawnerMoverUse": "Квартирный вопрос",
   "advancement.botania:spawnerMoverUse.desc": "Используйте агрегатор жизни для транспортировки рассадника монстров",
-  "advancement.botania:enderAirMake": "Своя атмосфера",
-  "advancement.botania:enderAirMake.desc": "Наполните пузырёк воздухом из Энда",
+
+
   "advancement.botania:corporeaCraft": "На расстоянии вытянутой руки",
   "advancement.botania:corporeaCraft.desc": "Создайте предмет с помощью эфирной сети хранения",
   "advancement.botania:cacophoniumCraft": "Шумная душа возлюбленного",
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "Эфирная искра",
   "item.botania.master_corporea_spark": "Эфирная мастер-искра",
   "item.botania.creative_corporea_spark": "Творческая эфирная искра",
-  "item.botania.ender_air_bottle": "Пузырёк с воздухом Энда",
+
+
   "item.botania.livingwood_bow": "Жизнедеревянный лук",
   "item.botania.crystal_bow": "Кристаллический лук",
   "item.botania.cosmetic_black_bowtie": "Чёрный галстук-бабочка",
@@ -4159,7 +4163,8 @@
   "botania.subtitle.enchanterEnchant": "Мана-чарователя завывает",
   "botania.subtitle.enchanterFade": "Маначарователь затухает",
   "botania.subtitle.enchanterForm": "Мана-чарователь сформировался",
-  "botania.subtitle.enderAirThrow": "Брошена бутылочка",
+
+
   "botania.subtitle.endoflame": "Эндопламя поджигает предмет",
   "botania.subtitle.entropinnyumAngry": "Энтропиннум недоволен",
   "botania.subtitle.entropinnyumHappy": "Энтропиннум доволен",
@@ -4228,6 +4233,12 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "Пузырёк с воздухом Энда",
+  "entity.botania.ender_air_cloud": "Облако воздуха Энда",
+  "advancement.botania:enderAirMake": "Своя атмосфера",
+  "advancement.botania:enderAirMake.desc": "Наполните пузырёк воздухом из Энда",
+  "item.botania.ender_air_bottle": "Пузырёк с воздухом Энда",
+  "botania.subtitle.enderAirThrow": "Брошена бутылочка",
   "botania.page.manaAlchemy5": "Распадение $(item)светокаменных блоков$(0)",
   "botania.page.manaAlchemy31": "Кварц",
   "botania.page.manaAlchemy6": "Распадение $(item)кварцевых блоков$(0)",

@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-02T14:43:56.610000883	Botania/Tags for minecraft:item
+// 1.21.1	2026-08-15T16:00:21.311686951	Botania/Tags for minecraft:item
 665aee3cc41d8f1e66408e198692f4ebec572aba data/botania/tags/item/all_mana_pools.json
 2b5505ddf6b15ea500a714fd10bc4ec05fa3eef5 data/botania/tags/item/ancient_wills.json
 9c05adc2a63d8b6a2636d766d8858160e1308c25 data/botania/tags/item/burst_viewers.json
@@ -13,6 +13,7 @@ c78b8d439e4a26f1bfdd692b63cdce3c70b7fa0c data/botania/tags/item/disposable.json
 6eea66f4b1170c6042447221975bee67a1f4ea43 data/botania/tags/item/dyed_diluted_mana_pools.json
 c3a6c71abc370fbf9f980d2cd44d3314bbc4a4dc data/botania/tags/item/dyed_fabulous_mana_pools.json
 1d807f5547dd751b4dbaa92547c3884491a087fb data/botania/tags/item/dyed_mana_pools.json
+64c3c0c54ebe9734ce889185b150e94cd0a5bd5c data/botania/tags/item/ender_essences.json
 aa54c6d57f3514b1a61424ffd6c314669b345625 data/botania/tags/item/fabulous_mana_pools.json
 c3cb51c6ce1dbe8639e8d7a826faeb5c6f4a6c54 data/botania/tags/item/floating_flowers.json
 b73f8f1fa6131f06c905496177ee253d90d2173a data/botania/tags/item/functional_floating_flowers.json

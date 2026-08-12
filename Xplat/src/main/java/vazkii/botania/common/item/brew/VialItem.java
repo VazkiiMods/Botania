@@ -17,25 +17,19 @@ import vazkii.botania.common.item.BotaniaItems;
 
 public class VialItem extends Item implements BrewContainer {
 
-	public VialItem(Properties builder) {
-		super(builder);
+	public VialItem(Properties properties) {
+		super(properties);
 	}
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		ItemStack brewStack = new ItemStack(stack.is(BotaniaItems.ALFGLASS_FLASK)
-				? BotaniaItems.BREW_FLASK
-				: BotaniaItems.BREW_VIAL);
+		ItemStack brewStack = new ItemStack(BotaniaItems.BREW_VIAL);
 		BaseBrewItem.setBrew(brewStack, brew);
 		return brewStack;
 	}
 
 	@Override
 	public int getManaCost(Brew brew, ItemStack stack) {
-		if (stack.is(BotaniaItems.ALFGLASS_FLASK)) {
-			return brew.getManaCost() * 2;
-		} else {
-			return brew.getManaCost();
-		}
+		return brew.getManaCost();
 	}
 }

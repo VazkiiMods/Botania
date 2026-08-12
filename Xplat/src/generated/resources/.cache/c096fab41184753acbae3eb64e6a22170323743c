@@ -1,9 +1,9 @@
-// 1.21.1	Botania/minecraft:entity Loot Table
-febc32b8daf33fb9397e0245f7e3f2478f638e7a data/botania/loot_table/entities/gaia_guardian.json
+// 1.21.1	2026-08-15T15:30:06.159372217	Botania/minecraft:entity Loot Table
 61c09f397050f42acd9bf30d25f1f15f512b177e data/botania/loot_table/entities/fel_blaze.json
+febc32b8daf33fb9397e0245f7e3f2478f638e7a data/botania/loot_table/entities/gaia_guardian.json
 f7819cf859b041300eac9c81bfec40e146defec5 data/botania/loot_table/gaia_guardian/reward.json
 9830dbf327365d93ab9f5c1d770108cdff74e5a7 data/botania/loot_table/gaia_guardian/reward_hard.json
-1128b20c29a2c9c2525de7c6cef404e290cfe1be data/botania/loot_table/gameplay/ghast_ender_air_crying.json
+1128b20c29a2c9c2525de7c6cef404e290cfe1be data/botania/loot_table/gameplay/ghast_ender_essence_crying.json
 465e68ef31aa3c278ea5d7802f836a31cd3e0fcf data/botania/loot_table/injected/minecraft/entities/creeper.json
 630a0c2dd2a008544528eb468d5c1f32c2b80eab data/botania/loot_table/injected/minecraft/entities/ender_dragon.json
 53e784c6f11147e70d4847e513583694a2c1bd90 data/botania/loot_table/injected/minecraft/entities/piglin.json

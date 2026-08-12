@@ -109,10 +109,10 @@ public class AdvancementProvider {
 					.save(writer, mainId("gaia_guardian_kill"));
 
 			AdvancementHolder enderAirMake = Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.ENDER_AIR_BOTTLE, "enderAirMake", AdvancementType.TASK))
+					.display(simple(BotaniaItems.PURE_ENDER_ESSENCE, "enderEssenceMake", AdvancementType.TASK))
 					.parent(elfPortalOpen)
-					.addCriterion("air", onPickup(BotaniaItems.ENDER_AIR_BOTTLE))
-					.save(writer, mainId("ender_air_make"));
+					.addCriterion("air", onPickup(BotaniaItems.PURE_ENDER_ESSENCE))
+					.save(writer, mainId("ender_essence_make"));
 
 			// Parent: root
 			Advancement.Builder.advancement()

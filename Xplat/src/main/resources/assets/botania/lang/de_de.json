@@ -249,7 +249,7 @@
   "tag.block.botania.dyed_fabulous_mana_pools": "Gefärbte fabelhafte Manabecken",
   "tag.block.botania.dyed_mana_pools": "Gefärbte Manabecken",
   "tag.block.botania.enchanter_flowers": "Blumen für Mana-Verzauberer",
-  "tag.block.botania.ender_air_convertable": "Durch Ender-Luft konvertierbar",
+  "tag.block.botania.ender_essence_convertable": "Durch Ender-Essenz konvertierbar",
   "tag.block.botania.fabulous_mana_pools": "Fabelhafte Manabecken",
   "tag.block.botania.fel_blaze_base": "Basisblock für Gall-Lohe",
   "tag.block.botania.floating_flowers": "Schwebende Blumen",
@@ -341,6 +341,7 @@
   "tag.entity_type.botania.cocoon.rare_aquatic": "Seltene Kokon-Wasserkreaturen",
   "tag.entity_type.botania.drum.milkable": "Melkbar durch Trommel des Sammelns",
   "tag.entity_type.botania.drum.no_shearing": "Nicht scherbar durch Trommel des Sammelns",
+  "tag.entity_type.botania.ender_essence_clouds": "Ender-Essenzwolken",
   "tag.entity_type.botania.key_immune": "Immun gegen Schlüssel für des Königs Gesetz",
   "tag.entity_type.botania.not_charmable": "Immune gegen Zauber der Diva",
   "tag.entity_type.botania.portal_bread_immune": "Immun gegen teleportiertes Brot",
@@ -364,6 +365,7 @@
   "tag.item.botania.dyed_diluted_mana_pools": "Gefärbte verdünnte Manabecken",
   "tag.item.botania.dyed_fabulous_mana_pools": "Gefärbte fabelhafte Manabecken",
   "tag.item.botania.dyed_mana_pools": "Gefärbte Manabecken",
+  "tag.item.botania.ender_essences": "Ender-Essenzen",
   "tag.item.botania.fabulous_mana_pools": "Fabelhafte Manabecken",
   "tag.item.botania.floating_flowers": "Schwebende Blumen",
   "tag.item.botania.functional_special_flowers": "Funktionale spezielle Blumen",
@@ -724,8 +726,9 @@
   "entity.botania.magic_missile": "Magisches Geschoss",
   "entity.botania.thorn_chakram": "Dornenchakram",
   "entity.botania.corporea_spark": "Corporea-Funke",
-  "entity.botania.ender_air_bottle": "Enderluft-Flasche",
-  "entity.botania.ender_air_cloud": "Enderluft-Wolke",
+  "entity.botania.ender_essence_flask": "Ender-Essenzflasche",
+  "entity.botania.diluted_ender_essence_cloud": "Verdünnte Ender-Essenzwolke",
+  "entity.botania.pure_ender_essence_cloud": "Reine Ender-Essenzwolke",
   "entity.botania.mana_pool_minecart": "Manabeckenlore",
   "entity.botania.pink_wither": "Rosa Wither",
   "entity.botania.luminizer_beam": "Beleuchterstrahl",
@@ -776,7 +779,7 @@
 
   "advancement.botania:spawnerMoverUse.desc": "Benutze einen Lebensaggregator zum Transport eines Monsterspawners",
 
-  "advancement.botania:enderAirMake.desc": "Befülle eine Flasche mit Enderluft",
+  "advancement.botania:enderEssenceMake.desc": "Befülle eine Elfenglasflasche mit Ender-Essenz",
 
   "advancement.botania:corporeaCraft.desc": "Stelle einen Block her, der das Corporea-Netzwerk benutzt",
 
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "Corporea-Funke",
   "item.botania.master_corporea_spark": "Corporea-Hauptfunke",
   "item.botania.creative_corporea_spark": "Kreativer Corporea-Funke",
-  "item.botania.ender_air_bottle": "Enderluft-Flasche",
+  "item.botania.diluted_ender_essence": "Verdünnte Ender-Essenz",
+  "item.botania.pure_ender_essence": "Reine Ender-Essenz",
   "item.botania.livingwood_bow": "Lebeholzbogen",
   "item.botania.crystal_bow": "Kristallbogen",
   "item.botania.cosmetic_black_bowtie": "Schwarze Fliege",
@@ -3694,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "Lebensaggregator",
   "botania.tagline.spawnerMover": "Die Möglichkeit zum Bewegen von Spawnern",
-  "botania.page.spawnerMover0": "Wenn ein $(l:alfhomancy/elf_resources)$(item)Drachenstein$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_air)$(item)Enderluft$(0)$(/l) und $(l:alfhomancy/gaia_ritual)$(item)Gaiaseelen$(0)$(/l) auf bestimmte Weise zusammengesetzt werden, ergeben sie ein Gerät, das die eigentümlichen Energien eines $(item)Spawner$(0) bändigen und diesen an einen anderen Ort transportieren kann.$(p)Leider zerbricht dieses Gerät bereits nach der ersten Nutzung.",
+  "botania.page.spawnerMover0": "Wenn ein $(l:alfhomancy/elf_resources)$(item)Drachenstein$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_air)$(item)Ender-Essenz$(0)$(/l) und $(l:alfhomancy/gaia_ritual)$(item)Gaiaseelen$(0)$(/l) auf bestimmte Weise zusammengesetzt werden, ergeben sie ein Gerät, das die eigentümlichen Energien eines $(item)Spawner$(0) bändigen und diesen an einen anderen Ort transportieren kann.$(p)Leider zerbricht dieses Gerät bereits nach der ersten Nutzung.",
   "botania.page.spawnerMover1": "Ein Spawner-Paket",
 
   "botania.entry.keepIvy": "Entschlossener Efeu",
@@ -3728,12 +3732,12 @@
 
   "botania.entry.starSword": "Sternrufer",
   "botania.tagline.starSword": "Schwert, das fallende Stene herbeiruft",
-  "botania.page.starSword0": "Der $(item)Sternrufer$(0) ist eine Klinge mit der Kraft, den Zorn der Sterne herbeizurufen. Wenn sie geschwungen wird, beschwört die Klinge einen fallenden Stern vom Himmel auf den anvisierten Punkt zu. Dieses Schwert is nicht trivial zu beschaffen, da $(l:ender/ender_air)$(item)Enderluft$(0)$(/l) und eine $(l:tools/terra_blade)$(item)Terraklinge$(0)$(/l) zu seinen Komponenten gehören. Hinweis: Jegliche Verzauberungen des letzteren gehen verloren.",
+  "botania.page.starSword0": "Der $(item)Sternrufer$(0) ist eine Klinge mit der Kraft, den Zorn der Sterne herbeizurufen. Wenn sie geschwungen wird, beschwört die Klinge einen fallenden Stern vom Himmel auf den anvisierten Punkt zu. Dieses Schwert is nicht trivial zu beschaffen, da $(l:ender/ender_air)$(item)Ender-Essenz$(0)$(/l) und eine $(l:tools/terra_blade)$(item)Terraklinge$(0)$(/l) zu seinen Komponenten gehören. Hinweis: Jegliche Verzauberungen des letzteren gehen verloren.",
   "botania.page.starSword1": "Rufer, Wut, was auch immer...",
 
   "botania.entry.thunderSword": "Donnerrufer",
   "botania.tagline.thunderSword": "Schwert, das Donner herbeiruft",
-  "botania.page.thunderSword0": "Der $(item)Donnerrufer$(0) ist ein zweigespaltenes Schwert, das Blitze beschwören kann. Hergestellt aus Materialien wie einer $(l:tools/terra_blade)$(item)Terraklinge$(0)$(/l) und $(l:ender/ender_air)$(item)Enderluft$(0)$(/l), opfert es Distanzangriffe für die Fähigkeit, mehrere Ziele auf einen (Blitz-)Schlag zu treffen.$(br)Ein Angriff mit dem $(item)Donnerrufer$(0) auf eine Gruppe erzeugt eine Kette von Blitzen, die Monster in der Umgebung treffen.",
+  "botania.page.thunderSword0": "Der $(item)Donnerrufer$(0) ist ein zweigespaltenes Schwert, das Blitze beschwören kann. Hergestellt aus Materialien wie einer $(l:tools/terra_blade)$(item)Terraklinge$(0)$(/l) und $(l:ender/ender_air)$(item)Ender-Essenz$(0)$(/l), opfert es Distanzangriffe für die Fähigkeit, mehrere Ziele auf einen (Blitz-)Schlag zu treffen.$(br)Ein Angriff mit dem $(item)Donnerrufer$(0) auf eine Gruppe erzeugt eine Kette von Blitzen, die Monster in der Umgebung treffen.",
   "botania.page.thunderSword1": "Gesegnete Klinge des Handels-Chat",
 
   "botania.entry.bIntro": "Einführung zu Schmuck",
@@ -4159,7 +4163,8 @@
   "botania.subtitle.enchanterEnchant": "Mana-Verzauberer rauscht",
   "botania.subtitle.enchanterFade": "Mana-Verzauberer verschwindet",
   "botania.subtitle.enchanterForm": "Mana-Verzauberer erscheint",
-  "botania.subtitle.enderAirThrow": "Enderluftflasche geworfen",
+  "botania.subtitle.enderEssenceFill": "Flasche gefüllt",
+  "botania.subtitle.enderEssenceThrow": "Ender-Essenzflasche geworfen",
   "botania.subtitle.endoflame": "Endoflamme entzündet Gegenstand",
   "botania.subtitle.entropinnyumAngry": "Entropinnyum ist unzufrieden",
   "botania.subtitle.entropinnyumHappy": "Entropinnyum zischt",

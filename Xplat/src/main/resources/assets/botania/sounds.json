@@ -153,7 +153,17 @@
 		],
 		"subtitle": "botania.subtitle.enchanterForm"
 	},
-	"ender_air_throw": {
+	"ender_essence_fill": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:item.bottle.fill_dragonbreath",
+				"volume": 0.5
+			}
+		],
+		"subtitle": "botania.subtitle.enderEssenceFill"
+	},
+	"ender_essence_throw": {
 		"sounds": [
 			{
 				"type": "event",
@@ -161,7 +171,7 @@
 				"volume": 0.5
 			}
 		],
-		"subtitle": "botania.subtitle.enderAirThrow"
+		"subtitle": "botania.subtitle.enderEssenceThrow"
 	},
 	"endoflame": {
 		"sounds": [

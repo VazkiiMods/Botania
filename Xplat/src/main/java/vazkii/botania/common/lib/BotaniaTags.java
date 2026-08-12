@@ -166,6 +166,8 @@ public class BotaniaTags {
 		public static final TagKey<Item> RECESSIVE_SPARK_PUSH_TARGET = tag("recessive_spark_push_target");
 		public static final TagKey<Item> DOMINANT_SPARK_PULL_SOURCE = tag("dominant_spark_pull_source");
 
+		public static final TagKey<Item> ENDER_ESSENCES = tag("ender_essences");
+
 		public static TagKey<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
 				case WHITE -> PETALS_WHITE;
@@ -261,9 +263,9 @@ public class BotaniaTags {
 		public static final TagKey<Block> FEL_BLAZE_BASE = tag("fel_blaze_base");
 
 		/**
-		 * Blocks in this tag can be turned into end stone by ender air
+		 * Blocks in this tag can be turned into end stone by ender essence
 		 */
-		public static final TagKey<Block> ENDER_AIR_CONVERTABLE = tag("ender_air_convertable");
+		public static final TagKey<Block> ENDER_ESSENCE_CONVERTABLE = tag("ender_essence_convertable");
 
 		/**
 		 * Blocks in this tag can be turned into metamorphic stones by the marimorphosis
@@ -457,6 +459,11 @@ public class BotaniaTags {
 		 * Entities in this tag are immune to damage from the portal bread explosion
 		 */
 		public static final TagKey<EntityType<?>> PORTAL_BREAD_IMMUNE = tag("portal_bread_immune");
+
+		/**
+		 * Things that are considered ender essence clouds.
+		 */
+		public static final TagKey<EntityType<?>> ENDER_ESSENCE_CLOUDS = tag("ender_essence_clouds");
 
 		private static TagKey<EntityType<?>> tag(String name) {
 			return TagKey.create(Registries.ENTITY_TYPE, botaniaRL(name));

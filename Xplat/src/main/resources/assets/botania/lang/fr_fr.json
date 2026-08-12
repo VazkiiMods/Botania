@@ -351,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "Mana-vision",
 
 
@@ -360,6 +361,7 @@
   "tag.item.botania.tall_mystical_flowers": "Grandes fleurs mystiques",
 
   "tag.item.botania.dreamwood_logs": "Bûches en boisrêve",
+
 
 
 
@@ -724,8 +726,9 @@
   "entity.botania.magic_missile": "Missile magique",
   "entity.botania.thorn_chakram": "Chakram d'épines",
   "entity.botania.corporea_spark": "Étincelle Corporea",
-  "entity.botania.ender_air_bottle": "Fiole d'air du néant",
-  "entity.botania.ender_air_cloud": "Nuage d'air du néant",
+
+
+
   "entity.botania.mana_pool_minecart": "Wagonnet à bassin",
   "entity.botania.pink_wither": "Wither rose",
   "entity.botania.luminizer_beam": "Rayon luminiseur",
@@ -775,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Fabriquez un go- euh... bâton des terres",
   "advancement.botania:spawnerMoverUse": "Déménageur de l'extrême",
   "advancement.botania:spawnerMoverUse.desc": "Utilisez un assembleur de vie pour transporter un générateur de monstres",
-  "advancement.botania:enderAirMake": "Paquet de chips",
-  "advancement.botania:enderAirMake.desc": "Récupérez une fiole d'air du néant",
+
+
   "advancement.botania:corporeaCraft": "Circuit court",
   "advancement.botania:corporeaCraft.desc": "Fabriquez un bloc qui servira au réseau Corporea",
   "advancement.botania:cacophoniumCraft": "Dépasse l'entendement",
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "Étincelle Corporea",
   "item.botania.master_corporea_spark": "Étincelle maîtresse Corporea",
   "item.botania.creative_corporea_spark": "Étincelle créative Corporea",
-  "item.botania.ender_air_bottle": "Fiole d'air du néant",
+
+
   "item.botania.livingwood_bow": "Arc en vifbois",
   "item.botania.crystal_bow": "Arc de cristal",
   "item.botania.cosmetic_black_bowtie": "Noeud papillon noir",
@@ -4159,7 +4163,8 @@
   "botania.subtitle.enchanterEnchant": "Enchanteur de mana qui s'active",
   "botania.subtitle.enchanterFade": "Enchanteur de mana qui se vide",
   "botania.subtitle.enchanterForm": "Enchanteur de mana qui se charge",
-  "botania.subtitle.enderAirThrow": "Fiole d'air du néant lancée",
+
+
   "botania.subtitle.endoflame": "Endoflamme qui incinère",
   "botania.subtitle.entropinnyumAngry": "Entropinnyum qui rage",
   "botania.subtitle.entropinnyumHappy": "Entropinnyum qui ronronne",
@@ -4228,6 +4233,12 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "Fiole d'air du néant",
+  "entity.botania.ender_air_cloud": "Nuage d'air du néant",
+  "advancement.botania:enderAirMake": "Paquet de chips",
+  "advancement.botania:enderAirMake.desc": "Récupérez une fiole d'air du néant",
+  "item.botania.ender_air_bottle": "Fiole d'air du néant",
+  "botania.subtitle.enderAirThrow": "Fiole d'air du néant lancée",
   "botania.page.manaAlchemy5": "Transmuter en$(br)$(item)poudre lumineuse$(0)",
   "botania.page.manaAlchemy6": "Transmuter en $(item)quartz$(0)",
   "botania.page.manaAlchemy7": "Transmuter en $(item)pierre sculptée$(0)",

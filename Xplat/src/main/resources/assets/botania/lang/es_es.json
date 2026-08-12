@@ -535,6 +535,8 @@
 
 
 
+
+
   "botania.triggers.manaDetector": "Pulso de maná",
   "botania.triggers.manaEmpty": "Vacío de maná",
   "botania.triggers.manaSpace": "Espacio para maná",
@@ -724,7 +726,8 @@
   "entity.botania.magic_missile": "Misil mágico",
   "entity.botania.thorn_chakram": "Chakram de púas",
   "entity.botania.corporea_spark": "Chispa de corporea",
-  "entity.botania.ender_air_bottle": "Botella de aire del Fin",
+
+
 
   "entity.botania.mana_pool_minecart": "Vagoneta de pila de maná",
   "entity.botania.pink_wither": "Wither rosa",
@@ -775,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Crea una vara de las tierras",
   "advancement.botania:spawnerMoverUse": "¿Puedo quitarme mis pant.....?",
   "advancement.botania:spawnerMoverUse.desc": "Usa un agregador de vida para transportar un generador de monstruos",
-  "advancement.botania:enderAirMake": "Aire de imitación",
-  "advancement.botania:enderAirMake.desc": "Recoge una botella del Fin",
+
+
   "advancement.botania:corporeaCraft": "Deja caer PetaZetas",
   "advancement.botania:corporeaCraft.desc": "Crea un bloque que haga uso de la red de corporea",
 
@@ -2043,7 +2046,8 @@
   "item.botania.corporea_spark": "Chispa de corporea",
   "item.botania.master_corporea_spark": "Chispa maestra de corporea",
 
-  "item.botania.ender_air_bottle": "Botella de aire del Fin",
+
+
   "item.botania.livingwood_bow": "Arco de madera viviente",
   "item.botania.crystal_bow": "Arco de cristal",
   "item.botania.cosmetic_black_bowtie": "Pajarita negra",
@@ -4227,7 +4231,12 @@
 
 
 
+
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "entity.botania.ender_air_bottle": "Botella de aire del Fin",
+  "advancement.botania:enderAirMake": "Aire de imitación",
+  "advancement.botania:enderAirMake.desc": "Recoge una botella del Fin",
+  "item.botania.ender_air_bottle": "Botella de aire del Fin",
   "botania.page.manaAlchemy5": "Rompiendo $(item)bloques de piedra luminosa$(0)",
   "botania.page.manaAlchemy6": "Rompiendo $(item)bloques de cuarzo$(0)",
   "botania.page.manaAlchemy7": "Creando $(item)ladrillos cincelados de piedra$(0)",
