@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Botania petal apothecary recipes
+// 1.21.1	2026-08-16T11:23:11.999989059	Botania/Botania petal apothecary recipes
 80873f0223968ec5bdb0753a7803c57455a56c4c data/botania/recipe/petal_apothecary/agricarnation.json
 f801b1ee7d470a6cfe2feb5ba6c7aeef94770e45 data/botania/recipe/petal_apothecary/bellethorne.json
 100440f9c748de06b9c449693dafd68bd666e0a6 data/botania/recipe/petal_apothecary/bergamute.json
@@ -37,7 +37,7 @@ c39cdd06ee164201eedb7cb24b57422ea21d9f0c data/botania/recipe/petal_apothecary/ra
 7c1872330e98f8a85f4074a13fd951ac34a25e08 data/botania/recipe/petal_apothecary/rosa_arcana.json
 84c10b5e2ad000a173d3ba850c7bca0299a62233 data/botania/recipe/petal_apothecary/shulk_me_not.json
 61b8d1543fc490095fc3fe4e359158eca5703e68 data/botania/recipe/petal_apothecary/solegnolia.json
-0d319b0ab35e87c590bd22e43ab64cb96d07ec50 data/botania/recipe/petal_apothecary/spectranthemum.json
+e7277664d5b2542b6e6849dad11fd9e023d5dac9 data/botania/recipe/petal_apothecary/spectranthemum.json
 3d4b9952180c8c56c6be91f436c5a67e1c6d75bb data/botania/recipe/petal_apothecary/spectrolus.json
 7b997d16f7ba88e0c646b6b3e691a750c93156fe data/botania/recipe/petal_apothecary/tangleberrie.json
 1fc75c05459a6ece352a1f626061fb4c26f902e6 data/botania/recipe/petal_apothecary/thermalily.json

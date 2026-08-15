@@ -1,13 +1,21 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "redstone",
-  "ingredients": [
-    {
-      "tag": "c:storage_blocks/redstone"
+  "key": {
+    "C": {
+      "item": "botania:corporea_block"
     },
-    {
-      "item": "botania:corporea_spark"
+    "E": {
+      "item": "botania:pure_ender_essence"
+    },
+    "R": {
+      "item": "minecraft:redstone"
     }
+  },
+  "pattern": [
+    "CCC",
+    "RER",
+    "CCC"
   ],
   "result": {
     "count": 1,

@@ -111,7 +111,7 @@ public class AdvancementProvider {
 			AdvancementHolder enderEssenceMake = Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.PURE_ENDER_ESSENCE, "enderEssenceMake", AdvancementType.TASK))
 					.parent(elfPortalOpen)
-					.addCriterion("air", onPickup(BotaniaItems.PURE_ENDER_ESSENCE))
+					.addCriterion("essence", onPickup(BotaniaTags.Items.ENDER_ESSENCES))
 					.save(writer, mainId("ender_essence_make"));
 
 			// Parent: root

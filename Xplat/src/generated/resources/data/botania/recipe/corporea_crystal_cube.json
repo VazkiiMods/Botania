@@ -3,19 +3,19 @@
   "category": "redstone",
   "key": {
     "C": {
-      "item": "botania:corporea_spark"
+      "item": "botania:corporea_block"
+    },
+    "E": {
+      "tag": "c:ingots/elementium"
     },
     "G": {
       "item": "botania:alfglass"
-    },
-    "W": {
-      "tag": "botania:dreamwood_logs"
     }
   },
   "pattern": [
-    "C",
-    "G",
-    "W"
+    " G ",
+    "GCG",
+    " E "
   ],
   "result": {
     "count": 1,

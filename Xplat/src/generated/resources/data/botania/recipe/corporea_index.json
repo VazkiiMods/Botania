@@ -5,19 +5,19 @@
     "A": {
       "item": "botania:pure_ender_essence"
     },
+    "C": {
+      "item": "botania:corporea_block"
+    },
     "D": {
       "tag": "c:gems/dragonstone"
     },
     "O": {
       "item": "minecraft:obsidian"
-    },
-    "S": {
-      "item": "botania:corporea_spark"
     }
   },
   "pattern": [
     "AOA",
-    "OSO",
+    "OCO",
     "DOD"
   ],
   "result": {

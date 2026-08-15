@@ -3,12 +3,15 @@
   "category": "equipment",
   "key": {
     "E": {
+      "tag": "botania:ender_essences"
+    },
+    "I": {
       "tag": "c:ingots/elementium"
     }
   },
   "pattern": [
-    "E E",
-    " E "
+    "IEI",
+    " I "
   ],
   "result": {
     "count": 1,
