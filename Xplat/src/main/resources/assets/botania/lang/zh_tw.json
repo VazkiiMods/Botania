@@ -3574,11 +3574,14 @@
   "botania.page.astrolabe1": "手持星盤指向任意方塊時，星盤會顯示效果預覽，藉由此可得知右鍵放置方塊後的效果。$(p)方塊放置時會消耗$(thing)瑪那$(0)，自然地也會消耗對應的方塊；不過你也可以使用能給$(item)移殼法杖$(0)提供方塊的物品（比如$(item)深淵法杖$(0)和$(item)終界之手$(0)）。",
   "botania.page.astrolabe2": "建造高牆，創造世界。",
 
-  "botania.entry.enderAir": "取得終界空氣",
-  "botania.tagline.enderAir": "製造終界石的可投擲瓶子",
-  "botania.page.enderAir0": "$(item)終界$(0)的空氣看起來有一些變異的功能。如果在$(item)終界$(0)用空的$(item)玻璃瓶$(0)右鍵就會收集到那裡的空氣，它也可以像飛濺藥水一樣扔出去，著陸點附近的$(item)石頭$(0)則會變成$(item)終界石$(0)。",
 
-  "botania.page.enderAir1": "經「實驗」證明，$(item)終界$(0)空氣與$(thing)主世界$(0)空氣混合時會產生一種對某些$(thing)地獄$(0)生物（比如$(item)地獄幽靈$(0)）有劇毒的氣體。$(p)儘管$(item)瓶裝終界空氣$(0)的量還是小了些，以至於造成不了什麼實質性的傷害，但用來煩人還是可以的。$(p)特別是弄到它們眼睛裡的時候。",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "終界監視者",
   "botania.tagline.enderEyeBlock": "看著來啟動紅石訊號",
@@ -3602,6 +3605,7 @@
   "botania.tagline.enderDagger": "如奶油搬擊殺終界使者的匕首",
   "botania.page.enderDagger0": "那些$(thing)終界使者$(0)。他們是繼$(thing)苦力怕$(0)之後第二惱人的。我詛咒，想出它的人一定是和$(o)notch$(0)喝多了。$(p)然而，給一般的匕首注入它們的能量，就能做出$(item)靈魂匕首$(0)，一把能像切奶油般對付$(item)終界$(0)$(item)人$(0)的匕首。",
   "botania.page.enderDagger1": "由於注魔的關係這把匕首只能承受很少的擊殺量，並且所用的能量阻止了$(item)魔鋼$(0)取得$(thing)瑪那$(0)預防磨損，它就和普通的工具一樣了。一切都是為了那個怪物。",
+
   "botania.page.enderDagger2": "靈魂的衝擊",
 
   "botania.entry.spawnerClaw": "生命灌注器",
@@ -4233,6 +4237,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "取得終界空氣",
+  "botania.tagline.enderAir": "製造終界石的可投擲瓶子",
+  "botania.page.enderAir0": "$(item)終界$(0)的空氣看起來有一些變異的功能。如果在$(item)終界$(0)用空的$(item)玻璃瓶$(0)右鍵就會收集到那裡的空氣，它也可以像飛濺藥水一樣扔出去，著陸點附近的$(item)石頭$(0)則會變成$(item)終界石$(0)。",
+  "botania.page.enderAir1": "經「實驗」證明，$(item)終界$(0)空氣與$(thing)主世界$(0)空氣混合時會產生一種對某些$(thing)地獄$(0)生物（比如$(item)地獄幽靈$(0)）有劇毒的氣體。$(p)儘管$(item)瓶裝終界空氣$(0)的量還是小了些，以至於造成不了什麼實質性的傷害，但用來煩人還是可以的。$(p)特別是弄到它們眼睛裡的時候。",
   "entity.botania.ender_essence_bottle": "瓶裝終界空氣",
   "entity.botania.ender_essence_cloud": "終界空氣雲團",
   "advancement.botania:enderAirMake.desc": "收集一瓶終界空氣",

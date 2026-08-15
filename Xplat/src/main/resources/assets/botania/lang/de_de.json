@@ -2903,7 +2903,7 @@
 
   "botania.entry.vinculotus": "Vinculotos",
   "botania.tagline.vinculotus": "Fängt Enderman-Teleportationen ab",
-  "botania.page.vinculotus0": "Der $(item)Vinculotos$(0) benutzt $(thing)Mana$(0) um die Kräfte jegliche $(thing)Endermans$(0) innerhalb eines großen Radius zu kapern. Wann auch immer ein $(thing)Enderman$(0) innerhalb des besagten Radius zu teleportieren versucht, wird er stattdessen zur Position des $(item)Vinculotos$(0) gezwungen.",
+  "botania.page.vinculotus0": "Der $(item)Vinculotos$(0) benutzt $(thing)Mana$(0) um die Kräfte jeglicher $(thing)Endermen$(0) innerhalb eines großen Radius zu kapern, so dass diese zur Position der Blume statt irgendwo anders hin teleportieren.$(p)Dieser Effekt extrahiert auch eine Art $(l:ender/ender_essence)$(item)Essenz$(0)$(/l) aus dem Enderman, die anscheinend für dessen Fähigkeit zu Teleportieren unabdingbar ist.",
   "botania.page.vinculotus1": "$(o)Berühre diesen schwarzen Lotos mit deinen Fingern$().",
 
   "botania.entry.spectranthemum": "Spektrantheme",
@@ -3142,7 +3142,7 @@
   "botania.entry.flasks": "Brauflaschen",
   "botania.tagline.flasks": "Größere Gebräugefäße",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)Elfenglas$(0)$(/l) scheint ein besser formbares Material zu sein als das $(l:mana/pool)$(item)Managlas$(0)$(/l) aus dem $(item)Ampullen$(0) gemacht werden. Eine aus $(l:alfhomancy/elf_resources)$(item)Elfenglass$(0)$(/l) geformte $(item)Flasche$(0) scheint das typische Elfengefäß für $(thing)Gebräue$(0) zu sein und kann sechs Dosen enthalten statt der vier, die eine $(item)Ampulle$(0) fasst.",
-  "botania.page.flasks1": "Während die Zutatenmenge zum Brauen einer $(item)Flasche$(0) eines bestimmten Gebräus die gleiche ist, sind die $(thing)Mana$(0)kosten im Vergleich zu einer $(item)Ampulle$(0) verdoppelt.$(p)Außerdem, da der Hals einer $(item)Flasche$(0) größer als der einer $(item)Ampulle$(0) ist, kann man den Inhalt schneller trinken.",
+  "botania.page.flasks1": "Während die Zutatenmenge zum Brauen einer $(item)Flasche$(0) eines bestimmten Gebräus die gleiche ist, sind die $(thing)Mana$(0)kosten im Vergleich zu einer $(item)Ampulle$(0) verdoppelt. Da der Hals einer $(item)Flasche$(0) größer als der einer $(item)Ampulle$(0) ist, kann man den Inhalt schneller trinken.$(p)Der breitere Flaschenhals is auch zum Einfangen von $(l:ender/ender_essence)$(item)Ender-Essenz$(0)$(/l) aus ihren Wolken geeignet, sowohl von Hand als auch per $(item)Werfer$(0).",
   "botania.page.flasks2": "Besorge eine unter der Brücke",
 
   "botania.entry.complexBrews": "Komplexe Gebräue",
@@ -3392,7 +3392,7 @@
 
   "botania.entry.openBucket": "Extrapolierter Eimer",
   "botania.tagline.openBucket": "Ein Eimer der alles zerstört, was in him landet",
-  "botania.page.openBucket0": "Ein aus $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l) hergestellter Eimer scheint sich seltsam zu verhalten: Flüssigkeiten, sie mit ihm aufgenommen wurden, scheinen einfach auf Nimmerwiedersehen im Äther zu verschwinden. Das macht ihn zu einem nützlichen Werkzeug beim Entfernen von Flüssigkeiten.",
+  "botania.page.openBucket0": "Ein aus $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l) hergestellter und mit $(l:ender/ender_essence)$(item)Ender-Essenz$(0)$(/l) behandelter Eimer scheint sich seltsam zu verhalten: Flüssigkeiten, die mit ihm aufgenommen wurden, scheinen einfach auf Nimmerwiedersehen im Äther zu verschwinden. Das macht ihn zu einem nützlichen Werkzeug beim Entfernen von Flüssigkeiten.",
   "botania.page.openBucket1": "Ein Souvenir von Lewis",
 
   "botania.entry.rainbowRod": "Rute des Bifrosts",
@@ -3574,11 +3574,14 @@
   "botania.page.astrolabe1": "Sobald ein Block ausgewählt ist, zeigt das Astrolab eine Vorschau, was es an der gegebenen Stelle konstruieren würde.$(p)Um die gezeigten Blöcke (unter Verwendung von $(thing)Mana$(0) und Blöcken aus dem Inventar) zu konstruieren, genügt ein Rechtsklick mit dem Astrolab. Blöcke können auch von Gegenständen wie einer $(l:tools/rod_of_the_lands)$(item)Rute des Landes$(0)$(/l), einer $(l:tools/rod_of_the_depths)$(item)Rute der Tiefen$(0)$(/l) oder einer $(l:ender/hand_of_ender)$(item)Enderhand$(0)$(/l) bereitgestellt werden.",
   "botania.page.astrolabe2": "Baut Wände, erschafft Welten",
 
-  "botania.entry.enderAir": "Extraktion von Enderluft",
-  "botania.tagline.enderAir": "Werfbare Flaschen, die Endstein erzeugen",
-  "botania.page.enderAir0": "Die Luft in der Leere des $(thing)Endes$(0) scheint Veränderungen hervorrufen zu können. Wird eine leere $(item)Glasflasche$(0) im $(thing)Ende$(0) benutzt, fängt sie etwas dieser Luft ein, die dann wie ein Wurftrank benutzt werden kann, um $(item)Stein$(0) am Aufschlagsort zu $(item)Endstein$(0) umzuwandeln. $(br)$(item)Werfer$(0) können ebenfalls benutzt werden, um die Luft einzufangen, sofern der Bereich über der Sammelstelle frei ist.",
-  "botania.page.enderAirFromEndstone": "Enderluft entweicht auch als Nebenprodukt wenn $(item)Endstein$(0) zu $(item)Bruchtiefenschiefer$(0) $(l:basics/pure_daisy)gereinigt$(/l) wird. Sie verbleibt für kurze Zeit nach der Konvertierung als kleine Wolke, die eingefangen werden kann bevor sie sich auflöst.",
-  "botania.page.enderAir1": "Es wurde \"experimentell\" ermittelt, dass die Gase der $(thing)End$(0)leere, gemischt mit normaler $(thing)Oberworld$(0)-Luft, recht toxisch auf $(thing)Nether$(0)-Kreaturen wie z.B. dem $(thing)Ghast$(0) wirken.$(p)Auch wenn die Menge in einer $(item)Enderluftflasche$(0) viel zu gering ist, um echten Schaden zu verursachen, ist sie trotzdem ein effektiver Reizstoff.$(p)Insbesondere wenn sie in die Augen gelangt.",
+  "botania.entry.enderEssence": "Ender-Essenz",
+  "botania.tagline.enderEssence": "Werfbare Flaschen, die Endstein erzeugen",
+  "botania.page.enderEssenceExtraction": "Einige Substanzen in der Luft der $(thing)End$(0)-Leere scheinen verändernde Eigenschaften zu haben, sind aber meist zu verdünnt, um sie direkt einzufangen.$(p)Die Extraktion dieser $(item)Ender-Essenz$(0) aus bestimmten Kreaturen oder gar dem Gestein des $(thing)Endes$(0) erfordert geeignete Werkzeuge.",
+  "botania.page.enderEssenceFromEndermen": "Eine Option zum Extrahieren von Ender-Essenz ist, sie mit einem $(l:ender/soulscribe)Seelendolch$(/l) buchstäblich aus den $(thing)Endermen$(0) herauszuschneiden. Es ist eine recht krude Methode und liefert die Essenz nur in verdünnter Form, wenn sie außerhalb des Endes genutzt wird.$(p)Allerdings kann selbst $(item)Verdünnte Ender-Essenz$(0) für bestimmte Anwendungen bereits ausreichen.",
+  "botania.page.enderEssenceFromEndstone": "Die Extraktion als Nebenprodukt der $(l:basics/pure_daisy)Reinigung$(/l) von $(item)Endstein$(0) ergibt eine überraschend pure Form von Ender-Essenz, selbst in Gegenwart von $(thing)Overworld$(0)-Luft.",
+  "botania.page.enderEssenceCapture": "Unabhängig von der Art der Extraktion bildet die Essenz eine klein Wolke, die sich schnell wieder auflöst. Ein verschließbarer Behälter aus manaverstärktem Material mit einer hinreichend großen Öffnung sollte es ermöglichen, den Großteil der Essenz solcher Wolken einzufangen.$(p)Es könnte sogar automatisiert werden, idem ein $(item)Werfer$(0) auf die Wolke gerichtet wird.",
+  "botania.page.enderEssenceStoneConversion": "Hinreichend $(item)Reine Ender-Essenz$(0) kann $(item)Stein$(0) in $(item)Endstein$(0) umwandeln. Dies erreicht man am einfachsten, indem der Essenzbehälter direkt auf dem Stein zerbricht, entweder durch Wurf per Hand oder automatisiert mit einem $(item)Werfer$(0).$(p)Die Extraktion weiterer Essenz aus diesem \"künstlichen\" Endstein scheint genauso effektiv zu sein, wie aus dem natürlichen Gestein.",
+  "botania.page.enderEssenceGhastIrritation": "Es wurde \"experimentell\" ermittelt, dass Wolken aus $(item)Ender-Essenz$(0), gemischt mit normaler $(thing)Overworld$(0)-Luft, recht toxisch auf $(thing)Nether$(0)-Kreaturen wie z.B. dem $(thing)Ghast$(0) wirken.$(p)Auch wenn die Menge in typischen Behältern viel zu gering ist, um echten Schaden zu verursachen, ist sie trotzdem ein effektiver Reizstoff.$(p)Insbesondere wenn ihre Reinform in die Augen gelangt.",
 
   "botania.entry.enderEyeBlock": "Ender-Aufseher",
   "botania.tagline.enderEyeBlock": "Sicht-aktivierter Redstone-Sensor",
@@ -3602,6 +3605,7 @@
   "botania.tagline.enderDagger": "Ein Dolch, der durch Endermen wie Butter schneidet",
   "botania.page.enderDagger0": "Diese $(thing)Endermen$(0). Sie sind das Lästigste seit $(thing)Creepern$(0). (Ich schwöre, wer auch immer die Idee für diese Dinger hatte, muss mal einen Gang herunterschalten.)$(p)Allerdings geht ein Dolch, der aus Material mit ihren Energien gefertigt wurde, durch sie hindurch wie ein Tausend-Grad-Messer durch Butter.",
   "botania.page.enderDagger1": "Durch die Energiekonzentration ist der Dolch leider nur für ein paar Anwendungen brauchbar, und seine Kompaktheit hindert den $(item)Manastahl$(0) im Rezept an der Reparatur mit $(thing)Mana$(0), wie es sonst für Werkzeuge üblich wäre. Trotzdem ist das Töten dieser länglichen Diebe den Ärger wert.",
+  "botania.page.enderDaggerExtractingEssence": "Der finale Treffer mit dieser Waffe scheint einen interessanten Nebeneffekt auf den Enderman zu haben: Sein Körper gibt eine Art von $(l:ender/ender_essence)$(item)Essenz$(0)$(/l) an die Umgebung ab.",
   "botania.page.enderDagger2": "Triff meine Seele",
 
   "botania.entry.spawnerClaw": "Lebensfüller",

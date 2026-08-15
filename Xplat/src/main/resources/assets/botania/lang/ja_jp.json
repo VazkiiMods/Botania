@@ -3574,11 +3574,14 @@
   "botania.page.astrolabe1": "ブロックを選択すると、アストロラーベは指定された位置に構築されるブロックのプレビューを表示します。$(p)プレビューされたブロックを実際に構築するには、アストロラーベで右クリックするだけです。設置の際、$(thing)マナ$(0)やブロックは、使用者のインベントリ、または、$(l:tools/rod_of_the_shifting_crust)$(item)地殻変動の杖$(0)$(/l)、$(l:tools/rod_of_the_depths)$(item)深淵の杖$(0)$(/l)、$(l:ender/hand_of_ender)$(item)エンダーの手$(0)$(/l)等のアイテムから供給できます。",
   "botania.page.astrolabe2": "壁を建て、世界を創ろう",
 
-  "botania.entry.enderAir": "エンドの空気の抽出",
-  "botania.tagline.enderAir": "投げつけるとエンドストーンに",
-  "botania.page.enderAir0": "$(item)エンド$(0)空間に存在する空気は、突然変異を起こす性質があるようです。$(item)エンド$(0)で$(item)ガラス瓶$(0)を持ち右クリックすると、その空気を取り込み、スプラッシュポーションの様に投げることで、着地地点の付近の$(item)石$(0)を$(item)エンドストーン$(0)に変化させます。$(p)また、$(item)ディスペンサー$(0)でも、出力側の上部に何もなければ、空気を取り込むことが可能です。",
 
-  "botania.page.enderAir1": "$(item)エンド$(0)ボイドのガスが、$(thing)オーバーワールド$(0)の空気に混ざると、$(item)ガスト$(0)のような$(thing)ネザー$(0)モブに対して非常に有毒であることが\"実験\"で確認されています。$(p)$(item)エンドの空気入り瓶$(0)に蓄えられたガスは少量である為、ダメージを与えることは出来ませんが、刺激物としては有効です。$(p)特に目に入った場合は。",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "エンダー監視ブロック",
   "botania.tagline.enderEyeBlock": "起動するにはこのレッドストーン検出器を見てください",
@@ -3602,6 +3605,7 @@
   "botania.tagline.enderDagger": "エンダーマンをバターのように切り裂く短剣",
   "botania.page.enderDagger0": "$(thing)エンダーマン$(0)。それは$(thing)クリーパー$(0)以来、最も厄介な存在です。（あいつらを考え出した$(o)奴$()には、本当に分からせてやる必要があるだろう)$(p)しかし、彼らのエネルギーを持つ材料から作られた短剣は、まるでナイフでバターを切るように、彼らを切り裂くことが出来ます。",
   "botania.page.enderDagger1": "しかし、エネルギーが凝縮されているため、短剣は数回の殺傷にしか使えません。また、そのコンパクトさ故に、通常の$(item)マナスチール$(0)の道具の様に、$(thing)マナ$(0)による修復が出来ません。それでも、あの細長い泥棒をこの世から消し去ることには苦労するだけの価値があります。",
+
 
 
   "botania.entry.spawnerClaw": "生命浸透器",
@@ -4233,6 +4237,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "エンドの空気の抽出",
+  "botania.tagline.enderAir": "投げつけるとエンドストーンに",
+  "botania.page.enderAir0": "$(item)エンド$(0)空間に存在する空気は、突然変異を起こす性質があるようです。$(item)エンド$(0)で$(item)ガラス瓶$(0)を持ち右クリックすると、その空気を取り込み、スプラッシュポーションの様に投げることで、着地地点の付近の$(item)石$(0)を$(item)エンドストーン$(0)に変化させます。$(p)また、$(item)ディスペンサー$(0)でも、出力側の上部に何もなければ、空気を取り込むことが可能です。",
+  "botania.page.enderAir1": "$(item)エンド$(0)ボイドのガスが、$(thing)オーバーワールド$(0)の空気に混ざると、$(item)ガスト$(0)のような$(thing)ネザー$(0)モブに対して非常に有毒であることが\"実験\"で確認されています。$(p)$(item)エンドの空気入り瓶$(0)に蓄えられたガスは少量である為、ダメージを与えることは出来ませんが、刺激物としては有効です。$(p)特に目に入った場合は。",
   "entity.botania.ender_essence_bottle": "エンドの空気入り瓶",
   "advancement.botania:enderAirMake.desc": "エンドの空気入り瓶を集める",
   "item.botania.ender_essence_bottle": "エンドの空気入り瓶",

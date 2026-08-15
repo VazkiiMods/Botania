@@ -3574,9 +3574,12 @@
 
 
 
-  "botania.entry.enderAir": "Verkrijgen van Ender Lucht",
-  "botania.tagline.enderAir": "Werpbare flesjes die Endsteen maken",
-  "botania.page.enderAir0": "De lucht in de wereld van de $(item)End$(0) lijkt wat muterende eigenschappen te bezitten. Door te rechts-klikken met een leeg $(item)Glazen Flesje$(0) in de $(item)End$(0) is het mogelijk een beetje van deze lucht te vangen. Deze kan later geworpen worden net als een $(item)Spattende Drank$(0), waardoor $(item)Steen$(0) in de buurt zal veranderen in $(item)Endsteen$(0).",
+
+
+
+
+
+
 
 
 
@@ -3602,6 +3605,7 @@
   "botania.tagline.enderDagger": "Een dolk die Endermen snijdt als boter",
   "botania.page.enderDagger0": "Die $(thing)Endermen$(0). Ze zijn op $(thing)Creepers$(0) na het vervelendste wat er is.$(p)Gelukkig, door het doordrenken van een normale dolk met een beetje van hun energie, kan de $(item)Zielschrijver$(0) gemaakt worden. Dit is een dolk die snijdt door $(item)Endermen$(0) alsof het boter is.",
   "botania.page.enderDagger1": "Echter door het type samensmelting, werkt de dolk maar voor enkele $(thing)Endermen$(0). Tevens door de energie die de dolk uitstraalt wordt voorkomen dat het $(item)Manastaal$(0) het $(thing)Mana$(0) kan gebruiken om schade af te wenden, zoals normale gereedschappen kunnen.",
+
   "botania.page.enderDagger2": "Zielschrijver",
 
   "botania.entry.spawnerClaw": "Levensbrenger",
@@ -4233,6 +4237,9 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "Verkrijgen van Ender Lucht",
+  "botania.tagline.enderAir": "Werpbare flesjes die Endsteen maken",
+  "botania.page.enderAir0": "De lucht in de wereld van de $(item)End$(0) lijkt wat muterende eigenschappen te bezitten. Door te rechts-klikken met een leeg $(item)Glazen Flesje$(0) in de $(item)End$(0) is het mogelijk een beetje van deze lucht te vangen. Deze kan later geworpen worden net als een $(item)Spattende Drank$(0), waardoor $(item)Steen$(0) in de buurt zal veranderen in $(item)Endsteen$(0).",
   "entity.botania.ender_essence_bottle": "Flesje Ender Lucht",
   "advancement.botania:enderAirMake": "Imitatie Lucht",
   "advancement.botania:enderAirMake.desc": "Verzamel een Flesje Ender Lucht",

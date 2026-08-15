@@ -3574,11 +3574,14 @@
   "botania.page.astrolabe1": "手持星盘指向任意方块时，星盘会显示效果预览，藉由此可得知右键放置方块后的效果。$(p)方块放置时会消耗$(thing)魔力$(0)，自然地也会消耗对应的方块；不过你也可以使用能给$(item)移壳法杖$(0)提供方块的物品（比如$(item)深渊法杖$(0)和$(item)末影之手$(0)）。",
   "botania.page.astrolabe2": "建造高墙，创造世界。",
 
-  "botania.entry.enderAir": "获取末地空气",
-  "botania.tagline.enderAir": "制造末地石的可投掷瓶子",
-  "botania.page.enderAir0": "$(item)末地$(0)的空气看起来有一些变异的特性。如果在$(item)末地$(0)用空的$(item)玻璃瓶$(0)右击就会收集到那里的空气，它也可以像喷溅药水一样扔出去，着陆点附近的$(item)石头$(0)则会变成$(item)末地石$(0)。",
 
-  "botania.page.enderAir1": "经“实验”证明，$(item)末地$(0)空气与$(thing)主世界$(0)空气混合时会产生一种对某些$(thing)下界$(0)生物（比如$(item)恶魂$(0)）有剧毒的气体。$(p)尽管$(item)瓶装末地空气$(0)的量还是小了些，以至于造成不了什么实质性的伤害，但用来烦人还是可以的。$(p)特别是弄到它们眼睛里的时候。",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "末影监视者",
   "botania.tagline.enderEyeBlock": "看着来激活红石信号",
@@ -3602,6 +3605,7 @@
   "botania.tagline.enderDagger": "如黄油搬击杀末影人的匕首",
   "botania.page.enderDagger0": "那些$(thing)末影人$(0)。他们是继$(thing)爬行者$(0)之后第二恼人的。我诅咒，想出它的人一定是和$(o)notch$(0)喝多了。$(p)然而，给一般的匕首注入它们的能量，就能做出$(item)灵魂匕首$(0)，一把能像切黄油般对付$(item)末影$(0)$(item)人$(0)的匕首。",
   "botania.page.enderDagger1": "由于注魔的关系这把匕首只能承受很少的击杀量，并且所用的能量阻止了$(item)魔钢$(0)获取$(thing)魔力$(0)预防磨损，它就和普通的工具一样了。一切都是为了那个怪物。",
+
   "botania.page.enderDagger2": "灵魂的冲击",
 
   "botania.entry.spawnerClaw": "生命灌注器",
@@ -4233,6 +4237,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "获取末地空气",
+  "botania.tagline.enderAir": "制造末地石的可投掷瓶子",
+  "botania.page.enderAir0": "$(item)末地$(0)的空气看起来有一些变异的特性。如果在$(item)末地$(0)用空的$(item)玻璃瓶$(0)右击就会收集到那里的空气，它也可以像喷溅药水一样扔出去，着陆点附近的$(item)石头$(0)则会变成$(item)末地石$(0)。",
+  "botania.page.enderAir1": "经“实验”证明，$(item)末地$(0)空气与$(thing)主世界$(0)空气混合时会产生一种对某些$(thing)下界$(0)生物（比如$(item)恶魂$(0)）有剧毒的气体。$(p)尽管$(item)瓶装末地空气$(0)的量还是小了些，以至于造成不了什么实质性的伤害，但用来烦人还是可以的。$(p)特别是弄到它们眼睛里的时候。",
   "entity.botania.ender_essence_bottle": "瓶装末地空气",
   "entity.botania.ender_essence_cloud": "末地空气云团",
   "advancement.botania:enderAirMake.desc": "收集一瓶末地空气",

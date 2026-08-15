@@ -1,27 +1,40 @@
 {
-  "name": "botania.entry.enderAir",
+  "name": "botania.entry.enderEssence",
   "category": "botania:ender",
   "icon": "botania:pure_ender_essence",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "priority": true,
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.enderAir0"
+      "text": "botania.page.enderEssenceExtraction"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.enderEssenceFromEndermen"
     },
     {
       "type": "botania:pure_daisy",
-      "text": "botania.page.enderAirFromEndstone",
+      "text": "botania.page.enderEssenceFromEndstone",
       "recipes": "botania:pure_daisy/cobbled_deepslate"
     },
     {
       "type": "text",
-      "text": "botania.page.enderAir1"
+      "text": "botania.page.enderEssenceCapture"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.enderEssenceStoneConversion"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.enderEssenceGhastIrritation"
     }
   ],
   "extra_recipe_mappings": {
-    "minecraft:end_stone": 0,
-    "botania:diluted_ender_essence": 0,
     "botania:pure_ender_essence": 0,
-    "minecraft:ghast_tear": 2
+    "botania:diluted_ender_essence": 1,
+    "minecraft:end_stone": 2,
+    "minecraft:ghast_tear": 3
   }
 }
