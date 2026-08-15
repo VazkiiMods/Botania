@@ -6,7 +6,7 @@
       "item": "minecraft:blaze_rod"
     },
     "E": {
-      "item": "botania:pure_ender_essence"
+      "tag": "botania:ender_essences"
     },
     "M": {
       "tag": "c:storage_blocks/manasteel"

@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-15T15:30:06.154798297	Botania/Advancements
+// 1.21.1	2026-08-16T10:54:28.998261574	Botania/Advancements
 847906414692dac44ece4a0a783b9673ffdc9501 data/botania/advancement/challenge/alf_portal_bread.json
 5f712ead128501e8f996f545d91f792de66bc101 data/botania/advancement/challenge/all_loonium_mobs.json
 bf4fa511640cae8ba7243a7f477053f3bea02f09 data/botania/advancement/challenge/eye_of_the_flugel.json
@@ -30,7 +30,7 @@ c684f3f1ab21308e2c32cb13180631326facc7e5 data/botania/advancement/main/dog.json
 f9872f450e80cc3a875c56cb3acacb65dc9e3f91 data/botania/advancement/main/elf_lexicon_pickup.json
 bde52d8b350aaf9e7e9299519686d14da37d4861 data/botania/advancement/main/elf_portal_open.json
 ddf2941f4e6a3869cc4ef4d92e07560e24958974 data/botania/advancement/main/enchanter_make.json
-db9925ed1b63a087f881b248e1759c5825816d0e data/botania/advancement/main/ender_essence_make.json
+88f205034fa32d2d7d196724b8c5b17dcf2975ff data/botania/advancement/main/ender_essence_make.json
 e45f6dc7f68ef209afa7361d8bd7baa92e3a0702 data/botania/advancement/main/flower_pickup.json
 0624a2978a656bcef6327c07604cdb40832031a1 data/botania/advancement/main/flower_pickup_lexicon.json
 99ae0e7681d5378491ed82398cce39ad8dd8e7f1 data/botania/advancement/main/functional_flower.json

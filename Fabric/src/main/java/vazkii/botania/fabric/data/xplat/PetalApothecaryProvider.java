@@ -84,6 +84,7 @@ public class PetalApothecaryProvider extends FabricRecipeProvider {
 
 		Ingredient redstoneRoot = Ingredient.of(BotaniaItems.REDSTONE_ROOT);
 		Ingredient pixieDust = Ingredient.of(ConventionalBotaniaTags.Items.PIXIE_DUSTS);
+		Ingredient enderEssence = Ingredient.of(BotaniaTags.Items.ENDER_ESSENCES);
 		Ingredient gaiaSpirit = Ingredient.of(BotaniaItems.GAIA_SPIRIT);
 
 		make(consumer, BotaniaBlocks.PURE_DAISY, white, white, white, white);
@@ -126,7 +127,7 @@ public class PetalApothecaryProvider extends FabricRecipeProvider {
 		make(consumer, BotaniaBlocks.LOONIUM, green, green, green, green, gray, runeSloth, runeGluttony, runeEnvy, redstoneRoot, pixieDust);
 		make(consumer, BotaniaBlocks.DAFFOMILL, white, white, brown, yellow, runeAir, redstoneRoot);
 		make(consumer, BotaniaBlocks.VINCULOTUS, black, black, purple, purple, green, runeWater, runeSloth, runeLust, redstoneRoot);
-		make(consumer, BotaniaBlocks.SPECTRANTHEMUM, white, white, lightGray, lightGray, cyan, runeEnvy, runeWater, redstoneRoot, pixieDust);
+		make(consumer, BotaniaBlocks.SPECTRANTHEMUM, white, white, lightGray, lightGray, cyan, runeEnvy, runeWater, redstoneRoot, enderEssence);
 		make(consumer, BotaniaBlocks.MEDUMONE, brown, brown, gray, gray, runeEarth, redstoneRoot);
 		make(consumer, BotaniaBlocks.MARIMORPHOSIS, gray, yellow, green, red, runeEarth, runeFire, redstoneRoot);
 		make(consumer, BotaniaBlocks.BUBBELL, cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust);

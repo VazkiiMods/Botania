@@ -1,13 +1,21 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "redstone",
-  "ingredients": [
-    {
-      "tag": "c:chests/wooden"
+  "key": {
+    "C": {
+      "item": "botania:corporea_block"
     },
-    {
-      "item": "botania:corporea_spark"
+    "E": {
+      "item": "botania:pure_ender_essence"
+    },
+    "T": {
+      "item": "minecraft:redstone_torch"
     }
+  },
+  "pattern": [
+    "CTC",
+    "CEC",
+    "CCC"
   ],
   "result": {
     "count": 1,
