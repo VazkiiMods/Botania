@@ -4233,10 +4233,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "Flesje Ender Lucht",
+  "entity.botania.ender_essence_bottle": "Flesje Ender Lucht",
   "advancement.botania:enderAirMake": "Imitatie Lucht",
   "advancement.botania:enderAirMake.desc": "Verzamel een Flesje Ender Lucht",
-  "item.botania.ender_air_bottle": "Ender Lucht Flesje",
+  "item.botania.ender_essence_bottle": "Ender Lucht Flesje",
   "botania.page.manaAlchemy5": "Het afbreken van $(item)Gloeisteen Blokken$(0)",
   "botania.page.manaAlchemy6": "Het afbreken van $(item)Kwarts Blokken$(0)",
   "botania.page.manaAlchemy7": "Het maken van $(item)Gebeiteld Steen Baksteen$(0)",

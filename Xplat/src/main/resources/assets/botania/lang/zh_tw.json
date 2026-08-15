@@ -3698,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "生命聚合器",
   "botania.tagline.spawnerMover": "移動生怪磚",
-  "botania.page.spawnerMover0": "透過特殊形式組合$(l:alfhomancy/elf_resources)$(item)龍石$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)源質鋼錠$(0)$(/l)、$(l:ender/ender_air)$(item)瓶裝終界空氣$(0)$(/l)和$(l:alfhomancy/gaia_ritual)$(item)蓋亞之魂$(0)$(/l)，就能製作出一個可以容納構成$(item)生怪磚$(0)的奇異能量，並將它放置在其他地方的裝置。$(p)不幸的是，這個裝置只要用一次就會碎掉。",
+  "botania.page.spawnerMover0": "透過特殊形式組合$(l:alfhomancy/elf_resources)$(item)龍石$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)源質鋼錠$(0)$(/l)、$(l:ender/ender_essence)$(item)瓶裝終界空氣$(0)$(/l)和$(l:alfhomancy/gaia_ritual)$(item)蓋亞之魂$(0)$(/l)，就能製作出一個可以容納構成$(item)生怪磚$(0)的奇異能量，並將它放置在其他地方的裝置。$(p)不幸的是，這個裝置只要用一次就會碎掉。",
   "botania.page.spawnerMover1": "生怪磚宅急配",
 
   "botania.entry.keepIvy": "堅毅之藤",
@@ -3732,12 +3732,12 @@
 
   "botania.entry.starSword": "召星者",
   "botania.tagline.starSword": "一把召喚流星的劍",
-  "botania.page.starSword0": "$(item)召星者$(0)是一把有著召喚群星之怒能力的劍，在揮動它的時候，劍會從天上召喚一顆流星落到持有者所看的位置，對所有接觸到的實體造成傷害。製作這把劍可不是一個簡單的任務，它需要$(l:ender/ender_air)$(item)瓶裝終界空氣$(0)$(/l)以及一把$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)。注意：這麼做會祛除泰拉之刃上的附魔。",
+  "botania.page.starSword0": "$(item)召星者$(0)是一把有著召喚群星之怒能力的劍，在揮動它的時候，劍會從天上召喚一顆流星落到持有者所看的位置，對所有接觸到的實體造成傷害。製作這把劍可不是一個簡單的任務，它需要$(l:ender/ender_essence)$(item)瓶裝終界空氣$(0)$(/l)以及一把$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)。注意：這麼做會祛除泰拉之刃上的附魔。",
   "botania.page.starSword1": "召星者、星怒……管他呢",
 
   "botania.entry.thunderSword": "召雷者",
   "botania.tagline.thunderSword": "一把召喚雷電的劍",
-  "botania.page.thunderSword0": "$(item)召雷者$(0)是一把能召喚雷電的雙刃。製作它需要$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)、$(l:ender/ender_air)$(item)瓶裝終界空氣$(0)$(/l)以及一些其他材料。$(item)召雷者$(0)犧牲了原本的遠距離攻擊能力，換取了能同時攻擊多個目標的能力。$(p)攻擊時，$(item)召雷者$(0)會形成一道會在附近怪物間彈跳的閃電鏈。",
+  "botania.page.thunderSword0": "$(item)召雷者$(0)是一把能召喚雷電的雙刃。製作它需要$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)、$(l:ender/ender_essence)$(item)瓶裝終界空氣$(0)$(/l)以及一些其他材料。$(item)召雷者$(0)犧牲了原本的遠距離攻擊能力，換取了能同時攻擊多個目標的能力。$(p)攻擊時，$(item)召雷者$(0)會形成一道會在附近怪物間彈跳的閃電鏈。",
   "botania.page.thunderSword1": "交易頻道的祝福之劍",
 
   "botania.entry.bIntro": "飾品介紹",
@@ -4233,10 +4233,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "瓶裝終界空氣",
-  "entity.botania.ender_air_cloud": "終界空氣雲團",
+  "entity.botania.ender_essence_bottle": "瓶裝終界空氣",
+  "entity.botania.ender_essence_cloud": "終界空氣雲團",
   "advancement.botania:enderAirMake.desc": "收集一瓶終界空氣",
-  "item.botania.ender_air_bottle": "瓶裝終界空氣",
+  "item.botania.ender_essence_bottle": "瓶裝終界空氣",
   "botania.subtitle.enderAirThrow": "瓶裝終界空氣被扔出",
   "botania.page.manaAlchemy5": "粉碎$(item)螢石$(0)",
   "botania.page.manaAlchemy31": "石英",

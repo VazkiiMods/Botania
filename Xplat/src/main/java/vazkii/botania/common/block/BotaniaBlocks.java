@@ -3285,7 +3285,7 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.MASTER_CORPOREA_SPARK, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.CREATIVE_CORPOREA_SPARK, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.PURE_ENDER_ESSENCE, new ProjectileDispenseBehavior(BotaniaItems.PURE_ENDER_ESSENCE));
-		DispenserBlock.registerBehavior(BotaniaItems.ALFGLASS_FLASK, new EnderAirBottlingBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.ALFGLASS_FLASK, new EnderEssenceBottlingBehavior());
 
 		behavior = new GrassSeedsBehavior();
 		Item[] seedItems = {

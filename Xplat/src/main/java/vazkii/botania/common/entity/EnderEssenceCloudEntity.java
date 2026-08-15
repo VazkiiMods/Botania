@@ -27,7 +27,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.item.BotaniaItems;
 
-public class EnderAirCloudEntity extends Entity {
+public class EnderEssenceCloudEntity extends Entity {
 	private static final String TAG_AGE = "Age";
 	private static final String TAG_FROM_ENDERMAN = "FromEnderman";
 	private static final int MAX_AGE = 3 * 20;
@@ -41,24 +41,24 @@ public class EnderAirCloudEntity extends Entity {
 	private final boolean diluted;
 	private boolean fromEnderman;
 
-	public static EnderAirCloudEntity createPure(EntityType<?> entityType, Level level) {
-		return new EnderAirCloudEntity(entityType, level, false);
+	public static EnderEssenceCloudEntity createPure(EntityType<?> entityType, Level level) {
+		return new EnderEssenceCloudEntity(entityType, level, false);
 	}
 
-	public static EnderAirCloudEntity createDiluted(EntityType<?> entityType, Level level) {
-		return new EnderAirCloudEntity(entityType, level, true);
+	public static EnderEssenceCloudEntity createDiluted(EntityType<?> entityType, Level level) {
+		return new EnderEssenceCloudEntity(entityType, level, true);
 	}
 
-	public EnderAirCloudEntity(EntityType<?> entityType, Level level, boolean diluted) {
+	public EnderEssenceCloudEntity(EntityType<?> entityType, Level level, boolean diluted) {
 		super(entityType, level);
 		this.diluted = diluted;
 	}
 
 	public static void spawnForEnderman(LivingEntity entity) {
-		EntityType<EnderAirCloudEntity> type = entity.level().dimension() == Level.END
+		EntityType<EnderEssenceCloudEntity> type = entity.level().dimension() == Level.END
 				? BotaniaEntities.PURE_ENDER_ESSENCE_CLOUD
 				: BotaniaEntities.DILUTED_ENDER_ESSENCE_CLOUD;
-		EnderAirCloudEntity cloud = type.create(entity.level());
+		EnderEssenceCloudEntity cloud = type.create(entity.level());
 		if (cloud != null) {
 			cloud.moveTo(entity.position(), entity.getYRot(), 0);
 			cloud.setFromEnderman(true);
@@ -107,7 +107,7 @@ public class EnderAirCloudEntity extends Entity {
 				double y = this.getY() + this.random.nextFloat() * 0.5f;
 				double z = this.getZ() + Mth.sin(angle) * distance;
 				level().addAlwaysVisibleParticle(
-						ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, EnderAirBottleEntity.PARTICLE_COLOR),
+						ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, EnderEssenceFlaskEntity.PARTICLE_COLOR),
 						x, y, z, 0, 0, 0
 				);
 			}

@@ -3698,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "생명의 관리자",
   "botania.tagline.spawnerMover": "스포너 이동 능력",
-  "botania.page.spawnerMover0": "특정한 패턴으로 $(l:alfhomancy/elf_resources)$(item)Dragonstone$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_air)$(item)Ender Air$(0)$(/l), 및 $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l)을 제작하면 $(item)Monster Spawner$(0)의 호기심 많은 에너지를 억제하고 다른 공간으로 옮길 수 있는 장치가 생성됩니다.$(p)불행히도 이 장치는 한 번 사용한 후에 파괴됩니다.",
+  "botania.page.spawnerMover0": "특정한 패턴으로 $(l:alfhomancy/elf_resources)$(item)Dragonstone$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_essence)$(item)Ender Air$(0)$(/l), 및 $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l)을 제작하면 $(item)Monster Spawner$(0)의 호기심 많은 에너지를 억제하고 다른 공간으로 옮길 수 있는 장치가 생성됩니다.$(p)불행히도 이 장치는 한 번 사용한 후에 파괴됩니다.",
   "botania.page.spawnerMover1": "스포너 소포",
 
   "botania.entry.keepIvy": "단호한 아이비",
@@ -3732,12 +3732,12 @@
 
   "botania.entry.starSword": "별부름검",
   "botania.tagline.starSword": "별을 떨어뜨리는 검",
-  "botania.page.starSword0": "$(item)별부름검$(0)는 별의 분노를 불러 일으킬 수 있는 검입니다. 휘두를 때 검은 하늘에서 지점을 향해 떨어지는 별을 소환하여 그 자리에 서 있는 모든 것에 피해를 입힙니다. 이 검은 획득이 쉬운 것이 아닌데, $(l:ender/ender_air)$(item)Ender Air$(0)$(/l)와 $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l)가 제작 구성품으로 사용됩니다. 단, 후자에 부여된 모든 마법이 사라집니다.",
+  "botania.page.starSword0": "$(item)별부름검$(0)는 별의 분노를 불러 일으킬 수 있는 검입니다. 휘두를 때 검은 하늘에서 지점을 향해 떨어지는 별을 소환하여 그 자리에 서 있는 모든 것에 피해를 입힙니다. 이 검은 획득이 쉬운 것이 아닌데, $(l:ender/ender_essence)$(item)Ender Air$(0)$(/l)와 $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l)가 제작 구성품으로 사용됩니다. 단, 후자에 부여된 모든 마법이 사라집니다.",
 
 
   "botania.entry.thunderSword": "우레부름검",
   "botania.tagline.thunderSword": "우레을 부르는 검",
-  "botania.page.thunderSword0": "$(item)우레부름검$(0)는 번개를 불러 일으킬 수 있는 이중 날 검입니다. $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l)와 $(l:ender/ender_air)$(item)Ender Air$(0)$(/l)와 같은 재료로 제작되었으며, 원거리 공격의 힘을 희생하고 하나의 공격으로 여러 대상에게 감전의 힘을 전합니다.$(p)$(item)우레부름검$(0)의 공격은 군중 속에서 주변의 적 모브에게 번개를 일으키는 연쇄를 생성합니다.",
+  "botania.page.thunderSword0": "$(item)우레부름검$(0)는 번개를 불러 일으킬 수 있는 이중 날 검입니다. $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l)와 $(l:ender/ender_essence)$(item)Ender Air$(0)$(/l)와 같은 재료로 제작되었으며, 원거리 공격의 힘을 희생하고 하나의 공격으로 여러 대상에게 감전의 힘을 전합니다.$(p)$(item)우레부름검$(0)의 공격은 군중 속에서 주변의 적 모브에게 번개를 일으키는 연쇄를 생성합니다.",
 
 
   "botania.entry.bIntro": "트링켓 소개",
@@ -4233,10 +4233,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "엔더 공기가 담겨 있는 병",
-  "entity.botania.ender_air_cloud": "엔더 공기 구름",
+  "entity.botania.ender_essence_bottle": "엔더 공기가 담겨 있는 병",
+  "entity.botania.ender_essence_cloud": "엔더 공기 구름",
   "advancement.botania:enderAirMake.desc": "엔더의 공기를 병에 넣어보세요",
-  "item.botania.ender_air_bottle": "엔더 공기가 담긴 병",
+  "item.botania.ender_essence_bottle": "엔더 공기가 담긴 병",
   "botania.page.manaAlchemy5": "$(item)발광석 블록$(0) 분해",
   "botania.page.manaAlchemy31": "석영",
   "botania.page.manaAlchemy6": "$(item)석영 블록$(0) 분해",

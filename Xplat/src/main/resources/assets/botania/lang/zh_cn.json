@@ -3698,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "生命聚合器",
   "botania.tagline.spawnerMover": "移动刷怪笼",
-  "botania.page.spawnerMover0": "通过特殊形式组合$(l:alfhomancy/elf_resources)$(item)龙石$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)源质钢锭$(0)$(/l)、$(l:ender/ender_air)$(item)瓶装末地空气$(0)$(/l)和$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)，就能制作出一个可以容纳构成$(item)刷怪笼$(0)的奇异能量，并将它放置在其他地方的装置。$(p)不幸的是，这个装置只要用一次就会碎掉。",
+  "botania.page.spawnerMover0": "通过特殊形式组合$(l:alfhomancy/elf_resources)$(item)龙石$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)源质钢锭$(0)$(/l)、$(l:ender/ender_essence)$(item)瓶装末地空气$(0)$(/l)和$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)，就能制作出一个可以容纳构成$(item)刷怪笼$(0)的奇异能量，并将它放置在其他地方的装置。$(p)不幸的是，这个装置只要用一次就会碎掉。",
   "botania.page.spawnerMover1": "刷怪笼宅急送",
 
   "botania.entry.keepIvy": "坚毅之藤",
@@ -3732,12 +3732,12 @@
 
   "botania.entry.starSword": "召星者",
   "botania.tagline.starSword": "一把召唤流星的剑",
-  "botania.page.starSword0": "$(item)召星者$(0)是一把有着召唤群星之怒能力的剑，在挥动它的时候，剑会从天上召唤一颗流星落到持有者所看的位置，对所有接触到的实体造成伤害。制作这把剑可不是一个简单的任务，它需要$(l:ender/ender_air)$(item)瓶装末地空气$(0)$(/l)以及一把$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)。注意：这么做会祛除泰拉之刃上的附魔。",
+  "botania.page.starSword0": "$(item)召星者$(0)是一把有着召唤群星之怒能力的剑，在挥动它的时候，剑会从天上召唤一颗流星落到持有者所看的位置，对所有接触到的实体造成伤害。制作这把剑可不是一个简单的任务，它需要$(l:ender/ender_essence)$(item)瓶装末地空气$(0)$(/l)以及一把$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)。注意：这么做会祛除泰拉之刃上的附魔。",
   "botania.page.starSword1": "召星者、星怒……管他呢",
 
   "botania.entry.thunderSword": "召雷者",
   "botania.tagline.thunderSword": "一把召唤雷电的剑",
-  "botania.page.thunderSword0": "$(item)召雷者$(0)是一把能召唤雷电的双刃。制作它需要$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)、$(l:ender/ender_air)$(item)瓶装末地空气$(0)$(/l)以及一些其他材料。$(item)召雷者$(0)牺牲了原本的远距离攻击能力，换取了能同时攻击多个目标的能力。$(p)攻击时，$(item)召雷者$(0)会形成一道会在附近怪物间弹跳的闪电链。",
+  "botania.page.thunderSword0": "$(item)召雷者$(0)是一把能召唤雷电的双刃。制作它需要$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)、$(l:ender/ender_essence)$(item)瓶装末地空气$(0)$(/l)以及一些其他材料。$(item)召雷者$(0)牺牲了原本的远距离攻击能力，换取了能同时攻击多个目标的能力。$(p)攻击时，$(item)召雷者$(0)会形成一道会在附近怪物间弹跳的闪电链。",
   "botania.page.thunderSword1": "交易频道的祝福之剑",
 
   "botania.entry.bIntro": "饰品介绍",
@@ -4233,10 +4233,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "瓶装末地空气",
-  "entity.botania.ender_air_cloud": "末地空气云团",
+  "entity.botania.ender_essence_bottle": "瓶装末地空气",
+  "entity.botania.ender_essence_cloud": "末地空气云团",
   "advancement.botania:enderAirMake.desc": "收集一瓶末地空气",
-  "item.botania.ender_air_bottle": "瓶装末地空气",
+  "item.botania.ender_essence_bottle": "瓶装末地空气",
   "botania.subtitle.enderAirThrow": "瓶装末地空气：扔出",
   "botania.page.manaAlchemy5": "粉碎$(item)萤石$(0)",
   "botania.page.manaAlchemy31": "石英",

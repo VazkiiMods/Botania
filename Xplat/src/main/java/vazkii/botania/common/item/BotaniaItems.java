@@ -131,7 +131,7 @@ public final class BotaniaItems {
 	public static final Item DREAMWOOD_TWIG = make(LibItemNames.DREAMWOOD_TWIG, new Item(defaultBuilder()));
 	public static final Item GAIA_INGOT = make(LibItemNames.GAIA_INGOT,
 			new GaiaRitualSacrificeItem(defaultBuilder().rarity(Rarity.RARE), true));
-	public static final Item PURE_ENDER_ESSENCE = make(LibItemNames.PURE_ENDER_ESSENCE, new EnderAirItem(defaultBuilder()));
+	public static final Item PURE_ENDER_ESSENCE = make(LibItemNames.PURE_ENDER_ESSENCE, new ThrowableEnderEssenceItem(defaultBuilder()));
 	public static final Item DILUTED_ENDER_ESSENCE = make(LibItemNames.DILUTED_ENDER_ESSENCE, new Item(defaultBuilder()));
 	public static final Item MANA_INFUSED_STRING = make(LibItemNames.MANA_STRING, new Item(defaultBuilder()));
 	public static final Item MANASTEEL_NUGGET = make(LibItemNames.MANASTEEL_NUGGET, new Item(defaultBuilder()));

@@ -86,7 +86,7 @@ public final class BotaniaEntities {
 			.clientTrackingRange(4)
 			.updateInterval(40)
 			.build(LibEntityNames.CORPOREA_SPARK.toString());
-	public static final EntityType<EnderAirBottleEntity> ENDER_ESSENCE_FLASK = EntityType.Builder.<EnderAirBottleEntity>of(EnderAirBottleEntity::new, MobCategory.MISC)
+	public static final EntityType<EnderEssenceFlaskEntity> ENDER_ESSENCE_FLASK = EntityType.Builder.<EnderEssenceFlaskEntity>of(EnderEssenceFlaskEntity::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(4)
 			.updateInterval(10)
@@ -121,13 +121,13 @@ public final class BotaniaEntities {
 			.clientTrackingRange(4)
 			.updateInterval(10)
 			.build(LibEntityNames.FALLING_STAR.toString());
-	public static final EntityType<EnderAirCloudEntity> PURE_ENDER_ESSENCE_CLOUD = EntityType.Builder.of(EnderAirCloudEntity::createPure, MobCategory.MISC)
+	public static final EntityType<EnderEssenceCloudEntity> PURE_ENDER_ESSENCE_CLOUD = EntityType.Builder.of(EnderEssenceCloudEntity::createPure, MobCategory.MISC)
 			.fireImmune()
 			.sized(1, 1)
 			.clientTrackingRange(4)
 			.updateInterval(Integer.MAX_VALUE)
 			.build(LibEntityNames.PURE_ENDER_ESSENCE_CLOUD.toString());
-	public static final EntityType<EnderAirCloudEntity> DILUTED_ENDER_ESSENCE_CLOUD = EntityType.Builder.of(EnderAirCloudEntity::createDiluted, MobCategory.MISC)
+	public static final EntityType<EnderEssenceCloudEntity> DILUTED_ENDER_ESSENCE_CLOUD = EntityType.Builder.of(EnderEssenceCloudEntity::createDiluted, MobCategory.MISC)
 			.fireImmune()
 			.sized(1, 1)
 			.clientTrackingRange(4)
