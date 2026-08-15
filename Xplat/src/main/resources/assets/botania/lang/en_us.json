@@ -2903,7 +2903,7 @@
 
   "botania.entry.vinculotus": "Vinculotus",
   "botania.tagline.vinculotus": "Intercepts Enderman teleportation",
-  "botania.page.vinculotus0": "The $(item)Vinculotus$(0) uses $(thing)Mana$(0) to hijack the powers of any $(thing)Enderman$(0) within a large radius around it. Whenever an $(thing)Enderman$(0) attempts a teleport within said radius, it's instead forced to the location of the $(item)Vinculotus$(0).",
+  "botania.page.vinculotus0": "The $(item)Vinculotus$(0) uses $(thing)Mana$(0) to hijack the powers of any $(thing)Enderman$(0) within a large radius around it, causing it to teleport to the flower instead of anywhere else.$(p)This effect also extracts a form of $(l:ender/ender_essence)$(item)essence$(0)$(/l) from the Enderman, which appears to be vital for its ability to teleport.",
   "botania.page.vinculotus1": "$(o)Touch this black lotus with your fingers$().",
 
   "botania.entry.spectranthemum": "Spectranthemum",
@@ -3142,7 +3142,7 @@
   "botania.entry.flasks": "Brewing Flasks",
   "botania.tagline.flasks": "Bigger brew containers",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)Alfglass$(0)$(/l) seems to be a more malleable material than the typical $(l:mana/pool)$(item)Managlass$(0)$(/l) used for $(item)Vials$(0). A $(item)Flask$(0) fashioned from $(l:alfhomancy/elf_resources)$(item)Alfglass$(0)$(/l) seems to be the typical Elven container for $(thing)Brews$(0), holding six doses over the four a $(item)Vial$(0) does.",
-  "botania.page.flasks1": "While the ingredient cost to brew a particular brew in a $(item)Flask$(0) is the same, its $(thing)Mana$(0) cost is double that of a $(item)Vial$(0).$(p)Additionally, since the bottleneck of a $(item)Flask$(0) is larger than that of a $(item)Vial$(0), its contents can be drunk faster.",
+  "botania.page.flasks1": "While the ingredient cost to brew a particular brew in a $(item)Flask$(0) is the same, its $(thing)Mana$(0) cost is double that of a $(item)Vial$(0). Since the bottleneck of a $(item)Flask$(0) is larger than that of a $(item)Vial$(0), its contents can be drunk faster.$(p)The wider bottleneck is also suitable for capturing $(l:ender/ender_essence)$(item)Ender Essence$(0)$(/l) from the clouds that substance forms, either by hand or using a $(item)dispenser$(0).",
   "botania.page.flasks2": "Get one under the bridge",
 
   "botania.entry.complexBrews": "Complex Brews",
@@ -3392,7 +3392,7 @@
 
   "botania.entry.openBucket": "Extrapolated Bucket",
   "botania.tagline.openBucket": "A bucket that destroys anything that comes inside",
-  "botania.page.openBucket0": "A bucket fashioned from $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l) seems to behave strangely: liquids dumped into by it simply vanish into the ether, never to be seen again. This makes it a useful tool for fluid cleanup.",
+  "botania.page.openBucket0": "A bucket fashioned from $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l) and infused with some $(l:ender/ender_essence)$(item)Ender Essence$(0)$(/l) seems to behave strangely: liquids dumped into it simply vanish into the ether, never to be seen again. This makes it a useful tool for fluid cleanup.",
   "botania.page.openBucket1": "A Souvenir from Lewis",
 
   "botania.entry.rainbowRod": "Rod of the Bifrost",
@@ -3574,11 +3574,14 @@
   "botania.page.astrolabe1": "Once a block is selected, the astrolabe will display a preview of what it would construct at a given position.$(p)To actually construct the previewed blocks (using $(thing)Mana$(0) as well as blocks from the user's inventory), simply right-click the astrolabe. Blocks can also be supplied from items like a $(l:tools/rod_of_the_lands)$(item)Rod of the Lands$(0)$(/l), a $(l:tools/rod_of_the_depths)$(item)Rod of the Depths$(0)$(/l), or a $(l:ender/hand_of_ender)$(item)Hand of Ender$(0)$(/l).",
   "botania.page.astrolabe2": "Builds walls, creates worlds",
 
-  "botania.entry.enderAir": "Extracting Ender Air",
-  "botania.tagline.enderAir": "Throwable bottles that create End Stone",
-  "botania.page.enderAir0": "The air present in the void of the $(thing)End$(0) seems to have mutative properties. Right-clicking with an empty $(item)Glass Bottle$(0) while in the $(thing)End$(0) will capture some of that air, which can then later be tossed like a splash potion, turning nearby $(item)Stone$(0) at the landing point into $(item)End Stone$(0). $(p)$(item)Dispensers$(0) can also capture this air, if nothing is blocking the area above the output.",
-  "botania.page.enderAirFromEndstone": "Ender air is also released as byproduct when $(item)End Stone$(0) is $(l:basics/pure_daisy)purified$(/l) into $(item)Cobbled Deepslate$(0). It lingers for a bit as a small cloud that can be captured before it dissipates.",
-  "botania.page.enderAir1": "It's been \"experimentally\" determined that the gases of the $(thing)End$(0) void, when mixed with plain $(thing)Overworld$(0) air, are quite toxic to certain $(thing)Nether$(0) mobs such as the $(thing)Ghast$(0).$(p)While the amount stored in an $(item)Ender Air Bottle$(0) is much too small to deal any real damage, it's certainly effective as an irritant.$(p)Especially if it manages to get in the eyes.",
+  "botania.entry.enderEssence": "Ender Essence",
+  "botania.tagline.enderEssence": "Throwable flasks that create End Stone",
+  "botania.page.enderEssenceExtraction": "Some substances present in the air of the $(thing)End$(0) void seem to have mutative properties, but are usually too diluted to be harvested directly.$(p)Appropriate tools are required to extract this $(item)Ender Essence$(0) from certain creatures or even the rocks found there.",
+  "botania.page.enderEssenceFromEndermen": "One way to extract ender essence is by literally carving it out of $(thing)Endermen$(0) using a $(l:ender/soulscribe)Soulscribe$(/l). It's a rather crude method and, when used outside the End, will yield the essence only in a diluted form.$(p)However, even such $(item)Diluted Ender Essence$(0) may be sufficient for certain applications.",
+  "botania.page.enderEssenceFromEndstone": "Extraction as a byproduct of $(l:basics/pure_daisy)purifying$(/l) $(item)End Stone$(0) yields a surprisingly pure form of Ender Essence, even in the presence of $(thing)Overworld$(0) air.",
+  "botania.page.enderEssenceCapture": "Regardless of how it was extracted, the essence forms a small cloud that dissipates rapidly. A sealable container made of mana-reinforced material with a reasonably wide opening should allow capturing most of the essence in such a cloud.$(p)This might even be possible in an automatable way, using a $(item)Dispenser$(0) facing the cloud.",
+  "botania.page.enderEssenceStoneConversion": "Sufficiently $(item)Pure Ender Essence$(0) can turn $(item)Stone$(0) into $(item)End Stone$(0). This is best achieved by shattering the essence's container directly on the stone, either by throwing it or using a $(item)Dispenser$(0).$(p)Extracting more essence from this \"artifical\" End Stone appears to be just as efficient as from the naturally occuring rock.",
+  "botania.page.enderEssenceGhastIrritation": "It has been \"experimentally\" determined that clouds of $(item)Ender Essence$(0) mixed with plain $(thing)Overworld$(0) air are quite toxic to certain $(thing)Nether$(0) beings such as the $(thing)Ghast$(0).$(p)While the amount stored in typical containers is too small to deal any real damage, it's certainly effective as an irritant.$(p)Especially if its pure form manages to get in the eyes.",
 
   "botania.entry.enderEyeBlock": "Ender Overseer",
   "botania.tagline.enderEyeBlock": "Look activated redstone detector",
@@ -3601,7 +3604,8 @@
   "botania.entry.enderDagger": "Soulscribe",
   "botania.tagline.enderDagger": "A dagger that cuts through Endermen like butter",
   "botania.page.enderDagger0": "Those $(thing)Endermen$(0). They're the peskiest things since $(thing)Creepers$(0). (I swear, whoever came up with those things really needs to take it down a $(o)notch$().)$(p)However, a dagger crafted from a material with their energies can tear through them like a thousand-degree knife through butter.",
-  "botania.page.enderDagger1": "Due to the concentration of energy, though, the dagger's only good for a few kills, and its compactness prevents the $(item)Manasteel$(0) in its recipe from healing with $(thing)Mana$(0), the way typical tools would. Still, killing those elongated thieves is worth the trouble.",
+  "botania.page.enderDagger1": "Due to the concentration of energy, though, the dagger is only good for a few kills, and its compactness prevents the $(item)Manasteel$(0) in its recipe from healing with $(thing)Mana$(0), the way typical tools would. Still, killing those elongated thieves is worth the trouble.",
+  "botania.page.enderDaggerExtractingEssence": "Using this weapon to deliver the final blow to an Enderman appears to have an interesting side effect: The dying body of the Enderman releases some form of $(l:ender/ender_essence)$(item)essence$(0)$(/l) into the air around it.",
   "botania.page.enderDagger2": "Strike my Soul",
 
   "botania.entry.spawnerClaw": "Life Imbuer",

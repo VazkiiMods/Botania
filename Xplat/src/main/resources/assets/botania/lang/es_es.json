@@ -3574,9 +3574,12 @@
 
 
 
-  "botania.entry.enderAir": "Extrayendo el aire del Fin",
 
-  "botania.page.enderAir0": "El aire presente en el vacío del $(item)Fin$(0) parece tener propiedades mutacionales. Haz clic derecho con una $(item)botella de cristal$(0) vacía estando en el Fin capturará aire, la cual puede lanzarse como cualquier poción arrojadiza, convirtiendo la $(item)piedra$(0) que toque en $(item)piedra del Fin$(0).",
+
+
+
+
+
 
 
 
@@ -3602,6 +3605,7 @@
 
   "botania.page.enderDagger0": "Esos $(thing)endermans$(0). Son la cosa más molesta después de los $(thing)creepers$(0). Juro, que la persona que los creó debió tomar $(o)notch$(r) con su bebida.$(p)Sin embargo, infundiendo una daga normal con algo de su energía, se puede crear el $(item)escribalma$(0), una daga que corta los $(item)endermans$(0) como si fueran mantequilla.",
   "botania.page.enderDagger1": "Debido al tipo de infusión, la daga solo dura unos pocos golpes y la energía que irradia evita que el $(item)manacero$(0) absorba $(thing)maná$(0) para prevenir daño, como hacen otras herramientas. Aún así, todo sea por matar a eso monstruos.",
+
   "botania.page.enderDagger2": "♪Strike my Soul♪",
 
   "botania.entry.spawnerClaw": "Imbusor de vida",
@@ -4233,6 +4237,8 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "Extrayendo el aire del Fin",
+  "botania.page.enderAir0": "El aire presente en el vacío del $(item)Fin$(0) parece tener propiedades mutacionales. Haz clic derecho con una $(item)botella de cristal$(0) vacía estando en el Fin capturará aire, la cual puede lanzarse como cualquier poción arrojadiza, convirtiendo la $(item)piedra$(0) que toque en $(item)piedra del Fin$(0).",
   "entity.botania.ender_essence_bottle": "Botella de aire del Fin",
   "advancement.botania:enderAirMake": "Aire de imitación",
   "advancement.botania:enderAirMake.desc": "Recoge una botella del Fin",

@@ -73,6 +73,8 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 * Change: Terra Truncator can cut down huge mushrooms and nether fungi, and properly breaks larger tree crowns (e.g. of large jungle trees)
 * Change: Managlass, Alfglass, and Bifrost blocks/panes are no longer faster to mine with any pickaxe
   (you need a vitreous pickaxe for fast breaking now, but you can still obtain these blocks without any tools)
+* Change: Ender Essence (previously called Ender Air) can no longer be obtained directly from the air in the End, but there are new ways to generate Ender Essence clouds by interacting with Endermen
+* Change: Recipes for most Corporea-related blocks and items have changed to no longer use sparks directly; some of them are now available before going to the End
 * Remove: Overgrowth Seed and Enchanted Soil
 * Remove: Crafting recipes for recombining slabs into full blocks
 * API: Runic Altar recipes define catalyst items separately (these are returned unchanged when crafting is complete)

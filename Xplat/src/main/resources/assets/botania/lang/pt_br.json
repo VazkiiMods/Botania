@@ -3574,11 +3574,14 @@
   "botania.page.astrolabe1": "Uma vez que um bloco é selecionado, o astrolábio mostrará uma prévia do que seria construído em uma determinada posição.$(p)Para realmente construir os blocos exibidos na prévia (usando tanto $(thing)Mana$(0) quanto blocos do inventário do usuário), basta clicar com o botão direito com o astrolábio. Blocos podem também ser fornecidos de itens como um $(l:tools/rod_of_the_lands)$(item)Cajado das Terras$(0)$(/l), um $(l:tools/rod_of_the_depths)$(item)Cajado das Profundezas$(0)$(/l), ou uma $(l:ender/hand_of_ender)$(item)Mão do End$(0)$(/l).",
   "botania.page.astrolabe2": "Construa paredes, crie mundos",
 
-  "botania.entry.enderAir": "Extraindo ar do End",
-  "botania.tagline.enderAir": "Garrafas arremessáveis que criam Pedra do End",
-  "botania.page.enderAir0": "O ar do vazio do $(thing)End$(0) parece possuir propriedades mutativas. Clicar com o botão direito com um $(item)Frasco de Vidro$(0) vazio estando no $(thing)End$(0) irá capturar um pouco do ar de lá, que pode ser depois jogado como uma poção arremessável, transformando $(item)Pedras$(0) próximas do lugar atingido em $(item)Pedras do End$(0).$(br)$(item)Ejetores$(0) também podem capturar esse ar, se nada estiver bloqueando sua saída.",
 
-  "botania.page.enderAir1": "Foi \"experimentalmente\" descoberto que os gases do vazio do $(thing)End$(0), quando misturados com o ar comum da $(thing)Superfície$(0), são muito tóxicos para certas criaturas do $(thing)Nether$(0), como o $(thing)Ghast$(0).$(p)Embora a quantidade armazenada em um $(item)Frasco de ar do End$(0) seja muito pequena para causar qualquer dano real, certamente é eficaz para irritar. Principalmente se conseguir atingir os olhos.",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "Supervisor do End",
   "botania.tagline.enderEyeBlock": "Detector de redstone ativado por olhar",
@@ -3602,6 +3605,7 @@
   "botania.tagline.enderDagger": "Uma adaga que corta Endermans como se fossem manteiga",
   "botania.page.enderDagger0": "Aqueles $(thing)Endermans$(0)... Eles são as criaturas mais irritantes depois dos $(thing)Creepers$(0). (Sério, quem foi o idiota que inventou essa coisa?)$(p)De qualquer forma, uma adaga feita a partir de um material com a energia deles pode cortá-los como se fosse uma faca a mil graus cortando manteiga.",
   "botania.page.enderDagger1": "Porém, devido a concentração de energia, a adaga é boa apenas para algumas mortes, e seu formato compacto previne que o $(item)Aço-Mana$(0) em sua receita repare essa arma com $(thing)Mana$(0), como ferramentas comuns fariam. Mesmo assim, eliminar esses ladrões alongados vale a pena.",
+
   "botania.page.enderDagger2": "Golpeia minha Alma",
 
   "botania.entry.spawnerClaw": "Imbuidor de Vida",
@@ -4233,6 +4237,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "Extraindo ar do End",
+  "botania.tagline.enderAir": "Garrafas arremessáveis que criam Pedra do End",
+  "botania.page.enderAir0": "O ar do vazio do $(thing)End$(0) parece possuir propriedades mutativas. Clicar com o botão direito com um $(item)Frasco de Vidro$(0) vazio estando no $(thing)End$(0) irá capturar um pouco do ar de lá, que pode ser depois jogado como uma poção arremessável, transformando $(item)Pedras$(0) próximas do lugar atingido em $(item)Pedras do End$(0).$(br)$(item)Ejetores$(0) também podem capturar esse ar, se nada estiver bloqueando sua saída.",
+  "botania.page.enderAir1": "Foi \"experimentalmente\" descoberto que os gases do vazio do $(thing)End$(0), quando misturados com o ar comum da $(thing)Superfície$(0), são muito tóxicos para certas criaturas do $(thing)Nether$(0), como o $(thing)Ghast$(0).$(p)Embora a quantidade armazenada em um $(item)Frasco de ar do End$(0) seja muito pequena para causar qualquer dano real, certamente é eficaz para irritar. Principalmente se conseguir atingir os olhos.",
   "entity.botania.ender_essence_bottle": "Frasco de ar do End",
   "entity.botania.ender_essence_cloud": "Nuvem de ar do End",
   "advancement.botania:enderAirMake": "Imitação de Ar",

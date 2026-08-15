@@ -3574,11 +3574,14 @@
   "botania.page.astrolabe1": "한 번 블록이 선택되면 아스트롤라브는 주어진 위치에서 구성될 내용의 미리보기를 표시합니다.$(p)실제로 미리보기된 블록을 구성하려면 ($(thing)마나$(0) 및 사용자 인벤토리의 블록을 사용), 아스트롤라브를 오른쪽 클릭하면 됩니다. 블록은 $(l:tools/rod_of_the_shifting_crust)$(item)Rod of the Shifting Crust$(0)$(/l), $(l:tools/rod_of_the_depths)$(item)Rod of the Depths$(0)$(/l), 또는 $(l:ender/hand_of_ender)$(item)Hand of Ender$(0)$(/l)와 같은 아이템에서 제공될 수도 있습니다.",
   "botania.page.astrolabe2": "벽을 세우며 세계를 창조합니다",
 
-  "botania.entry.enderAir": "엔더 공기 추출",
-  "botania.tagline.enderAir": "던지면 엔드 스톤이 생성되는 던짐 병",
-  "botania.page.enderAir0": "엔드의 공간에 존재하는 공기는 변이적인 특성을 가지고 있는 것으로 보입니다. $(thing)엔드$(0)에서 빈 $(item)유리 병$(0)으로 오른쪽 클릭하면 그 공기 일부를 포획할 수 있으며, 이것은 나중에 햇갈리는 포션처럼 던져질 수 있어 던지는 지점 근처의 $(item)돌$(0)을 $(item)엔드 스톤$(0)으로 변환시킵니다. $(p)$(item)발사기$(0)도 이 공기를 포획할 수 있습니다. 출력 위에 아무 것도 가로막지 않은 경우입니다.",
 
-  "botania.page.enderAir1": "엔드의 공기의 가스가 평범한 $(thing)오버월드$(0) 공기와 섞일 때, 특히 $(thing)화산 지옥$(0) 몬스터 중 일부에게는 상당히 유독하다는 \"실험적\"으로 밝혀졌습니다. $(p)$(item)엔더 공기 병$(0)에 저장된 양은 실제로 피해를 주기에는 훨씬 작지만, 자극제로서 효과적입니다.$(p)특히 눈에 들어가면 더욱 효과적입니다.",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "엔더 감시자",
   "botania.tagline.enderEyeBlock": "시선 활성화된 레드스톤 감지기",
@@ -3602,6 +3605,7 @@
   "botania.tagline.enderDagger": "엔더맨을 버터처럼 가르는 단검",
   "botania.page.enderDagger0": "저 $(thing)엔더맨$(0)들. $(thing)크리퍼$(0) 이후로 가장 귀찮은 존재입니다. (진짜, 그걸 만든 사람은 정말로 단계를 내리라고 말할 필요가 있어요.)$(p)그러나 그들의 에너지로 만든 단검은 그들을 마치 버터를 통과하는 천도 칼처럼 찢어버릴 수 있습니다.",
   "botania.page.enderDagger1": "에너지의 농도 때문에 단, 몇 번의 처치에만 유용하며, 레시피의 $(item)마나합금$(0)이 $(thing)마나$(0)로 회복되지 않아 일반적인 도구처럼 회복되지 않습니다. 그래도 저긴 그 긴 혈관 도둑들을 죽이는 데 수고할 가치가 있습니다.",
+
   "botania.page.enderDagger2": "내 영혼에게 일격",
 
   "botania.entry.spawnerClaw": "생명 부여자",
@@ -4233,6 +4237,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "엔더 공기 추출",
+  "botania.tagline.enderAir": "던지면 엔드 스톤이 생성되는 던짐 병",
+  "botania.page.enderAir0": "엔드의 공간에 존재하는 공기는 변이적인 특성을 가지고 있는 것으로 보입니다. $(thing)엔드$(0)에서 빈 $(item)유리 병$(0)으로 오른쪽 클릭하면 그 공기 일부를 포획할 수 있으며, 이것은 나중에 햇갈리는 포션처럼 던져질 수 있어 던지는 지점 근처의 $(item)돌$(0)을 $(item)엔드 스톤$(0)으로 변환시킵니다. $(p)$(item)발사기$(0)도 이 공기를 포획할 수 있습니다. 출력 위에 아무 것도 가로막지 않은 경우입니다.",
+  "botania.page.enderAir1": "엔드의 공기의 가스가 평범한 $(thing)오버월드$(0) 공기와 섞일 때, 특히 $(thing)화산 지옥$(0) 몬스터 중 일부에게는 상당히 유독하다는 \"실험적\"으로 밝혀졌습니다. $(p)$(item)엔더 공기 병$(0)에 저장된 양은 실제로 피해를 주기에는 훨씬 작지만, 자극제로서 효과적입니다.$(p)특히 눈에 들어가면 더욱 효과적입니다.",
   "entity.botania.ender_essence_bottle": "엔더 공기가 담겨 있는 병",
   "entity.botania.ender_essence_cloud": "엔더 공기 구름",
   "advancement.botania:enderAirMake.desc": "엔더의 공기를 병에 넣어보세요",

@@ -3574,11 +3574,14 @@
   "botania.page.astrolabe1": "Quand un type de bloc est sélectionné, l'$(item)astrolabe$(0) va afficher un hologramme de ce qu'il pourrait placer.$(p)Pour réellement placer les blocs, il vous suffit de faire un clic-droit ($(o)et d'avoir assez de $(thing)mana$(0) dans votre inventaire$()). Les blocs peuvent provenir de votre inventaire, d'un $(l:tools/rod_of_the_shifting_crust)bâton équivalent$(/l), d'un $(l:tools/rod_of_the_depths)bâton des pierres$(/l) ou d'une $(l:ender/hand_of_ender)clé de l'Ender$(/l).",
   "botania.page.astrolabe2": "$(o)maçon de père en fils$()",
 
-  "botania.entry.enderAir": "Récolter l'air du néant",
-  "botania.tagline.enderAir": "TAGLINE",
-  "botania.page.enderAir0": "L'air qui est présent dans l'$(thing)End$(0) semble avoir des propriétés mutagènes.$(p)Clic-droit dans l'$(thing)End$(0) avec une $(item)fiole$(0) vide vous donnera une $(item)fiole d'air du néant$(0). Un objet que l'on peut lancer, et qui transforme la $(item)roche$(0) en $(item)pierre de l'End$(0). Même un $(item)distributeur$(0) peut capturer cet air, tant qu'il n'est pas obstrué.",
 
-  "botania.page.enderAir1": "En faisant des expériences; nous avons découvert que si des gaz de l'$(thing)End$(0) sont mélangés à l'air de la $(thing)Surface$(0), alors ils formeront un mélange toxique pour les créatures du $(thing)Nether$(0), comme le $(thing)Ghast$(0).$(p)Les $(item)fioles d'air du néant$(0) sont trop petites pour faire un vrai poison anti-$(thing)Nether$(0), mais elles sont suffisamment grandes pour faire $(o)un produit très irritant pour les yeux$().",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "Veilleur du néant",
   "botania.tagline.enderEyeBlock": "TAGLINE",
@@ -3602,6 +3605,7 @@
   "botania.tagline.enderDagger": "TAGLINE",
   "botania.page.enderDagger0": "Les $(thing)Endermen$(0), la deuxième pire chose, juste derrière les $(thing)Creepers$(0) ($(o)nan mais sérieux, qui a eu l'idée d'inventer ça$()).$(p)Cette dague est chargée d'énergie du néant, ce qui est parfait pour découper les $(thing)Endermen$(0) aussi facilement que du beurre.",
   "botania.page.enderDagger1": "Sa densité énergétique est aussi un inconvénient. Malgré la présence de $(l:mana/pool)manacier$(/l) dans sa fabrication, il n'est pas possible de réparer cet arme avec du $(thing)mana$(0).$(p)Mais c'est le prix à payer pour pouvoir éradiquer ces sales voleurs de blocs.",
+
   "botania.page.enderDagger2": "$(o)la Voix des morts$()",
 
   "botania.entry.spawnerClaw": "Injecteur de vie",
@@ -4233,6 +4237,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "Récolter l'air du néant",
+  "botania.tagline.enderAir": "TAGLINE",
+  "botania.page.enderAir0": "L'air qui est présent dans l'$(thing)End$(0) semble avoir des propriétés mutagènes.$(p)Clic-droit dans l'$(thing)End$(0) avec une $(item)fiole$(0) vide vous donnera une $(item)fiole d'air du néant$(0). Un objet que l'on peut lancer, et qui transforme la $(item)roche$(0) en $(item)pierre de l'End$(0). Même un $(item)distributeur$(0) peut capturer cet air, tant qu'il n'est pas obstrué.",
+  "botania.page.enderAir1": "En faisant des expériences; nous avons découvert que si des gaz de l'$(thing)End$(0) sont mélangés à l'air de la $(thing)Surface$(0), alors ils formeront un mélange toxique pour les créatures du $(thing)Nether$(0), comme le $(thing)Ghast$(0).$(p)Les $(item)fioles d'air du néant$(0) sont trop petites pour faire un vrai poison anti-$(thing)Nether$(0), mais elles sont suffisamment grandes pour faire $(o)un produit très irritant pour les yeux$().",
   "entity.botania.ender_essence_bottle": "Fiole d'air du néant",
   "entity.botania.ender_essence_cloud": "Nuage d'air du néant",
   "advancement.botania:enderAirMake": "Paquet de chips",
