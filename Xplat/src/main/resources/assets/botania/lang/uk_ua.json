@@ -3698,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "Агрегатор життя",
   "botania.tagline.spawnerMover": "Можливість переміщення спавнерів",
-  "botania.page.spawnerMover0": "Коли $(l:alfhomancy/elf_resources)$(item)Дракон-камінь$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Елементій$(0)$(/l), $(l:ender/ender_air)$(item)Повітря Енда$(0)$(/l) і $(l:alfhomancy/gaia_ritual)$(item)Дух Ґаї$(0)$(/l) створено за певним зразком, вони дають пристрій, який може стримувати цікаву енергію $(item)Спавнерів$(0) і переносити їх в іншу точку простору.$(p)На жаль, пристрій розбивається після одного використання.",
+  "botania.page.spawnerMover0": "Коли $(l:alfhomancy/elf_resources)$(item)Дракон-камінь$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Елементій$(0)$(/l), $(l:ender/ender_essence)$(item)Повітря Енда$(0)$(/l) і $(l:alfhomancy/gaia_ritual)$(item)Дух Ґаї$(0)$(/l) створено за певним зразком, вони дають пристрій, який може стримувати цікаву енергію $(item)Спавнерів$(0) і переносити їх в іншу точку простору.$(p)На жаль, пристрій розбивається після одного використання.",
   "botania.page.spawnerMover1": "Посилка спавнера",
 
   "botania.entry.keepIvy": "Рішучий плющ",
@@ -3732,12 +3732,12 @@
 
   "botania.entry.starSword": "Зореклич",
   "botania.tagline.starSword": "Меч, що викликає зірки з неба",
-  "botania.page.starSword0": "$(item)Зореклич$(0) — це клинок із силою викликати гнів зірок. Під час розмаху клинок викликає зірку з неба в точку, на яку дивиться власник, завдаючи шкоди всьому, що там стоїть. Отримати цей меч непросто: $(l:ender/ender_air)$(item)Повітря Енда$(0)$(/l) й $(l:tools/terra_blade)$(item)Тералезо$(0)$(/l) - обидва є компонентами його створення. Зауважте, що будь-які зачарування на останньому буде втрачено.",
+  "botania.page.starSword0": "$(item)Зореклич$(0) — це клинок із силою викликати гнів зірок. Під час розмаху клинок викликає зірку з неба в точку, на яку дивиться власник, завдаючи шкоди всьому, що там стоїть. Отримати цей меч непросто: $(l:ender/ender_essence)$(item)Повітря Енда$(0)$(/l) й $(l:tools/terra_blade)$(item)Тералезо$(0)$(/l) - обидва є компонентами його створення. Зауважте, що будь-які зачарування на останньому буде втрачено.",
   "botania.page.starSword1": "Виклик, лють, що завгодно...",
 
   "botania.entry.thunderSword": "Громоклич",
   "botania.tagline.thunderSword": "Меч, що викликає бурю з неба",
-  "botania.page.thunderSword0": "$(item)Громокліч$(0) — це двозубий меч із здатністю викликати блискавку. Створено з таких матеріалів, як $(l:tools/terra_blade)$(item)Тералезо$(0)$(/l) і $(l:ender/ender_air)$(item)Повітря Енда$(0)$(/ l), він жертвує потужністю далекобійних атак заради можливості знищити кілька цілей одним ударом.$(p)Атака $(item)Громокличу$(0) в натовпі створить ланцюжок блискавки, яка вражає ворожих мобів поблизу.",
+  "botania.page.thunderSword0": "$(item)Громокліч$(0) — це двозубий меч із здатністю викликати блискавку. Створено з таких матеріалів, як $(l:tools/terra_blade)$(item)Тералезо$(0)$(/l) і $(l:ender/ender_essence)$(item)Повітря Енда$(0)$(/ l), він жертвує потужністю далекобійних атак заради можливості знищити кілька цілей одним ударом.$(p)Атака $(item)Громокличу$(0) в натовпі створить ланцюжок блискавки, яка вражає ворожих мобів поблизу.",
   "botania.page.thunderSword1": "Благословенний клинок торгового чату",
 
   "botania.entry.bIntro": "Знайомство з брелоками",
@@ -4233,11 +4233,11 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "Пляшка з повітрям Енду",
-  "entity.botania.ender_air_cloud": "Хмара повітря Енду",
+  "entity.botania.ender_essence_bottle": "Пляшка з повітрям Енду",
+  "entity.botania.ender_essence_cloud": "Хмара повітря Енду",
   "advancement.botania:enderAirMake": "Імітація повітря",
   "advancement.botania:enderAirMake.desc": "Зберіть пляшку повітря Енду",
-  "item.botania.ender_air_bottle": "Пляшка повітря Енда",
+  "item.botania.ender_essence_bottle": "Пляшка повітря Енда",
   "botania.subtitle.enderAirThrow": "Пляшечка кинута",
   "botania.page.manaAlchemy5": "Дроблення $(item)Світлокаменю$(0)",
   "botania.page.manaAlchemy31": "Кварц",

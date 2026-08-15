@@ -44,20 +44,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSupplier {
+public class EnderEssenceFlaskEntity extends ThrowableProjectile implements ItemSupplier {
 	public static final int PARTICLE_COLOR = 0xFF000008;
 	public static final int CONVERSION_RANGE = 4;
 	public static final int CONVERSION_RANGE_Y = 4;
 
-	public EnderAirBottleEntity(EntityType<EnderAirBottleEntity> type, Level world) {
+	public EnderEssenceFlaskEntity(EntityType<EnderEssenceFlaskEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EnderAirBottleEntity(LivingEntity entity, Level world) {
+	public EnderEssenceFlaskEntity(LivingEntity entity, Level world) {
 		super(BotaniaEntities.ENDER_ESSENCE_FLASK, entity, world);
 	}
 
-	public EnderAirBottleEntity(double x, double y, double z, Level world) {
+	public EnderEssenceFlaskEntity(double x, double y, double z, Level world) {
 		super(BotaniaEntities.ENDER_ESSENCE_FLASK, x, y, z, world);
 	}
 

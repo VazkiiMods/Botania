@@ -3698,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "Lebensaggregator",
   "botania.tagline.spawnerMover": "Die Möglichkeit zum Bewegen von Spawnern",
-  "botania.page.spawnerMover0": "Wenn ein $(l:alfhomancy/elf_resources)$(item)Drachenstein$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_air)$(item)Ender-Essenz$(0)$(/l) und $(l:alfhomancy/gaia_ritual)$(item)Gaiaseelen$(0)$(/l) auf bestimmte Weise zusammengesetzt werden, ergeben sie ein Gerät, das die eigentümlichen Energien eines $(item)Spawner$(0) bändigen und diesen an einen anderen Ort transportieren kann.$(p)Leider zerbricht dieses Gerät bereits nach der ersten Nutzung.",
+  "botania.page.spawnerMover0": "Wenn ein $(l:alfhomancy/elf_resources)$(item)Drachenstein$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_essence)$(item)Ender-Essenz$(0)$(/l) und $(l:alfhomancy/gaia_ritual)$(item)Gaiaseelen$(0)$(/l) auf bestimmte Weise zusammengesetzt werden, ergeben sie ein Gerät, das die eigentümlichen Energien eines $(item)Spawner$(0) bändigen und diesen an einen anderen Ort transportieren kann.$(p)Leider zerbricht dieses Gerät bereits nach der ersten Nutzung.",
   "botania.page.spawnerMover1": "Ein Spawner-Paket",
 
   "botania.entry.keepIvy": "Entschlossener Efeu",
@@ -3732,12 +3732,12 @@
 
   "botania.entry.starSword": "Sternrufer",
   "botania.tagline.starSword": "Schwert, das fallende Stene herbeiruft",
-  "botania.page.starSword0": "Der $(item)Sternrufer$(0) ist eine Klinge mit der Kraft, den Zorn der Sterne herbeizurufen. Wenn sie geschwungen wird, beschwört die Klinge einen fallenden Stern vom Himmel auf den anvisierten Punkt zu. Dieses Schwert is nicht trivial zu beschaffen, da $(l:ender/ender_air)$(item)Ender-Essenz$(0)$(/l) und eine $(l:tools/terra_blade)$(item)Terraklinge$(0)$(/l) zu seinen Komponenten gehören. Hinweis: Jegliche Verzauberungen des letzteren gehen verloren.",
+  "botania.page.starSword0": "Der $(item)Sternrufer$(0) ist eine Klinge mit der Kraft, den Zorn der Sterne herbeizurufen. Wenn sie geschwungen wird, beschwört die Klinge einen fallenden Stern vom Himmel auf den anvisierten Punkt zu. Dieses Schwert is nicht trivial zu beschaffen, da $(l:ender/ender_essence)$(item)Ender-Essenz$(0)$(/l) und eine $(l:tools/terra_blade)$(item)Terraklinge$(0)$(/l) zu seinen Komponenten gehören. Hinweis: Jegliche Verzauberungen des letzteren gehen verloren.",
   "botania.page.starSword1": "Rufer, Wut, was auch immer...",
 
   "botania.entry.thunderSword": "Donnerrufer",
   "botania.tagline.thunderSword": "Schwert, das Donner herbeiruft",
-  "botania.page.thunderSword0": "Der $(item)Donnerrufer$(0) ist ein zweigespaltenes Schwert, das Blitze beschwören kann. Hergestellt aus Materialien wie einer $(l:tools/terra_blade)$(item)Terraklinge$(0)$(/l) und $(l:ender/ender_air)$(item)Ender-Essenz$(0)$(/l), opfert es Distanzangriffe für die Fähigkeit, mehrere Ziele auf einen (Blitz-)Schlag zu treffen.$(br)Ein Angriff mit dem $(item)Donnerrufer$(0) auf eine Gruppe erzeugt eine Kette von Blitzen, die Monster in der Umgebung treffen.",
+  "botania.page.thunderSword0": "Der $(item)Donnerrufer$(0) ist ein zweigespaltenes Schwert, das Blitze beschwören kann. Hergestellt aus Materialien wie einer $(l:tools/terra_blade)$(item)Terraklinge$(0)$(/l) und $(l:ender/ender_essence)$(item)Ender-Essenz$(0)$(/l), opfert es Distanzangriffe für die Fähigkeit, mehrere Ziele auf einen (Blitz-)Schlag zu treffen.$(br)Ein Angriff mit dem $(item)Donnerrufer$(0) auf eine Gruppe erzeugt eine Kette von Blitzen, die Monster in der Umgebung treffen.",
   "botania.page.thunderSword1": "Gesegnete Klinge des Handels-Chat",
 
   "botania.entry.bIntro": "Einführung zu Schmuck",

@@ -18,20 +18,21 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.entity.EnderAirCloudEntity;
+import vazkii.botania.common.entity.EnderEssenceCloudEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
 
-public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
+public class EnderEssenceBottlingBehavior extends OptionalDispenseItemBehavior {
 
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		BlockPos blockPos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
-		List<EnderAirCloudEntity> entities = source.level().getEntitiesOfClass(EnderAirCloudEntity.class,
+		List<EnderEssenceCloudEntity> entities = source.level().getEntitiesOfClass(
+				EnderEssenceCloudEntity.class,
 				new AABB(blockPos), EntitySelector.ENTITY_STILL_ALIVE);
 		if (!entities.isEmpty()) {
-			EnderAirCloudEntity cloud = entities.getFirst();
+			EnderEssenceCloudEntity cloud = entities.getFirst();
 			ItemStack bottledStack = cloud.getBottledItem();
 			if (!bottledStack.isEmpty()) {
 				source.level().playSound(null, blockPos, BotaniaSounds.enderEssenceFill, SoundSource.BLOCKS, 1, 1);

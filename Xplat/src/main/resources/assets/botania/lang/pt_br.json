@@ -3698,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "Agregador de Vida",
   "botania.tagline.spawnerMover": "A habilidade de mover Invocadores",
-  "botania.page.spawnerMover0": "Quando uma $(l:alfhomancy/elf_resources)$(item)Pedra Dracônica$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_air)$(item)Ar do Ender$(0)$(/l), e $(l:alfhomancy/gaia_ritual)$(item)Espíritos de Gaia$(0)$(/l) são juntados em uma receita especifica, eles produzem um dispositivo que pode conter as energias curiosas de um $(item)Gerador de Criaturas$(0) e carregar ele para outro ponto do espaço.$(p)Infelizmente, o dispositivo irá quebrar depois de usado uma vez.",
+  "botania.page.spawnerMover0": "Quando uma $(l:alfhomancy/elf_resources)$(item)Pedra Dracônica$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_essence)$(item)Ar do Ender$(0)$(/l), e $(l:alfhomancy/gaia_ritual)$(item)Espíritos de Gaia$(0)$(/l) são juntados em uma receita especifica, eles produzem um dispositivo que pode conter as energias curiosas de um $(item)Gerador de Criaturas$(0) e carregar ele para outro ponto do espaço.$(p)Infelizmente, o dispositivo irá quebrar depois de usado uma vez.",
   "botania.page.spawnerMover1": "Uma parcela de Gerador",
 
   "botania.entry.keepIvy": "Hera Resoluta",
@@ -3732,12 +3732,12 @@
 
   "botania.entry.starSword": "Fúria Estelar",
   "botania.tagline.starSword": "Espada que invoca estrelas cadentes",
-  "botania.page.starSword0": "A $(item)Fúria Estelar$(0) é uma espada que pode invocar a fúria das estrelas. Quando brandida, a lâmina invoca uma estrela cadente dos céus para o ponto para onde o portador está olhando, causando dano a qualquer coisa que fique lá. Essa espada possui $(l:ender/ender_air)$(item)Ar do End$(0)$(/l) e uma $(l:tools/terra_blade)$(item)Lâmina da Terra$(0)$(/l) como componentes de sua fabricação, portanto não é tão fácil de ser adquirida.",
+  "botania.page.starSword0": "A $(item)Fúria Estelar$(0) é uma espada que pode invocar a fúria das estrelas. Quando brandida, a lâmina invoca uma estrela cadente dos céus para o ponto para onde o portador está olhando, causando dano a qualquer coisa que fique lá. Essa espada possui $(l:ender/ender_essence)$(item)Ar do End$(0)$(/l) e uma $(l:tools/terra_blade)$(item)Lâmina da Terra$(0)$(/l) como componentes de sua fabricação, portanto não é tão fácil de ser adquirida.",
   "botania.page.starSword1": "Invocadora, fúria, qualquer coisa...$(br2)$(br2)Nota: Quaisquer encantamentos da espada que é usada na fabricação serão perdidos ao fabricar essa.",
 
   "botania.entry.thunderSword": "Fúria-Trovão",
   "botania.tagline.thunderSword": "Espada que invoca trovões",
-  "botania.page.thunderSword0": "A $(item)Fúria-Trovão$(0) é uma espada de dois gumes capaz de conjurar relâmpagos. Feita a partir de materiais como uma $(l:tools/terra_blade)$(item)Lâmina da Terra$(0)$(/l) e $(l:ender/ender_air)$(item)Ar do End$(0)$(/l), ela sacrifica o poder de ataques a longa distância pelo de eletrocutar múltiplos alvos em um golpe.$(br)Um ataque com a $(item)Fúria-Trovão$(0), em uma horda de inimigos, gerará uma cadeia de raios que eletrocutará criaturas hostis próximas.",
+  "botania.page.thunderSword0": "A $(item)Fúria-Trovão$(0) é uma espada de dois gumes capaz de conjurar relâmpagos. Feita a partir de materiais como uma $(l:tools/terra_blade)$(item)Lâmina da Terra$(0)$(/l) e $(l:ender/ender_essence)$(item)Ar do End$(0)$(/l), ela sacrifica o poder de ataques a longa distância pelo de eletrocutar múltiplos alvos em um golpe.$(br)Um ataque com a $(item)Fúria-Trovão$(0), em uma horda de inimigos, gerará uma cadeia de raios que eletrocutará criaturas hostis próximas.",
   "botania.page.thunderSword1": "Lâmina Abençoada do chat de trocas$(br2)$(br2)Nota: Quaisquer encantamentos da espada que é usada na fabricação serão perdidos ao fabricar essa.",
 
   "botania.entry.bIntro": "Introdução aos Trinkets",
@@ -4233,11 +4233,11 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "Frasco de ar do End",
-  "entity.botania.ender_air_cloud": "Nuvem de ar do End",
+  "entity.botania.ender_essence_bottle": "Frasco de ar do End",
+  "entity.botania.ender_essence_cloud": "Nuvem de ar do End",
   "advancement.botania:enderAirMake": "Imitação de Ar",
   "advancement.botania:enderAirMake.desc": "Colete um Frasco de ar do End",
-  "item.botania.ender_air_bottle": "Frasco de ar do End",
+  "item.botania.ender_essence_bottle": "Frasco de ar do End",
   "botania.subtitle.enderAirThrow": "Frasco de Ar do End lançado",
   "botania.page.manaAlchemy5": "Desfazendo $(item)Blocos de Pedra Luminosa$(0)",
   "botania.page.manaAlchemy31": "Quartzo",

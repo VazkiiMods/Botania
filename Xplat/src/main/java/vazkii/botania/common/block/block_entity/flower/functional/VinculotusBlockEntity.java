@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.entity.EnderAirCloudEntity;
+import vazkii.botania.common.entity.EnderEssenceCloudEntity;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.internal_caps.EnderEssenceCaptured;
 
@@ -120,7 +120,7 @@ public class VinculotusBlockEntity extends FunctionalFlowerBlockEntity {
 	 */
 	public static void postEndermanTeleport(LivingEntity entity) {
 		if (EnderEssenceCaptured.HOLDER.existsFor(entity)) {
-			EnderAirCloudEntity.spawnForEnderman(entity);
+			EnderEssenceCloudEntity.spawnForEnderman(entity);
 
 			// completely disable future teleport attempts
 			EnderEssenceCaptured.HOLDER.setFor(entity, true);

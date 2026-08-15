@@ -4233,10 +4233,10 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "Botella de aire del Fin",
+  "entity.botania.ender_essence_bottle": "Botella de aire del Fin",
   "advancement.botania:enderAirMake": "Aire de imitación",
   "advancement.botania:enderAirMake.desc": "Recoge una botella del Fin",
-  "item.botania.ender_air_bottle": "Botella de aire del Fin",
+  "item.botania.ender_essence_bottle": "Botella de aire del Fin",
   "botania.page.manaAlchemy5": "Rompiendo $(item)bloques de piedra luminosa$(0)",
   "botania.page.manaAlchemy6": "Rompiendo $(item)bloques de cuarzo$(0)",
   "botania.page.manaAlchemy7": "Creando $(item)ladrillos cincelados de piedra$(0)",

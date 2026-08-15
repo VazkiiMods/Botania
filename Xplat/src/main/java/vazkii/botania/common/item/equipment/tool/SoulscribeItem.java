@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.entity.EnderAirCloudEntity;
+import vazkii.botania.common.entity.EnderEssenceCloudEntity;
 import vazkii.botania.common.internal_caps.EnderEssenceCaptured;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
 
@@ -48,7 +48,7 @@ public class SoulscribeItem extends ManasteelSwordItem {
 	public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		if (target instanceof EnderMan && target.isDeadOrDying()
 				&& !EnderEssenceCaptured.HOLDER.getOrDefault(target, false)) {
-			EnderAirCloudEntity.spawnForEnderman(target);
+			EnderEssenceCloudEntity.spawnForEnderman(target);
 		}
 		super.postHurtEnemy(stack, target, attacker);
 	}

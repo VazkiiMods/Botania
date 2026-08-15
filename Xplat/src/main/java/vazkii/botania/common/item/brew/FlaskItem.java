@@ -24,7 +24,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.common.entity.EnderAirCloudEntity;
+import vazkii.botania.common.entity.EnderEssenceCloudEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -48,10 +48,10 @@ public class FlaskItem extends VialItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
 		HitResult hitResult = ProjectileUtil.getHitResultOnViewVector(player,
-				e -> !e.isSpectator() && (e.isPickable() || e instanceof EnderAirCloudEntity),
+				e -> !e.isSpectator() && (e.isPickable() || e instanceof EnderEssenceCloudEntity),
 				player.entityInteractionRange());
 		if (!(hitResult instanceof EntityHitResult entityHitResult)
-				|| !(entityHitResult.getEntity() instanceof EnderAirCloudEntity cloud)
+				|| !(entityHitResult.getEntity() instanceof EnderEssenceCloudEntity cloud)
 				|| !player.mayInteract(level, cloud.blockPosition())) {
 			return super.use(level, player, usedHand);
 		}

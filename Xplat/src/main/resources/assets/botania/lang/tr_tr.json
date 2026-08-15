@@ -4233,9 +4233,9 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "Ender Havası Şişesi",
-  "entity.botania.ender_air_cloud": "Ender Havası Bulutu",
+  "entity.botania.ender_essence_bottle": "Ender Havası Şişesi",
+  "entity.botania.ender_essence_cloud": "Ender Havası Bulutu",
   "advancement.botania:enderAirMake": "Taklit Hava",
   "advancement.botania:enderAirMake.desc": "Bir Şişe Ender Havası topla",
-  "item.botania.ender_air_bottle": "Ender Havası Şişesi"
+  "item.botania.ender_essence_bottle": "Ender Havası Şişesi"
 }

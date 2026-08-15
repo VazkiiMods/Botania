@@ -21,11 +21,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.entity.EnderAirBottleEntity;
+import vazkii.botania.common.entity.EnderEssenceFlaskEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 
-public class EnderAirItem extends Item implements ProjectileItem {
-	public EnderAirItem(Properties properties) {
+public class ThrowableEnderEssenceItem extends Item implements ProjectileItem {
+	public ThrowableEnderEssenceItem(Properties properties) {
 		super(properties);
 	}
 
@@ -45,7 +45,7 @@ public class EnderAirItem extends Item implements ProjectileItem {
 		// inlined from ThrowablePotionItem::use:
 		ItemStack itemstack = player.getItemInHand(hand);
 		if (!level.isClientSide()) {
-			EnderAirBottleEntity thrownBottle = new EnderAirBottleEntity(player, level);
+			EnderEssenceFlaskEntity thrownBottle = new EnderEssenceFlaskEntity(player, level);
 			// Botania: no need to set item, but apply different trajectory
 			thrownBottle.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, 1.5f, 1);
 			level.addFreshEntity(thrownBottle);
@@ -58,6 +58,6 @@ public class EnderAirItem extends Item implements ProjectileItem {
 
 	@Override
 	public Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
-		return new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), level);
+		return new EnderEssenceFlaskEntity(pos.x(), pos.y(), pos.z(), level);
 	}
 }

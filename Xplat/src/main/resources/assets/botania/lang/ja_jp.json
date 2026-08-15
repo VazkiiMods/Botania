@@ -3698,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "生命集積器",
   "botania.tagline.spawnerMover": "スポナーを移動することができる能力",
-  "botania.page.spawnerMover0": "$(l:alfhomancy/elf_resources)$(item)ドラゴンストーン$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)エレメンチウム$(0)$(/l)、$(l:ender/ender_air)$(item)エンドの空気$(0)$(/l)、$(l:alfhomancy/gaia_ritual)$(item)ガイアの神霊$(0)$(/l)を特定のパターンでクラフトすると、$(item)モンスタースポナー$(0)のエネルギーを抑制し、別の地点へ運ぶことができる装置が出来ます。$(p)ただし、一度使うと粉々になってしまいます。",
+  "botania.page.spawnerMover0": "$(l:alfhomancy/elf_resources)$(item)ドラゴンストーン$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)エレメンチウム$(0)$(/l)、$(l:ender/ender_essence)$(item)エンドの空気$(0)$(/l)、$(l:alfhomancy/gaia_ritual)$(item)ガイアの神霊$(0)$(/l)を特定のパターンでクラフトすると、$(item)モンスタースポナー$(0)のエネルギーを抑制し、別の地点へ運ぶことができる装置が出来ます。$(p)ただし、一度使うと粉々になってしまいます。",
   "botania.page.spawnerMover1": "スポナーの小包",
 
   "botania.entry.keepIvy": "頑固なツタ",
@@ -3732,12 +3732,12 @@
 
   "botania.entry.starSword": "スターコーラー",
   "botania.tagline.starSword": "堕ちる星を呼び出す剣",
-  "botania.page.starSword0": "$(item)スターコーラー$(0)は、星の怒りを呼び出す力を持つ剣です。振りかぶりと、使い手の視点の先へ、天から流れ落ちる星を呼び寄せ、そこにいるものにダメージを与えます。この剣は、$(l:ender/ender_air)$(item)エンドの空気$(0)$(/l)や$(l:tools/terra_blade)$(item)テラブレード$(0)$(/l)等から制作され、入手は容易ではありません。また、作成時テラブレードのエンチャントが失われる事に注意してください。",
+  "botania.page.starSword0": "$(item)スターコーラー$(0)は、星の怒りを呼び出す力を持つ剣です。振りかぶりと、使い手の視点の先へ、天から流れ落ちる星を呼び寄せ、そこにいるものにダメージを与えます。この剣は、$(l:ender/ender_essence)$(item)エンドの空気$(0)$(/l)や$(l:tools/terra_blade)$(item)テラブレード$(0)$(/l)等から制作され、入手は容易ではありません。また、作成時テラブレードのエンチャントが失われる事に注意してください。",
   "botania.page.starSword1": "訪問者、復讐、どんなことがあっても...",
 
   "botania.entry.thunderSword": "サンダーコーラー",
   "botania.tagline.thunderSword": "稲妻を呼び起こす剣",
-  "botania.page.thunderSword0": "$(item)サンダーコーラー$(0)は、稲妻を呼び起こす能力を持つ二股の剣です。$(l:tools/terra_blade)$(item)テラブレード$(0)$(/l)や$(l:ender/ender_air)$(item)エンドの空気$(0)$(/l)等から作成でき、遠距離攻撃の威力を犠牲にし、複数の対象を一撃で倒すほどの威力を持ちます。$(p)集団の中で$(item)サンダーコーラー$(0)からの攻撃を受けると、連鎖する稲妻が発生し、付近の敵対モブを攻撃します。",
+  "botania.page.thunderSword0": "$(item)サンダーコーラー$(0)は、稲妻を呼び起こす能力を持つ二股の剣です。$(l:tools/terra_blade)$(item)テラブレード$(0)$(/l)や$(l:ender/ender_essence)$(item)エンドの空気$(0)$(/l)等から作成でき、遠距離攻撃の威力を犠牲にし、複数の対象を一撃で倒すほどの威力を持ちます。$(p)集団の中で$(item)サンダーコーラー$(0)からの攻撃を受けると、連鎖する稲妻が発生し、付近の敵対モブを攻撃します。",
   "botania.page.thunderSword1": "Blessed Bladeと取引チャットで叫ぼう",
 
   "botania.entry.bIntro": "装飾品について",
@@ -4233,9 +4233,9 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "エンドの空気入り瓶",
+  "entity.botania.ender_essence_bottle": "エンドの空気入り瓶",
   "advancement.botania:enderAirMake.desc": "エンドの空気入り瓶を集める",
-  "item.botania.ender_air_bottle": "エンドの空気入り瓶",
+  "item.botania.ender_essence_bottle": "エンドの空気入り瓶",
   "botania.subtitle.enderAirThrow": "エンドの空気入り瓶を投擲",
   "botania.page.manaAlchemy5": "$(item)グロウストーン$(0)の破壊",
   "botania.page.manaAlchemy31": "クォーツ",

@@ -3698,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "Assembleur de vie",
   "botania.tagline.spawnerMover": "TAGLINE",
-  "botania.page.spawnerMover0": "Combiner de la $(l:alfhomancy/elf_resources)dragonite$(/l), de l'$(l:alfhomancy/elf_resources)élémentium$(/l), de l'$(l:ender/ender_air)air du néant$(/l), et des $(l:alfhomancy/gaia_ritual)esprits de Gaïa$(/l) permet de fabriquer une machine mystérieuse avec la faculté de déplacer les $(item)générateurs de monstres$(0).$(p)Malheureusement, cette machine ne fonctionne qu'une seule fois.",
+  "botania.page.spawnerMover0": "Combiner de la $(l:alfhomancy/elf_resources)dragonite$(/l), de l'$(l:alfhomancy/elf_resources)élémentium$(/l), de l'$(l:ender/ender_essence)air du néant$(/l), et des $(l:alfhomancy/gaia_ritual)esprits de Gaïa$(/l) permet de fabriquer une machine mystérieuse avec la faculté de déplacer les $(item)générateurs de monstres$(0).$(p)Malheureusement, cette machine ne fonctionne qu'une seule fois.",
   "botania.page.spawnerMover1": "$(o)gemme de capture d'âme$()",
 
   "botania.entry.keepIvy": "Lierre philosophal",
@@ -3732,12 +3732,12 @@
 
   "botania.entry.starSword": "Furie étoilée",
   "botania.tagline.starSword": "TAGLINE",
-  "botania.page.starSword0": "$(item)Furie étoilée$(0) est une épée infusée d'un pouvoir céleste. Si vous la maniez, des étoiles filantes s'abattront à l'endroit où sont porteur regarde ($(o)de préférence, sur des ennemis$()).$(p)Sa fabrication ne sera pas simple, vous aurez besoin d'$(l:ender/ender_air)air du néant$(/l) et d'une $(l:tools/terra_blade)lame Terra$(/l).$(p)Méfiez-vous, les enchantement ne seront pas transmis d'une épée vers une autre.",
+  "botania.page.starSword0": "$(item)Furie étoilée$(0) est une épée infusée d'un pouvoir céleste. Si vous la maniez, des étoiles filantes s'abattront à l'endroit où sont porteur regarde ($(o)de préférence, sur des ennemis$()).$(p)Sa fabrication ne sera pas simple, vous aurez besoin d'$(l:ender/ender_essence)air du néant$(/l) et d'une $(l:tools/terra_blade)lame Terra$(/l).$(p)Méfiez-vous, les enchantement ne seront pas transmis d'une épée vers une autre.",
   "botania.page.starSword1": "$(o)hokuto de cuisine$()",
 
   "botania.entry.thunderSword": "Lame-tonnerre",
   "botania.tagline.thunderSword": "TAGLINE",
-  "botania.page.thunderSword0": "$(item)Lame-tonnerre$(0) est une épée infusée d'un pouvoir céleste. Si vous la maniez, de la foudre ira se propager sur les autres monstres à proximité.$(p)Sa fabrication ne sera pas simple, vous aurez besoin d'$(l:ender/ender_air)air du néant$(/l) et d'une $(l:tools/terra_blade)lame Terra$(/l).$(p)Méfiez-vous, les enchantement ne seront pas transmis d'une épée vers une autre.",
+  "botania.page.thunderSword0": "$(item)Lame-tonnerre$(0) est une épée infusée d'un pouvoir céleste. Si vous la maniez, de la foudre ira se propager sur les autres monstres à proximité.$(p)Sa fabrication ne sera pas simple, vous aurez besoin d'$(l:ender/ender_essence)air du néant$(/l) et d'une $(l:tools/terra_blade)lame Terra$(/l).$(p)Méfiez-vous, les enchantement ne seront pas transmis d'une épée vers une autre.",
   "botania.page.thunderSword1": "$(o)hokuto de salle à manger$()",
 
   "botania.entry.bIntro": "Introduction aux bibelots",
@@ -4233,11 +4233,11 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
-  "entity.botania.ender_air_bottle": "Fiole d'air du néant",
-  "entity.botania.ender_air_cloud": "Nuage d'air du néant",
+  "entity.botania.ender_essence_bottle": "Fiole d'air du néant",
+  "entity.botania.ender_essence_cloud": "Nuage d'air du néant",
   "advancement.botania:enderAirMake": "Paquet de chips",
   "advancement.botania:enderAirMake.desc": "Récupérez une fiole d'air du néant",
-  "item.botania.ender_air_bottle": "Fiole d'air du néant",
+  "item.botania.ender_essence_bottle": "Fiole d'air du néant",
   "botania.subtitle.enderAirThrow": "Fiole d'air du néant lancée",
   "botania.page.manaAlchemy5": "Transmuter en$(br)$(item)poudre lumineuse$(0)",
   "botania.page.manaAlchemy6": "Transmuter en $(item)quartz$(0)",

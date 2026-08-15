@@ -3698,7 +3698,7 @@
 
   "botania.entry.spawnerMover": "Life Aggregator",
   "botania.tagline.spawnerMover": "The ability to move Spawners",
-  "botania.page.spawnerMover0": "When a $(l:alfhomancy/elf_resources)$(item)Dragonstone$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_air)$(item)Ender Essence$(0)$(/l), and $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l) are crafted in a specific pattern, they yield a device that can restrain the curious energies of a $(item)Monster Spawner$(0) and carry it to another point in space.$(p)Unfortunately, the device will shatter after being used once.",
+  "botania.page.spawnerMover0": "When a $(l:alfhomancy/elf_resources)$(item)Dragonstone$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_essence)$(item)Ender Essence$(0)$(/l), and $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l) are crafted in a specific pattern, they yield a device that can restrain the curious energies of a $(item)Monster Spawner$(0) and carry it to another point in space.$(p)Unfortunately, the device will shatter after being used once.",
   "botania.page.spawnerMover1": "A spawner parcel",
 
   "botania.entry.keepIvy": "Resolute Ivy",
@@ -3732,12 +3732,12 @@
 
   "botania.entry.starSword": "Starcaller",
   "botania.tagline.starSword": "Sword that calls down fallen stars",
-  "botania.page.starSword0": "The $(item)Starcaller$(0) is a blade with the power to call upon the wrath of the stars. When swung, the blade summons a falling star from the heavens to the point the wielder is looking at, dealing damage to whatever stands there. This sword is nontrivial to acquire, with $(l:ender/ender_air)$(item)Ender Essence$(0)$(/l) and a $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l) both being components in its crafting. Do note that any enchantments on the latter will be lost.",
+  "botania.page.starSword0": "The $(item)Starcaller$(0) is a blade with the power to call upon the wrath of the stars. When swung, the blade summons a falling star from the heavens to the point the wielder is looking at, dealing damage to whatever stands there. This sword is nontrivial to acquire, with $(l:ender/ender_essence)$(item)Ender Essence$(0)$(/l) and a $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l) both being components in its crafting. Do note that any enchantments on the latter will be lost.",
   "botania.page.starSword1": "Caller, fury, whatever...",
 
   "botania.entry.thunderSword": "Thundercaller",
   "botania.tagline.thunderSword": "Sword that calls upon thunder",
-  "botania.page.thunderSword0": "The $(item)Thundercaller$(0) is a dual-pronged sword with the ability to conjure lightning. Crafted from materials like a $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l) and $(l:ender/ender_air)$(item)Ender Essence$(0)$(/l), it sacrifices the power of long-ranged attacks for the power to zap multiple targets in one stroke.$(p)An attack from the $(item)Thundercaller$(0), in a crowd, will generate a chain of lightning that zaps nearby hostile mobs.",
+  "botania.page.thunderSword0": "The $(item)Thundercaller$(0) is a dual-pronged sword with the ability to conjure lightning. Crafted from materials like a $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l) and $(l:ender/ender_essence)$(item)Ender Essence$(0)$(/l), it sacrifices the power of long-ranged attacks for the power to zap multiple targets in one stroke.$(p)An attack from the $(item)Thundercaller$(0), in a crowd, will generate a chain of lightning that zaps nearby hostile mobs.",
   "botania.page.thunderSword1": "Blessed Blade of the Trade Chat",
 
   "botania.entry.bIntro": "Introduction to Trinkets",
