@@ -56,7 +56,7 @@ public class PinkinatorItem extends Item {
 					pink.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pink.blockPosition()), MobSpawnType.CONVERSION, null);
 					world.addFreshEntity(pink);
 					pink.spawnAnim();
-					pink.playSound(BotaniaSounds.pinkinator, 1F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+					pink.playSound(BotaniaSounds.THE_PINKINATOR, 1F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) player, stack, (ServerLevel) world, player.getX(), player.getY(), player.getZ());
 					stack.shrink(1);
 				}

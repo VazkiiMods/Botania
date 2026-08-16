@@ -241,7 +241,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 				boolean isOnCooldown = player.getCooldowns().isOnCooldown(this);
 				if (!wasSprting && isSprinting && !isOnCooldown && !StoneOfTemperanceItem.hasTemperanceActive(player)) {
 					player.setDeltaMovement(player.getDeltaMovement().add(look.x, 0, look.z));
-					player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+					player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.DASH, SoundSource.PLAYERS, 1F, 1F);
 					player.getCooldowns().addCooldown(this, maxCd);
 					DataComponentHelper.setFlag(stack, BotaniaDataComponents.BOOST_PENDING, true);
 				} else if (isOnCooldown) {

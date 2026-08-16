@@ -91,7 +91,7 @@ public class ManufactoryHaloItem extends AssemblyHaloItem {
 	private void togglePassive(ItemStack stack, LivingEntity living, Level world) {
 		DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !isActive(stack));
 		if (living instanceof Player player) {
-			world.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.manufactoryHaloConfigure, SoundSource.NEUTRAL, 1F, 1F);
+			world.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.MANUFACTORY_HALO_CONFIGURE, SoundSource.NEUTRAL, 1F, 1F);
 		}
 	}
 

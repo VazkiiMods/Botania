@@ -50,7 +50,7 @@ public class CloakOfSinItem extends CloakOfVirtueItem {
 				}
 			}
 
-			player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.unholyCloak, SoundSource.PLAYERS, 1F, 1F);
+			player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.CLOAK_OF_SIN, SoundSource.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 90; i++) {
 				float rad = i * 4F * (float) Math.PI / 180F;
 				float xMotion = (float) Math.cos(rad) * 0.2F;

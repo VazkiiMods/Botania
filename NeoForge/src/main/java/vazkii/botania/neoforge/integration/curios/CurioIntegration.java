@@ -108,7 +108,7 @@ public class CurioIntegration extends EquipmentHandler {
 	}
 
 	public static class Wrapper implements ICurio {
-		private static final SoundInfo SOUND_INFO = new SoundInfo(BotaniaSounds.equipBauble, 0.1F, 1.3F);
+		private static final SoundInfo SOUND_INFO = new SoundInfo(BotaniaSounds.EQUIP_BAUBLE, 0.1F, 1.3F);
 
 		private final ItemStack stack;
 

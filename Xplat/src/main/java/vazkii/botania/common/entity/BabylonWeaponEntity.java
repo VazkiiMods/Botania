@@ -119,7 +119,7 @@ public class BabylonWeaponEntity extends LegallyDistinctThrowableProjectile {
 			setChargeTicks(chargeTime + 1);
 
 			if (level().getRandom().nextInt(20) == 0) {
-				level().playSound(null, getX(), getY(), getZ(), BotaniaSounds.babylonSpawn, SoundSource.PLAYERS, 0.1F, 1F + level().getRandom().nextFloat() * 3F);
+				level().playSound(null, getX(), getY(), getZ(), BotaniaSounds.TREASURE_WEAPON_SPAWN, SoundSource.PLAYERS, 0.1F, 1F + level().getRandom().nextFloat() * 3F);
 			}
 		} else {
 			if (liveTime < delay) {
@@ -136,7 +136,7 @@ public class BabylonWeaponEntity extends LegallyDistinctThrowableProjectile {
 				Vec3 thisVec = VecHelper.fromEntityCenter(this);
 
 				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
-				level().playSound(null, getX(), getY(), getZ(), BotaniaSounds.babylonAttack, SoundSource.PLAYERS, 2F, 0.1F + level().getRandom().nextFloat() * 3F);
+				level().playSound(null, getX(), getY(), getZ(), BotaniaSounds.TREASURE_WEAPON_ATTACK, SoundSource.PLAYERS, 2F, 0.1F + level().getRandom().nextFloat() * 3F);
 			}
 
 			if (!level().isClientSide()) {

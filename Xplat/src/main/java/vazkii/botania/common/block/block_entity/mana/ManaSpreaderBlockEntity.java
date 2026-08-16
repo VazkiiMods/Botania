@@ -448,7 +448,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 						level.addFreshEntity(burst);
 						burst.ping();
 						if (!BotaniaConfig.common().silentSpreaders()) {
-							level.playSound(null, worldPosition, BotaniaSounds.spreaderFire, SoundSource.BLOCKS, 0.05F * (getSpreaderBlock().isCovered() ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
+							level.playSound(null, worldPosition, BotaniaSounds.SPREADER_FIRE, SoundSource.BLOCKS, 0.05F * (getSpreaderBlock().isCovered() ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 						}
 					}
 				}

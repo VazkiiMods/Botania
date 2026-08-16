@@ -62,7 +62,7 @@ public class DiceOfFateItem extends RelicItem {
 				return InteractionResultHolder.success(stack);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.diceOfFate, SoundSource.PLAYERS, 1F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.DICE_OF_FATE, SoundSource.PLAYERS, 1F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
 
 			List<Integer> possible = new ArrayList<>();
 			for (int i = 0; i < 6; i++) {

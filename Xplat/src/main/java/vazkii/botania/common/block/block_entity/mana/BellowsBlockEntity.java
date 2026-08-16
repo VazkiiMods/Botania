@@ -74,7 +74,7 @@ public class BellowsBlockEntity extends BlockEntity {
 				if (!level.isClientSide()) {
 					level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, worldPosition);
 				}
-				level.playSound(null, worldPosition, BotaniaSounds.bellows, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(null, worldPosition, BotaniaSounds.MANATIDE_BELLOWS, SoundSource.BLOCKS, 1F, 1F);
 			}
 
 			if (tile instanceof AbstractFurnaceBlockEntity furnace) {

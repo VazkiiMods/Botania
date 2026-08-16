@@ -69,7 +69,7 @@ public class LuminizerMoverEntity extends Entity {
 
 		boolean isItem = getPassengers().stream().allMatch(ItemEntity.class::isInstance);
 		if (!isItem && tickCount % 30 == 0) {
-			playSound(BotaniaSounds.lightRelay, 0.25F, (float) Math.random() * 0.3F + 0.7F);
+			playSound(BotaniaSounds.LUMINIZER, 0.25F, (float) Math.random() * 0.3F + 0.7F);
 		}
 		if (!isItem && tickCount % 10 == 0) {
 			gameEvent(GameEvent.ELYTRA_GLIDE);

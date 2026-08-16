@@ -152,7 +152,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true));
 		timeLeft = brew.getPotionEffects(stack).getFirst().getDuration() * IncenseStickItem.TIME_MULTIPLIER;
-		level.playSound(null, getBlockPos(), BotaniaSounds.incensePlateIgnite, SoundSource.BLOCKS, 0.5F, 1.75F);
+		level.playSound(null, getBlockPos(), BotaniaSounds.INCENSE_PLATE_IGNITE, SoundSource.BLOCKS, 0.5F, 1.75F);
 		level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 		setChanged();
 	}

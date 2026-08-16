@@ -41,7 +41,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 6,
 					ArmorItem.Type.HELMET, 2
 			),
-			18, BotaniaSounds.equipManasteel, () -> Ingredient.of(BotaniaItems.MANASTEEL_INGOT), 0);
+			18, BotaniaSounds.EQUIP_MANASTEEL, () -> Ingredient.of(BotaniaItems.MANASTEEL_INGOT), 0);
 
 	public static final Holder<ArmorMaterial> MANAWEAVE = create("manaweave",
 			Map.of(
@@ -50,7 +50,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 3,
 					ArmorItem.Type.HELMET, 1
 			),
-			18, BotaniaSounds.equipManaweave, () -> Ingredient.of(BotaniaItems.MANAWEAVE_CLOTH), 0);
+			18, BotaniaSounds.EQUIP_MANAWEAVE, () -> Ingredient.of(BotaniaItems.MANAWEAVE_CLOTH), 0);
 	public static final Holder<ArmorMaterial> ELEMENTIUM = create("elementium",
 			Map.of(
 					ArmorItem.Type.BOOTS, 2,
@@ -58,7 +58,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 6,
 					ArmorItem.Type.HELMET, 2
 			),
-			18, BotaniaSounds.equipElementium, () -> Ingredient.of(BotaniaItems.ELEMENTIUM_INGOT), 0);
+			18, BotaniaSounds.EQUIP_ELEMENTIUM, () -> Ingredient.of(BotaniaItems.ELEMENTIUM_INGOT), 0);
 	public static final Holder<ArmorMaterial> TERRASTEEL = create("terrasteel",
 			Map.of(
 					ArmorItem.Type.BOOTS, 3,
@@ -66,7 +66,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 8,
 					ArmorItem.Type.HELMET, 3
 			),
-			26, BotaniaSounds.equipTerrasteel, () -> Ingredient.of(BotaniaItems.TERRASTEEL_INGOT), 3);
+			26, BotaniaSounds.EQUIP_TERRASTEEL, () -> Ingredient.of(BotaniaItems.TERRASTEEL_INGOT), 3);
 
 	private static Supplier<Holder<SoundEvent>> getSoundEventHolder(SoundEvent soundEvent) {
 		return () -> BuiltInRegistries.SOUND_EVENT.getHolder(soundEvent.getLocation()).orElseThrow();

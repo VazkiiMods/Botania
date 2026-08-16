@@ -77,7 +77,7 @@ public class LexicaBotaniaItem extends Item implements CustomCreativeTabContents
 		if (playerIn instanceof ServerPlayer player) {
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.serverLevel(), player.getX(), player.getY(), player.getZ());
 			PatchouliAPI.get().openBookGUI(player, BuiltInRegistries.ITEM.getKey(this));
-			playerIn.playSound(BotaniaSounds.lexiconOpen, 1F, (float) (0.7 + Math.random() * 0.4));
+			playerIn.playSound(BotaniaSounds.LEXICON_OPEN, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
 
 		return InteractionResultHolder.sidedSuccess(stack, worldIn.isClientSide());

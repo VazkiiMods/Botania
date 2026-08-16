@@ -111,7 +111,7 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 					this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 					EntityHelper.shrinkItem(item);
-					level.playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
+					level.playSound(null, getEffectivePos(), BotaniaSounds.ENDOFLAME, SoundSource.BLOCKS, 1F, 1F);
 					level.blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
 					level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 					level.setBlock(getBlockPos(),

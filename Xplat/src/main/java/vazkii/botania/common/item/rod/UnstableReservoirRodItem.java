@@ -87,7 +87,7 @@ public class UnstableReservoirRodItem extends Item {
 		missile.setPos(x, y, z);
 		if (missile.findTarget()) {
 			if (!level.isClientSide) {
-				missile.playSound(level.random.nextInt(100) == 0 ? BotaniaSounds.missileFunny : BotaniaSounds.missile,
+				missile.playSound(level.random.nextInt(100) == 0 ? BotaniaSounds.MISSILE_FUNNY : BotaniaSounds.MISSILE,
 						1, 0.8f + level.getRandom().nextFloat() * 0.2f);
 				level.addFreshEntity(missile);
 			}

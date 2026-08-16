@@ -56,7 +56,7 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 
 			if (pacifyCreeper(entity)) {
 				TigerseyePacified.MARKER.addFor(entity);
-				entity.playSound(BotaniaSounds.tigerseyePacify, 1.0F, (float) level.getRandom().triangle(1.0, 0.2));
+				entity.playSound(BotaniaSounds.TIGERSEYE_PACIFY, 1.0F, (float) level.getRandom().triangle(1.0, 0.2));
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
 				addMana(-COST);
 				if (getMana() < COST) {

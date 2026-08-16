@@ -143,7 +143,7 @@ public class CacophoniumItem extends Item {
 		SoundEvent sound = getSound(stack);
 
 		if (sound != null) {
-			world.playSound(null, x, y, z, sound, category, volume, sound == BotaniaSounds.doit ? 1F : (world.random.nextFloat() - world.random.nextFloat()) * 0.2F + 1.0F);
+			world.playSound(null, x, y, z, sound, category, volume, sound == BotaniaSounds.DOIT ? 1F : (world.random.nextFloat() - world.random.nextFloat()) * 0.2F + 1.0F);
 		}
 	}
 
@@ -151,7 +151,7 @@ public class CacophoniumItem extends Item {
 	@VisibleForTesting
 	public static SoundEvent getSound(ItemStack stack) {
 		if (isDOIT(stack)) {
-			return BotaniaSounds.doit;
+			return BotaniaSounds.DOIT;
 		} else {
 			return BuiltInRegistries.SOUND_EVENT.get(stack.get(DataComponents.NOTE_BLOCK_SOUND));
 		}

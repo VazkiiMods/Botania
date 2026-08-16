@@ -79,7 +79,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 				}
 
 				ManaItemHandler.instance().requestManaExact(amulet, player, MANA_COST, true);
-				player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.divaCharm, SoundSource.PLAYERS, 1F, 1F);
+				player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.CHARM_OF_THE_DIVA, SoundSource.PLAYERS, 1F, 1F);
 				XplatAbstractions.INSTANCE.sendToTracking(target, new DivaCharmEffectPacket(target.getId()));
 			}
 		}

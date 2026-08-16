@@ -131,7 +131,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 				XplatAbstractions.INSTANCE.sendToNear(level, targetPos,
 						new ParticleBeamEffectPacket(sourcePos, targetPos));
 			}
-			level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
+			level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.DING, SoundSource.PLAYERS, 1F, 1F);
 			return true;
 		}
 

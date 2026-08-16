@@ -90,7 +90,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	protected void playSound(BlockPos coords) {
-		getLevel().playSound(null, coords, BotaniaSounds.orechid, SoundSource.BLOCKS, 1F, 1F);
+		getLevel().playSound(null, coords, BotaniaSounds.ORECHID, SoundSource.BLOCKS, 1F, 1F);
 	}
 
 	@Nullable

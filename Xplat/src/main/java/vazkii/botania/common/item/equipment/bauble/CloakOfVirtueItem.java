@@ -95,7 +95,7 @@ public class CloakOfVirtueItem extends BaubleItem {
 	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
 		if (!src.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
 			amount.setValue(0);
-			player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
+			player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.CLOAK_OF_VIRTUE, SoundSource.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
 				double x = player.getX() + Math.random() * player.getBbWidth() * 2 - player.getBbWidth();
 				double y = player.getY() + Math.random() * player.getBbHeight();

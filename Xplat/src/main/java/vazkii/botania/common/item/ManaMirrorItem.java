@@ -96,7 +96,7 @@ public class ManaMirrorItem extends Item {
 			if (receiver instanceof ManaPool pool) {
 				if (!world.isClientSide) {
 					bindPool(ctx.getItemInHand(), pool);
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.DING, SoundSource.PLAYERS, 1F, 1F);
 				}
 				return InteractionResult.sidedSuccess(world.isClientSide());
 			}

@@ -211,7 +211,7 @@ public class BotanicalBreweryBlockEntity extends SimpleInventoryBlockEntity impl
 						level.addParticle(data, worldPosition.getX() + 0.7 - Math.random() * 0.4, worldPosition.getY() + 0.9 - Math.random() * 0.2, worldPosition.getZ() + 0.7 - Math.random() * 0.4, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
 					}
 				}
-				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), BotaniaSounds.potionCreate, SoundSource.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F, false);
+				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), BotaniaSounds.POTION_CREATE, SoundSource.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F, false);
 			}
 			return true;
 		} else {

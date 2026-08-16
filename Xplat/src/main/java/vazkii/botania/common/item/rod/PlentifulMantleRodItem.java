@@ -61,7 +61,7 @@ public class PlentifulMantleRodItem extends Item {
 				player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 				player.getCooldowns().addCooldown(this, 20);
 			}
-			player.playSound(BotaniaSounds.divinationRod, 1, 1);
+			player.playSound(BotaniaSounds.ROD_OF_THE_PLENTIFUL_MANTLE, 1, 1);
 			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 		}
 

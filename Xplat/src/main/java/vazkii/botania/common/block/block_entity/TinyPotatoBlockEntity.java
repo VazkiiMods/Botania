@@ -137,7 +137,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 
 			if (getName().getString().toLowerCase(Locale.ROOT).trim().endsWith("shia labeouf") && nextDoIt == 0) {
 				nextDoIt = 40;
-				level.playSound(null, worldPosition, BotaniaSounds.doit, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(null, worldPosition, BotaniaSounds.DOIT, SoundSource.BLOCKS, 1F, 1F);
 			}
 
 			ItemStack tater = ItemStack.EMPTY;

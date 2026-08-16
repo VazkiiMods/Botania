@@ -111,7 +111,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 					}
 
 					if (world.isClientSide) {
-						player.playSound(BotaniaSounds.ding, 0.11F, 1F);
+						player.playSound(BotaniaSounds.DING, 0.11F, 1F);
 					}
 
 					return InteractionResult.SUCCESS;
@@ -190,7 +190,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			if (!world.isClientSide) {
 				setBindMode(stack, !getBindMode(stack));
 			} else {
-				player.playSound(BotaniaSounds.ding, 0.1F, 1F);
+				player.playSound(BotaniaSounds.DING, 0.1F, 1F);
 			}
 		}
 

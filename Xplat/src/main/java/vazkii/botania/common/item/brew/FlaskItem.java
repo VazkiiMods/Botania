@@ -57,7 +57,7 @@ public class FlaskItem extends VialItem {
 		}
 
 		ItemStack stackInHand = player.getItemInHand(usedHand);
-		player.playSound(BotaniaSounds.enderEssenceFill, 1, 1);
+		player.playSound(BotaniaSounds.ENDER_ESSENCE_FILL, 1, 1);
 		player.awardStat(Stats.ITEM_USED.get(stackInHand.getItem()));
 		level.gameEvent(player, GameEvent.FLUID_PICKUP, cloud.position());
 		if (player instanceof ServerPlayer serverplayer) {

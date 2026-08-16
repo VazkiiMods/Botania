@@ -202,7 +202,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 
 	public void craftingEffect(boolean playSound) {
 		if (playSound && soundTicks == 0) {
-			level.playSound(null, worldPosition, BotaniaSounds.manaPoolCraft, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, worldPosition, BotaniaSounds.MANA_POOL_CRAFT, SoundSource.BLOCKS, 1F, 1F);
 			soundTicks = 6;
 		}
 

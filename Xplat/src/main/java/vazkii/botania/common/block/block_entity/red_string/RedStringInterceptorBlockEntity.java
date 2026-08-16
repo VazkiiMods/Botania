@@ -77,7 +77,7 @@ public class RedStringInterceptorBlockEntity extends RedStringBlockEntity {
 		interceptors.removeAll(remove);
 		if (did) {
 			player.swing(hand);
-			world.playSound(null, pos, BotaniaSounds.redStringInterceptorClick, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(null, pos, BotaniaSounds.RED_STRINGED_INTERCEPTOR_CLICK, SoundSource.BLOCKS, 1F, 1F);
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;

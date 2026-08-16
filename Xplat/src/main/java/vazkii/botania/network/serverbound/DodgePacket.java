@@ -37,7 +37,7 @@ public class DodgePacket implements CustomPacketPayload {
 	}
 
 	public void handle(ServerPlayer player) {
-		player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+		player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.DASH, SoundSource.PLAYERS, 1F, 1F);
 
 		ItemStack ringStack = EquipmentHandler.findOrEmpty(BotaniaItems.RING_OF_DEXTEROUS_MOTION, player);
 		if (ringStack.isEmpty()) {

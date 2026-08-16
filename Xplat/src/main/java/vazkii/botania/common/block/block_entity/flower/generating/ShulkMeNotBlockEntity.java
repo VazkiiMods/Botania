@@ -63,9 +63,9 @@ public class ShulkMeNotBlockEntity extends GeneratingFlowerBlockEntity {
 			target.discard();
 			shulker.discard();
 
-			world.playSound(null, pos, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
-			world.playSound(null, target, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
-			world.playSound(null, shulker, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
+			world.playSound(null, pos, BotaniaSounds.SHULK_ME_NOT, SoundSource.BLOCKS, 10F, 1F);
+			world.playSound(null, target, BotaniaSounds.SHULK_ME_NOT, SoundSource.BLOCKS, 10F, 1F);
+			world.playSound(null, shulker, BotaniaSounds.SHULK_ME_NOT, SoundSource.BLOCKS, 10F, 1F);
 			if (world instanceof ServerLevel ws) {
 				ws.sendParticles(ParticleTypes.EXPLOSION,
 						target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(),

@@ -100,7 +100,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 			}
 
 			prism.getItemHandler().setItem(0, toInsert);
-			world.playSound(player, pos, BotaniaSounds.prismAddLens, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.PRISM_ADD_LENS, SoundSource.BLOCKS, 1F, 1F);
 			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}
@@ -108,7 +108,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 			player.getInventory().placeItemBackInInventory(lens);
 			prism.getItemHandler().setItem(0, ItemStack.EMPTY);
 
-			world.playSound(player, pos, BotaniaSounds.prismRemoveLens, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.PRISM_REMOVE_LENS, SoundSource.BLOCKS, 1F, 1F);
 			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}

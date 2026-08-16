@@ -35,7 +35,7 @@ public class EnderEssenceBottlingBehavior extends OptionalDispenseItemBehavior {
 			EnderEssenceCloudEntity cloud = entities.getFirst();
 			ItemStack bottledStack = cloud.getBottledItem();
 			if (!bottledStack.isEmpty()) {
-				source.level().playSound(null, blockPos, BotaniaSounds.enderEssenceFill, SoundSource.BLOCKS, 1, 1);
+				source.level().playSound(null, blockPos, BotaniaSounds.ENDER_ESSENCE_FILL, SoundSource.BLOCKS, 1, 1);
 				source.level().gameEvent(null, GameEvent.FLUID_PICKUP, source.pos());
 				cloud.discard();
 				setSuccess(true);

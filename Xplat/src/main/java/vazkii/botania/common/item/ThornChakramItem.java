@@ -36,10 +36,10 @@ public class ThornChakramItem extends Item {
 			ThornChakramEntity c = new ThornChakramEntity(player, world, copy);
 			c.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
 
-			SoundEvent sound = BotaniaSounds.thornChakramThrow;
+			SoundEvent sound = BotaniaSounds.THORN_CHAKRAM_THROW;
 			if (stack.is(BotaniaItems.FLARE_CHAKRAM)) {
 				c.setFire(true);
-				sound = BotaniaSounds.flareChakramThrow;
+				sound = BotaniaSounds.FLARE_CHAKRAM_THROW;
 			}
 
 			world.addFreshEntity(c);

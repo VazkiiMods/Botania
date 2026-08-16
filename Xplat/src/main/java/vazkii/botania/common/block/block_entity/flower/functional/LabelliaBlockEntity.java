@@ -101,7 +101,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 						FlowerTakeItemEffectPacket.create(nameTagEnt.getId(), getEffectivePos(), 1));
 			}
 			EntityHelper.shrinkItem(nameTagEnt);
-			level.playSound(null, effPos, BotaniaSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, effPos, BotaniaSounds.LABELLIA, SoundSource.BLOCKS, 1F, 1F);
 			break;
 		}
 	}

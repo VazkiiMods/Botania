@@ -92,8 +92,8 @@ public class MoltenCoreRodItem extends Item {
 								if (data.progress <= 0) {
 									if (!world.isClientSide) {
 										world.setBlockAndUpdate(pos.getBlockPos(), Block.byItem(result.getItem()).defaultBlockState());
-										world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.smeltRod, SoundSource.PLAYERS, 1F, 1F);
-										world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.smeltRod2, SoundSource.PLAYERS, 1F, 1F);
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.ROD_OF_THE_MOLTEN_CORE, SoundSource.PLAYERS, 1F, 1F);
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.ROD_OF_THE_MOLTEN_CORE_EXTRA, SoundSource.PLAYERS, 1F, 1F);
 
 										ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);
 										playerData.remove(p);
@@ -122,7 +122,7 @@ public class MoltenCoreRodItem extends Item {
 								world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
 							}
 							if (time % 10 == 0) {
-								world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.smeltRodSimmer, SoundSource.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+								world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.ROD_OF_THE_MOLTEN_CORE_SIMMER, SoundSource.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 							}
 						}
 					});

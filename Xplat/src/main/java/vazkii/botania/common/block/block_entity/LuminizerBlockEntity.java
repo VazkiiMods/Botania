@@ -74,7 +74,7 @@ public class LuminizerBlockEntity extends BlockEntity implements WandBindable, B
 		level.addFreshEntity(mover);
 		e.startRiding(mover);
 		if (!(e instanceof ItemEntity)) {
-			mover.playSound(BotaniaSounds.lightRelay, 1F, (float) Math.random() * 0.3F + 0.7F);
+			mover.playSound(BotaniaSounds.LUMINIZER, 1F, (float) Math.random() * 0.3F + 0.7F);
 		}
 		if (e instanceof ServerPlayer serverPlayer) {
 			PlayerHelper.grantCriterion(serverPlayer, botaniaRL("main/luminizer_ride"), "code_triggered");

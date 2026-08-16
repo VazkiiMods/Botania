@@ -270,7 +270,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 					heldItem.shrink(1);
 				}
 				spreader.getItemHandler().setItem(0, toInsert);
-				world.playSound(player, pos, BotaniaSounds.spreaderAddLens, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(player, pos, BotaniaSounds.SPREADER_ADD_LENS, SoundSource.BLOCKS, 1F, 1F);
 			} else if (playerWoolColor != null) {
 				if (coverColor != null) {
 					player.setItemInHand(hand, ItemUtils.createFilledResult(heldItem, player, new ItemStack(ColorHelper.WOOL_MAP.apply(coverColor))));
@@ -282,7 +282,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 								.withPropertiesOf(state));
 				// need to do this as the client unfortunately deletes its copy of the block entity on block type change
 				spreader.setChanged();
-				world.playSound(player, pos, BotaniaSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(player, pos, BotaniaSounds.SPREADER_COVER, SoundSource.BLOCKS, 1F, 1F);
 			} else { // playerHasScaffolding
 				world.setBlockAndUpdate(pos, state.setValue(HAS_SCAFFOLDING, true));
 				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
@@ -291,7 +291,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 					heldItem.shrink(1);
 				}
 
-				world.playSound(player, pos, BotaniaSounds.spreaderScaffold, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(player, pos, BotaniaSounds.SPREADER_SCAFFOLD, SoundSource.BLOCKS, 1F, 1F);
 			}
 			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}
@@ -304,7 +304,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			world.setBlockAndUpdate(pos, state.setValue(HAS_SCAFFOLDING, false));
 			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
-			world.playSound(player, pos, BotaniaSounds.spreaderUnScaffold, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.SPREADER_UN_SCAFFOLD, SoundSource.BLOCKS, 1F, 1F);
 
 			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}
@@ -314,7 +314,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			}
 			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
 
-			world.playSound(player, pos, BotaniaSounds.spreaderRemoveLens, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.SPREADER_REMOVE_LENS, SoundSource.BLOCKS, 1F, 1F);
 
 			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}
@@ -325,7 +325,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 					BotaniaBlocks.findOptionallyDyedBlock(this, null, "_covered_")
 							.withPropertiesOf(state));
 			spreader.setChanged();
-			world.playSound(player, pos, BotaniaSounds.spreaderUncover, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.SPREADER_UNCOVER, SoundSource.BLOCKS, 1F, 1F);
 
 			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}

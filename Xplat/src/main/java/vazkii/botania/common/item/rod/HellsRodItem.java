@@ -61,7 +61,7 @@ public class HellsRodItem extends Item {
 					level.gameEvent(player, GameEvent.PROJECTILE_SHOOT, pos);
 				}
 			}
-			player.playSound(BotaniaSounds.fireRod, 1, 1);
+			player.playSound(BotaniaSounds.ROD_OF_THE_HELLS, 1, 1);
 		}
 
 		return InteractionResult.sidedSuccess(level.isClientSide());

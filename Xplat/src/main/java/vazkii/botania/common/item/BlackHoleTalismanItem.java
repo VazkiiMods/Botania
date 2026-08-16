@@ -56,7 +56,7 @@ public class BlackHoleTalismanItem extends Item {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getBlock(stack) != null && player.isSecondaryUseActive()) {
 			DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !stack.has(BotaniaDataComponents.ACTIVE));
-			player.playSound(BotaniaSounds.blackHoleTalismanConfigure, 1F, 1F);
+			player.playSound(BotaniaSounds.BLACK_HOLE_TALISMAN_CONFIGURE, 1F, 1F);
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 		}
 

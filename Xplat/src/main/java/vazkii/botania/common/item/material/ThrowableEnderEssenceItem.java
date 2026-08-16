@@ -37,7 +37,7 @@ public class ThrowableEnderEssenceItem extends Item implements ProjectileItem {
 				player.getX(),
 				player.getY(),
 				player.getZ(),
-				BotaniaSounds.enderEssenceThrow,
+				BotaniaSounds.ENDER_ESSENCE_THROW,
 				SoundSource.PLAYERS,
 				0.5F,
 				0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)

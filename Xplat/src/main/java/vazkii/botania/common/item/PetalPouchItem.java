@@ -144,7 +144,7 @@ public class PetalPouchItem extends ColoredContentsPouchItem {
 
 	private void toggleActive(Level level, Player player, ItemStack stack) {
 		DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !isActive(stack));
-		level.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.petalPouchConfigure, SoundSource.NEUTRAL, 1f, 1f);
+		level.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.PETAL_POUCH_CONFIGURE, SoundSource.NEUTRAL, 1f, 1f);
 	}
 
 	@Override

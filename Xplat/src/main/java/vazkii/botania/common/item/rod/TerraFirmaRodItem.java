@@ -120,7 +120,7 @@ public class TerraFirmaRodItem extends Item {
 			}
 
 			if (!blocks.isEmpty()) {
-				world.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraformRod, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ROD_OF_THE_TERRA_FIRMA, SoundSource.BLOCKS, 1F, 1F);
 				SparkleParticleData data = SparkleParticleData.sparkle(2F, 0.35F, 0.2F, 0.05F, 5);
 				for (int i = 0; i < 120; i++) {
 					world.addParticle(data, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0, 0, 0);

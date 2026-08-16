@@ -142,7 +142,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 		}
 		ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5, result, 0, 0, 0);
 		level.addFreshEntity(item);
-		level.playSound(null, pos, BotaniaSounds.terrasteelCraft, SoundSource.BLOCKS, 1F, 1F);
+		level.playSound(null, pos, BotaniaSounds.TERRA_PLATE_CRAFT, SoundSource.BLOCKS, 1F, 1F);
 		mana = 0;
 		manaToGet = 0;
 		level.blockEvent(pos, state.getBlock(), BLOCK_EVENT_CRAFTING_EFFECT, 0);

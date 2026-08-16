@@ -209,7 +209,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 							int enchantLvl = entry.getIntValue();
 							if (!hasEnchantAlready(ench) && isEnchantmentValid(ench)) {
 								this.enchants.add(new EnchantmentInstance(ench, enchantLvl));
-								level.playSound(null, worldPosition, BotaniaSounds.ding, SoundSource.BLOCKS, 1F, 1F);
+								level.playSound(null, worldPosition, BotaniaSounds.DING, SoundSource.BLOCKS, 1F, 1F);
 								addedEnch = true;
 								break;
 							}
@@ -285,7 +285,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 		if (!FORMED_MULTIBLOCK.get().validate(level, worldPosition.below(), rot)) {
 			level.setBlockAndUpdate(worldPosition, Blocks.LAPIS_BLOCK.defaultBlockState());
 			XplatAbstractions.INSTANCE.sendToNear(level, worldPosition, new EnchanterDestroyEffectPacket(worldPosition));
-			level.playSound(null, worldPosition, BotaniaSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, worldPosition, BotaniaSounds.ENCHANTER_FADE, SoundSource.BLOCKS, 1F, 1F);
 			return;
 		}
 
@@ -351,7 +351,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 							getBlockPos().getZ() + Math.random() * 0.4 - 0.2, 0, 0, 0);
 				}
 				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
-						BotaniaSounds.enchanterEnchant, SoundSource.BLOCKS, 1F, 1F, false);
+						BotaniaSounds.ENCHANTER_ENCHANT, SoundSource.BLOCKS, 1F, 1F, false);
 			}
 			return true;
 		}
@@ -531,7 +531,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 
 			if (!level.isClientSide()) {
 				level.setBlockAndUpdate(pos, BotaniaBlocks.MANA_ENCHANTER.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
-				level.playSound(null, pos, BotaniaSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(null, pos, BotaniaSounds.ENCHANTER_FORM, SoundSource.BLOCKS, 1F, 1F);
 				PlayerHelper.grantCriterion((ServerPlayer) player, botaniaRL("main/enchanter_make"), "code_triggered");
 			} else {
 				RandomSource rng = level.getRandom();

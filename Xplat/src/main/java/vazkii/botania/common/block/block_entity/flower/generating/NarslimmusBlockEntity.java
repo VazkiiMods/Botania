@@ -50,7 +50,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 			int size = slime.getSize();
 			if (!slime.level().isClientSide()) {
 				slime.discard();
-				slime.playSound(size > 1 ? BotaniaSounds.narslimmusEatBig : BotaniaSounds.narslimmusEatSmall, 1F, 1F);
+				slime.playSound(size > 1 ? BotaniaSounds.NARSLIMMUS_EAT_BIG : BotaniaSounds.NARSLIMMUS_EAT_SMALL, 1F, 1F);
 				addMana(manaForSize(size));
 			}
 

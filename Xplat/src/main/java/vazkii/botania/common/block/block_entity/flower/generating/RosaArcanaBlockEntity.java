@@ -144,7 +144,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 			newEntity.setDeltaMovement(entity.getDeltaMovement());
 			serverLevel.addFreshEntity(newEntity);
 
-			serverLevel.playSound(null, getEffectivePos(), BotaniaSounds.arcaneRoseDisenchant,
+			serverLevel.playSound(null, getEffectivePos(), BotaniaSounds.ARCANE_ROSE_DISENCHANT,
 					SoundSource.BLOCKS, 1F, serverLevel.random.nextFloat() * 0.1F + 0.9F);
 			ExperienceOrb.award(serverLevel, entity.getEyePosition(), xp);
 			return true;

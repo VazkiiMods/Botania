@@ -267,7 +267,7 @@ public class SextantItem extends Item {
 				int nextMode = currentMode.ordinal() + 1;
 				setMode(stack, SextantMode.values()[nextMode >= numModes ? 0 : nextMode]);
 			} else {
-				player.playSound(BotaniaSounds.ding, 0.1F, 1F);
+				player.playSound(BotaniaSounds.DING, 0.1F, 1F);
 			}
 		} else {
 			stack.remove(BotaniaDataComponents.BINDING_POS);

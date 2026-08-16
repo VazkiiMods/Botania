@@ -72,7 +72,7 @@ public class StoneOfTemperanceItem extends Item {
 
 	private void toggleActive(ItemStack stack, Player player, Level world) {
 		DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !stack.has(BotaniaDataComponents.ACTIVE));
-		world.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.temperanceStoneConfigure, SoundSource.NEUTRAL, 1F, 1F);
+		world.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.STONE_OF_TEMPERANCE_CONFIGURE, SoundSource.NEUTRAL, 1F, 1F);
 	}
 
 }

@@ -8,19 +8,19 @@
 		],
 		"subtitle": "botania.subtitle.agricarnation"
 	},
-	"air_rod": {
+	"rod_of_the_skies": {
 		"sounds": [
 			{
-				"name": "botania:airrod",
+				"name": "botania:rodoftheskies",
 				"volume": 0.1,
 				"pitch": 0.25
 			}
 		],
-		"subtitle": "botania.subtitle.airRod"
+		"subtitle": "botania.subtitle.rodOfTheSkies"
 	},
-	"altar_craft": {
-		"sounds": ["botania:altarcraft"],
-		"subtitle": "botania.subtitle.altarCraft"
+	"apothecary_craft": {
+		"sounds": ["botania:apothecarycraft"],
+		"subtitle": "botania.subtitle.apothecaryCraft"
 	},
 	"arcane_rose_disenchant": {
 		"sounds": [
@@ -42,13 +42,13 @@
 		],
 		"subtitle": "botania.subtitle.astrolabeConfigure"
 	},
-	"babylon_attack": {
-		"sounds": ["botania:babylonattack"],
-		"subtitle": "botania.subtitle.babylonAttack"
+	"treasure_weapon_attack": {
+		"sounds": ["botania:treasureweaponattack"],
+		"subtitle": "botania.subtitle.treasureWeaponAttack"
 	},
-	"babylon_spawn": {
-		"sounds": ["botania:babylonspawn"],
-		"subtitle": "botania.subtitle.babylonSpawn"
+	"treasure_weapon_spawn": {
+		"sounds": ["botania:treasureweaponspawn"],
+		"subtitle": "botania.subtitle.treasureWeaponSpawn"
 	},
 	"manatide_bellows": {
 		"sounds": [
@@ -112,9 +112,9 @@
 		"sounds": ["botania:divacharm"],
 		"subtitle": "botania.subtitle.divaCharm"
 	},
-	"divination_rod": {
-		"sounds": ["botania:divinationrod"],
-		"subtitle": "botania.subtitle.divinationRod"
+	"rod_of_the_plentiful_mantle": {
+		"sounds": ["botania:rodoftheplentifulmantle"],
+		"subtitle": "botania.subtitle.rodOfThePlentifulMantle"
 	},
 	"doit": {
 		"sounds": ["botania:doit"],
@@ -249,7 +249,7 @@
 				"name": "minecraft:entity.blaze.ambient"
 			}
 		],
-		"subtitle": "botania.subtitle.fireRod"
+		"subtitle": "botania.subtitle.rodOfTheHells"
 	},
 	"flare_chakram_throw": {
 		"sounds": [
@@ -361,11 +361,11 @@
 	"luminizer": {
 		"sounds": [
 			{
-				"name": "botania:lightrelay",
+				"name": "botania:luminizer",
 				"volume": 0.2
 			}
 		],
-		"subtitle": "botania.subtitle.lightRelay"
+		"subtitle": "botania.subtitle.luminizer"
 	},
 	"mana_blaster": {
 		"sounds": [
@@ -534,7 +534,7 @@
 				"volume": 0.6
 			}
 		],
-		"subtitle": "botania.subtitle.smeltRod"
+		"subtitle": "botania.subtitle.rodOfTheMoltenCore"
 	},
 	"rod_of_the_molten_core_extra_no_subtitle": {
 		"sounds": [
@@ -551,7 +551,7 @@
 				"name": "minecraft:item.flintandsteel.use"
 			}
 		],
-		"subtitle": "botania.subtitle.smeltRodSimmer"
+		"subtitle": "botania.subtitle.rodOfTheMoltenCoreSimmer"
 	},
 	"prism_add_lens": {
 		"sounds": [
@@ -699,10 +699,10 @@
 				"pitch": 0.4
 			}
 		],
-		"subtitle": "botania.subtitle.terraformRod"
+		"subtitle": "botania.subtitle.rodOfTheTerraFirma"
 	},
-	"terrasteel_craft": {
-		"sounds": ["botania:terrasteelcraft"],
+	"terra_plate_craft": {
+		"sounds": ["botania:terraplatecraft"],
 		"subtitle": "botania.subtitle.terrasteelCraft"
 	},
 	"thermalily": {

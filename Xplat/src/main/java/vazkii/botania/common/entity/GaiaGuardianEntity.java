@@ -330,7 +330,7 @@ public class GaiaGuardianEntity extends Mob {
 			e.getAttribute(Attributes.ARMOR).setBaseValue(15);
 		}
 
-		e.playSound(BotaniaSounds.gaiaSummon, 1F, 1F);
+		e.playSound(BotaniaSounds.GAIA_SUMMON, 1F, 1F);
 		e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null);
 		world.addFreshEntity(e);
 
@@ -633,7 +633,7 @@ public class GaiaGuardianEntity extends Mob {
 			}
 		}
 
-		playSound(BotaniaSounds.gaiaDeath, 1F, (1F + (level().getRandom().nextFloat() - level().getRandom().nextFloat()) * 0.2F) * 0.7F);
+		playSound(BotaniaSounds.GAIA_DEATH, 1F, (1F + (level().getRandom().nextFloat() - level().getRandom().nextFloat()) * 0.2F) * 0.7F);
 		level().addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
 	}
 
@@ -1162,7 +1162,7 @@ public class GaiaGuardianEntity extends Mob {
 		MagicMissileEntity missile = new MagicMissileEntity(this, true);
 		missile.setPos(getX() + (Math.random() - 0.5 * 0.1), getY() + 2.4 + (Math.random() - 0.5 * 0.1), getZ() + (Math.random() - 0.5 * 0.1));
 		if (missile.findTarget()) {
-			playSound(BotaniaSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
+			playSound(BotaniaSounds.MISSILE, 1F, 0.8F + (float) Math.random() * 0.2F);
 			level().addFreshEntity(missile);
 		}
 	}
@@ -1207,8 +1207,8 @@ public class GaiaGuardianEntity extends Mob {
 		teleportTo(newX, newY, newZ);
 
 		//play sound
-		level().playSound(null, oldX, oldY, oldZ, BotaniaSounds.gaiaTeleport, this.getSoundSource(), 1F, 1F);
-		this.playSound(BotaniaSounds.gaiaTeleport, 1F, 1F);
+		level().playSound(null, oldX, oldY, oldZ, BotaniaSounds.GAIA_TELEPORT, this.getSoundSource(), 1F, 1F);
+		this.playSound(BotaniaSounds.GAIA_TELEPORT, 1F, 1F);
 
 		var random = getRandom();
 

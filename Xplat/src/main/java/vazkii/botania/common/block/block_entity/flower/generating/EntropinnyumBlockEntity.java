@@ -53,7 +53,7 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 		PrimedTnt tnt = tnts.getFirst();
 		boolean unethical = UnethicalTnt.MARKER.existsFor(tnt);
-		tnt.playSound(unethical ? BotaniaSounds.entropinnyumAngry : BotaniaSounds.entropinnyumHappy, 1F,
+		tnt.playSound(unethical ? BotaniaSounds.ENTROPINNYUM_ANGRY : BotaniaSounds.ENTROPINNYUM_HAPPY, 1F,
 				(1F + (getLevel().getRandom().nextFloat() - getLevel().getRandom().nextFloat()) * 0.2F) * 0.7F);
 		tnt.discard();
 		addMana(unethical ? 3 : getMaxMana());

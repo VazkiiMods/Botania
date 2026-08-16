@@ -72,7 +72,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 						BotaniaDataComponents.BOUND_POSITIONS, Collections.emptyMap()));
 				boundPositions.put(world.dimension().location(), pos);
 				stack.set(BotaniaDataComponents.BOUND_POSITIONS, boundPositions);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.flugelEyeBind, SoundSource.PLAYERS, 1F, 1F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.EYE_OF_THE_FLUGEL_BIND, SoundSource.PLAYERS, 1F, 1F);
 			}
 
 			return InteractionResult.sidedSuccess(world.isClientSide());
@@ -150,7 +150,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 	private static void moveParticlesAndSound(Entity entity) {
 		XplatAbstractions.INSTANCE.sendToTracking(entity, new FlugelEyeEffectPacket(entity.getId()));
 		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-				BotaniaSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
+				BotaniaSounds.EYE_OF_THE_FLUGEL_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
 	}
 
 	@Override

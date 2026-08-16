@@ -150,7 +150,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
 						level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
 					}
-					level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), BotaniaSounds.runeAltarCraft, SoundSource.BLOCKS, 1F, 1F, false);
+					level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), BotaniaSounds.RUNIC_ALTAR_CRAFT, SoundSource.BLOCKS, 1F, 1F, false);
 				}
 				return true;
 			}
@@ -236,7 +236,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		}
 
 		if (oldManaToGet != this.manaToGet && level instanceof ServerLevel) {
-			level.playSound(null, worldPosition, BotaniaSounds.runeAltarStart, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, worldPosition, BotaniaSounds.RUNIC_ALTAR_START, SoundSource.BLOCKS, 1F, 1F);
 			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 		}
 	}

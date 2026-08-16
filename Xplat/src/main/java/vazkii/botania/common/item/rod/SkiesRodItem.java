@@ -92,7 +92,7 @@ public class SkiesRodItem extends Item {
 						player.setDeltaMovement(new Vec3(oldMot.x(), my, oldMot.z()));
 					}
 
-					player.playSound(BotaniaSounds.airRod, 1F, 1F);
+					player.playSound(BotaniaSounds.ROD_OF_THE_SKIES, 1F, 1F);
 					if (getFlyCounter(stack) % 3 == 0) {
 						player.gameEvent(GameEvent.FLAP);
 					}

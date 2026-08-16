@@ -65,7 +65,7 @@ public abstract class DrumBlock extends BotaniaWaterloggedBlock {
 			drumBlock.activate(world, pos);
 
 			for (int i = 0; i < 10; i++) {
-				world.playSound(null, pos, BotaniaSounds.drum, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(null, pos, BotaniaSounds.DRUM, SoundSource.BLOCKS, 1F, 1F);
 			}
 		}
 	}

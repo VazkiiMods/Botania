@@ -56,7 +56,7 @@ public abstract class HornItem extends Item {
 				living.gameEvent(GameEvent.INSTRUMENT_PLAY);
 				breakBlocks(world, this, living.blockPosition());
 			}
-			world.playSound(null, living.getX(), living.getY(), living.getZ(), BotaniaSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(null, living.getX(), living.getY(), living.getZ(), BotaniaSounds.HORN_DOOT, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 

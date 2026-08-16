@@ -54,7 +54,7 @@ public class BlackLotusItem extends Item implements ManaDissolvable {
 			XplatAbstractions.INSTANCE.sendToTracking(item, new BlackLotusDissolveEffectPacket(pos));
 		}
 
-		item.playSound(BotaniaSounds.blackLotus, 1F, t2 ? 0.1F : 1F);
+		item.playSound(BotaniaSounds.BLACK_LOTUS, 1F, t2 ? 0.1F : 1F);
 	}
 
 	@Override

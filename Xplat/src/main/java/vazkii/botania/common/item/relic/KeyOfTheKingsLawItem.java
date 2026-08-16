@@ -92,7 +92,7 @@ public class KeyOfTheKingsLawItem extends RelicItem {
 			weapon.setRotation(Mth.wrapDegrees(-living.getYRot() + 180));
 
 			world.addFreshEntity(weapon);
-			weapon.playSound(BotaniaSounds.babylonSpawn, 1F, 1F + world.random.nextFloat() * 3F);
+			weapon.playSound(BotaniaSounds.TREASURE_WEAPON_SPAWN, 1F, 1F + world.random.nextFloat() * 3F);
 			setWeaponsSpawned(stack, spawned + 1);
 		}
 	}
