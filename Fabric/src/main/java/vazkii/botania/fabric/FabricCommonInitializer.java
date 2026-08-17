@@ -72,6 +72,7 @@ import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.IslandType;
+import vazkii.botania.api.block.LifeAggregatorCarryable;
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
@@ -457,6 +458,16 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRINGED_CONTAINER);
 		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRINGED_DISPENSER);
+
+		BlockApiLookup<LifeAggregatorCarryable, Unit> lifeAggregatorCarryableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(LifeAggregatorCarryable.LOOKUP);
+		lifeAggregatorCarryableBlockLookup.registerForBlockEntity(
+				(blockEntity, context) -> new LifeAggregatorHandler.MonsterSpawnerCarryable(blockEntity),
+				BlockEntityType.MOB_SPAWNER
+		);
+		lifeAggregatorCarryableBlockLookup.registerForBlockEntity(
+				(blockEntity, context) -> new LifeAggregatorHandler.TrialSpawnerCarryable(blockEntity),
+				BlockEntityType.TRIAL_SPAWNER
+		);
 
 		if (XplatAbstractions.INSTANCE.isModLoaded("team_reborn_energy")) {
 			FluxfieldTRStorage.register();

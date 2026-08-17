@@ -14,6 +14,7 @@ import org.jetbrains.annotations.ApiStatus;
 import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
+import vazkii.botania.api.block.LifeAggregatorCarryable;
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
@@ -55,6 +56,7 @@ public final class BotaniaCapabilities {
 		registration.register(Wandable.LOOKUP);
 		registration.register(WandBindable.LOOKUP);
 		registration.register(PhantomInkableBlock.LOOKUP);
+		registration.register(LifeAggregatorCarryable.LOOKUP);
 	}
 
 	private BotaniaCapabilities() {}

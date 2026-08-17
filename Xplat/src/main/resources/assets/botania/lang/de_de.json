@@ -3703,7 +3703,7 @@
 
   "botania.entry.spawnerMover": "Lebensaggregator",
   "botania.tagline.spawnerMover": "Die Möglichkeit zum Bewegen von Spawnern",
-  "botania.page.spawnerMover0": "Wenn ein $(l:alfhomancy/elf_resources)$(item)Drachenstein$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_essence)$(item)Ender-Essenz$(0)$(/l) und $(l:alfhomancy/gaia_ritual)$(item)Gaiaseelen$(0)$(/l) auf bestimmte Weise zusammengesetzt werden, ergeben sie ein Gerät, das die eigentümlichen Energien eines $(item)Spawner$(0) bändigen und diesen an einen anderen Ort transportieren kann.$(p)Leider zerbricht dieses Gerät bereits nach der ersten Nutzung.",
+  "botania.page.spawnerMover0": "Wenn ein $(l:alfhomancy/elf_resources)$(item)Drachenstein$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_essence)$(item)Ender-Essenz$(0)$(/l) und $(l:alfhomancy/gaia_ritual)$(item)Gaiaseelen$(0)$(/l) auf bestimmte Weise zusammengesetzt werden, ergeben sie ein Gerät, das die eigentümlichen Energien eines $(item)Spawners$(0) oder $(item)Prüfungs-Spawners$(0) bändigen und diesen an einen anderen Ort transportieren kann.$(p)Leider zerbricht dieses Gerät bereits nach der ersten Nutzung.",
   "botania.page.spawnerMover1": "Ein Spawner-Paket",
 
   "botania.entry.keepIvy": "Entschlossener Efeu",

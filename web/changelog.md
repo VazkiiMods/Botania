@@ -40,6 +40,7 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 * Add: New Petal Apothecary variants (blackstone, netherbricks, red netherbricks)
 * Add: New ambient music by Firel - Runes of Air, Runes of Mana, and Garden of Glass (the latter only plays when the Garden of Glass mod is loaded)
 * Add: Dog. (IYKYK)
+* Add: Life Aggregator can also pick up Trial Spawners
 * Change: Fel Blaze spawning now matches snow golem spawning, in that the block shape can be placed sideways or even upside down
 * Change: Botania's banner patterns now have dedicated pattern items instead of using certain Botania items directly
 * Change: Botania grass variants spread and decay like vanilla grass or mycelium

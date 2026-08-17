@@ -81,6 +81,7 @@ import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
+import vazkii.botania.api.block.LifeAggregatorCarryable;
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
@@ -673,6 +674,13 @@ public class NeoForgeCommonInitializer {
 
 		BlockEntityConstants.SELF_WORLDLY_CONTAINERS.forEach(blockEntityType -> e.registerBlockEntity(
 				Capabilities.ItemHandler.BLOCK, blockEntityType, SidedInvWrapper::new));
+
+		BlockCapability<LifeAggregatorCarryable, Void> lifeAggregatorCarryableBlockCap =
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(LifeAggregatorCarryable.LOOKUP);
+		e.registerBlockEntity(lifeAggregatorCarryableBlockCap, BlockEntityType.MOB_SPAWNER,
+				(blockEntity, context) -> new LifeAggregatorHandler.MonsterSpawnerCarryable(blockEntity));
+		e.registerBlockEntity(lifeAggregatorCarryableBlockCap, BlockEntityType.TRIAL_SPAWNER,
+				(blockEntity, context) -> new LifeAggregatorHandler.TrialSpawnerCarryable(blockEntity));
 
 		e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BotaniaBlockEntities.MANA_FLUXFIELD,
 				// we only provide a view of the energy level, no interaction allowed
