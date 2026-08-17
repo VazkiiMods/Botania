@@ -3611,8 +3611,8 @@
 
   "botania.entry.spawnerClaw": "Lebensfüller",
   "botania.tagline.spawnerClaw": "Betreibt Spawner mit Mana, ohne jemanden in der Nähe",
-  "botania.page.spawnerClaw0": "$(item)Monsterspawner$(0) sind seltsame Geräte. Sie vermögen Leben aus dem Nichts zu schaffen, aber nut wen jemand in der Nähe ist, um dies zu erleben.$(p)Daher bindet man sich aus Notwendigkeit an ihre Umgebung wenn man eine dieser Kuriositäten ausnutzen möchte.",
-  "botania.page.spawnerClaw1": "Ein $(item)Lebensfüller$(0) stellt eine Alternative dar: Wenn er auf einem $(item)Monsterspawner$(0) platziert wird, benutzt er $(thing)Mana$(0) (per $(l:mana/spreader)$(item)Verbreiter$(0)$(/l) zur Verfügung gestellt) um Spawns in Abwesenheit eines Spielers herbeizuführen.",
+  "botania.page.spawnerClaw0": "$(item)Spawner$(0) sind seltsame Geräte. Sie vermögen Leben aus dem Nichts zu schaffen, aber nur wenn jemand in der Nähe ist, um dies zu erleben.$(p)Daher bindet man sich aus Notwendigkeit an ihre Umgebung wenn man eine dieser Kuriositäten ausnutzen möchte.",
+  "botania.page.spawnerClaw1": "Ein $(item)Lebensfüller$(0) stellt eine Alternative dar: Wenn er auf einem $(item)Spawner$(0) platziert wird, benutzt er $(thing)Mana$(0) (per $(l:mana/spreader)$(item)Verbreiter$(0)$(/l) zur Verfügung gestellt) um Spawns in Abwesenheit eines Spielers herbeizuführen.",
   "botania.page.spawnerClaw2": "Nur eine kleiner Schubs",
 
   "botania.entry.redString": "Rotfaden",
