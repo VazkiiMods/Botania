@@ -76,6 +76,8 @@ Here's a general overview of what you can expect to change in terms of gameplay:
   (you need a vitreous pickaxe for fast breaking now, but you can still obtain these blocks without any tools)
 * Change: Ender Essence (previously called Ender Air) can no longer be obtained directly from the air in the End, but there are new ways to generate Ender Essence clouds by interacting with Endermen
 * Change: Recipes for most Corporea-related blocks and items have changed to no longer use sparks directly; some of them are now available before going to the End
+* Change: Agricarnation can also grow sugarcane and cactus (with some risk of wasted mana) and speed up the spread of small mushrooms;
+  also, using its regular size is now about as powerful as covering the same area with multiple of the petite version
 * Remove: Overgrowth Seed and Enchanted Soil
 * Remove: Crafting recipes for recombining slabs into full blocks
 * API: Runic Altar recipes define catalyst items separately (these are returned unchanged when crafting is complete)

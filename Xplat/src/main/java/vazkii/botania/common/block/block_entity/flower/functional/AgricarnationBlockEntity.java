@@ -11,6 +11,7 @@ package vazkii.botania.common.block.block_entity.flower.functional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -27,6 +28,8 @@ import vazkii.botania.xplat.BotaniaConfig;
 public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 5;
 	private static final int RANGE_MINI = 2;
+	private static final int ATTEMPTS = 5;
+	private static final int ATTEMPTS_MINI = 1;
 	private static final int MANA_COST = 5;
 	private static final float BONEMEAL_SUCCESS_CHANCE = 0.5f;
 
@@ -47,45 +50,51 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		int range = getRange();
-		int x = getEffectivePos().getX() + serverLevel.getRandom().nextInt(range * 2 + 1) - range;
-		int z = getEffectivePos().getZ() + serverLevel.getRandom().nextInt(range * 2 + 1) - range;
+		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+		for (int remainingAttempts = getNumAttempts(); remainingAttempts > 0 && getMana() > MANA_COST; remainingAttempts--) {
+			int x = getEffectivePos().getX() + serverLevel.getRandom().nextInt(range * 2 + 1) - range;
+			int z = getEffectivePos().getZ() + serverLevel.getRandom().nextInt(range * 2 + 1) - range;
 
-		for (int i = 4; i > -2; i--) {
-			int y = getEffectivePos().getY() + i;
-			BlockPos pos = new BlockPos(x, y, z);
-			BlockState state = serverLevel.getBlockState(pos);
-			if (state.isAir()) {
-				continue;
-			}
-
-			Block block = state.getBlock();
-			if (block instanceof GrowingPlantBodyBlock) {
-				var headPos = ((GrowingPlantBodyBlockMixin) block).botania_getHeadPos(serverLevel, pos, block);
-				if (headPos.isPresent()) {
-					pos = headPos.get();
+			for (int i = 4; i > -2; i--) {
+				int y = getEffectivePos().getY() + i;
+				pos.set(x, y, z);
+				BlockState state = serverLevel.getBlockState(pos);
+				if (state.isAir()) {
+					continue;
 				}
-			}
 
-			if (isPlant(serverLevel, pos, state, block) && getMana() > MANA_COST) {
-				addMana(-MANA_COST);
-				if (state.is(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL)
-						&& block instanceof BonemealableBlock bonemealableBlock
-						&& bonemealableBlock.isValidBonemealTarget(serverLevel, pos, state)) {
-					if (serverLevel.getRandom().nextFloat() < BONEMEAL_SUCCESS_CHANCE
-							&& bonemealableBlock.isBonemealSuccess(serverLevel, serverLevel.getRandom(), pos, state)) {
-						bonemealableBlock.performBonemeal(serverLevel, serverLevel.getRandom(), pos, state);
-					}
-				} else {
-					state.randomTick(serverLevel, pos, serverLevel.getRandom());
+				Block block = state.getBlock();
+				if (block instanceof GrowingPlantBodyBlock) {
+					var headPos = ((GrowingPlantBodyBlockMixin) block).botania_getHeadPos(serverLevel, pos, block);
+					headPos.ifPresent(pos::set);
 				}
-				if (BotaniaConfig.common().blockBreakParticles()) {
-					serverLevel.levelEvent(LevelEvent.PARTICLES_BEE_GROWTH, pos, 6 + serverLevel.getRandom().nextInt(4));
-				}
-				serverLevel.playSound(null, x, y, z, BotaniaSounds.AGRICARNATION, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 
-				break;
+				if (isPlant(serverLevel, pos, state, block)) {
+					boostGrowth(serverLevel, state, block, pos);
+					break;
+				}
 			}
 		}
+	}
+
+	private void boostGrowth(ServerLevel serverLevel, BlockState state, Block block, BlockPos pos) {
+		addMana(-MANA_COST);
+		RandomSource random = serverLevel.getRandom();
+		if (state.is(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL)
+				&& block instanceof BonemealableBlock bonemealableBlock
+				&& bonemealableBlock.isValidBonemealTarget(serverLevel, pos, state)) {
+			if (random.nextFloat() < BONEMEAL_SUCCESS_CHANCE
+					&& bonemealableBlock.isBonemealSuccess(serverLevel, random, pos, state)) {
+				bonemealableBlock.performBonemeal(serverLevel, random, pos, state);
+			}
+		} else {
+			state.randomTick(serverLevel, pos, random);
+		}
+		if (BotaniaConfig.common().blockBreakParticles()) {
+			serverLevel.levelEvent(LevelEvent.PARTICLES_BEE_GROWTH, pos, 6 + random.nextInt(4));
+		}
+		serverLevel.playSound(null, pos.getX(), pos.getY(), pos.getZ(), BotaniaSounds.AGRICARNATION,
+				SoundSource.BLOCKS, 1, 0.5f + random.nextFloat() * 0.5f);
 	}
 
 	@Override
@@ -95,7 +104,7 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 
 	/**
 	 * @return Whether the agricarnation considers the given block a plant it can grow. By default,
-	 *         grass/mycelium/nylium-like spreading blocks are excluded. They can be excplicitly included by being added
+	 *         grass/mycelium/nylium-like spreading blocks are excluded. They can be explicitly included by being added
 	 *         to the AGRICARNATION_GROWTH_CANDIDATE tag. Blocks in AGRICARNATION_GROWTH_EXCLUDED are always excluded.
 	 *         Potential included blocks are those that are bonemealable, instance of BushBlock, or in the
 	 *         AGRICARNATION_GROWTH_CANDIDATE tag. They are included only if they accept random ticks, or are
@@ -136,6 +145,10 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 		return RANGE;
 	}
 
+	public int getNumAttempts() {
+		return ATTEMPTS;
+	}
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), getRange());
@@ -149,6 +162,11 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 		@Override
 		public int getRange() {
 			return RANGE_MINI;
+		}
+
+		@Override
+		public int getNumAttempts() {
+			return ATTEMPTS_MINI;
 		}
 	}
 

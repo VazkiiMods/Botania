@@ -1,7 +1,7 @@
-// 1.21.1	2026-08-15T15:30:06.158530498	Botania/Tags for minecraft:block
+// 1.21.1	2026-08-17T21:14:53.68954516	Botania/Tags for minecraft:block
 7a68ff158ad853180a69e6a2276ae92648e36622 data/botania/tags/block/agricarnation/apply_bonemeal.json
-875c72992696488f2f82f9474864d8b56c9c7c85 data/botania/tags/block/agricarnation/growth_candidate.json
-e016f3ffb8b5cd781715f6f9dbbd57a21d8a0e31 data/botania/tags/block/agricarnation/growth_excluded.json
+4e644771038ec0475ee832ba6109d8c859afb562 data/botania/tags/block/agricarnation/growth_candidate.json
+d4ccdd52d950205105f63938b548d92c42dd1761 data/botania/tags/block/agricarnation/growth_excluded.json
 9b7005bd2c932db9d2ffb3f494841bf08607e827 data/botania/tags/block/all_covered_mana_spreaders.json
 665aee3cc41d8f1e66408e198692f4ebec572aba data/botania/tags/block/all_mana_pools.json
 8e8f51c64a3634ca5ca23a68d1c410a3b2c4407a data/botania/tags/block/corporea_spark_override.json

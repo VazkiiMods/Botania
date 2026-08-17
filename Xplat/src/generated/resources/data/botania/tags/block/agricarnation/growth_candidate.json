@@ -1,5 +1,7 @@
 {
   "values": [
-    "#botania:agricarnation/apply_bonemeal"
+    "#botania:agricarnation/apply_bonemeal",
+    "minecraft:sugar_cane",
+    "minecraft:cactus"
   ]
 }
