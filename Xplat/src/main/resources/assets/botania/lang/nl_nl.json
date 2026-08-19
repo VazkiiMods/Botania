@@ -3143,6 +3143,7 @@
   "botania.tagline.flasks": "Grotere opslag voor brouwsels",
   "botania.page.flasks0": "$(item)Elvenglas$(0) lijkt meer mogelijkheden te bieden dan $(item)Managlas$(0) dat gebruikt wordt voor $(item)Flacons$(0). Een $(item)Flesje$(0), gemaakt met $(item)Elvenglas$(0), is de typische Elven houder voor $(thing)Brouwsels$(0), en kan 6 dosissen ervan bevatten, in plaats van de 4 die in een $(item)Flacon$(0) gaan.",
   "botania.page.flasks1": "Hoewel er minder ingrediënten nodig zijn om iets te brouwen in een $(item)Flesje$(0), de $(thing)Mana$(0) kosten zijn dubbel die van een $(item)Flacon$(0).$(p)Maar daar staat tegenover dat uit een $(item)Flesje$(0) sneller gedronken kan worden dan uit een $(item)Flacon$(0).",
+
   "botania.page.flasks2": "Brouw Flesje",
 
   "botania.entry.complexBrews": "Complexe Brouwsels",

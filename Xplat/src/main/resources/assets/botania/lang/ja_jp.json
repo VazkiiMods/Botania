@@ -3143,6 +3143,7 @@
   "botania.tagline.flasks": "より大容量の醸造容器",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)アルフガラス$(0)$(/l)は、$(item)小瓶$(0)に使われる一般的な$(l:mana/pool)$(item)マナガラス$(0)$(/l)よりも順応性の高い素材のようです。$(l:alfhomancy/elf_resources)$(item)アルフガラス$(0)$(/l)で作られた$(item)フラスコ$(0)は、エルフの特徴的な醸造用の容器であり、$(item)小瓶$(0)が4回分であるのに対し、6回分を保存することが出来ます。",
   "botania.page.flasks1": "$(item)フラスコ$(0)での醸造コストは同じですが、$(thing)マナ$(0)コストは$(item)小瓶$(0)の2倍になります。$(p)また、$(item)フラスコ$(0)は$(item)小瓶$(0)に比べ飲み口が大きな為、内容物をより素早く飲むことが出来ます。",
+
   "botania.page.flasks2": "橋の下で手に入る",
 
   "botania.entry.complexBrews": "複雑な醸造",

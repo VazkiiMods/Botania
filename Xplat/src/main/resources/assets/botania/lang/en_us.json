@@ -3140,9 +3140,10 @@
   "botania.page.brewery16b": "You're gonna catch a cold",
 
   "botania.entry.flasks": "Brewing Flasks",
-  "botania.tagline.flasks": "Bigger brew containers",
+  "botania.tagline.flasks": "Bigger brew containers that also hold Ender Essence",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)Alfglass$(0)$(/l) seems to be a more malleable material than the typical $(l:mana/pool)$(item)Managlass$(0)$(/l) used for $(item)Vials$(0). A $(item)Flask$(0) fashioned from $(l:alfhomancy/elf_resources)$(item)Alfglass$(0)$(/l) seems to be the typical Elven container for $(thing)Brews$(0), holding six doses over the four a $(item)Vial$(0) does.",
-  "botania.page.flasks1": "While the ingredient cost to brew a particular brew in a $(item)Flask$(0) is the same, its $(thing)Mana$(0) cost is double that of a $(item)Vial$(0). Since the bottleneck of a $(item)Flask$(0) is larger than that of a $(item)Vial$(0), its contents can be drunk faster.$(p)The wider bottleneck is also suitable for capturing $(l:ender/ender_essence)$(item)Ender Essence$(0)$(/l) from the clouds that substance forms, either by hand or using a $(item)dispenser$(0).",
+  "botania.page.flasks1": "While the ingredient cost to brew a particular brew in a $(item)Flask$(0) is the same, its $(thing)Mana$(0) cost is double that of a $(item)Vial$(0). Since the bottleneck of a $(item)Flask$(0) is larger than that of a $(item)Vial$(0), its contents can be drunk faster.",
+  "botania.page.flasksEnderEssence": "The wider bottleneck of $(item)Alfglass Flasks$(0) is also suitable for capturing $(l:ender/ender_essence)$(item)Ender Essence$(0)$(/l). The clouds this substance forms when $(item)End Stone$(0) is $(l:basics/pure_daisy)purified$(/l) or when a $(l:functional_flowers/vinculotus)$(item)Vinculotus$(0)$(/l) strips an $(thing)Enderman$(0) of its teleportation ability can be collected either by hand or using a $(item)dispenser$(0).",
   "botania.page.flasks2": "Get one under the bridge",
 
   "botania.entry.complexBrews": "Complex Brews",

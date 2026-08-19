@@ -3143,6 +3143,7 @@
   "botania.tagline.flasks": "TAGLINE",
   "botania.page.flasks0": "Il semblerait que le $(l:alfhomancy/elf_resources)verre elfique$(/l) soit plus malléable que le $(l:mana/pool)verre de mana$(/l).$(p)Une $(item)flasque$(0) en $(l:alfhomancy/elf_resources)verre elfique$(/l) sera capable de contenir $(thing)6$(0) doses, à la différence d'un $(l:devices/brewery)philtre$(/l) en $(l:mana/pool)verre de mana$(/l) qui sera limité à $(thing)4$(0) doses.",
   "botania.page.flasks1": "Même si les ingrédients sont les mêmes, une $(item)flasque$(0) aura besoin de deux fois plus de mana par rapport à un $(l:devices/brewery)philtre$(/l). La taille du goulot d'une $(item)flasque$(0) étant plus large, boire son contenu sera plus rapide.",
+
   "botania.page.flasks2": "$(o)rigide et solide$()",
 
   "botania.entry.complexBrews": "Breuvages avancés",

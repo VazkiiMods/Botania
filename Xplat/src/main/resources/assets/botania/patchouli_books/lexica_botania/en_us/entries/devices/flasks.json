@@ -14,6 +14,10 @@
       "text": "botania.page.flasks1"
     },
     {
+      "type": "text",
+      "text": "botania.page.flasksEnderEssence"
+    },
+    {
       "type": "crafting",
       "text": "botania.page.flasks2",
       "recipe": "botania:alfglass_flask"
