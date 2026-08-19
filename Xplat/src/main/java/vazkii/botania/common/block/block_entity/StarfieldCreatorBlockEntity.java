@@ -21,30 +21,33 @@ public class StarfieldCreatorBlockEntity extends BlockEntity {
 		super(BotaniaBlockEntities.STARFIELD_CREATOR, pos, state);
 	}
 
-	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, StarfieldCreatorBlockEntity self) {
+	public static void clientTick(Level level, BlockPos pos, BlockState state, StarfieldCreatorBlockEntity self) {
 		level.updateSkyBrightness(); // this isn't called often on clients, but we need so that isDay is accurate.
 		if (level.isDay()) {
 			return;
 		}
 
 		double radius = 512;
+		int renderDistance = Proxy.INSTANCE.getClientRenderDistance() * 16;
+		int worldHeight = level.getMaxBuildHeight();
+		var random = level.getRandom();
 		int iter = 2;
 		for (int i = 0; i < iter; i++) {
-			double x = worldPosition.getX() + 0.5 + (Math.random() - 0.5) * radius;
-			double y = Math.min(256, worldPosition.getY() + Proxy.INSTANCE.getClientRenderDistance() * 16);
-			double z = worldPosition.getZ() + 0.5 + (Math.random() - 0.5) * radius;
+			double x = 0.5 + pos.getX() + (random.nextDouble() - 0.5) * radius;
+			double y = 0.5 + Math.min(worldHeight, pos.getY() + renderDistance);
+			double z = 0.5 + pos.getZ() + (random.nextDouble() - 0.5) * radius;
 
-			float w = 0.6F;
-			float c = 1F - w;
+			float white = 0.6f;
+			float color = 1 - white;
 
-			float r = w + (float) Math.random() * c;
-			float g = w + (float) Math.random() * c;
-			float b = w + (float) Math.random() * c;
+			float red = white + random.nextFloat() * color;
+			float green = white + random.nextFloat() * color;
+			float blue = white + random.nextFloat() * color;
 
-			float s = 20F + (float) Math.random() * 20F;
-			int m = 50;
+			float size = 20 + random.nextFloat() * 20;
+			int lifeMult = 50;
 
-			SparkleParticleData data = SparkleParticleData.sparkle(s, r, g, b, m);
+			SparkleParticleData data = SparkleParticleData.sparkle(size, red, green, blue, lifeMult);
 			level.addParticle(data, true, x, y, z, 0, 0, 0);
 		}
 	}
