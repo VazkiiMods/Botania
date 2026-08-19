@@ -152,6 +152,7 @@ Features in older versions are mentioned if there are issues or no real interact
 * Minecraft and NeoForge switched to JSpecify annotations
   * migration may need to be done manually, if we decide to switch from JetBrains annotations
   * This only covers nullability!
+* environment attributes are a thing now, which we might be able to use to specify which dimensions provide the pure version of ender essence
 
 ### 26.1 ("Tiny Takeover")
 * Java 25
@@ -191,6 +192,8 @@ Features in older versions are mentioned if there are issues or no real interact
 * straw bed
 * cushions
 * Abandoned Camp (in all kinds of biomes)
+  * provide explorer maps to other camps, ancient cities, mineshafts, desert pyramids, warm ocean ruins, and some structures you could also locate via maps sold by cartographer villagers
+    (none of these are relevant to the Loonium, as we excluded structure maps for performance reasons)
 * Notable data component changes:
   * `minecraft:block_transformer` – for the various right-click actions of axes, shovels, and hoes that transform blocks, potentially with a loot item drop
     * not for e.g. water bottles, shears, or honey comb waxing
