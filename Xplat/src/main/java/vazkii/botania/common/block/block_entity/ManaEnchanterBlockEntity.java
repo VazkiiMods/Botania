@@ -64,6 +64,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.network.clientbound.EnchanterDestroyEffectPacket;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
@@ -524,6 +525,9 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 
 	public static Wandable createLapisBlockWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, Direction direction) {
 		return (player, stack, side) -> {
+			if (!BotaniaConfig.common().enchanterEnabled()) {
+				return false;
+			}
 			Direction.Axis axis = ManaEnchanterBlockEntity.canEnchanterExist(level, pos);
 			if (axis == null) {
 				return false;

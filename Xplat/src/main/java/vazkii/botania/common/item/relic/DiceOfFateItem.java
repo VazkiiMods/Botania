@@ -32,6 +32,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.loot.BotaniaLootTables;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,7 +123,8 @@ public class DiceOfFateItem extends RelicItem {
 	}
 
 	private boolean hasRelicAlready(Player player, int relicId) {
-		if (relicId < 0 || relicId > 6 || !(player instanceof ServerPlayer mpPlayer)) {
+		if (relicId < 0 || relicId > 6 || !(player instanceof ServerPlayer mpPlayer)
+				|| !BotaniaConfig.common().relicsEnabled()) {
 			return true;
 		}
 
