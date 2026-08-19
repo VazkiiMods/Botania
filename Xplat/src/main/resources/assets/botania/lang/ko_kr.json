@@ -3143,6 +3143,7 @@
   "botania.tagline.flasks": "더 큰 양조 용기",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)알프글라스$(0)$(/l)는 일반적으로 $(l:mana/pool)$(item)매나글라스$(0)$(/l)보다 더 흐물거리는 소재인 것 같습니다. $(l:alfhomancy/elf_resources)$(item)알프글라스$(0)$(/l)로 만든 $(item)유리병$(0)은 $(thing)양조$(0)를 위한 전형적인 엘프용 용기로, $(item)유리병$(0)의 4배에 달하는 6회분을 담을 수 있습니다.",
   "botania.page.flasks1": "특정한 $(item)유리병$(0)에서 특정한 양조를 위한 재료 비용은 동일하지만, $(item)유리병$(0)의 $(thing)마나$(0) 비용은 두 배입니다.$(p)또한 $(item)유리병$(0)의 병목이 $(item)유리병$(0)보다 크기 때문에 내용물을 더 빨리 마실 수 있습니다.",
+
   "botania.page.flasks2": "다리 밑에 하나 구해라",
 
   "botania.entry.complexBrews": "복합 양조",

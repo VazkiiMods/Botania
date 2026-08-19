@@ -3227,6 +3227,7 @@
 
 
 
+
   "botania.page.craftCrate3": "Finalising a recipe can be done in two ways:$(p)Filling all 9 slots with either recipe components or placeholders will instantly try to craft and output the result, as well as any placeholders and/or leftovers remaining in the crafting grid (e.g. buckets when making cake).$(p)Note that the crate will $(o)not$() eject its contents if no recipe is possible.",
 
 

@@ -3143,6 +3143,7 @@
 
   "botania.page.flasks0": "El $(item)alfcristal$(0) parece más maleable que el típico $(item)manacristal$(0) usado para $(item)viales$(0). Un $(item)matraz$(0), hecho de $(item)alfcristal$(0) el recipiente que usan los elfos para sus $(item)fermentos$(0), y puede contener 6 dosis en cada uno en vez de las 4 de los $(item)viales$(0).",
   "botania.page.flasks1": "Mientras que el coste de ingredientes para fermentar en un $(item)matraz$(0) se reduce, el coste de $(thing)maná$(0) se duplica con respecto a un $(item)vial$(0).$(p)Por último, como el cuello del $(item)matraz$(0) es más ancho que el del $(item)vial$(0), el contenido de este se bebe más rápido.",
+
   "botania.page.flasks2": "Si buscas un gordo, mira bajo el puente",
 
   "botania.entry.complexBrews": "Fermentos complejos",

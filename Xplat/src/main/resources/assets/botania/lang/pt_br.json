@@ -3143,6 +3143,7 @@
   "botania.tagline.flasks": "Recipientes maiores para elixires",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)Vidro Élfico$(0)$(/l) parece ser um material mais maleável que o tradicional $(l:mana/pool)$(item)Vidro de Mana$(0)$(/l) usado para $(item)Garrafas$(0). Um $(item)Cantil$(0) moldado a partir de $(l:alfhomancy/elf_resources)$(item)Vidro Élfico$(0)$(/l) parece ser o recipiente típico dos Élfos para $(thing)Elixires$(0), carregando seis doses ao invés das quatro que uma $(item)Garrafa$(0) pode carregar.",
   "botania.page.flasks1": "Enquanto o custo de ingredientes para fermentar um elixir específico em um $(item)Cantil$(0) é o mesmo, o custo de $(thing)Mana$(0) é o dobro do de uma $(item)Garrafa$(0).$(p)Adicionalmente, pelo gargalo de um $(item)Cantil$(0) ser mais largo que o de uma $(item)Garrafa$(0), seu conteúdo pode ser bebido mais rápido.",
+
   "botania.page.flasks2": "Beba com moderação... ou não",
 
   "botania.entry.complexBrews": "Elixires Complexos",

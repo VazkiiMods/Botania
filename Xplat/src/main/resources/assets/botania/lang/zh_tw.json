@@ -3143,6 +3143,7 @@
   "botania.tagline.flasks": "更大的釀造容器",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)精靈玻璃$(0)$(/l)看起來比用於製作$(item)玻璃小瓶$(0)的$(l:mana/pool)$(item)瑪那玻璃$(0)$(/l)更具韌性。使用$(l:alfhomancy/elf_resources)$(item)精靈玻璃$(0)$(/l)製作的$(item)燒瓶$(0)是精靈一族用於存放$(thing)精釀$(0)的典型容器，並且可儲存6瓶劑量，比只能儲存4瓶劑量的$(item)小瓶$(0)更大。",
   "botania.page.flasks1": "雖然使用$(item)燒瓶$(0)釀造藥水所需的材料消耗相同，但是$(thing)瑪那$(0)消耗是原先的兩倍。$(p)最後，鑑於$(item)燒瓶$(0)的瓶頸比$(item)小瓶$(0)的要大出很多，裡面的藥水也因此會被更快飲用。",
+
   "botania.page.flasks2": "在橋下找到一瓶",
 
   "botania.entry.complexBrews": "高級釀造",

@@ -3140,9 +3140,10 @@
   "botania.page.brewery16b": "Du wirst dich erkälten",
 
   "botania.entry.flasks": "Brauflaschen",
-  "botania.tagline.flasks": "Größere Gebräugefäße",
+  "botania.tagline.flasks": "Größere Gebräugefäße, die Ender-Essenz halten können",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)Elfenglas$(0)$(/l) scheint ein besser formbares Material zu sein als das $(l:mana/pool)$(item)Managlas$(0)$(/l) aus dem $(item)Ampullen$(0) gemacht werden. Eine aus $(l:alfhomancy/elf_resources)$(item)Elfenglass$(0)$(/l) geformte $(item)Flasche$(0) scheint das typische Elfengefäß für $(thing)Gebräue$(0) zu sein und kann sechs Dosen enthalten statt der vier, die eine $(item)Ampulle$(0) fasst.",
-  "botania.page.flasks1": "Während die Zutatenmenge zum Brauen einer $(item)Flasche$(0) eines bestimmten Gebräus die gleiche ist, sind die $(thing)Mana$(0)kosten im Vergleich zu einer $(item)Ampulle$(0) verdoppelt. Da der Hals einer $(item)Flasche$(0) größer als der einer $(item)Ampulle$(0) ist, kann man den Inhalt schneller trinken.$(p)Der breitere Flaschenhals is auch zum Einfangen von $(l:ender/ender_essence)$(item)Ender-Essenz$(0)$(/l) aus ihren Wolken geeignet, sowohl von Hand als auch per $(item)Werfer$(0).",
+  "botania.page.flasks1": "Während die Zutatenmenge zum Brauen einer $(item)Flasche$(0) eines bestimmten Gebräus die gleiche ist, sind die $(thing)Mana$(0)kosten im Vergleich zu einer $(item)Ampulle$(0) verdoppelt. Da der Hals einer $(item)Flasche$(0) größer als der einer $(item)Ampulle$(0) ist, kann man den Inhalt schneller trinken.",
+  "botania.page.flasksEnderEssence": "Der breitere Flaschenhals von $(item)Elfenglassflaschen$(0) eigenet sich auch zum Sammlen von $(l:ender/ender_essence)$(item)Ender-Essenz$(0)$(/l). Die Wolken, welche diese Substanz formt wenn $(item)Endstein$(0) $(l:basics/pure_daisy)gereinigt$(/l) wird oder wenn ein $(l:functional_flowers/vinculotus)$(item)Vinculotos$(0)$(/l) einem $(thing)Enderman$(0) die Fähigkeit zur Teleportation nimmt, können entweder mit der Hand oder mit einem $(item)Werfer$(0) eingefangen werden.",
   "botania.page.flasks2": "Besorge eine unter der Brücke",
 
   "botania.entry.complexBrews": "Komplexe Gebräue",
