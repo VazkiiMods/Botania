@@ -75,7 +75,7 @@ public abstract class FloatingFlowerBaseBlock extends BotaniaWaterloggedBlock im
 		if (!XplatAbstractions.INSTANCE.isPhysicalClient()) {
 			return RenderShape.ENTITYBLOCK_ANIMATED;
 		}
-		return BotaniaConfig.client().staticFloaters() || PatchouliUtils.isInVisualizer()
+		return BotaniaConfig.client() != null && BotaniaConfig.client().staticFloaters() || PatchouliUtils.isInVisualizer()
 				? RenderShape.MODEL
 				: RenderShape.ENTITYBLOCK_ANIMATED;
 	}

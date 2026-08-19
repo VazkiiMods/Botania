@@ -53,6 +53,7 @@ public final class NeoForgeBotaniaConfig {
 			builder.push("rendering");
 			useShaders = builder
 					.comment("Set this to false to disable the use of shaders for some of the mod's renders. (Requires game restart)")
+					.gameRestart()
 					.define("shaders", true);
 			boundBlockWireframe = builder
 					.comment("Set this to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).")
@@ -102,6 +103,7 @@ public final class NeoForgeBotaniaConfig {
 
 			enableSeasonalFeatures = builder
 					.comment("Set this to false to disable seasonal features, such as halloween and christmas.")
+					.gameRestart()
 					.define("seasonalFeatures", true);
 			debugInfo = builder
 					.comment("Set to false to disable Botania's messages in the F3 debug screen")
@@ -392,27 +394,35 @@ public final class NeoForgeBotaniaConfig {
 
 	public static void setup(ModContainer modContainer) {
 		modContainer.registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
-		BotaniaConfig.setCommon(COMMON);
 
 		if (XplatAbstractions.INSTANCE.isPhysicalClient()) {
 			modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
-			BotaniaConfig.setClient(CLIENT);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onConfigLoad(ModConfigEvent.Loading evt) {
 		var config = evt.getConfig();
-		if (config.getType() == ModConfig.Type.COMMON && config.getModId().equals(BotaniaAPI.MODID)) {
-			BotaniaConfig.resetPatchouliFlags();
+		if (config.getModId().equals(BotaniaAPI.MODID)) {
+			updateModConfig(config);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onConfigLoad(ModConfigEvent.Reloading evt) {
 		var config = evt.getConfig();
-		if (config.getType() == ModConfig.Type.COMMON && config.getModId().equals(BotaniaAPI.MODID)) {
-			BotaniaConfig.resetPatchouliFlags();
+		if (config.getModId().equals(BotaniaAPI.MODID)) {
+			updateModConfig(config);
+		}
+	}
+
+	private static void updateModConfig(ModConfig config) {
+		switch (config.getType()) {
+			case COMMON -> {
+				BotaniaConfig.setCommon(COMMON);
+				BotaniaConfig.resetPatchouliFlags();
+			}
+			case CLIENT -> BotaniaConfig.setClient(CLIENT);
 		}
 	}
 }

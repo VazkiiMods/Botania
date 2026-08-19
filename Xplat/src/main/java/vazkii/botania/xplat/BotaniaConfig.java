@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
@@ -73,7 +74,7 @@ public class BotaniaConfig {
 	}
 
 	public static void setCommon(ConfigAccess access) {
-		if (config != null) {
+		if (config != null && config != access) {
 			BotaniaAPI.LOGGER.warn("ConfigAccess was replaced! Old {} New {}",
 					config.getClass().getName(), access.getClass().getName());
 		}
@@ -81,11 +82,12 @@ public class BotaniaConfig {
 	}
 
 	public static void setClient(ClientConfigAccess access) {
-		if (clientConfig != null) {
+		if (clientConfig != null && clientConfig != access) {
 			BotaniaAPI.LOGGER.warn("ClientConfigAccess was replaced! Old {} New {}",
 					clientConfig.getClass().getName(), access.getClass().getName());
 		}
 		clientConfig = access;
+		ClientProxy.initSeasonal();
 	}
 
 	public static void resetPatchouliFlags() {

@@ -44,7 +44,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ClientProxy implements Proxy {
-
+	private static boolean initialized;
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
@@ -57,7 +57,7 @@ public class ClientProxy implements Proxy {
 	}
 
 	public static void initSeasonal() {
-		if (BotaniaConfig.client().enableSeasonalFeatures()) {
+		if (!initialized && BotaniaConfig.client().enableSeasonalFeatures()) {
 			LocalDateTime now = LocalDateTime.now();
 			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2) {
 				ClientProxy.jingleTheBells = true;
@@ -66,6 +66,7 @@ public class ClientProxy implements Proxy {
 				ClientProxy.dootDoot = true;
 			}
 		}
+		initialized = true;
 	}
 
 	@Override

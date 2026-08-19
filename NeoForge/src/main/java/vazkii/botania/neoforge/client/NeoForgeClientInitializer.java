@@ -161,9 +161,6 @@ public class NeoForgeClientInitializer {
 			}
 		});
 
-		// Etc
-		ClientProxy.initSeasonal();
-
 		if (XplatAbstractions.INSTANCE.isModLoaded("ears")) {
 			EarsIntegration.register();
 		}
