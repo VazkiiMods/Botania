@@ -422,6 +422,33 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 				.output(EmiStack.of(Items.CLAY_BALL))
 				.id(BuiltInRegistries.ITEM.getKey(Items.CLAY_BALL).withPrefix("/world/clayconia/"))
 				.build());
+
+		// Ender Essence sources
+		registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.leftInput(EmiStack.of(BotaniaItems.ALFGLASS_FLASK))
+				.rightInput(EmiStack.of(BotaniaItems.SOULSCRIBE), true)
+				.output(EmiStack.of(BotaniaItems.DILUTED_ENDER_ESSENCE))
+				.id(BuiltInRegistries.ITEM.getKey(BotaniaItems.SOULSCRIBE).withPrefix("/world/ender_essence/"))
+				.build());
+		registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.leftInput(EmiStack.of(BotaniaItems.ALFGLASS_FLASK))
+				.rightInput(EmiIngredient.of(List.of(
+						EmiStack.of(BotaniaBlocks.VINCULOTUS),
+						EmiStack.of(BotaniaBlocks.FLOATING_VINCULOTUS)
+				)), true)
+				.output(EmiStack.of(BotaniaItems.DILUTED_ENDER_ESSENCE))
+				.id(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.VINCULOTUS).withPrefix("/world/ender_essence/"))
+				.build());
+		registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.leftInput(EmiStack.of(BotaniaItems.ALFGLASS_FLASK))
+				.rightInput(EmiIngredient.of(List.of(
+						EmiStack.of(BotaniaBlocks.PURE_DAISY),
+						EmiStack.of(BotaniaBlocks.FLOATING_PURE_DAISY)
+				)), true)
+				.rightInput(EmiStack.of(Blocks.END_STONE), false)
+				.output(EmiStack.of(BotaniaItems.PURE_ENDER_ESSENCE))
+				.id(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.PURE_DAISY).withPrefix("/world/ender_essence/"))
+				.build());
 	}
 
 	public static int rotateXAround(int x, int y, int cx, int cy, double degrees) {
