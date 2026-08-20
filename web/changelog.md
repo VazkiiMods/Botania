@@ -35,6 +35,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Fix: Potential crashes related to failed block entity access due to other mods using Botania blocks in weird ways
 * Fix: Warning log spam related to `botania:pylon` and `botania:film_grain_particle` shaders (ErythroCraft)
 * Fix: Lopsided teleportation target zone around the Vinculotus
+* Fix: Occasional crash on Forge startup during composter data registration
 
 ---
 
