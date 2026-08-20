@@ -39,10 +39,10 @@ public class EnderEssenceBottlingBehavior extends OptionalDispenseItemBehavior {
 				source.level().gameEvent(null, GameEvent.FLUID_PICKUP, source.pos());
 				cloud.discard();
 				setSuccess(true);
-				return consumeWithRemainder(source, bottledStack, stack);
+				return consumeWithRemainder(source, stack, bottledStack);
 			}
 		}
 		this.setSuccess(false);
-		return dispense(source, stack);
+		return super.execute(source, stack);
 	}
 }
