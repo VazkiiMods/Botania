@@ -193,7 +193,7 @@ public class NeoForgeCommonInitializer {
 		BotaniaItems.registerCauldronInteractions();
 		PaintableData.init();
 		// TODO: move this to datagen
-		CompostingData.init((itemLike, chance) -> ComposterBlock.COMPOSTABLES.putIfAbsent(itemLike.asItem(), (float) chance));
+		evt.enqueueWork(() -> CompostingData.init((itemLike, chance) -> ComposterBlock.COMPOSTABLES.putIfAbsent(itemLike.asItem(), (float) chance)));
 		DefaultCorporeaMatchers.init();
 		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 

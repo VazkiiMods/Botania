@@ -104,6 +104,7 @@ The following changes will be released in an upcoming version of Botania for 1.2
 * Fix: Potential crashes related to failed block entity access due to other mods using Botania blocks in weird ways
 * Fix: Warning log spam related to `botania:pylon` and `botania:film_grain_particle` shaders (ErythroCraft)
 * Fix: Lopsided teleportation target zone around the Vinculotus
+* Fix: Occasional crash on Forge startup during composter data registration
 
 ---
 
