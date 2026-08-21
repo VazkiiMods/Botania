@@ -6,6 +6,8 @@ TAGNAME="${GIT_REF/#refs\/tags\/}"
 
 # Remove 'release-' from front
 VERSION="${TAGNAME/#release-}"
+# also remove '_<anything>' from end (for potential retries)
+VERSION="${VERSION/%_*}"
 MC_VERSION=$(echo "${VERSION}" | cut -d '-' -f 1)
 CHANGELOG_FRAGMENT=$(echo "${VERSION}" | tr . -)
 CHANGELOG_LINK="https://botaniamod.net/changelog.html#${CHANGELOG_FRAGMENT}"
@@ -133,7 +135,7 @@ function release_curseforge() {
       }
     ]
   },
-  "gameVersions": ["Client", "Server", "Fabric", "Quilt"]
+  "gameVersionNames": ["Client", "Server", "Fabric", "Quilt"]
 }
 EOF
 						  )
@@ -141,7 +143,7 @@ EOF
 	CURSEFORGE_FABRIC_SPEC=$(echo "$CURSEFORGE_FABRIC_SPEC" | \
 								 jq --arg changelog "$CHANGELOG_LINK" \
 									--arg mcver "$MC_VERSION" \
-									'.gameVersions += [$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
+									'.gameVersionNames += [$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
 	curl 'https://minecraft.curseforge.com/api/projects/421839/upload-file' \
 		 -H "X-Api-Token: $CURSEFORGE_TOKEN" \
 		 -F "metadata=$CURSEFORGE_FABRIC_SPEC" \
@@ -166,7 +168,7 @@ EOF
       }
     ]
   },
-  "gameVersions": ["Client", "Server", "Forge"]
+  "gameVersionNames": ["Client", "Server", "Forge"]
 }
 EOF
 						 )
@@ -174,7 +176,7 @@ EOF
 	CURSEFORGE_FORGE_SPEC=$(echo "$CURSEFORGE_FORGE_SPEC" | \
 								jq --arg changelog "$CHANGELOG_LINK" \
 								   --arg mcver "$MC_VERSION" \
-								   '.gameVersions += [$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
+								   '.gameVersionNames += [$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
 	curl 'https://minecraft.curseforge.com/api/projects/225643/upload-file' \
 		 -H "X-Api-Token: $CURSEFORGE_TOKEN" \
 		 -F "metadata=$CURSEFORGE_FORGE_SPEC" \
@@ -182,6 +184,6 @@ EOF
 	# TODO: Upload the asc as an 'Additional file'
 }
 
-release_github
-release_modrinth
+#release_github
+#release_modrinth
 release_curseforge
