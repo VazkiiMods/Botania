@@ -17,7 +17,6 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -82,7 +81,6 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
@@ -125,7 +123,6 @@ import vazkii.botania.fabric.internal_caps.FabricInternalEntityAttachments;
 import vazkii.botania.fabric.mixin.AbstractFurnaceBlockEntityFabricAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -532,21 +529,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	public static final Map<Block, Block> CUSTOM_STRIPPING = new LinkedHashMap<>();
-
-	@Override
-	public void addAxeStripping(Block input, Block output) {
-		if (input.getStateDefinition().getProperties().contains(BlockStateProperties.AXIS)
-				&& output.getStateDefinition().getProperties().contains(BlockStateProperties.AXIS)) {
-			StrippableBlockRegistry.register(input, output);
-		} else {
-			CUSTOM_STRIPPING.put(input, output);
-		}
-	}
-
-	@Override
-	public Map<Block, Block> getCustomStrippables() {
-		return Collections.unmodifiableMap(CUSTOM_STRIPPING);
-	}
 
 	@Override
 	public int transferEnergyToNeighbors(Level level, BlockPos pos, int energy) {

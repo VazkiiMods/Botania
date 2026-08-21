@@ -48,7 +48,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseRailBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -112,9 +111,7 @@ import vazkii.botania.neoforge.internal_caps.NeoForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.mixin.AbstractFurnaceBlockEntityNeoForgeAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -434,18 +431,6 @@ public class NeoForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean preventsRemoteMovement(ItemEntity entity) {
 		return entity.getPersistentData().getBoolean("PreventRemoteMovement");
-	}
-
-	public static final Map<Block, Block> CUSTOM_STRIPPABLES = new HashMap<>();
-
-	@Override
-	public void addAxeStripping(Block input, Block output) {
-		CUSTOM_STRIPPABLES.put(input, output);
-	}
-
-	@Override
-	public Map<Block, Block> getCustomStrippables() {
-		return Map.of();
 	}
 
 	@Override

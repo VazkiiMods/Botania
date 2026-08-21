@@ -167,6 +167,7 @@ public class BotaniaTags {
 		public static final TagKey<Item> DOMINANT_SPARK_PULL_SOURCE = tag("dominant_spark_pull_source");
 
 		public static final TagKey<Item> ENDER_ESSENCES = tag("ender_essences");
+		public static final TagKey<Item> WOODEN_WALLS = tag("wooden_walls");
 
 		public static TagKey<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
@@ -415,6 +416,8 @@ public class BotaniaTags {
 		 * The Terra Truncator's breaking effect only traverses through these for a very limited range.
 		 */
 		public static final TagKey<Block> TERRA_TRUNCATOR_CROWN_BLOCKS = tag("terra_truncator/crown_blocks");
+
+		public static final TagKey<Block> WOODEN_WALLS = tag("wooden_walls");
 
 		public static final TagKey<Block> GOG_PEBBLE_SOURCES =
 				TagKey.create(Registries.BLOCK, gogRL("pebble_sources"));

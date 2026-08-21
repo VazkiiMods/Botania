@@ -36,10 +36,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -51,7 +49,6 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.common.util.TriState;
@@ -65,8 +62,6 @@ import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.*;
-import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
@@ -150,7 +145,6 @@ import vazkii.botania.neoforge.internal_caps.NeoForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.neoforge.internal_caps.WaterBowlFluidHandler;
 import vazkii.botania.neoforge.network.NeoForgePacketHandler;
-import vazkii.botania.neoforge.xplat.NeoForgeXplatImpl;
 import vazkii.botania.network.clientbound.ItemLifeTimePacket;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -189,11 +183,8 @@ public class NeoForgeCommonInitializer {
 			BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer = (resourceLocation, blockSupplier) -> ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(resourceLocation, blockSupplier);
 			BotaniaBlocks.registerFlowerPotPlants(consumer);
 		});
-		BotaniaBlocks.addAxeStripping();
 		BotaniaItems.registerCauldronInteractions();
 		PaintableData.init();
-		// TODO: move this to datagen
-		evt.enqueueWork(() -> CompostingData.init((itemLike, chance) -> ComposterBlock.COMPOSTABLES.putIfAbsent(itemLike.asItem(), (float) chance)));
 		DefaultCorporeaMatchers.init();
 		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 
@@ -316,13 +307,6 @@ public class NeoForgeCommonInitializer {
 	private void registerEvents() {
 		IEventBus bus = NeoForge.EVENT_BUS;
 
-		int blazeTime = 2400 * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
-		bus.addListener((FurnaceFuelBurnTimeEvent e) -> {
-			if (e.getItemStack().is(BotaniaBlocks.BLAZE_MESH.asItem())) {
-				e.setBurnTime(blazeTime);
-			}
-		});
-
 		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
 				InteractionResult result = SkyblockWorldEvents.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
@@ -376,16 +360,6 @@ public class NeoForgeCommonInitializer {
 		bus.addListener((AnvilUpdateEvent e) -> {
 			if (SpellbindingClothItem.shouldDenyAnvil(e.getLeft(), e.getRight())) {
 				e.setCanceled(true);
-			}
-		});
-		// FabricMixinAxeItem
-		bus.addListener((BlockEvent.BlockToolModificationEvent e) -> {
-			if (e.getItemAbility() == ItemAbilities.AXE_STRIP) {
-				BlockState input = e.getState();
-				Block output = NeoForgeXplatImpl.CUSTOM_STRIPPABLES.get(input.getBlock());
-				if (output != null) {
-					e.setFinalState(output.withPropertiesOf(input));
-				}
 			}
 		});
 		// FabricMixinEnderMan

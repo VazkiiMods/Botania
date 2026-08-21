@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-15T16:00:21.311686951	Botania/Tags for minecraft:item
+// 1.21.1	2026-08-21T19:02:19.095654587	Botania/Tags for minecraft:item
 665aee3cc41d8f1e66408e198692f4ebec572aba data/botania/tags/item/all_mana_pools.json
 2b5505ddf6b15ea500a714fd10bc4ec05fa3eef5 data/botania/tags/item/ancient_wills.json
 9c05adc2a63d8b6a2636d766d8858160e1308c25 data/botania/tags/item/burst_viewers.json
@@ -70,6 +70,7 @@ f9cbec686df06a01e62d90f653c978deb25369f9 data/botania/tags/item/special_flowers.
 347d7db9633b91359c616fd62d97385b7de8bc73 data/botania/tags/item/tool_placeable/axe.json
 d81233d08961fa958029849ef6b97e84ef74769e data/botania/tags/item/tool_placeable/pickaxe.json
 c23ad2f264eacf9d5cf691d47aef8e4c5f2b0be3 data/botania/tags/item/undims_floating_flowers.json
+8a495611671de617430656c132cf70a0dc9d57f6 data/botania/tags/item/wooden_walls.json
 8d6337f7d60553cf4fed78628e04f0b1d81102bb data/minecraft/tags/item/axes.json
 650b856880292b1dd224f572067b4b85f1f03418 data/minecraft/tags/item/beacon_payment_items.json
 4c3284b2cd4a883c8faf89b9e6b40324557148de data/minecraft/tags/item/bookshelf_books.json

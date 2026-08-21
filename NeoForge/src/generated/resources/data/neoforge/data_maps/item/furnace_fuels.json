@@ -1,0 +1,19 @@
+{
+  "values": {
+    "#botania:wooden_walls": {
+      "burn_time": 300
+    },
+    "botania:blaze_mesh": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:not",
+          "value": {
+            "type": "neoforge:mod_loaded",
+            "modid": "gardenofglass"
+          }
+        }
+      ],
+      "burn_time": 24000
+    }
+  }
+}

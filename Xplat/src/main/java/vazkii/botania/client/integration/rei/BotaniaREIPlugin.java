@@ -44,12 +44,12 @@ import vazkii.botania.api.recipe.*;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.handler.AxeStrippingData;
 import vazkii.botania.common.item.AncientWillItem;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -160,8 +160,8 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				TerrestrialAgglomerationREIDisplay::new);
 
 		try {
-			for (var entry : XplatAbstractions.instance().getCustomStrippables().entrySet()) {
-				registry.add(new DefaultStrippingDisplay(EntryStacks.of(entry.getKey()), EntryStacks.of(entry.getValue())));
+			for (var block : AxeStrippingData.getCustomStrippables()) {
+				registry.add(new DefaultStrippingDisplay(EntryStacks.of(block), EntryStacks.of(AxeStrippingData.getCustomStrippable(block))));
 			}
 		} catch (Exception e) {
 			BotaniaAPI.LOGGER.error("Error adding strippable entry to REI", e);

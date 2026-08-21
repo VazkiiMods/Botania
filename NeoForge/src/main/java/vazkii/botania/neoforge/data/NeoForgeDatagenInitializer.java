@@ -42,6 +42,7 @@ import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.neoforge.data.gog.GogBlockLootSubProvider;
 import vazkii.botania.neoforge.data.gog.GogBlockTagsProvider;
 import vazkii.botania.neoforge.data.gog.GogBlockUseLootProvider;
+import vazkii.botania.neoforge.data.gog.GogDataMapsProvider;
 import vazkii.botania.neoforge.data.gog.GogGlobalLootModifierProvider;
 import vazkii.botania.neoforge.data.gog.GogRecipeProvider;
 import vazkii.botania.neoforge.data.gog.GogSoundDefinitionProvider;
@@ -87,6 +88,7 @@ public class NeoForgeDatagenInitializer {
 		evt.createDatapackRegistryObjects(addBiomeModifiers());
 		evt.createProvider(BotaniaCuriosDataProvider::new);
 		evt.createProvider(BotaniaGlobalLootModifierProvider::new);
+		evt.createProvider(BotaniaDataMapsProvider::new);
 	}
 
 	private static void configureGogDatagen(GatherDataEvent evt) {
@@ -100,6 +102,7 @@ public class NeoForgeDatagenInitializer {
 				new LootTableProvider.SubProviderEntry(GogBlockLootSubProvider::new, LootContextParamSets.BLOCK)
 		), evt.getLookupProvider()));
 		evt.addProvider(new GogSoundDefinitionProvider(evt.getGenerator().getPackOutput(), evt.getExistingFileHelper()));
+		evt.createProvider(GogDataMapsProvider::new);
 	}
 
 	private static RegistrySetBuilder addBiomeModifiers() {

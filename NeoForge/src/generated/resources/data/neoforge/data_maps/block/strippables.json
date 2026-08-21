@@ -1,0 +1,46 @@
+{
+  "values": {
+    "botania:dreamwood": {
+      "stripped_block": "botania:stripped_dreamwood"
+    },
+    "botania:dreamwood_log": {
+      "stripped_block": "botania:stripped_dreamwood_log"
+    },
+    "botania:dreamwood_slab": {
+      "stripped_block": "botania:stripped_dreamwood_slab"
+    },
+    "botania:dreamwood_stairs": {
+      "stripped_block": "botania:stripped_dreamwood_stairs"
+    },
+    "botania:dreamwood_wall": {
+      "stripped_block": "botania:stripped_dreamwood_wall"
+    },
+    "botania:glimmering_dreamwood": {
+      "stripped_block": "botania:glimmering_stripped_dreamwood"
+    },
+    "botania:glimmering_dreamwood_log": {
+      "stripped_block": "botania:glimmering_stripped_dreamwood_log"
+    },
+    "botania:glimmering_livingwood": {
+      "stripped_block": "botania:glimmering_stripped_livingwood"
+    },
+    "botania:glimmering_livingwood_log": {
+      "stripped_block": "botania:glimmering_stripped_livingwood_log"
+    },
+    "botania:livingwood": {
+      "stripped_block": "botania:stripped_livingwood"
+    },
+    "botania:livingwood_log": {
+      "stripped_block": "botania:stripped_livingwood_log"
+    },
+    "botania:livingwood_slab": {
+      "stripped_block": "botania:stripped_livingwood_slab"
+    },
+    "botania:livingwood_stairs": {
+      "stripped_block": "botania:stripped_livingwood_stairs"
+    },
+    "botania:livingwood_wall": {
+      "stripped_block": "botania:stripped_livingwood_wall"
+    }
+  }
+}

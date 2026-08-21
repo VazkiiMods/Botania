@@ -54,7 +54,6 @@ import vazkii.botania.common.item.block.DecayableSpecialFlowerBlockItem;
 import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -3310,23 +3309,22 @@ public final class BotaniaBlocks {
 		SeedBehaviors.init();
 	}
 
-	public static void addAxeStripping() {
-		XplatAbstractions xplat = XplatAbstractions.INSTANCE;
-		xplat.addAxeStripping(LIVINGWOOD_LOG, STRIPPED_LIVINGWOOD_LOG);
-		xplat.addAxeStripping(GLIMMERING_LIVINGWOOD_LOG, STRIPPED_GLIMMERING_LIVINGWOOD_LOG);
-		xplat.addAxeStripping(LIVINGWOOD, STRIPPED_LIVINGWOOD);
-		xplat.addAxeStripping(GLIMMERING_LIVINGWOOD, STRIPPED_GLIMMERING_LIVINGWOOD);
-		xplat.addAxeStripping(DREAMWOOD_LOG, STRIPPED_DREAMWOOD_LOG);
-		xplat.addAxeStripping(GLIMMERING_DREAMWOOD_LOG, STRIPPED_GLIMMERING_DREAMWOOD_LOG);
-		xplat.addAxeStripping(DREAMWOOD, STRIPPED_DREAMWOOD);
-		xplat.addAxeStripping(GLIMMERING_DREAMWOOD, STRIPPED_GLIMMERING_DREAMWOOD);
+	public static void addAxeStripping(BiConsumer<Block, Block> registrationMethod) {
+		registrationMethod.accept(LIVINGWOOD_LOG, STRIPPED_LIVINGWOOD_LOG);
+		registrationMethod.accept(GLIMMERING_LIVINGWOOD_LOG, STRIPPED_GLIMMERING_LIVINGWOOD_LOG);
+		registrationMethod.accept(LIVINGWOOD, STRIPPED_LIVINGWOOD);
+		registrationMethod.accept(GLIMMERING_LIVINGWOOD, STRIPPED_GLIMMERING_LIVINGWOOD);
+		registrationMethod.accept(DREAMWOOD_LOG, STRIPPED_DREAMWOOD_LOG);
+		registrationMethod.accept(GLIMMERING_DREAMWOOD_LOG, STRIPPED_GLIMMERING_DREAMWOOD_LOG);
+		registrationMethod.accept(DREAMWOOD, STRIPPED_DREAMWOOD);
+		registrationMethod.accept(GLIMMERING_DREAMWOOD, STRIPPED_GLIMMERING_DREAMWOOD);
 
-		xplat.addAxeStripping(LIVINGWOOD_STAIRS, STRIPPED_LIVINGWOOD_STAIRS);
-		xplat.addAxeStripping(LIVINGWOOD_SLAB, STRIPPED_LIVINGWOOD_SLAB);
-		xplat.addAxeStripping(LIVINGWOOD_WALL, STRIPPED_LIVINGWOOD_WALL);
-		xplat.addAxeStripping(DREAMWOOD_STAIRS, STRIPPED_DREAMWOOD_STAIRS);
-		xplat.addAxeStripping(DREAMWOOD_SLAB, STRIPPED_DREAMWOOD_SLAB);
-		xplat.addAxeStripping(DREAMWOOD_WALL, STRIPPED_DREAMWOOD_WALL);
+		registrationMethod.accept(LIVINGWOOD_STAIRS, STRIPPED_LIVINGWOOD_STAIRS);
+		registrationMethod.accept(LIVINGWOOD_SLAB, STRIPPED_LIVINGWOOD_SLAB);
+		registrationMethod.accept(LIVINGWOOD_WALL, STRIPPED_LIVINGWOOD_WALL);
+		registrationMethod.accept(DREAMWOOD_STAIRS, STRIPPED_DREAMWOOD_STAIRS);
+		registrationMethod.accept(DREAMWOOD_SLAB, STRIPPED_DREAMWOOD_SLAB);
+		registrationMethod.accept(DREAMWOOD_WALL, STRIPPED_DREAMWOOD_WALL);
 	}
 
 	public static Block getMysticalFlower(DyeColor color) {

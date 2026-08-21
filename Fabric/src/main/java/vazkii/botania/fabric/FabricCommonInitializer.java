@@ -36,6 +36,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicR
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlattenableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -62,6 +63,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
@@ -210,7 +212,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaBlockEntities.registerAdditionalBlocks(BlockEntityType::addSupportedBlock);
 		BotaniaItems.registerItems(boundForItem);
 		BotaniaBlocks.addDispenserBehaviours();
-		BotaniaBlocks.addAxeStripping();
+		BotaniaBlocks.addAxeStripping(this::registerAxeStripping);
 		BotaniaItems.registerCauldronInteractions();
 		for (Block b : List.of(BotaniaBlocks.DRY_GRASS_BLOCK, BotaniaBlocks.GOLDEN_GRASS_BLOCK,
 				BotaniaBlocks.VIVID_GRASS_BLOCK, BotaniaBlocks.SCORCHED_GRASS_BLOCK,
@@ -224,6 +226,8 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		int blazeTime = 2400;
 		FuelRegistry.INSTANCE.add(BotaniaBlocks.BLAZE_MESH.asItem(), blazeTime * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
+		int wallTime = 300;
+		FuelRegistry.INSTANCE.add(BotaniaTags.Items.WOODEN_WALLS, wallTime);
 
 		// GUI and Recipe
 		BotaniaItems.registerMenuTypes(bind(BuiltInRegistries.MENU));
@@ -286,6 +290,16 @@ public class FabricCommonInitializer implements ModInitializer {
 						}
 					}
 				});
+	}
+
+	private void registerAxeStripping(Block input, Block output) {
+		// not sure why Fabric restricts it to blocks with the axis property, but we have to support non-log blocks
+		if (input.getStateDefinition().getProperties().contains(BlockStateProperties.AXIS)
+				&& output.getStateDefinition().getProperties().contains(BlockStateProperties.AXIS)) {
+			StrippableBlockRegistry.register(input, output);
+		} else {
+			AxeStrippingData.addCustomStrippable(input, output);
+		}
 	}
 
 	private void registerEvents() {

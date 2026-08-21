@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-17T21:14:53.68954516	Botania/Tags for minecraft:block
+// 1.21.1	2026-08-21T19:02:19.099463348	Botania/Tags for minecraft:block
 7a68ff158ad853180a69e6a2276ae92648e36622 data/botania/tags/block/agricarnation/apply_bonemeal.json
 4e644771038ec0475ee832ba6109d8c859afb562 data/botania/tags/block/agricarnation/growth_candidate.json
 d4ccdd52d950205105f63938b548d92c42dd1761 data/botania/tags/block/agricarnation/growth_excluded.json
@@ -63,6 +63,7 @@ b2fa3d698e295620056cd88eb6225ad1b2da6238 data/botania/tags/block/unethical_tnt_c
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/block/unsupported_platform_disguise.json
 fe541fc12bc978f6f71844ecddde271e0ab25390 data/botania/tags/block/unwandable.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/botania/tags/block/weight_lens_affected.json
+8a495611671de617430656c132cf70a0dc9d57f6 data/botania/tags/block/wooden_walls.json
 adaca5770638de00a54b51b571726f4734e24671 data/minecraft/tags/block/beacon_base_blocks.json
 b2234cf7c7af048555dd21babd3321b908ed6686 data/minecraft/tags/block/ceiling_hanging_signs.json
 457fba9cf6e125f19c4ab3bb9dfe8691cc2ca548 data/minecraft/tags/block/climbable.json

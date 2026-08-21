@@ -146,6 +146,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				BotaniaItems.MANA_DIAMOND, BotaniaItems.DRAGONSTONE);
 
 		this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
+		this.copy(BotaniaTags.Blocks.WOODEN_WALLS, BotaniaTags.Items.WOODEN_WALLS);
 		this.copy(BotaniaTags.Blocks.LIVINGWOOD_LOGS, BotaniaTags.Items.LIVINGWOOD_LOGS);
 		this.copy(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, BotaniaTags.Items.LIVINGWOOD_LOGS_GLIMMERING);
 		this.copy(BotaniaTags.Blocks.DREAMWOOD_LOGS, BotaniaTags.Items.DREAMWOOD_LOGS);

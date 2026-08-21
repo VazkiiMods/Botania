@@ -1,0 +1,328 @@
+{
+  "values": {
+    "botania:black_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:black_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:black_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:black_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:black_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:blue_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:blue_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:blue_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:blue_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:blue_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:brown_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:brown_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:brown_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:brown_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:brown_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:cellular_block": {
+      "can_villager_compost": true,
+      "chance": 0.85
+    },
+    "botania:cyan_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:cyan_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:cyan_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:cyan_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:cyan_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:gray_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:gray_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:gray_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:gray_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:gray_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:green_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:green_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:green_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:green_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:green_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:light_blue_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:light_blue_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:light_blue_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:light_blue_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:light_blue_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:light_gray_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:light_gray_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:light_gray_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:light_gray_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:light_gray_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:lime_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:lime_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:lime_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:lime_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:lime_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:magenta_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:magenta_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:magenta_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:magenta_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:magenta_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:orange_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:orange_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:orange_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:orange_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:orange_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:pink_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:pink_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:pink_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:pink_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:pink_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:purple_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:purple_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:purple_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:purple_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:purple_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:red_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:red_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:red_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:red_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:red_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:white_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:white_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:white_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:white_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:white_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:yellow_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:yellow_mystical_petal": {
+      "can_villager_compost": true,
+      "chance": 0.3
+    },
+    "botania:yellow_petal_block": {
+      "can_villager_compost": true,
+      "chance": 0.5
+    },
+    "botania:yellow_shimmering_mushroom": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    },
+    "botania:yellow_tall_mystical_flower": {
+      "can_villager_compost": true,
+      "chance": 0.65
+    }
+  }
+}

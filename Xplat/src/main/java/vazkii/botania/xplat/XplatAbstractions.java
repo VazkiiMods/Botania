@@ -42,7 +42,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -72,7 +71,6 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlo
 import vazkii.botania.common.handler.EquipmentHandler;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 import static vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
@@ -169,8 +167,6 @@ public interface XplatAbstractions {
 	Fluid getBucketFluid(BucketItem item);
 	int getSmeltingBurnTime(ItemStack stack);
 	boolean preventsRemoteMovement(ItemEntity entity);
-	void addAxeStripping(Block input, Block output);
-	Map<Block, Block> getCustomStrippables();
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
 	@Nullable
 	FoodProperties getFoodProperties(ItemStack stack);

@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.fabric.xplat.FabricXplatImpl;
+import vazkii.botania.common.handler.AxeStrippingData;
 
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ public class AxeItemFabricMixin {
 	@Inject(method = "getStripped", at = @At("RETURN"), cancellable = true)
 	private void stripBlocksWithoutAxis(BlockState state, CallbackInfoReturnable<Optional<BlockState>> cir) {
 		if (cir.getReturnValue().isEmpty()) {
-			Block block = FabricXplatImpl.CUSTOM_STRIPPING.get(state.getBlock());
+			Block block = AxeStrippingData.getCustomStrippable(state.getBlock());
 			if (block != null) {
 				cir.setReturnValue(Optional.of(block.withPropertiesOf(state)));
 			}
