@@ -215,22 +215,16 @@ public class ManaMirrorItem extends Item {
 
 	}
 
-	public static class CoordBoundItemImpl implements CoordBoundItem {
-		private final ItemStack stack;
-
-		public CoordBoundItemImpl(ItemStack stack) {
-			this.stack = stack;
-		}
-
+	public record CoordBoundItemImpl(ItemStack stack, Level level) implements CoordBoundItem {
 		@Nullable
 		@Override
-		public BlockPos getBinding(Level world) {
+		public BlockPos getBinding() {
 			GlobalPos pos = getBoundPos(stack);
 			if (pos == null) {
 				return null;
 			}
 
-			if (pos.dimension() == world.dimension()) {
+			if (pos.dimension() == level.dimension()) {
 				return pos.pos();
 			}
 

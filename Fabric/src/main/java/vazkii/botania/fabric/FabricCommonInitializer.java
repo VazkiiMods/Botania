@@ -60,6 +60,7 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -370,11 +371,11 @@ public class FabricCommonInitializer implements ModInitializer {
 		blockProviderItemLookup.registerForItems(DepthsRodItem.BlockProviderImpl::new, BotaniaItems.ROD_OF_THE_DEPTHS);
 		blockProviderItemLookup.registerForItems(EnderHandItem.BlockProviderImpl::new, BotaniaItems.HAND_OF_ENDER);
 
-		ItemApiLookup<CoordBoundItem, Unit> coordBoundItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP);
-		coordBoundItemLookup.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.EYE_OF_THE_FLUGEL);
-		coordBoundItemLookup.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.MANA_MIRROR);
-		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_FOREST);
-		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_ELVEN_FOREST);
+		ItemApiLookup<CoordBoundItem, Level> coordBoundItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP);
+		coordBoundItemLookup.registerForItems(EyeOfTheFlugelItem.CoordBoundItemImpl::new, BotaniaItems.EYE_OF_THE_FLUGEL);
+		coordBoundItemLookup.registerForItems(ManaMirrorItem.CoordBoundItemImpl::new, BotaniaItems.MANA_MIRROR);
+		coordBoundItemLookup.registerForItems(WandOfTheForestItem.CoordBoundItemImpl::new, BotaniaItems.WAND_OF_THE_FOREST);
+		coordBoundItemLookup.registerForItems(WandOfTheForestItem.CoordBoundItemImpl::new, BotaniaItems.WAND_OF_THE_ELVEN_FOREST);
 
 		ItemApiLookup<HourglassMaterial, Unit> hourglassMaterialLookup = BotaniaFabricCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP);
 		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.SAND, Items.SAND);

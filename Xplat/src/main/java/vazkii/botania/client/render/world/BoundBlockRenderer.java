@@ -63,9 +63,9 @@ public final class BoundBlockRenderer {
 		int color = FastColor.ARGB32.opaque(Mth.hsvToRgb((ClientTickHandler.getEntityTicksInGame() + partialTick) % 200 / 200F, 0.6F, 1F));
 
 		if (!player.getMainHandItem().isEmpty()) {
-			var coordBoundItem = CoordBoundItem.LOOKUP.find(player.getMainHandItem());
+			var coordBoundItem = CoordBoundItem.LOOKUP.find(player.getMainHandItem(), player.level());
 			if (coordBoundItem != null) {
-				BlockPos coords = coordBoundItem.getBinding(player.level());
+				BlockPos coords = coordBoundItem.getBinding();
 				if (coords != null) {
 					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level(), coords, color);
 				}
@@ -73,9 +73,9 @@ public final class BoundBlockRenderer {
 		}
 
 		if (!player.getOffhandItem().isEmpty()) {
-			var coordBoundItem = CoordBoundItem.LOOKUP.find(player.getOffhandItem());
+			var coordBoundItem = CoordBoundItem.LOOKUP.find(player.getOffhandItem(), player.level());
 			if (coordBoundItem != null) {
-				BlockPos coords = coordBoundItem.getBinding(player.level());
+				BlockPos coords = coordBoundItem.getBinding();
 				if (coords != null) {
 					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level(), coords, color);
 				}

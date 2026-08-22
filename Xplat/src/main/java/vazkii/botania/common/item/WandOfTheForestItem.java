@@ -14,7 +14,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -66,7 +69,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 	private static boolean tryCompleteBinding(Level level, Player player, ItemStack wand, GlobalPos src, BlockPos target, Direction targetSide) {
 		if (!target.equals(src.pos()) && src.dimension().equals(level.dimension())) {
 			Optional<Direction> srcSide = getBindingSide(wand);
-			setBindingAttempt(wand, null, null);
+			setBindingAttempt(wand, null, null, null);
 
 			WandBindable bindable = WandBindable.LOOKUP.find(level, src.pos(), srcSide.orElse(null));
 			if (bindable != null) {
@@ -105,9 +108,9 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 				if (bindable != null && bindable.canSelect(player, stack, side)) {
 					GlobalPos globalPos = GlobalPos.of(world.dimension(), pos);
 					if (boundPos.filter(globalPos::equals).isPresent()) {
-						setBindingAttempt(stack, null, null);
+						setBindingAttempt(stack, null, null, null);
 					} else {
-						setBindingAttempt(stack, globalPos, side);
+						setBindingAttempt(stack, globalPos, side, state.getBlock());
 					}
 
 					if (world.isClientSide) {
@@ -178,7 +181,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		getBindingAttempt(stack).ifPresent(pos -> {
 			if (!pos.dimension().equals(world.dimension())
 					|| WandBindable.LOOKUP.find(world, pos.pos(), getBindingSide(stack).orElse(null)) == null) {
-				setBindingAttempt(stack, null, null);
+				setBindingAttempt(stack, null, null, null);
 			}
 		});
 	}
@@ -226,7 +229,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 	@Override
 	public Component getName(ItemStack stack) {
-		Component mode = Component.translatable(getModeString(stack)).withStyle(modeChatFormatting);
+		Component mode = getModeText(stack).withStyle(modeChatFormatting);
 		Component name = super.getName(stack);
 		return Component.translatable("botaniamisc.template.parenthesis_suffix", name, mode).withStyle(name.getStyle());
 	}
@@ -246,9 +249,11 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return stack.getOrDefault(BotaniaDataComponents.WAND_COLOR2, DyeColor.WHITE);
 	}
 
-	public static void setBindingAttempt(ItemStack stack, @Nullable GlobalPos pos, @Nullable Direction side) {
+	public static void setBindingAttempt(ItemStack stack, @Nullable GlobalPos pos, @Nullable Direction side, @Nullable Block block) {
 		DataComponentHelper.setOptional(stack, BotaniaDataComponents.BINDING_POS, pos);
 		DataComponentHelper.setOptional(stack, BotaniaDataComponents.BINDING_SIDE, side);
+		DataComponentHelper.setOptional(stack, BotaniaDataComponents.BLOCK_TYPE,
+				block != null ? BuiltInRegistries.BLOCK.getKey(block) : null);
 	}
 
 	public static Optional<GlobalPos> getBindingAttempt(ItemStack stack) {
@@ -259,36 +264,47 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return Optional.ofNullable(stack.get(BotaniaDataComponents.BINDING_SIDE));
 	}
 
+	public static Optional<Block> getBindingBlock(ItemStack stack) {
+		ResourceLocation resourceLocation = stack.get(BotaniaDataComponents.BLOCK_TYPE);
+		return resourceLocation != null ? BuiltInRegistries.BLOCK.getOptional(resourceLocation) : Optional.empty();
+	}
+
 	public static boolean getBindMode(ItemStack stack) {
 		return stack.has(BotaniaDataComponents.WAND_BIND_MODE);
 	}
 
 	public static void setBindMode(ItemStack stack, boolean bindMode) {
-		DataComponentHelper.setFlag(stack, BotaniaDataComponents.WAND_BIND_MODE, bindMode);
+		if (!bindMode && getBindingAttempt(stack).isPresent()) {
+			setBindingAttempt(stack, null, null, null);
+		} else {
+			DataComponentHelper.setFlag(stack, BotaniaDataComponents.WAND_BIND_MODE, bindMode);
+		}
 	}
 
-	public static String getModeString(ItemStack stack) {
-		return "botaniamisc.wandMode." + (getBindMode(stack) ? "bind" : "function");
-	}
-
-	public static class CoordBoundItemImpl implements CoordBoundItem {
-		private final ItemStack stack;
-
-		public CoordBoundItemImpl(ItemStack stack) {
-			this.stack = stack;
+	public static MutableComponent getModeText(ItemStack stack) {
+		Optional<Block> bindingBlock = getBindingBlock(stack);
+		if (bindingBlock.isPresent()) {
+			return Component.translatable("botaniamisc.wandMode.binding", bindingBlock.get().getName());
 		}
 
+		if (getBindMode(stack)) {
+			return Component.translatable("botaniamisc.wandMode.bind");
+		}
+		return Component.translatable("botaniamisc.wandMode.function");
+	}
+
+	public record CoordBoundItemImpl(ItemStack stack, Level level) implements CoordBoundItem {
 		@Nullable
 		@Override
-		public BlockPos getBinding(Level world) {
+		public BlockPos getBinding() {
 			Optional<GlobalPos> bound = getBindingAttempt(stack);
-			if (bound.isPresent() && bound.get().dimension().equals(world.dimension())) {
+			if (bound.isPresent() && bound.get().dimension().equals(level.dimension())) {
 				return bound.get().pos();
 			}
 
 			var pos = ClientProxy.INSTANCE.getClientHit();
 			if (pos instanceof BlockHitResult bHit && pos.getType() == HitResult.Type.BLOCK
-					&& world.getBlockEntity(bHit.getBlockPos()) instanceof Bound boundTile) {
+					&& level.getBlockEntity(bHit.getBlockPos()) instanceof Bound boundTile) {
 				return boundTile.getBinding();
 			}
 

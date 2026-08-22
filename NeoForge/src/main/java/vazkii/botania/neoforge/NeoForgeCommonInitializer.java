@@ -34,6 +34,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -478,7 +479,7 @@ public class NeoForgeCommonInitializer {
 			BotaniaItems.ROD_OF_THE_TERRA_FIRMA, LandsRodItem.BlockProviderImpl::new
 	));
 
-	private static final Supplier<Map<Item, Function<ItemStack, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
+	private static final Supplier<Map<Item, BiFunction<ItemStack, Level, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
 			BotaniaItems.EYE_OF_THE_FLUGEL, EyeOfTheFlugelItem.CoordBoundItemImpl::new,
 			BotaniaItems.MANA_MIRROR, ManaMirrorItem.CoordBoundItemImpl::new,
 			BotaniaItems.WAND_OF_THE_FOREST, WandOfTheForestItem.CoordBoundItemImpl::new,
@@ -538,7 +539,7 @@ public class NeoForgeCommonInitializer {
 
 		attachMappedItemCapsWithContext(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
 		attachMappedItemCapsWithContext(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
-		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
+		attachMappedItemCapsWithContext(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
 		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP), HOURGLASS_MATERIAL.get());
 		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(ManaItem.LOOKUP), MANA_ITEM.get());
 		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(Relic.LOOKUP), RELIC.get());

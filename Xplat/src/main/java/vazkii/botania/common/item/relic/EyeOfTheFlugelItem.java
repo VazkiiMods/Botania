@@ -163,17 +163,12 @@ public class EyeOfTheFlugelItem extends RelicItem {
 		return UseAnim.BOW;
 	}
 
-	public static class CoordBoundItemImpl implements CoordBoundItem {
-		private final ItemStack stack;
-
-		public CoordBoundItemImpl(ItemStack stack) {
-			this.stack = stack;
-		}
+	public record CoordBoundItemImpl(ItemStack stack, Level level) implements CoordBoundItem {
 
 		@Nullable
 		@Override
-		public BlockPos getBinding(Level world) {
-			return getBoundPosInDimension(stack, world);
+		public BlockPos getBinding() {
+			return getBoundPosInDimension(stack, level);
 		}
 	}
 

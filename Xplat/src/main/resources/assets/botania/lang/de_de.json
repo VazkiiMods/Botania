@@ -54,6 +54,7 @@
   "botaniamisc.dropTip3": "aus deinem Inventar fallenzulassen",
   "botaniamisc.dropTip1": "Strg+%s lässt einen ganzen Stapel fallen",
   "botaniamisc.wandMode.bind": "Bindemodus",
+  "botaniamisc.wandMode.binding": "Binde: %s",
   "botaniamisc.wandMode.function": "Funktionsmodus",
   "botaniamisc.sextantMode.circle": "Horizontaler Kreis",
   "botaniamisc.sextantMode.circle_x": "Vertikaler Kreis Ost/West",

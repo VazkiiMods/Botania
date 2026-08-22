@@ -54,6 +54,7 @@
   "botaniamisc.dropTip3": "items from your inventory",
   "botaniamisc.dropTip1": "CTRL-%s will drop a full stack",
   "botaniamisc.wandMode.bind": "Bind Mode",
+  "botaniamisc.wandMode.binding": "Binding: %s",
   "botaniamisc.wandMode.function": "Function Mode",
   "botaniamisc.sextantMode.circle": "Horizontal Circle",
   "botaniamisc.sextantMode.circle_x": "Vertical Circle East/West",
