@@ -469,13 +469,13 @@ public class NeoForgeCommonInitializer {
 			BotaniaItems.ROD_OF_THE_SKIES, SkiesRodItem.AvatarBehavior::new
 	));
 
-	private static final Supplier<Map<Item, Function<ItemStack, BlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.ROD_OF_THE_LANDS, s -> new LandsRodItem.BlockProviderImpl(),
-			BotaniaItems.ROD_OF_THE_HIGHLANDS, s -> new LandsRodItem.BlockProviderImpl(),
+	private static final Supplier<Map<Item, BiFunction<ItemStack, Player, BlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
+			BotaniaItems.ROD_OF_THE_LANDS, LandsRodItem.BlockProviderImpl::new,
+			BotaniaItems.ROD_OF_THE_HIGHLANDS, LandsRodItem.BlockProviderImpl::new,
 			BotaniaItems.BLACK_HOLE_TALISMAN, BlackHoleTalismanItem.BlockProviderImpl::new,
-			BotaniaItems.ROD_OF_THE_DEPTHS, s -> new DepthsRodItem.BlockProviderImpl(),
+			BotaniaItems.ROD_OF_THE_DEPTHS, DepthsRodItem.BlockProviderImpl::new,
 			BotaniaItems.HAND_OF_ENDER, EnderHandItem.BlockProviderImpl::new,
-			BotaniaItems.ROD_OF_THE_TERRA_FIRMA, s -> new LandsRodItem.BlockProviderImpl()
+			BotaniaItems.ROD_OF_THE_TERRA_FIRMA, LandsRodItem.BlockProviderImpl::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
@@ -537,7 +537,7 @@ public class NeoForgeCommonInitializer {
 		);
 
 		attachMappedItemCapsWithContext(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
-		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
+		attachMappedItemCapsWithContext(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
 		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
 		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP), HOURGLASS_MATERIAL.get());
 		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(ManaItem.LOOKUP), MANA_ITEM.get());

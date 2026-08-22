@@ -57,6 +57,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
@@ -361,13 +362,13 @@ public class FabricCommonInitializer implements ModInitializer {
 		avatarWieldableItemLookup.registerForItems(BifrostRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_BIFROST);
 		avatarWieldableItemLookup.registerForItems(SkiesRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_SKIES);
 
-		ItemApiLookup<BlockProvider, Unit> blockProviderItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(BlockProvider.LOOKUP);
-		blockProviderItemLookup.registerForItems((stack, c) -> new LandsRodItem.BlockProviderImpl(),
+		ItemApiLookup<BlockProvider, Player> blockProviderItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(BlockProvider.LOOKUP);
+		blockProviderItemLookup.registerForItems(LandsRodItem.BlockProviderImpl::new,
 				BotaniaItems.ROD_OF_THE_LANDS, BotaniaItems.ROD_OF_THE_HIGHLANDS, BotaniaItems.ROD_OF_THE_TERRA_FIRMA
 		);
-		blockProviderItemLookup.registerForItems((stack, c) -> new BlackHoleTalismanItem.BlockProviderImpl(stack), BotaniaItems.BLACK_HOLE_TALISMAN);
-		blockProviderItemLookup.registerForItems((stack, c) -> new DepthsRodItem.BlockProviderImpl(), BotaniaItems.ROD_OF_THE_DEPTHS);
-		blockProviderItemLookup.registerForItems((stack, c) -> new EnderHandItem.BlockProviderImpl(stack), BotaniaItems.HAND_OF_ENDER);
+		blockProviderItemLookup.registerForItems(BlackHoleTalismanItem.BlockProviderImpl::new, BotaniaItems.BLACK_HOLE_TALISMAN);
+		blockProviderItemLookup.registerForItems(DepthsRodItem.BlockProviderImpl::new, BotaniaItems.ROD_OF_THE_DEPTHS);
+		blockProviderItemLookup.registerForItems(EnderHandItem.BlockProviderImpl::new, BotaniaItems.HAND_OF_ENDER);
 
 		ItemApiLookup<CoordBoundItem, Unit> coordBoundItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP);
 		coordBoundItemLookup.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.EYE_OF_THE_FLUGEL);

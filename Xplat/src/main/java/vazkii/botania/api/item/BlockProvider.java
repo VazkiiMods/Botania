@@ -10,12 +10,11 @@ package vazkii.botania.api.item;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.capability.ItemApiNoContext;
+import vazkii.botania.api.capability.ItemApiWithContext;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -29,7 +28,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public interface BlockProvider {
 
 	ResourceLocation ID = botaniaRL("block_provider");
-	ItemApiNoContext<BlockProvider> LOOKUP = new ItemApiNoContext<>(ID, BlockProvider.class);
+	ItemApiWithContext<BlockProvider, Player> LOOKUP = new ItemApiWithContext<>(ID, BlockProvider.class, Player.class);
 
 	/**
 	 * Provides the requested item. The doit paremeter specifies whether this is
@@ -37,7 +36,7 @@ public interface BlockProvider {
 	 * If you need to use calls to ManaItemHandler.requestMana[Exact], use
 	 * the requestor as the ItemStack passed in.
 	 */
-	boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit);
+	boolean provideBlock(Block block, boolean doit);
 
 	/**
 	 * Gets the amount of blocks of the type passed stored in this item. You must
@@ -45,7 +44,7 @@ public interface BlockProvider {
 	 * -1 states that the item can provide infinite of the item passed in (for example,
 	 * the Rod of the Lands would return -1 if the block is dirt).
 	 */
-	int getBlockCount(Player player, ItemStack requestor, Block block);
+	int getBlockCount(Block block);
 
 	/**
 	 * The value returned here may be null, to represent that the block that this provides is not easily
@@ -55,5 +54,5 @@ public interface BlockProvider {
 	 * @return the block that this provides.
 	 */
 	@Nullable
-	Block getProvidedBlock(Player player, ItemStack requestor);
+	Block getProvidedBlock();
 }

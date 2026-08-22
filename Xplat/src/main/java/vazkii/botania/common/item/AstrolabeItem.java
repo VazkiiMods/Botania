@@ -140,7 +140,7 @@ public class AstrolabeItem extends Item {
 			return true;
 		}
 
-		if (providers.stream().noneMatch(prov -> prov.provideBlock(player, requester, blockToPlace, false))) {
+		if (providers.stream().noneMatch(prov -> prov.provideBlock(blockToPlace, false))) {
 			// don't place blocks we don't have (e.g. because mana calculations were inaccurate somehow)
 			return false;
 		}
@@ -150,7 +150,7 @@ public class AstrolabeItem extends Item {
 			return true;
 		}
 		for (BlockProvider prov : providers) {
-			if (prov.provideBlock(player, requester, blockToPlace, true)) {
+			if (prov.provideBlock(blockToPlace, true)) {
 				break;
 			}
 		}
@@ -182,12 +182,12 @@ public class AstrolabeItem extends Item {
 			}
 			if (stackInSlot.is(block.asItem())) {
 				current += stackInSlot.getCount();
-				final var stackProvider = BlockProviderHelper.asBlockProvider(stackInSlot);
+				final var stackProvider = BlockProviderHelper.asBlockProvider(stackInSlot, player);
 				providersToCheck.add(stackProvider);
 			} else {
-				var provider = BlockProvider.LOOKUP.find(stackInSlot);
+				var provider = BlockProvider.LOOKUP.find(stackInSlot, player);
 				if (provider != null) {
-					final int count = provider.getBlockCount(player, requester, block);
+					final int count = provider.getBlockCount(block);
 					if (count != 0) {
 						current += count;
 						providersToCheck.add(provider);

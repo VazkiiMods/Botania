@@ -289,7 +289,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				return ret;
 			}
 
-			var provider = BlockProvider.LOOKUP.find(invStack);
+			var provider = BlockProvider.LOOKUP.find(invStack, player);
 			if (provider != null) {
 				providers.add(provider);
 			}
@@ -298,7 +298,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		if (requested instanceof BlockItem blockItem) {
 			Block block = blockItem.getBlock();
 			for (BlockProvider prov : providers) {
-				if (prov.provideBlock(player, tool, block, doit)) {
+				if (prov.provideBlock(block, doit)) {
 					return new ItemStack(requested);
 				}
 			}
@@ -354,9 +354,9 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				count += invStack.getCount();
 			}
 
-			var prov = BlockProvider.LOOKUP.find(invStack);
+			var prov = BlockProvider.LOOKUP.find(invStack, player);
 			if (prov != null && requested instanceof BlockItem blockItem) {
-				int provCount = prov.getBlockCount(player, stack, blockItem.getBlock());
+				int provCount = prov.getBlockCount(blockItem.getBlock());
 				if (provCount == -1) {
 					return -1;
 				}

@@ -214,15 +214,10 @@ public class BlackHoleTalismanItem extends Item {
 		return stack.getOrDefault(BotaniaDataComponents.BLOCK_COUNT, 0);
 	}
 
-	public static class BlockProviderImpl implements BlockProvider {
-		private final ItemStack stack;
-
-		public BlockProviderImpl(ItemStack stack) {
-			this.stack = stack;
-		}
+	public record BlockProviderImpl(ItemStack stack, Player player) implements BlockProvider {
 
 		@Override
-		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+		public boolean provideBlock(Block block, boolean doit) {
 			Block stored = getBlock(stack);
 			if (stored == block) {
 				int count = BlackHoleTalismanItem.getBlockCount(stack);
@@ -238,7 +233,7 @@ public class BlackHoleTalismanItem extends Item {
 		}
 
 		@Override
-		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+		public int getBlockCount(Block block) {
 			Block stored = getBlock(stack);
 			if (stored == block) {
 				return BlackHoleTalismanItem.getBlockCount(stack);
@@ -247,7 +242,7 @@ public class BlackHoleTalismanItem extends Item {
 		}
 
 		@Override
-		public @Nullable Block getProvidedBlock(Player player, ItemStack requestor) {
+		public @Nullable Block getProvidedBlock() {
 			return getBlock(stack);
 		}
 	}

@@ -53,8 +53,8 @@ public class InventoryMixin {
 			if (!invStack.is(BotaniaTags.Items.PICKABLE_BLOCK_PROVIDER)) {
 				continue;
 			}
-			var provider = BlockProvider.LOOKUP.find(invStack);
-			if (provider != null && provider.provideBlock(this.player, searchStack, block, false)) {
+			var provider = BlockProvider.LOOKUP.find(invStack, this.player);
+			if (provider != null && provider.provideBlock(block, false)) {
 				cir.setReturnValue(i);
 				return;
 			}

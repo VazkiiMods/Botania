@@ -32,22 +32,22 @@ public class DepthsRodItem extends Item {
 		return LandsRodItem.place(ctx, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
 	}
 
-	public static class BlockProviderImpl implements BlockProvider {
+	public record BlockProviderImpl(ItemStack requestor, Player player) implements BlockProvider {
 		@Override
-		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+		public boolean provideBlock(Block block, boolean doit) {
 			return block == Blocks.COBBLESTONE
 					&& ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, doit);
 		}
 
 		@Override
-		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+		public int getBlockCount(Block block) {
 			return block == Blocks.COBBLESTONE
 					? ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST)
 					: 0;
 		}
 
 		@Override
-		public Block getProvidedBlock(Player player, ItemStack requestor) {
+		public Block getProvidedBlock() {
 			return Blocks.COBBLESTONE;
 		}
 	}

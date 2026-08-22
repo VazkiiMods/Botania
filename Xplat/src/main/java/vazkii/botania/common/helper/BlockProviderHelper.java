@@ -19,27 +19,27 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.item.BlockProvider;
 
 public class BlockProviderHelper {
-	public static BlockProvider asBlockProvider(final ItemStack stack) {
-		return new ItemStackBlockProvider(stack);
+	public static BlockProvider asBlockProvider(ItemStack stack, Player player) {
+		return new ItemStackBlockProvider(stack, player);
 	}
 
-	public static BlockProvider asInfiniteBlockProvider(final ItemStack stack) {
+	public static BlockProvider asInfiniteBlockProvider(ItemStack stack) {
 		return new InfiniteItemStackBlockProvider(stack);
 	}
 
-	private record ItemStackBlockProvider(ItemStack stack) implements BlockProvider {
+	private record ItemStackBlockProvider(ItemStack stack, Player player) implements BlockProvider {
 
 		@Override
-		public boolean provideBlock(Player player, ItemStack requester, Block block, boolean doIt) {
+		public boolean provideBlock(Block block, boolean doIt) {
 			final boolean canDo = !stack.isEmpty() && stack.is(block.asItem());
-			if (canDo && doIt && !player.hasInfiniteMaterials()) {
-				stack.shrink(1);
+			if (canDo && doIt) {
+				stack.consume(1, player);
 			}
 			return canDo;
 		}
 
 		@Override
-		public int getBlockCount(Player player, ItemStack requester, Block block) {
+		public int getBlockCount(Block block) {
 			if (!stack.is(block.asItem())) {
 				return 0;
 			}
@@ -48,7 +48,7 @@ public class BlockProviderHelper {
 
 		@Nullable
 		@Override
-		public Block getProvidedBlock(Player player, ItemStack requestor) {
+		public Block getProvidedBlock() {
 			return stack.getItem() instanceof BlockItem blockItem ? blockItem.getBlock() : null;
 		}
 	}
@@ -60,18 +60,18 @@ public class BlockProviderHelper {
 		}
 
 		@Override
-		public boolean provideBlock(Player player, ItemStack requester, Block block, boolean doIt) {
+		public boolean provideBlock(Block block, boolean doIt) {
 			return stack.is(block.asItem());
 		}
 
 		@Override
-		public int getBlockCount(Player player, ItemStack requester, Block block) {
+		public int getBlockCount(Block block) {
 			return stack.is(block.asItem()) ? -1 : 0;
 		}
 
 		@Nullable
 		@Override
-		public Block getProvidedBlock(Player player, ItemStack requestor) {
+		public Block getProvidedBlock() {
 			return stack.getItem() instanceof BlockItem blockItem ? blockItem.getBlock() : null;
 		}
 	}

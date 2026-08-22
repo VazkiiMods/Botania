@@ -81,19 +81,10 @@ public class EnderHandItem extends Item {
 		player.playSound(SoundEvents.ENDER_CHEST_OPEN, 1F, 1F);
 	}
 
-	public static class BlockProviderImpl implements BlockProvider {
-		private final ItemStack stack;
-
-		public BlockProviderImpl(ItemStack stack) {
-			this.stack = stack;
-		}
+	public record BlockProviderImpl(ItemStack stack, Player player) implements BlockProvider {
 
 		@Override
-		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
-			if (!requestor.isEmpty() && requestor.is(stack.getItem())) {
-				return false;
-			}
-
+		public boolean provideBlock(Block block, boolean doit) {
 			ItemStack istack = ShiftingCrustRodItem.removeFromInventory(player, player.getEnderChestInventory(), stack, block.asItem(), false);
 			if (!istack.isEmpty()) {
 				boolean mana = ManaItemHandler.instance().requestManaExact(stack, player, COST_PROVIDE, false);
@@ -111,17 +102,13 @@ public class EnderHandItem extends Item {
 		}
 
 		@Override
-		public int getBlockCount(Player player, ItemStack requestor, Block block) {
-			if (!requestor.isEmpty() && requestor.is(stack.getItem())) {
-				return 0;
-			}
-
+		public int getBlockCount(Block block) {
 			return ShiftingCrustRodItem.getInventoryItemCount(player, player.getEnderChestInventory(), stack, block.asItem());
 		}
 
 		@Nullable
 		@Override
-		public Block getProvidedBlock(Player player, ItemStack requestor) {
+		public Block getProvidedBlock() {
 			return null;
 		}
 	}
