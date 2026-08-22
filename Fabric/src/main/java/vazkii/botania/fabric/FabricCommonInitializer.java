@@ -9,6 +9,7 @@
 package vazkii.botania.fabric;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.datafixers.util.Function3;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -27,7 +28,6 @@ import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
-import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -49,53 +49,36 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Unit;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaRegistries;
-import vazkii.botania.api.block.Avatar;
-import vazkii.botania.api.block.EdibleBlockWithEffects;
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.IslandType;
-import vazkii.botania.api.block.LifeAggregatorCarryable;
-import vazkii.botania.api.block.PhantomInkableBlock;
-import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.fabric.BotaniaFabricCapabilities;
 import vazkii.botania.api.fabric.mana.ManaNetworkCallback;
 import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.HourglassMaterial;
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.api.mana.ManaCollisionGhost;
-import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 import vazkii.botania.api.recipe.StateIngredientType;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.BotaniaCapabilities;
@@ -103,14 +86,10 @@ import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.block_entity.*;
-import vazkii.botania.common.block.block_entity.BlockEntityConstants;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.block_entity.flower.BotaniaIslandTypes;
 import vazkii.botania.common.block.block_entity.flower.functional.TigerseyeBlockEntity;
-import vazkii.botania.common.block.mana.DrumBlock;
-import vazkii.botania.common.block.mana.ManaDetectorBlock;
-import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
@@ -125,7 +104,6 @@ import vazkii.botania.common.handler.*;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
-import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.internal_caps.BotaniaDataAttachments;
 import vazkii.botania.common.internal_caps.ItemSources;
@@ -153,6 +131,8 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -165,6 +145,13 @@ public class FabricCommonInitializer implements ModInitializer {
 			.createDefaulted(BotaniaRegistries.STATE_INGREDIENT_TYPE, StateIngredientType.DEFAULT_ID).buildAndRegister();
 	private static final MappedRegistry<ItemSource> ITEM_SOURCE_REGISTRY = FabricRegistryBuilder
 			.createSimple(BotaniaRegistries.ITEM_SOURCE).buildAndRegister();
+
+	public FabricCommonInitializer() {
+		// This happens before all mod initializations.
+		// These don't involve "real" registries, so doing this here should hopefully be fine.
+		BotaniaCapabilities.registerCapabilityTypes(BotaniaFabricCapabilities.getLookupRegistration());
+		BotaniaDataAttachments.registerDataAttachments(FabricInternalEntityAttachments::register);
+	}
 
 	@Override
 	public void onInitialize() {
@@ -345,9 +332,10 @@ public class FabricCommonInitializer implements ModInitializer {
 			};
 
 	private void registerCapabilities() {
-		BotaniaCapabilities.registerCapabilities(BotaniaFabricCapabilities.getRegistration());
-		BotaniaDataAttachments.registerDataAttachments(FabricInternalEntityAttachments::register);
+		BotaniaCapabilities.registerCapabilityProviders(BotaniaFabricCapabilities.getProviderRegistration());
+		BotaniaCapabilities.registerCapabilityFallbackProviders(BotaniaFabricCapabilities.getProviderRegistration());
 
+		// Fabric-specific implementations
 		FluidStorage.ITEM.registerForItems((stack, context) -> new FullItemFluidStorage(context, Items.BOWL, FluidVariant.of(Fluids.WATER), FluidConstants.BLOCK),
 				BotaniaItems.WATER_BOWL
 		);
@@ -355,135 +343,11 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaItems.EXTRAPOLATED_BUCKET
 		);
 
-		ItemApiLookup<AvatarWieldable, Avatar> avatarWieldableItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP);
-		avatarWieldableItemLookup.registerForItems(LandsRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_LANDS);
-		avatarWieldableItemLookup.registerForItems(PlentifulMantleRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_PLENTIFUL_MANTLE);
-		avatarWieldableItemLookup.registerForItems(HellsRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_HELLS);
-		avatarWieldableItemLookup.registerForItems(UnstableReservoirRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_UNSTABLE_RESERVOIR);
-		avatarWieldableItemLookup.registerForItems(BifrostRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_BIFROST);
-		avatarWieldableItemLookup.registerForItems(SkiesRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_SKIES);
-
-		ItemApiLookup<BlockProvider, Player> blockProviderItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(BlockProvider.LOOKUP);
-		blockProviderItemLookup.registerForItems(LandsRodItem.BlockProviderImpl::new,
-				BotaniaItems.ROD_OF_THE_LANDS, BotaniaItems.ROD_OF_THE_HIGHLANDS, BotaniaItems.ROD_OF_THE_TERRA_FIRMA
-		);
-		blockProviderItemLookup.registerForItems(BlackHoleTalismanItem.BlockProviderImpl::new, BotaniaItems.BLACK_HOLE_TALISMAN);
-		blockProviderItemLookup.registerForItems(DepthsRodItem.BlockProviderImpl::new, BotaniaItems.ROD_OF_THE_DEPTHS);
-		blockProviderItemLookup.registerForItems(EnderHandItem.BlockProviderImpl::new, BotaniaItems.HAND_OF_ENDER);
-
-		ItemApiLookup<CoordBoundItem, Level> coordBoundItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP);
-		coordBoundItemLookup.registerForItems(EyeOfTheFlugelItem.CoordBoundItemImpl::new, BotaniaItems.EYE_OF_THE_FLUGEL);
-		coordBoundItemLookup.registerForItems(ManaMirrorItem.CoordBoundItemImpl::new, BotaniaItems.MANA_MIRROR);
-		coordBoundItemLookup.registerForItems(WandOfTheForestItem.CoordBoundItemImpl::new, BotaniaItems.WAND_OF_THE_FOREST);
-		coordBoundItemLookup.registerForItems(WandOfTheForestItem.CoordBoundItemImpl::new, BotaniaItems.WAND_OF_THE_ELVEN_FOREST);
-
-		ItemApiLookup<HourglassMaterial, Unit> hourglassMaterialLookup = BotaniaFabricCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP);
-		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.SAND, Items.SAND);
-		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.RED_SAND, Items.RED_SAND);
-		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.SOUL_SAND, Items.SOUL_SAND);
-		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.MANA_POWDER, BotaniaItems.MANA_POWDER);
-
-		ItemApiLookup<ManaItem, Unit> manaItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(ManaItem.LOOKUP);
-		manaItemLookup.registerForItems((st, c) -> new DefaultManaItemImpl(st),
-				BotaniaItems.MANA_MIRROR, BotaniaItems.BAND_OF_MANA, BotaniaItems.GREATER_BAND_OF_MANA, BotaniaItems.MANA_TABLET, BotaniaItems.TERRA_SHATTERER
-		);
-
-		ItemApiLookup<Relic, Unit> relicItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(Relic.LOOKUP);
-		relicItemLookup.registerForItems((st, c) -> DiceOfFateItem.makeRelic(st), BotaniaItems.DICE_OF_FATE);
-		relicItemLookup.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), BotaniaItems.EYE_OF_THE_FLUGEL);
-		relicItemLookup.registerForItems((st, c) -> FruitOfGrisaiaItem.makeRelic(st), BotaniaItems.FRUIT_OF_GRISAIA);
-		relicItemLookup.registerForItems((st, c) -> KeyOfTheKingsLawItem.makeRelic(st), BotaniaItems.KEY_OF_THE_KINGS_LAW);
-		relicItemLookup.registerForItems((st, c) -> RingOfLokiItem.makeRelic(st), BotaniaItems.RING_OF_LOKI);
-		relicItemLookup.registerForItems((st, c) -> RingOfOdinItem.makeRelic(st), BotaniaItems.RING_OF_ODIN);
-		relicItemLookup.registerForItems((st, c) -> RingOfThorItem.makeRelic(st), BotaniaItems.RING_OF_THOR);
-
-		BlockApiLookup<EdibleBlockWithEffects, Unit> edibleBlockWithEffectLookup = BotaniaFabricCapabilities.getBlockApiLookupById(EdibleBlockWithEffects.LOOKUP);
-		// these two blocks implement the capability directly
-		edibleBlockWithEffectLookup.registerForBlocks(
-				(world, pos, state, blockEntity, context) -> (EdibleBlockWithEffects) state.getBlock(),
-				BotaniaBlocks.MUTATED_GRASS_BLOCK, BotaniaBlocks.INFUSED_GRASS_BLOCK
-		);
-
-		BlockApiLookup<ExoflameHeatable, Unit> exoflameHeatableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ExoflameHeatable.LOOKUP);
-		exoflameHeatableBlockLookup.registerFallback((world, pos, state, blockEntity, context) -> {
-			if (blockEntity instanceof AbstractFurnaceBlockEntity furnace) {
-				return new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace);
-			}
-			return null;
-		});
-
-		BlockApiLookup<HourglassTrigger, Unit> hourglassTriggerBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(HourglassTrigger.LOOKUP);
-		hourglassTriggerBlockLookup.registerSelf(BotaniaBlockEntities.ANIMATED_TORCH);
-
-		BlockApiLookup<ManaCollisionGhost, Unit> manaCollisionGhostBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ManaCollisionGhost.LOOKUP);
-		manaCollisionGhostBlockLookup.registerForBlocks(
-				(level, pos, state, be, context) -> ((ManaCollisionGhost) state.getBlock()),
-				BotaniaBlocks.MANA_DETECTOR,
-				BotaniaBlocks.ABSTRUSE_PLATFORM, BotaniaBlocks.INFRANGIBLE_PLATFORM, BotaniaBlocks.SPECTRAL_PLATFORM,
-				BotaniaBlocks.MANA_PRISM, BotaniaBlocks.TINY_PLANET
-		);
-
-		BlockApiLookup<ManaReceiver, Direction> manaReceiverBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ManaReceiver.LOOKUP);
-		manaReceiverBlockLookup.registerSelf(
-				BlockEntityConstants.SELF_MANA_RECEIVER_BES.toArray(BlockEntityType[]::new)
-		);
-		manaReceiverBlockLookup.registerForBlocks(
-				(level, pos, state, be, side) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
-				BotaniaBlocks.MANA_VOID
-		);
-
-		BlockApiLookup<ManaSparkAttachable, Unit> sparkAttachableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(
-				ManaSparkAttachable.LOOKUP);
-		sparkAttachableBlockLookup.registerSelf(BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.toArray(BlockEntityType[]::new));
-
-		BlockApiLookup<ManaTrigger, Unit> manaTriggerBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ManaTrigger.LOOKUP);
-		manaTriggerBlockLookup.registerSelf(
-				BlockEntityConstants.SELF_MANA_TRIGGER_BES.toArray(BlockEntityType[]::new));
-		manaTriggerBlockLookup.registerForBlocks(
-				(level, pos, state, be, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.DRUM_OF_THE_CANOPY, BotaniaBlocks.DRUM_OF_THE_GATHERING, BotaniaBlocks.DRUM_OF_THE_WILD
-		);
-		manaTriggerBlockLookup.registerForBlocks(
-				(level, pos, state, be, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos),
-				BotaniaBlocks.MANASTORM_CHARGE
-		);
-		manaTriggerBlockLookup.registerForBlocks(
-				(level, pos, state, be, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.MANA_DETECTOR
-		);
-
-		BlockApiLookup<Wandable, Direction> wandableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(Wandable.LOOKUP);
-		wandableBlockLookup.registerSelf(
-				BlockEntityConstants.SELF_WANDABLE_BES.toArray(BlockEntityType[]::new));
-		wandableBlockLookup.registerForBlocks(ForceRelayBlock::createWandable,
-				BotaniaBlocks.FORCE_RELAY
-		);
-		wandableBlockLookup.registerForBlocks(ManaEnchanterBlockEntity::createLapisBlockWandable,
-				Blocks.LAPIS_BLOCK);
-
-		BlockApiLookup<WandBindable, Direction> wandBindableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(WandBindable.LOOKUP);
-		wandBindableBlockLookup.registerSelf(
-				BlockEntityConstants.SELF_WAND_BINDABLE_BES.toArray(BlockEntityType[]::new));
-		wandBindableBlockLookup.registerForBlocks(ForceRelayBlock::createWandBindable,
-				BotaniaBlocks.FORCE_RELAY
-		);
-
-		BlockApiLookup<PhantomInkableBlock, Unit> phantomInkableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(PhantomInkableBlock.LOOKUP);
-		phantomInkableBlockLookup.registerSelf(
-				BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.toArray(BlockEntityType[]::new));
-
-		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRINGED_CONTAINER);
-		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRINGED_DISPENSER);
-
-		BlockApiLookup<LifeAggregatorCarryable, Unit> lifeAggregatorCarryableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(LifeAggregatorCarryable.LOOKUP);
-		lifeAggregatorCarryableBlockLookup.registerForBlockEntity(
-				(blockEntity, context) -> new LifeAggregatorHandler.MonsterSpawnerCarryable(blockEntity),
-				BlockEntityType.MOB_SPAWNER
-		);
-		lifeAggregatorCarryableBlockLookup.registerForBlockEntity(
-				(blockEntity, context) -> new LifeAggregatorHandler.TrialSpawnerCarryable(blockEntity),
-				BlockEntityType.TRIAL_SPAWNER
-		);
+		// TODO: NeoForge uses the same capability for both, check if these can be combined
+		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage,
+				BotaniaBlockEntities.RED_STRINGED_CONTAINER);
+		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new,
+				BotaniaBlockEntities.RED_STRINGED_DISPENSER);
 
 		if (XplatAbstractions.INSTANCE.isModLoaded("team_reborn_energy")) {
 			FluxfieldTRStorage.register();
@@ -514,4 +378,15 @@ public class FabricCommonInitializer implements ModInitializer {
 		CorporeaIndexBlockEntity.clearIndexCache();
 	}
 
+	private static <A, C> BlockApiLookup.BlockApiProvider<A, C> blockApi(BiFunction<Level, BlockPos, A> factory) {
+		return (world, pos, state, blockEntity, context) -> factory.apply(world, pos);
+	}
+
+	private static <A, C> BlockApiLookup.BlockApiProvider<A, C> blockApi(Function3<Level, BlockPos, BlockState, A> factory) {
+		return (world, pos, state, blockEntity, context) -> factory.apply(world, pos, state);
+	}
+
+	private static <T extends BlockEntity, A, C> BiFunction<? super T, C, @Nullable A> blockApi(Function<T, A> factory) {
+		return (blockEntity, context) -> factory.apply(blockEntity);
+	}
 }

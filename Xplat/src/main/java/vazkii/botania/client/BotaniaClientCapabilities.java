@@ -9,17 +9,32 @@
 
 package vazkii.botania.client;
 
-import vazkii.botania.api.block.MonocleHud;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.common.BotaniaCapabilities;
+import vazkii.botania.api.capability.registration.ApiIdRegistration;
+import vazkii.botania.api.capability.registration.ApiProviderRegistration;
+import vazkii.botania.client.capabilities.ClientBlockCapabilities;
+import vazkii.botania.client.capabilities.ClientEntityCapabilities;
 
+/**
+ * Central entry point for Botania's own client-side capability API registration logic.
+ *
+ * @implNote Botania's item capabilities are all registered in common code, so no calls for that happen here.
+ * @see vazkii.botania.common.BotaniaCapabilities
+ */
 public final class BotaniaClientCapabilities {
-	public static void registerClientCapabilities(BotaniaCapabilities.ApiIdRegistration registration) {
-		registration.register(WandHUD.BLOCK_LOOKUP);
-		registration.register(WandHUD.ENTITY_LOOKUP);
 
-		registration.register(MonocleHud.BLOCK_LOOKUP);
-		registration.register(MonocleHud.ENTITY_LOOKUP);
+	public static void registerCapabilityTypes(ApiIdRegistration registration) {
+		ClientBlockCapabilities.registerCapabilityTypes(registration);
+		ClientEntityCapabilities.registerCapabilityTypes(registration);
+	}
+
+	public static void registerCapabilityProviders(ApiProviderRegistration registration) {
+		ClientBlockCapabilities.registerCapabilityProviders(registration);
+		ClientEntityCapabilities.registerCapabilityProviders(registration);
+	}
+
+	public static void registerCapabilityFallbackProviders(ApiProviderRegistration registration) {
+		ClientBlockCapabilities.registerCapabilityFallbackProviders(registration);
+		ClientEntityCapabilities.registerCapabilityFallbackProviders(registration);
 	}
 
 	private BotaniaClientCapabilities() {}

@@ -23,7 +23,14 @@ import vazkii.botania.api.capability.EntityApiNoContext;
 import vazkii.botania.api.capability.EntityApiWithContext;
 import vazkii.botania.api.capability.ItemApiNoContext;
 import vazkii.botania.api.capability.ItemApiWithContext;
-import vazkii.botania.common.BotaniaCapabilities;
+import vazkii.botania.api.capability.registration.ApiIdRegistration;
+import vazkii.botania.api.capability.registration.ApiProviderRegistration;
+import vazkii.botania.api.capability.registration.BlockRegistrationNoContext;
+import vazkii.botania.api.capability.registration.BlockRegistrationWithContext;
+import vazkii.botania.api.capability.registration.EntityRegistrationNoContext;
+import vazkii.botania.api.capability.registration.EntityRegistrationWithContext;
+import vazkii.botania.api.capability.registration.ItemRegistrationNoContext;
+import vazkii.botania.api.capability.registration.ItemRegistrationWithContext;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -111,8 +118,8 @@ public final class BotaniaFabricCapabilities {
 		return (ItemApiLookup<A, C>) FOR_ITEMS.get(id);
 	}
 
-	public static BotaniaCapabilities.ApiIdRegistration getRegistration() {
-		return new BotaniaCapabilities.ApiIdRegistration() {
+	public static ApiIdRegistration getLookupRegistration() {
+		return new ApiIdRegistration() {
 			@Override
 			public void register(BlockApiNoContext<?> apiId) {
 				registerBlockApiLookup(apiId);
@@ -141,6 +148,110 @@ public final class BotaniaFabricCapabilities {
 			@Override
 			public void register(ItemApiWithContext<?, ?> apiId) {
 				registerItemApiLookup(apiId);
+			}
+		};
+	}
+
+	public static ApiProviderRegistration getProviderRegistration() {
+		return new ApiProviderRegistration() {
+			@Override
+			public <A> void register(BlockApiNoContext<A> apiId,
+					Iterable<BlockRegistrationNoContext<A>> registrations) {
+				BlockApiLookup<A, Unit> lookup = getBlockApiLookupById(apiId);
+				for (BlockRegistrationNoContext<A> registration : registrations) {
+					registration.apply(
+							(provider, blockEntityTypes) -> lookup.registerForBlockEntities(
+									provider::getApi,
+									blockEntityTypes
+							),
+							(provider, blockEntityPredicate) -> lookup.registerFallback(
+									(world, pos, state, blockEntity, context) -> blockEntity != null
+											&& blockEntityPredicate.test(blockEntity)
+													? provider.getApi(blockEntity)
+													: null
+							),
+							(provider, blocks) -> lookup.registerForBlocks(provider::getApi, blocks),
+							(provider, blockPredicate) -> lookup.registerFallback(
+									provider.withPredicate(blockPredicate)::getApi
+							)
+					);
+				}
+			}
+
+			@Override
+			public <A, C> void register(BlockApiWithContext<A, C> apiId,
+					Iterable<BlockRegistrationWithContext<A, C>> registrations) {
+				BlockApiLookup<A, C> lookup = getBlockApiLookupById(apiId);
+				for (BlockRegistrationWithContext<A, C> registration : registrations) {
+					registration.apply(
+							(provider, blockEntityTypes) -> lookup.registerForBlockEntities(
+									provider::getApi,
+									blockEntityTypes
+							),
+							(provider, blockEntityPredicate) -> lookup.registerFallback(
+									(world, pos, state, blockEntity, context) -> blockEntity != null
+											&& blockEntityPredicate.test(blockEntity)
+													? provider.getApi(blockEntity, context)
+													: null
+							),
+							(provider, blocks) -> lookup.registerForBlocks(provider::getApi, blocks),
+							(provider, blockPredicate) -> lookup.registerFallback(
+									provider.withPredicate(blockPredicate)::getApi
+							)
+					);
+				}
+			}
+
+			@Override
+			public <A> void register(EntityApiNoContext<A> apiId,
+					Iterable<EntityRegistrationNoContext<A>> registrations) {
+				EntityApiLookup<A, Unit> lookup = getEntityApiLookupById(apiId);
+				for (EntityRegistrationNoContext<A> registration : registrations) {
+					registration.apply(
+							(provider, entityTypes) -> lookup.registerForTypes(
+									provider::getApi,
+									entityTypes),
+							(provider, predicate) -> lookup.registerFallback(
+									provider.withPredicate(predicate)::getApi)
+					);
+				}
+			}
+
+			@Override
+			public <A, C> void register(EntityApiWithContext<A, C> apiId,
+					Iterable<EntityRegistrationWithContext<A, C>> registrations) {
+				EntityApiLookup<A, C> lookup = getEntityApiLookupById(apiId);
+				for (EntityRegistrationWithContext<A, C> registration : registrations) {
+					registration.apply(
+							(provider, entityTypes) -> lookup.registerForTypes(
+									provider::getApi,
+									entityTypes),
+							(provider, predicate) -> lookup.registerFallback(
+									provider.withPredicate(predicate)::getApi)
+					);
+				}
+			}
+
+			@Override
+			public <A> void register(ItemApiNoContext<A> apiId,
+					Iterable<ItemRegistrationNoContext<A>> registrations) {
+				ItemApiLookup<A, Unit> lookup = getItemApiLookupById(apiId);
+				for (ItemRegistrationNoContext<A> registration : registrations) {
+					registration.apply(
+							(provider, items) -> lookup.registerForItems(provider::getApi, items)
+					);
+				}
+			}
+
+			@Override
+			public <A, C> void register(ItemApiWithContext<A, C> apiId,
+					Iterable<ItemRegistrationWithContext<A, C>> registrations) {
+				ItemApiLookup<A, C> lookup = getItemApiLookupById(apiId);
+				for (ItemRegistrationWithContext<A, C> registration : registrations) {
+					registration.apply(
+							(provider, items) -> lookup.registerForItems(provider::getApi, items)
+					);
+				}
 			}
 		};
 	}

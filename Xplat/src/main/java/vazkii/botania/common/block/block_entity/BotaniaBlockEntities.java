@@ -15,10 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.corporea.*;
 import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
@@ -35,7 +31,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -498,41 +493,4 @@ public class BotaniaBlockEntities {
 		}
 	}
 
-	public interface BECapConsumer<T> {
-		void accept(Function<BlockEntity, T> factory, BlockEntityType<?>... types);
-	}
-
-	public static void registerWandHudCaps(BECapConsumer<WandHUD> consumer) {
-		consumer.accept(be -> new AnimatedTorchBlockEntity.WandHud((AnimatedTorchBlockEntity) be), BotaniaBlockEntities.ANIMATED_TORCH);
-		consumer.accept(be -> new BotanicalBreweryBlockEntity.WandHud((BotanicalBreweryBlockEntity) be), BotaniaBlockEntities.BOTANICAL_BREWERY);
-		consumer.accept(be -> new CorporeaRetainerBlockEntity.WandHud((CorporeaRetainerBlockEntity) be), BotaniaBlockEntities.CORPOREA_RETAINER);
-		consumer.accept(be -> new CraftyCrateBlockEntity.WandHud((CraftyCrateBlockEntity) be), BotaniaBlockEntities.CRAFTY_CRATE);
-		consumer.accept(be -> new ManaEnchanterBlockEntity.WandHud((ManaEnchanterBlockEntity) be), BotaniaBlockEntities.MANA_ENCHANTER);
-		consumer.accept(be -> new EyeOfTheAncientsBlockEntity.WandHud((EyeOfTheAncientsBlockEntity) be), BotaniaBlockEntities.EYE_OF_THE_ANCIENTS);
-		consumer.accept(be -> new HoveringHourglassBlockEntity.WandHud((HoveringHourglassBlockEntity) be), BotaniaBlockEntities.HOVERING_HOURGLASS);
-		consumer.accept(be -> new ManaPoolBlockEntity.WandHud((ManaPoolBlockEntity) be), BotaniaBlockEntities.MANA_POOL);
-		consumer.accept(be -> new ManaPrismBlockEntity.WandHud((ManaPrismBlockEntity) be), BotaniaBlockEntities.MANA_PRISM);
-		consumer.accept(be -> new ManaSpreaderBlockEntity.WandHud((ManaSpreaderBlockEntity) be), BotaniaBlockEntities.MANA_SPREADER);
-		consumer.accept(be -> new SpreaderTurntableBlockEntity.WandHud((SpreaderTurntableBlockEntity) be), BotaniaBlockEntities.SPREADER_TURNTABLE);
-
-		consumer.accept(be -> new SpectrolusBlockEntity.WandHud((SpectrolusBlockEntity) be), SPECTROLUS);
-		consumer.accept(be -> new BindableSpecialFlowerBlockEntity.BindableFlowerWandHud<>((GeneratingFlowerBlockEntity) be),
-				HYDROANGEAS, ENDOFLAME, THERMALILY, ROSA_ARCANA, MUNCHDEW, ENTROPINNYUM, KEKIMURUS, GOURMARYLLIS, NARSLIMMUS,
-				DANDELIFEON, RAFFLOWSIA, SHULK_ME_NOT);
-		consumer.accept(be -> new HopperhockBlockEntity.WandHud((HopperhockBlockEntity) be), HOPPERHOCK,
-				HOPPERHOCK_PETITE
-		);
-		consumer.accept(be -> new PollidisiacBlockEntity.WandHud((PollidisiacBlockEntity) be), POLLIDISIAC);
-		consumer.accept(be -> new RannuncarpusBlockEntity.WandHud((RannuncarpusBlockEntity) be), RANNUNCARPUS,
-				RANNUNCARPUS_PETITE
-		);
-		consumer.accept(be -> new LooniumBlockEntity.WandHud((LooniumBlockEntity) be), LOONIUM);
-		consumer.accept(be -> new BindableSpecialFlowerBlockEntity.BindableFlowerWandHud<>((FunctionalFlowerBlockEntity) be),
-				BELLETHORNE, BELLETHORNE_PETITE, DREADTHORN, HEISEI_DREAM, TIGERSEYE,
-				JADED_AMARANTHUS, ORECHID, FALLEN_KANADE, EXOFLAME, AGRICARNATION, AGRICARNATION_PETITE,
-				TANGLEBERRIE, TANGLEBERRIE_PETITE, JIYUULIA, JIYUULIA_PETITE, HYACIDUS,
-				CLAYCONIA, CLAYCONIA_PETITE, DAFFOMILL, VINCULOTUS, SPECTRANTHEMUM, MEDUMONE,
-				MARIMORPHOSIS, MARIMORPHOSIS_PETITE, BUBBELL, BUBBELL_PETITE,
-				ORECHID_IGNEM, LABELLIA);
-	}
 }

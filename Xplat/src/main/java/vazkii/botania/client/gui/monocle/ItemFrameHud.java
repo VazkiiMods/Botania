@@ -19,11 +19,8 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
-
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.MonocleHud;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -35,11 +32,6 @@ public record ItemFrameHud(ItemFrame itemFrame) implements MonocleHud {
 	private static final int MAX_CONTENTS_COLUMNS = 9;
 	private static final int MAX_CONTENTS_ROWS = 3;
 	public static final int TEXT_ROW_HEIGHT = 12;
-
-	@Nullable
-	public static ItemFrameHud fallbackFactory(Entity entity) {
-		return entity instanceof ItemFrame itemFrame ? new ItemFrameHud(itemFrame) : null;
-	}
 
 	@Override
 	public void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {

@@ -9,65 +9,47 @@
 
 package vazkii.botania.common;
 
-import org.jetbrains.annotations.ApiStatus;
+import vazkii.botania.api.capability.registration.ApiIdRegistration;
+import vazkii.botania.api.capability.registration.ApiProviderRegistration;
+import vazkii.botania.common.capabilities.BlockCapabilities;
+import vazkii.botania.common.capabilities.ItemCapabilities;
 
-import vazkii.botania.api.block.EdibleBlockWithEffects;
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HourglassTrigger;
-import vazkii.botania.api.block.LifeAggregatorCarryable;
-import vazkii.botania.api.block.PhantomInkableBlock;
-import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.capability.BlockApiNoContext;
-import vazkii.botania.api.capability.BlockApiWithContext;
-import vazkii.botania.api.capability.EntityApiNoContext;
-import vazkii.botania.api.capability.EntityApiWithContext;
-import vazkii.botania.api.capability.ItemApiNoContext;
-import vazkii.botania.api.capability.ItemApiWithContext;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.HourglassMaterial;
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.api.mana.ManaCollisionGhost;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.api.mana.spark.ManaSparkAttachable;
-
+/**
+ * Central entry point for Botania's own common capability API registration logic.
+ *
+ * @implNote Botania's only entity capabilities are client-side only, so no calls for that happen here.
+ * @see vazkii.botania.client.BotaniaClientCapabilities
+ */
 public final class BotaniaCapabilities {
-	public static void registerCapabilities(ApiIdRegistration registration) {
-		// item capabilities
-		registration.register(AvatarWieldable.LOOKUP);
-		registration.register(BlockProvider.LOOKUP);
-		registration.register(CoordBoundItem.LOOKUP);
-		registration.register(HourglassMaterial.LOOKUP);
-		registration.register(ManaItem.LOOKUP);
-		registration.register(Relic.LOOKUP);
 
-		// block capabilities
-		registration.register(EdibleBlockWithEffects.LOOKUP);
-		registration.register(ExoflameHeatable.LOOKUP);
-		registration.register(HourglassTrigger.LOOKUP);
-		registration.register(ManaCollisionGhost.LOOKUP);
-		registration.register(ManaReceiver.LOOKUP);
-		registration.register(ManaSparkAttachable.LOOKUP);
-		registration.register(ManaTrigger.LOOKUP);
-		registration.register(Wandable.LOOKUP);
-		registration.register(WandBindable.LOOKUP);
-		registration.register(PhantomInkableBlock.LOOKUP);
-		registration.register(LifeAggregatorCarryable.LOOKUP);
+	/**
+	 * Defines the capability/API types. Should be called before Botania or any add-on attempts to use these.
+	 *
+	 * @implNote On NeoForge this happens during the highest priority RegisterCapabilitiesEvent.
+	 */
+	public static void registerCapabilityTypes(ApiIdRegistration registration) {
+		ItemCapabilities.registerLookups(registration);
+		BlockCapabilities.registerLookups(registration);
+	}
+
+	/**
+	 * Registers regular capability providers, i.e. anything with a fixed set of target objects.
+	 */
+	public static void registerCapabilityProviders(ApiProviderRegistration registration) {
+		ItemCapabilities.registerProviders(registration);
+		BlockCapabilities.registerProviders(registration);
+	}
+
+	/**
+	 * Registers "fallback" capability providers, i.e. anything where we can't define the exact set of target objects,
+	 * e.g. because we don't know them or add-ons might register more specific providers we don't want to affect.
+	 *
+	 * @implNote On NeoForge this happens during the lowest priority RegisterCapabilitiesEvent,
+	 *           while on Fabric this is implemented using the various registerFallback methods.
+	 */
+	public static void registerCapabilityFallbackProviders(ApiProviderRegistration registration) {
+		BlockCapabilities.registerFallbackProviders(registration);
 	}
 
 	private BotaniaCapabilities() {}
-
-	@ApiStatus.Internal
-	public interface ApiIdRegistration {
-		void register(BlockApiNoContext<?> apiId);
-		void register(BlockApiWithContext<?, ?> apiId);
-		void register(EntityApiNoContext<?> apiId);
-		void register(EntityApiWithContext<?, ?> apiId);
-		void register(ItemApiNoContext<?> apiId);
-		void register(ItemApiWithContext<?, ?> apiId);
-	}
 }
