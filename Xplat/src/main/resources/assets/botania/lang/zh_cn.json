@@ -54,6 +54,7 @@
   "botaniamisc.dropTip3": "你物品栏中的物品",
   "botaniamisc.dropTip1": "CTRL加%s键扔出一整组",
   "botaniamisc.wandMode.bind": "绑定模式",
+
   "botaniamisc.wandMode.function": "工作模式",
   "botaniamisc.sextantMode.circle": "圆形模式",
 

@@ -54,6 +54,7 @@
   "botaniamisc.dropTip3": "envanterinizdeki eşyaları",
   "botaniamisc.dropTip1": "CTRL-%s tam bir istifi düşürecektir",
   "botaniamisc.wandMode.bind": "Bağlama Modu",
+
   "botaniamisc.wandMode.function": "Fonksiyon Modu",
   "botaniamisc.sextantMode.circle": "Yatay Daire",
   "botaniamisc.sextantMode.circle_x": "Dikey Daire Doğu/Batı",

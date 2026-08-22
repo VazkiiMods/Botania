@@ -54,6 +54,7 @@
   "botaniamisc.dropTip3": "предмети з вашого інвентарю",
   "botaniamisc.dropTip1": "CTRL-%s скине повний стак",
   "botaniamisc.wandMode.bind": "Режим прив'язки",
+
   "botaniamisc.wandMode.function": "Функціональний режим",
   "botaniamisc.sextantMode.circle": "Режим кола",
 

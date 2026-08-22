@@ -54,6 +54,7 @@
   "botaniamisc.dropTip3": "itens do seu inventário",
   "botaniamisc.dropTip1": "CTRL-%s derruba uma pilha inteira",
   "botaniamisc.wandMode.bind": "Modo de associação",
+
   "botaniamisc.wandMode.function": "Modo funcional",
   "botaniamisc.sextantMode.circle": "Círculo Horizontal",
   "botaniamisc.sextantMode.circle_x": "Círculo Vertical Leste/Oeste",

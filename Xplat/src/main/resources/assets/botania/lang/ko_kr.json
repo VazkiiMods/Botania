@@ -54,6 +54,7 @@
   "botaniamisc.dropTip3": "인벤토리의 아이템을 버릴 수 있습니다.",
   "botaniamisc.dropTip1": "CTRL-%s는 해당 아이템을 전부 버립니다.",
   "botaniamisc.wandMode.bind": "연결모드",
+
   "botaniamisc.wandMode.function": "기능 모드",
   "botaniamisc.sextantMode.circle": "원형 모드",
 

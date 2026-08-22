@@ -54,6 +54,7 @@
   "botaniamisc.dropTip3": "предметы из инвентаря",
   "botaniamisc.dropTip1": "Ctrl+%s позволит выбросить весь стак",
   "botaniamisc.wandMode.bind": "Режим привязки",
+
   "botaniamisc.wandMode.function": "Функциональный режим",
   "botaniamisc.sextantMode.circle": "Режим круга",
 

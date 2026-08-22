@@ -54,6 +54,7 @@
   "botaniamisc.dropTip3": "inventaire pour jeter un objet",
   "botaniamisc.dropTip1": "Ctrl-%s jettera un stack en entier",
   "botaniamisc.wandMode.bind": "liaison",
+
   "botaniamisc.wandMode.function": "fonction",
   "botaniamisc.sextantMode.circle": "Mode cercle",
 
