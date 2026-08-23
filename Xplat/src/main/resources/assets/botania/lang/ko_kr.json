@@ -80,7 +80,7 @@
   "botaniamisc.relicSoulbound": "\u00a76유물\u00a77, \u00a7f%s\u00a77에게 귀속",
   "botaniamisc.notYourSagittarius": "\u00a74이 유물은 당신의 소유가 아닙니다",
   "botaniamisc.diceRoll": "주사위가 %s에 멈추고 무언가로 변화했습니다!",
-  "botaniamisc.dudDiceRoll": "주사위가 %s에 멈추고 허공으로 사라져버진 것 같습니다.",
+  "botaniamisc.dudDiceRoll": "주사위가 %s에 멈추고 허공으로 사라져버린 것 같습니다.",
   "botaniamisc.flugelBound": "%2$s의 %1$s에 결속됨",
   "botaniamisc.flugelUnbound": "%s에 결속되지 않음",
   "botaniamisc.blockAway": "1블록 떨어짐",
@@ -2041,7 +2041,7 @@
   "botania.entry.lexicon": "보타니아 사전",
   "botania.tagline.lexicon": "지금 읽고있는 거, 바보야",
   "botania.page.lexicon0": "$(item)보타니아 사전$(0)은 보타니아의 모든 지식의 저장고입니다. (이건 이미 알고 있겠죠.)$(p)잘 알려진 모든 식물학적 지식이 이 페이지들에 보관되어 있습니다. 편의성 기능으로, 여기에 항목이 있는 블록을 $(item)보타니아 사전$(0)으로 웅크려 우클릭하면 해당 항목을 엽니다.",
-  "botania.page.lexicon3": "$(o)기울임꼴$()로 되어있는 항목은 $(thing)기본$(0) 항목으로, $(thing)보타니아$(0)를 플레이하는 데 필요한 핵심 지식을 포함하고 있습니다. 이것들을 필독하는 것을 추천합니다. 대부분의 섹션에는 이러한 항목이 하나 이상 포함되어 있으므로 잘 살펴보는 것을 권장합니다.",
+  "botania.page.lexicon3": "$(o)기울임꼴$()로 되어 있는 항목은 $(thing)기본$(0) 항목으로, $(thing)보타니아$(0)를 플레이하는 데 필요한 핵심 지식을 포함하고 있습니다. 이것들을 필독하는 것을 추천합니다. 대부분의 섹션에는 이러한 항목이 하나 이상 포함되어 있으므로 잘 살펴보는 것을 권장합니다.",
   "botania.page.lexicon1": "$(item)보타니아 사전$(0) 제작하기.",
   "botania.page.lexicon2": "$(item)보타니아 사전$(0)의 제목은 $(item)모루$(0)에 놓고 이름을 변경할 수도 있습니다. 이렇게 하면 표지와 제목이 모두 변경됩니다.$(p)표시된 사전의 판본은 실행 중인 $(thing)보타니아$(0)의 버전과 같습니다(저는 제4의 벽 $(o)따위$()에는 신경쓰지 않습니다).",
 
@@ -2124,7 +2124,7 @@
 
   "botania.entry.blackLotus": "검은 연꽃",
   "botania.tagline.blackLotus": "마나를 만들 수 있는 희귀 전리품",
-  "botania.page.blackLotus0": "$(item)검은 연꽃$(0)이라는 이름의 찾기 어려운 꽃이 존재합니다. 그러나 그것이 어떻게 성장하거나 번식하는지는 알려지지 않았습니다. 현재로서는 연꽃의 출처에 대해 알려진 바가 없습니다.$(p)하지만 각 꽃에는 비어 있지 않은 $(l:mana/pool)$(item)마나 웅덩이$(0)$(/l)에 녹여 방출할 수 있는 농축된 $(thing)마나$(0) 가 상당량 포함되어 있는 것으로 알려져 있습니다. 그저 던져 넣기만 하면 됩니다.",
+  "botania.page.blackLotus0": "$(item)검은 연꽃$(0)이라는 이름의 찾기 어려운 꽃이 존재합니다. 그러나 그것이 어떻게 성장하거나 번식하는지는 알려지지 않았습니다. 현재로서는 연꽃의 출처에 대해 알려진 바가 없습니다.$(p)하지만 각 꽃에는 비어 있지 않은 $(l:mana/pool)$(item)마나 웅덩이$(0)$(/l)에 녹여 방출할 수 있는 농축된 $(thing)마나$(0)가 상당량 포함되어 있는 것으로 알려져 있습니다. 그저 던져 넣기만 하면 됩니다.",
 
   "botania.entry.flowerBag": "꽃 주머니",
   "botania.tagline.flowerBag": "꽃을 담을 수 있는 든든한 주머니",
@@ -3659,7 +3659,7 @@
 
   "botania.entry.blazeBlock": "블레이즈 망",
   "botania.tagline.blazeBlock": "압축된 블레이즈 막대 저장소이자 재생 가능한 흑요석 공급원",
-  "botania.page.blazeBlock0": "블레이즈의 정수를 잔뜩 뭉치면 (비록 투박하긴 해도)기능적인 장식용 광원 블록이 만들어집니다.$(p)$(item)석탄 블록$(0)과 마찬가지로 $(item)블레이즈 망$(0)은 화로(또는 $(l:generating_flowers/endoflame)$(item)엔도플레임$(0)$(/l))에서 태울 수 있습니다. 이상하게도 $(l:basics/pure_daisy)$(item)정화의 데이지$(0)$(/l) 옆에 놓으면 $(item)흑요석$(0)으로 변합니다.",
+  "botania.page.blazeBlock0": "블레이즈의 정수를 잔뜩 뭉치면 (비록 투박하긴 해도) 기능적인 장식용 광원 블록이 만들어집니다.$(p)$(item)석탄 블록$(0)과 마찬가지로 $(item)블레이즈 망$(0)은 화로(또는 $(l:generating_flowers/endoflame)$(item)엔도플레임$(0)$(/l))에서 태울 수 있습니다. 이상하게도 $(l:basics/pure_daisy)$(item)정화의 데이지$(0)$(/l) 옆에 놓으면 $(item)흑요석$(0)으로 변합니다.",
   "botania.page.blazeBlock1": "0x1a4",
 
   "botania.entry.challenges": "도전",
@@ -3714,7 +3714,7 @@
   "botania.subtitle.enchanterFade": "마나 마법 부여기가 흐려짐",
   "botania.subtitle.enchanterForm": "마나 마법 부여기가 형성됨",
   "botania.subtitle.enderAirThrow": "엔더 공기가 든 병이 던져짐",
-  "botania.subtitle.endoflame": "엔도플레임이 아이템을 태윰",
+  "botania.subtitle.endoflame": "엔도플레임이 아이템을 태움",
   "botania.subtitle.entropinnyumAngry": "엔트로피늄이 만족하지 못함",
   "botania.subtitle.entropinnyumHappy": "엔트로피늄이 지글거림",
   "botania.subtitle.equipBauble": "장신구를 장착함",
