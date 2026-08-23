@@ -442,7 +442,7 @@
   "worldgen.mushroom.quantity": "세계 생성 버섯 양",
   "armorModels.enable": "사용자 지정 방어구 모델",
   "fancySkybox.enable": "화려한 스카이박스",
-  "fancySkybox.normalWorlds": "유리의 정원 회의 세계에서의 화려한 스카이박스",
+  "fancySkybox.normalWorlds": "유리의 정원 외의 세계에서의 화려한 스카이박스",
   "flightBar.height": "플뤼겔 티아라 비행 막대 높이",
   "flightBarBreath.height": "호흡 막대가 있을 때의 비행 막대 높이",
   "harvestLevel.boreLens": "채굴의 렌즈 수확 레벨",
