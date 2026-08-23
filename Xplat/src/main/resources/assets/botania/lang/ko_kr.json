@@ -3251,7 +3251,7 @@
 
   "botania.entry.spawnerMover": "생명 수집기",
   "botania.tagline.spawnerMover": "생성기를 움직이는 능력",
-  "botania.page.spawnerMover0": "$(l:alfhomancy/elf_resources)$(item)드래곤스톤$(0)$(/l), $(l:alfhomancy/elfresources)$(item)엘레멘티움$(0)$(/l), $(l:ender/ender_air)$(item)엔더 공기$(0)$(/l), 그리고 $(l:alfhomancy/gaia_ritual)$(item)가이아 영혼$(0)$(/l)을 특정한 패턴으로 조합하면, $(item)몬스터 생성기$(0)의 기이한 에너지를 억제하여 공간상의 다른 지점으로 옮길 수 있는 장치가 만들어집니다.$(p)아쉽게도 이 장치는 한 번 사용하면 산산조각 납니다.",
+  "botania.page.spawnerMover0": "$(l:alfhomancy/elf_resources)$(item)드래곤스톤$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)엘레멘티움$(0)$(/l), $(l:ender/ender_air)$(item)엔더 공기$(0)$(/l), 그리고 $(l:alfhomancy/gaia_ritual)$(item)가이아 영혼$(0)$(/l)을 특정한 패턴으로 조합하면, $(item)몬스터 생성기$(0)의 기이한 에너지를 억제하여 공간상의 다른 지점으로 옮길 수 있는 장치가 만들어집니다.$(p)아쉽게도 이 장치는 한 번 사용하면 산산조각 납니다.",
   "botania.page.spawnerMover1": "스포너 소포",
 
   "botania.entry.keepIvy": "단호한 아이비",
@@ -3590,7 +3590,7 @@
 
   "botania.entry.decorativeBlocks": "장식 블록",
   "botania.tagline.decorativeBlocks": "식물학적 건축물을 아름답게 만들기",
-  "botania.page.decorativeBlocks0": "기능성과는 별개로 건축물을 더 아름답게 만들기 위한 목적의 블록들이 상당히 많이 존재합니다.$(p)$(item)생명의 돌$(0)과 $(l:basics/pure_daisy)$(item)생명의 나무$(0)$(/l)는 장식용 블록으로 변환할 수 있습니다. 각 재료에는 4가지 다른 장식적 텍스쳐 변형이 있습니다.",
+  "botania.page.decorativeBlocks0": "기능성과는 별개로 건축물을 더 아름답게 만들기 위한 목적의 블록들이 상당히 많이 존재합니다.$(p)$(item)생명의 돌$(0)과 $(l:basics/pure_daisy)$(item)생명의 나무$(0)$(/l)는 장식용 블록으로 변환할 수 있습니다. 각 재료에는 4가지 다른 장식적 텍스처 변형이 있습니다.",
   "botania.page.decorativeBlocks1": "생명의 돌 벽돌과 석판",
   "botania.page.decorativeBlocks2": "벽돌에 이끼 덮기",
   "botania.page.decorativeBlocks3": "벽돌 갈라지게 하기",
