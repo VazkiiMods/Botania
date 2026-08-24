@@ -147,24 +147,24 @@
   "botaniamisc.pollidisiac.baby_animals": "새끼 동물에게 먹이 주기",
   "botaniamisc.pollidisiac.all_animals": "모든 동물에게 먹이 주기",
   "botaniamisc.catalyst_not_consumed": "(소모되지 않음)",
-  "botaniamisc.monocle.frame.contains": "%s\u00a7r 내용물:",
+  "botaniamisc.monocle.frame.contains": "%s§r 내용물:",
   "botaniamisc.monocle.frame.additional_stacks": "+ %s개 세트 더 있음",
   "botaniamisc.monocle.repeater.delay": "%s초",
-  "botaniamisc.monocle.repeater.locked": "%s \uD83D\uDD12",
-  "botaniamisc.monocle.comparator.compare": "\u2265",
-  "botaniamisc.monocle.comparator.subtract": "-",
-  "botaniamisc.monocle.daylight_detector.day": "\u2600 %s",
-  "botaniamisc.monocle.daylight_detector.night": "\u263D %s",
-  "botaniamisc.monocle.sculk_sensor.inactive": "%s",
-  "botaniamisc.monocle.sculk_sensor.active": "%s",
-  "botaniamisc.monocle.sculk_sensor.cooldown": "\uD83D\uDECC",
-  "botaniamisc.astrolabe.size": "%1$s\u00d7%1$s",
-  "botaniamisc.template.parenthesis_suffix": "%1$s (%2$s)",
-  "botaniamisc.template.tooltip_list": " - %s",
-  "botaniamisc.template.n_of_m": "%1$s/%2$s",
-  "botaniamisc.template.num_and_name": "%1$s %2$s",
-  "botaniamisc.count.stacks_no_remainder": "%1$s\u00d7%2$s",
-  "botaniamisc.count.stacks_with_remainder": "%1$s\u00d7%2$s+%3$s",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "botaniamisc.eye_of_the_ancients.adult_animals": "어른 동물 세기",
   "botaniamisc.eye_of_the_ancients.baby_animals": "새끼 동물 세기",
   "botaniamisc.eye_of_the_ancients.all_animals": "모든 동물 세기",
@@ -549,12 +549,12 @@
 
   "botania.color.rainbow": "무지개",
 
-  "botania.rank0": "\u00a7cD",
-  "botania.rank1": "\u00a7eC",
-  "botania.rank2": "\u00a7bB",
-  "botania.rank3": "\u00a7aA",
-  "botania.rank4": "\u00a7dS",
-  "botania.rank5": "\u00a76SS",
+
+
+
+
+
+
 
   "botania.sign0": "백양궁",
   "botania.sign1": "금우궁",
@@ -610,37 +610,37 @@
   "botania.armorset.will_verac.shortDesc": "치명타가 방어력 관통",
   "botania.armorset.will_karil.shortDesc": "치명타가 시들음 부여",
 
-  "botania.roman0": "",
-  "botania.roman1": "I",
-  "botania.roman2": "II",
-  "botania.roman3": "III",
-  "botania.roman4": "IV",
-  "botania.roman5": "V",
-  "botania.roman6": "VI",
-  "botania.roman7": "VII",
-  "botania.roman8": "VIII",
-  "botania.roman9": "IX",
-  "botania.roman10": "X",
-  "botania.roman11": "XI",
-  "botania.roman12": "XII",
-  "botania.roman13": "XIII",
-  "botania.roman14": "XIV",
-  "botania.roman15": "XV",
-  "botania.roman16": "XVI",
-  "botania.roman17": "XVII",
-  "botania.roman18": "XVIII",
-  "botania.roman19": "XIX",
-  "botania.roman20": "XX",
-  "botania.roman21": "XXI",
-  "botania.roman22": "XXII",
-  "botania.roman23": "XXIII",
-  "botania.roman24": "XXIV",
-  "botania.roman25": "XXV",
-  "botania.roman26": "XXVI",
-  "botania.roman27": "XXVII",
-  "botania.roman28": "XXVIII",
-  "botania.roman29": "XXIX",
-  "botania.roman30": "XXX",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   "botania.flowerType.generating": "생산성 꽃",
   "botania.flowerType.functional": "기능성 꽃",
@@ -2171,8 +2171,8 @@
   "effect.botania.allure": "매력",
   "effect.botania.absolution": "면죄",
 
-  "item.botania.scathed_music_disc_1.desc": "Kain Vinosec - Endure Emptiness",
-  "item.botania.scathed_music_disc_2.desc": "Kain Vinosec - Fight For Quiescence",
+
+
 
   "item.botania.botania_banner_pattern": "현수막 무늬",
   "item.botania.botania_banner_pattern.desc": "보타니아",
@@ -2914,7 +2914,7 @@
   "botania.page.spectranthemum0": "장거리 아이템 운송은 몹시 힘든 작업이 될 수 있습니다. 어느 시점에서는 물길과 $(l:functional_flowers/daffomill)$(item)풍차꽃$(0)$(/l)만으로는 부족해집니다. $(item)유령국화$(0)는 $(thing)마나$(0)를 사용해 근처 아이템 주변의 현실 구조를 왜곡하여, 아이템을 세계의 다른 곳으로 순간이동시킵니다. $(thing)마나$(0)가 들어있는 아이템은 왜곡을 방해하므로 순간이동할 수 없습니다.",
   "botania.page.spectranthemum1": "순간이동 비용은 거리에 비례한다는 점도 유의해야 합니다. 단일 아이템은 2000블록 이상 이동할 수 있지만, 마나 웅덩이가 좋아하지는 않을 것입니다!$(p)왜곡되는 아이템의 목적지를 지정하려면, 웅덩이에 연결할 때와 같은 방식으로 $(thing)연결모드$(0)의 $(l:basics/wand)$(item)숲의 지팡이$(0)$(/l)를 사용해 식물을 특정 위치에 연결하면 됩니다. 식물이 어느 블록에 연결되어 있는지 보려면 ($(thing)마나$(0)를 끌어오는 웅덩이가 아님), 지팡이를 들고 식물을 바라보며 웅크리면 됩니다.",
   "botania.page.spectranthemum2": "이 식물은 $(thing)청크로딩의 공리$(0)에 구속받습니다. 즉, 로드되지 않은 청크로는 아이템을 보내지 않습니다. 하지만 이 주제는 이 사전의 범위를 벗어납니다.",
-  "botania.page.spectranthemum3": "$(o)(n)spooky(n+2)me$().",
+
 
   "botania.entry.medumone": "속박의 꽃",
   "botania.tagline.medumone": "몹을 얼어붙게 만듦",
@@ -3959,7 +3959,7 @@
 
   "botania.entry.elfMessage": "엘븐 가르드에서 온 메시지",
   "botania.tagline.elfMessage": "반갑소, 동료 모험가여",
-  "botania.page.elfMessage0": "",
+
   "botania.page.elfMessage1": "$(o)반갑소. 우리의 오래된 차원문 틀 중 하나가 스스로 다른 세계와 연결되면서 이 책을 발견했소. 우리로서는 참으로 놀라운 일이었지. 엘븐 가르드를 대표하여, 당신의 세계의 지식의 정수를 제공해 준 것에 진심으로 감사하오. 우리가 그곳을 떠난 지 꽤 오랜 시간이 지났는데, 잘 지내고 있는 것 같아 다행이군.",
   "botania.page.elfMessage2": "$(o)엘븐 가르드 평의회 내에서의 심도 있는 논의 끝에, 우리는 당신과 협력하기로 결정했소. 알다시피, 당신의 \"보타니아 사전\"은 우리가 몹시 탐낼 만한 당신의 세계의 특정한 자원들을 언급하고 있소. 그 자원들은 우리 땅에는 아예 존재하지 않는다오.",
   "botania.page.elfMessage3": "$(o)안타깝게도 당신이 행한 이 연결은 생명체를 전송하기에는 너무 약하오. 이는 우리 두 세계 사이의 엄청난 거리 때문인 것 같소. 유감이군. 우리의 거래 파트너를 직접 만나보고 싶었는데 말이지. 하지만 긍정적인 면도 있소. 이 연결은 우리 세계 간의 시간의 동기화 상태를 변경할 수 있다오. 덕분에 적어도 당신의 시점에서는 당신의 책을 아주 빨리 돌려받게 될 것이오.",
@@ -4118,7 +4118,7 @@
   "botania.entry.blazeBlock": "블레이즈 망",
   "botania.tagline.blazeBlock": "압축된 블레이즈 막대 저장소이자 재생 가능한 흑요석 공급원",
   "botania.page.blazeBlock0": "블레이즈의 정수를 잔뜩 뭉치면 (비록 투박하긴 해도) 기능적인 장식용 광원 블록이 만들어집니다.$(p)$(item)석탄 블록$(0)과 마찬가지로 $(item)블레이즈 망$(0)은 화로(또는 $(l:generating_flowers/endoflame)$(item)엔도플레임$(0)$(/l))에서 태울 수 있습니다. 이상하게도 $(l:basics/pure_daisy)$(item)정화의 데이지$(0)$(/l) 옆에 놓으면 $(item)흑요석$(0)으로 변합니다.",
-  "botania.page.blazeBlock1": "0x1a4",
+
 
   "botania.entry.challenges": "도전",
   "botania.tagline.challenges": "스스로의 도전",
@@ -4238,5 +4238,5 @@
   "botania.subtitle.virusInfect": "바이러스가 감염시킴",
   "botania.subtitle.worldSeedTeleport": "세계의 씨앗이 순간이동시킴",
 
-  "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
+
 }
