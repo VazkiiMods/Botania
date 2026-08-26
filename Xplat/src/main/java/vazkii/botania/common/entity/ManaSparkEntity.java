@@ -169,6 +169,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					particlesTowards(player);
 				}
 
+				if (receiverWasFull && !receiver.isFull()) {
+					notifyOthers(getNetwork());
+				}
 			}
 			case DOMINANT -> {
 				if (!receiver.isFull()) {
