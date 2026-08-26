@@ -168,6 +168,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				particlesTowards(player);
 			}
 
+			if (receiverWasFull && !receiver.isFull()) {
+				notifyOthers(getNetwork());
+			}
 		} else if (upgrade.is(BotaniaItems.SPARK_AUGMENT_DOMINANT)) {
 			if (!receiver.isFull()) {
 				updateTransfers();
