@@ -291,7 +291,13 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 
 		@Override
 		public void addMana(int mana) {
-			setMana(stack, Math.min(getMana() + mana, getMaxMana()) / stack.getCount());
+			int currentMana = getMana();
+			int maxMana = getMaxMana();
+			if (mana <= 0) {
+				setMana(stack, Math.min(currentMana + mana, maxMana) / stack.getCount());
+				return;
+			}
+			setMana(stack, (maxMana - mana < currentMana ? maxMana : currentMana + mana) / stack.getCount());
 		}
 
 		@Override
