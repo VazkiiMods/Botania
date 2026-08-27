@@ -68,6 +68,7 @@ public class BotaniaBookModel extends Model {
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
 
+	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		this.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
