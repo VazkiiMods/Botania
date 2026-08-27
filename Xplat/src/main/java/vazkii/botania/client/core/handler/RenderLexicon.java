@@ -14,8 +14,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.model.BookModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -31,6 +29,8 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.client.model.BotaniaBookModel;
+import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LexicaBotaniaItem;
@@ -44,7 +44,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
 	@Nullable
-	private static BookModel model = null;
+	private static BotaniaBookModel model = null;
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
 	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, botaniaRL("item/lexica_botania_3d"));
 	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, botaniaRL("item/lexica_botania_elven_3d"));
@@ -67,9 +67,9 @@ public class RenderLexicon {
 	private static int quote = -1;
 	private static int misspelling = -1;
 
-	private static BookModel getModel() {
+	private static BotaniaBookModel getModel() {
 		if (model == null) {
-			model = new BookModel(Minecraft.getInstance().getEntityModels().bakeLayer(ModelLayers.BOOK));
+			model = new BotaniaBookModel(Minecraft.getInstance().getEntityModels().bakeLayer(BotaniaModelLayers.BOTANIA_BOOK));
 		}
 		return model;
 	}

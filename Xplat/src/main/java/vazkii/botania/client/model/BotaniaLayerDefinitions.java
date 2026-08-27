@@ -24,6 +24,7 @@ public class BotaniaLayerDefinitions {
 	public static void init(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
 		consumer.accept(BotaniaModelLayers.AVATAR, () -> LayerDefinition.create(AvatarModel.createMesh(), 32, 32));
 		consumer.accept(BotaniaModelLayers.BELLOWS, () -> LayerDefinition.create(BellowsModel.createMesh(), 64, 32));
+		consumer.accept(BotaniaModelLayers.BOTANIA_BOOK, BotaniaBookModel::createBodyLayer);
 		consumer.accept(BotaniaModelLayers.BREWERY, () -> LayerDefinition.create(BotanicalBreweryModel.createMesh(), 32, 16));
 		consumer.accept(BotaniaModelLayers.CLOAK, () -> LayerDefinition.create(CloakModel.createMesh(), 64, 64));
 		consumer.accept(BotaniaModelLayers.CORPOREA_INDEX, () -> LayerDefinition.create(CorporeaIndexBlockEntityRenderer.createMesh(), 64, 32));
