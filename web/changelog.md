@@ -21,6 +21,7 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+* Fix: Transfers to dispersive spark are resumed the same way as for unaugmented sparks (wang-cz-1997)
 * Language updates:
   * ko_kr overhauled (Eisus)
 
