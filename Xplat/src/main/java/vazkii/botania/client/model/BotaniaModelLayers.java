@@ -16,6 +16,7 @@ public class BotaniaModelLayers {
 	public static final ModelLayerLocation AVATAR = make("avatar");
 	public static final ModelLayerLocation BELLOWS = make("bellows");
 	public static final ModelLayerLocation BREWERY = make("brewery");
+	public static final ModelLayerLocation BOTANIA_BOOK = make("botania_book");
 	public static final ModelLayerLocation CLOAK = make("cloak");
 	public static final ModelLayerLocation CORPOREA_INDEX = make("corporea_index");
 	public static final ModelLayerLocation HOURGLASS = make("hourglass");
