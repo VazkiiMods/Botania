@@ -21,7 +21,6 @@ import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
@@ -39,19 +38,19 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 	private final TextureAtlasSprite starSprite;
 	private final TextureAtlasSprite worldSprite;
 
-	public BaseSparkRenderer(EntityRendererProvider.Context ctx) {
+	protected BaseSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
 		this.starSprite = Objects.requireNonNull(
-				atlas.apply(botaniaRL("item/corporea_spark_star"))
+				atlas.apply(botaniaRL("item/spark_star"))
 		);
 		this.worldSprite = Objects.requireNonNull(
-				atlas.apply(botaniaRL("item/spark"))
+				atlas.apply(botaniaRL("item/mana_spark"))
 		);
 	}
 
 	@Override
-	public void render(@NotNull T tEntity, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(T tEntity, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		TextureAtlasSprite iicon = getBaseIcon(tEntity);
 		ClientXplatAbstractions.instance().markSpriteActive(iicon);
 

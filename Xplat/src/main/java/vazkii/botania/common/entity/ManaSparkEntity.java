@@ -72,7 +72,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	public ManaSparkEntity(Level world) {
-		this(BotaniaEntities.SPARK, world);
+		this(BotaniaEntities.MANA_SPARK, world);
 	}
 
 	@Override
@@ -307,7 +307,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	protected Item getSparkItem() {
-		return BotaniaItems.SPARK;
+		return BotaniaItems.MANA_SPARK;
 	}
 
 	private void dropAndKill() {

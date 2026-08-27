@@ -52,7 +52,7 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 				EntityType.EVOKER_FANGS, EntityType.LEASH_KNOT, EntityType.BLOCK_DISPLAY, EntityType.ITEM_DISPLAY,
 				EntityType.TEXT_DISPLAY, EntityType.INTERACTION, EntityType.MARKER,
 				BotaniaEntities.CORPOREA_SPARK, BotaniaEntities.GAIA_GUARDIAN, BotaniaEntities.FLAME_RING, BotaniaEntities.GAIA_TRAP,
-				BotaniaEntities.MAGIC_MISSILE, BotaniaEntities.MANA_BURST, BotaniaEntities.PINK_WITHER, BotaniaEntities.SPARK, BotaniaEntities.LUMINIZER_BEAM
+				BotaniaEntities.MAGIC_MISSILE, BotaniaEntities.MANA_BURST, BotaniaEntities.PINK_WITHER, BotaniaEntities.MANA_SPARK, BotaniaEntities.LUMINIZER_BEAM
 		);
 
 		tag(BotaniaTags.Entities.KEY_IMMUNE).add(EntityType.ITEM, EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME,

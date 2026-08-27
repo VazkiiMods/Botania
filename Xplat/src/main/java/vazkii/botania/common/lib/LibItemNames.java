@@ -122,7 +122,7 @@ public final class LibItemNames {
 	public static final String CRIMSON_PENDANT = "crimson_pendant";
 	public static final String HAND_OF_ENDER = "hand_of_ender";
 	public static final String VITREOUS_PICKAXE = "vitreous_pickaxe";
-	public static final String SPARK = "spark";
+	public static final String MANA_SPARK = "mana_spark";
 	public static final String SPARK_AUGMENT = "spark_augment";
 	public static final String ROD_OF_THE_PLENTIFUL_MANTLE = "rod_of_the_plentiful_mantle";
 	public static final String ROD_OF_THE_SHADED_MESA = "rod_of_the_shaded_mesa";

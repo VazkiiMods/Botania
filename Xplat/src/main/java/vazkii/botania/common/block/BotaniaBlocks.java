@@ -3269,7 +3269,7 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.FLORAL_OBEDIENCE_STICK, new StickBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.MANA_POOL_MINECART, new ManaPoolMinecartBehavior());
 		DispenserBlock.registerBehavior(FEL_PUMPKIN, new FelPumpkinBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.SPARK, new ManaSparkBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.MANA_SPARK, new ManaSparkBehavior());
 		DispenserBlock.registerBehavior(
 				GAIA_HEAD, new OptionalDispenseItemBehavior() {
 					@Override

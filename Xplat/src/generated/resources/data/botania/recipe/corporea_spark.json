@@ -3,7 +3,7 @@
   "category": "redstone",
   "ingredients": [
     {
-      "item": "botania:spark"
+      "item": "botania:mana_spark"
     },
     {
       "tag": "c:dusts/pixie"

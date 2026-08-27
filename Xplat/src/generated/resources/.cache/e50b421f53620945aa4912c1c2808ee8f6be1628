@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-15T15:30:06.15964287	Botania/Botania item models
+// 1.21.1	2026-08-27T19:12:05.685997062	Botania/Botania item models
 d4b0ba0031453560fbcac5ba06e408d0ee6a8c4f assets/botania/models/item/abstruse_platform.json
 bf099805ffd7a8d3043459d5fa421695f2890c97 assets/botania/models/item/agricarnation.json
 c3ca3c034853dd545c042e51282bd3fee9398f6e assets/botania/models/item/agricarnation_petite.json
@@ -542,6 +542,7 @@ e6d743058a559bfd9881e9d6dc61bdbffc2efc89 assets/botania/models/item/mana_quartz_
 4864594add1b621d8139499b1f7c1b2b1194dfa7 assets/botania/models/item/mana_quartz_pillar.json
 0ee2b2fe89d6d1c52064e7b966ac2d8abd22e9f6 assets/botania/models/item/mana_quartz_slab.json
 109e17a6d8f4dad08429f2c526ef8322c7bd9b2d assets/botania/models/item/mana_quartz_stairs.json
+c10480c3143bde0641574476fe9bb99db610277f assets/botania/models/item/mana_spark.json
 e3b79bac85c2b8ad82473d9103b9d9798a0e0dac assets/botania/models/item/mana_splitter.json
 c67fa855fb0a85425f8d8aada3e3568f1fcd6bca assets/botania/models/item/mana_spreader.json
 3f94bdac422759bbe2f59b5d540915494dad36d9 assets/botania/models/item/mana_string.json
@@ -817,7 +818,6 @@ bd83bc38203cb572baababa176cfafd42b702997 assets/botania/models/item/solite_petal
 01dc096d24d150756dd692dae55f6135f5c4ca89 assets/botania/models/item/solite_stairs.json
 b5fe03343dfe3367891645643d8d0710d1e32ec3 assets/botania/models/item/solite_wall.json
 eb58995f910f0c1cb26023afc9bd30eca54fe17f assets/botania/models/item/soulscribe.json
-edaf316dd8490d667ebf5d78dc29afdaa6fe5646 assets/botania/models/item/spark.json
 90b171270e572db5ccf379a971502cfbf9bc6339 assets/botania/models/item/spark_augment_dispersive.json
 dc58f0d5e031ca8a62776aa810feaff5cd2aca3c assets/botania/models/item/spark_augment_dominant.json
 4c9d18505d56c78e9ff98a3b59129930a2fd80b5 assets/botania/models/item/spark_augment_isolated.json

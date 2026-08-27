@@ -2569,7 +2569,7 @@
 
 
 
-  "botania.page.terrasteel0": "$(item)Terrasteel$(0) is a complex and useful magical alloy, infused with ridiculous amounts of $(thing)Mana$(0). Synthesising it proves to be no small task. For starters, its creation requires a $(item)Terrestrial Agglomeration Plate$(0) placed over a checkerboard pattern of $(item)Lapis Lazuli Blocks$(0) and $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) (or $(l:tools/rod_of_the_bifrost)$(item)Shimmerrock$(0)$(/l)). This block then needs to be provided with $(thing)Mana$(0), with $(l:mana/sparks)$(item)Sparks$(0)$(/l) being the most efficient mode of transfer.",
+  "botania.page.terrasteel0": "$(item)Terrasteel$(0) is a complex and useful magical alloy, infused with ridiculous amounts of $(thing)Mana$(0). Synthesising it proves to be no small task. For starters, its creation requires a $(item)Terrestrial Agglomeration Plate$(0) placed over a checkerboard pattern of $(item)Lapis Lazuli Blocks$(0) and $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) (or $(l:tools/rod_of_the_bifrost)$(item)Shimmerrock$(0)$(/l)). This block then needs to be provided with $(thing)Mana$(0), with $(l:mana/sparks)$(item)Mana Sparks$(0)$(/l) being the most efficient mode of transfer.",
 
 
 
@@ -2633,7 +2633,7 @@
 
 
 
-  "botania.page.sparks3": "Sparks can be dyed with $(item)Dye$(0); sparks with different colours will never interact. They can also be splashed with a bit of $(l:misc/phantom_ink)$(item)Phantom Ink$(0)$(/l) to make them highly translucent (in case you think they look too obtrusive).",
+  "botania.page.sparks3": "Mana Sparks can be dyed with $(item)Dye$(0); sparks with different colours will never interact. They can also be splashed with a bit of $(l:misc/phantom_ink)$(item)Phantom Ink$(0)$(/l) to make them highly translucent (in case you think they look too obtrusive).",
 
 
 
@@ -3654,8 +3654,8 @@
 
 
 
-  "botania.page.corporea5": "Like normal $(l:mana/sparks)$(item)Sparks$(0)$(/l), $(item)Corporea Sparks$(0) can be dyed with $(item)Dye$(0); the little star icon floating around the spark shows its current colour. $(item)Corporea Sparks$(0) of different colours won't interact. Thus, multiple independent Networks can be in an area without interacting.",
-  "botania.page.corporea6": "Visualising a Network and removing a spark from a container are performed the same way they are on ordinary $(l:mana/sparks)$(item)Sparks$(0)$(/l).$(p)Note that having two $(item)Master Corporea Sparks$(0) in the same network is a bad idea and can cause $(o)undefined behaviour$().",
+  "botania.page.corporea5": "Like $(l:mana/sparks)$(item)Mana Sparks$(0)$(/l), $(item)Corporea Sparks$(0) can be dyed with $(item)Dye$(0); the little star icon floating around the spark shows its current colour. $(item)Corporea Sparks$(0) of different colours won't interact. Thus, multiple independent Networks can be in an area without interacting.",
+  "botania.page.corporea6": "Visualising a Network and removing a spark from a container are performed the same way they are on $(l:mana/sparks)$(item)Mana Sparks$(0)$(/l).$(p)Note that having two $(item)Master Corporea Sparks$(0) in the same network is a bad idea and can cause $(o)undefined behaviour$().",
 
   "botania.page.corporea8": "Love-coloured",
 

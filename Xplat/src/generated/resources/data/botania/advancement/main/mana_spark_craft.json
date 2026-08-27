@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "botania:spark"
+            "items": "botania:mana_spark"
           }
         ]
       },
@@ -18,7 +18,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "botania:spark"
+      "id": "botania:mana_spark"
     },
     "title": {
       "translate": "advancement.botania:sparkCraft"

@@ -715,7 +715,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
 				.unlockedBy("has_head", conditionsFromItem(Items.SKELETON_SKULL))
 				.save(recipeOutput);
-		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaItems.SPARK)
+		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaItems.MANA_SPARK)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('B', Items.BLAZE_POWDER)
 				.define('N', ConventionalItemTags.GOLD_NUGGETS)
@@ -730,7 +730,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(BotaniaItems.RUNE_OF_WATER)
 				.group("botania:spark_augment")
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
-				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.SPARK))
+				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.MANA_SPARK))
 				.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.SPARK_AUGMENT_DOMINANT)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
@@ -738,7 +738,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(BotaniaItems.RUNE_OF_FIRE)
 				.group("botania:spark_augment")
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
-				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.SPARK))
+				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.MANA_SPARK))
 				.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.SPARK_AUGMENT_RECESSIVE)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
@@ -746,7 +746,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(BotaniaItems.RUNE_OF_EARTH)
 				.group("botania:spark_augment")
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
-				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.SPARK))
+				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.MANA_SPARK))
 				.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.SPARK_AUGMENT_ISOLATED)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
@@ -754,7 +754,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.requires(BotaniaItems.RUNE_OF_AIR)
 				.group("botania:spark_augment")
 				.unlockedBy("has_pixie_dust", conditionsFromTag(ConventionalBotaniaTags.Items.PIXIE_DUSTS))
-				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.SPARK))
+				.unlockedBy("has_spark", conditionsFromItem(BotaniaItems.MANA_SPARK))
 				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.MANAGLASS_VIAL, 3)
 				.define('G', BotaniaBlocks.MANAGLASS)
@@ -1838,7 +1838,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		registerRedStringBlock(recipeOutput, BotaniaBlocks.RED_STRINGED_SPOOFER, Ingredient.of(BotaniaBlocks.MANA_SPREADER));
 		registerRedStringBlock(recipeOutput, BotaniaBlocks.RED_STRINGED_INTERCEPTOR, Ingredient.of(ItemTags.STONE_BUTTONS));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaItems.CORPOREA_SPARK, 4)
-				.requires(BotaniaItems.SPARK)
+				.requires(BotaniaItems.MANA_SPARK)
 				.requires(ConventionalBotaniaTags.Items.PIXIE_DUSTS)
 				.requires(BotaniaTags.Items.ENDER_ESSENCES)
 				.unlockedBy("has_essence", conditionsFromTag(BotaniaTags.Items.ENDER_ESSENCES))

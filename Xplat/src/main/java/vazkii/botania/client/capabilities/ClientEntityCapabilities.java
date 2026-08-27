@@ -39,7 +39,7 @@ public final class ClientEntityCapabilities {
 	@SuppressWarnings("unchecked")
 	public static void registerCapabilityProviders(ApiProviderRegistration registration) {
 		registration.register(WandHUD.ENTITY_LOOKUP, List.of(
-				entityApi(ManaSparkEntity.WandHud::new, BotaniaEntities.SPARK),
+				entityApi(ManaSparkEntity.WandHud::new, BotaniaEntities.MANA_SPARK),
 				entityApi(CorporeaSparkEntity.WandHud::new, BotaniaEntities.CORPOREA_SPARK)
 		));
 

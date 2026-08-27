@@ -158,10 +158,10 @@ public class AdvancementProvider {
 							BotaniaItems.MANAWEAVE_LEGGINGS, BotaniaItems.MANAWEAVE_BOOTS))
 					.save(writer, mainId("manaweave_armor_craft"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.SPARK, "sparkCraft", AdvancementType.TASK))
+					.display(simple(BotaniaItems.MANA_SPARK, "sparkCraft", AdvancementType.TASK))
 					.parent(manaPoolPickup)
-					.addCriterion("spark", onPickup(BotaniaItems.SPARK))
-					.save(writer, mainId("spark_craft"));
+					.addCriterion("spark", onPickup(BotaniaItems.MANA_SPARK))
+					.save(writer, mainId("mana_spark_craft"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.BISCUIT_OF_TOTALITY, "manaCookieEat", AdvancementType.TASK))
 					.parent(manaPoolPickup)

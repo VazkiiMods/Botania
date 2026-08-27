@@ -54,12 +54,12 @@ public final class BotaniaEntities {
 			.clientTrackingRange(8)
 			.updateInterval(40)
 			.build(LibEntityNames.GAIA_TRAP.toString());
-	public static final EntityType<ManaSparkEntity> SPARK = EntityType.Builder.<ManaSparkEntity>of(ManaSparkEntity::new, MobCategory.MISC)
+	public static final EntityType<ManaSparkEntity> MANA_SPARK = EntityType.Builder.<ManaSparkEntity>of(ManaSparkEntity::new, MobCategory.MISC)
 			.sized(0.2F, 0.5F)
 			.fireImmune()
 			.clientTrackingRange(4)
 			.updateInterval(10)
-			.build(LibEntityNames.SPARK.toString());
+			.build(LibEntityNames.MANA_SPARK.toString());
 	public static final EntityType<ThrownItemEntity> THROWN_ITEM = EntityType.Builder.<ThrownItemEntity>of(ThrownItemEntity::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(4)
@@ -136,7 +136,7 @@ public final class BotaniaEntities {
 		r.accept(VINE_BALL, LibEntityNames.VINE_BALL);
 		r.accept(GAIA_GUARDIAN, LibEntityNames.GAIA_GUARDIAN);
 		r.accept(GAIA_TRAP, LibEntityNames.GAIA_TRAP);
-		r.accept(SPARK, LibEntityNames.SPARK);
+		r.accept(MANA_SPARK, LibEntityNames.MANA_SPARK);
 		r.accept(THROWN_ITEM, LibEntityNames.THROWN_ITEM);
 		r.accept(MAGIC_MISSILE, LibEntityNames.MAGIC_MISSILE);
 		r.accept(THORN_CHAKRAM, LibEntityNames.THORN_CHAKRAM);

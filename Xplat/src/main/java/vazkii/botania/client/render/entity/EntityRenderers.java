@@ -51,7 +51,7 @@ public final class EntityRenderers {
 		consumer.accept(BotaniaEntities.THROWN_ITEM, ItemEntityRenderer::new);
 		consumer.accept(BotaniaEntities.PIXIE, PixieRenderer::new);
 		consumer.accept(BotaniaEntities.GAIA_GUARDIAN, GaiaGuardianRenderer::new);
-		consumer.accept(BotaniaEntities.SPARK, ManaSparkRenderer::new);
+		consumer.accept(BotaniaEntities.MANA_SPARK, ManaSparkRenderer::new);
 		consumer.accept(BotaniaEntities.CORPOREA_SPARK, CorporeaSparkRenderer::new);
 		consumer.accept(BotaniaEntities.MANA_POOL_MINECART, ManaPoolMinecartRenderer::new);
 		consumer.accept(BotaniaEntities.PINK_WITHER, PinkWitherRenderer::new);

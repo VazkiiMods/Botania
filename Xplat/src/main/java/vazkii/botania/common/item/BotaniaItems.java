@@ -589,7 +589,7 @@ public final class BotaniaItems {
 	public static final Item NULLODERMAL_VIRUS = make(LibItemNames.NULLODERMAL_VIRUS,
 			new EquestrianVirusItem(defaultBuilder()
 					.rarity(Rarity.UNCOMMON)));
-	public static final Item SPARK = make(LibItemNames.SPARK, new ManaSparkItem(defaultBuilder()));
+	public static final Item MANA_SPARK = make(LibItemNames.MANA_SPARK, new ManaSparkItem(defaultBuilder()));
 	public static final Item SPARK_AUGMENT_DISPERSIVE = make(LibItemNames.SPARK_AUGMENT + "_dispersive",
 			new Item(defaultBuilder()
 					.component(BotaniaDataComponents.AUGMENT_ICON, botaniaRL("item/spark_augment_rune_dispersive"))
