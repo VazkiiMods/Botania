@@ -9,18 +9,16 @@ VERSION="${TAGNAME/#release-}"
 # also remove '_<anything>' from end (for potential retries)
 VERSION="${VERSION/%_*}"
 MC_VERSION=$(echo "${VERSION}" | cut -d '-' -f 1)
-CHANGELOG_FRAGMENT=$(echo "${VERSION}" | tr . -)
-CHANGELOG_LINK="https://botaniamod.net/changelog.html#${CHANGELOG_FRAGMENT}"
+CHANGELOG_TEXT=$(sed -n "/version=\"${VERSION}\"/,/---/"'{//!p;}' web/changelog.md)
+CHANGELOG_MARKDOWN=$(cat <<EOF
+Changes in this version:
+${CHANGELOG_TEXT}
+EOF
+)
 
 function release_github() {
 	echo >&2 'Creating GitHub Release'
-	gh api \
-	   --method POST \
-	   -H "Accept: application/vnd.github+json" \
-	   -H "X-GitHub-Api-Version: 2022-11-28" \
-	   /repos/VazkiiMods/Botania/releases \
-	   -f tag_name="${TAGNAME}"
-
+	gh release create "${TAGNAME}" --verify-tag -t "Botania ${VERSION}" -n "${CHANGELOG_MARKDOWN}"
 	echo >&2 'Uploading Fabric Jar and Signature to GitHub'
 	gh release upload "${TAGNAME}" "${FABRIC_JAR}#Fabric Jar"
 	gh release upload "${TAGNAME}" "${FABRIC_JAR}.asc#Fabric Signature"
@@ -56,9 +54,12 @@ function release_modrinth() {
 	"featured": false,
 	"project_id": "pfjLUfGv",
 	"file_parts": [
-		"jar"
+		"jar", "signature"
 	],
-	"primary_file": "jar"
+	"primary_file": "jar",
+	"file_types": {
+		"signature": "signature"
+	}
 }
 EOF
 						)
@@ -66,12 +67,13 @@ EOF
 	MODRINTH_FABRIC_SPEC=$(echo "${MODRINTH_FABRIC_SPEC}" | \
 							   jq --arg name "${VERSION}-fabric" \
 								  --arg mcver "${MC_VERSION}" \
-								  --arg changelog "${CHANGELOG_LINK}" \
+								  --arg changelog "${CHANGELOG_MARKDOWN}" \
 								  '.name=$ARGS.named.name | .version_number=$ARGS.named.name | .game_versions=[$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
 	curl 'https://api.modrinth.com/v2/version' \
-		 -H "Authorization: $MODRINTH_TOKEN" \
-		 -F "data=$MODRINTH_FABRIC_SPEC" \
-		 -F "jar=@${FABRIC_JAR}" # TODO modrinth doesn't allow asc files. Remember to readd "signature" to the spec when reenabling this. \ -F "signature=@${FABRIC_JAR}.asc"
+		 -H "Authorization: ${MODRINTH_TOKEN}" \
+		 -F "data=${MODRINTH_FABRIC_SPEC}" \
+		 -F "jar=@${FABRIC_JAR}" \
+		 -F "signature=@${FABRIC_JAR}.asc"
 
 	echo >&2 'Uploading Forge Jar to Modrinth'
 	local MODRINTH_FORGE_SPEC
@@ -92,9 +94,12 @@ EOF
 	"featured": false,
 	"project_id": "pfjLUfGv",
 	"file_parts": [
-		"jar"
+		"jar", "signature"
 	],
-	"primary_file": "jar"
+	"primary_file": "jar",
+	"file_types": {
+	  "signature": "signature"
+	}
 }
 EOF
 					   )
@@ -102,12 +107,13 @@ EOF
 	MODRINTH_FORGE_SPEC=$(echo "${MODRINTH_FORGE_SPEC}" | \
 							  jq --arg name "${VERSION}-forge" \
 								 --arg mcver "${MC_VERSION}" \
-								 --arg changelog "${CHANGELOG_LINK}" \
+								 --arg changelog "${CHANGELOG_MARKDOWN}" \
 								 '.name=$ARGS.named.name | .version_number=$ARGS.named.name | .game_versions=[$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
 	curl 'https://api.modrinth.com/v2/version' \
-		 -H "Authorization: $MODRINTH_TOKEN" \
-		 -F "data=$MODRINTH_FORGE_SPEC" \
-		 -F "jar=@${FORGE_JAR}" # TODO modrinth doesn't allow asc files. Remember to readd "signature" to the spec when reenabling this. \ -F "signature=@${FORGE_JAR}.asc"
+		 -H "Authorization: ${MODRINTH_TOKEN}" \
+		 -F "data=${MODRINTH_FORGE_SPEC}" \
+		 -F "jar=@${FORGE_JAR}" \
+		 -F "signature=@${FORGE_JAR}.asc"
 }
 
 function release_curseforge() {
@@ -117,7 +123,7 @@ function release_curseforge() {
 	local CURSEFORGE_FABRIC_SPEC
 	CURSEFORGE_FABRIC_SPEC=$(cat <<EOF
 {
-  "changelogType": "text",
+  "changelogType": "markdown",
   "releaseType": "release",
   "relations": {
     "projects": [
@@ -140,21 +146,21 @@ function release_curseforge() {
 EOF
 						  )
 
-	CURSEFORGE_FABRIC_SPEC=$(echo "$CURSEFORGE_FABRIC_SPEC" | \
-								 jq --arg changelog "$CHANGELOG_LINK" \
-									--arg mcver "$MC_VERSION" \
+	CURSEFORGE_FABRIC_SPEC=$(echo "${CURSEFORGE_FABRIC_SPEC}" | \
+								 jq --arg changelog "${CHANGELOG_MARKDOWN}" \
+									--arg mcver "${MC_VERSION}" \
 									'.gameVersionNames += [$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
 	curl 'https://minecraft.curseforge.com/api/projects/421839/upload-file' \
-		 -H "X-Api-Token: $CURSEFORGE_TOKEN" \
-		 -F "metadata=$CURSEFORGE_FABRIC_SPEC" \
-		 -F "file=@$FABRIC_JAR"
+		 -H "X-Api-Token: ${CURSEFORGE_TOKEN}" \
+		 -F "metadata=${CURSEFORGE_FABRIC_SPEC}" \
+		 -F "file=@${FABRIC_JAR}"
 	# TODO: Upload the asc as an 'Additional file'
 
 	echo >&2 'Uploading Forge Jar to CurseForge'
 	local CURSEFORGE_FORGE_SPEC
 	CURSEFORGE_FORGE_SPEC=$(cat <<EOF
 {
-  "changelogType": "text",
+  "changelogType": "markdown",
   "releaseType": "release",
   "relations": {
     "projects": [
@@ -173,14 +179,14 @@ EOF
 EOF
 						 )
 
-	CURSEFORGE_FORGE_SPEC=$(echo "$CURSEFORGE_FORGE_SPEC" | \
-								jq --arg changelog "$CHANGELOG_LINK" \
-								   --arg mcver "$MC_VERSION" \
+	CURSEFORGE_FORGE_SPEC=$(echo "${CURSEFORGE_FORGE_SPEC}" | \
+								jq --arg changelog "${CHANGELOG_MARKDOWN}" \
+								   --arg mcver "${MC_VERSION}" \
 								   '.gameVersionNames += [$ARGS.named.mcver] | .changelog=$ARGS.named.changelog')
 	curl 'https://minecraft.curseforge.com/api/projects/225643/upload-file' \
-		 -H "X-Api-Token: $CURSEFORGE_TOKEN" \
-		 -F "metadata=$CURSEFORGE_FORGE_SPEC" \
-		 -F "file=@$FORGE_JAR"
+		 -H "X-Api-Token: ${CURSEFORGE_TOKEN}" \
+		 -F "metadata=${CURSEFORGE_FORGE_SPEC}" \
+		 -F "file=@${FORGE_JAR}"
 	# TODO: Upload the asc as an 'Additional file'
 }
 

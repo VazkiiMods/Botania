@@ -23,6 +23,7 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 
 * Fix: Transfers to dispersive spark are resumed the same way as for unaugmented sparks (wang-cz-1997)
 * Fix: Z-fighting in the Lexica Botania 1st-person model's spine (Literally Unplayable™ for lefties!)
+* Internal: Updated release script to display this list of changes directly wherever you choose to download Botania from
 * Language updates:
   * ko_kr overhauled (Eisus)
 
