@@ -1,11 +1,3 @@
 {
-  "parent": "botania:block/mana_pool",
-  "overrides": [
-    {
-      "model": "botania:block/mana_pool_full",
-      "predicate": {
-        "botania:full": 1.0
-      }
-    }
-  ]
+  "parent": "botania:block/brown_mana_pool"
 }

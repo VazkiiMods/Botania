@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "botania:block/creative_mana_pool"
+      "model": "botania:block/gray_creative_mana_pool"
     }
   }
 }

@@ -49,7 +49,6 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
-import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BlockstateProvider implements DataProvider {
@@ -600,14 +599,19 @@ public class BlockstateProvider implements DataProvider {
 		TextureSlot[] manaPoolFullSlots = new TextureSlot[] {
 				TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE, TextureSlot.CONTENT
 		};
-		takeAll(remainingBlocks, block -> block instanceof ManaPoolBlock poolBlock && poolBlock.color == null)
+		takeAll(remainingBlocks, block -> block instanceof ManaPoolBlock)
 				.forEach(block -> {
-					Block blockForTexture = block == BotaniaBlocks.FABULOUS_MANA_POOL ? BotaniaBlocks.MANA_POOL : block;
-					ResourceLocation side = getBlockTexture(blockForTexture, "_side");
-					ResourceLocation top = getBlockTexture(blockForTexture, "_top");
-					ResourceLocation bottom = getBlockTexture(blockForTexture, "_bottom");
-					ResourceLocation inside = getBlockTexture(blockForTexture, "_inside");
-					ResourceLocation blockModelTemplateKey = BuiltInRegistries.BLOCK.getKey(blockForTexture)
+					ManaPoolBlock poolBlock = (ManaPoolBlock) block;
+					ManaPoolBlock blockForTexture = poolBlock.fabulous
+							? BotaniaBlocks.findOptionallyDyedBlock(BotaniaBlocks.MANA_POOL, poolBlock.color)
+							: poolBlock;
+					ManaPoolBlock baseBlock = ManaPoolBlock.getUndyedBlock(blockForTexture);
+					String dyedPrefix = poolBlock.color != null ? "dyed_" : "";
+					ResourceLocation side = getBlockTexture(baseBlock, "_side", dyedPrefix);
+					ResourceLocation top = getBlockTexture(baseBlock, "_top", dyedPrefix);
+					ResourceLocation bottom = getBlockTexture(baseBlock, "_bottom", dyedPrefix);
+					ResourceLocation inside = getBlockTexture(baseBlock, "_inside", dyedPrefix);
+					ResourceLocation blockModelTemplateKey = BuiltInRegistries.BLOCK.getKey(baseBlock)
 							.withPrefix("block/shapes/");
 					ModelTemplate template = new ModelTemplate(Optional.of(blockModelTemplateKey), Optional.empty(),
 							manaPoolSlots);
@@ -619,18 +623,17 @@ public class BlockstateProvider implements DataProvider {
 
 					singleVariantBlockState(block, template.create(block, mapping, this.modelOutput));
 
-					ResourceLocation blockModelFullTemplateKey = blockModelTemplateKey.withSuffix("_full");
-					ModelTemplate fullTemplate = new ModelTemplate(Optional.of(blockModelFullTemplateKey),
-							Optional.of("_full"), manaPoolFullSlots);
-					fullTemplate.create(block, mapping.put(TextureSlot.CONTENT, botaniaRL("block/mana_water")),
-							this.modelOutput);
-				});
-		takeAll(remainingBlocks, block -> block instanceof ManaPoolBlock poolBlock && poolBlock.color != null)
-				.forEach(block -> {
-					Block baseBlock = ManaPoolBlock.getUndyedBlock((ManaPoolBlock) block);
-					ResourceLocation blockModelTemplateKey = BuiltInRegistries.BLOCK.getKey(baseBlock)
-							.withPrefix("block/");
-					singleVariantBlockState(block, blockModelTemplateKey);
+					if (poolBlock.creative || poolBlock.color == null) {
+						ResourceLocation blockModelFullTemplateKey = blockModelTemplateKey.withSuffix("_full");
+						ModelTemplate fullTemplate = new ModelTemplate(
+								Optional.of(blockModelFullTemplateKey),
+								Optional.of("_full"), manaPoolFullSlots
+						);
+						fullTemplate.create(
+								block, mapping.put(TextureSlot.CONTENT, botaniaRL("block/mana_water")),
+								this.modelOutput
+						);
+					}
 				});
 
 		takeAll(remainingBlocks, BotaniaBlocks.MANA_PUMP, BotaniaBlocks.TINY_POTATO)
@@ -976,6 +979,20 @@ public class BlockstateProvider implements DataProvider {
 		handleStandardBlockModel(remainingBlocks, PressurePlateBlock.class, LibBlockNames.PRESSURE_PLATE_SUFFIX, this::pressurePlateBlock);
 
 		remainingBlocks.forEach(this::cubeAllNoRemove);
+	}
+
+	// [VanillaCopy] TextureMapping::getBlockTexture(Block, String), except also with a prefix string
+	public static ResourceLocation getBlockTexture(Block block, String textureSuffix, String texturePrefix) {
+		ResourceLocation resourcelocation = BuiltInRegistries.BLOCK.getKey(block);
+		return resourcelocation.withPath(path -> "block/" + texturePrefix + path + textureSuffix);
+	}
+
+	public static ResourceLocation getBlockTexture(Block block, String textureSuffix) {
+		return TextureMapping.getBlockTexture(block, textureSuffix);
+	}
+
+	public static ResourceLocation getBlockTexture(Block block) {
+		return TextureMapping.getBlockTexture(block);
 	}
 
 	private <T extends Block> void handleStandardBlockModel(Set<Block> remainingBlocks, Class<T> blockClass,

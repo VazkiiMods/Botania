@@ -441,11 +441,23 @@ public class ItemModelProvider implements DataProvider {
 		});
 
 		takeAll(itemBlocks, item -> item.getBlock() instanceof ManaPoolBlock).forEach(item -> {
-			Block baseBlock = ManaPoolBlock.getUndyedBlock((ManaPoolBlock) item.getBlock());
-			ResourceLocation fullModel = ModelLocationUtils.getModelLocation(baseBlock, "_full");
-			OverrideHolder overrides = new OverrideHolder().add(fullModel, Pair.of(botaniaRL("full"), 1.0));
-			consumer.accept(ModelLocationUtils.getModelLocation(item),
-					new SimpleModelSupplierWithOverrides(ModelLocationUtils.getModelLocation(baseBlock), overrides));
+			ManaPoolBlock block = (ManaPoolBlock) item.getBlock();
+			if (block.creative) {
+				// creative pools are always rendered as full, no override needed
+				consumer.accept(ModelLocationUtils.getModelLocation(item),
+						new DelegatedModel(ModelLocationUtils.getModelLocation(block, "_full")));
+			} else if (block.color == null) {
+				ResourceLocation fullModel = ModelLocationUtils.getModelLocation(block, "_full");
+				OverrideHolder overrides = new OverrideHolder().add(fullModel, Pair.of(botaniaRL("full"), 1.0));
+				consumer.accept(
+						ModelLocationUtils.getModelLocation(item),
+						new SimpleModelSupplierWithOverrides(ModelLocationUtils.getModelLocation(block), overrides)
+				);
+			} else {
+				// dyed pools are not used with the "full" override and the full block model variants are not available
+				consumer.accept(ModelLocationUtils.getModelLocation(item),
+						new DelegatedModel(ModelLocationUtils.getModelLocation(block)));
+			}
 		});
 		takeAll(itemBlocks, Stream
 				.of(BotaniaBlocks.LIVINGWOOD_WALL, BotaniaBlocks.STRIPPED_LIVINGWOOD_WALL,
