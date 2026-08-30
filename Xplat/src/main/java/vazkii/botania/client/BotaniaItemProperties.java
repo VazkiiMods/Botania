@@ -14,7 +14,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.Item;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -34,7 +34,7 @@ import java.util.Locale;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaItemProperties {
-	public static void init(TriConsumer<ItemLike, ResourceLocation, ClampedItemPropertyFunction> consumer) {
+	public static void init(TriConsumer<Item, ResourceLocation, ClampedItemPropertyFunction> consumer) {
 		consumer.accept(BotaniaItems.TRINKET_CASE, botaniaRL("open"),
 				(stack, world, entity, seed) -> stack.has(BotaniaDataComponents.ACTIVE_TRANSIENT) ? 1 : 0);
 		consumer.accept(BotaniaItems.BLACK_HOLE_TALISMAN, botaniaRL("active"),
@@ -74,11 +74,11 @@ public final class BotaniaItemProperties {
 
 		ResourceLocation poolFullId = botaniaRL("full");
 		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> stack.has(BotaniaDataComponents.RENDER_FULL)
-				|| stack.getItem() instanceof BlockItem b && b.getBlock() instanceof ManaPoolBlock pool && pool.isCreative()
+				|| stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ManaPoolBlock pool && pool.isCreative()
 						? 1 : 0;
 		BuiltInRegistries.BLOCK.stream().filter(ManaPoolBlock.class::isInstance)
 				.filter(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(BotaniaAPI.MODID))
-				.forEach(block -> consumer.accept(block, poolFullId, poolFull));
+				.forEach(block -> consumer.accept(block.asItem(), poolFullId, poolFull));
 
 		ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
 			BaseBrewItem item = ((BaseBrewItem) stack.getItem());

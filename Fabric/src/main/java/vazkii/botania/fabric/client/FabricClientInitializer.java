@@ -111,7 +111,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 			pluginContext.modifyModelAfterBake().register((bakedModel, context) -> MiscellaneousModels.INSTANCE.modifyModelAfterbake(bakedModel, context.resourceId()));
 		});
 		BlockRenderLayers.init(BlockRenderLayerMap.INSTANCE::putBlock);
-		BotaniaItemProperties.init((i, id, propGetter) -> ItemProperties.register(i.asItem(), id, propGetter));
+		BotaniaItemProperties.init(ItemProperties::register);
 
 		// BE/Entity Renderer
 		BotaniaLayerDefinitions.init((loc, supplier) -> EntityModelLayerRegistry.registerModelLayer(loc, supplier::get));

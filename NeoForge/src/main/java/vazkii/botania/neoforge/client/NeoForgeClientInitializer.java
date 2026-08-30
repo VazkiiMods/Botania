@@ -203,7 +203,7 @@ public class NeoForgeClientInitializer {
 		var resourceManager = Minecraft.getInstance().getResourceManager();
 		MiscellaneousModels.INSTANCE.onModelRegister(resourceManager,
 				id -> evt.register(ModelResourceLocation.standalone(id)));
-		BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
+		BotaniaItemProperties.init(ItemProperties::register);
 	}
 
 	@SubscribeEvent
