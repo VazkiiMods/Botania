@@ -191,9 +191,13 @@ Features in older versions are mentioned if there are issues or no real interact
   * vanilla mushrooms got a vanilla tag and tagged recipe usage
 * straw bed
 * cushions
+* stairs and slabs for wool and concrete
 * Abandoned Camp (in all kinds of biomes)
   * provide explorer maps to other camps, ancient cities, mineshafts, desert pyramids, warm ocean ruins, and some structures you could also locate via maps sold by cartographer villagers
-    (none of these are relevant to the Loonium, as we excluded structure maps for performance reasons)
+    * none of these are relevant to the Loonium, as we excluded structure maps for performance reasons
+    * they are actually different item types now (update Loonium exclusion to include the tag that contains them all)
+  * apparently a significant performance improvement related to generating structure maps as part of loot
+* Potion brewing operations are defined via recipes (input, reagent, and output)
 * Notable data component changes:
   * `minecraft:block_transformer` – for the various right-click actions of axes, shovels, and hoes that transform blocks, potentially with a loot item drop
     * not for e.g. water bottles, shears, or honey comb waxing
