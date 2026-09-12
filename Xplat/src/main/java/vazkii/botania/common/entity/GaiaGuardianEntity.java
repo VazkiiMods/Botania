@@ -212,7 +212,7 @@ public class GaiaGuardianEntity extends Mob {
 	 */
 	public static final Team GAIA_FIGHT_TEAM = new BotaniaMonsterTeam(GAIA_FIGHT_TEAM_NAME);
 
-	private boolean spawnLandmines = false;
+	private boolean spawnTraps = false;
 	private boolean spawnPixies = false;
 	private boolean anyWithArmor = false;
 	private boolean aggro = false;
@@ -623,9 +623,10 @@ public class GaiaGuardianEntity extends Mob {
 				pixie.spawnAnim();
 				pixie.discard();
 			}
-			for (MagicLandmineEntity landmine : level().getEntitiesOfClass(MagicLandmineEntity.class,
+			for (GaiaTrapEntity gaiaTrap : level().getEntitiesOfClass(
+					GaiaTrapEntity.class,
 					MathHelper.inflateBoxAround(getSource(), ARENA_PLAYER_RANGE))) {
-				landmine.discard();
+				gaiaTrap.discard();
 			}
 			if ((XplatAbstractions.instance().isRunningCategory(BotaniaSpeedrunCategories.GAIA_I) && !hardMode) ||
 					(XplatAbstractions.instance().isRunningCategory(BotaniaSpeedrunCategories.GAIA_II) && hardMode)) {
@@ -1073,7 +1074,7 @@ public class GaiaGuardianEntity extends Mob {
 					if (tpDelay == 0 && getHealth() > 0) {
 						teleportRandomly();
 
-						if (spawnLandmines) {
+						if (spawnTraps) {
 							int count = getConfigDataIntSample(
 									dying ? GaiaFightConfiguration::dyingMineCount : GaiaFightConfiguration::mineCount
 							).orElse(6);
@@ -1082,11 +1083,11 @@ public class GaiaGuardianEntity extends Mob {
 								int y = (int) players.get(random.nextInt(players.size())).getY();
 								int z = source.getZ() - 10 + random.nextInt(20);
 
-								MagicLandmineEntity landmine = BotaniaEntities.GAIA_TRAP.create(level());
-								if (landmine != null) {
-									landmine.setPos(x + 0.5, y, z + 0.5);
-									landmine.summoner = this;
-									level().addFreshEntity(landmine);
+								GaiaTrapEntity gaiaTrap = BotaniaEntities.GAIA_TRAP.create(level());
+								if (gaiaTrap != null) {
+									gaiaTrap.setPos(x + 0.5, y, z + 0.5);
+									gaiaTrap.summoner = this;
+									level().addFreshEntity(gaiaTrap);
 								}
 							}
 						}
@@ -1111,7 +1112,7 @@ public class GaiaGuardianEntity extends Mob {
 						tpDelay = getConfigDataInt(
 								dying ? GaiaFightConfiguration::dyingTeleportDelay : GaiaFightConfiguration::teleportDelay
 						).orElse(40);
-						spawnLandmines = true;
+						spawnTraps = true;
 						spawnPixies = false;
 					}
 				} else {

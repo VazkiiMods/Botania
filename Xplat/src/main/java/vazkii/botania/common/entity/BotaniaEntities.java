@@ -49,7 +49,7 @@ public final class BotaniaEntities {
 			.clientTrackingRange(10)
 			.updateInterval(10)
 			.build(LibEntityNames.GAIA_GUARDIAN.toString());
-	public static final EntityType<MagicLandmineEntity> GAIA_TRAP = EntityType.Builder.of(MagicLandmineEntity::new, MobCategory.MISC)
+	public static final EntityType<GaiaTrapEntity> GAIA_TRAP = EntityType.Builder.of(GaiaTrapEntity::new, MobCategory.MISC)
 			.sized(5F, 0.1F)
 			.clientTrackingRange(8)
 			.updateInterval(40)

@@ -24,10 +24,10 @@ import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
 
-public class MagicLandmineEntity extends Entity {
+public class GaiaTrapEntity extends Entity {
 	public GaiaGuardianEntity summoner;
 
-	public MagicLandmineEntity(EntityType<MagicLandmineEntity> type, Level world) {
+	public GaiaTrapEntity(EntityType<GaiaTrapEntity> type, Level world) {
 		super(type, world);
 	}
 

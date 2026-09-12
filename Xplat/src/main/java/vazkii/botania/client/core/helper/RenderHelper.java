@@ -94,7 +94,7 @@ public final class RenderHelper extends RenderType {
 
 	private static final double INITIAL_OFFSET = 0.005;
 	private static final double OFFSET_INCREMENT = 0.001;
-	// Global y offset so that overlapping landmines or radius descriptors do not Z-fight
+	// Global y offset so that overlapping gaia traps or radius descriptors do not Z-fight
 	private static double offY = INITIAL_OFFSET;
 
 	public static double getOffY() {

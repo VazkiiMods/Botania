@@ -22,16 +22,16 @@ import org.joml.Matrix4f;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.entity.MagicLandmineEntity;
+import vazkii.botania.common.entity.GaiaTrapEntity;
 
-public class MagicLandmineRenderer extends EntityRenderer<MagicLandmineEntity> {
+public class GaiaTrapRenderer extends EntityRenderer<GaiaTrapEntity> {
 
-	public MagicLandmineRenderer(EntityRendererProvider.Context ctx) {
+	public GaiaTrapRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 
 	@Override
-	public void render(MagicLandmineEntity e, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(GaiaTrapEntity e, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		super.render(e, entityYaw, partialTicks, ms, buffers, light);
 
 		ms.pushPose();
@@ -63,7 +63,7 @@ public class MagicLandmineRenderer extends EntityRenderer<MagicLandmineEntity> {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(MagicLandmineEntity entity) {
+	public ResourceLocation getTextureLocation(GaiaTrapEntity entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 }

@@ -43,7 +43,7 @@ public final class EntityRenderers {
 		consumer.accept(BotaniaEntities.MANA_BURST, NoopRenderer::new);
 		consumer.accept(BotaniaEntities.LUMINIZER_BEAM, NoopRenderer::new);
 		consumer.accept(BotaniaEntities.FLAME_RING, NoopRenderer::new);
-		consumer.accept(BotaniaEntities.GAIA_TRAP, MagicLandmineRenderer::new);
+		consumer.accept(BotaniaEntities.GAIA_TRAP, GaiaTrapRenderer::new);
 		consumer.accept(BotaniaEntities.MAGIC_MISSILE, NoopRenderer::new);
 		consumer.accept(BotaniaEntities.FALLING_STAR, NoopRenderer::new);
 		consumer.accept(BotaniaEntities.PURE_ENDER_ESSENCE_CLOUD, NoopRenderer::new);
