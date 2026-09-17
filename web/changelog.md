@@ -21,6 +21,10 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
+---
+
+{% include changelog_header.html version="1.20.1-456" %}
+
 * Fix: Transfers to dispersive spark are resumed the same way as for unaugmented sparks (wang-cz-1997)
 * Fix: Z-fighting in the Lexica Botania 1st-person model's spine (Literally Unplayable™ for lefties!)
 * Fix: Shimmering mushrooms no longer accept bone meal, because it doesn't do anything
