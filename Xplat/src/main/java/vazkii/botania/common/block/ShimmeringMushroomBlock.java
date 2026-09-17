@@ -41,6 +41,16 @@ public class ShimmeringMushroomBlock extends MushroomBlock implements CustomApot
 	}
 
 	@Override
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+		return false;
+	}
+
+	@Override
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+		return false;
+	}
+
+	@Override
 	public DyeColor getColor() {
 		return color;
 	}
