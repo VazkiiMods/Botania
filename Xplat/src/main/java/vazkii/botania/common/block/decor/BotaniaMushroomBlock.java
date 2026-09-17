@@ -40,6 +40,14 @@ public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothec
 		this.color = color;
 	}
 
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+		return false;
+	}
+
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+		return false;
+	}
+
 	@Override
 	public boolean growMushroom(ServerLevel level, BlockPos pos, BlockState state, RandomSource rand) {
 		return false;
