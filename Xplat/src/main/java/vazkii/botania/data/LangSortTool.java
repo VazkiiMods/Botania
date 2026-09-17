@@ -105,7 +105,7 @@ public class LangSortTool {
 				if (!PREAMBLE_COMMENT_KEY_PATTERN.matcher(key).matches()) {
 					final String value = lineMatcher.group("value");
 					if (value.equals(enUsEntries.get(key))) {
-						LOGGER.info("{}[{}]: Dropping copied value for '{}'", langFile.getFileName(), lineNo, key);
+						LOGGER.warn("{}[{}]: Dropping copied value for '{}'", langFile.getFileName(), lineNo, key);
 						continue;
 					}
 					if (keyLines.containsKey(key)) {
@@ -114,12 +114,12 @@ public class LangSortTool {
 							final String formattedLine = KEY_VALUE_LINE_FORMAT.formatted(key, value);
 							newLangLines.set(lineIndex, formattedLine);
 						} else {
-							LOGGER.error("{}[{}]: Duplicate key '{}'", langFile.getFileName(), lineNo, key);
+							LOGGER.warn("{}[{}]: Duplicate key '{}'", langFile.getFileName(), lineNo, key);
 							final String formattedLine = KEY_VALUE_LINE_FORMAT.formatted("_" + key, value);
 							newLangLines.add(formattedLine);
 						}
 					} else {
-						LOGGER.error("{}}[{}}]: Unknown key '{}'", langFile.getFileName(), lineNo, key);
+						LOGGER.warn("{}}[{}}]: Unknown key '{}'", langFile.getFileName(), lineNo, key);
 						final String formattedLine = KEY_VALUE_LINE_FORMAT.formatted(key, value);
 						newLangLines.add(formattedLine);
 					}
