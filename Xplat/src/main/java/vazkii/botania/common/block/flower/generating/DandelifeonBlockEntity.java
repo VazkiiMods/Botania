@@ -233,7 +233,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 	}
 
-	private static record LifeUpdate(int x, int z, int newLife, int oldLife) {
+	private record LifeUpdate(int x, int z, int newLife, int oldLife) {
 	}
 
 	@Override
