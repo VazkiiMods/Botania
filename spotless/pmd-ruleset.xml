@@ -28,7 +28,7 @@
     <rule name="DoNotUseMixinDebug"
           language="java"
           message="Mixin annotated with @Debug"
-          class="net.sourceforge.pmd.lang.rule.XPathRule">
+          class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
         <description>
             Debug annotation makes Mixin export the class
             or output the bytecode to the game log,
@@ -36,7 +36,6 @@
         </description>
         <priority>3</priority>
         <properties>
-            <property name="version" value="2.0"/>
             <property name="xpath">
                 <value>
                     <![CDATA[
