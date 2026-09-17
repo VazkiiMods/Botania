@@ -31,9 +31,10 @@ public record SingleItem(ItemStack item) {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof SingleItem(ItemStack otherItem)))
+	public boolean equals(Object obj) {
+		if (!(obj instanceof SingleItem(ItemStack otherItem))) {
 			return false;
+		}
 		return ItemStack.isSameItemSameComponents(item, otherItem);
 	}
 

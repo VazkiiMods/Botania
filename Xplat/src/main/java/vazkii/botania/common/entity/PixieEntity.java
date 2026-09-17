@@ -41,6 +41,7 @@ public class PixieEntity extends FlyingMob {
 		this.gaia = gaia;
 	}
 
+	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
 		return new ClientboundAddEntityPacket(this, entity, gaia ? 1 : 0);
 	}

@@ -33,6 +33,7 @@ public interface SimpleTextAndIconMonocleHud extends MonocleHud {
 	 */
 	Component getDisplayString();
 
+	@Override
 	default void renderHUD(GuiGraphics gui, Window window, Font font, float partialTick) {
 		int x = window.getGuiScaledWidth() / 2 + 15;
 		int y = window.getGuiScaledHeight() / 2 - 8;

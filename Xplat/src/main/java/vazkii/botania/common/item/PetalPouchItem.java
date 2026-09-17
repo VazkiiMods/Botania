@@ -54,6 +54,7 @@ public class PetalPouchItem extends ColoredContentsPouchItem {
 		return stack.has(BotaniaDataComponents.ACTIVE);
 	}
 
+	@Override
 	public boolean isSupportedItem(ItemStack pouch, ItemStack pickupStack) {
 		return super.isSupportedItem(pouch, pickupStack)
 				|| isActive(pouch) && getConvertedItemTypes(pouch).stream().anyMatch(pickupStack::is);

@@ -30,9 +30,10 @@ public record LooniumDrop(ItemStack stack) {
 	public static final DataHolderId<LooniumDrop> HOLDER = new DataHolderId<>(ID, CODEC);
 
 	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof LooniumDrop(ItemStack otherItem)))
+	public boolean equals(Object obj) {
+		if (!(obj instanceof LooniumDrop(ItemStack otherItem))) {
 			return false;
+		}
 		return ItemStack.matches(stack, otherItem);
 	}
 

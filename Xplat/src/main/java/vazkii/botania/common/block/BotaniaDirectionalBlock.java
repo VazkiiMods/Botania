@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 public class BotaniaDirectionalBlock extends DirectionalBlock {
 	public static final MapCodec<BotaniaDirectionalBlock> CODEC = simpleCodec(BotaniaDirectionalBlock::new);
 
+	@Override
 	public MapCodec<BotaniaDirectionalBlock> codec() {
 		return CODEC;
 	}

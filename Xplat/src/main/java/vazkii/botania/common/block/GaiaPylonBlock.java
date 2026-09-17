@@ -37,6 +37,7 @@ public class GaiaPylonBlock extends PylonBlock {
 		level.addParticle(data, pos.getX() + Math.random(), pos.getY() + 0.1 + 0.9 * Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
 	}
 
+	@Override
 	public float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos) {
 		return 15f;
 	}

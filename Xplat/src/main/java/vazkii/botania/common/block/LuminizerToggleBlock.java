@@ -44,6 +44,7 @@ public class LuminizerToggleBlock extends LuminizerPoweredBlock {
 		}
 	}
 
+	@Override
 	@Nullable
 	public BlockPos getNextDestination(Level level, BlockState state, BlockPos blockPos, LuminizerBlockEntity blockEntity) {
 		return state.getValue(POWERED)

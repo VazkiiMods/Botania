@@ -20,6 +20,7 @@ import java.util.Optional;
 public interface Colored extends OptionallyColored {
 	DyeColor getColor();
 
+	@Override
 	default Optional<DyeColor> getOptionalColor() {
 		return Optional.of(getColor());
 	}

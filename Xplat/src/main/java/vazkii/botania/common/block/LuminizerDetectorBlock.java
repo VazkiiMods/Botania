@@ -52,6 +52,7 @@ public class LuminizerDetectorBlock extends LuminizerPoweredBlock {
 		return state.getValue(POWERED) ? 15 : 0;
 	}
 
+	@Override
 	public void onMoverPassing(Level level, BlockState state, BlockPos pos, LuminizerMoverEntity entity) {
 		level.setBlockAndUpdate(pos, state.setValue(POWERED, true));
 		level.scheduleTick(pos, state.getBlock(), 2);

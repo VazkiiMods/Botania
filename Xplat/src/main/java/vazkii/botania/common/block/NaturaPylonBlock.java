@@ -90,6 +90,7 @@ public class NaturaPylonBlock extends PylonBlock {
 				0, 0, 0);
 	}
 
+	@Override
 	public float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos) {
 		return 15f;
 	}

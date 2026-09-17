@@ -155,6 +155,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 		return posArray;
 	}
 
+	@Override
 	public int getUpdateInterval() {
 		return 1;
 	}

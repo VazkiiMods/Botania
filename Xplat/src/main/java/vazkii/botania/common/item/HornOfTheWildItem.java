@@ -34,14 +34,17 @@ public class HornOfTheWildItem extends HornItem {
 				|| state.is(BotaniaTags.Blocks.HORN_OF_THE_WILD_BREAKABLE)) && !state.is(BotaniaTags.Blocks.HORN_OF_THE_WILD_IMMUNE);
 	}
 
+	@Override
 	protected int getRange() {
 		return RANGE;
 	}
 
+	@Override
 	protected int getRangeY() {
 		return RANGE_Y;
 	}
 
+	@Override
 	protected int getNumBlocksToBreak() {
 		return NUM_BLOCKS_TO_BREAK;
 	}

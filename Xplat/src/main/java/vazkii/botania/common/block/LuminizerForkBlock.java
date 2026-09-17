@@ -24,6 +24,7 @@ public class LuminizerForkBlock extends LuminizerBlock {
 		super(builder);
 	}
 
+	@Override
 	@Nullable
 	public BlockPos getNextDestination(Level level, BlockState state, BlockPos blockPos, LuminizerBlockEntity blockEntity) {
 		BlockPos torchPos = null;

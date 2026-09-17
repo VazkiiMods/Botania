@@ -78,6 +78,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		return SPEED;
 	}
 
+	@Override
 	protected boolean shouldTick(long gameTime, int interval) {
 		// don't randomize based on position
 		return (int) (gameTime % interval) == 0;

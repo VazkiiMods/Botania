@@ -43,14 +43,15 @@ public class PoweredFloatingSpecialFlowerBlock extends FloatingSpecialFlowerBloc
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+		RedstoneSensitiveBlock.updateRedstonePower(state, level, pos);
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (isPowered(state))
-			RedstoneSensitiveBlock.redstoneParticlesInShape(state, world, pos, rand);
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		if (isPowered(state)) {
+			RedstoneSensitiveBlock.redstoneParticlesInShape(state, level, pos, random);
+		}
 	}
 
 }

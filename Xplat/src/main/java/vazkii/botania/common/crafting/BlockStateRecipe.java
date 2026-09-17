@@ -42,18 +42,22 @@ public abstract class BlockStateRecipe implements vazkii.botania.api.recipe.Bloc
 		this.successFunction = successFunction;
 	}
 
+	@Override
 	public StateIngredient getInput() {
 		return input;
 	}
 
+	@Override
 	public StateIngredient getOutput() {
 		return output;
 	}
 
+	@Override
 	public Optional<CacheableFunction> getPreUpdateFunction() {
 		return Optional.ofNullable(this.preUpdateFunction);
 	}
 
+	@Override
 	public Optional<CacheableFunction> getSuccessFunction() {
 		return Optional.ofNullable(this.successFunction);
 	}
