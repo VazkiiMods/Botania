@@ -53,7 +53,9 @@ jobs:
       uses: pmd/pmd-github-action@v2
       if: failure()
       with:
-        rulesets: '**/reports/pmd/main.xml'
+        rulesets: 'spotless/pmd-ruleset.xml'
+        version: '6.55.0' # TODO: we should switch to 7.x, eventually
+        analyzeModifiedFilesOnly: 'false'
     - name: Check generated files up to date
       run: ./scripts/check_datagen.sh
     - name: Run GameTests (Fabric)
