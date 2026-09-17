@@ -90,6 +90,10 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 {% include changelog_header.html version="Upcoming" %}
 The following changes will be released in an upcoming version of Botania for 1.20.1:
 
+---
+
+{% include changelog_header.html version="1.20.1-456" %}
+
 * Fix: Transfers to dispersive spark are resumed the same way as for unaugmented sparks (wang-cz-1997)
 * Fix: Z-fighting in the Lexica Botania 1st-person model's spine (Literally Unplayable™ for lefties!)
 * Fix: Shimmering mushrooms no longer accept bone meal, because it doesn't do anything
