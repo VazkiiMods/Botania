@@ -65,12 +65,12 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public DefaultedRegistry<Brew> getBrewRegistry() {
-		return RegistryHelper.getDefaultedRegistry(BotaniaRegistries.BREWS);
+		return (DefaultedRegistry<Brew>) RegistryHelper.getRegistry(BotaniaRegistries.BREWS);
 	}
 
 	@Override
 	public DefaultedRegistry<IslandType> getIslandTypeRegistry() {
-		return RegistryHelper.getDefaultedRegistry(BotaniaRegistries.ISLAND_TYPES);
+		return (DefaultedRegistry<IslandType>) RegistryHelper.getRegistry(BotaniaRegistries.ISLAND_TYPES);
 	}
 
 	@Override

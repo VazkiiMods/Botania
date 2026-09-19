@@ -23,7 +23,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ItemSources {
 	public static final Codec<ItemSource> CODEC = Codec.lazyInitialized(
-			() -> RegistryHelper.getDefaultedRegistry(BotaniaRegistries.ITEM_SOURCE).byNameCodec());
+			() -> RegistryHelper.getRegistry(BotaniaRegistries.ITEM_SOURCE).byNameCodec());
 
 	public static final ItemSource PETAL_APOTHECARY = new ItemSource(true);
 	public static final ItemSource MANA_INFUSION = new ItemSource(true);

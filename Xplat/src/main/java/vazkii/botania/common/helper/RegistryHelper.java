@@ -10,7 +10,6 @@ package vazkii.botania.common.helper;
 
 import com.mojang.datafixers.util.Either;
 
-import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderOwner;
 import net.minecraft.core.Registry;
@@ -19,7 +18,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -29,8 +27,8 @@ import java.util.stream.Stream;
 
 public class RegistryHelper {
 	@SuppressWarnings("unchecked")
-	public static <T> DefaultedRegistry<T> getDefaultedRegistry(ResourceKey<Registry<T>> resourceKey) {
-		return (DefaultedRegistry<T>) BuiltInRegistries.REGISTRY.get(resourceKey.location());
+	public static <T> Registry<T> getRegistry(ResourceKey<Registry<T>> resourceKey) {
+		return (Registry<T>) BuiltInRegistries.REGISTRY.get(resourceKey.location());
 	}
 
 	public static <T> HolderProxy<T> lazyHolderProxy(ResourceKey<Registry<T>> registryKey, ResourceLocation id, Supplier<T> valueSupplier) {
@@ -73,7 +71,6 @@ public class RegistryHelper {
 			reference = Registry.registerForHolder(registry, resourceKey, value.get());
 		}
 
-		@NotNull
 		@Override
 		public T value() {
 			if (reference == null) {
@@ -128,11 +125,6 @@ public class RegistryHelper {
 		@Override
 		public Optional<ResourceKey<T>> unwrapKey() {
 			return Optional.of(resourceKey);
-		}
-
-		@Override
-		public Kind kind() {
-			return Kind.REFERENCE;
 		}
 
 		@Override
