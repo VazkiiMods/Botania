@@ -265,6 +265,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		for (int i = 0; i < size; i++) {
 			stacksIn.add(stack.copy());
 		}
+		level.blockEntityChanged(worldPosition);
 	}
 
 	public static Collection<ElvenTradeRecipe> elvenTradeRecipes(Level world) {
@@ -290,6 +291,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 					for (ItemStack output : recipe.getOutputs(inputs)) {
 						spawnItem(output.copy());
 					}
+					level.blockEntityChanged(worldPosition);
 				}
 				break;
 			}
