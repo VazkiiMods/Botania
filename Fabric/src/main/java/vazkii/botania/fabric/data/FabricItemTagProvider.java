@@ -74,8 +74,6 @@ public class FabricItemTagProvider extends ItemTagProvider {
 		this.tag(accessory("chest/necklace")).add(
 				bloodPendant,
 				cloudPendant,
-				divaCharm,
-				goddessCharm,
 				icePendant,
 				lavaPendant,
 				superCloudPendant,
@@ -101,6 +99,10 @@ public class FabricItemTagProvider extends ItemTagProvider {
 		};
 		this.tag(accessory("hand/ring")).add(rings);
 		this.tag(accessory("offhand/ring")).add(rings);
+		this.tag(accessory("hand/charm")).add(
+				divaCharm,
+				goddessCharm
+		);
 		this.tag(accessory("head/face")).add(
 				itemFinder,
 				monocle,
