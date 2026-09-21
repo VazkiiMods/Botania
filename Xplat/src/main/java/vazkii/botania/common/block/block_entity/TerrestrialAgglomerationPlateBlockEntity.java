@@ -34,6 +34,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
+import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.ManaSparkAttachable;
@@ -47,6 +48,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.internal_caps.ItemSources;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.patchouli.api.IMultiblock;
@@ -141,6 +143,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BlockEntity implem
 			item.discard();
 		}
 		ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5, result, 0, 0, 0);
+		ItemSource.HOLDER.setFor(item, ItemSources.TERRA_PLATE);
 		level.addFreshEntity(item);
 		level.playSound(null, pos, BotaniaSounds.TERRA_PLATE_CRAFT, SoundSource.BLOCKS, 1F, 1F);
 		mana = 0;
