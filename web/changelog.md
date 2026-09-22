@@ -91,6 +91,7 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 The following changes will be released in an upcoming version of Botania for 1.20.1:
 
 * Fix: Alfheim portal storing or outputting items did not cause the chunk to be marked as unsaved
+* Fix: Heisei Dream attempted to brainwash mobs during their death animation
 
 ---
 

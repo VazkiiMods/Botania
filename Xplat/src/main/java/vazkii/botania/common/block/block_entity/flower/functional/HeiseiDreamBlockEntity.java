@@ -25,6 +25,7 @@ import vazkii.botania.mixin.HurtByTargetGoalAccessor;
 import vazkii.botania.mixin.MobAccessor;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
@@ -49,6 +50,7 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 		if (mobs.size() <= 1) {
 			return;
 		}
+		Collections.shuffle(mobs);
 		for (Mob mob : mobs) {
 			if (brainwashEntity(mob, mobs)) {
 				addMana(-COST);
