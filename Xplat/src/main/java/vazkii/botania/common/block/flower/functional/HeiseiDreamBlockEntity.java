@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.flower.functional;
 
-import com.google.common.base.Predicates;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -27,6 +25,7 @@ import vazkii.botania.mixin.HurtByTargetGoalAccessor;
 import vazkii.botania.mixin.MobAccessor;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
@@ -45,9 +44,10 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(Enemy.class));
+		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)), mob -> mob instanceof Enemy && mob.isAlive());
 
 		if (mobs.size() > 1 && getMana() >= COST) {
+			Collections.shuffle(mobs);
 			for (Mob mob : mobs) {
 				if (brainwashEntity(mob, mobs)) {
 					addMana(-COST);

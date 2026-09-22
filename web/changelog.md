@@ -22,6 +22,7 @@ of time the maintainers are able to spend on this effort.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
 
 * Fix: Alfheim portal storing or outputting items did not cause the chunk to be marked as unsaved
+* Fix: Heisei Dream attempted to brainwash mobs during their death animation
 
 ---
 
