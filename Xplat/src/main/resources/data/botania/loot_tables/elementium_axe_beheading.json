@@ -271,42 +271,6 @@
           "entity": "this"
         }
       ]
-    },
-    {
-      "rolls": 1,
-      "conditions": [
-        {
-          "condition": "entity_properties",
-          "entity": "killer_player",
-          "predicate": {
-            "equipment": {
-              "mainhand": {
-                "items": [
-                  "botania:elementium_axe"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "condition": "entity_properties",
-          "entity": "this",
-          "predicate": {
-            "type": "botania:doppleganger"
-          }
-        },
-        {
-          "condition": "random_chance_with_looting",
-          "chance": 0.0769,
-          "looting_multiplier": 0.0769
-        }
-      ],
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "botania:gaia_head"
-        }
-      ]
     }
   ]
 }

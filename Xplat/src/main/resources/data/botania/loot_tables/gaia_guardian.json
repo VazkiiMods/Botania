@@ -18,6 +18,20 @@
       }]
     },
     {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "botania:true_guardian_killer"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:gaia_guardian/head"
+        }
+      ]
+    },
+    {
       "name": "music_disc",
       "conditions": [
         { "condition": "botania:killed_by_player" },
