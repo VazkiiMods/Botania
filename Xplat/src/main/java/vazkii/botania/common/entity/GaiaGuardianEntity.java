@@ -52,6 +52,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -63,8 +64,10 @@ import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
 
@@ -89,7 +92,6 @@ import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
 import vazkii.botania.mixin.BeaconBlockEntityAccessor;
-import vazkii.botania.mixin.MobAccessor;
 import vazkii.botania.network.clientbound.ArenaIndicatorEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
@@ -644,25 +646,18 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public ResourceKey<LootTable> getDefaultLootTable() {
-		if (mobSpawnTicks > 0) {
-			return BuiltInLootTables.EMPTY;
-		}
-		return super.getDefaultLootTable();
-	}
-
-	@Override
-	protected void dropFromLootTable(DamageSource source, boolean wasRecentlyHit) {
+	protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean wasRecentlyHit) {
 		// Save true killer, they get extra loot
 		if (wasRecentlyHit && isTruePlayer(source.getEntity())) {
 			trueKiller = (Player) source.getEntity();
 		}
 
-		// potential head drop
-		super.dropFromLootTable(source, wasRecentlyHit);
+		// shouldn't actually do anything, but call it anyway:
+		super.dropCustomDeathLoot(level, source, wasRecentlyHit);
 
 		ResourceKey<LootTable> playerLoot = getConfigData(GaiaFightConfiguration::getRewardLootTableKey)
 				.orElse(BotaniaLootTables.GAIA_GUARDIAN_REWARD);
+		LootTable table = level.getServer().reloadableRegistries().getLootTable(playerLoot);
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
 			Player player = level().getPlayerByUUID(u);
@@ -670,16 +665,26 @@ public class GaiaGuardianEntity extends Mob {
 				continue;
 			}
 
-			Player saveLastAttacker = lastHurtByPlayer;
-			Vec3 savePos = position();
+			LootParams.Builder builder = new LootParams.Builder(level)
+					.withParameter(LootContextParams.THIS_ENTITY, this)
+					.withParameter(LootContextParams.ORIGIN, position())
+					.withParameter(LootContextParams.DAMAGE_SOURCE, source)
+					.withOptionalParameter(LootContextParams.ATTACKING_ENTITY, source.getEntity())
+					.withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, source.getDirectEntity())
+					// pretend that player did the final hit
+					.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player)
+					.withLuck(player.getLuck());
 
-			lastHurtByPlayer = player; // Fake attacking player as the killer
-			// Spoof pos so drops spawn at the player
-			setPos(player.getX(), player.getY(), player.getZ());
-			((MobAccessor) this).botania_setLootTable(playerLoot);
-			super.dropFromLootTable(player.damageSources().playerAttack(player), wasRecentlyHit);
-			setPos(savePos.x(), savePos.y(), savePos.z());
-			lastHurtByPlayer = saveLastAttacker;
+			LootParams lootparams = builder.create(LootContextParamSets.ENTITY);
+			Position position = player.position();
+			// spawn drops at the player's position
+			table.getRandomItems(lootparams, getLootTableSeed(), stack -> {
+				if (!stack.isEmpty()) {
+					ItemEntity itementity = new ItemEntity(level, position.x(), position.y(), position.z(), stack);
+					itementity.setDefaultPickUpDelay();
+					level.addFreshEntity(itementity);
+				}
+			});
 		}
 
 		trueKiller = null;
