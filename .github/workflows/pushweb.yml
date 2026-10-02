@@ -55,4 +55,4 @@ jobs:
         echo '${{ vars.BOTANIAWEB_KNOWN_HOST }}' >> ~/.ssh/known_hosts
     - name: Push
       if: ${{ github.ref == needs.determinator.outputs.default_branch }}
-      run: rsync -rl web/_site/ customer@botaniaweb.playat.ch:/var/www/botaniamod_net
+      run: rsync -rl web/_site/ customer@botaniaweb2electricboogaloo.playat.ch:/var/www/botaniamod_net
