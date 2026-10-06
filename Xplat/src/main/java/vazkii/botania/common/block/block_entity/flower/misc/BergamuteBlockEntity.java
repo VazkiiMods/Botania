@@ -12,7 +12,6 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.FastColor;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -108,7 +107,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 
 			Vec3 flowerPos = f.getEffectivePos().getCenter();
 			Vec3 vecSourceToFlower = sourceCenterPos.vectorTo(flowerPos);
-			double travelPosition = Mth.clamp(vibrationTravelDir.dot(vecSourceToFlower), 0, vibrationTravelDist);
+			double travelPosition = Math.clamp(vibrationTravelDir.dot(vecSourceToFlower), 0, vibrationTravelDist);
 			Vec3 closestPos = sourceCenterPos.add(vibrationTravelDir.scale(travelPosition));
 			if (flowerPos.distanceToSqr(closestPos) <= RANGE * RANGE) {
 				return true;

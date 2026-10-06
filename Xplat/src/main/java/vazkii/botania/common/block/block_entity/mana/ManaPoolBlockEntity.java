@@ -417,9 +417,9 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 	 * on the bottom of the pool or at least about halfway up, so the four possible values are distributed accordingly.
 	 */
 	private static int encodeRelativeItemPosition(BlockPos worldPosition, ItemEntity item) {
-		double relX = Mth.clamp(item.position().x() - worldPosition.getX(), 0, 1);
-		double relY = Mth.clamp(0.125 + 0.875 * (item.position().y() - worldPosition.getY()), 0.125, 0.9);
-		double relZ = Mth.clamp(item.position().z() - worldPosition.getZ(), 0, 1);
+		double relX = Math.clamp(item.position().x() - worldPosition.getX(), 0, 1);
+		double relY = Math.clamp(0.125 + 0.875 * (item.position().y() - worldPosition.getY()), 0.125, 0.9);
+		double relZ = Math.clamp(item.position().z() - worldPosition.getZ(), 0, 1);
 
 		int compressedX = (int) Math.round(7.0 * relX);
 		int compressedY = 4 - Mth.ceillog2(14 - (int) (14.0 * relY));

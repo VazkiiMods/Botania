@@ -228,9 +228,9 @@ public final class ColorHandler {
 	}
 
 	private static int addToColor(int color, int add) {
-		int red = Mth.clamp(FastColor.ARGB32.red(color) + add, 0, 255);
-		int green = Mth.clamp(FastColor.ARGB32.green(color) + add, 0, 255);
-		int blue = Mth.clamp(FastColor.ARGB32.blue(color) + add, 0, 255);
+		int red = Math.clamp(FastColor.ARGB32.red(color) + add, 0, 255);
+		int green = Math.clamp(FastColor.ARGB32.green(color) + add, 0, 255);
+		int blue = Math.clamp(FastColor.ARGB32.blue(color) + add, 0, 255);
 
 		return FastColor.ARGB32.color(red, green, blue);
 	}

@@ -18,7 +18,7 @@ public final class MathHelper {
 
 	public static double angleBetween(Vec3 a, Vec3 b) {
 		double projection = a.normalize().dot(b.normalize());
-		return Math.acos(net.minecraft.util.Mth.clamp(projection, -1, 1));
+		return Math.acos(Math.clamp(projection, -1, 1));
 	}
 
 	public static float pointDistanceSpace(double x1, double y1, double z1, double x2, double y2, double z2) {

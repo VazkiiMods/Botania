@@ -13,7 +13,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -80,7 +79,7 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 
 	@Override
 	public void addMana(int mana) {
-		this.mana = Mth.clamp(this.mana + mana, 0, getMaxMana());
+		this.mana = Math.clamp(this.mana + mana, 0, getMaxMana());
 	}
 
 	@Override

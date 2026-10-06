@@ -106,7 +106,7 @@ public class RenderLexicon {
 			ms.mulPose(VecHelper.rotateY(200F + ticks * 10));
 		}
 		ms.mulPose(VecHelper.rotateZ(-0.3F + ticks * 2.85F));
-		float opening = Mth.clamp(ticks / 12F, 0, 1);
+		float opening = Math.clamp(ticks / 12F, 0, 1);
 
 		float pageFlipTicks = ClientTickHandler.getPageFlipTicks();
 
@@ -116,7 +116,7 @@ public class RenderLexicon {
 		float rightPageAngle = Mth.frac(pageFlip + 0.75F) * 1.6F - 0.3F;
 		var model = getModel();
 		model.setupAnim(ClientTickHandler.getPlayerTicksInGame() + ClientTickHandler.getPartialPlayerTick(),
-				Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
+				Math.clamp(leftPageAngle, 0.0F, 1.0F), Math.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
 		Material mat = LexicaBotaniaItem.isElven(stack) ? ELVEN_TEXTURE : TEXTURE;
 		VertexConsumer buffer = mat.buffer(buffers, RenderType::entitySolid);
