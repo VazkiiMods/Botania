@@ -12,12 +12,12 @@ No project is completable with just one contributor, and Botania is no exception
 
 *   **All [Patrons](https://www.patreon.com/Vazkii) and Donators** for being kind enough to support me monthly with their own income.
 *   The current maintainers of Botania:
-    *   **Hubry**, for contributing a whole bunch of bugfixes and improvements.
-    *   **Alwinfy**, for contributing a whole bunch of bugfixes and improvements.
-    *   **ArtemisSystem**, for making many new 1.14+ style textures and contributing many
-        code changes as well.
-*   Former maintainers of Botania:
+    *   **artemisSystem**
+    *   **Wormbo**
+*   Former/inactive maintainers of Botania:
     *   **williewillus**, the lead maintainer of Botania for 8 years from 1.8 to 1.20.1.
+    *   **Hubry**, for contributing a whole bunch of bugfixes and improvements. Currently on hiatus.
+    *   **Alwinfy**, for contributing a whole bunch of bugfixes and improvements. Currently on hiatus.
 *   Artists and other Asset Providers (listed in alphabetic order):
     *   **Adubbz** for the Pixie model and render from Biomes O' Plenty.
     *   **Auric245524** for the old armor textures.
