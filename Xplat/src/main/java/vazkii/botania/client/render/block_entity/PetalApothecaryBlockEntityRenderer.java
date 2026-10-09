@@ -100,6 +100,9 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 					}
 
 					ms.popPose();
+					if (buffers instanceof MultiBufferSource.BufferSource bs) {
+						bs.endBatch();
+					}
 				}
 			}
 
