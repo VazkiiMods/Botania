@@ -679,6 +679,7 @@ public final class BotaniaItems {
 					.component(BotaniaDataComponents.REMAINING_USES, BottledManaItem.SWIGS)));
 	public static final Item SHARD_OF_LAPUTA = make(LibItemNames.SHARD_OF_LAPUTA,
 			new LaputaShardItem(unstackable()
+					.component(BotaniaDataComponents.SHARD_LEVEL, 1)
 					.rarity(Rarity.RARE)));
 	public static final Item NECRODERMAL_VIRUS = make(LibItemNames.NECRODERMAL_VIRUS,
 			new EquestrianVirusItem(defaultBuilder()

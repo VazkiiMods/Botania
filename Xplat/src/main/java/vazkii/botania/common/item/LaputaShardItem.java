@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -54,8 +56,8 @@ import java.util.Optional;
 
 public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetExcempt, CustomCreativeTabContents {
 
-	public static final int MAX_LEVEL = 19;
-	private static final int BASE_RANGE = 14;
+	public static final int MAX_LEVEL = 20;
+	private static final int BASE_RANGE = 13;
 	private static final int BASE_OFFSET = 42;
 
 	public LaputaShardItem(Properties props) {
@@ -64,22 +66,20 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 	@Override
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
-		for (int i = 0; i <= 20; i += 5) {
+		ImmutableList.of(1, 5, 10, 15, 20).forEach(i -> {
 			ItemStack s = new ItemStack(me);
-			if (i != 0) {
-				DataComponentHelper.setIntNonZero(s, BotaniaDataComponents.SHARD_LEVEL, i - 1);
-				if (i == 20) {
-					DataComponentHelper.bumpRarity(s);
-				}
+			s.set(BotaniaDataComponents.SHARD_LEVEL, i);
+			if (i == 20) {
+				DataComponentHelper.bumpRarity(s);
 			}
 			output.accept(s);
-		}
+		});
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
 		int level = getShardLevel(stack);
-		Component levelLoc = Component.translatable("botania.roman" + (level + 1));
+		Component levelLoc = Component.translatable("botania.roman" + level);
 		list.add(Component.translatable("botaniamisc.shardLevel", levelLoc).withStyle(ChatFormatting.GRAY));
 		list.add(Component.translatable("botaniamisc.shardRange", getRange(stack)).withStyle(ChatFormatting.GRAY));
 	}
@@ -212,7 +212,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	}
 
 	public static int getShardLevel(ItemStack shard) {
-		return shard.getOrDefault(BotaniaDataComponents.SHARD_LEVEL, 0);
+		return shard.getOrDefault(BotaniaDataComponents.SHARD_LEVEL, 1);
 	}
 
 	private boolean inRange(BlockPos pos, BlockPos srcPos, int range, double heightScale, boolean pointy) {
