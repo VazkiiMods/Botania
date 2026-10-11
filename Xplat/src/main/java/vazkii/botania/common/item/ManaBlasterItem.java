@@ -191,8 +191,11 @@ public class ManaBlasterItem extends Item {
 		return stack.has(BotaniaDataComponents.LENS_CLIP);
 	}
 
-	public static void setClip(ItemStack stack, boolean clip) {
+	public static void addClip(ItemStack stack, boolean clip) {
 		DataComponentHelper.setFlag(stack, BotaniaDataComponents.LENS_CLIP, clip);
+		ItemStack lens = DataComponentHelper.getSingleItem(stack, BotaniaDataComponents.ATTACHED_LENS);
+		setLensAtPos(stack, lens, 0);
+		stack.remove(BotaniaDataComponents.ATTACHED_LENS);
 	}
 
 	public static int getClipPos(ItemStack stack) {

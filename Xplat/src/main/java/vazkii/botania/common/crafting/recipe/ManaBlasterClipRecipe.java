@@ -64,10 +64,8 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 			return ItemStack.EMPTY;
 		}
 
-		ItemStack lens = ManaBlasterItem.getLens(gun);
 		ItemStack gunCopy = gun.copy();
-		ManaBlasterItem.setClip(gunCopy, true);
-		ManaBlasterItem.setLens(gunCopy, lens);
+		ManaBlasterItem.addClip(gunCopy, true);
 		return gunCopy;
 	}
 
