@@ -214,7 +214,7 @@ spotless {
     enforceCheck = false // workaround around jenkins having wrong line endings in some files
     // we explicitly check in github actions builds
     java {
-        indentWithTabs()
+        leadingSpacesToTabs()
         eclipse().configFile rootProject.file("spotless/eclipseformat.xml")
         removeUnusedImports()
         importOrderFile rootProject.file("spotless/eclipse.importorder")
