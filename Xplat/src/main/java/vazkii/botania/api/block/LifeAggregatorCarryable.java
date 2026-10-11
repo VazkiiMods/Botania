@@ -9,12 +9,15 @@
 
 package vazkii.botania.api.block;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,7 +60,7 @@ public interface LifeAggregatorCarryable {
 	 *           single entity type.
 	 */
 	@Nullable
-	EntityType<?> getEntityType();
+	EntityType<?> getEntityType(@Nullable Level level, RandomSource random, BlockPos pos);
 
 	/**
 	 * Optional block state information in the form of {@link BlockItemStateProperties} for restoring the block state.

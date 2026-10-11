@@ -151,7 +151,7 @@ public class LifeAggregatorItem extends Item {
 
 		if (!level.isClientSide) {
 			stack.set(BotaniaDataComponents.BLOCK_TYPE, BuiltInRegistries.BLOCK.getKey(carryable.getBlockType()));
-			EntityType<?> entityType = carryable.getEntityType();
+			EntityType<?> entityType = carryable.getEntityType(level, level.getRandom(), pos);
 			if (entityType != null) {
 				stack.set(BotaniaDataComponents.MOB_TYPE, BuiltInRegistries.ENTITY_TYPE.getKey(entityType));
 			}

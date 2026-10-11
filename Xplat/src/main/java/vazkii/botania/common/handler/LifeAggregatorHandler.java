@@ -9,8 +9,11 @@
 
 package vazkii.botania.common.handler;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.entity.TrialSpawnerBlockEntity;
@@ -50,9 +53,9 @@ public class LifeAggregatorHandler {
 				LifeAggregatorCarryable.LifeAggregatorCarryableBlockEntity<SpawnerBlockEntity> {
 
 		@Override
-		public @Nullable EntityType<?> getEntityType() {
-			return LifeAggregatorHandler.getEntityType(
-					((BaseSpawnerAccessor) this.blockEntity.getSpawner()).botania_getSpawnPotentials());
+		public @Nullable EntityType<?> getEntityType(@Nullable Level level, RandomSource random, BlockPos pos) {
+			SpawnData data = ((BaseSpawnerAccessor) this.blockEntity.getSpawner()).botania_getOrCreateNextSpawnData(level, random, pos);
+			return EntityType.by(data.entityToSpawn()).orElse(null);
 		}
 	}
 
@@ -64,7 +67,7 @@ public class LifeAggregatorHandler {
 				LifeAggregatorCarryable.LifeAggregatorCarryableBlockEntity<TrialSpawnerBlockEntity> {
 
 		@Override
-		public @Nullable EntityType<?> getEntityType() {
+		public @Nullable EntityType<?> getEntityType(@Nullable Level level, RandomSource random, BlockPos pos) {
 			return LifeAggregatorHandler.getEntityType(
 					this.blockEntity.getTrialSpawner().getConfig().spawnPotentialsDefinition());
 		}
