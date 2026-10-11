@@ -119,7 +119,7 @@ jar {
     exclude("**/unused")
 
     exclude(".cache")
-    exclude("assets/botania/patchouli_books/lexicon/en_us/README")
+    exclude("assets/botania/patchouli_books/lexica_botania/en_us/README")
 
     manifest {
         attributes([
@@ -147,6 +147,7 @@ processResources {
     from("../contributors.properties")
     // Exclude datagenerator .cache directory
     exclude(".cache")
+    exclude("assets/botania/patchouli_books/lexica_botania/en_us/README")
 
     var expandProps = [
             "version"                      : version,
@@ -172,7 +173,7 @@ processResources {
     filesMatching(["pack.mcmeta", "fabric.mod.json", "META-INF/neoforge.mods.toml", "*.mixins.json"]) {
         expand(expandProps)
     }
-    filesMatching("data/botania/patchouli_books/lexicon/book.json") {
+    filesMatching("data/botania/patchouli_books/lexica_botania/book.json") {
         filter {
             it.replace("${build_number}", build_number)
         }
