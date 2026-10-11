@@ -6,7 +6,7 @@
         "items": [
           {
             "components": {
-              "botania:shard_level": 19
+              "botania:shard_level": 20
             },
             "items": "botania:shard_of_laputa"
           }
