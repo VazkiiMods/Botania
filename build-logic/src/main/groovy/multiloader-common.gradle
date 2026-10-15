@@ -154,8 +154,7 @@ processResources {
             "build_number"                 : build_number,
             "group"                        : project.group, //Else we target the task's group.
             "minecraft_version"            : minecraft_version,
-            "fabric_version"               : fabric_version,
-            "fabric_loader_version"        : fabric_loader_version,
+            "fabric_loader_version"        : project.rootProject.extensions.getByType(VersionCatalogsExtension).named("libs").findVersion("fabric-loader").get().displayName,
             "mod_name"                     : mod_name,
             "mod_author"                   : mod_author,
             "mod_id"                       : mod_id,
@@ -166,7 +165,6 @@ processResources {
             "issues_url"                   : issue_url,
             "neoforge_version"             : neoforge_version,
             "neoforge_loader_version_range": neoforge_loader_version_range,
-            "java_version"                 : java_version,
             "gog_version"                  : gog_version
     ]
 
