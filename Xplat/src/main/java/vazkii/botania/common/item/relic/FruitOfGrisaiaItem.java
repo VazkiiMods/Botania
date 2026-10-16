@@ -28,8 +28,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FruitOfGrisaiaItem extends RelicItem {
 
-	public FruitOfGrisaiaItem(Properties props) {
-		super(props);
+	public FruitOfGrisaiaItem(Properties properties) {
+		super(properties);
 	}
 
 	@Override
@@ -43,32 +43,38 @@ public class FruitOfGrisaiaItem extends RelicItem {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-		ItemStack stack = player.getItemInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+		ItemStack stack = player.getItemInHand(usedHand);
 		var relic = Relic.LOOKUP.find(stack);
 		if (player.canEat(false) && relic != null && relic.isRightPlayer(player)) {
-			return ItemUtils.startUsingInstantly(world, player, hand);
+			return ItemUtils.startUsingInstantly(level, player, usedHand);
 		}
 		return InteractionResultHolder.pass(stack);
 	}
 
 	@Override
-	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
-		if (!(living instanceof Player player)) {
+	public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
+		if (!(livingEntity instanceof Player player)) {
 			return;
 		}
 		if (ManaItemHandler.instance().requestManaExact(stack, player, 500, true)) {
-			if (count % 5 == 0) {
+			if (remainingUseDuration % 5 == 0) {
 				player.gameEvent(GameEvent.EAT);
-				player.getFoodData().eat(2, 2.4F);
+				player.getFoodData().eat(1, 1.2F);
 			}
 
-			if (count == 5) {
+			if (remainingUseDuration == 5) {
 				if (player.canEat(false)) {
 					((LivingEntityAccessor) player).botania_setUseItemRemaining(20);
 				}
 			}
 		}
+	}
+
+	@Override
+	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+		// don't allow actually eating the fruit
+		return stack;
 	}
 
 	public static boolean isBoot(ItemStack stack) {
