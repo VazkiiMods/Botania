@@ -28,6 +28,8 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FruitOfGrisaiaItem extends RelicItem {
 
+	public static final int MANA_PER_USE_TICK = 500;
+
 	public FruitOfGrisaiaItem(Properties properties) {
 		super(properties);
 	}
@@ -46,7 +48,9 @@ public class FruitOfGrisaiaItem extends RelicItem {
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
 		ItemStack stack = player.getItemInHand(usedHand);
 		var relic = Relic.LOOKUP.find(stack);
-		if (player.canEat(false) && relic != null && relic.isRightPlayer(player)) {
+		if (player.canEat(false) && relic != null && relic.isRightPlayer(player)
+		// no point starting to eat if not enough mana to reach the first effect tick:
+				&& ManaItemHandler.instance().requestManaExact(stack, player, 4 * MANA_PER_USE_TICK, false)) {
 			return ItemUtils.startUsingInstantly(level, player, usedHand);
 		}
 		return InteractionResultHolder.pass(stack);
@@ -57,7 +61,7 @@ public class FruitOfGrisaiaItem extends RelicItem {
 		if (!(livingEntity instanceof Player player)) {
 			return;
 		}
-		if (ManaItemHandler.instance().requestManaExact(stack, player, 500, true)) {
+		if (ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_USE_TICK, true)) {
 			if (remainingUseDuration % 5 == 0) {
 				player.gameEvent(GameEvent.EAT);
 				player.getFoodData().eat(1, 1.2F);
