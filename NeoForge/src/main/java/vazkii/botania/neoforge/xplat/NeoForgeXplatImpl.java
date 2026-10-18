@@ -436,10 +436,10 @@ public class NeoForgeXplatImpl implements XplatAbstractions {
 				continue;
 			}
 
-			IEnergyStorage storage = level.getCapability(Capabilities.EnergyStorage.BLOCK, pos, e.getOpposite());
+			IEnergyStorage storage = level.getCapability(Capabilities.EnergyStorage.BLOCK, neighbor, e.getOpposite());
 
 			if (storage == null) {
-				storage = level.getCapability(Capabilities.EnergyStorage.BLOCK, pos, null);
+				storage = level.getCapability(Capabilities.EnergyStorage.BLOCK, neighbor, null);
 			}
 
 			if (storage != null) {
