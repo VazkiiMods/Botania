@@ -35,6 +35,7 @@ import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
@@ -148,6 +149,9 @@ public final class ColorHandler {
 						MANA_HUE,
 						manaItem != null ? (float) manaItem.getMana() / (float) Math.max(1, manaItem.getMaxMana()) : 0,
 						1));
+			}
+			if (stack.has(BotaniaDataComponents.CREATIVE_MANA)) {
+				return 0xFFFFCCCC;
 			}
 			return -1;
 		}, BotaniaItems.MANA_MIRROR, BotaniaItems.MANA_TABLET

@@ -10,6 +10,7 @@
 
 package vazkii.botania.common.impl.mana;
 
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -25,6 +26,40 @@ import vazkii.botania.common.helper.DataComponentHelper;
  * @param stack The mana item's stack.
  */
 public record DefaultManaItemImpl(ItemStack stack) implements ManaItem {
+
+	public static final int ICON_BAR_WIDTH = 13;
+
+	public static int getManaItemBarWidth(ItemStack stack) {
+		var manaItem = LOOKUP.find(stack);
+		if (manaItem == null) {
+			return 0;
+		}
+		int mana = manaItem.getMana();
+		if (mana <= 0) {
+			return 0;
+		}
+		int maxMana = manaItem.getMaxMana();
+		return mana >= maxMana
+				? ICON_BAR_WIDTH
+				: Math.clamp(1 + (ICON_BAR_WIDTH - 1L) * mana / maxMana, 1, ICON_BAR_WIDTH - 1);
+	}
+
+	public static int getManaItemBarColor(ItemStack stack) {
+		var manaItem = LOOKUP.find(stack);
+		if (manaItem == null) {
+			return 0x000000;
+		}
+		if (stack.has(BotaniaDataComponents.CREATIVE_MANA)) {
+			return 0xFF55FF; // Rarity.EPIC color, ChatFormatting.LIGHT_PURPLE
+		}
+		int mana = manaItem.getMana();
+		int maxMana = manaItem.getMaxMana();
+		if (mana == maxMana) {
+			return 0x00FFFF;
+		}
+		float fractionForDisplay = mana / (float) maxMana;
+		return Mth.hsvToRgb(0.528f, 0.5f + 0.5f * fractionForDisplay, 0.5f + 0.5f * fractionForDisplay);
+	}
 
 	@Override
 	public int getMana() {

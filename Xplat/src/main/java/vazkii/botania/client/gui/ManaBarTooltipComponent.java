@@ -105,7 +105,7 @@ public class ManaBarTooltipComponent implements ClientTooltipComponent {
 			}
 			gui.fill(mouseX + rainbowWidth, mouseY - height - offsetFromBox, mouseX + totalWidth, mouseY - offsetFromBox, 0xFF555555);
 		} else {
-			int manaBarWidth = (int) Math.ceil(totalWidth * percentageFull);
+			int manaBarWidth = percentageFull <= 0f ? 0 : percentageFull >= 1f ? totalWidth : Math.round(1 + (totalWidth - 2) * percentageFull);
 
 			gui.fill(mouseX - 1, mouseY - height - offsetFromBox - 1, mouseX + totalWidth + 1, mouseY - offsetFromBox, 0xFF000000);
 			gui.fill(mouseX, mouseY - height - offsetFromBox, mouseX + manaBarWidth, mouseY - offsetFromBox,

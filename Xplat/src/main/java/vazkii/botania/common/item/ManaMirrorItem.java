@@ -13,7 +13,6 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -30,13 +29,13 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
+import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -56,14 +55,12 @@ public class ManaMirrorItem extends Item {
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		var manaItem = ManaItem.LOOKUP.find(stack);
-		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(manaItem));
+		return DefaultManaItemImpl.getManaItemBarWidth(stack);
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		var manaItem = ManaItem.LOOKUP.find(stack);
-		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
+		return DefaultManaItemImpl.getManaItemBarColor(stack);
 	}
 
 	@Override

@@ -11,7 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +22,7 @@ import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.DataComponentHelper;
+import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -78,19 +78,17 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 
 	@Override
 	public boolean isBarVisible(ItemStack stack) {
-		return !isStackCreative(stack);
+		return ManaItem.LOOKUP.find(stack) != null;
 	}
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		var manaItem = ManaItem.LOOKUP.find(stack);
-		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(manaItem));
+		return DefaultManaItemImpl.getManaItemBarWidth(stack);
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		var manaItem = ManaItem.LOOKUP.find(stack);
-		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
+		return DefaultManaItemImpl.getManaItemBarColor(stack);
 	}
 
 	@SoftImplement("IItemExtension")
