@@ -54,11 +54,8 @@ public record DefaultManaItemImpl(ItemStack stack) implements ManaItem {
 		}
 		int mana = manaItem.getMana();
 		int maxMana = manaItem.getMaxMana();
-		if (mana == maxMana) {
-			return 0x00FFFF;
-		}
 		float fractionForDisplay = mana / (float) maxMana;
-		return Mth.hsvToRgb(0.528f, 0.5f + 0.5f * fractionForDisplay, 0.5f + 0.5f * fractionForDisplay);
+		return Mth.hsvToRgb(0.528f, 1 - 0.5f * fractionForDisplay, 0.75f + 0.25f * fractionForDisplay);
 	}
 
 	@Override
