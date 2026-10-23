@@ -437,8 +437,6 @@ public class AdvancementProvider {
 					.addCriterion("code_triggered",
 							CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
 					.save(writer, challengeId("rank_ss_pick"));
-			CompoundTag level20Shard = new CompoundTag();
-			level20Shard.putInt("level", 19);
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.SHARD_OF_LAPUTA, "l20ShardUse", AdvancementType.CHALLENGE))
 					.parent(root)
