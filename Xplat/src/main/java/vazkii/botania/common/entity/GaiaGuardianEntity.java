@@ -180,7 +180,7 @@ public class GaiaGuardianEntity extends Mob {
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 
 	private static final EntityDataAccessor<Integer> DATA_INVUL_TIME = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Long> DATA_SOURCE_POS = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
+	private static final EntityDataAccessor<BlockPos> DATA_SOURCE_POS = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.BLOCK_POS);
 	private static final EntityDataAccessor<Integer> DATA_INITIAL_PLAYER_COUNT = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Optional<UUID>> DATA_BOSS_INFO_UUID = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.OPTIONAL_UUID);
 
@@ -466,7 +466,7 @@ public class GaiaGuardianEntity extends Mob {
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(DATA_INVUL_TIME, 0);
-		builder.define(DATA_SOURCE_POS, 0L);
+		builder.define(DATA_SOURCE_POS, Bound.UNBOUND_POS);
 		builder.define(DATA_INITIAL_PLAYER_COUNT, 0);
 		builder.define(DATA_BOSS_INFO_UUID, Optional.empty());
 	}
@@ -485,7 +485,7 @@ public class GaiaGuardianEntity extends Mob {
 
 	private void setSource(BlockPos source) {
 		this.source = source;
-		entityData.set(DATA_SOURCE_POS, source.asLong());
+		entityData.set(DATA_SOURCE_POS, source);
 	}
 
 	@Override
@@ -1264,7 +1264,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		if (dataValues.stream().map(SynchedEntityData.DataValue::id)
 				.anyMatch(id -> id == DATA_SOURCE_POS.id())) {
-			this.source = BlockPos.of(entityData.get(DATA_SOURCE_POS));
+			this.source = entityData.get(DATA_SOURCE_POS);
 			updateGaiaFight();
 		}
 		if (dataValues.stream().map(SynchedEntityData.DataValue::id)
