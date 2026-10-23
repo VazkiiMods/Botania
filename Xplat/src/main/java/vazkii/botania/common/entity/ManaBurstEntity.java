@@ -12,8 +12,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -60,17 +61,13 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	private static final String TAG_STARTING_MANA = "startingMana";
 	private static final String TAG_MIN_MANA_LOSS = "minManaLoss";
 	private static final String TAG_TICK_MANA_LOSS = "manaLossTick";
-	private static final String TAG_SPREADER_X = "spreaderX";
-	private static final String TAG_SPREADER_Y = "spreaderY";
-	private static final String TAG_SPREADER_Z = "spreaderZ";
+	private static final String TAG_SPREADER_POS = "spreaderPos";
 	private static final String TAG_SPREADER_DIM = "spreaderDim";
 	private static final String TAG_GRAVITY = "gravity";
 	private static final String TAG_LENS_STACK = "lensStack";
 	private static final String TAG_HAS_SHOOTER = "hasShooter";
 	private static final String TAG_SHOOTER = "shooterUUID";
-	private static final String TAG_LAST_COLLISION_X = "lastCollisionX";
-	private static final String TAG_LAST_COLLISION_Y = "lastCollisionY";
-	private static final String TAG_LAST_COLLISION_Z = "lastCollisionZ";
+	private static final String TAG_LAST_COLLISION_POS = "lastCollisionPos";
 	private static final String TAG_WARPED = "warped";
 	private static final String TAG_ORBIT_TIME = "orbitTime";
 	private static final String TAG_TRIPPED = "tripped";
@@ -271,16 +268,12 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		Optional<GlobalPos> sourcePos = getBurstSourcePosition();
 		if (sourcePos.isPresent()) {
 			BlockPos coords = sourcePos.get().pos();
-			tag.putInt(TAG_SPREADER_X, coords.getX());
-			tag.putInt(TAG_SPREADER_Y, coords.getY());
-			tag.putInt(TAG_SPREADER_Z, coords.getZ());
+			tag.put(TAG_SPREADER_POS, NbtUtils.writeBlockPos(coords));
 			tag.putString(TAG_SPREADER_DIM, sourcePos.get().dimension().location().toString());
 		}
 
 		if (lastCollision != null) {
-			tag.putInt(TAG_LAST_COLLISION_X, lastCollision.getX());
-			tag.putInt(TAG_LAST_COLLISION_Y, lastCollision.getY());
-			tag.putInt(TAG_LAST_COLLISION_Z, lastCollision.getZ());
+			tag.put(TAG_LAST_COLLISION_POS, NbtUtils.writeBlockPos(lastCollision));
 		}
 
 		UUID identity = getShooterUUID();
@@ -293,13 +286,13 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		tag.putInt(TAG_ORBIT_TIME, orbitTime);
 		tag.putBoolean(TAG_TRIPPED, tripped);
 		if (magnetizePos != null) {
-			tag.put(TAG_MAGNETIZE_POS, BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, magnetizePos).getOrThrow());
+			tag.put(TAG_MAGNETIZE_POS, NbtUtils.writeBlockPos(magnetizePos));
 		}
 		tag.putBoolean(TAG_LEFT_SOURCE, hasLeftSource());
 
 		var alreadyCollidedAt = new ListTag();
 		for (BlockPos pos : this.alreadyCollidedAt) {
-			alreadyCollidedAt.add(BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).getOrThrow());
+			alreadyCollidedAt.add(NbtUtils.writeBlockPos(pos));
 		}
 		tag.put(TAG_ALREADY_COLLIDED_AT, alreadyCollidedAt);
 	}
@@ -323,31 +316,25 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			setSourceLens(ItemStack.EMPTY);
 		}
 
-		if (cmp.contains(TAG_SPREADER_X)) {
-			int x = cmp.getInt(TAG_SPREADER_X);
-			int y = cmp.getInt(TAG_SPREADER_Y);
-			int z = cmp.getInt(TAG_SPREADER_Z);
-			if (y == Integer.MIN_VALUE) {
-				setBurstSourcePosition(null);
-			} else {
-				BlockPos sourceCoords = new BlockPos(x, y, z);
-				ResourceLocation dim = cmp.contains(TAG_SPREADER_DIM)
-						? ResourceLocation.tryParse(cmp.getString(TAG_SPREADER_DIM))
-						: null;
-				setBurstSourcePosition(
-						GlobalPos.of(dim != null ? ResourceKey.create(Registries.DIMENSION, dim) : level().dimension(),
+		NbtUtils.readBlockPos(cmp, TAG_SPREADER_POS).ifPresentOrElse(
+				sourceCoords -> {
+					if (sourceCoords.getY() == Integer.MIN_VALUE) {
+						setBurstSourcePosition(null);
+					} else {
+						ResourceLocation dim = cmp.contains(TAG_SPREADER_DIM)
+								? ResourceLocation.tryParse(cmp.getString(TAG_SPREADER_DIM))
+								: null;
+						setBurstSourcePosition(GlobalPos.of(
+								dim != null
+										? ResourceKey.create(Registries.DIMENSION, dim)
+										: level().dimension(),
 								sourceCoords));
-			}
-		} else {
-			setBurstSourcePosition(null);
-		}
+					}
+				},
+				() -> setBurstSourcePosition(null)
+		);
 
-		if (cmp.contains(TAG_LAST_COLLISION_X)) {
-			int x = cmp.getInt(TAG_LAST_COLLISION_X);
-			int y = cmp.getInt(TAG_LAST_COLLISION_Y);
-			int z = cmp.getInt(TAG_LAST_COLLISION_Z);
-			lastCollision = new BlockPos(x, y, z);
-		}
+		NbtUtils.readBlockPos(cmp, TAG_LAST_COLLISION_POS).ifPresent(pos -> lastCollision = pos);
 
 		// Reread Motion because Entity.load clamps it to +/-10
 		ListTag motion = cmp.getList("Motion", Tag.TAG_DOUBLE);
@@ -364,17 +351,16 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		warped = cmp.getBoolean(TAG_WARPED);
 		orbitTime = cmp.getInt(TAG_ORBIT_TIME);
 		tripped = cmp.getBoolean(TAG_TRIPPED);
-		if (cmp.contains(TAG_MAGNETIZE_POS)) {
-			magnetizePos = BlockPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).getOrThrow();
-		} else {
-			magnetizePos = null;
-		}
+		magnetizePos = NbtUtils.readBlockPos(cmp, TAG_MAGNETIZE_POS).orElse(null);
 		entityData.set(LEFT_SOURCE_POS, cmp.getBoolean(TAG_LEFT_SOURCE));
 
 		this.alreadyCollidedAt.clear();
 		for (var tag : cmp.getList(TAG_ALREADY_COLLIDED_AT, Tag.TAG_INT_ARRAY)) {
-			var pos = BlockPos.CODEC.parse(NbtOps.INSTANCE, tag).result();
-			pos.ifPresent(this.alreadyCollidedAt::add);
+			// NbtUtils doesn't help in this case
+			int[] coords = ((IntArrayTag) tag).getAsIntArray();
+			if (coords.length == 3) {
+				this.alreadyCollidedAt.add(new BlockPos(coords[0], coords[1], coords[2]));
+			}
 		}
 	}
 

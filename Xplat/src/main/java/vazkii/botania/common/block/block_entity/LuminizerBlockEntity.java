@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -50,9 +50,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class LuminizerBlockEntity extends BlockEntity implements WandBindable, Bound, PhantomInkableBlock {
 	public static final int MAX_DIST = 20;
 
-	private static final String TAG_BIND_X = "bindX";
-	private static final String TAG_BIND_Y = "bindY";
-	private static final String TAG_BIND_Z = "bindZ";
+	private static final String TAG_BIND_POS = "bindPos";
 	private static final String TAG_NO_PARTICLE = "noParticle";
 
 	@Nullable
@@ -235,22 +233,14 @@ public class LuminizerBlockEntity extends BlockEntity implements WandBindable, B
 
 	@Override
 	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		if (cmp.contains(TAG_BIND_X, Tag.TAG_INT)) {
-			bindPos = new BlockPos(
-					cmp.getInt(TAG_BIND_X),
-					cmp.getInt(TAG_BIND_Y),
-					cmp.getInt(TAG_BIND_Z)
-			);
-		}
+		bindPos = NbtUtils.readBlockPos(cmp, TAG_BIND_POS).orElse(null);
 		noParticle = cmp.getBoolean(TAG_NO_PARTICLE);
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (bindPos != null) {
-			cmp.putInt(TAG_BIND_X, bindPos.getX());
-			cmp.putInt(TAG_BIND_Y, bindPos.getY());
-			cmp.putInt(TAG_BIND_Z, bindPos.getZ());
+			cmp.put(TAG_BIND_POS, NbtUtils.writeBlockPos(bindPos));
 		}
 		cmp.putBoolean(TAG_NO_PARTICLE, noParticle);
 	}

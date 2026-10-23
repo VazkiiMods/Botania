@@ -16,6 +16,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntArrayTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
@@ -79,9 +81,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 	private static final String TAG_LAST_PINGBACK_Y = "lastPingbackY";
 	private static final String TAG_LAST_PINGBACK_Z = "lastPingbackZ";
 
-	private static final String TAG_FORCE_CLIENT_BINDING_X = "forceClientBindingX";
-	private static final String TAG_FORCE_CLIENT_BINDING_Y = "forceClientBindingY";
-	private static final String TAG_FORCE_CLIENT_BINDING_Z = "forceClientBindingZ";
+	private static final String TAG_FORCE_CLIENT_BINDING_POS = "forceClientBindingPos";
 
 	// Map Maker Tags
 
@@ -288,9 +288,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 		cmp.putString(TAG_INPUT_KEY, inputKey);
 		cmp.putString(TAG_OUTPUT_KEY, outputKey);
 
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : receiver.getManaReceiverPos().getX());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? Integer.MIN_VALUE : receiver.getManaReceiverPos().getY());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : receiver.getManaReceiverPos().getZ());
+		cmp.put(TAG_FORCE_CLIENT_BINDING_POS,
+				receiver == null ? new IntArrayTag(new int[0]) : NbtUtils.writeBlockPos(receiver.getManaReceiverPos()));
 
 		cmp.putBoolean(TAG_MAPMAKER_OVERRIDE, mapmakerOverride);
 		cmp.putInt(TAG_FORCED_COLOR, mmForcedColor);
@@ -333,15 +332,10 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 		lastPingbackZ = cmp.getDouble(TAG_LAST_PINGBACK_Z);
 
 		if (requestsClientUpdate && level != null) {
-			int x = cmp.getInt(TAG_FORCE_CLIENT_BINDING_X);
-			int y = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Y);
-			int z = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Z);
-			if (y != Integer.MIN_VALUE) {
-				var pos = new BlockPos(x, y, z);
-				receiver = ManaReceiver.LOOKUP.find(level, pos, null);
-			} else {
-				receiver = null;
-			}
+			NbtUtils.readBlockPos(cmp, TAG_FORCE_CLIENT_BINDING_POS).ifPresentOrElse(
+					pos -> ManaReceiver.LOOKUP.find(level, pos, null),
+					() -> receiver = null
+			);
 		}
 
 		if (level != null && level.isClientSide()) {

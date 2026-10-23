@@ -21,6 +21,7 @@ import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -173,9 +174,7 @@ public class GaiaGuardianEntity extends Mob {
 
 	private static final String TAG_INVUL_TIME = "invulTime";
 	private static final String TAG_AGGRO = "aggro";
-	private static final String TAG_SOURCE_X = "sourceX";
-	private static final String TAG_SOURCE_Y = "sourceY";
-	private static final String TAG_SOURCE_Z = "sourceZ";
+	private static final String TAG_SOURCE = "source";
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
@@ -496,9 +495,7 @@ public class GaiaGuardianEntity extends Mob {
 		cmp.putBoolean(TAG_AGGRO, aggro);
 		cmp.putInt(TAG_MOB_SPAWN_TICKS, mobSpawnTicks);
 
-		cmp.putInt(TAG_SOURCE_X, source.getX());
-		cmp.putInt(TAG_SOURCE_Y, source.getY());
-		cmp.putInt(TAG_SOURCE_Z, source.getZ());
+		cmp.put(TAG_SOURCE, NbtUtils.writeBlockPos(source));
 
 		cmp.putBoolean(TAG_HARD_MODE, hardMode);
 		cmp.putInt(TAG_PLAYER_COUNT, getInitialPlayerCount());
@@ -511,10 +508,7 @@ public class GaiaGuardianEntity extends Mob {
 		aggro = cmp.getBoolean(TAG_AGGRO);
 		mobSpawnTicks = cmp.getInt(TAG_MOB_SPAWN_TICKS);
 
-		int x = cmp.getInt(TAG_SOURCE_X);
-		int y = cmp.getInt(TAG_SOURCE_Y);
-		int z = cmp.getInt(TAG_SOURCE_Z);
-		setSource(new BlockPos(x, y, z));
+		setSource(NbtUtils.readBlockPos(cmp, TAG_SOURCE).orElse(Bound.UNBOUND_POS));
 
 		setHardMode(cmp.getBoolean(TAG_HARD_MODE));
 		setInitialPlayerCount(cmp.contains(TAG_PLAYER_COUNT) ? cmp.getInt(TAG_PLAYER_COUNT) : 1);

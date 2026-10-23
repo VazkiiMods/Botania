@@ -12,6 +12,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -37,9 +38,7 @@ import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 
 public class LuminizerMoverEntity extends Entity {
-	private static final String TAG_EXIT_X = "exitX";
-	private static final String TAG_EXIT_Y = "exitY";
-	private static final String TAG_EXIT_Z = "exitZ";
+	private static final String TAG_EXIT_POS = "exitPos";
 	private static final EntityDataAccessor<BlockPos> EXIT_POS = SynchedEntityData.defineId(LuminizerMoverEntity.class, EntityDataSerializers.BLOCK_POS);
 
 	public LuminizerMoverEntity(EntityType<LuminizerMoverEntity> type, Level world) {
@@ -138,15 +137,13 @@ public class LuminizerMoverEntity extends Entity {
 
 	@Override
 	protected void readAdditionalSaveData(CompoundTag cmp) {
-		setExit(new BlockPos(cmp.getInt(TAG_EXIT_X), cmp.getInt(TAG_EXIT_Y), cmp.getInt(TAG_EXIT_Z)));
+		setExit(NbtUtils.readBlockPos(cmp, TAG_EXIT_POS).orElse(blockPosition()));
 	}
 
 	@Override
 	protected void addAdditionalSaveData(CompoundTag cmp) {
 		BlockPos exit = getExitPos();
-		cmp.putInt(TAG_EXIT_X, exit.getX());
-		cmp.putInt(TAG_EXIT_Y, exit.getY());
-		cmp.putInt(TAG_EXIT_Z, exit.getZ());
+		cmp.put(TAG_EXIT_POS, NbtUtils.writeBlockPos(exit));
 	}
 
 	// [VanillaCopy] Pig logic to select a dismount location, but using horizontal passenger direction instead of luminizer movement direction

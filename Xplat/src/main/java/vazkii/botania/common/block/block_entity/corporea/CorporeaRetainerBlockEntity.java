@@ -18,6 +18,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -39,9 +40,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
 public class CorporeaRetainerBlockEntity extends BlockEntity implements Wandable {
-	private static final String TAG_REQUEST_X = "requestX";
-	private static final String TAG_REQUEST_Y = "requestY";
-	private static final String TAG_REQUEST_Z = "requestZ";
+	private static final String TAG_REQUEST_POS = "requestPos";
 	private static final String TAG_REQUEST_TYPE = "requestType";
 	private static final String TAG_REQUEST_COUNT = "requestCount";
 
@@ -105,9 +104,7 @@ public class CorporeaRetainerBlockEntity extends BlockEntity implements Wandable
 	@Override
 	protected void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (requestPos != null) {
-			cmp.putInt(TAG_REQUEST_X, requestPos.getX());
-			cmp.putInt(TAG_REQUEST_Y, requestPos.getY());
-			cmp.putInt(TAG_REQUEST_Z, requestPos.getZ());
+			cmp.put(TAG_REQUEST_POS, NbtUtils.writeBlockPos(requestPos));
 		}
 		ResourceLocation reqType = request != null ? corporeaMatcherSerializers.get(request.getClass()) : null;
 
@@ -120,14 +117,7 @@ public class CorporeaRetainerBlockEntity extends BlockEntity implements Wandable
 
 	@Override
 	protected void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
-		if (cmp.contains(TAG_REQUEST_X)) {
-			requestPos = new BlockPos(
-					cmp.getInt(TAG_REQUEST_X),
-					cmp.getInt(TAG_REQUEST_Y),
-					cmp.getInt(TAG_REQUEST_Z));
-		} else {
-			requestPos = null;
-		}
+		NbtUtils.readBlockPos(cmp, TAG_REQUEST_POS).ifPresent(pos -> requestPos = pos);
 		ResourceLocation reqType = ResourceLocation.tryParse(cmp.getString(TAG_REQUEST_TYPE));
 		if (reqType != null && corporeaMatcherDeserializers.containsKey(reqType)) {
 			request = corporeaMatcherDeserializers.get(reqType).apply(cmp, registries);

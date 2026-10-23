@@ -11,7 +11,7 @@ package vazkii.botania.common.block.block_entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -20,9 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.block_entity.flower.functional.BubbellBlockEntity;
 
 public class FakeAirBlockEntity extends BlockEntity {
-	private static final String TAG_FLOWER_X = "flowerX";
-	private static final String TAG_FLOWER_Y = "flowerY";
-	private static final String TAG_FLOWER_Z = "flowerZ";
+	private static final String TAG_FLOWER_POS = "flowerPos";
 
 	@Nullable
 	private BlockPos flowerPos;
@@ -43,22 +41,14 @@ public class FakeAirBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		if (flowerPos != null) {
-			tag.putInt(TAG_FLOWER_X, flowerPos.getX());
-			tag.putInt(TAG_FLOWER_Y, flowerPos.getY());
-			tag.putInt(TAG_FLOWER_Z, flowerPos.getZ());
+			tag.put(TAG_FLOWER_POS, NbtUtils.writeBlockPos(flowerPos));
 		}
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
-		flowerPos = tag.contains(TAG_FLOWER_X, Tag.TAG_INT)
-				? new BlockPos(
-						tag.getInt(TAG_FLOWER_X),
-						tag.getInt(TAG_FLOWER_Y),
-						tag.getInt(TAG_FLOWER_Z)
-				)
-				: null;
+		flowerPos = NbtUtils.readBlockPos(tag, TAG_FLOWER_POS).orElse(null);
 	}
 
 }
