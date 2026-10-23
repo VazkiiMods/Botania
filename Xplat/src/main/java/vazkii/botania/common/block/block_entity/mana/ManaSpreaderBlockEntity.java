@@ -112,7 +112,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 	private UUID identity = UUID.randomUUID();
 
 	private int mana;
-	public float rotationX, rotationY;
+	public float yRot, xRot;
 
 	private boolean requestsClientUpdate;
 	private boolean hasReceivedInitialPacket;
@@ -290,8 +290,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 		cmp.putUUID(TAG_UUID, getIdentifier());
 
 		cmp.putInt(TAG_MANA, mana);
-		cmp.putFloat(TAG_ROTATION_X, rotationX);
-		cmp.putFloat(TAG_ROTATION_Y, rotationY);
+		cmp.putFloat(TAG_ROTATION_X, yRot);
+		cmp.putFloat(TAG_ROTATION_Y, xRot);
 		cmp.putBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
 		cmp.putBoolean(TAG_CAN_SHOOT_BURST, canShootBurst);
 
@@ -324,8 +324,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 		}
 
 		mana = cmp.getInt(TAG_MANA);
-		rotationX = cmp.getFloat(TAG_ROTATION_X);
-		rotationY = cmp.getFloat(TAG_ROTATION_Y);
+		yRot = cmp.getFloat(TAG_ROTATION_X);
+		xRot = cmp.getFloat(TAG_ROTATION_Y);
 		requestsClientUpdate = cmp.getBoolean(TAG_REQUEST_UPDATE);
 
 		inputKey = cmp.getString(TAG_INPUT_KEY);
@@ -414,14 +414,14 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 					Vec3 relative = new Vec3(-0.5, 0, 0);
 					double angle = Math.acos(clickVector.dot(relative) / (relative.length() * clickVector.length())) * 180D / Math.PI;
 
-					rotationX = (float) angle + 180F;
+					yRot = (float) angle + 180F;
 					if (clickVector.z < 0) {
-						rotationX = 360 - rotationX;
+						yRot = 360 - yRot;
 					}
 				}
 
 				double angle = y * 180;
-				rotationY = -(float) angle;
+				xRot = -(float) angle;
 
 				setChanged();
 				requestsClientUpdate = true;
@@ -512,7 +512,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 		}
 
 		if (getCurrentMana() >= props.maxMana || fake) {
-			ManaBurstEntity burst = new ManaBurstEntity(getLevel(), getBlockPos(), getRotationX(), getRotationY(), fake);
+			ManaBurstEntity burst = new ManaBurstEntity(getLevel(), getBlockPos(), getYRot(), getXRot(), fake);
 			burst.setSourceLens(lens);
 
 			if (mapmakerOverride) {
@@ -664,14 +664,14 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 			angle = -angle;
 		}
 
-		rotationX = (float) angle + 90;
+		yRot = (float) angle + 90;
 
 		rotVec = new Vec3(diffVec.x, 0, diffVec.z);
 		angle = MathHelper.angleBetween(diffVec, rotVec) * 180F / Math.PI;
 		if (blockVec.y < thisVec.y) {
 			angle = -angle;
 		}
-		rotationY = (float) angle;
+		xRot = (float) angle;
 
 		setChanged();
 		markForImmediateSync();
@@ -699,49 +699,49 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 	}
 
 	@Override
-	public float getRotationX() {
-		return rotationX;
+	public float getYRot() {
+		return yRot;
 	}
 
 	@Override
-	public float getRotationY() {
-		return rotationY;
+	public float getXRot() {
+		return xRot;
 	}
 
 	@Override
-	public void setRotationX(float rot) {
-		rotationX = rot;
+	public void setYRot(float rot) {
+		yRot = rot;
 	}
 
 	@Override
-	public void setRotationY(float rot) {
-		rotationY = rot;
+	public void setXRot(float rot) {
+		xRot = rot;
 	}
 
 	public void rotate(Rotation rotation) {
 		switch (rotation) {
-			case CLOCKWISE_90 -> rotationX += 270F;
-			case CLOCKWISE_180 -> rotationX += 180F;
-			case COUNTERCLOCKWISE_90 -> rotationX += 90F;
+			case CLOCKWISE_90 -> yRot += 270F;
+			case CLOCKWISE_180 -> yRot += 180F;
+			case COUNTERCLOCKWISE_90 -> yRot += 90F;
 			case NONE -> {
 			}
 		}
 
-		if (rotationX >= 360F) {
-			rotationX -= 360F;
+		if (yRot >= 360F) {
+			yRot -= 360F;
 		}
 	}
 
 	public void mirror(Mirror mirror) {
 		switch (mirror) {
-			case LEFT_RIGHT -> rotationX = 360F - rotationX;
-			case FRONT_BACK -> rotationX = 180F - rotationX;
+			case LEFT_RIGHT -> yRot = 360F - yRot;
+			case FRONT_BACK -> yRot = 180F - yRot;
 			case NONE -> {
 			}
 		}
 
-		if (rotationX < 0F) {
-			rotationX += 360F;
+		if (yRot < 0F) {
+			yRot += 360F;
 		}
 	}
 

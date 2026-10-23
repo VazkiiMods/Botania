@@ -106,14 +106,14 @@ public class RedirectiveLens extends Lens {
 				angle = -angle;
 			}
 
-			spreader.setRotationX((float) angle + 90F);
+			spreader.setYRot((float) angle + 90F);
 
 			rotVec = new Vec3(diffVec.x, 0, diffVec.z);
 			angle = MathHelper.angleBetween(diffVec, rotVec) * 180F / Math.PI;
 			if (sourceVec.y < tileVec.y) {
 				angle = -angle;
 			}
-			spreader.setRotationY((float) angle);
+			spreader.setXRot((float) angle);
 
 			spreader.commitRedirection();
 		}

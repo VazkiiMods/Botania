@@ -31,28 +31,28 @@ public interface ManaSpreader extends ManaCollector {
 	ManaBurst runBurstSimulation();
 
 	/**
-	 * @return The X rotation, in degrees
+	 * @return The rotation around the Y axis (horizontal rotation, or "yaw"), in degrees
 	 */
-	float getRotationX();
+	float getYRot();
 
 	/**
-	 * @return The Y rotation, in degrees
+	 * @return The rotation around the yaw-rotated left/right axis (vertical rotation, or "pitch"), in degrees
 	 */
-	float getRotationY();
-
-	/**
-	 * Set the X rotation
-	 *
-	 * @param rot X rotation, in degrees
-	 */
-	void setRotationX(float rot);
+	float getXRot();
 
 	/**
 	 * Set the Y rotation
 	 *
 	 * @param rot Y rotation, in degrees
 	 */
-	void setRotationY(float rot);
+	void setYRot(float rot);
+
+	/**
+	 * Set the X rotation
+	 *
+	 * @param rot X rotation, in degrees
+	 */
+	void setXRot(float rot);
 
 	/**
 	 * This should be called after rotation setting is done to allow

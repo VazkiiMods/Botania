@@ -219,21 +219,21 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedEntityBlock
 		}
 		switch (orientation) {
 			case DOWN:
-				spreader.rotationY = -90F;
+				spreader.xRot = -90F;
 				break;
 			case UP:
-				spreader.rotationY = 90F;
+				spreader.xRot = 90F;
 				break;
 			case NORTH:
-				spreader.rotationX = 270F;
+				spreader.yRot = 270F;
 				break;
 			case SOUTH:
-				spreader.rotationX = 90F;
+				spreader.yRot = 90F;
 				break;
 			case WEST:
 				break;
 			case EAST:
-				spreader.rotationX = 180F;
+				spreader.yRot = 180F;
 				break;
 		}
 	}

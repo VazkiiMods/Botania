@@ -36,8 +36,8 @@ public class FlareLens extends Lens {
 	}
 
 	private void emitParticles(ItemStack stack, ManaSpreader spreader) {
-		float rotationYaw = -(spreader.getRotationX() + 90F);
-		float rotationPitch = spreader.getRotationY();
+		float rotationYaw = -(spreader.getYRot() + 90F);
+		float rotationPitch = spreader.getXRot();
 
 		// Lots of EntityThrowable copypasta
 		float f = 0.3F;

@@ -87,15 +87,9 @@ public class BoreLens extends Lens {
 				Vec3 dropPosition;
 				if (doWarp && level.getBlockEntity(source.get().pos()) instanceof ManaSpreaderBlockEntity spreader) {
 					Vec3 sourceVec = Vec3.atCenterOf(source.get().pos());
-					/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
-					 * "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot
-					 * to respectively mean "rotation *around* the X and Y axes".
-					 * See also the ManaBurstEntity constructor.
-					 * TODO consider renaming our versions to match vanilla
-					 */
-					float xRot = spreader.getRotationY();
-					float yRot = -(spreader.getRotationX() + 90F);
-					Vec3 inverseSpreaderDirection = ManaBurstEntity.calculateBurstVelocity(xRot, yRot).normalize().reverse();
+					float xRot = spreader.getXRot();
+					float yRot = -(spreader.getYRot() + 90F);
+					Vec3 inverseSpreaderDirection = ManaBurstEntity.calculateBurstVelocity(yRot, xRot).normalize().reverse();
 					dropPosition = sourceVec.add(inverseSpreaderDirection);
 				} else {
 					dropPosition = Vec3.atCenterOf(collidePos);

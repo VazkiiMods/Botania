@@ -120,15 +120,16 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		builder.define(LEFT_SOURCE_POS, false);
 	}
 
-	public static Vec3 calculateBurstVelocity(float xRot, float yRot) {
-		float f = 0.4F;
-		double mx = Mth.sin(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f / 2D;
-		double mz = -(Mth.cos(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f) / 2D;
-		double my = Mth.sin(xRot / 180.0F * (float) Math.PI) * f / 2D;
-		return new Vec3(mx, my, mz);
+	public static Vec3 calculateBurstVelocity(float yRot, float xRot) {
+		float pow = 0.2f;
+		// [VanillaCopy] Projectile::shootFromRotation
+		float xd = -Mth.sin(yRot * (float) (Math.PI / 180.0)) * Mth.cos(xRot * (float) (Math.PI / 180.0));
+		float yd = -Mth.sin(xRot * (float) (Math.PI / 180.0));
+		float zd = Mth.cos(yRot * (float) (Math.PI / 180.0)) * Mth.cos(xRot * (float) (Math.PI / 180.0));
+		return new Vec3(xd, yd, zd).scale(pow);
 	}
 
-	public ManaBurstEntity(Level level, BlockPos pos, float rotX, float rotY, boolean fake) {
+	public ManaBurstEntity(Level level, BlockPos pos, float yRot, float xRot, boolean fake) {
 		this(BotaniaEntities.MANA_BURST, level);
 
 		this.fake = fake;
@@ -136,22 +137,16 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		setBurstSourcePosition(GlobalPos.of(level.dimension(), pos));
 		// spawn slightly lower than the exact center to ensure hitting pools at default horizontal spreader alignment
 		moveTo(pos.getX() + 0.5, pos.getY() + (0.5 - 1.0 / 1024), pos.getZ() + 0.5, 0, 0);
-		/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
-		* "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot
-		* to respectively mean "rotation *around* the X and Y axes".
-		* TODO consider renaming our versions to match vanilla
-		*/
-		setYRot(-(rotX + 90F));
-		setXRot(rotY);
-		setDeltaMovement(calculateBurstVelocity(getXRot(), getYRot()));
+		setRot(90 - yRot, -xRot);
+		setDeltaMovement(calculateBurstVelocity(getYRot(), getXRot()));
 	}
 
 	public ManaBurstEntity(Player player) {
 		super(BotaniaEntities.MANA_BURST, player, player.level());
 
 		setBurstSourcePosition(null);
-		setRot(player.getYRot() + 180, -player.getXRot());
-		setDeltaMovement(calculateBurstVelocity(getXRot(), getYRot()));
+		setRot(player.getYRot(), player.getXRot());
+		setDeltaMovement(calculateBurstVelocity(getYRot(), getXRot()));
 	}
 
 	@Override
