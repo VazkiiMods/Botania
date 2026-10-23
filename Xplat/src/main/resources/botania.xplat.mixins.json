@@ -77,7 +77,12 @@
     "TextureSlotAccessor",
     "ThrowableProjectileMixin",
     "VibrationSystemListenerMixin",
-    "WitherEntityAccessor"
+    "WitherEntityAccessor",
+    "datafixers.ChunkStorageMixin",
+    "datafixers.DataFixersMixin",
+    "datafixers.ItemStackComponentizationFixMixin",
+    "datafixers.V1460Mixin",
+    "datafixers.V3818_3Mixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",

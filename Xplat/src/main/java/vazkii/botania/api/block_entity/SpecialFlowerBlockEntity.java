@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -52,6 +53,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity
 	private boolean isFloating;
 	private long cachedSeed;
 	private boolean markedForSync;
+	private boolean redstoneRecheck = false;
 
 	private static final String TAG_FLOATING_DATA = "floating";
 
@@ -74,6 +76,13 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity
 		}
 		BlockEntity tileBelow = level.getBlockEntity(worldPosition.below());
 		self.positionOverride = tileBelow instanceof RedStringSpooferBlockEntity relay ? relay.getBinding() : null;
+
+		if (self.redstoneRecheck) {
+			if (level.hasNeighborSignal(worldPosition)) {
+				level.setBlock(worldPosition, state.setValue(BlockStateProperties.POWERED, true), 2 | 16);
+				self.redstoneRecheck = false;
+			}
+		}
 
 		self.tickFlower();
 		self.maybeSyncNow();
@@ -146,6 +155,10 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity
 		}
 		if (isFloating() && oldType != floatingData.getIslandType() && level != null && level.isClientSide()) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
+		}
+
+		if (cmp.contains("redstoneRecheck")) {
+			redstoneRecheck = true;
 		}
 	}
 
