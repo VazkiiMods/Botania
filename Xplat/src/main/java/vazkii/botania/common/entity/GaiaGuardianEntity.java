@@ -183,8 +183,7 @@ public class GaiaGuardianEntity extends Mob {
 	private static final EntityDataAccessor<Integer> DATA_INVUL_TIME = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Long> DATA_SOURCE_POS = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
 	private static final EntityDataAccessor<Integer> DATA_INITIAL_PLAYER_COUNT = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Long> DATA_BOSS_INFO_UUID_LOWER = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
-	private static final EntityDataAccessor<Long> DATA_BOSS_INFO_UUID_UPPER = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.LONG);
+	private static final EntityDataAccessor<Optional<UUID>> DATA_BOSS_INFO_UUID = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.OPTIONAL_UUID);
 
 	private static final int PYLON_OFFSET = 4;
 	private static final List<BlockPos> PYLON_OFFSETS = ImmutableList.of(
@@ -233,8 +232,7 @@ public class GaiaGuardianEntity extends Mob {
 	public GaiaGuardianEntity(EntityType<GaiaGuardianEntity> type, Level world) {
 		super(type, world);
 		xpReward = 825;
-		entityData.set(DATA_BOSS_INFO_UUID_LOWER, bossInfoUUID.getLeastSignificantBits());
-		entityData.set(DATA_BOSS_INFO_UUID_UPPER, bossInfoUUID.getMostSignificantBits());
+		entityData.set(DATA_BOSS_INFO_UUID, Optional.of(bossInfoUUID));
 		if (world.isClientSide) {
 			Proxy.INSTANCE.addBoss(this);
 		}
@@ -471,8 +469,7 @@ public class GaiaGuardianEntity extends Mob {
 		builder.define(DATA_INVUL_TIME, 0);
 		builder.define(DATA_SOURCE_POS, 0L);
 		builder.define(DATA_INITIAL_PLAYER_COUNT, 0);
-		builder.define(DATA_BOSS_INFO_UUID_LOWER, 0L);
-		builder.define(DATA_BOSS_INFO_UUID_UPPER, 0L);
+		builder.define(DATA_BOSS_INFO_UUID, Optional.empty());
 	}
 
 	public int getInvulTime() {
@@ -1277,8 +1274,8 @@ public class GaiaGuardianEntity extends Mob {
 			updateGaiaFight();
 		}
 		if (dataValues.stream().map(SynchedEntityData.DataValue::id)
-				.anyMatch(Set.of(DATA_BOSS_INFO_UUID_LOWER.id(), DATA_BOSS_INFO_UUID_UPPER.id())::contains)) {
-			this.bossInfoUUID = new UUID(entityData.get(DATA_BOSS_INFO_UUID_UPPER), entityData.get(DATA_BOSS_INFO_UUID_LOWER));
+				.anyMatch(id -> id == DATA_BOSS_INFO_UUID.id())) {
+			entityData.get(DATA_BOSS_INFO_UUID).ifPresent(uuid -> this.bossInfoUUID = uuid);
 		}
 	}
 
