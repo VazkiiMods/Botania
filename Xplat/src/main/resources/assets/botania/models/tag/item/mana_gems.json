@@ -1,0 +1,7 @@
+{
+  "parent": "emi:item/half_item",
+  "textures": {
+    "first": "botania:item/mana_pearl",
+    "second": "botania:item/mana_diamond"
+  }
+}
