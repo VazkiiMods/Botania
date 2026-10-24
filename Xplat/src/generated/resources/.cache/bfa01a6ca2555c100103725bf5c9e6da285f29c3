@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-21T19:02:19.099463348	Botania/Tags for minecraft:block
+// 1.21.1	2026-10-24T13:59:50.152043	Botania/Tags for minecraft:block
 7a68ff158ad853180a69e6a2276ae92648e36622 data/botania/tags/block/agricarnation/apply_bonemeal.json
 4e644771038ec0475ee832ba6109d8c859afb562 data/botania/tags/block/agricarnation/growth_candidate.json
 d4ccdd52d950205105f63938b548d92c42dd1761 data/botania/tags/block/agricarnation/growth_excluded.json
@@ -38,12 +38,12 @@ a5e9382da8f53921dcc40117e4ec3637e1f58f4a data/botania/tags/block/horn_of_the_wil
 feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/block/livingwood_logs.json
 bf3c3b31ae7a898f7e11a2fd8c1189bc032dd38a data/botania/tags/block/mana_pools.json
 7d152245fd56029344573a358ab79d27529e2878 data/botania/tags/block/marimorphosis_convertable.json
-e51fab8358421c8502b0d945a000b5f6639d7d8f data/botania/tags/block/mini_flowers.json
 ec5a92238e82278a7259e4aeffddd970e047faa5 data/botania/tags/block/misc_floating_flowers.json
 bbe7e8372a043fbe4be724477e8a19b865735818 data/botania/tags/block/misc_special_flowers.json
 a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/botania/tags/block/munchdew_consumable.json
 378df5bfdc9d35a43fb0a05ad1020788b24e08fd data/botania/tags/block/mundane_floating_flowers.json
 59cf23d61f960b6b3a9ec635bc618ed84e654812 data/botania/tags/block/pasture_seed_replaceable.json
+e51fab8358421c8502b0d945a000b5f6639d7d8f data/botania/tags/block/petite_flowers.json
 d235ac35132e9f2414a9f50f9904b8faa585fe9f data/botania/tags/block/potted_glimmering_flowers.json
 38e3d6642139547f90bba8dc4e9c3ae73c5cabda data/botania/tags/block/potted_mystical_flowers.json
 292ab940fc5daac7fe88d0a04fcf26a7c58cf255 data/botania/tags/block/quartz_blocks.json

@@ -37,7 +37,7 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Item> CONTRIBUTOR_HEADFLOWERS = tag("contributor_headflowers");
 		public static final TagKey<Item> SPECIAL_FLOWERS = tag("special_flowers");
-		public static final TagKey<Item> MINI_FLOWERS = tag("mini_flowers");
+		public static final TagKey<Item> PETITE_FLOWERS = tag("petite_flowers");
 		public static final TagKey<Item> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
 		public static final TagKey<Item> FUNCTIONAL_SPECIAL_FLOWERS = tag("functional_special_flowers");
 		public static final TagKey<Item> GENERATING_SPECIAL_FLOWERS = tag("generating_special_flowers");
@@ -204,7 +204,7 @@ public class BotaniaTags {
 		public static final TagKey<Block> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		public static final TagKey<Block> SPECIAL_FLOWERS = tag("special_flowers");
-		public static final TagKey<Block> MINI_FLOWERS = tag("mini_flowers");
+		public static final TagKey<Block> PETITE_FLOWERS = tag("petite_flowers");
 		public static final TagKey<Block> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
 		public static final TagKey<Block> FUNCTIONAL_SPECIAL_FLOWERS = tag("functional_special_flowers");
 		public static final TagKey<Block> GENERATING_SPECIAL_FLOWERS = tag("generating_special_flowers");
