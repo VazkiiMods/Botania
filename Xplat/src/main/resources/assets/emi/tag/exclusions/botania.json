@@ -1,10 +1,21 @@
 {
   "exclusions": [
-    "botania:disposable",
-    "botania:semi_disposable",
+    "botania:burst_viewers",
     "botania:contributor_headflowers",
-    "botania:loonium_blacklist",
-    "botania:terra_shatterer_blacklist",
-    "botania:ring_of_magnetization_blacklist"
+    "botania:dims_floating_flowers",
+    "botania:disposable",
+    "botania:dominant_spark_pull_source",
+    "botania:ignored_by_endoflame",
+    "botania:loonium_excluded",
+    "botania:loonium_offhand_equipment",
+    "botania:mana_pool_dye_remover",
+    "botania:mana_using_items",
+    "botania:pickable_block_providers",
+    "botania:recessive_spark_push_target",
+    "botania:ring_of_magnetization_ignored",
+    "botania:semi_disposable",
+    "botania:tool_placeable/axe",
+    "botania:tool_placeable/pickaxe",
+    "botania:undims_floating_flowers"
   ]
 }
