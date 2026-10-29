@@ -138,6 +138,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 	private List<PositionProperties> lastTentativeBurst;
 	private boolean invalidTentativeBurst;
 
+	private boolean redstoneRecheck = false;
+
 	public ManaSpreaderBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.MANA_SPREADER, pos, state, true);
 	}
@@ -168,6 +170,14 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 			if (!inNetwork && !self.isRemoved()) {
 				BotaniaAPI.instance().getManaNetworkInstance()
 						.fireManaNetworkEvent(self, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
+			}
+		}
+
+		if (self.redstoneRecheck) {
+			if (level.hasNeighborSignal(worldPosition)) {
+				level.setBlock(worldPosition, state.setValue(BlockStateProperties.POWERED, true), 2 | 16);
+				state = level.getBlockState(worldPosition);
+				self.redstoneRecheck = false;
 			}
 		}
 
@@ -340,6 +350,10 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 
 		if (level != null && level.isClientSide()) {
 			hasReceivedInitialPacket = true;
+		}
+
+		if (cmp.contains("redstoneRecheck")) {
+			redstoneRecheck = true;
 		}
 	}
 

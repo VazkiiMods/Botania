@@ -21,6 +21,27 @@ We cannot provide any ETA (even a rough one) due to the complexity of the work i
 of time the maintainers are able to spend on this effort.
 Here's a general overview of what you can expect to change in terms of gameplay:
 
+* World upgrades:
+  * We have added datafixers, which allow you to upgrade worlds from 1.20.1 (or earlier!) up to 1.21.1.
+  This should be able to migrate most vanilla+botania worlds, potentially worlds including other mods as well,
+  provided those mods also have datafixers.
+  * If you're attempting to upgrade a world, please let us know how it goes on the forums or on discord!
+  This has been in development for a couple months, because we care about people being able to keep their botania worlds
+  across versions. If you encounter any issues, let us know, and we can try to resolve them.
+  **Make sure to take backups before doing a world upgrade.**
+  * Known limitations:
+    * Items in botania-specific entity data do not get renamed. This affects loonium loot drops
+    for mobs that were spawned before the world upgrade, and resolute ivy items for players who are dead
+    *during* the world upgrade.
+    * Renamed entities will not persist in life aggregators
+    * Some redstone-sensitive block entities will forget they were powered. Mana spreaders and flowers work correctly,
+    but others, like mana prisms and livingwood avatars (for example) don't. Everything could in theory be supported,
+    but it requires code that is somewhat annoying and spread out, so we'd like to limit it in scope. If you're having
+    trouble with a block not remembering it was powered, let us know and we can implement the fix for that block as well.
+    * Trinkets has built-in datafixers, but curios does not. Therefore, if you are on forge, you should take off
+    all your trinkets before upgrading your world.
+    * There will be logspam about missing attributes and unregistered cardinal components, these should be harmless.
+
 * Compatibility: Fully migrated existing Forge support to NeoForge (Forge is no longer supported at all)
 * Compatibility: Roughly Enough Items (REI) is now also supported on NeoForge (joining JEI and EMI)
 * Compatibility: "Fast Item Frames" and "Open Parties and Claims" are now considered "discouraged", due to their strictly negative impact on Botania features
