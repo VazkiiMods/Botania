@@ -24,6 +24,9 @@ In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug 
 * Fix: Alfheim portal storing or outputting items did not cause the chunk to be marked as unsaved
 * Fix: Heisei Dream attempted to brainwash mobs during their death animation
 * Fix: Guardian of Gaia wouldn't drop its head anymore
+* Fix: Looking at a charging Runic Altar no longer bugs out Immersive Portal rendering
+  (Implemented along with a backport of a minor 1.21.1 visual change –
+  the altar's small progress pie renders behind the item to craft instead of in front of it)
 
 ---
 

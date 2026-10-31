@@ -352,17 +352,6 @@ public final class RenderHelper extends RenderType {
 
 	public static void renderProgressPie(GuiGraphics gui, int x, int y, float progress, ItemStack stack) {
 		PoseStack ms = gui.pose();
-		Minecraft mc = Minecraft.getInstance();
-		gui.renderItem(stack, x, y);
-
-		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, true);
-		GL11.glEnable(GL11.GL_STENCIL_TEST);
-		RenderSystem.colorMask(false, false, false, false);
-		RenderSystem.depthMask(false);
-		RenderSystem.stencilFunc(GL11.GL_NEVER, 1, 0xFF);
-		RenderSystem.stencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
-		RenderSystem.stencilMask(0xFF);
-		gui.renderItem(stack, x, y);
 
 		int r = 10;
 		int centerX = x + 8;
@@ -372,10 +361,6 @@ public final class RenderHelper extends RenderType {
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		RenderSystem.colorMask(true, true, true, true);
-		RenderSystem.depthMask(true);
-		RenderSystem.stencilMask(0x00);
-		RenderSystem.stencilFunc(GL11.GL_EQUAL, 1, 0xFF);
 
 		Matrix4f mat = ms.last().pose();
 		BufferBuilder buf = Tesselator.getInstance().getBuilder();
@@ -392,7 +377,7 @@ public final class RenderHelper extends RenderType {
 		Tesselator.getInstance().end();
 
 		RenderSystem.disableBlend();
-		GL11.glDisable(GL11.GL_STENCIL_TEST);
+		gui.renderItem(stack, x, y);
 	}
 
 	/**
