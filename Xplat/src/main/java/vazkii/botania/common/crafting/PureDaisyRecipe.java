@@ -51,7 +51,7 @@ public class PureDaisyRecipe extends BlockStateRecipe implements vazkii.botania.
 
 	@Override
 	public boolean matches(Level world, BlockPos pos, BlockState state) {
-		return getInput().test(state);
+		return getInput().test(state) && !getOutput().test(state);
 	}
 
 	@Override

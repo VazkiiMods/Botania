@@ -42,12 +42,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	public void buildRecipes(RecipeOutput consumer) {
 
 		normal(consumer, StateIngredients.of(Blocks.STONE), BotaniaBlocks.LIVINGROCK.defaultBlockState());
-		stateCopying(consumer,
-				StateIngredients.ofExcept(
-						StateIngredients.of(BlockTags.LOGS),
-						StateIngredients.anyOf(StateIngredients.of(BotaniaBlocks.LIVINGWOOD_LOG))),
-				BotaniaBlocks.LIVINGWOOD_LOG
-		);
+		stateCopying(consumer, StateIngredients.of(BlockTags.LOGS), BotaniaBlocks.LIVINGWOOD_LOG);
 
 		normal(consumer, StateIngredients.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState());
 		withFunction(consumer, StateIngredients.of(Blocks.END_STONE),
