@@ -78,7 +78,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 5;
 	private static final int CHECK_RANGE = 9;
 	private static final String TAG_LOOT_TABLE = "lootTable";
-	private static final String TAG_DETECTED_STRUCTURE = "detectedStructure";
+	private static final String TAG_RELEVANT_STRUCTURE = "relevantStructure";
 	private static final String TAG_CONFIG_OVERRIDE = "configOverride";
 	private static final String TAG_ATTUNE_DISPLAY_OVERRIDE = "attuneDisplayOverride";
 	private static final ResourceLocation ATTRIBUTE_MODIFIER_ID = botaniaRL("loonium_modifier");
@@ -108,8 +108,18 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Nullable
 	private ResourceKey<LootTable> lootTableOverride;
+	/**
+	 * Serverside map of detected structures, not available on the client.
+	 * Keys are structure IDs, values tell whether the flower is within any sections.
+	 * Intentionally not persisted so a reload or moving the flower causes reevaluation.
+	 */
 	@Nullable
 	private Object2BooleanMap<ResourceLocation> detectedStructures;
+	/**
+	 * Serverside tracking of actually relevant structure IDs. Changes trigger a data resend.
+	 * Clientside this is filtered to not contain the default ID used for forced or default structure config.
+	 */
+	private Set<ResourceLocation> relevantStructures = Set.of();
 	@Nullable
 	private ResourceLocation configOverride;
 	@Nullable
@@ -139,9 +149,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		ConfigDataManager configData = BotaniaAPI.instance().getConfigData();
 		Map<ResourceLocation, LooniumStructureConfiguration> structureConfigs =
-				determineStructureConfigs(configData, detectedStructures);
+				determineStructureConfigs(detectedStructures);
+		updateRelevantStructures(structureConfigs);
 		List<Pair<ResourceLocation, LootTable>> lootTables = determineLootTables(world, structureConfigs.keySet());
 
 		if (lootTables.isEmpty()) {
@@ -178,6 +188,28 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		if (spawnedAny) {
 			addMana(-pickedConfig.manaCost);
 		}
+	}
+
+	private void updateRelevantStructures(Map<ResourceLocation, LooniumStructureConfiguration> structureConfigs) {
+		Set<ResourceLocation> structureIds = structureConfigs.keySet();
+		if (relevantStructures.equals(structureIds)) {
+			return;
+		}
+
+		// first tick, or flower was moved, or data pack reload changed Loonium configs
+		switch (structureConfigs.size()) {
+			case 0 -> relevantStructures = Set.of();
+			case 1 -> relevantStructures = Set.of(structureIds.stream().findFirst().get());
+			default -> {
+				// multiple structures are a rare case, but require special handling for consistency
+				ResourceLocation[] ids = structureIds.toArray(ResourceLocation[]::new);
+				Arrays.sort(ids);
+				relevantStructures = new ObjectArraySet<>(ids);
+			}
+		}
+
+		// resend attuned structures to client
+		markForImmediateSync();
 	}
 
 	@Override
@@ -394,13 +426,13 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	/**
 	 * Build a map of structure IDs to resolved Loonium configurations, i.e. no need to traverse any parents.
-	 * 
-	 * @param configData Configuration data to read from.
+	 *
 	 * @param structures Detected structures to work with.
 	 * @return The map, which is guaranteed to not be empty.
 	 */
 	private Map<ResourceLocation, LooniumStructureConfiguration> determineStructureConfigs(
-			ConfigDataManager configData, Object2BooleanMap<ResourceLocation> structures) {
+			Object2BooleanMap<ResourceLocation> structures) {
+		ConfigDataManager configData = BotaniaAPI.instance().getConfigData();
 		if (configOverride != null) {
 			LooniumStructureConfiguration overrideConfig =
 					configData.getEffectiveLooniumStructureConfiguration(configOverride);
@@ -451,8 +483,10 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 		detectedStructures = new Object2BooleanArrayMap<>(structureMap);
 
-		setChanged();
-		markForImmediateSync();
+		// flower might not naturally check this any time soon, so do it manually right now already:
+		Map<ResourceLocation, LooniumStructureConfiguration> structureConfigs =
+				determineStructureConfigs(detectedStructures);
+		updateRelevantStructures(structureConfigs);
 	}
 
 	@Override
@@ -487,23 +521,14 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		if (cmp.contains(TAG_ATTUNE_DISPLAY_OVERRIDE)) {
 			attuneDisplayOverride = cmp.getString(TAG_ATTUNE_DISPLAY_OVERRIDE);
 		}
-		if (cmp.contains(TAG_DETECTED_STRUCTURE)) {
-			String rawString = cmp.getString(TAG_DETECTED_STRUCTURE);
+		if (cmp.contains(TAG_RELEVANT_STRUCTURE)) {
+			String rawString = cmp.getString(TAG_RELEVANT_STRUCTURE);
 			if (rawString.isEmpty()) {
-				detectedStructures = Object2BooleanMaps.emptyMap();
+				relevantStructures = Set.of();
 			} else {
-				List<ObjectBooleanPair<ResourceLocation>> structureList = Arrays.stream(rawString.split(",")).map(part -> {
-					if (part.contains("|")) {
-						String[] components = part.split("\\|", 2);
-						return ObjectBooleanPair.of(ResourceLocation.parse(components[0]), Boolean.parseBoolean(components[1]));
-					} else {
-						return ObjectBooleanPair.of(ResourceLocation.parse(part), false);
-					}
-				}).toList();
+				List<ResourceLocation> structureList = Arrays.stream(rawString.split(",")).map(ResourceLocation::parse).toList();
 				// list should never contain more than a few entries, so array is fine and retains entry order
-				var map = new Object2BooleanArrayMap<ResourceLocation>(structureList.size());
-				structureList.forEach(entry -> map.put(entry.key(), entry.valueBoolean()));
-				detectedStructures = map;
+				relevantStructures = new ObjectArraySet<>(structureList);
 			}
 		}
 	}
@@ -517,33 +542,28 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		if (configOverride != null) {
 			cmp.putString(TAG_CONFIG_OVERRIDE, configOverride.toString());
 		}
-		writeStructureInfoNbt(cmp);
+		if (attuneDisplayOverride != null) {
+			cmp.putString(TAG_ATTUNE_DISPLAY_OVERRIDE, attuneDisplayOverride);
+		}
 	}
 
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		var tag = super.getUpdateTag(registries);
-		writeStructureInfoNbt(tag);
-		return tag;
-	}
-
-	private void writeStructureInfoNbt(CompoundTag cmp) {
 		if (attuneDisplayOverride != null) {
-			cmp.putString(TAG_ATTUNE_DISPLAY_OVERRIDE, attuneDisplayOverride);
-		}
-		if (detectedStructures != null) {
-			var stringBuilder = new StringBuilder();
-			boolean first = true;
-			for (Object2BooleanMap.Entry<ResourceLocation> entry : detectedStructures.object2BooleanEntrySet()) {
-				if (first) {
-					first = false;
-				} else {
-					stringBuilder.append(',');
-				}
-				stringBuilder.append(entry.getKey()).append('|').append(entry.getBooleanValue());
+			tag.putString(TAG_ATTUNE_DISPLAY_OVERRIDE, attuneDisplayOverride);
+		} else if (lootTableOverride != null) {
+			tag.putString(TAG_LOOT_TABLE, lootTableOverride.location().toString());
+		} else if (!relevantStructures.isEmpty()) {
+			String idsString = relevantStructures.stream()
+					.filter(id -> !LooniumStructureConfiguration.DEFAULT_CONFIG_ID.equals(id))
+					.map(ResourceLocation::toString)
+					.collect(Collectors.joining(","));
+			if (!idsString.isEmpty()) {
+				tag.putString(TAG_RELEVANT_STRUCTURE, idsString);
 			}
-			cmp.putString(TAG_DETECTED_STRUCTURE, stringBuilder.toString());
 		}
+		return tag;
 	}
 
 	public static void dropLooniumItems(LivingEntity living, Consumer<ItemStack> consumer) {
@@ -567,15 +587,14 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				lootType = flower.attuneDisplayOverride;
 			} else if (flower.lootTableOverride != null) {
 				lootType = "attuned";
-			} else if (flower.detectedStructures == null || flower.detectedStructures.isEmpty()) {
+			} else if (flower.relevantStructures.isEmpty()) {
 				lootType = "not_attuned";
 			} else {
-				if (flower.detectedStructures.size() == 1) {
+				if (flower.relevantStructures.size() == 1) {
 					lootType = "attuned_one";
-					structureName = flower.detectedStructures
-							.keySet().stream().findFirst()
+					structureName = flower.relevantStructures.stream().findFirst()
 							.map(rl -> I18n.get("structure." + rl.getNamespace() + "." + rl.getPath().replace("/", ".")))
-							.orElseGet(() -> "");
+							.orElse("");
 				} else {
 					lootType = "attuned_many";
 				}
