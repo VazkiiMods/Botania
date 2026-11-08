@@ -313,7 +313,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						continue;
 					}
 					ItemEntity remainder = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.5, getBlockPos().getZ() + 0.5, remainingStack.copy());
-					ItemSource.HOLDER.setFor(outputItem, ItemSources.RUNIC_ALTAR);
+					ItemSource.HOLDER.setFor(remainder, ItemSources.RUNIC_ALTAR);
 					level.addFreshEntity(remainder);
 				}
 				getItemHandler().clearContent();
