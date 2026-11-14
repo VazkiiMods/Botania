@@ -37,7 +37,7 @@ import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
-import vazkii.botania.common.block.ManastormChargeBlock;
+import vazkii.botania.common.block.ManastormChargeTrigger;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.block.mana.DrumBlock;
@@ -124,7 +124,7 @@ public final class BlockCapabilities {
 						BotaniaBlocks.DRUM_OF_THE_CANOPY, BotaniaBlocks.DRUM_OF_THE_GATHERING,
 						BotaniaBlocks.DRUM_OF_THE_WILD
 				),
-				blockApi(ManastormChargeBlock.ManaTriggerImpl::new, BotaniaBlocks.MANASTORM_CHARGE),
+				blockApi(ManastormChargeTrigger::new, BotaniaBlocks.MANASTORM_CHARGE),
 				blockApi(ManaDetectorBlock.ManaTriggerImpl::new, BotaniaBlocks.MANA_DETECTOR)
 		));
 

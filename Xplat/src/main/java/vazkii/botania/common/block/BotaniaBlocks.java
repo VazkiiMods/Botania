@@ -1486,7 +1486,7 @@ public final class BotaniaBlocks {
 	public static final Block SPARK_TINKERER = make(LibBlockNames.SPARK_TINKERER,
 			new SparkTinkererBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 	public static final Block MANASTORM_CHARGE = make(LibBlockNames.MANASTORM_CHARGE,
-			new ManastormChargeBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)
+			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)
 					.strength(12)));
 	public static final Block MANATIDE_BELLOWS = make(LibBlockNames.MANATIDE_BELLOWS,
 			new BellowsBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGWOOD)));
