@@ -9,6 +9,7 @@
 
 package vazkii.botania.client.capabilities;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.api.block.MonocleHud;
@@ -16,11 +17,13 @@ import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
 import vazkii.botania.api.capability.registration.ApiIdRegistration;
 import vazkii.botania.api.capability.registration.ApiProviderRegistration;
+import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.gui.monocle.ComparatorSettingHud;
 import vazkii.botania.client.gui.monocle.DaylightDetectorHud;
 import vazkii.botania.client.gui.monocle.RedstonePowerHud;
 import vazkii.botania.client.gui.monocle.RepeaterSettingHud;
 import vazkii.botania.client.gui.monocle.SculkSensorHud;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.AnimatedTorchBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotanicalBreweryBlockEntity;
@@ -41,13 +44,17 @@ import vazkii.botania.common.block.block_entity.mana.SpreaderTurntableBlockEntit
 
 import java.util.List;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 import static vazkii.botania.common.capabilities.BlockCapabilities.*;
 
 public final class ClientBlockCapabilities {
+	private static final ResourceLocation ALCHEMY_CATALYST_OVERLAY = botaniaRL("block/alchemy_catalyst_overlay");
+	private static final ResourceLocation CONJURATION_CATALYST_OVERLAY = botaniaRL("block/conjuration_catalyst_overlay");
 
 	public static void registerCapabilityTypes(ApiIdRegistration registration) {
 		registration.register(MonocleHud.BLOCK_LOOKUP);
 		registration.register(WandHUD.BLOCK_LOOKUP);
+		registration.register(PoolOverlayProvider.LOOKUP);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -107,6 +114,16 @@ public final class ClientBlockCapabilities {
 				blockApi(DaylightDetectorHud::new, Blocks.DAYLIGHT_DETECTOR),
 				blockApi(RepeaterSettingHud::new, Blocks.REPEATER),
 				blockApi(SculkSensorHud::new, Blocks.SCULK_SENSOR, Blocks.CALIBRATED_SCULK_SENSOR)
+		));
+
+		registration.register(PoolOverlayProvider.LOOKUP, List.of(
+				blockApiSelf(BotaniaBlocks.MANA_VOID),
+				blockApi(blockState -> PoolOverlayProvider.simple(ALCHEMY_CATALYST_OVERLAY),
+						BotaniaBlocks.ALCHEMY_CATALYST
+				),
+				blockApi(blockState -> PoolOverlayProvider.simple(CONJURATION_CATALYST_OVERLAY),
+						BotaniaBlocks.CONJURATION_CATALYST
+				)
 		));
 	}
 

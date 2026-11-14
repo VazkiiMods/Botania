@@ -1352,9 +1352,9 @@ public final class BotaniaBlocks {
 			color -> new ManaPoolBlock(ManaPoolBlock.MAX_MANA, true, false,
 					ManaPoolBlock.NORMAL_SHAPE_VARIANT, color, BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 	public static final Block ALCHEMY_CATALYST = make(LibBlockNames.ALCHEMY_CATALYST,
-			new AlchemyCatalystBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
+			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 	public static final Block CONJURATION_CATALYST = make(LibBlockNames.CONJURATION_CATALYST,
-			new ConjurationCatalystBlock(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
+			new Block(BlockBehaviour.Properties.ofFullCopy(LIVINGROCK)));
 
 	// resource blocks
 	public static final Block MANASTEEL_BLOCK = make(LibBlockNames.MANASTEEL_BLOCK,

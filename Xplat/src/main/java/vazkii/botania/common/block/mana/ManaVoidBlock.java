@@ -31,7 +31,7 @@ public class ManaVoidBlock extends BotaniaBlock implements PoolOverlayProvider {
 	}
 
 	@Override
-	public ResourceLocation getIcon(Level world, BlockPos pos) {
+	public ResourceLocation getIcon(Level level, BlockPos pos) {
 		return OVERLAY_ICON;
 	}
 

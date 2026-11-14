@@ -24,7 +24,6 @@ import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -113,10 +112,10 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 					.renderModel(ms.last(), buffer, state, model, red, green, blue, light, overlay);
 		}
 
-		if (pool != null) {
-			Block below = pool.getLevel().getBlockState(pool.getBlockPos().below()).getBlock();
-			if (below instanceof PoolOverlayProvider overlayProvider) {
-				var overlaySpriteId = overlayProvider.getIcon(pool.getLevel(), pool.getBlockPos());
+		if (pool != null && level != null) {
+			PoolOverlayProvider overlayProvider = PoolOverlayProvider.LOOKUP.find(level, pool.getBlockPos().below());
+			if (overlayProvider != null) {
+				var overlaySpriteId = overlayProvider.getIcon(level, pool.getBlockPos());
 				var overlayIcon = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(overlaySpriteId);
 				ms.pushPose();
 
