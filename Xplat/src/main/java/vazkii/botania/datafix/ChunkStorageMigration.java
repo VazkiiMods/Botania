@@ -53,6 +53,13 @@ public class ChunkStorageMigration {
 						be.remove("uuidMost");
 						be.putUUID("uuid", new UUID(most, least));
 					}
+
+					// update rotation format
+					float xRot = -be.getFloat("rotationY");
+					float yRot = 90 - be.getFloat("rotationX");
+					be.putFloat("rotationY", yRot);
+					be.putFloat("rotationX", xRot);
+
 					return oldBlockState -> {
 						ResourceLocation newId = oldBlockState.block.withPath(old -> color.map(dyeColor -> dyeColor.getSerializedName() + "_covered_").orElse("") + old
 						);

@@ -290,8 +290,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 		cmp.putUUID(TAG_UUID, getIdentifier());
 
 		cmp.putInt(TAG_MANA, mana);
-		cmp.putFloat(TAG_ROTATION_X, yRot);
-		cmp.putFloat(TAG_ROTATION_Y, xRot);
+		cmp.putFloat(TAG_ROTATION_Y, yRot);
+		cmp.putFloat(TAG_ROTATION_X, xRot);
 		cmp.putBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
 		cmp.putBoolean(TAG_CAN_SHOOT_BURST, canShootBurst);
 
@@ -324,8 +324,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 		}
 
 		mana = cmp.getInt(TAG_MANA);
-		yRot = cmp.getFloat(TAG_ROTATION_X);
-		xRot = cmp.getFloat(TAG_ROTATION_Y);
+		yRot = cmp.getFloat(TAG_ROTATION_Y);
+		xRot = cmp.getFloat(TAG_ROTATION_X);
 		requestsClientUpdate = cmp.getBoolean(TAG_REQUEST_UPDATE);
 
 		inputKey = cmp.getString(TAG_INPUT_KEY);
