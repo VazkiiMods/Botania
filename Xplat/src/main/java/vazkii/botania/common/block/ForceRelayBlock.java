@@ -10,7 +10,6 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -22,8 +21,8 @@ import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.PistonType;
@@ -43,21 +42,19 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
-public class ForceRelayBlock extends BotaniaBlock {
-
-	public final Map<UUID, GlobalPos> activeBindingAttempts = new HashMap<>();
+public class ForceRelayBlock extends Block {
 
 	public ForceRelayBlock(Properties builder) {
 		super(builder.pushReaction(PushReaction.PUSH_ONLY));
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!world.isClientSide) {
-			var data = WorldData.get(world);
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+		if (!level.isClientSide) {
+			var data = WorldData.get(level);
 
 			Direction movementContextDirection = ForcePushHelper.getMovementContextDirection();
-			if (isMoving && (movementContextDirection != null || newState.is(Blocks.MOVING_PISTON))) {
+			if (movedByPiston && (movementContextDirection != null || newState.is(Blocks.MOVING_PISTON))) {
 				var pistonDirection = movementContextDirection != null
 						? movementContextDirection
 						: newState.getValue(MovingPistonBlock.FACING);
@@ -77,7 +74,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 
 					if (!newState.is(Blocks.MOVING_PISTON) || newState.getValue(MovingPistonBlock.TYPE) == PistonType.DEFAULT) {
 						// Move the actual bound blocks
-						if (ForceLens.moveBlocks(world, destPos.relative(moveDirection.getOpposite()), moveDirection, pos)) {
+						if (ForceLens.moveBlocks(level, destPos.relative(moveDirection.getOpposite()), moveDirection, pos)) {
 							// Move dest side of our binding
 							data.mapping.put(newSrcPos, data.mapping.get(newSrcPos).relative(moveDirection));
 						}
@@ -89,10 +86,6 @@ public class ForceRelayBlock extends BotaniaBlock {
 				}
 			}
 		}
-	}
-
-	public static Wandable createWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, Direction side) {
-		return new ForceRelayWandable(level, pos);
 	}
 
 	public record ForceRelayWandable(Level level, BlockPos pos) implements Wandable {
@@ -118,18 +111,13 @@ public class ForceRelayBlock extends BotaniaBlock {
 		}
 	}
 
-	public static WandBindable createWandBindable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, Direction side) {
-		return new ForceRelayBindable(level, pos);
-	}
-
 	public record ForceRelayBindable(Level level, BlockPos sourcePos) implements WandBindable {
 		@Override
-		public boolean bindTo(Player player, ItemStack wand, BlockPos targetPos, Direction side) {
+		public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
 			if (!level.isClientSide()) {
-				addBinding(level, sourcePos, targetPos);
+				addBinding(level, sourcePos, pos);
 
-				XplatAbstractions.INSTANCE.sendToNear(level, targetPos,
-						new ParticleBeamEffectPacket(sourcePos, targetPos));
+				XplatAbstractions.INSTANCE.sendToNear(level, pos, new ParticleBeamEffectPacket(sourcePos, pos));
 			}
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.DING, SoundSource.PLAYERS, 1F, 1F);
 			return true;
@@ -170,7 +158,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 		}
 
 		@Override
-		public CompoundTag save(CompoundTag cmp, HolderLookup.Provider registries) {
+		public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
 			ListTag list = new ListTag();
 			for (Map.Entry<BlockPos, BlockPos> e : mapping.entrySet()) {
 				Tag from = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, e.getKey()).result().orElseThrow();
@@ -178,8 +166,8 @@ public class ForceRelayBlock extends BotaniaBlock {
 				list.add(from);
 				list.add(to);
 			}
-			cmp.put("list", list);
-			return cmp;
+			tag.put("list", list);
+			return tag;
 		}
 
 		public static WorldData get(Level world) {

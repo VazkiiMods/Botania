@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,16 +30,16 @@ import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.XplatAbstractions;
 
-public class ManaFlameBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class ManaFlameBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(4, 4, 4, 12, 12, 12);
 
-	public ManaFlameBlock(Properties builder) {
-		super(builder);
+	public ManaFlameBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -64,8 +63,8 @@ public class ManaFlameBlock extends BotaniaWaterloggedBlock implements EntityBlo
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		BlockEntity te = world.getBlockEntity(pos);
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		BlockEntity te = level.getBlockEntity(pos);
 		if (te instanceof ManaFlameBlockEntity flame) {
 			int color = flame.getColor();
 			float v = 0.1F;
@@ -92,7 +91,7 @@ public class ManaFlameBlock extends BotaniaWaterloggedBlock implements EntityBlo
 			float m = 0.03F + (float) Math.random() * 0.015F;
 
 			WispParticleData data = WispParticleData.wisp(s, r, g, b, 1);
-			world.addParticle(data, x, y, z, 0, m, 0);
+			level.addParticle(data, x, y, z, 0, m, 0);
 		}
 	}
 

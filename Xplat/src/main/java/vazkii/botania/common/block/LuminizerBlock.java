@@ -16,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -33,25 +32,25 @@ import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 import vazkii.botania.common.entity.LuminizerMoverEntity;
 import vazkii.botania.common.item.PhantomInkItem;
 
-public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class LuminizerBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(5, 5, 5, 11, 11, 11);
 
-	public LuminizerBlock(Properties builder) {
-		super(builder);
+	public LuminizerBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if (world.getBlockEntity(pos) instanceof LuminizerBlockEntity relay
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (level.getBlockEntity(pos) instanceof LuminizerBlockEntity relay
 				&& !stack.is(Items.ENDER_PEARL) && !(stack.getItem() instanceof PhantomInkItem)) {
 			relay.mountEntity(player);
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
 
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;

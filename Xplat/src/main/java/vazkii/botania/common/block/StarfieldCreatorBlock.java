@@ -11,7 +11,6 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,16 +23,16 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.StarfieldCreatorBlockEntity;
 
-public class StarfieldCreatorBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class StarfieldCreatorBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
 
-	public StarfieldCreatorBlock(Properties builder) {
-		super(builder);
+	public StarfieldCreatorBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 

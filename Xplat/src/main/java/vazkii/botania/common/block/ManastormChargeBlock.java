@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
@@ -19,12 +20,13 @@ import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.ManaStormEntity;
 import vazkii.botania.mixin.ProjectileAccessor;
 
-public class ManastormChargeBlock extends BotaniaBlock {
+public class ManastormChargeBlock extends Block {
 
-	public ManastormChargeBlock(Properties builder) {
-		super(builder);
+	public ManastormChargeBlock(Properties properties) {
+		super(properties);
 	}
 
+	// TODO: externalize this, we don't need an entire block class for that
 	public static class ManaTriggerImpl implements ManaTrigger {
 		private final Level world;
 		private final BlockPos pos;

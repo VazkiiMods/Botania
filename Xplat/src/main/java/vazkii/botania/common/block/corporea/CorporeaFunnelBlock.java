@@ -11,19 +11,18 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.BotaniaBlock;
+import vazkii.botania.common.block.BotaniaEntityBlock;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaFunnelBlockEntity;
 
-public class CorporeaFunnelBlock extends BotaniaBlock implements EntityBlock {
+public class CorporeaFunnelBlock extends BotaniaEntityBlock {
 
-	public CorporeaFunnelBlock(Properties builder) {
-		super(builder);
+	public CorporeaFunnelBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
@@ -33,17 +32,17 @@ public class CorporeaFunnelBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getBestNeighborSignal(pos) > 0;
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+		boolean power = level.getBestNeighborSignal(pos) > 0;
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
-			if (world.getBlockEntity(pos) instanceof CorporeaFunnelBlockEntity funnel) {
+			level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
+			if (level.getBlockEntity(pos) instanceof CorporeaFunnelBlockEntity funnel) {
 				funnel.doRequest();
 			}
 		} else if (!power && powered) {
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
+			level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
 		}
 	}
 

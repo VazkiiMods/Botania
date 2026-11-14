@@ -31,7 +31,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -53,7 +52,7 @@ import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -65,7 +64,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements EntityBlock, OptionallyColored, CustomCreativeTabContents {
+public class ManaSpreaderBlock extends BotaniaWaterloggedEntityBlock
+		implements OptionallyColored, CustomCreativeTabContents {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 	private static final VoxelShape SHAPE_PADDING = box(1, 1, 1, 15, 15, 15);
 	private static final VoxelShape SHAPE_SCAFFOLDING = box(0, 0, 0, 16, 16, 16);
@@ -97,15 +97,18 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	private final SpreaderParameters spreaderParameters;
 	@Nullable
 	private final DyeColor coverColor;
+	@SuppressWarnings("ThisEscapedInObjectConstruction")
 	private final Supplier<ResourceLocation> spreaderModelIdSupplier = Suppliers.memoize(
 			() -> ModelLocationUtils.getModelLocation(getBaseBlock(this)));
+	@SuppressWarnings("ThisEscapedInObjectConstruction")
 	private final Supplier<ResourceLocation> coreModelIdSupplier = Suppliers.memoize(
 			() -> ModelLocationUtils.getModelLocation(getBaseBlock(this), "_core"));
+	@SuppressWarnings("ThisEscapedInObjectConstruction")
 	private final Supplier<ResourceLocation> scaffoldingModelIdSupplier = Suppliers.memoize(
 			() -> ModelLocationUtils.getModelLocation(getBaseBlock(this), "_scaffolding"));
 
-	public ManaSpreaderBlock(SpreaderParameters spreaderParameters, @Nullable DyeColor coverColor, Properties builder) {
-		super(builder);
+	public ManaSpreaderBlock(SpreaderParameters spreaderParameters, @Nullable DyeColor coverColor, Properties properties) {
+		super(properties);
 		this.spreaderParameters = spreaderParameters;
 		this.coverColor = coverColor;
 		registerDefaultState(defaultBlockState()
@@ -186,20 +189,20 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+		RedstoneSensitiveBlock.updateRedstonePower(state, level, pos);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-		if (blockState.getValue(HAS_SCAFFOLDING)) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		if (state.getValue(HAS_SCAFFOLDING)) {
 			return SHAPE_SCAFFOLDING;
 		}
 		return coverColor != null ? SHAPE_PADDING : SHAPE;
 	}
 
 	@Override
-	public VoxelShape getOcclusionShape(BlockState state, BlockGetter world, BlockPos pos) {
+	public VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
 		return SHAPE;
 	}
 
@@ -209,9 +212,9 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	@Override
-	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		Direction orientation = placer == null ? Direction.WEST : Direction.orderedByNearest(placer)[0].getOpposite();
-		if (!(world.getBlockEntity(pos) instanceof ManaSpreaderBlockEntity spreader)) {
+		if (!(level.getBlockEntity(pos) instanceof ManaSpreaderBlockEntity spreader)) {
 			return;
 		}
 		switch (orientation) {
@@ -241,59 +244,60 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack heldItem, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if (!(world.getBlockEntity(pos) instanceof ManaSpreaderBlockEntity spreader)) {
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+			Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (!(level.getBlockEntity(pos) instanceof ManaSpreaderBlockEntity spreader)) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
 
-		if (heldItem.getItem() instanceof WandOfTheForestItem) {
+		if (stack.getItem() instanceof WandOfTheForestItem) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
 		ItemStack lens = spreader.getItemHandler().getItem(0);
-		boolean playerHasLens = heldItem.getItem() instanceof BasicLensItem;
-		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameComponents(heldItem, lens);
-		DyeColor playerWoolColor = ColorHelper.getWoolColor(heldItem.getItem());
+		boolean playerHasLens = stack.getItem() instanceof BasicLensItem;
+		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameComponents(stack, lens);
+		DyeColor playerWoolColor = ColorHelper.getWoolColor(stack.getItem());
 		boolean woolIsSame = playerWoolColor == coverColor;
-		boolean playerHasScaffolding = heldItem.is(Items.SCAFFOLDING);
+		boolean playerHasScaffolding = stack.is(Items.SCAFFOLDING);
 		boolean shouldInsert = (playerHasLens && !lensIsSame)
 				|| (playerWoolColor != null && !woolIsSame)
 				|| (playerHasScaffolding && !state.getValue(HAS_SCAFFOLDING));
 
 		if (shouldInsert) {
 			if (playerHasLens) {
-				ItemStack toInsert = heldItem.copyWithCount(1);
+				ItemStack toInsert = stack.copyWithCount(1);
 				if (!lens.isEmpty()) {
-					player.setItemInHand(hand, ItemUtils.createFilledResult(heldItem, player, lens));
+					player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, lens));
 				} else if (!player.hasInfiniteMaterials()) {
-					heldItem.shrink(1);
+					stack.shrink(1);
 				}
 				spreader.getItemHandler().setItem(0, toInsert);
-				world.playSound(player, pos, BotaniaSounds.SPREADER_ADD_LENS, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(player, pos, BotaniaSounds.SPREADER_ADD_LENS, SoundSource.BLOCKS, 1F, 1F);
 			} else if (playerWoolColor != null) {
 				if (coverColor != null) {
-					player.setItemInHand(hand, ItemUtils.createFilledResult(heldItem, player, new ItemStack(ColorHelper.WOOL_MAP.apply(coverColor))));
+					player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(ColorHelper.WOOL_MAP.apply(coverColor))));
 				} else if (!player.hasInfiniteMaterials()) {
-					heldItem.shrink(1);
+					stack.shrink(1);
 				}
-				world.setBlockAndUpdate(pos,
+				level.setBlockAndUpdate(pos,
 						BotaniaBlocks.findOptionallyDyedBlock(this, playerWoolColor, "_covered_")
 								.withPropertiesOf(state));
 				// need to do this as the client unfortunately deletes its copy of the block entity on block type change
 				spreader.setChanged();
-				world.playSound(player, pos, BotaniaSounds.SPREADER_COVER, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(player, pos, BotaniaSounds.SPREADER_COVER, SoundSource.BLOCKS, 1F, 1F);
 			} else { // playerHasScaffolding
-				world.setBlockAndUpdate(pos, state.setValue(HAS_SCAFFOLDING, true));
-				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+				level.setBlockAndUpdate(pos, state.setValue(HAS_SCAFFOLDING, true));
+				level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
 				if (!player.hasInfiniteMaterials()) {
-					heldItem.shrink(1);
+					stack.shrink(1);
 				}
 
-				world.playSound(player, pos, BotaniaSounds.SPREADER_SCAFFOLD, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(player, pos, BotaniaSounds.SPREADER_SCAFFOLD, SoundSource.BLOCKS, 1F, 1F);
 			}
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
 
 		if (state.getValue(HAS_SCAFFOLDING) && player.isSecondaryUseActive()) {
@@ -301,12 +305,12 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			if (!player.hasInfiniteMaterials() || !player.getInventory().contains(scaffolding)) {
 				player.getInventory().placeItemBackInInventory(scaffolding);
 			}
-			world.setBlockAndUpdate(pos, state.setValue(HAS_SCAFFOLDING, false));
-			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+			level.setBlockAndUpdate(pos, state.setValue(HAS_SCAFFOLDING, false));
+			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
-			world.playSound(player, pos, BotaniaSounds.SPREADER_UN_SCAFFOLD, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(player, pos, BotaniaSounds.SPREADER_UN_SCAFFOLD, SoundSource.BLOCKS, 1F, 1F);
 
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
 		if (!lens.isEmpty() && (mainHandEmpty || lensIsSame)) {
 			if (!player.hasInfiniteMaterials() || !player.getInventory().contains(lens)) {
@@ -314,27 +318,27 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			}
 			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
 
-			world.playSound(player, pos, BotaniaSounds.SPREADER_REMOVE_LENS, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(player, pos, BotaniaSounds.SPREADER_REMOVE_LENS, SoundSource.BLOCKS, 1F, 1F);
 
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
 		if (coverColor != null && (mainHandEmpty || woolIsSame)) {
 			ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.apply(coverColor));
 			player.getInventory().placeItemBackInInventory(wool);
-			world.setBlockAndUpdate(pos,
+			level.setBlockAndUpdate(pos,
 					BotaniaBlocks.findOptionallyDyedBlock(this, null, "_covered_")
 							.withPropertiesOf(state));
 			spreader.setChanged();
-			world.playSound(player, pos, BotaniaSounds.SPREADER_UNCOVER, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(player, pos, BotaniaSounds.SPREADER_UNCOVER, SoundSource.BLOCKS, 1F, 1F);
 
-			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
 
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
 		if (state.getBlock() instanceof ManaSpreaderBlock oldBlock
 				&& newState.getBlock() instanceof ManaSpreaderBlock newBlock
 				&& ManaSpreaderBlock.getBaseBlock(oldBlock) == ManaSpreaderBlock.getBaseBlock(newBlock)) {
@@ -342,7 +346,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			return;
 		}
 		Containers.dropContentsOnDestroy(state, newState, level, pos);
-		super.onRemove(state, level, pos, newState, isMoving);
+		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Override

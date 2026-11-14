@@ -20,7 +20,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
@@ -45,7 +44,7 @@ import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 
-public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock, RedstoneSensitiveBlock {
+public class AvatarBlock extends BotaniaWaterloggedEntityBlock implements RedstoneSensitiveBlock {
 
 	private static final VoxelShape X_AABB = box(5, 0, 3.5, 11, 17, 12.5);
 	private static final VoxelShape Z_AABB = box(3.5, 0, 5, 12.5, 17, 11);
@@ -53,8 +52,8 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final BooleanProperty ACTIVE = BotaniaStateProperties.ACTIVE;
 
-	protected AvatarBlock(Properties builder) {
-		super(builder);
+	protected AvatarBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState()
 				.setValue(FACING, Direction.NORTH)
 				.setValue(POWERED, false)
@@ -62,7 +61,7 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return state.getValue(FACING).getAxis() == Direction.Axis.X ? X_AABB : Z_AABB;
 	}
 
@@ -98,12 +97,12 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
 		if (!state.is(newState.getBlock())) {
 			if (level.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(level, pos, inventory.getItemHandler());
 			}
-			super.onRemove(state, level, pos, newState, isMoving);
+			super.onRemove(state, level, pos, newState, movedByPiston);
 		}
 	}
 
@@ -114,7 +113,7 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
 		RedstoneSensitiveBlock.updateRedstonePower(state, level, pos);
 	}
 
@@ -142,14 +141,14 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock,
 	}
 
 	@Override
-	public BlockState rotate(BlockState state, Rotation rot) {
-		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (state.getValue(POWERED)) {
-			RedstoneSensitiveBlock.redstoneParticlesInShape(state, level, pos, rand);
+			RedstoneSensitiveBlock.redstoneParticlesInShape(state, level, pos, random);
 		}
 	}
 }

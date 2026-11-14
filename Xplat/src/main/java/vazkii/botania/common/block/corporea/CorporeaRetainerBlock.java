@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,14 +19,14 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaEntityBlock;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
 
-public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
+public class CorporeaRetainerBlock extends BotaniaEntityBlock {
 
-	public CorporeaRetainerBlock(BlockBehaviour.Properties builder) {
-		super(builder);
+	public CorporeaRetainerBlock(BlockBehaviour.Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState()
 				.setValue(BlockStateProperties.POWERED, false)
 				.setValue(BotaniaStateProperties.RETAIN_MISSING, false));
@@ -40,13 +39,13 @@ public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
 		boolean power = false;
 		for (var direction : Direction.values()) {
-			var neighborPos = pos.relative(direction);
-			var neighborState = world.getBlockState(neighborPos);
-			if (!neighborState.is(BotaniaBlocks.CORPOREA_INTERCEPTOR)) {
-				if (world.getSignal(neighborPos, direction) > 0) {
+			var adjacentPos = pos.relative(direction);
+			var adjacentState = level.getBlockState(adjacentPos);
+			if (!adjacentState.is(BotaniaBlocks.CORPOREA_INTERCEPTOR)) {
+				if (level.getSignal(adjacentPos, direction) > 0) {
 					power = true;
 					break;
 				}
@@ -55,12 +54,12 @@ public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			if (world.getBlockEntity(pos) instanceof CorporeaRetainerBlockEntity retainer) {
+			if (level.getBlockEntity(pos) instanceof CorporeaRetainerBlockEntity retainer) {
 				retainer.fulfilRequest();
 			}
-			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
+			level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 		} else if (!power && powered) {
-			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
+			level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 		}
 	}
 
@@ -70,8 +69,8 @@ public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return world.getBlockEntity(pos) instanceof CorporeaRetainerBlockEntity retainer
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		return level.getBlockEntity(pos) instanceof CorporeaRetainerBlockEntity retainer
 				? retainer.getComparatorValue()
 				: 0;
 	}

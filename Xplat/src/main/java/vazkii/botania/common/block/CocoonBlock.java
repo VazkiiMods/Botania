@@ -20,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -37,16 +36,16 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.CocoonBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
 
-public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class CocoonBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(3, 0, 3, 13, 14, 13);
 
-	protected CocoonBlock(Properties builder) {
-		super(builder);
+	protected CocoonBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -56,10 +55,10 @@ public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level world, BlockPos pos, Entity e) {
-		if (!world.isClientSide && e instanceof ItemEntity item) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity e) {
+		if (!level.isClientSide && e instanceof ItemEntity item) {
 			ItemStack stack = item.getItem();
-			addStack(world, pos, stack, false);
+			addStack(level, pos, stack, false);
 
 			if (stack.isEmpty()) {
 				item.discard();

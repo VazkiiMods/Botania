@@ -40,7 +40,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.mixin.MobAccessor;
 
-public class FelPumpkinBlock extends BotaniaBlock {
+public class FelPumpkinBlock extends Block {
 	public static final MapCodec<FelPumpkinBlock> CODEC = simpleCodec(FelPumpkinBlock::new);
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	@Nullable
@@ -48,8 +48,8 @@ public class FelPumpkinBlock extends BotaniaBlock {
 	@Nullable
 	private BlockPattern felBlazeBase;
 
-	public FelPumpkinBlock(Properties builder) {
-		super(builder);
+	public FelPumpkinBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(FACING, Direction.SOUTH));
 	}
 

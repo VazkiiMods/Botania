@@ -24,12 +24,11 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BotaniaBlock;
 
-public class ManaDetectorBlock extends BotaniaBlock implements ManaCollisionGhost {
+public class ManaDetectorBlock extends Block implements ManaCollisionGhost {
 
-	public ManaDetectorBlock(Properties builder) {
-		super(builder);
+	public ManaDetectorBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
@@ -44,7 +43,7 @@ public class ManaDetectorBlock extends BotaniaBlock implements ManaCollisionGhos
 	}
 
 	@Override
-	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
+	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
 		return state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
@@ -85,7 +84,7 @@ public class ManaDetectorBlock extends BotaniaBlock implements ManaCollisionGhos
 	}
 
 	@Override
-	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
 		if (!level.isClientSide() && !state.is(oldState.getBlock())
 				&& state.getValue(BlockStateProperties.POWERED)
 				&& !level.getBlockTicks().hasScheduledTick(pos, this)) {
@@ -94,7 +93,7 @@ public class ManaDetectorBlock extends BotaniaBlock implements ManaCollisionGhos
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (state.getValue(BlockStateProperties.POWERED)) {
 			for (int i = 0; i < 4; i++) {
 				SparkleParticleData data = SparkleParticleData.sparkle(0.7F + 0.5F * (float) Math.random(), 1F, 0.2F, 0.2F, 5);

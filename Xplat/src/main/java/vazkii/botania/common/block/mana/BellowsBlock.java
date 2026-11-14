@@ -30,19 +30,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BotaniaBlock;
+import vazkii.botania.common.block.BotaniaEntityBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.BellowsBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 
 import java.util.function.BiConsumer;
 
-public class BellowsBlock extends BotaniaBlock implements EntityBlock {
+public class BellowsBlock extends BotaniaEntityBlock {
 
 	private static final VoxelShape SHAPE = box(3, 0, 3, 13, 10.0, 13);
 
-	public BellowsBlock(Properties builder) {
-		super(builder);
+	public BellowsBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 

@@ -13,7 +13,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,15 +24,15 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.RedstoneSensitiveBlock;
 import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaBlock;
+import vazkii.botania.common.block.BotaniaEntityBlock;
 import vazkii.botania.common.block.OpenCrateBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.SpreaderTurntableBlockEntity;
 
-public class SpreaderTurntableBlock extends BotaniaBlock implements EntityBlock {
+public class SpreaderTurntableBlock extends BotaniaEntityBlock {
 
-	public SpreaderTurntableBlock(Properties builder) {
-		super(builder);
+	public SpreaderTurntableBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState()
 				.setValue(BlockStateProperties.POWERED, false)
 				.setValue(BotaniaStateProperties.SPEED, 1)
@@ -52,8 +51,8 @@ public class SpreaderTurntableBlock extends BotaniaBlock implements EntityBlock 
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+		RedstoneSensitiveBlock.updateRedstonePower(state, level, pos);
 	}
 
 	@Override
@@ -70,9 +69,9 @@ public class SpreaderTurntableBlock extends BotaniaBlock implements EntityBlock 
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (state.getValue(BlockStateProperties.POWERED) && rand.nextDouble() < 0.2) {
-			OpenCrateBlock.redstoneParticlesOnFullBlock(world, pos, rand);
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		if (state.getValue(BlockStateProperties.POWERED) && random.nextDouble() < 0.2) {
+			OpenCrateBlock.redstoneParticlesOnFullBlock(level, pos, random);
 		}
 	}
 }

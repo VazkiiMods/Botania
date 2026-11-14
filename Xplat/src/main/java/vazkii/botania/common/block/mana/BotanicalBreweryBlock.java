@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -32,18 +31,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotanicalBreweryBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.helper.InventoryHelper;
 
-public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class BotanicalBreweryBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(6, 0.8, 6, 10, 15.2, 10);
 
-	public BotanicalBreweryBlock(Properties builder) {
-		super(builder);
+	public BotanicalBreweryBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
@@ -54,7 +53,7 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -75,12 +74,12 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
 		if (!state.is(newState.getBlock())) {
-			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
-				Containers.dropContents(world, pos, inventory.getItemHandler());
+			if (level.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
+				Containers.dropContents(level, pos, inventory.getItemHandler());
 			}
-			super.onRemove(state, world, pos, newState, isMoving);
+			super.onRemove(state, level, pos, newState, movedByPiston);
 		}
 	}
 

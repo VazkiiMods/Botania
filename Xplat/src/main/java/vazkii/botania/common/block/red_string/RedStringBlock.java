@@ -11,21 +11,20 @@ package vazkii.botania.common.block.red_string;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
-import vazkii.botania.common.block.BotaniaBlock;
+import vazkii.botania.common.block.BotaniaEntityBlock;
 
-public abstract class RedStringBlock extends BotaniaBlock implements EntityBlock {
+public abstract class RedStringBlock extends BotaniaEntityBlock {
 
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
-	public RedStringBlock(BlockBehaviour.Properties builder) {
-		super(builder);
+	public RedStringBlock(BlockBehaviour.Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(FACING, Direction.DOWN));
 	}
 

@@ -9,15 +9,16 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.internal.Colored;
 
-public class PetalBlock extends BotaniaBlock implements Colored {
+public class PetalBlock extends Block implements Colored {
 
 	public final DyeColor color;
 
-	public PetalBlock(DyeColor color, Properties builder) {
-		super(builder);
+	public PetalBlock(DyeColor color, Properties properties) {
+		super(properties);
 		this.color = color;
 	}
 

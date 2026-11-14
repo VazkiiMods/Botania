@@ -20,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -38,18 +37,18 @@ import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.TerraPlateState;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
 import vazkii.botania.common.handler.BotaniaRecipeIngredientsCache;
 import vazkii.botania.common.internal_caps.ItemSources;
 
-public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 3, 16);
 
-	public TerrestrialAgglomerationPlateBlock(Properties builder) {
-		super(builder);
+	public TerrestrialAgglomerationPlateBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.TERRA_PLATE_STATE, TerraPlateState.IDLE));
 	}
 
@@ -60,7 +59,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 

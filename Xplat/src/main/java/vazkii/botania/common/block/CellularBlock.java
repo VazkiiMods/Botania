@@ -11,16 +11,15 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.block_entity.CellularBlockEntity;
 
-public class CellularBlock extends BotaniaBlock implements EntityBlock {
+public class CellularBlock extends BotaniaEntityBlock {
 
-	public CellularBlock(Properties builder) {
-		super(builder);
+	public CellularBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override

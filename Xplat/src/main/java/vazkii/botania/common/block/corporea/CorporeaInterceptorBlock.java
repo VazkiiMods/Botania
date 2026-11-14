@@ -14,20 +14,19 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.BotaniaBlock;
+import vazkii.botania.common.block.BotaniaEntityBlock;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaInterceptorBlockEntity;
 
-public class CorporeaInterceptorBlock extends BotaniaBlock implements EntityBlock {
+public class CorporeaInterceptorBlock extends BotaniaEntityBlock {
 
-	public CorporeaInterceptorBlock(BlockBehaviour.Properties builder) {
-		super(builder);
+	public CorporeaInterceptorBlock(BlockBehaviour.Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
@@ -37,8 +36,8 @@ public class CorporeaInterceptorBlock extends BotaniaBlock implements EntityBloc
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
-		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
@@ -47,7 +46,7 @@ public class CorporeaInterceptorBlock extends BotaniaBlock implements EntityBloc
 	}
 
 	@Override
-	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
+	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
 		return state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 

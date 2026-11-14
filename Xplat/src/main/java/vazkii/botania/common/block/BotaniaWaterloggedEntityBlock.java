@@ -17,16 +17,19 @@ import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
-public abstract class BotaniaWaterloggedBlock extends BotaniaBlock implements SimpleWaterloggedBlock {
+public abstract class BotaniaWaterloggedEntityBlock extends BotaniaEntityBlock implements SimpleWaterloggedBlock {
 
-	public BotaniaWaterloggedBlock(Properties builder) {
-		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
+	protected BotaniaWaterloggedEntityBlock(Properties properties) {
+		super(properties);
+		registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
 	@Override
@@ -46,12 +49,12 @@ public abstract class BotaniaWaterloggedBlock extends BotaniaBlock implements Si
 	}
 
 	@Override
-	public BlockState updateShape(BlockState stateIn, Direction side, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
-		if (stateIn.getValue(WATERLOGGED)) {
-			worldIn.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+	public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+		if (state.getValue(WATERLOGGED)) {
+			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
 
-		return stateIn;
+		return state;
 	}
 
 }

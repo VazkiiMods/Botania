@@ -14,7 +14,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -22,15 +21,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
 import vazkii.botania.common.block.block_entity.LifeImbuerBlockEntity;
 
-public class LifeImbuerBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class LifeImbuerBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 2, 14);
 
-	public LifeImbuerBlock(Properties builder) {
-		super(builder);
+	public LifeImbuerBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.ACTIVE, false));
 	}
 
@@ -41,7 +40,7 @@ public class LifeImbuerBlock extends BotaniaWaterloggedBlock implements EntityBl
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 

@@ -11,6 +11,7 @@
     "AbstractMinecartMixin",
     "AnimalAccessor",
     "ArmadilloAccessor",
+    "BaseEntityBlockAccessor",
     "BaseRailBlockAccessor",
     "BaseSpawnerAccessor",
     "BaseSpawnerMixin",

@@ -11,7 +11,6 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,16 +24,16 @@ import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.TinyPlanetBlockEntity;
 
-public class TinyPlanetBlock extends BotaniaWaterloggedBlock implements ManaCollisionGhost, EntityBlock {
+public class TinyPlanetBlock extends BotaniaWaterloggedEntityBlock implements ManaCollisionGhost {
 
 	private static final VoxelShape AABB = box(3, 3, 3, 13, 13, 13);
 
-	protected TinyPlanetBlock(Properties builder) {
-		super(builder);
+	protected TinyPlanetBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return AABB;
 	}
 

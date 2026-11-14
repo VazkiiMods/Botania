@@ -22,7 +22,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,10 +38,10 @@ import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 
-public abstract class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, EntityBlock {
+public abstract class PlatformBlock extends BotaniaEntityBlock implements ManaCollisionGhost {
 
-	protected PlatformBlock(Properties builder) {
-		super(builder);
+	protected PlatformBlock(Properties properties) {
+		super(properties);
 	}
 
 	public boolean requireCreativeInteractions() {
@@ -52,19 +51,19 @@ public abstract class PlatformBlock extends BotaniaBlock implements ManaCollisio
 	public abstract boolean testCollision(BlockPos pos, CollisionContext context);
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-		if (world.getBlockEntity(pos) instanceof PlatformBlockEntity platform && platform.getCamoState() != null) {
-			return platform.getCamoState().getShape(world, pos);
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		if (level.getBlockEntity(pos) instanceof PlatformBlockEntity platform && platform.getCamoState() != null) {
+			return platform.getCamoState().getShape(level, pos);
 		} else {
-			return super.getShape(state, world, pos, context);
+			return super.getShape(state, level, pos, context);
 		}
 	}
 
 	@Override
-	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		if (testCollision(pos, context)) {
 			// NB: Use full shape from super.getOutlineShape instead of camo state. May change later.
-			return super.getShape(state, world, pos, context);
+			return super.getShape(state, level, pos, context);
 		} else {
 			return Shapes.empty();
 		}
@@ -93,14 +92,14 @@ public abstract class PlatformBlock extends BotaniaBlock implements ManaCollisio
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Item.TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, @Nullable Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
 		if (requireCreativeInteractions()) {
-			tooltip.add(Component.translatable("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
+			tooltipComponents.add(Component.translatable("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
 	@Override
-	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		ItemStack currentStack = player.getItemInHand(hand);
 
 		if (requireCreativeInteractions() && !player.isCreative()) {
@@ -108,19 +107,19 @@ public abstract class PlatformBlock extends BotaniaBlock implements ManaCollisio
 		}
 		if (!currentStack.isEmpty()
 				&& Block.byItem(currentStack.getItem()) != Blocks.AIR
-				&& world.getBlockEntity(pos) instanceof PlatformBlockEntity camo) {
-			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hit);
+				&& level.getBlockEntity(pos) instanceof PlatformBlockEntity camo) {
+			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hitResult);
 			BlockState changeState = Block.byItem(currentStack.getItem()).getStateForPlacement(ctx);
 
 			if (changeState != null && !changeState.is(BotaniaTags.Blocks.UNSUPPORTED_PLATFORM_DISGUISE)
-					&& (changeState.isSolidRender(world, pos) || changeState.getRenderShape() == RenderShape.MODEL)
+					&& (changeState.isSolidRender(level, pos) || changeState.getRenderShape() == RenderShape.MODEL)
 					&& !(changeState.getBlock() instanceof PlatformBlock)
 					&& !changeState.isAir()) {
-				if (!world.isClientSide) {
+				if (!level.isClientSide) {
 					camo.setCamoState(changeState);
 				}
 
-				return ItemInteractionResult.sidedSuccess(world.isClientSide());
+				return ItemInteractionResult.sidedSuccess(level.isClientSide());
 			}
 		}
 

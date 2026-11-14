@@ -16,7 +16,6 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -31,10 +30,10 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.OpenCrateBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 
-public class OpenCrateBlock extends BotaniaBlock implements EntityBlock {
+public class OpenCrateBlock extends BotaniaEntityBlock {
 
-	protected OpenCrateBlock(Properties builder) {
-		super(builder);
+	protected OpenCrateBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
@@ -50,24 +49,24 @@ public class OpenCrateBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		RedstoneSensitiveBlock.updateRedstonePower(state, world, pos);
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+		RedstoneSensitiveBlock.updateRedstonePower(state, level, pos);
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
 		if (!newState.is(state.getBlock())) {
-			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
-				Containers.dropContents(world, pos, inventory.getItemHandler());
+			if (level.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
+				Containers.dropContents(level, pos, inventory.getItemHandler());
 			}
-			super.onRemove(state, world, pos, newState, isMoving);
+			super.onRemove(state, level, pos, newState, movedByPiston);
 		}
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (state.getValue(BlockStateProperties.POWERED) && rand.nextDouble() < 0.2) {
-			redstoneParticlesOnFullBlock(world, pos, rand);
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		if (state.getValue(BlockStateProperties.POWERED) && random.nextDouble() < 0.2) {
+			redstoneParticlesOnFullBlock(level, pos, random);
 		}
 	}
 

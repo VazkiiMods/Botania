@@ -21,7 +21,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,7 +38,7 @@ import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.api.block.IslandType;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
 import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -49,13 +48,13 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public abstract class FloatingFlowerBaseBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public abstract class FloatingFlowerBaseBlock extends BotaniaWaterloggedEntityBlock {
 	private static final VoxelShape SHAPE = box(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
 	@Nullable
 	private static Map<ItemLike, IslandType> ISLAND_TYPE_FOR_ITEM;
 
-	public FloatingFlowerBaseBlock(Properties builder) {
-		super(builder);
+	public FloatingFlowerBaseBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.DIMMED, false));
 	}
 
@@ -66,7 +65,7 @@ public abstract class FloatingFlowerBaseBlock extends BotaniaWaterloggedBlock im
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 

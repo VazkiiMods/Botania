@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,12 +28,12 @@ import vazkii.botania.api.state.enums.AnimalMode;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.EyeOfTheAncientsBlockEntity;
 
-public class EyeOfTheAncientsBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class EyeOfTheAncientsBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(4, 4, 4, 12, 12, 12);
 
-	public EyeOfTheAncientsBlock(Properties builder) {
-		super(builder);
+	public EyeOfTheAncientsBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState()
 				.setValue(BotaniaStateProperties.ANIMAL_MODE, AnimalMode.ALL)
 				.setValue(BlockStateProperties.POWER, 0));
@@ -47,7 +46,7 @@ public class EyeOfTheAncientsBlock extends BotaniaWaterloggedBlock implements En
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -57,7 +56,7 @@ public class EyeOfTheAncientsBlock extends BotaniaWaterloggedBlock implements En
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		return state.getOptionalValue(BlockStateProperties.POWER).orElse(0);
 	}
 

@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -34,24 +33,24 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.TeruTeruBozuBlockEntity;
 import vazkii.botania.common.helper.EntityHelper;
 
-public class TeruTeruBozuBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class TeruTeruBozuBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(4, 0.16, 4, 12, 15.84, 12);
 
-	public TeruTeruBozuBlock(Properties builder) {
-		super(builder);
+	public TeruTeruBozuBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level world, BlockPos pos, Entity e) {
-		if (!world.isClientSide && e instanceof ItemEntity item) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+		if (!level.isClientSide && entity instanceof ItemEntity item) {
 			ItemStack stack = item.getItem();
-			if (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world)) {
+			if (isSunflower(stack) && removeRain(level) || isBlueOrchid(stack) && startRain(level)) {
 				EntityHelper.shrinkItem(item);
 			}
 		}
@@ -103,8 +102,8 @@ public class TeruTeruBozuBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return world.isRaining() ? 15 : 0;
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		return level.isRaining() ? 15 : 0;
 	}
 
 	@Override

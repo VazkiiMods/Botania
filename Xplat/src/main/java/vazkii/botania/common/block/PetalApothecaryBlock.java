@@ -26,7 +26,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -56,7 +55,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.rod.SeasRodItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
-public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
+public class PetalApothecaryBlock extends BotaniaEntityBlock {
 
 	public static final EnumProperty<State> FLUID = EnumProperty.create("fluid", State.class);
 	private static final VoxelShape BASE = Block.box(2, 0, 2, 14, 2, 14);
@@ -66,8 +65,8 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	private static final VoxelShape SHAPE_INTERACT = Shapes.or(Shapes.or(BASE, PILLAR), TOP);
 	private static final VoxelShape SHAPE = Shapes.join(SHAPE_INTERACT, TOP_CUTOUT, BooleanOp.ONLY_FIRST);
 
-	protected PetalApothecaryBlock(Properties builder) {
-		super(builder);
+	protected PetalApothecaryBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(FLUID, State.EMPTY));
 	}
 
@@ -78,7 +77,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -88,11 +87,11 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-		if (!world.isClientSide && entity instanceof ItemEntity itemEntity
-				&& world.getBlockEntity(pos) instanceof PetalApothecaryBlockEntity apothecary
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+		if (!level.isClientSide && entity instanceof ItemEntity itemEntity
+				&& level.getBlockEntity(pos) instanceof PetalApothecaryBlockEntity apothecary
 				&& apothecary.collideEntityItem(itemEntity)) {
-			world.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
+			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 		}
 	}
 
@@ -125,11 +124,11 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public void handlePrecipitation(BlockState state, Level world, BlockPos pos, Biome.Precipitation precipitation) {
-		if (precipitation == Biome.Precipitation.RAIN && world.random.nextInt(20) == 1) {
+	public void handlePrecipitation(BlockState state, Level level, BlockPos pos, Biome.Precipitation precipitation) {
+		if (precipitation == Biome.Precipitation.RAIN && level.random.nextInt(20) == 1) {
 			if (state.getValue(FLUID) == State.EMPTY) {
-				world.setBlockAndUpdate(pos, state.setValue(FLUID, State.WATER));
-				world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+				level.setBlockAndUpdate(pos, state.setValue(FLUID, State.WATER));
+				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 		}
 	}
@@ -216,14 +215,14 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
 		boolean blockChanged = !state.is(newState.getBlock());
 		if (blockChanged || newState.getValue(FLUID) != State.WATER) {
-			if (world.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
-				Containers.dropContents(world, pos, inventory.getItemHandler());
+			if (level.getBlockEntity(pos) instanceof SimpleInventoryBlockEntity inventory) {
+				Containers.dropContents(level, pos, inventory.getItemHandler());
 			}
 			if (blockChanged) {
-				super.onRemove(state, world, pos, newState, isMoving);
+				super.onRemove(state, level, pos, newState, movedByPiston);
 			}
 		}
 	}
@@ -234,7 +233,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		return state.getValue(FLUID) == State.WATER ? 15 : 0;
 	}
 

@@ -11,7 +11,6 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,10 +24,10 @@ import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
-public class AlfheimPortalBlock extends BotaniaBlock implements EntityBlock {
+public class AlfheimPortalBlock extends BotaniaEntityBlock {
 
-	public AlfheimPortalBlock(Properties builder) {
-		super(builder);
+	public AlfheimPortalBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.ALFPORTAL_STATE, AlfheimPortalState.OFF));
 	}
 

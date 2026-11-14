@@ -15,7 +15,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -28,10 +27,10 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.EnderOverseerBlockEntity;
 
-public class EnderOverseerBlock extends BotaniaBlock implements EntityBlock {
+public class EnderOverseerBlock extends BotaniaEntityBlock {
 
-	protected EnderOverseerBlock(Properties builder) {
-		super(builder);
+	protected EnderOverseerBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
@@ -46,7 +45,7 @@ public class EnderOverseerBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
+	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
 		return state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
@@ -65,14 +64,14 @@ public class EnderOverseerBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (state.getValue(BlockStateProperties.POWERED)) {
 			for (int i = 0; i < 20; i++) {
 				double x = pos.getX() - 0.1 + Math.random() * 1.2;
 				double y = pos.getY() - 0.1 + Math.random() * 1.2;
 				double z = pos.getZ() - 0.1 + Math.random() * 1.2;
 
-				world.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
+				level.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
 			}
 		}
 	}

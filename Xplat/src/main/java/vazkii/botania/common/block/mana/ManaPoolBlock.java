@@ -23,7 +23,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -43,7 +42,7 @@ import vazkii.botania.api.internal.Colored;
 import vazkii.botania.api.internal.OptionallyColored;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.entity.ManaBurstEntity;
@@ -52,7 +51,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 import java.util.List;
 import java.util.Optional;
 
-public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBlock, OptionallyColored {
+public class ManaPoolBlock extends BotaniaWaterloggedEntityBlock implements OptionallyColored {
 	public static final int MAX_MANA = 1000000;
 	public static final int MAX_MANA_DILUTED = 10000;
 
@@ -79,8 +78,8 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	public final DyeColor color;
 	public final ShapeVariant shapeVariant;
 
-	public ManaPoolBlock(int capacity, boolean fabulous, boolean creative, ShapeVariant shapeVariant, @Nullable DyeColor color, Properties builder) {
-		super(builder);
+	public ManaPoolBlock(int capacity, boolean fabulous, boolean creative, ShapeVariant shapeVariant, @Nullable DyeColor color, Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.OUTPUTTING, false));
 
 		this.fabulous = fabulous;
@@ -131,17 +130,17 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-		super.appendHoverText(stack, context, tooltip, flag);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+		super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 		if (creative) {
 			for (int i = 0; i < 2; i++) {
-				tooltip.add(Component.translatable("botaniamisc.creativePool" + i).withStyle(ChatFormatting.GRAY));
+				tooltipComponents.add(Component.translatable("botaniamisc.creativePool" + i).withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return shapeVariant.collisionShape();
 	}
 
@@ -150,11 +149,11 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	}
 
 	@Override
-	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		// Sometimes the pool's collision box is too thin for bursts shot straight up.
 		return context instanceof EntityCollisionContext ecc && ecc.getEntity() instanceof ManaBurstEntity
-				? getInteractionShape(state, world, pos)
-				: super.getCollisionShape(state, world, pos, context);
+				? getInteractionShape(state, level, pos)
+				: super.getCollisionShape(state, level, pos, context);
 	}
 
 	@Override
@@ -210,8 +209,8 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-		if (entity instanceof ItemEntity item && world.getBlockEntity(pos) instanceof ManaPoolBlockEntity pool) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+		if (entity instanceof ItemEntity item && level.getBlockEntity(pos) instanceof ManaPoolBlockEntity pool) {
 			pool.collideEntityItem(item);
 		}
 	}
@@ -231,8 +230,8 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return world.getBlockEntity(pos) instanceof ManaPoolBlockEntity pool
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		return level.getBlockEntity(pos) instanceof ManaPoolBlockEntity pool
 				? ManaPoolBlockEntity.calculateComparatorLevel(pool.getCurrentMana(), pool.getMaxMana())
 				: 0;
 	}

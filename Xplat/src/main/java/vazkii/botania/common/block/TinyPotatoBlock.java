@@ -40,12 +40,12 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
 
-public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class TinyPotatoBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(6, 0, 6, 10, 6, 10);
 
-	public TinyPotatoBlock(Properties builder) {
-		super(builder);
+	public TinyPotatoBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState()
 				.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
@@ -69,26 +69,26 @@ public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBl
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
 		Containers.dropContentsOnDestroy(state, newState, level, pos);
-		super.onRemove(state, level, pos, newState, isMoving);
+		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		BlockEntity tile = world.getBlockEntity(pos);
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		BlockEntity tile = level.getBlockEntity(pos);
 		if (tile instanceof TinyPotatoBlockEntity tater) {
-			tater.interact(player, hand, player.getItemInHand(hand), hit.getDirection());
-			if (!world.isClientSide) {
-				spawnHearts((ServerLevel) world, pos);
+			tater.interact(player, hand, player.getItemInHand(hand), hitResult.getDirection());
+			if (!level.isClientSide) {
+				spawnHearts((ServerLevel) level, pos);
 			}
 		}
-		return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		return ItemInteractionResult.sidedSuccess(level.isClientSide());
 	}
 
 	public static void spawnHearts(ServerLevel level, BlockPos pos) {
@@ -97,8 +97,8 @@ public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBl
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-		return super.getStateForPlacement(ctx).setValue(BlockStateProperties.HORIZONTAL_FACING, ctx.getHorizontalDirection().getOpposite());
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
@@ -107,13 +107,13 @@ public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBl
 	}
 
 	@Override
-	public BlockState rotate(BlockState state, Rotation rot) {
-		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rotation.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	@Override
-	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity living, ItemStack stack) {
-		if (stack.has(DataComponents.CUSTOM_NAME) && world.getBlockEntity(pos) instanceof TinyPotatoBlockEntity tater) {
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		if (stack.has(DataComponents.CUSTOM_NAME) && level.getBlockEntity(pos) instanceof TinyPotatoBlockEntity tater) {
 			tater.name = stack.getHoverName();
 		}
 	}

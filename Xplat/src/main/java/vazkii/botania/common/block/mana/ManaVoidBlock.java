@@ -11,6 +11,7 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
@@ -18,16 +19,15 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BotaniaBlock;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class ManaVoidBlock extends BotaniaBlock implements PoolOverlayProvider {
+public class ManaVoidBlock extends Block implements PoolOverlayProvider {
 	private static final int SPARKLE_EVENT = 0;
 	private static final ResourceLocation OVERLAY_ICON = botaniaRL("block/mana_void_overlay");
 
-	public ManaVoidBlock(Properties builder) {
-		super(builder);
+	public ManaVoidBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class ManaVoidBlock extends BotaniaBlock implements PoolOverlayProvider {
 	}
 
 	@Override
-	public boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int payload) {
+	public boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int param) {
 		if (id == SPARKLE_EVENT) {
 			if (level.isClientSide()) {
 				for (int i = 0; i < 10; i++) {
@@ -46,7 +46,7 @@ public class ManaVoidBlock extends BotaniaBlock implements PoolOverlayProvider {
 			}
 			return true;
 		}
-		return super.triggerEvent(state, level, pos, id, payload);
+		return super.triggerEvent(state, level, pos, id, param);
 	}
 
 	public static class ManaReceiverImpl implements ManaReceiver {

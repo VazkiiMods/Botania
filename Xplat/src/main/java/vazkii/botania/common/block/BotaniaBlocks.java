@@ -1619,7 +1619,7 @@ public final class BotaniaBlocks {
 					.air()
 					.randomTicks()));
 	public static final Block LIVING_ROOT = make(LibBlockNames.LIVING_ROOTS,
-			new LivingRootBlock(BlockBehaviour.Properties.of()
+			new Block(BlockBehaviour.Properties.of()
 					.strength(1.2F)
 					.sound(SoundType.WOOD)));
 	public static final Block FEL_PUMPKIN = make(LibBlockNames.FEL_PUMPKIN,

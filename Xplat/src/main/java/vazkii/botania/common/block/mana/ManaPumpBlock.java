@@ -15,7 +15,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,17 +30,17 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.RedstoneSensitiveBlock;
 import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 
-public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBlock, RedstoneSensitiveBlock {
+public class ManaPumpBlock extends BotaniaWaterloggedEntityBlock implements RedstoneSensitiveBlock {
 
 	private static final VoxelShape X_SHAPE = box(0, 0, 4, 16, 8, 12);
 	private static final VoxelShape Z_SHAPE = box(4, 0, 0, 12, 8, 16);
 
-	public ManaPumpBlock(Properties builder) {
-		super(builder);
+	public ManaPumpBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState()
 				.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
 				.setValue(BlockStateProperties.POWERED, false)
@@ -79,7 +78,7 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_SHAPE;
 		} else {

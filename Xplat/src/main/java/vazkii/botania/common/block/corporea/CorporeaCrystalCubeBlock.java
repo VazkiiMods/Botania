@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -32,18 +31,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
 import vazkii.botania.common.item.WandOfTheForestItem;
 
-public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedEntityBlock {
 
 	private static final VoxelShape SHAPE = box(3.0, 0, 3.0, 13.0, 16, 13.0);
 
-	public CorporeaCrystalCubeBlock(BlockBehaviour.Properties builder) {
-		super(builder);
+	public CorporeaCrystalCubeBlock(BlockBehaviour.Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState()
 				.setValue(BlockStateProperties.LOCKED, false)
 				.setValue(BotaniaStateProperties.HIDDEN, false));
@@ -55,14 +54,14 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 	}
 
 	@Override
-	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
-		if (!world.isClientSide && world.getBlockEntity(pos) instanceof CorporeaCrystalCubeBlockEntity cube) {
+	public void attack(BlockState state, Level level, BlockPos pos, Player player) {
+		if (!level.isClientSide && level.getBlockEntity(pos) instanceof CorporeaCrystalCubeBlockEntity cube) {
 			cube.doRequest(player);
 		}
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -105,8 +104,8 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return world.getBlockEntity(pos) instanceof CorporeaCrystalCubeBlockEntity cube
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		return level.getBlockEntity(pos) instanceof CorporeaCrystalCubeBlockEntity cube
 				? cube.getComparatorValue()
 				: 0;
 	}

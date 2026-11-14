@@ -20,7 +20,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
@@ -46,15 +45,15 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.function.BiConsumer;
 
-public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class AnimatedTorchBlock extends BotaniaWaterloggedEntityBlock {
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final EnumProperty<TorchMode> MODE = BotaniaStateProperties.TORCH_MODE;
 	public static final BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 6, 16);
 
-	public AnimatedTorchBlock(Properties builder) {
-		super(builder);
+	public AnimatedTorchBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState().setValue(FACING, Direction.SOUTH).setValue(TRIGGERED, false));
 	}
 
@@ -90,8 +89,8 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 	}
 
 	@Override
-	protected BlockState rotate(BlockState state, Rotation rot) {
-		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
+	protected BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
@@ -100,10 +99,10 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 	}
 
 	@Override
-	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player playerIn, BlockHitResult hit) {
-		if (playerIn.isSecondaryUseActive() && worldIn.getBlockEntity(pos) instanceof AnimatedTorchBlockEntity torch) {
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+		if (player.isSecondaryUseActive() && level.getBlockEntity(pos) instanceof AnimatedTorchBlockEntity torch) {
 			torch.handRotate();
-			return InteractionResult.sidedSuccess(worldIn.isClientSide());
+			return InteractionResult.sidedSuccess(level.isClientSide());
 		}
 
 		return InteractionResult.PASS;
@@ -115,13 +114,13 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 	}
 
 	@Override
-	public int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction side) {
-		return state.getSignal(level, pos, side);
+	public int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+		return state.getSignal(level, pos, direction);
 	}
 
 	@Override
-	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction side) {
-		return !state.getValue(TRIGGERED) && state.getValue(FACING) == side.getOpposite() ? 15 : 0;
+	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+		return !state.getValue(TRIGGERED) && state.getValue(FACING) == direction.getOpposite() ? 15 : 0;
 	}
 
 	@Override
@@ -130,7 +129,7 @@ public class AnimatedTorchBlock extends BotaniaWaterloggedBlock implements Entit
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 

@@ -11,7 +11,6 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -23,20 +22,20 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BotaniaWaterloggedBlock;
+import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 
-public class CorporeaIndexBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class CorporeaIndexBlock extends BotaniaWaterloggedEntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 
-	public CorporeaIndexBlock(BlockBehaviour.Properties builder) {
-		super(builder);
+	public CorporeaIndexBlock(BlockBehaviour.Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 

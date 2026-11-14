@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.block_entity.BifrostBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.mixin.BaseEntityBlockAccessor;
 
 public class BifrostBridgeBlock extends BifrostBlock implements EntityBlock {
 
@@ -31,7 +32,7 @@ public class BifrostBridgeBlock extends BifrostBlock implements EntityBlock {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
 		return new ItemStack(BotaniaItems.ROD_OF_THE_BIFROST);
 	}
 
@@ -44,7 +45,7 @@ public class BifrostBridgeBlock extends BifrostBlock implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide()) {
-			return BotaniaBlock.createTickerHelper(type, BotaniaBlockEntities.BIFROST_BRIDGE, BifrostBlockEntity::serverTick);
+			return BaseEntityBlockAccessor.botania_createTickerHelper(type, BotaniaBlockEntities.BIFROST_BRIDGE, BifrostBlockEntity::serverTick);
 		}
 		return null;
 	}

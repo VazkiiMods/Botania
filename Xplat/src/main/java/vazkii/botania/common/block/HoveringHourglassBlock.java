@@ -23,7 +23,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -48,7 +47,7 @@ import vazkii.botania.common.item.WandOfTheForestItem;
 
 import java.util.function.BiConsumer;
 
-public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class HoveringHourglassBlock extends BotaniaWaterloggedEntityBlock {
 	/**
 	 * Whether the hourglass is currently emitting a redstone signal.
 	 */
@@ -73,8 +72,8 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 18.4, 12);
 
-	protected HoveringHourglassBlock(Properties builder) {
-		super(builder);
+	protected HoveringHourglassBlock(Properties properties) {
+		super(properties);
 		registerDefaultState(defaultBlockState()
 				.setValue(POWERED, false)
 				.setValue(ENABLED, true)
@@ -84,7 +83,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -96,7 +95,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
-			Player player, InteractionHand hand, BlockHitResult hit) {
+			Player player, InteractionHand hand, BlockHitResult hitResult) {
 		// implementation is inspired by ChiseledBookShelfBlock::useItemOn
 
 		if (stack.getItem() instanceof WandOfTheForestItem
@@ -168,19 +167,19 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	}
 
 	@Override
-	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
+	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
 		return state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (state.getValue(BlockStateProperties.POWERED)) {
-			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
+			level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 		}
 	}
 
 	@Override
-	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
 		// ensure hourglass doesn't stay powered forever if it doesn't have a scheduled tick to turn itself off
 		if (!level.isClientSide() && !state.is(oldState.getBlock()) && state.getValue(POWERED)
 				&& !level.getBlockTicks().hasScheduledTick(pos, this)) {
@@ -190,9 +189,9 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	}
 
 	@Override
-	protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+	protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
 		SimpleInventoryBlockEntity.dropContentsOnDestroy(state, newState, level, pos);
-		super.onRemove(state, level, pos, newState, isMoving);
+		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Override

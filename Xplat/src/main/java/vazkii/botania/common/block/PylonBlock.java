@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -28,11 +27,11 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.PylonBlockEntity;
 
-public abstract class PylonBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public abstract class PylonBlock extends BotaniaWaterloggedEntityBlock {
 	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 21, 14);
 
-	public PylonBlock(Properties builder) {
-		super(builder);
+	public PylonBlock(Properties properties) {
+		super(properties);
 	}
 
 	protected void clientTick(Level level, BlockPos worldPosition, BlockState state, PylonBlockEntity self) {
@@ -43,7 +42,7 @@ public abstract class PylonBlock extends BotaniaWaterloggedBlock implements Enti
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
