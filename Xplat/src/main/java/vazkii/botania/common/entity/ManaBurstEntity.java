@@ -84,6 +84,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	private static final EntityDataAccessor<Optional<GlobalPos>> SOURCE_COORDS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.OPTIONAL_GLOBAL_POS);
 	private static final EntityDataAccessor<ItemStack> SOURCE_LENS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Boolean> LEFT_SOURCE_POS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.BOOLEAN);
+	public static final float DEFAULT_SPEED = 0.2f;
 
 	private float accumulatedManaLoss = 0;
 	private boolean fake = false;
@@ -120,13 +121,12 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		builder.define(LEFT_SOURCE_POS, false);
 	}
 
-	public static Vec3 calculateBurstVelocity(float yRot, float xRot) {
-		float pow = 0.2f;
+	public static Vec3 calculateBurstVelocity(float yRot, float xRot, float speed) {
 		// [VanillaCopy] Projectile::shootFromRotation
 		float xd = -Mth.sin(yRot * (float) (Math.PI / 180.0)) * Mth.cos(xRot * (float) (Math.PI / 180.0));
 		float yd = -Mth.sin(xRot * (float) (Math.PI / 180.0));
 		float zd = Mth.cos(yRot * (float) (Math.PI / 180.0)) * Mth.cos(xRot * (float) (Math.PI / 180.0));
-		return new Vec3(xd, yd, zd).scale(pow);
+		return new Vec3(xd, yd, zd).scale(speed);
 	}
 
 	public ManaBurstEntity(Level level, BlockPos pos, float yRot, float xRot, boolean fake) {
@@ -137,8 +137,8 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		setBurstSourcePosition(GlobalPos.of(level.dimension(), pos));
 		// spawn slightly lower than the exact center to ensure hitting pools at default horizontal spreader alignment
 		moveTo(pos.getX() + 0.5, pos.getY() + (0.5 - 1.0 / 1024), pos.getZ() + 0.5, 0, 0);
-		setRot(90 - yRot, -xRot);
-		setDeltaMovement(calculateBurstVelocity(getYRot(), getXRot()));
+		setRot(yRot, xRot);
+		setDeltaMovement(calculateBurstVelocity(getYRot(), getXRot(), DEFAULT_SPEED));
 	}
 
 	public ManaBurstEntity(Player player) {
@@ -146,7 +146,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 		setBurstSourcePosition(null);
 		setRot(player.getYRot(), player.getXRot());
-		setDeltaMovement(calculateBurstVelocity(getYRot(), getXRot()));
+		setDeltaMovement(calculateBurstVelocity(getYRot(), getXRot(), DEFAULT_SPEED));
 	}
 
 	@Override

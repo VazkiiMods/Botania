@@ -61,15 +61,7 @@ public class SpreaderTurntableBlockEntity extends BlockEntity implements Wandabl
 		}
 		BlockEntity tile = level.getBlockEntity(worldPosition.above());
 		if (tile instanceof ManaSpreaderBlockEntity spreader) {
-			spreader.yRot += self.speed;
-			if (spreader.yRot >= 360F) {
-				spreader.yRot -= 360F;
-			} else if (spreader.yRot < 0F) {
-				spreader.yRot += 360F;
-			}
-			if (!level.isClientSide()) {
-				spreader.checkForReceiver();
-			}
+			spreader.addYRot(self.speed);
 		}
 	}
 

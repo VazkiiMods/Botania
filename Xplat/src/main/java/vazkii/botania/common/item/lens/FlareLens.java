@@ -12,9 +12,11 @@ import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.mana.ManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.entity.ManaBurstEntity;
 
 public class FlareLens extends Lens {
 
@@ -36,14 +38,10 @@ public class FlareLens extends Lens {
 	}
 
 	private void emitParticles(ItemStack stack, ManaSpreader spreader) {
-		float rotationYaw = -(spreader.getYRot() + 90F);
-		float rotationPitch = spreader.getXRot();
-
-		// Lots of EntityThrowable copypasta
-		float f = 0.3F;
-		float mx = (float) (Mth.sin(rotationYaw / 180.0F * (float) Math.PI) * Mth.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
-		float mz = (float) (-(Mth.cos(rotationYaw / 180.0F * (float) Math.PI) * Mth.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D);
-		float my = (float) (Mth.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
+		Vec3 v = ManaBurstEntity.calculateBurstVelocity(spreader.getYRot(), spreader.getXRot(), 0.15f);
+		double mx = v.x;
+		double mz = v.z;
+		double my = v.y;
 
 		int color;
 

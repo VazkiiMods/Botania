@@ -213,27 +213,29 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedEntityBlock
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		// TODO: apply something similar to CrafterBlock placement logic
 		Direction orientation = placer == null ? Direction.WEST : Direction.orderedByNearest(placer)[0].getOpposite();
 		if (!(level.getBlockEntity(pos) instanceof ManaSpreaderBlockEntity spreader)) {
 			return;
 		}
 		switch (orientation) {
 			case DOWN:
-				spreader.xRot = -90F;
+				spreader.setXRot(90);
 				break;
 			case UP:
-				spreader.xRot = 90F;
+				spreader.setXRot(-90);
 				break;
 			case NORTH:
-				spreader.yRot = 270F;
+				spreader.setYRot(180);
 				break;
 			case SOUTH:
-				spreader.yRot = 90F;
+				spreader.setYRot(0);
 				break;
 			case WEST:
+				spreader.setYRot(90);
 				break;
 			case EAST:
-				spreader.yRot = 180F;
+				spreader.setYRot(270);
 				break;
 		}
 	}

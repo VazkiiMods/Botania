@@ -19,6 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -56,7 +57,6 @@ import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.entity.ManaBurstEntity.PositionProperties;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.ManaNetworkHandler;
-import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -112,7 +112,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 	private UUID identity = UUID.randomUUID();
 
 	private int mana;
-	public float yRot, xRot;
+	private float yRot, xRot;
 
 	private boolean requestsClientUpdate;
 	private boolean hasReceivedInitialPacket;
@@ -649,33 +649,33 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 
 	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		VoxelShape shape = player.level().getBlockState(pos).getShape(player.level(), pos);
-		AABB axis = shape.isEmpty() ? new AABB(pos) : shape.bounds().move(pos);
-
 		Vec3 thisVec = Vec3.atCenterOf(getBlockPos());
-		Vec3 blockVec = new Vec3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
+		Vec3 blockVec = getBlockCenter(pos, player.level());
 
-		Vec3 diffVec = blockVec.subtract(thisVec);
-		Vec3 diffVec2D = new Vec3(diffVec.x, diffVec.z, 0);
-		Vec3 rotVec = new Vec3(0, 1, 0);
-		double angle = MathHelper.angleBetween(rotVec, diffVec2D) / Math.PI * 180.0;
+		// [VanillaCopy] LookControl::getXRotD() and getYRotD()
+		double xd = blockVec.x - thisVec.x;
+		double yd = blockVec.y - thisVec.y;
+		double zd = blockVec.z - thisVec.z;
+		double sd = Math.sqrt(xd * xd + zd * zd);
 
-		if (blockVec.x < thisVec.x) {
-			angle = -angle;
-		}
+		yRot = (float) (Mth.atan2(zd, xd) * 180 / Math.PI) - 90;
+		xRot = (float) -(Mth.atan2(yd, sd) * 180 / Math.PI);
 
-		yRot = (float) angle + 90;
-
-		rotVec = new Vec3(diffVec.x, 0, diffVec.z);
-		angle = MathHelper.angleBetween(diffVec, rotVec) * 180F / Math.PI;
-		if (blockVec.y < thisVec.y) {
-			angle = -angle;
-		}
-		xRot = (float) angle;
-
-		setChanged();
+		markForPersisting();
 		markForImmediateSync();
+		checkForReceiver();
 		return true;
+	}
+
+	private static Vec3 getBlockCenter(BlockPos pos, Level level) {
+		VoxelShape shape = level.getBlockState(pos).getShape(level, pos);
+		if (shape.isEmpty()) {
+			return pos.getCenter();
+		}
+		return new Vec3(
+				pos.getX() + (shape.min(Direction.Axis.X) + shape.max(Direction.Axis.X)) / 2,
+				pos.getY() + (shape.min(Direction.Axis.Y) + shape.max(Direction.Axis.Y)) / 2,
+				pos.getZ() + (shape.min(Direction.Axis.Z) + shape.max(Direction.Axis.Z)) / 2);
 	}
 
 	@Override
@@ -718,30 +718,37 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 		xRot = rot;
 	}
 
+	public void addYRot(float angle) {
+		yRot += angle;
+		if (yRot >= 360) {
+			yRot -= 360;
+		} else if (yRot < 0) {
+			yRot += 360;
+		}
+		if (!level.isClientSide()) {
+			checkForReceiver();
+		}
+	}
+
 	public void rotate(Rotation rotation) {
 		switch (rotation) {
-			case CLOCKWISE_90 -> yRot += 270F;
-			case CLOCKWISE_180 -> yRot += 180F;
-			case COUNTERCLOCKWISE_90 -> yRot += 90F;
+			case CLOCKWISE_90 -> addYRot(270);
+			case CLOCKWISE_180 -> addYRot(180);
+			case COUNTERCLOCKWISE_90 -> addYRot(90);
 			case NONE -> {
 			}
-		}
-
-		if (yRot >= 360F) {
-			yRot -= 360F;
 		}
 	}
 
 	public void mirror(Mirror mirror) {
 		switch (mirror) {
-			case LEFT_RIGHT -> yRot = 360F - yRot;
-			case FRONT_BACK -> yRot = 180F - yRot;
+			case LEFT_RIGHT -> yRot = 360 - yRot;
+			case FRONT_BACK -> yRot = 180 - yRot;
 			case NONE -> {
 			}
 		}
-
-		if (yRot < 0F) {
-			yRot += 360F;
+		if (!level.isClientSide()) {
+			checkForReceiver();
 		}
 	}
 

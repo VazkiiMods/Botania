@@ -88,8 +88,8 @@ public class BoreLens extends Lens {
 				if (doWarp && level.getBlockEntity(source.get().pos()) instanceof ManaSpreaderBlockEntity spreader) {
 					Vec3 sourceVec = Vec3.atCenterOf(source.get().pos());
 					float xRot = spreader.getXRot();
-					float yRot = -(spreader.getYRot() + 90F);
-					Vec3 inverseSpreaderDirection = ManaBurstEntity.calculateBurstVelocity(yRot, xRot).normalize().reverse();
+					float yRot = spreader.getYRot();
+					Vec3 inverseSpreaderDirection = ManaBurstEntity.calculateBurstVelocity(yRot, xRot, -1);
 					dropPosition = sourceVec.add(inverseSpreaderDirection);
 				} else {
 					dropPosition = Vec3.atCenterOf(collidePos);
