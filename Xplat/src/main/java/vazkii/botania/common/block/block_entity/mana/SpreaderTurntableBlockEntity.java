@@ -33,19 +33,35 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class SpreaderTurntableBlockEntity extends BlockEntity implements Wandable {
+	// cached state properties
+	private boolean powered;
+	private int speed;
 
-	public SpreaderTurntableBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.SPREADER_TURNTABLE, pos, state);
+	public SpreaderTurntableBlockEntity(BlockPos pos, BlockState blockState) {
+		super(BotaniaBlockEntities.SPREADER_TURNTABLE, pos, blockState);
+		cacheStateProperties(blockState);
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	public void setBlockState(BlockState blockState) {
+		super.setBlockState(blockState);
+		cacheStateProperties(blockState);
+	}
+
+	private void cacheStateProperties(BlockState blockState) {
+		powered = blockState.getValue(BlockStateProperties.POWERED);
+		speed = blockState.getValue(BotaniaStateProperties.SPEED)
+				* (blockState.getValue(BotaniaStateProperties.BACKWARDS) ? -1 : 1);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, SpreaderTurntableBlockEntity self) {
-		if (state.getValue(BlockStateProperties.POWERED)) {
+		if (self.powered) {
 			return;
 		}
 		BlockEntity tile = level.getBlockEntity(worldPosition.above());
 		if (tile instanceof ManaSpreaderBlockEntity spreader) {
-			spreader.rotationX += state.getValue(BotaniaStateProperties.SPEED)
-					* (state.getValue(BotaniaStateProperties.BACKWARDS) ? -1 : 1);
+			spreader.rotationX += self.speed;
 			if (spreader.rotationX >= 360F) {
 				spreader.rotationX -= 360F;
 			} else if (spreader.rotationX < 0F) {

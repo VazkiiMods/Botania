@@ -64,7 +64,9 @@ public class SpreaderTurntableBlock extends BotaniaBlock implements EntityBlock 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.SPREADER_TURNTABLE, SpreaderTurntableBlockEntity::commonTick);
+		return state.getValue(BlockStateProperties.POWERED)
+				? null
+				: createTickerHelper(type, BotaniaBlockEntities.SPREADER_TURNTABLE, SpreaderTurntableBlockEntity::commonTick);
 	}
 
 	@Override
