@@ -2710,10 +2710,10 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(PATTERN_FRAMED_DREAMWOOD, props), BuiltInRegistries.BLOCK.getKey(
 				PATTERN_FRAMED_DREAMWOOD));
 
-		r.accept(new BlockItem(MANA_SPREADER, props), BuiltInRegistries.BLOCK.getKey(MANA_SPREADER));
-		r.accept(new BlockItem(PULSE_MANA_SPREADER, props), BuiltInRegistries.BLOCK.getKey(PULSE_MANA_SPREADER));
-		r.accept(new BlockItem(ELVEN_MANA_SPREADER, props), BuiltInRegistries.BLOCK.getKey(ELVEN_MANA_SPREADER));
-		r.accept(new BlockItem(GAIA_MANA_SPREADER, rareProps), BuiltInRegistries.BLOCK.getKey(GAIA_MANA_SPREADER));
+		registerBlockItemWithColoredVariants(r, MANA_SPREADER, props, LibBlockNames.COVERED_INFIX);
+		registerBlockItemWithColoredVariants(r, PULSE_MANA_SPREADER, props, LibBlockNames.COVERED_INFIX);
+		registerBlockItemWithColoredVariants(r, ELVEN_MANA_SPREADER, props, LibBlockNames.COVERED_INFIX);
+		registerBlockItemWithColoredVariants(r, GAIA_MANA_SPREADER, rareProps, LibBlockNames.COVERED_INFIX);
 		registerBlockItemWithColoredVariants(r, MANA_POOL, props);
 		registerBlockItemWithColoredVariants(r, CREATIVE_MANA_POOL, epicProps);
 		registerBlockItemWithColoredVariants(r, DILUTED_MANA_POOL, props);

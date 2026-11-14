@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Conventional Tags for minecraft:item
+// 1.21.1	2026-11-14T18:15:35.91484111	Botania/Conventional Tags for minecraft:item
 95c33e9800913c175f91dae06a25218876ef658b data/botania/tags/item/loonium_excluded.json
 61e964ab7c5c5bb8be54f80a0060332e7a86f27f data/botania/tags/item/mana_gems.json
 8e674e5fd846c857a6124ffe61bc404e40e3c8ff data/botania/tags/item/seed_apothecary_reagent.json
@@ -20,22 +20,22 @@ d0de0e62599a34171af00512cb371b0d890e5ddd data/c/tags/item/cobblestones/metamorph
 7fef5566f45c8e695007ed6dd5d40694bf3daa1e data/c/tags/item/dusts.json
 3b82ebfea27abfd970b1e746c92de795a2627931 data/c/tags/item/dusts/mana.json
 9363c165f1826d681e5f6e9c05767b5882efc1e4 data/c/tags/item/dusts/pixie.json
-d7fe2ab53389ce68a07a03b6eaf0ccb2b276b47e data/c/tags/item/dyed/black.json
-014b6558d02099ac952fb7a90f215b153e6487e0 data/c/tags/item/dyed/blue.json
-ff43982be0a385589d465c7dff7f76287f796d33 data/c/tags/item/dyed/brown.json
-53474fdeedc7777a45e6bc97e74cef22d1faead5 data/c/tags/item/dyed/cyan.json
-76f7393981463bbd02d13df6d520b0c619d55b29 data/c/tags/item/dyed/gray.json
-bd59ebe2a668ddf4d886e5023a990962edccfb17 data/c/tags/item/dyed/green.json
-d8f0f09dbb799bc3d3aeab9ed9937dc07b519cf0 data/c/tags/item/dyed/light_blue.json
-53c29a3ddc69d5bf498cc354272db0a8cbdc824c data/c/tags/item/dyed/light_gray.json
-6c6e263025f6bc10a58c92208195baabda3817b1 data/c/tags/item/dyed/lime.json
-911f8ad42db3c5808a44fec8de0fbc370d46aabe data/c/tags/item/dyed/magenta.json
-93d2d44dce21e85789a8b7e10015c9c9ec996c1a data/c/tags/item/dyed/orange.json
-e4969c750dfccb0495a93046eac76017c5a7cd4d data/c/tags/item/dyed/pink.json
-bb881c148519924953013756d9d147f3f4899432 data/c/tags/item/dyed/purple.json
-e3717e63a3c27d4f81eee22a2f69623c98772ba4 data/c/tags/item/dyed/red.json
-16ad96f9d6f3e8d744239c56fe19e619754cf57e data/c/tags/item/dyed/white.json
-186e7125ca0ce84adfa604c1e804833680a99594 data/c/tags/item/dyed/yellow.json
+db0f2af9a74fb58bf1fde97a0bca22c8aa58befb data/c/tags/item/dyed/black.json
+baf47e264877be9273796f04b469ee309853bec7 data/c/tags/item/dyed/blue.json
+05007adadaf448c20249c4399303c2fd4c117420 data/c/tags/item/dyed/brown.json
+2696bef052cc96250715bb5565b1228a9c3a657b data/c/tags/item/dyed/cyan.json
+870ff345896f71cc3581391c62f4765697adba76 data/c/tags/item/dyed/gray.json
+f1a27ad34a03fa17aa73c1587d2f512223be7064 data/c/tags/item/dyed/green.json
+d2829c4ec6e24e3105b5c97349cea68836f485bf data/c/tags/item/dyed/light_blue.json
+dc9863a4ac1f55153095164d02ca044654c94850 data/c/tags/item/dyed/light_gray.json
+50950f4967620b9d7473188587b76cc52d09ab7a data/c/tags/item/dyed/lime.json
+92761294d3031d10c449f1caf35c3e00f00d3987 data/c/tags/item/dyed/magenta.json
+652de00de1b3685d4fde5991d1a4b14d674d8523 data/c/tags/item/dyed/orange.json
+1d7903b98465b3c3ab7146f6a80de072e399eefa data/c/tags/item/dyed/pink.json
+537882a964de1082681822bd1b7dd50d7d3a77c7 data/c/tags/item/dyed/purple.json
+b4b5099fb6d0048f281f401797def2319457a3c3 data/c/tags/item/dyed/red.json
+f12f1442fd838d09db89d77518b63dd75f323467 data/c/tags/item/dyed/white.json
+51018b0f03f5f53b212c565af78fdca4aa134c71 data/c/tags/item/dyed/yellow.json
 977989ed56cd3a0282f8a458a3859fa27abf0ad3 data/c/tags/item/fence_gates/wooden.json
 6d092e594b74b65fa615c5288451d3b165f728d9 data/c/tags/item/fences/wooden.json
 fbf0862ea7e3cc9175cd8cedf864587f89aa9808 data/c/tags/item/foods/cookie.json

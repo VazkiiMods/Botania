@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-24T13:59:50.149334	Botania/Tags for minecraft:item
+// 1.21.1	2026-11-14T18:12:55.375689867	Botania/Tags for minecraft:item
 665aee3cc41d8f1e66408e198692f4ebec572aba data/botania/tags/item/all_mana_pools.json
 2b5505ddf6b15ea500a714fd10bc4ec05fa3eef5 data/botania/tags/item/ancient_wills.json
 9c05adc2a63d8b6a2636d766d8858160e1308c25 data/botania/tags/item/burst_viewers.json
@@ -23,7 +23,7 @@ d8c0b82b62c4f8e76f7d0be581205211b90a8f0f data/botania/tags/item/generating_speci
 44dbaa657d1cdd33c235a2b4fd292986765aa097 data/botania/tags/item/glimmering_dreamwood_logs.json
 af45cdf9cceb1b20e741dfc0d769b536c5225bff data/botania/tags/item/glimmering_flowers.json
 5dc32f38ab92b5305bdf06a8d9f2259c132a1450 data/botania/tags/item/glimmering_livingwood_logs.json
-f82178b5ef432d6dfc4a7bc04ef0a3ffa31953a5 data/botania/tags/item/ignored_by_endoflame.json
+1097adfe0063d572c78785f4bd46cc01c8df4949 data/botania/tags/item/ignored_by_endoflame.json
 278f9b92c7fd5826b3f5cfdc36b3ff7936fe7b8b data/botania/tags/item/lens.json
 7031861956185905c0b33100ef95db464a21453f data/botania/tags/item/lens_glue.json
 feaf72e7fc3c3e8ecf48a44f487aa8ad764191d7 data/botania/tags/item/livingwood_logs.json
