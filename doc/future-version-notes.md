@@ -207,8 +207,43 @@ Features in older versions are mentioned if there are issues or no real interact
 * Rendering changes (as in almost every version nowadays)
   * order-independent transparency (yay?)
 
-### 26.4
-* New zombie variant, maybe relevant for some loonium spawns
+### 26.4 ("Deep Freeze")
+* Ice Caves biome
+  * icicles and ice crystals
+  * brittle ice (created from water touching the side of blue ice)
+* Frostbite (new zombie variant)
+  * introduces new mob conversion: drowned/husks convert to zombies in powder snow, which further convert to frostbite
+  * maybe relevant to Loonium spawning
+* Freezing status effect and particle (similar to being inside of powder snow)
+* Powder snow mob conversion (zombies or skeletons) is now prevented by leather armor
+  * check to see if we need to do anything about manaweave in this regard
+* ice ball item and projectile
+* various new calcite, snow, and ice block sets
+* brown/red mushroom placement changes (may affect our shimmering mushrooms)
+* Jukebox playlists (single chest on jukebox block, replaces menu type to add tooltip information)
+* fluid rework; "flowing" water and lava fluid variants are gone (level and source properties are available for all fluids now)
+* Sulfur Cube archetypes can now define location-based effects, reusing the same functionality as enchantments
+* there is now a distinction between "heal" and "heal naturally"
+* various "can be affected by (mob effect)" implementations have been generalized into special entity type tags
+* Chiseled Soulshale (Sift teaser, found in ancient city chests; probably no need to interact with this block just yet)
+* `minecraft:visual/has_sky_occluder` environment attribute – occludes lower part of the skybox (we need to disable it for GoG worlds)
+* Keyboard navigation in all kinds of screens, including optional narration of slots etc.
+* Debug screen uses categories now
+* Notable data component changes:
+  * `minecraft:consumable` – `sound` is fully optional instead of defaulting to "eat"
+  * `minecraft:equippable` – `equip_sound` and `shearing_sound` are fully optional instead of defaulting to generic and shears snip sounds, respectively
+* generic vanilla code refactorings of note:
+  * `Mth.clamp()` is gone (uses `Math.clamp()` now)
+  * Guava collection builder methods are replaced with Java Collection Framework constructors for standard collection types (Guava is still used for things like immutable sets, though)
+* Rendering changes (yet again)
+  * `DeltaTracker` moved into `GraphicsExtractor` instead of being passed into methods as a separate parameter, which means more places have access to it, if necessary
+  * GUI mouse cursor can be "suppressed", e.g. when it's off-screen
+  * "Improved Transparency" option now blends sky background and clouds into the fog, if behind terrain
+
+### 27.1
+* New weapon: "Throwing Disc"
+  * Comes in copper, iron, gold, diamond, and netherite variants, so might make sense to provide manasteel and elementium versions of it
+  * Rebrand Thorn/Flare Chakram as terrasteel variants?
 
 ### 27.? (The sift update)
 * If there is a "pure" form of sculk, pure daisy should be able to purify normal sculk into it
