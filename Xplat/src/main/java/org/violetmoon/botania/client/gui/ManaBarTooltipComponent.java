@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.gui;
+package org.violetmoon.botania.client.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -22,9 +22,9 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
-import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.api.mana.ManaBarTooltip;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
 public class ManaBarTooltipComponent implements ClientTooltipComponent {
 	private final float percentageFull;

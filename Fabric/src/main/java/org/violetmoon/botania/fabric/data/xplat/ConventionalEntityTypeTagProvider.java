@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.fabric.data.xplat;
+package org.violetmoon.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -16,8 +16,8 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.entity.EntityType;
 
-import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.entity.BotaniaEntities;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 

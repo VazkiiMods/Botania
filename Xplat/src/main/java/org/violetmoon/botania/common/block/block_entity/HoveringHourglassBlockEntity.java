@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -30,17 +30,17 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.HourglassTrigger;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.item.HourglassMaterial;
-import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.integration.shared.LocaleHelper;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.HoveringHourglassBlock;
-import vazkii.botania.common.helper.NbtHelper;
+import org.violetmoon.botania.api.block.HourglassTrigger;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.item.HourglassMaterial;
+import org.violetmoon.botania.api.mana.ManaTrigger;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.integration.shared.LocaleHelper;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.HoveringHourglassBlock;
+import org.violetmoon.botania.common.helper.NbtHelper;
 
 public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger, Wandable {
 	private static final String TAG_TIME = "time";

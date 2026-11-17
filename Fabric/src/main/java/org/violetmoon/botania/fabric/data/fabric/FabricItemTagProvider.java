@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.fabric.data.fabric;
+package org.violetmoon.botania.fabric.data.fabric;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -20,10 +20,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.relic.DiceOfFateItem;
-import vazkii.botania.data.ItemTagProvider;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.relic.DiceOfFateItem;
+import org.violetmoon.botania.data.ItemTagProvider;
 
 import java.util.concurrent.CompletableFuture;
 

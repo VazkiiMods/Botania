@@ -6,18 +6,18 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.item;
+package org.violetmoon.botania.api.item;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.capability.ItemApiNoContext;
+import org.violetmoon.botania.api.capability.ItemApiNoContext;
 
 import java.util.UUID;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * An item that has this capability counts as a Relic item. This is purely for interaction

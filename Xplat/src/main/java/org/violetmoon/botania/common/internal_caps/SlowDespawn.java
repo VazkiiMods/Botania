@@ -7,13 +7,13 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.internal_caps;
+package org.violetmoon.botania.common.internal_caps;
 
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.attachment.DataMarkerId;
+import org.violetmoon.botania.api.attachment.DataMarkerId;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * When present on a mob, that mob will not despawn instantly when far away from all players.

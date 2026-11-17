@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.mixin;
+package org.violetmoon.botania.neoforge.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -22,8 +22,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-import vazkii.botania.common.BotaniaDamageTypes;
-import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
+import org.violetmoon.botania.common.BotaniaDamageTypes;
+import org.violetmoon.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 
 // FIXME: This is not how it's supposed to be done, but I don't feel like extending NeoForge-extendable enums right now
 @Mixin(IDeathMessageProvider.class)

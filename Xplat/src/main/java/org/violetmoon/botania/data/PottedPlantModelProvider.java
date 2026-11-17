@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -24,15 +24,15 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.lib.LibBlockNames;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.lib.LibBlockNames;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class PottedPlantModelProvider implements DataProvider {
 	private final PackOutput packOutput;

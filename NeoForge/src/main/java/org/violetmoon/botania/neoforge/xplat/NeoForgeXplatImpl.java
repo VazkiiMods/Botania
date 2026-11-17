@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.xplat;
+package org.violetmoon.botania.neoforge.xplat;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -83,33 +83,33 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.attachment.DataIdBase;
-import vazkii.botania.api.capability.BlockApiNoContext;
-import vazkii.botania.api.capability.BlockApiWithContext;
-import vazkii.botania.api.capability.EntityApiNoContext;
-import vazkii.botania.api.capability.EntityApiWithContext;
-import vazkii.botania.api.capability.ItemApiNoContext;
-import vazkii.botania.api.capability.ItemApiWithContext;
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
-import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.mana.*;
-import vazkii.botania.api.neoforge.BotaniaNeoForgeCapabilities;
-import vazkii.botania.api.neoforge.corporea.CorporeaIndexRequestEvent;
-import vazkii.botania.api.neoforge.corporea.CorporeaRequestEvent;
-import vazkii.botania.api.neoforge.mana.ManaDiscountEvent;
-import vazkii.botania.api.neoforge.mana.ManaItemsEvent;
-import vazkii.botania.api.neoforge.mana.ManaNetworkEvent;
-import vazkii.botania.api.neoforge.mana.ManaProficiencyEvent;
-import vazkii.botania.api.neoforge.recipe.ElvenPortalUpdateEvent;
-import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
-import vazkii.botania.neoforge.integration.curios.CurioIntegration;
-import vazkii.botania.neoforge.internal_caps.NeoForgeInternalEntityCapabilities;
-import vazkii.botania.neoforge.mixin.AbstractFurnaceBlockEntityNeoForgeAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.attachment.DataIdBase;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.BlockApiWithContext;
+import org.violetmoon.botania.api.capability.EntityApiNoContext;
+import org.violetmoon.botania.api.capability.EntityApiWithContext;
+import org.violetmoon.botania.api.capability.ItemApiNoContext;
+import org.violetmoon.botania.api.capability.ItemApiWithContext;
+import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.api.mana.*;
+import org.violetmoon.botania.api.neoforge.BotaniaNeoForgeCapabilities;
+import org.violetmoon.botania.api.neoforge.corporea.CorporeaIndexRequestEvent;
+import org.violetmoon.botania.api.neoforge.corporea.CorporeaRequestEvent;
+import org.violetmoon.botania.api.neoforge.mana.ManaDiscountEvent;
+import org.violetmoon.botania.api.neoforge.mana.ManaItemsEvent;
+import org.violetmoon.botania.api.neoforge.mana.ManaNetworkEvent;
+import org.violetmoon.botania.api.neoforge.mana.ManaProficiencyEvent;
+import org.violetmoon.botania.api.neoforge.recipe.ElvenPortalUpdateEvent;
+import org.violetmoon.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
+import org.violetmoon.botania.neoforge.integration.curios.CurioIntegration;
+import org.violetmoon.botania.neoforge.internal_caps.NeoForgeInternalEntityCapabilities;
+import org.violetmoon.botania.neoforge.mixin.AbstractFurnaceBlockEntityNeoForgeAccessor;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Optional;

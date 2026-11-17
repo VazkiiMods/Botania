@@ -7,43 +7,43 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.capabilities;
+package org.violetmoon.botania.common.capabilities;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
-import vazkii.botania.api.capability.registration.ApiIdRegistration;
-import vazkii.botania.api.capability.registration.ApiProviderRegistration;
-import vazkii.botania.api.capability.registration.ItemRegistrationNoContext;
-import vazkii.botania.api.capability.registration.ItemRegistrationWithContext;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.HourglassMaterial;
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
-import vazkii.botania.common.item.BlackHoleTalismanItem;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.EnderHandItem;
-import vazkii.botania.common.item.ManaMirrorItem;
-import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.item.relic.DiceOfFateItem;
-import vazkii.botania.common.item.relic.EyeOfTheFlugelItem;
-import vazkii.botania.common.item.relic.FruitOfGrisaiaItem;
-import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
-import vazkii.botania.common.item.relic.RingOfLokiItem;
-import vazkii.botania.common.item.relic.RingOfOdinItem;
-import vazkii.botania.common.item.relic.RingOfThorItem;
-import vazkii.botania.common.item.rod.BifrostRodItem;
-import vazkii.botania.common.item.rod.DepthsRodItem;
-import vazkii.botania.common.item.rod.HellsRodItem;
-import vazkii.botania.common.item.rod.LandsRodItem;
-import vazkii.botania.common.item.rod.PlentifulMantleRodItem;
-import vazkii.botania.common.item.rod.SkiesRodItem;
-import vazkii.botania.common.item.rod.UnstableReservoirRodItem;
+import org.violetmoon.botania.api.capability.registration.ApiIdRegistration;
+import org.violetmoon.botania.api.capability.registration.ApiProviderRegistration;
+import org.violetmoon.botania.api.capability.registration.ItemRegistrationNoContext;
+import org.violetmoon.botania.api.capability.registration.ItemRegistrationWithContext;
+import org.violetmoon.botania.api.item.AvatarWieldable;
+import org.violetmoon.botania.api.item.BlockProvider;
+import org.violetmoon.botania.api.item.CoordBoundItem;
+import org.violetmoon.botania.api.item.HourglassMaterial;
+import org.violetmoon.botania.api.item.Relic;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.impl.mana.DefaultManaItemImpl;
+import org.violetmoon.botania.common.item.BlackHoleTalismanItem;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.EnderHandItem;
+import org.violetmoon.botania.common.item.ManaMirrorItem;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.common.item.relic.DiceOfFateItem;
+import org.violetmoon.botania.common.item.relic.EyeOfTheFlugelItem;
+import org.violetmoon.botania.common.item.relic.FruitOfGrisaiaItem;
+import org.violetmoon.botania.common.item.relic.KeyOfTheKingsLawItem;
+import org.violetmoon.botania.common.item.relic.RingOfLokiItem;
+import org.violetmoon.botania.common.item.relic.RingOfOdinItem;
+import org.violetmoon.botania.common.item.relic.RingOfThorItem;
+import org.violetmoon.botania.common.item.rod.BifrostRodItem;
+import org.violetmoon.botania.common.item.rod.DepthsRodItem;
+import org.violetmoon.botania.common.item.rod.HellsRodItem;
+import org.violetmoon.botania.common.item.rod.LandsRodItem;
+import org.violetmoon.botania.common.item.rod.PlentifulMantleRodItem;
+import org.violetmoon.botania.common.item.rod.SkiesRodItem;
+import org.violetmoon.botania.common.item.rod.UnstableReservoirRodItem;
 
 import java.util.List;
 import java.util.function.Predicate;

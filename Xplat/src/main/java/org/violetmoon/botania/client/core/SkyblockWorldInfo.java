@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core;
+package org.violetmoon.botania.client.core;
 
 public interface SkyblockWorldInfo {
 	boolean isGardenOfGlass();

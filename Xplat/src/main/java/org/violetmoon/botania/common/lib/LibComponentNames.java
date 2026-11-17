@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.lib;
+package org.violetmoon.botania.common.lib;
 
 public final class LibComponentNames {
 	public static final String ACTIVE = "active";

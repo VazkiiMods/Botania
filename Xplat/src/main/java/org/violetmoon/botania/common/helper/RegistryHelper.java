@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.helper;
+package org.violetmoon.botania.common.helper;
 
 import com.mojang.datafixers.util.Either;
 

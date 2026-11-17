@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.entity;
+package org.violetmoon.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -19,8 +19,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.helper.MathHelper;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.helper.MathHelper;
 
 import java.util.List;
 

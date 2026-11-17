@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.brew;
+package org.violetmoon.botania.common.brew;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -14,13 +14,13 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 
-import vazkii.botania.common.brew.effect.*;
-import vazkii.botania.common.helper.RegistryHelper;
+import org.violetmoon.botania.common.brew.effect.*;
+import org.violetmoon.botania.common.helper.RegistryHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaMobEffects {
 	private static final List<RegistryHelper.HolderProxy<MobEffect>> TO_REGISTER = new ArrayList<>();

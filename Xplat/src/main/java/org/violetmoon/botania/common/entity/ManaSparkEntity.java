@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.entity;
+package org.violetmoon.botania.common.entity;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -33,24 +33,24 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.api.mana.ManaPool;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.spark.ManaSpark;
-import vazkii.botania.api.mana.spark.ManaSparkAttachable;
-import vazkii.botania.api.mana.spark.ManaSparkHelper;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.network.clientbound.SparkManaFlowEffectPacket;
-import vazkii.botania.network.clientbound.SparkNetIndicatorEffectPacket;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.api.mana.ManaPool;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.api.mana.spark.ManaSpark;
+import org.violetmoon.botania.api.mana.spark.ManaSparkAttachable;
+import org.violetmoon.botania.api.mana.spark.ManaSparkHelper;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.network.clientbound.SparkManaFlowEffectPacket;
+import org.violetmoon.botania.network.clientbound.SparkNetIndicatorEffectPacket;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 

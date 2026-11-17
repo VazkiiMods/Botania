@@ -1,5 +1,5 @@
 {
-  "processor": "vazkii.botania.client.patchouli.processor.PetalApothecaryProcessor",
+  "processor": "org.violetmoon.botania.client.patchouli.processor.PetalApothecaryProcessor",
   "components": [
     {
       "type": "patchouli:image",
@@ -19,7 +19,7 @@
     },
     {
       "type": "patchouli:custom",
-      "class": "vazkii.botania.client.patchouli.component.RotatingRecipeComponent",
+      "class": "org.violetmoon.botania.client.patchouli.component.RotatingRecipeComponent",
       "x": -1,
       "y": 19,
       "recipe_type": "petal_apothecary",

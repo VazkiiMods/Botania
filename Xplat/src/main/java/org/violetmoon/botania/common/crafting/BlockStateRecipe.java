@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
@@ -21,12 +21,12 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.Optional;
 
-public abstract class BlockStateRecipe implements vazkii.botania.api.recipe.BlockStateRecipe {
+public abstract class BlockStateRecipe implements org.violetmoon.botania.api.recipe.BlockStateRecipe {
 	private final StateIngredient input;
 	private final StateIngredient output;
 	@Nullable
@@ -62,7 +62,7 @@ public abstract class BlockStateRecipe implements vazkii.botania.api.recipe.Bloc
 		return Optional.ofNullable(this.successFunction);
 	}
 
-	public static void replaceBlock(BlockPos pos, vazkii.botania.api.recipe.BlockStateRecipe recipe,
+	public static void replaceBlock(BlockPos pos, org.violetmoon.botania.api.recipe.BlockStateRecipe recipe,
 			BlockState stateToPlace, ServerLevel serverLevel, Runnable successCallback) {
 		executeFunction(serverLevel, pos, recipe.getPreUpdateFunction());
 

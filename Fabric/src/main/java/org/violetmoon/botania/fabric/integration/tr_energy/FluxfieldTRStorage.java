@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.integration.tr_energy;
+package org.violetmoon.botania.fabric.integration.tr_energy;
 
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
@@ -15,8 +15,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
 
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;

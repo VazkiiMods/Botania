@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -18,7 +18,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
-import vazkii.botania.common.block.BotaniaBannerPatterns;
+import org.violetmoon.botania.common.block.BotaniaBannerPatterns;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

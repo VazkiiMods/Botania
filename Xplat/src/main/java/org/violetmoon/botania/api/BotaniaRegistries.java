@@ -6,19 +6,19 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api;
+package org.violetmoon.botania.api;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 
-import vazkii.botania.api.block.IslandType;
-import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.recipe.StateIngredientType;
+import org.violetmoon.botania.api.block.IslandType;
+import org.violetmoon.botania.api.brew.Brew;
+import org.violetmoon.botania.api.internal.ItemSource;
+import org.violetmoon.botania.api.recipe.StateIngredientType;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaRegistries {
 	public static final ResourceKey<Registry<Brew>> BREWS =

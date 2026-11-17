@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.recipe;
+package org.violetmoon.botania.api.recipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
 	ResourceLocation TYPE_ID = botaniaRL("mana_infusion");

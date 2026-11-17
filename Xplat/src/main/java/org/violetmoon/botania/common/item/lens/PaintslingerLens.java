@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.lens;
+package org.violetmoon.botania.common.item.lens;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,12 +24,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.item.SparkEntity;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.network.clientbound.PaintLensEffectPacket;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.item.SparkEntity;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.network.clientbound.PaintLensEffectPacket;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.function.Function;

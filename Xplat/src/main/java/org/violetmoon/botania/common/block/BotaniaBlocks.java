@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.*;
 import net.minecraft.core.dispenser.*;
@@ -34,26 +34,26 @@ import net.minecraft.world.level.material.PushReaction;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.PetalApothecary;
-import vazkii.botania.api.internal.Colored;
-import vazkii.botania.api.internal.OptionallyColored;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.api.state.enums.AlfheimPortalState;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.flower.generating.HydroangeasBlockEntity;
-import vazkii.botania.common.block.corporea.*;
-import vazkii.botania.common.block.dispenser.*;
-import vazkii.botania.common.block.flower.*;
-import vazkii.botania.common.block.mana.*;
-import vazkii.botania.common.block.red_string.*;
-import vazkii.botania.common.brew.BotaniaMobEffects;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.block.ColoredBlockItem;
-import vazkii.botania.common.item.block.DecayableSpecialFlowerBlockItem;
-import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
-import vazkii.botania.common.item.block.TinyPotatoBlockItem;
-import vazkii.botania.common.lib.LibBlockNames;
+import org.violetmoon.botania.api.block.PetalApothecary;
+import org.violetmoon.botania.api.internal.Colored;
+import org.violetmoon.botania.api.internal.OptionallyColored;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.api.state.enums.AlfheimPortalState;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.flower.generating.HydroangeasBlockEntity;
+import org.violetmoon.botania.common.block.corporea.*;
+import org.violetmoon.botania.common.block.dispenser.*;
+import org.violetmoon.botania.common.block.flower.*;
+import org.violetmoon.botania.common.block.mana.*;
+import org.violetmoon.botania.common.block.red_string.*;
+import org.violetmoon.botania.common.brew.BotaniaMobEffects;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.block.ColoredBlockItem;
+import org.violetmoon.botania.common.item.block.DecayableSpecialFlowerBlockItem;
+import org.violetmoon.botania.common.item.block.SpecialFlowerBlockItem;
+import org.violetmoon.botania.common.item.block.TinyPotatoBlockItem;
+import org.violetmoon.botania.common.lib.LibBlockNames;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -63,7 +63,7 @@ import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaBlocks {
 

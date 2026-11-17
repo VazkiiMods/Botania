@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;

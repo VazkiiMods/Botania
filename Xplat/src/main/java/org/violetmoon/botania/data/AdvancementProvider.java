@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
@@ -27,16 +27,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.common.advancements.*;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.LaputaShardItem;
-import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.advancements.*;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.entity.BotaniaEntities;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.LaputaShardItem;
+import org.violetmoon.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +44,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class AdvancementProvider {
 	public static net.minecraft.data.advancements.AdvancementProvider create(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {

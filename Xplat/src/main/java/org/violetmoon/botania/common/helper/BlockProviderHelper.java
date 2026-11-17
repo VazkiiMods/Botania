@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.helper;
+package org.violetmoon.botania.common.helper;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.BlockProvider;
+import org.violetmoon.botania.api.item.BlockProvider;
 
 public class BlockProviderHelper {
 	public static BlockProvider asBlockProvider(ItemStack stack, Player player) {

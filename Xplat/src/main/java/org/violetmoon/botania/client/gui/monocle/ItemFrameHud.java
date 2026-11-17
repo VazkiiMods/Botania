@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.gui.monocle;
+package org.violetmoon.botania.client.gui.monocle;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -22,9 +22,9 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.block.MonocleHud;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.helper.FilterHelper;
+import org.violetmoon.botania.api.block.MonocleHud;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.helper.FilterHelper;
 
 import java.util.List;
 

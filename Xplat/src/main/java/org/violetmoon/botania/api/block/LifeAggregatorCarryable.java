@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.block;
+package org.violetmoon.botania.api.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -25,11 +25,11 @@ import net.minecraft.world.level.block.state.properties.Property;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
 
 import java.util.Collection;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * A block entity, usually some sort of spawner, that can be picked up and placed down again with a Life Aggregator.

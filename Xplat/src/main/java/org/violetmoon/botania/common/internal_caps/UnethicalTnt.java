@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.internal_caps;
+package org.violetmoon.botania.common.internal_caps;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
@@ -20,13 +20,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 
-import vazkii.botania.api.attachment.DataMarkerId;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.attachment.DataMarkerId;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Helps track TNT entity spawning to check for unethical methods. Used with vanilla piston logic (via mixin) and
@@ -37,9 +37,9 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
  * adjacent moving block entities that represent a TNT block and move away from the TNT entity. If we find such a moving
  * block, the TNT entity was unethically sourced.
  *
- * @see vazkii.botania.common.block.block_entity.flower.generating.EntropinnyumBlockEntity
- * @see vazkii.botania.mixin.PistonBaseBlockMixin
- * @see vazkii.botania.common.item.lens.ForceLens#moveBlocks(Level, BlockPos, Direction, BlockPos)
+ * @see org.violetmoon.botania.common.block.block_entity.flower.generating.EntropinnyumBlockEntity
+ * @see org.violetmoon.botania.mixin.PistonBaseBlockMixin
+ * @see org.violetmoon.botania.common.item.lens.ForceLens#moveBlocks(Level, BlockPos, Direction, BlockPos)
  */
 public class UnethicalTnt {
 	public static final ResourceLocation ID = botaniaRL("unethical_tnt");

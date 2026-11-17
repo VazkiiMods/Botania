@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.item.relic;
+package org.violetmoon.botania.common.item.relic;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -19,11 +19,11 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.BotaniaDamageTypes;
-import vazkii.botania.common.advancements.RelicBindTrigger;
-import vazkii.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.api.item.Relic;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.common.BotaniaDamageTypes;
+import org.violetmoon.botania.common.advancements.RelicBindTrigger;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
 
 import java.util.List;
 import java.util.UUID;

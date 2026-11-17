@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.state.enums;
+package org.violetmoon.botania.api.state.enums;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;

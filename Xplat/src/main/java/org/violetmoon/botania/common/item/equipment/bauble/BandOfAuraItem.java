@@ -6,13 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
 
 public class BandOfAuraItem extends BaubleItem {
 

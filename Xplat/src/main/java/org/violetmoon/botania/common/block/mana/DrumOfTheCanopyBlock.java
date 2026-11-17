@@ -8,13 +8,13 @@
  *
  */
 
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.HornItem;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.HornItem;
 
 public class DrumOfTheCanopyBlock extends DrumBlock {
 	public DrumOfTheCanopyBlock(Properties builder) {

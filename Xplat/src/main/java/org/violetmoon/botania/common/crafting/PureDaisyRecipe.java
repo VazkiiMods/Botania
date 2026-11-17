@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -24,11 +24,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.api.recipe.StateIngredient;
 
 import java.util.Optional;
 
-public class PureDaisyRecipe extends BlockStateRecipe implements vazkii.botania.api.recipe.PureDaisyRecipe {
+public class PureDaisyRecipe extends BlockStateRecipe implements org.violetmoon.botania.api.recipe.PureDaisyRecipe {
 
 	public static final int DEFAULT_TIME = 150;
 	public static final RecipeSerializer<PureDaisyRecipe> SERIALIZER = new Serializer();

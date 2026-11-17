@@ -8,14 +8,14 @@
  *
  */
 
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 public class HornOfTheWildItem extends HornItem {
 

@@ -7,13 +7,13 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.item;
+package org.violetmoon.botania.api.item;
 
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.capability.ItemApiNoContext;
+import org.violetmoon.botania.api.capability.ItemApiNoContext;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * An item with this capability can be used in a Hovering Hourglass.

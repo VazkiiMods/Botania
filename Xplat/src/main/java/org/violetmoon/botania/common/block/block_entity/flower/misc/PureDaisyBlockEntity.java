@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.misc;
+package org.violetmoon.botania.common.block.block_entity.flower.misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -21,14 +21,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.api.recipe.PureDaisyRecipe;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.crafting.BlockStateRecipe;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
+import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
+import org.violetmoon.botania.api.recipe.PureDaisyRecipe;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.crafting.BlockStateRecipe;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
 
 import java.util.Arrays;
 

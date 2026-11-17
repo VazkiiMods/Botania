@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.core.helper;
+package org.violetmoon.botania.client.core.helper;
 
 import net.minecraft.resources.ResourceLocation;
 

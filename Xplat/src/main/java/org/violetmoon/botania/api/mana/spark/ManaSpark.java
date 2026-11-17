@@ -6,14 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana.spark;
+package org.violetmoon.botania.api.mana.spark;
 
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.SparkEntity;
-import vazkii.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.api.item.SparkEntity;
+import org.violetmoon.botania.api.mana.ManaReceiver;
 
 import java.util.Collection;
 

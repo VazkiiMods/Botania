@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.entity.LuminizerMoverEntity;
+import org.violetmoon.botania.common.entity.LuminizerMoverEntity;
 
 public class LuminizerDetectorBlock extends LuminizerPoweredBlock {
 

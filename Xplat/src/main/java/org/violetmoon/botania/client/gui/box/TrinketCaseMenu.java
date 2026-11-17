@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.gui.box;
+package org.violetmoon.botania.client.gui.box;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -17,12 +17,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.inventory.BotaniaMenuWithLockedSlot;
-import vazkii.botania.client.gui.SlotLocked;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.BaubleBoxItem;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.inventory.BotaniaMenuWithLockedSlot;
+import org.violetmoon.botania.client.gui.SlotLocked;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.item.BaubleBoxItem;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 public class TrinketCaseMenu extends AbstractContainerMenu implements BotaniaMenuWithLockedSlot {
 	private final ItemStack trinketCase;

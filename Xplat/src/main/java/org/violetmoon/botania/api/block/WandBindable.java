@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.block;
+package org.violetmoon.botania.api.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,9 +14,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.capability.BlockApiWithContext;
+import org.violetmoon.botania.api.capability.BlockApiWithContext;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * A BlockEntity that implements this can be bound to another block

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.impl;
+package org.violetmoon.botania.common.impl;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.DefaultedRegistry;
@@ -24,31 +24,31 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaRegistries;
-import vazkii.botania.api.attachment.DataIdBase;
-import vazkii.botania.api.block.IslandType;
-import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.capability.BlockApiNoContext;
-import vazkii.botania.api.capability.BlockApiWithContext;
-import vazkii.botania.api.capability.EntityApiNoContext;
-import vazkii.botania.api.capability.EntityApiWithContext;
-import vazkii.botania.api.capability.ItemApiNoContext;
-import vazkii.botania.api.capability.ItemApiWithContext;
-import vazkii.botania.api.configdata.ConfigDataManager;
-import vazkii.botania.api.corporea.CorporeaNodeDetector;
-import vazkii.botania.api.internal.ManaNetwork;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.block_entity.flower.misc.SolegnoliaBlockEntity;
-import vazkii.botania.common.config.ConfigDataManagerImpl;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.handler.ManaNetworkHandler;
-import vazkii.botania.common.helper.RegistryHelper;
-import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
-import vazkii.botania.common.item.BotaniaArmorMaterials;
-import vazkii.botania.common.item.BotaniaItemTiers;
-import vazkii.botania.common.item.relic.RingOfLokiItem;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaRegistries;
+import org.violetmoon.botania.api.attachment.DataIdBase;
+import org.violetmoon.botania.api.block.IslandType;
+import org.violetmoon.botania.api.brew.Brew;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.BlockApiWithContext;
+import org.violetmoon.botania.api.capability.EntityApiNoContext;
+import org.violetmoon.botania.api.capability.EntityApiWithContext;
+import org.violetmoon.botania.api.capability.ItemApiNoContext;
+import org.violetmoon.botania.api.capability.ItemApiWithContext;
+import org.violetmoon.botania.api.configdata.ConfigDataManager;
+import org.violetmoon.botania.api.corporea.CorporeaNodeDetector;
+import org.violetmoon.botania.api.internal.ManaNetwork;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.block.block_entity.flower.misc.SolegnoliaBlockEntity;
+import org.violetmoon.botania.common.config.ConfigDataManagerImpl;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.handler.ManaNetworkHandler;
+import org.violetmoon.botania.common.helper.RegistryHelper;
+import org.violetmoon.botania.common.integration.corporea.CorporeaNodeDetectors;
+import org.violetmoon.botania.common.item.BotaniaArmorMaterials;
+import org.violetmoon.botania.common.item.BotaniaItemTiers;
+import org.violetmoon.botania.common.item.relic.RingOfLokiItem;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

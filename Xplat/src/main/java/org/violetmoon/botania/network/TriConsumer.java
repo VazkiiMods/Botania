@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.network;
+package org.violetmoon.botania.network;
 
 public interface TriConsumer<T, U, R> {
 	void accept(T t, U u, R r);

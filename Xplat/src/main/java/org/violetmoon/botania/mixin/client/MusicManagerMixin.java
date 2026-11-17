@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
 
@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 @Mixin(MusicManager.class)
 public class MusicManagerMixin {

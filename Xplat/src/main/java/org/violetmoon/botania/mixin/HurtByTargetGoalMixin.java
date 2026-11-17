@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 

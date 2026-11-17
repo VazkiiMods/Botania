@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.client;
+package org.violetmoon.botania.fabric.client;
 
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
@@ -33,10 +33,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.fabric.item.TinyPotatoRenderCallback;
-import vazkii.botania.fabric.integration.sodium.SodiumFabricHelper;
-import vazkii.botania.xplat.ClientXplatAbstractions;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.fabric.item.TinyPotatoRenderCallback;
+import org.violetmoon.botania.fabric.integration.sodium.SodiumFabricHelper;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 public class FabricClientXplatImpl implements ClientXplatAbstractions {
 	@Override

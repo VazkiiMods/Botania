@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.emi;
+package org.violetmoon.botania.client.integration.emi;
 
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -17,12 +17,12 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import vazkii.botania.api.recipe.PureDaisyRecipe;
-import vazkii.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.api.recipe.PureDaisyRecipe;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
 
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/pure_daisy_overlay.png");

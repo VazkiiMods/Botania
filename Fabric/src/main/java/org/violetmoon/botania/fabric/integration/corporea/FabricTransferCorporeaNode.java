@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.integration.corporea;
+package org.violetmoon.botania.fabric.integration.corporea;
 
 import com.google.common.collect.ImmutableList;
 
@@ -18,9 +18,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.corporea.CorporeaRequest;
-import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.common.impl.corporea.AbstractCorporeaNode;
+import org.violetmoon.botania.api.corporea.CorporeaRequest;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.common.impl.corporea.AbstractCorporeaNode;
 
 import java.util.List;
 

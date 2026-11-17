@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,15 +22,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.api.internal.OptionallyColored;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.AncientWillItem;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.data.util.DummyTagLookup;
+import org.violetmoon.botania.api.internal.OptionallyColored;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.mana.ManaSpreaderBlock;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.AncientWillItem;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.lens.LensItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.data.util.DummyTagLookup;
 
 import java.util.Comparator;
 import java.util.Set;

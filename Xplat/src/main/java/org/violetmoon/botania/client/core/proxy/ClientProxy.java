@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.proxy;
+package org.violetmoon.botania.client.core.proxy;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
@@ -25,14 +25,14 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 import org.lwjgl.glfw.GLFW;
 
-import vazkii.botania.client.core.handler.*;
-import vazkii.botania.client.fx.BoltParticleOptions;
-import vazkii.botania.client.fx.BoltRenderer;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
-import vazkii.botania.common.item.*;
-import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.mixin.client.MultiblockVisualizationHandlerMixin;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.client.core.handler.*;
+import org.violetmoon.botania.client.fx.BoltParticleOptions;
+import org.violetmoon.botania.client.fx.BoltRenderer;
+import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
+import org.violetmoon.botania.common.item.*;
+import org.violetmoon.botania.common.proxy.Proxy;
+import org.violetmoon.botania.mixin.client.MultiblockVisualizationHandlerMixin;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.client.handler.MultiblockVisualizationHandler;

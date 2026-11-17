@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.internal_caps;
+package org.violetmoon.botania.common.internal_caps;
 
 import com.mojang.serialization.Codec;
 
@@ -15,11 +15,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.attachment.DataHolderId;
+import org.violetmoon.botania.api.attachment.DataHolderId;
 
 import java.util.Objects;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Attached to mobs when spawned by Loonium. Overrides the mob's loot table with a single (potentially empty) drop.

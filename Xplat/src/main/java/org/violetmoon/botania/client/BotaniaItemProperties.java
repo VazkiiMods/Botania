@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client;
+package org.violetmoon.botania.client;
 
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,22 +16,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.brew.BaseBrewItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
-import vazkii.botania.common.item.relic.FruitOfGrisaiaItem;
-import vazkii.botania.common.item.rod.SkiesRodItem;
-import vazkii.botania.network.TriConsumer;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.item.*;
+import org.violetmoon.botania.common.item.brew.BaseBrewItem;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
+import org.violetmoon.botania.common.item.relic.FruitOfGrisaiaItem;
+import org.violetmoon.botania.common.item.rod.SkiesRodItem;
+import org.violetmoon.botania.network.TriConsumer;
 
 import java.util.Arrays;
 import java.util.Locale;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaItemProperties {
 	public static void init(TriConsumer<Item, ResourceLocation, ClampedItemPropertyFunction> consumer) {

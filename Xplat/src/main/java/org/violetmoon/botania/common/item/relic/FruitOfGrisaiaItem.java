@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.relic;
+package org.violetmoon.botania.common.item.relic;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,13 +18,13 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.mixin.LivingEntityAccessor;
+import org.violetmoon.botania.api.item.Relic;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.mixin.LivingEntityAccessor;
 
 import java.util.Locale;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class FruitOfGrisaiaItem extends RelicItem {
 

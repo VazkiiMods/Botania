@@ -7,21 +7,21 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.internal_caps;
+package org.violetmoon.botania.common.internal_caps;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.attachment.DataHolderId;
+import org.violetmoon.botania.api.attachment.DataHolderId;
 
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Attached to a player on death. Denotes items kept when respawning.
  * 
- * @see vazkii.botania.common.item.ResoluteIvyItem
+ * @see org.violetmoon.botania.common.item.ResoluteIvyItem
  */
 public final class KeptItems {
 

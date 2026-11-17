@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.entity.TrialSpawnerBlockEntity;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.LifeAggregatorCarryable;
-import vazkii.botania.mixin.BaseSpawnerAccessor;
+import org.violetmoon.botania.api.block.LifeAggregatorCarryable;
+import org.violetmoon.botania.mixin.BaseSpawnerAccessor;
 
 /**
  * LifeAggregatorCarryable implementations for vanilla blocks the Life Aggregator should be able to pick up by default.

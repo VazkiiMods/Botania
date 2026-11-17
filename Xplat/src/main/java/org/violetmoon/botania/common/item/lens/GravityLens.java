@@ -6,11 +6,11 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.lens;
+package org.violetmoon.botania.common.item.lens;
 
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.mana.BurstProperties;
+import org.violetmoon.botania.api.mana.BurstProperties;
 
 public class GravityLens extends Lens {
 

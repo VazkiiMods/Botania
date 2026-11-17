@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool.elementium;
+package org.violetmoon.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelHoeItem;
+import org.violetmoon.botania.common.item.equipment.tool.manasteel.ManasteelHoeItem;
 
 public class ElementiumHoeItem extends ManasteelHoeItem {
 	public ElementiumHoeItem(Tier tier, Properties properties) {

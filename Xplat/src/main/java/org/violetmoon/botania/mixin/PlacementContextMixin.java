@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.WorldGenLevel;
@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.world.SkyblockChunkGenerator;
+import org.violetmoon.botania.common.world.SkyblockChunkGenerator;
 
 /**
  * Based on code from CarpetSkyAdditions. Ensures terrain-sensitive structures generate where they should.

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.block;
+package org.violetmoon.botania.test.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,12 +18,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.common.block.flower.FloatingSpecialFlowerBlock;
-import vazkii.botania.common.block.flower.SpecialFlowerBlock;
+import org.violetmoon.botania.api.block.WandBindable;
+import org.violetmoon.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
+import org.violetmoon.botania.common.block.flower.FloatingSpecialFlowerBlock;
+import org.violetmoon.botania.common.block.flower.SpecialFlowerBlock;
 
 import java.util.Collection;
 import java.util.Locale;

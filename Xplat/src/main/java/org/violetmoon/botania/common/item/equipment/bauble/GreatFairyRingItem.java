@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.Multimap;
 
@@ -16,7 +16,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.handler.PixieHandler;
+import org.violetmoon.botania.common.handler.PixieHandler;
 
 public class GreatFairyRingItem extends BaubleItem {
 	public GreatFairyRingItem(Properties props) {

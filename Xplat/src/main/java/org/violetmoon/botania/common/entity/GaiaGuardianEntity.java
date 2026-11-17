@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.entity;
+package org.violetmoon.botania.common.entity;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
@@ -74,27 +74,27 @@ import net.minecraft.world.scores.Team;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.Bound;
-import vazkii.botania.api.configdata.GaiaFightConfiguration;
-import vazkii.botania.api.configdata.MobSpawnData;
-import vazkii.botania.api.internal.GaiaFightParticipant;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.advancements.GaiaGuardianNoArmorTrigger;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.BotaniaMonsterTeam;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.loot.BotaniaLootTables;
-import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
-import vazkii.botania.mixin.BeaconBlockEntityAccessor;
-import vazkii.botania.network.clientbound.ArenaIndicatorEffectPacket;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block.Bound;
+import org.violetmoon.botania.api.configdata.GaiaFightConfiguration;
+import org.violetmoon.botania.api.configdata.MobSpawnData;
+import org.violetmoon.botania.api.internal.GaiaFightParticipant;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.advancements.GaiaGuardianNoArmorTrigger;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.BotaniaMonsterTeam;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.common.proxy.Proxy;
+import org.violetmoon.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
+import org.violetmoon.botania.mixin.BeaconBlockEntityAccessor;
+import org.violetmoon.botania.network.clientbound.ArenaIndicatorEffectPacket;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -103,8 +103,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.common.helper.PlayerHelper.isTruePlayer;
 
 public class GaiaGuardianEntity extends Mob {
 	public static final int ARENA_RANGE = 12;
@@ -208,7 +208,7 @@ public class GaiaGuardianEntity extends Mob {
 	/**
 	 * Team for mobs spawned in gaia fights.
 	 *
-	 * @see vazkii.botania.mixin.EntityMixin
+	 * @see org.violetmoon.botania.mixin.EntityMixin
 	 */
 	public static final Team GAIA_FIGHT_TEAM = new BotaniaMonsterTeam(GAIA_FIGHT_TEAM_NAME);
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,20 +32,20 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.Bound;
-import vazkii.botania.api.block.PhantomInkableBlock;
-import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.LuminizerBlock;
-import vazkii.botania.common.entity.LuminizerMoverEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.api.block.Bound;
+import org.violetmoon.botania.api.block.PhantomInkableBlock;
+import org.violetmoon.botania.api.block.WandBindable;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.LuminizerBlock;
+import org.violetmoon.botania.common.entity.LuminizerMoverEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.helper.VecHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class LuminizerBlockEntity extends BlockEntity implements WandBindable, Bound, PhantomInkableBlock {
 	public static final int MAX_DIST = 20;

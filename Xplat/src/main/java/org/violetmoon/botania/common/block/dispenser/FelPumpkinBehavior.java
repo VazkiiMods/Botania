@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.dispenser;
+package org.violetmoon.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
@@ -16,8 +16,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.FelPumpkinBlock;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.FelPumpkinBlock;
 
 // [VanillaCopy] DispenseItemBehavior for Blocks.CARVED_PUMPKIN as registered in its bootstrap method
 public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin.client;
+package org.violetmoon.botania.fabric.mixin.client;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -18,8 +18,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.fabric.client.FabricFloatingFlowerModel;
-import vazkii.botania.fabric.client.FabricManaBlasterModel;
+import org.violetmoon.botania.fabric.client.FabricFloatingFlowerModel;
+import org.violetmoon.botania.fabric.client.FabricManaBlasterModel;
 
 import java.lang.reflect.Type;
 

@@ -6,16 +6,16 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool.elementium;
+package org.violetmoon.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 public class ElementiumPickaxeItem extends ManasteelPickaxeItem {
 

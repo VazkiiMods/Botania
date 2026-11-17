@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
@@ -18,7 +18,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceKey;
 
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -21,12 +21,12 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.joml.Matrix4f;
 
-import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
+import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.block.block_entity.LuminizerBlockEntity;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
 public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<LuminizerBlockEntity> {
 

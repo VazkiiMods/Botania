@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.functional;
+package org.violetmoon.botania.common.block.block_entity.flower.functional;
 
 import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.platform.Window;
@@ -51,28 +51,28 @@ import net.minecraft.world.scores.Team;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
-import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.api.configdata.ConfigDataManager;
-import vazkii.botania.api.configdata.LooniumStructureConfiguration;
-import vazkii.botania.api.configdata.MobAttributeModifier;
-import vazkii.botania.api.configdata.MobEffectToApply;
-import vazkii.botania.api.configdata.MobSpawnData;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.BotaniaMonsterTeam;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.internal_caps.LooniumDrop;
-import vazkii.botania.common.internal_caps.SlowDespawn;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
+import org.violetmoon.botania.api.configdata.ConfigDataManager;
+import org.violetmoon.botania.api.configdata.LooniumStructureConfiguration;
+import org.violetmoon.botania.api.configdata.MobAttributeModifier;
+import org.violetmoon.botania.api.configdata.MobEffectToApply;
+import org.violetmoon.botania.api.configdata.MobSpawnData;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.helper.BotaniaMonsterTeam;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.internal_caps.LooniumDrop;
+import org.violetmoon.botania.common.internal_caps.SlowDespawn;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 5;
@@ -102,7 +102,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	/**
 	 * Team for Loonium-spawned mobs.
 	 * 
-	 * @see vazkii.botania.mixin.EntityMixin
+	 * @see org.violetmoon.botania.mixin.EntityMixin
 	 */
 	public static final Team LOONIUM_TEAM = new BotaniaMonsterTeam(LOONIUM_TEAM_NAME);
 

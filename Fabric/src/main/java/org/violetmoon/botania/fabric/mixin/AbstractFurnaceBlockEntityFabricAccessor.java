@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.mixin;
+package org.violetmoon.botania.fabric.mixin;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;

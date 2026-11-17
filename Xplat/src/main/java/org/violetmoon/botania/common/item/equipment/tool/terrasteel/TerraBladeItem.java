@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool.terrasteel;
+package org.violetmoon.botania.common.item.equipment.tool.terrasteel;
 
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -26,15 +26,15 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.LensEffectItem;
-import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.network.serverbound.LeftClickPacket;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.mana.BurstProperties;
+import org.violetmoon.botania.api.mana.LensEffectItem;
+import org.violetmoon.botania.common.entity.ManaBurstEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.network.serverbound.LeftClickPacket;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.List;
 

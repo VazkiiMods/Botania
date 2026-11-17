@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.mixin.client;
+package org.violetmoon.botania.fabric.mixin.client;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.BossHealthOverlay;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.client.core.handler.BossBarHandler;
+import org.violetmoon.botania.client.core.handler.BossBarHandler;
 
 @Mixin(BossHealthOverlay.class)
 public class BossHealthOverlayFabricMixin {

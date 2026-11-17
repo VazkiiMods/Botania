@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.internal_caps;
+package org.violetmoon.botania.neoforge.internal_caps;
 
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 
@@ -18,10 +18,10 @@ import net.neoforged.neoforge.event.entity.EntityEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.attachment.DataIdBase;
-import vazkii.botania.common.internal_caps.BotaniaDataAttachments;
-import vazkii.botania.common.internal_caps.UnethicalTnt;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.attachment.DataIdBase;
+import org.violetmoon.botania.common.internal_caps.BotaniaDataAttachments;
+import org.violetmoon.botania.common.internal_caps.UnethicalTnt;
 
 import java.util.Map;
 import java.util.function.Supplier;

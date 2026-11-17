@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.data;
+package org.violetmoon.botania.neoforge.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -19,10 +19,10 @@ import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import net.neoforged.neoforge.registries.datamaps.builtin.Strippable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.handler.CompostingData;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.handler.CompostingData;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 

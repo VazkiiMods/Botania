@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool;
+package org.violetmoon.botania.common.item.equipment.tool;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -22,11 +22,11 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.SpecialBlockBreakingHandler;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.item.BotaniaItemTiers;
-import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.item.SpecialBlockBreakingHandler;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.item.BotaniaItemTiers;
+import org.violetmoon.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 public class VitreousPickaxeItem extends ManasteelPickaxeItem implements SpecialBlockBreakingHandler {
 

@@ -6,14 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana.spark;
+package org.violetmoon.botania.api.mana.spark;
 
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.capability.BlockApiNoContext;
-import vazkii.botania.api.capability.SparkAttachable;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.SparkAttachable;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * A block entity with this capability can have a mana spark attached to it.

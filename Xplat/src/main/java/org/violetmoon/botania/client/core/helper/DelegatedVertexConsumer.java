@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.helper;
+package org.violetmoon.botania.client.core.helper;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 

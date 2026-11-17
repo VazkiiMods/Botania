@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,9 +21,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.red_string.RedStringBlock;
-import vazkii.botania.common.helper.ForcePushHelper;
-import vazkii.botania.common.internal_caps.UnethicalTnt;
+import org.violetmoon.botania.common.block.red_string.RedStringBlock;
+import org.violetmoon.botania.common.helper.ForcePushHelper;
+import org.violetmoon.botania.common.internal_caps.UnethicalTnt;
 
 /**
  * Additional logic for pistons:

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei.crafting;
+package org.violetmoon.botania.client.integration.jei.crafting;
 
 import com.google.common.collect.ImmutableList;
 
@@ -19,9 +19,9 @@ import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategor
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import vazkii.botania.common.crafting.recipe.TerraShattererTippingRecipe;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.common.crafting.recipe.TerraShattererTippingRecipe;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
 import java.util.Collections;
 import java.util.List;

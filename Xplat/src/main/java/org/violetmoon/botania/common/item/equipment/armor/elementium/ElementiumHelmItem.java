@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.armor.elementium;
+package org.violetmoon.botania.common.item.equipment.armor.elementium;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.ManaDiscountArmor;
+import org.violetmoon.botania.api.mana.ManaDiscountArmor;
 
 public class ElementiumHelmItem extends ElementiumArmorItem implements ManaDiscountArmor {
 	public ElementiumHelmItem(Type type, Holder<ArmorMaterial> material, double pixieChance, Properties properties) {

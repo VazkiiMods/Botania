@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.fabric.data.fabric;
+package org.violetmoon.botania.fabric.data.fabric;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.data.BlockTagProvider;
+import org.violetmoon.botania.data.BlockTagProvider;
 
 import java.util.concurrent.CompletableFuture;
 

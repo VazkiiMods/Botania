@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.data.util;
+package org.violetmoon.botania.data.util;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +18,7 @@ import net.minecraft.world.level.ItemLike;
 
 import org.jetbrains.annotations.Nullable;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaRecipeHelper {
 	public static ResourceLocation deriveRecipeId(RecipeType<?> type, ItemLike output) {

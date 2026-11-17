@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.fx;
+package org.violetmoon.botania.client.fx;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -24,7 +24,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 public class FXWisp extends TextureSheetParticle {
 	private final boolean depthTest;

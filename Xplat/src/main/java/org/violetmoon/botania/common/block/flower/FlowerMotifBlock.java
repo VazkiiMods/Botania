@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.flower;
+package org.violetmoon.botania.common.block.flower;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.FlowerBlock;
 
-import vazkii.botania.common.item.CustomCreativeTabContents;
+import org.violetmoon.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
 

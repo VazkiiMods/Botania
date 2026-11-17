@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.rod;
+package org.violetmoon.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
 
@@ -42,17 +42,17 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.item.WireframeCoordinateListProvider;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.common.CollectingNeighborUpdaterAccess;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.StoneOfTemperanceItem;
-import vazkii.botania.mixin.LevelAccessor;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.item.BlockProvider;
+import org.violetmoon.botania.api.item.WireframeCoordinateListProvider;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.client.gui.ItemsRemainingRenderHandler;
+import org.violetmoon.botania.common.CollectingNeighborUpdaterAccess;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.StoneOfTemperanceItem;
+import org.violetmoon.botania.mixin.LevelAccessor;
 
 import java.util.ArrayList;
 import java.util.List;

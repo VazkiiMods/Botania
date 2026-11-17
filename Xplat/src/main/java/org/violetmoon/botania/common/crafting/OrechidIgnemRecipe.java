@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import com.mojang.serialization.MapCodec;
 
@@ -21,7 +21,7 @@ import net.minecraft.world.level.biome.Biome;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.api.recipe.StateIngredient;
 
 import java.util.function.Function;
 
@@ -47,8 +47,8 @@ public class OrechidIgnemRecipe extends OrechidRecipe {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> getType() {
-		return (RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe>) BuiltInRegistries.RECIPE_TYPE.get(IGNEM_TYPE_ID);
+	public RecipeType<? extends org.violetmoon.botania.api.recipe.OrechidRecipe> getType() {
+		return (RecipeType<? extends org.violetmoon.botania.api.recipe.OrechidRecipe>) BuiltInRegistries.RECIPE_TYPE.get(IGNEM_TYPE_ID);
 	}
 
 	@Override

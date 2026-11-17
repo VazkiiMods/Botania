@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.loot;
+package org.violetmoon.botania.common.loot;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
@@ -14,7 +14,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaLootModifiers {
 	public static final LootItemConditionType TRUE_GUARDIAN_KILLER = new LootItemConditionType(TrueGuardianKiller.CODEC);

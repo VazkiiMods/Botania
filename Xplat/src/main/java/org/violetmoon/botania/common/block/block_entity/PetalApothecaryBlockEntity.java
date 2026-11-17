@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -37,20 +37,20 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4fStack;
 
-import vazkii.botania.api.block.PetalApothecary;
-import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.recipe.CustomApothecaryColor;
-import vazkii.botania.api.recipe.PetalApothecaryRecipe;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.PetalApothecaryBlock;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.internal_caps.ItemSources;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.block.PetalApothecary;
+import org.violetmoon.botania.api.internal.ItemSource;
+import org.violetmoon.botania.api.recipe.CustomApothecaryColor;
+import org.violetmoon.botania.api.recipe.PetalApothecaryRecipe;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.gui.HUDHandler;
+import org.violetmoon.botania.common.block.PetalApothecaryBlock;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.common.helper.InventoryHelper;
+import org.violetmoon.botania.common.internal_caps.ItemSources;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;

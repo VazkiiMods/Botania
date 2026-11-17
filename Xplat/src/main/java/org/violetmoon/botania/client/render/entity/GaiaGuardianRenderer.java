@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.entity;
+package org.violetmoon.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -23,10 +23,10 @@ import net.minecraft.world.entity.player.PlayerModelPart;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.core.helper.CoreShaders;
-import vazkii.botania.client.model.GaiaGuardianModel;
-import vazkii.botania.client.model.armor.ArmorModels;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
+import org.violetmoon.botania.client.core.helper.CoreShaders;
+import org.violetmoon.botania.client.model.GaiaGuardianModel;
+import org.violetmoon.botania.client.model.armor.ArmorModels;
+import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
 
 public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity, GaiaGuardianModel> {
 

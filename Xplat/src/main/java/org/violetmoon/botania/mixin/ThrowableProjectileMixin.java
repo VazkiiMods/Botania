@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import vazkii.botania.common.entity.ManaBurstEntity;
+import org.violetmoon.botania.common.entity.ManaBurstEntity;
 
 @Mixin(ThrowableProjectile.class)
 public class ThrowableProjectileMixin {

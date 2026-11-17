@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.recipe;
+package org.violetmoon.botania.api.recipe;
 
 import com.mojang.serialization.MapCodec;
 
@@ -14,7 +14,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPI;
 
 public interface StateIngredientType<T extends StateIngredient> {
 	ResourceLocation DEFAULT_ID = BotaniaAPI.botaniaRL("none");

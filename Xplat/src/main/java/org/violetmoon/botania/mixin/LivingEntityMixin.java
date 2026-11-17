@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -25,9 +25,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.api.internal.GaiaFightParticipant;
-import vazkii.botania.api.item.BlockChangedListenerBauble;
-import vazkii.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.api.internal.GaiaFightParticipant;
+import org.violetmoon.botania.api.item.BlockChangedListenerBauble;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {

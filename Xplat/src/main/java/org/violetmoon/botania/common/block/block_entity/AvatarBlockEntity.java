@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,10 +22,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.block.Avatar;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.common.block.AvatarBlock;
+import org.violetmoon.botania.api.block.Avatar;
+import org.violetmoon.botania.api.item.AvatarWieldable;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.common.block.AvatarBlock;
 
 public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Avatar, ManaReceiver {
 	private static final int MAX_MANA = 6400;

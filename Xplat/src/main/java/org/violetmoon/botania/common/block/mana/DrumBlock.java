@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -28,9 +28,9 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.mana.ManaTrigger;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 public abstract class DrumBlock extends Block implements SimpleWaterloggedBlock {
 

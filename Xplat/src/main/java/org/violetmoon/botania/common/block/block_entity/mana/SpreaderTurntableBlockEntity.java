@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.mana;
+package org.violetmoon.botania.common.block.block_entity.mana;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -26,11 +26,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class SpreaderTurntableBlockEntity extends BlockEntity implements Wandable {
 	// cached state properties

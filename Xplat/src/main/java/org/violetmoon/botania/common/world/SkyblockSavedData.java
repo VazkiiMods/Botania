@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.world;
+package org.violetmoon.botania.common.world;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -20,7 +20,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
 
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.Map;
 import java.util.UUID;

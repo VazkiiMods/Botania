@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.relic;
+package org.violetmoon.botania.common.item.relic;
 
 import com.google.common.collect.Multimap;
 
@@ -19,12 +19,12 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.item.Relic;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class RingOfOdinItem extends RelicBaubleItem {
 

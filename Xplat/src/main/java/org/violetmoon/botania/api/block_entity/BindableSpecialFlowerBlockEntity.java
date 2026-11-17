@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.block_entity;
+package org.violetmoon.botania.api.block_entity;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -36,15 +36,15 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.Bound;
-import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPIClient;
+import org.violetmoon.botania.api.block.Bound;
+import org.violetmoon.botania.api.block.WandBindable;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 import java.util.List;
 import java.util.Map;

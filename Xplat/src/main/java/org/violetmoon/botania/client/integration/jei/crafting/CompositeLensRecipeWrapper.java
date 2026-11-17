@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei.crafting;
+package org.violetmoon.botania.client.integration.jei.crafting;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -21,9 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.crafting.recipe.CompositeLensRecipe;
+import org.violetmoon.botania.common.item.lens.LensItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
 import java.util.List;

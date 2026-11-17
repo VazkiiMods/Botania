@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.item;
+package org.violetmoon.botania.test.item;
 
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
@@ -31,14 +31,14 @@ import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.common.item.AstrolabeItem;
-import vazkii.botania.common.item.BlackHoleTalismanItem;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.ManaTabletItem;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.rod.DepthsRodItem;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.common.item.AstrolabeItem;
+import org.violetmoon.botania.common.item.BlackHoleTalismanItem;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.ManaTabletItem;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.common.item.rod.DepthsRodItem;
+import org.violetmoon.botania.test.TestingUtil;
 
 import java.util.Objects;
 

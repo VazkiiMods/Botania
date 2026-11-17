@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.inventory;
+package org.violetmoon.botania.api.inventory;
 
 import net.minecraft.world.item.ItemStack;
 

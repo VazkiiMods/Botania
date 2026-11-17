@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -33,15 +33,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.api.state.enums.TerraPlateState;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
-import vazkii.botania.common.handler.BotaniaRecipeIngredientsCache;
-import vazkii.botania.common.internal_caps.ItemSources;
+import org.violetmoon.botania.api.internal.ItemSource;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.api.state.enums.TerraPlateState;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.BotaniaWaterloggedEntityBlock;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
+import org.violetmoon.botania.common.handler.BotaniaRecipeIngredientsCache;
+import org.violetmoon.botania.common.internal_caps.ItemSources;
 
 public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedEntityBlock {
 

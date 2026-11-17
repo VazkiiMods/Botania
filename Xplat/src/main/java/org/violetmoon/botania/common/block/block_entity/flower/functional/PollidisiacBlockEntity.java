@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.functional;
+package org.violetmoon.botania.common.block.block_entity.flower.functional;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -30,17 +30,17 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
-import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.api.state.enums.AnimalMode;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.internal_caps.ItemLifetime;
-import vazkii.botania.mixin.AnimalAccessor;
-import vazkii.botania.mixin.MushroomCowAccessor;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.api.state.enums.AnimalMode;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.internal_caps.ItemLifetime;
+import org.violetmoon.botania.mixin.AnimalAccessor;
+import org.violetmoon.botania.mixin.MushroomCowAccessor;
 
 import java.util.*;
 

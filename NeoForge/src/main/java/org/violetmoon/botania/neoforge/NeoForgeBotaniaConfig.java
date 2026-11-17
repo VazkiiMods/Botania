@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.neoforge;
+package org.violetmoon.botania.neoforge;
 
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -18,9 +18,9 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.Collections;
 import java.util.List;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.entity;
+package org.violetmoon.botania.common.entity;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -31,16 +31,16 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.BotaniaDamageTypes;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.world.BotaniaExplosionDamageCalculator;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.BotaniaDamageTypes;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.common.item.relic.KeyOfTheKingsLawItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.world.BotaniaExplosionDamageCalculator;
 
 import java.util.List;
 

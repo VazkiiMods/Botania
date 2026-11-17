@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -18,8 +18,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block.EdibleBlockWithEffects;
-import vazkii.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.api.block.EdibleBlockWithEffects;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
 
 public class BotaniaInfusedGrassBlock extends BotaniaGrassBlock implements EdibleBlockWithEffects {
 

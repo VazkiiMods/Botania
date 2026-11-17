@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.redstone.NeighborUpdater;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.entity;
+package org.violetmoon.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -18,12 +18,12 @@ import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block.Bound;
-import vazkii.botania.client.render.block_entity.ManaPoolBlockEntityRenderer;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.entity.ManaPoolMinecartEntity;
+import org.violetmoon.botania.api.block.Bound;
+import org.violetmoon.botania.client.render.block_entity.ManaPoolBlockEntityRenderer;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.entity.ManaPoolMinecartEntity;
 
 public class ManaPoolMinecartRenderer extends MinecartRenderer<ManaPoolMinecartEntity> {
 	private static final ManaPoolBlockEntity DUMMY = new ManaPoolBlockEntity(Bound.UNBOUND_POS, BotaniaBlocks.MANA_POOL.defaultBlockState());

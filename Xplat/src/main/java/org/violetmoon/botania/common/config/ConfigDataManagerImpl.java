@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.config;
+package org.violetmoon.botania.common.config;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -22,11 +22,11 @@ import net.minecraft.util.profiling.ProfilerFiller;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.configdata.ConfigDataManager;
-import vazkii.botania.api.configdata.GaiaFightConfiguration;
-import vazkii.botania.api.configdata.LooniumStructureConfiguration;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.configdata.ConfigDataManager;
+import org.violetmoon.botania.api.configdata.GaiaFightConfiguration;
+import org.violetmoon.botania.api.configdata.LooniumStructureConfiguration;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -34,7 +34,7 @@ import java.util.concurrent.Executor;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ConfigDataManagerImpl implements ConfigDataManager {
 

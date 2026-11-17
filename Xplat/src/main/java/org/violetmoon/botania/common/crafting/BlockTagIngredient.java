@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -25,8 +25,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.api.recipe.StateIngredientType;
+import org.violetmoon.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.api.recipe.StateIngredientType;
 
 import java.util.List;
 import java.util.stream.Stream;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.generating;
+package org.violetmoon.botania.common.block.block_entity.flower.generating;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 
@@ -29,16 +29,16 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
-import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.mixin.ExperienceOrbAccessor;
-import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.mixin.ExperienceOrbAccessor;
+import org.violetmoon.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +78,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	 * consume an XP orb this tick, the average XP orb size of 2 means the flower extracts an average amount of 1 XP per
 	 * tick from the player. (This is the same speed as the direct drain in earlier versions.)
 	 * 
-	 * @see vazkii.botania.mixin.PlayerMixin#shouldPickupXp(Player, Entity)
+	 * @see org.violetmoon.botania.mixin.PlayerMixin#shouldPickupXp(Player, Entity)
 	 */
 	@SuppressWarnings("JavadocReference")
 	private static void drainPlayerXp(ServerLevel serverLevel, AABB effectBounds) {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import com.mojang.datafixers.util.Pair;
 
@@ -40,17 +40,17 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.Bound;
-import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.WrenchingHelper;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.api.block.Bound;
+import org.violetmoon.botania.api.block.WandBindable;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.item.CoordBoundItem;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.WrenchingHelper;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 import java.util.Arrays;
 import java.util.Collections;

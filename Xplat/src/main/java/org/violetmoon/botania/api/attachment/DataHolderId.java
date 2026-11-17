@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.attachment;
+package org.violetmoon.botania.api.attachment;
 
 import com.mojang.serialization.Codec;
 
@@ -16,7 +16,7 @@ import net.minecraft.world.entity.Entity;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPI;
 
 import java.util.function.Supplier;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -25,19 +25,19 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.block.block_entity.flower.functional.HeiseiDreamBlockEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.mixin.CreeperAccessor;
-import vazkii.botania.mixin.EntityAccessor;
-import vazkii.botania.network.clientbound.DivaCharmEffectPacket;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
+import org.violetmoon.botania.client.render.AccessoryRenderer;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.HeiseiDreamBlockEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.proxy.Proxy;
+import org.violetmoon.botania.mixin.CreeperAccessor;
+import org.violetmoon.botania.mixin.EntityAccessor;
+import org.violetmoon.botania.network.clientbound.DivaCharmEffectPacket;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.function.Predicate;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.entity;
+package org.violetmoon.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -23,10 +23,10 @@ import net.minecraft.world.inventory.InventoryMenu;
 
 import org.joml.Matrix4f;
 
-import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.entity.BabylonWeaponEntity;
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.client.core.handler.MiscellaneousModels;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.entity.BabylonWeaponEntity;
+import org.violetmoon.botania.common.helper.VecHelper;
 
 import java.util.Random;
 

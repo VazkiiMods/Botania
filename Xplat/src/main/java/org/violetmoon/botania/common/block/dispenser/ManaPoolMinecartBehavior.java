@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.dispenser;
+package org.violetmoon.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.entity.ManaPoolMinecartEntity;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.common.entity.ManaPoolMinecartEntity;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 // [VanillaCopy] MinecartItem.DISPENSE_ITEM_BEHAVIOR
 public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {

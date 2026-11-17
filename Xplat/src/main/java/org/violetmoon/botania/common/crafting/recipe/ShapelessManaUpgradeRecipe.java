@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting.recipe;
+package org.violetmoon.botania.common.crafting.recipe;
 
 import com.mojang.serialization.MapCodec;
 
@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
-import vazkii.botania.mixin.ShapelessRecipeAccessor;
+import org.violetmoon.botania.mixin.ShapelessRecipeAccessor;
 
 import java.util.function.Function;
 

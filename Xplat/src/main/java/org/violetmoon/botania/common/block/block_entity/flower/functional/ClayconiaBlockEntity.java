@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.functional;
+package org.violetmoon.botania.common.block.block_entity.flower.functional;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -21,11 +21,11 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
-import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 
@@ -29,10 +29,10 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.PlayerAccess;
-import vazkii.botania.common.item.ResoluteIvyItem;
-import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
-import vazkii.botania.common.item.relic.RingOfOdinItem;
+import org.violetmoon.botania.common.PlayerAccess;
+import org.violetmoon.botania.common.item.ResoluteIvyItem;
+import org.violetmoon.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
+import org.violetmoon.botania.common.item.relic.RingOfOdinItem;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
@@ -93,7 +93,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
 	 * Skip the entire XP orb pickup logic if the player is near a Rosa Arcana, as signified by a high takeXpDelay.
 	 * (This is needed due to mods like Clumps just ignoring the XP pickup delay altogether.)
 	 * 
-	 * @see vazkii.botania.common.block.block_entity.flower.generating.RosaArcanaBlockEntity#drainPlayerXp(ServerLevel,
+	 * @see org.violetmoon.botania.common.block.block_entity.flower.generating.RosaArcanaBlockEntity#drainPlayerXp(ServerLevel,
 	 *      AABB)
 	 */
 	@SuppressWarnings("JavadocReference")

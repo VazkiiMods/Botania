@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.mixin;
+package org.violetmoon.botania.fabric.mixin;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
@@ -20,7 +20,7 @@ import net.minecraft.data.HashCache;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import vazkii.botania.fabric.data.FabricDatagenMixinHelper;
+import org.violetmoon.botania.fabric.data.FabricDatagenMixinHelper;
 
 import java.nio.file.Path;
 import java.util.Map;

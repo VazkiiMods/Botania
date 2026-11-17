@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,10 +20,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.ManaCollisionGhost;
-import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.mana.ManaCollisionGhost;
+import org.violetmoon.botania.api.mana.ManaTrigger;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
 
 public class ManaDetectorBlock extends Block implements ManaCollisionGhost {
 

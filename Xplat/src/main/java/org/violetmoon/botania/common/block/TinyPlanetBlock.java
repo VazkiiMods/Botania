@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -20,9 +20,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.ManaCollisionGhost;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.TinyPlanetBlockEntity;
+import org.violetmoon.botania.api.mana.ManaCollisionGhost;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.TinyPlanetBlockEntity;
 
 public class TinyPlanetBlock extends BotaniaWaterloggedEntityBlock implements ManaCollisionGhost {
 

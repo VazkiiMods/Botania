@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import vazkii.botania.common.item.equipment.tool.elementium.ElementiumPickaxeItem;
+import org.violetmoon.botania.common.item.equipment.tool.elementium.ElementiumPickaxeItem;
 
 import java.util.function.Consumer;
 

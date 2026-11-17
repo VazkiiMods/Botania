@@ -7,19 +7,19 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.internal_caps;
+package org.violetmoon.botania.common.internal_caps;
 
 import com.mojang.serialization.Codec;
 
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.BotaniaRegistries;
-import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.common.helper.RegistryHelper;
+import org.violetmoon.botania.api.BotaniaRegistries;
+import org.violetmoon.botania.api.internal.ItemSource;
+import org.violetmoon.botania.common.helper.RegistryHelper;
 
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ItemSources {
 	public static final Codec<ItemSource> CODEC = Codec.lazyInitialized(

@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
 

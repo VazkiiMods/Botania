@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -27,19 +27,19 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.OptionallyColored;
-import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
-import vazkii.botania.common.block.flower.SpecialFlowerBlock;
-import vazkii.botania.common.block.mana.DrumBlock;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.block.red_string.RedStringBlock;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.data.util.DummyTagLookup;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.internal.OptionallyColored;
+import org.violetmoon.botania.common.block.*;
+import org.violetmoon.botania.common.block.flower.FloatingFlowerBaseBlock;
+import org.violetmoon.botania.common.block.flower.SpecialFlowerBlock;
+import org.violetmoon.botania.common.block.mana.DrumBlock;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.block.mana.ManaSpreaderBlock;
+import org.violetmoon.botania.common.block.red_string.RedStringBlock;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.lib.LibBlockNames;
+import org.violetmoon.botania.data.util.DummyTagLookup;
 
 import java.util.Comparator;
 import java.util.Set;

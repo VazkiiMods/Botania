@@ -8,14 +8,14 @@
  *
  */
 
-package vazkii.botania.fabric.data;
+package org.violetmoon.botania.fabric.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
 
-import vazkii.botania.data.loot.BotaniaBlockLoot;
+import org.violetmoon.botania.data.loot.BotaniaBlockLoot;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;

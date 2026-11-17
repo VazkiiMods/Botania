@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common;
+package org.violetmoon.botania.common;
 
 public interface CollectingNeighborUpdaterAccess {
 	void botania$pauseUpdates();

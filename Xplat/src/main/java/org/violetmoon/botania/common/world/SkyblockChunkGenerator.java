@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.world;
+package org.violetmoon.botania.common.world;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -25,7 +25,7 @@ import net.minecraft.world.level.levelgen.blending.Blender;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class SkyblockChunkGenerator extends NoiseBasedChunkGenerator {
 	// [VanillaCopy] NoiseBasedChunkGenerator's codec, but calls our constructor

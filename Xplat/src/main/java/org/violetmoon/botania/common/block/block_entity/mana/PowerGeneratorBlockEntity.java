@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.mana;
+package org.violetmoon.botania.common.block.block_entity.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -20,12 +20,12 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.helper.NbtHelper;
-import vazkii.botania.common.item.lens.PotencyLens;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.mana.ManaSpreaderBlock;
+import org.violetmoon.botania.common.helper.NbtHelper;
+import org.violetmoon.botania.common.item.lens.PotencyLens;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 public class PowerGeneratorBlockEntity extends BlockEntity implements ManaReceiver {
 	private static final int MANA_TO_ENERGY_UNITS = XplatAbstractions.INSTANCE.isNeoForge() ? 10 : 3;

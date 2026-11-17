@@ -6,17 +6,17 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.entity;
+package org.violetmoon.botania.client.render.entity;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.client.model.PixieModel;
-import vazkii.botania.common.entity.PixieEntity;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.model.BotaniaModelLayers;
+import org.violetmoon.botania.client.model.PixieModel;
+import org.violetmoon.botania.common.entity.PixieEntity;
 
 public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel> {
 

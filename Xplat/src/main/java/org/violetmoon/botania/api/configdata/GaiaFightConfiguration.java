@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.configdata;
+package org.violetmoon.botania.api.configdata;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public record GaiaFightConfiguration(
 		ResourceLocation rewardLootTable,

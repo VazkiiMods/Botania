@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -21,8 +21,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 public class WorldSeedItem extends Item {
 

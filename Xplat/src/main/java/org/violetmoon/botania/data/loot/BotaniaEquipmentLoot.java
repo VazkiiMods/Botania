@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.data.loot;
+package org.violetmoon.botania.data.loot;
 
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
 import net.minecraft.advancements.critereon.EntityFlagsPredicate;
@@ -56,9 +56,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
 
 import java.util.List;
 import java.util.Map;

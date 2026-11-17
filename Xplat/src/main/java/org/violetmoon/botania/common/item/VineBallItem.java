@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
@@ -20,8 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.entity.VineBallEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.entity.VineBallEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 public class VineBallItem extends Item implements ProjectileItem {
 

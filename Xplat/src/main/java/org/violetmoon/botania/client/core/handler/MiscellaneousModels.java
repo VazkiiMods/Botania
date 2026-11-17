@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.handler;
+package org.violetmoon.botania.client.core.handler;
 
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
@@ -17,18 +17,18 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.TinyPotatoModel;
-import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
-import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
-import vazkii.botania.client.render.block_entity.ManaSpreaderBlockEntityRenderer;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.common.item.equipment.bauble.ThirdEyeItem;
-import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.model.TinyPotatoModel;
+import org.violetmoon.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
+import org.violetmoon.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
+import org.violetmoon.botania.client.render.block_entity.ManaSpreaderBlockEntityRenderer;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import org.violetmoon.botania.common.item.equipment.bauble.ThirdEyeItem;
+import org.violetmoon.botania.common.item.relic.KeyOfTheKingsLawItem;
+import org.violetmoon.botania.common.lib.LibBlockNames;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -36,7 +36,7 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class MiscellaneousModels {
 	private static final ResourceLocation goldfishModelId = botaniaRL("icon/goldfish");

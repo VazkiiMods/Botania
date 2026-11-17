@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.block_entity.flower.misc.BergamuteBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.misc.BergamuteBlockEntity;
 
 @Mixin(VibrationSystem.Listener.class)
 public class VibrationSystemListenerMixin {

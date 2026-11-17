@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -26,12 +26,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.block.block_entity.flower.misc.BergamuteBlockEntity;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.mixin.ArmadilloAccessor;
-import vazkii.botania.mixin.LivingEntityAccessor;
-import vazkii.botania.mixin.MushroomCowAccessor;
+import org.violetmoon.botania.common.block.block_entity.flower.misc.BergamuteBlockEntity;
+import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.mixin.ArmadilloAccessor;
+import org.violetmoon.botania.mixin.LivingEntityAccessor;
+import org.violetmoon.botania.mixin.MushroomCowAccessor;
 
 import java.util.ArrayList;
 import java.util.Collections;

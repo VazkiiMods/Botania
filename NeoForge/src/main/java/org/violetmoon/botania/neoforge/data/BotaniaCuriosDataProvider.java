@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.neoforge.data;
+package org.violetmoon.botania.neoforge.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -16,7 +16,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import top.theillusivec4.curios.api.CuriosDataProvider;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPI;
 
 import java.util.concurrent.CompletableFuture;
 

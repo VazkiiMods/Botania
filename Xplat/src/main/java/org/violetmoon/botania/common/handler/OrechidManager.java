@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import com.google.common.collect.ImmutableList;
 
@@ -25,13 +25,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.recipe.OrechidRecipe;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.function.ToIntFunction;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class OrechidManager implements ResourceManagerReloadListener {
 	private static final Map<RecipeType<? extends OrechidRecipe>, Map<BlockState, List<? extends OrechidRecipe>>> BY_TYPE = new IdentityHashMap<>();

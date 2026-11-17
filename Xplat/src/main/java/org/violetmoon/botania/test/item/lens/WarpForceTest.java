@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.item.lens;
+package org.violetmoon.botania.test.item.lens;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
@@ -17,9 +17,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.test.TestingUtil;
 
 public class WarpForceTest {
 	private static final String TEMPLATE = "botania:item/lens/force_warp_relay_interaction";

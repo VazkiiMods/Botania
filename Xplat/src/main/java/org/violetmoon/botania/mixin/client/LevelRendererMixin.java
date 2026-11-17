@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexBuffer;
@@ -30,10 +30,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.client.core.SkyblockWorldInfo;
-import vazkii.botania.client.render.world.SkyblockSkyRenderer;
-import vazkii.botania.client.render.world.WorldOverlays;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.client.core.SkyblockWorldInfo;
+import org.violetmoon.botania.client.render.world.SkyblockSkyRenderer;
+import org.violetmoon.botania.client.render.world.WorldOverlays;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 /**
  * This Mixin implements the Garden of Glass skybox and some in-world overlays.

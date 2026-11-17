@@ -7,45 +7,45 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.capabilities;
+package org.violetmoon.botania.client.capabilities;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.api.block.MonocleHud;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
-import vazkii.botania.api.capability.registration.ApiIdRegistration;
-import vazkii.botania.api.capability.registration.ApiProviderRegistration;
-import vazkii.botania.api.mana.PoolOverlayProvider;
-import vazkii.botania.client.gui.monocle.ComparatorSettingHud;
-import vazkii.botania.client.gui.monocle.DaylightDetectorHud;
-import vazkii.botania.client.gui.monocle.RedstonePowerHud;
-import vazkii.botania.client.gui.monocle.RepeaterSettingHud;
-import vazkii.botania.client.gui.monocle.SculkSensorHud;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.AnimatedTorchBlockEntity;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.BotanicalBreweryBlockEntity;
-import vazkii.botania.common.block.block_entity.CraftyCrateBlockEntity;
-import vazkii.botania.common.block.block_entity.EyeOfTheAncientsBlockEntity;
-import vazkii.botania.common.block.block_entity.HoveringHourglassBlockEntity;
-import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.functional.HopperhockBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.functional.PollidisiacBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.functional.RannuncarpusBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.generating.SpectrolusBlockEntity;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
-import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
-import vazkii.botania.common.block.block_entity.mana.SpreaderTurntableBlockEntity;
+import org.violetmoon.botania.api.block.MonocleHud;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
+import org.violetmoon.botania.api.capability.registration.ApiIdRegistration;
+import org.violetmoon.botania.api.capability.registration.ApiProviderRegistration;
+import org.violetmoon.botania.api.mana.PoolOverlayProvider;
+import org.violetmoon.botania.client.gui.monocle.ComparatorSettingHud;
+import org.violetmoon.botania.client.gui.monocle.DaylightDetectorHud;
+import org.violetmoon.botania.client.gui.monocle.RedstonePowerHud;
+import org.violetmoon.botania.client.gui.monocle.RepeaterSettingHud;
+import org.violetmoon.botania.client.gui.monocle.SculkSensorHud;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.AnimatedTorchBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.BotanicalBreweryBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.CraftyCrateBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.EyeOfTheAncientsBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.HoveringHourglassBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.ManaEnchanterBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.HopperhockBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.PollidisiacBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.RannuncarpusBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.generating.SpectrolusBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.mana.SpreaderTurntableBlockEntity;
 
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-import static vazkii.botania.common.capabilities.BlockCapabilities.*;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.common.capabilities.BlockCapabilities.*;
 
 public final class ClientBlockCapabilities {
 	private static final ResourceLocation ALCHEMY_CATALYST_OVERLAY = botaniaRL("block/alchemy_catalyst_overlay");

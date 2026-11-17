@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "vazkii.botania.mixin",
+  "package": "org.violetmoon.botania.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractCauldronBlockAccessor",

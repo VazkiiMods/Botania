@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -41,25 +41,25 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.recipe.RunicAltarRecipe;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.helper.NbtHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.internal_caps.ItemSources;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.internal.ItemSource;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.api.recipe.RunicAltarRecipe;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.client.gui.HUDHandler;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.common.helper.InventoryHelper;
+import org.violetmoon.botania.common.helper.NbtHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.internal_caps.ItemSources;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.List;

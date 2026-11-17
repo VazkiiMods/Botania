@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei;
+package org.violetmoon.botania.client.integration.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -36,7 +36,7 @@ public class TerrestrialAgglomerationDrawable implements IDrawable {
 	}
 
 	/**
-	 * Offsets copied from {@link vazkii.botania.client.patchouli.component.TerraPlateComponent}
+	 * Offsets copied from {@link org.violetmoon.botania.client.patchouli.component.TerraPlateComponent}
 	 */
 	@Override
 	public void draw(GuiGraphics gui, int xOffset, int yOffset) {

@@ -6,11 +6,11 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.rei;
+package org.violetmoon.botania.client.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
-import vazkii.botania.common.crafting.*;
+import org.violetmoon.botania.common.crafting.*;
 
 public class BotaniaREICategoryIdentifiers {
 	public static final CategoryIdentifier<BreweryREIDisplay> BREWERY = CategoryIdentifier.of(BotanicalBreweryRecipe.TYPE_ID);

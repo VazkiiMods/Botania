@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.world.level.block.Block;
 

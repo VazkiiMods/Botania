@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -18,11 +18,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.network.serverbound.DodgePacket;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.network.serverbound.DodgePacket;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 public class RingOfDexterousMotionItem extends BaubleItem {
 

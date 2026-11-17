@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.client.patchouli.PatchouliUtils;
+import org.violetmoon.botania.client.patchouli.PatchouliUtils;
 
 /**
  * Hack for Patchouli visualizer rendering of floating flowers.

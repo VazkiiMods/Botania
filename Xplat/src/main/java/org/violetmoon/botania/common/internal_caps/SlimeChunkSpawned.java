@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.internal_caps;
+package org.violetmoon.botania.common.internal_caps;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -20,9 +20,9 @@ import net.minecraft.world.level.levelgen.WorldgenRandom;
 
 import org.jetbrains.annotations.ApiStatus;
 
-import vazkii.botania.api.attachment.DataMarkerId;
+import org.violetmoon.botania.api.attachment.DataMarkerId;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Added to slimes that spawned naturally in a slime chunk.

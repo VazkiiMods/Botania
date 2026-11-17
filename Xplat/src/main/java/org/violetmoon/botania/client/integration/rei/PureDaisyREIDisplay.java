@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.rei;
+package org.violetmoon.botania.client.integration.rei;
 
 import com.google.common.collect.ImmutableList;
 
@@ -18,7 +18,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.recipe.PureDaisyRecipe;
+import org.violetmoon.botania.api.recipe.PureDaisyRecipe;
 
 import java.util.Collections;
 

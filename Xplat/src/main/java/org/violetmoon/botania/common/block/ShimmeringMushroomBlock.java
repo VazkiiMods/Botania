@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -24,11 +24,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.internal.Colored;
-import vazkii.botania.api.recipe.CustomApothecaryColor;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.item.material.MysticalPetalItem;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.internal.Colored;
+import org.violetmoon.botania.api.recipe.CustomApothecaryColor;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.item.material.MysticalPetalItem;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 public class ShimmeringMushroomBlock extends MushroomBlock implements CustomApothecaryColor, Colored {
 

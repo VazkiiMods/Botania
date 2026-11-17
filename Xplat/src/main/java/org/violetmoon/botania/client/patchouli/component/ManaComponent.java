@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.patchouli.component;
+package org.violetmoon.botania.client.patchouli.component;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -14,8 +14,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 
-import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.client.gui.HUDHandler;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.IVariable;

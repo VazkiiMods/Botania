@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.entity;
+package org.violetmoon.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -22,9 +22,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 public final class ManaTabletRenderHandler extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 

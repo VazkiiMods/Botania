@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.lens;
+package org.violetmoon.botania.common.item.lens;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -15,8 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
 
 public class EntropicLens extends Lens {
 

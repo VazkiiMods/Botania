@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.data.loot;
+package org.violetmoon.botania.data.loot;
 
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
@@ -28,13 +28,13 @@ import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaGrassBlock;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.BotaniaGrassBlock;
+import org.violetmoon.botania.common.block.mana.ManaSpreaderBlock;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 import java.util.*;
 import java.util.stream.Collectors;

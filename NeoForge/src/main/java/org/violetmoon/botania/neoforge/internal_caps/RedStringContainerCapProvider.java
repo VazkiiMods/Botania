@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.internal_caps;
+package org.violetmoon.botania.neoforge.internal_caps;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,7 +19,7 @@ import net.neoforged.neoforge.items.wrapper.EmptyItemHandler;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 
 public class RedStringContainerCapProvider implements ICapabilityProvider<RedStringContainerBlockEntity, @Nullable Direction, IItemHandler> {
 	private static final Lazy<IItemHandler> EMPTY = Lazy.of(EmptyItemHandler::new);

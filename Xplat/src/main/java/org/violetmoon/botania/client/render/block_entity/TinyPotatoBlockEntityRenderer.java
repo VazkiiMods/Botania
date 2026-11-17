@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -40,23 +40,23 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
-import vazkii.botania.common.handler.ContributorList;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.block.TinyPotatoBlockItem;
-import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.core.handler.MiscellaneousModels;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.block.block_entity.TinyPotatoBlockEntity;
+import org.violetmoon.botania.common.handler.ContributorList;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.block.TinyPotatoBlockItem;
+import org.violetmoon.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPotatoBlockEntity> {
 	public static final String DEFAULT = "default";

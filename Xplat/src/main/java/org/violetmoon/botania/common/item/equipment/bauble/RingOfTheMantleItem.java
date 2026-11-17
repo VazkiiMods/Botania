@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,11 +14,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 public class RingOfTheMantleItem extends BaubleItem {
 

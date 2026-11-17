@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.generating;
+package org.violetmoon.botania.common.block.block_entity.flower.generating;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -34,17 +34,17 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
-import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.internal_caps.ItemLifetime;
-import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.internal_caps.ItemLifetime;
+import org.violetmoon.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -15,13 +15,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 
-import vazkii.botania.common.helper.RegistryHelper;
+import org.violetmoon.botania.common.helper.RegistryHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaSounds {
 	private static final List<RegistryHelper.HolderProxy<SoundEvent>> EVENTS = new ArrayList<>();

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.world;
+package org.violetmoon.botania.common.world;
 
 import com.mojang.serialization.Codec;
 
@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-import vazkii.botania.common.block.flower.MysticalFlowerBlock;
+import org.violetmoon.botania.common.block.flower.MysticalFlowerBlock;
 
 /**
  * This Feature is essentially the same as vanilla's

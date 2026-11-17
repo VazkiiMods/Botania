@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -21,15 +21,15 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.recipe.ProcessingRecipeInput;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.recipe.RecipeUtils;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.recipe.RecipeUtils;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApothecaryRecipe {
+public class PetalApothecaryRecipe implements org.violetmoon.botania.api.recipe.PetalApothecaryRecipe {
 	public static final RecipeSerializer<PetalApothecaryRecipe> SERIALIZER = new Serializer();
 	private final ItemStack output;
 	private final Ingredient reagent;

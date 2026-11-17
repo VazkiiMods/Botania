@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei;
+package org.violetmoon.botania.client.integration.jei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -24,15 +24,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.ManaInfusionRecipe;
-import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.crafting.StateIngredients;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.recipe.ManaInfusionRecipe;
+import org.violetmoon.botania.client.gui.HUDHandler;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.crafting.StateIngredients;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaPoolRecipeCategory extends BotaniaRecipeCategoryBase<ManaInfusionRecipe> {
 

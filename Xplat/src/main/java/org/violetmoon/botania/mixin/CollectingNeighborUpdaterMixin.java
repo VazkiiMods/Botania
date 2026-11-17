@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.level.redstone.CollectingNeighborUpdater;
 
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.CollectingNeighborUpdaterAccess;
+import org.violetmoon.botania.common.CollectingNeighborUpdaterAccess;
 
 @Mixin(CollectingNeighborUpdater.class)
 abstract class CollectingNeighborUpdaterMixin implements CollectingNeighborUpdaterAccess {

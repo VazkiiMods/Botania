@@ -7,14 +7,14 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.emi;
+package org.violetmoon.botania.client.integration.emi;
 
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.Widget;
 
 import net.minecraft.client.gui.GuiGraphics;
 
-import vazkii.botania.client.gui.HUDHandler;
+import org.violetmoon.botania.client.gui.HUDHandler;
 
 public class ManaWidget extends Widget {
 	private final int x, y;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -28,8 +28,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin_NoDespawn extends Entity {

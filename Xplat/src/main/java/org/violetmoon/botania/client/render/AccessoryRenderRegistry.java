@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.render;
+package org.violetmoon.botania.client.render;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

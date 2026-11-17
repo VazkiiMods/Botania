@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.rod;
+package org.violetmoon.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,10 +24,10 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.helper.VecHelper;
 
 public class HighlandsRodItem extends LandsRodItem {
 

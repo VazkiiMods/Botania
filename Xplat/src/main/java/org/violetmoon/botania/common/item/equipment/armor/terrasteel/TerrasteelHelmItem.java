@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.armor.terrasteel;
+package org.violetmoon.botania.common.item.equipment.armor.terrasteel;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -25,12 +25,12 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
-import vazkii.botania.api.item.AncientWillContainer;
-import vazkii.botania.api.mana.ManaDiscountArmor;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.BotaniaDamageTypes;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.item.AncientWillContainer;
+import org.violetmoon.botania.api.mana.ManaDiscountArmor;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.common.BotaniaDamageTypes;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 import java.util.*;
 

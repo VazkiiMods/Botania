@@ -6,20 +6,20 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.handler;
+package org.violetmoon.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 
-import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.client.render.block_entity.RedStringBlockEntityRenderer;
-import vazkii.botania.common.block.block_entity.flower.functional.VinculotusBlockEntity;
-import vazkii.botania.common.handler.ManaNetworkHandler;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.LexicaBotaniaItem;
-import vazkii.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.client.gui.ItemsRemainingRenderHandler;
+import org.violetmoon.botania.client.render.block_entity.RedStringBlockEntityRenderer;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.VinculotusBlockEntity;
+import org.violetmoon.botania.common.handler.ManaNetworkHandler;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.LexicaBotaniaItem;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
 
 public final class ClientTickHandler {
 

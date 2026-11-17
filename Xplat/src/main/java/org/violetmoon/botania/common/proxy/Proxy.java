@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.proxy;
+package org.violetmoon.botania.common.proxy;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -20,9 +20,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Locale;

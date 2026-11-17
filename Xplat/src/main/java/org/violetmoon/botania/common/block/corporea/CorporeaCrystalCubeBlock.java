@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.corporea;
+package org.violetmoon.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -30,12 +30,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
-import vazkii.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.common.block.BotaniaWaterloggedEntityBlock;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
 
 public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedEntityBlock {
 

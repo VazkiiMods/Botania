@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin.client;
+package org.violetmoon.botania.fabric.mixin.client;
 
 import net.minecraft.client.renderer.texture.AbstractTexture;
 
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
-import vazkii.botania.fabric.client.ExtendedTexture;
+import org.violetmoon.botania.fabric.client.ExtendedTexture;
 
 @Mixin(AbstractTexture.class)
 public abstract class AbstractTextureFabricMixin implements ExtendedTexture {

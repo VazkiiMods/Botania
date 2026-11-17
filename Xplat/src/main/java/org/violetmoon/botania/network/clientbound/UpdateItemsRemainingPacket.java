@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.network.clientbound;
+package org.violetmoon.botania.network.clientbound;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -19,11 +19,11 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
+import org.violetmoon.botania.client.gui.ItemsRemainingRenderHandler;
 
 import java.util.Optional;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable Component tooltip) implements CustomPacketPayload {
 

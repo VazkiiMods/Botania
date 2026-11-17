@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test;
+package org.violetmoon.botania.test;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -35,9 +35,9 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.ConventionalBotaniaTags;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.lib.ConventionalBotaniaTags;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

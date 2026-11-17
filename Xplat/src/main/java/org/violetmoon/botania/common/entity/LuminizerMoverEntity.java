@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.entity;
+package org.violetmoon.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,12 +30,12 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.block.Bound;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.block.LuminizerBlock;
-import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.api.block.Bound;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.block.LuminizerBlock;
+import org.violetmoon.botania.common.block.block_entity.LuminizerBlockEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 public class LuminizerMoverEntity extends Entity {
 	private static final String TAG_EXIT_POS = "exitPos";

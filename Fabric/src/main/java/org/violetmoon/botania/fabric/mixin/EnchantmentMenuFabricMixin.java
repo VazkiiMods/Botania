@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin;
+package org.violetmoon.botania.fabric.mixin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.inventory.EnchantmentMenu;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import vazkii.botania.common.block.PylonBlock;
+import org.violetmoon.botania.common.block.PylonBlock;
 
 @Mixin(EnchantmentMenu.class)
 public class EnchantmentMenuFabricMixin {

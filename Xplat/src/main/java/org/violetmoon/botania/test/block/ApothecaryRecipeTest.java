@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.block;
+package org.violetmoon.botania.test.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
@@ -16,10 +16,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block.PetalApothecary;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.PetalApothecaryBlock;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.block.PetalApothecary;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.PetalApothecaryBlock;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 public class ApothecaryRecipeTest {
 

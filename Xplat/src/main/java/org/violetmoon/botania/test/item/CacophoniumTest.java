@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.test.item;
+package org.violetmoon.botania.test.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
@@ -22,12 +22,12 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.CacophoniumItem;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.CacophoniumBlockEntity;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.CacophoniumItem;
+import org.violetmoon.botania.test.TestingUtil;
 
 // https://github.com/williewillus/botania-fabric-issues/issues/92
 public class CacophoniumTest {

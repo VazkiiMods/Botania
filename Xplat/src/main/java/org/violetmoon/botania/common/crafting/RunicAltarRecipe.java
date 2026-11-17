@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import com.google.common.base.Preconditions;
 import com.mojang.serialization.DataResult;
@@ -30,16 +30,16 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.recipe.ProcessingRecipeInput;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.recipe.RecipeUtils;
-import vazkii.botania.mixin.IngredientAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.recipe.RecipeUtils;
+import org.violetmoon.botania.mixin.IngredientAccessor;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRecipe {
+public class RunicAltarRecipe implements org.violetmoon.botania.api.recipe.RunicAltarRecipe {
 	public static final RecipeSerializer<RunicAltarRecipe> SERIALIZER = new Serializer();
 	private final ItemStack output;
 	private final Ingredient reagent;

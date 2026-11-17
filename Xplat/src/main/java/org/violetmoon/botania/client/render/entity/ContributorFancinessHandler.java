@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.entity;
+package org.violetmoon.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -23,8 +23,8 @@ import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.common.handler.ContributorList;
+import org.violetmoon.botania.client.core.handler.MiscellaneousModels;
+import org.violetmoon.botania.common.handler.ContributorList;
 
 import java.util.*;
 

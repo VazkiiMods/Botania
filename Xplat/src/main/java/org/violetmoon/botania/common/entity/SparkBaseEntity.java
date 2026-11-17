@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.entity;
+package org.violetmoon.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -19,8 +19,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.item.SparkEntity;
-import vazkii.botania.api.mana.ManaCollisionGhost;
+import org.violetmoon.botania.api.item.SparkEntity;
+import org.violetmoon.botania.api.mana.ManaCollisionGhost;
 
 public abstract class SparkBaseEntity extends Entity implements SparkEntity, ManaCollisionGhost {
 	private static final String TAG_INVIS = "invis";

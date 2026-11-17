@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.red_string;
+package org.violetmoon.botania.common.block.red_string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
-import vazkii.botania.common.block.block_entity.red_string.RedStringComparatorBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.red_string.RedStringBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.red_string.RedStringComparatorBlockEntity;
 
 public class RedStringComparatorBlock extends RedStringBlock {
 

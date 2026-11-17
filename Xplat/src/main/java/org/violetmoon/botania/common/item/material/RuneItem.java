@@ -6,12 +6,12 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.material;
+package org.violetmoon.botania.common.item.material;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.recipe.CustomApothecaryColor;
+import org.violetmoon.botania.api.recipe.CustomApothecaryColor;
 
 public class RuneItem extends Item implements CustomApothecaryColor {
 

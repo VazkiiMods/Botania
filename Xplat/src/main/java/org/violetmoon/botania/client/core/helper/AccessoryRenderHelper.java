@@ -6,13 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.helper;
+package org.violetmoon.botania.client.core.helper;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.world.entity.LivingEntity;
 
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.helper.VecHelper;
 
 public final class AccessoryRenderHelper {
 

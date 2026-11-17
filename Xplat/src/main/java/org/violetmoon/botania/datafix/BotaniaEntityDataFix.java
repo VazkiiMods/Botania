@@ -1,4 +1,4 @@
-package vazkii.botania.datafix;
+package org.violetmoon.botania.datafix;
 
 import com.mojang.datafixers.Typed;
 import com.mojang.datafixers.schemas.Schema;

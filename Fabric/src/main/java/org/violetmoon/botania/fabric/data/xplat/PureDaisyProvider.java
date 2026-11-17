@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  *
  */
-package vazkii.botania.fabric.data.xplat;
+package org.violetmoon.botania.fabric.data.xplat;
 
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.HolderLookup;
@@ -21,17 +21,17 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.PureDaisyRecipe;
-import vazkii.botania.common.crafting.StateIngredients;
-import vazkii.botania.data.recipes.BotaniaRecipeProvider;
-import vazkii.botania.data.util.BotaniaRecipeHelper;
+import org.violetmoon.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.crafting.PureDaisyRecipe;
+import org.violetmoon.botania.common.crafting.StateIngredients;
+import org.violetmoon.botania.data.recipes.BotaniaRecipeProvider;
+import org.violetmoon.botania.data.util.BotaniaRecipeHelper;
 
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class PureDaisyProvider extends BotaniaRecipeProvider {
 	public PureDaisyProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {

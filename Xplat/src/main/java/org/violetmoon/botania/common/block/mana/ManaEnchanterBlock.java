@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,11 +27,11 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaEntityBlock;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
-import vazkii.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.common.block.BotaniaEntityBlock;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.ManaEnchanterBlockEntity;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
 
 public class ManaEnchanterBlock extends BotaniaEntityBlock {
 

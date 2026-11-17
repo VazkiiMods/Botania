@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.xplat;
+package org.violetmoon.botania.xplat;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -26,9 +26,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.ServiceUtil;
+import org.violetmoon.botania.api.ServiceUtil;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public interface ClientXplatAbstractions {
 	ResourceLocation FLOATING_FLOWER_MODEL_LOADER_ID = botaniaRL("floating_flower");

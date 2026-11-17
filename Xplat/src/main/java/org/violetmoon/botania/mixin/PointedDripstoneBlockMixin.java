@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-import vazkii.botania.common.block.PetalApothecaryBlock;
+import org.violetmoon.botania.common.block.PetalApothecaryBlock;
 
 import java.util.function.Predicate;
 

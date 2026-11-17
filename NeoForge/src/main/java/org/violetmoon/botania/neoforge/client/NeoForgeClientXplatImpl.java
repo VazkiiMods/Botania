@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.client;
+package org.violetmoon.botania.neoforge.client;
 
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
@@ -35,11 +35,11 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.neoforge.item.TinyPotatoRenderEvent;
-import vazkii.botania.neoforge.client.integration.embeddium.EmbeddiumHelper;
-import vazkii.botania.neoforge.client.integration.sodium.SodiumNeoforgeHelper;
-import vazkii.botania.xplat.ClientXplatAbstractions;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.neoforge.item.TinyPotatoRenderEvent;
+import org.violetmoon.botania.neoforge.client.integration.embeddium.EmbeddiumHelper;
+import org.violetmoon.botania.neoforge.client.integration.sodium.SodiumNeoforgeHelper;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 public class NeoForgeClientXplatImpl implements ClientXplatAbstractions {
 	@Override

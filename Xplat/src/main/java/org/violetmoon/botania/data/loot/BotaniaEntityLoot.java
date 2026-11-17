@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.data.loot;
+package org.violetmoon.botania.data.loot;
 
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
@@ -37,14 +37,14 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWit
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.loot.BindUuid;
-import vazkii.botania.common.loot.BotaniaLootTables;
-import vazkii.botania.common.loot.EnableRelics;
-import vazkii.botania.common.loot.TrueGuardianKiller;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.entity.BotaniaEntities;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.loot.BindUuid;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.common.loot.EnableRelics;
+import org.violetmoon.botania.common.loot.TrueGuardianKiller;
 
 import java.util.function.BiConsumer;
 

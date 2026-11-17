@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.impl.mana;
+package org.violetmoon.botania.common.impl.mana;
 
 import com.google.common.collect.Iterables;
 
@@ -22,10 +22,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ManaProficiencyArmor;
-import vazkii.botania.api.mana.*;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.item.ManaProficiencyArmor;
+import org.violetmoon.botania.api.mana.*;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 

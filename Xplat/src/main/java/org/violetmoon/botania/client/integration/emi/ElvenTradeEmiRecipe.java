@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.emi;
+package org.violetmoon.botania.client.integration.emi;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -30,9 +30,9 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
-import vazkii.botania.api.recipe.ElvenTradeRecipe;
+import org.violetmoon.botania.api.recipe.ElvenTradeRecipe;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/elven_trade_overlay.png");

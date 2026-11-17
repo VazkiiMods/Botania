@@ -6,14 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.brew;
+package org.violetmoon.botania.common.item.brew;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.brew.BrewContainer;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.brew.Brew;
+import org.violetmoon.botania.api.brew.BrewContainer;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 public class VialItem extends Item implements BrewContainer {
 

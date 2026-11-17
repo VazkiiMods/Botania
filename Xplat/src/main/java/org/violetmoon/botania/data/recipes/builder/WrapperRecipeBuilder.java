@@ -7,14 +7,14 @@
  * Botania License: http://botaniamod.net/license.php
  *
  */
-package vazkii.botania.data.recipes.builder;
+package org.violetmoon.botania.data.recipes.builder;
 
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 
-import vazkii.botania.common.crafting.recipe.WrappingRecipeSerializer;
+import org.violetmoon.botania.common.crafting.recipe.WrappingRecipeSerializer;
 
 public class WrapperRecipeBuilder<T extends Recipe<?>> {
 	private final WrappingRecipeSerializer<T> serializer;

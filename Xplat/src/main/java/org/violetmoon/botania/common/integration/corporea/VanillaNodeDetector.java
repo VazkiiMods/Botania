@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.integration.corporea;
+package org.violetmoon.botania.common.integration.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,11 +21,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.corporea.CorporeaNode;
-import vazkii.botania.api.corporea.CorporeaNodeDetector;
-import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.common.impl.corporea.SidedVanillaCorporeaNode;
-import vazkii.botania.common.impl.corporea.VanillaCorporeaNode;
+import org.violetmoon.botania.api.corporea.CorporeaNode;
+import org.violetmoon.botania.api.corporea.CorporeaNodeDetector;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.common.impl.corporea.SidedVanillaCorporeaNode;
+import org.violetmoon.botania.common.impl.corporea.VanillaCorporeaNode;
 
 public class VanillaNodeDetector implements CorporeaNodeDetector {
 	@Nullable

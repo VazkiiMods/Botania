@@ -7,24 +7,24 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.internal_caps;
+package org.violetmoon.botania.common.internal_caps;
 
 import com.mojang.serialization.Codec;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.item.ItemEntity;
 
-import vazkii.botania.api.attachment.DataHolderId;
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
-import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.attachment.DataHolderId;
+import org.violetmoon.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
+import org.violetmoon.botania.api.internal.ItemSource;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Automatically attached to all item entities. Denotes the entity's lifetime in ticks as checked for by flowers.

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -25,13 +25,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.AvatarModel;
-import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.api.item.AvatarWieldable;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.model.AvatarModel;
+import org.violetmoon.botania.client.model.BotaniaModelLayers;
+import org.violetmoon.botania.common.block.block_entity.AvatarBlockEntity;
+import org.violetmoon.botania.common.helper.VecHelper;
 
 public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBlockEntity> {
 

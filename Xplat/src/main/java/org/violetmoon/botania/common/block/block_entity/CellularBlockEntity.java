@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity.Cell;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity.Cell;
 
 public class CellularBlockEntity extends BlockEntity {
 	private static final String TAG_GENERATION = "generation";

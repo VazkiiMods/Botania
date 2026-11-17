@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -21,12 +21,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.api.internal.GaiaFightParticipant;
-import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
-import vazkii.botania.common.internal_caps.LooniumDrop;
-import vazkii.botania.common.item.EquestrianVirusItem;
-import vazkii.botania.common.item.equipment.bauble.CrimsonPendantItem;
+import org.violetmoon.botania.api.internal.GaiaFightParticipant;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
+import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
+import org.violetmoon.botania.common.internal_caps.LooniumDrop;
+import org.violetmoon.botania.common.item.EquestrianVirusItem;
+import org.violetmoon.botania.common.item.equipment.bauble.CrimsonPendantItem;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {

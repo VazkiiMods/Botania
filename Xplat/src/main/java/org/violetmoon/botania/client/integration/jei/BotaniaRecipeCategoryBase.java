@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.client.integration.jei;
+package org.violetmoon.botania.client.integration.jei;
 
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;

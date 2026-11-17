@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
@@ -38,12 +38,12 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.internal.Colored;
-import vazkii.botania.client.gui.bag.ColoredContentsPouchMenu;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.internal.Colored;
+import org.violetmoon.botania.client.gui.bag.ColoredContentsPouchMenu;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.Collections;
 import java.util.List;

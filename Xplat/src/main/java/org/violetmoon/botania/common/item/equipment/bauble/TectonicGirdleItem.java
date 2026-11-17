@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -28,11 +28,11 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.core.helper.AccessoryRenderHelper;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.client.core.helper.AccessoryRenderHelper;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
+import org.violetmoon.botania.client.render.AccessoryRenderer;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 public class TectonicGirdleItem extends BaubleItem {
 

@@ -30,53 +30,53 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "vazkii.botania.fabric.FabricCommonInitializer"
+      "org.violetmoon.botania.fabric.FabricCommonInitializer"
     ],
     "client": [
-      "vazkii.botania.fabric.client.FabricClientInitializer"
+      "org.violetmoon.botania.fabric.client.FabricClientInitializer"
     ],
     "fabric-gametest": [
-      "vazkii.botania.test.block.ApothecaryRecipeTest",
-      "vazkii.botania.test.block.BindingTest",
-      "vazkii.botania.test.block.DandelifeonTest",
-      "vazkii.botania.test.block.DrumBlockTest",
-      "vazkii.botania.test.block.EntropinnyumUnethicalTntDetectionTest",
-      "vazkii.botania.test.block.ForceRelayTest",
-      "vazkii.botania.test.block.HopperhockTest",
-      "vazkii.botania.test.block.IdleFlowerTickingTest",
-      "vazkii.botania.test.block.InterceptorTest",
-      "vazkii.botania.test.block.ManaSpreaderTest",
-      "vazkii.botania.test.block.OpenCrateTest",
-      "vazkii.botania.test.block.RannuncarpusTest",
-      "vazkii.botania.test.block.TargetBlockTest",
-      "vazkii.botania.test.item.AstrolabeTest",
-      "vazkii.botania.test.item.CacophoniumTest",
-      "vazkii.botania.test.item.FlowerPouchTest",
-      "vazkii.botania.test.item.GrassSeedDispensingTest",
-      "vazkii.botania.test.item.LifeAggregatorTest",
-      "vazkii.botania.test.item.RarityConsistencyTest",
-      "vazkii.botania.test.item.SpectatorScanTest",
-      "vazkii.botania.test.item.lens.BoreLensTest",
-      "vazkii.botania.test.item.lens.BoreWarpLensTest",
-      "vazkii.botania.test.item.lens.EntropicWarpLensTest",
-      "vazkii.botania.test.item.lens.PaintslingerLensTest",
-      "vazkii.botania.test.item.lens.WarpForceTest",
-      "vazkii.botania.test.TranslationKeysTest"
+      "org.violetmoon.botania.test.block.ApothecaryRecipeTest",
+      "org.violetmoon.botania.test.block.BindingTest",
+      "org.violetmoon.botania.test.block.DandelifeonTest",
+      "org.violetmoon.botania.test.block.DrumBlockTest",
+      "org.violetmoon.botania.test.block.EntropinnyumUnethicalTntDetectionTest",
+      "org.violetmoon.botania.test.block.ForceRelayTest",
+      "org.violetmoon.botania.test.block.HopperhockTest",
+      "org.violetmoon.botania.test.block.IdleFlowerTickingTest",
+      "org.violetmoon.botania.test.block.InterceptorTest",
+      "org.violetmoon.botania.test.block.ManaSpreaderTest",
+      "org.violetmoon.botania.test.block.OpenCrateTest",
+      "org.violetmoon.botania.test.block.RannuncarpusTest",
+      "org.violetmoon.botania.test.block.TargetBlockTest",
+      "org.violetmoon.botania.test.item.AstrolabeTest",
+      "org.violetmoon.botania.test.item.CacophoniumTest",
+      "org.violetmoon.botania.test.item.FlowerPouchTest",
+      "org.violetmoon.botania.test.item.GrassSeedDispensingTest",
+      "org.violetmoon.botania.test.item.LifeAggregatorTest",
+      "org.violetmoon.botania.test.item.RarityConsistencyTest",
+      "org.violetmoon.botania.test.item.SpectatorScanTest",
+      "org.violetmoon.botania.test.item.lens.BoreLensTest",
+      "org.violetmoon.botania.test.item.lens.BoreWarpLensTest",
+      "org.violetmoon.botania.test.item.lens.EntropicWarpLensTest",
+      "org.violetmoon.botania.test.item.lens.PaintslingerLensTest",
+      "org.violetmoon.botania.test.item.lens.WarpForceTest",
+      "org.violetmoon.botania.test.TranslationKeysTest"
     ],
     "fabric-datagen": [
-      "vazkii.botania.fabric.data.FabricDatagenInitializer"
+      "org.violetmoon.botania.fabric.data.FabricDatagenInitializer"
     ],
     "emi": [
-      "vazkii.botania.client.integration.emi.BotaniaEmiPlugin"
+      "org.violetmoon.botania.client.integration.emi.BotaniaEmiPlugin"
     ],
     "rei_client": [
-      "vazkii.botania.client.integration.rei.BotaniaREIPlugin"
+      "org.violetmoon.botania.client.integration.rei.BotaniaREIPlugin"
     ],
     "jei_mod_plugin": [
-      "vazkii.botania.client.integration.jei.JEIBotaniaPlugin"
+      "org.violetmoon.botania.client.integration.jei.JEIBotaniaPlugin"
     ],
     "speedrunigt": [
-      "vazkii.botania.fabric.integration.speedrunigt.BotaniaSpeedrunIGTPlugin"
+      "org.violetmoon.botania.fabric.integration.speedrunigt.BotaniaSpeedrunIGTPlugin"
     ]
   },
   "mixins": [

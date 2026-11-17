@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  *
  */
-package vazkii.botania.fabric.data.xplat;
+package org.violetmoon.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -32,22 +32,22 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.state.enums.CraftyCratePattern;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.crafting.recipe.*;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.ConventionalBotaniaTags;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.data.recipes.builder.BotaniaSpecialRecipeBuilder;
-import vazkii.botania.data.recipes.builder.TiaraWingsRecipeBuilder;
-import vazkii.botania.data.recipes.builder.WrapperRecipeBuilder;
-import vazkii.botania.fabric.data.FabricDatagenInitializer;
-import vazkii.botania.mixin.RecipeProviderAccessor;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.state.enums.CraftyCratePattern;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.crafting.recipe.*;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.lib.ConventionalBotaniaTags;
+import org.violetmoon.botania.common.lib.LibBlockNames;
+import org.violetmoon.botania.common.lib.LibItemNames;
+import org.violetmoon.botania.data.recipes.builder.BotaniaSpecialRecipeBuilder;
+import org.violetmoon.botania.data.recipes.builder.TiaraWingsRecipeBuilder;
+import org.violetmoon.botania.data.recipes.builder.WrapperRecipeBuilder;
+import org.violetmoon.botania.fabric.data.FabricDatagenInitializer;
+import org.violetmoon.botania.mixin.RecipeProviderAccessor;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -55,7 +55,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class CraftingRecipeProvider extends FabricRecipeProvider {
 

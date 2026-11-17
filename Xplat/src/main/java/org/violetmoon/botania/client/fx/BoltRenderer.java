@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.fx;
+package org.violetmoon.botania.client.fx;
 /*
  * This class is derived from the Mekanism project.
  * See ALTERNATE_LICENSES.txt.
@@ -28,7 +28,7 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Matrix4f;
 
-import vazkii.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
 
 import java.util.Iterator;
 import java.util.LinkedList;

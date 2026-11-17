@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.red_string;
+package org.violetmoon.botania.common.block.block_entity.red_string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class RedStringNutrifierBlockEntity extends RedStringBlockEntity {
 	public RedStringNutrifierBlockEntity(BlockPos pos, BlockState state) {

@@ -33,7 +33,7 @@ tasks.register("normalizeLanguageFiles", JavaExec) {
     group = "verification"
     description = "Normalize language file layout according to en_us.json"
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = "vazkii.botania.data.LangSortTool"
+    mainClass = "org.violetmoon.botania.data.LangSortTool"
     workingDir = projectDir.parent
 }
 

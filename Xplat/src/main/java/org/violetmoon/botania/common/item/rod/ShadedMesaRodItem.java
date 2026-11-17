@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.rod;
+package org.violetmoon.botania.common.item.rod;
 
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,16 +28,16 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.entity.ThrownItemEntity;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.entity.ThrownItemEntity;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
 import java.util.List;

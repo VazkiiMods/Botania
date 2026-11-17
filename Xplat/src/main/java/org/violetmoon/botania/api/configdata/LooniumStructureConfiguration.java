@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.configdata;
+package org.violetmoon.botania.api.configdata;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class LooniumStructureConfiguration {
 	public static final int DEFAULT_COST = 35000;

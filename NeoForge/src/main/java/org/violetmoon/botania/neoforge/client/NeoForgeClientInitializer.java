@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.client;
+package org.violetmoon.botania.neoforge.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -41,37 +41,37 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.api.neoforge.BotaniaNeoForgeCapabilities;
-import vazkii.botania.client.BotaniaClientCapabilities;
-import vazkii.botania.client.BotaniaItemProperties;
-import vazkii.botania.client.core.handler.*;
-import vazkii.botania.client.core.helper.CoreShaders;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.fx.BotaniaParticles;
-import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.client.gui.ManaBarTooltipComponent;
-import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.client.gui.bag.ColoredContentsPouchScreen;
-import vazkii.botania.client.gui.box.TrinketCaseScreen;
-import vazkii.botania.client.gui.enderhand.HandOfEnderScreen;
-import vazkii.botania.client.integration.ears.EarsIntegration;
-import vazkii.botania.client.model.BotaniaLayerDefinitions;
-import vazkii.botania.client.model.armor.ArmorModels;
-import vazkii.botania.client.render.BlockRenderLayers;
-import vazkii.botania.client.render.ColorHandler;
-import vazkii.botania.client.render.entity.EntityRenderers;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.common.handler.BotaniaRecipeIngredientsCache;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
-import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
-import vazkii.botania.xplat.ClientXplatAbstractions;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPIClient;
+import org.violetmoon.botania.api.mana.ManaBarTooltip;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.api.neoforge.BotaniaNeoForgeCapabilities;
+import org.violetmoon.botania.client.BotaniaClientCapabilities;
+import org.violetmoon.botania.client.BotaniaItemProperties;
+import org.violetmoon.botania.client.core.handler.*;
+import org.violetmoon.botania.client.core.helper.CoreShaders;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.client.fx.BotaniaParticles;
+import org.violetmoon.botania.client.gui.HUDHandler;
+import org.violetmoon.botania.client.gui.ManaBarTooltipComponent;
+import org.violetmoon.botania.client.gui.TooltipHandler;
+import org.violetmoon.botania.client.gui.bag.ColoredContentsPouchScreen;
+import org.violetmoon.botania.client.gui.box.TrinketCaseScreen;
+import org.violetmoon.botania.client.gui.enderhand.HandOfEnderScreen;
+import org.violetmoon.botania.client.integration.ears.EarsIntegration;
+import org.violetmoon.botania.client.model.BotaniaLayerDefinitions;
+import org.violetmoon.botania.client.model.armor.ArmorModels;
+import org.violetmoon.botania.client.render.BlockRenderLayers;
+import org.violetmoon.botania.client.render.ColorHandler;
+import org.violetmoon.botania.client.render.entity.EntityRenderers;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import org.violetmoon.botania.common.handler.BotaniaRecipeIngredientsCache;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
+import org.violetmoon.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
 
 import java.io.IOException;
@@ -82,7 +82,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 @EventBusSubscriber(modid = BotaniaAPI.MODID, value = Dist.CLIENT)
 public class NeoForgeClientInitializer {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -19,13 +19,13 @@ import net.minecraft.util.FastColor;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.client.model.TeruTeruBozuModel;
-import vazkii.botania.common.block.block_entity.TeruTeruBozuBlockEntity;
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.model.BotaniaModelLayers;
+import org.violetmoon.botania.client.model.TeruTeruBozuModel;
+import org.violetmoon.botania.common.block.block_entity.TeruTeruBozuBlockEntity;
+import org.violetmoon.botania.common.helper.VecHelper;
 
 import java.util.Random;
 

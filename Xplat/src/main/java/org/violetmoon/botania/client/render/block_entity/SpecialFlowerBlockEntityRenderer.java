@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -28,13 +28,13 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
-import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
+import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
+import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
 public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity> implements BlockEntityRenderer<T> {
 

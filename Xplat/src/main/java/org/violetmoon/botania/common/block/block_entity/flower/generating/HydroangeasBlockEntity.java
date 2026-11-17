@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.generating;
+package org.violetmoon.botania.common.block.block_entity.flower.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,10 +18,10 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";

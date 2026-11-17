@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.integration.corporea;
+package org.violetmoon.botania.neoforge.integration.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,9 +17,9 @@ import net.neoforged.neoforge.items.IItemHandler;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.corporea.CorporeaNode;
-import vazkii.botania.api.corporea.CorporeaNodeDetector;
-import vazkii.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.api.corporea.CorporeaNode;
+import org.violetmoon.botania.api.corporea.CorporeaNodeDetector;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
 
 public class NeoForgeCapCorporeaNodeDetector implements CorporeaNodeDetector {
 	@Nullable

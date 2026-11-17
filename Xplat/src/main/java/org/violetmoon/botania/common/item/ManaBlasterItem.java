@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -29,20 +29,20 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.BasicLensItem;
-import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ControlLensItem;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.common.advancements.ManaBlasterTrigger;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.api.mana.BasicLensItem;
+import org.violetmoon.botania.api.mana.BurstProperties;
+import org.violetmoon.botania.api.mana.ControlLensItem;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.client.gui.ItemsRemainingRenderHandler;
+import org.violetmoon.botania.client.gui.TooltipHandler;
+import org.violetmoon.botania.common.advancements.ManaBlasterTrigger;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.entity.ManaBurstEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 import java.util.List;
 

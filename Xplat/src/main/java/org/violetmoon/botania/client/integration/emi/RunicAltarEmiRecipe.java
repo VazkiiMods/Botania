@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.emi;
+package org.violetmoon.botania.client.integration.emi;
 
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -17,14 +17,14 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import vazkii.botania.api.recipe.RunicAltarRecipe;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.api.recipe.RunicAltarRecipe;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/petal_overlay.png");

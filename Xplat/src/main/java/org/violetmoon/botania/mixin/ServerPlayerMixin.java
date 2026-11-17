@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -21,11 +21,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.BotaniaStats;
-import vazkii.botania.common.entity.LuminizerMoverEntity;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.common.BotaniaStats;
+import org.violetmoon.botania.common.entity.LuminizerMoverEntity;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.world.SkyblockWorldEvents;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin {

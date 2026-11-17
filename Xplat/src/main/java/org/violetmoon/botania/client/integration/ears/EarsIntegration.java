@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.ears;
+package org.violetmoon.botania.client.integration.ears;
 
 import com.unascribed.ears.api.EarsFeatureType;
 import com.unascribed.ears.api.OverrideResult;
@@ -19,10 +19,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.PhantomInkable;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.item.PhantomInkable;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.item.equipment.bauble.FlugelTiaraItem;
 
 public class EarsIntegration {
 	public static void register() {

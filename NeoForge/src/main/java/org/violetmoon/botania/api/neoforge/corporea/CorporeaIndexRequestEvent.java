@@ -6,14 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.neoforge.corporea;
+package org.violetmoon.botania.api.neoforge.corporea;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.ICancellableEvent;
 
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
-import vazkii.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
 
 /**
  * CorporeaIndexRequestEvent is fired when a player attempts to request an item from a corporea index.

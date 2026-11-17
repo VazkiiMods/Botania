@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -24,18 +24,18 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.IslandType;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
-import vazkii.botania.common.item.GrassSeedsItem;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block.IslandType;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.block.flower.FloatingFlowerBaseBlock;
+import org.violetmoon.botania.common.item.GrassSeedsItem;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class FloatingFlowerModelProvider implements DataProvider {
 	private final PackOutput packOutput;

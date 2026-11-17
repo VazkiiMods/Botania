@@ -7,19 +7,19 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block.block_entity.flower;
+package org.violetmoon.botania.common.block.block_entity.flower;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Items;
 
-import vazkii.botania.api.block.IslandType;
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.block.IslandType;
+import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaIslandTypes {
 

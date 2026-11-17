@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool;
+package org.violetmoon.botania.common.item.equipment.tool;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -34,12 +34,12 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.component.ManaRepair;
-import vazkii.botania.common.item.BotaniaItemTiers;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.component.ManaRepair;
+import org.violetmoon.botania.common.item.BotaniaItemTiers;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
 import java.util.function.Predicate;
 
@@ -93,7 +93,7 @@ public final class ToolCommons {
 	/**
 	 * NB: Cannot be called in a call chain leading from PlayerInteractionManager.tryHarvestBlock
 	 * without additional protection like {@link #recCall} in {@link #removeBlocksInIteration}
-	 * or {@link vazkii.botania.common.item.relic.RingOfLokiItem#breakOnAllCursors},
+	 * or {@link org.violetmoon.botania.common.item.relic.RingOfLokiItem#breakOnAllCursors},
 	 * since this method calls that method also and would lead to an infinite loop.
 	 */
 	public static void removeBlockWithDrops(Player player, ItemStack stack, Level world, BlockPos pos,

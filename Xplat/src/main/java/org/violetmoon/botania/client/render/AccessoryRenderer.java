@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.render;
+package org.violetmoon.botania.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 

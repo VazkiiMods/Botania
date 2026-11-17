@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.patchouli.processor;
+package org.violetmoon.botania.client.patchouli.processor;
 
 import com.google.common.collect.ImmutableList;
 
@@ -17,10 +17,10 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.ManaInfusionRecipe;
-import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.recipe.ManaInfusionRecipe;
+import org.violetmoon.botania.client.patchouli.PatchouliUtils;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;

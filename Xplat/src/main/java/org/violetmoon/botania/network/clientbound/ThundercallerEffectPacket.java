@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.network.clientbound;
+package org.violetmoon.botania.network.clientbound;
 
 import it.unimi.dsi.fastutil.ints.IntImmutableList;
 import it.unimi.dsi.fastutil.ints.IntList;
@@ -20,10 +20,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.proxy.Proxy;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 import io.netty.buffer.ByteBuf;
 

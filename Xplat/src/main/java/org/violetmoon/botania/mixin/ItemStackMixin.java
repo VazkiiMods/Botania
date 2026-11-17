@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -19,9 +19,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.component.ManaRepair;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.component.ManaRepair;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.common.world.SkyblockWorldEvents;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 @Mixin(ServerLevel.class)
 public class ServerLevelMixin {

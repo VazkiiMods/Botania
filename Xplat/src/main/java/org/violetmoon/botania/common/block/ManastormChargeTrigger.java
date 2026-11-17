@@ -7,18 +7,18 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.entity.ManaStormEntity;
-import vazkii.botania.mixin.ProjectileAccessor;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.mana.ManaTrigger;
+import org.violetmoon.botania.common.entity.BotaniaEntities;
+import org.violetmoon.botania.common.entity.ManaStormEntity;
+import org.violetmoon.botania.mixin.ProjectileAccessor;
 
 public record ManastormChargeTrigger(Level level, BlockPos pos) implements ManaTrigger {
 

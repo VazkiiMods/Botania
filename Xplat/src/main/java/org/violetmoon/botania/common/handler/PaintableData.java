@@ -6,12 +6,12 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.helper.ColorHelper;
 
 public class PaintableData {
 	public static void init() {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -26,16 +26,16 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.block.Bound;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.api.mana.ManaPool;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
+import org.violetmoon.botania.api.block.Bound;
+import org.violetmoon.botania.api.item.CoordBoundItem;
+import org.violetmoon.botania.api.mana.ManaBarTooltip;
+import org.violetmoon.botania.api.mana.ManaPool;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.impl.mana.DefaultManaItemImpl;
 
 import java.util.Objects;
 import java.util.Optional;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.entity.item.ItemEntity;
 
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.internal_caps.ItemLifetime;
+import org.violetmoon.botania.common.internal_caps.ItemLifetime;
 
 @Mixin(ItemEntity.class)
 public class ItemEntityMixin_UpdateLifetimeData {

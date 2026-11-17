@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.helper;
+package org.violetmoon.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
@@ -47,13 +47,13 @@ import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.render.block_entity.PylonBlockEntityRenderer;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.mixin.client.ItemRendererAccessor;
-import vazkii.botania.mixin.client.RenderTypeAccessor;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.render.block_entity.PylonBlockEntityRenderer;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import org.violetmoon.botania.mixin.client.ItemRendererAccessor;
+import org.violetmoon.botania.mixin.client.RenderTypeAccessor;
 
 import java.util.Arrays;
 import java.util.List;

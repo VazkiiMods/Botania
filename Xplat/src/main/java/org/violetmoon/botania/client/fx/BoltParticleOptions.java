@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.fx;
+package org.violetmoon.botania.client.fx;
 /*
  * This class is derived from the Mekanism project.
  * See ALTERNATE_LICENSES.txt.

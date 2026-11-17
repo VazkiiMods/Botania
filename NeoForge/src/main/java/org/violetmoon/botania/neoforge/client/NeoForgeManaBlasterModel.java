@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.client;
+package org.violetmoon.botania.neoforge.client;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
@@ -22,7 +22,7 @@ import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 
-import vazkii.botania.client.model.ManaBlasterBakedModel;
+import org.violetmoon.botania.client.model.ManaBlasterBakedModel;
 
 import java.util.function.Function;
 

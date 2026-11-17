@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.entity;
+package org.violetmoon.botania.common.entity;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -22,7 +22,7 @@ import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.mixin.WitherEntityAccessor;
+import org.violetmoon.botania.mixin.WitherEntityAccessor;
 
 public class PinkWitherEntity extends WitherBoss {
 	public PinkWitherEntity(EntityType<PinkWitherEntity> type, Level world) {

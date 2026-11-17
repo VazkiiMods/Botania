@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.configdata;
+package org.violetmoon.botania.api.configdata;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;

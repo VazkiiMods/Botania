@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.xplat;
+package org.violetmoon.botania.fabric.xplat;
 
 import com.redlimerl.speedrunigt.timer.InGameTimer;
 
@@ -90,36 +90,36 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.attachment.DataIdBase;
-import vazkii.botania.api.capability.BlockApiNoContext;
-import vazkii.botania.api.capability.BlockApiWithContext;
-import vazkii.botania.api.capability.EntityApiNoContext;
-import vazkii.botania.api.capability.EntityApiWithContext;
-import vazkii.botania.api.capability.ItemApiNoContext;
-import vazkii.botania.api.capability.ItemApiWithContext;
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
-import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.fabric.BotaniaFabricCapabilities;
-import vazkii.botania.api.fabric.corporea.CorporeaIndexRequestCallback;
-import vazkii.botania.api.fabric.corporea.CorporeaRequestCallback;
-import vazkii.botania.api.fabric.mana.ManaDiscountCallback;
-import vazkii.botania.api.fabric.mana.ManaItemsCallback;
-import vazkii.botania.api.fabric.mana.ManaNetworkCallback;
-import vazkii.botania.api.fabric.mana.ManaProficiencyCallback;
-import vazkii.botania.api.fabric.recipe.ElvenPortalUpdateCallback;
-import vazkii.botania.api.mana.*;
-import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
-import vazkii.botania.fabric.integration.speedrunigt.BotaniaSpeedrunIGTPlugin;
-import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
-import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
-import vazkii.botania.fabric.internal_caps.FabricInternalEntityAttachments;
-import vazkii.botania.fabric.mixin.AbstractFurnaceBlockEntityFabricAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.attachment.DataIdBase;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.BlockApiWithContext;
+import org.violetmoon.botania.api.capability.EntityApiNoContext;
+import org.violetmoon.botania.api.capability.EntityApiWithContext;
+import org.violetmoon.botania.api.capability.ItemApiNoContext;
+import org.violetmoon.botania.api.capability.ItemApiWithContext;
+import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.api.fabric.BotaniaFabricCapabilities;
+import org.violetmoon.botania.api.fabric.corporea.CorporeaIndexRequestCallback;
+import org.violetmoon.botania.api.fabric.corporea.CorporeaRequestCallback;
+import org.violetmoon.botania.api.fabric.mana.ManaDiscountCallback;
+import org.violetmoon.botania.api.fabric.mana.ManaItemsCallback;
+import org.violetmoon.botania.api.fabric.mana.ManaNetworkCallback;
+import org.violetmoon.botania.api.fabric.mana.ManaProficiencyCallback;
+import org.violetmoon.botania.api.fabric.recipe.ElvenPortalUpdateCallback;
+import org.violetmoon.botania.api.mana.*;
+import org.violetmoon.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.proxy.Proxy;
+import org.violetmoon.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
+import org.violetmoon.botania.fabric.integration.speedrunigt.BotaniaSpeedrunIGTPlugin;
+import org.violetmoon.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
+import org.violetmoon.botania.fabric.integration.trinkets.TrinketsIntegration;
+import org.violetmoon.botania.fabric.internal_caps.FabricInternalEntityAttachments;
+import org.violetmoon.botania.fabric.mixin.AbstractFurnaceBlockEntityFabricAccessor;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -128,8 +128,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-import static vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
 
 @SuppressWarnings("UnstableApiUsage")
 public class FabricXplatImpl implements XplatAbstractions {

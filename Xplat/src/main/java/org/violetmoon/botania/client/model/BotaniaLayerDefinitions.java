@@ -6,16 +6,16 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.model;
+package org.violetmoon.botania.client.model;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 
-import vazkii.botania.client.model.armor.ElementiumArmorModel;
-import vazkii.botania.client.model.armor.ManasteelArmorModel;
-import vazkii.botania.client.model.armor.ManaweaveRobeModel;
-import vazkii.botania.client.model.armor.TerrasteelArmorModel;
-import vazkii.botania.client.render.block_entity.CorporeaIndexBlockEntityRenderer;
+import org.violetmoon.botania.client.model.armor.ElementiumArmorModel;
+import org.violetmoon.botania.client.model.armor.ManasteelArmorModel;
+import org.violetmoon.botania.client.model.armor.ManaweaveRobeModel;
+import org.violetmoon.botania.client.model.armor.TerrasteelArmorModel;
+import org.violetmoon.botania.client.render.block_entity.CorporeaIndexBlockEntityRenderer;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;

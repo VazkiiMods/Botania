@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -28,11 +28,11 @@ import net.minecraft.world.item.ItemStack;
 
 import org.joml.Quaternionf;
 
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.block.block_entity.RunicAltarBlockEntity;
+import org.violetmoon.botania.common.helper.VecHelper;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicAltarBlockEntity> {
 	private final ModelPart spinningCube;

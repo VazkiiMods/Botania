@@ -1,4 +1,4 @@
-package vazkii.botania.datafix;
+package org.violetmoon.botania.datafix;
 
 import com.google.common.collect.*;
 import com.mojang.serialization.*;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.chunk.PalettedContainer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.state.enums.HopperhockFilterType;
+import org.violetmoon.botania.api.state.enums.HopperhockFilterType;
 
 import java.util.*;
 import java.util.function.Consumer;

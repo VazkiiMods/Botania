@@ -6,14 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.impl.corporea;
+package org.violetmoon.botania.common.impl.corporea;
 
 import net.minecraft.world.entity.LivingEntity;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.corporea.CorporeaRequest;
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import org.violetmoon.botania.api.corporea.CorporeaRequest;
+import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
 
 public class CorporeaRequestImpl implements CorporeaRequest {
 	private final CorporeaRequestMatcher matcher;

@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.data.recipes.builder;
+package org.violetmoon.botania.data.recipes.builder;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -22,8 +22,8 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import vazkii.botania.common.crafting.recipe.TiaraWingsRecipe;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.crafting.recipe.TiaraWingsRecipe;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -7,12 +7,12 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.crafting.recipe;
+package org.violetmoon.botania.common.crafting.recipe;
 
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.recipe.ProcessingRecipeInput;
+import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
 
 import java.util.Arrays;
 import java.util.List;

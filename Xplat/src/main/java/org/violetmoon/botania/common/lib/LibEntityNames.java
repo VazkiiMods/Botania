@@ -6,11 +6,11 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.lib;
+package org.violetmoon.botania.common.lib;
 
 import net.minecraft.resources.ResourceLocation;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public final class LibEntityNames {
 	public static final ResourceLocation MANA_BURST = botaniaRL("mana_burst");

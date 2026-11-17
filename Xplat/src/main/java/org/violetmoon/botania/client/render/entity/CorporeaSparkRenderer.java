@@ -6,18 +6,18 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.entity;
+package org.violetmoon.botania.client.render.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import vazkii.botania.common.entity.CorporeaSparkEntity;
+import org.violetmoon.botania.common.entity.CorporeaSparkEntity;
 
 import java.util.Objects;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class CorporeaSparkRenderer extends BaseSparkRenderer<CorporeaSparkEntity> {
 	private final TextureAtlasSprite corporeaWorldSprite;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting.recipe;
+package org.violetmoon.botania.common.crafting.recipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
@@ -17,8 +17,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.item.PhantomInkable;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.item.PhantomInkable;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 public class PhantomInkRecipe extends CustomRecipe {
 	public static final RecipeSerializer<PhantomInkRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(PhantomInkRecipe::new);

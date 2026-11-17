@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.client.core.handler.RenderLexicon;
+import org.violetmoon.botania.client.core.handler.RenderLexicon;
 
 @Mixin(ItemInHandRenderer.class)
 public class ItemInHandRendererMixin {

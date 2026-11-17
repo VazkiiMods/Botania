@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
@@ -34,13 +34,13 @@ import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.configdata.LooniumStructureConfiguration;
-import vazkii.botania.api.configdata.MobAttributeModifier;
-import vazkii.botania.api.configdata.MobEffectToApply;
-import vazkii.botania.api.configdata.MobSpawnData;
-import vazkii.botania.common.config.ConfigDataManagerImpl;
-import vazkii.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.configdata.LooniumStructureConfiguration;
+import org.violetmoon.botania.api.configdata.MobAttributeModifier;
+import org.violetmoon.botania.api.configdata.MobEffectToApply;
+import org.violetmoon.botania.api.configdata.MobSpawnData;
+import org.violetmoon.botania.common.config.ConfigDataManagerImpl;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class LooniumStructureConfigurationProvider implements DataProvider {
 

@@ -6,16 +6,16 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.generating;
+package org.violetmoon.botania.common.block.block_entity.flower.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	public static final int COOLDOWN_TICKS_MULTIPLER = 6000;

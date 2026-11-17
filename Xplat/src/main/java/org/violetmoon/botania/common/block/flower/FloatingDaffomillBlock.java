@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block.flower;
+package org.violetmoon.botania.common.block.flower;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
 
 import java.util.function.Supplier;
 

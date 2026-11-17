@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  *
  */
-package vazkii.botania.fabric.data.xplat;
+package org.violetmoon.botania.fabric.data.xplat;
 
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
@@ -22,14 +22,14 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.data.recipes.BotaniaRecipeProvider;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.lib.LibBlockNames;
+import org.violetmoon.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-import static vazkii.botania.data.util.BotaniaRecipeHelper.deriveRecipeId;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.data.util.BotaniaRecipeHelper.deriveRecipeId;
 
 public class SmeltingProvider extends BotaniaRecipeProvider {
 	public SmeltingProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {

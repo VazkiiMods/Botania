@@ -1,4 +1,4 @@
-package vazkii.botania.mixin.datafixers;
+package org.violetmoon.botania.mixin.datafixers;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.MapCodec;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.datafix.ChunkStorageMigration;
+import org.violetmoon.botania.datafix.ChunkStorageMigration;
 
 import java.util.Optional;
 import java.util.function.Supplier;

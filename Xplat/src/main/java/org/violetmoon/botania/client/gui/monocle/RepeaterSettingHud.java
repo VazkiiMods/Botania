@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.gui.monocle;
+package org.violetmoon.botania.client.gui.monocle;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.RepeaterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.client.integration.shared.LocaleHelper;
+import org.violetmoon.botania.client.integration.shared.LocaleHelper;
 
 public record RepeaterSettingHud(BlockState state) implements SimpleTextAndIconMonocleHud {
 

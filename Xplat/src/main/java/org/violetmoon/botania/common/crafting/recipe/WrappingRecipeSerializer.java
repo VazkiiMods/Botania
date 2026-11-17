@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.crafting.recipe;
+package org.violetmoon.botania.common.crafting.recipe;
 
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;

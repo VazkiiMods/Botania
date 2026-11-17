@@ -6,9 +6,9 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.lib;
+package org.violetmoon.botania.client.lib;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPI;
 
 public final class ResourcesLib {
 

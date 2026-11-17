@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.model;
+package org.violetmoon.botania.client.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -17,8 +17,8 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.HumanoidArm;
 
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
 
 // [VanillaCopy] PlayerModel, only the parts relevant to the Gaia Guardian
 public class GaiaGuardianModel extends HumanoidModel<GaiaGuardianEntity> {

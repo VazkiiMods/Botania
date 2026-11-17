@@ -7,14 +7,14 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.internal_caps;
+package org.violetmoon.botania.fabric.internal_caps;
 
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 
-import vazkii.botania.api.attachment.DataIdBase;
+import org.violetmoon.botania.api.attachment.DataIdBase;
 
 import java.util.Map;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -20,14 +20,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.client.model.HourglassModel;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.HoveringHourglassBlock;
-import vazkii.botania.common.block.block_entity.HoveringHourglassBlockEntity;
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.model.BotaniaModelLayers;
+import org.violetmoon.botania.client.model.HourglassModel;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.HoveringHourglassBlock;
+import org.violetmoon.botania.common.block.block_entity.HoveringHourglassBlockEntity;
+import org.violetmoon.botania.common.helper.VecHelper;
 
 import java.util.Random;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.lib;
+package org.violetmoon.botania.common.lib;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.material.Fluid;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-import static vazkii.botania.api.BotaniaAPI.gogRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.gogRL;
 
 public class BotaniaTags {
 	public static class Items {

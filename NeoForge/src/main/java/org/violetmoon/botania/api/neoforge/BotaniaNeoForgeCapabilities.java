@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.neoforge;
+package org.violetmoon.botania.api.neoforge;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -21,23 +21,23 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.capability.ApiIdBlock;
-import vazkii.botania.api.capability.ApiIdEntity;
-import vazkii.botania.api.capability.ApiIdItem;
-import vazkii.botania.api.capability.BlockApiNoContext;
-import vazkii.botania.api.capability.BlockApiWithContext;
-import vazkii.botania.api.capability.EntityApiNoContext;
-import vazkii.botania.api.capability.EntityApiWithContext;
-import vazkii.botania.api.capability.ItemApiNoContext;
-import vazkii.botania.api.capability.ItemApiWithContext;
-import vazkii.botania.api.capability.registration.ApiIdRegistration;
-import vazkii.botania.api.capability.registration.ApiProviderRegistration;
-import vazkii.botania.api.capability.registration.BlockRegistrationNoContext;
-import vazkii.botania.api.capability.registration.BlockRegistrationWithContext;
-import vazkii.botania.api.capability.registration.EntityRegistrationNoContext;
-import vazkii.botania.api.capability.registration.EntityRegistrationWithContext;
-import vazkii.botania.api.capability.registration.ItemRegistrationNoContext;
-import vazkii.botania.api.capability.registration.ItemRegistrationWithContext;
+import org.violetmoon.botania.api.capability.ApiIdBlock;
+import org.violetmoon.botania.api.capability.ApiIdEntity;
+import org.violetmoon.botania.api.capability.ApiIdItem;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.BlockApiWithContext;
+import org.violetmoon.botania.api.capability.EntityApiNoContext;
+import org.violetmoon.botania.api.capability.EntityApiWithContext;
+import org.violetmoon.botania.api.capability.ItemApiNoContext;
+import org.violetmoon.botania.api.capability.ItemApiWithContext;
+import org.violetmoon.botania.api.capability.registration.ApiIdRegistration;
+import org.violetmoon.botania.api.capability.registration.ApiProviderRegistration;
+import org.violetmoon.botania.api.capability.registration.BlockRegistrationNoContext;
+import org.violetmoon.botania.api.capability.registration.BlockRegistrationWithContext;
+import org.violetmoon.botania.api.capability.registration.EntityRegistrationNoContext;
+import org.violetmoon.botania.api.capability.registration.EntityRegistrationWithContext;
+import org.violetmoon.botania.api.capability.registration.ItemRegistrationNoContext;
+import org.violetmoon.botania.api.capability.registration.ItemRegistrationWithContext;
 
 import java.util.IdentityHashMap;
 import java.util.Map;

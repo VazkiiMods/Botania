@@ -1,11 +1,11 @@
-package vazkii.botania.fabric.integration.speedrunigt;
+package org.violetmoon.botania.fabric.integration.speedrunigt;
 
 import com.redlimerl.speedrunigt.api.SpeedRunIGTApi;
 import com.redlimerl.speedrunigt.timer.InGameTimer;
 import com.redlimerl.speedrunigt.timer.category.RunCategory;
 
-import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
-import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
+import org.violetmoon.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
+import org.violetmoon.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

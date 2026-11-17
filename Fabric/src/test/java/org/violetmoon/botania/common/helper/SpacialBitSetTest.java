@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.helper;
+package org.violetmoon.botania.common.helper;
 
 import net.minecraft.core.BlockPos;
 

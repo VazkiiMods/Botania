@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -41,12 +41,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.common.proxy.Proxy;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -59,7 +59,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class SextantItem extends Item {
 	public static final ResourceLocation MULTIBLOCK_ID = botaniaRL("worldshapers_sextant");

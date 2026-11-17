@@ -7,15 +7,15 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.common.lib.LibBlockNames;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 public class BotaniaBlockSetTypes {
 

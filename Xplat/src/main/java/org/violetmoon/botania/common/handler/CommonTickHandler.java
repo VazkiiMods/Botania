@@ -6,12 +6,12 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.server.level.ServerLevel;
 
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.common.impl.corporea.CorporeaHelperImpl;
+import org.violetmoon.botania.api.corporea.CorporeaHelper;
+import org.violetmoon.botania.common.impl.corporea.CorporeaHelperImpl;
 
 public final class CommonTickHandler {
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.rei;
+package org.violetmoon.botania.client.integration.rei;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -23,8 +23,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
 
 import java.util.ArrayList;
 import java.util.List;

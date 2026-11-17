@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.data.recipes.builder;
+package org.violetmoon.botania.data.recipes.builder;
 
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -20,7 +20,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.Optional;
 import java.util.function.Consumer;

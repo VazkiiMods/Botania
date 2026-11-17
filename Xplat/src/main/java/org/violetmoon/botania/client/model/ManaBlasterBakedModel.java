@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.model;
+package org.violetmoon.botania.client.model;
 
 import com.google.common.base.Preconditions;
 import com.mojang.math.Transformation;
@@ -30,8 +30,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.ManaBlasterItem;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.ManaBlasterItem;
 
 import java.util.*;
 

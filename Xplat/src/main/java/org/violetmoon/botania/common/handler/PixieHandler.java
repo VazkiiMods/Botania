@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -23,16 +23,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-import vazkii.botania.common.entity.PixieEntity;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.helper.RegistryHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.armor.elementium.ElementiumHelmItem;
+import org.violetmoon.botania.common.entity.PixieEntity;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.helper.RegistryHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.armor.elementium.ElementiumHelmItem;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public final class PixieHandler {
 

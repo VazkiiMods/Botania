@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data.recipes;
+package org.violetmoon.botania.data.recipes;
 
 import com.google.common.collect.Sets;
 
@@ -21,7 +21,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;

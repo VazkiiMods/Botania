@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -22,12 +22,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.RedstoneSensitiveBlock;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaEntityBlock;
-import vazkii.botania.common.block.OpenCrateBlock;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.mana.SpreaderTurntableBlockEntity;
+import org.violetmoon.botania.api.block.RedstoneSensitiveBlock;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.common.block.BotaniaEntityBlock;
+import org.violetmoon.botania.common.block.OpenCrateBlock;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.mana.SpreaderTurntableBlockEntity;
 
 public class SpreaderTurntableBlock extends BotaniaEntityBlock {
 

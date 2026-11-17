@@ -7,11 +7,11 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.impl.corporea;
+package org.violetmoon.botania.common.impl.corporea;
 
-import vazkii.botania.api.corporea.CorporeaHelper;
+import org.violetmoon.botania.api.corporea.CorporeaHelper;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public final class DefaultCorporeaMatchers {
 	public static void init() {

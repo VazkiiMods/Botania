@@ -7,11 +7,11 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.client.integration.rei;
+package org.violetmoon.botania.neoforge.client.integration.rei;
 
 import me.shedaniel.rei.forge.REIPluginClient;
 
-import vazkii.botania.client.integration.rei.BotaniaREIPlugin;
+import org.violetmoon.botania.client.integration.rei.BotaniaREIPlugin;
 
 /*
  * For some reason REI requires two different ways to register its plugins for (Neo)Forge and Fabric, respectively.

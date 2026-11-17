@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -22,8 +22,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.entity.GaiaGuardianEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {

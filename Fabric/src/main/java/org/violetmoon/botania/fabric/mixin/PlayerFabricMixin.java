@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin;
+package org.violetmoon.botania.fabric.mixin;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.damagesource.DamageSource;
@@ -33,12 +33,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import vazkii.botania.common.PlayerAccess;
-import vazkii.botania.common.block.block_entity.EnderOverseerBlockEntity;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.handler.PixieHandler;
-import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
-import vazkii.botania.common.item.equipment.bauble.*;
+import org.violetmoon.botania.common.PlayerAccess;
+import org.violetmoon.botania.common.block.block_entity.EnderOverseerBlockEntity;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.handler.PixieHandler;
+import org.violetmoon.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
+import org.violetmoon.botania.common.item.equipment.bauble.*;
 
 @Mixin(Player.class)
 public abstract class PlayerFabricMixin extends LivingEntity {

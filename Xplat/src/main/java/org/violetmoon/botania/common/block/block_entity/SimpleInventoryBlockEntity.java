@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import com.google.common.base.Preconditions;
 
@@ -33,8 +33,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.ProcessingRecipeInput;
-import vazkii.botania.common.crafting.recipe.RecipeUtils;
+import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
+import org.violetmoon.botania.common.crafting.recipe.RecipeUtils;
 
 public abstract class SimpleInventoryBlockEntity extends BlockEntity implements Clearable {
 

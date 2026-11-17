@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.world;
+package org.violetmoon.botania.common.world;
 
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -33,18 +33,18 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.loot.BotaniaLootTables;
-import vazkii.botania.network.clientbound.GogWorldPacket;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.ManaFlameBlockEntity;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.network.clientbound.GogWorldPacket;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public final class SkyblockWorldEvents {
 

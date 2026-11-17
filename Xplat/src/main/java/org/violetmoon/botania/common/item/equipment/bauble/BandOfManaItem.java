@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -15,14 +15,14 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
-import vazkii.botania.common.item.CustomCreativeTabContents;
-import vazkii.botania.common.item.ManaTabletItem;
+import org.violetmoon.botania.api.mana.ManaBarTooltip;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.impl.mana.DefaultManaItemImpl;
+import org.violetmoon.botania.common.item.CustomCreativeTabContents;
+import org.violetmoon.botania.common.item.ManaTabletItem;
 
 import java.util.Optional;
 

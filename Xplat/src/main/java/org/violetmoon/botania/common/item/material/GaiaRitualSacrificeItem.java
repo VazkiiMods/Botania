@@ -6,13 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.material;
+package org.violetmoon.botania.common.item.material;
 
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 
-import vazkii.botania.common.entity.GaiaGuardianEntity;
+import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
 
 public class GaiaRitualSacrificeItem extends Item {
 	private final boolean hardMode;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.data.gog;
+package org.violetmoon.botania.neoforge.data.gog;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -22,11 +22,11 @@ import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPI;
 
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.gogRL;
+import static org.violetmoon.botania.api.BotaniaAPI.gogRL;
 
 public class GogGlobalLootModifierProvider extends GlobalLootModifierProvider {
 	public GogGlobalLootModifierProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

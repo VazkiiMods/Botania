@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.client.core.SkyblockWorldInfo;
+import org.violetmoon.botania.client.core.SkyblockWorldInfo;
 
 @Mixin(ClientLevel.ClientLevelData.class)
 public abstract class ClientLevelDataMixin implements SkyblockWorldInfo {

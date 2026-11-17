@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.item;
+package org.violetmoon.botania.test.item;
 
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -16,11 +16,11 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.ColoredContentsPouchItem;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.ColoredContentsPouchItem;
+import org.violetmoon.botania.test.TestingUtil;
 
 public class FlowerPouchTest {
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)

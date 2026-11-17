@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.item;
+package org.violetmoon.botania.test.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;

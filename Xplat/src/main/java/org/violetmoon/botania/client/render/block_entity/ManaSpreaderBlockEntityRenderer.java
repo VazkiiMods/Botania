@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -27,13 +27,13 @@ import net.minecraft.world.item.ItemStack;
 
 import org.joml.Quaternionf;
 
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
+import org.violetmoon.botania.common.block.mana.ManaSpreaderBlock;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -42,7 +42,7 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<ManaSpreaderBlockEntity> {
 	public static final Map<DyeColor, ResourceLocation> WOOL_PADDING_IDS = new EnumMap<>(

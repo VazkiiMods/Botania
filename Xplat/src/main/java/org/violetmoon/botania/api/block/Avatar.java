@@ -6,13 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.block;
+package org.violetmoon.botania.api.block;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.block_entity.BlockEntityInterface;
+import org.violetmoon.botania.api.block_entity.BlockEntityInterface;
 
 /**
  * Base interface for the Avatar Block Entity

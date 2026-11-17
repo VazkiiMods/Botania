@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -16,9 +16,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.item.SortableTool;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.mixin.ServerPlayerGameModeAccessor;
+import org.violetmoon.botania.api.item.SortableTool;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.mixin.ServerPlayerGameModeAccessor;
 
 public class RingOfCorrectionItem extends BaubleItem {
 

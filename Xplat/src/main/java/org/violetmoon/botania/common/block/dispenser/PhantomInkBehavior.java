@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block.dispenser;
+package org.violetmoon.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.block.PhantomInkableBlock;
+import org.violetmoon.botania.api.block.PhantomInkableBlock;
 
 public class PhantomInkBehavior extends OptionalDispenseItemBehavior {
 	@NotNull

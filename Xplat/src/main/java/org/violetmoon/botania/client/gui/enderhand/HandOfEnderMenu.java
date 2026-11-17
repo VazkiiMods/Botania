@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.gui.enderhand;
+package org.violetmoon.botania.client.gui.enderhand;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -18,9 +18,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.inventory.BotaniaMenuWithLockedSlot;
-import vazkii.botania.client.gui.SlotLocked;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.inventory.BotaniaMenuWithLockedSlot;
+import org.violetmoon.botania.client.gui.SlotLocked;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 // [VanillaCopy] ChestMenu (3 rows), except the slot containing the Hand of Ender is locked
 public class HandOfEnderMenu extends AbstractContainerMenu implements BotaniaMenuWithLockedSlot {

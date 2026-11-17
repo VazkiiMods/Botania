@@ -7,9 +7,9 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.data;
+package org.violetmoon.botania.fabric.data;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPI;
 
 public class FabricDatagenMixinHelper {
 	public static boolean isBotaniaDatagen() {

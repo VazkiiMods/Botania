@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.command;
+package org.violetmoon.botania.common.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -28,10 +28,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-import vazkii.botania.common.world.IslandPos;
-import vazkii.botania.common.world.SkyblockChunkGenerator;
-import vazkii.botania.common.world.SkyblockSavedData;
-import vazkii.botania.common.world.SkyblockWorldEvents;
+import org.violetmoon.botania.common.world.IslandPos;
+import org.violetmoon.botania.common.world.SkyblockChunkGenerator;
+import org.violetmoon.botania.common.world.SkyblockSavedData;
+import org.violetmoon.botania.common.world.SkyblockWorldEvents;
 
 import java.util.UUID;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.client;
+package org.violetmoon.botania.fabric.client;
 
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
@@ -17,9 +17,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.PlatformBlock;
-import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.block.PlatformBlock;
+import org.violetmoon.botania.common.block.block_entity.PlatformBlockEntity;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.function.Supplier;
 

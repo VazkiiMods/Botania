@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.fabric.data;
+package org.violetmoon.botania.fabric.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

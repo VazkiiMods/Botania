@@ -6,15 +6,15 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 public class StarfieldCreatorBlockEntity extends BlockEntity {
 	public StarfieldCreatorBlockEntity(BlockPos pos, BlockState state) {

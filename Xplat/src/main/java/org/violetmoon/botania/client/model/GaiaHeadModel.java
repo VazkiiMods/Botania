@@ -6,14 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.model;
+package org.violetmoon.botania.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.model.SkullModelBase;
 
-import vazkii.botania.client.render.block_entity.GaiaHeadBlockEntityRenderer;
+import org.violetmoon.botania.client.render.block_entity.GaiaHeadBlockEntityRenderer;
 
 public class GaiaHeadModel extends SkullModelBase {
 	@Override

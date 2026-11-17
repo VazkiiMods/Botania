@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.mana;
+package org.violetmoon.botania.common.block.block_entity.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -15,10 +15,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.block_entity.BlockEntityInterface;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.api.block_entity.BlockEntityInterface;
+import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
 
 /**
  * A BlockEntity that will only send a few packets rather than one for every client-visible change.

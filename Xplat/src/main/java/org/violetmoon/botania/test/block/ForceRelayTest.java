@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.test.block;
+package org.violetmoon.botania.test.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
@@ -14,9 +14,9 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.ForceRelayBlock;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.ForceRelayBlock;
+import org.violetmoon.botania.test.TestingUtil;
 
 public class ForceRelayTest {
 	@GameTest(template = "botania:block/force_relay_basic")

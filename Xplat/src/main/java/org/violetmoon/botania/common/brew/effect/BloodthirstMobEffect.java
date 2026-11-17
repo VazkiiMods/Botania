@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.brew.effect;
+package org.violetmoon.botania.common.brew.effect;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.brew.BotaniaMobEffects;
+import org.violetmoon.botania.common.brew.BotaniaMobEffects;
 
 public class BloodthirstMobEffect extends MobEffect {
 

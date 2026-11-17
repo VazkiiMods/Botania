@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.block;
+package org.violetmoon.botania.test.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
@@ -19,9 +19,9 @@ import net.minecraft.world.level.block.CandleBlock;
 import net.minecraft.world.level.block.SeaPickleBlock;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.block.block_entity.flower.functional.RannuncarpusBlockEntity;
-import vazkii.botania.common.internal_caps.ItemLifetime;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.RannuncarpusBlockEntity;
+import org.violetmoon.botania.common.internal_caps.ItemLifetime;
+import org.violetmoon.botania.test.TestingUtil;
 
 public class RannuncarpusTest {
 	private static final String TEMPLATE = "botania:block/rannuncarpus";

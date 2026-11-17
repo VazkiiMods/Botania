@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
 
@@ -23,9 +23,9 @@ import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.mutable.MutableFloat;
 
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
 

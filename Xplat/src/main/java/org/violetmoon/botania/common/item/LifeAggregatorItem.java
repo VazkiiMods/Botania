@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import com.mojang.datafixers.util.Pair;
 
@@ -33,13 +33,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.block.LifeAggregatorCarryable;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.api.block.LifeAggregatorCarryable;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.advancements.UseItemSuccessTrigger;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -21,12 +21,12 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
-import vazkii.botania.api.item.CosmeticBauble;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.api.item.CosmeticBauble;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
+import org.violetmoon.botania.client.render.AccessoryRenderer;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 import java.util.List;
 

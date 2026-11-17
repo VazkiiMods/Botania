@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api;
+package org.violetmoon.botania.api;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.DefaultedRegistry;
@@ -29,19 +29,19 @@ import org.jetbrains.annotations.UnknownNullability;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import vazkii.botania.api.attachment.DataIdBase;
-import vazkii.botania.api.block.IslandType;
-import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.capability.BlockApiNoContext;
-import vazkii.botania.api.capability.BlockApiWithContext;
-import vazkii.botania.api.capability.EntityApiNoContext;
-import vazkii.botania.api.capability.EntityApiWithContext;
-import vazkii.botania.api.capability.ItemApiNoContext;
-import vazkii.botania.api.capability.ItemApiWithContext;
-import vazkii.botania.api.configdata.ConfigDataManager;
-import vazkii.botania.api.corporea.CorporeaNodeDetector;
-import vazkii.botania.api.internal.DummyManaNetwork;
-import vazkii.botania.api.internal.ManaNetwork;
+import org.violetmoon.botania.api.attachment.DataIdBase;
+import org.violetmoon.botania.api.block.IslandType;
+import org.violetmoon.botania.api.brew.Brew;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.BlockApiWithContext;
+import org.violetmoon.botania.api.capability.EntityApiNoContext;
+import org.violetmoon.botania.api.capability.EntityApiWithContext;
+import org.violetmoon.botania.api.capability.ItemApiNoContext;
+import org.violetmoon.botania.api.capability.ItemApiWithContext;
+import org.violetmoon.botania.api.configdata.ConfigDataManager;
+import org.violetmoon.botania.api.corporea.CorporeaNodeDetector;
+import org.violetmoon.botania.api.internal.DummyManaNetwork;
+import org.violetmoon.botania.api.internal.ManaNetwork;
 
 import java.util.Collections;
 import java.util.Map;
@@ -141,7 +141,7 @@ public interface BotaniaAPI {
 
 	/**
 	 * Break all the blocks the given player has selected with the loki ring.
-	 * The item passed must implement {@link vazkii.botania.api.item.SequentialBreaker}.
+	 * The item passed must implement {@link org.violetmoon.botania.api.item.SequentialBreaker}.
 	 */
 	default void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {}
 

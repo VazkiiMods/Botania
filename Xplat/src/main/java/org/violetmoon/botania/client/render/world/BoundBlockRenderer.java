@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.world;
+package org.violetmoon.botania.client.render.world;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -27,13 +27,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.WireframeCoordinateListProvider;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.mixin.client.LevelRendererAccessor;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.item.CoordBoundItem;
+import org.violetmoon.botania.api.item.WireframeCoordinateListProvider;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.mixin.client.LevelRendererAccessor;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 import java.util.SequencedMap;

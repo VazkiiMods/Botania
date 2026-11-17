@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.item;
+package org.violetmoon.botania.api.item;
 
 /**
  * A bauble that counts as a cosmetic only item. These can be added to

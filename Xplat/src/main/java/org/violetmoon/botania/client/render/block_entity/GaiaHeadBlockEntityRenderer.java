@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -41,10 +41,10 @@ import net.minecraft.world.level.block.state.properties.RotationSegment;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.client.core.helper.CoreShaders;
-import vazkii.botania.client.render.entity.GaiaGuardianRenderer;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.GaiaHeadBlockEntity;
+import org.violetmoon.botania.client.core.helper.CoreShaders;
+import org.violetmoon.botania.client.render.entity.GaiaGuardianRenderer;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.GaiaHeadBlockEntity;
 
 import java.util.HashMap;
 import java.util.Map;

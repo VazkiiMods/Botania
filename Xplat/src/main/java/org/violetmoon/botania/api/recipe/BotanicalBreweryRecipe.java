@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.recipe;
+package org.violetmoon.botania.api.recipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -16,11 +16,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import vazkii.botania.api.brew.Brew;
+import org.violetmoon.botania.api.brew.Brew;
 
 import java.util.Objects;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public interface BotanicalBreweryRecipe extends Recipe<ProcessingRecipeInput> {
 	ResourceLocation TYPE_ID = botaniaRL("brew");

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.handler;
+package org.violetmoon.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -18,14 +18,14 @@ import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.client.core.RecipeBookAccess;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.mixin.client.AbstractContainerScreenAccessor;
-import vazkii.botania.mixin.client.RecipeBookComponentAccessor;
-import vazkii.botania.mixin.client.RecipeBookPageAccessor;
-import vazkii.botania.network.serverbound.IndexKeybindRequestPacket;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.client.core.RecipeBookAccess;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import org.violetmoon.botania.mixin.client.AbstractContainerScreenAccessor;
+import org.violetmoon.botania.mixin.client.RecipeBookComponentAccessor;
+import org.violetmoon.botania.mixin.client.RecipeBookPageAccessor;
+import org.violetmoon.botania.network.serverbound.IndexKeybindRequestPacket;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;

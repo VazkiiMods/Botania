@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.block_entity;
+package org.violetmoon.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -28,14 +28,14 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.*;
-import vazkii.botania.api.block.RedstoneSensitiveBlock;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
-import vazkii.botania.common.block.block_entity.red_string.RedStringSpooferBlockEntity;
-import vazkii.botania.common.block.flower.FloatingSpecialFlowerBlock;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block.*;
+import org.violetmoon.botania.api.block.RedstoneSensitiveBlock;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.block.block_entity.mana.ThrottledPacket;
+import org.violetmoon.botania.common.block.block_entity.red_string.RedStringSpooferBlockEntity;
+import org.violetmoon.botania.common.block.flower.FloatingSpecialFlowerBlock;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 /**
  * Common superclass of all magical flower block entities

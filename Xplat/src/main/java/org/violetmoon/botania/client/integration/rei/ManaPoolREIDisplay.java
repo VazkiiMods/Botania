@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.rei;
+package org.violetmoon.botania.client.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
@@ -14,8 +14,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.ManaInfusionRecipe;
-import vazkii.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.api.recipe.ManaInfusionRecipe;
+import org.violetmoon.botania.api.recipe.StateIngredient;
 
 public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<ManaInfusionRecipe> {
 	@Nullable

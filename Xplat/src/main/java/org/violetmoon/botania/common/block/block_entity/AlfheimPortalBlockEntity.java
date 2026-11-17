@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import com.google.common.base.Suppliers;
 
@@ -52,28 +52,28 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.recipe.ElvenTradeRecipe;
-import vazkii.botania.api.recipe.ProcessingRecipeInput;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.api.state.enums.AlfheimPortalState;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.BotaniaDamageTypes;
-import vazkii.botania.common.advancements.AlfheimPortalBreadTrigger;
-import vazkii.botania.common.advancements.AlfheimPortalTrigger;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.crafting.recipe.RecipeUtils;
-import vazkii.botania.common.handler.BotaniaRecipeIngredientsCache;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.helper.NbtHelper;
-import vazkii.botania.common.internal_caps.ItemSources;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.world.BotaniaExplosionDamageCalculator;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.internal.ItemSource;
+import org.violetmoon.botania.api.recipe.ElvenTradeRecipe;
+import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.api.state.enums.AlfheimPortalState;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.BotaniaDamageTypes;
+import org.violetmoon.botania.common.advancements.AlfheimPortalBreadTrigger;
+import org.violetmoon.botania.common.advancements.AlfheimPortalTrigger;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.crafting.recipe.RecipeUtils;
+import org.violetmoon.botania.common.handler.BotaniaRecipeIngredientsCache;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.helper.NbtHelper;
+import org.violetmoon.botania.common.internal_caps.ItemSources;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.world.BotaniaExplosionDamageCalculator;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;

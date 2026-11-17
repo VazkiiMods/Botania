@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.client;
+package org.violetmoon.botania.neoforge.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -25,9 +25,9 @@ import net.neoforged.neoforge.client.model.data.ModelProperty;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.PlatformBlock;
-import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.block.PlatformBlock;
+import org.violetmoon.botania.common.block.block_entity.PlatformBlockEntity;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 

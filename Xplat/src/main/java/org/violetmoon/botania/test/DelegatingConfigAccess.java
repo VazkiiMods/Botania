@@ -7,9 +7,9 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test;
+package org.violetmoon.botania.test;
 
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 

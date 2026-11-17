@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import com.google.common.base.Suppliers;
 
@@ -46,20 +46,20 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.RedstoneSensitiveBlock;
-import vazkii.botania.api.internal.OptionallyColored;
-import vazkii.botania.api.mana.BasicLensItem;
-import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.CustomCreativeTabContents;
-import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.lib.LibBlockNames;
+import org.violetmoon.botania.api.block.RedstoneSensitiveBlock;
+import org.violetmoon.botania.api.internal.OptionallyColored;
+import org.violetmoon.botania.api.mana.BasicLensItem;
+import org.violetmoon.botania.api.mana.BurstProperties;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.BotaniaWaterloggedEntityBlock;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.CustomCreativeTabContents;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.common.lib.LibBlockNames;
 
 import java.util.Optional;
 import java.util.function.Supplier;

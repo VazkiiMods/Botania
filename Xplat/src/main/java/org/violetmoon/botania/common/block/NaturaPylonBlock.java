@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -16,13 +16,13 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.api.state.enums.AlfheimPortalState;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.block_entity.PylonBlockEntity;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.api.state.enums.AlfheimPortalState;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.block_entity.PylonBlockEntity;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.Random;
 

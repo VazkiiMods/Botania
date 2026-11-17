@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.platform.Window;
@@ -50,22 +50,22 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.spark.ManaSparkAttachable;
-import vazkii.botania.api.mana.spark.ManaSparkHelper;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.network.clientbound.EnchanterDestroyEffectPacket;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.api.mana.spark.ManaSparkAttachable;
+import org.violetmoon.botania.api.mana.spark.ManaSparkHelper;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.network.clientbound.EnchanterDestroyEffectPacket;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -77,7 +77,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceiver, ManaSparkAttachable, Wandable, Clearable {
 	private static final String TAG_STAGE = "stage";

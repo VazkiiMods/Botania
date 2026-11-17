@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.internal_caps;
+package org.violetmoon.botania.fabric.internal_caps;
 
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 
 import java.util.Iterator;
 

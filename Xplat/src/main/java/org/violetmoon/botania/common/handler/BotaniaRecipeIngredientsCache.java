@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import com.google.common.base.Suppliers;
 
@@ -28,9 +28,9 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.ElvenTradeRecipe;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.recipe.ElvenTradeRecipe;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,7 +38,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 // TODO: Merge with OrechidManager?
 public class BotaniaRecipeIngredientsCache implements ResourceManagerReloadListener {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,7 +23,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.internal_caps.ItemLifetime;
+import org.violetmoon.botania.common.internal_caps.ItemLifetime;
 
 public class OpenCrateBlockEntity extends ExposedSimpleInventoryBlockEntity {
 	public OpenCrateBlockEntity(BlockPos pos, BlockState state) {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin.client;
+package org.violetmoon.botania.fabric.mixin.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftFabricMixin {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data.util;
+package org.violetmoon.botania.data.util;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

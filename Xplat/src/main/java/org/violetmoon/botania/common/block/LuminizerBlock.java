@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -27,10 +27,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
-import vazkii.botania.common.entity.LuminizerMoverEntity;
-import vazkii.botania.common.item.PhantomInkItem;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.LuminizerBlockEntity;
+import org.violetmoon.botania.common.entity.LuminizerMoverEntity;
+import org.violetmoon.botania.common.item.PhantomInkItem;
 
 public class LuminizerBlock extends BotaniaWaterloggedEntityBlock {
 

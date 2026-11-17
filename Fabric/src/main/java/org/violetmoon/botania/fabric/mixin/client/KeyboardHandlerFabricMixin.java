@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin.client;
+package org.violetmoon.botania.fabric.mixin.client;
 
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.client.core.handler.KonamiHandler;
-import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
+import org.violetmoon.botania.client.core.handler.KonamiHandler;
+import org.violetmoon.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 
 @Mixin(KeyboardHandler.class)
 public class KeyboardHandlerFabricMixin {

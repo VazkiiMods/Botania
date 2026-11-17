@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.advancements;
+package org.violetmoon.botania.common.advancements;
 
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.resources.ResourceLocation;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting.recipe;
+package org.violetmoon.botania.common.crafting.recipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -19,9 +19,9 @@ import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.item.BlackHoleTalismanItem;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.item.BlackHoleTalismanItem;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 	public static final RecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);

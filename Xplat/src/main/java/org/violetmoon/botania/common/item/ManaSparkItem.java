@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -16,10 +16,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.spark.ManaSparkAttachable;
-import vazkii.botania.api.mana.spark.ManaSparkHelper;
-import vazkii.botania.common.entity.ManaSparkEntity;
-import vazkii.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.api.mana.spark.ManaSparkAttachable;
+import org.violetmoon.botania.api.mana.spark.ManaSparkHelper;
+import org.violetmoon.botania.common.entity.ManaSparkEntity;
+import org.violetmoon.botania.common.helper.EntityHelper;
 
 public class ManaSparkItem extends Item {
 

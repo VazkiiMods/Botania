@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.flower.functional;
+package org.violetmoon.botania.common.block.block_entity.flower.functional;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -17,13 +17,13 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
-import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.mixin.GrowingPlantBodyBlockMixin;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.mixin.GrowingPlantBodyBlockMixin;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 5;

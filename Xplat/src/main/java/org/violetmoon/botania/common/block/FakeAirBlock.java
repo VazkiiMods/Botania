@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -23,7 +23,7 @@ import net.minecraft.world.level.material.FluidState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.block_entity.FakeAirBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.FakeAirBlockEntity;
 
 public class FakeAirBlock extends AirBlock implements EntityBlock, LiquidBlockContainer {
 

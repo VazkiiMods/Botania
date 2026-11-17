@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.ItemTags;
@@ -24,11 +24,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
-import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.block_entity.ManaFlameBlockEntity;
+import org.violetmoon.botania.common.helper.InventoryHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 public class ManaFlameBlock extends BotaniaWaterloggedEntityBlock {
 

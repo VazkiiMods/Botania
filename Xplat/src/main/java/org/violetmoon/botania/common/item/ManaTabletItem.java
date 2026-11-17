@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -17,12 +17,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 
-import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
+import org.violetmoon.botania.api.mana.ManaBarTooltip;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.impl.mana.DefaultManaItemImpl;
 
 import java.util.List;
 import java.util.Optional;

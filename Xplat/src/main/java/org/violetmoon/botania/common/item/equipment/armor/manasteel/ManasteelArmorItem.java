@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.armor.manasteel;
+package org.violetmoon.botania.common.item.equipment.armor.manasteel;
 
 import com.google.common.base.Suppliers;
 
@@ -20,14 +20,14 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 
-import vazkii.botania.api.item.PhantomInkable;
-import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.api.item.PhantomInkable;
+import org.violetmoon.botania.client.gui.TooltipHandler;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 import java.util.List;
 import java.util.function.Supplier;

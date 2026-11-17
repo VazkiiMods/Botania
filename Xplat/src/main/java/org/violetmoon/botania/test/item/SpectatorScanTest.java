@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.item;
+package org.violetmoon.botania.test.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -28,11 +28,11 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.bauble.SpectatorItem;
-import vazkii.botania.mixin.AbstractHorseAccessor;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.bauble.SpectatorItem;
+import org.violetmoon.botania.mixin.AbstractHorseAccessor;
+import org.violetmoon.botania.test.TestingUtil;
 
 import java.util.Collections;
 import java.util.List;

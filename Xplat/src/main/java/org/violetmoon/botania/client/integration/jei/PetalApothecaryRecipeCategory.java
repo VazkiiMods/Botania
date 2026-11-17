@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei;
+package org.violetmoon.botania.client.integration.jei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -28,13 +28,13 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec2;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.PetalApothecaryRecipe;
-import vazkii.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.recipe.PetalApothecaryRecipe;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
 
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class PetalApothecaryRecipeCategory extends BotaniaRecipeCategoryBase<PetalApothecaryRecipe> {
 

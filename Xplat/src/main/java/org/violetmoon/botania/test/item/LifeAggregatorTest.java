@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.item;
+package org.violetmoon.botania.test.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,9 +26,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.LifeAggregatorItem;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.LifeAggregatorItem;
+import org.violetmoon.botania.test.TestingUtil;
 
 public class LifeAggregatorTest {
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)

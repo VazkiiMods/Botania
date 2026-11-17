@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  *
  */
-package vazkii.botania.fabric.data.xplat;
+package org.violetmoon.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -27,16 +27,16 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.ManaInfusionRecipe;
-import vazkii.botania.common.crafting.StateIngredients;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.ManaInfusionRecipe;
+import org.violetmoon.botania.common.crafting.StateIngredients;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaInfusionProvider extends FabricRecipeProvider {
 	public static final int BLOCK_COST_MULTIPLIER = 9;

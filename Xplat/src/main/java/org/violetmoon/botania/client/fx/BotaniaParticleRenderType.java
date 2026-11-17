@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.fx;
+package org.violetmoon.botania.client.fx;
 
 import net.minecraft.client.particle.ParticleRenderType;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.loot;
+package org.violetmoon.botania.fabric.loot;
 
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -15,8 +15,8 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 
-import vazkii.botania.common.loot.BotaniaLootTables;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.function.Consumer;
 

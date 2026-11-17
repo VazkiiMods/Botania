@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.impl.corporea;
+package org.violetmoon.botania.common.impl.corporea;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
 
 import java.util.Locale;
 import java.util.StringJoiner;

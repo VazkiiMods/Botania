@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  *
  */
-package vazkii.botania.fabric.data.xplat;
+package org.violetmoon.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -22,13 +22,13 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.RunicAltarRecipe;
-import vazkii.botania.common.crafting.recipe.HeadRecipe;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.ConventionalBotaniaTags;
-import vazkii.botania.data.util.BotaniaRecipeHelper;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.crafting.RunicAltarRecipe;
+import org.violetmoon.botania.common.crafting.recipe.HeadRecipe;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.lib.ConventionalBotaniaTags;
+import org.violetmoon.botania.data.util.BotaniaRecipeHelper;
 
 import java.util.concurrent.CompletableFuture;
 

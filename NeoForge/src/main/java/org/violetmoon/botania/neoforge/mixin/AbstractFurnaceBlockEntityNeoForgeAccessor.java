@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.mixin;
+package org.violetmoon.botania.neoforge.mixin;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;

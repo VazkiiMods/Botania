@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -35,19 +35,19 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.api.state.enums.CraftyCratePattern;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.api.state.enums.CraftyCratePattern;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wandable {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.client;
+package org.violetmoon.botania.fabric.client;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -31,10 +31,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.IslandType;
-import vazkii.botania.common.block.block_entity.flower.BotaniaIslandTypes;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block.IslandType;
+import org.violetmoon.botania.common.block.block_entity.flower.BotaniaIslandTypes;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.*;
 import java.util.function.Function;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.internal;
+package org.violetmoon.botania.api.internal;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -19,13 +19,13 @@ import net.minecraft.world.entity.Mob;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.attachment.DataHolderId;
-import vazkii.botania.common.entity.GaiaGuardianEntity;
+import org.violetmoon.botania.api.attachment.DataHolderId;
+import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
 
 import java.lang.ref.WeakReference;
 import java.util.UUID;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class GaiaFightParticipant {
 	public static final Codec<GaiaFightParticipant> CODEC = RecordCodecBuilder.create(

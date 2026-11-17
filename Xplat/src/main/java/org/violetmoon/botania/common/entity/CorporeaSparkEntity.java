@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.entity;
+package org.violetmoon.botania.common.entity;
 
 import com.google.common.base.Predicates;
 import com.mojang.blaze3d.platform.Window;
@@ -36,17 +36,17 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.corporea.CorporeaNode;
-import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
-import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.corporea.CorporeaNode;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.impl.corporea.DummyCorporeaNode;
+import org.violetmoon.botania.common.integration.corporea.CorporeaNodeDetectors;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.*;
 

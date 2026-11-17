@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -26,18 +26,18 @@ import net.minecraft.world.item.ItemStack;
 
 import org.apache.commons.lang3.mutable.MutableFloat;
 
-import vazkii.botania.client.core.helper.AccessoryRenderHelper;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.client.model.CloakModel;
-import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.client.core.helper.AccessoryRenderHelper;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.model.BotaniaModelLayers;
+import org.violetmoon.botania.client.model.CloakModel;
+import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
+import org.violetmoon.botania.client.render.AccessoryRenderer;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 public class CloakOfVirtueItem extends BaubleItem {
 

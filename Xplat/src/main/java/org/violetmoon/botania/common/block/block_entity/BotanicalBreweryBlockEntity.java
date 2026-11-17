@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -31,22 +31,22 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.brew.BrewContainer;
-import vazkii.botania.api.brew.BrewItem;
-import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.brew.BotaniaBrews;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.NbtHelper;
-import vazkii.botania.common.internal_caps.ItemSources;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.brew.BrewContainer;
+import org.violetmoon.botania.api.brew.BrewItem;
+import org.violetmoon.botania.api.internal.ItemSource;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.api.recipe.BotanicalBreweryRecipe;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.brew.BotaniaBrews;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.common.helper.NbtHelper;
+import org.violetmoon.botania.common.internal_caps.ItemSources;
 
 import java.util.List;
 import java.util.Optional;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.state.enums;
+package org.violetmoon.botania.api.state.enums;
 
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.animal.Animal;

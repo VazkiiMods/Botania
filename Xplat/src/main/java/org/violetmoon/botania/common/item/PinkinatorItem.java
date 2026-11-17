@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -24,10 +24,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.entity.PinkWitherEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.advancements.UseItemSuccessTrigger;
+import org.violetmoon.botania.common.entity.BotaniaEntities;
+import org.violetmoon.botania.common.entity.PinkWitherEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import vazkii.botania.client.core.RecipeBookAccess;
+import org.violetmoon.botania.client.core.RecipeBookAccess;
 
 @Mixin(RecipeBookComponent.class)
 public class RecipeBookComponentMixin implements RecipeBookAccess {

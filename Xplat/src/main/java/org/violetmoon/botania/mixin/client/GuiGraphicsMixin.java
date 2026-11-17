@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
-import vazkii.botania.client.core.helper.GuiGraphicsAddon;
+import org.violetmoon.botania.client.core.helper.GuiGraphicsAddon;
 
 import java.util.function.Supplier;
 

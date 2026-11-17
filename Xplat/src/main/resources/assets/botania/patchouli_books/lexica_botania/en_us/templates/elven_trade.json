@@ -1,5 +1,5 @@
 {
-  "processor": "vazkii.botania.client.patchouli.processor.ElvenTradeProcessor",
+  "processor": "org.violetmoon.botania.client.patchouli.processor.ElvenTradeProcessor",
   "components": [
     {
       "type": "patchouli:header",

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.gui.box;
+package org.violetmoon.botania.client.gui.box;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -17,7 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import vazkii.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.lib.ResourcesLib;
 
 public class TrinketCaseScreen extends AbstractContainerScreen<TrinketCaseMenu> {
 

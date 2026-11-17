@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  *
  */
-package vazkii.botania.fabric.data.xplat;
+package org.violetmoon.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -20,16 +20,16 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.brew.Brew;
-import vazkii.botania.common.brew.BotaniaBrews;
-import vazkii.botania.common.crafting.BotanicalBreweryRecipe;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.brew.Brew;
+import org.violetmoon.botania.common.brew.BotaniaBrews;
+import org.violetmoon.botania.common.crafting.BotanicalBreweryRecipe;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BrewProvider extends FabricRecipeProvider {
 	public BrewProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {

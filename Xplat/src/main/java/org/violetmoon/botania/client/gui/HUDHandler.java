@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.gui;
+package org.violetmoon.botania.client.gui;
 
 import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.platform.Window;
@@ -39,33 +39,33 @@ import net.minecraft.world.phys.HitResult;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.MonocleHud;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.recipe.ManaInfusionRecipe;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
-import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.AssemblyHaloItem;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.SextantItem;
-import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
-import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block.MonocleHud;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.api.recipe.ManaInfusionRecipe;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.PetalApothecaryBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.RunicAltarBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.AssemblyHaloItem;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.SextantItem;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import org.violetmoon.botania.common.item.equipment.bauble.ManaseerMonocleItem;
+import org.violetmoon.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 

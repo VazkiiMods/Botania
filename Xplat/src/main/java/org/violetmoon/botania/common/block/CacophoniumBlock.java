@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.CacophoniumBlockEntity;
 
 public class CacophoniumBlock extends BotaniaEntityBlock {
 	protected CacophoniumBlock(Properties properties) {

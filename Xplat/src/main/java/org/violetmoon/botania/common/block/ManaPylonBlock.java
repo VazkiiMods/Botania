@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.FastColor;
@@ -16,11 +16,11 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.internal.Colored;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.block_entity.PylonBlockEntity;
-import vazkii.botania.common.item.material.MysticalPetalItem;
+import org.violetmoon.botania.api.internal.Colored;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.block_entity.PylonBlockEntity;
+import org.violetmoon.botania.common.item.material.MysticalPetalItem;
 
 public class ManaPylonBlock extends PylonBlock {
 

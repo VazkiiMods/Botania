@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.network;
+package org.violetmoon.botania.fabric.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -15,32 +15,32 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-import vazkii.botania.network.clientbound.ArenaIndicatorEffectPacket;
-import vazkii.botania.network.clientbound.AvatarSkiesRodEffectPacket;
-import vazkii.botania.network.clientbound.AvatarSkiesRodUpdatePacket;
-import vazkii.botania.network.clientbound.BlackLotusDissolveEffectPacket;
-import vazkii.botania.network.clientbound.DivaCharmEffectPacket;
-import vazkii.botania.network.clientbound.EnchanterDestroyEffectPacket;
-import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
-import vazkii.botania.network.clientbound.FlugelEyeEffectPacket;
-import vazkii.botania.network.clientbound.GogWorldPacket;
-import vazkii.botania.network.clientbound.GrassSeedsEffectPacket;
-import vazkii.botania.network.clientbound.HaloCraftEffectPacket;
-import vazkii.botania.network.clientbound.ItemLifeTimePacket;
-import vazkii.botania.network.clientbound.ItemSmokeEffectPacket;
-import vazkii.botania.network.clientbound.PaintLensEffectPacket;
-import vazkii.botania.network.clientbound.ParticleBeamEffectPacket;
-import vazkii.botania.network.clientbound.RodOfThePlentifulMantleEffectPacket;
-import vazkii.botania.network.clientbound.RodOfTheUnstableReservoirEffectPacket;
-import vazkii.botania.network.clientbound.SparkManaFlowEffectPacket;
-import vazkii.botania.network.clientbound.SparkNetIndicatorEffectPacket;
-import vazkii.botania.network.clientbound.ThundercallerEffectPacket;
-import vazkii.botania.network.clientbound.UpdateItemsRemainingPacket;
-import vazkii.botania.network.serverbound.DodgePacket;
-import vazkii.botania.network.serverbound.IndexKeybindRequestPacket;
-import vazkii.botania.network.serverbound.IndexStringRequestPacket;
-import vazkii.botania.network.serverbound.JumpPacket;
-import vazkii.botania.network.serverbound.LeftClickPacket;
+import org.violetmoon.botania.network.clientbound.ArenaIndicatorEffectPacket;
+import org.violetmoon.botania.network.clientbound.AvatarSkiesRodEffectPacket;
+import org.violetmoon.botania.network.clientbound.AvatarSkiesRodUpdatePacket;
+import org.violetmoon.botania.network.clientbound.BlackLotusDissolveEffectPacket;
+import org.violetmoon.botania.network.clientbound.DivaCharmEffectPacket;
+import org.violetmoon.botania.network.clientbound.EnchanterDestroyEffectPacket;
+import org.violetmoon.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import org.violetmoon.botania.network.clientbound.FlugelEyeEffectPacket;
+import org.violetmoon.botania.network.clientbound.GogWorldPacket;
+import org.violetmoon.botania.network.clientbound.GrassSeedsEffectPacket;
+import org.violetmoon.botania.network.clientbound.HaloCraftEffectPacket;
+import org.violetmoon.botania.network.clientbound.ItemLifeTimePacket;
+import org.violetmoon.botania.network.clientbound.ItemSmokeEffectPacket;
+import org.violetmoon.botania.network.clientbound.PaintLensEffectPacket;
+import org.violetmoon.botania.network.clientbound.ParticleBeamEffectPacket;
+import org.violetmoon.botania.network.clientbound.RodOfThePlentifulMantleEffectPacket;
+import org.violetmoon.botania.network.clientbound.RodOfTheUnstableReservoirEffectPacket;
+import org.violetmoon.botania.network.clientbound.SparkManaFlowEffectPacket;
+import org.violetmoon.botania.network.clientbound.SparkNetIndicatorEffectPacket;
+import org.violetmoon.botania.network.clientbound.ThundercallerEffectPacket;
+import org.violetmoon.botania.network.clientbound.UpdateItemsRemainingPacket;
+import org.violetmoon.botania.network.serverbound.DodgePacket;
+import org.violetmoon.botania.network.serverbound.IndexKeybindRequestPacket;
+import org.violetmoon.botania.network.serverbound.IndexStringRequestPacket;
+import org.violetmoon.botania.network.serverbound.JumpPacket;
+import org.violetmoon.botania.network.serverbound.LeftClickPacket;
 
 import java.util.function.BiConsumer;
 

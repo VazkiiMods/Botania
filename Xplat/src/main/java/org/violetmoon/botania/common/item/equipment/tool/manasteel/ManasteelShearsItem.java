@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool.manasteel;
+package org.violetmoon.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.SortableTool;
+import org.violetmoon.botania.api.item.SortableTool;
 
 public class ManasteelShearsItem extends ShearsItem implements SortableTool {
 

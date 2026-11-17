@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.FastColor;
@@ -19,8 +19,8 @@ import net.minecraft.world.level.block.BeaconBeamBlock;
 import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.annotations.SoftImplement;
 
 public class BifrostBlock extends TransparentBlock implements BeaconBeamBlock {
 	public BifrostBlock(Properties builder) {

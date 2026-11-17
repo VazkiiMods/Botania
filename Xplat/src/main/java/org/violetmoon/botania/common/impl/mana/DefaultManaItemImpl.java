@@ -8,15 +8,15 @@
  *
  */
 
-package vazkii.botania.common.impl.mana;
+package org.violetmoon.botania.common.impl.mana;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
 
 /**
  * Default implementation for the {@link ManaItem} interface. This implementation covers all of Botania's own mana

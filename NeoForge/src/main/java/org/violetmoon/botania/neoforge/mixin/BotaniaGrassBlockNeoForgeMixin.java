@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.mixin;
+package org.violetmoon.botania.neoforge.mixin;
 
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.context.UseOnContext;
@@ -20,7 +20,7 @@ import net.neoforged.neoforge.common.extensions.IBlockExtension;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
-import vazkii.botania.common.block.BotaniaGrassBlock;
+import org.violetmoon.botania.common.block.BotaniaGrassBlock;
 
 // Self-mixin to implement a method which has a forge-only param
 @Mixin(BotaniaGrassBlock.class)

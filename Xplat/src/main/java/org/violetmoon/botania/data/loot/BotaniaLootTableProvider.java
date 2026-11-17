@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.data.loot;
+package org.violetmoon.botania.data.loot;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

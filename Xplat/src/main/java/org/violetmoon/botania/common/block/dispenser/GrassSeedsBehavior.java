@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block.dispenser;
+package org.violetmoon.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
@@ -16,9 +16,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import vazkii.botania.common.item.GrassSeedsItem;
-import vazkii.botania.network.clientbound.GrassSeedsEffectPacket;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.common.item.GrassSeedsItem;
+import org.violetmoon.botania.network.clientbound.GrassSeedsEffectPacket;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 public class GrassSeedsBehavior extends OptionalDispenseItemBehavior {
 	@Override

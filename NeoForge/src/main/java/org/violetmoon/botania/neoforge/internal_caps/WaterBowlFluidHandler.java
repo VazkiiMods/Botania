@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.neoforge.internal_caps;
+package org.violetmoon.botania.neoforge.internal_caps;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

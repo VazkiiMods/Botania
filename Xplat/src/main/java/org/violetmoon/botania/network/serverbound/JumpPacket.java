@@ -6,18 +6,18 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.network.serverbound;
+package org.violetmoon.botania.network.serverbound;
 
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.equipment.bauble.CirrusAmuletItem;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 import io.netty.buffer.ByteBuf;
 

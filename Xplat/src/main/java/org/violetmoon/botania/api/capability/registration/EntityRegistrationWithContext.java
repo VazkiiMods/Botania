@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.capability.registration;
+package org.violetmoon.botania.api.capability.registration;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

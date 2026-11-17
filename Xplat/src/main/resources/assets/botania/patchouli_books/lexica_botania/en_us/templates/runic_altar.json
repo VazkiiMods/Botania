@@ -1,5 +1,5 @@
 {
-  "processor": "vazkii.botania.client.patchouli.processor.RunicAltarProcessor",
+  "processor": "org.violetmoon.botania.client.patchouli.processor.RunicAltarProcessor",
   "components": [
     {
       "type": "patchouli:image",
@@ -19,7 +19,7 @@
     },
     {
       "type": "patchouli:custom",
-      "class": "vazkii.botania.client.patchouli.component.RotatingRecipeComponent",
+      "class": "org.violetmoon.botania.client.patchouli.component.RotatingRecipeComponent",
       "x": -1,
       "y": 21,
       "recipe_type": "runic_altar",
@@ -49,7 +49,7 @@
     },
     {
       "type": "patchouli:custom",
-      "class": "vazkii.botania.client.patchouli.component.ManaComponent",
+      "class": "org.violetmoon.botania.client.patchouli.component.ManaComponent",
       "mana": "#mana",
       "x": -1,
       "y": 100

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block.flower;
+package org.violetmoon.botania.common.block.flower;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
@@ -17,9 +17,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
 
 import java.util.function.Supplier;
 

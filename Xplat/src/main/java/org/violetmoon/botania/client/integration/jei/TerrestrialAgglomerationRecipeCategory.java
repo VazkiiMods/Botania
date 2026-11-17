@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei;
+package org.violetmoon.botania.client.integration.jei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -25,12 +25,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
-import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.recipe.TerrestrialAgglomerationRecipe;
+import org.violetmoon.botania.client.gui.HUDHandler;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrestrialAgglomerationRecipeCategory extends BotaniaRecipeCategoryBase<TerrestrialAgglomerationRecipe> {
 	public static final RecipeType<TerrestrialAgglomerationRecipe> TYPE =

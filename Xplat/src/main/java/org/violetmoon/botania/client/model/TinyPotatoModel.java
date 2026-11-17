@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.model;
+package org.violetmoon.botania.client.model;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -17,8 +17,8 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.render.block_entity.TinyPotatoBlockEntityRenderer;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.client.render.block_entity.TinyPotatoBlockEntityRenderer;
 
 public class TinyPotatoModel extends DelegatedModel {
 	public TinyPotatoModel(BakedModel originalModel) {

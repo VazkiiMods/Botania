@@ -7,16 +7,16 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.capability.registration;
+package org.violetmoon.botania.api.capability.registration;
 
 import org.jetbrains.annotations.ApiStatus;
 
-import vazkii.botania.api.capability.BlockApiNoContext;
-import vazkii.botania.api.capability.BlockApiWithContext;
-import vazkii.botania.api.capability.EntityApiNoContext;
-import vazkii.botania.api.capability.EntityApiWithContext;
-import vazkii.botania.api.capability.ItemApiNoContext;
-import vazkii.botania.api.capability.ItemApiWithContext;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.BlockApiWithContext;
+import org.violetmoon.botania.api.capability.EntityApiNoContext;
+import org.violetmoon.botania.api.capability.EntityApiWithContext;
+import org.violetmoon.botania.api.capability.ItemApiNoContext;
+import org.violetmoon.botania.api.capability.ItemApiWithContext;
 
 @ApiStatus.NonExtendable
 public interface ApiProviderRegistration {

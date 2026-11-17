@@ -1,4 +1,4 @@
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -22,8 +22,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-import vazkii.botania.api.block.EdibleBlockWithEffects;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.block.EdibleBlockWithEffects;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 /**
  * Allows sheep to eat Botania grass variants and applies effects of blocks that are an {@link EdibleBlockWithEffects}.

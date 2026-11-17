@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -21,10 +21,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.internal_caps.SlowDespawn;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.internal_caps.SlowDespawn;
 
 public class LifeImbuerBlockEntity extends BlockEntity implements ManaReceiver {
 	private static final String TAG_MANA = "mana";

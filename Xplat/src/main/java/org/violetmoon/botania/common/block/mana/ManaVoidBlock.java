@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -16,11 +16,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.PoolOverlayProvider;
-import vazkii.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.api.mana.PoolOverlayProvider;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaVoidBlock extends Block implements PoolOverlayProvider {
 	private static final int SPARKLE_EVENT = 0;

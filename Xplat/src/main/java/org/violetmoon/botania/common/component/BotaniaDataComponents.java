@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.component;
+package org.violetmoon.botania.common.component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -30,12 +30,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.block.block_entity.flower.generating.GourmaryllisBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.generating.RafflowsiaBlockEntity;
-import vazkii.botania.common.item.LaputaShardItem;
-import vazkii.botania.common.item.ManaBlasterItem;
-import vazkii.botania.common.item.relic.RingOfLokiItem;
-import vazkii.botania.common.lib.LibComponentNames;
+import org.violetmoon.botania.common.block.block_entity.flower.generating.GourmaryllisBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.generating.RafflowsiaBlockEntity;
+import org.violetmoon.botania.common.item.LaputaShardItem;
+import org.violetmoon.botania.common.item.ManaBlasterItem;
+import org.violetmoon.botania.common.item.relic.RingOfLokiItem;
+import org.violetmoon.botania.common.lib.LibComponentNames;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +44,7 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.UnaryOperator;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaDataComponents {
 	private static final Map<String, DataComponentType<?>> ALL = new HashMap<>();

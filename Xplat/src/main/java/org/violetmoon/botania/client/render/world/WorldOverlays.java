@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.render.world;
+package org.violetmoon.botania.client.render.world;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -15,9 +15,9 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.fx.BoltRenderer;
-import vazkii.botania.common.item.AssemblyHaloItem;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.fx.BoltRenderer;
+import org.violetmoon.botania.common.item.AssemblyHaloItem;
 
 public final class WorldOverlays {
 	public static void renderWorldLast(Camera camera, float entityPartialTick, float playerPartialTick, PoseStack matrix, RenderBuffers buffers, Level level) {

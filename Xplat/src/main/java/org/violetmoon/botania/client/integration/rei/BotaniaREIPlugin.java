@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.rei;
+package org.violetmoon.botania.client.integration.rei;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -38,18 +38,18 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.AncientWillContainer;
-import vazkii.botania.api.recipe.*;
-import vazkii.botania.client.core.handler.CorporeaInputHandler;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.handler.AxeStrippingData;
-import vazkii.botania.common.item.AncientWillItem;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
-import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.item.AncientWillContainer;
+import org.violetmoon.botania.api.recipe.*;
+import org.violetmoon.botania.client.core.handler.CorporeaInputHandler;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.handler.AxeStrippingData;
+import org.violetmoon.botania.common.item.AncientWillItem;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.common.item.lens.LensItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.*;
 import java.util.function.Supplier;

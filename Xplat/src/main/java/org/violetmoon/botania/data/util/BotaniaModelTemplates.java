@@ -7,19 +7,19 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.data.util;
+package org.violetmoon.botania.data.util;
 
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.mixin.TextureSlotAccessor;
+import org.violetmoon.botania.mixin.TextureSlotAccessor;
 
 import java.util.Optional;
 
 import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaModelTemplates {
 

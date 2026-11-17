@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
@@ -23,12 +23,12 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 
-import vazkii.botania.api.configdata.GaiaFightConfiguration;
-import vazkii.botania.api.configdata.MobEffectToApply;
-import vazkii.botania.api.configdata.MobSpawnData;
-import vazkii.botania.common.config.ConfigDataManagerImpl;
-import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.api.configdata.GaiaFightConfiguration;
+import org.violetmoon.botania.api.configdata.MobEffectToApply;
+import org.violetmoon.botania.api.configdata.MobSpawnData;
+import org.violetmoon.botania.common.config.ConfigDataManagerImpl;
+import org.violetmoon.botania.common.entity.BotaniaEntities;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

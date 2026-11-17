@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
 
 public class GaiaPylonBlock extends PylonBlock {
 	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 16, 14);

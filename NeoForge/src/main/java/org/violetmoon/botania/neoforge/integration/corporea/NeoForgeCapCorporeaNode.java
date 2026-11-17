@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.integration.corporea;
+package org.violetmoon.botania.neoforge.integration.corporea;
 
 import com.google.common.collect.ImmutableList;
 
@@ -16,9 +16,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.IItemHandler;
 
-import vazkii.botania.api.corporea.CorporeaRequest;
-import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.common.impl.corporea.AbstractCorporeaNode;
+import org.violetmoon.botania.api.corporea.CorporeaRequest;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.common.impl.corporea.AbstractCorporeaNode;
 
 import java.util.List;
 

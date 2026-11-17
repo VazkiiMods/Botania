@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block.flower;
+package org.violetmoon.botania.common.block.flower;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -32,17 +32,17 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.FloatingFlower;
-import vazkii.botania.api.block.FloatingFlowerProvider;
-import vazkii.botania.api.block.IslandType;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
-import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block.FloatingFlower;
+import org.violetmoon.botania.api.block.FloatingFlowerProvider;
+import org.violetmoon.botania.api.block.IslandType;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.client.patchouli.PatchouliUtils;
+import org.violetmoon.botania.common.block.BotaniaWaterloggedEntityBlock;
+import org.violetmoon.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.Map;
 import java.util.function.Function;

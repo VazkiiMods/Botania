@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.corporea;
+package org.violetmoon.botania.common.block.block_entity.corporea;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -22,14 +22,14 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.corporea.*;
-import vazkii.botania.common.BotaniaStats;
-import vazkii.botania.common.advancements.CorporeaRequestTrigger;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.network.serverbound.IndexStringRequestPacket;
-import vazkii.botania.xplat.ClientXplatAbstractions;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.corporea.*;
+import org.violetmoon.botania.common.BotaniaStats;
+import org.violetmoon.botania.common.advancements.CorporeaRequestTrigger;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.network.serverbound.IndexStringRequestPacket;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.regex.Matcher;

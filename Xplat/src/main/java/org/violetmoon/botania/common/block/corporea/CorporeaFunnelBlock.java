@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.corporea;
+package org.violetmoon.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -15,9 +15,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.BotaniaEntityBlock;
-import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaFunnelBlockEntity;
+import org.violetmoon.botania.common.block.BotaniaEntityBlock;
+import org.violetmoon.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaFunnelBlockEntity;
 
 public class CorporeaFunnelBlock extends BotaniaEntityBlock {
 

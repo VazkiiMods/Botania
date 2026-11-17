@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.client.integration.embeddium;
+package org.violetmoon.botania.neoforge.client.integration.embeddium;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 

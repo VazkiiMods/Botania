@@ -7,12 +7,12 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.internal;
+package org.violetmoon.botania.api.internal;
 
-import vazkii.botania.api.attachment.DataHolderId;
-import vazkii.botania.common.internal_caps.ItemSources;
+import org.violetmoon.botania.api.attachment.DataHolderId;
+import org.violetmoon.botania.common.internal_caps.ItemSources;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Specifies how an item entity was spawned.

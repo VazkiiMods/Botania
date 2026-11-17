@@ -6,15 +6,15 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.rei;
+package org.violetmoon.botania.client.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import vazkii.botania.api.recipe.ElvenTradeRecipe;
-import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
+import org.violetmoon.botania.api.recipe.ElvenTradeRecipe;
+import org.violetmoon.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 
 public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<ElvenTradeRecipe> {
 

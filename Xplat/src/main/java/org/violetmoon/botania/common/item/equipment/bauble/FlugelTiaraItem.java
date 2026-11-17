@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -36,22 +36,22 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.*;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.CustomCreativeTabContents;
-import vazkii.botania.common.item.StoneOfTemperanceItem;
-import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.client.core.handler.MiscellaneousModels;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
+import org.violetmoon.botania.client.render.AccessoryRenderer;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.helper.*;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.CustomCreativeTabContents;
+import org.violetmoon.botania.common.item.StoneOfTemperanceItem;
+import org.violetmoon.botania.common.proxy.Proxy;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collections;

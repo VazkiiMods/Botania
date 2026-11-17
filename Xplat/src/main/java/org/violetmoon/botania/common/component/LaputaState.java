@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.component;
+package org.violetmoon.botania.common.component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

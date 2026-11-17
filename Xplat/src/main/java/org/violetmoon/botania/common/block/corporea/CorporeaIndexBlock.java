@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.corporea;
+package org.violetmoon.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -22,10 +22,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import org.violetmoon.botania.common.block.BotaniaWaterloggedEntityBlock;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 
 public class CorporeaIndexBlock extends BotaniaWaterloggedEntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);

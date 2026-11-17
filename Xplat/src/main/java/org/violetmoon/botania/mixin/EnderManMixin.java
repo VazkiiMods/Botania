@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.block_entity.flower.functional.VinculotusBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.VinculotusBlockEntity;
 
 @Mixin(EnderMan.class)
 public abstract class EnderManMixin extends Monster {

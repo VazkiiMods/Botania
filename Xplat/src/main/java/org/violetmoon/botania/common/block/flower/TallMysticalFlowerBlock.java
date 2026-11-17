@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.flower;
+package org.violetmoon.botania.common.block.flower;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.FastColor;
@@ -17,10 +17,10 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.internal.Colored;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.item.material.MysticalPetalItem;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.internal.Colored;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.item.material.MysticalPetalItem;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 public class TallMysticalFlowerBlock extends TallFlowerBlock implements Colored {
 	public final DyeColor color;

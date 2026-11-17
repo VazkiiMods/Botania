@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.gui.bag;
+package org.violetmoon.botania.client.gui.bag;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -25,11 +25,11 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.internal.Colored;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.ColoredContentsPouchItem;
+import org.violetmoon.botania.api.internal.Colored;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.ColoredContentsPouchItem;
 
 import java.util.List;
 

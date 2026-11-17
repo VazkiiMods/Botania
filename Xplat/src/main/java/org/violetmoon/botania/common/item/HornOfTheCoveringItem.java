@@ -8,12 +8,12 @@
  *
  */
 
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 public class HornOfTheCoveringItem extends HornItem {
 

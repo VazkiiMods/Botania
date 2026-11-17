@@ -7,11 +7,11 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.resources.ResourceLocation;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public interface DogEnabler {
 	ResourceLocation DOG_ID = botaniaRL("misc/preventing_decay");

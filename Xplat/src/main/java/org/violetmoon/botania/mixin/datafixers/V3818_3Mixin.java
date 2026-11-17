@@ -1,4 +1,4 @@
-package vazkii.botania.mixin.datafixers;
+package org.violetmoon.botania.mixin.datafixers;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

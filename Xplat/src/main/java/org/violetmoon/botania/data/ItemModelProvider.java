@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -37,26 +37,26 @@ import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.ShimmeringMushroomBlock;
-import vazkii.botania.common.block.flower.BotaniaFlowerBlock;
-import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
-import vazkii.botania.common.block.flower.FlowerMotifBlock;
-import vazkii.botania.common.block.flower.SpecialFlowerBlock;
-import vazkii.botania.common.block.flower.TallMysticalFlowerBlock;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.BottledManaItem;
-import vazkii.botania.common.item.brew.BaseBrewItem;
-import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.item.material.MysticalPetalItem;
-import vazkii.botania.data.util.ModelWithOverrides;
-import vazkii.botania.data.util.OverrideHolder;
-import vazkii.botania.data.util.SimpleModelSupplierWithOverrides;
-import vazkii.botania.mixin.TextureSlotAccessor;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.block.*;
+import org.violetmoon.botania.common.block.ShimmeringMushroomBlock;
+import org.violetmoon.botania.common.block.flower.BotaniaFlowerBlock;
+import org.violetmoon.botania.common.block.flower.FloatingFlowerBaseBlock;
+import org.violetmoon.botania.common.block.flower.FlowerMotifBlock;
+import org.violetmoon.botania.common.block.flower.SpecialFlowerBlock;
+import org.violetmoon.botania.common.block.flower.TallMysticalFlowerBlock;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.block.mana.ManaSpreaderBlock;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.BottledManaItem;
+import org.violetmoon.botania.common.item.brew.BaseBrewItem;
+import org.violetmoon.botania.common.item.lens.LensItem;
+import org.violetmoon.botania.common.item.material.MysticalPetalItem;
+import org.violetmoon.botania.data.util.ModelWithOverrides;
+import org.violetmoon.botania.data.util.OverrideHolder;
+import org.violetmoon.botania.data.util.SimpleModelSupplierWithOverrides;
+import org.violetmoon.botania.mixin.TextureSlotAccessor;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -67,7 +67,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ItemModelProvider implements DataProvider {
 	private static final TextureSlot LAYER1 = TextureSlotAccessor.botania_create("layer1");

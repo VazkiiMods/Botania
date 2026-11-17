@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api;
+package org.violetmoon.botania.api;
 
 import org.jetbrains.annotations.Nullable;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.rod;
+package org.violetmoon.botania.common.item.rod;
 
 import it.unimi.dsi.fastutil.objects.Object2LongArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
@@ -30,21 +30,21 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.Avatar;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.network.clientbound.AvatarSkiesRodEffectPacket;
-import vazkii.botania.network.clientbound.AvatarSkiesRodUpdatePacket;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.block.Avatar;
+import org.violetmoon.botania.api.item.AvatarWieldable;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.network.clientbound.AvatarSkiesRodEffectPacket;
+import org.violetmoon.botania.network.clientbound.AvatarSkiesRodUpdatePacket;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Map;

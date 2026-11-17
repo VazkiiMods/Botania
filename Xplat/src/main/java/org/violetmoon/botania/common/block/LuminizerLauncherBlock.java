@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import com.google.common.collect.Iterables;
 
@@ -31,7 +31,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.LuminizerBlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.patchouli.processor;
+package org.violetmoon.botania.client.patchouli.processor;
 
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
@@ -15,8 +15,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.recipe.RecipeWithReagent;
-import vazkii.botania.client.patchouli.PatchouliUtils;
+import org.violetmoon.botania.api.recipe.RecipeWithReagent;
+import org.violetmoon.botania.client.patchouli.PatchouliUtils;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;

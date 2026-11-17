@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.model;
+package org.violetmoon.botania.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -26,9 +26,9 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.block_entity.BotanicalBreweryBlockEntity;
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.block.block_entity.BotanicalBreweryBlockEntity;
+import org.violetmoon.botania.common.helper.VecHelper;
 
 public class BotanicalBreweryModel extends Model {
 	private static final ResourceLocation TEXTURE = ResourceLocation.parse(ResourcesLib.MODEL_BOTANICAL_BREWERY);

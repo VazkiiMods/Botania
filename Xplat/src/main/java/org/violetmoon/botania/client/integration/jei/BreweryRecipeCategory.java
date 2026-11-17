@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei;
+package org.violetmoon.botania.client.integration.jei;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -21,16 +21,16 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.recipe.RecipeUtils;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.recipe.BotanicalBreweryRecipe;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.recipe.RecipeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BreweryRecipeCategory extends BotaniaRecipeCategoryBase<BotanicalBreweryRecipe> {
 

@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.crafting.recipe;
+package org.violetmoon.botania.common.crafting.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -23,8 +23,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.bauble.FlugelTiaraItem;
 
 public class TiaraWingsRecipe extends CustomRecipe {
 	public static final RecipeSerializer<TiaraWingsRecipe> SERIALIZER = new Serializer();

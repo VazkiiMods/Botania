@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.fx;
+package org.violetmoon.botania.client.fx;
 
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaParticles {
 	public static final ParticleType<WispParticleData> WISP = new WispParticleType();

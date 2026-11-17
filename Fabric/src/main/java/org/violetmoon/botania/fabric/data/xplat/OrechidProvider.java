@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  *
  */
-package vazkii.botania.fabric.data.xplat;
+package org.violetmoon.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -21,15 +21,15 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.flower.functional.MarimorphosisBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.functional.OrechidBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.functional.OrechidIgnemBlockEntity;
-import vazkii.botania.common.crafting.*;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.data.util.BotaniaRecipeHelper;
-import vazkii.botania.fabric.data.FabricDatagenInitializer;
+import org.violetmoon.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.MarimorphosisBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.OrechidBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.OrechidIgnemBlockEntity;
+import org.violetmoon.botania.common.crafting.*;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.data.util.BotaniaRecipeHelper;
+import org.violetmoon.botania.fabric.data.FabricDatagenInitializer;
 
 import java.util.concurrent.CompletableFuture;
 

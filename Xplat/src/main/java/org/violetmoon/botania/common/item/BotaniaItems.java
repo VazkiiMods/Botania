@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -29,55 +29,55 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.AncientWillContainer;
-import vazkii.botania.api.item.PhantomInkable;
-import vazkii.botania.api.state.enums.CraftyCratePattern;
-import vazkii.botania.client.gui.bag.ColoredContentsPouchMenu;
-import vazkii.botania.client.gui.box.TrinketCaseMenu;
-import vazkii.botania.client.gui.enderhand.HandOfEnderMenu;
-import vazkii.botania.common.BotaniaStats;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.component.ManaRepair;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.brew.BaseBrewItem;
-import vazkii.botania.common.item.brew.FlaskItem;
-import vazkii.botania.common.item.brew.IncenseStickItem;
-import vazkii.botania.common.item.brew.VialItem;
-import vazkii.botania.common.item.equipment.armor.elementium.*;
-import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
-import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelHelmItem;
-import vazkii.botania.common.item.equipment.armor.manaweave.ManaweaveArmorItem;
-import vazkii.botania.common.item.equipment.armor.manaweave.ManaweaveHelmItem;
-import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelArmorItem;
-import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
-import vazkii.botania.common.item.equipment.bauble.*;
-import vazkii.botania.common.item.equipment.tool.SoulscribeItem;
-import vazkii.botania.common.item.equipment.tool.StarcallerItem;
-import vazkii.botania.common.item.equipment.tool.ThundercallerItem;
-import vazkii.botania.common.item.equipment.tool.VitreousPickaxeItem;
-import vazkii.botania.common.item.equipment.tool.bow.CrystalBowItem;
-import vazkii.botania.common.item.equipment.tool.elementium.*;
-import vazkii.botania.common.item.equipment.tool.manasteel.*;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
-import vazkii.botania.common.item.lens.*;
-import vazkii.botania.common.item.material.*;
-import vazkii.botania.common.item.record.BotaniaJukeboxSongs;
-import vazkii.botania.common.item.relic.*;
-import vazkii.botania.common.item.rod.*;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.item.AncientWillContainer;
+import org.violetmoon.botania.api.item.PhantomInkable;
+import org.violetmoon.botania.api.state.enums.CraftyCratePattern;
+import org.violetmoon.botania.client.gui.bag.ColoredContentsPouchMenu;
+import org.violetmoon.botania.client.gui.box.TrinketCaseMenu;
+import org.violetmoon.botania.client.gui.enderhand.HandOfEnderMenu;
+import org.violetmoon.botania.common.BotaniaStats;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.component.ManaRepair;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.brew.BaseBrewItem;
+import org.violetmoon.botania.common.item.brew.FlaskItem;
+import org.violetmoon.botania.common.item.brew.IncenseStickItem;
+import org.violetmoon.botania.common.item.brew.VialItem;
+import org.violetmoon.botania.common.item.equipment.armor.elementium.*;
+import org.violetmoon.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
+import org.violetmoon.botania.common.item.equipment.armor.manasteel.ManasteelHelmItem;
+import org.violetmoon.botania.common.item.equipment.armor.manaweave.ManaweaveArmorItem;
+import org.violetmoon.botania.common.item.equipment.armor.manaweave.ManaweaveHelmItem;
+import org.violetmoon.botania.common.item.equipment.armor.terrasteel.TerrasteelArmorItem;
+import org.violetmoon.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
+import org.violetmoon.botania.common.item.equipment.bauble.*;
+import org.violetmoon.botania.common.item.equipment.tool.SoulscribeItem;
+import org.violetmoon.botania.common.item.equipment.tool.StarcallerItem;
+import org.violetmoon.botania.common.item.equipment.tool.ThundercallerItem;
+import org.violetmoon.botania.common.item.equipment.tool.VitreousPickaxeItem;
+import org.violetmoon.botania.common.item.equipment.tool.bow.CrystalBowItem;
+import org.violetmoon.botania.common.item.equipment.tool.elementium.*;
+import org.violetmoon.botania.common.item.equipment.tool.manasteel.*;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
+import org.violetmoon.botania.common.item.lens.*;
+import org.violetmoon.botania.common.item.material.*;
+import org.violetmoon.botania.common.item.record.BotaniaJukeboxSongs;
+import org.violetmoon.botania.common.item.relic.*;
+import org.violetmoon.botania.common.item.rod.*;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.lib.LibItemNames;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaItems {
 	private static final Map<String, Item> ALL = new LinkedHashMap<>(); // Preserve insertion order

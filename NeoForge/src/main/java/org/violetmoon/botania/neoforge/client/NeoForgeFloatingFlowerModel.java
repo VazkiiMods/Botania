@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.client;
+package org.violetmoon.botania.neoforge.client;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
@@ -37,12 +37,12 @@ import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.FloatingFlower;
-import vazkii.botania.api.block.IslandType;
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.BotaniaIslandTypes;
-import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block.FloatingFlower;
+import org.violetmoon.botania.api.block.IslandType;
+import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.BotaniaIslandTypes;
+import org.violetmoon.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
 
 import java.util.*;
 import java.util.function.Function;

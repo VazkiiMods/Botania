@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.dispenser;
+package org.violetmoon.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import vazkii.botania.common.item.ManaSparkItem;
+import org.violetmoon.botania.common.item.ManaSparkItem;
 
 public class ManaSparkBehavior extends OptionalDispenseItemBehavior {
 

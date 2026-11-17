@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.item;
+package org.violetmoon.botania.test.item;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
@@ -22,15 +22,15 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.brew.BrewContainer;
-import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
-import vazkii.botania.api.recipe.ElvenTradeRecipe;
-import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.api.recipe.PureDaisyRecipe;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.brew.BrewContainer;
+import org.violetmoon.botania.api.recipe.BotanicalBreweryRecipe;
+import org.violetmoon.botania.api.recipe.ElvenTradeRecipe;
+import org.violetmoon.botania.api.recipe.OrechidRecipe;
+import org.violetmoon.botania.api.recipe.PureDaisyRecipe;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.crafting.LexiconElvenTradeRecipe;
+import org.violetmoon.botania.test.TestingUtil;
 
 import java.util.Arrays;
 import java.util.Collection;

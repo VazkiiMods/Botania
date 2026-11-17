@@ -1,4 +1,4 @@
-package vazkii.botania.mixin.datafixers;
+package org.violetmoon.botania.mixin.datafixers;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.DataFixerBuilder;
@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.datafix.BotaniaDataAttachmentFixer;
-import vazkii.botania.datafix.BotaniaDataFixers;
-import vazkii.botania.datafix.BotaniaEntityDataFix;
-import vazkii.botania.datafix.V3807_5;
+import org.violetmoon.botania.datafix.BotaniaDataAttachmentFixer;
+import org.violetmoon.botania.datafix.BotaniaDataFixers;
+import org.violetmoon.botania.datafix.BotaniaEntityDataFix;
+import org.violetmoon.botania.datafix.V3807_5;
 
 import java.util.Map;
 import java.util.function.UnaryOperator;

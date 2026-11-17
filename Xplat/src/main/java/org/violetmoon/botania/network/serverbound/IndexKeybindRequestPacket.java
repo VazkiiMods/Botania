@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.network.serverbound;
+package org.violetmoon.botania.network.serverbound;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -14,10 +14,10 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import org.violetmoon.botania.api.corporea.CorporeaHelper;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public record IndexKeybindRequestPacket(ItemStack stack) implements CustomPacketPayload {
 	public static final Type<IndexKeybindRequestPacket> ID = new Type<>(botaniaRL("idx"));

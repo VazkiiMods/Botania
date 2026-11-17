@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.corporea;
+package org.violetmoon.botania.common.block.block_entity.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,14 +18,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
-import vazkii.botania.api.corporea.CorporeaRequestor;
-import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.FilterHelper;
-import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.corporea.CorporeaHelper;
+import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
+import org.violetmoon.botania.api.corporea.CorporeaRequestor;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.helper.FilterHelper;
+import org.violetmoon.botania.common.helper.InventoryHelper;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 

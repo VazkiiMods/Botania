@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.data.gog;
+package org.violetmoon.botania.neoforge.data.gog;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -21,13 +21,13 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.data.util.DummyTagLookup;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.data.util.DummyTagLookup;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.gogRL;
+import static org.violetmoon.botania.api.BotaniaAPI.gogRL;
 
 public class GogBlockTagsProvider extends IntrinsicHolderTagsProvider<Block> {
 	private static final Set<TagKey<Block>> REQUIRED_TAGS = Set.of(

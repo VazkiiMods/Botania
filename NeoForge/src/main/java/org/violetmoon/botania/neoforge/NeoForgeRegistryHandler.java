@@ -7,18 +7,18 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge;
+package org.violetmoon.botania.neoforge;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaRegistries;
-import vazkii.botania.api.block.IslandType;
-import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.recipe.StateIngredientType;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaRegistries;
+import org.violetmoon.botania.api.block.IslandType;
+import org.violetmoon.botania.api.brew.Brew;
+import org.violetmoon.botania.api.recipe.StateIngredientType;
 
 @EventBusSubscriber(modid = BotaniaAPI.MODID)
 public class NeoForgeRegistryHandler {

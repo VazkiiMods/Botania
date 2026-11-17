@@ -7,13 +7,13 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.block;
+package org.violetmoon.botania.api.block;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.ItemLike;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPI;
 
 public record IslandType(ItemLike item, int modulatedDelay, SoundEvent changeSound) {
 

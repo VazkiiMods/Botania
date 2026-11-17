@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.handler;
+package org.violetmoon.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,8 +20,8 @@ import net.minecraft.resources.ResourceLocation;
 
 import org.lwjgl.glfw.GLFW;
 
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.LexicaBotaniaItem;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.item.LexicaBotaniaItem;
 
 public class KonamiHandler {
 	private static final int[] KONAMI_CODE = {

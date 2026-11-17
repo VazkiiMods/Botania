@@ -6,13 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana;
+package org.violetmoon.botania.api.mana;
 
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Any Block, Block Entity, or Entity with this capability has custom collision logic for bursts.

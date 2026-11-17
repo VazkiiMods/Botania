@@ -6,13 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana;
+package org.violetmoon.botania.api.mana;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.internal.ManaBurst;
 
 /**
  * Have an item implement this for it to count as a lens effect and

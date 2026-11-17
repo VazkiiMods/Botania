@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.item;
+package org.violetmoon.botania.api.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -14,10 +14,10 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.Bound;
-import vazkii.botania.api.capability.ItemApiWithContext;
+import org.violetmoon.botania.api.block.Bound;
+import org.violetmoon.botania.api.capability.ItemApiWithContext;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Items with this capability can be bound to a position.

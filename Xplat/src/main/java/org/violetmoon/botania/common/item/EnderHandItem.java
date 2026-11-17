@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -28,12 +28,12 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.gui.enderhand.HandOfEnderMenu;
-import vazkii.botania.common.item.rod.ShiftingCrustRodItem;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.item.BlockProvider;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.client.gui.enderhand.HandOfEnderMenu;
+import org.violetmoon.botania.common.item.rod.ShiftingCrustRodItem;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 public class EnderHandItem extends Item {
 

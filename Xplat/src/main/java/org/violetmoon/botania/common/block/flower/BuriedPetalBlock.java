@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.flower;
+package org.violetmoon.botania.common.block.flower;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -28,9 +28,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.Colored;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.item.material.MysticalPetalItem;
+import org.violetmoon.botania.api.internal.Colored;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.item.material.MysticalPetalItem;
 
 import java.util.function.Function;
 

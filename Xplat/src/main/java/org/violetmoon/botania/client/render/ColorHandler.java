@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render;
+package org.violetmoon.botania.client.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
@@ -24,24 +24,24 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.brew.BrewItem;
-import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.PlatformBlock;
-import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.brew.BotaniaBrews;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
-import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.item.material.MysticalPetalItem;
-import vazkii.botania.mixin.client.MinecraftAccessor;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.brew.Brew;
+import org.violetmoon.botania.api.brew.BrewItem;
+import org.violetmoon.botania.api.mana.BurstProperties;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.PlatformBlock;
+import org.violetmoon.botania.common.block.block_entity.PlatformBlockEntity;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.brew.BotaniaBrews;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.item.*;
+import org.violetmoon.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.common.item.lens.LensItem;
+import org.violetmoon.botania.common.item.material.MysticalPetalItem;
+import org.violetmoon.botania.mixin.client.MinecraftAccessor;
 
 import java.util.Optional;
 import java.util.Random;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.entity;
+package org.violetmoon.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -24,14 +24,14 @@ import net.minecraft.world.inventory.InventoryMenu;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.entity.SparkBaseEntity;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.entity.SparkBaseEntity;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.Objects;
 import java.util.Random;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends EntityRenderer<T> {
 

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.client;
+package org.violetmoon.botania.fabric.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -38,35 +38,35 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.fabric.BotaniaFabricCapabilities;
-import vazkii.botania.client.BotaniaClientCapabilities;
-import vazkii.botania.client.BotaniaItemProperties;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.CorporeaInputHandler;
-import vazkii.botania.client.core.handler.KonamiHandler;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.client.core.helper.CoreShaders;
-import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.fx.BotaniaParticles;
-import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.client.gui.ManaBarTooltipComponent;
-import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.client.gui.bag.ColoredContentsPouchScreen;
-import vazkii.botania.client.gui.box.TrinketCaseScreen;
-import vazkii.botania.client.gui.enderhand.HandOfEnderScreen;
-import vazkii.botania.client.integration.ears.EarsIntegration;
-import vazkii.botania.client.model.BotaniaLayerDefinitions;
-import vazkii.botania.client.model.armor.ArmorModels;
-import vazkii.botania.client.render.BlockRenderLayers;
-import vazkii.botania.client.render.ColorHandler;
-import vazkii.botania.client.render.entity.*;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
-import vazkii.botania.fabric.network.FabricPacketHandler;
-import vazkii.botania.xplat.ClientXplatAbstractions;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPIClient;
+import org.violetmoon.botania.api.fabric.BotaniaFabricCapabilities;
+import org.violetmoon.botania.client.BotaniaClientCapabilities;
+import org.violetmoon.botania.client.BotaniaItemProperties;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.client.core.handler.CorporeaInputHandler;
+import org.violetmoon.botania.client.core.handler.KonamiHandler;
+import org.violetmoon.botania.client.core.handler.MiscellaneousModels;
+import org.violetmoon.botania.client.core.helper.CoreShaders;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.client.fx.BotaniaParticles;
+import org.violetmoon.botania.client.gui.HUDHandler;
+import org.violetmoon.botania.client.gui.ManaBarTooltipComponent;
+import org.violetmoon.botania.client.gui.TooltipHandler;
+import org.violetmoon.botania.client.gui.bag.ColoredContentsPouchScreen;
+import org.violetmoon.botania.client.gui.box.TrinketCaseScreen;
+import org.violetmoon.botania.client.gui.enderhand.HandOfEnderScreen;
+import org.violetmoon.botania.client.integration.ears.EarsIntegration;
+import org.violetmoon.botania.client.model.BotaniaLayerDefinitions;
+import org.violetmoon.botania.client.model.armor.ArmorModels;
+import org.violetmoon.botania.client.render.BlockRenderLayers;
+import org.violetmoon.botania.client.render.ColorHandler;
+import org.violetmoon.botania.client.render.entity.*;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
+import org.violetmoon.botania.fabric.network.FabricPacketHandler;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 
 import java.io.IOException;

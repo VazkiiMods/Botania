@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -20,8 +20,8 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.RegistryHelper;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.RegistryHelper;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaArmorMaterials {
 	private static final List<RegistryHelper.HolderProxy<ArmorMaterial>> ALL = new ArrayList<>();

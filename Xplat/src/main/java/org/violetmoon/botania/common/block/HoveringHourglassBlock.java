@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,12 +38,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.HourglassMaterial;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.HoveringHourglassBlockEntity;
-import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.item.WandOfTheForestItem;
+import org.violetmoon.botania.api.item.HourglassMaterial;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.HoveringHourglassBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import org.violetmoon.botania.common.item.WandOfTheForestItem;
 
 import java.util.function.BiConsumer;
 

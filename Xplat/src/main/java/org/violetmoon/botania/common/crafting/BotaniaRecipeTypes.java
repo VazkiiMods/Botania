@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
@@ -16,36 +16,36 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.crafting.recipe.*;
+import org.violetmoon.botania.common.crafting.recipe.*;
 
 import java.util.*;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaRecipeTypes {
 	private static final Map<ResourceLocation, RecipeType<?>> TYPES = new LinkedHashMap<>();
 
-	public static final RecipeType<vazkii.botania.api.recipe.ManaInfusionRecipe> MANA_INFUSION_TYPE = register(
-			vazkii.botania.api.recipe.ManaInfusionRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.ElvenTradeRecipe> ELVEN_TRADE_TYPE = register(
-			vazkii.botania.api.recipe.ElvenTradeRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.PureDaisyRecipe> PURE_DAISY_TYPE = register(
-			vazkii.botania.api.recipe.PureDaisyRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.BotanicalBreweryRecipe> BREW_TYPE = register(
-			vazkii.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.PetalApothecaryRecipe> PETAL_APOTHECARY_TYPE = register(
-			vazkii.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.RunicAltarRecipe> RUNIC_ALTAR_TYPE = register(
-			vazkii.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe> TERRA_PLATE_TYPE = register(
-			vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> ORECHID_TYPE = register(
-			vazkii.botania.api.recipe.OrechidRecipe.TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> ORECHID_IGNEM_TYPE = register(
-			vazkii.botania.api.recipe.OrechidRecipe.IGNEM_TYPE_ID);
-	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> MARIMORPHOSIS_TYPE = register(
-			vazkii.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.ManaInfusionRecipe> MANA_INFUSION_TYPE = register(
+			org.violetmoon.botania.api.recipe.ManaInfusionRecipe.TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.ElvenTradeRecipe> ELVEN_TRADE_TYPE = register(
+			org.violetmoon.botania.api.recipe.ElvenTradeRecipe.TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.PureDaisyRecipe> PURE_DAISY_TYPE = register(
+			org.violetmoon.botania.api.recipe.PureDaisyRecipe.TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.BotanicalBreweryRecipe> BREW_TYPE = register(
+			org.violetmoon.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.PetalApothecaryRecipe> PETAL_APOTHECARY_TYPE = register(
+			org.violetmoon.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.RunicAltarRecipe> RUNIC_ALTAR_TYPE = register(
+			org.violetmoon.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.TerrestrialAgglomerationRecipe> TERRA_PLATE_TYPE = register(
+			org.violetmoon.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.OrechidRecipe> ORECHID_TYPE = register(
+			org.violetmoon.botania.api.recipe.OrechidRecipe.TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.OrechidRecipe> ORECHID_IGNEM_TYPE = register(
+			org.violetmoon.botania.api.recipe.OrechidRecipe.IGNEM_TYPE_ID);
+	public static final RecipeType<org.violetmoon.botania.api.recipe.OrechidRecipe> MARIMORPHOSIS_TYPE = register(
+			org.violetmoon.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 
 	private static <T extends Recipe<?>> RecipeType<T> register(ResourceLocation id) {
 		RecipeType<T> type = new BotaniaRecipeType<>(id.getPath());
@@ -68,18 +68,18 @@ public class BotaniaRecipeTypes {
 
 	public static void submitRecipeSerializers(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
 		// serializers for our custom recipe types
-		r.accept(ManaInfusionRecipe.SERIALIZER, vazkii.botania.api.recipe.ManaInfusionRecipe.TYPE_ID);
-		r.accept(ElvenTradeRecipe.SERIALIZER, vazkii.botania.api.recipe.ElvenTradeRecipe.TYPE_ID);
-		r.accept(LexiconElvenTradeRecipe.SERIALIZER, vazkii.botania.api.recipe.ElvenTradeRecipe.TYPE_ID_LEXICON);
-		r.accept(PureDaisyRecipe.SERIALIZER, vazkii.botania.api.recipe.PureDaisyRecipe.TYPE_ID);
-		r.accept(BotanicalBreweryRecipe.SERIALIZER, vazkii.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
-		r.accept(PetalApothecaryRecipe.SERIALIZER, vazkii.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
-		r.accept(RunicAltarRecipe.SERIALIZER, vazkii.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
-		r.accept(HeadRecipe.SERIALIZER, vazkii.botania.api.recipe.RunicAltarRecipe.HEAD_TYPE_ID);
-		r.accept(TerrestrialAgglomerationRecipe.SERIALIZER, vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);
-		r.accept(OrechidRecipe.SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.TYPE_ID);
-		r.accept(OrechidIgnemRecipe.SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.IGNEM_TYPE_ID);
-		r.accept(MarimorphosisRecipe.SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
+		r.accept(ManaInfusionRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.ManaInfusionRecipe.TYPE_ID);
+		r.accept(ElvenTradeRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.ElvenTradeRecipe.TYPE_ID);
+		r.accept(LexiconElvenTradeRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.ElvenTradeRecipe.TYPE_ID_LEXICON);
+		r.accept(PureDaisyRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.PureDaisyRecipe.TYPE_ID);
+		r.accept(BotanicalBreweryRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
+		r.accept(PetalApothecaryRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
+		r.accept(RunicAltarRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
+		r.accept(HeadRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.RunicAltarRecipe.HEAD_TYPE_ID);
+		r.accept(TerrestrialAgglomerationRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);
+		r.accept(OrechidRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.OrechidRecipe.TYPE_ID);
+		r.accept(OrechidIgnemRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.OrechidRecipe.IGNEM_TYPE_ID);
+		r.accept(MarimorphosisRecipe.SERIALIZER, org.violetmoon.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 
 		// serializers for crafting recipe variants
 		r.accept(AncientWillRecipe.SERIALIZER, botaniaRL("crafting_special_ancient_will_attach"));

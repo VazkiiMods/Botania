@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data;
+package org.violetmoon.botania.data;
 
 import com.google.gson.JsonElement;
 
@@ -25,20 +25,20 @@ import net.minecraft.world.level.block.state.properties.*;
 import org.apache.commons.lang3.function.TriConsumer;
 import org.slf4j.Logger;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.api.state.enums.AlfheimPortalState;
-import vazkii.botania.api.state.enums.CraftyCratePattern;
-import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.flower.*;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.block.red_string.RedStringBlock;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.data.util.BotaniaModelTemplates;
-import vazkii.botania.mixin.BlockModelGeneratorsAccessor;
-import vazkii.botania.mixin.TextureSlotAccessor;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.api.state.enums.AlfheimPortalState;
+import org.violetmoon.botania.api.state.enums.CraftyCratePattern;
+import org.violetmoon.botania.common.block.*;
+import org.violetmoon.botania.common.block.flower.*;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.block.mana.ManaSpreaderBlock;
+import org.violetmoon.botania.common.block.red_string.RedStringBlock;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.lib.LibBlockNames;
+import org.violetmoon.botania.data.util.BotaniaModelTemplates;
+import org.violetmoon.botania.mixin.BlockModelGeneratorsAccessor;
+import org.violetmoon.botania.mixin.TextureSlotAccessor;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -49,7 +49,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BlockstateProvider implements DataProvider {
 	protected final PackOutput packOutput;

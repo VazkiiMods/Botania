@@ -6,15 +6,15 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.block;
+package org.violetmoon.botania.api.block;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.block_entity.flower.BotaniaIslandTypes;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.block.block_entity.flower.BotaniaIslandTypes;
 
 public class FloatingFlowerImpl implements FloatingFlower {
 	private IslandType type = BotaniaIslandTypes.GRASS;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.helper;
+package org.violetmoon.botania.client.core.helper;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -17,12 +17,12 @@ import net.minecraft.resources.ResourceLocation;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.network.TriConsumer;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.network.TriConsumer;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.function.Consumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class CoreShaders {
 	@Nullable

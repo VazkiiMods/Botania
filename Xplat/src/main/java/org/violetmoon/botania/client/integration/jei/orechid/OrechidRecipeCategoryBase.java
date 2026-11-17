@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei.orechid;
+package org.violetmoon.botania.client.integration.jei.orechid;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -27,13 +27,13 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.client.integration.jei.BotaniaRecipeCategoryBase;
-import vazkii.botania.client.integration.shared.OrechidUIHelper;
+import org.violetmoon.botania.api.recipe.OrechidRecipe;
+import org.violetmoon.botania.client.integration.jei.BotaniaRecipeCategoryBase;
+import org.violetmoon.botania.client.integration.shared.OrechidUIHelper;
 
 import java.util.stream.Stream;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class OrechidRecipeCategoryBase extends BotaniaRecipeCategoryBase<OrechidRecipe> {
 

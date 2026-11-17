@@ -7,11 +7,11 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.shared;
+package org.violetmoon.botania.client.integration.shared;
 
 import net.minecraft.Util;
 
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 import java.math.RoundingMode;
 import java.text.NumberFormat;

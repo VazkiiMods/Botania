@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.component;
+package org.violetmoon.botania.common.component;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;

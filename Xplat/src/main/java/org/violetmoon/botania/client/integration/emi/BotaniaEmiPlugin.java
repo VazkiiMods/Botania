@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.emi;
+package org.violetmoon.botania.client.integration.emi;
 
 import dev.emi.emi.api.EmiApi;
 import dev.emi.emi.api.EmiEntrypoint;
@@ -46,20 +46,20 @@ import net.minecraft.world.level.material.Fluids;
 
 import org.apache.commons.lang3.StringUtils;
 
-import vazkii.botania.client.core.handler.CorporeaInputHandler;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.crafting.*;
-import vazkii.botania.common.crafting.recipe.RecipeUtils;
-import vazkii.botania.common.crafting.recipe.TiaraWingsRecipe;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.GrassSeedsItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
-import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.client.core.handler.CorporeaInputHandler;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.crafting.*;
+import org.violetmoon.botania.common.crafting.recipe.RecipeUtils;
+import org.violetmoon.botania.common.crafting.recipe.TiaraWingsRecipe;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.GrassSeedsItem;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.common.item.lens.LensItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -68,7 +68,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.StreamSupport;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 @EmiEntrypoint
 public class BotaniaEmiPlugin implements EmiPlugin {

@@ -1,4 +1,4 @@
-package vazkii.botania.datafix;
+package org.violetmoon.botania.datafix;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
@@ -11,7 +11,7 @@ import com.mojang.serialization.Dynamic;
 
 import net.minecraft.util.datafix.fixes.References;
 
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.Map;
 

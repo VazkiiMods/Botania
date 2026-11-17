@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -23,17 +23,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
-import vazkii.botania.api.item.CosmeticAttachable;
-import vazkii.botania.api.item.PhantomInkable;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.item.CosmeticAttachable;
+import org.violetmoon.botania.api.item.PhantomInkable;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class BaubleItem extends Item implements CosmeticAttachable, PhantomInkable {
 

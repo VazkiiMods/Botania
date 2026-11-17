@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -33,13 +33,13 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.BlockChangedListenerBauble;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.mixin.BiomeAccessor;
+import org.violetmoon.botania.api.item.BlockChangedListenerBauble;
+import org.violetmoon.botania.client.core.handler.MiscellaneousModels;
+import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
+import org.violetmoon.botania.client.render.AccessoryRenderer;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.proxy.Proxy;
+import org.violetmoon.botania.mixin.BiomeAccessor;
 
 public class SnowflakePendantItem extends BaubleItem implements BlockChangedListenerBauble {
 

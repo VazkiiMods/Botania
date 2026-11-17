@@ -1,5 +1,5 @@
 {
-  "processor": "vazkii.botania.client.patchouli.processor.PureDaisyProcessor",
+  "processor": "org.violetmoon.botania.client.patchouli.processor.PureDaisyProcessor",
   "components": [
     {
       "type": "patchouli:image",

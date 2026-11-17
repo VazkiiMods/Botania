@@ -7,11 +7,11 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.capability;
+package org.violetmoon.botania.api.capability;
 
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.item.SparkEntity;
+import org.violetmoon.botania.api.item.SparkEntity;
 
 /**
  * Base interface for block/entity capabilities that allow attaching some form of spark entity.

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.lens;
+package org.violetmoon.botania.common.item.lens;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -15,7 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.internal.ManaBurst;
 
 public class BounceLens extends Lens {
 

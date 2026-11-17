@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 @Mixin(AbstractClientPlayer.class)
 public class AbstractClientPlayerMixin {

@@ -1,5 +1,5 @@
 {
-  "processor": "vazkii.botania.client.patchouli.processor.MultiCraftingProcessor",
+  "processor": "org.violetmoon.botania.client.patchouli.processor.MultiCraftingProcessor",
   "components": [
     {
       "type": "patchouli:header",

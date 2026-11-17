@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.emi;
+package org.violetmoon.botania.client.integration.emi;
 
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -23,8 +23,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.client.integration.shared.OrechidUIHelper;
+import org.violetmoon.botania.api.recipe.OrechidRecipe;
+import org.violetmoon.botania.client.integration.shared.OrechidUIHelper;
 
 import java.util.List;
 import java.util.stream.Stream;

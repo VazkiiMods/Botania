@@ -6,16 +6,16 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool.elementium;
+package org.violetmoon.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
-import vazkii.botania.common.handler.PixieHandler;
+import org.violetmoon.botania.common.handler.PixieHandler;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElementiumSwordItem extends SwordItem {
 	public ElementiumSwordItem(Tier tier, Properties properties) {

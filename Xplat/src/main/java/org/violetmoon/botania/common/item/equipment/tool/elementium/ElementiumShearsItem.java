@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool.elementium;
+package org.violetmoon.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelShearsItem;
+import org.violetmoon.botania.common.item.equipment.tool.manasteel.ManasteelShearsItem;
 
 import java.util.List;
 

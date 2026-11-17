@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.capabilities;
+package org.violetmoon.botania.common.capabilities;
 
 import com.mojang.datafixers.util.Function3;
 
@@ -20,31 +20,31 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block.EdibleBlockWithEffects;
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.block.HourglassTrigger;
-import vazkii.botania.api.block.LifeAggregatorCarryable;
-import vazkii.botania.api.block.PhantomInkableBlock;
-import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.capability.registration.ApiIdRegistration;
-import vazkii.botania.api.capability.registration.ApiProviderRegistration;
-import vazkii.botania.api.capability.registration.BlockRegistrationNoContext;
-import vazkii.botania.api.capability.registration.BlockRegistrationWithContext;
-import vazkii.botania.api.mana.ManaCollisionGhost;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.api.mana.spark.ManaSparkAttachable;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.ForceRelayBlock;
-import vazkii.botania.common.block.ManastormChargeTrigger;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
-import vazkii.botania.common.block.mana.DrumBlock;
-import vazkii.botania.common.block.mana.ManaDetectorBlock;
-import vazkii.botania.common.block.mana.ManaVoidBlock;
-import vazkii.botania.common.handler.ExoflameFurnaceHandler;
-import vazkii.botania.common.handler.LifeAggregatorHandler;
+import org.violetmoon.botania.api.block.EdibleBlockWithEffects;
+import org.violetmoon.botania.api.block.ExoflameHeatable;
+import org.violetmoon.botania.api.block.HourglassTrigger;
+import org.violetmoon.botania.api.block.LifeAggregatorCarryable;
+import org.violetmoon.botania.api.block.PhantomInkableBlock;
+import org.violetmoon.botania.api.block.WandBindable;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.capability.registration.ApiIdRegistration;
+import org.violetmoon.botania.api.capability.registration.ApiProviderRegistration;
+import org.violetmoon.botania.api.capability.registration.BlockRegistrationNoContext;
+import org.violetmoon.botania.api.capability.registration.BlockRegistrationWithContext;
+import org.violetmoon.botania.api.mana.ManaCollisionGhost;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.api.mana.ManaTrigger;
+import org.violetmoon.botania.api.mana.spark.ManaSparkAttachable;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.ForceRelayBlock;
+import org.violetmoon.botania.common.block.ManastormChargeTrigger;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.ManaEnchanterBlockEntity;
+import org.violetmoon.botania.common.block.mana.DrumBlock;
+import org.violetmoon.botania.common.block.mana.ManaDetectorBlock;
+import org.violetmoon.botania.common.block.mana.ManaVoidBlock;
+import org.violetmoon.botania.common.handler.ExoflameFurnaceHandler;
+import org.violetmoon.botania.common.handler.LifeAggregatorHandler;
 
 import java.util.List;
 import java.util.function.BiFunction;

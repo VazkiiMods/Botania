@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.emi;
+package org.violetmoon.botania.client.integration.emi;
 
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
@@ -17,8 +17,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.material.Fluids;
 
-import vazkii.botania.api.recipe.PetalApothecaryRecipe;
-import vazkii.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.api.recipe.PetalApothecaryRecipe;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
 
 import java.util.List;
 import java.util.stream.Stream;

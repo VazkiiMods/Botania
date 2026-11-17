@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import com.google.common.base.Suppliers;
 
@@ -34,23 +34,23 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.internal.ItemSource;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.spark.ManaSpark;
-import vazkii.botania.api.mana.spark.ManaSparkAttachable;
-import vazkii.botania.api.mana.spark.ManaSparkHelper;
-import vazkii.botania.api.recipe.ProcessingRecipeInput;
-import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.api.state.enums.TerraPlateState;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.recipe.RecipeUtils;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.internal_caps.ItemSources;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.api.internal.ItemSource;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.api.mana.spark.ManaSpark;
+import org.violetmoon.botania.api.mana.spark.ManaSparkAttachable;
+import org.violetmoon.botania.api.mana.spark.ManaSparkHelper;
+import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
+import org.violetmoon.botania.api.recipe.TerrestrialAgglomerationRecipe;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.api.state.enums.TerraPlateState;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.crafting.recipe.RecipeUtils;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.internal_caps.ItemSources;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.proxy.Proxy;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 

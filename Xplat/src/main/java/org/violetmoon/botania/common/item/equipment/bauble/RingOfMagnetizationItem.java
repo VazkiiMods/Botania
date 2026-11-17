@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,17 +16,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.mixin.ItemEntityAccessor;
-import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.item.Relic;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.mixin.ItemEntityAccessor;
+import org.violetmoon.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.annotations;
+package org.violetmoon.botania.common.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.advancements;
+package org.violetmoon.botania.common.advancements;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -21,7 +21,7 @@ import net.minecraft.world.level.ItemLike;
 
 import java.util.Optional;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 // Catch-all "used an item and it succeeded" trigger for Botania items, because making a separate
 // trigger for each one is dumb.

@@ -7,13 +7,13 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.world.level.ItemLike;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 import java.util.function.BiConsumer;
 

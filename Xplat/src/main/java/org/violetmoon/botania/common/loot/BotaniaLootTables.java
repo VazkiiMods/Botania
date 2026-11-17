@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.loot;
+package org.violetmoon.botania.common.loot;
 
 import com.google.common.collect.Sets;
 
@@ -28,9 +28,9 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static vazkii.botania.api.BotaniaAPI.MODID;
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-import static vazkii.botania.api.BotaniaAPI.gogRL;
+import static org.violetmoon.botania.api.BotaniaAPI.MODID;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.gogRL;
 
 public class BotaniaLootTables {
 	private static final Set<ResourceKey<LootTable>> LOCATIONS = Sets.newLinkedHashSet();

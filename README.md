@@ -25,7 +25,7 @@ repositories {
 
 dependencies {
     // 1.14+
-    compileOnly fg.deobf("vazkii.botania:Botania:[VERSION]:api")
-    runtimeOnly fg.deobf("vazkii.botania:Botania:[VERSION]")
+    compileOnly fg.deobf("org.violetmoon.botania:Botania:[VERSION]:api")
+    runtimeOnly fg.deobf("org.violetmoon.botania:Botania:[VERSION]")
 }
 ```

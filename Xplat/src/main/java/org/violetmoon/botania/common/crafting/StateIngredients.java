@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -21,17 +21,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaRegistries;
-import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.api.recipe.StateIngredientType;
-import vazkii.botania.common.helper.RegistryHelper;
+import org.violetmoon.botania.api.BotaniaRegistries;
+import org.violetmoon.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.api.recipe.StateIngredientType;
+import org.violetmoon.botania.common.helper.RegistryHelper;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class StateIngredients {
 	public static final Codec<StateIngredient> TYPED_CODEC = Codec.lazyInitialized(() -> RegistryHelper

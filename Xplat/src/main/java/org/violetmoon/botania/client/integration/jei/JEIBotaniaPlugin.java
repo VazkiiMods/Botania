@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei;
+package org.violetmoon.botania.client.integration.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -33,37 +33,37 @@ import net.minecraft.world.level.block.Block;
 
 import org.apache.commons.lang3.ObjectUtils;
 
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.api.recipe.*;
-import vazkii.botania.client.core.handler.CorporeaInputHandler;
-import vazkii.botania.client.gui.crafting.AssemblyHaloContainer;
-import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
-import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
-import vazkii.botania.client.integration.jei.crafting.TerraShattererTippingRecipeWrapper;
-import vazkii.botania.client.integration.jei.orechid.MarimorphosisRecipeCategory;
-import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
-import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
-import vazkii.botania.common.crafting.StateIngredients;
-import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
-import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.crafting.recipe.TerraShattererTippingRecipe;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.LaputaShardItem;
-import vazkii.botania.common.item.ManaTabletItem;
-import vazkii.botania.common.item.brew.BaseBrewItem;
-import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.api.recipe.*;
+import org.violetmoon.botania.client.core.handler.CorporeaInputHandler;
+import org.violetmoon.botania.client.gui.crafting.AssemblyHaloContainer;
+import org.violetmoon.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
+import org.violetmoon.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
+import org.violetmoon.botania.client.integration.jei.crafting.TerraShattererTippingRecipeWrapper;
+import org.violetmoon.botania.client.integration.jei.orechid.MarimorphosisRecipeCategory;
+import org.violetmoon.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
+import org.violetmoon.botania.client.integration.jei.orechid.OrechidRecipeCategory;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+import org.violetmoon.botania.common.crafting.LexiconElvenTradeRecipe;
+import org.violetmoon.botania.common.crafting.StateIngredients;
+import org.violetmoon.botania.common.crafting.recipe.AncientWillRecipe;
+import org.violetmoon.botania.common.crafting.recipe.CompositeLensRecipe;
+import org.violetmoon.botania.common.crafting.recipe.TerraShattererTippingRecipe;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.LaputaShardItem;
+import org.violetmoon.botania.common.item.ManaTabletItem;
+import org.violetmoon.botania.common.item.brew.BaseBrewItem;
+import org.violetmoon.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
 import java.lang.ref.WeakReference;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 @JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {

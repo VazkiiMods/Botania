@@ -1,4 +1,4 @@
-package vazkii.botania.integration.speedrunigt;
+package org.violetmoon.botania.integration.speedrunigt;
 
 import java.util.ArrayList;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.gui.bag;
+package org.violetmoon.botania.client.gui.bag;
 
 import it.unimi.dsi.fastutil.ints.IntList;
 
@@ -22,12 +22,12 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.inventory.BotaniaMenuWithLockedSlot;
-import vazkii.botania.client.gui.SlotLocked;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.ColoredContentsPouchItem;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.inventory.BotaniaMenuWithLockedSlot;
+import org.violetmoon.botania.client.gui.SlotLocked;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.ColoredContentsPouchItem;
 
 import java.util.List;
 

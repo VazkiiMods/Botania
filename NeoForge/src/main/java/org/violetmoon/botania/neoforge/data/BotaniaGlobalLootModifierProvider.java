@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.neoforge.data;
+package org.violetmoon.botania.neoforge.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -19,8 +19,8 @@ import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
 import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
 
 import java.util.concurrent.CompletableFuture;
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.mana;
+package org.violetmoon.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
@@ -30,15 +30,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.block.RedstoneSensitiveBlock;
-import vazkii.botania.api.mana.BasicLensItem;
-import vazkii.botania.api.mana.ManaCollisionGhost;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BotaniaWaterloggedEntityBlock;
-import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
-import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.api.block.RedstoneSensitiveBlock;
+import org.violetmoon.botania.api.mana.BasicLensItem;
+import org.violetmoon.botania.api.mana.ManaCollisionGhost;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.common.block.BotaniaWaterloggedEntityBlock;
+import org.violetmoon.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
+import org.violetmoon.botania.common.entity.ManaBurstEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 public class ManaPrismBlock extends BotaniaWaterloggedEntityBlock
 		implements ManaCollisionGhost, RedstoneSensitiveBlock {

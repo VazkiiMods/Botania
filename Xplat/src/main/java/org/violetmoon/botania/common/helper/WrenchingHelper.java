@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.helper;
+package org.violetmoon.botania.common.helper;
 
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.SortedPair;
@@ -32,8 +32,8 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.mixin.BaseRailBlockAccessor;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.mixin.BaseRailBlockAccessor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,7 +46,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Implements block state manipulation operations for the {@link vazkii.botania.common.item.WandOfTheForestItem}
+ * Implements block state manipulation operations for the {@link org.violetmoon.botania.common.item.WandOfTheForestItem}
  */
 public class WrenchingHelper {
 	private static final double RAIL_INTERACTION_SIDE_OFFSET = 0.55;

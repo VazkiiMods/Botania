@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.item.brew;
+package org.violetmoon.botania.common.item.brew;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,10 +23,10 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.brew.Brew;
-import vazkii.botania.common.entity.EnderEssenceCloudEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.brew.Brew;
+import org.violetmoon.botania.common.entity.EnderEssenceCloudEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 public class FlaskItem extends VialItem {
 	public FlaskItem(Properties properties) {

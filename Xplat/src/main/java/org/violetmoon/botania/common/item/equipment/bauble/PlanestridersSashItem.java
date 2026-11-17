@@ -6,15 +6,15 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.bauble;
+package org.violetmoon.botania.common.item.equipment.bauble;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
 
 public class PlanestridersSashItem extends SojournersSashItem {
 

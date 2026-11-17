@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
@@ -25,10 +25,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.block.block_entity.SparkTinkererBlockEntity;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.SparkTinkererBlockEntity;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 public class SparkTinkererBlock extends BotaniaWaterloggedEntityBlock {
 

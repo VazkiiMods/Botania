@@ -7,18 +7,18 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client;
+package org.violetmoon.botania.client;
 
-import vazkii.botania.api.capability.registration.ApiIdRegistration;
-import vazkii.botania.api.capability.registration.ApiProviderRegistration;
-import vazkii.botania.client.capabilities.ClientBlockCapabilities;
-import vazkii.botania.client.capabilities.ClientEntityCapabilities;
+import org.violetmoon.botania.api.capability.registration.ApiIdRegistration;
+import org.violetmoon.botania.api.capability.registration.ApiProviderRegistration;
+import org.violetmoon.botania.client.capabilities.ClientBlockCapabilities;
+import org.violetmoon.botania.client.capabilities.ClientEntityCapabilities;
 
 /**
  * Central entry point for Botania's own client-side capability API registration logic.
  *
  * @implNote Botania's item capabilities are all registered in common code, so no calls for that happen here.
- * @see vazkii.botania.common.BotaniaCapabilities
+ * @see org.violetmoon.botania.common.BotaniaCapabilities
  */
 public final class BotaniaClientCapabilities {
 

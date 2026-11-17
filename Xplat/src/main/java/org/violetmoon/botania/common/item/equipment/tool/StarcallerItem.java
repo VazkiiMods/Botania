@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool;
+package org.violetmoon.botania.common.item.equipment.tool;
 
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -23,9 +23,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.entity.FallingStarEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.entity.FallingStarEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 public class StarcallerItem extends SwordItem {
 

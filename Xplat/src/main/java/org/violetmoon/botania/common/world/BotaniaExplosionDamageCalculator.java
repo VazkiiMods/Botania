@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.world;
+package org.violetmoon.botania.common.world;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -18,8 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.RedstoneSensitiveBlock;
-import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
+import org.violetmoon.botania.api.block.RedstoneSensitiveBlock;
+import org.violetmoon.botania.common.block.block_entity.LuminizerBlockEntity;
 
 public class LuminizerToggleBlock extends LuminizerPoweredBlock {
 

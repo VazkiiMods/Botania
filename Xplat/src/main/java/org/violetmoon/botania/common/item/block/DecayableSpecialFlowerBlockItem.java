@@ -7,13 +7,13 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.item.block;
+package org.violetmoon.botania.common.item.block;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
 
 public class DecayableSpecialFlowerBlockItem extends SpecialFlowerBlockItem {
 	private final int decayTime;

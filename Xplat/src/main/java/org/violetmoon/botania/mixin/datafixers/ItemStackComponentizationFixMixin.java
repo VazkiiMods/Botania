@@ -1,4 +1,4 @@
-package vazkii.botania.mixin.datafixers;
+package org.violetmoon.botania.mixin.datafixers;
 
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.datafix.BotaniaDataFixers;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.datafix.BotaniaDataFixers;
 
 import java.util.*;
 import java.util.stream.IntStream;

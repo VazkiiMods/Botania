@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -17,8 +17,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.entity.ThornChakramEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.entity.ThornChakramEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 public class ThornChakramItem extends Item {
 

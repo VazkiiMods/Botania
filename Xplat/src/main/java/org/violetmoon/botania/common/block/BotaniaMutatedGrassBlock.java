@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -25,9 +25,9 @@ import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block.EdibleBlockWithEffects;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.mixin.LivingEntityAccessor;
+import org.violetmoon.botania.api.block.EdibleBlockWithEffects;
+import org.violetmoon.botania.client.fx.SparkleParticleData;
+import org.violetmoon.botania.mixin.LivingEntityAccessor;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.shared;
+package org.violetmoon.botania.client.integration.shared;
 
 import it.unimi.dsi.fastutil.ints.IntIntImmutablePair;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
@@ -20,8 +20,8 @@ import net.minecraft.util.Mth;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.common.handler.OrechidManager;
+import org.violetmoon.botania.api.recipe.OrechidRecipe;
+import org.violetmoon.botania.common.handler.OrechidManager;
 
 import java.text.NumberFormat;
 import java.util.stream.Stream;

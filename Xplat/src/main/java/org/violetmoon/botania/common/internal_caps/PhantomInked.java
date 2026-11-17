@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.internal_caps;
+package org.violetmoon.botania.common.internal_caps;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -16,10 +16,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import vazkii.botania.api.attachment.DataMarkerId;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.attachment.DataMarkerId;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * A marker for an entity that has phantom ink applied but does not support it natively.

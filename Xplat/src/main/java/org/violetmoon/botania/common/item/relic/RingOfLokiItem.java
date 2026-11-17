@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.relic;
+package org.violetmoon.botania.common.item.relic;
 
 import com.google.common.collect.ImmutableList;
 
@@ -35,23 +35,23 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.api.item.SequentialBreaker;
-import vazkii.botania.api.item.WireframeCoordinateListProvider;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.advancements.LokiPlaceTrigger;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.api.item.Relic;
+import org.violetmoon.botania.api.item.SequentialBreaker;
+import org.violetmoon.botania.api.item.WireframeCoordinateListProvider;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.common.advancements.LokiPlaceTrigger;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordinateListProvider {
 

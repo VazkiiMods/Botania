@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.data.gog;
+package org.violetmoon.botania.neoforge.data.gog;
 
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
@@ -28,7 +28,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.neoforged.neoforge.common.Tags;
 
-import vazkii.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
 
 import java.util.function.BiConsumer;
 

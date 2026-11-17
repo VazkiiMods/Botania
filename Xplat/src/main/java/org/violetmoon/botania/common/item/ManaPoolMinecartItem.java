@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import vazkii.botania.common.entity.ManaPoolMinecartEntity;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.common.entity.ManaPoolMinecartEntity;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 // [VanillaCopy] of MinecartItem, because that is needlessly locked down through the AbstractMinecart.Type enum
 public class ManaPoolMinecartItem extends Item {

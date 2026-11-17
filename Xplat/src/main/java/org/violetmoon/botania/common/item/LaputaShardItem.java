@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import com.google.common.collect.ImmutableList;
 
@@ -37,19 +37,19 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.LensEffectItem;
-import vazkii.botania.api.mana.TinyPlanetExcempt;
-import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.component.LaputaState;
-import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.mana.BurstProperties;
+import org.violetmoon.botania.api.mana.LensEffectItem;
+import org.violetmoon.botania.api.mana.TinyPlanetExcempt;
+import org.violetmoon.botania.common.advancements.UseItemSuccessTrigger;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.component.LaputaState;
+import org.violetmoon.botania.common.entity.BotaniaEntities;
+import org.violetmoon.botania.common.entity.ManaBurstEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 import java.util.Optional;

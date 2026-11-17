@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.fx;
+package org.violetmoon.botania.client.fx;
 
 import com.mojang.serialization.MapCodec;
 

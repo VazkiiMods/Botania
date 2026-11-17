@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.xplat;
+package org.violetmoon.botania.xplat;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -55,25 +55,25 @@ import net.minecraft.world.phys.AABB;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.ServiceUtil;
-import vazkii.botania.api.attachment.DataIdBase;
-import vazkii.botania.api.capability.BlockApiNoContext;
-import vazkii.botania.api.capability.BlockApiWithContext;
-import vazkii.botania.api.capability.EntityApiNoContext;
-import vazkii.botania.api.capability.EntityApiWithContext;
-import vazkii.botania.api.capability.ItemApiNoContext;
-import vazkii.botania.api.capability.ItemApiWithContext;
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
-import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.mana.*;
-import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.ServiceUtil;
+import org.violetmoon.botania.api.attachment.DataIdBase;
+import org.violetmoon.botania.api.capability.BlockApiNoContext;
+import org.violetmoon.botania.api.capability.BlockApiWithContext;
+import org.violetmoon.botania.api.capability.EntityApiNoContext;
+import org.violetmoon.botania.api.capability.EntityApiWithContext;
+import org.violetmoon.botania.api.capability.ItemApiNoContext;
+import org.violetmoon.botania.api.capability.ItemApiWithContext;
+import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.api.mana.*;
+import org.violetmoon.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-import static vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
+import static org.violetmoon.botania.integration.speedrunigt.BotaniaSpeedrunCategories.BotaniaSpeedrunCategory;
 
 public interface XplatAbstractions {
 	// FML/Fabric Loader

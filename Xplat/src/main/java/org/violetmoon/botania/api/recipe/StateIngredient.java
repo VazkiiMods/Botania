@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.recipe;
+package org.violetmoon.botania.api.recipe;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.mixin.LiquidBlockAccessor;
+import org.violetmoon.botania.mixin.LiquidBlockAccessor;
 
 import java.util.Collections;
 import java.util.List;

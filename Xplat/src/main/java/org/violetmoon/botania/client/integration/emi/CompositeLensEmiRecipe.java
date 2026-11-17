@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.integration.emi;
+package org.violetmoon.botania.client.integration.emi;
 
 import dev.emi.emi.api.recipe.EmiPatternCraftingRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -18,7 +18,7 @@ import dev.emi.emi.api.widget.SlotWidget;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import vazkii.botania.common.item.lens.LensItem;
+import org.violetmoon.botania.common.item.lens.LensItem;
 
 import java.util.List;
 

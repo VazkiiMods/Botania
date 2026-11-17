@@ -6,10 +6,10 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana;
+package org.violetmoon.botania.api.mana;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.internal.ManaBurst;
 
 /**
  * Any {@link ManaReceiver} that also implements this is considered a mana collector, by
@@ -18,10 +18,10 @@ import vazkii.botania.api.internal.ManaBurst;
  * <b>Implementation Instructions:</b>
  * <ul>
  * <li>When joining the world (e.g. on first tick), call
- * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
+ * {@link org.violetmoon.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
  * with this object, type {@link ManaBlockType#COLLECTOR}, and action {@link ManaNetworkAction#ADD}.
  * <li>When leaving the world (e.g. in setRemoved), call
- * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
+ * {@link org.violetmoon.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
  * with this object, type {@link ManaBlockType#COLLECTOR}, and action {@link ManaNetworkAction#REMOVE}.
  * </ul>
  * Get the mana network using {@link BotaniaAPI#getManaNetworkInstance()}.

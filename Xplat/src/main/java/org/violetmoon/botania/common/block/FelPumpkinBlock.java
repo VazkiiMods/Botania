@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import com.mojang.serialization.MapCodec;
 
@@ -36,9 +36,9 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.loot.BotaniaLootTables;
-import vazkii.botania.mixin.MobAccessor;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.mixin.MobAccessor;
 
 public class FelPumpkinBlock extends Block {
 	public static final MapCodec<FelPumpkinBlock> CODEC = simpleCodec(FelPumpkinBlock::new);

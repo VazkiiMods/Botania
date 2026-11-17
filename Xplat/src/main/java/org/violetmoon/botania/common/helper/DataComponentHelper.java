@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.helper;
+package org.violetmoon.botania.common.helper;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -19,8 +19,8 @@ import net.minecraft.world.item.Rarity;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.common.component.SingleItem;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.common.component.SingleItem;
 
 import java.util.Collection;
 import java.util.Optional;

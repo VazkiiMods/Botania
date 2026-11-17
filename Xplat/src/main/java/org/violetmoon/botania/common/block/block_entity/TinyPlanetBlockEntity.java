@@ -6,14 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.item.equipment.bauble.TinyPlanetItem;
+import org.violetmoon.botania.common.item.equipment.bauble.TinyPlanetItem;
 
 public class TinyPlanetBlockEntity extends BlockEntity {
 	public TinyPlanetBlockEntity(BlockPos pos, BlockState state) {

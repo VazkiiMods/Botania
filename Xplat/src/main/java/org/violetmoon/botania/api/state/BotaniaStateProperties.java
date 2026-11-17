@@ -6,21 +6,21 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.state;
+package org.violetmoon.botania.api.state;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-import vazkii.botania.api.state.enums.AlfheimPortalState;
-import vazkii.botania.api.state.enums.AnimalMode;
-import vazkii.botania.api.state.enums.CraftyCratePattern;
-import vazkii.botania.api.state.enums.HopperhockFilterType;
-import vazkii.botania.api.state.enums.ManastarState;
-import vazkii.botania.api.state.enums.RannuncarpusMode;
-import vazkii.botania.api.state.enums.TerraPlateState;
-import vazkii.botania.api.state.enums.TorchMode;
+import org.violetmoon.botania.api.state.enums.AlfheimPortalState;
+import org.violetmoon.botania.api.state.enums.AnimalMode;
+import org.violetmoon.botania.api.state.enums.CraftyCratePattern;
+import org.violetmoon.botania.api.state.enums.HopperhockFilterType;
+import org.violetmoon.botania.api.state.enums.ManastarState;
+import org.violetmoon.botania.api.state.enums.RannuncarpusMode;
+import org.violetmoon.botania.api.state.enums.TerraPlateState;
+import org.violetmoon.botania.api.state.enums.TorchMode;
 
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates

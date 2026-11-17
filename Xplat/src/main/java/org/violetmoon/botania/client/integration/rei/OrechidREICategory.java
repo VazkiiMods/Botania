@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.rei;
+package org.violetmoon.botania.client.integration.rei;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -25,14 +25,14 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.client.integration.shared.OrechidUIHelper;
-import vazkii.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.api.recipe.OrechidRecipe;
+import org.violetmoon.botania.client.integration.shared.OrechidUIHelper;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import static vazkii.botania.client.integration.rei.PureDaisyREICategory.setupPureDaisyDisplay;
+import static org.violetmoon.botania.client.integration.rei.PureDaisyREICategory.setupPureDaisyDisplay;
 
 public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay> {
 	private final EntryStack<ItemStack> orechid;

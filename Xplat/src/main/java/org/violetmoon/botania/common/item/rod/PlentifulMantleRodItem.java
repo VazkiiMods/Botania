@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.rod;
+package org.violetmoon.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,17 +22,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import vazkii.botania.api.block.Avatar;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.network.clientbound.RodOfThePlentifulMantleEffectPacket;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.block.Avatar;
+import org.violetmoon.botania.api.item.AvatarWieldable;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.network.clientbound.RodOfThePlentifulMantleEffectPacket;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.Random;
 

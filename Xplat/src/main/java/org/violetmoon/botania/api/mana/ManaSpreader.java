@@ -6,9 +6,9 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana;
+package org.violetmoon.botania.api.mana;
 
-import vazkii.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.internal.ManaBurst;
 
 import java.util.UUID;
 

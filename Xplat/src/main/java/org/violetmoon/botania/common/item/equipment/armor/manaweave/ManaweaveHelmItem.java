@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.armor.manaweave;
+package org.violetmoon.botania.common.item.equipment.armor.manaweave;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -16,8 +16,8 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.ManaProficiencyArmor;
-import vazkii.botania.api.mana.ManaDiscountArmor;
+import org.violetmoon.botania.api.item.ManaProficiencyArmor;
+import org.violetmoon.botania.api.mana.ManaDiscountArmor;
 
 public class ManaweaveHelmItem extends ManaweaveArmorItem implements ManaDiscountArmor, ManaProficiencyArmor {
 

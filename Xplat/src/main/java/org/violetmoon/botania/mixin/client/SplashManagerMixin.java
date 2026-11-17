@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
 
@@ -24,9 +24,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.client.integration.shared.LocaleHelper;
-import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.client.integration.shared.LocaleHelper;
+import org.violetmoon.botania.common.block.block_entity.TinyPotatoBlockEntity;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.Calendar;
 import java.util.List;

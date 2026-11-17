@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.data;
+package org.violetmoon.botania.neoforge.data;
 
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -36,23 +36,23 @@ import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.world.SkyblockChunkGenerator;
-import vazkii.botania.neoforge.data.gog.GogBlockLootSubProvider;
-import vazkii.botania.neoforge.data.gog.GogBlockTagsProvider;
-import vazkii.botania.neoforge.data.gog.GogBlockUseLootProvider;
-import vazkii.botania.neoforge.data.gog.GogDataMapsProvider;
-import vazkii.botania.neoforge.data.gog.GogGlobalLootModifierProvider;
-import vazkii.botania.neoforge.data.gog.GogRecipeProvider;
-import vazkii.botania.neoforge.data.gog.GogSoundDefinitionProvider;
-import vazkii.botania.neoforge.data.gog.GogWorldPresetTagsProvider;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.world.SkyblockChunkGenerator;
+import org.violetmoon.botania.neoforge.data.gog.GogBlockLootSubProvider;
+import org.violetmoon.botania.neoforge.data.gog.GogBlockTagsProvider;
+import org.violetmoon.botania.neoforge.data.gog.GogBlockUseLootProvider;
+import org.violetmoon.botania.neoforge.data.gog.GogDataMapsProvider;
+import org.violetmoon.botania.neoforge.data.gog.GogGlobalLootModifierProvider;
+import org.violetmoon.botania.neoforge.data.gog.GogRecipeProvider;
+import org.violetmoon.botania.neoforge.data.gog.GogSoundDefinitionProvider;
+import org.violetmoon.botania.neoforge.data.gog.GogWorldPresetTagsProvider;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 @EventBusSubscriber(modid = BotaniaAPI.MODID)
 public class NeoForgeDatagenInitializer {

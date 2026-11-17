@@ -7,13 +7,13 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.item.block;
+package org.violetmoon.botania.common.item.block;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.api.internal.Colored;
+import org.violetmoon.botania.api.internal.Colored;
 
 public class ColoredBlockItem extends BlockItem implements Colored {
 	private final DyeColor color;

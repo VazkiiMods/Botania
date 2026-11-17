@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.corporea;
+package org.violetmoon.botania.common.block.block_entity.corporea;
 
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -33,16 +33,16 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.PhantomInkableBlock;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.CorporeaRequestMatcher;
-import vazkii.botania.api.corporea.CorporeaRequestor;
-import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.helper.NbtHelper;
+import org.violetmoon.botania.api.block.PhantomInkableBlock;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.corporea.CorporeaHelper;
+import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
+import org.violetmoon.botania.api.corporea.CorporeaRequestor;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.helper.NbtHelper;
 
 import java.util.List;
 

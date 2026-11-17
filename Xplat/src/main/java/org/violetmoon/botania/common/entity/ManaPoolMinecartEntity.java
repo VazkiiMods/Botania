@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.entity;
+package org.violetmoon.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -28,15 +28,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.ManaPool;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.api.mana.ManaPool;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 public class ManaPoolMinecartEntity extends AbstractMinecart {
 	private static final int TRANSFER_RATE = 10000;

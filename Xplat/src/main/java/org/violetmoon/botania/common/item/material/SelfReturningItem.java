@@ -6,12 +6,12 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.material;
+package org.violetmoon.botania.common.item.material;
 
 import net.minecraft.world.item.Item;
 
 /**
- * Just a marker class, see {@link vazkii.botania.mixin.ItemMixin#returnSelf}
+ * Just a marker class, see {@link org.violetmoon.botania.mixin.ItemMixin#returnSelf}
  */
 @SuppressWarnings("JavadocReference")
 public class SelfReturningItem extends Item {

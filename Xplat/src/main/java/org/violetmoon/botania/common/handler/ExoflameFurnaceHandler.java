@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -16,10 +16,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.mixin.AbstractFurnaceBlockEntityAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.block.ExoflameHeatable;
+import org.violetmoon.botania.mixin.AbstractFurnaceBlockEntityAccessor;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 public class ExoflameFurnaceHandler {
 	public static boolean canSmeltRecipe(AbstractFurnaceBlockEntity furnace, RecipeHolder<?> recipeHolder) {

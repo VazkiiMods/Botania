@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.gui.monocle;
+package org.violetmoon.botania.client.gui.monocle;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

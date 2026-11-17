@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item;
+package org.violetmoon.botania.common.item;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -29,9 +29,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.mixin.AbstractHorseAccessor;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.mixin.AbstractHorseAccessor;
 
 public class EquestrianVirusItem extends Item {
 	public EquestrianVirusItem(Properties builder) {

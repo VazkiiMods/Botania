@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.client;
+package org.violetmoon.botania.fabric.client;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -21,8 +21,8 @@ import net.minecraft.util.GsonHelper;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.model.ManaBlasterBakedModel;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.client.model.ManaBlasterBakedModel;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.*;
 import java.util.function.Function;

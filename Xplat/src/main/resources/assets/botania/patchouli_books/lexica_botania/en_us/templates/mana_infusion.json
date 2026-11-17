@@ -1,5 +1,5 @@
 {
-  "processor": "vazkii.botania.client.patchouli.processor.ManaInfusionProcessor",
+  "processor": "org.violetmoon.botania.client.patchouli.processor.ManaInfusionProcessor",
   "components": [
     {
       "type": "patchouli:image",
@@ -72,7 +72,7 @@
     },
     {
       "type": "patchouli:custom",
-      "class": "vazkii.botania.client.patchouli.component.ManaComponent",
+      "class": "org.violetmoon.botania.client.patchouli.component.ManaComponent",
       "x": -1,
       "y": 90,
       "mana": "#mana"

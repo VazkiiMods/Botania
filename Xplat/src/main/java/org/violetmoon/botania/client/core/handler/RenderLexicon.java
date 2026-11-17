@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.handler;
+package org.violetmoon.botania.client.core.handler;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -28,18 +28,18 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.model.BotaniaBookModel;
-import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.LexicaBotaniaItem;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.client.model.BotaniaBookModel;
+import org.violetmoon.botania.client.model.BotaniaModelLayers;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.LexicaBotaniaItem;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {

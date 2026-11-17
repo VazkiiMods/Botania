@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.client;
+package org.violetmoon.botania.neoforge.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -19,8 +19,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
-import vazkii.botania.client.render.block_entity.BlockEntityItemRenderer;
-import vazkii.botania.client.render.entity.EntityRenderers;
+import org.violetmoon.botania.client.render.block_entity.BlockEntityItemRenderer;
+import org.violetmoon.botania.client.render.entity.EntityRenderers;
 
 import java.util.IdentityHashMap;
 import java.util.Map;

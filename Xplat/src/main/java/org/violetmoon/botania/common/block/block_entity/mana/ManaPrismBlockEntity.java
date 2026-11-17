@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.mana;
+package org.violetmoon.botania.common.block.block_entity.mana;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -21,17 +21,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.BasicLensItem;
-import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.api.mana.TinyPlanetExcempt;
-import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.mana.BasicLensItem;
+import org.violetmoon.botania.api.mana.BurstProperties;
+import org.violetmoon.botania.api.mana.ManaTrigger;
+import org.violetmoon.botania.api.mana.TinyPlanetExcempt;
+import org.violetmoon.botania.api.state.BotaniaStateProperties;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
 
 public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger {
 	public ManaPrismBlockEntity(BlockPos pos, BlockState state) {

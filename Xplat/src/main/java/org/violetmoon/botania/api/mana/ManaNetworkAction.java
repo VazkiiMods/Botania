@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.mana;
+package org.violetmoon.botania.api.mana;
 
 public enum ManaNetworkAction {
 	REMOVE,

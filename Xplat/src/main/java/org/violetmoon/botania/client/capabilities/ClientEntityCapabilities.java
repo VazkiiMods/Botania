@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.capabilities;
+package org.violetmoon.botania.client.capabilities;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -15,15 +15,15 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.MonocleHud;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.capability.registration.ApiIdRegistration;
-import vazkii.botania.api.capability.registration.ApiProviderRegistration;
-import vazkii.botania.api.capability.registration.EntityRegistrationNoContext;
-import vazkii.botania.client.gui.monocle.ItemFrameHud;
-import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.entity.CorporeaSparkEntity;
-import vazkii.botania.common.entity.ManaSparkEntity;
+import org.violetmoon.botania.api.block.MonocleHud;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.capability.registration.ApiIdRegistration;
+import org.violetmoon.botania.api.capability.registration.ApiProviderRegistration;
+import org.violetmoon.botania.api.capability.registration.EntityRegistrationNoContext;
+import org.violetmoon.botania.client.gui.monocle.ItemFrameHud;
+import org.violetmoon.botania.common.entity.BotaniaEntities;
+import org.violetmoon.botania.common.entity.CorporeaSparkEntity;
+import org.violetmoon.botania.common.entity.ManaSparkEntity;
 
 import java.util.List;
 import java.util.function.Function;

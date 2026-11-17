@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.relic;
+package org.violetmoon.botania.common.item.relic;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -30,20 +30,20 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.network.clientbound.FlugelEyeEffectPacket;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.item.CoordBoundItem;
+import org.violetmoon.botania.api.item.Relic;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.client.fx.WispParticleData;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.network.clientbound.FlugelEyeEffectPacket;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class EyeOfTheFlugelItem extends RelicItem {
 

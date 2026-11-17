@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -14,26 +14,26 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.corporea.*;
-import vazkii.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
-import vazkii.botania.common.block.block_entity.flower.functional.*;
-import vazkii.botania.common.block.block_entity.flower.generating.*;
-import vazkii.botania.common.block.block_entity.flower.misc.*;
-import vazkii.botania.common.block.block_entity.mana.*;
-import vazkii.botania.common.block.block_entity.red_string.*;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.corporea.*;
+import org.violetmoon.botania.common.block.block_entity.flower.FloatingFlowerBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.*;
+import org.violetmoon.botania.common.block.block_entity.flower.generating.*;
+import org.violetmoon.botania.common.block.block_entity.flower.misc.*;
+import org.violetmoon.botania.common.block.block_entity.mana.*;
+import org.violetmoon.botania.common.block.block_entity.red_string.*;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.common.block.mana.ManaSpreaderBlock;
+import org.violetmoon.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaBlockEntities {
 	private static final Map<ResourceLocation, BlockEntityType<?>> ALL = new HashMap<>();

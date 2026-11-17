@@ -7,15 +7,15 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.block;
+package org.violetmoon.botania.test.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestAssertException;
 import net.minecraft.gametest.framework.GameTestHelper;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.flower.generating.DandelifeonBlockEntity;
 
 public class DandelifeonTest {
 	private static final String TEMPLATE = "botania:block/dandelifeon_transfer";

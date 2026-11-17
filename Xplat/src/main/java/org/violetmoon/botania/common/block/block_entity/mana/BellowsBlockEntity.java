@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.mana;
+package org.violetmoon.botania.common.block.block_entity.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,10 +29,10 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.handler.ExoflameFurnaceHandler;
-import vazkii.botania.mixin.AbstractFurnaceBlockEntityAccessor;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.handler.ExoflameFurnaceHandler;
+import org.violetmoon.botania.mixin.AbstractFurnaceBlockEntityAccessor;
 
 public class BellowsBlockEntity extends BlockEntity {
 	private static final String TAG_ACTIVE = "active";

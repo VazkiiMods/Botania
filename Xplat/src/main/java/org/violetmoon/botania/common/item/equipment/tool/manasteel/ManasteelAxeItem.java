@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool.manasteel;
+package org.violetmoon.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,11 +15,11 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.SortableTool;
-import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.item.SortableTool;
+import org.violetmoon.botania.client.gui.ItemsRemainingRenderHandler;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 public class ManasteelAxeItem extends AxeItem implements SortableTool {
 

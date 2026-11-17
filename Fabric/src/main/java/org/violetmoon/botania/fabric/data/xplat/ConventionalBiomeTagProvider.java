@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.fabric.data.xplat;
+package org.violetmoon.botania.fabric.data.xplat;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
@@ -19,8 +19,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.data.util.DummyTagLookup;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.data.util.DummyTagLookup;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;

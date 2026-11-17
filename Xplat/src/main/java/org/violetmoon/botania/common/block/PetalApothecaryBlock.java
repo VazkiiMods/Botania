@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -44,16 +44,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.PetalApothecary;
-import vazkii.botania.api.block.PetalApothecary.State;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
-import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.rod.SeasRodItem;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.block.PetalApothecary;
+import org.violetmoon.botania.api.block.PetalApothecary.State;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.PetalApothecaryBlockEntity;
+import org.violetmoon.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import org.violetmoon.botania.common.helper.InventoryHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.rod.SeasRodItem;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 public class PetalApothecaryBlock extends BotaniaEntityBlock {
 

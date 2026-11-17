@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.mixin;
+package org.violetmoon.botania.neoforge.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
 
 @Mixin(ItemStack.class)
 public class ItemStackNeoForgeMixin {

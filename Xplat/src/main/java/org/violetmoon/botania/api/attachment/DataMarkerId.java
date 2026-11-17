@@ -7,13 +7,13 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.attachment;
+package org.violetmoon.botania.api.attachment;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Entity;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPI;
 
 /**
  * Abstract ID for a Botania marker attachment without any data. (The mere presence of the data attachment is the data.)

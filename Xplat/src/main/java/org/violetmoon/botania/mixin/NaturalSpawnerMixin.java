@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -19,9 +19,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.brew.effect.BloodthirstMobEffect;
-import vazkii.botania.common.brew.effect.EmptinessMobEffect;
-import vazkii.botania.common.internal_caps.SlimeChunkSpawned;
+import org.violetmoon.botania.common.brew.effect.BloodthirstMobEffect;
+import org.violetmoon.botania.common.brew.effect.EmptinessMobEffect;
+import org.violetmoon.botania.common.internal_caps.SlimeChunkSpawned;
 
 @Mixin(NaturalSpawner.class)
 public class NaturalSpawnerMixin {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.neoforge.integration.curios;
+package org.violetmoon.botania.neoforge.integration.curios;
 
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -38,13 +38,13 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
-import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ResoluteIvyItem;
-import vazkii.botania.common.item.equipment.bauble.BaubleItem;
-import vazkii.botania.common.proxy.Proxy;
+import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.item.ResoluteIvyItem;
+import org.violetmoon.botania.common.item.equipment.bauble.BaubleItem;
+import org.violetmoon.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity.mana;
+package org.violetmoon.botania.common.block.block_entity.mana;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -41,24 +41,24 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.Bound;
-import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.*;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
-import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.entity.ManaBurstEntity.PositionProperties;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.handler.ManaNetworkHandler;
-import vazkii.botania.common.item.LexicaBotaniaItem;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPIClient;
+import org.violetmoon.botania.api.block.Bound;
+import org.violetmoon.botania.api.block.WandBindable;
+import org.violetmoon.botania.api.block.WandHUD;
+import org.violetmoon.botania.api.block.Wandable;
+import org.violetmoon.botania.api.internal.ManaBurst;
+import org.violetmoon.botania.api.mana.*;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
+import org.violetmoon.botania.common.block.mana.ManaSpreaderBlock;
+import org.violetmoon.botania.common.entity.ManaBurstEntity;
+import org.violetmoon.botania.common.entity.ManaBurstEntity.PositionProperties;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.handler.ManaNetworkHandler;
+import org.violetmoon.botania.common.item.LexicaBotaniaItem;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.Arrays;
 import java.util.Collections;

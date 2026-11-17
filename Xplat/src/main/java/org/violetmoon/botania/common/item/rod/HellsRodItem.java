@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.rod;
+package org.violetmoon.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -19,14 +19,14 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import vazkii.botania.api.block.Avatar;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.entity.FlameRingEntity;
-import vazkii.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.api.block.Avatar;
+import org.violetmoon.botania.api.item.AvatarWieldable;
+import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.api.mana.ManaReceiver;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.entity.BotaniaEntities;
+import org.violetmoon.botania.common.entity.FlameRingEntity;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
 
 public class HellsRodItem extends Item {
 

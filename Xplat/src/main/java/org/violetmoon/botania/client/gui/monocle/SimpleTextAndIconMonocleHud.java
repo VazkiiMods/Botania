@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.gui.monocle;
+package org.violetmoon.botania.client.gui.monocle;
 
 import com.mojang.blaze3d.platform.Window;
 
@@ -16,8 +16,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.block.MonocleHud;
-import vazkii.botania.client.core.helper.RenderHelper;
+import org.violetmoon.botania.api.block.MonocleHud;
+import org.violetmoon.botania.client.core.helper.RenderHelper;
 
 /**
  * Template for a simple icon+text monocle HUD overlay to the right of the crosshair.

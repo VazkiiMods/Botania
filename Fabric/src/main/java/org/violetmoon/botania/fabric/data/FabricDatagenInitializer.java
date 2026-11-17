@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.data;
+package org.violetmoon.botania.fabric.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -19,37 +19,37 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.BotaniaBannerPatterns;
-import vazkii.botania.data.*;
-import vazkii.botania.data.loot.BotaniaBlockLoot;
-import vazkii.botania.data.loot.BotaniaChestLoot;
-import vazkii.botania.data.loot.BotaniaEntityLoot;
-import vazkii.botania.data.loot.BotaniaEquipmentLoot;
-import vazkii.botania.data.loot.BotaniaGenericLoot;
-import vazkii.botania.data.loot.BotaniaGiftLoot;
-import vazkii.botania.fabric.data.fabric.FabricBlockTagProvider;
-import vazkii.botania.fabric.data.fabric.FabricItemTagProvider;
-import vazkii.botania.fabric.data.xplat.BrewProvider;
-import vazkii.botania.fabric.data.xplat.ConventionalBiomeTagProvider;
-import vazkii.botania.fabric.data.xplat.ConventionalBlockTagProvider;
-import vazkii.botania.fabric.data.xplat.ConventionalEntityTypeTagProvider;
-import vazkii.botania.fabric.data.xplat.ConventionalFluidTagProvider;
-import vazkii.botania.fabric.data.xplat.ConventionalItemTagProvider;
-import vazkii.botania.fabric.data.xplat.CraftingRecipeProvider;
-import vazkii.botania.fabric.data.xplat.ElvenTradeProvider;
-import vazkii.botania.fabric.data.xplat.ManaInfusionProvider;
-import vazkii.botania.fabric.data.xplat.OrechidProvider;
-import vazkii.botania.fabric.data.xplat.PetalApothecaryProvider;
-import vazkii.botania.fabric.data.xplat.PureDaisyProvider;
-import vazkii.botania.fabric.data.xplat.RunicAltarProvider;
-import vazkii.botania.fabric.data.xplat.SmeltingProvider;
-import vazkii.botania.fabric.data.xplat.StonecuttingProvider;
-import vazkii.botania.fabric.data.xplat.TerrestrialAgglomerationProvider;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.block.BotaniaBannerPatterns;
+import org.violetmoon.botania.data.*;
+import org.violetmoon.botania.data.loot.BotaniaBlockLoot;
+import org.violetmoon.botania.data.loot.BotaniaChestLoot;
+import org.violetmoon.botania.data.loot.BotaniaEntityLoot;
+import org.violetmoon.botania.data.loot.BotaniaEquipmentLoot;
+import org.violetmoon.botania.data.loot.BotaniaGenericLoot;
+import org.violetmoon.botania.data.loot.BotaniaGiftLoot;
+import org.violetmoon.botania.fabric.data.fabric.FabricBlockTagProvider;
+import org.violetmoon.botania.fabric.data.fabric.FabricItemTagProvider;
+import org.violetmoon.botania.fabric.data.xplat.BrewProvider;
+import org.violetmoon.botania.fabric.data.xplat.ConventionalBiomeTagProvider;
+import org.violetmoon.botania.fabric.data.xplat.ConventionalBlockTagProvider;
+import org.violetmoon.botania.fabric.data.xplat.ConventionalEntityTypeTagProvider;
+import org.violetmoon.botania.fabric.data.xplat.ConventionalFluidTagProvider;
+import org.violetmoon.botania.fabric.data.xplat.ConventionalItemTagProvider;
+import org.violetmoon.botania.fabric.data.xplat.CraftingRecipeProvider;
+import org.violetmoon.botania.fabric.data.xplat.ElvenTradeProvider;
+import org.violetmoon.botania.fabric.data.xplat.ManaInfusionProvider;
+import org.violetmoon.botania.fabric.data.xplat.OrechidProvider;
+import org.violetmoon.botania.fabric.data.xplat.PetalApothecaryProvider;
+import org.violetmoon.botania.fabric.data.xplat.PureDaisyProvider;
+import org.violetmoon.botania.fabric.data.xplat.RunicAltarProvider;
+import org.violetmoon.botania.fabric.data.xplat.SmeltingProvider;
+import org.violetmoon.botania.fabric.data.xplat.StonecuttingProvider;
+import org.violetmoon.botania.fabric.data.xplat.TerrestrialAgglomerationProvider;
 
 import java.util.List;
 
-import static vazkii.botania.common.BotaniaDamageTypes.*;
+import static org.violetmoon.botania.common.BotaniaDamageTypes.*;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	@SuppressWarnings("UnstableApiUsage")

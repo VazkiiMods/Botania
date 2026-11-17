@@ -6,11 +6,11 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.internal;
+package org.violetmoon.botania.api.internal;
 
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.*;
+import org.violetmoon.botania.api.mana.*;
 
 import java.util.Collections;
 import java.util.Set;

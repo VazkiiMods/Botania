@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin;
+package org.violetmoon.botania.fabric.mixin;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -24,12 +24,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
-import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
-import vazkii.botania.common.item.AssemblyHaloItem;
-import vazkii.botania.common.item.equipment.bauble.CharmOfTheDivaItem;
-import vazkii.botania.common.item.equipment.bauble.SojournersSashItem;
-import vazkii.botania.common.item.rod.ShadedMesaRodItem;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
+import org.violetmoon.botania.common.brew.effect.SoulCrossMobEffect;
+import org.violetmoon.botania.common.item.AssemblyHaloItem;
+import org.violetmoon.botania.common.item.equipment.bauble.CharmOfTheDivaItem;
+import org.violetmoon.botania.common.item.equipment.bauble.SojournersSashItem;
+import org.violetmoon.botania.common.item.rod.ShadedMesaRodItem;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityFabricMixin extends Entity {

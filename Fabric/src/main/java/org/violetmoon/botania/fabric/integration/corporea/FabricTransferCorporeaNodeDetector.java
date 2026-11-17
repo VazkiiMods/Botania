@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.integration.corporea;
+package org.violetmoon.botania.fabric.integration.corporea;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.Direction;
@@ -15,9 +15,9 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.corporea.CorporeaNode;
-import vazkii.botania.api.corporea.CorporeaNodeDetector;
-import vazkii.botania.api.corporea.CorporeaSpark;
+import org.violetmoon.botania.api.corporea.CorporeaNode;
+import org.violetmoon.botania.api.corporea.CorporeaNodeDetector;
+import org.violetmoon.botania.api.corporea.CorporeaSpark;
 
 public class FabricTransferCorporeaNodeDetector implements CorporeaNodeDetector {
 	@Nullable

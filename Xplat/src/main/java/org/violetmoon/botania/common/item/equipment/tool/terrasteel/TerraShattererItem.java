@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool.terrasteel;
+package org.violetmoon.botania.common.item.equipment.tool.terrasteel;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -33,28 +33,28 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.SequentialBreaker;
-import vazkii.botania.api.item.SpecialBlockBreakingHandler;
-import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.DataComponentHelper;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.CustomCreativeTabContents;
-import vazkii.botania.common.item.StoneOfTemperanceItem;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
-import vazkii.botania.common.item.relic.RingOfThorItem;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.item.SequentialBreaker;
+import org.violetmoon.botania.api.item.SpecialBlockBreakingHandler;
+import org.violetmoon.botania.api.mana.ManaBarTooltip;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.common.annotations.SoftImplement;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.DataComponentHelper;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.CustomCreativeTabContents;
+import org.violetmoon.botania.common.item.StoneOfTemperanceItem;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
+import org.violetmoon.botania.common.item.relic.RingOfThorItem;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerraShattererItem extends ManasteelPickaxeItem implements SequentialBreaker, CustomCreativeTabContents,
 		SpecialBlockBreakingHandler {

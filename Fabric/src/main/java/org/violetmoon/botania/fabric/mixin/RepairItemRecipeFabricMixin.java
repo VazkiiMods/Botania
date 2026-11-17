@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.fabric.mixin;
+package org.violetmoon.botania.fabric.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.RepairItemRecipe;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 @Mixin(RepairItemRecipe.class)
 public class RepairItemRecipeFabricMixin {

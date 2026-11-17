@@ -7,11 +7,11 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.internal_caps;
+package org.violetmoon.botania.common.internal_caps;
 
-import vazkii.botania.api.attachment.DataIdBase;
-import vazkii.botania.api.internal.GaiaFightParticipant;
-import vazkii.botania.api.internal.ItemSource;
+import org.violetmoon.botania.api.attachment.DataIdBase;
+import org.violetmoon.botania.api.internal.GaiaFightParticipant;
+import org.violetmoon.botania.api.internal.ItemSource;
 
 import java.util.function.Consumer;
 

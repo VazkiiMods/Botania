@@ -7,14 +7,14 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.capability;
+package org.violetmoon.botania.api.capability;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.violetmoon.botania.api.BotaniaAPI;
 
 /**
  * Abstract ID for a Botania entity capability API without context type.

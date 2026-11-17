@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common;
+package org.violetmoon.botania.common;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -23,7 +23,7 @@ import net.minecraft.world.entity.player.Player;
 
 import org.jetbrains.annotations.Nullable;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaDamageTypes {
 	public static final ResourceKey<DamageType> PLAYER_ATTACK_ARMOR_PIERCING =

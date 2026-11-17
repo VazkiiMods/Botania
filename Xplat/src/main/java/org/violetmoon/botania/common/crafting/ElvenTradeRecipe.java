@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
@@ -32,14 +32,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import vazkii.botania.api.recipe.ProcessingRecipeInput;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRecipe {
+public class ElvenTradeRecipe implements org.violetmoon.botania.api.recipe.ElvenTradeRecipe {
 	public static final RecipeSerializer<ElvenTradeRecipe> SERIALIZER = new Serializer();
 	private final ImmutableList<ItemStack> outputs;
 	private final NonNullList<Ingredient> ingredients;

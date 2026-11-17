@@ -7,13 +7,13 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.xplat;
+package org.violetmoon.botania.xplat;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.core.proxy.ClientProxy;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.client.core.proxy.ClientProxy;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;

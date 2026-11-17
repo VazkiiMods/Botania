@@ -1,4 +1,4 @@
-package vazkii.botania.mixin.datafixers;
+package org.violetmoon.botania.mixin.datafixers;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.DSL;

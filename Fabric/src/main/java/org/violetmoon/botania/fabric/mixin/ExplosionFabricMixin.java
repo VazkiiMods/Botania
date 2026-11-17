@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin;
+package org.violetmoon.botania.fabric.mixin;
 
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.item.equipment.bauble.BenevolentGoddessCharmItem;
+import org.violetmoon.botania.common.item.equipment.bauble.BenevolentGoddessCharmItem;
 
 @Mixin(Explosion.class)
 public abstract class ExplosionFabricMixin {

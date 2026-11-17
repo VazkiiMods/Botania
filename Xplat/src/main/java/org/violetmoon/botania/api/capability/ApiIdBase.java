@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.api.capability;
+package org.violetmoon.botania.api.capability;
 
 import net.minecraft.resources.ResourceLocation;
 
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.ApiStatus;
  * @implNote Direct subclasses of this class are base classes for certain types of APIs (e.g. block, item, entity),
  *           while subclasses of those define APIs with a lookup method that does or des not require some form of
  *           context information. Lookup of the APIs represented by instances of those sub-subclasses is routed via
- *           {@link vazkii.botania.api.BotaniaAPI} to a platform-specific implementation for Fabric or NeoForge.
+ *           {@link org.violetmoon.botania.api.BotaniaAPI} to a platform-specific implementation for Fabric or NeoForge.
  *           Client-side capability APIs receive no special lookup treatment compared to common APIs, except that their
  *           registration happens in client-side initialization logic.
  */

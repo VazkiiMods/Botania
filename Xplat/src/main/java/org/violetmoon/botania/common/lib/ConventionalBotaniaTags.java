@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.common.lib;
+package org.violetmoon.botania.common.lib;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.common.helper.ColorHelper;
+import org.violetmoon.botania.common.helper.ColorHelper;
 
 import java.util.Map;
 import java.util.function.Function;

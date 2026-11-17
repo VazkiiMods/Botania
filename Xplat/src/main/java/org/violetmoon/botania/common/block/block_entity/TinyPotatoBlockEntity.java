@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.block_entity;
+package org.violetmoon.botania.common.block.block_entity;
 
 import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectArrays;
@@ -43,15 +43,15 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.BotaniaStats;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.TinyPotatoBlock;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.block.TinyPotatoBlockItem;
-import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.common.BotaniaStats;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.TinyPotatoBlock;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.common.item.block.TinyPotatoBlockItem;
+import org.violetmoon.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -60,7 +60,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity implements Nameable {
 	private static final ResourceLocation BIRTHDAY_ADVANCEMENT = botaniaRL("challenge/tiny_potato_birthday");

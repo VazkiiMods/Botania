@@ -6,20 +6,20 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.brew;
+package org.violetmoon.botania.common.brew;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.alchemy.PotionContents;
 
-import vazkii.botania.api.brew.Brew;
-import vazkii.botania.common.lib.LibBrewNames;
+import org.violetmoon.botania.api.brew.Brew;
+import org.violetmoon.botania.common.lib.LibBrewNames;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaBrews {
 

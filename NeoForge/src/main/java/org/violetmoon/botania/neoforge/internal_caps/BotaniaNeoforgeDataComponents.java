@@ -7,12 +7,12 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.internal_caps;
+package org.violetmoon.botania.neoforge.internal_caps;
 
 import net.minecraft.core.component.DataComponentType;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 
-import vazkii.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
 
 public class BotaniaNeoforgeDataComponents extends BotaniaDataComponents {
 	public static final DataComponentType<SimpleFluidContent> BOWL_FLUID = make("bowl_fluid",

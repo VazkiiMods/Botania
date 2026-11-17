@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.relic;
+package org.violetmoon.botania.common.item.relic;
 
 import com.google.common.base.Suppliers;
 
@@ -26,13 +26,13 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
-import vazkii.botania.api.item.Relic;
-import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.loot.BotaniaLootTables;
-import vazkii.botania.xplat.BotaniaConfig;
+import org.violetmoon.botania.api.item.Relic;
+import org.violetmoon.botania.client.gui.TooltipHandler;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.helper.PlayerHelper;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.loot.BotaniaLootTables;
+import org.violetmoon.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
 import java.util.List;

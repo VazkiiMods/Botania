@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,8 +23,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.api.item.BlockProvider;
+import org.violetmoon.botania.common.lib.BotaniaTags;
 
 @Mixin(Inventory.class)
 public class InventoryMixin {

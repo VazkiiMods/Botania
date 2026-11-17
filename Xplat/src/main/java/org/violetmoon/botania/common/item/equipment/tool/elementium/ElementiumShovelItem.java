@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool.elementium;
+package org.violetmoon.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.SpecialBlockBreakingHandler;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelShovelItem;
+import org.violetmoon.botania.api.item.SpecialBlockBreakingHandler;
+import org.violetmoon.botania.common.item.equipment.tool.ToolCommons;
+import org.violetmoon.botania.common.item.equipment.tool.manasteel.ManasteelShovelItem;
 
 public class ElementiumShovelItem extends ManasteelShovelItem implements SpecialBlockBreakingHandler {
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.crafting;
+package org.violetmoon.botania.common.crafting;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -24,11 +24,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.mana.ManaPoolBlock;
+import org.violetmoon.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.mana.ManaPoolBlock;
 
-public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusionRecipe {
+public class ManaInfusionRecipe implements org.violetmoon.botania.api.recipe.ManaInfusionRecipe {
 	public static final RecipeSerializer<ManaInfusionRecipe> SERIALIZER = new Serializer();
 	private final ItemStack output;
 	private final Ingredient input;

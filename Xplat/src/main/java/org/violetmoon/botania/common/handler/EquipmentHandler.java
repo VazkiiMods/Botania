@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.handler;
+package org.violetmoon.botania.common.handler;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -19,17 +19,17 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.UnknownNullability;
 
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.common.item.equipment.bauble.BaubleItem;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.api.mana.ManaItem;
+import org.violetmoon.botania.common.item.equipment.bauble.BaubleItem;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.function.Predicate;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class EquipmentHandler {
 	@UnknownNullability

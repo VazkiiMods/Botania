@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.data.gog;
+package org.violetmoon.botania.neoforge.data.gog;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -28,24 +28,24 @@ import net.neoforged.neoforge.common.Tags;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.flower.functional.OrechidBlockEntity;
-import vazkii.botania.common.crafting.ManaInfusionRecipe;
-import vazkii.botania.common.crafting.OrechidRecipe;
-import vazkii.botania.common.crafting.PetalApothecaryRecipe;
-import vazkii.botania.common.crafting.StateIngredients;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.lib.ConventionalBotaniaTags;
+import org.violetmoon.botania.api.recipe.StateIngredient;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.flower.functional.OrechidBlockEntity;
+import org.violetmoon.botania.common.crafting.ManaInfusionRecipe;
+import org.violetmoon.botania.common.crafting.OrechidRecipe;
+import org.violetmoon.botania.common.crafting.PetalApothecaryRecipe;
+import org.violetmoon.botania.common.crafting.StateIngredients;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.lib.BotaniaTags;
+import org.violetmoon.botania.common.lib.ConventionalBotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.api.BotaniaAPI.gogRL;
+import static org.violetmoon.botania.api.BotaniaAPI.gogRL;
 
 public class GogRecipeProvider extends RecipeProvider {
 
-	public static final vazkii.botania.api.recipe.StateIngredient ALCHEMY_CATALYST =
+	public static final org.violetmoon.botania.api.recipe.StateIngredient ALCHEMY_CATALYST =
 			StateIngredients.of(BotaniaBlocks.ALCHEMY_CATALYST);
 
 	public GogRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

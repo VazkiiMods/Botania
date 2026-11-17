@@ -1,4 +1,4 @@
-package vazkii.botania.fabric.mixin;
+package org.violetmoon.botania.fabric.mixin;
 
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -8,9 +8,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
-import vazkii.botania.xplat.XplatAbstractions;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
+import org.violetmoon.botania.xplat.XplatAbstractions;
 
 @Mixin(targets = "net.minecraft.server.level.ServerPlayer$2")
 public class ServerPlayerContainerListenerFabricMixin {

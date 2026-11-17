@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin.client;
+package org.violetmoon.botania.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -24,10 +24,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.handler.DogEnabler;
-import vazkii.botania.network.serverbound.IndexStringRequestPacket;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.handler.DogEnabler;
+import org.violetmoon.botania.network.serverbound.IndexStringRequestPacket;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 import vazkii.patchouli.client.book.BookEntry;
 import vazkii.patchouli.client.book.gui.button.GuiButtonEntry;
 

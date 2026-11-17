@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.test.block;
+package org.violetmoon.botania.test.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,11 +19,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.flower.generating.EntropinnyumBlockEntity;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.test.TestingUtil;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
+import org.violetmoon.botania.common.block.block_entity.flower.generating.EntropinnyumBlockEntity;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.test.TestingUtil;
 
 public class EntropinnyumUnethicalTntDetectionTest {
 	private static final String TEMPLATE_SLIME_DUPER_FORCE_LENS = "botania:block/entropinnyum_unethical_slime_duper_force_lens";

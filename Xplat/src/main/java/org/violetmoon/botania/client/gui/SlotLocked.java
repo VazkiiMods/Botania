@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.gui;
+package org.violetmoon.botania.client.gui;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.mixin;
+package org.violetmoon.botania.mixin;
 
 import net.minecraft.world.entity.Mob;
 
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 
-import vazkii.botania.common.internal_caps.SlowDespawn;
+import org.violetmoon.botania.common.internal_caps.SlowDespawn;
 
 @Mixin(Mob.class)
 public class MobMixin {

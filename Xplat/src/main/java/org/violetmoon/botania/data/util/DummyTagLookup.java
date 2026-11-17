@@ -8,7 +8,7 @@
  *
  */
 
-package vazkii.botania.data.util;
+package org.violetmoon.botania.data.util;
 
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.TagBuilder;

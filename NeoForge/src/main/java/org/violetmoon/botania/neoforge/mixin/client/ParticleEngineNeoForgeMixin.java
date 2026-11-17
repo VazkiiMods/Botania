@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.mixin.client;
+package org.violetmoon.botania.neoforge.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
 
@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.client.fx.BotaniaParticleRenderType;
+import org.violetmoon.botania.client.fx.BotaniaParticleRenderType;
 
 import java.util.function.Predicate;
 

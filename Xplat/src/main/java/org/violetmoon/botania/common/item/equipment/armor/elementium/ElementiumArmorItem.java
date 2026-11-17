@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.armor.elementium;
+package org.violetmoon.botania.common.item.equipment.armor.elementium;
 
 import com.google.common.base.Suppliers;
 
@@ -22,15 +22,15 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.handler.PixieHandler;
-import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.common.handler.PixieHandler;
+import org.violetmoon.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElementiumArmorItem extends ManasteelArmorItem {
 	private final Supplier<ItemAttributeModifiers> defaultModifiers;

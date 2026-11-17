@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.model.armor;
+package org.violetmoon.botania.client.model.armor;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -17,11 +17,11 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.item.equipment.armor.elementium.ElementiumArmorItem;
-import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
-import vazkii.botania.common.item.equipment.armor.manaweave.ManaweaveArmorItem;
-import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelArmorItem;
+import org.violetmoon.botania.client.model.BotaniaModelLayers;
+import org.violetmoon.botania.common.item.equipment.armor.elementium.ElementiumArmorItem;
+import org.violetmoon.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
+import org.violetmoon.botania.common.item.equipment.armor.manaweave.ManaweaveArmorItem;
+import org.violetmoon.botania.common.item.equipment.armor.terrasteel.TerrasteelArmorItem;
 
 import java.util.Collections;
 import java.util.EnumMap;

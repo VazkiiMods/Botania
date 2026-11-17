@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -29,15 +29,15 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
-import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.mixin.ItemEntityAccessor;
-import vazkii.botania.xplat.ClientXplatAbstractions;
+import org.violetmoon.botania.client.core.handler.ClientTickHandler;
+import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
+import org.violetmoon.botania.common.helper.VecHelper;
+import org.violetmoon.botania.mixin.ItemEntityAccessor;
+import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.Objects;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
 public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRenderer<CorporeaCrystalCubeBlockEntity> {
 	public static final ResourceLocation CUBE_MODEL_ID = botaniaRL("block/corporea_crystal_cube_glass");

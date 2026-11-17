@@ -6,11 +6,11 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.item;
+package org.violetmoon.botania.api.item;
 
 import net.minecraft.world.entity.item.ItemEntity;
 
-import vazkii.botania.api.mana.ManaPool;
+import org.violetmoon.botania.api.mana.ManaPool;
 
 /**
  * An item that implements this will have a function called when its standing atop

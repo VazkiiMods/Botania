@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.item.equipment.tool;
+package org.violetmoon.botania.common.item.equipment.tool;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,8 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 
-import vazkii.botania.common.entity.EnderEssenceCloudEntity;
-import vazkii.botania.common.internal_caps.EnderEssenceCaptured;
+import org.violetmoon.botania.common.entity.EnderEssenceCloudEntity;
+import org.violetmoon.botania.common.internal_caps.EnderEssenceCaptured;
 
 public class SoulscribeItem extends SwordItem {
 

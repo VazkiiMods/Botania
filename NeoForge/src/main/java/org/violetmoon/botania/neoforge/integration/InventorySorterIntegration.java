@@ -7,12 +7,12 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.neoforge.integration;
+package org.violetmoon.botania.neoforge.integration;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.fml.InterModComms;
 
-import vazkii.botania.common.item.BotaniaItems;
+import org.violetmoon.botania.common.item.BotaniaItems;
 
 public class InventorySorterIntegration {
 	public static void sendImc() {

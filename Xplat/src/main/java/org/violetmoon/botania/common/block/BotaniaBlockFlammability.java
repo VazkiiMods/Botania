@@ -7,12 +7,12 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.common.block;
+package org.violetmoon.botania.common.block;
 
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 
-import static vazkii.botania.common.block.BotaniaBlocks.*;
+import static org.violetmoon.botania.common.block.BotaniaBlocks.*;
 
 public abstract class BotaniaBlockFlammability {
 	public static void register() {

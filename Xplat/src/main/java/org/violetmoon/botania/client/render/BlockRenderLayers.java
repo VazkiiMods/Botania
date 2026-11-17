@@ -7,7 +7,7 @@
  * Botania License: http://botaniamod.net/license.php
  */
 
-package vazkii.botania.client.render;
+package org.violetmoon.botania.client.render;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,10 +16,10 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.ShimmeringMushroomBlock;
-import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
+import org.violetmoon.botania.api.BotaniaAPI;
+import org.violetmoon.botania.common.block.BotaniaBlocks;
+import org.violetmoon.botania.common.block.ShimmeringMushroomBlock;
+import org.violetmoon.botania.common.block.flower.FloatingFlowerBaseBlock;
 
 import java.util.function.BiConsumer;
 

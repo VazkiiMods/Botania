@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.block_entity;
+package org.violetmoon.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -19,11 +19,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.BellowsModel;
-import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.block.block_entity.mana.BellowsBlockEntity;
-import vazkii.botania.common.helper.VecHelper;
+import org.violetmoon.botania.client.lib.ResourcesLib;
+import org.violetmoon.botania.client.model.BellowsModel;
+import org.violetmoon.botania.client.model.BotaniaModelLayers;
+import org.violetmoon.botania.common.block.block_entity.mana.BellowsBlockEntity;
+import org.violetmoon.botania.common.helper.VecHelper;
 
 public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity> {
 	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_BELLOWS);

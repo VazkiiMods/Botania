@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api;
+package org.violetmoon.botania.api;
 
 import com.mojang.blaze3d.platform.Window;
 
