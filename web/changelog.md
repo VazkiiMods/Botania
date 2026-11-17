@@ -5872,7 +5872,7 @@ in the Minecraft 1.8-1.10 era.
 * Fixed the Clayconia, Exoflame and Rannuncarpus having -1 range in one corner.
 * Fixed the Rod of Divination being uncraftable and crashing the game when trying to look up the recipe.
 * [API] Added ISubTileProvider.
-* [API] Documented classes under org.violetmoon.botania.api.mana.spark.
+* [API] Documented classes under vazkii.botania.api.mana.spark.
 * [API] Increased version number to 9.
 * *holds up spork*
 
