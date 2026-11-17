@@ -36,6 +36,7 @@ public class PatchouliUtils {
 	 */
 	@Nullable
 	public static <T extends Recipe<C>, C extends RecipeInput> T getRecipe(Level level, RecipeType<T> type, ResourceLocation id) {
+		// TODO: This can probably be removed/simplified
 		Optional<RecipeHolder<T>> directRecipe = BotaniaRecipeTypes.getRecipe(level, id, type);
 		if (directRecipe.isPresent()) {
 			return directRecipe.get().value();
