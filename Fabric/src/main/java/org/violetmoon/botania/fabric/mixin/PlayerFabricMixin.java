@@ -32,7 +32,6 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
-
 import org.violetmoon.botania.common.PlayerAccess;
 import org.violetmoon.botania.common.block.block_entity.EnderOverseerBlockEntity;
 import org.violetmoon.botania.common.handler.EquipmentHandler;

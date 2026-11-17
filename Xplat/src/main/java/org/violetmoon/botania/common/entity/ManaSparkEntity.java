@@ -32,7 +32,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.block.WandHUD;
 import org.violetmoon.botania.api.mana.ManaItem;

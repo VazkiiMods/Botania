@@ -40,7 +40,6 @@ import net.minecraft.world.level.block.state.properties.RotationSegment;
 
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import org.violetmoon.botania.client.core.helper.CoreShaders;
 import org.violetmoon.botania.client.render.entity.GaiaGuardianRenderer;
 import org.violetmoon.botania.common.block.BotaniaBlocks;

@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import org.violetmoon.botania.fabric.internal_caps.RedStringContainerStorage;
 

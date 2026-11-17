@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-
 import org.violetmoon.botania.fabric.client.ExtendedTexture;
 
 @Mixin(AbstractTexture.class)

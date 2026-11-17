@@ -27,7 +27,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import org.joml.Quaternionf;
-
 import org.violetmoon.botania.client.core.helper.RenderHelper;
 import org.violetmoon.botania.common.block.block_entity.RunicAltarBlockEntity;
 import org.violetmoon.botania.common.helper.VecHelper;

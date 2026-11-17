@@ -16,6 +16,7 @@ import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.recipe.RunicAltarRecipe;
 import org.violetmoon.botania.client.patchouli.PatchouliUtils;
 import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 

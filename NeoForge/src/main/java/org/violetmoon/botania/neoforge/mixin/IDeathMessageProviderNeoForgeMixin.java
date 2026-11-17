@@ -21,7 +21,6 @@ import net.neoforged.neoforge.common.damagesource.IDeathMessageProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
-
 import org.violetmoon.botania.common.BotaniaDamageTypes;
 import org.violetmoon.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 

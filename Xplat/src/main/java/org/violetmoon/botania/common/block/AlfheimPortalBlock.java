@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.state.BotaniaStateProperties;
 import org.violetmoon.botania.api.state.enums.AlfheimPortalState;
 import org.violetmoon.botania.common.block.block_entity.AlfheimPortalBlockEntity;

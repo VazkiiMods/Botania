@@ -19,7 +19,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.biome.Biome;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.recipe.StateIngredient;
 
 import java.util.function.Function;

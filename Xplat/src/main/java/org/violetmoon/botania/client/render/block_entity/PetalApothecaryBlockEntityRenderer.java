@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
-
 import org.violetmoon.botania.api.block.PetalApothecary;
 import org.violetmoon.botania.client.core.handler.ClientTickHandler;
 import org.violetmoon.botania.common.block.block_entity.PetalApothecaryBlockEntity;

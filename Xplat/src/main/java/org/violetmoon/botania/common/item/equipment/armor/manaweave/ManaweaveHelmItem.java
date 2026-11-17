@@ -15,7 +15,6 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.item.ManaProficiencyArmor;
 import org.violetmoon.botania.api.mana.ManaDiscountArmor;
 

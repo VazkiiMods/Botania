@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
-
 import org.violetmoon.botania.common.block.flower.FloatingFlowerBaseBlock;
 
 @Mixin(FarmBlock.class)

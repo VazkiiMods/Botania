@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-
 import org.violetmoon.botania.common.helper.VecHelper;
 import org.violetmoon.botania.common.item.ManaBlasterItem;
 

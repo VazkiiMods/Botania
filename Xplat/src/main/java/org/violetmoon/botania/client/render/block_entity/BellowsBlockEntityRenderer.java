@@ -18,7 +18,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.client.lib.ResourcesLib;
 import org.violetmoon.botania.client.model.BellowsModel;
 import org.violetmoon.botania.client.model.BotaniaModelLayers;

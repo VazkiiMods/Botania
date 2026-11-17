@@ -12,7 +12,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.capability.ItemApiNoContext;
 
 import java.util.UUID;

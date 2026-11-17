@@ -52,7 +52,6 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
-
 import org.violetmoon.botania.client.core.handler.ClientTickHandler;
 import org.violetmoon.botania.client.core.helper.RenderHelper;
 import org.violetmoon.botania.client.gui.crafting.AssemblyHaloContainer;

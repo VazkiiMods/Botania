@@ -23,7 +23,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import org.violetmoon.botania.client.integration.shared.LocaleHelper;
 import org.violetmoon.botania.common.block.block_entity.TinyPotatoBlockEntity;
 import org.violetmoon.botania.xplat.BotaniaConfig;

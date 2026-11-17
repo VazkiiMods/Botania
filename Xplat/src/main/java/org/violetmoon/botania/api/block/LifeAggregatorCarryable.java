@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.capability.BlockApiNoContext;
 
 import java.util.Collection;

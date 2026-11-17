@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.mana.ManaPool;
 import org.violetmoon.botania.api.mana.ManaReceiver;
 import org.violetmoon.botania.client.fx.WispParticleData;

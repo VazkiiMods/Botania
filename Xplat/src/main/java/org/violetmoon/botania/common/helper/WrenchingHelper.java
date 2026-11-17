@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.common.lib.BotaniaTags;
 import org.violetmoon.botania.mixin.BaseRailBlockAccessor;
 

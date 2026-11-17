@@ -26,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
 import org.violetmoon.botania.client.model.GaiaHeadModel;
 import org.violetmoon.botania.client.render.block_entity.GaiaHeadBlockEntityRenderer;
 import org.violetmoon.botania.common.block.GaiaHeadBlock;

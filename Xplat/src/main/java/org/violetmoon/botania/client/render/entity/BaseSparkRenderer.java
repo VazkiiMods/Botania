@@ -23,7 +23,6 @@ import net.minecraft.world.inventory.InventoryMenu;
 
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
-
 import org.violetmoon.botania.client.core.helper.RenderHelper;
 import org.violetmoon.botania.common.entity.SparkBaseEntity;
 import org.violetmoon.botania.xplat.ClientXplatAbstractions;

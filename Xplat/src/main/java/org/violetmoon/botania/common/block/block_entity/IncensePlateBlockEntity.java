@@ -30,7 +30,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.brew.Brew;
 import org.violetmoon.botania.client.fx.WispParticleData;
 import org.violetmoon.botania.common.brew.BotaniaBrews;

@@ -50,7 +50,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import org.violetmoon.botania.api.block_entity.RadiusDescriptor;

@@ -34,7 +34,6 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.common.lib.BotaniaTags;
 import org.violetmoon.botania.common.lib.ConventionalBotaniaTags;

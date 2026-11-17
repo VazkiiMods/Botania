@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.mana.ManaReceiver;
 import org.violetmoon.botania.api.mana.PoolOverlayProvider;
 import org.violetmoon.botania.client.fx.SparkleParticleData;

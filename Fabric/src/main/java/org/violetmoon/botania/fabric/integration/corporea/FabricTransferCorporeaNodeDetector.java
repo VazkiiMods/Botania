@@ -14,7 +14,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.corporea.CorporeaNode;
 import org.violetmoon.botania.api.corporea.CorporeaNodeDetector;
 import org.violetmoon.botania.api.corporea.CorporeaSpark;

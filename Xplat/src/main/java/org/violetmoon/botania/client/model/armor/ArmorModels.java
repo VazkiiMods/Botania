@@ -16,7 +16,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.client.model.BotaniaModelLayers;
 import org.violetmoon.botania.common.item.equipment.armor.elementium.ElementiumArmorItem;
 import org.violetmoon.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;

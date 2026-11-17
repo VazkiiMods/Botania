@@ -26,7 +26,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.internal.ManaBurst;
 import org.violetmoon.botania.common.lib.BotaniaTags;
 import org.violetmoon.botania.xplat.BotaniaConfig;

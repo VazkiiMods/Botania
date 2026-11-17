@@ -21,7 +21,6 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.configdata.ConfigDataManager;
 import org.violetmoon.botania.api.configdata.GaiaFightConfiguration;

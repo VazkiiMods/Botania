@@ -27,7 +27,6 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
-
 import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
 import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
 import org.violetmoon.botania.client.core.handler.ClientTickHandler;

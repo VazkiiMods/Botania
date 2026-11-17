@@ -10,7 +10,6 @@
 package org.violetmoon.botania.api.capability.registration;
 
 import org.jetbrains.annotations.ApiStatus;
-
 import org.violetmoon.botania.api.capability.BlockApiNoContext;
 import org.violetmoon.botania.api.capability.BlockApiWithContext;
 import org.violetmoon.botania.api.capability.EntityApiNoContext;

@@ -19,10 +19,10 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.client.core.proxy.ClientProxy;
 import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
 import org.violetmoon.botania.xplat.XplatAbstractions;
+
 import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Locale;

@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import org.violetmoon.botania.common.BotaniaStats;
 import org.violetmoon.botania.common.entity.LuminizerMoverEntity;
 import org.violetmoon.botania.common.handler.EquipmentHandler;

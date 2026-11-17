@@ -27,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.client.model.BotaniaBookModel;
 import org.violetmoon.botania.client.model.BotaniaModelLayers;

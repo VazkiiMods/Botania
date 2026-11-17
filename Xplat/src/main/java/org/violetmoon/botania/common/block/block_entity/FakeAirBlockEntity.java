@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.common.block.block_entity.flower.functional.BubbellBlockEntity;
 
 public class FakeAirBlockEntity extends BlockEntity {

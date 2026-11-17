@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.Wandable;
 import org.violetmoon.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import org.violetmoon.botania.api.block_entity.RadiusDescriptor;

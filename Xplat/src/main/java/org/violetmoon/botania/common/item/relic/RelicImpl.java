@@ -18,7 +18,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.item.Relic;
 import org.violetmoon.botania.client.core.proxy.ClientProxy;
 import org.violetmoon.botania.common.BotaniaDamageTypes;

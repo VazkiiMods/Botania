@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.block.Avatar;
 import org.violetmoon.botania.api.item.AvatarWieldable;
 import org.violetmoon.botania.api.mana.ManaReceiver;

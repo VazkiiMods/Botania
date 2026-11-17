@@ -21,7 +21,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 
 import java.util.Iterator;

@@ -14,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.capability.BlockApiWithContext;
 
 import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;

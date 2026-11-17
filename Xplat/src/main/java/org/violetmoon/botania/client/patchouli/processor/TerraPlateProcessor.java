@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import org.violetmoon.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import org.violetmoon.botania.client.patchouli.PatchouliUtils;
 import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;

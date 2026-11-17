@@ -38,7 +38,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.lwjgl.opengl.GL11;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.block.MonocleHud;
 import org.violetmoon.botania.api.block.WandHUD;

@@ -18,7 +18,6 @@ import net.minecraft.world.item.Rarity;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.mana.ManaItem;
 import org.violetmoon.botania.common.component.SingleItem;
 

@@ -35,7 +35,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.common.lib.BotaniaTags;
 import org.violetmoon.botania.common.loot.BotaniaLootTables;
 import org.violetmoon.botania.mixin.MobAccessor;

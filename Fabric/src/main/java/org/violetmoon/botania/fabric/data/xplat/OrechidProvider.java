@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.recipe.StateIngredient;
 import org.violetmoon.botania.common.block.BotaniaBlocks;
 import org.violetmoon.botania.common.block.block_entity.flower.functional.MarimorphosisBlockEntity;

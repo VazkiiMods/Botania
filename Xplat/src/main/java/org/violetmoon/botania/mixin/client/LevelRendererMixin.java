@@ -29,7 +29,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import org.violetmoon.botania.client.core.SkyblockWorldInfo;
 import org.violetmoon.botania.client.render.world.SkyblockSkyRenderer;
 import org.violetmoon.botania.client.render.world.WorldOverlays;

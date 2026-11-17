@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.WandHUD;
 import org.violetmoon.botania.api.block.Wandable;
 import org.violetmoon.botania.api.state.BotaniaStateProperties;

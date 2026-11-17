@@ -21,7 +21,6 @@ import net.neoforged.neoforge.common.loot.AddTableLootModifier;
 import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 
 import org.jetbrains.annotations.NotNull;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 
 import java.util.concurrent.CompletableFuture;

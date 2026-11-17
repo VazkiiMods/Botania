@@ -15,7 +15,6 @@ import net.minecraft.world.level.chunk.PalettedContainer;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.state.enums.HopperhockFilterType;
 
 import java.util.*;

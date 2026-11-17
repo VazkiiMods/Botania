@@ -28,7 +28,6 @@ import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.WandHUD;
 import org.violetmoon.botania.api.block.Wandable;
 import org.violetmoon.botania.api.state.BotaniaStateProperties;

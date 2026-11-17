@@ -24,7 +24,6 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
-
 import org.violetmoon.botania.api.item.AncientWillContainer;
 import org.violetmoon.botania.api.mana.ManaDiscountArmor;
 import org.violetmoon.botania.api.mana.ManaItemHandler;

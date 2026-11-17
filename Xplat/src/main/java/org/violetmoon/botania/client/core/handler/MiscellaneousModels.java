@@ -16,7 +16,6 @@ import net.minecraft.server.packs.resources.ResourceManager;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.client.lib.ResourcesLib;
 import org.violetmoon.botania.client.model.TinyPotatoModel;

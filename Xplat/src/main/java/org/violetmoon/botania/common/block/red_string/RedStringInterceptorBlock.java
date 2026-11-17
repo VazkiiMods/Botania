@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
 import org.violetmoon.botania.common.block.block_entity.red_string.RedStringBlockEntity;
 import org.violetmoon.botania.common.block.block_entity.red_string.RedStringInterceptorBlockEntity;

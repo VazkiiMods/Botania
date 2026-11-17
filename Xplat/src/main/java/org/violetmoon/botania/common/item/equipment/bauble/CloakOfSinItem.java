@@ -22,7 +22,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.mutable.MutableFloat;
-
 import org.violetmoon.botania.client.fx.WispParticleData;
 import org.violetmoon.botania.client.lib.ResourcesLib;
 import org.violetmoon.botania.common.handler.BotaniaSounds;

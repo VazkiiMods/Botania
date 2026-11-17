@@ -20,7 +20,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
 import org.jetbrains.annotations.NotNull;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.common.entity.BotaniaEntities;
 

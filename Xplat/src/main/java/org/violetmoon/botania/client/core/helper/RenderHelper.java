@@ -46,7 +46,6 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
 import org.lwjgl.opengl.GL11;
-
 import org.violetmoon.botania.client.core.handler.ClientTickHandler;
 import org.violetmoon.botania.client.lib.ResourcesLib;
 import org.violetmoon.botania.client.render.block_entity.PylonBlockEntityRenderer;

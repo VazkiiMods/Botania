@@ -18,7 +18,6 @@ import net.minecraft.world.level.levelgen.presets.WorldPreset;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import org.jetbrains.annotations.NotNull;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.neoforge.data.NeoForgeDatagenInitializer;
 

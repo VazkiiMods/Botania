@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
 import org.violetmoon.botania.common.crafting.recipe.RecipeUtils;
 

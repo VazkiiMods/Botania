@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.mana.ManaReceiver;
 import org.violetmoon.botania.api.state.BotaniaStateProperties;
 import org.violetmoon.botania.client.fx.WispParticleData;

@@ -37,7 +37,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.internal.Colored;
 import org.violetmoon.botania.api.internal.OptionallyColored;
 import org.violetmoon.botania.api.state.BotaniaStateProperties;

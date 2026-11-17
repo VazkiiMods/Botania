@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.WandHUD;
 import org.violetmoon.botania.api.block.Wandable;
 import org.violetmoon.botania.api.corporea.*;

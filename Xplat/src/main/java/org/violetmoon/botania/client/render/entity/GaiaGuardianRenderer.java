@@ -22,7 +22,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.PlayerModelPart;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.client.core.helper.CoreShaders;
 import org.violetmoon.botania.client.model.GaiaGuardianModel;
 import org.violetmoon.botania.client.model.armor.ArmorModels;

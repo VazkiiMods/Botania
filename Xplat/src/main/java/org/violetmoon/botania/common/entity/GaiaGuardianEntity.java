@@ -73,7 +73,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.block.Bound;
 import org.violetmoon.botania.api.configdata.GaiaFightConfiguration;
@@ -95,6 +94,7 @@ import org.violetmoon.botania.integration.speedrunigt.BotaniaSpeedrunCategories;
 import org.violetmoon.botania.mixin.BeaconBlockEntityAccessor;
 import org.violetmoon.botania.network.clientbound.ArenaIndicatorEffectPacket;
 import org.violetmoon.botania.xplat.XplatAbstractions;
+
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 

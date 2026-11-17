@@ -19,6 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 
 import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
+
 import vazkii.patchouli.api.IVariable;
 
 import java.util.ArrayList;

@@ -35,7 +35,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
 import org.violetmoon.botania.common.crafting.RunicAltarRecipe;
 

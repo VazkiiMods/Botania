@@ -54,7 +54,6 @@ import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.ServiceUtil;
 import org.violetmoon.botania.api.attachment.DataIdBase;

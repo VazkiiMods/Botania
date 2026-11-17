@@ -18,7 +18,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.attachment.DataHolderId;
 import org.violetmoon.botania.common.entity.GaiaGuardianEntity;
 

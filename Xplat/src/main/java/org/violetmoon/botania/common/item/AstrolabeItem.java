@@ -33,7 +33,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.item.BlockProvider;
 import org.violetmoon.botania.api.mana.ManaItemHandler;
 import org.violetmoon.botania.client.gui.ItemsRemainingRenderHandler;

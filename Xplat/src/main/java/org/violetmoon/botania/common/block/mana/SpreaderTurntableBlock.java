@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.RedstoneSensitiveBlock;
 import org.violetmoon.botania.api.state.BotaniaStateProperties;
 import org.violetmoon.botania.common.block.BotaniaEntityBlock;

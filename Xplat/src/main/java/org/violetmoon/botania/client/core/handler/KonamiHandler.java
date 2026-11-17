@@ -19,7 +19,6 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.resources.ResourceLocation;
 
 import org.lwjgl.glfw.GLFW;
-
 import org.violetmoon.botania.common.handler.BotaniaSounds;
 import org.violetmoon.botania.common.item.LexicaBotaniaItem;
 

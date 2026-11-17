@@ -43,7 +43,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.PetalApothecary;
 import org.violetmoon.botania.api.block.PetalApothecary.State;
 import org.violetmoon.botania.api.mana.ManaItemHandler;

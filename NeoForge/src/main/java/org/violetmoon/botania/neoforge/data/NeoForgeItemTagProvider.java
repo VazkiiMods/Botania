@@ -21,7 +21,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.common.item.BotaniaItems;
 

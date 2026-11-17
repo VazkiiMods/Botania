@@ -16,7 +16,6 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.corporea.CorporeaNode;
 import org.violetmoon.botania.api.corporea.CorporeaNodeDetector;
 import org.violetmoon.botania.api.corporea.CorporeaSpark;

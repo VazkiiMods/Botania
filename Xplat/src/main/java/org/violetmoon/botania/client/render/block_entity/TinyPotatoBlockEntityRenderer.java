@@ -39,7 +39,6 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
-
 import org.violetmoon.botania.client.core.handler.ClientTickHandler;
 import org.violetmoon.botania.client.core.handler.MiscellaneousModels;
 import org.violetmoon.botania.client.core.proxy.ClientProxy;

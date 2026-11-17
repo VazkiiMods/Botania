@@ -22,7 +22,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.recipe.OrechidRecipe;
 import org.violetmoon.botania.client.integration.shared.OrechidUIHelper;
 

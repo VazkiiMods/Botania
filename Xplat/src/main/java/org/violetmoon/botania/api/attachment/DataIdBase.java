@@ -16,7 +16,6 @@ import net.minecraft.world.entity.Entity;
 
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.common.internal_caps.BotaniaDataAttachments;
 

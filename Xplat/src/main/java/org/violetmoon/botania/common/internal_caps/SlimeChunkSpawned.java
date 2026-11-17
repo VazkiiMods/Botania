@@ -19,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 
 import org.jetbrains.annotations.ApiStatus;
-
 import org.violetmoon.botania.api.attachment.DataMarkerId;
 
 import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;

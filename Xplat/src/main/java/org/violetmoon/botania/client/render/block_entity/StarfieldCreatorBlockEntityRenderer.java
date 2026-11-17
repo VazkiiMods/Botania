@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 import org.joml.Matrix4f;
-
 import org.violetmoon.botania.client.core.helper.RenderHelper;
 import org.violetmoon.botania.common.block.block_entity.StarfieldCreatorBlockEntity;
 

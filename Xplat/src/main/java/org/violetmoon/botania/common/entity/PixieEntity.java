@@ -21,7 +21,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.client.fx.SparkleParticleData;
 
 public class PixieEntity extends FlyingMob {

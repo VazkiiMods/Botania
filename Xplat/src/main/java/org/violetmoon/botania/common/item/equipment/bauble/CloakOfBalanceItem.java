@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import org.apache.commons.lang3.mutable.MutableFloat;
-
 import org.violetmoon.botania.client.fx.SparkleParticleData;
 import org.violetmoon.botania.client.lib.ResourcesLib;
 import org.violetmoon.botania.common.handler.BotaniaSounds;

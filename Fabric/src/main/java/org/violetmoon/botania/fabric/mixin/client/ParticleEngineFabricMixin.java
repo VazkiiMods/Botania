@@ -25,7 +25,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import org.violetmoon.botania.client.fx.BotaniaParticleRenderType;
 import org.violetmoon.botania.client.fx.FXSparkle;
 import org.violetmoon.botania.client.fx.FXWisp;

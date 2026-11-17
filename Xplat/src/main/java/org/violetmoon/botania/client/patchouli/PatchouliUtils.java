@@ -15,11 +15,11 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.recipe.StateIngredient;
 import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
 import org.violetmoon.botania.xplat.XplatAbstractions;
+
 import vazkii.patchouli.api.IVariable;
 
 import java.util.*;

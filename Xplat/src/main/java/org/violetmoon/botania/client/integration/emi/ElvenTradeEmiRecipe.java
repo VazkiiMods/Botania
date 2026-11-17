@@ -29,7 +29,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
-
 import org.violetmoon.botania.api.recipe.ElvenTradeRecipe;
 
 import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;

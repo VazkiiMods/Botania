@@ -13,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.Bound;
 import org.violetmoon.botania.api.capability.ItemApiWithContext;
 

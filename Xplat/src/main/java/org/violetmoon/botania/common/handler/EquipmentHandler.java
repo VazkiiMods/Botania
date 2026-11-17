@@ -18,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.mana.ManaItem;
 import org.violetmoon.botania.common.item.equipment.bauble.BaubleItem;
 import org.violetmoon.botania.common.lib.BotaniaTags;

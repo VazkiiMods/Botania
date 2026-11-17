@@ -27,6 +27,14 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
+import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
+import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.handler.BotaniaSounds;
+import org.violetmoon.botania.common.handler.EquipmentHandler;
+import org.violetmoon.botania.common.item.ResoluteIvyItem;
+import org.violetmoon.botania.common.item.equipment.bauble.BaubleItem;
+import org.violetmoon.botania.common.proxy.Proxy;
+
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
@@ -37,14 +45,6 @@ import top.theillusivec4.curios.api.event.DropRulesEvent;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-
-import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
-import org.violetmoon.botania.common.component.BotaniaDataComponents;
-import org.violetmoon.botania.common.handler.BotaniaSounds;
-import org.violetmoon.botania.common.handler.EquipmentHandler;
-import org.violetmoon.botania.common.item.ResoluteIvyItem;
-import org.violetmoon.botania.common.item.equipment.bauble.BaubleItem;
-import org.violetmoon.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.List;

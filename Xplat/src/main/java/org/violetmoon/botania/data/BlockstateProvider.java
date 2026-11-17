@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.state.properties.*;
 
 import org.apache.commons.lang3.function.TriConsumer;
 import org.slf4j.Logger;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.state.BotaniaStateProperties;
 import org.violetmoon.botania.api.state.enums.AlfheimPortalState;

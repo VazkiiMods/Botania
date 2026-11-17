@@ -17,7 +17,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-
 import org.violetmoon.botania.common.item.equipment.tool.elementium.ElementiumPickaxeItem;
 
 import java.util.function.Consumer;

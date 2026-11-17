@@ -27,7 +27,6 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.recipe.ElvenTradeRecipe;
 import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
 import org.violetmoon.botania.xplat.XplatAbstractions;

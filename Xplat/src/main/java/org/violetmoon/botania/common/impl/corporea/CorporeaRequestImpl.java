@@ -11,7 +11,6 @@ package org.violetmoon.botania.common.impl.corporea;
 import net.minecraft.world.entity.LivingEntity;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.corporea.CorporeaRequest;
 import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
 

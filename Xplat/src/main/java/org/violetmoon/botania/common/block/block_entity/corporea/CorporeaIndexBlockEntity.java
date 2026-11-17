@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.corporea.*;
 import org.violetmoon.botania.common.BotaniaStats;
 import org.violetmoon.botania.common.advancements.CorporeaRequestTrigger;

@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
-
 import org.violetmoon.botania.api.block.EdibleBlockWithEffects;
 import org.violetmoon.botania.common.lib.BotaniaTags;
 

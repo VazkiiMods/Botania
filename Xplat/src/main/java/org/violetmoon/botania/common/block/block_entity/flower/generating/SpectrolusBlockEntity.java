@@ -33,7 +33,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
 import org.violetmoon.botania.client.core.helper.RenderHelper;

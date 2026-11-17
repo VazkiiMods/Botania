@@ -41,7 +41,6 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 import org.lwjgl.opengl.GL11;
-
 import org.violetmoon.botania.api.BotaniaAPIClient;
 import org.violetmoon.botania.api.block.WandHUD;
 import org.violetmoon.botania.api.block.Wandable;

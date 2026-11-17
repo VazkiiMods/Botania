@@ -14,9 +14,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-import top.theillusivec4.curios.api.CuriosDataProvider;
-
 import org.violetmoon.botania.api.BotaniaAPI;
+
+import top.theillusivec4.curios.api.CuriosDataProvider;
 
 import java.util.concurrent.CompletableFuture;
 

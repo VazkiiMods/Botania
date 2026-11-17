@@ -37,7 +37,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.item.HourglassMaterial;
 import org.violetmoon.botania.api.state.BotaniaStateProperties;
 import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;

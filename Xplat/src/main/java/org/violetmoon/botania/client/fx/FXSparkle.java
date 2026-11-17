@@ -27,7 +27,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
-
 import org.violetmoon.botania.client.core.helper.CoreShaders;
 import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 

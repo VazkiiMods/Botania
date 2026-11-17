@@ -19,7 +19,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.recipe.OrechidRecipe;
 import org.violetmoon.botania.common.handler.OrechidManager;
 

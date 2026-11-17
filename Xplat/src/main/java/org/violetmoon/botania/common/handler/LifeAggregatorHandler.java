@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.entity.TrialSpawnerBlockEntity;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.LifeAggregatorCarryable;
 import org.violetmoon.botania.mixin.BaseSpawnerAccessor;
 

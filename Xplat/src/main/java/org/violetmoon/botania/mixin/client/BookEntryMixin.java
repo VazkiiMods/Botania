@@ -17,8 +17,8 @@ import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-
 import org.violetmoon.botania.common.handler.DogEnabler;
+
 import vazkii.patchouli.client.book.BookEntry;
 
 @Mixin(BookEntry.class)

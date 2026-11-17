@@ -28,7 +28,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import org.violetmoon.botania.common.PlayerAccess;
 import org.violetmoon.botania.common.item.ResoluteIvyItem;
 import org.violetmoon.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;

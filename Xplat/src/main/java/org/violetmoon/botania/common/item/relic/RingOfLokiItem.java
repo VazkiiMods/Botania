@@ -34,7 +34,6 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
-
 import org.violetmoon.botania.api.item.Relic;
 import org.violetmoon.botania.api.item.SequentialBreaker;
 import org.violetmoon.botania.api.item.WireframeCoordinateListProvider;

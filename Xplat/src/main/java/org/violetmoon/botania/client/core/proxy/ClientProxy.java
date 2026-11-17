@@ -24,7 +24,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 import org.lwjgl.glfw.GLFW;
-
 import org.violetmoon.botania.client.core.handler.*;
 import org.violetmoon.botania.client.fx.BoltParticleOptions;
 import org.violetmoon.botania.client.fx.BoltRenderer;
@@ -33,6 +32,7 @@ import org.violetmoon.botania.common.item.*;
 import org.violetmoon.botania.common.proxy.Proxy;
 import org.violetmoon.botania.mixin.client.MultiblockVisualizationHandlerMixin;
 import org.violetmoon.botania.xplat.BotaniaConfig;
+
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.client.handler.MultiblockVisualizationHandler;

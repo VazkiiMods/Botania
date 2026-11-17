@@ -26,7 +26,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import org.joml.Quaternionf;
-
 import org.violetmoon.botania.api.state.BotaniaStateProperties;
 import org.violetmoon.botania.client.core.handler.ClientTickHandler;
 import org.violetmoon.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;

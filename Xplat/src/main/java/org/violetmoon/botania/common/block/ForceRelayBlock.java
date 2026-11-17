@@ -30,7 +30,6 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.block.WandBindable;
 import org.violetmoon.botania.api.block.Wandable;

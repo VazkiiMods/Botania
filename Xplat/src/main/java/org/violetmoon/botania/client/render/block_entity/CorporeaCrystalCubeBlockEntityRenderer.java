@@ -28,7 +28,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.client.core.handler.ClientTickHandler;
 import org.violetmoon.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
 import org.violetmoon.botania.common.helper.VecHelper;

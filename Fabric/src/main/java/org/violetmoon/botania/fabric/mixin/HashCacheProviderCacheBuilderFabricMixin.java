@@ -19,7 +19,6 @@ import net.minecraft.data.HashCache;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-
 import org.violetmoon.botania.fabric.data.FabricDatagenMixinHelper;
 
 import java.nio.file.Path;

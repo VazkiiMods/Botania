@@ -26,7 +26,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block_entity.SpecialFlowerBlockEntity;
 import org.violetmoon.botania.common.block.BotaniaBlocks;
 import org.violetmoon.botania.mixin.BaseEntityBlockAccessor;

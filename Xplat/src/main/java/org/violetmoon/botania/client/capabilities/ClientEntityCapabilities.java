@@ -14,7 +14,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ItemFrame;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.MonocleHud;
 import org.violetmoon.botania.api.block.WandHUD;
 import org.violetmoon.botania.api.capability.registration.ApiIdRegistration;

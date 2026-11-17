@@ -21,7 +21,6 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
-
 import org.violetmoon.botania.api.mana.ManaBarTooltip;
 import org.violetmoon.botania.client.core.handler.ClientTickHandler;
 import org.violetmoon.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;

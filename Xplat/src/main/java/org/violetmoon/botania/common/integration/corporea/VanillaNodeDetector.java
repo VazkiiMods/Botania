@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.corporea.CorporeaNode;
 import org.violetmoon.botania.api.corporea.CorporeaNodeDetector;
 import org.violetmoon.botania.api.corporea.CorporeaSpark;

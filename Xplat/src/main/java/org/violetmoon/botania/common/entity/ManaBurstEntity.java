@@ -42,7 +42,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.internal.ManaBurst;
 import org.violetmoon.botania.api.mana.*;
 import org.violetmoon.botania.client.fx.SparkleParticleData;

@@ -23,7 +23,6 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
 
 import org.lwjgl.opengl.GL11;
-
 import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 public class FXWisp extends TextureSheetParticle {

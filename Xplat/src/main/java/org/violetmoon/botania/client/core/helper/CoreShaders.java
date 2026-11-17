@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.network.TriConsumer;
 import org.violetmoon.botania.xplat.BotaniaConfig;
 

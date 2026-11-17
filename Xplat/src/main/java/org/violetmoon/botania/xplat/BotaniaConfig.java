@@ -11,9 +11,9 @@ package org.violetmoon.botania.xplat;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.client.core.proxy.ClientProxy;
+
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;

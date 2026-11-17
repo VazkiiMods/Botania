@@ -28,7 +28,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.brew.BrewContainer;
 import org.violetmoon.botania.api.recipe.ProcessingRecipeInput;
 import org.violetmoon.botania.api.recipe.RecipeWithCatalysts;

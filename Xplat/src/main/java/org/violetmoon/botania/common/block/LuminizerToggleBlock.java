@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.RedstoneSensitiveBlock;
 import org.violetmoon.botania.common.block.block_entity.LuminizerBlockEntity;
 

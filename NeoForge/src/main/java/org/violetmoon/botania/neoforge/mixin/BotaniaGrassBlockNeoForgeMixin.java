@@ -19,7 +19,6 @@ import net.neoforged.neoforge.common.extensions.IBlockExtension;
 
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-
 import org.violetmoon.botania.common.block.BotaniaGrassBlock;
 
 // Self-mixin to implement a method which has a forge-only param

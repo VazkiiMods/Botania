@@ -22,7 +22,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.common.block.block_entity.FakeAirBlockEntity;
 
 public class FakeAirBlock extends AirBlock implements EntityBlock, LiquidBlockContainer {

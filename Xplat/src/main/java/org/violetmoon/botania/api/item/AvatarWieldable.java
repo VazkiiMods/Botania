@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.ApiStatus;
-
 import org.violetmoon.botania.api.block.Avatar;
 import org.violetmoon.botania.api.capability.ItemApiWithContext;
 import org.violetmoon.botania.api.mana.ManaReceiver;

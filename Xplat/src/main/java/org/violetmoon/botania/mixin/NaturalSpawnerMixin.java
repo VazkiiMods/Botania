@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import org.violetmoon.botania.common.brew.effect.BloodthirstMobEffect;
 import org.violetmoon.botania.common.brew.effect.EmptinessMobEffect;
 import org.violetmoon.botania.common.internal_caps.SlimeChunkSpawned;

@@ -14,9 +14,9 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.recipe.RecipeWithReagent;
 import org.violetmoon.botania.client.patchouli.PatchouliUtils;
+
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;

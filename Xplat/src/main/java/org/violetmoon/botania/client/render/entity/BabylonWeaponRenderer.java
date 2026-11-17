@@ -22,7 +22,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
 import org.joml.Matrix4f;
-
 import org.violetmoon.botania.client.core.handler.MiscellaneousModels;
 import org.violetmoon.botania.client.core.helper.RenderHelper;
 import org.violetmoon.botania.common.entity.BabylonWeaponEntity;

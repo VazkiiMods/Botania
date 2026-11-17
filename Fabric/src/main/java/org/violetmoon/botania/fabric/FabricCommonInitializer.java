@@ -69,7 +69,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.BotaniaRegistries;
 import org.violetmoon.botania.api.block.IslandType;
@@ -127,6 +126,7 @@ import org.violetmoon.botania.fabric.loot.LootHandler;
 import org.violetmoon.botania.fabric.network.FabricPacketHandler;
 import org.violetmoon.botania.network.clientbound.ItemLifeTimePacket;
 import org.violetmoon.botania.xplat.XplatAbstractions;
+
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;

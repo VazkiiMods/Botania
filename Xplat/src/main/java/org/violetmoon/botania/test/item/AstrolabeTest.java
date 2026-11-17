@@ -30,7 +30,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.mutable.MutableInt;
-
 import org.violetmoon.botania.api.mana.ManaItem;
 import org.violetmoon.botania.common.item.AstrolabeItem;
 import org.violetmoon.botania.common.item.BlackHoleTalismanItem;

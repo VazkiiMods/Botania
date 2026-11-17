@@ -39,7 +39,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.Bound;
 import org.violetmoon.botania.api.block.WandBindable;
 import org.violetmoon.botania.api.block.Wandable;

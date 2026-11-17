@@ -13,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.capability.ItemApiWithContext;
 
 import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;

@@ -11,7 +11,6 @@ package org.violetmoon.botania.api.corporea;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.item.SparkEntity;
 
 import java.util.List;

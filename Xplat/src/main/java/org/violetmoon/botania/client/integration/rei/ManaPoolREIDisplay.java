@@ -13,7 +13,6 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.recipe.ManaInfusionRecipe;
 import org.violetmoon.botania.api.recipe.StateIngredient;
 

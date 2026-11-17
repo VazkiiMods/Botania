@@ -35,7 +35,6 @@ import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.common.block.BotaniaBlocks;
 import org.violetmoon.botania.common.block.block_entity.CacophoniumBlockEntity;
 import org.violetmoon.botania.common.component.BotaniaDataComponents;

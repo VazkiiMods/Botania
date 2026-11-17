@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import org.violetmoon.botania.api.internal.GaiaFightParticipant;
 import org.violetmoon.botania.common.block.block_entity.flower.functional.LooniumBlockEntity;
 import org.violetmoon.botania.common.entity.GaiaGuardianEntity;

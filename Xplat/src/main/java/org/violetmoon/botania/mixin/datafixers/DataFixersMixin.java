@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import org.violetmoon.botania.datafix.BotaniaDataAttachmentFixer;
 import org.violetmoon.botania.datafix.BotaniaDataFixers;
 import org.violetmoon.botania.datafix.BotaniaEntityDataFix;

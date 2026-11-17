@@ -20,7 +20,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.client.model.ManaBlasterBakedModel;
 import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 

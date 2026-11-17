@@ -35,7 +35,6 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.item.BlockProvider;
 import org.violetmoon.botania.client.gui.ItemsRemainingRenderHandler;
 import org.violetmoon.botania.common.component.BotaniaDataComponents;

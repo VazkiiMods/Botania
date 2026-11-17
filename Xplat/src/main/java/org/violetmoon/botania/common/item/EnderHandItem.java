@@ -27,7 +27,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.item.BlockProvider;
 import org.violetmoon.botania.api.mana.ManaItemHandler;
 import org.violetmoon.botania.client.gui.enderhand.HandOfEnderMenu;

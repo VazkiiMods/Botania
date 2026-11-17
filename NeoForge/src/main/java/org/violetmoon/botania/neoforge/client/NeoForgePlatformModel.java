@@ -24,7 +24,6 @@ import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.common.block.PlatformBlock;
 import org.violetmoon.botania.common.block.block_entity.PlatformBlockEntity;
 import org.violetmoon.botania.common.lib.BotaniaTags;

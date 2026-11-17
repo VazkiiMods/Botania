@@ -29,7 +29,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.Avatar;
 import org.violetmoon.botania.api.item.AvatarWieldable;
 import org.violetmoon.botania.api.mana.ManaItemHandler;

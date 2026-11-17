@@ -49,7 +49,6 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.block.WandHUD;
 import org.violetmoon.botania.api.block.Wandable;
 import org.violetmoon.botania.api.mana.ManaReceiver;
@@ -66,6 +65,7 @@ import org.violetmoon.botania.common.lib.BotaniaTags;
 import org.violetmoon.botania.network.clientbound.EnchanterDestroyEffectPacket;
 import org.violetmoon.botania.xplat.BotaniaConfig;
 import org.violetmoon.botania.xplat.XplatAbstractions;
+
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;

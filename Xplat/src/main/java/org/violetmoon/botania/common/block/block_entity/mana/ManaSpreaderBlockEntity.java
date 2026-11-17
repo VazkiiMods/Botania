@@ -40,7 +40,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.BotaniaAPIClient;
 import org.violetmoon.botania.api.block.Bound;

@@ -25,7 +25,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.client.lib.ResourcesLib;
 import org.violetmoon.botania.common.block.block_entity.BotanicalBreweryBlockEntity;
 import org.violetmoon.botania.common.helper.VecHelper;

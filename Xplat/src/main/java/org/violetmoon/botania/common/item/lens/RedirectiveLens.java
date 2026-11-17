@@ -19,7 +19,6 @@ import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.internal.ManaBurst;
 import org.violetmoon.botania.api.mana.ManaReceiver;
 import org.violetmoon.botania.api.mana.ManaSpreader;

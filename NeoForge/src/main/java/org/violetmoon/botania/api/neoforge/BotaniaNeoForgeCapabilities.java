@@ -20,7 +20,6 @@ import net.neoforged.neoforge.capabilities.ItemCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.capability.ApiIdBlock;
 import org.violetmoon.botania.api.capability.ApiIdEntity;
 import org.violetmoon.botania.api.capability.ApiIdItem;

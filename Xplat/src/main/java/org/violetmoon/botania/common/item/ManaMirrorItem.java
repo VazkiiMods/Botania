@@ -25,7 +25,6 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.block.Bound;
 import org.violetmoon.botania.api.item.CoordBoundItem;
 import org.violetmoon.botania.api.mana.ManaBarTooltip;

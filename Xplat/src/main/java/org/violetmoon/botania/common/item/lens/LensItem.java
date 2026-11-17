@@ -22,7 +22,6 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.internal.ManaBurst;
 import org.violetmoon.botania.api.mana.*;
 import org.violetmoon.botania.common.component.BotaniaDataComponents;

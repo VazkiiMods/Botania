@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import org.violetmoon.botania.common.handler.DogEnabler;
+
 import vazkii.patchouli.client.book.gui.GuiBookEntryList;
 import vazkii.patchouli.client.book.gui.button.GuiButtonEntry;
 

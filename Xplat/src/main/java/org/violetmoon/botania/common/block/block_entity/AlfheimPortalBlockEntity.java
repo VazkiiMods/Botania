@@ -51,7 +51,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.Wandable;
 import org.violetmoon.botania.api.internal.ItemSource;
 import org.violetmoon.botania.api.recipe.ElvenTradeRecipe;
@@ -74,6 +73,7 @@ import org.violetmoon.botania.common.lib.BotaniaTags;
 import org.violetmoon.botania.common.world.BotaniaExplosionDamageCalculator;
 import org.violetmoon.botania.xplat.BotaniaConfig;
 import org.violetmoon.botania.xplat.XplatAbstractions;
+
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;

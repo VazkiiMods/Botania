@@ -30,7 +30,6 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
-
 import org.violetmoon.botania.api.block.WandHUD;
 import org.violetmoon.botania.api.brew.BrewContainer;
 import org.violetmoon.botania.api.brew.BrewItem;

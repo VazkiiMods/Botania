@@ -18,7 +18,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 
 import org.jetbrains.annotations.NotNull;
-
 import org.violetmoon.botania.api.block.PhantomInkableBlock;
 
 public class PhantomInkBehavior extends OptionalDispenseItemBehavior {

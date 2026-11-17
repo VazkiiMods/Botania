@@ -21,7 +21,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.client.integration.shared.LocaleHelper;
 import org.violetmoon.botania.network.clientbound.UpdateItemsRemainingPacket;
 import org.violetmoon.botania.xplat.XplatAbstractions;

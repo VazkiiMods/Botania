@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import org.violetmoon.botania.common.block.red_string.RedStringBlock;
 import org.violetmoon.botania.common.helper.ForcePushHelper;
 import org.violetmoon.botania.common.internal_caps.UnethicalTnt;

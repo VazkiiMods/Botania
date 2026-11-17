@@ -33,7 +33,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.block.PetalApothecary;
 import org.violetmoon.botania.api.internal.Colored;
 import org.violetmoon.botania.api.internal.OptionallyColored;

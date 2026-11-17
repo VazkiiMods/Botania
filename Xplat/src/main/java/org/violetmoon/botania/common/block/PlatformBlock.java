@@ -31,7 +31,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.mana.ManaCollisionGhost;
 import org.violetmoon.botania.common.block.block_entity.PlatformBlockEntity;
 import org.violetmoon.botania.common.lib.BotaniaTags;

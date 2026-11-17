@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.corporea.CorporeaHelper;
 import org.violetmoon.botania.api.corporea.CorporeaRequestMatcher;
 import org.violetmoon.botania.api.corporea.CorporeaRequestor;

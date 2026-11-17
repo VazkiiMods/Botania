@@ -37,7 +37,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.item.AncientWillContainer;
 import org.violetmoon.botania.api.recipe.*;

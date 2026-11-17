@@ -32,7 +32,6 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.Block;
 
 import org.apache.commons.lang3.ObjectUtils;
-
 import org.violetmoon.botania.api.mana.ManaItem;
 import org.violetmoon.botania.api.recipe.*;
 import org.violetmoon.botania.client.core.handler.CorporeaInputHandler;

@@ -27,7 +27,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.mana.ManaItemHandler;
 import org.violetmoon.botania.client.fx.WispParticleData;
 import org.violetmoon.botania.common.annotations.SoftImplement;

@@ -34,7 +34,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import org.jetbrains.annotations.Nullable;
-
 import org.violetmoon.botania.api.neoforge.item.TinyPotatoRenderEvent;
 import org.violetmoon.botania.neoforge.client.integration.embeddium.EmbeddiumHelper;
 import org.violetmoon.botania.neoforge.client.integration.sodium.SodiumNeoforgeHelper;
