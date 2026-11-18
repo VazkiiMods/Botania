@@ -232,6 +232,7 @@ Features in older versions are mentioned if there are issues or no real interact
 * Notable data component changes:
   * `minecraft:consumable` – `sound` is fully optional instead of defaulting to "eat"
   * `minecraft:equippable` – `equip_sound` and `shearing_sound` are fully optional instead of defaulting to generic and shears snip sounds, respectively
+  * `minecraft:dispense_behavior` - data-driven dispenser behaviors (it's a whole thing with multiple registries)
 * generic vanilla code refactorings of note:
   * `Mth.clamp()` is gone (uses `Math.clamp()` now)
   * Guava collection builder methods are replaced with Java Collection Framework constructors for standard collection types (Guava is still used for things like immutable sets, though)
