@@ -101,8 +101,6 @@ Here's a general overview of what you can expect to change in terms of gameplay:
   also, using its regular size is now about as powerful as covering the same area with multiple of the petite version
 * Remove: Overgrowth Seed and Enchanted Soil
 * Remove: Crafting recipes for recombining slabs into full blocks
-* Remove: Crafty crate. Existing crates will remain in world and will be removed in the next major update, so you should
-  replace any crafty crates with the vanilla crafter.
 * API: Runic Altar recipes define catalyst items separately (these are returned unchanged when crafting is complete)
 * API: Petal Apothecary, Runic Altar, and Botanical Brewery return craft remainder items
 * API: Many block attributes that were block entity NBT data before have moved to block state properties
