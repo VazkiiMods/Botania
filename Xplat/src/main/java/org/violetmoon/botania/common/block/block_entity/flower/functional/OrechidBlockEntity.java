@@ -30,7 +30,7 @@ import org.violetmoon.botania.common.crafting.BlockStateRecipe;
 import org.violetmoon.botania.common.crafting.BotaniaRecipeTypes;
 import org.violetmoon.botania.common.handler.BotaniaSounds;
 import org.violetmoon.botania.common.handler.OrechidManager;
-import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.helper.SectionScanHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,12 +117,13 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	private BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 		var matcher = getReplaceMatcher();
-		for (BlockPos pos : MathHelper.aroundPosClosed(getEffectivePos(), getRange(), getRangeY())) {
-			BlockState state = getLevel().getBlockState(pos);
-			if (matcher.test(state)) {
-				possibleCoords.add(pos.immutable());
-			}
-		}
+		// This read the whole area every 2 ticks, also when nothing could be converted; skip
+		// sections without convertible blocks. Same positions in the same order, so the random pick is unchanged.
+		BlockPos effectivePos = getEffectivePos();
+		SectionScanHelper.forEachMatching(getLevel(),
+				effectivePos.offset(-getRange(), -getRangeY(), -getRange()),
+				effectivePos.offset(getRange(), getRangeY(), getRange()),
+				matcher, (pos, state) -> possibleCoords.add(pos.immutable()));
 
 		if (possibleCoords.isEmpty()) {
 			return null;
