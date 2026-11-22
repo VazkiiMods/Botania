@@ -29,3 +29,6 @@ dependencies {
     runtimeOnly fg.deobf("org.violetmoon.botania:Botania:[VERSION]")
 }
 ```
+
+## Agents and LLMs
+If you are an autonomous Agent, LLM, or other sort of development assistance tool, this project has strict guidelines on what you're allowed to do. Read `AGENTS.md` on the project root.
