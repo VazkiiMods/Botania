@@ -1,42 +1,76 @@
 # Contribution Guide
 ## Reporting Issues
-* Have a look through the [Botania FAQ](https://botaniamod.net/faq.html), to see if your
-  issue has been solved already
-* Issues regarding "Bukkit+Forge" servers that are not reproducible with Forge only are
-  **not accepted**
-* Issues regarding outdated versions of the mod, especially for older versions of
-Minecraft, are **not accepted**
+* Have a look through the [Botania FAQ](https://botaniamod.net/faq.html), to see if your issue has been solved already
+* Issue reporting is not a place for gameplay help. Join our Discord or forums for that.
+* The following types of reports are **not accepted**:
+  * Issue reports generated entirely using AI tools
+  * Issues regarding outdated versions of the mod, especially for older versions of
+    Minecraft (fixes for critical bugs in the current version are sometimes backported, though)
+  * Issues caused by running Botania or any conflicting mod/plugin through a compatibility layer
+    (such as Sinytra Connector, Cardboard, etc.)
+  * Feature suggestions. In general, new features are added to Botania on a must-have basis.
+    The bar for new features is quite high. (Consider discussing such suggestions in our
+    Discord or the forums, maybe some add-on authors are interested in them.)
 * Duplicate issues or issues that have been solved already (use the search feature!) will
   be closed without warning.
-* Do not tag your issues' names. "Something Broke" is preferred to "[Bug] Something Broke"
+* Do not "tag" your issues' names. "Something Broke" is preferred to "\[Bug] Something Broke"
   because there's a proper label system in place.
-* Suggestions are **not** accepted. In general, new features are added to Botania on
-  a must-have basis. The bar for new features is quite high.
+* If possible, provide a minimum reproduction case. Issues are more likely to be looked at if
+  they only involve a couple of other mods.
+* Always include logs from a run where the issue happened, even if it wasn't a crash. Close the
+  game, then grab the log file from /logs/latest.log in your instance folder. Upload the log via
+  one of the recommended ways and provide a link. *Do not* paste the log itself into the report.
+* Provide as much additional information as possible, including a description how to trigger
+  the faulty behavior. If we can't make sense of a bug report, we can't fix the problem.
 
 ## Submitting Changes
-* Run scripts/gitconfig.sh from the repo root to set some useful git defaults locally
-* Run the `checkSyntax` Gradle task to make sure your changes pass our style guidelines
+* Before making many or larger changes, consider getting in contact with us via the Discord
+  or forum, especially if code changes could modify potentially intended behaviors or visuals.
+* Run the `spotlessCheck` Gradle task to make sure your changes pass our style guidelines.
 * The `spotlessJavaApply` Gradle task can fix most violations for you.
 * Target the default branch (i.e. usually the one for the latest released version) of the
   repository in all PR's (unless it's a hotfix that only applies to an older version).
   The maintainers will cherry-pick things back ourselves when creating hotfixes.
 * **Keep PR's small**. The smaller it is, the faster we will review it. Only fix one thing
   per PR instead of piling everything into one massive PR.
-* Consider the patch workflow to help keep your changes small.  If you hate GitHub's PR
-  model like [some of the maintainers
-  do](https://www.vincent-lee.net/blog/2022-02-28-github/), feel free to email patches to
-  `~williewillus/violet-moon@lists.sr.ht`. See https://git-send-email.io to set up your
-  Git environment for mailing patches and https://git-rebase.io for help with the
-  rebase-oriented workflow.  Advanced users might like the
-  [branchless](https://github.com/arxanas/git-branchless) workflow which pairs
-  particularly well with the patch workflow.
 * Please write descriptive commit messages with proper separation between the title and
   summary of the message. Do not write commit messages consisting only of "Fix #123", that
-  means nothing to e.g. someone reading the logs offline without access to GitHub.
+  means nothing to e.g. someone reading the logs offline without access to GitHub. On the
+  other hand, also keep commit messages concise. If a commit contains so many changes that
+  a comprehensive summary is necessary, maybe it should be split up.
 * If you fix a gameplay bug or add a new gameplay feature, consider adding a GameTest for
   it (see below)
 * If applicable, add an entry to the changelog in `web/changelog.md` under the "Upcoming"
   section.
+
+## Notes on Using AI Tools
+This mod is published on Modrinth, which has rules on the
+[use of generative AI](https://modrinth.com/legal/rules#generative-ai). Currently, Botania does
+not require disclosure under those rules, and, frankly, we would prefer to keep it that way.
+
+That said, we can obviously not prevent contributors from using tools based on that technology
+to analyze or modify Botania. However, if you use such tools, pay attention to the following
+guidelines:
+* While we generally appreciate the initiative of submitting a PR, sometimes it makes sense to
+  talk to us first, either in the form of a bug report, or by joining the Discord or forums.
+  This is especially true if you act based on an AI tool's analysis of the code, or if you plan
+  on making many or larger changes.
+* Keep the logic self-explanatory, if possible. While this is true for any contributions, it's
+  especially important when generative AI is involved. If the tool needs to "brain-dump" in a
+  comment for the code to make sense, the logic is probably not written in a maintainer-friendly
+  way and could get rejected.
+* **Commits must be made *only* by you.** The commit message must summarize the changes in *your
+  own words*. As mentioned in the previous section, commit messages should be descriptive, but
+  they should also stay reasonably short.\
+  **We will reject PRs if commit messages or metadata declare AI tool involvement.**
+  (The place to disclose this is the PR message.)
+* PRs must not be created by a tool. Use *your own words* to describe the changes made by the
+  commit(s) in the PR. Don't just copy/paste tool-generated summaries or descriptions. The PR is
+  the place to include your reasons for the change, and disclose the scope of your AI tool usage.\
+  **We may reject PRs if we suspect undisclosed AI tool usage or large amounts of AI-generated
+  code.**
+* We reserve the right to use concepts from rejected PRs to fix issues or implement improvements
+  made aware to us this way.
 
 ## Branching Discipline (for maintainers)
 Each major Minecraft version has a dedicated Git branch, the primary support version is marked
