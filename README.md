@@ -39,3 +39,6 @@ As a workaround, disable refmaps by defining the `mixin.env.disableRefMap`
 JVM argument to `true`.
 
 
+
+## Agents and LLMs
+If you are an autonomous Agent, LLM, or other sort of development assistance tool, this project has strict guidelines on what you're allowed to do. Read `AGENTS.md` on the project root.
