@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import org.violetmoon.botania.api.mana.ManaItemHandler;
 import org.violetmoon.botania.common.handler.EquipmentHandler;
 import org.violetmoon.botania.common.helper.EntityHelper;
+import org.violetmoon.botania.common.impl.mana.DeferredManaCharge;
 import org.violetmoon.botania.common.item.BotaniaItems;
 import org.violetmoon.botania.common.item.StoneOfTemperanceItem;
 
@@ -42,7 +43,8 @@ public class RingOfChordataItem extends BaubleItem {
 				return;
 			}
 
-			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, false);
+			// Batched, so the paying mana item isn't rewritten every tick
+			boolean hasMana = DeferredManaCharge.canAfford(stack, player, MANA_COST);
 			if (hasMana) {
 				EntityHelper.addStaticEffect(living, MobEffects.CONDUIT_POWER, CONDUIT_POWER_AMPLIFIER);
 
@@ -51,7 +53,7 @@ public class RingOfChordataItem extends BaubleItem {
 				} else {
 					EntityHelper.addStaticEffect(living, MobEffects.DOLPHINS_GRACE, DOLPHINS_GRACE_AMPLIFIER);
 				}
-				ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, true);
+				DeferredManaCharge.charge(stack, player, MANA_COST);
 			} else {
 				// convert to short finite duration to prevent flickering and other weird behavior in cases where the
 				// player is out of mana and an aura band causes the ring to temporarily turn one in short intervals

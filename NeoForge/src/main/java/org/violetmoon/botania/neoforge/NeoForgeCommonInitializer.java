@@ -99,6 +99,7 @@ import org.violetmoon.botania.common.handler.*;
 import org.violetmoon.botania.common.helper.PlayerHelper;
 import org.violetmoon.botania.common.impl.BotaniaAPIImpl;
 import org.violetmoon.botania.common.impl.corporea.DefaultCorporeaMatchers;
+import org.violetmoon.botania.common.impl.mana.DeferredManaCharge;
 import org.violetmoon.botania.common.integration.corporea.CorporeaNodeDetectors;
 import org.violetmoon.botania.common.internal_caps.ItemSources;
 import org.violetmoon.botania.common.item.*;
@@ -315,6 +316,7 @@ public class NeoForgeCommonInitializer {
 		bus.addListener((ServerAboutToStartEvent e) -> this.serverAboutToStart(e.getServer()));
 		bus.addListener((ServerStoppingEvent e) -> this.serverStopping(e.getServer()));
 		bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> FlugelTiaraItem.playerLoggedOut((ServerPlayer) e.getEntity()));
+		bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> DeferredManaCharge.onPlayerLoggedOut(e.getEntity()));
 		bus.addListener((PlayerEvent.Clone e) -> ResoluteIvyItem.onPlayerRespawn(e.getOriginal(), e.getEntity(), !e.isWasDeath()));
 		bus.addListener((LevelTickEvent.Post e) -> {
 			if (e.getLevel() instanceof ServerLevel level) {

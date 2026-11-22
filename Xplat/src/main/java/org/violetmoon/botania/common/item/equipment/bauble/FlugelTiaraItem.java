@@ -46,6 +46,7 @@ import org.violetmoon.botania.common.component.BotaniaDataComponents;
 import org.violetmoon.botania.common.handler.BotaniaSounds;
 import org.violetmoon.botania.common.handler.EquipmentHandler;
 import org.violetmoon.botania.common.helper.*;
+import org.violetmoon.botania.common.impl.mana.DeferredManaCharge;
 import org.violetmoon.botania.common.item.BotaniaItems;
 import org.violetmoon.botania.common.item.CustomCreativeTabContents;
 import org.violetmoon.botania.common.item.StoneOfTemperanceItem;
@@ -54,7 +55,10 @@ import org.violetmoon.botania.xplat.ClientXplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabContents {
 
@@ -65,6 +69,21 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	private static final int COST = 35;
 	private static final int COST_OVERKILL = COST * 3;
 	private static final int DEFAULT_MAX_FLY_TIME = 1200;
+
+	/**
+	 * The flight timer changed the worn stack every tick while flying, and every 2 ticks while it
+	 * recovers. Each change made the accessory mod resend the whole stack to the wearer and every tracking player.
+	 * The server now keeps the exact timer per player and only writes it to the stack when it moved by this many
+	 * ticks, or when it crosses a value that changes behaviour (empty, full, or the 10% needed to take off again).
+	 * Server logic reads the exact value, so flight works as before; the client's timer display updates in steps.
+	 */
+	private static final int REMAINING_TICKS_WRITE_STEP = 20;
+
+	/** @param lastWritten the value last written to the stack, to detect that the timer belongs to another stack */
+	private record FlightTimer(int exact, int lastWritten) {
+	}
+
+	private static final Map<UUID, FlightTimer> serverFlightTimers = new HashMap<>();
 
 	private static final int SUBTYPES = 8;
 	public static final int WING_TYPES = 9;
@@ -98,7 +117,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 
 	public static void updatePlayerFlyStatus(Player player) {
 		ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.FLUGEL_TIARA, player);
-		int left = tiara.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, getMaxFlightTime(tiara));
+		int left = getRemainingTicks(tiara, player);
 
 		if (playersWithFlight.contains(playerStr(player))) {
 			if (shouldPlayerHaveFlight(player)) {
@@ -106,7 +125,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 				if (player.getAbilities().flying) {
 					if (!player.level().isClientSide()) {
 						if (!player.isCreative() && !player.isSpectator()) {
-							ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
+							DeferredManaCharge.charge(tiara, player, getCost(tiara, left));
 						}
 					} else if (Math.abs(player.getDeltaMovement().x()) > 0.1 || Math.abs(player.getDeltaMovement().z()) > 0.1) {
 						double x = player.getX() - 0.5;
@@ -179,6 +198,12 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	}
 
 	public static void playerLoggedOut(ServerPlayer player) {
+		FlightTimer timer = serverFlightTimers.remove(player.getUUID());
+		ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.FLUGEL_TIARA, player);
+		if (timer != null && !tiara.isEmpty()
+				&& tiara.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, getMaxFlightTime(tiara)) == timer.lastWritten()) {
+			tiara.set(BotaniaDataComponents.REMAINING_TICKS, timer.exact());
+		}
 		String username = player.getGameProfile().getName();
 		playersWithFlight.remove(username + ":false");
 		playersWithFlight.remove(username + ":true");
@@ -192,9 +217,13 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 		ItemStack armor = EquipmentHandler.findOrEmpty(BotaniaItems.FLUGEL_TIARA, player);
 		if (!armor.isEmpty()) {
 			int maxFlightTime = getMaxFlightTime(armor);
-			int left = armor.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, maxFlightTime);
+			int left = getRemainingTicks(armor, player);
 			boolean flying = armor.has(BotaniaDataComponents.FLYING);
-			return (left > (flying ? 0 : maxFlightTime / 10) || InventoryHelper.containsType(player.getInventory(), BotaniaItems.EYE_OF_THE_FLUGEL)) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
+			int cost = getCost(armor, left);
+			boolean canAfford = player.level().isClientSide()
+					? ManaItemHandler.instance().requestManaExact(armor, player, cost, false)
+					: DeferredManaCharge.canAfford(armor, player, cost);
+			return (left > (flying ? 0 : maxFlightTime / 10) || InventoryHelper.containsType(player.getInventory(), BotaniaItems.EYE_OF_THE_FLUGEL)) && canAfford;
 		}
 
 		return false;
@@ -203,6 +232,37 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	// TODO: make configurable via components?
 	public static int getCost(ItemStack stack, int timeLeft) {
 		return timeLeft <= 0 ? COST_OVERKILL : COST;
+	}
+
+	/** Remaining flight ticks; on the server the exact value (see {@link #REMAINING_TICKS_WRITE_STEP}). */
+	private static int getRemainingTicks(ItemStack stack, Player player) {
+		int stored = stack.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, getMaxFlightTime(stack));
+		if (!player.level().isClientSide()) {
+			FlightTimer timer = serverFlightTimers.get(player.getUUID());
+			if (timer != null && timer.lastWritten() == stored) {
+				return timer.exact();
+			}
+		}
+		return stored;
+	}
+
+	private static void setRemainingTicks(ItemStack stack, Player player, int newTime, int maxFlightTime) {
+		if (player.level().isClientSide()) {
+			// the client's copy is local, writing it costs nothing
+			stack.set(BotaniaDataComponents.REMAINING_TICKS, newTime);
+			return;
+		}
+		int stored = stack.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, maxFlightTime);
+		int takeOffThreshold = maxFlightTime / 10;
+		boolean write = newTime <= 0 || newTime >= maxFlightTime
+				|| Math.abs(newTime - stored) >= REMAINING_TICKS_WRITE_STEP
+				|| (stored > 0) != (newTime > 0)
+				|| (stored > takeOffThreshold) != (newTime > takeOffThreshold);
+		if (write) {
+			stack.set(BotaniaDataComponents.REMAINING_TICKS, newTime);
+			stored = newTime;
+		}
+		serverFlightTimers.put(player.getUUID(), new FlightTimer(newTime, stored));
 	}
 
 	@Override
@@ -227,7 +287,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 			}
 
 			int maxFlightTime = getMaxFlightTime(stack);
-			int time = stack.getOrDefault(BotaniaDataComponents.REMAINING_TICKS, maxFlightTime);
+			int time = getRemainingTicks(stack, player);
 			int newTime = time;
 			Vec3 look = player.getLookAngle().multiply(1, 0, 1).normalize();
 
@@ -266,7 +326,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 
 			DataComponentHelper.setFlag(stack, BotaniaDataComponents.FLYING, flying);
 			if (newTime != time) {
-				stack.set(BotaniaDataComponents.REMAINING_TICKS, newTime);
+				setRemainingTicks(stack, player, newTime, maxFlightTime);
 			}
 		}
 	}

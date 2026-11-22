@@ -36,12 +36,12 @@ import org.violetmoon.botania.api.BotaniaAPI;
 import org.violetmoon.botania.api.brew.Brew;
 import org.violetmoon.botania.api.brew.BrewContainer;
 import org.violetmoon.botania.api.brew.BrewItem;
-import org.violetmoon.botania.api.mana.ManaItemHandler;
 import org.violetmoon.botania.client.core.handler.MiscellaneousModels;
 import org.violetmoon.botania.client.render.AccessoryRenderRegistry;
 import org.violetmoon.botania.client.render.AccessoryRenderer;
 import org.violetmoon.botania.common.brew.BotaniaBrews;
 import org.violetmoon.botania.common.component.BotaniaDataComponents;
+import org.violetmoon.botania.common.impl.mana.DeferredManaCharge;
 import org.violetmoon.botania.common.item.CustomCreativeTabContents;
 import org.violetmoon.botania.common.proxy.Proxy;
 import org.violetmoon.botania.mixin.client.MinecraftAccessor;
@@ -95,7 +95,8 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 			MobEffectInstance effect = brew.getPotionEffects(stack).getFirst();
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;
-			if (ManaItemHandler.instance().requestManaExact(stack, player, (int) Math.ceil(cost), false)) {
+			// Batched, so the paying mana item isn't rewritten every tick
+			if (DeferredManaCharge.canAfford(stack, player, (int) Math.ceil(cost))) {
 				MobEffectInstance currentEffect = living.getEffect(effect.getEffect());
 				boolean nightVision = effect.getEffect() == MobEffects.NIGHT_VISION;
 				if (currentEffect == null || currentEffect.getDuration() < (nightVision ? 305 : 3)) {
@@ -104,7 +105,7 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 				}
 
 				if (!doRand || Math.random() < cost) {
-					ManaItemHandler.instance().requestManaExact(stack, player, (int) Math.ceil(cost), true);
+					DeferredManaCharge.charge(stack, player, (int) Math.ceil(cost));
 				}
 			}
 		}
