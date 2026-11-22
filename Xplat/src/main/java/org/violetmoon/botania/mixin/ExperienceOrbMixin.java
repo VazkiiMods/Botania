@@ -43,8 +43,9 @@ public abstract class ExperienceOrbMixin extends Entity {
 	private void scanForFlower(CallbackInfo ci) {
 		if (this.botania_followingFlower == null
 				|| MathHelper.distSqr(this.botania_followingFlower, this.blockPosition()) > 64.0) {
-			this.botania_followingFlower = RosaArcanaBlockEntity.getClosestMatchingBlockEntity(
-					this.level(), this.blockPosition(), 8, RosaArcanaBlockEntity.class::isInstance);
+			// Look the flower up in the set of loaded flowers instead of all nearby block entities
+			this.botania_followingFlower = RosaArcanaBlockEntity.getClosestLoadedFlower(
+					this.level(), this.blockPosition(), 8);
 		}
 	}
 
