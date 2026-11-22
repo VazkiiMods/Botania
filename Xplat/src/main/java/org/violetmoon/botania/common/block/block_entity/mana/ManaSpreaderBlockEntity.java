@@ -270,7 +270,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 		}
 
 		if (!level.isClientSide()) {
-			if (self.receiverLastTick != self.receiver) {
+			if (!isSameReceiver(self.receiverLastTick, self.receiver)) {
 				self.requestsClientUpdate = true;
 				self.markForImmediateSync();
 			} else {
@@ -427,6 +427,22 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Receivers used to be compared by identity. Some capability providers (the mana void, and
+	 * possibly addons) return a new object on every lookup, so a spreader pointing at one sent an immediate full sync
+	 * whenever it looked its receiver up again (every tick on a turntable). The client only needs the position.
+	 */
+	private static boolean isSameReceiver(@Nullable ManaReceiver a, @Nullable ManaReceiver b) {
+		if (a == b) {
+			return true;
+		}
+		if (a == null || b == null) {
+			return false;
+		}
+		return a.getManaReceiverPos().equals(b.getManaReceiverPos())
+				&& a.getManaReceiverLevel() == b.getManaReceiverLevel();
 	}
 
 	private boolean needsNewBurstSimulation() {
