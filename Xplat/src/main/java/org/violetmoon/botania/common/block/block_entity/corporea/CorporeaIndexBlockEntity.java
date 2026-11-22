@@ -37,6 +37,11 @@ import java.util.regex.Pattern;
 public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor {
 	public static final double RADIUS = 2.5;
 	public static final int MAX_REQUEST = 1 << 16;
+	/** Vanilla chat messages are limited to 256 characters. */
+	public static final int MAX_REQUEST_MESSAGE_LENGTH = 256;
+	/** Minimum ticks between two index requests of the same player. */
+	private static final int PLAYER_REQUEST_COOLDOWN = 4;
+	private static final Map<UUID, Long> lastPlayerRequest = new HashMap<>();
 
 	private static final Set<CorporeaIndexBlockEntity> serverIndexes = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final Set<CorporeaIndexBlockEntity> clientIndexes = Collections.newSetFromMap(new WeakHashMap<>());
@@ -364,6 +369,21 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	public static void clearIndexCache() {
 		clientIndexes.clear();
 		serverIndexes.clear();
+	}
+
+	/**
+	 * Rate limit for index requests sent by players. Each request scans the whole corporea network
+	 * and spawns item entities, and the packets had no limit. Returns false if the player made a request less than
+	 * {@link #PLAYER_REQUEST_COOLDOWN} ticks ago.
+	 */
+	public static boolean tryStartPlayerRequest(ServerPlayer player) {
+		long now = player.serverLevel().getGameTime();
+		Long last = lastPlayerRequest.get(player.getUUID());
+		if (last != null && now >= last && now - last < PLAYER_REQUEST_COOLDOWN) {
+			return false;
+		}
+		lastPlayerRequest.put(player.getUUID(), now);
+		return true;
 	}
 
 	public void performPlayerRequest(ServerPlayer player, CorporeaRequestMatcher request, int count) {
