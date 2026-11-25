@@ -31,7 +31,7 @@ import org.violetmoon.botania.api.state.BotaniaStateProperties;
 import org.violetmoon.botania.client.fx.WispParticleData;
 import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
 import org.violetmoon.botania.common.component.BotaniaDataComponents;
-import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.helper.SectionScanHelper;
 import org.violetmoon.botania.common.lib.BotaniaTags;
 import org.violetmoon.botania.xplat.BotaniaConfig;
 
@@ -115,18 +115,19 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 		BlockPos effectivePos = getEffectivePos();
 
 		BlockPos.MutableBlockPos checkPos = new BlockPos.MutableBlockPos();
-		for (BlockPos pos : MathHelper.aroundPosClosed(effectivePos, RANGE, 0, RANGE_Y)) {
-			BlockState state = level.getBlockState(pos);
-			if (state.is(BotaniaTags.Blocks.MUNCHDEW_CONSUMABLE)) {
-				for (Direction dir : Direction.values()) {
-					if (level.isEmptyBlock(checkPos.setWithOffset(pos, dir))) {
-						coordsMap.put(pos.immutable(), (state.hasProperty(LeavesBlock.DISTANCE)
-								? state.getValue(LeavesBlock.DISTANCE) : 1) + 2.0f * rng.nextFloat());
-						break;
+		// This read the whole area every 4 ticks, also with no leaves in range; skip sections
+		// without consumable blocks. Same positions in the same order, so the random values are drawn the same way.
+		SectionScanHelper.forEachMatching(level, effectivePos.offset(-RANGE, 0, -RANGE),
+				effectivePos.offset(RANGE, RANGE_Y, RANGE),
+				state -> state.is(BotaniaTags.Blocks.MUNCHDEW_CONSUMABLE), (pos, state) -> {
+					for (Direction dir : Direction.values()) {
+						if (level.isEmptyBlock(checkPos.setWithOffset(pos, dir))) {
+							coordsMap.put(pos.immutable(), (state.hasProperty(LeavesBlock.DISTANCE)
+									? state.getValue(LeavesBlock.DISTANCE) : 1) + 2.0f * rng.nextFloat());
+							break;
+						}
 					}
-				}
-			}
-		}
+				});
 
 		if (coordsMap.isEmpty()) {
 			return false;

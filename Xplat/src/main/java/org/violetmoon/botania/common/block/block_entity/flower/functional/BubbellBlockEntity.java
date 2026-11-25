@@ -22,7 +22,7 @@ import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
 import org.violetmoon.botania.common.block.BotaniaBlocks;
 import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
 import org.violetmoon.botania.common.block.block_entity.FakeAirBlockEntity;
-import org.violetmoon.botania.common.helper.MathHelper;
+import org.violetmoon.botania.common.helper.SectionScanHelper;
 
 public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 12;
@@ -56,17 +56,16 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 
 		int rangeSqr = range * range;
 		BlockPos effectivePos = getEffectivePos();
-		for (BlockPos pos : MathHelper.aroundPosClosed(effectivePos, range)) {
-			if (effectivePos.distSqr(pos) < rangeSqr) {
-				BlockState state = getLevel().getBlockState(pos);
-				if (state.is(Blocks.WATER)) {
-					getLevel().setBlock(pos, BotaniaBlocks.FAKE_AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-					if (getLevel().getBlockEntity(pos) instanceof FakeAirBlockEntity air) {
-						air.setFlower(this);
+		// This ran getBlockState on the whole cube every tick; skip sections without water
+		SectionScanHelper.forEachMatching(getLevel(), effectivePos.offset(-range, -range, -range),
+				effectivePos.offset(range, range, range), state -> state.is(Blocks.WATER), (pos, state) -> {
+					if (effectivePos.distSqr(pos) < rangeSqr) {
+						getLevel().setBlock(pos, BotaniaBlocks.FAKE_AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+						if (getLevel().getBlockEntity(pos) instanceof FakeAirBlockEntity air) {
+							air.setFlower(this);
+						}
 					}
-				}
-			}
-		}
+				});
 	}
 
 	@Override
