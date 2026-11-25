@@ -33,9 +33,15 @@ public record IndexKeybindRequestPacket(ItemStack stack) implements CustomPacket
 		if (player.isSpectator()) {
 			return;
 		}
+		// The count comes from the client unchecked; clamp it like chat requests are clamped,
+		// and limit how often one player can trigger a network-wide request
+		int count = Math.min(this.stack().getCount(), CorporeaIndexBlockEntity.MAX_REQUEST);
+		if (count <= 0 || !CorporeaIndexBlockEntity.tryStartPlayerRequest(player)) {
+			return;
+		}
 
 		for (CorporeaIndexBlockEntity index : CorporeaIndexBlockEntity.getNearbyValidIndexes(player)) {
-			index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(this.stack(), true), this.stack().getCount());
+			index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(this.stack(), true), count);
 		}
 	}
 }

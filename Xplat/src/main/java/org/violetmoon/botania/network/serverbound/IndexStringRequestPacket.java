@@ -34,6 +34,12 @@ public record IndexStringRequestPacket(String message) implements CustomPacketPa
 
 	public void handle(ServerPlayer player) {
 		if (!message().isBlank()) {
+			// A chat request is a chat message, so limit it to the vanilla chat length, and limit
+			// how often one player can trigger a network-wide request
+			if (message().length() > CorporeaIndexBlockEntity.MAX_REQUEST_MESSAGE_LENGTH
+					|| !CorporeaIndexBlockEntity.tryStartPlayerRequest(player)) {
+				return;
+			}
 			CorporeaIndexBlockEntity.onChatMessage(player, message());
 		} else if (message().equals(DOG_CODE)) {
 			PlayerHelper.grantCriterion(player, botaniaRL("main/dog"), "code_triggered");
