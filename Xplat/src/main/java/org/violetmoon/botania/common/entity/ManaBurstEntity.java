@@ -85,6 +85,17 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	private static final EntityDataAccessor<Boolean> LEFT_SOURCE_POS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.BOOLEAN);
 	public static final float DEFAULT_SPEED = 0.2f;
 
+	/**
+	 * The current mana, kept in a plain field.
+	 * Both sides run the same mana decay every tick from the synced loss parameters, so decay is not written to
+	 * {@link #MANA}; doing so marked the entity data dirty every tick, which sent an entity data packet and an extra
+	 * movement packet per decaying burst per tick to every tracking player. {@link #MANA} carries explicit changes
+	 * ({@link #setMana}) and a periodic correction during decay (see {@link #DECAY_SYNC_INTERVAL}).
+	 * Deliberately has no initializer, so it never overwrites a value set while the entity is constructed.
+	 */
+	private int mana;
+	/** How often the server corrects the client's decayed mana value, in ticks. */
+	private static final int DECAY_SYNC_INTERVAL = 10;
 	private float accumulatedManaLoss = 0;
 	private boolean fake = false;
 	private final Set<BlockPos> alreadyCollidedAt = new HashSet<>();
@@ -175,7 +186,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		if (getTicksExisted() >= getMinManaLoss()) {
 			accumulatedManaLoss += getManaLossPerTick();
 			int loss = (int) accumulatedManaLoss;
-			setMana(mana - loss);
+			setManaFromDecay(mana - loss);
 			accumulatedManaLoss -= loss;
 
 			if (getMana() <= 0) {
@@ -651,12 +662,35 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 	@Override
 	public int getMana() {
-		return entityData.get(MANA);
+		return mana;
 	}
 
 	@Override
 	public void setMana(int mana) {
-		entityData.set(MANA, mana);
+		if (this.mana != mana) {
+			this.mana = mana;
+			// forced: the client's own decay may have moved its value away from the last synced one
+			entityData.set(MANA, mana, true);
+		}
+	}
+
+	/**
+	 * Mana loss from decay. Both sides compute it themselves, so the server only sends a periodic
+	 * correction instead of syncing every tick.
+	 */
+	private void setManaFromDecay(int mana) {
+		this.mana = mana;
+		if (!level().isClientSide() && !fake && getTicksExisted() % DECAY_SYNC_INTERVAL == 0) {
+			entityData.set(MANA, mana);
+		}
+	}
+
+	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+		super.onSyncedDataUpdated(key);
+		if (MANA.equals(key)) {
+			mana = entityData.get(MANA);
+		}
 	}
 
 	@Override
