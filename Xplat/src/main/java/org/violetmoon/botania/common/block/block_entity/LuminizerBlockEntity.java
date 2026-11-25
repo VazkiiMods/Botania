@@ -41,8 +41,10 @@ import org.violetmoon.botania.common.handler.BotaniaSounds;
 import org.violetmoon.botania.common.helper.PlayerHelper;
 import org.violetmoon.botania.common.helper.VecHelper;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Set;
 
 import static org.violetmoon.botania.api.BotaniaAPI.botaniaRL;
 
@@ -114,13 +116,19 @@ public class LuminizerBlockEntity extends BlockEntity implements WandBindable, B
 		self.ticksElapsed++;
 
 		BlockPos nextDest = self.getNextDestination();
-		if (nextDest != null && nextDest.getY() != Integer.MIN_VALUE && self.isValidBinding()) {
+		if (nextDest == null || nextDest.getY() == Integer.MIN_VALUE) {
+			return;
+		}
+		// Look for ender pearls first. Every relay used to walk the whole chain to its endpoint
+		// every tick (O(N^2) per chain each tick, possibly loading chunks on the way) before checking for pearls.
+		// Same result, the walk now only happens when there is a pearl to teleport.
+		AABB aabb = state.getShape(level, worldPosition).bounds().move(worldPosition);
+		float range = 0.6F;
+		List<ThrownEnderpearl> enderPearls = level.getEntitiesOfClass(ThrownEnderpearl.class, aabb.inflate(range));
+		if (!enderPearls.isEmpty() && self.isValidBinding()) {
 			BlockPos endpoint = self.getEndpoint();
 
 			if (endpoint != null) {
-				AABB aabb = state.getShape(level, worldPosition).bounds().move(worldPosition);
-				float range = 0.6F;
-				List<ThrownEnderpearl> enderPearls = level.getEntitiesOfClass(ThrownEnderpearl.class, aabb.inflate(range));
 				for (ThrownEnderpearl pearl : enderPearls) {
 					pearl.teleportTo(
 							endpoint.getX() + pearl.getX() - worldPosition.getX(),
@@ -144,7 +152,7 @@ public class LuminizerBlockEntity extends BlockEntity implements WandBindable, B
 
 	@Nullable
 	private BlockPos getEndpoint() {
-		List<LuminizerBlockEntity> pointsPassed = new ArrayList<>();
+		Set<LuminizerBlockEntity> pointsPassed = Collections.newSetFromMap(new IdentityHashMap<>());
 		LuminizerBlockEntity relay = this;
 		BlockPos lastCoords = null;
 
