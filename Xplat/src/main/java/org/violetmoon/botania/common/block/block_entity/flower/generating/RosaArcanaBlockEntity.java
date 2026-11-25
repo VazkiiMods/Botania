@@ -26,9 +26,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.Nullable;
 import org.violetmoon.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import org.violetmoon.botania.api.block_entity.RadiusDescriptor;
 import org.violetmoon.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -41,15 +43,67 @@ import org.violetmoon.botania.xplat.BotaniaConfig;
 import org.violetmoon.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int MANA_PER_XP = 50;
 	private static final int RANGE = 1;
 	public static final int PLAYER_TAKE_XP_DELAY = 10;
 
+	/**
+	 * The Rosa Arcana block entities currently in a loaded chunk, so experience orbs can look
+	 * for one without going through every block entity of up to 4 chunks (each orb did that every 20 ticks while no
+	 * flower was near). Separate sets per side, like Solegnolia, since an integrated server has two threads.
+	 */
+	private static final Set<RosaArcanaBlockEntity> clientFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<RosaArcanaBlockEntity> serverFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+
 	public RosaArcanaBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.ROSA_ARCANA, pos, state);
+	}
+
+	@Override
+	public void clearRemoved() {
+		super.clearRemoved();
+		if (level != null) {
+			(level.isClientSide() ? clientFlowers : serverFlowers).add(this);
+		}
+	}
+
+	@Override
+	public void setRemoved() {
+		super.setRemoved();
+		if (level != null) {
+			(level.isClientSide() ? clientFlowers : serverFlowers).remove(this);
+		}
+	}
+
+	/**
+	 * The position of the closest loaded Rosa Arcana within {@code rangeLimit} blocks of {@code center}, or null.
+	 * Same result as
+	 * {@code getClosestMatchingBlockEntity(level, center, rangeLimit, RosaArcanaBlockEntity.class::isInstance)},
+	 * except which flower wins between two at exactly the same distance.
+	 */
+	@Nullable
+	public static BlockPos getClosestLoadedFlower(Level level, BlockPos center, int rangeLimit) {
+		long minDist = Long.MAX_VALUE;
+		long limitSquared = (long) rangeLimit * rangeLimit;
+		BlockPos closestPos = null;
+		for (RosaArcanaBlockEntity flower : level.isClientSide() ? clientFlowers : serverFlowers) {
+			if (flower.getLevel() != level || flower.isRemoved()) {
+				continue;
+			}
+			BlockPos pos = flower.getBlockPos();
+			long dist = MathHelper.distSqr(center, pos);
+			if (dist <= limitSquared && dist <= minDist) {
+				minDist = dist;
+				closestPos = pos;
+			}
+		}
+		return closestPos;
 	}
 
 	@Override
