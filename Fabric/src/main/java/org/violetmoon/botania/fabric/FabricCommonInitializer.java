@@ -103,6 +103,7 @@ import org.violetmoon.botania.common.handler.*;
 import org.violetmoon.botania.common.helper.PlayerHelper;
 import org.violetmoon.botania.common.impl.BotaniaAPIImpl;
 import org.violetmoon.botania.common.impl.corporea.DefaultCorporeaMatchers;
+import org.violetmoon.botania.common.impl.mana.DeferredManaCharge;
 import org.violetmoon.botania.common.integration.corporea.CorporeaNodeDetectors;
 import org.violetmoon.botania.common.internal_caps.BotaniaDataAttachments;
 import org.violetmoon.botania.common.internal_caps.ItemSources;
@@ -312,6 +313,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
 		ServerLifecycleEvents.SERVER_STOPPING.register(this::serverStopping);
 		ServerPlayConnectionEvents.DISCONNECT.register(((handler, server) -> FlugelTiaraItem.playerLoggedOut(handler.player)));
+		ServerPlayConnectionEvents.DISCONNECT.register(((handler, server) -> DeferredManaCharge.onPlayerLoggedOut(handler.player)));
 		ServerPlayerEvents.AFTER_RESPAWN.register(ResoluteIvyItem::onPlayerRespawn);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
 		ServerTickEvents.END_WORLD_TICK.register(GrassSeedsItem::onTickEnd);

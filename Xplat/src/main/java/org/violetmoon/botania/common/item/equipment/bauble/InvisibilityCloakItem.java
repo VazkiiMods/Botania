@@ -14,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import org.violetmoon.botania.api.mana.ManaItemHandler;
+import org.violetmoon.botania.common.impl.mana.DeferredManaCharge;
 
 public class InvisibilityCloakItem extends BaubleItem {
 
@@ -34,7 +34,8 @@ public class InvisibilityCloakItem extends BaubleItem {
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
 		if (entity instanceof Player player && !player.level().isClientSide()) {
 			int manaCost = 2;
-			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, player, manaCost, true);
+			// Batched, so the paying mana item isn't rewritten every tick
+			boolean hasMana = DeferredManaCharge.charge(stack, player, manaCost);
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {
