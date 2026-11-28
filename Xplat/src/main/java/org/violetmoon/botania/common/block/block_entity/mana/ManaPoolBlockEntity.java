@@ -77,6 +77,8 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 	public static final float PARTICLE_COLOR_GREEN = (PARTICLE_COLOR >> 8 & 0xFF) / 255F;
 	public static final float PARTICLE_COLOR_RED = (PARTICLE_COLOR >> 16 & 0xFF) / 255F;
 	public static final int TRANSFER_BASE_RATE = 1000;
+	/** How often an item being charged or drained in the pool is resent to clients. */
+	private static final int ITEM_SYNC_INTERVAL = 10;
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_CAP = "manaCap";
@@ -355,6 +357,7 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 				boolean isOutputting = self.isOutputtingPower();
 				if (isOutputting && mana.canReceiveManaFromPool(self) || !isOutputting && mana.canDrainManaToPool(self)) {
 					boolean didSomething = false;
+					int itemManaBefore = mana.getMana();
 
 					int bellowCount = isOutputting ? getBellowCount(level, worldPosition, self) : 0;
 					int transfRate = TRANSFER_BASE_RATE * (bellowCount + 1);
@@ -390,7 +393,17 @@ public class ManaPoolBlockEntity extends BlockEntity implements ManaPool, KeyLoc
 									isOutputting ? CHARGE_EFFECT_EVENT : DRAIN_EFFECT_EVENT,
 									encodeRelativeItemPosition(worldPosition, item));
 						}
-						EntityHelper.syncItem(item);
+						// This resent the whole item stack to every tracking player every tick for each
+						// item in the pool. The client only uses it to tint the item, so sync every ITEM_SYNC_INTERVAL
+						// ticks and when the transfer can't go on next tick, and never when the item didn't change
+						// (e.g. a creative tablet). Visual change only.
+						int itemManaAfter = mana.getMana();
+						boolean transferEnds = isOutputting
+								? itemManaAfter >= mana.getMaxMana() || self.getCurrentMana() <= 0
+								: itemManaAfter <= 0 || self.isFull();
+						if (itemManaAfter != itemManaBefore && (self.ticks % ITEM_SYNC_INTERVAL == 0 || transferEnds)) {
+							EntityHelper.syncItem(item);
+						}
 						self.isDoingTransfer = isOutputting;
 					}
 				}
