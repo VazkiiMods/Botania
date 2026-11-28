@@ -164,7 +164,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				int manaToPut = Math.min(receiver.getCurrentMana(), cost);
 				manaItem.addMana(manaToPut);
 				receiver.receiveMana(-manaToPut);
-				particlesTowards(player);
+				if (manaToPut > 0) {
+					particlesTowards(player);
+				}
 			}
 
 			if (receiverWasFull && !receiver.isFull()) {
@@ -209,7 +211,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					manaSpent += spend;
 					spark.checkReceiverFull();
 
-					particlesTowards(spark.entity());
+					if (spend > 0) {
+						particlesTowards(spark.entity());
+					}
 				}
 				receiver.receiveMana(-manaSpent);
 			}
@@ -239,7 +243,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					attachedReceiver.receiveMana(-gained);
 					manaRecieved += gained;
 
-					particlesFrom(spark.entity());
+					if (gained > 0) {
+						particlesFrom(spark.entity());
+					}
 				}
 				receiver.receiveMana(manaRecieved);
 			}
@@ -289,14 +295,30 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		filterTransfers();
 	}
 
+	/**
+	 * Each flow packet only spawns one wisp on the client, and it used to be sent for every
+	 * transfer pair on every tick. A pair now sends one packet every {@link #FLOW_PARTICLE_INTERVAL} ticks, with
+	 * pairs spread over different ticks, and callers skip transfers that moved no mana.
+	 * Visual change only: fewer flow wisps. The packet format is unchanged, so unmodified clients still work.
+	 */
+	private static final int FLOW_PARTICLE_INTERVAL = 4;
+
+	private boolean shouldSendFlowParticle(Entity other) {
+		return Math.floorMod(level().getGameTime() + getId() + other.getId(), FLOW_PARTICLE_INTERVAL) == 0;
+	}
+
 	private void particlesTowards(Entity e) {
-		XplatAbstractions.INSTANCE.sendToTracking(this,
-				new SparkManaFlowEffectPacket(getId(), e.getId(), getNetwork()));
+		if (shouldSendFlowParticle(e)) {
+			XplatAbstractions.INSTANCE.sendToTracking(this,
+					new SparkManaFlowEffectPacket(getId(), e.getId(), getNetwork()));
+		}
 	}
 
 	private void particlesFrom(Entity e) {
-		XplatAbstractions.INSTANCE.sendToTracking(this,
-				new SparkManaFlowEffectPacket(e.getId(), getId(), getNetwork()));
+		if (shouldSendFlowParticle(e)) {
+			XplatAbstractions.INSTANCE.sendToTracking(this,
+					new SparkManaFlowEffectPacket(e.getId(), getId(), getNetwork()));
+		}
 	}
 
 	public static void particleBeam(Player player, @Nullable Entity e1, @Nullable Entity e2) {
