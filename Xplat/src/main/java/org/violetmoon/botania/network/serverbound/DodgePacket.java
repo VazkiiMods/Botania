@@ -37,14 +37,19 @@ public class DodgePacket implements CustomPacketPayload {
 	}
 
 	public void handle(ServerPlayer player) {
-		player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.DASH, SoundSource.PLAYERS, 1F, 1F);
-
 		ItemStack ringStack = EquipmentHandler.findOrEmpty(BotaniaItems.RING_OF_DEXTEROUS_MOTION, player);
 		if (ringStack.isEmpty()) {
 			player.connection.disconnect(Component.translatable("botaniamisc.invalidDodge"));
 			return;
 		}
+		// Validate before doing anything. The sound used to play before the ring check, and the
+		// cooldown was set but never checked, so a modified client could make the server broadcast the dash sound
+		// at any rate. Legit clients only dodge when the cooldown synced from the server has run out.
+		if (player.getCooldowns().isOnCooldown(ringStack.getItem())) {
+			return;
+		}
 
+		player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.DASH, SoundSource.PLAYERS, 1F, 1F);
 		player.causeFoodExhaustion(0.3F);
 		player.getCooldowns().addCooldown(ringStack.getItem(), RingOfDexterousMotionItem.MAX_CD);
 	}
